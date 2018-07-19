@@ -116,7 +116,7 @@ public class CoolApkFragment extends BaseFragment {
                     loadMore(currentPage + 1);
                     Log.d("currentPage",""+currentPage);
                 }else{
-                    Toast.makeText(getContext(), "大哥没有更多的数据", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), "没有了。。。", Toast.LENGTH_SHORT).show();
                 }
             }
         });
