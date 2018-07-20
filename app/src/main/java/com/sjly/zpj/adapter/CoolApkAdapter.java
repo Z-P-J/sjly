@@ -42,6 +42,10 @@ public class CoolApkAdapter extends RecyclerView.Adapter<CoolApkAdapter.ViewHold
     private String result = "";
     private SharedPreferences sharedPreferences;
     private SharedPreferences.Editor editor;
+    private int app_all_count = 0;
+    private int app_update_count = 0;
+    private int app_new_count = 0;
+    private int app_old_count = 0;
 
 
     static class ViewHolder extends RecyclerView.ViewHolder{
@@ -51,8 +55,13 @@ public class CoolApkAdapter extends RecyclerView.Adapter<CoolApkAdapter.ViewHold
         TextView app_info;
         TextView app_count;
         TextView app_description;
+        TextView app_type;
         TextView app_result;
         CardView app_item;
+        TextView app_all;
+        TextView app_update;
+        TextView app_new;
+        TextView app_old;
 
         public ViewHolder(View view){
             super(view);
@@ -64,8 +73,13 @@ public class CoolApkAdapter extends RecyclerView.Adapter<CoolApkAdapter.ViewHold
             app_count = (TextView)view.findViewById(R.id.app_count);
             app_description = (TextView)view.findViewById(R.id.app_description);
             //app_description.setMovementMethod(ScrollingMovementMethod.getInstance());
+            app_type = (TextView)view.findViewById(R.id.app_type);
             app_result = (TextView)view.findViewById(R.id.app_result);
             app_item = (CardView)view.findViewById(R.id.app_item);
+            app_all = (TextView)view.findViewById(R.id.app_all);
+            app_update = (TextView)view.findViewById(R.id.app_update);
+            app_new = (TextView)view.findViewById(R.id.app_new);
+            app_old = (TextView)view.findViewById(R.id.app_old);
         }
     }
 
@@ -113,6 +127,18 @@ public class CoolApkAdapter extends RecyclerView.Adapter<CoolApkAdapter.ViewHold
         requestManager.load(app_img_site).into(holder.app_icon);
         //holder.app_result.setText(compareVersion(app_site));
         //coolApkItemList.get(position).setApp_result()
+        String app_type = coolApkItemList.get(position).getApp_site().substring(1,4);
+        if (app_type.equals("apk")) {
+            app_type = "应用";
+            holder.app_type.setBackgroundColor(Color.WHITE);
+            holder.app_type.setTextColor(Color.GRAY);
+        } else if (app_type.equals("gam")){
+            app_type = "游戏";
+            holder.app_type.setBackgroundColor(Color.GRAY);
+            holder.app_type.setTextColor(Color.WHITE);
+        }
+        holder.app_type.setText(app_type);
+
         String app_result = coolApkItemList.get(position).getApp_result();
         holder.app_result.setText(app_result);
         //holder.app_result.setText(sharedPreferences.getString("app_result_" + (position + 20),""));
@@ -123,14 +149,19 @@ public class CoolApkAdapter extends RecyclerView.Adapter<CoolApkAdapter.ViewHold
         } else if (app_result.equals("未收录")){
             holder.app_result.setBackgroundColor(Color.RED);
         }
+        holder.app_result.setTextColor(Color.DKGRAY);
+
         holder.app_item.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Log.d("position",""+position);
                 Uri uri = Uri.parse("https://www.coolapk.com" + coolApkItemList.get(position).getApp_site());
                 Intent intent = new Intent(Intent.ACTION_VIEW,uri);
                 context.startActivity(intent);
             }
         });
+
+
     }
 
     @Override
@@ -247,4 +278,16 @@ public class CoolApkAdapter extends RecyclerView.Adapter<CoolApkAdapter.ViewHold
         }
     }
     */
+
+    private void countApp(){
+        app_all_count = coolApkItemList.size();
+        for (CoolApkItem coolApkItem : coolApkItemList) {
+            if (coolApkItem.getApp_result().equals("待更新"))
+                app_update_count++;
+            else if (coolApkItem.getApp_result().equals("未收录"))
+                app_new_count++;
+            else  if (coolApkItem.getApp_result().equals("已收录"))
+                app_old_count++;
+        }
+    }
 }

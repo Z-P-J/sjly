@@ -1,9 +1,57 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     >
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        >
+
+        <Button
+            android:id="@+id/app_all"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="全部应用"
+            android:layout_margin="3dp"
+            android:background="@drawable/shape"
+            android:textColor="#ffffff"
+            />
+
+        <Button
+            android:id="@+id/app_update"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="待更新"
+            android:layout_margin="3dp"
+            android:background="@drawable/shape"
+            android:textColor="#ffffff"
+            />
+
+        <Button
+            android:id="@+id/app_new"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="未收录"
+            android:layout_margin="3dp"
+            android:background="@drawable/shape"
+            android:textColor="#ffffff"
+            />
+
+        <Button
+            android:id="@+id/app_old"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="已收录"
+            android:layout_margin="3dp"
+            android:background="@drawable/shape"
+            android:textColor="#ffffff"
+            />
+    </LinearLayout>
 
 
     <android.support.v4.widget.SwipeRefreshLayout
@@ -11,10 +59,13 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+
+
         <android.support.v7.widget.RecyclerView
             android:id="@+id/coolapk_recyclerview"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:scrollbars="vertical"
             >
 
         </android.support.v7.widget.RecyclerView>

@@ -5,10 +5,10 @@
     android:id="@+id/app_item"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    app:cardBackgroundColor="#9979cdcd"
+    app:cardBackgroundColor="#9903a9f4"
     app:cardCornerRadius="5dp"
     app:cardElevation="5dp"
-    app:cardMaxElevation="8dp"
+    app:cardMaxElevation="0dp"
     app:contentPadding="10dp"
     app:cardUseCompatPadding="true">
 
@@ -57,6 +57,14 @@
                     android:ellipsize="end"
                     android:singleLine="true"
                     android:layout_weight="1"
+                    />
+
+                <TextView
+                    android:id="@+id/app_type"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingEnd="4dp"
+                    android:paddingStart="0dp"
                     />
 
                 <TextView

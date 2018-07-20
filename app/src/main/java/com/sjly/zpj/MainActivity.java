@@ -4,15 +4,20 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Message;
 import android.preference.PreferenceManager;
+import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.Toast;
 
 import com.sjly.zpj.fragment.CoolApkFragment;
+import com.sjly.zpj.fragment.QianQianFragment;
+import com.sjly.zpj.fragment.XinHaiFragment;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -36,17 +41,53 @@ public class MainActivity extends AppCompatActivity {
     private CoolApkFragment coolApkFragment;
     private FragmentManager fragmentManager;
     private FragmentTransaction fragmentTransaction;
+    private TabLayout tabLayout;
+    private ViewPager viewPager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        sp = PreferenceManager.getDefaultSharedPreferences(this);
-        editor = sp.edit();
-        coolApkFragment = new CoolApkFragment();
 
-        fragmentManager = getSupportFragmentManager();
-        fragmentManager.beginTransaction().add(R.id.container,coolApkFragment).commit();
+        tabLayout = (TabLayout)findViewById(R.id.tabs);
+        //tabLayout.addTab(tabLayout.newTab().setText("酷安"));
+        //tabLayout.addTab(tabLayout.newTab().setText("芊芊经典"));
+        //tabLayout.addTab(tabLayout.newTab().setText("心海e站"));
+        viewPager = (ViewPager)findViewById(R.id.viewpager);
+        viewPager.setOffscreenPageLimit(2);
+        viewPager.setAdapter(new FragmentPagerAdapter(getSupportFragmentManager()) {
+            Fragment fragment = null;
+            @Override
+            public Fragment getItem(int position) {
+                switch (position) {
+                    case 0:
+                        fragment = new CoolApkFragment();
+                        tabLayout.getTabAt(position).setText("酷安");
+                        break;
+                    case 1:
+                        fragment = new QianQianFragment();
+                        tabLayout.getTabAt(position).setText("芊芊经典");
+                        break;
+                    case 2:
+                        fragment = new XinHaiFragment();
+                        tabLayout.getTabAt(position).setText("心海e站");
+                        break;
+                }
+                return fragment;
+            }
+
+            @Override
+            public int getCount() {
+                return 3;
+            }
+        });
+
+        tabLayout.setupWithViewPager(viewPager);
+
+        //coolApkFragment = new CoolApkFragment();
+
+        //fragmentManager = getSupportFragmentManager();
+        //fragmentManager.beginTransaction().add(R.id.container,coolApkFragment).commit();
         //getCoolApkHtml();
 
     }
