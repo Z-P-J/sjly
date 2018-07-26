@@ -59,9 +59,9 @@ public abstract class LoadMoreListener extends RecyclerView.OnScrollListener {
         }
     }
 
-    public void initParams(){
+    public void initParams(int preivousTotal){
         this.currentPage = 1;
-        preivousTotal = 20;
+        this.preivousTotal = preivousTotal;
     }
 
     public abstract void onLoadMore(int currentPage);

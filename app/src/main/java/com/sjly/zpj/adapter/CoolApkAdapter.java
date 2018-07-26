@@ -21,8 +21,9 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.RequestManager;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.request.RequestOptions;
 import com.sjly.zpj.R;
-import com.sjly.zpj.fragment.CoolApkFragment;
 import com.sjly.zpj.fragment.CoolApkItem;
 
 import org.jsoup.Jsoup;
@@ -46,6 +47,7 @@ public class CoolApkAdapter extends RecyclerView.Adapter<CoolApkAdapter.ViewHold
     private int app_update_count = 0;
     private int app_new_count = 0;
     private int app_old_count = 0;
+    private OnItemClickListener onItemClickListener;
 
 
     static class ViewHolder extends RecyclerView.ViewHolder{
@@ -94,27 +96,23 @@ public class CoolApkAdapter extends RecyclerView.Adapter<CoolApkAdapter.ViewHold
         final View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.coolapk_item,parent,false);
 
         final ViewHolder holder = new ViewHolder(view);
-        /*
+
         view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                //Toast.makeText(context, getItemCount(), Toast.LENGTH_SHORT).show();
-
-                Uri uri = Uri.parse("https://www.coolapk.com" + app_site);
-                Intent intent = new Intent(Intent.ACTION_VIEW,uri);
-                context.startActivity(intent);
-                Log.d("ssssssssssssss",""+holder.getAdapterPosition());
+                if (onItemClickListener != null) {
+                    onItemClickListener.onItemClick((Integer) v.getTag());
+                }
             }
         });
-        */
 
         requestManager = Glide.with(parent.getContext());
         return holder;
     }
 
     @Override
-    public void onBindViewHolder(@NonNull CoolApkAdapter.ViewHolder holder, final int position) {
+    public void onBindViewHolder(@NonNull final CoolApkAdapter.ViewHolder holder, final int position) {
         //sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
         //editor = sharedPreferences.edit();
         holder.app_title.setText(coolApkItemList.get(position).getApp_title());
@@ -151,6 +149,9 @@ public class CoolApkAdapter extends RecyclerView.Adapter<CoolApkAdapter.ViewHold
         }
         holder.app_result.setTextColor(Color.DKGRAY);
 
+        holder.app_item.setTag(position);
+
+        /*
         holder.app_item.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -158,9 +159,11 @@ public class CoolApkAdapter extends RecyclerView.Adapter<CoolApkAdapter.ViewHold
                 Uri uri = Uri.parse("https://www.coolapk.com" + coolApkItemList.get(position).getApp_site());
                 Intent intent = new Intent(Intent.ACTION_VIEW,uri);
                 context.startActivity(intent);
+
+
             }
         });
-
+        */
 
     }
 
@@ -290,4 +293,10 @@ public class CoolApkAdapter extends RecyclerView.Adapter<CoolApkAdapter.ViewHold
                 app_old_count++;
         }
     }
+
+    public void setItemClickListener(OnItemClickListener onItemClickListener){
+        this.onItemClickListener = onItemClickListener;
+    }
+
+
 }

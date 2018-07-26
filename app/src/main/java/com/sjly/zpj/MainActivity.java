@@ -50,9 +50,6 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         tabLayout = (TabLayout)findViewById(R.id.tabs);
-        //tabLayout.addTab(tabLayout.newTab().setText("酷安"));
-        //tabLayout.addTab(tabLayout.newTab().setText("芊芊经典"));
-        //tabLayout.addTab(tabLayout.newTab().setText("心海e站"));
         viewPager = (ViewPager)findViewById(R.id.viewpager);
         viewPager.setOffscreenPageLimit(2);
         viewPager.setAdapter(new FragmentPagerAdapter(getSupportFragmentManager()) {
@@ -66,7 +63,7 @@ public class MainActivity extends AppCompatActivity {
                         break;
                     case 1:
                         fragment = new QianQianFragment();
-                        tabLayout.getTabAt(position).setText("芊芊经典");
+                        tabLayout.getTabAt(position).setText("芊芊精典");
                         break;
                     case 2:
                         fragment = new XinHaiFragment();
@@ -101,77 +98,4 @@ public class MainActivity extends AppCompatActivity {
             finish();
         }
     }
-
-
-    /*
-    private  void getCoolApkHtml(){
-
-        new Thread(){
-            String htmlContent = "";
-            @Override
-            public void run() {
-                try {
-                    Document doc = Jsoup.connect("https://www.coolapk.com/apk/update?p=1")
-                            .userAgent("Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/56.0.2924.87 Safari/537.36")
-                            .timeout(3000)
-                            .ignoreHttpErrors(true)
-                            .ignoreContentType(true)
-                            .get();
-                    htmlContent = doc.body().toString();
-
-                    Elements elements = doc.select("div.app_list_left").select("a");
-                    for (int i = 0; i < 20; i++) {
-                        int j = elements.get(i).select("p.list_app_info").text().indexOf("M");
-                        String str = elements.get(i).select("p.list_app_info").text().substring(0,j+1);
-                        editor.putString("app_site_"+i, elements.get(i).attr("href"));
-                        editor.putString("app_img_site_"+i, elements.get(i).attr("src"));
-                        editor.putString("app_title_"+i, elements.get(i).select("p.list_app_title").text());
-                        editor.putString("app_info_"+i, elements.get(i).select("p.list_app_info").text());
-                        editor.putString("app_count_"+i, elements.get(i).select("span.list_app_count").text());
-                        editor.putString("app_description_"+i, elements.get(i).select("p.list_app_description").text());
-                        Log.d("appppp", str);
-                    }
-                    editor.apply();
-
-                    //Toast.makeText(MainActivity.this, elements.get(0).text(), Toast.LENGTH_SHORT).show();
-
-
-                }catch (Exception e) {
-                    e.printStackTrace();
-                }
-                //Log.d("CoolApkHtml:", htmlContent);
-
-                //getAppDetail(htmlContent);
-            }
-
-        }.start();
-        fragmentManager = getSupportFragmentManager();
-        fragmentManager.beginTransaction().add(R.id.container,coolApkFragment).commit();
-
-        //Toast.makeText(, "getCoolApkHtml", Toast.LENGTH_SHORT).show();
-    }
-
-    private void getAppDetail(final String htmlContent){
-        new Thread(){
-            @Override
-            public void run() {
-
-                try {
-                    Toast.makeText(MainActivity.this, htmlContent, Toast.LENGTH_SHORT).show();
-                    Elements elements = Jsoup.parse(htmlContent).select("app_list_left").select("a");
-                    Toast.makeText(MainActivity.this, elements.get(0).text(), Toast.LENGTH_SHORT).show();
-                    //Log.d("app0:",elements.get(0).text());
-                }catch (Exception e) {
-                    e.printStackTrace();
-                }
-
-
-                //for(int i = 0; i < 20; i++){
-                //    String str = elements.get(i).select()
-                //}
-
-            }
-        }.start();
-    }
-    */
 }

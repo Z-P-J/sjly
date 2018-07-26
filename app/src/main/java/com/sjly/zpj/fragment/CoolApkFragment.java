@@ -1,13 +1,12 @@
 package com.sjly.zpj.fragment;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
@@ -19,10 +18,11 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.sjly.zpj.MainActivity;
+import com.sjly.zpj.DetailActivity;
 import com.sjly.zpj.R;
 import com.sjly.zpj.adapter.CoolApkAdapter;
 import com.sjly.zpj.listener.LoadMoreListener;
+import com.sjly.zpj.tool.UIHelper;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -47,7 +47,7 @@ public class CoolApkFragment extends BaseFragment {
     private boolean isInit;
     private boolean isRefresh;
     private SwipeRefreshLayout swipeRefreshLayout;
-    private int totalPager = 100;
+    private static final int totalPager = 100;
     private int currentPage = 0;
     private String result;
     private  String app_site;
@@ -60,12 +60,14 @@ public class CoolApkFragment extends BaseFragment {
     private int app_new_count = 0;
     private int app_old_count = 0;
     private int count = 0;
+    private CoolApkDetailFragment coolApkDetailFragment;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         //sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getContext());
         //editor = sharedPreferences.edit();
+        UIHelper.showDialogForLoading(getContext(),"正在加载。。。");
         getCoolApkHtml(1);
         view = inflater.inflate(R.layout.coolapk_fragment,null);
         recyclerView = (RecyclerView)view.findViewById(R.id.coolapk_recyclerview);
@@ -154,8 +156,39 @@ public class CoolApkFragment extends BaseFragment {
         layoutManager=new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(layoutManager);
         coolApkAdapter=new CoolApkAdapter(coolApkItemList);
+        coolApkAdapter.setItemClickListener(new CoolApkAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(int position) {
+                Intent intent = new Intent(getActivity(), DetailActivity.class);
+                intent.putExtra("app_site", "coolapk:https://www.coolapk.com" + coolApkItemList.get(position).getApp_site());
+                getActivity().startActivity(intent);
+                /*
+                coolApkDetailFragment = new CoolApkDetailFragment();
+                coolApkDetailFragment.setTargetFragment(CoolApkFragment.this,1);
+                Bundle bundle = new Bundle();
+                bundle.putString("app_site",coolApkItemList.get(position).getApp_site());
+                coolApkDetailFragment.setArguments(bundle);
+                coolApkDetailFragment.show(getFragmentManager(),"detail");
+                */
+            }
+        });
         recyclerView.setAdapter(coolApkAdapter);
-        initRecyclerView();
+        recyclerView.addOnScrollListener(new LoadMoreListener(layoutManager) {
+            @Override
+            public void onLoadMore(int currentPage) {
+                if(isRefresh){
+                    currentPage = 1;
+                    initParams(20);
+                }
+                isRefresh = false;
+                if (currentPage<totalPager) {
+                    getCoolApkHtml(currentPage + 1);
+                    //loadMore(currentPage + 1);
+                }else{
+                    Toast.makeText(getContext(), "人家是有底线的。。。", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
 
         handler = new Handler(){
             @Override
@@ -178,7 +211,7 @@ public class CoolApkFragment extends BaseFragment {
                     tempCoolApkItemList = coolApkItemList;
 
                     coolApkAdapter.notifyDataSetChanged();
-
+                    UIHelper.HideDilog();
 
                 } else if (msg.what == 2) {
                     String string = (String) msg.obj;
@@ -198,61 +231,10 @@ public class CoolApkFragment extends BaseFragment {
                 }
             }
         };
-
-
-
-
-
-
-
-
-
-
-
-        //coolApkAdapter.notifyDataSetChanged();
-
-
-
-
-        /*
-        handler.post(new Runnable() {
-            @Override
-            public void run() {
-                coolApkItemList.get(msg.what).setApp_result((String) msg.obj);
-                Log.d("cscscscsc2","ceshi");
-                coolApkAdapter.notifyDataSetChanged();
-            }
-        });
-        */
         return view;
     }
 
-    private void initRecyclerView(){
 
-        recyclerView.addOnScrollListener(new LoadMoreListener(layoutManager) {
-            @Override
-            public void onLoadMore(int currentPage) {
-                //tempCurrentPage = currentPage
-                if(isRefresh){
-                    //tempCurrentPage = currentPage - 1;
-                    currentPage = 1;
-                    initParams();
-                }
-                isRefresh = false;
-                //currentPage -= tempCurrentPage;
-                //当前的页数 < 总页数
-                //Log.d("currentPage",""+currentPage);
-                if (currentPage<totalPager) {
-                    //去加载更多的数据
-                    //getCoolApkHtml(currentPage);
-                    loadMore(currentPage + 1);
-
-                }else{
-                    Toast.makeText(getContext(), "人家是有底线的。。。", Toast.LENGTH_SHORT).show();
-                }
-            }
-        });
-    }
 
     @Override
     public void lazyLoadData() {
@@ -280,17 +262,10 @@ public class CoolApkFragment extends BaseFragment {
                         int m = i - 20 * currentPage;
                         int j = elements.get(m).select("p.list_app_info").text().indexOf("M");
                         String str = elements.get(m).select("p.list_app_info").text().substring(0,j+1);
-                        //editor.putString("app_site_"+i, elements.get(m).attr("href"));
                         app_site = elements.get(m).attr("href");
                         //Log.d("href:",elements.get(m).attr("href"));
-                        //editor.putString("app_img_site_"+i, elements.get(m).select("img").attr("src"));
                         //Log.d("app_img_site_"+i,elements.get(m).select("img").attr("src"));
-                        //editor.putString("app_title_"+i, elements.get(m).select("p.list_app_title").text());
-                        //editor.putString("app_info_"+i, str);
-                        //editor.putString("app_count_"+i, elements.get(m).select("span.list_app_count").text());
-                        //editor.putString("app_description_"+i, elements.get(m).select("p.list_app_description").text());
                         compareVersion(app_site,i - 20);
-                        //editor.putString("app_result_"+i, compareVersion(elements.get(m).attr("href")));
                         //Log.d("appppp", str);
 
                         coolApkItem = new CoolApkItem(elements.get(m).attr("href"),
@@ -303,11 +278,6 @@ public class CoolApkFragment extends BaseFragment {
                         coolApkItemList.add(coolApkItem);
 
                     }
-                    //editor.apply();
-
-                    //Toast.makeText(MainActivity.this, elements.get(0).text(), Toast.LENGTH_SHORT).show();
-
-
                 }catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -511,10 +481,10 @@ public class CoolApkFragment extends BaseFragment {
             else  if (coolApkItemList.get(i).getApp_result().equals("已收录"))
                 app_old_count++;
         }
-        app_all.setText("全部应用("+app_all_count+"个)");
-        app_update.setText("待更新("+app_update_count+"个)");
-        app_new.setText("未收录("+app_new_count+"个)");
-        app_old.setText("已收录("+app_old_count+"个)");
+        app_all.setText("已加载("+app_all_count+")");
+        app_update.setText("待更新("+app_update_count+")");
+        app_new.setText("未收录("+app_new_count+")");
+        app_old.setText("已收录("+app_old_count+")");
     }
 
 }
