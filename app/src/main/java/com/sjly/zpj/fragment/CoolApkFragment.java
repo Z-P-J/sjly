@@ -60,7 +60,6 @@ public class CoolApkFragment extends BaseFragment {
     private int app_new_count = 0;
     private int app_old_count = 0;
     private int count = 0;
-    private CoolApkDetailFragment coolApkDetailFragment;
 
     @Nullable
     @Override
@@ -69,11 +68,10 @@ public class CoolApkFragment extends BaseFragment {
         //editor = sharedPreferences.edit();
         UIHelper.showDialogForLoading(getContext(),"正在加载。。。");
         getCoolApkHtml(1);
+
         view = inflater.inflate(R.layout.coolapk_fragment,null);
         recyclerView = (RecyclerView)view.findViewById(R.id.coolapk_recyclerview);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
-
-        isInit=true;
 
         swipeRefreshLayout = (SwipeRefreshLayout)view.findViewById(R.id.swipe_refresh);
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
@@ -101,21 +99,6 @@ public class CoolApkFragment extends BaseFragment {
 
                             }
                         });
-
-                        /*
-                        getActivity().runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-
-                                //lazyLoadData();
-
-                                //coolApkAdapter.notifyDataSetChanged();
-
-                                //Log.d("size:",""+coolApkItemList.size());
-
-                            }
-                        });
-                        */
 
                     }
                 }).start();
@@ -239,8 +222,6 @@ public class CoolApkFragment extends BaseFragment {
     @Override
     public void lazyLoadData() {
 
-
-
     }
 
     private  void getCoolApkHtml(final int currentPage){
@@ -274,7 +255,7 @@ public class CoolApkFragment extends BaseFragment {
                                 , str
                                 , elements.get(m).select("span.list_app_count").text()
                                 , elements.get(m).select("p.list_app_description").text()
-                                , "");
+                                , "检测中");
                         coolApkItemList.add(coolApkItem);
 
                     }
@@ -314,13 +295,6 @@ public class CoolApkFragment extends BaseFragment {
 
 
 
-    }
-
-    private void loadMore(int currentPage){
-        Log.d("currentPage",""+currentPage);
-        getCoolApkHtml(currentPage);
-        //coolApkAdapter.notifyDataSetChanged();
-        Log.d("size:",""+coolApkItemList.size());
     }
 
     private void compareVersion(final String app_site,final int i){

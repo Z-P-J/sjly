@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    android:orientation="vertical"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:background="#01000000"
+        >
+
+        <Button
+            android:id="@+id/app_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="应用"
+            android:layout_margin="3dp"
+            android:background="@drawable/shape"
+            android:textColor="#ffffff"
+            />
+
+        <Button
+            android:id="@+id/game_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="游戏"
+            android:layout_margin="3dp"
+            android:background="@drawable/shape"
+            android:textColor="#ffffff"
+            />
+    </LinearLayout>
+
+
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/swipe_refresh"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/appchina_recyclerview"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scrollbars="vertical"
+            >
+
+        </android.support.v7.widget.RecyclerView>
+
+    </android.support.v4.widget.SwipeRefreshLayout>
+
+</LinearLayout>

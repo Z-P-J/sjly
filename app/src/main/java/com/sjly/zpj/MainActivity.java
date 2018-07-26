@@ -15,6 +15,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.sjly.zpj.fragment.AppChinaFragment;
 import com.sjly.zpj.fragment.CoolApkFragment;
 import com.sjly.zpj.fragment.QianQianFragment;
 import com.sjly.zpj.fragment.XinHaiFragment;
@@ -38,7 +39,6 @@ public class MainActivity extends AppCompatActivity {
     private long firstTime=0;
     private SharedPreferences sp;
     private SharedPreferences.Editor editor;
-    private CoolApkFragment coolApkFragment;
     private FragmentManager fragmentManager;
     private FragmentTransaction fragmentTransaction;
     private TabLayout tabLayout;
@@ -50,13 +50,15 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         tabLayout = (TabLayout)findViewById(R.id.tabs);
+
         viewPager = (ViewPager)findViewById(R.id.viewpager);
-        viewPager.setOffscreenPageLimit(2);
+        viewPager.setOffscreenPageLimit(4);
         viewPager.setAdapter(new FragmentPagerAdapter(getSupportFragmentManager()) {
             Fragment fragment = null;
             @Override
             public Fragment getItem(int position) {
                 switch (position) {
+
                     case 0:
                         fragment = new CoolApkFragment();
                         tabLayout.getTabAt(position).setText("酷安");
@@ -69,13 +71,17 @@ public class MainActivity extends AppCompatActivity {
                         fragment = new XinHaiFragment();
                         tabLayout.getTabAt(position).setText("心海e站");
                         break;
+                    case 3:
+                        fragment = new AppChinaFragment();
+                        tabLayout.getTabAt(position).setText("应用汇");
+                        break;
                 }
                 return fragment;
             }
 
             @Override
             public int getCount() {
-                return 3;
+                return 4;
             }
         });
 

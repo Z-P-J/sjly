@@ -39,9 +39,10 @@ public class DetailActivity extends AppCompatActivity {
     private String app_name;
     private String app_info;
     private String yingyongjianjie = "";
-    private String xinbantexing;
-    private String xiangxixinxi;
-    private String quanxianxinxi;
+    private String xinbantexing = "";
+    private String xiangxixinxi = "";
+    private String quanxianxinxi = "";
+    private String apkDownloadUrl;
     private CollapsingToolbarLayout collapsingToolbarLayout;
     private ImageView app_icon;
     private TextView app_info_view;
@@ -67,12 +68,9 @@ public class DetailActivity extends AppCompatActivity {
         if (app_site.startsWith("coolapk:")) {
             app_site = app_site.substring(8);
             requstCode = 1;
-        } else if (app_site.startsWith("qianqian:")) {
+        }else if (app_site.startsWith("appchina:")){
             app_site = app_site.substring(9);
             requstCode = 2;
-        } else if (app_site.startsWith("xinhai:")) {
-            app_site = app_site.substring(7);
-            requstCode = 3;
         }
         Toast.makeText(this, app_site, Toast.LENGTH_SHORT).show();
         handler = new Handler(){
@@ -135,10 +133,7 @@ public class DetailActivity extends AppCompatActivity {
                 getCoolApkDetail(app_site);
                 break;
             case 2:
-                getQianQianDetail(app_site);
-                break;
-            case 3:
-                getXinHaiDetail(app_site);
+                getAppChinaDetail(app_site);
                 break;
         }
 
@@ -237,28 +232,69 @@ public class DetailActivity extends AppCompatActivity {
         }).start();
     }
 
-    private void getQianQianDetail(String app_site){
+    private void getAppChinaDetail(final String app_site){
+        Log.d("apppppp", app_site);
         new Thread(new Runnable() {
             @Override
             public void run() {
                 try {
+                    Document doc  = Jsoup.connect(app_site)
+                            .userAgent("Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/56.0.2924.87 Safari/537.36")
+                            .ignoreHttpErrors(true)
+                            .ignoreContentType(true)
+                            .get();
+                    Elements elements = doc.select("ul.app-screenshot-list").select("li");
+                    for (Element element : elements){
+                        imgItem = new ImgItem(element.select("img").attr("src"));
+                        imgItemList.add(imgItem);
+                    }
+                    app_name = doc.select("h1.app-name").text();
+                    app_icon_site = doc.select("div.msg").select("img.Content_Icon").attr("src");
+                    app_info = doc.select("span.app-statistic").text();
+                    elements = doc.select("div.detail-app-other-info").select("li");
+                    for (Element element : elements) {
+                        app_info = app_info + "/" + element.text();
+                    }
+
+                    xinbantexing = doc.select("div.main-info").select("p.art-content").get(1).text();
+                    yingyongjianjie = doc.select("div.main-info").select("p.art-content").get(0).toString();
+                    yingyongjianjie = yingyongjianjie.replace("<p class=\"art-content\">", "").replace("</p>", "");
+                    yingyongjianjie = yingyongjianjie.replaceAll("<br>","\n");
+                    while(yingyongjianjie.contains("</a>")) {
+                        Document document = Jsoup.parse(yingyongjianjie);
+                        yingyongjianjie = yingyongjianjie.substring(0, yingyongjianjie.indexOf("<a"))
+                                + document.select("a").get(0).text() + yingyongjianjie.substring(yingyongjianjie.indexOf("</a>") + 4);
+                    }
+                    //yingyongjianjie.substring(23).substring(0, yingyongjianjie.indexOf("</p>"));
+
+                    elements = doc.select("div.other-info").select("p.art-content");
+                    for (Element element : elements){
+                        if (xiangxixinxi.equals("")){
+                            xiangxixinxi = xiangxixinxi + element.text();
+                        }else {
+                            xiangxixinxi = xiangxixinxi + "\n" + element.text();
+                        }
+                    }
+                    elements = doc.select("ul.permissions-list").select("li");
+                    for (Element element : elements) {
+                        if (quanxianxinxi.equals("")) {
+                            quanxianxinxi = quanxianxinxi + element.text();
+                        }else {
+                            quanxianxinxi = quanxianxinxi + "\n" + element.text();
+                        }
+                    }
+                    apkDownloadUrl = doc.select("a.download_app").attr("onclick");
+                    Log.d("apkDownloadUrl", apkDownloadUrl);
+
+
+
 
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
-            }
-        }).start();
-    }
-
-    private void getXinHaiDetail(String app_site){
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                try {
-
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
+                Message msg = new Message();
+                msg.what = 1;
+                handler.sendMessage(msg);
             }
         }).start();
     }

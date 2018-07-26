@@ -18,6 +18,7 @@ import android.widget.Toast;
 import com.sjly.zpj.R;
 import com.sjly.zpj.adapter.QianQianAdapter;
 import com.sjly.zpj.listener.LoadMoreListener;
+import com.sjly.zpj.tool.UIHelper;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -37,12 +38,13 @@ public class QianQianFragment extends BaseFragment {
     private Handler handler;
     private static final int totalPager = 48;
     private boolean isRefresh = false;
+    private boolean isInit;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.qianqian_fragment,null);
-        getAppInfo(1);
+        isInit = true;
         recyclerView = (RecyclerView)view.findViewById(R.id.qianqian_recyclerview);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
 
@@ -102,6 +104,7 @@ public class QianQianFragment extends BaseFragment {
             public void handleMessage(Message msg) {
                 if (msg.what == 1) {
                     qianQianAdapter.notifyDataSetChanged();
+                    UIHelper.HideDilog();
                 }
             }
         };
@@ -110,7 +113,11 @@ public class QianQianFragment extends BaseFragment {
 
     @Override
     public void lazyLoadData() {
-
+        if (isInit&&isVisible){
+            UIHelper.showDialogForLoading(getContext(),"正在加载。。。");
+            getAppInfo(1);
+            isInit = false;
+        }
     }
 
     private void getAppInfo(final int currentPage){

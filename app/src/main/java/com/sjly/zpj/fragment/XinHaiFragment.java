@@ -19,6 +19,7 @@ import com.sjly.zpj.R;
 import com.sjly.zpj.adapter.QianQianAdapter;
 import com.sjly.zpj.adapter.XinHaiAdapter;
 import com.sjly.zpj.listener.LoadMoreListener;
+import com.sjly.zpj.tool.UIHelper;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -38,6 +39,7 @@ public class XinHaiFragment extends BaseFragment{
     private XinHaiAdapter xinHaiAdapter;
     private Handler handler;
     private int totalPager = 39;
+    private boolean isInit;
 
 
     private boolean isRefresh = false;
@@ -47,7 +49,7 @@ public class XinHaiFragment extends BaseFragment{
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.xinhai_fragment,null);
-        getAppInfo(1);
+        isInit = true;
         recyclerView = (RecyclerView)view.findViewById(R.id.xinhai_recyclerview);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
 
@@ -102,6 +104,7 @@ public class XinHaiFragment extends BaseFragment{
             public void handleMessage(Message msg) {
                 if (msg.what == 1){
                     xinHaiAdapter.notifyDataSetChanged();
+                    UIHelper.HideDilog();
                 }
             }
         };
@@ -111,7 +114,11 @@ public class XinHaiFragment extends BaseFragment{
 
     @Override
     public void lazyLoadData() {
-
+        if (isInit&&isVisible){
+            UIHelper.showDialogForLoading(getContext(),"正在加载。。。");
+            getAppInfo(1);
+            isInit = false;
+        }
     }
 
     private void getAppInfo(final int currentPage){
