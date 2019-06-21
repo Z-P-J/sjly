@@ -17,7 +17,7 @@
         android:theme="@style/Theme.AppCompat.Light.NoActionBar">
 
         <activity
-            android:name=".MainActivity"
+            android:name="com.zpj.sjly.MainActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustUnspecified|stateHidden">
             <intent-filter>
@@ -27,7 +27,7 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".DetailActivity">
+        <activity android:name="com.zpj.sjly.DetailActivity">
 
         </activity>
 

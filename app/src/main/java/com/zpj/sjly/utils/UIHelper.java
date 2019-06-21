@@ -39,7 +39,7 @@ public class UIHelper {
     }
 
     public static void HideDilog(){
-        if (mLoadingDialog.isShowing()) {
+        if (mLoadingDialog != null && mLoadingDialog.isShowing()) {
             mLoadingDialog.hide();
         }
     }

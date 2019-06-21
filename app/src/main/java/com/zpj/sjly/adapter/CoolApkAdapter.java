@@ -55,20 +55,20 @@ public class CoolApkAdapter extends RecyclerView.Adapter<CoolApkAdapter.ViewHold
         public ViewHolder(View view){
             super(view);
             itemView = view;
-            app_icon = (ImageView)view.findViewById(R.id.app_icon);
-            app_title = (TextView) view.findViewById(R.id.app_title);
+            app_icon = view.findViewById(R.id.app_icon);
+            app_title = view.findViewById(R.id.app_title);
             //app_title.setMovementMethod(ScrollingMovementMethod.getInstance());
-            app_info = (TextView)view.findViewById(R.id.app_info);
-            app_count = (TextView)view.findViewById(R.id.app_count);
-            app_description = (TextView)view.findViewById(R.id.app_description);
+            app_info = view.findViewById(R.id.app_info);
+            app_count = view.findViewById(R.id.app_count);
+            app_description = view.findViewById(R.id.app_description);
             //app_description.setMovementMethod(ScrollingMovementMethod.getInstance());
-            app_type = (TextView)view.findViewById(R.id.app_type);
-            app_result = (TextView)view.findViewById(R.id.app_result);
-            app_item = (CardView)view.findViewById(R.id.app_item);
-            app_all = (TextView)view.findViewById(R.id.app_all);
-            app_update = (TextView)view.findViewById(R.id.app_update);
-            app_new = (TextView)view.findViewById(R.id.app_new);
-            app_old = (TextView)view.findViewById(R.id.app_old);
+            app_type = view.findViewById(R.id.app_type);
+            app_result = view.findViewById(R.id.app_result);
+            app_item = view.findViewById(R.id.app_item);
+            app_all = view.findViewById(R.id.app_all);
+            app_update = view.findViewById(R.id.app_update);
+            app_new = view.findViewById(R.id.app_new);
+            app_old = view.findViewById(R.id.app_old);
         }
     }
 
@@ -143,7 +143,7 @@ public class CoolApkAdapter extends RecyclerView.Adapter<CoolApkAdapter.ViewHold
             @Override
             public void onClick(View v) {
                 Log.d("position",""+position);
-                Uri uri = Uri.parse("https://www.coolapk.com" + coolApkItemList.get(position).getApp_site());
+                Uri uri = Uri.parse("https://www.coolapk.com" + coolApkItemList.get(position).getAppSite());
                 Intent intent = new Intent(Intent.ACTION_VIEW,uri);
                 context.startActivity(intent);
 

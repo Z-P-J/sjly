@@ -41,12 +41,12 @@ public class QianQianAdapter extends RecyclerView.Adapter<QianQianAdapter.ViewHo
 
         public ViewHolder(View itemView) {
             super(itemView);
-            app_title = (TextView)itemView.findViewById(R.id.app_title);
-            app_description = (TextView)itemView.findViewById(R.id.app_description);
-            app_type = (TextView)itemView.findViewById(R.id.app_type);
-            app_info = (TextView) itemView.findViewById(R.id.app_info);
-            app_icon = (ImageView)itemView.findViewById(R.id.app_icon);
-            app_item = (CardView)itemView.findViewById(R.id.app_item);
+            app_title = itemView.findViewById(R.id.app_title);
+            app_description = itemView.findViewById(R.id.app_description);
+            app_type = itemView.findViewById(R.id.app_type);
+            app_info = itemView.findViewById(R.id.app_info);
+            app_icon = itemView.findViewById(R.id.app_icon);
+            app_item = itemView.findViewById(R.id.app_item);
         }
     }
 

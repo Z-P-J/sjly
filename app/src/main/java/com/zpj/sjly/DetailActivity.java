@@ -32,7 +32,7 @@ import java.util.List;
 public class DetailActivity extends AppCompatActivity {
 
     private String app_site;
-    private String app_icon_site;
+    private String app_icon_site = "";
     private String app_name;
     private String app_info;
     private String yingyongjianjie = "";
@@ -62,10 +62,13 @@ public class DetailActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail);
         app_site = getIntent().getStringExtra("app_site");
-        if (app_site.startsWith("coolapk:")) {
+        if (app_site.startsWith("sjly:")) {
+            app_site = app_site.substring(5);
+            requstCode = 3;
+        } else if (app_site.startsWith("coolapk:")) {
             app_site = app_site.substring(8);
             requstCode = 1;
-        }else if (app_site.startsWith("appchina:")){
+        } else if (app_site.startsWith("appchina:")){
             app_site = app_site.substring(9);
             requstCode = 2;
         }
@@ -75,14 +78,14 @@ public class DetailActivity extends AppCompatActivity {
             public void handleMessage(Message msg) {
                 if (msg.what == 1) {
                     collapsingToolbarLayout.setTitle(app_name);
-                    Log.d("app_icon_site",app_icon_site);
+                    Log.d("app_icon_site", app_icon_site);
 
                     Picasso.get().load(app_icon_site).into(app_icon);
                     app_info_view.setText(app_info);
-                    yingyongjianjie_view.setText(yingyongjianjie);
-                    xinbantexing_view.setText(xinbantexing);
-                    xiangxixinxi_view.setText(xiangxixinxi);
-                    quanxianxinxi_view.setText(quanxianxinxi);
+                    yingyongjianjie_view.setText(yingyongjianjie.isEmpty() ? "无" : yingyongjianjie);
+                    xinbantexing_view.setText(xinbantexing.isEmpty() ? "无" : xinbantexing);
+                    xiangxixinxi_view.setText(xiangxixinxi.isEmpty() ? "无" : xiangxixinxi);
+                    quanxianxinxi_view.setText(quanxianxinxi.isEmpty() ? "无" : quanxianxinxi);
                     imgAdapter.notifyDataSetChanged();
                 }
             }
@@ -113,7 +116,7 @@ public class DetailActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Uri uri = Uri.parse(app_site);
-                Intent intent = new Intent(Intent.ACTION_VIEW,uri);
+                Intent intent = new Intent(Intent.ACTION_VIEW, uri);
                 startActivity(intent);
             }
         });
@@ -131,6 +134,15 @@ public class DetailActivity extends AppCompatActivity {
                 break;
             case 2:
                 getAppChinaDetail(app_site);
+                break;
+            case 3:
+                getSjlyDetail(app_site);
+                floatingActionButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Toast.makeText(DetailActivity.this, "下载=" + app_site, Toast.LENGTH_SHORT).show();
+                    }
+                });
                 break;
         }
 
@@ -286,6 +298,85 @@ public class DetailActivity extends AppCompatActivity {
 
 
 
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                Message msg = new Message();
+                msg.what = 1;
+                handler.sendMessage(msg);
+            }
+        }).start();
+    }
+
+    private void getSjlyDetail(final String app_site){
+        Log.d("apppppp", app_site);
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    Document doc  = Jsoup.connect(app_site)
+                            .userAgent("Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/56.0.2924.87 Safari/537.36")
+                            .ignoreHttpErrors(true)
+                            .ignoreContentType(true)
+                            .get();
+                    Elements elements = doc.select("pics").select("pic");
+                    for (Element element : elements){
+                        imgItem = new ImgItem(element.text());
+                        imgItemList.add(imgItem);
+                    }
+                    Log.d("getSjlyDetail", "imgItemList=" + imgItemList);
+                    app_name = doc.select("name").get(0).text();
+                    Log.d("getSjlyDetail", "app_name=" + app_name);
+                    app_icon_site = doc.select("icon").get(0).text();
+                    Log.d("getSjlyDetail", "app_icon_site=" + app_icon_site);
+//                    Log.d("getSjlyDetail", "baseinfof=" + doc.select("baseinfof").text());
+                    if (doc.select("baseinfof").hasText()) {
+                        app_info = doc.select("baseinfof").get(0).text();
+                    } else {
+                        app_info = doc.select("lineinfo").get(0).text();
+                    }
+                    Log.d("getSjlyDetail", "app_info=" + app_info);
+
+                    elements = doc.select("introduces").select("introduce");
+                    for (Element introduce : elements) {
+                        String introduceType = introduce.select("introducetype").get(0).text();
+                        Log.d("getSjlyDetail", "introduceType=" + introduceType);
+                        String introduceTitle = introduce.select("introducetitle").get(0).text();
+                        Log.d("getSjlyDetail", "introduceTitle=" + introduceTitle);
+                        if ("permission".equals(introduceType)) {
+                            Elements permissions = introduce.select("permissions").select("permission");
+                            for (Element permission : permissions) {
+                                if (quanxianxinxi.equals("")) {
+                                    quanxianxinxi = quanxianxinxi + permission.text();
+                                }else {
+                                    quanxianxinxi = quanxianxinxi + "\n" + permission.text();
+                                }
+                            }
+                            Log.d("getSjlyDetail", "quanxianxinxi=" + quanxianxinxi);
+                        } else if ("text".equals(introduceType)) {
+                            if ("软件信息".equals(introduceTitle) || "游戏信息".equals(introduceTitle)) {
+                                xiangxixinxi = introduce.select("introduceContent").get(0).text().replaceAll(" ", "\n");
+                            } else if ("软件简介".equals(introduceTitle) || "游戏简介".equals(introduceTitle)) {
+                                yingyongjianjie = introduce.select("introduceContent").get(0).text();
+                                Log.d("getSjlyDetail", "yingyongjianjie=" + yingyongjianjie);
+                            } else if ("更新内容".equals(introduceTitle)) {
+                                xinbantexing = introduce.select("introduceContent").get(0).text();
+                                Log.d("getSjlyDetail", "xinbantexing=" + xinbantexing);
+                            }
+                        }
+                    }
+
+//                    elements = doc.select("div.other-info").select("p.art-content");
+//                    for (Element element : elements){
+//                        if (xiangxixinxi.equals("")){
+//                            xiangxixinxi = xiangxixinxi + element.text();
+//                        }else {
+//                            xiangxixinxi = xiangxixinxi + "\n" + element.text();
+//                        }
+//                    }
+
+                    apkDownloadUrl = "http://tt.shouji.com.cn/wap/down/soft?id=" + doc.select("id").get(0).text();
+                    Log.d("apkDownloadUrl", apkDownloadUrl);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }

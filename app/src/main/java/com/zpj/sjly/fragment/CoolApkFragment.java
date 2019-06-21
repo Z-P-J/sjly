@@ -149,7 +149,7 @@ public class CoolApkFragment extends BaseFragment {
                 coolApkDetailFragment = new CoolApkDetailFragment();
                 coolApkDetailFragment.setTargetFragment(CoolApkFragment.this,1);
                 Bundle bundle = new Bundle();
-                bundle.putString("app_site",coolApkItemList.get(position).getApp_site());
+                bundle.putString("app_site",coolApkItemList.get(position).getAppSite());
                 coolApkDetailFragment.setArguments(bundle);
                 coolApkDetailFragment.show(getFragmentManager(),"detail");
                 */

@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--自定义ViewPager+fragment实现-->
+    <declare-styleable name="EasyNavigationBar">
+        <!--底部导航栏高度-->
+        <attr name="Easy_navigationHeight" format="dimension" />
+        <!--底部导航栏背景-->
+        <attr name="Easy_navigationBackground" format="color" />
+        <!--Tab字体大小-->
+        <attr name="Easy_tabTextSize" format="dimension" />
+        <!--Tab文字距Tab图标的距离-->
+        <attr name="Easy_tabTextTop" format="dimension" />
+        <!--Tab图标大小-->
+        <attr name="Easy_tabIconSize" format="dimension" />
+        <!--Tab未选中字体颜色-->
+        <attr name="Easy_tabNormalColor" format="color" />
+        <!--Tab选中字体颜色-->
+        <attr name="Easy_tabSelectColor" format="color" />
+        <!--提示红点的大小-->
+        <attr name="Easy_hintPointSize" format="dimension" />
+        <!--消息红点的大小-->
+        <attr name="Easy_msgPointSize" format="dimension" />
+        <!--提示红点距Tab图标的距离-->
+        <attr name="Easy_hintPointLeft" format="dimension" />
+        <!--消息红点距Tab图标的距离-->
+        <attr name="Easy_msgPointLeft" format="dimension" />
+        <!--提示红点距离顶部的距离-->
+        <attr name="Easy_hintPointTop" format="dimension" />
+        <!--消息红点距顶部的距离-->
+        <attr name="Easy_msgPointTop" format="dimension" />
+        <!--消息红点数字字体大小-->
+        <attr name="Easy_msgPointTextSize" format="dimension" />
+        <!--分割线高度-->
+        <attr name="Easy_lineHeight" format="dimension" />
+        <!--分割线颜色-->
+        <attr name="Easy_lineColor" format="color" />
+
+        <!--是否有paddingBottom-->
+        <attr name="Easy_hasPadding" format="boolean"/>
+
+
+        <!--中间图片的大小-->
+        <attr name="Easy_addIconSize" format="dimension" />
+        <!--底部导航栏和加号的高度  加号会居中-->
+        <attr name="Easy_addLayoutHeight" format="dimension" />
+        <!--添加按钮距离底部的距离-->
+        <attr name="Easy_addLayoutBottom" format="dimension"/>
+        <!--图标显示-->
+        <attr name="Easy_scaleType">
+            <flag name="CENTER_INSIDE" value="0" />
+            <flag name="CENTER_CROP" value="1" />
+            <flag name="CENTER" value="2" />
+            <flag name="FIT_CENTER" value="3" />
+            <flag name="FIT_END" value="4" />
+            <flag name="FIT_START" value="5" />
+            <flag name="FIT_XY" value="6" />
+            <flag name="MATRIX" value="7" />
+        </attr>
+
+
+        <!--图标显示-->
+        <attr name="Easy_addLayoutRule">
+            <flag name="RULE_CENTER" value="0" />
+            <flag name="RULE_BOTTOM" value="1" />
+        </attr>
+       <!-- true 点击加号切换fragment
+        false 点击加号不切换fragment进行其他操作（跳转界面等）-->
+        <attr name="Easy_addAsFragment" format="boolean"/>
+        <attr name="Easy_addSelectTextColor" format="color"/>
+        <attr name="Easy_addNormalTextColor" format="color"/>
+        <attr name="Easy_addTextSize" format="dimension"/>
+        <!--加号文字距离顶部加号的距离-->
+        <attr name="Easy_addTextTopMargin" format="dimension"/>
+        <!--是否和其他tab文字底部对齐-->
+        <attr name="Easy_addAlignBottom" format="dimension"/>
+
+
+
+    </declare-styleable>
+
+</resources>

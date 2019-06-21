@@ -60,16 +60,16 @@ public class XinHaiAdapter extends RecyclerView.Adapter<XinHaiAdapter.ViewHolder
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder holder, final int position) {
-        app_img_site = xinHaiItemList.get(position).getApp_img_site();
-        holder.app_title.setText(xinHaiItemList.get(position).getApp_title());
-        holder.app_info.setText(xinHaiItemList.get(position).getApp_info());
-        holder.app_description.setText(xinHaiItemList.get(position).getApp_description());
+    public void onBindViewHolder(@NonNull final ViewHolder holder, final int position) {
+        app_img_site = xinHaiItemList.get(position).getAppImgSite();
+        holder.app_title.setText(xinHaiItemList.get(position).getAppTitle());
+        holder.app_info.setText(xinHaiItemList.get(position).getAppInfo());
+        holder.app_description.setText(xinHaiItemList.get(position).getAppDescription());
         requestManager.load(app_img_site).into(holder.app_icon);
         holder.app_item.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Uri uri = Uri.parse(xinHaiItemList.get(position).getApp_site());
+                Uri uri = Uri.parse(xinHaiItemList.get(holder.getAdapterPosition()).getAppSite());
                 Intent intent = new Intent(Intent.ACTION_VIEW,uri);
                 context.startActivity(intent);
             }

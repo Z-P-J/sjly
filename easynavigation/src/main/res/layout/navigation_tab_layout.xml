@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+        <LinearLayout
+            android:id="@+id/ll"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:orientation="vertical"
+            android:gravity="center">
+
+            <ImageView
+                android:id="@+id/tab_icon_iv"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:src="@drawable/icon"
+                android:layout_centerHorizontal="true"
+                android:scaleType="centerInside"/>
+
+
+            <TextView
+                android:id="@+id/tab_text_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/iv_icon"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="2dp"
+                android:textSize="10sp" />
+        </LinearLayout>
+
+        <View
+            android:id="@+id/red_point"
+            android:layout_width="6dp"
+            android:layout_height="6dp"
+            android:layout_above="@+id/ll"
+            android:layout_marginBottom="-3dp"
+            android:visibility="gone"
+            android:background="@drawable/oval_red"
+            android:layout_toRightOf="@+id/ll" />
+
+        <TextView
+            android:id="@+id/msg_point_tv"
+            android:layout_width="18dp"
+            android:layout_height="18dp"
+            android:layout_above="@+id/ll"
+            android:layout_toRightOf="@+id/ll"
+            android:visibility="gone"
+            android:background="@drawable/oval_red"
+            android:gravity="center"
+            android:textColor="#FFFFFF"
+            android:textSize="9sp" />
+
+
+</RelativeLayout>

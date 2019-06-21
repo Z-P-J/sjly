@@ -124,19 +124,19 @@ public class XinHaiFragment extends BaseFragment{
             @Override
             public void run() {
                 try {
-                    Document doc = Jsoup.connect("http://hrtsea.com/category/android/android-apps/page/" + currentPage)
+                    Document doc = Jsoup.connect("https://hrtsea.com/category/android/android-apps/page/" + currentPage)
                             .userAgent("Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/56.0.2924.87 Safari/537.36")
                             .ignoreHttpErrors(true)
                             .ignoreContentType(true)
                             .get();
                     Elements elements = doc.select("article");
-                    for (int i = 0; i < 11; i++) {
-                        xinHaiItem = new XinHaiItem(elements.get(i).select("a").get(0).attr("href"),
-                                elements.get(i).select("img").attr("data-src"),
-                                elements.get(i).select("a").get(1).attr("title"),
-                                elements.get(i).select("p.note").text(),
-                                elements.get(i).select("time").text() + " " + elements.get(i).select("span.pv").text()
-                                );
+                    for (int i = 0; i < elements.size(); i++) {
+                        xinHaiItem = new XinHaiItem();
+                        xinHaiItem.setAppSite(elements.get(i).select("a").get(0).attr("href"));
+                        xinHaiItem.setAppImgSite(elements.get(i).select("img").attr("data-src"));
+                        xinHaiItem.setAppTitle(elements.get(i).select("img").attr("data-src"));
+                        xinHaiItem.setAppDescription(elements.get(i).select("img").attr("data-src"));
+                        xinHaiItem.setAppInfo(elements.get(i).select("img").attr("data-src"));
                         xinHaiItemList.add(xinHaiItem);
                     }
 
