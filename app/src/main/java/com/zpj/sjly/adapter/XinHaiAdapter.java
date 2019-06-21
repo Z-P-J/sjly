@@ -1,4 +1,4 @@
-package com.sjly.zpj.adapter;
+package com.zpj.sjly.adapter;
 
 import android.content.Context;
 import android.content.Intent;
@@ -6,7 +6,6 @@ import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,50 +14,46 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.RequestManager;
-import com.sjly.zpj.R;
-import com.sjly.zpj.fragment.QianQianItem;
+import com.zpj.sjly.R;
+import com.zpj.sjly.fragment.XinHaiItem;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class QianQianAdapter extends RecyclerView.Adapter<QianQianAdapter.ViewHolder> {
+public class XinHaiAdapter extends RecyclerView.Adapter<XinHaiAdapter.ViewHolder> {
 
     private Context context;
-    private List<QianQianItem> qianQianItemList = new ArrayList<>();
+    private List<XinHaiItem> xinHaiItemList = new ArrayList<>();
     private RequestManager requestManager;
     private String app_img_site = "";
 
 
     static class ViewHolder extends RecyclerView.ViewHolder{
-
         private TextView app_title;
         private TextView app_description;
-        private TextView app_type;
         private TextView app_info;
         private ImageView app_icon;
         private CardView app_item;
 
-
-        public ViewHolder(View itemView) {
-            super(itemView);
-            app_title = (TextView)itemView.findViewById(R.id.app_title);
-            app_description = (TextView)itemView.findViewById(R.id.app_description);
-            app_type = (TextView)itemView.findViewById(R.id.app_type);
-            app_info = (TextView) itemView.findViewById(R.id.app_info);
-            app_icon = (ImageView)itemView.findViewById(R.id.app_icon);
-            app_item = (CardView)itemView.findViewById(R.id.app_item);
+        public ViewHolder(View view){
+            super(view);
+            app_title = (TextView)view.findViewById(R.id.app_title);
+            app_description = (TextView)view.findViewById(R.id.app_description);
+            app_info = (TextView)view.findViewById(R.id.app_info);
+            app_icon = (ImageView)view.findViewById(R.id.app_icon);
+            app_item = (CardView)view.findViewById(R.id.app_item);
         }
     }
 
-    public QianQianAdapter(List<QianQianItem> qianQianItemList) {
-        this.qianQianItemList = qianQianItemList;
+    public XinHaiAdapter(List<XinHaiItem> xinHaiItemList){
+        this.xinHaiItemList = xinHaiItemList;
     }
 
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         context = parent.getContext();
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.qianqian_item, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.xinhai_item, parent, false);
         ViewHolder holder = new ViewHolder(view);
         requestManager = Glide.with(parent.getContext());
         return holder;
@@ -66,17 +61,15 @@ public class QianQianAdapter extends RecyclerView.Adapter<QianQianAdapter.ViewHo
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, final int position) {
-        holder.app_title.setText(qianQianItemList.get(position).getApp_title());
-        holder.app_description.setText(qianQianItemList.get(position).getApp_description());
-        holder.app_type.setText(qianQianItemList.get(position).getApp_type());
-        holder.app_info.setText(qianQianItemList.get(position).getApp_info());
-        app_img_site = qianQianItemList.get(position).getApp_img_site();
-        Log.d("qianqian_app_img_site",""+app_img_site);
+        app_img_site = xinHaiItemList.get(position).getApp_img_site();
+        holder.app_title.setText(xinHaiItemList.get(position).getApp_title());
+        holder.app_info.setText(xinHaiItemList.get(position).getApp_info());
+        holder.app_description.setText(xinHaiItemList.get(position).getApp_description());
         requestManager.load(app_img_site).into(holder.app_icon);
         holder.app_item.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Uri uri = Uri.parse(qianQianItemList.get(position).getApp_site());
+                Uri uri = Uri.parse(xinHaiItemList.get(position).getApp_site());
                 Intent intent = new Intent(Intent.ACTION_VIEW,uri);
                 context.startActivity(intent);
             }
@@ -85,8 +78,6 @@ public class QianQianAdapter extends RecyclerView.Adapter<QianQianAdapter.ViewHo
 
     @Override
     public int getItemCount() {
-        return qianQianItemList.size();
+        return xinHaiItemList.size();
     }
-
-
 }

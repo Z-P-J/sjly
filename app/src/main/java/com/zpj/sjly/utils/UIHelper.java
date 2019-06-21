@@ -1,4 +1,4 @@
-package com.sjly.zpj.tool;
+package com.zpj.sjly.utils;
 
 import android.app.Dialog;
 import android.content.Context;
@@ -9,15 +9,15 @@ import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.sjly.zpj.R;
+import com.zpj.sjly.R;
 import com.wang.avi.AVLoadingIndicatorView;
 
 public class UIHelper {
     private static Dialog mLoadingDialog;
     public static void showDialogForLoading(Context context, String msg) {
         View view = LayoutInflater.from(context).inflate(R.layout.layout_loading_dialog, null);
-        TextView loadingText = (TextView) view.findViewById(R.id.id_tv_loading_dialog_text);
-        AVLoadingIndicatorView avLoadingIndicatorView = (AVLoadingIndicatorView) view.findViewById(R.id.AVLoadingIndicatorView);
+        TextView loadingText = view.findViewById(R.id.id_tv_loading_dialog_text);
+        AVLoadingIndicatorView avLoadingIndicatorView = view.findViewById(R.id.AVLoadingIndicatorView);
         loadingText.setText(msg);
         mLoadingDialog = new Dialog(context, R.style.loading_dialog_style);
         mLoadingDialog.setCancelable(false);

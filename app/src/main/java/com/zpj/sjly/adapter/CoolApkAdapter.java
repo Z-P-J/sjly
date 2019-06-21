@@ -1,36 +1,23 @@
-package com.sjly.zpj.adapter;
+package com.zpj.sjly.adapter;
 
 import android.content.Context;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
-import android.net.Uri;
-import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
-import android.support.v4.app.Fragment;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
-import android.text.method.ScrollingMovementMethod;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.RequestManager;
-import com.bumptech.glide.load.engine.DiskCacheStrategy;
-import com.bumptech.glide.request.RequestOptions;
-import com.sjly.zpj.R;
-import com.sjly.zpj.fragment.CoolApkItem;
+import com.zpj.sjly.R;
+import com.zpj.sjly.fragment.CoolApkItem;
 
-import org.jsoup.Jsoup;
-import org.jsoup.nodes.Document;
-import org.jsoup.select.Elements;
-
-import java.util.Iterator;
 import java.util.List;
 
 public class CoolApkAdapter extends RecyclerView.Adapter<CoolApkAdapter.ViewHolder> {

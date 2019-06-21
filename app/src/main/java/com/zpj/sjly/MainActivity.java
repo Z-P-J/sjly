@@ -1,9 +1,6 @@
-package com.sjly.zpj;
+package com.zpj.sjly;
 
-import android.content.Context;
 import android.content.SharedPreferences;
-import android.os.Message;
-import android.preference.PreferenceManager;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -12,27 +9,12 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.widget.Toast;
 
-import com.sjly.zpj.fragment.AppChinaFragment;
-import com.sjly.zpj.fragment.CoolApkFragment;
-import com.sjly.zpj.fragment.QianQianFragment;
-import com.sjly.zpj.fragment.XinHaiFragment;
-
-import org.jsoup.Jsoup;
-import org.jsoup.nodes.Document;
-import org.jsoup.select.Elements;
-
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.OutputStream;
-import java.net.HttpURLConnection;
-import java.net.URL;
+import com.zpj.sjly.fragment.AppChinaFragment;
+import com.zpj.sjly.fragment.CoolApkFragment;
+import com.zpj.sjly.fragment.QianQianFragment;
+import com.zpj.sjly.fragment.XinHaiFragment;
 
 public class MainActivity extends AppCompatActivity {
 

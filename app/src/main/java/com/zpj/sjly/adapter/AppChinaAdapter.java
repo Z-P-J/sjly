@@ -1,4 +1,4 @@
-package com.sjly.zpj.adapter;
+package com.zpj.sjly.adapter;
 
 import android.content.Context;
 import android.graphics.Color;
@@ -12,8 +12,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-import com.sjly.zpj.R;
-import com.sjly.zpj.fragment.AppChinaItem;
+import com.zpj.sjly.R;
+import com.zpj.sjly.fragment.AppChinaItem;
 
 import java.util.ArrayList;
 import java.util.List;

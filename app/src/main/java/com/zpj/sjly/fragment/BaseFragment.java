@@ -1,4 +1,4 @@
-package com.sjly.zpj.fragment;
+package com.zpj.sjly.fragment;
 
 
 import android.support.v4.app.Fragment;

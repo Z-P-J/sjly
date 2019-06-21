@@ -1,4 +1,4 @@
-package com.sjly.zpj.listener;
+package com.zpj.sjly.listener;
 
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;

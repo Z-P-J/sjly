@@ -1,4 +1,4 @@
-package com.sjly.zpj.fragment;
+package com.zpj.sjly.fragment;
 
 public class CoolApkItem {
     private String app_site;

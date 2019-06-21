@@ -1,4 +1,4 @@
-package com.sjly.zpj.adapter;
+package com.zpj.sjly.adapter;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
@@ -9,8 +9,8 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
-import com.sjly.zpj.R;
-import com.sjly.zpj.fragment.ImgItem;
+import com.zpj.sjly.R;
+import com.zpj.sjly.fragment.ImgItem;
 
 import java.util.ArrayList;
 import java.util.List;

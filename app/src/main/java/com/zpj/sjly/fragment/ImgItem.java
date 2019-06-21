@@ -1,6 +1,4 @@
-package com.sjly.zpj.fragment;
-
-import android.widget.ImageView;
+package com.zpj.sjly.fragment;
 
 public class ImgItem {
 

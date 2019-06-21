@@ -1,4 +1,4 @@
-package com.sjly.zpj.fragment;
+package com.zpj.sjly.fragment;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -18,11 +18,11 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.sjly.zpj.DetailActivity;
-import com.sjly.zpj.R;
-import com.sjly.zpj.adapter.CoolApkAdapter;
-import com.sjly.zpj.listener.LoadMoreListener;
-import com.sjly.zpj.tool.UIHelper;
+import com.zpj.sjly.DetailActivity;
+import com.zpj.sjly.R;
+import com.zpj.sjly.adapter.CoolApkAdapter;
+import com.zpj.sjly.listener.LoadMoreListener;
+import com.zpj.sjly.utils.UIHelper;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;

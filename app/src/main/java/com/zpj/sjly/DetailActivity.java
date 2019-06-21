@@ -1,11 +1,8 @@
-package com.sjly.zpj;
+package com.zpj.sjly;
 
-import android.content.ComponentName;
 import android.content.Intent;
-import android.content.ServiceConnection;
 import android.net.Uri;
 import android.os.Handler;
-import android.os.IBinder;
 import android.os.Message;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.FloatingActionButton;
@@ -20,8 +17,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.sjly.zpj.adapter.ImgAdapter;
-import com.sjly.zpj.fragment.ImgItem;
+import com.zpj.sjly.adapter.ImgAdapter;
+import com.zpj.sjly.fragment.ImgItem;
 import com.squareup.picasso.Picasso;
 
 import org.jsoup.Jsoup;
@@ -96,22 +93,22 @@ public class DetailActivity extends AppCompatActivity {
 
     private void initView(int requstCode){
 
-        android.support.v7.widget.Toolbar toolbar = (android.support.v7.widget.Toolbar)findViewById(R.id.toolbar);
-        collapsingToolbarLayout = (CollapsingToolbarLayout)findViewById(R.id.collapsing_toolbar);
+        android.support.v7.widget.Toolbar toolbar = findViewById(R.id.toolbar);
+        collapsingToolbarLayout = findViewById(R.id.collapsing_toolbar);
         setSupportActionBar(toolbar);
         ActionBar actionBar = getSupportActionBar();
         if (actionBar != null) {
             actionBar.setDisplayHomeAsUpEnabled(true);
         }
 
-        app_icon = (ImageView)findViewById(R.id.app_icon);
-        app_info_view = (TextView)findViewById(R.id.app_info);
-        yingyongjianjie_view = (TextView)findViewById(R.id.yingyongjianjie);
-        xinbantexing_view = (TextView)findViewById(R.id.xinbantexing);
-        xiangxixinxi_view = (TextView)findViewById(R.id.xiangxixinxi);
-        quanxianxinxi_view = (TextView)findViewById(R.id.quanxianxinxi);
+        app_icon = findViewById(R.id.app_icon);
+        app_info_view = findViewById(R.id.app_info);
+        yingyongjianjie_view = findViewById(R.id.yingyongjianjie);
+        xinbantexing_view = findViewById(R.id.xinbantexing);
+        xiangxixinxi_view = findViewById(R.id.xiangxixinxi);
+        quanxianxinxi_view = findViewById(R.id.quanxianxinxi);
 
-        floatingActionButton = (FloatingActionButton)findViewById(R.id.floatingActionButton);
+        floatingActionButton = findViewById(R.id.floatingActionButton);
         floatingActionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -121,7 +118,7 @@ public class DetailActivity extends AppCompatActivity {
             }
         });
 
-        recyclerView = (RecyclerView)findViewById(R.id.recyclerview);
+        recyclerView = findViewById(R.id.recyclerview);
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         layoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
         recyclerView.setLayoutManager(layoutManager);

@@ -1,4 +1,4 @@
-package com.sjly.zpj.fragment;
+package com.zpj.sjly.fragment;
 
 import android.os.Bundle;
 import android.os.Handler;
@@ -15,10 +15,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
-import com.sjly.zpj.R;
-import com.sjly.zpj.adapter.QianQianAdapter;
-import com.sjly.zpj.listener.LoadMoreListener;
-import com.sjly.zpj.tool.UIHelper;
+import com.zpj.sjly.R;
+import com.zpj.sjly.adapter.QianQianAdapter;
+import com.zpj.sjly.listener.LoadMoreListener;
+import com.zpj.sjly.utils.UIHelper;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
