@@ -1,25 +1,38 @@
 package com.zpj.sjly;
 
+import android.animation.ValueAnimator;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.Color;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Handler;
 import android.os.Message;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.graphics.Palette;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
+import android.view.Window;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.target.SimpleTarget;
+import com.bumptech.glide.request.transition.Transition;
 import com.zpj.sjly.adapter.ImgAdapter;
+import com.zpj.sjly.fragment.AppItem;
 import com.zpj.sjly.fragment.ImgItem;
-import com.squareup.picasso.Picasso;
+import com.zpj.sjly.utils.TransportUtil;
+import com.zpj.sjly.utils.ColorHelper;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -40,6 +53,8 @@ public class DetailActivity extends AppCompatActivity {
     private String xiangxixinxi = "";
     private String quanxianxinxi = "";
     private String apkDownloadUrl;
+    private View rootView;
+    private android.support.v7.widget.Toolbar toolbar;
     private CollapsingToolbarLayout collapsingToolbarLayout;
     private ImageView app_icon;
     private TextView app_info_view;
@@ -56,6 +71,9 @@ public class DetailActivity extends AppCompatActivity {
     private ImgAdapter imgAdapter;
     private List<ImgItem> imgItemList = new ArrayList<>();
 
+    private Bitmap icon;
+    private AppItem item;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,6 +83,13 @@ public class DetailActivity extends AppCompatActivity {
         if (app_site.startsWith("sjly:")) {
             app_site = app_site.substring(5);
             requstCode = 3;
+//            Bundle bundle = getIntent().getExtras();
+//            if (bundle != null) {
+//                icon = bundle.getParcelable("bitmap_icon");
+//                item = bundle.getParcelable("app_item");
+//            }
+            icon = TransportUtil.getInstance().getIconBitmap();
+            item = TransportUtil.getInstance().getAppItem();
         } else if (app_site.startsWith("coolapk:")) {
             app_site = app_site.substring(8);
             requstCode = 1;
@@ -77,11 +102,27 @@ public class DetailActivity extends AppCompatActivity {
             @Override
             public void handleMessage(Message msg) {
                 if (msg.what == 1) {
-                    collapsingToolbarLayout.setTitle(app_name);
-                    Log.d("app_icon_site", app_icon_site);
+                    if (item == null) {
+                        collapsingToolbarLayout.setTitle(app_name);
+                        app_info_view.setText(app_info);
+                        Log.d("app_icon_site", app_icon_site);
+                    }
 
-                    Picasso.get().load(app_icon_site).into(app_icon);
-                    app_info_view.setText(app_info);
+
+//                    Picasso.get().load(app_icon_site).into(app_icon);
+                    if (icon == null) {
+                        Glide.with(DetailActivity.this)
+                                .asBitmap()
+                                .load(app_icon_site)
+                                .into(new SimpleTarget<Bitmap>() {
+                                    @Override
+                                    public void onResourceReady(@NonNull Bitmap resource, @Nullable Transition<? super Bitmap> transition) {
+                                        getColor(resource);
+                                        app_icon.setImageBitmap(resource);
+                                    }
+                                });
+                    }
+
                     yingyongjianjie_view.setText(yingyongjianjie.isEmpty() ? "无" : yingyongjianjie);
                     xinbantexing_view.setText(xinbantexing.isEmpty() ? "无" : xinbantexing);
                     xiangxixinxi_view.setText(xiangxixinxi.isEmpty() ? "无" : xiangxixinxi);
@@ -95,8 +136,8 @@ public class DetailActivity extends AppCompatActivity {
 
 
     private void initView(int requstCode){
-
-        android.support.v7.widget.Toolbar toolbar = findViewById(R.id.toolbar);
+        rootView = findViewById(R.id.root);
+        toolbar = findViewById(R.id.toolbar);
         collapsingToolbarLayout = findViewById(R.id.collapsing_toolbar);
         setSupportActionBar(toolbar);
         ActionBar actionBar = getSupportActionBar();
@@ -127,6 +168,15 @@ public class DetailActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(layoutManager);
         imgAdapter = new ImgAdapter(imgItemList);
         recyclerView.setAdapter(imgAdapter);
+
+        if (icon != null) {
+            getColor(icon);
+            app_icon.setImageBitmap(icon);
+        }
+        if (item != null) {
+            collapsingToolbarLayout.setTitle(item.getAppTitle());
+            app_info_view.setText(item.getAppSize() + " | " + item.getAppInfo());
+        }
 
         switch (requstCode) {
             case 1:
@@ -385,5 +435,42 @@ public class DetailActivity extends AppCompatActivity {
                 handler.sendMessage(msg);
             }
         }).start();
+    }
+
+    public void getColor(Bitmap bitmap) {
+        // Palette的部分
+        Palette.Builder builder = Palette.from(bitmap);
+        builder.generate(new Palette.PaletteAsyncListener() {
+            @Override
+            public void onGenerated(Palette palette) {
+                //获取到充满活力的这种色调
+                Palette.Swatch vibrant = palette.getMutedSwatch();
+                //根据调色板Palette获取到图片中的颜色设置到toolbar和tab中背景，标题等，使整个UI界面颜色统一
+                if (rootView != null) {
+                    if (vibrant != null) {
+                        ValueAnimator colorAnim2 = ValueAnimator.ofArgb(Color.rgb(110, 110, 100), ColorHelper.colorBurn(vibrant.getRgb()));
+                        colorAnim2.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+                            @Override
+                            public void onAnimationUpdate(ValueAnimator animation) {
+                                rootView.setBackgroundColor((Integer) animation.getAnimatedValue());
+                                // toolbar.setBackgroundColor((Integer) animation.getAnimatedValue());
+                                toolbar.setBackgroundColor((Integer) animation.getAnimatedValue());
+                            }
+                        });
+                        colorAnim2.setDuration(300);
+                        colorAnim2.setRepeatMode(ValueAnimator.RESTART);
+                        colorAnim2.start();
+
+                        if (Build.VERSION.SDK_INT >= 21) {
+                            Window window = getWindow();
+                            window.setStatusBarColor(ColorHelper.colorBurn(vibrant.getRgb()));
+                            int barColor = ColorHelper.colorBurn(vibrant.getRgb());
+                            window.setNavigationBarColor(barColor);
+                        }
+                    }
+                }
+
+            }
+        });
     }
 }

@@ -1,0 +1,73 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    >
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <com.leochuan.AutoPlayRecyclerView
+                android:scrollbars="none"
+                android:id="@+id/recycler"
+                android:layout_centerHorizontal="true"
+                android:layout_alignParentTop="true"
+                android:background="@android:color/transparent"
+                android:layout_width="match_parent"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="30dp"
+                app:direction="right"
+                app:timeInterval="3000"
+                android:layout_height="200dp" />
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <android.support.v4.widget.SwipeRefreshLayout
+                    android:id="@+id/swipe_refresh"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:visibility="gone"
+                    >
+
+
+
+
+                </android.support.v4.widget.SwipeRefreshLayout>
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/coolapk_recyclerview"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:scrollbars="vertical"
+                    >
+
+                </android.support.v7.widget.RecyclerView>
+
+                <com.mingle.widget.LoadingView
+                    android:id="@+id/load_view"
+                    android:layout_width="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_height="wrap_content"
+                    android:visibility="gone"
+                    />
+
+            </FrameLayout>
+
+
+        </LinearLayout>
+
+
+
+    </ScrollView>
+
+
+</LinearLayout>

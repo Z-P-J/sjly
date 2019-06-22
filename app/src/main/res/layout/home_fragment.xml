@@ -6,30 +6,25 @@
     android:layout_height="match_parent"
     >
 
-    <android.support.v7.widget.Toolbar
+    <com.wuhenzhizao.titlebar.widget.CommonTitleBar
+        android:id="@+id/title_bar"
         android:layout_width="match_parent"
-        android:layout_height="56dp"
-        app:title="@string/app_name"
+        android:layout_height="wrap_content"
+        app:fillStatusBar="true"
+        app:titleBarColor="@color/colorPrimary"
+        app:statusBarColor="@color/colorPrimary"
+        app:statusBarMode="light"
+        app:leftType="customView"
+        app:leftCustomView="@layout/layout_left"
+        app:centerType="customView"
+        app:centerCustomView="@layout/layout_tab"
+        app:rightType="customView"
+        app:rightCustomView="@layout/layout_tools"
         />
 
-    <android.support.v4.widget.SwipeRefreshLayout
-        android:id="@+id/swipe_refresh"
+    <android.support.v4.view.ViewPager
+        android:id="@+id/view_pager"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-
-
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/coolapk_recyclerview"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:scrollbars="vertical"
-            >
-
-        </android.support.v7.widget.RecyclerView>
-
-    </android.support.v4.widget.SwipeRefreshLayout>
-
-
+        android:layout_height="match_parent"/>
 
 </LinearLayout>

@@ -38,5 +38,19 @@ dependencies {
 
     implementation project(':easynavigation')
     implementation project(':imagebrowserlibrary')
+    implementation project(':titlebar')
+    implementation project(':bannerlayout')
+
+
     implementation 'de.hdodenhof:circleimageview:3.0.0'
+    implementation 'com.github.zzz40500:android-shapeLoadingView:1.0.3.2'
+
+    implementation 'rouchuan.viewpagerlayoutmanager:viewpagerlayoutmanager:2.0.22'
+
+    //调色板
+    implementation 'com.android.support:palette-v7:28.0.0'
+    //蚯蚓TabLayout
+//    implementation 'com.github.hiliving:tablayout-android:1.0.1'
+    implementation 'com.github.qiaoyhh:QTabLayout:1.0'
+    implementation 'com.github.xiaohaibin:XBanner:1.6.8'
 }

@@ -2,8 +2,10 @@ package com.zpj.sjly.adapter;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -15,6 +17,8 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.RequestManager;
+import com.bumptech.glide.request.target.SimpleTarget;
+import com.bumptech.glide.request.transition.Transition;
 import com.zpj.sjly.R;
 import com.zpj.sjly.fragment.AppItem;
 import com.zpj.sjly.fragment.CoolApkItem;
@@ -30,12 +34,15 @@ public class AppAdapter extends RecyclerView.Adapter<AppAdapter.ViewHolder> {
     private OnItemClickListener onItemClickListener;
 
 
-    static class ViewHolder extends RecyclerView.ViewHolder{
+    public static class ViewHolder extends RecyclerView.ViewHolder{
         View itemView;
         ImageView appIcon;
         TextView appTitle;
         TextView appInfo;
         TextView appDesc;
+
+        public Bitmap icon;
+        AppItem item;
 
         public ViewHolder(View view){
             super(view);
@@ -66,7 +73,8 @@ public class AppAdapter extends RecyclerView.Adapter<AppAdapter.ViewHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull final AppAdapter.ViewHolder holder, final int position) {
-        AppItem appItem = appItemList.get(position);
+        final AppItem appItem = appItemList.get(position);
+        holder.item = appItem;
         holder.appTitle.setText(appItem.getAppTitle());
         holder.appInfo.setText(appItem.getAppSize() + " | " + appItem.getAppInfo());
         holder.appDesc.setText(appItem.getAppComment());
@@ -75,13 +83,19 @@ public class AppAdapter extends RecyclerView.Adapter<AppAdapter.ViewHolder> {
             @Override
             public void onClick(View v) {
                 if (onItemClickListener != null) {
-                    onItemClickListener.onItemClick(holder.getAdapterPosition());
+                    onItemClickListener.onItemClick(holder, holder.getAdapterPosition(), holder.item);
                 }
             }
         });
 
         String icon = appItemList.get(position).getAppIcon();
-        requestManager.load(icon).into(holder.appIcon);
+        requestManager.asBitmap().load(icon).into(new SimpleTarget<Bitmap>() {
+            @Override
+            public void onResourceReady(@NonNull Bitmap resource, @Nullable Transition<? super Bitmap> transition) {
+                holder.icon = resource;
+                holder.appIcon.setImageBitmap(resource);
+            }
+        });
     }
 
     @Override
@@ -90,7 +104,7 @@ public class AppAdapter extends RecyclerView.Adapter<AppAdapter.ViewHolder> {
     }
 
     public interface OnItemClickListener{
-        void onItemClick(int position);
+        void onItemClick(ViewHolder holder, int position, AppItem item);
     }
 
     public void setItemClickListener(OnItemClickListener onItemClickListener){

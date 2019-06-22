@@ -1,6 +1,9 @@
 package com.zpj.sjly.fragment;
 
-public class AppItem {
+import android.os.Parcel;
+import android.os.Parcelable;
+
+public class AppItem implements Parcelable {
     private String appIcon;
     private String appTitle;
     private String appId;
@@ -13,6 +16,37 @@ public class AppItem {
     private String appSize;
     private String appInfo;
     private String appComment;
+
+    public AppItem () {
+        super();
+    }
+
+    protected AppItem(Parcel in) {
+        appIcon = in.readString();
+        appTitle = in.readString();
+        appId = in.readString();
+        appViewType = in.readString();
+        appType = in.readString();
+        appPackage = in.readString();
+        appArticleNum = in.readString();
+        appNum = in.readString();
+        appMinSdk = in.readString();
+        appSize = in.readString();
+        appInfo = in.readString();
+        appComment = in.readString();
+    }
+
+    public static final Creator<AppItem> CREATOR = new Creator<AppItem>() {
+        @Override
+        public AppItem createFromParcel(Parcel in) {
+            return new AppItem(in);
+        }
+
+        @Override
+        public AppItem[] newArray(int size) {
+            return new AppItem[size];
+        }
+    };
 
     public String getAppIcon() {
         return appIcon;
@@ -108,5 +142,26 @@ public class AppItem {
 
     public void setAppComment(String appComment) {
         this.appComment = appComment;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(appIcon);
+        dest.writeString(appTitle);
+        dest.writeString(appId);
+        dest.writeString(appViewType);
+        dest.writeString(appType);
+        dest.writeString(appPackage);
+        dest.writeString(appArticleNum);
+        dest.writeString(appNum);
+        dest.writeString(appMinSdk);
+        dest.writeString(appSize);
+        dest.writeString(appInfo);
+        dest.writeString(appComment);
     }
 }

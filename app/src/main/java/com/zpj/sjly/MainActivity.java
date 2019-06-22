@@ -4,16 +4,10 @@ import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.animation.ObjectAnimator;
 import android.animation.ValueAnimator;
-import android.content.SharedPreferences;
-import android.os.Handler;
-import android.support.design.widget.TabLayout;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentPagerAdapter;
-import android.support.v4.app.FragmentTransaction;
-import android.support.v4.view.ViewPager;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.os.Handler;
+import android.support.v4.app.Fragment;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.ViewAnimationUtils;
 import android.view.ViewGroup;
@@ -26,8 +20,7 @@ import com.next.easynavigation.constant.Anim;
 import com.next.easynavigation.utils.NavigationUtil;
 import com.next.easynavigation.view.EasyNavigationBar;
 import com.zpj.sjly.fragment.AppChinaFragment;
-import com.zpj.sjly.fragment.CoolApkFragment;
-import com.zpj.sjly.fragment.HomeFragment;
+import com.zpj.sjly.fragment.HomeFragment2;
 import com.zpj.sjly.fragment.QianQianFragment;
 import com.zpj.sjly.fragment.XinHaiFragment;
 import com.zpj.sjly.view.KickBackAnimator;
@@ -44,14 +37,14 @@ public class MainActivity extends AppCompatActivity {
     private Handler mHandler = new Handler();
     private LinearLayout menuLayout;
     private View cancelImageView;
-    private int[] menuIconItems = {R.mipmap.pic1, R.mipmap.pic2, R.mipmap.pic3, R.mipmap.pic4};
+    private int[] menuIconItems = {R.drawable.pic1, R.drawable.pic2, R.drawable.pic3, R.drawable.pic4};
 
 
-    private String[] tabText = {"主页", "发现", "", "分类", "我的"};
+    private String[] tabText = {"主页", "游戏", "", "软件", "我的"};
     //未选中icon
-    private int[] normalIcon = {R.mipmap.index, R.mipmap.find, R.mipmap.add_image, R.mipmap.message, R.mipmap.me};
+    private int[] normalIcon = {R.drawable.index, R.drawable.find, R.drawable.add_image, R.drawable.message, R.drawable.me};
     //选中时icon
-    private int[] selectIcon = {R.mipmap.index1, R.mipmap.find1, R.mipmap.add_image, R.mipmap.message1, R.mipmap.me1};
+    private int[] selectIcon = {R.drawable.index1, R.drawable.find1, R.drawable.add_image, R.drawable.message1, R.drawable.me1};
     private String[] menuTextItems = {"动态", "应用集", "乐图", "催更"};
 
     private List<Fragment> fragments = new ArrayList<>();
@@ -62,7 +55,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         navigationBar = findViewById(R.id.navigationBar);
-        fragments.add(new HomeFragment());
+        fragments.add(new HomeFragment2());
         fragments.add(new QianQianFragment());
         fragments.add(new XinHaiFragment());
         fragments.add(new AppChinaFragment());

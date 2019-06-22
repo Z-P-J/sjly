@@ -1,0 +1,33 @@
+<!--<com.antiless.support.widget.TabLayout-->
+<!--    xmlns:android="http://schemas.android.com/apk/res/android"-->
+<!--    xmlns:app="http://schemas.android.com/apk/res-auto"-->
+<!--    android:id="@+id/tab_title"-->
+<!--    android:layout_width="wrap_content"-->
+<!--    android:layout_height="wrap_content"-->
+<!--    android:layout_gravity="center"-->
+<!--    android:background="@android:color/transparent"-->
+<!--    app:tabIndicatorHeight="2dp"-->
+<!--    app:indicatorStartColor="#ffffff"-->
+<!--    app:indicatorEndColor="#ffffff"-->
+<!--    app:indicatorMarginStart="30dp"-->
+<!--    app:indicatorMarginEnd="30dp"-->
+<!--    app:tabSelectedTextColor="#ffffff"-->
+<!--    app:tabTextAppearance="@style/CustomTabLayoutTextAppearance"-->
+<!--    app:tabTextColor="#80eeeeee"-->
+<!--    app:tabPaddingStart="10dp"-->
+<!--    app:tabPaddingEnd="10dp"-->
+<!--    />-->
+
+<com.qyh.qtablayoutlib.QTabLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/tab_title"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@android:color/transparent"
+    app:q_tabIndicatorAnimation="true"
+    app:q_tabIndicatorColor="#ffffff"
+    app:q_tabIndicatorWidth="0dp"
+    app:q_tabSelectedTextColor="#ffffff"
+    app:q_tabTextColor="#80eeeeee"
+    app:q_tabTextSize="18sp" />

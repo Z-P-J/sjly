@@ -10,7 +10,7 @@
         android:id="@+id/menu_icon_iv"
         android:layout_width="50dp"
         android:layout_height="50dp"
-        android:src="@mipmap/pic1" />
+        android:src="@drawable/pic1" />
 
     <TextView
         android:id="@+id/menu_text_tv"
