@@ -40,6 +40,9 @@ dependencies {
     implementation project(':imagebrowserlibrary')
     implementation project(':titlebar')
     implementation project(':bannerlayout')
+    implementation project(':qtablayoutlib')
+    implementation project(':BGABaseAdapter')
+    implementation project(':BGAPhotoPicker')
 
 
     implementation 'de.hdodenhof:circleimageview:3.0.0'
@@ -51,6 +54,11 @@ dependencies {
     implementation 'com.android.support:palette-v7:28.0.0'
     //蚯蚓TabLayout
 //    implementation 'com.github.hiliving:tablayout-android:1.0.1'
-    implementation 'com.github.qiaoyhh:QTabLayout:1.0'
+//    implementation 'com.github.qiaoyhh:QTabLayout:1.0'
     implementation 'com.github.xiaohaibin:XBanner:1.6.8'
+    implementation 'com.wx.goodview:goodview:1.0.0'
+    implementation 'com.sunbq:iconcountview:1.0.1'
+    implementation 'cn.bingoogolapple:bga-photopicker:1.2.8'
+    implementation 'cn.bingoogolapple:bga-baseadapter:1.2.7'
+
 }

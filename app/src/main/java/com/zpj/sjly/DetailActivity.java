@@ -29,8 +29,8 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.target.SimpleTarget;
 import com.bumptech.glide.request.transition.Transition;
 import com.zpj.sjly.adapter.ImgAdapter;
-import com.zpj.sjly.fragment.AppItem;
-import com.zpj.sjly.fragment.ImgItem;
+import com.zpj.sjly.model.AppItem;
+import com.zpj.sjly.model.ImgItem;
 import com.zpj.sjly.utils.TransportUtil;
 import com.zpj.sjly.utils.ColorHelper;
 
@@ -365,7 +365,7 @@ public class DetailActivity extends AppCompatActivity {
             public void run() {
                 try {
                     Document doc  = Jsoup.connect(app_site)
-                            .userAgent("Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/56.0.2924.87 Safari/537.36")
+//                            .userAgent("Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/56.0.2924.87 Safari/537.36")
                             .ignoreHttpErrors(true)
                             .ignoreContentType(true)
                             .get();

@@ -16,21 +16,19 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.Toast;
 
-import com.example.library.banner.BannerLayout;
-import com.leochuan.CarouselLayoutManager;
+import com.bumptech.glide.Glide;
 import com.mingle.widget.LoadingView;
 import com.stx.xhb.xbanner.XBanner;
 import com.zpj.sjly.DetailActivity;
 import com.zpj.sjly.R;
 import com.zpj.sjly.adapter.AppAdapter;
-import com.zpj.sjly.adapter.BannerAdapter;
-import com.zpj.sjly.listener.LoadMoreListener;
+import com.zpj.sjly.model.AppItem;
+import com.zpj.sjly.utils.ConnectUtil;
 import com.zpj.sjly.utils.TransportUtil;
-import com.zpj.sjly.utils.Util;
+import com.zpj.sjly.view.recyclerview.LoadMoreAdapter;
+import com.zpj.sjly.view.recyclerview.LoadMoreWrapper;
 
-import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
@@ -40,20 +38,27 @@ import java.util.List;
 
 public class RecommendFragment extends BaseFragment {
 
+    private static final String DEFAULT_LIST_URL = "http://tt.shouji.com.cn/androidv3/app_list_xml.jsp?index=1&versioncode=187";
+
     private Handler handler;
     private View view;
     private LinearLayoutManager layoutManager;
     private RecyclerView recyclerView;
     private LoadingView loadingView;
     private List<AppItem> appItemList = new ArrayList<>();
+    private List<AppItem> recommendItemList = new ArrayList<>();
     private AppAdapter appAdapter;
     private SwipeRefreshLayout swipeRefreshLayout;
 
+    private String nextUrl = DEFAULT_LIST_URL;
+
 
 //    AutoPlayRecyclerView banner;
-    BannerLayout banner;
-    private BannerAdapter bannerAdapter;
-    private CarouselLayoutManager carouselLayoutManager;
+//    BannerLayout banner;
+//    private BannerAdapter bannerAdapter;
+//    private CarouselLayoutManager carouselLayoutManager;
+
+    private XBanner mXBanner;
 
     @Nullable
     @Override
@@ -73,31 +78,16 @@ public class RecommendFragment extends BaseFragment {
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                //lazyLoadData();
-                new Thread(new Runnable() {
+                recyclerView.postDelayed(new Runnable() {
                     @Override
                     public void run() {
-                        try {
-                            Thread.sleep(2000);
-                        }catch (Exception e) {
-                            e.printStackTrace();
-                        }
-                        getActivity().runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                Log.d("刷新","-------------------------------------------------------");
-                                appItemList.clear();
-//                                isRefresh = true;
-                                swipeRefreshLayout.setRefreshing(false);
-
-                                //initRecyclerView();
-                                getCoolApkHtml(1);
-
-                            }
-                        });
-
+                        swipeRefreshLayout.setRefreshing(false);
+                        appItemList.clear();
+                        appAdapter.notifyDataSetChanged();
+                        nextUrl = DEFAULT_LIST_URL;
+//                        getCoolApkHtml();
                     }
-                }).start();
+                }, 1000);
             }
         });
 
@@ -136,43 +126,41 @@ public class RecommendFragment extends BaseFragment {
 //                Toast.makeText(getContext(), "点击", Toast.LENGTH_SHORT).show();
             }
         });
-        recyclerView.setAdapter(appAdapter);
-        recyclerView.addOnScrollListener(new LoadMoreListener(layoutManager) {
-            @Override
-            public void onLoadMore(int currentPage) {
-//                if(isRefresh){
-//                    currentPage = 1;
-//                    initParams(20);
-//                }
-//                isRefresh = false;
-//                if (currentPage<totalPager) {
-//                    getCoolApkHtml(currentPage + 1);
-//                    //loadMore(currentPage + 1);
-//                }else{
-//                    Toast.makeText(getContext(), "人家是有底线的。。。", Toast.LENGTH_SHORT).show();
-//                }
-                Toast.makeText(getContext(), "人家是有底线的。。。", Toast.LENGTH_SHORT).show();
-            }
-        });
+        LoadMoreWrapper.with(appAdapter)
+                .setLoadMoreEnabled(true)
+                .setListener(new LoadMoreAdapter.OnLoadMoreListener() {
+                    @Override
+                    public void onLoadMore(LoadMoreAdapter.Enabled enabled) {
+                        recyclerView.postDelayed(new Runnable() {
+                            @Override
+                            public void run() {
+                                getCoolApkHtml();
+                            }
+                        }, 1);
+                    }
+                })
+                .into(recyclerView);
 
 
 
 
-        carouselLayoutManager = new CarouselLayoutManager(getContext(), Util.Dp2px(getContext(), 100));
-        carouselLayoutManager.setItemSpace(Util.Dp2px(getContext(), 80));
-        carouselLayoutManager.setMoveSpeed(0.3f);
-        banner = view.findViewById(R.id.recycler);
-//        banner.setLayoutManager(carouselLayoutManager);
-        bannerAdapter = new BannerAdapter(getContext(), appItemList);
-        banner.setAdapter(bannerAdapter);
+//        carouselLayoutManager = new CarouselLayoutManager(getContext(), Util.Dp2px(getContext(), 100));
+//        carouselLayoutManager.setItemSpace(Util.Dp2px(getContext(), 80));
+//        carouselLayoutManager.setMoveSpeed(0.3f);
+//        banner = view.findViewById(R.id.recycler);
+////        banner.setLayoutManager(carouselLayoutManager);
+//        bannerAdapter = new BannerAdapter(getContext(), appItemList);
+//        banner.setAdapter(bannerAdapter);
 
-        final XBanner mXBanner = view.findViewById(R.id.xbanner);
+        mXBanner = view.findViewById(R.id.xbanner);
 //        mXBanner.setBannerData(imgesUrl);
 
         mXBanner.loadImage(new XBanner.XBannerAdapter() {
             @Override
             public void loadBanner(XBanner banner, Object model, View view, int position) {
-                ((ImageView)(view)).setImageResource(R.mipmap.ic_launcher);
+                AppItem item = (AppItem)model;
+//                ImageView imageView = ((ImageView)(view))
+                Glide.with(view).load(item.getAppIcon()).into((ImageView) view);
             }
         });
 
@@ -182,12 +170,15 @@ public class RecommendFragment extends BaseFragment {
                 if (msg.what == 1){
                     loadingView.setVisibility(View.GONE);
                     appAdapter.notifyDataSetChanged();
-                    bannerAdapter.notifyDataSetChanged();
-                    mXBanner.setData(appItemList, new ArrayList<String>(appItemList.size()));
+//                    bannerAdapter.notifyDataSetChanged();
+
+                } else if (msg.what == 2) {
+                    mXBanner.setData(recommendItemList, new ArrayList<String>(appItemList.size()));
                 }
             }
         };
-        getCoolApkHtml(1);
+//        getCoolApkHtml();
+        getRecommends();
         return view;
     }
 
@@ -198,19 +189,15 @@ public class RecommendFragment extends BaseFragment {
 
     }
 
-    private  void getCoolApkHtml(final int currentPage){
-
+    private  void getCoolApkHtml(){
         new Thread(){
             @Override
             public void run() {
                 try {
-                    Document doc = Jsoup.connect("http://tt.shouji.com.cn/androidv3/app_list_xml.jsp?index=1&versioncode=187")
-                            .userAgent("okhttp/3.0.1")
-                            .header("Accept-Encoding", "gzip")
-//                            .ignoreHttpErrors(true)
-                            .ignoreContentType(true)
-                            .get();
+                    Log.d("getCoolApkHtml", "nextUrl=" + nextUrl);
+                    Document doc = ConnectUtil.getDocument(nextUrl);
 
+                    nextUrl = doc.select("nextUrl").get(0).text();
                     Elements elements = doc.select("item");
                     for (int i = 1; i < elements.size(); i++) {
                         Element item = elements.get(i);
@@ -229,19 +216,74 @@ public class RecommendFragment extends BaseFragment {
                         appItem.setAppComment(item.select("comment").text());
                         appItemList.add(appItem);
                     }
+//                    Message msg = new Message();
+//                    msg.what = 1;
+//                    handler.sendMessage(msg);
+                    recyclerView.postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            loadingView.setVisibility(View.GONE);
+                            appAdapter.notifyDataSetChanged();
+                        }
+                    }, 1);
                 }catch (Exception e) {
                     e.printStackTrace();
                 }
-                //Log.d("CoolApkHtml:", htmlContent);
 
-                //getAppDetail(htmlContent);
-                Message msg = new Message();
-                //msg.obj = currentPage;
-                msg.what = 1;
-                handler.sendMessage(msg);
             }
 
         }.start();
     }
 
+    private void getRecommends() {
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    Document doc = ConnectUtil.getDocument("http://tt.shouji.com.cn/androidv3/app_index_xml.jsp?index=1&versioncode=187");
+
+                    Elements elements = doc.select("item");
+                    for (int i = 1; i < elements.size(); i++) {
+                        Element item = elements.get(i);
+                        AppItem appItem = new AppItem();
+                        appItem.setAppIcon(item.select("icon").text());
+                        appItem.setAppTitle(item.select("title").text());
+                        appItem.setAppId(item.select("id").text());
+                        appItem.setAppViewType(item.select("viewtype").text());
+                        appItem.setAppType(item.select("apptype").text());
+                        appItem.setAppPackage(item.select("package").text());
+                        appItem.setAppArticleNum(item.select("articleNum").text());
+                        appItem.setAppNum(item.select("appNum").text());
+                        appItem.setAppSize(item.select("m").text());
+                        appItem.setAppInfo(item.select("r").text());
+                        appItem.setAppComment(item.select("comment").text());
+                        recommendItemList.add(appItem);
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                mXBanner.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        mXBanner.setData(recommendItemList, new ArrayList<String>(appItemList.size()));
+                    }
+                });
+//                Message msg = new Message();
+//                msg.what = 2;
+//                handler.sendMessage(msg);
+            }
+        }).start();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        mXBanner.startAutoPlay();
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        mXBanner.stopAutoPlay();
+    }
 }

@@ -13,6 +13,7 @@
         app:fillStatusBar="true"
         app:titleBarColor="@color/colorPrimary"
         app:statusBarColor="@color/colorPrimary"
+        app:showBottomLine="false"
         app:statusBarMode="light"
         app:leftType="customView"
         app:leftCustomView="@layout/layout_left"

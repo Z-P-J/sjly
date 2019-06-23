@@ -28,6 +28,11 @@
     app:q_tabIndicatorAnimation="true"
     app:q_tabIndicatorColor="#ffffff"
     app:q_tabIndicatorWidth="0dp"
+    app:q_tabGravity="center"
+    app:q_indicatorMarginTop="1dp"
     app:q_tabSelectedTextColor="#ffffff"
-    app:q_tabTextColor="#80eeeeee"
-    app:q_tabTextSize="18sp" />
+    app:q_tabTextColor="#aaffffff"
+    app:q_selectedTabTextSize="18sp"
+    app:q_unselectedTabTextSize="16sp"
+    app:q_tabTextAppearance="@style/CustomTabLayoutTextAppearance"
+    />

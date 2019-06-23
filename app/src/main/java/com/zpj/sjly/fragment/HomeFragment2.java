@@ -5,17 +5,21 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import com.qyh.qtablayoutlib.ColorChangeView;
 import com.qyh.qtablayoutlib.QTabLayout;
 import com.wuhenzhizao.titlebar.widget.CommonTitleBar;
 import com.zpj.sjly.R;
 import com.zpj.sjly.adapter.PageAdapter;
+import com.zpj.sjly.utils.Util;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class HomeFragment2 extends BaseFragment {
 
@@ -37,16 +41,49 @@ public class HomeFragment2 extends BaseFragment {
 
 
         ArrayList<Fragment> list = new ArrayList<>();
+        list.add(new RecommendFragment());
+        list.add(new ExploreFragment());
+        list.add(new Fragment());
         for (String s : TAB_TITLES) {
-            if (list.isEmpty()) {
-                list.add(new RecommendFragment());
-            } else {
-                list.add(new Fragment());
-            }
             tabLayout.addTab(tabLayout.newTab().setText(s));
         }
+
+        tabLayout.addOnTabSelectedListener(new QTabLayout.OnTabSelectedListener() {
+            @Override
+            public void onTabs(List<QTabLayout.Tab> tabs) {
+//                for (QTabLayout.Tab tab : tabs) {
+//                    View customView = tab.getCustomView();
+//                    if (customView instanceof ColorChangeView) {
+//                        ((ColorChangeView)(customView)).setTextSize(Util.Dp2px(getContext(), 16));
+//                    }
+//                }
+            }
+
+            @Override
+            public void onTabSelected(QTabLayout.Tab tab) {
+                Log.d("OnTabSelectedListener", "onTabSelected");
+                View view = tab.getCustomView();
+                if (view instanceof ColorChangeView) {
+                    ((ColorChangeView)(view)).setTextSize(Util.Dp2px(getContext(), 18));
+                }
+            }
+
+            @Override
+            public void onTabUnselected(QTabLayout.Tab tab) {
+                Log.d("OnTabSelectedListener", "onTabUnselected");
+                View view = tab.getCustomView();
+                if (view instanceof ColorChangeView) {
+                    ((ColorChangeView)(view)).setTextSize(Util.Dp2px(getContext(), 16));
+                }
+            }
+
+            @Override
+            public void onTabReselected(QTabLayout.Tab tab) {
+
+            }
+        });
         PageAdapter adapter = new PageAdapter(getChildFragmentManager(), list, TAB_TITLES);
-        tabLayout.setTabMode(QTabLayout.MODE_FIXED);
+        tabLayout.setTabMode(QTabLayout.MODE_SCROLLABLE);
         ViewPager viewPager = view.findViewById(R.id.view_pager);
         tabLayout.setupWithViewPager(viewPager);
         viewPager.setAdapter(adapter);

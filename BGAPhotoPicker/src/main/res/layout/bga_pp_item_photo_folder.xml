@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/bga_pp_selector_item_folder"
+    android:gravity="center_vertical"
+    android:orientation="horizontal"
+    android:padding="@dimen/bga_pp_size_level2">
+
+    <cn.bingoogolapple.photopicker.widget.BGAImageView
+        android:id="@+id/iv_item_photo_folder_photo"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_marginRight="@dimen/bga_pp_size_level2"
+        android:scaleType="centerCrop"
+        android:src="@mipmap/bga_pp_ic_holder_light" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/tv_item_photo_folder_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:singleLine="true"
+            android:textColor="@color/bga_pp_folder_name_textColor"
+            android:textSize="@dimen/bga_pp_textSize_level2"
+            tools:text="文件夹名称" />
+
+        <TextView
+            android:id="@+id/tv_item_photo_folder_count"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/bga_pp_size_level2"
+            android:ellipsize="end"
+            android:singleLine="true"
+            android:textColor="@color/bga_pp_folder_count_textColor"
+            android:textSize="@dimen/bga_pp_textSize_level1"
+            tools:text="168" />
+    </LinearLayout>
+</LinearLayout>

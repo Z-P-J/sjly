@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!--自定义tablayout-->
+    <declare-styleable name="QTabLayout">
+        <attr name="q_tabIndicatorAnimation" format="boolean" />
+        <attr name="q_tabIndicatorChangeColor" format="boolean" />
+        <attr name="q_tabIndicatorColor" format="color" />
+        <attr name="q_tabIndicatorHeight" format="dimension" />
+        <attr name="q_tabIndicatorWidth" format="dimension" />
+        <attr name="q_tabContentStart" format="dimension" />
+        <attr name="q_tabBackground" format="reference" />
+        <attr name="q_tabMode">
+            <enum name="scrollable" value="0" />
+            <enum name="fixed" value="1" />
+        </attr>
+        <attr name="q_tabGravity">
+            <enum name="fill" value="0" />
+            <enum name="center" value="1" />
+        </attr>
+        <attr name="q_tabMinWidth" format="dimension" />
+        <attr name="q_tabMaxWidth" format="dimension" />
+        <attr name="q_tabTextAppearance" format="reference" />
+        <attr name="q_tabTextColor" format="color" />
+<!--        <attr name="q_tabTextSize" format="dimension" />-->
+        <attr name="q_selectedTabTextSize" format="dimension" />
+        <attr name="q_unselectedTabTextSize" format="dimension" />
+        <attr name="q_tabSelectedTextColor" format="color" />
+        <attr name="q_tabPaddingStart" format="dimension" />
+        <attr name="q_tabPaddingTop" format="dimension" />
+        <attr name="q_tabPaddingEnd" format="dimension" />
+        <attr name="q_tabPaddingBottom" format="dimension" />
+        <attr name="q_tabPadding" format="dimension" />
+        <attr name="q_indicatorMarginTop" format="dimension" />
+    </declare-styleable>
+
+    <declare-styleable name="QTabItem">
+        <attr name="android:text" />
+        <attr name="android:icon" />
+        <attr name="android:layout" />
+    </declare-styleable>
+
+    <declare-styleable name="ColorChangeView">
+        <attr name="ctvText" format="string" />
+        <attr name="ctvText_size" format="dimension" />
+        <attr name="ctvText_origin_color" format="color" />
+        <attr name="ctvText_change_color" format="color" />
+        <attr name="ctvProgress" format="float" />
+        <attr name="ctvDirection" format="integer" />
+    </declare-styleable>
+</resources>

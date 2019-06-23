@@ -2,4 +2,7 @@ include ':app',
         ':easynavigation',
         ':imagebrowserlibrary',
         ':titlebar',
-        ':bannerlayout'
+        ':bannerlayout',
+        ':qtablayoutlib',
+        ':BGABaseAdapter',
+        ':BGAPhotoPicker'

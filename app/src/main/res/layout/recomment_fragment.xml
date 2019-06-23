@@ -45,7 +45,7 @@
                         xmlns:app="http://schemas.android.com/apk/res-auto"
                         android:id="@+id/xbanner"
                         android:layout_width="match_parent"
-                        android:layout_height="240dp"
+                        android:layout_height="233dp"
                         app:AutoPlayTime="3000"
                         app:pointsContainerBackground="#44aaaaaa"
                         app:pointsPosition="RIGHT"
@@ -113,7 +113,7 @@
                             android:drawablePadding="6dp"
                             android:focusable="true"
                             android:gravity="center"
-                            android:text="我的收藏"
+                            android:text="精选"
                             android:textColor="#222222"
                             android:textSize="12sp" />
 
@@ -171,7 +171,8 @@
                 app:q_tabIndicatorWidth="20dp"
                 app:q_tabSelectedTextColor="#ffffff"
                 app:q_tabTextColor="#80eeeeee"
-                app:q_tabTextSize="18sp" />
+                app:q_selectedTabTextSize="18sp"
+                />
 
         </android.support.design.widget.AppBarLayout>
 

@@ -18,6 +18,7 @@ import android.widget.Toast;
 import com.zpj.sjly.R;
 import com.zpj.sjly.adapter.QianQianAdapter;
 import com.zpj.sjly.listener.LoadMoreListener;
+import com.zpj.sjly.model.QianQianItem;
 import com.zpj.sjly.utils.UIHelper;
 
 import org.jsoup.Jsoup;
