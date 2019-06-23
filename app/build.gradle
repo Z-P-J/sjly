@@ -58,7 +58,7 @@ dependencies {
     implementation 'com.github.xiaohaibin:XBanner:1.6.8'
     implementation 'com.wx.goodview:goodview:1.0.0'
     implementation 'com.sunbq:iconcountview:1.0.1'
-    implementation 'cn.bingoogolapple:bga-photopicker:1.2.8'
-    implementation 'cn.bingoogolapple:bga-baseadapter:1.2.7'
+//    implementation 'cn.bingoogolapple:bga-photopicker:1.2.8'
+//    implementation 'cn.bingoogolapple:bga-baseadapter:1.2.7'
 
 }

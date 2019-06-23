@@ -20,7 +20,7 @@ import com.next.easynavigation.constant.Anim;
 import com.next.easynavigation.utils.NavigationUtil;
 import com.next.easynavigation.view.EasyNavigationBar;
 import com.zpj.sjly.fragment.AppChinaFragment;
-import com.zpj.sjly.fragment.HomeFragment2;
+import com.zpj.sjly.fragment.HomeFragment;
 import com.zpj.sjly.fragment.QianQianFragment;
 import com.zpj.sjly.fragment.XinHaiFragment;
 import com.zpj.sjly.view.KickBackAnimator;
@@ -55,7 +55,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         navigationBar = findViewById(R.id.navigationBar);
-        fragments.add(new HomeFragment2());
+        fragments.add(new HomeFragment());
         fragments.add(new QianQianFragment());
         fragments.add(new XinHaiFragment());
         fragments.add(new AppChinaFragment());

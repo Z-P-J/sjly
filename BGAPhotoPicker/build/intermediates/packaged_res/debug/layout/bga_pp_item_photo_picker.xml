@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/bga_pp_photo_item_bg">
+
+    <cn.bingoogolapple.photopicker.widget.BGAImageView
+        android:id="@+id/iv_item_photo_picker_photo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:scaleType="centerCrop"
+        app:bga_iv_square="true"
+        tools:src="@mipmap/bga_pp_ic_holder_dark" />
+
+    <ImageView
+        android:id="@+id/iv_item_photo_picker_flag"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:clickable="true"
+        android:paddingBottom="@dimen/bga_pp_size_level2"
+        android:paddingLeft="@dimen/bga_pp_size_level2"
+        android:paddingRight="@dimen/bga_pp_size_level1"
+        android:paddingTop="@dimen/bga_pp_size_level1"
+        android:src="@mipmap/bga_pp_ic_cb_normal" />
+
+</RelativeLayout>

@@ -47,6 +47,8 @@ public class ExploreFragment extends BaseFragment {
 
     private String nextUrl = DEFAULT_LIST_URL;
 
+    private boolean isInit;
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -64,12 +66,31 @@ public class ExploreFragment extends BaseFragment {
                 }
             }
         };
+        isInit = true;
         return view;
     }
 
 
     @Override
     public void lazyLoadData() {
+        if (isInit && isVisible) {
+            Toast.makeText(getContext(), "lazyLoadData", Toast.LENGTH_SHORT).show();
+            LoadMoreWrapper.with(exploreAdapter)
+                    .setLoadMoreEnabled(true)
+                    .setListener(new LoadMoreAdapter.OnLoadMoreListener() {
+                        @Override
+                        public void onLoadMore(LoadMoreAdapter.Enabled enabled) {
+                            recyclerView.postDelayed(new Runnable() {
+                                @Override
+                                public void run() {
+                                    getExploreData();
+                                }
+                            }, 1);
+                        }
+                    })
+                    .into(recyclerView);
+            isInit = false;
+        }
 
     }
 
@@ -110,20 +131,6 @@ public class ExploreFragment extends BaseFragment {
                 Toast.makeText(getContext(), "onItemClick", Toast.LENGTH_SHORT).show();
             }
         });
-        LoadMoreWrapper.with(exploreAdapter)
-                .setLoadMoreEnabled(true)
-                .setListener(new LoadMoreAdapter.OnLoadMoreListener() {
-                    @Override
-                    public void onLoadMore(LoadMoreAdapter.Enabled enabled) {
-                        recyclerView.postDelayed(new Runnable() {
-                            @Override
-                            public void run() {
-                                getExploreData();
-                            }
-                        }, 1);
-                    }
-                })
-                .into(recyclerView);
     }
 
     private void getExploreData() {
@@ -177,7 +184,7 @@ public class ExploreFragment extends BaseFragment {
                                 exploreItem.setAppSize(item.select("apksize").get(0).text());
                             }
                         } else if ("reply".equals(type)) {
-                            String toNickName  = item.select("tonickname").get(0).text();
+                            String toNickName = item.select("tonickname").get(0).text();
                             exploreItem.setToNickName(toNickName);
 //                            if (!TextUtils.isEmpty(toNickName)) {
 //

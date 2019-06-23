@@ -11,7 +11,7 @@ public class AppChinaItem {
     private String app_type;
     private String app_result;
 
-    AppChinaItem(String app_url, String app_img_url, String app_name, String app_count, String app_update_time, String app_introduce, String app_type, String app_result){
+    public AppChinaItem(String app_url, String app_img_url, String app_name, String app_count, String app_update_time, String app_introduce, String app_type, String app_result){
         this.app_url = app_url;
         this.app_img_url = app_img_url;
         this.app_name = app_name;

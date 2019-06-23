@@ -1,0 +1,30 @@
+[
+    {
+        "merged": "D:\\Programming\\AndroidProjects\\sjly\\BGAPhotoPicker\\build\\intermediates\\res\\merged\\debug\\drawable\\bga_pp_shape_photo_folder_pw_bg.xml",
+        "source": "D:\\Programming\\AndroidProjects\\sjly\\BGAPhotoPicker\\src\\main\\res\\drawable\\bga_pp_shape_photo_folder_pw_bg.xml"
+    },
+    {
+        "merged": "D:\\Programming\\AndroidProjects\\sjly\\BGAPhotoPicker\\build\\intermediates\\res\\merged\\debug\\drawable\\bga_baseadapter_divider_shape.xml",
+        "source": "D:\\Programming\\AndroidProjects\\sjly\\BGABaseAdapter\\build\\intermediates\\packaged_res\\debug\\drawable\\bga_baseadapter_divider_shape.xml"
+    },
+    {
+        "merged": "D:\\Programming\\AndroidProjects\\sjly\\BGAPhotoPicker\\build\\intermediates\\res\\merged\\debug\\drawable\\bga_pp_selector_item_folder.xml",
+        "source": "D:\\Programming\\AndroidProjects\\sjly\\BGAPhotoPicker\\src\\main\\res\\drawable\\bga_pp_selector_item_folder.xml"
+    },
+    {
+        "merged": "D:\\Programming\\AndroidProjects\\sjly\\BGAPhotoPicker\\build\\intermediates\\res\\merged\\debug\\drawable\\bga_pp_selector_btn_confirm.xml",
+        "source": "D:\\Programming\\AndroidProjects\\sjly\\BGAPhotoPicker\\src\\main\\res\\drawable\\bga_pp_selector_btn_confirm.xml"
+    },
+    {
+        "merged": "D:\\Programming\\AndroidProjects\\sjly\\BGAPhotoPicker\\build\\intermediates\\res\\merged\\debug\\drawable\\bga_baseadapter_white_gray.xml",
+        "source": "D:\\Programming\\AndroidProjects\\sjly\\BGABaseAdapter\\build\\intermediates\\packaged_res\\debug\\drawable\\bga_baseadapter_white_gray.xml"
+    },
+    {
+        "merged": "D:\\Programming\\AndroidProjects\\sjly\\BGAPhotoPicker\\build\\intermediates\\res\\merged\\debug\\drawable\\bga_pp_shape_dialog_bg.xml",
+        "source": "D:\\Programming\\AndroidProjects\\sjly\\BGAPhotoPicker\\src\\main\\res\\drawable\\bga_pp_shape_dialog_bg.xml"
+    },
+    {
+        "merged": "D:\\Programming\\AndroidProjects\\sjly\\BGAPhotoPicker\\build\\intermediates\\res\\merged\\debug\\drawable\\bga_pp_rotate_progress_bar.xml",
+        "source": "D:\\Programming\\AndroidProjects\\sjly\\BGAPhotoPicker\\src\\main\\res\\drawable\\bga_pp_rotate_progress_bar.xml"
+    }
+]

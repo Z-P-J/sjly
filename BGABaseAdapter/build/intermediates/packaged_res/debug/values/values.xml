@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="bga_adapter_divider">#DEDEDE</color>
+    <color name="bga_adapter_empty_view_msg_textColor">#333333</color>
+    <color name="bga_adapter_item_pressed">#EFEFEF</color>
+    <color name="bga_adapter_line">#DEDEDE</color>
+    <dimen name="bga_adapter_divider_size">1px</dimen>
+    <dimen name="bga_adapter_empty_view_icon_size">100dp</dimen>
+    <dimen name="bga_adapter_empty_view_msg_textSize">16sp</dimen>
+    <dimen name="bga_adapter_empty_view_space">16sp</dimen>
+    <dimen name="bga_adapter_horizontal_margin">16dp</dimen>
+    <dimen name="bga_adapter_line_size">1px</dimen>
+    <dimen name="bga_adapter_vertical_margin">8dp</dimen>
+    <dimen name="size_level1">4dp</dimen>
+    <dimen name="size_level10">40dp</dimen>
+    <dimen name="size_level11">44dp</dimen>
+    <dimen name="size_level12">48dp</dimen>
+    <dimen name="size_level13">52dp</dimen>
+    <dimen name="size_level14">56dp</dimen>
+    <dimen name="size_level15">60dp</dimen>
+    <dimen name="size_level16">64dp</dimen>
+    <dimen name="size_level17">68dp</dimen>
+    <dimen name="size_level18">72dp</dimen>
+    <dimen name="size_level19">76dp</dimen>
+    <dimen name="size_level2">8dp</dimen>
+    <dimen name="size_level20">80dp</dimen>
+    <dimen name="size_level21">84dp</dimen>
+    <dimen name="size_level22">88dp</dimen>
+    <dimen name="size_level23">92dp</dimen>
+    <dimen name="size_level24">96dp</dimen>
+    <dimen name="size_level25">100dp</dimen>
+    <dimen name="size_level3">12dp</dimen>
+    <dimen name="size_level4">16dp</dimen>
+    <dimen name="size_level5">20dp</dimen>
+    <dimen name="size_level6">24dp</dimen>
+    <dimen name="size_level7">28dp</dimen>
+    <dimen name="size_level8">32dp</dimen>
+    <dimen name="size_level9">36dp</dimen>
+    <dimen name="textSize_10">10sp</dimen>
+    <dimen name="textSize_12">12sp</dimen>
+    <dimen name="textSize_14">14sp</dimen>
+    <dimen name="textSize_16">16sp</dimen>
+    <dimen name="textSize_18">18sp</dimen>
+    <dimen name="textSize_20">20sp</dimen>
+    <dimen name="textSize_22">22sp</dimen>
+    <dimen name="textSize_24">24sp</dimen>
+    <style name="AutoMatch">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:layout_height">match_parent</item>
+    </style>
+    <style name="AutoMatch.Horizontal">
+        <item name="android:orientation">horizontal</item>
+    </style>
+    <style name="AutoMatch.Vertical">
+        <item name="android:orientation">vertical</item>
+    </style>
+    <style name="AutoWrap">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+    <style name="AutoWrap.Horizontal">
+        <item name="android:orientation">horizontal</item>
+    </style>
+    <style name="AutoWrap.Vertical">
+        <item name="android:orientation">vertical</item>
+    </style>
+    <style name="HLine" parent="MatchOne">
+        <item name="android:background">@color/bga_adapter_line</item>
+    </style>
+    <style name="HLine.BothMargin">
+        <item name="android:layout_marginRight">@dimen/bga_adapter_horizontal_margin</item>
+        <item name="android:layout_marginLeft">@dimen/bga_adapter_horizontal_margin</item>
+    </style>
+    <style name="HLine.LeftMargin">
+        <item name="android:layout_marginLeft">@dimen/bga_adapter_horizontal_margin</item>
+    </style>
+    <style name="HLine.RightMargin">
+        <item name="android:layout_marginRight">@dimen/bga_adapter_horizontal_margin</item>
+    </style>
+    <style name="MatchAuto">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:layout_height">0dp</item>
+    </style>
+    <style name="MatchAuto.Horizontal">
+        <item name="android:orientation">horizontal</item>
+    </style>
+    <style name="MatchAuto.Vertical">
+        <item name="android:orientation">vertical</item>
+    </style>
+    <style name="MatchMatch">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">match_parent</item>
+    </style>
+    <style name="MatchMatch.Horizontal">
+        <item name="android:orientation">horizontal</item>
+    </style>
+    <style name="MatchMatch.Vertical">
+        <item name="android:orientation">vertical</item>
+    </style>
+    <style name="MatchOne">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">@dimen/bga_adapter_line_size</item>
+    </style>
+    <style name="MatchWrap">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+    <style name="MatchWrap.Horizontal">
+        <item name="android:orientation">horizontal</item>
+    </style>
+    <style name="MatchWrap.Vertical">
+        <item name="android:orientation">vertical</item>
+    </style>
+    <style name="OneMatch">
+        <item name="android:layout_width">@dimen/bga_adapter_line_size</item>
+        <item name="android:layout_height">match_parent</item>
+    </style>
+    <style name="VLine" parent="OneMatch">
+        <item name="android:background">@color/bga_adapter_line</item>
+    </style>
+    <style name="VLine.BothMargin">
+        <item name="android:layout_marginTop">@dimen/bga_adapter_vertical_margin</item>
+        <item name="android:layout_marginBottom">@dimen/bga_adapter_vertical_margin</item>
+    </style>
+    <style name="VLine.BottomMargin">
+        <item name="android:layout_marginBottom">@dimen/bga_adapter_vertical_margin</item>
+    </style>
+    <style name="VLine.TopMargin">
+        <item name="android:layout_marginTop">@dimen/bga_adapter_vertical_margin</item>
+    </style>
+    <style name="WrapAuto">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:layout_height">0dp</item>
+    </style>
+    <style name="WrapAuto.Horizontal">
+        <item name="android:orientation">horizontal</item>
+    </style>
+    <style name="WrapAuto.Vertical">
+        <item name="android:orientation">vertical</item>
+    </style>
+    <style name="WrapMatch">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">match_parent</item>
+    </style>
+    <style name="WrapMatch.Horizontal">
+        <item name="android:orientation">horizontal</item>
+    </style>
+    <style name="WrapMatch.Vertical">
+        <item name="android:orientation">vertical</item>
+    </style>
+    <style name="WrapWrap">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+    <style name="WrapWrap.Horizontal">
+        <item name="android:orientation">horizontal</item>
+    </style>
+    <style name="WrapWrap.Vertical">
+        <item name="android:orientation">vertical</item>
+    </style>
+</resources>

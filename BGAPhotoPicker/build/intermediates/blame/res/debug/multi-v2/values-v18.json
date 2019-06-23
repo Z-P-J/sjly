@@ -1,0 +1,34 @@
+{
+    "logs": [
+        {
+            "outputFile": "D:\\Programming\\AndroidProjects\\sjly\\BGAPhotoPicker\\build\\intermediates\\res\\merged\\debug\\values-v18\\values-v18.xml",
+            "map": [
+                {
+                    "source": "C:\\Users\\Z-P-J\\.gradle\\caches\\transforms-2\\files-2.1\\d0145492313c0c728cdfa54e6431500b\\appcompat-v7-28.0.0\\res\\values-v18\\values-v18.xml",
+                    "from": {
+                        "startLines": "2",
+                        "startColumns": "4",
+                        "startOffsets": "55",
+                        "endColumns": "48",
+                        "endOffsets": "99"
+                    }
+                }
+            ]
+        },
+        {
+            "outputFile": "D:\\Programming\\AndroidProjects\\sjly\\BGAPhotoPicker\\build\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values-v18\\values-v18.xml",
+            "map": [
+                {
+                    "source": "C:\\Users\\Z-P-J\\.gradle\\caches\\transforms-2\\files-2.1\\d0145492313c0c728cdfa54e6431500b\\appcompat-v7-28.0.0\\res\\values-v18\\values-v18.xml",
+                    "from": {
+                        "startLines": "2",
+                        "startColumns": "4",
+                        "startOffsets": "55",
+                        "endColumns": "48",
+                        "endOffsets": "99"
+                    }
+                }
+            ]
+        }
+    ]
+}
