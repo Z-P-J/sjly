@@ -16,7 +16,7 @@
 
         <LinearLayout
             android:orientation="vertical"
-            android:layout_width="wrap_content"
+            android:layout_width="36dp"
             android:layout_height="wrap_content">
 
             <de.hdodenhof.circleimageview.CircleImageView
@@ -27,15 +27,6 @@
                 app:civ_border_width="1dp"
                 app:civ_border_color="#80cccccc"
                 android:layout_gravity="center_vertical"
-                />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:layout_gravity="center_horizontal"
-                android:text="MI 5s"
-                android:textSize="12sp"
                 />
 
         </LinearLayout>
@@ -86,16 +77,38 @@
 
                     </LinearLayout>
 
-                    <TextView
-                        android:id="@+id/text_info"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:gravity="center_vertical"
-                        android:layout_gravity="bottom"
-                        android:maxLines="2"
-                        android:ellipsize="end"
-                        android:text="文件夹"
-                        android:textSize="12sp"/>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <TextView
+                            android:id="@+id/text_info"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:gravity="center_vertical"
+                            android:layout_gravity="bottom"
+                            android:maxLines="1"
+                            android:ellipsize="end"
+                            android:text="文件夹"
+                            android:textSize="12sp"/>
+
+                        <TextView
+                            android:id="@+id/phone_type"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:gravity="center_vertical"
+                            android:layout_gravity="bottom"
+                            android:text="发布于MI 5s"
+                            android:textSize="12sp"
+                            android:maxLines="1"
+                            android:ellipsize="end"
+                            android:paddingStart="10dp"
+                            android:paddingEnd="10dp"
+                            />
+
+                    </LinearLayout>
+
+
 
                 </LinearLayout>
 
@@ -166,6 +179,8 @@
                 android:id="@+id/layout_photo"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                app:bga_npl_itemCornerRadius="4dp"
                 />
 
             <LinearLayout
@@ -241,30 +256,46 @@
 
                         </LinearLayout>
 
-                        <android.support.v7.widget.CardView
+                        <com.deadline.statebutton.StateButton
                             android:id="@+id/btn_download"
-                            android:layout_width="wrap_content"
-                            android:layout_height="match_parent"
-                            app:cardBackgroundColor="@color/colorPrimary"
-                            app:cardUseCompatPadding="true"
-                            app:contentPaddingLeft="10dp"
-                            app:contentPaddingRight="10dp"
-                            app:contentPaddingTop="3dp"
-                            app:contentPaddingBottom="3dp"
-                            app:cardCornerRadius="12dp"
+                            android:layout_width="48dp"
+                            android:layout_height="20dp"
+                            android:background="@color/colorPrimary"
+                            app:normalBackgroundColor="#8024aa42"
+                            app:round="true"
+                            android:text="下载"
+                            android:textColor="#ffffff"
+                            app:pressedBackgroundColor=""
                             android:layout_alignParentEnd="true"
-                            >
+                            android:layout_centerVertical="true"
+                            android:layout_marginEnd="10dp"
+                            android:textSize="12sp"
+                            />
 
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_gravity="center"
-                                android:text="下载"
-                                android:textSize="12sp"
-                                android:textColor="#ffffff"
-                                />
+<!--                        <android.support.v7.widget.CardView-->
+<!--                            android:id="@+id/btn_download"-->
+<!--                            android:layout_width="wrap_content"-->
+<!--                            android:layout_height="match_parent"-->
+<!--                            app:cardBackgroundColor="@color/colorPrimary"-->
+<!--                            app:cardUseCompatPadding="true"-->
+<!--                            app:contentPaddingLeft="10dp"-->
+<!--                            app:contentPaddingRight="10dp"-->
+<!--                            app:contentPaddingTop="3dp"-->
+<!--                            app:contentPaddingBottom="3dp"-->
+<!--                            app:cardCornerRadius="12dp"-->
+<!--                            android:layout_alignParentEnd="true"-->
+<!--                            >-->
 
-                        </android.support.v7.widget.CardView>
+<!--                            <TextView-->
+<!--                                android:layout_width="wrap_content"-->
+<!--                                android:layout_height="wrap_content"-->
+<!--                                android:layout_gravity="center"-->
+<!--                                android:text="下载"-->
+<!--                                android:textSize="12sp"-->
+<!--                                android:textColor="#ffffff"-->
+<!--                                />-->
+
+<!--                        </android.support.v7.widget.CardView>-->
 
                     </RelativeLayout>
 

@@ -69,8 +69,8 @@ public class QTabLayout extends HorizontalScrollView {
     static final int DEFAULT_GAP_TEXT_ICON = 8; // dps
     private static final int INVALID_WIDTH = -1;
     private static final int DEFAULT_HEIGHT = 48; // dps
-    private static final int TAB_MIN_WIDTH_MARGIN = 56; //dps
-    static final int FIXED_WRAP_GUTTER_MIN = 16; //dps
+    private static final int TAB_MIN_WIDTH_MARGIN = 48; //dps
+    static final int FIXED_WRAP_GUTTER_MIN = 8; //16dps
     static final int MOTION_NON_ADJACENT_OFFSET = 0;
 
     private static final int ANIMATION_DURATION = 300;
@@ -248,6 +248,8 @@ public class QTabLayout extends HorizontalScrollView {
 
         mTabPaddingStart = mTabPaddingTop = mTabPaddingEnd = mTabPaddingBottom = a
                 .getDimensionPixelSize(R.styleable.QTabLayout_q_tabPadding, 0);
+        Log.d("QTabLayout", "mTabPaddingStart=" + mTabPaddingStart);
+        Log.d("QTabLayout", "mTabPaddingEnd=" + mTabPaddingEnd);
         mTabPaddingStart = a.getDimensionPixelSize(R.styleable.QTabLayout_q_tabPaddingStart,
                 mTabPaddingStart);
         mTabPaddingTop = a.getDimensionPixelSize(R.styleable.QTabLayout_q_tabPaddingTop,
@@ -256,6 +258,9 @@ public class QTabLayout extends HorizontalScrollView {
                 mTabPaddingEnd);
         mTabPaddingBottom = a.getDimensionPixelSize(R.styleable.QTabLayout_q_tabPaddingBottom,
                 mTabPaddingBottom);
+
+        Log.d("QTabLayout", "mTabPaddingStart2=" + mTabPaddingStart);
+        Log.d("QTabLayout", "mTabPaddingEnd2=" + mTabPaddingEnd);
 
         mTabTextAppearance = a.getResourceId(R.styleable.QTabLayout_q_tabTextAppearance,
                 R.style.TextAppearance_Design_Tab);
@@ -1210,6 +1215,7 @@ public class QTabLayout extends HorizontalScrollView {
             // If we're scrollable, or fixed at start, inset using padding
             paddingStart = Math.max(0, mContentInsetStart - mTabPaddingStart);
         }
+        Log.d("paddingStart=", "paddingStart=" + paddingStart);
         ViewCompat.setPaddingRelative(mTabStrip, paddingStart, 0, 0, 0);
 
         switch (mMode) {
@@ -1534,6 +1540,8 @@ public class QTabLayout extends HorizontalScrollView {
                 ViewCompat.setBackground(
                         this, AppCompatResources.getDrawable(context, mTabBackgroundResId));
             }
+            Log.d("mTabPaddingStart", "mTabPaddingStart=" + mTabPaddingStart);
+            Log.d("mTabPaddingEnd", "mTabPaddingEnd=" + mTabPaddingEnd);
             ViewCompat.setPaddingRelative(this, mTabPaddingStart, mTabPaddingTop,
                     mTabPaddingEnd, mTabPaddingBottom);
             setGravity(Gravity.CENTER);

@@ -156,6 +156,7 @@ public class ExploreFragment extends BaseFragment {
                         exploreItem.setNickName(item.select("nickname").get(0).text());
                         exploreItem.setTime(item.select("time").get(0).text());
                         exploreItem.setContent(item.select("content").get(0).text());
+                        exploreItem.setPhone(item.select("phone").get(0).text());
 
                         Elements pics = item.select("pics");
                         Elements spics = item.select("spics");
