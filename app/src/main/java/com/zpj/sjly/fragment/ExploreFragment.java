@@ -40,7 +40,7 @@ public class ExploreFragment extends BaseFragment {
     private View view;
     private LinearLayoutManager layoutManager;
     private RecyclerView recyclerView;
-    private LoadingView loadingView;
+//    private LoadingView loadingView;
     private List<ExploreItem> exploreItems = new ArrayList<>();
     private ExploreAdapter exploreAdapter;
     private SwipeRefreshLayout swipeRefreshLayout;
@@ -61,7 +61,7 @@ public class ExploreFragment extends BaseFragment {
             @Override
             public void handleMessage(Message msg) {
                 if (msg.what == 1) {
-                    loadingView.setVisibility(View.GONE);
+//                    loadingView.setVisibility(View.GONE);
                     exploreAdapter.notifyDataSetChanged();
                 }
             }
@@ -98,9 +98,9 @@ public class ExploreFragment extends BaseFragment {
         recyclerView = view.findViewById(R.id.recycler_view);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
 
-        loadingView = view.findViewById(R.id.load_view);
-        loadingView.setVisibility(View.VISIBLE);
-        loadingView.setLoadingText("正在加载，请稍后……");
+//        loadingView = view.findViewById(R.id.load_view);
+//        loadingView.setVisibility(View.VISIBLE);
+//        loadingView.setLoadingText("正在加载，请稍后……");
 
         swipeRefreshLayout = view.findViewById(R.id.swipe_refresh);
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
@@ -179,8 +179,19 @@ public class ExploreFragment extends BaseFragment {
                                 exploreItem.setAppName(appNames.get(0).text());
                                 exploreItem.setAppPackageName(item.select("apppackagename").get(0).text());
                                 exploreItem.setAppIcon(item.select("appicon").get(0).text());
+//                                Elements isApkExistElements = item.select("isApkExist");
+//                                if (isApkExistElements.isEmpty()) {
+//                                    exploreItem.setApkExist(false);
+//                                } else {
+//                                    exploreItem.setApkExist("1".equals(isApkExistElements.get(0).text()));
+//                                }
                                 exploreItem.setApkExist("1".equals(item.select("isApkExist").get(0).text()));
+
                                 exploreItem.setAppUrl(item.select("appurl").get(0).text());
+//                                Elements apkUrlElements = item.select("apkurl");
+//                                exploreItem.setApkUrl(apkUrlElements.isEmpty() ? null : item.select("apkurl").get(0).text());
+//                                Elements apkSizeElements = item.select("apksize");
+//                                exploreItem.setAppSize(apkSizeElements.isEmpty() ? null : apkSizeElements.get(0).text());
                                 exploreItem.setApkUrl(item.select("apkurl").get(0).text());
                                 exploreItem.setAppSize(item.select("apksize").get(0).text());
                             }
@@ -212,7 +223,7 @@ public class ExploreFragment extends BaseFragment {
                     recyclerView.postDelayed(new Runnable() {
                         @Override
                         public void run() {
-                            loadingView.setVisibility(View.GONE);
+//                            loadingView.setVisibility(View.GONE);
                             exploreAdapter.notifyDataSetChanged();
                         }
                     }, 1);

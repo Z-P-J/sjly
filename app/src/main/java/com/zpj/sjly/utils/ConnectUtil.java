@@ -19,6 +19,7 @@ public final class ConnectUtil {
         return Jsoup.connect(url)
                 .userAgent(USER_AGENT)
                 .header(HEADER_ACCEPT_ENCODING, VALUE_ACCEPT_ENCODING)
+                .header("referer", url)
                 .ignoreContentType(true)
                 .get();
     }
