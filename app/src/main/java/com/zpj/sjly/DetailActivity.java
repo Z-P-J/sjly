@@ -29,8 +29,8 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.target.SimpleTarget;
 import com.bumptech.glide.request.transition.Transition;
 import com.zpj.sjly.adapter.ImgAdapter;
-import com.zpj.sjly.model.AppItem;
-import com.zpj.sjly.model.ImgItem;
+import com.zpj.sjly.bean.AppItem;
+import com.zpj.sjly.bean.ImgItem;
 import com.zpj.sjly.utils.TransportUtil;
 import com.zpj.sjly.utils.ColorHelper;
 

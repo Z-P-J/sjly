@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:icon="@drawable/ic_build_green_24dp"
+        android:title="复制内容">
+    </item>
+
+    <item
+        android:id="@+id/nav_recycle"
+        android:icon="@drawable/ic_comment_grey_24dp"
+        android:title="分享">
+
+    </item>
+
+    <item
+        android:icon="@drawable/ic_star_border_grey_24dp"
+        android:title="收藏">
+    </item>
+
+    <item
+        android:icon="@drawable/ic_more_vert_grey_24dp"
+        android:title="删除"
+        />
+
+    <item
+        android:id="@+id/nav_new_folder"
+        android:icon="@drawable/ic_thumb_up_grey_24dp"
+        android:title="举报">
+    </item>
+
+    <item
+        android:icon="@drawable/ic_move_to_inbox_black_24dp"
+        android:title="加入黑名单">
+    </item>
+
+</menu>

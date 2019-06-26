@@ -2,7 +2,7 @@ package com.zpj.sjly.utils;
 
 import android.graphics.Bitmap;
 
-import com.zpj.sjly.model.AppItem;
+import com.zpj.sjly.bean.AppItem;
 
 public class TransportUtil {
 

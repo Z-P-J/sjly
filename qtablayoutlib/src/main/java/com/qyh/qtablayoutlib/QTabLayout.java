@@ -1171,12 +1171,20 @@ public class QTabLayout extends HorizontalScrollView {
     }
 
     private void dispatchTabSelected(@NonNull final Tab tab) {
+        View customView = tab.getCustomView();
+        if (customView instanceof ColorChangeView) {
+            ((ColorChangeView)(customView)).setTextSize((int) mSelectedTabTextSize);
+        }
         for (int i = mSelectedListeners.size() - 1; i >= 0; i--) {
             mSelectedListeners.get(i).onTabSelected(tab);
         }
     }
 
     private void dispatchTabUnselected(@NonNull final Tab tab) {
+        View customView = tab.getCustomView();
+        if (customView instanceof ColorChangeView) {
+            ((ColorChangeView)(customView)).setTextSize((int) mUnselectedTabTextSize);
+        }
         for (int i = mSelectedListeners.size() - 1; i >= 0; i--) {
             mSelectedListeners.get(i).onTabUnselected(tab);
         }

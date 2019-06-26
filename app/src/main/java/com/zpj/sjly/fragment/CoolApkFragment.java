@@ -22,7 +22,7 @@ import com.zpj.sjly.DetailActivity;
 import com.zpj.sjly.R;
 import com.zpj.sjly.adapter.CoolApkAdapter;
 import com.zpj.sjly.listener.LoadMoreListener;
-import com.zpj.sjly.model.CoolApkItem;
+import com.zpj.sjly.bean.CoolApkItem;
 import com.zpj.sjly.utils.UIHelper;
 
 import org.jsoup.Jsoup;
@@ -64,7 +64,7 @@ public class CoolApkFragment extends BaseFragment {
 
     @Nullable
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+    public View onBuildView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         //sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getContext());
         //editor = sharedPreferences.edit();
         UIHelper.showDialogForLoading(getContext(),"正在加载。。。");

@@ -18,7 +18,7 @@ import com.zpj.sjly.R;
 
 import com.zpj.sjly.adapter.XinHaiAdapter;
 import com.zpj.sjly.listener.LoadMoreListener;
-import com.zpj.sjly.model.XinHaiItem;
+import com.zpj.sjly.bean.XinHaiItem;
 import com.zpj.sjly.utils.UIHelper;
 
 import org.jsoup.Jsoup;
@@ -46,7 +46,7 @@ public class XinHaiFragment extends BaseFragment{
 
     @Nullable
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+    public View onBuildView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.xinhai_fragment,null);
         isInit = true;
         recyclerView = (RecyclerView)view.findViewById(R.id.xinhai_recyclerview);

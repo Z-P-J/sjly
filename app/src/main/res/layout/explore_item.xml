@@ -29,6 +29,20 @@
                 android:layout_gravity="center_vertical"
                 />
 
+            <TextView
+                android:id="@+id/text_state"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Lv.0"
+                android:textSize="10sp"
+                android:gravity="center"
+                android:background="#fcee81"
+                android:textColor="@color/colorPrimary"
+                android:padding="2dp"
+                android:textStyle="bold"
+                android:layout_gravity="center_horizontal"
+                />
+
         </LinearLayout>
 
         <LinearLayout
@@ -68,11 +82,12 @@
                             />
 
                         <TextView
+                            android:id="@+id/share_info"
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
                             android:gravity="center_vertical"
                             android:layout_marginStart="4dp"
-                            android:text="分享应用:"
+                            android:text="分享动态:"
                             />
 
                     </LinearLayout>
@@ -98,7 +113,7 @@
                             android:layout_height="wrap_content"
                             android:gravity="center_vertical"
                             android:layout_gravity="bottom"
-                            android:text="发布于MI 5s"
+                            android:text="来自 MI 5s"
                             android:textSize="12sp"
                             android:maxLines="1"
                             android:ellipsize="end"
@@ -123,7 +138,9 @@
                     app:textSelectedColor="#d4237a"
                     app:textSize="12sp"
                     app:normalRes="@drawable/collection"
-                    app:selectedRes="@drawable/collection_checked"/>
+                    app:selectedRes="@drawable/collection_checked"
+                    android:visibility="gone"
+                    />
 
                 <com.sunbinqiang.iconcountview.IconCountView
                     android:id="@+id/support_view"
@@ -137,6 +154,15 @@
                     app:textSize="12sp"
                     app:normalRes="@drawable/good"
                     app:selectedRes="@drawable/good_checked"/>
+
+                <ImageView
+                    android:id="@+id/menu_more"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:src="@drawable/ic_build_green_24dp"
+                    android:layout_margin="5dp"
+                    android:tint="#92a0ad"
+                    />
 
                 <android.support.v7.widget.CardView
                     android:id="@+id/checkbox_wrapper"

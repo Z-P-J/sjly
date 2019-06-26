@@ -2,10 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.zpj.sjly">
 
-    <uses-permission android:name="android.permission.INTERNET" />
-    <!-- 往SDCard写入数据权限 -->
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <!-- 从SDCard读取数据权限 -->
+    <uses-permission android:name="android.permission.INTERNET" /> <!-- 往SDCard写入数据权限 -->
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" /> <!-- 从SDCard读取数据权限 -->
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
     <application
@@ -16,27 +14,30 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
+<!--        <meta-data-->
+<!--            android:name="com.zpj.sjly.utils.ApkIconGlideModule"-->
+<!--            android:value="GlideModule"/>-->
+
+        <activity android:name=".AppManagerActivity">
+
+
+        </activity>
         <activity
             android:name=".SplashActivity"
-            android:theme="@style/SplashTheme"
-            >
+            android:theme="@style/SplashTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <action android:name="android.intent.action.VIEW" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity
             android:name=".MainActivity"
-            android:theme="@style/AppThemeTransparent">
-        </activity>
-
-        <activity android:name=".DetailActivity"
-            android:theme="@style/AppThemeTransparent">
-
-        </activity>
-
+            android:theme="@style/AppThemeTransparent"></activity>
+        <activity
+            android:name=".DetailActivity"
+            android:theme="@style/AppThemeTransparent"></activity>
     </application>
 
 </manifest>

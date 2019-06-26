@@ -16,7 +16,7 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.RequestManager;
 import com.zpj.sjly.R;
-import com.zpj.sjly.model.CoolApkItem;
+import com.zpj.sjly.bean.CoolApkItem;
 
 import java.util.List;
 

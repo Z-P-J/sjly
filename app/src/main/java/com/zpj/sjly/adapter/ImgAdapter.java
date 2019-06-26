@@ -23,7 +23,7 @@ import com.maning.imagebrowserlibrary.MNImageBrowser;
 import com.maning.imagebrowserlibrary.listeners.OnClickListener;
 import com.maning.imagebrowserlibrary.model.ImageBrowserConfig;
 import com.zpj.sjly.R;
-import com.zpj.sjly.model.ImgItem;
+import com.zpj.sjly.bean.ImgItem;
 
 import java.util.ArrayList;
 import java.util.List;

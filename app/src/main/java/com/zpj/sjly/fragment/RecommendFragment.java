@@ -23,8 +23,9 @@ import com.stx.xhb.xbanner.XBanner;
 import com.zpj.sjly.DetailActivity;
 import com.zpj.sjly.R;
 import com.zpj.sjly.adapter.AppAdapter;
-import com.zpj.sjly.model.AppItem;
+import com.zpj.sjly.bean.AppItem;
 import com.zpj.sjly.utils.ConnectUtil;
+import com.zpj.sjly.utils.ExecutorHelper;
 import com.zpj.sjly.utils.TransportUtil;
 import com.zpj.sjly.view.recyclerview.LoadMoreAdapter;
 import com.zpj.sjly.view.recyclerview.LoadMoreWrapper;
@@ -62,7 +63,7 @@ public class RecommendFragment extends BaseFragment {
 
     @Nullable
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+    public View onBuildView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 //        UIHelper.showDialogForLoading(getContext(),"正在加载。。。");
 
         view = inflater.inflate(R.layout.recomment_fragment,null);
@@ -134,7 +135,7 @@ public class RecommendFragment extends BaseFragment {
                         recyclerView.postDelayed(new Runnable() {
                             @Override
                             public void run() {
-                                getCoolApkHtml();
+                                getRecentUpdateApps();
                             }
                         }, 1);
                     }
@@ -189,8 +190,8 @@ public class RecommendFragment extends BaseFragment {
 
     }
 
-    private  void getCoolApkHtml(){
-        new Thread(){
+    private  void getRecentUpdateApps(){
+        ExecutorHelper.submit(new Runnable() {
             @Override
             public void run() {
                 try {
@@ -229,14 +230,12 @@ public class RecommendFragment extends BaseFragment {
                 }catch (Exception e) {
                     e.printStackTrace();
                 }
-
             }
-
-        }.start();
+        });
     }
 
     private void getRecommends() {
-        new Thread(new Runnable() {
+        ExecutorHelper.submit(new Runnable() {
             @Override
             public void run() {
                 try {
@@ -268,11 +267,8 @@ public class RecommendFragment extends BaseFragment {
                         mXBanner.setData(recommendItemList, new ArrayList<String>(appItemList.size()));
                     }
                 });
-//                Message msg = new Message();
-//                msg.what = 2;
-//                handler.sendMessage(msg);
             }
-        }).start();
+        });
     }
 
     @Override

@@ -20,7 +20,7 @@ import com.zpj.sjly.DetailActivity;
 import com.zpj.sjly.R;
 import com.zpj.sjly.adapter.AppChinaAdapter;
 import com.zpj.sjly.listener.LoadMoreListener;
-import com.zpj.sjly.model.AppChinaItem;
+import com.zpj.sjly.bean.AppChinaItem;
 import com.zpj.sjly.utils.UIHelper;
 
 import org.jsoup.Jsoup;
@@ -54,8 +54,7 @@ public class AppChinaFragment extends BaseFragment {
 
     @Nullable
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-
+    protected View onBuildView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         isInit = true;
         //lazyLoadData();
         View view = inflater.inflate(R.layout.appchina_fragment,null);

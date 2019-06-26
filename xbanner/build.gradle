@@ -1,0 +1,19 @@
+apply plugin: 'com.android.library'
+
+//提交到仓库中的版本号
+version = "1.6.4"
+
+android {
+    compileSdkVersion 28
+    buildToolsVersion '28.0.3'
+
+    defaultConfig {
+        minSdkVersion 19
+        targetSdkVersion 28
+    }
+}
+
+dependencies {
+    //noinspection GradleDynamicVersion
+    compileOnly 'com.android.support:support-v4:28+'
+}

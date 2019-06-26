@@ -5,4 +5,7 @@ include ':app',
         ':bannerlayout',
         ':qtablayoutlib',
         ':BGABaseAdapter',
-        ':BGAPhotoPicker'
+        ':BGAPhotoPicker',
+        ':popupmenuview',
+        ':xbanner',
+        ':qxdownloader'

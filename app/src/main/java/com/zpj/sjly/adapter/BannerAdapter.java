@@ -9,7 +9,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.zpj.sjly.R;
-import com.zpj.sjly.model.AppItem;
+import com.zpj.sjly.bean.AppItem;
 import com.zpj.sjly.view.PosterItemView;
 
 import java.util.List;

@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    >
+
+    <com.wuhenzhizao.titlebar.widget.CommonTitleBar
+        android:id="@+id/title_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:fillStatusBar="true"
+        app:titleBarColor="@color/colorPrimary"
+        app:statusBarColor="@color/colorPrimary"
+        app:showBottomLine="false"
+        app:statusBarMode="light"
+        app:leftType="imageButton"
+        app:leftImageResource="@drawable/ic_arrow_back_white_24dp"
+        app:centerType="textView"
+        app:centerText="应用管理"
+        app:centerTextColor="#ffffff"
+        app:rightType="imageButton"
+        app:rightImageResource="@drawable/ic_search_white_24dp"
+        />
+<!--    app:centerType="customView"-->
+<!--    app:centerCustomView="@layout/layout_tab"-->
+
+    <com.qyh.qtablayoutlib.QTabLayout
+        android:id="@+id/tab_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorPrimary"
+        app:q_tabIndicatorAnimation="true"
+        app:q_tabIndicatorColor="#ffffff"
+        app:q_tabIndicatorWidth="10dp"
+        app:q_tabGravity="center"
+        app:q_tabPaddingStart="6dp"
+        app:q_tabPaddingEnd="6dp"
+        app:q_tabSelectedTextColor="#ffffff"
+        app:q_tabTextColor="#c8ead0"
+        app:q_selectedTabTextSize="15sp"
+        app:q_unselectedTabTextSize="14sp"
+        />
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/view_pager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+
+</LinearLayout>

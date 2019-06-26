@@ -9,14 +9,16 @@
     >
 
     <ImageView
+        android:id="@+id/btn_search"
         android:layout_width="wrap_content"
         android:layout_height="56dp"
         android:paddingStart="10dp"
         android:paddingEnd="10dp"
-        android:src="@drawable/ic_search_black_24dp"
+        android:src="@drawable/ic_search_white_24dp"
         />
 
     <ImageView
+        android:id="@+id/btn_manage"
         android:layout_width="wrap_content"
         android:layout_height="56dp"
         android:paddingStart="10dp"

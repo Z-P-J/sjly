@@ -254,7 +254,7 @@ public class ColorChangeView extends View {
     public void setTextSize(int mTextSize) {
         this.mTextSize = mTextSize;
         mPaint.setTextSize(mTextSize);
-        Typeface font = Typeface.create(Typeface.SANS_SERIF, Typeface.BOLD);
+        Typeface font = Typeface.create(Typeface.MONOSPACE, Typeface.BOLD);
         mPaint.setTypeface(font);
         requestLayout();
         invalidate();

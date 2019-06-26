@@ -8,6 +8,8 @@ import android.os.StrictMode;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 
+import com.zpj.sjly.utils.AppUpdateHelper;
+
 public class SplashActivity extends AppCompatActivity {
 
 
@@ -30,6 +32,8 @@ public class SplashActivity extends AppCompatActivity {
                 finish();
             }
         }, 2000);
+//        ApkUtil.loadAppIcons(this);
+        AppUpdateHelper.getInstance().checkUpdate(this);
     }
 
 

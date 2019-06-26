@@ -60,7 +60,7 @@
     <LinearLayout
         android:id="@+id/cancel_ll"
         android:layout_width="match_parent"
-        android:layout_height="42dp"
+        android:layout_height="60dp"
         android:gravity="center"
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent">
@@ -74,10 +74,11 @@
 
         <ImageView
             android:id="@+id/cancel_iv"
-            android:layout_width="30dp"
+            android:layout_width="60dp"
             android:layout_height="match_parent"
             android:scaleType="centerInside"
-            android:src="@drawable/cancel" />
+            android:padding="5dp"
+            android:src="@drawable/add_image" />
     </LinearLayout>
 
     <LinearLayout

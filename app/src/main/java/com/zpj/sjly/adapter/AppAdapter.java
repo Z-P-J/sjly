@@ -16,7 +16,7 @@ import com.bumptech.glide.RequestManager;
 import com.bumptech.glide.request.target.SimpleTarget;
 import com.bumptech.glide.request.transition.Transition;
 import com.zpj.sjly.R;
-import com.zpj.sjly.model.AppItem;
+import com.zpj.sjly.bean.AppItem;
 
 import java.util.List;
 

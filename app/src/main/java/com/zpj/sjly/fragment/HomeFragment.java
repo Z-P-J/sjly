@@ -1,5 +1,6 @@
 package com.zpj.sjly.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -9,14 +10,14 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.Toast;
 
-import com.qyh.qtablayoutlib.ColorChangeView;
 import com.qyh.qtablayoutlib.QTabLayout;
 import com.wuhenzhizao.titlebar.widget.CommonTitleBar;
+import com.zpj.sjly.AppManagerActivity;
 import com.zpj.sjly.R;
 import com.zpj.sjly.adapter.PageAdapter;
-import com.zpj.sjly.utils.Util;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,8 +28,20 @@ public class HomeFragment extends BaseFragment {
 
     @Nullable
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+    public View onBuildView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.home_fragment, null);
+        initView(view);
+        return view;
+    }
+
+
+
+    @Override
+    public void lazyLoadData() {
+
+    }
+
+    private void initView(View view) {
         CommonTitleBar titleBar = view.findViewById(R.id.title_bar);
         View rightCustomView = titleBar.getRightCustomView();
         rightCustomView.setOnClickListener(new View.OnClickListener() {
@@ -62,19 +75,19 @@ public class HomeFragment extends BaseFragment {
             @Override
             public void onTabSelected(QTabLayout.Tab tab) {
                 Log.d("OnTabSelectedListener", "onTabSelected");
-                View view = tab.getCustomView();
-                if (view instanceof ColorChangeView) {
-                    ((ColorChangeView)(view)).setTextSize(Util.Dp2px(getContext(), 18));
-                }
+//                View view = tab.getCustomView();
+//                if (view instanceof ColorChangeView) {
+//                    ((ColorChangeView)(view)).setTextSize(Util.Dp2px(getContext(), 18));
+//                }
             }
 
             @Override
             public void onTabUnselected(QTabLayout.Tab tab) {
                 Log.d("OnTabSelectedListener", "onTabUnselected");
-                View view = tab.getCustomView();
-                if (view instanceof ColorChangeView) {
-                    ((ColorChangeView)(view)).setTextSize(Util.Dp2px(getContext(), 16));
-                }
+//                View view = tab.getCustomView();
+//                if (view instanceof ColorChangeView) {
+//                    ((ColorChangeView)(view)).setTextSize(Util.Dp2px(getContext(), 16));
+//                }
             }
 
             @Override
@@ -87,14 +100,15 @@ public class HomeFragment extends BaseFragment {
         ViewPager viewPager = view.findViewById(R.id.view_pager);
         tabLayout.setupWithViewPager(viewPager);
         viewPager.setAdapter(adapter);
-        return view;
-    }
 
-
-
-    @Override
-    public void lazyLoadData() {
-
+        ImageView manageBtn = titleBar.getRightCustomView().findViewById(R.id.btn_manage);
+        manageBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getContext(), AppManagerActivity.class);
+                getContext().startActivity(intent);
+            }
+        });
     }
 
 }

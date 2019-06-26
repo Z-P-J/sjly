@@ -18,7 +18,7 @@ import android.widget.Toast;
 import com.zpj.sjly.R;
 import com.zpj.sjly.adapter.QianQianAdapter;
 import com.zpj.sjly.listener.LoadMoreListener;
-import com.zpj.sjly.model.QianQianItem;
+import com.zpj.sjly.bean.QianQianItem;
 import com.zpj.sjly.utils.UIHelper;
 
 import org.jsoup.Jsoup;
@@ -43,7 +43,7 @@ public class QianQianFragment extends BaseFragment {
 
     @Nullable
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+    public View onBuildView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.qianqian_fragment,null);
         isInit = true;
         recyclerView = (RecyclerView)view.findViewById(R.id.qianqian_recyclerview);

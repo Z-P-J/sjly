@@ -54,6 +54,8 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+//        AppUpdateHelper.checkUpdate(getApplicationContext());
+
         navigationBar = findViewById(R.id.navigationBar);
         fragments.add(new HomeFragment());
         fragments.add(new QianQianFragment());
