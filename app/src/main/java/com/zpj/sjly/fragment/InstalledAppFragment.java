@@ -42,6 +42,9 @@ public class InstalledAppFragment extends BaseFragment {
 
     private void initView(View view) {
         adapter = new AppManagerAdapter(installedAppInfos);
+        recyclerView = view.findViewById(R.id.recycler_view);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        recyclerView.setAdapter(adapter);
         LoadMoreWrapper.with(adapter)
                 .setLoadMoreEnabled(false)
                 .setListener(new LoadMoreAdapter.OnLoadMoreListener() {
@@ -58,9 +61,6 @@ public class InstalledAppFragment extends BaseFragment {
                     }
                 })
                 .into(recyclerView);
-        recyclerView = view.findViewById(R.id.recycler_view);
-        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        recyclerView.setAdapter(adapter);
     }
 
     private void loadInstallApps() {
