@@ -30,10 +30,12 @@ public final class AppUpdateHelper {
     private static final String URL = "http://tt.shouji.com.cn/app/checkAppVersionV14.jsp";
 
     private static final Set<String> SET = new HashSet<>();
+    private static final Map<String, String> MAP = new HashMap<>();
     private static final Map<String, String> APP_UPDATE_CONTENT_MAP = new HashMap<>();
     private static final List<AppUpdateInfo> APP_UPDATE_INFO_LIST = new ArrayList<>();
 
     private static boolean checked = false;
+    private static boolean running = false;
 
     private static final List<WeakReference<CheckUpdateListener>> listeners = new ArrayList<>();
 
@@ -48,6 +50,7 @@ public final class AppUpdateHelper {
 
     public void checkUpdate(Context context) {
         checked = false;
+        running = true;
         ExecutorHelper.submit(new Runnable() {
             @Override
             public void run() {
@@ -56,6 +59,7 @@ public final class AppUpdateHelper {
                             .userAgent("Sjly(2.0..9.9)")
                             .execute();
                     String setCookie = response.header("Set-Cookie");
+                    UserHelper.setCookie(setCookie);
                     Log.d("checkUpdate", "setCookie=" + setCookie);
                     String jsessionId = setCookie.substring(setCookie.indexOf("="), setCookie.indexOf(";"));
 
@@ -122,34 +126,37 @@ public final class AppUpdateHelper {
                         Log.d("checkUpdate", "updateInfo=" + updateInfo);
                         String packageName = updateInfo.substring(0, updateInfo.indexOf("|"));
                         SET.add(packageName);
-                        if (!updateInfo.contains("||||||")) {
-                            String[] infos = updateInfo
+                        String[] infos = updateInfo
 //                                    .replaceAll("\\||\\||", "|")
 //                                    .replaceAll("\\||", "|")
 //                                    .replaceAll("|Old|", "|")
-                                    .split("\\|");
+                                .split("\\|");
+                        String idStr = infos[1];
+                        MAP.put(packageName, idStr);
+                        if (!updateInfo.contains("||||||")) {
                             AppUpdateInfo appInfo = new AppUpdateInfo();
-
                             appInfo.setPackageName(infos[0]);
-                            String idStr = infos[1];
                             appInfo.setId(idStr.substring(7));
                             appInfo.setAppType(idStr.substring(0, 4));
                             appInfo.setDownloadUrl(infos[2]);
                             appInfo.setNewVersionName(infos[3]);
-                            appInfo.setOldVersionName(ApkUtil.getVersionName(context, appInfo.getPackageName()));
+                            appInfo.setOldVersionName(AppUtil.getVersionName(context, appInfo.getPackageName()));
                             appInfo.setNewSize(infos[4]);
                             appInfo.setUpdateTime(infos[11]);
                             appInfo.setUpdateTimeInfo(infos[13]);
-                            appInfo.setAppName(ApkUtil.getAppName(context, appInfo.getPackageName()));
+                            appInfo.setAppName(AppUtil.getAppName(context, appInfo.getPackageName()));
                             appInfo.setUpdateInfo(APP_UPDATE_CONTENT_MAP.get(appInfo.getPackageName()));
                             APP_UPDATE_INFO_LIST.add(appInfo);
                             Log.d("checkUpdate", "updateInfo=" + appInfo);
                         }
                     }
+                    Log.d("checkUpdate", "size111111111=" + APP_UPDATE_INFO_LIST.size());
                     checked = true;
+                    running = false;
                     onFinished();
                 } catch (Exception e) {
                     e.printStackTrace();
+                    running = false;
                     onError(e);
                 }
             }
@@ -164,9 +171,14 @@ public final class AppUpdateHelper {
         return SET.contains(packageName);
     }
 
+    public String getAppIdAndType(String packageName) {
+        return MAP.get(packageName);
+    }
+
     private void onFinished() {
         for (WeakReference<CheckUpdateListener> checkUpdateListener : listeners) {
             if (checkUpdateListener.get() != null) {
+                Log.d("checkUpdate", "size22222222222=" + APP_UPDATE_INFO_LIST.size());
                 checkUpdateListener.get().onCheckUpdateFinish(APP_UPDATE_INFO_LIST);
             }
         }
@@ -182,12 +194,17 @@ public final class AppUpdateHelper {
 
     public void addCheckUpdateListener(CheckUpdateListener listener) {
         listeners.add(new WeakReference<>(listener));
-        if (checked) {
-            onFinished();
+        if (!running) {
+            if (checked) {
+                onFinished();
+            } else {
+                onError(null);
+            }
         }
     }
 
     public List<AppUpdateInfo> getUpdateAppList() {
+        Log.d("checkUpdate", "getUpdateAppList  size=" + APP_UPDATE_INFO_LIST.size());
         return APP_UPDATE_INFO_LIST;
     }
 

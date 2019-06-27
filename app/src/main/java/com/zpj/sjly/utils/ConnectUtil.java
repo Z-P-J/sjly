@@ -18,6 +18,7 @@ public final class ConnectUtil {
     public static Document getDocument(String url) throws IOException {
         return Jsoup.connect(url)
                 .userAgent(USER_AGENT)
+                .header("Cookie", UserHelper.getCookie())
                 .header(HEADER_ACCEPT_ENCODING, VALUE_ACCEPT_ENCODING)
                 .header("referer", url)
                 .ignoreContentType(true)

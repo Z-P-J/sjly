@@ -8,4 +8,7 @@ include ':app',
         ':BGAPhotoPicker',
         ':popupmenuview',
         ':xbanner',
-        ':qxdownloader'
+        ':qxdownloader',
+        ':smoothcheckbox',
+        ':atoast',
+        ':popwindowlibrary'

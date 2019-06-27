@@ -167,7 +167,7 @@ public class ExploreFragment extends BaseFragment {
     @Nullable
     @Override
     protected View onBuildView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.explore_fragment, null);
+        view = inflater.inflate(R.layout.fragment_explore, null);
         initView(view);
         isInit = true;
         return view;

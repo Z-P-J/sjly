@@ -1,39 +1,25 @@
 package com.zpj.sjly.adapter;
 
 import android.content.Context;
-import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.support.annotation.NonNull;
-import android.support.v7.view.menu.MenuBuilder;
 import android.support.v7.widget.RecyclerView;
 import android.text.SpannableString;
-import android.text.SpannableStringBuilder;
 import android.text.Spanned;
-import android.text.TextPaint;
 import android.text.style.StrikethroughSpan;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.FrameLayout;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.zpj.popupmenuview.BaseOptionMenuView;
-import com.zpj.popupmenuview.CustomPopupMenuView;
-import com.zpj.popupmenuview.OptionMenu;
-import com.zpj.popupmenuview.OptionMenuView;
-import com.zpj.popupmenuview.PopupMenuView;
 import com.zpj.sjly.R;
 import com.zpj.sjly.bean.AppUpdateInfo;
-import com.zpj.sjly.bean.ExploreItem;
-import com.zpj.sjly.bean.InstalledAppInfo;
-import com.zpj.sjly.utils.ApkUtil;
+import com.zpj.sjly.utils.AppUtil;
 import com.zpj.sjly.utils.ExecutorHelper;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class AppUpdateAdapter extends RecyclerView.Adapter<AppUpdateAdapter.ViewHolder> {
@@ -85,7 +71,7 @@ public class AppUpdateAdapter extends RecyclerView.Adapter<AppUpdateAdapter.View
         if (updateInfo.getIconDrawable() == null) {
             holder.iconImageView.setImageResource(R.mipmap.ic_launcher);
             ExecutorHelper.submit(() -> {
-                Drawable drawable = ApkUtil.getAppIcon(context, updateInfo.getPackageName());
+                Drawable drawable = AppUtil.getAppIcon(context, updateInfo.getPackageName());
                 updateInfo.setIconDrawable(drawable);
                 holder.iconImageView.post(() -> holder.iconImageView.setImageDrawable(drawable));
             });

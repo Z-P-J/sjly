@@ -12,11 +12,11 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import com.zpj.sjly.R;
 import com.zpj.sjly.adapter.AppManagerAdapter;
 import com.zpj.sjly.bean.InstalledAppInfo;
+import com.zpj.sjly.utils.AppUpdateHelper;
 import com.zpj.sjly.utils.FileScanner;
 import com.zpj.sjly.utils.FileUtils;
 import com.zpj.sjly.utils.LoadApksTask;
@@ -39,6 +39,9 @@ public class PackageManagerFragment extends BaseFragment implements FileScanner.
     private RecyclerView recyclerView;
 
     private FileScanner fileScanner;
+
+    private int firstVisiblePosition = 0;
+    private int lastVisiblePosition = 0;
 
     @Nullable
     @Override
@@ -89,8 +92,16 @@ public class PackageManagerFragment extends BaseFragment implements FileScanner.
 //        loadApks();
     }
 
+    @Override
+    public void onDestroy() {
+        fileScanner.cancel();
+        fileScanner = null;
+        super.onDestroy();
+    }
+
     private void initView(View view) {
         recyclerView = view.findViewById(R.id.recycler_view);
+        recyclerView.setTag(false);
         adapter = new AppManagerAdapter(appInfoList);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.setAdapter(adapter);
@@ -107,8 +118,10 @@ public class PackageManagerFragment extends BaseFragment implements FileScanner.
 
                     @Override
                     public void onPostExecute(List<String> installedAppInfos) {
-                        Log.d(TAG, "installedAppInfos=" + installedAppInfos);
-                        fileScanner.execute(installedAppInfos);
+//                        Log.d(TAG, "installedAppInfos=" + installedAppInfos);
+                        if (fileScanner != null) {
+                            fileScanner.execute(installedAppInfos);
+                        }
                     }
 
                 })
@@ -122,7 +135,7 @@ public class PackageManagerFragment extends BaseFragment implements FileScanner.
 
     @Override
     public void onFindFile(FileScanner.FileItem fileItem) {
-        Log.d(TAG, "onFindFile");
+//        Log.d(TAG, "onFindFile");
         if (fileItem instanceof InstalledAppInfo) {
             appInfoList.add((InstalledAppInfo) fileItem);
             adapter.notifyItemInserted(appInfoList.size() - 1);
@@ -146,12 +159,12 @@ public class PackageManagerFragment extends BaseFragment implements FileScanner.
 
     @Override
     public void onScanDir(File dir) {
-        Log.d(TAG, "onScanDir dir=" + dir);
+//        Log.d(TAG, "onScanDir dir=" + dir);
     }
 
     @Override
     public FileScanner.FileItem accept(File pathname) {
-        Log.d(TAG, "accept pathname=" + pathname.getName());
+//        Log.d(TAG, "accept pathname=" + pathname.getName());
         if (pathname.isFile()) {
             String subSuffix = FileUtils.subSuffix(pathname.getName());
             if (".apk".equalsIgnoreCase(subSuffix)) {
@@ -169,9 +182,13 @@ public class PackageManagerFragment extends BaseFragment implements FileScanner.
     }
 
     private InstalledAppInfo parseFromApk(Context context, File file) {
+        if (context == null) {
+            return null;
+        }
         PackageInfo packageInfo;
+        PackageManager manager = context.getPackageManager();
         try {
-            packageInfo = context.getPackageManager().getPackageArchiveInfo(file.getPath(), PackageManager.GET_ACTIVITIES);
+            packageInfo = manager.getPackageArchiveInfo(file.getPath(), PackageManager.GET_ACTIVITIES);
         } catch (Throwable e) {
             e.printStackTrace();
             return null;
@@ -184,9 +201,12 @@ public class PackageManagerFragment extends BaseFragment implements FileScanner.
         InstalledAppInfo appInfo = new InstalledAppInfo();
         appInfo.setApkFilePath(file.getPath());
 
-        appInfo.setName(packageInfo.applicationInfo.loadLabel(context.getPackageManager()).toString());
+        packageInfo.applicationInfo.sourceDir = file.getPath();
+        packageInfo.applicationInfo.publicSourceDir = file.getPath();
+        appInfo.setName(packageInfo.applicationInfo.loadLabel(manager).toString());
+//        Log.d("parseFromApk", "name=" + appInfo.getName());
         appInfo.setPackageName(packageInfo.packageName);
-        appInfo.setId(packageInfo.packageName);
+        appInfo.setIdAndType(AppUpdateHelper.getInstance().getAppIdAndType(appInfo.getPackageName()));
         appInfo.setVersionName(packageInfo.versionName);
         appInfo.setVersionCode(packageInfo.versionCode);
         appInfo.setAppSize(file.length());
@@ -208,7 +228,7 @@ public class PackageManagerFragment extends BaseFragment implements FileScanner.
         appInfo.setApkFilePath(file.getPath());
         appInfo.setName(xpkInfo.getAppName());
         appInfo.setPackageName(xpkInfo.getPackageName());
-        appInfo.setId(xpkInfo.getPackageName());
+        appInfo.setId(AppUpdateHelper.getInstance().getAppIdAndType(appInfo.getPackageName()));
         appInfo.setVersionName(xpkInfo.getVersionName());
         appInfo.setVersionCode(xpkInfo.getVersionCode());
         appInfo.setAppSize(file.length());
@@ -217,4 +237,5 @@ public class PackageManagerFragment extends BaseFragment implements FileScanner.
         appInfo.setTempInstalled(false);
         return appInfo;
     }
+
 }

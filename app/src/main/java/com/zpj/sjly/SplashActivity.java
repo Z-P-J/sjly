@@ -24,6 +24,7 @@ public class SplashActivity extends AppCompatActivity {
             StrictMode.setVmPolicy(builder.build());
         }
 
+        AppUpdateHelper.getInstance().checkUpdate(this);
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
@@ -32,8 +33,6 @@ public class SplashActivity extends AppCompatActivity {
                 finish();
             }
         }, 2000);
-//        ApkUtil.loadAppIcons(this);
-        AppUpdateHelper.getInstance().checkUpdate(this);
     }
 
 

@@ -1,20 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:padding="16dp"
-    android:background="@drawable/bottom_line_gray"
-    >
+    android:background="@drawable/bottom_line_gray">
 
-    <ImageView
+    <cn.bingoogolapple.photopicker.widget.BGAImageView
         android:layout_width="48dp"
         android:layout_height="48dp"
         android:id="@+id/icon_app"
         android:contentDescription="@string/app_name"
         android:scaleType="centerCrop"
+        app:bga_iv_cornerRadius="5dp"
         android:src="@mipmap/ic_launcher" />
 
     <LinearLayout
+        android:layout_toEndOf="@+id/icon_app"
+        android:layout_toStartOf="@+id/btn_more"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="16dp"
@@ -41,4 +45,38 @@
             android:textSize="12sp"
             android:text="v1.2.0 | 2015-02-06" />
     </LinearLayout>
-</LinearLayout>
+
+    <ImageView
+        android:layout_toStartOf="@+id/checkbox_wrapper"
+        android:id="@+id/btn_more"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_more_vert_grey_24dp"
+        android:tint="#ccc"
+        android:layout_centerVertical="true"
+        android:padding="8dp"
+        />
+
+    <LinearLayout
+        android:id="@+id/checkbox_wrapper"
+        android:layout_width="wrap_content"
+        android:layout_height="48dp"
+        android:layout_alignParentEnd="true"
+        android:layout_centerVertical="true"
+        android:padding="5dp"
+        >
+
+        <cn.refactor.library.SmoothCheckBox
+            android:id="@+id/checkbox"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_gravity="center"
+            app:color_checked="@color/colorPrimary"
+            android:clickable="false"
+            />
+
+    </LinearLayout>
+
+
+
+</RelativeLayout>

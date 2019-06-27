@@ -36,5 +36,9 @@ public final class ExecutorHelper {
 //    public interface CallBack {
 //        void onRun();
 //    }
+
+    public static void destroy() {
+        EXECUTOR_SERVICE.shutdown();
+    }
     
 }

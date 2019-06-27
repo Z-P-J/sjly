@@ -64,7 +64,7 @@ public class AppManagerActivity extends AppCompatActivity implements QTabLayout.
     @Override
     protected void onDestroy() {
         super.onDestroy();
-//        ApkUtil.clearCache();
+//        AppUtil.clearCache();
     }
 
     @Override

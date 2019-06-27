@@ -5,7 +5,7 @@
     android:layout_height="wrap_content"
     android:gravity="center_vertical"
     android:orientation="horizontal"
-    android:background="#fff"
+    android:background="@drawable/bottom_line_gray"
     android:padding="10dp"
     >
 
@@ -116,12 +116,28 @@
             android:paddingTop="10dp"
             >
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor="@color/colorPrimary"
-                android:text="更新内容："
-                />
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/colorPrimary"
+                    android:text="更新内容："
+                    android:layout_centerVertical="true"
+                    />
+
+                <ImageView
+                    android:id="@+id/btn_expand"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_expand_more_black_24dp"
+                    android:tint="@color/colorPrimary"
+                    android:layout_alignParentEnd="true"
+                    />
+
+            </RelativeLayout>
 
             <TextView
                 android:id="@+id/text_update"
@@ -146,17 +162,7 @@
                     android:layout_gravity="end"
                     android:src="@drawable/ic_settings_white_24dp"
                     android:tint="@color/colorPrimary"
-                    android:padding="2dp"
-                    />
-
-                <ImageView
-                    android:id="@+id/btn_expand"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="end"
-                    android:src="@drawable/ic_expand_more_black_24dp"
-                    android:tint="@color/colorPrimary"
-                    android:padding="2dp"
+                    android:paddingTop="2dp"
                     />
 
             </LinearLayout>

@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="用户应用"
+        android:padding="10dp"
+        android:background="@drawable/bottom_line_gray"
+        />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="系统应用"
+        android:padding="10dp"
+        android:background="@drawable/bottom_line_gray"
+        />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="已备份"
+        android:padding="10dp"
+        android:background="@drawable/bottom_line_gray"
+        />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="已禁用"
+        android:padding="10dp"
+        android:background="@drawable/bottom_line_gray"
+        />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="已隐藏"
+        android:padding="10dp"
+        android:background="@drawable/bottom_line_gray"
+        />
+
+</LinearLayout>

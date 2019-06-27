@@ -18,6 +18,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
+import com.felix.atoast.library.AToast;
 import com.mingle.widget.LoadingView;
 import com.stx.xhb.xbanner.XBanner;
 import com.zpj.sjly.DetailActivity;
@@ -41,7 +42,6 @@ public class RecommendFragment extends BaseFragment {
 
     private static final String DEFAULT_LIST_URL = "http://tt.shouji.com.cn/androidv3/app_list_xml.jsp?index=1&versioncode=187";
 
-    private Handler handler;
     private View view;
     private LinearLayoutManager layoutManager;
     private RecyclerView recyclerView;
@@ -50,6 +50,8 @@ public class RecommendFragment extends BaseFragment {
     private List<AppItem> recommendItemList = new ArrayList<>();
     private AppAdapter appAdapter;
     private SwipeRefreshLayout swipeRefreshLayout;
+
+    private LoadMoreAdapter loadMoreAdapter;
 
     private String nextUrl = DEFAULT_LIST_URL;
 
@@ -64,9 +66,7 @@ public class RecommendFragment extends BaseFragment {
     @Nullable
     @Override
     public View onBuildView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-//        UIHelper.showDialogForLoading(getContext(),"正在加载。。。");
-
-        view = inflater.inflate(R.layout.recomment_fragment,null);
+        view = inflater.inflate(R.layout.fragment_recomment,null);
 
         recyclerView = view.findViewById(R.id.coolapk_recyclerview);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
@@ -124,10 +124,9 @@ public class RecommendFragment extends BaseFragment {
                 }
 
                 getActivity().startActivity(intent);
-//                Toast.makeText(getContext(), "点击", Toast.LENGTH_SHORT).show();
             }
         });
-        LoadMoreWrapper.with(appAdapter)
+        loadMoreAdapter = LoadMoreWrapper.with(appAdapter)
                 .setLoadMoreEnabled(true)
                 .setListener(new LoadMoreAdapter.OnLoadMoreListener() {
                     @Override
@@ -154,31 +153,13 @@ public class RecommendFragment extends BaseFragment {
 //        banner.setAdapter(bannerAdapter);
 
         mXBanner = view.findViewById(R.id.xbanner);
-//        mXBanner.setBannerData(imgesUrl);
-
         mXBanner.loadImage(new XBanner.XBannerAdapter() {
             @Override
             public void loadBanner(XBanner banner, Object model, View view, int position) {
                 AppItem item = (AppItem)model;
-//                ImageView imageView = ((ImageView)(view))
                 Glide.with(view).load(item.getAppIcon()).into((ImageView) view);
             }
         });
-
-        handler = new Handler(){
-            @Override
-            public void handleMessage(Message msg) {
-                if (msg.what == 1){
-                    loadingView.setVisibility(View.GONE);
-                    appAdapter.notifyDataSetChanged();
-//                    bannerAdapter.notifyDataSetChanged();
-
-                } else if (msg.what == 2) {
-                    mXBanner.setData(recommendItemList, new ArrayList<String>(appItemList.size()));
-                }
-            }
-        };
-//        getCoolApkHtml();
         getRecommends();
         return view;
     }
@@ -217,9 +198,6 @@ public class RecommendFragment extends BaseFragment {
                         appItem.setAppComment(item.select("comment").text());
                         appItemList.add(appItem);
                     }
-//                    Message msg = new Message();
-//                    msg.what = 1;
-//                    handler.sendMessage(msg);
                     recyclerView.postDelayed(new Runnable() {
                         @Override
                         public void run() {
@@ -229,6 +207,13 @@ public class RecommendFragment extends BaseFragment {
                     }, 1);
                 }catch (Exception e) {
                     e.printStackTrace();
+                    loadMoreAdapter.setLoadFailed(true);
+                    recyclerView.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            AToast.error("加载失败！");
+                        }
+                    });
                 }
             }
         });
@@ -264,7 +249,7 @@ public class RecommendFragment extends BaseFragment {
                 mXBanner.post(new Runnable() {
                     @Override
                     public void run() {
-                        mXBanner.setData(recommendItemList, new ArrayList<String>(appItemList.size()));
+                        mXBanner.setData(recommendItemList, new ArrayList<>(appItemList.size()));
                     }
                 });
             }

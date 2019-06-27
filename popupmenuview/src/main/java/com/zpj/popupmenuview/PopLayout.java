@@ -95,7 +95,7 @@ public class PopLayout extends FrameLayout implements View.OnLayoutChangeListene
 
         if (getBackground() == null) {
             // 需要设置背景，可能是因为没有背景Layout就不会去执行绘制操作
-            setBackgroundColor(Color.parseColor("#80ffffff"));//Color.WHITE
+            setBackgroundColor(Color.parseColor("#cccccc"));//Color.WHITE
 //            setBackgroundColor(Color.WHITE);
         }
 

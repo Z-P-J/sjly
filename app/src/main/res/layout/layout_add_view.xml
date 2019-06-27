@@ -6,6 +6,12 @@
     android:clickable="true"
     android:background="#ffffff">
 
+    <ImageView
+        android:id="@+id/background"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        />
+
     <TextView
         android:id="@+id/day_tv"
         android:layout_width="wrap_content"

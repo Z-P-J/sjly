@@ -50,6 +50,9 @@ dependencies {
     implementation project(':popupmenuview')
     implementation project(':xbanner')
     implementation project(':qxdownloader')
+    implementation project(':smoothcheckbox')
+    implementation project(':atoast')
+    implementation project(':popwindowlibrary')
 
 
     implementation 'de.hdodenhof:circleimageview:3.0.0'
@@ -66,9 +69,8 @@ dependencies {
     implementation 'com.wx.goodview:goodview:1.0.0'
     implementation 'com.sunbq:iconcountview:1.0.1'
     implementation 'com.github.niniloveyou:StateButton:v1.0.0'
-//    implementation 'cn.bingoogolapple:bga-photopicker:1.2.8'
-//    implementation 'cn.bingoogolapple:bga-baseadapter:1.2.7'
 
     implementation 'me.panpf:sketch:2.7.1-beta2'
+//    implementation 'net.colindodd:gradientlayout:1.2'
 
 }

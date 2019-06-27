@@ -23,6 +23,8 @@ import com.zpj.sjly.fragment.AppChinaFragment;
 import com.zpj.sjly.fragment.HomeFragment;
 import com.zpj.sjly.fragment.QianQianFragment;
 import com.zpj.sjly.fragment.XinHaiFragment;
+import com.zpj.sjly.utils.BlurBuilder;
+import com.zpj.sjly.utils.ExecutorHelper;
 import com.zpj.sjly.view.KickBackAnimator;
 
 import java.util.ArrayList;
@@ -53,9 +55,16 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        initView();
+    }
 
-//        AppUpdateHelper.checkUpdate(getApplicationContext());
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        ExecutorHelper.destroy();
+    }
 
+    private void initView() {
         navigationBar = findViewById(R.id.navigationBar);
         fragments.add(new HomeFragment());
         fragments.add(new QianQianFragment());
@@ -72,16 +81,7 @@ public class MainActivity extends AppCompatActivity {
                 .onTabClickListener(new EasyNavigationBar.OnTabClickListener() {
                     @Override
                     public boolean onTabClickEvent(View view, int position) {
-//                        if (position == 4) {
-//                            Toast.makeText(MainActivity.this, "请先登录", Toast.LENGTH_SHORT).show();
-//                            //return true则拦截事件、不进行页面切换
-//                            return true;
-//                        } else if (position == 2) {
-//                            //跳转页面（全民K歌）   或者   弹出菜单（微博）
-//                            showMunu();
-//                        }
                         if (position == 2) {
-                            //跳转页面（全民K歌）   或者   弹出菜单（微博）
                             showMunu();
                         }
                         return false;
@@ -93,7 +93,6 @@ public class MainActivity extends AppCompatActivity {
 
 
         navigationBar.setAddViewLayout(createWeiboView());
-
     }
 
     @Override
@@ -107,6 +106,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private View createWeiboView() {
+        BlurBuilder.snapShotWithoutStatusBar(this);
         ViewGroup view = (ViewGroup) View.inflate(MainActivity.this, R.layout.layout_add_view, null);
         menuLayout = view.findViewById(R.id.icon_group);
         cancelImageView = view.findViewById(R.id.cancel_iv);
@@ -130,6 +130,8 @@ public class MainActivity extends AppCompatActivity {
             itemView.setVisibility(View.GONE);
             menuLayout.addView(itemView);
         }
+        ImageView background = view.findViewById(R.id.background);
+        background.setImageBitmap(BlurBuilder.blur(background));
         return view;
     }
 
@@ -219,6 +221,7 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void onAnimationEnd(Animator animation) {
                         navigationBar.getAddViewLayout().setVisibility(View.GONE);
+                        BlurBuilder.recycle();
                         //dismiss();
                     }
                 });

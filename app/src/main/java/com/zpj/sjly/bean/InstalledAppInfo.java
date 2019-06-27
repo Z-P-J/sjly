@@ -10,6 +10,7 @@ public class InstalledAppInfo implements FileScanner.FileItem {
     private String packageName;
 
     private String id;
+    private String appType;
     private String versionName;
     private String formattedAppSize;
 
@@ -55,6 +56,19 @@ public class InstalledAppInfo implements FileScanner.FileItem {
 
     public void setId(String id) {
         this.id = id;
+    }
+
+
+    public String getAppType() {
+        return appType;
+    }
+
+    public void setIdAndType(String idAndType) {
+        if (idAndType == null) {
+            return;
+        }
+        id = idAndType.substring(7);
+        appType = idAndType.substring(0, 4);
     }
 
     public String getVersionName() {
