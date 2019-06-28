@@ -33,7 +33,7 @@
     app:q_tabPaddingEnd="6dp"
     app:q_indicatorMarginTop="0dp"
     app:q_tabSelectedTextColor="#ffffff"
-    app:q_tabTextColor="#f5f5f5"
+    app:q_tabTextColor="#eeeeee"
     app:q_selectedTabTextSize="18sp"
     app:q_unselectedTabTextSize="17sp"
     />

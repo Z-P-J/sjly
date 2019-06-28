@@ -8,7 +8,7 @@
     app:cardUseCompatPadding="true"
     android:layout_height="100dp">
 
-    <com.zpj.sjly.view.PosterItemView
+    <com.zpj.sjly.ui.view.PosterItemView
         android:id="@+id/banner"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

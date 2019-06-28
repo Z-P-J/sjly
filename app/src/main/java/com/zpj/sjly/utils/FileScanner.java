@@ -160,8 +160,8 @@ public class FileScanner {
                 }
 
                 boolean isDirectory = dir.isDirectory();
-                Log.d("PackageManagerFragment", "dir=" + dir.getPath());
-                Log.d("PackageManagerFragment", "isDirectory=" + isDirectory);
+                Log.d("PackageFragment", "dir=" + dir.getPath());
+                Log.d("PackageFragment", "isDirectory=" + isDirectory);
                 if (isDirectory) {
                     callbackScanDir(dir);
                 }

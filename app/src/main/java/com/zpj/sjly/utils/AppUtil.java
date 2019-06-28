@@ -9,6 +9,7 @@ import android.content.pm.PackageManager;
 import android.content.res.Resources;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
+import android.os.Environment;
 import android.util.Log;
 
 import com.felix.atoast.library.AToast;
@@ -21,7 +22,9 @@ import java.util.concurrent.ConcurrentHashMap;
 
 public class AppUtil {
 
-    public static final int UNINSTALL_REQUEST_CODE = 1;
+    public static final int INSTALL_REQUEST_CODE = 1;
+    public static final int UNINSTALL_REQUEST_CODE = 2;
+
 
     public static void loadAppIcons(Context context) {
         long tempTime = System.currentTimeMillis();
@@ -111,6 +114,38 @@ public class AppUtil {
         intent.setType("application/vnd.android.package-archive");
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         context.startActivity(Intent.createChooser(intent, "分享应用"));
+    }
+
+    public static void installApk(Activity context, String path) {
+        Intent intent = new Intent();
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        //设置intent的Action属性
+        intent.setAction(Intent.ACTION_VIEW);
+        //获取文件file的MIME类型
+        String type = "application/vnd.android.package-archive";
+        //设置intent的data和Type属性。
+        intent.setDataAndType(/*uri*/Uri.fromFile(new File(path)), type);
+        //跳转
+        context.startActivity(intent);
+//        context.startActivityForResult(intent, INSTALL_REQUEST_CODE);
+    }
+
+    public static void deleteApk(String path) {
+        File file = new File(path);
+        if (file.exists() && file.delete()) {
+            AToast.success("删除成功！");
+        } else {
+            AToast.warning("删除失败！");
+        }
+    }
+
+    public static String getDefaultAppBackupFolder() {
+        String path = Environment.getExternalStorageDirectory() + "/sjly/backups/";
+        File folder = new File(path);
+        if (!folder.exists()) {
+            folder.mkdirs();
+        }
+        return path;
     }
 
 }

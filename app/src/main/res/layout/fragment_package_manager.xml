@@ -14,11 +14,11 @@
         >
 
         <TextView
-            android:id="@+id/text_title"
+            android:id="@+id/text_sort"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:padding="5dp"
-            android:text="用户应用"
+            android:text="按名字排序"
             android:drawableEnd="@drawable/ic_expand_more_black_24dp"
             android:gravity="center"
             />
@@ -48,6 +48,7 @@
         android:padding="5dp"
         android:background="@drawable/top_line_gray"
         android:layout_alignParentBottom="true"
+        android:visibility="gone"
         >
 
         <LinearLayout

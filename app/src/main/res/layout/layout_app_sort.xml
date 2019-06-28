@@ -9,7 +9,7 @@
         android:id="@+id/item_0"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="用户应用"
+        android:text="按应用名称"
         android:padding="10dp"
         android:background="@drawable/bottom_line_gray"
         />
@@ -18,7 +18,7 @@
         android:id="@+id/item_1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="系统应用"
+        android:text="按占用空间"
         android:padding="10dp"
         android:background="@drawable/bottom_line_gray"
         />
@@ -27,7 +27,7 @@
         android:id="@+id/item_2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="已备份"
+        android:text="按安装时间"
         android:padding="10dp"
         android:background="@drawable/bottom_line_gray"
         />
@@ -36,7 +36,7 @@
         android:id="@+id/item_3"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="已禁用"
+        android:text="按更新时间"
         android:padding="10dp"
         android:background="@drawable/bottom_line_gray"
         />
@@ -45,7 +45,7 @@
         android:id="@+id/item_4"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="已隐藏"
+        android:text="按使用频率"
         android:padding="10dp"
         android:background="@drawable/bottom_line_gray"
         />

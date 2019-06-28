@@ -18,7 +18,7 @@
 
     <LinearLayout
         android:layout_toEndOf="@+id/icon_app"
-        android:layout_toStartOf="@+id/btn_more"
+        android:layout_toStartOf="@+id/layout_right"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="16dp"
@@ -46,25 +46,23 @@
             android:text="v1.2.0 | 2015-02-06" />
     </LinearLayout>
 
-    <ImageView
-        android:layout_toStartOf="@+id/checkbox_wrapper"
-        android:id="@+id/btn_more"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/ic_more_vert_grey_24dp"
-        android:tint="#ccc"
-        android:layout_centerVertical="true"
-        android:padding="8dp"
-        />
-
-    <LinearLayout
-        android:id="@+id/checkbox_wrapper"
-        android:layout_width="wrap_content"
-        android:layout_height="48dp"
+    <FrameLayout
+        android:id="@+id/layout_right"
+        android:layout_width="36dp"
+        android:layout_height="36dp"
         android:layout_alignParentEnd="true"
         android:layout_centerVertical="true"
-        android:padding="5dp"
         >
+
+        <ImageView
+            android:id="@+id/btn_more"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_more_vert_grey_24dp"
+            android:tint="#ccc"
+            android:layout_gravity="center"
+
+            />
 
         <cn.refactor.library.SmoothCheckBox
             android:id="@+id/checkbox"
@@ -73,10 +71,10 @@
             android:layout_gravity="center"
             app:color_checked="@color/colorPrimary"
             android:clickable="false"
+            android:visibility="gone"
             />
 
-    </LinearLayout>
-
+    </FrameLayout>
 
 
 </RelativeLayout>

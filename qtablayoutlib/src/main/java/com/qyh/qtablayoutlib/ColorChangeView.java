@@ -10,6 +10,7 @@ import android.graphics.Rect;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.os.Parcelable;
+import android.support.v4.view.ViewCompat;
 import android.util.AttributeSet;
 import android.util.TypedValue;
 import android.view.View;
@@ -36,7 +37,7 @@ public class ColorChangeView extends View {
 
     private String mText = "";
     private Paint mPaint;
-    private int mTextSize = sp2px(30);
+    private float mTextSize = sp2px(30);
 
     private int mTextOriginColor = 0xff000000;
     private int mTextChangeColor = 0xffff0000;
@@ -60,7 +61,7 @@ public class ColorChangeView extends View {
                 R.styleable.ColorChangeView);
         mText = ta.getString(R.styleable.ColorChangeView_ctvText);
         mTextSize = ta.getDimensionPixelSize(
-                R.styleable.ColorChangeView_ctvText_size, mTextSize);
+                R.styleable.ColorChangeView_ctvText_size, (int) mTextSize);
         mTextOriginColor = ta.getColor(
                 R.styleable.ColorChangeView_ctvText_origin_color, mTextOriginColor);
         mTextChangeColor = ta.getColor(
@@ -247,17 +248,25 @@ public class ColorChangeView extends View {
         invalidate();
     }
 
-    public int getTextSize() {
+    public float getTextSize() {
         return mTextSize;
     }
 
-    public void setTextSize(int mTextSize) {
+    public void setTextSize(float mTextSize) {
         this.mTextSize = mTextSize;
         mPaint.setTextSize(mTextSize);
         Typeface font = Typeface.create(Typeface.MONOSPACE, Typeface.BOLD);
         mPaint.setTypeface(font);
         requestLayout();
         invalidate();
+    }
+
+    public void setTextSizeAndPostInvalidate(float mTextSize) {
+        this.mTextSize = mTextSize;
+        mPaint.setTextSize(mTextSize);
+        Typeface font = Typeface.create(Typeface.MONOSPACE, Typeface.BOLD);
+        mPaint.setTypeface(font);
+        ViewCompat.postInvalidateOnAnimation(this);
     }
 
     public void setText(String text) {
@@ -289,8 +298,8 @@ public class ColorChangeView extends View {
                 dpVal, getResources().getDisplayMetrics());
     }
 
-    private int sp2px(float dpVal) {
-        return (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP,
+    private float sp2px(float dpVal) {
+        return TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP,
                 dpVal, getResources().getDisplayMetrics());
     }
 

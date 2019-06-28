@@ -587,6 +587,14 @@ public class QTabLayout extends HorizontalScrollView {
         return mTabs;
     }
 
+    public float getSelectedTabTextSize() {
+        return mSelectedTabTextSize;
+    }
+
+    public float getUnselectedTabTextSize() {
+        return mUnselectedTabTextSize;
+    }
+
     /**
      * Returns the position of the current selected tab.
      *
@@ -1890,6 +1898,24 @@ public class QTabLayout extends HorizontalScrollView {
                 updateIndicatorPosition();
             }
 
+            // 修改使滚动时Tab标题字体逐渐变大或变小
+            if (positionOffset > 0) {
+                Tab leftTab = getTabAt(position);
+                Tab rightTab = getTabAt(position + 1);
+                if (leftTab != null && rightTab != null) {
+                    ColorChangeView left = (ColorChangeView)leftTab.getCustomView();
+                    ColorChangeView right = (ColorChangeView)rightTab.getCustomView();
+                    if (left != null && right != null) {
+                        Log.d("onPageScrolled", "positionOffset=" + positionOffset);
+                        Log.d("onPageScrolled", "mSelectedTabTextSize=" + getSelectedTabTextSize());
+                        Log.d("onPageScrolled", "mUnselectedTabTextSize=" + getUnselectedTabTextSize());
+                        left.setTextSizeAndPostInvalidate(getUnselectedTabTextSize() + (getSelectedTabTextSize() - getUnselectedTabTextSize()) * (1 - positionOffset));
+                        right.setTextSizeAndPostInvalidate(getUnselectedTabTextSize() + (getSelectedTabTextSize() - getUnselectedTabTextSize()) * positionOffset);
+                        Log.d("onPageScrolled", "leftTextSize=" + left.getTextSize());
+                        Log.d("onPageScrolled", "rightTextSize=" + right.getTextSize());
+                    }
+                }
+            }
 
         }
 
@@ -2266,6 +2292,26 @@ public class QTabLayout extends HorizontalScrollView {
                                    final int positionOffsetPixels) {
             final QTabLayout tabLayout = mTabLayoutRef.get();
             if (tabLayout != null) {
+
+//                // 修改使滚动时Tab标题字体逐渐变大或变小
+//                if (positionOffset > 0) {
+//                    Tab leftTab = tabLayout.getTabAt(position);
+//                    Tab rightTab = tabLayout.getTabAt(position + 1);
+//                    if (leftTab != null && rightTab != null) {
+//                        ColorChangeView left = (ColorChangeView)leftTab.getCustomView();
+//                        ColorChangeView right = (ColorChangeView)rightTab.getCustomView();
+//                        if (left != null && right != null) {
+//                            Log.d("onPageScrolled", "positionOffset=" + positionOffset);
+//                            Log.d("onPageScrolled", "mSelectedTabTextSize=" + tabLayout.getSelectedTabTextSize());
+//                            Log.d("onPageScrolled", "mUnselectedTabTextSize=" + tabLayout.getUnselectedTabTextSize());
+//                            left.setTextSize(tabLayout.getUnselectedTabTextSize() + (tabLayout.getSelectedTabTextSize() - tabLayout.getUnselectedTabTextSize()) * (1 - positionOffset));
+//                            right.setTextSize(tabLayout.getUnselectedTabTextSize() + (tabLayout.getSelectedTabTextSize() - tabLayout.getUnselectedTabTextSize()) * positionOffset);
+//                            Log.d("onPageScrolled", "leftTextSize=" + left.getTextSize());
+//                            Log.d("onPageScrolled", "rightTextSize=" + right.getTextSize());
+//                        }
+//                    }
+//                }
+
                 // Only update the text selection if we're not settling, or we are settling after
                 // being dragged
                 final boolean updateText = mScrollState != SCROLL_STATE_SETTLING ||

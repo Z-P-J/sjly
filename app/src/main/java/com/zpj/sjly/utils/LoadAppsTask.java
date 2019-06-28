@@ -19,19 +19,10 @@ public class LoadAppsTask extends AsyncTask<Void, Void, List<InstalledAppInfo>> 
 
     private WeakReference<Fragment> fragmentWeakReference;
 
-    private static final List<InstalledAppInfo> userAppList = new ArrayList<>();
-    private static final List<InstalledAppInfo> systemAppList = new ArrayList<>();
-    private static final List<InstalledAppInfo> hiddenAppList = new ArrayList<>();
-    private static final List<InstalledAppInfo> forbidAppList = new ArrayList<>();
-
     private CallBack callBack;
 
     private LoadAppsTask(Fragment fragment) {
         fragmentWeakReference = new WeakReference<>(fragment);
-        userAppList.clear();
-        systemAppList.clear();
-        hiddenAppList.clear();
-        forbidAppList.clear();
     }
 
     public static LoadAppsTask with(Fragment fragment) {
@@ -45,47 +36,50 @@ public class LoadAppsTask extends AsyncTask<Void, Void, List<InstalledAppInfo>> 
 
     @Override
     protected List<InstalledAppInfo> doInBackground(Void... voids) {
-        List<InstalledAppInfo> installedAppInfoList = new ArrayList<>();
         if (fragmentWeakReference.get() == null || fragmentWeakReference.get().getContext() == null) {
             cancel(true);
         }
-        PackageManager manager = fragmentWeakReference.get().getContext().getPackageManager();
-        List<PackageInfo> packageInfoList = manager.getInstalledPackages(0);
-        for (PackageInfo packageInfo : packageInfoList) {
-            InstalledAppInfo installedAppInfo = new InstalledAppInfo();
-            installedAppInfo.setName(packageInfo.applicationInfo.loadLabel(manager).toString());
-            installedAppInfo.setPackageName(packageInfo.packageName);
-            installedAppInfo.setSortName(installedAppInfo.getName());
-            installedAppInfo.setIdAndType(AppUpdateHelper.getInstance().getAppIdAndType(installedAppInfo.getPackageName()));
-            installedAppInfo.setVersionName(packageInfo.versionName);
-            installedAppInfo.setApkFilePath(packageInfo.applicationInfo.publicSourceDir);
-            installedAppInfo.setFormattedAppSize(FileUtils.formatFileSize(new File(installedAppInfo.getApkFilePath()).length()));
-            installedAppInfo.setVersionCode(packageInfo.versionCode);
-            installedAppInfo.setTempXPK(false);
-            installedAppInfo.setTempInstalled(true);
+        if (callBack != null) {
+            PackageManager manager = fragmentWeakReference.get().getContext().getPackageManager();
+            List<PackageInfo> packageInfoList = manager.getInstalledPackages(0);
+            for (PackageInfo packageInfo : packageInfoList) {
+                InstalledAppInfo installedAppInfo = new InstalledAppInfo();
+                installedAppInfo.setName(packageInfo.applicationInfo.loadLabel(manager).toString());
+                installedAppInfo.setPackageName(packageInfo.packageName);
+                installedAppInfo.setSortName(installedAppInfo.getName());
+                installedAppInfo.setIdAndType(AppUpdateHelper.getInstance().getAppIdAndType(installedAppInfo.getPackageName()));
+                installedAppInfo.setVersionName(packageInfo.versionName);
+                installedAppInfo.setApkFilePath(packageInfo.applicationInfo.publicSourceDir);
+                installedAppInfo.setFormattedAppSize(FileUtils.formatFileSize(new File(installedAppInfo.getApkFilePath()).length()));
+                installedAppInfo.setVersionCode(packageInfo.versionCode);
+                installedAppInfo.setTempXPK(false);
+                installedAppInfo.setTempInstalled(true);
 
-            if ((packageInfo.applicationInfo.flags & ApplicationInfo.FLAG_SYSTEM) == 0) {
-                // 非系统应用
-                userAppList.add(installedAppInfo);
-            } else {
-                // 系统应用
-                systemAppList.add(installedAppInfo);
+                if ((packageInfo.applicationInfo.flags & ApplicationInfo.FLAG_SYSTEM) == 0) {
+                    // 非系统应用
+                    callBack.onGetUserApp(installedAppInfo);
+                } else {
+                    // 系统应用
+                    callBack.onGetSystemApp(installedAppInfo);
+                }
+                if (new File(AppUtil.getDefaultAppBackupFolder() + installedAppInfo.getName() + "_" + installedAppInfo.getVersionName() + ".apk").exists()) {
+                    // 已备份
+                    callBack.onGetBackupApp(installedAppInfo);
+                }
+                if (!packageInfo.applicationInfo.enabled) {
+                    // 已禁用
+                    callBack.onGetForbidApp(installedAppInfo);
+                }
+                // todo 已隐藏
             }
-//            installedAppInfoList.add(installedAppInfo);
         }
-//        Collections.sort(installedAppInfoList, new Comparator<InstalledAppInfo>() {
-//            @Override
-//            public int compare(InstalledAppInfo o1, InstalledAppInfo o2) {
-//                return o1.getName().compareTo(o2.getName());
-//            }
-//        });
-        return installedAppInfoList;
+        return null;
     }
 
     @Override
     protected void onPostExecute(List<InstalledAppInfo> installedAppInfos) {
         if (callBack != null) {
-            callBack.onPostExecute(userAppList, systemAppList);
+            callBack.onLoadAppFinished();
         }
     }
 
@@ -96,7 +90,12 @@ public class LoadAppsTask extends AsyncTask<Void, Void, List<InstalledAppInfo>> 
     }
 
     public interface CallBack {
-        void onPostExecute(List<InstalledAppInfo> userAppList, List<InstalledAppInfo> systemAppList);
+        void onGetUserApp(InstalledAppInfo appInfo);
+        void onGetSystemApp(InstalledAppInfo appInfo);
+        void onGetBackupApp(InstalledAppInfo appInfo);
+        void onGetForbidApp(InstalledAppInfo appInfo);
+        void onGetHiddenApp(InstalledAppInfo appInfo);
+        void onLoadAppFinished();
     }
 
 }

@@ -4,13 +4,9 @@ import android.graphics.drawable.Drawable;
 
 import com.zpj.sjly.utils.FileScanner;
 
-public class InstalledAppInfo implements FileScanner.FileItem {
-
-    private String name;
-    private String packageName;
+public class AppPackageInfo extends BaseAppInfo implements FileScanner.FileItem {
 
     private String id;
-    private String appType;
     private String versionName;
     private String formattedAppSize;
 
@@ -21,8 +17,6 @@ public class InstalledAppInfo implements FileScanner.FileItem {
     private String sortName;
     private String apkFilePath;
 
-    private int versionCode;
-    private long appSize;
     private boolean isTempXPK;
     private boolean isTempInstalled;
 
@@ -35,23 +29,7 @@ public class InstalledAppInfo implements FileScanner.FileItem {
 
     @Override
     public long getFileLength() {
-        return appSize;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getPackageName() {
-        return packageName;
-    }
-
-    public void setPackageName(String packageName) {
-        this.packageName = packageName;
+        return Long.parseLong(getAppSize());
     }
 
     public String getId() {
@@ -62,9 +40,24 @@ public class InstalledAppInfo implements FileScanner.FileItem {
         this.id = id;
     }
 
+    @Override
+    public boolean isInstalledApp() {
+        return false;
+    }
 
-    public String getAppType() {
-        return appType;
+    @Override
+    public boolean isApkPackage() {
+        return false;
+    }
+
+    @Override
+    public boolean isXpkPackage() {
+        return false;
+    }
+
+    @Override
+    public boolean isMarketApp() {
+        return false;
     }
 
     public void setIdAndType(String idAndType) {
@@ -72,7 +65,7 @@ public class InstalledAppInfo implements FileScanner.FileItem {
             return;
         }
         id = idAndType.substring(7);
-        appType = idAndType.substring(0, 4);
+        setAppType(idAndType.substring(0, 4));
     }
 
     public String getVersionName() {
@@ -121,22 +114,6 @@ public class InstalledAppInfo implements FileScanner.FileItem {
 
     public String getRecentUpdateTime() {
         return recentUpdateTime;
-    }
-
-    public int getVersionCode() {
-        return versionCode;
-    }
-
-    public void setVersionCode(int versionCode) {
-        this.versionCode = versionCode;
-    }
-
-    public long getAppSize() {
-        return appSize;
-    }
-
-    public void setAppSize(long appSize) {
-        this.appSize = appSize;
     }
 
     public boolean isTempXPK() {
