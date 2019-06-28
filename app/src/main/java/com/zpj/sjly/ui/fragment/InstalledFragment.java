@@ -1,5 +1,9 @@
 package com.zpj.sjly.ui.fragment;
 
+import android.animation.Animator;
+import android.animation.AnimatorSet;
+import android.animation.ObjectAnimator;
+import android.animation.ValueAnimator;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Color;
@@ -9,10 +13,16 @@ import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationSet;
+import android.view.animation.DecelerateInterpolator;
+import android.view.animation.TranslateAnimation;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.felix.atoast.library.AToast;
@@ -20,23 +30,34 @@ import com.hmy.popwindow.PopWindow;
 import com.zpj.popupmenuview.OptionMenu;
 import com.zpj.popupmenuview.OptionMenuView;
 import com.zpj.popupmenuview.PopupMenuView;
+import com.zpj.qxdownloader.util.notification.NotifyUtil;
 import com.zpj.sjly.ui.activity.DetailActivity;
 import com.zpj.sjly.R;
 import com.zpj.sjly.ui.adapter.AppManagerAdapter;
 import com.zpj.sjly.bean.InstalledAppInfo;
 import com.zpj.sjly.ui.fragment.base.LazyLoadFragment;
+import com.zpj.sjly.ui.view.GradientButton;
+import com.zpj.sjly.utils.AnimationUtil;
+import com.zpj.sjly.utils.AppBackupHelper;
 import com.zpj.sjly.utils.AppUtil;
-import com.zpj.sjly.utils.LoadAppsTask;
+import com.zpj.sjly.utils.LoadAppTask;
 import com.zpj.sjly.ui.view.AppFilterLayout;
 import com.zpj.sjly.ui.adapter.loadmore.LoadMoreAdapter;
 import com.zpj.sjly.ui.adapter.loadmore.LoadMoreWrapper;
+import com.zpj.sjly.utils.Util;
 
+import org.apache.commons.io.FileUtils;
+
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
 import cn.refactor.library.SmoothCheckBox;
 
-public class InstalledFragment extends LazyLoadFragment implements AppManagerAdapter.OnItemClickListener, LoadAppsTask.CallBack {
+public class InstalledFragment extends LazyLoadFragment implements AppManagerAdapter.OnItemClickListener,
+        LoadAppTask.CallBack,
+        AppBackupHelper.AppBackupListener {
 
     private static final List<OptionMenu> optionMenus = new ArrayList<>();
     static {
@@ -47,7 +68,7 @@ public class InstalledFragment extends LazyLoadFragment implements AppManagerAda
         optionMenus.add(new OptionMenu("打开"));
     }
 
-    private LoadAppsTask loadAppsTask;
+    private LoadAppTask loadAppTask;
 
     private final List<InstalledAppInfo> installedAppInfos = new ArrayList<>();
     private static final List<InstalledAppInfo> USER_APP_LIST = new ArrayList<>();
@@ -61,11 +82,14 @@ public class InstalledFragment extends LazyLoadFragment implements AppManagerAda
 
     private TextView infoTextView;
     private TextView titleTextView;
+    private RelativeLayout bottomLayout;
+    private GradientButton uninstallBtn;
+    private GradientButton backupBtn;
 
     @Nullable
     @Override
     public View onBuildView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_installed_app, null, false);
+        View view = inflater.inflate(R.layout.fragment_installed, null, false);
         initView(view);
         return view;
     }
@@ -94,6 +118,33 @@ public class InstalledFragment extends LazyLoadFragment implements AppManagerAda
         infoTextView.setText("扫描中...");
         titleTextView = view.findViewById(R.id.text_title);
         titleTextView.setOnClickListener(v -> showFilterPopWindow());
+
+        bottomLayout = view.findViewById(R.id.layout_bottom);
+
+        uninstallBtn = view.findViewById(R.id.btn_uninstall);
+        uninstallBtn.setOnClickListener(v -> {
+            AToast.normal(adapter.getSelectedSet().toString());
+            for (int position : adapter.getSelectedSet()) {
+                AppUtil.uninstallApp(getActivity(), installedAppInfos.get(position).getPackageName());
+            }
+        });
+        backupBtn = view.findViewById(R.id.btn_backup);
+        backupBtn.setOnClickListener(v -> {
+            AToast.normal(adapter.getSelectedSet().toString());
+            AppBackupHelper.getInstance()
+                    .addAppBackupListener(this)
+                    .startBackup(installedAppInfos, adapter.getSelectedSet());
+//            for (int position : adapter.getSelectedSet()) {
+//                InstalledAppInfo appInfo = installedAppInfos.get(position);
+//                try {
+//                    FileUtils.copyFile(new File(appInfo.getApkFilePath()),
+//                            new File(AppUtil.getDefaultAppBackupFolder() + appInfo.getName() + "_" + appInfo.getVersionName() + ".apk"));
+//                } catch (IOException e) {
+//                    e.printStackTrace();
+//                    AToast.error("备份出错！" + e.getMessage());
+//                }
+//            }
+        });
 
         checkBox = view.findViewById(R.id.checkbox);
         checkBox.setOnClickListener(v -> {
@@ -133,9 +184,9 @@ public class InstalledFragment extends LazyLoadFragment implements AppManagerAda
         BACKUP_APP_LIST.clear();
         FORBID_APP_LIST.clear();
         HIDDEN_APP_LIST.clear();
-        loadAppsTask = LoadAppsTask.with(this)
+        loadAppTask = LoadAppTask.with(this)
                 .setCallBack(this);
-        loadAppsTask.execute();
+        loadAppTask.execute();
     }
 
     private void showFilterPopWindow() {
@@ -235,9 +286,30 @@ public class InstalledFragment extends LazyLoadFragment implements AppManagerAda
     }
 
     @Override
+    public void onEnterSelectMode() {
+//        AnimationUtil.with().bottomMoveToViewLocation(bottomLayout, 500);
+//        ViewGroup.LayoutParams params = recyclerView.getLayoutParams();
+//        params.height = recyclerView.getHeight() - Util.Dp2px(getContext(), 48);
+//        recyclerView.setLayoutParams(params);
+//        bottomLayout.setVisibility(View.VISIBLE);
+        enterSelectModeAnim();
+    }
+
+    @Override
+    public void onExitSelectMode() {
+//        AnimationUtil.with().moveToViewBottom(bottomLayout, 500);
+//        ViewGroup.LayoutParams params = recyclerView.getLayoutParams();
+//        params.height = recyclerView.getHeight() + Util.Dp2px(getContext(), 48);
+//        recyclerView.setLayoutParams(params);
+//        bottomLayout.setVisibility(View.GONE);
+        exitSelectModeAnim();
+    }
+
+    @Override
     public void onDestroy() {
-        if (loadAppsTask != null) {
-            loadAppsTask.onDestroy();
+        AppBackupHelper.getInstance().removeAppBackupListener(this);
+        if (loadAppTask != null) {
+            loadAppTask.onDestroy();
         }
         super.onDestroy();
     }
@@ -284,4 +356,143 @@ public class InstalledFragment extends LazyLoadFragment implements AppManagerAda
         }
         return false;
     }
+
+    @Override
+    public void onAppBackupSuccess(int totalCount, int finishedCount, InstalledAppInfo appInfo) {
+        if (totalCount == finishedCount) {
+            NotifyUtil.with(getContext())
+                    .buildNotify()
+                    .setContentTitle("手机乐园S")
+                    .setContentText(totalCount + "个应用备份完成！")
+                    .setId(hashCode())
+                    .show();
+        } else {
+            NotifyUtil.with(getContext())
+                    .buildProgressNotify()
+                    .setProgress(totalCount, finishedCount, false)
+                    .setContentTitle("备份中..." + appInfo.getName() + "备份成功！")
+                    .setContentText(totalCount + "/" + finishedCount)
+                    .setId(hashCode())
+                    .show();
+        }
+    }
+
+    @Override
+    public void onAppBackupFailed(int totalCount, int finishedCount, InstalledAppInfo appInfo) {
+        AToast.error(appInfo.getName() + "备份失败！");
+        NotifyUtil.with(getContext())
+                .buildNotify()
+                .setContentTitle("手机乐园S")
+                .setContentText(appInfo.getName() + "备份失败！")
+                .setId(appInfo.hashCode())
+                .show();
+    }
+
+    private void enterSelectModeAnim() {
+        AToast.normal("enterSelectModeAnim");
+        if (bottomLayout.getVisibility() == View.VISIBLE)
+            return;
+        bottomLayout.setVisibility(View.VISIBLE);
+
+        int bottomLayoutHeight = bottomLayout.getHeight() == 0 ? Util.Dp2px(getContext(), 48) : bottomLayout.getHeight();
+        ObjectAnimator translationY = ObjectAnimator.ofFloat(bottomLayout, "translationY", bottomLayoutHeight, 0);
+        translationY.setInterpolator(new DecelerateInterpolator());
+
+
+        ValueAnimator valueAnimator = ValueAnimator.ofFloat(0, bottomLayoutHeight);
+        int height1 = recyclerView.getHeight();
+        int height = ((ViewGroup) recyclerView.getParent()).getMeasuredHeight() - recyclerView.getTop();
+        Log.d("enterSelectModeAnim", "height1=" + height1);
+        Log.d("enterSelectModeAnim", "height=" + height);
+        Log.d("enterSelectModeAnim", "bottomLayout.getHeight()=" + bottomLayout.getHeight());
+        valueAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+            @Override
+            public void onAnimationUpdate(ValueAnimator animation) {
+                float value = (float)animation.getAnimatedValue();
+                Log.d("enterSelectModeAnim", "value=" + value);
+                ViewGroup.LayoutParams params = recyclerView.getLayoutParams();
+                params.height = (int) (height - value);
+                recyclerView.setLayoutParams(params);
+            }
+        });
+
+        AnimatorSet animatorSet = new AnimatorSet();
+        animatorSet.setDuration(500);
+        animatorSet.playTogether(valueAnimator, translationY);
+        animatorSet.start();
+    }
+
+    private void exitSelectModeAnim() {
+        if (bottomLayout.getVisibility() != View.VISIBLE)
+            return;
+
+        float y = ((ViewGroup) bottomLayout.getParent()).getMeasuredHeight() - bottomLayout.getTop();
+        ObjectAnimator translationY = ObjectAnimator.ofFloat(bottomLayout, "translationY", 0, y);
+        translationY.setInterpolator(new DecelerateInterpolator());
+        translationY.addListener(new Animator.AnimatorListener() {
+            @Override
+            public void onAnimationStart(Animator animation) {
+                AToast.normal("onAnimationStart");
+            }
+
+            @Override
+            public void onAnimationEnd(Animator animation) {
+                AToast.normal("onAnimationEnd");
+                bottomLayout.setVisibility(View.GONE);
+            }
+
+            @Override
+            public void onAnimationCancel(Animator animation) {
+                AToast.normal("onAnimationCancel");
+            }
+
+            @Override
+            public void onAnimationRepeat(Animator animation) {
+
+            }
+        });
+
+        ValueAnimator valueAnimator = ValueAnimator.ofFloat(0, y);
+        int height = recyclerView.getHeight();
+        valueAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+            @Override
+            public void onAnimationUpdate(ValueAnimator animation) {
+                float value = (float)animation.getAnimatedValue();
+                Log.d("exitSelectModeAnim", "value=" + value);
+                ViewGroup.LayoutParams params = recyclerView.getLayoutParams();
+                params.height = (int) (height + value);
+                recyclerView.setLayoutParams(params);
+            }
+        });
+
+
+        AnimatorSet animatorSet = new AnimatorSet();
+        animatorSet.setDuration(500);
+        animatorSet.playTogether(valueAnimator, translationY);
+        animatorSet.start();
+
+//        TranslateAnimation mHiddenAction = new TranslateAnimation(Animation.RELATIVE_TO_SELF, 0.0f,
+//                Animation.RELATIVE_TO_SELF, 0.0f, Animation.RELATIVE_TO_SELF,
+//                0.0f, Animation.RELATIVE_TO_SELF, 1.0f);
+//        mHiddenAction.setDuration(500);
+//        bottomLayout.clearAnimation();
+//        bottomLayout.setAnimation(mHiddenAction);
+//        mHiddenAction.setAnimationListener(new Animation.AnimationListener() {
+//            @Override
+//            public void onAnimationStart(Animation animation) {
+//
+//            }
+//
+//            @Override
+//            public void onAnimationEnd(Animation animation) {
+//                bottomLayout.setVisibility(View.GONE);
+//            }
+//
+//            @Override
+//            public void onAnimationRepeat(Animation animation) {
+//
+//            }
+//        });
+    }
+
 }

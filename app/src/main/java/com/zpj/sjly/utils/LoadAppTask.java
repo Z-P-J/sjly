@@ -10,26 +10,23 @@ import com.zpj.sjly.bean.InstalledAppInfo;
 
 import java.io.File;
 import java.lang.ref.WeakReference;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
 
-public class LoadAppsTask extends AsyncTask<Void, Void, List<InstalledAppInfo>> {
+public class LoadAppTask extends AsyncTask<Void, Void, List<InstalledAppInfo>> {
 
     private WeakReference<Fragment> fragmentWeakReference;
 
     private CallBack callBack;
 
-    private LoadAppsTask(Fragment fragment) {
+    private LoadAppTask(Fragment fragment) {
         fragmentWeakReference = new WeakReference<>(fragment);
     }
 
-    public static LoadAppsTask with(Fragment fragment) {
-        return new LoadAppsTask(fragment);
+    public static LoadAppTask with(Fragment fragment) {
+        return new LoadAppTask(fragment);
     }
 
-    public LoadAppsTask setCallBack(CallBack callBack) {
+    public LoadAppTask setCallBack(CallBack callBack) {
         this.callBack = callBack;
         return this;
     }

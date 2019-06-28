@@ -10,9 +10,11 @@ import com.qyh.qtablayoutlib.QTabLayout;
 import com.wuhenzhizao.titlebar.widget.CommonTitleBar;
 import com.zpj.sjly.R;
 import com.zpj.sjly.ui.adapter.PageAdapter;
+import com.zpj.sjly.ui.fragment.DownloadFragment;
 import com.zpj.sjly.ui.fragment.PackageFragment;
 import com.zpj.sjly.ui.fragment.UpdateFragment;
 import com.zpj.sjly.ui.fragment.InstalledFragment;
+import com.zpj.sjly.ui.fragment.base.BaseFragment;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,7 +23,7 @@ public class AppManagerActivity extends AppCompatActivity implements QTabLayout.
 
     private static final String[] TAB_TITLES = {"下载管理", "更新", "已安装", "安装包"};
 
-//    private List<Fragment> fragments = new ArrayList<>();
+    private List<BaseFragment> fragments = new ArrayList<>();
 
     private UpdateFragment updateFragment = new UpdateFragment();
     private InstalledFragment installedFragment = new InstalledFragment();
@@ -50,15 +52,15 @@ public class AppManagerActivity extends AppCompatActivity implements QTabLayout.
 
         tabLayout.addOnTabSelectedListener(this);
 
-        ArrayList<Fragment> list = new ArrayList<>();
-        list.add(new Fragment());
-        list.add(updateFragment);
-        list.add(installedFragment);
-        list.add(packageFragment);
+//        ArrayList<Fragment> list = new ArrayList<>();
+        fragments.add(new DownloadFragment());
+        fragments.add(updateFragment);
+        fragments.add(installedFragment);
+        fragments.add(packageFragment);
         for (String s : TAB_TITLES) {
             tabLayout.addTab(tabLayout.newTab().setText(s));
         }
-        PageAdapter adapter = new PageAdapter(getSupportFragmentManager(), list, TAB_TITLES);
+        PageAdapter adapter = new PageAdapter(getSupportFragmentManager(), fragments, TAB_TITLES);
         tabLayout.setTabMode(QTabLayout.MODE_FIXED);
         ViewPager viewPager = findViewById(R.id.view_pager);
         tabLayout.setupWithViewPager(viewPager);
@@ -68,22 +70,24 @@ public class AppManagerActivity extends AppCompatActivity implements QTabLayout.
 
     @Override
     public void onBackPressed() {
-        if (updateFragment.handleBackPressed()) {
+        if (fragments.get(tabLayout.getSelectedTabPosition()).handleBackPressed()) {
             return;
         }
-        if (installedFragment.handleBackPressed()) {
-            return;
-        }
-        if (packageFragment.handleBackPressed()) {
-            return;
-        }
+//        if (updateFragment.handleBackPressed()) {
+//            return;
+//        }
+//        if (installedFragment.handleBackPressed()) {
+//            return;
+//        }
+//        if (packageFragment.handleBackPressed()) {
+//            return;
+//        }
         super.onBackPressed();
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
-//        AppUtil.clearCache();
     }
 
     @Override

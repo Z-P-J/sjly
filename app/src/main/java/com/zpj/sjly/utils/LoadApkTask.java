@@ -6,21 +6,21 @@ import android.support.v4.app.Fragment;
 import java.lang.ref.WeakReference;
 import java.util.List;
 
-public class LoadApksTask extends AsyncTask<Void, Void, List<String>> {
+public class LoadApkTask extends AsyncTask<Void, Void, List<String>> {
 
     private WeakReference<Fragment> fragmentWeakReference;
 
     private CallBack callBack;
 
-    private LoadApksTask(Fragment fragment) {
+    private LoadApkTask(Fragment fragment) {
         fragmentWeakReference = new WeakReference<>(fragment);
     }
 
-    public static LoadApksTask with(Fragment fragment) {
-        return new LoadApksTask(fragment);
+    public static LoadApkTask with(Fragment fragment) {
+        return new LoadApkTask(fragment);
     }
 
-    public LoadApksTask setCallBack(CallBack callBack) {
+    public LoadApkTask setCallBack(CallBack callBack) {
         this.callBack = callBack;
         return this;
     }

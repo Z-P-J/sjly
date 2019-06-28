@@ -31,6 +31,8 @@ public class AppManagerAdapter extends RecyclerView.Adapter<AppManagerAdapter.Vi
         void onItemClick(ViewHolder holder, int position, InstalledAppInfo updateInfo);
         void onMenuClicked(View view, InstalledAppInfo updateInfo);
         void onCheckBoxClicked(int allCount, int selectCount);
+        void onEnterSelectMode();
+        void onExitSelectMode();
     }
 
     private Context context;
@@ -122,8 +124,7 @@ public class AppManagerAdapter extends RecyclerView.Adapter<AppManagerAdapter.Vi
             if (isSelectMode) {
                 holder.itemView.performClick();
             } else {
-                boolean isChecked = holder.checkBox.isChecked();
-                holder.checkBox.setChecked(!isChecked, true);
+                selectedSet.add(holder.getAdapterPosition());
                 enterSelectMode();
             }
             return true;
@@ -151,6 +152,9 @@ public class AppManagerAdapter extends RecyclerView.Adapter<AppManagerAdapter.Vi
                     if (onItemClickListener != null) {
                         onItemClickListener.onCheckBoxClicked(installedAppInfoList.size(), selectedSet.size());
                     }
+//                    if (selectedSet.isEmpty()) {
+//                        exitSelectMode();
+//                    }
                 }
             });
         } else {
@@ -179,6 +183,10 @@ public class AppManagerAdapter extends RecyclerView.Adapter<AppManagerAdapter.Vi
         this.onItemClickListener = onItemClickListener;
     }
 
+    public Set<Integer> getSelectedSet() {
+        return selectedSet;
+    }
+
     public void selectAll() {
         selectedSet.clear();
         for (int i = 0; i < installedAppInfoList.size(); i++) {
@@ -195,12 +203,18 @@ public class AppManagerAdapter extends RecyclerView.Adapter<AppManagerAdapter.Vi
     public void enterSelectMode() {
         isSelectMode = true;
         notifyDataSetChanged();
+        if (onItemClickListener != null) {
+            onItemClickListener.onEnterSelectMode();
+        }
     }
 
     public void exitSelectMode() {
         isSelectMode = false;
         selectedSet.clear();
         notifyDataSetChanged();
+        if (onItemClickListener != null) {
+            onItemClickListener.onExitSelectMode();
+        }
     }
 
     public boolean isSelectMode() {

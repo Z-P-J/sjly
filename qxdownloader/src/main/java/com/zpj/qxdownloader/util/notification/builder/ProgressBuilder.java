@@ -77,22 +77,21 @@ import android.text.TextUtils;
  */
 
 public class ProgressBuilder extends BaseBuilder {
-    public int max;
-    public float progress;
-    public boolean interminate = false;
+    private int max = 100;
+    private float progress;
+    private boolean interminate = false;
 
     public ProgressBuilder(Context context) {
         super(context);
     }
 
-    @Deprecated
     public ProgressBuilder setProgress(int max, int progress, boolean interminate){
-        setProgressAndFormat(progress, interminate, "%d/%d");
+        this.max = max;
+        setProgressAndFormat(progress, interminate, "");
         return this;
     }
 
     public ProgressBuilder setProgressAndFormat(float progress, boolean interminate, String format){
-        this.max = 100;
         this.progress = progress;
         this.interminate = interminate;
 
@@ -105,7 +104,7 @@ public class ProgressBuilder extends BaseBuilder {
                 int progressf = (int) (progress);
                 setContentText(String.format(format, progressf));
             }else {
-                setContentText(String.format(format, progress, 100));
+                setContentText(String.format(format, progress, max));
             }
         }
 

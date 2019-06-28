@@ -31,7 +31,7 @@ import com.zpj.sjly.utils.AppUpdateHelper;
 import com.zpj.sjly.utils.AppUtil;
 import com.zpj.sjly.utils.FileScanner;
 import com.zpj.sjly.utils.FileUtils;
-import com.zpj.sjly.utils.LoadApksTask;
+import com.zpj.sjly.utils.LoadApkTask;
 import com.zpj.sjly.utils.XpkInfo;
 import com.zpj.sjly.ui.view.AppSortLayout;
 
@@ -142,8 +142,8 @@ public class PackageFragment extends BaseFragment implements FileScanner.FileChe
 
     private void loadApk() {
         startTime = System.currentTimeMillis();
-        LoadApksTask.with(this)
-                .setCallBack(new LoadApksTask.CallBack() {
+        LoadApkTask.with(this)
+                .setCallBack(new LoadApkTask.CallBack() {
 
                     @Override
                     public void onPreExecute() {
@@ -386,6 +386,16 @@ public class PackageFragment extends BaseFragment implements FileScanner.FileChe
 
     @Override
     public void onCheckBoxClicked(int allCount, int selectCount) {
+
+    }
+
+    @Override
+    public void onEnterSelectMode() {
+
+    }
+
+    @Override
+    public void onExitSelectMode() {
 
     }
 

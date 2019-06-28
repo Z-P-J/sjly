@@ -11,13 +11,20 @@ import java.util.List;
  */
 
 public class PageAdapter extends FragmentPagerAdapter {
-    private List<Fragment> fragments;
+    private List<? extends Fragment> fragments;
     private String[] tabTitle;
-    public PageAdapter(FragmentManager fm, List<Fragment> fragments, String[] tabTiltle) {
+    public PageAdapter(FragmentManager fm, List<? extends Fragment> fragments, String[] tabTiltle) {
         super(fm);
         this.fragments = fragments;
         this.tabTitle = tabTiltle;
     }
+
+//    public PageAdapter(FragmentManager fm, List<BaseFragment> fragments, String[] tabTiltle) {
+//        super(fm);
+//        this.fragments = new ArrayList<>();
+//        this.fragments.addAll(fragments);
+//        this.tabTitle = tabTiltle;
+//    }
 
 
 

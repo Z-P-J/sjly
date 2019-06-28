@@ -13,8 +13,12 @@ import android.os.Environment;
 import android.util.Log;
 
 import com.felix.atoast.library.AToast;
+import com.zpj.sjly.bean.InstalledAppInfo;
+
+import org.apache.commons.io.FileUtils;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -146,6 +150,14 @@ public class AppUtil {
             folder.mkdirs();
         }
         return path;
+    }
+
+    public static File getAppBackupFile(InstalledAppInfo appInfo) {
+        return new File(AppUtil.getDefaultAppBackupFolder() + appInfo.getName() + "_" + appInfo.getVersionName() + ".apk");
+    }
+
+    public static void backupApp(InstalledAppInfo appInfo) throws IOException {
+        FileUtils.copyFile(new File(appInfo.getApkFilePath()), getAppBackupFile(appInfo));
     }
 
 }

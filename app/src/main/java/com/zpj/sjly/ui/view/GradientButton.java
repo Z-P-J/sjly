@@ -12,6 +12,7 @@ import android.graphics.Rect;
 import android.graphics.drawable.GradientDrawable;
 import android.graphics.drawable.StateListDrawable;
 import android.os.Build;
+import android.support.annotation.Nullable;
 import android.util.AttributeSet;
 import android.view.Gravity;
 import android.view.ViewGroup;
@@ -428,5 +429,10 @@ public class GradientButton extends FrameLayout {
     public void setButtonRadius(int buttonRadius) {
         this.buttonRadius = buttonRadius;
         requestLayout();
+    }
+
+    @Override
+    public void setOnClickListener(@Nullable OnClickListener l) {
+        button.setOnClickListener(l);
     }
 }
