@@ -23,6 +23,7 @@ import com.zpj.sjly.R;
 import com.zpj.sjly.ui.fragment.AppChinaFragment;
 import com.zpj.sjly.ui.fragment.HomeFragment;
 import com.zpj.sjly.ui.fragment.QianQianFragment;
+import com.zpj.sjly.ui.fragment.UserFragment;
 import com.zpj.sjly.ui.fragment.XinHaiFragment;
 import com.zpj.sjly.utils.BlurBuilder;
 import com.zpj.sjly.utils.ExecutorHelper;
@@ -70,7 +71,8 @@ public class MainActivity extends AppCompatActivity {
         fragments.add(new HomeFragment());
         fragments.add(new QianQianFragment());
         fragments.add(new XinHaiFragment());
-        fragments.add(new AppChinaFragment());
+//        fragments.add(new AppChinaFragment());
+        fragments.add(new UserFragment());
 
         navigationBar.titleItems(tabText)
                 .normalIconItems(normalIcon)

@@ -3,4 +3,8 @@
     <color name="colorPrimary">#24aa42</color>
     <color name="colorPrimaryDark">#24aa42</color>
     <color name="colorAccent">#24aa42</color>
+
+    <color name="colorBlack333">#333</color>
+    <color name="pink_fc4f74">#fc4f74</color>
+
 </resources>
