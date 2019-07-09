@@ -1,6 +1,6 @@
 package com.zpj.sjly.ui.fragment;
 
-import android.content.Context;
+import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -9,46 +9,81 @@ import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.v4.app.Fragment;
-import android.support.v4.view.ViewPager;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+import com.felix.atoast.library.AToast;
 import com.maning.imagebrowserlibrary.utils.StatusBarUtil;
 import com.qyh.qtablayoutlib.QTabLayout;
+import com.wuhenzhizao.titlebar.utils.ScreenUtils;
+import com.wuhenzhizao.titlebar.widget.CommonTitleBar;
 import com.zpj.sjly.R;
+import com.zpj.sjly.bean.ExploreItem;
+import com.zpj.sjly.constant.Key;
 import com.zpj.sjly.ui.adapter.PageAdapter;
 import com.zpj.sjly.ui.behavior.AppBarLayoutOverScrollViewBehavior;
+import com.zpj.sjly.ui.fragment.base.BaseFragment;
+import com.zpj.sjly.ui.fragment.base.LazyLoadFragment;
 import com.zpj.sjly.ui.widget.CircleImageView;
 import com.zpj.sjly.ui.widget.NoScrollViewPager;
 import com.zpj.sjly.ui.widget.RoundProgressBar;
+import com.zpj.sjly.utils.ConnectUtil;
+import com.zpj.sjly.utils.ExecutorHelper;
 
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
+
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
-public class UserFragment extends Fragment {
+public class UserFragment extends LazyLoadFragment implements ExploreFragment.Callback {
 
-    private static final String[] TAB_TITLES = {"动态", "收藏", "下载", "粉丝"};
+    public static final String DEFAULT_URL = "http://tt.shouji.com.cn/app/view_member_xml_v4.jsp?versioncode=187&id=5636865";
+
+    private static final String[] TAB_TITLES = {"我的动态", "我的收藏", "我的下载", "我的好友"};
 
     private ImageView mZoomIv;
     private Toolbar mToolBar;
-    private ViewGroup titleContainer;
+    private CommonTitleBar titleBar;
+//    private ViewGroup titleContainer;
     private AppBarLayout mAppBarLayout;
     private ViewGroup titleCenterLayout;
     private RoundProgressBar progressBar;
+    private TextView mNicknameTextView, mSignatureTextView;
     private ImageView mSettingIv, mMsgIv;
     private CircleImageView mAvater;
     private QTabLayout mTablayout;
     private NoScrollViewPager mViewPager;
 
-    private List<Fragment> fragments = new ArrayList<>();
+    private final List<Fragment> fragments = new ArrayList<>();
+    private ExploreFragment exploreFragment;
+
+    private String userId = "5636865";
+
     private int lastState = 1;
+
+    public static UserFragment newInstance(String userId, boolean shouldLazyLoad) {
+        UserFragment userFragment = new UserFragment();
+        userFragment.setShouldLazyLoad(shouldLazyLoad);
+        Bundle bundle = new Bundle();
+        bundle.putString(Key.USER_ID, userId);
+        userFragment.setArguments(bundle);
+        return userFragment;
+    }
 
     @Nullable
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+    protected View onBuildView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_user, null, false);
         initView(view);
         initTab();
@@ -56,11 +91,33 @@ public class UserFragment extends Fragment {
         initStatus();
         return view;
     }
-    
+
+    @Override
+    protected void lazyLoadData() {
+//        exploreFragment.loadData();
+        if (isShouldLazyLoad()) {
+            exploreFragment.loadData();
+        }
+    }
+
     private void initView(View view) {
+        Bundle bundle = getArguments();
+        if (bundle != null) {
+            userId = bundle.getString(Key.USER_ID);
+            exploreFragment = ExploreFragment.newInstance("http://tt.shouji.com.cn/app/view_member_xml_v4.jsp?versioncode=187&id=" + userId, isShouldLazyLoad());
+        } else {
+//            exploreFragment = ExploreFragment.newInstance(DEFAULT_URL, false);
+            throw new RuntimeException("bundle is null!");
+        }
+        exploreFragment.setCallback(this);
+        exploreFragment.setEnableSwipeRefresh(false);
         mZoomIv = view.findViewById(R.id.uc_zoomiv);
         mToolBar = view.findViewById(R.id.toolbar);
-        titleContainer = view.findViewById(R.id.title_layout);
+        mNicknameTextView = view.findViewById(R.id.text_nickname);
+        mSignatureTextView = view.findViewById(R.id.text_signature);
+        titleBar = view.findViewById(R.id.title_bar);
+//        titleBar.setAlpha(0);
+//        titleContainer = view.findViewById(R.id.title_layout);
         mAppBarLayout = view.findViewById(R.id.appbar_layout);
         titleCenterLayout = view.findViewById(R.id.title_center_layout);
         progressBar = view.findViewById(R.id.uc_progressbar);
@@ -72,9 +129,9 @@ public class UserFragment extends Fragment {
     }
 
     private void initTab() {
+        fragments.add(exploreFragment);
         fragments.add(new Fragment());
-        fragments.add(new Fragment());
-        fragments.add(new Fragment());
+        fragments.add(new UserDownloadedFragment());
         fragments.add(new Fragment());
         for (String s : TAB_TITLES) {
             mTablayout.addTab(mTablayout.newTab().setText(s));
@@ -86,15 +143,19 @@ public class UserFragment extends Fragment {
         mViewPager.setOffscreenPageLimit(4);
     }
 
+    private static int color = Color.parseColor("#80333333");
     private void initListener() {
         mAppBarLayout.addOnOffsetChangedListener(new AppBarLayout.OnOffsetChangedListener() {
             @Override
             public void onOffsetChanged(AppBarLayout appBarLayout, int verticalOffset) {
-                float percent = Float.valueOf(Math.abs(verticalOffset)) / Float.valueOf(appBarLayout.getTotalScrollRange());
+                float percent = (float) Math.abs(verticalOffset) / (float) appBarLayout.getTotalScrollRange();
                 if (titleCenterLayout != null && mAvater != null && mSettingIv != null && mMsgIv != null) {
                     titleCenterLayout.setAlpha(percent);
-                    StatusBarUtil.setTranslucentForImageView(getActivity(), (int) (255f * percent), null);
+                    titleBar.setAlpha(0.8f * percent);
+//                    StatusBarUtil.setTranslucentForImageView(getActivity(), (int) (255f * percent), null);
                     if (percent == 0) {
+                        titleBar.setBackgroundColor(Color.TRANSPARENT);
+                        titleBar.setStatusBarColor(Color.TRANSPARENT);
                         groupChange(1f, 1);
                     } else if (percent == 1) {
                         if (mAvater.getVisibility() != View.GONE) {
@@ -102,6 +163,8 @@ public class UserFragment extends Fragment {
                         }
                         groupChange(1f, 2);
                     } else {
+                        titleBar.setBackgroundColor(color);
+                        titleBar.setStatusBarColor(color);
                         if (mAvater.getVisibility() != View.VISIBLE) {
                             mAvater.setVisibility(View.VISIBLE);
                         }
@@ -161,23 +224,39 @@ public class UserFragment extends Fragment {
     private void initStatus() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {//4.4以下不支持状态栏变色
             //注意了，这里使用了第三方库 StatusBarUtil，目的是改变状态栏的alpha
-            StatusBarUtil.setTransparentForImageView(getActivity(), null);
+//            StatusBarUtil.setTransparentForImageView(getActivity(), null);
             //这里是重设我们的title布局的topMargin，StatusBarUtil提供了重设的方法，但是我们这里有两个布局
             //TODO 关于为什么不把Toolbar和@layout/layout_uc_head_title放到一起，是因为需要Toolbar来占位，防止AppBarLayout折叠时将title顶出视野范围
-            int statusBarHeight = getStatusBarHeight(getContext());
-            CollapsingToolbarLayout.LayoutParams lp1 = (CollapsingToolbarLayout.LayoutParams) titleContainer.getLayoutParams();
-            lp1.topMargin = statusBarHeight;
-            titleContainer.setLayoutParams(lp1);
+            int statusBarHeight = ScreenUtils.getStatusBarHeight(getContext());
+//            CollapsingToolbarLayout.LayoutParams lp1 = (CollapsingToolbarLayout.LayoutParams) titleContainer.getLayoutParams();
+//            lp1.topMargin = statusBarHeight;
+//            titleContainer.setLayoutParams(lp1);
             CollapsingToolbarLayout.LayoutParams lp2 = (CollapsingToolbarLayout.LayoutParams) mToolBar.getLayoutParams();
             lp2.topMargin = statusBarHeight;
             mToolBar.setLayoutParams(lp2);
         }
     }
 
-    private int getStatusBarHeight(Context context) {
-        // 获得状态栏高度
-        int resourceId = context.getResources().getIdentifier("status_bar_height", "dimen", "android");
-        return context.getResources().getDimensionPixelSize(resourceId);
+    @Override
+    public boolean handleBackPressed() {
+        return false;
     }
-    
+
+    @Override
+    public void onGetUserItem(Element element) {
+        mZoomIv.post(() -> {
+            mZoomIv.setTag(null);
+            Glide.with(mZoomIv)
+                    .load(element.select("memberbackground").get(0).text())
+                    .into(mZoomIv);
+            mZoomIv.setTag("overScroll");
+        });
+        mAvater.post(() -> {
+            Glide.with(mAvater)
+                    .load(element.select("memberavatar").get(0).text())
+                    .into(mAvater);
+        });
+        mNicknameTextView.post(() -> mNicknameTextView.setText(element.select("nickname").get(0).text()));
+        mSignatureTextView.post(() -> mSignatureTextView.setText(element.select("membersignature").get(0).text()));
+    }
 }

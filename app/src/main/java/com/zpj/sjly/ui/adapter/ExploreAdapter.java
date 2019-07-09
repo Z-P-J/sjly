@@ -19,6 +19,7 @@ import com.bumptech.glide.RequestManager;
 import com.sunbinqiang.iconcountview.IconCountView;
 import com.zpj.sjly.R;
 import com.zpj.sjly.bean.ExploreItem;
+import com.zpj.sjly.ui.activity.ProfileActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -130,14 +131,6 @@ public class ExploreAdapter extends RecyclerView.Adapter<ExploreAdapter.ViewHold
         TextView contentText;
         ImageView moreMenu;
 
-//        TextView supportCount;
-//        TextView replyCount;
-//        TextView starCount;
-//
-//        ImageView supportImg;
-//        ImageView replyImg;
-//        ImageView starImg;
-
         IconCountView supportView;
 //        IconCountView commentView;
         IconCountView starView;
@@ -173,15 +166,6 @@ public class ExploreAdapter extends RecyclerView.Adapter<ExploreAdapter.ViewHold
 
             moreMenu = view.findViewById(R.id.menu_more);
 
-
-//            supportCount = view.findViewById(R.id.support_count);
-//            replyCount = view.findViewById(R.id.reply_count);
-//            starCount = view.findViewById(R.id.star_count);
-//
-//            supportImg = view.findViewById(R.id.support_img);
-//            replyImg = view.findViewById(R.id.reply_img);
-//            starImg = view.findViewById(R.id.star_img);
-
             supportView = view.findViewById(R.id.support_view);
 //            commentView = view.findViewById(R.id.comment_view);
             starView = view.findViewById(R.id.like_view);
@@ -211,11 +195,16 @@ public class ExploreAdapter extends RecyclerView.Adapter<ExploreAdapter.ViewHold
     public void onBindViewHolder(@NonNull final ExploreAdapter.ViewHolder holder, final int position) {
         final ExploreItem exploreItem = appItemList.get(position);
         holder.item = exploreItem;
-        holder.itemView.setOnClickListener(new View.OnClickListener() {
+        holder.itemView.setOnClickListener(v -> {
+            if (onItemClickListener != null) {
+                onItemClickListener.onItemClick(holder, holder.getAdapterPosition(), holder.item);
+            }
+        });
+        holder.itemIcon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (onItemClickListener != null) {
-                    onItemClickListener.onItemClick(holder, holder.getAdapterPosition(), holder.item);
+                    onItemClickListener.onIconClicked(v, exploreItem.getMemberId());
                 }
             }
         });
@@ -291,6 +280,7 @@ public class ExploreAdapter extends RecyclerView.Adapter<ExploreAdapter.ViewHold
     public interface OnItemClickListener {
         void onItemClick(ViewHolder holder, int position, ExploreItem item);
         void onMenuClicked(View view, ExploreItem item);
+        void onIconClicked(View view, String userId);
     }
 
     public void setItemClickListener(OnItemClickListener onItemClickListener) {

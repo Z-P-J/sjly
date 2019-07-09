@@ -14,11 +14,16 @@ public abstract class LazyLoadFragment extends BaseFragment {
     private boolean isFirst = false;
     private boolean isInit = false;
 
+    private boolean shouldLazyLoad = true;
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = onBuildView(inflater, container, savedInstanceState);
         isInit = true;
+        if (!shouldLazyLoad) {
+            lazyLoadData();
+        }
         return view;
     }
 
@@ -28,7 +33,9 @@ public abstract class LazyLoadFragment extends BaseFragment {
         if (getUserVisibleHint()) {
             isVisible = true;
             if (isInit) {
-                lazyLoadData();
+                if (shouldLazyLoad) {
+                    lazyLoadData();
+                }
                 isInit = false;
             }
         } else {
@@ -38,6 +45,14 @@ public abstract class LazyLoadFragment extends BaseFragment {
 
     @Nullable
     protected abstract View onBuildView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState);
+
+    public void setShouldLazyLoad(boolean shouldLazyLoad) {
+        this.shouldLazyLoad = shouldLazyLoad;
+    }
+
+    public boolean isShouldLazyLoad() {
+        return shouldLazyLoad;
+    }
 
     protected abstract void lazyLoadData();
 }

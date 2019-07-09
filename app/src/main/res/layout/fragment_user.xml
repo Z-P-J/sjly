@@ -41,14 +41,32 @@
                 <android.support.v7.widget.Toolbar
                     android:id="@+id/toolbar"
                     android:layout_width="match_parent"
-                    android:layout_height="48dp"
+                    android:layout_height="56dp"
                     android:alpha="0"
-                    android:background="@android:color/white"
                     android:tag="toolbar"
                     app:layout_collapseMode="pin"
                     app:popupTheme="@style/Widget.AppCompat.Toolbar" />
 
-                <include layout="@layout/layout_uc_head_title" />
+<!--                <include layout="@layout/layout_uc_head_title" />-->
+
+                <com.wuhenzhizao.titlebar.widget.CommonTitleBar
+                    android:id="@+id/title_bar"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:fillStatusBar="true"
+                    app:titleBarColor="#00ffffff"
+                    app:statusBarColor="#00ffffff"
+                    app:showBottomLine="false"
+                    app:statusBarMode="light"
+                    app:centerType="textView"
+                    app:centerText="我好像在哪见过您"
+                    app:centerTextColor="#ffffff"
+                    app:centerTextMarquee="true"
+                    app:centerSubText="关注 100 | 粉丝 1000"
+                    app:rightType="customView"
+                    app:rightCustomView="@layout/layout_user_fragment_title_right"
+                    app:layout_collapseMode="pin"
+                    />
 
             </android.support.design.widget.CollapsingToolbarLayout>
         </android.support.design.widget.AppBarLayout>
@@ -59,13 +77,47 @@
             android:id="@+id/uc_avater"
             android:layout_width="70dp"
             android:layout_height="70dp"
-            android:layout_marginLeft="15dp"
+            android:layout_marginStart="15dp"
             android:src="@mipmap/ic_launcher"
             app:civ_border_color="@android:color/white"
             app:civ_border_width="2dp"
             app:layout_anchor="@+id/middle_layout"
             app:layout_anchorGravity="top"
             app:layout_behavior=".ui.behavior.CircleImageInUsercBehavior" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:orientation="horizontal"
+            app:layout_anchor="@+id/middle_layout"
+            app:layout_anchorGravity="end"
+            android:layout_marginEnd="15dp"
+            app:layout_behavior=".ui.behavior.LinearLayoutInUsercBehavior"
+            >
+
+            <TextView
+                android:id="@+id/frag_uc_msg_tv_2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/selector_stroke_roundcir"
+                android:gravity="center"
+                android:text="私信"
+                android:layout_gravity="center_vertical"
+                android:textColor="@color/colorBlack333" />
+
+            <TextView
+                android:id="@+id/frag_uc_follow_tv_2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="15dp"
+                android:background="@drawable/selector_stroke_roundredcir"
+                android:gravity="center"
+                android:layout_gravity="center_vertical"
+                android:text="关注"
+                android:textColor="@android:color/white" />
+
+        </LinearLayout>
 
 
     </android.support.design.widget.CoordinatorLayout>

@@ -106,8 +106,15 @@ public class ScreenUtils {
             statusBarHeight = context.getResources().getDimensionPixelSize(x);
         } catch (Exception e1) {
             e1.printStackTrace();
+            return getStatusBarHeight_v2(context);
         }
         return statusBarHeight;
+    }
+
+    public static int getStatusBarHeight_v2(Context context) {
+        // 获得状态栏高度
+        int resourceId = context.getResources().getIdentifier("status_bar_height", "dimen", "android");
+        return context.getResources().getDimensionPixelSize(resourceId);
     }
 
     public static int getAppInScreenheight(Context context) {

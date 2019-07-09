@@ -1,4 +1,4 @@
-package com.zpj.sjly.utils;
+package com.zpj.sjly.bean;
 
 import android.annotation.SuppressLint;
 import android.os.Environment;

@@ -44,7 +44,7 @@ public class MainActivity extends AppCompatActivity {
     private int[] menuIconItems = {R.drawable.pic1, R.drawable.pic2, R.drawable.pic3, R.drawable.pic4};
 
 
-    private String[] tabText = {"主页", "游戏", "", "软件", "我的"};
+    private String[] tabText = {"主页", "游戏", " ", "软件", "我的"};
     //未选中icon
     private int[] normalIcon = {R.drawable.index, R.drawable.find, R.drawable.add_image, R.drawable.message, R.drawable.me};
     //选中时icon
@@ -72,7 +72,7 @@ public class MainActivity extends AppCompatActivity {
         fragments.add(new QianQianFragment());
         fragments.add(new XinHaiFragment());
 //        fragments.add(new AppChinaFragment());
-        fragments.add(new UserFragment());
+        fragments.add(UserFragment.newInstance("5636865", true));
 
         navigationBar.titleItems(tabText)
                 .normalIconItems(normalIcon)
@@ -80,7 +80,7 @@ public class MainActivity extends AppCompatActivity {
                 .fragmentList(fragments)
                 .fragmentManager(getSupportFragmentManager())
                 .addLayoutRule(EasyNavigationBar.RULE_BOTTOM)
-                .addLayoutBottom(100)
+                .addLayoutBottom(0)
                 .onTabClickListener(new EasyNavigationBar.OnTabClickListener() {
                     @Override
                     public boolean onTabClickEvent(View view, int position) {

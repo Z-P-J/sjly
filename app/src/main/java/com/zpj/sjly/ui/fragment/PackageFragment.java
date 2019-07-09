@@ -32,7 +32,7 @@ import com.zpj.sjly.utils.AppUtil;
 import com.zpj.sjly.utils.FileScanner;
 import com.zpj.sjly.utils.FileUtils;
 import com.zpj.sjly.utils.LoadApkTask;
-import com.zpj.sjly.utils.XpkInfo;
+import com.zpj.sjly.bean.XpkInfo;
 import com.zpj.sjly.ui.view.AppSortLayout;
 
 import org.xmlpull.v1.XmlPullParserException;

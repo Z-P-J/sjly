@@ -16,51 +16,52 @@
         android:orientation="vertical">
 
         <RelativeLayout
+            android:id="@+id/layout_test"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:minHeight="40dp"
             android:paddingLeft="15dp"
-            android:paddingRight="15dp">
+            android:paddingRight="15dp"
+            >
 
             <TextView
-                android:id="@+id/frag_uc_nickname_tv"
+                android:id="@+id/text_nickname"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="37dp"
                 android:text="Lover's Day"
-                android:textColor="@color/colorBlack333"
+                android:textColor="#ffffff"
+                android:textStyle="bold"
                 android:textSize="17sp" />
 
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:layout_centerVertical="true"
-                android:layout_marginTop="37dp"
-                android:orientation="horizontal">
+<!--            <LinearLayout-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_alignParentEnd="true"-->
+<!--                android:orientation="horizontal">-->
 
-                <TextView
-                    android:id="@+id/frag_uc_msg_tv"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/selector_stroke_roundcir"
-                    android:gravity="center"
-                    android:text="chat"
-                    android:textColor="@color/colorBlack333" />
+<!--                <TextView-->
+<!--                    android:id="@+id/frag_uc_msg_tv"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:background="@drawable/selector_stroke_roundcir"-->
+<!--                    android:gravity="center"-->
+<!--                    android:text="chat"-->
+<!--                    android:layout_gravity="center_vertical"-->
+<!--                    android:textColor="@color/colorBlack333" />-->
 
-                <TextView
-                    android:id="@+id/frag_uc_follow_tv"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
-                    android:layout_centerVertical="true"
-                    android:layout_marginLeft="15dp"
-                    android:background="@drawable/selector_stroke_roundredcir"
-                    android:gravity="center"
-                    android:text="follow"
-                    android:textColor="@android:color/white" />
+<!--                <TextView-->
+<!--                    android:id="@+id/frag_uc_follow_tv"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_marginStart="15dp"-->
+<!--                    android:background="@drawable/selector_stroke_roundredcir"-->
+<!--                    android:gravity="center"-->
+<!--                    android:layout_gravity="center_vertical"-->
+<!--                    android:text="follow"-->
+<!--                    android:textColor="@android:color/white" />-->
 
-            </LinearLayout>
+<!--            </LinearLayout>-->
 
         </RelativeLayout>
 
@@ -69,7 +70,7 @@
             android:layout_height="wrap_content">
 
             <TextView
-                android:id="@+id/frag_uc_interest_tv"
+                android:id="@+id/text_signature"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="10dp"
@@ -77,7 +78,7 @@
                 android:maxLines="2"
                 android:paddingLeft="15dp"
                 android:text="music、dance、drive、fly~O(∩_∩)O~"
-                android:textColor="#aa333333"
+                android:textColor="#ffffff"
                 android:textSize="13sp" />
 
         </RelativeLayout>

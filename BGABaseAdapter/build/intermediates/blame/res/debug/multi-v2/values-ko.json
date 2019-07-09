@@ -4,7 +4,7 @@
             "outputFile": "D:\\Programming\\AndroidProjects\\sjly\\BGABaseAdapter\\build\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values-ko\\values-ko.xml",
             "map": [
                 {
-                    "source": "C:\\Users\\Z-P-J\\.gradle\\caches\\transforms-2\\files-2.1\\d6d3d6fc4fb7163d31b39c8727f515b4\\support-compat-28.0.0\\res\\values-ko\\values-ko.xml",
+                    "source": "C:\\Users\\Z-P-J\\.gradle\\caches\\transforms-2\\files-2.1\\e0a74940f0a4b4c6938bb98b682ccd76\\support-compat-28.0.0\\res\\values-ko\\values-ko.xml",
                     "from": {
                         "startLines": "2",
                         "startColumns": "4",
@@ -19,7 +19,7 @@
             "outputFile": "D:\\Programming\\AndroidProjects\\sjly\\BGABaseAdapter\\build\\intermediates\\res\\merged\\debug\\values-ko\\values-ko.xml",
             "map": [
                 {
-                    "source": "C:\\Users\\Z-P-J\\.gradle\\caches\\transforms-2\\files-2.1\\d6d3d6fc4fb7163d31b39c8727f515b4\\support-compat-28.0.0\\res\\values-ko\\values-ko.xml",
+                    "source": "C:\\Users\\Z-P-J\\.gradle\\caches\\transforms-2\\files-2.1\\e0a74940f0a4b4c6938bb98b682ccd76\\support-compat-28.0.0\\res\\values-ko\\values-ko.xml",
                     "from": {
                         "startLines": "2",
                         "startColumns": "4",

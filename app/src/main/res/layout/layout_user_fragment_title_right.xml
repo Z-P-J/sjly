@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/title_layout"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+
+    <com.zpj.sjly.ui.widget.RoundProgressBar
+        android:id="@+id/uc_progressbar"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_centerVertical="true"
+        android:layout_marginRight="15dp"
+        app:round_max="360"
+        app:round_progressColor="@android:color/white"
+        app:round_width="1dp" />
+
+    <ImageView
+        android:id="@+id/uc_setting_iv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:paddingLeft="10dp"
+        android:paddingRight="8dp"
+        android:src="@drawable/ic_settings_applications_black_24dp" />
+
+    <ImageView
+        android:id="@+id/uc_msg_iv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toEndOf="@id/uc_setting_iv"
+        android:layout_centerVertical="true"
+        android:paddingLeft="10dp"
+        android:paddingRight="15dp"
+        android:src="@drawable/ic_expand_more_black_24dp" />
+
+</RelativeLayout>

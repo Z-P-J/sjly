@@ -47,6 +47,12 @@
 
         </activity>
 
+        <activity
+            android:name=".ui.activity.ProfileActivity"
+            android:theme="@style/AppThemeTransparent">
+
+        </activity>
+
         <receiver android:name=".receiver.AppReceiver"
             android:label="@string/app_name">
             <intent-filter>

@@ -42,7 +42,6 @@
                         android:scaleType="centerCrop" />
 
                     <com.stx.xhb.xbanner.XBanner
-                        xmlns:app="http://schemas.android.com/apk/res-auto"
                         android:id="@+id/xbanner"
                         android:layout_width="match_parent"
                         android:layout_height="233dp"
@@ -53,18 +52,6 @@
                         app:isShowNumberIndicator="true"
                         app:isShowIndicatorOnlyOne="true"
                         app:pageChangeDuration="800"/>
-
-                    <com.example.library.banner.BannerLayout
-                        android:id="@+id/recycler"
-                        android:background="#333"
-                        android:layout_width="match_parent"
-                        android:layout_height="240dp"
-                        app:autoPlaying="true"
-                        app:centerScale="1.3"
-                        app:itemSpace="20"
-                        app:moveSpeed="1.8"
-                        android:visibility="gone"
-                        />
 
 <!--                    <com.leochuan.AutoPlayRecyclerView-->
 <!--                        android:id="@+id/recycler"-->
@@ -113,7 +100,7 @@
                             android:drawablePadding="6dp"
                             android:focusable="true"
                             android:gravity="center"
-                            android:text="精选"
+                            android:text="常用"
                             android:textColor="#222222"
                             android:textSize="12sp" />
 
@@ -126,7 +113,7 @@
                             android:drawablePadding="6dp"
                             android:focusable="true"
                             android:gravity="center"
-                            android:text="帮助·反馈"
+                            android:text="专题"
                             android:textColor="#222222"
                             android:textSize="12sp" />
 
@@ -139,7 +126,7 @@
                             android:drawablePadding="6dp"
                             android:focusable="true"
                             android:gravity="center"
-                            android:text="投屏助手"
+                            android:text="看看"
                             android:textColor="#222222"
                             android:textSize="12sp" />
 
@@ -152,7 +139,7 @@
                             android:drawablePadding="6dp"
                             android:focusable="true"
                             android:gravity="center"
-                            android:text="下载中心"
+                            android:text="预约"
                             android:textColor="#222222"
                             android:textSize="12sp" />
 

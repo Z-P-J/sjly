@@ -13,7 +13,8 @@
         app:Easy_addIconSize="40dp"
         app:Easy_navigationHeight="60dp"
         app:Easy_hasPadding="true"
-        app:Easy_navigationBackground="#ffffff">
+        app:Easy_navigationBackground="#ffffff"
+        >
 
     </com.next.easynavigation.view.EasyNavigationBar>
 

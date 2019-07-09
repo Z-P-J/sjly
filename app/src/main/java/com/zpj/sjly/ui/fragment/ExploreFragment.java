@@ -9,6 +9,7 @@ import android.support.v7.view.menu.MenuBuilder;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,9 +18,11 @@ import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
+import com.felix.atoast.library.AToast;
 import com.zpj.popupmenuview.CustomPopupMenuView;
 import com.zpj.popupmenuview.OptionMenuView;
 import com.zpj.sjly.R;
+import com.zpj.sjly.ui.activity.ProfileActivity;
 import com.zpj.sjly.ui.adapter.ExploreAdapter;
 import com.zpj.sjly.bean.ExploreItem;
 import com.zpj.sjly.ui.fragment.base.LazyLoadFragment;
@@ -37,19 +40,25 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class ExploreFragment extends LazyLoadFragment {
+public class ExploreFragment extends LazyLoadFragment implements ExploreAdapter.OnItemClickListener {
 
-    private static final String DEFAULT_LIST_URL = "http://tt.shouji.com.cn/app/faxian.jsp?index=faxian&versioncode=187";
+    public interface Callback {
+        void onGetUserItem(Element element);
+    }
 
-    private View view;
-    private LinearLayoutManager layoutManager;
+    private static final String DEFAULT_URL = "http://tt.shouji.com.cn/app/faxian.jsp?index=faxian&versioncode=187";
+
     private RecyclerView recyclerView;
 //    private LoadingView loadingView;
     private List<ExploreItem> exploreItems = new ArrayList<>();
     private ExploreAdapter exploreAdapter;
     private SwipeRefreshLayout swipeRefreshLayout;
+    private boolean enableSwipeRefresh = true;
 
-    private String nextUrl = DEFAULT_LIST_URL;
+    private String defaultUrl = DEFAULT_URL;
+    private String nextUrl;
+
+    private Callback callback;
 
 
     private final Runnable getDataRunnable = new Runnable() {
@@ -58,17 +67,29 @@ public class ExploreFragment extends LazyLoadFragment {
             try {
                 Log.d("getExploreData", "nextUrl=" + nextUrl);
                 Document doc = ConnectUtil.getDocument(nextUrl);
+                Elements elements = doc.select("item");
+                if (nextUrl.equals(defaultUrl)) {
+                    Element userElement = elements.get(0);
+                    if (callback != null) {
+                        callback.onGetUserItem(userElement);
+                    }
+                }
 
                 nextUrl = doc.select("nextUrl").get(0).text();
-                Elements elements = doc.select("item");
                 Map<String, ExploreItem> map = new HashMap<>();
                 for (int i = 1; i < elements.size(); i++) {
                     Element item = elements.get(i);
                     ExploreItem exploreItem = new ExploreItem();
                     String id = item.select("id").get(0).text();
                     String parent = item.select("parent").get(0).text();
+                    if (id == null && parent == null) {
+                        continue;
+                    }
+                    Log.d("getExploreData", "id=" + id);
+                    Log.d("getExploreData", "parent=" + parent);
                     exploreItem.setId(id);
-                    exploreItem.setId(parent);
+                    exploreItem.setParent(parent);
+                    exploreItem.setMemberId(item.select("memberid").get(0).text());
 
                     exploreItem.setIcon(item.select("icon").get(0).text());
                     exploreItem.setIconState(item.select("iconstate").get(0).text());
@@ -146,29 +167,87 @@ public class ExploreFragment extends LazyLoadFragment {
         }
     };
 
+    public static ExploreFragment newInstance(String url) {
+        return newInstance(url, true);
+    }
+
+    public static ExploreFragment newInstance(String url, boolean shouldLazyLoad) {
+        ExploreFragment fragment = new ExploreFragment();
+        fragment.setShouldLazyLoad(shouldLazyLoad);
+        Bundle bundle = new Bundle();
+        bundle.putString("default_url", url);
+        fragment.setArguments(bundle);
+        return fragment;
+    }
+
     @Nullable
     @Override
     protected View onBuildView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.fragment_explore, null);
+        View view = inflater.inflate(R.layout.fragment_explore, null);
+        if (getArguments() != null) {
+            defaultUrl = getArguments().getString("default_url");
+        }
+        nextUrl = defaultUrl;
         initView(view);
+//        if (!isShouldLazyLoad()) {
+//            loadData();
+//        }
         return view;
     }
 
 
     @Override
     protected void lazyLoadData() {
+        loadData();
+    }
+
+    @Override
+    public boolean handleBackPressed() {
+        return false;
+    }
+
+    @Override
+    public void onItemClick(ExploreAdapter.ViewHolder holder, int position, ExploreItem item) {
+        Toast.makeText(getContext(), "onItemClick", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onMenuClicked(View view, ExploreItem item) {
+        showMenu(view, item);
+    }
+
+    @Override
+    public void onIconClicked(View view, String userId) {
+        if (defaultUrl.equals(DEFAULT_URL)) {
+            ProfileActivity.startActivity(getContext(), userId);
+        }
+    }
+
+    public void setCallback(Callback callback) {
+        this.callback = callback;
+    }
+
+    public void setEnableSwipeRefresh(boolean enableSwipeRefresh) {
+        this.enableSwipeRefresh = enableSwipeRefresh;
+        if (swipeRefreshLayout != null) {
+            AToast.normal("setEnableSwipeRefresh");
+            swipeRefreshLayout.setEnabled(enableSwipeRefresh);
+        }
+    }
+
+    public void loadData() {
         LoadMoreWrapper.with(exploreAdapter)
                 .setLoadMoreEnabled(true)
                 .setListener(new LoadMoreAdapter.OnLoadMoreListener() {
                     @Override
                     public void onLoadMore(LoadMoreAdapter.Enabled enabled) {
-                        recyclerView.postDelayed(new Runnable() {
-                            @Override
-                            public void run() {
-                                // 获取数据
-                                ExecutorHelper.submit(getDataRunnable);
-                            }
-                        }, 1);
+                        if (TextUtils.isEmpty(nextUrl)) {
+//                            enabled.setLoadFailed(false);
+                            AToast.normal("没有更多了！");
+                            return;
+                        }
+                        // 获取数据
+                        ExecutorHelper.submit(getDataRunnable);
                     }
                 })
                 .into(recyclerView);
@@ -183,6 +262,7 @@ public class ExploreFragment extends LazyLoadFragment {
 //        loadingView.setLoadingText("正在加载，请稍后……");
 
         swipeRefreshLayout = view.findViewById(R.id.swipe_refresh);
+        swipeRefreshLayout.setEnabled(enableSwipeRefresh);
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
@@ -192,7 +272,7 @@ public class ExploreFragment extends LazyLoadFragment {
                         swipeRefreshLayout.setRefreshing(false);
                         exploreItems.clear();
                         exploreAdapter.notifyDataSetChanged();
-                        nextUrl = DEFAULT_LIST_URL;
+                        nextUrl = DEFAULT_URL;
 //                        getCoolApkHtml();
                     }
                 }, 1000);
@@ -202,20 +282,10 @@ public class ExploreFragment extends LazyLoadFragment {
         //lazyLoadData();
 
 
-        layoutManager = new LinearLayoutManager(getContext());
+        LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(layoutManager);
         exploreAdapter = new ExploreAdapter(exploreItems);
-        exploreAdapter.setItemClickListener(new ExploreAdapter.OnItemClickListener() {
-            @Override
-            public void onItemClick(ExploreAdapter.ViewHolder holder, int position, ExploreItem item) {
-                Toast.makeText(getContext(), "onItemClick", Toast.LENGTH_SHORT).show();
-            }
-
-            @Override
-            public void onMenuClicked(View view, ExploreItem item) {
-                showMenu(view, item);
-            }
-        });
+        exploreAdapter.setItemClickListener(this);
     }
 
     private void showMenu(View view, ExploreItem item) {
@@ -270,10 +340,5 @@ public class ExploreFragment extends LazyLoadFragment {
                             toolsFrameLayout.addView(tools);
                         })
                 .show(view);
-    }
-
-    @Override
-    public boolean handleBackPressed() {
-        return false;
     }
 }

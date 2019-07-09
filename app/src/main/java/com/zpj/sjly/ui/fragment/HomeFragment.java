@@ -56,7 +56,7 @@ public class HomeFragment extends LazyLoadFragment {
 
         ArrayList<Fragment> list = new ArrayList<>();
         list.add(new RecommendFragment());
-        list.add(new ExploreFragment());
+        list.add(ExploreFragment.newInstance("http://tt.shouji.com.cn/app/faxian.jsp?index=faxian&versioncode=187"));
         list.add(new Fragment());
         for (String s : TAB_TITLES) {
             tabLayout.addTab(tabLayout.newTab().setText(s));

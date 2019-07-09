@@ -4,7 +4,7 @@
             "outputFile": "D:\\Programming\\AndroidProjects\\sjly\\BGAPhotoPicker\\build\\intermediates\\res\\merged\\debug\\values-v16\\values-v16.xml",
             "map": [
                 {
-                    "source": "C:\\Users\\Z-P-J\\.gradle\\caches\\transforms-2\\files-2.1\\d6d3d6fc4fb7163d31b39c8727f515b4\\support-compat-28.0.0\\res\\values-v16\\values-v16.xml",
+                    "source": "C:\\Users\\Z-P-J\\.gradle\\caches\\transforms-2\\files-2.1\\e0a74940f0a4b4c6938bb98b682ccd76\\support-compat-28.0.0\\res\\values-v16\\values-v16.xml",
                     "from": {
                         "startLines": "2",
                         "startColumns": "4",
@@ -14,7 +14,7 @@
                     }
                 },
                 {
-                    "source": "C:\\Users\\Z-P-J\\.gradle\\caches\\transforms-2\\files-2.1\\d0145492313c0c728cdfa54e6431500b\\appcompat-v7-28.0.0\\res\\values-v16\\values-v16.xml",
+                    "source": "C:\\Users\\Z-P-J\\.gradle\\caches\\transforms-2\\files-2.1\\03629803390bfe3e97272014720424bd\\appcompat-v7-28.0.0\\res\\values-v16\\values-v16.xml",
                     "from": {
                         "startLines": "2",
                         "startColumns": "4",
@@ -38,7 +38,7 @@
             "outputFile": "D:\\Programming\\AndroidProjects\\sjly\\BGAPhotoPicker\\build\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values-v16\\values-v16.xml",
             "map": [
                 {
-                    "source": "C:\\Users\\Z-P-J\\.gradle\\caches\\transforms-2\\files-2.1\\d6d3d6fc4fb7163d31b39c8727f515b4\\support-compat-28.0.0\\res\\values-v16\\values-v16.xml",
+                    "source": "C:\\Users\\Z-P-J\\.gradle\\caches\\transforms-2\\files-2.1\\e0a74940f0a4b4c6938bb98b682ccd76\\support-compat-28.0.0\\res\\values-v16\\values-v16.xml",
                     "from": {
                         "startLines": "2",
                         "startColumns": "4",
@@ -48,7 +48,7 @@
                     }
                 },
                 {
-                    "source": "C:\\Users\\Z-P-J\\.gradle\\caches\\transforms-2\\files-2.1\\d0145492313c0c728cdfa54e6431500b\\appcompat-v7-28.0.0\\res\\values-v16\\values-v16.xml",
+                    "source": "C:\\Users\\Z-P-J\\.gradle\\caches\\transforms-2\\files-2.1\\03629803390bfe3e97272014720424bd\\appcompat-v7-28.0.0\\res\\values-v16\\values-v16.xml",
                     "from": {
                         "startLines": "2",
                         "startColumns": "4",
