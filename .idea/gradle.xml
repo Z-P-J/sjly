@@ -11,7 +11,20 @@
         <option name="modules">
           <set>
             <option value="$PROJECT_DIR$" />
+            <option value="$PROJECT_DIR$/BGABaseAdapter" />
+            <option value="$PROJECT_DIR$/BGAPhotoPicker" />
             <option value="$PROJECT_DIR$/app" />
+            <option value="$PROJECT_DIR$/atoast" />
+            <option value="$PROJECT_DIR$/bannerlayout" />
+            <option value="$PROJECT_DIR$/easynavigation" />
+            <option value="$PROJECT_DIR$/imagebrowserlibrary" />
+            <option value="$PROJECT_DIR$/popupmenuview" />
+            <option value="$PROJECT_DIR$/popwindowlibrary" />
+            <option value="$PROJECT_DIR$/qtablayoutlib" />
+            <option value="$PROJECT_DIR$/qxdownloader" />
+            <option value="$PROJECT_DIR$/smoothcheckbox" />
+            <option value="$PROJECT_DIR$/titlebar" />
+            <option value="$PROJECT_DIR$/xbanner" />
           </set>
         </option>
         <option name="resolveModulePerSourceSet" value="false" />
