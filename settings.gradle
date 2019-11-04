@@ -11,4 +11,9 @@ include ':app',
         ':qxdownloader',
         ':smoothcheckbox',
         ':atoast',
-        ':popwindowlibrary'
+        ':popwindowlibrary',
+        ':fragmentation',
+        ':fragmentation_core',
+        ':fragmentation_swipeback',
+        ':zdialog',
+        ':switchbutton'

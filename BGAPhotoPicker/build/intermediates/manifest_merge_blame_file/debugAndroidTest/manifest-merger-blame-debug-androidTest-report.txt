@@ -3,24 +3,24 @@
 3    package="cn.bingoogolapple.photopicker.test" >
 4
 5    <uses-sdk
-5-->D:\Programming\AndroidProjects\sjly\BGAPhotoPicker\build\intermediates\tmp\manifest\androidTest\debug\manifestMerger6700946302062276055.xml:5:5-74
+5-->D:\Programming\AndroidProjects\sjly\BGAPhotoPicker\build\intermediates\tmp\manifest\androidTest\debug\manifestMerger2145891029372227279.xml:5:5-74
 6        android:minSdkVersion="19"
-6-->D:\Programming\AndroidProjects\sjly\BGAPhotoPicker\build\intermediates\tmp\manifest\androidTest\debug\manifestMerger6700946302062276055.xml:5:15-41
+6-->D:\Programming\AndroidProjects\sjly\BGAPhotoPicker\build\intermediates\tmp\manifest\androidTest\debug\manifestMerger2145891029372227279.xml:5:15-41
 7        android:targetSdkVersion="28" />
-7-->D:\Programming\AndroidProjects\sjly\BGAPhotoPicker\build\intermediates\tmp\manifest\androidTest\debug\manifestMerger6700946302062276055.xml:5:42-71
+7-->D:\Programming\AndroidProjects\sjly\BGAPhotoPicker\build\intermediates\tmp\manifest\androidTest\debug\manifestMerger2145891029372227279.xml:5:42-71
 8
 9    <instrumentation
-9-->D:\Programming\AndroidProjects\sjly\BGAPhotoPicker\build\intermediates\tmp\manifest\androidTest\debug\manifestMerger6700946302062276055.xml:11:5-15:84
+9-->D:\Programming\AndroidProjects\sjly\BGAPhotoPicker\build\intermediates\tmp\manifest\androidTest\debug\manifestMerger2145891029372227279.xml:11:5-15:84
 10        android:name="android.test.InstrumentationTestRunner"
-10-->D:\Programming\AndroidProjects\sjly\BGAPhotoPicker\build\intermediates\tmp\manifest\androidTest\debug\manifestMerger6700946302062276055.xml:11:22-75
+10-->D:\Programming\AndroidProjects\sjly\BGAPhotoPicker\build\intermediates\tmp\manifest\androidTest\debug\manifestMerger2145891029372227279.xml:11:22-75
 11        android:functionalTest="false"
-11-->D:\Programming\AndroidProjects\sjly\BGAPhotoPicker\build\intermediates\tmp\manifest\androidTest\debug\manifestMerger6700946302062276055.xml:14:22-52
+11-->D:\Programming\AndroidProjects\sjly\BGAPhotoPicker\build\intermediates\tmp\manifest\androidTest\debug\manifestMerger2145891029372227279.xml:14:22-52
 12        android:handleProfiling="false"
-12-->D:\Programming\AndroidProjects\sjly\BGAPhotoPicker\build\intermediates\tmp\manifest\androidTest\debug\manifestMerger6700946302062276055.xml:13:22-53
+12-->D:\Programming\AndroidProjects\sjly\BGAPhotoPicker\build\intermediates\tmp\manifest\androidTest\debug\manifestMerger2145891029372227279.xml:13:22-53
 13        android:label="Tests for cn.bingoogolapple.photopicker.test"
-13-->D:\Programming\AndroidProjects\sjly\BGAPhotoPicker\build\intermediates\tmp\manifest\androidTest\debug\manifestMerger6700946302062276055.xml:15:22-82
+13-->D:\Programming\AndroidProjects\sjly\BGAPhotoPicker\build\intermediates\tmp\manifest\androidTest\debug\manifestMerger2145891029372227279.xml:15:22-82
 14        android:targetPackage="cn.bingoogolapple.photopicker.test" />
-14-->D:\Programming\AndroidProjects\sjly\BGAPhotoPicker\build\intermediates\tmp\manifest\androidTest\debug\manifestMerger6700946302062276055.xml:12:22-80
+14-->D:\Programming\AndroidProjects\sjly\BGAPhotoPicker\build\intermediates\tmp\manifest\androidTest\debug\manifestMerger2145891029372227279.xml:12:22-80
 15
 16    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 16-->[__tested_artifact__::BGAPhotoPicker] D:\Programming\AndroidProjects\sjly\BGAPhotoPicker\build\intermediates\library_manifest\debug\AndroidManifest.xml:9:5-80
@@ -33,14 +33,14 @@
 18-->[__tested_artifact__::BGAPhotoPicker] D:\Programming\AndroidProjects\sjly\BGAPhotoPicker\build\intermediates\library_manifest\debug\AndroidManifest.xml:11:22-62
 19
 20    <application
-20-->D:\Programming\AndroidProjects\sjly\BGAPhotoPicker\build\intermediates\tmp\manifest\androidTest\debug\manifestMerger6700946302062276055.xml:7:5-9:19
+20-->D:\Programming\AndroidProjects\sjly\BGAPhotoPicker\build\intermediates\tmp\manifest\androidTest\debug\manifestMerger2145891029372227279.xml:7:5-9:19
 21        android:appComponentFactory="android.support.v4.app.CoreComponentFactory"
-21-->[com.android.support:support-compat:28.0.0] C:\Users\Z-P-J\.gradle\caches\transforms-2\files-2.1\3e8b4052b0b5187ae692899c266e7771\support-compat-28.0.0\AndroidManifest.xml:22:18-91
+21-->[com.android.support:support-compat:28.0.0] C:\Users\Z-P-J\.gradle\caches\transforms-2\files-2.1\4aa366e860270bc2958b1f193727c50a\support-compat-28.0.0\AndroidManifest.xml:22:18-91
 22        android:debuggable="true" >
-22-->D:\Programming\AndroidProjects\sjly\BGAPhotoPicker\build\intermediates\tmp\manifest\androidTest\debug\manifestMerger6700946302062276055.xml:7:18-43
+22-->D:\Programming\AndroidProjects\sjly\BGAPhotoPicker\build\intermediates\tmp\manifest\androidTest\debug\manifestMerger2145891029372227279.xml:7:18-43
 23        <uses-library android:name="android.test.runner" />
-23-->D:\Programming\AndroidProjects\sjly\BGAPhotoPicker\build\intermediates\tmp\manifest\androidTest\debug\manifestMerger6700946302062276055.xml:8:9-60
-23-->D:\Programming\AndroidProjects\sjly\BGAPhotoPicker\build\intermediates\tmp\manifest\androidTest\debug\manifestMerger6700946302062276055.xml:8:23-57
+23-->D:\Programming\AndroidProjects\sjly\BGAPhotoPicker\build\intermediates\tmp\manifest\androidTest\debug\manifestMerger2145891029372227279.xml:8:9-60
+23-->D:\Programming\AndroidProjects\sjly\BGAPhotoPicker\build\intermediates\tmp\manifest\androidTest\debug\manifestMerger2145891029372227279.xml:8:23-57
 24        <!-- 图片预览界面 -->
 25        <activity
 25-->[__tested_artifact__::BGAPhotoPicker] D:\Programming\AndroidProjects\sjly\BGAPhotoPicker\build\intermediates\library_manifest\debug\AndroidManifest.xml:16:9-21:63

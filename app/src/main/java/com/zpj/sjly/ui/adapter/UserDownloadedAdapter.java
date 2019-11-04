@@ -1,7 +1,6 @@
 package com.zpj.sjly.ui.adapter;
 
 import android.content.Context;
-import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -11,7 +10,6 @@ import android.widget.TextView;
 
 import com.zpj.sjly.R;
 import com.zpj.sjly.bean.UserDownloadedAppInfo;
-import com.zpj.sjly.ui.activity.DetailActivity;
 
 import java.util.List;
 
@@ -19,9 +17,18 @@ public class UserDownloadedAdapter extends RecyclerView.Adapter<UserDownloadedAd
 
     private final List<UserDownloadedAppInfo> appInfoList;
     private Context context;
+    private OnItemClickListener onItemClickListener;
 
     public UserDownloadedAdapter(List<UserDownloadedAppInfo> appInfoList) {
         this.appInfoList = appInfoList;
+    }
+
+    public interface OnItemClickListener{
+        void onItemClick(ViewHolder holder, int position, UserDownloadedAppInfo item);
+    }
+
+    public void setItemClickListener(OnItemClickListener onItemClickListener){
+        this.onItemClickListener = onItemClickListener;
     }
 
 
@@ -40,13 +47,9 @@ public class UserDownloadedAdapter extends RecyclerView.Adapter<UserDownloadedAd
         holder.packageNameText.setText(appInfo.getPackageName());
         holder.infoText.setText(appInfo.getAppSize() + " | 于" + appInfo.getDownloadTime() + "下载");
         holder.itemView.setOnClickListener(v -> {
-            Intent intent = new Intent(context, DetailActivity.class);
-            if ("game".equals(appInfo.getAppType())) {
-                intent.putExtra("app_site", "sjly:http://tt.shouji.com.cn/androidv3/game_show.jsp?id=" + appInfo.getId());
-            } else {
-                intent.putExtra("app_site", "sjly:http://tt.shouji.com.cn/androidv3/soft_show.jsp?id=" + appInfo.getId());
+            if (onItemClickListener != null) {
+                onItemClickListener.onItemClick(holder, i, appInfo);
             }
-            context.startActivity(intent);
         });
     }
 

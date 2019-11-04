@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ImageView
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
+    android:layout_width="24dp"
+    android:layout_height="24dp"
     android:text="  S "
     android:textColor="#ffffff"
     android:textStyle="bold"
     android:textSize="24sp"
     android:gravity="center_vertical|end"
     android:padding="5dp"
-    android:src="@drawable/ic_app"
+    android:src="@mipmap/ic_launcher"
     >
 
 </ImageView>

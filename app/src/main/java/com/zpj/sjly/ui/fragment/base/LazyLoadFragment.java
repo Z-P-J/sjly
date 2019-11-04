@@ -8,7 +8,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-public abstract class LazyLoadFragment extends BaseFragment {
+import me.yokeyword.fragmentation.SupportFragment;
+
+public abstract class LazyLoadFragment extends SupportFragment {
     protected boolean isVisible;
     private boolean isFragmentVisible;
     private boolean isFirst = false;

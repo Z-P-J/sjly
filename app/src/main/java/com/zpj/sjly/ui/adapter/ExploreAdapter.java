@@ -19,7 +19,6 @@ import com.bumptech.glide.RequestManager;
 import com.sunbinqiang.iconcountview.IconCountView;
 import com.zpj.sjly.R;
 import com.zpj.sjly.bean.ExploreItem;
-import com.zpj.sjly.ui.activity.ProfileActivity;
 
 import java.util.ArrayList;
 import java.util.List;

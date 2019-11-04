@@ -20,10 +20,10 @@
 <!--            android:name="com.zpj.sjly.utils.ApkIconGlideModule"-->
 <!--            android:value="GlideModule"/>-->
 
-        <activity android:name=".ui.activity.AppManagerActivity">
+<!--        <activity android:name=".ui.activity.AppManagerActivity">-->
 
 
-        </activity>
+<!--        </activity>-->
         <activity
             android:name=".SplashActivity"
             android:theme="@style/SplashTheme">
@@ -47,11 +47,11 @@
 
         </activity>
 
-        <activity
-            android:name=".ui.activity.ProfileActivity"
-            android:theme="@style/AppThemeTransparent">
+<!--        <activity-->
+<!--            android:name=".ui.activity.ProfileActivity"-->
+<!--            android:theme="@style/AppThemeTransparent">-->
 
-        </activity>
+<!--        </activity>-->
 
         <receiver android:name=".receiver.AppReceiver"
             android:label="@string/app_name">
