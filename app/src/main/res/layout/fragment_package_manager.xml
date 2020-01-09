@@ -58,7 +58,7 @@
             android:layout_centerVertical="true"
             android:layout_height="match_parent">
 
-            <com.zpj.market.ui.view.GradientButton
+            <com.zpj.shouji.market.ui.view.GradientButton
                 android:id="@+id/btn_uninstall"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -79,7 +79,7 @@
                 app:button_padding_bottom="5dp"
                 />
 
-            <com.zpj.market.ui.view.GradientButton
+            <com.zpj.shouji.market.ui.view.GradientButton
                 android:id="@+id/btn_backup"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"

@@ -23,7 +23,7 @@
             android:clipToPadding="false"
             android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
             app:elevation="0dp"
-            app:layout_behavior=".ui.behavior.AppBarLayoutOverScrollViewBehavior">
+            app:layout_behavior="com.zpj.shouji.market.ui.behavior.AppBarLayoutOverScrollViewBehavior">
 
 
             <android.support.design.widget.CollapsingToolbarLayout
@@ -73,7 +73,7 @@
 
         <include layout="@layout/layout_uc_content" />
 
-        <com.zpj.market.ui.widget.CircleImageView
+        <com.zpj.shouji.market.ui.widget.CircleImageView
             android:id="@+id/uc_avater"
             android:layout_width="70dp"
             android:layout_height="70dp"
@@ -83,7 +83,7 @@
             app:civ_border_width="2dp"
             app:layout_anchor="@+id/middle_layout"
             app:layout_anchorGravity="top"
-            app:layout_behavior=".ui.behavior.CircleImageInUsercBehavior" />
+            app:layout_behavior="com.zpj.shouji.market.ui.behavior.CircleImageInUsercBehavior" />
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -93,7 +93,7 @@
             app:layout_anchor="@+id/middle_layout"
             app:layout_anchorGravity="end"
             android:layout_marginEnd="15dp"
-            app:layout_behavior=".ui.behavior.LinearLayoutInUsercBehavior"
+            app:layout_behavior="com.zpj.shouji.market.ui.behavior.LinearLayoutInUsercBehavior"
             >
 
             <TextView

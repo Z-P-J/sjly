@@ -14,7 +14,7 @@
         android:gravity="center"
         android:orientation="horizontal">
 
-        <com.zpj.market.ui.widget.CircleImageView
+        <com.zpj.shouji.market.ui.widget.CircleImageView
             android:id="@+id/title_uc_avater"
             android:layout_width="60px"
             android:layout_height="60px"
@@ -33,7 +33,7 @@
             android:textSize="28px" />
     </LinearLayout>
 
-    <com.zpj.market.ui.widget.RoundProgressBar
+    <com.zpj.shouji.market.ui.widget.RoundProgressBar
         android:id="@+id/uc_progressbar"
         android:layout_width="20dp"
         android:layout_height="20dp"

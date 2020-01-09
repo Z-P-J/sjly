@@ -7,7 +7,7 @@
     app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
 
-    <com.zpj.market.ui.widget.DisInterceptNestedScrollView
+    <com.zpj.shouji.market.ui.widget.DisInterceptNestedScrollView
         android:id="@+id/scroll"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -67,9 +67,9 @@
 
             </LinearLayout>
         </LinearLayout>
-    </com.zpj.market.ui.widget.DisInterceptNestedScrollView>
+    </com.zpj.shouji.market.ui.widget.DisInterceptNestedScrollView>
 
-    <com.zpj.market.ui.widget.NoScrollViewPager
+    <com.zpj.shouji.market.ui.widget.NoScrollViewPager
         android:id="@+id/uc_viewpager"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

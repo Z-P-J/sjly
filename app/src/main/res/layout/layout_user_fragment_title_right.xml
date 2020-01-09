@@ -5,7 +5,7 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content">
 
-    <com.zpj.market.ui.widget.RoundProgressBar
+    <com.zpj.shouji.market.ui.widget.RoundProgressBar
         android:id="@+id/uc_progressbar"
         android:layout_width="20dp"
         android:layout_height="20dp"

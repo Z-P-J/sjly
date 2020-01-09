@@ -3,7 +3,7 @@ apply plugin: 'com.android.application'
 android {
     compileSdkVersion 28
     defaultConfig {
-        applicationId "com.zpj.sjly"
+        applicationId "com.zpj.shouji.market"
         minSdkVersion 19
         targetSdkVersion 28
         versionCode 1
