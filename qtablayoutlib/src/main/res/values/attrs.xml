@@ -22,9 +22,9 @@
         <attr name="q_tabMaxWidth" format="dimension" />
         <attr name="q_tabTextAppearance" format="reference" />
         <attr name="q_tabTextColor" format="color" />
-<!--        <attr name="q_tabTextSize" format="dimension" />-->
-        <attr name="q_selectedTabTextSize" format="dimension" />
-        <attr name="q_unselectedTabTextSize" format="dimension" />
+        <attr name="q_tabTextSize" format="dimension" />
+<!--        <attr name="q_selectedTabTextSize" format="dimension" />-->
+<!--        <attr name="q_unselectedTabTextSize" format="dimension" />-->
         <attr name="q_tabSelectedTextColor" format="color" />
         <attr name="q_tabPaddingStart" format="dimension" />
         <attr name="q_tabPaddingTop" format="dimension" />

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<www.linwg.org.lib.LCardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    app:cornerRadius="10dp"
+    app:shadowFluidShape="adsorption"
+    app:shadowColor="#5f6379"
+    app:shadowStartAlpha="40"
+    app:shadowSize="10dp">
+
+    <LinearLayout
+        android:id="@+id/container"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="#ffffff"
+        android:gravity="center_horizontal"
+        android:orientation="vertical"
+        android:showDividers="end"
+        android:minWidth="180dp"
+        >
+
+    </LinearLayout>
+
+</www.linwg.org.lib.LCardView>

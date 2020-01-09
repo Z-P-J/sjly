@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<set xmlns:android="http://schemas.android.com/apk/res/android">
+    <translate
+        android:duration="500"
+        android:fromYDelta="0%p"
+        android:fromXDelta="0%p"
+        android:interpolator="@anim/decelerate"
+        android:toYDelta="-2%p"
+        android:toXDelta="2%p"
+        />
+
+<!--    <alpha-->
+<!--        android:fromAlpha="1"-->
+<!--        android:toAlpha="0.5"-->
+<!--        />-->
+</set>

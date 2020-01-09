@@ -34,6 +34,5 @@
     app:q_indicatorMarginTop="0dp"
     app:q_tabSelectedTextColor="#ffffff"
     app:q_tabTextColor="#eeeeee"
-    app:q_selectedTabTextSize="18sp"
-    app:q_unselectedTabTextSize="17sp"
+    app:q_tabTextSize="16sp"
     />

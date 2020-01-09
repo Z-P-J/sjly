@@ -50,7 +50,7 @@ dependencies {
     implementation project(':BGAPhotoPicker')
     implementation project(':popupmenuview')
     implementation project(':xbanner')
-    implementation project(':qxdownloader')
+    implementation project(':zdownloader')
     implementation project(':smoothcheckbox')
     implementation project(':atoast')
     implementation project(':popwindowlibrary')
@@ -59,7 +59,8 @@ dependencies {
     implementation project(':fragmentation_swipeback')
     implementation project(':zdialog')
     implementation project(':switchbutton')
-
+    implementation project(':zhttp')
+    implementation project(':zpopup')
 
 
     implementation 'de.hdodenhof:circleimageview:3.0.0'
@@ -80,5 +81,7 @@ dependencies {
     implementation 'me.panpf:sketch:2.7.1-beta2'
 //    implementation 'net.colindodd:gradientlayout:1.2'
     implementation 'commons-io:commons-io:2.5'
+
+    implementation 'com.github.hackware1993:MagicIndicator:1.5.0'
 
 }

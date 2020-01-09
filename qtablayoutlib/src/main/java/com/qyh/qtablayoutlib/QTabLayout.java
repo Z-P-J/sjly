@@ -65,6 +65,7 @@ import static android.support.v4.view.ViewPager.SCROLL_STATE_SETTLING;
 @ViewPager.DecorView
 public class QTabLayout extends HorizontalScrollView {
 
+    private static final float MAX_SCALE = 1.3f;
     private static final int DEFAULT_HEIGHT_WITH_TEXT_ICON = 72; // dps
     static final int DEFAULT_GAP_TEXT_ICON = 8; // dps
     private static final int INVALID_WIDTH = -1;
@@ -178,8 +179,6 @@ public class QTabLayout extends HorizontalScrollView {
     int mTabTextAppearance;
     ColorStateList mTabTextColors;
     public float mTabTextSize;
-    private float mSelectedTabTextSize;
-    private float mUnselectedTabTextSize;
     float mTabTextMultiLineSize;
 
     final int mTabBackgroundResId;
@@ -284,9 +283,9 @@ public class QTabLayout extends HorizontalScrollView {
 
             mTabSelectedTextColor = a.getColor(R.styleable.QTabLayout_q_tabSelectedTextColor, 0);
             mTabTextColor = a.getColor(R.styleable.QTabLayout_q_tabTextColor, 0);
-//            mTabTextSize = a.getDimensionPixelOffset(R.styleable.QTabLayout_q_tabTextSize, 0);
-            mSelectedTabTextSize = a.getDimensionPixelOffset(R.styleable.QTabLayout_q_selectedTabTextSize, 0);
-            mUnselectedTabTextSize = a.getDimensionPixelOffset(R.styleable.QTabLayout_q_unselectedTabTextSize, 0);
+            mTabTextSize = a.getDimensionPixelOffset(R.styleable.QTabLayout_q_tabTextSize, 0);
+//            mSelectedTabTextSize = a.getDimensionPixelOffset(R.styleable.QTabLayout_q_selectedTabTextSize, 0);
+//            mUnselectedTabTextSize = a.getDimensionPixelOffset(R.styleable.QTabLayout_q_unselectedTabTextSize, 0);
             mChangeTabColor = a.getBoolean(R.styleable.QTabLayout_q_tabIndicatorChangeColor, true);
             mTabTextColors = createColorStateList(mTabTextColors.getDefaultColor(), mTabSelectedTextColor);
         }
@@ -427,8 +426,11 @@ public class QTabLayout extends HorizontalScrollView {
         ColorChangeView colorChangeView = new ColorChangeView(getContext());
         colorChangeView.setProgress(setSelected ? 1 : 0);
         colorChangeView.setText(tab.getText() + "");
-//        colorChangeView.setTextSize((int) mTabTextSize);
-        colorChangeView.setTextSize((int) mSelectedTabTextSize);
+        colorChangeView.setTextSize((int) mTabTextSize);
+        if (setSelected) {
+            colorChangeView.setScaleX(MAX_SCALE);
+            colorChangeView.setScaleY(MAX_SCALE);
+        }
         colorChangeView.setTag(position);
         colorChangeView.setTextChangeColor(mTabSelectedTextColor);
         colorChangeView.setTextOriginColor(mTabTextColor);
@@ -585,14 +587,6 @@ public class QTabLayout extends HorizontalScrollView {
 
     public List<Tab> getTabs() {
         return mTabs;
-    }
-
-    public float getSelectedTabTextSize() {
-        return mSelectedTabTextSize;
-    }
-
-    public float getUnselectedTabTextSize() {
-        return mUnselectedTabTextSize;
     }
 
     /**
@@ -919,13 +913,13 @@ public class QTabLayout extends HorizontalScrollView {
 //            for (int i = mSelectedListeners.size() - 1; i >= 0; i--) {
 //                mSelectedListeners.get(i).onTabs(mTabs);
 //            }
-            int unselectTabTextSize = (int)(mUnselectedTabTextSize == 0 ? mSelectedTabTextSize : mUnselectedTabTextSize);
-            for (QTabLayout.Tab tab : mTabs) {
-                View customView = tab.getCustomView();
-                if (customView instanceof ColorChangeView) {
-                    ((ColorChangeView)(customView)).setTextSize(unselectTabTextSize);
-                }
-            }
+//            int unselectTabTextSize = (int)(mUnselectedTabTextSize == 0 ? mSelectedTabTextSize : mUnselectedTabTextSize);
+//            for (QTabLayout.Tab tab : mTabs) {
+//                View customView = tab.getCustomView();
+//                if (customView instanceof ColorChangeView) {
+//                    ((ColorChangeView)(customView)).setTextSize(unselectTabTextSize);
+//                }
+//            }
 
             // Make sure we reflect the currently set ViewPager item
             if (mViewPager != null && adapterCount > 0) {
@@ -1179,20 +1173,20 @@ public class QTabLayout extends HorizontalScrollView {
     }
 
     private void dispatchTabSelected(@NonNull final Tab tab) {
-        View customView = tab.getCustomView();
-        if (customView instanceof ColorChangeView) {
-            ((ColorChangeView)(customView)).setTextSize((int) mSelectedTabTextSize);
-        }
+//        View customView = tab.getCustomView();
+//        if (customView instanceof ColorChangeView) {
+//            ((ColorChangeView)(customView)).setTextSize((int) mSelectedTabTextSize);
+//        }
         for (int i = mSelectedListeners.size() - 1; i >= 0; i--) {
             mSelectedListeners.get(i).onTabSelected(tab);
         }
     }
 
     private void dispatchTabUnselected(@NonNull final Tab tab) {
-        View customView = tab.getCustomView();
-        if (customView instanceof ColorChangeView) {
-            ((ColorChangeView)(customView)).setTextSize((int) mUnselectedTabTextSize);
-        }
+//        View customView = tab.getCustomView();
+//        if (customView instanceof ColorChangeView) {
+//            ((ColorChangeView)(customView)).setTextSize((int) mUnselectedTabTextSize);
+//        }
         for (int i = mSelectedListeners.size() - 1; i >= 0; i--) {
             mSelectedListeners.get(i).onTabUnselected(tab);
         }
@@ -1645,8 +1639,7 @@ public class QTabLayout extends HorizontalScrollView {
             // We need to switch the text size based on whether the text is spanning 2 lines or not
             if (mTextView != null) {
                 final Resources res = getResources();
-//                float textSize = mTabTextSize;
-                float textSize = mSelectedTabTextSize;
+                float textSize = mTabTextSize;
                 int maxLines = mDefaultMaxLines;
 
                 if (mIconView != null && mIconView.getVisibility() == VISIBLE) {
@@ -1907,12 +1900,10 @@ public class QTabLayout extends HorizontalScrollView {
                     ColorChangeView right = (ColorChangeView)rightTab.getCustomView();
                     if (left != null && right != null) {
                         Log.d("onPageScrolled", "positionOffset=" + positionOffset);
-                        Log.d("onPageScrolled", "mSelectedTabTextSize=" + getSelectedTabTextSize());
-                        Log.d("onPageScrolled", "mUnselectedTabTextSize=" + getUnselectedTabTextSize());
-                        left.setTextSizeAndPostInvalidate(getUnselectedTabTextSize() + (getSelectedTabTextSize() - getUnselectedTabTextSize()) * (1 - positionOffset));
-                        right.setTextSizeAndPostInvalidate(getUnselectedTabTextSize() + (getSelectedTabTextSize() - getUnselectedTabTextSize()) * positionOffset);
-                        Log.d("onPageScrolled", "leftTextSize=" + left.getTextSize());
-                        Log.d("onPageScrolled", "rightTextSize=" + right.getTextSize());
+                        right.setScaleX(1.0f + (MAX_SCALE - 1.0f) * positionOffset);
+                        right.setScaleY(1.0f + (MAX_SCALE - 1.0f) * positionOffset);
+                        left.setScaleX(MAX_SCALE - (MAX_SCALE - 1.0f) * positionOffset);
+                        left.setScaleY(MAX_SCALE - (MAX_SCALE - 1.0f) * positionOffset);
                     }
                 }
             }

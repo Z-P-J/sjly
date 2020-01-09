@@ -39,8 +39,7 @@
         app:q_tabPaddingEnd="6dp"
         app:q_tabSelectedTextColor="#ffffff"
         app:q_tabTextColor="#c8ead0"
-        app:q_selectedTabTextSize="15sp"
-        app:q_unselectedTabTextSize="14sp"
+        app:q_tabTextSize="14sp"
         />
 
     <android.support.v4.view.ViewPager

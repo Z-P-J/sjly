@@ -7,10 +7,8 @@ import android.graphics.Paint;
 import android.graphics.Paint.FontMetrics;
 import android.graphics.Paint.Style;
 import android.graphics.Rect;
-import android.graphics.Typeface;
 import android.os.Bundle;
 import android.os.Parcelable;
-import android.support.v4.view.ViewCompat;
 import android.util.AttributeSet;
 import android.util.TypedValue;
 import android.view.View;
@@ -255,18 +253,8 @@ public class ColorChangeView extends View {
     public void setTextSize(float mTextSize) {
         this.mTextSize = mTextSize;
         mPaint.setTextSize(mTextSize);
-        Typeface font = Typeface.create(Typeface.MONOSPACE, Typeface.BOLD);
-        mPaint.setTypeface(font);
         requestLayout();
         invalidate();
-    }
-
-    public void setTextSizeAndPostInvalidate(float mTextSize) {
-        this.mTextSize = mTextSize;
-        mPaint.setTextSize(mTextSize);
-        Typeface font = Typeface.create(Typeface.MONOSPACE, Typeface.BOLD);
-        mPaint.setTypeface(font);
-        ViewCompat.postInvalidateOnAnimation(this);
     }
 
     public void setText(String text) {

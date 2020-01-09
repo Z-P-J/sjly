@@ -106,7 +106,7 @@
             app:q_tabIndicatorWidth="20dp"
             app:q_tabSelectedTextColor="#ffffff"
             app:q_tabTextColor="#80eeeeee"
-            app:q_selectedTabTextSize="18sp"
+            app:q_tabTextSize="18sp"
             />
 
     </android.support.design.widget.AppBarLayout>

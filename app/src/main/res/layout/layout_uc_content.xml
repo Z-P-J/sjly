@@ -7,7 +7,7 @@
     app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
 
-    <com.zpj.sjly.ui.widget.DisInterceptNestedScrollView
+    <com.zpj.market.ui.widget.DisInterceptNestedScrollView
         android:id="@+id/scroll"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -33,8 +33,7 @@
                 app:q_indicatorMarginTop="0dp"
                 app:q_tabSelectedTextColor="@color/colorPrimary"
                 app:q_tabTextColor="#333333"
-                app:q_selectedTabTextSize="14sp"
-                app:q_unselectedTabTextSize="14sp"
+                app:q_tabTextSize="14sp"
                 app:q_tabMode="scrollable"
                 />
 
@@ -68,9 +67,9 @@
 
             </LinearLayout>
         </LinearLayout>
-    </com.zpj.sjly.ui.widget.DisInterceptNestedScrollView>
+    </com.zpj.market.ui.widget.DisInterceptNestedScrollView>
 
-    <com.zpj.sjly.ui.widget.NoScrollViewPager
+    <com.zpj.market.ui.widget.NoScrollViewPager
         android:id="@+id/uc_viewpager"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
