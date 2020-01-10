@@ -9,7 +9,7 @@ import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.zpj.market.R;
+import com.zpj.shouji.market.R;
 import com.wang.avi.AVLoadingIndicatorView;
 
 public class UIHelper {

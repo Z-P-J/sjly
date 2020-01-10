@@ -3,7 +3,7 @@ package com.zpj.shouji.market.ui.activity;
 import android.os.Bundle;
 import android.widget.Toast;
 
-import com.zpj.market.R;
+import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.ui.fragment.main.MainFragment;
 import com.zpj.shouji.market.utils.ExecutorHelper;
 

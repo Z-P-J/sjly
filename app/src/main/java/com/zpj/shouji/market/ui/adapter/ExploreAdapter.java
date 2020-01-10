@@ -17,7 +17,7 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.RequestManager;
 import com.sunbinqiang.iconcountview.IconCountView;
-import com.zpj.market.R;
+import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.bean.ExploreItem;
 
 import java.util.ArrayList;

@@ -26,7 +26,7 @@ import com.zpj.downloader.util.notification.NotifyUtil;
 import com.zpj.popupmenuview.OptionMenu;
 import com.zpj.popupmenuview.OptionMenuView;
 import com.zpj.popupmenuview.PopupMenuView;
-import com.zpj.market.R;
+import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.bean.InstalledAppInfo;
 import com.zpj.shouji.market.ui.adapter.AppManagerAdapter;
 import com.zpj.shouji.market.ui.adapter.loadmore.LoadMoreAdapter;

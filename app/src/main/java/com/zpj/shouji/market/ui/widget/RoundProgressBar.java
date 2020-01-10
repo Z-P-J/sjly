@@ -11,7 +11,7 @@ import android.os.Message;
 import android.util.AttributeSet;
 import android.view.View;
 
-import com.zpj.market.R;
+import com.zpj.shouji.market.R;
 
 
 /**

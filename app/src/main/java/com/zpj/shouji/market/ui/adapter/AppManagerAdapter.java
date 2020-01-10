@@ -12,7 +12,7 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.zpj.market.R;
+import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.bean.InstalledAppInfo;
 import com.zpj.shouji.market.utils.AppUtil;
 import com.zpj.shouji.market.utils.AppUpdateHelper;

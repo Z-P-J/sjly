@@ -1,7 +1,7 @@
 package com.zpj.shouji.market.utils;
 
-import org.jsoup.Jsoup;
-import org.jsoup.nodes.Document;
+import com.zpj.http.ZHttp;
+import com.zpj.http.parser.html.nodes.Document;
 
 import java.io.IOException;
 
@@ -16,13 +16,13 @@ public final class ConnectUtil {
     }
 
     public static Document getDocument(String url) throws IOException {
-        return Jsoup.connect(url)
+        return ZHttp.connect(url)
                 .userAgent(USER_AGENT)
                 .header("Cookie", UserHelper.getCookie())
                 .header(HEADER_ACCEPT_ENCODING, VALUE_ACCEPT_ENCODING)
                 .header("referer", url)
                 .ignoreContentType(true)
-                .get();
+                .toHtml();
     }
 
 }

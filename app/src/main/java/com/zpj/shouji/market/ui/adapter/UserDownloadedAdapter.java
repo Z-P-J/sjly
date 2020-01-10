@@ -8,7 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.zpj.market.R;
+import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.bean.UserDownloadedAppInfo;
 
 import java.util.List;

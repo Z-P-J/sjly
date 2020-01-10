@@ -11,7 +11,7 @@ import android.widget.ImageView;
 import com.felix.atoast.library.AToast;
 import com.qyh.qtablayoutlib.QTabLayout;
 import com.wuhenzhizao.titlebar.widget.CommonTitleBar;
-import com.zpj.market.R;
+import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.ui.adapter.PageAdapter;
 import com.zpj.shouji.market.ui.fragment.base.BaseFragment;
 import com.zpj.shouji.market.ui.fragment.manager.AppManagerFragment;

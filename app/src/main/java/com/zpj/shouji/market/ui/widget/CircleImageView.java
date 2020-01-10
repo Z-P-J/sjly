@@ -21,7 +21,7 @@ import android.support.annotation.DrawableRes;
 import android.util.AttributeSet;
 import android.widget.ImageView;
 
-import com.zpj.market.R;
+import com.zpj.shouji.market.R;
 
 
 /**

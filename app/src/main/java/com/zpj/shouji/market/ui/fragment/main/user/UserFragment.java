@@ -18,7 +18,8 @@ import com.bumptech.glide.Glide;
 import com.qyh.qtablayoutlib.QTabLayout;
 import com.wuhenzhizao.titlebar.utils.ScreenUtils;
 import com.wuhenzhizao.titlebar.widget.CommonTitleBar;
-import com.zpj.market.R;
+import com.zpj.http.parser.html.nodes.Element;
+import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.constant.Key;
 import com.zpj.shouji.market.ui.adapter.PageAdapter;
 import com.zpj.shouji.market.ui.behavior.AppBarLayoutOverScrollViewBehavior;
@@ -27,8 +28,6 @@ import com.zpj.shouji.market.ui.fragment.base.BaseFragment;
 import com.zpj.shouji.market.ui.widget.CircleImageView;
 import com.zpj.shouji.market.ui.widget.NoScrollViewPager;
 import com.zpj.shouji.market.ui.widget.RoundProgressBar;
-
-import org.jsoup.nodes.Element;
 
 import java.util.ArrayList;
 import java.util.List;

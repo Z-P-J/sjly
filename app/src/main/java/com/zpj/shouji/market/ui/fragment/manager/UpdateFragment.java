@@ -15,7 +15,7 @@ import com.felix.atoast.library.AToast;
 import com.zpj.popupmenuview.OptionMenu;
 import com.zpj.popupmenuview.OptionMenuView;
 import com.zpj.popupmenuview.PopupMenuView;
-import com.zpj.market.R;
+import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.bean.AppUpdateInfo;
 import com.zpj.shouji.market.ui.adapter.AppUpdateAdapter;
 import com.zpj.shouji.market.ui.fragment.AppDetailFragment;

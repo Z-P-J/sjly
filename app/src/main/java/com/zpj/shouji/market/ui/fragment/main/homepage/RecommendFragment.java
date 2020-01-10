@@ -15,7 +15,10 @@ import com.bumptech.glide.Glide;
 import com.felix.atoast.library.AToast;
 import com.mingle.widget.LoadingView;
 import com.stx.xhb.xbanner.XBanner;
-import com.zpj.market.R;
+import com.zpj.http.parser.html.nodes.Document;
+import com.zpj.http.parser.html.nodes.Element;
+import com.zpj.http.parser.html.select.Elements;
+import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.bean.AppItem;
 import com.zpj.shouji.market.ui.adapter.AppAdapter;
 import com.zpj.shouji.market.ui.adapter.loadmore.LoadMoreAdapter;
@@ -25,10 +28,6 @@ import com.zpj.shouji.market.ui.fragment.base.BaseFragment;
 import com.zpj.shouji.market.utils.ConnectUtil;
 import com.zpj.shouji.market.utils.ExecutorHelper;
 import com.zpj.shouji.market.utils.TransportUtil;
-
-import org.jsoup.nodes.Document;
-import org.jsoup.nodes.Element;
-import org.jsoup.select.Elements;
 
 import java.util.ArrayList;
 import java.util.List;

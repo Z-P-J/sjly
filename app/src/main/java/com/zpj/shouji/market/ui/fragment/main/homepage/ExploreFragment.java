@@ -16,9 +16,12 @@ import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.felix.atoast.library.AToast;
+import com.zpj.http.parser.html.nodes.Document;
+import com.zpj.http.parser.html.nodes.Element;
+import com.zpj.http.parser.html.select.Elements;
 import com.zpj.popupmenuview.CustomPopupMenuView;
 import com.zpj.popupmenuview.OptionMenuView;
-import com.zpj.market.R;
+import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.bean.ExploreItem;
 import com.zpj.shouji.market.ui.adapter.ExploreAdapter;
 import com.zpj.shouji.market.ui.adapter.loadmore.LoadMoreAdapter;
@@ -28,10 +31,6 @@ import com.zpj.shouji.market.ui.fragment.main.MainFragment;
 import com.zpj.shouji.market.ui.fragment.main.user.UserFragment;
 import com.zpj.shouji.market.utils.ConnectUtil;
 import com.zpj.shouji.market.utils.ExecutorHelper;
-
-import org.jsoup.nodes.Document;
-import org.jsoup.nodes.Element;
-import org.jsoup.select.Elements;
 
 import java.util.ArrayList;
 import java.util.HashMap;

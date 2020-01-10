@@ -22,7 +22,7 @@ import com.maning.imagebrowserlibrary.ImageEngine;
 import com.maning.imagebrowserlibrary.MNImageBrowser;
 import com.maning.imagebrowserlibrary.listeners.OnClickListener;
 import com.maning.imagebrowserlibrary.model.ImageBrowserConfig;
-import com.zpj.market.R;
+import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.bean.ImgItem;
 
 import java.util.ArrayList;

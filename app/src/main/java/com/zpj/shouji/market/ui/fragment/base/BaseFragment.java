@@ -11,7 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.wuhenzhizao.titlebar.widget.CommonTitleBar;
-import com.zpj.market.R;
+import com.zpj.shouji.market.R;
 
 import me.yokeyword.fragmentation_swipeback.SwipeBackFragment;
 

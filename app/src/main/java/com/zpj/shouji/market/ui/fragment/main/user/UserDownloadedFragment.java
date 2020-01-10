@@ -6,7 +6,10 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
-import com.zpj.market.R;
+import com.zpj.http.parser.html.nodes.Document;
+import com.zpj.http.parser.html.nodes.Element;
+import com.zpj.http.parser.html.select.Elements;
+import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.bean.UserDownloadedAppInfo;
 import com.zpj.shouji.market.ui.adapter.UserDownloadedAdapter;
 import com.zpj.shouji.market.ui.adapter.loadmore.LoadMoreAdapter;
@@ -15,10 +18,6 @@ import com.zpj.shouji.market.ui.fragment.AppDetailFragment;
 import com.zpj.shouji.market.ui.fragment.base.BaseFragment;
 import com.zpj.shouji.market.utils.ConnectUtil;
 import com.zpj.shouji.market.utils.ExecutorHelper;
-
-import org.jsoup.nodes.Document;
-import org.jsoup.nodes.Element;
-import org.jsoup.select.Elements;
 
 import java.util.ArrayList;
 import java.util.List;

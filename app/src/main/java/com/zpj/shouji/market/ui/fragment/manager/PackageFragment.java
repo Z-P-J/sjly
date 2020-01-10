@@ -20,7 +20,7 @@ import com.hmy.popwindow.PopWindow;
 import com.zpj.popupmenuview.OptionMenu;
 import com.zpj.popupmenuview.OptionMenuView;
 import com.zpj.popupmenuview.PopupMenuView;
-import com.zpj.market.R;
+import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.ui.adapter.AppManagerAdapter;
 import com.zpj.shouji.market.bean.InstalledAppInfo;
 import com.zpj.shouji.market.ui.fragment.base.BaseFragment;

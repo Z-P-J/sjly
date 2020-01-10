@@ -18,7 +18,7 @@ import android.widget.TextView;
 import com.next.easynavigation.constant.Anim;
 import com.next.easynavigation.utils.NavigationUtil;
 import com.next.easynavigation.view.EasyNavigationBar;
-import com.zpj.market.R;
+import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.ui.fragment.base.BaseFragment;
 import com.zpj.shouji.market.ui.fragment.main.homepage.HomeFragment;
 import com.zpj.shouji.market.ui.fragment.main.user.UserFragment;

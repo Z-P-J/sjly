@@ -19,7 +19,7 @@ import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.TextView;
 
-import com.zpj.market.R;
+import com.zpj.shouji.market.R;
 
 /**
  * Created by duweigang on 2017/10/8.

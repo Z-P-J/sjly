@@ -28,7 +28,7 @@ import com.zpj.http.ZHttp;
 import com.zpj.http.parser.html.nodes.Document;
 import com.zpj.http.parser.html.nodes.Element;
 import com.zpj.http.parser.html.select.Elements;
-import com.zpj.market.R;
+import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.bean.AppItem;
 import com.zpj.shouji.market.bean.AppUpdateInfo;
 import com.zpj.shouji.market.bean.ImgItem;

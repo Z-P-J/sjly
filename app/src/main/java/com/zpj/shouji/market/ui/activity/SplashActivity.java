@@ -8,7 +8,7 @@ import android.os.StrictMode;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 
-import com.zpj.market.R;
+import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.utils.AppUpdateHelper;
 
 public class SplashActivity extends AppCompatActivity {
