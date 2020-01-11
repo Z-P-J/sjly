@@ -245,28 +245,31 @@ public abstract class AbstractConnection implements Connection {
 
     @Override
     public String toStr() throws IOException {
-        return execute().body();
+        res = execute();
+        return res.body();
     }
 
     @Override
     public Document toHtml() throws IOException {
-        execute();
+        res = execute();
         return res.parse();
     }
 
     @Override
     public JSONObject toJsonObject() throws IOException, JSONException {
-        return new JSONObject(execute().body());
+        res = execute();
+        return new JSONObject(res.body());
     }
 
     @Override
     public JSONArray toJsonArray() throws IOException, JSONException {
-        return new JSONArray(execute().body());
+        res = execute();
+        return new JSONArray(res.body());
     }
 
     @Override
     public Document toXml() throws IOException {
-        execute();
+        res = execute();
         return res.parse();
     }
 

@@ -54,7 +54,7 @@ public final class AppUpdateHelper {
             @Override
             public void run() {
                 try {
-                    Connection.Response response = ZHttp.connect("http://tt.shouji.com.cn/app/update.jsp")
+                    Connection.Response response = ZHttp.get("http://tt.shouji.com.cn/app/update.jsp")
                             .userAgent("Sjly(2.0..9.9)")
                             .execute();
                     String setCookie = response.header("Set-Cookie");
@@ -80,7 +80,7 @@ public final class AppUpdateHelper {
                     }
                     Log.d("checkUpdate", "packageid=" + packageid);
 
-                    Document doc = ZHttp.connect(URL)
+                    Document doc = ZHttp.get(URL)
                             .userAgent("Sjly(2.0..9.9)")
                             .header("Cookie", setCookie)
                             .header("Content-Type", "application/x-www-form-urlencoded")

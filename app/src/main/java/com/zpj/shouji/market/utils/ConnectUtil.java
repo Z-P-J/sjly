@@ -16,11 +16,11 @@ public final class ConnectUtil {
     }
 
     public static Document getDocument(String url) throws IOException {
-        return ZHttp.connect(url)
+        return ZHttp.get(url)
                 .userAgent(USER_AGENT)
-                .header("Cookie", UserHelper.getCookie())
+                .cookie(UserHelper.getCookie())
                 .header(HEADER_ACCEPT_ENCODING, VALUE_ACCEPT_ENCODING)
-                .header("referer", url)
+                .referrer(url)
                 .ignoreContentType(true)
                 .toHtml();
     }

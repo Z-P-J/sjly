@@ -39,7 +39,7 @@ public class QianQianFragment extends BaseFragment {
             @Override
             public void run() {
                 try {
-                    Document doc = ZHttp.connect("https://www.myqqjd.com/android/page/" + currentPage)
+                    Document doc = ZHttp.get("https://www.myqqjd.com/android/page/" + currentPage)
                             .userAgent("Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/56.0.2924.87 Safari/537.36")
                             .ignoreHttpErrors(true)
                             .ignoreContentType(true)
