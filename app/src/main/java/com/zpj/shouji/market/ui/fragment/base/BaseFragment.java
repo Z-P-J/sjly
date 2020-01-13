@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 import com.wuhenzhizao.titlebar.widget.CommonTitleBar;
 import com.zpj.shouji.market.R;
 
+import me.yokeyword.fragmentation.SwipeBackLayout;
 import me.yokeyword.fragmentation_swipeback.SwipeBackFragment;
 
 public abstract class BaseFragment extends SwipeBackFragment {
@@ -43,6 +44,7 @@ public abstract class BaseFragment extends SwipeBackFragment {
             view = super.onCreateView(inflater, container, savedInstanceState);
         }
         if (view != null && supportSwipeBack()) {
+            setEdgeLevel(SwipeBackLayout.EdgeLevel.MAX);
             return attachToSwipeBack(view);
         } else {
             return view;

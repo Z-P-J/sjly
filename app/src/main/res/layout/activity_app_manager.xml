@@ -4,6 +4,7 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#ffffff"
     >
 
     <com.wuhenzhizao.titlebar.widget.CommonTitleBar
@@ -26,20 +27,28 @@
 <!--    app:centerType="customView"-->
 <!--    app:centerCustomView="@layout/layout_tab"-->
 
-    <com.qyh.qtablayoutlib.QTabLayout
-        android:id="@+id/tab_title"
+<!--    <com.qyh.qtablayoutlib.QTabLayout-->
+<!--        android:id="@+id/tab_title"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:background="@color/colorPrimary"-->
+<!--        app:q_tabIndicatorAnimation="true"-->
+<!--        app:q_tabIndicatorColor="#ffffff"-->
+<!--        app:q_tabIndicatorWidth="10dp"-->
+<!--        app:q_tabGravity="center"-->
+<!--        app:q_tabPaddingStart="6dp"-->
+<!--        app:q_tabPaddingEnd="6dp"-->
+<!--        app:q_tabSelectedTextColor="#ffffff"-->
+<!--        app:q_tabTextColor="#c8ead0"-->
+<!--        app:q_tabTextSize="14sp"-->
+<!--        />-->
+
+    <net.lucode.hackware.magicindicator.MagicIndicator
+        android:id="@+id/magic_indicator"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="48dp"
+        android:layout_gravity="center"
         android:background="@color/colorPrimary"
-        app:q_tabIndicatorAnimation="true"
-        app:q_tabIndicatorColor="#ffffff"
-        app:q_tabIndicatorWidth="10dp"
-        app:q_tabGravity="center"
-        app:q_tabPaddingStart="6dp"
-        app:q_tabPaddingEnd="6dp"
-        app:q_tabSelectedTextColor="#ffffff"
-        app:q_tabTextColor="#c8ead0"
-        app:q_tabTextSize="14sp"
         />
 
     <android.support.v4.view.ViewPager

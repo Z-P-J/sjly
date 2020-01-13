@@ -13,5 +13,6 @@ android {
 
 dependencies {
     implementation "com.android.support:appcompat-v7:$rootProject.ext.supportLibraryVersion"
+    implementation "com.android.support:recyclerview-v7:$rootProject.ext.supportLibraryVersion"
     compileOnly project(':fragmentation')
 }

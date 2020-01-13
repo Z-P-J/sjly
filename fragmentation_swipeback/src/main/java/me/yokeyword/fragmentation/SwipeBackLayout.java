@@ -7,18 +7,28 @@ import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
 import android.support.annotation.FloatRange;
 import android.support.annotation.IntDef;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentationMagician;
+import android.support.v4.view.MotionEventCompat;
 import android.support.v4.view.ViewCompat;
+import android.support.v4.view.ViewPager;
+import android.support.v4.widget.NestedScrollView;
 import android.support.v4.widget.ViewDragHelper;
+import android.support.v7.widget.RecyclerView;
 import android.util.AttributeSet;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
+import android.webkit.WebView;
+import android.widget.AbsListView;
 import android.widget.FrameLayout;
+import android.widget.HorizontalScrollView;
+import android.widget.ScrollView;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
@@ -34,6 +44,8 @@ import me.yokeyword.fragmentation_swipeback.core.ISwipeBackActivity;
  * Created by YoKey on 16/4/19.
  */
 public class SwipeBackLayout extends FrameLayout {
+
+    private static final String TAG = "SwipeBackLayout";
     /**
      * Edge flag indicating that the left edge should be affected.
      */
@@ -44,7 +56,11 @@ public class SwipeBackLayout extends FrameLayout {
      */
     public static final int EDGE_RIGHT = ViewDragHelper.EDGE_RIGHT;
 
-    public static final int EDGE_ALL = EDGE_LEFT | EDGE_RIGHT;
+    public static final int EDGE_TOP = ViewDragHelper.EDGE_TOP;
+
+    public static final int EDGE_BOTTOM = ViewDragHelper.EDGE_BOTTOM;
+
+    public static final int EDGE_ALL = EDGE_LEFT | EDGE_RIGHT | EDGE_BOTTOM | EDGE_TOP;
 
 
     /**
@@ -85,11 +101,14 @@ public class SwipeBackLayout extends FrameLayout {
 
     private FragmentActivity mActivity;
     private View mContentView;
+    private List<View> scrollViewList;
     private ISupportFragment mFragment;
     private Fragment mPreFragment;
 
     private Drawable mShadowLeft;
     private Drawable mShadowRight;
+    private Drawable mShadowTop;
+    private Drawable mShadowBottom;
     private Rect mTmpRect = new Rect();
 
     private int mEdgeFlag;
@@ -104,6 +123,8 @@ public class SwipeBackLayout extends FrameLayout {
     private int mContentLeft;
     private int mContentTop;
     private float mSwipeAlpha = 0.5f;
+
+    private float downX, downY;
 
     /**
      * The set of listeners to be sent events through.
@@ -188,7 +209,7 @@ public class SwipeBackLayout extends FrameLayout {
         }
     }
 
-    @IntDef({EDGE_LEFT, EDGE_RIGHT, EDGE_ALL})
+    @IntDef({EDGE_LEFT, EDGE_RIGHT, EDGE_TOP, EDGE_BOTTOM, EDGE_ALL})
     @Retention(RetentionPolicy.SOURCE)
     public @interface EdgeOrientation {
     }
@@ -201,6 +222,10 @@ public class SwipeBackLayout extends FrameLayout {
             mShadowLeft = shadow;
         } else if ((edgeFlag & EDGE_RIGHT) != 0) {
             mShadowRight = shadow;
+        } else if ((edgeFlag & EDGE_TOP) != 0) {
+            mShadowTop = shadow;
+        } else if ((edgeFlag & EDGE_BOTTOM) != 0) {
+            mShadowBottom = shadow;
         }
         invalidate();
     }
@@ -288,6 +313,14 @@ public class SwipeBackLayout extends FrameLayout {
             mShadowRight.setBounds(childRect.right, childRect.top, childRect.right + mShadowRight.getIntrinsicWidth(), childRect.bottom);
             mShadowRight.setAlpha((int) (mScrimOpacity * FULL_ALPHA));
             mShadowRight.draw(canvas);
+        } else if ((mCurrentSwipeOrientation & EDGE_TOP) != 0) {
+            mShadowTop.setBounds(childRect.left, childRect.top - mShadowTop.getIntrinsicHeight(), childRect.right, childRect.top);
+            mShadowTop.setAlpha((int) (mScrimOpacity * FULL_ALPHA));
+            mShadowTop.draw(canvas);
+        } else if ((mCurrentSwipeOrientation & EDGE_BOTTOM) != 0) {
+            mShadowBottom.setBounds(childRect.left, childRect.bottom, childRect.right, childRect.bottom + mShadowBottom.getIntrinsicHeight());
+            mShadowBottom.setAlpha((int) (mScrimOpacity * FULL_ALPHA));
+            mShadowBottom.draw(canvas);
         }
     }
 
@@ -313,6 +346,7 @@ public class SwipeBackLayout extends FrameLayout {
                     mContentTop + mContentView.getMeasuredHeight());
         }
         mInLayout = false;
+        scrollViewList = findAllScrollViews(this);
     }
 
     @Override
@@ -418,9 +452,7 @@ public class SwipeBackLayout extends FrameLayout {
                     mEdgeSize.setInt(mHelper, ((int) (20 * metrics.density + 0.5f)));
                 }
             }
-        } catch (NoSuchFieldException e) {
-            e.printStackTrace();
-        } catch (IllegalAccessException e) {
+        } catch (NoSuchFieldException | IllegalAccessException e) {
             e.printStackTrace();
         }
     }
@@ -428,14 +460,21 @@ public class SwipeBackLayout extends FrameLayout {
     private class ViewDragCallback extends ViewDragHelper.Callback {
 
         @Override
-        public boolean tryCaptureView(View child, int pointerId) {
+            public boolean tryCaptureView(View child, int pointerId) {
             boolean dragEnable = mHelper.isEdgeTouched(mEdgeFlag, pointerId);
             if (dragEnable) {
-                if (mHelper.isEdgeTouched(EDGE_LEFT, pointerId)) {
+                Log.d(TAG, "tryCaptureView clampViewPositionHorizontal isEdgeTouched left=" + mHelper.isEdgeTouched(EDGE_LEFT, pointerId));
+                Log.d(TAG, "tryCaptureView clampViewPositionHorizontal isEdgeTouched right=" + mHelper.isEdgeTouched(EDGE_RIGHT, pointerId));
+                if ((mEdgeFlag & EDGE_LEFT) != 0 && mHelper.isEdgeTouched(EDGE_LEFT, pointerId)) {
                     mCurrentSwipeOrientation = EDGE_LEFT;
-                } else if (mHelper.isEdgeTouched(EDGE_RIGHT, pointerId)) {
+                } else if ((mEdgeFlag & EDGE_RIGHT) != 0 && mHelper.isEdgeTouched(EDGE_RIGHT, pointerId)) {
                     mCurrentSwipeOrientation = EDGE_RIGHT;
+                } else if ((mEdgeFlag & EDGE_TOP) != 0 && mHelper.isEdgeTouched(EDGE_TOP, pointerId)) {
+                    mCurrentSwipeOrientation = EDGE_TOP;
+                } else if ((mEdgeFlag & EDGE_BOTTOM) != 0 && mHelper.isEdgeTouched(EDGE_BOTTOM, pointerId)) {
+                    mCurrentSwipeOrientation = EDGE_BOTTOM;
                 }
+                Log.d(TAG, "tryCaptureView clampViewPositionHorizontal mCurrentSwipeOrientation=" + mCurrentSwipeOrientation);
 
                 if (mListeners != null) {
                     for (OnSwipeListener listener : mListeners) {
@@ -464,17 +503,33 @@ public class SwipeBackLayout extends FrameLayout {
                         preView.setVisibility(VISIBLE);
                     }
                 }
+                return child == mContentView;
             }
-            return dragEnable;
+            return false;
         }
 
         @Override
         public int clampViewPositionHorizontal(View child, int left, int dx) {
-            int ret = 0;
-            if ((mCurrentSwipeOrientation & EDGE_LEFT) != 0) {
-                ret = Math.min(child.getWidth(), Math.max(left, 0));
-            } else if ((mCurrentSwipeOrientation & EDGE_RIGHT) != 0) {
-                ret = Math.min(0, Math.max(left, -child.getWidth()));
+            int ret = getPaddingLeft();
+            Log.d(TAG, "clampViewPositionHorizontal canViewScrollLeft=" + canViewScrollLeft(downX, downY));
+            Log.d(TAG, "clampViewPositionHorizontal mCurrentSwipeOrientation=" + mCurrentSwipeOrientation);
+            if ((mCurrentSwipeOrientation & EDGE_LEFT) != 0 && !canViewScrollRight(downX, downY)) {
+                ret = Math.min(child.getWidth(), Math.max(left, getPaddingLeft()));
+            } else if ((mCurrentSwipeOrientation & EDGE_RIGHT) != 0 && !canViewScrollLeft(downX, downY)) {
+                ret = Math.min(getPaddingRight(), Math.max(left, -child.getWidth()));
+                Log.d(TAG, "clampViewPositionHorizontal right");
+            }
+            Log.d(TAG, "clampViewPositionHorizontal ret=" + ret);
+            return ret;
+        }
+
+        @Override
+        public int clampViewPositionVertical(@NonNull View child, int top, int dy) {
+            int ret = getPaddingTop();
+            if ((mCurrentSwipeOrientation & EDGE_TOP) != 0 && !canViewScrollUp(downX, downY)) {
+                ret = Math.min(child.getHeight(), Math.max(top, getPaddingTop()));
+            } else if ((mCurrentSwipeOrientation & EDGE_BOTTOM) != 0 && !canViewScrollDown(downX, downY)) {
+                ret = Math.min(getPaddingBottom(), Math.max(top, -child.getHeight()));
             }
             return ret;
         }
@@ -487,6 +542,10 @@ public class SwipeBackLayout extends FrameLayout {
                 mScrollPercent = Math.abs((float) left / (mContentView.getWidth() + mShadowLeft.getIntrinsicWidth()));
             } else if ((mCurrentSwipeOrientation & EDGE_RIGHT) != 0) {
                 mScrollPercent = Math.abs((float) left / (mContentView.getWidth() + mShadowRight.getIntrinsicWidth()));
+            } else if ((mCurrentSwipeOrientation & EDGE_TOP) != 0) {
+                mScrollPercent = Math.abs((float) top / (mContentView.getHeight() + mShadowTop.getIntrinsicWidth()));
+            } else if ((mCurrentSwipeOrientation & EDGE_BOTTOM) != 0) {
+                mScrollPercent = Math.abs((float) top / (mContentView.getHeight() + mShadowBottom.getIntrinsicWidth()));
             }
             mContentLeft = left;
             mContentTop = top;
@@ -530,6 +589,7 @@ public class SwipeBackLayout extends FrameLayout {
         @Override
         public void onViewReleased(View releasedChild, float xvel, float yvel) {
             final int childWidth = releasedChild.getWidth();
+            final int childHeight = releasedChild.getHeight();
 
             int left = 0, top = 0;
             if ((mCurrentSwipeOrientation & EDGE_LEFT) != 0) {
@@ -538,6 +598,12 @@ public class SwipeBackLayout extends FrameLayout {
             } else if ((mCurrentSwipeOrientation & EDGE_RIGHT) != 0) {
                 left = xvel < 0 || xvel == 0 && mScrollPercent > mScrollFinishThreshold ? -(childWidth
                         + mShadowRight.getIntrinsicWidth() + OVERSCROLL_DISTANCE) : 0;
+            } else if ((mCurrentSwipeOrientation & EDGE_TOP) != 0) {
+                top = xvel < 0 || xvel == 0 && mScrollPercent > mScrollFinishThreshold ? (childHeight
+                        + mShadowTop.getIntrinsicHeight() + OVERSCROLL_DISTANCE) : 0;
+            } else if ((mCurrentSwipeOrientation & EDGE_BOTTOM) != 0) {
+                top = xvel < 0 || xvel == 0 && mScrollPercent > mScrollFinishThreshold ? -(childHeight
+                        + mShadowBottom.getIntrinsicHeight() + OVERSCROLL_DISTANCE) : 0;
             }
 
             mHelper.settleCapturedViewAt(left, top);
@@ -574,12 +640,40 @@ public class SwipeBackLayout extends FrameLayout {
     @Override
     public boolean onInterceptTouchEvent(MotionEvent ev) {
         if (!mEnable) return super.onInterceptTouchEvent(ev);
-        try {
-            return mHelper.shouldInterceptTouchEvent(ev);
-        } catch (Exception ignored) {
-            ignored.printStackTrace();
+        switch (MotionEventCompat.getActionMasked(ev)) {
+            case MotionEvent.ACTION_DOWN:
+                Log.d(TAG, "onInterceptTouchEvent active_down");
+                downX = ev.getRawX();
+                downY = ev.getRawY();
+                break;
+            case MotionEvent.ACTION_MOVE:
+                Log.d(TAG, "onInterceptTouchEvent active_move");
+                if (contains(downX, downY)) {
+                    float distanceX = Math.abs(ev.getRawX() - downX);
+                    float distanceY = Math.abs(ev.getRawY() - downY);
+                    if ((mCurrentSwipeOrientation & EDGE_LEFT) != 0 || (mCurrentSwipeOrientation & EDGE_RIGHT) != 0) {
+                        if (distanceY > mHelper.getTouchSlop() && distanceY > distanceX) {
+                            return super.onInterceptTouchEvent(ev);
+                        }
+                    } else if (mCurrentSwipeOrientation == EDGE_TOP || mCurrentSwipeOrientation == EDGE_BOTTOM) {
+                        if (distanceX > mHelper.getTouchSlop() && distanceX > distanceY) {
+                            return super.onInterceptTouchEvent(ev);
+                        }
+                    }
+                }
+                break;
+            default:
+                break;
         }
-        return false;
+//        try {
+//            return mHelper.shouldInterceptTouchEvent(ev);
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+//        return false;
+
+        boolean handled = mHelper.shouldInterceptTouchEvent(ev);
+        return handled ? handled : super.onInterceptTouchEvent(ev);
     }
 
     @Override
@@ -588,9 +682,93 @@ public class SwipeBackLayout extends FrameLayout {
         try {
             mHelper.processTouchEvent(event);
             return true;
-        } catch (Exception ignored) {
-            ignored.printStackTrace();
+        } catch (Exception e) {
+            e.printStackTrace();
         }
         return false;
     }
+
+    public boolean canViewScrollRight(float x, float y) {
+        for (View view : scrollViewList) {
+            if (view == null || !contains(view, x, y)) {
+                continue;
+            }
+            return view.canScrollHorizontally(-1);
+        }
+        return false;
+    }
+
+    public boolean canViewScrollLeft(float x, float y) {
+        for (View view : scrollViewList) {
+            if (view == null || !contains(view, x, y)) {
+                continue;
+            }
+            return view.canScrollHorizontally(1);
+        }
+        return false;
+    }
+
+    public boolean canViewScrollUp(float x, float y) {
+        for (View view : scrollViewList) {
+            if (view == null || !contains(view, x, y)) {
+                continue;
+            }
+            return view.canScrollVertically(-1);
+        }
+        return false;
+    }
+
+    public boolean canViewScrollDown(float x, float y) {
+        for (View view : scrollViewList) {
+            if (view == null || !contains(view, x, y)) {
+                continue;
+            }
+            return view.canScrollVertically(1);
+        }
+        return false;
+    }
+
+    public static List<View> findAllScrollViews(ViewGroup mViewGroup) {
+        List<View> scrollerViewList = new ArrayList<>();
+        for (int i = 0; i < mViewGroup.getChildCount(); i++) {
+            View mView = mViewGroup.getChildAt(i);
+            if (mView.getVisibility() != View.VISIBLE) {
+                continue;
+            }
+            if (isScrollableView(mView)) {
+                scrollerViewList.add(mView);
+            } else {
+                if (mView instanceof ViewGroup) {
+                    scrollerViewList.addAll(findAllScrollViews((ViewGroup) mView));
+                }
+            }
+        }
+        return scrollerViewList;
+    }
+
+    public static boolean isScrollableView(View mView) {
+        return mView instanceof ScrollView
+                || mView instanceof HorizontalScrollView
+                || mView instanceof NestedScrollView
+                || mView instanceof AbsListView
+                || mView instanceof RecyclerView
+                || mView instanceof ViewPager
+                || mView instanceof WebView;
+    }
+
+    public static boolean contains(View mView, float x, float y) {
+        Rect localRect = new Rect();
+        mView.getGlobalVisibleRect(localRect);
+        return localRect.contains((int) x, (int) y);
+    }
+
+    public boolean contains(float x, float y) {
+        for (View view : scrollViewList) {
+            if (contains(view, x, y)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
 }

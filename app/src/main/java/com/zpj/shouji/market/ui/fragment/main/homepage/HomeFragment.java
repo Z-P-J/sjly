@@ -1,5 +1,7 @@
 package com.zpj.shouji.market.ui.fragment.main.homepage;
 
+import android.content.Context;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -15,6 +17,15 @@ import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.ui.adapter.PageAdapter;
 import com.zpj.shouji.market.ui.fragment.base.BaseFragment;
 import com.zpj.shouji.market.ui.fragment.manager.AppManagerFragment;
+import com.zpj.shouji.market.ui.widget.DotPagerIndicator;
+import com.zpj.shouji.market.ui.widget.ScaleTransitionPagerTitleView;
+
+import net.lucode.hackware.magicindicator.MagicIndicator;
+import net.lucode.hackware.magicindicator.ViewPagerHelper;
+import net.lucode.hackware.magicindicator.buildins.commonnavigator.CommonNavigator;
+import net.lucode.hackware.magicindicator.buildins.commonnavigator.abs.CommonNavigatorAdapter;
+import net.lucode.hackware.magicindicator.buildins.commonnavigator.abs.IPagerIndicator;
+import net.lucode.hackware.magicindicator.buildins.commonnavigator.abs.IPagerTitleView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -45,64 +56,51 @@ public class HomeFragment extends BaseFragment {
                 AToast.normal("rightCustomView");
             }
         });
-        QTabLayout tabLayout = (QTabLayout) titleBar.getCenterCustomView();
-
-
         ArrayList<Fragment> list = new ArrayList<>();
         list.add(new RecommendFragment());
         list.add(ExploreFragment.newInstance("http://tt.shouji.com.cn/app/faxian.jsp?index=faxian&versioncode=187"));
         list.add(new Fragment());
-        for (String s : TAB_TITLES) {
-            tabLayout.addTab(tabLayout.newTab().setText(s));
-        }
 
-        tabLayout.addOnTabSelectedListener(new QTabLayout.OnTabSelectedListener() {
+        PageAdapter adapter = new PageAdapter(getChildFragmentManager(), list, TAB_TITLES);
+        ViewPager viewPager = view.findViewById(R.id.view_pager);
+        viewPager.setAdapter(adapter);
+        MagicIndicator magicIndicator = (MagicIndicator) titleBar.getCenterCustomView();
+        CommonNavigator navigator = new CommonNavigator(getContext());
+        navigator.setAdapter(new CommonNavigatorAdapter() {
             @Override
-            public void onTabs(List<QTabLayout.Tab> tabs) {
-//                for (QTabLayout.Tab tab : tabs) {
-//                    View customView = tab.getCustomView();
-//                    if (customView instanceof ColorChangeView) {
-//                        ((ColorChangeView)(customView)).setTextSize(Util.Dp2px(getContext(), 16));
-//                    }
-//                }
+            public int getCount() {
+                return TAB_TITLES.length;
             }
 
             @Override
-            public void onTabSelected(QTabLayout.Tab tab) {
-                Log.d("OnTabSelectedListener", "onTabSelected");
-//                View view = tab.getCustomView();
-//                if (view instanceof ColorChangeView) {
-//                    ((ColorChangeView)(view)).setTextSize(Util.Dp2px(getContext(), 18));
-//                }
+            public IPagerTitleView getTitleView(Context context, int index) {
+                ScaleTransitionPagerTitleView titleView = new ScaleTransitionPagerTitleView(context);
+                titleView.setNormalColor(Color.WHITE);
+                titleView.setSelectedColor(Color.WHITE);
+                titleView.setTextSize(14);
+                titleView.setText(TAB_TITLES[index]);
+                titleView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        viewPager.setCurrentItem(index);
+                    }
+                });
+                return titleView;
             }
 
             @Override
-            public void onTabUnselected(QTabLayout.Tab tab) {
-                Log.d("OnTabSelectedListener", "onTabUnselected");
-//                View view = tab.getCustomView();
-//                if (view instanceof ColorChangeView) {
-//                    ((ColorChangeView)(view)).setTextSize(Util.Dp2px(getContext(), 16));
-//                }
-            }
-
-            @Override
-            public void onTabReselected(QTabLayout.Tab tab) {
-
+            public IPagerIndicator getIndicator(Context context) {
+                return new DotPagerIndicator(context);
             }
         });
-        PageAdapter adapter = new PageAdapter(getChildFragmentManager(), list, TAB_TITLES);
-        tabLayout.setTabMode(QTabLayout.MODE_SCROLLABLE);
-        ViewPager viewPager = view.findViewById(R.id.view_pager);
-        tabLayout.setupWithViewPager(viewPager);
-        viewPager.setAdapter(adapter);
+        magicIndicator.setNavigator(navigator);
+        ViewPagerHelper.bind(magicIndicator, viewPager);
+
 
         ImageView manageBtn = titleBar.getRightCustomView().findViewById(R.id.btn_manage);
-        manageBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (getActivity() instanceof SupportActivity) {
-                    ((SupportActivity) getActivity()).start(new AppManagerFragment());
-                }
+        manageBtn.setOnClickListener(v -> {
+            if (getActivity() instanceof SupportActivity) {
+                ((SupportActivity) getActivity()).start(new AppManagerFragment());
             }
         });
     }
