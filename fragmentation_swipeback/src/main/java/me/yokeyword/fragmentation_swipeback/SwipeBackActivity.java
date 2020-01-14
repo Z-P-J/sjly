@@ -1,12 +1,15 @@
 
 package me.yokeyword.fragmentation_swipeback;
 
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.view.View;
+import android.view.ViewGroup;
 
 import me.yokeyword.fragmentation.SupportActivity;
 import me.yokeyword.fragmentation.SwipeBackLayout;
-import me.yokeyword.fragmentation_swipeback.core.ISwipeBackActivity;
-import me.yokeyword.fragmentation_swipeback.core.SwipeBackActivityDelegate;
+import me.yokeyword.fragmentation_swipeback.core.ISwipeBack;
 
 
 /**
@@ -15,24 +18,28 @@ import me.yokeyword.fragmentation_swipeback.core.SwipeBackActivityDelegate;
  * <p>
  * Created by YoKey on 16/4/19.
  */
-public class SwipeBackActivity extends SupportActivity implements ISwipeBackActivity {
-    final SwipeBackActivityDelegate mDelegate = new SwipeBackActivityDelegate(this);
+public class SwipeBackActivity extends SupportActivity implements ISwipeBack {
+    private SwipeBackLayout mSwipeBackLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mDelegate.onCreate(savedInstanceState);
+        getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        getWindow().getDecorView().setBackgroundColor(Color.TRANSPARENT);
+        mSwipeBackLayout = new SwipeBackLayout(this);
+        ViewGroup.LayoutParams params = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
+        mSwipeBackLayout.setLayoutParams(params);
     }
 
     @Override
     protected void onPostCreate(Bundle savedInstanceState) {
         super.onPostCreate(savedInstanceState);
-        mDelegate.onPostCreate(savedInstanceState);
+        mSwipeBackLayout.attachToActivity(this);
     }
 
     @Override
     public SwipeBackLayout getSwipeBackLayout() {
-        return mDelegate.getSwipeBackLayout();
+        return mSwipeBackLayout;
     }
 
     /**
@@ -41,17 +48,22 @@ public class SwipeBackActivity extends SupportActivity implements ISwipeBackActi
      */
     @Override
     public void setSwipeBackEnable(boolean enable) {
-        mDelegate.setSwipeBackEnable(enable);
+        mSwipeBackLayout.setEnableGesture(enable);
     }
 
     @Override
     public void setEdgeLevel(SwipeBackLayout.EdgeLevel edgeLevel) {
-        mDelegate.setEdgeLevel(edgeLevel);
+        mSwipeBackLayout.setEdgeLevel(edgeLevel);
     }
 
     @Override
     public void setEdgeLevel(int widthPixel) {
-        mDelegate.setEdgeLevel(widthPixel);
+        mSwipeBackLayout.setEdgeLevel(widthPixel);
+    }
+
+    @Override
+    public void setParallaxOffset(float offset) {
+
     }
 
     /**
@@ -61,6 +73,6 @@ public class SwipeBackActivity extends SupportActivity implements ISwipeBackActi
      */
     @Override
     public boolean swipeBackPriority() {
-        return mDelegate.swipeBackPriority();
+        return getSupportFragmentManager().getBackStackEntryCount() <= 1;
     }
 }

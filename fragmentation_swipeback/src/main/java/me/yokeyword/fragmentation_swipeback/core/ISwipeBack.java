@@ -9,9 +9,9 @@ import me.yokeyword.fragmentation.SwipeBackLayout;
  * Created by YoKey on 17/6/29.
  */
 
-public interface ISwipeBackFragment {
+public interface ISwipeBack {
 
-    View attachToSwipeBack(View view);
+//    View attachToSwipeBack(View view);
 
     SwipeBackLayout getSwipeBackLayout();
 
@@ -25,4 +25,11 @@ public interface ISwipeBackFragment {
      * Set the offset of the parallax slip.
      */
     void setParallaxOffset(@FloatRange(from = 0.0f, to = 1.0f) float offset);
+
+    /**
+     * 限制SwipeBack的条件,默认栈内Fragment数 <= 1时 , 优先滑动退出Activity , 而不是Fragment
+     *
+     * @return true: Activity可以滑动退出, 并且总是优先;  false: Fragment优先滑动退出
+     */
+    boolean swipeBackPriority();
 }

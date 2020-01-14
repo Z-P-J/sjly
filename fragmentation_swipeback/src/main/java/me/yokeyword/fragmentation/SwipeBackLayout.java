@@ -36,6 +36,7 @@ import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
 
+import me.yokeyword.fragmentation_swipeback.core.ISwipeBack;
 import me.yokeyword.fragmentation_swipeback.core.ISwipeBackActivity;
 
 /**
@@ -426,6 +427,10 @@ public class SwipeBackLayout extends FrameLayout {
         mEnable = enable;
     }
 
+    public boolean isGestureEnable() {
+        return mEnable;
+    }
+
     public void setEdgeLevel(EdgeLevel edgeLevel) {
         validateEdgeLevel(-1, edgeLevel);
     }
@@ -580,7 +585,7 @@ public class SwipeBackLayout extends FrameLayout {
             if (mFragment != null) {
                 return 1;
             }
-            if (mActivity instanceof ISwipeBackActivity && ((ISwipeBackActivity) mActivity).swipeBackPriority()) {
+            if (mActivity instanceof ISwipeBack && ((ISwipeBack) mActivity).swipeBackPriority()) {
                 return 1;
             }
             return 0;
