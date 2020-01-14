@@ -27,7 +27,8 @@ public class EasyRecyclerView<T> {
     private View headerView;
     private View footerView;
 
-    private IEasy.OnBindViewHolderCallback<T> callback;
+    private IEasy.OnBindViewHolderCallback<T> onBindViewHolderCallback;
+    private IEasy.OnCreateViewHolderCallback<T> onCreateViewHolder;
     private IEasy.OnLoadMoreListener onLoadMoreListener;
 
     public EasyRecyclerView(@NonNull RecyclerView recyclerView) {
@@ -77,7 +78,17 @@ public class EasyRecyclerView<T> {
     }
 
     public EasyRecyclerView<T> onBindViewHolder(IEasy.OnBindViewHolderCallback<T> callback) {
-        this.callback = callback;
+        this.onBindViewHolderCallback = callback;
+        return this;
+    }
+
+    public EasyRecyclerView<T> onCreateViewHolder(IEasy.OnCreateViewHolderCallback<T> callback) {
+        this.onCreateViewHolder = callback;
+        return this;
+    }
+
+    public EasyRecyclerView<T> addOnScrollListener(final RecyclerView.OnScrollListener onScrollListener) {
+        recyclerView.addOnScrollListener(onScrollListener);
         return this;
     }
 
@@ -91,14 +102,14 @@ public class EasyRecyclerView<T> {
         if (layoutManager == null) {
             layoutManager = new LinearLayoutManager(recyclerView.getContext());
         }
-        easyAdapter = new EasyAdapter<T>(list, itemRes, callback);
+        easyAdapter = new EasyAdapter<>(list, itemRes, onCreateViewHolder, onBindViewHolderCallback);
         if (headerView != null) {
             easyAdapter.setHeaderView(headerView);
         }
         if (footerView != null) {
             easyAdapter.setFooterView(footerView);
         } else if (onLoadMoreListener != null) {
-            footerView = LayoutInflater.from(recyclerView.getContext()).inflate(R.layout.base_footer, null, false);
+            footerView = LayoutInflater.from(recyclerView.getContext()).inflate(R.layout.easy_base_footer, null, false);
             easyAdapter.setFooterView(footerView);
         }
         easyAdapter.setOnLoadMoreListener(onLoadMoreListener);
@@ -112,6 +123,26 @@ public class EasyRecyclerView<T> {
 
     public void notifyItemChanged(int position) {
         easyAdapter.notifyItemChanged(position);
+    }
+
+    public void notifyItemChanged(int position, Object payload) {
+        easyAdapter.notifyItemChanged(position, payload);
+    }
+
+    public void notifyItemInserted(int position) {
+        easyAdapter.notifyItemInserted(position);
+    }
+
+    public void notifyItemRangeChanged(int start, int itemCount) {
+        easyAdapter.notifyItemRangeChanged(start, itemCount);
+    }
+
+    public void notifyItemRangeChanged(int start, int itemCount, Object payload) {
+        easyAdapter.notifyItemRangeChanged(start, itemCount, payload);
+    }
+
+    public void notifyItemRemoved(int position) {
+        easyAdapter.notifyItemRemoved(position);
     }
 
     public EasyAdapter<T> getAdapter() {
@@ -128,5 +159,9 @@ public class EasyRecyclerView<T> {
 
     public void post(Runnable runnable) {
         recyclerView.post(runnable);
+    }
+
+    public List<T> getData() {
+        return list;
     }
 }

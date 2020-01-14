@@ -18,7 +18,7 @@ public class OutsideClickDialog extends Dialog {
         void onTouchOutside();
     }
 
-    private OnTouchOutsideListener onTouchOutsideListener;
+    protected OnTouchOutsideListener onTouchOutsideListener;
 
     public OutsideClickDialog(@NonNull Context context) {
         super(context);

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TextView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/text_content"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="15dp"
+    android:layout_marginTop="15dp"
+    android:lineSpacingExtra="6dp"
+    android:text="我们将在30分钟处理，稍后通知您订单结果！感谢您选择"
+    android:textColor="#525a66"
+    android:textSize="14sp"
+    android:maxLines="3"
+    android:ellipsize="end"
+    />

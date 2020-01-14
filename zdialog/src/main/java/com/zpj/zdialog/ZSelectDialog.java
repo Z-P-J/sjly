@@ -1,16 +1,13 @@
 package com.zpj.zdialog;
 
-import android.app.Activity;
 import android.content.Context;
-import android.support.annotation.LayoutRes;
-import android.support.v7.widget.RecyclerView;
-import android.view.Gravity;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.zpj.recyclerview.EasyViewHolder;
 import com.zpj.recyclerview.IEasy;
+import com.zpj.utils.ClickHelper;
 import com.zpj.zdialog.base.IDialog;
 import com.zpj.zdialog.view.SmoothCheckBox;
 
@@ -107,7 +104,7 @@ public class ZSelectDialog<T> {
 
     public void show() {
         dialog.setShowButtons(isMultiple)
-                .setItemRes(R.layout.item_select_dialog)
+                .setItemRes(R.layout.easy_item_select_dialog)
                 .setNegativeButton(new IDialog.OnClickListener() {
                     @Override
                     public void onClick(IDialog dialog) {
@@ -125,15 +122,15 @@ public class ZSelectDialog<T> {
                 })
                 .setOnBindChildView(new IEasy.OnBindViewHolderCallback<T>() {
                     @Override
-                    public void onBindViewHolder(final EasyViewHolder holder, List<T> list, int position) {
+                    public void onBindViewHolder(final EasyViewHolder holder, List<T> list, int position, List<Object> ppayloads) {
                         ImageView iconView = holder.getView(R.id.icon_view);
                         TextView titleView = holder.getView(R.id.title_view);
                         TextView contentView = holder.getView(R.id.content_view);
                         final SmoothCheckBox checkBox = holder.getView(R.id.check_box);
                         checkBox.setChecked(selectedList.contains(position), true);
-                        holder.setOnItemClickListener(new View.OnClickListener() {
+                        holder.setOnItemClickListener(new ClickHelper.OnClickListener() {
                             @Override
-                            public void onClick(View v) {
+                            public void onClick(View v, float x, float y) {
                                 if (isMultiple) {
                                     if (checkBox.isChecked()) {
                                         unSelect(holder.getAdapterPosition());

@@ -1,12 +1,12 @@
 package com.zpj.zdialog.base;
 
 import android.animation.Animator;
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnCancelListener;
-import android.content.DialogInterface.OnDismissListener;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -27,13 +27,13 @@ import android.view.animation.DecelerateInterpolator;
 
 import com.zpj.zdialog.R;
 import com.zpj.zdialog.view.SwipeableFrameLayout;
-import com.zpj.zdialog.utils.AnimHelper;
+import com.zpj.utils.AnimHelper;
 
 /**
  * @author Z-P-J
  * @date 2019/5/16 21:36
  */
-public class DialogFragment extends Fragment implements OnCancelListener, OnDismissListener {
+public class DialogFragment extends Fragment { // OnDismissListener // implements OnCancelListener
     public static final int STYLE_NORMAL = 0;
     public static final int STYLE_NO_TITLE = 1;
     public static final int STYLE_NO_FRAME = 2;
@@ -42,6 +42,7 @@ public class DialogFragment extends Fragment implements OnCancelListener, OnDism
     private static final String SAVED_STYLE = "android:style";
     private static final String SAVED_THEME = "android:theme";
     private static final String SAVED_CANCELABLE = "android:cancelable";
+    private static final String SAVED_CANCELABLE_TOUCH_OUTSIDE = "android:cancelableTouchOutside";
     private static final String SAVED_SHOWS_DIALOG = "android:showsDialog";
     private static final String SAVED_BACK_STACK_ID = "android:backStackId";
     int mStyle = 0;
@@ -116,6 +117,20 @@ public class DialogFragment extends Fragment implements OnCancelListener, OnDism
     }
 
     public void dismiss() {
+        onBeginDismiss();
+        isDismissing = true;
+        if (mContentOutAnimator != null) {
+            if (!mContentOutAnimator.isRunning()) {
+                mContentOutAnimator.start();
+            }
+        } else {
+            dismissInternal(false);
+        }
+//        dismissInternal(false);
+    }
+
+    public void cancel() {
+        onBeginCancel();
         isDismissing = true;
         if (mContentOutAnimator != null) {
             if (!mContentOutAnimator.isRunning()) {
@@ -140,10 +155,12 @@ public class DialogFragment extends Fragment implements OnCancelListener, OnDism
     }
 
     public void dismissAllowingStateLoss() {
+        onBeginDismiss();
         this.dismissInternal(true);
     }
 
     public void dismissWithoutAnim() {
+        onBeginDismiss();
         this.dismissInternal(false);
     }
 
@@ -235,6 +252,7 @@ public class DialogFragment extends Fragment implements OnCancelListener, OnDism
             this.mStyle = savedInstanceState.getInt(SAVED_STYLE, 0);
             this.mTheme = savedInstanceState.getInt(SAVED_THEME, 0);
             this.mCancelable = savedInstanceState.getBoolean(SAVED_CANCELABLE, true);
+            this.mCanceledOnTouchOutside = savedInstanceState.getBoolean(SAVED_CANCELABLE_TOUCH_OUTSIDE, this.mCanceledOnTouchOutside);
             this.mShowsDialog = savedInstanceState.getBoolean(SAVED_SHOWS_DIALOG, this.mShowsDialog);
             this.mBackStackId = savedInstanceState.getInt(SAVED_BACK_STACK_ID, -1);
         }
@@ -253,7 +271,8 @@ public class DialogFragment extends Fragment implements OnCancelListener, OnDism
                 public void onTouchOutside() {
                     if (mCanceledOnTouchOutside) {
                         mDialog.setOnTouchOutsideListener(null);
-                        dismiss();
+                        cancel();
+//                        mDialog.cancel();
                     }
                 }
             });
@@ -312,15 +331,17 @@ public class DialogFragment extends Fragment implements OnCancelListener, OnDism
         return new OutsideClickDialog(getContext(), this.getTheme());
     }
 
-    @Override
-    public void onCancel(DialogInterface dialog) {
+
+    public void onBeginDismiss() {
+//        if (!this.mViewDestroyed) {
+//            this.dismissInternal(true);
+//        }
     }
 
-    @Override
-    public void onDismiss(DialogInterface dialog) {
-        if (!this.mViewDestroyed) {
-            this.dismissInternal(true);
-        }
+    public void onBeginCancel() {
+//        if (!this.mViewDestroyed) {
+//            this.dismissInternal(true);
+//        }
     }
 
     @Override
@@ -351,9 +372,16 @@ public class DialogFragment extends Fragment implements OnCancelListener, OnDism
                 @Override
                 public boolean onKey(DialogInterface dialog, int keyCode, KeyEvent event) {
                     boolean flag = keyCode == KeyEvent.KEYCODE_BACK && event.getAction() == KeyEvent.ACTION_DOWN;
-                    if (flag && mCancelable && !isDismissing) {
-//                        initContentOutAnimator(view);
-                        dismiss();
+                    if (flag) {
+                        if (mCancelable) {
+                            if (isDismissing || onBackPressed()) {
+                                return true;
+                            }
+                            dismiss();
+                            return true;
+                        }
+                    } else if (keyCode == KeyEvent.KEYCODE_BACK && event.getAction() == KeyEvent.ACTION_UP) {
+                        return true;
                     }
                     return flag;
                 }
@@ -381,8 +409,8 @@ public class DialogFragment extends Fragment implements OnCancelListener, OnDism
             }
 
             this.mDialog.setCancelable(this.mCancelable);
-            this.mDialog.setOnCancelListener(this);
-            this.mDialog.setOnDismissListener(this);
+//            this.mDialog.setOnCancelListener(this);
+//            this.mDialog.setOnDismissListener(this);
             if (savedInstanceState != null) {
                 Bundle dialogState = savedInstanceState.getBundle("android:savedDialogState");
                 if (dialogState != null) {
@@ -449,6 +477,10 @@ public class DialogFragment extends Fragment implements OnCancelListener, OnDism
 
         if (!this.mCancelable) {
             outState.putBoolean(SAVED_CANCELABLE, this.mCancelable);
+        }
+
+        if (!this.mCanceledOnTouchOutside) {
+            outState.putBoolean(SAVED_CANCELABLE_TOUCH_OUTSIDE, this.mCanceledOnTouchOutside);
         }
 
         if (!this.mShowsDialog) {
@@ -520,6 +552,10 @@ public class DialogFragment extends Fragment implements OnCancelListener, OnDism
      * @return true to prevent dismissing
      */
     public boolean onSwipedAway(boolean toRight) {
+        return false;
+    }
+
+    protected boolean onBackPressed() {
         return false;
     }
 

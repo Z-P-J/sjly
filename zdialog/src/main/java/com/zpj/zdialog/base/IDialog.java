@@ -18,7 +18,7 @@ public interface IDialog {
 
     void hide();
 
-    void show();
+    IDialog show();
 
     void dismissWithoutAnim();
 
@@ -34,6 +34,10 @@ public interface IDialog {
 
     interface OnDismissListener {
         void onDismiss(IDialog dialog);
+    }
+
+    interface OnCancelListener {
+        void onCancel(IDialog dialog);
     }
 
     interface OnDialogStartListener {

@@ -1,4 +1,4 @@
-//package com.zpj.zdialog.view;
+package com.zpj.zdialog.view;//package com.zpj.zdialog.view;
 //
 //import android.content.Context;
 //import android.content.res.TypedArray;

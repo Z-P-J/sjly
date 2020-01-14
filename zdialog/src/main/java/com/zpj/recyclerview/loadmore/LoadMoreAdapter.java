@@ -80,7 +80,7 @@ public class LoadMoreAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
             if (mFooterView != null) {
                 return new FooterHolder(mFooterView);
             }
-            View view = LoadMoreHelper.inflate(parent, R.layout.base_footer);
+            View view = LoadMoreHelper.inflate(parent, R.layout.easy_base_footer);
             return new FooterHolder(view);
         } else if (viewType == TYPE_NO_MORE) {
             if (mNoMoreResId != View.NO_ID) {
@@ -89,7 +89,7 @@ public class LoadMoreAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
             if (mNoMoreView != null) {
                 return new NoMoreHolder(mNoMoreView);
             }
-            View view = LoadMoreHelper.inflate(parent, R.layout.base_no_more);
+            View view = LoadMoreHelper.inflate(parent, R.layout.easy_base_no_more);
             return new NoMoreHolder(view);
         } else if (viewType == TYPE_LOAD_FAILED) {
             if (mLoadFailedResId != View.NO_ID) {
@@ -97,7 +97,7 @@ public class LoadMoreAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
             }
             View view = mLoadFailedView;
             if (view == null) {
-                view = LoadMoreHelper.inflate(parent, R.layout.base_load_failed);
+                view = LoadMoreHelper.inflate(parent, R.layout.easy_base_load_failed);
             }
             return new LoadFailedHolder(view, mEnabled, mOnLoadMoreListener);
         }

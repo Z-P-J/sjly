@@ -29,15 +29,20 @@ public class EasyAdapter<T> extends RecyclerView.Adapter<EasyViewHolder> {
 
     private int itemRes;
 
+    private int currentPage = -1;
+
     private View headerView;
     private View footerView;
 
     private IEasy.OnBindViewHolderCallback<T> callback;
+    private IEasy.OnCreateViewHolderCallback<T> onCreateViewHolder;
 
-    public EasyAdapter(List<T> list, int itemRes, IEasy.OnBindViewHolderCallback<T> callback) {
+    EasyAdapter(List<T> list, int itemRes, IEasy.OnCreateViewHolderCallback<T> onCreateViewHolder, IEasy.OnBindViewHolderCallback<T> callback) {
         this.list = list;
         this.itemRes = itemRes;
         this.callback = callback;
+        this.onCreateViewHolder = onCreateViewHolder;
+        registerAdapterDataObserver(mObserver);
         mEnabled = new Enabled(mOnEnabledListener);
     }
 
@@ -50,15 +55,49 @@ public class EasyAdapter<T> extends RecyclerView.Adapter<EasyViewHolder> {
             return new EasyViewHolder(footerView);
         } else {
             View view = LayoutInflater.from(viewGroup.getContext()).inflate(itemRes, viewGroup, false);
-//            if (callback != null) {
-//                callback.onCreateViewHolder(list, view, viewType);
-//            }
+            if (onCreateViewHolder != null) {
+                onCreateViewHolder.onCreateViewHolder(viewGroup, view, viewType);
+            }
             return new EasyViewHolder(view);
         }
     }
 
     @Override
-    public void onBindViewHolder(@NonNull EasyViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull EasyViewHolder easyViewHolder, int i) {
+
+    }
+
+    @Override
+    public void onBindViewHolder(@NonNull EasyViewHolder holder, int position, @NonNull List<Object> payloads) {
+//        if (payloads.isEmpty()) {
+////            onBindViewHolder(holder, position);
+//            if (isHeaderPosition(position)) return;
+//            if (isFooterPosition(position)) {
+//                if (!canScroll() && mOnLoadMoreListener != null && !mIsLoading) {
+//                    mIsLoading = true;
+//                    // fix Cannot call this method while RecyclerView is computing a layout or scrolling
+//                    mRecyclerView.post(new Runnable() {
+//                        @Override
+//                        public void run() {
+//                            if (mOnLoadMoreListener.onLoadMore(mEnabled, currentPage + 1)) {
+//                                footerView.setVisibility(View.VISIBLE);
+//                                currentPage++;
+//                            } else if (footerView != null){
+//                                footerView.setVisibility(View.GONE);
+//                            }
+//                        }
+//                    });
+//                }
+//                return;
+//            }
+//            if (callback != null) {
+//                callback.onBindViewHolder(holder, list, getRealPosition(holder));
+//            }
+//        } else {
+//            if (callback != null) {
+//                callback.onBindViewHolder(holder, list, getRealPosition(holder), payloads);
+//            }
+//        }
         if (isHeaderPosition(position)) return;
         if (isFooterPosition(position)) {
             if (!canScroll() && mOnLoadMoreListener != null && !mIsLoading) {
@@ -67,16 +106,47 @@ public class EasyAdapter<T> extends RecyclerView.Adapter<EasyViewHolder> {
                 mRecyclerView.post(new Runnable() {
                     @Override
                     public void run() {
-                        mOnLoadMoreListener.onLoadMore(mEnabled);
+                        if (mOnLoadMoreListener.onLoadMore(mEnabled, currentPage + 1)) {
+                            footerView.setVisibility(View.VISIBLE);
+                            currentPage++;
+                        } else if (footerView != null){
+                            footerView.setVisibility(View.GONE);
+                        }
                     }
                 });
             }
             return;
         }
         if (callback != null) {
-            callback.onBindViewHolder(holder, list, getRealPosition(holder));
+            callback.onBindViewHolder(holder, list, getRealPosition(holder), payloads);
         }
     }
+
+//    @Override
+//    public void onBindViewHolder(@NonNull EasyViewHolder holder, int position) {
+//        if (isHeaderPosition(position)) return;
+//        if (isFooterPosition(position)) {
+//            if (!canScroll() && mOnLoadMoreListener != null && !mIsLoading) {
+//                mIsLoading = true;
+//                // fix Cannot call this method while RecyclerView is computing a layout or scrolling
+//                mRecyclerView.post(new Runnable() {
+//                    @Override
+//                    public void run() {
+//                        if (mOnLoadMoreListener.onLoadMore(mEnabled, currentPage + 1)) {
+//                            footerView.setVisibility(View.VISIBLE);
+//                            currentPage++;
+//                        } else if (footerView != null){
+//                            footerView.setVisibility(View.GONE);
+//                        }
+//                    }
+//                });
+//            }
+//            return;
+//        }
+//        if (callback != null) {
+//            callback.onBindViewHolder(holder, list, getRealPosition(holder));
+//        }
+//    }
 
     @Override
     public void onAttachedToRecyclerView(@NonNull RecyclerView recyclerView) {
@@ -97,9 +167,16 @@ public class EasyAdapter<T> extends RecyclerView.Adapter<EasyViewHolder> {
     }
 
     @Override
+    public void onDetachedFromRecyclerView(RecyclerView recyclerView) {
+        recyclerView.removeOnScrollListener(mOnScrollListener);
+        unregisterAdapterDataObserver(mObserver);
+        mRecyclerView = null;
+    }
+
+    @Override
     public void onViewAttachedToWindow(@NonNull EasyViewHolder holder) {
         super.onViewAttachedToWindow(holder);
-        ViewGroup.LayoutParams lp = holder.itemView.getLayoutParams();
+        ViewGroup.LayoutParams lp = holder.getItemView().getLayoutParams();
         if (lp instanceof StaggeredGridLayoutManager.LayoutParams
                 && holder.getLayoutPosition() == 0) {
             StaggeredGridLayoutManager.LayoutParams p = (StaggeredGridLayoutManager.LayoutParams) lp;
@@ -277,6 +354,10 @@ public class EasyAdapter<T> extends RecyclerView.Adapter<EasyViewHolder> {
         @Override
         public void notifyChanged() {
             mShouldRemove = true;
+//            if (!getLoadMoreEnabled()) {
+//                currentPage = -1;
+//            }
+//            mOnScrollListener.onScrollStateChanged(mRecyclerView, RecyclerView.SCROLL_STATE_IDLE);
         }
 
         @Override
@@ -293,11 +374,11 @@ public class EasyAdapter<T> extends RecyclerView.Adapter<EasyViewHolder> {
             super.onScrollStateChanged(recyclerView, newState);
 
             Log.d(TAG, "onScrollStateChanged getLoadMoreEnabled=" + getLoadMoreEnabled() + "  mIsLoading=" + mIsLoading);
-            if (!getLoadMoreEnabled() || mIsLoading) {
+            if (!getLoadMoreEnabled() || mIsLoading || mOnLoadMoreListener == null) {
                 return;
             }
 
-            if (newState == RecyclerView.SCROLL_STATE_IDLE && mOnLoadMoreListener != null) {
+            if (newState == RecyclerView.SCROLL_STATE_IDLE) {
                 boolean isBottom;
                 RecyclerView.LayoutManager layoutManager = recyclerView.getLayoutManager();
                 if (layoutManager instanceof LinearLayoutManager) {
@@ -316,7 +397,12 @@ public class EasyAdapter<T> extends RecyclerView.Adapter<EasyViewHolder> {
 
                 if (isBottom) {
                     mIsLoading = true;
-                    mOnLoadMoreListener.onLoadMore(mEnabled);
+                    if (mOnLoadMoreListener.onLoadMore(mEnabled, currentPage + 1)) {
+                        footerView.setVisibility(View.VISIBLE);
+                        currentPage++;
+                    } else if (footerView != null){
+                        footerView.setVisibility(View.GONE);
+                    }
                 }
             }
         }
@@ -343,7 +429,7 @@ public class EasyAdapter<T> extends RecyclerView.Adapter<EasyViewHolder> {
             if (mShouldRemove) {
                 mShouldRemove = false;
             }
-            notifyDataSetChanged();
+//            notifyDataSetChanged();
             mIsLoading = false;
         }
 
@@ -352,7 +438,7 @@ public class EasyAdapter<T> extends RecyclerView.Adapter<EasyViewHolder> {
             if (mShouldRemove && positionStart == getItemCount()) {
                 mShouldRemove = false;
             }
-            notifyItemRangeChanged(positionStart, itemCount);
+//            notifyItemRangeChanged(positionStart, itemCount);
             mIsLoading = false;
         }
 
@@ -361,7 +447,7 @@ public class EasyAdapter<T> extends RecyclerView.Adapter<EasyViewHolder> {
             if (mShouldRemove && positionStart == getItemCount()) {
                 mShouldRemove = false;
             }
-            notifyItemRangeChanged(positionStart, itemCount, payload);
+//            notifyItemRangeChanged(positionStart, itemCount, payload);
             mIsLoading = false;
         }
 
@@ -369,10 +455,10 @@ public class EasyAdapter<T> extends RecyclerView.Adapter<EasyViewHolder> {
         public void onItemRangeInserted(int positionStart, int itemCount) {
             // when no data is initialized (has loadMoreView)
             // should remove loadMoreView before notifyItemRangeInserted
-            if (mRecyclerView.getChildCount() == 1) {
-                notifyItemRemoved(0);
-            }
-            notifyItemRangeInserted(positionStart, itemCount);
+//            if (mRecyclerView.getChildCount() == 1) {
+//                notifyItemRemoved(0);
+//            }
+//            notifyItemRangeInserted(positionStart, itemCount);
             notifyFooterHolderChanged();
             mIsLoading = false;
         }
@@ -398,7 +484,7 @@ public class EasyAdapter<T> extends RecyclerView.Adapter<EasyViewHolder> {
                     notifyItemRemoved(0);
                 }
             }
-            notifyItemRangeRemoved(positionStart, itemCount);
+//            notifyItemRangeRemoved(positionStart, itemCount);
             if (shouldSync) {
                 setLoadMoreEnabled(true);
             }
@@ -410,7 +496,7 @@ public class EasyAdapter<T> extends RecyclerView.Adapter<EasyViewHolder> {
             if (mShouldRemove && (fromPosition == getItemCount() || toPosition == getItemCount())) {
                 throw new IllegalArgumentException("can not move last position after setLoadMoreEnabled(false)");
             }
-            notifyItemMoved(fromPosition, toPosition);
+//            notifyItemMoved(fromPosition, toPosition);
             mIsLoading = false;
         }
     };

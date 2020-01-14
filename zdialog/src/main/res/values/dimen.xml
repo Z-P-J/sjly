@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="z_tab_text_size_2line">12sp</dimen>
+    <dimen name="z_tab_scrollable_min_width">72dp</dimen>
+    <dimen name="z_bottom_sheet_peek_height_min">64dp</dimen>
+</resources>

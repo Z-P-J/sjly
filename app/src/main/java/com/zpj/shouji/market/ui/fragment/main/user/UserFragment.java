@@ -1,5 +1,6 @@
 package com.zpj.shouji.market.ui.fragment.main.user;
 
+import android.content.Context;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
@@ -15,7 +16,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-import com.qyh.qtablayoutlib.QTabLayout;
 import com.wuhenzhizao.titlebar.utils.ScreenUtils;
 import com.wuhenzhizao.titlebar.widget.CommonTitleBar;
 import com.zpj.http.parser.html.nodes.Element;
@@ -23,11 +23,20 @@ import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.constant.Key;
 import com.zpj.shouji.market.ui.adapter.PageAdapter;
 import com.zpj.shouji.market.ui.behavior.AppBarLayoutOverScrollViewBehavior;
-import com.zpj.shouji.market.ui.fragment.main.homepage.ExploreFragment;
 import com.zpj.shouji.market.ui.fragment.base.BaseFragment;
+import com.zpj.shouji.market.ui.fragment.main.homepage.ExploreFragment;
 import com.zpj.shouji.market.ui.widget.CircleImageView;
+import com.zpj.shouji.market.ui.widget.DotPagerIndicator;
 import com.zpj.shouji.market.ui.widget.NoScrollViewPager;
 import com.zpj.shouji.market.ui.widget.RoundProgressBar;
+import com.zpj.shouji.market.ui.widget.ScaleTransitionPagerTitleView;
+
+import net.lucode.hackware.magicindicator.MagicIndicator;
+import net.lucode.hackware.magicindicator.ViewPagerHelper;
+import net.lucode.hackware.magicindicator.buildins.commonnavigator.CommonNavigator;
+import net.lucode.hackware.magicindicator.buildins.commonnavigator.abs.CommonNavigatorAdapter;
+import net.lucode.hackware.magicindicator.buildins.commonnavigator.abs.IPagerIndicator;
+import net.lucode.hackware.magicindicator.buildins.commonnavigator.abs.IPagerTitleView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -48,7 +57,7 @@ public class UserFragment extends BaseFragment implements ExploreFragment.Callba
     private TextView mNicknameTextView, mSignatureTextView;
     private ImageView mSettingIv, mMsgIv;
     private CircleImageView mAvater;
-    private QTabLayout mTablayout;
+    private MagicIndicator magicIndicator;
     private NoScrollViewPager mViewPager;
 
     private final List<Fragment> fragments = new ArrayList<>();
@@ -110,7 +119,7 @@ public class UserFragment extends BaseFragment implements ExploreFragment.Callba
         mSettingIv = view.findViewById(R.id.uc_setting_iv);
         mMsgIv = view.findViewById(R.id.uc_msg_iv);
         mAvater = view.findViewById(R.id.uc_avater);
-        mTablayout = view.findViewById(R.id.tab_title);
+        magicIndicator = view.findViewById(R.id.magic_indicator);
         mViewPager = view.findViewById(R.id.uc_viewpager);
     }
 
@@ -119,14 +128,46 @@ public class UserFragment extends BaseFragment implements ExploreFragment.Callba
         fragments.add(new Fragment());
         fragments.add(new UserDownloadedFragment());
         fragments.add(new Fragment());
-        for (String s : TAB_TITLES) {
-            mTablayout.addTab(mTablayout.newTab().setText(s));
-        }
+//        PageAdapter adapter = new PageAdapter(getChildFragmentManager(), fragments, TAB_TITLES);
+//        mTablayout.setTabMode(QTabLayout.MODE_FIXED);
+//        mTablayout.setupWithViewPager(mViewPager);
+//        mViewPager.setAdapter(adapter);
+//        mViewPager.setOffscreenPageLimit(4);
+
         PageAdapter adapter = new PageAdapter(getChildFragmentManager(), fragments, TAB_TITLES);
-        mTablayout.setTabMode(QTabLayout.MODE_FIXED);
-        mTablayout.setupWithViewPager(mViewPager);
         mViewPager.setAdapter(adapter);
         mViewPager.setOffscreenPageLimit(4);
+        CommonNavigator navigator = new CommonNavigator(getContext());
+        navigator.setAdjustMode(true);
+        navigator.setAdapter(new CommonNavigatorAdapter() {
+            @Override
+            public int getCount() {
+                return TAB_TITLES.length;
+            }
+
+            @Override
+            public IPagerTitleView getTitleView(Context context, int index) {
+                ScaleTransitionPagerTitleView titleView = new ScaleTransitionPagerTitleView(context);
+                titleView.setNormalColor(Color.WHITE);
+                titleView.setSelectedColor(Color.WHITE);
+                titleView.setTextSize(14);
+                titleView.setText(TAB_TITLES[index]);
+                titleView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        mViewPager.setCurrentItem(index);
+                    }
+                });
+                return titleView;
+            }
+
+            @Override
+            public IPagerIndicator getIndicator(Context context) {
+                return new DotPagerIndicator(context);
+            }
+        });
+        magicIndicator.setNavigator(navigator);
+        ViewPagerHelper.bind(magicIndicator, mViewPager);
     }
 
     private static int color = Color.parseColor("#80333333");

@@ -1,6 +1,5 @@
 package com.zpj.zdialog;
 
-import android.app.Activity;
 import android.content.Context;
 import android.view.View;
 import android.widget.Button;
@@ -93,7 +92,7 @@ public class ZCheckDialog {
 
     public void show() {
         ZDialog.with(context)
-                .setContentView(R.layout.layout_dialog_check)
+                .setContentView(R.layout.easy_layout_dialog_check)
                 .setWindowBackgroundP(0.4f)
                 .setScreenWidthP(0.9f)
                 .setOnViewCreateListener(new IDialog.OnViewCreateListener() {

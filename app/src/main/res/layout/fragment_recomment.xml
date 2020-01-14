@@ -148,17 +148,12 @@
 
             </android.support.design.widget.CollapsingToolbarLayout>
 
-            <com.qyh.qtablayoutlib.QTabLayout
-                android:id="@+id/home_tabs"
+            <net.lucode.hackware.magicindicator.MagicIndicator
+                android:id="@+id/magic_indicator"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@android:color/transparent"
-                app:q_tabIndicatorAnimation="true"
-                app:q_tabIndicatorColor="#ffffff"
-                app:q_tabIndicatorWidth="20dp"
-                app:q_tabSelectedTextColor="#ffffff"
-                app:q_tabTextColor="#80eeeeee"
-                app:q_tabTextSize="18sp"
+                android:layout_height="48dp"
+                android:layout_gravity="center"
+                android:background="@color/colorPrimary"
                 />
 
         </android.support.design.widget.AppBarLayout>

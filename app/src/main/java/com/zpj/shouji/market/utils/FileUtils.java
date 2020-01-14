@@ -11,6 +11,7 @@ import android.os.storage.StorageManager;
 import android.provider.DocumentsContract;
 import android.provider.MediaStore;
 import android.text.TextUtils;
+import android.util.Log;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -26,8 +27,6 @@ import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.zip.CRC32;
-
-import me.panpf.sketch.SLog;
 
 public class FileUtils {
 
@@ -636,7 +635,7 @@ public class FileUtils {
         try {
             getVolumePathsMethod = StorageManager.class.getMethod("getVolumePaths");
         } catch (NoSuchMethodException e) {
-            SLog.e("getAllAvailableSdcardPath", "not found StorageManager.getVolumePaths() method");
+            Log.e("getAllAvailableSdcardPath", "not found StorageManager.getVolumePaths() method");
             if (Environment.MEDIA_MOUNTED.equals(Environment.getExternalStorageState())) {
                 storagePathList.add(Environment.getExternalStorageDirectory().getPath());
                 return storagePathList;

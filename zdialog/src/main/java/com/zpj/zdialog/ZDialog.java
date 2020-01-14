@@ -19,9 +19,9 @@ import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 
+import com.zpj.utils.ScreenUtils;
 import com.zpj.zdialog.base.DialogFragment;
 import com.zpj.zdialog.base.IDialog;
-import com.zpj.zdialog.utils.ScreenUtil;
 
 public class ZDialog extends DialogFragment implements IDialog {
 
@@ -31,12 +31,12 @@ public class ZDialog extends DialogFragment implements IDialog {
     int dialogHeight;
     float dimAmount = 0.2f;
     public int gravity = Gravity.CENTER;
-    boolean isCancelableOutside = true;
-    boolean cancelable = true;
+
     View contentView;
     FragmentActivity activity;
     private OnViewCreateListener onViewCreateListener;
     private OnDismissListener onDismissListener;
+    private OnCancelListener onCancelListener;
     private OnDialogStartListener onDialogStartListener;
     private static final String FTag = "dialogTag";
 
@@ -67,8 +67,9 @@ public class ZDialog extends DialogFragment implements IDialog {
             //调用方直接传入view
             view = getContentView();
         } else {
-            return super.onCreateView(inflater, container, savedInstanceState);
+            view =  super.onCreateView(inflater, container, savedInstanceState);
 //            throw new RuntimeException("You must call the setContentView");
+            contentView = view;
         }
         return view;
     }
@@ -87,15 +88,6 @@ public class ZDialog extends DialogFragment implements IDialog {
 
     protected int getDialogHeight() {
         return dialogHeight;
-    }
-
-    public boolean isCanceledOnTouchOutside() {
-        return isCancelableOutside;
-    }
-
-    @Override
-    public boolean isCancelable() {
-        return cancelable;
     }
 
     public float getDimAmount() {
@@ -120,6 +112,10 @@ public class ZDialog extends DialogFragment implements IDialog {
     @Override
     public void onStart() {
         super.onStart();
+        onDialogStart();
+    }
+
+    protected void onDialogStart() {
         Window window = getDialog().getWindow();
         if (window == null) {
             return;
@@ -152,7 +148,7 @@ public class ZDialog extends DialogFragment implements IDialog {
         }
     }
 
-    private void setFragmentActivity(FragmentActivity activity) {
+    protected void setFragmentActivity(FragmentActivity activity) {
         this.activity = activity;
     }
 
@@ -196,7 +192,7 @@ public class ZDialog extends DialogFragment implements IDialog {
      * @return Builder
      */
     public ZDialog setScreenWidthP(float percentage) {
-        this.dialogWidth = (int) (ScreenUtil.getScreenWidth(activity) * percentage);
+        this.dialogWidth = (int) (ScreenUtils.getScreenWidth(activity) * percentage);
         return this;
     }
 
@@ -207,7 +203,7 @@ public class ZDialog extends DialogFragment implements IDialog {
      * @return Builder
      */
     public ZDialog setScreenHeightP(float percentage) {
-        this.dialogHeight = (int) (ScreenUtil.getScreenHeight(activity) * percentage);
+        this.dialogHeight = (int) (ScreenUtils.getScreenHeight(activity) * percentage);
         return this;
     }
 
@@ -217,8 +213,8 @@ public class ZDialog extends DialogFragment implements IDialog {
      * @param width 宽度
      * @return Builder
      */
-    public ZDialog setWidth(int width) {
-        this.dialogWidth = width;
+    public ZDialog setWidth(float width) {
+        this.dialogWidth = (int) width;
         return this;
     }
 
@@ -228,8 +224,8 @@ public class ZDialog extends DialogFragment implements IDialog {
      * @param height 高度
      * @return Builder
      */
-    public ZDialog setHeight(int height) {
-        this.dialogHeight = height;
+    public ZDialog setHeight(float height) {
+        this.dialogHeight = (int) height;
         return this;
     }
 
@@ -262,7 +258,6 @@ public class ZDialog extends DialogFragment implements IDialog {
      * @return Builder
      */
     public ZDialog setCancelableOutSide(boolean cancelableOutSide) {
-        this.isCancelableOutside = cancelableOutSide;
         setCanceledOnTouchOutside(cancelableOutSide);
         return this;
     }
@@ -274,7 +269,7 @@ public class ZDialog extends DialogFragment implements IDialog {
      * @return Builder
      */
     public ZDialog setDialogCancelable(boolean cancelable) {
-        this.cancelable = cancelable;
+        setCancelable(cancelable);
         return this;
     }
 
@@ -294,6 +289,11 @@ public class ZDialog extends DialogFragment implements IDialog {
         return this;
     }
 
+    public ZDialog setOnCancleListener(OnCancelListener onCancelListener) {
+        this.onCancelListener = onCancelListener;
+        return this;
+    }
+
     public ZDialog setOnDialogStartListener(OnDialogStartListener onDialogStartListener) {
         this.onDialogStartListener = onDialogStartListener;
         return this;
@@ -304,10 +304,10 @@ public class ZDialog extends DialogFragment implements IDialog {
         return this;
     }
 
-    public void show() {
+    public ZDialog show() {
         if (getDialog() != null) {
             getDialog().show();
-            return;
+            return this;
         }
 //        if (layoutRes <= 0 && contentView == null) {
 //            //如果没有设置布局 提供默认设置
@@ -317,27 +317,22 @@ public class ZDialog extends DialogFragment implements IDialog {
             fragmentManager = activity.getSupportFragmentManager();
         }
         show(fragmentManager, FTag);
+        return this;
     }
 
     @Override
-    public void onDismiss(DialogInterface dialog) {
-        super.onDismiss(dialog);
+    public void onBeginDismiss() {
         if (onDismissListener != null) {
             onDismissListener.onDismiss(this);
         }
     }
 
-//    /**
-//     * 设置默认Dialog的配置
-//     */
-//    private void setDefaultOption() {
-//        cancelable = false;
-//        isCancelableOutside = false;
-//        gravity = Gravity.CENTER;
-//        dimAmount = 0.5f;
-//        dialogWidth = (int) (ScreenUtil.getScreenWidth(activity) * 0.85f);
-//        dialogHeight = WindowManager.LayoutParams.WRAP_CONTENT;
-//    }
+    @Override
+    public void onBeginCancel() {
+        if (onCancelListener != null) {
+            onCancelListener.onCancel(this);
+        }
+    }
 
     /**
      * 移除之前的dialog

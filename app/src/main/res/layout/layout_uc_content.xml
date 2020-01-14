@@ -18,23 +18,12 @@
             android:background="@android:color/white"
             android:orientation="vertical">
 
-
-            <com.qyh.qtablayoutlib.QTabLayout
-                android:id="@+id/tab_title"
+            <net.lucode.hackware.magicindicator.MagicIndicator
+                android:id="@+id/magic_indicator"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="#ffffff"
-                app:q_tabIndicatorAnimation="true"
-                app:q_tabIndicatorColor="@color/colorPrimary"
-                app:q_tabIndicatorWidth="20dp"
-                app:q_tabGravity="center"
-                app:q_tabPaddingStart="15dp"
-                app:q_tabPaddingEnd="15dp"
-                app:q_indicatorMarginTop="0dp"
-                app:q_tabSelectedTextColor="@color/colorPrimary"
-                app:q_tabTextColor="#333333"
-                app:q_tabTextSize="14sp"
-                app:q_tabMode="scrollable"
+                android:layout_height="48dp"
+                android:layout_gravity="center"
+                android:background="@color/colorPrimary"
                 />
 
             <View

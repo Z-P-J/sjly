@@ -36,7 +36,7 @@ import android.view.ViewGroup;
  *         view,
  *         null, // Optional token/cookie object
  *         new SwipeDismissTouchListener.OnDismissCallback() {
- *             public void onDismiss(View view, Object token) {
+ *             public void onBeginDismiss(View view, Object token) {
  *                 parent.removeView(view);
  *             }
  *         }));

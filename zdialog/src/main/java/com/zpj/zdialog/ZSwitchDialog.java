@@ -78,7 +78,7 @@ public class ZSwitchDialog {
 
     public void show() {
         ZDialog.with(activity)
-                .setContentView(R.layout.layout_dialog_switch)
+                .setContentView(R.layout.easy_layout_dialog_switch)
                 .setWindowBackgroundP(0.4f)
                 .setScreenWidthP(0.9f)
                 .setOnViewCreateListener(new IDialog.OnViewCreateListener() {

@@ -45,10 +45,8 @@ dependencies {
     implementation project(':imagebrowserlibrary')
     implementation project(':titlebar')
     implementation project(':bannerlayout')
-    implementation project(':qtablayoutlib')
     implementation project(':BGABaseAdapter')
     implementation project(':BGAPhotoPicker')
-    implementation project(':popupmenuview')
     implementation project(':xbanner')
     implementation project(':zdownloader')
     implementation project(':smoothcheckbox')
@@ -78,10 +76,11 @@ dependencies {
     implementation 'com.sunbq:iconcountview:1.0.1'
     implementation 'com.github.niniloveyou:StateButton:v1.0.0'
 
-    implementation 'me.panpf:sketch:2.7.1-beta2'
+//    implementation 'me.panpf:sketch:2.7.1-beta2'
 //    implementation 'net.colindodd:gradientlayout:1.2'
     implementation 'commons-io:commons-io:2.5'
 
     implementation 'com.github.hackware1993:MagicIndicator:1.5.0'
+    implementation 'com.github.pinguo-zhouwei:MZBannerView:v2.0.2'
 
 }

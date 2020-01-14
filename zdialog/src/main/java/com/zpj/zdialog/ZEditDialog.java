@@ -10,7 +10,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.zpj.zdialog.base.IDialog;
-import com.zpj.zdialog.utils.KeyboardUtil;
+import com.zpj.utils.KeyboardUtil;
 
 /**
  * @author Z-P-J
@@ -34,8 +34,11 @@ public class ZEditDialog {
 
     private boolean emptyable = false;
 
-    IDialog.OnPositiveButtonClickListener positiveBtnListener;
-    IDialog.OnClickListener negativeBtnListener;
+    private int selectionStart = 0;
+    private int selectionEnd = -1;
+
+    private IDialog.OnPositiveButtonClickListener positiveBtnListener;
+    private IDialog.OnClickListener negativeBtnListener;
 
     private TextWatcher watcher;
 
@@ -72,6 +75,12 @@ public class ZEditDialog {
         return this;
     }
 
+    public ZEditDialog setSelection(int start, int stop) {
+        this.selectionStart = start;
+        this.selectionEnd = stop;
+        return this;
+    }
+
     public ZEditDialog setNegativeButton(IDialog.OnClickListener onclickListener) {
         return setNegativeButton("取消", onclickListener);
     }
@@ -99,7 +108,7 @@ public class ZEditDialog {
 
     public void show() {
         ZDialog.with(context)
-                .setContentView(R.layout.layout_dialog_edit)
+                .setContentView(R.layout.easy_layout_dialog_edit)
                 .setWindowBackgroundP(0.2f)
                 .setScreenWidthP(0.9f)
                 .setOnViewCreateListener(new IDialog.OnViewCreateListener() {
@@ -109,14 +118,18 @@ public class ZEditDialog {
                         final EditText editText = view.findViewById(R.id.text_edit);
                         editText.requestFocus();
                         titleText.setText(title);
+
                         editText.setText(text);
+                        if (!TextUtils.isEmpty(text)) {
+                            if (selectionEnd <= 0) {
+                                selectionEnd = text.length();
+                            }
+                            editText.setSelection(selectionStart, selectionEnd);
+//                            editText.setSelection(0, text.length());
+                        }
                         editText.setHint(hint);
                         if (watcher != null) {
                             editText.addTextChangedListener(watcher);
-                        }
-
-                        if (autoShowKeyboard) {
-                            KeyboardUtil.showKeyboard(editText);
                         }
 
                         Button cancelBtn = view.findViewById(R.id.btn_cancel);
@@ -129,7 +142,7 @@ public class ZEditDialog {
                                 if (!emptyable && TextUtils.isEmpty(editText.getText().toString())) {
                                     Toast.makeText(context, "输入不能为空！", Toast.LENGTH_SHORT).show();
                                 } else {
-                                    KeyboardUtil.hideKeyboard(editText);
+//                                    KeyboardUtil.hideSoftInputKeyboard(editText);
                                     if (positiveBtnListener != null) {
                                         positiveBtnListener.onClick(dialog, editText.getText().toString().trim());
                                     } else {
@@ -141,7 +154,7 @@ public class ZEditDialog {
                         cancelBtn.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
-                                KeyboardUtil.hideKeyboard(editText);
+//                                KeyboardUtil.hideSoftInputKeyboard(editText);
                                 if (negativeBtnListener != null) {
                                     negativeBtnListener.onClick(dialog);
                                 } else {
@@ -149,6 +162,16 @@ public class ZEditDialog {
                                 }
                             }
                         });
+                        if (autoShowKeyboard) {
+                            KeyboardUtil.showKeyboard(editText);
+                        }
+                    }
+                })
+                .setOnDismissListener(new IDialog.OnDismissListener() {
+                    @Override
+                    public void onDismiss(IDialog dialog) {
+                        Toast.makeText(context, "onBeginDismiss", Toast.LENGTH_SHORT).show();
+                        KeyboardUtil.hideSoftInputKeyboard(dialog.getView(R.id.text_edit));
                     }
                 })
                 .show();

@@ -1,6 +1,7 @@
 package com.zpj.recyclerview;
 
 import android.view.View;
+import android.view.ViewGroup;
 
 import java.util.List;
 
@@ -10,9 +11,17 @@ public interface IEasy {
 //        EasyViewHolder onCreateViewHolder(List<T> list, View itemView, int position);
 //    }
 
+    interface OnItemClickCallback {
+        boolean shouldIgnoreClick(View view);
+    }
+
 
     interface OnBindViewHolderCallback<T>{
-        void onBindViewHolder(EasyViewHolder holder, List<T> list, int position);
+        void onBindViewHolder(EasyViewHolder holder, List<T> list, int position, List<Object> payloads);
+    }
+
+    interface OnCreateViewHolderCallback<T>{
+        void onCreateViewHolder(ViewGroup parent, View itemView, int viewType);
     }
 
     interface OnCreateHeaderCallback{
@@ -24,6 +33,6 @@ public interface IEasy {
     }
 
     interface OnLoadMoreListener {
-        void onLoadMore(EasyAdapter.Enabled enabled);
+        boolean onLoadMore(EasyAdapter.Enabled enabled, int currentPage);
     }
 }

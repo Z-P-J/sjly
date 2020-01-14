@@ -1,9 +1,7 @@
 package com.zpj.zdialog;
 
-import android.app.Activity;
 import android.content.Context;
 import android.support.annotation.LayoutRes;
-import android.support.annotation.StringRes;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.Gravity;
@@ -28,7 +26,7 @@ public class ZListDialog<T> {
 
     private Context context;
 
-    private final int layoutRes = R.layout.layout_dialog_list;
+    private final int layoutRes = R.layout.easy_layout_dialog_list;
 
     private ZDialog dialog;
 
