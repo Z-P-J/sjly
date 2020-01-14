@@ -87,7 +87,7 @@
 ////            Bundle bundle = getIntent().getExtras();
 ////            if (bundle != null) {
 ////                icon = bundle.getParcelable("bitmap_icon");
-////                item = bundle.getParcelable("app_item");
+////                item = bundle.getParcelable("item_app_linear");
 ////            }
 //            icon = TransportUtil.getInstance().getIconBitmap();
 //            item = TransportUtil.getInstance().getAppItem();

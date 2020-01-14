@@ -640,6 +640,40 @@ abstract public class GroupRecyclerViewAdapter<T> extends RecyclerView.Adapter<G
         return false;
     }
 
+    public boolean isChild(int position) {
+        int temp = 0;
+        int oldTemp = 0;
+        for (List<T> list : getGroups()) {
+            oldTemp = temp;
+            temp += list.size();
+            if (position > temp) {
+                continue;
+            }
+            if (position > oldTemp && position < temp) {
+                return true;
+            }
+            return false;
+        }
+        return false;
+    }
+
+    public boolean isGroupChild(int groupPosition, int position) {
+        int temp = 0;
+        int oldTemp = 0;
+        for (int i = 0; i < getGroups().size(); i++) {
+            List<T> list = getGroupItems(i);
+            oldTemp = temp;
+            temp += list.size();
+            if (i < groupPosition) {
+                continue;
+            } else if (i == groupPosition) {
+                return position > oldTemp && position < temp;
+            }
+            return false;
+        }
+        return false;
+    }
+
     public boolean isGroupLastItem(int groupPosition, int childPosition) {
         if (checkGroupPosition(groupPosition)) {
             int groupItemsCount = countGroupItems(groupPosition);
@@ -701,4 +735,7 @@ abstract public class GroupRecyclerViewAdapter<T> extends RecyclerView.Adapter<G
         void onItemLongClick(GroupRecyclerViewAdapter adapter, T data, int groupPosition, int childPosition);
     }
 
+    public Context getContext() {
+        return context;
+    }
 }

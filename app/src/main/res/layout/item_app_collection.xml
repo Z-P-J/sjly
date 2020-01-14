@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="utf-8"?>
+<www.linwg.org.lib.LCardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:cornerRadius="10dp"
+    app:shadowFluidShape="adsorption"
+    app:shadowColor="#5f6379"
+    app:shadowStartAlpha="70"
+    app:shadowSize="8dp"
+    >
+
+    <ImageView
+        android:id="@+id/img_bg"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="centerCrop"
+        />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:background="?android:attr/selectableItemBackground"
+        >
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            >
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/item_icon_1"
+                android:layout_width="56dp"
+                android:layout_height="56dp"
+                android:src="@mipmap/ic_launcher"
+                app:civ_border_width="1dp"
+                app:civ_border_color="#80cccccc"
+                android:layout_margin="5dp"
+                />
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/item_icon_2"
+                android:layout_width="56dp"
+                android:layout_height="56dp"
+                android:src="@mipmap/ic_launcher"
+                app:civ_border_width="1dp"
+                app:civ_border_color="#80cccccc"
+                android:layout_margin="5dp"
+                />
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/item_icon_3"
+                android:layout_width="56dp"
+                android:layout_height="56dp"
+                android:src="@mipmap/ic_launcher"
+                app:civ_border_width="1dp"
+                app:civ_border_color="#80cccccc"
+                android:layout_margin="5dp"
+                />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:padding="5dp"
+            >
+
+            <TextView
+                android:id="@+id/tv_view_count"
+                android:drawableStart="@drawable/good"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="100k"
+                android:gravity="center"
+                android:layout_marginEnd="10dp"
+                android:drawablePadding="2dp"
+                android:textSize="12sp"
+                android:textColor="#ffffff"
+                />
+
+            <TextView
+                android:id="@+id/tv_favorite_count"
+                android:drawableStart="@drawable/good"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="100k"
+                android:gravity="center"
+                android:layout_marginEnd="10dp"
+                android:drawablePadding="2dp"
+                android:textSize="12sp"
+                android:textColor="#ffffff"
+                />
+
+            <TextView
+                android:id="@+id/tv_support_count"
+                android:drawableStart="@drawable/good"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="99"
+                android:gravity="center"
+                android:drawablePadding="2dp"
+                android:layout_marginStart="10dp"
+                android:textSize="12sp"
+                android:textColor="#ffffff"
+                />
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/item_title"
+            android:layout_width="wrap_content"
+            android:layout_height="48dp"
+            android:gravity="top|center_horizontal"
+            android:maxLines="2"
+            android:ellipsize="end"
+            android:text="这里显示应用集名"
+            android:textStyle="bold"
+            android:textColor="#ffffff"
+            android:paddingTop="2dp"
+            android:paddingBottom="2dp"
+            />
+
+
+
+    </LinearLayout>
+
+
+
+</www.linwg.org.lib.LCardView>

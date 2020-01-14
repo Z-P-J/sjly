@@ -44,10 +44,8 @@ dependencies {
     implementation project(':easynavigation')
     implementation project(':imagebrowserlibrary')
     implementation project(':titlebar')
-    implementation project(':bannerlayout')
     implementation project(':BGABaseAdapter')
     implementation project(':BGAPhotoPicker')
-    implementation project(':xbanner')
     implementation project(':zdownloader')
     implementation project(':smoothcheckbox')
     implementation project(':atoast')
@@ -63,8 +61,6 @@ dependencies {
 
     implementation 'de.hdodenhof:circleimageview:3.0.0'
     implementation 'com.github.zzz40500:android-shapeLoadingView:1.0.3.2'
-
-    implementation 'rouchuan.viewpagerlayoutmanager:viewpagerlayoutmanager:2.0.22'
 
     //调色板
     implementation 'com.android.support:palette-v7:28.0.0'
@@ -82,5 +78,6 @@ dependencies {
 
     implementation 'com.github.hackware1993:MagicIndicator:1.5.0'
     implementation 'com.github.pinguo-zhouwei:MZBannerView:v2.0.2'
+    implementation 'org.linwg1988:lcardview:1.5.2'
 
 }

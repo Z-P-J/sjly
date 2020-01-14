@@ -34,7 +34,7 @@ public class AppAdapter extends RecyclerView.Adapter<AppAdapter.ViewHolder> {
         ImageView appIcon;
         TextView appTitle;
         TextView appInfo;
-        TextView appDesc;
+//        TextView appDesc;
 
         public Bitmap icon;
         AppItem item;
@@ -45,7 +45,7 @@ public class AppAdapter extends RecyclerView.Adapter<AppAdapter.ViewHolder> {
             appIcon = view.findViewById(R.id.item_icon);
             appTitle = view.findViewById(R.id.item_title);
             appInfo = view.findViewById(R.id.item_info);
-            appDesc = view.findViewById(R.id.item_desc);
+//            appDesc = view.findViewById(R.id.item_desc);
 
         }
     }
@@ -58,7 +58,7 @@ public class AppAdapter extends RecyclerView.Adapter<AppAdapter.ViewHolder> {
     @Override
     public ViewHolder onCreateViewHolder(@NonNull final ViewGroup parent, final int viewType) {
         context = parent.getContext();
-        final View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.app_item,parent,false);
+        final View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_app_grid,parent,false);
 
         final ViewHolder holder = new ViewHolder(view);
 
@@ -72,7 +72,7 @@ public class AppAdapter extends RecyclerView.Adapter<AppAdapter.ViewHolder> {
         holder.item = appItem;
         holder.appTitle.setText(appItem.getAppTitle());
         holder.appInfo.setText(appItem.getAppSize() + " | " + appItem.getAppInfo());
-        holder.appDesc.setText(appItem.getAppComment());
+//        holder.appDesc.setText(appItem.getAppComment());
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override

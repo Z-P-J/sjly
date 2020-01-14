@@ -4,6 +4,9 @@ import android.app.Activity;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
+import android.graphics.PixelFormat;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.util.Log;
 import android.view.View;
 
@@ -50,6 +53,33 @@ public class BlurBuilder {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    public static Bitmap blur(Bitmap image) {
+        try {
+            image = Bitmap.createBitmap(image, image.getWidth() / 4, image.getHeight() / 4, image.getWidth() / 2, image.getHeight() / 2);
+            int width = Math.round(image.getWidth() * BITMAP_SCALE / 2);
+            int height = Math.round(image.getHeight() * BITMAP_SCALE / 2);
+
+            Bitmap overlay = Bitmap.createScaledBitmap(image, width,
+                    height, false);
+
+            overlay = FastBlur.doBlur(overlay, (int) BLUR_RADIUS, true);
+            return overlay;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public static Drawable blur(Drawable drawable) {
+        Bitmap bitmap = Bitmap.createBitmap( drawable.getIntrinsicWidth(), drawable.getIntrinsicHeight(),
+                drawable.getOpacity() != PixelFormat.OPAQUE ? Bitmap.Config.ARGB_8888 : Bitmap.Config.RGB_565);
+        Canvas canvas = new Canvas(bitmap);
+        drawable.setBounds(0, 0, drawable.getIntrinsicWidth(), drawable.getIntrinsicHeight());
+        drawable.draw(canvas);
+        return new BitmapDrawable(null, blur(bitmap));
+//        return blur(bitmap);
     }
 
     public static void getScreenshot(View v) {

@@ -25,7 +25,7 @@ public class DotPagerIndicator extends View implements IPagerIndicator {
         super(context);
         mRadius = UIUtil.dip2px(context, 3);
         mYOffset = UIUtil.dip2px(context, 3);
-        mDotColor = Color.BLACK;
+        mDotColor = Color.WHITE;
     }
 
     @Override

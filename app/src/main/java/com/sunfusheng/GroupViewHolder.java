@@ -111,6 +111,14 @@ public class GroupViewHolder extends RecyclerView.ViewHolder {
         return this;
     }
 
+    public GroupViewHolder setBackground(int viewId, Drawable drawable) {
+        View view = get(viewId);
+        if (view != null && drawable != null) {
+            view.setBackground(drawable);
+        }
+        return this;
+    }
+
     public GroupViewHolder setVisible(int viewId, boolean visible) {
         View view = get(viewId);
         if (view != null) {

@@ -139,7 +139,7 @@ public class CoolApkAdapter extends RecyclerView.Adapter<CoolApkAdapter.ViewHold
         holder.app_item.setTag(position);
 
         /*
-        holder.app_item.setOnClickListener(new View.OnClickListener() {
+        holder.item_app_linear.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Log.d("position",""+position);

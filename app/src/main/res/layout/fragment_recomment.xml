@@ -18,7 +18,7 @@
             android:id="@+id/app_bar_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="#fff"
+            android:background="@color/colorPrimary"
             android:gravity="bottom"
             app:contentScrim="@android:color/transparent"
             app:elevation="0dp">
@@ -41,30 +41,16 @@
                         android:layout_height="match_parent"
                         android:scaleType="centerCrop" />
 
-                    <com.stx.xhb.xbanner.XBanner
-                        android:id="@+id/xbanner"
+                    <com.zhouwei.mzbanner.MZBannerView
+                        android:id="@+id/banner"
                         android:layout_width="match_parent"
-                        android:layout_height="233dp"
-                        app:AutoPlayTime="3000"
-                        app:pointsContainerBackground="#44aaaaaa"
-                        app:pointsPosition="RIGHT"
-                        app:tipTextSize="12sp"
-                        app:isShowNumberIndicator="true"
-                        app:isShowIndicatorOnlyOne="true"
-                        app:pageChangeDuration="800"/>
-
-<!--                    <com.leochuan.AutoPlayRecyclerView-->
-<!--                        android:id="@+id/recycler"-->
-<!--                        android:layout_width="match_parent"-->
-<!--                        android:layout_height="200dp"-->
-<!--                        android:layout_alignParentTop="true"-->
-<!--                        android:layout_centerHorizontal="true"-->
-<!--                        android:layout_marginTop="20dp"-->
-<!--                        android:layout_marginBottom="30dp"-->
-<!--                        android:background="@android:color/transparent"-->
-<!--                        android:scrollbars="none"-->
-<!--                        app:direction="right"-->
-<!--                        app:timeInterval="3000" />-->
+                        android:layout_height="160dp"
+                        android:layout_marginTop="10dp"
+                        app:open_mz_mode="true"
+                        app:middle_page_cover="false"
+                        app:canLoop="true"
+                        app:indicatorAlign="center"
+                        />
 
                     <LinearLayout
                         android:layout_width="match_parent"
