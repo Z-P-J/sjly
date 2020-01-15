@@ -41,10 +41,7 @@ dependencies {
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
 
-    implementation project(':imagebrowserlibrary')
     implementation project(':titlebar')
-    implementation project(':BGABaseAdapter')
-    implementation project(':BGAPhotoPicker')
     implementation project(':zdownloader')
     implementation project(':smoothcheckbox')
     implementation project(':atoast')

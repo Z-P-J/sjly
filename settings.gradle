@@ -1,8 +1,5 @@
 include ':app',
-        ':imagebrowserlibrary',
         ':titlebar',
-        ':BGABaseAdapter',
-        ':BGAPhotoPicker',
         ':zdownloader',
         ':smoothcheckbox',
         ':atoast',
