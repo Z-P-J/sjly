@@ -22,12 +22,11 @@ import android.widget.TextView;
 
 import com.ittianyu.bottomnavigationviewex.BottomNavigationViewEx;
 import com.zpj.shouji.market.R;
-import com.zpj.shouji.market.ui.adapter.ZPagerAdapter;
+import com.zpj.shouji.market.ui.adapter.PageAdapter;
 import com.zpj.shouji.market.ui.fragment.base.BaseFragment;
 import com.zpj.shouji.market.ui.fragment.main.homepage.HomeFragment;
 import com.zpj.shouji.market.ui.fragment.main.user.UserFragment;
 import com.zpj.shouji.market.ui.view.KickBackAnimator;
-import com.zpj.shouji.market.ui.view.ZViewPager;
 import com.zpj.shouji.market.utils.BlurBuilder;
 
 import java.util.ArrayList;
@@ -35,10 +34,18 @@ import java.util.List;
 
 public class MainFragment extends BaseFragment {
 
+//    private EasyNavigationBar navigationBar;
     private Handler mHandler = new Handler();
     private LinearLayout menuLayout;
     private View cancelImageView;
     private int[] menuIconItems = {R.drawable.pic1, R.drawable.pic2, R.drawable.pic3, R.drawable.pic4};
+
+
+    private String[] tabText = {"主页", "游戏", " ", "软件", "我的"};
+    //未选中icon
+    private int[] normalIcon = {R.drawable.index, R.drawable.find, R.drawable.tab_add_selector, R.drawable.message, R.drawable.me};
+    //选中时icon
+    private int[] selectIcon = {R.drawable.index1, R.drawable.find1, R.drawable.tab_add_selector, R.drawable.message1, R.drawable.me1};
     private String[] menuTextItems = {"动态", "应用集", "乐图", "催更"};
 
     private final List<Fragment> fragments = new ArrayList<>();
@@ -47,7 +54,7 @@ public class MainFragment extends BaseFragment {
 
     @Override
     protected int getLayoutId() {
-        return R.layout.fragment_main;
+        return R.layout.fragment_main_tab;
     }
 
     @Override
@@ -68,10 +75,9 @@ public class MainFragment extends BaseFragment {
         navigationView.enableItemShiftingMode(false);
         navigationView.enableShiftingMode(false);
         navigationView.enableAnimation(false);
-        ZViewPager viewPager = view.findViewById(R.id.vp);
-        viewPager.setCanScroll(false);
+        ViewPager viewPager = view.findViewById(R.id.vp);
         viewPager.setOffscreenPageLimit(10);
-        ZPagerAdapter adapter = new ZPagerAdapter(getChildFragmentManager(), fragments, null);
+        PageAdapter adapter = new PageAdapter(getChildFragmentManager(), fragments, tabText);
         viewPager.setAdapter(adapter);
         navigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
 
@@ -150,6 +156,7 @@ public class MainFragment extends BaseFragment {
 
     private View createWeiboView(View view) {
         BlurBuilder.snapShotWithoutStatusBar(getActivity());
+//        ViewGroup view = (ViewGroup) View.inflate(getContext(), R.layout.layout_add_view, null);
         menuLayout = view.findViewById(R.id.icon_group);
         cancelImageView = view.findViewById(R.id.cancel_iv);
         cancelImageView.setOnClickListener(new View.OnClickListener() {
@@ -233,6 +240,10 @@ public class MainFragment extends BaseFragment {
 
         try {
             if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
+//                int[] viewLocation = new int[2];
+//                floatingActionButton.getLocationInWindow(viewLocation);
+//                int viewX = viewLocation[0];
+//                int viewY = viewLocation[1];
                 int x = floatingActionButton.getLeft() + floatingActionButton.getWidth() / 2;
                 int y = floatingActionButton.getTop() + floatingActionButton.getHeight() / 2;
                 Animator animator = ViewAnimationUtils.createCircularReveal(weiboView, x,

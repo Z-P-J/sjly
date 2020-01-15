@@ -12,7 +12,7 @@ import android.view.inputmethod.InputMethodManager;
 
 import java.lang.reflect.Field;
 
-public class ScreenUtil {
+public class ScreenUtils {
 
     public static float dp2px(Context context, float dp) {
         if (context == null) {

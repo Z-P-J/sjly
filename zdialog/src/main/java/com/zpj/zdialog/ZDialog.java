@@ -2,6 +2,7 @@ package com.zpj.zdialog;
 
 import android.content.Context;
 import android.content.ContextWrapper;
+import android.content.DialogInterface;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
@@ -18,7 +19,7 @@ import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 
-import com.zpj.utils.ScreenUtil;
+import com.zpj.utils.ScreenUtils;
 import com.zpj.zdialog.base.DialogFragment;
 import com.zpj.zdialog.base.IDialog;
 
@@ -191,7 +192,7 @@ public class ZDialog extends DialogFragment implements IDialog {
      * @return Builder
      */
     public ZDialog setScreenWidthP(float percentage) {
-        this.dialogWidth = (int) (ScreenUtil.getScreenWidth(activity) * percentage);
+        this.dialogWidth = (int) (ScreenUtils.getScreenWidth(activity) * percentage);
         return this;
     }
 
@@ -202,7 +203,7 @@ public class ZDialog extends DialogFragment implements IDialog {
      * @return Builder
      */
     public ZDialog setScreenHeightP(float percentage) {
-        this.dialogHeight = (int) (ScreenUtil.getScreenHeight(activity) * percentage);
+        this.dialogHeight = (int) (ScreenUtils.getScreenHeight(activity) * percentage);
         return this;
     }
 

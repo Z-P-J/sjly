@@ -31,6 +31,7 @@ import com.zpj.http.parser.html.select.Elements;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.bean.AppItem;
 import com.zpj.shouji.market.bean.AppUpdateInfo;
+import com.zpj.shouji.market.bean.ImgItem;
 import com.zpj.shouji.market.bean.InstalledAppInfo;
 import com.zpj.shouji.market.bean.UserDownloadedAppInfo;
 import com.zpj.shouji.market.ui.adapter.ImgAdapter;
@@ -66,8 +67,9 @@ public class AppDetailFragment extends BaseFragment {
 
     private int requstCode;
     private RecyclerView recyclerView;
+    private ImgItem imgItem;
     private ImgAdapter imgAdapter;
-    private List<String> imgUrlList = new ArrayList<>();
+    private List<ImgItem> imgItemList = new ArrayList<>();
 
     private Bitmap icon;
     private AppItem item;
@@ -144,7 +146,7 @@ public class AppDetailFragment extends BaseFragment {
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
         layoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
         recyclerView.setLayoutManager(layoutManager);
-        imgAdapter = new ImgAdapter(recyclerView, imgUrlList);
+        imgAdapter = new ImgAdapter(imgItemList);
         recyclerView.setAdapter(imgAdapter);
 
         if (icon != null) {
@@ -178,9 +180,10 @@ public class AppDetailFragment extends BaseFragment {
                             .toHtml();
                     Elements elements = doc.select("pics").select("pic");
                     for (Element element : elements){
-                        imgUrlList.add(element.text());
+                        imgItem = new ImgItem(element.text());
+                        imgItemList.add(imgItem);
                     }
-                    Log.d("getSjlyDetail", "imgUrlList=" + imgUrlList);
+                    Log.d("getSjlyDetail", "imgItemList=" + imgItemList);
                     app_name = doc.select("name").get(0).text();
                     Log.d("getSjlyDetail", "app_name=" + app_name);
                     app_icon_site = doc.select("icon").get(0).text();

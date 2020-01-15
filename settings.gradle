@@ -14,5 +14,4 @@ include ':app',
         ':switchbutton',
         ':zhttp',
         ':zpopup',
-        ':glidegifdecoder',
-        ':imagetrans'
+        ':glidegifdecoder'

@@ -15,7 +15,7 @@ import android.view.WindowManager;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.zpj.utils.ScreenUtil;
+import com.zpj.utils.ScreenUtils;
 import com.zpj.zdialog.base.IDialog;
 
 import java.util.ArrayList;
@@ -81,7 +81,7 @@ public class ZMenuDialog {
         if (maxMenuHeight < 36) {
             maxMenuHeight = 36;
         }
-        this.maxMenuHeight = ScreenUtil.dp2pxInt(context, maxMenuHeight);
+        this.maxMenuHeight = ScreenUtils.dp2pxInt(context, maxMenuHeight);
         return this;
     }
 
@@ -112,7 +112,7 @@ public class ZMenuDialog {
                 for (String title : titleList) {
                     final TextView textView = (TextView) LayoutInflater.from(view.getContext())
                             .inflate(R.layout.easy_item_popup_list, null, false);
-                    LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, ScreenUtil.dp2pxInt(context, menuItemHeight));
+                    LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, ScreenUtils.dp2pxInt(context, menuItemHeight));
 //                    textView.setLayoutParams(params);
                     textView.setTag(i);
 //                    final ViewTreeObserver observer = textView.getViewTreeObserver();
@@ -172,15 +172,15 @@ public class ZMenuDialog {
     private void initWindow(Window window) {
         WindowManager.LayoutParams lp = window.getAttributes();
 
-        if (locationX > ScreenUtil.getScreenWidth(dialog.getActivity()) / 2) {
+        if (locationX > ScreenUtils.getScreenWidth(dialog.getActivity()) / 2) {
             window.setGravity(Gravity.END | Gravity.TOP);
-            lp.x = ScreenUtil.getScreenWidth(dialog.getActivity()) - locationX;
+            lp.x = ScreenUtils.getScreenWidth(dialog.getActivity()) - locationX;
         } else {
             window.setGravity(Gravity.START | Gravity.TOP);
             lp.x = locationX;
         }
 
-        int windowHeight = ScreenUtil.dp2pxInt(dialog.getContext(), 42) * titleList.size();
+        int windowHeight = ScreenUtils.dp2pxInt(dialog.getContext(), 42) * titleList.size();
         if (maxMenuHeight > 0 && windowHeight > maxMenuHeight) {
             windowHeight = maxMenuHeight;
             lp.height = windowHeight;
@@ -189,7 +189,7 @@ public class ZMenuDialog {
         }
         Resources resources = context.getResources();
         int resourceId = resources.getIdentifier("status_bar_height", "dimen", "android");
-        if (locationY + windowHeight > ScreenUtil.getScreenHeight(dialog.getActivity())) {
+        if (locationY + windowHeight > ScreenUtils.getScreenHeight(dialog.getActivity())) {
             locationY -= windowHeight;
             locationY += resources.getDimensionPixelSize(resourceId);
         } else {

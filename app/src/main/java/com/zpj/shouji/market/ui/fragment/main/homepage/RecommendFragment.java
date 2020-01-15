@@ -87,7 +87,7 @@ public class RecommendFragment extends BaseFragment implements GroupRecyclerView
         adapter = new RecommendAdapter(getContext(), dataList);
         adapter.setOnItemClickListener(this);
         recyclerView.setAdapter(adapter);
-        recyclerView.setItemViewCacheSize(50);
+        recyclerView.setItemViewCacheSize(20);
         recyclerView.setDrawingCacheEnabled(true);
         recyclerView.setHasFixedSize(true);
         recyclerView.setNestedScrollingEnabled(false);
@@ -468,6 +468,19 @@ public class RecommendFragment extends BaseFragment implements GroupRecyclerView
                             }
                         });
                         continue;
+//                        if (item.getIcon() == null) {
+//                            Glide.with(context).asDrawable().load(appItem.getIcons().get(0)).into(new SimpleTarget<Drawable>() {
+//                                @Override
+//                                public void onResourceReady(@NonNull Drawable resource, @Nullable Transition<? super Drawable> transition) {
+//                                    item.setIcon(BlurBuilder.blur(resource));
+//                                    holder.setImageDrawable(R.id.img_bg, item.getIcon());
+//                                    holder.setImageDrawable(res, resource);
+//                                }
+//                            });
+//                            continue;
+//                        } else {
+//                            holder.setImageDrawable(R.id.img_bg, item.getIcon());
+//                        }
                     }
                     Glide.with(context).load(appItem.getIcons().get(i)).into((ImageView) holder.get(res));
                 }

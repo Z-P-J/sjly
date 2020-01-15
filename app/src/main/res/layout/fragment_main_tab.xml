@@ -16,7 +16,7 @@
         app:elevation="0dp"
         />
 
-    <com.zpj.shouji.market.ui.view.ZViewPager
+    <android.support.v4.view.ViewPager
         android:id="@+id/vp"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -36,6 +36,19 @@
         app:fabCustomSize="48dp"
         app:maxImageSize="48dp"
         />
+
+    <!-- 快速操作按钮 -->
+<!--    <ImageView-->
+<!--        android:id="@+id/iv_add_bill"-->
+<!--        android:layout_width="45dp"-->
+<!--        android:layout_height="45dp"-->
+<!--        android:layout_alignParentBottom="true"-->
+<!--        android:layout_centerHorizontal="true"-->
+<!--        android:layout_marginBottom="12dp"-->
+<!--        android:contentDescription="@null"-->
+<!--        android:src="@drawable/tab_add_selector" -->
+<!--        android:elevation="10dp"-->
+<!--        />-->
 
     <include layout="@layout/layout_add_view"
         android:visibility="gone"

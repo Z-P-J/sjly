@@ -118,8 +118,8 @@ public class BlurBuilder {
 //                    .getWindowVisibleDisplayFrame(frame);
 //            int statusBarHeight = frame.top;
 //
-//            int width = ScreenUtil.getScreenWidth(activity);
-//            int height = ScreenUtil.getScreenHeight(activity);
+//            int width = ScreenUtils.getScreenWidth(activity);
+//            int height = ScreenUtils.getScreenHeight(activity);
 //            tab_bg = Bitmap.createBitmap(tab_bg, 0, statusBarHeight, width,
 //                    height - statusBarHeight);
 //            view.destroyDrawingCache();

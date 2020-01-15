@@ -4,12 +4,17 @@ import android.animation.Animator;
 import android.content.Context;
 import android.graphics.Color;
 import android.support.annotation.ColorInt;
+import android.support.annotation.LayoutRes;
 import android.support.annotation.StringRes;
+import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.Button;
+import android.widget.FrameLayout;
 import android.widget.TextView;
 
 import com.zpj.utils.AnimHelper;
-import com.zpj.utils.ScreenUtil;
+import com.zpj.utils.ScreenUtils;
 import com.zpj.zdialog.base.DialogFragment;
 import com.zpj.zdialog.base.IDialog;
 
@@ -109,8 +114,8 @@ public class ZLoadingDialog implements IDialog {
     public ZLoadingDialog show() {
         dialog.setContentView(R.layout.easy_layout_dialog_loading)
                 .setWindowBackgroundP(0.2f)
-                .setHeight(ScreenUtil.getScreenWidth(context) * screenWidthPercent)
-                .setWidth(ScreenUtil.getScreenWidth(context) * screenWidthPercent)
+                .setHeight(ScreenUtils.getScreenWidth(context) * screenWidthPercent)
+                .setWidth(ScreenUtils.getScreenWidth(context) * screenWidthPercent)
                 .setDialogCancelable(isCancelable)
                 .setCancelableOutSide(isCancelableOutside)
                 .setSwipeEnable(swipable)

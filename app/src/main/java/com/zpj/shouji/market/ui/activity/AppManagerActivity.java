@@ -7,7 +7,7 @@
 //import com.qyh.qtablayoutlib.QTabLayout;
 //import com.wuhenzhizao.titlebar.widget.CommonTitleBar;
 //import com.zpj.sjly.R;
-//import com.zpj.sjly.ui.adapter.ZPagerAdapter;
+//import com.zpj.sjly.ui.adapter.PageAdapter;
 //import com.zpj.sjly.ui.fragment.manager.DownloadFragment;
 //import com.zpj.sjly.ui.fragment.manager.PackageFragment;
 //import com.zpj.sjly.ui.fragment.manager.UpdateFragment;
@@ -60,7 +60,7 @@
 //        for (String s : TAB_TITLES) {
 //            tabLayout.addTab(tabLayout.newTab().setText(s));
 //        }
-//        ZPagerAdapter adapter = new ZPagerAdapter(getSupportFragmentManager(), fragments, TAB_TITLES);
+//        PageAdapter adapter = new PageAdapter(getSupportFragmentManager(), fragments, TAB_TITLES);
 //        tabLayout.setTabMode(QTabLayout.MODE_FIXED);
 //        ViewPager viewPager = findViewById(R.id.view_pager);
 //        tabLayout.setupWithViewPager(viewPager);

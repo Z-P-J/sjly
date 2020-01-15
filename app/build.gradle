@@ -57,7 +57,6 @@ dependencies {
     implementation project(':zhttp')
     implementation project(':zpopup')
     implementation project(':glidegifdecoder')
-    implementation project(':imagetrans')
 
 
     implementation 'de.hdodenhof:circleimageview:3.0.0'
@@ -77,9 +76,7 @@ dependencies {
     implementation 'com.github.hackware1993:MagicIndicator:1.5.0'
     implementation 'com.github.pinguo-zhouwei:MZBannerView:v2.0.2'
     implementation 'org.linwg1988:lcardview:1.5.2'
-    implementation 'com.jaeger.ninegridimageview:library:1.1.1'
     implementation 'com.ycjiang:ImagePreview:2.3.0'
     implementation 'com.github.ittianyu:BottomNavigationViewEx:2.0.4'
-
 
 }

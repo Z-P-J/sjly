@@ -12,7 +12,7 @@ import android.widget.ImageView;
 import com.felix.atoast.library.AToast;
 import com.wuhenzhizao.titlebar.widget.CommonTitleBar;
 import com.zpj.shouji.market.R;
-import com.zpj.shouji.market.ui.adapter.ZPagerAdapter;
+import com.zpj.shouji.market.ui.adapter.PageAdapter;
 import com.zpj.shouji.market.ui.fragment.base.BaseFragment;
 import com.zpj.shouji.market.ui.fragment.manager.AppManagerFragment;
 import com.zpj.shouji.market.ui.widget.DotPagerIndicator;
@@ -58,7 +58,7 @@ public class HomeFragment extends BaseFragment {
         list.add(ExploreFragment.newInstance("http://tt.shouji.com.cn/app/faxian.jsp?index=faxian&versioncode=198"));
         list.add(new Fragment());
 
-        ZPagerAdapter adapter = new ZPagerAdapter(getChildFragmentManager(), list, TAB_TITLES);
+        PageAdapter adapter = new PageAdapter(getChildFragmentManager(), list, TAB_TITLES);
         ViewPager viewPager = view.findViewById(R.id.view_pager);
         viewPager.setAdapter(adapter);
         MagicIndicator magicIndicator = (MagicIndicator) titleBar.getCenterCustomView();
