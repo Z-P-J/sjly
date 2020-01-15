@@ -11,12 +11,18 @@ import java.util.concurrent.TimeUnit;
  */
 public final class ExecutorHelper {
 
-    private static final ExecutorService EXECUTOR_SERVICE = new ThreadPoolExecutor(
-            6, 15,
-            60L, TimeUnit.SECONDS, new LinkedBlockingQueue<>()
-    );
+    private static ExecutorService executorService;
     
     private ExecutorHelper() { }
+
+    public static void init() {
+        if (executorService == null) {
+            executorService = new ThreadPoolExecutor(
+                    6, 15,
+                    60L, TimeUnit.SECONDS, new LinkedBlockingQueue<>()
+            );
+        }
+    }
 
 //    public static void submit(final CallBack callBack) {
 //        submit(new Runnable() {
@@ -30,7 +36,10 @@ public final class ExecutorHelper {
 //    }
     
     public static void submit(final Runnable runnable) {
-        EXECUTOR_SERVICE.submit(runnable);
+        if (executorService == null) {
+            init();
+        }
+        executorService.submit(runnable);
     }
 
 //    public interface CallBack {
@@ -38,7 +47,8 @@ public final class ExecutorHelper {
 //    }
 
     public static void destroy() {
-        EXECUTOR_SERVICE.shutdown();
+        executorService.shutdown();
+        executorService = null;
     }
     
 }

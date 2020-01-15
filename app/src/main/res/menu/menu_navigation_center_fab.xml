@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/i_homepage"
+        android:checked="true"
+        android:icon="@drawable/index"
+        android:title="@string/navigation_name_homepage" />
+
+    <item
+        android:id="@+id/i_app"
+        android:icon="@drawable/find"
+        android:title="@string/navigation_name_app" />
+    <!--must set the item title to empty-->
+    <item
+        android:id="@+id/i_empty"
+        android:title="" />
+    <item
+        android:id="@+id/i_game"
+        android:icon="@drawable/message"
+        android:title="@string/navigation_name_game" />
+    <item
+        android:id="@+id/i_me"
+        android:icon="@drawable/me"
+        android:title="@string/navigation_name_me" />
+</menu>

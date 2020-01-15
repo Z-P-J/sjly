@@ -255,6 +255,9 @@ public class ExploreFragment extends BaseFragment implements ExploreAdapter.OnIt
     }
 
     public void loadData() {
+        if (exploreAdapter == null) {
+            return;
+        }
         LoadMoreWrapper.with(exploreAdapter)
                 .setLoadMoreEnabled(true)
                 .setListener(new LoadMoreAdapter.OnLoadMoreListener() {

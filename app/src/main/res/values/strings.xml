@@ -1,3 +1,10 @@
 <resources>
     <string name="app_name">手机乐园S</string>
+
+    <string name="navigation_name_homepage">主页</string>
+    <string name="navigation_name_app">应用</string>
+    <string name="navigation_name_add">发布</string>
+    <string name="navigation_name_game">游戏</string>
+    <string name="navigation_name_me">我的</string>
+
 </resources>
