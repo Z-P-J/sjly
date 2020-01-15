@@ -6,27 +6,14 @@ import android.support.v4.app.FragmentPagerAdapter;
 
 import java.util.List;
 
-/**
- * Created by huangyong on 2018/1/31.
- */
-
-public class PageAdapter extends FragmentPagerAdapter {
+public class ZPagerAdapter extends FragmentPagerAdapter {
     private List<? extends Fragment> fragments;
     private String[] tabTitle;
-    public PageAdapter(FragmentManager fm, List<? extends Fragment> fragments, String[] tabTiltle) {
+    public ZPagerAdapter(FragmentManager fm, List<? extends Fragment> fragments, String[] tabTiltle) {
         super(fm);
         this.fragments = fragments;
         this.tabTitle = tabTiltle;
     }
-
-//    public PageAdapter(FragmentManager fm, List<BaseFragment> fragments, String[] tabTiltle) {
-//        super(fm);
-//        this.fragments = new ArrayList<>();
-//        this.fragments.addAll(fragments);
-//        this.tabTitle = tabTiltle;
-//    }
-
-
 
     @Override
     public Fragment getItem(int position) {
@@ -40,6 +27,6 @@ public class PageAdapter extends FragmentPagerAdapter {
 
     @Override
     public CharSequence getPageTitle(int position) {
-        return tabTitle[position];
+        return tabTitle == null ? "" : tabTitle[position];
     }
 }

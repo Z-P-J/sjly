@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="MyDialogStyle" parent="android:Theme.Translucent.NoTitleBar">
+        <!--设置状态栏颜色-->
+        <item name="colorPrimaryDark">@android:color/transparent</item>
+        <item name="android:windowTranslucentStatus">true</item>
+        <item name="android:statusBarColor">@android:color/transparent</item>
+
+<!--        <item name="android:windowFrame">@null</item>-->
+<!--        &lt;!&ndash;最后面是window background&ndash;&gt;-->
+<!--        <item name="android:windowBackground">@android:color/transparent</item>-->
+<!--        <item name="android:windowNoTitle">false</item>-->
+
+
+<!--        &lt;!&ndash;这个不设置它会沾满屏幕&ndash;&gt;-->
+        <item name="android:windowIsFloating">true</item>
+<!--        <item name="android:windowContentOverlay">@null</item>-->
+    </style>
+</resources>

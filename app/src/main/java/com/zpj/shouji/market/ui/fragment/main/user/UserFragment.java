@@ -21,7 +21,7 @@ import com.wuhenzhizao.titlebar.widget.CommonTitleBar;
 import com.zpj.http.parser.html.nodes.Element;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.constant.Key;
-import com.zpj.shouji.market.ui.adapter.PageAdapter;
+import com.zpj.shouji.market.ui.adapter.ZPagerAdapter;
 import com.zpj.shouji.market.ui.behavior.AppBarLayoutOverScrollViewBehavior;
 import com.zpj.shouji.market.ui.fragment.base.BaseFragment;
 import com.zpj.shouji.market.ui.fragment.main.homepage.ExploreFragment;
@@ -128,13 +128,13 @@ public class UserFragment extends BaseFragment implements ExploreFragment.Callba
         fragments.add(new Fragment());
         fragments.add(new UserDownloadedFragment());
         fragments.add(new Fragment());
-//        PageAdapter adapter = new PageAdapter(getChildFragmentManager(), fragments, TAB_TITLES);
+//        ZPagerAdapter adapter = new ZPagerAdapter(getChildFragmentManager(), fragments, TAB_TITLES);
 //        mTablayout.setTabMode(QTabLayout.MODE_FIXED);
 //        mTablayout.setupWithViewPager(mViewPager);
 //        mViewPager.setAdapter(adapter);
 //        mViewPager.setOffscreenPageLimit(4);
 
-        PageAdapter adapter = new PageAdapter(getChildFragmentManager(), fragments, TAB_TITLES);
+        ZPagerAdapter adapter = new ZPagerAdapter(getChildFragmentManager(), fragments, TAB_TITLES);
         mViewPager.setAdapter(adapter);
         mViewPager.setOffscreenPageLimit(4);
         CommonNavigator navigator = new CommonNavigator(getContext());

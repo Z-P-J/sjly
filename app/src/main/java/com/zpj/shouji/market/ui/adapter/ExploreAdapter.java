@@ -1,8 +1,10 @@
 package com.zpj.shouji.market.ui.adapter;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.Rect;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
@@ -16,27 +18,50 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.RequestManager;
+import com.jaeger.ninegridimageview.ItemImageClickListener;
+import com.jaeger.ninegridimageview.NineGridImageView;
+import com.previewlibrary.GPreviewBuilder;
 import com.sunbinqiang.iconcountview.IconCountView;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.bean.ExploreItem;
+import com.zpj.shouji.market.image.MyImageLoad;
+import com.zpj.shouji.market.image.MyImageTransAdapter;
+import com.zpj.shouji.market.image.MyProgressBarGet;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import cn.bingoogolapple.photopicker.activity.BGAPhotoPreviewActivity;
 import cn.bingoogolapple.photopicker.widget.BGANinePhotoLayout;
+import it.liuting.imagetrans.ImageTrans;
+import it.liuting.imagetrans.listener.SourceImageViewGet;
 
 public class ExploreAdapter extends RecyclerView.Adapter<ExploreAdapter.ViewHolder> implements BGANinePhotoLayout.Delegate {
     private List<ExploreItem> appItemList;
     private Context context;
 
-    private RequestManager requestManager;
-
     private OnItemClickListener onItemClickListener;
 
     @Override
     public void onClickNinePhotoItem(BGANinePhotoLayout ninePhotoLayout, View view, int position, String model, List<String> models) {
-        Toast.makeText(context, "onClickNinePhotoItem", Toast.LENGTH_SHORT).show();
+//        ImageTrans.with(context)
+//                .setImageList(models)
+//                .setNowIndex(position)
+//                .setSourceImageView(new SourceImageViewGet() {
+//                    @Override
+//                    public ImageView getImageView(int pos) {
+//
+//                        RecyclerView recyclerView = recyclerViewLayout.getEasyRecyclerView().getRecyclerView();
+//                        int layoutPos = recyclerView.indexOfChild(holder.getItemView());
+//                        View view = recyclerView.getChildAt(layoutPos + pos - position);
+//                        if (view != null) return (ImageView) view.findViewById(R.id.item_icon);
+//                        return holder.getImageView(R.id.item_icon);
+//                    }
+//                })
+//                .setProgressBar(new MyProgressBarGet())
+//                .setImageLoad(new MyImageLoad())
+//                .setAdapter(new MyImageTransAdapter())
+//                .show();
 
         BGAPhotoPreviewActivity.IntentBuilder intentBuilder = new BGAPhotoPreviewActivity.IntentBuilder(view.getContext());
         Intent intent = intentBuilder.currentPosition(position).previewPhotos((ArrayList<String>) models).build();
@@ -140,7 +165,8 @@ public class ExploreAdapter extends RecyclerView.Adapter<ExploreAdapter.ViewHold
 
         LinearLayout commentLayout;
         LinearLayout appLayout;
-        BGANinePhotoLayout photoLayout;
+//        BGANinePhotoLayout photoLayout;
+        NineGridImageView<String> nineGridImageView;
 
         public Bitmap icon;
         ExploreItem item;
@@ -156,7 +182,37 @@ public class ExploreAdapter extends RecyclerView.Adapter<ExploreAdapter.ViewHold
             info = view.findViewById(R.id.text_info);
             contentText = view.findViewById(R.id.text_content);
 
-            photoLayout = view.findViewById(R.id.layout_photo);
+//            photoLayout = view.findViewById(R.id.layout_photo);
+            nineGridImageView = view.findViewById(R.id.nine_grid_image_view);
+            nineGridImageView.setAdapter(new ZNineGridImageViewAdapter());
+            nineGridImageView.setItemImageClickListener(new ItemImageClickListener<String>() {
+                @Override
+                public void onItemImageClick(Context context, ImageView imageView, int index, List<String> list) {
+//                    computeBoundsBackward(list);//组成数据
+//                    GPreviewBuilder.from((Activity) context)
+//                            .setData(list)
+//                            .setCurrentIndex(index)
+//                            .setType(GPreviewBuilder.IndicatorType.Dot)
+//                            .start();//启动
+                    ImageTrans.with(context)
+                            .setImageList(list)
+                            .setNowIndex(index)
+                            .setSourceImageView(new SourceImageViewGet() {
+                                @Override
+                                public ImageView getImageView(int pos) {
+                                    View itemView = nineGridImageView.getChildAt(pos);
+                                    if (itemView != null) {
+                                        return (ImageView) itemView;
+                                    }
+                                    return null;
+                                }
+                            })
+                            .setProgressBar(new MyProgressBarGet())
+                            .setImageLoad(new MyImageLoad())
+                            .setAdapter(new MyImageTransAdapter())
+                            .show();
+                }
+            });
 
             appLayout = view.findViewById(R.id.layout_app);
             appIcon = view.findViewById(R.id.app_icon);
@@ -172,6 +228,20 @@ public class ExploreAdapter extends RecyclerView.Adapter<ExploreAdapter.ViewHold
             commentLayout = view.findViewById(R.id.layout_comment);
 
         }
+
+//        private void computeBoundsBackward(List<UserViewInfo> list) {
+//            for (int i = 0;i < mNglContent.getChildCount(); i++) {
+//                View itemView = mNglContent.getChildAt(i);
+//                Rect bounds = new Rect();
+//                if (itemView != null) {
+//                    ImageView thumbView = (ImageView) itemView;
+//                    thumbView.getGlobalVisibleRect(bounds);
+//                }
+//                list.get(i).setBounds(bounds);
+//                list.get(i).setUrl(list.get(i).getUrl());
+//            }
+//
+//        }
     }
 
     public ExploreAdapter(List<ExploreItem> appItemList) {
@@ -183,11 +253,7 @@ public class ExploreAdapter extends RecyclerView.Adapter<ExploreAdapter.ViewHold
     public ViewHolder onCreateViewHolder(@NonNull final ViewGroup parent, final int viewType) {
         context = parent.getContext();
         final View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_explore, parent, false);
-
-        final ViewHolder holder = new ViewHolder(view);
-
-        requestManager = Glide.with(parent.getContext());
-        return holder;
+        return new ViewHolder(view);
     }
 
     @Override
@@ -207,19 +273,23 @@ public class ExploreAdapter extends RecyclerView.Adapter<ExploreAdapter.ViewHold
                 }
             }
         });
-        requestManager.load(exploreItem.getIcon()).into(holder.itemIcon);
+        Glide.with(context).load(exploreItem.getIcon()).into(holder.itemIcon);
 
-        holder.photoLayout.setVisibility(View.VISIBLE);
-        holder.photoLayout.setDelegate(ExploreAdapter.this);
+//        holder.photoLayout.setVisibility(View.VISIBLE);
+//        holder.photoLayout.setDelegate(ExploreAdapter.this);
+        holder.nineGridImageView.setVisibility(View.VISIBLE);
         if (!exploreItem.getSpics().isEmpty()) {
             holder.shareInfo.setText("分享乐图:");
-            holder.photoLayout.setData((ArrayList<String>) exploreItem.getSpics());
+//            holder.photoLayout.setData((ArrayList<String>) exploreItem.getSpics());
+            holder.nineGridImageView.setImagesData(exploreItem.getSpics());
         } else if (!exploreItem.getSharePics().isEmpty()) {
             holder.shareInfo.setText("分享应用集:");
-            holder.photoLayout.setData((ArrayList<String>) exploreItem.getSharePics());
+//            holder.photoLayout.setData((ArrayList<String>) exploreItem.getSharePics());
+            holder.nineGridImageView.setImagesData(exploreItem.getSharePics());
         } else {
             holder.shareInfo.setText("分享动态:");
-            holder.photoLayout.setVisibility(View.GONE);
+//            holder.photoLayout.setVisibility(View.GONE);
+            holder.nineGridImageView.setVisibility(View.GONE);
         }
 
         if (!TextUtils.isEmpty(exploreItem.getAppName())

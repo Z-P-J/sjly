@@ -203,13 +203,22 @@
                 android:text="eshtrueridhkg\nethjrdgiuf\nshrturehtgftkujghrdktghftgk,jftkjh"
                 />
 
-            <cn.bingoogolapple.photopicker.widget.BGANinePhotoLayout
-                android:id="@+id/layout_photo"
-                android:layout_width="wrap_content"
+            <com.jaeger.ninegridimageview.NineGridImageView
+                android:id="@+id/nine_grid_image_view"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
-                app:bga_npl_itemCornerRadius="4dp"
-                />
+                android:layout_margin="10dp"
+                android:layout_width="match_parent"
+                app:imgGap="4dp"
+                app:showStyle="grid"
+                app:singleImgSize="120dp"/>
+
+<!--            <cn.bingoogolapple.photopicker.widget.BGANinePhotoLayout-->
+<!--                android:id="@+id/layout_photo"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_marginStart="10dp"-->
+<!--                app:bga_npl_itemCornerRadius="4dp"-->
+<!--                />-->
 
 
 
@@ -399,135 +408,5 @@
         </LinearLayout>
 
     </LinearLayout>
-
-    <LinearLayout
-        android:orientation="horizontal"
-        android:layout_width="match_parent"
-        android:layout_marginTop="10dp"
-        android:layout_height="36dp"
-        android:gravity="center"
-        android:visibility="gone"
-        >
-
-<!--        <com.sunbinqiang.iconcountview.IconCountView-->
-<!--            android:id="@+id/support_view"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            app:count="123"-->
-<!--            app:state="false"-->
-<!--            app:zeroText="抢首赞"-->
-<!--            app:textNormalColor="#8a8a8a"-->
-<!--            app:textSelectedColor="#d4237a"-->
-<!--            app:textSize="12sp"-->
-<!--            app:normalRes="@drawable/good"-->
-<!--            app:selectedRes="@drawable/good_checked"/>-->
-
-<!--        <com.sunbinqiang.iconcountview.IconCountView-->
-<!--            android:id="@+id/comment_view"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            app:count="123"-->
-<!--            app:state="false"-->
-<!--            app:zeroText="抢首赞"-->
-<!--            app:textNormalColor="#8a8a8a"-->
-<!--            app:textSelectedColor="#d4237a"-->
-<!--            app:textSize="12sp"-->
-<!--            app:normalRes="@drawable/ic_comment_grey_24dp"-->
-<!--            app:selectedRes="@drawable/ic_comment_grey_24dp"/>-->
-
-<!--        <LinearLayout-->
-<!--            android:orientation="horizontal"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:gravity="center_vertical"-->
-<!--            android:paddingStart="10dp"-->
-<!--            android:paddingEnd="10dp"-->
-<!--            >-->
-
-<!--            <ImageView-->
-<!--                android:id="@+id/support_img"-->
-<!--                android:layout_width="wrap_content"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:gravity="center"-->
-<!--                android:src="@drawable/good"-->
-<!--                />-->
-
-<!--            <TextView-->
-<!--                android:id="@+id/support_count"-->
-<!--                android:layout_width="wrap_content"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:gravity="center"-->
-<!--                android:text="450"-->
-<!--                android:paddingTop="5dp"-->
-<!--                android:paddingBottom="5dp"-->
-<!--                android:padding="5dp"-->
-<!--                />-->
-
-<!--        </LinearLayout>-->
-
-<!--        <LinearLayout-->
-<!--            android:orientation="horizontal"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:gravity="center_vertical"-->
-<!--            android:paddingStart="10dp"-->
-<!--            android:paddingEnd="10dp"-->
-<!--            >-->
-
-<!--            <ImageView-->
-<!--                android:id="@+id/reply_img"-->
-<!--                android:layout_width="wrap_content"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:gravity="center"-->
-<!--                android:src="@drawable/ic_comment_grey_24dp"-->
-<!--                />-->
-
-<!--            <TextView-->
-<!--                android:id="@+id/reply_count"-->
-<!--                android:layout_width="wrap_content"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:gravity="center"-->
-<!--                android:text="450"-->
-<!--                android:paddingTop="5dp"-->
-<!--                android:paddingBottom="5dp"-->
-<!--                android:padding="5dp"-->
-<!--                />-->
-
-<!--        </LinearLayout>-->
-
-<!--        <LinearLayout-->
-<!--            android:orientation="horizontal"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:gravity="center_vertical"-->
-<!--            android:paddingStart="10dp"-->
-<!--            android:paddingEnd="10dp"-->
-<!--            >-->
-
-<!--            <ImageView-->
-<!--                android:id="@+id/star_img"-->
-<!--                android:layout_width="wrap_content"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:gravity="center"-->
-<!--                android:src="@drawable/collection"-->
-<!--                />-->
-
-<!--            <TextView-->
-<!--                android:id="@+id/star_count"-->
-<!--                android:layout_width="wrap_content"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:gravity="center"-->
-<!--                android:text="450"-->
-<!--                android:paddingTop="5dp"-->
-<!--                android:paddingBottom="5dp"-->
-<!--                android:padding="5dp"-->
-<!--                />-->
-
-<!--        </LinearLayout>-->
-
-
-
-    </LinearLayout>
-
 
 </LinearLayout>
