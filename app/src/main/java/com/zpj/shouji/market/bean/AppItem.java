@@ -3,6 +3,8 @@ package com.zpj.shouji.market.bean;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import com.zpj.http.parser.html.nodes.Element;
+
 public class AppItem implements Parcelable {
     private String appIcon;
     private String appTitle;
@@ -16,6 +18,23 @@ public class AppItem implements Parcelable {
     private String appSize;
     private String appInfo;
     private String appComment;
+
+    public static AppItem create(Element item) {
+        AppItem appItem = new AppItem();
+        appItem.setAppIcon(item.select("icon").text());
+        appItem.setAppTitle(item.select("title").text());
+        appItem.setAppId(item.select("id").text());
+        appItem.setAppViewType(item.select("viewtype").text());
+        appItem.setAppType(item.select("apptype").text());
+        appItem.setAppPackage(item.select("package").text());
+        appItem.setAppArticleNum(item.select("articleNum").text());
+        appItem.setAppNum(item.select("appNum").text());
+        appItem.setAppMinSdk(item.select("msdk").text());
+        appItem.setAppSize(item.select("m").text());
+        appItem.setAppInfo(item.select("r").text());
+        appItem.setAppComment(item.select("comment").text());
+        return appItem;
+    }
 
     public AppItem () {
         super();

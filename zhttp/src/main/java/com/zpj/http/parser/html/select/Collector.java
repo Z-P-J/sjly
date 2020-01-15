@@ -2,6 +2,7 @@ package com.zpj.http.parser.html.select;
 
 import com.zpj.http.parser.html.nodes.Element;
 import com.zpj.http.parser.html.nodes.Node;
+import com.zpj.http.parser.html.nodes.NullElement;
 
 import static com.zpj.http.parser.html.select.NodeFilter.FilterResult.CONTINUE;
 import static com.zpj.http.parser.html.select.NodeFilter.FilterResult.STOP;
@@ -60,7 +61,7 @@ public class Collector {
 
     private static class FirstFinder implements NodeFilter {
         private final Element root;
-        private Element match = null;
+        private Element match = new NullElement();
         private final Evaluator eval;
 
         FirstFinder(Element root, Evaluator eval) {

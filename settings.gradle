@@ -16,4 +16,5 @@ include ':app',
         ':zdialog',
         ':switchbutton',
         ':zhttp',
-        ':zpopup'
+        ':zpopup',
+        ':glidegifdecoder'

@@ -4,6 +4,9 @@ import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
 import android.util.SparseArray;
 
+import com.zpj.http.parser.html.nodes.Element;
+import com.zpj.http.parser.html.select.Elements;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -55,6 +58,32 @@ public class AppCollectionItem {
     private Bitmap bitmap3;
     private SparseArray<Bitmap> bitmapSparseArray = new SparseArray<>(0);
     private SparseArray<Drawable> drawableSparseArray = new SparseArray<>(0);
+
+    public static AppCollectionItem create(Element item) {
+        AppCollectionItem collectionItem = new AppCollectionItem();
+        collectionItem.setId(item.select("id").text());
+        collectionItem.setParent(item.select("parent").text());
+        collectionItem.setContentType(item.select("contenttype").text());
+        collectionItem.setType(item.select("type").text());
+        collectionItem.setTitle(item.select("title").text());
+        collectionItem.setComment(item.select("comment").text());
+        collectionItem.setSize(Integer.valueOf(item.select("size").text()));
+        collectionItem.setMemberId(item.select("memberid").text());
+        collectionItem.setNickName(item.select("nickname").text());
+        collectionItem.setFavCount(Integer.valueOf(item.select("favcount").text()));
+        collectionItem.setAppSize(Integer.valueOf(item.select("appsize").text()));
+        collectionItem.setSupportCount(Integer.valueOf(item.selectFirst("supportcount").text()));
+        collectionItem.setViewCount(Integer.valueOf(item.select("viewcount").text()));
+        collectionItem.setReplyCount(Integer.valueOf(item.select("replycount").text()));
+        collectionItem.setTime(item.select("time").text());
+//                    collectionItem.setSupportCount(Integer.valueOf(item.select("supportcount").text()));
+//                    collectionItem.setSupportCount(Integer.valueOf(item.select("supportcount").text()));
+        Elements icons = item.select("icons").select("icon");
+        for (Element element : icons) {
+            collectionItem.addIcon(element.text());
+        }
+        return collectionItem;
+    }
 
     public String getId() {
         return id;

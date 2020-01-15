@@ -182,7 +182,7 @@ public class ExploreAdapter extends RecyclerView.Adapter<ExploreAdapter.ViewHold
     @Override
     public ViewHolder onCreateViewHolder(@NonNull final ViewGroup parent, final int viewType) {
         context = parent.getContext();
-        final View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.explore_item, parent, false);
+        final View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_explore, parent, false);
 
         final ViewHolder holder = new ViewHolder(view);
 

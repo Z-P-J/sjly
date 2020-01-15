@@ -55,7 +55,7 @@ public class HomeFragment extends BaseFragment {
         });
         ArrayList<Fragment> list = new ArrayList<>();
         list.add(new RecommendFragment());
-        list.add(ExploreFragment.newInstance("http://tt.shouji.com.cn/app/faxian.jsp?index=faxian&versioncode=187"));
+        list.add(ExploreFragment.newInstance("http://tt.shouji.com.cn/app/faxian.jsp?index=faxian&versioncode=198"));
         list.add(new Fragment());
 
         PageAdapter adapter = new PageAdapter(getChildFragmentManager(), list, TAB_TITLES);

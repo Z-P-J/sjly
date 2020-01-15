@@ -43,7 +43,7 @@ import java.util.List;
 
 public class UserFragment extends BaseFragment implements ExploreFragment.Callback {
 
-    public static final String DEFAULT_URL = "http://tt.shouji.com.cn/app/view_member_xml_v4.jsp?versioncode=187&id=5636865";
+    public static final String DEFAULT_URL = "http://tt.shouji.com.cn/app/view_member_xml_v4.jsp?versioncode=198&id=5636865";
 
     private static final String[] TAB_TITLES = {"我的动态", "我的收藏", "我的下载", "我的好友"};
 
@@ -99,7 +99,7 @@ public class UserFragment extends BaseFragment implements ExploreFragment.Callba
         Bundle bundle = getArguments();
         if (bundle != null) {
             userId = bundle.getString(Key.USER_ID);
-            exploreFragment = ExploreFragment.newInstance("http://tt.shouji.com.cn/app/view_member_xml_v4.jsp?versioncode=187&id=" + userId, true);
+            exploreFragment = ExploreFragment.newInstance("http://tt.shouji.com.cn/app/view_member_xml_v4.jsp?versioncode=198&id=" + userId, true);
         } else {
 //            exploreFragment = ExploreFragment.newInstance(DEFAULT_URL, false);
             throw new RuntimeException("bundle is null!");

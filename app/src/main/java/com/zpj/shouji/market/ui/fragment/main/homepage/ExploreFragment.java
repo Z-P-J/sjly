@@ -43,10 +43,9 @@ public class ExploreFragment extends BaseFragment implements ExploreAdapter.OnIt
         void onGetUserItem(Element element);
     }
 
-    private static final String DEFAULT_URL = "http://tt.shouji.com.cn/app/faxian.jsp?index=faxian&versioncode=187";
+    private static final String DEFAULT_URL = "http://tt.shouji.com.cn/app/faxian.jsp?index=faxian&versioncode=198";
 
     private RecyclerView recyclerView;
-//    private LoadingView loadingView;
     private List<ExploreItem> exploreItems = new ArrayList<>();
     private ExploreAdapter exploreAdapter;
     private SwipeRefreshLayout swipeRefreshLayout;
@@ -72,13 +71,13 @@ public class ExploreFragment extends BaseFragment implements ExploreAdapter.OnIt
                     }
                 }
 
-                nextUrl = doc.select("nextUrl").get(0).text();
+                nextUrl = doc.selectFirst("nextUrl").text();
                 Map<String, ExploreItem> map = new HashMap<>();
                 for (int i = 1; i < elements.size(); i++) {
                     Element item = elements.get(i);
                     ExploreItem exploreItem = new ExploreItem();
-                    String id = item.select("id").get(0).text();
-                    String parent = item.select("parent").get(0).text();
+                    String id = item.selectFirst("id").text();
+                    String parent = item.selectFirst("parent").text();
                     if (id == null && parent == null) {
                         continue;
                     }
@@ -86,42 +85,42 @@ public class ExploreFragment extends BaseFragment implements ExploreAdapter.OnIt
                     Log.d("getExploreData", "parent=" + parent);
                     exploreItem.setId(id);
                     exploreItem.setParent(parent);
-                    exploreItem.setMemberId(item.select("memberid").get(0).text());
+                    exploreItem.setMemberId(item.selectFirst("memberid").text());
 
-                    exploreItem.setIcon(item.select("icon").get(0).text());
-                    exploreItem.setIconState(item.select("iconstate").get(0).text());
-                    exploreItem.setNickName(item.select("nickname").get(0).text());
-                    exploreItem.setTime(item.select("time").get(0).text());
-                    exploreItem.setContent(item.select("content").get(0).text());
-                    exploreItem.setPhone(item.select("phone").get(0).text());
+                    exploreItem.setIcon(item.selectFirst("icon").text());
+                    exploreItem.setIconState(item.selectFirst("iconstate").text());
+                    exploreItem.setNickName(item.selectFirst("nickname").text());
+                    exploreItem.setTime(item.selectFirst("time").text());
+                    exploreItem.setContent(item.selectFirst("content").text());
+                    exploreItem.setPhone(item.selectFirst("phone").text());
 
                     Elements pics = item.select("pics");
                     Elements spics = item.select("spics");
                     if (!pics.isEmpty()) {
-                        for (Element pic : item.select("pics").get(0).select("pic")) {
+                        for (Element pic : item.selectFirst("pics").select("pic")) {
                             exploreItem.addPic(pic.text());
 //                                exploreItem.addSpic(pic.text().replace(".png", "_s.jpg"));
                         }
                     }
                     if (!spics.isEmpty()) {
-                        for (Element spic : item.select("spics").get(0).select("spic")) {
+                        for (Element spic : item.selectFirst("spics").select("spic")) {
                             exploreItem.addSpic(spic.text());
                         }
                     }
 
-                    String type = item.select("type").get(0).text();
+                    String type = item.selectFirst("type").text();
                     if ("theme".equals(type)) {
 
                         // 分享应用
                         Elements appNames = item.select("appname");
                         if (!appNames.isEmpty()) {
                             exploreItem.setAppName(appNames.get(0).text());
-                            exploreItem.setAppPackageName(item.select("apppackagename").get(0).text());
-                            exploreItem.setAppIcon(item.select("appicon").get(0).text());
-                            exploreItem.setApkExist("1".equals(item.select("isApkExist").get(0).text()));
-                            exploreItem.setAppUrl(item.select("appurl").get(0).text());
-                            exploreItem.setApkUrl(item.select("apkurl").get(0).text());
-                            exploreItem.setAppSize(item.select("apksize").get(0).text());
+                            exploreItem.setAppPackageName(item.selectFirst("apppackagename").text());
+                            exploreItem.setAppIcon(item.selectFirst("appicon").text());
+                            exploreItem.setApkExist("1".equals(item.selectFirst("isApkExist").text()));
+                            exploreItem.setAppUrl(item.selectFirst("appurl").text());
+                            exploreItem.setApkUrl(item.selectFirst("apkurl").text());
+                            exploreItem.setAppSize(item.selectFirst("apksize").text());
                         }
 
                         // 分享应用集
@@ -133,7 +132,7 @@ public class ExploreFragment extends BaseFragment implements ExploreAdapter.OnIt
                         }
 
                     } else if ("reply".equals(type)) {
-                        String toNickName = item.select("tonickname").get(0).text();
+                        String toNickName = item.selectFirst("tonickname").text();
                         exploreItem.setToNickName(toNickName);
                     }
 
@@ -195,10 +194,6 @@ public class ExploreFragment extends BaseFragment implements ExploreAdapter.OnIt
         recyclerView = view.findViewById(R.id.recycler_view);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
 
-//        loadingView = view.findViewById(R.id.load_view);
-//        loadingView.setVisibility(View.VISIBLE);
-//        loadingView.setLoadingText("正在加载，请稍后……");
-
         swipeRefreshLayout = view.findViewById(R.id.swipe_refresh);
         swipeRefreshLayout.setEnabled(enableSwipeRefresh);
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
@@ -216,8 +211,6 @@ public class ExploreFragment extends BaseFragment implements ExploreAdapter.OnIt
                 }, 1000);
             }
         });
-
-        //lazyLoadData();
 
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());

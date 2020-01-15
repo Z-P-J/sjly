@@ -26,7 +26,7 @@ import me.yokeyword.fragmentation.SupportActivity;
 
 public class UserDownloadedFragment extends BaseFragment {
 
-    private static final String DEFAULT_URL = "http://tt.shouji.com.cn/app/view_member_down_xml_v2.jsp?versioncode=187&id=5636865";
+    private static final String DEFAULT_URL = "http://tt.shouji.com.cn/app/view_member_down_xml_v2.jsp?versioncode=198&id=5636865";
 
     private RecyclerView recyclerView;
     private UserDownloadedAdapter adapter;
