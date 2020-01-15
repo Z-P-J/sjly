@@ -7,13 +7,12 @@
     android:padding="16dp"
     android:background="@drawable/bottom_line_gray">
 
-    <cn.bingoogolapple.photopicker.widget.BGAImageView
+    <de.hdodenhof.circleimageview.CircleImageView
         android:layout_width="48dp"
         android:layout_height="48dp"
         android:id="@+id/icon_app"
         android:contentDescription="@string/app_name"
         android:scaleType="centerCrop"
-        app:bga_iv_cornerRadius="5dp"
         android:src="@mipmap/ic_launcher" />
 
     <LinearLayout

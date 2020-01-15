@@ -9,12 +9,11 @@
     android:padding="10dp"
     >
 
-    <cn.bingoogolapple.photopicker.widget.BGAImageView
+    <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/image_icon"
         android:layout_width="56dp"
         android:layout_height="56dp"
         android:src="@mipmap/ic_launcher"
-        app:bga_iv_cornerRadius="5dp"
         android:layout_margin="10dp"
         android:layout_gravity="top"
         />

@@ -22,7 +22,6 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import cn.bingoogolapple.photopicker.widget.BGAImageView;
 import cn.refactor.library.SmoothCheckBox;
 
 public class AppManagerAdapter extends RecyclerView.Adapter<AppManagerAdapter.ViewHolder> {
@@ -45,7 +44,7 @@ public class AppManagerAdapter extends RecyclerView.Adapter<AppManagerAdapter.Vi
 
     public static class ViewHolder extends RecyclerView.ViewHolder{
 
-        BGAImageView appIcon;
+        ImageView appIcon;
         TextView appName;
         TextView appInfo;
         ImageView moreBtn;

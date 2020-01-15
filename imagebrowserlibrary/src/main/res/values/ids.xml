@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-
-    <item name="mn_ib_statusbarutil_fake_status_bar_view" type="id" />
-    <item name="mn_ib_statusbarutil_translucent_view" type="id" />
-
-</resources>

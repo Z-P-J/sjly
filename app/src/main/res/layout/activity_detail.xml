@@ -50,14 +50,13 @@
                     android:layout_height="4dp"
                     />
 
-                <cn.bingoogolapple.photopicker.widget.BGAImageView
+                <de.hdodenhof.circleimageview.CircleImageView
                     android:id="@+id/app_icon"
                     android:layout_width="72dp"
                     android:layout_height="72dp"
                     android:layout_marginTop="14dp"
                     android:layout_below="@id/text"
                     android:src="#00ffffff"
-                    app:bga_iv_cornerRadius="5dp"
                     />
 
                 <TextView

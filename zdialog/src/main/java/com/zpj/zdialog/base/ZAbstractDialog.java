@@ -2,7 +2,6 @@ package com.zpj.zdialog.base;
 
 import android.content.Context;
 import android.content.ContextWrapper;
-import android.content.DialogInterface;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
@@ -19,7 +18,7 @@ import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 
-import com.zpj.utils.ScreenUtils;
+import com.zpj.utils.ScreenUtil;
 
 public class ZAbstractDialog<T extends ZAbstractDialog<T>> extends DialogFragment implements IDialog {
 
@@ -194,7 +193,7 @@ public class ZAbstractDialog<T extends ZAbstractDialog<T>> extends DialogFragmen
      * @return Builder
      */
     public T setScreenWidthP(float percentage) {
-        this.dialogWidth = (int) (ScreenUtils.getScreenWidth(activity) * percentage);
+        this.dialogWidth = (int) (ScreenUtil.getScreenWidth(activity) * percentage);
         return self();
     }
 
@@ -205,7 +204,7 @@ public class ZAbstractDialog<T extends ZAbstractDialog<T>> extends DialogFragmen
      * @return Builder
      */
     public T setScreenHeightP(float percentage) {
-        this.dialogHeight = (int) (ScreenUtils.getScreenHeight(activity) * percentage);
+        this.dialogHeight = (int) (ScreenUtil.getScreenHeight(activity) * percentage);
         return self();
     }
 

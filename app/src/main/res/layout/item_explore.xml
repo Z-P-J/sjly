@@ -40,8 +40,12 @@
                 android:gravity="center"
                 android:background="#fcee81"
                 android:textColor="@color/colorPrimary"
-                android:padding="2dp"
+                android:paddingStart="5dp"
+                android:paddingEnd="5dp"
+                android:paddingTop="1dp"
+                android:paddingBottom="1dp"
                 android:textStyle="bold"
+                android:layout_marginTop="5dp"
                 android:layout_gravity="center_horizontal"
                 />
 
@@ -211,8 +215,6 @@
                 app:imgGap="4dp"
                 app:showStyle="grid"
                 app:singleImgSize="120dp"/>
-
-
 
             <LinearLayout
                 android:layout_width="match_parent"
