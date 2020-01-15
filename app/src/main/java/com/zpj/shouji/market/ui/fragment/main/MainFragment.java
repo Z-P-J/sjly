@@ -21,9 +21,6 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.ittianyu.bottomnavigationviewex.BottomNavigationViewEx;
-import com.next.easynavigation.constant.Anim;
-import com.next.easynavigation.utils.NavigationUtil;
-import com.next.easynavigation.view.EasyNavigationBar;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.ui.adapter.PageAdapter;
 import com.zpj.shouji.market.ui.fragment.base.BaseFragment;
