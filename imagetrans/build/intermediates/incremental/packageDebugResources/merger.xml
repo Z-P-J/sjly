@@ -7,7 +7,7 @@
 
 
 
-        <item name="android:windowIsFloating">true</item>
+
 
     </style></file><file path="D:\Programming\AndroidProjects\sjly\imagetrans\src\main\res\values-v19\styles.xml" qualifiers="v19"><style name="MyDialogStyle" parent="android:Theme.Translucent.NoTitleBar.Fullscreen">
         
@@ -26,6 +26,6 @@
 
 
 
-        <item name="android:windowIsFloating">true</item>
+
 
     </style></file></source><source path="D:\Programming\AndroidProjects\sjly\imagetrans\build\generated\res\rs\debug"/><source path="D:\Programming\AndroidProjects\sjly\imagetrans\build\generated\res\resValues\debug"/></dataSet><dataSet aapt-namespace="http://schemas.android.com/apk/res-auto" config="debug$Generated" generated="true" ignore_pattern="!.svn:!.git:!.ds_store:!*.scc:.*:&lt;dir>_*:!CVS:!thumbs.db:!picasa.ini:!*~"><source path="D:\Programming\AndroidProjects\sjly\imagetrans\src\debug\res"/></dataSet><dataSet aapt-namespace="http://schemas.android.com/apk/res-auto" config="debug" generated-set="debug$Generated" ignore_pattern="!.svn:!.git:!.ds_store:!*.scc:.*:&lt;dir>_*:!CVS:!thumbs.db:!picasa.ini:!*~"><source path="D:\Programming\AndroidProjects\sjly\imagetrans\src\debug\res"/></dataSet><mergedItems/></merger>

@@ -91,8 +91,8 @@ public class ImageTrans implements DialogInterface.OnShowListener,
         int dialogStyle;
         if (Build.VERSION.SDK_INT > Build.VERSION_CODES.KITKAT) {
 //            dialogStyle = android.R.style.Theme_Translucent_NoTitleBar_Fullscreen;
-//            dialogStyle = R.style.MyDialogStyle;
-            dialogStyle = android.R.style.Theme_Translucent_NoTitleBar;
+            dialogStyle = R.style.MyDialogStyle;
+//            dialogStyle = android.R.style.Theme_Translucent_NoTitleBar;
         } else {
             dialogStyle = android.R.style.Theme_Translucent_NoTitleBar;
         }

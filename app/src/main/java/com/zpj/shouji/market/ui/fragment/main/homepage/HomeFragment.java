@@ -39,11 +39,6 @@ public class HomeFragment extends BaseFragment {
     }
 
     @Override
-    protected boolean supportSwipeBack() {
-        return false;
-    }
-
-    @Override
     protected void initView(View view, @Nullable Bundle savedInstanceState) {
         CommonTitleBar titleBar = view.findViewById(R.id.title_bar);
         View rightCustomView = titleBar.getRightCustomView();
@@ -56,11 +51,12 @@ public class HomeFragment extends BaseFragment {
         ArrayList<Fragment> list = new ArrayList<>();
         list.add(new RecommendFragment());
         list.add(ExploreFragment.newInstance("http://tt.shouji.com.cn/app/faxian.jsp?index=faxian&versioncode=198"));
-        list.add(new Fragment());
+        list.add(new WallpaperFragment());
 
         ZPagerAdapter adapter = new ZPagerAdapter(getChildFragmentManager(), list, TAB_TITLES);
         ViewPager viewPager = view.findViewById(R.id.view_pager);
         viewPager.setAdapter(adapter);
+        viewPager.setOffscreenPageLimit(3);
         MagicIndicator magicIndicator = (MagicIndicator) titleBar.getCenterCustomView();
         CommonNavigator navigator = new CommonNavigator(getContext());
         navigator.setAdapter(new CommonNavigatorAdapter() {

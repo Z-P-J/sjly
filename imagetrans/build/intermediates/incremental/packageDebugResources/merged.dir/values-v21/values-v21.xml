@@ -13,7 +13,7 @@
 
 
 <!--        &lt;!&ndash;这个不设置它会沾满屏幕&ndash;&gt;-->
-        <item name="android:windowIsFloating">true</item>
+<!--        <item name="android:windowIsFloating">true</item>-->
 <!--        <item name="android:windowContentOverlay">@null</item>-->
     </style>
 </resources>

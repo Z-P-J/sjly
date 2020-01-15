@@ -2,6 +2,7 @@ package com.zpj.shouji.market.ui.fragment.base;
 
 
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.NonNull;
@@ -18,10 +19,13 @@ import me.yokeyword.fragmentation_swipeback.SwipeBackFragment;
 
 public abstract class BaseFragment extends SwipeBackFragment {
 
+    protected Context context;
+
     @SuppressLint("ResourceType")
     @Nullable
     @Override
     public final View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        context = getContext();
         View view;
         if (getLayoutId() > 0) {
             view = inflater.inflate(getLayoutId(), container, false);

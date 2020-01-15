@@ -93,6 +93,11 @@ public class EasyRecyclerLayout<T> extends FrameLayout {
         return this;
     }
 
+    public EasyRecyclerLayout<T> setItemAnimator(RecyclerView.ItemAnimator animator) {
+        easyRecyclerView.setItemAnimator(animator);
+        return this;
+    }
+
     public EasyRecyclerLayout<T> setEnableSwipeRefresh(boolean enableSwipeRefresh) {
         this.enableSwipeRefresh = enableSwipeRefresh;
         refreshLayout.setEnabled(enableSwipeRefresh);
@@ -167,6 +172,7 @@ public class EasyRecyclerLayout<T> extends FrameLayout {
 
     public EasyRecyclerLayout<T> onLoadMore(IEasy.OnLoadMoreListener onLoadMoreListener) {
         easyRecyclerView.onLoadMore(onLoadMoreListener);
+        enableLoadMore = true;
         return this;
     }
 
@@ -253,6 +259,10 @@ public class EasyRecyclerLayout<T> extends FrameLayout {
 
     public void build() {
         easyRecyclerView.build();
+        if (enableLoadMore) {
+            statusView.showContent();
+            return;
+        }
         if (easyRecyclerView.getData().isEmpty()) {
             statusView.showLoading();
         } else {
@@ -504,7 +514,7 @@ public class EasyRecyclerLayout<T> extends FrameLayout {
     }
 
     public void notifyDataSetChanged() {
-        if (easyRecyclerView.getData().isEmpty()) {
+        if (easyRecyclerView.getData().isEmpty() && !enableLoadMore) {
             showEmpty();
         } else {
             easyRecyclerView.notifyDataSetChanged();

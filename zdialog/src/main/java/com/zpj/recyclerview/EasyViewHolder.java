@@ -65,7 +65,7 @@ public final class EasyViewHolder extends RecyclerView.ViewHolder {
         return itemView.findViewById(id);
     }
 
-    public <T extends ImageView> T getImageView(@IdRes int id) {
+    public ImageView getImageView(@IdRes int id) {
         return itemView.findViewById(id);
     }
 

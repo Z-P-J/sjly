@@ -2,6 +2,7 @@ package com.zpj.recyclerview;
 
 import android.support.annotation.LayoutRes;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -33,6 +34,11 @@ public class EasyRecyclerView<T> {
 
     public EasyRecyclerView(@NonNull RecyclerView recyclerView) {
         this.recyclerView = recyclerView;
+    }
+
+    public EasyRecyclerView<T> setItemAnimator(RecyclerView.ItemAnimator animator) {
+        recyclerView.setItemAnimator(animator);
+        return this;
     }
 
     public EasyRecyclerView<T> setItemRes(int res) {

@@ -178,7 +178,7 @@ public class EasyAdapter<T> extends RecyclerView.Adapter<EasyViewHolder> {
         super.onViewAttachedToWindow(holder);
         ViewGroup.LayoutParams lp = holder.getItemView().getLayoutParams();
         if (lp instanceof StaggeredGridLayoutManager.LayoutParams
-                && holder.getLayoutPosition() == 0) {
+                && (isHeaderPosition(holder.getLayoutPosition()) || isFooterPosition(holder.getLayoutPosition()))) {
             StaggeredGridLayoutManager.LayoutParams p = (StaggeredGridLayoutManager.LayoutParams) lp;
             p.setFullSpan(true);
         }
