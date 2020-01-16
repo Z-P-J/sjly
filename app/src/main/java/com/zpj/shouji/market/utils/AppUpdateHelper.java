@@ -3,8 +3,6 @@ package com.zpj.shouji.market.utils;
 import android.content.Context;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
-import android.os.Handler;
-import android.os.Message;
 import android.util.Log;
 
 import com.zpj.http.ZHttp;
@@ -16,175 +14,203 @@ import com.zpj.shouji.market.bean.AppUpdateInfo;
 
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.ConcurrentLinkedQueue;
+import java.util.concurrent.ConcurrentMap;
+import java.util.concurrent.CopyOnWriteArrayList;
+import java.util.concurrent.CopyOnWriteArraySet;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 public final class AppUpdateHelper {
 
-    private static AppUpdateHelper appUpdateHelper = null;
+    private static final AppUpdateHelper INSTANCE = new AppUpdateHelper();
+    private static final List<WeakReference<CheckUpdateListener>> LISTENERS = new ArrayList<>();
+    private static final String CHECK_UPDATE_URL = "http://tt.shouji.com.cn/app/checkAppVersionV14.jsp";
 
-    private static final String URL = "http://tt.shouji.com.cn/app/checkAppVersionV14.jsp";
+    private static final CopyOnWriteArraySet<String> PACKAGE_SET = new CopyOnWriteArraySet<>();
+    private static final ConcurrentMap<String, String> INCLUDE_APP_MAP = new ConcurrentHashMap<>();
+    private static final ConcurrentMap<String, String> APP_UPDATE_CONTENT_MAP = new ConcurrentHashMap<>();
+    private static final CopyOnWriteArrayList<AppUpdateInfo> APP_UPDATE_INFO_LIST = new CopyOnWriteArrayList<>();
 
-    private static final Set<String> SET = new HashSet<>();
-    private static final Map<String, String> MAP = new HashMap<>();
-    private static final Map<String, String> APP_UPDATE_CONTENT_MAP = new HashMap<>();
-    private static final List<AppUpdateInfo> APP_UPDATE_INFO_LIST = new ArrayList<>();
+    private static final ConcurrentLinkedQueue<CheckUpdateRunnable> TASK_LIST = new ConcurrentLinkedQueue<>();
 
-    private static boolean checked = false;
-    private static boolean running = false;
+    private final AtomicBoolean checked = new AtomicBoolean(false);
+    private final AtomicBoolean running = new AtomicBoolean(false);
 
-    private static final List<WeakReference<CheckUpdateListener>> listeners = new ArrayList<>();
+    private class CheckUpdateRunnable implements Runnable {
+
+        private final Context context;
+        private final String cookie;
+        private final String sessionId;
+        private final String packageId;
+
+        CheckUpdateRunnable(Context context, String cookie, String sessionId, String packageId) {
+            this.context = context;
+            this.cookie = cookie;
+            this.sessionId = sessionId;
+            this.packageId = packageId;
+        }
+
+        @Override
+        public void run() {
+            try {
+                Document doc = ZHttp.get(CHECK_UPDATE_URL)
+                        .userAgent("Sjly(2.9.9.9.3)")
+                        .header("Cookie", cookie)
+                        .header("Content-Type", "application/x-www-form-urlencoded")
+                        .header("referer", CHECK_UPDATE_URL)
+                        .data("setupid", "sjly2.9.9.9.3")
+                        .data("skin", "0")
+                        .data("sdk", "26")
+                        .data("downmaxsize", "5")
+                        .data("downnovlan", "0")
+                        .data("silentinstall", "0")
+                        .data("yundown", "1")
+                        .data("yunuser", "14880389")
+                        .data("marketversion", "2.9.9.9.3")
+                        .data("net", "phone")
+                        .data("jsessionid", sessionId)
+                        .data("phonesn", "86971802943762" + (Math.random() * 10))
+                        .data("pname", "Xiaomi:capricorn")
+                        .data("width", "1920")
+                        .data("height", "1080")
+                        .data("dpi", "480")
+                        .data("version", "8.0.0")
+                        .data("vpasspackage", "")
+                        .data("packageid", packageId)
+//                            .data("packageid", "com.maimemo.android.momo=3.6.31=475=墨墨背单词,cn.wps.moffice_eng=9.9.0.244459=163=WPS Office,com.xfx.surfvpn=1.6.1=47=Surf VPN,com.eg.android.AlipayGphone=10.1.65.6567=144=支付宝==yes=3249560371,cn.bingoogolapple.badgeview.demo=1.1.6=116=BGABadgeViewDemo==yes=644081428,com.qianxun.browser=65.0.3325.230=10=千寻浏览器==yes=1921022368,com.fooview.android.fooview=1.0.1.1=125=FV悬浮球==yes=1680024518,com.netease.cloudmusic=6.2.2=144=网易云音乐==yes=3955544393,cn.bingoogolapple.photopicker.demo=1.2.6=126=BGAPhotoPickerDemo==yes=644081428,com.baidu.netdisk=9.6.63=898=百度网盘==yes=3938900617,com.qianxun.downloader=1.0.15=115=千寻下载==yes=3283140403,")
+                        .ignoreContentType(true)
+                        .toHtml();
+                Log.d("checkUpdate", doc.toString());
+
+                Elements versionElements = doc.select("version");
+                for (Element versionElement : versionElements) {
+                    String packageName = versionElement.select("vpackage").text();
+                    APP_UPDATE_CONTENT_MAP.put(packageName, versionElement.select("vlog").text());
+                    Log.d("checkUpdate", "versionElement=" + versionElement.text());
+                }
+
+                String updateInfos = doc.select("update").get(0).text();
+                Log.d("checkUpdate", "updateInfos=" + updateInfos);
+                String[] updateInfoArray = updateInfos.replaceAll("更新;", "更新,")
+                        .split(",");
+                for (String updateInfo : updateInfoArray) {
+                    Log.d("checkUpdate", "updateInfo=" + updateInfo);
+                    String packageName = updateInfo.substring(0, updateInfo.indexOf("|"));
+                    PACKAGE_SET.add(packageName);
+                    String[] infos = updateInfo.split("\\|");
+                    String idStr = infos[1];
+                    INCLUDE_APP_MAP.put(packageName, idStr);
+                    if (!updateInfo.contains("||||||")) {
+                        AppUpdateInfo appInfo = new AppUpdateInfo();
+                        appInfo.setPackageName(infos[0]);
+                        appInfo.setId(idStr.substring(7));
+                        appInfo.setAppType(idStr.substring(0, 4));
+                        appInfo.setDownloadUrl(infos[2]);
+                        appInfo.setNewVersionName(infos[3]);
+                        appInfo.setOldVersionName(AppUtil.getVersionName(context, appInfo.getPackageName()));
+                        appInfo.setNewSize(infos[4]);
+                        appInfo.setUpdateTime(infos[11]);
+                        appInfo.setUpdateTimeInfo(infos[13]);
+                        appInfo.setAppName(AppUtil.getAppName(context, appInfo.getPackageName()));
+                        appInfo.setUpdateInfo(APP_UPDATE_CONTENT_MAP.get(appInfo.getPackageName()));
+                        APP_UPDATE_INFO_LIST.add(appInfo);
+                        Log.d("checkUpdate", "updateInfo=" + appInfo);
+                    }
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            } finally {
+                TASK_LIST.remove(CheckUpdateRunnable.this);
+                onFinished();
+            }
+        }
+
+    }
 
     private AppUpdateHelper() { }
 
-    public synchronized static AppUpdateHelper getInstance() {
-        if (appUpdateHelper == null) {
-            appUpdateHelper = new AppUpdateHelper();
-        }
-        return appUpdateHelper;
+    public static AppUpdateHelper getInstance() {
+        return INSTANCE;
     }
 
     public void checkUpdate(Context context) {
-        checked = false;
-        running = true;
-        ExecutorHelper.submit(new Runnable() {
-            @Override
-            public void run() {
-                try {
-                    Connection.Response response = ZHttp.get("http://tt.shouji.com.cn/app/update.jsp")
-                            .userAgent("Sjly(2.0..9.9)")
-                            .execute();
-                    String setCookie = response.header("Set-Cookie");
-                    UserManager.setCookie(setCookie);
-                    Log.d("checkUpdate", "setCookie=" + setCookie);
-                    String jsessionId = setCookie.substring(setCookie.indexOf("="), setCookie.indexOf(";"));
+        TASK_LIST.clear();
+        checked.set(false);
+        running.set(false);
+        ExecutorHelper.submit(() -> {
+            try {
+                Connection.Response response = ZHttp.get("http://tt.shouji.com.cn/app/update.jsp")
+                        .userAgent("Sjly(2.9.9.9.3)")
+                        .execute();
+                String setCookie = response.header("Set-Cookie");
+                UserManager.setCookie(setCookie);
+                Log.d("checkUpdate", "setCookie=" + setCookie);
+                String jsessionId = setCookie.substring(setCookie.indexOf("="), setCookie.indexOf(";"));
 
-                    StringBuilder packageid = new StringBuilder();
-                    PackageManager manager = context.getPackageManager();
-                    List<PackageInfo> packageInfoList = manager.getInstalledPackages(0);
-                    for (PackageInfo packageInfo : packageInfoList) {
-                        Log.d("checkUpdate", "packagename=" + packageInfo.packageName);
-                        Log.d("checkUpdate", "appName=" + packageInfo.applicationInfo.loadLabel(manager).toString());
-                        Log.d("checkUpdate", "firstInstallTime=" + packageInfo.firstInstallTime);
-                        Log.d("checkUpdate", "lastUpdateTime=" + packageInfo.lastUpdateTime);
-                        String md5 = "";
-                        packageid.append(packageInfo.packageName)
-                                .append("=").append(packageInfo.versionName)
-                                .append("=").append(packageInfo.versionCode)
-                                .append("=").append(packageInfo.applicationInfo.loadLabel(manager).toString())
-                                .append("=").append(md5).append("=Yes")//.append(packageInfo.firstInstallTime)
-                                .append(",");
-                    }
-                    Log.d("checkUpdate", "packageid=" + packageid);
-
-                    Document doc = ZHttp.get(URL)
-                            .userAgent("Sjly(2.0..9.9)")
-                            .header("Cookie", setCookie)
-                            .header("Content-Type", "application/x-www-form-urlencoded")
-                            .header("referer", URL)
-                            .data("setupid", "sjly2.0.9.9")
-                            .data("skin", "0")
-                            .data("sdk", "26")
-                            .data("downmaxsize", "5")
-                            .data("downnovlan", "0")
-                            .data("silentinstall", "0")
-                            .data("yundown", "1")
-                            .data("yunuser", "14880389")
-                            .data("marketversion", "2.0.9.9")
-                            .data("net", "phone")
-                            .data("jsessionid", jsessionId)
-                            .data("phonesn", "86971802943762" + (Math.random() * 10))
-                            .data("pname", "Xiaomi:capricorn")
-                            .data("width", "1920")
-                            .data("height", "1080")
-                            .data("dpi", "480")
-                            .data("version", "8.0.0")
-                            .data("vpasspackage", "")
-                            .data("packageid", packageid.toString())
-//                            .data("packageid", "com.maimemo.android.momo=3.6.31=475=墨墨背单词,cn.wps.moffice_eng=9.9.0.244459=163=WPS Office,com.xfx.surfvpn=1.6.1=47=Surf VPN,com.eg.android.AlipayGphone=10.1.65.6567=144=支付宝==yes=3249560371,cn.bingoogolapple.badgeview.demo=1.1.6=116=BGABadgeViewDemo==yes=644081428,com.qianxun.browser=65.0.3325.230=10=千寻浏览器==yes=1921022368,com.fooview.android.fooview=1.0.1.1=125=FV悬浮球==yes=1680024518,com.netease.cloudmusic=6.2.2=144=网易云音乐==yes=3955544393,cn.bingoogolapple.photopicker.demo=1.2.6=126=BGAPhotoPickerDemo==yes=644081428,com.baidu.netdisk=9.6.63=898=百度网盘==yes=3938900617,com.qianxun.downloader=1.0.15=115=千寻下载==yes=3283140403,")
-                            .ignoreContentType(true)
-                            .toHtml();
-                    Log.d("checkUpdate", doc.toString());
-
-                    Elements versionElements = doc.select("version");
-                    for (Element versionElement : versionElements) {
-                        String packageName = versionElement.select("vpackage").text();
-                        APP_UPDATE_CONTENT_MAP.put(packageName, versionElement.select("vlog").text());
-                        Log.d("checkUpdate", "versionElement=" + versionElement.text());
-                    }
-
-                    String updateInfos = doc.select("update").get(0).text();
-                    Log.d("checkUpdate", "updateInfos=" + updateInfos);
-                    String[] updateInfoArray = updateInfos.replaceAll("更新;", "更新,")
-//                            .replaceAll("||||||;", "||||||,")
-                            .split(",");
-                    for (String updateInfo : updateInfoArray) {
-                        Log.d("checkUpdate", "updateInfo=" + updateInfo);
-                        String packageName = updateInfo.substring(0, updateInfo.indexOf("|"));
-                        SET.add(packageName);
-                        String[] infos = updateInfo
-//                                    .replaceAll("\\||\\||", "|")
-//                                    .replaceAll("\\||", "|")
-//                                    .replaceAll("|Old|", "|")
-                                .split("\\|");
-                        String idStr = infos[1];
-                        MAP.put(packageName, idStr);
-                        if (!updateInfo.contains("||||||")) {
-                            AppUpdateInfo appInfo = new AppUpdateInfo();
-                            appInfo.setPackageName(infos[0]);
-                            appInfo.setId(idStr.substring(7));
-                            appInfo.setAppType(idStr.substring(0, 4));
-                            appInfo.setDownloadUrl(infos[2]);
-                            appInfo.setNewVersionName(infos[3]);
-                            appInfo.setOldVersionName(AppUtil.getVersionName(context, appInfo.getPackageName()));
-                            appInfo.setNewSize(infos[4]);
-                            appInfo.setUpdateTime(infos[11]);
-                            appInfo.setUpdateTimeInfo(infos[13]);
-                            appInfo.setAppName(AppUtil.getAppName(context, appInfo.getPackageName()));
-                            appInfo.setUpdateInfo(APP_UPDATE_CONTENT_MAP.get(appInfo.getPackageName()));
-                            APP_UPDATE_INFO_LIST.add(appInfo);
-                            Log.d("checkUpdate", "updateInfo=" + appInfo);
+                StringBuilder packageid = new StringBuilder();
+                PackageManager manager = context.getPackageManager();
+                List<PackageInfo> packageInfoList = manager.getInstalledPackages(0);
+                String md5 = "";
+                int total = packageInfoList.size();
+                int count = 0;
+                for (PackageInfo packageInfo : packageInfoList) {
+                    Log.d("checkUpdate", "packagename=" + packageInfo.packageName);
+                    Log.d("checkUpdate", "appName=" + packageInfo.applicationInfo.loadLabel(manager).toString());
+                    Log.d("checkUpdate", "firstInstallTime=" + packageInfo.firstInstallTime);
+                    Log.d("checkUpdate", "lastUpdateTime=" + packageInfo.lastUpdateTime);
+                    count++;
+                    packageid.append(packageInfo.packageName)
+                            .append("=").append(packageInfo.versionName)
+                            .append("=").append(packageInfo.versionCode)
+                            .append("=").append(packageInfo.applicationInfo.loadLabel(manager).toString())
+                            .append("=").append(md5).append("=Yes")//.append(packageInfo.firstInstallTime)
+                            .append(",");
+                    if (count % 100 == 0 || count == total) {
+                        if (total != count && total - count < 25) {
+                            continue;
                         }
+                        Log.d("checkUpdate", "packageid=" + packageid);
+                        CheckUpdateRunnable checkUpdateRunnable = new CheckUpdateRunnable(context, setCookie, jsessionId, packageid.toString());
+                        TASK_LIST.add(checkUpdateRunnable);
+                        ExecutorHelper.submit(checkUpdateRunnable);
+                        packageid = new StringBuilder();
                     }
-                    Log.d("checkUpdate", "size111111111=" + APP_UPDATE_INFO_LIST.size());
-                    checked = true;
-                    running = false;
-                    onFinished();
-                } catch (Exception e) {
-                    e.printStackTrace();
-                    running = false;
-                    onError(e);
                 }
+            } catch (Exception e) {
+                e.printStackTrace();
+                checked.set(false);
+                running.set(false);
+                onError(e);
             }
         });
     }
 
-    private void handleMessage(Message msg) {
-
-    }
-
     public boolean hasPackage(String packageName) {
-        return SET.contains(packageName);
+        return PACKAGE_SET.contains(packageName);
     }
 
     public String getAppIdAndType(String packageName) {
-        return MAP.get(packageName);
+        return INCLUDE_APP_MAP.get(packageName);
     }
 
-    private void onFinished() {
-        for (WeakReference<CheckUpdateListener> checkUpdateListener : listeners) {
-            if (checkUpdateListener.get() != null) {
-                Log.d("checkUpdate", "size22222222222=" + APP_UPDATE_INFO_LIST.size());
-                checkUpdateListener.get().onCheckUpdateFinish(APP_UPDATE_INFO_LIST);
+    private synchronized void onFinished() {
+        if (TASK_LIST.isEmpty()) {
+            checked.set(true);
+            running.set(false);
+            List<AppUpdateInfo> list = new ArrayList<>(APP_UPDATE_INFO_LIST);
+            for (WeakReference<CheckUpdateListener> checkUpdateListener : LISTENERS) {
+                if (checkUpdateListener.get() != null) {
+                    Log.d("checkUpdate", "size22222222222=" + list.size());
+                    checkUpdateListener.get().onCheckUpdateFinish(list);
+                }
             }
         }
     }
 
     private void onError(Exception e) {
-        for (WeakReference<CheckUpdateListener> checkUpdateListener : listeners) {
+        for (WeakReference<CheckUpdateListener> checkUpdateListener : LISTENERS) {
             if (checkUpdateListener.get() != null) {
                 checkUpdateListener.get().onError(e);
             }
@@ -192,9 +218,9 @@ public final class AppUpdateHelper {
     }
 
     public void addCheckUpdateListener(CheckUpdateListener listener) {
-        listeners.add(new WeakReference<>(listener));
-        if (!running) {
-            if (checked) {
+        LISTENERS.add(new WeakReference<>(listener));
+        if (!running.get()) {
+            if (checked.get()) {
                 onFinished();
             } else {
                 onError(null);
@@ -203,26 +229,14 @@ public final class AppUpdateHelper {
     }
 
     public List<AppUpdateInfo> getUpdateAppList() {
-        Log.d("checkUpdate", "getUpdateAppList  size=" + APP_UPDATE_INFO_LIST.size());
-        return APP_UPDATE_INFO_LIST;
+        List<AppUpdateInfo> list = new ArrayList<>(APP_UPDATE_INFO_LIST);
+        Log.d("checkUpdate", "getUpdateAppList  size=" + list.size());
+        return list;
     }
 
     public interface CheckUpdateListener {
         void onCheckUpdateFinish(List<AppUpdateInfo> updateInfoList);
         void onError(Exception e);
-    }
-
-    private static final class MyHandler extends Handler {
-        WeakReference<AppUpdateHelper> reference;
-
-        MyHandler(AppUpdateHelper appUpdateHelper) {
-            reference = new WeakReference<>(appUpdateHelper);
-        }
-
-        @Override
-        public void handleMessage(Message msg) {
-            reference.get().handleMessage(msg);
-        }
     }
 
 }
