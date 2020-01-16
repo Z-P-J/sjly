@@ -1,5 +1,6 @@
 package com.zpj.shouji.market.ui.activity;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
@@ -10,6 +11,9 @@ import android.support.v7.app.AppCompatActivity;
 
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.utils.AppUpdateHelper;
+
+import site.gemus.openingstartanimation.OpeningStartAnimation;
+import site.gemus.openingstartanimation.RotationDrawStrategy;
 
 public class SplashActivity extends AppCompatActivity {
 
@@ -26,14 +30,22 @@ public class SplashActivity extends AppCompatActivity {
         }
 
         AppUpdateHelper.getInstance().checkUpdate(this);
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                Intent intent = new Intent(SplashActivity.this, MainActivity.class);
-                startActivity(intent);
-                finish();
-            }
-        }, 1500);
+        OpeningStartAnimation openingStartAnimation3 = new OpeningStartAnimation.Builder(this)
+                .setDrawStategy(new RotationDrawStrategy())
+                .setAppName("手机乐园")
+                .setAppStatement("分享优质应用")
+                .setAnimationInterval(1500)
+                .setAppIcon(getResources().getDrawable(R.drawable.ic_app))
+                .setAnimationListener(new OpeningStartAnimation.AnimationListener() {
+                    @Override
+                    public void onFinish(OpeningStartAnimation openingStartAnimation, Activity activity) {
+                        Intent intent = new Intent(SplashActivity.this, MainActivity.class);
+                        startActivity(intent);
+                        finish();
+                    }
+                })
+                .create();
+        openingStartAnimation3.show(this);
     }
 
 

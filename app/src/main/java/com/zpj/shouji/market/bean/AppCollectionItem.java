@@ -53,9 +53,6 @@ public class AppCollectionItem {
     private String time;
     private int replyCount;
     private List<SupportUser> supportUserList = new ArrayList<>(0);
-    private Bitmap bitmap1;
-    private Bitmap bitmap2;
-    private Bitmap bitmap3;
     private SparseArray<Bitmap> bitmapSparseArray = new SparseArray<>(0);
     private SparseArray<Drawable> drawableSparseArray = new SparseArray<>(0);
 

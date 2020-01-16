@@ -14,6 +14,7 @@ import android.view.View;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.bumptech.glide.request.target.SimpleTarget;
 import com.bumptech.glide.request.transition.Transition;
 import com.felix.atoast.library.AToast;
@@ -29,6 +30,8 @@ import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.bean.AppCollectionItem;
 import com.zpj.shouji.market.bean.AppItem;
 import com.zpj.shouji.market.bean.SubjectItem;
+import com.zpj.shouji.market.glide.GlideApp;
+import com.zpj.shouji.market.glide.blur.BlurTransformation;
 import com.zpj.shouji.market.ui.fragment.AppDetailFragment;
 import com.zpj.shouji.market.ui.fragment.base.BaseFragment;
 import com.zpj.shouji.market.utils.BlurBuilder;
@@ -456,15 +459,10 @@ public class RecommendFragment extends BaseFragment implements GroupRecyclerView
                 for (int i = 0; i < RES_ICONS.length; i++) {
                     int res = RES_ICONS[i];
                     if (i == 0) {
-                        Glide.with(context).asDrawable().load(appItem.getIcons().get(0)).into(new SimpleTarget<Drawable>() {
-                            @Override
-                            public void onResourceReady(@NonNull Drawable resource, @Nullable Transition<? super Drawable> transition) {
-                                item.setIcon(BlurBuilder.blur(resource));
-                                holder.setImageDrawable(R.id.img_bg, item.getIcon());
-//                                holder.setImageDrawable(res, resource);
-                            }
-                        });
-                        continue;
+                        Glide.with(context)
+                                .load(appItem.getIcons().get(0))
+                                .apply(RequestOptions.bitmapTransform(new BlurTransformation(7, 10)))
+                                .into((ImageView) holder.get(R.id.img_bg));
                     }
                     Glide.with(context).load(appItem.getIcons().get(i)).into((ImageView) holder.get(res));
                 }
