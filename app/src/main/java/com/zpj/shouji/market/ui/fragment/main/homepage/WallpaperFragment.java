@@ -1,49 +1,49 @@
 package com.zpj.shouji.market.ui.fragment.main.homepage;
 
+import android.content.Context;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.widget.StaggeredGridLayoutManager;
-import android.util.Log;
+import android.support.v4.view.ViewPager;
+import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.ImageView;
 
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.request.RequestOptions;
+import com.hmy.popwindow.PopWindow;
+import com.kongzue.stacklabelview.StackLabel;
 import com.zpj.http.parser.html.nodes.Document;
+import com.zpj.http.parser.html.nodes.Element;
 import com.zpj.http.parser.html.select.Elements;
-import com.zpj.recyclerview.EasyAdapter;
-import com.zpj.recyclerview.EasyRecyclerLayout;
-import com.zpj.recyclerview.EasyRecyclerView;
-import com.zpj.recyclerview.EasyViewHolder;
-import com.zpj.recyclerview.IEasy;
 import com.zpj.shouji.market.R;
-import com.zpj.shouji.market.bean.WallpaperInfo;
-import com.zpj.shouji.market.image.MyImageLoad;
-import com.zpj.shouji.market.image.MyImageTransAdapter;
-import com.zpj.shouji.market.image.MyProgressBarGet;
+import com.zpj.shouji.market.bean.WallpaperTag;
+import com.zpj.shouji.market.ui.adapter.ZPagerAdapter;
 import com.zpj.shouji.market.ui.fragment.base.BaseFragment;
 import com.zpj.shouji.market.utils.ConnectUtil;
 import com.zpj.shouji.market.utils.ExecutorHelper;
-import com.zpj.utils.ClickHelper;
-import com.zpj.utils.ScreenUtil;
+
+import net.lucode.hackware.magicindicator.MagicIndicator;
+import net.lucode.hackware.magicindicator.ViewPagerHelper;
+import net.lucode.hackware.magicindicator.buildins.commonnavigator.CommonNavigator;
+import net.lucode.hackware.magicindicator.buildins.commonnavigator.abs.CommonNavigatorAdapter;
+import net.lucode.hackware.magicindicator.buildins.commonnavigator.abs.IPagerIndicator;
+import net.lucode.hackware.magicindicator.buildins.commonnavigator.abs.IPagerTitleView;
+import net.lucode.hackware.magicindicator.buildins.commonnavigator.indicators.LinePagerIndicator;
+import net.lucode.hackware.magicindicator.buildins.commonnavigator.titles.ColorTransitionPagerTitleView;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicBoolean;
 
-import it.liuting.imagetrans.ImageTrans;
-import it.liuting.imagetrans.listener.SourceImageViewGet;
+public class WallpaperFragment extends BaseFragment implements View.OnClickListener {
 
-public class WallpaperFragment extends BaseFragment implements IEasy.OnBindViewHolderCallback<WallpaperInfo>, IEasy.OnLoadMoreListener {
+    private final AtomicBoolean isInitTags = new AtomicBoolean(false);
 
-    private static final String DEFAULT_URL = "http://tt.shouji.com.cn/app/bizhi_list.jsp?versioncode=198";
-    private String nextUrl = DEFAULT_URL;
+    private final List<ImageFragment> fragments = new ArrayList<>(0);
+    private final List<WallpaperTag> wallpaperTags = new ArrayList<>(0);
 
-    private List<WallpaperInfo> wallpaperInfoList = new ArrayList<>();
-    private EasyRecyclerLayout<WallpaperInfo> recyclerLayout;
-    private int screenWidth;
+    private ViewPager viewPager;
+    private MagicIndicator magicIndicator;
 
     @Override
     protected int getLayoutId() {
@@ -52,86 +52,106 @@ public class WallpaperFragment extends BaseFragment implements IEasy.OnBindViewH
 
     @Override
     protected void initView(View view, @Nullable Bundle savedInstanceState) {
-        recyclerLayout = view.findViewById(R.id.recycler_layout);
-        screenWidth = ScreenUtil.getScreenWidth(context);
+        isInitTags.set(false);
+        viewPager = view.findViewById(R.id.vp);
+        magicIndicator = view.findViewById(R.id.magic_indicator);
+        ImageView expand = view.findViewById(R.id.iv_expand);
+        expand.setOnClickListener(this);
+        initWallpaperTags();
     }
 
     @Override
     public void onLazyInitView(@Nullable Bundle savedInstanceState) {
         super.onLazyInitView(savedInstanceState);
-        recyclerLayout.setItemRes(R.layout.item_wallpaper)
-                .setData(wallpaperInfoList)
-                .setItemAnimator(null)
-                .setEnableLoadMore(true)
-                .setEnableSwipeRefresh(true)
-                .setOnRefreshListener(() -> {
-                    wallpaperInfoList.clear();
-                    nextUrl = DEFAULT_URL;
-                    recyclerLayout.notifyDataSetChanged();
-                })
-                .setHeaderView(R.layout.item_recommend_header, new IEasy.OnCreateHeaderCallback() {
-                    @Override
-                    public void onCreateHeaderView(View view) {
-
-                    }
-                })
-                .setLayoutManager(new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL))
-                .onBindViewHolder(this)
-                .onLoadMore(this)
-                .build();
+        if (isInitTags.get()) {
+            initMagicIndicator();
+        } else {
+            initWallpaperTags();
+        }
     }
 
     @Override
-    public void onBindViewHolder(EasyViewHolder holder, List<WallpaperInfo> list, int position, List<Object> payloads) {
-        WallpaperInfo info = list.get(position);
-        ImageView wallpaper = holder.getImageView(R.id.iv_wallpaper);
-        ViewGroup.LayoutParams layoutParams = wallpaper.getLayoutParams();
-        float width = Float.parseFloat(info.getWidth());
-        float height = Float.parseFloat(info.getHeight());
-        layoutParams.width = screenWidth / 2;
-        layoutParams.height = (int) (height / width * layoutParams.width);
-        RequestOptions options = new RequestOptions()
-                .centerCrop()
-                .placeholder(R.drawable.bga_pp_ic_holder_light)
-                .error(R.drawable.bga_pp_ic_holder_light)
-                .override(layoutParams.width, layoutParams.height);
-        wallpaper.setLayoutParams(layoutParams);
-        Glide.with(context).load(list.get(position).getSpic()).apply(options).into(wallpaper);
-        holder.setOnItemClickListener((v, x, y) -> {
-            List<String> imageList = new ArrayList<>();
-            imageList.add(info.getPic());
-            ImageTrans.with(context)
-                    .setImageList(imageList)
-                    .setNowIndex(0)
-                    .setSourceImageView(pos -> wallpaper)
-                    .setProgressBar(new MyProgressBarGet())
-                    .setImageLoad(new MyImageLoad())
-                    .setAdapter(new MyImageTransAdapter())
-                    .show();
-        });
+    public void onClick(View v) {
+        int id = v.getId();
+        if (id == R.id.iv_expand) {
+            StackLabel stackLabel = (StackLabel) LayoutInflater.from(context).inflate(R.layout.layout_wallpaper_tags, null, false);
+            List<String> tags = new ArrayList<>();
+            List<String> selectTag = new ArrayList<>(1);
+            for (WallpaperTag tag : wallpaperTags) {
+                tags.add(tag.getName());
+                if (wallpaperTags.get(viewPager.getCurrentItem()) == tag) {
+                    selectTag.add(tag.getName());
+                }
+            }
+            stackLabel.setLabels(tags);
+            stackLabel.setSelectMode(true, selectTag);
+            PopWindow popWindow = new PopWindow.Builder(_mActivity)
+                    .setStyle(PopWindow.PopWindowStyle.PopDown)
+                    .setView(stackLabel)
+                    .show(v);
+            stackLabel.setOnLabelClickListener((index, v1, s) -> {
+                viewPager.setCurrentItem(index);
+                popWindow.dismiss();
+            });
+
+        }
     }
 
-    @Override
-    public boolean onLoadMore(EasyAdapter.Enabled enabled, int currentPage) {
-        Log.d("onLoadMore", "onLoadMore");
-        loadData();
-        return true;
-    }
-
-    private void loadData() {
+    private void initWallpaperTags() {
         ExecutorHelper.submit(() -> {
             try {
-                Document doc = ConnectUtil.getDocument(nextUrl);
-                nextUrl = doc.selectFirst("nextUrl").text();
+                Document doc = ConnectUtil.getDocument("http://tt.shouji.com.cn/app/bizhi_tags.jsp?versioncode=198");
                 Elements elements = doc.select("item");
-                for (int i = 1; i < elements.size(); i++) {
-                    wallpaperInfoList.add(WallpaperInfo.create(elements.get(i)));
+                wallpaperTags.clear();
+                for (Element item : elements) {
+                    wallpaperTags.add(WallpaperTag.create(item));
                 }
-                Log.d("onLoadMore", "size=" + wallpaperInfoList.size());
-                post(() -> recyclerLayout.notifyDataSetChanged());
+                if (isInitTags.get()) {
+                    post(this::initMagicIndicator);
+                } else {
+                    isInitTags.set(true);
+                }
             } catch (IOException e) {
                 e.printStackTrace();
+                // TODO 加载默认分类
             }
         });
+    }
+
+    private void initMagicIndicator() {
+        fragments.clear();
+        for (WallpaperTag tag : wallpaperTags) {
+            fragments.add(ImageFragment.newInstance(tag));
+        }
+        ZPagerAdapter adapter = new ZPagerAdapter(getChildFragmentManager(), fragments, null);
+        viewPager.setAdapter(adapter);
+        viewPager.setOffscreenPageLimit(fragments.size());
+        CommonNavigator navigator = new CommonNavigator(getContext());
+        navigator.setAdapter(new CommonNavigatorAdapter() {
+            @Override
+            public int getCount() {
+                return wallpaperTags.size();
+            }
+
+            @Override
+            public IPagerTitleView getTitleView(Context context, int index) {
+                ColorTransitionPagerTitleView titleView = new ColorTransitionPagerTitleView(context);
+                titleView.setNormalColor(Color.GRAY);
+                titleView.setSelectedColor(getResources().getColor(R.color.colorPrimary));
+                titleView.setTextSize(14);
+                titleView.setText(wallpaperTags.get(index).getName());
+                titleView.setOnClickListener(view -> viewPager.setCurrentItem(index));
+                return titleView;
+            }
+
+            @Override
+            public IPagerIndicator getIndicator(Context context) {
+                LinePagerIndicator indicator = new LinePagerIndicator(context);
+                indicator.setColors(getResources().getColor(R.color.colorPrimary));
+                return new LinePagerIndicator(context);
+            }
+        });
+        magicIndicator.setNavigator(navigator);
+        ViewPagerHelper.bind(magicIndicator, viewPager);
     }
 }

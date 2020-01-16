@@ -8,7 +8,6 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.RecyclerView;
 import android.util.AttributeSet;
 import android.util.Log;
-import android.util.SparseIntArray;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -155,7 +154,7 @@ public class EasyRecyclerLayout<T> extends FrameLayout {
         return this;
     }
 
-    public EasyRecyclerLayout<T> setHeaderView(@LayoutRes int layoutRes, IEasy.OnCreateHeaderCallback callback) {
+    public EasyRecyclerLayout<T> setHeaderView(@LayoutRes int layoutRes, IEasy.OnBindHeaderListener callback) {
         easyRecyclerView.setHeaderView(layoutRes, callback);
         return this;
     }

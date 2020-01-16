@@ -2,7 +2,6 @@ package com.zpj.recyclerview;
 
 import android.support.annotation.LayoutRes;
 import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -26,6 +25,7 @@ public class EasyRecyclerView<T> {
     private int itemRes = -1;
 
     private View headerView;
+    private IEasy.OnBindHeaderListener onBindHeaderListener;
     private View footerView;
 
     private IEasy.OnBindViewHolderCallback<T> onBindViewHolderCallback;
@@ -61,9 +61,9 @@ public class EasyRecyclerView<T> {
         return this;
     }
 
-    public EasyRecyclerView<T> setHeaderView(@LayoutRes int layoutRes, IEasy.OnCreateHeaderCallback callback) {
+    public EasyRecyclerView<T> setHeaderView(@LayoutRes int layoutRes, IEasy.OnBindHeaderListener l) {
         this.headerView = LayoutInflater.from(recyclerView.getContext()).inflate(layoutRes, null, false);
-        callback.onCreateHeaderView(headerView);
+        onBindHeaderListener = l;
         return this;
     }
 
@@ -111,6 +111,7 @@ public class EasyRecyclerView<T> {
         easyAdapter = new EasyAdapter<>(list, itemRes, onCreateViewHolder, onBindViewHolderCallback);
         if (headerView != null) {
             easyAdapter.setHeaderView(headerView);
+            easyAdapter.setOnBindHeaderListener(onBindHeaderListener);
         }
         if (footerView != null) {
             easyAdapter.setFooterView(footerView);

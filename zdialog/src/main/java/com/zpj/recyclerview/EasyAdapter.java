@@ -1,7 +1,6 @@
 package com.zpj.recyclerview;
 
 import android.support.annotation.NonNull;
-import android.support.v4.view.ViewCompat;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -10,9 +9,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
-
-import com.zpj.recyclerview.loadmore.LoadMoreAdapter;
 
 import java.util.List;
 
@@ -36,6 +32,7 @@ public class EasyAdapter<T> extends RecyclerView.Adapter<EasyViewHolder> {
 
     private IEasy.OnBindViewHolderCallback<T> callback;
     private IEasy.OnCreateViewHolderCallback<T> onCreateViewHolder;
+    private IEasy.OnBindHeaderListener onBindHeaderListener;
 
     EasyAdapter(List<T> list, int itemRes, IEasy.OnCreateViewHolderCallback<T> onCreateViewHolder, IEasy.OnBindViewHolderCallback<T> callback) {
         this.list = list;
@@ -98,7 +95,12 @@ public class EasyAdapter<T> extends RecyclerView.Adapter<EasyViewHolder> {
 //                callback.onBindViewHolder(holder, list, getRealPosition(holder), payloads);
 //            }
 //        }
-        if (isHeaderPosition(position)) return;
+        if (isHeaderPosition(position)) {
+            if (onBindHeaderListener != null) {
+                onBindHeaderListener.onBindHeader(holder);
+            }
+            return;
+        }
         if (isFooterPosition(position)) {
             if (!canScroll() && mOnLoadMoreListener != null && !mIsLoading) {
                 mIsLoading = true;
@@ -233,6 +235,10 @@ public class EasyAdapter<T> extends RecyclerView.Adapter<EasyViewHolder> {
         headerView.setLayoutParams(params);
         this.headerView = headerView;
         notifyItemInserted(0);
+    }
+
+    public void setOnBindHeaderListener(IEasy.OnBindHeaderListener onBindHeaderListener) {
+        this.onBindHeaderListener = onBindHeaderListener;
     }
 
     public View getHeaderView() {

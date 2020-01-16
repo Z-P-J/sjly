@@ -17,6 +17,7 @@ public class WallpaperInfo {
     private String height;
     private String spic;
     private String pic;
+    private int supportCount = 0;
 
     public static WallpaperInfo create(Element element) {
         WallpaperInfo info = new WallpaperInfo();
@@ -33,6 +34,7 @@ public class WallpaperInfo {
         info.height = element.selectFirst("pheight").text();
         info.spic = element.selectFirst("spic").text();
         info.pic = element.selectFirst("pic").text();
+        info.supportCount = Integer.parseInt(element.selectFirst("supportcount").text());
         return info;
     }
 
@@ -86,5 +88,9 @@ public class WallpaperInfo {
 
     public String getPic() {
         return pic;
+    }
+
+    public int getSupportCount() {
+        return supportCount;
     }
 }

@@ -24,8 +24,8 @@ public interface IEasy {
         void onCreateViewHolder(ViewGroup parent, View itemView, int viewType);
     }
 
-    interface OnCreateHeaderCallback{
-        void onCreateHeaderView(View view);
+    interface OnBindHeaderListener {
+        void onBindHeader(EasyViewHolder holder);
     }
 
     interface OnCreateFooterCallback{

@@ -1,11 +1,93 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ImageView
+<www.linwg.org.lib.LCardView
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/iv_wallpaper"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="1dp"
-    android:scaleType="centerCrop"
-    android:src="@drawable/bga_pp_ic_holder_light">
+    app:cornerRadius="8dp"
+    app:shadowFluidShape="adsorption"
+    app:shadowColor="#5f6379"
+    app:shadowStartAlpha="50"
+    app:shadowSize="8dp"
+    >
 
-</ImageView>
+    <ImageView
+        android:id="@+id/iv_wallpaper"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="1dp"
+        android:scaleType="centerCrop"
+        android:src="@drawable/bga_pp_ic_holder_light"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_gravity="bottom"
+        android:background="#60cccccc"
+        android:padding="5dp"
+        >
+
+        <TextView
+            android:id="@+id/tv_content"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:maxLines="2"
+            android:ellipsize="end"
+            android:paddingStart="5dp"
+            android:paddingEnd="5dp"
+            android:text="内容"
+            android:textColor="@android:color/white"
+            />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="34dp"
+            >
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/iv_icon"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_margin="5dp"
+                android:src="@mipmap/ic_launcher"
+                app:civ_border_color="#80cccccc"
+                app:civ_border_width="1dp" />
+
+            <TextView
+                android:layout_toEndOf="@id/iv_icon"
+                android:layout_toStartOf="@id/support_view"
+                android:id="@+id/tv_name"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:ellipsize="end"
+                android:gravity="center_vertical"
+                android:maxLines="1"
+                android:text="应用名"
+                android:textColor="@android:color/white"
+                android:textStyle="bold"
+                android:layout_gravity="center"
+                android:textSize="12sp"
+                />
+
+            <com.sunbinqiang.iconcountview.IconCountView
+                android:id="@+id/support_view"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                app:count="1"
+                app:state="false"
+                app:zeroText="赞"
+                app:textNormalColor="@android:color/white"
+                app:textSelectedColor="#d4237a"
+                app:textSize="12sp"
+                app:normalRes="@drawable/good"
+                app:selectedRes="@drawable/good_checked"
+                android:layout_alignParentEnd="true"
+                />
+
+        </RelativeLayout>
+
+    </LinearLayout>
+
+
+</www.linwg.org.lib.LCardView>

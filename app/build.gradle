@@ -77,6 +77,6 @@ dependencies {
     implementation 'com.jaeger.ninegridimageview:library:1.1.1'
     implementation 'com.ycjiang:ImagePreview:2.3.0'
     implementation 'com.github.ittianyu:BottomNavigationViewEx:2.0.4'
-
+    implementation 'com.kongzue.stacklabel:stacklabelview:1.1.9'
 
 }

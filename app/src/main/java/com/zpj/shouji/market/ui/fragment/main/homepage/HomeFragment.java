@@ -68,7 +68,7 @@ public class HomeFragment extends BaseFragment {
             @Override
             public IPagerTitleView getTitleView(Context context, int index) {
                 ScaleTransitionPagerTitleView titleView = new ScaleTransitionPagerTitleView(context);
-                titleView.setNormalColor(Color.WHITE);
+                titleView.setNormalColor(Color.LTGRAY);
                 titleView.setSelectedColor(Color.WHITE);
                 titleView.setTextSize(14);
                 titleView.setText(TAB_TITLES[index]);
