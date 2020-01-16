@@ -38,7 +38,7 @@ import com.zpj.shouji.market.ui.view.GradientButton;
 import com.zpj.shouji.market.utils.AppBackupHelper;
 import com.zpj.shouji.market.utils.AppUtil;
 import com.zpj.shouji.market.utils.LoadAppTask;
-import com.zpj.shouji.market.utils.Util;
+import com.zpj.utils.ScreenUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -369,7 +369,7 @@ public class InstalledFragment extends BaseFragment implements AppManagerAdapter
             return;
         bottomLayout.setVisibility(View.VISIBLE);
 
-        int bottomLayoutHeight = bottomLayout.getHeight() == 0 ? Util.Dp2px(getContext(), 48) : bottomLayout.getHeight();
+        int bottomLayoutHeight = bottomLayout.getHeight() == 0 ? ScreenUtil.dp2pxInt(context, 48) : bottomLayout.getHeight();
         ObjectAnimator translationY = ObjectAnimator.ofFloat(bottomLayout, "translationY", bottomLayoutHeight, 0);
         translationY.setInterpolator(new DecelerateInterpolator());
 

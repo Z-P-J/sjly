@@ -22,7 +22,7 @@ import android.widget.TextView;
 
 import com.ittianyu.bottomnavigationviewex.BottomNavigationViewEx;
 import com.zpj.shouji.market.R;
-import com.zpj.shouji.market.ui.adapter.ZPagerAdapter;
+import com.zpj.shouji.market.ui.adapter.ZFragmentPagerAdapter;
 import com.zpj.shouji.market.ui.fragment.base.BaseFragment;
 import com.zpj.shouji.market.ui.fragment.main.homepage.HomeFragment;
 import com.zpj.shouji.market.ui.fragment.main.user.UserFragment;
@@ -71,7 +71,7 @@ public class MainFragment extends BaseFragment {
         ZViewPager viewPager = view.findViewById(R.id.vp);
         viewPager.setCanScroll(false);
         viewPager.setOffscreenPageLimit(10);
-        ZPagerAdapter adapter = new ZPagerAdapter(getChildFragmentManager(), fragments, null);
+        ZFragmentPagerAdapter adapter = new ZFragmentPagerAdapter(getChildFragmentManager(), fragments, null);
         viewPager.setAdapter(adapter);
         navigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
 

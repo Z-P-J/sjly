@@ -16,9 +16,9 @@ import com.zpj.http.parser.html.nodes.Element;
 import com.zpj.http.parser.html.select.Elements;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.bean.WallpaperTag;
-import com.zpj.shouji.market.ui.adapter.ZPagerAdapter;
+import com.zpj.shouji.market.ui.adapter.ZFragmentPagerAdapter;
 import com.zpj.shouji.market.ui.fragment.base.BaseFragment;
-import com.zpj.shouji.market.utils.ConnectUtil;
+import com.zpj.shouji.market.utils.HttpUtil;
 import com.zpj.shouji.market.utils.ExecutorHelper;
 
 import net.lucode.hackware.magicindicator.MagicIndicator;
@@ -100,7 +100,7 @@ public class WallpaperFragment extends BaseFragment implements View.OnClickListe
     private void initWallpaperTags() {
         ExecutorHelper.submit(() -> {
             try {
-                Document doc = ConnectUtil.getDocument("http://tt.shouji.com.cn/app/bizhi_tags.jsp?versioncode=198");
+                Document doc = HttpUtil.getDocument("http://tt.shouji.com.cn/app/bizhi_tags.jsp?versioncode=198");
                 Elements elements = doc.select("item");
                 wallpaperTags.clear();
                 for (Element item : elements) {
@@ -123,7 +123,7 @@ public class WallpaperFragment extends BaseFragment implements View.OnClickListe
         for (WallpaperTag tag : wallpaperTags) {
             fragments.add(ImageFragment.newInstance(tag));
         }
-        ZPagerAdapter adapter = new ZPagerAdapter(getChildFragmentManager(), fragments, null);
+        ZFragmentPagerAdapter adapter = new ZFragmentPagerAdapter(getChildFragmentManager(), fragments, null);
         viewPager.setAdapter(adapter);
         viewPager.setOffscreenPageLimit(fragments.size());
         CommonNavigator navigator = new CommonNavigator(getContext());

@@ -81,24 +81,15 @@ public class ExploreAdapter extends RecyclerView.Adapter<ExploreAdapter.ViewHold
             nineGridImageView.setItemImageClickListener(new ItemImageClickListener<String>() {
                 @Override
                 public void onItemImageClick(Context context, ImageView imageView, int index, List<String> list) {
-//                    computeBoundsBackward(list);//组成数据
-//                    GPreviewBuilder.from((Activity) context)
-//                            .setData(list)
-//                            .setCurrentIndex(index)
-//                            .setType(GPreviewBuilder.IndicatorType.Dot)
-//                            .start();//启动
                     ImageTrans.with(context)
                             .setImageList(list)
                             .setNowIndex(index)
-                            .setSourceImageView(new SourceImageViewGet() {
-                                @Override
-                                public ImageView getImageView(int pos) {
-                                    View itemView = nineGridImageView.getChildAt(pos);
-                                    if (itemView != null) {
-                                        return (ImageView) itemView;
-                                    }
-                                    return null;
+                            .setSourceImageView(pos -> {
+                                View itemView = nineGridImageView.getChildAt(pos);
+                                if (itemView != null) {
+                                    return (ImageView) itemView;
                                 }
+                                return null;
                             })
                             .setProgressBar(new MyProgressBarGet())
                             .setImageLoad(new MyImageLoad())

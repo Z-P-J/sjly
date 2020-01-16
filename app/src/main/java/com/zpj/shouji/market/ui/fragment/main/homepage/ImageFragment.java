@@ -29,9 +29,8 @@ import com.zpj.shouji.market.image.MyImageTransAdapter;
 import com.zpj.shouji.market.image.MyProgressBarGet;
 import com.zpj.shouji.market.ui.fragment.base.BaseFragment;
 import com.zpj.shouji.market.ui.view.WallpaperSortLayout;
-import com.zpj.shouji.market.utils.ConnectUtil;
+import com.zpj.shouji.market.utils.HttpUtil;
 import com.zpj.shouji.market.utils.ExecutorHelper;
-import com.zpj.utils.ClickHelper;
 import com.zpj.utils.ScreenUtil;
 
 import java.io.IOException;
@@ -161,7 +160,7 @@ public class ImageFragment extends BaseFragment implements IEasy.OnBindViewHolde
     private void loadData() {
         ExecutorHelper.submit(() -> {
             try {
-                Document doc = ConnectUtil.getDocument(nextUrl);
+                Document doc = HttpUtil.getDocument(nextUrl);
                 nextUrl = doc.selectFirst("nextUrl").text();
                 Elements elements = doc.select("item");
                 for (int i = 1; i < elements.size(); i++) {

@@ -16,7 +16,7 @@ import com.zpj.shouji.market.ui.adapter.loadmore.LoadMoreAdapter;
 import com.zpj.shouji.market.ui.adapter.loadmore.LoadMoreWrapper;
 import com.zpj.shouji.market.ui.fragment.AppDetailFragment;
 import com.zpj.shouji.market.ui.fragment.base.BaseFragment;
-import com.zpj.shouji.market.utils.ConnectUtil;
+import com.zpj.shouji.market.utils.HttpUtil;
 import com.zpj.shouji.market.utils.ExecutorHelper;
 
 import java.util.ArrayList;
@@ -37,7 +37,7 @@ public class UserDownloadedFragment extends BaseFragment {
         @Override
         public void run() {
             try {
-                Document doc = ConnectUtil.getDocument(nextUrl);
+                Document doc = HttpUtil.getDocument(nextUrl);
                 nextUrl = doc.select("nextUrl").get(0).text();
                 Elements items = doc.select("item");
                 for (Element item : items) {

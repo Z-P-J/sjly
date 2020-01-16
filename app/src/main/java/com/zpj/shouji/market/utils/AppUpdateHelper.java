@@ -58,7 +58,7 @@ public final class AppUpdateHelper {
                             .userAgent("Sjly(2.0..9.9)")
                             .execute();
                     String setCookie = response.header("Set-Cookie");
-                    UserHelper.setCookie(setCookie);
+                    UserManager.setCookie(setCookie);
                     Log.d("checkUpdate", "setCookie=" + setCookie);
                     String jsessionId = setCookie.substring(setCookie.indexOf("="), setCookie.indexOf(";"));
 

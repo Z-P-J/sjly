@@ -18,7 +18,6 @@ import com.zpj.shouji.market.ui.adapter.QianQianAdapter;
 import com.zpj.shouji.market.ui.fragment.base.BaseFragment;
 import com.zpj.shouji.market.listener.LoadMoreListener;
 import com.zpj.shouji.market.bean.QianQianItem;
-import com.zpj.shouji.market.utils.UIHelper;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -64,7 +63,6 @@ public class QianQianFragment extends BaseFragment {
                     @Override
                     public void run() {
                         qianQianAdapter.notifyDataSetChanged();
-                        UIHelper.HideDilog();
                     }
                 });
             }
@@ -131,7 +129,6 @@ public class QianQianFragment extends BaseFragment {
     @Override
     public void onLazyInitView(@Nullable Bundle savedInstanceState) {
         super.onLazyInitView(savedInstanceState);
-        UIHelper.showDialogForLoading(getContext(),"正在加载。。。");
         getAppInfo(1);
     }
 }

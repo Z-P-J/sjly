@@ -18,7 +18,6 @@ import com.zpj.shouji.market.ui.adapter.XinHaiAdapter;
 import com.zpj.shouji.market.ui.fragment.base.BaseFragment;
 import com.zpj.shouji.market.listener.LoadMoreListener;
 import com.zpj.shouji.market.bean.XinHaiItem;
-import com.zpj.shouji.market.utils.UIHelper;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -65,7 +64,6 @@ public class XinHaiFragment extends BaseFragment {
                     @Override
                     public void run() {
                         xinHaiAdapter.notifyDataSetChanged();
-                        UIHelper.HideDilog();
                     }
                 });
             }
@@ -132,7 +130,6 @@ public class XinHaiFragment extends BaseFragment {
     @Override
     public void onLazyInitView(@Nullable Bundle savedInstanceState) {
         super.onLazyInitView(savedInstanceState);
-        UIHelper.showDialogForLoading(getContext(),"正在加载。。。");
         getAppInfo(1);
     }
 }

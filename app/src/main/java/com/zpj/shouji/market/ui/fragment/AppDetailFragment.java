@@ -36,16 +36,19 @@ import com.zpj.shouji.market.bean.UserDownloadedAppInfo;
 import com.zpj.shouji.market.ui.adapter.ImgAdapter;
 import com.zpj.shouji.market.ui.fragment.base.BaseFragment;
 import com.zpj.shouji.market.utils.ColorHelper;
-import com.zpj.shouji.market.utils.TransportUtil;
+import com.zpj.shouji.market.utils.ExecutorHelper;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class AppDetailFragment extends BaseFragment {
 
-    private final static String KEY = "app_site";
 
-    private String app_site;
+    private static final String SOFT_URL = "http://tt.shouji.com.cn/androidv3/soft_show.jsp?id=";
+    private static final String GAME_URL = "http://tt.shouji.com.cn/androidv3/game_show.jsp?id=";
+    private final static String KEY = "url";
+
+    private String url;
     private String app_icon_site = "";
     private String app_name;
     private String app_info;
@@ -64,15 +67,13 @@ public class AppDetailFragment extends BaseFragment {
     private TextView quanxianxinxi_view;
     private FloatingActionButton floatingActionButton;
 
-    private int requstCode;
     private RecyclerView recyclerView;
     private ImgAdapter imgAdapter;
     private List<String> imgUrlList = new ArrayList<>();
 
-    private Bitmap icon;
     private AppItem item;
 
-    public static AppDetailFragment newInstance(String site) {
+    private static AppDetailFragment newInstance(String site) {
         Bundle args = new Bundle();
         args.putString(KEY, site);
         AppDetailFragment fragment = new AppDetailFragment();
@@ -80,12 +81,12 @@ public class AppDetailFragment extends BaseFragment {
         return fragment;
     }
 
-    public static AppDetailFragment newInstance(String type, String id) {
+    private static AppDetailFragment newInstance(String type, String id) {
         String site;
         if ("game".equals(type)) {
-            site = "sjly:http://tt.shouji.com.cn/androidv3/game_show.jsp?id=" + id;
+            site = GAME_URL + id;
         } else {
-            site = "sjly:http://tt.shouji.com.cn/androidv3/soft_show.jsp?id=" + id;
+            site = SOFT_URL + id;
         }
         return newInstance(site);
     }
@@ -109,16 +110,22 @@ public class AppDetailFragment extends BaseFragment {
 
     @Override
     protected int getLayoutId() {
-        return R.layout.activity_detail;
+        return R.layout.fragment_app_detail;
+    }
+
+    @Override
+    protected boolean supportSwipeBack() {
+        return true;
     }
 
     @Override
     protected void initView(View view, @Nullable Bundle savedInstanceState) {
-        app_site = getArguments().getString(KEY);
-        app_site = app_site.substring(5);
-        requstCode = 3;
-        icon = TransportUtil.getInstance().getIconBitmap();
-        item = TransportUtil.getInstance().getAppItem();
+        if (getArguments() != null) {
+            url = getArguments().getString(KEY);
+        } else {
+            pop();
+            return;
+        }
 
         rootView = view.findViewById(R.id.root);
         collapsingToolbarLayout = view.findViewById(R.id.collapsing_toolbar);
@@ -134,7 +141,7 @@ public class AppDetailFragment extends BaseFragment {
         floatingActionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Uri uri = Uri.parse(app_site);
+                Uri uri = Uri.parse(url);
                 Intent intent = new Intent(Intent.ACTION_VIEW, uri);
                 startActivity(intent);
             }
@@ -147,129 +154,103 @@ public class AppDetailFragment extends BaseFragment {
         imgAdapter = new ImgAdapter(recyclerView, imgUrlList);
         recyclerView.setAdapter(imgAdapter);
 
-        if (icon != null) {
-            getColor(icon);
-            app_icon.setImageBitmap(icon);
-        }
         if (item != null) {
             collapsingToolbarLayout.setTitle(item.getAppTitle());
             app_info_view.setText(item.getAppSize() + " | " + item.getAppInfo());
         }
 
-        getSjlyDetail(app_site);
+        getAppDetail(url);
         floatingActionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                AToast.normal("下载=" + app_site);
+                AToast.normal("下载=" + url);
             }
         });
     }
 
-    private void getSjlyDetail(final String app_site){
+    private void getAppDetail(final String app_site){
         Log.d("apppppp", app_site);
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                try {
-                    Document doc  = ZHttp.get(app_site)
-//                            .userAgent("Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/56.0.2924.87 Safari/537.36")
-                            .ignoreHttpErrors(true)
-                            .ignoreContentType(true)
-                            .toHtml();
-                    Elements elements = doc.select("pics").select("pic");
-                    for (Element element : elements){
-                        imgUrlList.add(element.text());
-                    }
-                    Log.d("getSjlyDetail", "imgUrlList=" + imgUrlList);
-                    app_name = doc.select("name").get(0).text();
-                    Log.d("getSjlyDetail", "app_name=" + app_name);
-                    app_icon_site = doc.select("icon").get(0).text();
-                    Log.d("getSjlyDetail", "app_icon_site=" + app_icon_site);
-//                    Log.d("getSjlyDetail", "baseinfof=" + doc.select("baseinfof").text());
-                    if (doc.select("baseinfof").hasText()) {
-                        app_info = doc.select("baseinfof").get(0).text();
-                    } else {
-                        app_info = doc.select("lineinfo").get(0).text();
-                    }
-                    Log.d("getSjlyDetail", "app_info=" + app_info);
-
-                    elements = doc.select("introduces").select("introduce");
-                    for (Element introduce : elements) {
-                        String introduceType = introduce.select("introducetype").get(0).text();
-                        Log.d("getSjlyDetail", "introduceType=" + introduceType);
-                        String introduceTitle = introduce.select("introducetitle").get(0).text();
-                        Log.d("getSjlyDetail", "introduceTitle=" + introduceTitle);
-                        if ("permission".equals(introduceType)) {
-                            Elements permissions = introduce.select("permissions").select("permission");
-                            for (Element permission : permissions) {
-                                if (quanxianxinxi.equals("")) {
-                                    quanxianxinxi = quanxianxinxi + permission.text();
-                                }else {
-                                    quanxianxinxi = quanxianxinxi + "\n" + permission.text();
-                                }
-                            }
-                            Log.d("getSjlyDetail", "quanxianxinxi=" + quanxianxinxi);
-                        } else if ("text".equals(introduceType)) {
-                            if ("软件信息".equals(introduceTitle) || "游戏信息".equals(introduceTitle)) {
-                                xiangxixinxi = introduce.select("introduceContent").get(0).text().replaceAll(" ", "\n");
-                            } else if ("软件简介".equals(introduceTitle) || "游戏简介".equals(introduceTitle)) {
-                                yingyongjianjie = introduce.select("introduceContent").get(0).text();
-                                Log.d("getSjlyDetail", "yingyongjianjie=" + yingyongjianjie);
-                            } else if ("更新内容".equals(introduceTitle)) {
-                                xinbantexing = introduce.select("introduceContent").get(0).text();
-                                Log.d("getSjlyDetail", "xinbantexing=" + xinbantexing);
-                            }
-                        }
-                    }
-
-//                    elements = doc.select("div.other-info").select("p.art-content");
-//                    for (Element element : elements){
-//                        if (xiangxixinxi.equals("")){
-//                            xiangxixinxi = xiangxixinxi + element.text();
-//                        }else {
-//                            xiangxixinxi = xiangxixinxi + "\n" + element.text();
-//                        }
-//                    }
-
-                    apkDownloadUrl = "http://tt.shouji.com.cn/wap/down/soft?id=" + doc.select("id").get(0).text();
-                    Log.d("apkDownloadUrl", apkDownloadUrl);
-                } catch (Exception e) {
-                    e.printStackTrace();
+        ExecutorHelper.submit(() -> {
+            try {
+                Document doc  = ZHttp.get(app_site)
+                        .ignoreHttpErrors(true)
+                        .ignoreContentType(true)
+                        .toHtml();
+                Elements elements = doc.select("pics").select("pic");
+                for (Element element : elements){
+                    imgUrlList.add(element.text());
                 }
-                recyclerView.post(new Runnable() {
-                    @Override
-                    public void run() {
+                Log.d("getAppDetail", "imgUrlList=" + imgUrlList);
+                app_name = doc.select("name").get(0).text();
+                Log.d("getAppDetail", "app_name=" + app_name);
+                app_icon_site = doc.select("icon").get(0).text();
+                Log.d("getAppDetail", "app_icon_site=" + app_icon_site);
+//                    Log.d("getAppDetail", "baseinfof=" + doc.select("baseinfof").text());
+                if (doc.select("baseinfof").hasText()) {
+                    app_info = doc.select("baseinfof").get(0).text();
+                } else {
+                    app_info = doc.select("lineinfo").get(0).text();
+                }
+                Log.d("getAppDetail", "app_info=" + app_info);
 
-                        imgAdapter.notifyDataSetChanged();
-                        if (item == null) {
-                            collapsingToolbarLayout.setTitle(app_name);
-                            app_info_view.setText(app_info);
-                            Log.d("app_icon_site", app_icon_site);
+                elements = doc.select("introduces").select("introduce");
+                for (Element introduce : elements) {
+                    String introduceType = introduce.select("introducetype").get(0).text();
+                    Log.d("getAppDetail", "introduceType=" + introduceType);
+                    String introduceTitle = introduce.select("introducetitle").get(0).text();
+                    Log.d("getAppDetail", "introduceTitle=" + introduceTitle);
+                    if ("permission".equals(introduceType)) {
+                        Elements permissions = introduce.select("permissions").select("permission");
+                        for (Element permission : permissions) {
+                            if (quanxianxinxi.equals("")) {
+                                quanxianxinxi = quanxianxinxi + permission.text();
+                            }else {
+                                quanxianxinxi = quanxianxinxi + "\n" + permission.text();
+                            }
                         }
-
-
-//                    Picasso.get().load(app_icon_site).into(app_icon);
-                        if (icon == null) {
-                            Glide.with(getContext())
-                                    .asBitmap()
-                                    .load(app_icon_site)
-                                    .into(new SimpleTarget<Bitmap>() {
-                                        @Override
-                                        public void onResourceReady(@NonNull Bitmap resource, @Nullable Transition<? super Bitmap> transition) {
-                                            getColor(resource);
-                                            app_icon.setImageBitmap(resource);
-                                        }
-                                    });
+                        Log.d("getAppDetail", "quanxianxinxi=" + quanxianxinxi);
+                    } else if ("text".equals(introduceType)) {
+                        if ("软件信息".equals(introduceTitle) || "游戏信息".equals(introduceTitle)) {
+                            xiangxixinxi = introduce.select("introduceContent").get(0).text().replaceAll(" ", "\n");
+                        } else if ("软件简介".equals(introduceTitle) || "游戏简介".equals(introduceTitle)) {
+                            yingyongjianjie = introduce.select("introduceContent").get(0).text();
+                            Log.d("getAppDetail", "yingyongjianjie=" + yingyongjianjie);
+                        } else if ("更新内容".equals(introduceTitle)) {
+                            xinbantexing = introduce.select("introduceContent").get(0).text();
+                            Log.d("getAppDetail", "xinbantexing=" + xinbantexing);
                         }
-
-                        yingyongjianjie_view.setText(yingyongjianjie.isEmpty() ? "无" : yingyongjianjie);
-                        xinbantexing_view.setText(xinbantexing.isEmpty() ? "无" : xinbantexing);
-                        xiangxixinxi_view.setText(xiangxixinxi.isEmpty() ? "无" : xiangxixinxi);
-                        quanxianxinxi_view.setText(quanxianxinxi.isEmpty() ? "无" : quanxianxinxi);
                     }
-                });
+                }
+
+                apkDownloadUrl = "http://tt.shouji.com.cn/wap/down/soft?id=" + doc.select("id").get(0).text();
+                Log.d("apkDownloadUrl", apkDownloadUrl);
+            } catch (Exception e) {
+                e.printStackTrace();
             }
-        }).start();
+            post(() -> {
+                imgAdapter.notifyDataSetChanged();
+                if (item == null) {
+                    collapsingToolbarLayout.setTitle(app_name);
+                    app_info_view.setText(app_info);
+                    Log.d("app_icon_site", app_icon_site);
+                }
+                Glide.with(context)
+                        .asBitmap()
+                        .load(app_icon_site)
+                        .into(new SimpleTarget<Bitmap>() {
+                            @Override
+                            public void onResourceReady(@NonNull Bitmap resource, @Nullable Transition<? super Bitmap> transition) {
+                                getColor(resource);
+                                app_icon.setImageBitmap(resource);
+                            }
+                        });
+
+                yingyongjianjie_view.setText(yingyongjianjie.isEmpty() ? "无" : yingyongjianjie);
+                xinbantexing_view.setText(xinbantexing.isEmpty() ? "无" : xinbantexing);
+                xiangxixinxi_view.setText(xiangxixinxi.isEmpty() ? "无" : xiangxixinxi);
+                quanxianxinxi_view.setText(quanxianxinxi.isEmpty() ? "无" : quanxianxinxi);
+            });
+        });
     }
 
     public void getColor(Bitmap bitmap) {

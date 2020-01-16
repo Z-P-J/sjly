@@ -4,12 +4,12 @@ import android.text.TextUtils;
 
 import com.zpj.downloader.util.content.SPHelper;
 
-public final class UserHelper {
+public final class UserManager {
 
     private static String cookie;
 
     public static void setCookie(String cookie) {
-        UserHelper.cookie = cookie;
+        UserManager.cookie = cookie;
         SPHelper.putString("cookie", cookie);
     }
 

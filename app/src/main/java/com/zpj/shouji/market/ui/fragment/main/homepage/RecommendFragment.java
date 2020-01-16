@@ -24,7 +24,6 @@ import com.zhouwei.mzbanner.MZBannerView;
 import com.zhouwei.mzbanner.holder.MZHolderCreator;
 import com.zhouwei.mzbanner.holder.MZViewHolder;
 import com.zpj.http.parser.html.nodes.Document;
-import com.zpj.http.parser.html.nodes.Element;
 import com.zpj.http.parser.html.select.Elements;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.bean.AppCollectionItem;
@@ -33,14 +32,11 @@ import com.zpj.shouji.market.bean.SubjectItem;
 import com.zpj.shouji.market.ui.fragment.AppDetailFragment;
 import com.zpj.shouji.market.ui.fragment.base.BaseFragment;
 import com.zpj.shouji.market.utils.BlurBuilder;
-import com.zpj.shouji.market.utils.ConnectUtil;
+import com.zpj.shouji.market.utils.HttpUtil;
 import com.zpj.shouji.market.utils.ExecutorHelper;
-import com.zpj.shouji.market.utils.TransportUtil;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import me.yokeyword.fragmentation.SupportActivity;
 
 public class RecommendFragment extends BaseFragment implements GroupRecyclerViewAdapter.OnItemClickListener<RecommendFragment.ItemWrapper> {
 
@@ -130,11 +126,7 @@ public class RecommendFragment extends BaseFragment implements GroupRecyclerView
             return;
         }
         if (data.getAppItem() != null) {
-            TransportUtil.getInstance().setAppItem(data.getAppItem());
-//            TransportUtil.getInstance().setIconBitmap(data.getIcon());
-            if (getActivity() instanceof SupportActivity) {
-                _mActivity.start(AppDetailFragment.newInstance(data.getAppItem()));
-            }
+            _mActivity.start(AppDetailFragment.newInstance(data.getAppItem()));
         } else if (data.getCollectionItem() != null) {
             AToast.normal("TODO Collection");
         }
@@ -170,7 +162,7 @@ public class RecommendFragment extends BaseFragment implements GroupRecyclerView
     private void getRecentUpdates() {
         ExecutorHelper.submit(() -> {
             try {
-                Document doc = ConnectUtil.getDocument("http://tt.shouji.com.cn/androidv3/app_list_xml.jsp?index=1&versioncode=198");
+                Document doc = HttpUtil.getDocument("http://tt.shouji.com.cn/androidv3/app_list_xml.jsp?index=1&versioncode=198");
                 Elements elements = doc.select("item");
                 int count = elements.size() > 9 ? 9 : elements.size();
                 for (int i = 1; i < count; i++) {
@@ -188,7 +180,7 @@ public class RecommendFragment extends BaseFragment implements GroupRecyclerView
     private void getAppCollections() {
         ExecutorHelper.submit(() -> {
             try {
-                Document doc = ConnectUtil.getDocument("http://tt.shouji.com.cn/androidv3/yyj_tj_xml.jsp");
+                Document doc = HttpUtil.getDocument("http://tt.shouji.com.cn/androidv3/yyj_tj_xml.jsp");
                 Elements elements = doc.select("item");
                 int count = elements.size() > 9 ? 9 : elements.size();
                 for (int i = 1; i < count; i++) {
@@ -206,7 +198,7 @@ public class RecommendFragment extends BaseFragment implements GroupRecyclerView
     private void getRecommendApps() {
         ExecutorHelper.submit(() -> {
             try {
-                Document doc = ConnectUtil.getDocument("http://tt.shouji.com.cn/androidv3/special_list_xml.jsp?id=-9998");
+                Document doc = HttpUtil.getDocument("http://tt.shouji.com.cn/androidv3/special_list_xml.jsp?id=-9998");
                 Elements elements = doc.select("item");
                 int count = elements.size() > 8 ? 8 : elements.size();
                 for (int i = 0; i < count; i++) {
@@ -223,7 +215,7 @@ public class RecommendFragment extends BaseFragment implements GroupRecyclerView
     private void getRecommendGames() {
         ExecutorHelper.submit(() -> {
             try {
-                Document doc = ConnectUtil.getDocument("http://tt.shouji.com.cn/androidv3/game_index_xml.jsp?sdk=100&sort=day");
+                Document doc = HttpUtil.getDocument("http://tt.shouji.com.cn/androidv3/game_index_xml.jsp?sdk=100&sort=day");
                 Elements elements = doc.select("item");
                 int count = elements.size() > 9 ? 9 : elements.size();
                 for (int i = 1; i < count; i++) {
@@ -241,7 +233,7 @@ public class RecommendFragment extends BaseFragment implements GroupRecyclerView
     private void getRecommendSubjects() {
         ExecutorHelper.submit(() -> {
             try {
-                Document doc = ConnectUtil.getDocument("http://tt.shouji.com.cn/androidv3/special_index_xml.jsp?jse=yes");
+                Document doc = HttpUtil.getDocument("http://tt.shouji.com.cn/androidv3/special_index_xml.jsp?jse=yes");
                 Elements elements = doc.select("item");
                 int count = elements.size() > 8 ? 8 : elements.size();
                 for (int i = 0; i < count; i++) {
@@ -259,7 +251,7 @@ public class RecommendFragment extends BaseFragment implements GroupRecyclerView
     private void getBanners() {
         ExecutorHelper.submit(() -> {
             try {
-                Document doc = ConnectUtil.getDocument("http://tt.shouji.com.cn/androidv3/app_index_xml.jsp?index=1&versioncode=198");
+                Document doc = HttpUtil.getDocument("http://tt.shouji.com.cn/androidv3/app_index_xml.jsp?index=1&versioncode=198");
                 Elements elements = doc.select("item");
                 for (int i = 1; i < elements.size(); i++) {
                     bannerItemList.add(AppItem.create(elements.get(i)));

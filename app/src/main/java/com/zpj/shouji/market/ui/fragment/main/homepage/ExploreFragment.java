@@ -29,7 +29,7 @@ import com.zpj.shouji.market.ui.adapter.loadmore.LoadMoreWrapper;
 import com.zpj.shouji.market.ui.fragment.base.BaseFragment;
 import com.zpj.shouji.market.ui.fragment.main.MainFragment;
 import com.zpj.shouji.market.ui.fragment.main.user.UserFragment;
-import com.zpj.shouji.market.utils.ConnectUtil;
+import com.zpj.shouji.market.utils.HttpUtil;
 import com.zpj.shouji.market.utils.ExecutorHelper;
 
 import java.util.ArrayList;
@@ -62,7 +62,7 @@ public class ExploreFragment extends BaseFragment implements ExploreAdapter.OnIt
         public void run() {
             try {
                 Log.d("getExploreData", "nextUrl=" + nextUrl);
-                Document doc = ConnectUtil.getDocument(nextUrl);
+                Document doc = HttpUtil.getDocument(nextUrl);
                 Elements elements = doc.select("item");
                 if (nextUrl.equals(defaultUrl)) {
                     Element userElement = elements.get(0);
