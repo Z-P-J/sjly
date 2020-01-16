@@ -3,10 +3,18 @@ package com.zpj.shouji.market.image;
 import android.content.ContentResolver;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
+import android.support.annotation.Nullable;
 import android.util.Log;
 import android.widget.ImageView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.DataSource;
+import com.bumptech.glide.load.engine.GlideException;
+import com.bumptech.glide.load.resource.gif.GifDrawable;
+import com.bumptech.glide.request.RequestListener;
+import com.bumptech.glide.request.target.Target;
 import com.zpj.shouji.market.App;
+import com.zpj.shouji.market.glide.GlideApp;
 import com.zpj.shouji.market.ui.drawable.TileBitmapDrawable;
 
 import java.util.HashMap;
@@ -81,17 +89,40 @@ public class MyImageLoad implements ImageLoad {
      * 从本地加载图片
      */
     private void loadImageFromLocal(String url, final String unique, final ImageView imageView) {
-        TileBitmapDrawable.attachTileBitmapDrawable(imageView, url, new TileBitmapDrawable.OnLoadListener() {
-            @Override
-            public void onLoadFinish(TileBitmapDrawable drawable) {
-                onFinishLoad(unique, drawable);
-            }
+        Log.d("loadImageFromLocal", "url=" + url);
+        if (url.toLowerCase().endsWith(".itgif")) {
+            Log.d("loadImageFromLocal", "itgif");
+            GlideApp.with(imageView).asGif().load(url)
+                    .listener(new RequestListener<GifDrawable>() {
+                        @Override
+                        public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<GifDrawable> target, boolean isFirstResource) {
+                            e.printStackTrace();
+                            Log.d("loadImageFromLocal", "onLoadFailed");
+                            return false;
+                        }
 
-            @Override
-            public void onError(Exception ex) {
+                        @Override
+                        public boolean onResourceReady(GifDrawable resource, Object model, Target<GifDrawable> target, DataSource dataSource, boolean isFirstResource) {
+                            Log.d("loadImageFromLocal", "onResourceReady");
+                            onFinishLoad(unique, resource);
+                            return false;
+                        }
+                    })
+                    .into(imageView);
+        } else {
+            TileBitmapDrawable.attachTileBitmapDrawable(imageView, url, new TileBitmapDrawable.OnLoadListener() {
+                @Override
+                public void onLoadFinish(TileBitmapDrawable drawable) {
+                    onFinishLoad(unique, drawable);
+                }
 
-            }
-        });
+                @Override
+                public void onError(Exception ex) {
+
+                }
+            });
+        }
+
     }
 
     public static void addLoadCallback(String unique, LoadCallback callback) {
