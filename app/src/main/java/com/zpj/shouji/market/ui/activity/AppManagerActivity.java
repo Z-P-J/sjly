@@ -35,7 +35,7 @@
 //    @Override
 //    protected void onCreate(Bundle savedInstanceState) {
 //        super.onCreate(savedInstanceState);
-//        setContentView(R.layout.activity_app_manager);
+//        setContentView(R.layout.fragment_app_manager);
 //        initView();
 //    }
 //

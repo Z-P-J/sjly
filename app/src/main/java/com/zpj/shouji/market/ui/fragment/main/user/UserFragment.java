@@ -25,9 +25,9 @@ import com.zpj.shouji.market.ui.adapter.ZPagerAdapter;
 import com.zpj.shouji.market.ui.behavior.AppBarLayoutOverScrollViewBehavior;
 import com.zpj.shouji.market.ui.fragment.base.BaseFragment;
 import com.zpj.shouji.market.ui.fragment.main.homepage.ExploreFragment;
+import com.zpj.shouji.market.ui.view.ZViewPager;
 import com.zpj.shouji.market.ui.widget.CircleImageView;
 import com.zpj.shouji.market.ui.widget.DotPagerIndicator;
-import com.zpj.shouji.market.ui.widget.NoScrollViewPager;
 import com.zpj.shouji.market.ui.widget.RoundProgressBar;
 import com.zpj.shouji.market.ui.widget.ScaleTransitionPagerTitleView;
 
@@ -58,7 +58,7 @@ public class UserFragment extends BaseFragment implements ExploreFragment.Callba
     private ImageView mSettingIv, mMsgIv;
     private CircleImageView mAvater;
     private MagicIndicator magicIndicator;
-    private NoScrollViewPager mViewPager;
+    private ZViewPager mViewPager;
 
     private final List<Fragment> fragments = new ArrayList<>();
     private ExploreFragment exploreFragment;
@@ -231,19 +231,19 @@ public class UserFragment extends BaseFragment implements ExploreFragment.Callba
             case 1://完全展开 显示白色
                 mMsgIv.setImageResource(R.drawable.ic_expand_more_black_24dp);
                 mSettingIv.setImageResource(R.drawable.ic_settings_white_24dp);
-                mViewPager.setNoScroll(false);
+                mViewPager.setCanScroll(true);
                 break;
             case 2://完全关闭 显示黑色
                 mMsgIv.setImageResource(R.drawable.ic_expand_more_black_24dp);
                 mSettingIv.setImageResource(R.drawable.ic_settings_applications_black_24dp);
-                mViewPager.setNoScroll(false);
+                mViewPager.setCanScroll(true);
                 break;
             case 0://介于两种临界值之间 显示黑色
                 if (lastState != 0) {
                     mMsgIv.setImageResource(R.drawable.ic_expand_more_black_24dp);
                     mSettingIv.setImageResource(R.drawable.ic_settings_applications_black_24dp);
                 }
-                mViewPager.setNoScroll(true);
+                mViewPager.setCanScroll(false);
                 break;
         }
     }

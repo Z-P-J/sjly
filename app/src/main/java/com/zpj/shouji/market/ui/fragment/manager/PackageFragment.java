@@ -57,7 +57,7 @@ public class PackageFragment extends BaseFragment
         optionMenus.add(new OptionMenu("安装"));
     }
 
-    private List<InstalledAppInfo> appInfoList = new ArrayList<>();
+    private final List<InstalledAppInfo> appInfoList = new ArrayList<>();
     private AppManagerAdapter adapter;
     private RecyclerView recyclerView;
 
@@ -251,7 +251,7 @@ public class PackageFragment extends BaseFragment
 
     @Override
     public void onFindFile(FileScanner.FileItem fileItem) {
-//        Log.d(TAG, "onFindFile");
+        Log.d(TAG, "onFindFile");
         if (fileItem instanceof InstalledAppInfo) {
             appInfoList.add((InstalledAppInfo) fileItem);
             long currentTime = System.currentTimeMillis();
@@ -277,12 +277,12 @@ public class PackageFragment extends BaseFragment
 
     @Override
     public void onScanDir(File dir) {
-//        Log.d(TAG, "onScanDir dir=" + dir);
+        Log.d(TAG, "onScanDir dir=" + dir);
     }
 
     @Override
     public FileScanner.FileItem accept(File pathname) {
-//        Log.d(TAG, "accept pathname=" + pathname.getName());
+        Log.d(TAG, "accept pathname=" + pathname.getName());
         if (pathname.isFile()) {
             String subSuffix = FileUtils.subSuffix(pathname.getName());
             if (".apk".equalsIgnoreCase(subSuffix)) {

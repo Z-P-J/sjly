@@ -89,24 +89,6 @@ public class InstalledFragment extends BaseFragment implements AppManagerAdapter
 
     @Override
     protected void initView(View view, @Nullable Bundle savedInstanceState) {
-        initView(view);
-    }
-
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == AppUtil.UNINSTALL_REQUEST_CODE) {
-            if (resultCode == Activity.RESULT_OK) {
-                AToast.success("应用卸载成功！");
-                loadInstallApps();
-            } else if (resultCode == Activity.RESULT_CANCELED) {
-                AToast.normal("应用卸载取消！");
-            }
-        }
-    }
-
-    private void initView(View view) {
-
         infoTextView = view.findViewById(R.id.text_info);
         infoTextView.setText("扫描中...");
         titleTextView = view.findViewById(R.id.text_title);
@@ -118,7 +100,7 @@ public class InstalledFragment extends BaseFragment implements AppManagerAdapter
         uninstallBtn.setOnClickListener(v -> {
             AToast.normal(adapter.getSelectedSet().toString());
             for (int position : adapter.getSelectedSet()) {
-                AppUtil.uninstallApp(getActivity(), installedAppInfos.get(position).getPackageName());
+                AppUtil.uninstallApp(_mActivity, installedAppInfos.get(position).getPackageName());
             }
         });
         backupBtn = view.findViewById(R.id.btn_backup);
@@ -127,16 +109,6 @@ public class InstalledFragment extends BaseFragment implements AppManagerAdapter
             AppBackupHelper.getInstance()
                     .addAppBackupListener(this)
                     .startBackup(installedAppInfos, adapter.getSelectedSet());
-//            for (int position : adapter.getSelectedSet()) {
-//                InstalledAppInfo appInfo = installedAppInfos.get(position);
-//                try {
-//                    FileUtils.copyFile(new File(appInfo.getApkFilePath()),
-//                            new File(AppUtil.getDefaultAppBackupFolder() + appInfo.getName() + "_" + appInfo.getVersionName() + ".apk"));
-//                } catch (IOException e) {
-//                    e.printStackTrace();
-//                    AToast.error("备份出错！" + e.getMessage());
-//                }
-//            }
         });
 
         checkBox = view.findViewById(R.id.checkbox);
@@ -168,6 +140,19 @@ public class InstalledFragment extends BaseFragment implements AppManagerAdapter
                     }
                 })
                 .into(recyclerView);
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == AppUtil.UNINSTALL_REQUEST_CODE) {
+            if (resultCode == Activity.RESULT_OK) {
+                AToast.success("应用卸载成功！");
+                loadInstallApps();
+            } else if (resultCode == Activity.RESULT_CANCELED) {
+                AToast.normal("应用卸载取消！");
+            }
+        }
     }
 
 

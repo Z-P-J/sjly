@@ -7,4 +7,23 @@
     <color name="colorBlack333">#333</color>
     <color name="pink_fc4f74">#fc4f74</color>
 
+
+    <color name="gray_little">#40b4b4b4</color>
+    <!--用于重要文字-->
+    <color name="color_text_major">#222222</color>
+    <!--用于次要文字-->
+    <color name="color_text_normal">#666666</color>
+    <!--用于较弱文字-->
+    <color name="color_text_minor">#999999</color>
+    <!--用于list/input页提示性文字-->
+    <color name="color_input_hint">#CCCCCC</color>
+    <!--用于全站分割线颜色-->
+    <color name="color_line">#E4E4E4</color>
+    <color name="color_btn_cancel">#E3E3E3</color>
+    <!--用于全站背景以及分割线色块-->
+    <color name="color_background">#F4F5F9</color>
+    <color name="color_background_dark">#666666</color>
+    <color name="color_btn_background">#FFFBFBFB</color>
+    <color name="color_item">#F7F7F7</color>
+
 </resources>

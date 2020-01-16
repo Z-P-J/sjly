@@ -1,0 +1,25 @@
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item>
+        <shape>
+            <corners android:radius="2dp" />
+
+            <solid android:color="@android:color/white" />
+        </shape>
+    </item>
+
+    <item>
+        <clip>
+            <shape>
+                <corners android:radius="2dip" />
+
+                <gradient
+                    android:angle="180"
+                    android:centerY="0.75"
+                    android:endColor="@color/gray_little"
+                    android:startColor="@color/gray_little" />
+            </shape>
+        </clip>
+    </item>
+
+</layer-list>

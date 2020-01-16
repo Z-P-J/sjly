@@ -21,6 +21,7 @@ import net.lucode.hackware.magicindicator.buildins.commonnavigator.CommonNavigat
 import net.lucode.hackware.magicindicator.buildins.commonnavigator.abs.CommonNavigatorAdapter;
 import net.lucode.hackware.magicindicator.buildins.commonnavigator.abs.IPagerIndicator;
 import net.lucode.hackware.magicindicator.buildins.commonnavigator.abs.IPagerTitleView;
+import net.lucode.hackware.magicindicator.buildins.commonnavigator.indicators.LinePagerIndicator;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,12 +32,10 @@ public class AppManagerFragment extends BaseFragment {
 
     private List<BaseFragment> fragments = new ArrayList<>();
 
-    private UpdateFragment updateFragment = new UpdateFragment();
-    private InstalledFragment installedFragment = new InstalledFragment();
-    private PackageFragment packageFragment = new PackageFragment();
-
-//    private QTabLayout tabLayout;
     private CommonTitleBar titleBar;
+
+    public AppManagerFragment() {
+    }
 
     @Override
     protected boolean supportSwipeBack() {
@@ -45,7 +44,7 @@ public class AppManagerFragment extends BaseFragment {
 
     @Override
     protected int getLayoutId() {
-        return R.layout.activity_app_manager;
+        return R.layout.fragment_app_manager;
     }
 
     @Override
@@ -57,7 +56,28 @@ public class AppManagerFragment extends BaseFragment {
     protected void initView(View view, @Nullable Bundle savedInstanceState) {
         titleBar = view.findViewById(R.id.title_bar);
 
-        fragments.add(new DownloadFragment());
+        DownloadFragment downloadFragment = findChildFragment(DownloadFragment.class);
+        if (downloadFragment == null) {
+            downloadFragment = new DownloadFragment();
+        }
+
+        UpdateFragment updateFragment = findChildFragment(UpdateFragment.class);
+        if (updateFragment == null) {
+            updateFragment = new UpdateFragment();
+        }
+
+        InstalledFragment installedFragment = findChildFragment(InstalledFragment.class);
+        if (installedFragment == null) {
+            installedFragment = new InstalledFragment();
+        }
+
+        PackageFragment packageFragment = findChildFragment(PackageFragment.class);
+        if (packageFragment == null) {
+            packageFragment = new PackageFragment();
+        }
+
+        fragments.clear();
+        fragments.add(downloadFragment);
         fragments.add(updateFragment);
         fragments.add(installedFragment);
         fragments.add(packageFragment);

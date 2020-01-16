@@ -724,7 +724,7 @@ abstract public class GroupRecyclerViewAdapter<T> extends RecyclerView.Adapter<G
     }
 
     public interface OnItemClickListener<T> {
-        void onItemClick(GroupRecyclerViewAdapter adapter, T data, int groupPosition, int childPosition);
+        void onItemClick(GroupRecyclerViewAdapter<T> adapter, T data, int groupPosition, int childPosition);
     }
 
     public void setOnItemLongClickListener(OnItemLongClickListener<T> onItemLongClickListener) {

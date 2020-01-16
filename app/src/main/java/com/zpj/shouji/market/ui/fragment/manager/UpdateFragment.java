@@ -76,7 +76,7 @@ public class UpdateFragment extends BaseFragment
             @Override
             public void onClick(View v) {
                 // todo update all apps
-                Toast.makeText(getContext(), "updateAll", Toast.LENGTH_SHORT).show();
+                AToast.normal("updateAll");
             }
         });
         updateInfo = view.findViewById(R.id.update_info);
@@ -113,7 +113,7 @@ public class UpdateFragment extends BaseFragment
     @Override
     public void onItemClick(AppUpdateAdapter.ViewHolder holder, int position, AppUpdateInfo updateInfo) {
         if (getActivity() instanceof SupportActivity) {
-            ((SupportActivity) getActivity()).start(AppDetailFragment.newInstance(updateInfo));
+            _mActivity.start(AppDetailFragment.newInstance(updateInfo));
         }
 //        findFragment(MainFragment.class).start(AppDetailFragment.newInstance(updateInfo));
     }
