@@ -14,6 +14,7 @@ import android.widget.TextView;
 
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.bean.InstalledAppInfo;
+import com.zpj.shouji.market.glide.GlideApp;
 import com.zpj.shouji.market.utils.AppUtil;
 import com.zpj.shouji.market.utils.AppUpdateHelper;
 import com.zpj.shouji.market.utils.ExecutorHelper;
@@ -80,23 +81,9 @@ public class AppManagerAdapter extends RecyclerView.Adapter<AppManagerAdapter.Vi
         InstalledAppInfo appInfo = installedAppInfoList.get(position);
         Log.d("onBindViewHolder", "name=" + appInfo.getName());
         Log.d("onBindViewHolder", "size=" + appInfo.getFileLength());
-        if (appInfo.getIconDrawable() == null) {
-            holder.appIcon.setImageResource(R.mipmap.ic_launcher);
-            ExecutorHelper.submit(() -> {
-                final Drawable drawable;
-                if (appInfo.isTempInstalled()) {
-                    drawable = AppUtil.getAppIcon(context, appInfo.getPackageName());
-                } else if (appInfo.isTempXPK()){
-                    drawable = AppUtil.readApkIcon(context, appInfo.getApkFilePath());
-                } else {
-                    return;
-                }
-                appInfo.setIconDrawable(drawable);
-                holder.appIcon.post(() -> holder.appIcon.setImageDrawable(drawable));
-            });
-        } else {
-            holder.appIcon.setImageDrawable(appInfo.getIconDrawable());
-        }
+
+
+        GlideApp.with(context).load(appInfo).into(holder.appIcon);
 
         holder.appName.setText(appInfo.getName());
         String idStr = AppUpdateHelper.getInstance().getAppIdAndType(appInfo.getPackageName());

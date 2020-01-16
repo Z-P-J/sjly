@@ -127,6 +127,8 @@ public class SwipeBackLayout extends FrameLayout {
 
     private float downX, downY;
 
+    private float minTouch = 0;
+
     /**
      * The set of listeners to be sent events through.
      */
@@ -156,6 +158,10 @@ public class SwipeBackLayout extends FrameLayout {
         mHelper = ViewDragHelper.create(this, new ViewDragCallback());
         setShadow(me.yokeyword.fragmentation_swipeback.R.drawable.shadow_left, EDGE_LEFT);
         setEdgeOrientation(EDGE_LEFT);
+        DisplayMetrics metrics = new DisplayMetrics();
+        WindowManager windowManager = (WindowManager) mContext.getSystemService(Context.WINDOW_SERVICE);
+        windowManager.getDefaultDisplay().getMetrics(metrics);
+        minTouch = 20 * metrics.density + 0.5f;
     }
 
     /**
@@ -465,7 +471,7 @@ public class SwipeBackLayout extends FrameLayout {
     private class ViewDragCallback extends ViewDragHelper.Callback {
 
         @Override
-            public boolean tryCaptureView(View child, int pointerId) {
+        public boolean tryCaptureView(View child, int pointerId) {
             boolean dragEnable = mHelper.isEdgeTouched(mEdgeFlag, pointerId);
             if (dragEnable) {
                 Log.d(TAG, "tryCaptureView clampViewPositionHorizontal isEdgeTouched left=" + mHelper.isEdgeTouched(EDGE_LEFT, pointerId));
@@ -647,9 +653,10 @@ public class SwipeBackLayout extends FrameLayout {
         if (!mEnable) return super.onInterceptTouchEvent(ev);
         switch (MotionEventCompat.getActionMasked(ev)) {
             case MotionEvent.ACTION_DOWN:
-                Log.d(TAG, "onInterceptTouchEvent active_down");
+            case MotionEvent.ACTION_UP:
                 downX = ev.getRawX();
                 downY = ev.getRawY();
+                Log.d(TAG, "onInterceptTouchEvent active_down downX=" + downX);
                 break;
             case MotionEvent.ACTION_MOVE:
                 Log.d(TAG, "onInterceptTouchEvent active_move");
@@ -670,13 +677,6 @@ public class SwipeBackLayout extends FrameLayout {
             default:
                 break;
         }
-//        try {
-//            return mHelper.shouldInterceptTouchEvent(ev);
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
-//        return false;
-
         boolean handled = mHelper.shouldInterceptTouchEvent(ev);
         return handled ? handled : super.onInterceptTouchEvent(ev);
     }
@@ -694,6 +694,9 @@ public class SwipeBackLayout extends FrameLayout {
     }
 
     public boolean canViewScrollRight(float x, float y) {
+        if (x < minTouch) {
+            return false;
+        }
         for (View view : scrollViewList) {
             if (view == null || !contains(view, x, y)) {
                 continue;
@@ -704,6 +707,9 @@ public class SwipeBackLayout extends FrameLayout {
     }
 
     public boolean canViewScrollLeft(float x, float y) {
+        if (x > getWidth() - minTouch) {
+            return false;
+        }
         for (View view : scrollViewList) {
             if (view == null || !contains(view, x, y)) {
                 continue;
@@ -714,6 +720,9 @@ public class SwipeBackLayout extends FrameLayout {
     }
 
     public boolean canViewScrollUp(float x, float y) {
+        if (y > getHeight() - minTouch) {
+            return false;
+        }
         for (View view : scrollViewList) {
             if (view == null || !contains(view, x, y)) {
                 continue;
@@ -724,6 +733,9 @@ public class SwipeBackLayout extends FrameLayout {
     }
 
     public boolean canViewScrollDown(float x, float y) {
+        if (y < minTouch) {
+            return false;
+        }
         for (View view : scrollViewList) {
             if (view == null || !contains(view, x, y)) {
                 continue;

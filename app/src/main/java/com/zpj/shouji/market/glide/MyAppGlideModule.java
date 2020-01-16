@@ -2,7 +2,6 @@ package com.zpj.shouji.market.glide;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
-import android.util.Log;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.GlideBuilder;
@@ -12,6 +11,8 @@ import com.bumptech.glide.load.ImageHeaderParser;
 import com.bumptech.glide.load.resource.gif.GifDrawable;
 import com.bumptech.glide.load.resource.gif.StreamGifDecoder;
 import com.bumptech.glide.module.AppGlideModule;
+import com.zpj.shouji.market.bean.InstalledAppInfo;
+import com.zpj.shouji.market.glide.apk.ApkModelLoaderFactory;
 
 import java.io.InputStream;
 import java.nio.ByteBuffer;
@@ -39,6 +40,8 @@ public class MyAppGlideModule extends AppGlideModule {
 
         registry.prepend(Registry.BUCKET_GIF,
                 InputStream.class,
-                GifDrawable.class,  new StreamGifDecoder(imageHeaderParsers, byteBufferGifDecoder, glide.getArrayPool()));
+                GifDrawable.class, new StreamGifDecoder(imageHeaderParsers, byteBufferGifDecoder, glide.getArrayPool()));
+
+        registry.prepend(InstalledAppInfo.class, InputStream.class, new ApkModelLoaderFactory(context));
     }
 }
