@@ -37,7 +37,10 @@
         app:maxImageSize="48dp"
         />
 
-    <include layout="@layout/layout_add_view"
+    <com.zpj.shouji.market.ui.view.AddLayout
+        android:id="@+id/layout_add"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:visibility="gone"
         />
 

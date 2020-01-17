@@ -26,6 +26,7 @@ import com.zpj.shouji.market.ui.adapter.ZFragmentPagerAdapter;
 import com.zpj.shouji.market.ui.fragment.base.BaseFragment;
 import com.zpj.shouji.market.ui.fragment.main.homepage.HomeFragment;
 import com.zpj.shouji.market.ui.fragment.main.user.UserFragment;
+import com.zpj.shouji.market.ui.view.AddLayout;
 import com.zpj.shouji.market.ui.view.KickBackAnimator;
 import com.zpj.shouji.market.ui.view.ZViewPager;
 import com.zpj.shouji.market.utils.BlurBuilder;
@@ -35,15 +36,7 @@ import java.util.List;
 
 public class MainFragment extends BaseFragment {
 
-    private Handler mHandler = new Handler();
-    private LinearLayout menuLayout;
-    private View cancelImageView;
-    private int[] menuIconItems = {R.drawable.pic1, R.drawable.pic2, R.drawable.pic3, R.drawable.pic4};
-    private String[] menuTextItems = {"动态", "应用集", "乐图", "催更"};
-
-    private final List<Fragment> fragments = new ArrayList<>();
-
-    private FloatingActionButton floatingActionButton;
+    private AddLayout addLayout;
 
     @Override
     protected int getLayoutId() {
@@ -57,12 +50,33 @@ public class MainFragment extends BaseFragment {
 
     @Override
     protected void initView(View view, @Nullable Bundle savedInstanceState) {
-        fragments.add(new HomeFragment());
-        fragments.add(new QianQianFragment());
-        fragments.add(new XinHaiFragment());
-        fragments.add(UserFragment.newInstance("5636865", true));
+        HomeFragment homeFragment = findChildFragment(HomeFragment.class);
+        if (homeFragment == null) {
+            homeFragment = new HomeFragment();
+        }
 
-        floatingActionButton = view.findViewById(R.id.fab);
+        QianQianFragment qianQianFragment = findChildFragment(QianQianFragment.class);
+        if (qianQianFragment == null) {
+            qianQianFragment = new QianQianFragment();
+        }
+
+        XinHaiFragment xinHaiFragment = findChildFragment(XinHaiFragment.class);
+        if (xinHaiFragment == null) {
+            xinHaiFragment = new XinHaiFragment();
+        }
+
+        UserFragment userFragment = findChildFragment(UserFragment.class);
+        if (userFragment == null) {
+            userFragment = UserFragment.newInstance("5636865", true);
+        }
+
+        final List<Fragment> fragments = new ArrayList<>();
+        fragments.add(homeFragment);
+        fragments.add(qianQianFragment);
+        fragments.add(xinHaiFragment);
+        fragments.add(userFragment);
+
+        FloatingActionButton floatingActionButton = view.findViewById(R.id.fab);
 
         BottomNavigationViewEx navigationView = view.findViewById(R.id.navigation_view);
         navigationView.enableItemShiftingMode(false);
@@ -123,137 +137,17 @@ public class MainFragment extends BaseFragment {
             }
         });
 
-        floatingActionButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (weiboView.getVisibility() == View.VISIBLE) {
-                    closeAnimation();
-                } else {
-                    showMunu();
-                }
-            }
-        });
-        weiboView = view.findViewById(R.id.layout_add_view);
-        createWeiboView(weiboView);
+        addLayout = view.findViewById(R.id.layout_add);
+        addLayout.bindButton(floatingActionButton);
     }
 
     @Override
     public boolean onBackPressedSupport() {
-        if (weiboView.getVisibility() == View.VISIBLE) {
-            closeAnimation();
+        if (addLayout.isShow()) {
+            addLayout.close();
             return true;
         }
         return super.onBackPressedSupport();
     }
 
-    private View weiboView;
-
-    private View createWeiboView(View view) {
-        BlurBuilder.snapShotWithoutStatusBar(getActivity());
-        menuLayout = view.findViewById(R.id.icon_group);
-        cancelImageView = view.findViewById(R.id.cancel_iv);
-        cancelImageView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                closeAnimation();
-            }
-        });
-        for (int i = 0; i < 4; i++) {
-            View itemView = View.inflate(getContext(), R.layout.item_icon, null);
-            ImageView menuImage = itemView.findViewById(R.id.menu_icon_iv);
-            TextView menuText = itemView.findViewById(R.id.menu_text_tv);
-
-            menuImage.setImageResource(menuIconItems[i]);
-            menuText.setText(menuTextItems[i]);
-
-            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
-            params.weight = 1;
-            itemView.setLayoutParams(params);
-            itemView.setVisibility(View.GONE);
-            menuLayout.addView(itemView);
-        }
-        ImageView background = view.findViewById(R.id.background);
-        background.setImageBitmap(BlurBuilder.blur(background));
-        return view;
-    }
-
-    private void showMunu() {
-        startAnimation();
-        post(() -> {
-            floatingActionButton.animate().rotation(135).setDuration(500);
-        });
-        //菜单项弹出动画
-        for (int i = 0; i < menuLayout.getChildCount(); i++) {
-            final View child = menuLayout.getChildAt(i);
-            child.setVisibility(View.INVISIBLE);
-            mHandler.postDelayed(() -> {
-                child.setVisibility(View.VISIBLE);
-                ValueAnimator fadeAnim = ObjectAnimator.ofFloat(child, "translationY", 600, 0);
-                fadeAnim.setDuration(500);
-                KickBackAnimator kickAnimator = new KickBackAnimator();
-                kickAnimator.setDuration(500);
-                fadeAnim.setEvaluator(kickAnimator);
-                fadeAnim.start();
-            }, i * 50 + 100);
-        }
-    }
-
-    private void startAnimation() {
-        post(() -> {
-            try {
-                //圆形扩展的动画
-                if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
-                    int x = floatingActionButton.getLeft() + floatingActionButton.getWidth() / 2;
-                    int y = floatingActionButton.getTop() + floatingActionButton.getHeight() / 2;
-                    Animator animator = ViewAnimationUtils.createCircularReveal(weiboView, x,
-                            y, 0, weiboView.getHeight());
-                    animator.addListener(new AnimatorListenerAdapter() {
-                        @Override
-                        public void onAnimationStart(Animator animation) {
-                            weiboView.setVisibility(View.VISIBLE);
-                        }
-
-                        @Override
-                        public void onAnimationEnd(Animator animation) {
-                            //							layout.setVisibility(View.VISIBLE);
-                        }
-                    });
-                    animator.setDuration(300);
-                    animator.start();
-                }
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        });
-
-    }
-
-    private void closeAnimation() {
-        post(() -> floatingActionButton.animate().rotation(0).setDuration(500));
-
-        try {
-            if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
-                int x = floatingActionButton.getLeft() + floatingActionButton.getWidth() / 2;
-                int y = floatingActionButton.getTop() + floatingActionButton.getHeight() / 2;
-                Animator animator = ViewAnimationUtils.createCircularReveal(weiboView, x,
-                        y, weiboView.getHeight(), 0);
-                animator.addListener(new AnimatorListenerAdapter() {
-                    @Override
-                    public void onAnimationStart(Animator animation) {
-                    }
-
-                    @Override
-                    public void onAnimationEnd(Animator animation) {
-                        weiboView.setVisibility(View.GONE);
-                        BlurBuilder.recycle();
-                        //dismiss();
-                    }
-                });
-                animator.setDuration(300);
-                animator.start();
-            }
-        } catch (Exception ignored) {
-
-        }
-    }
 }

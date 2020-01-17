@@ -4,6 +4,7 @@
     android:id="@+id/header_recent_update"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:background="@android:color/white"
     android:padding="8dp">
 
     <TextView

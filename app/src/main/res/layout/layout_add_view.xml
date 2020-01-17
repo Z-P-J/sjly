@@ -84,7 +84,6 @@
             android:background="#f7f7f7" />
 
         <ImageView
-            android:id="@+id/cancel_iv"
             android:layout_width="60dp"
             android:layout_height="match_parent"
             android:scaleType="centerInside"

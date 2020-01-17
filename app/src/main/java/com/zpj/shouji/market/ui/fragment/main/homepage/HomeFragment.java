@@ -49,9 +49,21 @@ public class HomeFragment extends BaseFragment {
             }
         });
         ArrayList<Fragment> list = new ArrayList<>();
-        list.add(new RecommendFragment());
-        list.add(ExploreFragment.newInstance("http://tt.shouji.com.cn/app/faxian.jsp?index=faxian&versioncode=198"));
-        list.add(new WallpaperFragment());
+        RecommendFragment recommendFragment = findChildFragment(RecommendFragment.class);
+        if (recommendFragment == null) {
+            recommendFragment = new RecommendFragment();
+        }
+        ExploreFragment exploreFragment = findChildFragment(ExploreFragment.class);
+        if (exploreFragment == null) {
+            exploreFragment = ExploreFragment.newInstance("http://tt.shouji.com.cn/app/faxian.jsp?index=faxian&versioncode=198");
+        }
+        WallpaperFragment wallpaperFragment = findChildFragment(WallpaperFragment.class);
+        if (wallpaperFragment == null) {
+            wallpaperFragment = new WallpaperFragment();
+        }
+        list.add(recommendFragment);
+        list.add(exploreFragment);
+        list.add(wallpaperFragment);
 
         ZFragmentPagerAdapter adapter = new ZFragmentPagerAdapter(getChildFragmentManager(), list, TAB_TITLES);
         ViewPager viewPager = view.findViewById(R.id.view_pager);
@@ -92,9 +104,7 @@ public class HomeFragment extends BaseFragment {
 
         ImageView manageBtn = titleBar.getRightCustomView().findViewById(R.id.btn_manage);
         manageBtn.setOnClickListener(v -> {
-            if (getActivity() instanceof SupportActivity) {
-                ((SupportActivity) getActivity()).start(new AppManagerFragment());
-            }
+            _mActivity.start(new AppManagerFragment());
         });
     }
 }

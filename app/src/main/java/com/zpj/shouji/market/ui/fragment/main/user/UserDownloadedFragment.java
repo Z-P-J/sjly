@@ -9,11 +9,11 @@ import android.view.View;
 import com.zpj.http.parser.html.nodes.Document;
 import com.zpj.http.parser.html.nodes.Element;
 import com.zpj.http.parser.html.select.Elements;
+import com.zpj.recyclerview.loadmore.LoadMoreAdapter;
+import com.zpj.recyclerview.loadmore.LoadMoreWrapper;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.bean.UserDownloadedAppInfo;
 import com.zpj.shouji.market.ui.adapter.UserDownloadedAdapter;
-import com.zpj.shouji.market.ui.adapter.loadmore.LoadMoreAdapter;
-import com.zpj.shouji.market.ui.adapter.loadmore.LoadMoreWrapper;
 import com.zpj.shouji.market.ui.fragment.detail.AppDetailFragment;
 import com.zpj.shouji.market.ui.fragment.base.BaseFragment;
 import com.zpj.shouji.market.utils.HttpUtil;
@@ -88,12 +88,7 @@ public class UserDownloadedFragment extends BaseFragment {
         super.onLazyInitView(savedInstanceState);
         LoadMoreWrapper.with(adapter)
                 .setLoadMoreEnabled(true)
-                .setListener(new LoadMoreAdapter.OnLoadMoreListener() {
-                    @Override
-                    public void onLoadMore(LoadMoreAdapter.Enabled enabled) {
-                        ExecutorHelper.submit(getDataRunnable);
-                    }
-                })
+                .setListener(enabled -> ExecutorHelper.submit(getDataRunnable))
                 .into(recyclerView);
     }
 }

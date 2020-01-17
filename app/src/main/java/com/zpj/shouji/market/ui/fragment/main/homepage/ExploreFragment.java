@@ -5,9 +5,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.view.menu.MenuBuilder;
-import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
@@ -23,26 +21,20 @@ import com.zpj.popupmenuview.CustomPopupMenuView;
 import com.zpj.popupmenuview.OptionMenuView;
 import com.zpj.recyclerview.EasyAdapter;
 import com.zpj.recyclerview.EasyRecyclerLayout;
-import com.zpj.recyclerview.EasyViewHolder;
 import com.zpj.recyclerview.IEasy;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.bean.ExploreItem;
 import com.zpj.shouji.market.ui.adapter.ExploreAdapter;
 import com.zpj.shouji.market.ui.adapter.ExploreBinder;
-import com.zpj.shouji.market.ui.adapter.loadmore.LoadMoreAdapter;
-import com.zpj.shouji.market.ui.adapter.loadmore.LoadMoreWrapper;
 import com.zpj.shouji.market.ui.fragment.base.BaseFragment;
-import com.zpj.shouji.market.ui.fragment.main.MainFragment;
 import com.zpj.shouji.market.ui.fragment.main.user.UserFragment;
-import com.zpj.shouji.market.utils.HttpUtil;
 import com.zpj.shouji.market.utils.ExecutorHelper;
+import com.zpj.shouji.market.utils.HttpUtil;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-import me.yokeyword.fragmentation.SwipeBackLayout;
 
 public class ExploreFragment extends BaseFragment
         implements ExploreAdapter.OnItemClickListener,

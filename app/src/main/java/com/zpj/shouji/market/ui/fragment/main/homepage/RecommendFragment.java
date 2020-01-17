@@ -23,6 +23,7 @@ import com.felix.atoast.library.AToast;
 import com.sunfusheng.GroupRecyclerViewAdapter;
 import com.sunfusheng.GroupViewHolder;
 import com.sunfusheng.HeaderGroupRecyclerViewAdapter;
+import com.sunfusheng.StickyHeaderDecoration;
 import com.zhouwei.mzbanner.MZBannerView;
 import com.zhouwei.mzbanner.holder.MZHolderCreator;
 import com.zhouwei.mzbanner.holder.MZViewHolder;
@@ -86,15 +87,22 @@ public class RecommendFragment extends BaseFragment implements GroupRecyclerView
             nextUrl = DEFAULT_LIST_URL;
         }, 1000));
 
-        recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 4));
+        GridLayoutManager layoutManager = new GridLayoutManager(getContext(), 4);
+        recyclerView.addItemDecoration(new StickyHeaderDecoration() {
+            @Override
+            protected boolean isStickHeader(int groupPosition) {
+                return groupPosition != 0;
+            }
+        });
+        recyclerView.setLayoutManager(layoutManager);
         adapter = new RecommendAdapter(getContext(), dataList);
         adapter.setOnItemClickListener(this);
         recyclerView.setAdapter(adapter);
-        recyclerView.setItemViewCacheSize(50);
-        recyclerView.setDrawingCacheEnabled(true);
-        recyclerView.setHasFixedSize(true);
-        recyclerView.setNestedScrollingEnabled(false);
-        recyclerView.setDrawingCacheQuality(View.DRAWING_CACHE_QUALITY_HIGH);
+//        recyclerView.setItemViewCacheSize(50);
+//        recyclerView.setDrawingCacheEnabled(true);
+//        recyclerView.setHasFixedSize(true);
+//        recyclerView.setNestedScrollingEnabled(false);
+//        recyclerView.setDrawingCacheQuality(View.DRAWING_CACHE_QUALITY_HIGH);
     }
 
     @Override
@@ -157,6 +165,7 @@ public class RecommendFragment extends BaseFragment implements GroupRecyclerView
         dataList.clear();
         topList.clear();
         updateList.clear();
+        appCollectionList.clear();
         recommendAppList.clear();
         recommendGameList.clear();
         recommendSubjectList.clear();
@@ -189,7 +198,6 @@ public class RecommendFragment extends BaseFragment implements GroupRecyclerView
                 for (int i = 1; i < count; i++) {
                     updateList.add(new ItemWrapper(AppItem.create(elements.get(i))));
                 }
-//                recyclerView.postDelayed(() -> adapter.updateGroup(1, updateList), 1);
                 post(() -> adapter.updateGroup(1, updateList));
             } catch (Exception e) {
                 e.printStackTrace();

@@ -63,9 +63,7 @@ public class WallpaperFragment extends BaseFragment implements View.OnClickListe
     @Override
     public void onLazyInitView(@Nullable Bundle savedInstanceState) {
         super.onLazyInitView(savedInstanceState);
-        if (isInitTags.get()) {
-
-        } else {
+        if (!isInitTags.get()) {
             initWallpaperTags();
         }
     }
@@ -106,11 +104,6 @@ public class WallpaperFragment extends BaseFragment implements View.OnClickListe
                 for (Element item : elements) {
                     wallpaperTags.add(WallpaperTag.create(item));
                 }
-//                if (isInitTags.get()) {
-//
-//                } else {
-//
-//                }
                 post(this::initMagicIndicator);
             } catch (IOException e) {
                 e.printStackTrace();

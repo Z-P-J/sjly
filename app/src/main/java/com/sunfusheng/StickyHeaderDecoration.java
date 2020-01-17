@@ -44,6 +44,9 @@ public class StickyHeaderDecoration extends RecyclerView.ItemDecoration {
         }
 
         currGroupPosition = groupAdapter.getGroupPosition(currItemPosition);
+        if (!isStickHeader(currGroupPosition)) {
+            return;
+        }
         int nextGroupPosition = currGroupPosition + 1;
         int currStickyPosition = groupAdapter.getGroupHeaderPosition(currGroupPosition);
         int nextStickyPosition = groupAdapter.getGroupHeaderPosition(nextGroupPosition);
@@ -120,6 +123,10 @@ public class StickyHeaderDecoration extends RecyclerView.ItemDecoration {
                 }
             });
         }
+    }
+
+    protected boolean isStickHeader(int groupPosition) {
+        return true;
     }
 
     private GestureDetector.SimpleOnGestureListener simpleOnGestureListener = new GestureDetector.SimpleOnGestureListener() {
