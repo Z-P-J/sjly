@@ -31,7 +31,7 @@ import okhttp3.Response;
  */
 public class OkHttpImageLoad {
 
-    private Platform mPlatform;
+//    private Platform mPlatform;
 
     private OkHttpClient mOkHttpClient;
 
@@ -40,11 +40,7 @@ public class OkHttpImageLoad {
 
     private OkHttpImageLoad() {
         mOkHttpClient = new OkHttpClient();
-        mPlatform = Platform.get();
-    }
-
-    private Executor getDelivery() {
-        return mPlatform.defaultCallbackExecutor();
+//        mPlatform = Platform.get();
     }
 
     /**
@@ -272,7 +268,7 @@ public class OkHttpImageLoad {
         private void refreshProgress(final float progress, final long total) {
             this.currentProgress = progress;
             this.total = total;
-            mInstance.getDelivery().execute(new Runnable() {
+            ExecutorHelper.submit(new Runnable() {
                 @Override
                 public void run() {
                     for (ImageDownLoadListener listener : imageDownLoadListener)
@@ -292,7 +288,7 @@ public class OkHttpImageLoad {
                 mInstance.map.remove(url);
                 return;
             }
-            mInstance.mPlatform.execute(new Runnable() {
+            ExecutorHelper.submit(new Runnable() {
                 @Override
                 public void run() {
                     for (ImageDownLoadListener listener : imageDownLoadListener)
@@ -309,7 +305,7 @@ public class OkHttpImageLoad {
                 mInstance.map.remove(url);
                 return;
             }
-            mInstance.mPlatform.execute(new Runnable() {
+            ExecutorHelper.submit(new Runnable() {
                 @Override
                 public void run() {
                     for (ImageDownLoadListener listener : imageDownLoadListener)

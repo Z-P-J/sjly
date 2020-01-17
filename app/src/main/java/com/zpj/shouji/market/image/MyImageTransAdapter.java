@@ -55,7 +55,7 @@ public class MyImageTransAdapter extends ImageTransAdapter {
             }
         });
         bottomPanel = view.findViewById(R.id.page_indicator);
-        topPanel.setTranslationY(-ScreenUtil.dp2px(context, 56) - ScreenUtil.getStatusBarHeight(context));
+        topPanel.setTranslationY(-ScreenUtil.dp2px(context, 56));
         bottomPanel.setTranslationY(ScreenUtil.dp2px(context, 80));
         bottomPanel.setViewPager(viewPager);
         return view;
@@ -63,7 +63,7 @@ public class MyImageTransAdapter extends ImageTransAdapter {
 
     @Override
     public void onPullRange(float range) {
-        topPanel.setTranslationY((-ScreenUtil.dp2px(context, 56) - ScreenUtil.getStatusBarHeight(context)) * range * 4);
+        topPanel.setTranslationY(-ScreenUtil.dp2px(context, 56) * range * 4);
         bottomPanel.setTranslationY(ScreenUtil.dp2px(context, 80) * range * 4);
     }
 
@@ -110,7 +110,7 @@ public class MyImageTransAdapter extends ImageTransAdapter {
     }
 
     public void hiddenPanel() {
-        topPanel.animate().translationY(-ScreenUtil.dp2px(context, 56) - ScreenUtil.getStatusBarHeight(context)).setDuration(200).start();
+        topPanel.animate().translationY(-ScreenUtil.dp2px(context, 56)).setDuration(200).start();
         bottomPanel.animate().translationY(ScreenUtil.dp2px(context, 80)).setDuration(200).start();
     }
 

@@ -8,8 +8,7 @@
         android:id="@+id/top_panel"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:fillStatusBar="true"
-        app:statusBarColor="#64000000"
+        app:fillStatusBar="false"
         app:titleBarColor="#64000000"
         app:leftType="imageButton"
         app:leftImageResource="@drawable/ic_arrow_back_white_24dp"
@@ -25,4 +24,5 @@
         android:layout_height="80dp"
         android:layout_alignParentBottom="true"
         android:gravity="center" />
+    
 </RelativeLayout>

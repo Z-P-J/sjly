@@ -70,7 +70,6 @@ public class AppDetailFragment extends BaseFragment {
 
     private static final String SOFT_URL = "http://tt.shouji.com.cn/androidv3/soft_show.jsp?id=";
     private static final String GAME_URL = "http://tt.shouji.com.cn/androidv3/game_show.jsp?id=";
-    private final static String KEY = "url";
     private final static String KEY_ID = "app_id";
     private final static String KEY_TYPE = "app_type";
 
@@ -84,21 +83,7 @@ public class AppDetailFragment extends BaseFragment {
     private TextView shortInfo;
     private TextView shortIntroduce;
 
-    private static AppDetailFragment newInstance(String site) {
-        Bundle args = new Bundle();
-        args.putString(KEY, site);
-        AppDetailFragment fragment = new AppDetailFragment();
-        fragment.setArguments(args);
-        return fragment;
-    }
-
     private static AppDetailFragment newInstance(String type, String id) {
-        String site;
-        if ("game".equals(type)) {
-            site = GAME_URL + id;
-        } else {
-            site = SOFT_URL + id;
-        }
         Bundle args = new Bundle();
         args.putString(KEY_ID, id);
         args.putString(KEY_TYPE, type);

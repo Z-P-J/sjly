@@ -48,7 +48,7 @@ import me.yokeyword.fragmentation.SupportFragment;
 
 public class RecommendFragment extends BaseFragment implements GroupRecyclerViewAdapter.OnItemClickListener<RecommendFragment.ItemWrapper> {
 
-    private static final String DEFAULT_LIST_URL = "http://tt.shouji.com.cn/androidv3/app_list_xml.jsp?index=1&versioncode=198";
+//    private static final String DEFAULT_LIST_URL = "http://tt.shouji.com.cn/androidv3/app_list_xml.jsp?index=1&versioncode=198";
 
     private RecyclerView recyclerView;
     private List<AppItem> bannerItemList = new ArrayList<>();
@@ -61,7 +61,7 @@ public class RecommendFragment extends BaseFragment implements GroupRecyclerView
     private final List<List<ItemWrapper>> dataList = new ArrayList<>();
     private SwipeRefreshLayout swipeRefreshLayout;
 
-    private String nextUrl = DEFAULT_LIST_URL;
+//    private String nextUrl = DEFAULT_LIST_URL;
 
     private MZBannerView<AppItem> mMZBanner;
 
@@ -73,18 +73,13 @@ public class RecommendFragment extends BaseFragment implements GroupRecyclerView
     }
 
     @Override
-    protected boolean supportSwipeBack() {
-        return false;
-    }
-
-    @Override
     protected void initView(View view, @Nullable Bundle savedInstanceState) {
         recyclerView = view.findViewById(R.id.recycler_view_recent_update);
         swipeRefreshLayout = view.findViewById(R.id.swipe_refresh);
         swipeRefreshLayout.setOnRefreshListener(() -> recyclerView.postDelayed(() -> {
             swipeRefreshLayout.setRefreshing(false);
             initData();
-            nextUrl = DEFAULT_LIST_URL;
+//            nextUrl = DEFAULT_LIST_URL;
         }, 1000));
 
         GridLayoutManager layoutManager = new GridLayoutManager(getContext(), 4);
@@ -165,6 +160,7 @@ public class RecommendFragment extends BaseFragment implements GroupRecyclerView
         dataList.clear();
         topList.clear();
         updateList.clear();
+        bannerItemList.clear();
         appCollectionList.clear();
         recommendAppList.clear();
         recommendGameList.clear();
@@ -282,6 +278,7 @@ public class RecommendFragment extends BaseFragment implements GroupRecyclerView
             try {
                 Document doc = HttpUtil.getDocument("http://tt.shouji.com.cn/androidv3/app_index_xml.jsp?index=1&versioncode=198");
                 Elements elements = doc.select("item");
+                bannerItemList.clear();
                 for (int i = 1; i < elements.size(); i++) {
                     bannerItemList.add(AppItem.create(elements.get(i)));
                 }
@@ -306,15 +303,13 @@ public class RecommendFragment extends BaseFragment implements GroupRecyclerView
         @Override
         public View createView(Context context) {
             // 返回页面布局
-            View view = LayoutInflater.from(context).inflate(R.layout.item_banner, null);
+            View view = LayoutInflater.from(context).inflate(R.layout.item_banner, null, false);
             mImageView = view.findViewById(R.id.img_view);
             return view;
         }
 
         @Override
         public void onBind(Context context, int position, AppItem item) {
-            // 数据绑定
-//            mImageView.setImageResource(data);
             Glide.with(context).load(item.getAppIcon()).into(mImageView);
         }
     }
@@ -452,10 +447,16 @@ public class RecommendFragment extends BaseFragment implements GroupRecyclerView
             int viewType = getHeaderItemViewType(groupPosition);
             if (viewType == TYPE_TOP_HEADER) {
                 mMZBanner = holder.get(R.id.banner);
-                if (mMZBanner.getTag() == null) {
-                    mMZBanner.setTag(true);
+                if (bannerItemList.isEmpty()) {
                     getBanners();
+                } else {
+                    mMZBanner.setPages(bannerItemList, (MZHolderCreator<BannerViewHolder>) BannerViewHolder::new);
+                    mMZBanner.start();
                 }
+//                if (mMZBanner.getTag() == null) {
+//                    mMZBanner.setTag(true);
+//                    getBanners();
+//                }
             } else if (viewType == TYPE_SUB_HEADER) {
                 holder.setText(R.id.text_title, item.getTitle());
             }

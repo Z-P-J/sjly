@@ -30,11 +30,12 @@ public class SplashActivity extends AppCompatActivity {
         }
 
         AppUpdateHelper.getInstance().checkUpdate(this);
+
         OpeningStartAnimation openingStartAnimation3 = new OpeningStartAnimation.Builder(this)
                 .setDrawStategy(new RotationDrawStrategy())
                 .setAppName("手机乐园")
                 .setAppStatement("分享优质应用")
-                .setAnimationInterval(1500)
+                .setAnimationInterval(1000)
                 .setAppIcon(getResources().getDrawable(R.drawable.ic_app))
                 .setAnimationListener(new OpeningStartAnimation.AnimationListener() {
                     @Override
