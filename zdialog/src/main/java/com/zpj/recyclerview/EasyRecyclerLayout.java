@@ -1,6 +1,7 @@
 package com.zpj.recyclerview;
 
 import android.content.Context;
+import android.support.annotation.IdRes;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -177,6 +178,11 @@ public class EasyRecyclerLayout<T> extends FrameLayout {
 
     public EasyRecyclerLayout<T> setOnSelectChangeListener(OnSelectChangeListener<T> onSelectChangeListener) {
         this.onSelectChangeListener = onSelectChangeListener;
+        return this;
+    }
+
+    public EasyRecyclerLayout<T> onViewClick(@IdRes int id, IEasy.OnClickListener<T> onClickListener) {
+        easyRecyclerView.onViewClick(id, onClickListener);
         return this;
     }
 

@@ -26,12 +26,6 @@ import it.liuting.imagetrans.ImageTrans;
 
 public class ExploreBinder implements IEasy.OnBindViewHolderCallback<ExploreItem> {
 
-//    private final Context context;
-//
-//    public ExploreBinder(Context context) {
-//        this.context = context;
-//    }
-
     @Override
     public void onBindViewHolder(EasyViewHolder holder, List<ExploreItem> list, int position, List<Object> payloads) {
         Context context = holder.getItemView().getContext();
@@ -48,6 +42,7 @@ public class ExploreBinder implements IEasy.OnBindViewHolderCallback<ExploreItem
                 return false;
             }
         });
+
         Glide.with(context).load(exploreItem.getIcon()).into(holder.getImageView(R.id.item_icon));
 
         NineGridImageView<String> nineGridImageView = holder.getView(R.id.nine_grid_image_view);

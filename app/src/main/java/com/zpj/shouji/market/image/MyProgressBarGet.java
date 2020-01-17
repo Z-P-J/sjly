@@ -4,6 +4,7 @@ import android.content.Context;
 import android.view.ViewGroup;
 
 import com.mingle.widget.ShapeLoadingView;
+import com.zpj.shouji.market.ui.view.LoadingImageView;
 import com.zpj.utils.ScreenUtil;
 
 import it.liuting.imagetrans.listener.ProgressViewGet;
@@ -12,17 +13,18 @@ import it.liuting.imagetrans.listener.ProgressViewGet;
  * Created by liuting on 18/3/19.
  */
 
-public class MyProgressBarGet implements ProgressViewGet<ShapeLoadingView> {
+public class MyProgressBarGet implements ProgressViewGet<LoadingImageView> {
     @Override
-    public ShapeLoadingView getProgress(Context context) {
-        ShapeLoadingView loadingView = new ShapeLoadingView(context);
+    public LoadingImageView getProgress(Context context) {
+        LoadingImageView loadingImageView = new LoadingImageView(context);
+//        ShapeLoadingView loadingView = new ShapeLoadingView(context);
 //        RingLoadingView view = new RingLoadingView(context);
-        loadingView.setLayoutParams(new ViewGroup.LayoutParams(ScreenUtil.dp2pxInt(context, 50), ScreenUtil.dp2pxInt(context, 50)));
-        return loadingView;
+//        loadingView.setLayoutParams(new ViewGroup.LayoutParams(ScreenUtil.dp2pxInt(context, 50), ScreenUtil.dp2pxInt(context, 50)));
+        return loadingImageView;
     }
 
     @Override
-    public void onProgressChange(ShapeLoadingView view, float progress) {
+    public void onProgressChange(LoadingImageView view, float progress) {
 //        view.setProgress(progress);
     }
 }

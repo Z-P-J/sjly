@@ -9,6 +9,8 @@ import com.zpj.shouji.market.ui.fragment.main.MainFragment;
 import com.zpj.shouji.market.utils.ExecutorHelper;
 
 import me.yokeyword.fragmentation.SupportActivity;
+import me.yokeyword.fragmentation.anim.DefaultHorizontalAnimator;
+import me.yokeyword.fragmentation.anim.FragmentAnimator;
 
 public class MainActivity extends SupportActivity {
 
@@ -41,5 +43,11 @@ public class MainActivity extends SupportActivity {
         } else {
             finish();
         }
+    }
+
+    @Override
+    public FragmentAnimator onCreateFragmentAnimator() {
+//        return super.onCreateFragmentAnimator();
+        return new DefaultHorizontalAnimator();
     }
 }

@@ -48,9 +48,7 @@ import me.yokeyword.fragmentation.SupportFragment;
 
 public class RecommendFragment extends BaseFragment implements GroupRecyclerViewAdapter.OnItemClickListener<RecommendFragment.ItemWrapper> {
 
-//    private static final String DEFAULT_LIST_URL = "http://tt.shouji.com.cn/androidv3/app_list_xml.jsp?index=1&versioncode=198";
-
-    private RecyclerView recyclerView;
+    private final List<List<ItemWrapper>> dataList = new ArrayList<>();
     private List<AppItem> bannerItemList = new ArrayList<>();
     private List<ItemWrapper> topList = new ArrayList<>();
     private List<ItemWrapper> updateList = new ArrayList<>();
@@ -58,11 +56,9 @@ public class RecommendFragment extends BaseFragment implements GroupRecyclerView
     private List<ItemWrapper> recommendAppList = new ArrayList<>();
     private List<ItemWrapper> recommendGameList = new ArrayList<>();
     private List<ItemWrapper> recommendSubjectList = new ArrayList<>();
-    private final List<List<ItemWrapper>> dataList = new ArrayList<>();
+
     private SwipeRefreshLayout swipeRefreshLayout;
-
-//    private String nextUrl = DEFAULT_LIST_URL;
-
+    private RecyclerView recyclerView;
     private MZBannerView<AppItem> mMZBanner;
 
     private RecommendAdapter adapter;

@@ -15,6 +15,10 @@ public interface IEasy {
         boolean shouldIgnoreClick(View view);
     }
 
+    interface OnClickListener<T> {
+        void onClick(EasyViewHolder holder, View view, T data);
+    }
+
 
     interface OnBindViewHolderCallback<T>{
         void onBindViewHolder(EasyViewHolder holder, List<T> list, int position, List<Object> payloads);

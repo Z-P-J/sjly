@@ -159,7 +159,7 @@ public class AppDetailFragment extends BaseFragment {
 
         AppRecommendFragment recommendFragment = findChildFragment(AppRecommendFragment.class);
         if (recommendFragment == null) {
-            recommendFragment = new AppRecommendFragment();
+            recommendFragment = AppRecommendFragment.newInstance(id);
         }
         list.add(infoFragment);
         list.add(commentFragment);

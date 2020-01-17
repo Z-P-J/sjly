@@ -123,7 +123,7 @@ public class AppManagerAdapter extends RecyclerView.Adapter<AppManagerAdapter.Vi
             holder.checkBox.setVisibility(View.VISIBLE);
             holder.checkBox.setChecked(select, select);
             holder.checkBox.setClickable(false);
-//            holder.checkBoxWrapper.setOnClickListener(v -> {
+//            holder.checkBoxWrapper.onViewClick(v -> {
 //                boolean isChecked = holder.checkBox.isChecked();
 //                holder.checkBox.setChecked(!isChecked, !isChecked);
 //            });
@@ -152,7 +152,7 @@ public class AppManagerAdapter extends RecyclerView.Adapter<AppManagerAdapter.Vi
             });
             holder.moreBtn.setVisibility(View.VISIBLE);
             holder.checkBox.setVisibility(View.GONE);
-//            holder.moreBtn.setOnClickListener(v -> {
+//            holder.moreBtn.onViewClick(v -> {
 //                if (onItemClickListener != null) {
 //                    onItemClickListener.onMenuClicked(v, appInfo);
 //                }

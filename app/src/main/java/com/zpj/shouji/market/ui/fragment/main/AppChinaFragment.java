@@ -263,7 +263,7 @@
 //        });
 //
 //        appButton = (Button)view.findViewById(R.id.app_button);
-//        appButton.setOnClickListener(new View.OnClickListener() {
+//        appButton.onViewClick(new View.OnClickListener() {
 //            @Override
 //            public void onClick(View v) {
 //                if (app_url.equals(APP_URL)){
@@ -279,7 +279,7 @@
 //        });
 //
 //        gameButton = (Button)view.findViewById(R.id.game_button);
-//        gameButton.setOnClickListener(new View.OnClickListener() {
+//        gameButton.onViewClick(new View.OnClickListener() {
 //            @Override
 //            public void onClick(View v) {
 //                if (app_url.equals(GAME_URL)) {

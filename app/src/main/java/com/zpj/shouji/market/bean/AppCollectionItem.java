@@ -75,7 +75,31 @@ public class AppCollectionItem {
         collectionItem.setTime(item.select("time").text());
 //                    collectionItem.setSupportCount(Integer.valueOf(item.select("supportcount").text()));
 //                    collectionItem.setSupportCount(Integer.valueOf(item.select("supportcount").text()));
-        Elements icons = item.select("icons").select("icon");
+        Elements icons = item.selectFirst("icons").select("icon");
+        for (Element element : icons) {
+            collectionItem.addIcon(element.text());
+        }
+        return collectionItem;
+    }
+
+    public static AppCollectionItem buildSimilarCollection(Element item) {
+        AppCollectionItem collectionItem = new AppCollectionItem();
+        collectionItem.setId(item.select("yyjid").text());
+        collectionItem.setParent(item.select("yyjparent").text());
+        collectionItem.setContentType(item.select("yyjcontenttype").text());
+//        collectionItem.setType(item.select("type").text());
+        collectionItem.setTitle(item.select("yyjtitle").text());
+        collectionItem.setComment(item.select("yyjcomment").text());
+        collectionItem.setSize(Integer.valueOf(item.select("yyjsize").text()));
+        collectionItem.setMemberId(item.select("yyjmemberid").text());
+        collectionItem.setNickName(item.select("yyjnickname").text());
+        collectionItem.setFavCount(Integer.valueOf(item.select("yyjfavcount").text()));
+        collectionItem.setAppSize(Integer.valueOf(item.select("yyjappsize").text()));
+        collectionItem.setSupportCount(Integer.valueOf(item.selectFirst("yyjsupportcount").text()));
+        collectionItem.setViewCount(Integer.valueOf(item.select("yyjviewcount").text()));
+        collectionItem.setReplyCount(Integer.valueOf(item.select("yyjreplycount").text()));
+        collectionItem.setTime(item.select("yyjtime").text());
+        Elements icons = item.selectFirst("icons").select("yyjicon");
         for (Element element : icons) {
             collectionItem.addIcon(element.text());
         }

@@ -24,7 +24,6 @@ import com.zpj.recyclerview.EasyRecyclerLayout;
 import com.zpj.recyclerview.IEasy;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.bean.ExploreItem;
-import com.zpj.shouji.market.ui.adapter.ExploreAdapter;
 import com.zpj.shouji.market.ui.adapter.ExploreBinder;
 import com.zpj.shouji.market.ui.fragment.base.BaseFragment;
 import com.zpj.shouji.market.ui.fragment.main.user.UserFragment;
@@ -37,8 +36,7 @@ import java.util.List;
 import java.util.Map;
 
 public class ExploreFragment extends BaseFragment
-        implements ExploreAdapter.OnItemClickListener,
-        IEasy.OnLoadMoreListener,
+        implements IEasy.OnLoadMoreListener,
         SwipeRefreshLayout.OnRefreshListener {
 
     public interface Callback {
@@ -192,36 +190,7 @@ public class ExploreFragment extends BaseFragment
             defaultUrl = getArguments().getString("default_url");
         }
         nextUrl = defaultUrl;
-
         recyclerLayout = view.findViewById(R.id.recycler_layout);
-
-
-//        recyclerView = view.findViewById(R.id.recycler_view);
-//        recyclerView.setItemAnimator(new DefaultItemAnimator());
-//
-//        swipeRefreshLayout = view.findViewById(R.id.swipe_refresh);
-//        swipeRefreshLayout.setEnabled(enableSwipeRefresh);
-//        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-//            @Override
-//            public void onRefresh() {
-//                recyclerView.postDelayed(new Runnable() {
-//                    @Override
-//                    public void run() {
-//                        swipeRefreshLayout.setRefreshing(false);
-//                        exploreItems.clear();
-//                        exploreAdapter.notifyDataSetChanged();
-//                        nextUrl = defaultUrl;
-////                        getCoolApkHtml();
-//                    }
-//                }, 1000);
-//            }
-//        });
-//
-//
-//        LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
-//        recyclerView.setLayoutManager(layoutManager);
-//        exploreAdapter = new ExploreAdapter(exploreItems);
-//        exploreAdapter.setItemClickListener(this);
     }
 
     @Override
@@ -235,24 +204,10 @@ public class ExploreFragment extends BaseFragment
                 .onLoadMore(this)
                 .setOnRefreshListener(this)
                 .onBindViewHolder(new ExploreBinder())
+                .onViewClick(R.id.item_icon, (holder, view, data) -> {
+                    _mActivity.start(UserFragment.newInstance(data.getMemberId(), false));
+                })
                 .build();
-    }
-
-    @Override
-    public void onItemClick(ExploreAdapter.ViewHolder holder, int position, ExploreItem item) {
-        AToast.normal("onItemClick");
-    }
-
-    @Override
-    public void onMenuClicked(View view, ExploreItem item) {
-        showMenu(view, item);
-    }
-
-    @Override
-    public void onIconClicked(View view, String userId) {
-        if (defaultUrl.equals(DEFAULT_URL)) {
-            _mActivity.start(UserFragment.newInstance(userId, false));
-        }
     }
 
     @Override

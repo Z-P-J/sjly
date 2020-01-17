@@ -1,9 +1,11 @@
 package com.zpj.recyclerview;
 
+import android.support.annotation.IdRes;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.SparseArray;
 import android.view.LayoutInflater;
 import android.view.View;
 
@@ -31,6 +33,8 @@ public class EasyRecyclerView<T> {
     private IEasy.OnBindViewHolderCallback<T> onBindViewHolderCallback;
     private IEasy.OnCreateViewHolderCallback<T> onCreateViewHolder;
     private IEasy.OnLoadMoreListener onLoadMoreListener;
+
+    private final SparseArray<IEasy.OnClickListener<T>> onClickListeners = new SparseArray<>();
 
     public EasyRecyclerView(@NonNull RecyclerView recyclerView) {
         this.recyclerView = recyclerView;
@@ -98,6 +102,11 @@ public class EasyRecyclerView<T> {
         return this;
     }
 
+    public EasyRecyclerView<T> onViewClick(@IdRes int id, IEasy.OnClickListener<T> onClickListener) {
+        onClickListeners.put(id, onClickListener);
+        return this;
+    }
+
     public void build() {
         if (itemRes <= 0) {
             throw new RuntimeException("You must set the itemRes!");
@@ -108,7 +117,7 @@ public class EasyRecyclerView<T> {
         if (layoutManager == null) {
             layoutManager = new LinearLayoutManager(recyclerView.getContext());
         }
-        easyAdapter = new EasyAdapter<>(list, itemRes, onCreateViewHolder, onBindViewHolderCallback);
+        easyAdapter = new EasyAdapter<>(list, itemRes, onCreateViewHolder, onBindViewHolderCallback, onClickListeners);
         if (headerView != null) {
             easyAdapter.setHeaderView(headerView);
             easyAdapter.setOnBindHeaderListener(onBindHeaderListener);

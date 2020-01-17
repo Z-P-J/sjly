@@ -16,7 +16,23 @@
         app:centerText="图片名"
         app:rightType="imageButton"
         app:rightImageResource="@drawable/ic_more_vert_grey_24dp"
+        app:showBottomLine="false"
         />
+
+<!--    <RelativeLayout-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_alignParentBottom="true"-->
+<!--        >-->
+
+<!--        <TextView-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:text="查看原图"-->
+
+<!--            />-->
+
+<!--    </RelativeLayout>-->
 
     <com.zpj.shouji.market.ui.widget.RoundPageIndicator
         android:id="@+id/page_indicator"
@@ -24,5 +40,5 @@
         android:layout_height="80dp"
         android:layout_alignParentBottom="true"
         android:gravity="center" />
-    
+
 </RelativeLayout>

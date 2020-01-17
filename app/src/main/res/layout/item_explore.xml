@@ -161,39 +161,17 @@
                     app:normalRes="@drawable/good"
                     app:selectedRes="@drawable/good_checked"/>
 
-                <ImageView
-                    android:id="@+id/menu_more"
-                    android:layout_width="24dp"
-                    android:layout_height="24dp"
-                    android:src="@drawable/ic_build_green_24dp"
-                    android:layout_margin="5dp"
-                    android:tint="#92a0ad"
-                    />
-
-                <android.support.v7.widget.CardView
-                    android:id="@+id/checkbox_wrapper"
+                <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    app:cardBackgroundColor="@color/colorPrimary"
-                    app:cardUseCompatPadding="true"
-                    app:contentPaddingLeft="10dp"
-                    app:contentPaddingRight="10dp"
-                    app:contentPaddingTop="3dp"
-                    app:contentPaddingBottom="3dp"
-                    app:cardCornerRadius="12dp"
+                    android:layout_gravity="center"
+                    android:text="关 注"
+                    android:textStyle="bold"
+                    android:background="@drawable/bg_button"
+                    android:textSize="12sp"
+                    android:textColor="#ffffff"
                     android:visibility="gone"
-                    >
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:text="关 注"
-                        android:textSize="12sp"
-                        android:textColor="#ffffff"
-                        />
-
-                </android.support.v7.widget.CardView>
+                    />
 
             </LinearLayout>
 
@@ -289,46 +267,18 @@
 
                         </LinearLayout>
 
-                        <com.deadline.statebutton.StateButton
+                        <TextView
                             android:id="@+id/btn_download"
-                            android:layout_width="48dp"
-                            android:layout_height="20dp"
-                            android:background="@color/colorPrimary"
-                            app:normalBackgroundColor="@color/colorPrimary"
-                            app:round="true"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
                             android:text="下载"
-                            android:textColor="#ffffff"
-                            app:pressedBackgroundColor="#8024aa42"
-                            android:layout_alignParentEnd="true"
-                            android:layout_centerVertical="true"
-                            android:layout_marginEnd="10dp"
+                            android:textStyle="bold"
+                            android:background="@drawable/bg_button"
                             android:textSize="12sp"
+                            android:textColor="#ffffff"
+                            android:visibility="gone"
                             />
-
-<!--                        <android.support.v7.widget.CardView-->
-<!--                            android:id="@+id/btn_download"-->
-<!--                            android:layout_width="wrap_content"-->
-<!--                            android:layout_height="match_parent"-->
-<!--                            app:cardBackgroundColor="@color/colorPrimary"-->
-<!--                            app:cardUseCompatPadding="true"-->
-<!--                            app:contentPaddingLeft="10dp"-->
-<!--                            app:contentPaddingRight="10dp"-->
-<!--                            app:contentPaddingTop="3dp"-->
-<!--                            app:contentPaddingBottom="3dp"-->
-<!--                            app:cardCornerRadius="12dp"-->
-<!--                            android:layout_alignParentEnd="true"-->
-<!--                            >-->
-
-<!--                            <TextView-->
-<!--                                android:layout_width="wrap_content"-->
-<!--                                android:layout_height="wrap_content"-->
-<!--                                android:layout_gravity="center"-->
-<!--                                android:text="下载"-->
-<!--                                android:textSize="12sp"-->
-<!--                                android:textColor="#ffffff"-->
-<!--                                />-->
-
-<!--                        </android.support.v7.widget.CardView>-->
 
                     </RelativeLayout>
 
@@ -393,9 +343,6 @@
                         />
 
                 </RelativeLayout>
-
-
-
 
             </LinearLayout>
 

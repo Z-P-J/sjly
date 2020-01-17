@@ -154,7 +154,7 @@
 //        quanxianxinxi_view = findViewById(R.id.quanxianxinxi);
 //
 //        floatingActionButton = findViewById(R.id.floatingActionButton);
-//        floatingActionButton.setOnClickListener(new View.OnClickListener() {
+//        floatingActionButton.onViewClick(new View.OnClickListener() {
 //            @Override
 //            public void onClick(View v) {
 //                Uri uri = Uri.parse(app_site);
@@ -188,7 +188,7 @@
 //                break;
 //            case 3:
 //                getSjlyDetail(app_site);
-//                floatingActionButton.setOnClickListener(new View.OnClickListener() {
+//                floatingActionButton.onViewClick(new View.OnClickListener() {
 //                    @Override
 //                    public void onClick(View v) {
 //                        Toast.makeText(DetailActivity.this, "下载=" + app_site, Toast.LENGTH_SHORT).show();

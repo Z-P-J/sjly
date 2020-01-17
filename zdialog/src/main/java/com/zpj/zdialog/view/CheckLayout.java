@@ -63,13 +63,13 @@ package com.zpj.zdialog.view;//package com.zpj.zdialog.view;
 //            textView.setTextColor(textColor);
 //            textView.setTextSize(textSize);
 //        }
-//        checkBox.setOnClickListener(new OnClickListener() {
+//        checkBox.onViewClick(new OnClickListener() {
 //            @Override
 //            public void onClick(View v) {
 //                performClick();
 //            }
 //        });
-//        setOnClickListener(new OnClickListener() {
+//        onViewClick(new OnClickListener() {
 //            @Override
 //            public void onClick(View v) {
 //                checkBox.setChecked(!checked, true);

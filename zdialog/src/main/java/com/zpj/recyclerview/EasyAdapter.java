@@ -6,6 +6,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.util.Log;
+import android.util.SparseArray;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -33,12 +34,14 @@ public class EasyAdapter<T> extends RecyclerView.Adapter<EasyViewHolder> {
     private IEasy.OnBindViewHolderCallback<T> callback;
     private IEasy.OnCreateViewHolderCallback<T> onCreateViewHolder;
     private IEasy.OnBindHeaderListener onBindHeaderListener;
+    private final SparseArray<IEasy.OnClickListener<T>> onClickListeners;
 
-    EasyAdapter(List<T> list, int itemRes, IEasy.OnCreateViewHolderCallback<T> onCreateViewHolder, IEasy.OnBindViewHolderCallback<T> callback) {
+    EasyAdapter(List<T> list, int itemRes, IEasy.OnCreateViewHolderCallback<T> onCreateViewHolder, IEasy.OnBindViewHolderCallback<T> callback, SparseArray<IEasy.OnClickListener<T>> onClickListeners) {
         this.list = list;
         this.itemRes = itemRes;
         this.callback = callback;
         this.onCreateViewHolder = onCreateViewHolder;
+        this.onClickListeners = onClickListeners;
         registerAdapterDataObserver(mObserver);
         mEnabled = new Enabled(mOnEnabledListener);
     }
@@ -65,7 +68,7 @@ public class EasyAdapter<T> extends RecyclerView.Adapter<EasyViewHolder> {
     }
 
     @Override
-    public void onBindViewHolder(@NonNull EasyViewHolder holder, int position, @NonNull List<Object> payloads) {
+    public void onBindViewHolder(@NonNull final EasyViewHolder holder, int position, @NonNull List<Object> payloads) {
 //        if (payloads.isEmpty()) {
 ////            onBindViewHolder(holder, position);
 //            if (isHeaderPosition(position)) return;
@@ -119,6 +122,23 @@ public class EasyAdapter<T> extends RecyclerView.Adapter<EasyViewHolder> {
             }
             return;
         }
+
+
+        final T data = list.get(getRealPosition(holder));
+        for (int i = 0; i < onClickListeners.size(); i++) {
+            int key = onClickListeners.keyAt(i);
+            View view = holder.getView(key);
+            if (view != null) {
+                final IEasy.OnClickListener<T> listener = onClickListeners.get(key);
+                view.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        listener.onClick(holder, v, data);
+                    }
+                });
+            }
+        }
+
         if (callback != null) {
             callback.onBindViewHolder(holder, list, getRealPosition(holder), payloads);
         }

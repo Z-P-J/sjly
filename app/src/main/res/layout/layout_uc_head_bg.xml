@@ -20,7 +20,7 @@
             android:id="@+id/uc_zoomiv"
             android:layout_width="match_parent"
             android:layout_height="200dp"
-            android:background="@drawable/shape_gradient"
+            android:background="@drawable/gradient_bg"
             android:scaleType="centerCrop"
             android:tag="overScroll" />
 

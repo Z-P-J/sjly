@@ -325,28 +325,28 @@
 //        //lazyLoadData();
 //
 //        app_all = view.findViewById(R.id.app_all);
-//        app_all.setOnClickListener(new View.OnClickListener() {
+//        app_all.onViewClick(new View.OnClickListener() {
 //            @Override
 //            public void onClick(View v) {
 //
 //            }
 //        });
 //        app_update = view.findViewById(R.id.app_update);
-//        app_update.setOnClickListener(new View.OnClickListener() {
+//        app_update.onViewClick(new View.OnClickListener() {
 //            @Override
 //            public void onClick(View v) {
 //
 //            }
 //        });
 //        app_new = view.findViewById(R.id.app_new);
-//        app_new.setOnClickListener(new View.OnClickListener() {
+//        app_new.onViewClick(new View.OnClickListener() {
 //            @Override
 //            public void onClick(View v) {
 //
 //            }
 //        });
 //        app_old = view.findViewById(R.id.app_old);
-//        app_old.setOnClickListener(new View.OnClickListener() {
+//        app_old.onViewClick(new View.OnClickListener() {
 //            @Override
 //            public void onClick(View v) {
 //
