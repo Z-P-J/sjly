@@ -2,12 +2,16 @@ package com.zpj.shouji.market.ui.fragment.main.homepage;
 
 import android.content.Context;
 import android.graphics.drawable.Drawable;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.view.ViewCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.transition.Fade;
+import android.transition.TransitionInflater;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,8 +19,6 @@ import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
-import com.bumptech.glide.request.target.SimpleTarget;
-import com.bumptech.glide.request.transition.Transition;
 import com.felix.atoast.library.AToast;
 import com.sunfusheng.GroupRecyclerViewAdapter;
 import com.sunfusheng.GroupViewHolder;
@@ -30,16 +32,18 @@ import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.bean.AppCollectionItem;
 import com.zpj.shouji.market.bean.AppItem;
 import com.zpj.shouji.market.bean.SubjectItem;
-import com.zpj.shouji.market.glide.GlideApp;
 import com.zpj.shouji.market.glide.blur.BlurTransformation;
-import com.zpj.shouji.market.ui.fragment.AppDetailFragment;
+import com.zpj.shouji.market.ui.fragment.detail.AppDetailFragment;
 import com.zpj.shouji.market.ui.fragment.base.BaseFragment;
-import com.zpj.shouji.market.utils.BlurBuilder;
+import com.zpj.shouji.market.ui.fragment.main.MainFragment;
+import com.zpj.shouji.market.ui.transition.ImageTransition;
 import com.zpj.shouji.market.utils.HttpUtil;
 import com.zpj.shouji.market.utils.ExecutorHelper;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import me.yokeyword.fragmentation.SupportFragment;
 
 public class RecommendFragment extends BaseFragment implements GroupRecyclerViewAdapter.OnItemClickListener<RecommendFragment.ItemWrapper> {
 
@@ -124,12 +128,26 @@ public class RecommendFragment extends BaseFragment implements GroupRecyclerView
     }
 
     @Override
-    public void onItemClick(GroupRecyclerViewAdapter adapter, ItemWrapper data, int groupPosition, int childPosition) {
+    public void onItemClick(GroupRecyclerViewAdapter adapter, GroupViewHolder holder, ItemWrapper data, int groupPosition, int childPosition) {
         if (groupPosition == 0) {
             return;
         }
         if (data.getAppItem() != null) {
-            _mActivity.start(AppDetailFragment.newInstance(data.getAppItem()));
+//            ViewCompat.setTransitionName(holder.get(R.id.item_icon), "app icon");
+            AppDetailFragment fragment = AppDetailFragment.newInstance(data.getAppItem());
+//            if (Build.VERSION.SDK_INT > Build.VERSION_CODES.LOLLIPOP) {
+//                fragment.setSharedElementEnterTransition(TransitionInflater.from(getContext())
+//                        .inflateTransition(android.R.transition.move));
+//                fragment.setEnterTransition(new Fade());
+//                _mActivity.findFragment(MainFragment.class).setExitTransition(new Fade());
+//                fragment.setSharedElementReturnTransition(new ImageTransition());
+//                _mActivity.findFragment(MainFragment.class).extraTransaction()
+//                        .addSharedElement(holder.get(R.id.item_icon), "app icon")
+//                        .start(fragment);
+//            } else {
+//                _mActivity.start(fragment);
+//            }
+            _mActivity.start(fragment);
         } else if (data.getCollectionItem() != null) {
             AToast.normal("TODO Collection");
         }
@@ -400,7 +418,7 @@ public class RecommendFragment extends BaseFragment implements GroupRecyclerView
         @Override
         public int getHeaderLayoutId(int viewType) {
             if (viewType == TYPE_TOP_HEADER) {
-                return R.layout.header_recommend;
+                return R.layout.layout_recommend_header;
             } else {
                 return R.layout.item_recommend_header;
             }
@@ -446,6 +464,7 @@ public class RecommendFragment extends BaseFragment implements GroupRecyclerView
                 holder.setText(R.id.item_title, appItem.getAppTitle());
                 holder.setText(R.id.item_info, appItem.getAppSize());
                 Glide.with(context).load(appItem.getAppIcon()).into((ImageView) holder.get(R.id.item_icon));
+//                ViewCompat.setTransitionName(holder.get(R.id.item_icon), appItem.getAppId());
             } else if (viewType == TYPE_CHILD_COLLECTION) {
                 long time1 = System.currentTimeMillis();
                 final AppCollectionItem appItem = item.getCollectionItem();

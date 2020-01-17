@@ -9,7 +9,6 @@ import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.felix.atoast.library.AToast;
 import com.zpj.popupmenuview.OptionMenu;
@@ -18,7 +17,7 @@ import com.zpj.popupmenuview.PopupMenuView;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.bean.AppUpdateInfo;
 import com.zpj.shouji.market.ui.adapter.AppUpdateAdapter;
-import com.zpj.shouji.market.ui.fragment.AppDetailFragment;
+import com.zpj.shouji.market.ui.fragment.detail.AppDetailFragment;
 import com.zpj.shouji.market.ui.fragment.base.BaseFragment;
 import com.zpj.shouji.market.utils.AppUpdateHelper;
 import com.zpj.shouji.market.utils.AppUtil;

@@ -5,8 +5,14 @@ import android.content.DialogInterface;
 import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
+import android.view.ViewTreeObserver;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
+import com.felix.atoast.library.AToast;
+import com.wuhenzhizao.titlebar.widget.CommonTitleBar;
+import com.zpj.popupmenuview.popup.EverywherePopup;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.ui.drawable.TileBitmapDrawable;
 import com.zpj.shouji.market.ui.widget.RoundPageIndicator;
@@ -23,23 +29,33 @@ public class MyImageTransAdapter extends ImageTransAdapter {
 
     private Context context;
     private View view;
-    private View topPanel;
+    private CommonTitleBar topPanel;
     private RoundPageIndicator bottomPanel;
     private boolean isShow = true;
 
     @Override
     protected View onCreateView(View parent, ViewPager viewPager, final DialogInterface dialogInterface) {
         context = parent.getContext();
-        view = LayoutInflater.from(parent.getContext()).inflate(R.layout.image_trans_adapter, null);
+        view = LayoutInflater.from(context).inflate(R.layout.image_trans_adapter, null);
         topPanel = view.findViewById(R.id.top_panel);
-        bottomPanel = (RoundPageIndicator) view.findViewById(R.id.page_indicator);
-        view.findViewById(R.id.top_panel_cancel).setOnClickListener(new View.OnClickListener() {
+        topPanel.getLeftImageButton().setOnClickListener(v -> dialogInterface.dismiss());
+        topPanel.getRightImageButton().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                dialogInterface.cancel();
+                EverywherePopup.create(context)
+                        .addItems("查看原图", "下载", "分享")
+                        .setOnItemClickListener(new EverywherePopup.OnItemClickListener() {
+                            @Override
+                            public void onItemClicked(String title, int position) {
+                                AToast.normal("TODO " + title);
+                            }
+                        })
+                        .apply()
+                        .show(v);
             }
         });
-        topPanel.setTranslationY(-ScreenUtil.dp2px(context, 56));
+        bottomPanel = view.findViewById(R.id.page_indicator);
+        topPanel.setTranslationY(-ScreenUtil.dp2px(context, 56) - ScreenUtil.getStatusBarHeight(context));
         bottomPanel.setTranslationY(ScreenUtil.dp2px(context, 80));
         bottomPanel.setViewPager(viewPager);
         return view;
@@ -47,7 +63,7 @@ public class MyImageTransAdapter extends ImageTransAdapter {
 
     @Override
     public void onPullRange(float range) {
-        topPanel.setTranslationY(-ScreenUtil.dp2px(context, 56) * range * 4);
+        topPanel.setTranslationY((-ScreenUtil.dp2px(context, 56) - ScreenUtil.getStatusBarHeight(context)) * range * 4);
         bottomPanel.setTranslationY(ScreenUtil.dp2px(context, 80) * range * 4);
     }
 
@@ -94,7 +110,7 @@ public class MyImageTransAdapter extends ImageTransAdapter {
     }
 
     public void hiddenPanel() {
-        topPanel.animate().translationY(-ScreenUtil.dp2px(context, 56)).setDuration(200).start();
+        topPanel.animate().translationY(-ScreenUtil.dp2px(context, 56) - ScreenUtil.getStatusBarHeight(context)).setDuration(200).start();
         bottomPanel.animate().translationY(ScreenUtil.dp2px(context, 80)).setDuration(200).start();
     }
 

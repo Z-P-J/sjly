@@ -1,0 +1,7 @@
+R_DEF: Internal format may change without notice
+local
+id indicator_container
+id scroll_view
+id title_container
+layout pager_navigator_layout
+layout pager_navigator_layout_no_scroll

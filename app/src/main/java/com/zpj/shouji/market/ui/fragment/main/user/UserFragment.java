@@ -92,7 +92,7 @@ public class UserFragment extends BaseFragment implements ExploreFragment.Callba
     @Override
     public void onLazyInitView(@Nullable Bundle savedInstanceState) {
         super.onLazyInitView(savedInstanceState);
-        exploreFragment.loadData();
+//        exploreFragment.loadData();
     }
 
     private void initView(View view) {

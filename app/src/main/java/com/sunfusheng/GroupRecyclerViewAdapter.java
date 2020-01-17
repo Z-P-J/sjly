@@ -116,7 +116,7 @@ abstract public class GroupRecyclerViewAdapter<T> extends RecyclerView.Adapter<G
         if (null != onItemClickListener) {
             holder.itemView.setOnClickListener(view -> {
                 if (null != onItemClickListener) {
-                    onItemClickListener.onItemClick(this, item, groupPosition, childPosition);
+                    onItemClickListener.onItemClick(this, holder, item, groupPosition, childPosition);
                 }
             });
         }
@@ -124,7 +124,7 @@ abstract public class GroupRecyclerViewAdapter<T> extends RecyclerView.Adapter<G
         if (null != onItemLongClickListener) {
             holder.itemView.setOnLongClickListener(view -> {
                 if (null != onItemLongClickListener) {
-                    onItemLongClickListener.onItemLongClick(this, item, groupPosition, childPosition);
+                    onItemLongClickListener.onItemLongClick(this, holder, item, groupPosition, childPosition);
                     return true;
                 }
                 return false;
@@ -724,7 +724,7 @@ abstract public class GroupRecyclerViewAdapter<T> extends RecyclerView.Adapter<G
     }
 
     public interface OnItemClickListener<T> {
-        void onItemClick(GroupRecyclerViewAdapter<T> adapter, T data, int groupPosition, int childPosition);
+        void onItemClick(GroupRecyclerViewAdapter<T> adapter, GroupViewHolder holder, T data, int groupPosition, int childPosition);
     }
 
     public void setOnItemLongClickListener(OnItemLongClickListener<T> onItemLongClickListener) {
@@ -732,7 +732,7 @@ abstract public class GroupRecyclerViewAdapter<T> extends RecyclerView.Adapter<G
     }
 
     public interface OnItemLongClickListener<T> {
-        void onItemLongClick(GroupRecyclerViewAdapter adapter, T data, int groupPosition, int childPosition);
+        void onItemLongClick(GroupRecyclerViewAdapter adapter, GroupViewHolder holder, T data, int groupPosition, int childPosition);
     }
 
     public Context getContext() {

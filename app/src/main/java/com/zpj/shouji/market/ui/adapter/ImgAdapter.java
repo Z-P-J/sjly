@@ -3,6 +3,7 @@ package com.zpj.shouji.market.ui.adapter;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -45,7 +46,7 @@ public class ImgAdapter extends RecyclerView.Adapter<ImgAdapter.ViewHolder> {
     @Override
     public ImgAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         context = parent.getContext();
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.img_view, parent,false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_image, parent,false);
         ViewHolder holder = new ViewHolder(view);
         return holder;
     }
@@ -53,19 +54,19 @@ public class ImgAdapter extends RecyclerView.Adapter<ImgAdapter.ViewHolder> {
     @Override
     public void onBindViewHolder(@NonNull final ImgAdapter.ViewHolder holder, int position) {
         Glide.with(context).load(imageUrlList.get(position)).into(holder.img_view);
+        holder.img_view.setTag(position);
         holder.img_view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                final ImageView img = (ImageView) v;
                 ImageTrans.with(context)
                         .setImageList(imageUrlList)
-                        .setNowIndex(holder.getLayoutPosition())
-                        .setSourceImageView(new SourceImageViewGet() {
-                            @Override
-                            public ImageView getImageView(int pos) {
-                                View view = recyclerView.getChildAt(pos);
-                                if (view != null) return (ImageView) view.findViewById(R.id.img_view);
-                                return holder.img_view;
-                            }
+                        .setNowIndex((int)v.getTag())
+                        .setSourceImageView(pos -> {
+                            int layoutPos = recyclerView.indexOfChild(holder.itemView);
+                            View view = recyclerView.getChildAt(layoutPos + pos - position);
+                            if (view != null) return view.findViewById(R.id.img_view);
+                            return holder.img_view;
                         })
                         .setProgressBar(new MyProgressBarGet())
                         .setImageLoad(new MyImageLoad())

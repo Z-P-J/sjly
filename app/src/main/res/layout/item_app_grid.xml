@@ -17,6 +17,7 @@
         app:civ_border_width="1dp"
         app:civ_border_color="#80cccccc"
         android:layout_margin="10dp"
+        android:transitionName="app icon"
         />
 
     <TextView

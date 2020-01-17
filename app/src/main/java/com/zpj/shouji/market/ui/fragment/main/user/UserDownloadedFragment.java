@@ -14,7 +14,7 @@ import com.zpj.shouji.market.bean.UserDownloadedAppInfo;
 import com.zpj.shouji.market.ui.adapter.UserDownloadedAdapter;
 import com.zpj.shouji.market.ui.adapter.loadmore.LoadMoreAdapter;
 import com.zpj.shouji.market.ui.adapter.loadmore.LoadMoreWrapper;
-import com.zpj.shouji.market.ui.fragment.AppDetailFragment;
+import com.zpj.shouji.market.ui.fragment.detail.AppDetailFragment;
 import com.zpj.shouji.market.ui.fragment.base.BaseFragment;
 import com.zpj.shouji.market.utils.HttpUtil;
 import com.zpj.shouji.market.utils.ExecutorHelper;

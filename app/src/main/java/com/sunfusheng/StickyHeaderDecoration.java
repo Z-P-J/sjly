@@ -137,7 +137,7 @@ public class StickyHeaderDecoration extends RecyclerView.ItemDecoration {
             GroupRecyclerViewAdapter adapter = groupAdapter;
             if (isValidTouch(e) && adapter != null && adapter.onItemClickListener != null) {
                 currStickyView.setPressed(false);
-                adapter.onItemClickListener.onItemClick(adapter, adapter.getItem(currGroupPosition, 0), currGroupPosition, 0);
+                adapter.onItemClickListener.onItemClick(adapter, viewHolder, adapter.getItem(currGroupPosition, 0), currGroupPosition, 0);
                 return true;
             }
             return super.onSingleTapUp(e);
@@ -149,7 +149,7 @@ public class StickyHeaderDecoration extends RecyclerView.ItemDecoration {
             GroupRecyclerViewAdapter adapter = groupAdapter;
             if (isValidTouch(e) && adapter != null && adapter.onItemLongClickListener != null) {
                 currStickyView.setPressed(false);
-                adapter.onItemLongClickListener.onItemLongClick(adapter, adapter.getItem(currGroupPosition, 0), currGroupPosition, 0);
+                adapter.onItemLongClickListener.onItemLongClick(adapter, viewHolder, adapter.getItem(currGroupPosition, 0), currGroupPosition, 0);
             }
         }
 

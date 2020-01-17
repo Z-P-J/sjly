@@ -522,6 +522,7 @@ public class SwipeBackLayout extends FrameLayout {
         @Override
         public int clampViewPositionHorizontal(View child, int left, int dx) {
             int ret = getPaddingLeft();
+            Log.d(TAG, "clampViewPositionHorizontal canViewScrollRight=" + canViewScrollRight(downX, downY));
             Log.d(TAG, "clampViewPositionHorizontal canViewScrollLeft=" + canViewScrollLeft(downX, downY));
             Log.d(TAG, "clampViewPositionHorizontal mCurrentSwipeOrientation=" + mCurrentSwipeOrientation);
             if ((mCurrentSwipeOrientation & EDGE_LEFT) != 0 && !canViewScrollRight(downX, downY)) {
@@ -660,17 +661,18 @@ public class SwipeBackLayout extends FrameLayout {
                 break;
             case MotionEvent.ACTION_MOVE:
                 Log.d(TAG, "onInterceptTouchEvent active_move");
-                if (contains(downX, downY)) {
-                    float distanceX = Math.abs(ev.getRawX() - downX);
-                    float distanceY = Math.abs(ev.getRawY() - downY);
-                    if ((mCurrentSwipeOrientation & EDGE_LEFT) != 0 || (mCurrentSwipeOrientation & EDGE_RIGHT) != 0) {
-                        if (distanceY > mHelper.getTouchSlop() && distanceY > distanceX) {
-                            return super.onInterceptTouchEvent(ev);
-                        }
-                    } else if (mCurrentSwipeOrientation == EDGE_TOP || mCurrentSwipeOrientation == EDGE_BOTTOM) {
-                        if (distanceX > mHelper.getTouchSlop() && distanceX > distanceY) {
-                            return super.onInterceptTouchEvent(ev);
-                        }
+//                if (contains(downX, downY)) {
+//
+//                }
+                float distanceX = Math.abs(ev.getRawX() - downX);
+                float distanceY = Math.abs(ev.getRawY() - downY);
+                if ((mCurrentSwipeOrientation & EDGE_LEFT) != 0 || (mCurrentSwipeOrientation & EDGE_RIGHT) != 0) {
+                    if (distanceY > mHelper.getTouchSlop() && distanceY > distanceX) {
+                        return super.onInterceptTouchEvent(ev);
+                    }
+                } else if (mCurrentSwipeOrientation == EDGE_TOP || mCurrentSwipeOrientation == EDGE_BOTTOM) {
+                    if (distanceX > mHelper.getTouchSlop() && distanceX > distanceY) {
+                        return super.onInterceptTouchEvent(ev);
                     }
                 }
                 break;
@@ -695,14 +697,20 @@ public class SwipeBackLayout extends FrameLayout {
 
     public boolean canViewScrollRight(float x, float y) {
         if (x < minTouch) {
+            Log.d("canViewScrollRight", "1");
             return false;
         }
         for (View view : scrollViewList) {
             if (view == null || !contains(view, x, y)) {
                 continue;
             }
-            return view.canScrollHorizontally(-1);
+            Log.d("canViewScrollRight", "2 view=" + view);
+            boolean flag = view.canScrollHorizontally(-1);
+            if (flag) {
+                return true;
+            }
         }
+        Log.d("canViewScrollRight", "3");
         return false;
     }
 
@@ -714,7 +722,10 @@ public class SwipeBackLayout extends FrameLayout {
             if (view == null || !contains(view, x, y)) {
                 continue;
             }
-            return view.canScrollHorizontally(1);
+            boolean flag = view.canScrollHorizontally(1);
+            if (flag) {
+                return true;
+            }
         }
         return false;
     }
@@ -727,7 +738,10 @@ public class SwipeBackLayout extends FrameLayout {
             if (view == null || !contains(view, x, y)) {
                 continue;
             }
-            return view.canScrollVertically(-1);
+            boolean flag = view.canScrollVertically(-1);
+            if (flag) {
+                return true;
+            }
         }
         return false;
     }
@@ -740,7 +754,10 @@ public class SwipeBackLayout extends FrameLayout {
             if (view == null || !contains(view, x, y)) {
                 continue;
             }
-            return view.canScrollVertically(1);
+            boolean flag = view.canScrollVertically(1);
+            if (flag) {
+                return true;
+            }
         }
         return false;
     }
@@ -752,12 +769,11 @@ public class SwipeBackLayout extends FrameLayout {
             if (mView.getVisibility() != View.VISIBLE) {
                 continue;
             }
+            if (mView instanceof ViewGroup) {
+                scrollerViewList.addAll(findAllScrollViews((ViewGroup) mView));
+            }
             if (isScrollableView(mView)) {
                 scrollerViewList.add(mView);
-            } else {
-                if (mView instanceof ViewGroup) {
-                    scrollerViewList.addAll(findAllScrollViews((ViewGroup) mView));
-                }
             }
         }
         return scrollerViewList;

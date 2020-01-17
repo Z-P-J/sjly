@@ -64,7 +64,7 @@ public class WallpaperFragment extends BaseFragment implements View.OnClickListe
     public void onLazyInitView(@Nullable Bundle savedInstanceState) {
         super.onLazyInitView(savedInstanceState);
         if (isInitTags.get()) {
-            initMagicIndicator();
+
         } else {
             initWallpaperTags();
         }
@@ -106,11 +106,12 @@ public class WallpaperFragment extends BaseFragment implements View.OnClickListe
                 for (Element item : elements) {
                     wallpaperTags.add(WallpaperTag.create(item));
                 }
-                if (isInitTags.get()) {
-                    post(this::initMagicIndicator);
-                } else {
-                    isInitTags.set(true);
-                }
+//                if (isInitTags.get()) {
+//
+//                } else {
+//
+//                }
+                post(this::initMagicIndicator);
             } catch (IOException e) {
                 e.printStackTrace();
                 // TODO 加载默认分类
@@ -119,6 +120,7 @@ public class WallpaperFragment extends BaseFragment implements View.OnClickListe
     }
 
     private void initMagicIndicator() {
+        isInitTags.set(true);
         fragments.clear();
         for (WallpaperTag tag : wallpaperTags) {
             fragments.add(ImageFragment.newInstance(tag));

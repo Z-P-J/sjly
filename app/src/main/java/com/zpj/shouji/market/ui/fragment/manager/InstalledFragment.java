@@ -31,7 +31,7 @@ import com.zpj.shouji.market.bean.InstalledAppInfo;
 import com.zpj.shouji.market.ui.adapter.AppManagerAdapter;
 import com.zpj.shouji.market.ui.adapter.loadmore.LoadMoreAdapter;
 import com.zpj.shouji.market.ui.adapter.loadmore.LoadMoreWrapper;
-import com.zpj.shouji.market.ui.fragment.AppDetailFragment;
+import com.zpj.shouji.market.ui.fragment.detail.AppDetailFragment;
 import com.zpj.shouji.market.ui.fragment.base.BaseFragment;
 import com.zpj.shouji.market.ui.view.AppFilterLayout;
 import com.zpj.shouji.market.ui.view.GradientButton;

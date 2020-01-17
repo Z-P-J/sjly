@@ -11,7 +11,7 @@
         android:id="@+id/banner"
         android:layout_width="match_parent"
         android:layout_height="210dp"
-        android:background="@color/colorPrimary"
+        android:background="@drawable/gradient_bg"
         android:paddingBottom="50dp"
         app:canLoop="true"
         app:open_mz_mode="true" />

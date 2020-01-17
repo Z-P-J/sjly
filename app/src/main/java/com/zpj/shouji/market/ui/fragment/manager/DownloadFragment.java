@@ -66,7 +66,7 @@ public class DownloadFragment extends BaseFragment implements DownloadManager.Do
     }
 
     @Override
-    public void onItemClick(GroupRecyclerViewAdapter<DownloadWrapper> adapter, DownloadWrapper data, int groupPosition, int childPosition) {
+    public void onItemClick(GroupRecyclerViewAdapter<DownloadWrapper> adapter, GroupViewHolder holder, DownloadWrapper data, int groupPosition, int childPosition) {
         if (adapter.isHeader(groupPosition, childPosition)) {
             List<DownloadWrapper> list = adapter.getGroupItemsWithoutHeaderFooter(groupPosition);
             if (list.size() == 1 && list.get(0).getMission() == null) {

@@ -21,9 +21,14 @@ import com.zpj.http.parser.html.nodes.Element;
 import com.zpj.http.parser.html.select.Elements;
 import com.zpj.popupmenuview.CustomPopupMenuView;
 import com.zpj.popupmenuview.OptionMenuView;
+import com.zpj.recyclerview.EasyAdapter;
+import com.zpj.recyclerview.EasyRecyclerLayout;
+import com.zpj.recyclerview.EasyViewHolder;
+import com.zpj.recyclerview.IEasy;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.bean.ExploreItem;
 import com.zpj.shouji.market.ui.adapter.ExploreAdapter;
+import com.zpj.shouji.market.ui.adapter.ExploreBinder;
 import com.zpj.shouji.market.ui.adapter.loadmore.LoadMoreAdapter;
 import com.zpj.shouji.market.ui.adapter.loadmore.LoadMoreWrapper;
 import com.zpj.shouji.market.ui.fragment.base.BaseFragment;
@@ -37,7 +42,12 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class ExploreFragment extends BaseFragment implements ExploreAdapter.OnItemClickListener {
+import me.yokeyword.fragmentation.SwipeBackLayout;
+
+public class ExploreFragment extends BaseFragment
+        implements ExploreAdapter.OnItemClickListener,
+        IEasy.OnLoadMoreListener,
+        SwipeRefreshLayout.OnRefreshListener {
 
     public interface Callback {
         void onGetUserItem(Element element);
@@ -45,10 +55,9 @@ public class ExploreFragment extends BaseFragment implements ExploreAdapter.OnIt
 
     private static final String DEFAULT_URL = "http://tt.shouji.com.cn/app/faxian.jsp?index=faxian&versioncode=198";
 
-    private RecyclerView recyclerView;
-    private List<ExploreItem> exploreItems = new ArrayList<>();
-    private ExploreAdapter exploreAdapter;
-    private SwipeRefreshLayout swipeRefreshLayout;
+    private EasyRecyclerLayout<ExploreItem> recyclerLayout;
+
+    private final List<ExploreItem> exploreItems = new ArrayList<>();
     private boolean enableSwipeRefresh = true;
 
     private String defaultUrl = DEFAULT_URL;
@@ -73,8 +82,14 @@ public class ExploreFragment extends BaseFragment implements ExploreAdapter.OnIt
 
                 nextUrl = doc.selectFirst("nextUrl").text();
                 Map<String, ExploreItem> map = new HashMap<>();
-                for (int i = 1; i < elements.size(); i++) {
+                for (int i = 0; i < elements.size(); i++) {
                     Element item = elements.get(i);
+
+                    String type = item.selectFirst("type").text();
+                    if ("tag".equals(type)) {
+                        continue;
+                    }
+
                     ExploreItem exploreItem = new ExploreItem();
                     String id = item.selectFirst("id").text();
                     String parent = item.selectFirst("parent").text();
@@ -108,7 +123,7 @@ public class ExploreFragment extends BaseFragment implements ExploreAdapter.OnIt
                         }
                     }
 
-                    String type = item.selectFirst("type").text();
+
                     if ("theme".equals(type)) {
 
                         // 分享应用
@@ -150,13 +165,7 @@ public class ExploreFragment extends BaseFragment implements ExploreAdapter.OnIt
                         }
                     }
                 }
-                recyclerView.postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-//                            loadingView.setVisibility(View.GONE);
-                        exploreAdapter.notifyDataSetChanged();
-                    }
-                }, 1);
+                post(() -> recyclerLayout.notifyDataSetChanged());
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -191,38 +200,50 @@ public class ExploreFragment extends BaseFragment implements ExploreAdapter.OnIt
             defaultUrl = getArguments().getString("default_url");
         }
         nextUrl = defaultUrl;
-        recyclerView = view.findViewById(R.id.recycler_view);
-        recyclerView.setItemAnimator(new DefaultItemAnimator());
 
-        swipeRefreshLayout = view.findViewById(R.id.swipe_refresh);
-        swipeRefreshLayout.setEnabled(enableSwipeRefresh);
-        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                recyclerView.postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        swipeRefreshLayout.setRefreshing(false);
-                        exploreItems.clear();
-                        exploreAdapter.notifyDataSetChanged();
-                        nextUrl = DEFAULT_URL;
-//                        getCoolApkHtml();
-                    }
-                }, 1000);
-            }
-        });
+        recyclerLayout = view.findViewById(R.id.recycler_layout);
 
 
-        LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
-        recyclerView.setLayoutManager(layoutManager);
-        exploreAdapter = new ExploreAdapter(exploreItems);
-        exploreAdapter.setItemClickListener(this);
+//        recyclerView = view.findViewById(R.id.recycler_view);
+//        recyclerView.setItemAnimator(new DefaultItemAnimator());
+//
+//        swipeRefreshLayout = view.findViewById(R.id.swipe_refresh);
+//        swipeRefreshLayout.setEnabled(enableSwipeRefresh);
+//        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+//            @Override
+//            public void onRefresh() {
+//                recyclerView.postDelayed(new Runnable() {
+//                    @Override
+//                    public void run() {
+//                        swipeRefreshLayout.setRefreshing(false);
+//                        exploreItems.clear();
+//                        exploreAdapter.notifyDataSetChanged();
+//                        nextUrl = defaultUrl;
+////                        getCoolApkHtml();
+//                    }
+//                }, 1000);
+//            }
+//        });
+//
+//
+//        LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
+//        recyclerView.setLayoutManager(layoutManager);
+//        exploreAdapter = new ExploreAdapter(exploreItems);
+//        exploreAdapter.setItemClickListener(this);
     }
 
     @Override
     public void onLazyInitView(@Nullable Bundle savedInstanceState) {
         super.onLazyInitView(savedInstanceState);
-        loadData();
+        recyclerLayout.setItemRes(R.layout.item_explore)
+                .setData(exploreItems)
+                .setLayoutManager(new LinearLayoutManager(getContext()))
+                .setEnableLoadMore(true)
+                .setEnableSwipeRefresh(enableSwipeRefresh)
+                .onLoadMore(this)
+                .setOnRefreshListener(this)
+                .onBindViewHolder(new ExploreBinder())
+                .build();
     }
 
     @Override
@@ -238,9 +259,29 @@ public class ExploreFragment extends BaseFragment implements ExploreAdapter.OnIt
     @Override
     public void onIconClicked(View view, String userId) {
         if (defaultUrl.equals(DEFAULT_URL)) {
-            findFragment(MainFragment.class).start(UserFragment.newInstance(userId, false));
+            _mActivity.start(UserFragment.newInstance(userId, false));
         }
     }
+
+    @Override
+    public void onRefresh() {
+        nextUrl = defaultUrl;
+        exploreItems.clear();
+        recyclerLayout.notifyDataSetChanged();
+    }
+
+    @Override
+    public boolean onLoadMore(EasyAdapter.Enabled enabled, int currentPage) {
+        if (TextUtils.isEmpty(nextUrl)) {
+//                            enabled.setLoadFailed(false);
+            AToast.normal("没有更多了！");
+            return false;
+        }
+        // 获取数据
+        ExecutorHelper.submit(getDataRunnable);
+        return true;
+    }
+
 
     public void setCallback(Callback callback) {
         this.callback = callback;
@@ -248,31 +289,10 @@ public class ExploreFragment extends BaseFragment implements ExploreAdapter.OnIt
 
     public void setEnableSwipeRefresh(boolean enableSwipeRefresh) {
         this.enableSwipeRefresh = enableSwipeRefresh;
-        if (swipeRefreshLayout != null) {
+        if (recyclerLayout != null) {
             AToast.normal("setEnableSwipeRefresh");
-            swipeRefreshLayout.setEnabled(enableSwipeRefresh);
+            recyclerLayout.setEnableSwipeRefresh(enableSwipeRefresh);
         }
-    }
-
-    public void loadData() {
-        if (exploreAdapter == null) {
-            return;
-        }
-        LoadMoreWrapper.with(exploreAdapter)
-                .setLoadMoreEnabled(true)
-                .setListener(new LoadMoreAdapter.OnLoadMoreListener() {
-                    @Override
-                    public void onLoadMore(LoadMoreAdapter.Enabled enabled) {
-                        if (TextUtils.isEmpty(nextUrl)) {
-//                            enabled.setLoadFailed(false);
-                            AToast.normal("没有更多了！");
-                            return;
-                        }
-                        // 获取数据
-                        ExecutorHelper.submit(getDataRunnable);
-                    }
-                })
-                .into(recyclerView);
     }
 
     private void showMenu(View view, ExploreItem item) {
@@ -280,10 +300,6 @@ public class ExploreFragment extends BaseFragment implements ExploreAdapter.OnIt
                 .setOrientation(LinearLayout.VERTICAL)
                 .setBackgroundAlpha(getActivity(), 0.9f, 500)
                 .setPopupViewBackgroundColor(Color.parseColor("#eeffffff"))
-//                .setAnimationTranslationShow(CustomPopupMenuView.DIRECTION_X, 350, 100, 0)
-//                .setAnimationTranslationShow(CustomPopupMenuView.DIRECTION_Y, 350, -100, 0)
-//                .setAnimationAlphaShow(350, 0.0f, 1.0f)
-//                .setAnimationAlphaDismiss(350, 1.0f, 0.0f)
                 .initViews(
                         1,
                         (popupMenuView, itemView, position) -> {

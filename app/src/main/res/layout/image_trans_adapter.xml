@@ -1,30 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <RelativeLayout
+    <com.wuhenzhizao.titlebar.widget.CommonTitleBar
         android:id="@+id/top_panel"
         android:layout_width="match_parent"
-        android:layout_height="56dp"
-        android:background="#64000000">
-
-        <ImageView
-            android:id="@+id/top_panel_cancel"
-            android:layout_width="56dp"
-            android:layout_height="56dp"
-            android:layout_centerVertical="true"
-            android:scaleType="centerInside"
-            android:src="@drawable/ic_arrow_back_white_24dp" />
-
-        <ImageView
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            android:layout_marginRight="10dp"
-            android:src="@drawable/ic_more_vert_grey_24dp" />
-    </RelativeLayout>
+        android:layout_height="wrap_content"
+        app:fillStatusBar="true"
+        app:statusBarColor="#64000000"
+        app:titleBarColor="#64000000"
+        app:leftType="imageButton"
+        app:leftImageResource="@drawable/ic_arrow_back_white_24dp"
+        app:centerType="textView"
+        app:centerText="图片名"
+        app:rightType="imageButton"
+        app:rightImageResource="@drawable/ic_more_vert_grey_24dp"
+        />
 
     <com.zpj.shouji.market.ui.widget.RoundPageIndicator
         android:id="@+id/page_indicator"
