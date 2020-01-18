@@ -34,7 +34,7 @@ public class ZListDialog<T> {
 
     private List<T> list;
 
-    private IEasy.OnBindViewHolderCallback<T> callback;
+    private IEasy.OnBindViewHolderListener<T> callback;
 
     private IDialog.OnDismissListener onDismissListener;
 
@@ -94,7 +94,7 @@ public class ZListDialog<T> {
         return this;
     }
 
-    public ZListDialog<T> setOnBindChildView(IEasy.OnBindViewHolderCallback<T> callback) {
+    public ZListDialog<T> setOnBindChildView(IEasy.OnBindViewHolderListener<T> callback) {
         this.callback = callback;
         return this;
     }

@@ -7,10 +7,10 @@
     <solid android:color="@color/colorPrimary"/>
     <corners android:radius="50dp"/>
     <padding
-        android:left="15dp"
-        android:right="15dp"
-        android:bottom="5dp"
-        android:top="5dp"
+        android:left="10dp"
+        android:right="10dp"
+        android:bottom="2dp"
+        android:top="2dp"
         />
 
 </shape>

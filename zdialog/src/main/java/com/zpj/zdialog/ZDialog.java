@@ -32,7 +32,7 @@ public class ZDialog extends DialogFragment implements IDialog {
     public int gravity = Gravity.CENTER;
 
     View contentView;
-    FragmentActivity activity;
+    protected FragmentActivity activity;
     private OnViewCreateListener onViewCreateListener;
     private OnDismissListener onDismissListener;
     private OnCancelListener onCancelListener;

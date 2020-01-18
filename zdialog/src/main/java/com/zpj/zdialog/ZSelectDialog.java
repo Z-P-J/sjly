@@ -120,7 +120,7 @@ public class ZSelectDialog<T> {
                         }
                     }
                 })
-                .setOnBindChildView(new IEasy.OnBindViewHolderCallback<T>() {
+                .setOnBindChildView(new IEasy.OnBindViewHolderListener<T>() {
                     @Override
                     public void onBindViewHolder(final EasyViewHolder holder, List<T> list, int position, List<Object> ppayloads) {
                         ImageView iconView = holder.getView(R.id.icon_view);

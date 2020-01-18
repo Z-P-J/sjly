@@ -8,6 +8,7 @@ import android.support.v7.view.menu.MenuBuilder;
 import android.support.v7.widget.LinearLayoutManager;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
@@ -21,14 +22,17 @@ import com.zpj.popupmenuview.CustomPopupMenuView;
 import com.zpj.popupmenuview.OptionMenuView;
 import com.zpj.recyclerview.EasyAdapter;
 import com.zpj.recyclerview.EasyRecyclerLayout;
+import com.zpj.recyclerview.EasyViewHolder;
 import com.zpj.recyclerview.IEasy;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.bean.ExploreItem;
 import com.zpj.shouji.market.ui.adapter.ExploreBinder;
+import com.zpj.shouji.market.ui.dialog.MenuBottomSheetDialog;
 import com.zpj.shouji.market.ui.fragment.base.BaseFragment;
 import com.zpj.shouji.market.ui.fragment.main.user.UserFragment;
 import com.zpj.shouji.market.utils.ExecutorHelper;
 import com.zpj.shouji.market.utils.HttpUtil;
+import com.zpj.zdialog.base.IDialog;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -204,6 +208,19 @@ public class ExploreFragment extends BaseFragment
                 .onLoadMore(this)
                 .setOnRefreshListener(this)
                 .onBindViewHolder(new ExploreBinder())
+                .onItemClick(new IEasy.OnItemClickListener<ExploreItem>() {
+                    @Override
+                    public void onClick(EasyViewHolder holder, View view, ExploreItem data, float x, float y) {
+                        AToast.normal("TODO click");
+                    }
+                })
+                .onItemLongClick(new IEasy.OnItemLongClickListener<ExploreItem>() {
+                    @Override
+                    public boolean onLongClick(EasyViewHolder holder, View view, ExploreItem data, float x, float y) {
+                        showMenu(data);
+                        return true;
+                    }
+                })
                 .onViewClick(R.id.item_icon, (holder, view, data) -> {
                     _mActivity.start(UserFragment.newInstance(data.getMemberId(), false));
                 })
@@ -240,6 +257,43 @@ public class ExploreFragment extends BaseFragment
             AToast.normal("setEnableSwipeRefresh");
             recyclerLayout.setEnableSwipeRefresh(enableSwipeRefresh);
         }
+    }
+
+    private void showMenu(ExploreItem data) {
+        MenuBottomSheetDialog.with(context)
+                .setMenu(R.menu.menu_tools)
+//                .setHeaderView(R.layout.item_app_linear, new IEasy.OnBindHeaderListener() {
+//                    @Override
+//                    public void onBindHeader(EasyViewHolder holder) {
+//
+//                    }
+//                })
+                .onItemClick(new MenuBottomSheetDialog.OnItemClickListener() {
+                    @Override
+                    public void onClick(IDialog dialog, View view, MenuItem data) {
+                        switch (data.getItemId()) {
+                            case R.id.copy:
+
+                                break;
+                            case R.id.share:
+
+                                break;
+                            case R.id.collect:
+
+                                break;
+                            case R.id.delete:
+
+                                break;
+                            case R.id.report:
+
+                                break;
+                            case R.id.black_list:
+                                break;
+                        }
+                        dialog.dismiss();
+                    }
+                })
+                .show();
     }
 
     private void showMenu(View view, ExploreItem item) {

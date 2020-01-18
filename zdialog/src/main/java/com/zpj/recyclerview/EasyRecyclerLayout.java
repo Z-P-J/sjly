@@ -77,7 +77,7 @@ public class EasyRecyclerLayout<T> extends FrameLayout {
 
     public EasyRecyclerLayout<T> setItemRes(@LayoutRes final int res) {
         easyRecyclerView.setItemRes(R.layout.easy_item_recycler_layout);
-        easyRecyclerView.onCreateViewHolder(new IEasy.OnCreateViewHolderCallback<T>() {
+        easyRecyclerView.onCreateViewHolder(new IEasy.OnCreateViewHolderListener<T>() {
             @Override
             public void onCreateViewHolder(ViewGroup parent, View view, int viewType) {
                 FrameLayout container = view.findViewById(R.id.container);
@@ -165,7 +165,7 @@ public class EasyRecyclerLayout<T> extends FrameLayout {
         return this;
     }
 
-    public EasyRecyclerLayout<T> setFooterView(@LayoutRes int layoutRes, IEasy.OnCreateFooterCallback callback) {
+    public EasyRecyclerLayout<T> setFooterView(@LayoutRes int layoutRes, IEasy.OnCreateFooterListener callback) {
         easyRecyclerView.setFooterView(layoutRes, callback);
         return this;
     }
@@ -186,8 +186,18 @@ public class EasyRecyclerLayout<T> extends FrameLayout {
         return this;
     }
 
-    public EasyRecyclerLayout<T> onBindViewHolder(final IEasy.OnBindViewHolderCallback<T> callback) {
-        easyRecyclerView.onBindViewHolder(new IEasy.OnBindViewHolderCallback<T>() {
+    public EasyRecyclerLayout<T> onItemClick(IEasy.OnItemClickListener<T> listener) {
+        easyRecyclerView.onItemClick(listener);
+        return this;
+    }
+
+    public EasyRecyclerLayout<T> onItemLongClick(IEasy.OnItemLongClickListener<T> listener) {
+        easyRecyclerView.onItemLongClick(listener);
+        return this;
+    }
+
+    public EasyRecyclerLayout<T> onBindViewHolder(final IEasy.OnBindViewHolderListener<T> callback) {
+        easyRecyclerView.onBindViewHolder(new IEasy.OnBindViewHolderListener<T>() {
             @Override
             public void onBindViewHolder(final EasyViewHolder holder, List<T> list, final int position, List<Object> payloads) {
                 holder.setPosition(position);

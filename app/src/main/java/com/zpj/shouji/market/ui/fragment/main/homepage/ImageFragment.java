@@ -39,7 +39,7 @@ import java.util.List;
 
 import it.liuting.imagetrans.ImageTrans;
 
-public class ImageFragment extends BaseFragment implements IEasy.OnBindViewHolderCallback<WallpaperInfo>, IEasy.OnLoadMoreListener, SwipeRefreshLayout.OnRefreshListener {
+public class ImageFragment extends BaseFragment implements IEasy.OnBindViewHolderListener<WallpaperInfo>, IEasy.OnLoadMoreListener, SwipeRefreshLayout.OnRefreshListener {
 
     private static final String KEY_ID = "id";
     private static final String KEY_TAG = "tag";

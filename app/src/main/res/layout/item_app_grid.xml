@@ -52,8 +52,8 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:text="下载"
-        android:textStyle="bold"
         android:textColor="#ffffff"
+        android:textSize="12sp"
         android:background="@drawable/bg_button"
         />
 

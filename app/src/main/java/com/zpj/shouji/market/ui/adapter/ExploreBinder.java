@@ -24,24 +24,24 @@ import java.util.List;
 
 import it.liuting.imagetrans.ImageTrans;
 
-public class ExploreBinder implements IEasy.OnBindViewHolderCallback<ExploreItem> {
+public class ExploreBinder implements IEasy.OnBindViewHolderListener<ExploreItem> {
 
     @Override
     public void onBindViewHolder(EasyViewHolder holder, List<ExploreItem> list, int position, List<Object> payloads) {
         Context context = holder.getItemView().getContext();
         final ExploreItem exploreItem = list.get(position);
-        holder.setOnItemClickListener(new ClickHelper.OnClickListener() {
-            @Override
-            public void onClick(View v, float x, float y) {
-
-            }
-        });
-        holder.setOnItemLongClickListener(new ClickHelper.OnLongClickListener() {
-            @Override
-            public boolean onLongClick(View v, float x, float y) {
-                return false;
-            }
-        });
+//        holder.setOnItemClickListener(new ClickHelper.OnClickListener() {
+//            @Override
+//            public void onClick(View v, float x, float y) {
+//
+//            }
+//        });
+//        holder.setOnItemLongClickListener(new ClickHelper.OnLongClickListener() {
+//            @Override
+//            public boolean onLongClick(View v, float x, float y) {
+//                return false;
+//            }
+//        });
 
         Glide.with(context).load(exploreItem.getIcon()).into(holder.getImageView(R.id.item_icon));
 
@@ -117,7 +117,7 @@ public class ExploreBinder implements IEasy.OnBindViewHolderCallback<ExploreItem
         holder.getTextView(R.id.phone_type).setText(exploreItem.getPhone());
         holder.getTextView(R.id.user_name).setText(exploreItem.getNickName());
         holder.getTextView(R.id.text_info).setText(exploreItem.getTime());
-        holder.getTextView(R.id.text_content).setText(exploreItem.getContent());
+        holder.getTextView(R.id.tv_content).setText(exploreItem.getContent());
         IconCountView supportView = holder.getView(R.id.support_view);
         IconCountView starView = holder.getView(R.id.like_view);
         supportView.setCount(Long.parseLong(exploreItem.getSupportCount()));

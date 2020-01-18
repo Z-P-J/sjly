@@ -1,8 +1,6 @@
 package com.zpj.shouji.market.ui.fragment.detail;
 
 import android.content.Context;
-import android.graphics.Paint;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -26,7 +24,6 @@ import com.zpj.http.parser.html.select.Elements;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.bean.AppCollectionItem;
 import com.zpj.shouji.market.bean.AppItem;
-import com.zpj.shouji.market.bean.SubjectItem;
 import com.zpj.shouji.market.glide.blur.BlurTransformation;
 import com.zpj.shouji.market.ui.fragment.base.BaseFragment;
 import com.zpj.shouji.market.utils.ExecutorHelper;
@@ -108,10 +105,10 @@ public class AppRecommendFragment extends BaseFragment implements GroupRecyclerV
         dataList.add(appCollectionList);
         dataList.add(recommendAppList);
         adapter.notifyDataSetChanged();
-        getSimilars();
+        getSimilar();
     }
 
-    private void getSimilars() {
+    private void getSimilar() {
         ExecutorHelper.submit(() -> {
             try {
                 Document doc = HttpUtil.getDocument("http://tt.shouji.com.cn/androidv3/soft_yyj_similar.jsp?id=" + id);

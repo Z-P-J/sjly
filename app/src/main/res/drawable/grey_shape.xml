@@ -5,12 +5,6 @@
     >
 
     <solid android:color="#f3f3f3"/>
-    <corners android:radius="2dp"/>
-<!--    <padding-->
-<!--        android:left="5dp"-->
-<!--        android:right="5dp"-->
-<!--        android:bottom="1dp"-->
-<!--        android:top="1dp"-->
-<!--        />-->
+    <corners android:radius="5dp"/>
 
 </shape>
