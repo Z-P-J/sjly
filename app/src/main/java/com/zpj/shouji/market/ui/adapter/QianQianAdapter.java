@@ -16,7 +16,7 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.RequestManager;
 import com.zpj.shouji.market.R;
-import com.zpj.shouji.market.bean.QianQianItem;
+import com.zpj.shouji.market.model.QianQianItem;
 
 import java.util.ArrayList;
 import java.util.List;

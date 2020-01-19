@@ -1,4 +1,4 @@
-package com.zpj.shouji.market.bean;
+package com.zpj.shouji.market.model;
 
 import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
@@ -8,9 +8,7 @@ import com.zpj.http.parser.html.nodes.Element;
 import com.zpj.http.parser.html.select.Elements;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 public class AppCollectionItem {
 

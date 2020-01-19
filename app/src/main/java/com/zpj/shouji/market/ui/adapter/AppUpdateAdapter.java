@@ -16,7 +16,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.zpj.shouji.market.R;
-import com.zpj.shouji.market.bean.AppUpdateInfo;
+import com.zpj.shouji.market.model.AppUpdateInfo;
 import com.zpj.shouji.market.utils.AppUtil;
 import com.zpj.shouji.market.utils.ExecutorHelper;
 

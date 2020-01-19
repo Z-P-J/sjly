@@ -71,4 +71,8 @@ dependencies {
     implementation 'com.github.hackware1993:MagicIndicator:1.5.0'
     implementation 'com.lxj:xpopup:1.8.10'
 
+    annotationProcessor "com.github.Raizlabs.DBFlow:dbflow-processor:4.2.4"
+    implementation "com.github.Raizlabs.DBFlow:dbflow-core:4.2.4"
+    implementation "com.github.Raizlabs.DBFlow:dbflow:4.2.4"
+
 }

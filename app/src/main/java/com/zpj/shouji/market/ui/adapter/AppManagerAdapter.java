@@ -1,7 +1,6 @@
 package com.zpj.shouji.market.ui.adapter;
 
 import android.content.Context;
-import android.graphics.drawable.Drawable;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -13,11 +12,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.zpj.shouji.market.R;
-import com.zpj.shouji.market.bean.InstalledAppInfo;
+import com.zpj.shouji.market.model.InstalledAppInfo;
 import com.zpj.shouji.market.glide.GlideApp;
-import com.zpj.shouji.market.utils.AppUtil;
 import com.zpj.shouji.market.utils.AppUpdateHelper;
-import com.zpj.shouji.market.utils.ExecutorHelper;
 
 import java.util.HashSet;
 import java.util.List;

@@ -15,7 +15,7 @@ import com.zpj.popupmenuview.OptionMenu;
 import com.zpj.popupmenuview.OptionMenuView;
 import com.zpj.popupmenuview.PopupMenuView;
 import com.zpj.shouji.market.R;
-import com.zpj.shouji.market.bean.AppUpdateInfo;
+import com.zpj.shouji.market.model.AppUpdateInfo;
 import com.zpj.shouji.market.ui.adapter.AppUpdateAdapter;
 import com.zpj.shouji.market.ui.fragment.detail.AppDetailFragment;
 import com.zpj.shouji.market.ui.fragment.base.BaseFragment;

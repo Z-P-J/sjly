@@ -11,7 +11,7 @@ import com.zpj.http.parser.html.nodes.Element;
 import com.zpj.http.parser.html.select.Elements;
 import com.zpj.recyclerview.loadmore.LoadMoreWrapper;
 import com.zpj.shouji.market.R;
-import com.zpj.shouji.market.bean.UserDownloadedAppInfo;
+import com.zpj.shouji.market.model.UserDownloadedAppInfo;
 import com.zpj.shouji.market.ui.adapter.UserDownloadedAdapter;
 import com.zpj.shouji.market.ui.fragment.detail.AppDetailFragment;
 import com.zpj.shouji.market.ui.fragment.base.BaseFragment;

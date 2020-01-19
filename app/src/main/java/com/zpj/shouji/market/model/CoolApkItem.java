@@ -1,4 +1,4 @@
-package com.zpj.shouji.market.bean;
+package com.zpj.shouji.market.model;
 
 public class CoolApkItem {
     private String app_site;

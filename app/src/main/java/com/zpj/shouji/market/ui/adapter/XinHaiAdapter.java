@@ -15,7 +15,7 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.RequestManager;
 import com.zpj.shouji.market.R;
-import com.zpj.shouji.market.bean.XinHaiItem;
+import com.zpj.shouji.market.model.XinHaiItem;
 
 import java.util.ArrayList;
 import java.util.List;

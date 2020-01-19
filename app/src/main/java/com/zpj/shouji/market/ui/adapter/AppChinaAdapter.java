@@ -13,7 +13,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.zpj.shouji.market.R;
-import com.zpj.shouji.market.bean.AppChinaItem;
+import com.zpj.shouji.market.model.AppChinaItem;
 
 import java.util.ArrayList;
 import java.util.List;

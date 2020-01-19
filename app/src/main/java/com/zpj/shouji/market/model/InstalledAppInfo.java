@@ -1,4 +1,4 @@
-package com.zpj.shouji.market.bean;
+package com.zpj.shouji.market.model;
 
 import android.graphics.drawable.Drawable;
 

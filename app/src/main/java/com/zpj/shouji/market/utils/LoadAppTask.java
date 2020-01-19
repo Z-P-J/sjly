@@ -6,7 +6,7 @@ import android.content.pm.PackageManager;
 import android.os.AsyncTask;
 import android.support.v4.app.Fragment;
 
-import com.zpj.shouji.market.bean.InstalledAppInfo;
+import com.zpj.shouji.market.model.InstalledAppInfo;
 
 import java.io.File;
 import java.lang.ref.WeakReference;

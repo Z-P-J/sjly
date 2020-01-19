@@ -11,7 +11,7 @@ import com.bumptech.glide.load.ImageHeaderParser;
 import com.bumptech.glide.load.resource.gif.GifDrawable;
 import com.bumptech.glide.load.resource.gif.StreamGifDecoder;
 import com.bumptech.glide.module.AppGlideModule;
-import com.zpj.shouji.market.bean.InstalledAppInfo;
+import com.zpj.shouji.market.model.InstalledAppInfo;
 import com.zpj.shouji.market.glide.apk.ApkModelLoaderFactory;
 
 import java.io.InputStream;

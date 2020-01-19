@@ -17,7 +17,7 @@ import com.sunbinqiang.iconcountview.IconCountView;
 import com.zpj.recyclerview.EasyViewHolder;
 import com.zpj.recyclerview.IEasy;
 import com.zpj.shouji.market.R;
-import com.zpj.shouji.market.bean.ExploreItem;
+import com.zpj.shouji.market.model.ExploreItem;
 import com.zpj.shouji.market.image.ImageLoader;
 
 import java.util.ArrayList;

@@ -58,7 +58,7 @@ public class ImgAdapter extends RecyclerView.Adapter<ImgAdapter.ViewHolder> {
         holder.img_view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                final ImageView img = (ImageView) v;
+//                final ImageView img = (ImageView) v;
                 List<Object> objects = new ArrayList<>(imageUrlList);
                 new XPopup.Builder(context)
                         .asImageViewer(holder.img_view, (int)v.getTag(), objects, new OnSrcViewUpdateListener() {

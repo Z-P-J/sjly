@@ -3,7 +3,7 @@ package com.zpj.shouji.market.utils;
 import android.os.Handler;
 import android.os.Message;
 
-import com.zpj.shouji.market.bean.InstalledAppInfo;
+import com.zpj.shouji.market.model.InstalledAppInfo;
 
 import java.io.IOException;
 import java.lang.ref.WeakReference;

@@ -9,7 +9,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.zpj.shouji.market.R;
-import com.zpj.shouji.market.bean.UserDownloadedAppInfo;
+import com.zpj.shouji.market.model.UserDownloadedAppInfo;
 
 import java.util.List;
 

@@ -28,7 +28,7 @@ import com.zpj.popupmenuview.PopupMenuView;
 import com.zpj.recyclerview.loadmore.LoadMoreAdapter;
 import com.zpj.recyclerview.loadmore.LoadMoreWrapper;
 import com.zpj.shouji.market.R;
-import com.zpj.shouji.market.bean.InstalledAppInfo;
+import com.zpj.shouji.market.model.InstalledAppInfo;
 import com.zpj.shouji.market.ui.adapter.AppManagerAdapter;
 import com.zpj.shouji.market.ui.fragment.base.BaseFragment;
 import com.zpj.shouji.market.ui.fragment.detail.AppDetailFragment;

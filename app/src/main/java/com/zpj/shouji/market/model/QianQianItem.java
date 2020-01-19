@@ -1,4 +1,4 @@
-package com.zpj.shouji.market.bean;
+package com.zpj.shouji.market.model;
 
 public class QianQianItem {
 

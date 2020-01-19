@@ -8,7 +8,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.zpj.shouji.market.R;
-import com.zpj.shouji.market.bean.AppDetailInfo;
+import com.zpj.shouji.market.model.AppDetailInfo;
 import com.zpj.shouji.market.ui.adapter.ImgAdapter;
 import com.zpj.shouji.market.ui.fragment.base.BaseFragment;
 

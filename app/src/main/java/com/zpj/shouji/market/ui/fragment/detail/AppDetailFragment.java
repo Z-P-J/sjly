@@ -1,48 +1,25 @@
 package com.zpj.shouji.market.ui.fragment.detail;
 
-import android.animation.ValueAnimator;
 import android.content.Context;
-import android.content.Intent;
-import android.graphics.Bitmap;
 import android.graphics.Color;
-import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.design.widget.CollapsingToolbarLayout;
-import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
-import android.support.v7.graphics.Palette;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
-import android.view.Window;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.request.target.SimpleTarget;
-import com.bumptech.glide.request.transition.Transition;
-import com.felix.atoast.library.AToast;
-import com.zpj.http.ZHttp;
 import com.zpj.http.parser.html.nodes.Document;
-import com.zpj.http.parser.html.nodes.Element;
-import com.zpj.http.parser.html.select.Elements;
 import com.zpj.shouji.market.R;
-import com.zpj.shouji.market.bean.AppDetailInfo;
-import com.zpj.shouji.market.bean.AppItem;
-import com.zpj.shouji.market.bean.AppUpdateInfo;
-import com.zpj.shouji.market.bean.InstalledAppInfo;
-import com.zpj.shouji.market.bean.UserDownloadedAppInfo;
-import com.zpj.shouji.market.ui.adapter.ImgAdapter;
+import com.zpj.shouji.market.model.AppDetailInfo;
+import com.zpj.shouji.market.model.AppItem;
+import com.zpj.shouji.market.model.AppUpdateInfo;
+import com.zpj.shouji.market.model.InstalledAppInfo;
+import com.zpj.shouji.market.model.UserDownloadedAppInfo;
 import com.zpj.shouji.market.ui.adapter.ZFragmentPagerAdapter;
 import com.zpj.shouji.market.ui.fragment.base.BaseFragment;
-import com.zpj.shouji.market.ui.widget.DotPagerIndicator;
-import com.zpj.shouji.market.ui.widget.ScaleTransitionPagerTitleView;
-import com.zpj.shouji.market.utils.ColorHelper;
 import com.zpj.shouji.market.utils.ExecutorHelper;
 import com.zpj.shouji.market.utils.HttpUtil;
 import com.zpj.utils.ScreenUtil;
@@ -57,10 +34,8 @@ import net.lucode.hackware.magicindicator.buildins.commonnavigator.indicators.Li
 import net.lucode.hackware.magicindicator.buildins.commonnavigator.titles.ColorTransitionPagerTitleView;
 
 import org.greenrobot.eventbus.EventBus;
-import org.greenrobot.eventbus.Subscribe;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 

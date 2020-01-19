@@ -13,7 +13,7 @@ import android.os.Environment;
 import android.util.Log;
 
 import com.felix.atoast.library.AToast;
-import com.zpj.shouji.market.bean.InstalledAppInfo;
+import com.zpj.shouji.market.model.InstalledAppInfo;
 
 import org.apache.commons.io.FileUtils;
 

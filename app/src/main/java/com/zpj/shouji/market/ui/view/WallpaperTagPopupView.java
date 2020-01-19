@@ -9,7 +9,7 @@ import com.kongzue.stacklabelview.interfaces.OnLabelClickListener;
 import com.lxj.xpopup.XPopup;
 import com.lxj.xpopup.impl.PartShadowPopupView;
 import com.zpj.shouji.market.R;
-import com.zpj.shouji.market.bean.WallpaperTag;
+import com.zpj.shouji.market.model.WallpaperTag;
 
 import java.util.ArrayList;
 import java.util.List;
