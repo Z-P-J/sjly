@@ -25,7 +25,7 @@ import com.zpj.utils.ScreenUtil;
 public class AddLayout extends FrameLayout {
 
     private final int[] menuIconItems = {R.drawable.pic1, R.drawable.pic2, R.drawable.pic3, R.drawable.pic4};
-    private final String[] menuTextItems = {"动态", "应用集", "乐图", "催更"};
+    private final String[] menuTextItems = {"动态", "应用集", "乐图", "私信"};
     private final Handler mHandler = new Handler();
 
     private LinearLayout menuLayout;

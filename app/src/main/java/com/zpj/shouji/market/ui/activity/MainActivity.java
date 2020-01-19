@@ -1,11 +1,10 @@
 package com.zpj.shouji.market.ui.activity;
 
 import android.os.Bundle;
-import android.widget.Toast;
 
 import com.felix.atoast.library.AToast;
 import com.zpj.shouji.market.R;
-import com.zpj.shouji.market.ui.fragment.main.MainFragment;
+import com.zpj.shouji.market.ui.fragment.MainFragment;
 import com.zpj.shouji.market.utils.ExecutorHelper;
 
 import me.yokeyword.fragmentation.SupportActivity;

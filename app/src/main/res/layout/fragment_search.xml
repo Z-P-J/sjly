@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:orientation="vertical"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    android:background="@android:color/white"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <RelativeLayout
+        android:id="@+id/search_bar"
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:background="@drawable/search_bar_background"
+        >
+
+        <ImageView
+            android:id="@+id/choose_searchtools"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:layout_gravity="center_vertical"
+            android:layout_alignParentStart="true"
+            android:src="@drawable/ic_settings_applications_black_24dp"
+            android:layout_centerVertical="true"
+            android:background="?attr/actionBarItemBackground"
+            />
+
+        <AutoCompleteTextView android:id="@+id/search_input"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_toEndOf="@id/choose_searchtools"
+            android:layout_toStartOf="@+id/search_clear"
+            android:hint="搜索或输入网址"
+            android:textCursorDrawable="@null"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:selectAllOnFocus="true"
+            android:completionThreshold="1"
+            android:imeOptions="actionGo"
+            android:inputType="text"
+            android:maxLines="1"
+            android:ellipsize="end"
+            android:textColor="@color/color_text_normal"
+            android:textSize="16sp"
+            android:background="@color/transparent"
+            android:layout_centerVertical="true"
+            />
+
+        <ImageView android:id="@+id/search_clear"
+            android:contentDescription="@null"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:layout_centerVertical="true"
+            android:src="@drawable/cancel"
+            android:layout_toStartOf="@id/search_forward"
+            android:background="?attr/actionBarItemBackground"/>
+
+        <ImageView android:id="@+id/search_forward"
+            android:contentDescription="@null"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:layout_centerVertical="true"
+            android:src="@drawable/ic_settings_applications_black_24dp"
+            android:layout_alignParentEnd="true"
+            android:background="?attr/actionBarItemBackground"
+            />
+
+
+
+    </RelativeLayout>
+
+    <com.zpj.zdialog.view.ElasticScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:id="@+id/container"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/recycler_view"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                >
+
+            </android.support.v7.widget.RecyclerView>
+
+        </LinearLayout>
+
+
+    </com.zpj.zdialog.view.ElasticScrollView>
+
+</LinearLayout>

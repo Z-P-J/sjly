@@ -37,7 +37,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import me.yokeyword.fragmentation_swipeback.core.ISwipeBack;
-import me.yokeyword.fragmentation_swipeback.core.ISwipeBackActivity;
 
 /**
  * Thx https://github.com/ikew0ng/SwipeBackLayout.

@@ -1,12 +1,8 @@
 package com.zpj.shouji.market.ui.fragment.detail;
 
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.view.View;
 
-import com.zpj.shouji.market.R;
-import com.zpj.shouji.market.ui.fragment.base.BaseFragment;
-import com.zpj.shouji.market.ui.fragment.main.homepage.ExploreFragment;
+import com.zpj.shouji.market.ui.fragment.homepage.ExploreFragment;
 
 public class AppExploreFragment extends ExploreFragment {
 

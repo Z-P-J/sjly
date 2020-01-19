@@ -18,9 +18,6 @@ import java.io.InputStream;
 import java.nio.ByteBuffer;
 import java.util.List;
 
-/**
- * 解决Glide加载格式不完整（丢帧、压缩等）的gif动图出错的问题
- */
 @GlideModule
 public class MyAppGlideModule extends AppGlideModule {
 
@@ -34,6 +31,7 @@ public class MyAppGlideModule extends AppGlideModule {
         super.registerComponents(context, glide, registry);
         List<ImageHeaderParser> imageHeaderParsers = registry.getImageHeaderParsers();
 
+        // 解决Glide加载格式不完整（丢帧、压缩等）的gif动图出错的问题
         com.spx.gifdecoder.ByteBufferGifDecoder byteBufferGifDecoder =
                 new com.spx.gifdecoder.ByteBufferGifDecoder(context, imageHeaderParsers, glide.getBitmapPool(), glide.getArrayPool());
         registry.prepend(Registry.BUCKET_GIF, ByteBuffer.class, GifDrawable.class, byteBufferGifDecoder);

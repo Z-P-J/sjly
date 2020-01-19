@@ -1,11 +1,8 @@
 package com.zpj.shouji.market.image;
 
 import android.content.Context;
-import android.view.ViewGroup;
 
-import com.mingle.widget.ShapeLoadingView;
 import com.zpj.shouji.market.ui.view.LoadingImageView;
-import com.zpj.utils.ScreenUtil;
 
 import it.liuting.imagetrans.listener.ProgressViewGet;
 
