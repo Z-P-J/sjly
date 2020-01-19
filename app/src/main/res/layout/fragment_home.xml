@@ -15,7 +15,6 @@
         app:statusBarColor="@color/colorPrimary"
         app:showBottomLine="false"
         app:statusBarMode="light"
-
         app:centerType="customView"
         app:centerCustomView="@layout/layout_magic_indicator"
         app:rightType="customView"

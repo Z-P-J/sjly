@@ -21,8 +21,6 @@ import com.zpj.shouji.market.utils.ExecutorHelper;
 import java.util.ArrayList;
 import java.util.List;
 
-import me.yokeyword.fragmentation.SupportActivity;
-
 public class UserDownloadedFragment extends BaseFragment {
 
     private static final String DEFAULT_URL = "http://tt.shouji.com.cn/app/view_member_down_xml_v2.jsp?versioncode=198&id=5636865";
@@ -41,16 +39,16 @@ public class UserDownloadedFragment extends BaseFragment {
                 Elements items = doc.select("item");
                 for (Element item : items) {
                     UserDownloadedAppInfo appInfo = new UserDownloadedAppInfo();
-                    appInfo.setId(item.select("id").get(0).text());
-                    appInfo.setTitle(item.select("title").get(0).text());
-                    appInfo.setDownId(item.select("downid").get(0).text());
-                    appInfo.setAppType(item.select("apptype").get(0).text());
-                    appInfo.setPackageName(item.select("package").get(0).text());
-                    appInfo.setAppSize(item.select("m").get(0).text());
-                    appInfo.setDownloadTime(item.select("r").get(0).text());
+                    appInfo.setId(item.selectFirst("id").text());
+                    appInfo.setTitle(item.selectFirst("title").text());
+                    appInfo.setDownId(item.selectFirst("downid").text());
+                    appInfo.setAppType(item.selectFirst("apptype").text());
+                    appInfo.setPackageName(item.selectFirst("package").text());
+                    appInfo.setAppSize(item.selectFirst("m").text());
+                    appInfo.setDownloadTime(item.selectFirst("r").text());
                     appInfoList.add(appInfo);
                 }
-                recyclerView.post(new Runnable() {
+                post(new Runnable() {
                     @Override
                     public void run() {
                         adapter.notifyDataSetChanged();
@@ -64,7 +62,7 @@ public class UserDownloadedFragment extends BaseFragment {
 
     @Override
     protected int getLayoutId() {
-        return R.layout.fragment_recycler;
+        return R.layout.fragment_recycler_view;
     }
 
     @Override
@@ -75,9 +73,7 @@ public class UserDownloadedFragment extends BaseFragment {
         adapter.setItemClickListener(new UserDownloadedAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(UserDownloadedAdapter.ViewHolder holder, int position, UserDownloadedAppInfo item) {
-                if (getActivity() instanceof SupportActivity) {
-                    ((SupportActivity) getActivity()).start(AppDetailFragment.newInstance(item));
-                }
+                _mActivity.start(AppDetailFragment.newInstance(item));
             }
         });
     }

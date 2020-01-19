@@ -58,7 +58,7 @@ public class QianQianAdapter extends RecyclerView.Adapter<QianQianAdapter.ViewHo
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         context = parent.getContext();
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.qianqian_item, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_qianqian, parent, false);
         ViewHolder holder = new ViewHolder(view);
         requestManager = Glide.with(parent.getContext());
         return holder;

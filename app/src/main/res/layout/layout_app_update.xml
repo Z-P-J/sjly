@@ -82,7 +82,7 @@
 
             </LinearLayout>
 
-            <android.support.v7.widget.CardView
+            <www.linwg.org.lib.LCardView
                 android:id="@+id/checkbox_wrapper"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -102,7 +102,7 @@
                     android:textColor="#ffffff"
                     />
 
-            </android.support.v7.widget.CardView>
+            </www.linwg.org.lib.LCardView>
 
         </LinearLayout>
 

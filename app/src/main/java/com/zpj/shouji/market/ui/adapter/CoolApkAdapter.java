@@ -80,7 +80,7 @@ public class CoolApkAdapter extends RecyclerView.Adapter<CoolApkAdapter.ViewHold
     @Override
     public ViewHolder onCreateViewHolder(@NonNull final ViewGroup parent, final int viewType) {
         context = parent.getContext();
-        final View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.coolapk_item,parent,false);
+        final View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_coolapk,parent,false);
 
         final ViewHolder holder = new ViewHolder(view);
 

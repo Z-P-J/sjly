@@ -58,7 +58,7 @@ public class AppChinaAdapter extends RecyclerView.Adapter<AppChinaAdapter.ViewHo
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         context = parent.getContext();
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.appchina_item, parent,false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_appchina, parent,false);
         ViewHolder holder = new ViewHolder(view);
         view.setOnClickListener(new View.OnClickListener() {
             @Override

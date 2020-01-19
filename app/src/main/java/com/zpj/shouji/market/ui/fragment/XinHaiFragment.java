@@ -72,7 +72,7 @@
 //
 //    @Override
 //    protected int getLayoutId() {
-//        return R.layout.xinhai_fragment;
+//        return R.layout.fragment_xinhai;
 //    }
 //
 //    @Override

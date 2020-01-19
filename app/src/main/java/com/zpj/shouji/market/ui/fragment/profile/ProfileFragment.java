@@ -78,7 +78,7 @@ public class ProfileFragment extends BaseFragment implements ExploreFragment.Cal
 
     @Override
     protected int getLayoutId() {
-        return R.layout.fragment_user;
+        return R.layout.fragment_profile;
     }
 
     @Override

@@ -89,7 +89,7 @@
             android:layout_height="1px"
             android:background="#f5f5f5" />
 
-        <include layout="@layout/layout_func_in_uc" />
+        <include layout="@layout/layout_profile_tools" />
 
     </LinearLayout>
 </com.zpj.shouji.market.ui.widget.DisInterceptNestedScrollView>

@@ -13,5 +13,4 @@ include ':app',
         ':zpopup',
         ':glidegifdecoder',
         ':imagetrans',
-        ':openingstartanimation',
-        ':magicindicator'
+        ':openingstartanimation'

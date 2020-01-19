@@ -53,7 +53,7 @@ public class XinHaiAdapter extends RecyclerView.Adapter<XinHaiAdapter.ViewHolder
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         context = parent.getContext();
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.xinhai_item, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_xinhai, parent, false);
         ViewHolder holder = new ViewHolder(view);
         requestManager = Glide.with(parent.getContext());
         return holder;

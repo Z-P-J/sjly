@@ -71,7 +71,7 @@
 //
 //    @Override
 //    protected int getLayoutId() {
-//        return R.layout.qianqian_fragment;
+//        return R.layout.fragment_qianqian;
 //    }
 //
 //    @Override

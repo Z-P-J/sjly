@@ -209,7 +209,7 @@
 //
 //    @Override
 //    protected int getLayoutId() {
-//        return R.layout.appchina_fragment;
+//        return R.layout.fragment_appchina;
 //    }
 //
 //    @Override

@@ -5,9 +5,6 @@ import android.content.DialogInterface;
 import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
-import android.view.ViewTreeObserver;
-import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.felix.atoast.library.AToast;
@@ -36,7 +33,7 @@ public class MyImageTransAdapter extends ImageTransAdapter {
     @Override
     protected View onCreateView(View parent, ViewPager viewPager, final DialogInterface dialogInterface) {
         context = parent.getContext();
-        view = LayoutInflater.from(context).inflate(R.layout.image_trans_adapter, null);
+        view = LayoutInflater.from(context).inflate(R.layout.layout_image_trans, null);
         topPanel = view.findViewById(R.id.top_panel);
         topPanel.getLeftImageButton().setOnClickListener(v -> dialogInterface.dismiss());
         topPanel.getRightImageButton().setOnClickListener(new View.OnClickListener() {

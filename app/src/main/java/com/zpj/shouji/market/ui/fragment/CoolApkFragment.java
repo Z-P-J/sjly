@@ -281,7 +281,7 @@
 //
 //    @Override
 //    protected int getLayoutId() {
-//        return R.layout.coolapk_fragment;
+//        return R.layout.fragment_coolapk;
 //    }
 //
 //    @Override
