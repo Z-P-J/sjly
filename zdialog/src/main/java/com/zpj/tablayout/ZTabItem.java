@@ -23,7 +23,7 @@ import android.support.v7.widget.TintTypedArray;
 import android.util.AttributeSet;
 import android.view.View;
 
-import com.zpj.zdialog.R;
+import com.zpj.dialog.R;
 
 /**
  * TabItem is a special 'view' which allows you to declare tab items for a {@link ZTabLayout}

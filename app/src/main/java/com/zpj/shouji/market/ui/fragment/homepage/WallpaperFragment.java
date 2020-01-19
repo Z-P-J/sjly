@@ -16,7 +16,7 @@ import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.model.WallpaperTag;
 import com.zpj.shouji.market.ui.adapter.ZFragmentPagerAdapter;
 import com.zpj.shouji.market.ui.fragment.base.BaseFragment;
-import com.zpj.shouji.market.ui.view.WallpaperTagPopupView;
+import com.zpj.shouji.market.ui.widget.WallpaperTagPopup;
 import com.zpj.shouji.market.utils.ExecutorHelper;
 import com.zpj.shouji.market.utils.HttpUtil;
 
@@ -71,7 +71,7 @@ public class WallpaperFragment extends BaseFragment implements View.OnClickListe
     public void onClick(View v) {
         int id = v.getId();
         if (id == R.id.iv_expand) {
-            WallpaperTagPopupView.with(context)
+            WallpaperTagPopup.with(context)
                     .setLabels(wallpaperTags)
                     .setSelectLabel(wallpaperTags.get(viewPager.getCurrentItem()).getName())
                     .setOnLabelClickListener(new OnLabelClickListener() {

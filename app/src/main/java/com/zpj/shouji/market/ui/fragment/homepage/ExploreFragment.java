@@ -20,12 +20,11 @@ import com.zpj.recyclerview.IEasy;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.model.ExploreItem;
 import com.zpj.shouji.market.ui.adapter.ExploreBinder;
-import com.zpj.shouji.market.ui.dialog.MenuBottomSheetDialog;
+import com.zpj.shouji.market.ui.widget.BottomListPopupMenu;
 import com.zpj.shouji.market.ui.fragment.base.BaseFragment;
 import com.zpj.shouji.market.ui.fragment.profile.ProfileFragment;
 import com.zpj.shouji.market.utils.ExecutorHelper;
 import com.zpj.shouji.market.utils.HttpUtil;
-import com.zpj.zdialog.base.IDialog;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -253,11 +252,11 @@ public class ExploreFragment extends BaseFragment
     }
 
     private void showMenu(ExploreItem data) {
-        MenuBottomSheetDialog.with(context)
+        BottomListPopupMenu.with(context)
                 .setMenu(R.menu.menu_tools)
-                .onItemClick(new MenuBottomSheetDialog.OnItemClickListener() {
+                .onItemClick(new BottomListPopupMenu.OnItemClickListener() {
                     @Override
-                    public void onClick(IDialog dialog, View view, MenuItem data) {
+                    public void onClick(BottomListPopupMenu menu, View view, MenuItem data) {
                         switch (data.getItemId()) {
                             case R.id.copy:
 
@@ -277,7 +276,7 @@ public class ExploreFragment extends BaseFragment
                             case R.id.black_list:
                                 break;
                         }
-                        dialog.dismiss();
+                        menu.dismiss();
                     }
                 })
                 .show();

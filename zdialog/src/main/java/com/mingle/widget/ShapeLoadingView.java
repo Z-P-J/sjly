@@ -10,7 +10,7 @@ import android.util.AttributeSet;
 import android.view.View;
 
 import com.nineoldandroids.animation.ArgbEvaluator;
-import com.zpj.zdialog.R;
+import com.zpj.dialog.R;
 
 
 /**

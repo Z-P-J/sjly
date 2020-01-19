@@ -16,8 +16,8 @@ import android.widget.FrameLayout;
 import android.widget.RelativeLayout;
 
 import com.classic.common.MultipleStatusView;
-import com.zpj.zdialog.R;
-import com.zpj.zdialog.view.SmoothCheckBox;
+import com.zpj.dialog.R;
+import com.zpj.dialog.view.SmoothCheckBox;
 
 import java.util.ArrayList;
 import java.util.List;

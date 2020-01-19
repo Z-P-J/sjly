@@ -65,7 +65,7 @@
                 android:paddingBottom="5dp"
                 >
 
-                <com.zpj.zdialog.view.SmoothCheckBox
+                <com.zpj.dialog.view.SmoothCheckBox
                     android:id="@+id/check_box"
                     android:layout_width="20dp"
                     android:layout_height="20dp"

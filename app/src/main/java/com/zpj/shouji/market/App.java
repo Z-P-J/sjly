@@ -5,6 +5,7 @@ import android.graphics.BitmapFactory;
 
 import com.bumptech.glide.request.target.ViewTarget;
 import com.felix.atoast.library.AToast;
+import com.raizlabs.android.dbflow.config.FlowManager;
 import com.zpj.downloader.ZDownloader;
 import com.zpj.shouji.market.utils.ExecutorHelper;
 
@@ -23,6 +24,7 @@ public class App extends Application {
     public void onCreate() {
         super.onCreate();
 //        IMAGE_CACHE_PATH = getExternalCacheDir().getPath();
+        FlowManager.init(this);
         AToast.onInit(this);
         ZDownloader.init(this);
         ExecutorHelper.init();

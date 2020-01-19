@@ -29,7 +29,7 @@ import com.zpj.shouji.market.model.WallpaperInfo;
 import com.zpj.shouji.market.model.WallpaperTag;
 import com.zpj.shouji.market.image.ImageLoader;
 import com.zpj.shouji.market.ui.fragment.base.BaseFragment;
-import com.zpj.shouji.market.ui.view.RecyclerPopup;
+import com.zpj.shouji.market.ui.widget.RecyclerPopup;
 import com.zpj.shouji.market.utils.ExecutorHelper;
 import com.zpj.shouji.market.utils.HttpUtil;
 import com.zpj.utils.ScreenUtil;

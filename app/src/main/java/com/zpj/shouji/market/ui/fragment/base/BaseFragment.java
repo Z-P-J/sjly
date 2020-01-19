@@ -34,9 +34,7 @@ public abstract class BaseFragment extends SwipeBackFragment {
                 titleBar.getLeftImageButton().setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        if (getActivity() != null) {
-                            getActivity().onBackPressed();
-                        }
+                        pop();
                     }
                 });
                 if (titleBar.getCenterTextView() != null) {

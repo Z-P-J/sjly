@@ -18,7 +18,7 @@ import com.nineoldandroids.animation.Animator;
 import com.nineoldandroids.animation.AnimatorSet;
 import com.nineoldandroids.animation.ObjectAnimator;
 import com.nineoldandroids.view.ViewHelper;
-import com.zpj.zdialog.R;
+import com.zpj.dialog.R;
 
 
 /**

@@ -10,7 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 
-import com.zpj.zdialog.R;
+import com.zpj.dialog.R;
 
 import java.util.ArrayList;
 

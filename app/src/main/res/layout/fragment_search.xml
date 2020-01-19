@@ -1,103 +1,121 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout android:orientation="vertical"
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:fitsSystemWindows="true"
-    android:background="@android:color/white"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    android:background="@android:color/white">
 
-    <RelativeLayout
-        android:id="@+id/search_bar"
+    <com.wuhenzhizao.titlebar.widget.CommonTitleBar
+        android:id="@+id/title_bar"
         android:layout_width="match_parent"
-        android:layout_height="56dp"
-        android:background="@drawable/search_bar_background"
-        >
+        android:layout_height="wrap_content"
+        app:leftType="imageButton"
+        app:leftImageResource="@drawable/ic_arrow_back_white_24dp"
+        app:centerType="searchView"
+        app:centerSearchBg="@color/transparent"
+        app:centerSearchEditable="true"
+        app:centerSearchRightType="delete"
+        app:fillStatusBar="true"
+        app:statusBarColor="@color/colorPrimary"
+        app:titleBarColor="@color/colorPrimary"
+        app:rightType="imageButton"
+        app:rightImageResource="@drawable/ic_search_white_24dp"
+        />
 
-        <ImageView
-            android:id="@+id/choose_searchtools"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:padding="10dp"
-            android:layout_gravity="center_vertical"
-            android:layout_alignParentStart="true"
-            android:src="@drawable/ic_settings_applications_black_24dp"
-            android:layout_centerVertical="true"
-            android:background="?attr/actionBarItemBackground"
-            />
-
-        <AutoCompleteTextView android:id="@+id/search_input"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_toEndOf="@id/choose_searchtools"
-            android:layout_toStartOf="@+id/search_clear"
-            android:hint="搜索或输入网址"
-            android:textCursorDrawable="@null"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:selectAllOnFocus="true"
-            android:completionThreshold="1"
-            android:imeOptions="actionGo"
-            android:inputType="text"
-            android:maxLines="1"
-            android:ellipsize="end"
-            android:textColor="@color/color_text_normal"
-            android:textSize="16sp"
-            android:background="@color/transparent"
-            android:layout_centerVertical="true"
-            />
-
-        <ImageView android:id="@+id/search_clear"
-            android:contentDescription="@null"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:padding="10dp"
-            android:layout_centerVertical="true"
-            android:src="@drawable/cancel"
-            android:layout_toStartOf="@id/search_forward"
-            android:background="?attr/actionBarItemBackground"/>
-
-        <ImageView android:id="@+id/search_forward"
-            android:contentDescription="@null"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:padding="10dp"
-            android:layout_centerVertical="true"
-            android:src="@drawable/ic_settings_applications_black_24dp"
-            android:layout_alignParentEnd="true"
-            android:background="?attr/actionBarItemBackground"
-            />
-
-
-
-    </RelativeLayout>
-
-    <com.zpj.zdialog.view.ElasticScrollView
+    <com.zpj.shouji.market.ui.view.ZViewPager
+        android:id="@+id/view_pager"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"/>
 
-        <LinearLayout
-            android:orientation="vertical"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+<!--    <com.zpj.dialog.view.ElasticScrollView-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="match_parent">-->
 
-            <LinearLayout
-                android:orientation="vertical"
-                android:id="@+id/container"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
+<!--        <LinearLayout-->
+<!--            android:orientation="vertical"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content">-->
+
+<!--            <RelativeLayout android:id="@+id/history_search_bar"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:padding="10dp"-->
+<!--                android:layout_marginBottom="5dp"-->
+<!--                >-->
+
+<!--                <TextView-->
+
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:text="热门搜索"-->
+<!--                    android:layout_alignParentStart="true"-->
+<!--                    android:textSize="14sp"-->
+<!--                    android:textColor="@color/color_text_major"-->
+<!--                    android:layout_centerVertical="true"-->
+<!--                    />-->
+
+<!--            </RelativeLayout>-->
 
 
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/recycler_view"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                >
+<!--            <com.kongzue.stacklabelview.StackLabel-->
+<!--                android:id="@+id/hot_search"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                app:textSize="14sp"-->
+<!--                app:textColor="#e6000000"-->
+<!--                app:itemMargin="4dp"-->
+<!--                app:paddingHorizontal="16dp"-->
+<!--                app:paddingVertical="8dp"-->
+<!--                android:layout_marginStart="10dp"-->
+<!--                android:layout_marginEnd="10dp"-->
+<!--                />-->
 
-            </android.support.v7.widget.RecyclerView>
+<!--            <RelativeLayout-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:padding="10dp"-->
+<!--                android:layout_marginBottom="5dp"-->
+<!--                >-->
 
-        </LinearLayout>
+<!--                <TextView-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:text="搜索历史"-->
+<!--                    android:layout_alignParentStart="true"-->
+<!--                    android:textSize="14sp"-->
+<!--                    android:textColor="@color/color_text_major"-->
+<!--                    android:layout_centerVertical="true"-->
+<!--                    />-->
+
+<!--                <TextView android:id="@+id/clear_search_history"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:text="清空"-->
+<!--                    android:layout_alignParentEnd="true"-->
+<!--                    android:drawableEnd="@drawable/comm_titlebar_delete_normal"-->
+<!--                    android:layout_centerVertical="true"-->
+<!--                    android:drawablePadding="5dp"-->
+<!--                    />-->
+
+<!--            </RelativeLayout>-->
+
+<!--            <com.kongzue.stacklabelview.StackLabel-->
+<!--                android:id="@+id/search_history"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                app:textSize="14sp"-->
+<!--                app:textColor="#e6000000"-->
+<!--                app:itemMargin="4dp"-->
+<!--                app:paddingHorizontal="16dp"-->
+<!--                app:paddingVertical="8dp"-->
+<!--                android:layout_marginStart="10dp"-->
+<!--                android:layout_marginEnd="10dp"-->
+<!--                />-->
+
+<!--        </LinearLayout>-->
 
 
-    </com.zpj.zdialog.view.ElasticScrollView>
+<!--    </com.zpj.dialog.view.ElasticScrollView>-->
 
 </LinearLayout>

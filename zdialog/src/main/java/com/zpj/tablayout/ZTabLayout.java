@@ -37,7 +37,6 @@ import android.support.annotation.Nullable;
 import android.support.annotation.RestrictTo;
 import android.support.annotation.StringRes;
 import android.support.v4.util.Pools;
-import android.support.v4.view.GravityCompat;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.PointerIconCompat;
 import android.support.v4.view.ViewCompat;
@@ -59,13 +58,11 @@ import android.view.ViewGroup;
 import android.view.ViewParent;
 import android.view.accessibility.AccessibilityEvent;
 import android.view.accessibility.AccessibilityNodeInfo;
-import android.widget.FrameLayout;
-import android.widget.HorizontalScrollView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.zpj.zdialog.R;
+import com.zpj.dialog.R;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;

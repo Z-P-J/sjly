@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:orientation="vertical"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/white">
+
+    <com.zpj.dialog.view.ElasticScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <RelativeLayout android:id="@+id/history_search_bar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="10dp"
+                android:layout_marginBottom="5dp"
+                >
+
+                <TextView
+
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="热门搜索"
+                    android:layout_alignParentStart="true"
+                    android:textSize="14sp"
+                    android:textColor="@color/color_text_major"
+                    android:layout_centerVertical="true"
+                    />
+
+            </RelativeLayout>
+
+
+            <com.kongzue.stacklabelview.StackLabel
+                android:id="@+id/hot_search"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:textSize="14sp"
+                app:textColor="#e6000000"
+                app:itemMargin="4dp"
+                app:paddingHorizontal="16dp"
+                app:paddingVertical="8dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
+                />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="10dp"
+                android:layout_marginBottom="5dp"
+                >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="搜索历史"
+                    android:layout_alignParentStart="true"
+                    android:textSize="14sp"
+                    android:textColor="@color/color_text_major"
+                    android:layout_centerVertical="true"
+                    />
+
+                <TextView android:id="@+id/clear_search_history"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="清空"
+                    android:layout_alignParentEnd="true"
+                    android:drawableEnd="@drawable/comm_titlebar_delete_normal"
+                    android:layout_centerVertical="true"
+                    android:drawablePadding="5dp"
+                    />
+
+            </RelativeLayout>
+
+            <com.kongzue.stacklabelview.StackLabel
+                android:id="@+id/search_history"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:textSize="14sp"
+                app:textColor="#e6000000"
+                app:itemMargin="4dp"
+                app:paddingHorizontal="16dp"
+                app:paddingVertical="8dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
+                />
+
+        </LinearLayout>
+
+
+    </com.zpj.dialog.view.ElasticScrollView>
+
+</LinearLayout>

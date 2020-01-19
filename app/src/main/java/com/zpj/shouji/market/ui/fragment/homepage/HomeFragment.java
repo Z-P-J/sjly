@@ -15,6 +15,7 @@ import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.ui.adapter.ZFragmentPagerAdapter;
 import com.zpj.shouji.market.ui.fragment.base.BaseFragment;
 import com.zpj.shouji.market.ui.fragment.manager.AppManagerFragment;
+import com.zpj.shouji.market.ui.fragment.search.SearchFragment;
 import com.zpj.shouji.market.ui.widget.DotPagerIndicator;
 import com.zpj.shouji.market.ui.widget.ScaleTransitionPagerTitleView;
 
@@ -104,5 +105,6 @@ public class HomeFragment extends BaseFragment {
         manageBtn.setOnClickListener(v -> {
             _mActivity.start(new AppManagerFragment());
         });
+        titleBar.getRightCustomView().findViewById(R.id.btn_search).setOnClickListener(v -> _mActivity.start(new SearchFragment()));
     }
 }

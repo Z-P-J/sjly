@@ -27,7 +27,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal|top"
-            app:layout_behavior="com.zpj.zdialog.base.BottomSheetBehavior"/>
+            app:layout_behavior="com.zpj.dialog.base.BottomSheetBehavior"/>
 
     </android.support.design.widget.CoordinatorLayout>
 

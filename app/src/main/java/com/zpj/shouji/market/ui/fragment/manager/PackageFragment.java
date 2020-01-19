@@ -25,7 +25,7 @@ import com.zpj.shouji.market.model.InstalledAppInfo;
 import com.zpj.shouji.market.model.XpkInfo;
 import com.zpj.shouji.market.ui.adapter.AppManagerAdapter;
 import com.zpj.shouji.market.ui.fragment.base.BaseFragment;
-import com.zpj.shouji.market.ui.view.RecyclerPopup;
+import com.zpj.shouji.market.ui.widget.RecyclerPopup;
 import com.zpj.shouji.market.utils.AppUpdateHelper;
 import com.zpj.shouji.market.utils.AppUtil;
 import com.zpj.shouji.market.utils.FileScanner;

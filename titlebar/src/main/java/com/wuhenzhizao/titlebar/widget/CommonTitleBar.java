@@ -534,7 +534,7 @@ public class CommonTitleBar extends RelativeLayout implements View.OnClickListen
             searchParams.addRule(RelativeLayout.CENTER_VERTICAL);
             searchParams.addRule(RelativeLayout.ALIGN_PARENT_START);
             searchParams.setMarginStart(PADDING_12);
-            rlMainCenterSearch.addView(ivSearch, searchParams);
+//            rlMainCenterSearch.addView(ivSearch, searchParams);
             ivSearch.setImageResource(R.drawable.comm_titlebar_search_normal);
 
             // 初始化搜索框语音ImageView
@@ -558,8 +558,8 @@ public class CommonTitleBar extends RelativeLayout implements View.OnClickListen
             etSearchHint.setBackgroundColor(Color.TRANSPARENT);
             etSearchHint.setGravity(Gravity.START | Gravity.CENTER_VERTICAL);
             etSearchHint.setHint(getResources().getString(R.string.titlebar_search_hint));
-            etSearchHint.setTextColor(Color.parseColor("#666666"));
-            etSearchHint.setHintTextColor(Color.parseColor("#999999"));
+            etSearchHint.setTextColor(Color.WHITE);
+            etSearchHint.setHintTextColor(Color.WHITE);
             etSearchHint.setTextSize(TypedValue.COMPLEX_UNIT_PX, ScreenUtils.dp2PxInt(context, 14));
             etSearchHint.setPadding(PADDING_5, 0, PADDING_5, 0);
             if (!centerSearchEditable) {
