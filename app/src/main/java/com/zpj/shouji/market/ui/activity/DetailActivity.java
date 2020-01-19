@@ -109,8 +109,6 @@
 //                        Log.d("app_icon_site", app_icon_site);
 //                    }
 //
-//
-////                    Picasso.get().load(app_icon_site).into(app_icon);
 //                    if (icon == null) {
 //                        Glide.with(DetailActivity.this)
 //                                .asBitmap()

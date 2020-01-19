@@ -45,6 +45,7 @@ public class LoadApkTask extends AsyncTask<Void, Void, List<String>> {
         }
     }
 
+
     public interface CallBack {
         void onPreExecute();
         void onPostExecute(List<String> installedAppInfos);

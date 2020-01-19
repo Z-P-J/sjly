@@ -3,22 +3,20 @@ package com.zpj.shouji.market.ui.adapter;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
+import com.lxj.xpopup.XPopup;
+import com.lxj.xpopup.core.ImageViewerPopupView;
+import com.lxj.xpopup.interfaces.OnSrcViewUpdateListener;
 import com.zpj.shouji.market.R;
-import com.zpj.shouji.market.image.MyImageLoad;
-import com.zpj.shouji.market.image.MyImageTransAdapter;
-import com.zpj.shouji.market.image.MyProgressBarGet;
+import com.zpj.shouji.market.image.ImageLoader;
 
+import java.util.ArrayList;
 import java.util.List;
-
-import it.liuting.imagetrans.ImageTrans;
-import it.liuting.imagetrans.listener.SourceImageViewGet;
 
 public class ImgAdapter extends RecyclerView.Adapter<ImgAdapter.ViewHolder> {
 
@@ -53,24 +51,30 @@ public class ImgAdapter extends RecyclerView.Adapter<ImgAdapter.ViewHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull final ImgAdapter.ViewHolder holder, int position) {
-        Glide.with(context).load(imageUrlList.get(position)).into(holder.img_view);
+        Glide.with(context)
+                .load(imageUrlList.get(position))
+                .into(holder.img_view);
         holder.img_view.setTag(position);
         holder.img_view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 final ImageView img = (ImageView) v;
-                ImageTrans.with(context)
-                        .setImageList(imageUrlList)
-                        .setNowIndex((int)v.getTag())
-                        .setSourceImageView(pos -> {
-                            int layoutPos = recyclerView.indexOfChild(holder.itemView);
-                            View view = recyclerView.getChildAt(layoutPos + pos - position);
-                            if (view != null) return view.findViewById(R.id.img_view);
-                            return holder.img_view;
-                        })
-                        .setProgressBar(new MyProgressBarGet())
-                        .setImageLoad(new MyImageLoad())
-                        .setAdapter(new MyImageTransAdapter())
+                List<Object> objects = new ArrayList<>(imageUrlList);
+                new XPopup.Builder(context)
+                        .asImageViewer(holder.img_view, (int)v.getTag(), objects, new OnSrcViewUpdateListener() {
+                            @Override
+                            public void onSrcViewUpdate(ImageViewerPopupView popupView, int pos) {
+                                int layoutPos = recyclerView.indexOfChild(holder.itemView);
+                                View view = recyclerView.getChildAt(layoutPos + pos - position);
+                                ImageView imageView;
+                                if (view != null) {
+                                    imageView = view.findViewById(R.id.img_view);
+                                } else {
+                                    imageView = holder.img_view;
+                                }
+                                popupView.updateSrcView(imageView);
+                            }
+                        }, new ImageLoader())
                         .show();
             }
         });

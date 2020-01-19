@@ -5,12 +5,10 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.view.ViewPager;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
 
-import com.hmy.popwindow.PopWindow;
-import com.kongzue.stacklabelview.StackLabel;
+import com.kongzue.stacklabelview.interfaces.OnLabelClickListener;
 import com.zpj.http.parser.html.nodes.Document;
 import com.zpj.http.parser.html.nodes.Element;
 import com.zpj.http.parser.html.select.Elements;
@@ -18,8 +16,9 @@ import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.bean.WallpaperTag;
 import com.zpj.shouji.market.ui.adapter.ZFragmentPagerAdapter;
 import com.zpj.shouji.market.ui.fragment.base.BaseFragment;
-import com.zpj.shouji.market.utils.HttpUtil;
+import com.zpj.shouji.market.ui.view.WallpaperTagPopupView;
 import com.zpj.shouji.market.utils.ExecutorHelper;
+import com.zpj.shouji.market.utils.HttpUtil;
 
 import net.lucode.hackware.magicindicator.MagicIndicator;
 import net.lucode.hackware.magicindicator.ViewPagerHelper;
@@ -72,26 +71,16 @@ public class WallpaperFragment extends BaseFragment implements View.OnClickListe
     public void onClick(View v) {
         int id = v.getId();
         if (id == R.id.iv_expand) {
-            StackLabel stackLabel = (StackLabel) LayoutInflater.from(context).inflate(R.layout.layout_wallpaper_tags, null, false);
-            List<String> tags = new ArrayList<>();
-            List<String> selectTag = new ArrayList<>(1);
-            for (WallpaperTag tag : wallpaperTags) {
-                tags.add(tag.getName());
-                if (wallpaperTags.get(viewPager.getCurrentItem()) == tag) {
-                    selectTag.add(tag.getName());
-                }
-            }
-            stackLabel.setLabels(tags);
-            stackLabel.setSelectMode(true, selectTag);
-            PopWindow popWindow = new PopWindow.Builder(_mActivity)
-                    .setStyle(PopWindow.PopWindowStyle.PopDown)
-                    .setView(stackLabel)
+            WallpaperTagPopupView.with(context)
+                    .setLabels(wallpaperTags)
+                    .setSelectLabel(wallpaperTags.get(viewPager.getCurrentItem()).getName())
+                    .setOnLabelClickListener(new OnLabelClickListener() {
+                        @Override
+                        public void onClick(int index, View v, String s) {
+                            viewPager.setCurrentItem(index);
+                        }
+                    })
                     .show(v);
-            stackLabel.setOnLabelClickListener((index, v1, s) -> {
-                viewPager.setCurrentItem(index);
-                popWindow.dismiss();
-            });
-
         }
     }
 

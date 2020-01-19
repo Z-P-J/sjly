@@ -13,7 +13,10 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
-import com.hmy.popwindow.PopWindow;
+import com.bumptech.glide.request.target.Target;
+import com.lxj.xpopup.XPopup;
+import com.lxj.xpopup.core.ImageViewerPopupView;
+import com.lxj.xpopup.interfaces.OnSrcViewUpdateListener;
 import com.sunbinqiang.iconcountview.IconCountView;
 import com.zpj.http.parser.html.nodes.Document;
 import com.zpj.http.parser.html.select.Elements;
@@ -24,20 +27,16 @@ import com.zpj.recyclerview.IEasy;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.bean.WallpaperInfo;
 import com.zpj.shouji.market.bean.WallpaperTag;
-import com.zpj.shouji.market.image.MyImageLoad;
-import com.zpj.shouji.market.image.MyImageTransAdapter;
-import com.zpj.shouji.market.image.MyProgressBarGet;
+import com.zpj.shouji.market.image.ImageLoader;
 import com.zpj.shouji.market.ui.fragment.base.BaseFragment;
-import com.zpj.shouji.market.ui.view.WallpaperSortLayout;
-import com.zpj.shouji.market.utils.HttpUtil;
+import com.zpj.shouji.market.ui.view.RecyclerPopup;
 import com.zpj.shouji.market.utils.ExecutorHelper;
+import com.zpj.shouji.market.utils.HttpUtil;
 import com.zpj.utils.ScreenUtil;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-
-import it.liuting.imagetrans.ImageTrans;
 
 public class ImageFragment extends BaseFragment implements IEasy.OnBindViewHolderListener<WallpaperInfo>, IEasy.OnLoadMoreListener, SwipeRefreshLayout.OnRefreshListener {
 
@@ -108,19 +107,23 @@ public class ImageFragment extends BaseFragment implements IEasy.OnBindViewHolde
                 .centerCrop()
                 .placeholder(R.drawable.bga_pp_ic_holder_light)
                 .error(R.drawable.bga_pp_ic_holder_light)
-                .override(layoutParams.width, layoutParams.height);
+//                .override(layoutParams.width, layoutParams.height)
+                .override(Target.SIZE_ORIGINAL);
         wallpaper.setLayoutParams(layoutParams);
-        Glide.with(context).load(list.get(position).getSpic()).apply(options).into(wallpaper);
+        Glide.with(context)
+                .load(list.get(position).getSpic())
+                .apply(options).into(wallpaper);
         holder.setOnItemClickListener((v, x, y) -> {
             List<String> imageList = new ArrayList<>();
             imageList.add(info.getPic());
-            ImageTrans.with(context)
-                    .setImageList(imageList)
-                    .setNowIndex(0)
-                    .setSourceImageView(pos -> wallpaper)
-                    .setProgressBar(new MyProgressBarGet())
-                    .setImageLoad(new MyImageLoad())
-                    .setAdapter(new MyImageTransAdapter())
+            List<Object> objects = new ArrayList<>(imageList);
+            new XPopup.Builder(context)
+                    .asImageViewer(wallpaper, 0, objects, new OnSrcViewUpdateListener() {
+                        @Override
+                        public void onSrcViewUpdate(ImageViewerPopupView popupView, int position) {
+                            popupView.updateSrcView(wallpaper);
+                        }
+                    }, new ImageLoader())
                     .show();
         });
 
@@ -175,21 +178,15 @@ public class ImageFragment extends BaseFragment implements IEasy.OnBindViewHolde
     }
 
     private void showSortPupWindow(View v) {
-        WallpaperSortLayout sortLayout = new WallpaperSortLayout(context);
-        if (sortPosition < 0 || sortPosition > 3) {
-            sortPosition = 0;
-        }
-        sortLayout.setSelectedItem(sortPosition);
-        PopWindow popWindow = new PopWindow.Builder(_mActivity)
-                .setStyle(PopWindow.PopWindowStyle.PopDown)
-                .setView(sortLayout)
+        RecyclerPopup.with(context)
+                .addItems("默认排序", "时间排序", "人气排序")
+                .setSelectedItem(sortPosition)
+                .setOnItemClickListener((view, title, position) -> {
+                    sortPosition = position;
+                    TextView titleText = v.findViewById(R.id.tv_title);
+                    titleText.setText(title);
+                    onRefresh();
+                })
                 .show(v);
-        sortLayout.setOnItemClickListener((view1, title, position) -> {
-            sortPosition = position;
-            TextView titleText = v.findViewById(R.id.tv_title);
-            titleText.setText(title);
-            popWindow.dismiss();
-            onRefresh();
-        });
     }
 }

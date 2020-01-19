@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
@@ -16,21 +17,20 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.felix.atoast.library.AToast;
-import com.hmy.popwindow.PopWindow;
 import com.zpj.popupmenuview.OptionMenu;
 import com.zpj.popupmenuview.OptionMenuView;
 import com.zpj.popupmenuview.PopupMenuView;
 import com.zpj.shouji.market.R;
-import com.zpj.shouji.market.ui.adapter.AppManagerAdapter;
 import com.zpj.shouji.market.bean.InstalledAppInfo;
+import com.zpj.shouji.market.bean.XpkInfo;
+import com.zpj.shouji.market.ui.adapter.AppManagerAdapter;
 import com.zpj.shouji.market.ui.fragment.base.BaseFragment;
+import com.zpj.shouji.market.ui.view.RecyclerPopup;
 import com.zpj.shouji.market.utils.AppUpdateHelper;
 import com.zpj.shouji.market.utils.AppUtil;
 import com.zpj.shouji.market.utils.FileScanner;
 import com.zpj.shouji.market.utils.FileUtils;
 import com.zpj.shouji.market.utils.LoadApkTask;
-import com.zpj.shouji.market.bean.XpkInfo;
-import com.zpj.shouji.market.ui.view.AppSortLayout;
 
 import org.xmlpull.v1.XmlPullParserException;
 
@@ -68,6 +68,10 @@ public class PackageFragment extends BaseFragment
 
     private long startTime;
 
+    private AsyncTask<Void, Void, List<String>> loadApkTask;
+
+    private int sortPosition = 0;
+
     @Override
     protected int getLayoutId() {
         return R.layout.fragment_package_manager;
@@ -87,8 +91,13 @@ public class PackageFragment extends BaseFragment
 
     @Override
     public void onDestroy() {
-        fileScanner.cancel();
-        fileScanner = null;
+        if (fileScanner != null) {
+            fileScanner.cancel();
+            fileScanner = null;
+        }
+        if (loadApkTask != null) {
+            loadApkTask.cancel(true);
+        }
         super.onDestroy();
     }
 
@@ -158,7 +167,7 @@ public class PackageFragment extends BaseFragment
 
     private void loadApk() {
         startTime = System.currentTimeMillis();
-        LoadApkTask.with(this)
+        loadApkTask = LoadApkTask.with(this)
                 .setCallBack(new LoadApkTask.CallBack() {
 
                     @Override
@@ -179,64 +188,60 @@ public class PackageFragment extends BaseFragment
     }
 
     private void showSortPopWindow() {
-        AppSortLayout appSortLayout = new AppSortLayout(getContext());
-        PopWindow popWindow = new PopWindow.Builder(getActivity())
-                .setStyle(PopWindow.PopWindowStyle.PopDown)
-                .setView(appSortLayout)
-                .show(sortTextView);
-        appSortLayout.setOnItemClickListener(new AppSortLayout.OnItemClickListener() {
-            @Override
-            public void onItemClick(TextView view, String title) {
-                popWindow.dismiss();
-                sortTextView.setText(title);
-                view.setTextColor(getContext().getResources().getColor(R.color.colorPrimary));
-                switch (view.getId()) {
-                    case R.id.item_0:
-                        Collections.sort(appInfoList, new Comparator<InstalledAppInfo>() {
-                            @Override
-                            public int compare(InstalledAppInfo o1, InstalledAppInfo o2) {
-                                return o1.getName().compareTo(o2.getName());
-                            }
-                        });
-                        break;
-                    case R.id.item_1:
-                        Collections.sort(appInfoList, new Comparator<InstalledAppInfo>() {
-                            @Override
-                            public int compare(InstalledAppInfo o1, InstalledAppInfo o2) {
-                                return (int) (o1.getAppSize() - o2.getAppSize());
-                            }
-                        });
-                        break;
-                    case R.id.item_2:
+
+        RecyclerPopup.with(context)
+                .addItems("按应用名称", "按占用空间", "按安装时间", "按更新时间", "按使用频率")
+                .setSelectedItem(sortPosition)
+                .setOnItemClickListener((view, title, position) -> {
+                    sortPosition = position;
+                    sortTextView.setText(title);
+                    switch (position) {
+                        case 0:
+                            Collections.sort(appInfoList, new Comparator<InstalledAppInfo>() {
+                                @Override
+                                public int compare(InstalledAppInfo o1, InstalledAppInfo o2) {
+                                    return o1.getName().compareTo(o2.getName());
+                                }
+                            });
+                            break;
+                        case 1:
+                            Collections.sort(appInfoList, new Comparator<InstalledAppInfo>() {
+                                @Override
+                                public int compare(InstalledAppInfo o1, InstalledAppInfo o2) {
+                                    return (int) (o1.getAppSize() - o2.getAppSize());
+                                }
+                            });
+                            break;
+                        case 2:
 //                                Collections.sort(appInfoList, new Comparator<InstalledAppInfo>() {
 //                                    @Override
 //                                    public int compare(InstalledAppInfo o1, InstalledAppInfo o2) {
 //                                        return o1.getInstallTime().compareTo(o2.getInstallTime());
 //                                    }
 //                                });
-                        break;
-                    case R.id.item_3:
+                            break;
+                        case 3:
 //                                Collections.sort(appInfoList, new Comparator<InstalledAppInfo>() {
 //                                    @Override
 //                                    public int compare(InstalledAppInfo o1, InstalledAppInfo o2) {
 //                                        return o1.getRecentUpdateTime().compareTo(o2.getRecentUpdateTime());
 //                                    }
 //                                });
-                        break;
-                    case R.id.item_4:
+                            break;
+                        case 4:
 //                                Collections.sort(appInfoList, new Comparator<InstalledAppInfo>() {
 //                                    @Override
 //                                    public int compare(InstalledAppInfo o1, InstalledAppInfo o2) {
 //                                        return o1.getName().compareTo(o2.getName());
 //                                    }
 //                                });
-                        break;
-                    default:
-                        break;
-                }
-                adapter.notifyDataSetChanged();
-            }
-        });
+                            break;
+                        default:
+                            break;
+                    }
+                    adapter.notifyDataSetChanged();
+                })
+                .show(sortTextView);
     }
 
 

@@ -26,10 +26,10 @@ public class ZNineGridImageViewAdapter extends NineGridImageViewAdapter<String> 
         if (s.toLowerCase().endsWith(".gif")) {
             Log.d("ImageLoader", "gif");
             GlideApp.with(context).asGif().load(s)
-                    .apply(new RequestOptions().centerCrop().placeholder(R.drawable.bga_pp_ic_holder_light).error(R.drawable.bga_pp_ic_holder_light)).into(imageView);
+                    .apply(new RequestOptions().centerCrop().placeholder(R.drawable.bga_pp_ic_holder_light).error(R.drawable.bga_pp_ic_holder_light).override(Target.SIZE_ORIGINAL)).into(imageView);
         } else {
             Log.d("ImageLoader", "png");
-            Glide.with(context).load(s).apply(new RequestOptions().centerCrop().placeholder(R.drawable.bga_pp_ic_holder_light).error(R.drawable.bga_pp_ic_holder_light).dontAnimate()).into(imageView);
+            Glide.with(context).load(s).apply(new RequestOptions().centerCrop().placeholder(R.drawable.bga_pp_ic_holder_light).error(R.drawable.bga_pp_ic_holder_light).override(Target.SIZE_ORIGINAL).dontAnimate()).into(imageView);
         }
     }
 

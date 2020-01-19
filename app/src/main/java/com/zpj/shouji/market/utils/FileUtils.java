@@ -644,6 +644,10 @@ public class FileUtils {
             }
         }
 
+        if (context == null) {
+            return null;
+        }
+
         StorageManager sm = (StorageManager) context.getSystemService(Context.STORAGE_SERVICE);
         try {
             paths = (String[]) getVolumePathsMethod.invoke(sm);

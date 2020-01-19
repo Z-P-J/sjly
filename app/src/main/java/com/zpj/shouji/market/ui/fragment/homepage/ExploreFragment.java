@@ -262,12 +262,6 @@ public class ExploreFragment extends BaseFragment
     private void showMenu(ExploreItem data) {
         MenuBottomSheetDialog.with(context)
                 .setMenu(R.menu.menu_tools)
-//                .setHeaderView(R.layout.item_app_linear, new IEasy.OnBindHeaderListener() {
-//                    @Override
-//                    public void onBindHeader(EasyViewHolder holder) {
-//
-//                    }
-//                })
                 .onItemClick(new MenuBottomSheetDialog.OnItemClickListener() {
                     @Override
                     public void onClick(IDialog dialog, View view, MenuItem data) {

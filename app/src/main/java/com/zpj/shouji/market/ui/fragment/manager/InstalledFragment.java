@@ -21,7 +21,6 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.felix.atoast.library.AToast;
-import com.hmy.popwindow.PopWindow;
 import com.zpj.downloader.util.notification.NotifyUtil;
 import com.zpj.popupmenuview.OptionMenu;
 import com.zpj.popupmenuview.OptionMenuView;
@@ -33,8 +32,8 @@ import com.zpj.shouji.market.bean.InstalledAppInfo;
 import com.zpj.shouji.market.ui.adapter.AppManagerAdapter;
 import com.zpj.shouji.market.ui.fragment.base.BaseFragment;
 import com.zpj.shouji.market.ui.fragment.detail.AppDetailFragment;
-import com.zpj.shouji.market.ui.view.AppFilterLayout;
 import com.zpj.shouji.market.ui.view.GradientButton;
+import com.zpj.shouji.market.ui.view.RecyclerPopup;
 import com.zpj.shouji.market.utils.AppBackupHelper;
 import com.zpj.shouji.market.utils.AppUtil;
 import com.zpj.shouji.market.utils.LoadAppTask;
@@ -76,6 +75,8 @@ public class InstalledFragment extends BaseFragment implements AppManagerAdapter
     private RelativeLayout bottomLayout;
     private GradientButton uninstallBtn;
     private GradientButton backupBtn;
+
+    private int sortPosition = 0;
 
     @Override
     protected int getLayoutId() {
@@ -168,40 +169,36 @@ public class InstalledFragment extends BaseFragment implements AppManagerAdapter
     }
 
     private void showFilterPopWindow() {
-        AppFilterLayout appFilterLayout = new AppFilterLayout(getContext());
-        PopWindow popWindow = new PopWindow.Builder(getActivity())
-                .setStyle(PopWindow.PopWindowStyle.PopDown)
-                .setView(appFilterLayout)
+        RecyclerPopup.with(context)
+                .addItems("用户应用", "系统应用", "已备份", "已禁用", "已隐藏")
+                .setSelectedItem(sortPosition)
+                .setOnItemClickListener((view, title, position) -> {
+                    sortPosition = position;
+                    titleTextView.setText(title);
+                    installedAppInfos.clear();
+                    switch (position) {
+                        case 0:
+                            installedAppInfos.addAll(USER_APP_LIST);
+                            break;
+                        case 1:
+                            installedAppInfos.addAll(SYSTEM_APP_LIST);
+                            break;
+                        case 2:
+                            installedAppInfos.addAll(BACKUP_APP_LIST);
+                            break;
+                        case 3:
+                            installedAppInfos.addAll(FORBID_APP_LIST);
+                            break;
+                        case 4:
+                            installedAppInfos.addAll(HIDDEN_APP_LIST);
+                            break;
+                        default:
+                            break;
+                    }
+                    infoTextView.setText("共计：" + installedAppInfos.size() + " | 已选：0");
+                    adapter.notifyDataSetChanged();
+                })
                 .show(titleTextView);
-        appFilterLayout.setOnItemClickListener(new AppFilterLayout.OnItemClickListener() {
-            @Override
-            public void onItemClick(View view, String title) {
-                popWindow.dismiss();
-                titleTextView.setText(title);
-                installedAppInfos.clear();
-                switch (view.getId()) {
-                    case R.id.item_0:
-                        installedAppInfos.addAll(USER_APP_LIST);
-                        break;
-                    case R.id.item_1:
-                        installedAppInfos.addAll(SYSTEM_APP_LIST);
-                        break;
-                    case R.id.item_2:
-                        installedAppInfos.addAll(BACKUP_APP_LIST);
-                        break;
-                    case R.id.item_3:
-                        installedAppInfos.addAll(FORBID_APP_LIST);
-                        break;
-                    case R.id.item_4:
-                        installedAppInfos.addAll(HIDDEN_APP_LIST);
-                        break;
-                    default:
-                        break;
-                }
-                infoTextView.setText("共计：" + installedAppInfos.size() + " | 已选：0");
-                adapter.notifyDataSetChanged();
-            }
-        });
     }
 
     @Override
@@ -262,21 +259,11 @@ public class InstalledFragment extends BaseFragment implements AppManagerAdapter
 
     @Override
     public void onEnterSelectMode() {
-//        AnimationUtil.with().bottomMoveToViewLocation(bottomLayout, 500);
-//        ViewGroup.LayoutParams params = recyclerView.getLayoutParams();
-//        params.height = recyclerView.getHeight() - Util.Dp2px(getContext(), 48);
-//        recyclerView.setLayoutParams(params);
-//        bottomLayout.setVisibility(View.VISIBLE);
         enterSelectModeAnim();
     }
 
     @Override
     public void onExitSelectMode() {
-//        AnimationUtil.with().moveToViewBottom(bottomLayout, 500);
-//        ViewGroup.LayoutParams params = recyclerView.getLayoutParams();
-//        params.height = recyclerView.getHeight() + Util.Dp2px(getContext(), 48);
-//        recyclerView.setLayoutParams(params);
-//        bottomLayout.setVisibility(View.GONE);
         exitSelectModeAnim();
     }
 

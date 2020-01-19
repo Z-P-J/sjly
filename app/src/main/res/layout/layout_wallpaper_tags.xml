@@ -2,9 +2,9 @@
 <com.kongzue.stacklabelview.StackLabel
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/stackLabelView"
+    android:id="@+id/stack_label"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:background="@android:color/white"
     app:textColor="#e6000000"
     app:itemMargin="4dp"
