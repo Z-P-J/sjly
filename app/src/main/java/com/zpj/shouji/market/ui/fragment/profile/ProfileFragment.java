@@ -103,8 +103,6 @@ public class ProfileFragment extends BaseFragment implements ExploreFragment.Cal
 //            exploreFragment = ExploreFragment.newInstance(DEFAULT_URL, false);
             throw new RuntimeException("bundle is null!");
         }
-        exploreFragment.setCallback(this);
-        exploreFragment.setEnableSwipeRefresh(false);
         mZoomIv = view.findViewById(R.id.uc_zoomiv);
         mToolBar = view.findViewById(R.id.toolbar);
         mNicknameTextView = view.findViewById(R.id.text_nickname);
@@ -127,6 +125,8 @@ public class ProfileFragment extends BaseFragment implements ExploreFragment.Cal
         if (exploreFragment == null) {
             exploreFragment = ExploreFragment.newInstance("http://tt.shouji.com.cn/app/view_member_xml_v4.jsp?versioncode=198&id=" + userId, true);
         }
+        exploreFragment.setCallback(this);
+        exploreFragment.setEnableSwipeRefresh(false);
         fragments.add(exploreFragment);
         fragments.add(new Fragment());
         UserDownloadedFragment userDownloadedFragment = findChildFragment(UserDownloadedFragment.class);
