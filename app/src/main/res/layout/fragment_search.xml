@@ -21,6 +21,7 @@
         app:titleBarColor="@color/colorPrimary"
         app:rightType="imageButton"
         app:rightImageResource="@drawable/ic_search_white_24dp"
+        app:showBottomLine="false"
         />
 
     <com.zpj.shouji.market.ui.view.ZViewPager

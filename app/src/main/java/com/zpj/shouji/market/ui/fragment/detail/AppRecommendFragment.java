@@ -246,7 +246,7 @@ public class AppRecommendFragment extends BaseFragment implements GroupRecyclerV
                     if (i == 0) {
                         Glide.with(context)
                                 .load(appItem.getIcons().get(0))
-                                .apply(RequestOptions.bitmapTransform(new BlurTransformation(7, 10)))
+                                .apply(RequestOptions.bitmapTransform(new BlurTransformation(context, 7, 10)))
                                 .into((ImageView) holder.get(R.id.img_bg));
                     }
                     Glide.with(context).load(appItem.getIcons().get(i)).into((ImageView) holder.get(res));

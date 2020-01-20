@@ -529,7 +529,12 @@ public class EasyRecyclerLayout<T> extends FrameLayout {
     }
 
     public void notifyDataSetChanged() {
-        if (easyRecyclerView.getData().isEmpty() && !enableLoadMore) {
+        if ((easyRecyclerView.getData() == null || easyRecyclerView.getData().isEmpty())) {
+//            if (enableLoadMore) {
+//                showLoading();
+//            } else {
+//
+//            }
             showEmpty();
         } else {
             easyRecyclerView.notifyDataSetChanged();

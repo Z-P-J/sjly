@@ -39,5 +39,4 @@ dependencies {
 //    implementation 'com.github.zzz40500:android-shapeLoadingView:1.0.3.2'
 //    implementation 'com.classic.common:multiple-status-view:1.6'
     implementation project(":switchbutton")
-//    implementation 'com.android.support:design:28.0.0'
 }

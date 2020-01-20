@@ -13,6 +13,7 @@ import com.felix.atoast.library.AToast;
 import com.wuhenzhizao.titlebar.widget.CommonTitleBar;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.ui.adapter.ZFragmentPagerAdapter;
+import com.zpj.shouji.market.ui.fragment.ExploreListFragment;
 import com.zpj.shouji.market.ui.fragment.base.BaseFragment;
 import com.zpj.shouji.market.ui.fragment.manager.AppManagerFragment;
 import com.zpj.shouji.market.ui.fragment.search.SearchFragment;
@@ -52,9 +53,9 @@ public class HomeFragment extends BaseFragment {
         if (recommendFragment == null) {
             recommendFragment = new RecommendFragment();
         }
-        ExploreFragment exploreFragment = findChildFragment(ExploreFragment.class);
+        ExploreListFragment exploreFragment = findChildFragment(ExploreListFragment.class);
         if (exploreFragment == null) {
-            exploreFragment = ExploreFragment.newInstance("http://tt.shouji.com.cn/app/faxian.jsp?index=faxian&versioncode=198");
+            exploreFragment = ExploreListFragment.newInstance("http://tt.shouji.com.cn/app/faxian.jsp?index=faxian&versioncode=198");
         }
         WallpaperFragment wallpaperFragment = findChildFragment(WallpaperFragment.class);
         if (wallpaperFragment == null) {

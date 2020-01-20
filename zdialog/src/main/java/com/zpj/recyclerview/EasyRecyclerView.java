@@ -152,30 +152,51 @@ public class EasyRecyclerView<T> {
     }
 
     public void notifyDataSetChanged() {
+        if (easyAdapter == null) {
+            return;
+        }
         easyAdapter.notifyDataSetChanged();
     }
 
     public void notifyItemChanged(int position) {
+        if (easyAdapter == null) {
+            return;
+        }
         easyAdapter.notifyItemChanged(position);
     }
 
     public void notifyItemChanged(int position, Object payload) {
+        if (easyAdapter == null) {
+            return;
+        }
         easyAdapter.notifyItemChanged(position, payload);
     }
 
     public void notifyItemInserted(int position) {
+        if (easyAdapter == null) {
+            return;
+        }
         easyAdapter.notifyItemInserted(position);
     }
 
     public void notifyItemRangeChanged(int start, int itemCount) {
+        if (easyAdapter == null) {
+            return;
+        }
         easyAdapter.notifyItemRangeChanged(start, itemCount);
     }
 
     public void notifyItemRangeChanged(int start, int itemCount, Object payload) {
+        if (easyAdapter == null) {
+            return;
+        }
         easyAdapter.notifyItemRangeChanged(start, itemCount, payload);
     }
 
     public void notifyItemRemoved(int position) {
+        if (easyAdapter == null) {
+            return;
+        }
         easyAdapter.notifyItemRemoved(position);
     }
 
