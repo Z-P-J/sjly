@@ -36,7 +36,7 @@ public class SplashActivity extends AppCompatActivity {
                 .setAppName("手机乐园")
                 .setAppStatement("分享优质应用")
                 .setAnimationInterval(1000)
-                .setAppIcon(getResources().getDrawable(R.drawable.ic_app))
+                .setAppIcon(getResources().getDrawable(R.mipmap.ic_launcher))
                 .setAnimationListener(new OpeningStartAnimation.AnimationListener() {
                     @Override
                     public void onFinish(OpeningStartAnimation openingStartAnimation, Activity activity) {
