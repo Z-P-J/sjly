@@ -26,10 +26,11 @@ import com.zhouwei.mzbanner.holder.MZViewHolder;
 import com.zpj.http.parser.html.nodes.Document;
 import com.zpj.http.parser.html.select.Elements;
 import com.zpj.shouji.market.R;
-import com.zpj.shouji.market.model.AppCollectionItem;
+import com.zpj.shouji.market.model.CollectionInfo;
 import com.zpj.shouji.market.model.AppItem;
 import com.zpj.shouji.market.model.SubjectItem;
 import com.zpj.shouji.market.glide.blur.BlurTransformation;
+import com.zpj.shouji.market.ui.fragment.collection.CollectionDetailFragment;
 import com.zpj.shouji.market.ui.fragment.detail.AppDetailFragment;
 import com.zpj.shouji.market.ui.fragment.base.BaseFragment;
 import com.zpj.shouji.market.utils.HttpUtil;
@@ -124,23 +125,11 @@ public class RecommendFragment extends BaseFragment implements GroupRecyclerView
             return;
         }
         if (data.getAppItem() != null) {
-//            ViewCompat.setTransitionName(holder.get(R.id.item_icon), "app icon");
             AppDetailFragment fragment = AppDetailFragment.newInstance(data.getAppItem());
-//            if (Build.VERSION.SDK_INT > Build.VERSION_CODES.LOLLIPOP) {
-//                fragment.setSharedElementEnterTransition(TransitionInflater.from(getContext())
-//                        .inflateTransition(android.R.transition.move));
-//                fragment.setEnterTransition(new Fade());
-//                _mActivity.findFragment(MainFragment.class).setExitTransition(new Fade());
-//                fragment.setSharedElementReturnTransition(new ImageTransition());
-//                _mActivity.findFragment(MainFragment.class).extraTransaction()
-//                        .addSharedElement(holder.get(R.id.item_icon), "app icon")
-//                        .start(fragment);
-//            } else {
-//                _mActivity.start(fragment);
-//            }
             _mActivity.start(fragment);
         } else if (data.getCollectionItem() != null) {
             AToast.normal("TODO Collection");
+            _mActivity.start(CollectionDetailFragment.newInstance(data.getCollectionItem()));
         }
     }
 
@@ -197,7 +186,7 @@ public class RecommendFragment extends BaseFragment implements GroupRecyclerView
                 Elements elements = doc.select("item");
                 int count = elements.size() > 9 ? 9 : elements.size();
                 for (int i = 1; i < count; i++) {
-                    appCollectionList.add(new ItemWrapper(AppCollectionItem.create(elements.get(i))));
+                    appCollectionList.add(new ItemWrapper(CollectionInfo.create(elements.get(i))));
                 }
 //                recyclerView.postDelayed(() -> adapter.updateGroup(2, appCollectionList), 2);
                 post(() -> adapter.updateGroup(2, appCollectionList));
@@ -305,7 +294,7 @@ public class RecommendFragment extends BaseFragment implements GroupRecyclerView
     public class ItemWrapper {
 
         private AppItem appItem;
-        private AppCollectionItem collectionItem;
+        private CollectionInfo collectionItem;
         private SubjectItem subjectItem;
         private String title;
         public Drawable icon;
@@ -318,7 +307,7 @@ public class RecommendFragment extends BaseFragment implements GroupRecyclerView
             this.subjectItem = subjectItem;
         }
 
-        ItemWrapper(AppCollectionItem collectionItem) {
+        ItemWrapper(CollectionInfo collectionItem) {
             this.collectionItem = collectionItem;
         }
 
@@ -330,7 +319,7 @@ public class RecommendFragment extends BaseFragment implements GroupRecyclerView
             this.title = title;
         }
 
-        public AppCollectionItem getCollectionItem() {
+        public CollectionInfo getCollectionItem() {
             return collectionItem;
         }
 
@@ -464,7 +453,7 @@ public class RecommendFragment extends BaseFragment implements GroupRecyclerView
 //                ViewCompat.setTransitionName(holder.get(R.id.item_icon), appItem.getAppId());
             } else if (viewType == TYPE_CHILD_COLLECTION) {
                 long time1 = System.currentTimeMillis();
-                final AppCollectionItem appItem = item.getCollectionItem();
+                final CollectionInfo appItem = item.getCollectionItem();
                 if (appItem == null) {
                     return;
                 }

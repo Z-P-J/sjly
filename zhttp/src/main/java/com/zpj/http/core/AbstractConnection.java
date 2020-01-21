@@ -1,5 +1,7 @@
 package com.zpj.http.core;
 
+import android.util.Log;
+
 import com.zpj.http.parser.html.Parser;
 import com.zpj.http.parser.html.nodes.Document;
 import com.zpj.http.utils.UrlUtil;

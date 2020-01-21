@@ -131,7 +131,7 @@ public class ProfileFragment extends BaseFragment implements ExploreListFragment
         fragments.add(new Fragment());
         UserDownloadedFragment userDownloadedFragment = findChildFragment(UserDownloadedFragment.class);
         if (userDownloadedFragment == null) {
-            userDownloadedFragment = new UserDownloadedFragment();
+            userDownloadedFragment = UserDownloadedFragment.newInstance(userId);
         }
         fragments.add(userDownloadedFragment);
         fragments.add(new Fragment());

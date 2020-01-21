@@ -16,6 +16,7 @@ import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.model.AppDetailInfo;
 import com.zpj.shouji.market.model.AppItem;
 import com.zpj.shouji.market.model.AppUpdateInfo;
+import com.zpj.shouji.market.model.CollectionAppInfo;
 import com.zpj.shouji.market.model.InstalledAppInfo;
 import com.zpj.shouji.market.model.UserDownloadedAppInfo;
 import com.zpj.shouji.market.ui.adapter.ZFragmentPagerAdapter;
@@ -83,6 +84,10 @@ public class AppDetailFragment extends BaseFragment {
         return newInstance(info.getAppType(), info.getId());
     }
 
+    public static AppDetailFragment newInstance(CollectionAppInfo info) {
+        return newInstance(info.getAppType(), info.getId());
+    }
+
 
     @Override
     protected int getLayoutId() {
@@ -124,7 +129,7 @@ public class AppDetailFragment extends BaseFragment {
 
         AppCommentFragment commentFragment = findChildFragment(AppCommentFragment.class);
         if (commentFragment == null) {
-            commentFragment = AppCommentFragment.newInstance("http://tt.shouji.com.cn/app/comment_index_xml_v5.jsp?versioncode=198&type=" + type + "&id=" + id);
+                commentFragment = AppCommentFragment.newInstance("http://tt.shouji.com.cn/app/comment_index_xml_v5.jsp?versioncode=198&type=" + type + "&id=" + id);
         }
 
         AppExploreFragment exploreFragment = findChildFragment(AppExploreFragment.class);

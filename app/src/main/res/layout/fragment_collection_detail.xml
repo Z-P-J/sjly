@@ -1,0 +1,273 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    >
+
+    <android.support.design.widget.CoordinatorLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fitsSystemWindows="true"
+        android:layout_above="@id/bottom_bar"
+        >
+
+        <android.support.design.widget.AppBarLayout
+            android:id="@+id/appbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fitsSystemWindows="true">
+
+            <android.support.design.widget.CollapsingToolbarLayout
+                android:id="@+id/collapsingToolbar"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:contentScrim="?attr/colorPrimary"
+                app:layout_scrollFlags="scroll|exitUntilCollapsed"
+                app:navigationIcon="@drawable/ic_arrow_back_white_24dp">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:fitsSystemWindows="true"
+                    android:orientation="vertical"
+                    android:scaleType="centerInside"
+                    app:layout_collapseMode="parallax">
+
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="56dp"
+                        >
+
+                        <LinearLayout
+                            android:id="@+id/wrap"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:padding="20dp"
+                            >
+
+                            <ImageView
+                                android:id="@+id/iv_icon"
+                                android:layout_width="160dp"
+                                android:layout_height="160dp"
+                                android:src="@mipmap/ic_launcher"
+                                />
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_toEndOf="@id/iv_icon"
+                                android:layout_marginStart="20dp"
+                                android:orientation="vertical"
+                                >
+
+                                <TextView
+                                    android:id="@+id/tv_title"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:text="title"
+                                    android:textColor="@android:color/white"
+                                    android:textSize="18sp"
+                                    android:textStyle="bold"
+                                    android:maxLines="2"
+                                    android:ellipsize="end"
+                                    android:paddingTop="5dp"
+                                    android:paddingBottom="5dp"
+                                    />
+
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:paddingTop="10dp"
+                                    android:paddingBottom="10dp"
+                                    >
+
+                                    <de.hdodenhof.circleimageview.CircleImageView
+                                        android:id="@+id/iv_avatar"
+                                        android:layout_width="24dp"
+                                        android:layout_height="24dp"
+                                        android:src="@mipmap/ic_launcher"
+                                        android:layout_gravity="center"
+                                        />
+
+                                    <TextView
+                                        android:id="@+id/tv_user_name"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:text="userName"
+                                        android:textColor="@android:color/white"
+                                        android:layout_gravity="center"
+                                        android:paddingStart="10dp"
+                                        android:paddingEnd="10dp"
+                                        android:drawableEnd="@drawable/ic_keyboard_arrow_right_black_24dp"
+                                        />
+
+                                </LinearLayout>
+
+                                <TextView
+                                    android:id="@+id/tv_desc"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:text="fkhdrghdjkfghnbdjfbkfkgnbf"
+                                    android:textColor="@android:color/white"
+                                    android:maxLines="2"
+                                    android:ellipsize="end"
+                                    android:paddingTop="10dp"
+                                    android:paddingBottom="10dp"
+                                    />
+
+
+                            </LinearLayout>
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@id/wrap"
+                            android:layout_alignParentBottom="true"
+                            android:padding="10dp"
+                            >
+
+                            <TextView
+                                android:id="@+id/tv_support"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:drawableTop="@drawable/ic_thumb_up_white_24dp"
+                                android:text="100"
+                                android:layout_weight="1"
+                                android:gravity="center"
+                                android:textColor="@android:color/white"
+                                />
+
+                            <TextView
+                                android:id="@+id/tv_favorite"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:drawableTop="@drawable/ic_favorite_border_white_24dp"
+                                android:text="100"
+                                android:layout_weight="1"
+                                android:gravity="center"
+                                android:textColor="@android:color/white"
+                                />
+
+                            <TextView
+                                android:id="@+id/tv_view"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:drawableTop="@drawable/ic_remove_red_eye_white_24dp"
+                                android:text="100"
+                                android:layout_weight="1"
+                                android:gravity="center"
+                                android:textColor="@android:color/white"
+                                />
+
+                            <TextView
+                                android:id="@+id/tv_download"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:drawableTop="@drawable/ic_file_download_white_24dp"
+                                android:text="下载"
+                                android:layout_weight="1"
+                                android:gravity="center"
+                                android:textColor="@android:color/white"
+                                />
+
+                        </LinearLayout>
+
+                    </RelativeLayout>
+
+
+                </RelativeLayout>
+
+                <android.support.v7.widget.Toolbar
+                    android:id="@+id/toolbar"
+                    android:layout_width="match_parent"
+                    android:layout_height="56dp"
+                    app:titleTextColor="#ffffff"
+                    android:gravity="center_vertical"
+                    android:background="#00ffffff"
+                    app:navigationIcon="@drawable/ic_arrow_back_white_24dp"
+                    app:layout_collapseMode="pin" >
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:src="@drawable/ic_arrow_back_white_24dp"
+                            android:padding="16dp"
+                            android:layout_toStartOf="@id/test"
+                            />
+
+                        <ImageView
+                            android:id="@+id/test"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:src="@drawable/ic_search_white_24dp"
+                            android:padding="16dp"
+                            android:layout_alignParentEnd="true"
+                            />
+
+                    </RelativeLayout>
+
+                </android.support.v7.widget.Toolbar>
+
+            </android.support.design.widget.CollapsingToolbarLayout>
+
+            <net.lucode.hackware.magicindicator.MagicIndicator
+                android:id="@+id/magic_indicator"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:layout_gravity="center"
+                android:background="@drawable/magic_indicator_bg"
+                />
+
+        </android.support.design.widget.AppBarLayout>
+
+        <android.support.v4.view.ViewPager
+            android:id="@+id/view_pager"
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:background="@android:color/white"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
+
+    </android.support.design.widget.CoordinatorLayout>
+
+    <RelativeLayout
+        android:id="@+id/bottom_bar"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:gravity="center_vertical"
+        android:layout_alignParentBottom="true"
+        android:background="@drawable/top_line_gray"
+        >
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="写评论"
+            android:textSize="16sp"
+            android:padding="10dp"
+            android:textColor="@color/color_text_major"
+            android:layout_toStartOf="@id/iv_share"
+            />
+
+        <ImageView
+            android:id="@+id/iv_share"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:src="@drawable/ic_share_white_24dp"
+            android:tint="@android:color/black"
+            android:layout_alignParentEnd="true"
+            android:padding="12dp"
+            />
+
+    </RelativeLayout>
+
+</RelativeLayout>

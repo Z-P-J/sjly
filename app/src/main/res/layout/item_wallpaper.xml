@@ -4,39 +4,50 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    app:cornerRadius="8dp"
+    app:cornerRadius="10dp"
     app:shadowFluidShape="adsorption"
-    app:shadowColor="#5f6379"
-    app:shadowStartAlpha="50"
-    app:shadowSize="8dp"
+    app:shadowColor="@color/color_text_normal"
+    app:shadowStartAlpha="30"
+    app:shadowSize="4dp"
+    app:cardBackgroundColor="@android:color/white"
     >
-
-    <ImageView
-        android:id="@+id/iv_wallpaper"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="1dp"
-        android:scaleType="centerCrop"
-        android:src="@drawable/bga_pp_ic_holder_light"/>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:layout_gravity="bottom"
-        android:background="#60cccccc"
-        android:padding="5dp"
         >
+
+        <ImageView
+            android:id="@+id/iv_wallpaper"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:scaleType="centerCrop"
+            android:src="@drawable/bga_pp_ic_holder_light"/>
+
+        <TextView
+            android:id="@+id/tv_content"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:maxLines="2"
+            android:ellipsize="end"
+            android:text="内容"
+            android:textColor="@color/color_text_major"
+            android:padding="5dp"
+            android:textSize="16sp"
+            />
 
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:orientation="vertical"
             >
 
             <de.hdodenhof.circleimageview.CircleImageView
                 android:id="@+id/iv_icon"
-                android:layout_width="24dp"
-                android:layout_height="24dp"
+                android:layout_width="36dp"
+                android:layout_height="36dp"
                 android:layout_margin="5dp"
                 android:src="@mipmap/ic_launcher"
                 app:civ_border_color="#80cccccc"
@@ -44,43 +55,23 @@
                 android:layout_centerVertical="true"
                 />
 
-            <LinearLayout
+            <TextView
                 android:layout_toEndOf="@id/iv_icon"
                 android:layout_toStartOf="@id/support_view"
+                android:layout_centerVertical="true"
+                android:id="@+id/tv_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:layout_centerVertical="true"
-                >
-
-                <TextView
-
-                    android:id="@+id/tv_name"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:ellipsize="end"
-                    android:gravity="center_vertical"
-                    android:maxLines="1"
-                    android:text="用户名"
-                    android:paddingBottom="5dp"
-                    android:paddingTop="5dp"
-                    android:textColor="@android:color/white"
-                    android:textStyle="bold"
-                    android:layout_gravity="center"
-                    android:textSize="12sp"
-                    />
-
-                <TextView
-                    android:id="@+id/tv_content"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:maxLines="2"
-                    android:ellipsize="end"
-                    android:text="内容"
-                    android:textColor="@android:color/white"
-                    />
-
-            </LinearLayout>
+                android:ellipsize="end"
+                android:gravity="center_vertical"
+                android:maxLines="1"
+                android:text="用户名"
+                android:paddingBottom="5dp"
+                android:paddingTop="5dp"
+                android:textColor="@color/color_text_normal"
+                android:layout_gravity="center"
+                android:textSize="12sp"
+                />
 
             <com.sunbinqiang.iconcountview.IconCountView
                 android:id="@+id/support_view"
@@ -89,12 +80,13 @@
                 app:count="1"
                 app:state="false"
                 app:zeroText="赞"
-                app:textNormalColor="@android:color/white"
+                app:textNormalColor="@color/color_text_normal"
                 app:textSelectedColor="#d4237a"
                 app:textSize="12sp"
                 app:normalRes="@drawable/good"
                 app:selectedRes="@drawable/good_checked"
                 android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
                 />
 
         </RelativeLayout>

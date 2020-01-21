@@ -11,7 +11,7 @@ import android.view.View;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.ui.adapter.ZFragmentPagerAdapter;
 import com.zpj.shouji.market.ui.fragment.AppListFragment;
-import com.zpj.shouji.market.ui.fragment.CollectionListFragment;
+import com.zpj.shouji.market.ui.fragment.collection.CollectionListFragment;
 import com.zpj.shouji.market.ui.fragment.ExploreListFragment;
 import com.zpj.shouji.market.ui.fragment.UserListFragment;
 import com.zpj.shouji.market.ui.fragment.base.BaseFragment;

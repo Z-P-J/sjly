@@ -15,6 +15,7 @@ import com.zpj.http.parser.html.select.Elements;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.model.WallpaperTag;
 import com.zpj.shouji.market.ui.adapter.ZFragmentPagerAdapter;
+import com.zpj.shouji.market.ui.fragment.ImageListFragment;
 import com.zpj.shouji.market.ui.fragment.base.BaseFragment;
 import com.zpj.shouji.market.ui.widget.WallpaperTagPopup;
 import com.zpj.shouji.market.utils.ExecutorHelper;
@@ -38,7 +39,7 @@ public class WallpaperFragment extends BaseFragment implements View.OnClickListe
 
     private final AtomicBoolean isInitTags = new AtomicBoolean(false);
 
-    private final List<ImageFragment> fragments = new ArrayList<>(0);
+    private final List<ImageListFragment> fragments = new ArrayList<>(0);
     private final List<WallpaperTag> wallpaperTags = new ArrayList<>(0);
 
     private ViewPager viewPager;
@@ -105,7 +106,7 @@ public class WallpaperFragment extends BaseFragment implements View.OnClickListe
         isInitTags.set(true);
         fragments.clear();
         for (WallpaperTag tag : wallpaperTags) {
-            fragments.add(ImageFragment.newInstance(tag));
+            fragments.add(ImageListFragment.newInstance(tag));
         }
         ZFragmentPagerAdapter adapter = new ZFragmentPagerAdapter(getChildFragmentManager(), fragments, null);
         viewPager.setAdapter(adapter);

@@ -180,21 +180,11 @@ public class ExploreListFragment extends LoadMoreFragment<ExploreItem>
     }
 
     @Override
-    protected void buildRecyclerLayout(Context context) {
-        recyclerLayout.setItemRes(getItemLayoutId())
-                .setData(data)
-                .setLayoutManager(new LinearLayoutManager(getContext()))
-                .setEnableLoadMore(true)
-                .setEnableSwipeRefresh(enableSwipeRefresh)
-                .onLoadMore(this)
-                .setOnRefreshListener(this)
-                .onBindViewHolder(this)
-                .onItemClick(this)
-                .onItemLongClick(this)
+    protected void buildRecyclerLayout(EasyRecyclerLayout<ExploreItem> recyclerLayout) {
+        recyclerLayout.setEnableSwipeRefresh(enableSwipeRefresh)
                 .onViewClick(R.id.item_icon, (holder, view, data) -> {
                     _mActivity.start(ProfileFragment.newInstance(data.getMemberId(), false));
-                })
-                .build();
+                });
     }
 
     @Override

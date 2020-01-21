@@ -22,10 +22,11 @@ import com.zpj.http.parser.html.nodes.Document;
 import com.zpj.http.parser.html.nodes.Element;
 import com.zpj.http.parser.html.select.Elements;
 import com.zpj.shouji.market.R;
-import com.zpj.shouji.market.model.AppCollectionItem;
+import com.zpj.shouji.market.model.CollectionInfo;
 import com.zpj.shouji.market.model.AppItem;
 import com.zpj.shouji.market.glide.blur.BlurTransformation;
 import com.zpj.shouji.market.ui.fragment.base.BaseFragment;
+import com.zpj.shouji.market.ui.fragment.collection.CollectionDetailFragment;
 import com.zpj.shouji.market.utils.ExecutorHelper;
 import com.zpj.shouji.market.utils.HttpUtil;
 
@@ -93,6 +94,7 @@ public class AppRecommendFragment extends BaseFragment implements GroupRecyclerV
             _mActivity.start(fragment);
         } else if (data.getCollectionItem() != null) {
             AToast.normal("TODO Collection");
+            _mActivity.start(CollectionDetailFragment.newInstance(data.getCollectionItem()));
         }
     }
 
@@ -116,7 +118,7 @@ public class AppRecommendFragment extends BaseFragment implements GroupRecyclerV
                 for (Element element : elements) {
                     if (element.selectFirst("viewtype").text().equals("yyj")) {
                         for (Element recognizeItem : element.selectFirst("recognizelist").select("recognize")) {
-                            appCollectionList.add(new ItemWrapper(AppCollectionItem.buildSimilarCollection(recognizeItem)));
+                            appCollectionList.add(new ItemWrapper(CollectionInfo.buildSimilarCollection(recognizeItem)));
                         }
                         post(() -> adapter.updateGroup(0, appCollectionList));
                     } else {
@@ -133,14 +135,14 @@ public class AppRecommendFragment extends BaseFragment implements GroupRecyclerV
     public class ItemWrapper {
 
         private AppItem appItem;
-        private AppCollectionItem collectionItem;
+        private CollectionInfo collectionItem;
         private String title;
 
         ItemWrapper() {
 
         }
 
-        ItemWrapper(AppCollectionItem collectionItem) {
+        ItemWrapper(CollectionInfo collectionItem) {
             this.collectionItem = collectionItem;
         }
 
@@ -152,7 +154,7 @@ public class AppRecommendFragment extends BaseFragment implements GroupRecyclerV
             this.title = title;
         }
 
-        public AppCollectionItem getCollectionItem() {
+        public CollectionInfo getCollectionItem() {
             return collectionItem;
         }
 
@@ -233,7 +235,7 @@ public class AppRecommendFragment extends BaseFragment implements GroupRecyclerV
                 Glide.with(context).load(appItem.getAppIcon()).into((ImageView) holder.get(R.id.item_icon));
             } else if (viewType == TYPE_CHILD_COLLECTION) {
                 long time1 = System.currentTimeMillis();
-                final AppCollectionItem appItem = item.getCollectionItem();
+                final CollectionInfo appItem = item.getCollectionItem();
                 if (appItem == null) {
                     return;
                 }

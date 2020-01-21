@@ -4,19 +4,15 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 
-import com.bumptech.glide.Glide;
 import com.zpj.http.parser.html.nodes.Document;
 import com.zpj.http.parser.html.nodes.Element;
 import com.zpj.recyclerview.EasyAdapter;
 import com.zpj.recyclerview.EasyViewHolder;
 import com.zpj.shouji.market.R;
-import com.zpj.shouji.market.model.SubjectItem;
-import com.zpj.shouji.market.ui.fragment.SubjectListFragment;
 import com.zpj.shouji.market.utils.ExecutorHelper;
 import com.zpj.shouji.market.utils.HttpUtil;
 
 import java.io.IOException;
-import java.util.List;
 
 public abstract class LoadMoreFragment<T> extends RecyclerLayoutFragment<T> {
 
@@ -28,11 +24,6 @@ public abstract class LoadMoreFragment<T> extends RecyclerLayoutFragment<T> {
     protected void handleArguments(Bundle arguments) {
         defaultUrl = arguments.getString(KEY_DEFAULT_URL, "");
         nextUrl = defaultUrl;
-    }
-
-    @Override
-    protected int getItemLayoutId() {
-        return R.layout.item_app_linear;
     }
 
     @Override
@@ -75,7 +66,12 @@ public abstract class LoadMoreFragment<T> extends RecyclerLayoutFragment<T> {
                     }
                     data.add(item);
                 }
-                post(() -> recyclerLayout.notifyDataSetChanged());
+                post(() -> {
+                    recyclerLayout.notifyDataSetChanged();
+                    if (data.isEmpty()) {
+                        recyclerLayout.showEmpty();
+                    }
+                });
             } catch (IOException e) {
                 e.printStackTrace();
             }

@@ -9,10 +9,12 @@ import android.view.View;
 import com.zpj.http.parser.html.nodes.Document;
 import com.zpj.http.parser.html.nodes.Element;
 import com.zpj.http.parser.html.select.Elements;
+import com.zpj.recyclerview.EasyViewHolder;
 import com.zpj.recyclerview.loadmore.LoadMoreWrapper;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.model.UserDownloadedAppInfo;
 import com.zpj.shouji.market.ui.adapter.UserDownloadedAdapter;
+import com.zpj.shouji.market.ui.fragment.base.LoadMoreFragment;
 import com.zpj.shouji.market.ui.fragment.detail.AppDetailFragment;
 import com.zpj.shouji.market.ui.fragment.base.BaseFragment;
 import com.zpj.shouji.market.utils.HttpUtil;
@@ -21,69 +23,60 @@ import com.zpj.shouji.market.utils.ExecutorHelper;
 import java.util.ArrayList;
 import java.util.List;
 
-public class UserDownloadedFragment extends BaseFragment {
+public class UserDownloadedFragment extends LoadMoreFragment<UserDownloadedAppInfo> {
 
+    private static final String KEY_ID = "key_id";
     private static final String DEFAULT_URL = "http://tt.shouji.com.cn/app/view_member_down_xml_v2.jsp?versioncode=198&id=5636865";
 
-    private RecyclerView recyclerView;
-    private UserDownloadedAdapter adapter;
-    private final List<UserDownloadedAppInfo> appInfoList = new ArrayList<>();
-    private String nextUrl = DEFAULT_URL;
-
-    private Runnable getDataRunnable = new Runnable() {
-        @Override
-        public void run() {
-            try {
-                Document doc = HttpUtil.getDocument(nextUrl);
-                nextUrl = doc.select("nextUrl").get(0).text();
-                Elements items = doc.select("item");
-                for (Element item : items) {
-                    UserDownloadedAppInfo appInfo = new UserDownloadedAppInfo();
-                    appInfo.setId(item.selectFirst("id").text());
-                    appInfo.setTitle(item.selectFirst("title").text());
-                    appInfo.setDownId(item.selectFirst("downid").text());
-                    appInfo.setAppType(item.selectFirst("apptype").text());
-                    appInfo.setPackageName(item.selectFirst("package").text());
-                    appInfo.setAppSize(item.selectFirst("m").text());
-                    appInfo.setDownloadTime(item.selectFirst("r").text());
-                    appInfoList.add(appInfo);
-                }
-                post(new Runnable() {
-                    @Override
-                    public void run() {
-                        adapter.notifyDataSetChanged();
-                    }
-                });
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
-    };
-
-    @Override
-    protected int getLayoutId() {
-        return R.layout.fragment_recycler_view;
+    public static UserDownloadedFragment newInstance(String id) {
+        Bundle args = new Bundle();
+        args.putString(KEY_ID, id);
+        UserDownloadedFragment fragment = new UserDownloadedFragment();
+        fragment.setArguments(args);
+        return fragment;
     }
 
     @Override
-    protected void initView(View view, @Nullable Bundle savedInstanceState) {
-        recyclerView = view.findViewById(R.id.recycler_view);
-        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        adapter = new UserDownloadedAdapter(appInfoList);
-        adapter.setItemClickListener(new UserDownloadedAdapter.OnItemClickListener() {
-            @Override
-            public void onItemClick(UserDownloadedAdapter.ViewHolder holder, int position, UserDownloadedAppInfo item) {
-                _mActivity.start(AppDetailFragment.newInstance(item));
-            }
-        });
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        defaultUrl = DEFAULT_URL;
+        nextUrl = DEFAULT_URL;
     }
 
     @Override
-    public void onLazyInitView(@Nullable Bundle savedInstanceState) {
-        super.onLazyInitView(savedInstanceState);
-        LoadMoreWrapper.with(adapter)
-                .setLoadMoreEnabled(true)
-                .setListener(enabled -> ExecutorHelper.submit(getDataRunnable))
-                .into(recyclerView);
+    protected int getItemLayoutId() {
+        return R.layout.layout_user_downloaded;
+    }
+
+    @Override
+    protected void handleArguments(Bundle arguments) {
+        defaultUrl = "http://tt.shouji.com.cn/app/view_member_down_xml_v2.jsp?versioncode=198&id=" + arguments.getString(KEY_ID, "5636865");
+        nextUrl = defaultUrl;
+    }
+
+    @Override
+    public void onClick(EasyViewHolder holder, View view, UserDownloadedAppInfo data, float x, float y) {
+        _mActivity.start(AppDetailFragment.newInstance(data));
+    }
+
+    @Override
+    public UserDownloadedAppInfo createData(Element element) {
+        UserDownloadedAppInfo appInfo = new UserDownloadedAppInfo();
+        appInfo.setId(element.selectFirst("id").text());
+        appInfo.setTitle(element.selectFirst("title").text());
+        appInfo.setDownId(element.selectFirst("downid").text());
+        appInfo.setAppType(element.selectFirst("apptype").text());
+        appInfo.setPackageName(element.selectFirst("package").text());
+        appInfo.setAppSize(element.selectFirst("m").text());
+        appInfo.setDownloadTime(element.selectFirst("r").text());
+        return appInfo;
+    }
+
+    @Override
+    public void onBindViewHolder(EasyViewHolder holder, List<UserDownloadedAppInfo> list, int position, List<Object> payloads) {
+        UserDownloadedAppInfo appInfo = list.get(position);
+        holder.getTextView(R.id.text_title).setText(appInfo.getTitle());
+        holder.getTextView(R.id.text_package_name).setText(appInfo.getPackageName());
+        holder.getTextView(R.id.text_info).setText(appInfo.getAppSize() + " | 于" + appInfo.getDownloadTime() + "下载");
     }
 }

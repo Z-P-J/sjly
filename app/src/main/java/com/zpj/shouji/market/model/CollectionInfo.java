@@ -10,7 +10,7 @@ import com.zpj.http.parser.html.select.Elements;
 import java.util.ArrayList;
 import java.util.List;
 
-public class AppCollectionItem {
+public class CollectionInfo {
 
     public class SupportUser {
 
@@ -54,23 +54,23 @@ public class AppCollectionItem {
     private SparseArray<Bitmap> bitmapSparseArray = new SparseArray<>(0);
     private SparseArray<Drawable> drawableSparseArray = new SparseArray<>(0);
 
-    public static AppCollectionItem create(Element item) {
-        AppCollectionItem collectionItem = new AppCollectionItem();
-        collectionItem.setId(item.select("id").text());
-        collectionItem.setParent(item.select("parent").text());
-        collectionItem.setContentType(item.select("contenttype").text());
-        collectionItem.setType(item.select("type").text());
-        collectionItem.setTitle(item.select("title").text());
-        collectionItem.setComment(item.select("comment").text());
-        collectionItem.setSize(Integer.valueOf(item.select("size").text()));
-        collectionItem.setMemberId(item.select("memberid").text());
-        collectionItem.setNickName(item.select("nickname").text());
-        collectionItem.setFavCount(Integer.valueOf(item.select("favcount").text()));
-        collectionItem.setAppSize(Integer.valueOf(item.select("appsize").text()));
+    public static CollectionInfo create(Element item) {
+        CollectionInfo collectionItem = new CollectionInfo();
+        collectionItem.setId(item.selectFirst("id").text());
+        collectionItem.setParent(item.selectFirst("parent").text());
+        collectionItem.setContentType(item.selectFirst("contenttype").text());
+        collectionItem.setType(item.selectFirst("type").text());
+        collectionItem.setTitle(item.selectFirst("title").text());
+        collectionItem.setComment(item.selectFirst("comment").text());
+        collectionItem.setSize(Integer.valueOf(item.selectFirst("size").text()));
+        collectionItem.setMemberId(item.selectFirst("memberid").text());
+        collectionItem.setNickName(item.selectFirst("nickname").text());
+        collectionItem.setFavCount(Integer.valueOf(item.selectFirst("favcount").text()));
+        collectionItem.setAppSize(Integer.valueOf(item.selectFirst("appsize").text()));
         collectionItem.setSupportCount(Integer.valueOf(item.selectFirst("supportcount").text()));
-        collectionItem.setViewCount(Integer.valueOf(item.select("viewcount").text()));
-        collectionItem.setReplyCount(Integer.valueOf(item.select("replycount").text()));
-        collectionItem.setTime(item.select("time").text());
+        collectionItem.setViewCount(Integer.valueOf(item.selectFirst("viewcount").text()));
+        collectionItem.setReplyCount(Integer.valueOf(item.selectFirst("replycount").text()));
+        collectionItem.setTime(item.selectFirst("time").text());
 //                    collectionItem.setSupportCount(Integer.valueOf(item.select("supportcount").text()));
 //                    collectionItem.setSupportCount(Integer.valueOf(item.select("supportcount").text()));
         Elements icons = item.selectFirst("icons").select("icon");
@@ -80,23 +80,23 @@ public class AppCollectionItem {
         return collectionItem;
     }
 
-    public static AppCollectionItem buildSimilarCollection(Element item) {
-        AppCollectionItem collectionItem = new AppCollectionItem();
-        collectionItem.setId(item.select("yyjid").text());
-        collectionItem.setParent(item.select("yyjparent").text());
-        collectionItem.setContentType(item.select("yyjcontenttype").text());
+    public static CollectionInfo buildSimilarCollection(Element item) {
+        CollectionInfo collectionItem = new CollectionInfo();
+        collectionItem.setId(item.selectFirst("yyjid").text());
+        collectionItem.setParent(item.selectFirst("yyjparent").text());
+        collectionItem.setContentType(item.selectFirst("yyjcontenttype").text());
 //        collectionItem.setType(item.select("type").text());
-        collectionItem.setTitle(item.select("yyjtitle").text());
-        collectionItem.setComment(item.select("yyjcomment").text());
-        collectionItem.setSize(Integer.valueOf(item.select("yyjsize").text()));
-        collectionItem.setMemberId(item.select("yyjmemberid").text());
-        collectionItem.setNickName(item.select("yyjnickname").text());
-        collectionItem.setFavCount(Integer.valueOf(item.select("yyjfavcount").text()));
-        collectionItem.setAppSize(Integer.valueOf(item.select("yyjappsize").text()));
+        collectionItem.setTitle(item.selectFirst("yyjtitle").text());
+        collectionItem.setComment(item.selectFirst("yyjcomment").text());
+        collectionItem.setSize(Integer.valueOf(item.selectFirst("yyjsize").text()));
+        collectionItem.setMemberId(item.selectFirst("yyjmemberid").text());
+        collectionItem.setNickName(item.selectFirst("yyjnickname").text());
+        collectionItem.setFavCount(Integer.valueOf(item.selectFirst("yyjfavcount").text()));
+        collectionItem.setAppSize(Integer.valueOf(item.selectFirst("yyjappsize").text()));
         collectionItem.setSupportCount(Integer.valueOf(item.selectFirst("yyjsupportcount").text()));
-        collectionItem.setViewCount(Integer.valueOf(item.select("yyjviewcount").text()));
-        collectionItem.setReplyCount(Integer.valueOf(item.select("yyjreplycount").text()));
-        collectionItem.setTime(item.select("yyjtime").text());
+        collectionItem.setViewCount(Integer.valueOf(item.selectFirst("yyjviewcount").text()));
+        collectionItem.setReplyCount(Integer.valueOf(item.selectFirst("yyjreplycount").text()));
+        collectionItem.setTime(item.selectFirst("yyjtime").text());
         Elements icons = item.selectFirst("icons").select("yyjicon");
         for (Element element : icons) {
             collectionItem.addIcon(element.text());

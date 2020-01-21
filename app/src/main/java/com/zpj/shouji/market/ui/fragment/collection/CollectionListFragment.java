@@ -1,4 +1,4 @@
-package com.zpj.shouji.market.ui.fragment;
+package com.zpj.shouji.market.ui.fragment.collection;
 
 import android.os.Bundle;
 import android.view.View;
@@ -7,13 +7,13 @@ import com.bumptech.glide.Glide;
 import com.zpj.http.parser.html.nodes.Element;
 import com.zpj.recyclerview.EasyViewHolder;
 import com.zpj.shouji.market.R;
-import com.zpj.shouji.market.model.AppCollectionItem;
+import com.zpj.shouji.market.model.CollectionInfo;
 import com.zpj.shouji.market.ui.fragment.base.LoadMoreFragment;
 import com.zpj.shouji.market.ui.fragment.search.SearchResultFragment;
 
 import java.util.List;
 
-public class CollectionListFragment extends LoadMoreFragment<AppCollectionItem>
+public class CollectionListFragment extends LoadMoreFragment<CollectionInfo>
         implements SearchResultFragment.KeywordObserver {
 
     private static final int[] ICON_RES = {R.id.iv_icon_1, R.id.iv_icon_2, R.id.iv_icon_3};
@@ -32,8 +32,8 @@ public class CollectionListFragment extends LoadMoreFragment<AppCollectionItem>
     }
 
     @Override
-    public void onBindViewHolder(EasyViewHolder holder, List<AppCollectionItem> list, int position, List<Object> payloads) {
-        AppCollectionItem item = list.get(position);
+    public void onBindViewHolder(EasyViewHolder holder, List<CollectionInfo> list, int position, List<Object> payloads) {
+        CollectionInfo item = list.get(position);
         holder.getTextView(R.id.tv_title).setText(item.getTitle());
         holder.getTextView(R.id.tv_info).setText("应用：" + item.getSize() + " | 收藏：" + item.getFavCount() + " | 查看：" + item.getViewCount());
         holder.getTextView(R.id.tv_desc).setText(item.getComment());
@@ -56,9 +56,9 @@ public class CollectionListFragment extends LoadMoreFragment<AppCollectionItem>
     }
 
     @Override
-    public AppCollectionItem createData(Element element) {
+    public CollectionInfo createData(Element element) {
         if ("yyj".equals(element.selectFirst("contenttype").text())) {
-            return AppCollectionItem.create(element);
+            return CollectionInfo.create(element);
         }
         return null;
     }

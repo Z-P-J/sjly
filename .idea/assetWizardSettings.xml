@@ -18,7 +18,7 @@
                                 <PersistentState>
                                   <option name="values">
                                     <map>
-                                      <entry key="url" value="jar:file:/D:/Programming/android-studio/plugins/android/lib/android.jar!/images/material_design_icons/action/ic_settings_applications_black_24dp.xml" />
+                                      <entry key="url" value="jar:file:/D:/Programming/Android%20Studio/plugins/android/lib/android.jar!/images/material_design_icons/action/ic_thumb_up_black_24dp.xml" />
                                     </map>
                                   </option>
                                 </PersistentState>
@@ -28,7 +28,8 @@
                         </option>
                         <option name="values">
                           <map>
-                            <entry key="outputName" value="ic_settings_applications_black_24dp" />
+                            <entry key="color" value="ffffff" />
+                            <entry key="outputName" value="ic_thumb_up_white_24dp" />
                             <entry key="sourceFile" value="C:\Users\Z-P-J" />
                           </map>
                         </option>

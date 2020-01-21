@@ -43,7 +43,18 @@ public abstract class RecyclerLayoutFragment<T> extends BaseFragment
     @Override
     public final void onLazyInitView(@Nullable Bundle savedInstanceState) {
         super.onLazyInitView(savedInstanceState);
-        buildRecyclerLayout(context);
+        recyclerLayout.setData(data)
+                .setItemRes(getItemLayoutId())
+                .setLayoutManager(getLayoutManager(context))
+                .setEnableLoadMore(true)
+                .setEnableSwipeRefresh(true)
+                .setOnRefreshListener(this)
+                .onBindViewHolder(this)
+                .onItemClick(this)
+                .onItemLongClick(this)
+                .onLoadMore(this);
+        buildRecyclerLayout(recyclerLayout);
+        recyclerLayout.build();
     }
 
     @Override
@@ -56,18 +67,8 @@ public abstract class RecyclerLayoutFragment<T> extends BaseFragment
 
     }
 
-    protected void buildRecyclerLayout(Context context) {
-        recyclerLayout.setData(data)
-                .setItemRes(getItemLayoutId())
-                .setLayoutManager(getLayoutManager(context))
-                .setEnableLoadMore(true)
-                .setEnableSwipeRefresh(true)
-                .setOnRefreshListener(this)
-                .onBindViewHolder(this)
-                .onItemClick(this)
-                .onItemLongClick(this)
-                .onLoadMore(this)
-                .build();
+    protected void buildRecyclerLayout(EasyRecyclerLayout<T> recyclerLayout) {
+
     }
 
     protected RecyclerView.LayoutManager getLayoutManager(Context context) {

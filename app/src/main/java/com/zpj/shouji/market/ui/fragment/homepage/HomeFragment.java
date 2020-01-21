@@ -41,13 +41,6 @@ public class HomeFragment extends BaseFragment {
     @Override
     protected void initView(View view, @Nullable Bundle savedInstanceState) {
         CommonTitleBar titleBar = view.findViewById(R.id.title_bar);
-        View rightCustomView = titleBar.getRightCustomView();
-        rightCustomView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                AToast.normal("rightCustomView");
-            }
-        });
         ArrayList<Fragment> list = new ArrayList<>();
         RecommendFragment recommendFragment = findChildFragment(RecommendFragment.class);
         if (recommendFragment == null) {
