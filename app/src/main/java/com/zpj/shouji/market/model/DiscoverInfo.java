@@ -2,18 +2,22 @@ package com.zpj.shouji.market.model;
 
 import android.text.TextUtils;
 
+import com.zpj.http.parser.html.nodes.Element;
+import com.zpj.http.parser.html.select.Elements;
+
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
-public class ExploreItem {
+public class DiscoverInfo {
 
     private String id;
 
     private String parent;
 
-    private List<ExploreItem> children = new ArrayList<>(0);
+    private List<DiscoverInfo> children = new ArrayList<>(0);
 
-    private ExploreItem parentItem;
+    private DiscoverInfo parentItem;
 
     private String contentType;
 
@@ -102,6 +106,80 @@ public class ExploreItem {
     private List<String> pics = new ArrayList<>(0);
 
     private List<String> spics = new ArrayList<>(0);
+
+    private final List<SupportUserInfo> supportUserInfoList = new ArrayList<>();
+
+
+    public static DiscoverInfo from(Element element) {
+        String type = element.selectFirst("type").text();
+        if ("tag".equals(type) || "lable".equals(type)) {
+            return null;
+        }
+        String id = element.selectFirst("id").text();
+        String parent = element.selectFirst("parent").text();
+        if (id == null && parent == null) {
+            return null;
+        }
+        DiscoverInfo info = new DiscoverInfo();
+        info.setId(id);
+        info.setParent(parent);
+        info.setMemberId(element.selectFirst("memberid").text());
+
+        info.setIcon(element.selectFirst("icon").text());
+        info.setIconState(element.selectFirst("iconstate").text());
+        info.setNickName(element.selectFirst("nickname").text());
+        info.setTime(element.selectFirst("time").text());
+        info.setContent(element.selectFirst("content").text());
+        info.setPhone(element.selectFirst("phone").text());
+
+        Elements pics = element.select("pics");
+        Elements spics = element.select("spics");
+        if (!pics.isEmpty()) {
+            for (Element pic : element.selectFirst("pics").select("pic")) {
+                info.addPic(pic.text());
+            }
+        }
+        if (!spics.isEmpty()) {
+            for (Element spic : element.selectFirst("spics").select("spic")) {
+                info.addSpic(spic.text());
+            }
+        }
+        if ("theme".equals(type)) {
+            // 分享应用
+            Elements appNames = element.select("appname");
+            if (!appNames.isEmpty()) {
+                info.setAppName(appNames.get(0).text());
+                info.setAppPackageName(element.selectFirst("apppackagename").text());
+                info.setAppIcon(element.selectFirst("appicon").text());
+                info.setApkExist("1".equals(element.selectFirst("isApkExist").text()));
+                info.setAppUrl(element.selectFirst("appurl").text());
+                info.setApkUrl(element.selectFirst("apkurl").text());
+                info.setAppSize(element.selectFirst("apksize").text());
+            }
+
+            // 分享应用集
+            for (Element sharePic : element.select("sharepics").select("sharepic")) {
+                info.addSharePic(sharePic.text());
+            }
+            for (Element sharePn : element.select("sharepics").select("sharepn")) {
+                info.addSharePn(sharePn.text());
+            }
+
+        } else if ("reply".equals(type)) {
+            String toNickName = element.selectFirst("tonickname").text();
+            info.setToNickName(toNickName);
+        }
+
+        Elements supportCountElements = element.select("supportcount");
+        info.setSupportCount(supportCountElements.isEmpty() ? "0" : supportCountElements.get(0).text());
+        Elements replayCountElements = element.select("replycount");
+        info.setReplyCount(replayCountElements.isEmpty() ? "0" : replayCountElements.get(0).text());
+        for (Element support : element.selectFirst("supportusers").select("supportuser")) {
+            info.supportUserInfoList.add(SupportUserInfo.from(support));
+        }
+        return info;
+    }
+
 
     public String getId() {
         return id;
@@ -447,19 +525,19 @@ public class ExploreItem {
         this.shielding = shielding;
     }
 
-    public List<ExploreItem> getChildren() {
+    public List<DiscoverInfo> getChildren() {
         return children;
     }
 
-    public void addChild(ExploreItem child) {
+    public void addChild(DiscoverInfo child) {
         this.children.add(child);
     }
 
-    public ExploreItem getParentItem() {
+    public DiscoverInfo getParentItem() {
         return parentItem;
     }
 
-    public void setParentItem(ExploreItem parentItem) {
+    public void setParentItem(DiscoverInfo parentItem) {
         this.parentItem = parentItem;
     }
 
@@ -493,5 +571,64 @@ public class ExploreItem {
 
     public void addPic(String pic) {
         this.pics.add(pic);
+    }
+
+    public List<SupportUserInfo> getSupportUserInfoList() {
+        return supportUserInfoList;
+    }
+
+    @Override
+    public String toString() {
+        return "DiscoverInfo{" +
+                "id='" + id + '\'' +
+                ", parent='" + parent + '\'' +
+                ", children=" + children +
+                ", parentItem=" + parentItem +
+                ", contentType='" + contentType + '\'' +
+                ", type='" + type + '\'' +
+                ", reviewType='" + reviewType + '\'' +
+                ", mmd='" + mmd + '\'' +
+                ", icon='" + icon + '\'' +
+                ", memberId='" + memberId + '\'' +
+                ", nickName='" + nickName + '\'' +
+                ", toNickName='" + toNickName + '\'' +
+                ", memberType='" + memberType + '\'' +
+                ", iconState='" + iconState + '\'' +
+                ", time='" + time + '\'' +
+                ", lt='" + lt + '\'' +
+                ", replyCount='" + replyCount + '\'' +
+                ", isNewMessage=" + isNewMessage +
+                ", isCollection=" + isCollection +
+                ", isDel=" + isDel +
+                ", isReturn=" + isReturn +
+                ", phone='" + phone + '\'' +
+                ", supportCount='" + supportCount + '\'' +
+                ", content='" + content + '\'' +
+                ", isShared='" + isShared + '\'' +
+                ", shareInfo='" + shareInfo + '\'' +
+                ", isLast=" + isLast +
+                ", isDetail=" + isDetail +
+                ", supportUsers=" + Arrays.toString(supportUsers) +
+                ", appId='" + appId + '\'' +
+                ", softId='" + softId + '\'' +
+                ", appName='" + appName + '\'' +
+                ", appPackageName='" + appPackageName + '\'' +
+                ", articleNum='" + articleNum + '\'' +
+                ", appIcon='" + appIcon + '\'' +
+                ", isApkExist=" + isApkExist +
+                ", shoulusq='" + shoulusq + '\'' +
+                ", cause='" + cause + '\'' +
+                ", appUrl='" + appUrl + '\'' +
+                ", apkUrl='" + apkUrl + '\'' +
+                ", appSize='" + appSize + '\'' +
+                ", shareCount=" + shareCount +
+                ", sharePics=" + sharePics +
+                ", sharePns=" + sharePns +
+                ", admin='" + admin + '\'' +
+                ", shielding='" + shielding + '\'' +
+                ", pics=" + pics +
+                ", spics=" + spics +
+                ", supportUserInfoList=" + supportUserInfoList +
+                '}';
     }
 }

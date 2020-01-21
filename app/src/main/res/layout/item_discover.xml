@@ -166,7 +166,7 @@
 
             <com.jaeger.ninegridimageview.NineGridImageView
                 android:id="@+id/nine_grid_image_view"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_margin="10dp"
                 android:layout_width="match_parent"
                 app:imgGap="4dp"
@@ -223,6 +223,8 @@
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:gravity="center_vertical"
+                                    android:maxLines="1"
+                                    android:ellipsize="end"
                                     android:text="应用名"
                                     android:textColor="#000000"
                                     />
@@ -323,67 +325,80 @@
 
             </LinearLayout>
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="2人赞过：xxxx、xxxxxx"
-                android:layout_marginStart="10dp"
-                android:textColor="@color/colorPrimary"
-                />
+<!--            <TextView-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:text="2人赞过：xxxx、xxxxxx"-->
+<!--                android:layout_marginStart="10dp"-->
+<!--                android:textColor="@color/colorPrimary"-->
+<!--                />-->
 
             <LinearLayout
                 android:orientation="vertical"
+                android:id="@+id/layout_comment"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
                 android:padding="5dp"
+                android:visibility="gone"
                 >
 
-
-
-                <LinearLayout
-                    android:orientation="vertical"
-                    android:id="@+id/layout_comment"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-
-                </LinearLayout>
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="回复"
-                    android:padding="8dp"
-                    android:background="@drawable/edit_text_style"
-                    />
-
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:visibility="gone"
-                    >
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="更多回复 >"
-                        android:textColor="@color/colorPrimary"
-                        android:layout_centerVertical="true"
-                        />
-
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentEnd="true"
-                        android:src="@drawable/ic_comment_grey_24dp"
-                        android:tint="@color/colorPrimary"
-                        android:layout_centerVertical="true"
-                        android:padding="5dp"
-                        />
-
-                </RelativeLayout>
-
             </LinearLayout>
+
+<!--            <LinearLayout-->
+<!--                android:orientation="vertical"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_marginStart="10dp"-->
+<!--                android:padding="5dp"-->
+<!--                >-->
+
+
+
+<!--                <LinearLayout-->
+<!--                    android:orientation="vertical"-->
+<!--                    android:id="@+id/layout_comment"-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content">-->
+
+<!--                </LinearLayout>-->
+
+<!--                <TextView-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:text="回复"-->
+<!--                    android:padding="8dp"-->
+<!--                    android:background="@drawable/edit_text_style"-->
+<!--                    android:visibility="gone"-->
+<!--                    />-->
+
+<!--                <RelativeLayout-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:visibility="gone"-->
+<!--                    >-->
+
+<!--                    <TextView-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:text="更多回复 >"-->
+<!--                        android:textColor="@color/colorPrimary"-->
+<!--                        android:layout_centerVertical="true"-->
+<!--                        />-->
+
+<!--                    <ImageView-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:layout_alignParentEnd="true"-->
+<!--                        android:src="@drawable/ic_comment_grey_24dp"-->
+<!--                        android:tint="@color/colorPrimary"-->
+<!--                        android:layout_centerVertical="true"-->
+<!--                        android:padding="5dp"-->
+<!--                        />-->
+
+<!--                </RelativeLayout>-->
+
+<!--            </LinearLayout>-->
 
         </LinearLayout>
 

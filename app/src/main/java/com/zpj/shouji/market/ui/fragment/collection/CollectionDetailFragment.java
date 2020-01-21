@@ -16,8 +16,9 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.zpj.http.parser.html.nodes.Document;
 import com.zpj.shouji.market.R;
+import com.zpj.shouji.market.model.CollectionInfo;
 import com.zpj.shouji.market.ui.adapter.ZFragmentPagerAdapter;
-import com.zpj.shouji.market.ui.fragment.ExploreListFragment;
+import com.zpj.shouji.market.ui.fragment.discover.DiscoverListFragment;
 import com.zpj.shouji.market.ui.fragment.base.BaseFragment;
 import com.zpj.shouji.market.utils.ExecutorHelper;
 import com.zpj.shouji.market.utils.HttpUtil;
@@ -49,25 +50,15 @@ public class CollectionDetailFragment extends BaseFragment {
     private TextView tvView;
     private TextView tvDownload;
 
-    private final CollectionInfo collectionInfo = new CollectionInfo();
-    private com.zpj.shouji.market.model.CollectionInfo item;
+    private String backgroundUrl;
+    private String time;
+    private String userAvatarUrl;
+    private boolean isFav;
+    private boolean isLike;
 
-    private class CollectionInfo {
-        String collectionId;
-        String id;
-        String size;
-        String favCount;
-        String supportCount;
-        String viewCount;
-        String replyCount;
-        boolean isFav;
-        boolean isLike;
-        String backgroundUrl;
-        String time;
-        String userAvatarUrl;
-    }
+    private CollectionInfo item;
 
-    public static CollectionDetailFragment newInstance(com.zpj.shouji.market.model.CollectionInfo item) {
+    public static CollectionDetailFragment newInstance(CollectionInfo item) {
         Bundle args = new Bundle();
         CollectionDetailFragment fragment = new CollectionDetailFragment();
         fragment.setAppCollectionItem(item);
@@ -122,12 +113,12 @@ public class CollectionDetailFragment extends BaseFragment {
         if (appListFragment == null) {
             appListFragment = CollectionAppListFragment.newInstance(item.getId());
         }
-        ExploreListFragment exploreListFragment = findChildFragment(ExploreListFragment.class);
-        if (exploreListFragment == null) {
-            exploreListFragment = ExploreListFragment.newInstance("http://tt.shouji.com.cn/app/yyj_comment.jsp?versioncode=198&t=discuss&parent=" + item.getId());
+        DiscoverListFragment discoverListFragment = findChildFragment(DiscoverListFragment.class);
+        if (discoverListFragment == null) {
+            discoverListFragment = DiscoverListFragment.newInstance("http://tt.shouji.com.cn/app/yyj_comment.jsp?versioncode=198&t=discuss&parent=" + item.getId());
         }
         list.add(appListFragment);
-        list.add(exploreListFragment);
+        list.add(discoverListFragment);
 
         ZFragmentPagerAdapter adapter = new ZFragmentPagerAdapter(getChildFragmentManager(), list, TAB_TITLES);
         ViewPager viewPager = view.findViewById(R.id.view_pager);
@@ -165,7 +156,7 @@ public class CollectionDetailFragment extends BaseFragment {
         ViewPagerHelper.bind(magicIndicator, viewPager);
     }
 
-    private void setAppCollectionItem(com.zpj.shouji.market.model.CollectionInfo item) {
+    private void setAppCollectionItem(CollectionInfo item) {
         this.item = item;
     }
 
@@ -175,22 +166,16 @@ public class CollectionDetailFragment extends BaseFragment {
                 Log.d("getCollectionInfo", "start id=" + item.getId());
                 Document doc = HttpUtil.getDocument("http://tt.shouji.com.cn/androidv3/yyj_info_xml.jsp?versioncode=198&reviewid=" + item.getId());
                 Log.d("getCollectionInfo", "doc=" + doc.toString());
-                collectionInfo.collectionId = doc.selectFirst("yyjid").text();
-                collectionInfo.id = doc.selectFirst("id").text();
-                collectionInfo.size = doc.selectFirst("size").text();
-                collectionInfo.favCount= doc.selectFirst("favcount").text();
-                collectionInfo.supportCount = doc.selectFirst("supportcount").text();
-                collectionInfo.viewCount = doc.selectFirst("viewcount").text();
-                collectionInfo.isFav = "1".equals(doc.selectFirst("isfav").text());
-                collectionInfo.isLike = "1".equals(doc.selectFirst("islike").text());
-                collectionInfo.backgroundUrl = doc.selectFirst("memberBackGround").text();
-                collectionInfo.time = doc.selectFirst("time").text();
-                collectionInfo.userAvatarUrl = doc.selectFirst("memberAvatar").text();
-                collectionInfo.replyCount = doc.selectFirst("replycount").text();
+//                collectionInfo.collectionId = doc.selectFirst("yyjid").text();
+                isFav = "1".equals(doc.selectFirst("isfav").text());
+                isLike = "1".equals(doc.selectFirst("islike").text());
+                backgroundUrl = doc.selectFirst("memberBackGround").text();
+                time = doc.selectFirst("time").text();
+                userAvatarUrl = doc.selectFirst("memberAvatar").text();
                 post(() -> {
                     RequestOptions options = new RequestOptions().centerCrop().error(R.mipmap.ic_launcher).placeholder(R.mipmap.ic_launcher);
-                    Glide.with(context).load(collectionInfo.backgroundUrl).apply(options).into(ivIcon);
-                    Glide.with(context).load(collectionInfo.userAvatarUrl).apply(options).into(ivAvatar);
+                    Glide.with(context).load(backgroundUrl).apply(options).into(ivIcon);
+                    Glide.with(context).load(userAvatarUrl).apply(options).into(ivAvatar);
                 });
             } catch (IOException e) {
                 e.printStackTrace();

@@ -12,28 +12,6 @@ import java.util.List;
 
 public class CollectionInfo {
 
-    public class SupportUser {
-
-        private String id;
-        private String nickName;
-
-        public String getId() {
-            return id;
-        }
-
-        public void setId(String id) {
-            this.id = id;
-        }
-
-        public String getNickName() {
-            return nickName;
-        }
-
-        public void setNickName(String nickName) {
-            this.nickName = nickName;
-        }
-    }
-
     private String id;
     private String parent;
     private String contentType;
@@ -50,9 +28,7 @@ public class CollectionInfo {
     private int supportCount;
     private String time;
     private int replyCount;
-    private List<SupportUser> supportUserList = new ArrayList<>(0);
-    private SparseArray<Bitmap> bitmapSparseArray = new SparseArray<>(0);
-    private SparseArray<Drawable> drawableSparseArray = new SparseArray<>(0);
+    private List<SupportUserInfo> supportUserList = new ArrayList<>(0);
 
     public static CollectionInfo create(Element item) {
         CollectionInfo collectionItem = new CollectionInfo();
@@ -228,7 +204,7 @@ public class CollectionInfo {
         return icons;
     }
 
-    public List<SupportUser> getSupportUserList() {
+    public List<SupportUserInfo> getSupportUserList() {
         return supportUserList;
     }
 
@@ -236,23 +212,8 @@ public class CollectionInfo {
         this.icons.add(icon);
     }
 
-    public void addSupportUserList(SupportUser supportUser) {
+    public void addSupportUserList(SupportUserInfo supportUser) {
         this.supportUserList.add(supportUser);
     }
 
-    public void putBitmap(int key, Bitmap bitmap) {
-        this.bitmapSparseArray.put(key, bitmap);
-    }
-
-    public Bitmap getBitmap(int key) {
-        return this.bitmapSparseArray.get(key);
-    }
-
-    public void putDrawable(int key, Drawable drawable) {
-        this.drawableSparseArray.put(key, drawable);
-    }
-
-    public Drawable getDrawable(int key) {
-        return this.drawableSparseArray.get(key);
-    }
 }

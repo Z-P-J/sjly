@@ -12,7 +12,7 @@ import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.ui.adapter.ZFragmentPagerAdapter;
 import com.zpj.shouji.market.ui.fragment.AppListFragment;
 import com.zpj.shouji.market.ui.fragment.collection.CollectionListFragment;
-import com.zpj.shouji.market.ui.fragment.ExploreListFragment;
+import com.zpj.shouji.market.ui.fragment.discover.DiscoverListFragment;
 import com.zpj.shouji.market.ui.fragment.UserListFragment;
 import com.zpj.shouji.market.ui.fragment.base.BaseFragment;
 import com.zpj.shouji.market.ui.widget.DotPagerIndicator;
@@ -72,9 +72,9 @@ public class SearchResultFragment extends BaseFragment {
             collectionListFragment = new CollectionListFragment();
         }
 
-        ExploreListFragment exploreFragment = findChildFragment(ExploreListFragment.class);
+        DiscoverListFragment exploreFragment = findChildFragment(DiscoverListFragment.class);
         if (exploreFragment == null) {
-            exploreFragment = new ExploreListFragment();
+            exploreFragment = new DiscoverListFragment();
         }
 
         UserListFragment userListFragment = findChildFragment(UserListFragment.class);

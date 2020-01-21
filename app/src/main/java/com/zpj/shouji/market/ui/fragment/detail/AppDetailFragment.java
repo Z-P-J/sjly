@@ -132,9 +132,9 @@ public class AppDetailFragment extends BaseFragment {
                 commentFragment = AppCommentFragment.newInstance("http://tt.shouji.com.cn/app/comment_index_xml_v5.jsp?versioncode=198&type=" + type + "&id=" + id);
         }
 
-        AppExploreFragment exploreFragment = findChildFragment(AppExploreFragment.class);
+        AppDiscoverFragment exploreFragment = findChildFragment(AppDiscoverFragment.class);
         if (exploreFragment == null) {
-            exploreFragment = AppExploreFragment.newInstance("http://tt.shouji.com.cn/app/faxian.jsp?versioncode=198&apptype=" + type + "&appid=" + id);
+            exploreFragment = AppDiscoverFragment.newInstance("http://tt.shouji.com.cn/app/faxian.jsp?versioncode=198&apptype=" + type + "&appid=" + id);
         }
 
         AppRecommendFragment recommendFragment = findChildFragment(AppRecommendFragment.class);

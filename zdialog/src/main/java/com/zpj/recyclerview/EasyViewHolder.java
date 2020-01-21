@@ -18,7 +18,7 @@ public final class EasyViewHolder extends RecyclerView.ViewHolder {
     private final View itemView;
     private int position;
 
-    EasyViewHolder(@NonNull View view) {
+    public EasyViewHolder(@NonNull View view) {
         super(view);
         this.itemView = view;
         ClickHelper.with(itemView).setOnClickListener(new ClickHelper.OnClickListener() {

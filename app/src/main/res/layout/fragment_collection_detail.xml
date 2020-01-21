@@ -251,10 +251,11 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:text="写评论"
+            android:text="写评论..."
             android:textSize="16sp"
             android:padding="10dp"
-            android:textColor="@color/color_text_major"
+            android:gravity="center_vertical"
+            android:textColor="@color/color_text_minor"
             android:layout_toStartOf="@id/iv_share"
             />
 

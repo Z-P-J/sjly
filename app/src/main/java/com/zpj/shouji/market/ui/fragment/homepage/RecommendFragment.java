@@ -430,12 +430,8 @@ public class RecommendFragment extends BaseFragment implements GroupRecyclerView
                     mMZBanner.setPages(bannerItemList, (MZHolderCreator<BannerViewHolder>) BannerViewHolder::new);
                     mMZBanner.start();
                 }
-//                if (mMZBanner.getTag() == null) {
-//                    mMZBanner.setTag(true);
-//                    getBanners();
-//                }
             } else if (viewType == TYPE_SUB_HEADER) {
-                holder.setText(R.id.text_title, item.getTitle());
+                holder.setText(R.id.tv_title, item.getTitle());
             }
         }
 

@@ -219,7 +219,7 @@ public class AppRecommendFragment extends BaseFragment implements GroupRecyclerV
 
         @Override
         public void onBindHeaderViewHolder(GroupViewHolder holder, ItemWrapper item, int groupPosition) {
-            holder.setText(R.id.text_title, item.getTitle());
+            holder.setText(R.id.tv_title, item.getTitle());
         }
 
         @Override
