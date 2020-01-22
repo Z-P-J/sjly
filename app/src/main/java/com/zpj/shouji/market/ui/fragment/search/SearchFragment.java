@@ -11,6 +11,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.felix.atoast.library.AToast;
+import com.gyf.immersionbar.ImmersionBar;
 import com.kongzue.stacklabelview.StackLabel;
 import com.kongzue.stacklabelview.interfaces.OnLabelClickListener;
 import com.wuhenzhizao.titlebar.widget.CommonTitleBar;
@@ -104,6 +105,11 @@ public class SearchFragment extends BaseFragment implements OnLabelClickListener
             }
         });
 
+    }
+
+    @Override
+    public void onVisible() {
+        ImmersionBar.with(this).statusBarDarkFont(false).init();
     }
 
     @Override

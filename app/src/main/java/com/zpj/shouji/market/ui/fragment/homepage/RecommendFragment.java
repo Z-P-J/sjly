@@ -16,6 +16,7 @@ import android.widget.ImageView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.felix.atoast.library.AToast;
+import com.gyf.immersionbar.ImmersionBar;
 import com.sunfusheng.GroupRecyclerViewAdapter;
 import com.sunfusheng.GroupViewHolder;
 import com.sunfusheng.HeaderGroupRecyclerViewAdapter;
@@ -63,6 +64,7 @@ public class RecommendFragment extends BaseFragment implements GroupRecyclerView
 
     @Override
     protected void initView(View view, @Nullable Bundle savedInstanceState) {
+        ImmersionBar.with(this).statusBarDarkFont(true).init();
         recyclerView = view.findViewById(R.id.recycler_view_recent_update);
         swipeRefreshLayout = view.findViewById(R.id.swipe_refresh);
         swipeRefreshLayout.setOnRefreshListener(() -> recyclerView.postDelayed(() -> {
@@ -291,7 +293,7 @@ public class RecommendFragment extends BaseFragment implements GroupRecyclerView
         }
     }
 
-    public class ItemWrapper {
+    class ItemWrapper {
 
         private AppItem appItem;
         private CollectionInfo collectionItem;
@@ -348,7 +350,7 @@ public class RecommendFragment extends BaseFragment implements GroupRecyclerView
         }
     }
 
-    public class RecommendAdapter extends HeaderGroupRecyclerViewAdapter<ItemWrapper> {
+    private class RecommendAdapter extends HeaderGroupRecyclerViewAdapter<ItemWrapper> {
 
         private final int[] RES_ICONS = {R.id.item_icon_1, R.id.item_icon_2, R.id.item_icon_3};
 
@@ -438,7 +440,7 @@ public class RecommendFragment extends BaseFragment implements GroupRecyclerView
         @Override
         public void onBindChildViewHolder(GroupViewHolder holder, ItemWrapper item, int groupPosition, int childPosition) {
             int viewType = getChildItemViewType(groupPosition, childPosition);
-            if (viewType == TYPE_CHILD_UPDATE | viewType == TYPE_CHILD_RECOMMEND) {
+            if (viewType == TYPE_CHILD_UPDATE || viewType == TYPE_CHILD_RECOMMEND) {
                 final AppItem appItem = item.getAppItem();
                 if (appItem == null) {
                     return;

@@ -48,7 +48,9 @@
                 android:padding="10dp"
                 android:textSize="12sp"
                 android:textColor="#333"
-                android:text="常用" />
+                android:text="常用"
+                android:background="?android:attr/selectableItemBackground"
+                />
 
             <TextView
                 android:layout_width="0dp"
@@ -60,7 +62,9 @@
                 android:padding="10dp"
                 android:textSize="12sp"
                 android:textColor="#333"
-                android:text="看看" />
+                android:text="看看"
+                android:background="?android:attr/selectableItemBackground"
+                />
 
             <TextView
                 android:layout_width="0dp"
@@ -72,7 +76,9 @@
                 android:padding="10dp"
                 android:textSize="12sp"
                 android:textColor="#333"
-                android:text="专题" />
+                android:text="专题"
+                android:background="?android:attr/selectableItemBackground"
+                />
 
             <TextView
                 android:layout_width="0dp"
@@ -84,7 +90,9 @@
                 android:padding="10dp"
                 android:textSize="12sp"
                 android:textColor="#333"
-                android:text="游戏预约" />
+                android:text="应用集"
+                android:background="?android:attr/selectableItemBackground"
+                />
 
         </android.support.v7.widget.LinearLayoutCompat>
 

@@ -31,4 +31,13 @@ public class ZViewPager extends ViewPager {
         return isCanScroll && super.onTouchEvent(ev);
     }
 
+    @Override
+    public boolean canScrollVertically(int direction) {
+        return isCanScroll && super.canScrollVertically(direction);
+    }
+
+    @Override
+    public boolean canScrollHorizontally(int direction) {
+        return isCanScroll && super.canScrollHorizontally(direction);
+    }
 }

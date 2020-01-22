@@ -10,77 +10,12 @@
         <attr name="color_unchecked_stroke" format="color" />
     </declare-styleable>
 
-    <!--    <declare-styleable name="CheckLayout">-->
-    <!--        <attr name="check_content" format="string" />-->
-    <!--        <attr name="box_checked" format="boolean" />-->
-    <!--        <attr name="content_text_color" format="color"/>-->
-    <!--        <attr name="content_text_size" format="integer"/>-->
-    <!--    </declare-styleable>-->
-
     <declare-styleable name="MultipleStatusView">
         <attr name="loadingView" format="reference" />
         <attr name="errorView" format="reference" />
         <attr name="emptyView" format="reference" />
         <attr name="noNetworkView" format="reference" />
         <attr name="contentView" format="reference" />
-    </declare-styleable>
-
-    <declare-styleable name="ZTabItem">
-        <attr name="android:text" />
-        <attr name="android:icon" />
-        <attr name="android:layout" />
-    </declare-styleable>
-
-    <declare-styleable name="ZTabLayout">
-        <attr name="z_tabIndicatorColor" format="color" />
-        <attr name="z_tabIndicatorHeight" format="dimension" />
-        <attr name="z_tabIndicatorWidth" format="dimension" />
-        <attr name="z_tabContentStart" format="dimension" />
-        <attr name="z_tabBackground" format="reference" />
-        <attr name="z_tabIndicator" format="reference" />
-        <attr name="z_tabIndicatorGravity">
-
-            <enum name="bottom" value="0" />
-
-            <enum name="center" value="1" />
-
-            <enum name="top" value="2" />
-
-            <enum name="stretch" value="3" />
-        </attr>
-        <attr name="z_tabIndicatorAnimationDuration" format="integer" />
-        <attr name="z_tabIndicatorFullWidth" format="boolean" />
-        <attr name="z_tabMode">
-            <enum name="scrollable" value="0" />
-            <enum name="fixed" value="1" />
-        </attr>
-        <attr name="z_tabGravity">
-            <enum name="fill" value="0" />
-            <enum name="center" value="1" />
-        </attr>
-        <attr name="z_tabInlineLabel" format="boolean" />
-        <attr name="z_tabMinWidth" format="dimension" />
-        <attr name="z_tabMaxWidth" format="dimension" />
-        <attr name="z_tabTextAppearance" format="reference" />
-        <attr name="z_tabTextColor" format="color" />
-        <attr name="z_tabSelectedTextColor" format="color" />
-        <attr name="z_tabPaddingStart" format="dimension" />
-        <attr name="z_tabPaddingTop" format="dimension" />
-        <attr name="z_tabPaddingEnd" format="dimension" />
-        <attr name="z_tabPaddingBottom" format="dimension" />
-        <attr name="z_tabPadding" format="dimension" />
-        <attr name="z_tabIconTint" format="color" />
-        <attr name="z_tabIconTintMode">
-            <enum name="src_over" value="3" />
-            <enum name="src_in" value="5" />
-            <enum name="src_atop" value="9" />
-            <enum name="multiply" value="14" />
-            <enum name="screen" value="15" />
-            <enum name="add" value="16" />
-        </attr>
-        <attr name="z_tabRippleColor" format="color" />
-        <attr name="z_tabUnboundedRipple" format="boolean" />
-        <attr name="z_enableScale" format="boolean" />
     </declare-styleable>
 
     <declare-styleable name="ZBottomSheetBehavior_Layout">

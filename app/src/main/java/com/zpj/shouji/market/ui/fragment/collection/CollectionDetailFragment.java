@@ -14,6 +14,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
+import com.gyf.immersionbar.ImmersionBar;
 import com.zpj.http.parser.html.nodes.Document;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.model.CollectionInfo;
@@ -154,6 +155,11 @@ public class CollectionDetailFragment extends BaseFragment {
         });
         magicIndicator.setNavigator(navigator);
         ViewPagerHelper.bind(magicIndicator, viewPager);
+    }
+
+    @Override
+    public void onVisible() {
+        ImmersionBar.with(this).statusBarDarkFont(false).init();
     }
 
     private void setAppCollectionItem(CollectionInfo item) {

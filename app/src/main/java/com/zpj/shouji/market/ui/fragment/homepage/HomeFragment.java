@@ -9,6 +9,7 @@ import android.support.v4.view.ViewPager;
 import android.view.View;
 import android.widget.ImageView;
 
+import com.gyf.immersionbar.ImmersionBar;
 import com.wuhenzhizao.titlebar.widget.CommonTitleBar;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.ui.adapter.ZFragmentPagerAdapter;
@@ -99,5 +100,10 @@ public class HomeFragment extends BaseFragment {
             _mActivity.start(new AppManagerFragment());
         });
         titleBar.getRightCustomView().findViewById(R.id.btn_search).setOnClickListener(v -> _mActivity.start(new SearchFragment()));
+    }
+
+    @Override
+    public void onVisible() {
+        ImmersionBar.with(this).statusBarDarkFont(false).init();
     }
 }

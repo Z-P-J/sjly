@@ -11,6 +11,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.gyf.immersionbar.ImmersionBar;
 import com.zpj.http.parser.html.nodes.Document;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.model.AppDetailInfo;
@@ -182,6 +183,11 @@ public class AppDetailFragment extends BaseFragment {
         magicIndicator.setNavigator(navigator);
         ViewPagerHelper.bind(magicIndicator, viewPager);
         getAppInfo(url);
+    }
+
+    @Override
+    public void onVisible() {
+        ImmersionBar.with(this).statusBarDarkFont(false).init();
     }
 
     private void getAppInfo(final String url){

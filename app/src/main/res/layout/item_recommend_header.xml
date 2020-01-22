@@ -26,8 +26,8 @@
             />
 
         <View
-            android:layout_width="14dp"
-            android:layout_height="10dp"
+            android:layout_width="16dp"
+            android:layout_height="14dp"
             android:background="#8009bd14"
             android:layout_alignParentBottom="true"
             />
@@ -42,6 +42,7 @@
         android:drawablePadding="4dp"
         android:gravity="center"
         android:text="更多"
+        android:textSize="12sp"
         android:textColor="@color/colorPrimary"
         android:layout_centerVertical="true"
         />
