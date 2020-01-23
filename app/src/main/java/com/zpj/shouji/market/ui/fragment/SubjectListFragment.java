@@ -1,28 +1,17 @@
 package com.zpj.shouji.market.ui.fragment;
 
 import android.os.Bundle;
-import android.text.TextUtils;
-import android.view.View;
 
-import com.bumptech.glide.Glide;
-import com.zpj.http.parser.html.nodes.Document;
 import com.zpj.http.parser.html.nodes.Element;
-import com.zpj.recyclerview.EasyAdapter;
 import com.zpj.recyclerview.EasyViewHolder;
 import com.zpj.shouji.market.R;
-import com.zpj.shouji.market.model.AppItem;
 import com.zpj.shouji.market.model.SubjectItem;
-import com.zpj.shouji.market.ui.fragment.base.LoadMoreFragment;
-import com.zpj.shouji.market.ui.fragment.base.RecyclerLayoutFragment;
-import com.zpj.shouji.market.ui.fragment.detail.AppDetailFragment;
+import com.zpj.shouji.market.ui.fragment.base.NextUrlFragment;
 import com.zpj.shouji.market.ui.fragment.search.SearchResultFragment;
-import com.zpj.shouji.market.utils.ExecutorHelper;
-import com.zpj.shouji.market.utils.HttpUtil;
 
-import java.io.IOException;
 import java.util.List;
 
-public class SubjectListFragment extends LoadMoreFragment<SubjectItem>
+public class SubjectListFragment extends NextUrlFragment<SubjectItem>
         implements SearchResultFragment.KeywordObserver {
 
     public static SubjectListFragment newInstance(String defaultUrl) {

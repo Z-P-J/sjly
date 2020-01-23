@@ -12,15 +12,13 @@ import com.zpj.recyclerview.EasyRecyclerLayout;
 import com.zpj.recyclerview.EasyViewHolder;
 import com.zpj.recyclerview.IEasy;
 import com.zpj.shouji.market.R;
-import com.zpj.shouji.market.model.AppItem;
 import com.zpj.shouji.market.model.CollectionAppInfo;
-import com.zpj.shouji.market.ui.fragment.base.LoadMoreFragment;
+import com.zpj.shouji.market.ui.fragment.base.NextUrlFragment;
 import com.zpj.shouji.market.ui.fragment.detail.AppDetailFragment;
-import com.zpj.shouji.market.ui.fragment.search.SearchResultFragment;
 
 import java.util.List;
 
-public class CollectionAppListFragment extends LoadMoreFragment<CollectionAppInfo> {
+public class CollectionAppListFragment extends NextUrlFragment<CollectionAppInfo> {
 
     public static CollectionAppListFragment newInstance(String id) {
         Bundle args = new Bundle();

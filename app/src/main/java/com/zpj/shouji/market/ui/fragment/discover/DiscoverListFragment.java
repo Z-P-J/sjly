@@ -16,10 +16,9 @@ import com.zpj.recyclerview.IEasy;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.model.DiscoverInfo;
 import com.zpj.shouji.market.ui.adapter.DiscoverBinder;
-import com.zpj.shouji.market.ui.fragment.base.LoadMoreFragment;
+import com.zpj.shouji.market.ui.fragment.base.NextUrlFragment;
 import com.zpj.shouji.market.ui.fragment.profile.ProfileFragment;
 import com.zpj.shouji.market.ui.fragment.search.SearchResultFragment;
-import com.zpj.shouji.market.ui.widget.BottomListPopupMenu;
 import com.zpj.shouji.market.utils.ExecutorHelper;
 import com.zpj.shouji.market.utils.HttpUtil;
 
@@ -27,7 +26,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class DiscoverListFragment extends LoadMoreFragment<DiscoverInfo>
+public class DiscoverListFragment extends NextUrlFragment<DiscoverInfo>
         implements Runnable,
         IEasy.OnLoadMoreListener,
         SwipeRefreshLayout.OnRefreshListener,

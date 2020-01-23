@@ -6,12 +6,12 @@ import android.support.v4.app.FragmentPagerAdapter;
 
 import java.util.List;
 
-public class ZFragmentPagerAdapter extends FragmentPagerAdapter {
+public class FragmentsPagerAdapter extends FragmentPagerAdapter {
 
     private List<? extends Fragment> fragments;
     private String[] tabTitle;
 
-    public ZFragmentPagerAdapter(FragmentManager fm, List<? extends Fragment> fragments, String[] tabTiltle) {
+    public FragmentsPagerAdapter(FragmentManager fm, List<? extends Fragment> fragments, String[] tabTiltle) {
         super(fm);
         this.fragments = fragments;
         this.tabTitle = tabTiltle;

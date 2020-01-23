@@ -14,7 +14,7 @@ import com.zpj.shouji.market.utils.HttpUtil;
 
 import java.io.IOException;
 
-public abstract class LoadMoreFragment<T> extends RecyclerLayoutFragment<T> {
+public abstract class NextUrlFragment<T> extends RecyclerLayoutFragment<T> {
 
     protected static final String KEY_DEFAULT_URL = "default_url";
     protected String defaultUrl;

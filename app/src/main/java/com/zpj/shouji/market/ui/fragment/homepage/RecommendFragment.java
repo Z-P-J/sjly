@@ -64,7 +64,6 @@ public class RecommendFragment extends BaseFragment implements GroupRecyclerView
 
     @Override
     protected void initView(View view, @Nullable Bundle savedInstanceState) {
-        ImmersionBar.with(this).statusBarDarkFont(true).init();
         recyclerView = view.findViewById(R.id.recycler_view_recent_update);
         swipeRefreshLayout = view.findViewById(R.id.swipe_refresh);
         swipeRefreshLayout.setOnRefreshListener(() -> recyclerView.postDelayed(() -> {
@@ -440,6 +439,7 @@ public class RecommendFragment extends BaseFragment implements GroupRecyclerView
         @Override
         public void onBindChildViewHolder(GroupViewHolder holder, ItemWrapper item, int groupPosition, int childPosition) {
             int viewType = getChildItemViewType(groupPosition, childPosition);
+            Log.d("onBindChildViewHolder", "groupPosition=" + groupPosition + " childPosition=" + childPosition + " viewType=" + viewType);
             if (viewType == TYPE_CHILD_UPDATE || viewType == TYPE_CHILD_RECOMMEND) {
                 final AppItem appItem = item.getAppItem();
                 if (appItem == null) {
@@ -447,8 +447,8 @@ public class RecommendFragment extends BaseFragment implements GroupRecyclerView
                 }
                 holder.setText(R.id.item_title, appItem.getAppTitle());
                 holder.setText(R.id.item_info, appItem.getAppSize());
+                Log.d("onBindChildViewHolder", "holder.get(R.id.item_icon)=" + holder.get(R.id.item_icon));
                 Glide.with(context).load(appItem.getAppIcon()).into((ImageView) holder.get(R.id.item_icon));
-//                ViewCompat.setTransitionName(holder.get(R.id.item_icon), appItem.getAppId());
             } else if (viewType == TYPE_CHILD_COLLECTION) {
                 long time1 = System.currentTimeMillis();
                 final CollectionInfo appItem = item.getCollectionItem();

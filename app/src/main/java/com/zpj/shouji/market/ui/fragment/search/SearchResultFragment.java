@@ -9,7 +9,7 @@ import android.support.v4.view.ViewPager;
 import android.view.View;
 
 import com.zpj.shouji.market.R;
-import com.zpj.shouji.market.ui.adapter.ZFragmentPagerAdapter;
+import com.zpj.shouji.market.ui.adapter.FragmentsPagerAdapter;
 import com.zpj.shouji.market.ui.fragment.AppListFragment;
 import com.zpj.shouji.market.ui.fragment.collection.CollectionListFragment;
 import com.zpj.shouji.market.ui.fragment.discover.DiscoverListFragment;
@@ -38,7 +38,7 @@ public class SearchResultFragment extends BaseFragment {
     }
 
     private static final String[] TAB_TITLES = {"应用", "应用集", "发现", "用户"}; // "专题"
-    private ZFragmentPagerAdapter adapter;
+    private FragmentsPagerAdapter adapter;
     private final List<KeywordObserver> observers = new ArrayList<>();
 
     @Override
@@ -92,7 +92,7 @@ public class SearchResultFragment extends BaseFragment {
                 observers.add((KeywordObserver) fragment);
             }
         }
-        adapter = new ZFragmentPagerAdapter(getChildFragmentManager(), list, TAB_TITLES);
+        adapter = new FragmentsPagerAdapter(getChildFragmentManager(), list, TAB_TITLES);
         ViewPager viewPager = view.findViewById(R.id.view_pager);
         viewPager.setAdapter(adapter);
         viewPager.setOffscreenPageLimit(TAB_TITLES.length);

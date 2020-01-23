@@ -10,15 +10,12 @@ import com.zpj.http.parser.html.nodes.Element;
 import com.zpj.recyclerview.EasyViewHolder;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.model.SupportUserInfo;
-import com.zpj.shouji.market.model.UserInfo;
-import com.zpj.shouji.market.ui.fragment.UserListFragment;
-import com.zpj.shouji.market.ui.fragment.base.LoadMoreFragment;
-import com.zpj.shouji.market.ui.fragment.base.RecyclerLayoutFragment;
+import com.zpj.shouji.market.ui.fragment.base.NextUrlFragment;
 import com.zpj.shouji.market.ui.fragment.profile.ProfileFragment;
 
 import java.util.List;
 
-public class SupportUserListFragment extends LoadMoreFragment<SupportUserInfo> {
+public class SupportUserListFragment extends NextUrlFragment<SupportUserInfo> {
 
 
     public void setData(List<SupportUserInfo> list) {

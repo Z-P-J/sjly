@@ -12,9 +12,8 @@ import com.zpj.recyclerview.EasyViewHolder;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.model.DiscoverInfo;
 import com.zpj.shouji.market.ui.adapter.DiscoverBinder;
-import com.zpj.shouji.market.ui.adapter.ZFragmentPagerAdapter;
+import com.zpj.shouji.market.ui.adapter.FragmentsPagerAdapter;
 import com.zpj.shouji.market.ui.fragment.base.BaseFragment;
-import com.zpj.shouji.market.ui.widget.BottomListPopupMenu;
 import com.zpj.utils.ClickHelper;
 import com.zpj.utils.ScreenUtil;
 
@@ -86,7 +85,7 @@ public class DiscoverDetailFragment extends BaseFragment {
         list.add(discoverListFragment);
         list.add(supportUserListFragment);
 
-        ZFragmentPagerAdapter adapter = new ZFragmentPagerAdapter(getChildFragmentManager(), list, TAB_TITLES);
+        FragmentsPagerAdapter adapter = new FragmentsPagerAdapter(getChildFragmentManager(), list, TAB_TITLES);
         ViewPager viewPager = view.findViewById(R.id.view_pager);
         viewPager.setAdapter(adapter);
         viewPager.setOffscreenPageLimit(2);

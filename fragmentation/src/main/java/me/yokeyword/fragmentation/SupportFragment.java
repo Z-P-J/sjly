@@ -127,6 +127,11 @@ public class SupportFragment extends Fragment implements ISupportFragment {
         mDelegate.post(runnable);
     }
 
+    @Override
+    public void postDelay(Runnable runnable, long delay) {
+        mDelegate.postDelay(runnable, delay);
+    }
+
     /**
      * Called when the enter-animation end.
      * 入栈动画 结束时,回调

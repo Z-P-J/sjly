@@ -18,7 +18,7 @@ import com.gyf.immersionbar.ImmersionBar;
 import com.zpj.http.parser.html.nodes.Document;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.model.CollectionInfo;
-import com.zpj.shouji.market.ui.adapter.ZFragmentPagerAdapter;
+import com.zpj.shouji.market.ui.adapter.FragmentsPagerAdapter;
 import com.zpj.shouji.market.ui.fragment.discover.DiscoverListFragment;
 import com.zpj.shouji.market.ui.fragment.base.BaseFragment;
 import com.zpj.shouji.market.utils.ExecutorHelper;
@@ -121,7 +121,7 @@ public class CollectionDetailFragment extends BaseFragment {
         list.add(appListFragment);
         list.add(discoverListFragment);
 
-        ZFragmentPagerAdapter adapter = new ZFragmentPagerAdapter(getChildFragmentManager(), list, TAB_TITLES);
+        FragmentsPagerAdapter adapter = new FragmentsPagerAdapter(getChildFragmentManager(), list, TAB_TITLES);
         ViewPager viewPager = view.findViewById(R.id.view_pager);
         viewPager.setAdapter(adapter);
         viewPager.setOffscreenPageLimit(2);
@@ -155,11 +155,6 @@ public class CollectionDetailFragment extends BaseFragment {
         });
         magicIndicator.setNavigator(navigator);
         ViewPagerHelper.bind(magicIndicator, viewPager);
-    }
-
-    @Override
-    public void onVisible() {
-        ImmersionBar.with(this).statusBarDarkFont(false).init();
     }
 
     private void setAppCollectionItem(CollectionInfo item) {

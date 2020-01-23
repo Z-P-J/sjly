@@ -13,32 +13,17 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.gyf.immersionbar.ImmersionBar;
+import com.wuhenzhizao.titlebar.statusbar.StatusBarUtils;
 import com.wuhenzhizao.titlebar.widget.CommonTitleBar;
 import com.zpj.shouji.market.R;
+import com.zpj.shouji.market.ui.fragment.MainFragment;
 
 import me.yokeyword.fragmentation.SwipeBackLayout;
 import me.yokeyword.fragmentation_swipeback.SwipeBackFragment;
 
-public abstract class BaseFragment extends SwipeBackFragment implements ImmersionOwner {
-
-    /**
-     * ImmersionBar代理类
-     */
-    private ImmersionProxy mImmersionProxy = new ImmersionProxy(this);
+public abstract class BaseFragment extends SwipeBackFragment {
 
     protected Context context;
-
-    @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        mImmersionProxy.onCreate(savedInstanceState);
-    }
-
-    @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-        mImmersionProxy.onActivityCreated(savedInstanceState);
-    }
 
     @SuppressLint("ResourceType")
     @Nullable
@@ -72,42 +57,6 @@ public abstract class BaseFragment extends SwipeBackFragment implements Immersio
         }
     }
 
-    @Override
-    public void onResume() {
-        super.onResume();
-        mImmersionProxy.onResume();
-    }
-
-    @Override
-    public void onPause() {
-        super.onPause();
-        mImmersionProxy.onPause();
-    }
-
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-        mImmersionProxy.onDestroy();
-    }
-
-    @Override
-    public void setUserVisibleHint(boolean isVisibleToUser) {
-        super.setUserVisibleHint(isVisibleToUser);
-        mImmersionProxy.setUserVisibleHint(isVisibleToUser);
-    }
-
-    @Override
-    public void onHiddenChanged(boolean hidden) {
-        super.onHiddenChanged(hidden);
-        mImmersionProxy.onHiddenChanged(hidden);
-    }
-
-    @Override
-    public void onConfigurationChanged(Configuration newConfig) {
-        super.onConfigurationChanged(newConfig);
-        mImmersionProxy.onConfigurationChanged(newConfig);
-    }
-
     @LayoutRes
     protected abstract int getLayoutId();
 
@@ -122,32 +71,28 @@ public abstract class BaseFragment extends SwipeBackFragment implements Immersio
     }
 
     @Override
-    public void onLazyBeforeView() {
-
+    public void onSupportVisible() {
+        super.onSupportVisible();
+        lightStatusBar();
     }
 
     @Override
-    public void onLazyAfterView() {
-
+    public void onSupportInvisible() {
+        super.onSupportInvisible();
+        lightStatusBar();
     }
 
-    @Override
-    public void onVisible() {
-
+    protected void darkStatusBar() {
+        if (_mActivity == null) {
+            return;
+        }
+        StatusBarUtils.setDarkMode(_mActivity.getWindow());
     }
 
-    @Override
-    public void onInvisible() {
-
-    }
-
-    @Override
-    public void initImmersionBar() {
-
-    }
-
-    @Override
-    public boolean immersionBarEnabled() {
-        return true;
+    protected void lightStatusBar() {
+        if (_mActivity == null) {
+            return;
+        }
+        StatusBarUtils.setLightMode(_mActivity.getWindow());
     }
 }

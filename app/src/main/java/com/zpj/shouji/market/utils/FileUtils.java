@@ -21,6 +21,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.nio.channels.FileChannel;
 import java.security.MessageDigest;
 import java.util.Collections;
 import java.util.Iterator;
@@ -691,4 +692,75 @@ public class FileUtils {
         }
         return storagePathList;
     }
+
+    public static void copyFile(final File srcFile, final File destFile) throws IOException {
+        copyFile(srcFile, destFile, true);
+    }
+
+    public static void copyFile(final File srcFile, final File destFile,
+                                final boolean preserveFileDate) throws IOException {
+        if (srcFile == null) {
+            throw new NullPointerException("Source must not be null");
+        }
+        if (destFile == null) {
+            throw new NullPointerException("Destination must not be null");
+        }
+        if (!srcFile.exists()) {
+            throw new FileNotFoundException("Source '" + srcFile + "' does not exist");
+        }
+        if (srcFile.isDirectory()) {
+            throw new IOException("Source '" + srcFile + "' exists but is a directory");
+        }
+        if (srcFile.getCanonicalPath().equals(destFile.getCanonicalPath())) {
+            throw new IOException("Source '" + srcFile + "' and destination '" + destFile + "' are the same");
+        }
+        final File parentFile = destFile.getParentFile();
+        if (parentFile != null) {
+            if (!parentFile.mkdirs() && !parentFile.isDirectory()) {
+                throw new IOException("Destination '" + parentFile + "' directory cannot be created");
+            }
+        }
+        if (destFile.exists() && !destFile.canWrite()) {
+            throw new IOException("Destination '" + destFile + "' exists but is read-only");
+        }
+        doCopyFile(srcFile, destFile, preserveFileDate);
+    }
+
+    private static final long FILE_COPY_BUFFER_SIZE = 1024 * 1024 * 30;
+
+    private static void doCopyFile(final File srcFile, final File destFile, final boolean preserveFileDate)
+            throws IOException {
+        if (destFile.exists() && destFile.isDirectory()) {
+            throw new IOException("Destination '" + destFile + "' exists but is a directory");
+        }
+
+        try (FileInputStream fis = new FileInputStream(srcFile);
+             FileOutputStream fos = new FileOutputStream(destFile);
+             FileChannel input = fis.getChannel();
+             FileChannel output = fos.getChannel()) {
+            final long size = input.size(); // TODO See IO-386
+            long pos = 0;
+            long count = 0;
+            while (pos < size) {
+                final long remain = size - pos;
+                count = remain > FILE_COPY_BUFFER_SIZE ? FILE_COPY_BUFFER_SIZE : remain;
+                final long bytesCopied = output.transferFrom(input, pos, count);
+                if (bytesCopied == 0) { // IO-385 - can happen if file is truncated after caching the size
+                    break; // ensure we don't loop forever
+                }
+                pos += bytesCopied;
+            }
+        }
+
+        final long srcLen = srcFile.length(); // TODO See IO-386
+        final long dstLen = destFile.length(); // TODO See IO-386
+        if (srcLen != dstLen) {
+            throw new IOException("Failed to copy full contents from '" +
+                    srcFile + "' to '" + destFile + "' Expected length: " + srcLen + " Actual: " + dstLen);
+        }
+        if (preserveFileDate) {
+            destFile.setLastModified(srcFile.lastModified());
+        }
+    }
+
 }

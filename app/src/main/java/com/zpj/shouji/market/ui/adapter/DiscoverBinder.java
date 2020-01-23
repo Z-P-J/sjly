@@ -46,7 +46,7 @@ public class DiscoverBinder implements IEasy.OnBindViewHolderListener<DiscoverIn
         TextView shareInfo = holder.getTextView(R.id.share_info);
         View appLayout = holder.getView(R.id.layout_app);
 
-        nineGridImageView.setAdapter(new ZNineGridImageViewAdapter());
+        nineGridImageView.setAdapter(new NineGridImageAdapter());
         nineGridImageView.setItemImageClickListener(new ItemImageClickListener<String>() {
             @Override
             public void onItemImageClick(Context context, ImageView imageView, int index, List<String> list) {

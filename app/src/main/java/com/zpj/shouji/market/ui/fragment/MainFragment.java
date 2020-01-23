@@ -5,14 +5,14 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.FloatingActionButton;
-import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.view.MenuItem;
 import android.view.View;
 
+import com.gyf.immersionbar.ImmersionBar;
 import com.ittianyu.bottomnavigationviewex.BottomNavigationViewEx;
 import com.zpj.shouji.market.R;
-import com.zpj.shouji.market.ui.adapter.ZFragmentPagerAdapter;
+import com.zpj.shouji.market.ui.adapter.FragmentsPagerAdapter;
 import com.zpj.shouji.market.ui.fragment.base.BaseFragment;
 import com.zpj.shouji.market.ui.fragment.game.GameFragment;
 import com.zpj.shouji.market.ui.fragment.homepage.HomeFragment;
@@ -26,6 +26,8 @@ import java.util.List;
 
 public class MainFragment extends BaseFragment {
 
+    private final List<BaseFragment> fragments = new ArrayList<>();
+    private ZViewPager viewPager;
     private AddLayout addLayout;
 
     @Override
@@ -40,8 +42,6 @@ public class MainFragment extends BaseFragment {
 
     @Override
     protected void initView(View view, @Nullable Bundle savedInstanceState) {
-
-
         HomeFragment homeFragment = findChildFragment(HomeFragment.class);
         if (homeFragment == null) {
             homeFragment = new HomeFragment();
@@ -61,8 +61,7 @@ public class MainFragment extends BaseFragment {
         if (profileFragment == null) {
             profileFragment = ProfileFragment.newInstance("5636865", true);
         }
-
-        final List<Fragment> fragments = new ArrayList<>();
+        fragments.clear();
         fragments.add(homeFragment);
         fragments.add(softFragment);
         fragments.add(game);
@@ -74,10 +73,10 @@ public class MainFragment extends BaseFragment {
         navigationView.enableItemShiftingMode(false);
         navigationView.enableShiftingMode(false);
         navigationView.enableAnimation(false);
-        ZViewPager viewPager = view.findViewById(R.id.vp);
+        viewPager = view.findViewById(R.id.vp);
         viewPager.setCanScroll(false);
         viewPager.setOffscreenPageLimit(10);
-        ZFragmentPagerAdapter adapter = new ZFragmentPagerAdapter(getChildFragmentManager(), fragments, null);
+        FragmentsPagerAdapter adapter = new FragmentsPagerAdapter(getChildFragmentManager(), fragments, null);
         viewPager.setAdapter(adapter);
         navigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
 
@@ -131,15 +130,42 @@ public class MainFragment extends BaseFragment {
 
         addLayout = view.findViewById(R.id.layout_add);
         addLayout.bindButton(floatingActionButton);
+        floatingActionButton.setOnClickListener(v -> {
+            if (addLayout.isShow()) {
+                addLayout.close();
+                onSupportVisible();
+            } else {
+                addLayout.show();
+                postDelay(this::darkStatusBar, 300);
+            }
+        });
     }
 
     @Override
     public boolean onBackPressedSupport() {
         if (addLayout.isShow()) {
             addLayout.close();
+            onSupportVisible();
             return true;
         }
         return super.onBackPressedSupport();
     }
 
+    @Override
+    public void onSupportVisible() {
+        if (viewPager != null && !fragments.isEmpty()) {
+            fragments.get(viewPager.getCurrentItem()).onSupportVisible();
+        } else {
+            super.onSupportVisible();
+        }
+    }
+
+    @Override
+    public void onSupportInvisible() {
+        if (viewPager != null && !fragments.isEmpty()) {
+            fragments.get(viewPager.getCurrentItem()).onSupportInvisible();
+        } else {
+            super.onSupportInvisible();
+        }
+    }
 }

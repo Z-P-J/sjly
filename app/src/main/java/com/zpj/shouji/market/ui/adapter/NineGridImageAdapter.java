@@ -19,7 +19,7 @@ import com.zpj.shouji.market.glide.GlideApp;
 
 import java.util.List;
 
-public class ZNineGridImageViewAdapter extends NineGridImageViewAdapter<String> {
+public class NineGridImageAdapter extends NineGridImageViewAdapter<String> {
 
     @Override
     protected void onDisplayImage(Context context, ImageView imageView, String s) {

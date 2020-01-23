@@ -49,10 +49,14 @@ public class ActionQueue {
     private void handleAction() {
         if (mQueue.isEmpty()) return;
 
-        Action action = mQueue.peek();
-        action.run();
-
-        executeNextAction(action);
+        final Action action = mQueue.peek();
+        mMainHandler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                action.run();
+                executeNextAction(action);
+            }
+        }, action.delay);
     }
 
     private void executeNextAction(Action action) {

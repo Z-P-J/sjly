@@ -8,13 +8,13 @@ import com.zpj.http.parser.html.nodes.Element;
 import com.zpj.recyclerview.EasyViewHolder;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.model.UserInfo;
-import com.zpj.shouji.market.ui.fragment.base.LoadMoreFragment;
+import com.zpj.shouji.market.ui.fragment.base.NextUrlFragment;
 import com.zpj.shouji.market.ui.fragment.profile.ProfileFragment;
 import com.zpj.shouji.market.ui.fragment.search.SearchResultFragment;
 
 import java.util.List;
 
-public class UserListFragment extends LoadMoreFragment<UserInfo>
+public class UserListFragment extends NextUrlFragment<UserInfo>
         implements SearchResultFragment.KeywordObserver {
 
     public static UserListFragment newInstance(String defaultUrl) {

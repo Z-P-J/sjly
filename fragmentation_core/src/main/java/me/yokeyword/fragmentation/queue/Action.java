@@ -18,6 +18,7 @@ public abstract class Action {
     public FragmentManager fragmentManager;
     public int action = ACTION_NORMAL;
     public long duration = 0;
+    public long delay = 0;
 
     public Action() {
     }

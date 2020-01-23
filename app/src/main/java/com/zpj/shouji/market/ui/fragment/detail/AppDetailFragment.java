@@ -20,7 +20,7 @@ import com.zpj.shouji.market.model.AppUpdateInfo;
 import com.zpj.shouji.market.model.CollectionAppInfo;
 import com.zpj.shouji.market.model.InstalledAppInfo;
 import com.zpj.shouji.market.model.UserDownloadedAppInfo;
-import com.zpj.shouji.market.ui.adapter.ZFragmentPagerAdapter;
+import com.zpj.shouji.market.ui.adapter.FragmentsPagerAdapter;
 import com.zpj.shouji.market.ui.fragment.base.BaseFragment;
 import com.zpj.shouji.market.utils.ExecutorHelper;
 import com.zpj.shouji.market.utils.HttpUtil;
@@ -147,7 +147,7 @@ public class AppDetailFragment extends BaseFragment {
         list.add(exploreFragment);
         list.add(recommendFragment);
 
-        ZFragmentPagerAdapter adapter = new ZFragmentPagerAdapter(getChildFragmentManager(), list, TAB_TITLES);
+        FragmentsPagerAdapter adapter = new FragmentsPagerAdapter(getChildFragmentManager(), list, TAB_TITLES);
         ViewPager viewPager = view.findViewById(R.id.view_pager);
         viewPager.setAdapter(adapter);
         viewPager.setOffscreenPageLimit(4);
@@ -183,11 +183,6 @@ public class AppDetailFragment extends BaseFragment {
         magicIndicator.setNavigator(navigator);
         ViewPagerHelper.bind(magicIndicator, viewPager);
         getAppInfo(url);
-    }
-
-    @Override
-    public void onVisible() {
-        ImmersionBar.with(this).statusBarDarkFont(false).init();
     }
 
     private void getAppInfo(final String url){

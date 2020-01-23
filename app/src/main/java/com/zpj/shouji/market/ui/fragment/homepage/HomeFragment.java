@@ -12,7 +12,7 @@ import android.widget.ImageView;
 import com.gyf.immersionbar.ImmersionBar;
 import com.wuhenzhizao.titlebar.widget.CommonTitleBar;
 import com.zpj.shouji.market.R;
-import com.zpj.shouji.market.ui.adapter.ZFragmentPagerAdapter;
+import com.zpj.shouji.market.ui.adapter.FragmentsPagerAdapter;
 import com.zpj.shouji.market.ui.fragment.discover.DiscoverListFragment;
 import com.zpj.shouji.market.ui.fragment.base.BaseFragment;
 import com.zpj.shouji.market.ui.fragment.manager.AppManagerFragment;
@@ -58,7 +58,7 @@ public class HomeFragment extends BaseFragment {
         list.add(exploreFragment);
         list.add(wallpaperFragment);
 
-        ZFragmentPagerAdapter adapter = new ZFragmentPagerAdapter(getChildFragmentManager(), list, TAB_TITLES);
+        FragmentsPagerAdapter adapter = new FragmentsPagerAdapter(getChildFragmentManager(), list, TAB_TITLES);
         ViewPager viewPager = view.findViewById(R.id.view_pager);
         viewPager.setAdapter(adapter);
         viewPager.setOffscreenPageLimit(3);
@@ -102,8 +102,4 @@ public class HomeFragment extends BaseFragment {
         titleBar.getRightCustomView().findViewById(R.id.btn_search).setOnClickListener(v -> _mActivity.start(new SearchFragment()));
     }
 
-    @Override
-    public void onVisible() {
-        ImmersionBar.with(this).statusBarDarkFont(false).init();
-    }
 }

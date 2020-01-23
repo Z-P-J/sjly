@@ -8,12 +8,12 @@ import com.zpj.http.parser.html.nodes.Element;
 import com.zpj.recyclerview.EasyViewHolder;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.model.CollectionInfo;
-import com.zpj.shouji.market.ui.fragment.base.LoadMoreFragment;
+import com.zpj.shouji.market.ui.fragment.base.NextUrlFragment;
 import com.zpj.shouji.market.ui.fragment.search.SearchResultFragment;
 
 import java.util.List;
 
-public class CollectionListFragment extends LoadMoreFragment<CollectionInfo>
+public class CollectionListFragment extends NextUrlFragment<CollectionInfo>
         implements SearchResultFragment.KeywordObserver {
 
     private static final int[] ICON_RES = {R.id.iv_icon_1, R.id.iv_icon_2, R.id.iv_icon_3};

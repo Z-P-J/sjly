@@ -259,6 +259,10 @@ public class SupportFragmentDelegate {
         mTransactionDelegate.post(runnable);
     }
 
+    public void postDelay(final Runnable runnable, long delay) {
+        mTransactionDelegate.postDelay(runnable, delay);
+    }
+
     /**
      * Called when the enter-animation end.
      * 入栈动画 结束时,回调

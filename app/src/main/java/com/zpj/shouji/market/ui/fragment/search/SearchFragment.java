@@ -6,29 +6,19 @@ import android.support.v4.app.Fragment;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
-import android.view.KeyEvent;
 import android.view.View;
-import android.widget.TextView;
 
 import com.felix.atoast.library.AToast;
 import com.gyf.immersionbar.ImmersionBar;
-import com.kongzue.stacklabelview.StackLabel;
 import com.kongzue.stacklabelview.interfaces.OnLabelClickListener;
 import com.wuhenzhizao.titlebar.widget.CommonTitleBar;
-import com.zpj.http.parser.html.nodes.Document;
-import com.zpj.http.parser.html.nodes.Element;
 import com.zpj.shouji.market.R;
-import com.zpj.shouji.market.database.SearchHistoryManager;
-import com.zpj.shouji.market.model.SearchHistory;
-import com.zpj.shouji.market.ui.adapter.ZFragmentPagerAdapter;
+import com.zpj.shouji.market.ui.adapter.FragmentsPagerAdapter;
 import com.zpj.shouji.market.ui.fragment.base.BaseFragment;
 import com.zpj.shouji.market.ui.view.ZViewPager;
-import com.zpj.shouji.market.utils.ExecutorHelper;
-import com.zpj.shouji.market.utils.HttpUtil;
 
 import org.greenrobot.eventbus.EventBus;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -78,7 +68,7 @@ public class SearchFragment extends BaseFragment implements OnLabelClickListener
         }
         list.add(searchPanelFragment);
         list.add(searchResultFragment);
-        ZFragmentPagerAdapter adapter = new ZFragmentPagerAdapter(getChildFragmentManager(), list, null);
+        FragmentsPagerAdapter adapter = new FragmentsPagerAdapter(getChildFragmentManager(), list, null);
         viewPager.setAdapter(adapter);
 
 
@@ -105,11 +95,6 @@ public class SearchFragment extends BaseFragment implements OnLabelClickListener
             }
         });
 
-    }
-
-    @Override
-    public void onVisible() {
-        ImmersionBar.with(this).statusBarDarkFont(false).init();
     }
 
     @Override

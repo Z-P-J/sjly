@@ -1,14 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v7.widget.CardView
+<www.linwg.org.lib.LCardView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/app_item"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     app:cardBackgroundColor="#9903a9f4"
-    app:cardCornerRadius="5dp"
-    app:contentPadding="10dp"
-    app:cardUseCompatPadding="true"
+    app:cornerRadius="5dp"
     >
 
     <LinearLayout
@@ -104,4 +102,4 @@
         </LinearLayout>
     </LinearLayout>
 
-</android.support.v7.widget.CardView>
+</www.linwg.org.lib.LCardView>

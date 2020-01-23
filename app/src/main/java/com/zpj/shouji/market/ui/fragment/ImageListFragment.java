@@ -26,14 +26,14 @@ import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.model.WallpaperInfo;
 import com.zpj.shouji.market.model.WallpaperTag;
 import com.zpj.shouji.market.image.ImageLoader;
-import com.zpj.shouji.market.ui.fragment.base.LoadMoreFragment;
+import com.zpj.shouji.market.ui.fragment.base.NextUrlFragment;
 import com.zpj.shouji.market.ui.widget.RecyclerPopup;
 import com.zpj.utils.ScreenUtil;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class ImageListFragment extends LoadMoreFragment<WallpaperInfo> {
+public class ImageListFragment extends NextUrlFragment<WallpaperInfo> {
 
     private static final String KEY_ID = "id";
     private static final String KEY_TAG = "tag";

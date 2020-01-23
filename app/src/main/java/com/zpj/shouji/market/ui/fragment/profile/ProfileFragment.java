@@ -21,7 +21,7 @@ import com.wuhenzhizao.titlebar.widget.CommonTitleBar;
 import com.zpj.http.parser.html.nodes.Element;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.constant.Key;
-import com.zpj.shouji.market.ui.adapter.ZFragmentPagerAdapter;
+import com.zpj.shouji.market.ui.adapter.FragmentsPagerAdapter;
 import com.zpj.shouji.market.ui.behavior.AppBarLayoutOverScrollViewBehavior;
 import com.zpj.shouji.market.ui.fragment.discover.DiscoverListFragment;
 import com.zpj.shouji.market.ui.fragment.base.BaseFragment;
@@ -136,7 +136,7 @@ public class ProfileFragment extends BaseFragment implements DiscoverListFragmen
         fragments.add(userDownloadedFragment);
         fragments.add(new Fragment());
 
-        ZFragmentPagerAdapter adapter = new ZFragmentPagerAdapter(getChildFragmentManager(), fragments, TAB_TITLES);
+        FragmentsPagerAdapter adapter = new FragmentsPagerAdapter(getChildFragmentManager(), fragments, TAB_TITLES);
         mViewPager.setAdapter(adapter);
         mViewPager.setOffscreenPageLimit(4);
         CommonNavigator navigator = new CommonNavigator(getContext());

@@ -124,18 +124,4 @@ public class ImmersionProxy {
         }
     }
 
-    /**
-     * 是否已经对用户可见
-     * Is user visible hint boolean.
-     *
-     * @return the boolean
-     */
-    public boolean isUserVisibleHint() {
-        if (mFragment != null) {
-            return mFragment.getUserVisibleHint();
-        } else {
-            return false;
-        }
-    }
-
 }

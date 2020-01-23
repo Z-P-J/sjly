@@ -83,8 +83,13 @@ public class GameFragment extends BaseFragment implements GroupRecyclerViewAdapt
     }
 
     @Override
-    public void onVisible() {
-        ImmersionBar.with(this).statusBarDarkFont(true).init();
+    public void onSupportInvisible() {
+        lightStatusBar();
+    }
+
+    @Override
+    public void onSupportVisible() {
+        darkStatusBar();
     }
 
     @Override

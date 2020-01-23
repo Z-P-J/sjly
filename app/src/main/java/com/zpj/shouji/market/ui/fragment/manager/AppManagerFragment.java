@@ -3,7 +3,6 @@ package com.zpj.shouji.market.ui.fragment.manager;
 import android.content.Context;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.view.ViewPager;
 import android.view.View;
@@ -11,7 +10,7 @@ import android.view.View;
 import com.gyf.immersionbar.ImmersionBar;
 import com.wuhenzhizao.titlebar.widget.CommonTitleBar;
 import com.zpj.shouji.market.R;
-import com.zpj.shouji.market.ui.adapter.ZFragmentPagerAdapter;
+import com.zpj.shouji.market.ui.adapter.FragmentsPagerAdapter;
 import com.zpj.shouji.market.ui.fragment.base.BaseFragment;
 import com.zpj.shouji.market.ui.widget.DotPagerIndicator;
 import com.zpj.shouji.market.ui.widget.ScaleTransitionPagerTitleView;
@@ -82,7 +81,7 @@ public class AppManagerFragment extends BaseFragment {
         fragments.add(installedFragment);
         fragments.add(packageFragment);
 
-        ZFragmentPagerAdapter adapter = new ZFragmentPagerAdapter(getChildFragmentManager(), fragments, TAB_TITLES);
+        FragmentsPagerAdapter adapter = new FragmentsPagerAdapter(getChildFragmentManager(), fragments, TAB_TITLES);
         ViewPager viewPager = view.findViewById(R.id.view_pager);
         viewPager.setAdapter(adapter);
         viewPager.setOffscreenPageLimit(4);
@@ -152,8 +151,4 @@ public class AppManagerFragment extends BaseFragment {
         ViewPagerHelper.bind(magicIndicator, viewPager);
     }
 
-    @Override
-    public void onVisible() {
-        ImmersionBar.with(this).statusBarDarkFont(false).init();
-    }
 }

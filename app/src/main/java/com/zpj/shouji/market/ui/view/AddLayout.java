@@ -72,18 +72,10 @@ public class AddLayout extends FrameLayout {
 
     public void bindButton(View view) {
         this.button = view;
-        button.setOnClickListener(v -> {
-            if (isShow()) {
-                post(() -> button.animate().rotation(0).setDuration(500));
-                close();
-            } else {
-                button.animate().rotation(135).setDuration(500);
-                show();
-            }
-        });
     }
 
     public void show() {
+        button.animate().rotation(135).setDuration(500);
         startAnimation();
         //菜单项弹出动画
         for (int i = 0; i < menuLayout.getChildCount(); i++) {
@@ -102,6 +94,7 @@ public class AddLayout extends FrameLayout {
     }
 
     public void close() {
+        post(() -> button.animate().rotation(0).setDuration(500));
         closeAnimation();
     }
 

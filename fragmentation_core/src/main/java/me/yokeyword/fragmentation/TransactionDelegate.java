@@ -79,6 +79,17 @@ class TransactionDelegate {
         });
     }
 
+    void postDelay(final Runnable runnable, long delay) {
+        Action action = new Action() {
+            @Override
+            public void run() {
+                runnable.run();
+            }
+        };
+        action.delay = delay;
+        mActionQueue.enqueue(action);
+    }
+
     void loadRootTransaction(final FragmentManager fm, final int containerId, final ISupportFragment to, final boolean addToBackStack, final boolean allowAnimation) {
         enqueue(fm, new Action(Action.ACTION_LOAD) {
             @Override
