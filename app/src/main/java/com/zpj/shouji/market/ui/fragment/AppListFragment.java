@@ -31,7 +31,7 @@ public class AppListFragment extends NextUrlFragment<AppInfo>
     }
 
     @Override
-    public void onClick(EasyViewHolder holder, View view, AppInfo data, float x, float y) {
+    public void onClick(EasyViewHolder holder, View view, AppInfo data) {
         _mActivity.start(AppDetailFragment.newInstance(data));
     }
 
@@ -53,7 +53,7 @@ public class AppListFragment extends NextUrlFragment<AppInfo>
     @Override
     public AppInfo createData(Element element) {
         if ("app".equals(element.selectFirst("viewtype").text())) {
-            return AppInfo.create(element);
+            return AppInfo.parse(element);
         }
         return null;
     }

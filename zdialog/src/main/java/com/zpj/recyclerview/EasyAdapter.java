@@ -138,7 +138,7 @@ public class EasyAdapter<T> extends RecyclerView.Adapter<EasyViewHolder> {
             @Override
             public void onClick(View v, float x, float y) {
                 if (onItemClickListener != null) {
-                    onItemClickListener.onClick(holder, v, data, x, y);
+                    onItemClickListener.onClick(holder, v, data);
                 }
             }
         });
@@ -146,7 +146,7 @@ public class EasyAdapter<T> extends RecyclerView.Adapter<EasyViewHolder> {
             @Override
             public boolean onLongClick(View v, float x, float y) {
                 if (onItemLongClickListener != null) {
-                    return onItemLongClickListener.onLongClick(holder, v, data, x, y);
+                    return onItemLongClickListener.onLongClick(holder, v, data);
                 }
                 return false;
             }

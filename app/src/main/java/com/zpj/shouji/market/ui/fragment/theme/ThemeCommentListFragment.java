@@ -43,7 +43,7 @@ public class ThemeCommentListFragment extends ThemeListFragment {
     }
 
     @Override
-    public void onClick(EasyViewHolder holder, View view, DiscoverInfo data, float x, float y) {
+    public void onClick(EasyViewHolder holder, View view, DiscoverInfo data) {
 
     }
 

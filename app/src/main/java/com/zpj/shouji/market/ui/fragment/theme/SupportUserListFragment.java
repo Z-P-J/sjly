@@ -53,7 +53,7 @@ public class SupportUserListFragment extends NextUrlFragment<SupportUserInfo> {
     }
 
     @Override
-    public void onClick(EasyViewHolder holder, View view, SupportUserInfo data, float x, float y) {
+    public void onClick(EasyViewHolder holder, View view, SupportUserInfo data) {
         _mActivity.start(ProfileFragment.newInstance(data.getUserId(), false));
     }
 }

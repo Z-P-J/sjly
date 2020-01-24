@@ -39,7 +39,7 @@
 //        topPanel.getRightImageButton().setOnClickListener(new View.OnClickListener() {
 //            @Override
 //            public void onClick(View v) {
-//                EverywherePopup.create(context)
+//                EverywherePopup.parse(context)
 //                        .addItems("查看原图", "下载", "分享")
 //                        .setOnItemClickListener(new EverywherePopup.OnItemClickListener() {
 //                            @Override

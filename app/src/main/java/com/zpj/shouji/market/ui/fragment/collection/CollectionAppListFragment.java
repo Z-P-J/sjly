@@ -49,7 +49,7 @@ public class CollectionAppListFragment extends NextUrlFragment<CollectionAppInfo
     }
 
     @Override
-    public void onClick(EasyViewHolder holder, View view, CollectionAppInfo data, float x, float y) {
+    public void onClick(EasyViewHolder holder, View view, CollectionAppInfo data) {
         if (data.isApkExist()) {
             _mActivity.start(AppDetailFragment.newInstance(data));
         } else {

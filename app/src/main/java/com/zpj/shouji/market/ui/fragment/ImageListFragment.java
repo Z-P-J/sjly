@@ -115,7 +115,7 @@ public class ImageListFragment extends NextUrlFragment<WallpaperInfo> {
     }
 
     @Override
-    public void onClick(EasyViewHolder holder, View view, WallpaperInfo data, float x, float y) {
+    public void onClick(EasyViewHolder holder, View view, WallpaperInfo data) {
         ImageView wallpaper = holder.getImageView(R.id.iv_wallpaper);
         List<Object> objects = new ArrayList<>();
         objects.add(data.getPic());

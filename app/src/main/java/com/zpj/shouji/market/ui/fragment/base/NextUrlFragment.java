@@ -33,12 +33,12 @@ public abstract class NextUrlFragment<T> extends RecyclerLayoutFragment<T> {
     }
 
     @Override
-    public void onClick(EasyViewHolder holder, View view, T data, float x, float y) {
+    public void onClick(EasyViewHolder holder, View view, T data) {
 
     }
 
     @Override
-    public boolean onLongClick(EasyViewHolder holder, View view, T data, float x, float y) {
+    public boolean onLongClick(EasyViewHolder holder, View view, T data) {
         return false;
     }
 

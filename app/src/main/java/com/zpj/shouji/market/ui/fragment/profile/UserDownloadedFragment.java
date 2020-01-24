@@ -45,7 +45,7 @@ public class UserDownloadedFragment extends NextUrlFragment<UserDownloadedAppInf
     }
 
     @Override
-    public void onClick(EasyViewHolder holder, View view, UserDownloadedAppInfo data, float x, float y) {
+    public void onClick(EasyViewHolder holder, View view, UserDownloadedAppInfo data) {
         _mActivity.start(AppDetailFragment.newInstance(data));
     }
 

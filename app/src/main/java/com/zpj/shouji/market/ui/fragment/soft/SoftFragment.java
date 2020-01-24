@@ -3,7 +3,6 @@ package com.zpj.shouji.market.ui.fragment.soft;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.GridLayoutManager;
@@ -11,7 +10,6 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
-import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
@@ -19,13 +17,10 @@ import com.felix.atoast.library.AToast;
 import com.sunfusheng.GroupRecyclerViewAdapter;
 import com.sunfusheng.GroupViewHolder;
 import com.sunfusheng.HeaderGroupRecyclerViewAdapter;
-import com.sunfusheng.StickyHeaderDecoration;
 import com.zpj.http.parser.html.nodes.Document;
 import com.zpj.http.parser.html.nodes.Element;
 import com.zpj.http.parser.html.select.Elements;
 import com.zpj.recyclerview.EasyRecyclerView;
-import com.zpj.recyclerview.EasyViewHolder;
-import com.zpj.recyclerview.IEasy;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.glide.blur.BlurTransformation;
 import com.zpj.shouji.market.model.AppInfo;
@@ -48,12 +43,6 @@ public class SoftFragment extends BaseFragment
     private static final String TAG = "SoftFragment";
 
     private final List<List<ItemWrapper>> dataList = new ArrayList<>();
-    private List<ItemWrapper> updateList = new ArrayList<>();
-    private List<ItemWrapper> appCollectionList = new ArrayList<>();
-    private List<ItemWrapper> recommendAppList = new ArrayList<>();
-
-    private SwipeRefreshLayout swipeRefreshLayout;
-    private RecyclerView recyclerView;
 
     private Adapter adapter;
 
@@ -64,21 +53,14 @@ public class SoftFragment extends BaseFragment
 
     @Override
     protected void initView(View view, @Nullable Bundle savedInstanceState) {
-        recyclerView = view.findViewById(R.id.recycler_view_recent_update);
-        swipeRefreshLayout = view.findViewById(R.id.swipe_refresh);
+        RecyclerView recyclerView = view.findViewById(R.id.recycler_view_recent_update);
+        SwipeRefreshLayout swipeRefreshLayout = view.findViewById(R.id.swipe_refresh);
         swipeRefreshLayout.setOnRefreshListener(() -> recyclerView.postDelayed(() -> {
             swipeRefreshLayout.setRefreshing(false);
             initData();
         }, 1000));
 
-        GridLayoutManager layoutManager = new GridLayoutManager(getContext(), 4);
-//        recyclerView.addItemDecoration(new StickyHeaderDecoration() {
-//            @Override
-//            protected boolean isStickHeader(int groupPosition) {
-//                return groupPosition != 0;
-//            }
-//        });
-        recyclerView.setLayoutManager(layoutManager);
+        recyclerView.setLayoutManager(new LinearLayoutManager(context));
         adapter = new Adapter(context, dataList);
         adapter.setOnItemClickListener(this);
         recyclerView.setAdapter(adapter);
@@ -117,98 +99,49 @@ public class SoftFragment extends BaseFragment
     private void initData() {
         dataList.clear();
 
-        List<ItemWrapper> topList = new ArrayList<>();
-        topList.add(new ItemWrapper());
-        dataList.add(topList);
-
-        updateList.clear();
-        updateList.add(new ItemWrapper("最近更新"));
-        dataList.add(updateList);
-
-        appCollectionList.clear();
-        appCollectionList.add(new ItemWrapper("应用集推荐"));
-        dataList.add(appCollectionList);
-
-        recommendAppList.clear();
-        recommendAppList.add(new ItemWrapper("常用应用"));
-        dataList.add(recommendAppList);
-        // TODO 排行
+        List<ItemWrapper> list0 = new ArrayList<>();
+        list0.add(new ItemWrapper());
+        dataList.add(list0);
 
         List<ItemWrapper> list1 = new ArrayList<>();
-        list1.add(new ItemWrapper("软件新闻"));
+        list1.add(new ItemWrapper("最近更新"));
         list1.add(new ItemWrapper());
         dataList.add(list1);
 
-        List<ItemWrapper> list2= new ArrayList<>();
-        list2.add(new ItemWrapper("软件评测"));
+        List<ItemWrapper> list2 = new ArrayList<>();
+        list2.add(new ItemWrapper("应用集推荐"));
         list2.add(new ItemWrapper());
         dataList.add(list2);
 
-        List<ItemWrapper> tutorialList = new ArrayList<>();
-        tutorialList.add(new ItemWrapper("软件教程"));
-        tutorialList.add(new ItemWrapper());
-        dataList.add(tutorialList);
+        List<ItemWrapper> list3 = new ArrayList<>();
+        list3.add(new ItemWrapper("常用应用"));
+        list3.add(new ItemWrapper());
+        dataList.add(list3);
 
-        List<ItemWrapper> weeklyList = new ArrayList<>();
-        weeklyList.add(new ItemWrapper("软件周刊"));
-        weeklyList.add(new ItemWrapper());
-        dataList.add(weeklyList);
+        // TODO 排行
+
+        List<ItemWrapper> list4 = new ArrayList<>();
+        list4.add(new ItemWrapper("软件新闻"));
+        list4.add(new ItemWrapper());
+        dataList.add(list4);
+
+        List<ItemWrapper> list5 = new ArrayList<>();
+        list5.add(new ItemWrapper("软件评测"));
+        list5.add(new ItemWrapper());
+        dataList.add(list5);
+
+        List<ItemWrapper> list6 = new ArrayList<>();
+        list6.add(new ItemWrapper("软件教程"));
+        list6.add(new ItemWrapper());
+        dataList.add(list6);
+
+        List<ItemWrapper> list7 = new ArrayList<>();
+        list7.add(new ItemWrapper("软件周刊"));
+        list7.add(new ItemWrapper());
+        dataList.add(list7);
 
         adapter.notifyDataSetChanged();
-        getRecentUpdates();
-        getAppCollections();
-        getRecommendApps();
     }
-
-    private void getRecentUpdates() {
-        ExecutorHelper.submit(() -> {
-            try {
-                Document doc = HttpUtil.getDocument("http://tt.shouji.com.cn/androidv3/soft_index_xml.jsp?sort=time&versioncode=198");
-                Elements elements = doc.select("item");
-                int count = elements.size() > 9 ? 9 : elements.size();
-                for (int i = 1; i < count; i++) {
-                    updateList.add(new ItemWrapper(AppInfo.create(elements.get(i))));
-                }
-                post(() -> adapter.updateGroup(1, updateList));
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        });
-    }
-
-    private void getAppCollections() {
-        ExecutorHelper.submit(() -> {
-            try {
-                Document doc = HttpUtil.getDocument("http://tt.shouji.com.cn/androidv3/yyj_tj_xml.jsp");
-                Elements elements = doc.select("item");
-                int count = elements.size() > 9 ? 9 : elements.size();
-                for (int i = 1; i < count; i++) {
-                    appCollectionList.add(new ItemWrapper(CollectionInfo.create(elements.get(i))));
-                }
-                post(() -> adapter.updateGroup(2, appCollectionList));
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        });
-    }
-
-    private void getRecommendApps() {
-        ExecutorHelper.submit(() -> {
-            try {
-                Document doc = HttpUtil.getDocument("http://tt.shouji.com.cn/androidv3/special_list_xml.jsp?id=-9998");
-                Elements elements = doc.select("item");
-                int count = elements.size() > 8 ? 8 : elements.size();
-                for (int i = 0; i < count; i++) {
-                    recommendAppList.add(new ItemWrapper(AppInfo.create(elements.get(i))));
-                }
-                post(() -> adapter.updateGroup(3, recommendAppList));
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        });
-    }
-
-
 
     class ItemWrapper {
 
@@ -267,7 +200,10 @@ public class SoftFragment extends BaseFragment
         private static final int TYPE_CHILD_UPDATE = 31;
         private static final int TYPE_CHILD_COLLECTION = 32;
         private static final int TYPE_CHILD_RECOMMEND = 33;
-        private static final int TYPE_CHILD_ARTICLE = 34;
+        private static final int TYPE_CHILD_ARTICLE0 = 340;
+        private static final int TYPE_CHILD_ARTICLE1 = 341;
+        private static final int TYPE_CHILD_ARTICLE2 = 342;
+        private static final int TYPE_CHILD_ARTICLE3 = 343;
 
         Adapter(Context context, List<List<ItemWrapper>> groups) {
             super(context, groups);
@@ -299,8 +235,18 @@ public class SoftFragment extends BaseFragment
                 return TYPE_CHILD_COLLECTION;
             } else if (groupPosition == 3) {
                 return TYPE_CHILD_RECOMMEND;
-            } else if (groupPosition >= 4 && groupPosition <= 7) {
-                return TYPE_CHILD_ARTICLE;
+            }
+//            else if (groupPosition >= 4 && groupPosition <= 7) {
+//                return TYPE_CHILD_ARTICLE0;
+//            }
+            else if (groupPosition == 4) {
+                return TYPE_CHILD_ARTICLE0;
+            } else if (groupPosition == 5) {
+                return TYPE_CHILD_ARTICLE1;
+            } else if (groupPosition == 6) {
+                return TYPE_CHILD_ARTICLE2;
+            } else if (groupPosition == 7) {
+                return TYPE_CHILD_ARTICLE3;
             }
             return super.getChildItemViewType(groupPosition, childPosition);
         }
@@ -316,12 +262,7 @@ public class SoftFragment extends BaseFragment
 
         @Override
         public int getChildLayoutId(int viewType) {
-            if (viewType == TYPE_CHILD_COLLECTION) {
-                return R.layout.item_app_collection;
-            } else if (viewType == TYPE_CHILD_ARTICLE) {
-                return R.layout.layout_recycler_view;
-            }
-            return R.layout.item_app_grid;
+            return R.layout.layout_recycler_view;
         }
 
         @Override
@@ -352,43 +293,24 @@ public class SoftFragment extends BaseFragment
 
         @Override
         public void onBindChildViewHolder(GroupViewHolder holder, ItemWrapper item, int groupPosition, int childPosition) {
+            Object object = holder.itemView.getTag();
+            if (object instanceof EasyRecyclerView) {
+                ((EasyRecyclerView) object).notifyDataSetChanged();
+                return;
+            }
             int viewType = getChildItemViewType(groupPosition, childPosition);
-            if (viewType == TYPE_CHILD_UPDATE || viewType == TYPE_CHILD_RECOMMEND) {
-                final AppInfo appInfo = item.getAppInfo();
-                if (appInfo == null) {
-                    return;
-                }
-//                if (holder.get(R.id.item_icon) == null) {
-//                    return;
-//                }
-                Log.d(TAG, "holder.get(R.id.item_icon)=" + holder.get(R.id.item_icon));
-                Log.d(TAG, "groupPosition=" + groupPosition + " childPosition=" + childPosition + " viewType=" + viewType);
-                holder.setText(R.id.item_title, appInfo.getAppTitle());
-                holder.setText(R.id.item_info, appInfo.getAppSize());
-                Glide.with(context).load(appInfo.getAppIcon()).into((ImageView) holder.get(R.id.item_icon));
+            if (viewType == TYPE_CHILD_UPDATE) {
+                getAppInfo(holder.itemView, "http://tt.shouji.com.cn/androidv3/soft_index_xml.jsp?sort=time&versioncode=198");
+            } else if (viewType == TYPE_CHILD_RECOMMEND) {
+                getAppInfo(holder.itemView, "http://tt.shouji.com.cn/androidv3/special_list_xml.jsp?id=-9998");
             } else if (viewType == TYPE_CHILD_COLLECTION) {
-                long time1 = System.currentTimeMillis();
-                final CollectionInfo appItem = item.getCollectionItem();
-                if (appItem == null) {
-                    return;
-                }
-                holder.setText(R.id.item_title, appItem.getTitle());
-                holder.setText(R.id.tv_view_count, appItem.getViewCount() + "");
-                holder.setText(R.id.tv_favorite_count, appItem.getFavCount() + "");
-                holder.setText(R.id.tv_support_count, appItem.getSupportCount() + "");
-                for (int i = 0; i < RES_ICONS.length; i++) {
-                    int res = RES_ICONS[i];
-                    if (i == 0) {
-                        Glide.with(context)
-                                .load(appItem.getIcons().get(0))
-                                .apply(RequestOptions.bitmapTransform(new BlurTransformation(context, 7, 10)))
-                                .into((ImageView) holder.get(R.id.img_bg));
-                    }
-                    Glide.with(context).load(appItem.getIcons().get(i)).into((ImageView) holder.get(res));
-                }
-                Log.d("onBindChildViewHolder", "deltaTime=" + (System.currentTimeMillis() - time1));
-            } else if (viewType == TYPE_CHILD_ARTICLE) {
-                getTutorial(holder, String.format(Locale.CHINA, "https://soft.shouji.com.cn/newslist/list_%d_1.html", groupPosition - 3));
+                getCollection(holder.itemView);
+            } else if (viewType == TYPE_CHILD_ARTICLE0
+                    || viewType == TYPE_CHILD_ARTICLE1
+                    || viewType == TYPE_CHILD_ARTICLE2
+                    || viewType == TYPE_CHILD_ARTICLE3) {
+                Log.d(TAG, "groupPosition=" + groupPosition + " view=" + holder.itemView);
+                getTutorial(holder.itemView, String.format(Locale.CHINA, "https://soft.shouji.com.cn/newslist/list_%d_1.html", groupPosition - 3));
             }
         }
 
@@ -397,75 +319,116 @@ public class SoftFragment extends BaseFragment
 
         }
 
-        @Override
-        public void onAttachedToRecyclerView(@NonNull RecyclerView recyclerView) {
-            super.onAttachedToRecyclerView(recyclerView);
-            RecyclerView.LayoutManager manager = recyclerView.getLayoutManager();
-            if (manager instanceof GridLayoutManager) {
-                final GridLayoutManager gridManager = ((GridLayoutManager) manager);
-                gridManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
-                    @Override
-                    public int getSpanSize(int position) {
-                        if (isGroupChild(2, position)) {
-                            return 2;
+        private void getAppInfo(View itemView, final String url) {
+            RecyclerView view = itemView.findViewById(R.id.recycler_view);
+            EasyRecyclerView<AppInfo> recyclerView = new EasyRecyclerView<>(view);
+            itemView.setTag(recyclerView);
+            List<AppInfo> list = new ArrayList<>();
+            recyclerView.setData(list)
+                    .setItemRes(R.layout.item_app_grid)
+                    .setLayoutManager(new GridLayoutManager(context, 4))
+                    .onBindViewHolder((holder1, list1, position, payloads) -> {
+                        AppInfo info = list1.get(position);
+                        holder1.getTextView(R.id.item_title).setText(info.getAppTitle());
+                        holder1.getTextView(R.id.item_info).setText(info.getAppSize());
+                        Glide.with(context).load(info.getAppIcon()).into(holder1.getImageView(R.id.item_icon));
+                    })
+                    .onItemClick((holder13, view1, data) -> _mActivity.start(AppDetailFragment.newInstance(data)))
+                    .build();
+            ExecutorHelper.submit(() -> {
+                try {
+                    Document doc = HttpUtil.getDocument(url);
+                    Elements elements = doc.select("item");
+                    for (Element element : elements) {
+                        AppInfo info = AppInfo.parse(element);
+                        if (info == null) {
+                            continue;
                         }
-                        for (int i = 4; i < 8; i++) {
-                            if (isGroupChild(i, position)) {
-                                return gridManager.getSpanCount();
-                            }
+                        list.add(info);
+                        if (list.size() == 8) {
+                            break;
                         }
-                        return isChild(position) ? 1 : gridManager.getSpanCount();
                     }
-                });
-            }
+                    post(recyclerView::notifyDataSetChanged);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            });
         }
 
-        private void getTutorial(final GroupViewHolder holder, final String url) {
-            RecyclerView view = holder.get(R.id.recycler_view);
-            if (view == null) {
-                return;
-            }
-            Object object = view.getTag();
-            if (object instanceof EasyRecyclerView) {
-                ((EasyRecyclerView) object).notifyDataSetChanged();
-            } else {
-                final EasyRecyclerView<ArticleInfo> recyclerView = new EasyRecyclerView<>(view);
-                view.setTag(recyclerView);
-                final List<ArticleInfo> articleInfoList = new ArrayList<>();
-                recyclerView.setData(articleInfoList)
-                        .setItemRes(R.layout.item_tutorial)
-                        .setLayoutManager(new GridLayoutManager(context, 2, LinearLayoutManager.HORIZONTAL, false))
-                        .onBindViewHolder((holder1, list, position, payloads) -> {
-                            ArticleInfo info = list.get(position);
-                            Log.d("onBindViewHolder", "position=" + position + " ArticleInfo=" + info);
-                            Glide.with(context).load(info.getImage()).into(holder1.getImageView(R.id.iv_image));
-                            holder1.getTextView(R.id.tv_title).setText(info.getTitle());
-                        })
-                        .onItemClick(new IEasy.OnItemClickListener<ArticleInfo>() {
-                            @Override
-                            public void onClick(EasyViewHolder holder, View view, ArticleInfo data, float x, float y) {
-//                                _mActivity.start(WebFragment.newInstance("https://soft.shouji.com.cn" + data.getUrl()));
-                                _mActivity.start(ArticleDetailFragment.newInstance("https://soft.shouji.com.cn" + data.getUrl()));
+        private void getCollection(final View itemView) {
+            RecyclerView view = itemView.findViewById(R.id.recycler_view);
+            EasyRecyclerView<CollectionInfo> recyclerView = new EasyRecyclerView<>(view);
+            itemView.setTag(recyclerView);
+            List<CollectionInfo> list = new ArrayList<>();
+            recyclerView.setData(list)
+                    .setItemRes(R.layout.item_app_collection)
+                    .setLayoutManager(new GridLayoutManager(context, 2, LinearLayoutManager.HORIZONTAL, false))
+                    .onBindViewHolder((holder1, list1, position, payloads) -> {
+                        CollectionInfo info = list1.get(position);
+                        holder1.getTextView(R.id.item_title).setText(info.getTitle());
+                        holder1.setText(R.id.tv_view_count, info.getViewCount() + "");
+                        holder1.setText(R.id.tv_favorite_count, info.getFavCount() + "");
+                        holder1.setText(R.id.tv_support_count, info.getSupportCount() + "");
+                        for (int i = 0; i < RES_ICONS.length; i++) {
+                            int res = RES_ICONS[i];
+                            if (i == 0) {
+                                Glide.with(context)
+                                        .load(info.getIcons().get(0))
+                                        .apply(RequestOptions.bitmapTransform(new BlurTransformation(context, 7, 10)))
+                                        .into(holder1.getImageView(R.id.img_bg));
                             }
-                        })
-                        .build();
-                ExecutorHelper.submit(() -> {
-                    try {
-                        Document doc = HttpUtil.getDocument(url);
-                        Elements elements = doc.selectFirst("ul.news_list").select("li");
-                        articleInfoList.clear();
-                        for (Element element : elements) {
-                            articleInfoList.add(ArticleInfo.from(element));
+                            Glide.with(context).load(info.getIcons().get(i)).into(holder1.getImageView(res));
                         }
-                        post(() -> {
-                            Log.d("getTutorial", "articleInfoList.size=" + articleInfoList.size() + "  recyclerView=" + recyclerView);
-                            recyclerView.notifyDataSetChanged();
-                        });
-                    } catch (Exception e) {
-                        e.printStackTrace();
+                    })
+                    .onItemClick((holder14, view12, data) -> _mActivity.start(CollectionDetailFragment.newInstance(data)))
+                    .build();
+            ExecutorHelper.submit(() -> {
+                try {
+                    Document doc = HttpUtil.getDocument("http://tt.shouji.com.cn/androidv3/yyj_tj_xml.jsp");
+                    Elements elements = doc.select("item");
+                    for (Element element : elements) {
+                        list.add(CollectionInfo.create(element));
                     }
-                });
-            }
+                    post(recyclerView::notifyDataSetChanged);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            });
+        }
+
+        private void getTutorial(final View itemView, final String url) {
+            RecyclerView view = itemView.findViewById(R.id.recycler_view);
+            final EasyRecyclerView<ArticleInfo> recyclerView = new EasyRecyclerView<>(view);
+            itemView.setTag(recyclerView);
+            final List<ArticleInfo> articleInfoList = new ArrayList<>();
+            recyclerView.setData(articleInfoList)
+                    .setItemRes(R.layout.item_tutorial)
+                    .setLayoutManager(new GridLayoutManager(context, 2, LinearLayoutManager.HORIZONTAL, false))
+                    .onBindViewHolder((holder1, list, position, payloads) -> {
+                        ArticleInfo info = list.get(position);
+//                        Log.d("onBindViewHolder", "position=" + position + " ArticleInfo=" + info);
+                        Glide.with(context).load(info.getImage()).into(holder1.getImageView(R.id.iv_image));
+                        holder1.getTextView(R.id.tv_title).setText(info.getTitle());
+                    })
+                    .onItemClick((holder12, view1, data) -> _mActivity.start(ArticleDetailFragment.newInstance("https://soft.shouji.com.cn" + data.getUrl())))
+                    .build();
+            ExecutorHelper.submit(() -> {
+                try {
+                    Document doc = HttpUtil.getDocument(url);
+                    Elements elements = doc.selectFirst("ul.news_list").select("li");
+                    articleInfoList.clear();
+                    for (Element element : elements) {
+                        articleInfoList.add(ArticleInfo.from(element));
+                    }
+                    post(() -> {
+                        Log.d(TAG, "url=" + url + "  view=" + view);
+                        recyclerView.notifyDataSetChanged();
+                    });
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            });
         }
 
     }

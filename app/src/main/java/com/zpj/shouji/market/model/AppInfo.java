@@ -19,7 +19,10 @@ public class AppInfo implements Parcelable {
     private String appInfo;
     private String appComment;
 
-    public static AppInfo create(Element item) {
+    public static AppInfo parse(Element item) {
+        if (!"app".equals(item.selectFirst("viewtype").text()) && !"image".equals(item.selectFirst("viewtype").text())) {
+            return null;
+        }
         AppInfo appInfo = new AppInfo();
         appInfo.setAppIcon(item.select("icon").text());
         appInfo.setAppTitle(item.select("title").text());

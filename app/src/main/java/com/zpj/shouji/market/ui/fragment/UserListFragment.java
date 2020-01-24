@@ -31,7 +31,7 @@ public class UserListFragment extends NextUrlFragment<UserInfo>
     }
 
     @Override
-    public void onClick(EasyViewHolder holder, View view, UserInfo data, float x, float y) {
+    public void onClick(EasyViewHolder holder, View view, UserInfo data) {
         _mActivity.start(ProfileFragment.newInstance(data.getId(), true));
     }
 

@@ -66,6 +66,10 @@ public final class EasyViewHolder extends RecyclerView.ViewHolder {
         return itemView.findViewById(id);
     }
 
+    public void setText(@IdRes int id, CharSequence text) {
+        getTextView(id).setText(text);
+    }
+
     public ImageView getImageView(@IdRes int id) {
         return itemView.findViewById(id);
     }

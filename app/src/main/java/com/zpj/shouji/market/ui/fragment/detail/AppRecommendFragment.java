@@ -122,7 +122,7 @@ public class AppRecommendFragment extends BaseFragment implements GroupRecyclerV
                         }
                         post(() -> adapter.updateGroup(0, appCollectionList));
                     } else {
-                        recommendAppList.add(new ItemWrapper(AppInfo.create(element)));
+                        recommendAppList.add(new ItemWrapper(AppInfo.parse(element)));
                     }
                 }
                 post(() -> adapter.updateGroup(1, recommendAppList));

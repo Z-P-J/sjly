@@ -16,11 +16,11 @@ public interface IEasy {
     }
 
     interface OnItemClickListener<T> {
-        void onClick(EasyViewHolder holder, View view, T data, float x, float y);
+        void onClick(EasyViewHolder holder, View view, T data);
     }
 
     interface OnItemLongClickListener<T> {
-        boolean onLongClick(EasyViewHolder holder, View view, T data, float x, float y);
+        boolean onLongClick(EasyViewHolder holder, View view, T data);
     }
 
 

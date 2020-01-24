@@ -66,12 +66,12 @@ public class BottomListPopupMenu extends BottomPopupView
                 .setLayoutManager(new LinearLayoutManager(getContext()))
                 .onBindViewHolder(this)
                 .setHeaderView(headerRes, onBindHeaderListener)
-                .onItemClick((holder, view1, data, x, y) -> {
+                .onItemClick((holder, view1, data) -> {
                     if (onItemClickListener != null) {
                         onItemClickListener.onClick(BottomListPopupMenu.this, view1, data);
                     }
                 })
-                .onItemLongClick((holder, view12, data, x, y) -> {
+                .onItemLongClick((holder, view12, data) -> {
                     if (onItemLongClickListener != null) {
                         return onItemLongClickListener.onLongClick(BottomListPopupMenu.this, view12, data);
                     }

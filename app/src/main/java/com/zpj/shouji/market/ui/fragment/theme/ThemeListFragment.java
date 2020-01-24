@@ -123,13 +123,13 @@ public class ThemeListFragment extends NextUrlFragment<DiscoverInfo>
     }
 
     @Override
-    public void onClick(EasyViewHolder holder, View view, DiscoverInfo data, float x, float y) {
+    public void onClick(EasyViewHolder holder, View view, DiscoverInfo data) {
         AToast.normal("TODO click");
         _mActivity.start(ThemeDetailFragment.newInstance(data));
     }
 
     @Override
-    public boolean onLongClick(EasyViewHolder holder, View view, DiscoverInfo data, float x, float y) {
+    public boolean onLongClick(EasyViewHolder holder, View view, DiscoverInfo data) {
         DiscoverBinder.showMenu(context, data);;
         return true;
     }
