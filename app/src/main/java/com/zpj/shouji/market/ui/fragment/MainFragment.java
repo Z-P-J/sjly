@@ -9,7 +9,6 @@ import android.support.v4.view.ViewPager;
 import android.view.MenuItem;
 import android.view.View;
 
-import com.gyf.immersionbar.ImmersionBar;
 import com.ittianyu.bottomnavigationviewex.BottomNavigationViewEx;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.ui.adapter.FragmentsPagerAdapter;

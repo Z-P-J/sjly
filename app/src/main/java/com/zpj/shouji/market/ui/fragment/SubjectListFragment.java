@@ -5,13 +5,13 @@ import android.os.Bundle;
 import com.zpj.http.parser.html.nodes.Element;
 import com.zpj.recyclerview.EasyViewHolder;
 import com.zpj.shouji.market.R;
-import com.zpj.shouji.market.model.SubjectItem;
+import com.zpj.shouji.market.model.SubjectInfo;
 import com.zpj.shouji.market.ui.fragment.base.NextUrlFragment;
 import com.zpj.shouji.market.ui.fragment.search.SearchResultFragment;
 
 import java.util.List;
 
-public class SubjectListFragment extends NextUrlFragment<SubjectItem>
+public class SubjectListFragment extends NextUrlFragment<SubjectInfo>
         implements SearchResultFragment.KeywordObserver {
 
     public static SubjectListFragment newInstance(String defaultUrl) {
@@ -28,8 +28,8 @@ public class SubjectListFragment extends NextUrlFragment<SubjectItem>
     }
 
     @Override
-    public void onBindViewHolder(EasyViewHolder holder, List<SubjectItem> list, int position, List<Object> payloads) {
-        final SubjectItem appItem = list.get(position);
+    public void onBindViewHolder(EasyViewHolder holder, List<SubjectInfo> list, int position, List<Object> payloads) {
+        final SubjectInfo appItem = list.get(position);
 //        holder.getTextView(R.id.tv_title).setText(appItem.getAppTitle());
 //        holder.getTextView(R.id.tv_info).setText(appItem.getAppSize() + " | " + appItem.getAppInfo());
 //        holder.getTextView(R.id.tv_desc).setText(appItem.getAppComment());
@@ -44,8 +44,8 @@ public class SubjectListFragment extends NextUrlFragment<SubjectItem>
     }
 
     @Override
-    public SubjectItem createData(Element element) {
-        return SubjectItem.create(element);
+    public SubjectInfo createData(Element element) {
+        return SubjectInfo.create(element);
     }
 
 }

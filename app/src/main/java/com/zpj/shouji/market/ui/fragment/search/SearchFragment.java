@@ -9,7 +9,6 @@ import android.text.TextWatcher;
 import android.view.View;
 
 import com.felix.atoast.library.AToast;
-import com.gyf.immersionbar.ImmersionBar;
 import com.kongzue.stacklabelview.interfaces.OnLabelClickListener;
 import com.wuhenzhizao.titlebar.widget.CommonTitleBar;
 import com.zpj.shouji.market.R;

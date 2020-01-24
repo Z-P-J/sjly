@@ -22,8 +22,8 @@ import com.zpj.http.parser.html.nodes.Document;
 import com.zpj.http.parser.html.nodes.Element;
 import com.zpj.http.parser.html.select.Elements;
 import com.zpj.shouji.market.R;
+import com.zpj.shouji.market.model.AppInfo;
 import com.zpj.shouji.market.model.CollectionInfo;
-import com.zpj.shouji.market.model.AppItem;
 import com.zpj.shouji.market.glide.blur.BlurTransformation;
 import com.zpj.shouji.market.ui.fragment.base.BaseFragment;
 import com.zpj.shouji.market.ui.fragment.collection.CollectionDetailFragment;
@@ -89,8 +89,8 @@ public class AppRecommendFragment extends BaseFragment implements GroupRecyclerV
 
     @Override
     public void onItemClick(GroupRecyclerViewAdapter<ItemWrapper> adapter, GroupViewHolder holder, ItemWrapper data, int groupPosition, int childPosition) {
-        if (data.getAppItem() != null) {
-            AppDetailFragment fragment = AppDetailFragment.newInstance(data.getAppItem());
+        if (data.getAppInfo() != null) {
+            AppDetailFragment fragment = AppDetailFragment.newInstance(data.getAppInfo());
             _mActivity.start(fragment);
         } else if (data.getCollectionItem() != null) {
             AToast.normal("TODO Collection");
@@ -122,7 +122,7 @@ public class AppRecommendFragment extends BaseFragment implements GroupRecyclerV
                         }
                         post(() -> adapter.updateGroup(0, appCollectionList));
                     } else {
-                        recommendAppList.add(new ItemWrapper(AppItem.create(element)));
+                        recommendAppList.add(new ItemWrapper(AppInfo.create(element)));
                     }
                 }
                 post(() -> adapter.updateGroup(1, recommendAppList));
@@ -134,7 +134,7 @@ public class AppRecommendFragment extends BaseFragment implements GroupRecyclerV
 
     public class ItemWrapper {
 
-        private AppItem appItem;
+        private AppInfo appInfo;
         private CollectionInfo collectionItem;
         private String title;
 
@@ -146,8 +146,8 @@ public class AppRecommendFragment extends BaseFragment implements GroupRecyclerV
             this.collectionItem = collectionItem;
         }
 
-        ItemWrapper(AppItem appItem) {
-            this.appItem = appItem;
+        ItemWrapper(AppInfo appInfo) {
+            this.appInfo = appInfo;
         }
 
         ItemWrapper(String title) {
@@ -158,8 +158,8 @@ public class AppRecommendFragment extends BaseFragment implements GroupRecyclerV
             return collectionItem;
         }
 
-        public AppItem getAppItem() {
-            return appItem;
+        public AppInfo getAppInfo() {
+            return appInfo;
         }
 
         public String getTitle() {
@@ -226,13 +226,13 @@ public class AppRecommendFragment extends BaseFragment implements GroupRecyclerV
         public void onBindChildViewHolder(GroupViewHolder holder, ItemWrapper item, int groupPosition, int childPosition) {
             int viewType = getChildItemViewType(groupPosition, childPosition);
             if (viewType == TYPE_CHILD_RECOMMEND) {
-                final AppItem appItem = item.getAppItem();
-                if (appItem == null) {
+                final AppInfo appInfo = item.getAppInfo();
+                if (appInfo == null) {
                     return;
                 }
-                holder.setText(R.id.item_title, appItem.getAppTitle());
-                holder.setText(R.id.item_info, appItem.getAppSize());
-                Glide.with(context).load(appItem.getAppIcon()).into((ImageView) holder.get(R.id.item_icon));
+                holder.setText(R.id.item_title, appInfo.getAppTitle());
+                holder.setText(R.id.item_info, appInfo.getAppSize());
+                Glide.with(context).load(appInfo.getAppIcon()).into((ImageView) holder.get(R.id.item_icon));
             } else if (viewType == TYPE_CHILD_COLLECTION) {
                 long time1 = System.currentTimeMillis();
                 final CollectionInfo appItem = item.getCollectionItem();

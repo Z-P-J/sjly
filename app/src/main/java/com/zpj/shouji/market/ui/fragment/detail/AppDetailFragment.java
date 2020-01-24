@@ -11,11 +11,10 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-import com.gyf.immersionbar.ImmersionBar;
 import com.zpj.http.parser.html.nodes.Document;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.model.AppDetailInfo;
-import com.zpj.shouji.market.model.AppItem;
+import com.zpj.shouji.market.model.AppInfo;
 import com.zpj.shouji.market.model.AppUpdateInfo;
 import com.zpj.shouji.market.model.CollectionAppInfo;
 import com.zpj.shouji.market.model.InstalledAppInfo;
@@ -60,7 +59,7 @@ public class AppDetailFragment extends BaseFragment {
     private TextView shortInfo;
     private TextView shortIntroduce;
 
-    private static AppDetailFragment newInstance(String type, String id) {
+    public static AppDetailFragment newInstance(String type, String id) {
         Bundle args = new Bundle();
         args.putString(KEY_ID, id);
         args.putString(KEY_TYPE, type);
@@ -69,7 +68,7 @@ public class AppDetailFragment extends BaseFragment {
         return fragment;
     }
 
-    public static AppDetailFragment newInstance(AppItem item) {
+    public static AppDetailFragment newInstance(AppInfo item) {
         return newInstance(item.getAppType(), item.getAppId());
     }
 
@@ -133,9 +132,9 @@ public class AppDetailFragment extends BaseFragment {
                 commentFragment = AppCommentFragment.newInstance("http://tt.shouji.com.cn/app/comment_index_xml_v5.jsp?versioncode=198&type=" + type + "&id=" + id);
         }
 
-        AppDiscoverFragment exploreFragment = findChildFragment(AppDiscoverFragment.class);
+        AppThemeFragment exploreFragment = findChildFragment(AppThemeFragment.class);
         if (exploreFragment == null) {
-            exploreFragment = AppDiscoverFragment.newInstance("http://tt.shouji.com.cn/app/faxian.jsp?versioncode=198&apptype=" + type + "&appid=" + id);
+            exploreFragment = AppThemeFragment.newInstance("http://tt.shouji.com.cn/app/faxian.jsp?versioncode=198&apptype=" + type + "&appid=" + id);
         }
 
         AppRecommendFragment recommendFragment = findChildFragment(AppRecommendFragment.class);

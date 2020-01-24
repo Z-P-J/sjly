@@ -643,7 +643,7 @@ public class Elements extends ArrayList<Element> {
 
     @Override
     public Element get(int index) {
-        if (index >= size()) {
+        if (index >= size() || index < 0) {
             return new NullElement();
         }
         return super.get(index);

@@ -26,8 +26,8 @@
             />
 
         <View
-            android:layout_width="16dp"
-            android:layout_height="14dp"
+            android:layout_width="14dp"
+            android:layout_height="10dp"
             android:background="#8009bd14"
             android:layout_alignParentBottom="true"
             />

@@ -15,13 +15,13 @@ import com.zpj.downloader.config.MissionConfig;
 import com.zpj.downloader.constant.Error;
 import com.zpj.downloader.constant.ErrorCode;
 import com.zpj.downloader.constant.ResponseCode;
-import com.zpj.downloader.jsoup.Jsoup;
-import com.zpj.downloader.jsoup.connection.Connection;
 import com.zpj.downloader.util.FileUtil;
 import com.zpj.downloader.util.ThreadPoolFactory;
 import com.zpj.downloader.util.Utility;
 import com.zpj.downloader.util.io.BufferedRandomAccessFile;
 import com.zpj.downloader.util.notification.NotifyUtil;
+import com.zpj.http.ZHttp;
+import com.zpj.http.core.Connection;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -137,9 +137,7 @@ public class DownloadMission {
         public void run() {
             try {
                 Log.d("Initializer", "run");
-                Connection.Response response = Jsoup.connect(url)
-                        .method(Connection.Method.HEAD)
-                        .followRedirects(false)
+                Connection.Response response = ZHttp.head(url)
                         .proxy(Proxy.NO_PROXY)
                         .userAgent(getUserAgent())
                         .header("Cookie", getCookie())
@@ -160,8 +158,7 @@ public class DownloadMission {
                 }
 
 
-                response = Jsoup.connect(url)
-                        .method(Connection.Method.HEAD)
+                response = ZHttp.head(url)
                         .proxy(Proxy.NO_PROXY)
                         .userAgent(getUserAgent())
                         .header("Cookie", getCookie())

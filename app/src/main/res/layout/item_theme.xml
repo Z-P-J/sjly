@@ -160,7 +160,7 @@
                 android:layout_marginTop="5dp"
                 android:layout_marginBottom="5dp"
                 android:textColor="@color/colorBlack333"
-                android:lineSpacingExtra="2dp"
+                android:lineSpacingExtra="4dp"
                 android:text="eshtrueridhkg\nethjrdgiuf\nshrturehtgftkujghrdktghftgk,jftkjh"
                 />
 

@@ -2,7 +2,7 @@ package com.zpj.shouji.market.model;
 
 import com.zpj.http.parser.html.nodes.Element;
 
-public class SubjectItem {
+public class SubjectInfo {
 
     private String id;
     private String icon;
@@ -12,8 +12,8 @@ public class SubjectItem {
     private String appType;
     private String comment;
 
-    public static SubjectItem create(Element element) {
-        SubjectItem item = new SubjectItem();
+    public static SubjectInfo create(Element element) {
+        SubjectInfo item = new SubjectInfo();
         item.setId(element.selectFirst("id").text());
         item.setIcon(element.selectFirst("icon").text());
         item.setTitle(element.selectFirst("title").text());

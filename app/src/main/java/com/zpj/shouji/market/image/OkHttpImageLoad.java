@@ -156,7 +156,7 @@
 //                    .header("User-Agent", "okhttp/3.0.1")
 ////                    .header("Cookie", UserManager.getInstance().getBduss())
 //                    .header("Referer", url)
-//                    .get().build();
+//                    .get().parse();
 //            call = mInstance.mOkHttpClient.newCall(request);
 //        }
 //
@@ -168,7 +168,7 @@
 //
 //        public void cancel() {
 //            if (null == call) {
-//                throw new NullPointerException(" cancel() must be called before calling build() ");
+//                throw new NullPointerException(" cancel() must be called before calling parse() ");
 //            }
 //            if (!isSuccess) {
 //                //切换到非UI线程，进行网络的取消工作

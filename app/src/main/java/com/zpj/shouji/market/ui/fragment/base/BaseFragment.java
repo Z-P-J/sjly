@@ -11,8 +11,9 @@ import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
+import android.widget.TextView;
 
-import com.gyf.immersionbar.ImmersionBar;
 import com.wuhenzhizao.titlebar.statusbar.StatusBarUtils;
 import com.wuhenzhizao.titlebar.widget.CommonTitleBar;
 import com.zpj.shouji.market.R;
@@ -24,6 +25,7 @@ import me.yokeyword.fragmentation_swipeback.SwipeBackFragment;
 public abstract class BaseFragment extends SwipeBackFragment {
 
     protected Context context;
+    protected CommonTitleBar titleBar;
 
     @SuppressLint("ResourceType")
     @Nullable
@@ -33,14 +35,22 @@ public abstract class BaseFragment extends SwipeBackFragment {
         View view;
         if (getLayoutId() > 0) {
             view = inflater.inflate(getLayoutId(), container, false);
-            CommonTitleBar titleBar = view.findViewById(R.id.title_bar);
+            titleBar = view.findViewById(R.id.title_bar);
             if (titleBar != null && titleBar.getLeftImageButton() != null) {
-                titleBar.getLeftImageButton().setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        pop();
-                    }
-                });
+                if (titleBar.getLeftImageButton() != null) {
+                    toolbarLeftImageButton(titleBar.getLeftImageButton());
+                } else if (titleBar.getLeftCustomView() != null) {
+                    toolbarLeftCustomView(titleBar.getLeftCustomView());
+                } else if (titleBar.getLeftTextView() != null) {
+                    toolbarLeftTextView(titleBar.getLeftTextView());
+                }
+                if (titleBar.getRightImageButton() != null) {
+                    toolbarRightImageButton(titleBar.getRightImageButton());
+                } else if (titleBar.getRightCustomView() != null) {
+                    toolbarRightCustomView(titleBar.getRightCustomView());
+                } else if (titleBar.getRightTextView() != null) {
+                    toolbarRightTextView(titleBar.getRightTextView());
+                }
                 if (titleBar.getCenterTextView() != null) {
                     titleBar.getCenterTextView().setText(getToolbarTitle());
                 }
@@ -68,6 +78,47 @@ public abstract class BaseFragment extends SwipeBackFragment {
 
     protected String getToolbarTitle() {
         return "标题";
+    }
+
+    public void toolbarLeftImageButton(@NonNull ImageButton imageButton) {
+        imageButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                pop();
+            }
+        });
+    }
+
+    public void toolbarLeftCustomView(@NonNull View view) {
+
+    }
+
+    public void toolbarLeftTextView(@NonNull TextView view) {
+
+    }
+
+    public void toolbarRightImageButton(@NonNull ImageButton imageButton) {
+
+    }
+
+    public void toolbarRightCustomView(@NonNull View view) {
+
+    }
+
+    public void toolbarRightTextView(@NonNull TextView view) {
+
+    }
+
+    public void setToolbarTitle(String title) {
+        if (titleBar != null && titleBar.getCenterTextView() != null) {
+            titleBar.getCenterTextView().setText(title);
+        }
+    }
+
+    public void setToolbarSubTitle(String title) {
+        if (titleBar != null && titleBar.getCenterSubTextView() != null) {
+            titleBar.getCenterSubTextView().setText(title);
+        }
     }
 
     @Override

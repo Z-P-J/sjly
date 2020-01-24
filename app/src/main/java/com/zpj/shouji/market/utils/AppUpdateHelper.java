@@ -167,7 +167,7 @@ public final class AppUpdateHelper {
                             .append("=").append(packageInfo.applicationInfo.loadLabel(manager).toString())
                             .append("=").append(md5).append("=Yes")//.append(packageInfo.firstInstallTime)
                             .append(",");
-                    if (count % 100 == 0 || count == total) {
+                    if (count % 50 == 0 || count == total) {
                         if (total != count && total - count < 25) {
                             continue;
                         }

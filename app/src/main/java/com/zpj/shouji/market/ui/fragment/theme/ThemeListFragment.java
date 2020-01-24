@@ -1,4 +1,4 @@
-package com.zpj.shouji.market.ui.fragment.discover;
+package com.zpj.shouji.market.ui.fragment.theme;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -26,7 +26,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class DiscoverListFragment extends NextUrlFragment<DiscoverInfo>
+public class ThemeListFragment extends NextUrlFragment<DiscoverInfo>
         implements Runnable,
         IEasy.OnLoadMoreListener,
         SwipeRefreshLayout.OnRefreshListener,
@@ -43,12 +43,12 @@ public class DiscoverListFragment extends NextUrlFragment<DiscoverInfo>
 
     private Callback callback;
 
-    public static DiscoverListFragment newInstance(String url) {
+    public static ThemeListFragment newInstance(String url) {
         return newInstance(url, true);
     }
 
-    public static DiscoverListFragment newInstance(String url, boolean shouldLazyLoad) {
-        DiscoverListFragment fragment = new DiscoverListFragment();
+    public static ThemeListFragment newInstance(String url, boolean shouldLazyLoad) {
+        ThemeListFragment fragment = new ThemeListFragment();
         Bundle bundle = new Bundle();
         bundle.putString(KEY_DEFAULT_URL, url);
         fragment.setArguments(bundle);
@@ -63,7 +63,7 @@ public class DiscoverListFragment extends NextUrlFragment<DiscoverInfo>
 
     @Override
     protected int getItemLayoutId() {
-        return R.layout.item_discover;
+        return R.layout.item_theme;
     }
 
     @Override
@@ -125,7 +125,7 @@ public class DiscoverListFragment extends NextUrlFragment<DiscoverInfo>
     @Override
     public void onClick(EasyViewHolder holder, View view, DiscoverInfo data, float x, float y) {
         AToast.normal("TODO click");
-        _mActivity.start(DiscoverDetailFragment.newInstance(data));
+        _mActivity.start(ThemeDetailFragment.newInstance(data));
     }
 
     @Override

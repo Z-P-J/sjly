@@ -15,7 +15,7 @@ import java.util.Locale;
 public final class CharacterReader {
     static final char EOF = (char) -1;
     private static final int maxStringCacheLen = 12;
-    static final int maxBufferLen = 1024 * 32; // visible for testing
+    private static final int maxBufferLen = 1024 * 32; // visible for testing
     private static final int readAheadLimit = (int) (maxBufferLen * 0.75);
 
     private final char[] charBuf;
@@ -34,9 +34,10 @@ public final class CharacterReader {
         charBuf = new char[sz > maxBufferLen ? maxBufferLen : sz];
         bufferUp();
 
-        if (isBinary()) {
-            throw new UncheckedIOException("Input is binary and unsupported");
-        }
+        // TODO
+//        if (isBinary()) {
+//            throw new UncheckedIOException("Input is binary and unsupported");
+//        }
     }
 
     public CharacterReader(Reader input) {
@@ -459,7 +460,7 @@ public final class CharacterReader {
      *  Heuristic to determine if the current buffer looks like binary content. Reader will already hopefully be
      *  decoded correctly, so a bunch of NULLs indicates a binary file
      */
-    boolean isBinary() {
+    private boolean isBinary() {
         int nullsSeen = 0;
 
         for (int i = bufPos; i < bufLength; i++) {

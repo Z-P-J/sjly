@@ -1,4 +1,4 @@
-package com.zpj.shouji.market.ui.fragment.discover;
+package com.zpj.shouji.market.ui.fragment.theme;
 
 import android.content.Context;
 import android.graphics.Color;
@@ -29,7 +29,7 @@ import net.lucode.hackware.magicindicator.buildins.commonnavigator.titles.ColorT
 import java.util.ArrayList;
 import java.util.List;
 
-public class DiscoverDetailFragment extends BaseFragment {
+public class ThemeDetailFragment extends BaseFragment {
 
     private final String[] TAB_TITLES = {"评论", "赞"};
 
@@ -38,9 +38,9 @@ public class DiscoverDetailFragment extends BaseFragment {
 
     private DiscoverInfo item;
 
-    public static DiscoverDetailFragment newInstance(DiscoverInfo item) {
+    public static ThemeDetailFragment newInstance(DiscoverInfo item) {
         Bundle args = new Bundle();
-        DiscoverDetailFragment fragment = new DiscoverDetailFragment();
+        ThemeDetailFragment fragment = new ThemeDetailFragment();
         fragment.setDiscoverInfo(item);
         fragment.setArguments(args);
         return fragment;
@@ -74,9 +74,9 @@ public class DiscoverDetailFragment extends BaseFragment {
 
         ArrayList<Fragment> list = new ArrayList<>();
 
-        DiscoverCommentListFragment discoverListFragment = findChildFragment(DiscoverCommentListFragment.class);
+        ThemeCommentListFragment discoverListFragment = findChildFragment(ThemeCommentListFragment.class);
         if (discoverListFragment == null) {
-            discoverListFragment = DiscoverCommentListFragment.newInstance(item.getId());
+            discoverListFragment = ThemeCommentListFragment.newInstance(item.getId());
         }
         supportUserListFragment = findChildFragment(SupportUserListFragment.class);
         if (supportUserListFragment == null) {

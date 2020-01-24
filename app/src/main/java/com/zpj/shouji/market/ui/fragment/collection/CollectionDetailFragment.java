@@ -14,12 +14,11 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
-import com.gyf.immersionbar.ImmersionBar;
 import com.zpj.http.parser.html.nodes.Document;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.model.CollectionInfo;
 import com.zpj.shouji.market.ui.adapter.FragmentsPagerAdapter;
-import com.zpj.shouji.market.ui.fragment.discover.DiscoverListFragment;
+import com.zpj.shouji.market.ui.fragment.theme.ThemeListFragment;
 import com.zpj.shouji.market.ui.fragment.base.BaseFragment;
 import com.zpj.shouji.market.utils.ExecutorHelper;
 import com.zpj.shouji.market.utils.HttpUtil;
@@ -114,12 +113,12 @@ public class CollectionDetailFragment extends BaseFragment {
         if (appListFragment == null) {
             appListFragment = CollectionAppListFragment.newInstance(item.getId());
         }
-        DiscoverListFragment discoverListFragment = findChildFragment(DiscoverListFragment.class);
-        if (discoverListFragment == null) {
-            discoverListFragment = DiscoverListFragment.newInstance("http://tt.shouji.com.cn/app/yyj_comment.jsp?versioncode=198&t=discuss&parent=" + item.getId());
+        ThemeListFragment themeListFragment = findChildFragment(ThemeListFragment.class);
+        if (themeListFragment == null) {
+            themeListFragment = ThemeListFragment.newInstance("http://tt.shouji.com.cn/app/yyj_comment.jsp?versioncode=198&t=discuss&parent=" + item.getId());
         }
         list.add(appListFragment);
-        list.add(discoverListFragment);
+        list.add(themeListFragment);
 
         FragmentsPagerAdapter adapter = new FragmentsPagerAdapter(getChildFragmentManager(), list, TAB_TITLES);
         ViewPager viewPager = view.findViewById(R.id.view_pager);

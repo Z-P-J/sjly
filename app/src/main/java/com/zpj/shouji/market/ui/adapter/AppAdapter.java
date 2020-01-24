@@ -16,12 +16,12 @@ import com.bumptech.glide.RequestManager;
 import com.bumptech.glide.request.target.SimpleTarget;
 import com.bumptech.glide.request.transition.Transition;
 import com.zpj.shouji.market.R;
-import com.zpj.shouji.market.model.AppItem;
+import com.zpj.shouji.market.model.AppInfo;
 
 import java.util.List;
 
 public class AppAdapter extends RecyclerView.Adapter<AppAdapter.ViewHolder> {
-    private List<AppItem> appItemList;
+    private List<AppInfo> appInfoList;
     private Context context;
 
     private RequestManager requestManager;
@@ -37,7 +37,7 @@ public class AppAdapter extends RecyclerView.Adapter<AppAdapter.ViewHolder> {
 //        TextView appDesc;
 
         public Bitmap icon;
-        AppItem item;
+        AppInfo item;
 
         public ViewHolder(View view){
             super(view);
@@ -50,8 +50,8 @@ public class AppAdapter extends RecyclerView.Adapter<AppAdapter.ViewHolder> {
         }
     }
 
-    public AppAdapter(List<AppItem> appItemList){
-        this.appItemList = appItemList;
+    public AppAdapter(List<AppInfo> appInfoList){
+        this.appInfoList = appInfoList;
     }
 
     @NonNull
@@ -68,11 +68,11 @@ public class AppAdapter extends RecyclerView.Adapter<AppAdapter.ViewHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull final AppAdapter.ViewHolder holder, final int position) {
-        final AppItem appItem = appItemList.get(position);
-        holder.item = appItem;
-        holder.appTitle.setText(appItem.getAppTitle());
-        holder.appInfo.setText(appItem.getAppSize() + " | " + appItem.getAppInfo());
-//        holder.appDesc.setText(appItem.getAppComment());
+        final AppInfo appInfo = appInfoList.get(position);
+        holder.item = appInfo;
+        holder.appTitle.setText(appInfo.getAppTitle());
+        holder.appInfo.setText(appInfo.getAppSize() + " | " + appInfo.getAppInfo());
+//        holder.appDesc.setText(appInfo.getAppComment());
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -83,7 +83,7 @@ public class AppAdapter extends RecyclerView.Adapter<AppAdapter.ViewHolder> {
             }
         });
 
-        String icon = appItemList.get(position).getAppIcon();
+        String icon = appInfoList.get(position).getAppIcon();
         requestManager.asBitmap().load(icon).into(new SimpleTarget<Bitmap>() {
             @Override
             public void onResourceReady(@NonNull Bitmap resource, @Nullable Transition<? super Bitmap> transition) {
@@ -95,11 +95,11 @@ public class AppAdapter extends RecyclerView.Adapter<AppAdapter.ViewHolder> {
 
     @Override
     public int getItemCount() {
-        return appItemList.size();
+        return appInfoList.size();
     }
 
     public interface OnItemClickListener{
-        void onItemClick(ViewHolder holder, int position, AppItem item);
+        void onItemClick(ViewHolder holder, int position, AppInfo item);
     }
 
     public void setItemClickListener(OnItemClickListener onItemClickListener){

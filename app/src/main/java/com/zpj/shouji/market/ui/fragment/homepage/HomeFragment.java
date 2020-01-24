@@ -9,11 +9,10 @@ import android.support.v4.view.ViewPager;
 import android.view.View;
 import android.widget.ImageView;
 
-import com.gyf.immersionbar.ImmersionBar;
 import com.wuhenzhizao.titlebar.widget.CommonTitleBar;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.ui.adapter.FragmentsPagerAdapter;
-import com.zpj.shouji.market.ui.fragment.discover.DiscoverListFragment;
+import com.zpj.shouji.market.ui.fragment.theme.ThemeListFragment;
 import com.zpj.shouji.market.ui.fragment.base.BaseFragment;
 import com.zpj.shouji.market.ui.fragment.manager.AppManagerFragment;
 import com.zpj.shouji.market.ui.fragment.search.SearchFragment;
@@ -46,9 +45,9 @@ public class HomeFragment extends BaseFragment {
         if (recommendFragment == null) {
             recommendFragment = new RecommendFragment();
         }
-        DiscoverListFragment exploreFragment = findChildFragment(DiscoverListFragment.class);
+        DiscoverFragment exploreFragment = findChildFragment(DiscoverFragment.class);
         if (exploreFragment == null) {
-            exploreFragment = DiscoverListFragment.newInstance("http://tt.shouji.com.cn/app/faxian.jsp?index=faxian&versioncode=198");
+            exploreFragment = DiscoverFragment.newInstance("http://tt.shouji.com.cn/app/faxian.jsp?index=faxian&versioncode=198");
         }
         WallpaperFragment wallpaperFragment = findChildFragment(WallpaperFragment.class);
         if (wallpaperFragment == null) {

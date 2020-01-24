@@ -28,14 +28,6 @@ import javax.net.ssl.SSLSocketFactory;
 
 public abstract class AbstractConnection implements Connection {
 
-    public static final String DEFAULT_UA =
-            "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/53.0.2785.143 Safari/537.36";
-    private static final String USER_AGENT = "User-Agent";
-    private static final String REFERER = "Referer";
-    private static final String COOKIE = "Cookie";
-    public static final String CONTENT_TYPE = "Content-Type";
-    public static final String MULTIPART_FORM_DATA = "multipart/form-data";
-
 //    protected IHttp.OnRedirectListener onRedirectListener;
     protected IHttp.OnSuccessListener onSuccessListener;
     protected IHttp.OnErrorListener onErrorListener;
@@ -203,7 +195,7 @@ public abstract class AbstractConnection implements Connection {
     @Override
     public Connection cookie(String cookie) {
         Validate.notNull(cookie, "Cookie must not be null");
-        req.header(COOKIE, cookie);
+        req.header(HttpHeader.COOKIE, cookie);
         return this;
     }
 
@@ -306,21 +298,21 @@ public abstract class AbstractConnection implements Connection {
     @Override
     public Connection userAgent(String userAgent) {
         Validate.notNull(userAgent, "User-Agent must not be null");
-        req.header(USER_AGENT, userAgent);
+        req.header(HttpHeader.USER_AGENT, userAgent);
         return this;
     }
 
     @Override
     public Connection referrer(String referrer) {
         Validate.notNull(referrer, "Referrer must not be null");
-        req.header(REFERER, referrer);
+        req.header(HttpHeader.REFERER, referrer);
         return this;
     }
 
     @Override
     public Connection contentType(String contentType) {
         Validate.notNull(contentType, "Content-Type must not be null");
-        req.header(CONTENT_TYPE, contentType);
+        req.header(HttpHeader.CONTENT_TYPE, contentType);
         return this;
     }
 

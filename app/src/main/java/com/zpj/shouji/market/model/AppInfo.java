@@ -5,7 +5,7 @@ import android.os.Parcelable;
 
 import com.zpj.http.parser.html.nodes.Element;
 
-public class AppItem implements Parcelable {
+public class AppInfo implements Parcelable {
     private String appIcon;
     private String appTitle;
     private String appId;
@@ -19,28 +19,28 @@ public class AppItem implements Parcelable {
     private String appInfo;
     private String appComment;
 
-    public static AppItem create(Element item) {
-        AppItem appItem = new AppItem();
-        appItem.setAppIcon(item.select("icon").text());
-        appItem.setAppTitle(item.select("title").text());
-        appItem.setAppId(item.select("id").text());
-        appItem.setAppViewType(item.select("viewtype").text());
-        appItem.setAppType(item.select("apptype").text());
-        appItem.setAppPackage(item.select("package").text());
-        appItem.setAppArticleNum(item.select("articleNum").text());
-        appItem.setAppNum(item.select("appNum").text());
-        appItem.setAppMinSdk(item.select("msdk").text());
-        appItem.setAppSize(item.select("m").text());
-        appItem.setAppInfo(item.select("r").text());
-        appItem.setAppComment(item.select("comment").text());
-        return appItem;
+    public static AppInfo create(Element item) {
+        AppInfo appInfo = new AppInfo();
+        appInfo.setAppIcon(item.select("icon").text());
+        appInfo.setAppTitle(item.select("title").text());
+        appInfo.setAppId(item.select("id").text());
+        appInfo.setAppViewType(item.select("viewtype").text());
+        appInfo.setAppType(item.select("apptype").text());
+        appInfo.setAppPackage(item.select("package").text());
+        appInfo.setAppArticleNum(item.select("articleNum").text());
+        appInfo.setAppNum(item.select("appNum").text());
+        appInfo.setAppMinSdk(item.select("msdk").text());
+        appInfo.setAppSize(item.select("m").text());
+        appInfo.setAppInfo(item.select("r").text());
+        appInfo.setAppComment(item.select("comment").text());
+        return appInfo;
     }
 
-    public AppItem () {
+    public AppInfo() {
         super();
     }
 
-    protected AppItem(Parcel in) {
+    protected AppInfo(Parcel in) {
         appIcon = in.readString();
         appTitle = in.readString();
         appId = in.readString();
@@ -55,15 +55,15 @@ public class AppItem implements Parcelable {
         appComment = in.readString();
     }
 
-    public static final Creator<AppItem> CREATOR = new Creator<AppItem>() {
+    public static final Creator<AppInfo> CREATOR = new Creator<AppInfo>() {
         @Override
-        public AppItem createFromParcel(Parcel in) {
-            return new AppItem(in);
+        public AppInfo createFromParcel(Parcel in) {
+            return new AppInfo(in);
         }
 
         @Override
-        public AppItem[] newArray(int size) {
-            return new AppItem[size];
+        public AppInfo[] newArray(int size) {
+            return new AppInfo[size];
         }
     };
 

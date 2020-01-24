@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<www.linwg.org.lib.LCardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="260dp"
+    android:layout_height="160dp"
+    app:cornerRadius="10dp"
+    app:shadowFluidShape="adsorption"
+    app:shadowColor="#5f6379"
+    app:shadowStartAlpha="10"
+    app:shadowSize="4dp"
+    app:cardBackgroundColor="@color/gray_little"
+    >
+
+    <ImageView
+        android:id="@+id/iv_image"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="centerCrop"
+        />
+
+    <TextView
+        android:id="@+id/tv_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:text="erfkdfhg"
+        android:textSize="18sp"
+        android:maxLines="2"
+        android:ellipsize="end"
+        android:textStyle="bold"
+        android:textColor="@android:color/white"
+        android:padding="8dp"
+        android:background="@color/gray_little"
+        />
+
+</www.linwg.org.lib.LCardView>

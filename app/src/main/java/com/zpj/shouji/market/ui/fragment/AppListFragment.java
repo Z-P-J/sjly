@@ -7,14 +7,14 @@ import com.bumptech.glide.Glide;
 import com.zpj.http.parser.html.nodes.Element;
 import com.zpj.recyclerview.EasyViewHolder;
 import com.zpj.shouji.market.R;
-import com.zpj.shouji.market.model.AppItem;
+import com.zpj.shouji.market.model.AppInfo;
 import com.zpj.shouji.market.ui.fragment.base.NextUrlFragment;
 import com.zpj.shouji.market.ui.fragment.detail.AppDetailFragment;
 import com.zpj.shouji.market.ui.fragment.search.SearchResultFragment;
 
 import java.util.List;
 
-public class AppListFragment extends NextUrlFragment<AppItem>
+public class AppListFragment extends NextUrlFragment<AppInfo>
         implements SearchResultFragment.KeywordObserver {
 
     public static AppListFragment newInstance(String defaultUrl) {
@@ -31,17 +31,17 @@ public class AppListFragment extends NextUrlFragment<AppItem>
     }
 
     @Override
-    public void onClick(EasyViewHolder holder, View view, AppItem data, float x, float y) {
+    public void onClick(EasyViewHolder holder, View view, AppInfo data, float x, float y) {
         _mActivity.start(AppDetailFragment.newInstance(data));
     }
 
     @Override
-    public void onBindViewHolder(EasyViewHolder holder, List<AppItem> list, int position, List<Object> payloads) {
-        final AppItem appItem = list.get(position);
-        holder.getTextView(R.id.tv_title).setText(appItem.getAppTitle());
-        holder.getTextView(R.id.tv_info).setText(appItem.getAppSize() + " | " + appItem.getAppInfo());
-        holder.getTextView(R.id.tv_desc).setText(appItem.getAppComment());
-        Glide.with(context).load(appItem.getAppIcon()).into(holder.getImageView(R.id.iv_icon));
+    public void onBindViewHolder(EasyViewHolder holder, List<AppInfo> list, int position, List<Object> payloads) {
+        final AppInfo appInfo = list.get(position);
+        holder.getTextView(R.id.tv_title).setText(appInfo.getAppTitle());
+        holder.getTextView(R.id.tv_info).setText(appInfo.getAppSize() + " | " + appInfo.getAppInfo());
+        holder.getTextView(R.id.tv_desc).setText(appInfo.getAppComment());
+        Glide.with(context).load(appInfo.getAppIcon()).into(holder.getImageView(R.id.iv_icon));
     }
 
     @Override
@@ -51,9 +51,9 @@ public class AppListFragment extends NextUrlFragment<AppItem>
     }
 
     @Override
-    public AppItem createData(Element element) {
+    public AppInfo createData(Element element) {
         if ("app".equals(element.selectFirst("viewtype").text())) {
-            return AppItem.create(element);
+            return AppInfo.create(element);
         }
         return null;
     }

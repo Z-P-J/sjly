@@ -1,6 +1,7 @@
 package com.sunfusheng;
 
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.graphics.Rect;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.LinearLayoutManager;
@@ -11,6 +12,8 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.zpj.shouji.market.R;
+
 /**
  * @author sunfusheng on 2018/3/7.
  */
@@ -19,6 +22,7 @@ public class StickyHeaderDecoration extends RecyclerView.ItemDecoration {
 
     private GroupRecyclerViewAdapter groupAdapter;
     private GroupViewHolder viewHolder;
+    private View beforeStickyView;
     private View currStickyView;
     private View nextStickyView;
     private int currGroupPosition;
@@ -56,6 +60,9 @@ public class StickyHeaderDecoration extends RecyclerView.ItemDecoration {
 
         RecyclerView.ViewHolder currViewHolder = parent.findViewHolderForAdapterPosition(currStickyPosition);
         if (currViewHolder != null) {
+            if (currStickyView != currViewHolder.itemView) {
+                beforeStickyView = currStickyView;
+            }
             currStickyView = currViewHolder.itemView;
             currStickyView.setTag(currGroupPosition);
         }
@@ -88,6 +95,9 @@ public class StickyHeaderDecoration extends RecyclerView.ItemDecoration {
             itemView.measure(View.MeasureSpec.makeMeasureSpec(stickyViewWidth, View.MeasureSpec.EXACTLY), View.MeasureSpec.makeMeasureSpec(stickyViewHeight, View.MeasureSpec.EXACTLY));
             itemView.layout(0, -stickyViewHeight, stickyViewWidth, 0);
             itemView.setTag(currGroupPosition);
+            if (currStickyView != itemView) {
+                beforeStickyView = currStickyView;
+            }
             currStickyView = itemView;
         }
 
@@ -97,6 +107,11 @@ public class StickyHeaderDecoration extends RecyclerView.ItemDecoration {
         }
         canvas.translate(0, translateY);
         currStickyView.draw(canvas);
+//        currStickyView.setBackgroundResource(R.drawable.background_top_radius);
+//        if (beforeStickyView != null && beforeStickyView != currStickyView) {
+//            beforeStickyView.setBackgroundColor(Color.WHITE);
+//        }
+//        Log.d("StickyHeaderDecoration", "beforeStickyView=" + beforeStickyView + "  currStickyView=" + currStickyView + "  nextStickyView=" + nextStickyView);
 
         stickyRect.left = 0;
         stickyRect.top = 0;

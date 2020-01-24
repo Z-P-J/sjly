@@ -28,7 +28,7 @@ public abstract class RecyclerLayoutFragment<T> extends BaseFragment
     protected EasyRecyclerLayout<T> recyclerLayout;
 
     @Override
-    protected final int getLayoutId() {
+    protected int getLayoutId() {
         return R.layout.fragment_recycler_layout;
     }
 

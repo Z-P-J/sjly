@@ -2,9 +2,9 @@ package com.zpj.shouji.market.ui.fragment.detail;
 
 import android.os.Bundle;
 
-import com.zpj.shouji.market.ui.fragment.discover.DiscoverListFragment;
+import com.zpj.shouji.market.ui.fragment.theme.ThemeListFragment;
 
-public class AppCommentFragment extends DiscoverListFragment {
+public class AppCommentFragment extends ThemeListFragment {
 
     public static AppCommentFragment newInstance(String url) {
         AppCommentFragment fragment = new AppCommentFragment();

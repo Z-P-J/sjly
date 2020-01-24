@@ -1,4 +1,4 @@
-package com.zpj.shouji.market.ui.fragment.discover;
+package com.zpj.shouji.market.ui.fragment.theme;
 
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -7,18 +7,15 @@ import android.view.View;
 import com.zpj.http.parser.html.nodes.Element;
 import com.zpj.recyclerview.EasyViewHolder;
 import com.zpj.shouji.market.model.DiscoverInfo;
-import com.zpj.shouji.market.ui.adapter.DiscoverBinder;
 
-import java.util.List;
-
-public class DiscoverCommentListFragment extends DiscoverListFragment {
+public class ThemeCommentListFragment extends ThemeListFragment {
 
     protected static final String KEY_ID= "key_id";
 
     private String rootId;
 
-    public static DiscoverCommentListFragment newInstance(String id) {
-        DiscoverCommentListFragment fragment = new DiscoverCommentListFragment();
+    public static ThemeCommentListFragment newInstance(String id) {
+        ThemeCommentListFragment fragment = new ThemeCommentListFragment();
         Bundle bundle = new Bundle();
         bundle.putString(KEY_ID, id);
         fragment.setArguments(bundle);

@@ -1,4 +1,4 @@
-package com.zpj.shouji.market.ui.fragment.discover;
+package com.zpj.shouji.market.ui.fragment.theme;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;

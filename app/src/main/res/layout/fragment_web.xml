@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <com.wuhenzhizao.titlebar.widget.CommonTitleBar
+        android:id="@+id/title_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:titleBarColor="@color/colorPrimary"
+        app:fillStatusBar="true"
+        app:statusBarColor="@color/colorPrimary"
+        app:leftType="imageButton"
+        app:leftImageResource="@drawable/ic_arrow_back_white_24dp"
+        app:centerType="textView"
+        app:centerTextMarquee="true"
+        app:centerText="手机乐园"
+        app:centerSubText="https://www.shouji.com.cn"
+        app:rightType="imageButton"
+        app:rightImageResource="@drawable/ic_more_vert_grey_24dp"
+        />
+
+
+    <FrameLayout
+        android:id="@+id/content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+
+</LinearLayout>

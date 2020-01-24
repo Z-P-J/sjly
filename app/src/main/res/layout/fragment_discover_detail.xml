@@ -54,7 +54,7 @@
                         android:layout_below="@id/title_bar"
                         >
 
-                        <include layout="@layout/item_discover"
+                        <include layout="@layout/item_theme"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             />

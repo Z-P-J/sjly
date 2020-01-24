@@ -16,7 +16,6 @@ import android.widget.ImageView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.felix.atoast.library.AToast;
-import com.gyf.immersionbar.ImmersionBar;
 import com.sunfusheng.GroupRecyclerViewAdapter;
 import com.sunfusheng.GroupViewHolder;
 import com.sunfusheng.HeaderGroupRecyclerViewAdapter;
@@ -27,9 +26,9 @@ import com.zhouwei.mzbanner.holder.MZViewHolder;
 import com.zpj.http.parser.html.nodes.Document;
 import com.zpj.http.parser.html.select.Elements;
 import com.zpj.shouji.market.R;
+import com.zpj.shouji.market.model.AppInfo;
 import com.zpj.shouji.market.model.CollectionInfo;
-import com.zpj.shouji.market.model.AppItem;
-import com.zpj.shouji.market.model.SubjectItem;
+import com.zpj.shouji.market.model.SubjectInfo;
 import com.zpj.shouji.market.glide.blur.BlurTransformation;
 import com.zpj.shouji.market.ui.fragment.collection.CollectionDetailFragment;
 import com.zpj.shouji.market.ui.fragment.detail.AppDetailFragment;
@@ -40,10 +39,13 @@ import com.zpj.shouji.market.utils.ExecutorHelper;
 import java.util.ArrayList;
 import java.util.List;
 
-public class RecommendFragment extends BaseFragment implements GroupRecyclerViewAdapter.OnItemClickListener<RecommendFragment.ItemWrapper> {
+public class RecommendFragment extends BaseFragment
+        implements GroupRecyclerViewAdapter.OnItemClickListener<RecommendFragment.ItemWrapper> {
+
+    private static final String TAG = "RecommendFragment";
 
     private final List<List<ItemWrapper>> dataList = new ArrayList<>();
-    private List<AppItem> bannerItemList = new ArrayList<>();
+    private List<AppInfo> bannerItemList = new ArrayList<>();
     private List<ItemWrapper> topList = new ArrayList<>();
     private List<ItemWrapper> updateList = new ArrayList<>();
     private List<ItemWrapper> appCollectionList = new ArrayList<>();
@@ -53,7 +55,7 @@ public class RecommendFragment extends BaseFragment implements GroupRecyclerView
 
     private SwipeRefreshLayout swipeRefreshLayout;
     private RecyclerView recyclerView;
-    private MZBannerView<AppItem> mMZBanner;
+    private MZBannerView<AppInfo> mMZBanner;
 
     private RecommendAdapter adapter;
 
@@ -73,12 +75,7 @@ public class RecommendFragment extends BaseFragment implements GroupRecyclerView
         }, 1000));
 
         GridLayoutManager layoutManager = new GridLayoutManager(getContext(), 4);
-        recyclerView.addItemDecoration(new StickyHeaderDecoration() {
-            @Override
-            protected boolean isStickHeader(int groupPosition) {
-                return groupPosition != 0;
-            }
-        });
+        recyclerView.addItemDecoration(new StickyHeaderDecoration());
         recyclerView.setLayoutManager(layoutManager);
         adapter = new RecommendAdapter(getContext(), dataList);
         adapter.setOnItemClickListener(this);
@@ -125,8 +122,8 @@ public class RecommendFragment extends BaseFragment implements GroupRecyclerView
         if (groupPosition == 0) {
             return;
         }
-        if (data.getAppItem() != null) {
-            AppDetailFragment fragment = AppDetailFragment.newInstance(data.getAppItem());
+        if (data.getAppInfo() != null) {
+            AppDetailFragment fragment = AppDetailFragment.newInstance(data.getAppInfo());
             _mActivity.start(fragment);
         } else if (data.getCollectionItem() != null) {
             AToast.normal("TODO Collection");
@@ -170,7 +167,7 @@ public class RecommendFragment extends BaseFragment implements GroupRecyclerView
                 Elements elements = doc.select("item");
                 int count = elements.size() > 9 ? 9 : elements.size();
                 for (int i = 1; i < count; i++) {
-                    updateList.add(new ItemWrapper(AppItem.create(elements.get(i))));
+                    updateList.add(new ItemWrapper(AppInfo.create(elements.get(i))));
                 }
                 post(() -> adapter.updateGroup(1, updateList));
             } catch (Exception e) {
@@ -205,7 +202,7 @@ public class RecommendFragment extends BaseFragment implements GroupRecyclerView
                 Elements elements = doc.select("item");
                 int count = elements.size() > 8 ? 8 : elements.size();
                 for (int i = 0; i < count; i++) {
-                    recommendAppList.add(new ItemWrapper(AppItem.create(elements.get(i))));
+                    recommendAppList.add(new ItemWrapper(AppInfo.create(elements.get(i))));
                 }
                 post(() -> adapter.updateGroup(3, recommendAppList));
             } catch (Exception e) {
@@ -222,7 +219,7 @@ public class RecommendFragment extends BaseFragment implements GroupRecyclerView
                 Elements elements = doc.select("item");
                 int count = elements.size() > 9 ? 9 : elements.size();
                 for (int i = 1; i < count; i++) {
-                    recommendGameList.add(new ItemWrapper(AppItem.create(elements.get(i))));
+                    recommendGameList.add(new ItemWrapper(AppInfo.create(elements.get(i))));
                 }
 //                recyclerView.postDelayed(() -> adapter.updateGroup(4, recommendGameList), 4);
                 post(() -> adapter.updateGroup(4, recommendGameList));
@@ -240,7 +237,7 @@ public class RecommendFragment extends BaseFragment implements GroupRecyclerView
                 Elements elements = doc.select("item");
                 int count = elements.size() > 8 ? 8 : elements.size();
                 for (int i = 0; i < count; i++) {
-                    recommendSubjectList.add(new ItemWrapper(SubjectItem.create(elements.get(i))));
+                    recommendSubjectList.add(new ItemWrapper(SubjectInfo.create(elements.get(i))));
                 }
 //                recyclerView.postDelayed(() -> adapter.updateGroup(5, recommendSubjectList), 5);
                 post(() -> adapter.updateGroup(5, recommendSubjectList));
@@ -258,7 +255,7 @@ public class RecommendFragment extends BaseFragment implements GroupRecyclerView
                 Elements elements = doc.select("item");
                 bannerItemList.clear();
                 for (int i = 1; i < elements.size(); i++) {
-                    bannerItemList.add(AppItem.create(elements.get(i)));
+                    bannerItemList.add(AppInfo.create(elements.get(i)));
                 }
                 post(() -> {
                     mMZBanner.setPages(bannerItemList, (MZHolderCreator<BannerViewHolder>) BannerViewHolder::new);
@@ -275,7 +272,7 @@ public class RecommendFragment extends BaseFragment implements GroupRecyclerView
         post(() -> AToast.error("加载失败！" + e.getMessage()));
     }
 
-    private static class BannerViewHolder implements MZViewHolder<AppItem> {
+    private static class BannerViewHolder implements MZViewHolder<AppInfo> {
         private ImageView mImageView;
 
         @Override
@@ -287,16 +284,16 @@ public class RecommendFragment extends BaseFragment implements GroupRecyclerView
         }
 
         @Override
-        public void onBind(Context context, int position, AppItem item) {
+        public void onBind(Context context, int position, AppInfo item) {
             Glide.with(context).load(item.getAppIcon()).into(mImageView);
         }
     }
 
     class ItemWrapper {
 
-        private AppItem appItem;
+        private AppInfo appInfo;
         private CollectionInfo collectionItem;
-        private SubjectItem subjectItem;
+        private SubjectInfo subjectInfo;
         private String title;
         public Drawable icon;
 
@@ -304,16 +301,16 @@ public class RecommendFragment extends BaseFragment implements GroupRecyclerView
 
         }
 
-        ItemWrapper(SubjectItem subjectItem) {
-            this.subjectItem = subjectItem;
+        ItemWrapper(SubjectInfo subjectInfo) {
+            this.subjectInfo = subjectInfo;
         }
 
         ItemWrapper(CollectionInfo collectionItem) {
             this.collectionItem = collectionItem;
         }
 
-        ItemWrapper(AppItem appItem) {
-            this.appItem = appItem;
+        ItemWrapper(AppInfo appInfo) {
+            this.appInfo = appInfo;
         }
 
         ItemWrapper(String title) {
@@ -324,12 +321,12 @@ public class RecommendFragment extends BaseFragment implements GroupRecyclerView
             return collectionItem;
         }
 
-        public AppItem getAppItem() {
-            return appItem;
+        public AppInfo getAppInfo() {
+            return appInfo;
         }
 
-        public SubjectItem getSubjectItem() {
-            return subjectItem;
+        public SubjectInfo getSubjectInfo() {
+            return subjectInfo;
         }
 
         public void setTitle(String title) {
@@ -439,16 +436,17 @@ public class RecommendFragment extends BaseFragment implements GroupRecyclerView
         @Override
         public void onBindChildViewHolder(GroupViewHolder holder, ItemWrapper item, int groupPosition, int childPosition) {
             int viewType = getChildItemViewType(groupPosition, childPosition);
-            Log.d("onBindChildViewHolder", "groupPosition=" + groupPosition + " childPosition=" + childPosition + " viewType=" + viewType);
+            Log.d(TAG, "groupPosition=" + groupPosition + " childPosition=" + childPosition + " viewType=" + viewType);
             if (viewType == TYPE_CHILD_UPDATE || viewType == TYPE_CHILD_RECOMMEND) {
-                final AppItem appItem = item.getAppItem();
-                if (appItem == null) {
+                final AppInfo appInfo = item.getAppInfo();
+                if (appInfo == null) {
                     return;
                 }
-                holder.setText(R.id.item_title, appItem.getAppTitle());
-                holder.setText(R.id.item_info, appItem.getAppSize());
-                Log.d("onBindChildViewHolder", "holder.get(R.id.item_icon)=" + holder.get(R.id.item_icon));
-                Glide.with(context).load(appItem.getAppIcon()).into((ImageView) holder.get(R.id.item_icon));
+                holder.setText(R.id.item_title, appInfo.getAppTitle());
+                holder.setText(R.id.item_info, appInfo.getAppSize());
+                Log.d(TAG, "holder.get(R.id.item_icon)=" + holder.get(R.id.item_icon));
+                Log.d(TAG, "groupPosition=" + groupPosition + " childPosition=" + childPosition + " viewType=" + viewType);
+                Glide.with(context).load(appInfo.getAppIcon()).into((ImageView) holder.get(R.id.item_icon));
             } else if (viewType == TYPE_CHILD_COLLECTION) {
                 long time1 = System.currentTimeMillis();
                 final CollectionInfo appItem = item.getCollectionItem();
@@ -471,7 +469,7 @@ public class RecommendFragment extends BaseFragment implements GroupRecyclerView
                 }
                 Log.d("onBindChildViewHolder", "deltaTime=" + (System.currentTimeMillis() - time1));
             } else if (viewType == TYPE_CHILD_SUBJECT) {
-                final SubjectItem appItem = item.getSubjectItem();
+                final SubjectInfo appItem = item.getSubjectInfo();
                 if (appItem == null) {
                     return;
                 }

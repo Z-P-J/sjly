@@ -23,7 +23,7 @@ import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.constant.Key;
 import com.zpj.shouji.market.ui.adapter.FragmentsPagerAdapter;
 import com.zpj.shouji.market.ui.behavior.AppBarLayoutOverScrollViewBehavior;
-import com.zpj.shouji.market.ui.fragment.discover.DiscoverListFragment;
+import com.zpj.shouji.market.ui.fragment.theme.ThemeListFragment;
 import com.zpj.shouji.market.ui.fragment.base.BaseFragment;
 import com.zpj.shouji.market.ui.view.ZViewPager;
 import com.zpj.shouji.market.ui.widget.CircleImageView;
@@ -41,7 +41,7 @@ import net.lucode.hackware.magicindicator.buildins.commonnavigator.abs.IPagerTit
 import java.util.ArrayList;
 import java.util.List;
 
-public class ProfileFragment extends BaseFragment implements DiscoverListFragment.Callback {
+public class ProfileFragment extends BaseFragment implements ThemeListFragment.Callback {
 
     public static final String DEFAULT_URL = "http://tt.shouji.com.cn/app/view_member_xml_v4.jsp?versioncode=198&id=5636865";
 
@@ -61,7 +61,7 @@ public class ProfileFragment extends BaseFragment implements DiscoverListFragmen
     private ZViewPager mViewPager;
 
     private final List<Fragment> fragments = new ArrayList<>();
-    private DiscoverListFragment exploreFragment;
+    private ThemeListFragment exploreFragment;
 
     private String userId = "5636865";
 
@@ -121,9 +121,9 @@ public class ProfileFragment extends BaseFragment implements DiscoverListFragmen
     }
 
     private void initTab() {
-        exploreFragment = findChildFragment(DiscoverListFragment.class);
+        exploreFragment = findChildFragment(ThemeListFragment.class);
         if (exploreFragment == null) {
-            exploreFragment = DiscoverListFragment.newInstance("http://tt.shouji.com.cn/app/view_member_xml_v4.jsp?versioncode=198&id=" + userId, true);
+            exploreFragment = ThemeListFragment.newInstance("http://tt.shouji.com.cn/app/view_member_xml_v4.jsp?versioncode=198&id=" + userId, true);
         }
         exploreFragment.setCallback(this);
         exploreFragment.setEnableSwipeRefresh(false);

@@ -224,24 +224,4 @@ public class ZDownloader {
         return downloadMissionList;
     }
 
-    public static List<DownloadMission> getRunningMissions() {
-        List<DownloadMission> downloadMissionList = new ArrayList<>();
-        for (DownloadMission mission : getAllMissions()) {
-            if (mission.isRunning()) {
-                downloadMissionList.add(mission);
-            }
-        }
-        return downloadMissionList;
-    }
-
-    public static List<DownloadMission> getMissions(DownloadMission.MissionStatus status) {
-        List<DownloadMission> downloadMissionList = new ArrayList<>();
-        for (DownloadMission mission : getAllMissions()) {
-            if (status == mission.getStatus()) {
-                downloadMissionList.add(mission);
-            }
-        }
-        return downloadMissionList;
-    }
-
 }

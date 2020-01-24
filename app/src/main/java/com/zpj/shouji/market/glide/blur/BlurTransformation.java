@@ -64,7 +64,7 @@ public class BlurTransformation extends BitmapTransformation {
                 .needUpscale(true) //After blurring，the bitmap will be upscaled to origin sizes，default=true
 //                .translateX(10)//add x axis offset when blurring
 //                .translateY(10)//add y axis offset when blurring
-                .processor() //build a blur processor
+                .processor() //parse a blur processor
                 .blur(bitmap);
         return bitmap;
     }

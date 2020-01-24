@@ -13,20 +13,12 @@ import android.widget.TextView;
  */
 public class GroupViewHolder extends RecyclerView.ViewHolder {
 
-    private SparseArray<View> views;
-
     public GroupViewHolder(View itemView) {
         super(itemView);
-        views = new SparseArray<>();
     }
 
     public <T extends View> T get(int viewId) {
-        View view = views.get(viewId);
-        if (view == null) {
-            view = this.itemView.findViewById(viewId);
-            views.put(viewId, view);
-        }
-        return (T) view;
+        return this.itemView.findViewById(viewId);
     }
 
     public GroupViewHolder setText(int viewId, String text) {

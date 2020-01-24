@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorPrimary"
+    >
+
+    <com.wuhenzhizao.titlebar.widget.CommonTitleBar
+        android:id="@+id/title_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:titleBarColor="@color/colorPrimary"
+        app:fillStatusBar="true"
+        app:statusBarColor="@color/colorPrimary"
+        app:leftType="imageButton"
+        app:leftImageResource="@drawable/ic_arrow_back_white_24dp"
+        app:centerType="textView"
+        app:centerTextMarquee="true"
+        app:centerText="手机乐园"
+        app:centerTextColor="@android:color/white"
+        app:centerSubText="https://www.shouji.com.cn"
+        app:centerSubTextColor="@android:color/white"
+        app:rightType="imageButton"
+        app:rightImageResource="@drawable/ic_more_vert_grey_24dp"
+        app:showBottomLine="false"
+        />
+
+<!--    <android.support.v7.widget.RecyclerView-->
+<!--        android:id="@+id/recycler_view"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="match_parent"/>-->
+
+    <www.linwg.org.lib.LCardView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:shadowSize="0dp"
+        app:leftTopCornerRadius="20dp"
+        app:rightTopCornerRadius="20dp"
+        app:cardBackgroundColor="@android:color/white"
+        >
+
+        <com.zpj.dialog.view.ElasticScrollView
+            android:id="@+id/scroll_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            >
+
+
+            <LinearLayout
+                android:id="@+id/content_wrapper"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                />
+
+        </com.zpj.dialog.view.ElasticScrollView>
+
+    </www.linwg.org.lib.LCardView>
+
+</LinearLayout>
