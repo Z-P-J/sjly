@@ -6,6 +6,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
@@ -21,6 +22,7 @@ import com.sunfusheng.StickyHeaderDecoration;
 import com.zpj.http.parser.html.nodes.Document;
 import com.zpj.http.parser.html.nodes.Element;
 import com.zpj.http.parser.html.select.Elements;
+import com.zpj.recyclerview.EasyRecyclerView;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.model.AppInfo;
 import com.zpj.shouji.market.model.CollectionInfo;
@@ -33,12 +35,11 @@ import com.zpj.shouji.market.utils.HttpUtil;
 import java.util.ArrayList;
 import java.util.List;
 
-public class AppRecommendFragment extends BaseFragment implements GroupRecyclerViewAdapter.OnItemClickListener<AppRecommendFragment.ItemWrapper> {
+public class AppRecommendFragment extends BaseFragment
+        implements GroupRecyclerViewAdapter.OnItemClickListener<AppRecommendFragment.ItemWrapper> {
 
     private static final String KEY_ID = "key_id";
     private final List<List<ItemWrapper>> dataList = new ArrayList<>();
-    private List<ItemWrapper> appCollectionList = new ArrayList<>();
-    private List<ItemWrapper> recommendAppList = new ArrayList<>();
 
     private RecyclerView recyclerView;
     private SwipeRefreshLayout swipeRefreshLayout;
@@ -73,9 +74,9 @@ public class AppRecommendFragment extends BaseFragment implements GroupRecyclerV
             initData();
         }, 1000));
 
-        GridLayoutManager layoutManager = new GridLayoutManager(getContext(), 4);
-        recyclerView.addItemDecoration(new StickyHeaderDecoration());
-        recyclerView.setLayoutManager(layoutManager);
+//        GridLayoutManager layoutManager = new GridLayoutManager(getContext(), 4);
+//        recyclerView.addItemDecoration(new StickyHeaderDecoration());
+        recyclerView.setLayoutManager(new LinearLayoutManager(context));
         adapter = new RecommendAdapter(getContext(), dataList);
         adapter.setOnItemClickListener(this);
         recyclerView.setAdapter(adapter);
@@ -89,77 +90,34 @@ public class AppRecommendFragment extends BaseFragment implements GroupRecyclerV
 
     @Override
     public void onItemClick(GroupRecyclerViewAdapter<ItemWrapper> adapter, GroupViewHolder holder, ItemWrapper data, int groupPosition, int childPosition) {
-        if (data.getAppInfo() != null) {
-            AppDetailFragment fragment = AppDetailFragment.newInstance(data.getAppInfo());
-            _mActivity.start(fragment);
-        } else if (data.getCollectionItem() != null) {
-            AToast.normal("TODO Collection");
-            _mActivity.start(CollectionDetailFragment.newInstance(data.getCollectionItem()));
-        }
+
     }
 
     private void initData() {
         dataList.clear();
-        appCollectionList.clear();
-        recommendAppList.clear();
-        appCollectionList.add(new ItemWrapper("相关应用集"));
-        recommendAppList.add(new ItemWrapper("相关应用"));
-        dataList.add(appCollectionList);
-        dataList.add(recommendAppList);
-        adapter.notifyDataSetChanged();
-        getSimilar();
-    }
+        List<ItemWrapper> list0 = new ArrayList<>();
+        list0.add(new ItemWrapper("相关应用集"));
+        list0.add(new ItemWrapper());
 
-    private void getSimilar() {
-        ExecutorHelper.submit(() -> {
-            try {
-                Document doc = HttpUtil.getDocument("http://tt.shouji.com.cn/androidv3/soft_yyj_similar.jsp?id=" + id);
-                Elements elements = doc.select("item");
-                for (Element element : elements) {
-                    if (element.selectFirst("viewtype").text().equals("yyj")) {
-                        for (Element recognizeItem : element.selectFirst("recognizelist").select("recognize")) {
-                            appCollectionList.add(new ItemWrapper(CollectionInfo.buildSimilarCollection(recognizeItem)));
-                        }
-                        post(() -> adapter.updateGroup(0, appCollectionList));
-                    } else {
-                        recommendAppList.add(new ItemWrapper(AppInfo.parse(element)));
-                    }
-                }
-                post(() -> adapter.updateGroup(1, recommendAppList));
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        });
+        List<ItemWrapper> list1 = new ArrayList<>();
+        list1.add(new ItemWrapper("相关应用"));
+        list1.add(new ItemWrapper());
+
+        dataList.add(list0);
+        dataList.add(list1);
+        adapter.notifyDataSetChanged();
     }
 
     public class ItemWrapper {
 
-        private AppInfo appInfo;
-        private CollectionInfo collectionItem;
         private String title;
 
         ItemWrapper() {
 
         }
 
-        ItemWrapper(CollectionInfo collectionItem) {
-            this.collectionItem = collectionItem;
-        }
-
-        ItemWrapper(AppInfo appInfo) {
-            this.appInfo = appInfo;
-        }
-
         ItemWrapper(String title) {
             this.title = title;
-        }
-
-        public CollectionInfo getCollectionItem() {
-            return collectionItem;
-        }
-
-        public AppInfo getAppInfo() {
-            return appInfo;
         }
 
         public String getTitle() {
@@ -172,10 +130,16 @@ public class AppRecommendFragment extends BaseFragment implements GroupRecyclerV
 
         private final int[] RES_ICONS = {R.id.item_icon_1, R.id.item_icon_2, R.id.item_icon_3};
 
-        public static final int TYPE_CHILD_COLLECTION = 332;
-        public static final int TYPE_CHILD_RECOMMEND = 333;
+        private List<CollectionInfo> appCollectionList = new ArrayList<>();
+        private List<AppInfo> recommendAppList = new ArrayList<>();
 
-        public RecommendAdapter(Context context, List<List<ItemWrapper>> groups) {
+        private EasyRecyclerView<CollectionInfo> collectionRecyclerView;
+        private EasyRecyclerView<AppInfo> appRecyclerView;
+
+        static final int TYPE_CHILD_COLLECTION = 332;
+        static final int TYPE_CHILD_RECOMMEND = 333;
+
+        RecommendAdapter(Context context, List<List<ItemWrapper>> groups) {
             super(context, groups);
         }
 
@@ -206,10 +170,7 @@ public class AppRecommendFragment extends BaseFragment implements GroupRecyclerV
 
         @Override
         public int getChildLayoutId(int viewType) {
-            if (viewType == TYPE_CHILD_COLLECTION) {
-                return R.layout.item_app_collection;
-            }
-            return R.layout.item_app_grid;
+            return R.layout.layout_recycler_view;
         }
 
         @Override
@@ -224,57 +185,93 @@ public class AppRecommendFragment extends BaseFragment implements GroupRecyclerV
 
         @Override
         public void onBindChildViewHolder(GroupViewHolder holder, ItemWrapper item, int groupPosition, int childPosition) {
+            Object object = holder.itemView.getTag();
+            if (object instanceof EasyRecyclerView) {
+                ((EasyRecyclerView) object).notifyDataSetChanged();
+                return;
+            }
             int viewType = getChildItemViewType(groupPosition, childPosition);
             if (viewType == TYPE_CHILD_RECOMMEND) {
-                final AppInfo appInfo = item.getAppInfo();
-                if (appInfo == null) {
-                    return;
-                }
-                holder.setText(R.id.item_title, appInfo.getAppTitle());
-                holder.setText(R.id.item_info, appInfo.getAppSize());
-                Glide.with(context).load(appInfo.getAppIcon()).into((ImageView) holder.get(R.id.item_icon));
+                getAppInfo(holder.itemView);
             } else if (viewType == TYPE_CHILD_COLLECTION) {
-                long time1 = System.currentTimeMillis();
-                final CollectionInfo appItem = item.getCollectionItem();
-                if (appItem == null) {
-                    return;
-                }
-                holder.setText(R.id.item_title, appItem.getTitle());
-                holder.setText(R.id.tv_view_count, appItem.getViewCount() + "");
-                holder.setText(R.id.tv_favorite_count, appItem.getFavCount() + "");
-                holder.setText(R.id.tv_support_count, appItem.getSupportCount() + "");
-                for (int i = 0; i < RES_ICONS.length; i++) {
-                    int res = RES_ICONS[i];
-                    if (i == 0) {
-                        Glide.with(context)
-                                .load(appItem.getIcons().get(0))
-                                .apply(RequestOptions.bitmapTransform(new BlurTransformation(context, 7, 10)))
-                                .into((ImageView) holder.get(R.id.img_bg));
-                    }
-                    Glide.with(context).load(appItem.getIcons().get(i)).into((ImageView) holder.get(res));
-                }
-                Log.d("onBindChildViewHolder", "deltaTime=" + (System.currentTimeMillis() - time1));
+                getCollection(holder.itemView);
+                getSimilar();
             }
         }
 
-        @Override
-        public void onAttachedToRecyclerView(@NonNull RecyclerView recyclerView) {
-            super.onAttachedToRecyclerView(recyclerView);
-            RecyclerView.LayoutManager manager = recyclerView.getLayoutManager();
-            if (manager instanceof GridLayoutManager) {
-                final GridLayoutManager gridManager = ((GridLayoutManager) manager);
-                gridManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
-                    @Override
-                    public int getSpanSize(int position) {
-                        if (isGroupChild(0, position)) {
-                            return 2;
+        private void getAppInfo(View itemView) {
+            RecyclerView view = itemView.findViewById(R.id.recycler_view);
+            appRecyclerView = new EasyRecyclerView<>(view);
+            itemView.setTag(appRecyclerView);
+            appRecyclerView.setData(recommendAppList)
+                    .setItemRes(R.layout.item_app_grid)
+                    .setLayoutManager(new GridLayoutManager(context, 4))
+                    .onBindViewHolder((holder1, list1, position, payloads) -> {
+                        AppInfo info = list1.get(position);
+                        holder1.getTextView(R.id.item_title).setText(info.getAppTitle());
+                        holder1.getTextView(R.id.item_info).setText(info.getAppSize());
+                        Glide.with(context).load(info.getAppIcon()).into(holder1.getImageView(R.id.item_icon));
+                    })
+                    .onItemClick((holder13, view1, data) -> _mActivity.start(AppDetailFragment.newInstance(data)))
+                    .build();
+        }
+
+        private void getSimilar() {
+            ExecutorHelper.submit(() -> {
+                try {
+                    Document doc = HttpUtil.getDocument("http://tt.shouji.com.cn/androidv3/soft_yyj_similar.jsp?id=" + id);
+                    Elements elements = doc.select("item");
+                    for (Element element : elements) {
+                        if ("yyj".equals(element.selectFirst("viewtype").text())) {
+                            for (Element recognizeItem : element.selectFirst("recognizelist").select("recognize")) {
+                                appCollectionList.add(CollectionInfo.buildSimilarCollection(recognizeItem));
+                            }
+                            post(() -> {
+                                if (collectionRecyclerView != null) {
+                                    collectionRecyclerView.notifyDataSetChanged();
+                                }
+                            });
+                        } else {
+                            recommendAppList.add(AppInfo.parse(element));
                         }
-                        int span = isChild(position)
-                                ? 1 : gridManager.getSpanCount();
-                        return span;
                     }
-                });
-            }
+                    post(() -> {
+                        if (appRecyclerView != null) {
+                            appRecyclerView.notifyDataSetChanged();
+                        }
+                    });
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            });
+        }
+
+        private void getCollection(final View itemView) {
+            RecyclerView view = itemView.findViewById(R.id.recycler_view);
+            collectionRecyclerView = new EasyRecyclerView<>(view);
+            itemView.setTag(collectionRecyclerView);
+            collectionRecyclerView.setData(appCollectionList)
+                    .setItemRes(R.layout.item_app_collection)
+                    .setLayoutManager(new GridLayoutManager(context, 2, LinearLayoutManager.HORIZONTAL, false))
+                    .onBindViewHolder((holder1, list1, position, payloads) -> {
+                        CollectionInfo info = list1.get(position);
+                        holder1.getTextView(R.id.item_title).setText(info.getTitle());
+                        holder1.setText(R.id.tv_view_count, info.getViewCount() + "");
+                        holder1.setText(R.id.tv_favorite_count, info.getFavCount() + "");
+                        holder1.setText(R.id.tv_support_count, info.getSupportCount() + "");
+                        for (int i = 0; i < RES_ICONS.length; i++) {
+                            int res = RES_ICONS[i];
+                            if (i == 0) {
+                                Glide.with(context)
+                                        .load(info.getIcons().get(0))
+                                        .apply(RequestOptions.bitmapTransform(new BlurTransformation(context, 7)))
+                                        .into(holder1.getImageView(R.id.img_bg));
+                            }
+                            Glide.with(context).load(info.getIcons().get(i)).into(holder1.getImageView(res));
+                        }
+                    })
+                    .onItemClick((holder14, view12, data) -> _mActivity.start(CollectionDetailFragment.newInstance(data)))
+                    .build();
         }
 
     }

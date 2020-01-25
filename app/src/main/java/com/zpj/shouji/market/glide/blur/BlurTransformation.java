@@ -23,7 +23,7 @@ public class BlurTransformation extends BitmapTransformation {
     private static int DEFAULT_DOWN_SAMPLING = 1;
 
     private int radius;
-    private int sampling;
+    private int sampling = 5;
 
     public BlurTransformation() {
         this(null, MAX_RADIUS, DEFAULT_DOWN_SAMPLING);
@@ -31,6 +31,11 @@ public class BlurTransformation extends BitmapTransformation {
 
     public BlurTransformation(int radius) {
         this(null, radius, DEFAULT_DOWN_SAMPLING);
+    }
+
+    public BlurTransformation(Context context, int radius) {
+        this.context = context;
+        this.radius = radius;
     }
 
     public BlurTransformation(Context context, int radius, int sampling) {

@@ -1,16 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/header_recent_update"
+    android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="42dp"
+    android:layout_height="wrap_content"
     android:background="@android:color/white"
-    android:padding="8dp">
+    android:padding="20dp"
+    >
 
     <RelativeLayout
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:layout_centerVertical="true"
+        android:id="@+id/header_recent_update"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@android:color/white"
+        android:paddingBottom="4dp"
+        android:paddingTop="4dp"
         >
 
         <TextView
@@ -19,7 +23,7 @@
             android:layout_height="wrap_content"
             android:gravity="center"
             android:text="最近更新"
-            android:textSize="18sp"
+            android:textSize="16sp"
             android:textColor="@color/color_text_major"
             android:textStyle="bold"
             android:layout_alignParentBottom="true"
@@ -32,21 +36,16 @@
             android:layout_alignParentBottom="true"
             />
 
-        <TextView
-            android:id="@+id/tv_more"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_alignParentEnd="true"
-            android:drawablePadding="4dp"
-            android:gravity="center"
-            android:text="更多"
-            android:textSize="12sp"
-            android:textColor="@color/colorPrimary"
-            android:layout_centerVertical="true"
-            />
+
 
     </RelativeLayout>
 
+    <com.zpj.shouji.market.ui.widget.selection.SelectableTextView
+        android:id="@+id/tv_content"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="#000000"
+        android:lineSpacingExtra="4dp"
+        />
 
-
-</RelativeLayout>
+</LinearLayout>

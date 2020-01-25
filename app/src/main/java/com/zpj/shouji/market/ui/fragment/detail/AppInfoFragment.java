@@ -4,7 +4,9 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.zpj.shouji.market.R;
@@ -18,12 +20,8 @@ import org.greenrobot.eventbus.Subscribe;
 public class AppInfoFragment extends BaseFragment {
 
     private RecyclerView recyclerView;
-    private ImgAdapter imgAdapter;
 
-    private TextView tvIntroduce;
-    private TextView tvUpdate;
-    private TextView tvDetail;
-    private TextView tvPermission;
+    private LinearLayout content;
 
     @Override
     protected int getLayoutId() {
@@ -44,26 +42,36 @@ public class AppInfoFragment extends BaseFragment {
 
     @Override
     protected void initView(View view, @Nullable Bundle savedInstanceState) {
+        content = view.findViewById(R.id.content);
         recyclerView = view.findViewById(R.id.recycler_view);
-        recyclerView.setItemViewCacheSize(100);
+//        recyclerView.setItemViewCacheSize(100);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
         layoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
         recyclerView.setLayoutManager(layoutManager);
-
-        tvIntroduce = view.findViewById(R.id.tv_introduce);
-        tvUpdate = view.findViewById(R.id.tv_update);
-        tvDetail = view.findViewById(R.id.tv_detail);
-        tvPermission = view.findViewById(R.id.tv_permission);
     }
 
     @Subscribe
     public void onGetAppDetailInfo(AppDetailInfo info) {
-        imgAdapter = new ImgAdapter(recyclerView, info.getImgUrlList());
-        recyclerView.setAdapter(imgAdapter);
-        tvIntroduce.setText(info.getAppIntroduceContent());
-        tvUpdate.setText(info.getUpdateContent());
-        tvDetail.setText(info.getAppInfo());
-        tvPermission.setText(info.getPermissionContent());
+        postOnEnterAnimationEnd(() -> {
+            ImgAdapter imgAdapter = new ImgAdapter(recyclerView, info.getImgUrlList());
+            recyclerView.setAdapter(imgAdapter);
+            addItem("应用简介", info.getAppIntroduceContent());
+            addItem("新版特性", info.getUpdateContent());
+            addItem("详细信息", info.getAppInfo());
+            addItem("权限信息", info.getPermissionContent());
+        });
+    }
+
+    private void addItem(String title, String text) {
+        if (TextUtils.isEmpty(text)) {
+            return;
+        }
+        View view = getLayoutInflater().inflate(R.layout.item_app_info_text, null, false);
+        content.addView(view);
+        TextView tvTitle = view.findViewById(R.id.tv_title);
+        TextView tvContent = view.findViewById(R.id.tv_content);
+        tvTitle.setText(title);
+        tvContent.setText(text);
     }
 
 }

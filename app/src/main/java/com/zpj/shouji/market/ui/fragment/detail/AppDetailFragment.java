@@ -164,7 +164,7 @@ public class AppDetailFragment extends BaseFragment {
                 ColorTransitionPagerTitleView titleView = new ColorTransitionPagerTitleView(context);
                 titleView.setNormalColor(Color.LTGRAY);
                 titleView.setSelectedColor(getResources().getColor(R.color.colorPrimary));
-                titleView.setTextSize(12);
+                titleView.setTextSize(14);
                 titleView.setText(TAB_TITLES[index]);
                 titleView.setOnClickListener(view1 -> viewPager.setCurrentItem(index));
                 return titleView;

@@ -375,7 +375,7 @@ public class SoftFragment extends BaseFragment
                             if (i == 0) {
                                 Glide.with(context)
                                         .load(info.getIcons().get(0))
-                                        .apply(RequestOptions.bitmapTransform(new BlurTransformation(context, 7, 10)))
+                                        .apply(RequestOptions.bitmapTransform(new BlurTransformation(context, 7)))
                                         .into(holder1.getImageView(R.id.img_bg));
                             }
                             Glide.with(context).load(info.getIcons().get(i)).into(holder1.getImageView(res));

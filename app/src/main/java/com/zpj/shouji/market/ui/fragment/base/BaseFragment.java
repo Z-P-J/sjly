@@ -19,6 +19,8 @@ import com.wuhenzhizao.titlebar.widget.CommonTitleBar;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.ui.fragment.MainFragment;
 
+import java.util.concurrent.atomic.AtomicBoolean;
+
 import me.yokeyword.fragmentation.SwipeBackLayout;
 import me.yokeyword.fragmentation_swipeback.SwipeBackFragment;
 
@@ -26,6 +28,8 @@ public abstract class BaseFragment extends SwipeBackFragment {
 
     protected Context context;
     protected CommonTitleBar titleBar;
+    private final AtomicBoolean isEnterAnimationEnd = new AtomicBoolean(false);
+    private Runnable onEnterAnimationEndRunnable;
 
     @SuppressLint("ResourceType")
     @Nullable
@@ -131,6 +135,27 @@ public abstract class BaseFragment extends SwipeBackFragment {
     public void onSupportInvisible() {
         super.onSupportInvisible();
         lightStatusBar();
+    }
+
+    @Override
+    public void onEnterAnimationEnd(Bundle savedInstanceState) {
+        super.onEnterAnimationEnd(savedInstanceState);
+        isEnterAnimationEnd.set(true);
+        if (onEnterAnimationEndRunnable != null) {
+            post(onEnterAnimationEndRunnable);
+        }
+    }
+
+    protected void postOnEnterAnimationEnd(Runnable runnable) {
+        if (isEnterAnimationEnd.get()) {
+            if (runnable != null) {
+                post(runnable);
+            }
+            this.onEnterAnimationEndRunnable = null;
+        } else {
+            this.onEnterAnimationEndRunnable = runnable;
+        }
+
     }
 
     protected void darkStatusBar() {
