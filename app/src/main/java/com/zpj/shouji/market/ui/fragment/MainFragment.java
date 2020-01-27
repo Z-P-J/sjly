@@ -15,7 +15,7 @@ import com.zpj.shouji.market.ui.adapter.FragmentsPagerAdapter;
 import com.zpj.shouji.market.ui.fragment.base.BaseFragment;
 import com.zpj.shouji.market.ui.fragment.game.GameFragment;
 import com.zpj.shouji.market.ui.fragment.homepage.HomeFragment;
-import com.zpj.shouji.market.ui.fragment.profile.ProfileFragment;
+import com.zpj.shouji.market.ui.fragment.profile.MeFragment;
 import com.zpj.shouji.market.ui.fragment.soft.SoftFragment;
 import com.zpj.shouji.market.ui.view.AddLayout;
 import com.zpj.shouji.market.ui.view.ZViewPager;
@@ -56,9 +56,9 @@ public class MainFragment extends BaseFragment {
             game = new GameFragment();
         }
 
-        ProfileFragment profileFragment = findChildFragment(ProfileFragment.class);
+        MeFragment profileFragment = findChildFragment(MeFragment.class);
         if (profileFragment == null) {
-            profileFragment = ProfileFragment.newInstance("5636865", true);
+            profileFragment = new MeFragment();
         }
         fragments.clear();
         fragments.add(homeFragment);

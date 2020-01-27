@@ -19,4 +19,8 @@ public final class UserManager {
         }
         return cookie;
     }
+
+    public static boolean isLogin() {
+        return SPHelper.getBoolean("is_login", false);
+    }
 }

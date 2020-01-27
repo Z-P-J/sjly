@@ -1,0 +1,287 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    >
+
+    <com.lzy.widget.PullZoomView
+        android:id="@+id/view_pull_zoom"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="280dp"
+                android:orientation="vertical"
+                android:tag="header"
+                >
+
+                <ImageView
+                    android:id="@+id/iv_wallpaper"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/wallpaper_me"
+                    android:tag="zoom"/>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_above="@id/ll_name"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginEnd="20dp"
+                    >
+
+                    <com.zpj.shouji.market.ui.widget.CircleImageView
+                        android:id="@+id/iv_avatar"
+                        android:layout_width="72dp"
+                        android:layout_height="72dp"
+                        android:src="@mipmap/ic_launcher"
+                        android:layout_centerVertical="true"
+                        android:alpha="0.7"
+                        />
+
+                    <TextView
+                        android:id="@+id/tv_follow"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:background="@drawable/bg_button_round_gray"
+                        android:gravity="center"
+                        android:text="编辑"
+                        android:textColor="@android:color/white"
+                        android:layout_centerVertical="true"
+                        android:layout_alignParentEnd="true"
+
+                        />
+
+                </RelativeLayout>
+
+                <LinearLayout
+                    android:id="@+id/ll_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_above="@id/ll_info"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginEnd="20dp"
+                    >
+
+                    <TextView
+                        android:id="@+id/tv_name"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="我好像在哪儿见过您"
+                        android:maxLines="1"
+                        android:ellipsize="end"
+                        android:textColor="#ffffff"
+                        android:textStyle="bold"
+                        android:textSize="17sp"
+                        android:paddingTop="10dp"
+                        android:paddingBottom="10dp"
+                        />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Lv.33"
+                        android:textStyle="italic|bold"
+                        android:textColor="@android:color/white"
+                        android:textSize="12sp"
+                        android:background="@drawable/bg_round_gray"
+                        android:paddingStart="8dp"
+                        android:paddingEnd="8dp"
+                        android:paddingTop="2dp"
+                        android:paddingBottom="2dp"
+                        android:gravity="center_vertical"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginStart="10dp"
+                        />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/ll_info"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_above="@id/tv_signature"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginEnd="20dp"
+                    >
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="#fafafa"
+                        android:text="关注 100"
+                        android:textSize="12sp"
+                        />
+
+                    <View
+                        android:layout_width="0.5dp"
+                        android:layout_height="match_parent"
+                        android:background="#ffffff"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginEnd="10dp"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginBottom="5dp"
+                        />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="#fafafa"
+                        android:text="粉丝 1000"
+                        android:textSize="12sp"
+                        />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/ll_"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginEnd="20dp"
+                    >
+
+
+
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/tv_signature"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+
+                    android:layout_marginTop="2dp"
+                    android:maxLines="2"
+                    android:ellipsize="end"
+                    android:text="4年7个月5天前加入乐园"
+                    android:textColor="#ffffff"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginEnd="20dp"
+                    android:layout_marginBottom="56dp"
+                    />
+<!--                android:layout_marginBottom="10dp"-->
+
+            </RelativeLayout>
+
+            <ScrollView
+                android:id="@+id/scroll_view"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="-56dp"
+                android:tag="content">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <include layout="@layout/layout_my_tools" />
+
+                    <www.linwg.org.lib.LCardView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:cardBackgroundColor="@android:color/white"
+                        app:shadowSize="15dp"
+                        app:shadowColor="#5f6379"
+                        app:shadowStartAlpha="10"
+                        app:cornerRadius="10dp"
+                        >
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            >
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="56dp"
+                                android:text="云备份"
+                                android:gravity="center_vertical"
+                                android:drawableEnd="@drawable/ic_keyboard_arrow_right_black_24dp"
+                                android:textColor="@color/color_text_major"
+                                android:background="@drawable/bottom_line_gray"
+                                android:textStyle="bold"
+                                android:layout_marginStart="15dp"
+                                android:layout_marginEnd="15dp"
+                                />
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="56dp"
+                                android:text="意见反馈"
+                                android:gravity="center_vertical"
+                                android:drawableEnd="@drawable/ic_keyboard_arrow_right_black_24dp"
+                                android:textColor="@color/color_text_major"
+                                android:background="@drawable/bottom_line_gray"
+                                android:textStyle="bold"
+                                android:layout_marginStart="15dp"
+                                android:layout_marginEnd="15dp"
+                                />
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="56dp"
+                                android:text="夜间模式"
+                                android:gravity="center_vertical"
+                                android:drawableEnd="@drawable/ic_keyboard_arrow_right_black_24dp"
+                                android:textColor="@color/color_text_major"
+                                android:background="@drawable/bottom_line_gray"
+                                android:textStyle="bold"
+                                android:layout_marginStart="15dp"
+                                android:layout_marginEnd="15dp"
+                                />
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="56dp"
+                                android:text="设置"
+                                android:gravity="center_vertical"
+                                android:drawableEnd="@drawable/ic_keyboard_arrow_right_black_24dp"
+                                android:textColor="@color/color_text_major"
+                                android:background="@drawable/bottom_line_gray"
+                                android:textStyle="bold"
+                                android:layout_marginStart="15dp"
+                                android:layout_marginEnd="15dp"
+                                />
+
+                        </LinearLayout>
+
+                    </www.linwg.org.lib.LCardView>
+
+                </LinearLayout>
+
+            </ScrollView>
+
+        </LinearLayout>
+
+    </com.lzy.widget.PullZoomView>
+
+<!--    <com.wuhenzhizao.titlebar.widget.CommonTitleBar-->
+<!--        android:id="@+id/title_bar"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        app:statusBarMode="light"-->
+<!--        app:fillStatusBar="true"-->
+<!--        app:titleBarColor="@android:color/transparent"-->
+<!--        app:statusBarColor="@android:color/transparent"-->
+<!--        app:showBottomLine="false"-->
+<!--        app:rightType="imageButton"-->
+<!--        app:rightImageResource="@drawable/ic_more_vert_grey_24dp"-->
+<!--        />-->
+
+
+</RelativeLayout>

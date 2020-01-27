@@ -48,6 +48,8 @@ dependencies {
     implementation project(':zpopup')
     implementation project(':glidegifdecoder')
     implementation project(':openingstartanimation')
+    implementation project(':pullzoom')
+
 
 
     implementation 'com.github.bumptech.glide:glide:4.7.1'

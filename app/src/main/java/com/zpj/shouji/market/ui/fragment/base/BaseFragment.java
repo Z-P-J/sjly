@@ -40,7 +40,7 @@ public abstract class BaseFragment extends SwipeBackFragment {
         if (getLayoutId() > 0) {
             view = inflater.inflate(getLayoutId(), container, false);
             titleBar = view.findViewById(R.id.title_bar);
-            if (titleBar != null && titleBar.getLeftImageButton() != null) {
+            if (titleBar != null) {
                 if (titleBar.getLeftImageButton() != null) {
                     toolbarLeftImageButton(titleBar.getLeftImageButton());
                 } else if (titleBar.getLeftCustomView() != null) {
@@ -55,6 +55,15 @@ public abstract class BaseFragment extends SwipeBackFragment {
                 } else if (titleBar.getRightTextView() != null) {
                     toolbarRightTextView(titleBar.getRightTextView());
                 }
+
+                if (titleBar.getCenterTextView() != null) {
+                    toolbarCenterTextView(titleBar.getCenterTextView());
+                } else if (titleBar.getCenterSubTextView() != null) {
+                    toolbarCenterSubTextView(titleBar.getCenterSubTextView());
+                } else if (titleBar.getCenterCustomView() != null) {
+                    toolbarCenterCustomView(titleBar.getCenterCustomView());
+                }
+
                 if (titleBar.getCenterTextView() != null) {
                     titleBar.getCenterTextView().setText(getToolbarTitle());
                 }
@@ -110,6 +119,18 @@ public abstract class BaseFragment extends SwipeBackFragment {
     }
 
     public void toolbarRightTextView(@NonNull TextView view) {
+
+    }
+
+    public void toolbarCenterTextView(@NonNull TextView view) {
+
+    }
+
+    public void toolbarCenterSubTextView(@NonNull TextView view) {
+
+    }
+
+    public void toolbarCenterCustomView(@NonNull View view) {
 
     }
 
