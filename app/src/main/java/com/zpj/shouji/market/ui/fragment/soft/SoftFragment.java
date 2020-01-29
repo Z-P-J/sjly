@@ -24,6 +24,7 @@ import com.zpj.recyclerview.EasyRecyclerView;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.glide.blur.BlurTransformation;
 import com.zpj.shouji.market.model.AppInfo;
+import com.zpj.shouji.market.model.GroupItem;
 import com.zpj.shouji.market.model.article.ArticleInfo;
 import com.zpj.shouji.market.model.CollectionInfo;
 import com.zpj.shouji.market.ui.fragment.ArticleDetailFragment;
@@ -38,11 +39,11 @@ import java.util.List;
 import java.util.Locale;
 
 public class SoftFragment extends BaseFragment
-        implements GroupRecyclerViewAdapter.OnItemClickListener<SoftFragment.ItemWrapper> {
+        implements GroupRecyclerViewAdapter.OnItemClickListener<GroupItem> {
 
     private static final String TAG = "SoftFragment";
 
-    private final List<List<ItemWrapper>> dataList = new ArrayList<>();
+    private final List<List<GroupItem>> dataList = new ArrayList<>();
 
     private Adapter adapter;
 
@@ -83,115 +84,58 @@ public class SoftFragment extends BaseFragment
     }
 
     @Override
-    public void onItemClick(GroupRecyclerViewAdapter<ItemWrapper> adapter, GroupViewHolder holder, ItemWrapper data, int groupPosition, int childPosition) {
-        if (groupPosition == 0) {
-            return;
-        }
-        if (data.getAppInfo() != null) {
-            AppDetailFragment fragment = AppDetailFragment.newInstance(data.getAppInfo());
-            _mActivity.start(fragment);
-        } else if (data.getCollectionItem() != null) {
-            AToast.normal("TODO Collection");
-            _mActivity.start(CollectionDetailFragment.newInstance(data.getCollectionItem()));
-        }
+    public void onItemClick(GroupRecyclerViewAdapter<GroupItem> adapter, GroupViewHolder holder, GroupItem data, int groupPosition, int childPosition) {
+
     }
 
     private void initData() {
         dataList.clear();
 
-        List<ItemWrapper> list0 = new ArrayList<>();
-        list0.add(new ItemWrapper());
+        List<GroupItem> list0 = new ArrayList<>();
+        list0.add(new GroupItem());
         dataList.add(list0);
 
-        List<ItemWrapper> list1 = new ArrayList<>();
-        list1.add(new ItemWrapper("最近更新"));
-        list1.add(new ItemWrapper());
+        List<GroupItem> list1 = new ArrayList<>();
+        list1.add(new GroupItem("最近更新"));
+        list1.add(new GroupItem());
         dataList.add(list1);
 
-        List<ItemWrapper> list2 = new ArrayList<>();
-        list2.add(new ItemWrapper("应用集推荐"));
-        list2.add(new ItemWrapper());
+        List<GroupItem> list2 = new ArrayList<>();
+        list2.add(new GroupItem("应用集推荐"));
+        list2.add(new GroupItem());
         dataList.add(list2);
 
-        List<ItemWrapper> list3 = new ArrayList<>();
-        list3.add(new ItemWrapper("常用应用"));
-        list3.add(new ItemWrapper());
+        List<GroupItem> list3 = new ArrayList<>();
+        list3.add(new GroupItem("常用应用"));
+        list3.add(new GroupItem());
         dataList.add(list3);
 
         // TODO 排行
 
-        List<ItemWrapper> list4 = new ArrayList<>();
-        list4.add(new ItemWrapper("软件新闻"));
-        list4.add(new ItemWrapper());
+        List<GroupItem> list4 = new ArrayList<>();
+        list4.add(new GroupItem("软件新闻"));
+        list4.add(new GroupItem());
         dataList.add(list4);
 
-        List<ItemWrapper> list5 = new ArrayList<>();
-        list5.add(new ItemWrapper("软件评测"));
-        list5.add(new ItemWrapper());
+        List<GroupItem> list5 = new ArrayList<>();
+        list5.add(new GroupItem("软件评测"));
+        list5.add(new GroupItem());
         dataList.add(list5);
 
-        List<ItemWrapper> list6 = new ArrayList<>();
-        list6.add(new ItemWrapper("软件教程"));
-        list6.add(new ItemWrapper());
+        List<GroupItem> list6 = new ArrayList<>();
+        list6.add(new GroupItem("软件教程"));
+        list6.add(new GroupItem());
         dataList.add(list6);
 
-        List<ItemWrapper> list7 = new ArrayList<>();
-        list7.add(new ItemWrapper("软件周刊"));
-        list7.add(new ItemWrapper());
+        List<GroupItem> list7 = new ArrayList<>();
+        list7.add(new GroupItem("软件周刊"));
+        list7.add(new GroupItem());
         dataList.add(list7);
 
         adapter.notifyDataSetChanged();
     }
 
-    class ItemWrapper {
-
-        private AppInfo appInfo;
-        private CollectionInfo collectionItem;
-        private String title;
-        public Drawable icon;
-
-        ItemWrapper() {
-
-        }
-
-        ItemWrapper(CollectionInfo collectionItem) {
-            this.collectionItem = collectionItem;
-        }
-
-        ItemWrapper(AppInfo appInfo) {
-            this.appInfo = appInfo;
-        }
-
-        ItemWrapper(String title) {
-            this.title = title;
-        }
-
-        public CollectionInfo getCollectionItem() {
-            return collectionItem;
-        }
-
-        public AppInfo getAppInfo() {
-            return appInfo;
-        }
-
-        public void setTitle(String title) {
-            this.title = title;
-        }
-
-        public String getTitle() {
-            return title;
-        }
-
-        public void setIcon(Drawable icon) {
-            this.icon = icon;
-        }
-
-        public Drawable getIcon() {
-            return icon;
-        }
-    }
-
-    private class Adapter extends HeaderGroupRecyclerViewAdapter<ItemWrapper> {
+    private class Adapter extends HeaderGroupRecyclerViewAdapter<GroupItem> {
 
         private final int[] RES_ICONS = {R.id.item_icon_1, R.id.item_icon_2, R.id.item_icon_3};
 
@@ -205,7 +149,7 @@ public class SoftFragment extends BaseFragment
         private static final int TYPE_CHILD_ARTICLE2 = 342;
         private static final int TYPE_CHILD_ARTICLE3 = 343;
 
-        Adapter(Context context, List<List<ItemWrapper>> groups) {
+        Adapter(Context context, List<List<GroupItem>> groups) {
             super(context, groups);
         }
 
@@ -271,7 +215,7 @@ public class SoftFragment extends BaseFragment
         }
 
         @Override
-        public void onBindHeaderViewHolder(GroupViewHolder holder, ItemWrapper item, int groupPosition) {
+        public void onBindHeaderViewHolder(GroupViewHolder holder, GroupItem item, int groupPosition) {
             int viewType = getHeaderItemViewType(groupPosition);
             if (viewType == TYPE_TOP_HEADER) {
                 holder.get(R.id.cv_item1).setOnClickListener(new View.OnClickListener() {
@@ -292,7 +236,7 @@ public class SoftFragment extends BaseFragment
         }
 
         @Override
-        public void onBindChildViewHolder(GroupViewHolder holder, ItemWrapper item, int groupPosition, int childPosition) {
+        public void onBindChildViewHolder(GroupViewHolder holder, GroupItem item, int groupPosition, int childPosition) {
             Object object = holder.itemView.getTag();
             if (object instanceof EasyRecyclerView) {
                 ((EasyRecyclerView) object).notifyDataSetChanged();
@@ -315,7 +259,7 @@ public class SoftFragment extends BaseFragment
         }
 
         @Override
-        public void onBindFooterViewHolder(GroupViewHolder holder, ItemWrapper item, int groupPosition) {
+        public void onBindFooterViewHolder(GroupViewHolder holder, GroupItem item, int groupPosition) {
 
         }
 

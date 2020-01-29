@@ -27,6 +27,7 @@ import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.model.AppInfo;
 import com.zpj.shouji.market.model.CollectionInfo;
 import com.zpj.shouji.market.glide.blur.BlurTransformation;
+import com.zpj.shouji.market.model.GroupItem;
 import com.zpj.shouji.market.ui.fragment.base.BaseFragment;
 import com.zpj.shouji.market.ui.fragment.collection.CollectionDetailFragment;
 import com.zpj.shouji.market.utils.ExecutorHelper;
@@ -36,10 +37,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class AppRecommendFragment extends BaseFragment
-        implements GroupRecyclerViewAdapter.OnItemClickListener<AppRecommendFragment.ItemWrapper> {
+        implements GroupRecyclerViewAdapter.OnItemClickListener<GroupItem> {
 
     private static final String KEY_ID = "key_id";
-    private final List<List<ItemWrapper>> dataList = new ArrayList<>();
+    private final List<List<GroupItem>> dataList = new ArrayList<>();
 
     private RecyclerView recyclerView;
     private SwipeRefreshLayout swipeRefreshLayout;
@@ -77,7 +78,7 @@ public class AppRecommendFragment extends BaseFragment
 //        GridLayoutManager layoutManager = new GridLayoutManager(getContext(), 4);
 //        recyclerView.addItemDecoration(new StickyHeaderDecoration());
         recyclerView.setLayoutManager(new LinearLayoutManager(context));
-        adapter = new RecommendAdapter(getContext(), dataList);
+        adapter = new RecommendAdapter(context, dataList);
         adapter.setOnItemClickListener(this);
         recyclerView.setAdapter(adapter);
     }
@@ -89,44 +90,26 @@ public class AppRecommendFragment extends BaseFragment
     }
 
     @Override
-    public void onItemClick(GroupRecyclerViewAdapter<ItemWrapper> adapter, GroupViewHolder holder, ItemWrapper data, int groupPosition, int childPosition) {
+    public void onItemClick(GroupRecyclerViewAdapter<GroupItem> adapter, GroupViewHolder holder, GroupItem data, int groupPosition, int childPosition) {
 
     }
 
     private void initData() {
         dataList.clear();
-        List<ItemWrapper> list0 = new ArrayList<>();
-        list0.add(new ItemWrapper("相关应用集"));
-        list0.add(new ItemWrapper());
+        List<GroupItem> list0 = new ArrayList<>();
+        list0.add(new GroupItem("相关应用集"));
+        list0.add(new GroupItem());
 
-        List<ItemWrapper> list1 = new ArrayList<>();
-        list1.add(new ItemWrapper("相关应用"));
-        list1.add(new ItemWrapper());
+        List<GroupItem> list1 = new ArrayList<>();
+        list1.add(new GroupItem("相关应用"));
+        list1.add(new GroupItem());
 
         dataList.add(list0);
         dataList.add(list1);
         adapter.notifyDataSetChanged();
     }
 
-    public class ItemWrapper {
-
-        private String title;
-
-        ItemWrapper() {
-
-        }
-
-        ItemWrapper(String title) {
-            this.title = title;
-        }
-
-        public String getTitle() {
-            return title;
-        }
-
-    }
-
-    public class RecommendAdapter extends HeaderGroupRecyclerViewAdapter<ItemWrapper> {
+    public class RecommendAdapter extends HeaderGroupRecyclerViewAdapter<GroupItem> {
 
         private final int[] RES_ICONS = {R.id.item_icon_1, R.id.item_icon_2, R.id.item_icon_3};
 
@@ -139,7 +122,7 @@ public class AppRecommendFragment extends BaseFragment
         static final int TYPE_CHILD_COLLECTION = 332;
         static final int TYPE_CHILD_RECOMMEND = 333;
 
-        RecommendAdapter(Context context, List<List<ItemWrapper>> groups) {
+        RecommendAdapter(Context context, List<List<GroupItem>> groups) {
             super(context, groups);
         }
 
@@ -179,12 +162,12 @@ public class AppRecommendFragment extends BaseFragment
         }
 
         @Override
-        public void onBindHeaderViewHolder(GroupViewHolder holder, ItemWrapper item, int groupPosition) {
+        public void onBindHeaderViewHolder(GroupViewHolder holder, GroupItem item, int groupPosition) {
             holder.setText(R.id.tv_title, item.getTitle());
         }
 
         @Override
-        public void onBindChildViewHolder(GroupViewHolder holder, ItemWrapper item, int groupPosition, int childPosition) {
+        public void onBindChildViewHolder(GroupViewHolder holder, GroupItem item, int groupPosition, int childPosition) {
             Object object = holder.itemView.getTag();
             if (object instanceof EasyRecyclerView) {
                 ((EasyRecyclerView) object).notifyDataSetChanged();

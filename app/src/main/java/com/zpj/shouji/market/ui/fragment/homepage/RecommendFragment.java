@@ -27,6 +27,7 @@ import com.zpj.recyclerview.EasyRecyclerView;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.model.AppInfo;
 import com.zpj.shouji.market.model.CollectionInfo;
+import com.zpj.shouji.market.model.GroupItem;
 import com.zpj.shouji.market.model.SubjectInfo;
 import com.zpj.shouji.market.glide.blur.BlurTransformation;
 import com.zpj.shouji.market.ui.fragment.AppListFragment;
@@ -40,11 +41,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class RecommendFragment extends BaseFragment
-        implements GroupRecyclerViewAdapter.OnItemClickListener<RecommendFragment.ItemWrapper> {
+        implements GroupRecyclerViewAdapter.OnItemClickListener<GroupItem> {
 
     private static final String TAG = "RecommendFragment";
 
-    private final List<List<ItemWrapper>> dataList = new ArrayList<>();
+    private final List<List<GroupItem>> dataList = new ArrayList<>();
 
     private SwipeRefreshLayout swipeRefreshLayout;
     private MZBannerView<AppInfo> mMZBanner;
@@ -67,7 +68,7 @@ public class RecommendFragment extends BaseFragment
         }, 1000));
 
         recyclerView.setLayoutManager(new LinearLayoutManager(context));
-        adapter = new RecommendAdapter(getContext(), dataList);
+        adapter = new RecommendAdapter(context, dataList);
         adapter.setOnItemClickListener(this);
         recyclerView.setAdapter(adapter);
 //        recyclerView.setItemViewCacheSize(50);
@@ -108,7 +109,7 @@ public class RecommendFragment extends BaseFragment
     }
 
     @Override
-    public void onItemClick(GroupRecyclerViewAdapter adapter, GroupViewHolder holder, ItemWrapper data, int groupPosition, int childPosition) {
+    public void onItemClick(GroupRecyclerViewAdapter adapter, GroupViewHolder holder, GroupItem data, int groupPosition, int childPosition) {
 //        if (groupPosition == 0) {
 //            return;
 //        }
@@ -117,33 +118,33 @@ public class RecommendFragment extends BaseFragment
     private void initData() {
         dataList.clear();
 
-        List<ItemWrapper> list0 = new ArrayList<>();
-        list0.add(new ItemWrapper());
+        List<GroupItem> list0 = new ArrayList<>();
+        list0.add(new GroupItem());
         dataList.add(list0);
 
-        List<ItemWrapper> list1 = new ArrayList<>();
-        list1.add(new ItemWrapper("最近更新"));
-        list1.add(new ItemWrapper());
+        List<GroupItem> list1 = new ArrayList<>();
+        list1.add(new GroupItem("最近更新"));
+        list1.add(new GroupItem());
         dataList.add(list1);
 
-        List<ItemWrapper> list2 = new ArrayList<>();
-        list2.add(new ItemWrapper("应用集推荐"));
-        list2.add(new ItemWrapper());
+        List<GroupItem> list2 = new ArrayList<>();
+        list2.add(new GroupItem("应用集推荐"));
+        list2.add(new GroupItem());
         dataList.add(list2);
 
-        List<ItemWrapper> list3 = new ArrayList<>();
-        list3.add(new ItemWrapper("应用推荐"));
-        list3.add(new ItemWrapper());
+        List<GroupItem> list3 = new ArrayList<>();
+        list3.add(new GroupItem("应用推荐"));
+        list3.add(new GroupItem());
         dataList.add(list3);
 
-        List<ItemWrapper> list4 = new ArrayList<>();
-        list4.add(new ItemWrapper("游戏推荐"));
-        list4.add(new ItemWrapper());
+        List<GroupItem> list4 = new ArrayList<>();
+        list4.add(new GroupItem("游戏推荐"));
+        list4.add(new GroupItem());
         dataList.add(list4);
 
-        List<ItemWrapper> list5 = new ArrayList<>();
-        list5.add(new ItemWrapper("专题推荐"));
-        list5.add(new ItemWrapper());
+        List<GroupItem> list5 = new ArrayList<>();
+        list5.add(new GroupItem("专题推荐"));
+        list5.add(new GroupItem());
         dataList.add(list5);
 
         adapter.notifyDataSetChanged();
@@ -172,28 +173,7 @@ public class RecommendFragment extends BaseFragment
         }
     }
 
-    class ItemWrapper {
-
-        private String title;
-
-        ItemWrapper() {
-
-        }
-
-        ItemWrapper(String title) {
-            this.title = title;
-        }
-
-        public void setTitle(String title) {
-            this.title = title;
-        }
-
-        public String getTitle() {
-            return title;
-        }
-    }
-
-    private class RecommendAdapter extends HeaderGroupRecyclerViewAdapter<ItemWrapper> {
+    private class RecommendAdapter extends HeaderGroupRecyclerViewAdapter<GroupItem> {
 
         private final int[] RES_ICONS = {R.id.item_icon_1, R.id.item_icon_2, R.id.item_icon_3};
 
@@ -208,7 +188,7 @@ public class RecommendFragment extends BaseFragment
         static final int TYPE_CHILD_RECOMMEND_GAME = 33;
         static final int TYPE_CHILD_SUBJECT = 334;
 
-        RecommendAdapter(Context context, List<List<ItemWrapper>> groups) {
+        RecommendAdapter(Context context, List<List<GroupItem>> groups) {
             super(context, groups);
         }
 
@@ -266,7 +246,7 @@ public class RecommendFragment extends BaseFragment
         }
 
         @Override
-        public void onBindHeaderViewHolder(GroupViewHolder holder, ItemWrapper item, int groupPosition) {
+        public void onBindHeaderViewHolder(GroupViewHolder holder, GroupItem item, int groupPosition) {
             int viewType = getHeaderItemViewType(groupPosition);
             if (viewType == TYPE_TOP_HEADER) {
                 if (mMZBanner == null) {
@@ -282,7 +262,7 @@ public class RecommendFragment extends BaseFragment
         }
 
         @Override
-        public void onBindChildViewHolder(GroupViewHolder holder, ItemWrapper item, int groupPosition, int childPosition) {
+        public void onBindChildViewHolder(GroupViewHolder holder, GroupItem item, int groupPosition, int childPosition) {
             int viewType = getChildItemViewType(groupPosition, childPosition);
             Log.d(TAG, "groupPosition=" + groupPosition + " childPosition=" + childPosition + " viewType=" + viewType);
 
@@ -305,7 +285,7 @@ public class RecommendFragment extends BaseFragment
         }
 
         @Override
-        public void onBindFooterViewHolder(GroupViewHolder holder, ItemWrapper item, int groupPosition) {
+        public void onBindFooterViewHolder(GroupViewHolder holder, GroupItem item, int groupPosition) {
 
         }
 

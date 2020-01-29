@@ -24,6 +24,7 @@ import com.zpj.recyclerview.IEasy;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.glide.blur.BlurTransformation;
 import com.zpj.shouji.market.model.AppInfo;
+import com.zpj.shouji.market.model.GroupItem;
 import com.zpj.shouji.market.model.article.ArticleInfo;
 import com.zpj.shouji.market.model.CollectionInfo;
 import com.zpj.shouji.market.ui.fragment.ArticleDetailFragment;
@@ -38,11 +39,11 @@ import java.util.List;
 import java.util.Locale;
 
 public class GameFragment extends BaseFragment
-        implements GroupRecyclerViewAdapter.OnItemClickListener<GameFragment.ItemWrapper> {
+        implements GroupRecyclerViewAdapter.OnItemClickListener<GroupItem> {
 
     private static final String TAG = "GameFragment";
 
-    private final List<List<ItemWrapper>> dataList = new ArrayList<>();
+    private final List<List<GroupItem>> dataList = new ArrayList<>();
 
     private Adapter adapter;
 
@@ -83,7 +84,7 @@ public class GameFragment extends BaseFragment
     }
 
     @Override
-    public void onItemClick(GroupRecyclerViewAdapter<ItemWrapper> adapter, GroupViewHolder holder, ItemWrapper data, int groupPosition, int childPosition) {
+    public void onItemClick(GroupRecyclerViewAdapter<GroupItem> adapter, GroupViewHolder holder, GroupItem data, int groupPosition, int childPosition) {
         if (groupPosition == 0) {
             return;
         }
@@ -92,81 +93,59 @@ public class GameFragment extends BaseFragment
     private void initData() {
         dataList.clear();
 
-        List<ItemWrapper> topList = new ArrayList<>();
-        topList.add(new ItemWrapper());
+        List<GroupItem> topList = new ArrayList<>();
+        topList.add(new GroupItem());
         dataList.add(topList);
 
-        List<ItemWrapper> list1 = new ArrayList<>();
-        list1.add(new ItemWrapper("最近更新"));
-        list1.add(new ItemWrapper());
+        List<GroupItem> list1 = new ArrayList<>();
+        list1.add(new GroupItem("最近更新"));
+        list1.add(new GroupItem());
         dataList.add(list1);
 
-        List<ItemWrapper> list2 = new ArrayList<>();
-        list2.add(new ItemWrapper("游戏推荐"));
-        list2.add(new ItemWrapper());
+        List<GroupItem> list2 = new ArrayList<>();
+        list2.add(new GroupItem("游戏推荐"));
+        list2.add(new GroupItem());
         dataList.add(list2);
 
-        List<ItemWrapper> list3 = new ArrayList<>();
-        list3.add(new ItemWrapper("热门网游"));
-        list3.add(new ItemWrapper());
+        List<GroupItem> list3 = new ArrayList<>();
+        list3.add(new GroupItem("热门网游"));
+        list3.add(new GroupItem());
         dataList.add(list3);
 
-        List<ItemWrapper> list4 = new ArrayList<>();
-        list4.add(new ItemWrapper("游戏快递"));
-        list4.add(new ItemWrapper());
+        List<GroupItem> list4 = new ArrayList<>();
+        list4.add(new GroupItem("游戏快递"));
+        list4.add(new GroupItem());
         dataList.add(list4);
 
-        List<ItemWrapper> list5 = new ArrayList<>();
-        list5.add(new ItemWrapper("游戏评测"));
-        list5.add(new ItemWrapper());
+        List<GroupItem> list5 = new ArrayList<>();
+        list5.add(new GroupItem("游戏评测"));
+        list5.add(new GroupItem());
         dataList.add(list5);
 
-        List<ItemWrapper> list6 = new ArrayList<>();
-        list6.add(new ItemWrapper("游戏攻略"));
-        list6.add(new ItemWrapper());
+        List<GroupItem> list6 = new ArrayList<>();
+        list6.add(new GroupItem("游戏攻略"));
+        list6.add(new GroupItem());
         dataList.add(list6);
 
-        List<ItemWrapper> list7 = new ArrayList<>();
-        list7.add(new ItemWrapper("游戏新闻"));
-        list7.add(new ItemWrapper());
+        List<GroupItem> list7 = new ArrayList<>();
+        list7.add(new GroupItem("游戏新闻"));
+        list7.add(new GroupItem());
         dataList.add(list7);
 
-        List<ItemWrapper> list8 = new ArrayList<>();
-        list8.add(new ItemWrapper("游戏周刊"));
-        list8.add(new ItemWrapper());
+        List<GroupItem> list8 = new ArrayList<>();
+        list8.add(new GroupItem("游戏周刊"));
+        list8.add(new GroupItem());
         dataList.add(list8);
 
-        List<ItemWrapper> list9 = new ArrayList<>();
-        list9.add(new ItemWrapper("游戏公告"));
-        list9.add(new ItemWrapper());
+        List<GroupItem> list9 = new ArrayList<>();
+        list9.add(new GroupItem("游戏公告"));
+        list9.add(new GroupItem());
         dataList.add(list9);
 
         adapter.notifyDataSetChanged();
     }
 
-
-    class ItemWrapper {
-
-        private String title;
-
-        ItemWrapper() {
-
-        }
-
-        ItemWrapper(String title) {
-            this.title = title;
-        }
-
-        public void setTitle(String title) {
-            this.title = title;
-        }
-
-        public String getTitle() {
-            return title;
-        }
-    }
-
-    private class Adapter extends HeaderGroupRecyclerViewAdapter<ItemWrapper> {
+    private class Adapter extends HeaderGroupRecyclerViewAdapter<GroupItem> {
 
         private final int[] RES_ICONS = {R.id.item_icon_1, R.id.item_icon_2, R.id.item_icon_3};
 
@@ -184,7 +163,7 @@ public class GameFragment extends BaseFragment
         private static final int TYPE_CHILD_ARTICLE = 34;
         private static final int TYPE_CHILD_WEEKLY = 35;
 
-        Adapter(Context context, List<List<ItemWrapper>> groups) {
+        Adapter(Context context, List<List<GroupItem>> groups) {
             super(context, groups);
         }
 
@@ -250,7 +229,7 @@ public class GameFragment extends BaseFragment
         }
 
         @Override
-        public void onBindHeaderViewHolder(GroupViewHolder holder, ItemWrapper item, int groupPosition) {
+        public void onBindHeaderViewHolder(GroupViewHolder holder, GroupItem item, int groupPosition) {
             int viewType = getHeaderItemViewType(groupPosition);
             if (viewType == TYPE_TOP_HEADER) {
                 holder.get(R.id.cv_item1).setOnClickListener(new View.OnClickListener() {
@@ -271,7 +250,7 @@ public class GameFragment extends BaseFragment
         }
 
         @Override
-        public void onBindChildViewHolder(GroupViewHolder holder, ItemWrapper item, int groupPosition, int childPosition) {
+        public void onBindChildViewHolder(GroupViewHolder holder, GroupItem item, int groupPosition, int childPosition) {
             RecyclerView view = holder.get(R.id.recycler_view);
             if (view == null) {
                 return;
@@ -301,7 +280,7 @@ public class GameFragment extends BaseFragment
         }
 
         @Override
-        public void onBindFooterViewHolder(GroupViewHolder holder, ItemWrapper item, int groupPosition) {
+        public void onBindFooterViewHolder(GroupViewHolder holder, GroupItem item, int groupPosition) {
 
         }
 

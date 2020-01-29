@@ -19,7 +19,7 @@
             android:layout_height="wrap_content"
             android:gravity="center"
             android:text="最近更新"
-            android:textSize="18sp"
+            android:textSize="16sp"
             android:textColor="@color/color_text_major"
             android:textStyle="bold"
             android:layout_alignParentBottom="true"
