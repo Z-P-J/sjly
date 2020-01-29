@@ -90,12 +90,9 @@ public class SearchPanelFragment extends BaseFragment {
         if (history == null) {
             history = new SearchHistory();
             history.setText(keyword);
-            history.setTime(System.currentTimeMillis());
-            history.save();
-        } else {
-            history.setTime(System.currentTimeMillis());
-            history.update();
         }
+        history.setTime(System.currentTimeMillis());
+        history.save();
         getSearchHistory();
     }
 }
