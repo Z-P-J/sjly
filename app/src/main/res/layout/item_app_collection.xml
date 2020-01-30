@@ -2,6 +2,7 @@
 <www.linwg.org.lib.LCardView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/card_view"
     android:layout_width="240dp"
     android:layout_height="wrap_content"
     app:cornerRadius="10dp"

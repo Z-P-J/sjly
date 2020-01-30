@@ -8,11 +8,11 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.felix.atoast.library.AToast;
-import com.lzy.widget.PullZoomView;
 import com.zpj.popupmenuview.popup.EverywherePopup;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.ui.fragment.base.BaseFragment;
 import com.zpj.shouji.market.ui.widget.CircleImageView;
+import com.zpj.shouji.market.ui.widget.PullZoomView;
 import com.zpj.shouji.market.utils.UserManager;
 import com.zpj.utils.ClickHelper;
 

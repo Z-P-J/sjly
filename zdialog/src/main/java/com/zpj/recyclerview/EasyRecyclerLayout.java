@@ -70,6 +70,19 @@ public class EasyRecyclerLayout<T> extends FrameLayout {
         refreshLayout.setEnabled(false);
         statusView = view.findViewById(R.id.multiple_status_view);
         RecyclerView recyclerView = new RecyclerView(getContext());
+        recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
+                int topRowVerticalPosition =
+                        recyclerView.getChildCount() == 0 ? 0 : recyclerView.getChildAt(0).getTop();
+                refreshLayout.setEnabled(enableSwipeRefresh && topRowVerticalPosition >= 0);
+            }
+
+            @Override
+            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+                super.onScrollStateChanged(recyclerView, newState);
+            }
+        });
         ViewGroup.LayoutParams layoutParams = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
         statusView.showContent(recyclerView, layoutParams);
         easyRecyclerView = new EasyRecyclerView<>(recyclerView);
@@ -193,6 +206,16 @@ public class EasyRecyclerLayout<T> extends FrameLayout {
 
     public EasyRecyclerLayout<T> onItemLongClick(IEasy.OnItemLongClickListener<T> listener) {
         easyRecyclerView.onItemLongClick(listener);
+        return this;
+    }
+
+    public EasyRecyclerLayout<T> onGetChildViewType(IEasy.OnGetChildViewTypeListener listener) {
+        easyRecyclerView.onGetChildViewType(listener);
+        return this;
+    }
+
+    public EasyRecyclerLayout<T> onGetChildLayoutId(IEasy.OnGetChildLayoutIdListener listener) {
+        easyRecyclerView.onGetChildLayoutId(listener);
         return this;
     }
 

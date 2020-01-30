@@ -1,6 +1,7 @@
 package com.zpj.shouji.market.ui.fragment.homepage;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -10,7 +11,10 @@ import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
@@ -23,65 +27,108 @@ import com.zhouwei.mzbanner.holder.MZViewHolder;
 import com.zpj.http.parser.html.nodes.Document;
 import com.zpj.http.parser.html.nodes.Element;
 import com.zpj.http.parser.html.select.Elements;
+import com.zpj.recyclerview.EasyAdapter;
+import com.zpj.recyclerview.EasyRecyclerLayout;
 import com.zpj.recyclerview.EasyRecyclerView;
+import com.zpj.recyclerview.EasyViewHolder;
+import com.zpj.recyclerview.IEasy;
 import com.zpj.shouji.market.R;
+import com.zpj.shouji.market.glide.blur.BlurTransformation;
 import com.zpj.shouji.market.model.AppInfo;
 import com.zpj.shouji.market.model.CollectionInfo;
 import com.zpj.shouji.market.model.GroupItem;
 import com.zpj.shouji.market.model.SubjectInfo;
-import com.zpj.shouji.market.glide.blur.BlurTransformation;
 import com.zpj.shouji.market.ui.fragment.AppListFragment;
+import com.zpj.shouji.market.ui.fragment.base.BaseFragment;
+import com.zpj.shouji.market.ui.fragment.base.RecyclerLayoutFragment;
 import com.zpj.shouji.market.ui.fragment.collection.CollectionDetailFragment;
 import com.zpj.shouji.market.ui.fragment.detail.AppDetailFragment;
-import com.zpj.shouji.market.ui.fragment.base.BaseFragment;
-import com.zpj.shouji.market.utils.HttpUtil;
 import com.zpj.shouji.market.utils.ExecutorHelper;
+import com.zpj.shouji.market.utils.HttpUtil;
+import com.zpj.utils.ScreenUtil;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class RecommendFragment extends BaseFragment
-        implements GroupRecyclerViewAdapter.OnItemClickListener<GroupItem> {
+import www.linwg.org.lib.LCardView;
+
+public class RecommendFragment extends RecyclerLayoutFragment<GroupItem> {
 
     private static final String TAG = "RecommendFragment";
 
-    private final List<List<GroupItem>> dataList = new ArrayList<>();
+    private final int[] RES_ICONS = {R.id.item_icon_1, R.id.item_icon_2, R.id.item_icon_3};
 
-    private SwipeRefreshLayout swipeRefreshLayout;
     private MZBannerView<AppInfo> mMZBanner;
 
-    private RecommendAdapter adapter;
-
     @Override
-    protected int getLayoutId() {
-        return R.layout.fragment_recomment;
+    protected int getItemLayoutId() {
+        return R.layout.item_recommend_card;
     }
 
     @Override
-    protected void initView(View view, @Nullable Bundle savedInstanceState) {
-        RecyclerView recyclerView = view.findViewById(R.id.recycler_view_recent_update);
-        swipeRefreshLayout = view.findViewById(R.id.swipe_refresh);
-        swipeRefreshLayout.setOnRefreshListener(() -> recyclerView.postDelayed(() -> {
-            swipeRefreshLayout.setRefreshing(false);
-//            initData();
-            refresh();
-        }, 1000));
+    protected void buildRecyclerLayout(EasyRecyclerLayout<GroupItem> recyclerLayout) {
+        recyclerLayout.getEasyRecyclerView().getRecyclerView().setBackgroundColor(getResources().getColor(R.color.color_background));
+        recyclerLayout.setHeaderView(R.layout.layout_recommend_header, new IEasy.OnBindHeaderListener() {
+            private final List<AppInfo> bannerItemList = new ArrayList<>();
+            private final BannerViewHolder bannerViewHolder = new BannerViewHolder();
+            @Override
+            public void onBindHeader(EasyViewHolder holder) {
+                if (mMZBanner == null) {
+                    mMZBanner = holder.getView(R.id.banner);
+                    getBanners();
+                } else {
+                    mMZBanner.setPages(bannerItemList, BannerViewHolder::new);
+                    mMZBanner.start();
+                }
+            }
 
-        recyclerView.setLayoutManager(new LinearLayoutManager(context));
-        adapter = new RecommendAdapter(context, dataList);
-        adapter.setOnItemClickListener(this);
-        recyclerView.setAdapter(adapter);
-//        recyclerView.setItemViewCacheSize(50);
-//        recyclerView.setDrawingCacheEnabled(true);
-//        recyclerView.setHasFixedSize(true);
-//        recyclerView.setNestedScrollingEnabled(false);
-//        recyclerView.setDrawingCacheQuality(View.DRAWING_CACHE_QUALITY_HIGH);
+            private void getBanners() {
+                ExecutorHelper.submit(() -> {
+                    try {
+                        Document doc = HttpUtil.getDocument("http://tt.shouji.com.cn/androidv3/app_index_xml.jsp?index=1&versioncode=198");
+                        Elements elements = doc.select("item");
+                        bannerItemList.clear();
+                        for (Element element : elements) {
+                            AppInfo info = AppInfo.parse(element);
+                            if (info == null) {
+                                continue;
+                            }
+                            bannerItemList.add(info);
+                        }
+                        post(() -> {
+                            mMZBanner.setPages(bannerItemList, () -> bannerViewHolder);
+                            mMZBanner.start();
+                        });
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                        onError(e);
+                    }
+                });
+            }
+        })
+        .onGetChildViewType(position -> position + 1);
     }
 
     @Override
-    public void onLazyInitView(@Nullable Bundle savedInstanceState) {
-        super.onLazyInitView(savedInstanceState);
-        initData();
+    public void onRefresh() {
+        mMZBanner = null;
+        data.clear();
+        recyclerLayout.notifyDataSetChanged();
+        data.add(new GroupItem("最近更新"));
+        data.add(new GroupItem("应用集推荐"));
+        data.add(new GroupItem("应用推荐"));
+        data.add(new GroupItem("游戏推荐"));
+        data.add(new GroupItem("专题推荐"));
+        recyclerLayout.notifyDataSetChanged();
+    }
+
+    @Override
+    public boolean onLoadMore(EasyAdapter.Enabled enabled, int currentPage) {
+        if (data.isEmpty()) {
+            onRefresh();
+            return true;
+        }
+        return false;
     }
 
     @Override
@@ -109,51 +156,234 @@ public class RecommendFragment extends BaseFragment
     }
 
     @Override
-    public void onItemClick(GroupRecyclerViewAdapter adapter, GroupViewHolder holder, GroupItem data, int groupPosition, int childPosition) {
-//        if (groupPosition == 0) {
-//            return;
-//        }
+    public void onClick(EasyViewHolder holder, View view, GroupItem data) {
+
     }
 
-    private void initData() {
-        dataList.clear();
-
-        List<GroupItem> list0 = new ArrayList<>();
-        list0.add(new GroupItem());
-        dataList.add(list0);
-
-        List<GroupItem> list1 = new ArrayList<>();
-        list1.add(new GroupItem("最近更新"));
-        list1.add(new GroupItem());
-        dataList.add(list1);
-
-        List<GroupItem> list2 = new ArrayList<>();
-        list2.add(new GroupItem("应用集推荐"));
-        list2.add(new GroupItem());
-        dataList.add(list2);
-
-        List<GroupItem> list3 = new ArrayList<>();
-        list3.add(new GroupItem("应用推荐"));
-        list3.add(new GroupItem());
-        dataList.add(list3);
-
-        List<GroupItem> list4 = new ArrayList<>();
-        list4.add(new GroupItem("游戏推荐"));
-        list4.add(new GroupItem());
-        dataList.add(list4);
-
-        List<GroupItem> list5 = new ArrayList<>();
-        list5.add(new GroupItem("专题推荐"));
-        list5.add(new GroupItem());
-        dataList.add(list5);
-
-        adapter.notifyDataSetChanged();
+    @Override
+    public boolean onLongClick(EasyViewHolder holder, View view, GroupItem data) {
+        return false;
     }
 
-    public void refresh() {
-        for (int i = 0; i < dataList.size(); i++) {
-            adapter.updateGroup(i, dataList.get(i));
+    @Override
+    public void onBindViewHolder(EasyViewHolder holder, List<GroupItem> list, int position, List<Object> payloads) {
+        holder.getTextView(R.id.tv_title).setText(list.get(position).getTitle());
+        if (holder.getItemView().getTag() instanceof EasyRecyclerView) {
+            ((EasyRecyclerView) holder.getItemView().getTag()).notifyDataSetChanged();
+            return;
         }
+        RelativeLayout rlHeader = holder.getView(R.id.rl_header);
+        RecyclerView view = holder.getView(R.id.recycler_view);
+        LCardView cardView = holder.getView(R.id.card_view);
+        FrameLayout.LayoutParams params = (FrameLayout.LayoutParams) cardView.getLayoutParams();
+        LinearLayout.LayoutParams rlParams = (LinearLayout.LayoutParams) rlHeader.getLayoutParams();
+        rlParams.setMarginStart(0);
+        rlParams.setMarginEnd(0);
+        int margin = ScreenUtil.dp2pxInt(context, 12);
+        int padding = ScreenUtil.dp2pxInt(context, 8);
+        view.setPadding(padding, padding, padding, padding);
+        switch (holder.getViewType()) {
+            case 1:
+                params.setMargins(margin, margin, margin, margin/ 2);
+                cardView.setCardBackgroundColor(Color.WHITE);
+                getAppInfo(holder, "http://tt.shouji.com.cn/androidv3/app_list_xml.jsp?index=1&versioncode=198");
+                break;
+            case 2:
+                params.setMargins(0, margin / 2, 0, margin / 2);
+                rlParams.setMarginStart(margin);
+                rlParams.setMarginEnd(margin);
+                cardView.setCardBackgroundColor(Color.TRANSPARENT);
+                view.setPadding(0, 0, 0, 0);
+                getCollection(holder);
+                break;
+            case 3:
+                params.setMargins(margin, margin / 2, margin, margin/ 2);
+                cardView.setCardBackgroundColor(Color.WHITE);
+                getAppInfo(holder, "http://tt.shouji.com.cn/androidv3/special_list_xml.jsp?id=-9998");
+                break;
+            case 4:
+                params.setMargins(margin, margin / 2, margin, margin/ 2);
+                cardView.setCardBackgroundColor(Color.WHITE);
+                getAppInfo(holder, "http://tt.shouji.com.cn/androidv3/game_index_xml.jsp?sdk=100&sort=day");
+                break;
+            case 5:
+                params.setMargins(0, margin / 2, 0, 0);
+                rlParams.setMarginStart(margin);
+                rlParams.setMarginEnd(margin);
+                cardView.setCardBackgroundColor(Color.TRANSPARENT);
+                view.setPadding(0, 0, 0, 0);
+                getSubjects(holder);
+                break;
+        }
+        rlHeader.setLayoutParams(rlParams);
+        cardView.setLayoutParams(params);
+    }
+
+    private void getAppInfo(EasyViewHolder holder, final String url) {
+        EasyRecyclerView<AppInfo> recyclerView = new EasyRecyclerView<>(holder.getView(R.id.recycler_view));
+        holder.getItemView().setTag(recyclerView);
+        List<AppInfo> list = new ArrayList<>();
+        recyclerView.setData(list)
+                .setItemRes(R.layout.item_app_grid)
+                .setLayoutManager(new GridLayoutManager(context, 4))
+                .onBindViewHolder((holder1, list1, position, payloads) -> {
+                    AppInfo info = list1.get(position);
+                    holder1.getTextView(R.id.item_title).setText(info.getAppTitle());
+                    holder1.getTextView(R.id.item_info).setText(info.getAppSize());
+                    Glide.with(context).load(info.getAppIcon()).into(holder1.getImageView(R.id.item_icon));
+                })
+                .onItemClick((holder13, view1, data) -> _mActivity.start(AppDetailFragment.newInstance(data)))
+                .build();
+        ExecutorHelper.submit(() -> {
+            try {
+                Document doc = HttpUtil.getDocument(url);
+                Elements elements = doc.select("item");
+                for (Element element : elements) {
+                    AppInfo info = AppInfo.parse(element);
+                    if (info == null) {
+                        continue;
+                    }
+                    list.add(info);
+                    if (list.size() == 8) {
+                        break;
+                    }
+                }
+                post(recyclerView::notifyDataSetChanged);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        });
+    }
+
+    private void getCollection(final EasyViewHolder holder) {
+        EasyRecyclerView<CollectionInfo> recyclerView = new EasyRecyclerView<>(holder.getView(R.id.recycler_view));
+        holder.getItemView().setTag(recyclerView);
+        List<CollectionInfo> list = new ArrayList<>();
+        int margin = ScreenUtil.dp2pxInt(context, 12);
+        recyclerView.setData(list)
+                .setItemRes(R.layout.item_app_collection)
+                .setLayoutManager(new GridLayoutManager(context, 2, LinearLayoutManager.HORIZONTAL, false))
+                .onBindViewHolder((holder1, list1, position, payloads) -> {
+                    CollectionInfo info = list1.get(position);
+                    LCardView cardView = holder.getView(R.id.card_view);
+                    cardView.setShadowSize(0);
+                    cardView.setShadowAlpha(0);
+                    FrameLayout.LayoutParams params = (FrameLayout.LayoutParams) cardView.getLayoutParams();
+                    if (position % 2 == 0) {
+                        if (position == 0) {
+                            params.setMargins(margin, 0, margin / 2, margin / 2);
+                        } else if (position == list1.size() - 2) {
+                            params.setMargins(margin / 2, 0, margin, margin / 2);
+                        } else {
+                            params.setMargins(margin / 2, 0, margin / 2, margin / 2);
+                        }
+                    } else {
+                        if (position == 1) {
+                            params.setMargins(margin, margin / 2, margin / 2, 0);
+                        } else if (position == list1.size() - 1) {
+                            params.setMargins(margin / 2, margin / 2, margin, 0);
+                        } else {
+                            params.setMargins(margin / 2, margin / 2, margin / 2, 0);
+                        }
+                    }
+                    cardView.setLayoutParams(params);
+
+                    holder1.getTextView(R.id.item_title).setText(info.getTitle());
+                    holder1.setText(R.id.tv_view_count, info.getViewCount() + "");
+                    holder1.setText(R.id.tv_favorite_count, info.getFavCount() + "");
+                    holder1.setText(R.id.tv_support_count, info.getSupportCount() + "");
+                    for (int i = 0; i < RES_ICONS.length; i++) {
+                        int res = RES_ICONS[i];
+                        if (i == 0) {
+                            Glide.with(context)
+                                    .load(info.getIcons().get(0))
+                                    .apply(RequestOptions.bitmapTransform(new BlurTransformation(context, 7)))
+                                    .into(holder1.getImageView(R.id.img_bg));
+                        }
+                        Glide.with(context).load(info.getIcons().get(i)).into(holder1.getImageView(res));
+                    }
+                })
+                .onItemClick((holder14, view12, data) -> _mActivity.start(CollectionDetailFragment.newInstance(data)))
+                .build();
+        ExecutorHelper.submit(() -> {
+            try {
+                Document doc = HttpUtil.getDocument("http://tt.shouji.com.cn/androidv3/yyj_tj_xml.jsp");
+                Elements elements = doc.select("item");
+                for (Element element : elements) {
+                    list.add(CollectionInfo.create(element));
+                }
+                if (list.size() % 2 != 0) {
+                    list.remove(list.size() - 1);
+                }
+                post(recyclerView::notifyDataSetChanged);
+            } catch (Exception e) {
+                e.printStackTrace();
+                onError(e);
+            }
+        });
+    }
+
+    private void getSubjects(EasyViewHolder holder) {
+        EasyRecyclerView<SubjectInfo> recyclerView = new EasyRecyclerView<>(holder.getView(R.id.recycler_view));
+        holder.getItemView().setTag(recyclerView);
+        List<SubjectInfo> list = new ArrayList<>();
+        int margin = ScreenUtil.dp2pxInt(context, 12);
+        recyclerView.setData(list)
+                .setItemRes(R.layout.item_app_subject)
+                .setLayoutManager(new GridLayoutManager(context, 2, LinearLayoutManager.HORIZONTAL, false))
+                .onBindViewHolder((holder12, list12, position, payloads) -> {
+
+                    LCardView cardView = holder.getView(R.id.card_view);
+                    cardView.setShadowSize(0);
+                    cardView.setShadowAlpha(0);
+                    FrameLayout.LayoutParams params = (FrameLayout.LayoutParams) cardView.getLayoutParams();
+                    if (position % 2 == 0) {
+                        if (position == 0) {
+                            params.setMargins(margin, 0, margin / 2, margin / 2);
+                        } else if (position == list12.size() - 2) {
+                            params.setMargins(margin / 2, 0, margin, margin / 2);
+                        } else {
+                            params.setMargins(margin / 2, 0, margin / 2, margin / 2);
+                        }
+                    } else {
+                        if (position == 1) {
+                            params.setMargins(margin, margin / 2, margin / 2, 0);
+                        } else if (position == list12.size() - 1) {
+                            params.setMargins(margin / 2, margin / 2, margin, 0);
+                        } else {
+                            params.setMargins(margin / 2, margin / 2, margin / 2, 0);
+                        }
+                    }
+                    cardView.setLayoutParams(params);
+
+                    SubjectInfo info = list12.get(position);
+                    holder12.setText(R.id.tv_title, info.getTitle());
+                    holder12.setText(R.id.tv_comment, info.getComment());
+                    holder12.setText(R.id.tv_m, info.getM());
+                    Glide.with(context).load(info.getIcon()).into(holder12.getImageView(R.id.iv_icon));
+                })
+                .onItemClick((holder15, view13, data) -> _mActivity.start(AppListFragment.newInstance("http://tt.shouji.com.cn/androidv3/special_list_xml.jsp?id=" + data.getId())))
+                .build();
+        ExecutorHelper.submit(() -> {
+            try {
+                Document doc = HttpUtil.getDocument("http://tt.shouji.com.cn/androidv3/special_index_xml.jsp?jse=yes");
+                Elements elements = doc.select("item");
+                for (int i = 0; i < elements.size(); i++) {
+                    list.add(SubjectInfo.create(elements.get(i)));
+                }
+                if (list.size() % 2 != 0) {
+                    list.remove(list.size() - 1);
+                }
+                post(recyclerView::notifyDataSetChanged);
+            } catch (Exception e) {
+                e.printStackTrace();
+                onError(e);
+            }
+        });
+    }
+
+    private void onError(Exception e) {
+        post(() -> AToast.error("加载失败！" + e.getMessage()));
     }
 
     private static class BannerViewHolder implements MZViewHolder<AppInfo> {
@@ -171,259 +401,6 @@ public class RecommendFragment extends BaseFragment
         public void onBind(Context context, int position, AppInfo item) {
             Glide.with(context).load(item.getAppIcon()).into(mImageView);
         }
-    }
-
-    private class RecommendAdapter extends HeaderGroupRecyclerViewAdapter<GroupItem> {
-
-        private final int[] RES_ICONS = {R.id.item_icon_1, R.id.item_icon_2, R.id.item_icon_3};
-
-        private final List<AppInfo> bannerItemList = new ArrayList<>();
-        private final BannerViewHolder bannerViewHolder = new BannerViewHolder();
-
-        static final int TYPE_TOP_HEADER = 11;
-        static final int TYPE_SUB_HEADER = 22;
-        static final int TYPE_CHILD_UPDATE = 331;
-        static final int TYPE_CHILD_COLLECTION = 332;
-        static final int TYPE_CHILD_RECOMMEND_APP = 333;
-        static final int TYPE_CHILD_RECOMMEND_GAME = 33;
-        static final int TYPE_CHILD_SUBJECT = 334;
-
-        RecommendAdapter(Context context, List<List<GroupItem>> groups) {
-            super(context, groups);
-        }
-
-        @Override
-        public boolean showHeader() {
-            return true;
-        }
-
-        @Override
-        public boolean showFooter() {
-            return false;
-        }
-
-        @Override
-        public int getHeaderItemViewType(int groupPosition) {
-            if (groupPosition == 0) {
-                return TYPE_TOP_HEADER;
-            }
-            return TYPE_SUB_HEADER;
-        }
-
-        @Override
-        public int getChildItemViewType(int groupPosition, int childPosition) {
-            if (groupPosition == 1) {
-                return TYPE_CHILD_UPDATE;
-            } else if (groupPosition == 2) {
-                return TYPE_CHILD_COLLECTION;
-            } else if (groupPosition == 3) {
-                return TYPE_CHILD_RECOMMEND_APP;
-            } else if (groupPosition == 4) {
-                return TYPE_CHILD_RECOMMEND_GAME;
-            } else if (groupPosition == 5) {
-                return TYPE_CHILD_SUBJECT;
-            }
-            return super.getChildItemViewType(groupPosition, childPosition);
-        }
-
-        @Override
-        public int getHeaderLayoutId(int viewType) {
-            if (viewType == TYPE_TOP_HEADER) {
-                return R.layout.layout_recommend_header;
-            } else {
-                return R.layout.item_recommend_header;
-            }
-        }
-
-        @Override
-        public int getChildLayoutId(int viewType) {
-            return R.layout.layout_recycler_view;
-        }
-
-        @Override
-        public int getFooterLayoutId(int viewType) {
-            return 0;
-        }
-
-        @Override
-        public void onBindHeaderViewHolder(GroupViewHolder holder, GroupItem item, int groupPosition) {
-            int viewType = getHeaderItemViewType(groupPosition);
-            if (viewType == TYPE_TOP_HEADER) {
-                if (mMZBanner == null) {
-                    mMZBanner = holder.get(R.id.banner);
-                    getBanners();
-                } else {
-                    mMZBanner.setPages(bannerItemList, () -> bannerViewHolder);
-                    mMZBanner.start();
-                }
-            } else if (viewType == TYPE_SUB_HEADER) {
-                holder.setText(R.id.tv_title, item.getTitle());
-            }
-        }
-
-        @Override
-        public void onBindChildViewHolder(GroupViewHolder holder, GroupItem item, int groupPosition, int childPosition) {
-            int viewType = getChildItemViewType(groupPosition, childPosition);
-            Log.d(TAG, "groupPosition=" + groupPosition + " childPosition=" + childPosition + " viewType=" + viewType);
-
-            RecyclerView view = holder.get(R.id.recycler_view);
-            if (view.getTag() instanceof EasyRecyclerView) {
-                ((EasyRecyclerView) view.getTag()).notifyDataSetChanged();
-                return;
-            }
-            if (viewType == TYPE_CHILD_UPDATE) {
-                getAppInfo(view, "http://tt.shouji.com.cn/androidv3/app_list_xml.jsp?index=1&versioncode=198");
-            } else if (viewType == TYPE_CHILD_RECOMMEND_APP) {
-                getAppInfo(view, "http://tt.shouji.com.cn/androidv3/special_list_xml.jsp?id=-9998");
-            } else if (viewType == TYPE_CHILD_RECOMMEND_GAME) {
-                getAppInfo(view, "http://tt.shouji.com.cn/androidv3/game_index_xml.jsp?sdk=100&sort=day");
-            } else if (viewType == TYPE_CHILD_COLLECTION) {
-                getCollection(view);
-            } else if (viewType == TYPE_CHILD_SUBJECT) {
-                getSubjects(view);
-            }
-        }
-
-        @Override
-        public void onBindFooterViewHolder(GroupViewHolder holder, GroupItem item, int groupPosition) {
-
-        }
-
-        private void onError(Exception e) {
-            post(() -> AToast.error("加载失败！" + e.getMessage()));
-        }
-
-        private void getBanners() {
-            ExecutorHelper.submit(() -> {
-                try {
-                    Document doc = HttpUtil.getDocument("http://tt.shouji.com.cn/androidv3/app_index_xml.jsp?index=1&versioncode=198");
-                    Elements elements = doc.select("item");
-                    bannerItemList.clear();
-                    for (Element element : elements) {
-                        AppInfo info = AppInfo.parse(element);
-                        if (info == null) {
-                            continue;
-                        }
-                        bannerItemList.add(info);
-                    }
-                    post(() -> {
-                        mMZBanner.setPages(bannerItemList, () -> bannerViewHolder);
-                        mMZBanner.start();
-                    });
-                } catch (Exception e) {
-                    e.printStackTrace();
-                    onError(e);
-                }
-            });
-        }
-
-        private void getAppInfo(RecyclerView view, final String url) {
-            EasyRecyclerView<AppInfo> recyclerView = new EasyRecyclerView<>(view);
-            view.setTag(recyclerView);
-            List<AppInfo> list = new ArrayList<>();
-            recyclerView.setData(list)
-                    .setItemRes(R.layout.item_app_grid)
-                    .setLayoutManager(new GridLayoutManager(context, 4))
-                    .onBindViewHolder((holder1, list1, position, payloads) -> {
-                        AppInfo info = list1.get(position);
-                        holder1.getTextView(R.id.item_title).setText(info.getAppTitle());
-                        holder1.getTextView(R.id.item_info).setText(info.getAppSize());
-                        Glide.with(context).load(info.getAppIcon()).into(holder1.getImageView(R.id.item_icon));
-                    })
-                    .onItemClick((holder13, view1, data) -> _mActivity.start(AppDetailFragment.newInstance(data)))
-                    .build();
-            ExecutorHelper.submit(() -> {
-                try {
-                    Document doc = HttpUtil.getDocument(url);
-                    Elements elements = doc.select("item");
-                    for (Element element : elements) {
-                        AppInfo info = AppInfo.parse(element);
-                        if (info == null) {
-                            continue;
-                        }
-                        list.add(info);
-                        if (list.size() == 8) {
-                            break;
-                        }
-                    }
-                    post(recyclerView::notifyDataSetChanged);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            });
-        }
-
-        private void getCollection(final RecyclerView view) {
-            EasyRecyclerView<CollectionInfo> recyclerView = new EasyRecyclerView<>(view);
-            view.setTag(recyclerView);
-            List<CollectionInfo> list = new ArrayList<>();
-            recyclerView.setData(list)
-                    .setItemRes(R.layout.item_app_collection)
-                    .setLayoutManager(new GridLayoutManager(context, 2, LinearLayoutManager.HORIZONTAL, false))
-                    .onBindViewHolder((holder1, list1, position, payloads) -> {
-                        CollectionInfo info = list1.get(position);
-                        holder1.getTextView(R.id.item_title).setText(info.getTitle());
-                        holder1.setText(R.id.tv_view_count, info.getViewCount() + "");
-                        holder1.setText(R.id.tv_favorite_count, info.getFavCount() + "");
-                        holder1.setText(R.id.tv_support_count, info.getSupportCount() + "");
-                        for (int i = 0; i < RES_ICONS.length; i++) {
-                            int res = RES_ICONS[i];
-                            if (i == 0) {
-                                Glide.with(context)
-                                        .load(info.getIcons().get(0))
-                                        .apply(RequestOptions.bitmapTransform(new BlurTransformation(context, 7)))
-                                        .into(holder1.getImageView(R.id.img_bg));
-                            }
-                            Glide.with(context).load(info.getIcons().get(i)).into(holder1.getImageView(res));
-                        }
-                    })
-                    .onItemClick((holder14, view12, data) -> _mActivity.start(CollectionDetailFragment.newInstance(data)))
-                    .build();
-            ExecutorHelper.submit(() -> {
-                try {
-                    Document doc = HttpUtil.getDocument("http://tt.shouji.com.cn/androidv3/yyj_tj_xml.jsp");
-                    Elements elements = doc.select("item");
-                    for (Element element : elements) {
-                        list.add(CollectionInfo.create(element));
-                    }
-                    post(recyclerView::notifyDataSetChanged);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            });
-        }
-
-        private void getSubjects(RecyclerView view) {
-            EasyRecyclerView<SubjectInfo> recyclerView = new EasyRecyclerView<>(view);
-            view.setTag(recyclerView);
-            List<SubjectInfo> list = new ArrayList<>();
-            recyclerView.setData(list)
-                    .setItemRes(R.layout.item_app_subject)
-                    .setLayoutManager(new GridLayoutManager(context, 2, LinearLayoutManager.HORIZONTAL, false))
-                    .onBindViewHolder((holder12, list12, position, payloads) -> {
-                        SubjectInfo info = list12.get(position);
-                        holder12.setText(R.id.tv_title, info.getTitle());
-                        holder12.setText(R.id.tv_comment, info.getComment());
-                        holder12.setText(R.id.tv_m, info.getM());
-                        Glide.with(context).load(info.getIcon()).into(holder12.getImageView(R.id.iv_icon));
-                    })
-                    .onItemClick((holder15, view13, data) -> _mActivity.start(AppListFragment.newInstance("http://tt.shouji.com.cn/androidv3/special_list_xml.jsp?id=" + data.getId())))
-                    .build();
-            ExecutorHelper.submit(() -> {
-                try {
-                    Document doc = HttpUtil.getDocument("http://tt.shouji.com.cn/androidv3/special_index_xml.jsp?jse=yes");
-                    Elements elements = doc.select("item");
-                    for (int i = 0; i < elements.size(); i++) {
-                        list.add(SubjectInfo.create(elements.get(i)));
-                    }
-                    post(recyclerView::notifyDataSetChanged);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                    onError(e);
-                }
-            });
-        }
-
     }
 
 }

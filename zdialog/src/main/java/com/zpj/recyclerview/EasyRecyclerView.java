@@ -31,6 +31,8 @@ public class EasyRecyclerView<T> {
     private IEasy.OnBindHeaderListener onBindHeaderListener;
     private View footerView;
 
+    private IEasy.OnGetChildViewTypeListener onGetChildViewTypeListener;
+    private IEasy.OnGetChildLayoutIdListener onGetChildLayoutIdListener;
     private IEasy.OnBindViewHolderListener<T> onBindViewHolderListener;
     private IEasy.OnCreateViewHolderListener<T> onCreateViewHolder;
     private IEasy.OnLoadMoreListener onLoadMoreListener;
@@ -93,6 +95,16 @@ public class EasyRecyclerView<T> {
         return this;
     }
 
+    public EasyRecyclerView<T> onGetChildViewType(IEasy.OnGetChildViewTypeListener listener) {
+        this.onGetChildViewTypeListener = listener;
+        return this;
+    }
+
+    public EasyRecyclerView<T> onGetChildLayoutId(IEasy.OnGetChildLayoutIdListener listener) {
+        this.onGetChildLayoutIdListener = listener;
+        return this;
+    }
+
     public EasyRecyclerView<T> onBindViewHolder(IEasy.OnBindViewHolderListener<T> callback) {
         this.onBindViewHolderListener = callback;
         return this;
@@ -133,7 +145,8 @@ public class EasyRecyclerView<T> {
         if (layoutManager == null) {
             layoutManager = new LinearLayoutManager(recyclerView.getContext());
         }
-        easyAdapter = new EasyAdapter<>(list, itemRes, onCreateViewHolder,
+        easyAdapter = new EasyAdapter<>(list, itemRes, onGetChildViewTypeListener,
+                onGetChildLayoutIdListener, onCreateViewHolder,
                 onBindViewHolderListener, onItemClickListener,
                 onItemLongClickListener, onClickListeners);
         if (headerView != null) {

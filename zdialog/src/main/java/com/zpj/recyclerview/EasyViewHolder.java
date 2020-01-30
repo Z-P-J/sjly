@@ -17,6 +17,7 @@ public final class EasyViewHolder extends RecyclerView.ViewHolder {
     private ClickHelper.OnLongClickListener onLongClickListener;
     private final View itemView;
     private int position;
+    private int viewType = 0;
 
     public EasyViewHolder(@NonNull View view) {
         super(view);
@@ -100,5 +101,13 @@ public final class EasyViewHolder extends RecyclerView.ViewHolder {
 
     public boolean performClick() {
         return itemView.performClick();
+    }
+
+    public void setViewType(int viewType) {
+        this.viewType = viewType;
+    }
+
+    public int getViewType() {
+        return viewType;
     }
 }

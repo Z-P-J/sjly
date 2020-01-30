@@ -10,7 +10,10 @@ import android.util.SparseArray;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
+import android.widget.TextView;
 
+import com.zpj.dialog.R;
 import com.zpj.utils.ClickHelper;
 
 import java.util.List;
@@ -19,9 +22,9 @@ public class EasyAdapter<T> extends RecyclerView.Adapter<EasyViewHolder> {
 
     private static final String TAG = "EasyAdapter";
 
-    private static final int TYPE_HEADER = 0;
-    private static final int TYPE_NORMAL = 1;
-    private static final int TYPE_FOOTER = 2;
+    private static final int TYPE_HEADER = -1;
+    private static final int TYPE_CHILD = 0;
+    private static final int TYPE_FOOTER = -2;
 
 
     private final List<T> list;
@@ -33,21 +36,28 @@ public class EasyAdapter<T> extends RecyclerView.Adapter<EasyViewHolder> {
     private View headerView;
     private View footerView;
 
-    private IEasy.OnBindViewHolderListener<T> callback;
-    private IEasy.OnCreateViewHolderListener<T> onCreateViewHolder;
+    private final IEasy.OnGetChildViewTypeListener onGetChildViewTypeListener;
+    private final IEasy.OnGetChildLayoutIdListener onGetChildLayoutIdListener;
+    private final IEasy.OnBindViewHolderListener<T> onBindViewHolderListener;
+    private final IEasy.OnCreateViewHolderListener<T> onCreateViewHolder;
     private IEasy.OnBindHeaderListener onBindHeaderListener;
-    private IEasy.OnItemClickListener<T> onItemClickListener;
-    private IEasy.OnItemLongClickListener<T> onItemLongClickListener;
+    private final IEasy.OnItemClickListener<T> onItemClickListener;
+    private final IEasy.OnItemLongClickListener<T> onItemLongClickListener;
     private final SparseArray<IEasy.OnClickListener<T>> onClickListeners;
 
-    EasyAdapter(List<T> list, int itemRes, IEasy.OnCreateViewHolderListener<T> onCreateViewHolder,
-                IEasy.OnBindViewHolderListener<T> callback,
+    EasyAdapter(List<T> list, int itemRes,
+                IEasy.OnGetChildViewTypeListener onGetChildViewTypeListener,
+                IEasy.OnGetChildLayoutIdListener onGetChildLayoutIdListener,
+                IEasy.OnCreateViewHolderListener<T> onCreateViewHolder,
+                IEasy.OnBindViewHolderListener<T> onBindViewHolderListener,
                 IEasy.OnItemClickListener<T> onClickListener,
                 IEasy.OnItemLongClickListener<T> onLongClickListener,
                 SparseArray<IEasy.OnClickListener<T>> onClickListeners) {
         this.list = list;
         this.itemRes = itemRes;
-        this.callback = callback;
+        this.onGetChildViewTypeListener = onGetChildViewTypeListener;
+        this.onGetChildLayoutIdListener = onGetChildLayoutIdListener;
+        this.onBindViewHolderListener = onBindViewHolderListener;
         this.onCreateViewHolder = onCreateViewHolder;
         this.onItemClickListener = onClickListener;
         this.onItemLongClickListener = onLongClickListener;
@@ -64,7 +74,16 @@ public class EasyAdapter<T> extends RecyclerView.Adapter<EasyViewHolder> {
         } else if (viewType == TYPE_FOOTER) {
             return new EasyViewHolder(footerView);
         } else {
-            View view = LayoutInflater.from(viewGroup.getContext()).inflate(itemRes, viewGroup, false);
+            int res;
+            if (onGetChildLayoutIdListener != null) {
+                res = onGetChildLayoutIdListener.onGetLayoutId(viewType);
+                if (res <= 0) {
+                    res = itemRes;
+                }
+            } else {
+                res = itemRes;
+            }
+            View view = LayoutInflater.from(viewGroup.getContext()).inflate(res, viewGroup, false);
             if (onCreateViewHolder != null) {
                 onCreateViewHolder.onCreateViewHolder(viewGroup, view, viewType);
             }
@@ -100,14 +119,15 @@ public class EasyAdapter<T> extends RecyclerView.Adapter<EasyViewHolder> {
 //                }
 //                return;
 //            }
-//            if (callback != null) {
-//                callback.onBindViewHolder(holder, list, getRealPosition(holder));
+//            if (onBindViewHolderListener != null) {
+//                onBindViewHolderListener.onBindViewHolder(holder, list, getRealPosition(holder));
 //            }
 //        } else {
-//            if (callback != null) {
-//                callback.onBindViewHolder(holder, list, getRealPosition(holder), payloads);
+//            if (onBindViewHolderListener != null) {
+//                onBindViewHolderListener.onBindViewHolder(holder, list, getRealPosition(holder), payloads);
 //            }
 //        }
+        holder.setViewType(getItemViewType(position));
         if (isHeaderPosition(position)) {
             if (onBindHeaderListener != null) {
                 onBindHeaderListener.onBindHeader(holder);
@@ -121,11 +141,25 @@ public class EasyAdapter<T> extends RecyclerView.Adapter<EasyViewHolder> {
                 mRecyclerView.post(new Runnable() {
                     @Override
                     public void run() {
+                        ProgressBar progressBar = footerView.findViewById(R.id.progress_bar);
+                        TextView tvMsg = footerView.findViewById(R.id.tv_msg);
                         if (mOnLoadMoreListener.onLoadMore(mEnabled, currentPage + 1)) {
-                            footerView.setVisibility(View.VISIBLE);
+//                            footerView.setVisibility(View.VISIBLE);
+                            if (progressBar != null) {
+                                progressBar.setVisibility(View.VISIBLE);
+                            }
+                            if (tvMsg != null) {
+                                tvMsg.setVisibility(View.GONE);
+                            }
                             currentPage++;
-                        } else if (footerView != null){
-                            footerView.setVisibility(View.GONE);
+                        } else { // if (footerView != null)
+//                            footerView.setVisibility(View.GONE);
+                            if (progressBar != null) {
+                                progressBar.setVisibility(View.GONE);
+                            }
+                            if (tvMsg != null) {
+                                tvMsg.setVisibility(View.VISIBLE);
+                            }
                         }
                     }
                 });
@@ -167,36 +201,10 @@ public class EasyAdapter<T> extends RecyclerView.Adapter<EasyViewHolder> {
             }
         }
 
-        if (callback != null) {
-            callback.onBindViewHolder(holder, list, getRealPosition(holder), payloads);
+        if (onBindViewHolderListener != null) {
+            onBindViewHolderListener.onBindViewHolder(holder, list, getRealPosition(holder), payloads);
         }
     }
-
-//    @Override
-//    public void onBindViewHolder(@NonNull EasyViewHolder holder, int position) {
-//        if (isHeaderPosition(position)) return;
-//        if (isFooterPosition(position)) {
-//            if (!canScroll() && mOnLoadMoreListener != null && !mIsLoading) {
-//                mIsLoading = true;
-//                // fix Cannot call this method while RecyclerView is computing a layout or scrolling
-//                mRecyclerView.post(new Runnable() {
-//                    @Override
-//                    public void run() {
-//                        if (mOnLoadMoreListener.onLoadMore(mEnabled, currentPage + 1)) {
-//                            footerView.setVisibility(View.VISIBLE);
-//                            currentPage++;
-//                        } else if (footerView != null){
-//                            footerView.setVisibility(View.GONE);
-//                        }
-//                    }
-//                });
-//            }
-//            return;
-//        }
-//        if (callback != null) {
-//            callback.onBindViewHolder(holder, list, getRealPosition(holder));
-//        }
-//    }
 
     @Override
     public void onAttachedToRecyclerView(@NonNull RecyclerView recyclerView) {
@@ -240,9 +248,13 @@ public class EasyAdapter<T> extends RecyclerView.Adapter<EasyViewHolder> {
             return TYPE_HEADER;
         } else if (isFooterPosition(position)) {
             return TYPE_FOOTER;
-        } else {
-            return TYPE_NORMAL;
+        } else if (onGetChildViewTypeListener != null) {
+            if (headerView != null) {
+                position -= 1;
+            }
+            return onGetChildViewTypeListener.onGetViewType(position);
         }
+        return TYPE_CHILD;
     }
 
     @Override
@@ -338,7 +350,7 @@ public class EasyAdapter<T> extends RecyclerView.Adapter<EasyViewHolder> {
               @see android.support.v7.widget.RecyclerView.Recycler#validateViewHolderForOffsetPosition(RecyclerView.ViewHolder)
              */
             int position = getItemCount();
-            if (isFooterPosition(position)){
+            if (isFooterPosition(position)) {
                 notifyItemRemoved(position);
             } else {
                 notifyItemChanged(position);
@@ -355,6 +367,7 @@ public class EasyAdapter<T> extends RecyclerView.Adapter<EasyViewHolder> {
 
     private interface OnEnabledListener {
         void notifyChanged();
+
         void notifyLoadFailed(boolean isLoadFailed);
     }
 
@@ -451,11 +464,23 @@ public class EasyAdapter<T> extends RecyclerView.Adapter<EasyViewHolder> {
 
                 if (isBottom) {
                     mIsLoading = true;
+                    ProgressBar progressBar = footerView.findViewById(R.id.progress_bar);
+                    TextView tvMsg = footerView.findViewById(R.id.tv_msg);
                     if (mOnLoadMoreListener.onLoadMore(mEnabled, currentPage + 1)) {
-                        footerView.setVisibility(View.VISIBLE);
+                        if (progressBar != null) {
+                            progressBar.setVisibility(View.VISIBLE);
+                        }
+                        if (tvMsg != null) {
+                            tvMsg.setVisibility(View.GONE);
+                        }
                         currentPage++;
-                    } else if (footerView != null){
-                        footerView.setVisibility(View.GONE);
+                    } else if (footerView != null) {
+                        if (progressBar != null) {
+                            progressBar.setVisibility(View.GONE);
+                        }
+                        if (tvMsg != null) {
+                            tvMsg.setVisibility(View.VISIBLE);
+                        }
                     }
                 }
             }

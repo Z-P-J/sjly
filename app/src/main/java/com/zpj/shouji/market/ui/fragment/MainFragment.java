@@ -155,7 +155,7 @@ public class MainFragment extends BaseFragment {
         if (viewPager != null && !fragments.isEmpty()) {
             fragments.get(viewPager.getCurrentItem()).onSupportVisible();
         } else {
-            super.onSupportVisible();
+            darkStatusBar();
         }
     }
 
@@ -164,7 +164,7 @@ public class MainFragment extends BaseFragment {
         if (viewPager != null && !fragments.isEmpty()) {
             fragments.get(viewPager.getCurrentItem()).onSupportInvisible();
         } else {
-            super.onSupportInvisible();
+            darkStatusBar();
         }
     }
 }

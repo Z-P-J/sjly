@@ -149,13 +149,13 @@ public abstract class BaseFragment extends SwipeBackFragment {
     @Override
     public void onSupportVisible() {
         super.onSupportVisible();
-        lightStatusBar();
+        darkStatusBar();
     }
 
     @Override
     public void onSupportInvisible() {
         super.onSupportInvisible();
-        lightStatusBar();
+        darkStatusBar();
     }
 
     @Override

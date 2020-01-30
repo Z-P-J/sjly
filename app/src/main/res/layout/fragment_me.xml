@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     >
 
-    <com.lzy.widget.PullZoomView
+    <com.zpj.shouji.market.ui.widget.PullZoomView
         android:id="@+id/view_pull_zoom"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -268,20 +268,20 @@
 
         </LinearLayout>
 
-    </com.lzy.widget.PullZoomView>
+    </com.zpj.shouji.market.ui.widget.PullZoomView>
 
-<!--    <com.wuhenzhizao.titlebar.widget.CommonTitleBar-->
-<!--        android:id="@+id/title_bar"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        app:statusBarMode="light"-->
-<!--        app:fillStatusBar="true"-->
-<!--        app:titleBarColor="@android:color/transparent"-->
-<!--        app:statusBarColor="@android:color/transparent"-->
-<!--        app:showBottomLine="false"-->
-<!--        app:rightType="imageButton"-->
-<!--        app:rightImageResource="@drawable/ic_more_vert_grey_24dp"-->
-<!--        />-->
+    <com.wuhenzhizao.titlebar.widget.CommonTitleBar
+        android:id="@+id/title_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:statusBarMode="light"
+        app:fillStatusBar="true"
+        app:titleBarColor="@android:color/transparent"
+        app:statusBarColor="@android:color/transparent"
+        app:showBottomLine="false"
+        app:rightType="imageButton"
+        app:rightImageResource="@drawable/ic_more_vert_grey_24dp"
+        />
 
 
 </RelativeLayout>

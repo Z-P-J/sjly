@@ -1,7 +1,6 @@
 package com.zpj.shouji.market.ui.fragment.homepage;
 
 import android.content.Context;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -12,12 +11,11 @@ import android.widget.ImageView;
 import com.wuhenzhizao.titlebar.widget.CommonTitleBar;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.ui.adapter.FragmentsPagerAdapter;
-import com.zpj.shouji.market.ui.fragment.theme.ThemeListFragment;
 import com.zpj.shouji.market.ui.fragment.base.BaseFragment;
 import com.zpj.shouji.market.ui.fragment.manager.AppManagerFragment;
 import com.zpj.shouji.market.ui.fragment.search.SearchFragment;
-import com.zpj.shouji.market.ui.widget.DotPagerIndicator;
 import com.zpj.shouji.market.ui.widget.ScaleTransitionPagerTitleView;
+import com.zpj.utils.ScreenUtil;
 
 import net.lucode.hackware.magicindicator.MagicIndicator;
 import net.lucode.hackware.magicindicator.ViewPagerHelper;
@@ -25,6 +23,7 @@ import net.lucode.hackware.magicindicator.buildins.commonnavigator.CommonNavigat
 import net.lucode.hackware.magicindicator.buildins.commonnavigator.abs.CommonNavigatorAdapter;
 import net.lucode.hackware.magicindicator.buildins.commonnavigator.abs.IPagerIndicator;
 import net.lucode.hackware.magicindicator.buildins.commonnavigator.abs.IPagerTitleView;
+import net.lucode.hackware.magicindicator.buildins.commonnavigator.indicators.LinePagerIndicator;
 
 import java.util.ArrayList;
 
@@ -72,8 +71,8 @@ public class HomeFragment extends BaseFragment {
             @Override
             public IPagerTitleView getTitleView(Context context, int index) {
                 ScaleTransitionPagerTitleView titleView = new ScaleTransitionPagerTitleView(context);
-                titleView.setNormalColor(Color.parseColor("#fafafa"));
-                titleView.setSelectedColor(Color.WHITE);
+                titleView.setNormalColor(getResources().getColor(R.color.color_text_major));
+                titleView.setSelectedColor(getResources().getColor(R.color.colorPrimary));
                 titleView.setTextSize(14);
                 titleView.setText(TAB_TITLES[index]);
                 titleView.setOnClickListener(new View.OnClickListener() {
@@ -87,7 +86,13 @@ public class HomeFragment extends BaseFragment {
 
             @Override
             public IPagerIndicator getIndicator(Context context) {
-                return new DotPagerIndicator(context);
+                LinePagerIndicator indicator = new LinePagerIndicator(context);
+                indicator.setMode(LinePagerIndicator.MODE_EXACTLY);
+                indicator.setLineHeight(ScreenUtil.dp2px(context, 4f));
+                indicator.setLineWidth(ScreenUtil.dp2px(context, 12f));
+                indicator.setRoundRadius(ScreenUtil.dp2px(context, 4f));
+                indicator.setColors(getResources().getColor(R.color.colorPrimary), getResources().getColor(R.color.colorPrimary));
+                return indicator;
             }
         });
         magicIndicator.setNavigator(navigator);
@@ -101,4 +106,13 @@ public class HomeFragment extends BaseFragment {
         titleBar.getRightCustomView().findViewById(R.id.btn_search).setOnClickListener(v -> _mActivity.start(new SearchFragment()));
     }
 
+    @Override
+    public void onSupportVisible() {
+        darkStatusBar();
+    }
+
+    @Override
+    public void onSupportInvisible() {
+        super.onSupportInvisible();
+    }
 }

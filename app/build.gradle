@@ -48,7 +48,6 @@ dependencies {
     implementation project(':zpopup')
     implementation project(':glidegifdecoder')
     implementation project(':openingstartanimation')
-    implementation project(':pullzoom')
 
 
 
@@ -75,5 +74,6 @@ dependencies {
     implementation "com.github.Raizlabs.DBFlow:dbflow-core:4.2.4"
     implementation "com.github.Raizlabs.DBFlow:dbflow:4.2.4"
     implementation 'com.just.agentweb:agentweb:4.0.2'
+    implementation 'com.github.SheHuan:NiceImageView:1.0.5'
 
 }

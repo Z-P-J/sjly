@@ -19,15 +19,15 @@
     <www.linwg.org.lib.LCardView
         android:layout_width="match_parent"
         android:layout_height="100dp"
-        android:layout_marginLeft="16dp"
+        android:layout_marginStart="12dp"
         android:layout_marginTop="-50dp"
-        android:layout_marginRight="16dp"
+        android:layout_marginEnd="12dp"
         app:cardBackgroundColor="#fff"
         app:cornerRadius="10dp"
         app:shadowColor="#5f6379"
         app:shadowFluidShape="adsorption"
-        app:shadowSize="8dp"
-        app:shadowStartAlpha="40">
+        app:shadowSize="0dp"
+        app:shadowStartAlpha="10">
 
         <android.support.v7.widget.LinearLayoutCompat
             android:layout_width="match_parent"

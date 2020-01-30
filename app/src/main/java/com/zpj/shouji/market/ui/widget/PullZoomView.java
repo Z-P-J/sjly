@@ -1,4 +1,4 @@
-package com.lzy.widget;
+package com.zpj.shouji.market.ui.widget;
 
 import android.content.Context;
 import android.content.res.TypedArray;
@@ -11,6 +11,8 @@ import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
 import android.widget.ScrollView;
 import android.widget.Scroller;
+
+import com.zpj.shouji.market.R;
 
 /**
  * ================================================

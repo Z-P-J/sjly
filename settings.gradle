@@ -11,5 +11,4 @@ include ':app',
         ':zhttp',
         ':zpopup',
         ':glidegifdecoder',
-        ':openingstartanimation',
-        ':pullzoom'
+        ':openingstartanimation'

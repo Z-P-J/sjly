@@ -6,10 +6,9 @@
     android:layout_height="wrap_content"
     app:cornerRadius="10dp"
     app:shadowFluidShape="adsorption"
-    app:shadowColor="#5f6379"
-    app:shadowStartAlpha="60"
-    app:shadowSize="4dp"
-    app:cardBackgroundColor="#f6f6f6"
+    app:shadowStartAlpha="0"
+    app:shadowSize="8dp"
+    app:cardBackgroundColor="@android:color/white"
     >
 
     <LinearLayout

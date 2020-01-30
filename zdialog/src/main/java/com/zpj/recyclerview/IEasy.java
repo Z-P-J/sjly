@@ -1,5 +1,6 @@
 package com.zpj.recyclerview;
 
+import android.support.annotation.LayoutRes;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -42,5 +43,13 @@ public interface IEasy {
 
     interface OnLoadMoreListener {
         boolean onLoadMore(EasyAdapter.Enabled enabled, int currentPage);
+    }
+
+    interface OnGetChildViewTypeListener {
+        int onGetViewType(int position);
+    }
+
+    interface OnGetChildLayoutIdListener {
+        @LayoutRes int onGetLayoutId(int viewType);
     }
 }
