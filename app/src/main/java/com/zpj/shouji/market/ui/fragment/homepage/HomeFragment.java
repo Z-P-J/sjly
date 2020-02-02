@@ -75,12 +75,7 @@ public class HomeFragment extends BaseFragment {
                 titleView.setSelectedColor(getResources().getColor(R.color.colorPrimary));
                 titleView.setTextSize(14);
                 titleView.setText(TAB_TITLES[index]);
-                titleView.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        viewPager.setCurrentItem(index);
-                    }
-                });
+                titleView.setOnClickListener(view1 -> viewPager.setCurrentItem(index));
                 return titleView;
             }
 

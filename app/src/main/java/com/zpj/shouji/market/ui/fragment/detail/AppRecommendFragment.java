@@ -1,6 +1,7 @@
 package com.zpj.shouji.market.ui.fragment.detail;
 
 import android.content.Context;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -14,6 +15,8 @@ import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
+import com.bumptech.glide.request.target.SimpleTarget;
+import com.bumptech.glide.request.transition.Transition;
 import com.felix.atoast.library.AToast;
 import com.sunfusheng.GroupRecyclerViewAdapter;
 import com.sunfusheng.GroupViewHolder;
@@ -248,7 +251,12 @@ public class AppRecommendFragment extends BaseFragment
                                 Glide.with(context)
                                         .load(info.getIcons().get(0))
                                         .apply(RequestOptions.bitmapTransform(new BlurTransformation(context, 7)))
-                                        .into(holder1.getImageView(R.id.img_bg));
+                                        .into(new SimpleTarget<Drawable>() {
+                                            @Override
+                                            public void onResourceReady(@NonNull Drawable resource, @Nullable Transition<? super Drawable> transition) {
+                                                holder1.getView(R.id.img_bg).setBackground(resource);
+                                            }
+                                        });
                             }
                             Glide.with(context).load(info.getIcons().get(i)).into(holder1.getImageView(res));
                         }

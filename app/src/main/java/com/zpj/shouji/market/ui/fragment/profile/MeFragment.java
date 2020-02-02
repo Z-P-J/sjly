@@ -31,7 +31,7 @@ public class MeFragment extends BaseFragment {
         PullZoomView pullZoomView = view.findViewById(R.id.view_pull_zoom);
         pullZoomView.setIsZoomEnable(true);
         pullZoomView.setIsParallax(false);
-        pullZoomView.setSensitive(3f);
+        pullZoomView.setSensitive(2.5f);
         pullZoomView.setZoomTime(500);
 
         tvName = view.findViewById(R.id.tv_name);

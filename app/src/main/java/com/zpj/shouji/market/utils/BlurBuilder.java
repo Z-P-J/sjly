@@ -57,7 +57,7 @@ public class BlurBuilder {
 
     public static Bitmap blur(Bitmap image) {
         try {
-            image = Bitmap.createBitmap(image, image.getWidth() / 4, image.getHeight() / 4, image.getWidth() / 2, image.getHeight() / 2);
+//            image = Bitmap.createBitmap(image, image.getWidth() / 4, image.getHeight() / 4, image.getWidth() / 2, image.getHeight() / 2);
             int width = Math.round(image.getWidth() * BITMAP_SCALE / 2);
             int height = Math.round(image.getHeight() * BITMAP_SCALE / 2);
 

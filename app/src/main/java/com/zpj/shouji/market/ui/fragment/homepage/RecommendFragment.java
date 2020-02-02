@@ -2,7 +2,9 @@ package com.zpj.shouji.market.ui.fragment.homepage;
 
 import android.content.Context;
 import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.GridLayoutManager;
@@ -11,6 +13,7 @@ import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -18,6 +21,8 @@ import android.widget.RelativeLayout;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
+import com.bumptech.glide.request.target.SimpleTarget;
+import com.bumptech.glide.request.transition.Transition;
 import com.felix.atoast.library.AToast;
 import com.sunfusheng.GroupRecyclerViewAdapter;
 import com.sunfusheng.GroupViewHolder;
@@ -50,6 +55,8 @@ import com.zpj.utils.ScreenUtil;
 import java.util.ArrayList;
 import java.util.List;
 
+import eightbitlab.com.blurview.BlurView;
+import eightbitlab.com.blurview.RenderScriptBlur;
 import www.linwg.org.lib.LCardView;
 
 public class RecommendFragment extends RecyclerLayoutFragment<GroupItem> {
@@ -71,6 +78,7 @@ public class RecommendFragment extends RecyclerLayoutFragment<GroupItem> {
         recyclerLayout.setHeaderView(R.layout.layout_recommend_header, new IEasy.OnBindHeaderListener() {
             private final List<AppInfo> bannerItemList = new ArrayList<>();
             private final BannerViewHolder bannerViewHolder = new BannerViewHolder();
+
             @Override
             public void onBindHeader(EasyViewHolder holder) {
                 if (mMZBanner == null) {
@@ -106,7 +114,7 @@ public class RecommendFragment extends RecyclerLayoutFragment<GroupItem> {
                 });
             }
         })
-        .onGetChildViewType(position -> position + 1);
+                .onGetChildViewType(position -> position + 1);
     }
 
     @Override
@@ -184,7 +192,7 @@ public class RecommendFragment extends RecyclerLayoutFragment<GroupItem> {
         view.setPadding(padding, padding, padding, padding);
         switch (holder.getViewType()) {
             case 1:
-                params.setMargins(margin, margin, margin, margin/ 2);
+                params.setMargins(margin, margin, margin, margin / 2);
                 cardView.setCardBackgroundColor(Color.WHITE);
                 getAppInfo(holder, "http://tt.shouji.com.cn/androidv3/app_list_xml.jsp?index=1&versioncode=198");
                 break;
@@ -197,12 +205,12 @@ public class RecommendFragment extends RecyclerLayoutFragment<GroupItem> {
                 getCollection(holder);
                 break;
             case 3:
-                params.setMargins(margin, margin / 2, margin, margin/ 2);
+                params.setMargins(margin, margin / 2, margin, margin / 2);
                 cardView.setCardBackgroundColor(Color.WHITE);
                 getAppInfo(holder, "http://tt.shouji.com.cn/androidv3/special_list_xml.jsp?id=-9998");
                 break;
             case 4:
-                params.setMargins(margin, margin / 2, margin, margin/ 2);
+                params.setMargins(margin, margin / 2, margin, margin / 2);
                 cardView.setCardBackgroundColor(Color.WHITE);
                 getAppInfo(holder, "http://tt.shouji.com.cn/androidv3/game_index_xml.jsp?sdk=100&sort=day");
                 break;
@@ -298,7 +306,12 @@ public class RecommendFragment extends RecyclerLayoutFragment<GroupItem> {
                             Glide.with(context)
                                     .load(info.getIcons().get(0))
                                     .apply(RequestOptions.bitmapTransform(new BlurTransformation(context, 7)))
-                                    .into(holder1.getImageView(R.id.img_bg));
+                                    .into(new SimpleTarget<Drawable>() {
+                                        @Override
+                                        public void onResourceReady(@NonNull Drawable resource, @Nullable Transition<? super Drawable> transition) {
+                                            holder1.getView(R.id.img_bg).setBackground(resource);
+                                        }
+                                    });
                         }
                         Glide.with(context).load(info.getIcons().get(i)).into(holder1.getImageView(res));
                     }

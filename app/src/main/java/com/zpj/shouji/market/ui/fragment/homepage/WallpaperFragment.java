@@ -20,6 +20,7 @@ import com.zpj.shouji.market.ui.fragment.base.BaseFragment;
 import com.zpj.shouji.market.ui.widget.WallpaperTagPopup;
 import com.zpj.shouji.market.utils.ExecutorHelper;
 import com.zpj.shouji.market.utils.HttpUtil;
+import com.zpj.utils.ScreenUtil;
 
 import net.lucode.hackware.magicindicator.MagicIndicator;
 import net.lucode.hackware.magicindicator.ViewPagerHelper;
@@ -121,7 +122,7 @@ public class WallpaperFragment extends BaseFragment implements View.OnClickListe
             @Override
             public IPagerTitleView getTitleView(Context context, int index) {
                 ColorTransitionPagerTitleView titleView = new ColorTransitionPagerTitleView(context);
-                titleView.setNormalColor(Color.GRAY);
+                titleView.setNormalColor(getResources().getColor(R.color.color_text_normal));
                 titleView.setSelectedColor(getResources().getColor(R.color.colorPrimary));
                 titleView.setTextSize(14);
                 titleView.setText(wallpaperTags.get(index).getName());
@@ -132,8 +133,12 @@ public class WallpaperFragment extends BaseFragment implements View.OnClickListe
             @Override
             public IPagerIndicator getIndicator(Context context) {
                 LinePagerIndicator indicator = new LinePagerIndicator(context);
-                indicator.setColors(getResources().getColor(R.color.colorPrimary));
-                return new LinePagerIndicator(context);
+                indicator.setMode(LinePagerIndicator.MODE_EXACTLY);
+                indicator.setLineHeight(ScreenUtil.dp2px(context, 4f));
+                indicator.setLineWidth(ScreenUtil.dp2px(context, 12f));
+                indicator.setRoundRadius(ScreenUtil.dp2px(context, 4f));
+                indicator.setColors(getResources().getColor(R.color.colorPrimary), getResources().getColor(R.color.colorPrimary));
+                return indicator;
             }
         });
         magicIndicator.setNavigator(navigator);

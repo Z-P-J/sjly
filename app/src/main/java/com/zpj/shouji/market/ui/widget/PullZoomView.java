@@ -16,6 +16,7 @@ import com.zpj.shouji.market.R;
 
 /**
  * ================================================
+ * 来    源：https://github.com/jeasonlzy/PullZoomView
  * 作    者：廖子尧
  * 版    本：1.0
  * 创建日期：2016/3/13

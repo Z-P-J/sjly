@@ -4,7 +4,11 @@ import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.animation.ObjectAnimator;
 import android.animation.ValueAnimator;
+import android.app.Activity;
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -22,12 +26,17 @@ import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.utils.BlurBuilder;
 import com.zpj.utils.ScreenUtil;
 
+import eightbitlab.com.blurview.BlurAlgorithm;
+import eightbitlab.com.blurview.BlurView;
+import eightbitlab.com.blurview.RenderScriptBlur;
+
 public class AddLayout extends FrameLayout {
 
     private final int[] menuIconItems = {R.drawable.pic1, R.drawable.pic2, R.drawable.pic3, R.drawable.pic4};
     private final String[] menuTextItems = {"动态", "应用集", "乐图", "私信"};
     private final Handler mHandler = new Handler();
 
+    private BlurView blurView;
     private LinearLayout menuLayout;
     private View button;
 
@@ -62,8 +71,7 @@ public class AddLayout extends FrameLayout {
             itemView.setVisibility(View.GONE);
             menuLayout.addView(itemView);
         }
-        ImageView background = view.findViewById(R.id.background);
-        background.setImageBitmap(BlurBuilder.blur(background));
+        blurView = view.findViewById(R.id.blur_view);
     }
 
     public boolean isShow() {
@@ -72,6 +80,21 @@ public class AddLayout extends FrameLayout {
 
     public void bindButton(View view) {
         this.button = view;
+    }
+
+    public void initBlurView(ViewGroup view) {
+        //        View decorView = activity.getWindow().getDecorView();
+//        //ViewGroup you want to start blur from. Choose root as close to BlurView in hierarchy as possible.
+//        ViewGroup rootView = decorView.findViewById(android.R.id.content);
+//        //Set drawable to draw in the beginning of each blurred frame (Optional).
+//        //Can be used in case your layout has a lot of transparent space and your content
+//        //gets kinda lost after after blur is applied.
+//        Drawable windowBackground = view.getContext().getWindow().getDecorView().getBackground();
+        blurView.setupWith(view)
+//                .setFrameClearDrawable(view.getBackground())
+                .setBlurAlgorithm(new RenderScriptBlur(view.getContext()))
+                .setBlurRadius(16f)
+                .setHasFixedTransformationMatrix(true);
     }
 
     public void show() {

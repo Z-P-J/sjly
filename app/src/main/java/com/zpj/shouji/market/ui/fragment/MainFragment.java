@@ -8,8 +8,8 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v4.view.ViewPager;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 
-import com.ittianyu.bottomnavigationviewex.BottomNavigationViewEx;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.ui.adapter.FragmentsPagerAdapter;
 import com.zpj.shouji.market.ui.fragment.base.BaseFragment;
@@ -19,15 +19,19 @@ import com.zpj.shouji.market.ui.fragment.profile.MeFragment;
 import com.zpj.shouji.market.ui.fragment.soft.SoftFragment;
 import com.zpj.shouji.market.ui.view.AddLayout;
 import com.zpj.shouji.market.ui.view.ZViewPager;
+import com.zpj.shouji.market.ui.widget.navigation.BottomNavigationViewEx;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class MainFragment extends BaseFragment {
+public class MainFragment extends BaseFragment
+        implements BottomNavigationView.OnNavigationItemSelectedListener {
 
     private final List<BaseFragment> fragments = new ArrayList<>();
     private ZViewPager viewPager;
     private AddLayout addLayout;
+
+    private int previousPosition = -1;
 
     @Override
     protected int getLayoutId() {
@@ -74,41 +78,10 @@ public class MainFragment extends BaseFragment {
         navigationView.enableAnimation(false);
         viewPager = view.findViewById(R.id.vp);
         viewPager.setCanScroll(false);
-        viewPager.setOffscreenPageLimit(10);
+        viewPager.setOffscreenPageLimit(4);
         FragmentsPagerAdapter adapter = new FragmentsPagerAdapter(getChildFragmentManager(), fragments, null);
         viewPager.setAdapter(adapter);
-        navigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
-
-            private int previousPosition = -1;
-
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
-                int position = 0;
-                switch (menuItem.getItemId()) {
-                    case R.id.i_homepage:
-                        position = 0;
-                        break;
-                    case R.id.i_app:
-                        position = 1;
-                        break;
-                    case R.id.i_game:
-                        position = 2;
-                        break;
-                    case R.id.i_me:
-                        position = 3;
-                        break;
-                    case R.id.i_empty: {
-                        return false;
-                    }
-                }
-                if(previousPosition != position) {
-                    viewPager.setCurrentItem(position, false);
-                    previousPosition = position;
-                }
-
-                return true;
-            }
-        });
+        navigationView.setOnNavigationItemSelectedListener(this);
 
         viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
@@ -128,6 +101,7 @@ public class MainFragment extends BaseFragment {
         });
 
         addLayout = view.findViewById(R.id.layout_add);
+        addLayout.initBlurView((ViewGroup) view);
         addLayout.bindButton(floatingActionButton);
         floatingActionButton.setOnClickListener(v -> {
             if (addLayout.isShow()) {
@@ -166,5 +140,33 @@ public class MainFragment extends BaseFragment {
         } else {
             darkStatusBar();
         }
+    }
+
+    @Override
+    public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
+        int position = 0;
+        switch (menuItem.getItemId()) {
+            case R.id.i_homepage:
+                position = 0;
+                break;
+            case R.id.i_app:
+                position = 1;
+                break;
+            case R.id.i_game:
+                position = 2;
+                break;
+            case R.id.i_me:
+                position = 3;
+                break;
+            case R.id.i_empty: {
+                return false;
+            }
+        }
+        if(previousPosition != position) {
+            viewPager.setCurrentItem(position, false);
+            previousPosition = position;
+        }
+
+        return true;
     }
 }

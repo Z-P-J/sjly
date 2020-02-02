@@ -15,5 +15,4 @@
     app:maxSelectNum="1"
     app:selectMode="true"
     app:selectTextColor="@color/colorPrimary"
-    app:selectBackground="@drawable/white_radius"
     />

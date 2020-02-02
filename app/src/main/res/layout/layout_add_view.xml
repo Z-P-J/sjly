@@ -1,80 +1,83 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
+<eightbitlab.com.blurview.BlurView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/blur_view"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:clickable="true"
-    android:background="#ffffff"
-    android:id="@+id/layout_add_view"
+    app:blurOverlayColor="#80ffffff"
     >
 
-    <ImageView
-        android:id="@+id/background"
+    <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        />
-
-    <TextView
-        android:id="@+id/day_tv"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="15dp"
-        android:layout_marginTop="30dp"
-        android:gravity="center"
-        android:includeFontPadding="false"
-        android:text="11"
-        android:textColor="#666666"
-        android:textSize="60sp"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/week_tv"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="15dp"
-        android:gravity="center"
-        android:text="星期一"
-        android:textSize="14sp"
-        android:textColor="#666666"
-        android:layout_marginTop="10dp"
-        app:layout_constraintLeft_toRightOf="@+id/day_tv"
-        app:layout_constraintTop_toTopOf="@+id/day_tv" />
-
-    <TextView
-        android:id="@+id/date_tv"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="15dp"
-        android:gravity="center"
-        android:text="04/2020"
-        android:textColor="#666666"
-        android:layout_marginBottom="10dp"
-        android:textSize="14sp"
-        app:layout_constraintBottom_toBottomOf="@+id/day_tv"
-        app:layout_constraintLeft_toRightOf="@+id/day_tv" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:text="重庆:    雨  21度"
-        android:textSize="14sp"
-        android:textColor="#666666"
-        android:layout_marginLeft="10dp"
-        app:layout_constraintLeft_toLeftOf="@+id/day_tv"
-        app:layout_constraintTop_toBottomOf="@+id/day_tv" />
-
-    <LinearLayout
-        android:id="@+id/icon_group"
-        android:layout_width="match_parent"
-        android:layout_height="200dp"
-        android:orientation="horizontal"
-        app:layout_constraintBottom_toBottomOf="parent"
-        android:layout_marginBottom="100dp"
+        android:clickable="true"
+        android:focusable="true"
+        android:id="@+id/layout_add_view"
         >
 
-    </LinearLayout>
+        <TextView
+            android:id="@+id/day_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="30dp"
+            android:gravity="center"
+            android:includeFontPadding="false"
+            android:text="11"
+            android:textColor="#666666"
+            android:textSize="60sp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-</android.support.constraint.ConstraintLayout>
+        <TextView
+            android:id="@+id/week_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"
+            android:gravity="center"
+            android:text="星期一"
+            android:textSize="14sp"
+            android:textColor="#666666"
+            android:layout_marginTop="10dp"
+            app:layout_constraintLeft_toRightOf="@+id/day_tv"
+            app:layout_constraintTop_toTopOf="@+id/day_tv" />
+
+        <TextView
+            android:id="@+id/date_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"
+            android:gravity="center"
+            android:text="04/2020"
+            android:textColor="#666666"
+            android:layout_marginBottom="10dp"
+            android:textSize="14sp"
+            app:layout_constraintBottom_toBottomOf="@+id/day_tv"
+            app:layout_constraintLeft_toRightOf="@+id/day_tv" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="重庆:    雨  21度"
+            android:textSize="14sp"
+            android:textColor="#666666"
+            android:layout_marginLeft="10dp"
+            app:layout_constraintLeft_toLeftOf="@+id/day_tv"
+            app:layout_constraintTop_toBottomOf="@+id/day_tv" />
+
+        <LinearLayout
+            android:id="@+id/icon_group"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:orientation="horizontal"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_marginBottom="100dp"
+            >
+
+        </LinearLayout>
+
+    </android.support.constraint.ConstraintLayout>
+
+</eightbitlab.com.blurview.BlurView>

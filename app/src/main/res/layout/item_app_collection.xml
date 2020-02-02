@@ -12,12 +12,12 @@
     app:shadowSize="8dp"
     >
 
-    <ImageView
-        android:id="@+id/img_bg"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:scaleType="centerCrop"
-        />
+<!--    <ImageView-->
+<!--        android:id="@+id/img_bg"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="match_parent"-->
+<!--        android:scaleType="centerCrop"-->
+<!--        />-->
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -29,6 +29,7 @@
         android:paddingBottom="10dp"
         android:paddingStart="20dp"
         android:paddingEnd="20dp"
+        android:id="@+id/img_bg"
         >
 
         <LinearLayout
@@ -134,7 +135,5 @@
 
 
     </LinearLayout>
-
-
 
 </www.linwg.org.lib.LCardView>

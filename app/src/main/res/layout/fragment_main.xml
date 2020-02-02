@@ -2,17 +2,19 @@
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/activity_with_view_pager"
+    android:id="@+id/main_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <com.ittianyu.bottomnavigationviewex.BottomNavigationViewEx
+    <com.zpj.shouji.market.ui.widget.navigation.BottomNavigationViewEx
         android:id="@+id/navigation_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:background="@android:color/white"
         app:menu="@menu/menu_navigation_center_fab"
+        app:itemTextColor="@color/selector_item_primary_color"
+        app:itemIconTint="@color/selector_item_primary_color"
         app:elevation="0dp"
         />
 
