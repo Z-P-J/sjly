@@ -11,6 +11,7 @@ import me.yokeyword.fragmentation.anim.FragmentAnimator;
 
 /**
  * Created by YoKey on 17/6/23.
+ * Modified by Z-P-J
  */
 
 public interface ISupportFragment {

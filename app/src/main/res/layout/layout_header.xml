@@ -1,0 +1,15 @@
+<com.wuhenzhizao.titlebar.widget.CommonTitleBar
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/title_bar"
+    android:layout_width="match_parent"
+    android:layout_height="?attr/actionBarSize"
+    app:fillStatusBar="false"
+    app:titleBarColor="@color/white"
+    app:leftType="imageButton"
+    app:leftImageResource="@drawable/ic_arrow_back_black_24dp"
+    app:centerType="textView"
+    app:centerText="Title"
+    app:centerTextColor="@color/color_text_major"
+    app:showBottomLine="false"
+    />

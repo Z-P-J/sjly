@@ -15,6 +15,7 @@ import me.yokeyword.fragmentation.anim.FragmentAnimator;
  * {@link ISupportFragment} and
  * {@link Fragment} APIs.
  * Created by YoKey on 17/6/22.
+ * Modified b Z-P-J
  */
 public class SupportFragment extends Fragment implements ISupportFragment {
     final SupportFragmentDelegate mDelegate = new SupportFragmentDelegate(this);

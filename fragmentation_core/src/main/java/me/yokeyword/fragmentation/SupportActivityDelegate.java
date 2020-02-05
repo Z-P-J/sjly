@@ -16,6 +16,9 @@ import me.yokeyword.fragmentation.anim.FragmentAnimator;
 import me.yokeyword.fragmentation.debug.DebugStackDelegate;
 import me.yokeyword.fragmentation.queue.Action;
 
+/*
+* Modified by Z-P-J
+* */
 public class SupportActivityDelegate {
     private ISupportActivity mSupport;
     private FragmentActivity mActivity;
@@ -140,6 +143,10 @@ public class SupportActivityDelegate {
      */
     public void post(final Runnable runnable) {
         mTransactionDelegate.post(runnable);
+    }
+
+    public void postDelay(final Runnable runnable, long delay) {
+        mTransactionDelegate.postDelay(runnable, delay);
     }
 
     /**

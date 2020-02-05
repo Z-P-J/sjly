@@ -167,7 +167,7 @@ public abstract class BaseFragment extends SwipeBackFragment {
         }
     }
 
-    protected void postOnEnterAnimationEnd(Runnable runnable) {
+    protected synchronized void postOnEnterAnimationEnd(Runnable runnable) {
         if (isEnterAnimationEnd.get()) {
             if (runnable != null) {
                 post(runnable);

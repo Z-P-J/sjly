@@ -13,6 +13,7 @@ import me.yokeyword.fragmentation.SupportHelper;
  * The queue of perform action.
  * <p>
  * Created by YoKey on 17/12/29.
+ * Modified by Z-P-J
  */
 public class ActionQueue {
     private Queue<Action> mQueue = new LinkedList<>();

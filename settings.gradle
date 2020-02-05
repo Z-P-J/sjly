@@ -11,4 +11,5 @@ include ':app',
         ':zhttp',
         ':zpopup',
         ':glidegifdecoder',
-        ':openingstartanimation'
+        ':openingstartanimation',
+        ':lsettingviewlibrary'

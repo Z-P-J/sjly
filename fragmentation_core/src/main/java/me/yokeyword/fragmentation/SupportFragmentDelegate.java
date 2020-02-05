@@ -21,6 +21,9 @@ import me.yokeyword.fragmentation.helper.internal.ResultRecord;
 import me.yokeyword.fragmentation.helper.internal.TransactionRecord;
 import me.yokeyword.fragmentation.helper.internal.VisibleDelegate;
 
+/*
+* Modified by Z-P-J
+* */
 public class SupportFragmentDelegate {
     private static final long NOT_FOUND_ANIM_TIME = 300L;
 

@@ -50,6 +50,7 @@ dependencies {
     implementation project(':zpopup')
     implementation project(':glidegifdecoder')
     implementation project(':openingstartanimation')
+    implementation project(':lsettingviewlibrary')
 
 
 

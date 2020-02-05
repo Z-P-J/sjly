@@ -69,4 +69,12 @@
         <attr name="pzv_zoomTime" format="integer" />
     </declare-styleable>
 
+    <declare-styleable name="DetailLayout">
+        <attr name="left_text" format="string" />
+        <attr name="right_text" format="string" />
+        <attr name="right_text_maxEms" format="integer"/>
+        <attr name="right_text_maxLines" format="integer"/>
+        <attr name="right_text_color" format="color"/>
+    </declare-styleable>
+
 </resources>

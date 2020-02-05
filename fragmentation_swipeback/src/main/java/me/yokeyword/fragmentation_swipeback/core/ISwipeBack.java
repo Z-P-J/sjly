@@ -6,7 +6,7 @@ import android.view.View;
 import me.yokeyword.fragmentation.SwipeBackLayout;
 
 /**
- * Created by YoKey on 17/6/29.
+ * @Author Z-P-J
  */
 
 public interface ISwipeBack {

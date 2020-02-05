@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="56dp"
+    android:minHeight="56dp"
+    android:background="?android:attr/selectableItemBackground"
+    android:gravity="center_vertical">
+
+    <RelativeLayout
+        android:id="@+id/rootLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:clickable="true"
+        android:focusable="true"
+        android:gravity="center_vertical">
+
+        <ImageView
+            android:id="@+id/iv_lefticon"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="16dp"
+            android:src="@drawable/lefticon"
+            android:visibility="gone" />
+
+        <TextView
+            android:id="@+id/tv_lefttext"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_toEndOf="@id/iv_lefticon"
+            android:layout_toStartOf="@id/tv_righttext"
+            android:layout_centerVertical="true"
+            android:padding="10dp"
+            android:textSize="16sp" />
+
+
+        <LinearLayout
+            android:id="@+id/right_container"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            >
+
+            <ImageView
+                android:id="@+id/btn_info"
+                android:layout_width="56dp"
+                android:layout_height="56dp"
+                android:layout_gravity="center"
+                android:src="@drawable/ic_info_black_24dp"
+                android:padding="16dp"
+                android:visibility="gone"
+                android:background="@drawable/bg_selector"
+                android:tint="#cccccc"
+                />
+
+            <FrameLayout
+                android:id="@+id/rightlayout"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent">
+
+                <ImageView
+                    android:id="@+id/iv_righticon"
+                    android:layout_width="56dp"
+                    android:layout_height="56dp"
+                    android:layout_gravity="center"
+                    android:src="@drawable/ic_keyboard_arrow_right_black_24dp"
+                    android:padding="16dp"
+                    />
+
+                <android.support.v7.widget.AppCompatCheckBox
+                    android:id="@+id/rightcheck"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center" />
+
+                <com.suke.widget.SwitchButton
+                    android:id="@+id/rightswitch"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    xmlns:app="http://schemas.android.com/apk/res-auto"
+                    app:sb_checked_color="@color/colorPrimary"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginEnd="15dp"
+                    />
+
+            </FrameLayout>
+
+
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/tv_righttext"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_toStartOf="@id/right_container"
+            android:gravity="center"
+            android:text="1.0.0"
+            android:layout_centerVertical="true"
+            android:visibility="gone"
+            />
+
+        <View
+            android:id="@+id/underline"
+            android:layout_width="wrap_content"
+            android:layout_height="0.5dp"
+            android:layout_alignParentBottom="true"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:background="#99999999" />
+
+    </RelativeLayout>
+
+</FrameLayout>

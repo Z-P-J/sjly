@@ -114,6 +114,11 @@ public class SupportActivity extends AppCompatActivity implements ISupportActivi
         mDelegate.post(runnable);
     }
 
+    @Override
+    public void postDelay(Runnable runnable, long delay) {
+        mDelegate.postDelay(runnable, delay);
+    }
+
     /****************************************以下为可选方法(Optional methods)******************************************************/
 
     /**

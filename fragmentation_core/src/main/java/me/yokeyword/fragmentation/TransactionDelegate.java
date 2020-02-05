@@ -29,6 +29,7 @@ import me.yokeyword.fragmentation.queue.ActionQueue;
 /**
  * Controller
  * Created by YoKeyword on 16/1/22.
+ * Modified by Z-P-J
  */
 class TransactionDelegate {
     static final int DEFAULT_POPTO_ANIM = Integer.MAX_VALUE;

@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    android:orientation="vertical"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:fitsSystemWindows="true"
+    >
+
+    <ImageView
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_centerInParent="true"
+        android:src="@mipmap/ic_launcher_round"
+        />
+
+    <include layout="@layout/layout_header"/>
+
+    <com.zpj.dialog.view.ElasticScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scrollbarSize="0dp"
+        android:layout_below="@+id/title_bar"
+        >
+
+        <www.linwg.org.lib.LCardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:cardBackgroundColor="@android:color/white"
+            app:shadowSize="16dp"
+            app:shadowColor="#5f6379"
+            app:shadowStartAlpha="10"
+            app:cornerRadius="10dp">
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingTop="8dp"
+                android:paddingBottom="8dp"
+                >
+
+                <com.leon.lib.settingview.LSettingItem
+                    android:id="@+id/item_check_update"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:setting_showUnderLine="false"
+                    app:setting_leftText="检查更新"
+                    app:setting_leftTextColor="@color/color_text_major"
+                    app:setting_showInfoBtn="false"
+                    />
+
+                <com.zpj.shouji.market.ui.widget.DetailLayout
+                    android:id="@+id/app_version"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:left_text="应用版本"
+                    app:right_text="手机乐园第三方 1.0.0"
+                    />
+
+                <com.zpj.shouji.market.ui.widget.DetailLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:left_text="开发者"
+                    app:right_text="我好像在哪儿见过您"
+                    />
+
+                <com.zpj.shouji.market.ui.widget.DetailLayout
+                    android:id="@+id/link_open_source"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:left_text="开源地址"
+                    app:right_text="https://github.com/Z-P-J/sjly"
+                    />
+
+            </LinearLayout>
+
+        </www.linwg.org.lib.LCardView>
+
+
+    </com.zpj.dialog.view.ElasticScrollView>
+
+
+
+</RelativeLayout>

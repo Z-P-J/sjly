@@ -42,6 +42,7 @@ import me.yokeyword.fragmentation_swipeback.core.ISwipeBack;
  * Thx https://github.com/ikew0ng/SwipeBackLayout.
  * <p>
  * Created by YoKey on 16/4/19.
+ * Modified by Z-P-J
  */
 public class SwipeBackLayout extends FrameLayout {
 

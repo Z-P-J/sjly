@@ -12,6 +12,7 @@ import android.support.v7.app.AppCompatActivity;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.utils.AppUpdateHelper;
 
+import site.gemus.openingstartanimation.NormalDrawStrategy;
 import site.gemus.openingstartanimation.OpeningStartAnimation;
 import site.gemus.openingstartanimation.RotationDrawStrategy;
 
@@ -32,7 +33,7 @@ public class SplashActivity extends AppCompatActivity {
         AppUpdateHelper.getInstance().checkUpdate(this);
 
         OpeningStartAnimation openingStartAnimation3 = new OpeningStartAnimation.Builder(this)
-                .setDrawStategy(new RotationDrawStrategy())
+                .setDrawStategy(new NormalDrawStrategy())
                 .setAppName("手机乐园")
                 .setAppStatement("分享优质应用")
                 .setAnimationInterval(1000)

@@ -9,7 +9,9 @@
     <com.zpj.shouji.market.ui.widget.PullZoomView
         android:id="@+id/view_pull_zoom"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:scrollbars="none"
+        >
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -153,8 +155,6 @@
                     android:layout_marginEnd="20dp"
                     >
 
-
-
                 </LinearLayout>
 
                 <TextView
@@ -181,12 +181,16 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginTop="-56dp"
-                android:tag="content">
+                android:tag="content"
+                android:scrollbars="none"
+                >
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical">
+                    android:orientation="vertical"
+                    android:padding="8dp"
+                    >
 
                     <include layout="@layout/layout_my_tools" />
 
@@ -194,71 +198,120 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         app:cardBackgroundColor="@android:color/white"
-                        app:shadowSize="15dp"
+                        app:shadowSize="8dp"
                         app:shadowColor="#5f6379"
                         app:shadowStartAlpha="10"
                         app:cornerRadius="10dp"
                         >
 
-                        <LinearLayout
+                        <android.support.v7.widget.LinearLayoutCompat
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:orientation="vertical"
+                            app:divider="@drawable/divider_horizontal_bg"
+                            app:dividerPadding="16dp"
+                            app:showDividers="middle"
                             >
 
                             <TextView
+                                android:id="@+id/tv_cloud_backup"
                                 android:layout_width="match_parent"
                                 android:layout_height="56dp"
                                 android:text="云备份"
                                 android:gravity="center_vertical"
                                 android:drawableEnd="@drawable/ic_keyboard_arrow_right_black_24dp"
                                 android:textColor="@color/color_text_major"
-                                android:background="@drawable/bottom_line_gray"
+                                android:background="?android:attr/selectableItemBackground"
                                 android:textStyle="bold"
-                                android:layout_marginStart="15dp"
-                                android:layout_marginEnd="15dp"
+                                android:paddingStart="16dp"
+                                android:paddingEnd="16dp"
                                 />
 
                             <TextView
+                                android:id="@+id/tv_feedback"
                                 android:layout_width="match_parent"
                                 android:layout_height="56dp"
                                 android:text="意见反馈"
                                 android:gravity="center_vertical"
                                 android:drawableEnd="@drawable/ic_keyboard_arrow_right_black_24dp"
                                 android:textColor="@color/color_text_major"
-                                android:background="@drawable/bottom_line_gray"
+                                android:background="?android:attr/selectableItemBackground"
                                 android:textStyle="bold"
-                                android:layout_marginStart="15dp"
-                                android:layout_marginEnd="15dp"
+                                android:paddingStart="16dp"
+                                android:paddingEnd="16dp"
                                 />
 
                             <TextView
+                                android:id="@+id/tv_night_mode"
                                 android:layout_width="match_parent"
                                 android:layout_height="56dp"
                                 android:text="夜间模式"
                                 android:gravity="center_vertical"
                                 android:drawableEnd="@drawable/ic_keyboard_arrow_right_black_24dp"
                                 android:textColor="@color/color_text_major"
-                                android:background="@drawable/bottom_line_gray"
+                                android:background="?android:attr/selectableItemBackground"
                                 android:textStyle="bold"
-                                android:layout_marginStart="15dp"
-                                android:layout_marginEnd="15dp"
+                                android:paddingStart="16dp"
+                                android:paddingEnd="16dp"
                                 />
 
                             <TextView
+                                android:id="@+id/tv_common_setting"
                                 android:layout_width="match_parent"
                                 android:layout_height="56dp"
-                                android:text="设置"
+                                android:text="通用设置"
                                 android:gravity="center_vertical"
                                 android:drawableEnd="@drawable/ic_keyboard_arrow_right_black_24dp"
                                 android:textColor="@color/color_text_major"
-                                android:background="@drawable/bottom_line_gray"
+                                android:background="?android:attr/selectableItemBackground"
                                 android:textStyle="bold"
-                                android:layout_marginStart="15dp"
-                                android:layout_marginEnd="15dp"
+                                android:paddingStart="16dp"
+                                android:paddingEnd="16dp"
                                 />
 
-                        </LinearLayout>
+                            <TextView
+                                android:id="@+id/tv_download_setting"
+                                android:layout_width="match_parent"
+                                android:layout_height="56dp"
+                                android:text="下载设置"
+                                android:gravity="center_vertical"
+                                android:drawableEnd="@drawable/ic_keyboard_arrow_right_black_24dp"
+                                android:textColor="@color/color_text_major"
+                                android:background="?android:attr/selectableItemBackground"
+                                android:textStyle="bold"
+                                android:paddingStart="16dp"
+                                android:paddingEnd="16dp"
+                                />
+
+                            <TextView
+                                android:id="@+id/tv_install_setting"
+                                android:layout_width="match_parent"
+                                android:layout_height="56dp"
+                                android:text="安装设置"
+                                android:gravity="center_vertical"
+                                android:drawableEnd="@drawable/ic_keyboard_arrow_right_black_24dp"
+                                android:textColor="@color/color_text_major"
+                                android:background="?android:attr/selectableItemBackground"
+                                android:textStyle="bold"
+                                android:paddingStart="16dp"
+                                android:paddingEnd="16dp"
+                                />
+
+                            <TextView
+                                android:id="@+id/tv_about"
+                                android:layout_width="match_parent"
+                                android:layout_height="56dp"
+                                android:text="关于应用"
+                                android:gravity="center_vertical"
+                                android:drawableEnd="@drawable/ic_keyboard_arrow_right_black_24dp"
+                                android:textColor="@color/color_text_major"
+                                android:background="?android:attr/selectableItemBackground"
+                                android:textStyle="bold"
+                                android:paddingStart="16dp"
+                                android:paddingEnd="16dp"
+                                />
+
+                        </android.support.v7.widget.LinearLayoutCompat>
 
                     </www.linwg.org.lib.LCardView>
 

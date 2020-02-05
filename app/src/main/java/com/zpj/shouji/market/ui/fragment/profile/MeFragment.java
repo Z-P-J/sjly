@@ -8,18 +8,33 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.felix.atoast.library.AToast;
+import com.zpj.dialog.ZAlertDialog;
+import com.zpj.dialog.base.IDialog;
 import com.zpj.popupmenuview.popup.EverywherePopup;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.ui.fragment.base.BaseFragment;
+import com.zpj.shouji.market.ui.fragment.setting.AboutSettingFragment;
+import com.zpj.shouji.market.ui.fragment.setting.CommonSettingFragment;
+import com.zpj.shouji.market.ui.fragment.setting.DownloadSettingFragment;
+import com.zpj.shouji.market.ui.fragment.setting.InstallSettingFragment;
 import com.zpj.shouji.market.ui.widget.CircleImageView;
 import com.zpj.shouji.market.ui.widget.PullZoomView;
 import com.zpj.shouji.market.utils.UserManager;
 import com.zpj.utils.ClickHelper;
 
-public class MeFragment extends BaseFragment {
+public class MeFragment extends BaseFragment implements View.OnClickListener {
 
-    private TextView tvName, tvSignature;
+    private TextView tvName;
+    private TextView tvSignature;
     private CircleImageView ivAvatar;
+
+    private TextView tvCloudBackup;
+    private TextView tvFeedback;
+    private TextView tvNightMode;
+    private TextView tvCommonSetting;
+    private TextView tvDownloadSetting;
+    private TextView tvInstallSetting;
+    private TextView tvAbout;
 
     @Override
     protected int getLayoutId() {
@@ -37,6 +52,22 @@ public class MeFragment extends BaseFragment {
         tvName = view.findViewById(R.id.tv_name);
         tvSignature = view.findViewById(R.id.tv_signature);
         ivAvatar = view.findViewById(R.id.iv_avatar);
+
+        tvCloudBackup = view.findViewById(R.id.tv_cloud_backup);
+        tvFeedback = view.findViewById(R.id.tv_feedback);
+        tvNightMode = view.findViewById(R.id.tv_night_mode);
+        tvCommonSetting = view.findViewById(R.id.tv_common_setting);
+        tvDownloadSetting = view.findViewById(R.id.tv_download_setting);
+        tvInstallSetting = view.findViewById(R.id.tv_install_setting);
+        tvAbout = view.findViewById(R.id.tv_about);
+
+        tvCloudBackup.setOnClickListener(this);
+        tvFeedback.setOnClickListener(this);
+        tvNightMode.setOnClickListener(this);
+        tvCommonSetting.setOnClickListener(this);
+        tvDownloadSetting.setOnClickListener(this);
+        tvInstallSetting.setOnClickListener(this);
+        tvAbout.setOnClickListener(this);
 
         ClickHelper.with(ivAvatar)
                 .setOnLongClickListener((v, x, y) -> {
@@ -74,42 +105,56 @@ public class MeFragment extends BaseFragment {
                             .apply()
                             .showEverywhere(v, x, y);
                     return true;
-//                    if (UserManager.isLogin()) {
-//
-//                        return true;
-//                    }
-//                    return false;
                 });
-
-//        if (UserManager.isLogin()) {
-//
-//        } else {
-//
-//        }
-    }
-
-    @Override
-    public void onLazyInitView(@Nullable Bundle savedInstanceState) {
-        super.onLazyInitView(savedInstanceState);
     }
 
     @Override
     public void toolbarRightImageButton(@NonNull ImageButton imageButton) {
-        imageButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                EverywherePopup.create(context)
-                        .addItem("分享主页")
-                        .addItem("复制主页链接")
-                        .setOnItemClickListener(new EverywherePopup.OnItemClickListener() {
-                            @Override
-                            public void onItemClicked(String title, int position) {
-                                AToast.normal(title);
-                            }
-                        })
-                        .apply()
-                        .show(v);
-            }
-        });
+        imageButton.setOnClickListener(v -> EverywherePopup.create(context)
+                .addItems("注销", "分享主页", "复制主页链接")
+                .setOnItemClickListener(new EverywherePopup.OnItemClickListener() {
+                    @Override
+                    public void onItemClicked(String title, int position) {
+                        AToast.normal(title);
+                        switch (position) {
+                            case 0:
+                                ZAlertDialog.with(context)
+                                        .setTitle("确认注销？")
+                                        .setTitleTextColor(getResources().getColor(R.color.rect))
+                                        .setContent("您将注销当前登录的账户，确定继续？")
+                                        .setPositiveButton(dialog -> {
+                                            dialog.dismiss();
+                                            AToast.success("TODO 注销成功");
+                                        })
+                                        .show();
+                                break;
+                            case 1:
+                                break;
+                            case 2:
+                                break;
+                        }
+                    }
+                })
+                .apply()
+                .show(v));
+    }
+
+    @Override
+    public void onClick(View v) {
+        if (v == tvCloudBackup) {
+
+        } else if (v == tvFeedback) {
+
+        } else if (v == tvNightMode) {
+
+        } else if (v == tvCommonSetting) {
+            _mActivity.start(new CommonSettingFragment());
+        } else if (v == tvDownloadSetting) {
+            _mActivity.start(new DownloadSettingFragment());
+        } else if (v == tvInstallSetting) {
+            _mActivity.start(new InstallSettingFragment());
+        } else if (v == tvAbout) {
+            _mActivity.start(new AboutSettingFragment());
+        }
     }
 }
