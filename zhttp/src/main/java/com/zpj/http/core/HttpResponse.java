@@ -31,6 +31,9 @@ import java.net.URLEncoder;
 import java.nio.Buffer;
 import java.nio.ByteBuffer;
 import java.nio.charset.Charset;
+import java.security.KeyManagementException;
+import java.security.NoSuchAlgorithmException;
+import java.security.cert.X509Certificate;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.LinkedHashMap;
@@ -41,7 +44,13 @@ import java.util.zip.GZIPInputStream;
 import java.util.zip.Inflater;
 import java.util.zip.InflaterInputStream;
 
+import javax.net.ssl.HostnameVerifier;
 import javax.net.ssl.HttpsURLConnection;
+import javax.net.ssl.SSLContext;
+import javax.net.ssl.SSLSession;
+import javax.net.ssl.SSLSocketFactory;
+import javax.net.ssl.TrustManager;
+import javax.net.ssl.X509TrustManager;
 
 import static com.zpj.http.core.Connection.Method.HEAD;
 
@@ -52,6 +61,9 @@ public class HttpResponse extends HttpBase<Connection.Response> implements Conne
     private static final int HTTP_TEMP_REDIR = 307; // http/1.1 temporary redirect, not in Java's set.
     private static final String DefaultUploadType = "application/octet-stream";
     private static final int MAX_REDIRECTS = 20;
+
+    private static SSLSocketFactory sslSocketFactory;
+
     private int statusCode;
     private String statusMessage;
     private ByteBuffer byteData;
@@ -297,8 +309,21 @@ public class HttpResponse extends HttpBase<Connection.Response> implements Conne
         conn.setConnectTimeout(req.timeout());
         conn.setReadTimeout(req.timeout() / 2); // gets reduced after connection is made and status is read
 
-        if (req.sslSocketFactory() != null && conn instanceof HttpsURLConnection)
-            ((HttpsURLConnection) conn).setSSLSocketFactory(req.sslSocketFactory());
+//        if (req.sslSocketFactory() != null && conn instanceof HttpsURLConnection)
+//            ((HttpsURLConnection) conn).setSSLSocketFactory(req.sslSocketFactory());
+
+        if (conn instanceof HttpsURLConnection) {
+            SSLSocketFactory socketFactory = req.sslSocketFactory();
+
+            if (socketFactory != null) {
+                ((HttpsURLConnection) conn).setSSLSocketFactory(socketFactory);
+            } else if (!req.validateTLSCertificates()) {
+                initUnSecureTSL();
+                ((HttpsURLConnection)conn).setSSLSocketFactory(sslSocketFactory);
+                ((HttpsURLConnection)conn).setHostnameVerifier(getInsecureVerifier());
+            }
+        }
+
         if (req.method().hasBody())
             conn.setDoOutput(true);
         if (req.cookies().size() > 0)
@@ -309,6 +334,59 @@ public class HttpResponse extends HttpBase<Connection.Response> implements Conne
             }
         }
         return conn;
+    }
+
+    /**
+     * Initialise Trust manager that does not validate certificate chains and
+     * add it to current SSLContext.
+     * <p/>
+     * please not that this method will only perform action if sslSocketFactory is not yet
+     * instantiated.
+     *
+     * @throws IOException on SSL init errors
+     */
+    private static synchronized void initUnSecureTSL() throws IOException {
+        if (sslSocketFactory == null) {
+            // Create a trust manager that does not validate certificate chains
+            final TrustManager[] trustAllCerts = new TrustManager[]{new X509TrustManager() {
+
+                public void checkClientTrusted(final X509Certificate[] chain, final String authType) {
+                }
+
+                public void checkServerTrusted(final X509Certificate[] chain, final String authType) {
+                }
+
+                public X509Certificate[] getAcceptedIssuers() {
+                    return null;
+                }
+            }};
+
+            // Install the all-trusting trust manager
+            final SSLContext sslContext;
+            try {
+                sslContext = SSLContext.getInstance("SSL");
+                sslContext.init(null, trustAllCerts, new java.security.SecureRandom());
+                // Create an ssl socket factory with our all-trusting manager
+                sslSocketFactory = sslContext.getSocketFactory();
+            } catch (NoSuchAlgorithmException | KeyManagementException e) {
+                throw new IOException("Can't create unsecure trust manager");
+            }
+        }
+    }
+
+    /**
+     * Instantiate Hostname Verifier that does nothing.
+     * This is used for connections with disabled SSL certificates validation.
+     *
+     *
+     * @return Hostname Verifier that does nothing and accepts all hostnames
+     */
+    private static HostnameVerifier getInsecureVerifier() {
+        return new HostnameVerifier() {
+            public boolean verify(String urlHostName, SSLSession session) {
+                return true;
+            }
+        };
     }
 
     /**

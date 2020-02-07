@@ -41,10 +41,10 @@
                         android:id="@+id/title_bar"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        app:fillStatusBar="false"
-                        app:statusBarMode="light"
-                        app:statusBarColor="@color/colorPrimary"
-                        app:titleBarColor="@color/colorPrimary"
+                        app:titleBar_fillStatusBar="false"
+                        app:titleBar_statusBarMode="light"
+                        app:titleBar_statusBarColor="@color/colorPrimary"
+                        app:titleBar_titleBarColor="@color/colorPrimary"
                         />
 
                     <FrameLayout

@@ -100,6 +100,12 @@ public abstract class AbstractConnection implements Connection {
     }
 
     @Override
+    public Connection validateTLSCertificates(boolean value) {
+        req.validateTLSCertificates(value);
+        return this;
+    }
+
+    @Override
     public Connection data(String key, String value) {
         req.data(HttpKeyVal.create(key, value));
         return this;

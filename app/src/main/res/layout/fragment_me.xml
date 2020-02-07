@@ -327,13 +327,13 @@
         android:id="@+id/title_bar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:statusBarMode="light"
-        app:fillStatusBar="true"
-        app:titleBarColor="@android:color/transparent"
-        app:statusBarColor="@android:color/transparent"
-        app:showBottomLine="false"
-        app:rightType="imageButton"
-        app:rightImageResource="@drawable/ic_more_vert_grey_24dp"
+        app:titleBar_statusBarMode="light"
+        app:titleBar_fillStatusBar="true"
+        app:titleBar_titleBarColor="@android:color/transparent"
+        app:titleBar_statusBarColor="@android:color/transparent"
+        app:titleBar_showBottomLine="false"
+        app:titleBar_rightType="imageButton"
+        app:titleBar_rightImageResource="@drawable/ic_more_vert_grey_24dp"
         />
 
 

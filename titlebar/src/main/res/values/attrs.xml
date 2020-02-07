@@ -2,95 +2,95 @@
 <resources>
     <declare-styleable name="CommonTitleBar">
         <!-- 标题栏背景 图片或颜色 -->
-        <attr name="titleBarColor" format="color" />
+        <attr name="titleBar_titleBarColor" format="color" />
         <!-- 填充状态栏 -->
-        <attr name="fillStatusBar" format="boolean" />
+        <attr name="titleBar_fillStatusBar" format="boolean" />
         <!-- 状态栏颜色 -->
-        <attr name="statusBarColor" format="color" />
+        <attr name="titleBar_statusBarColor" format="color" />
         <!-- 状态栏模式 -->
-        <attr name="statusBarMode" format="enum">
+        <attr name="titleBar_statusBarMode" format="enum">
             <enum name="dark" value="0" />
             <enum name="light" value="1" />
         </attr>
         <!-- 标题栏高度 -->
-        <attr name="titleBarHeight" format="dimension" />
+        <attr name="titleBar_titleBarHeight" format="dimension" />
         <!-- 显示标题栏分割线 -->
-        <attr name="showBottomLine" format="boolean" />
+        <attr name="titleBar_showBottomLine" format="boolean" />
         <!-- 标题栏分割线颜色 -->
-        <attr name="bottomLineColor" format="color" />
+        <attr name="titleBar_bottomLineColor" format="color" />
         <!-- 底部阴影高度 showBottomLine = false时有效 -->
-        <attr name="bottomShadowHeight" format="dimension" />
+        <attr name="titleBar_bottomShadowHeight" format="dimension" />
 
         <!-- 左边视图类型 -->
-        <attr name="leftType">
+        <attr name="titleBar_leftType">
             <enum name="none" value="0" />
             <enum name="textView" value="1" />
             <enum name="imageButton" value="2" />
             <enum name="customView" value="3" />
         </attr>
         <!-- TextView 文字, 对应leftType_TextView -->
-        <attr name="leftText" format="string" />
+        <attr name="titleBar_leftText" format="string" />
         <!-- TextView 颜色, 对应leftType_TextView -->
-        <attr name="leftTextColor" format="color" />
+        <attr name="titleBar_leftTextColor" format="color" />
         <!-- TextView 字体大小, 对应leftType_TextView -->
-        <attr name="leftTextSize" format="dimension" />
+        <attr name="titleBar_leftTextSize" format="dimension" />
         <!-- TextView 左边图片, 对应leftType_TextView -->
-        <attr name="leftDrawable" format="reference" />
+        <attr name="titleBar_leftDrawable" format="reference" />
         <!-- TextView 左边padding, 对应leftType_TextView -->
-        <attr name="leftDrawablePadding" format="dimension" />
+        <attr name="titleBar_leftDrawablePadding" format="dimension" />
         <!-- ImageView 资源, 对应leftType_ImageBotton -->
-        <attr name="leftImageResource" format="reference" />
+        <attr name="titleBar_leftImageResource" format="reference" />
         <!-- 左边自定义布局, 对应leftType_CustomView -->
-        <attr name="leftCustomView" format="reference" />
+        <attr name="titleBar_leftCustomView" format="reference" />
 
         <!-- 右边视图类型 -->
-        <attr name="rightType">
+        <attr name="titleBar_rightType">
             <enum name="none" value="0" />
             <enum name="textView" value="1" />
             <enum name="imageButton" value="2" />
             <enum name="customView" value="3" />
         </attr>
         <!-- TextView 文字, 对应rightType_TextView -->
-        <attr name="rightText" format="string" />
+        <attr name="titleBar_rightText" format="string" />
         <!-- TextView 颜色, 对应rightType_TextView -->
-        <attr name="rightTextColor" format="color" />
+        <attr name="titleBar_rightTextColor" format="color" />
         <!-- TextView 字体大小, 对应rightType_TextView -->
-        <attr name="rightTextSize" format="dimension" />
+        <attr name="titleBar_rightTextSize" format="dimension" />
         <!-- ImageView 资源, 对应rightType_ImageBotton -->
-        <attr name="rightImageResource" format="reference" />
+        <attr name="titleBar_rightImageResource" format="reference" />
         <!-- 右边自定义布局, 对应rightType_CustomView -->
-        <attr name="rightCustomView" format="reference" />
+        <attr name="titleBar_rightCustomView" format="reference" />
 
         <!-- 中间视图类型 -->
-        <attr name="centerType">
+        <attr name="titleBar_centerType">
             <enum name="none" value="0" />
             <enum name="textView" value="1" />
             <enum name="searchView" value="2" />
             <enum name="customView" value="3" />
         </attr>
-        <attr name="centerSearchRightType">
+        <attr name="titleBar_centerSearchRightType">
             <enum name="voice" value="0" />
             <enum name="delete" value="1" />
         </attr>
         <!-- TextView 文字, 对应centerType_TextView -->
-        <attr name="centerText" format="string" />
+        <attr name="titleBar_centerText" format="string" />
         <!-- TextView 颜色, 对应centerType_TextView -->
-        <attr name="centerTextColor" format="color" />
+        <attr name="titleBar_centerTextColor" format="color" />
         <!-- TextView 字体大小, 对应centerType_TextView -->
-        <attr name="centerTextSize" format="dimension" />
+        <attr name="titleBar_centerTextSize" format="dimension" />
         <!-- TextView 跑马灯效果, 默认打开, 对应centerType_TextView -->
-        <attr name="centerTextMarquee" format="boolean" />
+        <attr name="titleBar_centerTextMarquee" format="boolean" />
         <!-- 子标题TextView 文字, 对应centerType_TextView -->
-        <attr name="centerSubText" format="string" />
+        <attr name="titleBar_centerSubText" format="string" />
         <!-- 子标题TextView 颜色, 对应centerType_TextView -->
-        <attr name="centerSubTextColor" format="color" />
+        <attr name="titleBar_centerSubTextColor" format="color" />
         <!-- 子标题TextView 字体大小, 对应centerType_TextView -->
-        <attr name="centerSubTextSize" format="dimension" />
+        <attr name="titleBar_centerSubTextSize" format="dimension" />
         <!-- 搜索输入框是否可输入 -->
-        <attr name="centerSearchEditable" format="boolean" />
+        <attr name="titleBar_centerSearchEditable" format="boolean" />
         <!-- 搜索框背景 -->
-        <attr name="centerSearchBg" format="reference" />
+        <attr name="titleBar_centerSearchBg" format="reference" />
         <!-- 中间自定义布局, 对应centerType_CustomView -->
-        <attr name="centerCustomView" format="reference" />
+        <attr name="titleBar_centerCustomView" format="reference" />
     </declare-styleable>
 </resources>

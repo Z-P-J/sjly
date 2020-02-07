@@ -30,6 +30,7 @@ public class HttpRequest extends HttpBase<Connection.Request> implements Connect
     private String body = null;
     private boolean ignoreHttpErrors = false;
     private boolean ignoreContentType = false;
+    private boolean validateTSLCertificates = true;
     private Parser parser;
     private boolean parserDefined = false; // called parser(...) vs initialized in ctor
     private String postDataCharset = DataUtil.defaultCharset;
@@ -114,6 +115,16 @@ public class HttpRequest extends HttpBase<Connection.Request> implements Connect
     public Connection.Request ignoreContentType(boolean ignoreContentType) {
         this.ignoreContentType = ignoreContentType;
         return this;
+    }
+
+    @Override
+    public boolean validateTLSCertificates() {
+        return validateTSLCertificates;
+    }
+
+    @Override
+    public void validateTLSCertificates(boolean value) {
+        validateTSLCertificates = value;
     }
 
     public HttpRequest data(Connection.KeyVal keyval) {
