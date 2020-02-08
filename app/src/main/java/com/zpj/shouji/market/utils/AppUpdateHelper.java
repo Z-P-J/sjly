@@ -147,83 +147,64 @@ public final class AppUpdateHelper {
     }
 
     public void checkUpdate(Context context) {
+        LISTENERS.clear();
+        PACKAGE_SET.clear();
+        INCLUDE_APP_MAP.clear();
+        APP_UPDATE_CONTENT_MAP.clear();
+        APP_UPDATE_INFO_LIST.clear();
         TASK_LIST.clear();
         checked.set(false);
         running.set(false);
-
         ZHttp.get("http://tt.shouji.com.cn/app/update.jsp")
                 .userAgent("Sjly(2.9.9.9.3)")
                 .execute()
+                .flatMap((HttpObservable.OnFlatMapListener<Connection.Response, CheckUpdate>) (response, emitter) -> {
+                    String setCookie = response.header("Set-Cookie");
+                    UserManager.setCookie(setCookie);
+                    Log.d("checkUpdate", "setCookie=" + setCookie);
+                    String jsessionId = setCookie.substring(setCookie.indexOf("="), setCookie.indexOf(";"));
+
+                    StringBuilder packageid = new StringBuilder();
+                    PackageManager manager = context.getPackageManager();
+                    List<PackageInfo> packageInfoList = manager.getInstalledPackages(0);
+                    String md5 = "";
+                    int total = packageInfoList.size();
+                    int count = 0;
+                    for (PackageInfo packageInfo : packageInfoList) {
+                        Log.d("checkUpdate", "packagename=" + packageInfo.packageName);
+                        Log.d("checkUpdate", "appName=" + packageInfo.applicationInfo.loadLabel(manager).toString());
+                        Log.d("checkUpdate", "firstInstallTime=" + packageInfo.firstInstallTime);
+                        Log.d("checkUpdate", "lastUpdateTime=" + packageInfo.lastUpdateTime);
+                        count++;
+                        packageid.append(packageInfo.packageName)
+                                .append("=").append(packageInfo.versionName)
+                                .append("=").append(packageInfo.versionCode)
+                                .append("=").append(packageInfo.applicationInfo.loadLabel(manager).toString())
+                                .append("=").append(md5).append("=Yes")//.append(packageInfo.firstInstallTime)
+                                .append(",");
+                        if (count % 50 == 0 || count == total) {
+                            if (total != count && total - count < 25) {
+                                continue;
+                            }
+                            Log.d("checkUpdate", "packageid=" + packageid);
+                            CheckUpdate checkUpdateRunnable = new CheckUpdate(context, setCookie, jsessionId, packageid.toString());
+                            emitter.onNext(checkUpdateRunnable);
+                            packageid = new StringBuilder();
+                        }
+                    }
+                })
                 .onError(new IHttp.OnErrorListener() {
                     @Override
                     public void onError(Throwable throwable) {
 
                     }
                 })
-                .onSuccess(response -> {
-                    Observable.create((ObservableOnSubscribe<CheckUpdate>) emitter -> {
-                        String setCookie = response.header("Set-Cookie");
-                        UserManager.setCookie(setCookie);
-                        Log.d("checkUpdate", "setCookie=" + setCookie);
-                        String jsessionId = setCookie.substring(setCookie.indexOf("="), setCookie.indexOf(";"));
-
-                        StringBuilder packageid = new StringBuilder();
-                        PackageManager manager = context.getPackageManager();
-                        List<PackageInfo> packageInfoList = manager.getInstalledPackages(0);
-                        String md5 = "";
-                        int total = packageInfoList.size();
-                        int count = 0;
-                        for (PackageInfo packageInfo : packageInfoList) {
-                            Log.d("checkUpdate", "packagename=" + packageInfo.packageName);
-                            Log.d("checkUpdate", "appName=" + packageInfo.applicationInfo.loadLabel(manager).toString());
-                            Log.d("checkUpdate", "firstInstallTime=" + packageInfo.firstInstallTime);
-                            Log.d("checkUpdate", "lastUpdateTime=" + packageInfo.lastUpdateTime);
-                            count++;
-                            packageid.append(packageInfo.packageName)
-                                    .append("=").append(packageInfo.versionName)
-                                    .append("=").append(packageInfo.versionCode)
-                                    .append("=").append(packageInfo.applicationInfo.loadLabel(manager).toString())
-                                    .append("=").append(md5).append("=Yes")//.append(packageInfo.firstInstallTime)
-                                    .append(",");
-                            if (count % 50 == 0 || count == total) {
-                                if (total != count && total - count < 25) {
-                                    continue;
-                                }
-                                Log.d("checkUpdate", "packageid=" + packageid);
-
-                                CheckUpdate checkUpdateRunnable = new CheckUpdate(context, setCookie, jsessionId, packageid.toString());
-                                emitter.onNext(checkUpdateRunnable);
-                                packageid = new StringBuilder();
-                            }
-                        }
-                        emitter.onComplete();
-                    })
-                            .subscribeOn(Schedulers.io())
-                            .observeOn(AndroidSchedulers.mainThread())
-                            .subscribe(new Observer<CheckUpdate>() {
-                                @Override
-                                public void onSubscribe(Disposable d) {
-
-                                }
-
-                                @Override
-                                public void onNext(CheckUpdate checkUpdate) {
-                                    TASK_LIST.add(checkUpdate);
-                                    checkUpdate.run();
-                                }
-
-                                @Override
-                                public void onError(Throwable e) {
-
-                                }
-
-                                @Override
-                                public void onComplete() {
-
-                                }
-                            });
+                .onSuccess(checkUpdate -> {
+                    TASK_LIST.add(checkUpdate);
+                    checkUpdate.run();
                 })
                 .subscribe();
+
     }
 
     public boolean hasPackage(String packageName) {

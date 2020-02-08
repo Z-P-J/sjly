@@ -1,10 +1,14 @@
 package com.zpj.http.core;
 
 import io.reactivex.Observable;
+import io.reactivex.ObservableEmitter;
+import io.reactivex.ObservableOnSubscribe;
+import io.reactivex.ObservableSource;
 import io.reactivex.Observer;
 import io.reactivex.Scheduler;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
+import io.reactivex.functions.Function;
 import io.reactivex.schedulers.Schedulers;
 
 public class HttpObservable<T> {
@@ -18,6 +22,10 @@ public class HttpObservable<T> {
     private IHttp.OnSuccessListener<T> onSuccessListener;
     private IHttp.OnErrorListener onErrorListener;
     private IHttp.OnCompleteListener onCompleteListener;
+
+    public interface OnFlatMapListener<T, R> {
+        void onNext(T data, ObservableEmitter<R> emitter);
+    }
 
     HttpObservable(Observable<T> observable) {
         this.observable = observable.subscribeOn(Schedulers.io())
@@ -54,14 +62,32 @@ public class HttpObservable<T> {
         return this;
     }
 
+    public final <R> HttpObservable<R> flatMap(final OnFlatMapListener<T, R> listener) {
+        initScheduler();
+        Observable<R> o = observable
+                .flatMap(new Function<T, ObservableSource<R>>() {
+                    @Override
+                    public ObservableSource<R> apply(final T t) throws Exception {
+                        return Observable.create(new ObservableOnSubscribe<R>() {
+                            @Override
+                            public void subscribe(ObservableEmitter<R> emitter) throws Exception {
+                                if (listener != null) {
+                                    listener.onNext(t, emitter);
+                                }
+                                emitter.onComplete();
+                            }
+                        }).subscribeOn(subscribeScheduler).observeOn(observeScheduler);
+                    }
+                });
+        return new HttpObservable<>(o)
+                .subscribeOn(subscribeScheduler)
+                .observeOn(observeScheduler);
+    }
+
     public void subscribe() {
-        if (subscribeScheduler == null) {
-            subscribeScheduler = Schedulers.io();
-        }
-        if (observeScheduler == null) {
-            observeScheduler = AndroidSchedulers.mainThread();
-        }
-        observable.subscribeOn(subscribeScheduler)
+        initScheduler();
+        observable
+                .subscribeOn(subscribeScheduler)
                 .observeOn(observeScheduler)
                 .subscribe(new Observer<T>() {
                     @Override
@@ -97,6 +123,15 @@ public class HttpObservable<T> {
                         }
                     }
                 });
+    }
+
+    private void initScheduler() {
+        if (subscribeScheduler == null) {
+            subscribeScheduler = Schedulers.io();
+        }
+        if (observeScheduler == null) {
+            observeScheduler = AndroidSchedulers.mainThread();
+        }
     }
 
 }
