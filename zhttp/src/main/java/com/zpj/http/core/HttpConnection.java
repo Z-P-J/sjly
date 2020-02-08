@@ -64,17 +64,12 @@ import static com.zpj.http.utils.Normalizer.lowerCase;
 public class HttpConnection extends AbstractConnection {
 
     @Override
-    public Connection.Request createRequest() {
+    public Request createRequest() {
         return new HttpRequest();
     }
 
-//    @Override
-//    public Connection.Response createResponse() {
-//        return new HttpResponse();
-//    }
-
     @Override
-    public Connection.Response execute() throws IOException {
+    public Response onExecute() throws IOException {
         return HttpResponse.execute(req);
     }
 

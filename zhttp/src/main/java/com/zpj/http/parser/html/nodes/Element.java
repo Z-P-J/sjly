@@ -369,12 +369,12 @@ public class Element extends Node {
      * <li>{@code el.select("a[href*=example.com]")} - finds links pointing to example.com (loosely)
      * </ul>
      * <p>
-     * See the query syntax documentation in {@link com.zpj.http.parser.html.select.Selector}.
+     * See the query syntax documentation in {@link Selector}.
      * </p>
      * 
      * @param cssQuery a {@link Selector} CSS-like query
      * @return elements that match the query (empty if none match)
-     * @see com.zpj.http.parser.html.select.Selector
+     * @see Selector
      * @throws Selector.SelectorParseException (unchecked) on an invalid CSS query.
      */
     public Elements select(String cssQuery) {

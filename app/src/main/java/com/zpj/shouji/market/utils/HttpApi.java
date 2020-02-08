@@ -3,28 +3,29 @@ package com.zpj.shouji.market.utils;
 import android.util.Log;
 
 import com.zpj.http.ZHttp;
+import com.zpj.http.core.HttpObservable;
 import com.zpj.http.core.IHttp;
 import com.zpj.http.parser.html.nodes.Document;
 
 import java.io.IOException;
 
-public final class HttpUtil {
+public final class HttpApi {
 
     private static final String USER_AGENT = "okhttp/3.0.1";
     private static final String HEADER_ACCEPT_ENCODING = "Accept-Encoding";
     private static final String VALUE_ACCEPT_ENCODING = "gzip";
 
-    private HttpUtil() {
+    private HttpApi() {
 
     }
 
-    public static Document getDocument(String url) throws IOException {
+    public static HttpObservable<Document> connect(String url) {
         return ZHttp.get(url)
                 .userAgent(USER_AGENT)
                 .onRedirect(new IHttp.OnRedirectListener() {
                     @Override
                     public boolean onRedirect(String redirectUrl) {
-                        Log.d("getDocument", "onRedirect redirectUrl=" + redirectUrl);
+                        Log.d("connect", "onRedirect redirectUrl=" + redirectUrl);
                         return true;
                     }
                 })

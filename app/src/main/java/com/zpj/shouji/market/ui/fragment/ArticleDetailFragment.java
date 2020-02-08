@@ -24,7 +24,6 @@ import com.bumptech.glide.request.target.Target;
 import com.bumptech.glide.request.transition.Transition;
 import com.felix.atoast.library.AToast;
 import com.lxj.xpopup.XPopup;
-import com.zpj.http.parser.html.nodes.Document;
 import com.zpj.popupmenuview.popup.EverywherePopup;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.image.ImageLoader;
@@ -38,11 +37,9 @@ import com.zpj.shouji.market.model.article.TextElement;
 import com.zpj.shouji.market.ui.fragment.base.BaseFragment;
 import com.zpj.shouji.market.ui.fragment.detail.AppDetailFragment;
 import com.zpj.shouji.market.ui.widget.selection.SelectableTextView;
-import com.zpj.shouji.market.utils.ExecutorHelper;
-import com.zpj.shouji.market.utils.HttpUtil;
+import com.zpj.shouji.market.utils.HttpApi;
 import com.zpj.utils.ScreenUtil;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicBoolean;
@@ -115,17 +112,14 @@ public class ArticleDetailFragment extends BaseFragment {
     }
 
     private void parseHtml(final String url) {
-        ExecutorHelper.submit(() -> {
-            try {
-                Document doc = HttpUtil.getDocument(url);
-                articleDetailInfo = ArticleDetailInfo.parse(url.startsWith("https://soft.shouji.com.cn/") ? "soft" : "game", doc);
-                if (isEnterAnimationEnd.get()) {
-                    post(() -> parseArticleInfo(articleDetailInfo));
-                }
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        });
+        HttpApi.connect(url)
+                .onSuccess(data -> {
+                    articleDetailInfo = ArticleDetailInfo.parse(url.startsWith("https://soft.shouji.com.cn/") ? "soft" : "game", data);
+                    if (isEnterAnimationEnd.get()) {
+                        parseArticleInfo(articleDetailInfo);
+                    }
+                })
+                .subscribe();
     }
 
     private synchronized void parseArticleInfo(ArticleDetailInfo info) {

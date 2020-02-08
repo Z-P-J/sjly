@@ -7,6 +7,7 @@ import android.util.Log;
 import android.view.View;
 
 import com.felix.atoast.library.AToast;
+import com.zpj.http.core.IHttp;
 import com.zpj.http.parser.html.nodes.Document;
 import com.zpj.http.parser.html.nodes.Element;
 import com.zpj.http.parser.html.select.Elements;
@@ -20,7 +21,7 @@ import com.zpj.shouji.market.ui.fragment.base.NextUrlFragment;
 import com.zpj.shouji.market.ui.fragment.profile.ProfileFragment;
 import com.zpj.shouji.market.ui.fragment.search.SearchResultFragment;
 import com.zpj.shouji.market.utils.ExecutorHelper;
-import com.zpj.shouji.market.utils.HttpUtil;
+import com.zpj.shouji.market.utils.HttpApi;
 
 import java.util.HashMap;
 import java.util.List;
@@ -68,45 +69,42 @@ public class ThemeListFragment extends NextUrlFragment<DiscoverInfo>
 
     @Override
     public void run() {
-        try {
-            Log.d("getExploreData", "nextUrl=" + nextUrl);
-            Document doc = HttpUtil.getDocument(nextUrl);
-            Elements elements = doc.select("item");
-            if (nextUrl.equals(defaultUrl)) {
-                Element userElement = elements.get(0);
-                if (callback != null) {
-                    callback.onGetUserItem(userElement);
-                }
-            }
-
-            nextUrl = doc.selectFirst("nextUrl").text();
-            Map<String, DiscoverInfo> map = new HashMap<>();
-            for (Element element : elements) {
-                DiscoverInfo info = createData(element);
-                if (info == null) {
-                    continue;
-                }
-                String parent = info.getParent();
-                String id = info.getId();
-                if (parent.equals(id)) {
-                    map.put(id, info);
-                    data.add(info);
-                } else {
-                    DiscoverInfo parentItem = map.get(parent);
-                    if (parentItem != null) {
-                        parentItem.addChild(info);
+        Log.d("getExploreData", "nextUrl=" + nextUrl);
+        HttpApi.connect(nextUrl)
+                .onSuccess(doc -> {
+                    Elements elements = doc.select("item");
+                    if (nextUrl.equals(defaultUrl)) {
+                        Element userElement = elements.get(0);
+                        if (callback != null) {
+                            callback.onGetUserItem(userElement);
+                        }
                     }
-                }
-            }
-            post(() -> {
-                recyclerLayout.notifyDataSetChanged();
-                if (data.isEmpty()) {
-                    recyclerLayout.showEmpty();
-                }
-            });
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+
+                    nextUrl = doc.selectFirst("nextUrl").text();
+                    Map<String, DiscoverInfo> map = new HashMap<>();
+                    for (Element element : elements) {
+                        DiscoverInfo info = createData(element);
+                        if (info == null) {
+                            continue;
+                        }
+                        String parent = info.getParent();
+                        String id = info.getId();
+                        if (parent.equals(id)) {
+                            map.put(id, info);
+                            data.add(info);
+                        } else {
+                            DiscoverInfo parentItem = map.get(parent);
+                            if (parentItem != null) {
+                                parentItem.addChild(info);
+                            }
+                        }
+                    }
+                    recyclerLayout.notifyDataSetChanged();
+                    if (data.isEmpty()) {
+                        recyclerLayout.showEmpty();
+                    }
+                })
+                .subscribe();
     }
 
     @Override
@@ -143,7 +141,8 @@ public class ThemeListFragment extends NextUrlFragment<DiscoverInfo>
 
     @Override
     protected void getData() {
-        ExecutorHelper.submit(this);
+//        ExecutorHelper.submit(this);
+        run();
     }
 
     @Override

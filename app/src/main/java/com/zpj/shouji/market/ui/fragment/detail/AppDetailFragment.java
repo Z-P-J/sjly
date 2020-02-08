@@ -11,7 +11,6 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-import com.zpj.http.parser.html.nodes.Document;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.model.AppDetailInfo;
 import com.zpj.shouji.market.model.AppInfo;
@@ -21,8 +20,7 @@ import com.zpj.shouji.market.model.InstalledAppInfo;
 import com.zpj.shouji.market.model.UserDownloadedAppInfo;
 import com.zpj.shouji.market.ui.adapter.FragmentsPagerAdapter;
 import com.zpj.shouji.market.ui.fragment.base.BaseFragment;
-import com.zpj.shouji.market.utils.ExecutorHelper;
-import com.zpj.shouji.market.utils.HttpUtil;
+import com.zpj.shouji.market.utils.HttpApi;
 import com.zpj.utils.ScreenUtil;
 
 import net.lucode.hackware.magicindicator.MagicIndicator;
@@ -186,22 +184,34 @@ public class AppDetailFragment extends BaseFragment {
 
     private void getAppInfo(final String url){
         Log.d("apppppp", url);
-        ExecutorHelper.submit(() -> {
-            try {
-                Document doc  = HttpUtil.getDocument(url);
-                AppDetailInfo info = AppDetailInfo.create(doc);
-                post(() -> {
+        HttpApi.connect(url)
+                .onSuccess(data -> {
+                    AppDetailInfo info = AppDetailInfo.create(data);
                     appDetailInfo = info;
                     EventBus.getDefault().post(info);
                     Glide.with(context).load(appDetailInfo.getIconUrl()).into(icon);
                     title.setText(info.getName());
                     shortInfo.setText(info.getBaseInfo());
                     shortIntroduce.setText(info.getLineInfo());
-                });
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        });
+                })
+                .subscribe();
+
+//        ExecutorHelper.submit(() -> {
+//            try {
+//                Document doc  = HttpApi.connect(url);
+//                AppDetailInfo info = AppDetailInfo.create(doc);
+//                post(() -> {
+//                    appDetailInfo = info;
+//                    EventBus.getDefault().post(info);
+//                    Glide.with(context).load(appDetailInfo.getIconUrl()).into(icon);
+//                    title.setText(info.getName());
+//                    shortInfo.setText(info.getBaseInfo());
+//                    shortIntroduce.setText(info.getLineInfo());
+//                });
+//            } catch (Exception e) {
+//                e.printStackTrace();
+//            }
+//        });
     }
 
 //    public void getColor(Bitmap bitmap) {

@@ -14,14 +14,12 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
-import com.zpj.http.parser.html.nodes.Document;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.model.CollectionInfo;
 import com.zpj.shouji.market.ui.adapter.FragmentsPagerAdapter;
 import com.zpj.shouji.market.ui.fragment.theme.ThemeListFragment;
 import com.zpj.shouji.market.ui.fragment.base.BaseFragment;
-import com.zpj.shouji.market.utils.ExecutorHelper;
-import com.zpj.shouji.market.utils.HttpUtil;
+import com.zpj.shouji.market.utils.HttpApi;
 import com.zpj.utils.ScreenUtil;
 
 import net.lucode.hackware.magicindicator.MagicIndicator;
@@ -33,7 +31,6 @@ import net.lucode.hackware.magicindicator.buildins.commonnavigator.abs.IPagerTit
 import net.lucode.hackware.magicindicator.buildins.commonnavigator.indicators.LinePagerIndicator;
 import net.lucode.hackware.magicindicator.buildins.commonnavigator.titles.ColorTransitionPagerTitleView;
 
-import java.io.IOException;
 import java.util.ArrayList;
 
 public class CollectionDetailFragment extends BaseFragment {
@@ -161,26 +158,21 @@ public class CollectionDetailFragment extends BaseFragment {
     }
 
     private void getCollectionInfo() {
-        ExecutorHelper.submit(() -> {
-            try {
-                Log.d("getCollectionInfo", "start id=" + item.getId());
-                Document doc = HttpUtil.getDocument("http://tt.shouji.com.cn/androidv3/yyj_info_xml.jsp?versioncode=198&reviewid=" + item.getId());
-                Log.d("getCollectionInfo", "doc=" + doc.toString());
+        Log.d("getCollectionInfo", "start id=" + item.getId());
+        HttpApi.connect("http://tt.shouji.com.cn/androidv3/yyj_info_xml.jsp?versioncode=198&reviewid=" + item.getId())
+                .onSuccess(doc -> {
+                    Log.d("getCollectionInfo", "doc=" + doc.toString());
 //                collectionInfo.collectionId = doc.selectFirst("yyjid").text();
-                isFav = "1".equals(doc.selectFirst("isfav").text());
-                isLike = "1".equals(doc.selectFirst("islike").text());
-                backgroundUrl = doc.selectFirst("memberBackGround").text();
-                time = doc.selectFirst("time").text();
-                userAvatarUrl = doc.selectFirst("memberAvatar").text();
-                post(() -> {
+                    isFav = "1".equals(doc.selectFirst("isfav").text());
+                    isLike = "1".equals(doc.selectFirst("islike").text());
+                    backgroundUrl = doc.selectFirst("memberBackGround").text();
+                    time = doc.selectFirst("time").text();
+                    userAvatarUrl = doc.selectFirst("memberAvatar").text();
                     RequestOptions options = new RequestOptions().centerCrop().error(R.mipmap.ic_launcher).placeholder(R.mipmap.ic_launcher);
                     Glide.with(context).load(backgroundUrl).apply(options).into(ivIcon);
                     Glide.with(context).load(userAvatarUrl).apply(options).into(ivAvatar);
-                });
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        });
+                })
+                .subscribe();
     }
 
 }

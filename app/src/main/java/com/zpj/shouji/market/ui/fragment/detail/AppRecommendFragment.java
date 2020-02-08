@@ -9,20 +9,15 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.View;
-import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.bumptech.glide.request.target.SimpleTarget;
 import com.bumptech.glide.request.transition.Transition;
-import com.felix.atoast.library.AToast;
 import com.sunfusheng.GroupRecyclerViewAdapter;
 import com.sunfusheng.GroupViewHolder;
 import com.sunfusheng.HeaderGroupRecyclerViewAdapter;
-import com.sunfusheng.StickyHeaderDecoration;
-import com.zpj.http.parser.html.nodes.Document;
 import com.zpj.http.parser.html.nodes.Element;
 import com.zpj.http.parser.html.select.Elements;
 import com.zpj.recyclerview.EasyRecyclerView;
@@ -33,8 +28,7 @@ import com.zpj.shouji.market.glide.blur.BlurTransformation;
 import com.zpj.shouji.market.model.GroupItem;
 import com.zpj.shouji.market.ui.fragment.base.BaseFragment;
 import com.zpj.shouji.market.ui.fragment.collection.CollectionDetailFragment;
-import com.zpj.shouji.market.utils.ExecutorHelper;
-import com.zpj.shouji.market.utils.HttpUtil;
+import com.zpj.shouji.market.utils.HttpApi;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -203,33 +197,28 @@ public class AppRecommendFragment extends BaseFragment
         }
 
         private void getSimilar() {
-            ExecutorHelper.submit(() -> {
-                try {
-                    Document doc = HttpUtil.getDocument("http://tt.shouji.com.cn/androidv3/soft_yyj_similar.jsp?id=" + id);
-                    Elements elements = doc.select("item");
-                    for (Element element : elements) {
-                        if ("yyj".equals(element.selectFirst("viewtype").text())) {
-                            for (Element recognizeItem : element.selectFirst("recognizelist").select("recognize")) {
-                                appCollectionList.add(CollectionInfo.buildSimilarCollection(recognizeItem));
-                            }
-                            post(() -> {
-                                if (collectionRecyclerView != null) {
-                                    collectionRecyclerView.notifyDataSetChanged();
+            HttpApi.connect("http://tt.shouji.com.cn/androidv3/soft_yyj_similar.jsp?id=" + id)
+                    .onSuccess(data -> {
+                        Elements elements = data.select("item");
+                        for (Element element : elements) {
+                            if ("yyj".equals(element.selectFirst("viewtype").text())) {
+                                for (Element recognizeItem : element.selectFirst("recognizelist").select("recognize")) {
+                                    appCollectionList.add(CollectionInfo.buildSimilarCollection(recognizeItem));
                                 }
-                            });
-                        } else {
-                            recommendAppList.add(AppInfo.parse(element));
+                                post(() -> {
+                                    if (collectionRecyclerView != null) {
+                                        collectionRecyclerView.notifyDataSetChanged();
+                                    }
+                                });
+                            } else {
+                                recommendAppList.add(AppInfo.parse(element));
+                            }
                         }
-                    }
-                    post(() -> {
                         if (appRecyclerView != null) {
                             appRecyclerView.notifyDataSetChanged();
                         }
-                    });
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            });
+                    })
+                    .subscribe();
         }
 
         private void getCollection(final View itemView) {

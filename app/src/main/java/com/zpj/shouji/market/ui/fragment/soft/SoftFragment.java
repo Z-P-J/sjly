@@ -16,10 +16,10 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.bumptech.glide.request.target.SimpleTarget;
 import com.bumptech.glide.request.transition.Transition;
-import com.felix.atoast.library.AToast;
 import com.sunfusheng.GroupRecyclerViewAdapter;
 import com.sunfusheng.GroupViewHolder;
 import com.sunfusheng.HeaderGroupRecyclerViewAdapter;
+import com.zpj.http.core.IHttp;
 import com.zpj.http.parser.html.nodes.Document;
 import com.zpj.http.parser.html.nodes.Element;
 import com.zpj.http.parser.html.select.Elements;
@@ -35,7 +35,7 @@ import com.zpj.shouji.market.ui.fragment.base.BaseFragment;
 import com.zpj.shouji.market.ui.fragment.collection.CollectionDetailFragment;
 import com.zpj.shouji.market.ui.fragment.detail.AppDetailFragment;
 import com.zpj.shouji.market.utils.ExecutorHelper;
-import com.zpj.shouji.market.utils.HttpUtil;
+import com.zpj.shouji.market.utils.HttpApi;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -282,25 +282,22 @@ public class SoftFragment extends BaseFragment
                     })
                     .onItemClick((holder13, view1, data) -> _mActivity.start(AppDetailFragment.newInstance(data)))
                     .build();
-            ExecutorHelper.submit(() -> {
-                try {
-                    Document doc = HttpUtil.getDocument(url);
-                    Elements elements = doc.select("item");
-                    for (Element element : elements) {
-                        AppInfo info = AppInfo.parse(element);
-                        if (info == null) {
-                            continue;
+            HttpApi.connect(url)
+                    .onSuccess(data -> {
+                        Elements elements = data.select("item");
+                        for (Element element : elements) {
+                            AppInfo info = AppInfo.parse(element);
+                            if (info == null) {
+                                continue;
+                            }
+                            list.add(info);
+                            if (list.size() == 8) {
+                                break;
+                            }
                         }
-                        list.add(info);
-                        if (list.size() == 8) {
-                            break;
-                        }
-                    }
-                    post(recyclerView::notifyDataSetChanged);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            });
+                        recyclerView.notifyDataSetChanged();
+                    })
+                    .subscribe();
         }
 
         private void getCollection(final View itemView) {
@@ -335,18 +332,15 @@ public class SoftFragment extends BaseFragment
                     })
                     .onItemClick((holder14, view12, data) -> _mActivity.start(CollectionDetailFragment.newInstance(data)))
                     .build();
-            ExecutorHelper.submit(() -> {
-                try {
-                    Document doc = HttpUtil.getDocument("http://tt.shouji.com.cn/androidv3/yyj_tj_xml.jsp");
-                    Elements elements = doc.select("item");
-                    for (Element element : elements) {
-                        list.add(CollectionInfo.create(element));
-                    }
-                    post(recyclerView::notifyDataSetChanged);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            });
+            HttpApi.connect("http://tt.shouji.com.cn/androidv3/yyj_tj_xml.jsp")
+                    .onSuccess(data -> {
+                        Elements elements = data.select("item");
+                        for (Element element : elements) {
+                            list.add(CollectionInfo.create(element));
+                        }
+                        recyclerView.notifyDataSetChanged();
+                    })
+                    .subscribe();
         }
 
         private void getTutorial(final View itemView, final String url) {
@@ -365,22 +359,17 @@ public class SoftFragment extends BaseFragment
                     })
                     .onItemClick((holder12, view1, data) -> _mActivity.start(ArticleDetailFragment.newInstance("https://soft.shouji.com.cn" + data.getUrl())))
                     .build();
-            ExecutorHelper.submit(() -> {
-                try {
-                    Document doc = HttpUtil.getDocument(url);
-                    Elements elements = doc.selectFirst("ul.news_list").select("li");
-                    articleInfoList.clear();
-                    for (Element element : elements) {
-                        articleInfoList.add(ArticleInfo.from(element));
-                    }
-                    post(() -> {
+            HttpApi.connect(url)
+                    .onSuccess(data -> {
+                        Elements elements = data.selectFirst("ul.news_list").select("li");
+                        articleInfoList.clear();
+                        for (Element element : elements) {
+                            articleInfoList.add(ArticleInfo.from(element));
+                        }
                         Log.d(TAG, "url=" + url + "  view=" + view);
                         recyclerView.notifyDataSetChanged();
-                    });
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            });
+                    })
+                    .subscribe();
         }
 
     }

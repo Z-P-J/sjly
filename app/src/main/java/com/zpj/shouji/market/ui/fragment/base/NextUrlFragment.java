@@ -4,15 +4,10 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 
-import com.zpj.http.parser.html.nodes.Document;
 import com.zpj.http.parser.html.nodes.Element;
 import com.zpj.recyclerview.EasyAdapter;
 import com.zpj.recyclerview.EasyViewHolder;
-import com.zpj.shouji.market.R;
-import com.zpj.shouji.market.utils.ExecutorHelper;
-import com.zpj.shouji.market.utils.HttpUtil;
-
-import java.io.IOException;
+import com.zpj.shouji.market.utils.HttpApi;
 
 public abstract class NextUrlFragment<T> extends RecyclerLayoutFragment<T> {
 
@@ -55,27 +50,22 @@ public abstract class NextUrlFragment<T> extends RecyclerLayoutFragment<T> {
     }
 
     protected void getData() {
-        ExecutorHelper.submit(() -> {
-            try {
-                Document doc = HttpUtil.getDocument(nextUrl);
-                nextUrl = doc.selectFirst("nextUrl").text();
-                for (Element element : doc.select("item")) {
-                    T item = createData(element);
-                    if (item == null) {
-                        continue;
+        HttpApi.connect(nextUrl)
+                .onSuccess(doc -> {
+                    nextUrl = doc.selectFirst("nextUrl").text();
+                    for (Element element : doc.select("item")) {
+                        T item = createData(element);
+                        if (item == null) {
+                            continue;
+                        }
+                        data.add(item);
                     }
-                    data.add(item);
-                }
-                post(() -> {
                     recyclerLayout.notifyDataSetChanged();
                     if (data.isEmpty()) {
                         recyclerLayout.showEmpty();
                     }
-                });
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        });
+                })
+                .subscribe();
     }
 
     public abstract T createData(Element element);

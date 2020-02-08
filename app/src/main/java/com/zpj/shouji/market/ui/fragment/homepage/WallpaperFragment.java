@@ -1,7 +1,6 @@
 package com.zpj.shouji.market.ui.fragment.homepage;
 
 import android.content.Context;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.view.ViewPager;
@@ -9,6 +8,7 @@ import android.view.View;
 import android.widget.ImageView;
 
 import com.kongzue.stacklabelview.interfaces.OnLabelClickListener;
+import com.zpj.http.core.IHttp;
 import com.zpj.http.parser.html.nodes.Document;
 import com.zpj.http.parser.html.nodes.Element;
 import com.zpj.http.parser.html.select.Elements;
@@ -19,7 +19,7 @@ import com.zpj.shouji.market.ui.fragment.ImageListFragment;
 import com.zpj.shouji.market.ui.fragment.base.BaseFragment;
 import com.zpj.shouji.market.ui.widget.WallpaperTagPopup;
 import com.zpj.shouji.market.utils.ExecutorHelper;
-import com.zpj.shouji.market.utils.HttpUtil;
+import com.zpj.shouji.market.utils.HttpApi;
 import com.zpj.utils.ScreenUtil;
 
 import net.lucode.hackware.magicindicator.MagicIndicator;
@@ -87,20 +87,22 @@ public class WallpaperFragment extends BaseFragment implements View.OnClickListe
     }
 
     private void initWallpaperTags() {
-        ExecutorHelper.submit(() -> {
-            try {
-                Document doc = HttpUtil.getDocument("http://tt.shouji.com.cn/app/bizhi_tags.jsp?versioncode=198");
-                Elements elements = doc.select("item");
-                wallpaperTags.clear();
-                for (Element item : elements) {
-                    wallpaperTags.add(WallpaperTag.create(item));
-                }
-                post(this::initMagicIndicator);
-            } catch (IOException e) {
-                e.printStackTrace();
-                // TODO 加载默认分类
-            }
-        });
+        HttpApi.connect("http://tt.shouji.com.cn/app/bizhi_tags.jsp?versioncode=198")
+                .onSuccess(data -> {
+                    Elements elements = data.select("item");
+                    wallpaperTags.clear();
+                    for (Element item : elements) {
+                        wallpaperTags.add(WallpaperTag.create(item));
+                    }
+                    initMagicIndicator();
+                })
+                .onError(new IHttp.OnErrorListener() {
+                    @Override
+                    public void onError(Throwable throwable) {
+                        // TODO 加载默认分类
+                    }
+                })
+                .subscribe();
     }
 
     private void initMagicIndicator() {

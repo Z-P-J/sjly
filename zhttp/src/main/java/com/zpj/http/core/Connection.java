@@ -341,32 +341,48 @@ public interface Connection {
 
 //    OutputStream outputStream() throws IOException;
 
-    String toStr() throws IOException;
+//    /**
+//     * Execute the request.
+//     * @return a response object
+//     * @throws java.net.MalformedURLException if the request URL is not a HTTP or HTTPS URL, or is otherwise malformed
+//     * @throws HttpStatusException if the response is not OK and HTTP response errors are not ignored
+//     * @throws UnsupportedMimeTypeException if the response mime type is not supported and those errors are not ignored
+//     * @throws java.net.SocketTimeoutException if the connection times out
+//     * @throws IOException on error
+//     */
+//    Response execute() throws IOException;
 
-    Document toHtml() throws IOException;
+//    String toStr() throws IOException;
+//
+//    Document toHtml() throws IOException;
+//
+//    JSONObject toJsonObject() throws IOException, JSONException;
+//
+//    JSONArray toJsonArray() throws IOException, JSONException;
+//
+//    Document toXml() throws IOException;
 
-    JSONObject toJsonObject() throws IOException, JSONException;
+    HttpObservable<Response> execute();
 
-    JSONArray toJsonArray() throws IOException, JSONException;
+    HttpObservable<String> toStr();
 
-    Document toXml() throws IOException;
+    HttpObservable<Document> toHtml();
+
+    HttpObservable<JSONObject> toJsonObject();
+
+    HttpObservable<JSONArray> toJsonArray();
+
+    HttpObservable<Document> toXml();
 
     Connection onRedirect(IHttp.OnRedirectListener listener);
 
-    Connection onError(IHttp.OnErrorListener listener);
-
-    Connection onSuccess(IHttp.OnSuccessListener listener);
-
-    /**
-     * Execute the request.
-     * @return a response object
-     * @throws java.net.MalformedURLException if the request URL is not a HTTP or HTTPS URL, or is otherwise malformed
-     * @throws HttpStatusException if the response is not OK and HTTP response errors are not ignored
-     * @throws UnsupportedMimeTypeException if the response mime type is not supported and those errors are not ignored
-     * @throws java.net.SocketTimeoutException if the connection times out
-     * @throws IOException on error
-     */
-    Response execute() throws IOException;
+//    Connection onError(IHttp.OnErrorListener listener);
+//
+//    Connection onSuccess(IHttp.OnSuccessListener listener);
+//
+//    Connection onComplete(IHttp.OnCompleteListener listener);
+//
+//    Connection onSubscribe(IHttp.OnSubscribeListener listener);
 
     /**
      * Get the request object associated with this connection

@@ -1,5 +1,7 @@
 package com.zpj.http.core;
 
+import io.reactivex.disposables.Disposable;
+
 public interface IHttp {
 
     interface OnRedirectListener {
@@ -7,11 +9,19 @@ public interface IHttp {
     }
 
     interface OnErrorListener {
-        void onError();
+        void onError(Throwable throwable);
     }
 
-    interface OnSuccessListener {
-        void onSuccess();
+    interface OnSuccessListener<T> {
+        void onSuccess(T data) throws Exception;
+    }
+
+    interface OnCompleteListener {
+        void onComplete();
+    }
+
+    interface OnSubscribeListener {
+        void onSubscribe(Disposable d);
     }
 
     interface OnStreamWriteListener {

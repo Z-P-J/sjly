@@ -22,6 +22,7 @@ import com.zpj.downloader.util.io.BufferedRandomAccessFile;
 import com.zpj.downloader.util.notification.NotifyUtil;
 import com.zpj.http.ZHttp;
 import com.zpj.http.core.Connection;
+import com.zpj.http.core.IHttp;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -40,7 +41,7 @@ import java.util.concurrent.ThreadPoolExecutor;
 /**
  * @author Z-P-J
  */
-public class DownloadMission {
+public class DownloadMission implements Runnable {
     private static final String TAG = DownloadMission.class.getSimpleName();
 
     public interface MissionListener {
@@ -132,120 +133,356 @@ public class DownloadMission {
 
 
     //------------------------------------------------------runnables---------------------------------------------
-    private final transient Runnable initRunnable = new Runnable() {
-        @Override
-        public void run() {
-            try {
-                Log.d("Initializer", "run");
-                Connection.Response response = ZHttp.head(url)
-                        .proxy(Proxy.NO_PROXY)
-                        .userAgent(getUserAgent())
-                        .header("Cookie", getCookie())
-                        .header("Accept", "*/*")
-                        .header("Referer", url)
+//    private final transient Runnable initRunnable = new Runnable() {
+//        @Override
+//        public void run() {
+//            try {
+//                Log.d("Initializer", "run");
+//                Connection.Response response = ZHttp.head(url)
+//                        .proxy(Proxy.NO_PROXY)
+//                        .userAgent(getUserAgent())
+//                        .header("Cookie", getCookie())
+//                        .header("Accept", "*/*")
+//                        .header("Referer", url)
+////						.header("Access-Control-Expose-Headers", "Content-Disposition")
+////						.header("Range", "bytes=0-")
+//                        .headers(getHeaders())
+//                        .timeout(200000)
+//                        .ignoreContentType(true)
+//                        .ignoreHttpErrors(true)
+//                        .maxBodySize(0)
+//                        .execute();
+//
+//                if (handleResponse(response, DownloadMission.this)) {
+//                    Log.d(TAG, "handleResponse--111");
+//                    return;
+//                }
+//
+//
+//                response = ZHttp.head(url)
+//                        .proxy(Proxy.NO_PROXY)
+//                        .userAgent(getUserAgent())
+//                        .header("Cookie", getCookie())
+//                        .header("Accept", "*/*")
+//                        .header("Access-Control-Expose-Headers", "Content-Disposition")
+//                        .header("Referer", url)
+//                        .header("Pragma", "no-cache")
+//                        .header("Range", "bytes=0-")
+//                        .header("Cache-Control", "no-cache")
+//                        .headers(getHeaders())
+//                        .timeout(getConnectOutTime())
+//                        .ignoreContentType(true)
+//                        .ignoreHttpErrors(true)
+////						.validateTLSCertificates(false)
+//                        .maxBodySize(0)
+//                        .execute();
+//
+//                if (handleResponse(response, DownloadMission.this)) {
+//                    Log.d(TAG, "handleResponse--222");
+//                    return;
+//                }
+//
+//                if (response.statusCode() != ResponseCode.RESPONSE_206) {
+//                    // Fallback to single thread if no partial content support
+//                    fallback = true;
+//
+//                    Log.d(TAG, "falling back");
+//                }
+//
+//                Log.d("mission.name", "mission.name444=" + name);
+//                if (TextUtils.isEmpty(name)) {
+//                    Log.d("Initializer", "getMissionNameFromUrl--url=" + url);
+//                    name = getMissionNameFromUrl(DownloadMission.this, url);
+//                }
+//
+//                Log.d("mission.name", "mission.name555=" + name);
+//
+//                for (DownloadMission downloadMission : DownloadManagerImpl.ALL_MISSIONS) {
+//                    if (!downloadMission.isIniting() && TextUtils.equals(name, downloadMission.name) &&
+//                            (TextUtils.equals(downloadMission.originUrl.trim(), url.trim()) ||
+//                                    TextUtils.equals(downloadMission.redirectUrl.trim(), url.trim()))) {
+//                        Log.d(TAG, "has mission---url=" + downloadMission.url);
+//                        downloadMission.start();
+//                        return;
+//                    }
+//                }
+//
+//                blocks = length / getBlockSize();
+//                Log.d(TAG, "blocks=" + blocks);
+//
+//                if (threadCount > blocks) {
+//                    threadCount = (int) blocks;
+//                }
+//
+//                if (threadCount <= 0) {
+//                    threadCount = 1;
+//                }
+//
+//                if (blocks * getBlockSize() < length) {
+//                    blocks++;
+//                }
+//                initQueue();
+//
+//
+//                File loacation = new File(getDownloadPath());
+//                if (!loacation.exists()) {
+//                    loacation.mkdirs();
+//                }
+//                File file = new File(getFilePath());
+//                if (!file.exists()) {
+//                    file.createNewFile();
+//                }
+//
+//                Log.d(TAG, "storage=" + Utility.getAvailableSize());
+//                hasInit = true;
+//
+//                BufferedRandomAccessFile af = new BufferedRandomAccessFile(getFilePath(), "rw");
+//                af.setLength(length);
+//                af.close();
+//
+//                start();
+//            } catch (Exception e) {
+//                e.printStackTrace();
+//                notifyError(new Error(e.getMessage()));
+//            }
+//        }
+//    };
+
+    @Override
+    public void run() {
+        ZHttp.head(url)
+                .proxy(Proxy.NO_PROXY)
+                .userAgent(getUserAgent())
+                .header("Cookie", getCookie())
+                .header("Accept", "*/*")
+                .header("Referer", url)
 //						.header("Access-Control-Expose-Headers", "Content-Disposition")
 //						.header("Range", "bytes=0-")
-                        .headers(getHeaders())
-                        .timeout(200000)
-                        .ignoreContentType(true)
-                        .ignoreHttpErrors(true)
-                        .maxBodySize(0)
-                        .execute();
-
-                if (handleResponse(response, DownloadMission.this)) {
-                    Log.d(TAG, "handleResponse--111");
-                    return;
-                }
-
-
-                response = ZHttp.head(url)
-                        .proxy(Proxy.NO_PROXY)
-                        .userAgent(getUserAgent())
-                        .header("Cookie", getCookie())
-                        .header("Accept", "*/*")
-                        .header("Access-Control-Expose-Headers", "Content-Disposition")
-                        .header("Referer", url)
-                        .header("Pragma", "no-cache")
-                        .header("Range", "bytes=0-")
-                        .header("Cache-Control", "no-cache")
-                        .headers(getHeaders())
-                        .timeout(getConnectOutTime())
-                        .ignoreContentType(true)
-                        .ignoreHttpErrors(true)
+                .headers(getHeaders())
+                .timeout(200000)
+                .ignoreContentType(true)
+                .ignoreHttpErrors(true)
+                .maxBodySize(0)
+                .execute()
+                .onSuccess(new IHttp.OnSuccessListener<Connection.Response>() {
+                    @Override
+                    public void onSuccess(Connection.Response res) {
+                        if (handleResponse(res, DownloadMission.this)) {
+                            Log.d(TAG, "handleResponse--111");
+                            return;
+                        }
+                        ZHttp.head(url)
+                                .proxy(Proxy.NO_PROXY)
+                                .userAgent(getUserAgent())
+                                .header("Cookie", getCookie())
+                                .header("Accept", "*/*")
+                                .header("Access-Control-Expose-Headers", "Content-Disposition")
+                                .header("Referer", url)
+                                .header("Pragma", "no-cache")
+                                .header("Range", "bytes=0-")
+                                .header("Cache-Control", "no-cache")
+                                .headers(getHeaders())
+                                .timeout(getConnectOutTime())
+                                .ignoreContentType(true)
+                                .ignoreHttpErrors(true)
 //						.validateTLSCertificates(false)
-                        .maxBodySize(0)
-                        .execute();
+                                .maxBodySize(0)
+                                .execute()
+                                .onSuccess(new IHttp.OnSuccessListener<Connection.Response>() {
+                                    @Override
+                                    public void onSuccess(Connection.Response response) throws Exception {
+                                        if (handleResponse(response, DownloadMission.this)) {
+                                            Log.d(TAG, "handleResponse--222");
+                                            return;
+                                        }
 
-                if (handleResponse(response, DownloadMission.this)) {
-                    Log.d(TAG, "handleResponse--222");
-                    return;
-                }
+                                        if (response.statusCode() != ResponseCode.RESPONSE_206) {
+                                            // Fallback to single thread if no partial content support
+                                            fallback = true;
 
-                if (response.statusCode() != ResponseCode.RESPONSE_206) {
-                    // Fallback to single thread if no partial content support
-                    fallback = true;
+                                            Log.d(TAG, "falling back");
+                                        }
 
-                    Log.d(TAG, "falling back");
-                }
+                                        Log.d("mission.name", "mission.name444=" + name);
+                                        if (TextUtils.isEmpty(name)) {
+                                            Log.d("Initializer", "getMissionNameFromUrl--url=" + url);
+                                            name = getMissionNameFromUrl(DownloadMission.this, url);
+                                        }
 
-                Log.d("mission.name", "mission.name444=" + name);
-                if (TextUtils.isEmpty(name)) {
-                    Log.d("Initializer", "getMissionNameFromUrl--url=" + url);
-                    name = getMissionNameFromUrl(DownloadMission.this, url);
-                }
+                                        Log.d("mission.name", "mission.name555=" + name);
 
-                Log.d("mission.name", "mission.name555=" + name);
+                                        for (DownloadMission downloadMission : DownloadManagerImpl.ALL_MISSIONS) {
+                                            if (!downloadMission.isIniting() && TextUtils.equals(name, downloadMission.name) &&
+                                                    (TextUtils.equals(downloadMission.originUrl.trim(), url.trim()) ||
+                                                            TextUtils.equals(downloadMission.redirectUrl.trim(), url.trim()))) {
+                                                Log.d(TAG, "has mission---url=" + downloadMission.url);
+                                                downloadMission.start();
+                                                return;
+                                            }
+                                        }
 
-                for (DownloadMission downloadMission : DownloadManagerImpl.ALL_MISSIONS) {
-                    if (!downloadMission.isIniting() && TextUtils.equals(name, downloadMission.name) &&
-                            (TextUtils.equals(downloadMission.originUrl.trim(), url.trim()) ||
-                                    TextUtils.equals(downloadMission.redirectUrl.trim(), url.trim()))) {
-                        Log.d(TAG, "has mission---url=" + downloadMission.url);
-                        downloadMission.start();
-                        return;
+                                        blocks = length / getBlockSize();
+                                        Log.d(TAG, "blocks=" + blocks);
+
+                                        if (threadCount > blocks) {
+                                            threadCount = (int) blocks;
+                                        }
+
+                                        if (threadCount <= 0) {
+                                            threadCount = 1;
+                                        }
+
+                                        if (blocks * getBlockSize() < length) {
+                                            blocks++;
+                                        }
+                                        initQueue();
+
+
+                                        File loacation = new File(getDownloadPath());
+                                        if (!loacation.exists()) {
+                                            loacation.mkdirs();
+                                        }
+                                        File file = new File(getFilePath());
+                                        if (!file.exists()) {
+                                            file.createNewFile();
+                                        }
+
+                                        Log.d(TAG, "storage=" + Utility.getAvailableSize());
+                                        hasInit = true;
+
+                                        BufferedRandomAccessFile af = new BufferedRandomAccessFile(getFilePath(), "rw");
+                                        af.setLength(length);
+                                        af.close();
+
+                                        start();
+                                    }
+                                })
+                                .onError(new IHttp.OnErrorListener() {
+                                    @Override
+                                    public void onError(Throwable throwable) {
+                                        notifyError(new Error(throwable.getMessage()));
+                                    }
+                                })
+                                .subscribe();
                     }
-                }
-
-                blocks = length / getBlockSize();
-                Log.d(TAG, "blocks=" + blocks);
-
-                if (threadCount > blocks) {
-                    threadCount = (int) blocks;
-                }
-
-                if (threadCount <= 0) {
-                    threadCount = 1;
-                }
-
-                if (blocks * getBlockSize() < length) {
-                    blocks++;
-                }
-                initQueue();
-
-
-                File loacation = new File(getDownloadPath());
-                if (!loacation.exists()) {
-                    loacation.mkdirs();
-                }
-                File file = new File(getFilePath());
-                if (!file.exists()) {
-                    file.createNewFile();
-                }
-
-                Log.d(TAG, "storage=" + Utility.getAvailableSize());
-                hasInit = true;
-
-                BufferedRandomAccessFile af = new BufferedRandomAccessFile(getFilePath(), "rw");
-                af.setLength(length);
-                af.close();
-
-                start();
-            } catch (Exception e) {
-                e.printStackTrace();
-                notifyError(new Error(e.getMessage()));
-            }
-        }
-    };
+                })
+                .onError(new IHttp.OnErrorListener() {
+                    @Override
+                    public void onError(Throwable throwable) {
+                        notifyError(new Error(throwable.getMessage()));
+                    }
+                })
+                .subscribe();
+//        try {
+//            Log.d("Initializer", "run");
+//            Connection.Response response = ZHttp.head(url)
+//                    .proxy(Proxy.NO_PROXY)
+//                    .userAgent(getUserAgent())
+//                    .header("Cookie", getCookie())
+//                    .header("Accept", "*/*")
+//                    .header("Referer", url)
+////						.header("Access-Control-Expose-Headers", "Content-Disposition")
+////						.header("Range", "bytes=0-")
+//                    .headers(getHeaders())
+//                    .timeout(200000)
+//                    .ignoreContentType(true)
+//                    .ignoreHttpErrors(true)
+//                    .maxBodySize(0)
+//                    .execute();
+//
+//            if (handleResponse(response, DownloadMission.this)) {
+//                Log.d(TAG, "handleResponse--111");
+//                return;
+//            }
+//
+//
+//            response = ZHttp.head(url)
+//                    .proxy(Proxy.NO_PROXY)
+//                    .userAgent(getUserAgent())
+//                    .header("Cookie", getCookie())
+//                    .header("Accept", "*/*")
+//                    .header("Access-Control-Expose-Headers", "Content-Disposition")
+//                    .header("Referer", url)
+//                    .header("Pragma", "no-cache")
+//                    .header("Range", "bytes=0-")
+//                    .header("Cache-Control", "no-cache")
+//                    .headers(getHeaders())
+//                    .timeout(getConnectOutTime())
+//                    .ignoreContentType(true)
+//                    .ignoreHttpErrors(true)
+////						.validateTLSCertificates(false)
+//                    .maxBodySize(0)
+//                    .execute();
+//
+//            if (handleResponse(response, DownloadMission.this)) {
+//                Log.d(TAG, "handleResponse--222");
+//                return;
+//            }
+//
+//            if (response.statusCode() != ResponseCode.RESPONSE_206) {
+//                // Fallback to single thread if no partial content support
+//                fallback = true;
+//
+//                Log.d(TAG, "falling back");
+//            }
+//
+//            Log.d("mission.name", "mission.name444=" + name);
+//            if (TextUtils.isEmpty(name)) {
+//                Log.d("Initializer", "getMissionNameFromUrl--url=" + url);
+//                name = getMissionNameFromUrl(DownloadMission.this, url);
+//            }
+//
+//            Log.d("mission.name", "mission.name555=" + name);
+//
+//            for (DownloadMission downloadMission : DownloadManagerImpl.ALL_MISSIONS) {
+//                if (!downloadMission.isIniting() && TextUtils.equals(name, downloadMission.name) &&
+//                        (TextUtils.equals(downloadMission.originUrl.trim(), url.trim()) ||
+//                                TextUtils.equals(downloadMission.redirectUrl.trim(), url.trim()))) {
+//                    Log.d(TAG, "has mission---url=" + downloadMission.url);
+//                    downloadMission.start();
+//                    return;
+//                }
+//            }
+//
+//            blocks = length / getBlockSize();
+//            Log.d(TAG, "blocks=" + blocks);
+//
+//            if (threadCount > blocks) {
+//                threadCount = (int) blocks;
+//            }
+//
+//            if (threadCount <= 0) {
+//                threadCount = 1;
+//            }
+//
+//            if (blocks * getBlockSize() < length) {
+//                blocks++;
+//            }
+//            initQueue();
+//
+//
+//            File loacation = new File(getDownloadPath());
+//            if (!loacation.exists()) {
+//                loacation.mkdirs();
+//            }
+//            File file = new File(getFilePath());
+//            if (!file.exists()) {
+//                file.createNewFile();
+//            }
+//
+//            Log.d(TAG, "storage=" + Utility.getAvailableSize());
+//            hasInit = true;
+//
+//            BufferedRandomAccessFile af = new BufferedRandomAccessFile(getFilePath(), "rw");
+//            af.setLength(length);
+//            af.close();
+//
+//            start();
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//            notifyError(new Error(e.getMessage()));
+//        }
+    }
 
     private final transient Runnable progressRunnable = new Runnable() {
         @Override
@@ -362,7 +599,8 @@ public class DownloadMission {
             pause();
         } else {
             writeMissionInfo();
-            threadPoolExecutor.submit(initRunnable);
+//            threadPoolExecutor.submit(initRunnable);
+            run();
         }
     }
 
@@ -390,7 +628,8 @@ public class DownloadMission {
                     missionStatus = MissionStatus.INITING;
                     redirectUrl = "";
                     url = originUrl;
-                    threadPoolExecutor.submit(initRunnable);
+//                    threadPoolExecutor.submit(initRunnable);
+                    run();
                     return;
                 }
                 // In fallback mode, resuming is not supported.

@@ -4,9 +4,9 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.View;
 
-import com.felix.atoast.library.AToast;
 import com.kongzue.stacklabelview.StackLabel;
 import com.kongzue.stacklabelview.interfaces.OnLabelClickListener;
+import com.zpj.http.core.IHttp;
 import com.zpj.http.parser.html.nodes.Document;
 import com.zpj.http.parser.html.nodes.Element;
 import com.zpj.shouji.market.R;
@@ -14,7 +14,7 @@ import com.zpj.shouji.market.database.SearchHistoryManager;
 import com.zpj.shouji.market.model.SearchHistory;
 import com.zpj.shouji.market.ui.fragment.base.BaseFragment;
 import com.zpj.shouji.market.utils.ExecutorHelper;
-import com.zpj.shouji.market.utils.HttpUtil;
+import com.zpj.shouji.market.utils.HttpApi;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -61,18 +61,15 @@ public class SearchPanelFragment extends BaseFragment {
     }
 
     private void getHotSearch() {
-        ExecutorHelper.submit(() -> {
-            try {
-                Document doc = HttpUtil.getDocument("http://tt.shouji.com.cn/app/user_app_search_rm_xml.jsp?searchKey=");
-                List<String> list = new ArrayList<>();
-                for (Element item : doc.select("item")) {
-                    list.add(item.selectFirst("name").text());
-                }
-                post(() -> hotSearch.setLabels(list));
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        });
+        HttpApi.connect("http://tt.shouji.com.cn/app/user_app_search_rm_xml.jsp?searchKey=")
+                .onSuccess(data -> {
+                    List<String> list = new ArrayList<>();
+                    for (Element item : data.select("item")) {
+                        list.add(item.selectFirst("name").text());
+                    }
+                    hotSearch.setLabels(list);
+                })
+                .subscribe();
     }
 
     private void getSearchHistory() {
