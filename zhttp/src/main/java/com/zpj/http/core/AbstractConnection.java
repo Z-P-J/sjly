@@ -406,9 +406,9 @@ public abstract class AbstractConnection implements Connection {
     }
 
     @Override
-    public Connection referrer(String referrer) {
-        Validate.notNull(referrer, "Referrer must not be null");
-        req.header(HttpHeader.REFERER, referrer);
+    public Connection referer(String referer) {
+        Validate.notNull(referer, "Referrer must not be null");
+        req.header(HttpHeader.REFERER, referer);
         return this;
     }
 

@@ -171,9 +171,9 @@ package com.zpj.http.core;//package com.zpj.http.core;
 //        return this;
 //    }
 //
-//    public Connection referrer(String referrer) {
-//        Validate.notNull(referrer, "Referrer must not be null");
-//        req.header("Referer", referrer);
+//    public Connection referer(String referer) {
+//        Validate.notNull(referer, "Referrer must not be null");
+//        req.header("Referer", referer);
 //        return this;
 //    }
 //

@@ -71,7 +71,7 @@ public class ZHttp {
      *  <li><code>Document doc = ZHttp.connect("http://example.com").cookie("auth", "token").post();</code></li>
      * </ul>
      * @param url URL to connect to. The protocol must be {@code http} or {@code https}.
-     * @return the connection. You can add data, cookies, and headers; set the user-agent, referrer, method; and then execute.
+     * @return the connection. You can add data, cookies, and headers; set the user-agent, referer, method; and then execute.
      */
     public static Connection connect(String url) {
         return ConnectionFactory.createHttpConnection(url);

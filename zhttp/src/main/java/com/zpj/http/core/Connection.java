@@ -115,11 +115,11 @@ public interface Connection {
     Connection maxBodySize(int bytes);
 
     /**
-     * Set the request referrer (aka "referer") header.
-     * @param referrer referrer to use
+     * Set the request referer (aka "referer") header.
+     * @param referer referer to use
      * @return this Connection, for chaining
      */
-    Connection referrer(String referrer);
+    Connection referer(String referer);
 
     Connection contentType(String contentType);
 

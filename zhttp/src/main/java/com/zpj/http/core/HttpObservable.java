@@ -27,6 +27,10 @@ public class HttpObservable<T> {
         void onNext(T data, ObservableEmitter<R> emitter);
     }
 
+    public interface OnNextListener<T, R> {
+        HttpObservable<R> onNext(T data);
+    }
+
     HttpObservable(Observable<T> observable) {
         this.observable = observable.subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread());
@@ -84,10 +88,29 @@ public class HttpObservable<T> {
                 .observeOn(observeScheduler);
     }
 
+    public final <R> HttpObservable<R> onNext(final OnNextListener<T, R> listener) {
+        initScheduler();
+        Observable<R> o = observable
+                .flatMap(new Function<T, ObservableSource<R>>() {
+                    @Override
+                    public ObservableSource<R> apply(final T t) throws Exception {
+                        if (listener != null) {
+                            HttpObservable<R> httpObservable = listener.onNext(t);
+                            if (httpObservable != null) {
+                                return httpObservable.observable;
+                            }
+                        }
+                        return Observable.empty();
+                    }
+                });
+        return new HttpObservable<>(o)
+                .subscribeOn(subscribeScheduler)
+                .observeOn(observeScheduler);
+    }
+
     public void subscribe() {
         initScheduler();
-        observable
-                .subscribeOn(subscribeScheduler)
+        observable.subscribeOn(subscribeScheduler)
                 .observeOn(observeScheduler)
                 .subscribe(new Observer<T>() {
                     @Override
