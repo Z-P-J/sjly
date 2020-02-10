@@ -1,13 +1,11 @@
 package com.zpj.shouji.market.ui.adapter;
 
 import android.content.Context;
-import android.graphics.drawable.Drawable;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.text.SpannableString;
 import android.text.Spanned;
 import android.text.style.StrikethroughSpan;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,9 +14,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.zpj.shouji.market.R;
+import com.zpj.shouji.market.glide.GlideApp;
 import com.zpj.shouji.market.model.AppUpdateInfo;
-import com.zpj.shouji.market.utils.AppUtil;
-import com.zpj.shouji.market.utils.ExecutorHelper;
+import com.zpj.shouji.market.model.InstalledAppInfo;
 
 import java.util.List;
 
@@ -66,18 +64,22 @@ public class AppUpdateAdapter extends RecyclerView.Adapter<AppUpdateAdapter.View
     @Override
     public void onBindViewHolder(@NonNull final AppUpdateAdapter.ViewHolder holder, int position) {
         AppUpdateInfo updateInfo = updateInfoList.get(position);
-        Log.d("onBindViewHolder", "getPackageName=" + updateInfo.getPackageName());
-        Log.d("onBindViewHolder", "size=" + updateInfo.getNewSize());
-        if (updateInfo.getIconDrawable() == null) {
-            holder.iconImageView.setImageResource(R.mipmap.ic_launcher);
-            ExecutorHelper.submit(() -> {
-                Drawable drawable = AppUtil.getAppIcon(context, updateInfo.getPackageName());
-                updateInfo.setIconDrawable(drawable);
-                holder.iconImageView.post(() -> holder.iconImageView.setImageDrawable(drawable));
-            });
-        } else {
-            holder.iconImageView.setImageDrawable(updateInfo.getIconDrawable());
-        }
+        InstalledAppInfo appInfo = new InstalledAppInfo();
+        appInfo.setTempInstalled(true);
+        appInfo.setPackageName(updateInfo.getPackageName());
+        GlideApp.with(context).load(appInfo).into(holder.iconImageView);
+//        Log.d("onBindViewHolder", "getPackageName=" + updateInfo.getPackageName());
+//        Log.d("onBindViewHolder", "size=" + updateInfo.getNewSize());
+//        if (updateInfo.getIconDrawable() == null) {
+//            holder.iconImageView.setImageResource(R.mipmap.ic_launcher);
+//            ExecutorHelper.submit(() -> {
+//                Drawable drawable = AppUtil.getAppIcon(context, updateInfo.getPackageName());
+//                updateInfo.setIconDrawable(drawable);
+//                holder.iconImageView.post(() -> holder.iconImageView.setImageDrawable(drawable));
+//            });
+//        } else {
+//            holder.iconImageView.setImageDrawable(updateInfo.getIconDrawable());
+//        }
 
         holder.titleTextView.setText(updateInfo.getAppName());
         holder.versionTextView.setText(getVersionText(updateInfo));

@@ -31,7 +31,7 @@ public final class HttpApi {
                 })
                 .cookie(UserManager.getCookie())
 //                .header(HEADER_ACCEPT_ENCODING, VALUE_ACCEPT_ENCODING)
-                .referrer(url)
+                .referer(url)
                 .ignoreContentType(true)
                 .toHtml();
     }

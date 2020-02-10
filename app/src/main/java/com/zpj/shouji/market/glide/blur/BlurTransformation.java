@@ -9,7 +9,6 @@ import android.support.annotation.NonNull;
 import com.bumptech.glide.load.engine.bitmap_recycle.BitmapPool;
 import com.bumptech.glide.load.resource.bitmap.BitmapTransformation;
 import com.hoko.blur.HokoBlur;
-import com.zpj.shouji.market.utils.FastBlur;
 
 import java.security.MessageDigest;
 
@@ -59,7 +58,6 @@ public class BlurTransformation extends BitmapTransformation {
         Paint paint = new Paint();
         paint.setFlags(Paint.FILTER_BITMAP_FLAG);
         canvas.drawBitmap(toTransform, 0, 0, paint);
-//        bitmap = FastBlur.doBlur(bitmap, radius, true);
         bitmap = HokoBlur.with(context)
                 .scheme(HokoBlur.SCHEME_NATIVE) //different implementation, RenderScript、OpenGL、Native(default) and Java
                 .mode(HokoBlur.MODE_STACK) //blur algorithms，Gaussian、Stack(default) and Box

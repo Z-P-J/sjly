@@ -13,10 +13,10 @@ import android.view.ViewGroup;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.ui.adapter.FragmentsPagerAdapter;
 import com.zpj.shouji.market.ui.fragment.base.BaseFragment;
-import com.zpj.shouji.market.ui.fragment.game.GameFragment;
+import com.zpj.shouji.market.ui.fragment.recommond.GameRecommendFragment;
 import com.zpj.shouji.market.ui.fragment.homepage.HomeFragment;
 import com.zpj.shouji.market.ui.fragment.profile.MeFragment;
-import com.zpj.shouji.market.ui.fragment.soft.SoftFragment;
+import com.zpj.shouji.market.ui.fragment.recommond.SoftRecommendFragment;
 import com.zpj.shouji.market.ui.view.AddLayout;
 import com.zpj.shouji.market.ui.view.ZViewPager;
 import com.zpj.shouji.market.ui.widget.navigation.BottomNavigationViewEx;
@@ -50,14 +50,14 @@ public class MainFragment extends BaseFragment
             homeFragment = new HomeFragment();
         }
 
-        SoftFragment softFragment = findChildFragment(SoftFragment.class);
+        SoftRecommendFragment softFragment = findChildFragment(SoftRecommendFragment.class);
         if (softFragment == null) {
-            softFragment = new SoftFragment();
+            softFragment = new SoftRecommendFragment();
         }
 
-        GameFragment game = findChildFragment(GameFragment.class);
+        GameRecommendFragment game = findChildFragment(GameRecommendFragment.class);
         if (game == null) {
-            game = new GameFragment();
+            game = new GameRecommendFragment();
         }
 
         MeFragment profileFragment = findChildFragment(MeFragment.class);

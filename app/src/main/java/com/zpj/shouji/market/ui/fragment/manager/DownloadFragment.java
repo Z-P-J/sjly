@@ -23,7 +23,7 @@ import com.zpj.downloader.core.DownloadMission;
 import com.zpj.downloader.util.FileUtil;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.ui.fragment.base.BaseFragment;
-import com.zpj.shouji.market.utils.ExecutorHelper;
+import com.zpj.shouji.market.utils.RxUtil;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -111,21 +111,37 @@ public class DownloadFragment extends BaseFragment implements DownloadManager.Do
         downloadTaskList.add(downloadedList);
         downloadingList.add(new DownloadWrapper("下载中"));
         downloadedList.add(new DownloadWrapper("已完成"));
-        ExecutorHelper.submit(() -> {
-            for (DownloadMission mission : ZDownloader.getAllMissions(true)) {
-                downloadingList.add(new DownloadWrapper(mission));
-            }
-            for (DownloadMission mission : ZDownloader.getAllMissions(false)) {
-                downloadedList.add(new DownloadWrapper(mission));
-            }
-            if (downloadingList.size() == 1) {
-                downloadingList.add(new DownloadWrapper());
-            }
-            if (downloadedList.size() == 1) {
-                downloadedList.add(new DownloadWrapper());
-            }
-            post(() -> expandableAdapter.notifyDataSetChanged());
-        });
+        RxUtil.with(() -> {
+                    for (DownloadMission mission : ZDownloader.getAllMissions(true)) {
+                        downloadingList.add(new DownloadWrapper(mission));
+                    }
+                    for (DownloadMission mission : ZDownloader.getAllMissions(false)) {
+                        downloadedList.add(new DownloadWrapper(mission));
+                    }
+                    if (downloadingList.size() == 1) {
+                        downloadingList.add(new DownloadWrapper());
+                    }
+                    if (downloadedList.size() == 1) {
+                        downloadedList.add(new DownloadWrapper());
+                    }
+                })
+                .onSuccess(data -> expandableAdapter.notifyDataSetChanged())
+                .subscribe();
+//        ExecutorHelper.submit(() -> {
+//            for (DownloadMission mission : ZDownloader.getAllMissions(true)) {
+//                downloadingList.add(new DownloadWrapper(mission));
+//            }
+//            for (DownloadMission mission : ZDownloader.getAllMissions(false)) {
+//                downloadedList.add(new DownloadWrapper(mission));
+//            }
+//            if (downloadingList.size() == 1) {
+//                downloadingList.add(new DownloadWrapper());
+//            }
+//            if (downloadedList.size() == 1) {
+//                downloadedList.add(new DownloadWrapper());
+//            }
+//            post(() -> expandableAdapter.notifyDataSetChanged());
+//        });
     }
 
     public class DownloadWrapper {

@@ -5,7 +5,6 @@ import android.os.Bundle;
 import com.felix.atoast.library.AToast;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.ui.fragment.MainFragment;
-import com.zpj.shouji.market.utils.ExecutorHelper;
 
 import me.yokeyword.fragmentation.SupportActivity;
 import me.yokeyword.fragmentation.anim.DefaultHorizontalAnimator;
@@ -24,12 +23,6 @@ public class MainActivity extends SupportActivity {
             mainFragment = new MainFragment();
             loadRootFragment(R.id.content, mainFragment);
         }
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        ExecutorHelper.destroy();
     }
 
     @Override
