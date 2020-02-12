@@ -14,7 +14,7 @@ import com.wuhenzhizao.titlebar.widget.CommonTitleBar;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.ui.adapter.FragmentsPagerAdapter;
 import com.zpj.shouji.market.ui.fragment.base.BaseFragment;
-import com.zpj.shouji.market.ui.view.ZViewPager;
+import com.zpj.shouji.market.ui.widget.ZViewPager;
 
 import org.greenrobot.eventbus.EventBus;
 

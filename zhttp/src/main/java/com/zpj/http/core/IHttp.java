@@ -17,11 +17,11 @@ public interface IHttp {
     }
 
     interface OnCompleteListener {
-        void onComplete();
+        void onComplete() throws Exception;
     }
 
     interface OnSubscribeListener {
-        void onSubscribe(Disposable d);
+        void onSubscribe(Disposable d) throws Exception;
     }
 
     interface OnStreamWriteListener {

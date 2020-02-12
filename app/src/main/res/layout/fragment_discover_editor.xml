@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/line_rootView"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="#ffffff"
+    android:orientation="vertical"
+    >
+
+    <com.wuhenzhizao.titlebar.widget.CommonTitleBar
+        android:id="@+id/title_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:titleBar_titleBarColor="@color/colorPrimary"
+        app:titleBar_fillStatusBar="true"
+        app:titleBar_statusBarColor="@color/colorPrimary"
+        app:titleBar_leftType="imageButton"
+        app:titleBar_leftImageResource="@drawable/ic_arrow_back_white_24dp"
+        app:titleBar_centerType="textView"
+        app:titleBar_centerTextMarquee="true"
+        app:titleBar_centerText="手机乐园"
+        app:titleBar_centerTextColor="@android:color/white"
+        app:titleBar_centerSubText="https://www.shouji.com.cn"
+        app:titleBar_centerSubTextColor="@android:color/white"
+        app:titleBar_rightType="imageButton"
+        app:titleBar_rightImageResource="@drawable/ic_more_vert_grey_24dp"
+        app:titleBar_showBottomLine="false"
+        />
+
+    <me.jingbin.richeditor.editrichview.SimpleRichEditor
+        android:id="@+id/rich_edit"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/lu_bottom_menu"
+        android:layout_below="@+id/title_bar"
+        android:scrollbars="none"
+        android:visibility="visible" />
+
+    <me.jingbin.richeditor.bottomlayout.LuBottomMenu
+        android:id="@+id/lu_bottom_menu"
+        android:layout_width="match_parent"
+        android:layout_height="54dp"
+        android:layout_alignParentBottom="true" />
+
+</RelativeLayout>

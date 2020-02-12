@@ -1,18 +1,14 @@
 package com.zpj.http.core;
 
 import com.zpj.http.ZHttp;
-import com.zpj.http.exception.HttpStatusException;
 import com.zpj.http.exception.UncheckedIOException;
-import com.zpj.http.exception.UnsupportedMimeTypeException;
 import com.zpj.http.parser.html.Parser;
 import com.zpj.http.parser.html.nodes.Document;
 
 import org.json.JSONArray;
-import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.BufferedInputStream;
-import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.Proxy;
@@ -362,17 +358,17 @@ public interface Connection {
 //
 //    Document toXml() throws IOException;
 
-    HttpObservable<Response> execute();
+    ObservableTask<Response> execute();
 
-    HttpObservable<String> toStr();
+    ObservableTask<String> toStr();
 
-    HttpObservable<Document> toHtml();
+    ObservableTask<Document> toHtml();
 
-    HttpObservable<JSONObject> toJsonObject();
+    ObservableTask<JSONObject> toJsonObject();
 
-    HttpObservable<JSONArray> toJsonArray();
+    ObservableTask<JSONArray> toJsonArray();
 
-    HttpObservable<Document> toXml();
+    ObservableTask<Document> toXml();
 
     Connection onRedirect(IHttp.OnRedirectListener listener);
 

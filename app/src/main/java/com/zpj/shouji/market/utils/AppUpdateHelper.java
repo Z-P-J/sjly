@@ -7,9 +7,8 @@ import android.util.Log;
 
 import com.zpj.http.ZHttp;
 import com.zpj.http.core.Connection;
-import com.zpj.http.core.HttpObservable;
+import com.zpj.http.core.ObservableTask;
 import com.zpj.http.core.IHttp;
-import com.zpj.http.parser.html.nodes.Document;
 import com.zpj.http.parser.html.nodes.Element;
 import com.zpj.http.parser.html.select.Elements;
 import com.zpj.shouji.market.model.AppUpdateInfo;
@@ -23,14 +22,6 @@ import java.util.concurrent.ConcurrentMap;
 import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.concurrent.CopyOnWriteArraySet;
 import java.util.concurrent.atomic.AtomicBoolean;
-
-import io.reactivex.Observable;
-import io.reactivex.ObservableEmitter;
-import io.reactivex.ObservableOnSubscribe;
-import io.reactivex.Observer;
-import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.disposables.Disposable;
-import io.reactivex.schedulers.Schedulers;
 
 public final class AppUpdateHelper {
 
@@ -158,7 +149,7 @@ public final class AppUpdateHelper {
         ZHttp.get("http://tt.shouji.com.cn/app/update.jsp")
                 .userAgent("Sjly(2.9.9.9.3)")
                 .execute()
-                .flatMap((HttpObservable.OnFlatMapListener<Connection.Response, CheckUpdate>) (response, emitter) -> {
+                .flatMap((ObservableTask.OnFlatMapListener<Connection.Response, CheckUpdate>) (response, emitter) -> {
                     String setCookie = response.header("Set-Cookie");
                     UserManager.setCookie(setCookie);
                     Log.d("checkUpdate", "setCookie=" + setCookie);

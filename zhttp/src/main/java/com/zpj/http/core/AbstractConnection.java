@@ -6,7 +6,6 @@ import com.zpj.http.utils.UrlUtil;
 import com.zpj.http.utils.Validate;
 
 import org.json.JSONArray;
-import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
@@ -275,7 +274,7 @@ public abstract class AbstractConnection implements Connection {
 
 
     @Override
-    public final HttpObservable<Response> execute() {
+    public final ObservableTask<Response> execute() {
         Observable<Response> observable = Observable.create(new ObservableOnSubscribe<Response>() {
 
             @Override
@@ -285,11 +284,11 @@ public abstract class AbstractConnection implements Connection {
                 emitter.onComplete();
             }
         });
-        return new HttpObservable<>(observable);
+        return new ObservableTask<>(observable);
     }
 
     @Override
-    public final HttpObservable<String> toStr() {
+    public final ObservableTask<String> toStr() {
         Observable<String> observable = Observable.create(new ObservableOnSubscribe<String>() {
 
             @Override
@@ -299,11 +298,11 @@ public abstract class AbstractConnection implements Connection {
                 emitter.onComplete();
             }
         });
-        return new HttpObservable<>(observable);
+        return new ObservableTask<>(observable);
     }
 
     @Override
-    public final HttpObservable<Document> toHtml() {
+    public final ObservableTask<Document> toHtml() {
         Observable<Document> observable = Observable.create(new ObservableOnSubscribe<Document>() {
 
             @Override
@@ -314,11 +313,11 @@ public abstract class AbstractConnection implements Connection {
                 emitter.onComplete();
             }
         });
-        return new HttpObservable<>(observable);
+        return new ObservableTask<>(observable);
     }
 
     @Override
-    public final HttpObservable<JSONObject> toJsonObject() {
+    public final ObservableTask<JSONObject> toJsonObject() {
         Observable<JSONObject> observable = Observable.create(new ObservableOnSubscribe<JSONObject>() {
 
             @Override
@@ -329,11 +328,11 @@ public abstract class AbstractConnection implements Connection {
                 emitter.onComplete();
             }
         });
-        return new HttpObservable<>(observable);
+        return new ObservableTask<>(observable);
     }
 
     @Override
-    public final HttpObservable<JSONArray> toJsonArray() {
+    public final ObservableTask<JSONArray> toJsonArray() {
         Observable<JSONArray> observable = Observable.create(new ObservableOnSubscribe<JSONArray>() {
 
             @Override
@@ -344,11 +343,11 @@ public abstract class AbstractConnection implements Connection {
                 emitter.onComplete();
             }
         });
-        return new HttpObservable<>(observable);
+        return new ObservableTask<>(observable);
     }
 
     @Override
-    public final HttpObservable<Document> toXml() {
+    public final ObservableTask<Document> toXml() {
         Observable<Document> observable = Observable.create(new ObservableOnSubscribe<Document>() {
 
             @Override
@@ -359,7 +358,7 @@ public abstract class AbstractConnection implements Connection {
                 emitter.onComplete();
             }
         });
-        return new HttpObservable<>(observable);
+        return new ObservableTask<>(observable);
     }
 
 

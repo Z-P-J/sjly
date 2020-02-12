@@ -12,4 +12,6 @@ include ':app',
         ':zpopup',
         ':glidegifdecoder',
         ':openingstartanimation',
-        ':lsettingviewlibrary'
+        ':lsettingviewlibrary',
+        ':richeditor',
+        ':richeditor2'

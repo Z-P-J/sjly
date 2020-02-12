@@ -13,19 +13,20 @@ import android.view.ViewGroup;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.ui.adapter.FragmentsPagerAdapter;
 import com.zpj.shouji.market.ui.fragment.base.BaseFragment;
-import com.zpj.shouji.market.ui.fragment.recommond.GameRecommendFragment;
 import com.zpj.shouji.market.ui.fragment.homepage.HomeFragment;
 import com.zpj.shouji.market.ui.fragment.profile.MeFragment;
+import com.zpj.shouji.market.ui.fragment.recommond.GameRecommendFragment;
 import com.zpj.shouji.market.ui.fragment.recommond.SoftRecommendFragment;
-import com.zpj.shouji.market.ui.view.AddLayout;
-import com.zpj.shouji.market.ui.view.ZViewPager;
+import com.zpj.shouji.market.ui.widget.AddLayout;
+import com.zpj.shouji.market.ui.widget.ZViewPager;
 import com.zpj.shouji.market.ui.widget.navigation.BottomNavigationViewEx;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class MainFragment extends BaseFragment
-        implements BottomNavigationView.OnNavigationItemSelectedListener {
+        implements BottomNavigationView.OnNavigationItemSelectedListener,
+        AddLayout.OnItemClickListener {
 
     private final List<BaseFragment> fragments = new ArrayList<>();
     private ZViewPager viewPager;
@@ -103,6 +104,7 @@ public class MainFragment extends BaseFragment
         addLayout = view.findViewById(R.id.layout_add);
         addLayout.initBlurView((ViewGroup) view);
         addLayout.bindButton(floatingActionButton);
+        addLayout.setListener(this);
         floatingActionButton.setOnClickListener(v -> {
             if (addLayout.isShow()) {
                 addLayout.close();
@@ -168,5 +170,26 @@ public class MainFragment extends BaseFragment
         }
 
         return true;
+    }
+
+    @Override
+    public void onDiscoverItemClick() {
+        _mActivity.start(new RichEditorFragment());
+//        _mActivity.start(new DiscoverEditorFragment());
+    }
+
+    @Override
+    public void onCollectionItemClick() {
+
+    }
+
+    @Override
+    public void onWallpaperItemClick() {
+
+    }
+
+    @Override
+    public void onPrivateTalkItemClick() {
+
     }
 }

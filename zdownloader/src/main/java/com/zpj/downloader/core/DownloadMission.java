@@ -21,7 +21,7 @@ import com.zpj.downloader.util.io.BufferedRandomAccessFile;
 import com.zpj.downloader.util.notification.NotifyUtil;
 import com.zpj.http.ZHttp;
 import com.zpj.http.core.Connection;
-import com.zpj.http.core.HttpObservable;
+import com.zpj.http.core.ObservableTask;
 import com.zpj.http.core.IHttp;
 
 import java.io.File;
@@ -260,9 +260,9 @@ public class DownloadMission {
                 .ignoreHttpErrors(true)
                 .maxBodySize(0)
                 .execute()
-                .onNext(new HttpObservable.OnNextListener<Connection.Response, Connection.Response>() {
+                .onNext(new ObservableTask.OnNextListener<Connection.Response, Connection.Response>() {
                     @Override
-                    public HttpObservable<Connection.Response> onNext(Connection.Response res) {
+                    public ObservableTask<Connection.Response> onNext(Connection.Response res) {
                         if (handleResponse(res, DownloadMission.this)) {
                             Log.d(TAG, "handleResponse--111");
                             return null;

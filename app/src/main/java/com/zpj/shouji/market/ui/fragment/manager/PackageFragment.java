@@ -6,7 +6,6 @@ import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
@@ -30,7 +29,6 @@ import com.zpj.shouji.market.utils.AppUpdateHelper;
 import com.zpj.shouji.market.utils.AppUtil;
 import com.zpj.shouji.market.utils.FileScanner;
 import com.zpj.shouji.market.utils.FileUtils;
-import com.zpj.shouji.market.utils.LoadApkTask;
 
 import org.xmlpull.v1.XmlPullParserException;
 
@@ -68,8 +66,6 @@ public class PackageFragment extends BaseFragment
 
     private long startTime;
 
-    private AsyncTask<Void, Void, List<String>> loadApkTask;
-
     private int sortPosition = 0;
 
     @Override
@@ -84,8 +80,17 @@ public class PackageFragment extends BaseFragment
 
     @Override
     protected void initView(View view, @Nullable Bundle savedInstanceState) {
-        initFileScanner();
-        initView(view);
+        sortTextView = view.findViewById(R.id.text_sort);
+        sortTextView.setOnClickListener(v -> showSortPopWindow());
+
+        infoTextView = view.findViewById(R.id.text_info);
+
+        recyclerView = view.findViewById(R.id.recycler_view);
+        recyclerView.setTag(false);
+        adapter = new AppManagerAdapter(appInfoList);
+        adapter.setItemClickListener(this);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        recyclerView.setAdapter(adapter);
         loadApk();
     }
 
@@ -94,9 +99,6 @@ public class PackageFragment extends BaseFragment
         if (fileScanner != null) {
             fileScanner.cancel();
             fileScanner = null;
-        }
-        if (loadApkTask != null) {
-            loadApkTask.cancel(true);
         }
         super.onDestroy();
     }
@@ -122,68 +124,36 @@ public class PackageFragment extends BaseFragment
         }
     }
 
-    private void initFileScanner() {
-        fileScanner = new FileScanner(this, this);
-        fileScanner.setDirFilter(new FileScanner.DirFilter() {
-            @Override
-            public boolean accept(File dir) {
-                String fileNameLowerCase = dir.getName().toLowerCase();
-
-                String keyword = "tuniuapp";
-                if (keyword.equalsIgnoreCase(fileNameLowerCase)) {
-                    return false;
-                }
-
-                keyword = "cache";
-                if (keyword.equalsIgnoreCase(fileNameLowerCase) || fileNameLowerCase.endsWith(keyword)) {
-                    return false;
-                }
-
-                keyword = "log";
-                if (keyword.equalsIgnoreCase(fileNameLowerCase) || fileNameLowerCase.endsWith(keyword)) {
-                    return false;
-                }
-
-                keyword = "dump";
-                return !keyword.equalsIgnoreCase(fileNameLowerCase) && !fileNameLowerCase.endsWith(keyword);
-            }
-        });
-    }
-
-    private void initView(View view) {
-
-        sortTextView = view.findViewById(R.id.text_sort);
-        sortTextView.setOnClickListener(v -> showSortPopWindow());
-
-        infoTextView = view.findViewById(R.id.text_info);
-
-        recyclerView = view.findViewById(R.id.recycler_view);
-        recyclerView.setTag(false);
-        adapter = new AppManagerAdapter(appInfoList);
-        adapter.setItemClickListener(this);
-        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        recyclerView.setAdapter(adapter);
-    }
-
     private void loadApk() {
         startTime = System.currentTimeMillis();
-        loadApkTask = LoadApkTask.with(this)
-                .setCallBack(new LoadApkTask.CallBack() {
 
+        fileScanner = FileScanner.with(context)
+                .setDirFilter(new FileScanner.DirFilter() {
                     @Override
-                    public void onPreExecute() {
+                    public boolean accept(File dir) {
+                        String fileNameLowerCase = dir.getName().toLowerCase();
 
-                    }
-
-                    @Override
-                    public void onPostExecute(List<String> installedAppInfos) {
-//                        Log.d(TAG, "installedAppInfos=" + installedAppInfos);
-                        if (fileScanner != null) {
-                            fileScanner.execute(installedAppInfos);
+                        String keyword = "tuniuapp";
+                        if (keyword.equalsIgnoreCase(fileNameLowerCase)) {
+                            return false;
                         }
-                    }
 
+                        keyword = "cache";
+                        if (keyword.equalsIgnoreCase(fileNameLowerCase) || fileNameLowerCase.endsWith(keyword)) {
+                            return false;
+                        }
+
+                        keyword = "log";
+                        if (keyword.equalsIgnoreCase(fileNameLowerCase) || fileNameLowerCase.endsWith(keyword)) {
+                            return false;
+                        }
+
+                        keyword = "dump";
+                        return !keyword.equalsIgnoreCase(fileNameLowerCase) && !fileNameLowerCase.endsWith(keyword);
+                    }
                 })
+                .setFileChecker(this)
+                .setScanListener(this)
                 .execute();
     }
 
@@ -263,11 +233,6 @@ public class PackageFragment extends BaseFragment
             infoTextView.setText("已发现" + appInfoList.size() + "个安装包，用时" +  ((currentTime - startTime) / 1000) + "秒");
             adapter.notifyItemInserted(appInfoList.size() - 1);
         }
-    }
-
-    @Override
-    public void onUpdateProgress(int totalLength, int completedLength) {
-
     }
 
     @Override
@@ -368,12 +333,12 @@ public class PackageFragment extends BaseFragment
     @Override
     public void onItemClick(AppManagerAdapter.ViewHolder holder, int position, InstalledAppInfo updateInfo) {
 //        AToast.normal("todo 详细信息");
-        AppUtil.installApk(getActivity(), updateInfo.getApkFilePath());
+        AppUtil.installApk(context, updateInfo.getApkFilePath());
     }
 
     @Override
     public void onMenuClicked(View view, InstalledAppInfo updateInfo) {
-        PopupMenuView popupMenuView = new PopupMenuView(getContext());
+        PopupMenuView popupMenuView = new PopupMenuView(context);
         popupMenuView.setOrientation(LinearLayout.HORIZONTAL)
                 .setMenuItems(optionMenus)
                 .setBackgroundAlpha(getActivity(), 0.9f, 500)

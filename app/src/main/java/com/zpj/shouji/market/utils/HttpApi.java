@@ -3,11 +3,14 @@ package com.zpj.shouji.market.utils;
 import android.util.Log;
 
 import com.zpj.http.ZHttp;
-import com.zpj.http.core.HttpObservable;
+import com.zpj.http.core.ObservableTask;
 import com.zpj.http.core.IHttp;
 import com.zpj.http.parser.html.nodes.Document;
 
-import java.io.IOException;
+import io.reactivex.Observable;
+import io.reactivex.ObservableOnSubscribe;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.schedulers.Schedulers;
 
 public final class HttpApi {
 
@@ -19,7 +22,7 @@ public final class HttpApi {
 
     }
 
-    public static HttpObservable<Document> connect(String url) {
+    public static ObservableTask<Document> connect(String url) {
         return ZHttp.get(url)
                 .userAgent(USER_AGENT)
                 .onRedirect(new IHttp.OnRedirectListener() {
@@ -34,6 +37,15 @@ public final class HttpApi {
                 .referer(url)
                 .ignoreContentType(true)
                 .toHtml();
+    }
+
+    public static ObservableTask<Runnable> with(Runnable runnable) {
+        return new ObservableTask<>(Observable.create((ObservableOnSubscribe<Runnable>) emitter -> {
+            runnable.run();
+            emitter.onNext(runnable);
+            emitter.onComplete();
+        })).subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread());
     }
 
 }

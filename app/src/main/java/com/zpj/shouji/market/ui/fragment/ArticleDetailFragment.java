@@ -26,7 +26,7 @@ import com.felix.atoast.library.AToast;
 import com.lxj.xpopup.XPopup;
 import com.zpj.popupmenuview.popup.EverywherePopup;
 import com.zpj.shouji.market.R;
-import com.zpj.shouji.market.image.ImageLoader;
+import com.zpj.shouji.market.utils.ImageLoader;
 import com.zpj.shouji.market.model.AppInfo;
 import com.zpj.shouji.market.model.article.ArticleDetailInfo;
 import com.zpj.shouji.market.model.article.ArticleInfo;

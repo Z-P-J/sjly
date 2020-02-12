@@ -23,7 +23,7 @@ import com.zpj.downloader.core.DownloadMission;
 import com.zpj.downloader.util.FileUtil;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.ui.fragment.base.BaseFragment;
-import com.zpj.shouji.market.utils.RxUtil;
+import com.zpj.shouji.market.utils.HttpApi;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -104,27 +104,27 @@ public class DownloadFragment extends BaseFragment implements DownloadManager.Do
     }
 
     private void loadDownloadMissions() {
-        downloadTaskList.clear();
-        List<DownloadWrapper> downloadingList = new ArrayList<>();
-        List<DownloadWrapper> downloadedList = new ArrayList<>();
-        downloadTaskList.add(downloadingList);
-        downloadTaskList.add(downloadedList);
-        downloadingList.add(new DownloadWrapper("下载中"));
-        downloadedList.add(new DownloadWrapper("已完成"));
-        RxUtil.with(() -> {
-                    for (DownloadMission mission : ZDownloader.getAllMissions(true)) {
-                        downloadingList.add(new DownloadWrapper(mission));
-                    }
-                    for (DownloadMission mission : ZDownloader.getAllMissions(false)) {
-                        downloadedList.add(new DownloadWrapper(mission));
-                    }
-                    if (downloadingList.size() == 1) {
-                        downloadingList.add(new DownloadWrapper());
-                    }
-                    if (downloadedList.size() == 1) {
-                        downloadedList.add(new DownloadWrapper());
-                    }
-                })
+        HttpApi.with(() -> {
+            downloadTaskList.clear();
+            List<DownloadWrapper> downloadingList = new ArrayList<>();
+            List<DownloadWrapper> downloadedList = new ArrayList<>();
+            downloadTaskList.add(downloadingList);
+            downloadTaskList.add(downloadedList);
+            downloadingList.add(new DownloadWrapper("下载中"));
+            downloadedList.add(new DownloadWrapper("已完成"));
+            for (DownloadMission mission : ZDownloader.getAllMissions(true)) {
+                downloadingList.add(new DownloadWrapper(mission));
+            }
+            for (DownloadMission mission : ZDownloader.getAllMissions(false)) {
+                downloadedList.add(new DownloadWrapper(mission));
+            }
+            if (downloadingList.size() == 1) {
+                downloadingList.add(new DownloadWrapper());
+            }
+            if (downloadedList.size() == 1) {
+                downloadedList.add(new DownloadWrapper());
+            }
+        })
                 .onSuccess(data -> expandableAdapter.notifyDataSetChanged())
                 .subscribe();
 //        ExecutorHelper.submit(() -> {
@@ -284,7 +284,7 @@ public class DownloadFragment extends BaseFragment implements DownloadManager.Do
                 if (mission.isPause()) {
                     holder.setText(R.id.item_status, mission.getStatus().toString());
                     holder.setImageResource(R.id.btn_download, R.drawable.download_item_resume_icon_style2);
-                } else if (mission.isError())  {
+                } else if (mission.isError()) {
                     holder.setText(R.id.item_status, mission.getStatus().toString() + ":" + mission.getErrCode());
                     holder.setImageResource(R.id.btn_download, R.drawable.download_item_retry_icon_style2);
                 } else {
@@ -307,6 +307,7 @@ public class DownloadFragment extends BaseFragment implements DownloadManager.Do
 
             private GroupViewHolder holder;
             private DownloadMission mission;
+
             MissionObserver(GroupViewHolder holder, DownloadMission mission) {
                 this.holder = holder;
                 this.mission = mission;

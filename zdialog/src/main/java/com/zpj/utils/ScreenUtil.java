@@ -130,6 +130,18 @@ public class ScreenUtil {
         return 0;
     }
 
+    /**
+     * 获取底部导航栏 (Navigation Bar) 高度
+     */
+    public static int getNavigationBarHeight(Context context) {
+        Resources resources = context.getResources();
+        int resourceId = context.getResources().getIdentifier("navigation_bar_height", "dimen", "android");
+        if (resourceId > 0) {
+            return resources.getDimensionPixelSize(resourceId);
+        }
+        return 0;
+    }
+
     public static int getAppInScreenheight(Context context) {
         return getScreenHeight(context) - getStatusBarHeight(context);
     }

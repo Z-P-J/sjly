@@ -115,7 +115,7 @@ public class AppUtil {
         context.startActivity(Intent.createChooser(intent, "分享应用"));
     }
 
-    public static void installApk(Activity context, String path) {
+    public static void installApk(Context context, String path) {
         Intent intent = new Intent();
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         //设置intent的Action属性

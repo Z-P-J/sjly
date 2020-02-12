@@ -20,12 +20,11 @@ import com.wuhenzhizao.titlebar.utils.ScreenUtils;
 import com.wuhenzhizao.titlebar.widget.CommonTitleBar;
 import com.zpj.http.parser.html.nodes.Element;
 import com.zpj.shouji.market.R;
-import com.zpj.shouji.market.constant.Key;
 import com.zpj.shouji.market.ui.adapter.FragmentsPagerAdapter;
 import com.zpj.shouji.market.ui.behavior.AppBarLayoutOverScrollViewBehavior;
-import com.zpj.shouji.market.ui.fragment.theme.ThemeListFragment;
 import com.zpj.shouji.market.ui.fragment.base.BaseFragment;
-import com.zpj.shouji.market.ui.view.ZViewPager;
+import com.zpj.shouji.market.ui.fragment.theme.ThemeListFragment;
+import com.zpj.shouji.market.ui.widget.ZViewPager;
 import com.zpj.shouji.market.ui.widget.CircleImageView;
 import com.zpj.shouji.market.ui.widget.DotPagerIndicator;
 import com.zpj.shouji.market.ui.widget.RoundProgressBar;
@@ -43,6 +42,7 @@ import java.util.List;
 
 public class ProfileFragment extends BaseFragment implements ThemeListFragment.Callback {
 
+    private static final String USER_ID = "user_id";
     public static final String DEFAULT_URL = "http://tt.shouji.com.cn/app/view_member_xml_v4.jsp?versioncode=198&id=5636865";
 
     private static final String[] TAB_TITLES = {"我的动态", "我的收藏", "我的下载", "我的好友"};
@@ -71,7 +71,7 @@ public class ProfileFragment extends BaseFragment implements ThemeListFragment.C
         ProfileFragment profileFragment = new ProfileFragment();
 //        profileFragment.setShouldLazyLoad(shouldLazyLoad);
         Bundle bundle = new Bundle();
-        bundle.putString(Key.USER_ID, userId);
+        bundle.putString(USER_ID, userId);
         profileFragment.setArguments(bundle);
         return profileFragment;
     }
@@ -98,7 +98,7 @@ public class ProfileFragment extends BaseFragment implements ThemeListFragment.C
     private void initView(View view) {
         Bundle bundle = getArguments();
         if (bundle != null) {
-            userId = bundle.getString(Key.USER_ID);
+            userId = bundle.getString(USER_ID);
         } else {
 //            exploreFragment = ExploreFragment.newInstance(DEFAULT_URL, false);
             throw new RuntimeException("bundle is null!");

@@ -51,11 +51,13 @@ dependencies {
     implementation project(':glidegifdecoder')
     implementation project(':openingstartanimation')
     implementation project(':lsettingviewlibrary')
+    implementation project(':richeditor')
+    implementation project(':richeditor2')
 
 
 
-    implementation 'com.github.bumptech.glide:glide:4.7.1'
-    annotationProcessor 'com.github.bumptech.glide:compiler:4.7.1'
+    implementation 'com.github.bumptech.glide:glide:4.9.0'
+    annotationProcessor 'com.github.bumptech.glide:compiler:4.9.0'
 //    implementation 'com.squareup.okhttp3:okhttp:3.10.0'
     implementation 'com.wang.avi:library:2.1.3'
     implementation 'de.hdodenhof:circleimageview:3.0.0'
@@ -71,6 +73,7 @@ dependencies {
     implementation 'com.github.hackware1993:MagicIndicator:1.5.0'
     implementation 'com.lxj:xpopup:1.8.10'
     implementation 'com.hoko:hoko-blur:1.3.4'
+    implementation 'com.lzy.widget:imagepicker:0.5.5'
 
     annotationProcessor "com.github.Raizlabs.DBFlow:dbflow-processor:4.2.4"
     implementation "com.github.Raizlabs.DBFlow:dbflow-core:4.2.4"

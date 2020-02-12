@@ -18,7 +18,7 @@ import com.lxj.xpopup.XPopup;
 import com.lxj.xpopup.core.ImageViewerPopupView;
 import com.lxj.xpopup.interfaces.OnSrcViewUpdateListener;
 import com.zpj.shouji.market.R;
-import com.zpj.shouji.market.image.ImageLoader;
+import com.zpj.shouji.market.utils.ImageLoader;
 import com.zpj.utils.ScreenUtil;
 
 import java.util.ArrayList;

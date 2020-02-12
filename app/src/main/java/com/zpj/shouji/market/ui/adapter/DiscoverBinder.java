@@ -18,7 +18,7 @@ import com.zpj.recyclerview.EasyViewHolder;
 import com.zpj.recyclerview.IEasy;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.model.DiscoverInfo;
-import com.zpj.shouji.market.image.ImageLoader;
+import com.zpj.shouji.market.utils.ImageLoader;
 import com.zpj.shouji.market.ui.widget.BottomListPopupMenu;
 
 import java.util.ArrayList;

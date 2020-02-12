@@ -45,7 +45,7 @@ public class DetailLayout extends LinearLayout {
             detailContent.setOnLongClickListener(new OnLongClickListener() {
                 @Override
                 public boolean onLongClick(View v) {
-//                    Clipboard.getInstance().setText(detailContent.getText().toString());
+//                    Clipboard.with().setText(detailContent.getText().toString());
                     return true;
                 }
             });

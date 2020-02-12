@@ -24,7 +24,7 @@
         app:titleBar_showBottomLine="false"
         />
 
-    <com.zpj.shouji.market.ui.view.ZViewPager
+    <com.zpj.shouji.market.ui.widget.ZViewPager
         android:id="@+id/view_pager"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
