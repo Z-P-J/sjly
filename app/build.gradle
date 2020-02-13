@@ -53,6 +53,7 @@ dependencies {
     implementation project(':lsettingviewlibrary')
     implementation project(':richeditor')
     implementation project(':richeditor2')
+    implementation project(':zmarkdown')
 
 
 

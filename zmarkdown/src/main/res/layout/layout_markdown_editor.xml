@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/frame"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <me.shouheng.easymark.scroller.FastScrollScrollView
+        android:id="@+id/fssv"
+        tools:background="@android:color/white"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <android.support.v7.widget.AppCompatEditText
+                android:id="@+id/et_title"
+                android:padding="16dp"
+                android:gravity="center"
+                android:textColor="@color/colorText"
+                android:textColorHint="@color/colorText"
+                android:hint="@string/text_title"
+                android:background="@android:color/transparent"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <me.shouheng.easymark.EasyMarkEditor
+                android:id="@+id/eme"
+                android:background="@android:color/transparent"
+                android:textColor="@color/colorText"
+                android:gravity="start"
+                android:textSize="15sp"
+                android:layout_width="match_parent"
+                android:minHeight="600dp"
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp"
+                android:paddingTop="16dp"
+                android:textColorHint="@color/colorText"
+                android:paddingBottom="450dp"
+                android:hint="@string/note_hint_content"
+                android:layout_height="match_parent"
+                android:fontFamily="@font/font"/>
+
+        </LinearLayout>
+
+    </me.shouheng.easymark.scroller.FastScrollScrollView>
+
+    <LinearLayout
+        android:id="@+id/container"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_gravity="bottom"
+        android:background="#f8f8f8"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="48dp">
+
+            <android.support.v7.widget.AppCompatImageView
+                android:id="@+id/iv_soft"
+                style="@style/MDButton"
+                android:src="@drawable/ic_keyboard_black_24dp" />
+
+            <HorizontalScrollView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <LinearLayout
+                    android:id="@+id/ll_container"
+                    android:orientation="horizontal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent">
+
+                    <android.support.v7.widget.AppCompatImageView
+                        style="@style/MDButton"
+                        android:id="@+id/iv_left"
+                        android:src="@drawable/ic_keyboard_arrow_left_black_24dp"
+                        />
+
+                    <android.support.v7.widget.AppCompatImageView
+                        android:id="@+id/iv_right"
+                        style="@style/MDButton"
+                        android:src="@drawable/ic_keyboard_arrow_right_black_24dp" />
+
+                    <android.support.v7.widget.AppCompatImageView
+                        style="@style/MDButton"
+                        android:id="@+id/iv_indent"
+                        android:src="@drawable/ic_format_indent_increase_white_24dp" />
+
+                    <android.support.v7.widget.AppCompatImageView
+                        style="@style/MDButton"
+                        android:id="@+id/iv_dedent"
+                        android:src="@drawable/ic_format_indent_decrease_white_24dp" />
+
+                </LinearLayout>
+
+            </HorizontalScrollView>
+
+        </LinearLayout>
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/rv"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="gone"
+            />
+
+    </LinearLayout>
+
+</FrameLayout>

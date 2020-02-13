@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    >
+
+    <com.wuhenzhizao.titlebar.widget.CommonTitleBar
+        android:id="@+id/title_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:titleBar_fillStatusBar="true"
+        app:titleBar_titleBarColor="@android:color/white"
+        app:titleBar_statusBarColor="@android:color/white"
+        app:titleBar_showBottomLine="false"
+        app:titleBar_statusBarMode="dark"
+        app:titleBar_leftType="imageButton"
+        app:titleBar_leftImageResource="@drawable/ic_arrow_back_black_24dp"
+        app:titleBar_centerType="textView"
+        app:titleBar_rightType="imageButton"
+        app:titleBar_rightImageResource="@drawable/more"
+        />
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/view_pager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+
+</LinearLayout>

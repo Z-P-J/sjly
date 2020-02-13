@@ -1,0 +1,122 @@
+package com.zpj.shouji.market.ui.fragment;
+
+import android.content.DialogInterface;
+import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
+import android.support.v4.view.ViewPager;
+import android.support.v7.app.AlertDialog;
+import android.text.TextUtils;
+import android.util.Log;
+import android.view.View;
+import android.widget.ImageButton;
+
+import com.felix.atoast.library.AToast;
+import com.zpj.dialog.ZAlertDialog;
+import com.zpj.markdown.MarkdownEditorFragment;
+import com.zpj.markdown.MarkdownViewFragment;
+import com.zpj.popupmenuview.popup.EverywherePopup;
+import com.zpj.shouji.market.R;
+import com.zpj.shouji.market.ui.adapter.FragmentsPagerAdapter;
+import com.zpj.shouji.market.ui.fragment.base.BaseFragment;
+import com.zpj.utils.KeyboardRepairer;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import me.jingbin.richeditor.bottomlayout.LuBottomMenu;
+import me.jingbin.richeditor.editrichview.SimpleRichEditor;
+import me.jingbin.richeditor.editrichview.base.RichEditor;
+import me.yokeyword.fragmentation.anim.DefaultNoAnimator;
+import me.yokeyword.fragmentation.anim.FragmentAnimator;
+
+public class DiscoverEditorFragment2 extends BaseFragment {
+
+    protected ViewPager viewPager;
+    private MarkdownEditorFragment editorFragment;
+    private MarkdownViewFragment viewFragment;
+
+    @Override
+    protected int getLayoutId() {
+        return R.layout.fragment_viewpager;
+    }
+
+    @Override
+    protected boolean supportSwipeBack() {
+        return true;
+    }
+
+    @Override
+    public FragmentAnimator onCreateFragmentAnimator() {
+        return new DefaultNoAnimator();
+    }
+
+    @Override
+    protected void initView(View view, @Nullable Bundle savedInstanceState) {
+        viewPager = view.findViewById(R.id.view_pager);
+        List<Fragment> fragments = new ArrayList<>();
+        editorFragment = findChildFragment(MarkdownEditorFragment.class);
+        if (editorFragment == null) {
+            editorFragment = new MarkdownEditorFragment();
+        }
+        viewFragment = findChildFragment(MarkdownViewFragment.class);
+        if (viewFragment == null) {
+            viewFragment = new MarkdownViewFragment();
+        }
+        fragments.add(editorFragment);
+        fragments.add(viewFragment);
+        viewPager.setAdapter(new FragmentsPagerAdapter(getChildFragmentManager(), fragments, null));
+        viewPager.setOffscreenPageLimit(2);
+        viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+                if (position == 0) {
+                    setToolbarTitle("编辑");
+                    editorFragment.showSoftInput();
+//                    viewFragment.processMarkdown("");
+//                    showSoftInput(_mActivity.getCurrentFocus());
+                } else if (position == 1) {
+                    setToolbarTitle("预览");
+                    viewFragment.processMarkdown(editorFragment.getMarkdownContent());
+                    editorFragment.hideSoftInput();
+                }
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
+            }
+        });
+
+    }
+
+    @Override
+    public void toolbarRightImageButton(@NonNull ImageButton imageButton) {
+        imageButton.setOnClickListener(v -> EverywherePopup.create(context)
+                .addItems("显示源码", "清空内容", "保存", "回显")
+                .setOnItemClickListener((title, position) -> {
+                    switch (position) {
+                        case 0:
+
+                            break;
+                        case 1:
+
+                            break;
+                        case 2:
+
+                            break;
+                        case 3:
+
+                            break;
+                    }
+                })
+                .show(imageButton));
+    }
+
+}

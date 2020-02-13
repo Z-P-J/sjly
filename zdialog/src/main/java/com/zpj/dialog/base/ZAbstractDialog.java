@@ -11,6 +11,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,24 +19,27 @@ import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 
+import com.zpj.dialog.ZAlertDialog;
 import com.zpj.utils.ScreenUtil;
 
 public class ZAbstractDialog<T extends ZAbstractDialog<T>> extends DialogFragment implements IDialog {
 
     FragmentManager fragmentManager;
-    int layoutRes;
-    int dialogWidth;
-    int dialogHeight;
-    float dimAmount = 0.2f;
+    protected int layoutRes;
+    protected int dialogWidth;
+    protected int dialogHeight;
+    protected float dimAmount = 0.2f;
     public int gravity = Gravity.CENTER;
 
     View contentView;
     FragmentActivity activity;
-    private OnViewCreateListener onViewCreateListener;
-    private OnDismissListener onDismissListener;
-    private OnCancelListener onCancelListener;
-    private OnDialogStartListener onDialogStartListener;
+    protected OnViewCreateListener onViewCreateListener;
+    protected OnDismissListener onDismissListener;
+    protected OnCancelListener onCancelListener;
+    protected OnDialogStartListener onDialogStartListener;
     private static final String FTag = "dialogTag";
+
+    private boolean swipable = true;
 
     public static ZAbstractDialog with(Context context) {
         ZAbstractDialog dialog = new ZAbstractDialog();
@@ -144,13 +148,27 @@ public class ZAbstractDialog<T extends ZAbstractDialog<T>> extends DialogFragmen
             onDialogStartListener.onStart();
         }
     }
-    
+
     private T self() {
         return (T) this;
     }
 
     protected void setFragmentActivity(FragmentActivity activity) {
         this.activity = activity;
+    }
+
+    @Nullable
+    public FragmentActivity getFragmentActivity() {
+        return activity;
+    }
+
+    @Nullable
+    @Override
+    public Context getContext() {
+        if (super.getContext() == null) {
+            return activity;
+        }
+        return super.getContext();
     }
 
     public T setFragmentManager(FragmentManager fragmentManager) {
@@ -274,6 +292,11 @@ public class ZAbstractDialog<T extends ZAbstractDialog<T>> extends DialogFragmen
         return self();
     }
 
+    public T setSwipable(boolean swipable) {
+        this.swipable = swipable;
+        return self();
+    }
+
     /**
      * 构建子View的listener
      *
@@ -314,6 +337,7 @@ public class ZAbstractDialog<T extends ZAbstractDialog<T>> extends DialogFragmen
 //            //如果没有设置布局 提供默认设置
 //            setDefaultOption();
 //        }
+        Log.d(FTag, "fragmentManager=" + fragmentManager);
         if (fragmentManager == null) {
             fragmentManager = activity.getSupportFragmentManager();
         }

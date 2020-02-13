@@ -10,6 +10,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.zpj.markdown.MarkdownEditorFragment;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.ui.adapter.FragmentsPagerAdapter;
 import com.zpj.shouji.market.ui.fragment.base.BaseFragment;
@@ -174,7 +175,8 @@ public class MainFragment extends BaseFragment
 
     @Override
     public void onDiscoverItemClick() {
-        _mActivity.start(new RichEditorFragment());
+//        _mActivity.start(new RichEditorFragment());
+        _mActivity.start(new DiscoverEditorFragment2());
 //        _mActivity.start(new DiscoverEditorFragment());
     }
 

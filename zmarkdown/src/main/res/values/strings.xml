@@ -1,0 +1,45 @@
+<resources>
+    <string name="markdown_name">OTMarkdownEditor</string>
+
+    <string name="action_ot_reference">语法参考?</string>
+    <string name="action_ot_preview">预览</string>
+    <string name="action_ot_edit">编辑</string>
+    <string name="action_ot_save">保存</string>
+
+    <string name="edit_img">图片</string>
+    <string name="format_bold">加粗</string>
+    <string name="format_italic">斜体</string>
+    <string name="format_header_1">一级标题</string>
+    <string name="format_header_2">二级标题</string>
+    <string name="format_header_3">三级标题</string>
+    <string name="format_header_4">四级标题</string>
+    <string name="format_header_5">五级标题</string>
+    <string name="format_quote">文字引用</string>
+    <string name="format_strike">删除线</string>
+    <string name="undo">撤销</string>
+    <string name="ot_time">当前时间</string>
+    <string name="redo">前进</string>
+    <string name="link">链接</string>
+    <string name="list">无序列表</string>
+
+    <string name="sd_fail">获取SD卡读写权限失败</string>
+
+    <string name="editTextTip">开始你的记录..</string>
+    <string name="editTitleTip">标题</string>
+
+    <string name="ot_tip">提示</string>
+    <string name="ot_tip_preview">左滑可以快速返回到编辑界面。</string>
+    <string name="ot_tip_i_know">我知道了</string>
+
+    <string name="text_title">标题</string>
+    <string name="text_chars">字数</string>
+    <string name="text_confirm">确认</string>
+    <string name="text_cancel">取消</string>
+    <string name="note_table_insert">插入表格</string>
+    <string name="note_hint_content">在这里输入你的内容&#8230;</string>
+    <string name="note_table_rows_number">行</string>
+    <string name="note_table_cols_number">列</string>
+    <string name="note_table_rows_required">行数不能为空</string>
+    <string name="note_table_cols_required">列数不能为空</string>
+
+</resources>

@@ -367,8 +367,8 @@ public class RichEditorFragment extends BaseFragment
 
     @Override
     public void onDestroy() {
-        super.onDestroy();
         keyboardHeightProvider.close();
+        super.onDestroy();
     }
 
     @Override
