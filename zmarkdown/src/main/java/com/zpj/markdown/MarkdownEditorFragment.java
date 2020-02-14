@@ -12,6 +12,8 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.zpj.utils.KeyboardHeightProvider;
+
 import java.util.Objects;
 
 import me.shouheng.easymark.EasyMarkEditor;

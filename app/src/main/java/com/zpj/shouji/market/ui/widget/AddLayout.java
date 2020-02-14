@@ -41,7 +41,7 @@ public class AddLayout extends FrameLayout implements View.OnClickListener {
         void onDiscoverItemClick();
         void onCollectionItemClick();
         void onWallpaperItemClick();
-        void onPrivateTalkItemClick();
+        void onChatWithFriendItemClick();
     }
 
     public AddLayout(@NonNull Context context) {
@@ -224,7 +224,7 @@ public class AddLayout extends FrameLayout implements View.OnClickListener {
                     listener.onWallpaperItemClick();
                     break;
                 case 3:
-                    listener.onPrivateTalkItemClick();
+                    listener.onChatWithFriendItemClick();
                     break;
             }
         }

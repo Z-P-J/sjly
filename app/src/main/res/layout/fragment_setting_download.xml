@@ -15,16 +15,11 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:scrollbarSize="0dp"
+        android:padding="8dp"
         >
 
         <www.linwg.org.lib.LCardView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:cardBackgroundColor="@android:color/white"
-            app:shadowSize="16dp"
-            app:shadowColor="#5f6379"
-            app:shadowStartAlpha="10"
-            app:cornerRadius="10dp"
+            style="@style/setting_card_style"
             >
 
             <LinearLayout

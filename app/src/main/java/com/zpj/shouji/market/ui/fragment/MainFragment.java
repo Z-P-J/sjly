@@ -14,6 +14,7 @@ import com.zpj.markdown.MarkdownEditorFragment;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.ui.adapter.FragmentsPagerAdapter;
 import com.zpj.shouji.market.ui.fragment.base.BaseFragment;
+import com.zpj.shouji.market.ui.fragment.chat.ChatFragment;
 import com.zpj.shouji.market.ui.fragment.homepage.HomeFragment;
 import com.zpj.shouji.market.ui.fragment.profile.MeFragment;
 import com.zpj.shouji.market.ui.fragment.recommond.GameRecommendFragment;
@@ -191,7 +192,7 @@ public class MainFragment extends BaseFragment
     }
 
     @Override
-    public void onPrivateTalkItemClick() {
-
+    public void onChatWithFriendItemClick() {
+        _mActivity.start(new ChatFragment());
     }
 }

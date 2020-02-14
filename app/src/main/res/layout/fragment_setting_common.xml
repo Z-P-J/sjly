@@ -25,13 +25,7 @@
             >
 
             <www.linwg.org.lib.LCardView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:cardBackgroundColor="@android:color/white"
-                app:shadowSize="8dp"
-                app:shadowColor="#5f6379"
-                app:shadowStartAlpha="10"
-                app:cornerRadius="10dp"
+                style="@style/setting_card_style"
                 >
 
                 <LinearLayout
@@ -88,13 +82,7 @@
             </www.linwg.org.lib.LCardView>
 
             <www.linwg.org.lib.LCardView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:cardBackgroundColor="@android:color/white"
-                app:shadowSize="8dp"
-                app:shadowColor="#5f6379"
-                app:shadowStartAlpha="10"
-                app:cornerRadius="10dp"
+                style="@style/setting_card_style"
                 >
 
                 <LinearLayout
@@ -138,18 +126,23 @@
                         app:setting_leftTextColor="@color/color_text_major"
                         />
 
+                    <com.leon.lib.settingview.LSettingItem
+                        android:id="@+id/item_compress_upload_image"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:setting_showUnderLine="false"
+                        app:setting_leftText="压缩上传图片"
+                        app:setting_showInfoBtn="false"
+                        android:layout_marginBottom="10dp"
+                        app:setting_leftTextColor="@color/color_text_major"
+                        />
+
                 </LinearLayout>
 
             </www.linwg.org.lib.LCardView>
 
             <www.linwg.org.lib.LCardView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:cardBackgroundColor="@android:color/white"
-                app:shadowSize="8dp"
-                app:shadowColor="#5f6379"
-                app:shadowStartAlpha="10"
-                app:cornerRadius="10dp"
+                style="@style/setting_card_style"
                 >
 
                 <LinearLayout

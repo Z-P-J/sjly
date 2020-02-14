@@ -5,11 +5,11 @@
     android:layout_width="match_parent"
     android:layout_height="?attr/actionBarSize"
     app:titleBar_fillStatusBar="false"
-    app:titleBar_titleBarColor="@color/white"
+    app:titleBar_titleBarColor="@android:color/white"
     app:titleBar_leftType="imageButton"
     app:titleBar_leftImageResource="@drawable/ic_arrow_back_black_24dp"
     app:titleBar_centerType="textView"
     app:titleBar_centerText="Title"
-    app:titleBar_centerTextColor="@color/colorPrimary"
+    app:titleBar_centerTextColor="@color/color_text_major"
     app:titleBar_showBottomLine="false"
     />

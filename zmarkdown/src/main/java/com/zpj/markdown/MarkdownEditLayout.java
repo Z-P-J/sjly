@@ -19,6 +19,8 @@ import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 
+import com.zpj.utils.KeyboardHeightProvider;
+
 import java.util.LinkedList;
 import java.util.List;
 
@@ -35,7 +37,7 @@ import me.shouheng.easymark.tools.Utils;
  * @author WngShhng (shouheng2015@gmail.com)
  * @version $Id: MarkdownEditLayout, v 0.1 2018/11/26 22:59 shouh Exp$
  */
-public class MarkdownEditLayout extends FrameLayout implements KeyboardHeightObserver {
+public class MarkdownEditLayout extends FrameLayout implements KeyboardHeightProvider.KeyboardHeightObserver {
 
     public static final int FORMAT_ID_LEFT = 0;
     public static final int FORMAT_ID_RIGHT = 1;
