@@ -18,7 +18,7 @@ import com.lxj.xpopup.XPopup;
 import com.lxj.xpopup.core.ImageViewerPopupView;
 import com.lxj.xpopup.interfaces.OnSrcViewUpdateListener;
 import com.zpj.shouji.market.R;
-import com.zpj.shouji.market.utils.ImageLoader;
+import com.zpj.shouji.market.utils.PopupImageLoader;
 import com.zpj.utils.ScreenUtil;
 
 import java.util.ArrayList;
@@ -99,7 +99,7 @@ public class ImgAdapter extends RecyclerView.Adapter<ImgAdapter.ViewHolder> {
                             }
                             popupView.updateSrcView(imageView);
                         }
-                    }, new ImageLoader())
+                    }, new PopupImageLoader())
                     .show();
         });
     }

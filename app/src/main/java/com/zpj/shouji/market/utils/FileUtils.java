@@ -13,12 +13,15 @@ import android.provider.MediaStore;
 import android.text.TextUtils;
 import android.util.Log;
 
+import java.io.BufferedInputStream;
 import java.io.ByteArrayOutputStream;
+import java.io.Closeable;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.nio.channels.FileChannel;
@@ -760,6 +763,52 @@ public class FileUtils {
         }
         if (preserveFileDate) {
             destFile.setLastModified(srcFile.lastModified());
+        }
+    }
+
+    public static final byte[] input2byte(InputStream inStream) {
+        if (inStream == null) {
+            return null;
+        } else {
+            byte[] in2b = null;
+            BufferedInputStream in = new BufferedInputStream(inStream);
+            ByteArrayOutputStream swapStream = new ByteArrayOutputStream();
+            boolean var4 = false;
+
+            try {
+                int rc;
+                while((rc = in.read()) != -1) {
+                    swapStream.write(rc);
+                }
+
+                in2b = swapStream.toByteArray();
+            } catch (IOException var9) {
+                var9.printStackTrace();
+            } finally {
+                closeIO(inStream, in, swapStream);
+            }
+
+            return in2b;
+        }
+    }
+
+    public static void closeIO(Closeable... closeables) {
+        if (closeables != null && closeables.length > 0) {
+            Closeable[] var4 = closeables;
+            int var3 = closeables.length;
+
+            for(int var2 = 0; var2 < var3; ++var2) {
+                Closeable cb = var4[var2];
+
+                try {
+                    if (cb != null) {
+                        cb.close();
+                    }
+                } catch (IOException var6) {
+                    throw new RuntimeException(FileUtils.class.getClass().getName(), var6);
+                }
+            }
+
         }
     }
 

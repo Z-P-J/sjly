@@ -1,5 +1,6 @@
 package com.zpj.utils;
 
+import android.app.Activity;
 import android.content.Context;
 import android.os.Handler;
 import android.os.IBinder;
@@ -87,6 +88,51 @@ public class KeyboardUtil {
     public static void showSoftInputKeyboard(Context context, View focusView) {
         InputMethodManager imm = (InputMethodManager) context.getSystemService(Context.INPUT_METHOD_SERVICE);
         imm.showSoftInput(focusView, InputMethodManager.SHOW_FORCED);
+    }
+
+    /**
+     * 隐藏软键盘
+     */
+    public void hideKeyboard(Context context) {
+        Activity activity = (Activity) context;
+        if (activity != null) {
+            InputMethodManager imm = (InputMethodManager) activity
+                    .getSystemService(Context.INPUT_METHOD_SERVICE);
+            if (imm.isActive() && activity.getCurrentFocus() != null) {
+                imm.hideSoftInputFromWindow(activity.getCurrentFocus()
+                        .getWindowToken(), 0);
+            }
+        }
+    }
+
+    /**
+     * 显示软键盘
+     */
+    public static void showKeyboard(Context context) {
+        Activity activity = (Activity) context;
+        if (activity != null) {
+            InputMethodManager imm = (InputMethodManager) activity
+                    .getSystemService(Context.INPUT_METHOD_SERVICE);
+            imm.showSoftInputFromInputMethod(activity.getCurrentFocus()
+                    .getWindowToken(), 0);
+            imm.toggleSoftInput(0, InputMethodManager.HIDE_NOT_ALWAYS);
+        }
+    }
+
+    public static void hideKeyBoard(Context context, View view) {
+        InputMethodManager imm = (InputMethodManager) context
+                .getSystemService(Context.INPUT_METHOD_SERVICE);
+        imm.hideSoftInputFromWindow(view.getWindowToken(), 0); // 强制隐藏键盘
+    }
+
+    public static void showKeyBoard(Context context, View view) {
+        view.setFocusable(true);
+        view.setFocusableInTouchMode(true);
+        view.requestFocus();
+        view.findFocus();
+        InputMethodManager imm = (InputMethodManager) context
+                .getSystemService(Context.INPUT_METHOD_SERVICE);
+        imm.toggleSoftInput(0, InputMethodManager.HIDE_NOT_ALWAYS);
     }
 
 }

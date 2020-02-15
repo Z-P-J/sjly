@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@android:color/white">
+
+    <com.rockerhieu.emojicon.EmojiconEditText
+        android:id="@+id/et_editor"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:background="@drawable/top_line_gray"
+        android:inputType="textMultiLine"
+        android:gravity="start"
+        android:maxHeight="180dp"
+        android:hint="写私信..."
+        android:maxLines="5"
+        android:padding="16dp"
+        android:textSize="16sp"/>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rv_img"
+        android:layout_width="match_parent"
+        android:layout_height="120dp"
+        android:orientation="horizontal"
+        android:paddingStart="16dp"
+        android:paddingEnd="16dp"
+        android:visibility="gone"
+        />
+
+    <RelativeLayout
+        android:id="@+id/rl_actions"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/top_line_gray"
+        android:orientation="horizontal"
+        android:padding="8dp"
+        >
+
+        <ImageView
+            android:id="@+id/iv_emoji"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_gravity="center_vertical"
+            android:background="@drawable/ic_insert_emoticon_black_24dp"
+            android:padding="6dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_alignParentStart="true"
+            />
+
+        <ImageView
+            android:id="@+id/iv_image"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_gravity="center_vertical"
+            android:background="@drawable/ic_image_black_24dp"
+            android:padding="6dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_toEndOf="@id/iv_emoji"
+            />
+
+        <ImageView
+            android:id="@+id/iv_app"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_gravity="center_vertical"
+            android:background="@drawable/ic_android_black_24dp"
+            android:padding="6dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_toEndOf="@id/iv_image"
+            />
+
+        <ImageView
+            android:id="@+id/iv_send"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_gravity="center_vertical"
+            android:background="@drawable/ic_send_black_24dp"
+            android:padding="6dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_alignParentEnd="true"
+            />
+
+    </RelativeLayout>
+
+    <com.lqr.emoji.EmotionLayout
+        android:id="@+id/el_emotion"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        />
+
+<!--    <RelativeLayout-->
+<!--        android:id="@+id/rl_emoji_panel"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:background="@color/white"-->
+<!--        android:visibility="gone"-->
+<!--        >-->
+
+<!--        -->
+
+<!--    </RelativeLayout>-->
+
+</LinearLayout>

@@ -136,7 +136,7 @@ public class RichEditorFragment extends BaseFragment
     }
 
     /**
-     * ImageLoader for insert Image
+     * PopupImageLoader for insert Image
      */
     private void initImageLoader() {
         ImagePicker imagePicker = ImagePicker.getInstance();

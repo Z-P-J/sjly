@@ -15,4 +15,5 @@ include ':app',
         ':lsettingviewlibrary',
         ':richeditor',
         ':richeditor2',
-        ':zmarkdown'
+        ':zmarkdown',
+        ':emojilib'

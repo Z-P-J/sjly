@@ -24,11 +24,11 @@ public class NineGridImageAdapter extends NineGridImageViewAdapter<String> {
     @Override
     protected void onDisplayImage(Context context, ImageView imageView, String s) {
         if (s.toLowerCase().endsWith(".gif")) {
-            Log.d("ImageLoader", "gif");
+            Log.d("PopupImageLoader", "gif");
             GlideApp.with(context).asGif().load(s)
                     .apply(new RequestOptions().centerCrop().placeholder(R.drawable.bga_pp_ic_holder_light).error(R.drawable.bga_pp_ic_holder_light).override(Target.SIZE_ORIGINAL)).into(imageView);
         } else {
-            Log.d("ImageLoader", "png");
+            Log.d("PopupImageLoader", "png");
             Glide.with(context).load(s).apply(new RequestOptions().centerCrop().placeholder(R.drawable.bga_pp_ic_holder_light).error(R.drawable.bga_pp_ic_holder_light).override(Target.SIZE_ORIGINAL).dontAnimate()).into(imageView);
         }
     }

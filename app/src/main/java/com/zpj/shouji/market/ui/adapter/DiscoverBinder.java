@@ -18,8 +18,8 @@ import com.zpj.recyclerview.EasyViewHolder;
 import com.zpj.recyclerview.IEasy;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.model.DiscoverInfo;
-import com.zpj.shouji.market.utils.ImageLoader;
-import com.zpj.shouji.market.ui.widget.BottomListPopupMenu;
+import com.zpj.shouji.market.utils.PopupImageLoader;
+import com.zpj.shouji.market.ui.widget.popup.BottomListPopupMenu;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -58,7 +58,7 @@ public class DiscoverBinder implements IEasy.OnBindViewHolderListener<DiscoverIn
                                 ImageView view = (ImageView) nineGridImageView.getChildAt(position);
                                 popupView.updateSrcView(view);
                             }
-                        }, new ImageLoader())
+                        }, new PopupImageLoader())
                         .show();
 
 //                ImageTrans.with(context)
