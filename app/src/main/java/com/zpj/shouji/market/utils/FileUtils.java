@@ -4,6 +4,7 @@ import android.content.ContentUris;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
+import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Environment;
@@ -809,6 +810,23 @@ public class FileUtils {
                 }
             }
 
+        }
+    }
+
+    public static boolean saveBitmap(Bitmap bm, String picName) {
+        try {
+            File f = new File(picName);
+            if (f.exists()) {
+                f.delete();
+            }
+            FileOutputStream out = new FileOutputStream(f);
+            bm.compress(Bitmap.CompressFormat.PNG, 100, out);
+            out.flush();
+            out.close();
+            return true;
+        } catch (IOException e) {
+            e.printStackTrace();
+            return false;
         }
     }
 

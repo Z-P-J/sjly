@@ -40,54 +40,28 @@ public class ChatMessageBean extends BaseModel {
     @Column
     private String imageLocal;
 
-    public static ChatMessageBean build(long id, String UserId, String UserName,
-                                        String UserHeadIcon, String UserContent, String time, int type,
-                                        int messagetype, float UserVoiceTime, String UserVoicePath,
-                                        String UserVoiceUrl, int sendState, String imageUrl,
-                                        String imageIconUrl, String imageLocal) {
-        ChatMessageBean bean = new ChatMessageBean();
-        bean.id = id;
-        bean.UserId = UserId;
-        bean.UserName = UserName;
-        bean.UserHeadIcon = UserHeadIcon;
-        bean.UserContent = UserContent;
-        bean.time = time;
-        bean.type = type;
-        bean.messagetype = messagetype;
-        bean.UserVoiceTime = UserVoiceTime;
-        bean.UserVoicePath = UserVoicePath;
-        bean.UserVoiceUrl = UserVoiceUrl;
-        bean.sendState = sendState;
-        bean.imageUrl = imageUrl;
-        bean.imageIconUrl = imageIconUrl;
-        bean.imageLocal = imageLocal;
-        return bean;
-    }
-
-//
-//    public ChatMessageBean(long id, String UserId, String UserName,
-//                           String UserHeadIcon, String UserContent, String time, int type,
-//                           int messagetype, float UserVoiceTime, String UserVoicePath,
-//                           String UserVoiceUrl, int sendState, String imageUrl,
-//                           String imageIconUrl, String imageLocal) {
-//        this.id = id;
-//        this.UserId = UserId;
-//        this.UserName = UserName;
-//        this.UserHeadIcon = UserHeadIcon;
-//        this.UserContent = UserContent;
-//        this.time = time;
-//        this.type = type;
-//        this.messagetype = messagetype;
-//        this.UserVoiceTime = UserVoiceTime;
-//        this.UserVoicePath = UserVoicePath;
-//        this.UserVoiceUrl = UserVoiceUrl;
-//        this.sendState = sendState;
-//        this.imageUrl = imageUrl;
-//        this.imageIconUrl = imageIconUrl;
-//        this.imageLocal = imageLocal;
-//    }
-//
-//    public ChatMessageBean() {
+//    public static ChatMessageBean build(long id, String UserId, String UserName,
+//                                        String UserHeadIcon, String UserContent, String time, int type,
+//                                        int messagetype, float UserVoiceTime, String UserVoicePath,
+//                                        String UserVoiceUrl, int sendState, String imageUrl,
+//                                        String imageIconUrl, String imageLocal) {
+//        ChatMessageBean bean = new ChatMessageBean();
+//        bean.id = id;
+//        bean.UserId = UserId;
+//        bean.UserName = UserName;
+//        bean.UserHeadIcon = UserHeadIcon;
+//        bean.UserContent = UserContent;
+//        bean.time = time;
+//        bean.type = type;
+//        bean.messagetype = messagetype;
+//        bean.UserVoiceTime = UserVoiceTime;
+//        bean.UserVoicePath = UserVoicePath;
+//        bean.UserVoiceUrl = UserVoiceUrl;
+//        bean.sendState = sendState;
+//        bean.imageUrl = imageUrl;
+//        bean.imageIconUrl = imageIconUrl;
+//        bean.imageLocal = imageLocal;
+//        return bean;
 //    }
 
     public long getId() {

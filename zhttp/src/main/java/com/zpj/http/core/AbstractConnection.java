@@ -6,6 +6,7 @@ import com.zpj.http.utils.UrlUtil;
 import com.zpj.http.utils.Validate;
 
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
@@ -23,13 +24,6 @@ import io.reactivex.ObservableEmitter;
 import io.reactivex.ObservableOnSubscribe;
 
 public abstract class AbstractConnection implements Connection {
-
-    //    protected IHttp.OnRedirectListener onRedirectListener;
-//    protected IHttp.OnSubscribeListener onSubscribeListener;
-//    protected IHttp.OnSuccessListener onSuccessListener;
-//    protected IHttp.OnErrorListener onErrorListener;
-//    protected IHttp.OnCompleteListener onCompleteListener;
-
 
     protected final Request req;
     protected Response res;
@@ -242,35 +236,40 @@ public abstract class AbstractConnection implements Connection {
         return res;
     }
 
-//    @Override
-//    public String toStr() throws IOException {
-//        res = execute();
-//        return res.body();
-//    }
-//
-//    @Override
-//    public Document toHtml() throws IOException {
-//        res = execute();
-//        return res.parse();
-//    }
-//
-//    @Override
-//    public JSONObject toJsonObject() throws IOException, JSONException {
-//        res = execute();
-//        return new JSONObject(res.body());
-//    }
-//
-//    @Override
-//    public JSONArray toJsonArray() throws IOException, JSONException {
-//        res = execute();
-//        return new JSONArray(res.body());
-//    }
-//
-//    @Override
-//    public Document toXml() throws IOException {
-//        res = execute();
-//        return res.parse();
-//    }
+    @Override
+    public Response syncExecute() throws IOException {
+        return onExecute();
+    }
+
+    @Override
+    public String syncToStr() throws IOException {
+        res = onExecute();
+        return res.body();
+    }
+
+    @Override
+    public Document syncToHtml() throws IOException {
+        res = onExecute();
+        return res.parse();
+    }
+
+    @Override
+    public JSONObject syncToJsonObject() throws IOException, JSONException {
+        res = onExecute();
+        return new JSONObject(res.body());
+    }
+
+    @Override
+    public JSONArray syncToJsonArray() throws IOException, JSONException {
+        res = onExecute();
+        return new JSONArray(res.body());
+    }
+
+    @Override
+    public Document syncToXml() throws IOException {
+        res = onExecute();
+        return res.parse();
+    }
 
 
     @Override

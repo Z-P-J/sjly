@@ -26,11 +26,11 @@ public class ObservableTask<T> {
     private IHttp.OnCompleteListener onCompleteListener;
 
     public interface OnFlatMapListener<T, R> {
-        void onNext(T data, ObservableEmitter<R> emitter);
+        void onNext(T data, ObservableEmitter<R> emitter) throws Exception;
     }
 
     public interface OnNextListener<T, R> {
-        ObservableTask<R> onNext(T data);
+        ObservableTask<R> onNext(T data) throws Exception;
     }
 
     public ObservableTask(final ObservableOnSubscribe<T> observableOnSubscribe) {

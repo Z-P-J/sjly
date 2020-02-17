@@ -1,4 +1,4 @@
-package com.zpj.shouji.market.ui.fragment.chat;
+package com.zpj.shouji.market.ui.adapter;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -24,9 +24,9 @@ import com.felix.atoast.library.AToast;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.glide.CustomShapeTransformation;
 import com.zpj.shouji.market.model.ChatMessageBean;
+import com.zpj.shouji.market.ui.fragment.chat.ChatConst;
 import com.zpj.shouji.market.ui.widget.BubbleImageView;
 import com.zpj.shouji.market.ui.widget.GifTextView;
-import com.zpj.shouji.market.utils.FileSaveUtil;
 
 import java.io.BufferedInputStream;
 import java.io.ByteArrayOutputStream;
@@ -279,7 +279,7 @@ public class ChatRecyclerAdapter extends
                 : tbub.getImageIconUrl();
         File file = new File(imageSrc);
         final boolean hasLocal = !imageSrc.equals("")
-                && FileSaveUtil.isFileExists(file);
+                && file.exists();
         int res;
         res = R.drawable.chatfrom_bg_focused;
 //        Glide.with(context).load(imageSrc).transform(new CustomShapeTransformation(context, res)).into(holder.image_Msg);
@@ -391,7 +391,7 @@ public class ChatRecyclerAdapter extends
                 : tbub.getImageIconUrl();
         File file = new File(imageSrc);
         final boolean hasLocal = !imageSrc.equals("")
-                && FileSaveUtil.isFileExists(file);
+                && file.exists();
         int res;
         res = R.drawable.chatto_bg_focused;
 //        Glide.with(context).load(imageSrc).transform(new CustomShapeTransformation(context, res)).into(holder.image_Msg);

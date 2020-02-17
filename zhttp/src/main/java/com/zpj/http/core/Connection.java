@@ -6,6 +6,7 @@ import com.zpj.http.parser.html.Parser;
 import com.zpj.http.parser.html.nodes.Document;
 
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.BufferedInputStream;
@@ -337,26 +338,26 @@ public interface Connection {
 
 //    OutputStream outputStream() throws IOException;
 
-//    /**
-//     * Execute the request.
-//     * @return a response object
-//     * @throws java.net.MalformedURLException if the request URL is not a HTTP or HTTPS URL, or is otherwise malformed
-//     * @throws HttpStatusException if the response is not OK and HTTP response errors are not ignored
-//     * @throws UnsupportedMimeTypeException if the response mime type is not supported and those errors are not ignored
-//     * @throws java.net.SocketTimeoutException if the connection times out
-//     * @throws IOException on error
-//     */
-//    Response execute() throws IOException;
+    /**
+     * Execute the request.
+     * @return a response object
+     * @throws java.net.MalformedURLException if the request URL is not a HTTP or HTTPS URL, or is otherwise malformed
+     * @throws HttpStatusException if the response is not OK and HTTP response errors are not ignored
+     * @throws UnsupportedMimeTypeException if the response mime type is not supported and those errors are not ignored
+     * @throws java.net.SocketTimeoutException if the connection times out
+     * @throws IOException on error
+     */
+    Response syncExecute() throws IOException;
 
-//    String toStr() throws IOException;
-//
-//    Document toHtml() throws IOException;
-//
-//    JSONObject toJsonObject() throws IOException, JSONException;
-//
-//    JSONArray toJsonArray() throws IOException, JSONException;
-//
-//    Document toXml() throws IOException;
+    String syncToStr() throws IOException;
+
+    Document syncToHtml() throws IOException;
+
+    JSONObject syncToJsonObject() throws IOException, JSONException;
+
+    JSONArray syncToJsonArray() throws IOException, JSONException;
+
+    Document syncToXml() throws IOException;
 
     ObservableTask<Response> execute();
 
