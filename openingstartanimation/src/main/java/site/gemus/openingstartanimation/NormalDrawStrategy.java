@@ -28,8 +28,9 @@ public class NormalDrawStrategy implements DrawStrategy {
         int height = widthAndHeightOfView.getHeight();
         Paint paint = new Paint();
         paint.setColor(colorOfAppName);
+        paint.setFakeBoldText(true);
         paint.setTextAlign(Paint.Align.CENTER);
-        paint.setTextSize(50);
+        paint.setTextSize(58);
         canvas.drawText(name, width / 2, height / 2 + 50, paint);
         canvas.restore();
     }
@@ -77,8 +78,9 @@ public class NormalDrawStrategy implements DrawStrategy {
         Paint paint = new Paint(Paint.ANTI_ALIAS_FLAG);
         paint.setColor(colorOfStatement);
         paint.setStyle(Paint.Style.STROKE);
-        paint.setTextSize(45);
+        paint.setTextSize(48);
         paint.setTextSkewX(-0.2f);
+        paint.setFakeBoldText(true);
         paint.setTextAlign(Paint.Align.CENTER);
         RectF rectF = new RectF(width / 4 - statement.length(), height * 7 / 8,
                 width * 3, height);

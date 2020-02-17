@@ -17,42 +17,19 @@
         android:networkSecurityConfig="@xml/network_security_config"
         android:theme="@style/AppTheme">
 
-<!--        <meta-data-->
-<!--            android:name="com.zpj.sjly.utils.ApkIconGlideModule"-->
-<!--            android:value="GlideModule"/>-->
-
-<!--        <activity android:name=".ui.activity.AppManagerActivity">-->
-
-
-<!--        </activity>-->
         <activity
-            android:name="com.zpj.shouji.market.ui.activity.SplashActivity"
-            android:theme="@style/SplashTheme">
+            android:name="com.zpj.shouji.market.ui.activity.MainActivity"
+            android:theme="@style/MainActivityTheme"
+            >
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <action android:name="android.intent.action.VIEW" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity>
-
-        <activity
-            android:name="com.zpj.shouji.market.ui.activity.MainActivity"
-            android:theme="@style/AppThemeTransparent">
 
         </activity>
-
-<!--        <activity-->
-<!--            android:name=".ui.activity.DetailActivity"-->
-<!--            android:theme="@style/AppThemeTransparent">-->
-
-<!--        </activity>-->
-
-<!--        <activity-->
-<!--            android:name=".ui.activity.ProfileActivity"-->
-<!--            android:theme="@style/AppThemeTransparent">-->
-
-<!--        </activity>-->
 
         <receiver android:name="com.zpj.shouji.market.receiver.AppReceiver"
             android:label="@string/app_name">
