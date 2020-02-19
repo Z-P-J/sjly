@@ -30,13 +30,13 @@ import com.zpj.recyclerview.loadmore.LoadMoreWrapper;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.model.InstalledAppInfo;
 import com.zpj.shouji.market.ui.adapter.AppManagerAdapter;
-import com.zpj.shouji.market.ui.fragment.base.BaseFragment;
+import com.zpj.fragmentation.BaseFragment;
 import com.zpj.shouji.market.ui.fragment.detail.AppDetailFragment;
 import com.zpj.shouji.market.ui.widget.GradientButton;
 import com.zpj.shouji.market.ui.widget.popup.RecyclerPopup;
 import com.zpj.shouji.market.utils.AppBackupHelper;
+import com.zpj.shouji.market.utils.AppInstalledManager;
 import com.zpj.shouji.market.utils.AppUtil;
-import com.zpj.shouji.market.utils.LoadAppTask;
 import com.zpj.utils.ScreenUtil;
 
 import java.util.ArrayList;
@@ -46,7 +46,7 @@ import cn.refactor.library.SmoothCheckBox;
 import me.yokeyword.fragmentation.SupportActivity;
 
 public class InstalledFragment extends BaseFragment implements AppManagerAdapter.OnItemClickListener,
-        LoadAppTask.CallBack,
+        AppInstalledManager.CallBack,
         AppBackupHelper.AppBackupListener {
 
     private static final List<OptionMenu> optionMenus = new ArrayList<>();
@@ -58,7 +58,7 @@ public class InstalledFragment extends BaseFragment implements AppManagerAdapter
         optionMenus.add(new OptionMenu("打开"));
     }
 
-    private LoadAppTask loadAppTask;
+//    private LoadAppTask loadAppTask;
 
     private final List<InstalledAppInfo> installedAppInfos = new ArrayList<>();
     private static final List<InstalledAppInfo> USER_APP_LIST = new ArrayList<>();
@@ -163,9 +163,13 @@ public class InstalledFragment extends BaseFragment implements AppManagerAdapter
         BACKUP_APP_LIST.clear();
         FORBID_APP_LIST.clear();
         HIDDEN_APP_LIST.clear();
-        loadAppTask = LoadAppTask.with(this)
-                .setCallBack(this);
-        loadAppTask.execute();
+//        loadAppTask = LoadAppTask.with(this)
+//                .setCallBack(this);
+//        loadAppTask.execute();
+        AppInstalledManager.getInstance()
+                .addListener(this)
+                .loadApps(context);
+
     }
 
     private void showFilterPopWindow() {
@@ -270,9 +274,10 @@ public class InstalledFragment extends BaseFragment implements AppManagerAdapter
     @Override
     public void onDestroy() {
         AppBackupHelper.getInstance().removeAppBackupListener(this);
-        if (loadAppTask != null) {
-            loadAppTask.onDestroy();
-        }
+//        if (loadAppTask != null) {
+//            loadAppTask.onDestroy();
+//        }
+        AppInstalledManager.getInstance().removeListener(this);
         super.onDestroy();
     }
 

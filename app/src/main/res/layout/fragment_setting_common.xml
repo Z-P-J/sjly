@@ -11,7 +11,7 @@
 
     <include layout="@layout/layout_header"/>
 
-    <com.zpj.dialog.view.ElasticScrollView
+    <com.zpj.widget.ElasticScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:scrollbars="none"
@@ -183,7 +183,7 @@
         </LinearLayout>
 
 
-    </com.zpj.dialog.view.ElasticScrollView>
+    </com.zpj.widget.ElasticScrollView>
 
 
 

@@ -23,7 +23,7 @@ import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.model.InstalledAppInfo;
 import com.zpj.shouji.market.model.XpkInfo;
 import com.zpj.shouji.market.ui.adapter.AppManagerAdapter;
-import com.zpj.shouji.market.ui.fragment.base.BaseFragment;
+import com.zpj.fragmentation.BaseFragment;
 import com.zpj.shouji.market.ui.widget.popup.RecyclerPopup;
 import com.zpj.shouji.market.utils.AppUpdateHelper;
 import com.zpj.shouji.market.utils.AppUtil;

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <declare-styleable name="SmoothCheckBox">
+        <attr name="duration" format="integer" />
+        <attr name="stroke_width" format="dimension" />
+        <attr name="color_tick" format="color" />
+        <attr name="color_checked" format="color" />
+        <attr name="color_unchecked" format="color" />
+        <attr name="color_unchecked_stroke" format="color" />
+    </declare-styleable>
+
+    <declare-styleable name="MultipleStatusView">
+        <attr name="loadingView" format="reference" />
+        <attr name="errorView" format="reference" />
+        <attr name="emptyView" format="reference" />
+        <attr name="noNetworkView" format="reference" />
+        <attr name="contentView" format="reference" />
+    </declare-styleable>
+
+    <declare-styleable name="LoadingView">
+        <attr name="loadingText" format="string|reference"/>
+        <attr name="loadingTextAppearance" format="reference"/>
+        <attr name="delay" format="integer|reference"/>
+    </declare-styleable>
+
+</resources>

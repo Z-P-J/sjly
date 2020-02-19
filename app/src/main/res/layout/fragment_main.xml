@@ -39,11 +39,4 @@
         app:maxImageSize="42dp"
         />
 
-    <com.zpj.shouji.market.ui.widget.AddLayout
-        android:id="@+id/layout_add"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:visibility="gone"
-        />
-
 </RelativeLayout>

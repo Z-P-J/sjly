@@ -42,7 +42,7 @@
         app:cardBackgroundColor="@android:color/white"
         >
 
-        <com.zpj.dialog.view.ElasticScrollView
+        <com.zpj.widget.ElasticScrollView
             android:id="@+id/scroll_view"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -56,7 +56,7 @@
                 android:orientation="vertical"
                 />
 
-        </com.zpj.dialog.view.ElasticScrollView>
+        </com.zpj.widget.ElasticScrollView>
 
     </www.linwg.org.lib.LCardView>
 

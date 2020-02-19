@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- created by lianyuchen on 2015/12/29 -->
+    <!-- 边框颜色值 -->
+    <!--<item>-->
+        <!--<shape>-->
+            <!--<solid android:color="#80c8cacc" />-->
+            <!--<corners android:radius="5dp" />-->
+        <!--</shape>-->
+    <!--</item>-->
+    <!-- 主体背景颜色值 -->
+    <!--android:bottom="0dp"-->
+    <!--android:left="0dp"-->
+    <!--android:right="0dp"-->
+    <!--android:top="0.5dp"-->
+    <item>
+        <shape>
+            <solid android:color="#40d4d6d9" />
+            <corners android:radius="5dp" />
+        </shape>
+    </item>
+</layer-list>

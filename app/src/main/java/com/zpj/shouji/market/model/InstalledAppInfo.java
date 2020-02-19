@@ -26,7 +26,9 @@ public class InstalledAppInfo implements FileScanner.FileItem {
     private boolean isTempXPK;
     private boolean isTempInstalled;
 
-    private Drawable iconDrawable;
+    private boolean enabled = true;
+    private boolean isBackuped = false;
+    private boolean isUserApp = true;
 
     @Override
     public String getFilePath() {
@@ -155,11 +157,27 @@ public class InstalledAppInfo implements FileScanner.FileItem {
         isTempInstalled = tempInstalled;
     }
 
-    public void setIconDrawable(Drawable iconDrawable) {
-        this.iconDrawable = iconDrawable;
+    public void setEnabled(boolean enabled) {
+        this.enabled = enabled;
     }
 
-    public Drawable getIconDrawable() {
-        return iconDrawable;
+    public boolean isEnabled() {
+        return enabled;
+    }
+
+    public void setBackuped(boolean backuped) {
+        isBackuped = backuped;
+    }
+
+    public boolean isBackuped() {
+        return isBackuped;
+    }
+
+    public void setUserApp(boolean userApp) {
+        isUserApp = userApp;
+    }
+
+    public boolean isUserApp() {
+        return isUserApp;
     }
 }

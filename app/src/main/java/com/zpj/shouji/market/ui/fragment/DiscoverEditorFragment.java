@@ -12,7 +12,7 @@ import com.felix.atoast.library.AToast;
 import com.zpj.dialog.ZAlertDialog;
 import com.zpj.popupmenuview.popup.EverywherePopup;
 import com.zpj.shouji.market.R;
-import com.zpj.shouji.market.ui.fragment.base.BaseFragment;
+import com.zpj.fragmentation.BaseFragment;
 import com.zpj.utils.KeyboardRepairer;
 
 import me.jingbin.richeditor.bottomlayout.LuBottomMenu;

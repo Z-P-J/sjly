@@ -18,7 +18,7 @@ import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.model.AppUpdateInfo;
 import com.zpj.shouji.market.ui.adapter.AppUpdateAdapter;
 import com.zpj.shouji.market.ui.fragment.detail.AppDetailFragment;
-import com.zpj.shouji.market.ui.fragment.base.BaseFragment;
+import com.zpj.fragmentation.BaseFragment;
 import com.zpj.shouji.market.utils.AppUpdateHelper;
 import com.zpj.shouji.market.utils.AppUtil;
 

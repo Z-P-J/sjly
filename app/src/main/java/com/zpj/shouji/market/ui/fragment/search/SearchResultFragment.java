@@ -14,7 +14,7 @@ import com.zpj.shouji.market.ui.fragment.AppListFragment;
 import com.zpj.shouji.market.ui.fragment.collection.CollectionListFragment;
 import com.zpj.shouji.market.ui.fragment.theme.ThemeListFragment;
 import com.zpj.shouji.market.ui.fragment.UserListFragment;
-import com.zpj.shouji.market.ui.fragment.base.BaseFragment;
+import com.zpj.fragmentation.BaseFragment;
 import com.zpj.shouji.market.ui.widget.DotPagerIndicator;
 
 import net.lucode.hackware.magicindicator.MagicIndicator;

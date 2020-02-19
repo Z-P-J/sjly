@@ -17,7 +17,7 @@ import com.just.agentweb.AgentWeb;
 import com.just.agentweb.IAgentWebSettings;
 import com.zpj.popupmenuview.popup.EverywherePopup;
 import com.zpj.shouji.market.R;
-import com.zpj.shouji.market.ui.fragment.base.BaseFragment;
+import com.zpj.fragmentation.BaseFragment;
 
 public class WebFragment extends BaseFragment {
 

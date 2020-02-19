@@ -40,7 +40,7 @@ import com.lzy.imagepicker.ui.ImageGridActivity;
 import com.lzy.imagepicker.view.CropImageView;
 import com.zpj.dialog.ZAlertDialog;
 import com.zpj.shouji.market.R;
-import com.zpj.shouji.market.ui.fragment.base.BaseFragment;
+import com.zpj.fragmentation.BaseFragment;
 
 import java.util.ArrayList;
 import java.util.Arrays;

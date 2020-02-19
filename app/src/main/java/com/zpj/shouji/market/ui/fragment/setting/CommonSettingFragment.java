@@ -6,7 +6,6 @@ import android.view.View;
 
 import com.leon.lib.settingview.LSettingItem;
 import com.zpj.shouji.market.R;
-import com.zpj.shouji.market.ui.fragment.base.BaseFragment;
 
 public class CommonSettingFragment extends BaseSettingFragment {
 

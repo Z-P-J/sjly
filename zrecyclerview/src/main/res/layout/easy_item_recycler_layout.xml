@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="?android:attr/selectableItemBackground">
+
+    <FrameLayout
+        android:id="@+id/container"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_toStartOf="@id/easy_recycler_layout_check_box_container"
+        android:layout_centerVertical="true"
+        >
+
+
+    </FrameLayout>
+
+    <RelativeLayout
+        android:id="@+id/easy_recycler_layout_check_box_container"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:padding="10dp"
+        android:visibility="visible"
+        android:layout_alignParentEnd="true"
+        android:layout_centerVertical="true"
+        >
+
+        <com.zpj.widget.SmoothCheckBox
+            android:id="@+id/easy_recycler_layout_check_box"
+            app:color_checked="#4285f4"
+            android:layout_width="16dp"
+            android:layout_height="16dp"
+            android:layout_centerInParent="true"
+            />
+
+    </RelativeLayout>
+
+
+
+</RelativeLayout>

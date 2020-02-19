@@ -22,7 +22,7 @@ import com.zpj.http.parser.html.nodes.Element;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.ui.adapter.FragmentsPagerAdapter;
 import com.zpj.shouji.market.ui.behavior.AppBarLayoutOverScrollViewBehavior;
-import com.zpj.shouji.market.ui.fragment.base.BaseFragment;
+import com.zpj.fragmentation.BaseFragment;
 import com.zpj.shouji.market.ui.fragment.theme.ThemeListFragment;
 import com.zpj.shouji.market.ui.widget.ZViewPager;
 import com.zpj.shouji.market.ui.widget.CircleImageView;

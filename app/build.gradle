@@ -37,24 +37,17 @@ dependencies {
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
 
-    implementation project(':titlebar')
-    implementation project(':zdownloader')
+    implementation project(':zbase')
+    implementation project(":zdownloader")
     implementation project(':smoothcheckbox')
-    implementation project(':atoast')
-    implementation project(':fragmentation')
-    implementation project(':fragmentation_core')
-    implementation project(':fragmentation_swipeback')
-    implementation project(':zdialog')
     implementation project(':switchbutton')
-    implementation project(':zhttp')
-    implementation project(':zpopup')
     implementation project(':glidegifdecoder')
     implementation project(':openingstartanimation')
-    implementation project(':lsettingviewlibrary')
     implementation project(':richeditor')
     implementation project(':richeditor2')
     implementation project(':zmarkdown')
     implementation project(':emojilib')
+    implementation project(':matisse')
 
 
 
@@ -66,7 +59,7 @@ dependencies {
     implementation 'com.wx.goodview:goodview:1.0.0'
     implementation 'com.sunbq:iconcountview:1.0.1'
     implementation 'com.github.pinguo-zhouwei:MZBannerView:v2.0.2'
-    implementation 'org.linwg1988:lcardview:1.5.2'
+//    implementation 'org.linwg1988:lcardview:1.5.2'
     implementation 'com.jaeger.ninegridimageview:library:1.1.1'
 //    implementation 'com.ycjiang:ImagePreview:2.3.0'
     implementation 'com.kongzue.stacklabel:stacklabelview:1.1.9'

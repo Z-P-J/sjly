@@ -10,7 +10,7 @@ import android.view.View;
 import com.wuhenzhizao.titlebar.widget.CommonTitleBar;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.ui.adapter.FragmentsPagerAdapter;
-import com.zpj.shouji.market.ui.fragment.base.BaseFragment;
+import com.zpj.fragmentation.BaseFragment;
 import com.zpj.shouji.market.ui.widget.DotPagerIndicator;
 import com.zpj.shouji.market.ui.widget.ScaleTransitionPagerTitleView;
 

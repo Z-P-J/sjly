@@ -31,7 +31,7 @@
 //import com.zpj.shouji.market.model.article.ArticleInfo;
 //import com.zpj.shouji.market.model.CollectionInfo;
 //import com.zpj.shouji.market.ui.fragment.ArticleDetailFragment;
-//import com.zpj.shouji.market.ui.fragment.base.BaseFragment;
+//import com.zpj.fragmentation.BaseFragment;
 //import com.zpj.shouji.market.ui.fragment.collection.CollectionDetailFragment;
 //import com.zpj.shouji.market.ui.fragment.detail.AppDetailFragment;
 //import com.zpj.shouji.market.utils.ExecutorHelper;

@@ -12,7 +12,7 @@ import android.widget.TextView;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.model.AppDetailInfo;
 import com.zpj.shouji.market.ui.adapter.ImgAdapter;
-import com.zpj.shouji.market.ui.fragment.base.BaseFragment;
+import com.zpj.fragmentation.BaseFragment;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;

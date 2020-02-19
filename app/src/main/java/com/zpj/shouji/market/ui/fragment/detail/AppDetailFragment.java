@@ -19,7 +19,7 @@ import com.zpj.shouji.market.model.CollectionAppInfo;
 import com.zpj.shouji.market.model.InstalledAppInfo;
 import com.zpj.shouji.market.model.UserDownloadedAppInfo;
 import com.zpj.shouji.market.ui.adapter.FragmentsPagerAdapter;
-import com.zpj.shouji.market.ui.fragment.base.BaseFragment;
+import com.zpj.fragmentation.BaseFragment;
 import com.zpj.shouji.market.utils.HttpApi;
 import com.zpj.utils.ScreenUtil;
 

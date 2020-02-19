@@ -13,7 +13,7 @@ import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.model.DiscoverInfo;
 import com.zpj.shouji.market.ui.adapter.DiscoverBinder;
 import com.zpj.shouji.market.ui.adapter.FragmentsPagerAdapter;
-import com.zpj.shouji.market.ui.fragment.base.BaseFragment;
+import com.zpj.fragmentation.BaseFragment;
 import com.zpj.utils.ClickHelper;
 import com.zpj.utils.ScreenUtil;
 

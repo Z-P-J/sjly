@@ -26,7 +26,7 @@ import com.zpj.shouji.market.model.AppInfo;
 import com.zpj.shouji.market.model.CollectionInfo;
 import com.zpj.shouji.market.glide.blur.BlurTransformation;
 import com.zpj.shouji.market.model.GroupItem;
-import com.zpj.shouji.market.ui.fragment.base.BaseFragment;
+import com.zpj.fragmentation.BaseFragment;
 import com.zpj.shouji.market.ui.fragment.collection.CollectionDetailFragment;
 import com.zpj.shouji.market.utils.HttpApi;
 

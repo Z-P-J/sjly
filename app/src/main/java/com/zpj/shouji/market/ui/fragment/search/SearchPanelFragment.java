@@ -10,7 +10,7 @@ import com.zpj.http.parser.html.nodes.Element;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.database.SearchHistoryManager;
 import com.zpj.shouji.market.model.SearchHistory;
-import com.zpj.shouji.market.ui.fragment.base.BaseFragment;
+import com.zpj.fragmentation.BaseFragment;
 import com.zpj.shouji.market.utils.HttpApi;
 
 import org.greenrobot.eventbus.EventBus;

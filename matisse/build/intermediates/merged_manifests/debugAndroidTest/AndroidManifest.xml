@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.lxj.matisse.test" >
+
+    <uses-sdk
+        android:minSdkVersion="19"
+        android:targetSdkVersion="28" />
+
+    <instrumentation
+        android:name="android.test.InstrumentationTestRunner"
+        android:functionalTest="false"
+        android:handleProfiling="false"
+        android:label="Tests for com.lxj.matisse.test"
+        android:targetPackage="com.lxj.matisse.test" />
+
+    <uses-permission android:name="android.permission.FLASHLIGHT" />
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.WRITE_SETTINGS" />
+
+    <uses-feature android:name="android.hardware.camera" />
+    <uses-feature android:name="android.hardware.camera.autofocus" />
+
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+
+    <application
+        android:allowBackup="true"
+        android:appComponentFactory="android.support.v4.app.CoreComponentFactory"
+        android:debuggable="true"
+        android:label="@string/app_name"
+        android:supportsRtl="true" >
+        <uses-library android:name="android.test.runner" />
+
+        <meta-data
+            android:name="android.notch_support"
+            android:value="true" />
+        <meta-data
+            android:name="android.max_aspect"
+            android:value="2.4" />
+
+        <activity android:name="com.lxj.matisse.ui.MatisseActivity" />
+        <activity android:name="com.lxj.matisse.internal.ui.AlbumPreviewActivity" />
+        <activity android:name="com.lxj.matisse.internal.ui.SelectedPreviewActivity" />
+        <activity
+            android:name="com.yalantis.ucrop.UCropActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+        <activity android:name="com.lxj.matisse.ui.CameraActivity" /> <!-- <meta-data android:name="android.max_aspect" android:value="2.4" /> -->
+        <!-- PermissonActivity -->
+        <activity
+            android:name="com.lxj.xpermission.XPermission$PermissionActivity"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+    </application>
+
+</manifest>

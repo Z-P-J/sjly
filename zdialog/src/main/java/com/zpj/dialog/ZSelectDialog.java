@@ -9,7 +9,7 @@ import com.zpj.recyclerview.EasyViewHolder;
 import com.zpj.recyclerview.IEasy;
 import com.zpj.utils.ClickHelper;
 import com.zpj.dialog.base.IDialog;
-import com.zpj.dialog.view.SmoothCheckBox;
+import com.zpj.widget.SmoothCheckBox;
 
 import java.util.ArrayList;
 import java.util.List;

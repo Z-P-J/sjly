@@ -53,7 +53,7 @@
 
     </LinearLayout>
 
-    <com.zpj.dialog.view.SmoothCheckBox
+    <com.zpj.widget.SmoothCheckBox
         android:id="@+id/check_box"
         app:color_checked="#4285f4"
         android:layout_width="20dp"

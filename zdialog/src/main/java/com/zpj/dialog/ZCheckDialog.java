@@ -7,7 +7,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.zpj.dialog.base.IDialog;
-import com.zpj.dialog.view.SmoothCheckBox;
+import com.zpj.widget.SmoothCheckBox;
 
 /**
  * @author Z-P-J

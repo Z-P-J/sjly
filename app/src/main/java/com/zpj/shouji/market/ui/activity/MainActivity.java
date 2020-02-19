@@ -12,6 +12,7 @@ import com.felix.atoast.library.AToast;
 import com.wuhenzhizao.titlebar.statusbar.StatusBarUtils;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.ui.fragment.MainFragment;
+import com.zpj.shouji.market.utils.AppInstalledManager;
 import com.zpj.shouji.market.utils.AppUpdateHelper;
 
 import me.yokeyword.fragmentation.SupportActivity;
@@ -57,6 +58,7 @@ public class MainActivity extends SupportActivity {
             mainFragment = new MainFragment();
             loadRootFragment(R.id.content, mainFragment);
         }
+        AppInstalledManager.getInstance().loadApps(this);
     }
 
     @Override

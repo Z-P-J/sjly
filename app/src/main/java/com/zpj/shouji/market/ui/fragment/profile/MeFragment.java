@@ -9,17 +9,15 @@ import android.widget.TextView;
 
 import com.felix.atoast.library.AToast;
 import com.zpj.dialog.ZAlertDialog;
-import com.zpj.dialog.base.IDialog;
 import com.zpj.popupmenuview.popup.EverywherePopup;
 import com.zpj.shouji.market.R;
-import com.zpj.shouji.market.ui.fragment.base.BaseFragment;
+import com.zpj.fragmentation.BaseFragment;
 import com.zpj.shouji.market.ui.fragment.setting.AboutSettingFragment;
 import com.zpj.shouji.market.ui.fragment.setting.CommonSettingFragment;
 import com.zpj.shouji.market.ui.fragment.setting.DownloadSettingFragment;
 import com.zpj.shouji.market.ui.fragment.setting.InstallSettingFragment;
 import com.zpj.shouji.market.ui.widget.CircleImageView;
 import com.zpj.shouji.market.ui.widget.PullZoomView;
-import com.zpj.shouji.market.utils.UserManager;
 import com.zpj.utils.ClickHelper;
 
 public class MeFragment extends BaseFragment implements View.OnClickListener {

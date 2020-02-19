@@ -13,7 +13,7 @@ import com.zpj.shouji.market.database.ChatManager;
 import com.zpj.shouji.market.model.ChatMessageBean;
 import com.zpj.shouji.market.ui.adapter.ChatRecyclerAdapter;
 import com.zpj.shouji.market.ui.animator.SlideInOutBottomItemAnimator;
-import com.zpj.shouji.market.ui.fragment.base.BaseFragment;
+import com.zpj.fragmentation.BaseFragment;
 import com.zpj.shouji.market.ui.widget.ChatPanel;
 import com.zpj.shouji.market.ui.widget.WrapContentLinearLayoutManager;
 import com.zpj.utils.KeyboardHeightProvider;

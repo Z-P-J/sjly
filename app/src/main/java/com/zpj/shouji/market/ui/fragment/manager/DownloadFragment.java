@@ -22,7 +22,7 @@ import com.zpj.downloader.core.DownloadManager;
 import com.zpj.downloader.core.DownloadMission;
 import com.zpj.downloader.util.FileUtil;
 import com.zpj.shouji.market.R;
-import com.zpj.shouji.market.ui.fragment.base.BaseFragment;
+import com.zpj.fragmentation.BaseFragment;
 import com.zpj.shouji.market.utils.HttpApi;
 
 import java.text.SimpleDateFormat;

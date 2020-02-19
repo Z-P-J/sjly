@@ -44,8 +44,5 @@ dependencies {
 
     testImplementation 'junit:junit:4.12'
 
-    implementation project(':fragmentation')
-    implementation project(':fragmentation_core')
-    implementation project(':fragmentation_swipeback')
-    implementation project(':zdialog')
+    implementation project(':zbase')
 }
