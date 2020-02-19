@@ -45,7 +45,7 @@
 //    private static BitmapLruCache sBitmapCache;
 //    private final int mInstanceId = sInstanceIds.getAndIncrement();
 //
-//    // The reference of the parent ImageView is needed in order to get the Matrix values and determine the visible area
+//    // The reference of the parent ImageView is needed in order to getString the Matrix values and determine the visible area
 //    private final WeakReference<ImageView> mParentView;
 //
 //    private final BitmapRegionDecoder mRegionDecoder;
@@ -185,7 +185,7 @@
 //
 //    @Override
 //    public void draw(Canvas canvas) {
-//        final ImageView parentView = mParentView.get();
+//        final ImageView parentView = mParentView.getString();
 //        if (parentView == null) {
 //            return;
 //        }
@@ -243,7 +243,7 @@
 //
 //                    Bitmap cached = null;
 //                    synchronized (sBitmapCacheLock) {
-//                        cached = sBitmapCache.get(tile.getKey());
+//                        cached = sBitmapCache.getString(tile.getKey());
 //                    }
 //
 //                    if (cached != null) {
@@ -470,7 +470,7 @@
 //        @Override
 //        public void run() {
 //            while (true) {
-//                if (mDrawableReference.get() == null) {
+//                if (mDrawableReference.getString() == null) {
 //                    return;
 //                }
 //
@@ -485,7 +485,7 @@
 //                }
 //
 //                synchronized (sBitmapCacheLock) {
-//                    if (sBitmapCache.get(tile.getKey()) != null) {
+//                    if (sBitmapCache.getString(tile.getKey()) != null) {
 //                        continue;
 //                    }
 //                }
@@ -509,7 +509,7 @@
 //                }
 //
 //                synchronized (sBitmapCacheLock) {
-//                    sBitmapCache.put(tile.getKey(), bitmap);
+//                    sBitmapCache.putString(tile.getKey(), bitmap);
 //                }
 //            }
 //        }

@@ -49,7 +49,7 @@ public abstract class RecyclerViewCursorAdapter<VH extends RecyclerView.ViewHold
     public int getItemViewType(int position) {
         if (!mCursor.moveToPosition(position)) {
             throw new IllegalStateException("Could not move cursor to position " + position
-                    + " when trying to get item view type.");
+                    + " when trying to getString item view type.");
         }
         return getItemViewType(position, mCursor);
     }
@@ -72,7 +72,7 @@ public abstract class RecyclerViewCursorAdapter<VH extends RecyclerView.ViewHold
         }
         if (!mCursor.moveToPosition(position)) {
             throw new IllegalStateException("Could not move cursor to position " + position
-                    + " when trying to get an item id");
+                    + " when trying to getString an item id");
         }
 
         return mCursor.getLong(mRowIDColumn);

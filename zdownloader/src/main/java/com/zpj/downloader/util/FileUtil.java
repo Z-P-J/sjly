@@ -163,7 +163,7 @@ public class FileUtil {
     }
 
     /**
-     * Get a file path from a Uri. This will get the the path for Storage Access
+     * Get a file path from a Uri. This will getString the the path for Storage Access
      * Framework Documents, as well as the _data field for the MediaStore and
      * other file-based ContentProviders.
      *
@@ -325,7 +325,7 @@ public class FileUtil {
 
     public static String getCRC32(File file) {
         CRC32 crc32 = new CRC32();
-        // MessageDigest.get
+        // MessageDigest.getString
         FileInputStream fileInputStream = null;
         try {
             fileInputStream = new FileInputStream(file);

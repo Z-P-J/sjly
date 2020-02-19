@@ -42,9 +42,9 @@ public class MediaStoreCompat {
 
     private final WeakReference<Activity> mContext;
     private final WeakReference<Fragment> mFragment;
-    private       CaptureStrategy         mCaptureStrategy;
-    private       Uri                     mCurrentPhotoUri;
-    private       String                  mCurrentPhotoPath;
+    private CaptureStrategy mCaptureStrategy;
+    private Uri mCurrentPhotoUri;
+    private String mCurrentPhotoPath;
 
     public MediaStoreCompat(Activity activity) {
         mContext = new WeakReference<>(activity);

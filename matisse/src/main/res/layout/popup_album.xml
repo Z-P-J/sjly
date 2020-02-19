@@ -4,19 +4,20 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_above="@id/bottom_toolbar"
-    android:layout_below="@id/toolbar">
+    android:layout_below="@id/selected_album">
 
     <android.support.design.widget.AppBarLayout
         android:layout_width="210dp"
         android:layout_height="wrap_content"
         android:layout_marginLeft="2dp"
-        android:background="?attr/album.popup.bg">
+        android:background="@color/zhihu_album_popup_bg">
 
         <ListView
             android:id="@+id/listView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:divider="?attr/album.dropdown.divider"
+            android:divider="@color/zhihu_album_divider"
             android:dividerHeight="1px" />
+
     </android.support.design.widget.AppBarLayout>
 </FrameLayout>

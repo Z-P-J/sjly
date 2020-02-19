@@ -102,7 +102,7 @@ public abstract class BaseSoftInputLayout extends FrameLayout {
     }
 
     /**
-     * Initialize view, for example get attributes from xml, etc. The child can implement this method
+     * Initialize view, for example getString attributes from xml, etc. The child can implement this method
      * to add custom behaviors.
      *
      * @param context the context
@@ -127,7 +127,7 @@ public abstract class BaseSoftInputLayout extends FrameLayout {
     protected abstract View getContainer();
 
     /**
-     * Method for child to implement to get the associated EditText.
+     * Method for child to implement to getString the associated EditText.
      *
      * @return the associated EditText
      */

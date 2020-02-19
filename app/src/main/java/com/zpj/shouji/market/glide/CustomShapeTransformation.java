@@ -57,10 +57,10 @@ public class CustomShapeTransformation extends BitmapTransformation {
             height = 100;
         }
         // 居中裁剪图片，调用Glide库中TransformationUtils类的centerCrop()方法完成裁剪，保证图片居中且填满
-//        final Bitmap toReuse = pool.get(width, height, toTransform.getConfig() != null
+//        final Bitmap toReuse = pool.getString(width, height, toTransform.getConfig() != null
 //                ? toTransform.getConfig() : Bitmap.Config.ARGB_8888);
         Bitmap transformed = TransformationUtils.centerCrop(pool, toTransform, width, height);
-//        if (toReuse != null && toReuse != transformed && !pool.put(toReuse)) {
+//        if (toReuse != null && toReuse != transformed && !pool.putString(toReuse)) {
 //            toReuse.recycle();
 //        }
 

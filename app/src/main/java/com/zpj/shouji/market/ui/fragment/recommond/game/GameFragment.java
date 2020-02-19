@@ -234,13 +234,13 @@
 //        public void onBindHeaderViewHolder(GroupViewHolder holder, GroupItem item, int groupPosition) {
 //            int viewType = getHeaderItemViewType(groupPosition);
 //            if (viewType == TYPE_TOP_HEADER) {
-//                holder.get(R.id.cv_item1).setOnClickListener(new View.OnClickListener() {
+//                holder.getString(R.id.cv_item1).setOnClickListener(new View.OnClickListener() {
 //                    @Override
 //                    public void onClick(View v) {
 //
 //                    }
 //                });
-//                holder.get(R.id.cv_item2).setOnClickListener(new View.OnClickListener() {
+//                holder.getString(R.id.cv_item2).setOnClickListener(new View.OnClickListener() {
 //                    @Override
 //                    public void onClick(View v) {
 //
@@ -253,7 +253,7 @@
 //
 //        @Override
 //        public void onBindChildViewHolder(GroupViewHolder holder, GroupItem item, int groupPosition, int childPosition) {
-//            RecyclerView view = holder.get(R.id.recycler_view);
+//            RecyclerView view = holder.getString(R.id.recycler_view);
 //            if (view == null) {
 //                return;
 //            }
@@ -294,7 +294,7 @@
 //                    .setItemRes(R.layout.item_app_grid)
 //                    .setLayoutManager(new GridLayoutManager(context, 4))
 //                    .onBindViewHolder((holder1, list1, position, payloads) -> {
-//                        AppInfo info = list1.get(position);
+//                        AppInfo info = list1.getString(position);
 //                        holder1.getTextView(R.id.item_title).setText(info.getAppTitle());
 //                        holder1.getTextView(R.id.item_info).setText(info.getAppSize());
 //                        Glide.with(context).load(info.getAppIcon()).into(holder1.getImageView(R.id.item_icon));
@@ -327,7 +327,7 @@
 //                    .setItemRes(R.layout.item_app_collection)
 //                    .setLayoutManager(new GridLayoutManager(context, 2, LinearLayoutManager.HORIZONTAL, false))
 //                    .onBindViewHolder((holder1, list1, position, payloads) -> {
-//                        CollectionInfo info = list1.get(position);
+//                        CollectionInfo info = list1.getString(position);
 //                        holder1.getTextView(R.id.item_title).setText(info.getTitle());
 //                        holder1.setText(R.id.tv_view_count, info.getViewCount() + "");
 //                        holder1.setText(R.id.tv_favorite_count, info.getFavCount() + "");
@@ -336,7 +336,7 @@
 //                            int res = RES_ICONS[i];
 //                            if (i == 0) {
 //                                Glide.with(context)
-//                                        .load(info.getIcons().get(0))
+//                                        .load(info.getIcons().getString(0))
 //                                        .apply(RequestOptions.bitmapTransform(new BlurTransformation(context, 7)))
 //                                        .into(new SimpleTarget<Drawable>() {
 //                                            @Override
@@ -345,7 +345,7 @@
 //                                            }
 //                                        });
 //                            }
-//                            Glide.with(context).load(info.getIcons().get(i)).into(holder1.getImageView(res));
+//                            Glide.with(context).load(info.getIcons().getString(i)).into(holder1.getImageView(res));
 //                        }
 //                    })
 //                    .onItemClick((holder14, view12, data) -> _mActivity.start(CollectionDetailFragment.newInstance(data)))
@@ -362,7 +362,7 @@
 //        }
 //
 //        private void getTutorial(final GroupViewHolder holder, final String url) {
-//            RecyclerView view = holder.get(R.id.recycler_view);
+//            RecyclerView view = holder.getString(R.id.recycler_view);
 //            if (view == null) {
 //                return;
 //            }
@@ -377,7 +377,7 @@
 //                        .setItemRes(R.layout.item_tutorial)
 //                        .setLayoutManager(new GridLayoutManager(context, 2, LinearLayoutManager.HORIZONTAL, false))
 //                        .onBindViewHolder((holder1, list, position, payloads) -> {
-//                            ArticleInfo info = list.get(position);
+//                            ArticleInfo info = list.getString(position);
 //                            Log.d("onBindViewHolder", "position=" + position + " ArticleInfo=" + info);
 //                            Glide.with(context).load(info.getImage()).into(holder1.getImageView(R.id.iv_image));
 //                            holder1.getTextView(R.id.tv_title).setText(info.getTitle());

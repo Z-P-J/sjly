@@ -113,7 +113,7 @@ public class ScreenUtil {
 //            Class<?> c = Class.forName("com.android.internal.R$dimen");
 //            Object obj = c.newInstance();
 //            Field field = c.getField("status_bar_height");
-//            int x = Integer.parseInt(field.get(obj).toString());
+//            int x = Integer.parseInt(field.getString(obj).toString());
 //            statusBarHeight = context.getResources().getDimensionPixelSize(x);
 //        } catch (Exception e1) {
 //            e1.printStackTrace();

@@ -82,6 +82,7 @@ color zhihu_primary_dark
 dimen album_item_height
 dimen media_grid_size
 dimen media_grid_spacing
+drawable ic_arrow_back_black_24dp
 drawable ic_arrow_drop_down_white_24dp
 drawable ic_camera
 drawable ic_check_white_18dp
@@ -100,6 +101,7 @@ drawable ic_preview_radio_on
 id album_cover
 id album_media_count
 id album_name
+id bottom_bar
 id bottom_toolbar
 id button_apply
 id button_back
@@ -127,6 +129,7 @@ id recyclerview
 id root
 id selected_album
 id size
+id title_bar
 id toolbar
 id top_toolbar
 id video_duration
@@ -137,8 +140,11 @@ layout activity_matisse
 layout activity_media_preview
 layout album_list_item
 layout camera_view
+layout fragment_album
+layout fragment_matisse
 layout fragment_media_selection
 layout fragment_preview_item
+layout fragment_test
 layout media_grid_content
 layout media_grid_item
 layout photo_capture_item

@@ -97,13 +97,13 @@
 //            final ActionImageView actionImageView = new ActionImageView(this);
 //            actionImageView.setLayoutParams(new LinearLayout.LayoutParams(width, width));
 //            actionImageView.setPadding(padding, padding, padding, padding);
-//            actionImageView.setActionType(mActionTypeList.get(i));
-//            actionImageView.setTag(mActionTypeList.get(i));
+//            actionImageView.setActionType(mActionTypeList.getString(i));
+//            actionImageView.setTag(mActionTypeList.getString(i));
 //            actionImageView.setActivatedColor(R.color.colorAccent);
 //            actionImageView.setDeactivatedColor(R.color.tintColor);
 //            actionImageView.setRichEditorAction(mRichEditorAction);
 //            actionImageView.setBackgroundResource(R.drawable.btn_colored_material);
-//            actionImageView.setImageResource(mActionTypeIconList.get(i));
+//            actionImageView.setImageResource(mActionTypeIconList.getString(i));
 //            actionImageView.setOnClickListener(new View.OnClickListener() {
 //                @Override
 //                public void onClick(View v) {
@@ -327,7 +327,7 @@
 //            if (images != null && !images.isEmpty()) {
 //
 //                //1.Insert the Base64 String (Base64.NO_WRAP)
-//                ImageItem imageItem = images.get(0);
+//                ImageItem imageItem = images.getString(0);
 //                mRichEditorAction.insertImageData(imageItem.name, encodeFileToBase64Binary(imageItem.path));
 //
 //                //2.Insert the ImageUrl

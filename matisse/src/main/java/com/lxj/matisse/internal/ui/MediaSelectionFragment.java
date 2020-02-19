@@ -36,7 +36,9 @@ import com.lxj.matisse.internal.ui.adapter.AlbumMediaAdapter;
 import com.lxj.matisse.internal.ui.widget.MediaGridInset;
 import com.lxj.matisse.internal.utils.UIUtils;
 
-public class MediaSelectionFragment extends Fragment implements
+import me.yokeyword.fragmentation.SupportFragment;
+
+public class MediaSelectionFragment extends SupportFragment implements
         AlbumMediaCollection.AlbumMediaCallbacks, AlbumMediaAdapter.CheckStateListener,
         AlbumMediaAdapter.OnMediaClickListener {
 
@@ -57,21 +59,36 @@ public class MediaSelectionFragment extends Fragment implements
         return fragment;
     }
 
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        if (context instanceof SelectionProvider) {
-            mSelectionProvider = (SelectionProvider) context;
-        } else {
-            throw new IllegalStateException("Context must implement SelectionProvider.");
-        }
-        if (context instanceof AlbumMediaAdapter.CheckStateListener) {
-            mCheckStateListener = (AlbumMediaAdapter.CheckStateListener) context;
-        }
-        if (context instanceof AlbumMediaAdapter.OnMediaClickListener) {
-            mOnMediaClickListener = (AlbumMediaAdapter.OnMediaClickListener) context;
-        }
+    public MediaSelectionFragment setSelectionProvider(SelectionProvider mSelectionProvider) {
+        this.mSelectionProvider = mSelectionProvider;
+        return this;
     }
+
+    public MediaSelectionFragment setCheckStateListener(AlbumMediaAdapter.CheckStateListener mCheckStateListener) {
+        this.mCheckStateListener = mCheckStateListener;
+        return this;
+    }
+
+    public MediaSelectionFragment setOnMediaClickListener(AlbumMediaAdapter.OnMediaClickListener mOnMediaClickListener) {
+        this.mOnMediaClickListener = mOnMediaClickListener;
+        return this;
+    }
+
+//    @Override
+//    public void onAttach(Context context) {
+//        super.onAttach(context);
+//        if (context instanceof SelectionProvider) {
+//            mSelectionProvider = (SelectionProvider) context;
+//        } else {
+//            throw new IllegalStateException("Context must implement SelectionProvider.");
+//        }
+//        if (context instanceof AlbumMediaAdapter.CheckStateListener) {
+//            mCheckStateListener = (AlbumMediaAdapter.CheckStateListener) context;
+//        }
+//        if (context instanceof AlbumMediaAdapter.OnMediaClickListener) {
+//            mOnMediaClickListener = (AlbumMediaAdapter.OnMediaClickListener) context;
+//        }
+//    }
 
     @Nullable
     @Override

@@ -1,6 +1,6 @@
 package com.zpj.downloader.util.io;//package com.zpj.downloader.util.io;
 //
-//import com.zpj.downloader.get.DownloadRunnable;
+//import com.zpj.downloader.getString.DownloadRunnable;
 //
 //import java.io.BufferedInputStream;
 //import java.io.IOException;

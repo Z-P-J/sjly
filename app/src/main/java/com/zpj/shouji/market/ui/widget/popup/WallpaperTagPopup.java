@@ -85,7 +85,7 @@ public class WallpaperTagPopup extends PartShadowPopupView implements OnLabelCli
     public void onClick(int index, View v, String s) {
         dismiss();
         if (onLabelClickListener != null) {
-//            if (labels.get(index).equals(selectLabel)) {
+//            if (labels.getString(index).equals(selectLabel)) {
 //                return;
 //            }
             onLabelClickListener.onClick(index, v, s);

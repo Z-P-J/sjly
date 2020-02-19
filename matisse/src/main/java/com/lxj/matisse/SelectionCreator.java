@@ -28,6 +28,7 @@ import android.support.annotation.StyleRes;
 import android.support.v4.app.Fragment;
 import android.widget.Toast;
 
+import com.felix.atoast.library.AToast;
 import com.lxj.matisse.engine.ImageEngine;
 import com.lxj.matisse.filter.Filter;
 import com.lxj.matisse.internal.entity.CaptureStrategy;
@@ -36,6 +37,7 @@ import com.lxj.matisse.listener.OnCheckedListener;
 import com.lxj.matisse.listener.OnSelectedListener;
 import com.lxj.matisse.ui.CameraActivity;
 import com.lxj.matisse.ui.MatisseActivity;
+import com.lxj.matisse.ui.MatisseFragment;
 import com.lxj.xpermission.PermissionConstants;
 import com.lxj.xpermission.XPermission;
 
@@ -43,6 +45,9 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.util.ArrayList;
 import java.util.Set;
+
+import me.yokeyword.fragmentation.SupportActivity;
+import me.yokeyword.fragmentation.SupportFragment;
 
 import static android.content.pm.ActivityInfo.SCREEN_ORIENTATION_BEHIND;
 import static android.content.pm.ActivityInfo.SCREEN_ORIENTATION_FULL_SENSOR;
@@ -389,8 +394,16 @@ public final class SelectionCreator {
         xPermission.callback(new XPermission.SimpleCallback() {
                     @Override
                     public void onGranted() {
-                        Intent intent = new Intent(activity, isJumpCapture ? CameraActivity.class : MatisseActivity.class);
                         Fragment fragment = mMatisse.getFragment();
+                        if (fragment instanceof SupportFragment) {
+                            ((SupportFragment) fragment).start(new MatisseFragment());
+                            return;
+                        }
+                        if (activity instanceof SupportActivity) {
+                            ((SupportActivity) activity).start(new MatisseFragment());
+                            return;
+                        }
+                        Intent intent = new Intent(activity, isJumpCapture ? CameraActivity.class : MatisseActivity.class);
                         if (fragment != null) {
                             fragment.startActivityForResult(intent, requestCode);
                         } else {
@@ -399,7 +412,7 @@ public final class SelectionCreator {
                     }
                     @Override
                     public void onDenied() {
-                        Toast.makeText(activity, "没有权限，无法使用该功能", Toast.LENGTH_SHORT).show();
+                        AToast.warning("没有权限，无法使用该功能");
                     }
                 }).request();
 

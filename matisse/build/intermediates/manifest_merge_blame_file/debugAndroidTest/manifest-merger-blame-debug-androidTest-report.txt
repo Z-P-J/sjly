@@ -3,24 +3,24 @@
 3    package="com.lxj.matisse.test" >
 4
 5    <uses-sdk
-5-->D:\Programming\AndroidProjects\sjly\matisse\build\intermediates\tmp\manifest\androidTest\debug\manifestMerger5944236181265349647.xml:5:5-74
+5-->D:\Programming\AndroidProjects\sjly\matisse\build\intermediates\tmp\manifest\androidTest\debug\manifestMerger6488536436901125044.xml:5:5-74
 6        android:minSdkVersion="19"
-6-->D:\Programming\AndroidProjects\sjly\matisse\build\intermediates\tmp\manifest\androidTest\debug\manifestMerger5944236181265349647.xml:5:15-41
+6-->D:\Programming\AndroidProjects\sjly\matisse\build\intermediates\tmp\manifest\androidTest\debug\manifestMerger6488536436901125044.xml:5:15-41
 7        android:targetSdkVersion="28" />
-7-->D:\Programming\AndroidProjects\sjly\matisse\build\intermediates\tmp\manifest\androidTest\debug\manifestMerger5944236181265349647.xml:5:42-71
+7-->D:\Programming\AndroidProjects\sjly\matisse\build\intermediates\tmp\manifest\androidTest\debug\manifestMerger6488536436901125044.xml:5:42-71
 8
 9    <instrumentation
-9-->D:\Programming\AndroidProjects\sjly\matisse\build\intermediates\tmp\manifest\androidTest\debug\manifestMerger5944236181265349647.xml:11:5-15:70
+9-->D:\Programming\AndroidProjects\sjly\matisse\build\intermediates\tmp\manifest\androidTest\debug\manifestMerger6488536436901125044.xml:11:5-15:70
 10        android:name="android.test.InstrumentationTestRunner"
-10-->D:\Programming\AndroidProjects\sjly\matisse\build\intermediates\tmp\manifest\androidTest\debug\manifestMerger5944236181265349647.xml:11:22-75
+10-->D:\Programming\AndroidProjects\sjly\matisse\build\intermediates\tmp\manifest\androidTest\debug\manifestMerger6488536436901125044.xml:11:22-75
 11        android:functionalTest="false"
-11-->D:\Programming\AndroidProjects\sjly\matisse\build\intermediates\tmp\manifest\androidTest\debug\manifestMerger5944236181265349647.xml:14:22-52
+11-->D:\Programming\AndroidProjects\sjly\matisse\build\intermediates\tmp\manifest\androidTest\debug\manifestMerger6488536436901125044.xml:14:22-52
 12        android:handleProfiling="false"
-12-->D:\Programming\AndroidProjects\sjly\matisse\build\intermediates\tmp\manifest\androidTest\debug\manifestMerger5944236181265349647.xml:13:22-53
+12-->D:\Programming\AndroidProjects\sjly\matisse\build\intermediates\tmp\manifest\androidTest\debug\manifestMerger6488536436901125044.xml:13:22-53
 13        android:label="Tests for com.lxj.matisse.test"
-13-->D:\Programming\AndroidProjects\sjly\matisse\build\intermediates\tmp\manifest\androidTest\debug\manifestMerger5944236181265349647.xml:15:22-68
+13-->D:\Programming\AndroidProjects\sjly\matisse\build\intermediates\tmp\manifest\androidTest\debug\manifestMerger6488536436901125044.xml:15:22-68
 14        android:targetPackage="com.lxj.matisse.test" />
-14-->D:\Programming\AndroidProjects\sjly\matisse\build\intermediates\tmp\manifest\androidTest\debug\manifestMerger5944236181265349647.xml:12:22-66
+14-->D:\Programming\AndroidProjects\sjly\matisse\build\intermediates\tmp\manifest\androidTest\debug\manifestMerger6488536436901125044.xml:12:22-66
 15
 16    <uses-permission android:name="android.permission.FLASHLIGHT" />
 16-->[__tested_artifact__::matisse] D:\Programming\AndroidProjects\sjly\matisse\build\intermediates\library_manifest\debug\AndroidManifest.xml:24:5-69
@@ -53,20 +53,20 @@
 26-->[__tested_artifact__::matisse] D:\Programming\AndroidProjects\sjly\matisse\build\intermediates\library_manifest\debug\AndroidManifest.xml:34:22-77
 27
 28    <application
-28-->D:\Programming\AndroidProjects\sjly\matisse\build\intermediates\tmp\manifest\androidTest\debug\manifestMerger5944236181265349647.xml:7:5-9:19
+28-->D:\Programming\AndroidProjects\sjly\matisse\build\intermediates\tmp\manifest\androidTest\debug\manifestMerger6488536436901125044.xml:7:5-9:19
 29        android:allowBackup="true"
 29-->[:atoast] D:\Programming\AndroidProjects\sjly\atoast\build\intermediates\library_manifest\debug\AndroidManifest.xml:12:9-35
 30        android:appComponentFactory="android.support.v4.app.CoreComponentFactory"
 30-->[com.android.support:support-compat:28.0.0] C:\Users\Z-P-J\.gradle\caches\transforms-2\files-2.1\cc0db64bc031a229ca095590c614a69c\support-compat-28.0.0\AndroidManifest.xml:22:18-91
 31        android:debuggable="true"
-31-->D:\Programming\AndroidProjects\sjly\matisse\build\intermediates\tmp\manifest\androidTest\debug\manifestMerger5944236181265349647.xml:7:18-43
+31-->D:\Programming\AndroidProjects\sjly\matisse\build\intermediates\tmp\manifest\androidTest\debug\manifestMerger6488536436901125044.xml:7:18-43
 32        android:label="@string/app_name"
 32-->[:atoast] D:\Programming\AndroidProjects\sjly\atoast\build\intermediates\library_manifest\debug\AndroidManifest.xml:13:9-41
 33        android:supportsRtl="true" >
 33-->[:atoast] D:\Programming\AndroidProjects\sjly\atoast\build\intermediates\library_manifest\debug\AndroidManifest.xml:14:9-35
 34        <uses-library android:name="android.test.runner" />
-34-->D:\Programming\AndroidProjects\sjly\matisse\build\intermediates\tmp\manifest\androidTest\debug\manifestMerger5944236181265349647.xml:8:9-60
-34-->D:\Programming\AndroidProjects\sjly\matisse\build\intermediates\tmp\manifest\androidTest\debug\manifestMerger5944236181265349647.xml:8:23-57
+34-->D:\Programming\AndroidProjects\sjly\matisse\build\intermediates\tmp\manifest\androidTest\debug\manifestMerger6488536436901125044.xml:8:9-60
+34-->D:\Programming\AndroidProjects\sjly\matisse\build\intermediates\tmp\manifest\androidTest\debug\manifestMerger6488536436901125044.xml:8:23-57
 35
 36        <meta-data
 36-->[__tested_artifact__::matisse] D:\Programming\AndroidProjects\sjly\matisse\build\intermediates\library_manifest\debug\AndroidManifest.xml:37:9-39:36

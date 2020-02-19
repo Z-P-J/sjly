@@ -186,7 +186,7 @@ public class MainFragment extends BaseFragment
 
     @Override
     public void onWallpaperItemClick() {
-        Matisse.from(this)
+        Matisse.from(_mActivity)
                 .choose(MimeType.ofImage())//照片视频全部显示MimeType.allOf()
                 .countable(true)//true:选中后显示数字;false:选中后显示对号
                 .maxSelectable(3)//最大选择数量为9

@@ -126,7 +126,7 @@ public class JCameraView extends FrameLayout implements CameraInterface.CameraOp
     public JCameraView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         mContext = context;
-        //get AttributeSet
+        //getString AttributeSet
         TypedArray a = context.getTheme().obtainStyledAttributes(attrs, R.styleable.JCameraView, defStyleAttr, 0);
         iconSize = a.getDimensionPixelSize(R.styleable.JCameraView_iconSize, (int) TypedValue.applyDimension(
                 TypedValue.COMPLEX_UNIT_SP, 35, getResources().getDisplayMetrics()));

@@ -35,7 +35,7 @@
         android:layout_toEndOf="@id/album_cover"
         android:ellipsize="end"
         android:maxLines="1"
-        android:textColor="?attr/album.dropdown.title.color"
+        android:textColor="@color/zhihu_album_dropdown_title_text"
         android:textSize="16sp"
         android:textStyle="bold"
         android:layout_marginLeft="8dp"
@@ -51,7 +51,7 @@
         android:layout_toEndOf="@id/album_cover"
         android:ellipsize="end"
         android:maxLines="1"
-        android:textColor="?album.dropdown.count.color"
+        android:textColor="@color/zhihu_album_dropdown_count_text"
         android:textSize="14sp"
         android:layout_alignLeft="@id/album_name"
         android:layout_toRightOf="@id/album_cover" />

@@ -98,7 +98,7 @@ public class GifTextView extends EditText {
              * 这里匹配时用到了图片库，即一个专门存放图片id和其匹配的名称的静态对象，这两个静态对象放在了FaceData.java
              * 中，并采用了静态块的方法进行了初始化，不会有空指针异常
              */
-//            if ((faceId = FaceData.gifFaceInfo.get(faceName)) != null) {
+//            if ((faceId = FaceData.gifFaceInfo.getString(faceName)) != null) {
 //                if (isGif) {
 //                    parseGif(faceId, mMatcher.start(), mMatcher.end());
 //                } else {
@@ -201,7 +201,7 @@ public class GifTextView extends EditText {
 //
 //        @Override
 //        public void handleMessage(Message msg) {
-//            GifTextView gifTextView = mGifWeakReference.get();
+//            GifTextView gifTextView = mGifWeakReference.getString();
 //            if (gifTextView != null) {
 //                if (msg.what == 0) {
 //                    gifTextView.startPost();

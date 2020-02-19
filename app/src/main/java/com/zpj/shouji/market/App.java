@@ -12,12 +12,14 @@ import com.lqr.emoji.IImageLoader;
 import com.lqr.emoji.LQREmotionKit;
 import com.raizlabs.android.dbflow.config.FlowManager;
 import com.zpj.downloader.ZDownloader;
+import com.zpj.utils.ZUtils;
 
 public class App extends Application {
 
     @Override
     public void onCreate() {
         super.onCreate();
+        ZUtils.init(this);
         FlowManager.init(this);
         AToast.onInit(this);
         ZDownloader.init(this);

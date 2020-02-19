@@ -1,9 +1,7 @@
-package com.zpj.shouji.market.utils;
+package com.zpj.utils;
 
+import android.content.Context;
 import android.os.Build;
-
-
-import com.zpj.downloader.util.content.SPHelper;
 
 import java.io.File;
 
@@ -18,11 +16,11 @@ public class RootUtil {
     }
 
     public static boolean isRooted() {
-        int rootStatus = SPHelper.getInt(KEY, ROOT_STATUS_NOT_CHECKED);
+        int rootStatus = PrefsHelper.with().getInt(KEY, ROOT_STATUS_NOT_CHECKED);
         boolean isRooted = false;
         if (rootStatus == ROOT_STATUS_NOT_CHECKED) {
             isRooted = isRootByBuildTag() || isRootedByFileSU() || isRootedByExecutingCommand();
-            SPHelper.putInt(KEY, isRooted ? ROOT_STATUS_ROOTED : ROOT_STATUS_NOT_ROOTED);
+            PrefsHelper.with().putInt(KEY, isRooted ? ROOT_STATUS_ROOTED : ROOT_STATUS_NOT_ROOTED);
         } else if (rootStatus == ROOT_STATUS_ROOTED) {
             isRooted = true;
         }

@@ -25,18 +25,18 @@ public class MarkdownEditorFragment extends SupportFragment {
 
     /**
      * The key for action, used to send a command to this fragment.
-     * The MainActivity will directly put the action argument to this fragment if received itself.
+     * The MainActivity will directly putString the action argument to this fragment if received itself.
      */
     public static final String ARGS_KEY_ACTION = "__args_key_action";
 
     /**
-     * The intent the MainActivity received. This fragment will get the extras from this value,
+     * The intent the MainActivity received. This fragment will getString the extras from this value,
      * and handle the intent later.
      */
     public static final String ARGS_KEY_INTENT = "__args_key_intent";
 
     /**
-     * The most important argument, the note model, used to get the information of note.
+     * The most important argument, the note model, used to getString the information of note.
      */
     public static final String ARGS_KEY_NOTE = "__args_key_note";
 
@@ -223,8 +223,8 @@ public class MarkdownEditorFragment extends SupportFragment {
 //                getVM().getNote().setTitle(title);
 //                getVM().getNote().setContent(content);
 //                ContainerActivity.open(MarkdownViewFragment.class)
-//                        .put(MarkdownViewFragment.ARGS_KEY_NOTE, (Serializable) getVM().getNote())
-//                        .put(MarkdownViewFragment.ARGS_KEY_IS_PREVIEW, true)
+//                        .putString(MarkdownViewFragment.ARGS_KEY_NOTE, (Serializable) getVM().getNote())
+//                        .putString(MarkdownViewFragment.ARGS_KEY_IS_PREVIEW, true)
 //                        .launch(getActivity());
 //                break;
 //            case R.id.action_undo:

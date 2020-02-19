@@ -83,24 +83,24 @@ public class BottomNavigationViewInner extends BottomNavigationView {
      */
     public BottomNavigationViewInner setIconVisibility(boolean visibility) {
         /*
-        1. get field in this class
+        1. getString field in this class
         private final BottomNavigationMenuView mMenuView;
 
-        2. get field in mButtons
+        2. getString field in mButtons
         private BottomNavigationItemView[] mButtons;
 
-        3. get mIcon in mButtons
+        3. getString mIcon in mButtons
         private ImageView mIcon
 
         4. set mIcon visibility gone
 
         5. change mItemHeight to only text size in mMenuView
          */
-        // 1. get mMenuView
+        // 1. getString mMenuView
         final BottomNavigationMenuView mMenuView = getBottomNavigationMenuView();
-        // 2. get mButtons
+        // 2. getString mButtons
         BottomNavigationItemView[] mButtons = getBottomNavigationItemViews();
-        // 3. get mIcon in mButtons
+        // 3. getString mIcon in mButtons
         for (BottomNavigationItemView button : mButtons) {
             ImageView mIcon = getField(button.getClass(), button, "icon");
             // 4. set mIcon visibility gone
@@ -151,10 +151,10 @@ public class BottomNavigationViewInner extends BottomNavigationView {
     public BottomNavigationViewInner setTextVisibility(boolean visibility) {
         this.textVisibility = visibility;
         /*
-        1. get field in this class
+        1. getString field in this class
         private final BottomNavigationMenuView mMenuView;
 
-        2. get field in mButtons
+        2. getString field in mButtons
         private BottomNavigationItemView[] mButtons;
 
         3. set text size in mButtons
@@ -163,9 +163,9 @@ public class BottomNavigationViewInner extends BottomNavigationView {
 
         4. change mItemHeight to only icon size in mMenuView
          */
-        // 1. get mMenuView
+        // 1. getString mMenuView
         BottomNavigationMenuView mMenuView = getBottomNavigationMenuView();
-        // 2. get mButtons
+        // 2. getString mButtons
         BottomNavigationItemView[] mButtons = getBottomNavigationItemViews();
 
         // 3. change field mShiftingMode value in mButtons
@@ -224,7 +224,7 @@ public class BottomNavigationViewInner extends BottomNavigationView {
     }
 
     /**
-     * get text height by font size
+     * getString text height by font size
      *
      * @param fontSize
      * @return
@@ -243,10 +243,10 @@ public class BottomNavigationViewInner extends BottomNavigationView {
      */
     public BottomNavigationViewInner enableAnimation(boolean enable) {
         /*
-        1. get field in this class
+        1. getString field in this class
         private final BottomNavigationMenuView mMenuView;
 
-        2. get field in mButtons
+        2. getString field in mButtons
         private BottomNavigationItemView[] mButtons;
 
         3. chang mShiftAmount to 0 in mButtons
@@ -261,9 +261,9 @@ public class BottomNavigationViewInner extends BottomNavigationView {
         private final TextView mSmallLabel
          */
 
-        // 1. get mMenuView
+        // 1. getString mMenuView
         BottomNavigationMenuView mMenuView = getBottomNavigationMenuView();
-        // 2. get mButtons
+        // 2. getString mButtons
         BottomNavigationItemView[] mButtons = getBottomNavigationItemViews();
         // 3. change field mShiftingMode value in mButtons
         for (BottomNavigationItemView button : mButtons) {
@@ -323,13 +323,13 @@ public class BottomNavigationViewInner extends BottomNavigationView {
     @Deprecated
     public BottomNavigationViewInner enableShiftingMode(boolean enable) {
         /*
-        1. get field in this class
+        1. getString field in this class
         private final BottomNavigationMenuView mMenuView;
 
         2. change field mShiftingMode value in mMenuView
         private boolean mShiftingMode = true;
          */
-        // 1. get mMenuView
+        // 1. getString mMenuView
 //        BottomNavigationMenuView mMenuView = getBottomNavigationMenuView();
         // 2. change field mShiftingMode value in mMenuView
 //        setField(mMenuView.getClass(), mMenuView, "isShifting", enable);
@@ -347,18 +347,18 @@ public class BottomNavigationViewInner extends BottomNavigationView {
     @Deprecated
     public BottomNavigationViewInner enableItemShiftingMode(boolean enable) {
         /*
-        1. get field in this class
+        1. getString field in this class
         private final BottomNavigationMenuView mMenuView;
 
-        2. get field in this mMenuView
+        2. getString field in this mMenuView
         private BottomNavigationItemView[] mButtons;
 
         3. change field mShiftingMode value in mButtons
         private boolean mShiftingMode = true;
          */
-        // 1. get mMenuView
+        // 1. getString mMenuView
 //        BottomNavigationMenuView mMenuView = getBottomNavigationMenuView();
-        // 2. get buttons
+        // 2. getString buttons
 //        BottomNavigationItemView[] mButtons = getBottomNavigationItemViews();
         // 3. change field mShiftingMode value in mButtons
 //        for (BottomNavigationItemView button : mButtons) {
@@ -372,24 +372,24 @@ public class BottomNavigationViewInner extends BottomNavigationView {
     }
 
     /**
-     * get the current checked item position
+     * getString the current checked item position
      *
      * @return index of item, start from 0.
      */
     public int getCurrentItem() {
         /*
-        1. get field in this class
+        1. getString field in this class
         private final BottomNavigationMenuView mMenuView;
 
-        2. get field in mMenuView
+        2. getString field in mMenuView
         private BottomNavigationItemView[] mButtons;
 
-        3. get menu and traverse it to get the checked one
+        3. getString menu and traverse it to getString the checked one
          */
 
-        // 2. get mButtons
+        // 2. getString mButtons
         BottomNavigationItemView[] mButtons = getBottomNavigationItemViews();
-        // 3. get menu and traverse it to get the checked one
+        // 3. getString menu and traverse it to getString the checked one
         Menu menu = getMenu();
         for (int i = 0; i < mButtons.length; i++) {
             if (menu.getItem(i).isChecked()) {
@@ -400,15 +400,15 @@ public class BottomNavigationViewInner extends BottomNavigationView {
     }
 
     /**
-     * get menu item position in menu
+     * getString menu item position in menu
      *
      * @param item
      * @return position if success, -1 otherwise
      */
     public int getMenuItemPosition(MenuItem item) {
-        // get item id
+        // getString item id
         int itemId = item.getItemId();
-        // get meunu
+        // getString meunu
         Menu menu = getMenu();
         int size = menu.size();
         for (int i = 0; i < size; i++) {
@@ -430,7 +430,7 @@ public class BottomNavigationViewInner extends BottomNavigationView {
     }
 
     /**
-     * get OnNavigationItemSelectedListener
+     * getString OnNavigationItemSelectedListener
      *
      * @return
      */
@@ -452,7 +452,7 @@ public class BottomNavigationViewInner extends BottomNavigationView {
     }
 
     /**
-     * get private mMenuView
+     * getString private mMenuView
      *
      * @return
      */
@@ -473,7 +473,7 @@ public class BottomNavigationViewInner extends BottomNavigationView {
     }
     
     /**
-     * get private mButtons in mMenuView
+     * getString private mButtons in mMenuView
      *
      * @return
      */
@@ -490,7 +490,7 @@ public class BottomNavigationViewInner extends BottomNavigationView {
     }
 
     /**
-     * get private mButton in mMenuView at position
+     * getString private mButton in mMenuView at position
      *
      * @param position
      * @return
@@ -500,7 +500,7 @@ public class BottomNavigationViewInner extends BottomNavigationView {
     }
 
     /**
-     * get icon at position
+     * getString icon at position
      *
      * @param position
      * @return
@@ -517,7 +517,7 @@ public class BottomNavigationViewInner extends BottomNavigationView {
     }
 
     /**
-     * get small label at position
+     * getString small label at position
      * Each item has tow label, one is large, another is small.
      *
      * @param position
@@ -535,7 +535,7 @@ public class BottomNavigationViewInner extends BottomNavigationView {
     }
 
     /**
-     * get large label at position
+     * getString large label at position
      * Each item has tow label, one is large, another is small.
      *
      * @param position
@@ -663,7 +663,7 @@ public class BottomNavigationViewInner extends BottomNavigationView {
      * @param height in px
      */
     public BottomNavigationViewInner setItemHeight(int height) {
-        // 1. get mMenuView
+        // 1. getString mMenuView
         final BottomNavigationMenuView mMenuView = getBottomNavigationMenuView();
         // 2. set private final int mItemHeight in mMenuView
         setField(mMenuView.getClass(), mMenuView, "itemHeight", height);
@@ -673,14 +673,14 @@ public class BottomNavigationViewInner extends BottomNavigationView {
     }
 
     /**
-     * get menu item height
+     * getString menu item height
      *
      * @return in px
      */
     public int getItemHeight() {
-        // 1. get mMenuView
+        // 1. getString mMenuView
         final BottomNavigationMenuView mMenuView = getBottomNavigationMenuView();
-        // 2. get private final int mItemHeight in mMenuView
+        // 2. getString private final int mItemHeight in mMenuView
         return getField(mMenuView.getClass(), mMenuView, "itemHeight");
     }
 
@@ -728,7 +728,7 @@ public class BottomNavigationViewInner extends BottomNavigationView {
     }
 
     /**
-     * get private filed in this specific object
+     * getString private filed in this specific object
      *
      * @param targetClass
      * @param instance    the filed owner

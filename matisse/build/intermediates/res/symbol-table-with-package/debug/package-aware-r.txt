@@ -1285,6 +1285,7 @@ drawable fragmentation_help
 drawable fragmentation_ic_expandable
 drawable fragmentation_ic_right
 drawable fragmentation_ic_stack
+drawable ic_arrow_back_black_24dp
 drawable ic_arrow_drop_down_white_24dp
 drawable ic_camera
 drawable ic_check_white_18dp
@@ -1402,6 +1403,7 @@ id async
 id auto
 id blocking
 id bottom
+id bottom_bar
 id bottom_toolbar
 id btn_cancel
 id btn_info
@@ -1755,8 +1757,11 @@ layout easy_layout_recycler
 layout easy_layout_recycler_2
 layout easy_loading_view
 layout easy_no_network_view
+layout fragment_album
+layout fragment_matisse
 layout fragment_media_selection
 layout fragment_preview_item
+layout fragment_test
 layout item_popup_menu
 layout layout_everywhere_pop
 layout layout_loading_view
