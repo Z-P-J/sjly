@@ -63,7 +63,7 @@
 
             />
 
-        <cn.refactor.library.SmoothCheckBox
+        <com.zpj.widget.SmoothCheckBox
             android:id="@+id/checkbox"
             android:layout_width="20dp"
             android:layout_height="20dp"

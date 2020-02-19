@@ -34,7 +34,7 @@ import android.view.animation.LinearInterpolator;
 import android.widget.Checkable;
 
 import com.zpj.utils.ScreenUtil;
-import com.zpj.dialog.R;
+import com.zpj.widget.R;
 
 /**
  * Author : andy

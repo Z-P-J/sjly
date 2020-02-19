@@ -17,6 +17,8 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Checkable;
 
+import com.zpj.widget.R;
+
 
 /**
  * SwitchButton.

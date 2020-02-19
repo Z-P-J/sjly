@@ -10,7 +10,7 @@ import android.util.SparseArray;
 import android.view.LayoutInflater;
 import android.view.View;
 
-import com.zpj.dialog.R;
+import com.zpj.widget.R;
 
 import java.util.ArrayList;
 import java.util.List;

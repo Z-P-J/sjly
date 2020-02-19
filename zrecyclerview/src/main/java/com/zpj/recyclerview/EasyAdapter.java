@@ -13,7 +13,7 @@ import android.view.ViewGroup;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import com.zpj.dialog.R;
+import com.zpj.widget.R;
 import com.zpj.utils.ClickHelper;
 
 import java.util.List;

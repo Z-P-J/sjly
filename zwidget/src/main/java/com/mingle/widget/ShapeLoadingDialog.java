@@ -6,7 +6,7 @@ import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.View;
 
-import com.zpj.dialog.R;
+import com.zpj.widget.R;
 
 /**
  * Created by zzz40500 on 15/6/15.

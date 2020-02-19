@@ -42,7 +42,8 @@ import com.zpj.utils.ScreenUtil;
 import java.util.ArrayList;
 import java.util.List;
 
-import cn.refactor.library.SmoothCheckBox;
+import com.zpj.widget.SmoothCheckBox;
+
 import me.yokeyword.fragmentation.SupportActivity;
 
 public class InstalledFragment extends BaseFragment implements AppManagerAdapter.OnItemClickListener,
@@ -50,6 +51,7 @@ public class InstalledFragment extends BaseFragment implements AppManagerAdapter
         AppBackupHelper.AppBackupListener {
 
     private static final List<OptionMenu> optionMenus = new ArrayList<>();
+
     static {
 //        optionMenus.add(new OptionMenu("忽略更新"));
         optionMenus.add(new OptionMenu("详细信息"));
@@ -375,7 +377,7 @@ public class InstalledFragment extends BaseFragment implements AppManagerAdapter
         valueAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
             @Override
             public void onAnimationUpdate(ValueAnimator animation) {
-                float value = (float)animation.getAnimatedValue();
+                float value = (float) animation.getAnimatedValue();
                 Log.d("enterSelectModeAnim", "value=" + value);
                 ViewGroup.LayoutParams params = recyclerView.getLayoutParams();
                 params.height = (int) (height - value);
@@ -424,7 +426,7 @@ public class InstalledFragment extends BaseFragment implements AppManagerAdapter
         valueAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
             @Override
             public void onAnimationUpdate(ValueAnimator animation) {
-                float value = (float)animation.getAnimatedValue();
+                float value = (float) animation.getAnimatedValue();
                 Log.d("exitSelectModeAnim", "value=" + value);
                 ViewGroup.LayoutParams params = recyclerView.getLayoutParams();
                 params.height = (int) (height + value);

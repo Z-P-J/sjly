@@ -39,13 +39,11 @@ dependencies {
 
     implementation project(':zbase')
     implementation project(":zdownloader")
-    implementation project(':smoothcheckbox')
-    implementation project(':switchbutton')
+    implementation project(':zmarkdown')
     implementation project(':glidegifdecoder')
     implementation project(':openingstartanimation')
     implementation project(':richeditor')
     implementation project(':richeditor2')
-    implementation project(':zmarkdown')
     implementation project(':emojilib')
     implementation project(':matisse')
 

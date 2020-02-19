@@ -20,7 +20,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import cn.refactor.library.SmoothCheckBox;
+import com.zpj.widget.SmoothCheckBox;
 
 public class AppManagerAdapter extends RecyclerView.Adapter<AppManagerAdapter.ViewHolder> {
 
