@@ -61,8 +61,7 @@
                 android:layout_gravity="center"
                 android:layout_width="wrap_content"
                 android:foreground="?android:attr/selectableItemBackground"
-                android:layout_height="wrap_content"
-                tools:showIn="@layout/activity_matisse">
+                android:layout_height="wrap_content">
 
 
                 <com.lxj.matisse.internal.ui.widget.CheckRadioView

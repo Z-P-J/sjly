@@ -85,12 +85,13 @@
                                     android:paddingBottom="10dp"
                                     >
 
-                                    <de.hdodenhof.circleimageview.CircleImageView
+                                    <com.shehuan.niv.NiceImageView
                                         android:id="@+id/iv_avatar"
                                         android:layout_width="24dp"
                                         android:layout_height="24dp"
                                         android:src="@mipmap/ic_launcher"
                                         android:layout_gravity="center"
+                                        app:is_circle="true"
                                         />
 
                                     <TextView

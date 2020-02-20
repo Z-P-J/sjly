@@ -108,4 +108,12 @@
         <item name="android:windowExitAnimation">@anim/bottom_out</item>
     </style>
 
+
+    <style name="XPopupTitle">
+        <item name="android:textSize">20sp</item>
+        <item name="android:textColor">@color/_xpopup_title_color</item>
+        <item name="android:lines">1</item>
+        <item name="android:ellipsize">end</item>
+    </style>
+
 </resources>

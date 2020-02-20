@@ -11,6 +11,8 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.shehuan.niv.NiceImageView;
+import com.zpj.fragmentation.BaseFragment;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.model.AppDetailInfo;
 import com.zpj.shouji.market.model.AppInfo;
@@ -19,7 +21,6 @@ import com.zpj.shouji.market.model.CollectionAppInfo;
 import com.zpj.shouji.market.model.InstalledAppInfo;
 import com.zpj.shouji.market.model.UserDownloadedAppInfo;
 import com.zpj.shouji.market.ui.adapter.FragmentsPagerAdapter;
-import com.zpj.fragmentation.BaseFragment;
 import com.zpj.shouji.market.utils.HttpApi;
 import com.zpj.utils.ScreenUtil;
 
@@ -36,8 +37,6 @@ import org.greenrobot.eventbus.EventBus;
 
 import java.util.ArrayList;
 
-import de.hdodenhof.circleimageview.CircleImageView;
-
 public class AppDetailFragment extends BaseFragment {
 
     private static final String[] TAB_TITLES = {"详情", "评论", "发现", "推荐"};
@@ -52,7 +51,7 @@ public class AppDetailFragment extends BaseFragment {
     private String type;
 
     private AppDetailInfo appDetailInfo;
-    private CircleImageView icon;
+    private NiceImageView icon;
     private TextView title;
     private TextView shortInfo;
     private TextView shortIntroduce;

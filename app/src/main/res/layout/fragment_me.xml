@@ -41,13 +41,14 @@
                     android:layout_marginEnd="20dp"
                     >
 
-                    <com.zpj.shouji.market.ui.widget.CircleImageView
+                    <com.shehuan.niv.NiceImageView
                         android:id="@+id/iv_avatar"
                         android:layout_width="72dp"
                         android:layout_height="72dp"
                         android:src="@mipmap/ic_launcher"
                         android:layout_centerVertical="true"
                         android:alpha="0.7"
+                        app:is_circle="true"
                         />
 
                     <TextView

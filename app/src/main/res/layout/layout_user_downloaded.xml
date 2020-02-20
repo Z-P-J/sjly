@@ -7,13 +7,15 @@
     android:padding="16dp"
     android:background="@drawable/bottom_line_gray">
 
-    <de.hdodenhof.circleimageview.CircleImageView
+    <com.shehuan.niv.NiceImageView
         android:layout_width="48dp"
         android:layout_height="48dp"
         android:id="@+id/icon_app"
         android:contentDescription="@string/app_name"
         android:scaleType="centerCrop"
-        android:src="@mipmap/ic_launcher" />
+        android:src="@mipmap/ic_launcher"
+        app:is_circle="true"
+        />
 
     <LinearLayout
         android:layout_toEndOf="@+id/icon_app"

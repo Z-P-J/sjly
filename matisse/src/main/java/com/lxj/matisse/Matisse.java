@@ -21,29 +21,30 @@ import android.net.Uri;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 
-import com.lxj.matisse.ui.MatisseActivity;
-
 import java.lang.ref.WeakReference;
 import java.util.List;
 import java.util.Set;
+
+import me.yokeyword.fragmentation.SupportActivity;
+import me.yokeyword.fragmentation.SupportFragment;
 
 /**
  * Entry for Matisse's media selection.
  */
 public final class Matisse {
 
-    private final WeakReference<Activity> mContext;
-    private final WeakReference<Fragment> mFragment;
+    private final WeakReference<SupportActivity> mContext;
+    private final WeakReference<SupportFragment> mFragment;
 
-    private Matisse(Activity activity) {
+    private Matisse(SupportActivity activity) {
         this(activity, null);
     }
 
-    private Matisse(Fragment fragment) {
-        this(fragment.getActivity(), fragment);
+    private Matisse(SupportFragment fragment) {
+        this((SupportActivity) fragment.getActivity(), fragment);
     }
 
-    private Matisse(Activity activity, Fragment fragment) {
+    private Matisse(SupportActivity activity, SupportFragment fragment) {
         mContext = new WeakReference<>(activity);
         mFragment = new WeakReference<>(fragment);
     }
@@ -57,7 +58,7 @@ public final class Matisse {
      * @param activity Activity instance.
      * @return Matisse instance.
      */
-    public static Matisse from(Activity activity) {
+    public static Matisse from(SupportActivity activity) {
         return new Matisse(activity);
     }
 
@@ -70,7 +71,7 @@ public final class Matisse {
      * @param fragment Fragment instance.
      * @return Matisse instance.
      */
-    public static Matisse from(Fragment fragment) {
+    public static Matisse from(SupportFragment fragment) {
         return new Matisse(fragment);
     }
 
@@ -182,12 +183,12 @@ public final class Matisse {
     }
 
     @Nullable
-    Activity getActivity() {
+    SupportActivity getActivity() {
         return mContext.get();
     }
 
     @Nullable
-    Fragment getFragment() {
+    SupportFragment getFragment() {
         return mFragment != null ? mFragment.get() : null;
     }
 

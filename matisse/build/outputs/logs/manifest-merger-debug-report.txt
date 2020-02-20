@@ -59,10 +59,6 @@ ADDED from D:\Programming\AndroidProjects\sjly\matisse\src\main\AndroidManifest.
 		ADDED from D:\Programming\AndroidProjects\sjly\matisse\src\main\AndroidManifest.xml:33:54-73
 	android:name
 		ADDED from D:\Programming\AndroidProjects\sjly\matisse\src\main\AndroidManifest.xml:33:20-53
-activity#com.lxj.matisse.ui.MatisseActivity
-ADDED from D:\Programming\AndroidProjects\sjly\matisse\src\main\AndroidManifest.xml:34:9-70
-	android:name
-		ADDED from D:\Programming\AndroidProjects\sjly\matisse\src\main\AndroidManifest.xml:34:19-68
 activity#com.lxj.matisse.internal.ui.AlbumPreviewActivity
 ADDED from D:\Programming\AndroidProjects\sjly\matisse\src\main\AndroidManifest.xml:35:9-84
 	android:name

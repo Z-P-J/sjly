@@ -8,15 +8,15 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.felix.atoast.library.AToast;
+import com.shehuan.niv.NiceImageView;
 import com.zpj.dialog.ZAlertDialog;
+import com.zpj.fragmentation.BaseFragment;
 import com.zpj.popupmenuview.popup.EverywherePopup;
 import com.zpj.shouji.market.R;
-import com.zpj.fragmentation.BaseFragment;
 import com.zpj.shouji.market.ui.fragment.setting.AboutSettingFragment;
 import com.zpj.shouji.market.ui.fragment.setting.CommonSettingFragment;
 import com.zpj.shouji.market.ui.fragment.setting.DownloadSettingFragment;
 import com.zpj.shouji.market.ui.fragment.setting.InstallSettingFragment;
-import com.zpj.shouji.market.ui.widget.CircleImageView;
 import com.zpj.shouji.market.ui.widget.PullZoomView;
 import com.zpj.utils.ClickHelper;
 
@@ -24,7 +24,7 @@ public class MeFragment extends BaseFragment implements View.OnClickListener {
 
     private TextView tvName;
     private TextView tvSignature;
-    private CircleImageView ivAvatar;
+    private NiceImageView ivAvatar;
 
     private TextView tvCloudBackup;
     private TextView tvFeedback;

@@ -31,7 +31,7 @@
     <application>
         <meta-data android:name="android.notch_support" android:value="true"/>
         <meta-data android:name="android.max_aspect" android:value="2.4" />
-        <activity android:name="com.lxj.matisse.ui.MatisseActivity"/>
+<!--        <activity android:name="com.lxj.matisse.ui.MatisseActivity"/>-->
         <activity android:name="com.lxj.matisse.internal.ui.AlbumPreviewActivity"/>
         <activity android:name="com.lxj.matisse.internal.ui.SelectedPreviewActivity"/>
         <activity

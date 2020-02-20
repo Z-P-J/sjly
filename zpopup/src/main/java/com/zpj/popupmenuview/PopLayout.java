@@ -11,7 +11,6 @@ import android.graphics.PorterDuff;
 import android.graphics.PorterDuffXfermode;
 import android.graphics.RectF;
 import android.graphics.Xfermode;
-import android.support.v7.widget.CardView;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.View;

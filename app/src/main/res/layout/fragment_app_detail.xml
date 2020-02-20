@@ -37,7 +37,7 @@
                     android:scaleType="centerInside"
                     app:layout_collapseMode="parallax">
 
-                    <de.hdodenhof.circleimageview.CircleImageView
+                    <com.shehuan.niv.NiceImageView
                         android:id="@+id/iv_icon"
                         android:layout_marginTop="56dp"
                         android:layout_width="56dp"
@@ -45,6 +45,7 @@
                         android:src="@drawable/ic_app"
                         android:layout_centerHorizontal="true"
                         android:transitionName="app icon"
+                        app:is_circle="true"
                         />
 
                     <TextView

@@ -55,6 +55,7 @@ import com.zpj.fragmentation.BaseFragment;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Main Activity to display albums and media content (images/videos) in each album
@@ -66,12 +67,10 @@ public class MatisseFragment extends BaseFragment implements
         AlbumMediaAdapter.OnPhotoCapture {
 
     public static final String CHECK_STATE = "checkState";
-//    private final AlbumCollection mAlbumCollection = new AlbumCollection();
     private MediaStoreCompat mMediaStoreCompat;
     private SelectedItemCollection mSelectedCollection;
     private SelectionSpec mSpec;
 
-//    private AlbumsAdapter mAlbumsAdapter;
     private TextView mButtonPreview;
     private TextView mButtonApply;
 
@@ -89,7 +88,6 @@ public class MatisseFragment extends BaseFragment implements
         mSelectedCollection = new SelectedItemCollection(context);
         mSpec = SelectionSpec.getInstance();
         if (!mSpec.hasInited) {
-//            setResult(RESULT_CANCELED);
             pop();
             return;
         }
@@ -120,9 +118,9 @@ public class MatisseFragment extends BaseFragment implements
         updateBottomToolbar();
 
 
-        AlbumFragment albumFragment = findChildFragment(AlbumFragment.class);
+        AlbumFragment2 albumFragment = findChildFragment(AlbumFragment2.class);
         if (albumFragment == null) {
-            albumFragment = new AlbumFragment();
+            albumFragment = new AlbumFragment2();
         }
         albumFragment.setMatisseFragment(this);
         loadRootFragment(R.id.container, albumFragment);
@@ -141,14 +139,12 @@ public class MatisseFragment extends BaseFragment implements
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
         mSelectedCollection.onSaveInstanceState(outState);
-//        mAlbumCollection.onSaveInstanceState(outState);
         outState.putBoolean("checkState", mOriginalEnable);
     }
 
     @Override
     public void onDestroy() {
         super.onDestroy();
-//        mAlbumCollection.onDestroy();
         mSpec.onCheckedListener = null;
         mSpec.onSelectedListener = null;
     }
@@ -291,18 +287,16 @@ public class MatisseFragment extends BaseFragment implements
             intent.putExtra(BasePreviewActivity.EXTRA_RESULT_ORIGINAL_ENABLE, mOriginalEnable);
             startActivityForResult(intent, MatisseConst.REQUEST_CODE_PREVIEW);
         } else if (v.getId() == R.id.button_apply) {
-            Intent result = new Intent();
-            ArrayList<Uri> selectedUris = (ArrayList<Uri>) mSelectedCollection.asListOfUri();
-            result.putParcelableArrayListExtra(MatisseConst.EXTRA_RESULT_SELECTION, selectedUris);
-            ArrayList<String> selectedPaths = (ArrayList<String>) mSelectedCollection.asListOfString();
-            result.putStringArrayListExtra(MatisseConst.EXTRA_RESULT_SELECTION_PATH, selectedPaths);
-            result.putExtra(MatisseConst.EXTRA_RESULT_ORIGINAL_ENABLE, mOriginalEnable);
+
+            List<Uri> selectedUris =  mSelectedCollection.asListOfUri();
+            List<String> selectedPaths = mSelectedCollection.asListOfString();
             if (mSpec.isCrop && selectedPaths.size() == 1 && mSelectedCollection.asList().get(0).isImage()) {
                 //start crop
                 startCrop(_mActivity, selectedUris.get(0));
             } else {
-//                setResult(RESULT_OK, result);
-//                finish();
+                if (mSpec.onSelectedListener != null) {
+                    mSpec.onSelectedListener.onSelected(selectedUris, selectedPaths);
+                }
                 pop();
             }
         } else if (v.getId() == R.id.originalLayout) {
@@ -321,9 +315,6 @@ public class MatisseFragment extends BaseFragment implements
             if (mSpec.onCheckedListener != null) {
                 mSpec.onCheckedListener.onCheck(mOriginalEnable);
             }
-        } else if (v.getId() == R.id.selected_album) {
-            //选择相册
-//            albumPopup.show();
         }
     }
 
@@ -352,10 +343,10 @@ public class MatisseFragment extends BaseFragment implements
         // notify bottom toolbar that check state changed.
         updateBottomToolbar();
 
-        if (mSpec.onSelectedListener != null) {
-            mSpec.onSelectedListener.onSelected(
-                    mSelectedCollection.asListOfUri(), mSelectedCollection.asListOfString());
-        }
+//        if (mSpec.onSelectedListener != null) {
+//            mSpec.onSelectedListener.onSelected(
+//                    mSelectedCollection.asListOfUri(), mSelectedCollection.asListOfString());
+//        }
     }
 
     @Override

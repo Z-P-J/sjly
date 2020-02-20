@@ -5,4 +5,8 @@
     <color name="transparent">#00000000</color>
     <color name="color_text_major">#222222</color>
 
+    <color name="_xpopup_list_divider">#EEEEEE</color>
+    <color name="_xpopup_title_color">#111111</color>
+    <color name="_xpopup_content_color">#333333</color>
+
 </resources>

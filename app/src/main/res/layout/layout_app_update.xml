@@ -9,13 +9,14 @@
     android:padding="10dp"
     >
 
-    <de.hdodenhof.circleimageview.CircleImageView
+    <com.shehuan.niv.NiceImageView
         android:id="@+id/image_icon"
         android:layout_width="56dp"
         android:layout_height="56dp"
         android:src="@mipmap/ic_launcher"
         android:layout_margin="10dp"
         android:layout_gravity="top"
+        app:is_circle="true"
         />
 
 

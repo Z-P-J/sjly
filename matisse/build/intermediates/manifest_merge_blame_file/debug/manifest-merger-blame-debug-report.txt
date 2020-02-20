@@ -67,27 +67,24 @@
 41-->D:\Programming\AndroidProjects\sjly\matisse\src\main\AndroidManifest.xml:33:20-53
 42            android:value="2.4" />
 42-->D:\Programming\AndroidProjects\sjly\matisse\src\main\AndroidManifest.xml:33:54-73
-43
-44        <activity android:name="com.lxj.matisse.ui.MatisseActivity" />
-44-->D:\Programming\AndroidProjects\sjly\matisse\src\main\AndroidManifest.xml:34:9-70
-44-->D:\Programming\AndroidProjects\sjly\matisse\src\main\AndroidManifest.xml:34:19-68
-45        <activity android:name="com.lxj.matisse.internal.ui.AlbumPreviewActivity" />
-45-->D:\Programming\AndroidProjects\sjly\matisse\src\main\AndroidManifest.xml:35:9-84
-45-->D:\Programming\AndroidProjects\sjly\matisse\src\main\AndroidManifest.xml:35:19-82
-46        <activity android:name="com.lxj.matisse.internal.ui.SelectedPreviewActivity" />
-46-->D:\Programming\AndroidProjects\sjly\matisse\src\main\AndroidManifest.xml:36:9-87
-46-->D:\Programming\AndroidProjects\sjly\matisse\src\main\AndroidManifest.xml:36:19-85
-47        <activity
-47-->D:\Programming\AndroidProjects\sjly\matisse\src\main\AndroidManifest.xml:37:9-40:71
-48            android:name="com.yalantis.ucrop.UCropActivity"
-48-->D:\Programming\AndroidProjects\sjly\matisse\src\main\AndroidManifest.xml:38:13-60
-49            android:screenOrientation="portrait"
-49-->D:\Programming\AndroidProjects\sjly\matisse\src\main\AndroidManifest.xml:39:13-49
-50            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
-50-->D:\Programming\AndroidProjects\sjly\matisse\src\main\AndroidManifest.xml:40:13-69
-51        <activity android:name="com.lxj.matisse.ui.CameraActivity" />
-51-->D:\Programming\AndroidProjects\sjly\matisse\src\main\AndroidManifest.xml:41:9-70
-51-->D:\Programming\AndroidProjects\sjly\matisse\src\main\AndroidManifest.xml:41:19-67
-52    </application>
-53
-54</manifest>
+43        <!-- <activity android:name="com.lxj.matisse.ui.MatisseActivity"/> -->
+44        <activity android:name="com.lxj.matisse.internal.ui.AlbumPreviewActivity" />
+44-->D:\Programming\AndroidProjects\sjly\matisse\src\main\AndroidManifest.xml:35:9-84
+44-->D:\Programming\AndroidProjects\sjly\matisse\src\main\AndroidManifest.xml:35:19-82
+45        <activity android:name="com.lxj.matisse.internal.ui.SelectedPreviewActivity" />
+45-->D:\Programming\AndroidProjects\sjly\matisse\src\main\AndroidManifest.xml:36:9-87
+45-->D:\Programming\AndroidProjects\sjly\matisse\src\main\AndroidManifest.xml:36:19-85
+46        <activity
+46-->D:\Programming\AndroidProjects\sjly\matisse\src\main\AndroidManifest.xml:37:9-40:71
+47            android:name="com.yalantis.ucrop.UCropActivity"
+47-->D:\Programming\AndroidProjects\sjly\matisse\src\main\AndroidManifest.xml:38:13-60
+48            android:screenOrientation="portrait"
+48-->D:\Programming\AndroidProjects\sjly\matisse\src\main\AndroidManifest.xml:39:13-49
+49            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+49-->D:\Programming\AndroidProjects\sjly\matisse\src\main\AndroidManifest.xml:40:13-69
+50        <activity android:name="com.lxj.matisse.ui.CameraActivity" />
+50-->D:\Programming\AndroidProjects\sjly\matisse\src\main\AndroidManifest.xml:41:9-70
+50-->D:\Programming\AndroidProjects\sjly\matisse\src\main\AndroidManifest.xml:41:19-67
+51    </application>
+52
+53</manifest>

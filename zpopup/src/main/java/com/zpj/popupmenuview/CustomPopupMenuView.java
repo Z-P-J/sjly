@@ -1,29 +1,17 @@
 package com.zpj.popupmenuview;
 
 import android.animation.Animator;
-import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
 import android.animation.ValueAnimator;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
-import android.graphics.Color;
 import android.graphics.Point;
 import android.graphics.Rect;
-import android.graphics.drawable.ColorDrawable;
-import android.support.v7.widget.CardView;
-import android.transition.Slide;
-import android.transition.Transition;
-import android.transition.TransitionValues;
-import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.LinearLayout;
-import android.widget.Toast;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created by felix on 16/11/18.

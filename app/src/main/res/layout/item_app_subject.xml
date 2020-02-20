@@ -24,14 +24,16 @@
             android:layout_width="match_parent"
             android:layout_height="68dp">
 
-            <de.hdodenhof.circleimageview.CircleImageView
+            <com.shehuan.niv.NiceImageView
                 android:id="@+id/iv_icon"
                 android:layout_width="48dp"
                 android:layout_height="48dp"
                 android:layout_margin="10dp"
                 android:src="@mipmap/ic_launcher"
-                app:civ_border_color="#80cccccc"
-                app:civ_border_width="1dp" />
+                app:border_color="#80cccccc"
+                app:border_width="1dp"
+                app:is_circle="true"
+                />
 
             <TextView
                 android:id="@+id/tv_title"

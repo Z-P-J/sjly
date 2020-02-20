@@ -35,6 +35,7 @@ dependencies {
     implementation 'com.android.support:cardview-v7:28.0.0'
     implementation 'com.nineoldandroids:library:2.4.0'
     implementation 'com.github.ybq:Android-SpinKit:1.4.0'
+//    api 'com.lxj:xpopup:1.8.10'
 
     api project(':atoast')
     api project(":zdialog")

@@ -20,6 +20,7 @@ import android.content.res.TypedArray;
 import android.database.Cursor;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
+import android.support.annotation.NonNull;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -28,6 +29,9 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
+import com.bumptech.glide.request.target.Target;
 import com.lxj.matisse.R;
 import com.lxj.matisse.internal.entity.Album;
 import com.lxj.matisse.internal.entity.Item;
@@ -36,6 +40,12 @@ import com.lxj.matisse.internal.entity.IncapableCause;
 import com.lxj.matisse.internal.model.SelectedItemCollection;
 import com.lxj.matisse.internal.ui.widget.CheckView;
 import com.lxj.matisse.internal.ui.widget.MediaGrid;
+import com.lxj.xpopup.XPopup;
+import com.lxj.xpopup.interfaces.XPopupImageLoader;
+
+import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
 
 public class AlbumMediaAdapter extends
         RecyclerViewCursorAdapter<RecyclerView.ViewHolder> implements
@@ -159,9 +169,35 @@ public class AlbumMediaAdapter extends
 
     @Override
     public void onThumbnailClicked(ImageView thumbnail, Item item, RecyclerView.ViewHolder holder) {
-        if (mOnMediaClickListener != null) {
-            mOnMediaClickListener.onMediaClick(null, item, holder.getAdapterPosition());
-        }
+        List<Object> objects = new ArrayList<>();
+        objects.add(item.uri);
+        new XPopup.Builder(holder.itemView.getContext())
+                .asImageViewer(thumbnail, holder.getAdapterPosition(), objects, (popupView, pos) -> {
+                            popupView.updateSrcView(thumbnail);
+                        }, new XPopupImageLoader() {
+                            @Override
+                            public void loadImage(int position, @NonNull Object uri, @NonNull ImageView imageView) {
+                                Glide.with(imageView).load(uri)
+                                        .apply(new RequestOptions()
+                                                .placeholder(R.drawable._xpopup_round3_bg)
+                                                .override(Target.SIZE_ORIGINAL))
+                                        .into(imageView);
+                            }
+
+                            @Override
+                            public File getImageFile(@NonNull Context context, @NonNull Object uri) {
+                                try {
+                                    return Glide.with(context).downloadOnly().load(uri).submit().get();
+                                } catch (Exception e) {
+                                    e.printStackTrace();
+                                }
+                                return null;
+                            }
+                        })
+                .show();
+//        if (mOnMediaClickListener != null) {
+//            mOnMediaClickListener.onMediaClick(null, item, holder.getAdapterPosition());
+//        }
     }
 
     @Override

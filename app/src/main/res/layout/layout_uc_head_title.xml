@@ -14,11 +14,13 @@
         android:gravity="center"
         android:orientation="horizontal">
 
-        <com.zpj.shouji.market.ui.widget.CircleImageView
+        <com.shehuan.niv.NiceImageView
             android:id="@+id/title_uc_avater"
-            android:layout_width="60px"
-            android:layout_height="60px"
-            android:src="@mipmap/ic_launcher" />
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:src="@mipmap/ic_launcher"
+            app:is_circle="true"
+            />
 
         <TextView
             android:id="@+id/title_uc_title"

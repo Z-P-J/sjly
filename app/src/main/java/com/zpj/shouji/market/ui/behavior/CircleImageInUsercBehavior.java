@@ -7,7 +7,7 @@ import android.support.v7.widget.Toolbar;
 import android.util.AttributeSet;
 import android.view.View;
 
-import com.zpj.shouji.market.ui.widget.CircleImageView;
+import com.shehuan.niv.NiceImageView;
 import com.zpj.shouji.market.ui.widget.DisInterceptNestedScrollView;
 
 
@@ -16,7 +16,7 @@ import com.zpj.shouji.market.ui.widget.DisInterceptNestedScrollView;
  *         <p></p>
  * @describe 在app中，这个类用于头像的行为 具体使用在Strings.xml中的引用
  */
-public class CircleImageInUsercBehavior extends CoordinatorLayout.Behavior<CircleImageView> {
+public class CircleImageInUsercBehavior extends CoordinatorLayout.Behavior<NiceImageView> {
 
     private final String TAG_TOOLBAR = "toolbar";
 
@@ -36,14 +36,14 @@ public class CircleImageInUsercBehavior extends CoordinatorLayout.Behavior<Circl
 
 
     @Override
-    public boolean layoutDependsOn(CoordinatorLayout parent, CircleImageView child, View dependency) {
+    public boolean layoutDependsOn(CoordinatorLayout parent, NiceImageView child, View dependency) {
         return dependency instanceof DisInterceptNestedScrollView;
     }
 
 
     //当dependency变化的时候调用
     @Override
-    public boolean onDependentViewChanged(CoordinatorLayout parent, CircleImageView child, View dependency) {
+    public boolean onDependentViewChanged(CoordinatorLayout parent, NiceImageView child, View dependency) {
         //初始化一些基础参数
         init(parent, child, dependency);
         //计算比例
@@ -68,7 +68,7 @@ public class CircleImageInUsercBehavior extends CoordinatorLayout.Behavior<Circl
      * @param child
      * @param dependency
      */
-    private void init(CoordinatorLayout parent, CircleImageView child, View dependency) {
+    private void init(CoordinatorLayout parent, NiceImageView child, View dependency) {
         if (mStartAvatarY == 0) {
             mStartAvatarY = child.getY();
         }

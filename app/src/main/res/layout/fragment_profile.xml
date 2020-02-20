@@ -73,17 +73,19 @@
 
         <include layout="@layout/layout_uc_content" />
 
-        <com.zpj.shouji.market.ui.widget.CircleImageView
+        <com.shehuan.niv.NiceImageView
             android:id="@+id/uc_avater"
             android:layout_width="70dp"
             android:layout_height="70dp"
             android:layout_marginStart="15dp"
             android:src="@mipmap/ic_launcher"
-            app:civ_border_color="@android:color/white"
-            app:civ_border_width="2dp"
+            app:border_color="@android:color/white"
+            app:border_width="2dp"
             app:layout_anchor="@+id/middle_layout"
             app:layout_anchorGravity="top"
-            app:layout_behavior="com.zpj.shouji.market.ui.behavior.CircleImageInUsercBehavior" />
+            app:layout_behavior="com.zpj.shouji.market.ui.behavior.CircleImageInUsercBehavior"
+            app:is_circle="true"
+            />
 
         <LinearLayout
             android:layout_width="wrap_content"

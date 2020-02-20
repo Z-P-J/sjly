@@ -711,6 +711,9 @@ bool abc_config_actionMenuItemAllCaps
 bool abc_config_closeDialogWhenTouchOutside
 bool abc_config_showMenuShortcutsWhenKeyboardPresent
 bool mtrl_btn_textappearance_all_caps
+color _xpopup_content_color
+color _xpopup_list_divider
+color _xpopup_title_color
 color abc_background_cache_hint_selector_material_dark
 color abc_background_cache_hint_selector_material_light
 color abc_btn_colored_borderless_text_material
@@ -1164,6 +1167,9 @@ dimen ucrop_width_horizontal_wheel_progress_line
 dimen z_bottom_sheet_peek_height_min
 dimen z_tab_scrollable_min_width
 dimen z_tab_text_size_2line
+drawable _xpopup_round3_bg
+drawable _xpopup_round3_dark_bg
+drawable _xpopup_shadow
 drawable aa_dialog_bg
 drawable abc_ab_share_pack_mtrl_alpha
 drawable abc_action_bar_item_background_material
@@ -1400,9 +1406,11 @@ id album_media_count
 id album_name
 id alertTitle
 id async
+id attachPopupContainer
 id auto
 id blocking
 id bottom
+id bottomPopupContainer
 id bottom_bar
 id bottom_toolbar
 id btn_cancel
@@ -1417,6 +1425,7 @@ id buttons
 id cancel_action
 id capture_layout
 id center
+id centerPopupContainer
 id check_box
 id check_title
 id check_view
@@ -1441,6 +1450,8 @@ id design_menu_item_action_area_stub
 id design_menu_item_text
 id design_navigation_view
 id dialogLinearLayout
+id drawerContentContainer
+id drawerLayout
 id easy_layout_container
 id easy_recycler_layout_check_box
 id easy_recycler_layout_check_box_container
@@ -1455,6 +1466,7 @@ id end_padder
 id error_retry_view
 id error_view
 id error_view_tv
+id et_input
 id expand_activities_button
 id expanded_menu
 id fill
@@ -1493,6 +1505,7 @@ id isexpand
 id italic
 id item_title
 id item_touch_helper_previous_elevation
+id iv_image
 id iv_lefticon
 id iv_righticon
 id jcameraview
@@ -1543,7 +1556,9 @@ id pager
 id parallax
 id parentPanel
 id parent_matrix
+id photoViewContainer
 id pin
+id placeholderView
 id popupContainer
 id popup_menu_view_tailer
 id popup_menu_view_title
@@ -1553,6 +1568,8 @@ id progress_circular
 id progress_horizontal
 id promptTV
 id radio
+id recyclerView
+id recycler_layout
 id recycler_view
 id recyclerview
 id right
@@ -1587,7 +1604,6 @@ id search_src_text
 id search_voice_btn
 id select_dialog_listview
 id selected
-id selected_album
 id shapeLoadingView
 id shortcut
 id size
@@ -1645,9 +1661,16 @@ id transition_layout_save
 id transition_position
 id transition_scene_layoutid_cache
 id transition_transform
+id tv_cancel
+id tv_confirm
+id tv_content
 id tv_lefttext
 id tv_msg
+id tv_pager_indicator
 id tv_righttext
+id tv_save
+id tv_text
+id tv_title
 id ucrop
 id ucrop_frame
 id ucrop_photobox
@@ -1667,6 +1690,7 @@ id wrapper_controls
 id wrapper_reset_rotate
 id wrapper_rotate_by_angle
 id wrapper_states
+id xpopup_divider
 integer abc_config_activityDefaultDur
 integer abc_config_activityShortDur
 integer app_bar_elevation_anim_duration
@@ -1687,6 +1711,18 @@ interpolator mtrl_fast_out_linear_in
 interpolator mtrl_fast_out_slow_in
 interpolator mtrl_linear
 interpolator mtrl_linear_out_slow_in
+layout _xpopup_adapter_text
+layout _xpopup_attach_impl_list
+layout _xpopup_attach_popup_view
+layout _xpopup_bottom_popup_view
+layout _xpopup_center_impl_confirm
+layout _xpopup_center_impl_list
+layout _xpopup_center_impl_loading
+layout _xpopup_center_popup_view
+layout _xpopup_divider
+layout _xpopup_drawer_popup_view
+layout _xpopup_image_viewer_popup_view
+layout _xpopup_part_shadow_popup_view
 layout abc_action_bar_title_item
 layout abc_action_bar_up_container
 layout abc_action_bar_view_list_nav_layout
@@ -1717,7 +1753,6 @@ layout abc_search_view
 layout abc_select_dialog_material
 layout abc_tooltip
 layout activity_camera
-layout activity_matisse
 layout activity_media_preview
 layout album_list_item
 layout camera_view
@@ -1758,6 +1793,7 @@ layout easy_layout_recycler_2
 layout easy_loading_view
 layout easy_no_network_view
 layout fragment_album
+layout fragment_album2
 layout fragment_matisse
 layout fragment_media_selection
 layout fragment_preview_item
@@ -1861,6 +1897,7 @@ string button_original
 string button_preview
 string button_sure
 string button_sure_default
+string cancel
 string character_counter_content_description
 string character_counter_pattern
 string empty_text
@@ -1882,12 +1919,14 @@ string fragmentation_stack_view
 string hide_bottom_view_on_scroll_behavior
 string mtrl_chip_close_icon_content_description
 string no_network_view_hint
+string ok
 string password_toggle_content_description
 string path_password_eye
 string path_password_eye_mask_strike_through
 string path_password_eye_mask_visible
 string path_password_strike_through
 string photo_grid_capture
+string save
 string search_menu_title
 string status_bar_notification_info_overflow
 string titlebar_search_hint
@@ -2482,6 +2521,7 @@ style Widget_MaterialComponents_TextInputLayout_OutlinedBox
 style Widget_MaterialComponents_TextInputLayout_OutlinedBox_Dense
 style Widget_MaterialComponents_Toolbar
 style Widget_Support_CoordinatorLayout
+style XPopupTitle
 style Z_Light_BottomSheetDialog
 style custom_dialog
 style pop_animation

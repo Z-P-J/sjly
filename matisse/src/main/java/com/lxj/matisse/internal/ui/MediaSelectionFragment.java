@@ -25,6 +25,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 
 import com.lxj.matisse.R;
 import com.lxj.matisse.internal.entity.Album;
@@ -35,6 +36,9 @@ import com.lxj.matisse.internal.model.SelectedItemCollection;
 import com.lxj.matisse.internal.ui.adapter.AlbumMediaAdapter;
 import com.lxj.matisse.internal.ui.widget.MediaGridInset;
 import com.lxj.matisse.internal.utils.UIUtils;
+import com.lxj.xpopup.XPopup;
+
+import java.util.ArrayList;
 
 import me.yokeyword.fragmentation.SupportFragment;
 

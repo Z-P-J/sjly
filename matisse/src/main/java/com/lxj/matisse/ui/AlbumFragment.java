@@ -141,11 +141,6 @@ public class AlbumFragment extends BaseFragment implements
                     .setCheckStateListener(matisseFragment)
                     .setOnMediaClickListener(matisseFragment)
             );
-//            Fragment fragment = MediaSelectionFragment.newInstance(album);
-//            getChildFragmentManager()
-//                    .beginTransaction()
-//                    .replace(R.id.container, fragment, MediaSelectionFragment.class.getSimpleName())
-//                    .commitAllowingStateLoss();
         }
     }
 

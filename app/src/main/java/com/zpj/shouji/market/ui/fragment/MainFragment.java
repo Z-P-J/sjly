@@ -1,6 +1,7 @@
 package com.zpj.shouji.market.ui.fragment;
 
 import android.content.pm.ActivityInfo;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -15,6 +16,7 @@ import com.lxj.matisse.CaptureMode;
 import com.lxj.matisse.Matisse;
 import com.lxj.matisse.MimeType;
 import com.lxj.matisse.engine.impl.GlideEngine;
+import com.lxj.matisse.listener.OnSelectedListener;
 import com.lxj.xpopup.core.BasePopupView;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.ui.adapter.FragmentsPagerAdapter;
@@ -199,7 +201,13 @@ public class MainFragment extends BaseFragment
                 .capture(true) //是否提供拍照功能，兼容7.0系统需要下面的配置
                 //参数1 true表示拍照存储在共有目录，false表示存储在私有目录；参数2与 AndroidManifest中authorities值相同，用于适配7.0系统 必须设置
                 .capture(true, CaptureMode.All)//存储到哪里
-                .forResult(123);//请求码
+                .setOnSelectedListener(new OnSelectedListener() {
+                    @Override
+                    public void onSelected(@NonNull List<Uri> uriList, @NonNull List<String> pathList) {
+
+                    }
+                })
+                .start();
     }
 
     @Override

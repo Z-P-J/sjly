@@ -16,19 +16,19 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.shehuan.niv.NiceImageView;
 import com.wuhenzhizao.titlebar.utils.ScreenUtils;
 import com.wuhenzhizao.titlebar.widget.CommonTitleBar;
+import com.zpj.fragmentation.BaseFragment;
 import com.zpj.http.parser.html.nodes.Element;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.ui.adapter.FragmentsPagerAdapter;
 import com.zpj.shouji.market.ui.behavior.AppBarLayoutOverScrollViewBehavior;
-import com.zpj.fragmentation.BaseFragment;
 import com.zpj.shouji.market.ui.fragment.theme.ThemeListFragment;
-import com.zpj.shouji.market.ui.widget.ZViewPager;
-import com.zpj.shouji.market.ui.widget.CircleImageView;
 import com.zpj.shouji.market.ui.widget.DotPagerIndicator;
 import com.zpj.shouji.market.ui.widget.RoundProgressBar;
 import com.zpj.shouji.market.ui.widget.ScaleTransitionPagerTitleView;
+import com.zpj.shouji.market.ui.widget.ZViewPager;
 
 import net.lucode.hackware.magicindicator.MagicIndicator;
 import net.lucode.hackware.magicindicator.ViewPagerHelper;
@@ -56,7 +56,7 @@ public class ProfileFragment extends BaseFragment implements ThemeListFragment.C
     private RoundProgressBar progressBar;
     private TextView mNicknameTextView, mSignatureTextView;
     private ImageView mSettingIv, mMsgIv;
-    private CircleImageView mAvater;
+    private NiceImageView mAvater;
     private MagicIndicator magicIndicator;
     private ZViewPager mViewPager;
 

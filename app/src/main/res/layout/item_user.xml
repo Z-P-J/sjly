@@ -9,15 +9,16 @@
     android:padding="10dp"
     >
 
-    <de.hdodenhof.circleimageview.CircleImageView
+    <com.shehuan.niv.NiceImageView
         android:id="@+id/iv_icon"
         android:layout_width="36dp"
         android:layout_height="36dp"
         android:src="@mipmap/ic_launcher"
-        app:civ_border_width="1dp"
-        app:civ_border_color="#80cccccc"
+        app:border_width="1dp"
+        app:border_color="#80cccccc"
         android:layout_margin="10dp"
         android:layout_gravity="center_vertical"
+        app:is_circle="true"
         />
 
     <LinearLayout

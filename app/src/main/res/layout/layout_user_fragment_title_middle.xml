@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/title_center_layout"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
@@ -9,11 +10,13 @@
     android:orientation="horizontal"
     >
 
-    <com.zpj.shouji.market.ui.widget.CircleImageView
+    <com.shehuan.niv.NiceImageView
         android:id="@+id/title_uc_avater"
         android:layout_width="24dp"
         android:layout_height="24dp"
-        android:src="@mipmap/ic_launcher" />
+        android:src="@mipmap/ic_launcher"
+        app:is_circle="true"
+        />
 
     <TextView
         android:id="@+id/title_uc_title"

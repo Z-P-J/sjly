@@ -96,13 +96,13 @@ public class ChatFragment extends BaseFragment implements ChatPanel.OnOperationL
         super.onEnterAnimationEnd(savedInstanceState);
         //加载本地聊天记录
         page = (int) ChatManager.getPages(number);
-        loadRecords();
 
 
         keyboardHeightProvider.setKeyboardHeightObserver(chatPanel);
         keyboardHeightProvider.start();
 
         showSoftInput(chatPanel.getEditor());
+        postOnEnterAnimationEnd(this::loadRecords);
     }
 
     @Override

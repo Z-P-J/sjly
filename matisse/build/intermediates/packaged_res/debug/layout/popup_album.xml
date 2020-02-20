@@ -3,8 +3,7 @@
     android:id="@+id/popupContainer"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_above="@id/bottom_toolbar"
-    android:layout_below="@id/selected_album">
+    android:layout_above="@id/bottom_toolbar">
 
     <android.support.design.widget.AppBarLayout
         android:layout_width="210dp"

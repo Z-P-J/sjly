@@ -25,8 +25,6 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.annotation.RequiresApi;
 import android.support.annotation.StyleRes;
-import android.support.v4.app.Fragment;
-import android.widget.Toast;
 
 import com.felix.atoast.library.AToast;
 import com.lxj.matisse.engine.ImageEngine;
@@ -35,8 +33,6 @@ import com.lxj.matisse.internal.entity.CaptureStrategy;
 import com.lxj.matisse.internal.entity.SelectionSpec;
 import com.lxj.matisse.listener.OnCheckedListener;
 import com.lxj.matisse.listener.OnSelectedListener;
-import com.lxj.matisse.ui.CameraActivity;
-import com.lxj.matisse.ui.MatisseActivity;
 import com.lxj.matisse.ui.MatisseFragment;
 import com.lxj.xpermission.PermissionConstants;
 import com.lxj.xpermission.XPermission;
@@ -370,11 +366,10 @@ public final class SelectionCreator {
     /**
      * Start to select media and wait for result.
      *
-     * @param requestCode Identity of the request Activity or Fragment.
      */
     @SuppressLint("WrongConstant")
-    public void forResult(final int requestCode) {
-        final Activity activity = mMatisse.getActivity();
+    public void start() {
+        final SupportActivity activity = mMatisse.getActivity();
         if (activity == null) {
             return;
         }
@@ -394,21 +389,12 @@ public final class SelectionCreator {
         xPermission.callback(new XPermission.SimpleCallback() {
                     @Override
                     public void onGranted() {
-                        Fragment fragment = mMatisse.getFragment();
-                        if (fragment instanceof SupportFragment) {
-                            ((SupportFragment) fragment).start(new MatisseFragment());
-                            return;
-                        }
-                        if (activity instanceof SupportActivity) {
-                            ((SupportActivity) activity).start(new MatisseFragment());
-                            return;
-                        }
-                        Intent intent = new Intent(activity, isJumpCapture ? CameraActivity.class : MatisseActivity.class);
+                        SupportFragment fragment = mMatisse.getFragment();
                         if (fragment != null) {
-                            fragment.startActivityForResult(intent, requestCode);
-                        } else {
-                            activity.startActivityForResult(intent, requestCode);
+                            fragment.start(new MatisseFragment());
+                            return;
                         }
+                        activity.start(new MatisseFragment());
                     }
                     @Override
                     public void onDenied() {
