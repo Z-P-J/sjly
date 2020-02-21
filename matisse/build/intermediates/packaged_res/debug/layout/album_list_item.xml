@@ -16,15 +16,15 @@
   -->
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="@dimen/album_item_height">
+    android:layout_height="match_parent">
 
     <ImageView
         android:id="@+id/album_cover"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:layout_centerVertical="true"
-        android:layout_marginStart="16dp"
-        android:layout_marginLeft="16dp" />
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="centerCrop"
+        />
+
 
     <TextView
         android:id="@+id/album_name"
@@ -36,7 +36,7 @@
         android:ellipsize="end"
         android:maxLines="1"
         android:textColor="@color/zhihu_album_dropdown_title_text"
-        android:textSize="16sp"
+        android:textSize="14sp"
         android:textStyle="bold"
         android:layout_marginLeft="8dp"
         android:layout_toRightOf="@id/album_cover" />

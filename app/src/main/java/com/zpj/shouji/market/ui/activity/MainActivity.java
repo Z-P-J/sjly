@@ -28,36 +28,38 @@ public class MainActivity extends SupportActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_main);
-        getWindow().setBackgroundDrawable(new ColorDrawable(Color.WHITE));
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
             StrictMode.VmPolicy.Builder builder = new StrictMode.VmPolicy.Builder();
             StrictMode.setVmPolicy(builder.build());
         }
 
-        OpeningStartAnimation openingStartAnimation3 = new OpeningStartAnimation.Builder(this)
+        OpeningStartAnimation openingStartAnimation3 = new OpeningStartAnimation.Builder(MainActivity.this)
                 .setDrawStategy(new NormalDrawStrategy())
                 .setAppName("手机乐园")
                 .setAppStatement("分享优质应用")
-                .setAnimationInterval(2000)
+                .setAnimationInterval(1500)
                 .setAppIcon(getResources().getDrawable(R.mipmap.ic_launcher))
                 .setAnimationListener(new OpeningStartAnimation.AnimationListener() {
                     @Override
                     public void onFinish(OpeningStartAnimation openingStartAnimation, Activity activity) {
+                        MainFragment mainFragment = findFragment(MainFragment.class);
+                        if (mainFragment == null) {
+                            mainFragment = new MainFragment();
+                            loadRootFragment(R.id.content, mainFragment);
+                        }
                         openingStartAnimation.dismiss(activity);
                         StatusBarUtils.setDarkMode(getWindow());
                         AppUpdateHelper.getInstance().checkUpdate(MainActivity.this);
                     }
                 })
                 .create();
-        openingStartAnimation3.show(this);
+        openingStartAnimation3.show(MainActivity.this);
 
-        MainFragment mainFragment = findFragment(MainFragment.class);
-        if (mainFragment == null) {
-            mainFragment = new MainFragment();
-            loadRootFragment(R.id.content, mainFragment);
-        }
+        getWindow().setBackgroundDrawable(new ColorDrawable(Color.WHITE));
+
         AppInstalledManager.getInstance().loadApps(this);
     }
 

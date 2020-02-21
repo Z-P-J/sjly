@@ -36,6 +36,8 @@ import com.lxj.xpopup.enums.PopupStatus;
 import com.lxj.xpopup.interfaces.OnDragChangeListener;
 import com.lxj.xpopup.interfaces.OnSrcViewUpdateListener;
 import com.lxj.xpopup.interfaces.XPopupImageLoader;
+import com.lxj.xpopup.photoview.OnPopupDismissListener;
+import com.lxj.xpopup.photoview.OnPopupShowListener;
 import com.lxj.xpopup.photoview.PhotoView;
 import com.lxj.xpopup.util.XPopupUtils;
 import com.lxj.xpopup.widget.BlankView;
@@ -51,15 +53,15 @@ import java.util.List;
  * Description: 大图预览的弹窗，使用Transition实现
  * Create by lxj, at 2019/1/22
  */
-public class ImageViewerPopupView extends BasePopupView implements OnDragChangeListener, View.OnClickListener {
+public class ImageViewerPopupView<T> extends BasePopupView implements OnDragChangeListener, View.OnClickListener {
     protected FrameLayout container;
     protected PhotoViewContainer photoViewContainer;
     protected BlankView placeholderView;
     protected TextView tv_pager_indicator, tv_save;
     protected HackyViewPager pager;
     protected ArgbEvaluator argbEvaluator = new ArgbEvaluator();
-    protected List<Object> urls = new ArrayList<>();
-    protected XPopupImageLoader imageLoader;
+    protected List<T> urls = new ArrayList<>();
+    protected XPopupImageLoader<T> imageLoader;
     protected OnSrcViewUpdateListener srcViewUpdateListener;
     protected int position;
     protected Rect rect = null;
@@ -74,6 +76,8 @@ public class ImageViewerPopupView extends BasePopupView implements OnDragChangeL
     protected boolean isInfinite = false;//是否需要无限滚动
     protected View customView;
     protected int bgColor = Color.rgb(32, 36, 46);//弹窗的背景颜色，可以自定义
+    private OnPopupShowListener onPopupShowListener;
+    private OnPopupDismissListener onPopupDismissListener;
 
     public ImageViewerPopupView(@NonNull Context context) {
         super(context);
@@ -100,12 +104,6 @@ public class ImageViewerPopupView extends BasePopupView implements OnDragChangeL
         photoViewContainer = findViewById(R.id.photoViewContainer);
         photoViewContainer.setOnDragChangeListener(this);
         pager = findViewById(R.id.pager);
-        pager.setAdapter(new PhotoViewAdapter());
-        pager.setOffscreenPageLimit(urls.size());
-        pager.setCurrentItem(position);
-        pager.setVisibility(INVISIBLE);
-        addOrUpdateSnapshot();
-        if (isInfinite) pager.setOffscreenPageLimit(urls.size() / 2);
         pager.addOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
             @Override
             public void onPageSelected(int i) {
@@ -117,6 +115,12 @@ public class ImageViewerPopupView extends BasePopupView implements OnDragChangeL
                 }
             }
         });
+        pager.setAdapter(new PhotoViewAdapter());
+//        pager.setOffscreenPageLimit(1);
+        pager.setCurrentItem(position);
+        pager.setVisibility(INVISIBLE);
+        addOrUpdateSnapshot();
+//        if (isInfinite) pager.setOffscreenPageLimit(urls.size() / 2);
         if (!isShowIndicator) tv_pager_indicator.setVisibility(GONE);
         if (!isShowSaveBtn) {
             tv_save.setVisibility(GONE);
@@ -173,17 +177,19 @@ public class ImageViewerPopupView extends BasePopupView implements OnDragChangeL
 
     @Override
     public void doShowAnimation() {
+        if (customView != null) customView.setVisibility(VISIBLE);
         if (srcView == null) {
             photoViewContainer.setBackgroundColor(bgColor);
             pager.setVisibility(VISIBLE);
             showPagerIndicator();
             photoViewContainer.isReleasing = false;
             ImageViewerPopupView.super.doAfterShow();
+            if (customView != null)
+                customView.setAlpha(1f);
             return;
         }
         photoViewContainer.isReleasing = true;
         snapshotView.setVisibility(VISIBLE);
-        if (customView != null) customView.setVisibility(VISIBLE);
         snapshotView.post(new Runnable() {
             @Override
             public void run() {
@@ -308,17 +314,27 @@ public class ImageViewerPopupView extends BasePopupView implements OnDragChangeL
         doDismissAnimation();
     }
 
-    public ImageViewerPopupView setImageUrls(List<Object> urls) {
+    public ImageViewerPopupView<T> setOnPopupDismissListener(OnPopupDismissListener onPopupDismissListener) {
+        this.onPopupDismissListener = onPopupDismissListener;
+        return this;
+    }
+
+    public ImageViewerPopupView<T> setOnPopupShowListener(OnPopupShowListener onPopupShowListener) {
+        this.onPopupShowListener = onPopupShowListener;
+        return this;
+    }
+
+    public ImageViewerPopupView<T> setImageUrls(List<T> urls) {
         this.urls = urls;
         return this;
     }
 
-    public ImageViewerPopupView setSrcViewUpdateListener(OnSrcViewUpdateListener srcViewUpdateListener) {
+    public ImageViewerPopupView<T> setSrcViewUpdateListener(OnSrcViewUpdateListener srcViewUpdateListener) {
         this.srcViewUpdateListener = srcViewUpdateListener;
         return this;
     }
 
-    public ImageViewerPopupView setXPopupImageLoader(XPopupImageLoader imageLoader) {
+    public ImageViewerPopupView<T> setXPopupImageLoader(XPopupImageLoader<T> imageLoader) {
         this.imageLoader = imageLoader;
         return this;
     }
@@ -329,7 +345,7 @@ public class ImageViewerPopupView extends BasePopupView implements OnDragChangeL
      * @param isShow
      * @return
      */
-    public ImageViewerPopupView isShowPlaceholder(boolean isShow) {
+    public ImageViewerPopupView<T> isShowPlaceholder(boolean isShow) {
         this.isShowPlaceholder = isShow;
         return this;
     }
@@ -340,7 +356,7 @@ public class ImageViewerPopupView extends BasePopupView implements OnDragChangeL
      * @param isShow
      * @return
      */
-    public ImageViewerPopupView isShowIndicator(boolean isShow) {
+    public ImageViewerPopupView<T> isShowIndicator(boolean isShow) {
         this.isShowIndicator = isShow;
         return this;
     }
@@ -351,27 +367,27 @@ public class ImageViewerPopupView extends BasePopupView implements OnDragChangeL
      * @param isShowSaveBtn
      * @return
      */
-    public ImageViewerPopupView isShowSaveButton(boolean isShowSaveBtn) {
+    public ImageViewerPopupView<T> isShowSaveButton(boolean isShowSaveBtn) {
         this.isShowSaveBtn = isShowSaveBtn;
         return this;
     }
 
-    public ImageViewerPopupView isInfinite(boolean isInfinite) {
+    public ImageViewerPopupView<T> isInfinite(boolean isInfinite) {
         this.isInfinite = isInfinite;
         return this;
     }
 
-    public ImageViewerPopupView setPlaceholderColor(int color) {
+    public ImageViewerPopupView<T> setPlaceholderColor(int color) {
         this.placeholderColor = color;
         return this;
     }
 
-    public ImageViewerPopupView setPlaceholderRadius(int radius) {
+    public ImageViewerPopupView<T> setPlaceholderRadius(int radius) {
         this.placeholderRadius = radius;
         return this;
     }
 
-    public ImageViewerPopupView setPlaceholderStrokeColor(int strokeColor) {
+    public ImageViewerPopupView<T> setPlaceholderStrokeColor(int strokeColor) {
         this.placeholderStrokeColor = strokeColor;
         return this;
     }
@@ -382,7 +398,7 @@ public class ImageViewerPopupView extends BasePopupView implements OnDragChangeL
      * @param srcView
      * @return
      */
-    public ImageViewerPopupView setSingleSrcView(ImageView srcView, Object url) {
+    public ImageViewerPopupView<T> setSingleSrcView(ImageView srcView, T url) {
         if (this.urls == null) {
             urls = new ArrayList<>();
         }
@@ -392,7 +408,7 @@ public class ImageViewerPopupView extends BasePopupView implements OnDragChangeL
         return this;
     }
 
-    public ImageViewerPopupView setSrcView(ImageView srcView, int position) {
+    public ImageViewerPopupView<T> setSrcView(ImageView srcView, int position) {
         this.srcView = srcView;
         this.position = position;
         if (srcView != null) {
@@ -425,6 +441,9 @@ public class ImageViewerPopupView extends BasePopupView implements OnDragChangeL
     protected void onDismiss() {
         super.onDismiss();
         srcView = null;
+        if (onPopupDismissListener != null) {
+            onPopupDismissListener.onDismiss();
+        }
     }
 
     @Override
@@ -486,5 +505,14 @@ public class ImageViewerPopupView extends BasePopupView implements OnDragChangeL
             container.removeView((View) object);
         }
     }
+
+    @Override
+    protected void onShow() {
+        super.onShow();
+        if (onPopupShowListener != null) {
+            onPopupShowListener.onShow();
+        }
+    }
+
 
 }

@@ -9,13 +9,25 @@ import com.bumptech.glide.request.RequestOptions;
 import com.bumptech.glide.request.target.Target;
 import com.lxj.xpopup.interfaces.XPopupImageLoader;
 import com.zpj.shouji.market.R;
+import com.zpj.shouji.market.glide.MyRequestOptions;
 
 import java.io.File;
 
 public class PopupImageLoader implements XPopupImageLoader {
+
+    public final RequestOptions options = new RequestOptions()
+            .centerCrop()
+//            .placeholder(R.drawable.bga_pp_ic_holder_light)
+            .error(R.drawable.bga_pp_ic_holder_light)
+//                .override(layoutParams.width, layoutParams.height)
+            .override(Target.SIZE_ORIGINAL);
+
     @Override
     public void loadImage(int position, @NonNull Object uri, @NonNull ImageView imageView) {
-        Glide.with(imageView).load(uri).apply(new RequestOptions().placeholder(R.mipmap.ic_launcher_round).override(Target.SIZE_ORIGINAL)).into(imageView);
+        Glide.with(imageView)
+                .load(uri)
+                .apply(options)
+                .into(imageView);
     }
 
     @Override

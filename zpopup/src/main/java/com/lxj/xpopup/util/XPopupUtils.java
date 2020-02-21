@@ -348,7 +348,7 @@ public class XPopupUtils {
 
     private static Context mContext;
 
-    public static void saveBmpToAlbum(final Context context, final XPopupImageLoader imageLoader, final Object uri) {
+    public static <T> void saveBmpToAlbum(final Context context, final XPopupImageLoader<T> imageLoader, final T uri) {
         final Handler mainHandler = new Handler(Looper.getMainLooper());
         final ExecutorService executor = Executors.newSingleThreadExecutor();
         mContext = context;

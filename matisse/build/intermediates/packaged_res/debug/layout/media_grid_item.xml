@@ -14,8 +14,9 @@
   See the License for the specific language governing permissions and
   limitations under the License.
   -->
-<com.lxj.matisse.internal.ui.widget.MediaGrid
+<com.zpj.matisse.ui.widget.MediaGrid
     xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/media_grid"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:foreground="?selectableItemBackground"/>

@@ -7,12 +7,11 @@ import android.support.annotation.Nullable;
 import android.support.v4.view.ViewPager;
 import android.view.View;
 
-import com.wuhenzhizao.titlebar.widget.CommonTitleBar;
+import com.zpj.fragmentation.BaseFragment;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.ui.adapter.FragmentsPagerAdapter;
-import com.zpj.fragmentation.BaseFragment;
-import com.zpj.shouji.market.ui.widget.DotPagerIndicator;
 import com.zpj.shouji.market.ui.widget.ScaleTransitionPagerTitleView;
+import com.zpj.utils.ScreenUtil;
 
 import net.lucode.hackware.magicindicator.MagicIndicator;
 import net.lucode.hackware.magicindicator.ViewPagerHelper;
@@ -20,6 +19,7 @@ import net.lucode.hackware.magicindicator.buildins.commonnavigator.CommonNavigat
 import net.lucode.hackware.magicindicator.buildins.commonnavigator.abs.CommonNavigatorAdapter;
 import net.lucode.hackware.magicindicator.buildins.commonnavigator.abs.IPagerIndicator;
 import net.lucode.hackware.magicindicator.buildins.commonnavigator.abs.IPagerTitleView;
+import net.lucode.hackware.magicindicator.buildins.commonnavigator.indicators.LinePagerIndicator;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,10 +27,6 @@ import java.util.List;
 public class AppManagerFragment extends BaseFragment {
 
     private static final String[] TAB_TITLES = {"下载管理", "更新", "已安装", "安装包"};
-
-    private List<BaseFragment> fragments = new ArrayList<>();
-
-    private CommonTitleBar titleBar;
 
     public AppManagerFragment() {
     }
@@ -46,13 +42,7 @@ public class AppManagerFragment extends BaseFragment {
     }
 
     @Override
-    protected String getToolbarTitle() {
-        return "应用管理";
-    }
-
-    @Override
     protected void initView(View view, @Nullable Bundle savedInstanceState) {
-        titleBar = view.findViewById(R.id.title_bar);
 
         DownloadFragment downloadFragment = findChildFragment(DownloadFragment.class);
         if (downloadFragment == null) {
@@ -74,7 +64,7 @@ public class AppManagerFragment extends BaseFragment {
             packageFragment = new PackageFragment();
         }
 
-        fragments.clear();
+        List<BaseFragment> fragments = new ArrayList<>();
         fragments.add(downloadFragment);
         fragments.add(updateFragment);
         fragments.add(installedFragment);
@@ -143,7 +133,13 @@ public class AppManagerFragment extends BaseFragment {
 
             @Override
             public IPagerIndicator getIndicator(Context context) {
-                return new DotPagerIndicator(context);
+                LinePagerIndicator indicator = new LinePagerIndicator(context);
+                indicator.setMode(LinePagerIndicator.MODE_EXACTLY);
+                indicator.setLineHeight(ScreenUtil.dp2px(context, 4f));
+                indicator.setLineWidth(ScreenUtil.dp2px(context, 12f));
+                indicator.setRoundRadius(ScreenUtil.dp2px(context, 4f));
+                indicator.setColors(Color.WHITE, Color.WHITE);
+                return indicator;
             }
         });
         magicIndicator.setNavigator(navigator);

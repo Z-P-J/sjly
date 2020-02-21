@@ -2,7 +2,7 @@ package com.cjt2325.cameralibrary.util;
 
 import android.util.Log;
 
-import static com.lxj.matisse.BuildConfig.DEBUG;
+import static com.zpj.matisse.BuildConfig.DEBUG;
 
 
 /**

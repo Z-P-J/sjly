@@ -1,7 +1,6 @@
 package com.zpj.shouji.market.ui.fragment;
 
 import android.content.pm.ActivityInfo;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -12,23 +11,24 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.lxj.matisse.CaptureMode;
-import com.lxj.matisse.Matisse;
-import com.lxj.matisse.MimeType;
-import com.lxj.matisse.engine.impl.GlideEngine;
-import com.lxj.matisse.listener.OnSelectedListener;
+import com.zpj.matisse.CaptureMode;
+import com.zpj.matisse.Matisse;
+import com.zpj.matisse.MimeType;
+import com.zpj.matisse.engine.impl.GlideEngine;
+import com.zpj.matisse.entity.Item;
+import com.zpj.matisse.listener.OnSelectedListener;
 import com.lxj.xpopup.core.BasePopupView;
+import com.zpj.fragmentation.BaseFragment;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.ui.adapter.FragmentsPagerAdapter;
-import com.zpj.fragmentation.BaseFragment;
 import com.zpj.shouji.market.ui.fragment.chat.ChatFragment;
 import com.zpj.shouji.market.ui.fragment.homepage.HomeFragment;
 import com.zpj.shouji.market.ui.fragment.profile.MeFragment;
 import com.zpj.shouji.market.ui.fragment.recommond.GameRecommendFragment;
 import com.zpj.shouji.market.ui.fragment.recommond.SoftRecommendFragment;
-import com.zpj.shouji.market.ui.widget.ZViewPager;
 import com.zpj.shouji.market.ui.widget.navigation.BottomNavigationViewEx;
 import com.zpj.shouji.market.ui.widget.popup.MorePopup;
+import com.zpj.widget.ScrollableViewPager;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -38,7 +38,7 @@ public class MainFragment extends BaseFragment
         MorePopup.OnItemClickListener {
 
     private final List<BaseFragment> fragments = new ArrayList<>();
-    private ZViewPager viewPager;
+    private ScrollableViewPager viewPager;
     private BasePopupView popupView;
 
     private int previousPosition = -1;
@@ -203,7 +203,7 @@ public class MainFragment extends BaseFragment
                 .capture(true, CaptureMode.All)//存储到哪里
                 .setOnSelectedListener(new OnSelectedListener() {
                     @Override
-                    public void onSelected(@NonNull List<Uri> uriList, @NonNull List<String> pathList) {
+                    public void onSelected(@NonNull List<Item> itemList) {
 
                     }
                 })

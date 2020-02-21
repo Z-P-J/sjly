@@ -42,10 +42,12 @@
                         android:layout_marginTop="56dp"
                         android:layout_width="56dp"
                         android:layout_height="56dp"
-                        android:src="@drawable/ic_app"
+                        android:src="@mipmap/ic_launcher"
                         android:layout_centerHorizontal="true"
                         android:transitionName="app icon"
                         app:is_circle="true"
+                        app:border_width="1dp"
+                        app:border_color="@android:color/white"
                         />
 
                     <TextView
@@ -145,6 +147,7 @@
                 android:layout_height="48dp"
                 android:layout_gravity="center"
                 android:background="@drawable/magic_indicator_bg"
+                android:padding="8dp"
                 />
 
         </android.support.design.widget.AppBarLayout>

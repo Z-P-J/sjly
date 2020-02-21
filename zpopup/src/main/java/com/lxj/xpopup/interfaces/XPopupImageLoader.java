@@ -6,8 +6,8 @@ import android.widget.ImageView;
 
 import java.io.File;
 
-public interface XPopupImageLoader{
-    void loadImage(int position, @NonNull Object uri, @NonNull ImageView imageView);
+public interface XPopupImageLoader<T>{
+    void loadImage(int position, @NonNull T uri, @NonNull ImageView imageView);
 
     /**
      * 获取图片对应的文件
@@ -15,5 +15,5 @@ public interface XPopupImageLoader{
      * @param uri
      * @return
      */
-    File getImageFile(@NonNull Context context, @NonNull Object uri);
+    File getImageFile(@NonNull Context context, @NonNull T uri);
 }

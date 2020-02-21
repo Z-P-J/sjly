@@ -16,6 +16,7 @@ import com.zpj.shouji.market.ui.fragment.theme.ThemeListFragment;
 import com.zpj.shouji.market.ui.fragment.UserListFragment;
 import com.zpj.fragmentation.BaseFragment;
 import com.zpj.shouji.market.ui.widget.DotPagerIndicator;
+import com.zpj.utils.ScreenUtil;
 
 import net.lucode.hackware.magicindicator.MagicIndicator;
 import net.lucode.hackware.magicindicator.ViewPagerHelper;
@@ -23,6 +24,7 @@ import net.lucode.hackware.magicindicator.buildins.commonnavigator.CommonNavigat
 import net.lucode.hackware.magicindicator.buildins.commonnavigator.abs.CommonNavigatorAdapter;
 import net.lucode.hackware.magicindicator.buildins.commonnavigator.abs.IPagerIndicator;
 import net.lucode.hackware.magicindicator.buildins.commonnavigator.abs.IPagerTitleView;
+import net.lucode.hackware.magicindicator.buildins.commonnavigator.indicators.LinePagerIndicator;
 import net.lucode.hackware.magicindicator.buildins.commonnavigator.titles.ColorTransitionPagerTitleView;
 
 import org.greenrobot.eventbus.EventBus;
@@ -118,7 +120,13 @@ public class SearchResultFragment extends BaseFragment {
 
             @Override
             public IPagerIndicator getIndicator(Context context) {
-                return new DotPagerIndicator(context);
+                LinePagerIndicator indicator = new LinePagerIndicator(context);
+                indicator.setMode(LinePagerIndicator.MODE_EXACTLY);
+                indicator.setLineHeight(ScreenUtil.dp2px(context, 4f));
+                indicator.setLineWidth(ScreenUtil.dp2px(context, 12f));
+                indicator.setRoundRadius(ScreenUtil.dp2px(context, 4f));
+                indicator.setColors(Color.WHITE, Color.WHITE);
+                return indicator;
             }
         });
         magicIndicator.setNavigator(navigator);

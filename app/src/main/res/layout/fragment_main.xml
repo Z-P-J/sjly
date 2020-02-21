@@ -18,7 +18,7 @@
         app:elevation="0dp"
         />
 
-    <com.zpj.shouji.market.ui.widget.ZViewPager
+    <com.zpj.widget.ScrollableViewPager
         android:id="@+id/vp"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

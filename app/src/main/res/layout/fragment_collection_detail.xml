@@ -227,6 +227,7 @@
                 android:layout_height="48dp"
                 android:layout_gravity="center"
                 android:background="@drawable/magic_indicator_bg"
+                android:padding="8dp"
                 />
 
         </android.support.design.widget.AppBarLayout>

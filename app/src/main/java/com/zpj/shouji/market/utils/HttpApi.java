@@ -48,4 +48,8 @@ public final class HttpApi {
                 .observeOn(AndroidSchedulers.mainThread());
     }
 
+    public static ObservableTask<Document> collectionRecommond() {
+        return connect("http://tt.shouji.com.cn/androidv3/yyj_tj_xml.jsp");
+    }
+
 }

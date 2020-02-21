@@ -49,7 +49,7 @@
     <color name="dracula_primary">#263237</color>
     <color name="dracula_primary_dark">#1D282C</color>
     <color name="preview_bottom_size">#61FFFFFF</color>
-    <color name="preview_bottom_toolbar_bg">#CC000000</color>
+    <color name="preview_bottom_toolbar_bg">#40000000</color>
     <color name="zhihu_album_divider">#DEDEDE</color>
     <color name="zhihu_album_dropdown_count_text">#777777</color>
     <color name="zhihu_album_dropdown_thumbnail_placeholder">#EAEEF4</color>
@@ -96,30 +96,6 @@
     <string name="error_type_conflict">Can\'t select images and videos at the same time</string>
     <string name="error_under_quality">Under quality</string>
     <string name="photo_grid_capture">Camera</string>
-    <style name="Matisse.Dracula" parent="Theme.AppCompat.NoActionBar">
-        <item name="colorPrimary">@color/dracula_primary</item>
-        <item name="colorPrimaryDark">@color/dracula_primary_dark</item>
-        <item name="toolbar">@style/Toolbar.Dracula</item>
-        <item name="album.dropdown.title.color">@color/dracula_album_dropdown_title_text</item>
-        <item name="album.dropdown.count.color">@color/dracula_album_dropdown_count_text</item>
-        <item name="album.element.color">@android:color/white</item>
-        <item name="album.thumbnail.placeholder">@color/dracula_album_dropdown_thumbnail_placeholder</item>
-        <item name="album.emptyView">@drawable/ic_empty_dracula</item>
-        <item name="album.emptyView.textColor">@color/dracula_album_empty_view</item>
-        <item name="album.dropdown.selected.bg">@color/dracula_album_selected_bg</item>
-        <item name="album.dropdown.divider">@color/dracula_album_divider</item>
-        <item name="album.popup.bg">@color/dracula_album_popup_bg</item>
-        <item name="item.placeholder">@color/dracula_item_placeholder</item>
-        <item name="item.checkCircle.backgroundColor">@color/dracula_item_checkCircle_backgroundColor</item>
-        <item name="item.checkCircle.borderColor">@color/dracula_item_checkCircle_borderColor</item>
-        <item name="page.bg">@color/dracula_page_bg</item>
-        <item name="bottomToolbar.bg">@color/dracula_bottom_toolbar_bg</item>
-        <item name="bottomToolbar.preview.textColor">@color/dracula_bottom_toolbar_preview</item>
-        <item name="bottomToolbar.apply.textColor">@color/dracula_bottom_toolbar_apply</item>
-        <item name="preview.bottomToolbar.back.textColor">@color/dracula_preview_bottom_toolbar_back_text</item>
-        <item name="preview.bottomToolbar.apply.textColor">@color/dracula_preview_bottom_toolbar_apply</item>
-        <item name="capture.textColor">@color/dracula_capture</item>
-    </style>
     <style name="Matisse.Zhihu" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="colorPrimary">@color/zhihu_primary</item>
         <item name="colorPrimaryDark">@color/zhihu_primary_dark</item>

@@ -252,10 +252,8 @@ public class RecommendFragment extends RecyclerLayoutFragment<GroupItem> {
                 .setLayoutManager(new GridLayoutManager(context, 2, LinearLayoutManager.HORIZONTAL, false))
                 .onBindViewHolder((holder1, list1, position, payloads) -> {
                     CollectionInfo info = list1.get(position);
-                    LCardView cardView = holder.getView(R.id.card_view);
-                    cardView.setShadowSize(0);
-                    cardView.setShadowAlpha(0);
-                    FrameLayout.LayoutParams params = (FrameLayout.LayoutParams) cardView.getLayoutParams();
+                    LinearLayout imgBg = holder1.getView(R.id.img_bg);
+                    GridLayoutManager.LayoutParams params = (GridLayoutManager.LayoutParams) imgBg.getLayoutParams();
                     if (position % 2 == 0) {
                         if (position == 0) {
                             params.setMargins(margin, 0, margin / 2, margin / 2);
@@ -273,7 +271,7 @@ public class RecommendFragment extends RecyclerLayoutFragment<GroupItem> {
                             params.setMargins(margin / 2, margin / 2, margin / 2, 0);
                         }
                     }
-                    cardView.setLayoutParams(params);
+                    imgBg.setLayoutParams(params);
 
                     holder1.getTextView(R.id.item_title).setText(info.getTitle());
                     holder1.setText(R.id.tv_view_count, info.getViewCount() + "");
@@ -288,7 +286,7 @@ public class RecommendFragment extends RecyclerLayoutFragment<GroupItem> {
                                     .into(new SimpleTarget<Drawable>() {
                                         @Override
                                         public void onResourceReady(@NonNull Drawable resource, @Nullable Transition<? super Drawable> transition) {
-                                            holder1.getView(R.id.img_bg).setBackground(resource);
+                                            imgBg.setBackground(resource);
                                         }
                                     });
                         }

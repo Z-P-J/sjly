@@ -23,6 +23,7 @@ import com.zpj.http.parser.html.nodes.Element;
 import com.zpj.recyclerview.EasyRecyclerLayout;
 import com.zpj.recyclerview.EasyViewHolder;
 import com.zpj.shouji.market.R;
+import com.zpj.shouji.market.glide.MyRequestOptions;
 import com.zpj.shouji.market.model.WallpaperInfo;
 import com.zpj.shouji.market.model.WallpaperTag;
 import com.zpj.shouji.market.utils.PopupImageLoader;
@@ -38,13 +39,6 @@ public class ImageListFragment extends NextUrlFragment<WallpaperInfo> {
     private static final String KEY_ID = "id";
     private static final String KEY_TAG = "tag";
     private static final String DEFAULT_URL = "http://tt.shouji.com.cn/app/bizhi_list.jsp?versioncode=198";
-
-    private final RequestOptions options = new RequestOptions()
-            .centerCrop()
-            .placeholder(R.drawable.bga_pp_ic_holder_light)
-            .error(R.drawable.bga_pp_ic_holder_light)
-//                .override(layoutParams.width, layoutParams.height)
-            .override(Target.SIZE_ORIGINAL);
 
     private String id;
     private String tag;
@@ -105,7 +99,7 @@ public class ImageListFragment extends NextUrlFragment<WallpaperInfo> {
         wallpaper.setLayoutParams(layoutParams);
         Glide.with(context)
                 .load(list.get(position).getSpic())
-                .apply(options).into(wallpaper);
+                .apply(MyRequestOptions.DEFAULT_OPTIONS).into(wallpaper);
 
         Glide.with(context).load(info.getMemberIcon()).into(holder.getImageView(R.id.iv_icon));
         holder.getTextView(R.id.tv_content).setText(info.getContent());

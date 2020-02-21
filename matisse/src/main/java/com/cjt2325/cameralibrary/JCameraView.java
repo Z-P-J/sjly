@@ -32,7 +32,7 @@ import com.cjt2325.cameralibrary.util.FileUtil;
 import com.cjt2325.cameralibrary.util.LogUtil;
 import com.cjt2325.cameralibrary.util.ScreenUtils;
 import com.cjt2325.cameralibrary.view.CameraView;
-import com.lxj.matisse.R;
+import com.zpj.matisse.R;
 
 import java.io.IOException;
 

@@ -61,10 +61,6 @@ public abstract class BaseFragment extends SwipeBackFragment {
                 } else if (titleBar.getCenterCustomView() != null) {
                     toolbarCenterCustomView(titleBar.getCenterCustomView());
                 }
-
-                if (titleBar.getCenterTextView() != null) {
-                    titleBar.getCenterTextView().setText(getToolbarTitle());
-                }
             }
             initView(view, savedInstanceState);
         } else {
@@ -85,10 +81,6 @@ public abstract class BaseFragment extends SwipeBackFragment {
 
     protected boolean supportSwipeBack() {
         return false;
-    }
-
-    protected String getToolbarTitle() {
-        return "标题";
     }
 
     public void toolbarLeftImageButton(@NonNull ImageButton imageButton) {

@@ -20,8 +20,8 @@ import com.cjt2325.cameralibrary.listener.CaptureListener;
 import com.cjt2325.cameralibrary.listener.ClickListener;
 import com.cjt2325.cameralibrary.listener.ReturnListener;
 import com.cjt2325.cameralibrary.listener.TypeListener;
-import com.lxj.matisse.CaptureMode;
-import com.lxj.matisse.internal.entity.SelectionSpec;
+import com.zpj.matisse.CaptureMode;
+import com.zpj.matisse.entity.SelectionSpec;
 
 
 /**

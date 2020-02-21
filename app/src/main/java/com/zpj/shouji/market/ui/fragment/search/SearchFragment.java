@@ -11,10 +11,10 @@ import android.view.View;
 import com.felix.atoast.library.AToast;
 import com.kongzue.stacklabelview.interfaces.OnLabelClickListener;
 import com.wuhenzhizao.titlebar.widget.CommonTitleBar;
+import com.zpj.fragmentation.BaseFragment;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.ui.adapter.FragmentsPagerAdapter;
-import com.zpj.fragmentation.BaseFragment;
-import com.zpj.shouji.market.ui.widget.ZViewPager;
+import com.zpj.widget.ScrollableViewPager;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -36,7 +36,7 @@ public class SearchFragment extends BaseFragment implements OnLabelClickListener
     }
 
     private CommonTitleBar titleBar;
-    private ZViewPager viewPager;
+    private ScrollableViewPager viewPager;
 
     @Override
     protected int getLayoutId() {

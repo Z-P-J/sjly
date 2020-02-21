@@ -17,10 +17,8 @@ package com.zpj.shouji.market.ui.widget;
 
 import android.content.Context;
 import android.content.pm.ActivityInfo;
-import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.view.View;
@@ -32,21 +30,18 @@ import com.felix.atoast.library.AToast;
 import com.lqr.emoji.EmotionLayout;
 import com.lqr.emoji.IEmotionExtClickListener;
 import com.lqr.emoji.IEmotionSelectedListener;
-import com.lxj.matisse.CaptureMode;
-import com.lxj.matisse.Matisse;
-import com.lxj.matisse.MimeType;
-import com.lxj.matisse.engine.impl.GlideEngine;
-import com.lxj.matisse.listener.OnSelectedListener;
-import com.lxj.xpopup.XPopup;
-import com.lxj.xpopup.core.ImageViewerPopupView;
-import com.lxj.xpopup.interfaces.OnSrcViewUpdateListener;
+import com.zpj.matisse.CaptureMode;
+import com.zpj.matisse.Matisse;
+import com.zpj.matisse.MimeType;
+import com.zpj.matisse.engine.impl.GlideEngine;
+import com.zpj.matisse.entity.Item;
+import com.zpj.matisse.model.SelectedItemManager;
+import com.zpj.matisse.ui.widget.CustomImageViewerPopup;
+import com.zpj.matisse.listener.OnSelectedListener;
 import com.rockerhieu.emojicon.EmojiconEditText;
 import com.zpj.recyclerview.EasyRecyclerView;
-import com.zpj.recyclerview.EasyViewHolder;
-import com.zpj.recyclerview.IEasy;
 import com.zpj.shouji.market.R;
-import com.zpj.shouji.market.utils.PopupImageLoader;
-import com.zpj.utils.ClickHelper;
+import com.zpj.shouji.market.glide.MyRequestOptions;
 import com.zpj.utils.KeyboardHeightProvider;
 import com.zpj.utils.KeyboardUtil;
 
@@ -55,7 +50,8 @@ import java.util.List;
 
 import me.yokeyword.fragmentation.SupportActivity;
 
-public class ChatPanel extends RelativeLayout implements KeyboardHeightProvider.KeyboardHeightObserver {
+public class ChatPanel extends RelativeLayout
+        implements KeyboardHeightProvider.KeyboardHeightObserver {
 
     public interface OnOperationListener extends IEmotionSelectedListener {
 
@@ -63,7 +59,7 @@ public class ChatPanel extends RelativeLayout implements KeyboardHeightProvider.
 
     }
 
-    private final List<Uri> imgList = new ArrayList<>();
+    private final List<Item> imgList = new ArrayList<>();
     private EmojiconEditText etEditor;
     private ImageView ivEmoji;
     private ImageView ivImage;
@@ -126,30 +122,43 @@ public class ChatPanel extends RelativeLayout implements KeyboardHeightProvider.
             }
         });
 
-        EasyRecyclerView<Uri> recyclerView = new EasyRecyclerView<>(findViewById(R.id.rv_img));
+        EasyRecyclerView<Item> recyclerView = new EasyRecyclerView<>(findViewById(R.id.rv_img));
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false))
                 .setItemRes(R.layout.item_image_square)
                 .setData(imgList)
                 .onBindViewHolder((holder, list, position, payloads) -> {
-                    Glide.with(getContext()).load(list.get(position)).into(holder.getImageView(R.id.iv_img));
-                    holder.setOnItemClickListener(new ClickHelper.OnClickListener() {
-                        @Override
-                        public void onClick(View v, float x, float y) {
-                            new XPopup.Builder(getContext())
-                                    .asImageViewer(holder.getImageView(R.id.iv_img), position, new ArrayList<>(imgList)
-                                            , (popupView, pos) -> {
-                                                int layoutPos = recyclerView.getRecyclerView().indexOfChild(holder.getItemView());
-                                                View view = recyclerView.getRecyclerView().getChildAt(layoutPos + pos - position);
-                                                ImageView imageView;
-                                                if (view != null) {
-                                                    imageView = view.findViewById(R.id.img_view);
-                                                } else {
-                                                    imageView = holder.getImageView(R.id.iv_img);
-                                                }
-                                                popupView.updateSrcView(imageView);
-                                            }, new PopupImageLoader())
-                                    .show();
-                        }
+                    ImageView img = holder.getImageView(R.id.iv_img);
+                    Glide.with(getContext())
+                            .load(list.get(position).uri)
+                            .apply(MyRequestOptions.DEFAULT_OPTIONS)
+                            .into(img);
+
+                    holder.setOnItemClickListener((v, x, y) -> {
+                        SelectedItemManager.OnCheckStateListener listener = () -> {
+                            imgList.clear();
+                            imgList.addAll(SelectedItemManager.getInstance().asList());
+                            recyclerView.notifyDataSetChanged();
+                            if (imgList.isEmpty()) {
+                                recyclerView.getRecyclerView().setVisibility(GONE);
+                            }
+                        };
+                        CustomImageViewerPopup.with(getContext())
+                                .setImageUrls(imgList)
+                                .setSrcView(img, holder.getAdapterPosition())
+                                .setSrcViewUpdateListener((popupView, pos) -> {
+                                    int layoutPos = recyclerView.getRecyclerView().indexOfChild(holder.getItemView());
+                                    View view = recyclerView.getRecyclerView().getChildAt(layoutPos + pos - position);
+                                    ImageView imageView;
+                                    if (view != null) {
+                                        imageView = view.findViewById(R.id.iv_img);
+                                    } else {
+                                        imageView = img;
+                                    }
+                                    popupView.updateSrcView(imageView);
+                                })
+                                .setOnPopupShowListener(() -> SelectedItemManager.getInstance().addOnCheckStateListener(listener))
+                                .setOnPopupDismissListener(() -> SelectedItemManager.getInstance().removeOnCheckStateListener(listener))
+                                .show();
                     });
                 })
                 .build();
@@ -191,16 +200,16 @@ public class ChatPanel extends RelativeLayout implements KeyboardHeightProvider.
                     .gridExpectedSize(this.getResources().getDimensionPixelSize(R.dimen.photo))//图片显示表格的大小
                     .restrictOrientation(ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED)//图像选择和预览活动所需的方向
                     .thumbnailScale(0.85f)//缩放比例
-                    .theme(R.style.Matisse_Zhihu)//主题  暗色主题 R.style.Matisse_Dracula
                     .imageEngine(new GlideEngine())//图片加载方式，Glide4需要自定义实现
                     .capture(true) //是否提供拍照功能，兼容7.0系统需要下面的配置
                     //参数1 true表示拍照存储在共有目录，false表示存储在私有目录；参数2与 AndroidManifest中authorities值相同，用于适配7.0系统 必须设置
                     .capture(true, CaptureMode.All)//存储到哪里
                     .setOnSelectedListener(new OnSelectedListener() {
                         @Override
-                        public void onSelected(@NonNull List<Uri> uriList, @NonNull List<String> pathList) {
+                        public void onSelected(@NonNull List<Item> itemList) {
                             recyclerView.getRecyclerView().setVisibility(VISIBLE);
-                            imgList.addAll(uriList);
+                            imgList.clear();
+                            imgList.addAll(itemList);
                             recyclerView.notifyDataSetChanged();
                         }
                     })

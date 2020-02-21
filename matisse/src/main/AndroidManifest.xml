@@ -16,7 +16,7 @@
   -->
 <manifest
     xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.lxj.matisse">
+    package="com.zpj.matisse">
     <uses-permission android:name="android.permission.FLASHLIGHT" />
     <uses-permission android:name="android.permission.RECORD_AUDIO"/>
     <uses-permission android:name="android.permission.WAKE_LOCK"/>
@@ -31,13 +31,13 @@
     <application>
         <meta-data android:name="android.notch_support" android:value="true"/>
         <meta-data android:name="android.max_aspect" android:value="2.4" />
-<!--        <activity android:name="com.lxj.matisse.ui.MatisseActivity"/>-->
-        <activity android:name="com.lxj.matisse.internal.ui.AlbumPreviewActivity"/>
-        <activity android:name="com.lxj.matisse.internal.ui.SelectedPreviewActivity"/>
+<!--        <activity android:name="com.zpj.matisse.ui.MatisseActivity"/>-->
+<!--        <activity android:name="com.zpj.matisse.internal.ui.AlbumPreviewActivity"/>-->
+<!--        <activity android:name="com.zpj.matisse.internal.ui.SelectedPreviewActivity"/>-->
         <activity
             android:name="com.yalantis.ucrop.UCropActivity"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
-        <activity android:name="com.lxj.matisse.ui.CameraActivity" />
+        <activity android:name="com.zpj.matisse.ui.activity.CameraActivity" />
     </application>
 </manifest>

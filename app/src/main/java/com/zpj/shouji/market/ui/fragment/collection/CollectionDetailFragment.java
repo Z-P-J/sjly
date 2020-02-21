@@ -144,8 +144,11 @@ public class CollectionDetailFragment extends BaseFragment {
             @Override
             public IPagerIndicator getIndicator(Context context) {
                 LinePagerIndicator indicator = new LinePagerIndicator(context);
-                indicator.setLineHeight(ScreenUtil.dp2px(context, 1));
-                indicator.setMode(LinePagerIndicator.MODE_WRAP_CONTENT);
+                indicator.setMode(LinePagerIndicator.MODE_EXACTLY);
+                indicator.setLineHeight(ScreenUtil.dp2px(context, 4f));
+                indicator.setLineWidth(ScreenUtil.dp2px(context, 12f));
+                indicator.setRoundRadius(ScreenUtil.dp2px(context, 4f));
+                indicator.setColors(getResources().getColor(R.color.colorPrimary), getResources().getColor(R.color.colorPrimary));
                 return indicator;
             }
         });

@@ -15,7 +15,7 @@
   limitations under the License.
 -->
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.lxj.matisse" >
+    package="com.zpj.matisse" >
 
     <uses-sdk
         android:minSdkVersion="19"
@@ -40,14 +40,14 @@
         <meta-data
             android:name="android.max_aspect"
             android:value="2.4" />
-        <!-- <activity android:name="com.lxj.matisse.ui.MatisseActivity"/> -->
-        <activity android:name="com.lxj.matisse.internal.ui.AlbumPreviewActivity" />
-        <activity android:name="com.lxj.matisse.internal.ui.SelectedPreviewActivity" />
+        <!-- <activity android:name="com.zpj.matisse.ui.MatisseActivity"/> -->
+        <!-- <activity android:name="com.zpj.matisse.internal.ui.AlbumPreviewActivity"/> -->
+        <!-- <activity android:name="com.zpj.matisse.internal.ui.SelectedPreviewActivity"/> -->
         <activity
             android:name="com.yalantis.ucrop.UCropActivity"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
-        <activity android:name="com.lxj.matisse.ui.CameraActivity" />
+        <activity android:name="com.zpj.matisse.ui.activity.CameraActivity" />
     </application>
 
 </manifest>

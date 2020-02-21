@@ -8,6 +8,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
 import com.felix.atoast.library.AToast;
+import com.zpj.matisse.Matisse;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.database.ChatManager;
 import com.zpj.shouji.market.model.ChatMessageBean;
@@ -39,7 +40,7 @@ public class ChatFragment extends BaseFragment implements ChatPanel.OnOperationL
 
     public String userName = "test";//聊天对象昵称
     public String[] item = {"你好!", "我正忙着呢,等等", "有啥事吗？", "有时间聊聊吗", "再见！"};
-    public List<ChatMessageBean> tblist = new ArrayList<ChatMessageBean>();
+    public final List<ChatMessageBean> tblist = new ArrayList<ChatMessageBean>();
     private List<String> reslist;
     public int page = 0;
     public int number = 10;
@@ -70,6 +71,7 @@ public class ChatFragment extends BaseFragment implements ChatPanel.OnOperationL
         tbAdapter.notifyDataSetChanged();
         recyclerView.setAdapter(null);
         keyboardHeightProvider.close();
+        Matisse.onDestroy();
         super.onDestroy();
     }
 
@@ -101,8 +103,7 @@ public class ChatFragment extends BaseFragment implements ChatPanel.OnOperationL
         keyboardHeightProvider.setKeyboardHeightObserver(chatPanel);
         keyboardHeightProvider.start();
 
-        showSoftInput(chatPanel.getEditor());
-        postOnEnterAnimationEnd(this::loadRecords);
+        loadRecords();
     }
 
     @Override

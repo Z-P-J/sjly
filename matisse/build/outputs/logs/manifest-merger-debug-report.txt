@@ -59,14 +59,6 @@ ADDED from D:\Programming\AndroidProjects\sjly\matisse\src\main\AndroidManifest.
 		ADDED from D:\Programming\AndroidProjects\sjly\matisse\src\main\AndroidManifest.xml:33:54-73
 	android:name
 		ADDED from D:\Programming\AndroidProjects\sjly\matisse\src\main\AndroidManifest.xml:33:20-53
-activity#com.lxj.matisse.internal.ui.AlbumPreviewActivity
-ADDED from D:\Programming\AndroidProjects\sjly\matisse\src\main\AndroidManifest.xml:35:9-84
-	android:name
-		ADDED from D:\Programming\AndroidProjects\sjly\matisse\src\main\AndroidManifest.xml:35:19-82
-activity#com.lxj.matisse.internal.ui.SelectedPreviewActivity
-ADDED from D:\Programming\AndroidProjects\sjly\matisse\src\main\AndroidManifest.xml:36:9-87
-	android:name
-		ADDED from D:\Programming\AndroidProjects\sjly\matisse\src\main\AndroidManifest.xml:36:19-85
 activity#com.yalantis.ucrop.UCropActivity
 ADDED from D:\Programming\AndroidProjects\sjly\matisse\src\main\AndroidManifest.xml:37:9-40:71
 	android:screenOrientation
@@ -75,10 +67,10 @@ ADDED from D:\Programming\AndroidProjects\sjly\matisse\src\main\AndroidManifest.
 		ADDED from D:\Programming\AndroidProjects\sjly\matisse\src\main\AndroidManifest.xml:40:13-69
 	android:name
 		ADDED from D:\Programming\AndroidProjects\sjly\matisse\src\main\AndroidManifest.xml:38:13-60
-activity#com.lxj.matisse.ui.CameraActivity
-ADDED from D:\Programming\AndroidProjects\sjly\matisse\src\main\AndroidManifest.xml:41:9-70
+activity#com.zpj.matisse.ui.activity.CameraActivity
+ADDED from D:\Programming\AndroidProjects\sjly\matisse\src\main\AndroidManifest.xml:41:9-79
 	android:name
-		ADDED from D:\Programming\AndroidProjects\sjly\matisse\src\main\AndroidManifest.xml:41:19-67
+		ADDED from D:\Programming\AndroidProjects\sjly\matisse\src\main\AndroidManifest.xml:41:19-76
 uses-sdk
 INJECTED from D:\Programming\AndroidProjects\sjly\matisse\src\main\AndroidManifest.xml reason: use-sdk injection requested
 INJECTED from D:\Programming\AndroidProjects\sjly\matisse\src\main\AndroidManifest.xml

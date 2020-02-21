@@ -21,6 +21,7 @@ import com.zpj.downloader.constant.Error;
 import com.zpj.downloader.core.DownloadManager;
 import com.zpj.downloader.core.DownloadMission;
 import com.zpj.downloader.util.FileUtil;
+import com.zpj.http.core.ObservableTask;
 import com.zpj.shouji.market.R;
 import com.zpj.fragmentation.BaseFragment;
 import com.zpj.shouji.market.utils.HttpApi;
@@ -31,6 +32,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+
+import io.reactivex.Observable;
+import io.reactivex.ObservableEmitter;
+import io.reactivex.ObservableOnSubscribe;
 
 public class DownloadFragment extends BaseFragment implements DownloadManager.DownloadManagerListener, GroupRecyclerViewAdapter.OnItemClickListener<DownloadFragment.DownloadWrapper> {
 
@@ -104,7 +109,7 @@ public class DownloadFragment extends BaseFragment implements DownloadManager.Do
     }
 
     private void loadDownloadMissions() {
-        HttpApi.with(() -> {
+        new ObservableTask<>(emitter -> {
             downloadTaskList.clear();
             List<DownloadWrapper> downloadingList = new ArrayList<>();
             List<DownloadWrapper> downloadedList = new ArrayList<>();
@@ -124,24 +129,11 @@ public class DownloadFragment extends BaseFragment implements DownloadManager.Do
             if (downloadedList.size() == 1) {
                 downloadedList.add(new DownloadWrapper());
             }
+            emitter.onNext(new Object());
+            emitter.onComplete();
         })
                 .onSuccess(data -> expandableAdapter.notifyDataSetChanged())
                 .subscribe();
-//        ExecutorHelper.submit(() -> {
-//            for (DownloadMission mission : ZDownloader.getAllMissions(true)) {
-//                downloadingList.add(new DownloadWrapper(mission));
-//            }
-//            for (DownloadMission mission : ZDownloader.getAllMissions(false)) {
-//                downloadedList.add(new DownloadWrapper(mission));
-//            }
-//            if (downloadingList.size() == 1) {
-//                downloadingList.add(new DownloadWrapper());
-//            }
-//            if (downloadedList.size() == 1) {
-//                downloadedList.add(new DownloadWrapper());
-//            }
-//            post(() -> expandableAdapter.notifyDataSetChanged());
-//        });
     }
 
     public class DownloadWrapper {

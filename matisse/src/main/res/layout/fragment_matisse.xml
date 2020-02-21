@@ -60,7 +60,7 @@
             android:visibility="visible">
 
 
-            <com.lxj.matisse.internal.ui.widget.CheckRadioView
+            <com.zpj.matisse.ui.widget.CheckRadioView
                 android:id="@+id/original"
                 android:layout_width="16dp"
                 android:layout_height="16dp"

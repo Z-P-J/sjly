@@ -33,6 +33,7 @@
         android:layout_height="48dp"
         android:layout_gravity="center"
         android:background="@color/colorPrimary"
+        android:padding="8dp"
         />
 
     <android.support.v4.view.ViewPager

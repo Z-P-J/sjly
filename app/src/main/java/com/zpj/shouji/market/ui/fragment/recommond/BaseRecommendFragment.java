@@ -44,7 +44,8 @@ import java.util.Locale;
 
 import www.linwg.org.lib.LCardView;
 
-public abstract class BaseRecommendFragment extends RecyclerLayoutFragment<GroupItem> implements IHttp.OnErrorListener {
+public abstract class BaseRecommendFragment extends RecyclerLayoutFragment<GroupItem>
+        implements IHttp.OnErrorListener {
 
     private static final String TAG = "GameRecommendFragment";
 
@@ -197,7 +198,8 @@ public abstract class BaseRecommendFragment extends RecyclerLayoutFragment<Group
                 })
                 .onItemClick((holder14, view12, data) -> _mActivity.start(CollectionDetailFragment.newInstance(data)))
                 .build();
-        HttpApi.connect("http://tt.shouji.com.cn/androidv3/yyj_tj_xml.jsp")
+
+        HttpApi.collectionRecommond()
                 .onSuccess(data -> {
                     Elements elements = data.select("item");
                     for (Element element : elements) {
@@ -227,6 +229,7 @@ public abstract class BaseRecommendFragment extends RecyclerLayoutFragment<Group
                 })
                 .onItemClick((holder12, view1, data) -> _mActivity.start(ArticleDetailFragment.newInstance("https://" + type + ".shouji.com.cn" + data.getUrl())))
                 .build();
+
         HttpApi.connect(String.format(Locale.CHINA, "https://%s.shouji.com.cn/newslist/list_%d_1.html", type, index))
                 .onSuccess(data -> {
                     Elements elements = data.selectFirst("ul.news_list").select("li");

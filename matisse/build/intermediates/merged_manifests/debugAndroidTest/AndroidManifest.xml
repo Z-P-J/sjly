@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.lxj.matisse.test" >
+    package="com.zpj.matisse.test" >
 
     <uses-sdk
         android:minSdkVersion="19"
@@ -10,8 +10,8 @@
         android:name="android.test.InstrumentationTestRunner"
         android:functionalTest="false"
         android:handleProfiling="false"
-        android:label="Tests for com.lxj.matisse.test"
-        android:targetPackage="com.lxj.matisse.test" />
+        android:label="Tests for com.zpj.matisse.test"
+        android:targetPackage="com.zpj.matisse.test" />
 
     <uses-permission android:name="android.permission.FLASHLIGHT" />
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
@@ -38,14 +38,14 @@
             android:value="true" />
         <meta-data
             android:name="android.max_aspect"
-            android:value="2.4" /> <!-- <activity android:name="com.lxj.matisse.ui.MatisseActivity"/> -->
-        <activity android:name="com.lxj.matisse.internal.ui.AlbumPreviewActivity" />
-        <activity android:name="com.lxj.matisse.internal.ui.SelectedPreviewActivity" />
+            android:value="2.4" /> <!-- <activity android:name="com.zpj.matisse.ui.MatisseActivity"/> -->
+        <!-- <activity android:name="com.zpj.matisse.internal.ui.AlbumPreviewActivity"/> -->
+        <!-- <activity android:name="com.zpj.matisse.internal.ui.SelectedPreviewActivity"/> -->
         <activity
             android:name="com.yalantis.ucrop.UCropActivity"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
-        <activity android:name="com.lxj.matisse.ui.CameraActivity" /> <!-- <meta-data android:name="android.max_aspect" android:value="2.4" /> -->
+        <activity android:name="com.zpj.matisse.ui.activity.CameraActivity" /> <!-- <meta-data android:name="android.max_aspect" android:value="2.4" /> -->
         <!-- PermissonActivity -->
         <activity
             android:name="com.lxj.xpermission.XPermission$PermissionActivity"
