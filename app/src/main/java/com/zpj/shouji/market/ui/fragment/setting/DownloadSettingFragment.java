@@ -4,8 +4,8 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.View;
 
-import com.leon.lib.settingview.LSettingItem;
 import com.zpj.shouji.market.R;
+import com.zpj.widget.setting.CommonSettingItem;
 
 public class DownloadSettingFragment extends BaseSettingFragment {
 
@@ -17,28 +17,28 @@ public class DownloadSettingFragment extends BaseSettingFragment {
     @Override
     protected void initView(View view, @Nullable Bundle savedInstanceState) {
         setToolbarTitle("下载设置");
-        LSettingItem itemDownloadFolder = view.findViewById(R.id.item_download_folder);
-        itemDownloadFolder.setOnLSettingItemClick(this);
+        CommonSettingItem itemDownloadFolder = view.findViewById(R.id.item_download_folder);
+        itemDownloadFolder.setOnItemClickListener(this);
 
-        LSettingItem itemMaxDownloading = view.findViewById(R.id.item_max_downloading);
-        itemMaxDownloading.setOnLSettingItemClick(this);
+        CommonSettingItem itemMaxDownloading = view.findViewById(R.id.item_max_downloading);
+        itemMaxDownloading.setOnItemClickListener(this);
 
-        LSettingItem itemMaxThread = view.findViewById(R.id.item_max_thread);
-        itemMaxThread.setOnLSettingItemClick(this);
+        CommonSettingItem itemMaxThread = view.findViewById(R.id.item_max_thread);
+        itemMaxThread.setOnItemClickListener(this);
 
-        LSettingItem itemInstallDownloaded = view.findViewById(R.id.item_install_downloaded);
-        itemInstallDownloaded.setOnLSettingItemClick(this);
+        CommonSettingItem itemInstallDownloaded = view.findViewById(R.id.item_install_downloaded);
+        itemInstallDownloaded.setOnItemClickListener(this);
 
-        LSettingItem itemShowDownloadedRing = view.findViewById(R.id.item_show_downloaded_ring);
-        itemShowDownloadedRing.setOnLSettingItemClick(this);
+        CommonSettingItem itemShowDownloadedRing = view.findViewById(R.id.item_show_downloaded_ring);
+        itemShowDownloadedRing.setOnItemClickListener(this);
 
-        LSettingItem itemShowDownloadNotification = view.findViewById(R.id.item_show_downloaded_notification);
-        itemShowDownloadNotification.setOnLSettingItemClick(this);
+        CommonSettingItem itemShowDownloadNotification = view.findViewById(R.id.item_show_downloaded_notification);
+        itemShowDownloadNotification.setOnItemClickListener(this);
     }
 
     @Override
-    public void click(View view, boolean isChecked) {
-        switch (view.getId()) {
+    public void onClick(CommonSettingItem item) {
+        switch (item.getId()) {
             case R.id.item_download_folder:
 
                 break;
@@ -61,5 +61,4 @@ public class DownloadSettingFragment extends BaseSettingFragment {
                 break;
         }
     }
-
 }

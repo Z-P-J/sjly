@@ -16,6 +16,7 @@
         android:layout_height="match_parent"
         android:scrollbarSize="0dp"
         android:padding="8dp"
+        android:scrollbars="none"
         >
 
         <www.linwg.org.lib.LCardView
@@ -27,54 +28,39 @@
                 android:layout_height="wrap_content"
                 >
 
-                <com.leon.lib.settingview.LSettingItem
+                <com.zpj.widget.setting.SwitchSettingItem
                     android:id="@+id/item_install_downloaded"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    app:setting_showUnderLine="false"
-                    app:setting_leftText="下载完成立即安装"
-                    app:setting_leftTextColor="@color/color_text_major"
-                    app:setting_showInfoBtn="false"
+                    app:z_setting_titleText="下载完成立即安装"
                     />
 
-                <com.leon.lib.settingview.LSettingItem
+                <com.zpj.widget.setting.SwitchSettingItem
                     android:id="@+id/item_auto_delete_apk"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    app:setting_showUnderLine="false"
-                    app:setting_leftText="自动删除安装包"
-                    app:setting_leftTextColor="@color/color_text_major"
-                    app:setting_showInfoBtn="false"
+                    app:z_setting_titleText="自动删除安装包"
                     />
 
-                <com.leon.lib.settingview.LSettingItem
-                    android:id="@+id/item_user_agent"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    app:setting_showUnderLine="false"
-                    app:setting_leftText="下载设置"
-                    app:setting_leftTextColor="@color/color_text_major"
-                    app:setting_showInfoBtn="false"
-                    />
+<!--                <com.zpj.widget.setting.CommonSettingItem-->
+<!--                    android:id="@+id/item_user_agent"-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    app:z_setting_titleText="下载设置"-->
+<!--                    />-->
 
-                <com.leon.lib.settingview.LSettingItem
+                <com.zpj.widget.setting.SwitchSettingItem
                     android:id="@+id/item_auto_install"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    app:setting_showUnderLine="false"
-                    app:setting_leftText="无障碍自动安装"
-                    app:setting_leftTextColor="@color/color_text_major"
-                    app:setting_showInfoBtn="false"
+                    app:z_setting_titleText="无障碍自动安装"
                     />
 
-                <com.leon.lib.settingview.LSettingItem
+                <com.zpj.widget.setting.SwitchSettingItem
                     android:id="@+id/item_root_install"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    app:setting_showUnderLine="false"
-                    app:setting_leftText="ROOT安装"
-                    app:setting_leftTextColor="@color/color_text_major"
-                    app:setting_showInfoBtn="false"
+                    app:z_setting_titleText="ROOT安装"
                     />
 
             </LinearLayout>

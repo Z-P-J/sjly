@@ -53,7 +53,7 @@
         <item name="shadowSize">8dp</item>
         <item name="shadowColor">@color/color_text_minor</item>
         <item name="cardBackgroundColor">@android:color/white</item>
-        <item name="shadowStartAlpha">30</item>
+        <item name="shadowStartAlpha">40</item>
         <item name="cornerRadius">16dp</item>
     </style>
 

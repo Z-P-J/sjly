@@ -53,6 +53,7 @@ public class MatisseFragment extends BaseFragment implements
         SelectedItemManager.OnCheckStateListener {
 
     public static final String CHECK_STATE = "checkState";
+    public static final String TITLE = "选择图片";
     private MediaStoreCompat mMediaStoreCompat;
     private SelectedItemManager mSelectedCollection;
     private SelectionSpec mSpec;
@@ -85,7 +86,7 @@ public class MatisseFragment extends BaseFragment implements
             return;
         }
 
-        setToolbarTitle("选择图片");
+        setToolbarTitle(TITLE);
 
         if (mSpec.needOrientationRestriction()) {
             _mActivity.setRequestedOrientation(mSpec.orientation);
@@ -341,6 +342,7 @@ public class MatisseFragment extends BaseFragment implements
     @Subscribe
     public void onUpdateTitleEvent(UpdateTitleEvent event) {
         setToolbarTitle(event.getTitle());
+        setSwipeBackEnable(TITLE.equals(event.getTitle()));
     }
 
 //    @SuppressLint("WrongConstant")

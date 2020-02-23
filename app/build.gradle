@@ -57,6 +57,7 @@ dependencies {
     implementation 'com.sunbq:iconcountview:1.0.1'
     implementation 'com.github.pinguo-zhouwei:MZBannerView:v2.0.2'
     implementation 'com.jaeger.ninegridimageview:library:1.1.1'
+    implementation 'com.lqr.ninegridimageview:library:1.0.0'
 //    implementation 'com.ycjiang:ImagePreview:2.3.0'
     implementation 'com.kongzue.stacklabel:stacklabelview:1.1.9'
     implementation 'jp.wasabeef:glide-transformations:2.0.1'

@@ -1,14 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <www.linwg.org.lib.LCardView
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    app:shadowSize="8dp"
-    app:shadowColor="#5f6379"
-    app:shadowStartAlpha="20"
-    app:cornerRadius="10dp"
-    app:cardBackgroundColor="@android:color/white"
+    style="@style/setting_card_style"
     >
 
     <LinearLayout
@@ -20,7 +13,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="17dp"
+            android:layout_marginTop="16dp"
             android:orientation="horizontal">
 
             <TextView
@@ -79,8 +72,8 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="17dp"
-            android:layout_marginTop="20dp"
+            android:layout_marginBottom="16dp"
+            android:layout_marginTop="16dp"
             android:orientation="horizontal">
 
             <TextView

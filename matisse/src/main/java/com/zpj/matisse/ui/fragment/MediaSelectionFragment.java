@@ -136,7 +136,7 @@ public class MediaSelectionFragment extends BaseFragment implements
 
     @Override
     public void onDestroy() {
-        EventBus.getDefault().post(new UpdateTitleEvent("选择图片"));
+        EventBus.getDefault().post(new UpdateTitleEvent(MatisseFragment.TITLE));
         mSelectedCollection.removeOnCheckStateListener(this);
         super.onDestroy();
     }

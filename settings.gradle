@@ -12,9 +12,13 @@ include ':app',
         ':zpopup',
         ':glidegifdecoder',
         ':openingstartanimation',
-        ':lsettingviewlibrary',
+        ':zsetting',
         ':richeditor',
         ':richeditor2',
         ':zmarkdown',
         ':emojilib',
-        ':matisse'
+        ':matisse',
+        ':third-part-color-cardview',
+        ':lcardview',
+        ':zswitcher'
+//        ':shadowlayout'

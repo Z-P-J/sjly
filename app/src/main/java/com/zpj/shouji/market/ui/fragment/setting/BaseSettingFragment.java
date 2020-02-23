@@ -1,10 +1,11 @@
 package com.zpj.shouji.market.ui.fragment.setting;
 
-import com.leon.lib.settingview.LSettingItem;
 import com.zpj.fragmentation.BaseFragment;
+import com.zpj.widget.setting.CommonSettingItem;
+import com.zpj.widget.setting.OnItemClickListener;
 
 public abstract class BaseSettingFragment extends BaseFragment
-        implements LSettingItem.OnLSettingItemClick {
+        implements OnItemClickListener<CommonSettingItem> {
 
     @Override
     protected boolean supportSwipeBack() {

@@ -4,8 +4,8 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.View;
 
-import com.leon.lib.settingview.LSettingItem;
 import com.zpj.shouji.market.R;
+import com.zpj.widget.setting.CommonSettingItem;
 
 public class CommonSettingFragment extends BaseSettingFragment {
 
@@ -18,30 +18,30 @@ public class CommonSettingFragment extends BaseSettingFragment {
     protected void initView(View view, @Nullable Bundle savedInstanceState) {
         setToolbarTitle("通用设置");
 
-        LSettingItem itemShowStartPage = view.findViewById(R.id.item_show_start_page);
-        itemShowStartPage.setOnLSettingItemClick(this);
+        CommonSettingItem itemShowStartPage = view.findViewById(R.id.item_show_start_page);
+        itemShowStartPage.setOnItemClickListener(this);
 
-        LSettingItem itemShowUpdateNotification = view.findViewById(R.id.item_show_update_notification);
-        itemShowUpdateNotification.setOnLSettingItemClick(this);
+        CommonSettingItem itemShowUpdateNotification = view.findViewById(R.id.item_show_update_notification);
+        itemShowUpdateNotification.setOnItemClickListener(this);
 
-        LSettingItem itemBrightnessControl = view.findViewById(R.id.item_brightness_control);
-        itemBrightnessControl.setOnLSettingItemClick(this);
+        CommonSettingItem itemBrightnessControl = view.findViewById(R.id.item_brightness_control);
+        itemBrightnessControl.setOnItemClickListener(this);
 
 
 
-        LSettingItem itemAutoSaveTraffic = view.findViewById(R.id.item_auto_save_traffic);
-        itemAutoSaveTraffic.setOnLSettingItemClick(this);
+        CommonSettingItem itemAutoSaveTraffic = view.findViewById(R.id.item_auto_save_traffic);
+        itemAutoSaveTraffic.setOnItemClickListener(this);
 
-        LSettingItem itemShowOriginalImage = view.findViewById(R.id.item_show_original_image);
-        itemShowOriginalImage.setOnLSettingItemClick(this);
+        CommonSettingItem itemShowOriginalImage = view.findViewById(R.id.item_show_original_image);
+        itemShowOriginalImage.setOnItemClickListener(this);
 
-        LSettingItem itemClearCache = view.findViewById(R.id.item_clear_cache);
-        itemClearCache.setOnLSettingItemClick(this);
+        CommonSettingItem itemClearCache = view.findViewById(R.id.item_clear_cache);
+        itemClearCache.setOnItemClickListener(this);
     }
 
     @Override
-    public void click(View view, boolean isChecked) {
-        switch (view.getId()) {
+    public void onClick(CommonSettingItem item) {
+        switch (item.getId()) {
             case R.id.item_show_start_page:
 
                 break;
@@ -64,5 +64,4 @@ public class CommonSettingFragment extends BaseSettingFragment {
                 break;
         }
     }
-
 }

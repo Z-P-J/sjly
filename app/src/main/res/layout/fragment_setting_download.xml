@@ -28,64 +28,46 @@
                 android:layout_height="wrap_content"
                 >
 
-                <com.leon.lib.settingview.LSettingItem
+                <com.zpj.widget.setting.CommonSettingItem
                     android:id="@+id/item_download_folder"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    app:setting_showUnderLine="false"
-                    app:setting_leftText="下载位置"
-                    app:setting_leftTextColor="@color/color_text_major"
-                    app:setting_showInfoBtn="false"
+                    app:z_setting_titleText="下载位置"
                     />
 
-                <com.leon.lib.settingview.LSettingItem
+                <com.zpj.widget.setting.CommonSettingItem
                     android:id="@+id/item_max_downloading"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    app:setting_showUnderLine="false"
-                    app:setting_leftText="最大任务数"
-                    app:setting_leftTextColor="@color/color_text_major"
-                    app:setting_showInfoBtn="false"
+                    app:z_setting_titleText="最大任务数"
                     />
 
-                <com.leon.lib.settingview.LSettingItem
+                <com.zpj.widget.setting.CommonSettingItem
                     android:id="@+id/item_max_thread"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    app:setting_showUnderLine="false"
-                    app:setting_leftText="最大线程数"
-                    app:setting_leftTextColor="@color/color_text_major"
-                    app:setting_showInfoBtn="false"
+                    app:z_setting_titleText="最大线程数"
                     />
 
-                <com.leon.lib.settingview.LSettingItem
+                <com.zpj.widget.setting.SwitchSettingItem
                     android:id="@+id/item_install_downloaded"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    app:setting_showUnderLine="false"
-                    app:setting_leftText="下载完成后安装"
-                    app:setting_leftTextColor="@color/color_text_major"
-                    app:setting_showInfoBtn="false"
+                    app:z_setting_titleText="下载完成后安装"
                     />
 
-                <com.leon.lib.settingview.LSettingItem
+                <com.zpj.widget.setting.SwitchSettingItem
                     android:id="@+id/item_show_downloaded_ring"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    app:setting_showUnderLine="false"
-                    app:setting_leftText="下载完成声音提示"
-                    app:setting_leftTextColor="@color/color_text_major"
-                    app:setting_showInfoBtn="false"
+                    app:z_setting_titleText="下载完成声音提示"
                     />
 
-                <com.leon.lib.settingview.LSettingItem
+                <com.zpj.widget.setting.SwitchSettingItem
                     android:id="@+id/item_show_downloaded_notification"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    app:setting_showUnderLine="false"
-                    app:setting_leftText="通知栏显示下载进度"
-                    app:setting_leftTextColor="@color/color_text_major"
-                    app:setting_showInfoBtn="false"
+                    app:z_setting_titleText="通知栏显示下载进度"
                     />
 
             </LinearLayout>

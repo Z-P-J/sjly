@@ -196,13 +196,7 @@
                     <include layout="@layout/layout_my_tools" />
 
                     <www.linwg.org.lib.LCardView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        app:cardBackgroundColor="@android:color/white"
-                        app:shadowSize="8dp"
-                        app:shadowColor="#5f6379"
-                        app:shadowStartAlpha="10"
-                        app:cornerRadius="10dp"
+                        style="@style/setting_card_style"
                         >
 
                         <android.support.v7.widget.LinearLayoutCompat

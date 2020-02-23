@@ -34,7 +34,8 @@ dependencies {
 //    implementation 'com.nineoldandroids:library:2.4.0'
 //    implementation 'com.github.ybq:Android-SpinKit:1.4.0'
     api 'com.loopeer.lib:shadow:0.0.4-beta3'
-//    api 'com.lxj:xpopup:1.8.10'
+//    api 'com.zyp.cardview:cardview:1.0.1'
+//    api 'io.github.meetsl:SCardView:1.2'
 
     api project(':atoast')
     api project(":zdialog")
@@ -44,6 +45,8 @@ dependencies {
     api project(":zhttp")
     api project(":titlebar")
     api project(':fragmentation')
-    api project(':lsettingviewlibrary')
+    api project(':zsetting')
     api project(':zwidget')
+    api project(':third-part-color-cardview')
+//    api project(':shadowlayout')
 }

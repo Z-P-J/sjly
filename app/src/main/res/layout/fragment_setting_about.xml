@@ -9,13 +9,6 @@
     android:fitsSystemWindows="true"
     >
 
-    <ImageView
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:layout_centerInParent="true"
-        android:src="@mipmap/ic_launcher_round"
-        />
-
     <include layout="@layout/layout_header"/>
 
     <com.zpj.widget.ElasticScrollView
@@ -25,55 +18,88 @@
         android:layout_below="@+id/title_bar"
         >
 
-        <www.linwg.org.lib.LCardView
-            app:shadowSize="16dp"
-            style="@style/setting_card_style"
-            >
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
 
-            <LinearLayout
-                android:orientation="vertical"
-                android:layout_width="match_parent"
+            <ImageView
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_gravity="center_horizontal"
+                android:src="@mipmap/ic_launcher_round"
+                android:layout_marginTop="56dp"
+                />
+
+            <TextView
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:paddingTop="8dp"
-                android:paddingBottom="8dp"
+                android:layout_gravity="center_horizontal"
+                android:text="手机乐园"
+                android:textColor="@color/color_text_major"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:padding="8dp"
+                />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:text="发现应用的乐趣"
+                android:textColor="@color/color_text_normal"
+                android:textSize="14sp"
+                android:padding="8dp"
+                android:layout_marginBottom="56dp"
+                />
+
+            <www.linwg.org.lib.LCardView
+                app:shadowSize="16dp"
+                style="@style/setting_card_style"
                 >
 
-                <com.leon.lib.settingview.LSettingItem
-                    android:id="@+id/item_check_update"
+                <LinearLayout
+                    android:orientation="vertical"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    app:setting_showUnderLine="false"
-                    app:setting_leftText="检查更新"
-                    app:setting_leftTextColor="@color/color_text_major"
-                    app:setting_showInfoBtn="false"
-                    />
+                    android:paddingBottom="8dp"
+                    >
 
-                <com.zpj.shouji.market.ui.widget.DetailLayout
-                    android:id="@+id/app_version"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    app:left_text="应用版本"
-                    app:right_text="手机乐园第三方 1.0.0"
-                    />
+                    <com.zpj.widget.setting.CommonSettingItem
+                        android:id="@+id/item_check_update"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:z_setting_titleText="检查更新"
+                        />
 
-                <com.zpj.shouji.market.ui.widget.DetailLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    app:left_text="开发者"
-                    app:right_text="我好像在哪儿见过您"
-                    />
+                    <com.zpj.shouji.market.ui.widget.DetailLayout
+                        android:id="@+id/app_version"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:left_text="应用版本"
+                        app:right_text="1.0.0"
+                        />
 
-                <com.zpj.shouji.market.ui.widget.DetailLayout
-                    android:id="@+id/link_open_source"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    app:left_text="开源地址"
-                    app:right_text="https://github.com/Z-P-J/sjly"
-                    />
+                    <com.zpj.shouji.market.ui.widget.DetailLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:left_text="开发者"
+                        app:right_text="Z-P-J"
+                        />
 
-            </LinearLayout>
+                    <com.zpj.shouji.market.ui.widget.DetailLayout
+                        android:id="@+id/link_open_source"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:left_text="开源地址"
+                        app:right_text="https://github.com/Z-P-J/sjly"
+                        />
 
-        </www.linwg.org.lib.LCardView>
+                </LinearLayout>
+
+            </www.linwg.org.lib.LCardView>
+
+        </LinearLayout>
 
 
     </com.zpj.widget.ElasticScrollView>

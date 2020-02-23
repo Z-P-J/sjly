@@ -4,8 +4,8 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.View;
 
-import com.leon.lib.settingview.LSettingItem;
 import com.zpj.shouji.market.R;
+import com.zpj.widget.setting.CommonSettingItem;
 
 public class InstallSettingFragment extends BaseSettingFragment {
 
@@ -17,22 +17,22 @@ public class InstallSettingFragment extends BaseSettingFragment {
     @Override
     protected void initView(View view, @Nullable Bundle savedInstanceState) {
         setToolbarTitle("安装设置");
-        LSettingItem itemInstallDownloaded = view.findViewById(R.id.item_install_downloaded);
-        itemInstallDownloaded.setOnLSettingItemClick(this);
+        CommonSettingItem itemInstallDownloaded = view.findViewById(R.id.item_install_downloaded);
+        itemInstallDownloaded.setOnItemClickListener(this);
 
-        LSettingItem itemAutoDeleteApk = view.findViewById(R.id.item_auto_delete_apk);
-        itemAutoDeleteApk.setOnLSettingItemClick(this);
+        CommonSettingItem itemAutoDeleteApk = view.findViewById(R.id.item_auto_delete_apk);
+        itemAutoDeleteApk.setOnItemClickListener(this);
 
-        LSettingItem itemAutoInstall = view.findViewById(R.id.item_auto_install);
-        itemAutoInstall.setOnLSettingItemClick(this);
+        CommonSettingItem itemAutoInstall = view.findViewById(R.id.item_auto_install);
+        itemAutoInstall.setOnItemClickListener(this);
 
-        LSettingItem itemRootInstall = view.findViewById(R.id.item_root_install);
-        itemRootInstall.setOnLSettingItemClick(this);
+        CommonSettingItem itemRootInstall = view.findViewById(R.id.item_root_install);
+        itemRootInstall.setOnItemClickListener(this);
     }
 
     @Override
-    public void click(View view, boolean isChecked) {
-        switch (view.getId()) {
+    public void onClick(CommonSettingItem item) {
+        switch (item.getId()) {
             case R.id.item_install_downloaded:
 
                 break;
@@ -49,5 +49,4 @@ public class InstallSettingFragment extends BaseSettingFragment {
                 break;
         }
     }
-
 }

@@ -130,6 +130,7 @@ layout fragment_album
 layout fragment_matisse
 layout fragment_media_selection
 layout item_album_grid
+layout item_album_grid_2
 layout item_album_grid_bak
 layout matisse_custom_image_viewer_popup
 layout media_grid_content

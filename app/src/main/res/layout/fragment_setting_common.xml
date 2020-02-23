@@ -47,34 +47,25 @@
                         android:background="@drawable/bottom_line_gray"
                         />
 
-                    <com.leon.lib.settingview.LSettingItem
+                    <com.zpj.widget.setting.SwitchSettingItem
                         android:id="@+id/item_show_start_page"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        app:setting_showUnderLine="false"
-                        app:setting_leftText="显示启动页"
-                        app:setting_leftTextColor="@color/color_text_major"
-                        app:setting_showInfoBtn="false"
+                        app:z_setting_titleText="显示启动页"
                         />
 
-                    <com.leon.lib.settingview.LSettingItem
+                    <com.zpj.widget.setting.SwitchSettingItem
                         android:id="@+id/item_show_update_notification"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        app:setting_showUnderLine="false"
-                        app:setting_leftText="通知栏显示可更新应用数"
-                        app:setting_leftTextColor="@color/color_text_major"
-                        app:setting_showInfoBtn="false"
+                        app:z_setting_titleText="通知栏显示可更新应用数"
                         />
 
-                    <com.leon.lib.settingview.LSettingItem
+                    <com.zpj.widget.setting.CommonSettingItem
                         android:id="@+id/item_brightness_control"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        app:setting_showUnderLine="false"
-                        app:setting_leftText="亮度调节"
-                        app:setting_leftTextColor="@color/color_text_major"
-                        app:setting_showInfoBtn="false"
+                        app:z_setting_titleText="亮度调节"
                         />
 
                 </LinearLayout>
@@ -104,37 +95,25 @@
                         android:background="@drawable/bottom_line_gray"
                         />
 
-                    <com.leon.lib.settingview.LSettingItem
+                    <com.zpj.widget.setting.SwitchSettingItem
                         android:id="@+id/item_auto_save_traffic"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        app:setting_showUnderLine="false"
-                        app:setting_leftText="自动省流模式"
-                        app:setting_showInfoBtn="false"
-                        android:layout_marginBottom="10dp"
-                        app:setting_leftTextColor="@color/color_text_major"
+                        app:z_setting_titleText="自动省流模式"
                         />
 
-                    <com.leon.lib.settingview.LSettingItem
+                    <com.zpj.widget.setting.SwitchSettingItem
                         android:id="@+id/item_show_original_image"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        app:setting_showUnderLine="false"
-                        app:setting_leftText="WiFi下自动显示原图"
-                        app:setting_showInfoBtn="false"
-                        android:layout_marginBottom="10dp"
-                        app:setting_leftTextColor="@color/color_text_major"
+                        app:z_setting_titleText="WiFi下自动显示原图"
                         />
 
-                    <com.leon.lib.settingview.LSettingItem
+                    <com.zpj.widget.setting.SwitchSettingItem
                         android:id="@+id/item_compress_upload_image"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        app:setting_showUnderLine="false"
-                        app:setting_leftText="压缩上传图片"
-                        app:setting_showInfoBtn="false"
-                        android:layout_marginBottom="10dp"
-                        app:setting_leftTextColor="@color/color_text_major"
+                        app:z_setting_titleText="压缩上传图片"
                         />
 
                 </LinearLayout>
@@ -164,15 +143,11 @@
                         android:background="@drawable/bottom_line_gray"
                         />
 
-                    <com.leon.lib.settingview.LSettingItem
+                    <com.zpj.widget.setting.CommonSettingItem
                         android:id="@+id/item_clear_cache"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        app:setting_showUnderLine="false"
-                        app:setting_leftText="清除缓存"
-                        app:setting_showInfoBtn="false"
-                        android:layout_marginBottom="10dp"
-                        app:setting_leftTextColor="@color/color_text_major"
+                        app:z_setting_titleText="清除缓存"
                         />
 
                 </LinearLayout>

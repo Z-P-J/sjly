@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:background="?android:attr/selectableItemBackground">
+
+    <ViewStub
+        android:id="@+id/vs_left_icon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inflatedId="@id/iv_left_icon"
+        android:layout="@layout/z_setting_left_icon"
+        />
+
+    <LinearLayout
+        android:id="@+id/ll_content_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:orientation="vertical"
+        android:gravity="center"
+        >
+
+        <TextView
+            android:id="@+id/tv_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="16sp"
+            android:maxLines="2"
+            android:ellipsize="end"
+            android:text="title"
+            android:textColor="#333333"
+            />
+
+        <TextView
+            android:id="@+id/tv_info"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="12sp"
+            android:maxLines="1"
+            android:ellipsize="end"
+            android:text="info"
+            android:visibility="gone"
+            />
+
+
+    </LinearLayout>
+
+    <ViewStub
+        android:id="@+id/vs_right_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inflatedId="@id/tv_right_text"
+        android:layout="@layout/z_setting_right_text"
+        />
+
+    <ViewStub
+        android:id="@+id/vs_info"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        />
+
+    <ViewStub
+        android:id="@+id/vs_right_container"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        />
+
+</merge>

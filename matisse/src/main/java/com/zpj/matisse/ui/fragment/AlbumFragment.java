@@ -79,6 +79,7 @@ public class AlbumFragment extends BaseFragment implements
                 .setLayoutManager(new GridLayoutManager(getContext(), spanCount))
                 .onBindViewHolder((holder, list, position, payloads) -> {
                     Album album = list.get(position);
+
                     holder.getItemView().setBackgroundColor(Color.TRANSPARENT);
 
                     holder.getTextView(R.id.tv_title).setText(album.getDisplayName(context));
