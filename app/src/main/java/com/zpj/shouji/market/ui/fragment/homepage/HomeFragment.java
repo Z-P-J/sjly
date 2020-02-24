@@ -9,14 +9,13 @@ import android.support.v4.view.ViewPager;
 import android.view.View;
 import android.widget.ImageView;
 
-import com.wuhenzhizao.titlebar.widget.CommonTitleBar;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.ui.adapter.FragmentsPagerAdapter;
 import com.zpj.fragmentation.BaseFragment;
 import com.zpj.shouji.market.ui.fragment.manager.AppManagerFragment;
 import com.zpj.shouji.market.ui.fragment.search.SearchFragment;
 import com.zpj.shouji.market.ui.widget.ScaleTransitionPagerTitleView;
-import com.zpj.utils.ScreenUtil;
+import com.zpj.utils.ScreenUtils;
 
 import net.lucode.hackware.magicindicator.MagicIndicator;
 import net.lucode.hackware.magicindicator.ViewPagerHelper;
@@ -46,7 +45,7 @@ public class HomeFragment extends BaseFragment {
         }
         DiscoverFragment exploreFragment = findChildFragment(DiscoverFragment.class);
         if (exploreFragment == null) {
-            exploreFragment = DiscoverFragment.newInstance("http://tt.shouji.com.cn/app/faxian.jsp?index=faxian&versioncode=198");
+            exploreFragment = DiscoverFragment.newInstance();
         }
         WallpaperFragment wallpaperFragment = findChildFragment(WallpaperFragment.class);
         if (wallpaperFragment == null) {
@@ -60,7 +59,7 @@ public class HomeFragment extends BaseFragment {
         ViewPager viewPager = view.findViewById(R.id.view_pager);
         viewPager.setAdapter(adapter);
         viewPager.setOffscreenPageLimit(3);
-        MagicIndicator magicIndicator = (MagicIndicator) titleBar.getCenterCustomView();
+        MagicIndicator magicIndicator = (MagicIndicator) toolbar.getCenterCustomView();
         CommonNavigator navigator = new CommonNavigator(context);
         navigator.setAdapter(new CommonNavigatorAdapter() {
             @Override
@@ -83,9 +82,9 @@ public class HomeFragment extends BaseFragment {
             public IPagerIndicator getIndicator(Context context) {
                 LinePagerIndicator indicator = new LinePagerIndicator(context);
                 indicator.setMode(LinePagerIndicator.MODE_EXACTLY);
-                indicator.setLineHeight(ScreenUtil.dp2px(context, 4f));
-                indicator.setLineWidth(ScreenUtil.dp2px(context, 12f));
-                indicator.setRoundRadius(ScreenUtil.dp2px(context, 4f));
+                indicator.setLineHeight(ScreenUtils.dp2px(context, 4f));
+                indicator.setLineWidth(ScreenUtils.dp2px(context, 12f));
+                indicator.setRoundRadius(ScreenUtils.dp2px(context, 4f));
                 indicator.setColors(getResources().getColor(R.color.colorPrimary), getResources().getColor(R.color.colorPrimary));
                 return indicator;
             }

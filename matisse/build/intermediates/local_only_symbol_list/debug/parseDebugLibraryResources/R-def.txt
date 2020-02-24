@@ -117,7 +117,7 @@ id media_thumbnail
 id original
 id originalLayout
 id recycler_layout
-id title_bar
+id tool_bar
 id tv_count
 id tv_indicator
 id tv_title

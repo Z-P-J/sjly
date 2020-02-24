@@ -1,17 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <declare-styleable name="ZSettingItem">
+    <declare-styleable name="SimpleSettingItem">
+
         <attr name="z_setting_titleText" format="string"/>
-        <attr name="z_setting_titleTextSize" format="float"/>
+        <attr name="z_setting_titleTextSize" format="dimension"/>
         <attr name="z_setting_titleTextColor" format="color"/>
+
+        <attr name="z_setting_leftIcon" format="integer"/>
+        <attr name="z_setting_rightIcon" format="integer"/>
+
+        <attr name="z_setting_background" format="integer"/>
+
+    </declare-styleable>
+
+    <declare-styleable name="ZSettingItem">
+<!--        <attr name="z_setting_titleText" format="string"/>-->
+<!--        <attr name="z_setting_titleTextSize" format="float"/>-->
+<!--        <attr name="z_setting_titleTextColor" format="color"/>-->
 
         <attr name="z_setting_infoText" format="string"/>
         <attr name="z_setting_infoTextSize" format="float"/>
         <attr name="z_setting_infoTextColor" format="color"/>
 
-        <attr name="z_setting_leftIcon" format="integer"/>
-        <attr name="z_setting_rightIcon" format="integer"/>
+<!--        <attr name="z_setting_leftIcon" format="integer"/>-->
+<!--        <attr name="z_setting_rightIcon" format="integer"/>-->
 
         <attr name="z_setting_rightText" format="string"/>
         <attr name="z_setting_rightTextSize" format="float"/>

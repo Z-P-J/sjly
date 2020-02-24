@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+<!--    <declare-styleable name="CommonTitleBar">-->
+<!--        &lt;!&ndash; 标题栏背景 图片或颜色 &ndash;&gt;-->
+<!--        <attr name="titleBar_titleBarColor" format="color" />-->
+<!--        &lt;!&ndash; 填充状态栏 &ndash;&gt;-->
+<!--        <attr name="titleBar_fillStatusBar" format="boolean" />-->
+<!--        &lt;!&ndash; 状态栏颜色 &ndash;&gt;-->
+<!--        <attr name="titleBar_statusBarColor" format="color" />-->
+<!--        &lt;!&ndash; 状态栏模式 &ndash;&gt;-->
+<!--        <attr name="titleBar_statusBarMode" format="enum">-->
+<!--            <enum name="dark" value="0" />-->
+<!--            <enum name="light" value="1" />-->
+<!--        </attr>-->
+<!--        &lt;!&ndash; 标题栏高度 &ndash;&gt;-->
+<!--        <attr name="titleBar_titleBarHeight" format="dimension" />-->
+<!--        &lt;!&ndash; 显示标题栏分割线 &ndash;&gt;-->
+<!--        <attr name="titleBar_showBottomLine" format="boolean" />-->
+<!--        &lt;!&ndash; 标题栏分割线颜色 &ndash;&gt;-->
+<!--        <attr name="titleBar_bottomLineColor" format="color" />-->
+<!--        &lt;!&ndash; 底部阴影高度 showBottomLine = false时有效 &ndash;&gt;-->
+<!--        <attr name="titleBar_bottomShadowHeight" format="dimension" />-->
+
+<!--        &lt;!&ndash; 左边视图类型 &ndash;&gt;-->
+<!--        <attr name="titleBar_leftType">-->
+<!--            <enum name="none" value="0" />-->
+<!--            <enum name="textView" value="1" />-->
+<!--            <enum name="imageButton" value="2" />-->
+<!--            <enum name="customView" value="3" />-->
+<!--        </attr>-->
+<!--        &lt;!&ndash; TextView 文字, 对应leftType_TextView &ndash;&gt;-->
+<!--        <attr name="titleBar_leftText" format="string" />-->
+<!--        &lt;!&ndash; TextView 颜色, 对应leftType_TextView &ndash;&gt;-->
+<!--        <attr name="titleBar_leftTextColor" format="color" />-->
+<!--        &lt;!&ndash; TextView 字体大小, 对应leftType_TextView &ndash;&gt;-->
+<!--        <attr name="titleBar_leftTextSize" format="dimension" />-->
+<!--        &lt;!&ndash; TextView 左边图片, 对应leftType_TextView &ndash;&gt;-->
+<!--        <attr name="titleBar_leftDrawable" format="reference" />-->
+<!--        &lt;!&ndash; TextView 左边padding, 对应leftType_TextView &ndash;&gt;-->
+<!--        <attr name="titleBar_leftDrawablePadding" format="dimension" />-->
+<!--        &lt;!&ndash; ImageView 资源, 对应leftType_ImageBotton &ndash;&gt;-->
+<!--        <attr name="titleBar_leftImageResource" format="reference" />-->
+<!--        &lt;!&ndash; 左边自定义布局, 对应leftType_CustomView &ndash;&gt;-->
+<!--        <attr name="titleBar_leftCustomView" format="reference" />-->
+
+<!--        &lt;!&ndash; 右边视图类型 &ndash;&gt;-->
+<!--        <attr name="titleBar_rightType">-->
+<!--            <enum name="none" value="0" />-->
+<!--            <enum name="textView" value="1" />-->
+<!--            <enum name="imageButton" value="2" />-->
+<!--            <enum name="customView" value="3" />-->
+<!--        </attr>-->
+<!--        &lt;!&ndash; TextView 文字, 对应rightType_TextView &ndash;&gt;-->
+<!--        <attr name="titleBar_rightText" format="string" />-->
+<!--        &lt;!&ndash; TextView 颜色, 对应rightType_TextView &ndash;&gt;-->
+<!--        <attr name="titleBar_rightTextColor" format="color" />-->
+<!--        &lt;!&ndash; TextView 字体大小, 对应rightType_TextView &ndash;&gt;-->
+<!--        <attr name="titleBar_rightTextSize" format="dimension" />-->
+<!--        &lt;!&ndash; ImageView 资源, 对应rightType_ImageBotton &ndash;&gt;-->
+<!--        <attr name="titleBar_rightImageResource" format="reference" />-->
+<!--        &lt;!&ndash; 右边自定义布局, 对应rightType_CustomView &ndash;&gt;-->
+<!--        <attr name="titleBar_rightCustomView" format="reference" />-->
+
+<!--        &lt;!&ndash; 中间视图类型 &ndash;&gt;-->
+<!--        <attr name="titleBar_centerType">-->
+<!--            <enum name="none" value="0" />-->
+<!--            <enum name="textView" value="1" />-->
+<!--            <enum name="searchView" value="2" />-->
+<!--            <enum name="customView" value="3" />-->
+<!--        </attr>-->
+<!--        <attr name="titleBar_centerSearchRightType">-->
+<!--            <enum name="voice" value="0" />-->
+<!--            <enum name="delete" value="1" />-->
+<!--        </attr>-->
+<!--        &lt;!&ndash; TextView 文字, 对应centerType_TextView &ndash;&gt;-->
+<!--        <attr name="titleBar_centerText" format="string" />-->
+<!--        &lt;!&ndash; TextView 颜色, 对应centerType_TextView &ndash;&gt;-->
+<!--        <attr name="titleBar_centerTextColor" format="color" />-->
+<!--        &lt;!&ndash; TextView 字体大小, 对应centerType_TextView &ndash;&gt;-->
+<!--        <attr name="titleBar_centerTextSize" format="dimension" />-->
+<!--        &lt;!&ndash; TextView 跑马灯效果, 默认打开, 对应centerType_TextView &ndash;&gt;-->
+<!--        <attr name="titleBar_centerTextMarquee" format="boolean" />-->
+<!--        &lt;!&ndash; 子标题TextView 文字, 对应centerType_TextView &ndash;&gt;-->
+<!--        <attr name="titleBar_centerSubText" format="string" />-->
+<!--        &lt;!&ndash; 子标题TextView 颜色, 对应centerType_TextView &ndash;&gt;-->
+<!--        <attr name="titleBar_centerSubTextColor" format="color" />-->
+<!--        &lt;!&ndash; 子标题TextView 字体大小, 对应centerType_TextView &ndash;&gt;-->
+<!--        <attr name="titleBar_centerSubTextSize" format="dimension" />-->
+<!--        &lt;!&ndash; 搜索输入框是否可输入 &ndash;&gt;-->
+<!--        <attr name="titleBar_centerSearchEditable" format="boolean" />-->
+<!--        &lt;!&ndash; 搜索框背景 &ndash;&gt;-->
+<!--        <attr name="titleBar_centerSearchBg" format="reference" />-->
+<!--        &lt;!&ndash; 中间自定义布局, 对应centerType_CustomView &ndash;&gt;-->
+<!--        <attr name="titleBar_centerCustomView" format="reference" />-->
+<!--    </declare-styleable>-->
+
+    <declare-styleable name="BaseToolbar">
+        <!-- 标题栏背景 图片或颜色 -->
+        <attr name="z_toolbar_titleBarColor" format="color" />
+        <!-- 填充状态栏 -->
+        <attr name="z_toolbar_fillStatusBar" format="boolean" />
+        <!-- 状态栏颜色 -->
+        <attr name="z_toolbar_statusBarColor" format="color" />
+        <!-- 状态栏模式 -->
+        <attr name="z_toolbar_statusBarMode" format="enum">
+            <enum name="dark" value="0" />
+            <enum name="light" value="1" />
+        </attr>
+        <!-- 标题栏高度 -->
+        <attr name="z_toolbar_titleBarHeight" format="dimension" />
+        <!-- 显示标题栏分割线 -->
+        <attr name="z_toolbar_showBottomLine" format="boolean" />
+        <!-- 标题栏分割线颜色 -->
+        <attr name="z_toolbar_bottomLineColor" format="color" />
+        <!-- 底部阴影高度 showBottomLine = false时有效 -->
+        <attr name="z_toolbar_bottomShadowHeight" format="dimension" />
+    </declare-styleable>
+
+    <declare-styleable name="ZToolbar">
+
+        <!-- 左边视图类型 -->
+        <attr name="z_toolbar_leftType">
+            <enum name="none" value="0" />
+            <enum name="textView" value="1" />
+            <enum name="imageButton" value="2" />
+            <enum name="customView" value="3" />
+        </attr>
+        <!-- TextView 文字, 对应leftType_TextView -->
+        <attr name="z_toolbar_leftText" format="string" />
+        <!-- TextView 颜色, 对应leftType_TextView -->
+        <attr name="z_toolbar_leftTextColor" format="color" />
+        <!-- TextView 字体大小, 对应leftType_TextView -->
+        <attr name="z_toolbar_leftTextSize" format="dimension" />
+        <!-- TextView 左边图片, 对应leftType_TextView -->
+        <attr name="z_toolbar_leftDrawable" format="reference" />
+        <!-- TextView 左边padding, 对应leftType_TextView -->
+        <attr name="z_toolbar_leftDrawablePadding" format="dimension" />
+        <!-- ImageView 资源, 对应leftType_ImageBotton -->
+        <attr name="z_toolbar_leftImageResource" format="reference" />
+        <!-- 左边自定义布局, 对应leftType_CustomView -->
+        <attr name="z_toolbar_leftCustomView" format="reference" />
+
+        <!-- 右边视图类型 -->
+        <attr name="z_toolbar_rightType">
+            <enum name="none" value="0" />
+            <enum name="textView" value="1" />
+            <enum name="imageButton" value="2" />
+            <enum name="customView" value="3" />
+        </attr>
+        <!-- TextView 文字, 对应rightType_TextView -->
+        <attr name="z_toolbar_rightText" format="string" />
+        <!-- TextView 颜色, 对应rightType_TextView -->
+        <attr name="z_toolbar_rightTextColor" format="color" />
+        <!-- TextView 字体大小, 对应rightType_TextView -->
+        <attr name="z_toolbar_rightTextSize" format="dimension" />
+        <!-- ImageView 资源, 对应rightType_ImageBotton -->
+        <attr name="z_toolbar_rightImageResource" format="reference" />
+        <!-- 右边自定义布局, 对应rightType_CustomView -->
+        <attr name="z_toolbar_rightCustomView" format="reference" />
+
+        <!-- 中间视图类型 -->
+        <attr name="z_toolbar_centerType">
+            <enum name="none" value="0" />
+            <enum name="textView" value="1" />
+            <enum name="searchView" value="2" />
+            <enum name="customView" value="3" />
+        </attr>
+        <!-- TextView 文字, 对应centerType_TextView -->
+        <attr name="z_toolbar_centerText" format="string" />
+        <!-- TextView 颜色, 对应centerType_TextView -->
+        <attr name="z_toolbar_centerTextColor" format="color" />
+        <!-- TextView 字体大小, 对应centerType_TextView -->
+        <attr name="z_toolbar_centerTextSize" format="dimension" />
+        <!-- TextView 跑马灯效果, 默认打开, 对应centerType_TextView -->
+        <attr name="z_toolbar_centerTextMarquee" format="boolean" />
+        <!-- 子标题TextView 文字, 对应centerType_TextView -->
+        <attr name="z_toolbar_centerSubText" format="string" />
+        <!-- 子标题TextView 颜色, 对应centerType_TextView -->
+        <attr name="z_toolbar_centerSubTextColor" format="color" />
+        <!-- 子标题TextView 字体大小, 对应centerType_TextView -->
+        <attr name="z_toolbar_centerSubTextSize" format="dimension" />
+        <!-- 中间自定义布局, 对应centerType_CustomView -->
+        <attr name="z_toolbar_centerCustomView" format="reference" />
+    </declare-styleable>
+
+    <declare-styleable name="ZSearchbar">
+
+        <attr name="z_toolbar_content_text" format="string" />
+
+        <attr name="z_toolbar_hint_text" format="string" />
+
+        <attr name="z_toolbar_centerSearchRightType">
+            <enum name="delete" value="0" />
+            <enum name="voice" value="1" />
+        </attr>
+        <!-- 搜索输入框是否可输入 -->
+        <attr name="z_toolbar_centerSearchEditable" format="boolean" />
+        <!-- 搜索框背景 -->
+        <attr name="z_toolbar_centerSearchBg" format="reference" />
+
+    </declare-styleable>
+
+</resources>

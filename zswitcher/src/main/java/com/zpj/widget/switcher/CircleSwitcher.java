@@ -1,36 +1,11 @@
 package com.zpj.widget.switcher;
 
-import android.animation.Animator;
-import android.animation.AnimatorSet;
-import android.animation.ArgbEvaluator;
-import android.animation.ValueAnimator;
 import android.content.Context;
-import android.content.res.TypedArray;
-import android.graphics.Bitmap;
 import android.graphics.Canvas;
-import android.graphics.Color;
-import android.graphics.Outline;
 import android.graphics.Paint;
-import android.graphics.PorterDuff;
-import android.graphics.PorterDuffColorFilter;
-import android.graphics.RectF;
-import android.os.Build;
-import android.os.Bundle;
-import android.os.Parcelable;
-import android.renderscript.Allocation;
-import android.renderscript.Element;
-import android.renderscript.RenderScript;
-import android.renderscript.ScriptIntrinsicBlur;
-import android.support.annotation.ColorInt;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.annotation.RequiresApi;
 import android.util.AttributeSet;
-import android.view.View;
-
-import com.zpj.utils.ScreenUtil;
-import com.zpj.widget.R;
-import com.zpj.widget.SimpleAnimatorListener;
 
 public class CircleSwitcher extends BaseSwitcher {
 

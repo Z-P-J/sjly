@@ -13,7 +13,7 @@
 //import android.widget.LinearLayout;
 //import android.widget.TextView;
 //
-//import com.zpj.utils.ScreenUtil;
+//import com.zpj.utils.ScreenUtils;
 //
 ///**
 // * Created by Mao Jiqing on 2016/9/27.
@@ -42,7 +42,7 @@
 //        myList = view;
 //        myList.setBackgroundColor(Color.parseColor("#FFFFFF"));
 //        myList.setLayoutParams(lp1);
-//        LayoutParams lp2 = new LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ScreenUtil.dp2pxInt(getContext(), 100));
+//        LayoutParams lp2 = new LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ScreenUtils.dp2pxInt(getContext(), 100));
 //        pullText = new TextView(getContext());
 //        pullText.setText("下拉加载更多");
 //        pullText.setBackgroundColor(Color.parseColor("#FFFFFF"));

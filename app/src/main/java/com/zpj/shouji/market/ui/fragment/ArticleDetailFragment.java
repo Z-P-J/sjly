@@ -38,7 +38,7 @@ import com.zpj.fragmentation.BaseFragment;
 import com.zpj.shouji.market.ui.fragment.detail.AppDetailFragment;
 import com.zpj.shouji.market.ui.widget.selection.SelectableTextView;
 import com.zpj.shouji.market.utils.HttpApi;
-import com.zpj.utils.ScreenUtil;
+import com.zpj.utils.ScreenUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -155,7 +155,7 @@ public class ArticleDetailFragment extends BaseFragment {
             app.setBackgroundResource(R.drawable.bg_gray_little);
             app.setOnClickListener(v -> _mActivity.start(AppDetailFragment.newInstance(appInfo.getAppType(), appInfo.getAppId())));
             LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-            int margin = ScreenUtil.dp2pxInt(context, 20f);
+            int margin = ScreenUtils.dp2pxInt(context, 20f);
             lp.setMargins(margin, 0, margin, 0);
             app.setLayoutParams(lp);
             Glide.with(context).load(appInfo.getAppIcon()).into((ImageView) app.findViewById(R.id.iv_icon));
@@ -232,8 +232,8 @@ public class ArticleDetailFragment extends BaseFragment {
                     public void onResourceReady(@NonNull Drawable resource, @Nullable Transition<? super Drawable> transition) {
                         int width = resource.getIntrinsicWidth();
                         int height = resource.getIntrinsicHeight();
-                        int margin = ScreenUtil.dp2pxInt(context, 20f);
-                        int scaledW = ScreenUtil.getScreenWidth(context) - 2 * margin;
+                        int margin = ScreenUtils.dp2pxInt(context, 20f);
+                        int scaledW = ScreenUtils.getScreenWidth(context) - 2 * margin;
                         int scaledH = (height * scaledW) / width;
                         LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(scaledW, scaledH);
                         lp.setMargins(margin, margin / 2, margin, margin / 2);

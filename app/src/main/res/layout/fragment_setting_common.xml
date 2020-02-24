@@ -6,10 +6,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
-    android:fitsSystemWindows="true"
     >
 
-    <include layout="@layout/layout_header"/>
+    <include layout="@layout/layout_toolbar"/>
 
     <com.zpj.widget.ElasticScrollView
         android:layout_width="match_parent"

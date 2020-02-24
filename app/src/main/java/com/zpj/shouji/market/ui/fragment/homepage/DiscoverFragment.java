@@ -7,10 +7,12 @@ import com.zpj.shouji.market.ui.fragment.theme.ThemeListFragment;
 
 public class DiscoverFragment extends ThemeListFragment {
 
-    public static DiscoverFragment newInstance(String url) {
+    private static final String DEFAULT_URL = "http://tt.shouji.com.cn/app/faxian.jsp?index=faxian&versioncode=198";
+
+    public static DiscoverFragment newInstance() {
         DiscoverFragment fragment = new DiscoverFragment();
         Bundle bundle = new Bundle();
-        bundle.putString(KEY_DEFAULT_URL, url);
+        bundle.putString(KEY_DEFAULT_URL, DEFAULT_URL);
         fragment.setArguments(bundle);
         return fragment;
     }

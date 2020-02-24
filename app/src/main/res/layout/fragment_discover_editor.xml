@@ -9,24 +9,24 @@
     android:orientation="vertical"
     >
 
-    <com.wuhenzhizao.titlebar.widget.CommonTitleBar
-        android:id="@+id/title_bar"
+    <com.zpj.widget.toolbar.ZToolbar
+        android:id="@+id/tool_bar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:titleBar_titleBarColor="@color/colorPrimary"
-        app:titleBar_fillStatusBar="true"
-        app:titleBar_statusBarColor="@color/colorPrimary"
-        app:titleBar_leftType="imageButton"
-        app:titleBar_leftImageResource="@drawable/ic_arrow_back_white_24dp"
-        app:titleBar_centerType="textView"
-        app:titleBar_centerTextMarquee="true"
-        app:titleBar_centerText="手机乐园"
-        app:titleBar_centerTextColor="@android:color/white"
-        app:titleBar_centerSubText="https://www.shouji.com.cn"
-        app:titleBar_centerSubTextColor="@android:color/white"
-        app:titleBar_rightType="imageButton"
-        app:titleBar_rightImageResource="@drawable/ic_more_vert_grey_24dp"
-        app:titleBar_showBottomLine="false"
+        app:z_toolbar_titleBarColor="@color/colorPrimary"
+        app:z_toolbar_fillStatusBar="true"
+        app:z_toolbar_statusBarColor="@color/colorPrimary"
+        app:z_toolbar_leftType="imageButton"
+        app:z_toolbar_leftImageResource="@drawable/ic_arrow_back_white_24dp"
+        app:z_toolbar_centerType="textView"
+        app:z_toolbar_centerTextMarquee="true"
+        app:z_toolbar_centerText="手机乐园"
+        app:z_toolbar_centerTextColor="@android:color/white"
+        app:z_toolbar_centerSubText="https://www.shouji.com.cn"
+        app:z_toolbar_centerSubTextColor="@android:color/white"
+        app:z_toolbar_rightType="imageButton"
+        app:z_toolbar_rightImageResource="@drawable/ic_more_vert_grey_24dp"
+        app:z_toolbar_showBottomLine="false"
         />
 
     <me.jingbin.richeditor.editrichview.SimpleRichEditor
@@ -34,7 +34,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_above="@+id/lu_bottom_menu"
-        android:layout_below="@+id/title_bar"
+        android:layout_below="@+id/tool_bar"
         android:scrollbars="none"
         android:visibility="visible" />
 

@@ -2,20 +2,13 @@ package com.zpj.widget;
 
 
 import android.content.Context;
-import android.content.res.TypedArray;
-import android.graphics.Canvas;
 import android.graphics.Color;
-import android.graphics.Paint;
-import android.graphics.Path;
-import android.graphics.PorterDuff;
-import android.graphics.PorterDuffXfermode;
-import android.graphics.RectF;
 import android.support.v4.view.ViewCompat;
 import android.util.AttributeSet;
 import android.view.View;
 import android.widget.FrameLayout;
 
-import com.zpj.utils.ScreenUtil;
+import com.zpj.utils.ScreenUtils;
 
 
 /**
@@ -49,7 +42,7 @@ public class RoundFrameLayout extends FrameLayout {
     public RoundFrameLayout(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
         if (drawable == null) {
-            int dp = ScreenUtil.dp2pxInt(context, 8);
+            int dp = ScreenUtils.dp2pxInt(context, 8);
             drawable = new ShadowDrawable.Builder()
                     .setBgColor(Color.WHITE)
                     .setShapeRadius(dp)

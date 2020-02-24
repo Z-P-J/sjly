@@ -7,21 +7,21 @@
     android:orientation="vertical"
     >
 
-    <com.wuhenzhizao.titlebar.widget.CommonTitleBar
-        android:id="@+id/title_bar"
+    <com.zpj.widget.toolbar.ZToolbar
+        android:id="@+id/tool_bar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:titleBar_fillStatusBar="true"
-        app:titleBar_titleBarColor="@android:color/white"
-        app:titleBar_statusBarColor="@android:color/white"
-        app:titleBar_showBottomLine="false"
-        app:titleBar_statusBarMode="dark"
-        app:titleBar_leftType="textView"
-        app:titleBar_leftText="应用"
-        app:titleBar_leftTextColor="@color/colorPrimary"
-        app:titleBar_leftTextSize="18sp"
-        app:titleBar_rightType="customView"
-        app:titleBar_rightCustomView="@layout/layout_tools_dark"
+        app:z_toolbar_fillStatusBar="true"
+        app:z_toolbar_titleBarColor="@android:color/white"
+        app:z_toolbar_statusBarColor="@android:color/white"
+        app:z_toolbar_showBottomLine="false"
+        app:z_toolbar_statusBarMode="dark"
+        app:z_toolbar_leftType="textView"
+        app:z_toolbar_leftText="应用"
+        app:z_toolbar_leftTextColor="@color/colorPrimary"
+        app:z_toolbar_leftTextSize="18sp"
+        app:z_toolbar_rightType="customView"
+        app:z_toolbar_rightCustomView="@layout/layout_tools_dark"
         />
 
     <include layout="@layout/fragment_recycler_layout"/>

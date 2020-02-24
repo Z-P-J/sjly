@@ -27,7 +27,7 @@ import com.zpj.shouji.market.model.WallpaperTag;
 import com.zpj.shouji.market.utils.PopupImageLoader;
 import com.zpj.shouji.market.ui.fragment.base.NextUrlFragment;
 import com.zpj.shouji.market.ui.widget.popup.RecyclerPopup;
-import com.zpj.utils.ScreenUtil;
+import com.zpj.utils.ScreenUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -80,7 +80,7 @@ public class WallpaperListFragment extends NextUrlFragment<WallpaperInfo> {
 
     @Override
     protected void buildRecyclerLayout(EasyRecyclerLayout<WallpaperInfo> recyclerLayout) {
-        screenWidth = ScreenUtil.getScreenWidth(context);
+        screenWidth = ScreenUtils.getScreenWidth(context);
         recyclerLayout.setHeaderView(R.layout.item_image_header, holder -> holder.setOnItemClickListener((v, x, y) -> showSortPupWindow(v)));
     }
 

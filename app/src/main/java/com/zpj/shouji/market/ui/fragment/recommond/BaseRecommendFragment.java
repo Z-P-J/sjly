@@ -1,16 +1,12 @@
 package com.zpj.shouji.market.ui.fragment.recommond;
 
-import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.FrameLayout;
-import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
@@ -36,7 +32,7 @@ import com.zpj.shouji.market.ui.fragment.base.RecyclerLayoutFragment;
 import com.zpj.shouji.market.ui.fragment.collection.CollectionDetailFragment;
 import com.zpj.shouji.market.ui.fragment.detail.AppDetailFragment;
 import com.zpj.shouji.market.utils.HttpApi;
-import com.zpj.utils.ScreenUtil;
+import com.zpj.utils.ScreenUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -147,7 +143,7 @@ public abstract class BaseRecommendFragment extends RecyclerLayoutFragment<Group
         EasyRecyclerView<CollectionInfo> recyclerView = new EasyRecyclerView<>(holder.getView(R.id.recycler_view));
         holder.getItemView().setTag(recyclerView);
         List<CollectionInfo> list = new ArrayList<>();
-        int margin = ScreenUtil.dp2pxInt(context, 12);
+        int margin = ScreenUtils.dp2pxInt(context, 12);
         recyclerView.setData(list)
                 .setItemRes(R.layout.item_app_collection)
                 .setLayoutManager(new GridLayoutManager(context, 2, LinearLayoutManager.HORIZONTAL, false))

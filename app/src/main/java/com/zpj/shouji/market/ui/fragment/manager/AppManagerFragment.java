@@ -11,7 +11,7 @@ import com.zpj.fragmentation.BaseFragment;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.ui.adapter.FragmentsPagerAdapter;
 import com.zpj.shouji.market.ui.widget.ScaleTransitionPagerTitleView;
-import com.zpj.utils.ScreenUtil;
+import com.zpj.utils.ScreenUtils;
 
 import net.lucode.hackware.magicindicator.MagicIndicator;
 import net.lucode.hackware.magicindicator.ViewPagerHelper;
@@ -84,16 +84,16 @@ public class AppManagerFragment extends BaseFragment {
             public void onPageSelected(int i) {
                 switch (i) {
                     case 0:
-                        titleBar.getRightImageButton().setImageResource(R.drawable.ic_settings_white_24dp);
+                        toolbar.getRightImageButton().setImageResource(R.drawable.ic_settings_white_24dp);
                         break;
                     case 1:
-                        titleBar.getRightImageButton().setImageResource(R.drawable.ic_search_white_24dp);
+                        toolbar.getRightImageButton().setImageResource(R.drawable.ic_search_white_24dp);
                         break;
                     case 2:
-                        titleBar.getRightImageButton().setImageResource(R.drawable.ic_search_white_24dp);
+                        toolbar.getRightImageButton().setImageResource(R.drawable.ic_search_white_24dp);
                         break;
                     case 3:
-                        titleBar.getRightImageButton().setImageResource(R.drawable.ic_search_white_24dp);
+                        toolbar.getRightImageButton().setImageResource(R.drawable.ic_search_white_24dp);
                         break;
                     default:
                         break;
@@ -135,9 +135,9 @@ public class AppManagerFragment extends BaseFragment {
             public IPagerIndicator getIndicator(Context context) {
                 LinePagerIndicator indicator = new LinePagerIndicator(context);
                 indicator.setMode(LinePagerIndicator.MODE_EXACTLY);
-                indicator.setLineHeight(ScreenUtil.dp2px(context, 4f));
-                indicator.setLineWidth(ScreenUtil.dp2px(context, 12f));
-                indicator.setRoundRadius(ScreenUtil.dp2px(context, 4f));
+                indicator.setLineHeight(ScreenUtils.dp2px(context, 4f));
+                indicator.setLineWidth(ScreenUtils.dp2px(context, 12f));
+                indicator.setRoundRadius(ScreenUtils.dp2px(context, 4f));
                 indicator.setColors(Color.WHITE, Color.WHITE);
                 return indicator;
             }

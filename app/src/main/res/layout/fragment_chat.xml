@@ -5,19 +5,19 @@
     android:layout_height="match_parent"
     android:background="@android:color/white">
 
-    <com.wuhenzhizao.titlebar.widget.CommonTitleBar
-        android:id="@+id/title_bar"
+    <com.zpj.widget.toolbar.ZToolbar
+        android:id="@+id/tool_bar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:titleBar_fillStatusBar="true"
-        app:titleBar_statusBarColor="@android:color/transparent"
-        app:titleBar_titleBarColor="@android:color/white"
-        app:titleBar_leftType="imageButton"
-        app:titleBar_leftImageResource="@drawable/ic_arrow_back_black_24dp"
-        app:titleBar_centerType="textView"
-        app:titleBar_centerText="Title"
-        app:titleBar_centerTextColor="@color/color_text_major"
-        app:titleBar_showBottomLine="false"
+        app:z_toolbar_fillStatusBar="true"
+        app:z_toolbar_statusBarColor="@android:color/transparent"
+        app:z_toolbar_titleBarColor="@android:color/white"
+        app:z_toolbar_leftType="imageButton"
+        app:z_toolbar_leftImageResource="@drawable/ic_arrow_back_black_24dp"
+        app:z_toolbar_centerType="textView"
+        app:z_toolbar_centerText="Title"
+        app:z_toolbar_centerTextColor="@color/color_text_major"
+        app:z_toolbar_showBottomLine="false"
         />
 
 <!--    <com.zpj.shouji.market.ui.widget.PullToRefreshLayout-->
@@ -35,7 +35,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_above="@+id/chat_panel"
-        android:layout_below="@id/title_bar"
+        android:layout_below="@id/tool_bar"
         />
 
     <com.zpj.shouji.market.ui.widget.ChatPanel

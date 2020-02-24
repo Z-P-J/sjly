@@ -40,7 +40,7 @@ import com.zpj.shouji.market.ui.fragment.base.RecyclerLayoutFragment;
 import com.zpj.shouji.market.ui.fragment.collection.CollectionDetailFragment;
 import com.zpj.shouji.market.ui.fragment.detail.AppDetailFragment;
 import com.zpj.shouji.market.utils.HttpApi;
-import com.zpj.utils.ScreenUtil;
+import com.zpj.utils.ScreenUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -169,8 +169,8 @@ public class RecommendFragment extends RecyclerLayoutFragment<GroupItem> {
         LinearLayout.LayoutParams rlParams = (LinearLayout.LayoutParams) rlHeader.getLayoutParams();
         rlParams.setMarginStart(0);
         rlParams.setMarginEnd(0);
-        int margin = ScreenUtil.dp2pxInt(context, 12);
-        int padding = ScreenUtil.dp2pxInt(context, 8);
+        int margin = ScreenUtils.dp2pxInt(context, 12);
+        int padding = ScreenUtils.dp2pxInt(context, 8);
         view.setPadding(padding, padding, padding, padding);
         switch (holder.getViewType()) {
             case 1:
@@ -246,7 +246,7 @@ public class RecommendFragment extends RecyclerLayoutFragment<GroupItem> {
         EasyRecyclerView<CollectionInfo> recyclerView = new EasyRecyclerView<>(holder.getView(R.id.recycler_view));
         holder.getItemView().setTag(recyclerView);
         List<CollectionInfo> list = new ArrayList<>();
-        int margin = ScreenUtil.dp2pxInt(context, 12);
+        int margin = ScreenUtils.dp2pxInt(context, 12);
         recyclerView.setData(list)
                 .setItemRes(R.layout.item_app_collection)
                 .setLayoutManager(new GridLayoutManager(context, 2, LinearLayoutManager.HORIZONTAL, false))
@@ -313,7 +313,7 @@ public class RecommendFragment extends RecyclerLayoutFragment<GroupItem> {
         EasyRecyclerView<SubjectInfo> recyclerView = new EasyRecyclerView<>(holder.getView(R.id.recycler_view));
         holder.getItemView().setTag(recyclerView);
         List<SubjectInfo> list = new ArrayList<>();
-        int margin = ScreenUtil.dp2pxInt(context, 12);
+        int margin = ScreenUtils.dp2pxInt(context, 12);
         recyclerView.setData(list)
                 .setItemRes(R.layout.item_app_subject)
                 .setLayoutManager(new GridLayoutManager(context, 2, LinearLayoutManager.HORIZONTAL, false))

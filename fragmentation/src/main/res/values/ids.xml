@@ -2,5 +2,5 @@
 <resources>
     <item type="id" name="hierarchy"></item>
     <item type="id" name="isexpand"></item>
-    <item type="id" name="title_bar"></item>
+    <item type="id" name="tool_bar"></item>
 </resources>

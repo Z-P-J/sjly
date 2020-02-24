@@ -7,7 +7,6 @@ import android.animation.TypeEvaluator;
 import android.animation.ValueAnimator;
 import android.content.Context;
 import android.support.design.widget.FloatingActionButton;
-import android.util.Log;
 import android.view.View;
 import android.view.ViewAnimationUtils;
 import android.view.ViewGroup;
@@ -18,11 +17,8 @@ import android.widget.TextView;
 
 import com.lxj.xpopup.core.PopupInfo;
 import com.lxj.xpopup.enums.PopupAnimation;
-import com.lxj.xpopup.enums.PopupStatus;
 import com.lxj.xpopup.impl.FullScreenPopupView;
-import com.lxj.xpopup.util.KeyboardUtils;
 import com.zpj.shouji.market.R;
-import com.zpj.utils.ScreenUtil;
 
 import eightbitlab.com.blurview.BlurView;
 import eightbitlab.com.blurview.RenderScriptBlur;

@@ -13,19 +13,17 @@ import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
-import com.wuhenzhizao.titlebar.statusbar.StatusBarUtils;
-import com.wuhenzhizao.titlebar.widget.CommonTitleBar;
+import com.zpj.utils.StatusBarUtils;
+import com.zpj.widget.toolbar.ZToolbar;
 
 import java.util.concurrent.atomic.AtomicBoolean;
 
 import me.yokeyword.fragmentation.R;
-import me.yokeyword.fragmentation_swipeback.SwipeBackFragment;
-import me.yokeyword.fragmentation_swipeback.SwipeBackLayout;
 
 public abstract class BaseFragment extends SwipeBackFragment {
 
     protected Context context;
-    protected CommonTitleBar titleBar;
+    protected ZToolbar toolbar;
     private final AtomicBoolean isEnterAnimationEnd = new AtomicBoolean(false);
     private Runnable onEnterAnimationEndRunnable;
 
@@ -37,29 +35,29 @@ public abstract class BaseFragment extends SwipeBackFragment {
         View view;
         if (getLayoutId() > 0) {
             view = inflater.inflate(getLayoutId(), container, false);
-            titleBar = view.findViewById(R.id.title_bar);
-            if (titleBar != null) {
-                if (titleBar.getLeftImageButton() != null) {
-                    toolbarLeftImageButton(titleBar.getLeftImageButton());
-                } else if (titleBar.getLeftCustomView() != null) {
-                    toolbarLeftCustomView(titleBar.getLeftCustomView());
-                } else if (titleBar.getLeftTextView() != null) {
-                    toolbarLeftTextView(titleBar.getLeftTextView());
+            toolbar = view.findViewById(R.id.tool_bar);
+            if (toolbar != null) {
+                if (toolbar.getLeftImageButton() != null) {
+                    toolbarLeftImageButton(toolbar.getLeftImageButton());
+                } else if (toolbar.getLeftCustomView() != null) {
+                    toolbarLeftCustomView(toolbar.getLeftCustomView());
+                } else if (toolbar.getLeftTextView() != null) {
+                    toolbarLeftTextView(toolbar.getLeftTextView());
                 }
-                if (titleBar.getRightImageButton() != null) {
-                    toolbarRightImageButton(titleBar.getRightImageButton());
-                } else if (titleBar.getRightCustomView() != null) {
-                    toolbarRightCustomView(titleBar.getRightCustomView());
-                } else if (titleBar.getRightTextView() != null) {
-                    toolbarRightTextView(titleBar.getRightTextView());
+                if (toolbar.getRightImageButton() != null) {
+                    toolbarRightImageButton(toolbar.getRightImageButton());
+                } else if (toolbar.getRightCustomView() != null) {
+                    toolbarRightCustomView(toolbar.getRightCustomView());
+                } else if (toolbar.getRightTextView() != null) {
+                    toolbarRightTextView(toolbar.getRightTextView());
                 }
 
-                if (titleBar.getCenterTextView() != null) {
-                    toolbarCenterTextView(titleBar.getCenterTextView());
-                } else if (titleBar.getCenterSubTextView() != null) {
-                    toolbarCenterSubTextView(titleBar.getCenterSubTextView());
-                } else if (titleBar.getCenterCustomView() != null) {
-                    toolbarCenterCustomView(titleBar.getCenterCustomView());
+                if (toolbar.getCenterTextView() != null) {
+                    toolbarCenterTextView(toolbar.getCenterTextView());
+                } else if (toolbar.getCenterSubTextView() != null) {
+                    toolbarCenterSubTextView(toolbar.getCenterSubTextView());
+                } else if (toolbar.getCenterCustomView() != null) {
+                    toolbarCenterCustomView(toolbar.getCenterCustomView());
                 }
             }
             initView(view, savedInstanceState);
@@ -125,14 +123,14 @@ public abstract class BaseFragment extends SwipeBackFragment {
     }
 
     public void setToolbarTitle(String title) {
-        if (titleBar != null && titleBar.getCenterTextView() != null) {
-            titleBar.getCenterTextView().setText(title);
+        if (toolbar != null && toolbar.getCenterTextView() != null) {
+            toolbar.getCenterTextView().setText(title);
         }
     }
 
     public void setToolbarSubTitle(String title) {
-        if (titleBar != null && titleBar.getCenterSubTextView() != null) {
-            titleBar.getCenterSubTextView().setText(title);
+        if (toolbar != null && toolbar.getCenterSubTextView() != null) {
+            toolbar.getCenterSubTextView().setText(title);
         }
     }
 

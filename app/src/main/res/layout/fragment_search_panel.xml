@@ -71,7 +71,7 @@
                     android:layout_height="wrap_content"
                     android:text="清空"
                     android:layout_alignParentEnd="true"
-                    android:drawableEnd="@drawable/comm_titlebar_delete_normal"
+                    android:drawableEnd="@drawable/ic_clear_black_24dp"
                     android:layout_centerVertical="true"
                     android:drawablePadding="5dp"
                     />

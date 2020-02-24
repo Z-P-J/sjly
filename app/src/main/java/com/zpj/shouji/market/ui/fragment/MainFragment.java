@@ -7,6 +7,7 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
@@ -40,8 +41,6 @@ public class MainFragment extends BaseFragment
     private final List<BaseFragment> fragments = new ArrayList<>();
     private ScrollableViewPager viewPager;
     private BasePopupView popupView;
-
-    private int previousPosition = -1;
 
     @Override
     protected int getLayoutId() {
@@ -93,22 +92,22 @@ public class MainFragment extends BaseFragment
         viewPager.setAdapter(adapter);
         navigationView.setOnNavigationItemSelectedListener(this);
 
-        viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
-            @Override
-            public void onPageScrolled(int i, float v, int i1) {
-
-            }
-
-            @Override
-            public void onPageSelected(int i) {
-                navigationView.setCurrentItem(i);
-            }
-
-            @Override
-            public void onPageScrollStateChanged(int i) {
-
-            }
-        });
+//        viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+//            @Override
+//            public void onPageScrolled(int i, float v, int i1) {
+//
+//            }
+//
+//            @Override
+//            public void onPageSelected(int i) {
+//                navigationView.setCurrentItem(i);
+//            }
+//
+//            @Override
+//            public void onPageScrollStateChanged(int i) {
+//
+//            }
+//        });
 
         floatingActionButton.setOnClickListener(v -> {
             postDelay(this::darkStatusBar, 300);
@@ -166,9 +165,8 @@ public class MainFragment extends BaseFragment
                 return false;
             }
         }
-        if(previousPosition != position) {
+        if(viewPager.getCurrentItem() != position) {
             viewPager.setCurrentItem(position, false);
-            previousPosition = position;
         }
 
         return true;
@@ -176,9 +174,7 @@ public class MainFragment extends BaseFragment
 
     @Override
     public void onDiscoverItemClick() {
-//        _mActivity.start(new RichEditorFragment());
         _mActivity.start(new DiscoverEditorFragment2());
-//        _mActivity.start(new DiscoverEditorFragment());
     }
 
     @Override

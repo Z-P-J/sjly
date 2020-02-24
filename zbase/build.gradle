@@ -43,7 +43,7 @@ dependencies {
     api project(":zutils")
     api project(":zpopup")
     api project(":zhttp")
-    api project(":titlebar")
+    api project(":ztoolbar")
     api project(':fragmentation')
     api project(':zsetting')
     api project(':zwidget')

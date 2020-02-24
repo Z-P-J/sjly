@@ -15,8 +15,7 @@ import com.zpj.shouji.market.ui.fragment.collection.CollectionListFragment;
 import com.zpj.shouji.market.ui.fragment.theme.ThemeListFragment;
 import com.zpj.shouji.market.ui.fragment.UserListFragment;
 import com.zpj.fragmentation.BaseFragment;
-import com.zpj.shouji.market.ui.widget.DotPagerIndicator;
-import com.zpj.utils.ScreenUtil;
+import com.zpj.utils.ScreenUtils;
 
 import net.lucode.hackware.magicindicator.MagicIndicator;
 import net.lucode.hackware.magicindicator.ViewPagerHelper;
@@ -122,9 +121,9 @@ public class SearchResultFragment extends BaseFragment {
             public IPagerIndicator getIndicator(Context context) {
                 LinePagerIndicator indicator = new LinePagerIndicator(context);
                 indicator.setMode(LinePagerIndicator.MODE_EXACTLY);
-                indicator.setLineHeight(ScreenUtil.dp2px(context, 4f));
-                indicator.setLineWidth(ScreenUtil.dp2px(context, 12f));
-                indicator.setRoundRadius(ScreenUtil.dp2px(context, 4f));
+                indicator.setLineHeight(ScreenUtils.dp2px(context, 4f));
+                indicator.setLineWidth(ScreenUtils.dp2px(context, 12f));
+                indicator.setRoundRadius(ScreenUtils.dp2px(context, 4f));
                 indicator.setColors(Color.WHITE, Color.WHITE);
                 return indicator;
             }

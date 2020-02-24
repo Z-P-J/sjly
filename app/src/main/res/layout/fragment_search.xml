@@ -6,117 +6,21 @@
     android:layout_height="match_parent"
     android:background="@android:color/white">
 
-    <com.wuhenzhizao.titlebar.widget.CommonTitleBar
-        android:id="@+id/title_bar"
+    <com.zpj.widget.toolbar.ZSearchbar
+        android:id="@+id/search_bar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:titleBar_leftType="imageButton"
-        app:titleBar_leftImageResource="@drawable/ic_arrow_back_white_24dp"
-        app:titleBar_centerType="searchView"
-        app:titleBar_centerSearchBg="@color/transparent"
-        app:titleBar_centerSearchEditable="true"
-        app:titleBar_centerSearchRightType="delete"
-        app:titleBar_fillStatusBar="true"
-        app:titleBar_statusBarColor="@color/colorPrimary"
-        app:titleBar_titleBarColor="@color/colorPrimary"
-        app:titleBar_rightType="imageButton"
-        app:titleBar_rightImageResource="@drawable/ic_search_white_24dp"
-        app:titleBar_showBottomLine="false"
+        app:z_toolbar_centerSearchBg="@color/transparent"
+        app:z_toolbar_centerSearchEditable="true"
+        app:z_toolbar_fillStatusBar="true"
+        app:z_toolbar_hint_text="请输入关键词"
+        app:z_toolbar_statusBarColor="@color/colorPrimary"
+        app:z_toolbar_titleBarColor="@color/colorPrimary"
         />
 
     <com.zpj.widget.ScrollableViewPager
         android:id="@+id/view_pager"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
-
-<!--    <com.zpj.widget.ElasticScrollView-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="match_parent">-->
-
-<!--        <LinearLayout-->
-<!--            android:orientation="vertical"-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="wrap_content">-->
-
-<!--            <RelativeLayout android:id="@+id/history_search_bar"-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:padding="10dp"-->
-<!--                android:layout_marginBottom="5dp"-->
-<!--                >-->
-
-<!--                <TextView-->
-
-<!--                    android:layout_width="wrap_content"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    android:text="热门搜索"-->
-<!--                    android:layout_alignParentStart="true"-->
-<!--                    android:textSize="14sp"-->
-<!--                    android:textColor="@color/color_text_major"-->
-<!--                    android:layout_centerVertical="true"-->
-<!--                    />-->
-
-<!--            </RelativeLayout>-->
-
-
-<!--            <com.kongzue.stacklabelview.StackLabel-->
-<!--                android:id="@+id/hot_search"-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                app:textSize="14sp"-->
-<!--                app:textColor="#e6000000"-->
-<!--                app:itemMargin="4dp"-->
-<!--                app:paddingHorizontal="16dp"-->
-<!--                app:paddingVertical="8dp"-->
-<!--                android:layout_marginStart="10dp"-->
-<!--                android:layout_marginEnd="10dp"-->
-<!--                />-->
-
-<!--            <RelativeLayout-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:padding="10dp"-->
-<!--                android:layout_marginBottom="5dp"-->
-<!--                >-->
-
-<!--                <TextView-->
-<!--                    android:layout_width="wrap_content"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    android:text="搜索历史"-->
-<!--                    android:layout_alignParentStart="true"-->
-<!--                    android:textSize="14sp"-->
-<!--                    android:textColor="@color/color_text_major"-->
-<!--                    android:layout_centerVertical="true"-->
-<!--                    />-->
-
-<!--                <TextView android:id="@+id/clear_search_history"-->
-<!--                    android:layout_width="wrap_content"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    android:text="清空"-->
-<!--                    android:layout_alignParentEnd="true"-->
-<!--                    android:drawableEnd="@drawable/comm_titlebar_delete_normal"-->
-<!--                    android:layout_centerVertical="true"-->
-<!--                    android:drawablePadding="5dp"-->
-<!--                    />-->
-
-<!--            </RelativeLayout>-->
-
-<!--            <com.kongzue.stacklabelview.StackLabel-->
-<!--                android:id="@+id/search_history"-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                app:textSize="14sp"-->
-<!--                app:textColor="#e6000000"-->
-<!--                app:itemMargin="4dp"-->
-<!--                app:paddingHorizontal="16dp"-->
-<!--                app:paddingVertical="8dp"-->
-<!--                android:layout_marginStart="10dp"-->
-<!--                android:layout_marginEnd="10dp"-->
-<!--                />-->
-
-<!--        </LinearLayout>-->
-
-
-<!--    </com.zpj.widget.ElasticScrollView>-->
 
 </LinearLayout>

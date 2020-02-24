@@ -1,5 +1,0 @@
-<resources>
-    <!-- Default screen margins, per the Android Design guidelines. -->
-    <dimen name="z_setting_item_default_padding">16dp</dimen>
-    <dimen name="z_setting_item_min_height">56dp</dimen>
-</resources>

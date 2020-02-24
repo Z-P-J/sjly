@@ -6,19 +6,19 @@
     android:layout_height="match_parent"
     >
 
-    <com.wuhenzhizao.titlebar.widget.CommonTitleBar
-        android:id="@+id/title_bar"
+    <com.zpj.widget.toolbar.ZToolbar
+        android:id="@+id/tool_bar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:titleBar_fillStatusBar="true"
-        app:titleBar_titleBarColor="@android:color/white"
-        app:titleBar_statusBarColor="@android:color/white"
-        app:titleBar_showBottomLine="false"
-        app:titleBar_statusBarMode="dark"
-        app:titleBar_centerType="customView"
-        app:titleBar_centerCustomView="@layout/layout_magic_indicator"
-        app:titleBar_rightType="customView"
-        app:titleBar_rightCustomView="@layout/layout_tools"
+        app:z_toolbar_fillStatusBar="true"
+        app:z_toolbar_titleBarColor="@android:color/white"
+        app:z_toolbar_statusBarColor="@android:color/white"
+        app:z_toolbar_showBottomLine="false"
+        app:z_toolbar_statusBarMode="dark"
+        app:z_toolbar_centerType="customView"
+        app:z_toolbar_centerCustomView="@layout/layout_magic_indicator"
+        app:z_toolbar_rightType="customView"
+        app:z_toolbar_rightCustomView="@layout/layout_tools"
         />
 
     <android.support.v4.view.ViewPager

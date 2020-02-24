@@ -9,11 +9,11 @@ import android.os.Bundle;
 import android.os.StrictMode;
 
 import com.felix.atoast.library.AToast;
-import com.wuhenzhizao.titlebar.statusbar.StatusBarUtils;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.ui.fragment.MainFragment;
 import com.zpj.shouji.market.utils.AppInstalledManager;
 import com.zpj.shouji.market.utils.AppUpdateHelper;
+import com.zpj.utils.StatusBarUtils;
 
 import me.yokeyword.fragmentation.SupportActivity;
 import me.yokeyword.fragmentation.anim.DefaultHorizontalAnimator;

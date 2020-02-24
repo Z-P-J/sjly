@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
-    android:background="@drawable/aa_dialog_bg"
+<www.linwg.org.lib.LCardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:paddingLeft="72dp"
     android:paddingRight="72dp"
     android:paddingTop="36dp"
@@ -9,7 +9,11 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:clipChildren="false"
-    android:clipToPadding="false">
+    android:clipToPadding="false"
+    app:cornerRadius="8dp"
+    app:shadowSize="0dp"
+    app:cardBackgroundColor="@android:color/white"
+    >
 
 
     <com.mingle.widget.LoadingView
@@ -18,4 +22,4 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>
 
-</FrameLayout>
+</www.linwg.org.lib.LCardView>

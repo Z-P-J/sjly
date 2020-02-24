@@ -17,8 +17,6 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.shehuan.niv.NiceImageView;
-import com.wuhenzhizao.titlebar.utils.ScreenUtils;
-import com.wuhenzhizao.titlebar.widget.CommonTitleBar;
 import com.zpj.fragmentation.BaseFragment;
 import com.zpj.http.parser.html.nodes.Element;
 import com.zpj.shouji.market.R;
@@ -28,6 +26,7 @@ import com.zpj.shouji.market.ui.fragment.theme.ThemeListFragment;
 import com.zpj.shouji.market.ui.widget.DotPagerIndicator;
 import com.zpj.shouji.market.ui.widget.RoundProgressBar;
 import com.zpj.shouji.market.ui.widget.ScaleTransitionPagerTitleView;
+import com.zpj.utils.ScreenUtils;
 import com.zpj.widget.ScrollableViewPager;
 
 import net.lucode.hackware.magicindicator.MagicIndicator;
@@ -49,7 +48,6 @@ public class ProfileFragment extends BaseFragment implements ThemeListFragment.C
 
     private ImageView mZoomIv;
     private Toolbar mToolBar;
-    private CommonTitleBar titleBar;
 //    private ViewGroup titleContainer;
     private AppBarLayout mAppBarLayout;
     private ViewGroup titleCenterLayout;
@@ -107,8 +105,7 @@ public class ProfileFragment extends BaseFragment implements ThemeListFragment.C
         mToolBar = view.findViewById(R.id.toolbar);
         mNicknameTextView = view.findViewById(R.id.text_nickname);
         mSignatureTextView = view.findViewById(R.id.text_signature);
-        titleBar = view.findViewById(R.id.title_bar);
-//        titleBar.setAlpha(0);
+//        toolbar.setAlpha(0);
 //        titleContainer = view.findViewById(R.id.title_layout);
         mAppBarLayout = view.findViewById(R.id.appbar_layout);
         titleCenterLayout = view.findViewById(R.id.title_center_layout);
@@ -180,11 +177,11 @@ public class ProfileFragment extends BaseFragment implements ThemeListFragment.C
                 float percent = (float) Math.abs(verticalOffset) / (float) appBarLayout.getTotalScrollRange();
                 if (titleCenterLayout != null && mAvater != null && mSettingIv != null && mMsgIv != null) {
                     titleCenterLayout.setAlpha(percent);
-                    titleBar.setAlpha(0.8f * percent);
+                    toolbar.setAlpha(0.8f * percent);
 //                    StatusBarUtil.setTranslucentForImageView(getActivity(), (int) (255f * percent), null);
                     if (percent == 0) {
-                        titleBar.setBackgroundColor(Color.TRANSPARENT);
-                        titleBar.setStatusBarColor(Color.TRANSPARENT);
+                        toolbar.setBackgroundColor(Color.TRANSPARENT);
+                        toolbar.setStatusBarColor(Color.TRANSPARENT);
                         groupChange(1f, 1);
                     } else if (percent == 1) {
                         if (mAvater.getVisibility() != View.GONE) {
@@ -192,8 +189,8 @@ public class ProfileFragment extends BaseFragment implements ThemeListFragment.C
                         }
                         groupChange(1f, 2);
                     } else {
-                        titleBar.setBackgroundColor(color);
-                        titleBar.setStatusBarColor(color);
+                        toolbar.setBackgroundColor(color);
+                        toolbar.setStatusBarColor(color);
                         if (mAvater.getVisibility() != View.VISIBLE) {
                             mAvater.setVisibility(View.VISIBLE);
                         }

@@ -10,11 +10,11 @@ import android.view.View;
 
 import com.felix.atoast.library.AToast;
 import com.kongzue.stacklabelview.interfaces.OnLabelClickListener;
-import com.wuhenzhizao.titlebar.widget.CommonTitleBar;
 import com.zpj.fragmentation.BaseFragment;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.ui.adapter.FragmentsPagerAdapter;
 import com.zpj.widget.ScrollableViewPager;
+import com.zpj.widget.toolbar.ZSearchbar;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -35,7 +35,7 @@ public class SearchFragment extends BaseFragment implements OnLabelClickListener
         }
     }
 
-    private CommonTitleBar titleBar;
+    private ZSearchbar searchBar;
     private ScrollableViewPager viewPager;
 
     @Override
@@ -70,12 +70,10 @@ public class SearchFragment extends BaseFragment implements OnLabelClickListener
         FragmentsPagerAdapter adapter = new FragmentsPagerAdapter(getChildFragmentManager(), list, null);
         viewPager.setAdapter(adapter);
 
-
-        titleBar = view.findViewById(R.id.title_bar);
-        titleBar.getLeftImageButton().setOnClickListener(v -> pop());
-        titleBar.getRightImageButton().setOnClickListener(v -> getSearchResult(titleBar.getCenterSearchEditText().getText().toString()));
-        titleBar.getCenterSearchEditText().setOnEditorActionListener((v, actionId, event) -> getSearchResult(v.getText().toString()));
-        titleBar.getCenterSearchEditText().addTextChangedListener(new TextWatcher() {
+        searchBar = view.findViewById(R.id.search_bar);
+        searchBar.setOnSearchListener(this::getSearchResult);
+        searchBar.setOnLeftButtonClickListener(v -> pop());
+        searchBar.addTextWatcher(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
@@ -93,6 +91,27 @@ public class SearchFragment extends BaseFragment implements OnLabelClickListener
 
             }
         });
+//        searchBar.getLeftImageButton().setOnClickListener(v -> pop());
+//        searchBar.getRightImageButton().setOnClickListener(v -> getSearchResult(searchBar.getCenterSearchEditText().getText().toString()));
+//        searchBar.getCenterSearchEditText().setOnEditorActionListener((v, actionId, event) -> getSearchResult(v.getText().toString()));
+//        searchBar.getCenterSearchEditText().addTextChangedListener(new TextWatcher() {
+//            @Override
+//            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+//
+//            }
+//
+//            @Override
+//            public void onTextChanged(CharSequence s, int start, int before, int count) {
+//                if (TextUtils.isEmpty(s.toString()) && viewPager.getCurrentItem() == 1) {
+//                    viewPager.setCurrentItem(0, true);
+//                }
+//            }
+//
+//            @Override
+//            public void afterTextChanged(Editable s) {
+//
+//            }
+//        });
 
     }
 
@@ -109,7 +128,7 @@ public class SearchFragment extends BaseFragment implements OnLabelClickListener
 
     @Override
     public void onClick(int index, View v, String s) {
-        titleBar.getCenterSearchEditText().setText(s);
+        searchBar.setText(s);
         getSearchResult(s);
     }
 

@@ -23,7 +23,7 @@
 //
 //import com.zpj.utils.FileUtil;
 //import com.zpj.utils.MathUtil;
-//import com.zpj.utils.ScreenUtil;
+//import com.zpj.utils.ScreenUtils;
 //
 //import java.io.FileDescriptor;
 //import java.io.InputStream;
@@ -380,7 +380,7 @@
 //                return e;
 //            }
 //
-//            final float minScale = Math.min(ScreenUtil.getScreenWidth(mImageView.getContext()) / (float) decoder.getWidth(), ScreenUtil.getScreenHeight(mImageView.getContext()) / (float) decoder.getHeight());
+//            final float minScale = Math.min(ScreenUtils.getScreenWidth(mImageView.getContext()) / (float) decoder.getWidth(), ScreenUtils.getScreenHeight(mImageView.getContext()) / (float) decoder.getHeight());
 //            final int levelCount = Math.max(1, MathUtil.ceilLog2(decoder.getWidth() / (decoder.getWidth() * minScale)));
 //
 //            final Rect screenNailRect = new Rect(0, 0, decoder.getWidth(), decoder.getHeight());

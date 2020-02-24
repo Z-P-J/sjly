@@ -19,8 +19,7 @@ import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 
-import com.zpj.dialog.ZAlertDialog;
-import com.zpj.utils.ScreenUtil;
+import com.zpj.utils.ScreenUtils;
 
 public class ZAbstractDialog<T extends ZAbstractDialog<T>> extends DialogFragment implements IDialog {
 
@@ -211,7 +210,7 @@ public class ZAbstractDialog<T extends ZAbstractDialog<T>> extends DialogFragmen
      * @return Builder
      */
     public T setScreenWidthP(float percentage) {
-        this.dialogWidth = (int) (ScreenUtil.getScreenWidth(activity) * percentage);
+        this.dialogWidth = (int) (ScreenUtils.getScreenWidth(activity) * percentage);
         return self();
     }
 
@@ -222,7 +221,7 @@ public class ZAbstractDialog<T extends ZAbstractDialog<T>> extends DialogFragmen
      * @return Builder
      */
     public T setScreenHeightP(float percentage) {
-        this.dialogHeight = (int) (ScreenUtil.getScreenHeight(activity) * percentage);
+        this.dialogHeight = (int) (ScreenUtils.getScreenHeight(activity) * percentage);
         return self();
     }
 

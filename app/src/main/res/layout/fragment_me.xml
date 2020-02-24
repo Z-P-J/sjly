@@ -208,102 +208,57 @@
                             app:showDividers="middle"
                             >
 
-                            <TextView
+                            <com.zpj.widget.setting.SimpleSettingItem
                                 android:id="@+id/tv_cloud_backup"
                                 android:layout_width="match_parent"
-                                android:layout_height="56dp"
-                                android:text="云备份"
-                                android:gravity="center_vertical"
-                                android:drawableEnd="@drawable/ic_keyboard_arrow_right_black_24dp"
-                                android:textColor="@color/color_text_major"
+                                android:layout_height="wrap_content"
+                                app:z_setting_titleText="云备份"
                                 android:background="?android:attr/selectableItemBackground"
-                                android:textStyle="bold"
-                                android:paddingStart="16dp"
-                                android:paddingEnd="16dp"
                                 />
 
-                            <TextView
+                            <com.zpj.widget.setting.SimpleSettingItem
                                 android:id="@+id/tv_feedback"
                                 android:layout_width="match_parent"
-                                android:layout_height="56dp"
-                                android:text="意见反馈"
-                                android:gravity="center_vertical"
-                                android:drawableEnd="@drawable/ic_keyboard_arrow_right_black_24dp"
-                                android:textColor="@color/color_text_major"
+                                android:layout_height="wrap_content"
+                                app:z_setting_titleText="意见反馈"
                                 android:background="?android:attr/selectableItemBackground"
-                                android:textStyle="bold"
-                                android:paddingStart="16dp"
-                                android:paddingEnd="16dp"
                                 />
 
-                            <TextView
+                            <com.zpj.widget.setting.SimpleSettingItem
                                 android:id="@+id/tv_night_mode"
                                 android:layout_width="match_parent"
-                                android:layout_height="56dp"
-                                android:text="夜间模式"
-                                android:gravity="center_vertical"
-                                android:drawableEnd="@drawable/ic_keyboard_arrow_right_black_24dp"
-                                android:textColor="@color/color_text_major"
+                                android:layout_height="wrap_content"
+                                app:z_setting_titleText="夜间模式"
                                 android:background="?android:attr/selectableItemBackground"
-                                android:textStyle="bold"
-                                android:paddingStart="16dp"
-                                android:paddingEnd="16dp"
                                 />
 
-                            <TextView
+                            <com.zpj.widget.setting.SimpleSettingItem
                                 android:id="@+id/tv_common_setting"
                                 android:layout_width="match_parent"
-                                android:layout_height="56dp"
-                                android:text="通用设置"
-                                android:gravity="center_vertical"
-                                android:drawableEnd="@drawable/ic_keyboard_arrow_right_black_24dp"
-                                android:textColor="@color/color_text_major"
+                                android:layout_height="wrap_content"
+                                app:z_setting_titleText="通用设置"
                                 android:background="?android:attr/selectableItemBackground"
-                                android:textStyle="bold"
-                                android:paddingStart="16dp"
-                                android:paddingEnd="16dp"
                                 />
 
-                            <TextView
+                            <com.zpj.widget.setting.SimpleSettingItem
                                 android:id="@+id/tv_download_setting"
                                 android:layout_width="match_parent"
-                                android:layout_height="56dp"
-                                android:text="下载设置"
-                                android:gravity="center_vertical"
-                                android:drawableEnd="@drawable/ic_keyboard_arrow_right_black_24dp"
-                                android:textColor="@color/color_text_major"
-                                android:background="?android:attr/selectableItemBackground"
-                                android:textStyle="bold"
-                                android:paddingStart="16dp"
-                                android:paddingEnd="16dp"
+                                android:layout_height="wrap_content"
+                                app:z_setting_titleText="下载设置"
                                 />
 
-                            <TextView
+                            <com.zpj.widget.setting.SimpleSettingItem
                                 android:id="@+id/tv_install_setting"
                                 android:layout_width="match_parent"
-                                android:layout_height="56dp"
-                                android:text="安装设置"
-                                android:gravity="center_vertical"
-                                android:drawableEnd="@drawable/ic_keyboard_arrow_right_black_24dp"
-                                android:textColor="@color/color_text_major"
-                                android:background="?android:attr/selectableItemBackground"
-                                android:textStyle="bold"
-                                android:paddingStart="16dp"
-                                android:paddingEnd="16dp"
+                                android:layout_height="wrap_content"
+                                app:z_setting_titleText="安装设置"
                                 />
 
-                            <TextView
+                            <com.zpj.widget.setting.SimpleSettingItem
                                 android:id="@+id/tv_about"
                                 android:layout_width="match_parent"
-                                android:layout_height="56dp"
-                                android:text="关于应用"
-                                android:gravity="center_vertical"
-                                android:drawableEnd="@drawable/ic_keyboard_arrow_right_black_24dp"
-                                android:textColor="@color/color_text_major"
-                                android:background="?android:attr/selectableItemBackground"
-                                android:textStyle="bold"
-                                android:paddingStart="16dp"
-                                android:paddingEnd="16dp"
+                                android:layout_height="wrap_content"
+                                app:z_setting_titleText="关于应用"
                                 />
 
                         </android.support.v7.widget.LinearLayoutCompat>
@@ -318,17 +273,17 @@
 
     </com.zpj.shouji.market.ui.widget.PullZoomView>
 
-    <com.wuhenzhizao.titlebar.widget.CommonTitleBar
-        android:id="@+id/title_bar"
+    <com.zpj.widget.toolbar.ZToolbar
+        android:id="@+id/tool_bar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:titleBar_statusBarMode="light"
-        app:titleBar_fillStatusBar="true"
-        app:titleBar_titleBarColor="@android:color/transparent"
-        app:titleBar_statusBarColor="@android:color/transparent"
-        app:titleBar_showBottomLine="false"
-        app:titleBar_rightType="imageButton"
-        app:titleBar_rightImageResource="@drawable/ic_more_vert_grey_24dp"
+        app:z_toolbar_statusBarMode="light"
+        app:z_toolbar_fillStatusBar="true"
+        app:z_toolbar_titleBarColor="@android:color/transparent"
+        app:z_toolbar_statusBarColor="@android:color/transparent"
+        app:z_toolbar_showBottomLine="false"
+        app:z_toolbar_rightType="imageButton"
+        app:z_toolbar_rightImageResource="@drawable/ic_more_vert_grey_24dp"
         />
 
 

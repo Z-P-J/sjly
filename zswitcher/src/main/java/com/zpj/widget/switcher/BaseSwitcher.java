@@ -28,7 +28,7 @@ import android.support.annotation.RequiresApi;
 import android.util.AttributeSet;
 import android.view.View;
 
-import com.zpj.utils.ScreenUtil;
+import com.zpj.utils.ScreenUtils;
 import com.zpj.widget.R;
 import com.zpj.widget.SimpleAnimatorListener;
 
@@ -288,7 +288,7 @@ public abstract class BaseSwitcher extends View {
     }
 
     private void setShadowBlurRadius(float elevation) {
-        float maxElevation = ScreenUtil.dp2px(getContext(), 24f);
+        float maxElevation = ScreenUtils.dp2px(getContext(), 24f);
         switchElevation = Math.min(25f * (elevation / maxElevation), 25f);
     }
 

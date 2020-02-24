@@ -38,7 +38,7 @@ public class KeyboardRepairer implements ViewTreeObserver.OnGlobalLayoutListener
 
     private KeyboardRepairer(View view) {
         this.mChildOfContent = view;
-        statusBarHeight = ScreenUtil.getStatusBarHeight(view.getContext());
+        statusBarHeight = ScreenUtils.getStatusBarHeight(view.getContext());
 //        navigationHeight = getNavigationBarHeight(view.getContext());
         frameLayoutParams = (FrameLayout.LayoutParams) mChildOfContent.getLayoutParams();
     }

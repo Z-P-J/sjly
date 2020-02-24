@@ -11,7 +11,7 @@ import android.text.style.ImageSpan;
 import android.util.AttributeSet;
 import android.widget.EditText;
 
-import com.zpj.utils.ScreenUtil;
+import com.zpj.utils.ScreenUtils;
 
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
@@ -236,7 +236,7 @@ public class GifTextView extends EditText {
                  * 用于控制当前应该显示的帧的序号，每次显示之后currentFrameIndex 应该加1
                  * ，加到frameCount后再变成0循环显示
                  */
-                int size = ScreenUtil.dp2pxInt(gifTextView.getContext(), 30);
+                int size = ScreenUtils.dp2pxInt(gifTextView.getContext(), 30);
                 if (gifCount != 0) {
                     bitmap = Bitmap.createScaledBitmap(bitmap, size,
                             size, true);

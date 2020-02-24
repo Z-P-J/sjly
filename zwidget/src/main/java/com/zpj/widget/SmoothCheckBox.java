@@ -33,8 +33,7 @@ import android.view.View;
 import android.view.animation.LinearInterpolator;
 import android.widget.Checkable;
 
-import com.zpj.utils.ScreenUtil;
-import com.zpj.widget.R;
+import com.zpj.utils.ScreenUtils;
 
 /**
  * Author : andy
@@ -244,7 +243,7 @@ public class SmoothCheckBox extends View implements Checkable {
     }
 
     private int measureSize(int measureSpec) {
-        int defSize = ScreenUtil.dp2pxInt(getContext(), DEF_DRAW_SIZE);
+        int defSize = ScreenUtils.dp2pxInt(getContext(), DEF_DRAW_SIZE);
         int specSize = MeasureSpec.getSize(measureSpec);
         int specMode = MeasureSpec.getMode(measureSpec);
 

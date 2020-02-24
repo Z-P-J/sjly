@@ -13,13 +13,7 @@ import android.widget.TextView;
 
 import com.zpj.widget.setting.R;
 
-
-/**
- * 作者：Leon
- * 时间：2016/12/21 10:32
- * Modified by Z-P-J
- */
-public abstract class BaseSettingItem extends RelativeLayout implements ViewStub.OnInflateListener {
+public abstract class BaseSettingItem<T extends BaseSettingItem> extends RelativeLayout implements ViewStub.OnInflateListener {
 
     protected LinearLayout llContentContainer;
     protected TextView tvTitle;
@@ -37,6 +31,8 @@ public abstract class BaseSettingItem extends RelativeLayout implements ViewStub
     private LayoutParams contentContainerParams;
 
     private boolean mEnable = true;
+
+    private OnItemClickListener<T> listener;
 
     private final OnClickListener onClickListener = new OnClickListener() {
         @Override
@@ -73,8 +69,6 @@ public abstract class BaseSettingItem extends RelativeLayout implements ViewStub
     }
 
     private void initView(Context context) {
-        Log.d("BaseSettingItem", "initView ps=" + getPaddingStart() + " pe=" + getPaddingEnd()
-                + " pt=" + getPaddingTop() + " pb=" + getPaddingBottom());
         View mView = LayoutInflater.from(context).inflate(R.layout.z_item_setting, this, true);
         llContentContainer = mView.findViewById(R.id.ll_content_container);
         contentContainerParams = (LayoutParams) llContentContainer.getLayoutParams();
@@ -104,8 +98,6 @@ public abstract class BaseSettingItem extends RelativeLayout implements ViewStub
 
     @Override
     public void onInflate(ViewStub stub, View inflated) {
-        Log.d("BaseSettingItem", "onInflate ps=" + getPaddingStart() + " pe=" + getPaddingEnd()
-                + " pt=" + getPaddingTop() + " pb=" + getPaddingBottom());
         LayoutParams params = (LayoutParams) inflated.getLayoutParams();
         params.addRule(RelativeLayout.CENTER_VERTICAL);
         int inflatedId = getInflatedId(stub, inflated);
@@ -143,6 +135,16 @@ public abstract class BaseSettingItem extends RelativeLayout implements ViewStub
         }
     }
 
+    public void onItemClick() {
+        if (listener != null) {
+            listener.onClick((T)this);
+        }
+    }
+
+    public void setOnItemClickListener(OnItemClickListener<T> listener) {
+        this.listener = listener;
+    }
+
     private int getInflatedId(ViewStub stub, View inflated) {
         int inflatedId;
         if (stub.getInflatedId() == NO_ID) {
@@ -157,8 +159,6 @@ public abstract class BaseSettingItem extends RelativeLayout implements ViewStub
     }
 
     public abstract void initAttribute(final Context context, AttributeSet attrs);
-
-    public abstract void onItemClick();
 
     public abstract void inflateRightText(ViewStub viewStub);
 

@@ -18,7 +18,7 @@ import com.zpj.fragmentation.BaseFragment;
 import com.zpj.shouji.market.ui.widget.ChatPanel;
 import com.zpj.shouji.market.ui.widget.WrapContentLinearLayoutManager;
 import com.zpj.utils.KeyboardHeightProvider;
-import com.zpj.utils.ScreenUtil;
+import com.zpj.utils.ScreenUtils;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -108,7 +108,7 @@ public class ChatFragment extends BaseFragment implements ChatPanel.OnOperationL
 
     @Override
     protected void initView(View view, @Nullable Bundle savedInstanceState) {
-        bottomStatusHeight = ScreenUtil.getNavigationBarHeight(context);
+        bottomStatusHeight = ScreenUtils.getNavigationBarHeight(context);
         keyboardHeightProvider = new KeyboardHeightProvider(_mActivity);
 
         recyclerView = view.findViewById(R.id.recycler_view);

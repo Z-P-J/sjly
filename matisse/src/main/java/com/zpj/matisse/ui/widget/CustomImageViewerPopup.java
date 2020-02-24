@@ -20,7 +20,7 @@ import com.zpj.matisse.utils.PathUtils;
 import com.lxj.xpopup.core.ImageViewerPopupView;
 import com.lxj.xpopup.core.PopupInfo;
 import com.lxj.xpopup.interfaces.XPopupImageLoader;
-import com.wuhenzhizao.titlebar.widget.CommonTitleBar;
+import com.zpj.widget.toolbar.ZToolbar;
 
 import java.io.File;
 
@@ -29,7 +29,7 @@ public class CustomImageViewerPopup extends ImageViewerPopupView<Item>
 
     protected final SelectedItemManager mSelectedCollection;
     protected final SelectionSpec mSpec;
-    private CommonTitleBar titleBar;
+    private ZToolbar titleBar;
     protected CheckView mCheckView;
     protected TextView mButtonApply;
     protected TextView tvIndicator;
@@ -56,7 +56,7 @@ public class CustomImageViewerPopup extends ImageViewerPopupView<Item>
 
     @Override
     protected void initPopupContent() {
-        titleBar = findViewById(R.id.title_bar);
+        titleBar = findViewById(R.id.tool_bar);
         mCheckView = findViewById(R.id.check_view);
         mCheckView.setCountable(mSpec.countable);
         tvIndicator = findViewById(R.id.tv_indicator);

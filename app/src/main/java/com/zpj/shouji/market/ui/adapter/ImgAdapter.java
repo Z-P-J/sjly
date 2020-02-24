@@ -19,7 +19,7 @@ import com.lxj.xpopup.core.ImageViewerPopupView;
 import com.lxj.xpopup.interfaces.OnSrcViewUpdateListener;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.utils.PopupImageLoader;
-import com.zpj.utils.ScreenUtil;
+import com.zpj.utils.ScreenUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -46,8 +46,8 @@ public class ImgAdapter extends RecyclerView.Adapter<ImgAdapter.ViewHolder> {
     public ImgAdapter(RecyclerView recyclerView, List<String> imageUrlList){
         this.recyclerView = recyclerView;
         this.imageUrlList = imageUrlList;
-        this.screenHeight = ScreenUtil.getScreenHeight(recyclerView.getContext());
-        this.screenWidth = ScreenUtil.getScreenWidth(recyclerView.getContext());
+        this.screenHeight = ScreenUtils.getScreenHeight(recyclerView.getContext());
+        this.screenWidth = ScreenUtils.getScreenWidth(recyclerView.getContext());
     }
 
 

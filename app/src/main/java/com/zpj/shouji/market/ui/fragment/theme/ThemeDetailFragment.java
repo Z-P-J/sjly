@@ -15,7 +15,7 @@ import com.zpj.shouji.market.ui.adapter.DiscoverBinder;
 import com.zpj.shouji.market.ui.adapter.FragmentsPagerAdapter;
 import com.zpj.fragmentation.BaseFragment;
 import com.zpj.utils.ClickHelper;
-import com.zpj.utils.ScreenUtil;
+import com.zpj.utils.ScreenUtils;
 
 import net.lucode.hackware.magicindicator.MagicIndicator;
 import net.lucode.hackware.magicindicator.ViewPagerHelper;
@@ -112,7 +112,7 @@ public class ThemeDetailFragment extends BaseFragment {
             @Override
             public IPagerIndicator getIndicator(Context context) {
                 LinePagerIndicator indicator = new LinePagerIndicator(context);
-                indicator.setLineHeight(ScreenUtil.dp2px(context, 1));
+                indicator.setLineHeight(ScreenUtils.dp2px(context, 1));
                 indicator.setMode(LinePagerIndicator.MODE_WRAP_CONTENT);
                 return indicator;
             }
