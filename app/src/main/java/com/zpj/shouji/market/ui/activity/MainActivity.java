@@ -13,6 +13,7 @@ import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.ui.fragment.MainFragment;
 import com.zpj.shouji.market.utils.AppInstalledManager;
 import com.zpj.shouji.market.utils.AppUpdateHelper;
+import com.zpj.shouji.market.utils.HttpPreLoader;
 import com.zpj.utils.StatusBarUtils;
 
 import me.yokeyword.fragmentation.SupportActivity;
@@ -45,18 +46,23 @@ public class MainActivity extends SupportActivity {
                 .setAnimationListener(new OpeningStartAnimation.AnimationListener() {
                     @Override
                     public void onFinish(OpeningStartAnimation openingStartAnimation, Activity activity) {
+
+                        openingStartAnimation.dismiss(activity);
+
                         MainFragment mainFragment = findFragment(MainFragment.class);
                         if (mainFragment == null) {
                             mainFragment = new MainFragment();
                             loadRootFragment(R.id.content, mainFragment);
                         }
-                        openingStartAnimation.dismiss(activity);
+
                         StatusBarUtils.setDarkMode(getWindow());
                         AppUpdateHelper.getInstance().checkUpdate(MainActivity.this);
                     }
                 })
                 .create();
         openingStartAnimation3.show(MainActivity.this);
+
+        HttpPreLoader.getInstance().loadHomepage();
 
         getWindow().setBackgroundDrawable(new ColorDrawable(Color.WHITE));
 

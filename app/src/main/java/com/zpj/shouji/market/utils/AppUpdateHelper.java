@@ -83,21 +83,21 @@ public final class AppUpdateHelper {
                     .ignoreContentType(true)
                     .toHtml()
                     .onSuccess(doc -> {
-                        Log.d("checkUpdate", doc.toString());
+//                        Log.d("checkUpdate", doc.toString());
 
                         Elements versionElements = doc.select("version");
                         for (Element versionElement : versionElements) {
                             String packageName = versionElement.select("vpackage").text();
                             APP_UPDATE_CONTENT_MAP.put(packageName, versionElement.select("vlog").text());
-                            Log.d("checkUpdate", "versionElement=" + versionElement.text());
+//                            Log.d("checkUpdate", "versionElement=" + versionElement.text());
                         }
 
                         String updateInfos = doc.select("update").get(0).text();
-                        Log.d("checkUpdate", "updateInfos=" + updateInfos);
+//                        Log.d("checkUpdate", "updateInfos=" + updateInfos);
                         String[] updateInfoArray = updateInfos.replaceAll("更新;", "更新,")
                                 .split(",");
                         for (String updateInfo : updateInfoArray) {
-                            Log.d("checkUpdate", "updateInfo=" + updateInfo);
+//                            Log.d("checkUpdate", "updateInfo=" + updateInfo);
                             String packageName = updateInfo.substring(0, updateInfo.indexOf("|"));
                             PACKAGE_SET.add(packageName);
                             String[] infos = updateInfo.split("\\|");
@@ -117,7 +117,7 @@ public final class AppUpdateHelper {
                                 appInfo.setAppName(AppUtil.getAppName(context, appInfo.getPackageName()));
                                 appInfo.setUpdateInfo(APP_UPDATE_CONTENT_MAP.get(appInfo.getPackageName()));
                                 APP_UPDATE_INFO_LIST.add(appInfo);
-                                Log.d("checkUpdate", "updateInfo=" + appInfo);
+//                                Log.d("checkUpdate", "updateInfo=" + appInfo);
                             }
                         }
                     })
@@ -152,7 +152,7 @@ public final class AppUpdateHelper {
                 .flatMap((ObservableTask.OnFlatMapListener<Connection.Response, CheckUpdate>) (response, emitter) -> {
                     String setCookie = response.header("Set-Cookie");
                     UserManager.setCookie(setCookie);
-                    Log.d("checkUpdate", "setCookie=" + setCookie);
+//                    Log.d("checkUpdate", "setCookie=" + setCookie);
                     String jsessionId = setCookie.substring(setCookie.indexOf("="), setCookie.indexOf(";"));
 
                     StringBuilder packageid = new StringBuilder();
@@ -162,10 +162,10 @@ public final class AppUpdateHelper {
                     int total = packageInfoList.size();
                     int count = 0;
                     for (PackageInfo packageInfo : packageInfoList) {
-                        Log.d("checkUpdate", "packagename=" + packageInfo.packageName);
-                        Log.d("checkUpdate", "appName=" + packageInfo.applicationInfo.loadLabel(manager).toString());
-                        Log.d("checkUpdate", "firstInstallTime=" + packageInfo.firstInstallTime);
-                        Log.d("checkUpdate", "lastUpdateTime=" + packageInfo.lastUpdateTime);
+//                        Log.d("checkUpdate", "packagename=" + packageInfo.packageName);
+//                        Log.d("checkUpdate", "appName=" + packageInfo.applicationInfo.loadLabel(manager).toString());
+//                        Log.d("checkUpdate", "firstInstallTime=" + packageInfo.firstInstallTime);
+//                        Log.d("checkUpdate", "lastUpdateTime=" + packageInfo.lastUpdateTime);
                         count++;
                         packageid.append(packageInfo.packageName)
                                 .append("=").append(packageInfo.versionName)
@@ -177,7 +177,7 @@ public final class AppUpdateHelper {
                             if (total != count && total - count < 25) {
                                 continue;
                             }
-                            Log.d("checkUpdate", "packageid=" + packageid);
+//                            Log.d("checkUpdate", "packageid=" + packageid);
                             CheckUpdate checkUpdateRunnable = new CheckUpdate(context, setCookie, jsessionId, packageid.toString());
                             emitter.onNext(checkUpdateRunnable);
                             packageid = new StringBuilder();
@@ -213,7 +213,7 @@ public final class AppUpdateHelper {
             List<AppUpdateInfo> list = new ArrayList<>(APP_UPDATE_INFO_LIST);
             for (WeakReference<CheckUpdateListener> checkUpdateListener : LISTENERS) {
                 if (checkUpdateListener.get() != null) {
-                    Log.d("checkUpdate", "size22222222222=" + list.size());
+//                    Log.d("checkUpdate", "size22222222222=" + list.size());
                     checkUpdateListener.get().onCheckUpdateFinish(list);
                 }
             }
@@ -241,7 +241,7 @@ public final class AppUpdateHelper {
 
     public List<AppUpdateInfo> getUpdateAppList() {
         List<AppUpdateInfo> list = new ArrayList<>(APP_UPDATE_INFO_LIST);
-        Log.d("checkUpdate", "getUpdateAppList  size=" + list.size());
+//        Log.d("checkUpdate", "getUpdateAppList  size=" + list.size());
         return list;
     }
 

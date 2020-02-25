@@ -99,6 +99,19 @@ public abstract class BaseToolbar extends RelativeLayout implements ViewStub.OnI
         inflateRightContainer(vsRightContainer);
         inflateMiddleContainer(vsMiddleContainer);
 
+        if (inflatedLeft == null && inflatedRight == null && inflatedMiddle == null) {
+            if (viewStatusBarFill == null) {
+                viewStatusBarFill = new View(context);
+                viewStatusBarFill.setId(generateViewId());
+                viewStatusBarFill.setBackgroundColor(titleBarColor);
+                LayoutParams statusBarParams = new LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, titleBarHeight);
+                addView(viewStatusBarFill, statusBarParams);
+            } else {
+                LayoutParams statusBarParams = (LayoutParams) viewStatusBarFill.getLayoutParams();
+                statusBarParams.height = statusBarHeight + titleBarHeight;
+            }
+        }
+
         int id = NO_ID;
         if (inflatedLeft != null) {
             id = getInflatedId(vsLeftContainer, inflatedLeft);

@@ -27,7 +27,7 @@ import com.zpj.shouji.market.ui.widget.DotPagerIndicator;
 import com.zpj.shouji.market.ui.widget.RoundProgressBar;
 import com.zpj.shouji.market.ui.widget.ScaleTransitionPagerTitleView;
 import com.zpj.utils.ScreenUtils;
-import com.zpj.widget.ScrollableViewPager;
+import com.zpj.widget.ZViewPager;
 
 import net.lucode.hackware.magicindicator.MagicIndicator;
 import net.lucode.hackware.magicindicator.ViewPagerHelper;
@@ -56,7 +56,7 @@ public class ProfileFragment extends BaseFragment implements ThemeListFragment.C
     private ImageView mSettingIv, mMsgIv;
     private NiceImageView mAvater;
     private MagicIndicator magicIndicator;
-    private ScrollableViewPager mViewPager;
+    private ZViewPager mViewPager;
 
     private final List<Fragment> fragments = new ArrayList<>();
     private ThemeListFragment exploreFragment;

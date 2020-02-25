@@ -13,7 +13,7 @@ import com.kongzue.stacklabelview.interfaces.OnLabelClickListener;
 import com.zpj.fragmentation.BaseFragment;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.ui.adapter.FragmentsPagerAdapter;
-import com.zpj.widget.ScrollableViewPager;
+import com.zpj.widget.ZViewPager;
 import com.zpj.widget.toolbar.ZSearchbar;
 
 import org.greenrobot.eventbus.EventBus;
@@ -36,7 +36,7 @@ public class SearchFragment extends BaseFragment implements OnLabelClickListener
     }
 
     private ZSearchbar searchBar;
-    private ScrollableViewPager viewPager;
+    private ZViewPager viewPager;
 
     @Override
     protected int getLayoutId() {

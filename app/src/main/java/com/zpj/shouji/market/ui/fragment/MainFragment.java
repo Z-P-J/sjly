@@ -6,8 +6,6 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.FloatingActionButton;
-import android.support.v4.view.ViewPager;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
@@ -29,7 +27,7 @@ import com.zpj.shouji.market.ui.fragment.recommond.GameRecommendFragment;
 import com.zpj.shouji.market.ui.fragment.recommond.SoftRecommendFragment;
 import com.zpj.shouji.market.ui.widget.navigation.BottomNavigationViewEx;
 import com.zpj.shouji.market.ui.widget.popup.MorePopup;
-import com.zpj.widget.ScrollableViewPager;
+import com.zpj.widget.ZViewPager;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -39,7 +37,7 @@ public class MainFragment extends BaseFragment
         MorePopup.OnItemClickListener {
 
     private final List<BaseFragment> fragments = new ArrayList<>();
-    private ScrollableViewPager viewPager;
+    private ZViewPager viewPager;
     private BasePopupView popupView;
 
     @Override

@@ -18,7 +18,7 @@
         app:elevation="0dp"
         />
 
-    <com.zpj.widget.ScrollableViewPager
+    <com.zpj.widget.ZViewPager
         android:id="@+id/vp"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

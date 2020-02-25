@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    >
+
+    <EditText
+        android:id="@+id/et_account"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/input_style"
+        android:hint="请输入注册邮箱"
+        android:padding="8dp"
+        android:textSize="16sp"
+        android:textColor="@color/color_text_major"
+        android:textColorHint="@color/color_text_minor"
+        />
+
+    <EditText
+        android:id="@+id/et_password"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/input_style"
+        android:hint="请输入密码"
+        android:inputType="textPassword"
+        android:padding="8dp"
+        android:textSize="16sp"
+        android:textColor="@color/color_text_major"
+        android:textColorHint="@color/color_text_minor"
+        android:layout_marginTop="16dp"
+        />
+
+    <EditText
+        android:id="@+id/et_password_repeat"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/input_style"
+        android:hint="请再次输入密码"
+        android:inputType="textPassword"
+        android:padding="8dp"
+        android:textSize="16sp"
+        android:textColor="@color/color_text_major"
+        android:textColorHint="@color/color_text_minor"
+        android:layout_marginTop="16dp"
+        />
+
+    <EditText
+        android:id="@+id/et_email"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/input_style"
+        android:hint="请输入密保邮箱"
+        android:inputType="textEmailAddress"
+        android:padding="8dp"
+        android:textSize="16sp"
+        android:textColor="@color/color_text_major"
+        android:textColorHint="@color/color_text_minor"
+        android:layout_marginTop="16dp"
+        />
+
+    <CheckBox
+        android:id="@+id/cb_agreement"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="同意《手机乐园协议》"
+        android:paddingTop="16dp"
+        android:paddingBottom="16dp"
+        />
+
+    <TextView
+        android:id="@+id/tv_sign_in"
+        android:layout_width="match_parent"
+        android:layout_height="36dp"
+        android:text="注册"
+        android:gravity="center"
+        android:textSize="14sp"
+        android:background="@drawable/bg_button"
+        android:textColor="@android:color/white"
+        />
+
+
+
+
+
+</merge>

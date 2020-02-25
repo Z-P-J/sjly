@@ -195,7 +195,7 @@ public abstract class BaseRecommendFragment extends RecyclerLayoutFragment<Group
                 .onItemClick((holder14, view12, data) -> _mActivity.start(CollectionDetailFragment.newInstance(data)))
                 .build();
 
-        HttpApi.collectionRecommond()
+        HttpApi.collectionRecommend()
                 .onSuccess(data -> {
                     Elements elements = data.select("item");
                     for (Element element : elements) {

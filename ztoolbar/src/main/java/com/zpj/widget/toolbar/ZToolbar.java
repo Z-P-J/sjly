@@ -264,4 +264,7 @@ public class ZToolbar extends BaseToolbar {
         return null;
     }
 
+    public String getTitle() {
+        return centerText;
+    }
 }

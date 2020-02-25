@@ -13,11 +13,13 @@ import com.zpj.dialog.ZAlertDialog;
 import com.zpj.fragmentation.BaseFragment;
 import com.zpj.popupmenuview.popup.EverywherePopup;
 import com.zpj.shouji.market.R;
+import com.zpj.shouji.market.ui.fragment.WebFragment;
 import com.zpj.shouji.market.ui.fragment.setting.AboutSettingFragment;
 import com.zpj.shouji.market.ui.fragment.setting.CommonSettingFragment;
 import com.zpj.shouji.market.ui.fragment.setting.DownloadSettingFragment;
 import com.zpj.shouji.market.ui.fragment.setting.InstallSettingFragment;
 import com.zpj.shouji.market.ui.widget.PullZoomView;
+import com.zpj.shouji.market.ui.widget.popup.LoginPopup;
 import com.zpj.utils.ClickHelper;
 
 public class MeFragment extends BaseFragment implements View.OnClickListener {
@@ -71,7 +73,7 @@ public class MeFragment extends BaseFragment implements View.OnClickListener {
                 .setOnLongClickListener((v, x, y) -> {
                     EverywherePopup.create(context)
                             .addItem("更换我的头像")
-                            .addItem("下载头像")
+                            .addItem("保存头像")
                             .setOnItemClickListener((title, position) -> {
                                 switch (position) {
                                     case 0:
@@ -90,7 +92,7 @@ public class MeFragment extends BaseFragment implements View.OnClickListener {
                 .setOnLongClickListener((v, x, y) -> {
                     EverywherePopup.create(context)
                             .addItem("更换主页背景")
-                            .addItem("下载背景")
+                            .addItem("保存背景")
                             .setOnItemClickListener((title, position) -> {
                                 switch (position) {
                                     case 0:
@@ -109,13 +111,18 @@ public class MeFragment extends BaseFragment implements View.OnClickListener {
     @Override
     public void toolbarRightImageButton(@NonNull ImageButton imageButton) {
         imageButton.setOnClickListener(v -> EverywherePopup.create(context)
-                .addItems("注销", "分享主页", "复制主页链接")
+                .addItems("打开主页网页", "分享主页", "注销", "登录")
                 .setOnItemClickListener(new EverywherePopup.OnItemClickListener() {
                     @Override
                     public void onItemClicked(String title, int position) {
                         AToast.normal(title);
                         switch (position) {
                             case 0:
+                                _mActivity.start(WebFragment.newInstance("https://www.shouji.com.cn/user/5544802/home.html"));
+                                break;
+                            case 1:
+                                break;
+                            case 2:
                                 ZAlertDialog.with(context)
                                         .setTitle("确认注销？")
                                         .setTitleTextColor(getResources().getColor(R.color.rect))
@@ -126,9 +133,12 @@ public class MeFragment extends BaseFragment implements View.OnClickListener {
                                         })
                                         .show();
                                 break;
-                            case 1:
-                                break;
-                            case 2:
+                            case 3:
+//                                new XPopup.Builder(context)
+//                                        .asCustom(LoginPopup.with(context))
+//                                        .show();
+                                LoginPopup.with(context)
+                                        .show();
                                 break;
                         }
                     }

@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    >
+
+    <EditText
+        android:id="@+id/et_account"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/input_style"
+        android:hint="请输入乐园账号/邮箱"
+        android:padding="8dp"
+        android:textSize="16sp"
+        android:textColor="@color/color_text_major"
+        android:textColorHint="@color/color_text_minor"
+        />
+
+    <EditText
+        android:id="@+id/et_password"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/input_style"
+        android:hint="请输入密码"
+        android:inputType="textPassword"
+        android:padding="8dp"
+        android:textSize="16sp"
+        android:textColor="@color/color_text_major"
+        android:textColorHint="@color/color_text_minor"
+        android:layout_marginTop="16dp"
+        />
+
+    <android.support.v7.widget.LinearLayoutCompat
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="end"
+        android:orientation="horizontal"
+        app:divider="@drawable/divider_vertical_bg"
+        app:showDividers="middle"
+        app:dividerPadding="16dp"
+        >
+
+        <TextView
+            android:id="@+id/tv_forgot_password"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="?android:attr/selectableItemBackground"
+            android:padding="16dp"
+            android:text="忘记密码"
+            android:textSize="12sp"
+            />
+
+        <TextView
+            android:id="@+id/tv_login_failed"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="?android:attr/selectableItemBackground"
+            android:padding="16dp"
+            android:text="无法登录"
+            android:textSize="12sp"
+            />
+
+    </android.support.v7.widget.LinearLayoutCompat>
+
+    <TextView
+        android:id="@+id/tv_sign_up"
+        android:layout_width="match_parent"
+        android:layout_height="36dp"
+        android:text="登录"
+        android:gravity="center"
+        android:textSize="14sp"
+        android:background="@drawable/bg_button"
+        android:textColor="@android:color/white"
+        />
+
+
+
+</merge>

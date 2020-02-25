@@ -23,7 +23,7 @@
                 android:id="@+id/collapsingToolbar"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                app:contentScrim="?attr/colorPrimary"
+                app:contentScrim="@android:color/white"
                 app:layout_scrollFlags="scroll|exitUntilCollapsed"
                 app:navigationIcon="@drawable/ic_arrow_back_white_24dp"
                 android:fitsSystemWindows="true"
@@ -32,13 +32,12 @@
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:orientation="vertical"
                     android:scaleType="centerInside"
                     app:layout_collapseMode="parallax"
                     >
 
                     <com.zpj.widget.toolbar.ZToolbar
-                        android:id="@+id/tool_bar"
+                        android:id="@+id/top_bar"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         app:z_toolbar_fillStatusBar="false"
@@ -51,7 +50,7 @@
                         android:id="@+id/layout_discover"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:layout_below="@id/tool_bar"
+                        android:layout_below="@id/top_bar"
                         >
 
                         <include layout="@layout/item_theme"
@@ -69,32 +68,24 @@
                     android:layout_height="56dp"
                     app:titleTextColor="#ffffff"
                     android:gravity="center_vertical"
-                    android:background="#00ffffff"
-                    app:navigationIcon="@drawable/ic_arrow_back_white_24dp"
-                    app:layout_collapseMode="pin" >
+                    android:background="@color/colorPrimary"
+                    app:layout_collapseMode="pin"
+                    app:contentInsetStart="0dp"
+                    >
 
-                    <RelativeLayout
+                    <com.zpj.widget.toolbar.ZToolbar
+                        android:id="@+id/tool_bar"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent">
-
-                        <ImageView
-                            android:layout_width="wrap_content"
-                            android:layout_height="match_parent"
-                            android:src="@drawable/ic_arrow_back_white_24dp"
-                            android:padding="16dp"
-                            android:layout_toStartOf="@id/test"
-                            />
-
-                        <ImageView
-                            android:id="@+id/test"
-                            android:layout_width="wrap_content"
-                            android:layout_height="match_parent"
-                            android:src="@drawable/ic_search_white_24dp"
-                            android:padding="16dp"
-                            android:layout_alignParentEnd="true"
-                            />
-
-                    </RelativeLayout>
+                        android:layout_height="wrap_content"
+                        app:z_toolbar_statusBarMode="light"
+                        app:z_toolbar_statusBarColor="@color/colorPrimary"
+                        app:z_toolbar_titleBarColor="@color/colorPrimary"
+                        app:z_toolbar_leftType="imageButton"
+                        app:z_toolbar_leftImageResource="@drawable/ic_arrow_back_white_24dp"
+                        app:z_toolbar_centerType="textView"
+                        app:z_toolbar_centerText="Title"
+                        app:z_toolbar_centerTextColor="@android:color/white"
+                        />
 
                 </android.support.v7.widget.Toolbar>
 
@@ -106,6 +97,7 @@
                 android:layout_height="48dp"
                 android:layout_gravity="center"
                 android:background="@android:color/white"
+                android:padding="8dp"
                 />
 
         </android.support.design.widget.AppBarLayout>
