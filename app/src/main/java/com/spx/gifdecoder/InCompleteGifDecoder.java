@@ -109,7 +109,7 @@ public class InCompleteGifDecoder implements GifDecoder {
 
     private int framePointer;
     private GifHeader header;
-    private GifDecoder.BitmapProvider bitmapProvider;
+    private BitmapProvider bitmapProvider;
     private Bitmap previousImage;
     private boolean savePrevious;
     //    @GifDecodeStatus
@@ -119,22 +119,22 @@ public class InCompleteGifDecoder implements GifDecoder {
     private int downsampledWidth;
     private boolean isFirstFrameTransparent;
     @NonNull
-    private Bitmap.Config bitmapConfig = Config.ARGB_8888;
+    private Config bitmapConfig = Config.ARGB_8888;
 
     public InCompleteGifDecoder(
-            GifDecoder.BitmapProvider provider, GifHeader gifHeader, ByteBuffer rawData) {
+            BitmapProvider provider, GifHeader gifHeader, ByteBuffer rawData) {
         this(provider, gifHeader, rawData, 1 /*sampleSize*/);
     }
 
     public InCompleteGifDecoder(
-            GifDecoder.BitmapProvider provider, GifHeader gifHeader, ByteBuffer rawData,
+            BitmapProvider provider, GifHeader gifHeader, ByteBuffer rawData,
             int sampleSize) {
         this(provider);
         setData(gifHeader, rawData, sampleSize);
     }
 
     public InCompleteGifDecoder(
-            GifDecoder.BitmapProvider provider) {
+            BitmapProvider provider) {
         this.bitmapProvider = provider;
         header = new GifHeader();
     }
@@ -401,10 +401,10 @@ public class InCompleteGifDecoder implements GifDecoder {
     }
 
     @Override
-    public void setDefaultBitmapConfig(Bitmap.Config config) {
-        if (config != Bitmap.Config.ARGB_8888 && config != Bitmap.Config.RGB_565) {
+    public void setDefaultBitmapConfig(Config config) {
+        if (config != Config.ARGB_8888 && config != Config.RGB_565) {
             throw new IllegalArgumentException("Unsupported format: " + config
-                    + ", must be one of " + Bitmap.Config.ARGB_8888 + " or " + Bitmap.Config.RGB_565);
+                    + ", must be one of " + Config.ARGB_8888 + " or " + Config.RGB_565);
         }
 
         bitmapConfig = config;
@@ -804,8 +804,8 @@ public class InCompleteGifDecoder implements GifDecoder {
     }
 
     private Bitmap getNextBitmap() {
-        Bitmap.Config config = isFirstFrameTransparent
-                ? Bitmap.Config.ARGB_8888 : bitmapConfig;
+        Config config = isFirstFrameTransparent
+                ? Config.ARGB_8888 : bitmapConfig;
         Bitmap result = bitmapProvider.obtain(downsampledWidth, downsampledHeight, config);
         result.setHasAlpha(true);
         return result;

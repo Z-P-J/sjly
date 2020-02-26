@@ -12,7 +12,7 @@ import java.util.List;
 /**
  * A header object containing the number of frames in an animated GIF image as well as basic
  * metadata like width and height that can be used to decode each individual frame of the GIF. Can
- * be shared by one or more {@link com.bumptech.glide.gifdecoder.GifDecoder}s to play the same
+ * be shared by one or more {@link GifDecoder}s to play the same
  * animated GIF in multiple views.
  *
  * @see <a href="https://www.w3.org/Graphics/GIF/spec-gif89a.txt">GIF 89a Specification</a>
