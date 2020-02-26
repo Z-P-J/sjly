@@ -1,34 +1,42 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="GradleMigrationSettings" migrationVersion="1" />
   <component name="GradleSettings">
     <option name="linkedExternalProjectsSettings">
       <GradleProjectSettings>
-        <compositeConfiguration>
-          <compositeBuild compositeDefinitionSource="SCRIPT" />
-        </compositeConfiguration>
+        <option name="delegatedBuild" value="false" />
+        <option name="testRunner" value="PLATFORM" />
         <option name="distributionType" value="DEFAULT_WRAPPED" />
         <option name="externalProjectPath" value="$PROJECT_DIR$" />
         <option name="modules">
           <set>
             <option value="$PROJECT_DIR$" />
-            <option value="$PROJECT_DIR$/BGABaseAdapter" />
-            <option value="$PROJECT_DIR$/BGAPhotoPicker" />
             <option value="$PROJECT_DIR$/app" />
             <option value="$PROJECT_DIR$/atoast" />
-            <option value="$PROJECT_DIR$/bannerlayout" />
-            <option value="$PROJECT_DIR$/easynavigation" />
-            <option value="$PROJECT_DIR$/imagebrowserlibrary" />
-            <option value="$PROJECT_DIR$/popupmenuview" />
-            <option value="$PROJECT_DIR$/popwindowlibrary" />
-            <option value="$PROJECT_DIR$/qtablayoutlib" />
-            <option value="$PROJECT_DIR$/qxdownloader" />
-            <option value="$PROJECT_DIR$/smoothcheckbox" />
-            <option value="$PROJECT_DIR$/titlebar" />
-            <option value="$PROJECT_DIR$/xbanner" />
+            <option value="$PROJECT_DIR$/emojilib" />
+            <option value="$PROJECT_DIR$/fragmentation" />
+            <option value="$PROJECT_DIR$/glidegifdecoder" />
+            <option value="$PROJECT_DIR$/lcardview" />
+            <option value="$PROJECT_DIR$/matisse" />
+            <option value="$PROJECT_DIR$/openingstartanimation" />
+            <option value="$PROJECT_DIR$/richeditor" />
+            <option value="$PROJECT_DIR$/richeditor2" />
+            <option value="$PROJECT_DIR$/third-part-color-cardview" />
+            <option value="$PROJECT_DIR$/zbase" />
+            <option value="$PROJECT_DIR$/zdialog" />
+            <option value="$PROJECT_DIR$/zdownloader" />
+            <option value="$PROJECT_DIR$/zhttp" />
+            <option value="$PROJECT_DIR$/zmarkdown" />
+            <option value="$PROJECT_DIR$/zpopup" />
+            <option value="$PROJECT_DIR$/zrecyclerview" />
+            <option value="$PROJECT_DIR$/zsetting" />
+            <option value="$PROJECT_DIR$/zswitcher" />
+            <option value="$PROJECT_DIR$/ztoolbar" />
+            <option value="$PROJECT_DIR$/zutils" />
+            <option value="$PROJECT_DIR$/zwidget" />
           </set>
         </option>
         <option name="resolveModulePerSourceSet" value="false" />
-        <option name="testRunner" value="PLATFORM" />
       </GradleProjectSettings>
     </option>
   </component>

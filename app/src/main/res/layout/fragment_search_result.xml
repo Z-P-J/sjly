@@ -10,15 +10,15 @@
         android:id="@+id/magic_indicator"
         android:layout_width="match_parent"
         android:layout_height="48dp"
-        android:paddingStart="10dp"
-        android:paddingEnd="10dp"
         android:layout_gravity="center"
+        android:padding="8dp"
         />
 
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@drawable/magic_indicator_bg"
+        android:paddingTop="24dp"
         >
 
         <android.support.v4.view.ViewPager

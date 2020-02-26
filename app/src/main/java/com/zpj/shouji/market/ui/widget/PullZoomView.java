@@ -107,6 +107,9 @@ public class PullZoomView extends ScrollView {
             @Override
             public void onGlobalLayout() {
                 getViewTreeObserver().removeGlobalOnLayoutListener(this);
+                if (contentView == null) {
+                    findTagViews(PullZoomView.this);
+                }
                 maxY = contentView.getTop();//只有布局完成后才能获取到正确的值
             }
         });

@@ -153,7 +153,7 @@ public class AutoSizeViewPager extends ViewPager {
         }
     }
 
-    private class FixedSpeedScroller extends Scroller {
+    private static class FixedSpeedScroller extends Scroller {
 
         private int mDuration = 1000;
 

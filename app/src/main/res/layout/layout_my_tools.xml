@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <www.linwg.org.lib.LCardView
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     style="@style/setting_card_style"
     >
 
@@ -16,56 +17,62 @@
             android:layout_marginTop="16dp"
             android:orientation="horizontal">
 
-            <TextView
+            <com.zpj.shouji.market.ui.widget.DrawableTintTextView
                 android:id="@+id/tv_my_homepage"
-                android:drawableTop="@drawable/ic_settings_applications_black_24dp"
+                android:drawableTop="@drawable/ic_homepage_white_24dp"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:drawablePadding="8dp"
                 android:gravity="center_horizontal"
                 android:text="我的主页"
-                android:textColor="@color/colorBlack333"
+                android:textColor="@color/color_text_major"
                 android:padding="8dp"
                 android:textSize="12sp"
-
+                app:drawable_tint_color="@color/light_blue_2"
                 />
 
-            <TextView
-                android:drawableTop="@drawable/ic_settings_applications_black_24dp"
+            <com.zpj.shouji.market.ui.widget.DrawableTintTextView
+                android:drawableTop="@drawable/ic_discover_white_24dp"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:drawablePadding="8dp"
                 android:gravity="center_horizontal"
                 android:text="我的发现"
-                android:textColor="@color/colorBlack333"
+                android:textColor="@color/color_text_major"
                 android:padding="8dp"
-                android:textSize="12sp" />
+                android:textSize="12sp"
+                app:drawable_tint_color="@color/light_blue_1"
+                />
 
-            <TextView
-                android:drawableTop="@drawable/ic_settings_applications_black_24dp"
+            <com.zpj.shouji.market.ui.widget.DrawableTintTextView
+                android:drawableTop="@drawable/ic_comment_outline_white_24dp"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:drawablePadding="8dp"
                 android:gravity="center_horizontal"
                 android:text="我的评论"
-                android:textColor="@color/colorBlack333"
+                android:textColor="@color/color_text_major"
                 android:padding="8dp"
-                android:textSize="12sp" />
+                android:textSize="12sp"
+                app:drawable_tint_color="@color/dark_yellow_1"
+                />
 
-            <TextView
-                android:drawableTop="@drawable/ic_settings_applications_black_24dp"
+            <com.zpj.shouji.market.ui.widget.DrawableTintTextView
+                android:drawableTop="@drawable/ic_friend_white_24dp"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:drawablePadding="8dp"
                 android:gravity="center_horizontal"
                 android:text="我的好友"
-                android:textColor="@color/colorBlack333"
+                android:textColor="@color/color_text_major"
                 android:padding="8dp"
-                android:textSize="12sp" />
+                android:textSize="12sp"
+                app:drawable_tint_color="@color/light_purple"
+                />
 
         </LinearLayout>
 
@@ -76,53 +83,61 @@
             android:layout_marginTop="16dp"
             android:orientation="horizontal">
 
-            <TextView
-                android:drawableTop="@drawable/ic_settings_applications_black_24dp"
+            <com.zpj.shouji.market.ui.widget.DrawableTintTextView
+                android:drawableTop="@drawable/ic_message_white_24dp"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:drawablePadding="8dp"
                 android:gravity="center_horizontal"
                 android:text="我的消息"
-                android:textColor="@color/colorBlack333"
+                android:textColor="@color/color_text_major"
                 android:padding="8dp"
-                android:textSize="12sp" />
+                android:textSize="12sp"
+                app:drawable_tint_color="@color/light_brown"
+                />
 
-            <TextView
-                android:drawableTop="@drawable/ic_settings_applications_black_24dp"
+            <com.zpj.shouji.market.ui.widget.DrawableTintTextView
+                android:drawableTop="@drawable/ic_collect_white_24dp"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:drawablePadding="8dp"
                 android:gravity="center_horizontal"
                 android:text="我的收藏"
-                android:textColor="@color/colorBlack333"
+                android:textColor="@color/color_text_major"
                 android:padding="8dp"
-                android:textSize="12sp" />
+                android:textSize="12sp"
+                app:drawable_tint_color="@color/light_pink"
+                />
 
-            <TextView
-                android:drawableTop="@drawable/ic_settings_applications_black_24dp"
+            <com.zpj.shouji.market.ui.widget.DrawableTintTextView
+                android:drawableTop="@drawable/ic_app_collection_white_24dp"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:drawablePadding="8dp"
                 android:gravity="center_horizontal"
                 android:text="我的预约"
-                android:textColor="@color/colorBlack333"
+                android:textColor="@color/color_text_major"
                 android:padding="8dp"
-                android:textSize="12sp" />
+                android:textSize="12sp"
+                app:drawable_tint_color="@color/light_blue_gray"
+                />
 
-            <TextView
-                android:drawableTop="@drawable/ic_settings_applications_black_24dp"
+            <com.zpj.shouji.market.ui.widget.DrawableTintTextView
+                android:drawableTop="@drawable/ic_blacklist_white_24dp"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:drawablePadding="8dp"
                 android:gravity="center_horizontal"
                 android:text="黑名单"
-                android:textColor="@color/colorBlack333"
+                android:textColor="@color/color_text_major"
                 android:padding="8dp"
-                android:textSize="12sp" />
+                android:textSize="12sp"
+                app:drawable_tint_color="@color/light_red_1"
+                />
 
         </LinearLayout>
 

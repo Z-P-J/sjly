@@ -2,23 +2,22 @@
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@drawable/gradient_bg"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:padding="8dp"
     >
 
-    <www.linwg.org.lib.LCardView
+    <cn.wj.android.colorcardview.CardView
         android:id="@+id/cv_item1"
         android:layout_width="wrap_content"
         android:layout_weight="1"
         android:layout_height="wrap_content"
         android:background="?android:attr/selectableItemBackground"
-        app:cardBackgroundColor="#63c422"
-        app:cornerRadius="4dp"
-        app:shadowColor="#5f6379"
-        app:shadowFluidShape="adsorption"
-        app:shadowSize="8dp"
-        app:shadowStartAlpha="40">
+        app:cardBackgroundColor="@color/light_purple"
+        app:cardElevation="4dp"
+        app:cardUseCompatPadding="true"
+        app:cardCornerRadius="8dp"
+        >
 
         <TextView
             android:layout_width="match_parent"
@@ -32,20 +31,18 @@
             android:textStyle="bold"
             android:text="软件排行" />
 
-    </www.linwg.org.lib.LCardView>
+    </cn.wj.android.colorcardview.CardView>
 
-    <www.linwg.org.lib.LCardView
+    <cn.wj.android.colorcardview.CardView
         android:id="@+id/cv_item2"
         android:layout_width="wrap_content"
         android:layout_weight="1"
         android:layout_height="wrap_content"
         android:background="?android:attr/selectableItemBackground"
-        app:cardBackgroundColor="#4e99ff"
-        app:cornerRadius="4dp"
-        app:shadowColor="#5f6379"
-        app:shadowFluidShape="adsorption"
-        app:shadowSize="8dp"
-        app:shadowStartAlpha="40">
+        app:cardBackgroundColor="@color/light_blue_1"
+        app:cardElevation="4dp"
+        app:cardUseCompatPadding="true"
+        app:cardCornerRadius="8dp">
 
         <TextView
             android:layout_width="match_parent"
@@ -59,7 +56,7 @@
             android:textStyle="bold"
             android:text="软件分类" />
 
-    </www.linwg.org.lib.LCardView>
+    </cn.wj.android.colorcardview.CardView>
 
 
 

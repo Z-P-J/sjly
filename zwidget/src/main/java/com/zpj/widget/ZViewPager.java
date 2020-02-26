@@ -5,11 +5,14 @@ import android.support.v4.view.ViewPager;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.animation.Interpolator;
+import android.widget.Scroller;
+
+import java.lang.reflect.Field;
 
 public class ZViewPager extends ViewPager {
 
     private boolean isCanScroll = true;
-    private boolean autoSize;
 
     public ZViewPager(Context context) {
         super(context);
@@ -21,26 +24,6 @@ public class ZViewPager extends ViewPager {
 
     public void setCanScroll(boolean isCanScroll) {
         this.isCanScroll = isCanScroll;
-    }
-
-    @Override
-    protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
-        if (autoSize) {
-            int height = 0;
-            //下面遍历所有child的高度
-            for (int i = 0; i < getChildCount(); i++) {
-                View child = getChildAt(i);
-                child.measure(widthMeasureSpec,
-                        MeasureSpec.makeMeasureSpec(0, MeasureSpec.UNSPECIFIED));
-                int h = child.getMeasuredHeight();
-                if (h > height) //采用最大的view的高度。
-                    height = h;
-            }
-
-            heightMeasureSpec = MeasureSpec.makeMeasureSpec(height,
-                    MeasureSpec.EXACTLY);
-        }
-        super.onMeasure(widthMeasureSpec, heightMeasureSpec);
     }
 
     @Override
@@ -63,7 +46,44 @@ public class ZViewPager extends ViewPager {
         return isCanScroll && super.canScrollHorizontally(direction);
     }
 
-    public void setAutoSize(boolean autoSize) {
-        this.autoSize = autoSize;
+    public void setScrollerSpeed(int speed) {
+        try {
+            Field mScroller = ViewPager.class.getDeclaredField("mScroller");
+            mScroller.setAccessible(true);
+            FixedSpeedScroller scroller = new FixedSpeedScroller(getContext(), null, speed);
+            mScroller.set(this, scroller);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
+
+    private static class FixedSpeedScroller extends Scroller {
+
+        private int mDuration = 1000;
+
+        FixedSpeedScroller(Context context) {
+            super(context);
+        }
+
+        FixedSpeedScroller(Context context, Interpolator interpolator) {
+            super(context, interpolator);
+        }
+
+        FixedSpeedScroller(Context context, Interpolator interpolator, int duration) {
+            this(context, interpolator);
+            mDuration = duration;
+        }
+
+        @Override
+        public void startScroll(int startX, int startY, int dx, int dy) {
+            super.startScroll(startX, startY, dx, dy, mDuration);
+        }
+
+        @Override
+        public void startScroll(int startX, int startY, int dx, int dy, int duration) {
+            super.startScroll(startX, startY, dx, dy, mDuration);
+        }
+
+    }
+
 }

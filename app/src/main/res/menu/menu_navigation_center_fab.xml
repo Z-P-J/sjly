@@ -3,12 +3,12 @@
     <item
         android:id="@+id/i_homepage"
         android:checked="true"
-        android:icon="@drawable/index"
+        android:icon="@drawable/ic_home_normal"
         android:title="@string/navigation_name_homepage" />
 
     <item
         android:id="@+id/i_app"
-        android:icon="@drawable/find"
+        android:icon="@drawable/ic_software_normal"
         android:title="@string/navigation_name_app" />
     <!--must set the item title to empty-->
     <item
@@ -16,10 +16,10 @@
         android:title="" />
     <item
         android:id="@+id/i_game"
-        android:icon="@drawable/message"
+        android:icon="@drawable/ic_game_normal"
         android:title="@string/navigation_name_game" />
     <item
         android:id="@+id/i_me"
-        android:icon="@drawable/me"
+        android:icon="@drawable/ic_me_normal"
         android:title="@string/navigation_name_me" />
 </menu>

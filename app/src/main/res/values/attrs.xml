@@ -62,4 +62,13 @@
         <attr name="right_text_color" format="color"/>
     </declare-styleable>
 
+    <declare-styleable name="FillImageView">
+        <attr name="checkImage" format="reference" />
+        <attr name="unCheckImage" format="reference" />
+    </declare-styleable>
+
+    <declare-styleable name="DrawableTintTextView">
+        <attr name="drawable_tint_color" format="color" />
+    </declare-styleable>
+
 </resources>

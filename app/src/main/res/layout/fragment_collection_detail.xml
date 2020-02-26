@@ -49,11 +49,12 @@
                             android:padding="20dp"
                             >
 
-                            <ImageView
+                            <com.shehuan.niv.NiceImageView
                                 android:id="@+id/iv_icon"
                                 android:layout_width="160dp"
                                 android:layout_height="160dp"
                                 android:src="@mipmap/ic_launcher"
+                                app:corner_radius="8dp"
                                 />
 
                             <LinearLayout

@@ -10,14 +10,14 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.lxj.xpopup.core.BasePopupView;
+import com.zpj.fragmentation.BaseFragment;
 import com.zpj.matisse.CaptureMode;
 import com.zpj.matisse.Matisse;
 import com.zpj.matisse.MimeType;
 import com.zpj.matisse.engine.impl.GlideEngine;
 import com.zpj.matisse.entity.Item;
 import com.zpj.matisse.listener.OnSelectedListener;
-import com.lxj.xpopup.core.BasePopupView;
-import com.zpj.fragmentation.BaseFragment;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.ui.adapter.FragmentsPagerAdapter;
 import com.zpj.shouji.market.ui.fragment.chat.ChatFragment;
@@ -25,6 +25,8 @@ import com.zpj.shouji.market.ui.fragment.homepage.HomeFragment;
 import com.zpj.shouji.market.ui.fragment.profile.MeFragment;
 import com.zpj.shouji.market.ui.fragment.recommond.GameRecommendFragment;
 import com.zpj.shouji.market.ui.fragment.recommond.SoftRecommendFragment;
+import com.zpj.shouji.market.ui.widget.BottomBar;
+import com.zpj.shouji.market.ui.widget.BottomBarTab;
 import com.zpj.shouji.market.ui.widget.navigation.BottomNavigationViewEx;
 import com.zpj.shouji.market.ui.widget.popup.MorePopup;
 import com.zpj.widget.ZViewPager;
@@ -32,9 +34,10 @@ import com.zpj.widget.ZViewPager;
 import java.util.ArrayList;
 import java.util.List;
 
+import me.yokeyword.fragmentation.SupportFragment;
+
 public class MainFragment extends BaseFragment
-        implements BottomNavigationView.OnNavigationItemSelectedListener,
-        MorePopup.OnItemClickListener {
+        implements MorePopup.OnItemClickListener {
 
     private final List<BaseFragment> fragments = new ArrayList<>();
     private ZViewPager viewPager;
@@ -42,7 +45,7 @@ public class MainFragment extends BaseFragment
 
     @Override
     protected int getLayoutId() {
-        return R.layout.fragment_main;
+        return R.layout.fragment_main3;
     }
 
     @Override
@@ -79,33 +82,42 @@ public class MainFragment extends BaseFragment
 
         FloatingActionButton floatingActionButton = view.findViewById(R.id.fab);
 
-        BottomNavigationViewEx navigationView = view.findViewById(R.id.navigation_view);
-        navigationView.enableItemShiftingMode(false);
-        navigationView.enableShiftingMode(false);
-        navigationView.enableAnimation(false);
+        BottomBar mBottomBar = view.findViewById(R.id.bottom_bar);
+
+        mBottomBar.addItem(BottomBarTab.build(context, "主页", R.drawable.ic_home_normal, R.drawable.ic_home_checked))
+                .addItem(BottomBarTab.build(context, "应用", R.drawable.ic_software_normal, R.drawable.ic_software_checked))
+                .addItem(new BottomBarTab(context))
+                .addItem(BottomBarTab.build(context, "游戏", R.drawable.ic_game_normal, R.drawable.ic_game_checked))
+                .addItem(BottomBarTab.build(context, "我的", R.drawable.ic_me_normal, R.drawable.ic_me_checked));
+
+        mBottomBar.setOnTabSelectedListener(new BottomBar.OnTabSelectedListener() {
+            @Override
+            public void onTabSelected(int position, int prePosition) {
+                if (position >= 2) {
+                    position -= 1;
+                }
+                if(viewPager.getCurrentItem() != position) {
+                    viewPager.setCurrentItem(position, true);
+                }
+            }
+
+            @Override
+            public void onTabUnselected(int position) {
+
+            }
+
+            @Override
+            public void onTabReselected(int position) {
+            }
+        });
+
+
         viewPager = view.findViewById(R.id.vp);
+        viewPager.setScrollerSpeed(1000);
         viewPager.setCanScroll(false);
-        viewPager.setOffscreenPageLimit(4);
+        viewPager.setOffscreenPageLimit(fragments.size());
         FragmentsPagerAdapter adapter = new FragmentsPagerAdapter(getChildFragmentManager(), fragments, null);
         viewPager.setAdapter(adapter);
-        navigationView.setOnNavigationItemSelectedListener(this);
-
-//        viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
-//            @Override
-//            public void onPageScrolled(int i, float v, int i1) {
-//
-//            }
-//
-//            @Override
-//            public void onPageSelected(int i) {
-//                navigationView.setCurrentItem(i);
-//            }
-//
-//            @Override
-//            public void onPageScrollStateChanged(int i) {
-//
-//            }
-//        });
 
         floatingActionButton.setOnClickListener(v -> {
             postDelay(this::darkStatusBar, 300);
@@ -113,6 +125,8 @@ public class MainFragment extends BaseFragment
                     .setListener(this)
                     .show();
         });
+
+        mBottomBar.setCurrentItem(0);
     }
 
     @Override
@@ -144,33 +158,6 @@ public class MainFragment extends BaseFragment
     }
 
     @Override
-    public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
-        int position = 0;
-        switch (menuItem.getItemId()) {
-            case R.id.i_homepage:
-                position = 0;
-                break;
-            case R.id.i_app:
-                position = 1;
-                break;
-            case R.id.i_game:
-                position = 2;
-                break;
-            case R.id.i_me:
-                position = 3;
-                break;
-            case R.id.i_empty: {
-                return false;
-            }
-        }
-        if(viewPager.getCurrentItem() != position) {
-            viewPager.setCurrentItem(position, false);
-        }
-
-        return true;
-    }
-
-    @Override
     public void onDiscoverItemClick() {
         _mActivity.start(new DiscoverEditorFragment2());
     }
@@ -190,7 +177,6 @@ public class MainFragment extends BaseFragment
                 .gridExpectedSize(this.getResources().getDimensionPixelSize(R.dimen.photo))//图片显示表格的大小
                 .restrictOrientation(ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED)//图像选择和预览活动所需的方向
                 .thumbnailScale(0.85f)//缩放比例
-                .theme(R.style.Matisse_Zhihu)//主题  暗色主题 R.style.Matisse_Dracula
                 .imageEngine(new GlideEngine())//图片加载方式，Glide4需要自定义实现
                 .capture(true) //是否提供拍照功能，兼容7.0系统需要下面的配置
                 //参数1 true表示拍照存储在共有目录，false表示存储在私有目录；参数2与 AndroidManifest中authorities值相同，用于适配7.0系统 必须设置

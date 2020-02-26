@@ -47,18 +47,4 @@
         <attr name="sb_enable_effect" format="reference|boolean"/>
     </declare-styleable>
 
-    <declare-styleable name="RoundRelativeLayout">
-
-        <attr name="round_radius" format="dimension" />
-
-        <attr name="round_topLeftRadius" format="dimension" />
-
-        <attr name="round_topRightRadius" format="dimension" />
-
-        <attr name="round_bottomLeftRadius" format="dimension" />
-
-        <attr name="round_bottomRightRadius" format="dimension" />
-
-    </declare-styleable>
-
 </resources>

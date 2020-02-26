@@ -1,9 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 <!--    <color name="colorPrimary">#48ea8b</color>-->
-    <color name="colorPrimary">#09bd14</color>
-    <color name="colorPrimaryDark">#09bd14</color>
-    <color name="colorAccent">#09bd14</color>
+<!--    <color name="colorPrimary">#09bd14</color>-->
+<!--    <color name="colorPrimaryDark">#09bd14</color>-->
+<!--    <color name="colorAccent">#09bd14</color>-->
+
+    <color name="colorPrimary">#24c8af</color>
+    <color name="colorPrimaryDark">#24c8af</color>
+    <color name="colorAccent">#24c8af</color>
+
+    <color name="color_tab_selected">#24c8af</color>
 
     <color name="colorBlack333">#333</color>
     <color name="pink_fc4f74">#fc4f74</color>
@@ -130,6 +136,10 @@
     <color name="light_blue_2">#14ccca</color>
     <color name="light_red_1">#f26464</color>
     <color name="light_blue">#1597f2</color>
+    <color name="light_purple">#a671ff</color>
+    <color name="light_blue_gray">#607d8b</color>
+    <color name="light_brown">#795548</color>
+    <color name="light_pink">#f48fb1</color>
 
     <color name="light_gray_13">#dddddd</color>
     <color name="light_gray_14">#838383</color>

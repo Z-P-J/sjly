@@ -24,6 +24,8 @@ import com.zpj.utils.ClickHelper;
 
 public class MeFragment extends BaseFragment implements View.OnClickListener {
 
+    private View view;
+
     private TextView tvName;
     private TextView tvSignature;
     private NiceImageView ivAvatar;
@@ -43,6 +45,12 @@ public class MeFragment extends BaseFragment implements View.OnClickListener {
 
     @Override
     protected void initView(View view, @Nullable Bundle savedInstanceState) {
+        this.view = view;
+    }
+
+    @Override
+    public void onLazyInitView(@Nullable Bundle savedInstanceState) {
+        super.onLazyInitView(savedInstanceState);
         PullZoomView pullZoomView = view.findViewById(R.id.view_pull_zoom);
         pullZoomView.setIsZoomEnable(true);
         pullZoomView.setIsParallax(false);
