@@ -24,7 +24,7 @@ public class GameRecommendFragment extends BaseRecommendFragment {
 
     @Override
     protected void buildRecyclerLayout(EasyRecyclerLayout<GroupItem> recyclerLayout) {
-        recyclerLayout.getEasyRecyclerView().getRecyclerView().setBackgroundColor(getResources().getColor(R.color.color_background));
+        recyclerLayout.getEasyRecyclerView().getRecyclerView().setBackgroundColor(getResources().getColor(R.color.background_color));
         recyclerLayout.setHeaderView(R.layout.layout_app_header, new IEasy.OnBindHeaderListener() {
             @Override
             public void onBindHeader(EasyViewHolder holder) {

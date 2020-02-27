@@ -39,7 +39,7 @@ public class DrawableTintTextView extends AppCompatTextView {
 
     private void tintDrawables() {
         if (drawableTintColor != Color.TRANSPARENT) {
-            Drawable[] drawables = getCompoundDrawables();
+            Drawable[] drawables = getCompoundDrawablesRelative();
             for (int i = 0; i < drawables.length; i++) {
                 Drawable drawable = drawables[i];
                 if (drawable != null) {
@@ -48,7 +48,7 @@ public class DrawableTintTextView extends AppCompatTextView {
                     drawables[i] = wrappedDrawable;
                 }
             }
-            setCompoundDrawablesWithIntrinsicBounds(drawables[0], drawables[1], drawables[2], drawables[3]);
+            setCompoundDrawablesRelativeWithIntrinsicBounds(drawables[0], drawables[1], drawables[2], drawables[3]);
         }
     }
 }

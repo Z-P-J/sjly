@@ -7,6 +7,7 @@ public final class ClickHelper implements View.OnTouchListener, View.OnClickList
 
     private OnClickListener onClickListener;
     private OnLongClickListener onLongClickListener;
+    private final View view;
 
     private float lastX;
     private float lastY;
@@ -44,9 +45,8 @@ public final class ClickHelper implements View.OnTouchListener, View.OnClickList
     }
 
     private ClickHelper(View view) {
+        this.view = view;
         view.setOnTouchListener(this);
-        view.setOnClickListener(this);
-        view.setOnLongClickListener(this);
     }
 
     public static ClickHelper with(View view) {
@@ -54,11 +54,13 @@ public final class ClickHelper implements View.OnTouchListener, View.OnClickList
     }
 
     public ClickHelper setOnClickListener(OnClickListener onClickListener) {
+        view.setOnClickListener(this);
         this.onClickListener = onClickListener;
         return this;
     }
 
     public ClickHelper setOnLongClickListener(OnLongClickListener onLongClickListener) {
+        view.setOnLongClickListener(this);
         this.onLongClickListener = onLongClickListener;
         return this;
     }

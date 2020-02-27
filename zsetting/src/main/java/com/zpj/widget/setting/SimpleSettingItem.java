@@ -85,12 +85,15 @@ public class SimpleSettingItem extends AppCompatTextView {
         setGravity(Gravity.CENTER_VERTICAL);
 
         if (background == null) {
-            TypedValue typedValue = new TypedValue();
-            getContext().getTheme().resolveAttribute(android.R.attr.selectableItemBackground, typedValue, true);
-            int[] attribute = new int[]{android.R.attr.selectableItemBackground};
-            TypedArray typedArray = context.getTheme().obtainStyledAttributes(typedValue.resourceId, attribute);
+            TypedArray typedArray = context.obtainStyledAttributes(new int[]{R.attr.selectableItemBackgroundBorderless});
             background = typedArray.getDrawable(0);
             typedArray.recycle();
+//            TypedValue typedValue = new TypedValue();
+//            getContext().getTheme().resolveAttribute(android.R.attr.selectableItemBackground, typedValue, true);
+//            int[] attribute = new int[]{android.R.attr.selectableItemBackground};
+//            TypedArray typedArray = context.getTheme().obtainStyledAttributes(typedValue.resourceId, attribute);
+//            background = typedArray.getDrawable(0);
+//            typedArray.recycle();
         }
 
         setBackground(background);

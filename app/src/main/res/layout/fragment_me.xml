@@ -11,6 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:scrollbars="none"
+        android:background="@color/background_color"
         >
 
         <LinearLayout
@@ -30,7 +31,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:scaleType="centerCrop"
-                    android:src="@drawable/wallpaper_me"
+                    android:src="@drawable/bg_member_default"
                     android:tag="zoom"/>
 
                 <RelativeLayout
@@ -45,9 +46,8 @@
                         android:id="@+id/iv_avatar"
                         android:layout_width="72dp"
                         android:layout_height="72dp"
-                        android:src="@mipmap/ic_launcher"
+                        android:src="@drawable/ic_user_head"
                         android:layout_centerVertical="true"
-                        android:alpha="0.7"
                         app:is_circle="true"
                         />
 
@@ -80,7 +80,7 @@
                         android:id="@+id/tv_name"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="我好像在哪儿见过您"
+                        android:text="点击头像登录"
                         android:maxLines="1"
                         android:ellipsize="end"
                         android:textColor="#ffffff"
@@ -91,9 +91,10 @@
                         />
 
                     <TextView
+                        android:id="@+id/tv_level"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Lv.33"
+                        android:text="Lv.0"
                         android:textStyle="italic|bold"
                         android:textColor="@android:color/white"
                         android:textSize="12sp"
@@ -120,10 +121,11 @@
                     >
 
                     <TextView
+                        android:id="@+id/tv_follower"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textColor="#fafafa"
-                        android:text="关注 100"
+                        android:text="关注 0"
                         android:textSize="12sp"
                         />
 
@@ -138,23 +140,13 @@
                         />
 
                     <TextView
+                        android:id="@+id/tv_fans"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textColor="#fafafa"
-                        android:text="粉丝 1000"
+                        android:text="粉丝 0"
                         android:textSize="12sp"
                         />
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:id="@+id/ll_"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:layout_marginStart="20dp"
-                    android:layout_marginEnd="20dp"
-                    >
 
                 </LinearLayout>
 
@@ -162,18 +154,16 @@
                     android:id="@+id/tv_signature"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-
                     android:layout_marginTop="2dp"
                     android:maxLines="2"
                     android:ellipsize="end"
-                    android:text="4年7个月5天前加入乐园"
-                    android:textColor="#ffffff"
+                    android:text="手机乐园，发现应用的乐趣"
+                    android:textColor="@android:color/white"
                     android:layout_alignParentBottom="true"
                     android:layout_marginStart="20dp"
                     android:layout_marginEnd="20dp"
                     android:layout_marginBottom="56dp"
                     />
-<!--                android:layout_marginBottom="10dp"-->
 
             </RelativeLayout>
 

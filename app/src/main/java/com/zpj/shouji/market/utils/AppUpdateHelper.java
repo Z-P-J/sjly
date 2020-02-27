@@ -151,7 +151,7 @@ public final class AppUpdateHelper {
                 .execute()
                 .flatMap((ObservableTask.OnFlatMapListener<Connection.Response, CheckUpdate>) (response, emitter) -> {
                     String setCookie = response.header("Set-Cookie");
-                    UserManager.setCookie(setCookie);
+//                    UserManager.setCookie(setCookie);
 //                    Log.d("checkUpdate", "setCookie=" + setCookie);
                     String jsessionId = setCookie.substring(setCookie.indexOf("="), setCookie.indexOf(";"));
 

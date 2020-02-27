@@ -42,7 +42,7 @@ public abstract class RecyclerLayoutFragment<T> extends BaseFragment
     }
 
     @Override
-    public final void onLazyInitView(@Nullable Bundle savedInstanceState) {
+    public void onLazyInitView(@Nullable Bundle savedInstanceState) {
         super.onLazyInitView(savedInstanceState);
         recyclerLayout.setData(data)
                 .setItemRes(getItemLayoutId())

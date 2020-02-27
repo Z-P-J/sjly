@@ -1,21 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
-<merge
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    >
+<merge xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <EditText
+    <com.andreabaccega.widget.FormEditText
         android:id="@+id/et_account"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/input_style"
-        android:hint="请输入注册邮箱"
+        android:inputType="text"
+        android:hint="请输入注册用户名"
         android:padding="8dp"
         android:textSize="16sp"
         android:textColor="@color/color_text_major"
         android:textColorHint="@color/color_text_minor"
+        app:testType="regexp"
+        app:emptyErrorString="用户名不能为空"
+        app:customRegexp="^[0-9a-zA-Z\u4e00-\u9fa5]{3,20}$"
+        app:testErrorString="用户名只能包含数字、字母和汉字，且必须是3-20个字符"
         />
 
-    <EditText
+    <com.andreabaccega.widget.FormEditText
         android:id="@+id/et_password"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -27,10 +31,11 @@
         android:textColor="@color/color_text_major"
         android:textColorHint="@color/color_text_minor"
         android:layout_marginTop="16dp"
+        app:emptyErrorString="密码不能为空"
         />
 
-    <EditText
-        android:id="@+id/et_password_repeat"
+    <com.andreabaccega.widget.FormEditText
+        android:id="@+id/et_password_again"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/input_style"
@@ -41,9 +46,10 @@
         android:textColor="@color/color_text_major"
         android:textColorHint="@color/color_text_minor"
         android:layout_marginTop="16dp"
+        app:emptyErrorString="密码不匹配"
         />
 
-    <EditText
+    <com.andreabaccega.widget.FormEditText
         android:id="@+id/et_email"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -55,6 +61,9 @@
         android:textColor="@color/color_text_major"
         android:textColorHint="@color/color_text_minor"
         android:layout_marginTop="16dp"
+        app:emptyErrorString="密保邮箱不能为空"
+        app:testType="email"
+        app:testErrorString="邮箱格式不正确"
         />
 
     <CheckBox
@@ -75,6 +84,7 @@
         android:textSize="14sp"
         android:background="@drawable/bg_button"
         android:textColor="@android:color/white"
+        android:foreground="?attr/selectableItemBackground"
         />
 
 

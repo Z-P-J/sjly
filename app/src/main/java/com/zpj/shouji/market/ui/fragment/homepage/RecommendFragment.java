@@ -2,9 +2,6 @@ package com.zpj.shouji.market.ui.fragment.homepage;
 
 import android.content.Context;
 import android.graphics.Color;
-import android.graphics.drawable.Drawable;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -17,13 +14,10 @@ import android.widget.RelativeLayout;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
-import com.bumptech.glide.request.target.SimpleTarget;
-import com.bumptech.glide.request.transition.Transition;
 import com.felix.atoast.library.AToast;
 import com.shehuan.niv.NiceImageView;
 import com.zhouwei.mzbanner.MZBannerView;
 import com.zhouwei.mzbanner.holder.MZViewHolder;
-import com.zpj.http.parser.html.nodes.Document;
 import com.zpj.http.parser.html.nodes.Element;
 import com.zpj.http.parser.html.select.Elements;
 import com.zpj.recyclerview.EasyAdapter;
@@ -41,7 +35,6 @@ import com.zpj.shouji.market.ui.fragment.AppListFragment;
 import com.zpj.shouji.market.ui.fragment.base.RecyclerLayoutFragment;
 import com.zpj.shouji.market.ui.fragment.collection.CollectionDetailFragment;
 import com.zpj.shouji.market.ui.fragment.detail.AppDetailFragment;
-import com.zpj.shouji.market.utils.HttpApi;
 import com.zpj.shouji.market.utils.HttpPreLoader;
 import com.zpj.utils.ScreenUtils;
 
@@ -65,7 +58,7 @@ public class RecommendFragment extends RecyclerLayoutFragment<GroupItem> {
 
     @Override
     protected void buildRecyclerLayout(EasyRecyclerLayout<GroupItem> recyclerLayout) {
-        recyclerLayout.getEasyRecyclerView().getRecyclerView().setBackgroundColor(getResources().getColor(R.color.color_background));
+        recyclerLayout.getEasyRecyclerView().getRecyclerView().setBackgroundColor(getResources().getColor(R.color.background_color));
         recyclerLayout.setHeaderView(R.layout.layout_recommend_header, new IEasy.OnBindHeaderListener() {
             private final List<AppInfo> bannerItemList = new ArrayList<>();
             private final BannerViewHolder bannerViewHolder = new BannerViewHolder();
@@ -95,21 +88,6 @@ public class RecommendFragment extends RecyclerLayoutFragment<GroupItem> {
                     mMZBanner.setPages(bannerItemList, () -> bannerViewHolder);
                     mMZBanner.start();
                 });
-//                HttpApi.connect("http://tt.shouji.com.cn/androidv3/app_index_xml.jsp?index=1&versioncode=198")
-//                        .onSuccess(data -> {
-//                            Elements elements = data.select("item");
-//                            bannerItemList.clear();
-//                            for (Element element : elements) {
-//                                AppInfo info = AppInfo.parse(element);
-//                                if (info == null) {
-//                                    continue;
-//                                }
-//                                bannerItemList.add(info);
-//                            }
-//                            mMZBanner.setPages(bannerItemList, () -> bannerViewHolder);
-//                            mMZBanner.start();
-//                        })
-//                        .subscribe();
             }
         })
                 .onGetChildViewType(position -> position + 1);
@@ -254,22 +232,6 @@ public class RecommendFragment extends RecyclerLayoutFragment<GroupItem> {
             }
             recyclerView.notifyDataSetChanged();
         });
-//        HttpApi.connect(url)
-//                .onSuccess(data -> {
-//                    Elements elements = data.select("item");
-//                    for (Element element : elements) {
-//                        AppInfo info = AppInfo.parse(element);
-//                        if (info == null) {
-//                            continue;
-//                        }
-//                        list.add(info);
-//                        if (list.size() == 8) {
-//                            break;
-//                        }
-//                    }
-//                    recyclerView.notifyDataSetChanged();
-//                })
-//                .subscribe();
     }
 
     private void getCollection(final EasyViewHolder holder) {
@@ -310,9 +272,10 @@ public class RecommendFragment extends RecyclerLayoutFragment<GroupItem> {
                     for (int i = 0; i < RES_ICONS.length; i++) {
                         int res = RES_ICONS[i];
                         if (i == 0) {
+//                            new BlurTransformation(25, 5)
                             Glide.with(context)
                                     .load(info.getIcons().get(0))
-                                    .apply(RequestOptions.bitmapTransform(new BlurTransformation(context, 7)))
+                                    .apply(RequestOptions.bitmapTransform(new BlurTransformation(context, 25)))
                                     .into(imgBg);
                         }
                         Glide.with(context).load(info.getIcons().get(i)).into(holder1.getImageView(res));
@@ -330,18 +293,6 @@ public class RecommendFragment extends RecyclerLayoutFragment<GroupItem> {
             }
             recyclerView.notifyDataSetChanged();
         });
-//        HttpApi.connect("http://tt.shouji.com.cn/androidv3/yyj_tj_xml.jsp")
-//                .onSuccess(data -> {
-//                    Elements elements = data.select("item");
-//                    for (Element element : elements) {
-//                        list.add(CollectionInfo.create(element));
-//                    }
-//                    if (list.size() % 2 != 0) {
-//                        list.remove(list.size() - 1);
-//                    }
-//                    recyclerView.notifyDataSetChanged();
-//                })
-//                .subscribe();
     }
 
     private void getSubjects(EasyViewHolder holder) {
@@ -395,18 +346,6 @@ public class RecommendFragment extends RecyclerLayoutFragment<GroupItem> {
             }
             recyclerView.notifyDataSetChanged();
         });
-//        HttpApi.connect("http://tt.shouji.com.cn/androidv3/special_index_xml.jsp?jse=yes")
-//                .onSuccess(data -> {
-//                    Elements elements = data.select("item");
-//                    for (int i = 0; i < elements.size(); i++) {
-//                        list.add(SubjectInfo.create(elements.get(i)));
-//                    }
-//                    if (list.size() % 2 != 0) {
-//                        list.remove(list.size() - 1);
-//                    }
-//                    recyclerView.notifyDataSetChanged();
-//                })
-//                .subscribe();
     }
 
     private void onError(Exception e) {

@@ -4,11 +4,15 @@ import android.content.Context;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.zpj.shouji.market.R;
+import com.zpj.shouji.market.utils.HttpApi;
+import com.zpj.shouji.market.utils.UserManager;
+import com.zpj.utils.KeyboardUtil;
 import com.zpj.utils.ScreenUtils;
 
 public class SignUpLayout extends LinearLayout {
@@ -45,6 +49,14 @@ public class SignUpLayout extends LinearLayout {
         tvFogotPassword = findViewById(R.id.tv_forgot_password);
         tvLoginFailed = findViewById(R.id.tv_login_failed);
         tvSignUp = findViewById(R.id.tv_sign_up);
+        tvSignUp.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String account = etAccount.getText().toString();
+                String password = etPassword.getText().toString();
+                UserManager.getInstance().login(account, password);
+            }
+        });
     }
 
     public String getAccountText() {

@@ -24,13 +24,13 @@ public class BlurTransformation extends BitmapTransformation {
     private int radius;
     private int sampling = 5;
 
-    public BlurTransformation() {
-        this(null, MAX_RADIUS, DEFAULT_DOWN_SAMPLING);
-    }
-
-    public BlurTransformation(int radius) {
-        this(null, radius, DEFAULT_DOWN_SAMPLING);
-    }
+//    public BlurTransformation() {
+//        this(null, MAX_RADIUS, DEFAULT_DOWN_SAMPLING);
+//    }
+//
+//    public BlurTransformation(int radius) {
+//        this(null, radius, DEFAULT_DOWN_SAMPLING);
+//    }
 
     public BlurTransformation(Context context, int radius) {
         this.context = context;
@@ -51,7 +51,7 @@ public class BlurTransformation extends BitmapTransformation {
         int scaledWidth = toTransform.getWidth() / sampling;
         int scaledHeight = toTransform.getHeight() / sampling;
 
-        Bitmap bitmap = pool.get(scaledWidth, scaledHeight, Bitmap.Config.ARGB_8888);
+        Bitmap bitmap = pool.get(scaledWidth, scaledHeight, Bitmap.Config.ARGB_4444);
 
         Canvas canvas = new Canvas(bitmap);
         canvas.scale(1 / (float) sampling, 1 / (float) sampling);
@@ -61,7 +61,7 @@ public class BlurTransformation extends BitmapTransformation {
         bitmap = HokoBlur.with(context)
                 .scheme(HokoBlur.SCHEME_NATIVE) //different implementation, RenderScript、OpenGL、Native(default) and Java
                 .mode(HokoBlur.MODE_STACK) //blur algorithms，Gaussian、Stack(default) and Box
-                .radius(15) //blur radius，max=25，default=5
+                .radius(radius) //blur radius，max=25，default=5
                 .sampleFactor(5.0f) //scale factor，if factor=2，the width and height of a bitmap will be scale to 1/2 sizes，default=5
                 .forceCopy(false) //If scale factor=1.0f，the origin bitmap will be modified. You could set forceCopy=true to avoid it. default=false
                 .needUpscale(true) //After blurring，the bitmap will be upscaled to origin sizes，default=true

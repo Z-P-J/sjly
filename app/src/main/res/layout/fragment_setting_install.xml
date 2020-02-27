@@ -5,7 +5,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
+    android:background="@color/background_color"
     >
 
     <include layout="@layout/layout_toolbar"/>
@@ -13,12 +13,13 @@
     <com.zpj.widget.ElasticScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:padding="8dp"
         android:scrollbars="none"
         >
 
         <www.linwg.org.lib.LCardView
-            style="@style/setting_card_style">
+            style="@style/setting_card_style"
+            app:shadowSize="16dp"
+            >
 
             <LinearLayout
                 android:orientation="vertical"

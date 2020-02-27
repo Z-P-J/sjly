@@ -6,6 +6,7 @@
     >
 
     <LinearLayout
+        android:id="@+id/ll_actions"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
@@ -28,7 +29,6 @@
                 android:text="我的主页"
                 android:textColor="@color/color_text_major"
                 android:padding="8dp"
-                android:textSize="12sp"
                 app:drawable_tint_color="@color/light_blue_2"
                 />
 
@@ -42,12 +42,11 @@
                 android:text="我的发现"
                 android:textColor="@color/color_text_major"
                 android:padding="8dp"
-                android:textSize="12sp"
                 app:drawable_tint_color="@color/light_blue_1"
                 />
 
             <com.zpj.shouji.market.ui.widget.DrawableTintTextView
-                android:drawableTop="@drawable/ic_comment_outline_white_24dp"
+                android:drawableTop="@drawable/ic_comment_white_24dp"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -56,7 +55,6 @@
                 android:text="我的评论"
                 android:textColor="@color/color_text_major"
                 android:padding="8dp"
-                android:textSize="12sp"
                 app:drawable_tint_color="@color/dark_yellow_1"
                 />
 
@@ -70,7 +68,6 @@
                 android:text="我的好友"
                 android:textColor="@color/color_text_major"
                 android:padding="8dp"
-                android:textSize="12sp"
                 app:drawable_tint_color="@color/light_purple"
                 />
 
@@ -93,7 +90,6 @@
                 android:text="我的消息"
                 android:textColor="@color/color_text_major"
                 android:padding="8dp"
-                android:textSize="12sp"
                 app:drawable_tint_color="@color/light_brown"
                 />
 
@@ -107,7 +103,6 @@
                 android:text="我的收藏"
                 android:textColor="@color/color_text_major"
                 android:padding="8dp"
-                android:textSize="12sp"
                 app:drawable_tint_color="@color/light_pink"
                 />
 
@@ -121,7 +116,6 @@
                 android:text="我的预约"
                 android:textColor="@color/color_text_major"
                 android:padding="8dp"
-                android:textSize="12sp"
                 app:drawable_tint_color="@color/light_blue_gray"
                 />
 
@@ -135,12 +129,89 @@
                 android:text="黑名单"
                 android:textColor="@color/color_text_major"
                 android:padding="8dp"
-                android:textSize="12sp"
                 app:drawable_tint_color="@color/light_red_1"
                 />
 
         </LinearLayout>
 
     </LinearLayout>
+
+    <eightbitlab.com.blurview.BlurView
+        android:id="@+id/bv_not_login"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:blurOverlayColor="#ddffffff"
+        >
+
+<!--        app:blurOverlayColor="#eeffffff"-->
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:gravity="center"
+            >
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                >
+
+                <com.zpj.shouji.market.ui.widget.DrawableTintTextView
+                    android:id="@+id/tv_sign_up"
+                    android:drawableStart="@drawable/ic_blacklist_white_24dp"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:drawablePadding="8dp"
+                    android:gravity="center"
+                    android:text="立即登录"
+                    android:textColor="@color/dark_yellow_1"
+                    android:paddingStart="16dp"
+                    android:paddingEnd="16dp"
+                    android:paddingTop="8dp"
+                    android:paddingBottom="8dp"
+                    app:drawable_tint_color="@color/dark_yellow_1"
+                    android:textSize="16sp"
+                    android:background="@drawable/bg_round_left_yellow"
+                    />
+
+                <com.zpj.shouji.market.ui.widget.DrawableTintTextView
+                    android:id="@+id/tv_sign_in"
+                    android:drawableEnd="@drawable/ic_blacklist_white_24dp"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:drawablePadding="8dp"
+                    android:gravity="center"
+                    android:text="立即注册"
+                    android:textColor="@color/light_blue"
+                    android:paddingStart="16dp"
+                    android:paddingEnd="16dp"
+                    android:paddingTop="8dp"
+                    android:paddingBottom="8dp"
+                    android:textSize="16sp"
+                    app:drawable_tint_color="@color/light_blue"
+                    android:background="@drawable/bg_round_right_blue"
+                    />
+
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="立即登录，发现更多乐趣"
+                android:textSize="18sp"
+                android:textColor="@color/light_blue_gray"
+                android:layout_gravity="center"
+                android:layout_marginTop="16dp"
+                />
+
+        </LinearLayout>
+
+
+
+    </eightbitlab.com.blurview.BlurView>
 
 </www.linwg.org.lib.LCardView>

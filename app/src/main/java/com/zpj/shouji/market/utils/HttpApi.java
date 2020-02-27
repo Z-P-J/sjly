@@ -3,6 +3,7 @@ package com.zpj.shouji.market.utils;
 import android.util.Log;
 
 import com.zpj.http.ZHttp;
+import com.zpj.http.core.Connection;
 import com.zpj.http.core.ObservableTask;
 import com.zpj.http.core.IHttp;
 import com.zpj.http.parser.html.nodes.Document;
@@ -22,7 +23,7 @@ public final class HttpApi {
 
     }
 
-    public static ObservableTask<Document> connect(String url) {
+    public static Connection openConnection(String url) {
         return ZHttp.get(url)
                 .userAgent(USER_AGENT)
                 .onRedirect(new IHttp.OnRedirectListener() {
@@ -32,11 +33,14 @@ public final class HttpApi {
                         return true;
                     }
                 })
-                .cookie(UserManager.getCookie())
+                .cookie(UserManager.getInstance().getCookie())
 //                .header(HEADER_ACCEPT_ENCODING, VALUE_ACCEPT_ENCODING)
                 .referer(url)
-                .ignoreContentType(true)
-                .toHtml();
+                .ignoreContentType(true);
+    }
+
+    public static ObservableTask<Document> connect(String url) {
+        return openConnection(url).toHtml();
     }
 
     public static ObservableTask<Runnable> with(Runnable runnable) {

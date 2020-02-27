@@ -4,7 +4,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     >
 
-    <EditText
+    <com.andreabaccega.widget.FormEditText
         android:id="@+id/et_account"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -14,9 +14,10 @@
         android:textSize="16sp"
         android:textColor="@color/color_text_major"
         android:textColorHint="@color/color_text_minor"
+        android:inputType="text|textEmailAddress"
         />
 
-    <EditText
+    <com.andreabaccega.widget.FormEditText
         android:id="@+id/et_password"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -72,5 +73,52 @@
         android:background="@drawable/bg_button"
         android:textColor="@android:color/white"
         />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="16dp"
+        >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="快捷登录："
+            android:gravity="center"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            android:textColor="@color/color_text_minor"
+            />
+
+        <ImageButton
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:src="@drawable/ic_share_qq"
+            android:background="?attr/selectableItemBackground"
+            android:padding="8dp"
+            />
+
+        <ImageButton
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:src="@drawable/ic_share_wx"
+            android:background="?attr/selectableItemBackground"
+            android:padding="8dp"
+            />
+
+        <ImageButton
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:src="@drawable/ic_share_weibo"
+            android:background="?attr/selectableItemBackground"
+            android:padding="8dp"
+            />
+
+    </LinearLayout>
 
 </merge>

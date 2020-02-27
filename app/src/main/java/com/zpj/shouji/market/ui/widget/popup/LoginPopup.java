@@ -9,13 +9,19 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
 
+import com.felix.atoast.library.AToast;
 import com.lxj.xpopup.core.CenterPopupView;
 import com.lxj.xpopup.core.PopupInfo;
+import com.zpj.http.core.IHttp;
+import com.zpj.http.parser.html.nodes.Document;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.ui.widget.AutoSizeViewPager;
 import com.zpj.shouji.market.ui.widget.ScaleTransitionPagerTitleView;
 import com.zpj.shouji.market.ui.widget.SignInLayout;
 import com.zpj.shouji.market.ui.widget.SignUpLayout;
+import com.zpj.shouji.market.utils.HttpApi;
+import com.zpj.shouji.market.utils.UserManager;
+import com.zpj.utils.KeyboardUtil;
 import com.zpj.utils.ScreenUtils;
 import com.zpj.widget.ZViewPager;
 import com.zpj.widget.toolbar.ZToolbar;
@@ -31,10 +37,12 @@ import net.lucode.hackware.magicindicator.buildins.commonnavigator.indicators.Li
 import java.util.ArrayList;
 import java.util.List;
 
-public class LoginPopup extends CenterPopupView {
+public class LoginPopup extends CenterPopupView
+        implements UserManager.OnLoginListener {
 
     private static final String[] TAB_TITLES = {"登录", "注册"};
     private AutoSizeViewPager viewPager;
+    private int currentPosition = 0;
 
 
     public static LoginPopup with(Context context) {
@@ -54,7 +62,7 @@ public class LoginPopup extends CenterPopupView {
     @Override
     protected void onCreate() {
         super.onCreate();
-
+        UserManager.getInstance().addOnLoginListener(this);
         List<View> list = new ArrayList<>();
         SignUpLayout signUpLayout = new SignUpLayout(getContext());
         SignInLayout signInLayout = new SignInLayout(getContext());
@@ -99,10 +107,31 @@ public class LoginPopup extends CenterPopupView {
         });
         magicIndicator.setNavigator(navigator);
         ViewPagerHelper.bind(magicIndicator, viewPager);
+        viewPager.setCurrentItem(currentPosition);
+    }
+
+    @Override
+    protected void onDismiss() {
+        super.onDismiss();
+        UserManager.getInstance().removeOnLoginListener(this);
+    }
+
+    public LoginPopup setCurrentPosition(int currentPosition) {
+        this.currentPosition = currentPosition;
+        return this;
+    }
+
+    @Override
+    public void onLoginSuccess() {
+        dismiss();
+    }
+
+    @Override
+    public void onLoginFailed(String errInfo) {
 
     }
 
-    public static class LoginPagerAdapter extends PagerAdapter {
+    private static class LoginPagerAdapter extends PagerAdapter {
 
         private final List<View> list;
 

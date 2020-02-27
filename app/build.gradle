@@ -63,7 +63,7 @@ dependencies {
     // 图片相关
     implementation 'com.github.bumptech.glide:glide:4.9.0'
     annotationProcessor 'com.github.bumptech.glide:compiler:4.9.0'
-    implementation 'jp.wasabeef:glide-transformations:2.0.1'
+    implementation 'jp.wasabeef:glide-transformations:4.1.0'
     implementation 'com.jaeger.ninegridimageview:library:1.1.1'
     implementation 'com.github.SheHuan:NiceImageView:1.0.5'
 //    implementation 'com.ycjiang:ImagePreview:2.3.0'

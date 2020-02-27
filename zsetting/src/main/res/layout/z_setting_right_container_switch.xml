@@ -5,7 +5,7 @@
     android:id="@+id/switcher"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    app:switcher_on_color="@color/colorPrimary"
+    app:switcher_on_color="@color/switcher_checked_color"
     app:switcher_off_color="#cccccc"
     app:switcher_icon_color="#ffffff"
     android:layout_marginEnd="8dp"

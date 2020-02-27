@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#48ea8b</color>
+    <color name="switcher_normal_color">#EF565F</color>
+    <color name="switcher_checked_color">#48ea8b</color>
 </resources>

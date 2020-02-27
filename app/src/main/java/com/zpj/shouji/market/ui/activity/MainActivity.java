@@ -6,13 +6,18 @@ import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.StrictMode;
+import android.util.Base64;
+import android.util.Log;
 
 import com.felix.atoast.library.AToast;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.ui.fragment.MainFragment;
 import com.zpj.shouji.market.utils.AppInstalledManager;
 import com.zpj.shouji.market.utils.AppUpdateHelper;
+import com.zpj.shouji.market.utils.HttpApi;
 import com.zpj.shouji.market.utils.HttpPreLoader;
+import com.zpj.shouji.market.utils.StringUtils;
+import com.zpj.shouji.market.utils.UserManager;
 import com.zpj.utils.StatusBarUtils;
 
 import me.yokeyword.fragmentation.SupportActivity;
@@ -60,6 +65,8 @@ public class MainActivity extends SupportActivity {
                 })
                 .create();
         openingStartAnimation3.show(MainActivity.this);
+
+        UserManager.getInstance().init();
 
         HttpPreLoader.getInstance().loadHomepage();
 

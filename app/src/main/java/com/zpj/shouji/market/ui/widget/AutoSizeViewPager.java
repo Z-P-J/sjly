@@ -112,6 +112,20 @@ public class AutoSizeViewPager extends ViewPager {
     }
 
     @Override
+    public void setCurrentItem(int item) {
+        this.fromItem = item;
+        this.toItem = item;
+        super.setCurrentItem(item);
+    }
+
+    @Override
+    public void setCurrentItem(int item, boolean smoothScroll) {
+        fromItem = getCurrentItem();
+        toItem = item;
+        super.setCurrentItem(item, smoothScroll);
+    }
+
+    @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
 
         //下面遍历所有child的高度

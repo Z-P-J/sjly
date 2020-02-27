@@ -24,8 +24,6 @@ public class SoftRecommendFragment extends BaseRecommendFragment {
 
     private static final String TAG = "RecommendFragment";
 
-    private final int[] RES_ICONS = {R.id.item_icon_1, R.id.item_icon_2, R.id.item_icon_3};
-
     @Override
     protected int getLayoutId() {
         return R.layout.fragment_app_recomment;
@@ -38,7 +36,7 @@ public class SoftRecommendFragment extends BaseRecommendFragment {
 
     @Override
     protected void buildRecyclerLayout(EasyRecyclerLayout<GroupItem> recyclerLayout) {
-        recyclerLayout.getEasyRecyclerView().getRecyclerView().setBackgroundColor(getResources().getColor(R.color.color_background));
+        recyclerLayout.getEasyRecyclerView().getRecyclerView().setBackgroundColor(getResources().getColor(R.color.background_color));
         recyclerLayout.setHeaderView(R.layout.layout_app_header, new IEasy.OnBindHeaderListener() {
             @Override
             public void onBindHeader(EasyViewHolder holder) {
@@ -61,15 +59,6 @@ public class SoftRecommendFragment extends BaseRecommendFragment {
         data.add(new GroupItem("软件教程"));
         data.add(new GroupItem("软件周刊"));
         recyclerLayout.notifyDataSetChanged();
-    }
-
-    @Override
-    public boolean onLoadMore(EasyAdapter.Enabled enabled, int currentPage) {
-        if (data.isEmpty()) {
-            onRefresh();
-            return true;
-        }
-        return false;
     }
 
     @Override

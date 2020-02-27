@@ -1,6 +1,7 @@
 package com.zpj.shouji.market.ui.fragment.recommond;
 
 import android.graphics.drawable.Drawable;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.GridLayoutManager;
@@ -47,6 +48,9 @@ public abstract class BaseRecommendFragment extends RecyclerLayoutFragment<Group
 
     private static final int[] RES_ICONS = {R.id.item_icon_1, R.id.item_icon_2, R.id.item_icon_3};
 
+    private boolean isLoad;
+
+
     @Override
     protected int getLayoutId() {
         return R.layout.fragment_app_recomment;
@@ -57,9 +61,14 @@ public abstract class BaseRecommendFragment extends RecyclerLayoutFragment<Group
         return R.layout.item_recommend_card;
     }
 
+//    @Override
+//    public void onLazyInitView(@Nullable Bundle savedInstanceState) {
+//        postDelay(() -> BaseRecommendFragment.super.onLazyInitView(savedInstanceState), 1000);
+//    }
+
     @Override
     protected void buildRecyclerLayout(EasyRecyclerLayout<GroupItem> recyclerLayout) {
-        recyclerLayout.getEasyRecyclerView().getRecyclerView().setBackgroundColor(getResources().getColor(R.color.color_background));
+        recyclerLayout.getEasyRecyclerView().getRecyclerView().setBackgroundColor(getResources().getColor(R.color.background_color));
         recyclerLayout.setHeaderView(R.layout.layout_app_header, new IEasy.OnBindHeaderListener() {
             @Override
             public void onBindHeader(EasyViewHolder holder) {
@@ -89,7 +98,12 @@ public abstract class BaseRecommendFragment extends RecyclerLayoutFragment<Group
     @Override
     public boolean onLoadMore(EasyAdapter.Enabled enabled, int currentPage) {
         if (data.isEmpty()) {
-            onRefresh();
+            if (isLoad) {
+                onRefresh();
+            } else {
+                postDelay(this::onRefresh, 1000);
+                isLoad = true;
+            }
             return true;
         }
         return false;

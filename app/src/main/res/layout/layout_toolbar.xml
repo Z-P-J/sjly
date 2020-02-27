@@ -11,5 +11,5 @@
     app:z_toolbar_centerType="textView"
     app:z_toolbar_centerText="Title"
     app:z_toolbar_centerTextColor="@color/color_text_major"
-    app:z_toolbar_bottomShadowHeight="2dp"
+    app:z_toolbar_showBottomLine="true"
     />

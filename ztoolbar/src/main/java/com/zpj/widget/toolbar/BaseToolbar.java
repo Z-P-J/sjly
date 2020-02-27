@@ -69,7 +69,7 @@ public abstract class BaseToolbar extends RelativeLayout implements ViewStub.OnI
         LayoutParams params = new LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         setLayoutParams(params);
 
-        setBackgroundColor(titleBarColor);
+//        setBackgroundColor(titleBarColor);
 
         if (fillStatusBar) {
             transparentStatusBar(context);
@@ -172,6 +172,7 @@ public abstract class BaseToolbar extends RelativeLayout implements ViewStub.OnI
             params.addRule(BELOW, viewStatusBarFill.getId());
         }
         params.height = titleBarHeight;
+        inflated.setBackgroundColor(titleBarColor);
 
         if (stub == vsLeftContainer) {
             inflatedLeft = inflated;

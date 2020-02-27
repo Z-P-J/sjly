@@ -41,7 +41,6 @@ public class MainFragment extends BaseFragment
 
     private final List<BaseFragment> fragments = new ArrayList<>();
     private ZViewPager viewPager;
-    private BasePopupView popupView;
 
     @Override
     protected int getLayoutId() {
@@ -121,22 +120,12 @@ public class MainFragment extends BaseFragment
 
         floatingActionButton.setOnClickListener(v -> {
             postDelay(this::darkStatusBar, 300);
-            popupView = MorePopup.with((ViewGroup) view)
+            MorePopup.with((ViewGroup) view)
                     .setListener(this)
                     .show();
         });
 
         mBottomBar.setCurrentItem(0);
-    }
-
-    @Override
-    public boolean onBackPressedSupport() {
-        if (popupView != null) {
-            popupView.dismiss();
-            popupView = null;
-            return true;
-        }
-        return super.onBackPressedSupport();
     }
 
     @Override
