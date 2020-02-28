@@ -26,6 +26,7 @@ import com.lxj.xpopup.animator.TranslateAlphaAnimator;
 import com.lxj.xpopup.animator.TranslateAnimator;
 import com.lxj.xpopup.enums.PopupStatus;
 import com.lxj.xpopup.impl.FullScreenPopupView;
+import com.lxj.xpopup.interfaces.XPopupCallback;
 import com.lxj.xpopup.util.KeyboardUtils;
 import com.lxj.xpopup.util.XPopupUtils;
 import com.lxj.xpopup.util.navbar.NavigationBarObserver;
@@ -139,6 +140,11 @@ public abstract class BasePopupView extends FrameLayout implements OnNavigationB
                 popupContentAnimator.initAnimator();
             }
         }
+    }
+
+    public BasePopupView setPopupCallback(XPopupCallback callback) {
+        popupInfo.xPopupCallback = callback;
+        return this;
     }
 
     @Override
@@ -473,6 +479,15 @@ public abstract class BasePopupView extends FrameLayout implements OnNavigationB
         doAfterDismiss();
     }
 
+    public void hide() {
+        if (popupStatus == PopupStatus.Hiding) return;
+        popupStatus = PopupStatus.Hiding;
+        if (popupInfo.autoOpenSoftInput) KeyboardUtils.hideSoftInput(this);
+        clearFocus();
+        doDismissAnimation();
+        doAfterDismiss();
+    }
+
     public void delayDismiss(long delay) {
         if (delay < 0) delay = 0;
         postDelayed(new Runnable() {
@@ -497,15 +512,30 @@ public abstract class BasePopupView extends FrameLayout implements OnNavigationB
     private Runnable doAfterDismissTask = new Runnable() {
         @Override
         public void run() {
-            onDismiss();
-            if (popupInfo != null && popupInfo.xPopupCallback != null) {
-                popupInfo.xPopupCallback.onDismiss();
+            if (popupStatus == PopupStatus.Dismissing) {
+                onDismiss();
+                if (popupInfo != null && popupInfo.xPopupCallback != null) {
+                    popupInfo.xPopupCallback.onDismiss();
+                }
+                popupStatus = PopupStatus.Dismiss;
+            } else if (popupStatus == PopupStatus.Hiding) {
+                onHide();
+                if (popupInfo != null && popupInfo.xPopupCallback != null) {
+                    popupInfo.xPopupCallback.onHide();
+                }
+                popupStatus = PopupStatus.Hide;
             }
+
             if (dismissWithRunnable != null) {
                 dismissWithRunnable.run();
                 dismissWithRunnable = null;//no cache, avoid some bad edge effect.
             }
-            popupStatus = PopupStatus.Dismiss;
+//            if (popupStatus == PopupStatus.Dismissing) {
+//                popupStatus = PopupStatus.Dismiss;
+//            } else if (popupStatus == PopupStatus.Hiding) {
+//                popupStatus = PopupStatus.Hide;
+//            }
+
             NavigationBarObserver.getInstance().removeOnNavigationBarListener(BasePopupView.this);
 
             if (!stack.isEmpty()) stack.pop();
@@ -536,11 +566,15 @@ public abstract class BasePopupView extends FrameLayout implements OnNavigationB
     }
 
     public boolean isShow() {
-        return popupStatus != PopupStatus.Dismiss;
+        return !isDismiss() && !isHide();
     }
 
     public boolean isDismiss() {
         return popupStatus == PopupStatus.Dismiss;
+    }
+
+    public boolean isHide() {
+        return popupStatus == PopupStatus.Hide;
     }
 
     public void toggle() {
@@ -557,6 +591,9 @@ public abstract class BasePopupView extends FrameLayout implements OnNavigationB
     protected void onDismiss() {
     }
 
+    protected void onHide() {
+    }
+
     /**
      * 显示动画执行完毕后执行
      */
@@ -571,7 +608,11 @@ public abstract class BasePopupView extends FrameLayout implements OnNavigationB
         removeCallbacks(doAfterDismissTask);
         KeyboardUtils.removeLayoutChangeListener(popupInfo.decorView, BasePopupView.this);
         if (showSoftInputTask != null) removeCallbacks(showSoftInputTask);
-        popupStatus = PopupStatus.Dismiss;
+        if (popupStatus == PopupStatus.Dismissing) {
+            popupStatus = PopupStatus.Dismiss;
+        } else if (popupStatus == PopupStatus.Hiding) {
+            popupStatus = PopupStatus.Hide;
+        }
         showSoftInputTask = null;
         hasMoveUp = false;
     }

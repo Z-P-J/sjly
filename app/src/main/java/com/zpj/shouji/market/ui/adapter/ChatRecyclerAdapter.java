@@ -298,9 +298,9 @@ public class ChatRecyclerAdapter extends
     }
 
     private void toMsgUserLayout(final ToUserMsgViewHolder holder, final ChatMessageBean tbub, final int position) {
-        holder.headicon.setBackgroundResource(R.drawable.grzx_tx_s);
+        holder.headicon.setBackgroundResource(R.mipmap.ic_launcher);
         holder.headicon.setImageDrawable(context.getResources()
-                .getDrawable(R.drawable.grzx_tx_s));
+                .getDrawable(R.mipmap.ic_launcher));
         /* time */
         if (position != 0) {
             String showTime = getTime(tbub.getTime(), userList.get(position - 1)
@@ -322,7 +322,7 @@ public class ChatRecyclerAdapter extends
     }
 
     private void toImgUserLayout(final ToUserImgViewHolder holder, final ChatMessageBean tbub, final int position) {
-        holder.headicon.setBackgroundResource(R.drawable.grzx_tx_s);
+        holder.headicon.setBackgroundResource(R.mipmap.ic_launcher);
         switch (tbub.getSendState()) {
             case ChatConst.SENDING:
                 an = AnimationUtils.loadAnimation(context,

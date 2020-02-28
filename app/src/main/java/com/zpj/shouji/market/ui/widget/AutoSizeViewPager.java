@@ -113,7 +113,7 @@ public class AutoSizeViewPager extends ViewPager {
 
     @Override
     public void setCurrentItem(int item) {
-        this.fromItem = item;
+        this.fromItem = getCurrentItem();
         this.toItem = item;
         super.setCurrentItem(item);
     }

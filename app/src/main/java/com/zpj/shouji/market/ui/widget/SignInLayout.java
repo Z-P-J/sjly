@@ -1,7 +1,14 @@
 package com.zpj.shouji.market.ui.widget;
 
 import android.content.Context;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.text.SpannableString;
+import android.text.Spanned;
+import android.text.TextPaint;
+import android.text.method.LinkMovementMethod;
+import android.text.style.ClickableSpan;
+import android.text.style.URLSpan;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -17,20 +24,32 @@ import com.zpj.http.core.Connection;
 import com.zpj.http.core.IHttp;
 import com.zpj.http.parser.html.nodes.Document;
 import com.zpj.shouji.market.R;
+import com.zpj.shouji.market.ui.fragment.WebFragment;
 import com.zpj.shouji.market.utils.HttpApi;
 import com.zpj.shouji.market.utils.UserManager;
 import com.zpj.utils.ScreenUtils;
+import com.zpj.widget.SmoothCheckBox;
+import com.zpj.widget.editor.EditTextWithClear;
+import com.zpj.widget.editor.PasswordEditText;
+import com.zpj.widget.editor.validator.EmailValidator;
+import com.zpj.widget.editor.validator.LengthValidator;
+import com.zpj.widget.editor.validator.SameValueValidator;
 
 import java.util.Map;
 
-public class SignInLayout extends LinearLayout {
+import me.yokeyword.fragmentation.SupportActivity;
+import me.yokeyword.fragmentation.SupportFragment;
 
-    private EditText etAccount;
-    private EditText etPassword;
-    private EditText etPasswordAgain;
-    private EditText etEmail;
+public class SignInLayout extends LinearLayout
+        implements UserManager.OnSignInListener {
 
-    private CheckBox cbAgreement;
+    private EditTextWithClear etAccount;
+    private PasswordEditText etPassword;
+    private PasswordEditText etPasswordAgain;
+    private EditTextWithClear etEmail;
+
+    private SmoothCheckBox cbAgreement;
+    private TextView tvAgreement;
     private TextView tvSignIn;
 
     public SignInLayout(Context context) {
@@ -56,58 +75,88 @@ public class SignInLayout extends LinearLayout {
 
 
         etAccount = findViewById(R.id.et_account);
+        etAccount.addValidator(new LengthValidator("账号长度必须在3-20之间", 3, 20));
         etPassword = findViewById(R.id.et_password);
+        etPassword.addValidator(new LengthValidator("密码长度不能小于6", 6, Integer.MAX_VALUE));
         etPasswordAgain = findViewById(R.id.et_password_again);
+        etPasswordAgain.addValidator(new LengthValidator("密码长度不能小于6", 6, Integer.MAX_VALUE));
+        etPasswordAgain.addValidator(new SameValueValidator(etPassword, "两次输入的密码不相同"));
         etEmail = findViewById(R.id.et_email);
+        etEmail.addValidator(new EmailValidator("邮箱格式有误"));
         cbAgreement = findViewById(R.id.cb_agreement);
-        tvSignIn = findViewById(R.id.tv_sign_in);
-        tvSignIn.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String accountName = etAccount.getText().toString();
-                String password = etPassword.getText().toString();
-                String email = etPassword.getText().toString();
-                AToast.normal("onClick");
-                HttpApi.openConnection("http://tt.shouji.com.cn/app/xml_register_v4.jsp?")
-                        .data("m", accountName)
-                        .data("p", password)
-                        .data("MemberEmail", email)
-                        .data("n", "")
-                        .data("logo", "")
-                        .data("logo2", "")
-                        .data("openid", "")
-                        .data("s", "12345678910")
-                        .execute()
-                        .onSuccess(response -> {
-                            for (Map.Entry<String, String> entry : response.cookies().entrySet()) {
-                                Log.d("SignInLayout", entry.getKey() + " = " + entry.getValue());
-                            }
-                            String cookie = response.header("Set-Cookie");
-                            Log.d("SignInLayout", "cookie=" + cookie);
-                            if (cookie != null) {
-                                String jsessionId = cookie.substring(cookie.indexOf("="), cookie.indexOf(";"));
-                                Log.d("SignInLayout", "jsessionId=" + jsessionId);
-                            }
+        tvAgreement = findViewById(R.id.tv_agreement);
 
-                            Document doc = response.parse();
-                            if ("failed".equals(doc.selectFirst("result").text())) {
-                                AToast.error(doc.selectFirst("info").text());
-                            } else {
-                                AToast.success("登录成功");
 
-                                UserManager.getInstance().setCookie(cookie);
-                                UserManager.getInstance().setUserInfo(doc.toString());
-                            }
-                        })
-                        .onError(new IHttp.OnErrorListener() {
-                            @Override
-                            public void onError(Throwable throwable) {
-                                AToast.error(throwable.getMessage());
-                            }
-                        })
-                        .subscribe();
+        String text = "同意《用户协议》和《隐私协议》";
+        SpannableString sp = new SpannableString(text);
+
+
+        int index1 = text.indexOf("用户协议");
+        int index2 = text.indexOf("隐私协议");
+        sp.setSpan(new URLSpan("https://wap.shouji.com.cn/sjlyyhxy.html") {
+                       @Override
+                       public void onClick(View widget) {
+                           widget.setTag(true);
+                           Log.d("widget", "widget=" + widget);
+                           ((SupportActivity)context).start(WebFragment.newInstance(getURL()));
+                       }
+                   }, index1, index1 + 4,
+                Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+        sp.setSpan(new URLSpan("https://wap.shouji.com.cn/ysxy.html") {
+                       @Override
+                       public void onClick(View widget) {
+                           widget.setTag(true);
+                           Log.d("widget", "widget=" + widget);
+                           ((SupportActivity)context).start(WebFragment.newInstance(getURL()));
+                       }
+                   }, index2, index2 + 4,
+                Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+        tvAgreement.setText(sp);
+        tvAgreement.setMovementMethod(LinkMovementMethod.getInstance());
+        tvAgreement.setTag(false);
+        tvAgreement.setOnClickListener(v -> {
+            if ((boolean)tvAgreement.getTag()) {
+                tvAgreement.setTag(false);
+                return;
             }
+            cbAgreement.setChecked(!cbAgreement.isChecked(), true);
+            Log.d("widget", "onClick v=" + v);
         });
+
+        tvSignIn = findViewById(R.id.tv_sign_in);
+        tvSignIn.setOnClickListener(v -> {
+            if (cbAgreement.isChecked()) {
+                if (etAccount.isValid() && etPassword.isValid() && etEmail.isValid()) {
+                    String accountName = etAccount.getText().toString();
+                    String password = etPassword.getText().toString();
+                    String email = etPassword.getText().toString();
+                    AToast.normal("onClick");
+                    UserManager.getInstance().signIn(accountName, password, email);
+                } else {
+                    AToast.warning("输入内容有误");
+                }
+            } else {
+                AToast.warning("请同意《手机乐园协议》");
+            }
+
+        });
+    }
+
+    @Override
+    public void clearFocus() {
+        super.clearFocus();
+        if (etAccount != null) {
+            etAccount.clearFocus();
+        }
+        if (etPassword != null) {
+            etPassword.clearFocus();
+        }
+        if (etPasswordAgain != null) {
+            etPasswordAgain.clearFocus();
+        }
+        if (etEmail != null) {
+            etEmail.clearFocus();
+        }
     }
 
     public String getAccountText() {
@@ -122,8 +171,33 @@ public class SignInLayout extends LinearLayout {
         return cbAgreement.isChecked();
     }
 
+    @Override
+    public void onSignInSuccess() {
+
+    }
+
+    @Override
+    public void onSignInFailed(String errInfo) {
+        if ("用户名已被注册".equals(errInfo)) {
+            etAccount.requestFocus();
+            etAccount.setError(errInfo);
+        } else {
+            AToast.error(errInfo);
+        }
+    }
+
     public interface OnLoginListener {
         void onSignInSuccess();
+    }
+
+    private static abstract class ClickSpan extends ClickableSpan {
+
+        @Override
+        public void updateDrawState(@NonNull TextPaint ds) {
+//        ds.setColor(Color.parseColor("#ffffff"));
+            ds.setUnderlineText(false);
+        }
+
     }
 
 }

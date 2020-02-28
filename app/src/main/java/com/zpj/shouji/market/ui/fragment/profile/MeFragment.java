@@ -6,14 +6,13 @@ import android.support.annotation.Nullable;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.ImageButton;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.felix.atoast.library.AToast;
+import com.lxj.xpopup.interfaces.SimpleCallback;
 import com.shehuan.niv.NiceImageView;
 import com.zpj.dialog.ZAlertDialog;
 import com.zpj.fragmentation.BaseFragment;
@@ -41,6 +40,7 @@ public class MeFragment extends BaseFragment
     private TextView tvName;
     private TextView tvSignature;
     private NiceImageView ivAvatar;
+    private TextView tvCheckIn;
     private TextView tvLevel;
     private TextView tvFollower;
     private TextView tvFans;
@@ -56,6 +56,8 @@ public class MeFragment extends BaseFragment
     private TextView tvDownloadSetting;
     private TextView tvInstallSetting;
     private TextView tvAbout;
+
+    private LoginPopup loginPopup;
 
     @Override
     protected int getLayoutId() {
@@ -73,6 +75,7 @@ public class MeFragment extends BaseFragment
         tvName = view.findViewById(R.id.tv_name);
         tvSignature = view.findViewById(R.id.tv_signature);
         ivAvatar = view.findViewById(R.id.iv_avatar);
+        tvCheckIn = view.findViewById(R.id.tv_check_in);
         tvLevel = view.findViewById(R.id.tv_level);
         tvFollower = view.findViewById(R.id.tv_follower);
         tvFans = view.findViewById(R.id.tv_fans);
@@ -95,6 +98,7 @@ public class MeFragment extends BaseFragment
         tvAbout = view.findViewById(R.id.tv_about);
 
         ivAvatar.setOnClickListener(this);
+        tvCheckIn.setOnClickListener(this);
         tvCloudBackup.setOnClickListener(this);
         tvFeedback.setOnClickListener(this);
         tvNightMode.setOnClickListener(this);
@@ -154,8 +158,27 @@ public class MeFragment extends BaseFragment
     }
 
     @Override
+    public void onSupportVisible() {
+        super.onSupportVisible();
+        if (loginPopup != null && !loginPopup.isShow()) {
+            loginPopup.show();
+        }
+    }
+
+    @Override
+    public void onSupportInvisible() {
+        super.onSupportInvisible();
+        if (loginPopup != null && loginPopup.isShow()) {
+            loginPopup.hide();
+        }
+    }
+
+    @Override
     public void onDestroy() {
         UserManager.getInstance().removeOnLoginListener(this);
+        if (loginPopup.isShow()) {
+            loginPopup.dismiss();
+        }
         super.onDestroy();
     }
 
@@ -183,8 +206,7 @@ public class MeFragment extends BaseFragment
                                     .show();
                             break;
                         case 3:
-                            LoginPopup.with(context)
-                                    .show();
+                            showLoginPopup(0);
                             break;
                     }
                 })
@@ -194,18 +216,43 @@ public class MeFragment extends BaseFragment
 
     @Override
     public void onClick(View v) {
-        if (v == ivAvatar) {
+        if (v == tvCheckIn) {
+            MemberInfo memberInfo = UserManager.getInstance().getMemberInfo();
+            if (memberInfo.isCanSigned()) {
+                HttpApi.openConnection("http://tt.shouji.com.cn/app/xml_signed.jsp?versioncode=198&version=2.9.9.9.3")
+                        .data("jsessionid", UserManager.getInstance().getSessionId())
+                        .toHtml()
+                        .onSuccess(data -> {
+                            String info = data.selectFirst("info").text();
+                            if ("success".equals(data.selectFirst("result").text())) {
+                                AToast.success(info);
+                                memberInfo.setCanSigned(false);
+                                info = memberInfo.toStr();
+                                if (info != null) {
+                                    Log.d("xml_signed", "memberInfo=" + info);
+                                    UserManager.getInstance().setUserInfo(info);
+                                }
+                                tvCheckIn.setBackgroundResource(R.drawable.bg_button_round_purple);
+                                tvCheckIn.setText("已签到");
+                            } else {
+                                AToast.error(info);
+                            }
+                        })
+                        .onError(throwable -> AToast.error(throwable.getMessage()))
+                        .subscribe();
+            } else {
+                AToast.warning("你已签到过了");
+            }
+        } else if (v == ivAvatar) {
             if (UserManager.getInstance().isLogin()) {
                 AToast.normal("TODO 显示用户信息");
             } else {
-                LoginPopup.with(context).show();
+                showLoginPopup(0);
             }
         } else if (v == tvSignUp) {
-            LoginPopup.with(context).show();
+            showLoginPopup(0);
         } else if (v == tvSignIn) {
-            LoginPopup.with(context)
-                    .setCurrentPosition(1)
-                    .show();
+            showLoginPopup(1);
         } else if (v == tvCloudBackup) {
 
         } else if (v == tvFeedback) {
@@ -228,6 +275,10 @@ public class MeFragment extends BaseFragment
         MemberInfo info = UserManager.getInstance().getMemberInfo();
         bvNotLogin.setBlurEnabled(false);
         bvNotLogin.setVisibility(View.GONE);
+        if (!info.isCanSigned()) {
+            tvCheckIn.setBackgroundResource(R.drawable.bg_button_round_purple);
+            tvCheckIn.setText("已签到");
+        }
         tvName.setText(info.getMemberNickName());
         tvLevel.setText("Lv." + info.getMemberLevel());
         if (TextUtils.isEmpty(info.getMemberSignature())) {
@@ -257,4 +308,29 @@ public class MeFragment extends BaseFragment
     public void onLoginFailed(String errInfo) {
 
     }
+
+    private void showLoginPopup(int page) {
+        if (loginPopup == null) {
+            loginPopup = LoginPopup.with(context);
+            loginPopup.setPopupCallback(new SimpleCallback() {
+                @Override
+                public void onDismiss() {
+                    loginPopup = null;
+                }
+
+                @Override
+                public void onShow() {
+                    loginPopup.clearFocus();
+                }
+
+                @Override
+                public void onHide() {
+                    loginPopup.clearFocus();
+                }
+            });
+        }
+        loginPopup.setCurrentPosition(page);
+        loginPopup.show();
+    }
+
 }

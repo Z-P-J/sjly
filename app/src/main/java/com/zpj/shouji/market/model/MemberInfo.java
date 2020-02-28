@@ -1,8 +1,11 @@
 package com.zpj.shouji.market.model;
 
 import android.text.TextUtils;
+import android.util.Log;
 
+import com.zpj.http.ZHttp;
 import com.zpj.http.parser.html.nodes.Document;
+import com.zpj.http.parser.html.nodes.Element;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
@@ -92,15 +95,16 @@ public class MemberInfo {
                 if (TextUtils.isEmpty(selector)) {
                     selector = name;
                 }
-                if (type.equals("class java.lang.Boolean")) {
+                String text = doc.selectFirst(selector).text();
+                if (type.equals("boolean")) {
                     field.setAccessible(true);
-                    field.setBoolean(info, !"0".equals(doc.selectFirst(selector).text()));
-                } else if (type.equals("class java.lang.Integer")) {
+                    field.setBoolean(info, !"0".equals(text.trim()));
+                } else if (type.equals("int")) {
                     field.setAccessible(true);
-                    field.setInt(info, Integer.parseInt(doc.selectFirst(selector).text()));
+                    field.setInt(info, Integer.parseInt(text));
                 } else if (type.equals("class java.lang.String")) { // 如果type是类类型，则前面包含"class
                     field.setAccessible(true);
-                    field.set(info, doc.selectFirst(selector).text());
+                    field.set(info, text);
                 }
             }
         } catch (Exception e) {
@@ -108,6 +112,39 @@ public class MemberInfo {
             return null;
         }
         return info;
+    }
+
+    public String toStr() {
+        try {
+            Document doc = ZHttp.parse("<member></member>");
+            for(Field field : getClass().getDeclaredFields()) {
+                String name = field.getName();
+                String type = field.getGenericType().toString();
+                Select selectAnnotation = field.getAnnotation(Select.class);
+                String selector = "";
+                if (selectAnnotation != null) {
+                    selector = selectAnnotation.selector();
+                }
+                if (TextUtils.isEmpty(selector)) {
+                    selector = name;
+                }
+                Element element = doc.appendElement(selector);
+                if (type.equals("boolean")) {
+                    field.setAccessible(true);
+                    element.appendText(field.getBoolean(info) ? "1" : "0");
+                } else if (type.equals("int")) {
+                    field.setAccessible(true);
+                    element.appendText(String.valueOf(field.getInt(info)));
+                } else if (type.equals("class java.lang.String")) { // 如果type是类类型，则前面包含"class
+                    field.setAccessible(true);
+                    element.appendText(field.get(this).toString());
+                }
+                return doc.toString();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
     public String getResult() {
@@ -188,6 +225,10 @@ public class MemberInfo {
 
     public boolean isCanSigned() {
         return canSigned;
+    }
+
+    public void setCanSigned(boolean canSigned) {
+        this.canSigned = canSigned;
     }
 
     public boolean isCanUploadFile() {

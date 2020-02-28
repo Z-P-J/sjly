@@ -46,6 +46,7 @@ dependencies {
     api project(":ztoolbar")
     api project(':fragmentation')
     api project(':zsetting')
+    api project(':zswitcher')
     api project(':zwidget')
     api project(':third-part-color-cardview')
 //    api project(':shadowlayout')

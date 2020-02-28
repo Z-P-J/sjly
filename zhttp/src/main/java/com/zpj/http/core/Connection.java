@@ -554,6 +554,8 @@ public interface Connection {
          * @return cookies
          */
         Map<String, String> cookies();
+
+        String cookieStr();
     }
 
     /**

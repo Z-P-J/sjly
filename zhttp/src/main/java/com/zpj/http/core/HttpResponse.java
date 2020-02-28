@@ -98,7 +98,7 @@ public class HttpResponse extends HttpBase<Connection.Response> implements Conne
         return execute(req, null);
     }
 
-    static HttpResponse execute(Connection.Request req, HttpResponse previousResponse) throws IOException {
+    private static HttpResponse execute(Connection.Request req, HttpResponse previousResponse) throws IOException {
         Validate.notNull(req, "Request must not be null");
         Validate.notNull(req.url(), "URL must be specified to connect");
         String protocol = req.url().getProtocol();
@@ -327,7 +327,7 @@ public class HttpResponse extends HttpBase<Connection.Response> implements Conne
         if (req.method().hasBody())
             conn.setDoOutput(true);
         if (req.cookies().size() > 0)
-            conn.addRequestProperty(HttpHeader.COOKIE, getRequestCookieString(req));
+            conn.addRequestProperty(HttpHeader.COOKIE, req.cookieStr());
         for (Map.Entry<String, List<String>> header : req.multiHeaders().entrySet()) {
             for (String value : header.getValue()) {
                 conn.addRequestProperty(header.getKey(), value);
@@ -455,14 +455,14 @@ public class HttpResponse extends HttpBase<Connection.Response> implements Conne
         return headers;
     }
 
-    void processResponseHeaders(Map<String, List<String>> resHeaders) {
+    private void processResponseHeaders(Map<String, List<String>> resHeaders) {
         for (Map.Entry<String, List<String>> entry : resHeaders.entrySet()) {
             String name = entry.getKey();
             if (name == null)
                 continue; // http/1.1 line
 
             List<String> values = entry.getValue();
-            if (name.equalsIgnoreCase("Set-Cookie")) {
+            if (name.equalsIgnoreCase(HttpHeader.SET_COOKIE)) {
                 for (String value : values) {
                     if (value == null)
                         continue;
@@ -648,20 +648,6 @@ public class HttpResponse extends HttpBase<Connection.Response> implements Conne
             }
         }
         w.close();
-    }
-
-    private static String getRequestCookieString(Connection.Request req) {
-        StringBuilder sb = StringUtil.borrowBuilder();
-        boolean first = true;
-        for (Map.Entry<String, String> cookie : req.cookies().entrySet()) {
-            if (!first)
-                sb.append("; ");
-            else
-                first = false;
-            sb.append(cookie.getKey()).append('=').append(cookie.getValue());
-            // todo: spec says only ascii, no escaping / encoding defined. validate on set? or escape somehow here?
-        }
-        return StringUtil.releaseBuilder(sb);
     }
 
     private static String encodeMimeName(String val) {

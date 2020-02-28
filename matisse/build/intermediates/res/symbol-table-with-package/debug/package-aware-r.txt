@@ -441,6 +441,7 @@ attr noNetworkView
 attr numericModifiers
 attr offsetSize
 attr overlapAnchor
+attr pad
 attr paddingBottomNoButtons
 attr paddingEnd
 attr paddingStart
@@ -454,6 +455,8 @@ attr passwordToggleDrawable
 attr passwordToggleEnabled
 attr passwordToggleTint
 attr passwordToggleTintMode
+attr pet_iconHide
+attr pet_iconShow
 attr popupMenuStyle
 attr popupTheme
 attr popupWindowStyle
@@ -533,6 +536,7 @@ attr spinnerStyle
 attr splitTrack
 attr srcCompat
 attr stackFromEnd
+attr start
 attr state_above_anchor
 attr state_collapsed
 attr state_collapsible
@@ -1351,6 +1355,8 @@ drawable ic_preview_radio_on
 drawable ic_radio_button_checked_black_24dp
 drawable ic_radio_button_unchecked_black_24dp
 drawable ic_search_black_24dp
+drawable ic_visibility_black_24dp
+drawable ic_visibility_off_black_24dp
 drawable ic_warning_outline_white
 drawable ic_warning_white_48dp
 drawable item_selector
@@ -2624,6 +2630,7 @@ styleable MenuItem actionLayout actionProviderClass actionViewClass alphabeticMo
 styleable MenuView android_headerBackground android_horizontalDivider android_itemBackground android_itemIconDisabledAlpha android_itemTextAppearance android_verticalDivider android_windowAnimationStyle preserveIconSpacing subMenuArrow
 styleable MultipleStatusView contentView emptyView errorView loadingView noNetworkView
 styleable NavigationView android_background android_fitsSystemWindows android_maxWidth elevation headerLayout itemBackground itemHorizontalPadding itemIconPadding itemIconTint itemTextAppearance itemTextColor menu
+styleable PasswordEditText pad pet_iconHide pet_iconShow start
 styleable PopLayout bulgeSize offsetSize radiusSize siteMode
 styleable PopupWindow android_popupAnimationStyle android_popupBackground overlapAnchor
 styleable PopupWindowBackgroundState state_above_anchor

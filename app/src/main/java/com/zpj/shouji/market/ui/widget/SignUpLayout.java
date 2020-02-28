@@ -2,23 +2,27 @@ package com.zpj.shouji.market.ui.widget;
 
 import android.content.Context;
 import android.support.annotation.Nullable;
+import android.text.Editable;
+import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.felix.atoast.library.AToast;
 import com.zpj.shouji.market.R;
-import com.zpj.shouji.market.utils.HttpApi;
 import com.zpj.shouji.market.utils.UserManager;
-import com.zpj.utils.KeyboardUtil;
 import com.zpj.utils.ScreenUtils;
+import com.zpj.widget.editor.EditTextWithClear;
+import com.zpj.widget.editor.PasswordEditText;
+import com.zpj.widget.editor.validator.LengthValidator;
 
-public class SignUpLayout extends LinearLayout {
+public class SignUpLayout extends LinearLayout implements UserManager.OnLoginListener {
 
-    private EditText etAccount;
-    private EditText etPassword;
+    private EditTextWithClear etAccount;
+    private PasswordEditText etPassword;
 
     private TextView tvFogotPassword;
     private TextView tvLoginFailed;
@@ -45,27 +49,44 @@ public class SignUpLayout extends LinearLayout {
         setPadding(padding, padding, padding, padding);
 
         etAccount = findViewById(R.id.et_account);
+        etAccount.addValidator(new LengthValidator("账号长度必须在3-20之间", 3, 20));
+
         etPassword = findViewById(R.id.et_password);
+        etPassword.addValidator(new LengthValidator("密码长度不能小于6", 6, Integer.MAX_VALUE));
+
         tvFogotPassword = findViewById(R.id.tv_forgot_password);
         tvLoginFailed = findViewById(R.id.tv_login_failed);
         tvSignUp = findViewById(R.id.tv_sign_up);
         tvSignUp.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                String account = etAccount.getText().toString();
-                String password = etPassword.getText().toString();
-                UserManager.getInstance().login(account, password);
+                if (etAccount.isValid() && etPassword.isValid()) {
+                    String account = etAccount.getText().toString();
+                    String password = etPassword.getText().toString();
+                    UserManager.getInstance().login(account, password);
+                }
             }
         });
     }
 
-    public String getAccountText() {
-        return etAccount.getText().toString();
+    @Override
+    public void clearFocus() {
+        super.clearFocus();
+        if (etAccount != null) {
+            etAccount.clearFocus();
+        }
+        if (etPassword != null) {
+            etPassword.clearFocus();
+        }
     }
 
-    public String getPasswordText() {
-        return etPassword.getText().toString();
-    }
+    //    public String getAccountText() {
+//        return etAccount.getText().toString();
+//    }
+//
+//    public String getPasswordText() {
+//        return etPassword.getText().toString();
+//    }
 
     public void setOnSignUpClickListener(OnClickListener listener) {
         tvSignUp.setOnClickListener(listener);
@@ -77,4 +98,17 @@ public class SignUpLayout extends LinearLayout {
         tvSignUp.setOnClickListener(listener);
     }
 
+    @Override
+    public void onLoginSuccess() {
+
+    }
+
+    @Override
+    public void onLoginFailed(String errInfo) {
+        AToast.error("onLoginFailed " + errInfo);
+        etAccount.setError(errInfo);
+//        if ("".equals(errInfo)) {
+//
+//        }
+    }
 }

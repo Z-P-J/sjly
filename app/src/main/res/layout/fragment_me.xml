@@ -21,7 +21,7 @@
 
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="280dp"
+                android:layout_height="300dp"
                 android:orientation="vertical"
                 android:tag="header"
                 >
@@ -35,6 +35,7 @@
                     android:tag="zoom"/>
 
                 <RelativeLayout
+                    android:id="@+id/rl_icon"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_above="@id/ll_name"
@@ -49,6 +50,19 @@
                         android:src="@drawable/ic_user_head"
                         android:layout_centerVertical="true"
                         app:is_circle="true"
+                        />
+
+                    <TextView
+                        android:id="@+id/tv_check_in"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:background="@drawable/bg_button_round_red"
+                        android:gravity="center"
+                        android:text="签到"
+                        android:textColor="@android:color/white"
+                        android:layout_centerVertical="true"
+                        android:layout_toStartOf="@id/tv_follow"
                         />
 
                     <TextView
@@ -155,7 +169,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="2dp"
-                    android:maxLines="2"
+                    android:maxLines="3"
                     android:ellipsize="end"
                     android:text="手机乐园，发现应用的乐趣"
                     android:textColor="@android:color/white"

@@ -19,8 +19,8 @@ public abstract class HttpBase<T extends Connection.Base> implements Connection.
 
     protected URL url;
     protected Connection.Method method;
-    protected Map<String, List<String>> headers;
-    protected Map<String, String> cookies;
+    protected final Map<String, List<String>> headers;
+    protected final Map<String, String> cookies;
 
     public HttpBase() {
         headers = new LinkedHashMap<>();
@@ -224,4 +224,18 @@ public abstract class HttpBase<T extends Connection.Base> implements Connection.
         return cookies;
     }
 
+    @Override
+    public String cookieStr() {
+        StringBuilder sb = StringUtil.borrowBuilder();
+        boolean first = true;
+        for (Map.Entry<String, String> cookie : cookies.entrySet()) {
+            if (!first)
+                sb.append("; ");
+            else
+                first = false;
+            sb.append(cookie.getKey()).append('=').append(cookie.getValue());
+            // todo: spec says only ascii, no escaping / encoding defined. validate on set? or escape somehow here?
+        }
+        return StringUtil.releaseBuilder(sb);
+    }
 }

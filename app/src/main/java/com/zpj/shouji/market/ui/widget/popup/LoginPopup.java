@@ -44,6 +44,9 @@ public class LoginPopup extends CenterPopupView
     private AutoSizeViewPager viewPager;
     private int currentPosition = 0;
 
+    private SignUpLayout signUpLayout;
+    private SignInLayout signInLayout;
+
 
     public static LoginPopup with(Context context) {
         return new LoginPopup(context);
@@ -62,12 +65,17 @@ public class LoginPopup extends CenterPopupView
     @Override
     protected void onCreate() {
         super.onCreate();
-        UserManager.getInstance().addOnLoginListener(this);
+        if (!UserManager.getInstance().isLogin()) {
+            UserManager.getInstance().addOnLoginListener(this);
+        }
         List<View> list = new ArrayList<>();
-        SignUpLayout signUpLayout = new SignUpLayout(getContext());
-        SignInLayout signInLayout = new SignInLayout(getContext());
+        signUpLayout = new SignUpLayout(getContext());
+        signInLayout = new SignInLayout(getContext());
         list.add(signUpLayout);
         list.add(signInLayout);
+
+        UserManager.getInstance().addOnLoginListener(signUpLayout);
+        UserManager.getInstance().addOnSignInListener(signInLayout);
 
         ZToolbar toolbar = findViewById(R.id.tool_bar);
         toolbar.getRightImageButton().setOnClickListener(v -> dismiss());
@@ -75,6 +83,22 @@ public class LoginPopup extends CenterPopupView
         viewPager.setAdapter(new LoginPagerAdapter(list));
         // 注意：AutoSizeViewPager#setOffscreenPageLimit一定要设置为view的数量，否则将无法获取一些view的高度
         viewPager.setOffscreenPageLimit(list.size());
+        viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int i, float v, int i1) {
+
+            }
+
+            @Override
+            public void onPageSelected(int i) {
+                list.get(list.size() - i - 1).clearFocus();
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int i) {
+
+            }
+        });
         MagicIndicator magicIndicator = (MagicIndicator) toolbar.getCenterCustomView();
         CommonNavigator navigator = new CommonNavigator(getContext());
         navigator.setAdapter(new CommonNavigatorAdapter() {
@@ -90,7 +114,7 @@ public class LoginPopup extends CenterPopupView
                 titleView.setSelectedColor(getResources().getColor(R.color.colorPrimary));
                 titleView.setTextSize(14);
                 titleView.setText(TAB_TITLES[index]);
-                titleView.setOnClickListener(view1 -> viewPager.setCurrentItem(index));
+                titleView.setOnClickListener(view1 -> viewPager.setCurrentItem(index, true));
                 return titleView;
             }
 
@@ -113,6 +137,8 @@ public class LoginPopup extends CenterPopupView
     @Override
     protected void onDismiss() {
         super.onDismiss();
+        UserManager.getInstance().removeOnLoginListener(signUpLayout);
+        UserManager.getInstance().removeOnSignInListener(signInLayout);
         UserManager.getInstance().removeOnLoginListener(this);
     }
 
