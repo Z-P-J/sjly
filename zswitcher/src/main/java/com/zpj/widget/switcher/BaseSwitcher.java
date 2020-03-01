@@ -119,16 +119,16 @@ public abstract class BaseSwitcher extends View {
     }
 
     protected void initAttributes(Context context, AttributeSet attrs, int defStyleAttr) {
-        TypedArray typedArray = context.obtainStyledAttributes(attrs, R.styleable.Switcher,
+        TypedArray typedArray = context.obtainStyledAttributes(attrs, R.styleable.BaseSwitcher,
                 defStyleAttr, R.style.Switcher);
 
-        switchElevation = typedArray.getDimension(R.styleable.Switcher_switcher_elevation, 0f);
+        switchElevation = typedArray.getDimension(R.styleable.BaseSwitcher_switcher_elevation, 0f);
 
-        onColor = typedArray.getColor(R.styleable.Switcher_switcher_on_color, 0);
-        offColor = typedArray.getColor(R.styleable.Switcher_switcher_off_color, 0);
-        iconColor = typedArray.getColor(R.styleable.Switcher_switcher_icon_color, 0);
+        onColor = typedArray.getColor(R.styleable.BaseSwitcher_switcher_on_color, 0);
+        offColor = typedArray.getColor(R.styleable.BaseSwitcher_switcher_off_color, 0);
+        iconColor = typedArray.getColor(R.styleable.BaseSwitcher_switcher_icon_color, 0);
 
-        isChecked = typedArray.getBoolean(R.styleable.Switcher_android_checked, true);
+        isChecked = typedArray.getBoolean(R.styleable.BaseSwitcher_android_checked, true);
 
         if (!isChecked) {
             setIconProgress(1f);
@@ -138,8 +138,8 @@ public abstract class BaseSwitcher extends View {
 
         iconPaint.setColor(iconColor);
 
-        defHeight = typedArray.getDimensionPixelOffset(R.styleable.Switcher_switcher_height, 0);
-        defWidth = typedArray.getDimensionPixelOffset(R.styleable.Switcher_switcher_width, 0);
+        defHeight = typedArray.getDimensionPixelOffset(R.styleable.BaseSwitcher_switcher_height, 0);
+        defWidth = typedArray.getDimensionPixelOffset(R.styleable.BaseSwitcher_switcher_width, 0);
 
         typedArray.recycle();
 

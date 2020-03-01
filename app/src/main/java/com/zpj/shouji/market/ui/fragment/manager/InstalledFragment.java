@@ -9,8 +9,6 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
@@ -25,17 +23,19 @@ import com.zpj.downloader.util.notification.NotifyUtil;
 import com.zpj.popupmenuview.OptionMenu;
 import com.zpj.popupmenuview.OptionMenuView;
 import com.zpj.popupmenuview.PopupMenuView;
-import com.zpj.recyclerview.loadmore.LoadMoreAdapter;
-import com.zpj.recyclerview.loadmore.LoadMoreWrapper;
+import com.zpj.recyclerview.EasyAdapter;
+import com.zpj.recyclerview.EasyRecyclerLayout;
+import com.zpj.recyclerview.EasyViewHolder;
 import com.zpj.shouji.market.R;
+import com.zpj.shouji.market.glide.GlideApp;
 import com.zpj.shouji.market.model.InstalledAppInfo;
-import com.zpj.shouji.market.ui.adapter.AppManagerAdapter;
-import com.zpj.fragmentation.BaseFragment;
+import com.zpj.shouji.market.ui.fragment.base.RecyclerLayoutFragment;
 import com.zpj.shouji.market.ui.fragment.detail.AppDetailFragment;
 import com.zpj.shouji.market.ui.widget.GradientButton;
 import com.zpj.shouji.market.ui.widget.popup.RecyclerPopup;
 import com.zpj.shouji.market.utils.AppBackupHelper;
 import com.zpj.shouji.market.utils.AppInstalledManager;
+import com.zpj.shouji.market.utils.AppUpdateHelper;
 import com.zpj.shouji.market.utils.AppUtil;
 import com.zpj.utils.ScreenUtils;
 
@@ -46,8 +46,8 @@ import com.zpj.widget.SmoothCheckBox;
 
 import me.yokeyword.fragmentation.SupportActivity;
 
-public class InstalledFragment extends BaseFragment implements AppManagerAdapter.OnItemClickListener,
-        AppInstalledManager.CallBack,
+public class InstalledFragment extends RecyclerLayoutFragment<InstalledAppInfo>
+        implements AppInstalledManager.CallBack,
         AppBackupHelper.AppBackupListener {
 
     private static final List<OptionMenu> optionMenus = new ArrayList<>();
@@ -60,16 +60,12 @@ public class InstalledFragment extends BaseFragment implements AppManagerAdapter
         optionMenus.add(new OptionMenu("打开"));
     }
 
-//    private LoadAppTask loadAppTask;
-
-    private final List<InstalledAppInfo> installedAppInfos = new ArrayList<>();
     private static final List<InstalledAppInfo> USER_APP_LIST = new ArrayList<>();
     private static final List<InstalledAppInfo> SYSTEM_APP_LIST = new ArrayList<>();
     private static final List<InstalledAppInfo> BACKUP_APP_LIST = new ArrayList<>();
     private static final List<InstalledAppInfo> FORBID_APP_LIST = new ArrayList<>();
     private static final List<InstalledAppInfo> HIDDEN_APP_LIST = new ArrayList<>();
-    private AppManagerAdapter adapter;
-    private RecyclerView recyclerView;
+
     private SmoothCheckBox checkBox;
 
     private TextView infoTextView;
@@ -80,18 +76,21 @@ public class InstalledFragment extends BaseFragment implements AppManagerAdapter
 
     private int sortPosition = 0;
 
+    private boolean isLoading = false;
+
     @Override
     protected int getLayoutId() {
         return R.layout.fragment_installed;
     }
 
     @Override
-    protected boolean supportSwipeBack() {
-        return false;
+    protected int getItemLayoutId() {
+        return R.layout.layout_installed_app;
     }
 
     @Override
     protected void initView(View view, @Nullable Bundle savedInstanceState) {
+        super.initView(view, savedInstanceState);
         infoTextView = view.findViewById(R.id.text_info);
         infoTextView.setText("扫描中...");
         titleTextView = view.findViewById(R.id.text_title);
@@ -101,48 +100,69 @@ public class InstalledFragment extends BaseFragment implements AppManagerAdapter
 
         uninstallBtn = view.findViewById(R.id.btn_uninstall);
         uninstallBtn.setOnClickListener(v -> {
-            AToast.normal(adapter.getSelectedSet().toString());
-            for (int position : adapter.getSelectedSet()) {
-                AppUtil.uninstallApp(_mActivity, installedAppInfos.get(position).getPackageName());
+            AToast.normal(recyclerLayout.getSelectedSet().toString());
+            for (int position : recyclerLayout.getSelectedSet()) {
+                AppUtil.uninstallApp(_mActivity, data.get(position).getPackageName());
             }
         });
         backupBtn = view.findViewById(R.id.btn_backup);
         backupBtn.setOnClickListener(v -> {
-            AToast.normal(adapter.getSelectedSet().toString());
+            AToast.normal(recyclerLayout.getSelectedSet().toString());
             AppBackupHelper.getInstance()
                     .addAppBackupListener(this)
-                    .startBackup(installedAppInfos, adapter.getSelectedSet());
+                    .startBackup(recyclerLayout.getSelectedItem());
         });
 
         checkBox = view.findViewById(R.id.checkbox);
         checkBox.setOnClickListener(v -> {
             if (checkBox.isChecked()) {
-                adapter.unSelectAll();
+                recyclerLayout.unSelectAll();
             } else {
-                adapter.selectAll();
+                recyclerLayout.selectAll();
             }
         });
+    }
 
-        adapter = new AppManagerAdapter(installedAppInfos);
-        adapter.setItemClickListener(this);
-        recyclerView = view.findViewById(R.id.recycler_view);
-        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        recyclerView.setAdapter(adapter);
-        LoadMoreWrapper.with(adapter)
-                .setLoadMoreEnabled(false)
-                .setListener(new LoadMoreAdapter.OnLoadMoreListener() {
+    @Override
+    public void onDestroy() {
+        AppBackupHelper.getInstance().removeAppBackupListener(this);
+        AppInstalledManager.getInstance().removeListener(this);
+        super.onDestroy();
+    }
+
+    @Override
+    protected void buildRecyclerLayout(EasyRecyclerLayout<InstalledAppInfo> recyclerLayout) {
+        recyclerLayout.setEnableSwipeRefresh(false)
+                .setEnableSelection(true)
+                .setOnSelectChangeListener(new EasyRecyclerLayout.OnSelectChangeListener<InstalledAppInfo>() {
                     @Override
-                    public void onLoadMore(LoadMoreAdapter.Enabled enabled) {
-                        recyclerView.postDelayed(new Runnable() {
-                            @Override
-                            public void run() {
-                                // 获取数据
-                                loadInstallApps();
-                            }
-                        }, 1);
+                    public void onSelectModeChange(boolean selectMode) {
+                        if (selectMode) {
+                            enterSelectModeAnim();
+                        } else {
+                            exitSelectModeAnim();
+                        }
+                        infoTextView.setText("共计：" + data.size() + " | 已选：" + recyclerLayout.getSelectedCount());
                     }
-                })
-                .into(recyclerView);
+
+                    @Override
+                    public void onChange(List<InstalledAppInfo> list, int position, boolean isChecked) {
+                        infoTextView.setText("共计：" + data.size() + " | 已选：" + recyclerLayout.getSelectedCount());
+                    }
+
+                    @Override
+                    public void onSelectAll() {
+                        checkBox.setChecked(true, true);
+                        infoTextView.setText("共计：" + data.size() + " | 已选：" + recyclerLayout.getSelectedCount());
+                    }
+
+                    @Override
+                    public void onUnSelectAll() {
+                        checkBox.setChecked(false, true);
+                        infoTextView.setText("共计：" + data.size() + " | 已选：0");
+                    }
+                });
+        recyclerLayout.showContent();
     }
 
     @Override
@@ -158,129 +178,59 @@ public class InstalledFragment extends BaseFragment implements AppManagerAdapter
         }
     }
 
-
-    private void loadInstallApps() {
-        USER_APP_LIST.clear();
-        SYSTEM_APP_LIST.clear();
-        BACKUP_APP_LIST.clear();
-        FORBID_APP_LIST.clear();
-        HIDDEN_APP_LIST.clear();
-//        loadAppTask = LoadAppTask.with(this)
-//                .setCallBack(this);
-//        loadAppTask.execute();
-        AppInstalledManager.getInstance()
-                .addListener(this)
-                .loadApps(context);
-
-    }
-
-    private void showFilterPopWindow() {
-        RecyclerPopup.with(context)
-                .addItems("用户应用", "系统应用", "已备份", "已禁用", "已隐藏")
-                .setSelectedItem(sortPosition)
-                .setOnItemClickListener((view, title, position) -> {
-                    sortPosition = position;
-                    titleTextView.setText(title);
-                    installedAppInfos.clear();
-                    switch (position) {
-                        case 0:
-                            installedAppInfos.addAll(USER_APP_LIST);
-                            break;
-                        case 1:
-                            installedAppInfos.addAll(SYSTEM_APP_LIST);
-                            break;
-                        case 2:
-                            installedAppInfos.addAll(BACKUP_APP_LIST);
-                            break;
-                        case 3:
-                            installedAppInfos.addAll(FORBID_APP_LIST);
-                            break;
-                        case 4:
-                            installedAppInfos.addAll(HIDDEN_APP_LIST);
-                            break;
-                        default:
-                            break;
-                    }
-                    infoTextView.setText("共计：" + installedAppInfos.size() + " | 已选：0");
-                    adapter.notifyDataSetChanged();
-                })
-                .show(titleTextView);
-    }
-
     @Override
-    public void onItemClick(AppManagerAdapter.ViewHolder holder, int position, InstalledAppInfo updateInfo) {
-        if (TextUtils.isEmpty(updateInfo.getId()) || TextUtils.isEmpty(updateInfo.getAppType())) {
+    public void onClick(EasyViewHolder holder, View view, InstalledAppInfo data) {
+        if (TextUtils.isEmpty(data.getId()) || TextUtils.isEmpty(data.getAppType())) {
             return;
         }
-//        findFragment(MainFragment.class).start(AppDetailFragment.newInstance(updateInfo));
         if (getActivity() instanceof SupportActivity) {
-            ((SupportActivity) getActivity()).start(AppDetailFragment.newInstance(updateInfo));
+            _mActivity.start(AppDetailFragment.newInstance(data));
         }
     }
 
     @Override
-    public void onMenuClicked(View view, InstalledAppInfo appInfo) {
-        PopupMenuView popupMenuView = new PopupMenuView(getContext());
-        popupMenuView.setOrientation(LinearLayout.HORIZONTAL)
-                .setMenuItems(optionMenus)
-                .setBackgroundAlpha(getActivity(), 0.9f, 500)
-                .setBackgroundColor(Color.WHITE)
-                .setOnMenuClickListener(new OptionMenuView.OnOptionMenuClickListener() {
-                    @Override
-                    public boolean onOptionMenuClick(int position, OptionMenu menu) {
-                        popupMenuView.dismiss();
-                        switch (position) {
-                            case 0:
-                                AToast.normal("详细信息");
-                                break;
-                            case 1:
-                                AToast.normal(appInfo.getApkFilePath());
-                                AppUtil.shareApk(getContext(), appInfo.getApkFilePath());
-                                break;
-                            case 2:
-                                AppUtil.uninstallApp(getActivity(), appInfo.getPackageName());
-                                break;
-                            case 3:
-                                AppUtil.openApp(getContext(), appInfo.getPackageName());
-                                break;
-                            default:
-                                AToast.warning("未知操作！");
-                                break;
-                        }
-                        return true;
-                    }
-                }).show(view);
-    }
-
-    @Override
-    public void onCheckBoxClicked(int allCount, int selectCount) {
-        boolean isSelectAll = selectCount == allCount;
-//        installedInfo.setText("总计：" + allCount);
-        infoTextView.setText("共计：" + installedAppInfos.size() + " | 已选：" + selectCount);
-        if (checkBox.isChecked() == isSelectAll) {
-            return;
+    public boolean onLongClick(EasyViewHolder holder, View view, InstalledAppInfo data) {
+        if (!recyclerLayout.isSelectMode()) {
+            recyclerLayout.getSelectedSet().add(holder.getAdapterPosition());
+            recyclerLayout.enterSelectMode();
+            enterSelectModeAnim();
+            return true;
         }
-        checkBox.setChecked(isSelectAll, true);
+        return false;
     }
 
     @Override
-    public void onEnterSelectMode() {
-        enterSelectModeAnim();
+    public void onBindViewHolder(EasyViewHolder holder, List<InstalledAppInfo> list, int position, List<Object> payloads) {
+        InstalledAppInfo appInfo = list.get(position);
+        Log.d("onBindViewHolder", "name=" + appInfo.getName());
+        Log.d("onBindViewHolder", "size=" + appInfo.getFileLength());
+
+
+        GlideApp.with(context).load(appInfo).into(holder.getImageView(R.id.iv_icon));
+
+        holder.getTextView(R.id.tv_name).setText(appInfo.getName());
+        String idStr = AppUpdateHelper.getInstance().getAppIdAndType(appInfo.getPackageName());
+        String info;
+        if (idStr == null) {
+            info = "未收录";
+        } else {
+            info = "已收录";
+        }
+        holder.getTextView(R.id.tv_info).setText(appInfo.getVersionName() + " | " + appInfo.getFormattedAppSize() + " | " + info);
+
+        holder.getView(R.id.layout_right).setOnClickListener(v -> {
+            onMenuClicked(v, appInfo);
+        });
     }
 
     @Override
-    public void onExitSelectMode() {
-        exitSelectModeAnim();
-    }
-
-    @Override
-    public void onDestroy() {
-        AppBackupHelper.getInstance().removeAppBackupListener(this);
-//        if (loadAppTask != null) {
-//            loadAppTask.onDestroy();
-//        }
-        AppInstalledManager.getInstance().removeListener(this);
-        super.onDestroy();
+    public boolean onLoadMore(EasyAdapter.Enabled enabled, int currentPage) {
+        if (isLoading) {
+            return false;
+        }
+        isLoading = true;
+        loadInstallApps();
+        return true;
     }
 
     @Override
@@ -310,17 +260,18 @@ public class InstalledFragment extends BaseFragment implements AppManagerAdapter
 
     @Override
     public void onLoadAppFinished() {
-        installedAppInfos.clear();
-        installedAppInfos.addAll(USER_APP_LIST);
+        data.clear();
+        data.addAll(USER_APP_LIST);
         titleTextView.setText("用户应用");
-        infoTextView.setText("共计：" + installedAppInfos.size() + " | 已选：0");
-        adapter.notifyDataSetChanged();
+        infoTextView.setText("共计：" + data.size() + " | 已选：0");
+        recyclerLayout.notifyDataSetChanged();
     }
 
     @Override
     public boolean onBackPressedSupport() {
-        if (adapter.isSelectMode()) {
-            adapter.exitSelectMode();
+        if (recyclerLayout.isSelectMode()) {
+            recyclerLayout.exitSelectMode();
+            exitSelectModeAnim();
             return true;
         }
         return super.onBackPressedSupport();
@@ -357,6 +308,84 @@ public class InstalledFragment extends BaseFragment implements AppManagerAdapter
                 .show();
     }
 
+
+    private void loadInstallApps() {
+        USER_APP_LIST.clear();
+        SYSTEM_APP_LIST.clear();
+        BACKUP_APP_LIST.clear();
+        FORBID_APP_LIST.clear();
+        HIDDEN_APP_LIST.clear();
+        AppInstalledManager.getInstance()
+                .addListener(this)
+                .loadApps(context);
+    }
+
+    private void showFilterPopWindow() {
+        RecyclerPopup.with(context)
+                .addItems("用户应用", "系统应用", "已备份", "已禁用", "已隐藏")
+                .setSelectedItem(sortPosition)
+                .setOnItemClickListener((view, title, position) -> {
+                    sortPosition = position;
+                    titleTextView.setText(title);
+                    data.clear();
+                    switch (position) {
+                        case 0:
+                            data.addAll(USER_APP_LIST);
+                            break;
+                        case 1:
+                            data.addAll(SYSTEM_APP_LIST);
+                            break;
+                        case 2:
+                            data.addAll(BACKUP_APP_LIST);
+                            break;
+                        case 3:
+                            data.addAll(FORBID_APP_LIST);
+                            break;
+                        case 4:
+                            data.addAll(HIDDEN_APP_LIST);
+                            break;
+                        default:
+                            break;
+                    }
+                    infoTextView.setText("共计：" + data.size() + " | 已选：0");
+                    recyclerLayout.notifyDataSetChanged();
+                })
+                .show(titleTextView);
+    }
+
+    public void onMenuClicked(View view, InstalledAppInfo appInfo) {
+        PopupMenuView popupMenuView = new PopupMenuView(getContext());
+        popupMenuView.setOrientation(LinearLayout.HORIZONTAL)
+                .setMenuItems(optionMenus)
+                .setBackgroundAlpha(getActivity(), 0.9f, 500)
+                .setBackgroundColor(Color.WHITE)
+                .setOnMenuClickListener(new OptionMenuView.OnOptionMenuClickListener() {
+                    @Override
+                    public boolean onOptionMenuClick(int position, OptionMenu menu) {
+                        popupMenuView.dismiss();
+                        switch (position) {
+                            case 0:
+                                AToast.normal("详细信息");
+                                break;
+                            case 1:
+                                AToast.normal(appInfo.getApkFilePath());
+                                AppUtil.shareApk(context, appInfo.getApkFilePath());
+                                break;
+                            case 2:
+                                AppUtil.uninstallApp(_mActivity, appInfo.getPackageName());
+                                break;
+                            case 3:
+                                AppUtil.openApp(getContext(), appInfo.getPackageName());
+                                break;
+                            default:
+                                AToast.warning("未知操作！");
+                                break;
+                        }
+                        return true;
+                    }
+                }).show(view);
+    }
+
     private void enterSelectModeAnim() {
         AToast.normal("enterSelectModeAnim");
         if (bottomLayout.getVisibility() == View.VISIBLE)
@@ -369,8 +398,8 @@ public class InstalledFragment extends BaseFragment implements AppManagerAdapter
 
 
         ValueAnimator valueAnimator = ValueAnimator.ofFloat(0, bottomLayoutHeight);
-        int height1 = recyclerView.getHeight();
-        int height = ((ViewGroup) recyclerView.getParent()).getMeasuredHeight() - recyclerView.getTop();
+        int height1 = recyclerLayout.getHeight();
+        int height = ((ViewGroup) recyclerLayout.getParent()).getMeasuredHeight() - recyclerLayout.getTop();
         Log.d("enterSelectModeAnim", "height1=" + height1);
         Log.d("enterSelectModeAnim", "height=" + height);
         Log.d("enterSelectModeAnim", "bottomLayout.getHeight()=" + bottomLayout.getHeight());
@@ -379,9 +408,9 @@ public class InstalledFragment extends BaseFragment implements AppManagerAdapter
             public void onAnimationUpdate(ValueAnimator animation) {
                 float value = (float) animation.getAnimatedValue();
                 Log.d("enterSelectModeAnim", "value=" + value);
-                ViewGroup.LayoutParams params = recyclerView.getLayoutParams();
+                ViewGroup.LayoutParams params = recyclerLayout.getLayoutParams();
                 params.height = (int) (height - value);
-                recyclerView.setLayoutParams(params);
+                recyclerLayout.setLayoutParams(params);
             }
         });
 
@@ -422,15 +451,15 @@ public class InstalledFragment extends BaseFragment implements AppManagerAdapter
         });
 
         ValueAnimator valueAnimator = ValueAnimator.ofFloat(0, y);
-        int height = recyclerView.getHeight();
+        int height = recyclerLayout.getHeight();
         valueAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
             @Override
             public void onAnimationUpdate(ValueAnimator animation) {
                 float value = (float) animation.getAnimatedValue();
                 Log.d("exitSelectModeAnim", "value=" + value);
-                ViewGroup.LayoutParams params = recyclerView.getLayoutParams();
+                ViewGroup.LayoutParams params = recyclerLayout.getLayoutParams();
                 params.height = (int) (height + value);
-                recyclerView.setLayoutParams(params);
+                recyclerLayout.setLayoutParams(params);
             }
         });
 
@@ -439,28 +468,6 @@ public class InstalledFragment extends BaseFragment implements AppManagerAdapter
         animatorSet.setDuration(500);
         animatorSet.playTogether(valueAnimator, translationY);
         animatorSet.start();
-
-//        TranslateAnimation mHiddenAction = new TranslateAnimation(Animation.RELATIVE_TO_SELF, 0.0f,
-//                Animation.RELATIVE_TO_SELF, 0.0f, Animation.RELATIVE_TO_SELF,
-//                0.0f, Animation.RELATIVE_TO_SELF, 1.0f);
-//        mHiddenAction.setDuration(500);
-//        bottomLayout.clearAnimation();
-//        bottomLayout.setAnimation(mHiddenAction);
-//        mHiddenAction.setAnimationListener(new Animation.AnimationListener() {
-//            @Override
-//            public void onAnimationStart(Animation animation) {
-//
-//            }
-//
-//            @Override
-//            public void onAnimationEnd(Animation animation) {
-//                bottomLayout.setVisibility(View.GONE);
-//            }
-//
-//            @Override
-//            public void onAnimationRepeat(Animation animation) {
-//
-//            }
-//        });
     }
+
 }

@@ -150,7 +150,7 @@ public class AppRecommendFragment extends BaseFragment
 
         @Override
         public int getChildLayoutId(int viewType) {
-            return R.layout.layout_recycler_view;
+            return R.layout.layout_recycler_card_view;
         }
 
         @Override

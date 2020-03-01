@@ -1,10 +1,6 @@
 package com.zpj.shouji.market.model;
 
-import android.graphics.drawable.Drawable;
-
-import com.zpj.shouji.market.utils.FileScanner;
-
-public class InstalledAppInfo implements FileScanner.FileItem {
+public class InstalledAppInfo {
 
     private String name;
     private String packageName;
@@ -29,13 +25,12 @@ public class InstalledAppInfo implements FileScanner.FileItem {
     private boolean enabled = true;
     private boolean isBackuped = false;
     private boolean isUserApp = true;
+    private boolean isDamaged = false;
 
-    @Override
     public String getFilePath() {
         return apkFilePath;
     }
 
-    @Override
     public long getFileLength() {
         return appSize;
     }
@@ -179,5 +174,13 @@ public class InstalledAppInfo implements FileScanner.FileItem {
 
     public boolean isUserApp() {
         return isUserApp;
+    }
+
+    public void setDamaged(boolean damaged) {
+        isDamaged = damaged;
+    }
+
+    public boolean isDamaged() {
+        return isDamaged;
     }
 }

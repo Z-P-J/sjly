@@ -1,17 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<www.linwg.org.lib.LCardView
+<com.shehuan.niv.NiceImageView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/iv_img"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    app:cornerRadius="5dp"
-    >
-
-    <ImageView
-        android:id="@+id/img_view"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:scaleType="centerCrop"
-        />
-
-</www.linwg.org.lib.LCardView>
+    android:scaleType="centerCrop"
+    app:corner_radius="8dp"
+    />

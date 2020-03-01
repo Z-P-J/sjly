@@ -8,8 +8,6 @@ import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
 import android.widget.LinearLayout;
@@ -19,15 +17,17 @@ import com.felix.atoast.library.AToast;
 import com.zpj.popupmenuview.OptionMenu;
 import com.zpj.popupmenuview.OptionMenuView;
 import com.zpj.popupmenuview.PopupMenuView;
+import com.zpj.recyclerview.EasyAdapter;
+import com.zpj.recyclerview.EasyRecyclerLayout;
+import com.zpj.recyclerview.EasyViewHolder;
 import com.zpj.shouji.market.R;
+import com.zpj.shouji.market.glide.GlideApp;
 import com.zpj.shouji.market.model.InstalledAppInfo;
 import com.zpj.shouji.market.model.XpkInfo;
-import com.zpj.shouji.market.ui.adapter.AppManagerAdapter;
-import com.zpj.fragmentation.BaseFragment;
+import com.zpj.shouji.market.ui.fragment.base.RecyclerLayoutFragment;
 import com.zpj.shouji.market.ui.widget.popup.RecyclerPopup;
 import com.zpj.shouji.market.utils.AppUpdateHelper;
 import com.zpj.shouji.market.utils.AppUtil;
-import com.zpj.shouji.market.utils.FileScanner;
 import com.zpj.shouji.market.utils.FileUtils;
 
 import org.xmlpull.v1.XmlPullParserException;
@@ -40,10 +40,10 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.zip.ZipFile;
 
-public class PackageFragment extends BaseFragment
-        implements FileScanner.FileChecker,
-        FileScanner.ScanListener,
-        AppManagerAdapter.OnItemClickListener {
+import io.haydar.filescanner.FileInfo;
+import io.haydar.filescanner.FileScanner;
+
+public class PackageFragment extends RecyclerLayoutFragment<InstalledAppInfo> {
 
     private static final String TAG = "PackageFragment";
 
@@ -55,18 +55,14 @@ public class PackageFragment extends BaseFragment
         optionMenus.add(new OptionMenu("安装"));
     }
 
-    private final List<InstalledAppInfo> appInfoList = new ArrayList<>();
-    private AppManagerAdapter adapter;
-    private RecyclerView recyclerView;
-
-    private FileScanner fileScanner;
-
     private TextView sortTextView;
     private TextView infoTextView;
 
-    private long startTime;
+//    private long startTime;
 
     private int sortPosition = 0;
+
+    private int lastProgress = 0;
 
     @Override
     protected int getLayoutId() {
@@ -74,39 +70,34 @@ public class PackageFragment extends BaseFragment
     }
 
     @Override
-    protected boolean supportSwipeBack() {
-        return false;
+    protected int getItemLayoutId() {
+        return R.layout.layout_installed_app;
     }
 
     @Override
     protected void initView(View view, @Nullable Bundle savedInstanceState) {
+        super.initView(view, savedInstanceState);
         sortTextView = view.findViewById(R.id.text_sort);
         sortTextView.setOnClickListener(v -> showSortPopWindow());
-
         infoTextView = view.findViewById(R.id.text_info);
+    }
 
-        recyclerView = view.findViewById(R.id.recycler_view);
-        recyclerView.setTag(false);
-        adapter = new AppManagerAdapter(appInfoList);
-        adapter.setItemClickListener(this);
-        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        recyclerView.setAdapter(adapter);
-        loadApk();
+    @Override
+    protected void buildRecyclerLayout(EasyRecyclerLayout<InstalledAppInfo> recyclerLayout) {
+        super.buildRecyclerLayout(recyclerLayout);
+        recyclerLayout.setEnableSwipeRefresh(false).setEnableSelection(true);
+        recyclerLayout.showContent();
     }
 
     @Override
     public void onDestroy() {
-        if (fileScanner != null) {
-            fileScanner.cancel();
-            fileScanner = null;
-        }
         super.onDestroy();
     }
 
     @Override
     public boolean onBackPressedSupport() {
-        if (adapter.isSelectMode()) {
-            adapter.exitSelectMode();
+        if (recyclerLayout.isSelectMode()) {
+            recyclerLayout.exitSelectMode();
             return true;
         }
         return super.onBackPressedSupport();
@@ -124,41 +115,100 @@ public class PackageFragment extends BaseFragment
         }
     }
 
+    @Override
+    public void onClick(EasyViewHolder holder, View view, InstalledAppInfo data) {
+//        AToast.normal("todo 详细信息");
+        AppUtil.installApk(context, data.getApkFilePath());
+    }
+
+    @Override
+    public boolean onLongClick(EasyViewHolder holder, View view, InstalledAppInfo data) {
+        return false;
+    }
+
+    @Override
+    public void onBindViewHolder(EasyViewHolder holder, List<InstalledAppInfo> list, int position, List<Object> payloads) {
+        InstalledAppInfo appInfo = list.get(position);
+
+        holder.setText(R.id.tv_name, appInfo.getName());
+        holder.getView(R.id.layout_right).setOnClickListener(v -> {
+            onMenuClicked(v, appInfo);
+        });
+        if (appInfo.isDamaged()) {
+            holder.setText(R.id.tv_info, appInfo.getFormattedAppSize() + " | 已损坏");
+            holder.getImageView(R.id.iv_icon).setImageResource(R.drawable.wechat_icon_apk);
+        } else {
+            Log.d("onBindViewHolder", "name=" + appInfo.getName());
+            Log.d("onBindViewHolder", "size=" + appInfo.getFileLength());
+
+            GlideApp.with(context).load(appInfo).into(holder.getImageView(R.id.iv_icon));
+
+            String idStr = AppUpdateHelper.getInstance().getAppIdAndType(appInfo.getPackageName());
+            String info;
+            if (idStr == null) {
+                info = "未收录";
+            } else {
+                info = "已收录";
+            }
+            holder.setText(R.id.tv_info, appInfo.getVersionName() + " | " + appInfo.getFormattedAppSize() + " | " + info);
+        }
+    }
+
+    @Override
+    public boolean onLoadMore(EasyAdapter.Enabled enabled, int currentPage) {
+        if (data.isEmpty()) {
+            loadApk();
+            return true;
+        }
+        return false;
+    }
+
+
+
     private void loadApk() {
-        startTime = System.currentTimeMillis();
+//        startTime = System.currentTimeMillis();
 
-        fileScanner = FileScanner.with(context)
-                .setDirFilter(new FileScanner.DirFilter() {
+        FileScanner.getInstance(context).clear();
+        FileScanner.getInstance(context)
+                .setType(".apk")
+                .start(new FileScanner.ScannerListener() {
                     @Override
-                    public boolean accept(File dir) {
-                        String fileNameLowerCase = dir.getName().toLowerCase();
-
-                        String keyword = "tuniuapp";
-                        if (keyword.equalsIgnoreCase(fileNameLowerCase)) {
-                            return false;
-                        }
-
-                        keyword = "cache";
-                        if (keyword.equalsIgnoreCase(fileNameLowerCase) || fileNameLowerCase.endsWith(keyword)) {
-                            return false;
-                        }
-
-                        keyword = "log";
-                        if (keyword.equalsIgnoreCase(fileNameLowerCase) || fileNameLowerCase.endsWith(keyword)) {
-                            return false;
-                        }
-
-                        keyword = "dump";
-                        return !keyword.equalsIgnoreCase(fileNameLowerCase) && !fileNameLowerCase.endsWith(keyword);
+                    public void onScanBegin() {
+                        Log.d(TAG, "onScanBegin");
+                        post(() -> infoTextView.setText("扫描准备中..."));
                     }
-                })
-                .setFileChecker(this)
-                .setScanListener(this)
-                .execute();
+
+                    @Override
+                    public void onScanEnd() {
+                        Log.d(TAG, "onScanEnd");
+                        post(() -> infoTextView.setText("共" + data.size() + "个安装包"));
+                    }
+
+                    @Override
+                    public void onScanning(String paramString, int progress) {
+                        if (progress != lastProgress) {
+                            lastProgress = progress;
+                            post(() -> infoTextView.setText("已发现" + data.size() + "个安装包，已扫描" + progress + "%"));
+                        }
+                    }
+
+                    @Override
+                    public void onScanningFiles(FileInfo info, int type) {
+                        Log.d(TAG, "onScanningFiles");
+                        InstalledAppInfo appInfo = parseFromApk(context, new File(info.getFilePath()));
+                        if (appInfo != null) {
+                            synchronized (data) {
+                                post(() -> {
+                                    data.add(appInfo);
+                                    recyclerLayout.notifyItemInserted(data.size() - 1);
+                                });
+                            }
+                        }
+                    }
+                });
     }
 
     private void showSortPopWindow() {
-
         RecyclerPopup.with(context)
                 .addItems("按应用名称", "按占用空间", "按安装时间", "按更新时间", "按使用频率")
                 .setSelectedItem(sortPosition)
@@ -167,7 +217,7 @@ public class PackageFragment extends BaseFragment
                     sortTextView.setText(title);
                     switch (position) {
                         case 0:
-                            Collections.sort(appInfoList, new Comparator<InstalledAppInfo>() {
+                            Collections.sort(data, new Comparator<InstalledAppInfo>() {
                                 @Override
                                 public int compare(InstalledAppInfo o1, InstalledAppInfo o2) {
                                     return o1.getName().compareTo(o2.getName());
@@ -175,7 +225,7 @@ public class PackageFragment extends BaseFragment
                             });
                             break;
                         case 1:
-                            Collections.sort(appInfoList, new Comparator<InstalledAppInfo>() {
+                            Collections.sort(data, new Comparator<InstalledAppInfo>() {
                                 @Override
                                 public int compare(InstalledAppInfo o1, InstalledAppInfo o2) {
                                     return (int) (o1.getAppSize() - o2.getAppSize());
@@ -209,85 +259,37 @@ public class PackageFragment extends BaseFragment
                         default:
                             break;
                     }
-                    adapter.notifyDataSetChanged();
+                    recyclerLayout.notifyDataSetChanged();
                 })
                 .show(sortTextView);
-    }
-
-
-
-
-    // --------------------------------------FileScanner----------------------------------
-
-    @Override
-    public void onStarted() {
-        Log.d(TAG, "onStarted");
-    }
-
-    @Override
-    public void onFindFile(FileScanner.FileItem fileItem) {
-        Log.d(TAG, "onFindFile");
-        if (fileItem instanceof InstalledAppInfo) {
-            appInfoList.add((InstalledAppInfo) fileItem);
-            long currentTime = System.currentTimeMillis();
-            infoTextView.setText("已发现" + appInfoList.size() + "个安装包，用时" +  ((currentTime - startTime) / 1000) + "秒");
-            adapter.notifyItemInserted(appInfoList.size() - 1);
-        }
-    }
-
-    @Override
-    public void onCompleted() {
-        Log.d(TAG, "onCompleted");
-    }
-
-    @Override
-    public void onCanceled() {
-        Log.d(TAG, "onCanceled");
-    }
-
-    @Override
-    public void onScanDir(File dir) {
-        Log.d(TAG, "onScanDir dir=" + dir);
-    }
-
-    @Override
-    public FileScanner.FileItem accept(File pathname) {
-        Log.d(TAG, "accept pathname=" + pathname.getName());
-        if (pathname.isFile()) {
-            String subSuffix = FileUtils.subSuffix(pathname.getName());
-            if (".apk".equalsIgnoreCase(subSuffix)) {
-                return parseFromApk(getContext(), pathname);
-            } else if (".xpk".equalsIgnoreCase(subSuffix)) {
-                return parseFromXpk(pathname);
-            }
-        }
-        return null;
-    }
-
-    @Override
-    public void onFinished() {
-        Log.d(TAG, "onFinished");
     }
 
     private InstalledAppInfo parseFromApk(Context context, File file) {
         if (context == null) {
             return null;
         }
-        PackageInfo packageInfo;
+        PackageInfo packageInfo = null;
         PackageManager manager = context.getPackageManager();
         try {
             packageInfo = manager.getPackageArchiveInfo(file.getPath(), PackageManager.GET_ACTIVITIES);
         } catch (Throwable e) {
             e.printStackTrace();
-            return null;
-        }
-
-        if (packageInfo == null) {
-            return null;
+//            return null;
         }
 
         InstalledAppInfo appInfo = new InstalledAppInfo();
         appInfo.setApkFilePath(file.getPath());
+        appInfo.setAppSize(file.length());
+        appInfo.setFormattedAppSize(FileUtils.formatFileSize(file.length()));
+        appInfo.setTempXPK(true);
+        appInfo.setTempInstalled(false);
+        if (packageInfo == null) {
+            appInfo.setDamaged(true);
+            appInfo.setName(file.getName());
+            return appInfo;
+        }
+
+
 
         packageInfo.applicationInfo.sourceDir = file.getPath();
         packageInfo.applicationInfo.publicSourceDir = file.getPath();
@@ -297,10 +299,6 @@ public class PackageFragment extends BaseFragment
         appInfo.setIdAndType(AppUpdateHelper.getInstance().getAppIdAndType(appInfo.getPackageName()));
         appInfo.setVersionName(packageInfo.versionName);
         appInfo.setVersionCode(packageInfo.versionCode);
-        appInfo.setAppSize(file.length());
-        appInfo.setFormattedAppSize(FileUtils.formatFileSize(file.length()));
-        appInfo.setTempXPK(true);
-        appInfo.setTempInstalled(false);
         return appInfo;
     }
 
@@ -326,17 +324,6 @@ public class PackageFragment extends BaseFragment
         return appInfo;
     }
 
-
-
-    // implement from AppManagerAdapter.OnItemClickListener
-
-    @Override
-    public void onItemClick(AppManagerAdapter.ViewHolder holder, int position, InstalledAppInfo updateInfo) {
-//        AToast.normal("todo 详细信息");
-        AppUtil.installApk(context, updateInfo.getApkFilePath());
-    }
-
-    @Override
     public void onMenuClicked(View view, InstalledAppInfo updateInfo) {
         PopupMenuView popupMenuView = new PopupMenuView(context);
         popupMenuView.setOrientation(LinearLayout.HORIZONTAL)
@@ -369,20 +356,4 @@ public class PackageFragment extends BaseFragment
                     }
                 }).show(view);
     }
-
-    @Override
-    public void onCheckBoxClicked(int allCount, int selectCount) {
-
-    }
-
-    @Override
-    public void onEnterSelectMode() {
-
-    }
-
-    @Override
-    public void onExitSelectMode() {
-
-    }
-
 }

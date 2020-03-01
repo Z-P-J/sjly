@@ -60,11 +60,30 @@ public class AppBackupHelper {
         }
     }
 
-    public void startBackup(List<InstalledAppInfo> appInfoList, Set<Integer> selectSet) {
+    public void startBackup(List<InstalledAppInfo> appInfoList, List<Integer> selectSet) {
         totalCount = selectSet.size();
         finishedCount.set(0);
         for (int position : selectSet) {
             InstalledAppInfo appInfo = appInfoList.get(position);
+            EXECUTOR_SERVICE.submit(() -> {
+                Message msg = new Message();
+                msg.obj = appInfo;
+                try {
+                    AppUtil.backupApp(appInfo);
+                    msg.what = 1;
+                } catch (IOException e) {
+                    e.printStackTrace();
+                    msg.what = -1;
+                }
+                handler.sendMessage(msg);
+            });
+        }
+    }
+
+    public void startBackup(List<InstalledAppInfo> selectedAppList) {
+        totalCount = selectedAppList.size();
+        finishedCount.set(0);
+        for (InstalledAppInfo appInfo : selectedAppList) {
             EXECUTOR_SERVICE.submit(() -> {
                 Message msg = new Message();
                 msg.obj = appInfo;

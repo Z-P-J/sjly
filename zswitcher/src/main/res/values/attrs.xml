@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <declare-styleable name="Switcher">
-        <attr name="switcher_elevation" />
+    <declare-styleable name="BaseSwitcher">
+        <attr name="switcher_elevation" format="dimension"/>
         <attr name="switcher_width" format="dimension"/>
         <attr name="switcher_height" format="dimension"/>
         <attr name="android:checked" format="boolean" />

@@ -5,6 +5,7 @@ import android.support.annotation.IdRes;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.util.ArraySet;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.RecyclerView;
 import android.util.AttributeSet;
@@ -21,10 +22,12 @@ import com.zpj.widget.SmoothCheckBox;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 public class EasyRecyclerLayout<T> extends FrameLayout {
 
     public interface OnSelectChangeListener<T> {
+        void onSelectModeChange(boolean selectMode);
         void onChange(List<T> list, int position, boolean isChecked);
         void onSelectAll();
         void onUnSelectAll();
@@ -32,7 +35,7 @@ public class EasyRecyclerLayout<T> extends FrameLayout {
 
     private static final String TAG = "EasyRecyclerLayout";
 
-    private final List<Integer> selectedList = new ArrayList<>();
+    private final Set<Integer> selectedList = new ArraySet<>();
 
     private OnSelectChangeListener<T> onSelectChangeListener;
     private EasyRecyclerView<T> easyRecyclerView;
@@ -453,6 +456,9 @@ public class EasyRecyclerLayout<T> extends FrameLayout {
         easyRecyclerView.getAdapter().setLoadMoreEnabled(false);
         selectMode = true;
         easyRecyclerView.notifyDataSetChanged();
+        if (onSelectChangeListener != null) {
+            onSelectChangeListener.onSelectModeChange(selectMode);
+        }
     }
 
     public void exitSelectMode() {
@@ -464,6 +470,9 @@ public class EasyRecyclerLayout<T> extends FrameLayout {
         selectMode = false;
         selectedList.clear();
         easyRecyclerView.notifyDataSetChanged();
+        if (onSelectChangeListener != null) {
+            onSelectChangeListener.onSelectModeChange(selectMode);
+        }
     }
 
     private void onSelectChange(int position, boolean isChecked) {
@@ -533,7 +542,7 @@ public class EasyRecyclerLayout<T> extends FrameLayout {
         onUnSelectAll();
     }
 
-    public List<Integer> getSelectedList() {
+    public Set<Integer> getSelectedSet() {
         return selectedList;
     }
 

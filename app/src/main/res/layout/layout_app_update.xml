@@ -10,7 +10,7 @@
     >
 
     <com.shehuan.niv.NiceImageView
-        android:id="@+id/image_icon"
+        android:id="@+id/iv_icon"
         android:layout_width="56dp"
         android:layout_height="56dp"
         android:src="@mipmap/ic_launcher"
@@ -45,7 +45,7 @@
 
                 >
                 <TextView
-                    android:id="@+id/text_title"
+                    android:id="@+id/tv_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:gravity="center_vertical"
@@ -57,7 +57,7 @@
                     android:textColor="#333" />
 
                 <TextView
-                    android:id="@+id/text_version"
+                    android:id="@+id/tv_version"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:maxLines="1"
@@ -69,7 +69,7 @@
                     android:textSize="12sp" />
 
                 <TextView
-                    android:id="@+id/text_info"
+                    android:id="@+id/tv_info"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:maxLines="1"
@@ -83,27 +83,19 @@
 
             </LinearLayout>
 
-            <www.linwg.org.lib.LCardView
-                android:id="@+id/checkbox_wrapper"
+            <TextView
+                android:id="@+id/tv_update"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:cardBackgroundColor="@color/colorPrimary"
-                app:contentPaddingLeft="18dp"
-                app:contentPaddingRight="18dp"
-                app:contentPaddingTop="3dp"
-                app:contentPaddingBottom="3dp"
-                app:cardCornerRadius="12dp"
-                >
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:text="升级"
-                    android:textColor="#ffffff"
-                    />
-
-            </www.linwg.org.lib.LCardView>
+                android:layout_gravity="center"
+                android:text="升级"
+                android:textColor="#ffffff"
+                android:background="@drawable/bg_button"
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp"
+                android:paddingTop="6dp"
+                android:paddingBottom="6dp"
+                />
 
         </LinearLayout>
 
@@ -129,7 +121,7 @@
                     />
 
                 <ImageView
-                    android:id="@+id/btn_expand"
+                    android:id="@+id/iv_expand"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:src="@drawable/ic_expand_more_black_24dp"
@@ -140,7 +132,7 @@
             </RelativeLayout>
 
             <TextView
-                android:id="@+id/text_update"
+                android:id="@+id/tv_update_info"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:maxLines="1"
@@ -156,7 +148,7 @@
                 >
 
                 <ImageView
-                    android:id="@+id/btn_setting"
+                    android:id="@+id/iv_setting"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="end"

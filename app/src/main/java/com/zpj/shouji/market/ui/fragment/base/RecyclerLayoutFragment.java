@@ -33,8 +33,11 @@ public abstract class RecyclerLayoutFragment<T> extends BaseFragment
         return R.layout.fragment_recycler_layout;
     }
 
+    @LayoutRes
+    protected abstract int getItemLayoutId();
+
     @Override
-    protected final void initView(View view, @Nullable Bundle savedInstanceState) {
+    protected void initView(View view, @Nullable Bundle savedInstanceState) {
         if (getArguments() != null) {
             handleArguments(getArguments());
         }
@@ -75,8 +78,5 @@ public abstract class RecyclerLayoutFragment<T> extends BaseFragment
     protected RecyclerView.LayoutManager getLayoutManager(Context context) {
         return new LinearLayoutManager(context);
     }
-
-    @LayoutRes
-    protected abstract int getItemLayoutId();
 
 }

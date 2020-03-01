@@ -34,8 +34,8 @@
 
     </RelativeLayout>
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/recycler_view"
+    <com.zpj.recyclerview.EasyRecyclerLayout
+        android:id="@+id/recycler_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@id/layout_top"

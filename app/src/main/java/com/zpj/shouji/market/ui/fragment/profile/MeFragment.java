@@ -254,7 +254,7 @@ public class MeFragment extends BaseFragment
         } else if (v == tvSignIn) {
             showLoginPopup(1);
         } else if (v == tvCloudBackup) {
-
+//            _mActivity.start(new FragmentTest());
         } else if (v == tvFeedback) {
 
         } else if (v == tvNightMode) {
