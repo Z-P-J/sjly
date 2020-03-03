@@ -197,7 +197,11 @@
                     android:padding="8dp"
                     >
 
-                    <include layout="@layout/layout_my_tools" />
+                    <!--                    <include layout="@layout/layout_my_tools" />-->
+
+                    <com.zpj.shouji.market.ui.widget.MyToolsCard
+                        android:id="@+id/my_tools_card"
+                        style="@style/setting_card_style"/>
 
                     <www.linwg.org.lib.LCardView
                         style="@style/setting_card_style"

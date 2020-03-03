@@ -9,6 +9,7 @@ import com.zpj.http.ZHttp;
 import com.zpj.http.core.IHttp;
 import com.zpj.http.parser.html.nodes.Document;
 import com.zpj.http.parser.html.nodes.Element;
+import com.zpj.http.parser.html.nodes.NullElement;
 import com.zpj.shouji.market.model.MemberInfo;
 import com.zpj.utils.PrefsHelper;
 
@@ -62,6 +63,10 @@ public final class UserManager {
         return PrefsHelper.with("user_info").getString("user_info", "");
     }
 
+    public String getUserId() {
+        return memberInfo.getMemberId();
+    }
+
     public MemberInfo getMemberInfo() {
         return memberInfo;
     }
@@ -86,27 +91,16 @@ public final class UserManager {
     }
 
     private void login() {
-        Log.d(getClass().getName(), "jsessionid=" + getSessionId());
+        String sessionId = getSessionId();
+        memberInfo = null;
+        Log.d(getClass().getName(), "jsessionid=" + sessionId);
         HttpApi.openConnection("http://tt.shouji.com.cn/app/xml_login_v4.jsp?versioncode=198&version=2.9.9.9.3")
-                .data("jsessionid", getSessionId())
+                .data("jsessionid", sessionId)
                 .data("s", "12345678910")
                 .data("stime", "" + System.currentTimeMillis())
                 .data("setupid", "sjly2.9.9.9.3")
                 .toHtml()
-                .onSuccess(data -> {
-                    Log.d("UserManager", "data=" + data.toString());
-                    String info = data.selectFirst("info").text();
-                    if ("登录成功".equals(info)) {
-
-                        memberInfo = MemberInfo.from(data);
-                        setUserInfo(data.toString());
-                        onLoginSuccess();
-                        AToast.normal("登录成功");
-                    } else {
-                        AToast.normal(info);
-                        onLoginFailed(info);
-                    }
-                })
+                .onSuccess(this::onLogin)
                 .onError(throwable -> AToast.error(throwable.getMessage()))
                 .subscribe();
     }
@@ -126,44 +120,33 @@ public final class UserManager {
                 .data("n", "")
                 .data("jsessionid", "")
                 .toHtml()
-                .onSuccess(data -> {
-                    Log.d("UserManager", "data=" + data.toString());
-//                    if (data.select("sjly").size() > 1) {
-//                        data.remove("sjly");
-//                    }
-                    String errInfo = "";
-                    for (Element element : data.select("sjly")) {
-                        String info = element.selectFirst("info").text();
-                        if ("登录成功".equals(info)) {
-                            memberInfo = MemberInfo.from(data);
-                            setUserInfo(data.toString());
-                            onLoginSuccess();
-                            AToast.normal("登录成功");
-                            return;
-                        } else {
-                            if (!TextUtils.isEmpty(info)) {
-                                errInfo = info;
-                            }
-                        }
-                    }
-                    if (TextUtils.isEmpty(errInfo)) {
-                        errInfo = "登录失败";
-                    }
-                    AToast.normal(errInfo);
-                    onLoginFailed(errInfo);
-//                    String info = data.selectFirst("info").text();
-//                    if ("登录成功".equals(info)) {
-//                        memberInfo = MemberInfo.from(data);
-//                        setUserInfo(data.toString());
-//                        onLoginSuccess();
-//                        AToast.normal("登录成功");
-//                    } else {
-//                        AToast.normal(info);
-//                        onLoginFailed(info);
-//                    }
-                })
+                .onSuccess(this::onLogin)
                 .onError(throwable -> onLoginFailed(throwable.getMessage()))
                 .subscribe();
+    }
+
+    private void onLogin(Document data) {
+        Log.d("UserManager", "data=" + data.toString());
+        String info;
+        Log.d("UserManager", "hasMember=" + data.has("member"));
+        Log.d("UserManager", "size=" + data.select("member").size());
+        if (data.has("member")) {
+            data.selectFirst("sjly").remove();
+            info = data.selectFirst("member").selectFirst("info").text().trim();
+            if ("登录成功".equals(info)) {
+                memberInfo = MemberInfo.from(data);
+                setUserInfo(data.toString());
+                onLoginSuccess();
+                AToast.normal("登录成功");
+                return;
+            }
+        }
+        info = data.selectFirst("info").text().trim();
+        if (TextUtils.isEmpty(info)) {
+            info = "登录失败";
+        }
+        AToast.normal(info);
+        onLoginFailed(info);
     }
 
     public void signIn(String account, String password, String email) {

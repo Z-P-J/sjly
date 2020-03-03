@@ -24,6 +24,8 @@ import com.zpj.shouji.market.ui.fragment.setting.AboutSettingFragment;
 import com.zpj.shouji.market.ui.fragment.setting.CommonSettingFragment;
 import com.zpj.shouji.market.ui.fragment.setting.DownloadSettingFragment;
 import com.zpj.shouji.market.ui.fragment.setting.InstallSettingFragment;
+import com.zpj.shouji.market.ui.widget.DrawableTintTextView;
+import com.zpj.shouji.market.ui.widget.MyToolsCard;
 import com.zpj.shouji.market.ui.widget.PullZoomView;
 import com.zpj.shouji.market.ui.widget.popup.LoginPopup;
 import com.zpj.shouji.market.utils.HttpApi;
@@ -45,9 +47,7 @@ public class MeFragment extends BaseFragment
     private TextView tvFollower;
     private TextView tvFans;
 
-    private BlurView bvNotLogin;
-    private TextView tvSignUp;
-    private TextView tvSignIn;
+    private MyToolsCard myToolsCard;
 
     private TextView tvCloudBackup;
     private TextView tvFeedback;
@@ -79,15 +79,9 @@ public class MeFragment extends BaseFragment
         tvLevel = view.findViewById(R.id.tv_level);
         tvFollower = view.findViewById(R.id.tv_follower);
         tvFans = view.findViewById(R.id.tv_fans);
-        bvNotLogin = view.findViewById(R.id.bv_not_login);
-        bvNotLogin.setupWith(view.findViewById(R.id.ll_actions))
-//                .setFrameClearDrawable(view.getBackground())
-                .setBlurAlgorithm(new RenderScriptBlur(context))
-                .setBlurRadius(18f)
-                .setHasFixedTransformationMatrix(true);
-        tvSignUp = view.findViewById(R.id.tv_sign_up);
-        tvSignIn = view.findViewById(R.id.tv_sign_in);
-
+        myToolsCard = view.findViewById(R.id.my_tools_card);
+        myToolsCard.attachFragment(this);
+        myToolsCard.attachActivity(_mActivity);
 
         tvCloudBackup = view.findViewById(R.id.tv_cloud_backup);
         tvFeedback = view.findViewById(R.id.tv_feedback);
@@ -106,8 +100,8 @@ public class MeFragment extends BaseFragment
         tvDownloadSetting.setOnClickListener(this);
         tvInstallSetting.setOnClickListener(this);
         tvAbout.setOnClickListener(this);
-        tvSignUp.setOnClickListener(this);
-        tvSignIn.setOnClickListener(this);
+
+
         hideSoftInput();
 
         ClickHelper.with(ivAvatar)
@@ -176,7 +170,7 @@ public class MeFragment extends BaseFragment
     @Override
     public void onDestroy() {
         UserManager.getInstance().removeOnLoginListener(this);
-        if (loginPopup.isShow()) {
+        if (loginPopup != null && loginPopup.isShow()) {
             loginPopup.dismiss();
         }
         super.onDestroy();
@@ -249,10 +243,6 @@ public class MeFragment extends BaseFragment
             } else {
                 showLoginPopup(0);
             }
-        } else if (v == tvSignUp) {
-            showLoginPopup(0);
-        } else if (v == tvSignIn) {
-            showLoginPopup(1);
         } else if (v == tvCloudBackup) {
 //            _mActivity.start(new FragmentTest());
         } else if (v == tvFeedback) {
@@ -272,9 +262,8 @@ public class MeFragment extends BaseFragment
 
     @Override
     public void onLoginSuccess() {
+        myToolsCard.onLogin();
         MemberInfo info = UserManager.getInstance().getMemberInfo();
-        bvNotLogin.setBlurEnabled(false);
-        bvNotLogin.setVisibility(View.GONE);
         if (!info.isCanSigned()) {
             tvCheckIn.setBackgroundResource(R.drawable.bg_button_round_purple);
             tvCheckIn.setText("已签到");
@@ -309,7 +298,7 @@ public class MeFragment extends BaseFragment
 
     }
 
-    private void showLoginPopup(int page) {
+    public void showLoginPopup(int page) {
         if (loginPopup == null) {
             loginPopup = LoginPopup.with(context);
             loginPopup.setPopupCallback(new SimpleCallback() {
@@ -318,11 +307,11 @@ public class MeFragment extends BaseFragment
                     loginPopup = null;
                 }
 
-                @Override
-                public void onShow() {
-                    loginPopup.clearFocus();
-                }
-
+//                @Override
+//                public void onShow() {
+//                    loginPopup.clearFocus();
+//                }
+//
                 @Override
                 public void onHide() {
                     loginPopup.clearFocus();

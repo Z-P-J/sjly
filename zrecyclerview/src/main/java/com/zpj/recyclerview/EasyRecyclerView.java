@@ -21,7 +21,7 @@ public class EasyRecyclerView<T> {
 
     private RecyclerView.LayoutManager layoutManager;
 
-    private EasyAdapter<T> easyAdapter;
+    private EasyStateAdapter<T> easyAdapter;
 
     private List<T> list;
 
@@ -145,7 +145,8 @@ public class EasyRecyclerView<T> {
         if (layoutManager == null) {
             layoutManager = new LinearLayoutManager(recyclerView.getContext());
         }
-        easyAdapter = new EasyAdapter<>(list, itemRes, onGetChildViewTypeListener,
+        easyAdapter = new EasyStateAdapter<>(recyclerView.getContext(), list,
+                itemRes, onGetChildViewTypeListener,
                 onGetChildLayoutIdListener, onCreateViewHolder,
                 onBindViewHolderListener, onItemClickListener,
                 onItemLongClickListener, onClickListeners);
@@ -213,7 +214,7 @@ public class EasyRecyclerView<T> {
         easyAdapter.notifyItemRemoved(position);
     }
 
-    public EasyAdapter<T> getAdapter() {
+    public EasyStateAdapter<T> getAdapter() {
         return easyAdapter;
     }
 

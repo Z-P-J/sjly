@@ -4,6 +4,7 @@ import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.text.TextUtils;
 import android.view.View;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
@@ -22,12 +23,22 @@ import com.zpj.fragmentation.BaseFragment;
 public class WebFragment extends BaseFragment {
 
     private static final String KEY_URL = "key_url";
+    private static final String KEY_TITLE = "key_title";
 
     private AgentWeb mAgentWeb;
 
     public static WebFragment newInstance(String url) {
         Bundle args = new Bundle();
         args.putString(KEY_URL, url);
+        WebFragment fragment = new WebFragment();
+        fragment.setArguments(args);
+        return fragment;
+    }
+
+    public static WebFragment newInstance(String url, String title) {
+        Bundle args = new Bundle();
+        args.putString(KEY_URL, url);
+        args.putString(KEY_TITLE, title);
         WebFragment fragment = new WebFragment();
         fragment.setArguments(args);
         return fragment;
@@ -82,6 +93,13 @@ public class WebFragment extends BaseFragment {
             pop();
             return;
         }
+        String url = getArguments().getString(KEY_URL);
+        String title = getArguments().getString(KEY_TITLE);
+        if (TextUtils.isEmpty(title)) {
+            title = url;
+        }
+        setToolbarTitle(title);
+        setToolbarSubTitle(url);
 
         FrameLayout content = view.findViewById(R.id.content);
         mAgentWeb = AgentWeb.with(this)
@@ -98,6 +116,7 @@ public class WebFragment extends BaseFragment {
                     @Override
                     public void onPageStarted(WebView view, String url, Bitmap favicon) {
                         super.onPageStarted(view, url, favicon);
+                        setToolbarSubTitle(url);
                     }
 
                     @Override
@@ -107,7 +126,7 @@ public class WebFragment extends BaseFragment {
                 })
                 .createAgentWeb()
                 .ready()
-                .go(getArguments().getString(KEY_URL));
+                .go(url);
     }
 
     @Override
@@ -128,7 +147,7 @@ public class WebFragment extends BaseFragment {
                 .show(imageButton));
     }
 
-    private class CustomSettings extends AbsAgentWebSettings {
+    private static class CustomSettings extends AbsAgentWebSettings {
 
         @Override
         protected void bindAgentWebSupport(AgentWeb agentWeb) {

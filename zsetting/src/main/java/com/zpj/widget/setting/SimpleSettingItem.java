@@ -85,7 +85,7 @@ public class SimpleSettingItem extends AppCompatTextView {
         setGravity(Gravity.CENTER_VERTICAL);
 
         if (background == null) {
-            TypedArray typedArray = context.obtainStyledAttributes(new int[]{R.attr.selectableItemBackgroundBorderless});
+            TypedArray typedArray = context.obtainStyledAttributes(new int[]{R.attr.selectableItemBackground});
             background = typedArray.getDrawable(0);
             typedArray.recycle();
 //            TypedValue typedValue = new TypedValue();

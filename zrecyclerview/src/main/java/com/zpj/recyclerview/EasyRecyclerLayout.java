@@ -16,7 +16,6 @@ import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.RelativeLayout;
 
-import com.classic.common.MultipleStatusView;
 import com.zpj.widget.R;
 import com.zpj.widget.SmoothCheckBox;
 
@@ -39,8 +38,8 @@ public class EasyRecyclerLayout<T> extends FrameLayout {
 
     private OnSelectChangeListener<T> onSelectChangeListener;
     private EasyRecyclerView<T> easyRecyclerView;
+    private EasyStateAdapter<T> adapter;
     private SwipeRefreshLayout refreshLayout;
-    private MultipleStatusView statusView;
 
     private boolean showCheckBox = false;
 
@@ -54,25 +53,25 @@ public class EasyRecyclerLayout<T> extends FrameLayout {
 
     public EasyRecyclerLayout(@NonNull Context context) {
         super(context);
-        init();
+        init(context);
     }
 
     public EasyRecyclerLayout(@NonNull Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
-        init();
+        init(context);
     }
 
     public EasyRecyclerLayout(@NonNull Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
-        init();
+        init(context);
     }
 
-    private void init() {
-        View view = LayoutInflater.from(getContext()).inflate(R.layout.easy_layout_recycler_2, this);
+    private void init(Context context) {
+        View view = LayoutInflater.from(context).inflate(R.layout.easy_layout_recycler_3, this);
         refreshLayout = view.findViewById(R.id.layout_swipe_refresh);
         refreshLayout.setEnabled(false);
-        statusView = view.findViewById(R.id.multiple_status_view);
-        RecyclerView recyclerView = new RecyclerView(getContext());
+
+        RecyclerView recyclerView = view.findViewById(R.id.recycler_view);
         recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
             public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
@@ -82,12 +81,11 @@ public class EasyRecyclerLayout<T> extends FrameLayout {
             }
 
             @Override
-            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+            public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
                 super.onScrollStateChanged(recyclerView, newState);
             }
         });
-        ViewGroup.LayoutParams layoutParams = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
-        statusView.showContent(recyclerView, layoutParams);
+
         easyRecyclerView = new EasyRecyclerView<>(recyclerView);
     }
 
@@ -283,31 +281,20 @@ public class EasyRecyclerLayout<T> extends FrameLayout {
         return this;
     }
 
-    /**
-     * 设置重试点击事件
-     *
-     * @param onRetryClickListener 重试点击事件
-     */
-    public EasyRecyclerLayout<T> setOnRetryClickListener(OnClickListener onRetryClickListener) {
-        statusView.setOnRetryClickListener(onRetryClickListener);
-        return this;
-    }
-
-    public EasyRecyclerLayout<T> setOnViewStatusChangeListener(MultipleStatusView.OnViewStatusChangeListener onViewStatusChangeListener) {
-        statusView.setOnViewStatusChangeListener(onViewStatusChangeListener);
-        return this;
-    }
-
     public void build() {
         easyRecyclerView.build();
+        adapter = easyRecyclerView.getAdapter();
         if (enableLoadMore) {
-            statusView.showContent();
+            Log.d(TAG, "build-->showContent1");
+            showContent();
             return;
         }
         if (easyRecyclerView.getData().isEmpty()) {
-            statusView.showLoading();
+            Log.d(TAG, "build-->showLoading");
+            showLoading();
         } else {
-            statusView.showContent();
+            Log.d(TAG, "build-->showContent2");
+            showContent();
         }
     }
 
@@ -315,135 +302,99 @@ public class EasyRecyclerLayout<T> extends FrameLayout {
      * 显示空视图
      */
     public final void showEmpty() {
-        statusView.showEmpty();
+        Log.d(TAG, "showEmpty");
+        adapter.showEmpty();
     }
 
-    /**
-     * 显示空视图
-     *
-     * @param layoutId     自定义布局文件
-     * @param layoutParams 布局参数
-     */
-    public final void showEmpty(int layoutId, ViewGroup.LayoutParams layoutParams) {
-        statusView.showEmpty(layoutId, layoutParams);
+    public void showEmptyView(int msgId) {
+        adapter.showEmptyView(msgId);
     }
 
-    /**
-     * 显示空视图
-     *
-     * @param view         自定义视图
-     * @param layoutParams 布局参数
-     */
-    public final void showEmpty(View view, ViewGroup.LayoutParams layoutParams) {
-        statusView.showEmpty(view, layoutParams);
+    public void showEmptyView(String msg) {
+        adapter.showEmptyView(msg);
+    }
+
+    public void showEmptyView(int msgId, int imgId) {
+        adapter.showEmptyView(msgId, imgId);
+    }
+
+    public void showEmptyView(String msg, int imgId) {
+        adapter.showEmptyView(msg, imgId);
     }
 
     /**
      * 显示错误视图
      */
     public final void showError() {
-        statusView.showError();
+        Log.d(TAG, "showError");
+        adapter.showError();
     }
 
-    /**
-     * 显示错误视图
-     *
-     * @param layoutId     自定义布局文件
-     * @param layoutParams 布局参数
-     */
-    public final void showError(int layoutId, ViewGroup.LayoutParams layoutParams) {
-        statusView.showError(layoutId, layoutParams);
+    public void showErrorView(int msgId) {
+        adapter.showErrorView(msgId);
     }
 
-    /**
-     * 显示错误视图
-     *
-     * @param view         自定义视图
-     * @param layoutParams 布局参数
-     */
-    public final void showError(View view, ViewGroup.LayoutParams layoutParams) {
-        statusView.showError(view, layoutParams);
+    public void showErrorView(String msg) {
+        adapter.showErrorView(msg);
+    }
+
+    public void showErrorView(int msgId, int imgId) {
+        adapter.showErrorView(msgId, imgId);
+    }
+
+    public void showErrorView(String msg, int imgId) {
+        adapter.showErrorView(msg, imgId);
     }
 
     /**
      * 显示加载中视图
      */
     public final void showLoading() {
-        statusView.showLoading();
+        Log.d(TAG, "showLoading");
+        adapter.showLoading();
     }
 
-    /**
-     * 显示加载中视图
-     *
-     * @param layoutId     自定义布局文件
-     * @param layoutParams 布局参数
-     */
-    public final void showLoading(int layoutId, ViewGroup.LayoutParams layoutParams) {
-        statusView.showLoading(layoutId, layoutParams);
+    public void showLoadingView(View view) {
+        adapter.showLoadingView(view);
     }
 
-    /**
-     * 显示加载中视图
-     *
-     * @param view         自定义视图
-     * @param layoutParams 布局参数
-     */
-    public final void showLoading(View view, ViewGroup.LayoutParams layoutParams) {
-        statusView.showLoading(view, layoutParams);
+    public void showLoadingView(View view, boolean showTip) {
+        adapter.showLoadingView(view, showTip);
+    }
+
+    public void showLoadingView(int msgId) {
+        adapter.showLoadingView(msgId);
+    }
+
+    public void showLoadingView(String msg) {
+        adapter.showLoadingView(msg);
     }
 
     /**
      * 显示无网络视图
      */
     public final void showNoNetwork() {
-        statusView.showNoNetwork();
+        adapter.showNoNetwork();
     }
 
-    /**
-     * 显示无网络视图
-     *
-     * @param layoutId     自定义布局文件
-     * @param layoutParams 布局参数
-     */
-    public final void showNoNetwork(int layoutId, ViewGroup.LayoutParams layoutParams) {
-        statusView.showNoNetwork(layoutId, layoutParams);
+    public void showNoNetworkView(int msgId) {
+        adapter.showNoNetworkView(msgId);
     }
 
-    /**
-     * 显示无网络视图
-     *
-     * @param view         自定义视图
-     * @param layoutParams 布局参数
-     */
-    public final void showNoNetwork(View view, ViewGroup.LayoutParams layoutParams) {
-        statusView.showNoNetwork(view, layoutParams);
+    public void showNoNetworkView(String msg) {
+        adapter.showNoNetworkView(msg);
+    }
+
+    public void showNoNetworkView(int msgId, int imgId) {
+        adapter.showNoNetworkView(msgId, imgId);
     }
 
     /**
      * 显示内容视图
      */
     public final void showContent() {
-        statusView.showContent();
-    }
-
-    /**
-     * 显示内容视图
-     *
-     * @param layoutId     自定义布局文件
-     * @param layoutParams 布局参数
-     */
-    public final void showContent(int layoutId, ViewGroup.LayoutParams layoutParams) {
-        statusView.showContent(layoutId, layoutParams);
-    }
-
-    /**
-     * 显示内容视图
-     *
-     * @param view         自定义视图
-     * @param layoutParams 布局参数
-     */
-    public final void showContent(View view, ViewGroup.LayoutParams layoutParams) {
-        statusView.showContent(view, layoutParams);
+        Log.d(TAG, "showContent");
+        adapter.showContent();
     }
 
 

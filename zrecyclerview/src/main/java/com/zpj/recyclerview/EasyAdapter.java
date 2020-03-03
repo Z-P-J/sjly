@@ -27,7 +27,7 @@ public class EasyAdapter<T> extends RecyclerView.Adapter<EasyViewHolder> {
     private static final int TYPE_FOOTER = -2;
 
 
-    private final List<T> list;
+    protected final List<T> list;
 
     private int itemRes;
 
@@ -135,7 +135,7 @@ public class EasyAdapter<T> extends RecyclerView.Adapter<EasyViewHolder> {
             return;
         }
         if (isFooterPosition(position)) {
-            if (!canScroll() && mOnLoadMoreListener != null && !mIsLoading) {
+            if (!canScroll() && mOnLoadMoreListener != null && !mIsLoading && getLoadMoreEnabled()) {
                 mIsLoading = true;
                 // fix Cannot call this method while RecyclerView is computing a layout or scrolling
                 mRecyclerView.post(new Runnable() {

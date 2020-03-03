@@ -162,7 +162,6 @@ public class InstalledFragment extends RecyclerLayoutFragment<InstalledAppInfo>
                         infoTextView.setText("共计：" + data.size() + " | 已选：0");
                     }
                 });
-        recyclerLayout.showContent();
     }
 
     @Override

@@ -990,4 +990,25 @@ public class NullElement extends Element {
         return (NullElement) super.doClone(parent);
     }
 
+    @Override
+    public void remove() {
+
+    }
+
+    @Override
+    public void remove(String cssQuery) {
+
+    }
+
+    @Override
+    protected void removeChild(Node out) {
+
+    }
+
+    @Override
+    public Element removeAttr(String attributeKey) {
+        return new NullElement();
+    }
+
+
 }

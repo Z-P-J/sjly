@@ -42,9 +42,9 @@ public abstract class NextUrlFragment<T> extends RecyclerLayoutFragment<T> {
         if (TextUtils.isEmpty(nextUrl)) {
             return false;
         }
-        if (data.isEmpty()) {
-            recyclerLayout.showLoading();
-        }
+//        if (data.isEmpty()) {
+//            recyclerLayout.showLoading();
+//        }
         getData();
         return true;
     }

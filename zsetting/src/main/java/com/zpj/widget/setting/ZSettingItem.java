@@ -111,7 +111,7 @@ public abstract class ZSettingItem<T extends ZSettingItem> extends BaseSettingIt
         a.recycle();
 
         if (background == null) {
-            TypedArray typedArray = context.obtainStyledAttributes(new int[]{R.attr.selectableItemBackgroundBorderless});
+            TypedArray typedArray = context.obtainStyledAttributes(new int[]{R.attr.selectableItemBackground});
             background = typedArray.getDrawable(0);
             typedArray.recycle();
         }

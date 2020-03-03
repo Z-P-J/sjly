@@ -186,12 +186,9 @@ public final class AppUpdateHelper {
                         }
                     }
                 })
-                .onError(new IHttp.OnErrorListener() {
-                    @Override
-                    public void onError(Throwable throwable) {
-                        AppUpdateHelper.this.throwable = throwable;
-                        AppUpdateHelper.this.onError(throwable);
-                    }
+                .onError(throwable -> {
+                    AppUpdateHelper.this.throwable = throwable;
+                    AppUpdateHelper.this.onError(throwable);
                 })
                 .onSuccess(checkUpdate -> {
                     TASK_LIST.add(checkUpdate);

@@ -74,15 +74,8 @@ public class UpdateFragment extends RecyclerLayoutFragment<AppUpdateInfo>
     }
 
     @Override
-    public void onLazyInitView(@Nullable Bundle savedInstanceState) {
-        super.onLazyInitView(savedInstanceState);
-
-    }
-
-    @Override
     protected void buildRecyclerLayout(EasyRecyclerLayout<AppUpdateInfo> recyclerLayout) {
         recyclerLayout.setEnableSwipeRefresh(false);
-        recyclerLayout.showContent();
     }
 
     @Override
@@ -108,9 +101,9 @@ public class UpdateFragment extends RecyclerLayoutFragment<AppUpdateInfo>
             AppUpdateHelper.getInstance().checkUpdate(context);
             return;
         }
-        recyclerLayout.showError();
+        recyclerLayout.showErrorView(e.getMessage());
         topLayout.setVisibility(View.GONE);
-        errorText.setVisibility(View.VISIBLE);
+//        errorText.setVisibility(View.VISIBLE);
         AToast.error("检查更新失败！" + e.getMessage());
         e.printStackTrace();
     }
@@ -176,7 +169,8 @@ public class UpdateFragment extends RecyclerLayoutFragment<AppUpdateInfo>
         infoTextView.setText(updateInfo.getNewSize() + " | " + updateInfo.getUpdateTimeInfo());
         updateTextView.setText(updateInfo.getUpdateInfo());
 
-        if (updateTextView.getLayout().getEllipsisCount(updateTextView.getLineCount() - 1) > 0) {
+
+        if (updateTextView.getLayout() != null && updateTextView.getLayout().getEllipsisCount(updateTextView.getLineCount() - 1) > 0) {
             expandBtn.setVisibility(View.VISIBLE);
         } else {
             expandBtn.setVisibility(View.GONE);

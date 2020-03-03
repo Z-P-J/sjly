@@ -17,5 +17,6 @@ include ':app',
         ':emojilib',
         ':matisse',
         ':third-part-color-cardview',
-        ':zswitcher'
+        ':zswitcher',
+        ':statelayout'
 //        ':shadowlayout'

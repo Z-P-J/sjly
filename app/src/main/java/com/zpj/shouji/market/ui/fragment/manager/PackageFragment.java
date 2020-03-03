@@ -86,7 +86,6 @@ public class PackageFragment extends RecyclerLayoutFragment<InstalledAppInfo> {
     protected void buildRecyclerLayout(EasyRecyclerLayout<InstalledAppInfo> recyclerLayout) {
         super.buildRecyclerLayout(recyclerLayout);
         recyclerLayout.setEnableSwipeRefresh(false).setEnableSelection(true);
-        recyclerLayout.showContent();
     }
 
     @Override

@@ -7,6 +7,7 @@ import android.util.Log;
 import android.view.View;
 
 import com.felix.atoast.library.AToast;
+import com.zpj.http.core.IHttp;
 import com.zpj.http.parser.html.nodes.Element;
 import com.zpj.http.parser.html.select.Elements;
 import com.zpj.recyclerview.EasyRecyclerLayout;
@@ -66,7 +67,7 @@ public class ThemeListFragment extends NextUrlFragment<DiscoverInfo>
 
     @Override
     public void run() {
-        Log.d("getExploreData", "nextUrl=" + nextUrl);
+        Log.d("ThemeListFragment", "nextUrl=" + nextUrl);
         HttpApi.connect(nextUrl)
                 .onSuccess(doc -> {
                     Elements elements = doc.select("item");
@@ -100,6 +101,10 @@ public class ThemeListFragment extends NextUrlFragment<DiscoverInfo>
                     if (data.isEmpty()) {
                         recyclerLayout.showEmpty();
                     }
+                })
+                .onError(throwable -> {
+                    Log.d("ThemeListFragment", "showError");
+                    recyclerLayout.showErrorView(throwable.getMessage());
                 })
                 .subscribe();
     }
@@ -139,6 +144,7 @@ public class ThemeListFragment extends NextUrlFragment<DiscoverInfo>
     @Override
     protected void getData() {
 //        ExecutorHelper.submit(this);
+        Log.d("ThemeListFragment", "getData");
         run();
     }
 

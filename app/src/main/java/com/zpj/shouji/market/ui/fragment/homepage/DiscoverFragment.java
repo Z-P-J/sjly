@@ -17,9 +17,4 @@ public class DiscoverFragment extends ThemeListFragment {
         return fragment;
     }
 
-//    @Override
-//    protected int getLayoutId() {
-//        return R.layout.fragment_discover;
-//    }
-
 }

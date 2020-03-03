@@ -64,6 +64,20 @@
                     >
 
                     <com.zpj.widget.setting.CommonSettingItem
+                        android:id="@+id/item_user_agreement"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:z_setting_titleText="用户协议"
+                        />
+
+                    <com.zpj.widget.setting.CommonSettingItem
+                        android:id="@+id/item_privacy_agreement"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:z_setting_titleText="隐私协议"
+                        />
+
+                    <com.zpj.widget.setting.CommonSettingItem
                         android:id="@+id/item_check_update"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"

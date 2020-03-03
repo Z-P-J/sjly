@@ -96,6 +96,10 @@ public class MemberInfo {
                     selector = name;
                 }
                 String text = doc.selectFirst(selector).text();
+                if (TextUtils.isEmpty(text)) {
+                    continue;
+                }
+                Log.d("MemberInfo", "selector=" + selector + " text=" + text + " type=" + type);
                 if (type.equals("boolean")) {
                     field.setAccessible(true);
                     field.setBoolean(info, !"0".equals(text.trim()));
