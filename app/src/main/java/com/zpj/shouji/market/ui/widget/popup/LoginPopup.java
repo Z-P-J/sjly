@@ -4,26 +4,18 @@ import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.ViewTreeObserver;
 
-import com.felix.atoast.library.AToast;
 import com.lxj.xpopup.core.CenterPopupView;
 import com.lxj.xpopup.core.PopupInfo;
-import com.zpj.http.core.IHttp;
-import com.zpj.http.parser.html.nodes.Document;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.ui.widget.AutoSizeViewPager;
 import com.zpj.shouji.market.ui.widget.ScaleTransitionPagerTitleView;
 import com.zpj.shouji.market.ui.widget.SignInLayout;
 import com.zpj.shouji.market.ui.widget.SignUpLayout;
-import com.zpj.shouji.market.utils.HttpApi;
-import com.zpj.shouji.market.utils.UserManager;
-import com.zpj.utils.KeyboardUtil;
+import com.zpj.shouji.market.manager.UserManager;
 import com.zpj.utils.ScreenUtils;
-import com.zpj.widget.ZViewPager;
 import com.zpj.widget.toolbar.ZToolbar;
 
 import net.lucode.hackware.magicindicator.MagicIndicator;

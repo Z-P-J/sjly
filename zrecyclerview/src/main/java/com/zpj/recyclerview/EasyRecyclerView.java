@@ -65,6 +65,11 @@ public class EasyRecyclerView<T> {
         return this;
     }
 
+    public EasyRecyclerView<T> addItemDecoration(RecyclerView.ItemDecoration decor) {
+        this.recyclerView.addItemDecoration(decor);
+        return this;
+    }
+
     public EasyRecyclerView<T> setHeaderView(View headerView) {
         this.headerView = headerView;
         return this;

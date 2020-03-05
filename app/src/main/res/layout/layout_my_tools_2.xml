@@ -3,95 +3,113 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <LinearLayout
-        android:id="@+id/ll_tools"
+    <android.support.v7.widget.GridLayout
+        android:id="@+id/grid"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
+        android:paddingTop="16dp"
+        android:paddingBottom="16dp"
+        app:orientation="horizontal"
+        app:columnCount="4"
+        app:rowCount="2"
         >
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:orientation="horizontal">
+        <com.zpj.shouji.market.ui.widget.DrawableTintTextView
+            style="@style/me_tool_card_item_style"
+            android:id="@+id/tv_my_homepage"
+            android:drawableTop="@drawable/ic_homepage_white_24dp"
+            android:text="我的主页"
+            app:drawable_tint_color="@color/light_blue_2"
+            />
 
-            <com.zpj.shouji.market.ui.widget.DrawableTintTextView
-                style="@style/me_tool_card_item_style"
-                android:id="@+id/tv_my_homepage"
-                android:drawableTop="@drawable/ic_homepage_white_24dp"
-                android:text="我的主页"
-                app:drawable_tint_color="@color/light_blue_2"
-                />
+        <com.zpj.shouji.market.ui.widget.DrawableTintTextView
+            style="@style/me_tool_card_item_style"
+            android:id="@+id/tv_my_discovers"
+            android:drawableTop="@drawable/ic_discover_white_24dp"
+            android:text="我的发现"
+            app:drawable_tint_color="@color/light_blue_1"
+            />
 
-            <com.zpj.shouji.market.ui.widget.DrawableTintTextView
-                style="@style/me_tool_card_item_style"
-                android:id="@+id/tv_my_discovers"
-                android:drawableTop="@drawable/ic_discover_white_24dp"
-                android:text="我的发现"
-                app:drawable_tint_color="@color/light_blue_1"
-                />
+        <com.zpj.shouji.market.ui.widget.DrawableTintTextView
+            style="@style/me_tool_card_item_style"
+            android:id="@+id/tv_my_comments"
+            android:drawableTop="@drawable/ic_comment_white_24dp"
+            android:text="我的评论"
+            app:drawable_tint_color="@color/dark_yellow_1"
+            />
 
-            <com.zpj.shouji.market.ui.widget.DrawableTintTextView
-                style="@style/me_tool_card_item_style"
-                android:id="@+id/tv_my_comments"
-                android:drawableTop="@drawable/ic_comment_white_24dp"
-                android:text="我的评论"
-                app:drawable_tint_color="@color/dark_yellow_1"
-                />
+        <com.zpj.shouji.market.ui.widget.DrawableTintTextView
+            style="@style/me_tool_card_item_style"
+            android:id="@+id/tv_my_friends"
+            android:drawableTop="@drawable/ic_friend_white_24dp"
+            android:text="我的好友"
+            app:drawable_tint_color="@color/light_purple"
+            />
 
-            <com.zpj.shouji.market.ui.widget.DrawableTintTextView
-                style="@style/me_tool_card_item_style"
-                android:id="@+id/tv_my_friends"
-                android:drawableTop="@drawable/ic_friend_white_24dp"
-                android:text="我的好友"
-                app:drawable_tint_color="@color/light_purple"
-                />
+        <com.zpj.shouji.market.ui.widget.DrawableTintTextView
+            style="@style/me_tool_card_item_style"
+            android:id="@+id/tv_my_messages"
+            android:drawableTop="@drawable/ic_message_white_24dp"
+            android:text="我的消息"
+            app:drawable_tint_color="@color/light_brown"
+            />
 
-        </LinearLayout>
+        <com.zpj.shouji.market.ui.widget.DrawableTintTextView
+            style="@style/me_tool_card_item_style"
+            android:id="@+id/tv_my_collections"
+            android:drawableTop="@drawable/ic_collect_white_24dp"
+            android:text="我的收藏"
+            app:drawable_tint_color="@color/light_pink"
+            />
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="16dp"
-            android:layout_marginTop="16dp"
-            android:orientation="horizontal">
+        <com.zpj.shouji.market.ui.widget.DrawableTintTextView
+            style="@style/me_tool_card_item_style"
+            android:id="@+id/tv_my_bookings"
+            android:drawableTop="@drawable/ic_app_collection_white_24dp"
+            android:text="我的预约"
+            app:drawable_tint_color="@color/light_blue_gray"
+            />
 
-            <com.zpj.shouji.market.ui.widget.DrawableTintTextView
-                style="@style/me_tool_card_item_style"
-                android:id="@+id/tv_my_messages"
-                android:drawableTop="@drawable/ic_message_white_24dp"
-                android:text="我的消息"
-                app:drawable_tint_color="@color/light_brown"
-                />
+        <com.zpj.shouji.market.ui.widget.DrawableTintTextView
+            style="@style/me_tool_card_item_style"
+            android:id="@+id/tv_my_blacklist"
+            android:drawableTop="@drawable/ic_blacklist_white_24dp"
+            android:text="黑名单"
+            app:drawable_tint_color="@color/light_red_1"
+            />
 
-            <com.zpj.shouji.market.ui.widget.DrawableTintTextView
-                style="@style/me_tool_card_item_style"
-                android:id="@+id/tv_my_collections"
-                android:drawableTop="@drawable/ic_collect_white_24dp"
-                android:text="我的收藏"
-                app:drawable_tint_color="@color/light_pink"
-                />
 
-            <com.zpj.shouji.market.ui.widget.DrawableTintTextView
-                style="@style/me_tool_card_item_style"
-                android:id="@+id/tv_my_bookings"
-                android:drawableTop="@drawable/ic_app_collection_white_24dp"
-                android:text="我的预约"
-                app:drawable_tint_color="@color/light_blue_gray"
-                />
+    </android.support.v7.widget.GridLayout>
 
-            <com.zpj.shouji.market.ui.widget.DrawableTintTextView
-                style="@style/me_tool_card_item_style"
-                android:id="@+id/tv_my_blacklist"
-                android:drawableTop="@drawable/ic_blacklist_white_24dp"
-                android:text="黑名单"
-                app:drawable_tint_color="@color/light_red_1"
-                />
+<!--    <LinearLayout-->
+<!--        android:id="@+id/ll_tools"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:orientation="vertical"-->
+<!--        >-->
 
-        </LinearLayout>
+<!--        <LinearLayout-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_marginTop="16dp"-->
+<!--            android:orientation="horizontal">-->
 
-    </LinearLayout>
+
+
+<!--        </LinearLayout>-->
+
+<!--        <LinearLayout-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_marginBottom="16dp"-->
+<!--            android:layout_marginTop="16dp"-->
+<!--            android:orientation="horizontal">-->
+
+
+
+<!--        </LinearLayout>-->
+
+<!--    </LinearLayout>-->
 
     <eightbitlab.com.blurview.BlurView
         android:id="@+id/bv_not_login"

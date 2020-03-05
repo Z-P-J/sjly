@@ -9,9 +9,10 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.zpj.shouji.market.R;
-import com.zpj.shouji.market.ui.fragment.profile.MeFragment;
+import com.zpj.shouji.market.ui.fragment.homepage.RecommendFragment2;
+import com.zpj.shouji.market.ui.fragment.profile.MyFragment;
 import com.zpj.shouji.market.ui.fragment.profile.ProfileFragment;
-import com.zpj.shouji.market.utils.UserManager;
+import com.zpj.shouji.market.manager.UserManager;
 
 import eightbitlab.com.blurview.BlurView;
 import eightbitlab.com.blurview.RenderScriptBlur;
@@ -34,7 +35,7 @@ public class MyToolsCard extends LCardView implements View.OnClickListener {
     private TextView tvSignIn;
 
     private SupportActivity activity;
-    private MeFragment fragment;
+    private MyFragment fragment;
     
     public MyToolsCard(@NonNull Context context) {
         this(context, null);
@@ -50,7 +51,7 @@ public class MyToolsCard extends LCardView implements View.OnClickListener {
         LayoutInflater.from(context).inflate(R.layout.layout_my_tools_2, this);
 
         bvNotLogin = findViewById(R.id.bv_not_login);
-        bvNotLogin.setupWith(findViewById(R.id.ll_tools))
+        bvNotLogin.setupWith(findViewById(R.id.grid))
 //                .setFrameClearDrawable(view.getBackground())
                 .setBlurAlgorithm(new RenderScriptBlur(context))
                 .setBlurRadius(18f)
@@ -92,6 +93,7 @@ public class MyToolsCard extends LCardView implements View.OnClickListener {
                 activity.start(ProfileFragment.newInstance(UserManager.getInstance().getUserId(), false));
                 break;
             case R.id.tv_my_discovers:
+
                 break;
             case R.id.tv_my_comments:
                 break;
@@ -112,7 +114,7 @@ public class MyToolsCard extends LCardView implements View.OnClickListener {
         this.activity = activity;
     }
 
-    public void attachFragment(MeFragment fragment) {
+    public void attachFragment(MyFragment fragment) {
         this.fragment = fragment;
     }
 

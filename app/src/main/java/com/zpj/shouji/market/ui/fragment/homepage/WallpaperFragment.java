@@ -7,17 +7,16 @@ import android.support.v4.view.ViewPager;
 import android.view.View;
 import android.widget.ImageView;
 
-import com.kongzue.stacklabelview.interfaces.OnLabelClickListener;
-import com.zpj.http.core.IHttp;
+import com.zpj.fragmentation.BaseFragment;
 import com.zpj.http.parser.html.nodes.Element;
 import com.zpj.http.parser.html.select.Elements;
 import com.zpj.shouji.market.R;
+import com.zpj.shouji.market.api.HttpApi;
 import com.zpj.shouji.market.model.WallpaperTag;
 import com.zpj.shouji.market.ui.adapter.FragmentsPagerAdapter;
 import com.zpj.shouji.market.ui.fragment.WallpaperListFragment;
-import com.zpj.fragmentation.BaseFragment;
+import com.zpj.shouji.market.ui.widget.flowlayout.FlowLayout;
 import com.zpj.shouji.market.ui.widget.popup.WallpaperTagPopup;
-import com.zpj.shouji.market.utils.HttpApi;
 import com.zpj.utils.ScreenUtils;
 
 import net.lucode.hackware.magicindicator.MagicIndicator;
@@ -72,13 +71,19 @@ public class WallpaperFragment extends BaseFragment implements View.OnClickListe
         if (id == R.id.iv_expand) {
             WallpaperTagPopup.with(context)
                     .setLabels(wallpaperTags)
-                    .setSelectLabel(wallpaperTags.get(viewPager.getCurrentItem()).getName())
-                    .setOnLabelClickListener(new OnLabelClickListener() {
+                    .setSelectedPosition(viewPager.getCurrentItem())
+                    .setOnItemClickListener(new FlowLayout.OnItemClickListener() {
                         @Override
-                        public void onClick(int index, View v, String s) {
+                        public void onClick(int index, View v, String text) {
                             viewPager.setCurrentItem(index);
                         }
                     })
+//                    .setOnLabelClickListener(new WallpaperTagPopup.OnLabelClickListener() {
+//                        @Override
+//                        public void onClick(int index, View v, WallpaperTag tag) {
+//                            viewPager.setCurrentItem(index);
+//                        }
+//                    })
                     .show(v);
         }
     }
@@ -93,10 +98,11 @@ public class WallpaperFragment extends BaseFragment implements View.OnClickListe
                     }
                     initMagicIndicator();
                 })
-                .onError(new IHttp.OnErrorListener() {
-                    @Override
-                    public void onError(Throwable throwable) {
-                        // TODO 加载默认分类
+                .onError(throwable -> {
+                    // TODO 加载默认分类
+                    String[] tags = getResources().getStringArray(R.array.default_wallpaper_tags);
+                    for (int i = 0; i < tags.length; i++) {
+                        wallpaperTags.add(WallpaperTag.create(Integer.toString(i + 1), tags[i]));
                     }
                 })
                 .subscribe();

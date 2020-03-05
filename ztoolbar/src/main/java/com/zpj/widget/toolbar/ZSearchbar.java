@@ -26,7 +26,7 @@ public class ZSearchbar extends BaseToolbar {
     private String defaultText;
     private String hintText;
     protected boolean editable;                // 搜索框是否可输入
-    protected int searchBgResource;                 // 搜索框背景图片
+    protected int searchBgResource = 0;                 // 搜索框背景图片
     protected int rightType;                  // 搜索框右边按钮类型  0: voice 1: delete
 
     private AutoCompleteTextView editor;

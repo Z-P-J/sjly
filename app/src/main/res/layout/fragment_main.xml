@@ -6,23 +6,18 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <com.zpj.shouji.market.ui.widget.navigation.BottomNavigationViewEx
-        android:id="@+id/navigation_view"
+    <com.zpj.shouji.market.ui.widget.BottomBar
+        android:id="@+id/bottom_bar"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="56dp"
         android:layout_alignParentBottom="true"
-        android:background="@android:color/white"
-        app:menu="@menu/menu_navigation_center_fab"
-        app:itemTextColor="@color/selector_item_primary_color"
-        app:itemIconTint="@color/selector_item_primary_color"
-        app:elevation="0dp"
         />
 
     <com.zpj.widget.ZViewPager
         android:id="@+id/vp"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_above="@id/navigation_view" />
+        android:layout_above="@id/bottom_bar" />
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/fab"

@@ -17,9 +17,9 @@ import java.util.List;
 public class AppListFragment extends NextUrlFragment<AppInfo>
         implements SearchResultFragment.KeywordObserver {
 
-    public static AppListFragment newInstance(String defaultUrl) {
+    public static AppListFragment newInstance(String id) {
         Bundle args = new Bundle();
-        args.putString(KEY_DEFAULT_URL, defaultUrl);
+        args.putString(KEY_DEFAULT_URL, "http://tt.shouji.com.cn/androidv3/special_list_xml.jsp?id=" + id);
         AppListFragment fragment = new AppListFragment();
         fragment.setArguments(args);
         return fragment;

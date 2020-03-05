@@ -4,13 +4,10 @@ import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.FloatingActionButton;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.lxj.xpopup.core.BasePopupView;
 import com.zpj.fragmentation.BaseFragment;
 import com.zpj.matisse.CaptureMode;
 import com.zpj.matisse.Matisse;
@@ -22,19 +19,16 @@ import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.ui.adapter.FragmentsPagerAdapter;
 import com.zpj.shouji.market.ui.fragment.chat.ChatFragment;
 import com.zpj.shouji.market.ui.fragment.homepage.HomeFragment;
-import com.zpj.shouji.market.ui.fragment.profile.MeFragment;
+import com.zpj.shouji.market.ui.fragment.profile.MyFragment;
 import com.zpj.shouji.market.ui.fragment.recommond.GameRecommendFragment;
 import com.zpj.shouji.market.ui.fragment.recommond.SoftRecommendFragment;
 import com.zpj.shouji.market.ui.widget.BottomBar;
 import com.zpj.shouji.market.ui.widget.BottomBarTab;
-import com.zpj.shouji.market.ui.widget.navigation.BottomNavigationViewEx;
 import com.zpj.shouji.market.ui.widget.popup.MorePopup;
 import com.zpj.widget.ZViewPager;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import me.yokeyword.fragmentation.SupportFragment;
 
 public class MainFragment extends BaseFragment
         implements MorePopup.OnItemClickListener {
@@ -44,7 +38,7 @@ public class MainFragment extends BaseFragment
 
     @Override
     protected int getLayoutId() {
-        return R.layout.fragment_main3;
+        return R.layout.fragment_main;
     }
 
     @Override
@@ -69,9 +63,9 @@ public class MainFragment extends BaseFragment
             game = new GameRecommendFragment();
         }
 
-        MeFragment profileFragment = findChildFragment(MeFragment.class);
+        MyFragment profileFragment = findChildFragment(MyFragment.class);
         if (profileFragment == null) {
-            profileFragment = new MeFragment();
+            profileFragment = new MyFragment();
         }
         fragments.clear();
         fragments.add(homeFragment);

@@ -26,7 +26,7 @@ import com.zpj.shouji.market.model.InstalledAppInfo;
 import com.zpj.shouji.market.model.XpkInfo;
 import com.zpj.shouji.market.ui.fragment.base.RecyclerLayoutFragment;
 import com.zpj.shouji.market.ui.widget.popup.RecyclerPopup;
-import com.zpj.shouji.market.utils.AppUpdateHelper;
+import com.zpj.shouji.market.manager.AppUpdateManager;
 import com.zpj.shouji.market.utils.AppUtil;
 import com.zpj.shouji.market.utils.FileUtils;
 
@@ -142,7 +142,7 @@ public class PackageFragment extends RecyclerLayoutFragment<InstalledAppInfo> {
 
             GlideApp.with(context).load(appInfo).into(holder.getImageView(R.id.iv_icon));
 
-            String idStr = AppUpdateHelper.getInstance().getAppIdAndType(appInfo.getPackageName());
+            String idStr = AppUpdateManager.getInstance().getAppIdAndType(appInfo.getPackageName());
             String info;
             if (idStr == null) {
                 info = "未收录";
@@ -295,7 +295,7 @@ public class PackageFragment extends RecyclerLayoutFragment<InstalledAppInfo> {
         appInfo.setName(packageInfo.applicationInfo.loadLabel(manager).toString());
 //        Log.d("parseFromApk", "name=" + appInfo.getName());
         appInfo.setPackageName(packageInfo.packageName);
-        appInfo.setIdAndType(AppUpdateHelper.getInstance().getAppIdAndType(appInfo.getPackageName()));
+        appInfo.setIdAndType(AppUpdateManager.getInstance().getAppIdAndType(appInfo.getPackageName()));
         appInfo.setVersionName(packageInfo.versionName);
         appInfo.setVersionCode(packageInfo.versionCode);
         return appInfo;
@@ -313,7 +313,7 @@ public class PackageFragment extends RecyclerLayoutFragment<InstalledAppInfo> {
         appInfo.setApkFilePath(file.getPath());
         appInfo.setName(xpkInfo.getAppName());
         appInfo.setPackageName(xpkInfo.getPackageName());
-        appInfo.setId(AppUpdateHelper.getInstance().getAppIdAndType(appInfo.getPackageName()));
+        appInfo.setId(AppUpdateManager.getInstance().getAppIdAndType(appInfo.getPackageName()));
         appInfo.setVersionName(xpkInfo.getVersionName());
         appInfo.setVersionCode(xpkInfo.getVersionCode());
         appInfo.setAppSize(file.length());

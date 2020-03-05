@@ -33,7 +33,7 @@ dependencies {
 
 //    implementation 'com.nineoldandroids:library:2.4.0'
 //    implementation 'com.github.ybq:Android-SpinKit:1.4.0'
-    api 'com.loopeer.lib:shadow:0.0.4-beta3'
+
 //    api 'com.zyp.cardview:cardview:1.0.1'
 //    api 'io.github.meetsl:SCardView:1.2'
 
@@ -50,4 +50,5 @@ dependencies {
     api project(':zwidget')
     api project(':third-part-color-cardview')
 //    api project(':shadowlayout')
+//    api 'com.loopeer.lib:shadow:0.0.4-beta3'
 }

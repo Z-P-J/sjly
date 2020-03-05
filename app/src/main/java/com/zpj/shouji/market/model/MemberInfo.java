@@ -143,8 +143,8 @@ public class MemberInfo {
                     field.setAccessible(true);
                     element.appendText(field.get(this).toString());
                 }
-                return doc.toString();
             }
+            return doc.toString();
         } catch (Exception e) {
             e.printStackTrace();
         }

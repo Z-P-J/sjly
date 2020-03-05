@@ -2,9 +2,6 @@ package com.zpj.shouji.market.ui.widget;
 
 import android.content.Context;
 import android.support.annotation.Nullable;
-import android.text.Editable;
-import android.text.TextUtils;
-import android.text.TextWatcher;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,7 +10,7 @@ import android.widget.TextView;
 
 import com.felix.atoast.library.AToast;
 import com.zpj.shouji.market.R;
-import com.zpj.shouji.market.utils.UserManager;
+import com.zpj.shouji.market.manager.UserManager;
 import com.zpj.utils.ScreenUtils;
 import com.zpj.widget.editor.EditTextWithClear;
 import com.zpj.widget.editor.PasswordEditText;

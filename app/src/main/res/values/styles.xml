@@ -58,14 +58,12 @@
     </style>
 
     <style name="me_tool_card_item_style">
-        <item name="android:layout_width">0dp</item>
-        <item name="android:layout_height">wrap_content</item>
-        <item name="android:layout_weight">1</item>
+        <item name="layout_columnWeight">1</item>
         <item name="android:drawablePadding">8dp</item>
         <item name="android:padding">8dp</item>
         <item name="android:gravity">center</item>
         <item name="android:textColor">@color/color_text_major</item>
-        <item name="background">?android:attr/selectableItemBackground</item>
+        <item name="android:background">?android:attr/selectableItemBackground</item>
     </style>
 
 </resources>

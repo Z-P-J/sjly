@@ -9,7 +9,6 @@ import android.text.TextWatcher;
 import android.view.View;
 
 import com.felix.atoast.library.AToast;
-import com.kongzue.stacklabelview.interfaces.OnLabelClickListener;
 import com.zpj.fragmentation.BaseFragment;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.ui.adapter.FragmentsPagerAdapter;
@@ -25,7 +24,7 @@ import me.yokeyword.fragmentation.anim.DefaultHorizontalAnimator;
 import me.yokeyword.fragmentation.anim.DefaultNoAnimator;
 import me.yokeyword.fragmentation.anim.FragmentAnimator;
 
-public class SearchFragment extends BaseFragment implements OnLabelClickListener {
+public class SearchFragment extends BaseFragment {
 
     class SearchEvent {
         String keyword;
@@ -59,7 +58,10 @@ public class SearchFragment extends BaseFragment implements OnLabelClickListener
         if (searchPanelFragment == null) {
             searchPanelFragment = new SearchPanelFragment();
         }
-        searchPanelFragment.setOnLabelClickListener(this);
+        searchPanelFragment.setOnItemClickListener((index, v, text) -> {
+            searchBar.setText(text);
+            getSearchResult(text);
+        });
 
         SearchResultFragment searchResultFragment = findChildFragment(SearchResultFragment.class);
         if (searchResultFragment == null) {
@@ -124,12 +126,6 @@ public class SearchFragment extends BaseFragment implements OnLabelClickListener
     @Override
     public FragmentAnimator onCreateFragmentAnimator() {
         return new DefaultNoAnimator();
-    }
-
-    @Override
-    public void onClick(int index, View v, String s) {
-        searchBar.setText(s);
-        getSearchResult(s);
     }
 
     private boolean getSearchResult(String text) {

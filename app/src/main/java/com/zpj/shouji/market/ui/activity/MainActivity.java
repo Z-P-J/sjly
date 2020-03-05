@@ -10,13 +10,17 @@ import android.os.StrictMode;
 import com.felix.atoast.library.AToast;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.ui.fragment.MainFragment;
-import com.zpj.shouji.market.utils.AppInstalledManager;
-import com.zpj.shouji.market.utils.AppUpdateHelper;
-import com.zpj.shouji.market.utils.HttpPreLoader;
-import com.zpj.shouji.market.utils.UserManager;
+import com.zpj.shouji.market.manager.AppInstalledManager;
+import com.zpj.shouji.market.manager.AppUpdateManager;
+import com.zpj.shouji.market.api.HttpPreLoader;
+import com.zpj.shouji.market.manager.UserManager;
 import com.zpj.utils.StatusBarUtils;
 
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+
 import me.yokeyword.fragmentation.SupportActivity;
+import me.yokeyword.fragmentation.SupportFragment;
 import me.yokeyword.fragmentation.anim.DefaultHorizontalAnimator;
 import me.yokeyword.fragmentation.anim.FragmentAnimator;
 import site.gemus.openingstartanimation.NormalDrawStrategy;
@@ -29,6 +33,8 @@ public class MainActivity extends SupportActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        EventBus.getDefault().register(this);
 
         setContentView(R.layout.activity_main);
 
@@ -56,7 +62,7 @@ public class MainActivity extends SupportActivity {
                         }
 
                         StatusBarUtils.setDarkMode(getWindow());
-                        AppUpdateHelper.getInstance().checkUpdate(MainActivity.this);
+                        AppUpdateManager.getInstance().checkUpdate(MainActivity.this);
                     }
                 })
                 .create();
@@ -69,6 +75,12 @@ public class MainActivity extends SupportActivity {
         getWindow().setBackgroundDrawable(new ColorDrawable(Color.WHITE));
 
         AppInstalledManager.getInstance().loadApps(this);
+    }
+
+    @Override
+    protected void onDestroy() {
+        EventBus.getDefault().unregister(this);
+        super.onDestroy();
     }
 
     @Override
@@ -88,6 +100,10 @@ public class MainActivity extends SupportActivity {
         return new DefaultHorizontalAnimator();
     }
 
+    @Subscribe
+    public void startFragment(SupportFragment fragment) {
+        start(fragment);
+    }
 
 
 }

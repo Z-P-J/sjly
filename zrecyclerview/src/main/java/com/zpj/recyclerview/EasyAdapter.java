@@ -135,6 +135,13 @@ public class EasyAdapter<T> extends RecyclerView.Adapter<EasyViewHolder> {
             return;
         }
         if (isFooterPosition(position)) {
+            if (list.isEmpty()) {
+                ViewGroup.LayoutParams params = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
+                footerView.setLayoutParams(params);
+            } else {
+                ViewGroup.LayoutParams params = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+                footerView.setLayoutParams(params);
+            }
             if (!canScroll() && mOnLoadMoreListener != null && !mIsLoading && getLoadMoreEnabled()) {
                 mIsLoading = true;
                 // fix Cannot call this method while RecyclerView is computing a layout or scrolling

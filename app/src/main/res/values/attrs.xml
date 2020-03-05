@@ -71,4 +71,31 @@
         <attr name="drawable_tint_color" format="color" />
     </declare-styleable>
 
+<!--    <declare-styleable name="RecommendHeader">-->
+<!--        <attr name="header_title" format="string" />-->
+<!--    </declare-styleable>-->
+
+    <declare-styleable name="RecommendCard">
+        <attr name="header_title" format="string" />
+    </declare-styleable>
+
+    <string-array name="default_wallpaper_tags">
+        <item>全部</item>
+        <item>壁纸</item>
+        <item>二次元</item>
+        <item>美女</item>
+        <item>Cosplay</item>
+        <item>生活</item>
+        <item>萌宠</item>
+        <item>艺术</item>
+        <item>小清新</item>
+        <item>运动</item>
+        <item>游戏</item>
+        <item>风景</item>
+        <item>动漫</item>
+        <item>明星</item>
+        <item>美食</item>
+        <item>酷车</item>
+    </string-array>
+
 </resources>

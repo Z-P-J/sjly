@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout android:orientation="vertical"
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@android:color/white">
@@ -13,47 +12,30 @@
         <LinearLayout
             android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:paddingTop="16dp">
 
-            <RelativeLayout android:id="@+id/history_search_bar"
+            <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="10dp"
-                android:layout_marginBottom="5dp"
-                >
+                android:text="热门搜索"
+                android:textSize="14sp"
+                android:textColor="@color/color_text_major"
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp"
+                />
 
-                <TextView
-
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="热门搜索"
-                    android:layout_alignParentStart="true"
-                    android:textSize="14sp"
-                    android:textColor="@color/color_text_major"
-                    android:layout_centerVertical="true"
-                    />
-
-            </RelativeLayout>
-
-
-            <com.kongzue.stacklabelview.StackLabel
+            <com.zpj.shouji.market.ui.widget.flowlayout.FlowLayout
                 android:id="@+id/hot_search"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:textSize="14sp"
-                app:textColor="#e6000000"
-                app:itemMargin="4dp"
-                app:paddingHorizontal="16dp"
-                app:paddingVertical="8dp"
-                android:layout_marginStart="10dp"
-                android:layout_marginEnd="10dp"
                 />
 
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="10dp"
-                android:layout_marginBottom="5dp"
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp"
                 >
 
                 <TextView
@@ -78,17 +60,10 @@
 
             </RelativeLayout>
 
-            <com.kongzue.stacklabelview.StackLabel
+            <com.zpj.shouji.market.ui.widget.flowlayout.FlowLayout
                 android:id="@+id/search_history"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:textSize="14sp"
-                app:textColor="#e6000000"
-                app:itemMargin="4dp"
-                app:paddingHorizontal="16dp"
-                app:paddingVertical="8dp"
-                android:layout_marginStart="10dp"
-                android:layout_marginEnd="10dp"
                 />
 
         </LinearLayout>

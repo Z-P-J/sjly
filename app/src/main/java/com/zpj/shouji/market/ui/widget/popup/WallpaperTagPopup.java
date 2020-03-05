@@ -4,22 +4,22 @@ import android.content.Context;
 import android.support.annotation.NonNull;
 import android.view.View;
 
-import com.kongzue.stacklabelview.StackLabel;
-import com.kongzue.stacklabelview.interfaces.OnLabelClickListener;
 import com.lxj.xpopup.XPopup;
 import com.lxj.xpopup.impl.PartShadowPopupView;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.model.WallpaperTag;
+import com.zpj.shouji.market.ui.widget.flowlayout.FlowLayout;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class WallpaperTagPopup extends PartShadowPopupView implements OnLabelClickListener {
+public class WallpaperTagPopup extends PartShadowPopupView {
 
     private final Context context;
-    private List<String> labels;
-    private String selectLabel;
-    private OnLabelClickListener onLabelClickListener;
+    private final List<WallpaperTag> tags = new ArrayList<>();
+    private FlowLayout.OnItemClickListener onItemClickListener;
+
+    private int selectedPosition = -1;
 
     public static WallpaperTagPopup with(Context context) {
         return new WallpaperTagPopup(context);
@@ -38,38 +38,31 @@ public class WallpaperTagPopup extends PartShadowPopupView implements OnLabelCli
     @Override
     protected void onCreate() {
         super.onCreate();
-        StackLabel stackLabel = findViewById(R.id.stack_label);
-        if (labels == null || selectLabel == null) {
+        FlowLayout flowLayout = findViewById(R.id.flow_layout);
+        flowLayout.setOnItemClickListener((index, v, text) -> {
             dismiss();
-            return;
+            if (onItemClickListener != null) {
+                onItemClickListener.onClick(index, v, text);
+            }
+        });
+        flowLayout.setSelectedPosition(selectedPosition);
+        for (WallpaperTag tag : tags) {
+            flowLayout.addItem(tag.getName());
         }
-        stackLabel.setLabels(labels);
-        List<String> selectLabels = new ArrayList<>();
-        selectLabels.add(selectLabel);
-        stackLabel.setSelectMode(true, selectLabels);
-        stackLabel.setOnLabelClickListener(this);
     }
 
-    public WallpaperTagPopup setSelectLabel(String whichIsSelected) {
-        this.selectLabel = whichIsSelected;
+    public WallpaperTagPopup setSelectedPosition(int position) {
+        this.selectedPosition = position;
         return this;
     }
-
-//    public WallpaperTagPopupView setLabels(List<String> labels) {
-//        this.labels = labels;
-//        return this;
-//    }
 
     public WallpaperTagPopup setLabels(List<WallpaperTag> labels) {
-        this.labels = new ArrayList<>();
-        for (WallpaperTag tag : labels) {
-            this.labels.add(tag.getName());
-        }
+        tags.addAll(labels);
         return this;
     }
 
-    public WallpaperTagPopup setOnLabelClickListener(OnLabelClickListener onLabelClickListener) {
-        this.onLabelClickListener = onLabelClickListener;
+    public WallpaperTagPopup setOnItemClickListener(FlowLayout.OnItemClickListener onItemClickListener) {
+        this.onItemClickListener = onItemClickListener;
         return this;
     }
 
@@ -81,14 +74,4 @@ public class WallpaperTagPopup extends PartShadowPopupView implements OnLabelCli
         return this;
     }
 
-    @Override
-    public void onClick(int index, View v, String s) {
-        dismiss();
-        if (onLabelClickListener != null) {
-//            if (labels.getString(index).equals(selectLabel)) {
-//                return;
-//            }
-            onLabelClickListener.onClick(index, v, s);
-        }
-    }
 }

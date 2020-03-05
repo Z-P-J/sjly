@@ -37,7 +37,7 @@ import com.zpj.shouji.market.model.article.TextElement;
 import com.zpj.fragmentation.BaseFragment;
 import com.zpj.shouji.market.ui.fragment.detail.AppDetailFragment;
 import com.zpj.shouji.market.ui.widget.selection.SelectableTextView;
-import com.zpj.shouji.market.utils.HttpApi;
+import com.zpj.shouji.market.api.HttpApi;
 import com.zpj.utils.ScreenUtils;
 
 import java.util.ArrayList;

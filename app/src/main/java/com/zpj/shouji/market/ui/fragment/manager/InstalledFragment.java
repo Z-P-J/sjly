@@ -33,9 +33,9 @@ import com.zpj.shouji.market.ui.fragment.base.RecyclerLayoutFragment;
 import com.zpj.shouji.market.ui.fragment.detail.AppDetailFragment;
 import com.zpj.shouji.market.ui.widget.GradientButton;
 import com.zpj.shouji.market.ui.widget.popup.RecyclerPopup;
-import com.zpj.shouji.market.utils.AppBackupHelper;
-import com.zpj.shouji.market.utils.AppInstalledManager;
-import com.zpj.shouji.market.utils.AppUpdateHelper;
+import com.zpj.shouji.market.manager.AppBackupManager;
+import com.zpj.shouji.market.manager.AppInstalledManager;
+import com.zpj.shouji.market.manager.AppUpdateManager;
 import com.zpj.shouji.market.utils.AppUtil;
 import com.zpj.utils.ScreenUtils;
 
@@ -48,7 +48,7 @@ import me.yokeyword.fragmentation.SupportActivity;
 
 public class InstalledFragment extends RecyclerLayoutFragment<InstalledAppInfo>
         implements AppInstalledManager.CallBack,
-        AppBackupHelper.AppBackupListener {
+        AppBackupManager.AppBackupListener {
 
     private static final List<OptionMenu> optionMenus = new ArrayList<>();
 
@@ -108,7 +108,7 @@ public class InstalledFragment extends RecyclerLayoutFragment<InstalledAppInfo>
         backupBtn = view.findViewById(R.id.btn_backup);
         backupBtn.setOnClickListener(v -> {
             AToast.normal(recyclerLayout.getSelectedSet().toString());
-            AppBackupHelper.getInstance()
+            AppBackupManager.getInstance()
                     .addAppBackupListener(this)
                     .startBackup(recyclerLayout.getSelectedItem());
         });
@@ -125,7 +125,7 @@ public class InstalledFragment extends RecyclerLayoutFragment<InstalledAppInfo>
 
     @Override
     public void onDestroy() {
-        AppBackupHelper.getInstance().removeAppBackupListener(this);
+        AppBackupManager.getInstance().removeAppBackupListener(this);
         AppInstalledManager.getInstance().removeListener(this);
         super.onDestroy();
     }
@@ -208,7 +208,7 @@ public class InstalledFragment extends RecyclerLayoutFragment<InstalledAppInfo>
         GlideApp.with(context).load(appInfo).into(holder.getImageView(R.id.iv_icon));
 
         holder.getTextView(R.id.tv_name).setText(appInfo.getName());
-        String idStr = AppUpdateHelper.getInstance().getAppIdAndType(appInfo.getPackageName());
+        String idStr = AppUpdateManager.getInstance().getAppIdAndType(appInfo.getPackageName());
         String info;
         if (idStr == null) {
             info = "未收录";

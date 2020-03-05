@@ -4,14 +4,13 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.View;
 
-import com.kongzue.stacklabelview.StackLabel;
-import com.kongzue.stacklabelview.interfaces.OnLabelClickListener;
+import com.zpj.fragmentation.BaseFragment;
 import com.zpj.http.parser.html.nodes.Element;
 import com.zpj.shouji.market.R;
+import com.zpj.shouji.market.api.HttpApi;
 import com.zpj.shouji.market.database.SearchHistoryManager;
 import com.zpj.shouji.market.model.SearchHistory;
-import com.zpj.fragmentation.BaseFragment;
-import com.zpj.shouji.market.utils.HttpApi;
+import com.zpj.shouji.market.ui.widget.flowlayout.FlowLayout;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -21,9 +20,9 @@ import java.util.List;
 
 public class SearchPanelFragment extends BaseFragment {
 
-    private StackLabel hotSearch;
-    private StackLabel searchHistory;
-    private OnLabelClickListener onLabelClickListener;
+    private FlowLayout hotSearch;
+    private FlowLayout searchHistory;
+    private FlowLayout.OnItemClickListener onItemClickListener;
 
     @Override
     protected int getLayoutId() {
@@ -45,15 +44,15 @@ public class SearchPanelFragment extends BaseFragment {
     @Override
     protected void initView(View view, @Nullable Bundle savedInstanceState) {
         hotSearch = view.findViewById(R.id.hot_search);
-        hotSearch.setOnLabelClickListener(onLabelClickListener);
+        hotSearch.setOnItemClickListener(onItemClickListener);
         searchHistory = view.findViewById(R.id.search_history);
-        searchHistory.setOnLabelClickListener(onLabelClickListener);
+        searchHistory.setOnItemClickListener(onItemClickListener);
         getHotSearch();
         getSearchHistory();
     }
 
-    public void setOnLabelClickListener(OnLabelClickListener onLabelClickListener) {
-        this.onLabelClickListener = onLabelClickListener;
+    public void setOnItemClickListener(FlowLayout.OnItemClickListener onItemClickListener) {
+        this.onItemClickListener = onItemClickListener;
     }
 
     private void getHotSearch() {
@@ -63,7 +62,7 @@ public class SearchPanelFragment extends BaseFragment {
                     for (Element item : data.select("item")) {
                         list.add(item.selectFirst("name").text());
                     }
-                    hotSearch.setLabels(list);
+                    hotSearch.addItems(list);
                 })
                 .subscribe();
     }
@@ -73,7 +72,7 @@ public class SearchPanelFragment extends BaseFragment {
         for (SearchHistory history : SearchHistoryManager.getAllSearchHistory()) {
             list.add(history.getText());
         }
-        searchHistory.setLabels(list);
+        searchHistory.addItems(list);
     }
 
     @Subscribe

@@ -19,7 +19,7 @@ import com.zpj.shouji.market.model.CollectionInfo;
 import com.zpj.shouji.market.ui.adapter.FragmentsPagerAdapter;
 import com.zpj.shouji.market.ui.fragment.theme.ThemeListFragment;
 import com.zpj.fragmentation.BaseFragment;
-import com.zpj.shouji.market.utils.HttpApi;
+import com.zpj.shouji.market.api.HttpApi;
 import com.zpj.utils.ScreenUtils;
 
 import net.lucode.hackware.magicindicator.MagicIndicator;

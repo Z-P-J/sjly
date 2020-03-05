@@ -13,20 +13,13 @@ import android.util.AttributeSet;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.CheckBox;
-import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.felix.atoast.library.AToast;
-import com.zpj.http.ZHttp;
-import com.zpj.http.core.Connection;
-import com.zpj.http.core.IHttp;
-import com.zpj.http.parser.html.nodes.Document;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.ui.fragment.WebFragment;
-import com.zpj.shouji.market.utils.HttpApi;
-import com.zpj.shouji.market.utils.UserManager;
+import com.zpj.shouji.market.manager.UserManager;
 import com.zpj.utils.ScreenUtils;
 import com.zpj.widget.SmoothCheckBox;
 import com.zpj.widget.editor.EditTextWithClear;
@@ -35,10 +28,7 @@ import com.zpj.widget.editor.validator.EmailValidator;
 import com.zpj.widget.editor.validator.LengthValidator;
 import com.zpj.widget.editor.validator.SameValueValidator;
 
-import java.util.Map;
-
 import me.yokeyword.fragmentation.SupportActivity;
-import me.yokeyword.fragmentation.SupportFragment;
 
 public class SignInLayout extends LinearLayout
         implements UserManager.OnSignInListener {

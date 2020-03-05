@@ -35,7 +35,7 @@ import com.zpj.shouji.market.ui.fragment.AppListFragment;
 import com.zpj.shouji.market.ui.fragment.base.RecyclerLayoutFragment;
 import com.zpj.shouji.market.ui.fragment.collection.CollectionDetailFragment;
 import com.zpj.shouji.market.ui.fragment.detail.AppDetailFragment;
-import com.zpj.shouji.market.utils.HttpPreLoader;
+import com.zpj.shouji.market.api.HttpPreLoader;
 import com.zpj.utils.ScreenUtils;
 
 import java.util.ArrayList;
@@ -334,7 +334,7 @@ public class RecommendFragment extends RecyclerLayoutFragment<GroupItem> {
                     holder12.setText(R.id.tv_m, info.getM());
                     Glide.with(context).load(info.getIcon()).into(holder12.getImageView(R.id.iv_icon));
                 })
-                .onItemClick((holder15, view13, data) -> _mActivity.start(AppListFragment.newInstance("http://tt.shouji.com.cn/androidv3/special_list_xml.jsp?id=" + data.getId())))
+                .onItemClick((holder15, view13, data) -> _mActivity.start(AppListFragment.newInstance(data.getId())))
                 .build();
         HttpPreLoader.getInstance().setLoadListener(HttpPreLoader.HOME_SUBJECT, document -> {
             Elements elements = document.select("item");

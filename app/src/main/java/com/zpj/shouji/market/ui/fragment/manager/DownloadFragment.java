@@ -24,7 +24,6 @@ import com.zpj.downloader.util.FileUtil;
 import com.zpj.http.core.ObservableTask;
 import com.zpj.shouji.market.R;
 import com.zpj.fragmentation.BaseFragment;
-import com.zpj.shouji.market.utils.HttpApi;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -32,10 +31,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
-
-import io.reactivex.Observable;
-import io.reactivex.ObservableEmitter;
-import io.reactivex.ObservableOnSubscribe;
 
 public class DownloadFragment extends BaseFragment implements DownloadManager.DownloadManagerListener, GroupRecyclerViewAdapter.OnItemClickListener<DownloadFragment.DownloadWrapper> {
 

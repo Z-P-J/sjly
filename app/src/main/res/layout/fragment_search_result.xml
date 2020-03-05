@@ -14,11 +14,13 @@
         android:padding="8dp"
         />
 
-    <FrameLayout
+    <www.linwg.org.lib.LCardView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@drawable/magic_indicator_bg"
-        android:paddingTop="24dp"
+        app:cardBackgroundColor="@android:color/white"
+        app:shadowSize="0dp"
+        app:leftTopCornerRadius="24dp"
+        app:rightTopCornerRadius="24dp"
         >
 
         <android.support.v4.view.ViewPager
@@ -27,6 +29,6 @@
             android:layout_height="match_parent"
             />
 
-    </FrameLayout>
+    </www.linwg.org.lib.LCardView>
 
 </LinearLayout>

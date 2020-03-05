@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/scroll_view"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:scrollbars="none"
+    >
+
+    <LinearLayout
+        android:id="@+id/ll_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <com.zpj.shouji.market.ui.widget.recommend.RecommendBanner
+            android:id="@+id/rb_banner"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            />
+
+        <com.zpj.shouji.market.ui.widget.recommend.UpdateRecommendCard
+            android:id="@+id/rc_update"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:header_title="最近更新"
+            />
+
+        <com.zpj.shouji.market.ui.widget.recommend.CollectionRecommendCard
+            android:id="@+id/rc_collection"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:header_title="应用集推荐"
+            />
+
+        <com.zpj.shouji.market.ui.widget.recommend.SoftRecommendCard
+            android:id="@+id/rc_soft"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:header_title="应用推荐"
+            />
+
+        <com.zpj.shouji.market.ui.widget.recommend.GameRecommendCard
+            android:id="@+id/rc_game"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:header_title="游戏推荐"
+            />
+
+        <com.zpj.shouji.market.ui.widget.recommend.SubjectRecommendCard
+            android:id="@+id/rc_subject"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:header_title="专题推荐"
+            />
+
+    </LinearLayout>
+
+</ScrollView>

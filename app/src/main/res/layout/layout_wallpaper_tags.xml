@@ -1,18 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.kongzue.stacklabelview.StackLabel
+<www.linwg.org.lib.LCardView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/stack_label"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@android:color/white"
-    app:textColor="#e6000000"
-    app:itemMargin="4dp"
-    app:paddingHorizontal="16dp"
-    app:paddingVertical="8dp"
-    app:deleteButton="false"
-    app:textSize="14sp"
-    app:maxSelectNum="1"
-    app:selectMode="true"
-    app:selectTextColor="@color/colorPrimary"
-    />
+    app:leftBottomCornerRadius="16dp"
+    app:rightBottomCornerRadius="16dp"
+    app:shadowSize="0dp"
+    android:padding="8dp"
+    app:cardBackgroundColor="@android:color/white"
+    >
+
+<!--    <android.support.v7.widget.RecyclerView-->
+<!--        android:id="@+id/recycler_view"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:padding="8dp"-->
+<!--        />-->
+
+    <com.zpj.shouji.market.ui.widget.flowlayout.FlowLayout
+        android:id="@+id/flow_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+</www.linwg.org.lib.LCardView>

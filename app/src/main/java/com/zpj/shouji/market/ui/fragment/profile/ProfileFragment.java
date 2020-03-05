@@ -10,12 +10,14 @@ import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.Toolbar;
+import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.shehuan.niv.NiceImageView;
 import com.zpj.fragmentation.BaseFragment;
 import com.zpj.http.parser.html.nodes.Element;
@@ -28,6 +30,7 @@ import com.zpj.shouji.market.ui.widget.RoundProgressBar;
 import com.zpj.shouji.market.ui.widget.ScaleTransitionPagerTitleView;
 import com.zpj.utils.ScreenUtils;
 import com.zpj.widget.ZViewPager;
+import com.zpj.widget.toolbar.ZToolbar;
 
 import net.lucode.hackware.magicindicator.MagicIndicator;
 import net.lucode.hackware.magicindicator.ViewPagerHelper;
@@ -35,6 +38,8 @@ import net.lucode.hackware.magicindicator.buildins.commonnavigator.CommonNavigat
 import net.lucode.hackware.magicindicator.buildins.commonnavigator.abs.CommonNavigatorAdapter;
 import net.lucode.hackware.magicindicator.buildins.commonnavigator.abs.IPagerIndicator;
 import net.lucode.hackware.magicindicator.buildins.commonnavigator.abs.IPagerTitleView;
+import net.lucode.hackware.magicindicator.buildins.commonnavigator.indicators.LinePagerIndicator;
+import net.lucode.hackware.magicindicator.buildins.commonnavigator.titles.ColorTransitionPagerTitleView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -48,7 +53,6 @@ public class ProfileFragment extends BaseFragment implements ThemeListFragment.C
 
     private ImageView mZoomIv;
     private Toolbar mToolBar;
-//    private ViewGroup titleContainer;
     private AppBarLayout mAppBarLayout;
     private ViewGroup titleCenterLayout;
     private RoundProgressBar progressBar;
@@ -146,9 +150,9 @@ public class ProfileFragment extends BaseFragment implements ThemeListFragment.C
 
             @Override
             public IPagerTitleView getTitleView(Context context, int index) {
-                ScaleTransitionPagerTitleView titleView = new ScaleTransitionPagerTitleView(context);
-                titleView.setNormalColor(Color.WHITE);
-                titleView.setSelectedColor(Color.WHITE);
+                ColorTransitionPagerTitleView titleView = new ColorTransitionPagerTitleView(context);
+                titleView.setNormalColor(getResources().getColor(R.color.color_text_normal));
+                titleView.setSelectedColor(getResources().getColor(R.color.color_text_major));
                 titleView.setTextSize(14);
                 titleView.setText(TAB_TITLES[index]);
                 titleView.setOnClickListener(new View.OnClickListener() {
@@ -162,7 +166,14 @@ public class ProfileFragment extends BaseFragment implements ThemeListFragment.C
 
             @Override
             public IPagerIndicator getIndicator(Context context) {
-                return new DotPagerIndicator(context);
+                LinePagerIndicator indicator = new LinePagerIndicator(context);
+                indicator.setMode(LinePagerIndicator.MODE_EXACTLY);
+                indicator.setLineHeight(ScreenUtils.dp2px(context, 4f));
+                indicator.setLineWidth(ScreenUtils.dp2px(context, 12f));
+                indicator.setRoundRadius(ScreenUtils.dp2px(context, 4f));
+                int color = getResources().getColor(R.color.color_text_major);
+                indicator.setColors(color, color);
+                return indicator;
             }
         });
         magicIndicator.setNavigator(navigator);
@@ -189,8 +200,8 @@ public class ProfileFragment extends BaseFragment implements ThemeListFragment.C
                         }
                         groupChange(1f, 2);
                     } else {
-                        toolbar.setBackgroundColor(color);
-                        toolbar.setStatusBarColor(color);
+                        toolbar.setBackgroundColor(Color.WHITE);
+                        toolbar.setStatusBarColor(Color.WHITE);
                         if (mAvater.getVisibility() != View.VISIBLE) {
                             mAvater.setVisibility(View.VISIBLE);
                         }
@@ -267,17 +278,27 @@ public class ProfileFragment extends BaseFragment implements ThemeListFragment.C
     public void onGetUserItem(Element element) {
         mZoomIv.post(() -> {
             mZoomIv.setTag(null);
-            Glide.with(mZoomIv)
-                    .load(element.select("memberbackground").get(0).text())
-                    .into(mZoomIv);
+            String memberBackground = element.selectFirst("memberbackground").text();
+            if (!TextUtils.isEmpty(memberBackground)) {
+                Glide.with(context).load(memberBackground)
+                        .apply(new RequestOptions()
+                                .error(R.drawable.bg_member_default)
+                                .placeholder(R.drawable.bg_member_default)
+                        )
+                        .into(mZoomIv);
+            }
             mZoomIv.setTag("overScroll");
         });
         mAvater.post(() -> {
             Glide.with(mAvater)
-                    .load(element.select("memberavatar").get(0).text())
+                    .load(element.selectFirst("memberavatar").text())
+                    .apply(new RequestOptions()
+                            .error(R.drawable.ic_user_head)
+                            .placeholder(R.drawable.ic_user_head)
+                    )
                     .into(mAvater);
         });
-        mNicknameTextView.post(() -> mNicknameTextView.setText(element.select("nickname").get(0).text()));
-        mSignatureTextView.post(() -> mSignatureTextView.setText(element.select("membersignature").get(0).text()));
+        mNicknameTextView.post(() -> mNicknameTextView.setText(element.selectFirst("nickname").text()));
+        mSignatureTextView.post(() -> mSignatureTextView.setText(element.selectFirst("membersignature").text()));
     }
 }

@@ -14,6 +14,13 @@ public class WallpaperTag {
         return tag;
     }
 
+    public static WallpaperTag create(String id, String name) {
+        WallpaperTag tag = new WallpaperTag();
+        tag.id = id;
+        tag.name = name;
+        return tag;
+    }
+
     public String getId() {
         return id;
     }

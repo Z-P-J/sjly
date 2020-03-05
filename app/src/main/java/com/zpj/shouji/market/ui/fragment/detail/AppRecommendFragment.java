@@ -28,7 +28,7 @@ import com.zpj.shouji.market.glide.blur.BlurTransformation;
 import com.zpj.shouji.market.model.GroupItem;
 import com.zpj.fragmentation.BaseFragment;
 import com.zpj.shouji.market.ui.fragment.collection.CollectionDetailFragment;
-import com.zpj.shouji.market.utils.HttpApi;
+import com.zpj.shouji.market.api.HttpApi;
 
 import java.util.ArrayList;
 import java.util.List;

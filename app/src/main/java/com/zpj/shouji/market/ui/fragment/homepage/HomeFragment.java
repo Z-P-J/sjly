@@ -39,9 +39,9 @@ public class HomeFragment extends BaseFragment {
     @Override
     protected void initView(View view, @Nullable Bundle savedInstanceState) {
         ArrayList<Fragment> list = new ArrayList<>();
-        RecommendFragment recommendFragment = findChildFragment(RecommendFragment.class);
+        RecommendFragment2 recommendFragment = findChildFragment(RecommendFragment2.class);
         if (recommendFragment == null) {
-            recommendFragment = new RecommendFragment();
+            recommendFragment = new RecommendFragment2();
         }
         DiscoverFragment exploreFragment = findChildFragment(DiscoverFragment.class);
         if (exploreFragment == null) {

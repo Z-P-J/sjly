@@ -7,7 +7,7 @@ import android.view.View;
 import com.zpj.http.parser.html.nodes.Element;
 import com.zpj.recyclerview.EasyAdapter;
 import com.zpj.recyclerview.EasyViewHolder;
-import com.zpj.shouji.market.utils.HttpApi;
+import com.zpj.shouji.market.api.HttpApi;
 
 public abstract class NextUrlFragment<T> extends RecyclerLayoutFragment<T> {
 

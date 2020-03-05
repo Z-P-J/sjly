@@ -24,14 +24,14 @@ import com.zpj.shouji.market.model.AppUpdateInfo;
 import com.zpj.shouji.market.model.InstalledAppInfo;
 import com.zpj.shouji.market.ui.fragment.base.RecyclerLayoutFragment;
 import com.zpj.shouji.market.ui.fragment.detail.AppDetailFragment;
-import com.zpj.shouji.market.utils.AppUpdateHelper;
+import com.zpj.shouji.market.manager.AppUpdateManager;
 import com.zpj.shouji.market.utils.AppUtil;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class UpdateFragment extends RecyclerLayoutFragment<AppUpdateInfo>
-        implements AppUpdateHelper.CheckUpdateListener {
+        implements AppUpdateManager.CheckUpdateListener {
 
     private static final List<OptionMenu> optionMenus = new ArrayList<>();
     static {
@@ -98,7 +98,7 @@ public class UpdateFragment extends RecyclerLayoutFragment<AppUpdateInfo>
     @Override
     public void onError(Throwable e) {
         if (e == null) {
-            AppUpdateHelper.getInstance().checkUpdate(context);
+            AppUpdateManager.getInstance().checkUpdate(context);
             return;
         }
         recyclerLayout.showErrorView(e.getMessage());
@@ -191,7 +191,7 @@ public class UpdateFragment extends RecyclerLayoutFragment<AppUpdateInfo>
     @Override
     public boolean onLoadMore(EasyAdapter.Enabled enabled, int currentPage) {
         if (data.isEmpty()) {
-            AppUpdateHelper.getInstance().addCheckUpdateListener(this);
+            AppUpdateManager.getInstance().addCheckUpdateListener(this);
             return true;
         }
         return false;

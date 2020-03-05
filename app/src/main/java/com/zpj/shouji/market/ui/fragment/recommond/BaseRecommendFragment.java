@@ -1,7 +1,6 @@
 package com.zpj.shouji.market.ui.fragment.recommond;
 
 import android.graphics.drawable.Drawable;
-import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.GridLayoutManager;
@@ -32,7 +31,7 @@ import com.zpj.shouji.market.ui.fragment.ArticleDetailFragment;
 import com.zpj.shouji.market.ui.fragment.base.RecyclerLayoutFragment;
 import com.zpj.shouji.market.ui.fragment.collection.CollectionDetailFragment;
 import com.zpj.shouji.market.ui.fragment.detail.AppDetailFragment;
-import com.zpj.shouji.market.utils.HttpApi;
+import com.zpj.shouji.market.api.HttpApi;
 import com.zpj.utils.ScreenUtils;
 
 import java.util.ArrayList;

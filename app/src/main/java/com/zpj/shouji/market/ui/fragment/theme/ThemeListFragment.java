@@ -7,7 +7,6 @@ import android.util.Log;
 import android.view.View;
 
 import com.felix.atoast.library.AToast;
-import com.zpj.http.core.IHttp;
 import com.zpj.http.parser.html.nodes.Element;
 import com.zpj.http.parser.html.select.Elements;
 import com.zpj.recyclerview.EasyRecyclerLayout;
@@ -19,7 +18,7 @@ import com.zpj.shouji.market.ui.adapter.DiscoverBinder;
 import com.zpj.shouji.market.ui.fragment.base.NextUrlFragment;
 import com.zpj.shouji.market.ui.fragment.profile.ProfileFragment;
 import com.zpj.shouji.market.ui.fragment.search.SearchResultFragment;
-import com.zpj.shouji.market.utils.HttpApi;
+import com.zpj.shouji.market.api.HttpApi;
 
 import java.util.HashMap;
 import java.util.List;
