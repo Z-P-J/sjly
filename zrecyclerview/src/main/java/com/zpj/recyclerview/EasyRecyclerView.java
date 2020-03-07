@@ -6,6 +6,7 @@ import android.support.annotation.LayoutRes;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.util.SparseArray;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -168,6 +169,101 @@ public class EasyRecyclerView<T> {
         easyAdapter.setOnLoadMoreListener(onLoadMoreListener);
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(easyAdapter);
+    }
+
+    /**
+     * 显示空视图
+     */
+    public final void showEmpty() {
+        easyAdapter.showEmpty();
+    }
+
+    public void showEmptyView(int msgId) {
+        easyAdapter.showEmptyView(msgId);
+    }
+
+    public void showEmptyView(String msg) {
+        easyAdapter.showEmptyView(msg);
+    }
+
+    public void showEmptyView(int msgId, int imgId) {
+        easyAdapter.showEmptyView(msgId, imgId);
+    }
+
+    public void showEmptyView(String msg, int imgId) {
+        easyAdapter.showEmptyView(msg, imgId);
+    }
+
+    /**
+     * 显示错误视图
+     */
+    public final void showError() {
+        easyAdapter.showError();
+    }
+
+    public void showErrorView(int msgId) {
+        easyAdapter.showErrorView(msgId);
+    }
+
+    public void showErrorView(String msg) {
+        easyAdapter.showErrorView(msg);
+    }
+
+    public void showErrorView(int msgId, int imgId) {
+        easyAdapter.showErrorView(msgId, imgId);
+    }
+
+    public void showErrorView(String msg, int imgId) {
+        easyAdapter.showErrorView(msg, imgId);
+    }
+
+    /**
+     * 显示加载中视图
+     */
+    public final void showLoading() {
+        easyAdapter.showLoading();
+    }
+
+    public void showLoadingView(View view) {
+        easyAdapter.showLoadingView(view);
+    }
+
+    public void showLoadingView(View view, boolean showTip) {
+        easyAdapter.showLoadingView(view, showTip);
+    }
+
+    public void showLoadingView(int msgId) {
+        easyAdapter.showLoadingView(msgId);
+    }
+
+    public void showLoadingView(String msg) {
+        easyAdapter.showLoadingView(msg);
+    }
+
+    /**
+     * 显示无网络视图
+     */
+    public final void showNoNetwork() {
+        easyAdapter.showNoNetwork();
+    }
+
+    public void showNoNetworkView(int msgId) {
+        easyAdapter.showNoNetworkView(msgId);
+    }
+
+    public void showNoNetworkView(String msg) {
+        easyAdapter.showNoNetworkView(msg);
+    }
+
+    public void showNoNetworkView(int msgId, int imgId) {
+        easyAdapter.showNoNetworkView(msgId, imgId);
+    }
+
+    /**
+     * 显示内容视图
+     */
+    public final void showContent() {
+        easyAdapter.showContent();
     }
 
     public void notifyDataSetChanged() {

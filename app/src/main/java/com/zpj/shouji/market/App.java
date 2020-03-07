@@ -22,8 +22,8 @@ public class App extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
-        MFileUtils.setCrashLogPath(Environment.getExternalStorageDirectory().getPath() + "/sjly/Crash/Log");
-        MFileUtils.setCrashPicPath(Environment.getExternalStorageDirectory().getPath() + "/sjly/Crash/ScreenShoot");
+//        MFileUtils.setCrashLogPath(Environment.getExternalStorageDirectory().getPath() + "/sjly/Crash/Log");
+//        MFileUtils.setCrashPicPath(Environment.getExternalStorageDirectory().getPath() + "/sjly/Crash/ScreenShoot");
         MCrashMonitor.init(this, true, file -> {
 //                MCrashMonitor.startCrashShowPage(getContext());
         });

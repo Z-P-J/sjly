@@ -8,6 +8,7 @@ import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
 import android.text.SpannableString;
 import android.text.Spanned;
+import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.view.View;
 import android.widget.TextView;
@@ -28,6 +29,7 @@ public class FlowLayout extends RecyclerView implements IEasy.OnBindViewHolderLi
     private final List<String> list = new ArrayList<>();
     private final EasyRecyclerView<String> recyclerView;
     private OnItemClickListener onItemClickListener;
+    private OnItemLongClickListener onItemLongClickListener;
 
     private int selectedPosition = -1;
 
@@ -57,6 +59,12 @@ public class FlowLayout extends RecyclerView implements IEasy.OnBindViewHolderLi
                     if (onItemClickListener != null) {
                         onItemClickListener.onClick(holder.getAdapterPosition(), view, data);
                     }
+                })
+                .onItemLongClick((holder, view, data) -> {
+                    if (onItemLongClickListener != null) {
+                        return onItemLongClickListener.onLongClick(holder.getAdapterPosition(), view, data);
+                    }
+                    return false;
                 })
                 .build();
     }
@@ -92,6 +100,9 @@ public class FlowLayout extends RecyclerView implements IEasy.OnBindViewHolderLi
     public void setOnItemClickListener(OnItemClickListener onItemClickListener) {
         this.onItemClickListener = onItemClickListener;
     }
+    public void setOnItemLongClickListener(OnItemLongClickListener onItemLongClickListener) {
+        this.onItemLongClickListener = onItemLongClickListener;
+    }
 
     public void setSelectedPosition(int selectedPosition) {
         this.selectedPosition = selectedPosition;
@@ -107,8 +118,43 @@ public class FlowLayout extends RecyclerView implements IEasy.OnBindViewHolderLi
         recyclerView.notifyItemInserted(list.size() - 1);
     }
 
+    public int count() {
+        return list.size();
+    }
+
+    public void clear() {
+        list.clear();
+    }
+
+    public void remove(int index) {
+        list.remove(index);
+        recyclerView.notifyItemRemoved(index);
+    }
+
+    public void remove(String str) {
+        remove(str, false);
+    }
+
+    public void remove(String str, boolean all) {
+        if (TextUtils.isEmpty(str)) {
+            return;
+        }
+        for (int i = list.size() - 1; i >= 0; i--) {
+            if (str.equals(list.get(i))) {
+                remove(i);
+                if (!all) {
+                    return;
+                }
+            }
+        }
+    }
+
     public interface OnItemClickListener {
         void onClick(int index, View v, String text);
+    }
+
+    public interface OnItemLongClickListener {
+        boolean onLongClick(int index, View v, String text);
     }
 
 }

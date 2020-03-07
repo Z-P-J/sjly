@@ -36,6 +36,7 @@ public abstract class BaseFragment extends SwipeBackFragment {
         if (getLayoutId() > 0) {
             view = inflater.inflate(getLayoutId(), container, false);
             toolbar = view.findViewById(R.id.tool_bar);
+            initView(view, savedInstanceState);
             if (toolbar != null) {
                 if (toolbar.getLeftImageButton() != null) {
                     toolbarLeftImageButton(toolbar.getLeftImageButton());
@@ -60,7 +61,6 @@ public abstract class BaseFragment extends SwipeBackFragment {
                     toolbarCenterCustomView(toolbar.getCenterCustomView());
                 }
             }
-            initView(view, savedInstanceState);
         } else {
             view = super.onCreateView(inflater, container, savedInstanceState);
         }

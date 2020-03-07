@@ -45,7 +45,7 @@ dependencies {
     implementation project(':richeditor2')
     implementation project(':emojilib')
     implementation project(':matisse')
-    implementation project(':library-crashmonitor')
+//    implementation project(':library-crashmonitor')
 
     // 数据库
     annotationProcessor "com.github.Raizlabs.DBFlow:dbflow-processor:4.2.4"
@@ -89,5 +89,6 @@ dependencies {
     implementation 'com.sunbq:iconcountview:1.0.1'
     implementation 'com.github.pinguo-zhouwei:MZBannerView:v2.0.2'
     implementation 'io.haydar.filescanner:filescannercore:1.1'
+    implementation 'com.github.maning0303:MNCrashMonitor:V1.1.1'
 
 }

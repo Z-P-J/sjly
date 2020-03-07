@@ -18,6 +18,5 @@ include ':app',
         ':matisse',
         ':third-part-color-cardview',
         ':zswitcher',
-        ':statelayout',
-        ':library-crashmonitor'
+        ':statelayout'
 //        ':shadowlayout'

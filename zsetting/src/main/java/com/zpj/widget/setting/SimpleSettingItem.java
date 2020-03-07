@@ -78,7 +78,7 @@ public class SimpleSettingItem extends AppCompatTextView {
         array.recycle();
 
         if (mRightIcon == null) {
-            mRightIcon = getResources().getDrawable(R.drawable.ic_keyboard_arrow_right_black_24dp);
+            mRightIcon = getResources().getDrawable(R.drawable.ic_keyboard_arrow_right_grey_24dp);
         }
         setCompoundDrawablesWithIntrinsicBounds(mLeftIcon, null, mRightIcon, null);
 

@@ -8,19 +8,21 @@ import android.view.ViewStub;
 import com.zpj.widget.switcher.BaseSwitcher;
 import com.zpj.widget.switcher.OnCheckedChangeListener;
 
-abstract class CheckableSettingItem extends CommonSettingItem {
+public abstract class CheckableSettingItem extends ZSettingItem<CheckableSettingItem> {
 
     protected BaseSwitcher switcher;
 
-    public CheckableSettingItem(Context context) {
+    private boolean isChecked;
+
+    CheckableSettingItem(Context context) {
         this(context, null);
     }
 
-    public CheckableSettingItem(Context context, AttributeSet attrs) {
+    CheckableSettingItem(Context context, AttributeSet attrs) {
         this(context, attrs, 0);
     }
 
-    public CheckableSettingItem(Context context, AttributeSet attrs, int defStyleAttr) {
+    CheckableSettingItem(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
     }
 
@@ -29,10 +31,10 @@ abstract class CheckableSettingItem extends CommonSettingItem {
         super.onInflate(stub, inflated);
         if (stub == vsRightContainer && inflated instanceof BaseSwitcher) {
             switcher = (BaseSwitcher) inflated;
-            switcher.setOnCheckedChangeListener(new OnCheckedChangeListener() {
+            switcher.setOnClickListener(new OnClickListener() {
                 @Override
-                public void onChange(boolean checked) {
-                    CheckableSettingItem.super.onItemClick();
+                public void onClick(View v) {
+                    onItemClick();
                 }
             });
         }
@@ -40,12 +42,12 @@ abstract class CheckableSettingItem extends CommonSettingItem {
 
     @Override
     public void onItemClick() {
+        setChecked(!isChecked);
         super.onItemClick();
-        setChecked(!switcher.isChecked());
     }
 
     public boolean isChecked() {
-        return switcher.isChecked();
+        return isChecked;
     }
 
     public void setChecked(boolean isChecked) {
@@ -53,6 +55,7 @@ abstract class CheckableSettingItem extends CommonSettingItem {
     }
 
     public void setChecked(boolean isChecked, boolean withAnimation) {
+        this.isChecked = isChecked;
         switcher.setChecked(isChecked, withAnimation);
     }
 }
