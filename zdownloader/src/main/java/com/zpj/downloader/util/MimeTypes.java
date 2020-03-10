@@ -143,7 +143,7 @@ public final class MimeTypes {
 
     /**
      * Get Mime Type of a file
-     * @param path the file of which mime type to getString
+     * @param path the file of which mime type to get
      * @return Mime type in form of String
      */
     public static String getMimeType(String path, boolean isDirectory) {

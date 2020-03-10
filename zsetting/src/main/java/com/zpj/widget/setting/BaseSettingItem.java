@@ -13,7 +13,8 @@ import android.widget.TextView;
 
 import com.zpj.widget.setting.R;
 
-public abstract class BaseSettingItem<T extends BaseSettingItem> extends RelativeLayout implements ViewStub.OnInflateListener {
+public abstract class BaseSettingItem<T extends BaseSettingItem> extends RelativeLayout
+        implements ViewStub.OnInflateListener {
 
     protected LinearLayout llContentContainer;
     protected TextView tvTitle;

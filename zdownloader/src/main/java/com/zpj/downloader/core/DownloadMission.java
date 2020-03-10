@@ -21,8 +21,8 @@ import com.zpj.downloader.util.io.BufferedRandomAccessFile;
 import com.zpj.downloader.util.notification.NotifyUtil;
 import com.zpj.http.ZHttp;
 import com.zpj.http.core.Connection;
-import com.zpj.http.core.ObservableTask;
 import com.zpj.http.core.IHttp;
+import com.zpj.http.core.ObservableTask;
 
 import java.io.File;
 import java.lang.ref.WeakReference;
@@ -252,7 +252,7 @@ public class DownloadMission {
                 .proxy(Proxy.NO_PROXY)
                 .userAgent(getUserAgent())
                 .cookie(getCookie())
-                .header("Accept", "*/*")
+                .accept("*/*")
                 .referer(url)
                 .headers(getHeaders())
                 .timeout(200000)
@@ -271,12 +271,12 @@ public class DownloadMission {
                                 .proxy(Proxy.NO_PROXY)
                                 .userAgent(getUserAgent())
                                 .cookie(getCookie())
-                                .header("Accept", "*/*")
-                                .header("Access-Control-Expose-Headers", "Content-Disposition")
+                                .accept("*/*")
                                 .referer(url)
+                                .range("bytes=0-")
                                 .header("Pragma", "no-cache")
-                                .header("Range", "bytes=0-")
                                 .header("Cache-Control", "no-cache")
+                                .header("Access-Control-Expose-Headers", "Content-Disposition")
                                 .headers(getHeaders())
                                 .timeout(getConnectOutTime())
                                 .ignoreContentType(true)

@@ -7,12 +7,13 @@ import android.graphics.drawable.Drawable;
 import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.util.TypedValue;
+import android.view.ViewStub;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.zpj.widget.setting.R;
 
-public abstract class ZSettingItem<T extends ZSettingItem> extends BaseSettingItem<T> {
+abstract class ZSettingItem<T extends ZSettingItem> extends BaseSettingItem<T> {
 
     protected String mTitleText;
     protected float mTitleTextSize;
@@ -57,8 +58,9 @@ public abstract class ZSettingItem<T extends ZSettingItem> extends BaseSettingIt
         tvTitle.setText(mTitleText);
 
         mTitleTextSize = array.getDimension(R.styleable.SimpleSettingItem_z_setting_titleTextSize, 16);
-
+        tvTitle.setTextSize(mTitleTextSize);
         mTitleTextColor = array.getColor(R.styleable.SimpleSettingItem_z_setting_titleTextColor, Color.parseColor("#222222"));
+        tvTitle.setTextColor(mTitleTextColor);
 
         Drawable background = array.getDrawable(R.styleable.SimpleSettingItem_z_setting_background);
         mLeftIcon = array.getDrawable(R.styleable.SimpleSettingItem_z_setting_leftIcon);
@@ -110,6 +112,10 @@ public abstract class ZSettingItem<T extends ZSettingItem> extends BaseSettingIt
         }
         a.recycle();
 
+        if (!showRightText && !TextUtils.isEmpty(mRightText)) {
+            showRightText = true;
+        }
+
         if (background == null) {
             TypedArray typedArray = context.obtainStyledAttributes(new int[]{R.attr.selectableItemBackground});
             background = typedArray.getDrawable(0);
@@ -119,9 +125,54 @@ public abstract class ZSettingItem<T extends ZSettingItem> extends BaseSettingIt
         setBackground(background);
     }
 
+    @Override
+    public void inflateLeftIcon(ViewStub viewStub) {
+        if (mLeftIcon != null) {
+            viewStub.setLayoutResource(R.layout.z_setting_left_icon);
+            viewStub.setInflatedId(R.id.iv_left_icon);
+            ImageView ivLeft = (ImageView) viewStub.inflate();
+            ivLeft.setImageDrawable(mLeftIcon);
+        }
+    }
+
+    @Override
+    public void inflateRightContainer(ViewStub viewStub) {
+        viewStub.setLayoutResource(R.layout.z_setting_right_container_arrow);
+        viewStub.setInflatedId(R.id.iv_right_icon);
+        ImageView view = (ImageView) viewStub.inflate();
+        if (mRightIcon != null) {
+            view.setImageDrawable(mRightIcon);
+        }
+    }
+
+    @Override
+    public void inflateInfoButton(ViewStub viewStub) {
+        if (showInfoButton) {
+            viewStub.setLayoutResource(R.layout.z_setting_info_btn);
+            viewStub.setInflatedId(R.id.iv_info_btn);
+            viewStub.inflate();
+        }
+    }
+
+    @Override
+    public void inflateRightText(ViewStub viewStub) {
+        if (showRightText) {
+            viewStub.setLayoutResource(R.layout.z_setting_right_text);
+            viewStub.setInflatedId(R.id.tv_right_text);
+            TextView view = (TextView) viewStub.inflate();
+            if (mRightText != null) {
+                view.setText(mRightText);
+            }
+        }
+    }
+
     public void setTitleText(String mTitleText) {
         this.mTitleText = mTitleText;
         tvTitle.setText(mTitleText);
+    }
+
+    public String getTitleText() {
+        return mTitleText;
     }
 
     public void setInfoText(String mInfoText) {
@@ -144,6 +195,14 @@ public abstract class ZSettingItem<T extends ZSettingItem> extends BaseSettingIt
         } else if (inflatedLeftIcon instanceof ImageView) {
             ((ImageView) inflatedLeftIcon).setImageDrawable(mLeftIcon);
         }
+    }
+
+    public String getInfoText() {
+        return mInfoText;
+    }
+
+    public String getRightText() {
+        return mRightText;
     }
 }
 

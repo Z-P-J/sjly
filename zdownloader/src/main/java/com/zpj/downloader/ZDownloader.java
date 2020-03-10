@@ -16,9 +16,9 @@ import com.zpj.downloader.core.DownloadManagerImpl;
 import com.zpj.downloader.core.DownloadMission;
 import com.zpj.downloader.util.FileUtil;
 import com.zpj.downloader.util.NetworkChangeReceiver;
+import com.zpj.downloader.util.content.SPHelper;
 import com.zpj.downloader.util.notification.NotifyUtil;
 import com.zpj.downloader.util.permission.PermissionUtil;
-import com.zpj.utils.ZUtils;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -42,9 +42,10 @@ public class ZDownloader {
 
     public static void init(final DownloaderConfig options) {
         final Context context = options.getContext();
-        ZUtils.init(context);
+
         PermissionUtil.grandStoragePermission(context);
 
+        SPHelper.init(context);
         NotifyUtil.init(context);
         DownloadManagerImpl.register(options);
         IntentFilter intentFilter = new IntentFilter();

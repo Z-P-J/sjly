@@ -37,12 +37,13 @@ dependencies {
 //    api 'com.zyp.cardview:cardview:1.0.1'
 //    api 'io.github.meetsl:SCardView:1.2'
 
+    api 'com.zpj.http:ZHttp:1.0.0'
+
     api project(':atoast')
     api project(":zdialog")
     api project(":zrecyclerview")
     api project(":zutils")
     api project(":zpopup")
-    api project(":zhttp")
     api project(":ztoolbar")
     api project(':fragmentation')
     api project(':zsetting')
