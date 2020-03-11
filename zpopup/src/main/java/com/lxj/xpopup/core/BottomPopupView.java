@@ -36,6 +36,7 @@ public class BottomPopupView extends BasePopupView {
         bottomPopupContainer.addView(contentView);
         bottomPopupContainer.enableDrag(popupInfo.enableDrag);
         bottomPopupContainer.dismissOnTouchOutside(popupInfo.isDismissOnTouchOutside);
+        bottomPopupContainer.handleTouchOutsideEvent(popupInfo.handleTouchOutsideEvent);
         bottomPopupContainer.hasShadowBg(popupInfo.hasShadowBg);
 
         getPopupImplView().setTranslationX(popupInfo.offsetX);
@@ -43,23 +44,25 @@ public class BottomPopupView extends BasePopupView {
 
         XPopupUtils.applyPopupSize((ViewGroup) getPopupContentView(), getMaxWidth(), getMaxHeight());
 
-        bottomPopupContainer.setOnCloseListener(new SmartDragLayout.OnCloseListener() {
-            @Override
-            public void onClose() {
-                doAfterDismiss();
-            }
-            @Override
-            public void onOpen() {
-                BottomPopupView.super.doAfterShow();
-            }
-        });
+        if (popupInfo.isDismissOnTouchOutside) {
+            bottomPopupContainer.setOnCloseListener(new SmartDragLayout.OnCloseListener() {
+                @Override
+                public void onClose() {
+                    doAfterDismiss();
+                }
+                @Override
+                public void onOpen() {
+                    BottomPopupView.super.doAfterShow();
+                }
+            });
 
-        bottomPopupContainer.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                dismiss();
-            }
-        });
+            bottomPopupContainer.setOnClickListener(new OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    dismiss();
+                }
+            });
+        }
     }
 
 

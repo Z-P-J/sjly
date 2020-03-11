@@ -194,7 +194,7 @@ public abstract class BaseRecommendFragment extends RecyclerLayoutFragment<Group
                         if (i == 0) {
                             Glide.with(context)
                                     .load(info.getIcons().get(0))
-                                    .apply(RequestOptions.bitmapTransform(new BlurTransformation(context, 7)))
+                                    .apply(RequestOptions.bitmapTransform(new BlurTransformation(8, 4)))
                                     .into(new SimpleTarget<Drawable>() {
                                         @Override
                                         public void onResourceReady(@NonNull Drawable resource, @Nullable Transition<? super Drawable> transition) {

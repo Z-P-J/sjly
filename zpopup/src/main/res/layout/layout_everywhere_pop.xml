@@ -7,8 +7,8 @@
     android:layout_height="wrap_content"
     app:cornerRadius="8dp"
     app:shadowFluidShape="adsorption"
-    app:shadowColor="#f8f8f8"
-    app:shadowStartAlpha="40"
+    app:shadowColor="#bdbdbd"
+    app:shadowStartAlpha="80"
     app:shadowSize="8dp">
 
     <LinearLayout

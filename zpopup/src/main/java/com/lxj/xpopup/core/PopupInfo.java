@@ -15,8 +15,10 @@ import com.lxj.xpopup.interfaces.XPopupCallback;
  */
 public class PopupInfo {
     public PopupType popupType = null; //窗体的类型
+    public Boolean handleBackPressedEvent = true;  //按返回键是否消失
     public Boolean isDismissOnBackPressed = true;  //按返回键是否消失
     public Boolean isDismissOnTouchOutside = true; //点击外部消失
+    public Boolean handleTouchOutsideEvent = true; //点击外部消失
     public Boolean autoDismiss = true; //操作完毕后是否自动关闭
     public Boolean hasShadowBg = true; // 是否有半透明的背景
     public View atView = null; // 依附于那个View显示

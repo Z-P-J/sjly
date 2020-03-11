@@ -17,6 +17,8 @@ import com.raizlabs.android.dbflow.config.FlowManager;
 import com.zpj.downloader.ZDownloader;
 import com.zpj.utils.ZUtils;
 
+import per.goweii.burred.Blurred;
+
 public class App extends Application {
 
     @Override
@@ -38,6 +40,7 @@ public class App extends Application {
                 Glide.with(context).load(path).centerCrop().into(imageView);
             }
         });
+        Blurred.init(this);
     }
 
 }

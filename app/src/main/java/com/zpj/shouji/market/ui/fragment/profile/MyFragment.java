@@ -12,9 +12,11 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.felix.atoast.library.AToast;
+import com.lxj.xpopup.XPopup;
+import com.lxj.xpopup.ZPopup;
+import com.lxj.xpopup.interfaces.OnConfirmListener;
 import com.lxj.xpopup.interfaces.SimpleCallback;
 import com.shehuan.niv.NiceImageView;
-import com.zpj.dialog.ZAlertDialog;
 import com.zpj.fragmentation.BaseFragment;
 import com.zpj.popupmenuview.popup.EverywherePopup;
 import com.zpj.shouji.market.R;
@@ -185,15 +187,25 @@ public class MyFragment extends BaseFragment
                         case 1:
                             break;
                         case 2:
-                            ZAlertDialog.with(context)
+                            ZPopup.with(context)
+                                    .alert()
                                     .setTitle("确认注销？")
-                                    .setTitleTextColor(getResources().getColor(R.color.rect))
-                                    .setContent("您将注销当前登录的账户，确定继续？")
-                                    .setPositiveButton(dialog -> {
-                                        dialog.dismiss();
-                                        AToast.success("TODO 注销成功");
+                                    .setContent("您将注销当前登录的账户，确认继续？")
+                                    .setConfirmButton(new OnConfirmListener() {
+                                        @Override
+                                        public void onConfirm() {
+                                            AToast.success("TODO 注销成功");
+                                        }
                                     })
                                     .show();
+//                            new XPopup.Builder(context)
+//                                    .asConfirm("确认注销？", "您将注销当前登录的账户，确认继续？", new OnConfirmListener() {
+//                                        @Override
+//                                        public void onConfirm() {
+//                                            AToast.success("TODO 注销成功");
+//                                        }
+//                                    })
+//                                    .show();
                             break;
                         case 3:
                             showLoginPopup(0);

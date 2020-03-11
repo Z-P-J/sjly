@@ -51,7 +51,7 @@ public class FullScreenPopupView extends CenterPopupView {
     protected void applySize(boolean isShowNavBar) {
         int rotation = ((WindowManager) getContext().getSystemService(Context.WINDOW_SERVICE)).getDefaultDisplay().getRotation();
         View contentView = getPopupContentView();
-        FrameLayout.LayoutParams params = (LayoutParams) contentView.getLayoutParams();
+        LayoutParams params = (LayoutParams) contentView.getLayoutParams();
         params.gravity = Gravity.TOP;
         contentView.setLayoutParams(params);
 

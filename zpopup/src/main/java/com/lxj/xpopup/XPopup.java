@@ -102,6 +102,11 @@ public class XPopup {
             return this;
         }
 
+        public Builder handleBackPressedEvent(Boolean handleBackPressedEvent) {
+            this.popupInfo.handleBackPressedEvent = handleBackPressedEvent;
+            return this;
+        }
+
         /**
          * 设置点击弹窗外面是否关闭弹窗，默认为true
          *
@@ -110,6 +115,11 @@ public class XPopup {
          */
         public Builder dismissOnTouchOutside(Boolean isDismissOnTouchOutside) {
             this.popupInfo.isDismissOnTouchOutside = isDismissOnTouchOutside;
+            return this;
+        }
+
+        public Builder handleTouchOutsideEvent(Boolean handleTouchOutsideEvent) {
+            this.popupInfo.handleTouchOutsideEvent = handleTouchOutsideEvent;
             return this;
         }
 

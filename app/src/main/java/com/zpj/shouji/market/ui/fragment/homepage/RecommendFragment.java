@@ -275,7 +275,7 @@ public class RecommendFragment extends RecyclerLayoutFragment<GroupItem> {
 //                            new BlurTransformation(25, 5)
                             Glide.with(context)
                                     .load(info.getIcons().get(0))
-                                    .apply(RequestOptions.bitmapTransform(new BlurTransformation(context, 25)))
+                                    .apply(RequestOptions.bitmapTransform(new BlurTransformation()))
                                     .into(imgBg);
                         }
                         Glide.with(context).load(info.getIcons().get(i)).into(holder1.getImageView(res));

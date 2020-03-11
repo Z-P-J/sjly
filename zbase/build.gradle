@@ -40,7 +40,6 @@ dependencies {
     api 'com.zpj.http:ZHttp:1.0.0'
 
     api project(':atoast')
-    api project(":zdialog")
     api project(":zrecyclerview")
     api project(":zutils")
     api project(":zpopup")

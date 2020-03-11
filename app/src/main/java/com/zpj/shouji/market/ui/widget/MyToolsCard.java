@@ -1,22 +1,30 @@
 package com.zpj.shouji.market.ui.widget;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.Color;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v7.widget.GridLayout;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewTreeObserver;
+import android.widget.FrameLayout;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.zpj.shouji.market.R;
-import com.zpj.shouji.market.ui.fragment.homepage.RecommendFragment2;
+import com.zpj.shouji.market.manager.UserManager;
 import com.zpj.shouji.market.ui.fragment.profile.MyFragment;
 import com.zpj.shouji.market.ui.fragment.profile.ProfileFragment;
-import com.zpj.shouji.market.manager.UserManager;
 
-import eightbitlab.com.blurview.BlurView;
-import eightbitlab.com.blurview.RenderScriptBlur;
+import io.reactivex.Observable;
+import io.reactivex.ObservableOnSubscribe;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.schedulers.Schedulers;
 import me.yokeyword.fragmentation.SupportActivity;
+import per.goweii.burred.Blurred;
 import www.linwg.org.lib.LCardView;
 
 public class MyToolsCard extends LCardView implements View.OnClickListener {
@@ -30,7 +38,7 @@ public class MyToolsCard extends LCardView implements View.OnClickListener {
     private DrawableTintTextView tvMyBookings;
     private DrawableTintTextView tvMyBlacklist;
 
-    private BlurView bvNotLogin;
+    private FrameLayout flNotLogin;
     private TextView tvSignUp;
     private TextView tvSignIn;
 
@@ -48,14 +56,31 @@ public class MyToolsCard extends LCardView implements View.OnClickListener {
     public MyToolsCard(@NonNull Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
 
-        LayoutInflater.from(context).inflate(R.layout.layout_my_tools_2, this);
+        LayoutInflater.from(context).inflate(R.layout.card_my_tools, this);
 
-        bvNotLogin = findViewById(R.id.bv_not_login);
-        bvNotLogin.setupWith(findViewById(R.id.grid))
-//                .setFrameClearDrawable(view.getBackground())
-                .setBlurAlgorithm(new RenderScriptBlur(context))
-                .setBlurRadius(18f)
-                .setHasFixedTransformationMatrix(true);
+        flNotLogin = findViewById(R.id.fl_not_login);
+        ImageView ivBg = findViewById(R.id.iv_bg);
+        GridLayout gridLayout = findViewById(R.id.grid);
+        gridLayout.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+            @Override
+            public void onGlobalLayout() {
+                gridLayout.getViewTreeObserver().removeOnGlobalLayoutListener(this);
+                Observable.create((ObservableOnSubscribe<Bitmap>) emitter -> {
+                    Bitmap bitmap = Blurred.with(gridLayout)
+                            .backgroundColor(Color.WHITE)
+                            .scale(1f / 8f)
+                            .radius(20)
+                            .blur();
+                    emitter.onNext(bitmap);
+                    emitter.onComplete();
+                })
+                        .subscribeOn(Schedulers.io())
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .doOnNext(ivBg::setImageBitmap)
+                        .subscribe();
+            }
+        });
+
         tvSignUp = findViewById(R.id.tv_sign_up);
         tvSignIn = findViewById(R.id.tv_sign_in);
 
@@ -119,8 +144,9 @@ public class MyToolsCard extends LCardView implements View.OnClickListener {
     }
 
     public void onLogin() {
-        bvNotLogin.setBlurEnabled(false);
-        bvNotLogin.setVisibility(View.GONE);
+        flNotLogin.setVisibility(View.GONE);
+        removeView(flNotLogin);
+        flNotLogin = null;
 
         tvMyHomepage.setOnClickListener(this);
         tvMyDiscovers.setOnClickListener(this);

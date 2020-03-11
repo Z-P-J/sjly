@@ -43,7 +43,8 @@ import static com.lxj.xpopup.enums.PopupAnimation.NoAnimation;
  */
 public abstract class BasePopupView extends FrameLayout implements OnNavigationBarListener {
     private static Stack<BasePopupView> stack = new Stack<>(); //静态存储所有弹窗对象
-    public PopupInfo popupInfo;
+    public PopupInfo popupInfo = new PopupInfo();
+    protected final Context context;
     protected PopupAnimator popupContentAnimator;
     protected ShadowBgAnimator shadowBgAnimator;
     private int touchSlop;
@@ -52,6 +53,7 @@ public abstract class BasePopupView extends FrameLayout implements OnNavigationB
 
     public BasePopupView(@NonNull Context context) {
         super(context);
+        this.context = context;
         touchSlop = ViewConfiguration.get(context).getScaledTouchSlop();
         shadowBgAnimator = new ShadowBgAnimator(this);
         //  添加Popup窗体内容View
@@ -63,10 +65,12 @@ public abstract class BasePopupView extends FrameLayout implements OnNavigationB
 
     public BasePopupView(@NonNull Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
+        this.context = context;
     }
 
     public BasePopupView(@NonNull Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
+        this.context = context;
     }
 
     /**
@@ -156,7 +160,7 @@ public abstract class BasePopupView extends FrameLayout implements OnNavigationB
         }
     }
     protected void applyFull(){
-        FrameLayout.LayoutParams params = (LayoutParams) getLayoutParams();
+        LayoutParams params = (LayoutParams) getLayoutParams();
         params.topMargin = 0;
         params.leftMargin = 0;
         params.bottomMargin = 0;
@@ -164,7 +168,7 @@ public abstract class BasePopupView extends FrameLayout implements OnNavigationB
         setLayoutParams(params);
     }
     protected void applySize(boolean isShowNavBar){
-        FrameLayout.LayoutParams params = (LayoutParams) getLayoutParams();
+        LayoutParams params = (LayoutParams) getLayoutParams();
         int rotation = ((WindowManager) getContext().getSystemService(Context.WINDOW_SERVICE)).getDefaultDisplay().getRotation();
         boolean isNavBarShown = isShowNavBar || XPopupUtils.isNavBarVisible(getContext());
         if (rotation == 0) {
@@ -207,8 +211,8 @@ public abstract class BasePopupView extends FrameLayout implements OnNavigationB
                 if (getParent() != null) {
                     ((ViewGroup) getParent()).removeView(BasePopupView.this);
                 }
-                popupInfo.decorView.addView(BasePopupView.this, new FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT,
-                        FrameLayout.LayoutParams.MATCH_PARENT));
+                popupInfo.decorView.addView(BasePopupView.this, new LayoutParams(LayoutParams.MATCH_PARENT,
+                        LayoutParams.MATCH_PARENT));
 
                 //2. do init，game start.
                 init();
@@ -303,9 +307,10 @@ public abstract class BasePopupView extends FrameLayout implements OnNavigationB
         public boolean onKey(View v, int keyCode, KeyEvent event) {
             if (keyCode == KeyEvent.KEYCODE_BACK && event.getAction() == KeyEvent.ACTION_UP) {
                 if (popupInfo.isDismissOnBackPressed &&
-                        (popupInfo.xPopupCallback == null || !popupInfo.xPopupCallback.onBackPressed()))
+                        (popupInfo.xPopupCallback == null || !popupInfo.xPopupCallback.onBackPressed())) {
                     dismissOrHideSoftInput();
-                return true;
+                }
+                return popupInfo.handleBackPressedEvent;
             }
             return false;
         }
@@ -622,27 +627,30 @@ public abstract class BasePopupView extends FrameLayout implements OnNavigationB
     @Override
     public boolean onTouchEvent(MotionEvent event) {
         // 如果自己接触到了点击，并且不在PopupContentView范围内点击，则进行判断是否是点击事件,如果是，则dismiss
-        Rect rect = new Rect();
-        getPopupContentView().getGlobalVisibleRect(rect);
-        if (!XPopupUtils.isInRect(event.getX(), event.getY(), rect)) {
-            switch (event.getAction()) {
-                case MotionEvent.ACTION_DOWN:
-                    x = event.getX();
-                    y = event.getY();
-                    break;
-                case MotionEvent.ACTION_UP:
-                    float dx = event.getX() - x;
-                    float dy = event.getY() - y;
-                    float distance = (float) Math.sqrt(Math.pow(dx, 2) + Math.pow(dy, 2));
-                    if (distance < touchSlop && popupInfo.isDismissOnTouchOutside) {
-                        dismiss();
-                    }
-                    x = 0;
-                    y = 0;
-                    break;
+        if (popupInfo.handleTouchOutsideEvent) {
+            Rect rect = new Rect();
+            getPopupContentView().getGlobalVisibleRect(rect);
+            if (!XPopupUtils.isInRect(event.getX(), event.getY(), rect)) {
+                switch (event.getAction()) {
+                    case MotionEvent.ACTION_DOWN:
+                        x = event.getX();
+                        y = event.getY();
+                        break;
+                    case MotionEvent.ACTION_UP:
+                        float dx = event.getX() - x;
+                        float dy = event.getY() - y;
+                        float distance = (float) Math.sqrt(Math.pow(dx, 2) + Math.pow(dy, 2));
+                        if (distance < touchSlop && popupInfo.isDismissOnTouchOutside) {
+                            dismiss();
+                        }
+                        x = 0;
+                        y = 0;
+                        break;
+                }
             }
+            return true;
         }
-        return true;
+        return super.onTouchEvent(event);
     }
 
 

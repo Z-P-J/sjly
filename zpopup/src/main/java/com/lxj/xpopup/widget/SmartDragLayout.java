@@ -29,6 +29,7 @@ public class SmartDragLayout extends FrameLayout implements NestedScrollingParen
     ShadowBgAnimator bgAnimator = new ShadowBgAnimator();
     boolean enableDrag = true;//是否启用手势
     boolean dismissOnTouchOutside = true;
+    private boolean handleTouchOutsideEvent = true;
     boolean hasShadowBg = true;
     boolean isUserClose = false;
     LayoutStatus status = LayoutStatus.Close;
@@ -86,6 +87,9 @@ public class SmartDragLayout extends FrameLayout implements NestedScrollingParen
     float touchX, touchY;
     @Override
     public boolean onTouchEvent(MotionEvent event) {
+        if (!handleTouchOutsideEvent) {
+            return super.onTouchEvent(event);
+        }
         if (scroller.computeScrollOffset()) {
             touchX = 0;
             touchY = 0;
@@ -272,6 +276,10 @@ public class SmartDragLayout extends FrameLayout implements NestedScrollingParen
 
     public void dismissOnTouchOutside(boolean dismissOnTouchOutside) {
         this.dismissOnTouchOutside = dismissOnTouchOutside;
+    }
+
+    public void handleTouchOutsideEvent(boolean handleTouchOutsideEvent) {
+        this.handleTouchOutsideEvent = handleTouchOutsideEvent;
     }
 
     public void hasShadowBg(boolean hasShadowBg) {

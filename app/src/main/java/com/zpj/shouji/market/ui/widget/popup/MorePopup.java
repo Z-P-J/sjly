@@ -6,6 +6,8 @@ import android.animation.ObjectAnimator;
 import android.animation.TypeEvaluator;
 import android.animation.ValueAnimator;
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.Color;
 import android.support.design.widget.FloatingActionButton;
 import android.view.View;
 import android.view.ViewAnimationUtils;
@@ -15,13 +17,18 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.felix.atoast.library.AToast;
 import com.lxj.xpopup.core.PopupInfo;
 import com.lxj.xpopup.enums.PopupAnimation;
 import com.lxj.xpopup.impl.FullScreenPopupView;
 import com.zpj.shouji.market.R;
 
-import eightbitlab.com.blurview.BlurView;
-import eightbitlab.com.blurview.RenderScriptBlur;
+import io.reactivex.Observable;
+import io.reactivex.ObservableOnSubscribe;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.functions.Consumer;
+import io.reactivex.schedulers.Schedulers;
+import per.goweii.burred.Blurred;
 
 public class MorePopup extends FullScreenPopupView implements View.OnClickListener {
 
@@ -29,7 +36,6 @@ public class MorePopup extends FullScreenPopupView implements View.OnClickListen
     private final String[] menuTextItems = {"动态", "应用集", "乐图", "私聊"};
 
     private final Context context;
-    private BlurView blurView;
     private FloatingActionButton floatingActionButton;
     private ViewGroup anchorView;
 
@@ -37,8 +43,11 @@ public class MorePopup extends FullScreenPopupView implements View.OnClickListen
 
     public interface OnItemClickListener {
         void onDiscoverItemClick();
+
         void onCollectionItemClick();
+
         void onWallpaperItemClick();
+
         void onChatWithFriendItemClick();
     }
 
@@ -76,12 +85,22 @@ public class MorePopup extends FullScreenPopupView implements View.OnClickListen
             itemView.setOnClickListener(this);
             menuLayout.addView(itemView);
         }
-        blurView = findViewById(R.id.blur_view);
-        blurView.setupWith(anchorView)
-//                .setFrameClearDrawable(view.getBackground())
-                .setBlurAlgorithm(new RenderScriptBlur(context))
-                .setBlurRadius(16f)
-                .setHasFixedTransformationMatrix(true);
+        ImageView ivBg = findViewById(R.id.iv_bg);
+
+        Observable.create((ObservableOnSubscribe<Bitmap>) emitter -> {
+            Bitmap bitmap = Blurred.with(anchorView)
+                    .backgroundColor(Color.WHITE)
+                    .scale(1f / 8f)
+                    .radius(20)
+                    .blur();
+            emitter.onNext(bitmap);
+            emitter.onComplete();
+        })
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .doOnNext(ivBg::setImageBitmap)
+                .doOnError(throwable -> AToast.error(throwable.getMessage()))
+                .subscribe();
 
         floatingActionButton.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
             @Override
@@ -91,7 +110,7 @@ public class MorePopup extends FullScreenPopupView implements View.OnClickListen
                 for (int i = 0; i < menuLayout.getChildCount(); i++) {
                     final View child = menuLayout.getChildAt(i);
                     child.setVisibility(View.INVISIBLE);
-                    anchorView.postDelayed(() -> {
+                    postDelayed(() -> {
                         child.setVisibility(View.VISIBLE);
                         ValueAnimator fadeAnim = ObjectAnimator.ofFloat(child, "translationY", 600, 0);
                         fadeAnim.setDuration(500);
@@ -163,7 +182,7 @@ public class MorePopup extends FullScreenPopupView implements View.OnClickListen
                 if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
                     int x = floatingActionButton.getLeft() + floatingActionButton.getWidth() / 2;
                     int y = floatingActionButton.getTop() + floatingActionButton.getHeight() / 2;
-                    Animator animator = ViewAnimationUtils.createCircularReveal(blurView, x,
+                    Animator animator = ViewAnimationUtils.createCircularReveal(MorePopup.this, x,
                             y, 0, getHeight());
                     animator.addListener(new AnimatorListenerAdapter() {
                         @Override
@@ -190,7 +209,7 @@ public class MorePopup extends FullScreenPopupView implements View.OnClickListen
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
             int x = floatingActionButton.getLeft() + floatingActionButton.getWidth() / 2;
             int y = floatingActionButton.getTop() + floatingActionButton.getHeight() / 2;
-            Animator animator = ViewAnimationUtils.createCircularReveal(blurView, x,
+            Animator animator = ViewAnimationUtils.createCircularReveal(MorePopup.this, x,
                     y, getHeight(), 0);
             animator.addListener(new AnimatorListenerAdapter() {
                 @Override

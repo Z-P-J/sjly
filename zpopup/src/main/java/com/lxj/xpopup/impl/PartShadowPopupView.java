@@ -41,7 +41,7 @@ public abstract class PartShadowPopupView extends AttachPopupView {
     public void onNavigationBarChange(boolean show) {
         super.onNavigationBarChange(show);
         if(!show){
-            FrameLayout.LayoutParams params = (LayoutParams)getPopupContentView().getLayoutParams();
+            LayoutParams params = (LayoutParams)getPopupContentView().getLayoutParams();
             params.height = XPopupUtils.getWindowHeight(getContext());
             getPopupContentView().setLayoutParams(params);
         }
@@ -82,7 +82,7 @@ public abstract class PartShadowPopupView extends AttachPopupView {
             params.topMargin = -defaultOffsetY;
             // 同时自定义的impl View应该Gravity居于底部
             View implView = ((ViewGroup)getPopupContentView()).getChildAt(0);
-            FrameLayout.LayoutParams implParams = (LayoutParams) implView.getLayoutParams();
+            LayoutParams implParams = (LayoutParams) implView.getLayoutParams();
             implParams.gravity = Gravity.BOTTOM;
             if(getMaxHeight()!=0)
                 implParams.height = Math.min(implView.getMeasuredHeight(), getMaxHeight());
@@ -100,7 +100,7 @@ public abstract class PartShadowPopupView extends AttachPopupView {
 
             // 同时自定义的impl View应该Gravity居于顶部
             View implView = ((ViewGroup)getPopupContentView()).getChildAt(0);
-            FrameLayout.LayoutParams implParams = (LayoutParams) implView.getLayoutParams();
+            LayoutParams implParams = (LayoutParams) implView.getLayoutParams();
             implParams.gravity = Gravity.TOP;
             if(getMaxHeight()!=0)
                 implParams.height = Math.min(implView.getMeasuredHeight(), getMaxHeight());

@@ -18,7 +18,6 @@ import java.util.Objects;
 
 import me.shouheng.easymark.EasyMarkEditor;
 import me.shouheng.easymark.editor.Format;
-import me.shouheng.easymark.tools.Utils;
 import me.yokeyword.fragmentation.SupportFragment;
 
 public class MarkdownEditorFragment extends SupportFragment {
