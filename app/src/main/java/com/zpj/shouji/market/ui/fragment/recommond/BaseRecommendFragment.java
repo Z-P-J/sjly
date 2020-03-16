@@ -22,7 +22,8 @@ import com.zpj.recyclerview.EasyRecyclerView;
 import com.zpj.recyclerview.EasyViewHolder;
 import com.zpj.recyclerview.IEasy;
 import com.zpj.shouji.market.R;
-import com.zpj.shouji.market.glide.blur.BlurTransformation;
+import com.zpj.shouji.market.api.HttpApi;
+import com.zpj.shouji.market.glide.blur.BlurTransformation2;
 import com.zpj.shouji.market.model.AppInfo;
 import com.zpj.shouji.market.model.CollectionInfo;
 import com.zpj.shouji.market.model.GroupItem;
@@ -31,7 +32,6 @@ import com.zpj.shouji.market.ui.fragment.ArticleDetailFragment;
 import com.zpj.shouji.market.ui.fragment.base.RecyclerLayoutFragment;
 import com.zpj.shouji.market.ui.fragment.collection.CollectionDetailFragment;
 import com.zpj.shouji.market.ui.fragment.detail.AppDetailFragment;
-import com.zpj.shouji.market.api.HttpApi;
 import com.zpj.utils.ScreenUtils;
 
 import java.util.ArrayList;
@@ -194,7 +194,7 @@ public abstract class BaseRecommendFragment extends RecyclerLayoutFragment<Group
                         if (i == 0) {
                             Glide.with(context)
                                     .load(info.getIcons().get(0))
-                                    .apply(RequestOptions.bitmapTransform(new BlurTransformation(8, 4)))
+                                    .apply(RequestOptions.bitmapTransform(new BlurTransformation2()))
                                     .into(new SimpleTarget<Drawable>() {
                                         @Override
                                         public void onResourceReady(@NonNull Drawable resource, @Nullable Transition<? super Drawable> transition) {

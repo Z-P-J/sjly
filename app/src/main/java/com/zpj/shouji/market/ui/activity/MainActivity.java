@@ -105,5 +105,4 @@ public class MainActivity extends SupportActivity {
         start(fragment);
     }
 
-
 }

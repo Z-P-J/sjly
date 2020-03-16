@@ -30,6 +30,9 @@ import com.zpj.widget.ZViewPager;
 import java.util.ArrayList;
 import java.util.List;
 
+import me.yokeyword.fragmentation.anim.DefaultNoAnimator;
+import me.yokeyword.fragmentation.anim.FragmentAnimator;
+
 public class MainFragment extends BaseFragment
         implements MorePopup.OnItemClickListener {
 
@@ -44,6 +47,11 @@ public class MainFragment extends BaseFragment
     @Override
     protected boolean supportSwipeBack() {
         return false;
+    }
+
+    @Override
+    public FragmentAnimator onCreateFragmentAnimator() {
+        return new DefaultNoAnimator();
     }
 
     @Override

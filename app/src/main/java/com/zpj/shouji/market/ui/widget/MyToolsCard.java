@@ -145,8 +145,8 @@ public class MyToolsCard extends LCardView implements View.OnClickListener {
 
     public void onLogin() {
         flNotLogin.setVisibility(View.GONE);
-        removeView(flNotLogin);
-        flNotLogin = null;
+//        removeView(flNotLogin);
+//        flNotLogin = null;
 
         tvMyHomepage.setOnClickListener(this);
         tvMyDiscovers.setOnClickListener(this);
@@ -157,4 +157,20 @@ public class MyToolsCard extends LCardView implements View.OnClickListener {
         tvMyBookings.setOnClickListener(this);
         tvMyBlacklist.setOnClickListener(this);
     }
+
+    public void onSignOut() {
+        flNotLogin.setVisibility(View.VISIBLE);
+//        removeView(flNotLogin);
+//        flNotLogin = null;
+
+        tvMyHomepage.setOnClickListener(null);
+        tvMyDiscovers.setOnClickListener(null);
+        tvMyComments.setOnClickListener(null);
+        tvMyFriends.setOnClickListener(null);
+        tvMyMessages.setOnClickListener(null);
+        tvMyCollections.setOnClickListener(null);
+        tvMyBookings.setOnClickListener(null);
+        tvMyBlacklist.setOnClickListener(null);
+    }
+
 }

@@ -1,13 +1,10 @@
 package com.zpj.shouji.market.ui.widget;
 
 import android.content.Context;
-import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.text.SpannableString;
 import android.text.Spanned;
-import android.text.TextPaint;
 import android.text.method.LinkMovementMethod;
-import android.text.style.ClickableSpan;
 import android.text.style.URLSpan;
 import android.util.AttributeSet;
 import android.util.Log;
@@ -31,7 +28,7 @@ import com.zpj.widget.editor.validator.SameValueValidator;
 import me.yokeyword.fragmentation.SupportActivity;
 
 public class SignInLayout extends LinearLayout
-        implements UserManager.OnSignInListener {
+        implements UserManager.OnSignUpListener {
 
     private EditTextWithClear etAccount;
     private PasswordEditText etPassword;
@@ -121,7 +118,7 @@ public class SignInLayout extends LinearLayout
                     String password = etPassword.getText().toString();
                     String email = etPassword.getText().toString();
                     AToast.normal("onClick");
-                    UserManager.getInstance().signIn(accountName, password, email);
+                    UserManager.getInstance().signUp(accountName, password, email);
                 } else {
                     AToast.warning("输入内容有误");
                 }
@@ -162,12 +159,12 @@ public class SignInLayout extends LinearLayout
     }
 
     @Override
-    public void onSignInSuccess() {
+    public void onSignUpSuccess() {
 
     }
 
     @Override
-    public void onSignInFailed(String errInfo) {
+    public void onSignUpFailed(String errInfo) {
         if ("用户名已被注册".equals(errInfo)) {
             etAccount.requestFocus();
             etAccount.setError(errInfo);
@@ -178,16 +175,6 @@ public class SignInLayout extends LinearLayout
 
     public interface OnLoginListener {
         void onSignInSuccess();
-    }
-
-    private static abstract class ClickSpan extends ClickableSpan {
-
-        @Override
-        public void updateDrawState(@NonNull TextPaint ds) {
-//        ds.setColor(Color.parseColor("#ffffff"));
-            ds.setUnderlineText(false);
-        }
-
     }
 
 }

@@ -35,10 +35,10 @@
     <declare-styleable name="RoundProgressBar">
         <attr name="round_color" format="color" />
         <attr name="round_progressColor" format="color" />
-        <attr name="round_width" format="dimension"/>
+        <attr name="round_width" format="dimension" />
         <attr name="round_textColor" format="color" />
         <attr name="round_textsize" format="dimension" />
-        <attr name="round_max" format="integer"/>
+        <attr name="round_max" format="integer" />
     </declare-styleable>
 
     <declare-styleable name="SmileView">
@@ -57,9 +57,9 @@
     <declare-styleable name="DetailLayout">
         <attr name="left_text" format="string" />
         <attr name="right_text" format="string" />
-        <attr name="right_text_maxEms" format="integer"/>
-        <attr name="right_text_maxLines" format="integer"/>
-        <attr name="right_text_color" format="color"/>
+        <attr name="right_text_maxEms" format="integer" />
+        <attr name="right_text_maxLines" format="integer" />
+        <attr name="right_text_color" format="color" />
     </declare-styleable>
 
     <declare-styleable name="FillImageView">
@@ -71,13 +71,33 @@
         <attr name="drawable_tint_color" format="color" />
     </declare-styleable>
 
-<!--    <declare-styleable name="RecommendHeader">-->
-<!--        <attr name="header_title" format="string" />-->
-<!--    </declare-styleable>-->
+    <!--    <declare-styleable name="RecommendHeader">-->
+    <!--        <attr name="header_title" format="string" />-->
+    <!--    </declare-styleable>-->
 
     <declare-styleable name="RecommendCard">
         <attr name="header_title" format="string" />
     </declare-styleable>
+
+    <declare-styleable name="PercentImageView">
+        <attr name="piv_basics" format="enum">
+            <enum name="width" value="0" />
+            <enum name="height" value="1" />
+        </attr>
+        <attr name="piv_percent" format="float" />
+    </declare-styleable>
+
+    <declare-styleable name="SubmitView">
+        <attr name="sv_bindEditText1" format="reference" />
+        <attr name="sv_bindEditText2" format="reference" />
+        <attr name="sv_bindEditText3" format="reference" />
+        <attr name="sv_bindEditText4" format="reference" />
+    </declare-styleable>
+
+
+
+
+
 
     <string-array name="default_wallpaper_tags">
         <item>全部</item>

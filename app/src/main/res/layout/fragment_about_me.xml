@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background"
+    android:clipChildren="false">
+
+    <ImageView
+        android:id="@+id/iv_blur"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/colorPrimary"
+        android:scaleType="centerCrop"
+        android:tint="#80cccccc" />
+
+    <com.daimajia.swipe.SwipeLayout
+        android:id="@+id/sl"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:drag_edge="bottom"
+        app:show_mode="pull_out">
+
+        <RelativeLayout
+            android:id="@+id/rl_reward"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_centerHorizontal="true"
+                android:layout_marginLeft="60dp"
+                android:layout_marginTop="100dp"
+                android:layout_marginRight="60dp"
+                android:layout_marginBottom="60dp"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <com.zpj.shouji.market.ui.widget.PercentImageView
+                    android:id="@+id/piv_qq_qrcode"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginBottom="16dp"
+                    android:scaleType="fitCenter"
+                    tools:src="#f5f5f5"
+                    app:piv_basics="height"
+                    app:piv_percent="0.85" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="12sp"
+                    android:text="长按保存相册"
+                    android:textColor="#88ffffff" />
+
+                <com.zpj.shouji.market.ui.widget.PercentImageView
+                    android:id="@+id/piv_wx_qrcode"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginBottom="16dp"
+                    android:layout_weight="1"
+                    android:scaleType="fitCenter"
+                    tools:src="#f5f5f5"
+                    app:piv_basics="height"
+                    app:piv_percent="0.85" />
+
+            </LinearLayout>
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/rl_info"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:clipChildren="false">
+
+            <com.shehuan.niv.NiceImageView
+                android:id="@+id/civ_icon"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="100dp"
+                android:scaleType="centerCrop"
+                android:src="@drawable/logo_author"
+                app:is_circle="true"
+                />
+
+            <TextView
+                android:id="@+id/tv_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/civ_icon"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="20dp"
+                android:text="Goweii"
+                android:textColor="@color/white"
+                android:textSize="18sp" />
+
+            <TextView
+                android:id="@+id/tv_sign"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tv_name"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="20dp"
+                android:gravity="center"
+                android:paddingLeft="30dp"
+                android:paddingRight="30dp"
+                android:text="不相信自己的人没有努力的价值"
+                android:textColor="@color/white"
+                android:textSize="13sp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tv_sign"
+                android:layout_marginTop="60dp"
+                android:clipChildren="false"
+                android:orientation="vertical">
+
+                <com.zpj.widget.setting.CommonSettingItem
+                    android:id="@+id/item_github"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:z_setting_leftIcon="@drawable/ic_github"
+                    app:z_setting_titleTextColor="@color/white"
+                    app:z_setting_titleText="Github"
+                    app:z_setting_infoText="https://github.com/z-p-j"
+                    app:z_setting_infoTextColor="@color/white"
+                    />
+
+                <com.zpj.widget.setting.CommonSettingItem
+                    android:id="@+id/item_sjly"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:z_setting_leftIcon="@drawable/ic_github"
+                    app:z_setting_titleTextColor="@color/white"
+                    app:z_setting_titleText="手机乐园"
+                    app:z_setting_infoText="https://wap.shouji.com.cn/user/5544802//home.html"
+                    app:z_setting_infoTextColor="@color/white"
+                    />
+
+                <com.zpj.widget.setting.CommonSettingItem
+                    android:id="@+id/item_email"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:z_setting_leftIcon="@drawable/ic_github"
+                    app:z_setting_titleTextColor="@color/white"
+                    app:z_setting_titleText="我的邮箱"
+                    app:z_setting_infoText="2571490256@qq.com"
+                    app:z_setting_infoTextColor="@color/white"
+                    />
+
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_above="@+id/tv_to_reward"
+                android:layout_centerHorizontal="true"
+                android:layout_marginLeft="30dp"
+                android:layout_marginRight="30dp"
+                android:layout_marginBottom="10dp"
+                android:gravity="center"
+                android:text="APP不错, 赞助作者"
+                android:textColor="@color/white"
+                android:textSize="12sp" />
+
+            <TextView
+                android:id="@+id/tv_to_reward"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_above="@+id/iv_to_reward"
+                android:layout_centerHorizontal="true"
+                android:layout_marginBottom="10dp"
+                android:text="上滑"
+                android:textColor="@color/white"
+                android:textSize="12sp" />
+
+            <ImageView
+                android:id="@+id/iv_to_reward"
+                android:layout_width="12dp"
+                android:layout_height="12dp"
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true"
+                android:layout_marginBottom="10dp"
+                android:alpha="0.6"
+                android:rotation="90"
+                android:scaleType="fitCenter"
+                android:src="@drawable/ic_back"
+                android:tint="@color/white" />
+
+        </RelativeLayout>
+
+    </com.daimajia.swipe.SwipeLayout>
+
+    <include layout="@layout/layout_toolbar" />
+
+</RelativeLayout>

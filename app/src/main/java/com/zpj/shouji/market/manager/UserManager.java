@@ -24,8 +24,8 @@ public final class UserManager {
     private MemberInfo memberInfo;
     private String cookie;
     private boolean isLogin;
-    private final List<WeakReference<OnLoginListener>> onLoginListeners = new ArrayList<>();
     private final List<WeakReference<OnSignInListener>> onSignInListeners = new ArrayList<>();
+    private final List<WeakReference<OnSignUpListener>> onSignUpListeners = new ArrayList<>();
 
     public static UserManager getInstance() {
         return USER_MANAGER;
@@ -43,9 +43,16 @@ public final class UserManager {
                     && !TextUtils.isEmpty(doc.selectFirst("jsession").text())) {
                 memberInfo = MemberInfo.from(doc);
                 Log.d("UserManager", "memberInfo=" + memberInfo);
-                login();
+                signIn();
             }
         }
+    }
+
+    public void signOut() {
+        memberInfo = null;
+        setUserInfo("");
+        setCookie("");
+        isLogin = false;
     }
 
     public void setCookie(String cookie) {
@@ -88,7 +95,7 @@ public final class UserManager {
         return memberInfo != null;
     }
 
-    private void login() {
+    private void signIn() {
         String sessionId = getSessionId();
         memberInfo = null;
         Log.d(getClass().getName(), "jsessionid=" + sessionId);
@@ -98,12 +105,12 @@ public final class UserManager {
                 .data("stime", "" + System.currentTimeMillis())
                 .data("setupid", "sjly2.9.9.9.3")
                 .toHtml()
-                .onSuccess(this::onLogin)
+                .onSuccess(this::onSignIn)
                 .onError(throwable -> AToast.error(throwable.getMessage()))
                 .subscribe();
     }
 
-    public void login(String userName, String password) {
+    public void signIn(String userName, String password) {
         AToast.normal("isLogin=" + isLogin());
         HttpApi.openConnection("http://tt.shouji.com.cn/app/xml_login_v4.jsp?versioncode=198&version=2.9.9.9.3")
                 .data("openid", "")
@@ -118,12 +125,12 @@ public final class UserManager {
                 .data("n", "")
                 .data("jsessionid", "")
                 .toHtml()
-                .onSuccess(this::onLogin)
-                .onError(throwable -> onLoginFailed(throwable.getMessage()))
+                .onSuccess(this::onSignIn)
+                .onError(throwable -> onSignInFailed(throwable.getMessage()))
                 .subscribe();
     }
 
-    private void onLogin(Document data) {
+    private void onSignIn(Document data) {
         Log.d("UserManager", "data=" + data.toString());
         String info;
         Log.d("UserManager", "hasMember=" + data.has("member"));
@@ -134,7 +141,7 @@ public final class UserManager {
             if ("登录成功".equals(info)) {
                 memberInfo = MemberInfo.from(data);
                 setUserInfo(data.toString());
-                onLoginSuccess();
+                onSignInSuccess();
                 AToast.normal("登录成功");
                 return;
             }
@@ -144,10 +151,10 @@ public final class UserManager {
             info = "登录失败";
         }
         AToast.normal(info);
-        onLoginFailed(info);
+        onSignInFailed(info);
     }
 
-    public void signIn(String account, String password, String email) {
+    public void signUp(String account, String password, String email) {
         HttpApi.openConnection("http://tt.shouji.com.cn/app/xml_register_v4.jsp?")
                 .data("m", account)
                 .data("p", password)
@@ -167,15 +174,15 @@ public final class UserManager {
                     Document doc = response.parse();
                     if ("failed".equals(doc.selectFirst("result").text())) {
                         String info = doc.selectFirst("info").text();
-                        onSignInFailed(info);
+                        onSignUpFailed(info);
                     } else {
                         memberInfo = MemberInfo.from(doc);
                         setCookie(cookie);
                         setUserInfo(doc.toString());
-                        onSignInSuccess();
+                        onSignUpSuccess();
                     }
                 })
-                .onError(throwable -> onSignInFailed(throwable.getMessage()))
+                .onError(throwable -> onSignUpFailed(throwable.getMessage()))
                 .subscribe();
     }
 
@@ -196,48 +203,6 @@ public final class UserManager {
             e.printStackTrace();
         }
         return "";
-    }
-
-    private void onLoginSuccess() {
-        synchronized (onLoginListeners) {
-            isLogin = true;
-            for (WeakReference<OnLoginListener> listener : onLoginListeners) {
-                if (listener != null && listener.get() != null) {
-                    listener.get().onLoginSuccess();
-                }
-            }
-        }
-    }
-
-    private void onLoginFailed(String info) {
-        synchronized (onLoginListeners) {
-            isLogin = false;
-            for (WeakReference<OnLoginListener> listener : onLoginListeners) {
-                if (listener != null && listener.get() != null) {
-                    listener.get().onLoginFailed(info);
-                }
-            }
-        }
-    }
-
-    public void addOnLoginListener(OnLoginListener listener) {
-        synchronized (onLoginListeners) {
-            if (isLogin) {
-                listener.onLoginSuccess();
-            }
-            onLoginListeners.add(new WeakReference<>(listener));
-        }
-    }
-
-    public void removeOnLoginListener(OnLoginListener onLoginListener) {
-        synchronized (onLoginListeners) {
-            for (WeakReference<OnLoginListener> listener : onLoginListeners) {
-                if (listener != null && listener.get() != null && listener.get() == onLoginListener) {
-                    onLoginListeners.remove(listener);
-                    return;
-                }
-            }
-        }
     }
 
     private void onSignInSuccess() {
@@ -271,10 +236,10 @@ public final class UserManager {
         }
     }
 
-    public void removeOnSignInListener(OnSignInListener onLoginListener) {
+    public void removeOnSignInListener(OnSignInListener onSignInListener) {
         synchronized (onSignInListeners) {
             for (WeakReference<OnSignInListener> listener : onSignInListeners) {
-                if (listener != null && listener.get() != null && listener.get() == onLoginListener) {
+                if (listener != null && listener.get() != null && listener.get() == onSignInListener) {
                     onSignInListeners.remove(listener);
                     return;
                 }
@@ -282,14 +247,56 @@ public final class UserManager {
         }
     }
 
-    public interface OnLoginListener {
-        void onLoginSuccess();
-        void onLoginFailed(String errInfo);
+    private void onSignUpSuccess() {
+        synchronized (onSignUpListeners) {
+            isLogin = true;
+            for (WeakReference<OnSignUpListener> listener : onSignUpListeners) {
+                if (listener != null && listener.get() != null) {
+                    listener.get().onSignUpSuccess();
+                }
+            }
+        }
+    }
+
+    private void onSignUpFailed(String info) {
+        synchronized (onSignUpListeners) {
+            isLogin = false;
+            for (WeakReference<OnSignUpListener> listener : onSignUpListeners) {
+                if (listener != null && listener.get() != null) {
+                    listener.get().onSignUpFailed(info);
+                }
+            }
+        }
+    }
+
+    public void addOnSignUpListener(OnSignUpListener listener) {
+        synchronized (onSignUpListeners) {
+            if (isLogin) {
+                listener.onSignUpSuccess();
+            }
+            onSignUpListeners.add(new WeakReference<>(listener));
+        }
+    }
+
+    public void removeOnSignUpListener(OnSignUpListener onSignUpListener) {
+        synchronized (onSignUpListeners) {
+            for (WeakReference<OnSignUpListener> listener : onSignUpListeners) {
+                if (listener != null && listener.get() != null && listener.get() == onSignUpListener) {
+                    onSignUpListeners.remove(listener);
+                    return;
+                }
+            }
+        }
     }
 
     public interface OnSignInListener {
         void onSignInSuccess();
         void onSignInFailed(String errInfo);
+    }
+
+    public interface OnSignUpListener {
+        void onSignUpSuccess();
+        void onSignUpFailed(String errInfo);
     }
 
 }

@@ -8,11 +8,13 @@ import android.view.ViewStub;
 import com.zpj.widget.switcher.BaseSwitcher;
 import com.zpj.widget.switcher.OnCheckedChangeListener;
 
-public abstract class CheckableSettingItem extends ZSettingItem<CheckableSettingItem> {
+public abstract class CheckableSettingItem extends ZSettingItem {
 
     protected BaseSwitcher switcher;
 
     private boolean isChecked;
+
+    private OnCheckableItemClickListener listener;
 
     CheckableSettingItem(Context context) {
         this(context, null);
@@ -43,7 +45,13 @@ public abstract class CheckableSettingItem extends ZSettingItem<CheckableSetting
     @Override
     public void onItemClick() {
         setChecked(!isChecked);
-        super.onItemClick();
+        if (listener != null) {
+            listener.onItemClick(this);
+        }
+    }
+
+    public void setListener(OnCheckableItemClickListener listener) {
+        this.listener = listener;
     }
 
     public boolean isChecked() {

@@ -26,7 +26,8 @@ import com.zpj.recyclerview.EasyRecyclerView;
 import com.zpj.recyclerview.EasyViewHolder;
 import com.zpj.recyclerview.IEasy;
 import com.zpj.shouji.market.R;
-import com.zpj.shouji.market.glide.blur.BlurTransformation;
+import com.zpj.shouji.market.api.HttpPreLoader;
+import com.zpj.shouji.market.glide.blur.BlurTransformation2;
 import com.zpj.shouji.market.model.AppInfo;
 import com.zpj.shouji.market.model.CollectionInfo;
 import com.zpj.shouji.market.model.GroupItem;
@@ -35,12 +36,13 @@ import com.zpj.shouji.market.ui.fragment.AppListFragment;
 import com.zpj.shouji.market.ui.fragment.base.RecyclerLayoutFragment;
 import com.zpj.shouji.market.ui.fragment.collection.CollectionDetailFragment;
 import com.zpj.shouji.market.ui.fragment.detail.AppDetailFragment;
-import com.zpj.shouji.market.api.HttpPreLoader;
 import com.zpj.utils.ScreenUtils;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import me.yokeyword.fragmentation.anim.DefaultNoAnimator;
+import me.yokeyword.fragmentation.anim.FragmentAnimator;
 import www.linwg.org.lib.LCardView;
 
 public class RecommendFragment extends RecyclerLayoutFragment<GroupItem> {
@@ -91,6 +93,11 @@ public class RecommendFragment extends RecyclerLayoutFragment<GroupItem> {
             }
         })
                 .onGetChildViewType(position -> position + 1);
+    }
+
+    @Override
+    public FragmentAnimator onCreateFragmentAnimator() {
+        return new DefaultNoAnimator();
     }
 
     @Override
@@ -275,7 +282,7 @@ public class RecommendFragment extends RecyclerLayoutFragment<GroupItem> {
 //                            new BlurTransformation(25, 5)
                             Glide.with(context)
                                     .load(info.getIcons().get(0))
-                                    .apply(RequestOptions.bitmapTransform(new BlurTransformation()))
+                                    .apply(RequestOptions.bitmapTransform(new BlurTransformation2()))
                                     .into(imgBg);
                         }
                         Glide.with(context).load(info.getIcons().get(i)).into(holder1.getImageView(res));

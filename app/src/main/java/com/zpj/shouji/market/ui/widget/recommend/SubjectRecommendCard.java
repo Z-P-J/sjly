@@ -3,30 +3,21 @@ package com.zpj.shouji.market.ui.widget.recommend;
 import android.content.Context;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.util.AttributeSet;
 import android.view.View;
-import android.widget.FrameLayout;
 
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.request.RequestOptions;
-import com.shehuan.niv.NiceImageView;
-import com.zpj.http.parser.html.nodes.Element;
 import com.zpj.http.parser.html.select.Elements;
 import com.zpj.recyclerview.EasyRecyclerView;
 import com.zpj.recyclerview.EasyViewHolder;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.api.HttpPreLoader;
-import com.zpj.shouji.market.glide.blur.BlurTransformation;
-import com.zpj.shouji.market.model.CollectionInfo;
 import com.zpj.shouji.market.model.SubjectInfo;
 import com.zpj.shouji.market.ui.fragment.AppListFragment;
 
 import org.greenrobot.eventbus.EventBus;
 
 import java.util.List;
-
-import www.linwg.org.lib.LCardView;
 
 public class SubjectRecommendCard extends RecommendCard<SubjectInfo> {
 

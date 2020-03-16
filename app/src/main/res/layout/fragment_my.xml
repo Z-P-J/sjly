@@ -266,12 +266,24 @@
                                 android:id="@+id/tv_about"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                app:z_setting_titleText="关于应用"
+                                app:z_setting_titleText="关于"
                                 />
 
                         </android.support.v7.widget.LinearLayoutCompat>
 
                     </www.linwg.org.lib.LCardView>
+
+                    <TextView
+                        android:id="@+id/tv_sign_out"
+                        style="@style/button_submit"
+                        android:background="@drawable/bg_button_round_red"
+                        android:layout_marginStart="40dp"
+                        android:layout_marginTop="16dp"
+                        android:layout_marginEnd="40dp"
+                        android:layout_marginBottom="16dp"
+                        android:text="注销账户"
+                        android:visibility="gone"
+                        />
 
                 </LinearLayout>
 

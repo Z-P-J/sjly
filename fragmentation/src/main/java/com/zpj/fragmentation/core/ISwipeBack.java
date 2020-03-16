@@ -20,6 +20,8 @@ public interface ISwipeBack {
 
     void setEdgeLevel(int widthPixel);
 
+    void setEdgeOrientation(@SwipeBackLayout.EdgeOrientation int orientation);
+
     /**
      * Set the offset of the parallax slip.
      */

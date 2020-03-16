@@ -26,7 +26,7 @@
                 android:layout_height="100dp"
                 android:layout_gravity="center_horizontal"
                 android:src="@mipmap/ic_launcher_round"
-                android:layout_marginTop="56dp"
+                android:layout_marginTop="16dp"
                 />
 
             <TextView
@@ -48,7 +48,7 @@
                 android:textColor="@color/color_text_normal"
                 android:textSize="14sp"
                 android:padding="8dp"
-                android:layout_marginBottom="56dp"
+                android:layout_marginBottom="16dp"
                 />
 
             <www.linwg.org.lib.LCardView
@@ -75,6 +75,13 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         app:z_setting_titleText="隐私协议"
+                        />
+
+                    <com.zpj.widget.setting.CommonSettingItem
+                        android:id="@+id/item_about_me"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:z_setting_titleText="关于作者"
                         />
 
                     <com.zpj.widget.setting.CommonSettingItem

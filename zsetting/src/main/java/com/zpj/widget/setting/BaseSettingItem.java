@@ -13,7 +13,7 @@ import android.widget.TextView;
 
 import com.zpj.widget.setting.R;
 
-public abstract class BaseSettingItem<T extends BaseSettingItem> extends RelativeLayout
+public abstract class BaseSettingItem extends RelativeLayout
         implements ViewStub.OnInflateListener {
 
     protected LinearLayout llContentContainer;
@@ -32,8 +32,6 @@ public abstract class BaseSettingItem<T extends BaseSettingItem> extends Relativ
     private LayoutParams contentContainerParams;
 
     private boolean mEnable = true;
-
-    private OnItemClickListener<T> listener;
 
     private final OnClickListener onClickListener = new OnClickListener() {
         @Override
@@ -136,16 +134,6 @@ public abstract class BaseSettingItem<T extends BaseSettingItem> extends Relativ
         }
     }
 
-    public void onItemClick() {
-        if (listener != null) {
-            listener.onClick((T)this);
-        }
-    }
-
-    public void setOnItemClickListener(OnItemClickListener<T> listener) {
-        this.listener = listener;
-    }
-
     private int getInflatedId(ViewStub stub, View inflated) {
         int inflatedId;
         if (stub.getInflatedId() == NO_ID) {
@@ -168,6 +156,8 @@ public abstract class BaseSettingItem<T extends BaseSettingItem> extends Relativ
     public abstract void inflateInfoButton(ViewStub viewStub);
 
     public abstract void inflateLeftIcon(ViewStub viewStub);
+
+    public abstract void onItemClick();
 
 
 }

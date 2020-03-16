@@ -7,21 +7,21 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.felix.atoast.library.AToast;
-import com.lxj.xpopup.XPopup;
 import com.lxj.xpopup.ZPopup;
 import com.lxj.xpopup.interfaces.OnConfirmListener;
-import com.lxj.xpopup.interfaces.SimpleCallback;
 import com.shehuan.niv.NiceImageView;
 import com.zpj.fragmentation.BaseFragment;
 import com.zpj.popupmenuview.popup.EverywherePopup;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.model.MemberInfo;
 import com.zpj.shouji.market.ui.fragment.WebFragment;
+import com.zpj.shouji.market.ui.fragment.login.LoginFragment;
 import com.zpj.shouji.market.ui.fragment.setting.AboutSettingFragment;
 import com.zpj.shouji.market.ui.fragment.setting.CommonSettingFragment;
 import com.zpj.shouji.market.ui.fragment.setting.DownloadSettingFragment;
@@ -33,10 +33,14 @@ import com.zpj.shouji.market.api.HttpApi;
 import com.zpj.shouji.market.manager.UserManager;
 import com.zpj.utils.ClickHelper;
 
+import me.yokeyword.fragmentation.anim.DefaultNoAnimator;
+import me.yokeyword.fragmentation.anim.FragmentAnimator;
+
 public class MyFragment extends BaseFragment
         implements View.OnClickListener,
-        UserManager.OnLoginListener {
+        UserManager.OnSignInListener {
 
+    private ImageView ivWallpaper;
     private TextView tvName;
     private TextView tvSignature;
     private NiceImageView ivAvatar;
@@ -54,6 +58,7 @@ public class MyFragment extends BaseFragment
     private TextView tvDownloadSetting;
     private TextView tvInstallSetting;
     private TextView tvAbout;
+    private TextView tvSignOut;
 
     private LoginPopup loginPopup;
 
@@ -70,6 +75,7 @@ public class MyFragment extends BaseFragment
         pullZoomView.setSensitive(2.5f);
         pullZoomView.setZoomTime(500);
 
+        ivWallpaper = view.findViewById(R.id.iv_wallpaper);
         tvName = view.findViewById(R.id.tv_name);
         tvSignature = view.findViewById(R.id.tv_signature);
         ivAvatar = view.findViewById(R.id.iv_avatar);
@@ -88,6 +94,8 @@ public class MyFragment extends BaseFragment
         tvDownloadSetting = view.findViewById(R.id.tv_download_setting);
         tvInstallSetting = view.findViewById(R.id.tv_install_setting);
         tvAbout = view.findViewById(R.id.tv_about);
+        tvSignOut = view.findViewById(R.id.tv_sign_out);
+
 
         ivAvatar.setOnClickListener(this);
         tvCheckIn.setOnClickListener(this);
@@ -98,6 +106,7 @@ public class MyFragment extends BaseFragment
         tvDownloadSetting.setOnClickListener(this);
         tvInstallSetting.setOnClickListener(this);
         tvAbout.setOnClickListener(this);
+        tvSignOut.setOnClickListener(this);
 
 
         hideSoftInput();
@@ -146,7 +155,7 @@ public class MyFragment extends BaseFragment
                     return true;
                 });
 
-        UserManager.getInstance().addOnLoginListener(this);
+        UserManager.getInstance().addOnSignInListener(this);
     }
 
     @Override
@@ -167,7 +176,7 @@ public class MyFragment extends BaseFragment
 
     @Override
     public void onDestroy() {
-        UserManager.getInstance().removeOnLoginListener(this);
+        UserManager.getInstance().removeOnSignInListener(this);
         if (loginPopup != null && loginPopup.isShow()) {
             loginPopup.dismiss();
         }
@@ -187,25 +196,7 @@ public class MyFragment extends BaseFragment
                         case 1:
                             break;
                         case 2:
-                            ZPopup.with(context)
-                                    .alert()
-                                    .setTitle("确认注销？")
-                                    .setContent("您将注销当前登录的账户，确认继续？")
-                                    .setConfirmButton(new OnConfirmListener() {
-                                        @Override
-                                        public void onConfirm() {
-                                            AToast.success("TODO 注销成功");
-                                        }
-                                    })
-                                    .show();
-//                            new XPopup.Builder(context)
-//                                    .asConfirm("确认注销？", "您将注销当前登录的账户，确认继续？", new OnConfirmListener() {
-//                                        @Override
-//                                        public void onConfirm() {
-//                                            AToast.success("TODO 注销成功");
-//                                        }
-//                                    })
-//                                    .show();
+                            showSignOutPopup();
                             break;
                         case 3:
                             showLoginPopup(0);
@@ -265,11 +256,13 @@ public class MyFragment extends BaseFragment
             _mActivity.start(new InstallSettingFragment());
         } else if (v == tvAbout) {
             _mActivity.start(new AboutSettingFragment());
+        } else if (v == tvSignOut) {
+            showSignOutPopup();
         }
     }
 
     @Override
-    public void onLoginSuccess() {
+    public void onSignInSuccess() {
         myToolsCard.onLogin();
         MemberInfo info = UserManager.getInstance().getMemberInfo();
         if (!info.isCanSigned()) {
@@ -297,37 +290,63 @@ public class MyFragment extends BaseFragment
                             .error(R.drawable.bg_member_default)
                             .placeholder(R.drawable.bg_member_default)
                     )
-                    .into(ivAvatar);
+                    .into(ivWallpaper);
         }
+        tvSignOut.setVisibility(View.VISIBLE);
     }
 
     @Override
-    public void onLoginFailed(String errInfo) {
+    public void onSignInFailed(String errInfo) {
 
     }
 
     public void showLoginPopup(int page) {
-        if (loginPopup == null) {
-            loginPopup = LoginPopup.with(context);
-            loginPopup.setPopupCallback(new SimpleCallback() {
-                @Override
-                public void onDismiss() {
-                    loginPopup = null;
-                }
-
+        _mActivity.start(new LoginFragment());
+//        if (loginPopup == null) {
+//            loginPopup = LoginPopup.with(context);
+//            loginPopup.setPopupCallback(new SimpleCallback() {
 //                @Override
-//                public void onShow() {
-//                    loginPopup.clearFocus();
+//                public void onDismiss() {
+//                    loginPopup = null;
 //                }
 //
-                @Override
-                public void onHide() {
-                    loginPopup.clearFocus();
-                }
-            });
-        }
-        loginPopup.setCurrentPosition(page);
-        loginPopup.show();
+////                @Override
+////                public void onShow() {
+////                    loginPopup.clearFocus();
+////                }
+////
+//                @Override
+//                public void onHide() {
+//                    loginPopup.clearFocus();
+//                }
+//            });
+//        }
+//        loginPopup.setCurrentPosition(page);
+//        loginPopup.show();
+    }
+
+    private void showSignOutPopup() {
+        ZPopup.with(context)
+                .alert()
+                .setTitle("确认注销？")
+                .setContent("您将注销当前登录的账户，确认继续？")
+                .setConfirmButton(new OnConfirmListener() {
+                    @Override
+                    public void onConfirm() {
+                        UserManager.getInstance().signOut();
+                        tvCheckIn.setVisibility(View.GONE);
+                        tvSignOut.setVisibility(View.GONE);
+                        tvName.setText("点击头像登录");
+                        tvLevel.setText("Lv.0");
+                        tvSignature.setText("手机乐园，发现应用的乐趣");
+                        tvFollower.setText("关注 0");
+                        tvFans.setText("粉丝 0");
+                        ivAvatar.setImageResource(R.drawable.ic_user_head);
+                        ivWallpaper.setImageResource(R.drawable.bg_member_default);
+                        AToast.success("TODO 注销成功");
+                    }
+                })
+                .show();
     }
 
 }

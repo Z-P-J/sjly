@@ -16,8 +16,7 @@ import com.zpj.recyclerview.EasyRecyclerView;
 import com.zpj.recyclerview.EasyViewHolder;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.api.HttpPreLoader;
-import com.zpj.shouji.market.glide.blur.BlurTransformation;
-import com.zpj.shouji.market.model.AppInfo;
+import com.zpj.shouji.market.glide.blur.BlurTransformation2;
 import com.zpj.shouji.market.model.CollectionInfo;
 import com.zpj.shouji.market.ui.fragment.collection.CollectionDetailFragment;
 
@@ -89,7 +88,7 @@ public class CollectionRecommendCard extends RecommendCard<CollectionInfo> {
             if (i == 0) {
                 Glide.with(context)
                         .load(info.getIcons().get(0))
-                        .apply(RequestOptions.bitmapTransform(new BlurTransformation()))
+                        .apply(RequestOptions.bitmapTransform(new BlurTransformation2()))
                         .into(imgBg);
             }
             Glide.with(context).load(info.getIcons().get(i)).into(holder.getImageView(res));

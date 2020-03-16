@@ -13,7 +13,7 @@ import android.widget.TextView;
 
 import com.zpj.widget.setting.R;
 
-abstract class ZSettingItem<T extends ZSettingItem> extends BaseSettingItem<T> {
+abstract class ZSettingItem extends BaseSettingItem {
 
     protected String mTitleText;
     protected float mTitleTextSize;
@@ -88,8 +88,10 @@ abstract class ZSettingItem<T extends ZSettingItem> extends BaseSettingItem<T> {
                 }
             } else if (attr == R.styleable.ZSettingItem_z_setting_infoTextSize) {
                 mInfoTextSize = a.getFloat(attr, 12);
+                tvInfo.setTextSize(mInfoTextSize);
             } else if (attr == R.styleable.ZSettingItem_z_setting_infoTextColor) {
                 mInfoTextColor = a.getColor(attr, Color.LTGRAY);
+                tvInfo.setTextColor(mInfoTextColor);
             }
 //            else if (attr == R.styleable.ZSettingItem_z_setting_leftIcon) {
 //                mLeftIcon = a.getDrawable(attr);

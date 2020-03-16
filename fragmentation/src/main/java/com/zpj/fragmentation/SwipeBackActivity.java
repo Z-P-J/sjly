@@ -60,6 +60,11 @@ public class SwipeBackActivity extends SupportActivity implements ISwipeBack {
     }
 
     @Override
+    public void setEdgeOrientation(int orientation) {
+        mSwipeBackLayout.setEdgeOrientation(orientation);
+    }
+
+    @Override
     public void setParallaxOffset(float offset) {
 
     }

@@ -30,7 +30,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class LoginPopup extends CenterPopupView
-        implements UserManager.OnLoginListener {
+        implements UserManager.OnSignInListener {
 
     private static final String[] TAB_TITLES = {"登录", "注册"};
     private AutoSizeViewPager viewPager;
@@ -58,7 +58,7 @@ public class LoginPopup extends CenterPopupView
     protected void onCreate() {
         super.onCreate();
         if (!UserManager.getInstance().isLogin()) {
-            UserManager.getInstance().addOnLoginListener(this);
+            UserManager.getInstance().addOnSignInListener(this);
         }
         List<View> list = new ArrayList<>();
         signUpLayout = new SignUpLayout(getContext());
@@ -66,8 +66,8 @@ public class LoginPopup extends CenterPopupView
         list.add(signUpLayout);
         list.add(signInLayout);
 
-        UserManager.getInstance().addOnLoginListener(signUpLayout);
-        UserManager.getInstance().addOnSignInListener(signInLayout);
+        UserManager.getInstance().addOnSignInListener(signUpLayout);
+        UserManager.getInstance().addOnSignUpListener(signInLayout);
 
         ZToolbar toolbar = findViewById(R.id.tool_bar);
         toolbar.getRightImageButton().setOnClickListener(v -> dismiss());
@@ -129,9 +129,9 @@ public class LoginPopup extends CenterPopupView
     @Override
     protected void onDismiss() {
         super.onDismiss();
-        UserManager.getInstance().removeOnLoginListener(signUpLayout);
-        UserManager.getInstance().removeOnSignInListener(signInLayout);
-        UserManager.getInstance().removeOnLoginListener(this);
+        UserManager.getInstance().removeOnSignInListener(signUpLayout);
+        UserManager.getInstance().removeOnSignUpListener(signInLayout);
+        UserManager.getInstance().removeOnSignInListener(this);
     }
 
     public LoginPopup setCurrentPosition(int currentPosition) {
@@ -140,12 +140,12 @@ public class LoginPopup extends CenterPopupView
     }
 
     @Override
-    public void onLoginSuccess() {
+    public void onSignInSuccess() {
         dismiss();
     }
 
     @Override
-    public void onLoginFailed(String errInfo) {
+    public void onSignInFailed(String errInfo) {
 
     }
 

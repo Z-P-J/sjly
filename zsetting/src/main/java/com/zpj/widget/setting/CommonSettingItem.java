@@ -8,7 +8,9 @@ import android.widget.TextView;
 
 import com.zpj.widget.setting.R;
 
-public class CommonSettingItem extends ZSettingItem<CommonSettingItem> {
+public class CommonSettingItem extends ZSettingItem {
+
+    private OnCommonItemClickListener listener;
 
     public CommonSettingItem(Context context) {
         this(context, null);
@@ -22,5 +24,15 @@ public class CommonSettingItem extends ZSettingItem<CommonSettingItem> {
         super(context, attrs, defStyleAttr);
     }
 
+    public void setListener(OnCommonItemClickListener listener) {
+        this.listener = listener;
+    }
+
+    @Override
+    public void onItemClick() {
+        if (listener != null) {
+            listener.onItemClick(this);
+        }
+    }
 }
 

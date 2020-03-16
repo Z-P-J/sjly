@@ -78,6 +78,11 @@ public class SwipeBackFragment extends SupportFragment implements ISwipeBack {
         mSwipeBackLayout.setEdgeLevel(widthPixel);
     }
 
+    @Override
+    public void setEdgeOrientation(int orientation) {
+        mSwipeBackLayout.setEdgeOrientation(orientation);
+    }
+
     /**
      * Set the offset of the parallax slip.
      */

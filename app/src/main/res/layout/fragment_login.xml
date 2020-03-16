@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorPrimary"
+    android:clipChildren="false">
+
+    <com.zpj.widget.toolbar.ZToolbar
+        android:id="@+id/tool_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:z_toolbar_fillStatusBar="true"
+        app:z_toolbar_statusBarColor="@color/transparent"
+        app:z_toolbar_titleBarColor="@color/transparent"
+        app:z_toolbar_leftType="imageButton"
+        app:z_toolbar_leftImageResource="@drawable/ic_close_white_24dp"
+        />
+
+    <LinearLayout
+        android:id="@+id/ll_logo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tool_bar"
+        android:layout_centerHorizontal="true"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <FrameLayout
+            android:layout_width="56dp"
+            android:layout_height="56dp">
+
+            <ImageView
+                android:layout_width="56dp"
+                android:layout_height="56dp"
+                android:scaleType="fitCenter"
+                android:src="@drawable/ic_settings_white_24dp" />
+
+        </FrameLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="手机乐园"
+            android:textColor="@color/white"
+            android:textSize="18sp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:alpha="0.8"
+            android:text="发现应用的乐趣"
+            android:textColor="@color/white" />
+
+    </LinearLayout>
+
+    <RelativeLayout
+        android:id="@+id/rl_input"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/ll_logo"
+        android:layout_marginTop="20dp"
+        android:clipChildren="false"
+        android:layout_alignParentBottom="true"
+        >
+
+        <com.zpj.shouji.market.ui.widget.PercentImageView
+            android:id="@+id/iv_circle_1"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginStart="-170dp"
+            android:layout_marginEnd="-170dp"
+            android:alpha="0.7"
+            android:background="@drawable/bg_solid_round_color_surface_radius_max"
+            app:piv_basics="width"
+            app:piv_percent="1" />
+
+        <com.zpj.shouji.market.ui.widget.PercentImageView
+            android:id="@+id/iv_circle_2"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginStart="-150dp"
+            android:layout_marginEnd="-190dp"
+            android:alpha="0.7"
+            android:background="@drawable/bg_solid_round_color_surface_radius_max"
+            app:piv_basics="width"
+            app:piv_percent="1" />
+
+        <android.support.v4.view.ViewPager
+            android:id="@+id/vp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:overScrollMode="never"
+            android:scrollbars="none" />
+
+    </RelativeLayout>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginBottom="10dp"
+        android:gravity="center"
+        android:text=""
+        android:textColor="@color/color_text_normal"
+        android:textSize="12sp" />
+
+</RelativeLayout>

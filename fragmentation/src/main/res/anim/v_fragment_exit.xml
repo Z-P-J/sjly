@@ -25,7 +25,7 @@
             android:fillBefore="false" android:fillAfter="true"
             android:startOffset="100"
             android:duration="150"/>
-    <translate android:fromYDelta="0%" android:toYDelta="8%"
+    <translate android:fromYDelta="0%" android:toYDelta="100%"
             android:fillEnabled="true" android:fillBefore="true" android:fillAfter="true"
             android:interpolator="@android:anim/accelerate_interpolator"
             android:duration="250"/>

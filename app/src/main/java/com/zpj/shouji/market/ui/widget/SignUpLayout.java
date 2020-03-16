@@ -16,7 +16,7 @@ import com.zpj.widget.editor.EditTextWithClear;
 import com.zpj.widget.editor.PasswordEditText;
 import com.zpj.widget.editor.validator.LengthValidator;
 
-public class SignUpLayout extends LinearLayout implements UserManager.OnLoginListener {
+public class SignUpLayout extends LinearLayout implements UserManager.OnSignInListener {
 
     private EditTextWithClear etAccount;
     private PasswordEditText etPassword;
@@ -60,7 +60,7 @@ public class SignUpLayout extends LinearLayout implements UserManager.OnLoginLis
                 if (etAccount.isValid() && etPassword.isValid()) {
                     String account = etAccount.getText().toString();
                     String password = etPassword.getText().toString();
-                    UserManager.getInstance().login(account, password);
+                    UserManager.getInstance().signIn(account, password);
                 }
             }
         });
@@ -96,12 +96,12 @@ public class SignUpLayout extends LinearLayout implements UserManager.OnLoginLis
     }
 
     @Override
-    public void onLoginSuccess() {
+    public void onSignInSuccess() {
 
     }
 
     @Override
-    public void onLoginFailed(String errInfo) {
+    public void onSignInFailed(String errInfo) {
         AToast.error("onLoginFailed " + errInfo);
         etAccount.setError(errInfo);
 //        if ("".equals(errInfo)) {

@@ -5,6 +5,7 @@ import android.support.annotation.Nullable;
 import android.view.View;
 
 import com.zpj.shouji.market.R;
+import com.zpj.widget.setting.CheckableSettingItem;
 import com.zpj.widget.setting.CommonSettingItem;
 
 public class CommonSettingFragment extends BaseSettingFragment {
@@ -18,37 +19,34 @@ public class CommonSettingFragment extends BaseSettingFragment {
     protected void initView(View view, @Nullable Bundle savedInstanceState) {
         setToolbarTitle("通用设置");
 
-        CommonSettingItem itemShowStartPage = view.findViewById(R.id.item_show_start_page);
-        itemShowStartPage.setOnItemClickListener(this);
+        CheckableSettingItem itemShowStartPage = view.findViewById(R.id.item_show_start_page);
+        itemShowStartPage.setListener(this);
 
-        CommonSettingItem itemShowUpdateNotification = view.findViewById(R.id.item_show_update_notification);
-        itemShowUpdateNotification.setOnItemClickListener(this);
+        CheckableSettingItem itemShowUpdateNotification = view.findViewById(R.id.item_show_update_notification);
+        itemShowUpdateNotification.setListener(this);
 
         CommonSettingItem itemBrightnessControl = view.findViewById(R.id.item_brightness_control);
-        itemBrightnessControl.setOnItemClickListener(this);
+        itemBrightnessControl.setListener(this);
 
 
 
-        CommonSettingItem itemAutoSaveTraffic = view.findViewById(R.id.item_auto_save_traffic);
-        itemAutoSaveTraffic.setOnItemClickListener(this);
+        CheckableSettingItem itemAutoSaveTraffic = view.findViewById(R.id.item_auto_save_traffic);
+        itemAutoSaveTraffic.setListener(this);
 
-        CommonSettingItem itemShowOriginalImage = view.findViewById(R.id.item_show_original_image);
-        itemShowOriginalImage.setOnItemClickListener(this);
+        CheckableSettingItem itemShowOriginalImage = view.findViewById(R.id.item_show_original_image);
+        itemShowOriginalImage.setListener(this);
 
         CommonSettingItem itemClearCache = view.findViewById(R.id.item_clear_cache);
-        itemClearCache.setOnItemClickListener(this);
+        itemClearCache.setListener(this);
     }
 
     @Override
-    public void onClick(CommonSettingItem item) {
+    public void onItemClick(CheckableSettingItem item) {
         switch (item.getId()) {
             case R.id.item_show_start_page:
 
                 break;
             case R.id.item_show_update_notification:
-
-                break;
-            case R.id.item_brightness_control:
 
                 break;
             case R.id.item_auto_save_traffic:
@@ -62,6 +60,13 @@ public class CommonSettingFragment extends BaseSettingFragment {
                 break;
             default:
                 break;
+        }
+    }
+
+    @Override
+    public void onItemClick(CommonSettingItem item) {
+        if (item.getId() == R.id.item_brightness_control) {
+
         }
     }
 }

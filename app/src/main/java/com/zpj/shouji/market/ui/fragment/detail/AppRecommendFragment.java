@@ -18,17 +18,17 @@ import com.bumptech.glide.request.transition.Transition;
 import com.sunfusheng.GroupRecyclerViewAdapter;
 import com.sunfusheng.GroupViewHolder;
 import com.sunfusheng.HeaderGroupRecyclerViewAdapter;
+import com.zpj.fragmentation.BaseFragment;
 import com.zpj.http.parser.html.nodes.Element;
 import com.zpj.http.parser.html.select.Elements;
 import com.zpj.recyclerview.EasyRecyclerView;
 import com.zpj.shouji.market.R;
+import com.zpj.shouji.market.api.HttpApi;
+import com.zpj.shouji.market.glide.blur.BlurTransformation2;
 import com.zpj.shouji.market.model.AppInfo;
 import com.zpj.shouji.market.model.CollectionInfo;
-import com.zpj.shouji.market.glide.blur.BlurTransformation;
 import com.zpj.shouji.market.model.GroupItem;
-import com.zpj.fragmentation.BaseFragment;
 import com.zpj.shouji.market.ui.fragment.collection.CollectionDetailFragment;
-import com.zpj.shouji.market.api.HttpApi;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -239,7 +239,7 @@ public class AppRecommendFragment extends BaseFragment
                             if (i == 0) {
                                 Glide.with(context)
                                         .load(info.getIcons().get(0))
-                                        .apply(RequestOptions.bitmapTransform(new BlurTransformation(8, 4)))
+                                        .apply(RequestOptions.bitmapTransform(new BlurTransformation2()))
                                         .into(new SimpleTarget<Drawable>() {
                                             @Override
                                             public void onResourceReady(@NonNull Drawable resource, @Nullable Transition<? super Drawable> transition) {
