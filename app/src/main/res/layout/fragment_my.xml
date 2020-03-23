@@ -63,6 +63,7 @@
                         android:textColor="@android:color/white"
                         android:layout_centerVertical="true"
                         android:layout_toStartOf="@id/tv_follow"
+                        android:visibility="gone"
                         />
 
                     <TextView
@@ -293,7 +294,7 @@
 
     </com.zpj.shouji.market.ui.widget.PullZoomView>
 
-    <com.zpj.widget.toolbar.ZToolbar
+    <com.zpj.widget.toolbar.ZToolBar
         android:id="@+id/tool_bar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

@@ -20,24 +20,24 @@ public class CommonSettingFragment extends BaseSettingFragment {
         setToolbarTitle("通用设置");
 
         CheckableSettingItem itemShowStartPage = view.findViewById(R.id.item_show_start_page);
-        itemShowStartPage.setListener(this);
+        itemShowStartPage.setOnItemClickListener(this);
 
         CheckableSettingItem itemShowUpdateNotification = view.findViewById(R.id.item_show_update_notification);
-        itemShowUpdateNotification.setListener(this);
+        itemShowUpdateNotification.setOnItemClickListener(this);
 
         CommonSettingItem itemBrightnessControl = view.findViewById(R.id.item_brightness_control);
-        itemBrightnessControl.setListener(this);
+        itemBrightnessControl.setOnItemClickListener(this);
 
 
 
         CheckableSettingItem itemAutoSaveTraffic = view.findViewById(R.id.item_auto_save_traffic);
-        itemAutoSaveTraffic.setListener(this);
+        itemAutoSaveTraffic.setOnItemClickListener(this);
 
         CheckableSettingItem itemShowOriginalImage = view.findViewById(R.id.item_show_original_image);
-        itemShowOriginalImage.setListener(this);
+        itemShowOriginalImage.setOnItemClickListener(this);
 
         CommonSettingItem itemClearCache = view.findViewById(R.id.item_clear_cache);
-        itemClearCache.setListener(this);
+        itemClearCache.setOnItemClickListener(this);
     }
 
     @Override

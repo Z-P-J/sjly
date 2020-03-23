@@ -81,7 +81,7 @@ public class WallpaperListFragment extends NextUrlFragment<WallpaperInfo> {
     @Override
     protected void buildRecyclerLayout(EasyRecyclerLayout<WallpaperInfo> recyclerLayout) {
         screenWidth = ScreenUtils.getScreenWidth(context);
-        recyclerLayout.setHeaderView(R.layout.item_image_header, holder -> holder.setOnItemClickListener((v, x, y) -> showSortPupWindow(v)));
+        recyclerLayout.setHeaderView(R.layout.item_image_header, holder -> holder.setOnItemClickListener((this::showSortPupWindow)));
     }
 
     @Override

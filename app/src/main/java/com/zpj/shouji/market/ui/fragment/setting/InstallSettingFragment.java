@@ -19,16 +19,16 @@ public class InstallSettingFragment extends BaseSettingFragment {
     protected void initView(View view, @Nullable Bundle savedInstanceState) {
         setToolbarTitle("安装设置");
         CheckableSettingItem itemInstallDownloaded = view.findViewById(R.id.item_install_downloaded);
-        itemInstallDownloaded.setListener(this);
+        itemInstallDownloaded.setOnItemClickListener(this);
 
         CheckableSettingItem itemAutoDeleteApk = view.findViewById(R.id.item_auto_delete_apk);
-        itemAutoDeleteApk.setListener(this);
+        itemAutoDeleteApk.setOnItemClickListener(this);
 
         CheckableSettingItem itemAutoInstall = view.findViewById(R.id.item_auto_install);
-        itemAutoInstall.setListener(this);
+        itemAutoInstall.setOnItemClickListener(this);
 
         CheckableSettingItem itemRootInstall = view.findViewById(R.id.item_root_install);
-        itemRootInstall.setListener(this);
+        itemRootInstall.setOnItemClickListener(this);
     }
 
 

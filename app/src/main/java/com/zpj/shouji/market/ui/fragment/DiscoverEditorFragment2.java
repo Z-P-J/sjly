@@ -8,18 +8,17 @@ import android.support.v4.view.ViewPager;
 import android.view.View;
 import android.widget.ImageButton;
 
+import com.zpj.fragmentation.BaseFragment;
+import com.zpj.fragmentation.anim.DefaultNoAnimator;
+import com.zpj.fragmentation.anim.FragmentAnimator;
 import com.zpj.markdown.MarkdownEditorFragment;
 import com.zpj.markdown.MarkdownViewFragment;
 import com.zpj.popupmenuview.popup.EverywherePopup;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.ui.adapter.FragmentsPagerAdapter;
-import com.zpj.fragmentation.BaseFragment;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import me.yokeyword.fragmentation.anim.DefaultNoAnimator;
-import me.yokeyword.fragmentation.anim.FragmentAnimator;
 
 public class DiscoverEditorFragment2 extends BaseFragment {
 

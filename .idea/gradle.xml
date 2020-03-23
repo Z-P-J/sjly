@@ -12,23 +12,14 @@
           <set>
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/app" />
-            <option value="$PROJECT_DIR$/atoast" />
             <option value="$PROJECT_DIR$/emojilib" />
-            <option value="$PROJECT_DIR$/fragmentation" />
             <option value="$PROJECT_DIR$/matisse" />
             <option value="$PROJECT_DIR$/richeditor" />
             <option value="$PROJECT_DIR$/richeditor2" />
-            <option value="$PROJECT_DIR$/statelayout" />
             <option value="$PROJECT_DIR$/third-part-color-cardview" />
-            <option value="$PROJECT_DIR$/zbase" />
             <option value="$PROJECT_DIR$/zdownloader" />
             <option value="$PROJECT_DIR$/zmarkdown" />
             <option value="$PROJECT_DIR$/zpopup" />
-            <option value="$PROJECT_DIR$/zrecyclerview" />
-            <option value="$PROJECT_DIR$/zsetting" />
-            <option value="$PROJECT_DIR$/zswitcher" />
-            <option value="$PROJECT_DIR$/ztoolbar" />
-            <option value="$PROJECT_DIR$/zutils" />
             <option value="$PROJECT_DIR$/zwidget" />
           </set>
         </option>

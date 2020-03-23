@@ -29,6 +29,13 @@ dependencies {
     implementation 'com.lxj:xpermission:1.0.1'
     implementation 'org.greenrobot:eventbus:3.1.1'
 
-    implementation project(':zbase')
+    implementation 'com.github.chaichuanfa:atoast:0.0.2'
+
+    implementation 'com.zpj.widget:Fragmentation:1.0.0'
+    implementation 'com.zpj.widget:ZRecyclerView:1.0.1'
+    implementation 'com.zpj.widget:ZToolBar:1.0.0'
+    implementation 'com.zpj.utils:ZUtils:1.0.0'
+    implementation project(":zpopup")
+    implementation project(':third-part-color-cardview')
 }
 

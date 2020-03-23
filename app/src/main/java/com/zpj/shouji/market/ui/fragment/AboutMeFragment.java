@@ -25,8 +25,8 @@ import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.glide.blur.BlurTransformation2;
 import com.zpj.shouji.market.ui.widget.PercentImageView;
 
-import me.yokeyword.fragmentation.anim.DefaultNoAnimator;
-import me.yokeyword.fragmentation.anim.FragmentAnimator;
+import com.zpj.fragmentation.anim.DefaultNoAnimator;
+import com.zpj.fragmentation.anim.FragmentAnimator;
 
 public class AboutMeFragment extends BaseFragment {
 

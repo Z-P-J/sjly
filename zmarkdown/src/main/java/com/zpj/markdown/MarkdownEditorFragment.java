@@ -12,13 +12,13 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.zpj.fragmentation.SupportFragment;
 import com.zpj.utils.KeyboardHeightProvider;
 
 import java.util.Objects;
 
 import me.shouheng.easymark.EasyMarkEditor;
 import me.shouheng.easymark.editor.Format;
-import me.yokeyword.fragmentation.SupportFragment;
 
 public class MarkdownEditorFragment extends SupportFragment {
 

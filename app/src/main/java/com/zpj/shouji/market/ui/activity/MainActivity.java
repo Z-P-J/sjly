@@ -8,21 +8,21 @@ import android.os.Bundle;
 import android.os.StrictMode;
 
 import com.felix.atoast.library.AToast;
+import com.zpj.fragmentation.SupportActivity;
+import com.zpj.fragmentation.SupportFragment;
+import com.zpj.fragmentation.anim.DefaultHorizontalAnimator;
+import com.zpj.fragmentation.anim.FragmentAnimator;
 import com.zpj.shouji.market.R;
-import com.zpj.shouji.market.ui.fragment.MainFragment;
+import com.zpj.shouji.market.api.HttpPreLoader;
 import com.zpj.shouji.market.manager.AppInstalledManager;
 import com.zpj.shouji.market.manager.AppUpdateManager;
-import com.zpj.shouji.market.api.HttpPreLoader;
 import com.zpj.shouji.market.manager.UserManager;
+import com.zpj.shouji.market.ui.fragment.MainFragment;
 import com.zpj.utils.StatusBarUtils;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
-import me.yokeyword.fragmentation.SupportActivity;
-import me.yokeyword.fragmentation.SupportFragment;
-import me.yokeyword.fragmentation.anim.DefaultHorizontalAnimator;
-import me.yokeyword.fragmentation.anim.FragmentAnimator;
 import site.gemus.openingstartanimation.NormalDrawStrategy;
 import site.gemus.openingstartanimation.OpeningStartAnimation;
 

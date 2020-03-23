@@ -16,7 +16,7 @@ import com.zpj.shouji.market.ui.widget.SignInLayout;
 import com.zpj.shouji.market.ui.widget.SignUpLayout;
 import com.zpj.shouji.market.manager.UserManager;
 import com.zpj.utils.ScreenUtils;
-import com.zpj.widget.toolbar.ZToolbar;
+import com.zpj.widget.toolbar.ZToolBar;
 
 import net.lucode.hackware.magicindicator.MagicIndicator;
 import net.lucode.hackware.magicindicator.ViewPagerHelper;
@@ -69,7 +69,7 @@ public class LoginPopup extends CenterPopupView
         UserManager.getInstance().addOnSignInListener(signUpLayout);
         UserManager.getInstance().addOnSignUpListener(signInLayout);
 
-        ZToolbar toolbar = findViewById(R.id.tool_bar);
+        ZToolBar toolbar = findViewById(R.id.tool_bar);
         toolbar.getRightImageButton().setOnClickListener(v -> dismiss());
         viewPager = findViewById(R.id.view_pager);
         viewPager.setAdapter(new LoginPagerAdapter(list));

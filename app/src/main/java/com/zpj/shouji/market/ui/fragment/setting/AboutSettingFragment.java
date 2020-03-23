@@ -10,8 +10,8 @@ import com.zpj.shouji.market.ui.fragment.WebFragment;
 import com.zpj.widget.setting.CheckableSettingItem;
 import com.zpj.widget.setting.CommonSettingItem;
 
-import me.yokeyword.fragmentation.anim.DefaultNoAnimator;
-import me.yokeyword.fragmentation.anim.FragmentAnimator;
+import com.zpj.fragmentation.anim.DefaultNoAnimator;
+import com.zpj.fragmentation.anim.FragmentAnimator;
 
 public class AboutSettingFragment extends BaseSettingFragment {
 
@@ -24,16 +24,16 @@ public class AboutSettingFragment extends BaseSettingFragment {
     protected void initView(View view, @Nullable Bundle savedInstanceState) {
         setToolbarTitle("关于");
         CommonSettingItem userAgreementItem = view.findViewById(R.id.item_user_agreement);
-        userAgreementItem.setListener(this);
+        userAgreementItem.setOnItemClickListener(this);
 
         CommonSettingItem privacyAgreementItem = view.findViewById(R.id.item_privacy_agreement);
-        privacyAgreementItem.setListener(this);
+        privacyAgreementItem.setOnItemClickListener(this);
 
         CommonSettingItem aboutMeItem = view.findViewById(R.id.item_about_me);
-        aboutMeItem.setListener(this);
+        aboutMeItem.setOnItemClickListener(this);
 
         CommonSettingItem itemSearchEngine = view.findViewById(R.id.item_check_update);
-        itemSearchEngine.setListener(this);
+        itemSearchEngine.setOnItemClickListener(this);
     }
 
     @Override

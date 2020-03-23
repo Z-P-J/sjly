@@ -10,12 +10,25 @@ android {
         versionName "1.4"
         multiDexEnabled true
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
-        renderscriptTargetApi 28 //must match target sdk and build tools
-        renderscriptSupportModeEnabled true
+//        renderscriptTargetApi 28 //must match target sdk and build tools
+//        renderscriptSupportModeEnabled false
+        ndk {
+            abiFilters "armeabi-v7a"
+        }
     }
     buildTypes {
         release {
-            minifyEnabled false
+            debuggable false
+            minifyEnabled true
+            zipAlignEnabled true
+            shrinkResources true
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+
+        debug {
+            minifyEnabled true
+            zipAlignEnabled false
+            shrinkResources false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
@@ -29,7 +42,7 @@ dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation 'com.android.support:appcompat-v7:28.0.0'
     implementation 'com.android.support.constraint:constraint-layout:1.1.3'
-    implementation 'com.android.support:recyclerview-v7:28.0.0'
+
     implementation 'com.android.support:design:28.0.0'
     implementation 'com.android.support:palette-v7:28.0.0'
     implementation 'com.android.support:support-v4:28.0.0'
@@ -38,7 +51,9 @@ dependencies {
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
 
-    implementation project(':zbase')
+//    implementation project(':zbase')
+    implementation project(":zwidget")
+    implementation project(":zpopup")
     implementation project(":zdownloader")
     implementation project(':zmarkdown')
     implementation project(':richeditor')
@@ -88,11 +103,25 @@ dependencies {
     // 加载动画
     implementation 'com.wang.avi:library:2.1.3'
 
+    // Toast
+    implementation 'com.github.chaichuanfa:atoast:0.0.2'
+
+    // RecyclerView
+    implementation 'com.android.support:recyclerview-v7:28.0.0'
+    implementation 'com.zpj.widget:ZRecyclerView:1.0.1'
+
     // 其他
+    implementation 'com.rengwuxian.materialedittext:library:2.1.4'
     implementation 'com.wx.goodview:goodview:1.0.0'
     implementation 'com.sunbq:iconcountview:1.0.1'
     implementation 'io.haydar.filescanner:filescannercore:1.1'
     implementation 'com.github.maning0303:MNCrashMonitor:V1.1.1'
     implementation "com.daimajia.swipelayout:library:1.2.0@aar"
+    implementation 'com.zpj.widget:SmoothCheckBox:1.0.0'
+    implementation 'com.zpj.widget:Fragmentation:1.0.0'
+    implementation 'com.zpj.widget:ZSettingItem:1.0.1'
+    implementation 'com.zpj.widget:ZToolBar:1.0.0'
+    implementation 'com.zpj.utils:ZUtils:1.0.0'
+    implementation 'com.zpj.http:ZHttp:1.0.0'
 
 }

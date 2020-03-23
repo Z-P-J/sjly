@@ -329,7 +329,7 @@ public class ChatFragment extends BaseFragment implements ChatPanel.OnOperationL
                     recyclerView.smoothScrollToPosition(0);
                 });
                 ChatFragment.this.filePath = filePath;
-                postDelay(() -> receiveImageText(filePath), 3000);
+                postDelayed(() -> receiveImageText(filePath), 3000);
                 i++;
             }
         }).start();
@@ -344,7 +344,7 @@ public class ChatFragment extends BaseFragment implements ChatPanel.OnOperationL
         tbAdapter.notifyItemInserted(0);
 //        recyclerView.smoothScrollToPosition(tbAdapter.getItemCount() - 1);
         recyclerView.smoothScrollToPosition(0);
-        postDelay(() -> receiveMsgText(content), 1000);
+        postDelayed(() -> receiveMsgText(content), 1000);
     }
 
     @Override

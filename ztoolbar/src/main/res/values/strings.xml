@@ -1,7 +1,0 @@
-<resources>
-    <string name="app_name">Library</string>
-
-    <string name="toolbar_search_hint">Search</string>
-    <string name="toolbar_title">Title</string>
-
-</resources>

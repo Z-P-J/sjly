@@ -27,6 +27,8 @@ import android.support.annotation.RequiresApi;
 import android.support.annotation.StyleRes;
 
 import com.felix.atoast.library.AToast;
+import com.zpj.fragmentation.SupportActivity;
+import com.zpj.fragmentation.SupportFragment;
 import com.zpj.matisse.engine.ImageEngine;
 import com.zpj.matisse.filter.Filter;
 import com.zpj.matisse.entity.CaptureStrategy;
@@ -41,9 +43,6 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.util.ArrayList;
 import java.util.Set;
-
-import me.yokeyword.fragmentation.SupportActivity;
-import me.yokeyword.fragmentation.SupportFragment;
 
 import static android.content.pm.ActivityInfo.SCREEN_ORIENTATION_BEHIND;
 import static android.content.pm.ActivityInfo.SCREEN_ORIENTATION_FULL_SENSOR;

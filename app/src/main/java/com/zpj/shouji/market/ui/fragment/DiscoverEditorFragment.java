@@ -18,8 +18,8 @@
 //import me.jingbin.richeditor.bottomlayout.LuBottomMenu;
 //import me.jingbin.richeditor.editrichview.SimpleRichEditor;
 //import me.jingbin.richeditor.editrichview.base.RichEditor;
-//import me.yokeyword.fragmentation.anim.DefaultNoAnimator;
-//import me.yokeyword.fragmentation.anim.FragmentAnimator;
+//import com.zpj.fragmentation.anim.DefaultNoAnimator;
+//import com.zpj.fragmentation.anim.FragmentAnimator;
 //
 //public class DiscoverEditorFragment extends BaseFragment {
 //

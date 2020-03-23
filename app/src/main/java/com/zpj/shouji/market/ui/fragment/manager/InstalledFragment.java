@@ -44,7 +44,7 @@ import java.util.List;
 
 import com.zpj.widget.SmoothCheckBox;
 
-import me.yokeyword.fragmentation.SupportActivity;
+import com.zpj.fragmentation.SupportActivity;
 
 public class InstalledFragment extends RecyclerLayoutFragment<InstalledAppInfo>
         implements AppInstalledManager.CallBack,

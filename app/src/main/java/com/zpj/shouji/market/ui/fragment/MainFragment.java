@@ -9,6 +9,8 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.zpj.fragmentation.BaseFragment;
+import com.zpj.fragmentation.anim.DefaultNoAnimator;
+import com.zpj.fragmentation.anim.FragmentAnimator;
 import com.zpj.matisse.CaptureMode;
 import com.zpj.matisse.Matisse;
 import com.zpj.matisse.MimeType;
@@ -29,9 +31,6 @@ import com.zpj.widget.ZViewPager;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import me.yokeyword.fragmentation.anim.DefaultNoAnimator;
-import me.yokeyword.fragmentation.anim.FragmentAnimator;
 
 public class MainFragment extends BaseFragment
         implements MorePopup.OnItemClickListener {
@@ -121,7 +120,7 @@ public class MainFragment extends BaseFragment
         viewPager.setAdapter(adapter);
 
         floatingActionButton.setOnClickListener(v -> {
-            postDelay(this::darkStatusBar, 300);
+            postDelayed(this::darkStatusBar, 300);
             MorePopup.with((ViewGroup) view)
                     .setListener(this)
                     .show();

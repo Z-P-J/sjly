@@ -10,11 +10,12 @@ import android.view.ViewGroup;
 import android.webkit.WebView;
 import android.widget.Toast;
 
+import com.zpj.fragmentation.SupportFragment;
+
 import me.shouheng.easymark.EasyMarkViewer;
 import me.shouheng.easymark.viewer.listener.LifecycleListener;
 import me.shouheng.easymark.viewer.listener.OnImageClickListener;
 import me.shouheng.easymark.viewer.listener.OnUrlClickListener;
-import me.yokeyword.fragmentation.SupportFragment;
 
 public class MarkdownViewFragment extends SupportFragment {
 

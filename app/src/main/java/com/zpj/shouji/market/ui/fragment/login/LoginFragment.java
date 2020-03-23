@@ -14,7 +14,7 @@ import android.widget.RelativeLayout;
 
 import com.felix.atoast.library.AToast;
 import com.zpj.fragmentation.BaseFragment;
-import com.zpj.fragmentation.SwipeBackLayout;
+import com.zpj.fragmentation.swipeback.SwipeBackLayout;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.event.ToggleLoginModeEvent;
 import com.zpj.shouji.market.manager.UserManager;
@@ -27,9 +27,9 @@ import org.greenrobot.eventbus.Subscribe;
 import java.util.ArrayList;
 import java.util.Random;
 
-import me.yokeyword.fragmentation.anim.DefaultHorizontalAnimator;
-import me.yokeyword.fragmentation.anim.DefaultVerticalAnimator;
-import me.yokeyword.fragmentation.anim.FragmentAnimator;
+import com.zpj.fragmentation.anim.DefaultHorizontalAnimator;
+import com.zpj.fragmentation.anim.DefaultVerticalAnimator;
+import com.zpj.fragmentation.anim.FragmentAnimator;
 
 public class LoginFragment extends BaseFragment
         implements UserManager.OnSignInListener, UserManager.OnSignUpListener {

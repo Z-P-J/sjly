@@ -10,19 +10,18 @@ import android.view.View;
 
 import com.felix.atoast.library.AToast;
 import com.zpj.fragmentation.BaseFragment;
+import com.zpj.fragmentation.anim.DefaultHorizontalAnimator;
+import com.zpj.fragmentation.anim.DefaultNoAnimator;
+import com.zpj.fragmentation.anim.FragmentAnimator;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.ui.adapter.FragmentsPagerAdapter;
 import com.zpj.widget.ZViewPager;
-import com.zpj.widget.toolbar.ZSearchbar;
+import com.zpj.widget.toolbar.ZSearchBar;
 
 import org.greenrobot.eventbus.EventBus;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import me.yokeyword.fragmentation.anim.DefaultHorizontalAnimator;
-import me.yokeyword.fragmentation.anim.DefaultNoAnimator;
-import me.yokeyword.fragmentation.anim.FragmentAnimator;
 
 public class SearchFragment extends BaseFragment {
 
@@ -34,7 +33,7 @@ public class SearchFragment extends BaseFragment {
         }
     }
 
-    private ZSearchbar searchBar;
+    private ZSearchBar searchBar;
     private ZViewPager viewPager;
 
     @Override

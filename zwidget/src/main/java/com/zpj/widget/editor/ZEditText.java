@@ -130,6 +130,18 @@ public class ZEditText extends AppCompatEditText implements
         return true;
     }
 
+    public String testValid() {
+        if (validators == null || validators.isEmpty()) {
+            return null;
+        }
+        for (Validator validator : validators) {
+            if (!validator.isValid(this)) {
+                return validator.getErrorMessage();
+            }
+        }
+        return null;
+    }
+
     @Override
     public final void onFocusChange(View v, boolean hasFocus) {
         Log.d("ZEditText", "onFocusChange hasFocus=" + hasFocus);

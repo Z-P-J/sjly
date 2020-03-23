@@ -63,9 +63,9 @@ public class ThemeDetailFragment extends BaseFragment {
         List<DiscoverInfo> discoverInfoList = new ArrayList<>();
         discoverInfoList.add(item);
         binder.onBindViewHolder(holder, discoverInfoList, 0, new ArrayList<>(0));
-        holder.setOnItemLongClickListener(new ClickHelper.OnLongClickListener() {
+        holder.setOnItemLongClickListener(new View.OnLongClickListener() {
             @Override
-            public boolean onLongClick(View v, float x, float y) {
+            public boolean onLongClick(View v) {
                 DiscoverBinder.showMenu(context, item);
                 return true;
             }

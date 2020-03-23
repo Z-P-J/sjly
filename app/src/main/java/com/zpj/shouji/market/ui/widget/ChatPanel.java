@@ -30,6 +30,7 @@ import com.felix.atoast.library.AToast;
 import com.lqr.emoji.EmotionLayout;
 import com.lqr.emoji.IEmotionExtClickListener;
 import com.lqr.emoji.IEmotionSelectedListener;
+import com.zpj.fragmentation.SupportActivity;
 import com.zpj.matisse.CaptureMode;
 import com.zpj.matisse.Matisse;
 import com.zpj.matisse.MimeType;
@@ -43,12 +44,10 @@ import com.zpj.recyclerview.EasyRecyclerView;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.glide.MyRequestOptions;
 import com.zpj.utils.KeyboardHeightProvider;
-import com.zpj.utils.KeyboardUtil;
+import com.zpj.utils.KeyboardUtils;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import me.yokeyword.fragmentation.SupportActivity;
 
 public class ChatPanel extends RelativeLayout
         implements KeyboardHeightProvider.KeyboardHeightObserver {
@@ -133,7 +132,7 @@ public class ChatPanel extends RelativeLayout
                             .apply(MyRequestOptions.DEFAULT_OPTIONS)
                             .into(img);
 
-                    holder.setOnItemClickListener((v, x, y) -> {
+                    holder.setOnItemClickListener(v -> {
                         SelectedItemManager.OnCheckStateListener listener = () -> {
                             imgList.clear();
                             imgList.addAll(SelectedItemManager.getInstance().asList());
@@ -167,7 +166,7 @@ public class ChatPanel extends RelativeLayout
         ivEmoji.setOnClickListener(v -> {
             if (isKeyboardShowing) {
                 elEmotion.setVisibility(View.VISIBLE);
-                KeyboardUtil.hideSoftInputKeyboard(etEditor);
+                KeyboardUtils.hideSoftInputKeyboard(etEditor);
             } else if (elEmotion.getVisibility() == View.GONE) {
                 elEmotion.setVisibility(View.VISIBLE);
             } else {
@@ -188,7 +187,7 @@ public class ChatPanel extends RelativeLayout
         });
         ivImage.setOnClickListener(v -> {
             if (isKeyboardShowing) {
-                KeyboardUtil.hideSoftInputKeyboard(etEditor);
+                KeyboardUtils.hideSoftInputKeyboard(etEditor);
             }
             elEmotion.setVisibility(View.GONE);
             AToast.normal("图片");
@@ -217,7 +216,7 @@ public class ChatPanel extends RelativeLayout
         });
         ivApp.setOnClickListener(v -> {
             if (isKeyboardShowing) {
-                KeyboardUtil.hideSoftInputKeyboard(etEditor);
+                KeyboardUtils.hideSoftInputKeyboard(etEditor);
             }
             elEmotion.setVisibility(View.GONE);
             AToast.normal("app");

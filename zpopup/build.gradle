@@ -40,6 +40,6 @@ dependencies {
     implementation 'com.lxj:xpermission:1.0.1'
 
     implementation project(':zwidget')
-    implementation project(':zutils')
-    implementation project(':zrecyclerview')
+    implementation 'com.zpj.utils:ZUtils:1.0.0'
+    implementation 'com.zpj.widget:ZRecyclerView:1.0.1'
 }

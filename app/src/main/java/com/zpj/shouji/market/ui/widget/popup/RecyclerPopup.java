@@ -51,7 +51,7 @@ public class RecyclerPopup extends PartShadowPopupView {
                     title.setText(list.get(position));
                     title.setTextColor(getContext().getResources().getColor(position == selectPosition ? R.color.colorPrimary : R.color.text_gray));
                     holder.setPosition(position);
-                    holder.setOnItemClickListener((v, x, y) -> {
+                    holder.setOnItemClickListener(v -> {
                         if (position == selectPosition) {
                             return;
                         }

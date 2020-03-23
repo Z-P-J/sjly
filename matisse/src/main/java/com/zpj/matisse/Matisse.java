@@ -21,14 +21,13 @@ import android.net.Uri;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 
+import com.zpj.fragmentation.SupportActivity;
+import com.zpj.fragmentation.SupportFragment;
 import com.zpj.matisse.model.SelectedItemManager;
 
 import java.lang.ref.WeakReference;
 import java.util.List;
 import java.util.Set;
-
-import me.yokeyword.fragmentation.SupportActivity;
-import me.yokeyword.fragmentation.SupportFragment;
 
 /**
  * Entry for Matisse's media selection.

@@ -30,7 +30,7 @@ import com.zpj.shouji.market.ui.widget.RoundProgressBar;
 import com.zpj.shouji.market.ui.widget.ScaleTransitionPagerTitleView;
 import com.zpj.utils.ScreenUtils;
 import com.zpj.widget.ZViewPager;
-import com.zpj.widget.toolbar.ZToolbar;
+import com.zpj.widget.toolbar.ZToolBar;
 
 import net.lucode.hackware.magicindicator.MagicIndicator;
 import net.lucode.hackware.magicindicator.ViewPagerHelper;

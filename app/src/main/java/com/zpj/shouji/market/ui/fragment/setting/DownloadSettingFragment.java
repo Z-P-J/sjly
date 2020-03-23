@@ -7,7 +7,6 @@ import android.view.View;
 import com.zpj.shouji.market.R;
 import com.zpj.widget.setting.CheckableSettingItem;
 import com.zpj.widget.setting.CommonSettingItem;
-import com.zpj.widget.setting.OnItemClickListener;
 import com.zpj.widget.setting.SwitchSettingItem;
 
 public class DownloadSettingFragment extends BaseSettingFragment {
@@ -21,22 +20,22 @@ public class DownloadSettingFragment extends BaseSettingFragment {
     protected void initView(View view, @Nullable Bundle savedInstanceState) {
         setToolbarTitle("下载设置");
         CommonSettingItem itemDownloadFolder = view.findViewById(R.id.item_download_folder);
-        itemDownloadFolder.setListener(this);
+        itemDownloadFolder.setOnItemClickListener(this);
 
         CommonSettingItem itemMaxDownloading = view.findViewById(R.id.item_max_downloading);
-        itemMaxDownloading.setListener(this);
+        itemMaxDownloading.setOnItemClickListener(this);
 
         CommonSettingItem itemMaxThread = view.findViewById(R.id.item_max_thread);
-        itemMaxThread.setListener(this);
+        itemMaxThread.setOnItemClickListener(this);
 
         SwitchSettingItem itemInstallDownloaded = view.findViewById(R.id.item_install_downloaded);
-        itemInstallDownloaded.setListener(this);
+        itemInstallDownloaded.setOnItemClickListener(this);
 
         SwitchSettingItem itemShowDownloadedRing = view.findViewById(R.id.item_show_downloaded_ring);
-        itemShowDownloadedRing.setListener(this);
+        itemShowDownloadedRing.setOnItemClickListener(this);
 
         SwitchSettingItem itemShowDownloadNotification = view.findViewById(R.id.item_show_downloaded_notification);
-        itemShowDownloadNotification.setListener(this);
+        itemShowDownloadNotification.setOnItemClickListener(this);
     }
 
     @Override

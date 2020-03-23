@@ -33,8 +33,8 @@ import com.zpj.shouji.market.api.HttpApi;
 import com.zpj.shouji.market.manager.UserManager;
 import com.zpj.utils.ClickHelper;
 
-import me.yokeyword.fragmentation.anim.DefaultNoAnimator;
-import me.yokeyword.fragmentation.anim.FragmentAnimator;
+import com.zpj.fragmentation.anim.DefaultNoAnimator;
+import com.zpj.fragmentation.anim.FragmentAnimator;
 
 public class MyFragment extends BaseFragment
         implements View.OnClickListener,
@@ -265,6 +265,7 @@ public class MyFragment extends BaseFragment
     public void onSignInSuccess() {
         myToolsCard.onLogin();
         MemberInfo info = UserManager.getInstance().getMemberInfo();
+        tvCheckIn.setVisibility(View.VISIBLE);
         if (!info.isCanSigned()) {
             tvCheckIn.setBackgroundResource(R.drawable.bg_button_round_purple);
             tvCheckIn.setText("已签到");
@@ -334,6 +335,7 @@ public class MyFragment extends BaseFragment
                     @Override
                     public void onConfirm() {
                         UserManager.getInstance().signOut();
+                        myToolsCard.onSignOut();
                         tvCheckIn.setVisibility(View.GONE);
                         tvSignOut.setVisibility(View.GONE);
                         tvName.setText("点击头像登录");

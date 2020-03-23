@@ -20,7 +20,7 @@ import com.zpj.matisse.utils.PathUtils;
 import com.lxj.xpopup.core.ImageViewerPopupView;
 import com.lxj.xpopup.core.PopupInfo;
 import com.lxj.xpopup.interfaces.XPopupImageLoader;
-import com.zpj.widget.toolbar.ZToolbar;
+import com.zpj.widget.toolbar.ZToolBar;
 
 import java.io.File;
 
@@ -29,7 +29,7 @@ public class CustomImageViewerPopup extends ImageViewerPopupView<Item>
 
     protected final SelectedItemManager mSelectedCollection;
     protected final SelectionSpec mSpec;
-    private ZToolbar titleBar;
+    private ZToolBar titleBar;
     protected CheckView mCheckView;
     protected TextView mButtonApply;
     protected TextView tvIndicator;

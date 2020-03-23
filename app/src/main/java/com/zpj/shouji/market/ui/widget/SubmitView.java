@@ -14,6 +14,7 @@ import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.ui.widget.input.AccountInputView;
 import com.zpj.shouji.market.ui.widget.input.EmailInputView;
 import com.zpj.widget.editor.PasswordEditText;
+import com.zpj.widget.editor.ZEditText;
 import com.zpj.widget.editor.validator.EmailValidator;
 import com.zpj.widget.editor.validator.LengthValidator;
 import com.zpj.widget.editor.validator.SameValueValidator;
@@ -144,7 +145,7 @@ public class SubmitView extends AppCompatTextView implements TextWatcher {
     }
 
     public interface EditTextWrapper {
-        EditText getEditText();
+        ZEditText getEditText();
         void setError(CharSequence error);
     }
 }

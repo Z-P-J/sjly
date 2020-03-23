@@ -103,7 +103,7 @@ public class AlbumFragment extends BaseFragment implements
                 .build();
         recyclerLayout.getEasyRecyclerView().getRecyclerView().setHasFixedSize(true);
         recyclerLayout.showLoading();
-        postDelay(mAlbumManager::loadAlbums, 250);
+        postDelayed(mAlbumManager::loadAlbums, 250);
 
 
         mAlbumManager.onCreate(_mActivity, this);

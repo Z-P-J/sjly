@@ -29,7 +29,6 @@ public class App extends Application {
         MCrashMonitor.init(this, true, file -> {
 //                MCrashMonitor.startCrashShowPage(getContext());
         });
-        ZUtils.init(this);
         FlowManager.init(this);
         AToast.onInit(this);
         ZDownloader.init(this);

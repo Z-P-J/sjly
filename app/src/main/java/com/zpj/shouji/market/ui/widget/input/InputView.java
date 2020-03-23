@@ -3,7 +3,9 @@ package com.zpj.shouji.market.ui.widget.input;
 import android.content.Context;
 import android.graphics.Color;
 import android.support.v4.content.ContextCompat;
+import android.text.Editable;
 import android.text.InputType;
+import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.util.AttributeSet;
 import android.util.TypedValue;
@@ -13,9 +15,12 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.ui.widget.SubmitView;
+import com.zpj.utils.ScreenUtils;
+import com.zpj.widget.editor.ZEditText;
 
 /**
  * @author CuiZhen
@@ -24,12 +29,14 @@ import com.zpj.shouji.market.ui.widget.SubmitView;
  */
 public class InputView extends FrameLayout implements View.OnFocusChangeListener, TextWatcher, SubmitView.EditTextWrapper {
 
-    private EditText mEditText;
+    private ZEditText mEditText;
     private View mBottomLine;
+    private TextView mHelperTextView;
     private int mViewHeightFocus;
     protected int mViewColorFocus;
     private int mViewHeightNormal;
     protected int mViewColorNormal;
+    protected int mViewColorError;
     private boolean isEmpty = true;
 
     public InputView(Context context) {
@@ -46,7 +53,7 @@ public class InputView extends FrameLayout implements View.OnFocusChangeListener
     }
 
     @Override
-    public EditText getEditText() {
+    public ZEditText getEditText() {
         return mEditText;
     }
 
@@ -90,7 +97,7 @@ public class InputView extends FrameLayout implements View.OnFocusChangeListener
         }
 
         int etMargin = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 10, getContext().getResources().getDisplayMetrics());
-        mEditText = new EditText(getContext());
+        mEditText = new ZEditText(getContext());
         LayoutParams etParams = new LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
         etParams.leftMargin = icIconSize * ivIconLeftCount + icIconMargin * (ivIconLeftCount - 1) + etMargin;
         etParams.rightMargin = icIconSize * ivIconRightCount + icIconMargin * (ivIconRightCount - 1) + etMargin;
@@ -105,6 +112,7 @@ public class InputView extends FrameLayout implements View.OnFocusChangeListener
         mEditText.addTextChangedListener(this);
         addView(mEditText);
 
+        mViewColorError = ContextCompat.getColor(getContext(), R.color.red5);
         mViewColorNormal = ContextCompat.getColor(getContext(), R.color.color_text_normal);
         mViewHeightNormal = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 1, getContext().getResources().getDisplayMetrics());
         mViewColorFocus = ContextCompat.getColor(getContext(), R.color.colorPrimary);
@@ -113,9 +121,17 @@ public class InputView extends FrameLayout implements View.OnFocusChangeListener
         mBottomLine = new View(getContext());
         LayoutParams vParams = new LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, mViewHeightNormal);
         vParams.gravity = Gravity.BOTTOM;
+        vParams.bottomMargin = ScreenUtils.dp2pxInt(getContext(), 14);
         mBottomLine.setLayoutParams(vParams);
         mBottomLine.setBackgroundColor(mViewColorNormal);
         addView(mBottomLine);
+
+        mHelperTextView = new TextView(getContext());
+        mHelperTextView.setTextSize(12);
+        vParams = new LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        vParams.gravity = Gravity.BOTTOM;
+        mHelperTextView.setLayoutParams(vParams);
+        addView(mHelperTextView);
     }
 
     protected ImageView[] getLeftIcons() {
@@ -156,7 +172,11 @@ public class InputView extends FrameLayout implements View.OnFocusChangeListener
     }
 
     @Override
-    public void afterTextChanged(android.text.Editable s) {
+    public void afterTextChanged(Editable s) {
+        String error = mEditText.testValid();
+        if (!TextUtils.isEmpty(error)) {
+
+        }
         isEmpty = s.toString().length() == 0;
     }
 }

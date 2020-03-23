@@ -14,6 +14,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.felix.atoast.library.AToast;
+import com.zpj.fragmentation.SupportActivity;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.ui.fragment.WebFragment;
 import com.zpj.shouji.market.manager.UserManager;
@@ -24,8 +25,6 @@ import com.zpj.widget.editor.PasswordEditText;
 import com.zpj.widget.editor.validator.EmailValidator;
 import com.zpj.widget.editor.validator.LengthValidator;
 import com.zpj.widget.editor.validator.SameValueValidator;
-
-import me.yokeyword.fragmentation.SupportActivity;
 
 public class SignInLayout extends LinearLayout
         implements UserManager.OnSignUpListener {

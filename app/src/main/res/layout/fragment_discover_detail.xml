@@ -36,7 +36,7 @@
                     app:layout_collapseMode="parallax"
                     >
 
-                    <com.zpj.widget.toolbar.ZToolbar
+                    <com.zpj.widget.toolbar.ZToolBar
                         android:id="@+id/top_bar"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -73,7 +73,7 @@
                     app:contentInsetStart="0dp"
                     >
 
-                    <com.zpj.widget.toolbar.ZToolbar
+                    <com.zpj.widget.toolbar.ZToolBar
                         android:id="@+id/tool_bar"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
