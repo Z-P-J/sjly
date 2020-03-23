@@ -10,11 +10,14 @@ import android.view.View;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.shehuan.niv.NiceImageView;
+import com.zpj.http.core.IHttp;
+import com.zpj.http.parser.html.nodes.Document;
 import com.zpj.http.parser.html.nodes.Element;
 import com.zpj.http.parser.html.select.Elements;
 import com.zpj.recyclerview.EasyRecyclerView;
 import com.zpj.recyclerview.EasyViewHolder;
 import com.zpj.shouji.market.R;
+import com.zpj.shouji.market.api.HttpApi;
 import com.zpj.shouji.market.api.HttpPreLoader;
 import com.zpj.shouji.market.glide.blur.BlurTransformation2;
 import com.zpj.shouji.market.model.CollectionInfo;
@@ -39,16 +42,24 @@ public class CollectionRecommendCard extends RecommendCard<CollectionInfo> {
     public CollectionRecommendCard(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
 
-        HttpPreLoader.getInstance().setLoadListener(HttpPreLoader.HOME_COLLECTION, document -> {
-            Elements elements = document.select("item");
-            for (Element element : elements) {
-                list.add(CollectionInfo.create(element));
-            }
-            if (list.size() % 2 != 0) {
-                list.remove(list.size() - 1);
-            }
-            recyclerView.notifyDataSetChanged();
-        });
+        if (HttpPreLoader.getInstance().hasKey(HttpPreLoader.HOME_COLLECTION)) {
+            HttpPreLoader.getInstance().setLoadListener(HttpPreLoader.HOME_COLLECTION, this::onGetDoc);
+        } else {
+            HttpApi.collectionRecommend()
+                    .onSuccess(this::onGetDoc)
+                    .subscribe();
+        }
+    }
+
+    private void onGetDoc(Document document) {
+        Elements elements = document.select("item");
+        for (Element element : elements) {
+            list.add(CollectionInfo.create(element));
+        }
+        if (list.size() % 2 != 0) {
+            list.remove(list.size() - 1);
+        }
+        recyclerView.notifyDataSetChanged();
     }
 
     @Override
@@ -88,7 +99,7 @@ public class CollectionRecommendCard extends RecommendCard<CollectionInfo> {
             if (i == 0) {
                 Glide.with(context)
                         .load(info.getIcons().get(0))
-                        .apply(RequestOptions.bitmapTransform(new BlurTransformation2()))
+                        .apply(RequestOptions.bitmapTransform(new BlurTransformation2(0.1f, 1 / 4f)))
                         .into(imgBg);
             }
             Glide.with(context).load(info.getIcons().get(i)).into(holder.getImageView(res));

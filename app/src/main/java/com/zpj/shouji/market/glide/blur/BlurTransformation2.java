@@ -21,20 +21,27 @@ public class BlurTransformation2 extends BitmapTransformation {
     private static final String ID = BlurTransformation2.class.getName();
 
     private static float PERCENT = 0.1F;
+    private static float SCALE = 0.5f;
 
     private float percent;
+    private float scale;
 
     public BlurTransformation2() {
         this(PERCENT);
     }
 
     public BlurTransformation2(float percent) {
+        this(percent, SCALE);
+    }
+
+    public BlurTransformation2(float percent, float scale) {
         this.percent = percent;
+        this.scale = scale;
     }
 
     @Override
     protected Bitmap transform(@NonNull BitmapPool pool, @NonNull Bitmap toTransform, int outWidth, int outHeight) {
-        return Blurred.with(toTransform).percent(percent).blur();
+        return Blurred.with(toTransform).percent(percent).scale(scale).blur();
     }
 
     @Override

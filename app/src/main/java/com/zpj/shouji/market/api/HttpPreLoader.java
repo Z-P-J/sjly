@@ -77,6 +77,12 @@ public class HttpPreLoader {
         }
     }
 
+    public boolean hasKey(String key) {
+        synchronized (map) {
+            return map.containsKey(key);
+        }
+    }
+
     public interface OnLoadListener {
         void onLoad(Document document);
     }

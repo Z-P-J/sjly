@@ -62,6 +62,8 @@
   @com.google.gson.annotations.SerializedName <fields>;
 }
 
+-keep class com.zpj.shouji.market.model.MemberInfo{*;}
+
 ##---------------End: proguard configuration for Gson  ----------
 
 

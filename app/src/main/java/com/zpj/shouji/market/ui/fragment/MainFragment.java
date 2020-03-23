@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.zpj.fragmentation.BaseFragment;
+import com.zpj.fragmentation.anim.DefaultHorizontalAnimator;
 import com.zpj.fragmentation.anim.DefaultNoAnimator;
 import com.zpj.fragmentation.anim.FragmentAnimator;
 import com.zpj.matisse.CaptureMode;
@@ -23,7 +24,9 @@ import com.zpj.shouji.market.ui.fragment.chat.ChatFragment;
 import com.zpj.shouji.market.ui.fragment.homepage.HomeFragment;
 import com.zpj.shouji.market.ui.fragment.profile.MyFragment;
 import com.zpj.shouji.market.ui.fragment.recommond.GameRecommendFragment;
+import com.zpj.shouji.market.ui.fragment.recommond.GameRecommendFragment2;
 import com.zpj.shouji.market.ui.fragment.recommond.SoftRecommendFragment;
+import com.zpj.shouji.market.ui.fragment.recommond.SoftRecommendFragment2;
 import com.zpj.shouji.market.ui.widget.BottomBar;
 import com.zpj.shouji.market.ui.widget.BottomBarTab;
 import com.zpj.shouji.market.ui.widget.popup.MorePopup;
@@ -50,7 +53,7 @@ public class MainFragment extends BaseFragment
 
     @Override
     public FragmentAnimator onCreateFragmentAnimator() {
-        return new DefaultNoAnimator();
+        return new DefaultHorizontalAnimator();
     }
 
     @Override
@@ -60,14 +63,14 @@ public class MainFragment extends BaseFragment
             homeFragment = new HomeFragment();
         }
 
-        SoftRecommendFragment softFragment = findChildFragment(SoftRecommendFragment.class);
+        SoftRecommendFragment2 softFragment = findChildFragment(SoftRecommendFragment2.class);
         if (softFragment == null) {
-            softFragment = new SoftRecommendFragment();
+            softFragment = new SoftRecommendFragment2();
         }
 
-        GameRecommendFragment game = findChildFragment(GameRecommendFragment.class);
+        GameRecommendFragment2 game = findChildFragment(GameRecommendFragment2.class);
         if (game == null) {
-            game = new GameRecommendFragment();
+            game = new GameRecommendFragment2();
         }
 
         MyFragment profileFragment = findChildFragment(MyFragment.class);
@@ -113,7 +116,7 @@ public class MainFragment extends BaseFragment
 
 
         viewPager = view.findViewById(R.id.vp);
-        viewPager.setScrollerSpeed(1000);
+        viewPager.setScrollerSpeed(500);
         viewPager.setCanScroll(false);
         viewPager.setOffscreenPageLimit(fragments.size());
         FragmentsPagerAdapter adapter = new FragmentsPagerAdapter(getChildFragmentManager(), fragments, null);

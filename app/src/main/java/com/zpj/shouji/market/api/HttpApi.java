@@ -72,8 +72,17 @@ public final class HttpApi {
     public static ObservableTask<Document> homeRecommendGameApi() {
         return connect("http://tt.shouji.com.cn/androidv3/game_index_xml.jsp?sdk=100&sort=day");
     }
+
     public static ObservableTask<Document> subjectApi() {
         return connect("http://tt.shouji.com.cn/androidv3/app_index_xml.jsp?index=1&versioncode=198");
+    }
+
+    public static ObservableTask<Document> recentUpdateSoft() {
+        return connect("http://tt.shouji.com.cn/androidv3/soft_index_xml.jsp?sort=time&versioncode=198");
+    }
+
+    public static ObservableTask<Document> recentUpdateGame() {
+        return connect("http://tt.shouji.com.cn/androidv3/game_index_xml.jsp?sort=time&versioncode=198");
     }
 
 

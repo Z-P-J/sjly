@@ -89,6 +89,7 @@ public class MorePopup extends FullScreenPopupView implements View.OnClickListen
         Observable.create((ObservableOnSubscribe<Bitmap>) emitter -> {
             Bitmap bitmap = Blurred.with(anchorView)
                     .backgroundColor(Color.WHITE)
+//                    .foregroundColor(Color.parseColor("#40ffffff"))
                     .scale(1f / 8f)
                     .radius(20)
                     .blur();

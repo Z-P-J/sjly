@@ -67,7 +67,7 @@ public class MyToolsCard extends LCardView implements View.OnClickListener {
                 gridLayout.getViewTreeObserver().removeOnGlobalLayoutListener(this);
                 Observable.create((ObservableOnSubscribe<Bitmap>) emitter -> {
                     Bitmap bitmap = Blurred.with(gridLayout)
-                            .backgroundColor(Color.WHITE)
+                            .foregroundColor(Color.parseColor("#40ffffff"))
                             .scale(1f / 8f)
                             .radius(20)
                             .blur();

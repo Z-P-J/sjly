@@ -62,7 +62,7 @@ public class FillImageView extends ImageView {
     /**
      * 动画持续时间
      */
-    private int mDuration = 350;
+    private int mDuration = 250;
 
 
     /**

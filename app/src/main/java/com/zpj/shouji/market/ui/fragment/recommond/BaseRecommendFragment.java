@@ -100,7 +100,7 @@ public abstract class BaseRecommendFragment extends RecyclerLayoutFragment<Group
             if (isLoad) {
                 onRefresh();
             } else {
-                postDelayed(this::onRefresh, 1000);
+                postDelayed(this::onRefresh, 500);
                 isLoad = true;
             }
             return true;

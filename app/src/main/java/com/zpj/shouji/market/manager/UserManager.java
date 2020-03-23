@@ -140,6 +140,7 @@ public final class UserManager {
             info = data.selectFirst("member").selectFirst("info").text().trim();
             if ("登录成功".equals(info)) {
                 memberInfo = MemberInfo.from(data);
+                Log.d("UserManager", "memberInfo=" + memberInfo);
                 setUserInfo(data.toString());
                 onSignInSuccess();
                 AToast.normal("登录成功");

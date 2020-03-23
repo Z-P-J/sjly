@@ -2,15 +2,19 @@ package com.zpj.shouji.market.ui.widget.recommend;
 
 import android.content.Context;
 import android.support.v7.widget.GridLayoutManager;
+import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.view.View;
 
 import com.bumptech.glide.Glide;
+import com.zpj.http.core.IHttp;
+import com.zpj.http.parser.html.nodes.Document;
 import com.zpj.http.parser.html.nodes.Element;
 import com.zpj.http.parser.html.select.Elements;
 import com.zpj.recyclerview.EasyRecyclerView;
 import com.zpj.recyclerview.EasyViewHolder;
 import com.zpj.shouji.market.R;
+import com.zpj.shouji.market.api.HttpApi;
 import com.zpj.shouji.market.api.HttpPreLoader;
 import com.zpj.shouji.market.model.AppInfo;
 import com.zpj.shouji.market.ui.fragment.detail.AppDetailFragment;
@@ -33,25 +37,44 @@ public abstract class AppInfoRecommendCard extends RecommendCard<AppInfo> {
     public AppInfoRecommendCard(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
 
-        HttpPreLoader.getInstance().setLoadListener(getKey(), document -> {
-            Elements elements = document.select("item");
-            for (Element element : elements) {
-                AppInfo info = AppInfo.parse(element);
-                if (info == null) {
-                    continue;
-                }
-                list.add(info);
-                if (list.size() == 8) {
-                    break;
+        if (!TextUtils.isEmpty(getKey())) {
+            if (HttpPreLoader.getInstance().hasKey(getKey())) {
+                HttpPreLoader.getInstance().setLoadListener(getKey(), this::onGetDoc);
+            } else {
+                switch (getKey()) {
+                    case HttpPreLoader.HOME_SOFT:
+                        HttpApi.homeRecommendSoftApi()
+                                .onSuccess(this::onGetDoc)
+                                .subscribe();
+                        break;
+                    case HttpPreLoader.HOME_GAME:
+                        HttpApi.homeRecommendGameApi()
+                                .onSuccess(this::onGetDoc)
+                                .subscribe();
+                        break;
                 }
             }
-            recyclerView.notifyDataSetChanged();
-        });
+        }
+    }
+
+    private void onGetDoc(Document document) {
+        Elements elements = document.select("item");
+        for (Element element : elements) {
+            AppInfo info = AppInfo.parse(element);
+            if (info == null) {
+                continue;
+            }
+            list.add(info);
+            if (list.size() == 8) {
+                break;
+            }
+        }
+        recyclerView.notifyDataSetChanged();
     }
 
     @Override
     protected void buildRecyclerView(EasyRecyclerView<AppInfo> recyclerView) {
-        recyclerView.setLayoutManager(new GridLayoutManager(context, 4){
+        recyclerView.setLayoutManager(new GridLayoutManager(context, 4) {
             @Override
             public boolean canScrollHorizontally() {
                 return false;
