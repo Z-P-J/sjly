@@ -13,10 +13,10 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.felix.atoast.library.AToast;
-import com.lxj.xpopup.ZPopup;
-import com.lxj.xpopup.interfaces.OnConfirmListener;
 import com.shehuan.niv.NiceImageView;
 import com.zpj.fragmentation.BaseFragment;
+import com.zpj.popup.ZPopup;
+import com.zpj.popup.interfaces.OnConfirmListener;
 import com.zpj.popupmenuview.popup.EverywherePopup;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.model.MemberInfo;
@@ -116,10 +116,10 @@ public class MyFragment extends BaseFragment
                     if (!UserManager.getInstance().isLogin()) {
                         return false;
                     }
-                    EverywherePopup.create(context)
+                    ZPopup.attachList(context)
                             .addItem("更换我的头像")
                             .addItem("保存头像")
-                            .setOnItemClickListener((title, position) -> {
+                            .setOnSelectListener((position, title) -> {
                                 switch (position) {
                                     case 0:
                                         break;
@@ -128,8 +128,7 @@ public class MyFragment extends BaseFragment
                                 }
                                 AToast.normal(title);
                             })
-                            .apply()
-                            .showEverywhere(v, x, y);
+                            .show(x, y);
                     return true;
                 });
 
@@ -138,10 +137,10 @@ public class MyFragment extends BaseFragment
                     if (!UserManager.getInstance().isLogin()) {
                         return false;
                     }
-                    EverywherePopup.create(context)
+                    ZPopup.attachList(context)
                             .addItem("更换主页背景")
                             .addItem("保存背景")
-                            .setOnItemClickListener((title, position) -> {
+                            .setOnSelectListener((position, title) -> {
                                 switch (position) {
                                     case 0:
                                         break;
@@ -150,8 +149,7 @@ public class MyFragment extends BaseFragment
                                 }
                                 AToast.normal(title);
                             })
-                            .apply()
-                            .showEverywhere(v, x, y);
+                            .show(x, y);
                     return true;
                 });
 
@@ -185,9 +183,9 @@ public class MyFragment extends BaseFragment
 
     @Override
     public void toolbarRightImageButton(@NonNull ImageButton imageButton) {
-        imageButton.setOnClickListener(v -> EverywherePopup.create(context)
+        imageButton.setOnClickListener(v -> ZPopup.attachList(context)
                 .addItems("打开主页网页", "分享主页", "注销", "登录")
-                .setOnItemClickListener((title, position) -> {
+                .setOnSelectListener((position, title) -> {
                     AToast.normal(title);
                     switch (position) {
                         case 0:
@@ -203,7 +201,6 @@ public class MyFragment extends BaseFragment
                             break;
                     }
                 })
-                .apply()
                 .show(v));
     }
 
@@ -327,8 +324,7 @@ public class MyFragment extends BaseFragment
     }
 
     private void showSignOutPopup() {
-        ZPopup.with(context)
-                .alert()
+        ZPopup.alert(context)
                 .setTitle("确认注销？")
                 .setContent("您将注销当前登录的账户，确认继续？")
                 .setConfirmButton(new OnConfirmListener() {

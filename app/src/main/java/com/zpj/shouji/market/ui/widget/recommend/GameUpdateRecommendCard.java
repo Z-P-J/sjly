@@ -23,6 +23,7 @@ public class GameUpdateRecommendCard extends AppInfoRecommendCard {
 
     public GameUpdateRecommendCard(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
+        setTitle("最近更新");
         HttpApi.recentUpdateGame().onSuccess(new IHttp.OnSuccessListener<Document>() {
             @Override
             public void onSuccess(Document document) throws Exception {

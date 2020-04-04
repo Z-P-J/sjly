@@ -4,17 +4,24 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
+    app:cardBackgroundColor="@android:color/white"
     app:cornerRadius="8dp"
     app:shadowFluidShape="adsorption"
     app:shadowColor="#bdbdbd"
-    app:shadowStartAlpha="10"
-    app:shadowSize="8dp">
+    app:shadowStartAlpha="120"
+    app:shadowSize="4dp"
+    >
 
-    <com.lxj.xpopup.widget.VerticalRecyclerView
+<!--    app:cornerRadius="8dp"-->
+<!--    app:shadowFluidShape="adsorption"-->
+<!--    app:shadowColor="#bdbdbd"-->
+<!--    app:shadowStartAlpha="10"-->
+<!--    app:shadowSize="4dp"-->
+
+    <com.zpj.popup.widget.VerticalRecyclerView
         android:id="@+id/recyclerView"
         android:overScrollMode="never"
         android:scrollbars="vertical"
-        android:background="@android:color/white"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 

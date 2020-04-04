@@ -92,9 +92,9 @@
     <init>(java.lang.Throwable);
 }
 
-# xpopup
--dontwarn com.lxj.xpopup.widget.**
--keep class com.lxj.xpopup.widget.**{*;}
+# zpopup
+-dontwarn com.zpj.popup.widget.**
+-keep class com.zpj.popup.widget.**{*;}
 
 # agentweb
 -keep class com.just.agentweb.** {

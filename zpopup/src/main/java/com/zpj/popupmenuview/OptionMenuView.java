@@ -12,6 +12,8 @@ import android.view.View;
 import android.widget.CheckedTextView;
 import android.widget.LinearLayout;
 
+import com.zpj.popup.R;
+
 import java.util.ArrayList;
 import java.util.List;
 

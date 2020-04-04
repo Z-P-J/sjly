@@ -13,6 +13,8 @@ import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.LinearLayout;
 
+import com.zpj.popup.R;
+
 /**
  * Created by felix on 16/11/18.
  */

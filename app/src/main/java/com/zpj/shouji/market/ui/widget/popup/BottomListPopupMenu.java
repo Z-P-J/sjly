@@ -12,8 +12,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 
-import com.lxj.xpopup.core.BottomPopupView;
-import com.lxj.xpopup.core.PopupInfo;
+import com.zpj.popup.core.BottomPopupView;
 import com.zpj.recyclerview.EasyRecyclerView;
 import com.zpj.recyclerview.EasyViewHolder;
 import com.zpj.recyclerview.IEasy;
@@ -37,7 +36,6 @@ public class BottomListPopupMenu extends BottomPopupView
 
     private BottomListPopupMenu(@NonNull Context context) {
         super(context);
-        popupInfo = new PopupInfo();
     }
 
     public static BottomListPopupMenu with(Context context) {

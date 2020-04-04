@@ -8,7 +8,7 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content">
 
-    <com.lxj.xpopup.widget.LoadingView
+    <com.zpj.popup.widget.LoadingView
         android:layout_width="30dp"
         android:layout_height="30dp" />
     <TextView

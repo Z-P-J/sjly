@@ -9,7 +9,7 @@ import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.zpj.popupmenuview.R;
+import com.zpj.popup.R;
 
 import java.util.ArrayList;
 import java.util.Arrays;

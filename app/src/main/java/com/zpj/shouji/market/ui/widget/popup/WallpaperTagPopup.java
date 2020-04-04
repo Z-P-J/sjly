@@ -4,8 +4,7 @@ import android.content.Context;
 import android.support.annotation.NonNull;
 import android.view.View;
 
-import com.lxj.xpopup.XPopup;
-import com.lxj.xpopup.impl.PartShadowPopupView;
+import com.zpj.popup.impl.PartShadowPopup;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.model.WallpaperTag;
 import com.zpj.shouji.market.ui.widget.flowlayout.FlowLayout;
@@ -13,9 +12,8 @@ import com.zpj.shouji.market.ui.widget.flowlayout.FlowLayout;
 import java.util.ArrayList;
 import java.util.List;
 
-public class WallpaperTagPopup extends PartShadowPopupView {
+public class WallpaperTagPopup extends PartShadowPopup {
 
-    private final Context context;
     private final List<WallpaperTag> tags = new ArrayList<>();
     private FlowLayout.OnItemClickListener onItemClickListener;
 
@@ -27,7 +25,6 @@ public class WallpaperTagPopup extends PartShadowPopupView {
 
     private WallpaperTagPopup(@NonNull Context context) {
         super(context);
-        this.context = context;
     }
 
     @Override
@@ -67,10 +64,8 @@ public class WallpaperTagPopup extends PartShadowPopupView {
     }
 
     public WallpaperTagPopup show(View view) {
-        new XPopup.Builder(context)
-                .atView(view)
-                .asCustom(this)
-                .show();
+        popupInfo.atView = view;
+        show();
         return this;
     }
 

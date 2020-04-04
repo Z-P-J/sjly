@@ -23,6 +23,7 @@ public class SoftUpdateRecommendCard extends AppInfoRecommendCard {
 
     public SoftUpdateRecommendCard(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
+        setTitle("最近更新");
         HttpApi.recentUpdateSoft().onSuccess(document -> {
             Elements elements = document.select("item");
             for (Element element : elements) {

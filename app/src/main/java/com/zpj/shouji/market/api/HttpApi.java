@@ -85,5 +85,9 @@ public final class HttpApi {
         return connect("http://tt.shouji.com.cn/androidv3/game_index_xml.jsp?sort=time&versioncode=198");
     }
 
+    public static ObservableTask<Document> netGame() {
+        return connect("http://tt.shouji.com.cn/androidv3/netgame.jsp");
+    }
+
 
 }

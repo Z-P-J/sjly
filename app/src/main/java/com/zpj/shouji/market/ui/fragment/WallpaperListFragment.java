@@ -13,20 +13,18 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-import com.lxj.xpopup.XPopup;
-import com.lxj.xpopup.core.ImageViewerPopupView;
-import com.lxj.xpopup.interfaces.OnSrcViewUpdateListener;
 import com.sunbinqiang.iconcountview.IconCountView;
 import com.zpj.http.parser.html.nodes.Element;
+import com.zpj.popup.ZPopup;
 import com.zpj.recyclerview.EasyRecyclerLayout;
 import com.zpj.recyclerview.EasyViewHolder;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.glide.MyRequestOptions;
 import com.zpj.shouji.market.model.WallpaperInfo;
 import com.zpj.shouji.market.model.WallpaperTag;
-import com.zpj.shouji.market.utils.PopupImageLoader;
 import com.zpj.shouji.market.ui.fragment.base.NextUrlFragment;
 import com.zpj.shouji.market.ui.widget.popup.RecyclerPopup;
+import com.zpj.shouji.market.utils.PopupImageLoader;
 import com.zpj.utils.ScreenUtils;
 
 import java.util.ArrayList;
@@ -113,16 +111,24 @@ public class WallpaperListFragment extends NextUrlFragment<WallpaperInfo> {
     @Override
     public void onClick(EasyViewHolder holder, View view, WallpaperInfo data) {
         ImageView wallpaper = holder.getImageView(R.id.iv_wallpaper);
-        List<Object> objects = new ArrayList<>();
+        List<String> objects = new ArrayList<>();
         objects.add(data.getPic());
-        new XPopup.Builder(context)
-                .asImageViewer(wallpaper, 0, objects, new OnSrcViewUpdateListener() {
-                    @Override
-                    public void onSrcViewUpdate(ImageViewerPopupView popupView, int position) {
-                        popupView.updateSrcView(wallpaper);
-                    }
-                }, new PopupImageLoader())
+        ZPopup.imageViewer(context, String.class)
+                .setSrcView(wallpaper, 0)
+                .setImageUrls(objects)
+                .setSrcViewUpdateListener((popupView, position1) -> {
+                    popupView.updateSrcView(wallpaper);
+                })
+                .setImageLoader(new PopupImageLoader())
                 .show();
+//        new XPopup.Builder(context)
+//                .asImageViewer(wallpaper, 0, objects, new OnSrcViewUpdateListener() {
+//                    @Override
+//                    public void onSrcViewUpdate(ImageViewerPopupView popupView, int position) {
+//                        popupView.updateSrcView(wallpaper);
+//                    }
+//                }, new PopupImageLoader())
+//                .show();
     }
 
     @Override

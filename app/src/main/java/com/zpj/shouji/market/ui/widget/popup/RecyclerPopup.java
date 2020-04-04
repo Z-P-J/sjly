@@ -5,8 +5,7 @@ import android.support.annotation.NonNull;
 import android.view.View;
 import android.widget.TextView;
 
-import com.lxj.xpopup.XPopup;
-import com.lxj.xpopup.impl.PartShadowPopupView;
+import com.zpj.popup.impl.PartShadowPopup;
 import com.zpj.recyclerview.EasyRecyclerView;
 import com.zpj.shouji.market.R;
 
@@ -14,14 +13,13 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class RecyclerPopup extends PartShadowPopupView {
+public class RecyclerPopup extends PartShadowPopup {
 
 
     public interface OnItemClickListener {
         void onItemClick(View view, String title, int position);
     }
 
-    private final Context context;
     private OnItemClickListener onItemClickListener;
     private int selectPosition = 0;
     private final List<String> items = new ArrayList<>();
@@ -32,7 +30,6 @@ public class RecyclerPopup extends PartShadowPopupView {
 
     private RecyclerPopup(@NonNull Context context) {
         super(context);
-        this.context = context;
     }
 
     @Override
@@ -85,10 +82,8 @@ public class RecyclerPopup extends PartShadowPopupView {
     }
 
     public RecyclerPopup show(View view) {
-        new XPopup.Builder(context)
-                .atView(view)
-                .asCustom(this)
-                .show();
+        popupInfo.atView = view;
+        show();
         return this;
     }
 

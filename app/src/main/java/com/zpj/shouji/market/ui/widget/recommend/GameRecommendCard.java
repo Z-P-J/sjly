@@ -17,6 +17,7 @@ public class GameRecommendCard extends AppInfoRecommendCard {
 
     public GameRecommendCard(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
+        setTitle("游戏推荐");
     }
 
     @Override

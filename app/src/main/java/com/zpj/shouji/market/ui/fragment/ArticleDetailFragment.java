@@ -23,10 +23,10 @@ import com.bumptech.glide.request.target.SimpleTarget;
 import com.bumptech.glide.request.target.Target;
 import com.bumptech.glide.request.transition.Transition;
 import com.felix.atoast.library.AToast;
-import com.lxj.xpopup.XPopup;
-import com.zpj.popupmenuview.popup.EverywherePopup;
+import com.zpj.fragmentation.BaseFragment;
+import com.zpj.popup.ZPopup;
 import com.zpj.shouji.market.R;
-import com.zpj.shouji.market.utils.PopupImageLoader;
+import com.zpj.shouji.market.api.HttpApi;
 import com.zpj.shouji.market.model.AppInfo;
 import com.zpj.shouji.market.model.article.ArticleDetailInfo;
 import com.zpj.shouji.market.model.article.ArticleInfo;
@@ -34,10 +34,9 @@ import com.zpj.shouji.market.model.article.HtmlElement;
 import com.zpj.shouji.market.model.article.ImageElement;
 import com.zpj.shouji.market.model.article.LinkElement;
 import com.zpj.shouji.market.model.article.TextElement;
-import com.zpj.fragmentation.BaseFragment;
 import com.zpj.shouji.market.ui.fragment.detail.AppDetailFragment;
 import com.zpj.shouji.market.ui.widget.selection.SelectableTextView;
-import com.zpj.shouji.market.api.HttpApi;
+import com.zpj.shouji.market.utils.PopupImageLoader;
 import com.zpj.utils.ScreenUtils;
 
 import java.util.ArrayList;
@@ -86,10 +85,10 @@ public class ArticleDetailFragment extends BaseFragment {
 
     @Override
     public void toolbarRightImageButton(@NonNull ImageButton imageButton) {
-        imageButton.setOnClickListener(v -> EverywherePopup.create(context)
+        imageButton.setOnClickListener(v -> ZPopup.attachList(context)
                 .addItem("网页中打开")
                 .addItem("收藏")
-                .setOnItemClickListener((title, position) -> {
+                .setOnSelectListener((position, title) -> {
                     switch (position) {
                         case 0:
                             _mActivity.start(WebFragment.newInstance(url));
@@ -217,14 +216,22 @@ public class ArticleDetailFragment extends BaseFragment {
                 View view = LayoutInflater.from(context).inflate(R.layout.layout_article_image, null, false);
                 ImageView ivImage = view.findViewById(R.id.iv_image);
                 ivImage.setOnClickListener(v -> {
-                    List<Object> objects = new ArrayList<>();
+                    List<String> objects = new ArrayList<>();
                     objects.add(url);
-                    new XPopup.Builder(context)
-                            .asImageViewer(ivImage,
-                                    0,
-                                    objects, (popupView, position) -> popupView.updateSrcView(ivImage),
-                                    new PopupImageLoader())
+                    ZPopup.imageViewer(context)
+                            .setSrcView(ivImage, 0)
+                            .setImageUrls(objects)
+                            .setSrcViewUpdateListener((popupView, position1) -> {
+                                popupView.updateSrcView(ivImage);
+                            })
+                            .setImageLoader(new PopupImageLoader())
                             .show();
+//                    new XPopup.Builder(context)
+//                            .asImageViewer(ivImage,
+//                                    0,
+//                                    objects, (popupView, position) -> popupView.updateSrcView(ivImage),
+//                                    new PopupImageLoader())
+//                            .show();
                 });
                 contentWrapper.addView(view);
                 Glide.with(context).load(url).apply(options).into(new SimpleTarget<Drawable>() {

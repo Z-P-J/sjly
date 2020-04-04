@@ -16,9 +16,9 @@ import com.felix.atoast.library.AToast;
 import com.just.agentweb.AbsAgentWebSettings;
 import com.just.agentweb.AgentWeb;
 import com.just.agentweb.IAgentWebSettings;
-import com.zpj.popupmenuview.popup.EverywherePopup;
-import com.zpj.shouji.market.R;
 import com.zpj.fragmentation.BaseFragment;
+import com.zpj.popup.ZPopup;
+import com.zpj.shouji.market.R;
 
 public class WebFragment extends BaseFragment {
 
@@ -131,11 +131,11 @@ public class WebFragment extends BaseFragment {
 
     @Override
     public void toolbarRightImageButton(@NonNull ImageButton imageButton) {
-        imageButton.setOnClickListener(v -> EverywherePopup.create(context)
+        imageButton.setOnClickListener(v -> ZPopup.attachList(context)
                 .addItem("浏览器中打开")
                 .addItem("电脑版网页")
                 .addItem("收藏")
-                .setOnItemClickListener((title, position) -> {
+                .setOnSelectListener((position, title) -> {
                     switch (position) {
                         case 0:
                         case 1:

@@ -7,13 +7,12 @@ import android.widget.ImageView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.bumptech.glide.request.target.Target;
-import com.lxj.xpopup.interfaces.XPopupImageLoader;
+import com.zpj.popup.interfaces.XPopupImageLoader;
 import com.zpj.shouji.market.R;
-import com.zpj.shouji.market.glide.MyRequestOptions;
 
 import java.io.File;
 
-public class PopupImageLoader implements XPopupImageLoader {
+public class PopupImageLoader implements XPopupImageLoader<String> {
 
     public final RequestOptions options = new RequestOptions()
             .centerCrop()
@@ -23,7 +22,7 @@ public class PopupImageLoader implements XPopupImageLoader {
             .override(Target.SIZE_ORIGINAL);
 
     @Override
-    public void loadImage(int position, @NonNull Object uri, @NonNull ImageView imageView) {
+    public void loadImage(int position, @NonNull String uri, @NonNull ImageView imageView) {
         Glide.with(imageView)
                 .load(uri)
                 .apply(options)
@@ -31,7 +30,7 @@ public class PopupImageLoader implements XPopupImageLoader {
     }
 
     @Override
-    public File getImageFile(@NonNull Context context, @NonNull Object uri) {
+    public File getImageFile(@NonNull Context context, @NonNull String uri) {
         try {
             return Glide.with(context).downloadOnly().load(uri).submit().get();
         } catch (Exception e) {

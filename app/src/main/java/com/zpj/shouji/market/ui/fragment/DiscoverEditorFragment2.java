@@ -13,7 +13,7 @@ import com.zpj.fragmentation.anim.DefaultNoAnimator;
 import com.zpj.fragmentation.anim.FragmentAnimator;
 import com.zpj.markdown.MarkdownEditorFragment;
 import com.zpj.markdown.MarkdownViewFragment;
-import com.zpj.popupmenuview.popup.EverywherePopup;
+import com.zpj.popup.ZPopup;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.ui.adapter.FragmentsPagerAdapter;
 
@@ -87,9 +87,9 @@ public class DiscoverEditorFragment2 extends BaseFragment {
 
     @Override
     public void toolbarRightImageButton(@NonNull ImageButton imageButton) {
-        imageButton.setOnClickListener(v -> EverywherePopup.create(context)
+        imageButton.setOnClickListener(v -> ZPopup.attachList(context)
                 .addItems("显示源码", "清空内容", "保存", "回显")
-                .setOnItemClickListener((title, position) -> {
+                .setOnSelectListener((position, title) -> {
                     switch (position) {
                         case 0:
 

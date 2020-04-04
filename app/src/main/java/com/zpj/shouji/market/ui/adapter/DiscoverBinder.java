@@ -10,18 +10,15 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.jaeger.ninegridimageview.ItemImageClickListener;
 import com.jaeger.ninegridimageview.NineGridImageView;
-import com.lxj.xpopup.XPopup;
-import com.lxj.xpopup.core.ImageViewerPopupView;
-import com.lxj.xpopup.interfaces.OnSrcViewUpdateListener;
 import com.sunbinqiang.iconcountview.IconCountView;
+import com.zpj.popup.ZPopup;
 import com.zpj.recyclerview.EasyViewHolder;
 import com.zpj.recyclerview.IEasy;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.model.DiscoverInfo;
-import com.zpj.shouji.market.utils.PopupImageLoader;
 import com.zpj.shouji.market.ui.widget.popup.BottomListPopupMenu;
+import com.zpj.shouji.market.utils.PopupImageLoader;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class DiscoverBinder implements IEasy.OnBindViewHolderListener<DiscoverInfo> {
@@ -50,16 +47,25 @@ public class DiscoverBinder implements IEasy.OnBindViewHolderListener<DiscoverIn
         nineGridImageView.setItemImageClickListener(new ItemImageClickListener<String>() {
             @Override
             public void onItemImageClick(Context context, ImageView imageView, int index, List<String> list) {
-                List<Object> objects = new ArrayList<>(list);
-                new XPopup.Builder(context)
-                        .asImageViewer(imageView, index, objects, new OnSrcViewUpdateListener() {
-                            @Override
-                            public void onSrcViewUpdate(ImageViewerPopupView popupView, int position) {
-                                ImageView view = (ImageView) nineGridImageView.getChildAt(position);
-                                popupView.updateSrcView(view);
-                            }
-                        }, new PopupImageLoader())
+//                List<Object> objects = new ArrayList<>(list);
+                ZPopup.imageViewer(context, String.class)
+                        .setSrcView(imageView, index)
+                        .setImageUrls(list)
+                        .setSrcViewUpdateListener((popupView, position1) -> {
+                            ImageView view = (ImageView) nineGridImageView.getChildAt(position1);
+                            popupView.updateSrcView(view);
+                        })
+                        .setImageLoader(new PopupImageLoader())
                         .show();
+//                new XPopup.Builder(context)
+//                        .asImageViewer(imageView, index, objects, new OnSrcViewUpdateListener() {
+//                            @Override
+//                            public void onSrcViewUpdate(ImageViewerPopupView popupView, int position) {
+//                                ImageView view = (ImageView) nineGridImageView.getChildAt(position);
+//                                popupView.updateSrcView(view);
+//                            }
+//                        }, new PopupImageLoader())
+//                        .show();
 
 //                ImageTrans.with(context)
 //                        .setImageList(list)

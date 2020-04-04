@@ -20,7 +20,7 @@
 
     <include layout="@layout/_xpopup_divider"/>
 
-    <com.lxj.xpopup.widget.VerticalRecyclerView
+    <com.zpj.popup.widget.VerticalRecyclerView
         android:orientation="vertical"
         android:id="@+id/recyclerView"
         android:layout_width="match_parent"

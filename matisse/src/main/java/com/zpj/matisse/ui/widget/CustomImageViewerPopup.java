@@ -16,15 +16,13 @@ import com.zpj.matisse.entity.IncapableCause;
 import com.zpj.matisse.entity.Item;
 import com.zpj.matisse.entity.SelectionSpec;
 import com.zpj.matisse.model.SelectedItemManager;
-import com.zpj.matisse.utils.PathUtils;
-import com.lxj.xpopup.core.ImageViewerPopupView;
-import com.lxj.xpopup.core.PopupInfo;
-import com.lxj.xpopup.interfaces.XPopupImageLoader;
+import com.zpj.popup.core.ImageViewerPopup;
+import com.zpj.popup.interfaces.XPopupImageLoader;
 import com.zpj.widget.toolbar.ZToolBar;
 
 import java.io.File;
 
-public class CustomImageViewerPopup extends ImageViewerPopupView<Item>
+public class CustomImageViewerPopup extends ImageViewerPopup<Item>
         implements XPopupImageLoader<Item> {
 
     protected final SelectedItemManager mSelectedCollection;
@@ -43,10 +41,9 @@ public class CustomImageViewerPopup extends ImageViewerPopupView<Item>
         isShowIndicator(false);
         isShowPlaceholder(false);
         isShowSaveButton(false);
-        setXPopupImageLoader(this);
+        setImageLoader(this);
         mSelectedCollection = SelectedItemManager.getInstance();
         mSpec = SelectionSpec.getInstance();
-        popupInfo = new PopupInfo();
     }
 
     @Override

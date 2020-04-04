@@ -7,6 +7,8 @@
 
     <color name="_xpopup_list_divider">#EEEEEE</color>
     <color name="_xpopup_title_color">#111111</color>
+    <color name="_xpopup_text_normal_color">#8a8a8a</color>
+    <color name="_xpopup_text_major_color">#333333</color>
     <color name="_xpopup_content_color">#333333</color>
 
 </resources>

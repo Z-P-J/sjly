@@ -17,6 +17,7 @@ public class SoftRecommendCard extends AppInfoRecommendCard {
 
     public SoftRecommendCard(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
+        setTitle("应用推荐");
     }
 
     @Override

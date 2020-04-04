@@ -7,14 +7,13 @@ import android.support.v4.view.ViewPager;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.lxj.xpopup.core.CenterPopupView;
-import com.lxj.xpopup.core.PopupInfo;
+import com.zpj.popup.core.CenterPopup;
 import com.zpj.shouji.market.R;
+import com.zpj.shouji.market.manager.UserManager;
 import com.zpj.shouji.market.ui.widget.AutoSizeViewPager;
 import com.zpj.shouji.market.ui.widget.ScaleTransitionPagerTitleView;
 import com.zpj.shouji.market.ui.widget.SignInLayout;
 import com.zpj.shouji.market.ui.widget.SignUpLayout;
-import com.zpj.shouji.market.manager.UserManager;
 import com.zpj.utils.ScreenUtils;
 import com.zpj.widget.toolbar.ZToolBar;
 
@@ -29,7 +28,7 @@ import net.lucode.hackware.magicindicator.buildins.commonnavigator.indicators.Li
 import java.util.ArrayList;
 import java.util.List;
 
-public class LoginPopup extends CenterPopupView
+public class LoginPopup extends CenterPopup
         implements UserManager.OnSignInListener {
 
     private static final String[] TAB_TITLES = {"登录", "注册"};
@@ -46,7 +45,6 @@ public class LoginPopup extends CenterPopupView
 
     public LoginPopup(@NonNull Context context) {
         super(context);
-        popupInfo = new PopupInfo();
     }
 
     @Override

@@ -18,9 +18,8 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.felix.atoast.library.AToast;
-import com.lxj.xpopup.core.PopupInfo;
-import com.lxj.xpopup.enums.PopupAnimation;
-import com.lxj.xpopup.impl.FullScreenPopupView;
+import com.zpj.popup.enums.PopupAnimation;
+import com.zpj.popup.impl.FullScreenPopup;
 import com.zpj.shouji.market.R;
 
 import io.reactivex.Observable;
@@ -29,7 +28,7 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 import per.goweii.burred.Blurred;
 
-public class MorePopup extends FullScreenPopupView implements View.OnClickListener {
+public class MorePopup extends FullScreenPopup implements View.OnClickListener {
 
     private final int[] menuIconItems = {R.drawable.pic1, R.drawable.pic2, R.drawable.pic3, R.drawable.pic4};
     private final String[] menuTextItems = {"动态", "应用集", "乐图", "私聊"};
@@ -62,7 +61,6 @@ public class MorePopup extends FullScreenPopupView implements View.OnClickListen
     private MorePopup(ViewGroup anchorView) {
         this(anchorView.getContext());
         this.anchorView = anchorView;
-        popupInfo = new PopupInfo();
         popupInfo.popupAnimation = PopupAnimation.NoAnimation;
     }
 

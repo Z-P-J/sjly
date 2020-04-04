@@ -8,7 +8,6 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.View;
-import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -16,10 +15,8 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.target.SimpleTarget;
 import com.bumptech.glide.request.transition.Transition;
-import com.lxj.xpopup.XPopup;
-import com.lxj.xpopup.core.ImageViewerPopupView;
-import com.lxj.xpopup.interfaces.OnSrcViewUpdateListener;
 import com.zpj.fragmentation.BaseFragment;
+import com.zpj.popup.ZPopup;
 import com.zpj.recyclerview.EasyRecyclerView;
 import com.zpj.recyclerview.EasyViewHolder;
 import com.zpj.recyclerview.IEasy;
@@ -102,23 +99,40 @@ public class AppInfoFragment extends BaseFragment
                 });
         img.setTag(position);
         img.setOnClickListener(v -> {
-            List<Object> objects = new ArrayList<>(list);
-            new XPopup.Builder(context)
-                    .asImageViewer(img, (int)v.getTag(), objects, new OnSrcViewUpdateListener() {
-                        @Override
-                        public void onSrcViewUpdate(ImageViewerPopupView popupView, int pos) {
-                            int layoutPos = recyclerView.getRecyclerView().indexOfChild(holder.getItemView());
-                            View view = recyclerView.getRecyclerView().getChildAt(layoutPos + pos - position);
-                            ImageView imageView;
-                            if (view != null) {
-                                imageView = view.findViewById(R.id.iv_img);
-                            } else {
-                                imageView = img;
-                            }
-                            popupView.updateSrcView(imageView);
+            ZPopup.imageViewer(context, String.class)
+                    .setSrcView(img, (int)v.getTag())
+                    .setImageUrls(list)
+                    .setSrcViewUpdateListener((popupView, pos) -> {
+                        int layoutPos = recyclerView.getRecyclerView().indexOfChild(holder.getItemView());
+                        View view = recyclerView.getRecyclerView().getChildAt(layoutPos + pos - position);
+                        ImageView imageView;
+                        if (view != null) {
+                            imageView = view.findViewById(R.id.iv_img);
+                        } else {
+                            imageView = img;
                         }
-                    }, new PopupImageLoader())
+                        popupView.updateSrcView(imageView);
+                    })
+                    .setImageLoader(new PopupImageLoader())
                     .show();
+
+//            List<Object> objects = new ArrayList<>(list);
+//            new XPopup.Builder(context)
+//                    .asImageViewer(img, (int)v.getTag(), objects, new OnSrcViewUpdateListener() {
+//                        @Override
+//                        public void onSrcViewUpdate(ImageViewerPopupView popupView, int pos) {
+//                            int layoutPos = recyclerView.getRecyclerView().indexOfChild(holder.getItemView());
+//                            View view = recyclerView.getRecyclerView().getChildAt(layoutPos + pos - position);
+//                            ImageView imageView;
+//                            if (view != null) {
+//                                imageView = view.findViewById(R.id.iv_img);
+//                            } else {
+//                                imageView = img;
+//                            }
+//                            popupView.updateSrcView(imageView);
+//                        }
+//                    }, new PopupImageLoader())
+//                    .show();
         });
     }
 

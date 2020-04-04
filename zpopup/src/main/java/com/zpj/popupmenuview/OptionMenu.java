@@ -11,6 +11,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.CheckedTextView;
 
+import com.zpj.popup.R;
+
 /**
  * Created by felix on 16/11/19.
  */

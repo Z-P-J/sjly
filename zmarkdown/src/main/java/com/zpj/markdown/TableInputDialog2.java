@@ -5,7 +5,7 @@ import android.support.design.widget.TextInputLayout;
 import android.support.v7.widget.AppCompatEditText;
 import android.text.TextUtils;
 
-import com.lxj.xpopup.impl.AlertPopup;
+import com.zpj.popup.impl.AlertPopup;
 
 import java.util.Objects;
 

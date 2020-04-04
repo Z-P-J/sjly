@@ -17,6 +17,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
 
+import com.zpj.popup.R;
+
 
 /**
  * Created by felix on 16/11/20.

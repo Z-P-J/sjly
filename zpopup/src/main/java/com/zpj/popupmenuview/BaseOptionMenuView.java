@@ -8,6 +8,8 @@ import android.util.Log;
 import android.view.View;
 import android.widget.LinearLayout;
 
+import com.zpj.popup.R;
+
 /**
  * Created by felix on 16/11/19.
  */
