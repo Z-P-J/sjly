@@ -18,7 +18,7 @@
         app:z_toolbar_titleBarColor="@color/colorPrimary"
         />
 
-    <com.zpj.widget.ZViewPager
+    <com.zpj.shouji.market.ui.widget.ZViewPager
         android:id="@+id/view_pager"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>

@@ -1,4 +1,4 @@
-package com.zpj.widget;
+package com.zpj.shouji.market.ui.widget;
 
 import android.annotation.TargetApi;
 import android.content.Context;

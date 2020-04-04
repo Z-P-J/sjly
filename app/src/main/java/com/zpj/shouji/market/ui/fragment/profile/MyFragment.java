@@ -15,6 +15,7 @@ import com.bumptech.glide.request.RequestOptions;
 import com.felix.atoast.library.AToast;
 import com.shehuan.niv.NiceImageView;
 import com.zpj.fragmentation.BaseFragment;
+import com.zpj.fragmentation.anim.DefaultVerticalAnimator;
 import com.zpj.popup.ZPopup;
 import com.zpj.popup.interfaces.OnConfirmListener;
 import com.zpj.popupmenuview.popup.EverywherePopup;
@@ -299,6 +300,7 @@ public class MyFragment extends BaseFragment
     }
 
     public void showLoginPopup(int page) {
+        _mActivity.setFragmentAnimator(new DefaultVerticalAnimator());
         _mActivity.start(new LoginFragment());
 //        if (loginPopup == null) {
 //            loginPopup = LoginPopup.with(context);

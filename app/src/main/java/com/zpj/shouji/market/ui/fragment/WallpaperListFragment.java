@@ -79,7 +79,9 @@ public class WallpaperListFragment extends NextUrlFragment<WallpaperInfo> {
     @Override
     protected void buildRecyclerLayout(EasyRecyclerLayout<WallpaperInfo> recyclerLayout) {
         screenWidth = ScreenUtils.getScreenWidth(context);
-        recyclerLayout.setHeaderView(R.layout.item_image_header, holder -> holder.setOnItemClickListener((this::showSortPupWindow)));
+        if (getHeaderLayout() > 0) {
+            recyclerLayout.setHeaderView(getHeaderLayout(), holder -> holder.setOnItemClickListener((this::showSortPupWindow)));
+        }
     }
 
     @Override
@@ -144,6 +146,10 @@ public class WallpaperListFragment extends NextUrlFragment<WallpaperInfo> {
         data.clear();
         initNextUrl();
         recyclerLayout.notifyDataSetChanged();
+    }
+
+    protected int getHeaderLayout() {
+        return R.layout.item_image_header;
     }
 
     private void initNextUrl() {

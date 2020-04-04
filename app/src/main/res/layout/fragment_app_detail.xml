@@ -1,207 +1,232 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
+<com.zpj.widget.statelayout.StateLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/state_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     >
 
-    <android.support.design.widget.CoordinatorLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:fitsSystemWindows="true"
-        android:layout_above="@id/bottom_bar"
+        android:background="@color/white"
         >
 
-        <android.support.design.widget.AppBarLayout
-            android:id="@+id/appbar"
+        <android.support.design.widget.CoordinatorLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:fitsSystemWindows="true">
+            android:layout_height="match_parent"
+            android:fitsSystemWindows="true"
+            android:layout_above="@id/bottom_bar"
+            >
 
-            <android.support.design.widget.CollapsingToolbarLayout
-                android:id="@+id/collapsingToolbar"
+            <android.support.design.widget.AppBarLayout
+                android:id="@+id/appbar"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                app:contentScrim="?attr/colorPrimary"
-                app:layout_scrollFlags="scroll|exitUntilCollapsed"
-                app:navigationIcon="@drawable/ic_arrow_back_white_24dp">
+                android:layout_height="wrap_content"
+                android:fitsSystemWindows="true"
+                >
 
-                <RelativeLayout
+
+
+                <android.support.design.widget.CollapsingToolbarLayout
+                    android:id="@+id/collapsingToolbar"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:fitsSystemWindows="true"
-                    android:orientation="vertical"
-                    android:scaleType="centerInside"
-                    app:layout_collapseMode="parallax">
+                    app:statusBarScrim="@color/transparent"
+                    app:contentScrim="@color/transparent"
+                    app:layout_scrollFlags="scroll|exitUntilCollapsed">
 
-                    <com.shehuan.niv.NiceImageView
-                        android:id="@+id/iv_icon"
-                        android:layout_marginTop="56dp"
-                        android:layout_width="56dp"
-                        android:layout_height="56dp"
-                        android:src="@mipmap/ic_launcher"
-                        android:layout_centerHorizontal="true"
-                        android:transitionName="app icon"
-                        app:is_circle="true"
-                        app:border_width="1dp"
-                        app:border_color="@android:color/white"
-                        />
-
-                    <TextView
-                        android:id="@+id/tv_title"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_centerHorizontal="true"
-                        android:layout_below="@id/iv_icon"
-                        android:text="应用名"
-                        android:textSize="18sp"
-                        android:textStyle="bold"
-                        android:textColor="@android:color/white"
-                        android:maxLines="1"
-                        android:ellipsize="end"
-                        android:paddingStart="20dp"
-                        android:paddingEnd="20dp"
-                        android:padding="5dp"
-                        android:gravity="center"
-                        />
-
-                    <TextView
-                        android:id="@+id/tv_info"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_centerHorizontal="true"
-                        android:layout_below="@id/tv_title"
-                        android:text="V 12.0.0  12.5MB "
-                        android:textColor="@android:color/white"
-                        android:maxLines="1"
-                        android:ellipsize="end"
-                        android:paddingStart="24dp"
-                        android:paddingEnd="24dp"
-                        android:padding="5dp"
-                        android:gravity="center"
-                        android:textSize="12sp"
-                        />
-
-                    <TextView
-                        android:id="@+id/tv_detail"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_centerHorizontal="true"
-                        android:layout_below="@id/tv_info"
-                        android:text="xfgbkf,nhbc,fbnkcm,fgfbngbmfgnvk,bd\nfcxfgjnfj,nbfgv\nfdghkbfjnfjjgjkbjh"
-                        android:textColor="@android:color/white"
-                        android:maxLines="1"
-                        android:ellipsize="end"
-                        android:paddingStart="24dp"
-                        android:paddingEnd="24dp"
-                        android:padding="5dp"
-                        android:gravity="center"
-                        />
-
-
-                </RelativeLayout>
-
-                <android.support.v7.widget.Toolbar
-                    android:id="@+id/toolbar"
-                    android:layout_width="match_parent"
-                    android:layout_height="56dp"
-                    app:titleTextColor="#ffffff"
-                    android:gravity="center_vertical"
-                    android:background="#00ffffff"
-                    app:navigationIcon="@drawable/ic_arrow_back_white_24dp"
-                    app:layout_collapseMode="pin" >
+                    <!--                    app:contentScrim="?attr/colorPrimary"-->
 
                     <RelativeLayout
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent">
+                        android:layout_height="match_parent"
+                        android:fitsSystemWindows="true"
+                        android:orientation="vertical"
+                        android:scaleType="centerInside"
+                        app:layout_collapseMode="parallax">
 
-                        <ImageView
-                            android:layout_width="wrap_content"
-                            android:layout_height="match_parent"
-                            android:src="@drawable/ic_arrow_back_white_24dp"
-                            android:padding="16dp"
-                            android:layout_toStartOf="@id/test"
+                        <com.shehuan.niv.NiceImageView
+                            android:id="@+id/iv_icon"
+                            android:layout_marginTop="64dp"
+                            android:layout_width="56dp"
+                            android:layout_height="56dp"
+                            android:src="@mipmap/ic_launcher"
+                            android:layout_centerHorizontal="true"
+                            android:transitionName="app icon"
+                            app:is_circle="true"
+                            app:border_width="1dp"
+                            app:border_color="@android:color/white"
                             />
 
-                        <ImageView
-                            android:id="@+id/test"
-                            android:layout_width="wrap_content"
-                            android:layout_height="match_parent"
-                            android:src="@drawable/ic_search_white_24dp"
-                            android:padding="16dp"
-                            android:layout_alignParentEnd="true"
+                        <TextView
+                            android:id="@+id/tv_title"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_centerHorizontal="true"
+                            android:layout_below="@id/iv_icon"
+                            android:text="应用名"
+                            android:textSize="18sp"
+                            android:textStyle="bold"
+                            android:textColor="@android:color/white"
+                            android:maxLines="1"
+                            android:ellipsize="end"
+                            android:paddingStart="20dp"
+                            android:paddingEnd="20dp"
+                            android:padding="5dp"
+                            android:gravity="center"
                             />
+
+                        <TextView
+                            android:id="@+id/tv_info"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_centerHorizontal="true"
+                            android:layout_below="@id/tv_title"
+                            android:text="V 12.0.0  12.5MB "
+                            android:textColor="@android:color/white"
+                            android:maxLines="1"
+                            android:ellipsize="end"
+                            android:paddingStart="24dp"
+                            android:paddingEnd="24dp"
+                            android:padding="5dp"
+                            android:gravity="center"
+                            android:textSize="12sp"
+                            />
+
+                        <TextView
+                            android:id="@+id/tv_detail"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_centerHorizontal="true"
+                            android:layout_below="@id/tv_info"
+                            android:text="xfgbkf,nhbc,fbnkcm,fgfbngbmfgnvk,bd\nfcxfgjnfj,nbfgv\nfdghkbfjnfjjgjkbjh"
+                            android:textColor="@android:color/white"
+                            android:maxLines="1"
+                            android:ellipsize="end"
+                            android:paddingStart="24dp"
+                            android:paddingEnd="24dp"
+                            android:padding="5dp"
+                            android:gravity="center"
+                            />
+
 
                     </RelativeLayout>
 
-                </android.support.v7.widget.Toolbar>
+                    <android.support.v7.widget.Toolbar
+                        android:id="@+id/toolbar"
+                        android:layout_width="match_parent"
+                        android:layout_height="56dp"
+                        android:gravity="center_vertical"
+                        android:background="@color/transparent"
+                        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+                        app:layout_collapseMode="pin"
+                        app:contentInsetStart="0dp"
+                        >
 
-            </android.support.design.widget.CollapsingToolbarLayout>
+                        <com.zpj.widget.toolbar.ZToolBar
+                            android:id="@+id/tool_bar"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            app:z_toolbar_fillStatusBar="false"
+                            app:z_toolbar_titleBarColor="@color/transparent"
+                            app:z_toolbar_leftType="imageButton"
+                            app:z_toolbar_leftImageResource="@drawable/ic_arrow_back_black_24dp"
+                            app:z_toolbar_centerType="textView"
+                            app:z_toolbar_centerTextColor="@color/color_text_major"
+                            />
 
-            <net.lucode.hackware.magicindicator.MagicIndicator
-                android:id="@+id/magic_indicator"
+                        <!--                    <RelativeLayout-->
+                        <!--                        android:layout_width="match_parent"-->
+                        <!--                        android:layout_height="match_parent">-->
+
+                        <!--                        <ImageView-->
+                        <!--                            android:layout_width="wrap_content"-->
+                        <!--                            android:layout_height="match_parent"-->
+                        <!--                            android:src="@drawable/ic_arrow_back_white_24dp"-->
+                        <!--                            android:padding="16dp"-->
+                        <!--                            android:layout_toStartOf="@id/test"-->
+                        <!--                            />-->
+
+                        <!--                        <ImageView-->
+                        <!--                            android:id="@+id/test"-->
+                        <!--                            android:layout_width="wrap_content"-->
+                        <!--                            android:layout_height="match_parent"-->
+                        <!--                            android:src="@drawable/ic_search_white_24dp"-->
+                        <!--                            android:padding="16dp"-->
+                        <!--                            android:layout_alignParentEnd="true"-->
+                        <!--                            />-->
+
+                        <!--                    </RelativeLayout>-->
+
+                    </android.support.v7.widget.Toolbar>
+
+                </android.support.design.widget.CollapsingToolbarLayout>
+
+                <net.lucode.hackware.magicindicator.MagicIndicator
+                    android:id="@+id/magic_indicator"
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp"
+                    android:layout_gravity="center"
+                    android:background="@drawable/magic_indicator_bg"
+                    android:padding="8dp"
+                    />
+
+            </android.support.design.widget.AppBarLayout>
+
+            <android.support.v4.view.ViewPager
+                android:id="@+id/view_pager"
+                android:layout_height="wrap_content"
                 android:layout_width="match_parent"
-                android:layout_height="48dp"
-                android:layout_gravity="center"
-                android:background="@drawable/magic_indicator_bg"
-                android:padding="8dp"
+                android:background="@android:color/white"
+                app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
+
+        </android.support.design.widget.CoordinatorLayout>
+
+        <LinearLayout
+            android:id="@+id/bottom_bar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:layout_alignParentBottom="true"
+            android:padding="10dp"
+            android:background="@drawable/top_line_gray"
+            >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawableTop="@drawable/ic_expand_more_black_24dp"
+                android:text="收藏"
+                android:gravity="center"
+                android:layout_weight="1"
                 />
 
-        </android.support.design.widget.AppBarLayout>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="立即下载"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:textSize="18sp"
+                android:padding="8dp"
+                android:background="@drawable/bg_button"
+                android:textColor="@android:color/white"
+                android:layout_weight="2"
+                />
 
-        <android.support.v4.view.ViewPager
-            android:id="@+id/view_pager"
-            android:layout_height="wrap_content"
-            android:layout_width="match_parent"
-            android:background="@android:color/white"
-            app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawableTop="@drawable/ic_expand_more_black_24dp"
+                android:text="分享"
+                android:gravity="center"
+                android:layout_weight="1"
+                />
 
-    </android.support.design.widget.CoordinatorLayout>
+        </LinearLayout>
 
-    <LinearLayout
-        android:id="@+id/bottom_bar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center_vertical"
-        android:layout_alignParentBottom="true"
-        android:padding="10dp"
-        android:background="@drawable/top_line_gray"
-        >
+    </RelativeLayout>
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:drawableTop="@drawable/ic_expand_more_black_24dp"
-            android:text="收藏"
-            android:gravity="center"
-            android:layout_weight="1"
-            />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="立即下载"
-            android:layout_gravity="center"
-            android:gravity="center"
-            android:textSize="18sp"
-            android:padding="8dp"
-            android:background="@drawable/bg_button"
-            android:textColor="@android:color/white"
-            android:layout_weight="2"
-            />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:drawableTop="@drawable/ic_expand_more_black_24dp"
-            android:text="分享"
-            android:gravity="center"
-            android:layout_weight="1"
-            />
-
-    </LinearLayout>
-
-</RelativeLayout>
+</com.zpj.widget.statelayout.StateLayout>

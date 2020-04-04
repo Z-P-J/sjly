@@ -21,6 +21,7 @@ import com.bumptech.glide.request.target.SimpleTarget;
 import com.bumptech.glide.request.transition.Transition;
 import com.daimajia.swipe.SwipeLayout;
 import com.zpj.fragmentation.BaseFragment;
+import com.zpj.fragmentation.anim.DefaultHorizontalAnimator;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.glide.blur.BlurTransformation2;
 import com.zpj.shouji.market.ui.widget.PercentImageView;
@@ -43,6 +44,12 @@ public class AboutMeFragment extends BaseFragment {
     PercentImageView piv_wx_qrcode;
 
     @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        setFragmentAnimator(new DefaultNoAnimator());
+        super.onCreate(savedInstanceState);
+    }
+
+    @Override
     protected int getLayoutId() {
         return R.layout.fragment_about_me;
     }
@@ -54,28 +61,41 @@ public class AboutMeFragment extends BaseFragment {
 
     @Override
     protected void initView(View view, @Nullable Bundle savedInstanceState) {
+        setToolbarTitle("关于作者");
         iv_blur = view.findViewById(R.id.iv_blur);
 
         Glide.with(context)
                 .load(getResources().getDrawable(R.drawable.logo_author))
-                .apply(RequestOptions.bitmapTransform(new BlurTransformation2(0.2f)))
+                .apply(RequestOptions.bitmapTransform(new BlurTransformation2(1f, 1f)))
                 .into(new SimpleTarget<Drawable>() {
                     @Override
                     public void onResourceReady(@NonNull Drawable resource, @Nullable Transition<? super Drawable> transition) {
                         iv_blur.setImageDrawable(resource);
                         iv_blur.setAlpha(0F);
                         post(() -> {
-                            changeViewAlpha(iv_blur, 0, 1, 600);
-                            changeViewSize(iv_blur, 2, 1, 1000);
+                            changeViewAlpha(iv_blur, 0, 1, 500);
+                            changeViewSize(iv_blur, 2, 1, 2000);
                         });
                     }
                 });
     }
 
     @Override
-    public FragmentAnimator onCreateFragmentAnimator() {
-        return new DefaultNoAnimator();
+    public void onEnterAnimationEnd(Bundle savedInstanceState) {
+        super.onEnterAnimationEnd(savedInstanceState);
+        _mActivity.setFragmentAnimator(new DefaultHorizontalAnimator());
+        setFragmentAnimator(new DefaultHorizontalAnimator());
     }
+
+//    @Override
+//    public FragmentAnimator onCreateFragmentAnimator() {
+//        return new DefaultNoAnimator();
+//    }
+//
+//    @Override
+//    public void onDestroy() {
+//        super.onDestroy();
+//    }
 
     private void changeVisible(int visible, View... views) {
         for (View view : views) {

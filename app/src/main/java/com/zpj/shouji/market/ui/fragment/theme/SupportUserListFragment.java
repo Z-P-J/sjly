@@ -21,16 +21,18 @@ public class SupportUserListFragment extends NextUrlFragment<SupportUserInfo> {
     public void setData(List<SupportUserInfo> list) {
         this.data.clear();
         data.addAll(list);
-        recyclerLayout.notifyDataSetChanged();
-        if (data.isEmpty()) {
-            recyclerLayout.showEmpty();
+        if (isSupportVisible()) {
+            recyclerLayout.notifyDataSetChanged();
+//            if (data.isEmpty()) {
+//                recyclerLayout.showEmpty();
+//            }
         }
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        recyclerLayout.showLoading();
+//        recyclerLayout.showLoading();
     }
 
     @Override

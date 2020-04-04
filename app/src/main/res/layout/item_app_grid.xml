@@ -62,6 +62,7 @@
         android:paddingTop="6dp"
         android:paddingBottom="6dp"
         android:layout_marginTop="8dp"
+        android:gravity="center"
         />
 
 </LinearLayout>

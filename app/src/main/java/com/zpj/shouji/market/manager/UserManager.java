@@ -97,7 +97,6 @@ public final class UserManager {
 
     private void signIn() {
         String sessionId = getSessionId();
-        memberInfo = null;
         Log.d(getClass().getName(), "jsessionid=" + sessionId);
         HttpApi.openConnection("http://tt.shouji.com.cn/app/xml_login_v4.jsp?versioncode=198&version=2.9.9.9.3")
                 .data("jsessionid", sessionId)
@@ -152,7 +151,11 @@ public final class UserManager {
             info = "登录失败";
         }
         AToast.normal(info);
-        onSignInFailed(info);
+        if (memberInfo == null) {
+            onSignInFailed(info);
+        } else {
+            onSignInSuccess();
+        }
     }
 
     public void signUp(String account, String password, String email) {

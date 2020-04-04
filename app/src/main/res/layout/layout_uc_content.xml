@@ -59,7 +59,7 @@
         </LinearLayout>
     </com.zpj.shouji.market.ui.widget.DisInterceptNestedScrollView>
 
-    <com.zpj.widget.ZViewPager
+    <com.zpj.shouji.market.ui.widget.ZViewPager
         android:id="@+id/uc_viewpager"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

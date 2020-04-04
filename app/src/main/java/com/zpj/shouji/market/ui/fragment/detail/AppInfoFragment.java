@@ -15,6 +15,7 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.target.SimpleTarget;
 import com.bumptech.glide.request.transition.Transition;
+import com.felix.atoast.library.AToast;
 import com.zpj.fragmentation.BaseFragment;
 import com.zpj.popup.ZPopup;
 import com.zpj.recyclerview.EasyRecyclerView;
@@ -138,23 +139,35 @@ public class AppInfoFragment extends BaseFragment
 
     @Subscribe
     public void onGetAppDetailInfo(AppDetailInfo info) {
-        postOnEnterAnimationEnd(() -> {
-//            imgUrlList.clear();
-//            imgUrlList.addAll(info.getImgUrlList());
-//
-            LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
-            layoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
-            recyclerView.setItemRes(R.layout.item_image)
-                    .setData(info.getImgUrlList())
-                    .setLayoutManager(layoutManager)
-                    .onBindViewHolder(this)
-                    .build();
-            recyclerView.notifyDataSetChanged();
-            addItem("应用简介", info.getAppIntroduceContent());
-            addItem("新版特性", info.getUpdateContent());
-            addItem("详细信息", info.getAppInfo());
-            addItem("权限信息", info.getPermissionContent());
-        });
+//        postOnEnterAnimationEnd(() -> {
+////            imgUrlList.clear();
+////            imgUrlList.addAll(info.getImgUrlList());
+////
+//            LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
+//            layoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
+//            recyclerView.setItemRes(R.layout.item_image)
+//                    .setData(info.getImgUrlList())
+//                    .setLayoutManager(layoutManager)
+//                    .onBindViewHolder(this)
+//                    .build();
+//            recyclerView.notifyDataSetChanged();
+//            addItem("应用简介", info.getAppIntroduceContent());
+//            addItem("新版特性", info.getUpdateContent());
+//            addItem("详细信息", info.getAppInfo());
+//            addItem("权限信息", info.getPermissionContent());
+//        });
+        LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
+        layoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
+        recyclerView.setItemRes(R.layout.item_image)
+                .setData(info.getImgUrlList())
+                .setLayoutManager(layoutManager)
+                .onBindViewHolder(this)
+                .build();
+        recyclerView.notifyDataSetChanged();
+        addItem("应用简介", info.getAppIntroduceContent());
+        addItem("新版特性", info.getUpdateContent());
+        addItem("详细信息", info.getAppInfo());
+        addItem("权限信息", info.getPermissionContent());
     }
 
     private void addItem(String title, String text) {

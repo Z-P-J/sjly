@@ -14,6 +14,7 @@ import android.widget.RelativeLayout;
 
 import com.felix.atoast.library.AToast;
 import com.zpj.fragmentation.BaseFragment;
+import com.zpj.fragmentation.anim.DefaultNoAnimator;
 import com.zpj.fragmentation.swipeback.SwipeBackLayout;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.event.ToggleLoginModeEvent;
@@ -53,6 +54,12 @@ public class LoginFragment extends BaseFragment
         LoginFragment fragment = new LoginFragment();
         fragment.setArguments(args);
         return fragment;
+    }
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        setFragmentAnimator(new DefaultVerticalAnimator());
+        super.onCreate(savedInstanceState);
     }
 
     @Override
@@ -110,6 +117,7 @@ public class LoginFragment extends BaseFragment
 
     @Override
     public void onDestroy() {
+        _mActivity.setFragmentAnimator(new DefaultHorizontalAnimator());
         UserManager.getInstance().removeOnSignInListener(this);
         UserManager.getInstance().removeOnSignUpListener(this);
         EventBus.getDefault().unregister(this);

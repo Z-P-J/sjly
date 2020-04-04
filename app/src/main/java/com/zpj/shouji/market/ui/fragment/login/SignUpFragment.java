@@ -20,7 +20,7 @@ import com.zpj.shouji.market.ui.fragment.WebFragment;
 import com.zpj.shouji.market.ui.widget.input.InputView;
 import com.zpj.shouji.market.ui.widget.input.PasswordInputView;
 import com.zpj.shouji.market.ui.widget.SubmitView;
-import com.zpj.widget.SmoothCheckBox;
+import com.zpj.widget.checkbox.SmoothCheckBox;
 
 public class SignUpFragment extends BaseFragment
         implements View.OnClickListener, UserManager.OnSignUpListener {

@@ -1,11 +1,17 @@
 package com.zpj.shouji.market.ui.fragment.collection;
 
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.graphics.Color;
+import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.design.widget.AppBarLayout;
 import android.support.v4.app.Fragment;
+import android.support.v4.graphics.ColorUtils;
 import android.support.v4.view.ViewPager;
+import android.support.v7.graphics.Palette;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
@@ -14,13 +20,16 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
+import com.bumptech.glide.request.target.SimpleTarget;
+import com.bumptech.glide.request.transition.Transition;
+import com.zpj.fragmentation.BaseFragment;
 import com.zpj.shouji.market.R;
+import com.zpj.shouji.market.api.HttpApi;
 import com.zpj.shouji.market.model.CollectionInfo;
 import com.zpj.shouji.market.ui.adapter.FragmentsPagerAdapter;
 import com.zpj.shouji.market.ui.fragment.theme.ThemeListFragment;
-import com.zpj.fragmentation.BaseFragment;
-import com.zpj.shouji.market.api.HttpApi;
 import com.zpj.utils.ScreenUtils;
+import com.zpj.widget.statelayout.StateLayout;
 
 import net.lucode.hackware.magicindicator.MagicIndicator;
 import net.lucode.hackware.magicindicator.ViewPagerHelper;
@@ -33,10 +42,18 @@ import net.lucode.hackware.magicindicator.buildins.commonnavigator.titles.ColorT
 
 import java.util.ArrayList;
 
+import io.reactivex.Observable;
+import io.reactivex.ObservableOnSubscribe;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.schedulers.Schedulers;
+import per.goweii.burred.Blurred;
+
 public class CollectionDetailFragment extends BaseFragment {
 
     private final String[] TAB_TITLES = {"应用", "评论"};
 
+    private StateLayout stateLayout;
+    private AppBarLayout appBarLayout;
     private ImageView ivIcon;
     private ImageView ivAvatar;
     private TextView tvTitle;
@@ -79,6 +96,9 @@ public class CollectionDetailFragment extends BaseFragment {
             pop();
             return;
         }
+        stateLayout = view.findViewById(R.id.state_layout);
+        stateLayout.showLoadingView();
+        appBarLayout = view.findViewById(R.id.appbar);
         ivIcon = view.findViewById(R.id.iv_icon);
         tvTitle = view.findViewById(R.id.tv_title);
         ivAvatar = view.findViewById(R.id.iv_avatar);
@@ -93,8 +113,6 @@ public class CollectionDetailFragment extends BaseFragment {
         TAB_TITLES[0] = TAB_TITLES[0] + "(" + item.getSize() + ")";
         TAB_TITLES[1] = TAB_TITLES[1] + "(" + item.getReplyCount() + ")";
 
-        getCollectionInfo();
-
         toolbar.setTitle(item.getTitle());
         tvTitle.setText(item.getTitle());
         tvUserName.setText(item.getNickName());
@@ -102,7 +120,6 @@ public class CollectionDetailFragment extends BaseFragment {
         tvFavorite.setText(item.getFavCount() + "");
         tvSupport.setText(item.getSupportCount() + "");
         tvView.setText(item.getViewCount() + "");
-
 
 
         ArrayList<Fragment> list = new ArrayList<>();
@@ -156,6 +173,12 @@ public class CollectionDetailFragment extends BaseFragment {
         ViewPagerHelper.bind(magicIndicator, viewPager);
     }
 
+    @Override
+    public void onEnterAnimationEnd(Bundle savedInstanceState) {
+        super.onEnterAnimationEnd(savedInstanceState);
+        getCollectionInfo();
+    }
+
     private void setAppCollectionItem(CollectionInfo item) {
         this.item = item;
     }
@@ -172,10 +195,61 @@ public class CollectionDetailFragment extends BaseFragment {
                     time = doc.selectFirst("time").text();
                     userAvatarUrl = doc.selectFirst("memberAvatar").text();
                     RequestOptions options = new RequestOptions().centerCrop().error(R.mipmap.ic_launcher).placeholder(R.mipmap.ic_launcher);
-                    Glide.with(context).load(backgroundUrl).apply(options).into(ivIcon);
+//                    Glide.with(context).load(backgroundUrl).apply(options).into(ivIcon);
                     Glide.with(context).load(userAvatarUrl).apply(options).into(ivAvatar);
+                    Glide.with(context).asBitmap().load(backgroundUrl).apply(options).into(new SimpleTarget<Bitmap>() {
+                        @Override
+                        public void onResourceReady(@NonNull Bitmap resource, @Nullable Transition<? super Bitmap> transition) {
+                            ivIcon.setImageBitmap(resource);
+                            Observable.create((ObservableOnSubscribe<Bitmap>) emitter -> {
+                                Bitmap bitmap = Blurred.with(resource)
+                                        .percent(0.1f)
+                                        .scale(0.1f)
+                                        .blur();
+                                emitter.onNext(bitmap);
+                                emitter.onComplete();
+                            })
+                                    .subscribeOn(Schedulers.io())
+                                    .observeOn(AndroidSchedulers.mainThread())
+                                    .doOnNext(bitmap -> {
+                                        appBarLayout.setBackground(new BitmapDrawable(getResources(), bitmap));
+                                        getColor(bitmap);
+                                    })
+                                    .subscribe();
+                        }
+                    });
+                    stateLayout.showContentView();
                 })
+                .onError(throwable -> stateLayout.showErrorView(throwable.getMessage()))
                 .subscribe();
+    }
+
+    public void getColor(Bitmap bitmap) {
+        Palette.from(bitmap)
+                .generate(palette -> {
+                    if (palette != null) {
+                        Palette.Swatch s = palette.getDominantSwatch();//独特的一种
+                        if (s != null) {
+                            post(() -> {
+                                boolean isDark = ColorUtils.calculateLuminance(s.getRgb()) <= 0.5;
+                                if (isDark) {
+                                    lightStatusBar();
+                                } else {
+                                    darkStatusBar();
+                                }
+                                int color = getResources().getColor(isDark ? R.color.white : R.color.color_text_major);
+                                tvTitle.setTextColor(color);
+                                tvUserName.setTextColor(color);
+                                tvDesc.setTextColor(color);
+                                tvFavorite.setTextColor(color);
+                                tvSupport.setTextColor(color);
+                                tvView.setTextColor(color);
+                                toolbar.setLightStyle(isDark);
+                            });
+
+                        }
+                    }
+                });
     }
 
 }

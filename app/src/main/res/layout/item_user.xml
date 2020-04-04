@@ -68,6 +68,7 @@
         android:layout_alignParentEnd="true"
         android:layout_centerVertical="true"
         android:layout_margin="10dp"
+        android:gravity="center"
         />
 
 

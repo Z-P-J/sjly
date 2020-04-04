@@ -17,8 +17,16 @@ import android.widget.TextView;
 import com.zpj.fragmentation.SupportActivity;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.manager.UserManager;
+import com.zpj.shouji.market.ui.fragment.profile.MyBlacklistFragment;
+import com.zpj.shouji.market.ui.fragment.profile.MyBookingFragment;
+import com.zpj.shouji.market.ui.fragment.profile.MyCollectionFragment;
+import com.zpj.shouji.market.ui.fragment.profile.MyCommentFragment;
+import com.zpj.shouji.market.ui.fragment.profile.MyDiscoverFragment;
 import com.zpj.shouji.market.ui.fragment.profile.MyFragment;
+import com.zpj.shouji.market.ui.fragment.profile.MyFriendsFragment;
 import com.zpj.shouji.market.ui.fragment.profile.ProfileFragment;
+
+import org.greenrobot.eventbus.EventBus;
 
 import io.reactivex.Observable;
 import io.reactivex.ObservableOnSubscribe;
@@ -61,13 +69,13 @@ public class MyToolsCard extends LCardView implements View.OnClickListener {
         flNotLogin = findViewById(R.id.fl_not_login);
         ImageView ivBg = findViewById(R.id.iv_bg);
         GridLayout gridLayout = findViewById(R.id.grid);
-        gridLayout.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+        getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
             @Override
             public void onGlobalLayout() {
-                gridLayout.getViewTreeObserver().removeOnGlobalLayoutListener(this);
+                getViewTreeObserver().removeOnGlobalLayoutListener(this);
                 Observable.create((ObservableOnSubscribe<Bitmap>) emitter -> {
-                    Bitmap bitmap = Blurred.with(gridLayout)
-                            .foregroundColor(Color.parseColor("#40ffffff"))
+                    Bitmap bitmap = Blurred.with(MyToolsCard.this)
+//                            .foregroundColor(Color.parseColor("#40ffffff"))
                             .scale(1f / 8f)
                             .radius(20)
                             .blur();
@@ -115,22 +123,29 @@ public class MyToolsCard extends LCardView implements View.OnClickListener {
                 fragment.showLoginPopup(1);
                 break;
             case R.id.tv_my_homepage:
-                activity.start(ProfileFragment.newInstance(UserManager.getInstance().getUserId(), false));
+                EventBus.getDefault().post(ProfileFragment.newInstance(UserManager.getInstance().getUserId(), false));
+//                activity.start(ProfileFragment.newInstance(UserManager.getInstance().getUserId(), false));
                 break;
             case R.id.tv_my_discovers:
-
+                EventBus.getDefault().post(new MyDiscoverFragment());
                 break;
             case R.id.tv_my_comments:
+                EventBus.getDefault().post(new MyCommentFragment());
                 break;
             case R.id.tv_my_friends:
+                EventBus.getDefault().post(new MyFriendsFragment());
                 break;
             case R.id.tv_my_messages:
+
                 break;
             case R.id.tv_my_collections:
+                EventBus.getDefault().post(new MyCollectionFragment());
                 break;
             case R.id.tv_my_bookings:
+                EventBus.getDefault().post(new MyBookingFragment());
                 break;
             case R.id.tv_my_blacklist:
+                EventBus.getDefault().post(new MyBlacklistFragment());
                 break;
         }
     }

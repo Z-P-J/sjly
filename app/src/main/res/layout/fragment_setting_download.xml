@@ -10,7 +10,7 @@
 
     <include layout="@layout/layout_toolbar"/>
 
-    <com.zpj.widget.ElasticScrollView
+    <com.zpj.shouji.market.ui.widget.ElasticScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:scrollbars="none"
@@ -74,6 +74,6 @@
         </www.linwg.org.lib.LCardView>
 
 
-    </com.zpj.widget.ElasticScrollView>
+    </com.zpj.shouji.market.ui.widget.ElasticScrollView>
 
 </LinearLayout>

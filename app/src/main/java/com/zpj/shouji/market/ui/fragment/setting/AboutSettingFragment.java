@@ -49,6 +49,7 @@ public class AboutSettingFragment extends BaseSettingFragment {
                 _mActivity.start(WebFragment.newInstance("https://wap.shouji.com.cn/ysxy.html", "隐私协议"));
                 break;
             case R.id.item_about_me:
+                _mActivity.setFragmentAnimator(new DefaultNoAnimator());
                 _mActivity.start(new AboutMeFragment());
                 break;
             case R.id.item_check_update:

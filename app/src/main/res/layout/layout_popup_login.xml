@@ -22,7 +22,7 @@
         app:z_toolbar_rightImageResource="@drawable/ic_clear_black_24dp"
         />
 
-    <com.zpj.widget.ElasticScrollView
+    <com.zpj.shouji.market.ui.widget.ElasticScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
@@ -31,7 +31,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
 
-    </com.zpj.widget.ElasticScrollView>
+    </com.zpj.shouji.market.ui.widget.ElasticScrollView>
 
 
 

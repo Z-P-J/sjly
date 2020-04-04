@@ -7,12 +7,14 @@
         android:id="@+id/grid"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingTop="16dp"
-        android:paddingBottom="16dp"
+        android:padding="16dp"
         app:orientation="horizontal"
         app:columnCount="4"
         app:rowCount="2"
         >
+
+<!--        android:paddingTop="16dp"-->
+<!--        android:paddingBottom="16dp"-->
 
         <com.zpj.shouji.market.ui.widget.DrawableTintTextView
             style="@style/me_tool_card_item_style"

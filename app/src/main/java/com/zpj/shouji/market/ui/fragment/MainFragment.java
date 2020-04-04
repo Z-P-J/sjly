@@ -27,7 +27,7 @@ import com.zpj.shouji.market.ui.fragment.recommond.SoftRecommendFragment2;
 import com.zpj.shouji.market.ui.widget.BottomBar;
 import com.zpj.shouji.market.ui.widget.BottomBarTab;
 import com.zpj.shouji.market.ui.widget.popup.MorePopup;
-import com.zpj.widget.ZViewPager;
+import com.zpj.shouji.market.ui.widget.ZViewPager;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -93,7 +93,11 @@ public class MainFragment extends BaseFragment
         mBottomBar.setOnTabSelectedListener(new BottomBar.OnTabSelectedListener() {
             @Override
             public void onTabSelected(int position, int prePosition) {
-                if (position >= 2) {
+                if (position == 2) {
+                    floatingActionButton.performClick();
+                    return;
+                }
+                if (position > 2) {
                     position -= 1;
                 }
                 if(viewPager.getCurrentItem() != position) {

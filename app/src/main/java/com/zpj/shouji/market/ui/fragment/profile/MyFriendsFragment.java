@@ -8,13 +8,11 @@ import android.support.v4.view.ViewPager;
 import android.view.View;
 
 import com.zpj.fragmentation.BaseFragment;
-import com.zpj.markdown.MarkdownEditorFragment;
-import com.zpj.markdown.MarkdownViewFragment;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.manager.UserManager;
 import com.zpj.shouji.market.ui.adapter.FragmentsPagerAdapter;
+import com.zpj.shouji.market.ui.fragment.UserListFragment;
 import com.zpj.shouji.market.ui.fragment.theme.ThemeListFragment;
-import com.zpj.shouji.market.ui.widget.ScaleTransitionPagerTitleView;
 import com.zpj.utils.ScreenUtils;
 
 import net.lucode.hackware.magicindicator.MagicIndicator;
@@ -29,9 +27,9 @@ import net.lucode.hackware.magicindicator.buildins.commonnavigator.titles.ColorT
 import java.util.ArrayList;
 import java.util.List;
 
-public class MyDiscoverFragment extends BaseFragment {
+public class MyFriendsFragment extends BaseFragment {
 
-    private static final String[] TAB_TITLES = {"与我有关", "我的发现", "私有发现"};
+    private static final String[] TAB_TITLES = {"我关注的", "我的粉丝"};
 
     protected ViewPager viewPager;
 
@@ -47,26 +45,21 @@ public class MyDiscoverFragment extends BaseFragment {
 
     @Override
     protected void initView(View view, @Nullable Bundle savedInstanceState) {
-        setToolbarTitle("我的发现");
+        setToolbarTitle("我的好友");
         viewPager = view.findViewById(R.id.view_pager);
         List<Fragment> fragments = new ArrayList<>();
-        MyRelatedDiscoverFragment myRelatedDiscoverFragment = findChildFragment(MyRelatedDiscoverFragment.class);
-        if (myRelatedDiscoverFragment == null) {
-            myRelatedDiscoverFragment = MyRelatedDiscoverFragment.newInstance();
+        FollowersFragment followersFragment = findChildFragment(FollowersFragment.class);
+        if (followersFragment == null) {
+            followersFragment = FollowersFragment.newInstance();
         }
-        MyPublishDiscoverFragment myPublishDiscoverFragment = findChildFragment(MyPublishDiscoverFragment.class);
-        if (myPublishDiscoverFragment == null) {
-            myPublishDiscoverFragment = MyPublishDiscoverFragment.newInstance();
+        FansFragment fansFragment = findChildFragment(FansFragment.class);
+        if (fansFragment == null) {
+            fansFragment = FansFragment.newInstance();
         }
-        MyPrivateDiscoverFragment myPrivateDiscoverFragment = findChildFragment(MyPrivateDiscoverFragment.class);
-        if (myPrivateDiscoverFragment == null) {
-            myPrivateDiscoverFragment = MyPrivateDiscoverFragment.newInstance();
-        }
-        fragments.add(myRelatedDiscoverFragment);
-        fragments.add(myPublishDiscoverFragment);
-        fragments.add(myPrivateDiscoverFragment);
+        fragments.add(followersFragment);
+        fragments.add(fansFragment);
         viewPager.setAdapter(new FragmentsPagerAdapter(getChildFragmentManager(), fragments, TAB_TITLES));
-        viewPager.setOffscreenPageLimit(3);
+        viewPager.setOffscreenPageLimit(fragments.size());
 
         MagicIndicator magicIndicator = view.findViewById(R.id.magic_indicator);
         CommonNavigator navigator = new CommonNavigator(getContext());
@@ -103,49 +96,32 @@ public class MyDiscoverFragment extends BaseFragment {
 
     }
 
-    public static class MyRelatedDiscoverFragment extends ThemeListFragment {
-
-        public static MyRelatedDiscoverFragment newInstance() {
-            String url = "http://tt.shouji.com.cn/app/user_content_list_xml_v2.jsp?versioncode=198&t=discuss&jsessionid="
-                    + UserManager.getInstance().getSessionId() + "&thread=thread&sn="
-                    + UserManager.getInstance().getMemberInfo().getSn();
-            Bundle args = new Bundle();
-            args.putString(KEY_DEFAULT_URL, url);
-            MyRelatedDiscoverFragment fragment = new MyRelatedDiscoverFragment();
-            fragment.setArguments(args);
-            return fragment;
-        }
-
-    }
-
-    public static class MyPublishDiscoverFragment extends ThemeListFragment {
-
-        public static MyPublishDiscoverFragment newInstance() {
-            String url = "http://tt.shouji.com.cn/app/user_content_list_xml_v2.jsp?versioncode=198&t=discuss&jsessionid="
+    public static class FollowersFragment extends UserListFragment {
+        public static FollowersFragment newInstance() {
+            String url = "http://tt.shouji.com.cn/app/user_friend_list_xml.jsp?versioncode=198&jsessionid="
                     + UserManager.getInstance().getSessionId() + "&sn="
                     + UserManager.getInstance().getMemberInfo().getSn();
             Bundle args = new Bundle();
             args.putString(KEY_DEFAULT_URL, url);
-            MyPublishDiscoverFragment fragment = new MyPublishDiscoverFragment();
+            FollowersFragment fragment = new FollowersFragment();
             fragment.setArguments(args);
             return fragment;
         }
-
     }
 
-    public static class MyPrivateDiscoverFragment extends ThemeListFragment {
-
-        public static MyPrivateDiscoverFragment newInstance() {
-            String url = "http://tt.shouji.com.cn/app/user_content_list_xml_v2.jsp?versioncode=198&t=discuss&jsessionid="
-                    + UserManager.getInstance().getSessionId() + "&thread=private&sn="
+    public static class FansFragment extends UserListFragment {
+        public static FansFragment newInstance() {
+            String url = "http://tt.shouji.com.cn/app/user_fensi_list_xml.jsp?versioncode=198&jsessionid="
+                    + UserManager.getInstance().getSessionId() + "&sn="
                     + UserManager.getInstance().getMemberInfo().getSn();
             Bundle args = new Bundle();
             args.putString(KEY_DEFAULT_URL, url);
-            MyPrivateDiscoverFragment fragment = new MyPrivateDiscoverFragment();
+            FansFragment fragment = new FansFragment();
             fragment.setArguments(args);
             return fragment;
         }
-
     }
+
+
 
 }

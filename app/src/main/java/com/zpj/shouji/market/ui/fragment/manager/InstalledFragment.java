@@ -42,9 +42,8 @@ import com.zpj.utils.ScreenUtils;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.zpj.widget.SmoothCheckBox;
-
 import com.zpj.fragmentation.SupportActivity;
+import com.zpj.widget.checkbox.SmoothCheckBox;
 
 public class InstalledFragment extends RecyclerLayoutFragment<InstalledAppInfo>
         implements AppInstalledManager.CallBack,

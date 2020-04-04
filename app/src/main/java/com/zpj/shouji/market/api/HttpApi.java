@@ -89,5 +89,43 @@ public final class HttpApi {
         return connect("http://tt.shouji.com.cn/androidv3/netgame.jsp");
     }
 
+    public static String myCollectionAppsUrl() {
+        return getCollectUrl("user_fav_index_xml_v2");
+    }
+
+    public static String myCollectionsUrl() {
+        return getCollectUrl("user_yyj_fav_xml");
+    }
+
+    public static String myCollectionDiscoverUrl() {
+        return getCollectUrl("user_review_fav_xml_v2") + "&t=discuss";
+    }
+
+    public static String myCollectionCommentUrl() {
+        return getCollectUrl("user_review_fav_xml_v2") + "&t=reivew";
+    }
+
+    public static String myCollectionWallpaperUrl() {
+        return getCollectUrl("user_letu_fav_xml_v2");
+    }
+
+    public static String myCollectionSubjectUrl() {
+        return getCollectUrl("user_special_fav_index");
+    }
+
+    public static String myCollectionGameTutorialUrl() {
+        return getCollectUrl("user_article_fav_list") + "&type=game";
+    }
+
+    public static String myCollectionSoftTutorialUrl() {
+        return getCollectUrl("user_article_fav_list") + "&type=soft";
+    }
+
+    private static String getCollectUrl(String key) {
+        return "http://tt.shouji.com.cn/app/" + key + ".jsp?versioncode=198&jsessionid="
+                + UserManager.getInstance().getSessionId() + "&sn="
+                + UserManager.getInstance().getMemberInfo().getSn();
+    }
+
 
 }

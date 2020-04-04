@@ -1,19 +1,29 @@
 package com.zpj.shouji.market.ui.fragment.detail;
 
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.graphics.Color;
+import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.design.widget.AppBarLayout;
 import android.support.v4.app.Fragment;
+import android.support.v4.graphics.ColorUtils;
 import android.support.v4.view.ViewPager;
+import android.support.v7.graphics.Palette;
 import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.target.SimpleTarget;
+import com.bumptech.glide.request.transition.Transition;
+import com.felix.atoast.library.AToast;
 import com.shehuan.niv.NiceImageView;
 import com.zpj.fragmentation.BaseFragment;
 import com.zpj.shouji.market.R;
+import com.zpj.shouji.market.api.HttpApi;
 import com.zpj.shouji.market.model.AppDetailInfo;
 import com.zpj.shouji.market.model.AppInfo;
 import com.zpj.shouji.market.model.AppUpdateInfo;
@@ -21,8 +31,8 @@ import com.zpj.shouji.market.model.CollectionAppInfo;
 import com.zpj.shouji.market.model.InstalledAppInfo;
 import com.zpj.shouji.market.model.UserDownloadedAppInfo;
 import com.zpj.shouji.market.ui.adapter.FragmentsPagerAdapter;
-import com.zpj.shouji.market.api.HttpApi;
 import com.zpj.utils.ScreenUtils;
+import com.zpj.widget.statelayout.StateLayout;
 
 import net.lucode.hackware.magicindicator.MagicIndicator;
 import net.lucode.hackware.magicindicator.ViewPagerHelper;
@@ -37,7 +47,15 @@ import org.greenrobot.eventbus.EventBus;
 
 import java.util.ArrayList;
 
+import io.reactivex.Observable;
+import io.reactivex.ObservableOnSubscribe;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.schedulers.Schedulers;
+import per.goweii.burred.Blurred;
+
 public class AppDetailFragment extends BaseFragment {
+
+    private static final String TAG = "AppDetailFragment";
 
     private static final String[] TAB_TITLES = {"详情", "评论", "发现", "推荐"};
 
@@ -51,6 +69,8 @@ public class AppDetailFragment extends BaseFragment {
     private String type;
 
     private AppDetailInfo appDetailInfo;
+    private StateLayout stateLayout;
+    private AppBarLayout appBarLayout;
     private NiceImageView icon;
     private TextView title;
     private TextView shortInfo;
@@ -110,7 +130,9 @@ public class AppDetailFragment extends BaseFragment {
             pop();
             return;
         }
-
+        stateLayout = view.findViewById(R.id.state_layout);
+        stateLayout.showLoadingView();
+        appBarLayout = view.findViewById(R.id.appbar);
         icon = view.findViewById(R.id.iv_icon);
         title = view.findViewById(R.id.tv_title);
         shortInfo = view.findViewById(R.id.tv_info);
@@ -146,7 +168,7 @@ public class AppDetailFragment extends BaseFragment {
         FragmentsPagerAdapter adapter = new FragmentsPagerAdapter(getChildFragmentManager(), list, TAB_TITLES);
         ViewPager viewPager = view.findViewById(R.id.view_pager);
         viewPager.setAdapter(adapter);
-        viewPager.setOffscreenPageLimit(4);
+        viewPager.setOffscreenPageLimit(list.size());
         MagicIndicator magicIndicator = view.findViewById(R.id.magic_indicator);
         CommonNavigator navigator = new CommonNavigator(getContext());
         navigator.setAdjustMode(true);
@@ -180,6 +202,11 @@ public class AppDetailFragment extends BaseFragment {
         });
         magicIndicator.setNavigator(navigator);
         ViewPagerHelper.bind(magicIndicator, viewPager);
+    }
+
+    @Override
+    public void onEnterAnimationEnd(Bundle savedInstanceState) {
+        super.onEnterAnimationEnd(savedInstanceState);
         getAppInfo(url);
     }
 
@@ -189,40 +216,87 @@ public class AppDetailFragment extends BaseFragment {
                 .onSuccess(data -> {
                     AppDetailInfo info = AppDetailInfo.create(data);
                     appDetailInfo = info;
-                    EventBus.getDefault().post(info);
-                    Glide.with(context).load(appDetailInfo.getIconUrl()).into(icon);
+                    Glide.with(context).asBitmap().load(appDetailInfo.getIconUrl()).into(new SimpleTarget<Bitmap>() {
+                        @Override
+                        public void onResourceReady(@NonNull Bitmap resource, @Nullable Transition<? super Bitmap> transition) {
+                            icon.setImageBitmap(resource);
+                            Log.d(TAG, "resource=" + resource);
+                            Observable.create((ObservableOnSubscribe<Bitmap>) emitter -> {
+                                Bitmap bitmap = Blurred.with(resource)
+//                                        .recycleOriginal(true)
+                                        .percent(0.2f)
+                                        .scale(0.3f)
+                                        .blur();
+                                emitter.onNext(bitmap);
+                                Log.d(TAG, "bitmap=" + bitmap);
+                                emitter.onComplete();
+                            })
+                                    .subscribeOn(Schedulers.io())
+                                    .observeOn(AndroidSchedulers.mainThread())
+                                    .doOnNext(bitmap -> {
+                                        appBarLayout.setBackground(new BitmapDrawable(getResources(), bitmap));
+                                        getColor(bitmap);
+                                    })
+                                    .subscribe();
+                        }
+                    });
+//                    Glide.with(context).load(appDetailInfo.getIconUrl()).into(icon);
                     title.setText(info.getName());
                     shortInfo.setText(info.getBaseInfo());
                     shortIntroduce.setText(info.getLineInfo());
+                    stateLayout.showContentView();
+                    postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            EventBus.getDefault().post(info);
+                        }
+                    }, 50);
                 })
+                .onError(throwable -> stateLayout.showErrorView(throwable.getMessage()))
                 .subscribe();
-
-//        ExecutorHelper.submit(() -> {
-//            try {
-//                Document doc  = HttpApi.connect(url);
-//                AppDetailInfo info = AppDetailInfo.create(doc);
-//                post(() -> {
-//                    appDetailInfo = info;
-//                    EventBus.getDefault().post(info);
-//                    Glide.with(context).load(appDetailInfo.getIconUrl()).into(icon);
-//                    title.setText(info.getName());
-//                    shortInfo.setText(info.getBaseInfo());
-//                    shortIntroduce.setText(info.getLineInfo());
-//                });
-//            } catch (Exception e) {
-//                e.printStackTrace();
-//            }
-//        });
     }
 
-//    public void getColor(Bitmap bitmap) {
-//        // Palette的部分
-//        Palette.Builder builder = Palette.from(bitmap);
-//        builder.generate(new Palette.PaletteAsyncListener() {
-//            @Override
-//            public void onGenerated(Palette palette) {
-//                //获取到充满活力的这种色调
-//                Palette.Swatch vibrant = palette.getMutedSwatch();
+    public void getColor(Bitmap bitmap) {
+        // Palette的部分
+        Palette.Builder builder = Palette.from(bitmap);
+        builder.generate(palette -> {
+            //获取到充满活力的这种色调
+//                Palette.Swatch s = palette.getMutedSwatch();
+            //获取图片中充满活力的色调
+//                Palette.Swatch s = palette.getVibrantSwatch();
+            Palette.Swatch s = palette.getDominantSwatch();//独特的一种
+            Palette.Swatch s1 = palette.getVibrantSwatch();       //获取到充满活力的这种色调
+            Palette.Swatch s2 = palette.getDarkVibrantSwatch();    //获取充满活力的黑
+            Palette.Swatch s3 = palette.getLightVibrantSwatch();   //获取充满活力的亮
+            Palette.Swatch s4 = palette.getMutedSwatch();           //获取柔和的色调
+            Palette.Swatch s5 = palette.getDarkMutedSwatch();      //获取柔和的黑
+            Palette.Swatch s6 = palette.getLightMutedSwatch();    //获取柔和的亮
+            Log.d(TAG, "s=" + s);
+            Log.d(TAG, "s1=" + s1);
+            Log.d(TAG, "s2=" + s2);
+            Log.d(TAG, "s3=" + s3);
+            Log.d(TAG, "s4=" + s4);
+            Log.d(TAG, "s5=" + s5);
+            Log.d(TAG, "s6=" + s6);
+            if (s != null) {
+//                post(() -> {
+//
+//                });
+
+                boolean isDark = ColorUtils.calculateLuminance(s.getRgb()) <= 0.5;;
+                if (isDark) {
+                    lightStatusBar();
+                } else {
+                    darkStatusBar();
+                }
+                AToast.success("isDark=" + isDark);
+                int color = getResources().getColor(isDark ? R.color.white : R.color.color_text_major);
+                title.setTextColor(color);
+                shortInfo.setTextColor(color);
+                shortIntroduce.setTextColor(color);
+                toolbar.setLightStyle(isDark);
+            }
+
 //                //根据调色板Palette获取到图片中的颜色设置到toolbar和tab中背景，标题等，使整个UI界面颜色统一
 //                if (rootView != null) {
 //                    if (vibrant != null) {
@@ -246,10 +320,9 @@ public class AppDetailFragment extends BaseFragment {
 //                        }
 //                    }
 //                }
-//
-//            }
-//        });
-//    }
+
+        });
+    }
 
 
 }

@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:background="@android:color/white">
 
-    <com.zpj.widget.ElasticScrollView
+    <com.zpj.shouji.market.ui.widget.ElasticScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
@@ -69,6 +69,6 @@
         </LinearLayout>
 
 
-    </com.zpj.widget.ElasticScrollView>
+    </com.zpj.shouji.market.ui.widget.ElasticScrollView>
 
 </LinearLayout>

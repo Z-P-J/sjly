@@ -8,8 +8,6 @@ import android.support.v4.view.ViewPager;
 import android.view.View;
 
 import com.zpj.fragmentation.BaseFragment;
-import com.zpj.markdown.MarkdownEditorFragment;
-import com.zpj.markdown.MarkdownViewFragment;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.manager.UserManager;
 import com.zpj.shouji.market.ui.adapter.FragmentsPagerAdapter;
@@ -29,9 +27,9 @@ import net.lucode.hackware.magicindicator.buildins.commonnavigator.titles.ColorT
 import java.util.ArrayList;
 import java.util.List;
 
-public class MyDiscoverFragment extends BaseFragment {
+public class MyCommentFragment extends BaseFragment {
 
-    private static final String[] TAB_TITLES = {"与我有关", "我的发现", "私有发现"};
+    private static final String[] TAB_TITLES = {"评论", "发起的评论"};
 
     protected ViewPager viewPager;
 
@@ -47,26 +45,21 @@ public class MyDiscoverFragment extends BaseFragment {
 
     @Override
     protected void initView(View view, @Nullable Bundle savedInstanceState) {
-        setToolbarTitle("我的发现");
+        setToolbarTitle("我的评论");
         viewPager = view.findViewById(R.id.view_pager);
         List<Fragment> fragments = new ArrayList<>();
-        MyRelatedDiscoverFragment myRelatedDiscoverFragment = findChildFragment(MyRelatedDiscoverFragment.class);
-        if (myRelatedDiscoverFragment == null) {
-            myRelatedDiscoverFragment = MyRelatedDiscoverFragment.newInstance();
+        MyRelatedCommentFragment myRelatedCommentFragment = findChildFragment(MyRelatedCommentFragment.class);
+        if (myRelatedCommentFragment == null) {
+            myRelatedCommentFragment = MyRelatedCommentFragment.newInstance();
         }
-        MyPublishDiscoverFragment myPublishDiscoverFragment = findChildFragment(MyPublishDiscoverFragment.class);
-        if (myPublishDiscoverFragment == null) {
-            myPublishDiscoverFragment = MyPublishDiscoverFragment.newInstance();
+        MyPublishCommentFragment myPublishCommentFragment = findChildFragment(MyPublishCommentFragment.class);
+        if (myPublishCommentFragment == null) {
+            myPublishCommentFragment = MyPublishCommentFragment.newInstance();
         }
-        MyPrivateDiscoverFragment myPrivateDiscoverFragment = findChildFragment(MyPrivateDiscoverFragment.class);
-        if (myPrivateDiscoverFragment == null) {
-            myPrivateDiscoverFragment = MyPrivateDiscoverFragment.newInstance();
-        }
-        fragments.add(myRelatedDiscoverFragment);
-        fragments.add(myPublishDiscoverFragment);
-        fragments.add(myPrivateDiscoverFragment);
+        fragments.add(myRelatedCommentFragment);
+        fragments.add(myPublishCommentFragment);
         viewPager.setAdapter(new FragmentsPagerAdapter(getChildFragmentManager(), fragments, TAB_TITLES));
-        viewPager.setOffscreenPageLimit(3);
+        viewPager.setOffscreenPageLimit(2);
 
         MagicIndicator magicIndicator = view.findViewById(R.id.magic_indicator);
         CommonNavigator navigator = new CommonNavigator(getContext());
@@ -103,45 +96,30 @@ public class MyDiscoverFragment extends BaseFragment {
 
     }
 
-    public static class MyRelatedDiscoverFragment extends ThemeListFragment {
+    public static class MyRelatedCommentFragment extends ThemeListFragment {
 
-        public static MyRelatedDiscoverFragment newInstance() {
-            String url = "http://tt.shouji.com.cn/app/user_content_list_xml_v2.jsp?versioncode=198&t=discuss&jsessionid="
+        public static MyRelatedCommentFragment newInstance() {
+            String url = "http://tt.shouji.com.cn/app/user_content_list_xml_v2.jsp?versioncode=198&t=review&jsessionid="
                     + UserManager.getInstance().getSessionId() + "&thread=thread&sn="
                     + UserManager.getInstance().getMemberInfo().getSn();
             Bundle args = new Bundle();
             args.putString(KEY_DEFAULT_URL, url);
-            MyRelatedDiscoverFragment fragment = new MyRelatedDiscoverFragment();
+            MyRelatedCommentFragment fragment = new MyRelatedCommentFragment();
             fragment.setArguments(args);
             return fragment;
         }
 
     }
 
-    public static class MyPublishDiscoverFragment extends ThemeListFragment {
+    public static class MyPublishCommentFragment extends ThemeListFragment {
 
-        public static MyPublishDiscoverFragment newInstance() {
-            String url = "http://tt.shouji.com.cn/app/user_content_list_xml_v2.jsp?versioncode=198&t=discuss&jsessionid="
+        public static MyPublishCommentFragment newInstance() {
+            String url = "http://tt.shouji.com.cn/app/user_content_list_xml_v2.jsp?versioncode=198&t=review&jsessionid="
                     + UserManager.getInstance().getSessionId() + "&sn="
                     + UserManager.getInstance().getMemberInfo().getSn();
             Bundle args = new Bundle();
             args.putString(KEY_DEFAULT_URL, url);
-            MyPublishDiscoverFragment fragment = new MyPublishDiscoverFragment();
-            fragment.setArguments(args);
-            return fragment;
-        }
-
-    }
-
-    public static class MyPrivateDiscoverFragment extends ThemeListFragment {
-
-        public static MyPrivateDiscoverFragment newInstance() {
-            String url = "http://tt.shouji.com.cn/app/user_content_list_xml_v2.jsp?versioncode=198&t=discuss&jsessionid="
-                    + UserManager.getInstance().getSessionId() + "&thread=private&sn="
-                    + UserManager.getInstance().getMemberInfo().getSn();
-            Bundle args = new Bundle();
-            args.putString(KEY_DEFAULT_URL, url);
-            MyPrivateDiscoverFragment fragment = new MyPrivateDiscoverFragment();
+            MyPublishCommentFragment fragment = new MyPublishCommentFragment();
             fragment.setArguments(args);
             return fragment;
         }

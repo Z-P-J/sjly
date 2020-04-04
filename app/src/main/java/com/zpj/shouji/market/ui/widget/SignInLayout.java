@@ -19,7 +19,7 @@ import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.ui.fragment.WebFragment;
 import com.zpj.shouji.market.manager.UserManager;
 import com.zpj.utils.ScreenUtils;
-import com.zpj.widget.SmoothCheckBox;
+import com.zpj.widget.checkbox.SmoothCheckBox;
 import com.zpj.widget.editor.EditTextWithClear;
 import com.zpj.widget.editor.PasswordEditText;
 import com.zpj.widget.editor.validator.EmailValidator;

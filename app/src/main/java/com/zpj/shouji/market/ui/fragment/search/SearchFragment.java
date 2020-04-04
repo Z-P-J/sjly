@@ -15,7 +15,7 @@ import com.zpj.fragmentation.anim.DefaultNoAnimator;
 import com.zpj.fragmentation.anim.FragmentAnimator;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.ui.adapter.FragmentsPagerAdapter;
-import com.zpj.widget.ZViewPager;
+import com.zpj.shouji.market.ui.widget.ZViewPager;
 import com.zpj.widget.toolbar.ZSearchBar;
 
 import org.greenrobot.eventbus.EventBus;
@@ -116,15 +116,15 @@ public class SearchFragment extends BaseFragment {
 
     }
 
-    @Override
-    public void onEnterAnimationEnd(Bundle savedInstanceState) {
-        super.onEnterAnimationEnd(savedInstanceState);
-        setFragmentAnimator(new DefaultHorizontalAnimator());
-    }
+//    @Override
+//    public void onEnterAnimationEnd(Bundle savedInstanceState) {
+//        super.onEnterAnimationEnd(savedInstanceState);
+//        setFragmentAnimator(new DefaultHorizontalAnimator());
+//    }
 
     @Override
     public FragmentAnimator onCreateFragmentAnimator() {
-        return new DefaultNoAnimator();
+        return new DefaultHorizontalAnimator();
     }
 
     private boolean getSearchResult(String text) {

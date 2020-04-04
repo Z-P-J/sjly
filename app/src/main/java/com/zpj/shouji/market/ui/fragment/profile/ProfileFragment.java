@@ -25,12 +25,9 @@ import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.ui.adapter.FragmentsPagerAdapter;
 import com.zpj.shouji.market.ui.behavior.AppBarLayoutOverScrollViewBehavior;
 import com.zpj.shouji.market.ui.fragment.theme.ThemeListFragment;
-import com.zpj.shouji.market.ui.widget.DotPagerIndicator;
 import com.zpj.shouji.market.ui.widget.RoundProgressBar;
-import com.zpj.shouji.market.ui.widget.ScaleTransitionPagerTitleView;
 import com.zpj.utils.ScreenUtils;
-import com.zpj.widget.ZViewPager;
-import com.zpj.widget.toolbar.ZToolBar;
+import com.zpj.shouji.market.ui.widget.ZViewPager;
 
 import net.lucode.hackware.magicindicator.MagicIndicator;
 import net.lucode.hackware.magicindicator.ViewPagerHelper;

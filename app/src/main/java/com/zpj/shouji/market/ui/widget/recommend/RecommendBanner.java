@@ -16,7 +16,10 @@ import com.zpj.http.parser.html.select.Elements;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.api.HttpPreLoader;
 import com.zpj.shouji.market.model.AppInfo;
+import com.zpj.shouji.market.ui.fragment.detail.AppDetailFragment;
 import com.zpj.shouji.market.ui.fragment.homepage.RecommendFragment2;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -51,6 +54,12 @@ public class RecommendBanner extends LinearLayout {
                 bannerItemList.add(info);
             }
             mMZBanner.setPages(bannerItemList, () -> bannerViewHolder);
+            mMZBanner.setBannerPageClickListener(new MZBannerView.BannerPageClickListener() {
+                @Override
+                public void onPageClick(View view, int i) {
+                    EventBus.getDefault().post(AppDetailFragment.newInstance(bannerItemList.get(i)));
+                }
+            });
             mMZBanner.start();
         });
     }

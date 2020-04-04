@@ -3,28 +3,22 @@ package com.zpj.shouji.market.ui.widget.recommend;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.support.annotation.LayoutRes;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
-import android.view.View;
-import android.widget.RelativeLayout;
+import android.widget.FrameLayout;
 import android.widget.TextView;
 
-import com.zpj.recyclerview.EasyAdapter;
 import com.zpj.recyclerview.EasyRecyclerView;
-import com.zpj.recyclerview.EasyViewHolder;
 import com.zpj.recyclerview.IEasy;
 import com.zpj.shouji.market.R;
-import com.zpj.shouji.market.model.AppInfo;
 import com.zpj.utils.ScreenUtils;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import www.linwg.org.lib.CardLinearLayout;
-
-public abstract class RecommendCard<T> extends CardLinearLayout
+public abstract class RecommendCard<T> extends FrameLayout
         implements IEasy.OnBindViewHolderListener<T>,
         IEasy.OnItemClickListener<T> {
 
@@ -36,7 +30,7 @@ public abstract class RecommendCard<T> extends CardLinearLayout
 
 //    private String title;
 
-    private IEasy.OnItemClickListener<T> onItemClickListener;
+//    private IEasy.OnItemClickListener<T> onItemClickListener;
 
     public RecommendCard(Context context) {
         this(context, null);
@@ -53,9 +47,8 @@ public abstract class RecommendCard<T> extends CardLinearLayout
         String title = typedArray.getString(R.styleable.RecommendCard_header_title);
         typedArray.recycle();
 
-        setOrientation(VERTICAL);
-        setCornerRadius(ScreenUtils.dp2pxInt(context, 12));
-        setShadowSize(ScreenUtils.dp2pxInt(context, 8));
+//        setCardElevation(8);
+//        setRadius(ScreenUtils.dp2pxInt(context, 12));
         LayoutInflater.from(context).inflate(R.layout.layout_recommend_card, this, true);
         tvTitle = findViewById(R.id.tv_title);
         tvTitle.setText(title);
@@ -73,9 +66,9 @@ public abstract class RecommendCard<T> extends CardLinearLayout
 
     }
 
-    public void setOnItemClickListener(IEasy.OnItemClickListener<T> onItemClickListener) {
-        this.onItemClickListener = onItemClickListener;
-    }
+//    public void setOnItemClickListener(IEasy.OnItemClickListener<T> onItemClickListener) {
+//        this.onItemClickListener = onItemClickListener;
+//    }
 
 //    @Override
 //    public void onClick(EasyViewHolder holder, View view, T data) {

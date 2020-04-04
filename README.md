@@ -1,5 +1,5 @@
 # sjly
-手机乐园第三方客户端(原名手机乐园催更神器)
+手机乐园第三方客户端
 
 <div>
     <img src="https://github.com/Z-P-J/sjly/raw/master/screenshots/screenshot0.jpg" height="330" width="190">

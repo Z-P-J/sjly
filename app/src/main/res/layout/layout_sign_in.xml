@@ -70,7 +70,7 @@
         android:paddingBottom="8dp"
         >
 
-        <com.zpj.widget.SmoothCheckBox
+        <com.zpj.widget.checkbox.SmoothCheckBox
             android:id="@+id/cb_agreement"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

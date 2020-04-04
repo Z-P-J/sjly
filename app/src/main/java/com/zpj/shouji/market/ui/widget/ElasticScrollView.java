@@ -1,4 +1,4 @@
-package com.zpj.widget;
+package com.zpj.shouji.market.ui.widget;
 
 import android.content.Context;
 import android.graphics.Rect;

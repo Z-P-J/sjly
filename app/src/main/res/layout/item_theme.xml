@@ -259,6 +259,7 @@
                             android:textColor="#ffffff"
                             android:layout_alignParentEnd="true"
                             android:layout_centerVertical="true"
+                            android:gravity="center"
                             />
 
                     </RelativeLayout>
