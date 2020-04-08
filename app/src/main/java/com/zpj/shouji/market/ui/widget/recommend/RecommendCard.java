@@ -13,6 +13,7 @@ import android.widget.TextView;
 import com.zpj.recyclerview.EasyRecyclerView;
 import com.zpj.recyclerview.IEasy;
 import com.zpj.shouji.market.R;
+import com.zpj.shouji.market.model.CollectionInfo;
 import com.zpj.utils.ScreenUtils;
 
 import java.util.ArrayList;
@@ -79,6 +80,12 @@ public abstract class RecommendCard<T> extends FrameLayout
 
     public void setTitle(String title) {
         tvTitle.setText(title);
+    }
+
+    public void setData(List<T> data) {
+        list.clear();
+        list.addAll(data);
+        recyclerView.notifyDataSetChanged();
     }
 
     @LayoutRes

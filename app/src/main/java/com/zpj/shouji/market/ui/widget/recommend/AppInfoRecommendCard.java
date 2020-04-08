@@ -36,7 +36,10 @@ public abstract class AppInfoRecommendCard extends RecommendCard<AppInfo> {
 
     public AppInfoRecommendCard(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
+        init();
+    }
 
+    protected void init() {
         if (!TextUtils.isEmpty(getKey())) {
             if (HttpPreLoader.getInstance().hasKey(getKey())) {
                 HttpPreLoader.getInstance().setLoadListener(getKey(), this::onGetDoc);

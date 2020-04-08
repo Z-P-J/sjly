@@ -43,6 +43,12 @@ public class RecommendBanner extends LinearLayout {
         super(context, attrs, defStyleAttr);
         LayoutInflater.from(context).inflate(R.layout.layout_recommend_header, this, true);
         mMZBanner = findViewById(R.id.banner);
+        mMZBanner.setBannerPageClickListener(new MZBannerView.BannerPageClickListener() {
+            @Override
+            public void onPageClick(View view, int i) {
+                EventBus.getDefault().post(AppDetailFragment.newInstance(bannerItemList.get(i)));
+            }
+        });
         HttpPreLoader.getInstance().setLoadListener(HttpPreLoader.HOME_BANNER, document -> {
             Elements elements = document.select("item");
             bannerItemList.clear();
@@ -54,12 +60,7 @@ public class RecommendBanner extends LinearLayout {
                 bannerItemList.add(info);
             }
             mMZBanner.setPages(bannerItemList, () -> bannerViewHolder);
-            mMZBanner.setBannerPageClickListener(new MZBannerView.BannerPageClickListener() {
-                @Override
-                public void onPageClick(View view, int i) {
-                    EventBus.getDefault().post(AppDetailFragment.newInstance(bannerItemList.get(i)));
-                }
-            });
+
             mMZBanner.start();
         });
     }

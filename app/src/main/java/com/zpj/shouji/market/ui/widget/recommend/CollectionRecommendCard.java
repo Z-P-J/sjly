@@ -41,6 +41,10 @@ public class CollectionRecommendCard extends RecommendCard<CollectionInfo> {
 
     public CollectionRecommendCard(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
+        init();
+    }
+
+    protected void init() {
         setTitle("应用集推荐");
         if (HttpPreLoader.getInstance().hasKey(HttpPreLoader.HOME_COLLECTION)) {
             HttpPreLoader.getInstance().setLoadListener(HttpPreLoader.HOME_COLLECTION, this::onGetDoc);

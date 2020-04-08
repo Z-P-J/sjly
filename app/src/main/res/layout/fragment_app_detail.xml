@@ -58,6 +58,7 @@
                             app:is_circle="true"
                             app:border_width="1dp"
                             app:border_color="@android:color/white"
+                            android:scaleType="centerCrop"
                             />
 
                         <TextView

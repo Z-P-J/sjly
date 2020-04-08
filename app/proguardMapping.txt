@@ -1,7 +1,7 @@
 # compiler: R8
 # compiler_version: 1.5.69
 # min_api: 19
-# pg_map_id: be7193d
+# pg_map_id: 20e3e43
 android.arch.core.executor.ArchTaskExecutor -> a.a.a.a.a:
     android.arch.core.executor.ArchTaskExecutor sInstance -> c
     android.arch.core.executor.TaskExecutor mDelegate -> a
@@ -31014,7 +31014,7 @@ com.sunbinqiang.iconcountview.R$styleable -> com.sunbinqiang.iconcountview.R$sty
     1158:1570:void <clinit>() -> <clinit>
     1156:1156:void <init>() -> <init>
 com.sunfusheng.ExpandableGroupRecyclerViewAdapter -> com.sunfusheng.a:
-    java.util.Map cache -> g
+    java.util.Map cache -> f
     25:26:void <init>(android.content.Context,java.util.List) -> <init>
     58:70:boolean collapseGroup(int,boolean) -> b
     40:50:boolean expandGroup(int,boolean) -> c
@@ -31030,12 +31030,11 @@ com.sunfusheng.GroupLinearLayoutManager -> com.sunfusheng.GroupLinearLayoutManag
     22:23:void <init>(android.content.Context,android.util.AttributeSet,int,int) -> <init>
     28:32:void onLayoutChildren(android.support.v7.widget.RecyclerView$Recycler,android.support.v7.widget.RecyclerView$State) -> onLayoutChildren
 com.sunfusheng.GroupRecyclerViewAdapter -> com.sunfusheng.c:
-    android.content.Context context -> a
-    android.view.LayoutInflater inflater -> b
-    com.sunfusheng.GroupRecyclerViewAdapter$OnItemClickListener onItemClickListener -> e
-    com.sunfusheng.GroupRecyclerViewAdapter$OnItemLongClickListener onItemLongClickListener -> f
-    java.util.List groups -> c
-    int itemPosition -> d
+    java.util.List groups -> b
+    com.sunfusheng.GroupRecyclerViewAdapter$OnItemLongClickListener onItemLongClickListener -> e
+    com.sunfusheng.GroupRecyclerViewAdapter$OnItemClickListener onItemClickListener -> d
+    android.view.LayoutInflater inflater -> a
+    int itemPosition -> c
     37:39:void <init>(android.content.Context,java.util.List) -> <init>
     void onBindChildViewHolder(com.sunfusheng.GroupViewHolder,java.lang.Object,int,int) -> a
     void onBindFooterViewHolder(com.sunfusheng.GroupViewHolder,java.lang.Object,int) -> a
@@ -31108,10 +31107,7 @@ com.sunfusheng.GroupViewHolder -> com.sunfusheng.d:
     24:28:com.sunfusheng.GroupViewHolder setText(int,java.lang.String) -> a
     64:68:com.sunfusheng.GroupViewHolder setImageResource(int,int) -> a
     114:118:com.sunfusheng.GroupViewHolder setVisible(int,boolean) -> a
-com.sunfusheng.HeaderGroupRecyclerViewAdapter -> com.sunfusheng.e:
-    17:18:void <init>(android.content.Context,java.util.List) -> <init>
-    42:42:void onBindFooterViewHolder(com.sunfusheng.GroupViewHolder,java.lang.Object,int) -> a
-com.sunfusheng.StickyHeaderDecoration -> com.sunfusheng.f:
+com.sunfusheng.StickyHeaderDecoration -> com.sunfusheng.e:
     com.sunfusheng.GroupRecyclerViewAdapter groupAdapter -> a
     com.sunfusheng.GroupViewHolder viewHolder -> b
     android.view.GestureDetector gestureDetector -> g
@@ -31129,12 +31125,12 @@ com.sunfusheng.StickyHeaderDecoration -> com.sunfusheng.f:
     17:17:int access$400(com.sunfusheng.StickyHeaderDecoration) -> e
     17:17:android.graphics.Rect access$500(com.sunfusheng.StickyHeaderDecoration) -> f
     30:34:void onDrawOver(android.graphics.Canvas,android.support.v7.widget.RecyclerView,android.support.v7.widget.RecyclerView$State) -> onDrawOver
-com.sunfusheng.StickyHeaderDecoration$1 -> com.sunfusheng.f$a:
+com.sunfusheng.StickyHeaderDecoration$1 -> com.sunfusheng.e$a:
     com.sunfusheng.StickyHeaderDecoration this$0 -> a
     119:119:void <init>(com.sunfusheng.StickyHeaderDecoration) -> <init>
     122:125:boolean onInterceptTouchEvent(android.support.v7.widget.RecyclerView,android.view.MotionEvent) -> onInterceptTouchEvent
     130:134:void onTouchEvent(android.support.v7.widget.RecyclerView,android.view.MotionEvent) -> onTouchEvent
-com.sunfusheng.StickyHeaderDecoration$2 -> com.sunfusheng.f$b:
+com.sunfusheng.StickyHeaderDecoration$2 -> com.sunfusheng.e$b:
     com.sunfusheng.StickyHeaderDecoration this$0 -> e
     143:143:void <init>(com.sunfusheng.StickyHeaderDecoration) -> <init>
     175:178:boolean isValidTouch(android.view.MotionEvent) -> a
@@ -42887,196 +42883,201 @@ com.zpj.recyclerview.EasyAdapter -> com.zpj.recyclerview.a:
     18:18:android.view.View access$000(com.zpj.recyclerview.EasyAdapter) -> a
     18:18:boolean access$1002(com.zpj.recyclerview.EasyAdapter,boolean) -> a
     18:18:int access$102(com.zpj.recyclerview.EasyAdapter,int) -> a
-    94:94:void onBindViewHolder(com.zpj.recyclerview.EasyViewHolder,int) -> a
-    127:214:void onBindViewHolder(com.zpj.recyclerview.EasyViewHolder,int,java.util.List) -> a
-    243:250:void onViewAttachedToWindow(com.zpj.recyclerview.EasyViewHolder) -> a
-    292:292:boolean isFooterPosition(int) -> a
-    296:297:int getRealPosition(android.support.v7.widget.RecyclerView$ViewHolder) -> a
-    308:309:void setOnBindHeaderListener(com.zpj.recyclerview.IEasy$OnBindHeaderListener) -> a
-    316:320:void setFooterView(android.view.View) -> a
-    327:329:void setOnLoadMoreListener(com.zpj.recyclerview.IEasy$OnLoadMoreListener) -> a
-    342:342:boolean getLoadMoreEnabled() -> a
-    346:347:void setLoadMoreEnabled(boolean) -> a
+    96:96:void onBindViewHolder(com.zpj.recyclerview.EasyViewHolder,int) -> a
+    129:216:void onBindViewHolder(com.zpj.recyclerview.EasyViewHolder,int,java.util.List) -> a
+    245:252:void onViewAttachedToWindow(com.zpj.recyclerview.EasyViewHolder) -> a
+    294:294:boolean isFooterPosition(int) -> a
+    298:299:int getRealPosition(android.support.v7.widget.RecyclerView$ViewHolder) -> a
+    310:311:void setOnBindHeaderListener(com.zpj.recyclerview.IEasy$OnBindHeaderListener) -> a
+    318:322:void setFooterView(android.view.View) -> a
+    329:331:void setOnLoadMoreListener(com.zpj.recyclerview.IEasy$OnLoadMoreListener) -> a
+    344:344:boolean getLoadMoreEnabled() -> a
+    348:349:void setLoadMoreEnabled(boolean) -> a
     18:18:int access$100(com.zpj.recyclerview.EasyAdapter) -> b
     18:18:boolean access$600(com.zpj.recyclerview.EasyAdapter,int) -> b
     18:18:boolean access$802(com.zpj.recyclerview.EasyAdapter,boolean) -> b
-    280:281:boolean canScroll() -> b
-    288:288:boolean isHeaderPosition(int) -> b
-    301:305:void setHeaderView(android.view.View) -> b
+    282:283:boolean canScroll() -> b
+    290:290:boolean isHeaderPosition(int) -> b
+    303:307:void setHeaderView(android.view.View) -> b
     18:18:boolean access$1000(com.zpj.recyclerview.EasyAdapter) -> c
     18:18:boolean access$700(com.zpj.recyclerview.EasyAdapter,int) -> c
-    350:373:void notifyFooterHolderChanged() -> c
+    352:375:void notifyFooterHolderChanged() -> c
     18:18:int access$108(com.zpj.recyclerview.EasyAdapter) -> d
     18:18:void access$1100(com.zpj.recyclerview.EasyAdapter) -> e
     18:18:com.zpj.recyclerview.EasyAdapter$Enabled access$200(com.zpj.recyclerview.EasyAdapter) -> f
     18:18:com.zpj.recyclerview.IEasy$OnLoadMoreListener access$300(com.zpj.recyclerview.EasyAdapter) -> g
-    269:276:int getItemCount() -> getItemCount
-    254:264:int getItemViewType(int) -> getItemViewType
+    271:278:int getItemCount() -> getItemCount
+    256:266:int getItemViewType(int) -> getItemViewType
     18:18:com.zpj.recyclerview.IEasy$OnItemClickListener access$400(com.zpj.recyclerview.EasyAdapter) -> h
     18:18:com.zpj.recyclerview.IEasy$OnItemLongClickListener access$500(com.zpj.recyclerview.EasyAdapter) -> i
     18:18:boolean access$800(com.zpj.recyclerview.EasyAdapter) -> j
-    218:232:void onAttachedToRecyclerView(android.support.v7.widget.RecyclerView) -> onAttachedToRecyclerView
+    220:234:void onAttachedToRecyclerView(android.support.v7.widget.RecyclerView) -> onAttachedToRecyclerView
     18:18:void onBindViewHolder(android.support.v7.widget.RecyclerView$ViewHolder,int) -> onBindViewHolder
-    69:87:com.zpj.recyclerview.EasyViewHolder onCreateViewHolder(android.view.ViewGroup,int) -> onCreateViewHolder
-    236:239:void onDetachedFromRecyclerView(android.support.v7.widget.RecyclerView) -> onDetachedFromRecyclerView
+    69:89:com.zpj.recyclerview.EasyViewHolder onCreateViewHolder(android.view.ViewGroup,int) -> onCreateViewHolder
+    238:241:void onDetachedFromRecyclerView(android.support.v7.widget.RecyclerView) -> onDetachedFromRecyclerView
     18:18:void onViewAttachedToWindow(android.support.v7.widget.RecyclerView$ViewHolder) -> onViewAttachedToWindow
 com.zpj.recyclerview.EasyAdapter$1 -> com.zpj.recyclerview.a$a:
     com.zpj.recyclerview.EasyAdapter this$0 -> e
-    145:145:void <init>(com.zpj.recyclerview.EasyAdapter) -> <init>
-    148:171:void run() -> run
+    147:147:void <init>(com.zpj.recyclerview.EasyAdapter) -> <init>
+    150:173:void run() -> run
 com.zpj.recyclerview.EasyAdapter$2 -> com.zpj.recyclerview.a$b:
     java.lang.Object val$data -> f
     com.zpj.recyclerview.EasyViewHolder val$holder -> e
     com.zpj.recyclerview.EasyAdapter this$0 -> g
-    178:178:void <init>(com.zpj.recyclerview.EasyAdapter,com.zpj.recyclerview.EasyViewHolder,java.lang.Object) -> <init>
-    181:184:void onClick(android.view.View) -> onClick
+    180:180:void <init>(com.zpj.recyclerview.EasyAdapter,com.zpj.recyclerview.EasyViewHolder,java.lang.Object) -> <init>
+    183:186:void onClick(android.view.View) -> onClick
 com.zpj.recyclerview.EasyAdapter$3 -> com.zpj.recyclerview.a$c:
     java.lang.Object val$data -> f
     com.zpj.recyclerview.EasyViewHolder val$holder -> e
     com.zpj.recyclerview.EasyAdapter this$0 -> g
-    186:186:void <init>(com.zpj.recyclerview.EasyAdapter,com.zpj.recyclerview.EasyViewHolder,java.lang.Object) -> <init>
-    189:192:boolean onLongClick(android.view.View) -> onLongClick
+    188:188:void <init>(com.zpj.recyclerview.EasyAdapter,com.zpj.recyclerview.EasyViewHolder,java.lang.Object) -> <init>
+    191:194:boolean onLongClick(android.view.View) -> onLongClick
 com.zpj.recyclerview.EasyAdapter$4 -> com.zpj.recyclerview.a$d:
     java.lang.Object val$data -> g
     com.zpj.recyclerview.EasyViewHolder val$holder -> f
     com.zpj.recyclerview.IEasy$OnClickListener val$listener -> e
-    202:202:void <init>(com.zpj.recyclerview.EasyAdapter,com.zpj.recyclerview.IEasy$OnClickListener,com.zpj.recyclerview.EasyViewHolder,java.lang.Object) -> <init>
-    205:206:void onClick(android.view.View) -> onClick
+    204:204:void <init>(com.zpj.recyclerview.EasyAdapter,com.zpj.recyclerview.IEasy$OnClickListener,com.zpj.recyclerview.EasyViewHolder,java.lang.Object) -> <init>
+    207:208:void onClick(android.view.View) -> onClick
 com.zpj.recyclerview.EasyAdapter$5 -> com.zpj.recyclerview.a$e:
     android.support.v7.widget.GridLayoutManager val$gridManager -> a
     com.zpj.recyclerview.EasyAdapter this$0 -> b
-    224:224:void <init>(com.zpj.recyclerview.EasyAdapter,android.support.v7.widget.GridLayoutManager) -> <init>
-    227:227:int getSpanSize(int) -> getSpanSize
+    226:226:void <init>(com.zpj.recyclerview.EasyAdapter,android.support.v7.widget.GridLayoutManager) -> <init>
+    229:229:int getSpanSize(int) -> getSpanSize
 com.zpj.recyclerview.EasyAdapter$6 -> com.zpj.recyclerview.a$f:
     com.zpj.recyclerview.EasyAdapter this$0 -> a
-    427:427:void <init>(com.zpj.recyclerview.EasyAdapter) -> <init>
-    430:435:void notifyChanged() -> a
+    429:429:void <init>(com.zpj.recyclerview.EasyAdapter) -> <init>
+    432:437:void notifyChanged() -> a
 com.zpj.recyclerview.EasyAdapter$7 -> com.zpj.recyclerview.a$g:
     com.zpj.recyclerview.EasyAdapter this$0 -> a
-    445:445:void <init>(com.zpj.recyclerview.EasyAdapter) -> <init>
-    505:511:int last(int[]) -> a
-    448:452:void onScrollStateChanged(android.support.v7.widget.RecyclerView,int) -> onScrollStateChanged
-    501:502:void onScrolled(android.support.v7.widget.RecyclerView,int,int) -> onScrolled
+    447:447:void <init>(com.zpj.recyclerview.EasyAdapter) -> <init>
+    507:513:int last(int[]) -> a
+    450:454:void onScrollStateChanged(android.support.v7.widget.RecyclerView,int) -> onScrollStateChanged
+    503:504:void onScrolled(android.support.v7.widget.RecyclerView,int,int) -> onScrolled
 com.zpj.recyclerview.EasyAdapter$8 -> com.zpj.recyclerview.a$h:
     com.zpj.recyclerview.EasyAdapter this$0 -> a
-    515:515:void <init>(com.zpj.recyclerview.EasyAdapter) -> <init>
-    518:523:void onChanged() -> onChanged
-    527:532:void onItemRangeChanged(int,int) -> onItemRangeChanged
-    536:541:void onItemRangeChanged(int,int,java.lang.Object) -> onItemRangeChanged
-    551:553:void onItemRangeInserted(int,int) -> onItemRangeInserted
-    585:590:void onItemRangeMoved(int,int,int) -> onItemRangeMoved
-    557:581:void onItemRangeRemoved(int,int) -> onItemRangeRemoved
+    517:517:void <init>(com.zpj.recyclerview.EasyAdapter) -> <init>
+    520:525:void onChanged() -> onChanged
+    529:534:void onItemRangeChanged(int,int) -> onItemRangeChanged
+    538:543:void onItemRangeChanged(int,int,java.lang.Object) -> onItemRangeChanged
+    553:555:void onItemRangeInserted(int,int) -> onItemRangeInserted
+    587:592:void onItemRangeMoved(int,int,int) -> onItemRangeMoved
+    559:583:void onItemRangeRemoved(int,int) -> onItemRangeRemoved
 com.zpj.recyclerview.EasyAdapter$Enabled -> com.zpj.recyclerview.a$i:
     com.zpj.recyclerview.EasyAdapter$OnEnabledListener mListener -> b
     boolean mLoadMoreEnabled -> a
-    386:388:void <init>(com.zpj.recyclerview.EasyAdapter$OnEnabledListener) -> <init>
-    396:402:void setLoadMoreEnabled(boolean) -> a
-    423:423:boolean getLoadMoreEnabled() -> a
+    388:390:void <init>(com.zpj.recyclerview.EasyAdapter$OnEnabledListener) -> <init>
+    398:404:void setLoadMoreEnabled(boolean) -> a
+    425:425:boolean getLoadMoreEnabled() -> a
 com.zpj.recyclerview.EasyAdapter$OnEnabledListener -> com.zpj.recyclerview.a$j:
     void notifyChanged() -> a
 com.zpj.recyclerview.EasyRecyclerLayout -> com.zpj.recyclerview.EasyRecyclerLayout:
-    boolean enableLoadMore -> m
-    boolean enableSelection -> n
-    boolean showCheckBox -> j
+    boolean selectMode -> m
+    boolean enableSwipeRefresh -> n
+    boolean enableLoadMore -> o
+    com.zpj.recyclerview.IEasy$OnCreateViewHolderListener onCreateViewHolderListener -> g
+    boolean enableSelection -> p
+    android.support.v4.widget.SwipeRefreshLayout refreshLayout -> j
+    int itemRes -> k
     java.util.Set selectedList -> e
-    android.support.v4.widget.SwipeRefreshLayout refreshLayout -> i
-    boolean selectMode -> k
-    boolean enableSwipeRefresh -> l
-    com.zpj.recyclerview.EasyRecyclerView easyRecyclerView -> g
-    com.zpj.recyclerview.EasyStateAdapter adapter -> h
+    boolean showCheckBox -> l
+    com.zpj.recyclerview.EasyRecyclerView easyRecyclerView -> h
+    com.zpj.recyclerview.EasyStateAdapter adapter -> i
     com.zpj.recyclerview.EasyRecyclerLayout$OnSelectChangeListener onSelectChangeListener -> f
-    54:56:void <init>(android.content.Context) -> <init>
-    59:61:void <init>(android.content.Context,android.util.AttributeSet) -> <init>
-    64:66:void <init>(android.content.Context,android.util.AttributeSet,int) -> <init>
+    57:59:void <init>(android.content.Context) -> <init>
+    62:64:void <init>(android.content.Context,android.util.AttributeSet) -> <init>
+    67:69:void <init>(android.content.Context,android.util.AttributeSet,int) -> <init>
     25:25:boolean access$000(com.zpj.recyclerview.EasyRecyclerLayout) -> a
-    25:25:void access$600(com.zpj.recyclerview.EasyRecyclerLayout,int) -> a
-    69:89:void init(android.content.Context) -> a
-    105:106:com.zpj.recyclerview.EasyRecyclerLayout setData(java.util.List) -> a
-    121:122:com.zpj.recyclerview.EasyRecyclerLayout setEnableLoadMore(boolean) -> a
-    136:153:com.zpj.recyclerview.EasyRecyclerLayout setOnRefreshListener(android.support.v4.widget.SwipeRefreshLayout$OnRefreshListener) -> a
-    162:163:com.zpj.recyclerview.EasyRecyclerLayout setLayoutManager(android.support.v7.widget.RecyclerView$LayoutManager) -> a
-    172:173:com.zpj.recyclerview.EasyRecyclerLayout setHeaderView(int,com.zpj.recyclerview.IEasy$OnBindHeaderListener) -> a
-    187:189:com.zpj.recyclerview.EasyRecyclerLayout onLoadMore(com.zpj.recyclerview.IEasy$OnLoadMoreListener) -> a
-    193:194:com.zpj.recyclerview.EasyRecyclerLayout setOnSelectChangeListener(com.zpj.recyclerview.EasyRecyclerLayout$OnSelectChangeListener) -> a
-    198:199:com.zpj.recyclerview.EasyRecyclerLayout onViewClick(int,com.zpj.recyclerview.IEasy$OnClickListener) -> a
-    203:204:com.zpj.recyclerview.EasyRecyclerLayout onItemClick(com.zpj.recyclerview.IEasy$OnItemClickListener) -> a
-    208:209:com.zpj.recyclerview.EasyRecyclerLayout onItemLongClick(com.zpj.recyclerview.IEasy$OnItemLongClickListener) -> a
-    223:280:com.zpj.recyclerview.EasyRecyclerLayout onBindViewHolder(com.zpj.recyclerview.IEasy$OnBindViewHolderListener) -> a
-    284:298:void build() -> a
-    337:338:void showErrorView(java.lang.String) -> a
-    429:439:void onSelectChange(int,boolean) -> a
-    524:525:void notifyItemChanged(int) -> a
-    528:529:void notifyItemChanged(int,java.lang.Object) -> a
+    25:25:void access$800(com.zpj.recyclerview.EasyRecyclerLayout,int) -> a
+    72:108:void init(android.content.Context) -> a
+    116:117:com.zpj.recyclerview.EasyRecyclerLayout setData(java.util.List) -> a
+    132:133:com.zpj.recyclerview.EasyRecyclerLayout setEnableLoadMore(boolean) -> a
+    147:164:com.zpj.recyclerview.EasyRecyclerLayout setOnRefreshListener(android.support.v4.widget.SwipeRefreshLayout$OnRefreshListener) -> a
+    173:174:com.zpj.recyclerview.EasyRecyclerLayout setLayoutManager(android.support.v7.widget.RecyclerView$LayoutManager) -> a
+    183:184:com.zpj.recyclerview.EasyRecyclerLayout setHeaderView(int,com.zpj.recyclerview.IEasy$OnBindHeaderListener) -> a
+    198:200:com.zpj.recyclerview.EasyRecyclerLayout onLoadMore(com.zpj.recyclerview.IEasy$OnLoadMoreListener) -> a
+    204:205:com.zpj.recyclerview.EasyRecyclerLayout setOnSelectChangeListener(com.zpj.recyclerview.EasyRecyclerLayout$OnSelectChangeListener) -> a
+    209:210:com.zpj.recyclerview.EasyRecyclerLayout onViewClick(int,com.zpj.recyclerview.IEasy$OnClickListener) -> a
+    214:215:com.zpj.recyclerview.EasyRecyclerLayout onItemClick(com.zpj.recyclerview.IEasy$OnItemClickListener) -> a
+    219:220:com.zpj.recyclerview.EasyRecyclerLayout onItemLongClick(com.zpj.recyclerview.IEasy$OnItemLongClickListener) -> a
+    224:225:com.zpj.recyclerview.EasyRecyclerLayout onGetChildViewType(com.zpj.recyclerview.IEasy$OnGetChildViewTypeListener) -> a
+    234:235:com.zpj.recyclerview.EasyRecyclerLayout onCreateViewHolder(com.zpj.recyclerview.IEasy$OnCreateViewHolderListener) -> a
+    239:296:com.zpj.recyclerview.EasyRecyclerLayout onBindViewHolder(com.zpj.recyclerview.IEasy$OnBindViewHolderListener) -> a
+    303:317:void build() -> a
+    356:357:void showErrorView(java.lang.String) -> a
+    448:458:void onSelectChange(int,boolean) -> a
+    543:544:void notifyItemChanged(int) -> a
+    547:548:void notifyItemChanged(int,java.lang.Object) -> a
     25:25:android.support.v4.widget.SwipeRefreshLayout access$100(com.zpj.recyclerview.EasyRecyclerLayout) -> b
-    25:25:void access$700(com.zpj.recyclerview.EasyRecyclerLayout,int) -> b
-    126:127:com.zpj.recyclerview.EasyRecyclerLayout setEnableSelection(boolean) -> b
-    402:412:void enterSelectMode() -> b
-    539:543:void notifyItemInserted(int) -> b
-    25:25:java.util.Set access$200(com.zpj.recyclerview.EasyRecyclerLayout) -> c
-    92:101:com.zpj.recyclerview.EasyRecyclerLayout setItemRes(int) -> c
-    115:117:com.zpj.recyclerview.EasyRecyclerLayout setEnableSwipeRefresh(boolean) -> c
-    415:426:void exitSelectMode() -> c
-    25:25:boolean access$300(com.zpj.recyclerview.EasyRecyclerLayout) -> d
-    454:461:void onSelected(int) -> d
-    546:546:boolean isSelectMode() -> d
-    25:25:boolean access$400(com.zpj.recyclerview.EasyRecyclerLayout) -> e
-    464:471:void unSelect(int) -> e
-    514:521:void notifyDataSetChanged() -> e
+    25:25:void access$900(com.zpj.recyclerview.EasyRecyclerLayout,int) -> b
+    137:138:com.zpj.recyclerview.EasyRecyclerLayout setEnableSelection(boolean) -> b
+    421:431:void enterSelectMode() -> b
+    558:562:void notifyItemInserted(int) -> b
+    25:25:com.zpj.recyclerview.IEasy$OnCreateViewHolderListener access$200(com.zpj.recyclerview.EasyRecyclerLayout) -> c
+    111:112:com.zpj.recyclerview.EasyRecyclerLayout setItemRes(int) -> c
+    126:128:com.zpj.recyclerview.EasyRecyclerLayout setEnableSwipeRefresh(boolean) -> c
+    434:445:void exitSelectMode() -> c
+    25:25:int access$300(com.zpj.recyclerview.EasyRecyclerLayout) -> d
+    473:480:void onSelected(int) -> d
+    565:565:boolean isSelectMode() -> d
+    25:25:java.util.Set access$400(com.zpj.recyclerview.EasyRecyclerLayout) -> e
+    483:490:void unSelect(int) -> e
+    533:540:void notifyDataSetChanged() -> e
     25:25:boolean access$500(com.zpj.recyclerview.EasyRecyclerLayout) -> f
-    474:484:void selectAll() -> f
-    395:397:void showContent() -> g
-    570:570:java.util.List getData() -> getData
-    574:574:com.zpj.recyclerview.EasyRecyclerView getEasyRecyclerView() -> getEasyRecyclerView
-    500:500:int getSelectedCount() -> getSelectedCount
-    504:510:java.util.List getSelectedItem() -> getSelectedItem
-    496:496:java.util.Set getSelectedSet() -> getSelectedSet
-    304:306:void showEmpty() -> h
-    352:354:void showLoading() -> i
-    564:567:void stopRefresh() -> j
-    487:493:void unSelectAll() -> k
-    442:445:void onSelectAll() -> l
-    448:451:void onUnSelectAll() -> m
-    554:555:void setRefreshing(boolean) -> setRefreshing
+    493:503:void selectAll() -> f
+    25:25:boolean access$600(com.zpj.recyclerview.EasyRecyclerLayout) -> g
+    414:416:void showContent() -> g
+    589:589:java.util.List getData() -> getData
+    593:593:com.zpj.recyclerview.EasyRecyclerView getEasyRecyclerView() -> getEasyRecyclerView
+    519:519:int getSelectedCount() -> getSelectedCount
+    523:529:java.util.List getSelectedItem() -> getSelectedItem
+    515:515:java.util.Set getSelectedSet() -> getSelectedSet
+    25:25:boolean access$700(com.zpj.recyclerview.EasyRecyclerLayout) -> h
+    323:325:void showEmpty() -> h
+    371:373:void showLoading() -> i
+    583:586:void stopRefresh() -> j
+    506:512:void unSelectAll() -> k
+    461:464:void onSelectAll() -> l
+    467:470:void onUnSelectAll() -> m
+    573:574:void setRefreshing(boolean) -> setRefreshing
 com.zpj.recyclerview.EasyRecyclerLayout$1 -> com.zpj.recyclerview.EasyRecyclerLayout$a:
     com.zpj.recyclerview.EasyRecyclerLayout this$0 -> a
-    74:74:void <init>(com.zpj.recyclerview.EasyRecyclerLayout) -> <init>
-    84:85:void onScrollStateChanged(android.support.v7.widget.RecyclerView,int) -> onScrollStateChanged
-    77:80:void onScrolled(android.support.v7.widget.RecyclerView,int,int) -> onScrolled
+    77:77:void <init>(com.zpj.recyclerview.EasyRecyclerLayout) -> <init>
+    87:88:void onScrollStateChanged(android.support.v7.widget.RecyclerView,int) -> onScrollStateChanged
+    80:83:void onScrolled(android.support.v7.widget.RecyclerView,int,int) -> onScrolled
 com.zpj.recyclerview.EasyRecyclerLayout$2 -> com.zpj.recyclerview.EasyRecyclerLayout$b:
-    com.zpj.recyclerview.EasyRecyclerLayout this$0 -> b
-    int val$res -> a
-    93:93:void <init>(com.zpj.recyclerview.EasyRecyclerLayout,int) -> <init>
-    96:99:void onCreateViewHolder(android.view.ViewGroup,android.view.View,int) -> a
+    com.zpj.recyclerview.EasyRecyclerLayout this$0 -> a
+    93:93:void <init>(com.zpj.recyclerview.EasyRecyclerLayout) -> <init>
+    96:105:android.view.View onCreateViewHolder(android.view.ViewGroup,int,int) -> a
 com.zpj.recyclerview.EasyRecyclerLayout$3 -> com.zpj.recyclerview.EasyRecyclerLayout$c:
     android.support.v4.widget.SwipeRefreshLayout$OnRefreshListener val$onRefreshListener -> e
     com.zpj.recyclerview.EasyRecyclerLayout this$0 -> f
-    136:136:void <init>(com.zpj.recyclerview.EasyRecyclerLayout,android.support.v4.widget.SwipeRefreshLayout$OnRefreshListener) -> <init>
-    139:151:void onRefresh() -> onRefresh
+    147:147:void <init>(com.zpj.recyclerview.EasyRecyclerLayout,android.support.v4.widget.SwipeRefreshLayout$OnRefreshListener) -> <init>
+    150:162:void onRefresh() -> onRefresh
 com.zpj.recyclerview.EasyRecyclerLayout$3$1 -> com.zpj.recyclerview.EasyRecyclerLayout$c$a:
     com.zpj.recyclerview.EasyRecyclerLayout$3 this$1 -> e
-    144:144:void <init>(com.zpj.recyclerview.EasyRecyclerLayout$3) -> <init>
-    147:148:void run() -> run
+    155:155:void <init>(com.zpj.recyclerview.EasyRecyclerLayout$3) -> <init>
+    158:159:void run() -> run
 com.zpj.recyclerview.EasyRecyclerLayout$4 -> com.zpj.recyclerview.EasyRecyclerLayout$d:
     com.zpj.recyclerview.EasyRecyclerLayout this$0 -> f
     com.zpj.recyclerview.IEasy$OnBindViewHolderListener val$callback -> e
-    223:223:void <init>(com.zpj.recyclerview.EasyRecyclerLayout,com.zpj.recyclerview.IEasy$OnBindViewHolderListener) -> <init>
-    226:278:void onBindViewHolder(com.zpj.recyclerview.EasyViewHolder,java.util.List,int,java.util.List) -> a
+    239:239:void <init>(com.zpj.recyclerview.EasyRecyclerLayout,com.zpj.recyclerview.IEasy$OnBindViewHolderListener) -> <init>
+    242:294:void onBindViewHolder(com.zpj.recyclerview.EasyViewHolder,java.util.List,int,java.util.List) -> a
 com.zpj.recyclerview.EasyRecyclerLayout$4$1 -> com.zpj.recyclerview.EasyRecyclerLayout$d$a:
     android.widget.RelativeLayout val$checkBoxContainer -> e
-    237:237:void <init>(com.zpj.recyclerview.EasyRecyclerLayout$4,android.widget.RelativeLayout) -> <init>
-    240:241:void onClick(android.view.View) -> onClick
+    253:253:void <init>(com.zpj.recyclerview.EasyRecyclerLayout$4,android.widget.RelativeLayout) -> <init>
+    256:257:void onClick(android.view.View) -> onClick
 com.zpj.recyclerview.EasyRecyclerLayout$4$2 -> com.zpj.recyclerview.EasyRecyclerLayout$d$b:
     com.zpj.recyclerview.EasyViewHolder val$holder -> f
     com.zpj.widget.checkbox.SmoothCheckBox val$checkBox -> e
     com.zpj.recyclerview.EasyRecyclerLayout$4 this$1 -> g
-    243:243:void <init>(com.zpj.recyclerview.EasyRecyclerLayout$4,com.zpj.widget.checkbox.SmoothCheckBox,com.zpj.recyclerview.EasyViewHolder) -> <init>
-    246:253:void onClick(android.view.View) -> onClick
+    259:259:void <init>(com.zpj.recyclerview.EasyRecyclerLayout$4,com.zpj.widget.checkbox.SmoothCheckBox,com.zpj.recyclerview.EasyViewHolder) -> <init>
+    262:269:void onClick(android.view.View) -> onClick
 com.zpj.recyclerview.EasyRecyclerLayout$4$3 -> com.zpj.recyclerview.EasyRecyclerLayout$d$c:
     com.zpj.recyclerview.EasyRecyclerLayout$4 this$1 -> c
     com.zpj.widget.checkbox.SmoothCheckBox val$checkBox -> a
     com.zpj.recyclerview.EasyViewHolder val$holder -> b
-    257:257:void <init>(com.zpj.recyclerview.EasyRecyclerLayout$4,com.zpj.widget.checkbox.SmoothCheckBox,com.zpj.recyclerview.EasyViewHolder) -> <init>
-    260:272:boolean shouldIgnoreClick(android.view.View) -> a
+    273:273:void <init>(com.zpj.recyclerview.EasyRecyclerLayout$4,com.zpj.widget.checkbox.SmoothCheckBox,com.zpj.recyclerview.EasyViewHolder) -> <init>
+    276:288:boolean shouldIgnoreClick(android.view.View) -> a
 com.zpj.recyclerview.EasyRecyclerLayout$OnSelectChangeListener -> com.zpj.recyclerview.EasyRecyclerLayout$e:
     void onChange(java.util.List,int,boolean) -> a
     void onSelectAll() -> a
@@ -43105,20 +43106,21 @@ com.zpj.recyclerview.EasyRecyclerView -> com.zpj.recyclerview.b:
     70:71:com.zpj.recyclerview.EasyRecyclerView addItemDecoration(android.support.v7.widget.RecyclerView$ItemDecoration) -> a
     81:85:com.zpj.recyclerview.EasyRecyclerView setHeaderView(int,com.zpj.recyclerview.IEasy$OnBindHeaderListener) -> a
     100:101:com.zpj.recyclerview.EasyRecyclerView onLoadMore(com.zpj.recyclerview.IEasy$OnLoadMoreListener) -> a
+    105:106:com.zpj.recyclerview.EasyRecyclerView onGetChildViewType(com.zpj.recyclerview.IEasy$OnGetChildViewTypeListener) -> a
     115:116:com.zpj.recyclerview.EasyRecyclerView onBindViewHolder(com.zpj.recyclerview.IEasy$OnBindViewHolderListener) -> a
     120:121:com.zpj.recyclerview.EasyRecyclerView onCreateViewHolder(com.zpj.recyclerview.IEasy$OnCreateViewHolderListener) -> a
-    130:131:com.zpj.recyclerview.EasyRecyclerView onViewClick(int,com.zpj.recyclerview.IEasy$OnClickListener) -> a
-    135:136:com.zpj.recyclerview.EasyRecyclerView onItemClick(com.zpj.recyclerview.IEasy$OnItemClickListener) -> a
-    140:141:com.zpj.recyclerview.EasyRecyclerView onItemLongClick(com.zpj.recyclerview.IEasy$OnItemLongClickListener) -> a
-    145:146:void build() -> a
-    277:281:void notifyItemChanged(int) -> a
-    284:288:void notifyItemChanged(int,java.lang.Object) -> a
-    291:295:void notifyItemInserted(int) -> b
-    319:319:com.zpj.recyclerview.EasyStateAdapter getAdapter() -> b
+    134:135:com.zpj.recyclerview.EasyRecyclerView onViewClick(int,com.zpj.recyclerview.IEasy$OnClickListener) -> a
+    139:140:com.zpj.recyclerview.EasyRecyclerView onItemClick(com.zpj.recyclerview.IEasy$OnItemClickListener) -> a
+    144:145:com.zpj.recyclerview.EasyRecyclerView onItemLongClick(com.zpj.recyclerview.IEasy$OnItemLongClickListener) -> a
+    152:176:void build() -> a
+    281:285:void notifyItemChanged(int) -> a
+    288:292:void notifyItemChanged(int,java.lang.Object) -> a
+    295:299:void notifyItemInserted(int) -> b
+    323:323:com.zpj.recyclerview.EasyStateAdapter getAdapter() -> b
     55:56:com.zpj.recyclerview.EasyRecyclerView setItemRes(int) -> c
-    335:335:java.util.List getData() -> c
-    323:323:android.support.v7.widget.RecyclerView getRecyclerView() -> d
-    270:274:void notifyDataSetChanged() -> e
+    339:339:java.util.List getData() -> c
+    327:327:android.support.v7.widget.RecyclerView getRecyclerView() -> d
+    274:278:void notifyDataSetChanged() -> e
 com.zpj.recyclerview.EasyStateAdapter -> com.zpj.recyclerview.c:
     com.zpj.widget.statelayout.StateLayout stateLayout -> w
     int state -> v
@@ -43162,7 +43164,7 @@ com.zpj.recyclerview.IEasy$OnBindViewHolderListener -> com.zpj.recyclerview.f:
 com.zpj.recyclerview.IEasy$OnClickListener -> com.zpj.recyclerview.g:
     void onClick(com.zpj.recyclerview.EasyViewHolder,android.view.View,java.lang.Object) -> a
 com.zpj.recyclerview.IEasy$OnCreateViewHolderListener -> com.zpj.recyclerview.h:
-    void onCreateViewHolder(android.view.ViewGroup,android.view.View,int) -> a
+    android.view.View onCreateViewHolder(android.view.ViewGroup,int,int) -> a
 com.zpj.recyclerview.IEasy$OnGetChildLayoutIdListener -> com.zpj.recyclerview.i:
     int onGetLayoutId(int) -> a
 com.zpj.recyclerview.IEasy$OnGetChildViewTypeListener -> com.zpj.recyclerview.j:
@@ -44002,10 +44004,7 @@ com.zpj.shouji.market.model.DiscoverInfo -> com.zpj.shouji.market.model.g:
     281:282:void setTime(java.lang.String) -> u
     549:550:void setToNickName(java.lang.String) -> v
 com.zpj.shouji.market.model.GroupItem -> com.zpj.shouji.market.model.h:
-    java.lang.String title -> a
     7:9:void <init>() -> <init>
-    11:13:void <init>(java.lang.String) -> <init>
-    20:20:java.lang.String getTitle() -> a
 com.zpj.shouji.market.model.InstalledAppInfo -> com.zpj.shouji.market.model.i:
     java.lang.String apkFilePath -> g
     boolean isUserApp -> m
@@ -45080,30 +45079,14 @@ com.zpj.shouji.market.ui.fragment.detail.-$$Lambda$AppInfoFragment$_ARId_i5i7iXC
     int f$4 -> i
     java.util.List f$2 -> g
     com.zpj.shouji.market.ui.fragment.detail.AppInfoFragment f$0 -> e
-com.zpj.shouji.market.ui.fragment.detail.-$$Lambda$AppRecommendFragment$4V8DYo7-wgOn91LkuWMPQ9kaFj4 -> com.zpj.shouji.market.e.c.c0.i:
+com.zpj.shouji.market.ui.fragment.detail.-$$Lambda$AppRecommendFragment$DZaMP2xNfvce1olUQjkMFtjh2ko -> com.zpj.shouji.market.e.c.c0.i:
+    com.zpj.shouji.market.ui.fragment.detail.AppRecommendFragment f$0 -> a
+com.zpj.shouji.market.ui.fragment.detail.-$$Lambda$AppRecommendFragment$EGIfdR7XPL27ztTg6FT_nvkPVSg -> com.zpj.shouji.market.e.c.c0.j:
     com.zpj.shouji.market.ui.fragment.detail.AppRecommendFragment f$0 -> e
-com.zpj.shouji.market.ui.fragment.detail.-$$Lambda$AppRecommendFragment$RecommendAdapter$4xJlLSXfAbkd0mfg42SE9gIarSo -> com.zpj.shouji.market.e.c.c0.j:
-    com.zpj.shouji.market.ui.fragment.detail.AppRecommendFragment$RecommendAdapter f$0 -> e
-    void onClick(com.zpj.recyclerview.EasyViewHolder,android.view.View,java.lang.Object) -> a
-com.zpj.shouji.market.ui.fragment.detail.-$$Lambda$AppRecommendFragment$RecommendAdapter$AWz9fAxhWZO7Skm0H0JVB8cy2NI -> com.zpj.shouji.market.e.c.c0.k:
-    com.zpj.shouji.market.ui.fragment.detail.AppRecommendFragment$RecommendAdapter f$0 -> e
-    void onClick(com.zpj.recyclerview.EasyViewHolder,android.view.View,java.lang.Object) -> a
-com.zpj.shouji.market.ui.fragment.detail.-$$Lambda$AppRecommendFragment$RecommendAdapter$J3LPXpwgWhlL8ENDCYltJZ22qgM -> com.zpj.shouji.market.e.c.c0.l:
-    com.zpj.shouji.market.ui.fragment.detail.AppRecommendFragment$RecommendAdapter f$0 -> e
-    void onBindViewHolder(com.zpj.recyclerview.EasyViewHolder,java.util.List,int,java.util.List) -> a
-com.zpj.shouji.market.ui.fragment.detail.-$$Lambda$AppRecommendFragment$RecommendAdapter$RYNW2VHHCzXeVzvpG4_SK-4SzRo -> com.zpj.shouji.market.e.c.c0.m:
-    com.zpj.shouji.market.ui.fragment.detail.AppRecommendFragment$RecommendAdapter f$0 -> a
-com.zpj.shouji.market.ui.fragment.detail.-$$Lambda$AppRecommendFragment$RecommendAdapter$fJmsWaCXZ3G_5zFBLUG3FD4bI9I -> com.zpj.shouji.market.e.c.c0.n:
-    com.zpj.shouji.market.ui.fragment.detail.AppRecommendFragment$RecommendAdapter f$0 -> e
-    void onBindViewHolder(com.zpj.recyclerview.EasyViewHolder,java.util.List,int,java.util.List) -> a
-com.zpj.shouji.market.ui.fragment.detail.-$$Lambda$AppRecommendFragment$RecommendAdapter$iAtrfVZYDhO0Nn-ImRqm8Dnc1_w -> com.zpj.shouji.market.e.c.c0.o:
-    com.zpj.shouji.market.ui.fragment.detail.AppRecommendFragment$RecommendAdapter f$0 -> e
-com.zpj.shouji.market.ui.fragment.detail.-$$Lambda$AppRecommendFragment$S7TnLGi9zU8PHx5T1Vln7zQCAQ8 -> com.zpj.shouji.market.e.c.c0.p:
-    com.zpj.shouji.market.ui.fragment.detail.AppRecommendFragment f$0 -> e
-com.zpj.shouji.market.ui.fragment.detail.AppCommentFragment -> com.zpj.shouji.market.e.c.c0.q:
+com.zpj.shouji.market.ui.fragment.detail.AppCommentFragment -> com.zpj.shouji.market.e.c.c0.k:
     7:7:void <init>() -> <init>
     10:14:com.zpj.shouji.market.ui.fragment.detail.AppCommentFragment newInstance(java.lang.String) -> h
-com.zpj.shouji.market.ui.fragment.detail.AppDetailFragment -> com.zpj.shouji.market.e.c.c0.r:
+com.zpj.shouji.market.ui.fragment.detail.AppDetailFragment -> com.zpj.shouji.market.e.c.c0.l:
     android.widget.TextView title -> s
     java.lang.String id -> m
     android.support.design.widget.AppBarLayout appBarLayout -> q
@@ -45135,7 +45118,7 @@ com.zpj.shouji.market.ui.fragment.detail.AppDetailFragment -> com.zpj.shouji.mar
     111:111:int getLayoutId() -> v
     116:116:boolean supportSwipeBack() -> x
     56:56:java.lang.String[] access$000() -> y
-com.zpj.shouji.market.ui.fragment.detail.AppDetailFragment$1 -> com.zpj.shouji.market.e.c.c0.r$a:
+com.zpj.shouji.market.ui.fragment.detail.AppDetailFragment$1 -> com.zpj.shouji.market.e.c.c0.l$a:
     android.support.v4.view.ViewPager val$viewPager -> b
     com.zpj.shouji.market.ui.fragment.detail.AppDetailFragment this$0 -> c
     175:175:void <init>(com.zpj.shouji.market.ui.fragment.detail.AppDetailFragment,android.support.v4.view.ViewPager) -> <init>
@@ -45143,18 +45126,18 @@ com.zpj.shouji.market.ui.fragment.detail.AppDetailFragment$1 -> com.zpj.shouji.m
     183:189:net.lucode.hackware.magicindicator.buildins.commonnavigator.abs.IPagerTitleView getTitleView(android.content.Context,int) -> a
     188:188:void lambda$getTitleView$0(android.support.v4.view.ViewPager,int,android.view.View) -> a
     194:200:net.lucode.hackware.magicindicator.buildins.commonnavigator.abs.IPagerIndicator getIndicator(android.content.Context) -> a
-com.zpj.shouji.market.ui.fragment.detail.AppDetailFragment$2 -> com.zpj.shouji.market.e.c.c0.s:
+com.zpj.shouji.market.ui.fragment.detail.AppDetailFragment$2 -> com.zpj.shouji.market.e.c.c0.m:
     com.zpj.shouji.market.ui.fragment.detail.AppDetailFragment this$0 -> h
     219:219:void <init>(com.zpj.shouji.market.ui.fragment.detail.AppDetailFragment) -> <init>
     219:219:void onResourceReady(java.lang.Object,com.bumptech.glide.request.transition.Transition) -> a
     222:241:void onResourceReady(android.graphics.Bitmap,com.bumptech.glide.request.transition.Transition) -> a
     225:233:void lambda$onResourceReady$0(android.graphics.Bitmap,io.reactivex.ObservableEmitter) -> a
     237:239:void lambda$onResourceReady$1(android.graphics.Bitmap) -> a
-com.zpj.shouji.market.ui.fragment.detail.AppDetailFragment$3 -> com.zpj.shouji.market.e.c.c0.t:
+com.zpj.shouji.market.ui.fragment.detail.AppDetailFragment$3 -> com.zpj.shouji.market.e.c.c0.n:
     com.zpj.shouji.market.model.AppDetailInfo val$info -> e
     248:248:void <init>(com.zpj.shouji.market.ui.fragment.detail.AppDetailFragment,com.zpj.shouji.market.model.AppDetailInfo) -> <init>
     251:252:void run() -> run
-com.zpj.shouji.market.ui.fragment.detail.AppInfoFragment -> com.zpj.shouji.market.e.c.c0.u:
+com.zpj.shouji.market.ui.fragment.detail.AppInfoFragment -> com.zpj.shouji.market.e.c.c0.o:
     com.zpj.recyclerview.EasyRecyclerView recyclerView -> l
     android.widget.LinearLayout content -> m
     float screenHeight -> o
@@ -45172,64 +45155,52 @@ com.zpj.shouji.market.ui.fragment.detail.AppInfoFragment -> com.zpj.shouji.marke
     58:60:void onDestroy() -> onDestroy
     159:171:void onGetAppDetailInfo(com.zpj.shouji.market.model.AppDetailInfo) -> onGetAppDetailInfo
     47:47:int getLayoutId() -> v
-com.zpj.shouji.market.ui.fragment.detail.AppInfoFragment$1 -> com.zpj.shouji.market.e.c.c0.u$a:
+com.zpj.shouji.market.ui.fragment.detail.AppInfoFragment$1 -> com.zpj.shouji.market.e.c.c0.o$a:
     android.widget.ImageView val$img -> h
     com.zpj.shouji.market.ui.fragment.detail.AppInfoFragment this$0 -> i
     78:78:void <init>(com.zpj.shouji.market.ui.fragment.detail.AppInfoFragment,android.widget.ImageView) -> <init>
     78:78:void onResourceReady(java.lang.Object,com.bumptech.glide.request.transition.Transition) -> a
     81:99:void onResourceReady(android.graphics.drawable.Drawable,com.bumptech.glide.request.transition.Transition) -> a
-com.zpj.shouji.market.ui.fragment.detail.AppRecommendFragment -> com.zpj.shouji.market.e.c.c0.w:
-    android.support.v4.widget.SwipeRefreshLayout swipeRefreshLayout -> n
-    java.lang.String id -> p
-    android.support.v7.widget.RecyclerView recyclerView -> m
-    java.util.List dataList -> l
-    com.zpj.shouji.market.ui.fragment.detail.AppRecommendFragment$RecommendAdapter adapter -> o
-    36:40:void <init>() -> <init>
-    95:107:void initData() -> A
-    36:36:java.lang.String access$000(com.zpj.shouji.market.ui.fragment.detail.AppRecommendFragment) -> a
-    36:36:void onItemClick(com.sunfusheng.GroupRecyclerViewAdapter,com.sunfusheng.GroupViewHolder,java.lang.Object,int,int) -> a
-    64:81:void initView(android.view.View,android.os.Bundle) -> a
-    85:87:void onLazyInitView(android.os.Bundle) -> a
-    92:92:void onItemClick(com.sunfusheng.GroupRecyclerViewAdapter,com.sunfusheng.GroupViewHolder,com.zpj.shouji.market.model.GroupItem,int,int) -> a
-    36:36:com.zpj.fragmentation.SupportActivity access$100(com.zpj.shouji.market.ui.fragment.detail.AppRecommendFragment) -> b
-    36:36:com.zpj.fragmentation.SupportActivity access$200(com.zpj.shouji.market.ui.fragment.detail.AppRecommendFragment) -> c
-    50:54:com.zpj.shouji.market.ui.fragment.detail.AppRecommendFragment newInstance(java.lang.String) -> h
-    59:59:int getLayoutId() -> v
-    70:70:void lambda$initView$1() -> y
-    71:73:void lambda$null$0() -> z
-com.zpj.shouji.market.ui.fragment.detail.AppRecommendFragment$RecommendAdapter -> com.zpj.shouji.market.e.c.c0.w$a:
-    int[] RES_ICONS -> g
-    com.zpj.shouji.market.ui.fragment.detail.AppRecommendFragment this$0 -> l
-    com.zpj.recyclerview.EasyRecyclerView collectionRecyclerView -> j
-    com.zpj.recyclerview.EasyRecyclerView appRecyclerView -> k
-    java.util.List recommendAppList -> i
-    java.util.List appCollectionList -> h
-    122:124:void <init>(com.zpj.shouji.market.ui.fragment.detail.AppRecommendFragment,android.content.Context,java.util.List) -> <init>
-    109:109:void onBindChildViewHolder(com.sunfusheng.GroupViewHolder,java.lang.Object,int,int) -> a
-    163:164:void onBindHeaderViewHolder(com.sunfusheng.GroupViewHolder,com.zpj.shouji.market.model.GroupItem,int) -> a
-    168:180:void onBindChildViewHolder(com.sunfusheng.GroupViewHolder,com.zpj.shouji.market.model.GroupItem,int,int) -> a
-    183:197:void getAppInfo(android.view.View) -> a
-    190:194:void lambda$getAppInfo$0(com.zpj.recyclerview.EasyViewHolder,java.util.List,int,java.util.List) -> a
-    195:195:void lambda$getAppInfo$1(com.zpj.recyclerview.EasyViewHolder,android.view.View,com.zpj.shouji.market.model.AppInfo) -> a
-    202:220:void lambda$getSimilar$3(com.zpj.http.parser.html.nodes.Document) -> a
-    253:253:void lambda$getCollection$5(com.zpj.recyclerview.EasyViewHolder,android.view.View,com.zpj.shouji.market.model.CollectionInfo) -> a
-    109:109:void onBindHeaderViewHolder(com.sunfusheng.GroupViewHolder,java.lang.Object,int) -> b
-    225:255:void getCollection(android.view.View) -> b
-    232:252:void lambda$getCollection$4(com.zpj.recyclerview.EasyViewHolder,java.util.List,int,java.util.List) -> b
-    138:143:int getChildItemViewType(int,int) -> d
-    133:133:boolean showFooter() -> e
-    128:128:boolean showHeader() -> f
-    153:153:int getChildLayoutId(int) -> f
-    209:212:void lambda$null$2() -> g
-    158:158:int getFooterLayoutId(int) -> h
-    200:222:void getSimilar() -> h
-    148:148:int getHeaderLayoutId(int) -> o
-com.zpj.shouji.market.ui.fragment.detail.AppRecommendFragment$RecommendAdapter$1 -> com.zpj.shouji.market.e.c.c0.v:
-    com.zpj.recyclerview.EasyViewHolder val$holder1 -> h
-    243:243:void <init>(com.zpj.shouji.market.ui.fragment.detail.AppRecommendFragment$RecommendAdapter,com.zpj.recyclerview.EasyViewHolder) -> <init>
-    243:243:void onResourceReady(java.lang.Object,com.bumptech.glide.request.transition.Transition) -> a
-    246:247:void onResourceReady(android.graphics.drawable.Drawable,com.bumptech.glide.request.transition.Transition) -> a
-com.zpj.shouji.market.ui.fragment.detail.AppThemeFragment -> com.zpj.shouji.market.e.c.c0.x:
+com.zpj.shouji.market.ui.fragment.detail.AppRecommendFragment -> com.zpj.shouji.market.e.c.c0.p:
+    com.zpj.shouji.market.ui.widget.recommend.SimilarAppCard similarAppCard -> q
+    com.zpj.shouji.market.ui.widget.recommend.SimilarCollectionCard similarCollectionCard -> p
+    java.util.List appInfoList -> n
+    java.util.List collectionInfoList -> m
+    com.zpj.recyclerview.EasyRecyclerLayout recyclerLayout -> o
+    java.lang.String id -> r
+    java.util.List datas -> l
+    44:51:void <init>() -> <init>
+    44:44:java.util.List access$000(com.zpj.shouji.market.ui.fragment.detail.AppRecommendFragment) -> a
+    44:44:void onItemClick(com.sunfusheng.GroupRecyclerViewAdapter,com.sunfusheng.GroupViewHolder,java.lang.Object,int,int) -> a
+    78:129:void initView(android.view.View,android.os.Bundle) -> a
+    133:140:void onLazyInitView(android.os.Bundle) -> a
+    145:156:void lambda$getSimilar$1(com.zpj.http.parser.html.nodes.Document) -> a
+    169:169:void onItemClick(com.sunfusheng.GroupRecyclerViewAdapter,com.sunfusheng.GroupViewHolder,com.zpj.shouji.market.model.GroupItem,int,int) -> a
+    44:44:java.util.List access$100(com.zpj.shouji.market.ui.fragment.detail.AppRecommendFragment) -> b
+    44:44:void access$200(com.zpj.shouji.market.ui.fragment.detail.AppRecommendFragment) -> c
+    44:44:com.zpj.shouji.market.ui.widget.recommend.SimilarAppCard access$300(com.zpj.shouji.market.ui.fragment.detail.AppRecommendFragment) -> d
+    44:44:com.zpj.shouji.market.ui.widget.recommend.SimilarCollectionCard access$400(com.zpj.shouji.market.ui.fragment.detail.AppRecommendFragment) -> e
+    44:44:com.zpj.recyclerview.EasyRecyclerLayout access$500(com.zpj.shouji.market.ui.fragment.detail.AppRecommendFragment) -> f
+    64:68:com.zpj.shouji.market.ui.fragment.detail.AppRecommendFragment newInstance(java.lang.String) -> h
+    73:73:int getLayoutId() -> v
+    96:99:void lambda$initView$0() -> y
+    143:164:void getSimilar() -> z
+com.zpj.shouji.market.ui.fragment.detail.AppRecommendFragment$1 -> com.zpj.shouji.market.e.c.c0.p$a:
+    com.zpj.shouji.market.ui.fragment.detail.AppRecommendFragment this$0 -> e
+    116:116:void <init>(com.zpj.shouji.market.ui.fragment.detail.AppRecommendFragment) -> <init>
+    119:126:void onBindViewHolder(com.zpj.recyclerview.EasyViewHolder,java.util.List,int,java.util.List) -> a
+com.zpj.shouji.market.ui.fragment.detail.AppRecommendFragment$2 -> com.zpj.shouji.market.e.c.c0.p$b:
+    com.zpj.shouji.market.ui.fragment.detail.AppRecommendFragment this$0 -> a
+    106:106:void <init>(com.zpj.shouji.market.ui.fragment.detail.AppRecommendFragment) -> <init>
+    109:112:android.view.View onCreateViewHolder(android.view.ViewGroup,int,int) -> a
+com.zpj.shouji.market.ui.fragment.detail.AppRecommendFragment$3 -> com.zpj.shouji.market.e.c.c0.p$c:
+    100:100:void <init>(com.zpj.shouji.market.ui.fragment.detail.AppRecommendFragment) -> <init>
+    103:103:int onGetViewType(int) -> a
+com.zpj.shouji.market.ui.fragment.detail.AppRecommendFragment$4 -> com.zpj.shouji.market.e.c.c0.p$d:
+    com.zpj.shouji.market.ui.fragment.detail.AppRecommendFragment this$0 -> a
+    157:157:void <init>(com.zpj.shouji.market.ui.fragment.detail.AppRecommendFragment) -> <init>
+    160:161:void onError(java.lang.Throwable) -> onError
+com.zpj.shouji.market.ui.fragment.detail.AppThemeFragment -> com.zpj.shouji.market.e.c.c0.q:
     7:7:void <init>() -> <init>
     10:14:com.zpj.shouji.market.ui.fragment.detail.AppThemeFragment newInstance(java.lang.String) -> h
 com.zpj.shouji.market.ui.fragment.homepage.-$$Lambda$HomeFragment$-bq_Xd-jVs0K-qYlMy464gIkLbM -> com.zpj.shouji.market.e.c.d0.a:
@@ -45489,8 +45460,8 @@ com.zpj.shouji.market.ui.fragment.manager.DownloadFragment$DownloadWrapper -> co
     152:152:com.zpj.downloader.core.DownloadMission getMission() -> a
     156:156:java.lang.String getTitle() -> b
 com.zpj.shouji.market.ui.fragment.manager.DownloadFragment$ExpandCollapseGroupAdapter -> com.zpj.shouji.market.ui.fragment.manager.DownloadFragment$ExpandCollapseGroupAdapter:
-    java.text.SimpleDateFormat formatter -> h
-    java.util.Map map -> i
+    java.text.SimpleDateFormat formatter -> g
+    java.util.Map map -> h
     168:170:void <init>(com.zpj.shouji.market.ui.fragment.manager.DownloadFragment,android.content.Context,java.util.List) -> <init>
     160:160:void access$000(com.zpj.shouji.market.ui.fragment.manager.DownloadFragment$ExpandCollapseGroupAdapter,com.sunfusheng.GroupViewHolder,com.zpj.downloader.core.DownloadMission) -> a
     160:160:void onBindChildViewHolder(com.sunfusheng.GroupViewHolder,java.lang.Object,int,int) -> a
@@ -47318,33 +47289,35 @@ com.zpj.shouji.market.ui.widget.recommend.-$$Lambda$TutorialRecommendCard$XLI1oM
 com.zpj.shouji.market.ui.widget.recommend.AppInfoRecommendCard -> com.zpj.shouji.market.ui.widget.recommend.AppInfoRecommendCard:
     30:31:void <init>(android.content.Context) -> <init>
     34:35:void <init>(android.content.Context,android.util.AttributeSet) -> <init>
-    38:58:void <init>(android.content.Context,android.util.AttributeSet,int) -> <init>
+    38:40:void <init>(android.content.Context,android.util.AttributeSet,int) -> <init>
     void lambda$MKdQzoe1RBQbXG3zg0qQsgxHGds(com.zpj.shouji.market.ui.widget.recommend.AppInfoRecommendCard,com.zpj.http.parser.html.nodes.Document) -> a
     27:27:void onClick(com.zpj.recyclerview.EasyViewHolder,android.view.View,java.lang.Object) -> a
-    61:73:void onGetDoc(com.zpj.http.parser.html.nodes.Document) -> a
-    77:88:void buildRecyclerView(com.zpj.recyclerview.EasyRecyclerView) -> a
-    92:96:void onBindViewHolder(com.zpj.recyclerview.EasyViewHolder,java.util.List,int,java.util.List) -> a
-    100:101:void onClick(com.zpj.recyclerview.EasyViewHolder,android.view.View,com.zpj.shouji.market.model.AppInfo) -> a
+    43:61:void init() -> a
+    64:76:void onGetDoc(com.zpj.http.parser.html.nodes.Document) -> a
+    80:91:void buildRecyclerView(com.zpj.recyclerview.EasyRecyclerView) -> a
+    95:99:void onBindViewHolder(com.zpj.recyclerview.EasyViewHolder,java.util.List,int,java.util.List) -> a
+    103:104:void onClick(com.zpj.recyclerview.EasyViewHolder,android.view.View,com.zpj.shouji.market.model.AppInfo) -> a
     void lambda$tRGg9Olto3D9EXvde_cPR5lkp14(com.zpj.shouji.market.ui.widget.recommend.AppInfoRecommendCard,com.zpj.http.parser.html.nodes.Document) -> b
-    111:111:int getItemRes() -> getItemRes
-    106:106:java.lang.String getUrl() -> getUrl
+    114:114:int getItemRes() -> getItemRes
+    109:109:java.lang.String getUrl() -> getUrl
 com.zpj.shouji.market.ui.widget.recommend.AppInfoRecommendCard$1 -> com.zpj.shouji.market.ui.widget.recommend.AppInfoRecommendCard$a:
-    77:77:void <init>(com.zpj.shouji.market.ui.widget.recommend.AppInfoRecommendCard,android.content.Context,int) -> <init>
-    80:80:boolean canScrollHorizontally() -> canScrollHorizontally
-    85:85:boolean canScrollVertically() -> canScrollVertically
+    80:80:void <init>(com.zpj.shouji.market.ui.widget.recommend.AppInfoRecommendCard,android.content.Context,int) -> <init>
+    83:83:boolean canScrollHorizontally() -> canScrollHorizontally
+    88:88:boolean canScrollVertically() -> canScrollVertically
 com.zpj.shouji.market.ui.widget.recommend.CollectionRecommendCard -> com.zpj.shouji.market.ui.widget.recommend.CollectionRecommendCard:
     int[] RES_ICONS -> i
     35:36:void <init>(android.content.Context) -> <init>
     39:40:void <init>(android.content.Context,android.util.AttributeSet) -> <init>
-    43:52:void <init>(android.content.Context,android.util.AttributeSet,int) -> <init>
+    43:45:void <init>(android.content.Context,android.util.AttributeSet,int) -> <init>
     void lambda$RNGj6fcFuuBX89VMz_vt5dotJa4(com.zpj.shouji.market.ui.widget.recommend.CollectionRecommendCard,com.zpj.http.parser.html.nodes.Document) -> a
     30:30:void onClick(com.zpj.recyclerview.EasyViewHolder,android.view.View,java.lang.Object) -> a
-    55:63:void onGetDoc(com.zpj.http.parser.html.nodes.Document) -> a
-    67:68:void buildRecyclerView(com.zpj.recyclerview.EasyRecyclerView) -> a
-    72:107:void onBindViewHolder(com.zpj.recyclerview.EasyViewHolder,java.util.List,int,java.util.List) -> a
-    111:112:void onClick(com.zpj.recyclerview.EasyViewHolder,android.view.View,com.zpj.shouji.market.model.CollectionInfo) -> a
+    48:56:void init() -> a
+    59:67:void onGetDoc(com.zpj.http.parser.html.nodes.Document) -> a
+    71:72:void buildRecyclerView(com.zpj.recyclerview.EasyRecyclerView) -> a
+    76:111:void onBindViewHolder(com.zpj.recyclerview.EasyViewHolder,java.util.List,int,java.util.List) -> a
+    115:116:void onClick(com.zpj.recyclerview.EasyViewHolder,android.view.View,com.zpj.shouji.market.model.CollectionInfo) -> a
     void lambda$TrAohpNPV6yJEUgL1z7WjcN5sIM(com.zpj.shouji.market.ui.widget.recommend.CollectionRecommendCard,com.zpj.http.parser.html.nodes.Document) -> b
-    116:116:int getItemRes() -> getItemRes
+    120:120:int getItemRes() -> getItemRes
 com.zpj.shouji.market.ui.widget.recommend.GameRecommendCard -> com.zpj.shouji.market.ui.widget.recommend.GameRecommendCard:
     11:12:void <init>(android.content.Context) -> <init>
     15:16:void <init>(android.content.Context,android.util.AttributeSet) -> <init>
@@ -47376,34 +47349,47 @@ com.zpj.shouji.market.ui.widget.recommend.RecommendBanner -> com.zpj.shouji.mark
     com.zpj.shouji.market.ui.widget.recommend.RecommendBanner$BannerViewHolder bannerViewHolder -> f
     35:36:void <init>(android.content.Context) -> <init>
     39:40:void <init>(android.content.Context,android.util.AttributeSet) -> <init>
-    43:65:void <init>(android.content.Context,android.util.AttributeSet,int) -> <init>
+    43:66:void <init>(android.content.Context,android.util.AttributeSet,int) -> <init>
     27:27:java.util.List access$100(com.zpj.shouji.market.ui.widget.recommend.RecommendBanner) -> a
-    47:64:void lambda$new$1(com.zpj.http.parser.html.nodes.Document) -> a
-    56:56:com.zhouwei.mzbanner.holder.MZViewHolder lambda$null$0() -> a
-    74:77:void onPause() -> b
-    68:71:void onResume() -> c
-    80:83:void onStop() -> d
-com.zpj.shouji.market.ui.widget.recommend.RecommendBanner$1 -> com.zpj.shouji.market.ui.widget.recommend.j:
+    53:65:void lambda$new$1(com.zpj.http.parser.html.nodes.Document) -> a
+    62:62:com.zhouwei.mzbanner.holder.MZViewHolder lambda$null$0() -> a
+    75:78:void onPause() -> b
+    69:72:void onResume() -> c
+    81:84:void onStop() -> d
+com.zpj.shouji.market.ui.widget.recommend.RecommendBanner$1 -> com.zpj.shouji.market.ui.widget.recommend.RecommendBanner$a:
     com.zpj.shouji.market.ui.widget.recommend.RecommendBanner this$0 -> a
-    57:57:void <init>(com.zpj.shouji.market.ui.widget.recommend.RecommendBanner) -> <init>
-    60:61:void onPageClick(android.view.View,int) -> a
-com.zpj.shouji.market.ui.widget.recommend.RecommendBanner$BannerViewHolder -> com.zpj.shouji.market.ui.widget.recommend.RecommendBanner$a:
+    46:46:void <init>(com.zpj.shouji.market.ui.widget.recommend.RecommendBanner) -> <init>
+    49:50:void onPageClick(android.view.View,int) -> a
+com.zpj.shouji.market.ui.widget.recommend.RecommendBanner$BannerViewHolder -> com.zpj.shouji.market.ui.widget.recommend.RecommendBanner$b:
     android.widget.ImageView mImageView -> a
-    85:85:void <init>() -> <init>
-    85:85:void <init>(com.zpj.shouji.market.ui.widget.recommend.RecommendBanner$1) -> <init>
-    85:85:void onBind(android.content.Context,int,java.lang.Object) -> a
-    91:93:android.view.View createView(android.content.Context) -> a
-    98:99:void onBind(android.content.Context,int,com.zpj.shouji.market.model.AppInfo) -> a
+    86:86:void <init>() -> <init>
+    86:86:void <init>(com.zpj.shouji.market.ui.widget.recommend.RecommendBanner$1) -> <init>
+    86:86:void onBind(android.content.Context,int,java.lang.Object) -> a
+    92:94:android.view.View createView(android.content.Context) -> a
+    99:100:void onBind(android.content.Context,int,com.zpj.shouji.market.model.AppInfo) -> a
 com.zpj.shouji.market.ui.widget.recommend.RecommendCard -> com.zpj.shouji.market.ui.widget.recommend.RecommendCard:
     java.util.List list -> e
     android.widget.TextView tvTitle -> g
     com.zpj.recyclerview.EasyRecyclerView recyclerView -> h
     android.content.Context context -> f
-    36:37:void <init>(android.content.Context) -> <init>
-    40:41:void <init>(android.content.Context,android.util.AttributeSet) -> <init>
-    44:63:void <init>(android.content.Context,android.util.AttributeSet,int) -> <init>
-    67:67:void buildRecyclerView(com.zpj.recyclerview.EasyRecyclerView) -> a
-    81:82:void setTitle(java.lang.String) -> setTitle
+    37:38:void <init>(android.content.Context) -> <init>
+    41:42:void <init>(android.content.Context,android.util.AttributeSet) -> <init>
+    45:64:void <init>(android.content.Context,android.util.AttributeSet,int) -> <init>
+    68:68:void buildRecyclerView(com.zpj.recyclerview.EasyRecyclerView) -> a
+    86:89:void setData(java.util.List) -> setData
+    82:83:void setTitle(java.lang.String) -> setTitle
+com.zpj.shouji.market.ui.widget.recommend.SimilarAppCard -> com.zpj.shouji.market.ui.widget.recommend.SimilarAppCard:
+    11:12:void <init>(android.content.Context) -> <init>
+    15:16:void <init>(android.content.Context,android.util.AttributeSet) -> <init>
+    19:20:void <init>(android.content.Context,android.util.AttributeSet,int) -> <init>
+    24:25:void init() -> a
+    29:29:java.lang.String getKey() -> getKey
+com.zpj.shouji.market.ui.widget.recommend.SimilarCollectionCard -> com.zpj.shouji.market.ui.widget.recommend.SimilarCollectionCard:
+    13:14:void <init>(android.content.Context) -> <init>
+    17:18:void <init>(android.content.Context,android.util.AttributeSet) -> <init>
+    21:22:void <init>(android.content.Context,android.util.AttributeSet,int) -> <init>
+    26:27:void init() -> a
+    31:37:void setData(java.util.List) -> setData
 com.zpj.shouji.market.ui.widget.recommend.SoftRecommendCard -> com.zpj.shouji.market.ui.widget.recommend.SoftRecommendCard:
     11:12:void <init>(android.content.Context) -> <init>
     15:16:void <init>(android.content.Context,android.util.AttributeSet) -> <init>
