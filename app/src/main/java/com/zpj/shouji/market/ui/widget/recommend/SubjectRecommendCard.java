@@ -14,14 +14,13 @@ import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.api.HttpPreLoader;
 import com.zpj.shouji.market.model.SubjectInfo;
 import com.zpj.shouji.market.ui.fragment.AppListFragment;
+import com.zpj.shouji.market.ui.fragment.SubjectListFragment2;
 
 import org.greenrobot.eventbus.EventBus;
 
 import java.util.List;
 
 public class SubjectRecommendCard extends RecommendCard<SubjectInfo> {
-
-    private final int[] RES_ICONS = {R.id.item_icon_1, R.id.item_icon_2, R.id.item_icon_3};
 
     public SubjectRecommendCard(Context context) {
         this(context, null);
@@ -86,7 +85,7 @@ public class SubjectRecommendCard extends RecommendCard<SubjectInfo> {
 
     @Override
     public void onClick(EasyViewHolder holder, View view, SubjectInfo data) {
-        EventBus.getDefault().post(AppListFragment.newInstance(data.getId()));
+        EventBus.getDefault().post(SubjectListFragment2.newInstance(data.getId()));
     }
 
     @Override

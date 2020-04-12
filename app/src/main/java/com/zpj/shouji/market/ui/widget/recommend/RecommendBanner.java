@@ -17,7 +17,6 @@ import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.api.HttpPreLoader;
 import com.zpj.shouji.market.model.AppInfo;
 import com.zpj.shouji.market.ui.fragment.detail.AppDetailFragment;
-import com.zpj.shouji.market.ui.fragment.homepage.RecommendFragment2;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -49,6 +48,7 @@ public class RecommendBanner extends LinearLayout {
                 EventBus.getDefault().post(AppDetailFragment.newInstance(bannerItemList.get(i)));
             }
         });
+
         HttpPreLoader.getInstance().setLoadListener(HttpPreLoader.HOME_BANNER, document -> {
             Elements elements = document.select("item");
             bannerItemList.clear();

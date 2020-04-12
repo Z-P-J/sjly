@@ -14,4 +14,14 @@ public class AppThemeFragment extends ThemeListFragment {
         return fragment;
     }
 
+    @Override
+    public void onSupportInvisible() {
+        getSupportDelegate().onSupportInvisible();
+    }
+
+    @Override
+    public void onSupportVisible() {
+        getSupportDelegate().onSupportVisible();
+    }
+
 }

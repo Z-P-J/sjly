@@ -51,26 +51,6 @@ public class SearchFragment extends BaseFragment {
         viewPager = view.findViewById(R.id.view_pager);
         viewPager.setOffscreenPageLimit(2);
         viewPager.setCanScroll(false);
-
-        List<Fragment> list = new ArrayList<>();
-        SearchPanelFragment searchPanelFragment = findChildFragment(SearchPanelFragment.class);
-        if (searchPanelFragment == null) {
-            searchPanelFragment = new SearchPanelFragment();
-        }
-        searchPanelFragment.setOnItemClickListener((index, v, text) -> {
-            searchBar.setText(text);
-            getSearchResult(text);
-        });
-
-        SearchResultFragment searchResultFragment = findChildFragment(SearchResultFragment.class);
-        if (searchResultFragment == null) {
-            searchResultFragment = new SearchResultFragment();
-        }
-        list.add(searchPanelFragment);
-        list.add(searchResultFragment);
-        FragmentsPagerAdapter adapter = new FragmentsPagerAdapter(getChildFragmentManager(), list, null);
-        viewPager.setAdapter(adapter);
-
         searchBar = view.findViewById(R.id.search_bar);
         searchBar.setOnSearchListener(this::getSearchResult);
         searchBar.setOnLeftButtonClickListener(v -> pop());
@@ -92,40 +72,35 @@ public class SearchFragment extends BaseFragment {
 
             }
         });
-//        searchBar.getLeftImageButton().setOnClickListener(v -> pop());
-//        searchBar.getRightImageButton().setOnClickListener(v -> getSearchResult(searchBar.getCenterSearchEditText().getText().toString()));
-//        searchBar.getCenterSearchEditText().setOnEditorActionListener((v, actionId, event) -> getSearchResult(v.getText().toString()));
-//        searchBar.getCenterSearchEditText().addTextChangedListener(new TextWatcher() {
-//            @Override
-//            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-//
-//            }
-//
-//            @Override
-//            public void onTextChanged(CharSequence s, int start, int before, int count) {
-//                if (TextUtils.isEmpty(s.toString()) && viewPager.getCurrentItem() == 1) {
-//                    viewPager.setCurrentItem(0, true);
-//                }
-//            }
-//
-//            @Override
-//            public void afterTextChanged(Editable s) {
-//
-//            }
-//        });
+    }
 
+    @Override
+    public void onEnterAnimationEnd(Bundle savedInstanceState) {
+        super.onEnterAnimationEnd(savedInstanceState);
+        List<Fragment> list = new ArrayList<>();
+        SearchPanelFragment searchPanelFragment = findChildFragment(SearchPanelFragment.class);
+        if (searchPanelFragment == null) {
+            searchPanelFragment = new SearchPanelFragment();
+        }
+        searchPanelFragment.setOnItemClickListener((index, v, text) -> {
+            searchBar.setText(text);
+            getSearchResult(text);
+        });
+
+        SearchResultFragment searchResultFragment = findChildFragment(SearchResultFragment.class);
+        if (searchResultFragment == null) {
+            searchResultFragment = new SearchResultFragment();
+        }
+        list.add(searchPanelFragment);
+        list.add(searchResultFragment);
+        FragmentsPagerAdapter adapter = new FragmentsPagerAdapter(getChildFragmentManager(), list, null);
+        viewPager.setAdapter(adapter);
     }
 
 //    @Override
-//    public void onEnterAnimationEnd(Bundle savedInstanceState) {
-//        super.onEnterAnimationEnd(savedInstanceState);
-//        setFragmentAnimator(new DefaultHorizontalAnimator());
+//    public FragmentAnimator onCreateFragmentAnimator() {
+//        return new DefaultHorizontalAnimator();
 //    }
-
-    @Override
-    public FragmentAnimator onCreateFragmentAnimator() {
-        return new DefaultHorizontalAnimator();
-    }
 
     private boolean getSearchResult(String text) {
         AToast.normal("TODO getSearchResult");

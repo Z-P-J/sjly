@@ -137,7 +137,9 @@ public class ThemeListFragment extends NextUrlFragment<DiscoverInfo>
     public void updateKeyword(String keyword) {
         defaultUrl = "http://tt.shouji.com.cn/app/faxian.jsp?versioncode=198&s=" + keyword;
         nextUrl = defaultUrl;
-        onRefresh();
+        if (isLazyInit) {
+            onRefresh();
+        }
     }
 
     @Override

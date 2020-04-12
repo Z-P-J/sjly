@@ -1,40 +1,21 @@
 package com.zpj.shouji.market.ui.fragment.detail;
 
-import android.content.Context;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.request.RequestOptions;
-import com.bumptech.glide.request.target.SimpleTarget;
-import com.bumptech.glide.request.transition.Transition;
-import com.sunfusheng.GroupRecyclerViewAdapter;
-import com.sunfusheng.GroupViewHolder;
-import com.sunfusheng.HeaderGroupRecyclerViewAdapter;
 import com.zpj.fragmentation.BaseFragment;
 import com.zpj.http.core.IHttp;
 import com.zpj.http.parser.html.nodes.Element;
 import com.zpj.http.parser.html.select.Elements;
-import com.zpj.recyclerview.EasyAdapter;
 import com.zpj.recyclerview.EasyRecyclerLayout;
-import com.zpj.recyclerview.EasyRecyclerView;
 import com.zpj.recyclerview.EasyViewHolder;
 import com.zpj.recyclerview.IEasy;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.api.HttpApi;
-import com.zpj.shouji.market.glide.blur.BlurTransformation2;
 import com.zpj.shouji.market.model.AppInfo;
 import com.zpj.shouji.market.model.CollectionInfo;
-import com.zpj.shouji.market.model.GroupItem;
-import com.zpj.shouji.market.ui.fragment.collection.CollectionDetailFragment;
 import com.zpj.shouji.market.ui.widget.recommend.SimilarAppCard;
 import com.zpj.shouji.market.ui.widget.recommend.SimilarCollectionCard;
 
@@ -119,6 +100,16 @@ public class AppRecommendFragment extends BaseFragment {
         datas.add(new Object());
         datas.add(new Object());
         recyclerLayout.notifyDataSetChanged();
+    }
+
+    @Override
+    public void onSupportInvisible() {
+        getSupportDelegate().onSupportInvisible();
+    }
+
+    @Override
+    public void onSupportVisible() {
+        getSupportDelegate().onSupportVisible();
     }
 
     private void getSimilar() {

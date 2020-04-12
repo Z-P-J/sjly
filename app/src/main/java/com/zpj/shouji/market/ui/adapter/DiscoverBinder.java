@@ -1,13 +1,24 @@
 package com.zpj.shouji.market.ui.adapter;
 
 import android.content.Context;
+import android.graphics.drawable.Drawable;
+import android.support.annotation.NonNull;
+import android.text.SpannableString;
+import android.text.Spanned;
+import android.text.TextPaint;
 import android.text.TextUtils;
+import android.text.method.LinkMovementMethod;
+import android.text.style.ClickableSpan;
+import android.text.style.URLSpan;
+import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.felix.atoast.library.AToast;
 import com.jaeger.ninegridimageview.ItemImageClickListener;
 import com.jaeger.ninegridimageview.NineGridImageView;
 import com.sunbinqiang.iconcountview.IconCountView;
@@ -16,6 +27,8 @@ import com.zpj.recyclerview.EasyViewHolder;
 import com.zpj.recyclerview.IEasy;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.model.DiscoverInfo;
+import com.zpj.shouji.market.ui.fragment.WebFragment;
+import com.zpj.shouji.market.ui.widget.DrawableTintTextView;
 import com.zpj.shouji.market.ui.widget.popup.BottomListPopupMenu;
 import com.zpj.shouji.market.utils.PopupImageLoader;
 
@@ -47,8 +60,7 @@ public class DiscoverBinder implements IEasy.OnBindViewHolderListener<DiscoverIn
         nineGridImageView.setItemImageClickListener(new ItemImageClickListener<String>() {
             @Override
             public void onItemImageClick(Context context, ImageView imageView, int index, List<String> list) {
-//                List<Object> objects = new ArrayList<>(list);
-                ZPopup.imageViewer(context, String.class)
+                ZPopup.imageViewer(context)
                         .setSrcView(imageView, index)
                         .setImageUrls(list)
                         .setSrcViewUpdateListener((popupView, position1) -> {
@@ -57,30 +69,6 @@ public class DiscoverBinder implements IEasy.OnBindViewHolderListener<DiscoverIn
                         })
                         .setImageLoader(new PopupImageLoader())
                         .show();
-//                new XPopup.Builder(context)
-//                        .asImageViewer(imageView, index, objects, new OnSrcViewUpdateListener() {
-//                            @Override
-//                            public void onSrcViewUpdate(ImageViewerPopupView popupView, int position) {
-//                                ImageView view = (ImageView) nineGridImageView.getChildAt(position);
-//                                popupView.updateSrcView(view);
-//                            }
-//                        }, new PopupImageLoader())
-//                        .show();
-
-//                ImageTrans.with(context)
-//                        .setImageList(list)
-//                        .setNowIndex(index)
-//                        .setSourceImageView(pos -> {
-//                            View itemView = nineGridImageView.getChildAt(pos);
-//                            if (itemView != null) {
-//                                return (ImageView) itemView;
-//                            }
-//                            return null;
-//                        })
-//                        .setProgressBar(new MyProgressBarGet())
-//                        .setImageLoad(new MyImageLoad())
-//                        .setAdapter(new MyImageTransAdapter())
-//                        .show();
             }
         });
         nineGridImageView.setVisibility(View.VISIBLE);
@@ -110,20 +98,37 @@ public class DiscoverBinder implements IEasy.OnBindViewHolderListener<DiscoverIn
         LinearLayout commentLayout = holder.getView(R.id.layout_comment);
         commentLayout.removeAllViews();
         if (showComment) {
-            commentLayout.setVisibility(View.VISIBLE);
-            for (DiscoverInfo child : discoverInfo.getChildren()) {
-                if (commentLayout.getChildCount() >= 4) {
-                    break;
-                }
-                TextView textView = new TextView(context);
-                if (TextUtils.isEmpty(child.getToNickName())) {
-                    textView.setText(child.getNickName() + "：" + child.getContent());
-                } else {
-                    textView.setText(child.getNickName() + " 回复 " + child.getToNickName() + "：" + child.getContent());
-                }
+            if (discoverInfo.getChildren().isEmpty()) {
+                commentLayout.setVisibility(View.GONE);
+            } else {
+                commentLayout.setVisibility(View.VISIBLE);
+                for (DiscoverInfo child : discoverInfo.getChildren()) {
 
-                textView.setPadding(0, 0, 0, 5);
-                commentLayout.addView(textView);
+                    if (commentLayout.getChildCount() >= 3) {
+                        int total = discoverInfo.getChildren().size();
+                        if (total > 3) {
+                            DrawableTintTextView textView = new DrawableTintTextView(context);
+                            textView.setText("共" + total + "条回复");
+                            Drawable drawable = context.getResources().getDrawable(R.drawable.ic_keyboard_arrow_right_black_24dp);
+                            textView.setCompoundDrawablesRelativeWithIntrinsicBounds(null, null, drawable, null);
+                            textView.setCompoundDrawablePadding(16);
+                            int color = context.getResources().getColor(R.color.colorPrimary);
+                            textView.setTextColor(color);
+                            textView.setDrawableTintColor(color);
+                            ViewGroup.LayoutParams params = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+                            commentLayout.addView(textView, params);
+                        }
+                        break;
+                    }
+                    TextView textView = new TextView(context);
+
+                    textView.setTextColor(context.getResources().getColor(R.color.color_text_major));
+                    textView.setText(getComment(child));
+                    textView.setMovementMethod(LinkMovementMethod.getInstance());
+
+                    textView.setPadding(0, 0, 0, 8);
+                    commentLayout.addView(textView);
+                }
             }
         } else {
             commentLayout.setVisibility(View.GONE);
@@ -139,6 +144,47 @@ public class DiscoverBinder implements IEasy.OnBindViewHolderListener<DiscoverIn
         IconCountView starView = holder.getView(R.id.like_view);
         supportView.setCount(Long.parseLong(discoverInfo.getSupportCount()));
         starView.setCount(0);
+    }
+
+    private SpannableString getComment(DiscoverInfo info) {
+        String nickName = info.getNickName();
+        String toNickName = info.getToNickName();
+        String content = info.getContent();
+        SpannableString sp;
+        if (TextUtils.isEmpty(toNickName)) {
+            sp = new SpannableString(nickName + "：" + content);
+        } else {
+            sp = new SpannableString(nickName + " 回复 " + toNickName
+                    + "：" + content);
+            sp.setSpan(new ClickableSpan() {
+                           @Override
+                           public void onClick(View widget) {
+                               AToast.normal(toNickName);
+                           }
+
+                           @Override
+                           public void updateDrawState(@NonNull TextPaint ds) {
+                               super.updateDrawState(ds);
+                               ds.setUnderlineText(false);
+                           }
+                       },
+                    nickName.length() + 4,
+                    nickName.length() + 4 + toNickName.length(),
+                    Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+        }
+        sp.setSpan(new ClickableSpan() {
+            @Override
+            public void onClick(View widget) {
+                AToast.normal(nickName);
+            }
+
+            @Override
+            public void updateDrawState(@NonNull TextPaint ds) {
+                super.updateDrawState(ds);
+                ds.setUnderlineText(false);
+            }
+        }, 0, nickName.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+        return sp;
     }
 
     public static void showMenu(Context context, DiscoverInfo data) {

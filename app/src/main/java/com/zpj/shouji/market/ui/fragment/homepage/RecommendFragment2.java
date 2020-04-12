@@ -18,14 +18,14 @@ public class RecommendFragment2 extends BaseFragment {
 
     private static final String TAG = "RecommendFragment";
 
-    private final int[] RES_ICONS = {R.id.item_icon_1, R.id.item_icon_2, R.id.item_icon_3};
+//    private final int[] RES_ICONS = {R.id.item_icon_1, R.id.item_icon_2, R.id.item_icon_3};
 
     private RecommendBanner mBanner;
-    private UpdateRecommendCard updateRecommendCard;
-    private CollectionRecommendCard collectionRecommendCard;
-    private SoftRecommendCard softRecommendCard;
-    private GameRecommendCard gameRecommendCard;
-    private SubjectRecommendCard subjectRecommendCard;
+//    private UpdateRecommendCard updateRecommendCard;
+//    private CollectionRecommendCard collectionRecommendCard;
+//    private SoftRecommendCard softRecommendCard;
+//    private GameRecommendCard gameRecommendCard;
+//    private SubjectRecommendCard subjectRecommendCard;
 
     @Override
     protected int getLayoutId() {
@@ -34,13 +34,30 @@ public class RecommendFragment2 extends BaseFragment {
 
     @Override
     protected void initView(View view, @Nullable Bundle savedInstanceState) {
-        LinearLayout llContainer = view.findViewById(R.id.ll_container);
+//        LinearLayout llContainer = view.findViewById(R.id.ll_container);
         mBanner = view.findViewById(R.id.rb_banner);
-        updateRecommendCard = view.findViewById(R.id.rc_update);
-        collectionRecommendCard = view.findViewById(R.id.rc_collection);
-        softRecommendCard = view.findViewById(R.id.rc_soft);
-        gameRecommendCard = view.findViewById(R.id.rc_game);
-        subjectRecommendCard = view.findViewById(R.id.rc_subject);
+//        updateRecommendCard = view.findViewById(R.id.rc_update);
+//        collectionRecommendCard = view.findViewById(R.id.rc_collection);
+//        softRecommendCard = view.findViewById(R.id.rc_soft);
+//        gameRecommendCard = view.findViewById(R.id.rc_game);
+//        subjectRecommendCard = view.findViewById(R.id.rc_subject);
+    }
+
+    @Override
+    public void onSupportVisible() {
+        super.onSupportVisible();
+        if (mBanner != null) {
+            mBanner.onResume();
+//            postDelayed(() -> mBanner.onResume(), 500);
+        }
+    }
+
+    @Override
+    public void onSupportInvisible() {
+        super.onSupportInvisible();
+        if (mBanner != null) {
+            mBanner.onPause();
+        }
     }
 
     @Override
@@ -48,6 +65,7 @@ public class RecommendFragment2 extends BaseFragment {
         super.onResume();
         if (mBanner != null) {
             mBanner.onResume();
+//            postDelayed(() -> mBanner.onResume(), 500);
         }
     }
 

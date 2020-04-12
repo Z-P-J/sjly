@@ -60,6 +60,16 @@ public class AppInfoFragment extends BaseFragment
     }
 
     @Override
+    public void onSupportInvisible() {
+        getSupportDelegate().onSupportInvisible();
+    }
+
+    @Override
+    public void onSupportVisible() {
+        getSupportDelegate().onSupportVisible();
+    }
+
+    @Override
     protected void initView(View view, @Nullable Bundle savedInstanceState) {
         this.screenHeight = ScreenUtils.getScreenHeight(context);
         this.screenWidth = ScreenUtils.getScreenWidth(context);

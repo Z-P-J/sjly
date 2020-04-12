@@ -17,14 +17,6 @@ import java.util.List;
 public class AppListFragment extends NextUrlFragment<AppInfo>
         implements SearchResultFragment.KeywordObserver {
 
-    public static AppListFragment newInstance(String id) {
-        Bundle args = new Bundle();
-        args.putString(KEY_DEFAULT_URL, "http://tt.shouji.com.cn/androidv3/special_list_xml.jsp?id=" + id);
-        AppListFragment fragment = new AppListFragment();
-        fragment.setArguments(args);
-        return fragment;
-    }
-
     @Override
     protected int getItemLayoutId() {
         return R.layout.item_app_linear;
@@ -47,7 +39,9 @@ public class AppListFragment extends NextUrlFragment<AppInfo>
     @Override
     public void updateKeyword(String key) {
         defaultUrl = "http://tt.shouji.com.cn/androidv3/app_search_xml.jsp?sdk=26&type=default&s=" + key;
-        onRefresh();
+        if (isLazyInit) {
+            onRefresh();
+        }
     }
 
     @Override

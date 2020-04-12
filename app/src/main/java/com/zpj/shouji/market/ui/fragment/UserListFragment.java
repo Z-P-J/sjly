@@ -46,7 +46,9 @@ public class UserListFragment extends NextUrlFragment<UserInfo>
     @Override
     public void updateKeyword(String key) {
         defaultUrl = "http://tt.shouji.com.cn/androidv3/app_search_user_xml.jsp?versioncode=26&s=" + key;
-        onRefresh();
+        if (isLazyInit) {
+            onRefresh();
+        }
     }
 
     @Override

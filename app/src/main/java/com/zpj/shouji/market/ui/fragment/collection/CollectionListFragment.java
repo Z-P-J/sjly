@@ -52,7 +52,9 @@ public class CollectionListFragment extends NextUrlFragment<CollectionInfo>
     public void updateKeyword(String keyword) {
         defaultUrl = "http://tt.shouji.com.cn/androidv3/yyj_view_phb_xml.jsp?title=" + keyword;
         nextUrl = defaultUrl;
-        onRefresh();
+        if (isLazyInit) {
+            onRefresh();
+        }
     }
 
     @Override
