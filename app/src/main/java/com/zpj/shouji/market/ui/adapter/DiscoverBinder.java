@@ -25,13 +25,17 @@ import com.lwkandroid.widget.ninegridview.NineGirdImageContainer;
 import com.lwkandroid.widget.ninegridview.NineGridBean;
 import com.lwkandroid.widget.ninegridview.NineGridView;
 import com.sunbinqiang.iconcountview.IconCountView;
+import com.zpj.http.core.IHttp;
+import com.zpj.http.parser.html.nodes.Document;
 import com.zpj.popup.ZPopup;
 import com.zpj.recyclerview.EasyViewHolder;
 import com.zpj.recyclerview.IEasy;
 import com.zpj.shouji.market.R;
+import com.zpj.shouji.market.api.HttpApi;
 import com.zpj.shouji.market.glide.GlideApp;
 import com.zpj.shouji.market.glide.blur.BlurTransformation;
 import com.zpj.shouji.market.model.DiscoverInfo;
+import com.zpj.shouji.market.model.SupportUserInfo;
 import com.zpj.shouji.market.ui.fragment.detail.AppDetailFragment;
 import com.zpj.shouji.market.ui.fragment.profile.ProfileFragment;
 import com.zpj.shouji.market.ui.widget.DrawableTintTextView;
@@ -217,9 +221,53 @@ public class DiscoverBinder implements IEasy.OnBindViewHolderListener<DiscoverIn
         holder.getTextView(R.id.text_info).setText(discoverInfo.getTime());
         holder.getTextView(R.id.tv_content).setText(discoverInfo.getContent());
         IconCountView supportView = holder.getView(R.id.support_view);
-        IconCountView starView = holder.getView(R.id.like_view);
         supportView.setCount(Long.parseLong(discoverInfo.getSupportCount()));
+        supportView.setOnStateChangedListener(new IconCountView.OnSelectedStateChangedListener() {
+            @Override
+            public void select(boolean isSelected) {
+
+                HttpApi.likeApi(discoverInfo.getContentType(), discoverInfo.getId())
+                        .onSuccess(data -> {
+                            String result = data.selectFirst("info").text();
+                            if ("success".equals(data.selectFirst("result").text())) {
+                                AToast.success(result);
+                                String count = String.valueOf(Long.parseLong(discoverInfo.getSupportCount()) + (isSelected ? 1 : -1));
+                                discoverInfo.setSupportCount(count);
+                                discoverInfo.setLike(isSelected);
+//                                if (isSelected) {
+//                                    SupportUserInfo userInfo = new SupportUserInfo();
+//                                    userInfo.setUserId(discoverInfo.getMemberId());
+//                                    userInfo.setNickName(discoverInfo.getNickName());
+//                                    userInfo.setUserLogo(discoverInfo.getIcon());
+//                                    discoverInfo.getSupportUserInfoList().add(userInfo);
+//                                } else {
+//
+//                                }
+                            } else {
+                                AToast.error(result);
+                                supportView.setState(!isSelected);
+                            }
+                        })
+                        .onError(throwable -> {
+                            AToast.error("点赞失败！" + throwable.getMessage());
+                            supportView.setState(!isSelected);
+                        })
+                        .subscribe();
+            }
+        });
+        supportView.setState(discoverInfo.isLike());
+
+        IconCountView starView = holder.getView(R.id.like_view);
         starView.setCount(0);
+
+        holder.getView(R.id.comment_view).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AToast.normal("回复");
+            }
+        });
+
+
     }
 
     private SpannableString getComment(DiscoverInfo info) {

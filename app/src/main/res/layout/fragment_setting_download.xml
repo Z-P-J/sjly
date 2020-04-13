@@ -16,9 +16,9 @@
         android:scrollbars="none"
         >
 
-        <www.linwg.org.lib.LCardView
+        <com.lihang.ShadowLayout
             style="@style/setting_card_style"
-            app:shadowSize="16dp"
+            app:hl_shadowLimit="16dp"
             >
 
             <LinearLayout
@@ -71,7 +71,7 @@
 
             </LinearLayout>
 
-        </www.linwg.org.lib.LCardView>
+        </com.lihang.ShadowLayout>
 
 
     </com.zpj.shouji.market.ui.widget.ElasticScrollView>

@@ -60,6 +60,7 @@ public class BottomBar extends LinearLayout {
             public void onClick(View v) {
                 if (mListener == null) return;
 
+
                 int pos = tab.getTabPosition();
                 if (mCurrentPosition == pos) {
                     mListener.onTabReselected(pos);

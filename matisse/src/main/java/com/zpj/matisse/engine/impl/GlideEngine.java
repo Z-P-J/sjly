@@ -39,6 +39,7 @@ public class GlideEngine implements ImageEngine {
                 .load(uri)
                 .apply(new RequestOptions()
                         .override(resize, resize)
+//                        .override(Target.SIZE_ORIGINAL)
                         .placeholder(placeholder)
                         .centerCrop())
                 .into(imageView);
@@ -52,6 +53,7 @@ public class GlideEngine implements ImageEngine {
                 .load(uri)
                 .apply(new RequestOptions()
                         .override(resize, resize)
+//                        .override(Target.SIZE_ORIGINAL)
                         .placeholder(placeholder)
                         .centerCrop())
                 .into(imageView);

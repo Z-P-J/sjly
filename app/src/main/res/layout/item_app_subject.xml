@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v7.widget.CardView
+<com.lihang.ShadowLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="320dp"
@@ -8,6 +8,10 @@
     app:cardCornerRadius="8dp"
     app:cardElevation="4dp"
     app:cardUseCompatPadding="true"
+
+    app:hl_cornerRadius="8dp"
+    app:hl_shadowColor="#80cccccc"
+    app:hl_shadowLimit="8dp"
     >
 
     <LinearLayout
@@ -87,4 +91,4 @@
 
     </LinearLayout>
 
-</android.support.v7.widget.CardView>
+</com.lihang.ShadowLayout>

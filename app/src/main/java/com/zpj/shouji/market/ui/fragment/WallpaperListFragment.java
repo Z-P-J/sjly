@@ -13,12 +13,14 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.felix.atoast.library.AToast;
 import com.sunbinqiang.iconcountview.IconCountView;
 import com.zpj.http.parser.html.nodes.Element;
 import com.zpj.popup.ZPopup;
 import com.zpj.recyclerview.EasyRecyclerLayout;
 import com.zpj.recyclerview.EasyViewHolder;
 import com.zpj.shouji.market.R;
+import com.zpj.shouji.market.api.HttpApi;
 import com.zpj.shouji.market.glide.MyRequestOptions;
 import com.zpj.shouji.market.model.WallpaperInfo;
 import com.zpj.shouji.market.model.WallpaperTag;
@@ -108,6 +110,29 @@ public class WallpaperListFragment extends NextUrlFragment<WallpaperInfo> {
         holder.getTextView(R.id.tv_name).setText(info.getNickName());
         IconCountView countView = holder.getView(R.id.support_view);
         countView.setCount(info.getSupportCount());
+        countView.setState(info.isLike());
+        countView.setOnStateChangedListener(new IconCountView.OnSelectedStateChangedListener() {
+            @Override
+            public void select(boolean isSelected) {
+                HttpApi.likeApi("wallpaper", info.getId())
+                        .onSuccess(data -> {
+                            String result = data.selectFirst("info").text();
+                            if ("success".equals(data.selectFirst("result").text())) {
+                                AToast.success(result);
+                                info.setSupportCount(info.getSupportCount() + (isSelected ? 1 : -1));
+                                info.setLike(isSelected);
+                            } else {
+                                AToast.error(result);
+                                countView.setState(!isSelected);
+                            }
+                        })
+                        .onError(throwable -> {
+                            AToast.error("点赞失败！" + throwable.getMessage());
+                            countView.setState(!isSelected);
+                        })
+                        .subscribe();
+            }
+        });
     }
 
     @Override

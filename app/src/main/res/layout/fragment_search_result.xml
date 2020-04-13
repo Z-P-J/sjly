@@ -14,13 +14,12 @@
         android:padding="8dp"
         />
 
-    <www.linwg.org.lib.LCardView
+    <com.lihang.ShadowLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:cardBackgroundColor="@android:color/white"
-        app:shadowSize="0dp"
-        app:leftTopCornerRadius="24dp"
-        app:rightTopCornerRadius="24dp"
+        app:hl_cornerRadius_leftTop="24dp"
+        app:hl_cornerRadius_rigthTop="24dp"
+        app:hl_shadowLimit="0dp"
         >
 
         <android.support.v4.view.ViewPager
@@ -29,6 +28,6 @@
             android:layout_height="match_parent"
             />
 
-    </www.linwg.org.lib.LCardView>
+    </com.lihang.ShadowLayout>
 
 </LinearLayout>

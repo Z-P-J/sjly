@@ -18,8 +18,9 @@ import com.zpj.fragmentation.BaseFragment;
 import com.zpj.fragmentation.anim.DefaultVerticalAnimator;
 import com.zpj.popup.ZPopup;
 import com.zpj.popup.interfaces.OnConfirmListener;
-import com.zpj.popupmenuview.popup.EverywherePopup;
 import com.zpj.shouji.market.R;
+import com.zpj.shouji.market.api.HttpApi;
+import com.zpj.shouji.market.manager.UserManager;
 import com.zpj.shouji.market.model.MemberInfo;
 import com.zpj.shouji.market.ui.fragment.WebFragment;
 import com.zpj.shouji.market.ui.fragment.login.LoginFragment;
@@ -30,12 +31,7 @@ import com.zpj.shouji.market.ui.fragment.setting.InstallSettingFragment;
 import com.zpj.shouji.market.ui.widget.MyToolsCard;
 import com.zpj.shouji.market.ui.widget.PullZoomView;
 import com.zpj.shouji.market.ui.widget.popup.LoginPopup;
-import com.zpj.shouji.market.api.HttpApi;
-import com.zpj.shouji.market.manager.UserManager;
 import com.zpj.utils.ClickHelper;
-
-import com.zpj.fragmentation.anim.DefaultNoAnimator;
-import com.zpj.fragmentation.anim.FragmentAnimator;
 
 public class MyFragment extends BaseFragment
         implements View.OnClickListener,

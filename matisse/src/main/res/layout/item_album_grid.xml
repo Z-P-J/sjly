@@ -14,14 +14,14 @@
   See the License for the specific language governing permissions and
   limitations under the License.
   -->
-<cn.wj.android.colorcardview.CardView
+<com.lihang.ShadowLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    app:cardUseCompatPadding="true"
-    app:cardCornerRadius="8dp"
-    app:cardElevation="2dp"
+    app:hl_shadowLimit="4dp"
+    app:hl_cornerRadius="8dp"
+    app:hl_shadowColor="#80000000"
     >
 
     <RelativeLayout
@@ -34,7 +34,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:scaleType="centerCrop"
-
+            app:corner_top_left_radius="8dp"
+            app:corner_top_right_radius="8dp"
             />
 
 <!--        android:background="?attr/colorPrimary"-->
@@ -70,4 +71,4 @@
 
     </RelativeLayout>
 
-</cn.wj.android.colorcardview.CardView>
+</com.lihang.ShadowLayout>

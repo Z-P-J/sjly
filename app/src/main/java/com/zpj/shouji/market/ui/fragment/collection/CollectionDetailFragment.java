@@ -159,7 +159,7 @@ public class CollectionDetailFragment extends BaseFragment {
             @Override
             public IPagerTitleView getTitleView(Context context, int index) {
                 ColorTransitionPagerTitleView titleView = new ColorTransitionPagerTitleView(context);
-                titleView.setNormalColor(Color.LTGRAY);
+                titleView.setNormalColor(Color.GRAY);
                 titleView.setSelectedColor(getResources().getColor(R.color.colorPrimary));
                 titleView.setTextSize(14);
                 titleView.setText(TAB_TITLES[index]);

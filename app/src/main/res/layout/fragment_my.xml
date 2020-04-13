@@ -11,7 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:scrollbars="none"
-        android:background="@color/background_color"
+        android:background="@color/white"
         >
 
         <LinearLayout
@@ -202,10 +202,17 @@
 
                     <com.zpj.shouji.market.ui.widget.MyToolsCard
                         android:id="@+id/my_tools_card"
-                        style="@style/setting_card_style"/>
-
-                    <www.linwg.org.lib.LCardView
                         style="@style/setting_card_style"
+                        app:hl_cornerRadius="16dp"
+                        app:hl_shadowColor="#80cccccc"
+                        app:hl_shadowLimit="8dp"
+                        />
+
+                    <com.lihang.ShadowLayout
+                        style="@style/setting_card_style"
+                        app:hl_cornerRadius="16dp"
+                        app:hl_shadowColor="#80cccccc"
+                        app:hl_shadowLimit="8dp"
                         >
 
                         <android.support.v7.widget.LinearLayoutCompat
@@ -272,7 +279,7 @@
 
                         </android.support.v7.widget.LinearLayoutCompat>
 
-                    </www.linwg.org.lib.LCardView>
+                    </com.lihang.ShadowLayout>
 
                     <TextView
                         android:id="@+id/tv_sign_out"

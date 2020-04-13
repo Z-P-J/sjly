@@ -84,9 +84,11 @@ public class MainFragment extends BaseFragment
 
         BottomBar mBottomBar = view.findViewById(R.id.bottom_bar);
 
+        BottomBarTab emptyTab = new BottomBarTab(context);
+        emptyTab.setClickable(false);
         mBottomBar.addItem(BottomBarTab.build(context, "主页", R.drawable.ic_home_normal, R.drawable.ic_home_checked))
                 .addItem(BottomBarTab.build(context, "应用", R.drawable.ic_software_normal, R.drawable.ic_software_checked))
-                .addItem(new BottomBarTab(context))
+                .addItem(emptyTab)
                 .addItem(BottomBarTab.build(context, "游戏", R.drawable.ic_game_normal, R.drawable.ic_game_checked))
                 .addItem(BottomBarTab.build(context, "我的", R.drawable.ic_me_normal, R.drawable.ic_me_checked));
 

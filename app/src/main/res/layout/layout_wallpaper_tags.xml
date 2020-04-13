@@ -1,14 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<www.linwg.org.lib.LCardView
+<com.lihang.ShadowLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    app:leftBottomCornerRadius="16dp"
-    app:rightBottomCornerRadius="16dp"
-    app:shadowSize="0dp"
-    android:padding="8dp"
-    app:cardBackgroundColor="@android:color/white"
+    app:hl_shadowLimit="0dp"
+    app:hl_cornerRadius_leftBottom="16dp"
+    app:hl_cornerRadius_rightBottom="16dp"
     >
 
 <!--    <android.support.v7.widget.RecyclerView-->
@@ -23,4 +21,4 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
 
-</www.linwg.org.lib.LCardView>
+</com.lihang.ShadowLayout>

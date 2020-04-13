@@ -27,4 +27,16 @@ public class SupportUserInfo {
     public String getUserLogo() {
         return userLogo;
     }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
+    }
+
+    public void setNickName(String nickName) {
+        this.nickName = nickName;
+    }
+
+    public void setUserLogo(String userLogo) {
+        this.userLogo = userLogo;
+    }
 }

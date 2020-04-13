@@ -51,16 +51,16 @@
                 android:layout_marginBottom="16dp"
                 />
 
-            <www.linwg.org.lib.LCardView
-                app:shadowSize="16dp"
+            <com.lihang.ShadowLayout
                 style="@style/setting_card_style"
+                app:hl_shadowLimit="16dp"
                 >
 
                 <LinearLayout
                     android:orientation="vertical"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:paddingBottom="8dp"
+                    android:padding="8dp"
                     >
 
                     <com.zpj.widget.setting.CommonSettingItem
@@ -116,7 +116,7 @@
 
                 </LinearLayout>
 
-            </www.linwg.org.lib.LCardView>
+            </com.lihang.ShadowLayout>
 
         </LinearLayout>
 

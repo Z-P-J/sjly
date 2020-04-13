@@ -1,6 +1,9 @@
 package com.zpj.shouji.market.model;
 
+import android.text.TextUtils;
+
 import com.zpj.http.parser.html.nodes.Element;
+import com.zpj.shouji.market.manager.UserManager;
 
 public class WallpaperInfo {
 
@@ -17,7 +20,8 @@ public class WallpaperInfo {
     private String height;
     private String spic;
     private String pic;
-    private int supportCount = 0;
+    private long supportCount = 0;
+    private boolean isLike;
 
     public static WallpaperInfo create(Element element) {
         WallpaperInfo info = new WallpaperInfo();
@@ -34,7 +38,19 @@ public class WallpaperInfo {
         info.height = element.selectFirst("pheight").text();
         info.spic = element.selectFirst("spic").text();
         info.pic = element.selectFirst("pic").text();
-        info.supportCount = Integer.parseInt(element.selectFirst("supportcount").text());
+        info.supportCount = Long.parseLong(element.selectFirst("supportcount").text());
+        String userId = UserManager.getInstance().getUserId();
+        if (!TextUtils.isEmpty(userId)) {
+            for (Element support : element.selectFirst("supportusers").select("supportuser")) {
+                String supportUserId = support.selectFirst("supportuserid").text();
+                if (!TextUtils.isEmpty(userId)
+                        && TextUtils.equals(supportUserId, userId)) {
+                    info.isLike = true;
+                    break;
+                }
+            }
+        }
+
         return info;
     }
 
@@ -90,7 +106,19 @@ public class WallpaperInfo {
         return pic;
     }
 
-    public int getSupportCount() {
+    public long getSupportCount() {
         return supportCount;
+    }
+
+    public void setSupportCount(long supportCount) {
+        this.supportCount = supportCount;
+    }
+
+    public void setLike(boolean like) {
+        isLike = like;
+    }
+
+    public boolean isLike() {
+        return isLike;
     }
 }

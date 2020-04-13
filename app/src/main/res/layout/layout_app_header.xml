@@ -7,16 +7,16 @@
     android:layout_height="wrap_content"
     >
 
-    <cn.wj.android.colorcardview.CardView
+    <com.lihang.ShadowLayout
         android:id="@+id/cv_item1"
         android:layout_width="wrap_content"
         android:layout_weight="1"
         android:layout_height="wrap_content"
         android:background="?android:attr/selectableItemBackground"
-        app:cardBackgroundColor="@color/light_purple"
-        app:cardElevation="4dp"
-        app:cardUseCompatPadding="true"
-        app:cardCornerRadius="8dp"
+        app:hl_shadowLimit="8dp"
+        app:hl_cornerRadius="8dp"
+        app:hl_shadowBackColor="@color/light_purple"
+        app:hl_shadowColor="#80cccccc"
         >
 
         <TextView
@@ -31,18 +31,19 @@
             android:textStyle="bold"
             android:text="软件排行" />
 
-    </cn.wj.android.colorcardview.CardView>
+    </com.lihang.ShadowLayout>
 
-    <cn.wj.android.colorcardview.CardView
+    <com.lihang.ShadowLayout
         android:id="@+id/cv_item2"
         android:layout_width="wrap_content"
         android:layout_weight="1"
         android:layout_height="wrap_content"
         android:background="?android:attr/selectableItemBackground"
-        app:cardBackgroundColor="@color/light_blue_1"
-        app:cardElevation="4dp"
-        app:cardUseCompatPadding="true"
-        app:cardCornerRadius="8dp">
+        app:hl_shadowLimit="8dp"
+        app:hl_cornerRadius="8dp"
+        app:hl_shadowBackColor="@color/light_blue_1"
+        app:hl_shadowColor="#80cccccc"
+        >
 
         <TextView
             android:layout_width="match_parent"
@@ -56,7 +57,7 @@
             android:textStyle="bold"
             android:text="软件分类" />
 
-    </cn.wj.android.colorcardview.CardView>
+    </com.lihang.ShadowLayout>
 
 
 

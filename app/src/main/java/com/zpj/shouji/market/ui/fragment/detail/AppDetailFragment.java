@@ -181,7 +181,7 @@ public class AppDetailFragment extends BaseFragment {
             @Override
             public IPagerTitleView getTitleView(Context context, int index) {
                 ColorTransitionPagerTitleView titleView = new ColorTransitionPagerTitleView(context);
-                titleView.setNormalColor(Color.LTGRAY);
+                titleView.setNormalColor(Color.GRAY);
                 titleView.setSelectedColor(getResources().getColor(R.color.colorPrimary));
                 titleView.setTextSize(14);
                 titleView.setText(TAB_TITLES[index]);
@@ -289,7 +289,7 @@ public class AppDetailFragment extends BaseFragment {
                 } else {
                     darkStatusBar();
                 }
-                AToast.success("isDark=" + isDark);
+//                AToast.success("isDark=" + isDark);
                 int color = getResources().getColor(isDark ? R.color.white : R.color.color_text_major);
                 title.setTextColor(color);
                 shortInfo.setTextColor(color);

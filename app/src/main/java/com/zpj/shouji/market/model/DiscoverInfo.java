@@ -4,6 +4,7 @@ import android.text.TextUtils;
 
 import com.zpj.http.parser.html.nodes.Element;
 import com.zpj.http.parser.html.select.Elements;
+import com.zpj.shouji.market.manager.UserManager;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -115,6 +116,8 @@ public class DiscoverInfo {
 
     private final List<SupportUserInfo> supportUserInfoList = new ArrayList<>();
 
+    private boolean isLike;
+
 
     public static DiscoverInfo from(Element element) {
         String type = element.selectFirst("type").text();
@@ -130,6 +133,7 @@ public class DiscoverInfo {
         info.setId(id);
         info.setParent(parent);
         info.setMemberId(element.selectFirst("memberid").text());
+        info.setContentType(element.selectFirst("contenttype").text());
 
         info.setIcon(element.selectFirst("icon").text());
         info.setIconState(element.selectFirst("iconstate").text());
@@ -190,8 +194,14 @@ public class DiscoverInfo {
         info.setSupportCount(supportCountElements.isEmpty() ? "0" : supportCountElements.get(0).text());
         Elements replayCountElements = element.select("replycount");
         info.setReplyCount(replayCountElements.isEmpty() ? "0" : replayCountElements.get(0).text());
+        String userId = UserManager.getInstance().getUserId();
         for (Element support : element.selectFirst("supportusers").select("supportuser")) {
-            info.supportUserInfoList.add(SupportUserInfo.from(support));
+            SupportUserInfo supportUserInfo = SupportUserInfo.from(support);
+            info.supportUserInfoList.add(supportUserInfo);
+            if (!TextUtils.isEmpty(userId)
+                    && TextUtils.equals(supportUserInfo.getUserId(), userId)) {
+                info.isLike = true;
+            }
         }
         return info;
     }
@@ -615,6 +625,14 @@ public class DiscoverInfo {
 
     public List<SupportUserInfo> getSupportUserInfoList() {
         return supportUserInfoList;
+    }
+
+    public void setLike(boolean like) {
+        isLike = like;
+    }
+
+    public boolean isLike() {
+        return isLike;
     }
 
     @Override

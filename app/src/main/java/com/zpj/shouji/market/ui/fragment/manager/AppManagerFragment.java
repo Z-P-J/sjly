@@ -20,6 +20,7 @@ import net.lucode.hackware.magicindicator.buildins.commonnavigator.abs.CommonNav
 import net.lucode.hackware.magicindicator.buildins.commonnavigator.abs.IPagerIndicator;
 import net.lucode.hackware.magicindicator.buildins.commonnavigator.abs.IPagerTitleView;
 import net.lucode.hackware.magicindicator.buildins.commonnavigator.indicators.LinePagerIndicator;
+import net.lucode.hackware.magicindicator.buildins.commonnavigator.titles.ColorTransitionPagerTitleView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -117,7 +118,7 @@ public class AppManagerFragment extends BaseFragment {
 
             @Override
             public IPagerTitleView getTitleView(Context context, int index) {
-                ScaleTransitionPagerTitleView titleView = new ScaleTransitionPagerTitleView(context);
+                ColorTransitionPagerTitleView titleView = new ColorTransitionPagerTitleView(context);
                 titleView.setNormalColor(Color.WHITE);
                 titleView.setSelectedColor(Color.WHITE);
                 titleView.setTextSize(14);

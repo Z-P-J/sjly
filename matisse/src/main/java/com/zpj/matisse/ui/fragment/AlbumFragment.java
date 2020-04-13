@@ -26,6 +26,8 @@ import android.support.v7.widget.GridLayoutManager;
 import android.view.View;
 
 import com.felix.atoast.library.AToast;
+import com.zpj.fragmentation.anim.DefaultHorizontalAnimator;
+import com.zpj.fragmentation.anim.FragmentAnimator;
 import com.zpj.matisse.R;
 import com.zpj.matisse.event.UpdateTitleEvent;
 import com.zpj.matisse.entity.Album;
@@ -109,6 +111,11 @@ public class AlbumFragment extends BaseFragment implements
         mAlbumManager.onCreate(_mActivity, this);
         mAlbumManager.onRestoreInstanceState(savedInstanceState);
 
+    }
+
+    @Override
+    public FragmentAnimator onCreateFragmentAnimator() {
+        return new DefaultHorizontalAnimator();
     }
 
     @Override

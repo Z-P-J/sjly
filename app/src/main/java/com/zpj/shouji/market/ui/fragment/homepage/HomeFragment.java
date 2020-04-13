@@ -72,7 +72,7 @@ public class HomeFragment extends BaseFragment {
                 ScaleTransitionPagerTitleView titleView = new ScaleTransitionPagerTitleView(context);
                 titleView.setNormalColor(getResources().getColor(R.color.color_text_major));
                 titleView.setSelectedColor(getResources().getColor(R.color.colorPrimary));
-                titleView.setTextSize(14);
+                titleView.setTextSize(16);
                 titleView.setText(TAB_TITLES[index]);
                 titleView.setOnClickListener(view1 -> viewPager.setCurrentItem(index));
                 return titleView;

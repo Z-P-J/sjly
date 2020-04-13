@@ -27,6 +27,8 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 
+import com.zpj.fragmentation.anim.DefaultHorizontalAnimator;
+import com.zpj.fragmentation.anim.FragmentAnimator;
 import com.zpj.matisse.R;
 import com.zpj.matisse.entity.Album;
 import com.zpj.matisse.entity.IncapableCause;
@@ -119,6 +121,11 @@ public class MediaSelectionFragment extends BaseFragment implements
         int spacing = getResources().getDimensionPixelSize(R.dimen.media_grid_spacing);
         recyclerLayout.getEasyRecyclerView().getRecyclerView().addItemDecoration(new MediaGridInset(spanCount, spacing, false));
         recyclerLayout.showLoading();
+    }
+
+    @Override
+    public FragmentAnimator onCreateFragmentAnimator() {
+        return new DefaultHorizontalAnimator();
     }
 
     @Override

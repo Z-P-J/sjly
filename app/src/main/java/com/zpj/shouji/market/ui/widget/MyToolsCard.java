@@ -2,7 +2,6 @@ package com.zpj.shouji.market.ui.widget;
 
 import android.content.Context;
 import android.graphics.Bitmap;
-import android.graphics.Color;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.GridLayout;
@@ -14,6 +13,7 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.lihang.ShadowLayout;
 import com.zpj.fragmentation.SupportActivity;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.manager.UserManager;
@@ -33,9 +33,8 @@ import io.reactivex.ObservableOnSubscribe;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 import per.goweii.burred.Blurred;
-import www.linwg.org.lib.LCardView;
 
-public class MyToolsCard extends LCardView implements View.OnClickListener {
+public class MyToolsCard extends ShadowLayout implements View.OnClickListener {
 
     private DrawableTintTextView tvMyHomepage;
     private DrawableTintTextView tvMyDiscovers;

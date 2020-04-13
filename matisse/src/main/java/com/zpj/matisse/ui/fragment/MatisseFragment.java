@@ -25,6 +25,8 @@ import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.zpj.fragmentation.anim.DefaultHorizontalAnimator;
+import com.zpj.fragmentation.anim.FragmentAnimator;
 import com.zpj.matisse.R;
 import com.zpj.matisse.event.UpdateTitleEvent;
 import com.zpj.matisse.entity.Item;
@@ -117,8 +119,8 @@ public class MatisseFragment extends BaseFragment implements
         AlbumFragment albumFragment = findChildFragment(AlbumFragment.class);
         if (albumFragment == null) {
             albumFragment = new AlbumFragment();
+            loadRootFragment(R.id.container, albumFragment);
         }
-        loadRootFragment(R.id.container, albumFragment);
     }
 
     @Override
@@ -146,7 +148,12 @@ public class MatisseFragment extends BaseFragment implements
         mSpec.onSelectedListener = null;
     }
 
-//    ArrayList<Uri> selectedUris = new ArrayList<>();
+    @Override
+    public FragmentAnimator onCreateFragmentAnimator() {
+        return new DefaultHorizontalAnimator();
+    }
+
+    //    ArrayList<Uri> selectedUris = new ArrayList<>();
 //    ArrayList<String> selectedPaths = new ArrayList<>();
 
 //    @Override

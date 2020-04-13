@@ -246,7 +246,7 @@
                                     />
 
                                 <TextView
-                                    android:id="@id/app_info"
+                                    android:id="@+id/app_info"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:gravity="center_vertical"
@@ -298,7 +298,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     app:count="1"
-                    app:state="false"
+                    app:checked="false"
                     app:zeroText="赞"
                     app:textNormalColor="#8a8a8a"
                     app:textSelectedColor="#d4237a"
@@ -311,7 +311,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     app:count="1"
-                    app:state="false"
+                    app:checked="false"
                     app:zeroText="收藏"
                     app:textNormalColor="#8a8a8a"
                     app:textSelectedColor="#d4237a"
@@ -325,7 +325,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     app:count="0"
-                    app:state="false"
+                    app:checked="false"
                     app:zeroText="回复"
                     app:textNormalColor="#8a8a8a"
                     app:textSelectedColor="#8a8a8a"

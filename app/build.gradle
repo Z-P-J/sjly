@@ -60,6 +60,7 @@ dependencies {
     implementation project(':richeditor2')
     implementation project(':emojilib')
     implementation project(':matisse')
+    implementation project(':iconcountview')
 
     // 数据库
     annotationProcessor "com.github.Raizlabs.DBFlow:dbflow-processor:4.2.4"
@@ -114,11 +115,13 @@ dependencies {
     // 其他
     implementation 'com.rengwuxian.materialedittext:library:2.1.4'
     implementation 'com.wx.goodview:goodview:1.0.0'
-    implementation 'com.sunbq:iconcountview:1.0.1'
+//    implementation 'com.sunbq:iconcountview:1.0.1'
     implementation 'io.haydar.filescanner:filescannercore:1.1'
     implementation 'com.github.maning0303:MNCrashMonitor:V1.1.1'
     implementation "com.daimajia.swipelayout:library:1.2.0@aar"
-    implementation 'org.linwg1988:lcardview:1.5.2'
+//    implementation 'org.linwg1988:lcardview:1.5.2'
+//    implementation 'com.henley.android:shadowlayout:1.0.2'
+    implementation 'com.github.lihangleo2:ShadowLayout:2.1.8'
     implementation 'com.zpj.widget:StateLayout:1.0.1'
     implementation 'com.zpj.widget:SmoothCheckBox:1.0.0'
     implementation 'com.zpj.widget:Fragmentation:1.0.0'

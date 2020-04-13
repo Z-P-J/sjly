@@ -23,7 +23,7 @@
             android:padding="8dp"
             >
 
-            <www.linwg.org.lib.LCardView
+            <com.lihang.ShadowLayout
                 style="@style/setting_card_style"
                 >
 
@@ -69,9 +69,9 @@
 
                 </LinearLayout>
 
-            </www.linwg.org.lib.LCardView>
+            </com.lihang.ShadowLayout>
 
-            <www.linwg.org.lib.LCardView
+            <com.lihang.ShadowLayout
                 style="@style/setting_card_style"
                 >
 
@@ -117,9 +117,9 @@
 
                 </LinearLayout>
 
-            </www.linwg.org.lib.LCardView>
+            </com.lihang.ShadowLayout>
 
-            <www.linwg.org.lib.LCardView
+            <com.lihang.ShadowLayout
                 style="@style/setting_card_style"
                 >
 
@@ -151,7 +151,7 @@
 
                 </LinearLayout>
 
-            </www.linwg.org.lib.LCardView>
+            </com.lihang.ShadowLayout>
 
 
         </LinearLayout>

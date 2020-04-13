@@ -5,9 +5,9 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
 
-import www.linwg.org.lib.LCardView;
+import com.lihang.ShadowLayout;
 
-public class SquareCardView extends LCardView {
+public class SquareCardView extends ShadowLayout {
 
     public SquareCardView(@NonNull Context context) {
         super(context);

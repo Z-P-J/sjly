@@ -5,7 +5,9 @@ import android.support.annotation.Nullable;
 import android.util.AttributeSet;
 import android.widget.ImageView;
 
-public class SquareImageView extends ImageView {
+import com.shehuan.niv.NiceImageView;
+
+public class SquareImageView extends NiceImageView {
 
 
     public SquareImageView(Context context) {
