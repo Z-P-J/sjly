@@ -13,10 +13,9 @@
         android:layout_height="match_parent"
         android:layout_above="@id/bottom_bar" />
 
-    <ImageView
+    <View
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="bottom"
         android:layout_above="@id/bottom_bar"
         android:background="@drawable/actionbar_shadow_up" />
 

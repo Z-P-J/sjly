@@ -165,14 +165,26 @@
                 android:text="eshtrueridhkg\nethjrdgiuf\nshrturehtgftkujghrdktghftgk,jftkjh"
                 />
 
-            <com.jaeger.ninegridimageview.NineGridImageView
+            <com.lwkandroid.widget.ninegridview.NineGridView
                 android:id="@+id/nine_grid_image_view"
-                android:layout_height="wrap_content"
-                android:layout_margin="10dp"
                 android:layout_width="match_parent"
-                app:imgGap="4dp"
-                app:showStyle="fill"
-                app:singleImgSize="120dp"/>
+                android:layout_height="match_parent"
+                android:layout_margin="10dp"
+                app:column_count="3"
+                app:is_edit_mode="false"
+                app:max_num="9"
+                app:sapce_size="4dp"
+                app:single_image_size="160dp"
+                />
+
+            <include layout="@layout/item_discover_collection"
+                android:id="@+id/collection_layout"
+                android:layout_width="match_parent"
+                android:layout_height="120dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginStart="10dp"
+                android:visibility="gone"
+                />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -190,7 +202,9 @@
 
                     <RelativeLayout
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
+                        android:layout_height="wrap_content"
+                        android:background="?attr/selectableItemBackground"
+                        >
 
                         <ImageView
                             android:id="@+id/app_icon"
@@ -210,7 +224,7 @@
                             android:paddingStart="10dp"
                             android:paddingEnd="0dp"
                             android:layout_toEndOf="@id/app_icon"
-                            android:layout_toStartOf="@id/btn_download"
+                            android:layout_toStartOf="@id/tv_download"
                             >
 
                             <LinearLayout
@@ -250,7 +264,7 @@
                         </LinearLayout>
 
                         <TextView
-                            android:id="@+id/btn_download"
+                            android:id="@+id/tv_download"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"

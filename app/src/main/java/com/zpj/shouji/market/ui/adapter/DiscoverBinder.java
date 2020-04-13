@@ -9,7 +9,6 @@ import android.text.TextPaint;
 import android.text.TextUtils;
 import android.text.method.LinkMovementMethod;
 import android.text.style.ClickableSpan;
-import android.text.style.URLSpan;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,20 +17,30 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
+import com.bumptech.glide.request.target.Target;
 import com.felix.atoast.library.AToast;
-import com.jaeger.ninegridimageview.ItemImageClickListener;
-import com.jaeger.ninegridimageview.NineGridImageView;
+import com.lwkandroid.widget.ninegridview.INineGridImageLoader;
+import com.lwkandroid.widget.ninegridview.NineGirdImageContainer;
+import com.lwkandroid.widget.ninegridview.NineGridBean;
+import com.lwkandroid.widget.ninegridview.NineGridView;
 import com.sunbinqiang.iconcountview.IconCountView;
 import com.zpj.popup.ZPopup;
 import com.zpj.recyclerview.EasyViewHolder;
 import com.zpj.recyclerview.IEasy;
 import com.zpj.shouji.market.R;
+import com.zpj.shouji.market.glide.GlideApp;
+import com.zpj.shouji.market.glide.blur.BlurTransformation;
 import com.zpj.shouji.market.model.DiscoverInfo;
-import com.zpj.shouji.market.ui.fragment.WebFragment;
+import com.zpj.shouji.market.ui.fragment.detail.AppDetailFragment;
+import com.zpj.shouji.market.ui.fragment.profile.ProfileFragment;
 import com.zpj.shouji.market.ui.widget.DrawableTintTextView;
 import com.zpj.shouji.market.ui.widget.popup.BottomListPopupMenu;
 import com.zpj.shouji.market.utils.PopupImageLoader;
 
+import org.greenrobot.eventbus.EventBus;
+
+import java.util.ArrayList;
 import java.util.List;
 
 public class DiscoverBinder implements IEasy.OnBindViewHolderListener<DiscoverInfo> {
@@ -52,37 +61,80 @@ public class DiscoverBinder implements IEasy.OnBindViewHolderListener<DiscoverIn
                 .load(discoverInfo.getIcon())
                 .into(holder.getImageView(R.id.item_icon));
 
-        NineGridImageView<String> nineGridImageView = holder.getView(R.id.nine_grid_image_view);
-        TextView shareInfo = holder.getTextView(R.id.share_info);
-        View appLayout = holder.getView(R.id.layout_app);
-
-        nineGridImageView.setAdapter(new NineGridImageAdapter());
-        nineGridImageView.setItemImageClickListener(new ItemImageClickListener<String>() {
+        NineGridView nineGridImageView = holder.getView(R.id.nine_grid_image_view);
+        nineGridImageView.setImageLoader(new GlideImageLoader());
+        nineGridImageView.setOnItemClickListener(new NineGridView.onItemClickListener() {
             @Override
-            public void onItemImageClick(Context context, ImageView imageView, int index, List<String> list) {
+            public void onNineGirdAddMoreClick(int dValue) {
+
+            }
+
+            @Override
+            public void onNineGirdItemClick(int position, NineGridBean gridBean, NineGirdImageContainer imageContainer) {
                 ZPopup.imageViewer(context)
-                        .setSrcView(imageView, index)
-                        .setImageUrls(list)
+                        .setSrcView(imageContainer.getImageView(), position)
+                        .setImageUrls(discoverInfo.getSpics())
                         .setSrcViewUpdateListener((popupView, position1) -> {
-                            ImageView view = (ImageView) nineGridImageView.getChildAt(position1);
-                            popupView.updateSrcView(view);
+                            NineGirdImageContainer view = (NineGirdImageContainer) nineGridImageView.getChildAt(position1);
+                            popupView.updateSrcView(view.getImageView());
                         })
                         .setImageLoader(new PopupImageLoader())
                         .show();
             }
+
+            @Override
+            public void onNineGirdItemDeleted(int position, NineGridBean gridBean, NineGirdImageContainer imageContainer) {
+
+            }
         });
+        TextView shareInfo = holder.getTextView(R.id.share_info);
+        View appLayout = holder.getView(R.id.layout_app);
+
+
+        holder.setVisible(R.id.collection_layout, false);
         nineGridImageView.setVisibility(View.VISIBLE);
+        holder.setVisible(R.id.tv_content, true);
         if (!discoverInfo.getSpics().isEmpty()) {
             shareInfo.setText("分享乐图:");
-            nineGridImageView.setImagesData(discoverInfo.getSpics());
+            List<NineGridBean> gridList = new ArrayList<>();
+            for (String url : discoverInfo.getSpics()) {
+                gridList.add(new NineGridBean(url));
+            }
+            nineGridImageView.setDataList(gridList);
+//            nineGridImageView.setImagesData(discoverInfo.getSpics());
         } else if (!discoverInfo.getSharePics().isEmpty()) {
             shareInfo.setText("分享应用集:");
-            nineGridImageView.setImagesData(discoverInfo.getSharePics());
+            nineGridImageView.setVisibility(View.GONE);
+//            nineGridImageView.setImagesData(discoverInfo.getSharePics());
+
+            holder.setVisible(R.id.collection_layout, true);
+            NineGridView gridImageView = holder.getView(R.id.grid_image_view);
+            gridImageView.setImageLoader(new GlideImageLoader());
+            List<NineGridBean> gridList = new ArrayList<>();
+            for (String url : discoverInfo.getSharePics()) {
+                gridList.add(new NineGridBean(url));
+            }
+            gridImageView.setDataList(gridList);
+//            gridImageView.setAdapter(new NineGridImageAdapter());
+//            int size = Math.min(discoverInfo.getSharePics().size(), 4);
+//            gridImageView.setImagesData(discoverInfo.getSharePics().subList(0, size));
+
+            Glide.with(context)
+                    .load(discoverInfo.getSharePics().get(0))
+                    .apply(RequestOptions.bitmapTransform(new BlurTransformation(26, 6)))
+                    .into(holder.getImageView(R.id.img_bg));
+
+            holder.getTextView(R.id.tv_title).setText(discoverInfo.getShareTitle());
+            holder.setText(R.id.tv_info, "共" + discoverInfo.getShareCount() + "个应用");
+            holder.getTextView(R.id.tv_desc).setText("简介：" + discoverInfo.getContent());
+            holder.setVisible(R.id.tv_content, false);
+
         } else {
             shareInfo.setText("分享动态:");
             nineGridImageView.setVisibility(View.GONE);
         }
 
+        TextView tvDownload = holder.getView(R.id.tv_download);
         if (!TextUtils.isEmpty(discoverInfo.getAppName())
                 && !TextUtils.isEmpty(discoverInfo.getAppIcon())
                 && !TextUtils.isEmpty(discoverInfo.getAppPackageName())) {
@@ -91,8 +143,32 @@ public class DiscoverBinder implements IEasy.OnBindViewHolderListener<DiscoverIn
             Glide.with(context).load(discoverInfo.getAppIcon()).into(holder.getImageView(R.id.app_icon));
             holder.getTextView(R.id.app_name).setText(discoverInfo.getAppName());
             holder.getTextView(R.id.app_info).setText(discoverInfo.getAppPackageName());
+            appLayout.setOnClickListener(v -> {
+                if ("0".equals(discoverInfo.getSoftId())) {
+                    AToast.warning("应用未收录");
+                } else {
+                    EventBus.getDefault().post(
+                            AppDetailFragment.newInstance(discoverInfo.getAppType(),
+                                    discoverInfo.getSoftId()));
+//                    AToast.normal("appId=" + discoverInfo.getAppId() + " softId=" + discoverInfo.getSoftId());
+                }
+            });
+            if (discoverInfo.isApkExist()) {
+                tvDownload.setVisibility(View.VISIBLE);
+                tvDownload.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        AToast.normal("TODO Download");
+                    }
+                });
+            } else {
+                tvDownload.setVisibility(View.GONE);
+                tvDownload.setOnClickListener(null);
+            }
+
         } else {
             appLayout.setVisibility(View.GONE);
+            appLayout.setOnClickListener(null);
         }
 
         LinearLayout commentLayout = holder.getView(R.id.layout_comment);
@@ -156,34 +232,19 @@ public class DiscoverBinder implements IEasy.OnBindViewHolderListener<DiscoverIn
         } else {
             sp = new SpannableString(nickName + " 回复 " + toNickName
                     + "：" + content);
-            sp.setSpan(new ClickableSpan() {
-                           @Override
-                           public void onClick(View widget) {
-                               AToast.normal(toNickName);
-                           }
-
-                           @Override
-                           public void updateDrawState(@NonNull TextPaint ds) {
-                               super.updateDrawState(ds);
-                               ds.setUnderlineText(false);
-                           }
-                       },
+            sp.setSpan(
+                    new MyClickableSpan(info.getToMemberId()),
                     nickName.length() + 4,
                     nickName.length() + 4 + toNickName.length(),
-                    Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+                    Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
+            );
         }
-        sp.setSpan(new ClickableSpan() {
-            @Override
-            public void onClick(View widget) {
-                AToast.normal(nickName);
-            }
-
-            @Override
-            public void updateDrawState(@NonNull TextPaint ds) {
-                super.updateDrawState(ds);
-                ds.setUnderlineText(false);
-            }
-        }, 0, nickName.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+        sp.setSpan(
+                new MyClickableSpan(info.getMemberId()),
+                0,
+                nickName.length(),
+                Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
+        );
         return sp;
     }
 
@@ -213,6 +274,66 @@ public class DiscoverBinder implements IEasy.OnBindViewHolderListener<DiscoverIn
                     menu.dismiss();
                 })
                 .show();
+    }
+
+    public static class GlideImageLoader implements INineGridImageLoader {
+
+        @Override
+        public void displayNineGridImage(Context context, String url, ImageView imageView) {
+            if (url.toLowerCase().endsWith(".gif")) {
+                Log.d("PopupImageLoader", "gif");
+                GlideApp.with(context).asGif().load(url)
+                        .apply(new RequestOptions().centerCrop().placeholder(R.drawable.bga_pp_ic_holder_light).error(R.drawable.bga_pp_ic_holder_light).override(Target.SIZE_ORIGINAL)).into(imageView);
+            } else {
+                Log.d("PopupImageLoader", "png");
+                Glide.with(context).load(url).apply(new RequestOptions().centerCrop().placeholder(R.drawable.bga_pp_ic_holder_light).error(R.drawable.bga_pp_ic_holder_light).override(Target.SIZE_ORIGINAL).dontAnimate()).into(imageView);
+            }
+        }
+
+        @Override
+        public void displayNineGridImage(Context context, String url, ImageView imageView, int width, int height) {
+            displayNineGridImage(context, url, imageView);
+        }
+    }
+
+//    public static class NineGridImageAdapter extends NineGridImageViewAdapter<String> {
+//
+//        @Override
+//        protected void onDisplayImage(Context context, ImageView imageView, String s) {
+//            if (s.toLowerCase().endsWith(".gif")) {
+//                Log.d("PopupImageLoader", "gif");
+//                GlideApp.with(context).asGif().load(s)
+//                        .apply(new RequestOptions().centerCrop().placeholder(R.drawable.bga_pp_ic_holder_light).error(R.drawable.bga_pp_ic_holder_light).override(Target.SIZE_ORIGINAL)).into(imageView);
+//            } else {
+//                Log.d("PopupImageLoader", "png");
+//                Glide.with(context).load(s).apply(new RequestOptions().centerCrop().placeholder(R.drawable.bga_pp_ic_holder_light).error(R.drawable.bga_pp_ic_holder_light).override(Target.SIZE_ORIGINAL).dontAnimate()).into(imageView);
+//            }
+//        }
+//
+//        @Override
+//        protected void onItemImageClick(Context context, ImageView imageView, int index, List<String> list) {
+//            super.onItemImageClick(context, imageView, index, list);
+//        }
+//    }
+
+    public static class MyClickableSpan extends ClickableSpan {
+
+        private final String memberId;
+
+        public MyClickableSpan(String memberId) {
+            this.memberId = memberId;
+        }
+
+        @Override
+        public void onClick(View widget) {
+            EventBus.getDefault().post(ProfileFragment.newInstance(memberId, false));
+        }
+
+        @Override
+        public void updateDrawState(@NonNull TextPaint ds) {
+            super.updateDrawState(ds);
+            ds.setUnderlineText(false);
+        }
     }
 
 }

@@ -13,9 +13,11 @@ import com.zpj.recyclerview.EasyRecyclerLayout;
 import com.zpj.recyclerview.EasyViewHolder;
 import com.zpj.recyclerview.IEasy;
 import com.zpj.shouji.market.R;
+import com.zpj.shouji.market.model.CollectionInfo;
 import com.zpj.shouji.market.model.DiscoverInfo;
 import com.zpj.shouji.market.ui.adapter.DiscoverBinder;
 import com.zpj.shouji.market.ui.fragment.base.NextUrlFragment;
+import com.zpj.shouji.market.ui.fragment.collection.CollectionDetailFragment;
 import com.zpj.shouji.market.ui.fragment.profile.ProfileFragment;
 import com.zpj.shouji.market.ui.fragment.search.SearchResultFragment;
 import com.zpj.shouji.market.api.HttpApi;
@@ -124,7 +126,22 @@ public class ThemeListFragment extends NextUrlFragment<DiscoverInfo>
     @Override
     public void onClick(EasyViewHolder holder, View view, DiscoverInfo data) {
         AToast.normal("TODO click");
-        _mActivity.start(ThemeDetailFragment.newInstance(data));
+        if (data.getSpics().isEmpty() && !data.getSharePics().isEmpty()) {
+            CollectionInfo info = new CollectionInfo();
+            info.setId(data.getId());
+            info.setTitle(data.getShareTitle());
+            info.setComment(data.getContent());
+            info.setNickName(data.getNickName());
+//            info.setFavCount(0);
+//            info.setSupportCount(0);
+//            info.setViewCount(0);
+//            for (String url : data.getSharePics()) {
+//                info.addIcon(url);
+//            }
+            _mActivity.start(CollectionDetailFragment.newInstance(info));
+        } else {
+            _mActivity.start(ThemeDetailFragment.newInstance(data));
+        }
     }
 
     @Override

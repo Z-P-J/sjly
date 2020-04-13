@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="120dp"
+    >
+
+    <com.shehuan.niv.NiceImageView
+        android:id="@+id/img_bg"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:corner_radius="8dp"
+        android:scaleType="centerCrop"
+        android:tint="#a0000000"
+        />
+
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:background="?android:attr/selectableItemBackground"
+        android:padding="16dp"
+        >
+
+        <com.lwkandroid.widget.ninegridview.NineGridView
+            android:id="@+id/grid_image_view"
+            android:layout_width="64dp"
+            android:layout_height="64dp"
+            android:background="@drawable/bg_collection_icon_grid"
+            android:padding="4dp"
+            app:column_count="2"
+            app:is_edit_mode="false"
+            app:max_num="4"
+            app:sapce_size="2dp"
+            app:single_image_size="24dp"
+
+            />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginStart="16dp"
+            android:gravity="center_vertical"
+            android:layout_gravity="center_vertical"
+            >
+
+            <TextView
+                android:id="@+id/tv_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:maxLines="2"
+                android:ellipsize="end"
+                android:text="文件夹"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:textColor="@color/white" />
+
+            <TextView
+                android:id="@+id/tv_info"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:maxLines="1"
+                android:gravity="center_vertical"
+                android:ellipsize="end"
+                android:text="文件： 文件夹："
+                android:paddingTop="1dp"
+                android:paddingBottom="1dp"
+                android:textColor="@color/light_gray_17"
+                android:textStyle="bold"
+                android:textSize="12sp" />
+
+            <TextView
+                android:id="@+id/tv_desc"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:maxLines="2"
+                android:ellipsize="end"
+                android:text="文件夹"
+                android:textColor="@color/white"
+                />
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+</FrameLayout>

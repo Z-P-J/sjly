@@ -35,6 +35,8 @@ public class DiscoverInfo {
 
     private String toNickName;
 
+    private String toMemberId;
+
     private String memberType;
 
     private String iconState;
@@ -63,6 +65,10 @@ public class DiscoverInfo {
 
     private String shareInfo;
 
+    private String shareCount;
+
+    private String shareTitle;
+
     private boolean isLast;
 
     private boolean isDetail;
@@ -72,6 +78,8 @@ public class DiscoverInfo {
     private String appId;
 
     private String softId;
+
+    private String appType;
 
     private String appName;
 
@@ -92,8 +100,6 @@ public class DiscoverInfo {
     private String apkUrl;
 
     private String appSize;
-
-    private int shareCount;
 
     private List<String> sharePics = new ArrayList<>(0);
 
@@ -155,12 +161,21 @@ public class DiscoverInfo {
                 info.setAppUrl(element.selectFirst("appurl").text());
                 info.setApkUrl(element.selectFirst("apkurl").text());
                 info.setAppSize(element.selectFirst("apksize").text());
+                info.setAppId(element.selectFirst("appiid").text());
+                info.setSoftId(element.selectFirst("softid").text());
+                info.setAppType(element.selectFirst("apptype").text());
             }
 
             // 分享应用集
+            info.setShareCount(element.selectFirst("sharecount").text());
+            info.setShareTitle(element.selectFirst("sharetit").text());
+
+
             for (Element sharePic : element.select("sharepics").select("sharepic")) {
                 info.addSharePic(sharePic.text());
             }
+
+
             for (Element sharePn : element.select("sharepics").select("sharepn")) {
                 info.addSharePn(sharePn.text());
             }
@@ -168,6 +183,7 @@ public class DiscoverInfo {
         } else if ("reply".equals(type)) {
             String toNickName = element.selectFirst("tonickname").text();
             info.setToNickName(toNickName);
+            info.setToMemberId(element.selectFirst("tomemberid").text());
         }
 
         Elements supportCountElements = element.select("supportcount");
@@ -413,6 +429,14 @@ public class DiscoverInfo {
         this.softId = softId;
     }
 
+    public String getAppType() {
+        return appType;
+    }
+
+    public void setAppType(String appType) {
+        this.appType = appType;
+    }
+
     public String getAppPackageName() {
         return appPackageName;
     }
@@ -485,12 +509,20 @@ public class DiscoverInfo {
         this.appSize = appSize;
     }
 
-    public int getShareCount() {
+    public String getShareCount() {
         return shareCount;
     }
 
-    public void setShareCount(int shareCount) {
+    public void setShareCount(String shareCount) {
         this.shareCount = shareCount;
+    }
+
+    public void setShareTitle(String shareTitle) {
+        this.shareTitle = shareTitle;
+    }
+
+    public String getShareTitle() {
+        return shareTitle;
     }
 
     public List<String> getSharePics() {
@@ -547,6 +579,14 @@ public class DiscoverInfo {
 
     public void setToNickName(String toNickName) {
         this.toNickName = toNickName;
+    }
+
+    public String getToMemberId() {
+        return toMemberId;
+    }
+
+    public void setToMemberId(String toMemberId) {
+        this.toMemberId = toMemberId;
     }
 
     public void setAppName(String appName) {

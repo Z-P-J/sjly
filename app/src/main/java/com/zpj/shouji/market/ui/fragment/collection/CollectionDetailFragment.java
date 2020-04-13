@@ -13,6 +13,7 @@ import android.support.v4.graphics.ColorUtils;
 import android.support.v4.view.ViewPager;
 import android.support.v7.graphics.Palette;
 import android.support.v7.widget.Toolbar;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
@@ -63,6 +64,8 @@ public class CollectionDetailFragment extends BaseFragment {
     private TextView tvFavorite;
     private TextView tvView;
     private TextView tvDownload;
+    private ViewPager viewPager;
+    private MagicIndicator magicIndicator;
 
     private String backgroundUrl;
     private String time;
@@ -96,8 +99,10 @@ public class CollectionDetailFragment extends BaseFragment {
             pop();
             return;
         }
+
         stateLayout = view.findViewById(R.id.state_layout);
         stateLayout.showLoadingView();
+
         appBarLayout = view.findViewById(R.id.appbar);
         ivIcon = view.findViewById(R.id.iv_icon);
         tvTitle = view.findViewById(R.id.tv_title);
@@ -108,18 +113,23 @@ public class CollectionDetailFragment extends BaseFragment {
         tvFavorite = view.findViewById(R.id.tv_favorite);
         tvView = view.findViewById(R.id.tv_view);
         tvDownload = view.findViewById(R.id.tv_download);
-        Toolbar toolbar = view.findViewById(R.id.toolbar);
+//        Toolbar toolbar = view.findViewById(R.id.toolbar);
+//        toolbar.setTitle(item.getTitle());
 
-        TAB_TITLES[0] = TAB_TITLES[0] + "(" + item.getSize() + ")";
-        TAB_TITLES[1] = TAB_TITLES[1] + "(" + item.getReplyCount() + ")";
+        viewPager = view.findViewById(R.id.view_pager);
+        magicIndicator = view.findViewById(R.id.magic_indicator);
 
-        toolbar.setTitle(item.getTitle());
+        //        TAB_TITLES[0] = TAB_TITLES[0] + "(" + item.getSize() + ")";
+//        TAB_TITLES[1] = TAB_TITLES[1] + "(" + item.getReplyCount() + ")";
+
+        setToolbarTitle(item.getTitle());
+
         tvTitle.setText(item.getTitle());
         tvUserName.setText(item.getNickName());
         tvDesc.setText(item.getComment());
-        tvFavorite.setText(item.getFavCount() + "");
-        tvSupport.setText(item.getSupportCount() + "");
-        tvView.setText(item.getViewCount() + "");
+//        tvFavorite.setText(item.getFavCount() + "");
+//        tvSupport.setText(item.getSupportCount() + "");
+//        tvView.setText(item.getViewCount() + "");
 
 
         ArrayList<Fragment> list = new ArrayList<>();
@@ -135,10 +145,9 @@ public class CollectionDetailFragment extends BaseFragment {
         list.add(themeListFragment);
 
         FragmentsPagerAdapter adapter = new FragmentsPagerAdapter(getChildFragmentManager(), list, TAB_TITLES);
-        ViewPager viewPager = view.findViewById(R.id.view_pager);
+
         viewPager.setAdapter(adapter);
-        viewPager.setOffscreenPageLimit(2);
-        MagicIndicator magicIndicator = view.findViewById(R.id.magic_indicator);
+        viewPager.setOffscreenPageLimit(list.size());
         CommonNavigator navigator = new CommonNavigator(context);
         navigator.setAdjustMode(true);
         navigator.setAdapter(new CommonNavigatorAdapter() {
@@ -194,6 +203,9 @@ public class CollectionDetailFragment extends BaseFragment {
                     backgroundUrl = doc.selectFirst("memberBackGround").text();
                     time = doc.selectFirst("time").text();
                     userAvatarUrl = doc.selectFirst("memberAvatar").text();
+                    tvFavorite.setText(doc.selectFirst("favcount").text());
+                    tvSupport.setText(doc.selectFirst("supportcount").text());
+                    tvView.setText(doc.selectFirst("viewcount").text());
                     RequestOptions options = new RequestOptions().centerCrop().error(R.mipmap.ic_launcher).placeholder(R.mipmap.ic_launcher);
 //                    Glide.with(context).load(backgroundUrl).apply(options).into(ivIcon);
                     Glide.with(context).load(userAvatarUrl).apply(options).into(ivAvatar);

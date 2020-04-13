@@ -127,5 +127,11 @@ public final class HttpApi {
                 + UserManager.getInstance().getMemberInfo().getSn();
     }
 
+    private static ObservableTask<Document> likeComment(String id) {
+        String url = "http://tt.shouji.com.cn/app/comment_flower_xml.jsp?versioncode=198&jsessionid="
+                + UserManager.getInstance().getSessionId() + "&t=discuss" + "&id=" + id;
+        return connect(url);
+    }
+
 
 }
