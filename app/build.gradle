@@ -51,17 +51,6 @@ dependencies {
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
 
-//    implementation project(':zbase')
-    implementation project(":zwidget")
-    implementation project(":zpopup")
-    implementation project(":zdownloader")
-    implementation project(':zmarkdown')
-    implementation project(':richeditor')
-    implementation project(':richeditor2')
-    implementation project(':emojilib')
-    implementation project(':matisse')
-    implementation project(':iconcountview')
-
     // 数据库
     annotationProcessor "com.github.Raizlabs.DBFlow:dbflow-processor:4.2.4"
     implementation "com.github.Raizlabs.DBFlow:dbflow-core:4.2.4"
@@ -113,6 +102,7 @@ dependencies {
     implementation 'com.zpj.widget:ZRecyclerView:1.0.2'
 
     // 其他
+    implementation 'com.github.CarGuo.RickText:textUtilsLib:v2.1.5'
     implementation 'com.rengwuxian.materialedittext:library:2.1.4'
     implementation 'com.wx.goodview:goodview:1.0.0'
 //    implementation 'com.sunbq:iconcountview:1.0.1'
@@ -129,5 +119,15 @@ dependencies {
     implementation 'com.zpj.widget:ZToolBar:1.0.3'
     implementation 'com.zpj.utils:ZUtils:1.0.1'
     implementation 'com.zpj.http:ZHttp:1.0.0'
+
+    implementation project(":zwidget")
+    implementation project(":zpopup")
+    implementation project(":zdownloader")
+    implementation project(':zmarkdown')
+    implementation project(':richeditor')
+    implementation project(':richeditor2')
+    implementation project(':emojilib')
+    implementation project(':matisse')
+    implementation project(':iconcountview')
 
 }

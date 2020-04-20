@@ -16,6 +16,9 @@ import com.zpj.http.parser.html.select.Elements;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.api.HttpPreLoader;
 import com.zpj.shouji.market.model.AppInfo;
+import com.zpj.shouji.market.ui.fragment.SubjectRecommendListFragment;
+import com.zpj.shouji.market.ui.fragment.ToolBarListFragment;
+import com.zpj.shouji.market.ui.fragment.collection.CollectionRecommendListFragment;
 import com.zpj.shouji.market.ui.fragment.detail.AppDetailFragment;
 
 import org.greenrobot.eventbus.EventBus;
@@ -23,7 +26,7 @@ import org.greenrobot.eventbus.EventBus;
 import java.util.ArrayList;
 import java.util.List;
 
-public class RecommendBanner extends LinearLayout {
+public class RecommendBanner extends LinearLayout implements View.OnClickListener {
 
     private final List<AppInfo> bannerItemList = new ArrayList<>();
     private final BannerViewHolder bannerViewHolder = new BannerViewHolder();
@@ -63,6 +66,11 @@ public class RecommendBanner extends LinearLayout {
 
             mMZBanner.start();
         });
+
+        findViewById(R.id.tv_common_app).setOnClickListener(this);
+        findViewById(R.id.tv_recent_download).setOnClickListener(this);
+        findViewById(R.id.tv_subjects).setOnClickListener(this);
+        findViewById(R.id.tv_collections).setOnClickListener(this);
     }
 
     public void onResume() {
@@ -80,6 +88,24 @@ public class RecommendBanner extends LinearLayout {
     public void onStop() {
         if (mMZBanner != null) {
             mMZBanner.pause();
+        }
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.tv_common_app:
+                ToolBarListFragment.startRecommendSoftList();
+                break;
+            case R.id.tv_recent_download:
+                ToolBarListFragment.startRecentDownload();
+                break;
+            case R.id.tv_subjects:
+                SubjectRecommendListFragment.start("http://tt.shouji.com.cn/androidv3/special_index_xml.jsp?jse=yes");
+                break;
+            case R.id.tv_collections:
+                CollectionRecommendListFragment.start("http://tt.shouji.com.cn/androidv3/yyj_tj_xml.jsp");
+                break;
         }
     }
 

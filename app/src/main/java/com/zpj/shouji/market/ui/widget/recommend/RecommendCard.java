@@ -7,6 +7,7 @@ import android.support.v7.widget.CardView;
 import android.support.v7.widget.GridLayoutManager;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.TextView;
 
@@ -27,6 +28,7 @@ public abstract class RecommendCard<T> extends FrameLayout
 
     protected final Context context;
     protected final TextView tvTitle;
+    protected final TextView tvMore;
     protected final EasyRecyclerView<T> recyclerView;
 
 //    private String title;
@@ -53,6 +55,8 @@ public abstract class RecommendCard<T> extends FrameLayout
         LayoutInflater.from(context).inflate(R.layout.layout_recommend_card, this, true);
         tvTitle = findViewById(R.id.tv_title);
         tvTitle.setText(title);
+        tvMore = findViewById(R.id.tv_more);
+        tvMore.setOnClickListener(this::onMoreClicked);
         recyclerView = new EasyRecyclerView<>(findViewById(R.id.recycler_view));
         recyclerView.setData(list)
                 .setItemRes(getItemRes())
@@ -90,4 +94,6 @@ public abstract class RecommendCard<T> extends FrameLayout
 
     @LayoutRes
     public abstract int getItemRes();
+
+    public abstract void onMoreClicked(View v);
 }

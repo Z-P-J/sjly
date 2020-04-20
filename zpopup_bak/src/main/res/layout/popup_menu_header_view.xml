@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.zpj.popupmenuview.BaseOptionMenuView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/bg_menu"
+    >
+
+    <TextView
+        android:id="@+id/popup_menu_view_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="标题"
+        android:paddingStart="10dp"
+        android:paddingEnd="10dp"
+        />
+
+
+
+</com.zpj.popupmenuview.BaseOptionMenuView>

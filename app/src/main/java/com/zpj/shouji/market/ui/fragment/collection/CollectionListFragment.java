@@ -11,6 +11,8 @@ import com.zpj.shouji.market.model.CollectionInfo;
 import com.zpj.shouji.market.ui.fragment.base.NextUrlFragment;
 import com.zpj.shouji.market.ui.fragment.search.SearchResultFragment;
 
+import org.greenrobot.eventbus.EventBus;
+
 import java.util.List;
 
 public class CollectionListFragment extends NextUrlFragment<CollectionInfo>
@@ -24,6 +26,10 @@ public class CollectionListFragment extends NextUrlFragment<CollectionInfo>
         CollectionListFragment fragment = new CollectionListFragment();
         fragment.setArguments(args);
         return fragment;
+    }
+
+    public static void start(String defaultUrl) {
+        EventBus.getDefault().post(newInstance(defaultUrl));
     }
 
     @Override
@@ -46,6 +52,12 @@ public class CollectionListFragment extends NextUrlFragment<CollectionInfo>
             holder.getView(ICON_RES[i]).setVisibility(View.VISIBLE);
             Glide.with(context).load(icon).into(holder.getImageView(ICON_RES[i]));
         }
+    }
+
+    @Override
+    public void onClick(EasyViewHolder holder, View view, CollectionInfo data) {
+        super.onClick(holder, view, data);
+        EventBus.getDefault().post(CollectionDetailFragment.newInstance(data));
     }
 
     @Override

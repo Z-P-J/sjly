@@ -34,6 +34,7 @@ import com.zpj.matisse.entity.SelectionSpec;
 import com.zpj.matisse.model.SelectedItemManager;
 import com.zpj.matisse.ui.widget.CheckRadioView;
 import com.zpj.matisse.ui.widget.CustomImageViewerPopup;
+import com.zpj.matisse.ui.widget.CustomImageViewerPopup2;
 import com.zpj.matisse.ui.widget.IncapableDialog;
 import com.zpj.matisse.utils.MediaStoreCompat;
 import com.zpj.matisse.utils.PhotoMetadataUtils;
@@ -286,8 +287,12 @@ public class MatisseFragment extends BaseFragment implements
     @Override
     public void onClick(View v) {
         if (v.getId() == R.id.button_preview) {
-            CustomImageViewerPopup.with(context)
-                    .setImageUrls(mSelectedCollection.asList())
+//            CustomImageViewerPopup.with(context)
+//                    .setImageUrls(mSelectedCollection.asList())
+//                    .show();
+
+            CustomImageViewerPopup2.with(context)
+                    .setImageList(mSelectedCollection.asList())
                     .show();
         } else if (v.getId() == R.id.button_apply) {
 

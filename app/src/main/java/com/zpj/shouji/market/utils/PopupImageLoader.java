@@ -7,12 +7,12 @@ import android.widget.ImageView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.bumptech.glide.request.target.Target;
-import com.zpj.popup.interfaces.XPopupImageLoader;
+import com.zpj.popup.interfaces.IImageLoader;
 import com.zpj.shouji.market.R;
 
 import java.io.File;
 
-public class PopupImageLoader implements XPopupImageLoader<String> {
+public class PopupImageLoader implements IImageLoader<String> {
 
     public final RequestOptions options = new RequestOptions()
             .centerCrop()

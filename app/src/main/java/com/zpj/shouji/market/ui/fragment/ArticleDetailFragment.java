@@ -25,6 +25,7 @@ import com.bumptech.glide.request.transition.Transition;
 import com.felix.atoast.library.AToast;
 import com.zpj.fragmentation.BaseFragment;
 import com.zpj.popup.ZPopup;
+import com.zpj.popup.imagetrans.listener.SourceImageViewGet;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.api.HttpApi;
 import com.zpj.shouji.market.model.AppInfo;
@@ -35,6 +36,7 @@ import com.zpj.shouji.market.model.article.ImageElement;
 import com.zpj.shouji.market.model.article.LinkElement;
 import com.zpj.shouji.market.model.article.TextElement;
 import com.zpj.shouji.market.ui.fragment.detail.AppDetailFragment;
+import com.zpj.shouji.market.ui.widget.popup.ImageViewer;
 import com.zpj.shouji.market.ui.widget.selection.SelectableTextView;
 import com.zpj.shouji.market.utils.PopupImageLoader;
 import com.zpj.utils.ScreenUtils;
@@ -218,20 +220,24 @@ public class ArticleDetailFragment extends BaseFragment {
                 ivImage.setOnClickListener(v -> {
                     List<String> objects = new ArrayList<>();
                     objects.add(url);
-                    ZPopup.imageViewer(context)
-                            .setSrcView(ivImage, 0)
-                            .setImageUrls(objects)
-                            .setSrcViewUpdateListener((popupView, position1) -> {
-                                popupView.updateSrcView(ivImage);
-                            })
-                            .setImageLoader(new PopupImageLoader())
-                            .show();
-//                    new XPopup.Builder(context)
-//                            .asImageViewer(ivImage,
-//                                    0,
-//                                    objects, (popupView, position) -> popupView.updateSrcView(ivImage),
-//                                    new PopupImageLoader())
+//                    ZPopup.imageViewer(context)
+//                            .setSrcView(ivImage, 0)
+//                            .setImageUrls(objects)
+//                            .setSrcViewUpdateListener((popupView, position1) -> {
+//                                popupView.updateSrcView(ivImage);
+//                            })
+//                            .setImageLoader(new PopupImageLoader())
 //                            .show();
+                    ImageViewer.with(context)
+                            .setImageList(objects)
+                            .setNowIndex(0)
+                            .setSourceImageView(new SourceImageViewGet() {
+                                @Override
+                                public ImageView getImageView(int pos) {
+                                    return ivImage;
+                                }
+                            })
+                            .show();
                 });
                 contentWrapper.addView(view);
                 Glide.with(context).load(url).apply(options).into(new SimpleTarget<Drawable>() {

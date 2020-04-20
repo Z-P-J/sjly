@@ -39,6 +39,7 @@
             app:showDividers="middle">
 
             <TextView
+                android:id="@+id/tv_common_app"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -53,6 +54,7 @@
                 />
 
             <TextView
+                android:id="@+id/tv_recent_download"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -67,6 +69,7 @@
                 />
 
             <TextView
+                android:id="@+id/tv_subjects"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -81,6 +84,7 @@
                 />
 
             <TextView
+                android:id="@+id/tv_collections"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"

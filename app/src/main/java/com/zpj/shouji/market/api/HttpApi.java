@@ -133,5 +133,11 @@ public final class HttpApi {
         return connect(url);
     }
 
+    public static ObservableTask<Document> followApi(String id) {
+        String url = "http://tt.shouji.com.cn/app/addfriendprocess?versioncode=198&jsessionid="
+                + UserManager.getInstance().getSessionId() + "&memberid=" + id;
+        return connect(url);
+    }
+
 
 }

@@ -2,7 +2,6 @@ package com.zpj.popup.core;
 
 import android.app.Activity;
 import android.content.Context;
-import android.content.ContextWrapper;
 import android.graphics.Rect;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -27,8 +26,10 @@ import com.zpj.popup.animator.TranslateAlphaAnimator;
 import com.zpj.popup.animator.TranslateAnimator;
 import com.zpj.popup.enums.PopupStatus;
 import com.zpj.popup.impl.FullScreenPopup;
+import com.zpj.popup.interfaces.OnBackPressedListener;
 import com.zpj.popup.interfaces.OnDismissListener;
-import com.zpj.popup.interfaces.XPopupCallback;
+import com.zpj.popup.interfaces.OnHideListener;
+import com.zpj.popup.interfaces.OnShowListener;
 import com.zpj.popup.util.ActivityUtils;
 import com.zpj.popup.util.KeyboardUtils;
 import com.zpj.popup.util.XPopupUtils;
@@ -44,7 +45,7 @@ import static com.zpj.popup.enums.PopupAnimation.NoAnimation;
  * Description: 弹窗基类
  * Create by lxj, at 2018/12/7
  */
-public abstract class BasePopup extends FrameLayout implements OnNavigationBarListener {
+public abstract class BasePopup<T extends BasePopup> extends FrameLayout implements OnNavigationBarListener {
     private static Stack<BasePopup> stack = new Stack<>(); //静态存储所有弹窗对象
     public PopupInfo popupInfo = new PopupInfo();
     protected final Context context;
@@ -54,6 +55,9 @@ public abstract class BasePopup extends FrameLayout implements OnNavigationBarLi
     public PopupStatus popupStatus = PopupStatus.Dismiss;
     private boolean isCreated = false;
     private OnDismissListener onDismissListener;
+    private OnBackPressedListener onBackPressedListener;
+    private OnHideListener onHideListener;
+    private OnShowListener onShowListener;
 
 
     public BasePopup(@NonNull Context context) {
@@ -151,10 +155,14 @@ public abstract class BasePopup extends FrameLayout implements OnNavigationBarLi
         }
     }
 
-    public BasePopup setPopupCallback(XPopupCallback callback) {
-        popupInfo.xPopupCallback = callback;
-        return this;
+    protected T self() {
+        return (T) this;
     }
+
+//    public T setPopupCallback(XPopupCallback callback) {
+//        popupInfo.xPopupCallback = callback;
+//        return self();
+//    }
 
     @Override
     public void onNavigationBarChange(boolean show) {
@@ -192,13 +200,18 @@ public abstract class BasePopup extends FrameLayout implements OnNavigationBarLi
         setLayoutParams(params);
     }
 
-    public BasePopup setOnDismissListener(OnDismissListener onDismissListener) {
+    public T setOnDismissListener(OnDismissListener onDismissListener) {
         this.onDismissListener = onDismissListener;
-        return this;
+        return self();
     }
 
-    public BasePopup show() {
-        if (getParent() != null) return this;
+    public T setOnBackPressedListener(OnBackPressedListener onBackPressedListener) {
+        this.onBackPressedListener = onBackPressedListener;
+        return self();
+    }
+
+    public T show() {
+        if (getParent() != null) return self();
         final Activity activity = ActivityUtils.getActivity(context);
 //        final Activity activity = (Activity) getContext();
         popupInfo.decorView = (ViewGroup) activity.getWindow().getDecorView();
@@ -229,7 +242,7 @@ public abstract class BasePopup extends FrameLayout implements OnNavigationBarLi
                 init();
             }
         });
-        return this;
+        return self();
     }
 
     protected void doAfterShow() {
@@ -317,8 +330,7 @@ public abstract class BasePopup extends FrameLayout implements OnNavigationBarLi
         @Override
         public boolean onKey(View v, int keyCode, KeyEvent event) {
             if (keyCode == KeyEvent.KEYCODE_BACK && event.getAction() == KeyEvent.ACTION_UP) {
-                if (popupInfo.isDismissOnBackPressed &&
-                        (popupInfo.xPopupCallback == null || !popupInfo.xPopupCallback.onBackPressed())) {
+                if (popupInfo.isDismissOnBackPressed && !onBackPressed()) {
                     dismissOrHideSoftInput();
                 }
                 return popupInfo.handleBackPressedEvent;
@@ -440,7 +452,7 @@ public abstract class BasePopup extends FrameLayout implements OnNavigationBarLi
     }
 
     public int getAnimationDuration() {
-        return popupInfo.popupAnimation == NoAnimation ? 10 : XPopup.getAnimationDuration();
+        return popupInfo.popupAnimation == NoAnimation ? 1 : XPopup.getAnimationDuration();
     }
 
     /**
@@ -601,6 +613,13 @@ public abstract class BasePopup extends FrameLayout implements OnNavigationBarLi
         }
     }
 
+    protected boolean onBackPressed() {
+        if (onBackPressedListener != null) {
+            return onBackPressedListener.onBackPressed();
+        }
+        return false;
+    }
+
     /**
      * 消失动画执行完毕后执行
      */
@@ -611,12 +630,18 @@ public abstract class BasePopup extends FrameLayout implements OnNavigationBarLi
     }
 
     protected void onHide() {
+        if (onHideListener != null) {
+            onHideListener.onHide();
+        }
     }
 
     /**
      * 显示动画执行完毕后执行
      */
     protected void onShow() {
+        if (onShowListener != null) {
+            onShowListener.onShow();
+        }
     }
 
     @Override
@@ -667,15 +692,15 @@ public abstract class BasePopup extends FrameLayout implements OnNavigationBarLi
         return super.onTouchEvent(event);
     }
 
-    public BasePopup setCancelable(boolean cancelable) {
+    public T setCancelable(boolean cancelable) {
         popupInfo.isDismissOnTouchOutside = cancelable;
         popupInfo.isDismissOnBackPressed = cancelable;
-        return this;
+        return self();
     }
 
-    public BasePopup setCanceledOnTouchOutside(boolean cancelable) {
+    public T setCanceledOnTouchOutside(boolean cancelable) {
         popupInfo.isDismissOnTouchOutside = cancelable;
-        return this;
+        return self();
     }
 
 

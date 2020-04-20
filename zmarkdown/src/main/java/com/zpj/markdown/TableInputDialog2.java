@@ -27,7 +27,7 @@ public class TableInputDialog2 extends AlertPopup {
 
     private TableInputDialog2(Context context) {
         super(context);
-        setConfirmButton(() -> {
+        setConfirmButton(popup -> {
             String rowNumberStr = Objects.requireNonNull(etMdRowsNumber.getText()).toString().trim();
             String columnNumberStr = Objects.requireNonNull(etMdColsNumber.getText()).toString().trim();
 

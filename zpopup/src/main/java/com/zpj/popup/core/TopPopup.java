@@ -8,10 +8,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
 
+import com.zpj.popup.R;
 import com.zpj.popup.animator.PopupAnimator;
 import com.zpj.popup.animator.TranslateAlphaAnimator;
 import com.zpj.popup.util.XPopupUtils;
-import com.zpj.popup.R;
 
 import static com.zpj.popup.enums.PopupAnimation.TranslateAlphaFromTop;
 
@@ -19,7 +19,7 @@ import static com.zpj.popup.enums.PopupAnimation.TranslateAlphaFromTop;
  * Description: 在顶部显示的Popup
  * Create by lxj, at 2018/12/11
  */
-public class TopPopup extends BasePopupView {
+public class TopPopup extends BasePopup<TopPopup> {
 
     protected FrameLayout topPopupContainer;
 

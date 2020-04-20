@@ -96,30 +96,6 @@ public class AttachListPopup<T> extends AttachPopup {
                     if (popupInfo.autoDismiss) dismiss();
                 })
                 .build();
-
-//        final EasyAdapter<String> adapter = new EasyAdapter<String>(items, bindItemLayoutId == 0 ? R.layout._xpopup_adapter_text : bindItemLayoutId) {
-//            @Override
-//            protected void bind(@NonNull ViewHolder holder, @NonNull String s, int position) {
-//                holder.setText(R.id.tv_text, s);
-//                if (iconIds.size() > position) {
-//                    holder.getView(R.id.iv_image).setVisibility(VISIBLE);
-//                    holder.getView(R.id.iv_image).setBackgroundResource(iconIds.get(position));
-//                } else {
-//                    holder.getView(R.id.iv_image).setVisibility(GONE);
-//                }
-//                holder.getView(R.id.xpopup_divider).setVisibility(GONE);
-//            }
-//        };
-//        adapter.setOnItemClickListener(new MultiItemTypeAdapter.SimpleOnItemClickListener() {
-//            @Override
-//            public void onItemClick(View view, RecyclerView.ViewHolder holder, int position) {
-//                if (selectListener != null) {
-//                    selectListener.onSelect(position, adapter.getData().get(position));
-//                }
-//                if (popupInfo.autoDismiss) dismiss();
-//            }
-//        });
-//        recyclerView.setAdapter(adapter);
     }
 
     @Override

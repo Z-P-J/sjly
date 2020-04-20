@@ -16,7 +16,7 @@ import com.zpj.popup.util.XPopupUtils;
  * 支持通过popupPosition()方法手动指定想要出现在目标的左边还是右边，但是对Top和Bottom则不生效。
  * Create by lxj, at 2019/3/13
  */
-public class HorizontalAttachPopup extends AttachPopupView {
+public class HorizontalAttachPopup extends AttachPopup {
     public HorizontalAttachPopup(@NonNull Context context) {
         super(context);
     }

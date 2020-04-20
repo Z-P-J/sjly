@@ -9,8 +9,8 @@ import android.view.View;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
+import com.felix.atoast.library.AToast;
 import com.shehuan.niv.NiceImageView;
-import com.zpj.http.core.IHttp;
 import com.zpj.http.parser.html.nodes.Document;
 import com.zpj.http.parser.html.nodes.Element;
 import com.zpj.http.parser.html.select.Elements;
@@ -22,6 +22,7 @@ import com.zpj.shouji.market.api.HttpPreLoader;
 import com.zpj.shouji.market.glide.blur.BlurTransformation2;
 import com.zpj.shouji.market.model.CollectionInfo;
 import com.zpj.shouji.market.ui.fragment.collection.CollectionDetailFragment;
+import com.zpj.shouji.market.ui.fragment.collection.CollectionRecommendListFragment;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -118,5 +119,10 @@ public class CollectionRecommendCard extends RecommendCard<CollectionInfo> {
     @Override
     public int getItemRes() {
         return R.layout.item_app_collection;
+    }
+
+    @Override
+    public void onMoreClicked(View v) {
+        CollectionRecommendListFragment.start("http://tt.shouji.com.cn/androidv3/yyj_tj_xml.jsp");
     }
 }

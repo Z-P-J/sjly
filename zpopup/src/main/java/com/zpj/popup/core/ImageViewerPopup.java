@@ -34,7 +34,7 @@ import com.lxj.xpermission.XPermission;
 import com.zpj.popup.XPopup;
 import com.zpj.popup.enums.PopupStatus;
 import com.zpj.popup.interfaces.OnDragChangeListener;
-import com.zpj.popup.interfaces.XPopupImageLoader;
+import com.zpj.popup.interfaces.IImageLoader;
 import com.zpj.popup.photoview.OnPopupDismissListener;
 import com.zpj.popup.photoview.OnPopupShowListener;
 import com.zpj.popup.photoview.PhotoView;
@@ -52,7 +52,7 @@ import java.util.List;
  * Description: 大图预览的弹窗，使用Transition实现
  * Create by lxj, at 2019/1/22
  */
-public class ImageViewerPopup<T> extends BasePopup implements OnDragChangeListener, View.OnClickListener {
+public class ImageViewerPopup<T> extends BasePopup<ImageViewerPopup<T>> implements OnDragChangeListener, View.OnClickListener {
     protected FrameLayout container;
     protected PhotoViewContainer photoViewContainer;
     protected BlankView placeholderView;
@@ -60,7 +60,7 @@ public class ImageViewerPopup<T> extends BasePopup implements OnDragChangeListen
     protected HackyViewPager pager;
     protected ArgbEvaluator argbEvaluator = new ArgbEvaluator();
     protected List<T> urls = new ArrayList<>();
-    protected XPopupImageLoader<T> imageLoader;
+    protected IImageLoader<T> imageLoader;
     protected OnSrcViewUpdateListener srcViewUpdateListener;
     protected int position;
     protected Rect rect = null;
@@ -337,7 +337,7 @@ public class ImageViewerPopup<T> extends BasePopup implements OnDragChangeListen
         return this;
     }
 
-    public ImageViewerPopup<T> setImageLoader(XPopupImageLoader<T> imageLoader) {
+    public ImageViewerPopup<T> setImageLoader(IImageLoader<T> imageLoader) {
         this.imageLoader = imageLoader;
         return this;
     }

@@ -9,6 +9,7 @@ import android.view.View;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
+import com.felix.atoast.library.AToast;
 import com.shehuan.niv.NiceImageView;
 import com.zpj.http.parser.html.nodes.Element;
 import com.zpj.http.parser.html.select.Elements;
@@ -84,5 +85,10 @@ public class TutorialRecommendCard extends RecommendCard<ArticleInfo> {
     @Override
     public int getItemRes() {
         return R.layout.item_tutorial;
+    }
+
+    @Override
+    public void onMoreClicked(View v) {
+        AToast.normal("TODO");
     }
 }

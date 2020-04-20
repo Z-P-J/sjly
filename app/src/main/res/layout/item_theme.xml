@@ -140,16 +140,18 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentEnd="true"
                     android:layout_centerVertical="true"
-                    android:text="关 注"
-                    android:background="@drawable/bg_button"
+                    android:text="+关 注"
+                    android:background="?attr/selectableItemBackground"
                     android:textSize="12sp"
-                    android:textColor="#ffffff"
+                    android:textColor="@color/colorPrimary"
                     android:gravity="center_vertical"
-                    android:paddingTop="2dp"
-                    android:paddingBottom="2dp"
+                    android:paddingTop="4dp"
+                    android:paddingBottom="4dp"
                     android:paddingStart="12dp"
                     android:paddingEnd="12dp"
                     />
+
+<!--                android:background="@drawable/bg_button"-->
 
             </RelativeLayout>
 
@@ -269,9 +271,9 @@
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
                             android:text="下载"
-                            android:background="@drawable/bg_button"
+                            android:background="@drawable/bg_download_button"
                             android:textSize="12sp"
-                            android:textColor="#ffffff"
+                            android:textColor="@color/colorPrimary"
                             android:layout_alignParentEnd="true"
                             android:layout_centerVertical="true"
                             android:gravity="center"

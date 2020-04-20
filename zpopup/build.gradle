@@ -39,5 +39,5 @@ dependencies {
     implementation 'com.lxj:easyadapter:1.1.1'
     implementation 'com.lxj:xpermission:1.0.1'
     implementation 'com.zpj.widget:ZRecyclerView:1.0.1'
-    implementation 'com.github.lihangleo2:ShadowLayout:2.1.8'
+    implementation 'org.linwg1988:lcardview:1.5.2'
 }

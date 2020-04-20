@@ -2,16 +2,10 @@ package com.zpj.shouji.market.ui.widget.recommend;
 
 import android.content.Context;
 import android.util.AttributeSet;
+import android.view.View;
 
-import com.bumptech.glide.Glide;
-import com.zpj.http.parser.html.nodes.Element;
-import com.zpj.http.parser.html.select.Elements;
-import com.zpj.recyclerview.EasyViewHolder;
-import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.api.HttpPreLoader;
-import com.zpj.shouji.market.model.AppInfo;
-
-import java.util.List;
+import com.zpj.shouji.market.ui.fragment.ToolBarListFragment;
 
 public class UpdateRecommendCard extends AppInfoRecommendCard {
 
@@ -25,6 +19,11 @@ public class UpdateRecommendCard extends AppInfoRecommendCard {
 
     public UpdateRecommendCard(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
+    }
+
+    @Override
+    public void onMoreClicked(View v) {
+        ToolBarListFragment.startRecentUpdate();
     }
 
     @Override

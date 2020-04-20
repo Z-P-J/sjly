@@ -10,11 +10,10 @@ import android.widget.TextView;
 import com.lxj.easyadapter.EasyAdapter;
 import com.lxj.easyadapter.MultiItemTypeAdapter;
 import com.lxj.easyadapter.ViewHolder;
-import com.zpj.popup.XPopup;
-import com.zpj.popup.core.BasePopupView;
-import com.zpj.popup.core.BottomPopupView;
-import com.zpj.popup.widget.CheckView;
 import com.zpj.popup.R;
+import com.zpj.popup.XPopup;
+import com.zpj.popup.core.BottomPopup;
+import com.zpj.popup.widget.CheckView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,7 +22,7 @@ import java.util.List;
  * Description: 底部的列表对话框
  * Create by dance, at 2018/12/16
  */
-public class BottomListPopup<T> extends BottomPopupView {
+public class BottomListPopup<T> extends BottomPopup {
 
     RecyclerView recyclerView;
     TextView tv_title;
@@ -173,7 +172,7 @@ public class BottomListPopup<T> extends BottomPopupView {
     }
 
     public interface OnSelectListener<T> {
-        void onSelect(BasePopupView popup, int position, T item);
+        void onSelect(BottomListPopup<T> popup, int position, T item);
     }
 
 

@@ -14,6 +14,7 @@ public abstract class NextUrlFragment<T> extends RecyclerLayoutFragment<T> {
     protected static final String KEY_DEFAULT_URL = "default_url";
     protected String defaultUrl;
     protected String nextUrl;
+    private boolean flag = false;
 
     @Override
     protected void handleArguments(Bundle arguments) {
@@ -45,8 +46,24 @@ public abstract class NextUrlFragment<T> extends RecyclerLayoutFragment<T> {
 //        if (data.isEmpty()) {
 //            recyclerLayout.showLoading();
 //        }
-        getData();
+//        getData();
+        if (data.isEmpty()) {
+            if (flag) {
+                return false;
+            }
+            flag = true;
+            postOnEnterAnimationEnd(this::getData);
+        } else {
+            getData();
+        }
+
         return true;
+    }
+
+    @Override
+    public void onEnterAnimationEnd(Bundle savedInstanceState) {
+        super.onEnterAnimationEnd(savedInstanceState);
+        flag = false;
     }
 
     protected void getData() {

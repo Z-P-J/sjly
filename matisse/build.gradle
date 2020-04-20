@@ -35,7 +35,7 @@ dependencies {
 
     implementation 'com.zpj.widget:Fragmentation:1.0.0'
     implementation 'com.zpj.widget:ZRecyclerView:1.0.1'
-    implementation 'com.zpj.widget:ZToolBar:1.0.0'
+    implementation 'com.zpj.widget:ZToolBar:1.0.3'
     implementation 'com.zpj.utils:ZUtils:1.0.1'
 
     implementation project(":zpopup")

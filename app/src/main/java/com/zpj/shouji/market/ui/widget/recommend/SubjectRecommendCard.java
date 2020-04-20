@@ -7,16 +7,16 @@ import android.util.AttributeSet;
 import android.view.View;
 
 import com.bumptech.glide.Glide;
+import com.felix.atoast.library.AToast;
 import com.zpj.http.parser.html.select.Elements;
 import com.zpj.recyclerview.EasyRecyclerView;
 import com.zpj.recyclerview.EasyViewHolder;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.api.HttpPreLoader;
 import com.zpj.shouji.market.model.SubjectInfo;
-import com.zpj.shouji.market.ui.fragment.AppListFragment;
-import com.zpj.shouji.market.ui.fragment.SubjectListFragment2;
-
-import org.greenrobot.eventbus.EventBus;
+import com.zpj.shouji.market.ui.fragment.SubjectListFragment;
+import com.zpj.shouji.market.ui.fragment.SubjectRecommendListFragment;
+import com.zpj.shouji.market.ui.fragment.ToolBarListFragment;
 
 import java.util.List;
 
@@ -85,11 +85,16 @@ public class SubjectRecommendCard extends RecommendCard<SubjectInfo> {
 
     @Override
     public void onClick(EasyViewHolder holder, View view, SubjectInfo data) {
-        EventBus.getDefault().post(SubjectListFragment2.newInstance(data.getId()));
+        ToolBarListFragment.startSubjectDetail(data.getId());
     }
 
     @Override
     public int getItemRes() {
         return R.layout.item_app_subject;
+    }
+
+    @Override
+    public void onMoreClicked(View v) {
+        SubjectRecommendListFragment.start("http://tt.shouji.com.cn/androidv3/special_index_xml.jsp?jse=yes");
     }
 }

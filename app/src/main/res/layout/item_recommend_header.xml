@@ -4,7 +4,7 @@
     android:id="@+id/rl_header"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:padding="12dp">
+    android:padding="16dp">
 
     <RelativeLayout
         android:layout_width="wrap_content"
@@ -46,6 +46,7 @@
         android:textSize="12sp"
         android:textColor="@color/colorPrimary"
         android:layout_centerVertical="true"
+        android:padding="4dp"
         />
 
 

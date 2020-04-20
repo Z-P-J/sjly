@@ -18,11 +18,13 @@ import com.bumptech.glide.request.transition.Transition;
 import com.felix.atoast.library.AToast;
 import com.zpj.fragmentation.BaseFragment;
 import com.zpj.popup.ZPopup;
+import com.zpj.popup.imagetrans.listener.SourceImageViewGet;
 import com.zpj.recyclerview.EasyRecyclerView;
 import com.zpj.recyclerview.EasyViewHolder;
 import com.zpj.recyclerview.IEasy;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.model.AppDetailInfo;
+import com.zpj.shouji.market.ui.widget.popup.ImageViewer;
 import com.zpj.shouji.market.utils.PopupImageLoader;
 import com.zpj.utils.ScreenUtils;
 
@@ -110,10 +112,26 @@ public class AppInfoFragment extends BaseFragment
                 });
         img.setTag(position);
         img.setOnClickListener(v -> {
-            ZPopup.imageViewer(context, String.class)
-                    .setSrcView(img, (int)v.getTag())
-                    .setImageUrls(list)
-                    .setSrcViewUpdateListener((popupView, pos) -> {
+//            ZPopup.imageViewer(context)
+//                    .setSrcView(img, (int)v.getTag())
+//                    .setImageUrls(list)
+//                    .setSrcViewUpdateListener((popupView, pos) -> {
+//                        int layoutPos = recyclerView.getRecyclerView().indexOfChild(holder.getItemView());
+//                        View view = recyclerView.getRecyclerView().getChildAt(layoutPos + pos - position);
+//                        ImageView imageView;
+//                        if (view != null) {
+//                            imageView = view.findViewById(R.id.iv_img);
+//                        } else {
+//                            imageView = img;
+//                        }
+//                        popupView.updateSrcView(imageView);
+//                    })
+//                    .setImageLoader(new PopupImageLoader())
+//                    .show();
+            ImageViewer.with(context)
+                    .setImageList(list)
+                    .setNowIndex( (int)v.getTag())
+                    .setSourceImageView(pos -> {
                         int layoutPos = recyclerView.getRecyclerView().indexOfChild(holder.getItemView());
                         View view = recyclerView.getRecyclerView().getChildAt(layoutPos + pos - position);
                         ImageView imageView;
@@ -122,28 +140,9 @@ public class AppInfoFragment extends BaseFragment
                         } else {
                             imageView = img;
                         }
-                        popupView.updateSrcView(imageView);
+                        return imageView;
                     })
-                    .setImageLoader(new PopupImageLoader())
                     .show();
-
-//            List<Object> objects = new ArrayList<>(list);
-//            new XPopup.Builder(context)
-//                    .asImageViewer(img, (int)v.getTag(), objects, new OnSrcViewUpdateListener() {
-//                        @Override
-//                        public void onSrcViewUpdate(ImageViewerPopupView popupView, int pos) {
-//                            int layoutPos = recyclerView.getRecyclerView().indexOfChild(holder.getItemView());
-//                            View view = recyclerView.getRecyclerView().getChildAt(layoutPos + pos - position);
-//                            ImageView imageView;
-//                            if (view != null) {
-//                                imageView = view.findViewById(R.id.iv_img);
-//                            } else {
-//                                imageView = img;
-//                            }
-//                            popupView.updateSrcView(imageView);
-//                        }
-//                    }, new PopupImageLoader())
-//                    .show();
         });
     }
 

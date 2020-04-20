@@ -12,7 +12,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 
-import com.zpj.popup.core.BottomPopupView;
+import com.zpj.popup.core.BottomPopup;
 import com.zpj.recyclerview.EasyRecyclerView;
 import com.zpj.recyclerview.EasyViewHolder;
 import com.zpj.recyclerview.IEasy;
@@ -21,7 +21,7 @@ import com.zpj.shouji.market.R;
 import java.util.ArrayList;
 import java.util.List;
 
-public class BottomListPopupMenu extends BottomPopupView
+public class BottomListPopupMenu extends BottomPopup
          implements IEasy.OnBindViewHolderListener<MenuItem> {
 
     private OnItemClickListener onItemClickListener;

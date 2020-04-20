@@ -10,6 +10,7 @@ import android.widget.FrameLayout;
 
 import com.zpj.popup.animator.PopupAnimator;
 import com.zpj.popup.animator.ScaleAlphaAnimator;
+import com.zpj.popup.impl.LoadingPopup;
 import com.zpj.popup.util.XPopupUtils;
 import com.zpj.popup.R;
 
@@ -19,7 +20,7 @@ import static com.zpj.popup.enums.PopupAnimation.ScaleAlphaFromCenter;
  * Description: 在中间显示的Popup
  * Create by dance, at 2018/12/8
  */
-public class CenterPopup extends BasePopup {
+public class CenterPopup<T extends CenterPopup> extends BasePopup<T> {
     protected FrameLayout centerPopupContainer;
     protected int bindLayoutId;
     protected int bindItemLayoutId;
@@ -33,11 +34,22 @@ public class CenterPopup extends BasePopup {
         return R.layout._xpopup_center_popup_view;
     }
 
+    public T bindLayout(int layoutId){
+        bindLayoutId = layoutId;
+        return (T) this;
+    }
+
     @Override
     protected void initPopupContent() {
         super.initPopupContent();
-        View contentView = LayoutInflater.from(getContext()).inflate(getImplLayoutId(), centerPopupContainer, false);
-        LayoutParams params = (LayoutParams) contentView.getLayoutParams();
+        View contentView = getContentView();
+        ViewGroup.LayoutParams layoutParams = contentView.getLayoutParams();
+        LayoutParams params;
+        if (layoutParams == null) {
+            params = new LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
+        } else {
+            params = (LayoutParams) layoutParams;
+        }
         params.gravity = Gravity.CENTER;
         centerPopupContainer.addView(contentView, params);
         getPopupContentView().setTranslationX(popupInfo.offsetX);
@@ -49,6 +61,10 @@ public class CenterPopup extends BasePopup {
     protected void onDetachedFromWindow() {
         super.onDetachedFromWindow();
         setTranslationY(0);
+    }
+
+    protected View getContentView() {
+        return LayoutInflater.from(getContext()).inflate(getImplLayoutId(), centerPopupContainer, false);
     }
 
     /**

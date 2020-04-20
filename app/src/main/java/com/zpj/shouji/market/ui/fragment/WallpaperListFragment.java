@@ -1,9 +1,12 @@
 package com.zpj.shouji.market.ui.fragment;
 
 import android.content.Context;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.IntRange;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.view.ViewPager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.text.TextUtils;
@@ -13,10 +16,16 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.target.SimpleTarget;
+import com.bumptech.glide.request.transition.Transition;
 import com.felix.atoast.library.AToast;
 import com.sunbinqiang.iconcountview.IconCountView;
 import com.zpj.http.parser.html.nodes.Element;
 import com.zpj.popup.ZPopup;
+import com.zpj.popup.imagetrans.ImageLoad;
+import com.zpj.popup.imagetrans.ImageTransAdapter;
+import com.zpj.popup.imagetrans.listener.SourceImageViewGet;
+import com.zpj.popup.impl.FullScreenPopup;
 import com.zpj.recyclerview.EasyRecyclerLayout;
 import com.zpj.recyclerview.EasyViewHolder;
 import com.zpj.shouji.market.R;
@@ -25,6 +34,7 @@ import com.zpj.shouji.market.glide.MyRequestOptions;
 import com.zpj.shouji.market.model.WallpaperInfo;
 import com.zpj.shouji.market.model.WallpaperTag;
 import com.zpj.shouji.market.ui.fragment.base.NextUrlFragment;
+import com.zpj.shouji.market.ui.widget.popup.ImageViewer;
 import com.zpj.shouji.market.ui.widget.popup.RecyclerPopup;
 import com.zpj.shouji.market.utils.PopupImageLoader;
 import com.zpj.utils.ScreenUtils;
@@ -139,23 +149,17 @@ public class WallpaperListFragment extends NextUrlFragment<WallpaperInfo> {
     public void onClick(EasyViewHolder holder, View view, WallpaperInfo data) {
         ImageView wallpaper = holder.getImageView(R.id.iv_wallpaper);
         List<String> objects = new ArrayList<>();
-        objects.add(data.getPic());
-        ZPopup.imageViewer(context, String.class)
-                .setSrcView(wallpaper, 0)
-                .setImageUrls(objects)
-                .setSrcViewUpdateListener((popupView, position1) -> {
-                    popupView.updateSrcView(wallpaper);
+        objects.add(data.getSpic());
+        ImageViewer.with(context)
+                .setImageList(objects)
+                .setNowIndex(0)
+                .setSourceImageView(new SourceImageViewGet() {
+                    @Override
+                    public ImageView getImageView(int pos) {
+                        return wallpaper;
+                    }
                 })
-                .setImageLoader(new PopupImageLoader())
                 .show();
-//        new XPopup.Builder(context)
-//                .asImageViewer(wallpaper, 0, objects, new OnSrcViewUpdateListener() {
-//                    @Override
-//                    public void onSrcViewUpdate(ImageViewerPopupView popupView, int position) {
-//                        popupView.updateSrcView(wallpaper);
-//                    }
-//                }, new PopupImageLoader())
-//                .show();
     }
 
     @Override

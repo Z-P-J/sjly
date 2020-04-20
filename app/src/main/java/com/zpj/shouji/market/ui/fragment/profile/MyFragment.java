@@ -17,6 +17,7 @@ import com.shehuan.niv.NiceImageView;
 import com.zpj.fragmentation.BaseFragment;
 import com.zpj.fragmentation.anim.DefaultVerticalAnimator;
 import com.zpj.popup.ZPopup;
+import com.zpj.popup.impl.AlertPopup;
 import com.zpj.popup.interfaces.OnConfirmListener;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.api.HttpApi;
@@ -325,22 +326,19 @@ public class MyFragment extends BaseFragment
         ZPopup.alert(context)
                 .setTitle("确认注销？")
                 .setContent("您将注销当前登录的账户，确认继续？")
-                .setConfirmButton(new OnConfirmListener() {
-                    @Override
-                    public void onConfirm() {
-                        UserManager.getInstance().signOut();
-                        myToolsCard.onSignOut();
-                        tvCheckIn.setVisibility(View.GONE);
-                        tvSignOut.setVisibility(View.GONE);
-                        tvName.setText("点击头像登录");
-                        tvLevel.setText("Lv.0");
-                        tvSignature.setText("手机乐园，发现应用的乐趣");
-                        tvFollower.setText("关注 0");
-                        tvFans.setText("粉丝 0");
-                        ivAvatar.setImageResource(R.drawable.ic_user_head);
-                        ivWallpaper.setImageResource(R.drawable.bg_member_default);
-                        AToast.success("TODO 注销成功");
-                    }
+                .setConfirmButton(popup -> {
+                    UserManager.getInstance().signOut();
+                    myToolsCard.onSignOut();
+                    tvCheckIn.setVisibility(View.GONE);
+                    tvSignOut.setVisibility(View.GONE);
+                    tvName.setText("点击头像登录");
+                    tvLevel.setText("Lv.0");
+                    tvSignature.setText("手机乐园，发现应用的乐趣");
+                    tvFollower.setText("关注 0");
+                    tvFans.setText("粉丝 0");
+                    ivAvatar.setImageResource(R.drawable.ic_user_head);
+                    ivWallpaper.setImageResource(R.drawable.bg_member_default);
+                    AToast.success("TODO 注销成功");
                 })
                 .show();
     }

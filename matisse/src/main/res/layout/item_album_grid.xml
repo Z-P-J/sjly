@@ -21,7 +21,7 @@
     android:layout_height="wrap_content"
     app:hl_shadowLimit="4dp"
     app:hl_cornerRadius="8dp"
-    app:hl_shadowColor="#80000000"
+    app:hl_shadowColor="#80cccccc"
     >
 
     <RelativeLayout

@@ -1,13 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.lihang.ShadowLayout
+<www.linwg.org.lib.LCardView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    app:hl_shadowLimit="4dp"
-    app:hl_cornerRadius="8dp"
-    app:hl_shadowColor="#cccccc"
+    app:cardBackgroundColor="@android:color/white"
+    app:cornerRadius="8dp"
+    app:shadowFluidShape="adsorption"
+    app:shadowColor="#bdbdbd"
+    app:shadowStartAlpha="120"
+    app:shadowSize="4dp"
     >
+
+<!--    app:cornerRadius="8dp"-->
+<!--    app:shadowFluidShape="adsorption"-->
+<!--    app:shadowColor="#bdbdbd"-->
+<!--    app:shadowStartAlpha="10"-->
+<!--    app:shadowSize="4dp"-->
 
     <com.zpj.popup.widget.VerticalRecyclerView
         android:id="@+id/recyclerView"
@@ -16,4 +25,4 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 
-</com.lihang.ShadowLayout>
+</www.linwg.org.lib.LCardView>

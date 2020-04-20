@@ -28,6 +28,7 @@ import com.sunbinqiang.iconcountview.IconCountView;
 import com.zpj.http.core.IHttp;
 import com.zpj.http.parser.html.nodes.Document;
 import com.zpj.popup.ZPopup;
+import com.zpj.popup.imagetrans.listener.SourceImageViewGet;
 import com.zpj.recyclerview.EasyViewHolder;
 import com.zpj.recyclerview.IEasy;
 import com.zpj.shouji.market.R;
@@ -40,6 +41,7 @@ import com.zpj.shouji.market.ui.fragment.detail.AppDetailFragment;
 import com.zpj.shouji.market.ui.fragment.profile.ProfileFragment;
 import com.zpj.shouji.market.ui.widget.DrawableTintTextView;
 import com.zpj.shouji.market.ui.widget.popup.BottomListPopupMenu;
+import com.zpj.shouji.market.ui.widget.popup.ImageViewer;
 import com.zpj.shouji.market.utils.PopupImageLoader;
 
 import org.greenrobot.eventbus.EventBus;
@@ -75,14 +77,13 @@ public class DiscoverBinder implements IEasy.OnBindViewHolderListener<DiscoverIn
 
             @Override
             public void onNineGirdItemClick(int position, NineGridBean gridBean, NineGirdImageContainer imageContainer) {
-                ZPopup.imageViewer(context)
-                        .setSrcView(imageContainer.getImageView(), position)
-                        .setImageUrls(discoverInfo.getSpics())
-                        .setSrcViewUpdateListener((popupView, position1) -> {
-                            NineGirdImageContainer view = (NineGirdImageContainer) nineGridImageView.getChildAt(position1);
-                            popupView.updateSrcView(view.getImageView());
+                ImageViewer.with(context)
+                        .setImageList(discoverInfo.getSpics())
+                        .setNowIndex(position)
+                        .setSourceImageView(pos -> {
+                            NineGirdImageContainer view = (NineGirdImageContainer) nineGridImageView.getChildAt(pos);
+                            return view.getImageView();
                         })
-                        .setImageLoader(new PopupImageLoader())
                         .show();
             }
 
@@ -220,6 +221,28 @@ public class DiscoverBinder implements IEasy.OnBindViewHolderListener<DiscoverIn
         holder.getTextView(R.id.user_name).setText(discoverInfo.getNickName());
         holder.getTextView(R.id.text_info).setText(discoverInfo.getTime());
         holder.getTextView(R.id.tv_content).setText(discoverInfo.getContent());
+
+        TextView tvFollow = holder.getView(R.id.tv_follow);
+        tvFollow.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+//                HttpApi.followApi(discoverInfo.getMemberId())
+//                        .onSuccess(data -> {
+//                            if ("success".equals(data.selectFirst("result").text())) {
+//                                AToast.success("关注成功");
+//                            } else {
+//                                String result = data.selectFirst("info").text();
+//                                AToast.error(result);
+//                            }
+//                        })
+//                        .onError(throwable -> {
+//                            AToast.error("关注失败！" + throwable.getMessage());
+//                        })
+//                        .subscribe();
+                AToast.normal("TODO");
+            }
+        });
+
         IconCountView supportView = holder.getView(R.id.support_view);
         supportView.setCount(Long.parseLong(discoverInfo.getSupportCount()));
         supportView.setOnStateChangedListener(new IconCountView.OnSelectedStateChangedListener() {

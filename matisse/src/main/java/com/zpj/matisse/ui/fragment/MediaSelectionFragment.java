@@ -20,6 +20,7 @@ import android.database.Cursor;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -27,6 +28,10 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.target.SimpleTarget;
+import com.bumptech.glide.request.transition.Transition;
+import com.zpj.fragmentation.BaseFragment;
 import com.zpj.fragmentation.anim.DefaultHorizontalAnimator;
 import com.zpj.fragmentation.anim.FragmentAnimator;
 import com.zpj.matisse.R;
@@ -38,11 +43,14 @@ import com.zpj.matisse.event.UpdateTitleEvent;
 import com.zpj.matisse.model.AlbumMediaManager;
 import com.zpj.matisse.model.SelectedItemManager;
 import com.zpj.matisse.ui.widget.CheckView;
-import com.zpj.matisse.ui.widget.CustomImageViewerPopup;
+import com.zpj.matisse.ui.widget.CustomImageViewerPopup2;
 import com.zpj.matisse.ui.widget.MediaGrid;
 import com.zpj.matisse.ui.widget.MediaGridInset;
 import com.zpj.matisse.utils.UIUtils;
-import com.zpj.fragmentation.BaseFragment;
+import com.zpj.popup.ZPopup;
+import com.zpj.popup.imagetrans.ImageLoad;
+import com.zpj.popup.imagetrans.listener.SourceImageViewGet;
+import com.zpj.popup.interfaces.OnDismissListener;
 import com.zpj.recyclerview.EasyRecyclerLayout;
 import com.zpj.recyclerview.EasyViewHolder;
 import com.zpj.recyclerview.IEasy;
@@ -189,11 +197,28 @@ public class MediaSelectionFragment extends BaseFragment implements
     @Override
     public void onThumbnailClicked(ImageView thumbnail, Item item, EasyViewHolder holder) {
         final int position = holder.getAdapterPosition();
-        CustomImageViewerPopup.with(thumbnail.getContext())
-//                .setCheckStateListener(this::notifyCheckStateChanged)
-                .setImageUrls(itemList)
-                .setSrcView(thumbnail, holder.getAdapterPosition())
-                .setSrcViewUpdateListener((popupView, pos) -> {
+//        CustomImageViewerPopup.with(thumbnail.getContext())
+////                .setCheckStateListener(this::notifyCheckStateChanged)
+//                .setImageUrls(itemList)
+//                .setSrcView(thumbnail, holder.getAdapterPosition())
+//                .setSrcViewUpdateListener((popupView, pos) -> {
+//                    RecyclerView recyclerView = recyclerLayout.getEasyRecyclerView().getRecyclerView();
+//                    int layoutPos = recyclerView.indexOfChild(holder.getItemView());
+//                    View view = recyclerView.getChildAt(layoutPos + pos - position);
+//                    ImageView imageView;
+//                    if (view != null) {
+//                        imageView = view.findViewById(R.id.media_thumbnail);
+//                    } else {
+//                        imageView = thumbnail;
+//                    }
+//                    popupView.updateSrcView(imageView);
+//                })
+//                .show();
+
+        CustomImageViewerPopup2.with(context)
+                .setImageList(itemList)
+                .setNowIndex(position)
+                .setSourceImageView(pos -> {
                     RecyclerView recyclerView = recyclerLayout.getEasyRecyclerView().getRecyclerView();
                     int layoutPos = recyclerView.indexOfChild(holder.getItemView());
                     View view = recyclerView.getChildAt(layoutPos + pos - position);
@@ -203,9 +228,122 @@ public class MediaSelectionFragment extends BaseFragment implements
                     } else {
                         imageView = thumbnail;
                     }
-                    popupView.updateSrcView(imageView);
+                    return imageView;
                 })
+//                .setProgressBar(null)
+//                .setImageLoad(new ImageLoad<Item>() {
+//                    @Override
+//                    public void loadImage(Item url, ImageLoad.LoadCallback callback, ImageView imageView, String uniqueStr) {
+//                        Glide.with(context).asDrawable().load(url.getContentUri()).into(new SimpleTarget<Drawable>() {
+//                            @Override
+//                            public void onResourceReady(@NonNull Drawable resource, @Nullable Transition<? super Drawable> transition) {
+//                                callback.loadFinish(resource);
+//                            }
+//                        });
+////                        Glide.with(context).load(item.getContentUri()).into(imageView);
+//                    }
+//
+//                    @Override
+//                    public boolean isCached(Item url) {
+//                        return false;
+//                    }
+//
+//                    @Override
+//                    public void cancel(Item url, String unique) {
+//
+//                    }
+//                })
+                .setOnDismissListener(this::darkStatusBar)
                 .show();
+
+
+//        ZPopup.imageViewer2(context)
+//                .setImageList(new ArrayList<>(itemList))
+//                .setNowIndex(position)
+//                .setSourceImageView(new SourceImageViewGet() {
+//                    @Override
+//                    public ImageView getImageView(int pos) {
+//                        RecyclerView recyclerView = recyclerLayout.getEasyRecyclerView().getRecyclerView();
+//                        int layoutPos = recyclerView.indexOfChild(holder.getItemView());
+//                        View view = recyclerView.getChildAt(layoutPos + pos - position);
+//                        ImageView imageView;
+//                        if (view != null) {
+//                            imageView = view.findViewById(R.id.media_thumbnail);
+//                        } else {
+//                            imageView = thumbnail;
+//                        }
+//                        return imageView;
+//                    }
+//                })
+////                .setProgressBar(null)
+//                .setImageLoad(new ImageLoad() {
+//                    @Override
+//                    public void loadImage(Object url, ImageLoad.LoadCallback callback, ImageView imageView, String uniqueStr) {
+//                        Item item = (Item) url;
+//                        Glide.with(context).asDrawable().load(item.getContentUri()).into(new SimpleTarget<Drawable>() {
+//                            @Override
+//                            public void onResourceReady(@NonNull Drawable resource, @Nullable Transition<? super Drawable> transition) {
+//                                callback.loadFinish(resource);
+//                            }
+//                        });
+////                        Glide.with(context).load(item.getContentUri()).into(imageView);
+//                    }
+//
+//                    @Override
+//                    public boolean isCached(Object url) {
+//                        return false;
+//                    }
+//
+//                    @Override
+//                    public void cancel(Object url, String unique) {
+//
+//                    }
+//                })
+//                .show();
+
+//        ImageTrans.with(context)
+//                .setImageList(new ArrayList<>(itemList))
+//                .setNowIndex(position)
+//                .setSourceImageView(new SourceImageViewGet() {
+//                    @Override
+//                    public ImageView getImageView(int pos) {
+//                        RecyclerView recyclerView = recyclerLayout.getEasyRecyclerView().getRecyclerView();
+//                        int layoutPos = recyclerView.indexOfChild(holder.getItemView());
+//                        View view = recyclerView.getChildAt(layoutPos + pos - position);
+//                        ImageView imageView;
+//                        if (view != null) {
+//                            imageView = view.findViewById(R.id.media_thumbnail);
+//                        } else {
+//                            imageView = thumbnail;
+//                        }
+//                        return imageView;
+//                    }
+//                })
+////                .setProgressBar(null)
+//                .setImageLoad(new ImageLoad() {
+//                    @Override
+//                    public void loadImage(Object url, LoadCallback callback, ImageView imageView, String uniqueStr) {
+//                        Item item = (Item) url;
+//                        Glide.with(context).asDrawable().load(item.getContentUri()).into(new SimpleTarget<Drawable>() {
+//                            @Override
+//                            public void onResourceReady(@NonNull Drawable resource, @Nullable Transition<? super Drawable> transition) {
+//                                callback.loadFinish(resource);
+//                            }
+//                        });
+////                        Glide.with(context).load(item.getContentUri()).into(imageView);
+//                    }
+//
+//                    @Override
+//                    public boolean isCached(Object url) {
+//                        return false;
+//                    }
+//
+//                    @Override
+//                    public void cancel(Object url, String unique) {
+//
+//                    }
+//                })
+//                .show();
     }
 
     @Override

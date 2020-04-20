@@ -17,13 +17,13 @@ import com.zpj.matisse.entity.Item;
 import com.zpj.matisse.entity.SelectionSpec;
 import com.zpj.matisse.model.SelectedItemManager;
 import com.zpj.popup.core.ImageViewerPopup;
-import com.zpj.popup.interfaces.XPopupImageLoader;
+import com.zpj.popup.interfaces.IImageLoader;
 import com.zpj.widget.toolbar.ZToolBar;
 
 import java.io.File;
 
 public class CustomImageViewerPopup extends ImageViewerPopup<Item>
-        implements XPopupImageLoader<Item> {
+        implements IImageLoader<Item> {
 
     protected final SelectedItemManager mSelectedCollection;
     protected final SelectionSpec mSpec;

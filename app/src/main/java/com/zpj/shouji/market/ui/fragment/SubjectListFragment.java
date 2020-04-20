@@ -1,13 +1,19 @@
 package com.zpj.shouji.market.ui.fragment;
 
 import android.os.Bundle;
+import android.support.v7.widget.RecyclerView;
+import android.view.View;
+import android.view.ViewGroup;
 
+import com.bumptech.glide.Glide;
 import com.zpj.http.parser.html.nodes.Element;
 import com.zpj.recyclerview.EasyViewHolder;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.model.SubjectInfo;
 import com.zpj.shouji.market.ui.fragment.base.NextUrlFragment;
 import com.zpj.shouji.market.ui.fragment.search.SearchResultFragment;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.util.List;
 
@@ -24,16 +30,24 @@ public class SubjectListFragment extends NextUrlFragment<SubjectInfo>
 
     @Override
     protected int getItemLayoutId() {
-        return R.layout.item_app_linear;
+        return R.layout.item_app_subject;
     }
 
     @Override
     public void onBindViewHolder(EasyViewHolder holder, List<SubjectInfo> list, int position, List<Object> payloads) {
-        final SubjectInfo appItem = list.get(position);
-//        holder.getTextView(R.id.tv_title).setText(appItem.getAppTitle());
-//        holder.getTextView(R.id.tv_info).setText(appItem.getAppSize() + " | " + appItem.getAppInfo());
-//        holder.getTextView(R.id.tv_desc).setText(appItem.getAppComment());
-//        Glide.with(context).load(appItem.getAppIcon()).into(holder.getImageView(R.id.iv_icon));
+        ViewGroup.LayoutParams params = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        holder.getItemView().setLayoutParams(params);
+        SubjectInfo info = list.get(position);
+        holder.setText(R.id.tv_title, info.getTitle());
+        holder.setText(R.id.tv_comment, info.getComment());
+        holder.setText(R.id.tv_m, info.getM());
+        Glide.with(context).load(info.getIcon()).into(holder.getImageView(R.id.iv_icon));
+    }
+
+    @Override
+    public void onClick(EasyViewHolder holder, View view, SubjectInfo data) {
+        super.onClick(holder, view, data);
+        ToolBarListFragment.startSubjectDetail(data.getId());
     }
 
     @Override
