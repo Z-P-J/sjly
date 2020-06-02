@@ -52,7 +52,7 @@
                             android:layout_marginTop="64dp"
                             android:layout_width="56dp"
                             android:layout_height="56dp"
-                            android:src="@mipmap/ic_launcher"
+                            android:src="@mipmap/ic_launcher_bak"
                             android:layout_centerHorizontal="true"
                             android:transitionName="app icon"
                             app:is_circle="true"

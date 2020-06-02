@@ -1,7 +1,7 @@
 # compiler: R8
 # compiler_version: 1.5.69
 # min_api: 19
-# pg_map_id: 5200c2a
+# pg_map_id: 571b5d1
 android.arch.core.executor.ArchTaskExecutor -> a.a.a.a.a:
     android.arch.core.executor.ArchTaskExecutor sInstance -> c
     android.arch.core.executor.TaskExecutor mDelegate -> a
@@ -38341,7 +38341,7 @@ com.zpj.http.core.AbstractConnection -> b.e.a.b.a:
     57:58:com.zpj.http.core.Connection proxy(java.net.Proxy) -> a
     69:70:com.zpj.http.core.Connection timeout(int) -> a
     81:82:com.zpj.http.core.Connection method(com.zpj.http.core.Connection$Method) -> a
-    87:88:com.zpj.http.core.Connection ignoreHttpErrors(boolean) -> a
+    99:100:com.zpj.http.core.Connection validateTLSCertificates(boolean) -> a
     183:184:com.zpj.http.core.Connection header(java.lang.String,java.lang.String) -> a
     189:193:com.zpj.http.core.Connection headers(java.util.Map) -> a
     198:200:com.zpj.http.core.Connection cookie(java.lang.String) -> a
@@ -38349,10 +38349,11 @@ com.zpj.http.core.AbstractConnection -> b.e.a.b.a:
     371:372:com.zpj.http.core.Connection onRedirect(com.zpj.http.core.IHttp$OnRedirectListener) -> a
     com.zpj.http.core.Connection$Request createRequest() -> b
     75:76:com.zpj.http.core.Connection maxBodySize(int) -> b
-    93:94:com.zpj.http.core.Connection ignoreContentType(boolean) -> b
+    87:88:com.zpj.http.core.Connection ignoreHttpErrors(boolean) -> b
     105:106:com.zpj.http.core.Connection data(java.lang.String,java.lang.String) -> b
     403:406:com.zpj.http.core.Connection userAgent(java.lang.String) -> b
     com.zpj.http.core.Connection$Response onExecute() -> c
+    93:94:com.zpj.http.core.Connection ignoreContentType(boolean) -> c
     467:470:com.zpj.http.core.Connection range(java.lang.String) -> c
     443:446:com.zpj.http.core.Connection accept(java.lang.String) -> d
     46:50:com.zpj.http.core.Connection url(java.lang.String) -> e
@@ -38370,16 +38371,17 @@ com.zpj.http.core.Connection -> b.e.a.b.b:
     com.zpj.http.core.Connection cookie(java.lang.String) -> a
     com.zpj.http.core.Connection header(java.lang.String,java.lang.String) -> a
     com.zpj.http.core.Connection headers(java.util.Map) -> a
-    com.zpj.http.core.Connection ignoreHttpErrors(boolean) -> a
     com.zpj.http.core.Connection method(com.zpj.http.core.Connection$Method) -> a
     com.zpj.http.core.Connection onRedirect(com.zpj.http.core.IHttp$OnRedirectListener) -> a
     com.zpj.http.core.Connection proxy(java.net.Proxy) -> a
     com.zpj.http.core.Connection timeout(int) -> a
     com.zpj.http.core.ObservableTask toHtml() -> a
+    com.zpj.http.core.Connection validateTLSCertificates(boolean) -> a
     com.zpj.http.core.Connection data(java.lang.String,java.lang.String) -> b
-    com.zpj.http.core.Connection ignoreContentType(boolean) -> b
+    com.zpj.http.core.Connection ignoreHttpErrors(boolean) -> b
     com.zpj.http.core.Connection maxBodySize(int) -> b
     com.zpj.http.core.Connection userAgent(java.lang.String) -> b
+    com.zpj.http.core.Connection ignoreContentType(boolean) -> c
     com.zpj.http.core.Connection range(java.lang.String) -> c
     com.zpj.http.core.Connection accept(java.lang.String) -> d
     com.zpj.http.core.Connection url(java.lang.String) -> e
@@ -38421,13 +38423,14 @@ com.zpj.http.core.Connection$Method -> b.e.a.b.b$c:
     40:40:com.zpj.http.core.Connection$Method[] values() -> values
 com.zpj.http.core.Connection$Request -> b.e.a.b.b$d:
     com.zpj.http.core.Connection$Request data(com.zpj.http.core.Connection$KeyVal) -> a
-    com.zpj.http.core.Connection$Request ignoreHttpErrors(boolean) -> a
     com.zpj.http.core.Connection$Request onRedirect(com.zpj.http.core.IHttp$OnRedirectListener) -> a
     com.zpj.http.core.Connection$Request parser(com.zpj.http.parser.html.Parser) -> a
     com.zpj.http.core.Connection$Request proxy(java.net.Proxy) -> a
     com.zpj.http.core.Connection$Request timeout(int) -> a
-    com.zpj.http.core.Connection$Request ignoreContentType(boolean) -> b
+    void validateTLSCertificates(boolean) -> a
+    com.zpj.http.core.Connection$Request ignoreHttpErrors(boolean) -> b
     com.zpj.http.core.Connection$Request maxBodySize(int) -> b
+    com.zpj.http.core.Connection$Request ignoreContentType(boolean) -> c
     com.zpj.http.core.Connection$Request requestBody(java.lang.String) -> d
     boolean ignoreHttpErrors() -> g
     java.lang.String postDataCharset() -> h
@@ -38514,12 +38517,13 @@ com.zpj.http.core.HttpRequest -> b.e.a.b.g:
     16:16:com.zpj.http.core.Connection$Request timeout(int) -> a
     56:57:com.zpj.http.core.HttpRequest proxy(java.net.Proxy) -> a
     70:72:com.zpj.http.core.HttpRequest timeout(int) -> a
-    107:108:com.zpj.http.core.Connection$Request ignoreHttpErrors(boolean) -> a
+    127:128:void validateTLSCertificates(boolean) -> a
     131:133:com.zpj.http.core.HttpRequest data(com.zpj.http.core.Connection$KeyVal) -> a
     150:152:com.zpj.http.core.HttpRequest parser(com.zpj.http.parser.html.Parser) -> a
     172:173:com.zpj.http.core.Connection$Request onRedirect(com.zpj.http.core.IHttp$OnRedirectListener) -> a
     80:82:com.zpj.http.core.Connection$Request maxBodySize(int) -> b
-    116:117:com.zpj.http.core.Connection$Request ignoreContentType(boolean) -> b
+    107:108:com.zpj.http.core.Connection$Request ignoreHttpErrors(boolean) -> b
+    116:117:com.zpj.http.core.Connection$Request ignoreContentType(boolean) -> c
     141:142:com.zpj.http.core.Connection$Request requestBody(java.lang.String) -> d
     95:95:boolean ignoreHttpErrors() -> g
     167:167:java.lang.String postDataCharset() -> h
@@ -43591,58 +43595,58 @@ com.zpj.shouji.market.R$array -> com.zpj.shouji.market.R$array:
 com.zpj.shouji.market.R$attr -> com.zpj.shouji.market.R$attr:
     89:89:void <init>() -> <init>
 com.zpj.shouji.market.R$bool -> com.zpj.shouji.market.R$bool:
-    7442:7442:void <init>() -> <init>
+    6893:6893:void <init>() -> <init>
 com.zpj.shouji.market.R$color -> com.zpj.shouji.market.R$color:
-    7448:7448:void <init>() -> <init>
+    6899:6899:void <init>() -> <init>
 com.zpj.shouji.market.R$dimen -> com.zpj.shouji.market.R$dimen:
-    7832:7832:void <init>() -> <init>
+    7283:7283:void <init>() -> <init>
 com.zpj.shouji.market.R$drawable -> com.zpj.shouji.market.R$drawable:
-    8106:8106:void <init>() -> <init>
+    7557:7557:void <init>() -> <init>
 com.zpj.shouji.market.R$font -> com.zpj.shouji.market.R$font:
-    9499:9499:void <init>() -> <init>
+    8951:8951:void <init>() -> <init>
 com.zpj.shouji.market.R$id -> com.zpj.shouji.market.R$id:
-    9502:9502:void <init>() -> <init>
+    8954:8954:void <init>() -> <init>
 com.zpj.shouji.market.R$integer -> com.zpj.shouji.market.R$integer:
-    10335:10335:void <init>() -> <init>
+    9787:9787:void <init>() -> <init>
 com.zpj.shouji.market.R$interpolator -> com.zpj.shouji.market.R$interpolator:
-    10353:10353:void <init>() -> <init>
+    9805:9805:void <init>() -> <init>
 com.zpj.shouji.market.R$layout -> com.zpj.shouji.market.R$layout:
-    10359:10359:void <init>() -> <init>
+    9811:9811:void <init>() -> <init>
 com.zpj.shouji.market.R$menu -> com.zpj.shouji.market.R$menu:
-    10650:10650:void <init>() -> <init>
+    10102:10102:void <init>() -> <init>
 com.zpj.shouji.market.R$mipmap -> com.zpj.shouji.market.R$mipmap:
-    10656:10656:void <init>() -> <init>
+    10108:10108:void <init>() -> <init>
 com.zpj.shouji.market.R$string -> com.zpj.shouji.market.R$string:
-    10692:10692:void <init>() -> <init>
+    10146:10146:void <init>() -> <init>
 com.zpj.shouji.market.R$style -> com.zpj.shouji.market.R$style:
-    10869:10869:void <init>() -> <init>
+    10323:10323:void <init>() -> <init>
 com.zpj.shouji.market.R$styleable -> com.zpj.shouji.market.R$styleable:
-    11488:31287:void <clinit>() -> <clinit>
-    11466:11466:void <init>() -> <init>
+    10942:29926:void <clinit>() -> <clinit>
+    10920:10920:void <init>() -> <init>
 com.zpj.shouji.market.R$xml -> com.zpj.shouji.market.R$xml:
-    31429:31429:void <init>() -> <init>
+    30068:30068:void <init>() -> <init>
 com.zpj.shouji.market.api.-$$Lambda$HttpPreLoader$N7fCks9SRR_M-_BpKEqEc48rpCg -> com.zpj.shouji.market.b.a:
     com.zpj.shouji.market.api.HttpPreLoader f$0 -> a
     java.lang.String f$1 -> b
 com.zpj.shouji.market.api.HttpApi -> com.zpj.shouji.market.b.b:
-    44:44:com.zpj.http.core.ObservableTask connect(java.lang.String) -> a
-    57:57:com.zpj.http.core.ObservableTask collectionRecommend() -> a
-    131:133:com.zpj.http.core.ObservableTask likeApi(java.lang.String,java.lang.String) -> a
-    73:73:com.zpj.http.core.ObservableTask homeRecommendGameApi() -> b
-    125:125:java.lang.String getCollectUrl(java.lang.String) -> b
+    45:45:com.zpj.http.core.ObservableTask connect(java.lang.String) -> a
+    58:58:com.zpj.http.core.ObservableTask collectionRecommend() -> a
+    132:134:com.zpj.http.core.ObservableTask likeApi(java.lang.String,java.lang.String) -> a
+    74:74:com.zpj.http.core.ObservableTask homeRecommendGameApi() -> b
+    126:126:java.lang.String getCollectUrl(java.lang.String) -> b
     28:28:com.zpj.http.core.Connection openConnection(java.lang.String) -> c
-    69:69:com.zpj.http.core.ObservableTask homeRecommendSoftApi() -> c
-    93:93:java.lang.String myCollectionAppsUrl() -> d
-    105:105:java.lang.String myCollectionCommentUrl() -> e
-    101:101:java.lang.String myCollectionDiscoverUrl() -> f
-    109:109:java.lang.String myCollectionWallpaperUrl() -> g
-    97:97:java.lang.String myCollectionsUrl() -> h
-    89:89:com.zpj.http.core.ObservableTask netGame() -> i
-    85:85:com.zpj.http.core.ObservableTask recentUpdateGame() -> j
-    81:81:com.zpj.http.core.ObservableTask recentUpdateSoft() -> k
+    70:70:com.zpj.http.core.ObservableTask homeRecommendSoftApi() -> c
+    94:94:java.lang.String myCollectionAppsUrl() -> d
+    106:106:java.lang.String myCollectionCommentUrl() -> e
+    102:102:java.lang.String myCollectionDiscoverUrl() -> f
+    110:110:java.lang.String myCollectionWallpaperUrl() -> g
+    98:98:java.lang.String myCollectionsUrl() -> h
+    90:90:com.zpj.http.core.ObservableTask netGame() -> i
+    86:86:com.zpj.http.core.ObservableTask recentUpdateGame() -> j
+    82:82:com.zpj.http.core.ObservableTask recentUpdateSoft() -> k
 com.zpj.shouji.market.api.HttpApi$1 -> com.zpj.shouji.market.b.b$a:
-    30:30:void <init>() -> <init>
-    33:34:boolean onRedirect(java.lang.String) -> a
+    31:31:void <init>() -> <init>
+    34:35:boolean onRedirect(java.lang.String) -> a
 com.zpj.shouji.market.api.HttpPreLoader -> com.zpj.shouji.market.b.c:
     java.util.Map map -> a
     java.util.Map listeners -> b
@@ -47940,17 +47944,17 @@ com.zpj.shouji.market.ui.widget.recommend.SubjectRecommendCard -> com.zpj.shouji
     93:93:int getItemRes() -> getItemRes
 com.zpj.shouji.market.ui.widget.recommend.TutorialRecommendCard -> com.zpj.shouji.market.ui.widget.recommend.TutorialRecommendCard:
     java.lang.String type -> j
-    38:39:void <init>(android.content.Context) -> <init>
-    42:43:void <init>(android.content.Context,java.lang.String,int) -> <init>
-    46:47:void <init>(android.content.Context,android.util.AttributeSet,java.lang.String,int) -> <init>
-    50:64:void <init>(android.content.Context,android.util.AttributeSet,int,java.lang.String,int) -> <init>
-    32:32:void onClick(com.zpj.recyclerview.EasyViewHolder,android.view.View,java.lang.Object) -> a
-    55:61:void lambda$new$0(com.zpj.http.parser.html.nodes.Document) -> a
-    69:70:void buildRecyclerView(com.zpj.recyclerview.EasyRecyclerView) -> a
-    74:78:void onBindViewHolder(com.zpj.recyclerview.EasyViewHolder,java.util.List,int,java.util.List) -> a
-    82:83:void onClick(com.zpj.recyclerview.EasyViewHolder,android.view.View,com.zpj.shouji.market.model.article.ArticleInfo) -> a
-    92:93:void onMoreClicked(android.view.View) -> a
-    87:87:int getItemRes() -> getItemRes
+    39:40:void <init>(android.content.Context) -> <init>
+    43:44:void <init>(android.content.Context,java.lang.String,int) -> <init>
+    47:48:void <init>(android.content.Context,android.util.AttributeSet,java.lang.String,int) -> <init>
+    51:65:void <init>(android.content.Context,android.util.AttributeSet,int,java.lang.String,int) -> <init>
+    33:33:void onClick(com.zpj.recyclerview.EasyViewHolder,android.view.View,java.lang.Object) -> a
+    56:62:void lambda$new$0(com.zpj.http.parser.html.nodes.Document) -> a
+    70:71:void buildRecyclerView(com.zpj.recyclerview.EasyRecyclerView) -> a
+    75:79:void onBindViewHolder(com.zpj.recyclerview.EasyViewHolder,java.util.List,int,java.util.List) -> a
+    83:84:void onClick(com.zpj.recyclerview.EasyViewHolder,android.view.View,com.zpj.shouji.market.model.article.ArticleInfo) -> a
+    93:94:void onMoreClicked(android.view.View) -> a
+    88:88:int getItemRes() -> getItemRes
 com.zpj.shouji.market.ui.widget.recommend.UpdateRecommendCard -> com.zpj.shouji.market.ui.widget.recommend.UpdateRecommendCard:
     13:14:void <init>(android.content.Context) -> <init>
     17:18:void <init>(android.content.Context,android.util.AttributeSet) -> <init>

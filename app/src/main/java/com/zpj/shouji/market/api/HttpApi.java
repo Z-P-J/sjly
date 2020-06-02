@@ -26,6 +26,7 @@ public final class HttpApi {
 
     public static Connection openConnection(String url) {
         return ZHttp.get(url)
+                .validateTLSCertificates(false)
                 .userAgent(USER_AGENT)
                 .onRedirect(new IHttp.OnRedirectListener() {
                     @Override
@@ -58,7 +59,7 @@ public final class HttpApi {
     }
 
     public static ObservableTask<Document> bannerApi() {
-        return connect("http://tt.shouji.com.cn/androidv3/app_index_xml.jsp?index=1&versioncode=198");
+        return connect("http://tt.tljpxm.com/androidv3/app_index_xml.jsp?index=1&versioncode=198");
     }
 
     public static ObservableTask<Document> recentUpdateAppApi() {
@@ -74,7 +75,7 @@ public final class HttpApi {
     }
 
     public static ObservableTask<Document> subjectApi() {
-        return connect("http://tt.shouji.com.cn/androidv3/app_index_xml.jsp?index=1&versioncode=198");
+        return connect("http://tt.tljpxm.com/androidv3/app_index_xml.jsp?index=1&versioncode=198");
     }
 
     public static ObservableTask<Document> recentUpdateSoft() {

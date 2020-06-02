@@ -25,7 +25,7 @@
                 android:id="@+id/item_icon"
                 android:layout_width="36dp"
                 android:layout_height="36dp"
-                android:src="@mipmap/ic_launcher"
+                android:src="@mipmap/ic_launcher_bak"
                 app:border_width="1dp"
                 app:border_color="#80cccccc"
                 android:layout_gravity="center_vertical"
@@ -212,7 +212,7 @@
                             android:id="@+id/app_icon"
                             android:layout_width="36dp"
                             android:layout_height="36dp"
-                            android:src="@mipmap/ic_launcher"
+                            android:src="@mipmap/ic_launcher_bak"
                             android:layout_gravity="center_vertical"
                             android:scaleType="centerCrop"
                             />

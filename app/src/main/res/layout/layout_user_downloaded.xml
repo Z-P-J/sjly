@@ -13,7 +13,7 @@
         android:id="@+id/icon_app"
         android:contentDescription="@string/app_name"
         android:scaleType="centerCrop"
-        android:src="@mipmap/ic_launcher"
+        android:src="@mipmap/ic_launcher_bak"
         app:is_circle="true"
         />
 

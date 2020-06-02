@@ -5,11 +5,20 @@
 <!--    <color name="colorPrimaryDark">#09bd14</color>-->
 <!--    <color name="colorAccent">#09bd14</color>-->
 
-    <color name="colorPrimary">#24c8af</color>
-    <color name="colorPrimaryDark">#24c8af</color>
-    <color name="colorAccent">#24c8af</color>
+<!--    <color name="colorPrimary">#24c8af</color>-->
+<!--    <color name="colorPrimaryDark">#24c8af</color>-->
+<!--    <color name="colorAccent">#24c8af</color>-->
 
-    <color name="color_tab_selected">#24c8af</color>
+
+<!--    09bd14-->
+
+<!--    0ecd1b-->
+    <color name="colorPrimary">#4caf50</color>
+    <color name="colorPrimaryDark">#4caf50</color>
+    <color name="colorAccent">#4caf50</color>
+
+<!--    <color name="color_tab_selected">#24c8af</color>-->
+    <color name="color_tab_selected">#4caf50</color>
 
     <color name="colorBlack333">#333</color>
     <color name="pink_fc4f74">#fc4f74</color>
