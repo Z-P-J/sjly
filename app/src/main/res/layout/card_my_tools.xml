@@ -150,7 +150,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="立即登录，发现更多乐趣"
-                android:textSize="18sp"
+                android:textSize="14sp"
                 android:textColor="@color/light_blue_gray"
                 android:layout_gravity="center"
                 android:layout_marginTop="16dp"

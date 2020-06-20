@@ -23,7 +23,7 @@ import com.zpj.popup.R;
  * 支持通过popupPosition()方法手动指定想要出现在目标的上边还是下边，但是对Left和Right则不生效。
  * Create by dance, at 2018/12/11
  */
-public abstract class AttachPopup extends BasePopup {
+public abstract class AttachPopup<T extends AttachPopup> extends BasePopup<T> {
     protected int defaultOffsetY = 0;
     protected int defaultOffsetX = 0;
     protected PartShadowContainer attachPopupContainer;
@@ -57,24 +57,32 @@ public abstract class AttachPopup extends BasePopup {
         attachPopupContainer.setTranslationX(popupInfo.offsetX);
         attachPopupContainer.setTranslationY(popupInfo.offsetY);
         if (!popupInfo.hasShadowBg) {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                ////优先使用implView的背景
-                if (getPopupBackground() == null) {
-                    attachPopupContainer.setBackgroundColor(Color.TRANSPARENT);
-                } else {
-                    attachPopupContainer.setBackground(getPopupBackground());
-                }
-                attachPopupContainer.setElevation(XPopupUtils.dp2px(getContext(), 8));
-            } else {
-                //优先使用implView的背景
-                if (getPopupImplView().getBackground() == null) {
-                    defaultOffsetX -= bgDrawableMargin;
-                    defaultOffsetY -= bgDrawableMargin;
-                    attachPopupContainer.setBackgroundResource(R.drawable._xpopup_shadow);
-                } else {
-                    attachPopupContainer.setBackground(getPopupBackground());
-                }
-            }
+//            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+//                ////优先使用implView的背景
+//                if (getPopupBackground() == null) {
+//                    attachPopupContainer.setBackgroundColor(Color.TRANSPARENT);
+//                } else {
+//                    attachPopupContainer.setBackground(getPopupBackground());
+//                }
+//                attachPopupContainer.setElevation(XPopupUtils.dp2px(getContext(), 8));
+//            } else {
+//                //优先使用implView的背景
+//                if (getPopupImplView().getBackground() == null) {
+//                    defaultOffsetX -= bgDrawableMargin;
+//                    defaultOffsetY -= bgDrawableMargin;
+//                    attachPopupContainer.setBackgroundResource(R.drawable._xpopup_shadow);
+//                } else {
+//                    attachPopupContainer.setBackground(getPopupBackground());
+//                }
+//            }
+
+//            if (getPopupImplView().getBackground() == null) {
+//                defaultOffsetX -= bgDrawableMargin;
+//                defaultOffsetY -= bgDrawableMargin;
+//                attachPopupContainer.setBackgroundResource(R.drawable._xpopup_shadow);
+//            } else {
+//                attachPopupContainer.setBackground(getPopupBackground());
+//            }
         }
         XPopupUtils.applyPopupSize((ViewGroup) getPopupContentView(), getMaxWidth(), getMaxHeight(), new Runnable() {
             @Override
@@ -94,19 +102,34 @@ public abstract class AttachPopup extends BasePopup {
     float maxX = 0; // 显示在右边时候的最大值
 
     protected void doAttach() {
+        int width = getPopupContentView().getMeasuredWidth();
+        int height = getPopupContentView().getMeasuredHeight();
+        int windowWidth = XPopupUtils.getWindowWidth(context);
+        int windowHeight = XPopupUtils.getWindowHeight(context);
         //0. 判断是依附于某个点还是某个View
         if (popupInfo.touchPoint != null) {
+
+            if (popupInfo.touchPoint.x == 0 && popupInfo.touchPoint.y == 0) {
+                popupInfo.touchPoint.x = (windowWidth - width) / 2f;
+                popupInfo.touchPoint.y = (windowHeight - height) / 2f;
+                if (popupInfo.touchPoint.x < 0) {
+                    popupInfo.touchPoint.x = 0;
+                }
+                if (popupInfo.touchPoint.y < 0) {
+                    popupInfo.touchPoint.y = 0;
+                }
+            }
             // 依附于指定点
-            maxX = Math.max(popupInfo.touchPoint.x - getPopupContentView().getMeasuredWidth(), 0);
+            maxX = Math.max(popupInfo.touchPoint.x - width, 0);
             // 尽量优先放在下方，当不够的时候在显示在上方
             //假设下方放不下，超出window高度
-            boolean isTallerThanWindowHeight = (popupInfo.touchPoint.y + getPopupContentView().getMeasuredHeight()) > maxY;
+            boolean isTallerThanWindowHeight = (popupInfo.touchPoint.y + height) > maxY;
             if (isTallerThanWindowHeight) {
-                isShowUp = popupInfo.touchPoint.y > XPopupUtils.getWindowHeight(getContext()) / 2;
+                isShowUp = popupInfo.touchPoint.y > windowHeight / 2f;
             } else {
                 isShowUp = false;
             }
-            isShowLeft = popupInfo.touchPoint.x < XPopupUtils.getWindowWidth(getContext()) / 2;
+            isShowLeft = popupInfo.touchPoint.x < windowWidth / 2f;
 
             //修正高度，弹窗的高有可能超出window区域
             if (isShowUpToTarget()) {
@@ -116,9 +139,9 @@ public abstract class AttachPopup extends BasePopup {
                     getPopupContentView().setLayoutParams(params);
                 }
             } else {
-                if (getPopupContentView().getMeasuredHeight() + popupInfo.touchPoint.y > XPopupUtils.getWindowHeight(getContext())) {
+                if (getPopupContentView().getMeasuredHeight() + popupInfo.touchPoint.y > windowHeight) {
                     ViewGroup.LayoutParams params = getPopupContentView().getLayoutParams();
-                    params.height = (int) (XPopupUtils.getWindowHeight(getContext()) - popupInfo.touchPoint.y);
+                    params.height = (int) (windowHeight - popupInfo.touchPoint.y);
                     getPopupContentView().setLayoutParams(params);
                 }
             }
@@ -130,14 +153,14 @@ public abstract class AttachPopup extends BasePopup {
                     if (popupInfo.isCenterHorizontal) {
                         //水平居中
                         if (isShowLeft)
-                            translationX -= getPopupContentView().getMeasuredWidth() / 2f;
+                            translationX -= width / 2f;
                         else
-                            translationX += getPopupContentView().getMeasuredWidth() / 2f;
+                            translationX += height / 2f;
                     }
                     if (isShowUpToTarget()) {
                         // 应显示在point上方
                         // translationX: 在左边就和atView左边对齐，在右边就和其右边对齐
-                        translationY = popupInfo.touchPoint.y - getPopupContentView().getMeasuredHeight() - defaultOffsetY;
+                        translationY = popupInfo.touchPoint.y - height - defaultOffsetY;
                     } else {
                         translationY = popupInfo.touchPoint.y + defaultOffsetY;
                     }
@@ -154,31 +177,31 @@ public abstract class AttachPopup extends BasePopup {
             final Rect rect = new Rect(locations[0], locations[1], locations[0] + popupInfo.getAtView().getMeasuredWidth(),
                     locations[1] + popupInfo.getAtView().getMeasuredHeight());
 
-            maxX = Math.max(rect.right - getPopupContentView().getMeasuredWidth(), 0);
+            maxX = Math.max(rect.right - width, 0);
             int centerX = (rect.left + rect.right) / 2;
 
             // 尽量优先放在下方，当不够的时候在显示在上方
             //假设下方放不下，超出window高度
-            boolean isTallerThanWindowHeight = (rect.bottom + getPopupContentView().getMeasuredHeight()) > maxY;
+            boolean isTallerThanWindowHeight = (rect.bottom + height) > maxY;
             if (isTallerThanWindowHeight) {
                 int centerY = (rect.top + rect.bottom) / 2;
-                isShowUp = centerY > XPopupUtils.getWindowHeight(getContext()) / 2;
+                isShowUp = centerY > windowHeight / 2;
             } else {
                 isShowUp = false;
             }
-            isShowLeft = centerX < XPopupUtils.getWindowWidth(getContext()) / 2;
+            isShowLeft = centerX < windowWidth / 2;
 
             //修正高度，弹窗的高有可能超出window区域
             if (isShowUpToTarget()) {
-                if (getPopupContentView().getMeasuredHeight() > rect.top) {
+                if (height > rect.top) {
                     ViewGroup.LayoutParams params = getPopupContentView().getLayoutParams();
                     params.height = rect.top - XPopupUtils.getStatusBarHeight();
                     getPopupContentView().setLayoutParams(params);
                 }
             } else {
-                if (getPopupContentView().getMeasuredHeight() + rect.bottom > XPopupUtils.getWindowHeight(getContext())) {
+                if (getPopupContentView().getMeasuredHeight() + rect.bottom > windowHeight) {
                     ViewGroup.LayoutParams params = getPopupContentView().getLayoutParams();
-                    params.height = XPopupUtils.getWindowHeight(getContext()) - rect.bottom;
+                    params.height = windowHeight - rect.bottom;
                     getPopupContentView().setLayoutParams(params);
                 }
             }
@@ -190,14 +213,14 @@ public abstract class AttachPopup extends BasePopup {
                     if (popupInfo.isCenterHorizontal) {
                         //水平居中
                         if (isShowLeft)
-                            translationX += (rect.width() - getPopupContentView().getMeasuredWidth()) / 2f;
+                            translationX += (rect.width() - width) / 2f;
                         else
-                            translationX -= (rect.width() - getPopupContentView().getMeasuredWidth()) / 2f;
+                            translationX -= (rect.width() - width) / 2f;
                     }
                     if (isShowUpToTarget()) {
                         //说明上面的空间比较大，应显示在atView上方
                         // translationX: 在左边就和atView左边对齐，在右边就和其右边对齐
-                        translationY = rect.top + rect.height() - getPopupContentView().getMeasuredHeight() - defaultOffsetY;
+                        translationY = rect.top + rect.height() - height - defaultOffsetY;
                     } else {
                         translationY = rect.bottom - rect.height() + defaultOffsetY;
                     }

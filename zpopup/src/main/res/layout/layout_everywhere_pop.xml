@@ -1,15 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<www.linwg.org.lib.LCardView
+<com.lihang.ShadowLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    app:cornerRadius="8dp"
-    app:shadowFluidShape="adsorption"
-    app:shadowColor="#bdbdbd"
-    app:shadowStartAlpha="80"
-    app:shadowSize="8dp">
+
+    app:hl_shadowLimit="8dp"
+    app:hl_cornerRadius="8dp"
+    app:hl_shadowColor="#cccccc"
+    >
+
+<!--    app:cornerRadius="8dp"-->
+<!--    app:shadowFluidShape="adsorption"-->
+<!--    app:shadowColor="#bdbdbd"-->
+<!--    app:shadowStartAlpha="80"-->
+<!--    app:shadowSize="8dp"-->
 
     <LinearLayout
         android:id="@+id/container"
@@ -24,4 +30,4 @@
 
     </LinearLayout>
 
-</www.linwg.org.lib.LCardView>
+</com.lihang.ShadowLayout>

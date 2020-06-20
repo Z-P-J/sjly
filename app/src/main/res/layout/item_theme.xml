@@ -188,102 +188,107 @@
                 android:visibility="gone"
                 />
 
-            <LinearLayout
+            <FrameLayout
+                android:id="@+id/layout_app"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
+                android:background="@drawable/grey_shape"
                 >
 
-                <LinearLayout
-                    android:id="@+id/layout_app"
+<!--                <FrameLayout-->
+<!--                    android:id="@+id/layout_app"-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:background="@drawable/grey_shape"-->
+<!--                    >-->
+
+<!--                    -->
+
+<!--                </FrameLayout>-->
+
+                <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:padding="8dp"
-                    android:background="@drawable/grey_shape"
+                    android:background="?attr/selectableItemBackground"
                     >
 
-                    <RelativeLayout
-                        android:layout_width="match_parent"
+                    <com.shehuan.niv.NiceImageView
+                        android:id="@+id/app_icon"
+                        android:layout_width="36dp"
+                        android:layout_height="36dp"
+                        android:src="@mipmap/ic_launcher_bak"
+                        android:layout_gravity="center_vertical"
+                        android:scaleType="centerCrop"
+                        app:corner_radius="4dp"
+                        />
+
+                    <LinearLayout
+                        android:id="@+id/app_wrapper"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:background="?attr/selectableItemBackground"
+                        android:orientation="horizontal"
+                        android:gravity="center_vertical"
+                        android:paddingStart="10dp"
+                        android:paddingEnd="0dp"
+                        android:layout_toEndOf="@id/app_icon"
+                        android:layout_toStartOf="@id/tv_download"
                         >
 
-                        <ImageView
-                            android:id="@+id/app_icon"
-                            android:layout_width="36dp"
-                            android:layout_height="36dp"
-                            android:src="@mipmap/ic_launcher_bak"
-                            android:layout_gravity="center_vertical"
-                            android:scaleType="centerCrop"
-                            />
-
                         <LinearLayout
-                            android:id="@+id/app_wrapper"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:orientation="horizontal"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:orientation="vertical"
                             android:gravity="center_vertical"
-                            android:paddingStart="10dp"
-                            android:paddingEnd="0dp"
-                            android:layout_toEndOf="@id/app_icon"
-                            android:layout_toStartOf="@id/tv_download"
                             >
 
-                            <LinearLayout
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:orientation="vertical"
+                            <TextView
+                                android:id="@+id/app_name"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
                                 android:gravity="center_vertical"
-                                >
+                                android:maxLines="1"
+                                android:ellipsize="end"
+                                android:text="应用名"
+                                android:textColor="#000000"
+                                />
 
-                                <TextView
-                                    android:id="@+id/app_name"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:gravity="center_vertical"
-                                    android:maxLines="1"
-                                    android:ellipsize="end"
-                                    android:text="应用名"
-                                    android:textColor="#000000"
-                                    />
-
-                                <TextView
-                                    android:id="@+id/app_info"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:gravity="center_vertical"
-                                    android:layout_gravity="bottom"
-                                    android:maxLines="1"
-                                    android:ellipsize="end"
-                                    android:text="文件夹"
-                                    android:textColor="#8a8a8a"
-                                    android:textSize="12sp"/>
-
-                            </LinearLayout>
-
-
+                            <TextView
+                                android:id="@+id/app_info"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:gravity="center_vertical"
+                                android:layout_gravity="bottom"
+                                android:maxLines="1"
+                                android:ellipsize="end"
+                                android:text="文件夹"
+                                android:textColor="#8a8a8a"
+                                android:textSize="12sp"/>
 
                         </LinearLayout>
 
-                        <TextView
-                            android:id="@+id/tv_download"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:text="下载"
-                            android:background="@drawable/bg_download_button"
-                            android:textSize="12sp"
-                            android:textColor="@color/colorPrimary"
-                            android:layout_alignParentEnd="true"
-                            android:layout_centerVertical="true"
-                            android:gravity="center"
-                            />
 
-                    </RelativeLayout>
 
-                </LinearLayout>
+                    </LinearLayout>
 
-            </LinearLayout>
+                    <TextView
+                        android:id="@+id/tv_download"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:text="下载"
+                        android:background="@drawable/bg_download_button"
+                        android:textSize="12sp"
+                        android:textColor="@color/colorPrimary"
+                        android:layout_alignParentEnd="true"
+                        android:layout_centerVertical="true"
+                        android:gravity="center"
+                        />
+
+                </RelativeLayout>
+
+            </FrameLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"

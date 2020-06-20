@@ -7,9 +7,11 @@ import android.support.v4.view.ViewPager;
 import android.view.View;
 import android.widget.ImageView;
 
+import com.github.zagum.expandicon.ExpandIconView;
 import com.zpj.fragmentation.BaseFragment;
 import com.zpj.http.parser.html.nodes.Element;
 import com.zpj.http.parser.html.select.Elements;
+import com.zpj.popup.interfaces.OnDismissListener;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.api.HttpApi;
 import com.zpj.shouji.market.model.WallpaperTag;
@@ -41,6 +43,8 @@ public class WallpaperFragment extends BaseFragment implements View.OnClickListe
 
     private ViewPager viewPager;
     private MagicIndicator magicIndicator;
+    private ExpandIconView expandIconView;
+    private WallpaperTagPopup wallpaperTagPopup;
 
     @Override
     protected int getLayoutId() {
@@ -52,8 +56,8 @@ public class WallpaperFragment extends BaseFragment implements View.OnClickListe
         isInitTags.set(false);
         viewPager = view.findViewById(R.id.vp);
         magicIndicator = view.findViewById(R.id.magic_indicator);
-        ImageView expand = view.findViewById(R.id.iv_expand);
-        expand.setOnClickListener(this);
+        expandIconView = view.findViewById(R.id.iv_expand);
+        expandIconView.setOnClickListener(this);
         initWallpaperTags();
     }
 
@@ -69,22 +73,26 @@ public class WallpaperFragment extends BaseFragment implements View.OnClickListe
     public void onClick(View v) {
         int id = v.getId();
         if (id == R.id.iv_expand) {
-            WallpaperTagPopup.with(context)
-                    .setLabels(wallpaperTags)
-                    .setSelectedPosition(viewPager.getCurrentItem())
-                    .setOnItemClickListener(new FlowLayout.OnItemClickListener() {
-                        @Override
-                        public void onClick(int index, View v, String text) {
-                            viewPager.setCurrentItem(index);
-                        }
-                    })
-//                    .setOnLabelClickListener(new WallpaperTagPopup.OnLabelClickListener() {
-//                        @Override
-//                        public void onClick(int index, View v, WallpaperTag tag) {
-//                            viewPager.setCurrentItem(index);
-//                        }
-//                    })
-                    .show(v);
+            if (wallpaperTagPopup == null) {
+                expandIconView.switchState();
+                wallpaperTagPopup = WallpaperTagPopup.with(context)
+                        .setLabels(wallpaperTags)
+                        .setSelectedPosition(viewPager.getCurrentItem())
+                        .setOnItemClickListener(new FlowLayout.OnItemClickListener() {
+                            @Override
+                            public void onClick(int index, View v, String text) {
+                                viewPager.setCurrentItem(index);
+                            }
+                        })
+                        .setOnDismissListener(() -> {
+                            wallpaperTagPopup = null;
+                            expandIconView.switchState();
+                        })
+                        .show(v);
+            } else {
+                wallpaperTagPopup.dismiss();
+                wallpaperTagPopup = null;
+            }
         }
     }
 

@@ -108,7 +108,7 @@ public class MyDiscoverFragment extends BaseFragment {
         public static MyRelatedDiscoverFragment newInstance() {
             String url = "http://tt.shouji.com.cn/app/user_content_list_xml_v2.jsp?versioncode=198&t=discuss&jsessionid="
                     + UserManager.getInstance().getSessionId() + "&thread=thread&sn="
-                    + UserManager.getInstance().getMemberInfo().getSn();
+                    + UserManager.getInstance().getSn();
             Bundle args = new Bundle();
             args.putString(KEY_DEFAULT_URL, url);
             MyRelatedDiscoverFragment fragment = new MyRelatedDiscoverFragment();
@@ -123,7 +123,7 @@ public class MyDiscoverFragment extends BaseFragment {
         public static MyPublishDiscoverFragment newInstance() {
             String url = "http://tt.shouji.com.cn/app/user_content_list_xml_v2.jsp?versioncode=198&t=discuss&jsessionid="
                     + UserManager.getInstance().getSessionId() + "&sn="
-                    + UserManager.getInstance().getMemberInfo().getSn();
+                    + UserManager.getInstance().getSn();
             Bundle args = new Bundle();
             args.putString(KEY_DEFAULT_URL, url);
             MyPublishDiscoverFragment fragment = new MyPublishDiscoverFragment();
@@ -138,7 +138,7 @@ public class MyDiscoverFragment extends BaseFragment {
         public static MyPrivateDiscoverFragment newInstance() {
             String url = "http://tt.shouji.com.cn/app/user_content_list_xml_v2.jsp?versioncode=198&t=discuss&jsessionid="
                     + UserManager.getInstance().getSessionId() + "&thread=private&sn="
-                    + UserManager.getInstance().getMemberInfo().getSn();
+                    + UserManager.getInstance().getSn();
             Bundle args = new Bundle();
             args.putString(KEY_DEFAULT_URL, url);
             MyPrivateDiscoverFragment fragment = new MyPrivateDiscoverFragment();

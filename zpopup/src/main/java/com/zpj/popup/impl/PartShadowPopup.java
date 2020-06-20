@@ -21,7 +21,7 @@ import com.zpj.popup.util.XPopupUtils;
  * Description: 局部阴影的弹窗，类似于淘宝商品列表的下拉筛选弹窗
  * Create by dance, at 2018/12/21
  */
-public abstract class PartShadowPopup extends AttachPopup {
+public abstract class PartShadowPopup<T extends PartShadowPopup> extends AttachPopup<T> {
     public PartShadowPopup(@NonNull Context context) {
         super(context);
     }

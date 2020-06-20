@@ -96,7 +96,7 @@
                 android:layout_below="@+id/civ_icon"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="20dp"
-                android:text="Goweii"
+                android:text="Z-P-J"
                 android:textColor="@color/white"
                 android:textSize="18sp" />
 
@@ -110,7 +110,7 @@
                 android:gravity="center"
                 android:paddingLeft="30dp"
                 android:paddingRight="30dp"
-                android:text="不相信自己的人没有努力的价值"
+                android:text="没有人是一座孤岛"
                 android:textColor="@color/white"
                 android:textSize="13sp" />
 

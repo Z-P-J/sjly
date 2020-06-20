@@ -12,7 +12,7 @@ import com.zpj.shouji.market.ui.widget.flowlayout.FlowLayout;
 import java.util.ArrayList;
 import java.util.List;
 
-public class WallpaperTagPopup extends PartShadowPopup {
+public class WallpaperTagPopup extends PartShadowPopup<WallpaperTagPopup> {
 
     private final List<WallpaperTag> tags = new ArrayList<>();
     private FlowLayout.OnItemClickListener onItemClickListener;

@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.zpj.popup.XPopup;
 import com.zpj.popup.animator.PopupAnimator;
 import com.zpj.popup.enums.PopupStatus;
 import com.zpj.popup.util.KeyboardUtils;
@@ -17,7 +18,7 @@ import com.zpj.popup.R;
  * Description: 在底部显示的Popup
  * Create by lxj, at 2018/12/11
  */
-public class BottomPopup extends BasePopup<BottomPopup> {
+public class BottomPopup<T extends BottomPopup> extends BasePopup<T> {
     protected SmartDragLayout bottomPopupContainer;
     public BottomPopup(@NonNull Context context) {
         super(context);
@@ -118,6 +119,7 @@ public class BottomPopup extends BasePopup<BottomPopup> {
             clearFocus();
             // 关闭Drawer，由于Drawer注册了关闭监听，会自动调用dismiss
             bottomPopupContainer.close();
+            postDelayed(this::onDismiss, XPopup.getAnimationDuration());
         } else {
             super.dismiss();
         }

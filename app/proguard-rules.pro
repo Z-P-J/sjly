@@ -84,6 +84,11 @@
     *;
 }
 
+# 文件扫描器
+-keep class io.haydar.filescanner.** {
+    *;
+}
+
 -keep class * extends com.raizlabs.android.dbflow.config.DatabaseHolder { *; }
 
 # EventBus

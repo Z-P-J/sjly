@@ -239,7 +239,7 @@ public class LoginFragment extends BaseFragment
 
     @Override
     public void onSignInSuccess() {
-//        pop();
+        pop();
     }
 
     @Override

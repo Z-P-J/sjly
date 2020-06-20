@@ -20,7 +20,8 @@ import com.zpj.popup.interfaces.OnCancelListener;
 import com.zpj.popup.interfaces.OnConfirmListener;
 import com.zpj.popup.util.XPopupUtils;
 
-public abstract class AbstractAlertPopup<T extends AbstractAlertPopup> extends CenterPopup<T> implements View.OnClickListener {
+public abstract class AbstractAlertPopup<T extends AbstractAlertPopup> extends CenterPopup<T>
+        implements View.OnClickListener {
 
     OnCancelListener cancelListener;
     OnConfirmListener<T> confirmListener;
@@ -146,15 +147,17 @@ public abstract class AbstractAlertPopup<T extends AbstractAlertPopup> extends C
         TextView textView = new TextView(context);
         textView.setText(content);
         textView.setTextColor(context.getResources().getColor(R.color._xpopup_content_color));
-        textView.setTextSize(16);
+        textView.setTextSize(14);
         textView.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
             @Override
             public void onGlobalLayout() {
                 textView.getViewTreeObserver().removeOnGlobalLayoutListener(this);
-                int padding = XPopupUtils.dp2px(context, 16);
+                int padding = XPopupUtils.dp2px(context, 24);
                 textView.setPadding(padding, padding, padding, padding);
             }
         });
+        textView.setMinHeight(XPopupUtils.dp2px(context, 80));
+        textView.setLineSpacing(6, 1);
         this.contentView = textView;
         return self();
     }

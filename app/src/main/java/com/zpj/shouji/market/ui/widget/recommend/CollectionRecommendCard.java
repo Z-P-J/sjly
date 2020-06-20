@@ -5,6 +5,7 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.View;
 
 import com.bumptech.glide.Glide;
@@ -57,6 +58,7 @@ public class CollectionRecommendCard extends RecommendCard<CollectionInfo> {
     }
 
     private void onGetDoc(Document document) {
+        Log.d("CollectionRecommendCard", "onGetDoc document=" + document);
         Elements elements = document.select("item");
         for (Element element : elements) {
             list.add(CollectionInfo.create(element));
@@ -99,7 +101,7 @@ public class CollectionRecommendCard extends RecommendCard<CollectionInfo> {
         holder.setText(R.id.tv_view_count, info.getViewCount() + "");
         holder.setText(R.id.tv_favorite_count, info.getFavCount() + "");
         holder.setText(R.id.tv_support_count, info.getSupportCount() + "");
-        for (int i = 0; i < RES_ICONS.length; i++) {
+        for (int i = 0; i < Math.min(RES_ICONS.length, info.getIcons().size()); i++) {
             int res = RES_ICONS[i];
             if (i == 0) {
                 Glide.with(context)

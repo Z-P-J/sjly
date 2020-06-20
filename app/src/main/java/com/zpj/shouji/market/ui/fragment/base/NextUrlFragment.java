@@ -15,6 +15,7 @@ public abstract class NextUrlFragment<T> extends RecyclerLayoutFragment<T> {
     protected String defaultUrl;
     protected String nextUrl;
     private boolean flag = false;
+    protected boolean refresh;
 
     @Override
     protected void handleArguments(Bundle arguments) {
@@ -25,6 +26,7 @@ public abstract class NextUrlFragment<T> extends RecyclerLayoutFragment<T> {
     @Override
     public void onRefresh() {
         nextUrl = defaultUrl;
+        refresh = true;
         super.onRefresh();
     }
 
@@ -47,7 +49,8 @@ public abstract class NextUrlFragment<T> extends RecyclerLayoutFragment<T> {
 //            recyclerLayout.showLoading();
 //        }
 //        getData();
-        if (data.isEmpty()) {
+
+        if (data.isEmpty() && !refresh) {
             if (flag) {
                 return false;
             }
@@ -56,7 +59,7 @@ public abstract class NextUrlFragment<T> extends RecyclerLayoutFragment<T> {
         } else {
             getData();
         }
-
+        refresh = false;
         return true;
     }
 

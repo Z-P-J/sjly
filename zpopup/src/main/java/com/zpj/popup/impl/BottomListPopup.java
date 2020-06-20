@@ -22,7 +22,7 @@ import java.util.List;
  * Description: 底部的列表对话框
  * Create by dance, at 2018/12/16
  */
-public class BottomListPopup<T> extends BottomPopup {
+public class BottomListPopup<T> extends BottomPopup<BottomListPopup<T>> {
 
     RecyclerView recyclerView;
     TextView tv_title;
@@ -146,8 +146,9 @@ public class BottomListPopup<T> extends BottomPopup {
         return this;
     }
 
-    public void setIconIds(int[] iconIds) {
+    public BottomListPopup<T> setIconIds(int[] iconIds) {
         this.iconIds = iconIds;
+        return this;
     }
 
     public BottomListPopup<T> setOnSelectListener(OnSelectListener<T> selectListener) {

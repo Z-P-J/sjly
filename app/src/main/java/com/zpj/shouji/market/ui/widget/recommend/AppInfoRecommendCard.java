@@ -7,6 +7,7 @@ import android.util.AttributeSet;
 import android.view.View;
 
 import com.bumptech.glide.Glide;
+import com.felix.atoast.library.AToast;
 import com.zpj.http.core.IHttp;
 import com.zpj.http.parser.html.nodes.Document;
 import com.zpj.http.parser.html.nodes.Element;
@@ -96,6 +97,12 @@ public abstract class AppInfoRecommendCard extends RecommendCard<AppInfo> {
         holder.getTextView(R.id.item_title).setText(info.getAppTitle());
         holder.getTextView(R.id.item_info).setText(info.getAppSize());
         Glide.with(context).load(info.getAppIcon()).into(holder.getImageView(R.id.item_icon));
+        holder.getView(R.id.tv_download).setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AToast.normal("TODO Download");
+            }
+        });
     }
 
     @Override

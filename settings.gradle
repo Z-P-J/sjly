@@ -8,5 +8,6 @@ include ':app',
         ':richeditor2',
         ':zmarkdown',
         ':emojilib',
-        ':matisse'
+        ':matisse',
+        ':filescannercore'
 //        ':third-part-color-cardview'

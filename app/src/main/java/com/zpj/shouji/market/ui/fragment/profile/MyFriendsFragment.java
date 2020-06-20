@@ -100,7 +100,7 @@ public class MyFriendsFragment extends BaseFragment {
         public static FollowersFragment newInstance() {
             String url = "http://tt.shouji.com.cn/app/user_friend_list_xml.jsp?versioncode=198&jsessionid="
                     + UserManager.getInstance().getSessionId() + "&sn="
-                    + UserManager.getInstance().getMemberInfo().getSn();
+                    + UserManager.getInstance().getSn();
             Bundle args = new Bundle();
             args.putString(KEY_DEFAULT_URL, url);
             FollowersFragment fragment = new FollowersFragment();
@@ -113,7 +113,7 @@ public class MyFriendsFragment extends BaseFragment {
         public static FansFragment newInstance() {
             String url = "http://tt.shouji.com.cn/app/user_fensi_list_xml.jsp?versioncode=198&jsessionid="
                     + UserManager.getInstance().getSessionId() + "&sn="
-                    + UserManager.getInstance().getMemberInfo().getSn();
+                    + UserManager.getInstance().getSn();
             Bundle args = new Bundle();
             args.putString(KEY_DEFAULT_URL, url);
             FansFragment fragment = new FansFragment();

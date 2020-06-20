@@ -19,6 +19,7 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.target.SimpleTarget;
 import com.bumptech.glide.request.transition.Transition;
 import com.felix.atoast.library.AToast;
+import com.github.zagum.expandicon.ExpandIconView;
 import com.sunbinqiang.iconcountview.IconCountView;
 import com.zpj.http.parser.html.nodes.Element;
 import com.zpj.popup.ZPopup;
@@ -26,6 +27,7 @@ import com.zpj.popup.imagetrans.ImageLoad;
 import com.zpj.popup.imagetrans.ImageTransAdapter;
 import com.zpj.popup.imagetrans.listener.SourceImageViewGet;
 import com.zpj.popup.impl.FullScreenPopup;
+import com.zpj.popup.interfaces.OnDismissListener;
 import com.zpj.recyclerview.EasyRecyclerLayout;
 import com.zpj.recyclerview.EasyViewHolder;
 import com.zpj.shouji.market.R;
@@ -53,7 +55,9 @@ public class WallpaperListFragment extends NextUrlFragment<WallpaperInfo> {
     @IntRange(from = 0, to = 2)
     private int sortPosition = 0;
 
-    private int screenWidth;
+    private int halfScreenWidth;
+
+    private RecyclerPopup recyclerPopup;
 
     public static WallpaperListFragment newInstance(WallpaperTag tag) {
         Bundle args = new Bundle();
@@ -90,7 +94,7 @@ public class WallpaperListFragment extends NextUrlFragment<WallpaperInfo> {
 
     @Override
     protected void buildRecyclerLayout(EasyRecyclerLayout<WallpaperInfo> recyclerLayout) {
-        screenWidth = ScreenUtils.getScreenWidth(context);
+        halfScreenWidth = ScreenUtils.getScreenWidth(context) / 2 - ScreenUtils.dp2pxInt(context, 8);
         if (getHeaderLayout() > 0) {
             recyclerLayout.setHeaderView(getHeaderLayout(), holder -> holder.setOnItemClickListener((this::showSortPupWindow)));
         }
@@ -107,7 +111,7 @@ public class WallpaperListFragment extends NextUrlFragment<WallpaperInfo> {
         if (p > 2.5f) {
             p = 2.5f;
         }
-        layoutParams.width = screenWidth / 2;
+        layoutParams.width = halfScreenWidth;
         layoutParams.height = (int) (p * layoutParams.width);
 
         wallpaper.setLayoutParams(layoutParams);
@@ -174,6 +178,7 @@ public class WallpaperListFragment extends NextUrlFragment<WallpaperInfo> {
     public void onRefresh() {
         data.clear();
         initNextUrl();
+        refresh = true;
         recyclerLayout.notifyDataSetChanged();
     }
 
@@ -194,15 +199,27 @@ public class WallpaperListFragment extends NextUrlFragment<WallpaperInfo> {
     }
 
     private void showSortPupWindow(View v) {
-        RecyclerPopup.with(context)
-                .addItems("默认排序", "时间排序", "人气排序")
-                .setSelectedItem(sortPosition)
-                .setOnItemClickListener((view, title, position) -> {
-                    sortPosition = position;
-                    TextView titleText = v.findViewById(R.id.tv_title);
-                    titleText.setText(title);
-                    onRefresh();
-                })
-                .show(v);
+        ExpandIconView expandIconView = v.findViewById(R.id.expand_icon);
+        if (recyclerPopup == null) {
+            expandIconView.switchState();
+            recyclerPopup = RecyclerPopup.with(context)
+                    .addItems("默认排序", "时间排序", "人气排序")
+                    .setSelectedItem(sortPosition)
+                    .setOnItemClickListener((view, title, position) -> {
+                        sortPosition = position;
+                        TextView titleText = v.findViewById(R.id.tv_title);
+                        titleText.setText(title);
+                        onRefresh();
+                    })
+                    .setOnDismissListener(() -> {
+                        expandIconView.switchState();
+                        recyclerPopup = null;
+                    })
+                    .show(v);
+        } else {
+            recyclerPopup.dismiss();
+            recyclerPopup = null;
+        }
+
     }
 }

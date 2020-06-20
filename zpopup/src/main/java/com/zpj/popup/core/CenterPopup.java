@@ -2,6 +2,7 @@ package com.zpj.popup.core;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
+import android.support.v7.widget.CardView;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,9 +22,11 @@ import static com.zpj.popup.enums.PopupAnimation.ScaleAlphaFromCenter;
  * Create by dance, at 2018/12/8
  */
 public class CenterPopup<T extends CenterPopup> extends BasePopup<T> {
-    protected FrameLayout centerPopupContainer;
+    protected CardView centerPopupContainer;
     protected int bindLayoutId;
     protected int bindItemLayoutId;
+    private View contentView;
+
     public CenterPopup(@NonNull Context context) {
         super(context);
         centerPopupContainer = findViewById(R.id.centerPopupContainer);
@@ -32,6 +35,11 @@ public class CenterPopup<T extends CenterPopup> extends BasePopup<T> {
     @Override
     protected int getPopupLayoutId() {
         return R.layout._xpopup_center_popup_view;
+    }
+
+    public T setContentView(View contentView) {
+        this.contentView = contentView;
+        return self();
     }
 
     public T bindLayout(int layoutId){
@@ -64,6 +72,9 @@ public class CenterPopup<T extends CenterPopup> extends BasePopup<T> {
     }
 
     protected View getContentView() {
+        if (contentView != null) {
+            return contentView;
+        }
         return LayoutInflater.from(getContext()).inflate(getImplLayoutId(), centerPopupContainer, false);
     }
 

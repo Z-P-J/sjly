@@ -12,13 +12,19 @@
         android:id="@+id/tv_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:drawablePadding="4dp"
-        android:gravity="center"
         android:text="默认排序"
-        android:textSize="18sp"
+        android:textSize="16sp"
         android:textColor="#333"
         android:textStyle="bold"
-        android:drawableEnd="@drawable/ic_expand_more_black_24dp"
+        android:layout_centerVertical="true"
+        />
+
+    <com.github.zagum.expandicon.ExpandIconView
+        android:id="@+id/expand_icon"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:layout_toEndOf="@id/tv_title"
+        android:layout_centerVertical="true"
         />
 
 </RelativeLayout>

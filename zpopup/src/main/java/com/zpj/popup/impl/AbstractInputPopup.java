@@ -7,9 +7,12 @@ import android.support.annotation.NonNull;
 import android.support.v7.widget.AppCompatEditText;
 import android.text.TextUtils;
 import android.view.View;
+import android.widget.Toast;
 
 import com.zpj.popup.R;
 import com.zpj.popup.XPopup;
+import com.zpj.popup.interfaces.OnConfirmListener;
+import com.zpj.popup.util.KeyboardUtils;
 import com.zpj.popup.util.XPopupUtils;
 
 /**
@@ -25,6 +28,7 @@ public class AbstractInputPopup<T extends AbstractAlertPopup> extends AbstractAl
 
     public AbstractInputPopup(@NonNull Context context) {
         super(context);
+//        setContent(R.layout._xpopup_center_impl_check);
     }
 
 //    /**
@@ -59,9 +63,30 @@ public class AbstractInputPopup<T extends AbstractAlertPopup> extends AbstractAl
             et_input.setSelection(inputContent.length());
         }
         applyPrimary();
+        if (autoShowKeyboard) {
+            KeyboardUtils.showSoftInput(et_input);
+        }
     }
 
+    @Override
+    public void onClick(View v) {
+        if (v == tv_cancel) {
+            if (cancelListener != null) cancelListener.onCancel();
+            dismiss();
+        } else if (v == tv_confirm) {
+            if (!emptyable && TextUtils.isEmpty(getText())) {
+                Toast.makeText(context, "输入不能为空！", Toast.LENGTH_SHORT).show();
+                return;
+            }
+            if (confirmListener != null) confirmListener.onConfirm(self());
+            dismiss();
+        }
+    }
 
+    @Override
+    public T show() {
+        return super.show();
+    }
 
     public T setEditText(String inputContent) {
         this.inputContent = inputContent;
@@ -81,6 +106,11 @@ public class AbstractInputPopup<T extends AbstractAlertPopup> extends AbstractAl
     public T setSelection(int start, int stop) {
         this.selectionStart = start;
         this.selectionEnd = stop;
+        return self();
+    }
+
+    public T setAutoShowKeyboard(boolean autoShowKeyboard) {
+        this.autoShowKeyboard = autoShowKeyboard;
         return self();
     }
 
@@ -109,15 +139,15 @@ public class AbstractInputPopup<T extends AbstractAlertPopup> extends AbstractAl
 
     protected void applyPrimary(){
         super.applyPrimaryColor();
-        XPopupUtils.setCursorDrawableColor(et_input, XPopup.getPrimaryColor());
-        et_input.post(new Runnable() {
-            @Override
-            public void run() {
-                BitmapDrawable defaultDrawable = XPopupUtils.createBitmapDrawable(getResources(), et_input.getMeasuredWidth(), Color.parseColor("#888888"));
-                BitmapDrawable focusDrawable = XPopupUtils.createBitmapDrawable(getResources(), et_input.getMeasuredWidth(), XPopup.getPrimaryColor());
-                et_input.setBackgroundDrawable(XPopupUtils.createSelector(defaultDrawable, focusDrawable));
-            }
-        });
+        XPopupUtils.setCursorDrawableColor(et_input, getColorPrimary());
+//        et_input.post(new Runnable() {
+//            @Override
+//            public void run() {
+//                BitmapDrawable defaultDrawable = XPopupUtils.createBitmapDrawable(getResources(), et_input.getMeasuredWidth(), Color.parseColor("#888888"));
+//                BitmapDrawable focusDrawable = XPopupUtils.createBitmapDrawable(getResources(), et_input.getMeasuredWidth(), XPopup.getPrimaryColor());
+//                et_input.setBackgroundDrawable(XPopupUtils.createSelector(defaultDrawable, focusDrawable));
+//            }
+//        });
 
     }
 

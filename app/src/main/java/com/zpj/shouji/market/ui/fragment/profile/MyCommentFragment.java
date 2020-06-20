@@ -101,7 +101,7 @@ public class MyCommentFragment extends BaseFragment {
         public static MyRelatedCommentFragment newInstance() {
             String url = "http://tt.shouji.com.cn/app/user_content_list_xml_v2.jsp?versioncode=198&t=review&jsessionid="
                     + UserManager.getInstance().getSessionId() + "&thread=thread&sn="
-                    + UserManager.getInstance().getMemberInfo().getSn();
+                    + UserManager.getInstance().getSn();
             Bundle args = new Bundle();
             args.putString(KEY_DEFAULT_URL, url);
             MyRelatedCommentFragment fragment = new MyRelatedCommentFragment();
@@ -116,7 +116,7 @@ public class MyCommentFragment extends BaseFragment {
         public static MyPublishCommentFragment newInstance() {
             String url = "http://tt.shouji.com.cn/app/user_content_list_xml_v2.jsp?versioncode=198&t=review&jsessionid="
                     + UserManager.getInstance().getSessionId() + "&sn="
-                    + UserManager.getInstance().getMemberInfo().getSn();
+                    + UserManager.getInstance().getSn();
             Bundle args = new Bundle();
             args.putString(KEY_DEFAULT_URL, url);
             MyPublishCommentFragment fragment = new MyPublishCommentFragment();

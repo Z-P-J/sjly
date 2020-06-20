@@ -214,6 +214,11 @@ public class AppDetailFragment extends BaseFragment {
         Log.d("apppppp", url);
         HttpApi.connect(url)
                 .onSuccess(data -> {
+                    if ("NoApp".equals(data.selectFirst("errorcode").text())) {
+                        AToast.warning("应用不存在");
+                        pop();
+                        return;
+                    }
                     AppDetailInfo info = AppDetailInfo.create(data);
                     appDetailInfo = info;
                     Glide.with(context).asBitmap().load(appDetailInfo.getIconUrl()).into(new SimpleTarget<Bitmap>() {

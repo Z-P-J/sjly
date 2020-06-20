@@ -1,0 +1,38 @@
+
+{
+	"buildFiles" : [ "D:/Programming/AndroidProjects/sjly/filescannercore/CMakeLists.txt" ],
+	"cleanCommands" : 
+	[
+		"D:\\Programming\\Android\\android-sdk\\cmake\\3.6.4111459\\bin\\cmake.exe --build D:\\Programming\\AndroidProjects\\sjly\\filescannercore\\.cxx\\cmake\\release\\armeabi-v7a --target clean"
+	],
+	"cppFileExtensions" : [ "cpp" ],
+	"libraries" : 
+	{
+		"FileScanner-Release-armeabi-v7a" : 
+		{
+			"abi" : "armeabi-v7a",
+			"artifactName" : "FileScanner",
+			"buildCommand" : "D:\\Programming\\Android\\android-sdk\\cmake\\3.6.4111459\\bin\\cmake.exe --build D:\\Programming\\AndroidProjects\\sjly\\filescannercore\\.cxx\\cmake\\release\\armeabi-v7a --target FileScanner",
+			"buildType" : "release",
+			"files" : 
+			[
+				
+				{
+					"flags" : "  --target=armv7-none-linux-androideabi19 --gcc-toolchain=D:/Programming/Android/android-sdk/ndk/20.0.5594570/toolchains/llvm/prebuilt/windows-x86_64 --sysroot=D:/Programming/Android/android-sdk/ndk/20.0.5594570/toolchains/llvm/prebuilt/windows-x86_64/sysroot  -DFileScanner_EXPORTS  -g -DANDROID -fdata-sections -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -fno-addrsig -march=armv7-a -mthumb -Wa,--noexecstack -Wformat -Werror=format-security   -Oz -DNDEBUG  -fPIC    -c ",
+					"src" : "D:/Programming/AndroidProjects/sjly/filescannercore/src/main/cpp/FilesScanner.cpp",
+					"workingDirectory" : "D:/Programming/AndroidProjects/sjly/filescannercore/.cxx/cmake/release/armeabi-v7a"
+				}
+			],
+			"output" : "D:/Programming/AndroidProjects/sjly/filescannercore/build/intermediates/cmake/release/obj/armeabi-v7a/libFileScanner.so",
+			"toolchain" : "612798165"
+		}
+	},
+	"toolchains" : 
+	{
+		"612798165" : 
+		{
+			"cCompilerExecutable" : "D:/Programming/Android/android-sdk/ndk/20.0.5594570/toolchains/llvm/prebuilt/windows-x86_64/bin/clang.exe",
+			"cppCompilerExecutable" : "D:/Programming/Android/android-sdk/ndk/20.0.5594570/toolchains/llvm/prebuilt/windows-x86_64/bin/clang++.exe"
+		}
+	}
+}

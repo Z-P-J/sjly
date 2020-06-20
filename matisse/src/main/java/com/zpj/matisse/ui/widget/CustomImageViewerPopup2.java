@@ -23,13 +23,11 @@ import com.zpj.matisse.entity.IncapableCause;
 import com.zpj.matisse.entity.Item;
 import com.zpj.matisse.entity.SelectionSpec;
 import com.zpj.matisse.model.SelectedItemManager;
-import com.zpj.popup.core.ImageViewerPopup;
 import com.zpj.popup.core.ImageViewerPopup2;
 import com.zpj.popup.imagetrans.ImageLoad;
 import com.zpj.popup.imagetrans.ImageTransAdapter;
 import com.zpj.popup.impl.FullScreenPopup;
 import com.zpj.popup.interfaces.IImageLoader;
-import com.zpj.utils.StatusBarUtils;
 import com.zpj.widget.toolbar.ZToolBar;
 
 import java.io.File;

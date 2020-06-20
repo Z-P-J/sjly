@@ -3,9 +3,11 @@ package com.zpj.popup.core;
 import android.app.Activity;
 import android.content.Context;
 import android.graphics.Rect;
+import android.graphics.drawable.Drawable;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -59,6 +61,8 @@ public abstract class BasePopup<T extends BasePopup> extends FrameLayout impleme
     private OnHideListener onHideListener;
     private OnShowListener onShowListener;
 
+    private Drawable background;
+
 
     public BasePopup(@NonNull Context context) {
         super(context);
@@ -101,6 +105,10 @@ public abstract class BasePopup<T extends BasePopup> extends FrameLayout impleme
                     (getMaxWidth() != 0 && getPopupWidth() > getMaxWidth()) ? getMaxWidth() : getPopupWidth(),
                     (getMaxHeight() != 0 && getPopupHeight() > getMaxHeight()) ? getMaxHeight() : getPopupHeight()
             );
+        }
+        Log.d("initPopupContent", "getPopupImplView=" + getPopupImplView() + " background=" + background);
+        if (getPopupImplView() != null && background != null) {
+            getPopupImplView().setBackground(background);
         }
         if (!isCreated) {
             isCreated = true;
@@ -207,6 +215,16 @@ public abstract class BasePopup<T extends BasePopup> extends FrameLayout impleme
 
     public T setOnBackPressedListener(OnBackPressedListener onBackPressedListener) {
         this.onBackPressedListener = onBackPressedListener;
+        return self();
+    }
+
+    public T setPopupBackground(Drawable background) {
+        this.background = background;
+        return self();
+    }
+
+    public T setPopupBackground(int resid) {
+        this.background = context.getResources().getDrawable(resid);
         return self();
     }
 
@@ -516,6 +534,22 @@ public abstract class BasePopup<T extends BasePopup> extends FrameLayout impleme
         doAfterDismiss();
     }
 
+    @Override
+    public void clearFocus() {
+        super.clearFocus();
+        if (!stack.isEmpty()) stack.pop();
+        if (popupInfo != null && popupInfo.isRequestFocus) {
+            if (!stack.isEmpty()) {
+                stack.get(stack.size() - 1).focusAndProcessBackPress();
+            } else {
+                // 让根布局拿焦点，避免布局内RecyclerView类似布局获取焦点导致布局滚动
+                View needFocusView = ActivityUtils.getActivity(context).findViewById(android.R.id.content);
+                needFocusView.setFocusable(true);
+                needFocusView.setFocusableInTouchMode(true);
+            }
+        }
+    }
+
     public void delayDismiss(long delay) {
         if (delay < 0) delay = 0;
         postDelayed(new Runnable() {
@@ -566,17 +600,17 @@ public abstract class BasePopup<T extends BasePopup> extends FrameLayout impleme
 
             NavigationBarObserver.getInstance().removeOnNavigationBarListener(BasePopup.this);
 
-            if (!stack.isEmpty()) stack.pop();
-            if (popupInfo != null && popupInfo.isRequestFocus) {
-                if (!stack.isEmpty()) {
-                    stack.get(stack.size() - 1).focusAndProcessBackPress();
-                } else {
-                    // 让根布局拿焦点，避免布局内RecyclerView类似布局获取焦点导致布局滚动
-                    View needFocusView = ActivityUtils.getActivity(context).findViewById(android.R.id.content);
-                    needFocusView.setFocusable(true);
-                    needFocusView.setFocusableInTouchMode(true);
-                }
-            }
+//            if (!stack.isEmpty()) stack.pop();
+//            if (popupInfo != null && popupInfo.isRequestFocus) {
+//                if (!stack.isEmpty()) {
+//                    stack.get(stack.size() - 1).focusAndProcessBackPress();
+//                } else {
+//                    // 让根布局拿焦点，避免布局内RecyclerView类似布局获取焦点导致布局滚动
+//                    View needFocusView = ActivityUtils.getActivity(context).findViewById(android.R.id.content);
+//                    needFocusView.setFocusable(true);
+//                    needFocusView.setFocusableInTouchMode(true);
+//                }
+//            }
 
             // 移除弹窗，GameOver
             if (popupInfo.decorView != null) {

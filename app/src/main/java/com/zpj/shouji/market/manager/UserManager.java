@@ -69,7 +69,10 @@ public final class UserManager {
     }
 
     public String getUserId() {
-        return memberInfo.getMemberId();
+        if (isLogin()) {
+            return memberInfo.getMemberId();
+        }
+        return "";
     }
 
     public MemberInfo getMemberInfo() {
@@ -88,6 +91,13 @@ public final class UserManager {
             return memberInfo.getSessionId();
         }
         return "";
+    }
+
+    public String getSn() {
+        if (isLogin()) {
+            return memberInfo.getSn();
+        }
+        return "0123456789";
     }
 
     public boolean isLogin() {

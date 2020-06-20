@@ -13,7 +13,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class RecyclerPopup extends PartShadowPopup {
+public class RecyclerPopup extends PartShadowPopup<RecyclerPopup> {
 
 
     public interface OnItemClickListener {

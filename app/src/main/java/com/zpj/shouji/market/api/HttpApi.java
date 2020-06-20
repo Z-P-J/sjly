@@ -125,7 +125,7 @@ public final class HttpApi {
     private static String getCollectUrl(String key) {
         return "http://tt.shouji.com.cn/app/" + key + ".jsp?versioncode=198&jsessionid="
                 + UserManager.getInstance().getSessionId() + "&sn="
-                + UserManager.getInstance().getMemberInfo().getSn();
+                + UserManager.getInstance().getSn();
     }
 
     public static ObservableTask<Document> likeApi(String type, String id) {
