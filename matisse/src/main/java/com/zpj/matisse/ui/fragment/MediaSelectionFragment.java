@@ -125,7 +125,7 @@ public class MediaSelectionFragment extends BaseFragment implements
                 .setLayoutManager(new GridLayoutManager(getContext(), spanCount))
                 .onBindViewHolder(this)
                 .build();
-        recyclerLayout.getEasyRecyclerView().getRecyclerView().setHasFixedSize(true);
+//        recyclerLayout.getEasyRecyclerView().getRecyclerView().setHasFixedSize(true);
         int spacing = getResources().getDimensionPixelSize(R.dimen.media_grid_spacing);
         recyclerLayout.getEasyRecyclerView().getRecyclerView().addItemDecoration(new MediaGridInset(spanCount, spacing, false));
         recyclerLayout.showLoading();

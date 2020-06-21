@@ -103,7 +103,7 @@ public class AlbumFragment extends BaseFragment implements
                     onAlbumSelected(album);
                 })
                 .build();
-        recyclerLayout.getEasyRecyclerView().getRecyclerView().setHasFixedSize(true);
+//        recyclerLayout.getEasyRecyclerView().getRecyclerView().setHasFixedSize(true);
         recyclerLayout.showLoading();
         postDelayed(mAlbumManager::loadAlbums, 250);
 

@@ -25,7 +25,7 @@ import java.util.List;
 
 public class SearchFragment extends BaseFragment {
 
-    class SearchEvent {
+    static class SearchEvent {
         String keyword;
 
         SearchEvent(String keyword) {
@@ -103,14 +103,14 @@ public class SearchFragment extends BaseFragment {
 //    }
 
     private boolean getSearchResult(String text) {
-        AToast.normal("TODO getSearchResult");
+//        AToast.normal("TODO getSearchResult");
         hideSoftInput();
         if (TextUtils.isEmpty(text)) {
             AToast.warning("关键词不能为空");
             return false;
         }
-        EventBus.getDefault().post(new SearchEvent(text));
         viewPager.setCurrentItem(1, true);
+        EventBus.getDefault().post(new SearchEvent(text));
         return true;
     }
 

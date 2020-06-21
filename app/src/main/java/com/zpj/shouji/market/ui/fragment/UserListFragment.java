@@ -1,6 +1,7 @@
 package com.zpj.shouji.market.ui.fragment;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 
 import com.bumptech.glide.Glide;
@@ -32,6 +33,7 @@ public class UserListFragment extends NextUrlFragment<UserInfo>
 
     @Override
     public void onClick(EasyViewHolder holder, View view, UserInfo data) {
+        Log.d("UserListFragment", "userInfo=" + data);
         _mActivity.start(ProfileFragment.newInstance(data.getId(), true));
     }
 

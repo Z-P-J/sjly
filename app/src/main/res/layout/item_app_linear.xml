@@ -13,12 +13,13 @@
         android:id="@+id/iv_icon"
         android:layout_width="56dp"
         android:layout_height="56dp"
-        android:src="@mipmap/ic_launcher_bak"
+        android:src="@mipmap/ic_launcher"
         app:border_width="1dp"
         app:border_color="#80cccccc"
         android:layout_margin="10dp"
         android:layout_gravity="center_vertical"
         app:is_circle="true"
+        android:scaleType="centerCrop"
         />
 
     <LinearLayout

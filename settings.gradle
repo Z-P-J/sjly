@@ -9,5 +9,6 @@ include ':app',
         ':zmarkdown',
         ':emojilib',
         ':matisse',
-        ':filescannercore'
+        ':filescannercore',
+        ':niceimageview'
 //        ':third-part-color-cardview'

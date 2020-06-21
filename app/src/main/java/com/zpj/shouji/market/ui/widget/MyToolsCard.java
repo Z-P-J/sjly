@@ -114,13 +114,23 @@ public class MyToolsCard extends ShadowLayout implements View.OnClickListener {
 
     @Override
     public void onClick(View v) {
+        if (v.getId() == R.id.tv_sign_up) {
+            fragment.showLoginPopup(0);
+            return;
+        } else if (v.getId() == R.id.tv_sign_in) {
+            fragment.showLoginPopup(1);
+            return;
+        }
+        if (!UserManager.getInstance().isLogin()) {
+            return;
+        }
         switch (v.getId()) {
-            case R.id.tv_sign_up:
-                fragment.showLoginPopup(0);
-                break;
-            case R.id.tv_sign_in:
-                fragment.showLoginPopup(1);
-                break;
+//            case R.id.tv_sign_up:
+//                fragment.showLoginPopup(0);
+//                break;
+//            case R.id.tv_sign_in:
+//                fragment.showLoginPopup(1);
+//                break;
             case R.id.tv_my_homepage:
                 EventBus.getDefault().post(ProfileFragment.newInstance(UserManager.getInstance().getUserId(), false));
 //                activity.start(ProfileFragment.newInstance(UserManager.getInstance().getUserId(), false));

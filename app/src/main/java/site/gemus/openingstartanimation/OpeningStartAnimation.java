@@ -14,6 +14,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
 
+import com.zpj.shouji.market.R;
+
 import java.lang.ref.SoftReference;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -49,7 +51,8 @@ import java.util.TimerTask;
      private OpeningStartAnimation(Context context) {
         super(context);
         PackageManager packageManager = context.getPackageManager();
-         mDrawable = context.getApplicationInfo().loadIcon(packageManager);
+//         mDrawable = context.getApplicationInfo().loadIcon(packageManager);
+         mDrawable = context.getResources().getDrawable(R.mipmap.ic_launcher);
          appName = (String) packageManager.getApplicationLabel(context.getApplicationInfo());
          appStatement = "Sample Statement";
     }

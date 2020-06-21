@@ -61,7 +61,7 @@
                                     android:id="@+id/iv_icon"
                                     android:layout_width="160dp"
                                     android:layout_height="160dp"
-                                    android:src="@mipmap/ic_launcher_bak"
+                                    android:src="@mipmap/ic_launcher"
                                     android:scaleType="centerCrop"
                                     app:corner_radius="8dp"
                                     />
@@ -99,7 +99,7 @@
                                             android:id="@+id/iv_avatar"
                                             android:layout_width="24dp"
                                             android:layout_height="24dp"
-                                            android:src="@mipmap/ic_launcher_bak"
+                                            android:src="@mipmap/ic_launcher"
                                             android:layout_gravity="center"
                                             app:is_circle="true"
                                             />

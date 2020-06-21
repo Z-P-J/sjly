@@ -32,10 +32,11 @@
                 android:layout_width="48dp"
                 android:layout_height="48dp"
                 android:layout_margin="10dp"
-                android:src="@mipmap/ic_launcher_bak"
+                android:src="@mipmap/ic_launcher"
                 app:border_color="#80cccccc"
                 app:border_width="1dp"
                 app:is_circle="true"
+                android:scaleType="centerCrop"
                 />
 
             <TextView

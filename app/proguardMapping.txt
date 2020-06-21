@@ -1,7 +1,7 @@
 # compiler: R8
 # compiler_version: 1.5.69
 # min_api: 19
-# pg_map_id: f69c882
+# pg_map_id: ad130e9
 android.arch.core.executor.ArchTaskExecutor -> a.a.a.a.a:
     android.arch.core.executor.ArchTaskExecutor sInstance -> c
     android.arch.core.executor.TaskExecutor mDelegate -> a
@@ -30416,30 +30416,30 @@ com.shehuan.niv.NiceImageView -> com.shehuan.niv.NiceImageView:
     int width -> s
     int cornerBottomRightRadius -> p
     int maskColor -> q
-    55:56:void <init>(android.content.Context) -> <init>
-    59:60:void <init>(android.content.Context,android.util.AttributeSet) -> <init>
-    63:116:void <init>(android.content.Context,android.util.AttributeSet,int) -> <init>
-    172:184:void drawBorders(android.graphics.Canvas) -> a
-    187:190:void drawCircleBorder(android.graphics.Canvas,int,int,float) -> a
-    193:196:void drawRectFBorder(android.graphics.Canvas,int,int,android.graphics.RectF,float[]) -> a
-    199:203:void initBorderPaint(int,int) -> a
-    233:252:void calculateRadii() -> a
-    255:261:void calculateRadiiAndRectF(boolean) -> a
-    267:270:void clearInnerBorderWidth() -> b
-    209:212:void initBorderRectF() -> c
-    218:227:void initSrcRectF() -> d
-    131:169:void onDraw(android.graphics.Canvas) -> onDraw
-    120:126:void onSizeChanged(int,int,int,int) -> onSizeChanged
-    291:293:void setBorderColor(int) -> setBorderColor
-    286:288:void setBorderWidth(int) -> setBorderWidth
-    322:324:void setCornerBottomLeftRadius(int) -> setCornerBottomLeftRadius
-    327:329:void setCornerBottomRightRadius(int) -> setCornerBottomRightRadius
-    307:309:void setCornerRadius(int) -> setCornerRadius
-    312:314:void setCornerTopLeftRadius(int) -> setCornerTopLeftRadius
-    317:319:void setCornerTopRightRadius(int) -> setCornerTopRightRadius
-    302:304:void setInnerBorderColor(int) -> setInnerBorderColor
-    296:299:void setInnerBorderWidth(int) -> setInnerBorderWidth
-    332:334:void setMaskColor(int) -> setMaskColor
+    56:57:void <init>(android.content.Context) -> <init>
+    60:61:void <init>(android.content.Context,android.util.AttributeSet) -> <init>
+    64:117:void <init>(android.content.Context,android.util.AttributeSet,int) -> <init>
+    175:187:void drawBorders(android.graphics.Canvas) -> a
+    190:193:void drawCircleBorder(android.graphics.Canvas,int,int,float) -> a
+    196:199:void drawRectFBorder(android.graphics.Canvas,int,int,android.graphics.RectF,float[]) -> a
+    202:206:void initBorderPaint(int,int) -> a
+    236:255:void calculateRadii() -> a
+    258:264:void calculateRadiiAndRectF(boolean) -> a
+    270:273:void clearInnerBorderWidth() -> b
+    212:215:void initBorderRectF() -> c
+    221:230:void initSrcRectF() -> d
+    132:172:void onDraw(android.graphics.Canvas) -> onDraw
+    121:127:void onSizeChanged(int,int,int,int) -> onSizeChanged
+    294:296:void setBorderColor(int) -> setBorderColor
+    289:291:void setBorderWidth(int) -> setBorderWidth
+    325:327:void setCornerBottomLeftRadius(int) -> setCornerBottomLeftRadius
+    330:332:void setCornerBottomRightRadius(int) -> setCornerBottomRightRadius
+    310:312:void setCornerRadius(int) -> setCornerRadius
+    315:317:void setCornerTopLeftRadius(int) -> setCornerTopLeftRadius
+    320:322:void setCornerTopRightRadius(int) -> setCornerTopRightRadius
+    305:307:void setInnerBorderColor(int) -> setInnerBorderColor
+    299:302:void setInnerBorderWidth(int) -> setInnerBorderWidth
+    335:337:void setMaskColor(int) -> setMaskColor
 com.shehuan.niv.R$anim -> com.shehuan.niv.R$anim:
     13:13:void <init>() -> <init>
 com.shehuan.niv.R$attr -> com.shehuan.niv.R$attr:
@@ -30463,7 +30463,7 @@ com.shehuan.niv.R$string -> com.shehuan.niv.R$string:
 com.shehuan.niv.R$style -> com.shehuan.niv.R$style:
     838:838:void <init>() -> <init>
 com.shehuan.niv.R$styleable -> com.shehuan.niv.R$styleable:
-    1190:1657:void <clinit>() -> <clinit>
+    1190:1658:void <clinit>() -> <clinit>
     1188:1188:void <init>() -> <init>
 com.shehuan.niv.Utils -> com.shehuan.niv.a:
     8:9:int dp2px(android.content.Context,float) -> a
@@ -42617,14 +42617,14 @@ com.zpj.popup.impl.CheckPopup -> com.zpj.popup.impl.CheckPopup:
 com.zpj.popup.impl.FullScreenPopup -> com.zpj.popup.impl.FullScreenPopup:
     android.graphics.Paint paint -> C
     android.graphics.Rect shadowRect -> D
-    25:26:void <init>(android.content.Context) -> <init>
-    41:47:void onNavigationBarChange(boolean) -> a
-    51:64:void applySize(boolean) -> b
-    71:77:void dispatchDraw(android.graphics.Canvas) -> dispatchDraw
-    30:30:int getMaxWidth() -> getMaxWidth
-    87:87:com.zpj.popup.animator.PopupAnimator getPopupAnimator() -> getPopupAnimator
-    35:37:void initPopupContent() -> n
-    81:83:void onDetachedFromWindow() -> onDetachedFromWindow
+    25:27:void <init>(android.content.Context) -> <init>
+    42:48:void onNavigationBarChange(boolean) -> a
+    52:65:void applySize(boolean) -> b
+    72:78:void dispatchDraw(android.graphics.Canvas) -> dispatchDraw
+    31:31:int getMaxWidth() -> getMaxWidth
+    88:88:com.zpj.popup.animator.PopupAnimator getPopupAnimator() -> getPopupAnimator
+    36:38:void initPopupContent() -> n
+    82:84:void onDetachedFromWindow() -> onDetachedFromWindow
 com.zpj.popup.impl.InputPopup -> com.zpj.popup.impl.InputPopup:
     24:25:void <init>(android.content.Context) -> <init>
 com.zpj.popup.impl.ListPopup -> com.zpj.popup.impl.ListPopup:
@@ -43427,8 +43427,8 @@ com.zpj.recyclerview.EasyAdapter -> com.zpj.recyclerview.a:
     android.support.v7.widget.RecyclerView mRecyclerView -> n
     52:64:void <init>(java.util.List,int,com.zpj.recyclerview.IEasy$OnGetChildViewTypeListener,com.zpj.recyclerview.IEasy$OnGetChildLayoutIdListener,com.zpj.recyclerview.IEasy$OnCreateViewHolderListener,com.zpj.recyclerview.IEasy$OnBindViewHolderListener,com.zpj.recyclerview.IEasy$OnItemClickListener,com.zpj.recyclerview.IEasy$OnItemLongClickListener,android.util.SparseArray) -> <init>
     18:18:android.view.View access$000(com.zpj.recyclerview.EasyAdapter) -> a
-    18:18:boolean access$1002(com.zpj.recyclerview.EasyAdapter,boolean) -> a
     18:18:int access$102(com.zpj.recyclerview.EasyAdapter,int) -> a
+    18:18:boolean access$602(com.zpj.recyclerview.EasyAdapter,boolean) -> a
     96:96:void onBindViewHolder(com.zpj.recyclerview.EasyViewHolder,int) -> a
     129:216:void onBindViewHolder(com.zpj.recyclerview.EasyViewHolder,int,java.util.List) -> a
     245:252:void onViewAttachedToWindow(com.zpj.recyclerview.EasyViewHolder) -> a
@@ -43440,23 +43440,21 @@ com.zpj.recyclerview.EasyAdapter -> com.zpj.recyclerview.a:
     344:344:boolean getLoadMoreEnabled() -> a
     348:349:void setLoadMoreEnabled(boolean) -> a
     18:18:int access$100(com.zpj.recyclerview.EasyAdapter) -> b
-    18:18:boolean access$600(com.zpj.recyclerview.EasyAdapter,int) -> b
     18:18:boolean access$802(com.zpj.recyclerview.EasyAdapter,boolean) -> b
     282:283:boolean canScroll() -> b
     290:290:boolean isHeaderPosition(int) -> b
     303:307:void setHeaderView(android.view.View) -> b
-    18:18:boolean access$1000(com.zpj.recyclerview.EasyAdapter) -> c
-    18:18:boolean access$700(com.zpj.recyclerview.EasyAdapter,int) -> c
+    18:18:int access$108(com.zpj.recyclerview.EasyAdapter) -> c
     352:375:void notifyFooterHolderChanged() -> c
-    18:18:int access$108(com.zpj.recyclerview.EasyAdapter) -> d
-    18:18:void access$1100(com.zpj.recyclerview.EasyAdapter) -> e
-    18:18:com.zpj.recyclerview.EasyAdapter$Enabled access$200(com.zpj.recyclerview.EasyAdapter) -> f
-    18:18:com.zpj.recyclerview.IEasy$OnLoadMoreListener access$300(com.zpj.recyclerview.EasyAdapter) -> g
+    18:18:com.zpj.recyclerview.EasyAdapter$Enabled access$200(com.zpj.recyclerview.EasyAdapter) -> d
+    18:18:com.zpj.recyclerview.IEasy$OnLoadMoreListener access$300(com.zpj.recyclerview.EasyAdapter) -> e
+    18:18:com.zpj.recyclerview.IEasy$OnItemClickListener access$400(com.zpj.recyclerview.EasyAdapter) -> f
+    18:18:com.zpj.recyclerview.IEasy$OnItemLongClickListener access$500(com.zpj.recyclerview.EasyAdapter) -> g
     271:278:int getItemCount() -> getItemCount
     256:266:int getItemViewType(int) -> getItemViewType
-    18:18:com.zpj.recyclerview.IEasy$OnItemClickListener access$400(com.zpj.recyclerview.EasyAdapter) -> h
-    18:18:com.zpj.recyclerview.IEasy$OnItemLongClickListener access$500(com.zpj.recyclerview.EasyAdapter) -> i
-    18:18:boolean access$800(com.zpj.recyclerview.EasyAdapter) -> j
+    18:18:boolean access$600(com.zpj.recyclerview.EasyAdapter) -> h
+    18:18:boolean access$800(com.zpj.recyclerview.EasyAdapter) -> i
+    18:18:void access$900(com.zpj.recyclerview.EasyAdapter) -> j
     220:234:void onAttachedToRecyclerView(android.support.v7.widget.RecyclerView) -> onAttachedToRecyclerView
     18:18:void onBindViewHolder(android.support.v7.widget.RecyclerView$ViewHolder,int) -> onBindViewHolder
     69:89:com.zpj.recyclerview.EasyViewHolder onCreateViewHolder(android.view.ViewGroup,int) -> onCreateViewHolder
@@ -43672,12 +43670,14 @@ com.zpj.recyclerview.EasyStateAdapter -> com.zpj.recyclerview.c:
     int state -> v
     41:48:void <init>(android.content.Context,java.util.List,int,com.zpj.recyclerview.IEasy$OnGetChildViewTypeListener,com.zpj.recyclerview.IEasy$OnGetChildLayoutIdListener,com.zpj.recyclerview.IEasy$OnCreateViewHolderListener,com.zpj.recyclerview.IEasy$OnBindViewHolderListener,com.zpj.recyclerview.IEasy$OnItemClickListener,com.zpj.recyclerview.IEasy$OnItemLongClickListener,android.util.SparseArray) -> <init>
     62:78:void onBindViewHolder(com.zpj.recyclerview.EasyViewHolder,int,java.util.List) -> a
-    139:141:void showErrorView(java.lang.String) -> a
-    215:220:void changeState(int) -> a
-    209:212:void showContent() -> b
-    101:103:void showEmpty() -> c
-    157:159:void showLoading() -> d
-    91:94:int getItemCount() -> getItemCount
+    98:101:boolean isFooterPosition(int) -> a
+    154:156:void showErrorView(java.lang.String) -> a
+    90:93:boolean isHeaderPosition(int) -> b
+    224:227:void showContent() -> b
+    116:118:void showEmpty() -> c
+    230:235:void changeState(int) -> c
+    172:174:void showLoading() -> d
+    106:109:int getItemCount() -> getItemCount
     82:85:int getItemViewType(int) -> getItemViewType
     14:14:void onBindViewHolder(android.support.v7.widget.RecyclerView$ViewHolder,int,java.util.List) -> onBindViewHolder
     14:14:android.support.v7.widget.RecyclerView$ViewHolder onCreateViewHolder(android.view.ViewGroup,int) -> onCreateViewHolder
@@ -43789,14 +43789,14 @@ com.zpj.shouji.market.R$menu -> com.zpj.shouji.market.R$menu:
 com.zpj.shouji.market.R$mipmap -> com.zpj.shouji.market.R$mipmap:
     10717:10717:void <init>() -> <init>
 com.zpj.shouji.market.R$string -> com.zpj.shouji.market.R$string:
-    10755:10755:void <init>() -> <init>
+    10753:10753:void <init>() -> <init>
 com.zpj.shouji.market.R$style -> com.zpj.shouji.market.R$style:
-    10932:10932:void <init>() -> <init>
+    10930:10930:void <init>() -> <init>
 com.zpj.shouji.market.R$styleable -> com.zpj.shouji.market.R$styleable:
-    11551:31465:void <clinit>() -> <clinit>
-    11529:11529:void <init>() -> <init>
+    11549:31463:void <clinit>() -> <clinit>
+    11527:11527:void <init>() -> <init>
 com.zpj.shouji.market.R$xml -> com.zpj.shouji.market.R$xml:
-    31607:31607:void <init>() -> <init>
+    31605:31605:void <init>() -> <init>
 com.zpj.shouji.market.api.-$$Lambda$HttpPreLoader$N7fCks9SRR_M-_BpKEqEc48rpCg -> com.zpj.shouji.market.b.a:
     com.zpj.shouji.market.api.HttpPreLoader f$0 -> a
     java.lang.String f$1 -> b
@@ -44776,18 +44776,23 @@ com.zpj.shouji.market.model.UserDownloadedAppInfo -> com.zpj.shouji.market.model
     48:49:void setPackageName(java.lang.String) -> f
     40:41:void setTitle(java.lang.String) -> g
 com.zpj.shouji.market.model.UserInfo -> com.zpj.shouji.market.model.n:
+    java.lang.String signature -> h
+    boolean online -> f
     java.lang.String id -> a
-    java.lang.String nickName -> c
-    java.lang.String avatarUrl -> b
-    java.lang.String signature -> e
-    boolean online -> d
+    boolean imgFormat -> g
+    java.lang.String memberName -> c
+    java.lang.String memberId -> b
+    java.lang.String nickName -> e
+    java.lang.String avatarUrl -> d
     5:5:void <init>() -> <init>
     17:26:com.zpj.shouji.market.model.UserInfo from(com.zpj.http.parser.html.nodes.Element) -> a
     38:38:java.lang.String getAvatarUrl() -> a
     30:30:java.lang.String getId() -> b
-    42:42:java.lang.String getNickName() -> c
-    58:58:java.lang.String getSignature() -> d
-    46:46:boolean isOnline() -> e
+    34:34:java.lang.String getMemberId() -> c
+    42:42:java.lang.String getNickName() -> d
+    58:58:java.lang.String getSignature() -> e
+    46:46:boolean isOnline() -> f
+    63:63:java.lang.String toString() -> toString
 com.zpj.shouji.market.model.WallpaperInfo -> com.zpj.shouji.market.model.o:
     java.lang.String spic -> g
     java.lang.String height -> f
@@ -45320,14 +45325,16 @@ com.zpj.shouji.market.ui.fragment.AboutMeFragment$2 -> com.zpj.shouji.market.e.c
     110:110:void <init>(com.zpj.shouji.market.ui.fragment.AboutMeFragment,android.view.View) -> <init>
     113:120:void onAnimationUpdate(android.animation.ValueAnimator) -> onAnimationUpdate
 com.zpj.shouji.market.ui.fragment.AppListFragment -> com.zpj.shouji.market.e.c.t:
-    17:17:void <init>() -> <init>
-    17:17:void onClick(com.zpj.recyclerview.EasyViewHolder,android.view.View,java.lang.Object) -> a
-    27:28:void onClick(com.zpj.recyclerview.EasyViewHolder,android.view.View,com.zpj.shouji.market.model.AppInfo) -> a
-    32:37:void onBindViewHolder(com.zpj.recyclerview.EasyViewHolder,java.util.List,int,java.util.List) -> a
-    17:17:java.lang.Object createData(com.zpj.http.parser.html.nodes.Element) -> b
-    49:52:com.zpj.shouji.market.model.AppInfo createData(com.zpj.http.parser.html.nodes.Element) -> b
-    41:45:void updateKeyword(java.lang.String) -> e
-    22:22:int getItemLayoutId() -> y
+    boolean updateKeyword -> s
+    18:21:void <init>() -> <init>
+    18:18:void onClick(com.zpj.recyclerview.EasyViewHolder,android.view.View,java.lang.Object) -> a
+    30:35:void onLazyInitView(android.os.Bundle) -> a
+    39:40:void onClick(com.zpj.recyclerview.EasyViewHolder,android.view.View,com.zpj.shouji.market.model.AppInfo) -> a
+    44:49:void onBindViewHolder(com.zpj.recyclerview.EasyViewHolder,java.util.List,int,java.util.List) -> a
+    18:18:java.lang.Object createData(com.zpj.http.parser.html.nodes.Element) -> b
+    63:66:com.zpj.shouji.market.model.AppInfo createData(com.zpj.http.parser.html.nodes.Element) -> b
+    53:59:void updateKeyword(java.lang.String) -> e
+    25:25:int getItemLayoutId() -> y
 com.zpj.shouji.market.ui.fragment.ArticleDetailFragment -> com.zpj.shouji.market.e.c.u:
     android.widget.LinearLayout contentWrapper -> m
     com.zpj.shouji.market.model.article.ArticleDetailInfo articleDetailInfo -> n
@@ -45459,14 +45466,14 @@ com.zpj.shouji.market.ui.fragment.ToolBarListFragment -> com.zpj.shouji.market.e
     17:17:int getLayoutId() -> v
     22:22:boolean supportSwipeBack() -> x
 com.zpj.shouji.market.ui.fragment.UserListFragment -> com.zpj.shouji.market.e.c.b0:
-    17:17:void <init>() -> <init>
-    17:17:void onClick(com.zpj.recyclerview.EasyViewHolder,android.view.View,java.lang.Object) -> a
-    35:36:void onClick(com.zpj.recyclerview.EasyViewHolder,android.view.View,com.zpj.shouji.market.model.UserInfo) -> a
-    40:44:void onBindViewHolder(com.zpj.recyclerview.EasyViewHolder,java.util.List,int,java.util.List) -> a
-    17:17:java.lang.Object createData(com.zpj.http.parser.html.nodes.Element) -> b
-    56:56:com.zpj.shouji.market.model.UserInfo createData(com.zpj.http.parser.html.nodes.Element) -> b
-    48:52:void updateKeyword(java.lang.String) -> e
-    30:30:int getItemLayoutId() -> y
+    18:18:void <init>() -> <init>
+    18:18:void onClick(com.zpj.recyclerview.EasyViewHolder,android.view.View,java.lang.Object) -> a
+    36:38:void onClick(com.zpj.recyclerview.EasyViewHolder,android.view.View,com.zpj.shouji.market.model.UserInfo) -> a
+    42:46:void onBindViewHolder(com.zpj.recyclerview.EasyViewHolder,java.util.List,int,java.util.List) -> a
+    18:18:java.lang.Object createData(com.zpj.http.parser.html.nodes.Element) -> b
+    58:58:com.zpj.shouji.market.model.UserInfo createData(com.zpj.http.parser.html.nodes.Element) -> b
+    50:54:void updateKeyword(java.lang.String) -> e
+    31:31:int getItemLayoutId() -> y
 com.zpj.shouji.market.ui.fragment.WallpaperListFragment -> com.zpj.shouji.market.e.c.c0:
     com.zpj.shouji.market.ui.widget.popup.RecyclerPopup recyclerPopup -> v
     int sortPosition -> t
@@ -46594,25 +46601,29 @@ com.zpj.shouji.market.ui.fragment.profile.MyFragment -> com.zpj.shouji.market.e.
 com.zpj.shouji.market.ui.fragment.profile.MyFriendsFragment -> com.zpj.shouji.market.e.c.j0.z:
     java.lang.String[] TAB_TITLES -> m
     android.support.v4.view.ViewPager viewPager -> l
-    32:32:void <clinit>() -> <clinit>
-    30:30:void <init>() -> <init>
-    48:97:void initView(android.view.View,android.os.Bundle) -> a
-    38:38:int getLayoutId() -> v
-    43:43:boolean supportSwipeBack() -> x
-    30:30:java.lang.String[] access$000() -> y
+    35:35:void <clinit>() -> <clinit>
+    33:33:void <init>() -> <init>
+    51:100:void initView(android.view.View,android.os.Bundle) -> a
+    41:41:int getLayoutId() -> v
+    46:46:boolean supportSwipeBack() -> x
+    33:33:java.lang.String[] access$000() -> y
 com.zpj.shouji.market.ui.fragment.profile.MyFriendsFragment$1 -> com.zpj.shouji.market.e.c.j0.z$a:
     com.zpj.shouji.market.ui.fragment.profile.MyFriendsFragment this$0 -> b
-    66:66:void <init>(com.zpj.shouji.market.ui.fragment.profile.MyFriendsFragment) -> <init>
-    69:69:int getCount() -> a
-    74:80:net.lucode.hackware.magicindicator.buildins.commonnavigator.abs.IPagerTitleView getTitleView(android.content.Context,int) -> a
-    79:79:void lambda$getTitleView$0(int,android.view.View) -> a
-    85:91:net.lucode.hackware.magicindicator.buildins.commonnavigator.abs.IPagerIndicator getIndicator(android.content.Context) -> a
+    69:69:void <init>(com.zpj.shouji.market.ui.fragment.profile.MyFriendsFragment) -> <init>
+    72:72:int getCount() -> a
+    77:83:net.lucode.hackware.magicindicator.buildins.commonnavigator.abs.IPagerTitleView getTitleView(android.content.Context,int) -> a
+    82:82:void lambda$getTitleView$0(int,android.view.View) -> a
+    88:94:net.lucode.hackware.magicindicator.buildins.commonnavigator.abs.IPagerIndicator getIndicator(android.content.Context) -> a
 com.zpj.shouji.market.ui.fragment.profile.MyFriendsFragment$FansFragment -> com.zpj.shouji.market.e.c.j0.z$b:
-    112:112:void <init>() -> <init>
-    114:121:com.zpj.shouji.market.ui.fragment.profile.MyFriendsFragment$FansFragment newInstance() -> A
+    121:121:void <init>() -> <init>
+    123:130:com.zpj.shouji.market.ui.fragment.profile.MyFriendsFragment$FansFragment newInstance() -> A
+    121:121:void onClick(com.zpj.recyclerview.EasyViewHolder,android.view.View,java.lang.Object) -> a
+    135:136:void onClick(com.zpj.recyclerview.EasyViewHolder,android.view.View,com.zpj.shouji.market.model.UserInfo) -> a
 com.zpj.shouji.market.ui.fragment.profile.MyFriendsFragment$FollowersFragment -> com.zpj.shouji.market.e.c.j0.z$c:
-    99:99:void <init>() -> <init>
-    101:108:com.zpj.shouji.market.ui.fragment.profile.MyFriendsFragment$FollowersFragment newInstance() -> A
+    102:102:void <init>() -> <init>
+    104:111:com.zpj.shouji.market.ui.fragment.profile.MyFriendsFragment$FollowersFragment newInstance() -> A
+    102:102:void onClick(com.zpj.recyclerview.EasyViewHolder,android.view.View,java.lang.Object) -> a
+    116:117:void onClick(com.zpj.recyclerview.EasyViewHolder,android.view.View,com.zpj.shouji.market.model.UserInfo) -> a
 com.zpj.shouji.market.ui.fragment.profile.ProfileFragment -> com.zpj.shouji.market.e.c.j0.a0:
     com.zpj.shouji.market.ui.fragment.theme.ThemeListFragment exploreFragment -> y
     android.widget.TextView mNicknameTextView -> q
@@ -46734,7 +46745,7 @@ com.zpj.shouji.market.ui.fragment.search.SearchFragment -> com.zpj.shouji.market
     86:88:void lambda$onEnterAnimationEnd$1(int,android.view.View,java.lang.String) -> a
     79:98:void onEnterAnimationEnd(android.os.Bundle) -> c
     56:56:void lambda$initView$0(android.view.View) -> e
-    106:114:boolean getSearchResult(java.lang.String) -> h
+    107:114:boolean getSearchResult(java.lang.String) -> h
     41:41:int getLayoutId() -> v
     46:46:boolean supportSwipeBack() -> x
 com.zpj.shouji.market.ui.fragment.search.SearchFragment$1 -> com.zpj.shouji.market.e.c.l0.f$a:
@@ -46745,7 +46756,7 @@ com.zpj.shouji.market.ui.fragment.search.SearchFragment$1 -> com.zpj.shouji.mark
     65:68:void onTextChanged(java.lang.CharSequence,int,int,int) -> onTextChanged
 com.zpj.shouji.market.ui.fragment.search.SearchFragment$SearchEvent -> com.zpj.shouji.market.e.c.l0.f$b:
     java.lang.String keyword -> a
-    31:33:void <init>(com.zpj.shouji.market.ui.fragment.search.SearchFragment,java.lang.String) -> <init>
+    31:33:void <init>(java.lang.String) -> <init>
 com.zpj.shouji.market.ui.fragment.search.SearchPanelFragment -> com.zpj.shouji.market.e.c.l0.g:
     com.zpj.shouji.market.ui.widget.flowlayout.FlowLayout$OnItemClickListener onItemClickListener -> n
     com.zpj.shouji.market.ui.widget.flowlayout.FlowLayout searchHistory -> m
@@ -47336,11 +47347,11 @@ com.zpj.shouji.market.ui.widget.MyToolsCard -> com.zpj.shouji.market.ui.widget.M
     56:57:void <init>(android.content.Context) -> <init>
     60:61:void <init>(android.content.Context,android.util.AttributeSet) -> <init>
     64:113:void <init>(android.content.Context,android.util.AttributeSet,int) -> <init>
-    153:154:void attachActivity(com.zpj.fragmentation.SupportActivity) -> a
-    157:158:void attachFragment(com.zpj.shouji.market.ui.fragment.profile.MyFragment) -> a
-    161:173:void onLogin() -> b
-    176:188:void onSignOut() -> c
-    117:150:void onClick(android.view.View) -> onClick
+    163:164:void attachActivity(com.zpj.fragmentation.SupportActivity) -> a
+    167:168:void attachFragment(com.zpj.shouji.market.ui.fragment.profile.MyFragment) -> a
+    171:183:void onLogin() -> b
+    186:198:void onSignOut() -> c
+    117:160:void onClick(android.view.View) -> onClick
 com.zpj.shouji.market.ui.widget.MyToolsCard$1 -> com.zpj.shouji.market.ui.widget.MyToolsCard$a:
     com.zpj.shouji.market.ui.widget.MyToolsCard this$0 -> f
     android.widget.ImageView val$ivBg -> e
@@ -55244,50 +55255,50 @@ site.gemus.openingstartanimation.OpeningStartAnimation -> site.gemus.openingstar
     java.lang.String appStatement -> n
     site.gemus.openingstartanimation.WidthAndHeightOfView mWidthAndHeightOfView -> g
     site.gemus.openingstartanimation.DrawStrategy mDrawStrategy -> q
-    27:27:void <init>(android.content.Context,site.gemus.openingstartanimation.OpeningStartAnimation$1) -> <init>
-    50:55:void <init>(android.content.Context) -> <init>
-    27:27:void access$000(site.gemus.openingstartanimation.OpeningStartAnimation,android.app.Activity) -> a
-    27:27:site.gemus.openingstartanimation.OpeningStartAnimation$AnimationListener access$100(site.gemus.openingstartanimation.OpeningStartAnimation) -> a
-    27:27:java.lang.String access$1002(site.gemus.openingstartanimation.OpeningStartAnimation,java.lang.String) -> a
-    27:27:site.gemus.openingstartanimation.OpeningStartAnimation$AnimationListener access$102(site.gemus.openingstartanimation.OpeningStartAnimation,site.gemus.openingstartanimation.OpeningStartAnimation$AnimationListener) -> a
-    27:27:site.gemus.openingstartanimation.DrawStrategy access$1302(site.gemus.openingstartanimation.OpeningStartAnimation,site.gemus.openingstartanimation.DrawStrategy) -> a
-    27:27:site.gemus.openingstartanimation.DelegateRecycleView access$302(site.gemus.openingstartanimation.OpeningStartAnimation,site.gemus.openingstartanimation.DelegateRecycleView) -> a
-    27:27:long access$402(site.gemus.openingstartanimation.OpeningStartAnimation,long) -> a
-    27:27:android.graphics.drawable.Drawable access$602(site.gemus.openingstartanimation.OpeningStartAnimation,android.graphics.drawable.Drawable) -> a
-    146:147:void dismiss(android.app.Activity) -> a
-    27:27:java.lang.String access$802(site.gemus.openingstartanimation.OpeningStartAnimation,java.lang.String) -> b
-    96:143:void show(android.app.Activity) -> b
-    154:172:void moveAnimation(android.app.Activity) -> c
-    79:89:void onDraw(android.graphics.Canvas) -> onDraw
-    63:65:void setFraction(float) -> setFraction
+    29:29:void <init>(android.content.Context,site.gemus.openingstartanimation.OpeningStartAnimation$1) -> <init>
+    52:58:void <init>(android.content.Context) -> <init>
+    29:29:void access$000(site.gemus.openingstartanimation.OpeningStartAnimation,android.app.Activity) -> a
+    29:29:site.gemus.openingstartanimation.OpeningStartAnimation$AnimationListener access$100(site.gemus.openingstartanimation.OpeningStartAnimation) -> a
+    29:29:java.lang.String access$1002(site.gemus.openingstartanimation.OpeningStartAnimation,java.lang.String) -> a
+    29:29:site.gemus.openingstartanimation.OpeningStartAnimation$AnimationListener access$102(site.gemus.openingstartanimation.OpeningStartAnimation,site.gemus.openingstartanimation.OpeningStartAnimation$AnimationListener) -> a
+    29:29:site.gemus.openingstartanimation.DrawStrategy access$1302(site.gemus.openingstartanimation.OpeningStartAnimation,site.gemus.openingstartanimation.DrawStrategy) -> a
+    29:29:site.gemus.openingstartanimation.DelegateRecycleView access$302(site.gemus.openingstartanimation.OpeningStartAnimation,site.gemus.openingstartanimation.DelegateRecycleView) -> a
+    29:29:long access$402(site.gemus.openingstartanimation.OpeningStartAnimation,long) -> a
+    29:29:android.graphics.drawable.Drawable access$602(site.gemus.openingstartanimation.OpeningStartAnimation,android.graphics.drawable.Drawable) -> a
+    149:150:void dismiss(android.app.Activity) -> a
+    29:29:java.lang.String access$802(site.gemus.openingstartanimation.OpeningStartAnimation,java.lang.String) -> b
+    99:146:void show(android.app.Activity) -> b
+    157:175:void moveAnimation(android.app.Activity) -> c
+    82:92:void onDraw(android.graphics.Canvas) -> onDraw
+    66:68:void setFraction(float) -> setFraction
 site.gemus.openingstartanimation.OpeningStartAnimation$1 -> site.gemus.openingstartanimation.OpeningStartAnimation$a:
     site.gemus.openingstartanimation.OpeningStartAnimation this$0 -> b
     android.app.Activity val$activity -> a
-    116:116:void <init>(site.gemus.openingstartanimation.OpeningStartAnimation,android.app.Activity) -> <init>
-    119:122:boolean handleMessage(android.os.Message) -> handleMessage
+    119:119:void <init>(site.gemus.openingstartanimation.OpeningStartAnimation,android.app.Activity) -> <init>
+    122:125:boolean handleMessage(android.os.Message) -> handleMessage
 site.gemus.openingstartanimation.OpeningStartAnimation$2 -> site.gemus.openingstartanimation.OpeningStartAnimation$b:
     android.os.Handler val$handler -> e
     android.app.Activity val$activity -> f
     site.gemus.openingstartanimation.OpeningStartAnimation this$0 -> g
-    126:126:void <init>(site.gemus.openingstartanimation.OpeningStartAnimation,android.os.Handler,android.app.Activity) -> <init>
-    129:141:void run() -> run
+    129:129:void <init>(site.gemus.openingstartanimation.OpeningStartAnimation,android.os.Handler,android.app.Activity) -> <init>
+    132:144:void run() -> run
 site.gemus.openingstartanimation.OpeningStartAnimation$2$1 -> site.gemus.openingstartanimation.OpeningStartAnimation$b$a:
     site.gemus.openingstartanimation.OpeningStartAnimation$2 this$1 -> e
-    134:134:void <init>(site.gemus.openingstartanimation.OpeningStartAnimation$2) -> <init>
-    137:138:void run() -> run
+    137:137:void <init>(site.gemus.openingstartanimation.OpeningStartAnimation$2) -> <init>
+    140:141:void run() -> run
 site.gemus.openingstartanimation.OpeningStartAnimation$AnimationListener -> site.gemus.openingstartanimation.OpeningStartAnimation$c:
     void onFinish(site.gemus.openingstartanimation.OpeningStartAnimation,android.app.Activity) -> a
 site.gemus.openingstartanimation.OpeningStartAnimation$Builder -> site.gemus.openingstartanimation.OpeningStartAnimation$d:
     site.gemus.openingstartanimation.OpeningStartAnimation mOpeningStartAnimation -> a
-    180:183:void <init>(android.content.Context) -> <init>
-    191:192:site.gemus.openingstartanimation.OpeningStartAnimation$Builder setAnimationInterval(long) -> a
-    206:207:site.gemus.openingstartanimation.OpeningStartAnimation$Builder setAnimationListener(site.gemus.openingstartanimation.OpeningStartAnimation$AnimationListener) -> a
-    216:217:site.gemus.openingstartanimation.OpeningStartAnimation$Builder setAppIcon(android.graphics.drawable.Drawable) -> a
-    236:237:site.gemus.openingstartanimation.OpeningStartAnimation$Builder setAppName(java.lang.String) -> a
-    286:287:site.gemus.openingstartanimation.OpeningStartAnimation$Builder setDrawStategy(site.gemus.openingstartanimation.DrawStrategy) -> a
-    300:301:void finishAnimation() -> a
-    256:257:site.gemus.openingstartanimation.OpeningStartAnimation$Builder setAppStatement(java.lang.String) -> b
-    295:295:site.gemus.openingstartanimation.OpeningStartAnimation create() -> b
+    183:186:void <init>(android.content.Context) -> <init>
+    194:195:site.gemus.openingstartanimation.OpeningStartAnimation$Builder setAnimationInterval(long) -> a
+    209:210:site.gemus.openingstartanimation.OpeningStartAnimation$Builder setAnimationListener(site.gemus.openingstartanimation.OpeningStartAnimation$AnimationListener) -> a
+    219:220:site.gemus.openingstartanimation.OpeningStartAnimation$Builder setAppIcon(android.graphics.drawable.Drawable) -> a
+    239:240:site.gemus.openingstartanimation.OpeningStartAnimation$Builder setAppName(java.lang.String) -> a
+    289:290:site.gemus.openingstartanimation.OpeningStartAnimation$Builder setDrawStategy(site.gemus.openingstartanimation.DrawStrategy) -> a
+    303:304:void finishAnimation() -> a
+    259:260:site.gemus.openingstartanimation.OpeningStartAnimation$Builder setAppStatement(java.lang.String) -> b
+    298:298:site.gemus.openingstartanimation.OpeningStartAnimation create() -> b
 site.gemus.openingstartanimation.WidthAndHeightOfView -> site.gemus.openingstartanimation.d:
     int height -> b
     int width -> a

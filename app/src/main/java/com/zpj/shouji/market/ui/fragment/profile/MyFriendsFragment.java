@@ -5,11 +5,14 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.view.View;
 
 import com.zpj.fragmentation.BaseFragment;
+import com.zpj.recyclerview.EasyViewHolder;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.manager.UserManager;
+import com.zpj.shouji.market.model.UserInfo;
 import com.zpj.shouji.market.ui.adapter.FragmentsPagerAdapter;
 import com.zpj.shouji.market.ui.fragment.UserListFragment;
 import com.zpj.shouji.market.ui.fragment.theme.ThemeListFragment;
@@ -107,6 +110,12 @@ public class MyFriendsFragment extends BaseFragment {
             fragment.setArguments(args);
             return fragment;
         }
+
+        @Override
+        public void onClick(EasyViewHolder holder, View view, UserInfo data) {
+            _mActivity.start(ProfileFragment.newInstance(data.getMemberId(), true));
+        }
+
     }
 
     public static class FansFragment extends UserListFragment {
@@ -120,6 +129,12 @@ public class MyFriendsFragment extends BaseFragment {
             fragment.setArguments(args);
             return fragment;
         }
+
+        @Override
+        public void onClick(EasyViewHolder holder, View view, UserInfo data) {
+            _mActivity.start(ProfileFragment.newInstance(data.getMemberId(), true));
+        }
+
     }
 
 

@@ -23,6 +23,7 @@ import com.zpj.popup.util.XPopupUtils;
 public class FullScreenPopup<T extends FullScreenPopup> extends CenterPopup<T> {
     public FullScreenPopup(@NonNull Context context) {
         super(context);
+        centerPopupContainer.setRadius(0);
     }
 
     @Override

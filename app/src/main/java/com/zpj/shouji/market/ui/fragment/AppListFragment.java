@@ -1,6 +1,7 @@
 package com.zpj.shouji.market.ui.fragment;
 
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.view.View;
 
 import com.bumptech.glide.Glide;
@@ -17,9 +18,20 @@ import java.util.List;
 public class AppListFragment extends NextUrlFragment<AppInfo>
         implements SearchResultFragment.KeywordObserver {
 
+    private boolean updateKeyword = false;
+
     @Override
     protected int getItemLayoutId() {
         return R.layout.item_app_linear;
+    }
+
+    @Override
+    public void onLazyInitView(@Nullable Bundle savedInstanceState) {
+        super.onLazyInitView(savedInstanceState);
+        if (updateKeyword) {
+            updateKeyword = false;
+            onRefresh();
+        }
     }
 
     @Override
@@ -41,6 +53,8 @@ public class AppListFragment extends NextUrlFragment<AppInfo>
         defaultUrl = "http://tt.shouji.com.cn/androidv3/app_search_xml.jsp?sdk=26&type=default&s=" + key;
         if (isLazyInit) {
             onRefresh();
+        } else {
+            updateKeyword = true;
         }
     }
 

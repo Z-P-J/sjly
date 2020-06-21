@@ -57,4 +57,18 @@ public class UserInfo {
     public String getSignature() {
         return signature;
     }
+
+    @Override
+    public String toString() {
+        return "UserInfo{" +
+                "id='" + id + '\'' +
+                ", memberId='" + memberId + '\'' +
+                ", memberName='" + memberName + '\'' +
+                ", avatarUrl='" + avatarUrl + '\'' +
+                ", nickName='" + nickName + '\'' +
+                ", online=" + online +
+                ", imgFormat=" + imgFormat +
+                ", signature='" + signature + '\'' +
+                '}';
+    }
 }
