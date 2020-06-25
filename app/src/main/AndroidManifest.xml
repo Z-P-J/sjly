@@ -21,6 +21,7 @@
         <activity
             android:name="com.zpj.shouji.market.ui.activity.MainActivity"
             android:theme="@style/MainActivityTheme"
+            android:configChanges="keyboardHidden|orientation|screenSize"
             >
 
             <intent-filter>

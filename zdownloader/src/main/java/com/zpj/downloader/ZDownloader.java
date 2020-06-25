@@ -43,7 +43,7 @@ public class ZDownloader {
     public static void init(final DownloaderConfig options) {
         final Context context = options.getContext();
 
-        PermissionUtil.grandStoragePermission(context);
+//        PermissionUtil.grandStoragePermission(context);
 
         SPHelper.init(context);
         NotifyUtil.init(context);

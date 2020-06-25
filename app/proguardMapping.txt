@@ -1,7 +1,7 @@
 # compiler: R8
 # compiler_version: 1.5.69
 # min_api: 19
-# pg_map_id: ad130e9
+# pg_map_id: c84f293
 android.arch.core.executor.ArchTaskExecutor -> a.a.a.a.a:
     android.arch.core.executor.ArchTaskExecutor sInstance -> c
     android.arch.core.executor.TaskExecutor mDelegate -> a
@@ -27959,8 +27959,8 @@ com.lxj.xpermission.XPermission$PermissionActivity -> com.lxj.xpermission.XPermi
     389:425:void onCreate(android.os.Bundle) -> onCreate
     431:433:void onRequestPermissionsResult(int,java.lang.String[],int[]) -> onRequestPermissionsResult
 com.lxj.xpermission.XPermission$SimpleCallback -> com.lxj.xpermission.XPermission$d:
-    void onDenied() -> a
-    void onGranted() -> b
+    void onGranted() -> a
+    void onDenied() -> b
 com.lxj.xpermission.XPermission$ThemeCallback -> com.lxj.xpermission.XPermission$e:
     void onActivityCreate(android.app.Activity) -> a
 com.maning.librarycrashmonitor.MCrashMonitor -> com.maning.librarycrashmonitor.a:
@@ -37492,114 +37492,18 @@ com.zpj.downloader.util.notification.builder.ProgressBuilder -> com.zpj.download
     116:121:void build(android.support.v4.app.NotificationCompat$Builder) -> a
     125:129:void build(android.app.Notification$Builder) -> a
 com.zpj.downloader.util.permission.PermissionUtil -> com.zpj.downloader.util.h.a:
-    java.util.List STORAGE_LIST -> b
     java.lang.String[] STORAGE -> a
     42:44:void <clinit>() -> <clinit>
     65:65:boolean checkStoragePermissions(android.content.Context) -> a
-    47:62:void grandStoragePermission(android.content.Context) -> b
-com.zpj.downloader.util.permission.PermissionUtil$1 -> com.zpj.downloader.util.h.a$a:
-    53:53:void <init>() -> <init>
-    56:56:void onDenied() -> a
 com.zpj.downloader.util.permission.bridge.BridgeActivity -> com.zpj.downloader.util.permission.bridge.BridgeActivity:
     34:34:void <init>() -> <init>
-    40:42:void requestPermission(com.zpj.downloader.util.permission.source.Source) -> a
     68:70:void onActivityResult(int,int,android.content.Intent) -> onActivityResult
     46:52:void onCreate(android.os.Bundle) -> onCreate
     74:77:boolean onKeyDown(int,android.view.KeyEvent) -> onKeyDown
     57:59:void onRequestPermissionsResult(int,java.lang.String[],int[]) -> onRequestPermissionsResult
     63:64:void startActivityForResult(android.content.Intent,int) -> startActivityForResult
-com.zpj.downloader.util.permission.bridge.BridgeRequest -> com.zpj.downloader.util.permission.bridge.a:
-    com.zpj.downloader.util.permission.source.Source mSource -> a
-    com.zpj.downloader.util.permission.bridge.BridgeRequest$Callback mCallback -> b
-    29:31:void <init>(com.zpj.downloader.util.permission.source.Source) -> <init>
-    38:38:com.zpj.downloader.util.permission.bridge.BridgeRequest$Callback getCallback() -> a
-    42:43:void setCallback(com.zpj.downloader.util.permission.bridge.BridgeRequest$Callback) -> a
-    34:34:com.zpj.downloader.util.permission.source.Source getSource() -> b
-com.zpj.downloader.util.permission.bridge.BridgeRequest$Callback -> com.zpj.downloader.util.permission.bridge.a$a:
-    void onCallback() -> a
-com.zpj.downloader.util.permission.bridge.Messenger -> com.zpj.downloader.util.permission.bridge.b:
-    android.content.Context mContext -> a
-    com.zpj.downloader.util.permission.bridge.Messenger$Callback mCallback -> b
-    38:41:void <init>(android.content.Context,com.zpj.downloader.util.permission.bridge.Messenger$Callback) -> <init>
+com.zpj.downloader.util.permission.bridge.Messenger -> com.zpj.downloader.util.permission.bridge.a:
     31:33:void send(android.content.Context) -> a
-    44:46:void register() -> a
-    49:50:void unRegister() -> b
-    54:55:void onReceive(android.content.Context,android.content.Intent) -> onReceive
-com.zpj.downloader.util.permission.bridge.Messenger$Callback -> com.zpj.downloader.util.permission.bridge.b$a:
-    void onCallback() -> a
-com.zpj.downloader.util.permission.bridge.RequestThread -> com.zpj.downloader.util.permission.bridge.c:
-    com.zpj.downloader.util.permission.bridge.BridgeRequest mRequest -> e
-    com.zpj.downloader.util.permission.bridge.Messenger mMessenger -> f
-    26:30:void <init>(com.zpj.downloader.util.permission.bridge.BridgeRequest) -> <init>
-    46:50:void onCallback() -> a
-    34:41:void run() -> run
-com.zpj.downloader.util.permission.checker.DoubleChecker -> com.zpj.downloader.util.h.b.a:
-    com.zpj.downloader.util.permission.checker.PermissionChecker STANDARD_CHECKER -> a
-    com.zpj.downloader.util.permission.checker.PermissionChecker STRICT_CHECKER -> b
-    25:26:void <clinit>() -> <clinit>
-    23:23:void <init>() -> <init>
-    30:30:boolean hasStoragePermission(android.content.Context) -> a
-com.zpj.downloader.util.permission.checker.PermissionChecker -> com.zpj.downloader.util.h.b.b:
-    boolean hasStoragePermission(android.content.Context) -> a
-com.zpj.downloader.util.permission.checker.StandardChecker -> com.zpj.downloader.util.h.b.c:
-    36:37:void <init>() -> <init>
-    41:41:boolean hasStoragePermission(android.content.Context) -> a
-    45:65:boolean hasPermission(android.content.Context,java.util.List) -> a
-com.zpj.downloader.util.permission.checker.StrictChecker -> com.zpj.downloader.util.h.b.d:
-    31:32:void <init>() -> <init>
-    36:38:boolean hasStoragePermission(android.content.Context) -> a
-    42:49:boolean checkReadStorage() -> a
-    53:73:boolean checkWriteStorage() -> b
-com.zpj.downloader.util.permission.runtime.PermissionRequest -> com.zpj.downloader.util.h.c.a:
-    com.zpj.downloader.util.permission.checker.PermissionChecker STANDARD_CHECKER -> c
-    com.zpj.downloader.util.permission.checker.PermissionChecker DOUBLE_CHECKER -> d
-    com.zpj.downloader.util.permission.runtime.PermissionRequest$PermissionRequestListener listener -> b
-    com.zpj.downloader.util.permission.source.Source mSource -> a
-    41:42:void <clinit>() -> <clinit>
-    54:56:void <init>(com.zpj.downloader.util.permission.source.Source) -> <init>
-    39:39:com.zpj.downloader.util.permission.source.Source access$000(com.zpj.downloader.util.permission.runtime.PermissionRequest) -> a
-    63:64:com.zpj.downloader.util.permission.runtime.PermissionRequest setPermissionRequestListener(com.zpj.downloader.util.permission.runtime.PermissionRequest$PermissionRequestListener) -> a
-    88:110:void onCallback() -> a
-    113:116:java.util.List getDeniedPermissions(com.zpj.downloader.util.permission.checker.PermissionChecker,com.zpj.downloader.util.permission.source.Source) -> a
-    120:125:com.zpj.downloader.util.permission.source.Source getContextSource(android.content.Context) -> a
-    39:39:com.zpj.downloader.util.permission.runtime.PermissionRequest$PermissionRequestListener access$200(com.zpj.downloader.util.permission.runtime.PermissionRequest) -> b
-    59:59:com.zpj.downloader.util.permission.runtime.PermissionRequest with(android.content.Context) -> b
-    77:80:void execute() -> b
-    68:74:void start() -> c
-    39:39:com.zpj.downloader.util.permission.checker.PermissionChecker access$100() -> d
-com.zpj.downloader.util.permission.runtime.PermissionRequest$1 -> com.zpj.downloader.util.h.c.a$a:
-    com.zpj.downloader.util.permission.runtime.PermissionRequest this$0 -> a
-    89:89:void <init>(com.zpj.downloader.util.permission.runtime.PermissionRequest) -> <init>
-    93:96:java.util.List doInBackground() -> a
-    101:106:void onPostExecute(java.util.List) -> a
-com.zpj.downloader.util.permission.runtime.PermissionRequest$MyAsyncTask -> com.zpj.downloader.util.h.c.a$b:
-    com.zpj.downloader.util.permission.runtime.PermissionRequest$MyAsyncTask$AsyncTaskListener listener -> a
-    130:131:void <init>() -> <init>
-    135:135:com.zpj.downloader.util.permission.runtime.PermissionRequest$MyAsyncTask build() -> a
-    149:150:com.zpj.downloader.util.permission.runtime.PermissionRequest$MyAsyncTask setListener(com.zpj.downloader.util.permission.runtime.PermissionRequest$MyAsyncTask$AsyncTaskListener) -> a
-    155:158:java.util.List doInBackground(java.lang.Void[]) -> a
-    163:167:void onPostExecute(java.util.List) -> a
-    128:128:java.lang.Object doInBackground(java.lang.Object[]) -> doInBackground
-    128:128:void onPostExecute(java.lang.Object) -> onPostExecute
-com.zpj.downloader.util.permission.runtime.PermissionRequest$MyAsyncTask$AsyncTaskListener -> com.zpj.downloader.util.h.c.a$b$a:
-    java.util.List doInBackground() -> a
-    void onPostExecute(java.util.List) -> a
-com.zpj.downloader.util.permission.runtime.PermissionRequest$PermissionRequestListener -> com.zpj.downloader.util.h.c.a$c:
-    void onDenied() -> a
-com.zpj.downloader.util.permission.source.ActivitySource -> com.zpj.downloader.util.h.d.a:
-    android.app.Activity mActivity -> a
-    31:33:void <init>(android.app.Activity) -> <init>
-    37:37:android.content.Context getContext() -> a
-    42:43:void startActivity(android.content.Intent) -> a
-com.zpj.downloader.util.permission.source.ContextSource -> com.zpj.downloader.util.h.d.b:
-    android.content.Context mContext -> a
-    33:35:void <init>(android.content.Context) -> <init>
-    39:39:android.content.Context getContext() -> a
-    44:46:void startActivity(android.content.Intent) -> a
-com.zpj.downloader.util.permission.source.Source -> com.zpj.downloader.util.h.d.c:
-    25:25:void <init>() -> <init>
-    android.content.Context getContext() -> a
-    void startActivity(android.content.Intent) -> a
 com.zpj.downloader.util.ssl.HTTPSTrustManager -> com.zpj.downloader.util.i.a:
     21:21:void <init>() -> <init>
 com.zpj.downloader.util.ssl.SSLContextUtil -> com.zpj.downloader.util.i.b:
@@ -37712,6 +37616,7 @@ com.zpj.fragmentation.SupportActivity -> com.zpj.fragmentation.SupportActivity:
     19:20:void <init>() -> <init>
     76:77:void onBackPressedSupport() -> a
     95:96:void setFragmentAnimator(com.zpj.fragmentation.anim.FragmentAnimator) -> a
+    119:120:void postDelayed(java.lang.Runnable,long) -> a
     131:132:void loadRootFragment(int,com.zpj.fragmentation.ISupportFragment) -> a
     168:169:void start(com.zpj.fragmentation.ISupportFragment) -> a
     266:266:com.zpj.fragmentation.ISupportFragment findFragment(java.lang.Class) -> a
@@ -37737,6 +37642,7 @@ com.zpj.fragmentation.SupportActivityDelegate -> com.zpj.fragmentation.e:
     51:54:void onCreate(android.os.Bundle) -> a
     73:73:com.zpj.fragmentation.anim.FragmentAnimator getFragmentAnimator() -> a
     81:95:void setFragmentAnimator(com.zpj.fragmentation.anim.FragmentAnimator) -> a
+    149:150:void postDelayed(java.lang.Runnable,long) -> a
     190:190:boolean dispatchTouchEvent(android.view.MotionEvent) -> a
     199:200:void loadRootFragment(int,com.zpj.fragmentation.ISupportFragment) -> a
     203:204:void loadRootFragment(int,com.zpj.fragmentation.ISupportFragment,boolean,boolean) -> a
@@ -40778,8 +40684,8 @@ com.zpj.matisse.SelectionCreator$1 -> com.zpj.matisse.d$a:
     com.zpj.fragmentation.SupportActivity val$activity -> a
     com.zpj.matisse.SelectionCreator this$0 -> b
     388:388:void <init>(com.zpj.matisse.SelectionCreator,com.zpj.fragmentation.SupportActivity) -> <init>
-    400:401:void onDenied() -> a
-    391:397:void onGranted() -> b
+    391:397:void onGranted() -> a
+    400:401:void onDenied() -> b
 com.zpj.matisse.engine.ImageEngine -> com.zpj.matisse.e.a:
     void loadThumbnail(android.content.Context,int,android.graphics.drawable.Drawable,android.widget.ImageView,android.net.Uri) -> a
     void loadGifThumbnail(android.content.Context,int,android.graphics.drawable.Drawable,android.widget.ImageView,android.net.Uri) -> b
@@ -41748,8 +41654,8 @@ com.zpj.popup.core.ImageViewerPopup$5 -> com.zpj.popup.core.ImageViewerPopup$e:
 com.zpj.popup.core.ImageViewerPopup$6 -> com.zpj.popup.core.ImageViewerPopup$f:
     com.zpj.popup.core.ImageViewerPopup this$0 -> a
     463:463:void <init>(com.zpj.popup.core.ImageViewerPopup) -> <init>
-    472:473:void onDenied() -> a
-    467:468:void onGranted() -> b
+    467:468:void onGranted() -> a
+    472:473:void onDenied() -> b
 com.zpj.popup.core.ImageViewerPopup$OnSrcViewUpdateListener -> com.zpj.popup.core.ImageViewerPopup$g:
     void onSrcViewUpdate(com.zpj.popup.core.ImageViewerPopup,int) -> a
 com.zpj.popup.core.ImageViewerPopup$PhotoViewAdapter -> com.zpj.popup.core.ImageViewerPopup$h:
@@ -42429,6 +42335,8 @@ com.zpj.popup.impl.AbstractAlertPopup -> com.zpj.popup.impl.AbstractAlertPopup:
     38:39:void <init>(android.content.Context) -> <init>
     23:23:android.content.Context access$000(com.zpj.popup.impl.AbstractAlertPopup) -> a
     97:98:com.zpj.popup.impl.AbstractAlertPopup setConfirmButton(com.zpj.popup.interfaces.OnConfirmListener) -> a
+    107:109:com.zpj.popup.impl.AbstractAlertPopup setConfirmButton(java.lang.String,com.zpj.popup.interfaces.OnConfirmListener) -> a
+    124:126:com.zpj.popup.impl.AbstractAlertPopup setCancelButton(java.lang.String,com.zpj.popup.interfaces.OnCancelListener) -> a
     147:162:com.zpj.popup.impl.AbstractAlertPopup setContent(java.lang.CharSequence) -> a
     166:167:com.zpj.popup.impl.AbstractAlertPopup setContent(int) -> a
     176:177:com.zpj.popup.impl.AbstractAlertPopup setTitle(java.lang.String) -> b
@@ -44877,18 +44785,37 @@ com.zpj.shouji.market.model.article.TextElement -> com.zpj.shouji.market.model.q
 com.zpj.shouji.market.receiver.AppReceiver -> com.zpj.shouji.market.receiver.AppReceiver:
     9:9:void <init>() -> <init>
     13:23:void onReceive(android.content.Context,android.content.Intent) -> onReceive
+com.zpj.shouji.market.ui.activity.-$$Lambda$MainActivity$1$IeRQhGG5GtApaJn-JGqlv1Ki54I -> com.zpj.shouji.market.ui.activity.a:
+    com.zpj.shouji.market.ui.activity.MainActivity$1 f$0 -> e
+com.zpj.shouji.market.ui.activity.-$$Lambda$MainActivity$I9i4TsDI0DSWEwjauy3IacXJ5pg -> com.zpj.shouji.market.ui.activity.b:
+    com.zpj.shouji.market.ui.activity.MainActivity f$0 -> a
+    void onConfirm(com.zpj.popup.core.BasePopup) -> a
+com.zpj.shouji.market.ui.activity.-$$Lambda$jRh3BTySYT2SsdYUqYj861XkNNA -> com.zpj.shouji.market.ui.activity.c:
+    com.zpj.shouji.market.ui.activity.MainActivity f$0 -> a
 com.zpj.shouji.market.ui.activity.MainActivity -> com.zpj.shouji.market.ui.activity.MainActivity:
     long firstTime -> f
-    29:31:void <init>() -> <init>
-    88:96:void onBackPressedSupport() -> a
-    100:100:com.zpj.fragmentation.anim.FragmentAnimator onCreateFragmentAnimator() -> b
-    35:78:void onCreate(android.os.Bundle) -> onCreate
-    82:84:void onDestroy() -> onDestroy
-    105:106:void startFragment(com.zpj.fragmentation.SupportFragment) -> startFragment
+    site.gemus.openingstartanimation.OpeningStartAnimation openingStartAnimation3 -> g
+    35:37:void <init>() -> <init>
+    35:35:void access$000(com.zpj.shouji.market.ui.activity.MainActivity) -> a
+    96:104:void onBackPressedSupport() -> a
+    118:118:void lambda$showRequestPermissionPopup$0(com.zpj.popup.impl.AlertPopup) -> a
+    35:35:site.gemus.openingstartanimation.OpeningStartAnimation access$100(com.zpj.shouji.market.ui.activity.MainActivity) -> b
+    108:108:com.zpj.fragmentation.anim.FragmentAnimator onCreateFragmentAnimator() -> b
+    125:137:void requestPermission() -> g
+    112:122:void showRequestPermissionPopup() -> h
+    43:86:void onCreate(android.os.Bundle) -> onCreate
+    90:92:void onDestroy() -> onDestroy
+    141:142:void startFragment(com.zpj.fragmentation.SupportFragment) -> startFragment
 com.zpj.shouji.market.ui.activity.MainActivity$1 -> com.zpj.shouji.market.ui.activity.MainActivity$a:
     com.zpj.shouji.market.ui.activity.MainActivity this$0 -> a
-    52:52:void <init>(com.zpj.shouji.market.ui.activity.MainActivity) -> <init>
-    56:66:void onFinish(site.gemus.openingstartanimation.OpeningStartAnimation,android.app.Activity) -> a
+    61:61:void <init>(com.zpj.shouji.market.ui.activity.MainActivity) -> <init>
+    65:74:void onFinish(site.gemus.openingstartanimation.OpeningStartAnimation,android.app.Activity) -> a
+    67:72:void lambda$onFinish$0() -> a
+com.zpj.shouji.market.ui.activity.MainActivity$2 -> com.zpj.shouji.market.ui.activity.MainActivity$b:
+    com.zpj.shouji.market.ui.activity.MainActivity this$0 -> a
+    126:126:void <init>(com.zpj.shouji.market.ui.activity.MainActivity) -> <init>
+    129:130:void onGranted() -> a
+    134:135:void onDenied() -> b
 com.zpj.shouji.market.ui.adapter.-$$Lambda$DiscoverBinder$1$kxI5LWjP_H2flsaNI4RUsXqa60U -> com.zpj.shouji.market.e.a.a:
     com.lwkandroid.widget.ninegridview.NineGridView f$0 -> a
     android.widget.ImageView getImageView(int) -> a
