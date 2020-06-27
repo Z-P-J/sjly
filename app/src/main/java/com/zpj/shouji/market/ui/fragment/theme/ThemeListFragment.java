@@ -34,6 +34,7 @@ public class ThemeListFragment extends NextUrlFragment<DiscoverInfo>
 
     public interface Callback {
         void onGetUserItem(Element element);
+        void onError(Throwable throwable);
     }
 
     private DiscoverBinder binder;
@@ -106,6 +107,9 @@ public class ThemeListFragment extends NextUrlFragment<DiscoverInfo>
                 .onError(throwable -> {
                     Log.d("ThemeListFragment", "showError");
                     recyclerLayout.showErrorView(throwable.getMessage());
+                    if (callback != null) {
+                        callback.onError(throwable);
+                    }
                 })
                 .subscribe();
     }

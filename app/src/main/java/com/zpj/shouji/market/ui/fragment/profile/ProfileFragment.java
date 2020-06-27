@@ -9,8 +9,13 @@ import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
+import android.support.v4.view.ViewPager;
+import android.support.v4.widget.NestedScrollView;
+import android.support.v7.widget.ButtonBarLayout;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -18,16 +23,24 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
+import com.felix.atoast.library.AToast;
+import com.scwang.smartrefresh.layout.SmartRefreshLayout;
+import com.scwang.smartrefresh.layout.api.RefreshHeader;
+import com.scwang.smartrefresh.layout.listener.SimpleMultiPurposeListener;
+import com.scwang.smartrefresh.layout.util.DensityUtil;
 import com.shehuan.niv.NiceImageView;
 import com.zpj.fragmentation.BaseFragment;
 import com.zpj.http.parser.html.nodes.Element;
+import com.zpj.popup.ZPopup;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.ui.adapter.FragmentsPagerAdapter;
 import com.zpj.shouji.market.ui.behavior.AppBarLayoutOverScrollViewBehavior;
 import com.zpj.shouji.market.ui.fragment.theme.ThemeListFragment;
+import com.zpj.shouji.market.ui.widget.JudgeNestedScrollView;
 import com.zpj.shouji.market.ui.widget.RoundProgressBar;
-import com.zpj.utils.ScreenUtils;
 import com.zpj.shouji.market.ui.widget.ZViewPager;
+import com.zpj.utils.ScreenUtils;
+import com.zpj.widget.statelayout.StateLayout;
 
 import net.lucode.hackware.magicindicator.MagicIndicator;
 import net.lucode.hackware.magicindicator.ViewPagerHelper;
@@ -41,23 +54,31 @@ import net.lucode.hackware.magicindicator.buildins.commonnavigator.titles.ColorT
 import java.util.ArrayList;
 import java.util.List;
 
-public class ProfileFragment extends BaseFragment implements ThemeListFragment.Callback {
+public class ProfileFragment extends BaseFragment implements ThemeListFragment.Callback, View.OnClickListener {
 
     private static final String USER_ID = "user_id";
     public static final String DEFAULT_URL = "http://tt.shouji.com.cn/app/view_member_xml_v4.jsp?versioncode=198&id=5636865";
 
     private static final String[] TAB_TITLES = {"我的动态", "我的收藏", "我的下载", "我的好友"};
 
-    private ImageView mZoomIv;
+    private StateLayout stateLayout;
+    private ImageView ivBack;
+    private ImageView ivMenu;
+    private ImageView ivHeader;
+    private NiceImageView ivAvater;
+    private NiceImageView ivToolbarAvater;
+    private TextView tvName;
+    private TextView tvToolbarName;
+    private SmartRefreshLayout refreshLayout;
     private Toolbar mToolBar;
-    private AppBarLayout mAppBarLayout;
-    private ViewGroup titleCenterLayout;
-    private RoundProgressBar progressBar;
-    private TextView mNicknameTextView, mSignatureTextView;
-    private ImageView mSettingIv, mMsgIv;
-    private NiceImageView mAvater;
+    private ViewPager mViewPager;
+    private JudgeNestedScrollView scrollView;
+    private ButtonBarLayout buttonBarLayout;
     private MagicIndicator magicIndicator;
-    private ZViewPager mViewPager;
+    private MagicIndicator magicIndicatorTitle;
+    int toolBarPositionY = 0;
+    private int mOffset = 0;
+    private int mScrollY = 0;
 
     private final List<Fragment> fragments = new ArrayList<>();
     private ThemeListFragment exploreFragment;
@@ -77,24 +98,11 @@ public class ProfileFragment extends BaseFragment implements ThemeListFragment.C
 
     @Override
     protected int getLayoutId() {
-        return R.layout.fragment_profile;
+        return R.layout.fragment_profile2;
     }
 
     @Override
     protected void initView(View view, @Nullable Bundle savedInstanceState) {
-        initView(view);
-        initTab();
-        initListener();
-        initStatus();
-    }
-
-    @Override
-    public void onLazyInitView(@Nullable Bundle savedInstanceState) {
-        super.onLazyInitView(savedInstanceState);
-//        exploreFragment.loadData();
-    }
-
-    private void initView(View view) {
         Bundle bundle = getArguments();
         if (bundle != null) {
             userId = bundle.getString(USER_ID);
@@ -102,23 +110,107 @@ public class ProfileFragment extends BaseFragment implements ThemeListFragment.C
 //            exploreFragment = ExploreFragment.newInstance(DEFAULT_URL, false);
             throw new RuntimeException("bundle is null!");
         }
-        mZoomIv = view.findViewById(R.id.uc_zoomiv);
-        mToolBar = view.findViewById(R.id.toolbar);
-        mNicknameTextView = view.findViewById(R.id.text_nickname);
-        mSignatureTextView = view.findViewById(R.id.text_signature);
-//        toolbar.setAlpha(0);
-//        titleContainer = view.findViewById(R.id.title_layout);
-        mAppBarLayout = view.findViewById(R.id.appbar_layout);
-        titleCenterLayout = view.findViewById(R.id.title_center_layout);
-        progressBar = view.findViewById(R.id.uc_progressbar);
-        mSettingIv = view.findViewById(R.id.uc_setting_iv);
-        mMsgIv = view.findViewById(R.id.uc_msg_iv);
-        mAvater = view.findViewById(R.id.uc_avater);
+        stateLayout = view.findViewById(R.id.state_layout);
+        ivBack = view.findViewById(R.id.iv_back);
+        ivBack.setOnClickListener(this);
+        ivMenu = view.findViewById(R.id.iv_menu);
+        ivMenu.setOnClickListener(this);
+        ivHeader = view.findViewById(R.id.iv_header);
+        ivAvater = view.findViewById(R.id.iv_avatar);
+        ivToolbarAvater = view.findViewById(R.id.toolbar_avatar);
+        tvName = view.findViewById(R.id.tv_name);
+        tvToolbarName = view.findViewById(R.id.toolbar_name);
+        refreshLayout = view.findViewById(R.id.layout_refresh);
+        mToolBar = view.findViewById(R.id.layout_toolbar);
+
+        ViewGroup.LayoutParams lp = mToolBar.getLayoutParams();
+        if (lp != null && lp.height > 0) {
+            lp.height += ScreenUtils.getStatusBarHeight(context);
+        }
+        mToolBar.setPadding(mToolBar.getPaddingLeft(), mToolBar.getPaddingTop() + ScreenUtils.getStatusBarHeight(context),
+                mToolBar.getPaddingRight(), mToolBar.getPaddingBottom());
+
+        mViewPager = view.findViewById(R.id.view_pager);
+        scrollView = view.findViewById(R.id.scroll_view);
+        buttonBarLayout = view.findViewById(R.id.layout_button_bar);
         magicIndicator = view.findViewById(R.id.magic_indicator);
-        mViewPager = view.findViewById(R.id.uc_viewpager);
+        magicIndicatorTitle = view.findViewById(R.id.magic_indicator_title);
+
+        refreshLayout.setOnMultiPurposeListener(new SimpleMultiPurposeListener() {
+            @Override
+            public void onHeaderPulling(RefreshHeader header, float percent, int offset, int bottomHeight, int extendHeight) {
+                mOffset = offset / 2;
+                ivHeader.setTranslationY(mOffset - mScrollY);
+                mToolBar.setAlpha(1 - Math.min(percent, 1));
+            }
+
+            @Override
+            public void onHeaderReleasing(RefreshHeader header, float percent, int offset, int bottomHeight, int extendHeight) {
+                mOffset = offset / 2;
+                ivHeader.setTranslationY(mOffset - mScrollY);
+                mToolBar.setAlpha(1 - Math.min(percent, 1));
+            }
+        });
+
+        mToolBar.post(this::dealWithViewPager);
+        scrollView.setOnScrollChangeListener(new NestedScrollView.OnScrollChangeListener() {
+            int lastScrollY = 0;
+            int h = DensityUtil.dp2px(100);
+            int color = ContextCompat.getColor(context, R.color.colorPrimary) & 0x00ffffff;
+
+            @Override
+            public void onScrollChange(NestedScrollView v, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
+                Log.d("onScrollChange", "scrollX=" + scrollX + " scrollY=" + scrollY + " oldScrollX=" + oldScrollX + " oldScrollY=" + oldScrollY);
+                int[] location = new int[2];
+                magicIndicator.getLocationOnScreen(location);
+                int yPosition = location[1];
+                if (yPosition < toolBarPositionY) {
+//                    magicIndicatorTitle.setVisibility(View.VISIBLE);
+                    scrollView.setNeedScroll(false);
+                } else {
+//                    magicIndicatorTitle.setVisibility(View.GONE);
+                    scrollView.setNeedScroll(true);
+
+                }
+
+                if (lastScrollY < h) {
+                    scrollY = Math.min(h, scrollY);
+                    mScrollY = Math.min(scrollY, h);
+                    buttonBarLayout.setAlpha(1f * mScrollY / h);
+                    mToolBar.setBackgroundColor(((255 * mScrollY / h) << 24) | color);
+                    ivHeader.setTranslationY(mOffset - mScrollY);
+                }
+                if (scrollY == 0) {
+                    ivBack.setImageResource(R.drawable.ic_back);
+                    ivMenu.setImageResource(R.drawable.ic_more_vert_grey_24dp);
+                } else {
+                    ivBack.setImageResource(R.drawable.ic_back);
+                    ivMenu.setImageResource(R.drawable.ic_more_vert_grey_24dp);
+                }
+
+                lastScrollY = scrollY;
+            }
+        });
+        buttonBarLayout.setAlpha(0);
+        mToolBar.setBackgroundColor(0);
+
+
+
+        initViewPager();
+
+        initMagicIndicator(magicIndicator);
+        initMagicIndicator(magicIndicatorTitle);
+
+        postDelayed(() -> stateLayout.showLoadingView(), 50);
     }
 
-    private void initTab() {
+//    @Override
+//    public void onLazyInitView(@Nullable Bundle savedInstanceState) {
+//        super.onLazyInitView(savedInstanceState);
+////        exploreFragment.loadData();
+//    }
+
+    private void initViewPager() {
         exploreFragment = findChildFragment(ThemeListFragment.class);
         if (exploreFragment == null) {
             exploreFragment = ThemeListFragment.newInstance("http://tt.shouji.com.cn/app/view_member_xml_v4.jsp?versioncode=198&id=" + userId, true);
@@ -133,12 +225,16 @@ public class ProfileFragment extends BaseFragment implements ThemeListFragment.C
         }
         fragments.add(userDownloadedFragment);
         fragments.add(new Fragment());
-
         FragmentsPagerAdapter adapter = new FragmentsPagerAdapter(getChildFragmentManager(), fragments, TAB_TITLES);
         mViewPager.setAdapter(adapter);
         mViewPager.setOffscreenPageLimit(4);
+    }
+
+    private void initMagicIndicator(MagicIndicator magicIndicator) {
+
         CommonNavigator navigator = new CommonNavigator(getContext());
         navigator.setAdjustMode(true);
+        navigator.setScrollPivotX(0.65f);
         navigator.setAdapter(new CommonNavigatorAdapter() {
             @Override
             public int getCount() {
@@ -148,8 +244,8 @@ public class ProfileFragment extends BaseFragment implements ThemeListFragment.C
             @Override
             public IPagerTitleView getTitleView(Context context, int index) {
                 ColorTransitionPagerTitleView titleView = new ColorTransitionPagerTitleView(context);
-                titleView.setNormalColor(getResources().getColor(R.color.color_text_normal));
-                titleView.setSelectedColor(getResources().getColor(R.color.color_text_major));
+                titleView.setNormalColor(getResources().getColor(R.color.color_text_major));
+                titleView.setSelectedColor(getResources().getColor(R.color.colorPrimary));
                 titleView.setTextSize(14);
                 titleView.setText(TAB_TITLES[index]);
                 titleView.setOnClickListener(new View.OnClickListener() {
@@ -168,7 +264,7 @@ public class ProfileFragment extends BaseFragment implements ThemeListFragment.C
                 indicator.setLineHeight(ScreenUtils.dp2px(context, 4f));
                 indicator.setLineWidth(ScreenUtils.dp2px(context, 12f));
                 indicator.setRoundRadius(ScreenUtils.dp2px(context, 4f));
-                int color = getResources().getColor(R.color.color_text_major);
+                int color = getResources().getColor(R.color.colorPrimary);
                 indicator.setColors(color, color);
                 return indicator;
             }
@@ -177,104 +273,32 @@ public class ProfileFragment extends BaseFragment implements ThemeListFragment.C
         ViewPagerHelper.bind(magicIndicator, mViewPager);
     }
 
-    private static int color = Color.parseColor("#80333333");
-    private void initListener() {
-        mAppBarLayout.addOnOffsetChangedListener(new AppBarLayout.OnOffsetChangedListener() {
-            @Override
-            public void onOffsetChanged(AppBarLayout appBarLayout, int verticalOffset) {
-                float percent = (float) Math.abs(verticalOffset) / (float) appBarLayout.getTotalScrollRange();
-                if (titleCenterLayout != null && mAvater != null && mSettingIv != null && mMsgIv != null) {
-                    titleCenterLayout.setAlpha(percent);
-                    toolbar.setAlpha(0.8f * percent);
-//                    StatusBarUtil.setTranslucentForImageView(getActivity(), (int) (255f * percent), null);
-                    if (percent == 0) {
-                        toolbar.setBackgroundColor(Color.TRANSPARENT);
-                        toolbar.setStatusBarColor(Color.TRANSPARENT);
-                        groupChange(1f, 1);
-                    } else if (percent == 1) {
-                        if (mAvater.getVisibility() != View.GONE) {
-                            mAvater.setVisibility(View.GONE);
-                        }
-                        groupChange(1f, 2);
-                    } else {
-                        toolbar.setBackgroundColor(Color.WHITE);
-                        toolbar.setStatusBarColor(Color.WHITE);
-                        if (mAvater.getVisibility() != View.VISIBLE) {
-                            mAvater.setVisibility(View.VISIBLE);
-                        }
-                        groupChange(percent, 0);
-                    }
+//    private void initStatus() {
+//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {//4.4以下不支持状态栏变色
+//            //注意了，这里使用了第三方库 StatusBarUtil，目的是改变状态栏的alpha
+////            StatusBarUtil.setTransparentForImageView(getActivity(), null);
+//            //这里是重设我们的title布局的topMargin，StatusBarUtil提供了重设的方法，但是我们这里有两个布局
+//            //TODO 关于为什么不把Toolbar和@layout/layout_uc_head_title放到一起，是因为需要Toolbar来占位，防止AppBarLayout折叠时将title顶出视野范围
+//            int statusBarHeight = ScreenUtils.getStatusBarHeight(getContext());
+////            CollapsingToolbarLayout.LayoutParams lp1 = (CollapsingToolbarLayout.LayoutParams) titleContainer.getLayoutParams();
+////            lp1.topMargin = statusBarHeight;
+////            titleContainer.setLayoutParams(lp1);
+//            CollapsingToolbarLayout.LayoutParams lp2 = (CollapsingToolbarLayout.LayoutParams) mToolBar.getLayoutParams();
+//            lp2.topMargin = statusBarHeight;
+//            mToolBar.setLayoutParams(lp2);
+//        }
+//    }
 
-                }
-            }
-        });
-        AppBarLayoutOverScrollViewBehavior myAppBarLayoutBehavoir = (AppBarLayoutOverScrollViewBehavior)
-                ((CoordinatorLayout.LayoutParams) mAppBarLayout.getLayoutParams()).getBehavior();
-        myAppBarLayoutBehavoir.setOnProgressChangeListener(new AppBarLayoutOverScrollViewBehavior.onProgressChangeListener() {
-            @Override
-            public void onProgressChange(float progress, boolean isRelease) {
-                progressBar.setProgress((int) (progress * 360));
-                if (progress == 1 && !progressBar.isSpinning && isRelease) {
-                    // 刷新viewpager里的fragment
-                }
-                if (mMsgIv != null) {
-                    if (progress == 0 && !progressBar.isSpinning) {
-                        mMsgIv.setVisibility(View.VISIBLE);
-                    } else if (progress > 0 && mSettingIv.getVisibility() == View.VISIBLE) {
-                        mMsgIv.setVisibility(View.INVISIBLE);
-                    }
-                }
-            }
-        });
-    }
-
-    public void groupChange(float alpha, int state) {
-        lastState = state;
-
-        mSettingIv.setAlpha(alpha);
-        mMsgIv.setAlpha(alpha);
-
-        switch (state) {
-            case 1://完全展开 显示白色
-                mMsgIv.setImageResource(R.drawable.ic_expand_more_black_24dp);
-                mSettingIv.setImageResource(R.drawable.ic_settings_white_24dp);
-                mViewPager.setCanScroll(true);
-                break;
-            case 2://完全关闭 显示黑色
-                mMsgIv.setImageResource(R.drawable.ic_expand_more_black_24dp);
-                mSettingIv.setImageResource(R.drawable.ic_settings_applications_black_24dp);
-                mViewPager.setCanScroll(true);
-                break;
-            case 0://介于两种临界值之间 显示黑色
-                if (lastState != 0) {
-                    mMsgIv.setImageResource(R.drawable.ic_expand_more_black_24dp);
-                    mSettingIv.setImageResource(R.drawable.ic_settings_applications_black_24dp);
-                }
-                mViewPager.setCanScroll(false);
-                break;
-        }
-    }
-
-    private void initStatus() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {//4.4以下不支持状态栏变色
-            //注意了，这里使用了第三方库 StatusBarUtil，目的是改变状态栏的alpha
-//            StatusBarUtil.setTransparentForImageView(getActivity(), null);
-            //这里是重设我们的title布局的topMargin，StatusBarUtil提供了重设的方法，但是我们这里有两个布局
-            //TODO 关于为什么不把Toolbar和@layout/layout_uc_head_title放到一起，是因为需要Toolbar来占位，防止AppBarLayout折叠时将title顶出视野范围
-            int statusBarHeight = ScreenUtils.getStatusBarHeight(getContext());
-//            CollapsingToolbarLayout.LayoutParams lp1 = (CollapsingToolbarLayout.LayoutParams) titleContainer.getLayoutParams();
-//            lp1.topMargin = statusBarHeight;
-//            titleContainer.setLayoutParams(lp1);
-            CollapsingToolbarLayout.LayoutParams lp2 = (CollapsingToolbarLayout.LayoutParams) mToolBar.getLayoutParams();
-            lp2.topMargin = statusBarHeight;
-            mToolBar.setLayoutParams(lp2);
-        }
+    private void dealWithViewPager() {
+        toolBarPositionY = mToolBar.getHeight();
+        ViewGroup.LayoutParams params = mViewPager.getLayoutParams();
+        params.height = ScreenUtils.getScreenHeight(context) - toolBarPositionY - magicIndicator.getHeight() + 1;
+        mViewPager.setLayoutParams(params);
     }
 
     @Override
     public void onGetUserItem(Element element) {
-        mZoomIv.post(() -> {
-            mZoomIv.setTag(null);
+        ivHeader.post(() -> {
             String memberBackground = element.selectFirst("memberbackground").text();
             if (!TextUtils.isEmpty(memberBackground)) {
                 Glide.with(context).load(memberBackground)
@@ -282,20 +306,57 @@ public class ProfileFragment extends BaseFragment implements ThemeListFragment.C
                                 .error(R.drawable.bg_member_default)
                                 .placeholder(R.drawable.bg_member_default)
                         )
-                        .into(mZoomIv);
+                        .into(ivHeader);
             }
-            mZoomIv.setTag("overScroll");
+
         });
-        mAvater.post(() -> {
-            Glide.with(mAvater)
-                    .load(element.selectFirst("memberavatar").text())
-                    .apply(new RequestOptions()
-                            .error(R.drawable.ic_user_head)
-                            .placeholder(R.drawable.ic_user_head)
-                    )
-                    .into(mAvater);
+        ivAvater.post(() -> {
+            String url = element.selectFirst("memberavatar").text();
+            RequestOptions options = new RequestOptions()
+                    .error(R.drawable.ic_user_head)
+                    .placeholder(R.drawable.ic_user_head);
+            Glide.with(context)
+                    .load(url)
+                    .apply(options)
+                    .into(ivAvater);
+            Glide.with(context)
+                    .load(url)
+                    .apply(options)
+                    .into(ivToolbarAvater);
         });
-        mNicknameTextView.post(() -> mNicknameTextView.setText(element.selectFirst("nickname").text()));
-        mSignatureTextView.post(() -> mSignatureTextView.setText(element.selectFirst("membersignature").text()));
+        tvName.post(() -> {
+            String nickName = element.selectFirst("nickname").text();
+            tvName.setText(nickName);
+            tvToolbarName.setText(nickName);
+        });
+        postDelayed(() -> stateLayout.post(() -> stateLayout.showContentView()), 500);
+//        mSignatureTextView.post(() -> mSignatureTextView.setText(element.selectFirst("membersignature").text()));
+    }
+
+    @Override
+    public void onError(Throwable throwable) {
+        stateLayout.showErrorView(throwable.getMessage());
+    }
+
+    @Override
+    public void onClick(View v) {
+        if (v == ivBack) {
+            pop();
+        } else if (v == ivMenu){
+            ZPopup.attachList(context)
+                    .addItem("加入黑名单")
+                    .addItem("分享主页")
+                    .addItem("举报Ta")
+                    .setOnSelectListener((position, title) -> {
+                        switch (position) {
+                            case 0:
+                            case 1:
+                            case 2:
+                                AToast.warning("TODO");
+                                break;
+                        }
+                    })
+                    .show(ivMenu);
+        }
     }
 }

@@ -56,21 +56,18 @@ public class MainActivity extends SupportActivity {
                 .setDrawStategy(new NormalDrawStrategy())
                 .setAppName("手机乐园")
                 .setAppStatement("分享优质应用")
-                .setAnimationInterval(1000)
+                .setAnimationInterval(1500)
                 .setAppIcon(getResources().getDrawable(R.mipmap.ic_launcher))
-                .setAnimationListener(new OpeningStartAnimation.AnimationListener() {
-                    @Override
-                    public void onFinish(OpeningStartAnimation openingStartAnimation, Activity activity) {
-                        AppUpdateManager.getInstance().checkUpdate(MainActivity.this);
-                        showRequestPermissionPopup();
-                        postDelayed(() -> {
-                            MainFragment mainFragment = findFragment(MainFragment.class);
-                            if (mainFragment == null) {
-                                mainFragment = new MainFragment();
-                                loadRootFragment(R.id.content, mainFragment);
-                            }
-                        }, 50);
-                    }
+                .setAnimationListener((openingStartAnimation, activity) -> {
+                    AppUpdateManager.getInstance().checkUpdate(MainActivity.this);
+                    showRequestPermissionPopup();
+                    postDelayed(() -> {
+                        MainFragment mainFragment = findFragment(MainFragment.class);
+                        if (mainFragment == null) {
+                            mainFragment = new MainFragment();
+                            loadRootFragment(R.id.content, mainFragment);
+                        }
+                    }, 50);
                 })
                 .create();
         openingStartAnimation3.show(MainActivity.this);
