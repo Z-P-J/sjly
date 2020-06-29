@@ -80,7 +80,7 @@ public class TutorialRecommendCard extends RecommendCard<ArticleInfo> {
 
     @Override
     public void onClick(EasyViewHolder holder, View view, ArticleInfo data) {
-        EventBus.getDefault().post(ArticleDetailFragment.newInstance("https://" + type + ".shouji.com.cn" + data.getUrl()));
+        ArticleDetailFragment.start("https://" + type + ".shouji.com.cn" + data.getUrl());
     }
 
     @Override

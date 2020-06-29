@@ -188,6 +188,6 @@ public class MainFragment extends BaseFragment
 
     @Override
     public void onChatWithFriendItemClick() {
-        _mActivity.start(new ChatFragment());
+        ChatFragment.start();
     }
 }

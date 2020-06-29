@@ -28,6 +28,7 @@ import com.zpj.popup.ZPopup;
 import com.zpj.popup.imagetrans.listener.SourceImageViewGet;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.api.HttpApi;
+import com.zpj.shouji.market.event.StartFragmentEvent;
 import com.zpj.shouji.market.model.AppInfo;
 import com.zpj.shouji.market.model.article.ArticleDetailInfo;
 import com.zpj.shouji.market.model.article.ArticleInfo;
@@ -40,6 +41,7 @@ import com.zpj.shouji.market.ui.widget.popup.ImageViewer;
 import com.zpj.shouji.market.ui.widget.selection.SelectableTextView;
 import com.zpj.shouji.market.utils.PopupImageLoader;
 import com.zpj.utils.ScreenUtils;
+import com.zpj.widget.statelayout.StateLayout;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -50,16 +52,17 @@ public class ArticleDetailFragment extends BaseFragment {
     private static final String KEY_URL = "key_url";
 
     private String url;
+    private StateLayout stateLayout;
     private LinearLayout contentWrapper;
     private ArticleDetailInfo articleDetailInfo;
     private AtomicBoolean isEnterAnimationEnd = new AtomicBoolean(false);
 
-    public static ArticleDetailFragment newInstance(String url) {
+    public static void start(String url) {
         Bundle args = new Bundle();
         args.putString(KEY_URL, url);
         ArticleDetailFragment fragment = new ArticleDetailFragment();
         fragment.setArguments(args);
-        return fragment;
+        StartFragmentEvent.start(fragment);
     }
 
     @Override
@@ -81,6 +84,8 @@ public class ArticleDetailFragment extends BaseFragment {
         url = getArguments().getString(KEY_URL);
         setToolbarTitle(url);
         setToolbarSubTitle(url);
+        stateLayout = view.findViewById(R.id.state_layout);
+        stateLayout.showLoadingView();
         contentWrapper = view.findViewById(R.id.content_wrapper);
         parseHtml(url);
     }
@@ -93,7 +98,7 @@ public class ArticleDetailFragment extends BaseFragment {
                 .setOnSelectListener((position, title) -> {
                     switch (position) {
                         case 0:
-                            _mActivity.start(WebFragment.newInstance(url));
+                            WebFragment.start(url);
                             break;
                         case 1:
                             AToast.warning("TODO");
@@ -127,9 +132,10 @@ public class ArticleDetailFragment extends BaseFragment {
         if (info == null) {
             AToast.error("文章解析失败！即将跳转至网页");
             pop();
-            _mActivity.start(WebFragment.newInstance(url));
+            WebFragment.start(url);
             return;
         }
+        stateLayout.showContentView();
         Log.d("parseArticleInfo", "parseArticleInfo");
         initHeaderView(info);
         initAppView(info);
@@ -273,7 +279,7 @@ public class ArticleDetailFragment extends BaseFragment {
                 tvText.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        _mActivity.start(ArticleDetailFragment.newInstance(articleInfo.getUrl()));
+                        ArticleDetailFragment.start(articleInfo.getUrl());
                     }
                 });
                 contentWrapper.addView(tvText);

@@ -32,17 +32,17 @@ public class ThemeListFragment extends NextUrlFragment<DiscoverInfo>
         SwipeRefreshLayout.OnRefreshListener,
         SearchResultFragment.KeywordObserver {
 
-    public interface Callback {
-        void onGetUserItem(Element element);
-        void onError(Throwable throwable);
-    }
+//    public interface Callback {
+//        void onGetUserItem(Element element);
+//        void onError(Throwable throwable);
+//    }
 
     private DiscoverBinder binder;
 
     private boolean enableSwipeRefresh = true;
 
 
-    private Callback callback;
+//    private Callback callback;
 
     public static ThemeListFragment newInstance(String url) {
         return newInstance(url, true);
@@ -73,12 +73,12 @@ public class ThemeListFragment extends NextUrlFragment<DiscoverInfo>
         HttpApi.connect(nextUrl)
                 .onSuccess(doc -> {
                     Elements elements = doc.select("item");
-                    if (nextUrl.equals(defaultUrl)) {
-                        Element userElement = elements.get(0);
-                        if (callback != null) {
-                            callback.onGetUserItem(userElement);
-                        }
-                    }
+//                    if (nextUrl.equals(defaultUrl)) {
+//                        Element userElement = elements.get(0);
+//                        if (callback != null) {
+//                            callback.onGetUserItem(userElement);
+//                        }
+//                    }
 
                     nextUrl = doc.selectFirst("nextUrl").text();
                     Map<String, DiscoverInfo> map = new HashMap<>();
@@ -107,9 +107,9 @@ public class ThemeListFragment extends NextUrlFragment<DiscoverInfo>
                 .onError(throwable -> {
                     Log.d("ThemeListFragment", "showError");
                     recyclerLayout.showErrorView(throwable.getMessage());
-                    if (callback != null) {
-                        callback.onError(throwable);
-                    }
+//                    if (callback != null) {
+//                        callback.onError(throwable);
+//                    }
                 })
                 .subscribe();
     }
@@ -180,9 +180,9 @@ public class ThemeListFragment extends NextUrlFragment<DiscoverInfo>
     }
 
 
-    public void setCallback(Callback callback) {
-        this.callback = callback;
-    }
+//    public void setCallback(Callback callback) {
+//        this.callback = callback;
+//    }
 
     public void setEnableSwipeRefresh(boolean enableSwipeRefresh) {
         this.enableSwipeRefresh = enableSwipeRefresh;

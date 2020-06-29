@@ -5,6 +5,7 @@ import android.support.annotation.Nullable;
 import android.view.View;
 
 import com.zpj.shouji.market.R;
+import com.zpj.shouji.market.event.StartFragmentEvent;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -28,7 +29,7 @@ public class ToolBarListFragment extends AppListFragment {
         args.putString(KEY_TITLE, title);
         ToolBarListFragment fragment = new ToolBarListFragment();
         fragment.setArguments(args);
-        EventBus.getDefault().post(fragment);
+        StartFragmentEvent.start(fragment);
     }
 
     public static void startRecentUpdate() {

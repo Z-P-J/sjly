@@ -34,7 +34,7 @@ public class UserListFragment extends NextUrlFragment<UserInfo>
     @Override
     public void onClick(EasyViewHolder holder, View view, UserInfo data) {
         Log.d("UserListFragment", "userInfo=" + data);
-        _mActivity.start(ProfileFragment.newInstance(data.getId(), true));
+        ProfileFragment.start(data.getId(), true);
     }
 
     @Override
@@ -48,6 +48,7 @@ public class UserListFragment extends NextUrlFragment<UserInfo>
     @Override
     public void updateKeyword(String key) {
         defaultUrl = "http://tt.shouji.com.cn/androidv3/app_search_user_xml.jsp?versioncode=26&s=" + key;
+        nextUrl = defaultUrl;
         if (isLazyInit) {
             onRefresh();
         }

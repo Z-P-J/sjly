@@ -41,7 +41,7 @@ import net.lucode.hackware.magicindicator.buildins.commonnavigator.titles.ColorT
 import java.util.ArrayList;
 import java.util.List;
 
-public class ProfileFragment_bak extends BaseFragment implements ThemeListFragment.Callback {
+public class ProfileFragment_bak extends BaseFragment {
 
     private static final String USER_ID = "user_id";
     public static final String DEFAULT_URL = "http://tt.shouji.com.cn/app/view_member_xml_v4.jsp?versioncode=198&id=5636865";
@@ -123,7 +123,7 @@ public class ProfileFragment_bak extends BaseFragment implements ThemeListFragme
         if (exploreFragment == null) {
             exploreFragment = ThemeListFragment.newInstance("http://tt.shouji.com.cn/app/view_member_xml_v4.jsp?versioncode=198&id=" + userId, true);
         }
-        exploreFragment.setCallback(this);
+//        exploreFragment.setCallback(this);
         exploreFragment.setEnableSwipeRefresh(false);
         fragments.add(exploreFragment);
         fragments.add(new Fragment());
@@ -271,36 +271,36 @@ public class ProfileFragment_bak extends BaseFragment implements ThemeListFragme
         }
     }
 
-    @Override
-    public void onGetUserItem(Element element) {
-        mZoomIv.post(() -> {
-            mZoomIv.setTag(null);
-            String memberBackground = element.selectFirst("memberbackground").text();
-            if (!TextUtils.isEmpty(memberBackground)) {
-                Glide.with(context).load(memberBackground)
-                        .apply(new RequestOptions()
-                                .error(R.drawable.bg_member_default)
-                                .placeholder(R.drawable.bg_member_default)
-                        )
-                        .into(mZoomIv);
-            }
-            mZoomIv.setTag("overScroll");
-        });
-        mAvater.post(() -> {
-            Glide.with(mAvater)
-                    .load(element.selectFirst("memberavatar").text())
-                    .apply(new RequestOptions()
-                            .error(R.drawable.ic_user_head)
-                            .placeholder(R.drawable.ic_user_head)
-                    )
-                    .into(mAvater);
-        });
-        mNicknameTextView.post(() -> mNicknameTextView.setText(element.selectFirst("nickname").text()));
-        mSignatureTextView.post(() -> mSignatureTextView.setText(element.selectFirst("membersignature").text()));
-    }
-
-    @Override
-    public void onError(Throwable throwable) {
-
-    }
+//    @Override
+//    public void onGetUserItem(Element element) {
+//        mZoomIv.post(() -> {
+//            mZoomIv.setTag(null);
+//            String memberBackground = element.selectFirst("memberbackground").text();
+//            if (!TextUtils.isEmpty(memberBackground)) {
+//                Glide.with(context).load(memberBackground)
+//                        .apply(new RequestOptions()
+//                                .error(R.drawable.bg_member_default)
+//                                .placeholder(R.drawable.bg_member_default)
+//                        )
+//                        .into(mZoomIv);
+//            }
+//            mZoomIv.setTag("overScroll");
+//        });
+//        mAvater.post(() -> {
+//            Glide.with(mAvater)
+//                    .load(element.selectFirst("memberavatar").text())
+//                    .apply(new RequestOptions()
+//                            .error(R.drawable.ic_user_head)
+//                            .placeholder(R.drawable.ic_user_head)
+//                    )
+//                    .into(mAvater);
+//        });
+//        mNicknameTextView.post(() -> mNicknameTextView.setText(element.selectFirst("nickname").text()));
+//        mSignatureTextView.post(() -> mSignatureTextView.setText(element.selectFirst("membersignature").text()));
+//    }
+//
+//    @Override
+//    public void onError(Throwable throwable) {
+//
+//    }
 }

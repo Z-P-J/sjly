@@ -69,69 +69,97 @@
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="bottom"
                                 android:layout_marginTop="100dp"
-                                android:gravity="center_horizontal"
                                 android:orientation="vertical">
+<!--                                android:gravity="center_horizontal"-->
 
-                                <com.shehuan.niv.NiceImageView
-                                    android:id="@+id/iv_avatar"
-                                    android:layout_width="64dp"
-                                    android:layout_height="64dp"
-                                    android:src="@mipmap/ic_launcher"
-                                    app:border_color="@color/gray"
-                                    app:border_width="2dp"
-                                    app:is_circle="true" />
+<!--                                <com.shehuan.niv.NiceImageView-->
+<!--                                    android:id="@+id/iv_avatar"-->
+<!--                                    android:layout_width="64dp"-->
+<!--                                    android:layout_height="64dp"-->
+<!--                                    android:src="@mipmap/ic_launcher"-->
+<!--                                    app:border_color="@color/gray"-->
+<!--                                    app:border_width="2dp"-->
+<!--                                    app:is_circle="true" />-->
+
+                                <FrameLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="center_vertical">
+
+                                    <com.shehuan.niv.NiceImageView
+                                        android:id="@+id/iv_avatar"
+                                        android:layout_width="64dp"
+                                        android:layout_height="64dp"
+                                        android:src="@mipmap/ic_launcher"
+                                        android:layout_marginStart="16dp"
+                                        android:layout_gravity="center_vertical"
+                                        app:border_color="@color/gray"
+                                        app:border_width="2dp"
+                                        app:is_circle="true" />
+
+                                    <LinearLayout
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:orientation="horizontal"
+                                        android:layout_marginEnd="16dp"
+                                        android:layout_gravity="end|center_vertical"
+                                        >
+
+                                        <TextView
+                                            android:id="@+id/tv_follow"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:layout_gravity="center_vertical"
+                                            android:layout_marginEnd="4dp"
+                                            android:background="@drawable/bg_button_round_red"
+                                            android:gravity="center"
+                                            android:text="关注"
+                                            android:textColor="@android:color/white" />
+
+                                        <com.zpj.widget.tinted.TintedImageView
+                                            android:id="@+id/iv_chat"
+                                            android:layout_width="36dp"
+                                            android:layout_height="36dp"
+                                            android:padding="6dp"
+                                            android:layout_gravity="center_vertical"
+                                            android:background="@drawable/grey_shape"
+                                            android:src="@drawable/ic_email_black_24dp"
+                                            android:gravity="center"
+                                            android:tint="@color/white"
+                                            />
+
+                                    </LinearLayout>
+
+                                </FrameLayout>
 
                                 <TextView
                                     android:id="@+id/tv_name"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
-                                    android:gravity="center"
-                                    android:padding="8dp"
+                                    android:gravity="center_vertical"
                                     android:text="Z-P-J"
                                     android:textColor="@color/white"
                                     android:textSize="18sp"
-                                    android:textStyle="bold" />
+                                    android:textStyle="bold"
+                                    android:layout_marginStart="16dp"
+                                    android:layout_marginTop="8dp"
+                                    android:layout_marginEnd="16dp"
+                                    android:layout_marginBottom="8dp"
+                                    />
 
                                 <TextView
                                     android:id="@+id/tv_info"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
-                                    android:gravity="center"
-                                    android:padding="8dp"
+                                    android:gravity="center_vertical"
                                     android:text="5年1天前加入乐园(L37)"
                                     android:textColor="@color/white"
                                     android:textSize="12sp"
-                                    android:textStyle="bold" />
-
-                                <LinearLayout
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:orientation="horizontal"
-                                    android:padding="8dp"
-                                    >
-
-                                    <TextView
-                                        android:id="@+id/tv_talk"
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:layout_gravity="center_vertical"
-                                        android:background="@drawable/selector_stroke_roundcir"
-                                        android:gravity="center"
-                                        android:text="私信"
-                                        android:textColor="@color/colorBlack333" />
-
-                                    <TextView
-                                        android:id="@+id/tv_follow"
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:layout_gravity="center_vertical"
-                                        android:layout_marginStart="15dp"
-                                        android:background="@drawable/selector_stroke_roundredcir"
-                                        android:gravity="center"
-                                        android:text="关注"
-                                        android:textColor="@android:color/white" />
-
-                                </LinearLayout>
+                                    android:textStyle="bold"
+                                    android:layout_marginStart="16dp"
+                                    android:layout_marginEnd="16dp"
+                                    android:layout_marginBottom="16dp"
+                                    />
 
                             </LinearLayout>
                         </android.support.design.widget.CollapsingToolbarLayout>
@@ -163,72 +191,28 @@
             <android.support.v7.widget.Toolbar
                 android:id="@+id/layout_toolbar"
                 android:layout_width="match_parent"
-                android:layout_height="?attr/actionBarSize"
+                android:layout_height="wrap_content"
                 android:layout_marginBottom="0dp"
                 android:background="@android:color/transparent"
                 android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
                 app:contentInsetStart="0dp"
                 app:layout_collapseMode="pin">
 
-                <LinearLayout
+                <com.zpj.widget.toolbar.ZToolBar
+                    android:id="@+id/tool_bar"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:gravity="center_vertical"
-                    android:orientation="horizontal">
-
-                    <com.zpj.widget.tinted.TintedImageView
-                        android:id="@+id/iv_back"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:src="@drawable/ic_back"
-                        app:tint="@color/white"
-                        android:padding="16dp"
-                        />
-
-
-                    <android.support.v7.widget.ButtonBarLayout
-                        android:id="@+id/layout_button_bar"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:layout_weight="1"
-                        android:gravity="center">
-
-                        <com.shehuan.niv.NiceImageView
-                            android:id="@+id/toolbar_avatar"
-                            android:layout_width="32dp"
-                            android:layout_height="32dp"
-                            android:layout_marginEnd="4dp"
-                            android:src="@mipmap/ic_launcher"
-                            app:is_circle="true"
-                            app:border_width="1dp"
-                            app:border_color="@color/gray"
-                            />
-
-                        <TextView
-                            android:id="@+id/toolbar_name"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:maxLines="1"
-                            android:text="Z-P-J"
-                            android:textColor="@color/white"
-                            android:textSize="16sp" />
-
-
-                    </android.support.v7.widget.ButtonBarLayout>
-
-                    <com.zpj.widget.tinted.TintedImageView
-                        android:id="@+id/iv_menu"
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:layout_gravity="end"
-                        android:src="@drawable/ic_more_vert_grey_24dp"
-                        android:padding="16dp"
-                        app:tint="@color/white"
-                        />
-
-                </LinearLayout>
+                    app:z_toolbar_fillStatusBar="true"
+                    app:z_toolbar_statusBarColor="@color/transparent"
+                    app:z_toolbar_titleBarColor="@color/transparent"
+                    app:z_toolbar_isLightStyle="true"
+                    app:z_toolbar_leftType="imageButton"
+                    app:z_toolbar_leftImageResource="@drawable/ic_arrow_back_white_24dp"
+                    app:z_toolbar_centerType="customView"
+                    app:z_toolbar_centerCustomView="@layout/layout_profile_header"
+                    app:z_toolbar_rightType="imageButton"
+                    app:z_toolbar_rightImageResource="@drawable/ic_more_vert_grey_24dp"
+                    />
 
             </android.support.v7.widget.Toolbar>
 
@@ -236,7 +220,7 @@
                 android:id="@+id/magic_indicator_title"
                 android:layout_width="match_parent"
                 android:layout_height="38dp"
-                android:layout_below="@+id/toolbar"
+                android:layout_below="@+id/layout_toolbar"
                 android:background="@color/white"
                 android:visibility="gone"
                 app:layout_collapseMode="pin" />

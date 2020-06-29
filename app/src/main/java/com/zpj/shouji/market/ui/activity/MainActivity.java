@@ -19,6 +19,7 @@ import com.zpj.fragmentation.anim.FragmentAnimator;
 import com.zpj.popup.ZPopup;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.api.HttpPreLoader;
+import com.zpj.shouji.market.event.StartFragmentEvent;
 import com.zpj.shouji.market.manager.AppInstalledManager;
 import com.zpj.shouji.market.manager.AppUpdateManager;
 import com.zpj.shouji.market.manager.UserManager;
@@ -28,6 +29,7 @@ import com.zpj.utils.StatusBarUtils;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import site.gemus.openingstartanimation.NormalDrawStrategy;
 import site.gemus.openingstartanimation.OpeningStartAnimation;
@@ -135,6 +137,11 @@ public class MainActivity extends SupportActivity {
     @Subscribe
     public void startFragment(SupportFragment fragment) {
         start(fragment);
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onStartFragmentEvent(StartFragmentEvent event) {
+        start(event.getFragment());
     }
 
 }

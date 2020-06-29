@@ -23,6 +23,7 @@ import com.daimajia.swipe.SwipeLayout;
 import com.zpj.fragmentation.BaseFragment;
 import com.zpj.fragmentation.anim.DefaultHorizontalAnimator;
 import com.zpj.shouji.market.R;
+import com.zpj.shouji.market.event.StartFragmentEvent;
 import com.zpj.shouji.market.glide.blur.BlurTransformation2;
 import com.zpj.shouji.market.ui.widget.PercentImageView;
 
@@ -42,6 +43,10 @@ public class AboutMeFragment extends BaseFragment {
     RelativeLayout rl_reward;
     PercentImageView piv_qq_qrcode;
     PercentImageView piv_wx_qrcode;
+
+    public static void start() {
+        StartFragmentEvent.start(new AboutMeFragment());
+    }
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {

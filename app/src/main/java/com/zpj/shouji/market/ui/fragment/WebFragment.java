@@ -19,6 +19,7 @@ import com.just.agentweb.IAgentWebSettings;
 import com.zpj.fragmentation.BaseFragment;
 import com.zpj.popup.ZPopup;
 import com.zpj.shouji.market.R;
+import com.zpj.shouji.market.event.StartFragmentEvent;
 
 public class WebFragment extends BaseFragment {
 
@@ -27,22 +28,24 @@ public class WebFragment extends BaseFragment {
 
     private AgentWeb mAgentWeb;
 
-    public static WebFragment newInstance(String url) {
-        Bundle args = new Bundle();
-        args.putString(KEY_URL, url);
-        WebFragment fragment = new WebFragment();
-        fragment.setArguments(args);
-        return fragment;
-    }
-
-    public static WebFragment newInstance(String url, String title) {
+    public static void start(String url, String title) {
         Bundle args = new Bundle();
         args.putString(KEY_URL, url);
         args.putString(KEY_TITLE, title);
         WebFragment fragment = new WebFragment();
         fragment.setArguments(args);
-        return fragment;
+        StartFragmentEvent.start(fragment);
     }
+
+    public static void start(String url) {
+        start(url, url);
+    }
+
+    public static void shareHomepage(String id) {
+        start("https://www.shouji.com.cn/user/" + id + "/home.html");
+    }
+
+
 
     @Override
     protected int getLayoutId() {

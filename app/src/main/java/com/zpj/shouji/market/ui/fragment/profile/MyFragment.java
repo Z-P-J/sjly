@@ -157,6 +157,7 @@ public class MyFragment extends BaseFragment
     @Override
     public void onSupportVisible() {
         super.onSupportVisible();
+        lightStatusBar();
         if (loginPopup != null && !loginPopup.isShow()) {
             loginPopup.show();
         }
@@ -165,6 +166,7 @@ public class MyFragment extends BaseFragment
     @Override
     public void onSupportInvisible() {
         super.onSupportInvisible();
+        darkStatusBar();
         if (loginPopup != null && loginPopup.isShow()) {
             loginPopup.hide();
         }
@@ -187,7 +189,7 @@ public class MyFragment extends BaseFragment
                     AToast.normal(title);
                     switch (position) {
                         case 0:
-                            _mActivity.start(WebFragment.newInstance("https://www.shouji.com.cn/user/5544802/home.html"));
+                            WebFragment.shareHomepage(UserManager.getInstance().getUserId());
                             break;
                         case 1:
                             break;

@@ -7,6 +7,7 @@ import com.bumptech.glide.Glide;
 import com.zpj.http.parser.html.nodes.Element;
 import com.zpj.recyclerview.EasyViewHolder;
 import com.zpj.shouji.market.R;
+import com.zpj.shouji.market.event.StartFragmentEvent;
 import com.zpj.shouji.market.model.CollectionInfo;
 import com.zpj.shouji.market.ui.fragment.base.NextUrlFragment;
 import com.zpj.shouji.market.ui.fragment.search.SearchResultFragment;
@@ -29,7 +30,7 @@ public class CollectionListFragment extends NextUrlFragment<CollectionInfo>
     }
 
     public static void start(String defaultUrl) {
-        EventBus.getDefault().post(newInstance(defaultUrl));
+        StartFragmentEvent.start(newInstance(defaultUrl));
     }
 
     @Override

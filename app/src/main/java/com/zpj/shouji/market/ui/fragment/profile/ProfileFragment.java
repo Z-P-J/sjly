@@ -4,6 +4,7 @@ import android.content.Context;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CollapsingToolbarLayout;
@@ -18,6 +19,7 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -30,17 +32,29 @@ import com.scwang.smartrefresh.layout.listener.SimpleMultiPurposeListener;
 import com.scwang.smartrefresh.layout.util.DensityUtil;
 import com.shehuan.niv.NiceImageView;
 import com.zpj.fragmentation.BaseFragment;
+import com.zpj.http.core.IHttp;
+import com.zpj.http.parser.html.nodes.Document;
 import com.zpj.http.parser.html.nodes.Element;
 import com.zpj.popup.ZPopup;
+import com.zpj.popup.core.AttachPopup;
+import com.zpj.popup.impl.AlertPopup;
+import com.zpj.popup.impl.AttachListPopup;
+import com.zpj.popup.interfaces.OnConfirmListener;
 import com.zpj.shouji.market.R;
+import com.zpj.shouji.market.api.HttpApi;
+import com.zpj.shouji.market.event.StartFragmentEvent;
+import com.zpj.shouji.market.manager.UserManager;
 import com.zpj.shouji.market.ui.adapter.FragmentsPagerAdapter;
 import com.zpj.shouji.market.ui.behavior.AppBarLayoutOverScrollViewBehavior;
+import com.zpj.shouji.market.ui.fragment.WebFragment;
+import com.zpj.shouji.market.ui.fragment.chat.ChatFragment;
 import com.zpj.shouji.market.ui.fragment.theme.ThemeListFragment;
 import com.zpj.shouji.market.ui.widget.JudgeNestedScrollView;
 import com.zpj.shouji.market.ui.widget.RoundProgressBar;
 import com.zpj.shouji.market.ui.widget.ZViewPager;
 import com.zpj.utils.ScreenUtils;
 import com.zpj.widget.statelayout.StateLayout;
+import com.zpj.widget.tinted.TintedImageView;
 
 import net.lucode.hackware.magicindicator.MagicIndicator;
 import net.lucode.hackware.magicindicator.ViewPagerHelper;
@@ -54,26 +68,29 @@ import net.lucode.hackware.magicindicator.buildins.commonnavigator.titles.ColorT
 import java.util.ArrayList;
 import java.util.List;
 
-public class ProfileFragment extends BaseFragment implements ThemeListFragment.Callback, View.OnClickListener {
+public class ProfileFragment extends BaseFragment implements View.OnClickListener {
 
     private static final String USER_ID = "user_id";
     public static final String DEFAULT_URL = "http://tt.shouji.com.cn/app/view_member_xml_v4.jsp?versioncode=198&id=5636865";
 
-    private static final String[] TAB_TITLES = {"我的动态", "我的收藏", "我的下载", "我的好友"};
+    private static final String[] TAB_TITLES = {"动态", "收藏", "下载", "好友"};
 
     private StateLayout stateLayout;
-    private ImageView ivBack;
-    private ImageView ivMenu;
+    //    private ImageView ivBack;
+//    private ImageView ivMenu;
     private ImageView ivHeader;
     private NiceImageView ivAvater;
     private NiceImageView ivToolbarAvater;
+    private TextView tvFollow;
+    private TintedImageView ivChat;
     private TextView tvName;
     private TextView tvToolbarName;
+    private TextView tvInfo;
     private SmartRefreshLayout refreshLayout;
     private Toolbar mToolBar;
     private ViewPager mViewPager;
     private JudgeNestedScrollView scrollView;
-    private ButtonBarLayout buttonBarLayout;
+    private View buttonBarLayout;
     private MagicIndicator magicIndicator;
     private MagicIndicator magicIndicatorTitle;
     int toolBarPositionY = 0;
@@ -84,6 +101,8 @@ public class ProfileFragment extends BaseFragment implements ThemeListFragment.C
     private ThemeListFragment exploreFragment;
 
     private String userId = "5636865";
+    private boolean isMe;
+    private boolean isFriend;
 
     private int lastState = 1;
 
@@ -96,9 +115,18 @@ public class ProfileFragment extends BaseFragment implements ThemeListFragment.C
         return profileFragment;
     }
 
+    public static void start(String userId, boolean shouldLazyLoad) {
+        StartFragmentEvent.start(newInstance(userId, shouldLazyLoad));
+    }
+
     @Override
     protected int getLayoutId() {
         return R.layout.fragment_profile2;
+    }
+
+    @Override
+    protected boolean supportSwipeBack() {
+        return true;
     }
 
     @Override
@@ -107,32 +135,38 @@ public class ProfileFragment extends BaseFragment implements ThemeListFragment.C
         if (bundle != null) {
             userId = bundle.getString(USER_ID);
         } else {
-//            exploreFragment = ExploreFragment.newInstance(DEFAULT_URL, false);
-            throw new RuntimeException("bundle is null!");
+            userId = null;
         }
+        if (TextUtils.isEmpty(userId)) {
+            AToast.warning("用户不存在！");
+            pop();
+            return;
+        }
+        isMe = userId.equals(UserManager.getInstance().getUserId());
+
         stateLayout = view.findViewById(R.id.state_layout);
-        ivBack = view.findViewById(R.id.iv_back);
-        ivBack.setOnClickListener(this);
-        ivMenu = view.findViewById(R.id.iv_menu);
-        ivMenu.setOnClickListener(this);
+        tvFollow = view.findViewById(R.id.tv_follow);
+        tvFollow.setOnClickListener(this);
+        ivChat = view.findViewById(R.id.iv_chat);
+        ivChat.setOnClickListener(this);
+        if (isMe) {
+            tvFollow.setText("编辑");
+            tvFollow.setBackgroundResource(R.drawable.bg_button_round_gray);
+        }
+
         ivHeader = view.findViewById(R.id.iv_header);
         ivAvater = view.findViewById(R.id.iv_avatar);
         ivToolbarAvater = view.findViewById(R.id.toolbar_avatar);
         tvName = view.findViewById(R.id.tv_name);
         tvToolbarName = view.findViewById(R.id.toolbar_name);
+        tvInfo = view.findViewById(R.id.tv_info);
         refreshLayout = view.findViewById(R.id.layout_refresh);
         mToolBar = view.findViewById(R.id.layout_toolbar);
 
-        ViewGroup.LayoutParams lp = mToolBar.getLayoutParams();
-        if (lp != null && lp.height > 0) {
-            lp.height += ScreenUtils.getStatusBarHeight(context);
-        }
-        mToolBar.setPadding(mToolBar.getPaddingLeft(), mToolBar.getPaddingTop() + ScreenUtils.getStatusBarHeight(context),
-                mToolBar.getPaddingRight(), mToolBar.getPaddingBottom());
-
         mViewPager = view.findViewById(R.id.view_pager);
         scrollView = view.findViewById(R.id.scroll_view);
-        buttonBarLayout = view.findViewById(R.id.layout_button_bar);
+//        buttonBarLayout = view.findViewById(R.id.layout_button_bar);
+        buttonBarLayout = toolbar.getCenterCustomView();
         magicIndicator = view.findViewById(R.id.magic_indicator);
         magicIndicatorTitle = view.findViewById(R.id.magic_indicator_title);
 
@@ -180,13 +214,13 @@ public class ProfileFragment extends BaseFragment implements ThemeListFragment.C
                     mToolBar.setBackgroundColor(((255 * mScrollY / h) << 24) | color);
                     ivHeader.setTranslationY(mOffset - mScrollY);
                 }
-                if (scrollY == 0) {
-                    ivBack.setImageResource(R.drawable.ic_back);
-                    ivMenu.setImageResource(R.drawable.ic_more_vert_grey_24dp);
-                } else {
-                    ivBack.setImageResource(R.drawable.ic_back);
-                    ivMenu.setImageResource(R.drawable.ic_more_vert_grey_24dp);
-                }
+//                if (scrollY == 0) {
+//                    ivBack.setImageResource(R.drawable.ic_back);
+//                    ivMenu.setImageResource(R.drawable.ic_more_vert_grey_24dp);
+//                } else {
+//                    ivBack.setImageResource(R.drawable.ic_back);
+//                    ivMenu.setImageResource(R.drawable.ic_more_vert_grey_24dp);
+//                }
 
                 lastScrollY = scrollY;
             }
@@ -195,13 +229,13 @@ public class ProfileFragment extends BaseFragment implements ThemeListFragment.C
         mToolBar.setBackgroundColor(0);
 
 
-
         initViewPager();
 
         initMagicIndicator(magicIndicator);
         initMagicIndicator(magicIndicatorTitle);
 
         postDelayed(() -> stateLayout.showLoadingView(), 50);
+        getMemberInfo();
     }
 
 //    @Override
@@ -210,12 +244,99 @@ public class ProfileFragment extends BaseFragment implements ThemeListFragment.C
 ////        exploreFragment.loadData();
 //    }
 
+
+    @Override
+    public void toolbarLeftImageButton(@NonNull ImageButton imageButton) {
+        super.toolbarLeftImageButton(imageButton);
+        imageButton.setOnClickListener(v -> pop());
+    }
+
+    @Override
+    public void toolbarRightImageButton(@NonNull ImageButton imageButton) {
+        super.toolbarRightImageButton(imageButton);
+        imageButton.setOnClickListener(v -> {
+            AttachListPopup<String> popup = ZPopup.attachList(context);
+            popup.addItem("分享主页");
+            if (!isMe) {
+                popup.addItem("加入黑名单");
+                popup.addItem("举报Ta");
+            }
+            popup.setOnSelectListener((position, title) -> {
+                        switch (position) {
+                            case 0:
+                                WebFragment.shareHomepage(userId);
+                            case 1:
+                                HttpApi.addBlacklistApi(userId)
+                                        .onSuccess(data -> {
+                                            String info = data.selectFirst("info").text();
+                                            if ("success".equals(data.selectFirst("result").text())) {
+                                                AToast.success(info);
+                                            } else {
+                                                AToast.error(info);
+                                            }
+                                        })
+                                        .onError(throwable -> AToast.error(throwable.getMessage()))
+                                        .subscribe();
+                            case 2:
+                                AToast.warning("TODO");
+                                break;
+                        }
+                    })
+                    .show(imageButton);
+        });
+    }
+
+    private void getMemberInfo() {
+        HttpApi.getMemberInfoApi(userId)
+                .onSuccess(element -> {
+                    Log.d("onGetUserItem", "element=" + element);
+                    isFriend = "1".equals(element.selectFirst("isfriend").text());
+                    if (isFriend) {
+                        tvFollow.setText("已关注");
+                    } else {
+                        ivChat.setVisibility(View.GONE);
+                    }
+                    String memberBackground = element.selectFirst("memberbackground").text();
+                    if (!TextUtils.isEmpty(memberBackground)) {
+                        Glide.with(context).load(memberBackground)
+                                .apply(new RequestOptions()
+                                        .error(R.drawable.bg_member_default)
+                                        .placeholder(R.drawable.bg_member_default)
+                                )
+                                .into(ivHeader);
+                    }
+                    String url = element.selectFirst("memberavatar").text();
+                    RequestOptions options = new RequestOptions()
+                            .error(R.drawable.ic_user_head)
+                            .placeholder(R.drawable.ic_user_head);
+                    Glide.with(context)
+                            .load(url)
+                            .apply(options)
+                            .into(ivAvater);
+                    Glide.with(context)
+                            .load(url)
+                            .apply(options)
+                            .into(ivToolbarAvater);
+
+                    String nickName = element.selectFirst("nickname").text();
+                    tvName.setText(nickName);
+                    tvToolbarName.setText(nickName);
+                    tvInfo.setText(element.selectFirst("membersignature").text());
+
+                    postOnEnterAnimationEnd(() -> stateLayout.showContentView());
+                })
+                .onError(throwable -> {
+                    pop();
+                    AToast.error(throwable.getMessage());
+                })
+                .subscribe();
+    }
+
     private void initViewPager() {
         exploreFragment = findChildFragment(ThemeListFragment.class);
         if (exploreFragment == null) {
             exploreFragment = ThemeListFragment.newInstance("http://tt.shouji.com.cn/app/view_member_xml_v4.jsp?versioncode=198&id=" + userId, true);
         }
-        exploreFragment.setCallback(this);
         exploreFragment.setEnableSwipeRefresh(false);
         fragments.add(exploreFragment);
         fragments.add(new Fragment());
@@ -273,22 +394,6 @@ public class ProfileFragment extends BaseFragment implements ThemeListFragment.C
         ViewPagerHelper.bind(magicIndicator, mViewPager);
     }
 
-//    private void initStatus() {
-//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {//4.4以下不支持状态栏变色
-//            //注意了，这里使用了第三方库 StatusBarUtil，目的是改变状态栏的alpha
-////            StatusBarUtil.setTransparentForImageView(getActivity(), null);
-//            //这里是重设我们的title布局的topMargin，StatusBarUtil提供了重设的方法，但是我们这里有两个布局
-//            //TODO 关于为什么不把Toolbar和@layout/layout_uc_head_title放到一起，是因为需要Toolbar来占位，防止AppBarLayout折叠时将title顶出视野范围
-//            int statusBarHeight = ScreenUtils.getStatusBarHeight(getContext());
-////            CollapsingToolbarLayout.LayoutParams lp1 = (CollapsingToolbarLayout.LayoutParams) titleContainer.getLayoutParams();
-////            lp1.topMargin = statusBarHeight;
-////            titleContainer.setLayoutParams(lp1);
-//            CollapsingToolbarLayout.LayoutParams lp2 = (CollapsingToolbarLayout.LayoutParams) mToolBar.getLayoutParams();
-//            lp2.topMargin = statusBarHeight;
-//            mToolBar.setLayoutParams(lp2);
-//        }
-//    }
-
     private void dealWithViewPager() {
         toolBarPositionY = mToolBar.getHeight();
         ViewGroup.LayoutParams params = mViewPager.getLayoutParams();
@@ -297,66 +402,49 @@ public class ProfileFragment extends BaseFragment implements ThemeListFragment.C
     }
 
     @Override
-    public void onGetUserItem(Element element) {
-        ivHeader.post(() -> {
-            String memberBackground = element.selectFirst("memberbackground").text();
-            if (!TextUtils.isEmpty(memberBackground)) {
-                Glide.with(context).load(memberBackground)
-                        .apply(new RequestOptions()
-                                .error(R.drawable.bg_member_default)
-                                .placeholder(R.drawable.bg_member_default)
-                        )
-                        .into(ivHeader);
-            }
-
-        });
-        ivAvater.post(() -> {
-            String url = element.selectFirst("memberavatar").text();
-            RequestOptions options = new RequestOptions()
-                    .error(R.drawable.ic_user_head)
-                    .placeholder(R.drawable.ic_user_head);
-            Glide.with(context)
-                    .load(url)
-                    .apply(options)
-                    .into(ivAvater);
-            Glide.with(context)
-                    .load(url)
-                    .apply(options)
-                    .into(ivToolbarAvater);
-        });
-        tvName.post(() -> {
-            String nickName = element.selectFirst("nickname").text();
-            tvName.setText(nickName);
-            tvToolbarName.setText(nickName);
-        });
-        postDelayed(() -> stateLayout.post(() -> stateLayout.showContentView()), 500);
-//        mSignatureTextView.post(() -> mSignatureTextView.setText(element.selectFirst("membersignature").text()));
-    }
-
-    @Override
-    public void onError(Throwable throwable) {
-        stateLayout.showErrorView(throwable.getMessage());
-    }
-
-    @Override
     public void onClick(View v) {
-        if (v == ivBack) {
-            pop();
-        } else if (v == ivMenu){
-            ZPopup.attachList(context)
-                    .addItem("加入黑名单")
-                    .addItem("分享主页")
-                    .addItem("举报Ta")
-                    .setOnSelectListener((position, title) -> {
-                        switch (position) {
-                            case 0:
-                            case 1:
-                            case 2:
-                                AToast.warning("TODO");
-                                break;
-                        }
-                    })
-                    .show(ivMenu);
+        if (v == ivChat) {
+            ChatFragment.start();
+        } else if (v == tvFollow) {
+            if (isMe) {
+                AToast.normal("编辑");
+            } else if (isFriend) {
+                ZPopup.alert(context)
+                        .setTitle("取消关注")
+                        .setContent("确定取消关注该用户？")
+                        .setConfirmButton(popup -> HttpApi.deleteFriendApi(userId)
+                                .onSuccess(data -> {
+                                    Log.d("deleteFriendApi", "data=" + data);
+                                    String result = data.selectFirst("result").text();
+                                    if ("success".equals(result)) {
+                                        AToast.success("取消关注成功");
+                                        tvFollow.setText("关注");
+                                        ivChat.setVisibility(View.GONE);
+                                        isFriend = false;
+                                    } else {
+                                        AToast.error(data.selectFirst("info").text());
+                                    }
+                                })
+                                .onError(throwable -> AToast.error(throwable.getMessage()))
+                                .subscribe())
+                        .show();
+            } else {
+                HttpApi.addFriendApi(userId)
+                        .onSuccess(data -> {
+                            Log.d("addFriendApi", "data=" + data);
+                            String result = data.selectFirst("result").text();
+                            if ("success".equals(result)) {
+                                AToast.success("关注成功");
+                                tvFollow.setText("已关注");
+                                ivChat.setVisibility(View.VISIBLE);
+                                isFriend = true;
+                            } else {
+                                AToast.error(data.selectFirst("info").text());
+                            }
+                        })
+                        .onError(throwable -> AToast.error(throwable.getMessage()))
+                        .subscribe();
+            }
         }
     }
 }

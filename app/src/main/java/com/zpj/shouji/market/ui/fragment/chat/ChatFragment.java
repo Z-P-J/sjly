@@ -11,6 +11,7 @@ import com.felix.atoast.library.AToast;
 import com.zpj.matisse.Matisse;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.database.ChatManager;
+import com.zpj.shouji.market.event.StartFragmentEvent;
 import com.zpj.shouji.market.model.ChatMessageBean;
 import com.zpj.shouji.market.ui.adapter.ChatRecyclerAdapter;
 import com.zpj.shouji.market.ui.animator.SlideInOutBottomItemAnimator;
@@ -54,6 +55,10 @@ public class ChatFragment extends BaseFragment implements ChatPanel.OnOperationL
     int i = 0;
 
     private KeyboardHeightProvider keyboardHeightProvider;
+
+    public static void start() {
+        StartFragmentEvent.start(new ChatFragment());
+    }
 
     @Override
     protected int getLayoutId() {

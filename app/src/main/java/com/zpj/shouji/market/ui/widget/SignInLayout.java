@@ -84,7 +84,7 @@ public class SignInLayout extends LinearLayout
                        public void onClick(View widget) {
                            widget.setTag(true);
                            Log.d("widget", "widget=" + widget);
-                           ((SupportActivity)context).start(WebFragment.newInstance(getURL()));
+                           WebFragment.start(getURL());
                        }
                    }, index1, index1 + 4,
                 Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
@@ -93,7 +93,7 @@ public class SignInLayout extends LinearLayout
                        public void onClick(View widget) {
                            widget.setTag(true);
                            Log.d("widget", "widget=" + widget);
-                           ((SupportActivity)context).start(WebFragment.newInstance(getURL()));
+                           WebFragment.start(getURL());
                        }
                    }, index2, index2 + 4,
                 Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);

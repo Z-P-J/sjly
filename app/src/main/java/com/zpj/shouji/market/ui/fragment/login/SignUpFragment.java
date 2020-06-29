@@ -74,7 +74,7 @@ public class SignUpFragment extends BaseFragment
                        public void onClick(View widget) {
                            widget.setTag(true);
                            Log.d("widget", "widget=" + widget);
-                           _mActivity.start(WebFragment.newInstance(getURL()));
+                           WebFragment.start(getURL());
                        }
                    }, index1, index1 + 4,
                 Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
@@ -83,7 +83,7 @@ public class SignUpFragment extends BaseFragment
                        public void onClick(View widget) {
                            widget.setTag(true);
                            Log.d("widget", "widget=" + widget);
-                           _mActivity.start(WebFragment.newInstance(getURL()));
+                           WebFragment.start(getURL());
                        }
                    }, index2, index2 + 4,
                 Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
