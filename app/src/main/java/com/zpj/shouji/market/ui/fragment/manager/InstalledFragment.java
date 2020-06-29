@@ -181,9 +181,7 @@ public class InstalledFragment extends RecyclerLayoutFragment<InstalledAppInfo>
         if (TextUtils.isEmpty(data.getId()) || TextUtils.isEmpty(data.getAppType())) {
             return;
         }
-        if (getActivity() instanceof SupportActivity) {
-            _mActivity.start(AppDetailFragment.newInstance(data));
-        }
+        AppDetailFragment.start(data);
     }
 
     @Override

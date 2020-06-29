@@ -58,7 +58,7 @@ public class CollectionListFragment extends NextUrlFragment<CollectionInfo>
     @Override
     public void onClick(EasyViewHolder holder, View view, CollectionInfo data) {
         super.onClick(holder, view, data);
-        EventBus.getDefault().post(CollectionDetailFragment.newInstance(data));
+        CollectionDetailFragment.start(data);
     }
 
     @Override

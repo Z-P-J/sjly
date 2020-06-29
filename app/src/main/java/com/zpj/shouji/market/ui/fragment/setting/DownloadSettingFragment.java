@@ -5,11 +5,16 @@ import android.support.annotation.Nullable;
 import android.view.View;
 
 import com.zpj.shouji.market.R;
+import com.zpj.shouji.market.event.StartFragmentEvent;
 import com.zpj.widget.setting.CheckableSettingItem;
 import com.zpj.widget.setting.CommonSettingItem;
 import com.zpj.widget.setting.SwitchSettingItem;
 
 public class DownloadSettingFragment extends BaseSettingFragment {
+
+    public static void start() {
+        StartFragmentEvent.start(new DownloadSettingFragment());
+    }
 
     @Override
     protected int getLayoutId() {

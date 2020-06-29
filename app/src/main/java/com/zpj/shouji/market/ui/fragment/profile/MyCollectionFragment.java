@@ -11,6 +11,7 @@ import com.zpj.fragmentation.BaseFragment;
 import com.zpj.fragmentation.SupportFragment;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.api.HttpApi;
+import com.zpj.shouji.market.event.StartFragmentEvent;
 import com.zpj.shouji.market.manager.UserManager;
 import com.zpj.shouji.market.ui.adapter.FragmentsPagerAdapter;
 import com.zpj.shouji.market.ui.fragment.AppListFragment;
@@ -36,6 +37,10 @@ public class MyCollectionFragment extends BaseFragment {
     private static final String[] TAB_TITLES = {"应用", "应用集", "发现", "乐图", "评论", "专题", "攻略", "教程"};
 
     protected ViewPager viewPager;
+
+    public static void start() {
+        StartFragmentEvent.start(new MyCollectionFragment());
+    }
 
     @Override
     protected int getLayoutId() {

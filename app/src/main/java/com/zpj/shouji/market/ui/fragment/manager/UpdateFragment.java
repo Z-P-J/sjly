@@ -139,7 +139,7 @@ public class UpdateFragment extends RecyclerLayoutFragment<AppUpdateInfo>
 
     @Override
     public void onClick(EasyViewHolder holder, View view, AppUpdateInfo data) {
-        _mActivity.start(AppDetailFragment.newInstance(data));
+        AppDetailFragment.start(data);
     }
 
     @Override

@@ -10,6 +10,7 @@ import android.view.View;
 
 import com.zpj.recyclerview.EasyViewHolder;
 import com.zpj.shouji.market.R;
+import com.zpj.shouji.market.event.StartFragmentEvent;
 import com.zpj.shouji.market.model.DiscoverInfo;
 import com.zpj.shouji.market.ui.adapter.DiscoverBinder;
 import com.zpj.shouji.market.ui.adapter.FragmentsPagerAdapter;
@@ -38,12 +39,12 @@ public class ThemeDetailFragment extends BaseFragment {
 
     private DiscoverInfo item;
 
-    public static ThemeDetailFragment newInstance(DiscoverInfo item) {
+    public static void start(DiscoverInfo item) {
         Bundle args = new Bundle();
         ThemeDetailFragment fragment = new ThemeDetailFragment();
         fragment.setDiscoverInfo(item);
         fragment.setArguments(args);
-        return fragment;
+        StartFragmentEvent.start(fragment);
     }
 
     @Override

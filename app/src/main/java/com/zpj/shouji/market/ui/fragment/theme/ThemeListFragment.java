@@ -123,7 +123,7 @@ public class ThemeListFragment extends NextUrlFragment<DiscoverInfo>
     protected void buildRecyclerLayout(EasyRecyclerLayout<DiscoverInfo> recyclerLayout) {
         recyclerLayout.setEnableSwipeRefresh(enableSwipeRefresh)
                 .onViewClick(R.id.item_icon, (holder, view, data) -> {
-                    _mActivity.start(ProfileFragment.newInstance(data.getMemberId(), false));
+                    ProfileFragment.start(data.getMemberId(), false);
                 });
     }
 
@@ -142,9 +142,9 @@ public class ThemeListFragment extends NextUrlFragment<DiscoverInfo>
 //            for (String url : data.getSharePics()) {
 //                info.addIcon(url);
 //            }
-            _mActivity.start(CollectionDetailFragment.newInstance(info));
+            CollectionDetailFragment.start(info);
         } else {
-            _mActivity.start(ThemeDetailFragment.newInstance(data));
+            ThemeDetailFragment.start(data);
         }
     }
 
@@ -156,7 +156,7 @@ public class ThemeListFragment extends NextUrlFragment<DiscoverInfo>
 
     @Override
     public void updateKeyword(String keyword) {
-        defaultUrl = "http://tt.shouji.com.cn/app/faxian.jsp?versioncode=198&s=" + keyword;
+        defaultUrl = "http://tt.shouji.com.cn/app/faxian.jsp?s=" + keyword;
         nextUrl = defaultUrl;
         if (isLazyInit) {
             onRefresh();

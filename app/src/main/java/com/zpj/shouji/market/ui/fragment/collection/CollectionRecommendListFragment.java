@@ -7,23 +7,19 @@ import android.view.View;
 import com.zpj.http.parser.html.nodes.Element;
 import com.zpj.recyclerview.EasyViewHolder;
 import com.zpj.shouji.market.R;
+import com.zpj.shouji.market.event.StartFragmentEvent;
 import com.zpj.shouji.market.model.CollectionInfo;
 
 import org.greenrobot.eventbus.EventBus;
 
 public class CollectionRecommendListFragment extends CollectionListFragment {
 
-
-    public static CollectionRecommendListFragment newInstance(String defaultUrl) {
+    public static void start(String defaultUrl) {
         Bundle args = new Bundle();
         args.putString(KEY_DEFAULT_URL, defaultUrl);
         CollectionRecommendListFragment fragment = new CollectionRecommendListFragment();
         fragment.setArguments(args);
-        return fragment;
-    }
-
-    public static void start(String defaultUrl) {
-        EventBus.getDefault().post(newInstance(defaultUrl));
+        StartFragmentEvent.start(fragment);
     }
 
     @Override

@@ -48,7 +48,7 @@ public class RecommendBanner extends LinearLayout implements View.OnClickListene
         mMZBanner.setBannerPageClickListener(new MZBannerView.BannerPageClickListener() {
             @Override
             public void onPageClick(View view, int i) {
-                EventBus.getDefault().post(AppDetailFragment.newInstance(bannerItemList.get(i)));
+                AppDetailFragment.start(bannerItemList.get(i));
             }
         });
 

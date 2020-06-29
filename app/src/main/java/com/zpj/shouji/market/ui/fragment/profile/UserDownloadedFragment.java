@@ -16,7 +16,7 @@ import java.util.List;
 public class UserDownloadedFragment extends NextUrlFragment<UserDownloadedAppInfo> {
 
     private static final String KEY_ID = "key_id";
-    private static final String DEFAULT_URL = "http://tt.shouji.com.cn/app/view_member_down_xml_v2.jsp?versioncode=198&id=5636865";
+    private static final String DEFAULT_URL = "http://tt.shouji.com.cn/app/view_member_down_xml_v2.jsp?id=5636865";
 
     public static UserDownloadedFragment newInstance(String id) {
         Bundle args = new Bundle();
@@ -40,13 +40,13 @@ public class UserDownloadedFragment extends NextUrlFragment<UserDownloadedAppInf
 
     @Override
     protected void handleArguments(Bundle arguments) {
-        defaultUrl = "http://tt.shouji.com.cn/app/view_member_down_xml_v2.jsp?versioncode=198&id=" + arguments.getString(KEY_ID, "5636865");
+        defaultUrl = "http://tt.shouji.com.cn/app/view_member_down_xml_v2.jsp?id=" + arguments.getString(KEY_ID, "5636865");
         nextUrl = defaultUrl;
     }
 
     @Override
     public void onClick(EasyViewHolder holder, View view, UserDownloadedAppInfo data) {
-        _mActivity.start(AppDetailFragment.newInstance(data));
+        AppDetailFragment.start(data);
     }
 
     @Override

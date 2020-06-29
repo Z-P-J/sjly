@@ -15,6 +15,7 @@ import com.zpj.markdown.MarkdownEditorFragment;
 import com.zpj.markdown.MarkdownViewFragment;
 import com.zpj.popup.ZPopup;
 import com.zpj.shouji.market.R;
+import com.zpj.shouji.market.event.StartFragmentEvent;
 import com.zpj.shouji.market.ui.adapter.FragmentsPagerAdapter;
 
 import java.util.ArrayList;
@@ -25,6 +26,10 @@ public class DiscoverEditorFragment2 extends BaseFragment {
     protected ViewPager viewPager;
     private MarkdownEditorFragment editorFragment;
     private MarkdownViewFragment viewFragment;
+
+    public static void start() {
+        StartFragmentEvent.start(new DiscoverEditorFragment2());
+    }
 
     @Override
     protected int getLayoutId() {

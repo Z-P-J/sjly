@@ -44,7 +44,7 @@ import java.util.List;
 public class ProfileFragment_bak extends BaseFragment {
 
     private static final String USER_ID = "user_id";
-    public static final String DEFAULT_URL = "http://tt.shouji.com.cn/app/view_member_xml_v4.jsp?versioncode=198&id=5636865";
+    public static final String DEFAULT_URL = "http://tt.shouji.com.cn/app/view_member_xml_v4.jsp?id=5636865";
 
     private static final String[] TAB_TITLES = {"我的动态", "我的收藏", "我的下载", "我的好友"};
 
@@ -121,7 +121,7 @@ public class ProfileFragment_bak extends BaseFragment {
     private void initTab() {
         exploreFragment = findChildFragment(ThemeListFragment.class);
         if (exploreFragment == null) {
-            exploreFragment = ThemeListFragment.newInstance("http://tt.shouji.com.cn/app/view_member_xml_v4.jsp?versioncode=198&id=" + userId, true);
+            exploreFragment = ThemeListFragment.newInstance("http://tt.shouji.com.cn/app/view_member_xml_v4.jsp?id=" + userId, true);
         }
 //        exploreFragment.setCallback(this);
         exploreFragment.setEnableSwipeRefresh(false);

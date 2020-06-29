@@ -71,7 +71,7 @@ import java.util.List;
 public class ProfileFragment extends BaseFragment implements View.OnClickListener {
 
     private static final String USER_ID = "user_id";
-    public static final String DEFAULT_URL = "http://tt.shouji.com.cn/app/view_member_xml_v4.jsp?versioncode=198&id=5636865";
+    public static final String DEFAULT_URL = "http://tt.shouji.com.cn/app/view_member_xml_v4.jsp?id=5636865";
 
     private static final String[] TAB_TITLES = {"动态", "收藏", "下载", "好友"};
 
@@ -106,17 +106,13 @@ public class ProfileFragment extends BaseFragment implements View.OnClickListene
 
     private int lastState = 1;
 
-    public static ProfileFragment newInstance(String userId, boolean shouldLazyLoad) {
+    public static void start(String userId, boolean shouldLazyLoad) {
         ProfileFragment profileFragment = new ProfileFragment();
 //        profileFragment.setShouldLazyLoad(shouldLazyLoad);
         Bundle bundle = new Bundle();
         bundle.putString(USER_ID, userId);
         profileFragment.setArguments(bundle);
-        return profileFragment;
-    }
-
-    public static void start(String userId, boolean shouldLazyLoad) {
-        StartFragmentEvent.start(newInstance(userId, shouldLazyLoad));
+        StartFragmentEvent.start(profileFragment);
     }
 
     @Override
@@ -265,6 +261,7 @@ public class ProfileFragment extends BaseFragment implements View.OnClickListene
                         switch (position) {
                             case 0:
                                 WebFragment.shareHomepage(userId);
+                                break;
                             case 1:
                                 HttpApi.addBlacklistApi(userId)
                                         .onSuccess(data -> {
@@ -277,6 +274,7 @@ public class ProfileFragment extends BaseFragment implements View.OnClickListene
                                         })
                                         .onError(throwable -> AToast.error(throwable.getMessage()))
                                         .subscribe();
+                                break;
                             case 2:
                                 AToast.warning("TODO");
                                 break;
@@ -335,7 +333,7 @@ public class ProfileFragment extends BaseFragment implements View.OnClickListene
     private void initViewPager() {
         exploreFragment = findChildFragment(ThemeListFragment.class);
         if (exploreFragment == null) {
-            exploreFragment = ThemeListFragment.newInstance("http://tt.shouji.com.cn/app/view_member_xml_v4.jsp?versioncode=198&id=" + userId, true);
+            exploreFragment = ThemeListFragment.newInstance("http://tt.shouji.com.cn/app/view_member_xml_v4.jsp?id=" + userId, true);
         }
         exploreFragment.setEnableSwipeRefresh(false);
         fragments.add(exploreFragment);

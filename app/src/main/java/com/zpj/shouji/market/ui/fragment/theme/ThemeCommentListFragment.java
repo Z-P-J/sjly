@@ -29,7 +29,7 @@ public class ThemeCommentListFragment extends ThemeListFragment {
             pop();
             return;
         }
-        defaultUrl = "http://tt.shouji.com.cn/app/comment_topic.jsp?versioncode=198&t=discuss&parent=" + rootId;
+        defaultUrl = "http://tt.tljpxm.com/app/comment_topic.jsp?t=discuss&parent=" + rootId;
         nextUrl = defaultUrl;
     }
 

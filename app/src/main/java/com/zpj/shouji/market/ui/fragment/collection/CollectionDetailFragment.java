@@ -26,6 +26,7 @@ import com.bumptech.glide.request.transition.Transition;
 import com.zpj.fragmentation.BaseFragment;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.api.HttpApi;
+import com.zpj.shouji.market.event.StartFragmentEvent;
 import com.zpj.shouji.market.model.CollectionInfo;
 import com.zpj.shouji.market.ui.adapter.FragmentsPagerAdapter;
 import com.zpj.shouji.market.ui.fragment.theme.ThemeListFragment;
@@ -75,12 +76,12 @@ public class CollectionDetailFragment extends BaseFragment {
 
     private CollectionInfo item;
 
-    public static CollectionDetailFragment newInstance(CollectionInfo item) {
+    public static void start(CollectionInfo item) {
         Bundle args = new Bundle();
         CollectionDetailFragment fragment = new CollectionDetailFragment();
         fragment.setAppCollectionItem(item);
         fragment.setArguments(args);
-        return fragment;
+        StartFragmentEvent.start(fragment);
     }
 
     @Override
@@ -139,7 +140,7 @@ public class CollectionDetailFragment extends BaseFragment {
         }
         ThemeListFragment themeListFragment = findChildFragment(ThemeListFragment.class);
         if (themeListFragment == null) {
-            themeListFragment = ThemeListFragment.newInstance("http://tt.shouji.com.cn/app/yyj_comment.jsp?versioncode=198&t=discuss&parent=" + item.getId());
+            themeListFragment = ThemeListFragment.newInstance("http://tt.shouji.com.cn/app/yyj_comment.jsp?t=discuss&parent=" + item.getId());
         }
         list.add(appListFragment);
         list.add(themeListFragment);
@@ -194,7 +195,7 @@ public class CollectionDetailFragment extends BaseFragment {
 
     private void getCollectionInfo() {
         Log.d("getCollectionInfo", "start id=" + item.getId());
-        HttpApi.connect("http://tt.shouji.com.cn/androidv3/yyj_info_xml.jsp?versioncode=198&reviewid=" + item.getId())
+        HttpApi.connect("http://tt.shouji.com.cn/androidv3/yyj_info_xml.jsp?reviewid=" + item.getId())
                 .onSuccess(doc -> {
                     Log.d("getCollectionInfo", "doc=" + doc.toString());
 //                collectionInfo.collectionId = doc.selectFirst("yyjid").text();

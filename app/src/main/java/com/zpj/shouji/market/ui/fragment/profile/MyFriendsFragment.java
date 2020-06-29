@@ -11,6 +11,7 @@ import android.view.View;
 import com.zpj.fragmentation.BaseFragment;
 import com.zpj.recyclerview.EasyViewHolder;
 import com.zpj.shouji.market.R;
+import com.zpj.shouji.market.event.StartFragmentEvent;
 import com.zpj.shouji.market.manager.UserManager;
 import com.zpj.shouji.market.model.UserInfo;
 import com.zpj.shouji.market.ui.adapter.FragmentsPagerAdapter;
@@ -35,6 +36,10 @@ public class MyFriendsFragment extends BaseFragment {
     private static final String[] TAB_TITLES = {"我关注的", "我的粉丝"};
 
     protected ViewPager viewPager;
+
+    public static void start() {
+        StartFragmentEvent.start(new MyFriendsFragment());
+    }
 
     @Override
     protected int getLayoutId() {
@@ -101,9 +106,7 @@ public class MyFriendsFragment extends BaseFragment {
 
     public static class FollowersFragment extends UserListFragment {
         public static FollowersFragment newInstance() {
-            String url = "http://tt.shouji.com.cn/app/user_friend_list_xml.jsp?versioncode=198&jsessionid="
-                    + UserManager.getInstance().getSessionId() + "&sn="
-                    + UserManager.getInstance().getSn();
+            String url = "http://tt.shouji.com.cn/app/user_friend_list_xml.jsp";
             Bundle args = new Bundle();
             args.putString(KEY_DEFAULT_URL, url);
             FollowersFragment fragment = new FollowersFragment();
@@ -113,16 +116,14 @@ public class MyFriendsFragment extends BaseFragment {
 
         @Override
         public void onClick(EasyViewHolder holder, View view, UserInfo data) {
-            _mActivity.start(ProfileFragment.newInstance(data.getMemberId(), true));
+            ProfileFragment.start(data.getMemberId(), true);
         }
 
     }
 
     public static class FansFragment extends UserListFragment {
         public static FansFragment newInstance() {
-            String url = "http://tt.shouji.com.cn/app/user_fensi_list_xml.jsp?versioncode=198&jsessionid="
-                    + UserManager.getInstance().getSessionId() + "&sn="
-                    + UserManager.getInstance().getSn();
+            String url = "http://tt.shouji.com.cn/app/user_fensi_list_xml.jsp";
             Bundle args = new Bundle();
             args.putString(KEY_DEFAULT_URL, url);
             FansFragment fragment = new FansFragment();
@@ -132,7 +133,7 @@ public class MyFriendsFragment extends BaseFragment {
 
         @Override
         public void onClick(EasyViewHolder holder, View view, UserInfo data) {
-            _mActivity.start(ProfileFragment.newInstance(data.getMemberId(), true));
+            ProfileFragment.start(data.getMemberId(), true);
         }
 
     }

@@ -36,7 +36,7 @@ public class AppListFragment extends NextUrlFragment<AppInfo>
 
     @Override
     public void onClick(EasyViewHolder holder, View view, AppInfo data) {
-        _mActivity.start(AppDetailFragment.newInstance(data));
+        AppDetailFragment.start(data);
     }
 
     @Override

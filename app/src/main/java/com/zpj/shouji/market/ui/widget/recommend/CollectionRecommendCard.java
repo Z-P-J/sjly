@@ -115,7 +115,7 @@ public class CollectionRecommendCard extends RecommendCard<CollectionInfo> {
 
     @Override
     public void onClick(EasyViewHolder holder, View view, CollectionInfo data) {
-        EventBus.getDefault().post(CollectionDetailFragment.newInstance(data));
+        CollectionDetailFragment.start(data);
     }
 
     @Override

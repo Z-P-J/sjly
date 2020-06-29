@@ -11,6 +11,7 @@ import com.zpj.fragmentation.BaseFragment;
 import com.zpj.markdown.MarkdownEditorFragment;
 import com.zpj.markdown.MarkdownViewFragment;
 import com.zpj.shouji.market.R;
+import com.zpj.shouji.market.event.StartFragmentEvent;
 import com.zpj.shouji.market.manager.UserManager;
 import com.zpj.shouji.market.ui.adapter.FragmentsPagerAdapter;
 import com.zpj.shouji.market.ui.fragment.theme.ThemeListFragment;
@@ -34,6 +35,10 @@ public class MyDiscoverFragment extends BaseFragment {
     private static final String[] TAB_TITLES = {"与我有关", "我的发现", "私有发现"};
 
     protected ViewPager viewPager;
+
+    public static void start() {
+        StartFragmentEvent.start(new MyDiscoverFragment());
+    }
 
     @Override
     protected int getLayoutId() {
@@ -106,9 +111,7 @@ public class MyDiscoverFragment extends BaseFragment {
     public static class MyRelatedDiscoverFragment extends ThemeListFragment {
 
         public static MyRelatedDiscoverFragment newInstance() {
-            String url = "http://tt.shouji.com.cn/app/user_content_list_xml_v2.jsp?versioncode=198&t=discuss&jsessionid="
-                    + UserManager.getInstance().getSessionId() + "&thread=thread&sn="
-                    + UserManager.getInstance().getSn();
+            String url = "http://tt.shouji.com.cn/app/user_content_list_xml_v2.jsp?t=discuss&thread=thread";
             Bundle args = new Bundle();
             args.putString(KEY_DEFAULT_URL, url);
             MyRelatedDiscoverFragment fragment = new MyRelatedDiscoverFragment();
@@ -121,9 +124,7 @@ public class MyDiscoverFragment extends BaseFragment {
     public static class MyPublishDiscoverFragment extends ThemeListFragment {
 
         public static MyPublishDiscoverFragment newInstance() {
-            String url = "http://tt.shouji.com.cn/app/user_content_list_xml_v2.jsp?versioncode=198&t=discuss&jsessionid="
-                    + UserManager.getInstance().getSessionId() + "&sn="
-                    + UserManager.getInstance().getSn();
+            String url = "http://tt.shouji.com.cn/app/user_content_list_xml_v2.jsp?t=discuss";
             Bundle args = new Bundle();
             args.putString(KEY_DEFAULT_URL, url);
             MyPublishDiscoverFragment fragment = new MyPublishDiscoverFragment();
@@ -136,9 +137,7 @@ public class MyDiscoverFragment extends BaseFragment {
     public static class MyPrivateDiscoverFragment extends ThemeListFragment {
 
         public static MyPrivateDiscoverFragment newInstance() {
-            String url = "http://tt.shouji.com.cn/app/user_content_list_xml_v2.jsp?versioncode=198&t=discuss&jsessionid="
-                    + UserManager.getInstance().getSessionId() + "&thread=private&sn="
-                    + UserManager.getInstance().getSn();
+            String url = "http://tt.shouji.com.cn/app/user_content_list_xml_v2.jsp?t=discuss&thread=private";
             Bundle args = new Bundle();
             args.putString(KEY_DEFAULT_URL, url);
             MyPrivateDiscoverFragment fragment = new MyPrivateDiscoverFragment();

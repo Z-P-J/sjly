@@ -97,7 +97,7 @@ public class WallpaperFragment extends BaseFragment implements View.OnClickListe
     }
 
     private void initWallpaperTags() {
-        HttpApi.connect("http://tt.shouji.com.cn/app/bizhi_tags.jsp?versioncode=198")
+        HttpApi.connect("http://tt.shouji.com.cn/app/bizhi_tags.jsp")
                 .onSuccess(data -> {
                     Elements elements = data.select("item");
                     wallpaperTags.clear();

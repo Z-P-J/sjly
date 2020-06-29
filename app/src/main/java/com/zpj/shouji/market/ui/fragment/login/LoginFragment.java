@@ -17,9 +17,11 @@ import com.zpj.fragmentation.BaseFragment;
 import com.zpj.fragmentation.anim.DefaultNoAnimator;
 import com.zpj.fragmentation.swipeback.SwipeBackLayout;
 import com.zpj.shouji.market.R;
+import com.zpj.shouji.market.event.StartFragmentEvent;
 import com.zpj.shouji.market.event.ToggleLoginModeEvent;
 import com.zpj.shouji.market.manager.UserManager;
 import com.zpj.shouji.market.ui.adapter.FragmentsPagerAdapter;
+import com.zpj.shouji.market.ui.fragment.setting.CommonSettingFragment;
 import com.zpj.shouji.market.utils.SoftInputHelper;
 
 import org.greenrobot.eventbus.EventBus;
@@ -54,6 +56,10 @@ public class LoginFragment extends BaseFragment
         LoginFragment fragment = new LoginFragment();
         fragment.setArguments(args);
         return fragment;
+    }
+
+    public static void start() {
+        StartFragmentEvent.start(new LoginFragment());
     }
 
     @Override

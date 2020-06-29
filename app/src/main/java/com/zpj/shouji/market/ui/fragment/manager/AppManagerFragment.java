@@ -9,6 +9,7 @@ import android.view.View;
 
 import com.zpj.fragmentation.BaseFragment;
 import com.zpj.shouji.market.R;
+import com.zpj.shouji.market.event.StartFragmentEvent;
 import com.zpj.shouji.market.ui.adapter.FragmentsPagerAdapter;
 import com.zpj.shouji.market.ui.widget.ScaleTransitionPagerTitleView;
 import com.zpj.utils.ScreenUtils;
@@ -29,7 +30,8 @@ public class AppManagerFragment extends BaseFragment {
 
     private static final String[] TAB_TITLES = {"下载管理", "更新", "已安装", "安装包"};
 
-    public AppManagerFragment() {
+    public static void start() {
+        StartFragmentEvent.start(new AppManagerFragment());
     }
 
     @Override

@@ -59,8 +59,8 @@ public class HttpPreLoader {
     }
 
     public void loadHomepage() {
-        HttpPreLoader.getInstance().load(HOME_BANNER, "http://tt.tljpxm.com/androidv3/app_index_xml.jsp?index=1&versioncode=198");
-        HttpPreLoader.getInstance().load(HOME_RECENT, "http://tt.shouji.com.cn/androidv3/app_list_xml.jsp?index=1&versioncode=198");
+        HttpPreLoader.getInstance().load(HOME_BANNER, "http://tt.tljpxm.com/androidv3/app_index_xml.jsp?index=1");
+        HttpPreLoader.getInstance().load(HOME_RECENT, "http://tt.shouji.com.cn/androidv3/app_list_xml.jsp?index=1");
         HttpPreLoader.getInstance().load(HOME_COLLECTION, "http://tt.shouji.com.cn/androidv3/yyj_tj_xml.jsp");
         HttpPreLoader.getInstance().load(HOME_SOFT, "http://tt.shouji.com.cn/androidv3/special_list_xml.jsp?id=-9998");
         HttpPreLoader.getInstance().load(HOME_GAME, "http://tt.shouji.com.cn/androidv3/game_index_xml.jsp?sdk=100&sort=day");

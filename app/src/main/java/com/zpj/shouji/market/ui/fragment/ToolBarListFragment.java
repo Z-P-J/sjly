@@ -33,7 +33,7 @@ public class ToolBarListFragment extends AppListFragment {
     }
 
     public static void startRecentUpdate() {
-        start("http://tt.shouji.com.cn/androidv3/app_list_xml.jsp?index=1&versioncode=198", "最近更新");
+        start("http://tt.shouji.com.cn/androidv3/app_list_xml.jsp?index=1", "最近更新");
     }
 
     public static void startSubjectDetail(String id) {
@@ -45,7 +45,7 @@ public class ToolBarListFragment extends AppListFragment {
     }
 
     public static void startUpdateSoftList() {
-        start("http://tt.shouji.com.cn/androidv3/soft_index_xml.jsp?sort=time&versioncode=198", "最新应用");
+        start("http://tt.shouji.com.cn/androidv3/soft_index_xml.jsp?sort=time", "最新应用");
     }
 
     public static void startRecommendGameList() {
@@ -53,7 +53,7 @@ public class ToolBarListFragment extends AppListFragment {
     }
 
     public static void startUpdateGameList() {
-        start("http://tt.shouji.com.cn/androidv3/game_index_xml.jsp?sort=time&versioncode=198", "最新游戏");
+        start("http://tt.shouji.com.cn/androidv3/game_index_xml.jsp?sort=time", "最新游戏");
     }
 
     public static void startNetGameList() {

@@ -107,7 +107,7 @@ public abstract class AppInfoRecommendCard extends RecommendCard<AppInfo> {
 
     @Override
     public void onClick(EasyViewHolder holder, View view, AppInfo data) {
-        EventBus.getDefault().post(AppDetailFragment.newInstance(data));
+        AppDetailFragment.start(data);
     }
 
     public abstract String getKey();

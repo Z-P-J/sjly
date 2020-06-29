@@ -56,6 +56,6 @@ public class SupportUserListFragment extends NextUrlFragment<SupportUserInfo> {
 
     @Override
     public void onClick(EasyViewHolder holder, View view, SupportUserInfo data) {
-        _mActivity.start(ProfileFragment.newInstance(data.getUserId(), false));
+        ProfileFragment.start(data.getUserId(), false);
     }
 }

@@ -152,9 +152,7 @@ public class DiscoverBinder implements IEasy.OnBindViewHolderListener<DiscoverIn
                 if ("0".equals(discoverInfo.getSoftId())) {
                     AToast.warning("应用未收录");
                 } else {
-                    EventBus.getDefault().post(
-                            AppDetailFragment.newInstance(discoverInfo.getAppType(),
-                                    discoverInfo.getSoftId()));
+                    AppDetailFragment.start(discoverInfo.getAppType(), discoverInfo.getSoftId());
 //                    AToast.normal("appId=" + discoverInfo.getAppId() + " softId=" + discoverInfo.getSoftId());
                 }
             });
@@ -397,7 +395,7 @@ public class DiscoverBinder implements IEasy.OnBindViewHolderListener<DiscoverIn
 
         @Override
         public void onClick(View widget) {
-            EventBus.getDefault().post(ProfileFragment.newInstance(memberId, false));
+            ProfileFragment.start(memberId, false);
         }
 
         @Override

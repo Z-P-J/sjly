@@ -108,7 +108,7 @@ public final class UserManager {
     private void signIn() {
         String sessionId = getSessionId();
         Log.d(getClass().getName(), "jsessionid=" + sessionId);
-        HttpApi.openConnection("http://tt.shouji.com.cn/app/xml_login_v4.jsp?versioncode=198&version=2.9.9.9.3")
+        HttpApi.openConnection("http://tt.shouji.com.cn/app/xml_login_v4.jsp?version=2.9.9.9.3")
                 .data("jsessionid", sessionId)
                 .data("s", "12345678910")
                 .data("stime", "" + System.currentTimeMillis())
@@ -121,7 +121,7 @@ public final class UserManager {
 
     public void signIn(String userName, String password) {
         AToast.normal("isLogin=" + isLogin());
-        HttpApi.openConnection("http://tt.shouji.com.cn/app/xml_login_v4.jsp?versioncode=198&version=2.9.9.9.3")
+        HttpApi.openConnection("http://tt.shouji.com.cn/app/xml_login_v4.jsp?version=2.9.9.9.3")
                 .data("openid", "")
                 .data("s", "12345678910")
                 .data("stime", "" + System.currentTimeMillis())

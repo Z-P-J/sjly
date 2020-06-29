@@ -209,7 +209,7 @@ public class MyFragment extends BaseFragment
         if (v == tvCheckIn) {
             MemberInfo memberInfo = UserManager.getInstance().getMemberInfo();
             if (memberInfo.isCanSigned()) {
-                HttpApi.openConnection("http://tt.shouji.com.cn/app/xml_signed.jsp?versioncode=198&version=2.9.9.9.3")
+                HttpApi.openConnection("http://tt.shouji.com.cn/app/xml_signed.jsp?version=2.9.9.9.3")
                         .data("jsessionid", UserManager.getInstance().getSessionId())
                         .toHtml()
                         .onSuccess(data -> {
@@ -246,13 +246,13 @@ public class MyFragment extends BaseFragment
         } else if (v == tvNightMode) {
 
         } else if (v == tvCommonSetting) {
-            _mActivity.start(new CommonSettingFragment());
+            CommonSettingFragment.start();
         } else if (v == tvDownloadSetting) {
-            _mActivity.start(new DownloadSettingFragment());
+            DownloadSettingFragment.start();
         } else if (v == tvInstallSetting) {
-            _mActivity.start(new InstallSettingFragment());
+            InstallSettingFragment.start();
         } else if (v == tvAbout) {
-            _mActivity.start(new AboutSettingFragment());
+            AboutSettingFragment.start();
         } else if (v == tvSignOut) {
             showSignOutPopup();
         }
@@ -300,7 +300,7 @@ public class MyFragment extends BaseFragment
 
     public void showLoginPopup(int page) {
         _mActivity.setFragmentAnimator(new DefaultVerticalAnimator());
-        _mActivity.start(new LoginFragment());
+        LoginFragment.start();
 //        if (loginPopup == null) {
 //            loginPopup = LoginPopup.with(context);
 //            loginPopup.setPopupCallback(new SimpleCallback() {

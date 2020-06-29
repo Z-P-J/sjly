@@ -9,6 +9,7 @@ import android.view.View;
 
 import com.zpj.fragmentation.BaseFragment;
 import com.zpj.shouji.market.R;
+import com.zpj.shouji.market.event.StartFragmentEvent;
 import com.zpj.shouji.market.manager.UserManager;
 import com.zpj.shouji.market.ui.adapter.FragmentsPagerAdapter;
 import com.zpj.shouji.market.ui.fragment.theme.ThemeListFragment;
@@ -32,6 +33,10 @@ public class MyCommentFragment extends BaseFragment {
     private static final String[] TAB_TITLES = {"评论", "发起的评论"};
 
     protected ViewPager viewPager;
+
+    public static void start() {
+        StartFragmentEvent.start(new MyCommentFragment());
+    }
 
     @Override
     protected int getLayoutId() {
@@ -99,9 +104,7 @@ public class MyCommentFragment extends BaseFragment {
     public static class MyRelatedCommentFragment extends ThemeListFragment {
 
         public static MyRelatedCommentFragment newInstance() {
-            String url = "http://tt.shouji.com.cn/app/user_content_list_xml_v2.jsp?versioncode=198&t=review&jsessionid="
-                    + UserManager.getInstance().getSessionId() + "&thread=thread&sn="
-                    + UserManager.getInstance().getSn();
+            String url = "http://tt.shouji.com.cn/app/user_content_list_xml_v2.jsp?t=review&thread=thread";
             Bundle args = new Bundle();
             args.putString(KEY_DEFAULT_URL, url);
             MyRelatedCommentFragment fragment = new MyRelatedCommentFragment();
@@ -114,9 +117,7 @@ public class MyCommentFragment extends BaseFragment {
     public static class MyPublishCommentFragment extends ThemeListFragment {
 
         public static MyPublishCommentFragment newInstance() {
-            String url = "http://tt.shouji.com.cn/app/user_content_list_xml_v2.jsp?versioncode=198&t=review&jsessionid="
-                    + UserManager.getInstance().getSessionId() + "&sn="
-                    + UserManager.getInstance().getSn();
+            String url = "http://tt.shouji.com.cn/app/user_content_list_xml_v2.jsp?t=review";
             Bundle args = new Bundle();
             args.putString(KEY_DEFAULT_URL, url);
             MyPublishCommentFragment fragment = new MyPublishCommentFragment();

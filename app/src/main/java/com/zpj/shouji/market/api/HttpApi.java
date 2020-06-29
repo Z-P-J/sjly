@@ -17,6 +17,7 @@ import io.reactivex.schedulers.Schedulers;
 public final class HttpApi {
 
     private static final String USER_AGENT = "okhttp/3.0.1";
+    private static final String VERSION_CODE = "199";
     private static final String HEADER_ACCEPT_ENCODING = "Accept-Encoding";
     private static final String VALUE_ACCEPT_ENCODING = "gzip";
 
@@ -25,8 +26,13 @@ public final class HttpApi {
     }
 
     public static Connection openConnection(String url) {
-        return ZHttp.get(url)
-                .validateTLSCertificates(false)
+        Connection connection = ZHttp.get(url);
+        connection.data("versioncode", VERSION_CODE);
+        connection.data("sn", UserManager.getInstance().getSn());
+        if (UserManager.getInstance().isLogin()) {
+            connection.data("jsessionid", UserManager.getInstance().getSessionId());
+        }
+        connection.validateTLSCertificates(false)
                 .userAgent(USER_AGENT)
                 .onRedirect(new IHttp.OnRedirectListener() {
                     @Override
@@ -39,6 +45,7 @@ public final class HttpApi {
 //                .header(HEADER_ACCEPT_ENCODING, VALUE_ACCEPT_ENCODING)
                 .referer(url)
                 .ignoreContentType(true);
+        return connection;
     }
 
     public static ObservableTask<Document> connect(String url) {
@@ -59,11 +66,11 @@ public final class HttpApi {
     }
 
     public static ObservableTask<Document> bannerApi() {
-        return connect("http://tt.tljpxm.com/androidv3/app_index_xml.jsp?index=1&versioncode=199");
+        return connect("http://tt.tljpxm.com/androidv3/app_index_xml.jsp?index=1");
     }
 
     public static ObservableTask<Document> recentUpdateAppApi() {
-        return connect("http://tt.shouji.com.cn/androidv3/app_list_xml.jsp?index=1&versioncode=199");
+        return connect("http://tt.shouji.com.cn/androidv3/app_list_xml.jsp?index=1");
     }
 
     public static ObservableTask<Document> homeRecommendSoftApi() {
@@ -75,15 +82,15 @@ public final class HttpApi {
     }
 
     public static ObservableTask<Document> subjectApi() {
-        return connect("http://tt.tljpxm.com/androidv3/app_index_xml.jsp?index=1&versioncode=199");
+        return connect("http://tt.tljpxm.com/androidv3/app_index_xml.jsp?index=1");
     }
 
     public static ObservableTask<Document> recentUpdateSoft() {
-        return connect("http://tt.shouji.com.cn/androidv3/soft_index_xml.jsp?sort=time&versioncode=199");
+        return connect("http://tt.shouji.com.cn/androidv3/soft_index_xml.jsp?sort=time");
     }
 
     public static ObservableTask<Document> recentUpdateGame() {
-        return connect("http://tt.shouji.com.cn/androidv3/game_index_xml.jsp?sort=time&versioncode=199");
+        return connect("http://tt.shouji.com.cn/androidv3/game_index_xml.jsp?sort=time");
     }
 
     public static ObservableTask<Document> netGame() {
@@ -123,38 +130,31 @@ public final class HttpApi {
     }
 
     private static String getCollectUrl(String key) {
-        return "http://tt.shouji.com.cn/app/" + key + ".jsp?versioncode=199&jsessionid="
-                + UserManager.getInstance().getSessionId() + "&sn="
-                + UserManager.getInstance().getSn();
+        return "http://tt.shouji.com.cn/app/" + key + ".jsp";
     }
 
     public static ObservableTask<Document> likeApi(String type, String id) {
-        String url = "http://tt.shouji.com.cn/app/comment_flower_xml.jsp?versioncode=199&jsessionid="
-                + UserManager.getInstance().getSessionId() + "&t=" + type + "&id=" + id;
+        String url = "http://tt.shouji.com.cn/app/comment_flower_xml.jsp?t=" + type + "&id=" + id;
         return connect(url);
     }
 
     public static ObservableTask<Document> addFriendApi(String id) {
-        String url = "http://tt.tljpxm.com/xml/addfriendprocess?versioncode=199&jsessionid="
-                + UserManager.getInstance().getSessionId() + "&memberid=" + id;
+        String url = "http://tt.tljpxm.com/xml/addfriendprocess?memberid=" + id;
         return connect(url);
     }
 
     public static ObservableTask<Document> deleteFriendApi(String id) {
-        String url = "http://tt.tljpxm.com/xml/deletefriendprocess?versioncode=199&jsessionid="
-                + UserManager.getInstance().getSessionId() + "&friendMemberID=" + id;
+        String url = "http://tt.tljpxm.com/xml/deletefriendprocess?friendMemberID=" + id;
         return connect(url);
     }
 
     public static ObservableTask<Document> getMemberInfoApi(String id) {
-        String url = "http://tt.tljpxm.com/app/view_member_xml_v4.jsp?versioncode=199&id=" + id + "&jsessionid="
-                + UserManager.getInstance().getSessionId() + "&sn=" + UserManager.getInstance().getSn();
+        String url = "http://tt.tljpxm.com/app/view_member_xml_v4.jsp?id=" + id;
         return connect(url);
     }
 
     public static ObservableTask<Document> addBlacklistApi(String id) {
-        String url = "http://tt.tljpxm.com/app/user_blacklist_add.jsp?versioncode=199&t=add&mid=" + id + "&jsessionid="
-                + UserManager.getInstance().getSessionId();
+        String url = "http://tt.tljpxm.com/app/user_blacklist_add.jsp?t=add&mid=" + id;
         return connect(url);
     }
 

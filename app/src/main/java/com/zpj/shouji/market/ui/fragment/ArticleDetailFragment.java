@@ -160,7 +160,7 @@ public class ArticleDetailFragment extends BaseFragment {
             View app = LayoutInflater.from(context).inflate(R.layout.item_app_linear, null, false);
             contentWrapper.addView(app);
             app.setBackgroundResource(R.drawable.bg_gray_little);
-            app.setOnClickListener(v -> _mActivity.start(AppDetailFragment.newInstance(appInfo.getAppType(), appInfo.getAppId())));
+            app.setOnClickListener(v -> AppDetailFragment.start(appInfo.getAppType(), appInfo.getAppId()));
             LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
             int margin = ScreenUtils.dp2pxInt(context, 20f);
             lp.setMargins(margin, 0, margin, 0);
@@ -203,7 +203,7 @@ public class ArticleDetailFragment extends BaseFragment {
                     public void onClick(View v) {
                         if (linkElement.getLinkUrl().startsWith("http://sjsoft.wozaiai.cn/down/")) {
                             String id = linkElement.getLinkUrl().replace("http://sjsoft.wozaiai.cn/down/", "").replace(".html", "");
-                            _mActivity.start(AppDetailFragment.newInstance("soft", id));
+                            AppDetailFragment.start("soft", id);
                         } else {
                             AToast.normal(linkElement.getLinkUrl());
                         }
@@ -298,7 +298,7 @@ public class ArticleDetailFragment extends BaseFragment {
                 view.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        _mActivity.start(AppDetailFragment.newInstance(app));
+                        AppDetailFragment.start(app);
                     }
                 });
                 ImageView ivIcon = view.findViewById(R.id.iv_icon);

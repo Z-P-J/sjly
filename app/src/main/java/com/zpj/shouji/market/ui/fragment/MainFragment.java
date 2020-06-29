@@ -155,7 +155,7 @@ public class MainFragment extends BaseFragment
 
     @Override
     public void onDiscoverItemClick() {
-        _mActivity.start(new DiscoverEditorFragment2());
+        DiscoverEditorFragment2.start();
     }
 
     @Override

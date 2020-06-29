@@ -5,6 +5,7 @@ import android.support.annotation.Nullable;
 import android.view.View;
 
 import com.zpj.shouji.market.R;
+import com.zpj.shouji.market.event.StartFragmentEvent;
 import com.zpj.shouji.market.ui.fragment.AboutMeFragment;
 import com.zpj.shouji.market.ui.fragment.WebFragment;
 import com.zpj.widget.setting.CheckableSettingItem;
@@ -14,6 +15,10 @@ import com.zpj.fragmentation.anim.DefaultNoAnimator;
 import com.zpj.fragmentation.anim.FragmentAnimator;
 
 public class AboutSettingFragment extends BaseSettingFragment {
+
+    public static void start() {
+        StartFragmentEvent.start(new AboutSettingFragment());
+    }
 
     @Override
     protected int getLayoutId() {

@@ -24,6 +24,7 @@ import com.shehuan.niv.NiceImageView;
 import com.zpj.fragmentation.BaseFragment;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.api.HttpApi;
+import com.zpj.shouji.market.event.StartFragmentEvent;
 import com.zpj.shouji.market.model.AppDetailInfo;
 import com.zpj.shouji.market.model.AppInfo;
 import com.zpj.shouji.market.model.AppUpdateInfo;
@@ -76,33 +77,34 @@ public class AppDetailFragment extends BaseFragment {
     private TextView shortInfo;
     private TextView shortIntroduce;
 
-    public static AppDetailFragment newInstance(String type, String id) {
+
+    public static void start(String type, String id) {
         Bundle args = new Bundle();
         args.putString(KEY_ID, id);
         args.putString(KEY_TYPE, type);
         AppDetailFragment fragment = new AppDetailFragment();
         fragment.setArguments(args);
-        return fragment;
+        StartFragmentEvent.start(fragment);
     }
 
-    public static AppDetailFragment newInstance(AppInfo item) {
-        return newInstance(item.getAppType(), item.getAppId());
+    public static void start(AppInfo item) {
+        start(item.getAppType(), item.getAppId());
     }
 
-    public static AppDetailFragment newInstance(AppUpdateInfo item) {
-        return newInstance(item.getAppType(), item.getId());
+    public static void start(AppUpdateInfo item) {
+        start(item.getAppType(), item.getId());
     }
 
-    public static AppDetailFragment newInstance(InstalledAppInfo appInfo) {
-        return newInstance(appInfo.getAppType(), appInfo.getId());
+    public static void start(InstalledAppInfo appInfo) {
+        start(appInfo.getAppType(), appInfo.getId());
     }
 
-    public static AppDetailFragment newInstance(UserDownloadedAppInfo info) {
-        return newInstance(info.getAppType(), info.getId());
+    public static void start(UserDownloadedAppInfo info) {
+        start(info.getAppType(), info.getId());
     }
 
-    public static AppDetailFragment newInstance(CollectionAppInfo info) {
-        return newInstance(info.getAppType(), info.getId());
+    public static void start(CollectionAppInfo info) {
+        start(info.getAppType(), info.getId());
     }
 
 
@@ -148,12 +150,12 @@ public class AppDetailFragment extends BaseFragment {
 
         AppCommentFragment commentFragment = findChildFragment(AppCommentFragment.class);
         if (commentFragment == null) {
-                commentFragment = AppCommentFragment.newInstance("http://tt.shouji.com.cn/app/comment_index_xml_v5.jsp?versioncode=198&type=" + type + "&id=" + id);
+                commentFragment = AppCommentFragment.newInstance("http://tt.shouji.com.cn/app/comment_index_xml_v5.jsp?type=" + type + "&id=" + id);
         }
 
         AppThemeFragment exploreFragment = findChildFragment(AppThemeFragment.class);
         if (exploreFragment == null) {
-            exploreFragment = AppThemeFragment.newInstance("http://tt.shouji.com.cn/app/faxian.jsp?versioncode=198&apptype=" + type + "&appid=" + id);
+            exploreFragment = AppThemeFragment.newInstance("http://tt.shouji.com.cn/app/faxian.jsp?apptype=" + type + "&appid=" + id);
         }
 
         AppRecommendFragment recommendFragment = findChildFragment(AppRecommendFragment.class);

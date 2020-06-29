@@ -22,7 +22,7 @@ public class CollectionAppListFragment extends NextUrlFragment<CollectionAppInfo
 
     public static CollectionAppListFragment newInstance(String id) {
         Bundle args = new Bundle();
-        args.putString(KEY_DEFAULT_URL, "http://tt.shouji.com.cn/app/yyj_applist.jsp?versioncode=198&t=discuss&parent=" + id);
+        args.putString(KEY_DEFAULT_URL, "http://tt.shouji.com.cn/app/yyj_applist.jsp?t=discuss&parent=" + id);
         CollectionAppListFragment fragment = new CollectionAppListFragment();
         fragment.setArguments(args);
         return fragment;
@@ -51,7 +51,7 @@ public class CollectionAppListFragment extends NextUrlFragment<CollectionAppInfo
     @Override
     public void onClick(EasyViewHolder holder, View view, CollectionAppInfo data) {
         if (data.isApkExist()) {
-            _mActivity.start(AppDetailFragment.newInstance(data));
+            AppDetailFragment.start(data);
         } else {
             AToast.warning("应用未收录");
         }

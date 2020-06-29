@@ -132,29 +132,28 @@ public class MyToolsCard extends ShadowLayout implements View.OnClickListener {
 //                fragment.showLoginPopup(1);
 //                break;
             case R.id.tv_my_homepage:
-                EventBus.getDefault().post(ProfileFragment.newInstance(UserManager.getInstance().getUserId(), false));
-//                activity.start(ProfileFragment.newInstance(UserManager.getInstance().getUserId(), false));
+                ProfileFragment.start(UserManager.getInstance().getUserId(), false);
                 break;
             case R.id.tv_my_discovers:
-                EventBus.getDefault().post(new MyDiscoverFragment());
+                MyDiscoverFragment.start();
                 break;
             case R.id.tv_my_comments:
-                EventBus.getDefault().post(new MyCommentFragment());
+                MyCommentFragment.start();
                 break;
             case R.id.tv_my_friends:
-                EventBus.getDefault().post(new MyFriendsFragment());
+                MyFriendsFragment.start();
                 break;
             case R.id.tv_my_messages:
 
                 break;
             case R.id.tv_my_collections:
-                EventBus.getDefault().post(new MyCollectionFragment());
+                MyCollectionFragment.start();
                 break;
             case R.id.tv_my_bookings:
-                EventBus.getDefault().post(new MyBookingFragment());
+                MyBookingFragment.start();
                 break;
             case R.id.tv_my_blacklist:
-                EventBus.getDefault().post(new MyBlacklistFragment());
+                MyBlacklistFragment.start();
                 break;
         }
     }

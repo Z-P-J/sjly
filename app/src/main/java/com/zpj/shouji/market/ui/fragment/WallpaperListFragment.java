@@ -48,7 +48,7 @@ public class WallpaperListFragment extends NextUrlFragment<WallpaperInfo> {
 
     private static final String KEY_ID = "id";
     private static final String KEY_TAG = "tag";
-    private static final String DEFAULT_URL = "http://tt.shouji.com.cn/app/bizhi_list.jsp?versioncode=198";
+    private static final String DEFAULT_URL = "http://tt.shouji.com.cn/app/bizhi_list.jsp";
 
     private String id;
     private String tag;
@@ -132,7 +132,7 @@ public class WallpaperListFragment extends NextUrlFragment<WallpaperInfo> {
                         .onSuccess(data -> {
                             String result = data.selectFirst("info").text();
                             if ("success".equals(data.selectFirst("result").text())) {
-                                AToast.success(result);
+//                                AToast.success(result);
                                 info.setSupportCount(info.getSupportCount() + (isSelected ? 1 : -1));
                                 info.setLike(isSelected);
                             } else {
