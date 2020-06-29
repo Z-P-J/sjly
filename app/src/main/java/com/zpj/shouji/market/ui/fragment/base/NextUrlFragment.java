@@ -2,6 +2,7 @@ package com.zpj.shouji.market.ui.fragment.base;
 
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 
 import com.zpj.http.parser.html.nodes.Element;
@@ -72,6 +73,7 @@ public abstract class NextUrlFragment<T> extends RecyclerLayoutFragment<T> {
     protected void getData() {
         HttpApi.connect(nextUrl)
                 .onSuccess(doc -> {
+                    Log.d("getData", "doc=" + doc);
                     nextUrl = doc.selectFirst("nextUrl").text();
                     for (Element element : doc.select("item")) {
                         T item = createData(element);

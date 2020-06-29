@@ -40,8 +40,8 @@ public class UserListFragment extends NextUrlFragment<UserInfo>
     @Override
     public void onBindViewHolder(EasyViewHolder holder, List<UserInfo> list, int position, List<Object> payloads) {
         final UserInfo appItem = list.get(position);
-        holder.getTextView(R.id.tv_title).setText(appItem.getNickName());
-        holder.getTextView(R.id.tv_info).setText("在线：" + appItem.isOnline() + " | " + appItem.getSignature());
+        holder.setText(R.id.tv_title, appItem.getNickName());
+        holder.setText(R.id.tv_info, "在线：" + appItem.isOnline());
         Glide.with(context).load(appItem.getAvatarUrl()).into(holder.getImageView(R.id.iv_icon));
     }
 

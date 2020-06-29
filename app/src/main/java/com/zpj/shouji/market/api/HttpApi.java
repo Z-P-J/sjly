@@ -153,9 +153,19 @@ public final class HttpApi {
         return connect(url);
     }
 
-    public static ObservableTask<Document> addBlacklistApi(String id) {
-        String url = "http://tt.tljpxm.com/app/user_blacklist_add.jsp?t=add&mid=" + id;
+    public static ObservableTask<Document> blacklistApi(String id, boolean isAdd) {
+        String url = String.format("http://tt.tljpxm.com/app/user_blacklist_add.jsp?mid=%s&t=%s", id, isAdd ? "add" : "del");
         return connect(url);
+    }
+
+    public static ObservableTask<Document> addBlacklistApi(String id) {
+//        String url = "http://tt.tljpxm.com/app/user_blacklist_add.jsp?t=add&mid=" + id;
+//        return connect(url);
+        return blacklistApi(id, true);
+    }
+
+    public static ObservableTask<Document> removeBlacklistApi(String id) {
+        return blacklistApi(id, false);
     }
 
 

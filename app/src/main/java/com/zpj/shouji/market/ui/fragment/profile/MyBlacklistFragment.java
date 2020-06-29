@@ -1,45 +1,41 @@
 package com.zpj.shouji.market.ui.fragment.profile;
 
-import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
-import android.support.v4.view.ViewPager;
 import android.view.View;
 
-import com.zpj.fragmentation.BaseFragment;
+import com.bumptech.glide.Glide;
+import com.felix.atoast.library.AToast;
+import com.zpj.http.parser.html.nodes.Element;
+import com.zpj.recyclerview.EasyViewHolder;
 import com.zpj.shouji.market.R;
+import com.zpj.shouji.market.api.HttpApi;
 import com.zpj.shouji.market.event.StartFragmentEvent;
-import com.zpj.shouji.market.manager.UserManager;
-import com.zpj.shouji.market.ui.adapter.FragmentsPagerAdapter;
-import com.zpj.shouji.market.ui.fragment.theme.ThemeListFragment;
-import com.zpj.utils.ScreenUtils;
+import com.zpj.shouji.market.model.BlacklistInfo;
+import com.zpj.shouji.market.ui.fragment.WebFragment;
+import com.zpj.shouji.market.ui.fragment.base.NextUrlFragment;
+import com.zpj.shouji.market.ui.widget.popup.BottomListPopupMenu;
 
-import net.lucode.hackware.magicindicator.MagicIndicator;
-import net.lucode.hackware.magicindicator.ViewPagerHelper;
-import net.lucode.hackware.magicindicator.buildins.commonnavigator.CommonNavigator;
-import net.lucode.hackware.magicindicator.buildins.commonnavigator.abs.CommonNavigatorAdapter;
-import net.lucode.hackware.magicindicator.buildins.commonnavigator.abs.IPagerIndicator;
-import net.lucode.hackware.magicindicator.buildins.commonnavigator.abs.IPagerTitleView;
-import net.lucode.hackware.magicindicator.buildins.commonnavigator.indicators.LinePagerIndicator;
-import net.lucode.hackware.magicindicator.buildins.commonnavigator.titles.ColorTransitionPagerTitleView;
-
-import java.util.ArrayList;
 import java.util.List;
 
-public class MyBlacklistFragment extends BaseFragment {
-
-    private static final String[] TAB_TITLES = {"预约中", "已上线"};
-
-    protected ViewPager viewPager;
+public class MyBlacklistFragment extends NextUrlFragment<BlacklistInfo> {
 
     public static void start() {
-        StartFragmentEvent.start(new MyBlacklistFragment());
+        Bundle args = new Bundle();
+        args.putString(KEY_DEFAULT_URL, "http://tt.tljpxm.com/androidv3/user_blacklist_xml.jsp");
+        MyBlacklistFragment fragment = new MyBlacklistFragment();
+        fragment.setArguments(args);
+        StartFragmentEvent.start(fragment);
     }
 
     @Override
     protected int getLayoutId() {
-        return R.layout.fragment_my_discover;
+        return R.layout.fragment_my_blacklist;
+    }
+
+    @Override
+    protected int getItemLayoutId() {
+        return R.layout.item_user;
     }
 
     @Override
@@ -49,81 +45,58 @@ public class MyBlacklistFragment extends BaseFragment {
 
     @Override
     protected void initView(View view, @Nullable Bundle savedInstanceState) {
-        setToolbarTitle("我的预约");
-        viewPager = view.findViewById(R.id.view_pager);
-        List<Fragment> fragments = new ArrayList<>();
-        MyRelatedCommentFragment myRelatedCommentFragment = findChildFragment(MyRelatedCommentFragment.class);
-        if (myRelatedCommentFragment == null) {
-            myRelatedCommentFragment = MyRelatedCommentFragment.newInstance();
-        }
-        MyPublishCommentFragment myPublishCommentFragment = findChildFragment(MyPublishCommentFragment.class);
-        if (myPublishCommentFragment == null) {
-            myPublishCommentFragment = MyPublishCommentFragment.newInstance();
-        }
-        fragments.add(myRelatedCommentFragment);
-        fragments.add(myPublishCommentFragment);
-        viewPager.setAdapter(new FragmentsPagerAdapter(getChildFragmentManager(), fragments, TAB_TITLES));
-        viewPager.setOffscreenPageLimit(2);
-
-        MagicIndicator magicIndicator = view.findViewById(R.id.magic_indicator);
-        CommonNavigator navigator = new CommonNavigator(getContext());
-        navigator.setAdapter(new CommonNavigatorAdapter() {
-            @Override
-            public int getCount() {
-                return TAB_TITLES.length;
-            }
-
-            @Override
-            public IPagerTitleView getTitleView(Context context, int index) {
-                ColorTransitionPagerTitleView titleView = new ColorTransitionPagerTitleView(context);
-                titleView.setNormalColor(getResources().getColor(R.color.color_text_major));
-                titleView.setSelectedColor(getResources().getColor(R.color.colorPrimary));
-                titleView.setTextSize(14);
-                titleView.setText(TAB_TITLES[index]);
-                titleView.setOnClickListener(view1 -> viewPager.setCurrentItem(index, true));
-                return titleView;
-            }
-
-            @Override
-            public IPagerIndicator getIndicator(Context context) {
-                LinePagerIndicator indicator = new LinePagerIndicator(context);
-                indicator.setMode(LinePagerIndicator.MODE_EXACTLY);
-                indicator.setLineHeight(ScreenUtils.dp2px(context, 4f));
-                indicator.setLineWidth(ScreenUtils.dp2px(context, 12f));
-                indicator.setRoundRadius(ScreenUtils.dp2px(context, 4f));
-                indicator.setColors(getResources().getColor(R.color.colorPrimary), getResources().getColor(R.color.colorPrimary));
-                return indicator;
-            }
-        });
-        magicIndicator.setNavigator(navigator);
-        ViewPagerHelper.bind(magicIndicator, viewPager);
-
+        super.initView(view, savedInstanceState);
+        setToolbarTitle("黑名单");
     }
 
-    public static class MyRelatedCommentFragment extends ThemeListFragment {
-
-        public static MyRelatedCommentFragment newInstance() {
-            String url = "http://tt.shouji.com.cn/app/user_content_list_xml_v2.jsp?t=review&thread=thread";
-            Bundle args = new Bundle();
-            args.putString(KEY_DEFAULT_URL, url);
-            MyRelatedCommentFragment fragment = new MyRelatedCommentFragment();
-            fragment.setArguments(args);
-            return fragment;
-        }
-
+    @Override
+    public BlacklistInfo createData(Element element) {
+        return BlacklistInfo.from(element);
     }
 
-    public static class MyPublishCommentFragment extends ThemeListFragment {
-
-        public static MyPublishCommentFragment newInstance() {
-            String url = "http://tt.shouji.com.cn/app/user_content_list_xml_v2.jsp?t=review";
-            Bundle args = new Bundle();
-            args.putString(KEY_DEFAULT_URL, url);
-            MyPublishCommentFragment fragment = new MyPublishCommentFragment();
-            fragment.setArguments(args);
-            return fragment;
-        }
-
+    @Override
+    public void onBindViewHolder(EasyViewHolder holder, List<BlacklistInfo> list, int position, List<Object> payloads) {
+        final BlacklistInfo appItem = list.get(position);
+        holder.setText(R.id.tv_title, appItem.getNickName());
+        holder.setText(R.id.tv_info, "在线：" + appItem.isOnline());
+        Glide.with(context).load(appItem.getAvatarUrl()).into(holder.getImageView(R.id.iv_icon));
     }
 
+    @Override
+    public void onClick(EasyViewHolder holder, View view, BlacklistInfo data) {
+        ProfileFragment.start(data.getMemberId(), false);
+    }
+
+    @Override
+    public boolean onLongClick(EasyViewHolder holder, View view, BlacklistInfo data) {
+        BottomListPopupMenu.with(context)
+                .setMenu(R.menu.menu_blacklist)
+                .onItemClick((menu, view1, data1) -> {
+                    switch (data1.getItemId()) {
+                        case R.id.remove:
+                            HttpApi.removeBlacklistApi(data.getMemberId())
+                                    .onSuccess(doc -> {
+                                        String info = doc.selectFirst("info").text();
+                                        if ("success".equals(doc.selectFirst("result").text())) {
+                                            AToast.success(info);
+                                            onRefresh();
+                                        } else {
+                                            AToast.error(info);
+                                        }
+                                    })
+                                    .onError(throwable -> AToast.error(throwable.getMessage()))
+                                    .subscribe();
+                            break;
+                        case R.id.report:
+                            AToast.normal("TODO 举报");
+                            break;
+                        case R.id.share:
+                            WebFragment.shareHomepage(data.getMemberId());
+                            break;
+                    }
+                    menu.dismiss();
+                })
+                .show();
+        return true;
+    }
 }

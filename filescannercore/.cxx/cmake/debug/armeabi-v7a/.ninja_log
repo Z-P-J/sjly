@@ -1,3 +1,5 @@
 # ninja log v5
 2	644	0	CMakeFiles/FileScanner.dir/src/main/cpp/FilesScanner.cpp.o	9ee0d7034a13637a
 646	1037	0	../../../../build/intermediates/cmake/debug/obj/armeabi-v7a/libFileScanner.so	6d898f8bc9b0d71b
+5	609	0	CMakeFiles/FileScanner.dir/src/main/cpp/FilesScanner.cpp.o	9ee0d7034a13637a
+610	1875	0	../../../../build/intermediates/cmake/debug/obj/armeabi-v7a/libFileScanner.so	6d898f8bc9b0d71b

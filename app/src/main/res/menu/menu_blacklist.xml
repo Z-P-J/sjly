@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/remove"
+        android:icon="@drawable/ic_comment_grey_24dp"
+        android:title="移除黑名单">
+    </item>
+
+    <item
+        android:id="@+id/report"
+        android:icon="@drawable/ic_comment_grey_24dp"
+        android:title="举报Ta">
+
+    </item>
+
+    <item
+        android:id="@+id/share"
+        android:icon="@drawable/ic_star_border_grey_24dp"
+        android:title="分享主页">
+    </item>
+
+</menu>

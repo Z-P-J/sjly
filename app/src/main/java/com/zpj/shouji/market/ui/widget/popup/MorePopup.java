@@ -28,7 +28,7 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 import per.goweii.burred.Blurred;
 
-public class MorePopup extends FullScreenPopup implements View.OnClickListener {
+public class MorePopup extends FullScreenPopup<MorePopup> implements View.OnClickListener {
 
     private final int[] menuIconItems = {R.drawable.pic1, R.drawable.pic2, R.drawable.pic3, R.drawable.pic4};
     private final String[] menuTextItems = {"动态", "应用集", "乐图", "私聊"};

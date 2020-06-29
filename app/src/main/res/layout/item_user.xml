@@ -57,19 +57,19 @@
 
     </LinearLayout>
 
-    <TextView
-        android:id="@+id/tv_follow"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:text="+关 注"
-        android:textColor="@color/colorPrimary"
-        android:layout_alignParentEnd="true"
-        android:layout_centerVertical="true"
-        android:padding="4dp"
-        android:layout_margin="10dp"
-        android:gravity="center"
-        />
+<!--    <TextView-->
+<!--        android:id="@+id/tv_follow"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_gravity="center"-->
+<!--        android:text="+关 注"-->
+<!--        android:textColor="@color/colorPrimary"-->
+<!--        android:layout_alignParentEnd="true"-->
+<!--        android:layout_centerVertical="true"-->
+<!--        android:padding="4dp"-->
+<!--        android:layout_margin="10dp"-->
+<!--        android:gravity="center"-->
+<!--        />-->
 
 
 

@@ -21,7 +21,7 @@ import com.zpj.shouji.market.R;
 import java.util.ArrayList;
 import java.util.List;
 
-public class BottomListPopupMenu extends BottomPopup
+public class BottomListPopupMenu extends BottomPopup<BottomListPopupMenu>
          implements IEasy.OnBindViewHolderListener<MenuItem> {
 
     private OnItemClickListener onItemClickListener;
