@@ -5,8 +5,10 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
+import android.text.TextUtils;
 import android.view.View;
 
+import com.felix.atoast.library.AToast;
 import com.zpj.fragmentation.BaseFragment;
 import com.zpj.fragmentation.SupportFragment;
 import com.zpj.shouji.market.R;
@@ -35,11 +37,26 @@ import java.util.List;
 public class MyCollectionFragment extends BaseFragment {
 
     private static final String[] TAB_TITLES = {"应用", "应用集", "发现", "乐图", "评论", "专题", "攻略", "教程"};
+    private static final String KEY_ID = "key_id";
+    private static final String KEY_SHOW_TOOLBAR = "key_show_toolbar";
 
     protected ViewPager viewPager;
+    private MagicIndicator magicIndicator;
 
-    public static void start() {
-        StartFragmentEvent.start(new MyCollectionFragment());
+    private String userId = "";
+    private boolean showToolbar = true;
+
+    public static MyCollectionFragment newInstance(String id, boolean showToolbar) {
+        Bundle args = new Bundle();
+        args.putString(KEY_ID, id);
+        args.putBoolean(KEY_SHOW_TOOLBAR, showToolbar);
+        MyCollectionFragment fragment = new MyCollectionFragment();
+        fragment.setArguments(args);
+        return fragment;
+    }
+
+    public static void start(String id) {
+        StartFragmentEvent.start(newInstance(id, true));
     }
 
     @Override
@@ -54,33 +71,58 @@ public class MyCollectionFragment extends BaseFragment {
 
     @Override
     protected void initView(View view, @Nullable Bundle savedInstanceState) {
-        setToolbarTitle("我的收藏");
+        if (getArguments() != null) {
+            userId = getArguments().getString(KEY_ID, "");
+            showToolbar = getArguments().getBoolean(KEY_SHOW_TOOLBAR, true);
+        }
+
         viewPager = view.findViewById(R.id.view_pager);
+        magicIndicator = view.findViewById(R.id.magic_indicator);
+
+        if (showToolbar) {
+            postOnEnterAnimationEnd(this::initViewPager);
+            setToolbarTitle("我的收藏");
+        } else {
+            toolbar.setVisibility(View.GONE);
+            setSwipeBackEnable(false);
+        }
+    }
+
+    @Override
+    public void onLazyInitView(@Nullable Bundle savedInstanceState) {
+        super.onLazyInitView(savedInstanceState);
+        if (!showToolbar) {
+//            initViewPager();
+            postOnEnterAnimationEnd(this::initViewPager);
+        }
+    }
+
+    private void initViewPager() {
         List<Fragment> fragments = new ArrayList<>();
         MyCollectionAppFragment myRelatedDiscoverFragment = findChildFragment(MyCollectionAppFragment.class);
         if (myRelatedDiscoverFragment == null) {
-            myRelatedDiscoverFragment = MyCollectionAppFragment.newInstance();
+            myRelatedDiscoverFragment = MyCollectionAppFragment.newInstance(userId);
         }
 
         MyCollectionsFragment myCollectionsFragment = findChildFragment(MyCollectionsFragment.class);
         if (myCollectionsFragment == null) {
-            myCollectionsFragment = MyCollectionsFragment.newInstance();
+            myCollectionsFragment = MyCollectionsFragment.newInstance(userId);
         }
 
 
         MyCollectionDiscoverFragment myCollectionDiscoverFragment = findChildFragment(MyCollectionDiscoverFragment.class);
         if (myCollectionDiscoverFragment == null) {
-            myCollectionDiscoverFragment = MyCollectionDiscoverFragment.newInstance();
+            myCollectionDiscoverFragment = MyCollectionDiscoverFragment.newInstance(userId);
         }
 
         MyCollectionWallpaperFragment myCollectionWallpaperFragment = findChildFragment(MyCollectionWallpaperFragment.class);
         if (myCollectionWallpaperFragment == null) {
-            myCollectionWallpaperFragment = MyCollectionWallpaperFragment.newInstance();
+            myCollectionWallpaperFragment = MyCollectionWallpaperFragment.newInstance(userId);
         }
 
         MyCollectionCommentFragment myCollectionCommentFragment = findChildFragment(MyCollectionCommentFragment.class);
         if (myCollectionCommentFragment == null) {
-            myCollectionCommentFragment = MyCollectionCommentFragment.newInstance();
+            myCollectionCommentFragment = MyCollectionCommentFragment.newInstance(userId);
         }
 
         fragments.add(myRelatedDiscoverFragment);
@@ -94,9 +136,8 @@ public class MyCollectionFragment extends BaseFragment {
         fragments.add(new SupportFragment());
 
         viewPager.setAdapter(new FragmentsPagerAdapter(getChildFragmentManager(), fragments, TAB_TITLES));
-        viewPager.setOffscreenPageLimit(3);
+        viewPager.setOffscreenPageLimit(fragments.size());
 
-        MagicIndicator magicIndicator = view.findViewById(R.id.magic_indicator);
         CommonNavigator navigator = new CommonNavigator(getContext());
         navigator.setAdapter(new CommonNavigatorAdapter() {
             @Override
@@ -128,14 +169,13 @@ public class MyCollectionFragment extends BaseFragment {
         });
         magicIndicator.setNavigator(navigator);
         ViewPagerHelper.bind(magicIndicator, viewPager);
-
     }
 
     public static class MyCollectionAppFragment extends AppListFragment {
 
-        public static MyCollectionAppFragment newInstance() {
+        public static MyCollectionAppFragment newInstance(String id) {
             Bundle args = new Bundle();
-            args.putString(KEY_DEFAULT_URL, HttpApi.myCollectionAppsUrl());
+            args.putString(KEY_DEFAULT_URL, HttpApi.myCollectionAppsUrl(id));
             MyCollectionAppFragment fragment = new MyCollectionAppFragment();
             fragment.setArguments(args);
             return fragment;
@@ -145,9 +185,9 @@ public class MyCollectionFragment extends BaseFragment {
 
     public static class MyCollectionsFragment extends CollectionListFragment {
 
-        public static MyCollectionsFragment newInstance() {
+        public static MyCollectionsFragment newInstance(String id) {
             Bundle args = new Bundle();
-            args.putString(KEY_DEFAULT_URL, HttpApi.myCollectionsUrl());
+            args.putString(KEY_DEFAULT_URL, HttpApi.myCollectionsUrl(id));
             MyCollectionsFragment fragment = new MyCollectionsFragment();
             fragment.setArguments(args);
             return fragment;
@@ -157,9 +197,9 @@ public class MyCollectionFragment extends BaseFragment {
 
     public static class MyCollectionDiscoverFragment extends ThemeListFragment {
 
-        public static MyCollectionDiscoverFragment newInstance() {
+        public static MyCollectionDiscoverFragment newInstance(String id) {
             Bundle args = new Bundle();
-            args.putString(KEY_DEFAULT_URL, HttpApi.myCollectionDiscoverUrl());
+            args.putString(KEY_DEFAULT_URL, HttpApi.myCollectionDiscoverUrl(id));
             MyCollectionDiscoverFragment fragment = new MyCollectionDiscoverFragment();
             fragment.setArguments(args);
             return fragment;
@@ -169,9 +209,9 @@ public class MyCollectionFragment extends BaseFragment {
 
     public static class MyCollectionWallpaperFragment extends WallpaperListFragment {
 
-        public static MyCollectionWallpaperFragment newInstance() {
+        public static MyCollectionWallpaperFragment newInstance(String id) {
             Bundle args = new Bundle();
-            args.putString(KEY_DEFAULT_URL, HttpApi.myCollectionWallpaperUrl());
+            args.putString(KEY_DEFAULT_URL, HttpApi.myCollectionWallpaperUrl(id));
             MyCollectionWallpaperFragment fragment = new MyCollectionWallpaperFragment();
             fragment.setArguments(args);
             return fragment;
@@ -198,9 +238,9 @@ public class MyCollectionFragment extends BaseFragment {
 
     public static class MyCollectionCommentFragment extends ThemeListFragment {
 
-        public static MyCollectionCommentFragment newInstance() {
+        public static MyCollectionCommentFragment newInstance(String id) {
             Bundle args = new Bundle();
-            args.putString(KEY_DEFAULT_URL, HttpApi.myCollectionCommentUrl());
+            args.putString(KEY_DEFAULT_URL, HttpApi.myCollectionCommentUrl(id));
             MyCollectionCommentFragment fragment = new MyCollectionCommentFragment();
             fragment.setArguments(args);
             return fragment;

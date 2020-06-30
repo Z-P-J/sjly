@@ -33,7 +33,7 @@
                 />
 
             <TextView
-                android:id="@+id/text_state"
+                android:id="@+id/tv_state"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Lv.0"

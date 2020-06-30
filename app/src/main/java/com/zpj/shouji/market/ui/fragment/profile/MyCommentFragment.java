@@ -33,6 +33,7 @@ public class MyCommentFragment extends BaseFragment {
     private static final String[] TAB_TITLES = {"评论", "发起的评论"};
 
     protected ViewPager viewPager;
+    private MagicIndicator magicIndicator;
 
     public static void start() {
         StartFragmentEvent.start(new MyCommentFragment());
@@ -52,6 +53,12 @@ public class MyCommentFragment extends BaseFragment {
     protected void initView(View view, @Nullable Bundle savedInstanceState) {
         setToolbarTitle("我的评论");
         viewPager = view.findViewById(R.id.view_pager);
+        magicIndicator = view.findViewById(R.id.magic_indicator);
+    }
+
+    @Override
+    public void onEnterAnimationEnd(Bundle savedInstanceState) {
+        super.onEnterAnimationEnd(savedInstanceState);
         List<Fragment> fragments = new ArrayList<>();
         MyRelatedCommentFragment myRelatedCommentFragment = findChildFragment(MyRelatedCommentFragment.class);
         if (myRelatedCommentFragment == null) {
@@ -66,7 +73,6 @@ public class MyCommentFragment extends BaseFragment {
         viewPager.setAdapter(new FragmentsPagerAdapter(getChildFragmentManager(), fragments, TAB_TITLES));
         viewPager.setOffscreenPageLimit(2);
 
-        MagicIndicator magicIndicator = view.findViewById(R.id.magic_indicator);
         CommonNavigator navigator = new CommonNavigator(getContext());
         navigator.setAdapter(new CommonNavigatorAdapter() {
             @Override
@@ -98,7 +104,6 @@ public class MyCommentFragment extends BaseFragment {
         });
         magicIndicator.setNavigator(navigator);
         ViewPagerHelper.bind(magicIndicator, viewPager);
-
     }
 
     public static class MyRelatedCommentFragment extends ThemeListFragment {

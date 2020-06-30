@@ -46,7 +46,7 @@ public class MyBlacklistFragment extends NextUrlFragment<BlacklistInfo> {
     @Override
     protected void initView(View view, @Nullable Bundle savedInstanceState) {
         super.initView(view, savedInstanceState);
-        setToolbarTitle("黑名单");
+        setToolbarTitle("我的黑名单");
     }
 
     @Override

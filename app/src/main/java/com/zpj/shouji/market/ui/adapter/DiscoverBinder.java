@@ -214,7 +214,7 @@ public class DiscoverBinder implements IEasy.OnBindViewHolderListener<DiscoverIn
         }
 
 
-        holder.getTextView(R.id.text_state).setText(discoverInfo.getIconState());
+        holder.setText(R.id.tv_state, discoverInfo.getIconState());
         holder.getTextView(R.id.phone_type).setText(discoverInfo.getPhone());
         holder.getTextView(R.id.user_name).setText(discoverInfo.getNickName());
         holder.getTextView(R.id.text_info).setText(discoverInfo.getTime());

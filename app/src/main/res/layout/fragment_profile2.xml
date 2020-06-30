@@ -216,14 +216,14 @@
 
             </android.support.v7.widget.Toolbar>
 
-            <net.lucode.hackware.magicindicator.MagicIndicator
-                android:id="@+id/magic_indicator_title"
-                android:layout_width="match_parent"
-                android:layout_height="38dp"
-                android:layout_below="@+id/layout_toolbar"
-                android:background="@color/white"
-                android:visibility="gone"
-                app:layout_collapseMode="pin" />
+<!--            <net.lucode.hackware.magicindicator.MagicIndicator-->
+<!--                android:id="@+id/magic_indicator_title"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="38dp"-->
+<!--                android:layout_below="@+id/layout_toolbar"-->
+<!--                android:background="@color/white"-->
+<!--                android:visibility="gone"-->
+<!--                app:layout_collapseMode="pin" />-->
         </RelativeLayout>
 
     </FrameLayout>

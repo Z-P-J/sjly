@@ -106,10 +106,7 @@ public class HomeFragment extends BaseFragment {
 
     @Override
     public void toolbarRightCustomView(@NonNull View view) {
-        ImageView manageBtn = view.findViewById(R.id.btn_manage);
-        manageBtn.setOnClickListener(v -> {
-            AppManagerFragment.start();
-        });
+        view.findViewById(R.id.btn_manage).setOnClickListener(v -> AppManagerFragment.start());
         view.findViewById(R.id.btn_search).setOnClickListener(v -> SearchFragment.start());
     }
 }

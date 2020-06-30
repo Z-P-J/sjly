@@ -68,7 +68,7 @@ import net.lucode.hackware.magicindicator.buildins.commonnavigator.titles.ColorT
 import java.util.ArrayList;
 import java.util.List;
 
-public class ProfileFragment extends BaseFragment implements View.OnClickListener {
+public class ProfileFragment extends BaseFragment implements View.OnClickListener, NestedScrollView.OnScrollChangeListener {
 
     private static final String USER_ID = "user_id";
     public static final String DEFAULT_URL = "http://tt.shouji.com.cn/app/view_member_xml_v4.jsp?id=5636865";
@@ -92,15 +92,14 @@ public class ProfileFragment extends BaseFragment implements View.OnClickListene
     private JudgeNestedScrollView scrollView;
     private View buttonBarLayout;
     private MagicIndicator magicIndicator;
-    private MagicIndicator magicIndicatorTitle;
+//    private MagicIndicator magicIndicatorTitle;
     int toolBarPositionY = 0;
     private int mOffset = 0;
     private int mScrollY = 0;
 
     private final List<Fragment> fragments = new ArrayList<>();
-    private ThemeListFragment exploreFragment;
 
-    private String userId = "5636865";
+    private String userId = "5544802";
     private boolean isMe;
     private boolean isFriend;
 
@@ -164,7 +163,7 @@ public class ProfileFragment extends BaseFragment implements View.OnClickListene
 //        buttonBarLayout = view.findViewById(R.id.layout_button_bar);
         buttonBarLayout = toolbar.getCenterCustomView();
         magicIndicator = view.findViewById(R.id.magic_indicator);
-        magicIndicatorTitle = view.findViewById(R.id.magic_indicator_title);
+//        magicIndicatorTitle = view.findViewById(R.id.magic_indicator_title);
 
         refreshLayout.setOnMultiPurposeListener(new SimpleMultiPurposeListener() {
             @Override
@@ -183,63 +182,15 @@ public class ProfileFragment extends BaseFragment implements View.OnClickListene
         });
 
         mToolBar.post(this::dealWithViewPager);
-        scrollView.setOnScrollChangeListener(new NestedScrollView.OnScrollChangeListener() {
-            int lastScrollY = 0;
-            int h = DensityUtil.dp2px(100);
-            int color = ContextCompat.getColor(context, R.color.colorPrimary) & 0x00ffffff;
 
-            @Override
-            public void onScrollChange(NestedScrollView v, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
-                Log.d("onScrollChange", "scrollX=" + scrollX + " scrollY=" + scrollY + " oldScrollX=" + oldScrollX + " oldScrollY=" + oldScrollY);
-                int[] location = new int[2];
-                magicIndicator.getLocationOnScreen(location);
-                int yPosition = location[1];
-                if (yPosition < toolBarPositionY) {
-//                    magicIndicatorTitle.setVisibility(View.VISIBLE);
-                    scrollView.setNeedScroll(false);
-                } else {
-//                    magicIndicatorTitle.setVisibility(View.GONE);
-                    scrollView.setNeedScroll(true);
-
-                }
-
-                if (lastScrollY < h) {
-                    scrollY = Math.min(h, scrollY);
-                    mScrollY = Math.min(scrollY, h);
-                    buttonBarLayout.setAlpha(1f * mScrollY / h);
-                    mToolBar.setBackgroundColor(((255 * mScrollY / h) << 24) | color);
-                    ivHeader.setTranslationY(mOffset - mScrollY);
-                }
-//                if (scrollY == 0) {
-//                    ivBack.setImageResource(R.drawable.ic_back);
-//                    ivMenu.setImageResource(R.drawable.ic_more_vert_grey_24dp);
-//                } else {
-//                    ivBack.setImageResource(R.drawable.ic_back);
-//                    ivMenu.setImageResource(R.drawable.ic_more_vert_grey_24dp);
-//                }
-
-                lastScrollY = scrollY;
-            }
-        });
         buttonBarLayout.setAlpha(0);
         mToolBar.setBackgroundColor(0);
 
 
-        initViewPager();
-
-        initMagicIndicator(magicIndicator);
-        initMagicIndicator(magicIndicatorTitle);
-
-        postDelayed(() -> stateLayout.showLoadingView(), 50);
+        postDelayed(() -> stateLayout.showLoadingView(), 5);
+//        stateLayout.showLoadingView();
         getMemberInfo();
     }
-
-//    @Override
-//    public void onLazyInitView(@Nullable Bundle savedInstanceState) {
-//        super.onLazyInitView(savedInstanceState);
-////        exploreFragment.loadData();
-//    }
-
 
     @Override
     public void toolbarLeftImageButton(@NonNull ImageButton imageButton) {
@@ -321,7 +272,11 @@ public class ProfileFragment extends BaseFragment implements View.OnClickListene
                     tvToolbarName.setText(nickName);
                     tvInfo.setText(element.selectFirst("membersignature").text());
 
-                    postOnEnterAnimationEnd(() -> stateLayout.showContentView());
+                    postOnEnterAnimationEnd(() -> {
+                        stateLayout.showContentView();
+                        scrollView.setOnScrollChangeListener(ProfileFragment.this);
+                        initViewPager();
+                    });
                 })
                 .onError(throwable -> {
                     pop();
@@ -331,25 +286,31 @@ public class ProfileFragment extends BaseFragment implements View.OnClickListene
     }
 
     private void initViewPager() {
-        exploreFragment = findChildFragment(ThemeListFragment.class);
-        if (exploreFragment == null) {
-            exploreFragment = ThemeListFragment.newInstance("http://tt.shouji.com.cn/app/view_member_xml_v4.jsp?id=" + userId, true);
+        MyDynamicFragment dynamicFragment = findChildFragment(MyDynamicFragment.class);
+        if (dynamicFragment == null) {
+            dynamicFragment = MyDynamicFragment.newInstance(userId, false);
         }
-        exploreFragment.setEnableSwipeRefresh(false);
-        fragments.add(exploreFragment);
-        fragments.add(new Fragment());
+        fragments.add(dynamicFragment);
+        MyCollectionFragment collectionFragment = findChildFragment(MyCollectionFragment.class);
+        if (collectionFragment == null) {
+            collectionFragment = MyCollectionFragment.newInstance(userId, false);
+        }
+        fragments.add(collectionFragment);
         UserDownloadedFragment userDownloadedFragment = findChildFragment(UserDownloadedFragment.class);
         if (userDownloadedFragment == null) {
             userDownloadedFragment = UserDownloadedFragment.newInstance(userId);
         }
         fragments.add(userDownloadedFragment);
-        fragments.add(new Fragment());
+
+        MyFriendsFragment friendsFragment = findChildFragment(MyFriendsFragment.class);
+        if (friendsFragment == null) {
+            friendsFragment = MyFriendsFragment.newInstance(userId, false);
+        }
+        fragments.add(friendsFragment);
         FragmentsPagerAdapter adapter = new FragmentsPagerAdapter(getChildFragmentManager(), fragments, TAB_TITLES);
         mViewPager.setAdapter(adapter);
-        mViewPager.setOffscreenPageLimit(4);
-    }
+        mViewPager.setOffscreenPageLimit(fragments.size());
 
-    private void initMagicIndicator(MagicIndicator magicIndicator) {
 
         CommonNavigator navigator = new CommonNavigator(getContext());
         navigator.setAdjustMode(true);
@@ -390,6 +351,8 @@ public class ProfileFragment extends BaseFragment implements View.OnClickListene
         });
         magicIndicator.setNavigator(navigator);
         ViewPagerHelper.bind(magicIndicator, mViewPager);
+
+//        dealWithViewPager();
     }
 
     private void dealWithViewPager() {
@@ -444,5 +407,39 @@ public class ProfileFragment extends BaseFragment implements View.OnClickListene
                         .subscribe();
             }
         }
+    }
+
+
+    private int lastScrollY = 0;
+//    private int h = DensityUtil.dp2px(100);
+    @Override
+    public void onScrollChange(NestedScrollView v, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
+        Log.d("onScrollChange", "scrollX=" + scrollX + " scrollY=" + scrollY + " oldScrollX=" + oldScrollX + " oldScrollY=" + oldScrollY);
+        int[] location = new int[2];
+        magicIndicator.getLocationOnScreen(location);
+        int yPosition = location[1];
+        if (yPosition < toolBarPositionY) {
+            scrollView.setNeedScroll(false);
+        } else {
+            scrollView.setNeedScroll(true);
+        }
+
+        int h = ScreenUtils.dp2pxInt(context, 100);
+        if (lastScrollY < h) {
+            scrollY = Math.min(h, scrollY);
+            mScrollY = Math.min(scrollY, h);
+            buttonBarLayout.setAlpha(1f * mScrollY / h);
+            mToolBar.setBackgroundColor(((255 * mScrollY / h) << 24) | (ContextCompat.getColor(context, R.color.colorPrimary) & 0x00ffffff));
+            ivHeader.setTranslationY(mOffset - mScrollY);
+        }
+//                if (scrollY == 0) {
+//                    ivBack.setImageResource(R.drawable.ic_back);
+//                    ivMenu.setImageResource(R.drawable.ic_more_vert_grey_24dp);
+//                } else {
+//                    ivBack.setImageResource(R.drawable.ic_back);
+//                    ivMenu.setImageResource(R.drawable.ic_more_vert_grey_24dp);
+//                }
+
+        lastScrollY = scrollY;
     }
 }

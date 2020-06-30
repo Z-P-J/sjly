@@ -32,6 +32,7 @@ public class MyBookingFragment extends BaseFragment {
     private static final String[] TAB_TITLES = {"预约中", "已上线"};
 
     protected ViewPager viewPager;
+    private MagicIndicator magicIndicator;
 
     public static void start() {
         StartFragmentEvent.start(new MyBookingFragment());
@@ -51,6 +52,12 @@ public class MyBookingFragment extends BaseFragment {
     protected void initView(View view, @Nullable Bundle savedInstanceState) {
         setToolbarTitle("我的预约");
         viewPager = view.findViewById(R.id.view_pager);
+        magicIndicator = view.findViewById(R.id.magic_indicator);
+    }
+
+    @Override
+    public void onEnterAnimationEnd(Bundle savedInstanceState) {
+        super.onEnterAnimationEnd(savedInstanceState);
         List<Fragment> fragments = new ArrayList<>();
         MyRelatedCommentFragment myRelatedCommentFragment = findChildFragment(MyRelatedCommentFragment.class);
         if (myRelatedCommentFragment == null) {
@@ -65,7 +72,6 @@ public class MyBookingFragment extends BaseFragment {
         viewPager.setAdapter(new FragmentsPagerAdapter(getChildFragmentManager(), fragments, TAB_TITLES));
         viewPager.setOffscreenPageLimit(2);
 
-        MagicIndicator magicIndicator = view.findViewById(R.id.magic_indicator);
         CommonNavigator navigator = new CommonNavigator(getContext());
         navigator.setAdapter(new CommonNavigatorAdapter() {
             @Override
@@ -97,7 +103,6 @@ public class MyBookingFragment extends BaseFragment {
         });
         magicIndicator.setNavigator(navigator);
         ViewPagerHelper.bind(magicIndicator, viewPager);
-
     }
 
     public static class MyRelatedCommentFragment extends ThemeListFragment {

@@ -97,36 +97,40 @@ public final class HttpApi {
         return connect("http://tt.shouji.com.cn/androidv3/netgame.jsp");
     }
 
-    public static String myCollectionAppsUrl() {
-        return getCollectUrl("user_fav_index_xml_v2");
+    public static String myCollectionAppsUrl(String id) {
+        return getCollectUrl("view_member_fav_xml_v2") + "?id=" + id;
+//        return getCollectUrl("user_fav_index_xml_v2");
     }
 
-    public static String myCollectionsUrl() {
-        return getCollectUrl("user_yyj_fav_xml");
+    public static String myCollectionsUrl(String id) {
+        return getCollectUrl("user_yyj_fav_xml") + "?userid=" + id;
     }
 
-    public static String myCollectionDiscoverUrl() {
-        return getCollectUrl("user_review_fav_xml_v2") + "&t=discuss";
+    public static String myCollectionDiscoverUrl(String id) {
+        return getCollectUrl("view_member_content_fav_v2") + "?t=discuss&id=" + id;
+//        return getCollectUrl("user_review_fav_xml_v2") + "?t=discuss";
     }
 
-    public static String myCollectionCommentUrl() {
-        return getCollectUrl("user_review_fav_xml_v2") + "&t=reivew";
+    public static String myCollectionCommentUrl(String id) {
+        return getCollectUrl("view_member_content_fav_v2") + "?t=reivew&id=" + id;
+//        return getCollectUrl("user_review_fav_xml_v2") + "?t=reivew";
     }
 
-    public static String myCollectionWallpaperUrl() {
-        return getCollectUrl("user_letu_fav_xml_v2");
+    public static String myCollectionWallpaperUrl(String id) {
+        return getCollectUrl("user_letu_fav_xml_v2") + "?member=" + id;
     }
 
-    public static String myCollectionSubjectUrl() {
-        return getCollectUrl("user_special_fav_index");
+    public static String myCollectionSubjectUrl(String id) {
+        return getCollectUrl("view_member_fav_speical_xml") + "?id=" + id;
+//        return getCollectUrl("user_special_fav_index");
     }
 
-    public static String myCollectionGameTutorialUrl() {
-        return getCollectUrl("user_article_fav_list") + "&type=game";
+    public static String myCollectionGameTutorialUrl(String id) {
+        return getCollectUrl("user_article_fav_list") + "?type=game&userid=" + id;
     }
 
-    public static String myCollectionSoftTutorialUrl() {
-        return getCollectUrl("user_article_fav_list") + "&type=soft";
+    public static String myCollectionSoftTutorialUrl(String id) {
+        return getCollectUrl("user_article_fav_list") + "?type=soft&userid=" + id;
     }
 
     private static String getCollectUrl(String key) {

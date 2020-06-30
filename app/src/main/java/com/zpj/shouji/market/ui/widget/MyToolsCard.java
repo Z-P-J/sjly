@@ -22,6 +22,7 @@ import com.zpj.shouji.market.ui.fragment.profile.MyBookingFragment;
 import com.zpj.shouji.market.ui.fragment.profile.MyCollectionFragment;
 import com.zpj.shouji.market.ui.fragment.profile.MyCommentFragment;
 import com.zpj.shouji.market.ui.fragment.profile.MyDiscoverFragment;
+import com.zpj.shouji.market.ui.fragment.profile.MyDynamicFragment;
 import com.zpj.shouji.market.ui.fragment.profile.MyFragment;
 import com.zpj.shouji.market.ui.fragment.profile.MyFriendsFragment;
 import com.zpj.shouji.market.ui.fragment.profile.ProfileFragment;
@@ -132,7 +133,8 @@ public class MyToolsCard extends ShadowLayout implements View.OnClickListener {
 //                fragment.showLoginPopup(1);
 //                break;
             case R.id.tv_my_homepage:
-                ProfileFragment.start(UserManager.getInstance().getUserId(), false);
+                MyDynamicFragment.start();
+//                ProfileFragment.start(UserManager.getInstance().getUserId(), false);
                 break;
             case R.id.tv_my_discovers:
                 MyDiscoverFragment.start();
@@ -141,13 +143,13 @@ public class MyToolsCard extends ShadowLayout implements View.OnClickListener {
                 MyCommentFragment.start();
                 break;
             case R.id.tv_my_friends:
-                MyFriendsFragment.start();
+                MyFriendsFragment.start(UserManager.getInstance().getUserId());
                 break;
             case R.id.tv_my_messages:
 
                 break;
             case R.id.tv_my_collections:
-                MyCollectionFragment.start();
+                MyCollectionFragment.start(UserManager.getInstance().getUserId());
                 break;
             case R.id.tv_my_bookings:
                 MyBookingFragment.start();

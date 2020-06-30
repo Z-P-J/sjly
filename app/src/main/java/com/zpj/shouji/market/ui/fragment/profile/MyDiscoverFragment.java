@@ -35,6 +35,7 @@ public class MyDiscoverFragment extends BaseFragment {
     private static final String[] TAB_TITLES = {"与我有关", "我的发现", "私有发现"};
 
     protected ViewPager viewPager;
+    private MagicIndicator magicIndicator;
 
     public static void start() {
         StartFragmentEvent.start(new MyDiscoverFragment());
@@ -54,6 +55,12 @@ public class MyDiscoverFragment extends BaseFragment {
     protected void initView(View view, @Nullable Bundle savedInstanceState) {
         setToolbarTitle("我的发现");
         viewPager = view.findViewById(R.id.view_pager);
+        magicIndicator = view.findViewById(R.id.magic_indicator);
+    }
+
+    @Override
+    public void onEnterAnimationEnd(Bundle savedInstanceState) {
+        super.onEnterAnimationEnd(savedInstanceState);
         List<Fragment> fragments = new ArrayList<>();
         MyRelatedDiscoverFragment myRelatedDiscoverFragment = findChildFragment(MyRelatedDiscoverFragment.class);
         if (myRelatedDiscoverFragment == null) {
@@ -71,9 +78,8 @@ public class MyDiscoverFragment extends BaseFragment {
         fragments.add(myPublishDiscoverFragment);
         fragments.add(myPrivateDiscoverFragment);
         viewPager.setAdapter(new FragmentsPagerAdapter(getChildFragmentManager(), fragments, TAB_TITLES));
-        viewPager.setOffscreenPageLimit(3);
+        viewPager.setOffscreenPageLimit(fragments.size());
 
-        MagicIndicator magicIndicator = view.findViewById(R.id.magic_indicator);
         CommonNavigator navigator = new CommonNavigator(getContext());
         navigator.setAdapter(new CommonNavigatorAdapter() {
             @Override
@@ -105,7 +111,6 @@ public class MyDiscoverFragment extends BaseFragment {
         });
         magicIndicator.setNavigator(navigator);
         ViewPagerHelper.bind(magicIndicator, viewPager);
-
     }
 
     public static class MyRelatedDiscoverFragment extends ThemeListFragment {

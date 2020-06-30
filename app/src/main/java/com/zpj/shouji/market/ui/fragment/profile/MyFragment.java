@@ -18,6 +18,7 @@ import com.zpj.fragmentation.BaseFragment;
 import com.zpj.fragmentation.anim.DefaultVerticalAnimator;
 import com.zpj.popup.ZPopup;
 import com.zpj.popup.impl.AlertPopup;
+import com.zpj.popup.impl.AttachListPopup;
 import com.zpj.popup.interfaces.OnConfirmListener;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.api.HttpApi;
@@ -183,25 +184,35 @@ public class MyFragment extends BaseFragment
 
     @Override
     public void toolbarRightImageButton(@NonNull ImageButton imageButton) {
-        imageButton.setOnClickListener(v -> ZPopup.attachList(context)
-                .addItems("打开主页网页", "分享主页", "注销", "登录")
-                .setOnSelectListener((position, title) -> {
-                    AToast.normal(title);
-                    switch (position) {
-                        case 0:
-                            WebFragment.shareHomepage(UserManager.getInstance().getUserId());
-                            break;
-                        case 1:
-                            break;
-                        case 2:
-                            showSignOutPopup();
-                            break;
-                        case 3:
-                            showLoginPopup(0);
-                            break;
-                    }
-                })
-                .show(v));
+        imageButton.setOnClickListener(v -> {
+            AttachListPopup<String> popup = ZPopup.attachList(context);
+            popup.addItems("打开我的主页", "打开主页网页", "分享主页");
+            popup.addItem(UserManager.getInstance().isLogin() ? "注销" : "登录");
+            popup.setOnSelectListener((position, title) -> {
+                        AToast.normal(title);
+                        switch (position) {
+                            case 0:
+                                ProfileFragment.start(UserManager.getInstance().getUserId(), false);
+                                break;
+                            case 1:
+                                WebFragment.shareHomepage(UserManager.getInstance().getUserId());
+                                break;
+                            case 2:
+                                AToast.normal("TODO 分享主页");
+                                break;
+                            case 3:
+                                if (UserManager.getInstance().isLogin()) {
+                                    showSignOutPopup();
+                                } else {
+                                    showLoginPopup(0);
+                                }
+                                break;
+                            case 4:
+                                break;
+                        }
+                    })
+                    .show(v);
+        });
     }
 
     @Override
