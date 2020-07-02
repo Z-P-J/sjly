@@ -5,13 +5,11 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.view.ViewPager;
 import android.view.View;
-import android.widget.ImageView;
 
 import com.github.zagum.expandicon.ExpandIconView;
 import com.zpj.fragmentation.BaseFragment;
 import com.zpj.http.parser.html.nodes.Element;
 import com.zpj.http.parser.html.select.Elements;
-import com.zpj.popup.interfaces.OnDismissListener;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.api.HttpApi;
 import com.zpj.shouji.market.model.WallpaperTag;
@@ -97,7 +95,7 @@ public class WallpaperFragment extends BaseFragment implements View.OnClickListe
     }
 
     private void initWallpaperTags() {
-        HttpApi.connect("http://tt.shouji.com.cn/app/bizhi_tags.jsp")
+        HttpApi.get("http://tt.shouji.com.cn/app/bizhi_tags.jsp")
                 .onSuccess(data -> {
                     Elements elements = data.select("item");
                     wallpaperTags.clear();

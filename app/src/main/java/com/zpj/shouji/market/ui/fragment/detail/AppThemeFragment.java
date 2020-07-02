@@ -6,10 +6,10 @@ import com.zpj.shouji.market.ui.fragment.theme.ThemeListFragment;
 
 public class AppThemeFragment extends ThemeListFragment {
 
-    public static AppThemeFragment newInstance(String url) {
+    public static AppThemeFragment newInstance(String id, String type) {
         AppThemeFragment fragment = new AppThemeFragment();
         Bundle bundle = new Bundle();
-        bundle.putString(KEY_DEFAULT_URL, url);
+        bundle.putString(KEY_DEFAULT_URL, "http://tt.shouji.com.cn/app/faxian.jsp?apptype=" + type + "&appid=" + id);
         fragment.setArguments(bundle);
         return fragment;
     }

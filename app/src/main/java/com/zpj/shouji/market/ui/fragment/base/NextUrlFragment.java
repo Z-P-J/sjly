@@ -71,7 +71,7 @@ public abstract class NextUrlFragment<T> extends RecyclerLayoutFragment<T> {
     }
 
     protected void getData() {
-        HttpApi.connect(nextUrl)
+        HttpApi.get(nextUrl)
                 .onSuccess(doc -> {
                     Log.d("getData", "doc=" + doc);
                     nextUrl = doc.selectFirst("nextUrl").text();

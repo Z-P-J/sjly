@@ -9,6 +9,7 @@ import android.view.View;
 
 import com.felix.atoast.library.AToast;
 import com.zpj.matisse.Matisse;
+import com.zpj.popup.util.ActivityUtils;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.database.ChatManager;
 import com.zpj.shouji.market.event.StartFragmentEvent;
@@ -54,7 +55,7 @@ public class ChatFragment extends BaseFragment implements ChatPanel.OnOperationL
     String filePath = "";
     int i = 0;
 
-    private KeyboardHeightProvider keyboardHeightProvider;
+//    private KeyboardHeightProvider keyboardHeightProvider;
 
     public static void start() {
         StartFragmentEvent.start(new ChatFragment());
@@ -75,7 +76,7 @@ public class ChatFragment extends BaseFragment implements ChatPanel.OnOperationL
         tblist.clear();
         tbAdapter.notifyDataSetChanged();
         recyclerView.setAdapter(null);
-        keyboardHeightProvider.close();
+//        keyboardHeightProvider.close();
         Matisse.onDestroy();
         super.onDestroy();
     }
@@ -83,13 +84,13 @@ public class ChatFragment extends BaseFragment implements ChatPanel.OnOperationL
     @Override
     public void onResume() {
         super.onResume();
-        keyboardHeightProvider.setKeyboardHeightObserver(chatPanel);
+//        keyboardHeightProvider.setKeyboardHeightObserver(chatPanel);
     }
 
     @Override
     public void onPause() {
         super.onPause();
-        keyboardHeightProvider.setKeyboardHeightObserver(null);
+//        keyboardHeightProvider.setKeyboardHeightObserver(null);
     }
 
     @Override
@@ -105,8 +106,8 @@ public class ChatFragment extends BaseFragment implements ChatPanel.OnOperationL
         page = (int) ChatManager.getPages(number);
 
 
-        keyboardHeightProvider.setKeyboardHeightObserver(chatPanel);
-        keyboardHeightProvider.start();
+//        keyboardHeightProvider.setKeyboardHeightObserver(chatPanel);
+//        keyboardHeightProvider.start();
 
         loadRecords();
     }
@@ -114,13 +115,18 @@ public class ChatFragment extends BaseFragment implements ChatPanel.OnOperationL
     @Override
     protected void initView(View view, @Nullable Bundle savedInstanceState) {
         bottomStatusHeight = ScreenUtils.getNavigationBarHeight(context);
-        keyboardHeightProvider = new KeyboardHeightProvider(_mActivity);
+//        keyboardHeightProvider = new KeyboardHeightProvider(_mActivity);
 
         recyclerView = view.findViewById(R.id.recycler_view);
         initRecyclerView();
 
         chatPanel = view.findViewById(R.id.chat_panel);
         chatPanel.setOnOperationListener(this);
+
+        com.zpj.popup.util.KeyboardUtils.registerSoftInputChangedListener(_mActivity, view, height -> {
+            chatPanel.onKeyboardHeightChanged(height, 0);
+        });
+
     }
 
     private void initRecyclerView() {

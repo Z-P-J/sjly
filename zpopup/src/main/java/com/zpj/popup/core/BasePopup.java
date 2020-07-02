@@ -140,7 +140,7 @@ public abstract class BasePopup<T extends BasePopup> extends FrameLayout impleme
 
     }
 
-    private boolean hasMoveUp = false;
+    protected boolean hasMoveUp = false;
     private void collectAnimator(){
         if(popupContentAnimator==null){
             // 优先使用自定义的动画器
@@ -233,17 +233,14 @@ public abstract class BasePopup<T extends BasePopup> extends FrameLayout impleme
         final Activity activity = ActivityUtils.getActivity(context);
 //        final Activity activity = (Activity) getContext();
         popupInfo.decorView = (ViewGroup) activity.getWindow().getDecorView();
-        KeyboardUtils.registerSoftInputChangedListener(activity, this, new KeyboardUtils.OnSoftInputChangedListener() {
-            @Override
-            public void onSoftInputChanged(int height) {
-                if (height == 0) { // 说明对话框隐藏
-                    XPopupUtils.moveDown(BasePopup.this);
-                    hasMoveUp = false;
-                } else {
-                    //when show keyboard, move up
-                    XPopupUtils.moveUpToKeyboard(height, BasePopup.this);
-                    hasMoveUp = true;
-                }
+        KeyboardUtils.registerSoftInputChangedListener(activity, this, height -> {
+            if (height == 0) { // 说明对话框隐藏
+                XPopupUtils.moveDown(BasePopup.this);
+                hasMoveUp = false;
+            } else {
+                //when show keyboard, move up
+                XPopupUtils.moveUpToKeyboard(height, BasePopup.this);
+                hasMoveUp = true;
             }
         });
         // 1. add PopupView to its decorView after measured.

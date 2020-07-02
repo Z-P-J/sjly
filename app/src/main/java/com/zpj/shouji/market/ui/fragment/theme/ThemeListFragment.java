@@ -70,7 +70,7 @@ public class ThemeListFragment extends NextUrlFragment<DiscoverInfo>
     @Override
     public void run() {
         Log.d("ThemeListFragment", "nextUrl=" + nextUrl);
-        HttpApi.connect(nextUrl)
+        HttpApi.get(nextUrl)
                 .onSuccess(doc -> {
                     Elements elements = doc.select("item");
 //                    if (nextUrl.equals(defaultUrl)) {
@@ -121,10 +121,15 @@ public class ThemeListFragment extends NextUrlFragment<DiscoverInfo>
 
     @Override
     protected void buildRecyclerLayout(EasyRecyclerLayout<DiscoverInfo> recyclerLayout) {
+        IEasy.OnClickListener<DiscoverInfo> listener = new IEasy.OnClickListener<DiscoverInfo>() {
+            @Override
+            public void onClick(EasyViewHolder holder, View view, DiscoverInfo data) {
+                ProfileFragment.start(data.getMemberId(), false);
+            }
+        };
         recyclerLayout.setEnableSwipeRefresh(enableSwipeRefresh)
-                .onViewClick(R.id.item_icon, (holder, view, data) -> {
-                    ProfileFragment.start(data.getMemberId(), false);
-                });
+                .onViewClick(R.id.item_icon, listener)
+                .onViewClick(R.id.user_name, listener);
     }
 
     @Override
@@ -144,13 +149,14 @@ public class ThemeListFragment extends NextUrlFragment<DiscoverInfo>
 //            }
             CollectionDetailFragment.start(info);
         } else {
-            ThemeDetailFragment.start(data);
+            ThemeDetailFragment.start(data, false);
         }
     }
 
     @Override
     public boolean onLongClick(EasyViewHolder holder, View view, DiscoverInfo data) {
-        DiscoverBinder.showMenu(context, data);;
+        DiscoverBinder.showMenu(context, data);
+        ;
         return true;
     }
 

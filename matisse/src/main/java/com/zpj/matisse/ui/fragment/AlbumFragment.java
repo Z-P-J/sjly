@@ -78,7 +78,7 @@ public class AlbumFragment extends BaseFragment implements
                 .setData(albumList)
                 .setEnableLoadMore(false)
                 .setEnableSwipeRefresh(false)
-                .setLayoutManager(new GridLayoutManager(getContext(), spanCount))
+                .setLayoutManager(new GridLayoutManager(context, spanCount))
                 .onBindViewHolder((holder, list, position, payloads) -> {
                     Album album = list.get(position);
 

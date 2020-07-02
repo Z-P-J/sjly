@@ -4,7 +4,10 @@
     android:id="@+id/header_recent_update"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:padding="10dp"
+    android:paddingTop="8dp"
+    android:paddingBottom="8dp"
+    android:paddingStart="16dp"
+    android:paddingEnd="16dp"
     android:background="?android:attr/selectableItemBackground"
     >
 
@@ -13,7 +16,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="默认排序"
-        android:textSize="16sp"
+        android:textSize="14sp"
         android:textColor="#333"
         android:textStyle="bold"
         android:layout_centerVertical="true"

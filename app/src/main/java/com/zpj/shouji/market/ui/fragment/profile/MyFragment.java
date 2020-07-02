@@ -220,9 +220,7 @@ public class MyFragment extends BaseFragment
         if (v == tvCheckIn) {
             MemberInfo memberInfo = UserManager.getInstance().getMemberInfo();
             if (memberInfo.isCanSigned()) {
-                HttpApi.openConnection("http://tt.shouji.com.cn/app/xml_signed.jsp?version=2.9.9.9.3")
-                        .data("jsessionid", UserManager.getInstance().getSessionId())
-                        .toHtml()
+                HttpApi.get("http://tt.shouji.com.cn/app/xml_signed.jsp?version=2.9.9.9.3")
                         .onSuccess(data -> {
                             String info = data.selectFirst("info").text();
                             if ("success".equals(data.selectFirst("result").text())) {

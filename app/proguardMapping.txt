@@ -1,7 +1,7 @@
 # compiler: R8
 # compiler_version: 1.5.69
 # min_api: 19
-# pg_map_id: 70ed82d
+# pg_map_id: 52871b9
 android.arch.core.executor.ArchTaskExecutor -> a.a.a.a.a:
     android.arch.core.executor.ArchTaskExecutor sInstance -> c
     android.arch.core.executor.TaskExecutor mDelegate -> a
@@ -38466,9 +38466,8 @@ com.zpj.fragmentation.swipeback.SwipeBackLayout$ViewDragCallback -> com.zpj.frag
 com.zpj.http.ZHttp -> b.e.a.a:
     49:49:com.zpj.http.parser.html.nodes.Document parse(java.lang.String,java.lang.String,com.zpj.http.parser.html.Parser) -> a
     77:77:com.zpj.http.core.Connection connect(java.lang.String) -> a
-    81:81:com.zpj.http.core.Connection get(java.lang.String) -> b
-    89:89:com.zpj.http.core.Connection head(java.lang.String) -> c
-    62:62:com.zpj.http.parser.html.nodes.Document parse(java.lang.String) -> d
+    89:89:com.zpj.http.core.Connection head(java.lang.String) -> b
+    62:62:com.zpj.http.parser.html.nodes.Document parse(java.lang.String) -> c
 com.zpj.http.core.AbstractConnection -> b.e.a.b.a:
     com.zpj.http.core.Connection$Response res -> b
     com.zpj.http.core.Connection$Request req -> a
@@ -38491,9 +38490,10 @@ com.zpj.http.core.AbstractConnection -> b.e.a.b.a:
     93:94:com.zpj.http.core.Connection ignoreContentType(boolean) -> c
     467:470:com.zpj.http.core.Connection range(java.lang.String) -> c
     443:446:com.zpj.http.core.Connection accept(java.lang.String) -> d
-    46:50:com.zpj.http.core.Connection url(java.lang.String) -> e
+    419:422:com.zpj.http.core.Connection contentType(java.lang.String) -> e
     279:288:com.zpj.http.core.ObservableTask execute() -> execute
-    411:414:com.zpj.http.core.Connection referer(java.lang.String) -> f
+    46:50:com.zpj.http.core.Connection url(java.lang.String) -> f
+    411:414:com.zpj.http.core.Connection referer(java.lang.String) -> g
 com.zpj.http.core.AbstractConnection$1 -> b.e.a.b.a$a:
     com.zpj.http.core.AbstractConnection this$0 -> a
     279:279:void <init>(com.zpj.http.core.AbstractConnection) -> <init>
@@ -38519,8 +38519,9 @@ com.zpj.http.core.Connection -> b.e.a.b.b:
     com.zpj.http.core.Connection ignoreContentType(boolean) -> c
     com.zpj.http.core.Connection range(java.lang.String) -> c
     com.zpj.http.core.Connection accept(java.lang.String) -> d
-    com.zpj.http.core.Connection url(java.lang.String) -> e
-    com.zpj.http.core.Connection referer(java.lang.String) -> f
+    com.zpj.http.core.Connection contentType(java.lang.String) -> e
+    com.zpj.http.core.Connection url(java.lang.String) -> f
+    com.zpj.http.core.Connection referer(java.lang.String) -> g
 com.zpj.http.core.Connection$Base -> b.e.a.b.b$a:
     java.util.Map cookies() -> a
     boolean hasHeader(java.lang.String) -> a
@@ -40844,16 +40845,16 @@ com.zpj.matisse.SelectionCreator -> com.zpj.matisse.d:
     boolean isJumpCapture -> c
     102:108:void <init>(com.zpj.matisse.Matisse,java.util.Set,boolean) -> <init>
     68:68:com.zpj.matisse.Matisse access$000(com.zpj.matisse.SelectionCreator) -> a
+    163:164:com.zpj.matisse.SelectionCreator maxSelectable(int) -> a
     213:215:com.zpj.matisse.SelectionCreator capture(boolean) -> a
     219:221:com.zpj.matisse.SelectionCreator capture(boolean,com.zpj.matisse.CaptureMode) -> a
-    306:307:com.zpj.matisse.SelectionCreator gridExpectedSize(int) -> a
     318:319:com.zpj.matisse.SelectionCreator thumbnailScale(float) -> a
     335:336:com.zpj.matisse.SelectionCreator imageEngine(com.zpj.matisse.engine.ImageEngine) -> a
     350:351:com.zpj.matisse.SelectionCreator setOnSelectedListener(com.zpj.matisse.listener.OnSelectedListener) -> a
     371:405:void start() -> a
     152:153:com.zpj.matisse.SelectionCreator countable(boolean) -> b
-    163:164:com.zpj.matisse.SelectionCreator maxSelectable(int) -> b
-    279:280:com.zpj.matisse.SelectionCreator restrictOrientation(int) -> c
+    279:280:com.zpj.matisse.SelectionCreator restrictOrientation(int) -> b
+    292:292:com.zpj.matisse.SelectionCreator spanCount(int) -> c
 com.zpj.matisse.SelectionCreator$1 -> com.zpj.matisse.d$a:
     com.zpj.fragmentation.SupportActivity val$activity -> a
     com.zpj.matisse.SelectionCreator this$0 -> b
@@ -41425,6 +41426,7 @@ com.zpj.popup.XPopup -> com.zpj.popup.a:
 com.zpj.popup.ZPopup -> com.zpj.popup.b:
     44:44:com.zpj.popup.impl.AlertPopup alert(android.content.Context) -> a
     60:60:com.zpj.popup.impl.AttachListPopup attachList(android.content.Context) -> b
+    56:56:com.zpj.popup.impl.LoadingPopup loading(android.content.Context) -> c
 com.zpj.popup.animator.EmptyAnimator -> com.zpj.popup.c.a:
     7:7:void <init>() -> <init>
     21:21:void animateDismiss() -> a
@@ -41527,7 +41529,10 @@ com.zpj.popup.animator.TranslateAnimator -> com.zpj.popup.c.g:
 com.zpj.popup.animator.TranslateAnimator$1 -> com.zpj.popup.c.g$a:
     int[] $SwitchMap$com$zpj$popup$enums$PopupAnimation -> a
     41:41:void <clinit>() -> <clinit>
-com.zpj.popup.core.-$$Lambda$lWfy4pVOVhPbvfMw-PmoYhiKZDc -> com.zpj.popup.core.a:
+com.zpj.popup.core.-$$Lambda$BasePopup$G7BQnendbU_xifGma5nvKvtWa9M -> com.zpj.popup.core.a:
+    com.zpj.popup.core.BasePopup f$0 -> a
+    void onSoftInputChanged(int) -> a
+com.zpj.popup.core.-$$Lambda$lWfy4pVOVhPbvfMw-PmoYhiKZDc -> com.zpj.popup.core.b:
     com.zpj.popup.core.BottomPopup f$0 -> e
 com.zpj.popup.core.AttachPopup -> com.zpj.popup.core.AttachPopup:
     int defaultOffsetX -> z
@@ -41590,81 +41595,76 @@ com.zpj.popup.core.BasePopup -> com.zpj.popup.core.BasePopup:
     80:82:void <init>(android.content.Context,android.util.AttributeSet) -> <init>
     85:87:void <init>(android.content.Context,android.util.AttributeSet,int) -> <init>
     50:50:void access$000(com.zpj.popup.core.BasePopup) -> a
-    50:50:boolean access$102(com.zpj.popup.core.BasePopup,boolean) -> a
     177:182:void onNavigationBarChange(boolean) -> a
     212:213:com.zpj.popup.core.BasePopup setOnDismissListener(com.zpj.popup.interfaces.OnDismissListener) -> a
-    313:321:void showSoftInput(android.view.View) -> a
-    50:50:boolean access$100(com.zpj.popup.core.BasePopup) -> b
+    237:245:void lambda$show$0(int) -> a
+    310:318:void showSoftInput(android.view.View) -> a
     184:190:void applyFull() -> b
     192:209:void applySize(boolean) -> b
-    730:732:com.zpj.popup.core.BasePopup setCancelable(boolean) -> c
-    539:551:void clearFocus() -> clearFocus
-    520:526:void dismiss() -> d
-    324:328:void dismissOrHideSoftInput() -> e
-    569:572:void doAfterDismiss() -> f
-    267:269:void doAfterShow() -> g
-    473:473:int getAnimationDuration() -> getAnimationDuration
-    409:409:int getImplLayoutId() -> getImplLayoutId
-    491:491:int getMaxHeight() -> getMaxHeight
-    482:482:int getMaxWidth() -> getMaxWidth
-    418:418:com.zpj.popup.animator.PopupAnimator getPopupAnimator() -> getPopupAnimator
-    465:465:android.view.View getPopupContentView() -> getPopupContentView
-    509:509:int getPopupHeight() -> getPopupHeight
-    469:469:android.view.View getPopupImplView() -> getPopupImplView
-    500:500:int getPopupWidth() -> getPopupWidth
-    513:513:android.view.View getTargetSizeView() -> getTargetSizeView
-    451:456:void doDismissAnimation() -> h
-    438:444:void doShowAnimation() -> i
-    288:310:void focusAndProcessBackPress() -> j
-    364:364:com.zpj.popup.animator.PopupAnimator genAnimatorByPopupType() -> k
-    529:535:void hide() -> l
+    727:729:com.zpj.popup.core.BasePopup setCancelable(boolean) -> c
+    536:548:void clearFocus() -> clearFocus
+    517:523:void dismiss() -> d
+    321:325:void dismissOrHideSoftInput() -> e
+    566:569:void doAfterDismiss() -> f
+    264:266:void doAfterShow() -> g
+    470:470:int getAnimationDuration() -> getAnimationDuration
+    406:406:int getImplLayoutId() -> getImplLayoutId
+    488:488:int getMaxHeight() -> getMaxHeight
+    479:479:int getMaxWidth() -> getMaxWidth
+    415:415:com.zpj.popup.animator.PopupAnimator getPopupAnimator() -> getPopupAnimator
+    462:462:android.view.View getPopupContentView() -> getPopupContentView
+    506:506:int getPopupHeight() -> getPopupHeight
+    466:466:android.view.View getPopupImplView() -> getPopupImplView
+    497:497:int getPopupWidth() -> getPopupWidth
+    510:510:android.view.View getTargetSizeView() -> getTargetSizeView
+    448:453:void doDismissAnimation() -> h
+    435:441:void doShowAnimation() -> i
+    285:307:void focusAndProcessBackPress() -> j
+    361:361:com.zpj.popup.animator.PopupAnimator genAnimatorByPopupType() -> k
+    526:532:void hide() -> l
     93:141:void init() -> m
-    425:425:void initPopupContent() -> n
-    635:635:boolean isDismiss() -> o
-    683:696:void onDetachedFromWindow() -> onDetachedFromWindow
-    703:726:boolean onTouchEvent(android.view.MotionEvent) -> onTouchEvent
-    639:639:boolean isHide() -> p
-    631:631:boolean isShow() -> q
-    651:654:boolean onBackPressed() -> r
-    431:431:void onCreate() -> s
-    661:664:void onDismiss() -> t
-    667:670:void onHide() -> u
-    676:679:void onShow() -> v
+    422:422:void initPopupContent() -> n
+    632:632:boolean isDismiss() -> o
+    680:693:void onDetachedFromWindow() -> onDetachedFromWindow
+    700:723:boolean onTouchEvent(android.view.MotionEvent) -> onTouchEvent
+    636:636:boolean isHide() -> p
+    628:628:boolean isShow() -> q
+    648:651:boolean onBackPressed() -> r
+    428:428:void onCreate() -> s
+    658:661:void onDismiss() -> t
+    664:667:void onHide() -> u
+    673:676:void onShow() -> v
     167:167:com.zpj.popup.core.BasePopup self() -> w
-    232:263:com.zpj.popup.core.BasePopup show() -> x
+    232:260:com.zpj.popup.core.BasePopup show() -> x
     145:164:void collectAnimator() -> y
 com.zpj.popup.core.BasePopup$1 -> com.zpj.popup.core.BasePopup$a:
     com.zpj.popup.core.BasePopup this$0 -> e
     118:118:void <init>(com.zpj.popup.core.BasePopup) -> <init>
     122:138:void run() -> run
 com.zpj.popup.core.BasePopup$2 -> com.zpj.popup.core.BasePopup$b:
-    com.zpj.popup.core.BasePopup this$0 -> a
-    236:236:void <init>(com.zpj.popup.core.BasePopup) -> <init>
-    239:247:void onSoftInputChanged(int) -> a
+    com.zpj.popup.core.BasePopup this$0 -> e
+    247:247:void <init>(com.zpj.popup.core.BasePopup) -> <init>
+    250:258:void run() -> run
 com.zpj.popup.core.BasePopup$3 -> com.zpj.popup.core.BasePopup$c:
     com.zpj.popup.core.BasePopup this$0 -> e
-    250:250:void <init>(com.zpj.popup.core.BasePopup) -> <init>
-    253:261:void run() -> run
-com.zpj.popup.core.BasePopup$4 -> com.zpj.popup.core.BasePopup$d:
+    268:268:void <init>(com.zpj.popup.core.BasePopup) -> <init>
+    271:279:void run() -> run
+com.zpj.popup.core.BasePopup$5 -> com.zpj.popup.core.BasePopup$d:
     com.zpj.popup.core.BasePopup this$0 -> e
-    271:271:void <init>(com.zpj.popup.core.BasePopup) -> <init>
-    274:282:void run() -> run
+    571:571:void <init>(com.zpj.popup.core.BasePopup) -> <init>
+    574:617:void run() -> run
 com.zpj.popup.core.BasePopup$6 -> com.zpj.popup.core.BasePopup$e:
-    com.zpj.popup.core.BasePopup this$0 -> e
-    574:574:void <init>(com.zpj.popup.core.BasePopup) -> <init>
-    577:620:void run() -> run
-com.zpj.popup.core.BasePopup$7 -> com.zpj.popup.core.BasePopup$f:
     int[] $SwitchMap$com$zpj$popup$enums$PopupAnimation -> a
-    365:365:void <clinit>() -> <clinit>
-com.zpj.popup.core.BasePopup$BackPressListener -> com.zpj.popup.core.BasePopup$g:
+    362:362:void <clinit>() -> <clinit>
+com.zpj.popup.core.BasePopup$BackPressListener -> com.zpj.popup.core.BasePopup$f:
     com.zpj.popup.core.BasePopup this$0 -> e
-    347:347:void <init>(com.zpj.popup.core.BasePopup) -> <init>
-    350:356:boolean onKey(android.view.View,int,android.view.KeyEvent) -> onKey
-com.zpj.popup.core.BasePopup$ShowSoftInputTask -> com.zpj.popup.core.BasePopup$h:
+    344:344:void <init>(com.zpj.popup.core.BasePopup) -> <init>
+    347:353:boolean onKey(android.view.View,int,android.view.KeyEvent) -> onKey
+com.zpj.popup.core.BasePopup$ShowSoftInputTask -> com.zpj.popup.core.BasePopup$g:
     boolean isDone -> f
     android.view.View focusView -> e
-    334:336:void <init>(com.zpj.popup.core.BasePopup,android.view.View) -> <init>
-    340:344:void run() -> run
+    331:333:void <init>(com.zpj.popup.core.BasePopup,android.view.View) -> <init>
+    337:341:void run() -> run
 com.zpj.popup.core.BottomPopup -> com.zpj.popup.core.BottomPopup:
     com.zpj.popup.widget.SmartDragLayout bottomPopupContainer -> y
     24:25:void <init>(android.content.Context) -> <init>
@@ -41772,7 +41772,6 @@ com.zpj.popup.core.ImageViewerPopup -> com.zpj.popup.core.ImageViewerPopup:
     155:160:void showPagerIndicator() -> B
     55:55:void access$000(com.zpj.popup.core.ImageViewerPopup) -> a
     55:55:void access$300(com.zpj.popup.core.ImageViewerPopup,int) -> a
-    230:242:void animateShadowBg(int) -> a
     321:322:com.zpj.popup.core.ImageViewerPopup setOnPopupDismissListener(com.zpj.popup.photoview.OnPopupDismissListener) -> a
     326:327:com.zpj.popup.core.ImageViewerPopup setOnPopupShowListener(com.zpj.popup.photoview.OnPopupShowListener) -> a
     331:332:com.zpj.popup.core.ImageViewerPopup setImageUrls(java.util.List) -> a
@@ -41783,6 +41782,7 @@ com.zpj.popup.core.ImageViewerPopup -> com.zpj.popup.core.ImageViewerPopup:
     432:433:void onRelease() -> a
     437:441:void onDragChange(int,float,float) -> a
     55:55:void access$101(com.zpj.popup.core.ImageViewerPopup) -> b
+    230:242:void animateShadowBg(int) -> b
     55:55:void access$201(com.zpj.popup.core.ImageViewerPopup) -> c
     306:318:void dismiss() -> d
     363:364:com.zpj.popup.core.ImageViewerPopup isShowIndicator(boolean) -> d
@@ -41847,11 +41847,11 @@ com.zpj.popup.core.ImageViewerPopup2 -> com.zpj.popup.core.ImageViewerPopup2:
     com.zpj.popup.imagetrans.DialogView dialogView -> F
     com.zpj.popup.imagetrans.ImageTransBuild build -> E
     32:35:void <init>(android.content.Context) -> <init>
-    92:94:com.zpj.popup.core.ImageViewerPopup2 setNowIndex(int) -> a
     98:99:com.zpj.popup.core.ImageViewerPopup2 setImageList(java.util.List) -> a
     103:104:com.zpj.popup.core.ImageViewerPopup2 setSourceImageView(com.zpj.popup.imagetrans.listener.SourceImageViewGet) -> a
     108:109:com.zpj.popup.core.ImageViewerPopup2 setAdapter(com.zpj.popup.imagetrans.ImageTransAdapter) -> a
     113:114:com.zpj.popup.core.ImageViewerPopup2 setImageLoad(com.zpj.popup.imagetrans.ImageLoad) -> a
+    92:94:com.zpj.popup.core.ImageViewerPopup2 setNowIndex(int) -> b
     45:46:android.view.View getContentView() -> getContentView
     57:57:com.zpj.popup.animator.PopupAnimator getPopupAnimator() -> getPopupAnimator
     87:88:boolean onBackPressed() -> r
@@ -41859,7 +41859,7 @@ com.zpj.popup.core.ImageViewerPopup2 -> com.zpj.popup.core.ImageViewerPopup2:
     81:83:void onDismiss() -> t
     62:63:void onShow() -> v
     51:52:com.zpj.popup.core.ImageViewerPopup2 show() -> x
-com.zpj.popup.core.PopupInfo -> com.zpj.popup.core.b:
+com.zpj.popup.core.PopupInfo -> com.zpj.popup.core.c:
     java.lang.Boolean autoDismiss -> e
     int maxHeight -> l
     java.lang.Boolean hasShadowBg -> f
@@ -42512,8 +42512,8 @@ com.zpj.popup.impl.AbstractAlertPopup -> com.zpj.popup.impl.AbstractAlertPopup:
     107:109:com.zpj.popup.impl.AbstractAlertPopup setConfirmButton(java.lang.String,com.zpj.popup.interfaces.OnConfirmListener) -> a
     124:126:com.zpj.popup.impl.AbstractAlertPopup setCancelButton(java.lang.String,com.zpj.popup.interfaces.OnCancelListener) -> a
     147:162:com.zpj.popup.impl.AbstractAlertPopup setContent(java.lang.CharSequence) -> a
-    166:167:com.zpj.popup.impl.AbstractAlertPopup setContent(int) -> a
-    176:177:com.zpj.popup.impl.AbstractAlertPopup setTitle(java.lang.String) -> b
+    166:167:com.zpj.popup.impl.AbstractAlertPopup setContent(int) -> b
+    176:177:com.zpj.popup.impl.AbstractAlertPopup setTitle(java.lang.String) -> d
     87:89:int getColorPrimary() -> getColorPrimary
     43:43:int getImplLayoutId() -> getImplLayoutId
     48:79:void initPopupContent() -> n
@@ -42618,10 +42618,10 @@ com.zpj.popup.impl.BottomSelectPopup -> com.zpj.popup.impl.BottomSelectPopup:
     20:20:boolean access$000(com.zpj.popup.impl.BottomSelectPopup) -> a
     20:20:void access$100(com.zpj.popup.impl.BottomSelectPopup,int) -> a
     87:131:void lambda$initPopupContent$0(com.zpj.recyclerview.EasyRecyclerView,com.zpj.recyclerview.EasyViewHolder,java.util.List,int,java.util.List) -> a
-    202:205:void onSelected(int) -> a
     20:20:void access$200(com.zpj.popup.impl.BottomSelectPopup,int) -> b
     20:20:java.util.List access$300(com.zpj.popup.impl.BottomSelectPopup) -> b
-    208:209:void unSelect(int) -> b
+    202:205:void onSelected(int) -> b
+    208:209:void unSelect(int) -> c
     65:65:int getImplLayoutId() -> getImplLayoutId
     70:133:void initPopupContent() -> n
     137:143:void onDismiss() -> t
@@ -42678,8 +42678,8 @@ com.zpj.popup.impl.CenterSelectPopup -> com.zpj.popup.impl.CenterSelectPopup:
     61:62:void <init>(android.content.Context) -> <init>
     88:129:void lambda$initPopupContent$1(com.zpj.recyclerview.EasyRecyclerView,com.zpj.recyclerview.EasyViewHolder,java.util.List,int,java.util.List) -> a
     94:110:void lambda$null$0(com.zpj.widget.checkbox.SmoothCheckBox,com.zpj.recyclerview.EasyViewHolder,com.zpj.recyclerview.EasyRecyclerView,android.view.View) -> a
-    200:203:void onSelected(int) -> a
-    206:207:void unSelect(int) -> b
+    200:203:void onSelected(int) -> b
+    206:207:void unSelect(int) -> c
     66:66:int getImplLayoutId() -> getImplLayoutId
     211:211:int getMaxWidth() -> getMaxWidth
     71:131:void initPopupContent() -> n
@@ -42739,6 +42739,7 @@ com.zpj.popup.impl.LoadingPopup -> com.zpj.popup.impl.LoadingPopup:
     android.widget.TextView tv_title -> C
     java.lang.String title -> D
     17:19:void <init>(android.content.Context) -> <init>
+    52:54:com.zpj.popup.impl.LoadingPopup setTitle(java.lang.String) -> d
     23:23:int getImplLayoutId() -> getImplLayoutId
     38:41:void initPopupContent() -> n
     44:48:void setup() -> y
@@ -43617,6 +43618,7 @@ com.zpj.recyclerview.EasyRecyclerLayout -> com.zpj.recyclerview.EasyRecyclerLayo
     72:108:void init(android.content.Context) -> a
     116:117:com.zpj.recyclerview.EasyRecyclerLayout setData(java.util.List) -> a
     132:133:com.zpj.recyclerview.EasyRecyclerLayout setEnableLoadMore(boolean) -> a
+    142:143:com.zpj.recyclerview.EasyRecyclerLayout addOnScrollListener(android.support.v7.widget.RecyclerView$OnScrollListener) -> a
     147:164:com.zpj.recyclerview.EasyRecyclerLayout setOnRefreshListener(android.support.v4.widget.SwipeRefreshLayout$OnRefreshListener) -> a
     173:174:com.zpj.recyclerview.EasyRecyclerLayout setLayoutManager(android.support.v7.widget.RecyclerView$LayoutManager) -> a
     183:184:com.zpj.recyclerview.EasyRecyclerLayout setHeaderView(int,com.zpj.recyclerview.IEasy$OnBindHeaderListener) -> a
@@ -43735,6 +43737,7 @@ com.zpj.recyclerview.EasyRecyclerView -> com.zpj.recyclerview.b:
     105:106:com.zpj.recyclerview.EasyRecyclerView onGetChildViewType(com.zpj.recyclerview.IEasy$OnGetChildViewTypeListener) -> a
     115:116:com.zpj.recyclerview.EasyRecyclerView onBindViewHolder(com.zpj.recyclerview.IEasy$OnBindViewHolderListener) -> a
     120:121:com.zpj.recyclerview.EasyRecyclerView onCreateViewHolder(com.zpj.recyclerview.IEasy$OnCreateViewHolderListener) -> a
+    129:130:com.zpj.recyclerview.EasyRecyclerView addOnScrollListener(android.support.v7.widget.RecyclerView$OnScrollListener) -> a
     134:135:com.zpj.recyclerview.EasyRecyclerView onViewClick(int,com.zpj.recyclerview.IEasy$OnClickListener) -> a
     139:140:com.zpj.recyclerview.EasyRecyclerView onItemClick(com.zpj.recyclerview.IEasy$OnItemClickListener) -> a
     144:145:com.zpj.recyclerview.EasyRecyclerView onItemLongClick(com.zpj.recyclerview.IEasy$OnItemLongClickListener) -> a
@@ -43834,12 +43837,12 @@ com.zpj.shouji.market.-$$Lambda$App$REIXdFZ5BwJxc2atSEjybRKs8uY -> com.zpj.shouj
     com.zpj.shouji.market.-$$Lambda$App$REIXdFZ5BwJxc2atSEjybRKs8uY INSTANCE -> a
     void onCrash(java.io.File) -> a
 com.zpj.shouji.market.App -> com.zpj.shouji.market.App:
-    22:22:void <init>() -> <init>
-    31:31:void lambda$onCreate$0(java.io.File) -> a
-    26:43:void onCreate() -> onCreate
+    21:21:void <init>() -> <init>
+    30:30:void lambda$onCreate$0(java.io.File) -> a
+    25:42:void onCreate() -> onCreate
 com.zpj.shouji.market.App$1 -> com.zpj.shouji.market.App$a:
-    36:36:void <init>(com.zpj.shouji.market.App) -> <init>
-    39:40:void displayImage(android.content.Context,java.lang.String,android.widget.ImageView) -> a
+    35:35:void <init>(com.zpj.shouji.market.App) -> <init>
+    38:39:void displayImage(android.content.Context,java.lang.String,android.widget.ImageView) -> a
 com.zpj.shouji.market.R$anim -> com.zpj.shouji.market.R$anim:
     11:11:void <init>() -> <init>
 com.zpj.shouji.market.R$animator -> com.zpj.shouji.market.R$animator:
@@ -43861,52 +43864,55 @@ com.zpj.shouji.market.R$font -> com.zpj.shouji.market.R$font:
 com.zpj.shouji.market.R$id -> com.zpj.shouji.market.R$id:
     9418:9418:void <init>() -> <init>
 com.zpj.shouji.market.R$integer -> com.zpj.shouji.market.R$integer:
-    10242:10242:void <init>() -> <init>
+    10243:10243:void <init>() -> <init>
 com.zpj.shouji.market.R$interpolator -> com.zpj.shouji.market.R$interpolator:
-    10260:10260:void <init>() -> <init>
+    10261:10261:void <init>() -> <init>
 com.zpj.shouji.market.R$layout -> com.zpj.shouji.market.R$layout:
-    10266:10266:void <init>() -> <init>
+    10267:10267:void <init>() -> <init>
 com.zpj.shouji.market.R$menu -> com.zpj.shouji.market.R$menu:
-    10559:10559:void <init>() -> <init>
+    10562:10562:void <init>() -> <init>
 com.zpj.shouji.market.R$mipmap -> com.zpj.shouji.market.R$mipmap:
-    10566:10566:void <init>() -> <init>
+    10569:10569:void <init>() -> <init>
 com.zpj.shouji.market.R$string -> com.zpj.shouji.market.R$string:
-    10602:10602:void <init>() -> <init>
+    10605:10605:void <init>() -> <init>
 com.zpj.shouji.market.R$style -> com.zpj.shouji.market.R$style:
-    10779:10779:void <init>() -> <init>
+    10782:10782:void <init>() -> <init>
 com.zpj.shouji.market.R$styleable -> com.zpj.shouji.market.R$styleable:
-    11347:31381:void <clinit>() -> <clinit>
-    11325:11325:void <init>() -> <init>
+    11350:31384:void <clinit>() -> <clinit>
+    11328:11328:void <init>() -> <init>
 com.zpj.shouji.market.R$xml -> com.zpj.shouji.market.R$xml:
-    31523:31523:void <init>() -> <init>
+    31526:31526:void <init>() -> <init>
 com.zpj.shouji.market.api.-$$Lambda$HttpPreLoader$N7fCks9SRR_M-_BpKEqEc48rpCg -> com.zpj.shouji.market.b.a:
-    com.zpj.shouji.market.api.HttpPreLoader f$0 -> a
-    java.lang.String f$1 -> b
+    java.lang.String f$1 -> f
+    com.zpj.shouji.market.api.HttpPreLoader f$0 -> e
 com.zpj.shouji.market.api.HttpApi -> com.zpj.shouji.market.b.b:
-    65:65:com.zpj.http.core.ObservableTask collectionRecommend() -> a
-    141:142:com.zpj.http.core.ObservableTask likeApi(java.lang.String,java.lang.String) -> a
-    161:162:com.zpj.http.core.ObservableTask blacklistApi(java.lang.String,boolean) -> a
-    168:168:com.zpj.http.core.ObservableTask addBlacklistApi(java.lang.String) -> a
-    81:81:com.zpj.http.core.ObservableTask homeRecommendGameApi() -> b
-    146:147:com.zpj.http.core.ObservableTask addFriendApi(java.lang.String) -> b
-    52:52:com.zpj.http.core.ObservableTask connect(java.lang.String) -> c
-    77:77:com.zpj.http.core.ObservableTask homeRecommendSoftApi() -> c
-    97:97:com.zpj.http.core.ObservableTask netGame() -> d
-    151:152:com.zpj.http.core.ObservableTask deleteFriendApi(java.lang.String) -> d
-    93:93:com.zpj.http.core.ObservableTask recentUpdateGame() -> e
-    137:137:java.lang.String getCollectUrl(java.lang.String) -> e
-    89:89:com.zpj.http.core.ObservableTask recentUpdateSoft() -> f
-    156:157:com.zpj.http.core.ObservableTask getMemberInfoApi(java.lang.String) -> f
-    101:101:java.lang.String myCollectionAppsUrl(java.lang.String) -> g
-    115:115:java.lang.String myCollectionCommentUrl(java.lang.String) -> h
-    110:110:java.lang.String myCollectionDiscoverUrl(java.lang.String) -> i
-    120:120:java.lang.String myCollectionWallpaperUrl(java.lang.String) -> j
-    106:106:java.lang.String myCollectionsUrl(java.lang.String) -> k
-    29:48:com.zpj.http.core.Connection openConnection(java.lang.String) -> l
-    172:172:com.zpj.http.core.ObservableTask removeBlacklistApi(java.lang.String) -> m
+    30:49:com.zpj.http.core.Connection openConnection(java.lang.String,com.zpj.http.core.Connection$Method) -> a
+    70:70:com.zpj.http.core.ObservableTask collectionRecommend() -> a
+    166:167:com.zpj.http.core.ObservableTask blacklistApi(java.lang.String,boolean) -> a
+    173:173:com.zpj.http.core.ObservableTask addBlacklistApi(java.lang.String) -> a
+    181:181:com.zpj.http.core.ObservableTask commentApi(java.lang.String,java.lang.String) -> a
+    197:197:com.zpj.http.core.ObservableTask appCommentApi(java.lang.String,java.lang.String,java.lang.String,java.lang.String) -> a
+    86:86:com.zpj.http.core.ObservableTask homeRecommendGameApi() -> b
+    151:152:com.zpj.http.core.ObservableTask addFriendApi(java.lang.String) -> b
+    189:189:com.zpj.http.core.ObservableTask discussCommentApi(java.lang.String,java.lang.String) -> b
+    82:82:com.zpj.http.core.ObservableTask homeRecommendSoftApi() -> c
+    146:147:com.zpj.http.core.ObservableTask likeApi(java.lang.String,java.lang.String) -> c
+    156:157:com.zpj.http.core.ObservableTask deleteFriendApi(java.lang.String) -> c
+    53:53:com.zpj.http.core.ObservableTask get(java.lang.String) -> d
+    102:102:com.zpj.http.core.ObservableTask netGame() -> d
+    98:98:com.zpj.http.core.ObservableTask recentUpdateGame() -> e
+    142:142:java.lang.String getCollectUrl(java.lang.String) -> e
+    94:94:com.zpj.http.core.ObservableTask recentUpdateSoft() -> f
+    161:162:com.zpj.http.core.ObservableTask getMemberInfoApi(java.lang.String) -> f
+    106:106:java.lang.String myCollectionAppsUrl(java.lang.String) -> g
+    120:120:java.lang.String myCollectionCommentUrl(java.lang.String) -> h
+    115:115:java.lang.String myCollectionDiscoverUrl(java.lang.String) -> i
+    125:125:java.lang.String myCollectionWallpaperUrl(java.lang.String) -> j
+    111:111:java.lang.String myCollectionsUrl(java.lang.String) -> k
+    177:177:com.zpj.http.core.ObservableTask removeBlacklistApi(java.lang.String) -> l
 com.zpj.shouji.market.api.HttpApi$1 -> com.zpj.shouji.market.b.b$a:
-    37:37:void <init>() -> <init>
-    40:41:boolean onRedirect(java.lang.String) -> a
+    38:38:void <init>() -> <init>
+    41:42:boolean onRedirect(java.lang.String) -> a
 com.zpj.shouji.market.api.HttpPreLoader -> com.zpj.shouji.market.b.c:
     java.util.Map map -> a
     java.util.Map listeners -> b
@@ -43931,12 +43937,30 @@ com.zpj.shouji.market.database.SearchHistoryManager -> com.zpj.shouji.market.c.b
 com.zpj.shouji.market.event.BaseEvent -> com.zpj.shouji.market.d.a:
     5:5:void <init>() -> <init>
     8:9:void post() -> a
-com.zpj.shouji.market.event.StartFragmentEvent -> com.zpj.shouji.market.d.b:
+com.zpj.shouji.market.event.FabEvent -> com.zpj.shouji.market.d.b:
+    boolean show -> a
+    9:11:void <init>(boolean) -> <init>
+    18:19:void post(boolean) -> a
+    14:14:boolean isShow() -> b
+com.zpj.shouji.market.event.HideLoadingEvent -> com.zpj.shouji.market.d.c:
+    5:7:void <init>() -> <init>
+    10:11:void postEvent() -> b
+com.zpj.shouji.market.event.RefreshEvent -> com.zpj.shouji.market.d.d:
+    3:3:void <init>() -> <init>
+    6:7:void postEvent() -> b
+com.zpj.shouji.market.event.ShowLoadingEvent -> com.zpj.shouji.market.d.e:
+    java.lang.String text -> a
+    boolean isUpdate -> b
+    8:10:void <init>(java.lang.String) -> <init>
+    26:27:void post(java.lang.String) -> a
+    22:22:java.lang.String getText() -> b
+    18:18:boolean isUpdate() -> c
+com.zpj.shouji.market.event.StartFragmentEvent -> com.zpj.shouji.market.d.f:
     com.zpj.fragmentation.SupportFragment fragment -> a
     9:11:void <init>(com.zpj.fragmentation.SupportFragment) -> <init>
     18:19:void start(com.zpj.fragmentation.SupportFragment) -> a
     14:14:com.zpj.fragmentation.SupportFragment getFragment() -> b
-com.zpj.shouji.market.event.ToggleLoginModeEvent -> com.zpj.shouji.market.d.c:
+com.zpj.shouji.market.event.ToggleLoginModeEvent -> com.zpj.shouji.market.d.g:
     3:3:void <init>() -> <init>
 com.zpj.shouji.market.glide.CustomShapeTransformation -> com.zpj.shouji.market.glide.a:
     android.content.Context mContext -> c
@@ -44156,26 +44180,26 @@ com.zpj.shouji.market.manager.-$$Lambda$AppUpdateManager$0uVlgenlJeLrUw4JBadFuxJ
     com.zpj.shouji.market.manager.AppUpdateManager f$0 -> a
     void onNext(java.lang.Object,io.reactivex.ObservableEmitter) -> a
 com.zpj.shouji.market.manager.-$$Lambda$AppUpdateManager$As3sguVbiXUjivY8XdMucb181UA -> com.zpj.shouji.market.manager.h:
-    com.zpj.shouji.market.manager.AppUpdateManager f$0 -> a
+    com.zpj.shouji.market.manager.AppUpdateManager f$0 -> e
 com.zpj.shouji.market.manager.-$$Lambda$AppUpdateManager$CheckUpdate$5YIvSSLZ7eXGogsgaBXzQwChZik -> com.zpj.shouji.market.manager.i:
-    com.zpj.shouji.market.manager.AppUpdateManager$CheckUpdate f$0 -> a
+    com.zpj.shouji.market.manager.AppUpdateManager$CheckUpdate f$0 -> e
 com.zpj.shouji.market.manager.-$$Lambda$AppUpdateManager$CheckUpdate$DP71uo74jrvLWQXhWiCtWlCaGFE -> com.zpj.shouji.market.manager.j:
     com.zpj.shouji.market.manager.AppUpdateManager$CheckUpdate f$0 -> a
     void onComplete() -> d
 com.zpj.shouji.market.manager.-$$Lambda$AppUpdateManager$thNtg4jKO_93jT9u8mGQY3jdTSY -> com.zpj.shouji.market.manager.k:
-    com.zpj.shouji.market.manager.-$$Lambda$AppUpdateManager$thNtg4jKO_93jT9u8mGQY3jdTSY INSTANCE -> a
+    com.zpj.shouji.market.manager.-$$Lambda$AppUpdateManager$thNtg4jKO_93jT9u8mGQY3jdTSY INSTANCE -> e
 com.zpj.shouji.market.manager.-$$Lambda$Jxp4LOjD5wh7hYvpBAWXzgH0LNY -> com.zpj.shouji.market.manager.l:
     com.zpj.shouji.market.manager.-$$Lambda$Jxp4LOjD5wh7hYvpBAWXzgH0LNY INSTANCE -> a
 com.zpj.shouji.market.manager.-$$Lambda$UserManager$DkWiqFMRUaS8RhkLTwEc4PWgUeA -> com.zpj.shouji.market.manager.m:
-    com.zpj.shouji.market.manager.-$$Lambda$UserManager$DkWiqFMRUaS8RhkLTwEc4PWgUeA INSTANCE -> a
+    com.zpj.shouji.market.manager.-$$Lambda$UserManager$DkWiqFMRUaS8RhkLTwEc4PWgUeA INSTANCE -> e
 com.zpj.shouji.market.manager.-$$Lambda$UserManager$IiUACVdYsrvxvUVdEmGCjDAfSag -> com.zpj.shouji.market.manager.n:
-    com.zpj.shouji.market.manager.UserManager f$0 -> a
+    com.zpj.shouji.market.manager.UserManager f$0 -> e
 com.zpj.shouji.market.manager.-$$Lambda$UserManager$OfGnBkHLpaffYKT8bkkHuFpnCc8 -> com.zpj.shouji.market.manager.o:
-    com.zpj.shouji.market.manager.UserManager f$0 -> a
+    com.zpj.shouji.market.manager.UserManager f$0 -> e
 com.zpj.shouji.market.manager.-$$Lambda$UserManager$YLipkSpv_vELOVe08toXCbEYqCQ -> com.zpj.shouji.market.manager.p:
-    com.zpj.shouji.market.manager.UserManager f$0 -> a
+    com.zpj.shouji.market.manager.UserManager f$0 -> e
 com.zpj.shouji.market.manager.-$$Lambda$UserManager$eCu0UM66o1osIoqlWSUfVM47GsA -> com.zpj.shouji.market.manager.q:
-    com.zpj.shouji.market.manager.UserManager f$0 -> a
+    com.zpj.shouji.market.manager.UserManager f$0 -> e
 com.zpj.shouji.market.manager.AppBackupManager -> com.zpj.shouji.market.manager.r:
     com.zpj.shouji.market.manager.AppBackupManager$MyHandler handler -> a
     java.util.concurrent.ExecutorService EXECUTOR_SERVICE -> e
@@ -44275,40 +44299,40 @@ com.zpj.shouji.market.manager.UserManager -> com.zpj.shouji.market.manager.t:
     java.lang.String cookie -> b
     com.zpj.shouji.market.model.MemberInfo memberInfo -> a
     boolean isLogin -> c
-    23:23:void <clinit>() -> <clinit>
-    34:36:void <init>() -> <init>
+    24:24:void <clinit>() -> <clinit>
+    35:37:void <init>() -> <init>
     void lambda$IiUACVdYsrvxvUVdEmGCjDAfSag(com.zpj.shouji.market.manager.UserManager,com.zpj.http.parser.html.nodes.Document) -> a
-    59:61:void setCookie(java.lang.String) -> a
-    83:86:java.lang.String getCookie() -> a
-    123:140:void signIn(java.lang.String,java.lang.String) -> a
-    138:138:void lambda$signIn$1(java.lang.Throwable) -> a
-    143:169:void onSignIn(com.zpj.http.parser.html.nodes.Document) -> a
-    172:201:void signUp(java.lang.String,java.lang.String,java.lang.String) -> a
-    183:198:void lambda$signUp$2(com.zpj.http.core.Connection$Response) -> a
-    245:250:void addOnSignInListener(com.zpj.shouji.market.manager.UserManager$OnSignInListener) -> a
-    287:292:void addOnSignUpListener(com.zpj.shouji.market.manager.UserManager$OnSignUpListener) -> a
-    64:65:void setUserInfo(java.lang.String) -> b
-    79:79:com.zpj.shouji.market.model.MemberInfo getMemberInfo() -> b
-    199:199:void lambda$signUp$3(java.lang.Throwable) -> b
-    254:261:void removeOnSignInListener(com.zpj.shouji.market.manager.UserManager$OnSignInListener) -> b
-    296:303:void removeOnSignUpListener(com.zpj.shouji.market.manager.UserManager$OnSignUpListener) -> b
-    90:93:java.lang.String getSessionId() -> c
-    118:118:void lambda$signIn$0(java.lang.Throwable) -> c
-    208:219:java.lang.String encodePassword(java.lang.String) -> c
-    97:100:java.lang.String getSn() -> d
-    234:241:void onSignInFailed(java.lang.String) -> d
-    72:75:java.lang.String getUserId() -> e
-    276:283:void onSignUpFailed(java.lang.String) -> e
-    68:68:java.lang.String getUserInfo() -> f
-    39:49:void init() -> g
-    105:105:boolean isLogin() -> h
-    52:56:void signOut() -> i
-    31:31:com.zpj.shouji.market.manager.UserManager getInstance() -> j
-    223:230:void onSignInSuccess() -> k
-    265:272:void onSignUpSuccess() -> l
-    109:120:void signIn() -> m
+    60:62:void setCookie(java.lang.String) -> a
+    84:87:java.lang.String getCookie() -> a
+    124:141:void signIn(java.lang.String,java.lang.String) -> a
+    139:139:void lambda$signIn$1(java.lang.Throwable) -> a
+    144:170:void onSignIn(com.zpj.http.parser.html.nodes.Document) -> a
+    173:202:void signUp(java.lang.String,java.lang.String,java.lang.String) -> a
+    184:199:void lambda$signUp$2(com.zpj.http.core.Connection$Response) -> a
+    246:251:void addOnSignInListener(com.zpj.shouji.market.manager.UserManager$OnSignInListener) -> a
+    288:293:void addOnSignUpListener(com.zpj.shouji.market.manager.UserManager$OnSignUpListener) -> a
+    65:66:void setUserInfo(java.lang.String) -> b
+    80:80:com.zpj.shouji.market.model.MemberInfo getMemberInfo() -> b
+    200:200:void lambda$signUp$3(java.lang.Throwable) -> b
+    255:262:void removeOnSignInListener(com.zpj.shouji.market.manager.UserManager$OnSignInListener) -> b
+    297:304:void removeOnSignUpListener(com.zpj.shouji.market.manager.UserManager$OnSignUpListener) -> b
+    91:94:java.lang.String getSessionId() -> c
+    119:119:void lambda$signIn$0(java.lang.Throwable) -> c
+    209:220:java.lang.String encodePassword(java.lang.String) -> c
+    98:101:java.lang.String getSn() -> d
+    235:242:void onSignInFailed(java.lang.String) -> d
+    73:76:java.lang.String getUserId() -> e
+    277:284:void onSignUpFailed(java.lang.String) -> e
+    69:69:java.lang.String getUserInfo() -> f
+    40:50:void init() -> g
+    106:106:boolean isLogin() -> h
+    53:57:void signOut() -> i
+    32:32:com.zpj.shouji.market.manager.UserManager getInstance() -> j
+    224:231:void onSignInSuccess() -> k
+    266:273:void onSignUpSuccess() -> l
+    110:121:void signIn() -> m
 com.zpj.shouji.market.manager.UserManager$OnSignInListener -> com.zpj.shouji.market.manager.t$a:
-    void onSignInFailed(java.lang.String) -> a
+    void onSignInFailed(java.lang.String) -> b
     void onSignInSuccess() -> c
 com.zpj.shouji.market.manager.UserManager$OnSignUpListener -> com.zpj.shouji.market.manager.t$b:
     void onSignUpFailed(java.lang.String) -> d
@@ -44995,36 +45019,39 @@ com.zpj.shouji.market.ui.activity.-$$Lambda$jRh3BTySYT2SsdYUqYj861XkNNA -> com.z
     com.zpj.shouji.market.ui.activity.MainActivity f$0 -> a
 com.zpj.shouji.market.ui.activity.MainActivity -> com.zpj.shouji.market.ui.activity.MainActivity:
     long firstTime -> f
+    com.zpj.popup.impl.LoadingPopup loadingPopup -> h
     site.gemus.openingstartanimation.OpeningStartAnimation openingStartAnimation3 -> g
-    37:39:void <init>() -> <init>
-    37:37:site.gemus.openingstartanimation.OpeningStartAnimation access$000(com.zpj.shouji.market.ui.activity.MainActivity) -> a
-    64:73:void lambda$onCreate$1(site.gemus.openingstartanimation.OpeningStartAnimation,android.app.Activity) -> a
-    94:102:void onBackPressedSupport() -> a
-    116:116:void lambda$showRequestPermissionPopup$2(com.zpj.popup.impl.AlertPopup) -> a
-    37:37:void access$100(com.zpj.shouji.market.ui.activity.MainActivity) -> b
-    106:106:com.zpj.fragmentation.anim.FragmentAnimator onCreateFragmentAnimator() -> b
-    67:72:void lambda$null$0() -> g
-    123:135:void requestPermission() -> h
-    110:120:void showRequestPermissionPopup() -> i
-    45:84:void onCreate(android.os.Bundle) -> onCreate
-    88:90:void onDestroy() -> onDestroy
-    144:145:void onStartFragmentEvent(com.zpj.shouji.market.event.StartFragmentEvent) -> onStartFragmentEvent
-    139:140:void startFragment(com.zpj.fragmentation.SupportFragment) -> startFragment
+    40:42:void <init>() -> <init>
+    40:40:site.gemus.openingstartanimation.OpeningStartAnimation access$000(com.zpj.shouji.market.ui.activity.MainActivity) -> a
+    68:77:void lambda$onCreate$1(site.gemus.openingstartanimation.OpeningStartAnimation,android.app.Activity) -> a
+    98:106:void onBackPressedSupport() -> a
+    120:120:void lambda$showRequestPermissionPopup$2(com.zpj.popup.impl.AlertPopup) -> a
+    40:40:void access$100(com.zpj.shouji.market.ui.activity.MainActivity) -> b
+    110:110:com.zpj.fragmentation.anim.FragmentAnimator onCreateFragmentAnimator() -> b
+    71:76:void lambda$null$0() -> g
+    127:139:void requestPermission() -> h
+    114:124:void showRequestPermissionPopup() -> i
+    49:88:void onCreate(android.os.Bundle) -> onCreate
+    92:94:void onDestroy() -> onDestroy
+    165:169:void onHideLoadingEvent(com.zpj.shouji.market.event.HideLoadingEvent) -> onHideLoadingEvent
+    153:161:void onShowLoadingEvent(com.zpj.shouji.market.event.ShowLoadingEvent) -> onShowLoadingEvent
+    148:149:void onStartFragmentEvent(com.zpj.shouji.market.event.StartFragmentEvent) -> onStartFragmentEvent
+    143:144:void startFragment(com.zpj.fragmentation.SupportFragment) -> startFragment
 com.zpj.shouji.market.ui.activity.MainActivity$1 -> com.zpj.shouji.market.ui.activity.MainActivity$a:
     com.zpj.shouji.market.ui.activity.MainActivity this$0 -> a
-    124:124:void <init>(com.zpj.shouji.market.ui.activity.MainActivity) -> <init>
-    127:128:void onGranted() -> a
-    132:133:void onDenied() -> b
+    128:128:void <init>(com.zpj.shouji.market.ui.activity.MainActivity) -> <init>
+    131:132:void onGranted() -> a
+    136:137:void onDenied() -> b
 com.zpj.shouji.market.ui.adapter.-$$Lambda$DiscoverBinder$1$kxI5LWjP_H2flsaNI4RUsXqa60U -> com.zpj.shouji.market.e.a.a:
     com.lwkandroid.widget.ninegridview.NineGridView f$0 -> a
     android.widget.ImageView getImageView(int) -> a
 com.zpj.shouji.market.ui.adapter.-$$Lambda$DiscoverBinder$4$9P-RfVClxfhTapjHysxKaq6cZX4 -> com.zpj.shouji.market.e.a.b:
-    com.sunbinqiang.iconcountview.IconCountView f$0 -> a
-    boolean f$1 -> b
+    boolean f$1 -> f
+    com.sunbinqiang.iconcountview.IconCountView f$0 -> e
 com.zpj.shouji.market.ui.adapter.-$$Lambda$DiscoverBinder$4$nP13AFdoBDrHjLYLF2kgTGRKkQM -> com.zpj.shouji.market.e.a.c:
-    com.sunbinqiang.iconcountview.IconCountView f$2 -> c
-    boolean f$1 -> b
-    com.zpj.shouji.market.model.DiscoverInfo f$0 -> a
+    com.zpj.shouji.market.model.DiscoverInfo f$0 -> e
+    boolean f$1 -> f
+    com.sunbinqiang.iconcountview.IconCountView f$2 -> g
 com.zpj.shouji.market.ui.adapter.-$$Lambda$DiscoverBinder$SBC4dJ5eccQq1NIn96F0eNdqW7E -> com.zpj.shouji.market.e.a.d:
     com.zpj.shouji.market.model.DiscoverInfo f$0 -> e
 com.zpj.shouji.market.ui.adapter.-$$Lambda$DiscoverBinder$tAOgRjS2r_EsD7O2yAsKTn823q4 -> com.zpj.shouji.market.e.a.e:
@@ -45108,46 +45135,47 @@ com.zpj.shouji.market.ui.adapter.ChatRecyclerAdapter$ToUserMsgViewHolder -> com.
     160:160:com.zpj.shouji.market.ui.widget.GifTextView access$900(com.zpj.shouji.market.ui.adapter.ChatRecyclerAdapter$ToUserMsgViewHolder) -> c
 com.zpj.shouji.market.ui.adapter.DiscoverBinder -> com.zpj.shouji.market.e.a.g:
     boolean showComment -> e
-    57:59:void <init>(boolean) -> <init>
-    63:292:void onBindViewHolder(com.zpj.recyclerview.EasyViewHolder,java.util.List,int,java.util.List) -> a
-    152:158:void lambda$onBindViewHolder$0(com.zpj.shouji.market.model.DiscoverInfo,android.view.View) -> a
-    295:317:android.text.SpannableString getComment(com.zpj.shouji.market.model.DiscoverInfo) -> a
-    321:346:void showMenu(android.content.Context,com.zpj.shouji.market.model.DiscoverInfo) -> a
-    324:344:void lambda$showMenu$1(com.zpj.shouji.market.ui.widget.popup.BottomListPopupMenu,android.view.View,android.view.MenuItem) -> a
+    59:61:void <init>(boolean) -> <init>
+    65:296:void onBindViewHolder(com.zpj.recyclerview.EasyViewHolder,java.util.List,int,java.util.List) -> a
+    154:160:void lambda$onBindViewHolder$0(com.zpj.shouji.market.model.DiscoverInfo,android.view.View) -> a
+    299:321:android.text.SpannableString getComment(com.zpj.shouji.market.model.DiscoverInfo) -> a
+    325:350:void showMenu(android.content.Context,com.zpj.shouji.market.model.DiscoverInfo) -> a
+    328:348:void lambda$showMenu$1(com.zpj.shouji.market.ui.widget.popup.BottomListPopupMenu,android.view.View,android.view.MenuItem) -> a
 com.zpj.shouji.market.ui.adapter.DiscoverBinder$1 -> com.zpj.shouji.market.e.a.g$a:
     android.content.Context val$context -> a
     com.zpj.shouji.market.model.DiscoverInfo val$discoverInfo -> b
     com.lwkandroid.widget.ninegridview.NineGridView val$nineGridImageView -> c
-    72:72:void <init>(com.zpj.shouji.market.ui.adapter.DiscoverBinder,android.content.Context,com.zpj.shouji.market.model.DiscoverInfo,com.lwkandroid.widget.ninegridview.NineGridView) -> <init>
-    76:76:void onNineGirdAddMoreClick(int) -> a
-    80:88:void onNineGirdItemClick(int,com.lwkandroid.widget.ninegridview.NineGridBean,com.lwkandroid.widget.ninegridview.NineGirdImageContainer) -> a
-    84:85:android.widget.ImageView lambda$onNineGirdItemClick$0(com.lwkandroid.widget.ninegridview.NineGridView,int) -> a
-    93:93:void onNineGirdItemDeleted(int,com.lwkandroid.widget.ninegridview.NineGridBean,com.lwkandroid.widget.ninegridview.NineGirdImageContainer) -> b
+    74:74:void <init>(com.zpj.shouji.market.ui.adapter.DiscoverBinder,android.content.Context,com.zpj.shouji.market.model.DiscoverInfo,com.lwkandroid.widget.ninegridview.NineGridView) -> <init>
+    78:78:void onNineGirdAddMoreClick(int) -> a
+    82:90:void onNineGirdItemClick(int,com.lwkandroid.widget.ninegridview.NineGridBean,com.lwkandroid.widget.ninegridview.NineGirdImageContainer) -> a
+    86:87:android.widget.ImageView lambda$onNineGirdItemClick$0(com.lwkandroid.widget.ninegridview.NineGridView,int) -> a
+    95:95:void onNineGirdItemDeleted(int,com.lwkandroid.widget.ninegridview.NineGridBean,com.lwkandroid.widget.ninegridview.NineGirdImageContainer) -> b
 com.zpj.shouji.market.ui.adapter.DiscoverBinder$2 -> com.zpj.shouji.market.e.a.g$b:
-    161:161:void <init>(com.zpj.shouji.market.ui.adapter.DiscoverBinder) -> <init>
-    164:165:void onClick(android.view.View) -> onClick
+    163:163:void <init>(com.zpj.shouji.market.ui.adapter.DiscoverBinder) -> <init>
+    166:167:void onClick(android.view.View) -> onClick
 com.zpj.shouji.market.ui.adapter.DiscoverBinder$3 -> com.zpj.shouji.market.e.a.g$c:
-    224:224:void <init>(com.zpj.shouji.market.ui.adapter.DiscoverBinder) -> <init>
-    240:241:void onClick(android.view.View) -> onClick
+    226:226:void <init>(com.zpj.shouji.market.ui.adapter.DiscoverBinder) -> <init>
+    242:243:void onClick(android.view.View) -> onClick
 com.zpj.shouji.market.ui.adapter.DiscoverBinder$4 -> com.zpj.shouji.market.e.a.g$d:
     com.sunbinqiang.iconcountview.IconCountView val$supportView -> b
     com.zpj.shouji.market.model.DiscoverInfo val$discoverInfo -> a
-    246:246:void <init>(com.zpj.shouji.market.ui.adapter.DiscoverBinder,com.zpj.shouji.market.model.DiscoverInfo,com.sunbinqiang.iconcountview.IconCountView) -> <init>
-    250:277:void select(boolean) -> a
-    252:271:void lambda$select$0(com.zpj.shouji.market.model.DiscoverInfo,boolean,com.sunbinqiang.iconcountview.IconCountView,com.zpj.http.parser.html.nodes.Document) -> a
-    273:275:void lambda$select$1(com.sunbinqiang.iconcountview.IconCountView,boolean,java.lang.Throwable) -> a
+    248:248:void <init>(com.zpj.shouji.market.ui.adapter.DiscoverBinder,com.zpj.shouji.market.model.DiscoverInfo,com.sunbinqiang.iconcountview.IconCountView) -> <init>
+    252:279:void select(boolean) -> a
+    254:273:void lambda$select$0(com.zpj.shouji.market.model.DiscoverInfo,boolean,com.sunbinqiang.iconcountview.IconCountView,com.zpj.http.parser.html.nodes.Document) -> a
+    275:277:void lambda$select$1(com.sunbinqiang.iconcountview.IconCountView,boolean,java.lang.Throwable) -> a
 com.zpj.shouji.market.ui.adapter.DiscoverBinder$5 -> com.zpj.shouji.market.e.a.g$e:
-    284:284:void <init>(com.zpj.shouji.market.ui.adapter.DiscoverBinder) -> <init>
-    287:288:void onClick(android.view.View) -> onClick
+    com.zpj.shouji.market.model.DiscoverInfo val$discoverInfo -> e
+    286:286:void <init>(com.zpj.shouji.market.ui.adapter.DiscoverBinder,com.zpj.shouji.market.model.DiscoverInfo) -> <init>
+    291:292:void onClick(android.view.View) -> onClick
 com.zpj.shouji.market.ui.adapter.DiscoverBinder$GlideImageLoader -> com.zpj.shouji.market.e.a.g$f:
-    348:348:void <init>() -> <init>
-    352:360:void displayNineGridImage(android.content.Context,java.lang.String,android.widget.ImageView) -> a
-    364:365:void displayNineGridImage(android.content.Context,java.lang.String,android.widget.ImageView,int,int) -> a
+    352:352:void <init>() -> <init>
+    356:364:void displayNineGridImage(android.content.Context,java.lang.String,android.widget.ImageView) -> a
+    368:369:void displayNineGridImage(android.content.Context,java.lang.String,android.widget.ImageView,int,int) -> a
 com.zpj.shouji.market.ui.adapter.DiscoverBinder$MyClickableSpan -> com.zpj.shouji.market.e.a.g$g:
     java.lang.String memberId -> e
-    392:394:void <init>(java.lang.String) -> <init>
-    398:399:void onClick(android.view.View) -> onClick
-    403:405:void updateDrawState(android.text.TextPaint) -> updateDrawState
+    396:398:void <init>(java.lang.String) -> <init>
+    402:403:void onClick(android.view.View) -> onClick
+    407:409:void updateDrawState(android.text.TextPaint) -> updateDrawState
 com.zpj.shouji.market.ui.adapter.FragmentsPagerAdapter -> com.zpj.shouji.market.e.a.h:
     java.util.List fragments -> a
     java.lang.String[] tabTitle -> b
@@ -45379,8 +45407,8 @@ com.zpj.shouji.market.ui.fragment.-$$Lambda$ArticleDetailFragment$1mxvwitUw7uuv7
     com.zpj.shouji.market.ui.fragment.ArticleDetailFragment f$0 -> a
     void onSelect(int,java.lang.Object) -> a
 com.zpj.shouji.market.ui.fragment.-$$Lambda$ArticleDetailFragment$EvsGgK6sXUxFCLpU47Zp-N6faXk -> com.zpj.shouji.market.e.c.c:
-    com.zpj.shouji.market.ui.fragment.ArticleDetailFragment f$0 -> a
-    java.lang.String f$1 -> b
+    java.lang.String f$1 -> f
+    com.zpj.shouji.market.ui.fragment.ArticleDetailFragment f$0 -> e
 com.zpj.shouji.market.ui.fragment.-$$Lambda$ArticleDetailFragment$nLjODXXzdSuqR7ogBty1CallVTs -> com.zpj.shouji.market.e.c.d:
     com.zpj.shouji.market.ui.fragment.ArticleDetailFragment f$0 -> e
     android.widget.ImageButton f$1 -> f
@@ -45402,12 +45430,12 @@ com.zpj.shouji.market.ui.fragment.-$$Lambda$MainFragment$cd6RfpwbelIYWF16yVnF7ws
 com.zpj.shouji.market.ui.fragment.-$$Lambda$MainFragment$xys442jYOF73bCIBJZp0Fc5_pUk -> com.zpj.shouji.market.e.c.j:
     com.zpj.shouji.market.ui.fragment.MainFragment f$0 -> e
 com.zpj.shouji.market.ui.fragment.-$$Lambda$WallpaperListFragment$1$6nvv_J4QpOITjtgWpB3vstBhDCE -> com.zpj.shouji.market.e.c.k:
-    com.sunbinqiang.iconcountview.IconCountView f$2 -> c
-    com.zpj.shouji.market.model.WallpaperInfo f$0 -> a
-    boolean f$1 -> b
+    com.zpj.shouji.market.model.WallpaperInfo f$0 -> e
+    boolean f$1 -> f
+    com.sunbinqiang.iconcountview.IconCountView f$2 -> g
 com.zpj.shouji.market.ui.fragment.-$$Lambda$WallpaperListFragment$1$hyqo5XH0-uJJ99FNqhrS3cOUZlM -> com.zpj.shouji.market.e.c.l:
-    com.sunbinqiang.iconcountview.IconCountView f$0 -> a
-    boolean f$1 -> b
+    boolean f$1 -> f
+    com.sunbinqiang.iconcountview.IconCountView f$0 -> e
 com.zpj.shouji.market.ui.fragment.-$$Lambda$WallpaperListFragment$GeC6IpGACBjPUU_m_21mWPdtsTg -> com.zpj.shouji.market.e.c.m:
     com.github.zagum.expandicon.ExpandIconView f$1 -> b
     com.zpj.shouji.market.ui.fragment.WallpaperListFragment f$0 -> a
@@ -45466,49 +45494,49 @@ com.zpj.shouji.market.ui.fragment.ArticleDetailFragment -> com.zpj.shouji.market
     java.lang.String url -> l
     com.zpj.widget.statelayout.StateLayout stateLayout -> m
     java.util.concurrent.atomic.AtomicBoolean isEnterAnimationEnd -> p
-    50:58:void <init>() -> <init>
-    50:50:android.content.Context access$000(com.zpj.shouji.market.ui.fragment.ArticleDetailFragment) -> a
-    80:91:void initView(android.view.View,android.os.Bundle) -> a
-    95:95:void lambda$toolbarRightImageButton$1(android.widget.ImageButton,android.view.View) -> a
-    99:107:void lambda$null$0(int,java.lang.String) -> a
-    123:127:void lambda$parseHtml$2(java.lang.String,com.zpj.http.parser.html.nodes.Document) -> a
-    158:179:void initAppView(com.zpj.shouji.market.model.article.ArticleDetailInfo) -> a
-    163:163:void lambda$initAppView$3(com.zpj.shouji.market.model.AppInfo,android.view.View) -> a
-    227:247:void lambda$initContent$4(java.lang.String,android.widget.ImageView,android.view.View) -> a
-    50:50:android.content.Context access$100(com.zpj.shouji.market.ui.fragment.ArticleDetailFragment) -> b
-    95:109:void toolbarRightImageButton(android.widget.ImageButton) -> b
-    182:266:void initContent(com.zpj.shouji.market.model.article.ArticleDetailInfo) -> b
-    113:118:void onEnterAnimationEnd(android.os.Bundle) -> c
-    148:155:void initHeaderView(com.zpj.shouji.market.model.article.ArticleDetailInfo) -> c
-    291:315:void initRelateApp(com.zpj.shouji.market.model.article.ArticleDetailInfo) -> d
-    269:288:void initRelateArticle(com.zpj.shouji.market.model.article.ArticleDetailInfo) -> e
-    121:129:void parseHtml(java.lang.String) -> f
-    132:131:void parseArticleInfo(com.zpj.shouji.market.model.article.ArticleDetailInfo) -> f
-    61:66:void start(java.lang.String) -> g
-    70:70:int getLayoutId() -> v
-    75:75:boolean supportSwipeBack() -> x
+    49:57:void <init>() -> <init>
+    49:49:android.content.Context access$000(com.zpj.shouji.market.ui.fragment.ArticleDetailFragment) -> a
+    79:90:void initView(android.view.View,android.os.Bundle) -> a
+    94:94:void lambda$toolbarRightImageButton$1(android.widget.ImageButton,android.view.View) -> a
+    98:106:void lambda$null$0(int,java.lang.String) -> a
+    122:126:void lambda$parseHtml$2(java.lang.String,com.zpj.http.parser.html.nodes.Document) -> a
+    157:178:void initAppView(com.zpj.shouji.market.model.article.ArticleDetailInfo) -> a
+    162:162:void lambda$initAppView$3(com.zpj.shouji.market.model.AppInfo,android.view.View) -> a
+    226:246:void lambda$initContent$4(java.lang.String,android.widget.ImageView,android.view.View) -> a
+    49:49:android.content.Context access$100(com.zpj.shouji.market.ui.fragment.ArticleDetailFragment) -> b
+    94:108:void toolbarRightImageButton(android.widget.ImageButton) -> b
+    181:265:void initContent(com.zpj.shouji.market.model.article.ArticleDetailInfo) -> b
+    112:117:void onEnterAnimationEnd(android.os.Bundle) -> c
+    147:154:void initHeaderView(com.zpj.shouji.market.model.article.ArticleDetailInfo) -> c
+    290:314:void initRelateApp(com.zpj.shouji.market.model.article.ArticleDetailInfo) -> d
+    268:287:void initRelateArticle(com.zpj.shouji.market.model.article.ArticleDetailInfo) -> e
+    120:128:void parseHtml(java.lang.String) -> f
+    131:130:void parseArticleInfo(com.zpj.shouji.market.model.article.ArticleDetailInfo) -> f
+    60:65:void start(java.lang.String) -> g
+    69:69:int getLayoutId() -> v
+    74:74:boolean supportSwipeBack() -> x
 com.zpj.shouji.market.ui.fragment.ArticleDetailFragment$1 -> com.zpj.shouji.market.e.c.u$a:
     com.zpj.shouji.market.model.article.LinkElement val$linkElement -> e
-    201:201:void <init>(com.zpj.shouji.market.ui.fragment.ArticleDetailFragment,com.zpj.shouji.market.model.article.LinkElement) -> <init>
-    204:210:void onClick(android.view.View) -> onClick
+    200:200:void <init>(com.zpj.shouji.market.ui.fragment.ArticleDetailFragment,com.zpj.shouji.market.model.article.LinkElement) -> <init>
+    203:209:void onClick(android.view.View) -> onClick
 com.zpj.shouji.market.ui.fragment.ArticleDetailFragment$2 -> com.zpj.shouji.market.e.c.v:
     android.widget.ImageView val$ivImage -> a
-    240:240:void <init>(com.zpj.shouji.market.ui.fragment.ArticleDetailFragment,android.widget.ImageView) -> <init>
-    243:243:android.widget.ImageView getImageView(int) -> a
+    239:239:void <init>(com.zpj.shouji.market.ui.fragment.ArticleDetailFragment,android.widget.ImageView) -> <init>
+    242:242:android.widget.ImageView getImageView(int) -> a
 com.zpj.shouji.market.ui.fragment.ArticleDetailFragment$3 -> com.zpj.shouji.market.e.c.u$b:
     android.widget.ImageView val$ivImage -> h
     com.zpj.shouji.market.ui.fragment.ArticleDetailFragment this$0 -> i
-    249:249:void <init>(com.zpj.shouji.market.ui.fragment.ArticleDetailFragment,android.widget.ImageView) -> <init>
-    249:249:void onResourceReady(java.lang.Object,com.bumptech.glide.request.transition.Transition) -> a
-    252:261:void onResourceReady(android.graphics.drawable.Drawable,com.bumptech.glide.request.transition.Transition) -> a
+    248:248:void <init>(com.zpj.shouji.market.ui.fragment.ArticleDetailFragment,android.widget.ImageView) -> <init>
+    248:248:void onResourceReady(java.lang.Object,com.bumptech.glide.request.transition.Transition) -> a
+    251:260:void onResourceReady(android.graphics.drawable.Drawable,com.bumptech.glide.request.transition.Transition) -> a
 com.zpj.shouji.market.ui.fragment.ArticleDetailFragment$4 -> com.zpj.shouji.market.e.c.u$c:
     com.zpj.shouji.market.model.article.ArticleInfo val$articleInfo -> e
-    279:279:void <init>(com.zpj.shouji.market.ui.fragment.ArticleDetailFragment,com.zpj.shouji.market.model.article.ArticleInfo) -> <init>
-    282:283:void onClick(android.view.View) -> onClick
+    278:278:void <init>(com.zpj.shouji.market.ui.fragment.ArticleDetailFragment,com.zpj.shouji.market.model.article.ArticleInfo) -> <init>
+    281:282:void onClick(android.view.View) -> onClick
 com.zpj.shouji.market.ui.fragment.ArticleDetailFragment$5 -> com.zpj.shouji.market.e.c.u$d:
     com.zpj.shouji.market.model.AppInfo val$app -> e
-    298:298:void <init>(com.zpj.shouji.market.ui.fragment.ArticleDetailFragment,com.zpj.shouji.market.model.AppInfo) -> <init>
-    301:302:void onClick(android.view.View) -> onClick
+    297:297:void <init>(com.zpj.shouji.market.ui.fragment.ArticleDetailFragment,com.zpj.shouji.market.model.AppInfo) -> <init>
+    300:301:void onClick(android.view.View) -> onClick
 com.zpj.shouji.market.ui.fragment.DiscoverEditorFragment2 -> com.zpj.shouji.market.e.c.w:
     com.zpj.markdown.MarkdownViewFragment viewFragment -> n
     android.support.v4.view.ViewPager viewPager -> l
@@ -45540,10 +45568,10 @@ com.zpj.shouji.market.ui.fragment.MainFragment -> com.zpj.shouji.market.e.c.x:
     void lambda$xys442jYOF73bCIBJZp0Fc5_pUk(com.zpj.shouji.market.ui.fragment.MainFragment) -> b
     53:53:com.zpj.fragmentation.anim.FragmentAnimator onCreateFragmentAnimator() -> b
     140:145:void onSupportVisible() -> k
-    191:192:void onChatWithFriendItemClick() -> m
+    192:193:void onChatWithFriendItemClick() -> m
     158:159:void onDiscoverItemClick() -> n
     164:164:void onCollectionItemClick() -> o
-    168:187:void onWallpaperItemClick() -> p
+    168:188:void onWallpaperItemClick() -> p
     149:154:void onSupportInvisible() -> q
     43:43:int getLayoutId() -> v
     48:48:boolean supportSwipeBack() -> x
@@ -45555,8 +45583,8 @@ com.zpj.shouji.market.ui.fragment.MainFragment$1 -> com.zpj.shouji.market.e.c.x$
     117:117:void onTabReselected(int) -> a
     113:113:void onTabUnselected(int) -> b
 com.zpj.shouji.market.ui.fragment.MainFragment$2 -> com.zpj.shouji.market.e.c.x$b:
-    180:180:void <init>(com.zpj.shouji.market.ui.fragment.MainFragment) -> <init>
-    184:184:void onSelected(java.util.List) -> a
+    181:181:void <init>(com.zpj.shouji.market.ui.fragment.MainFragment) -> <init>
+    185:185:void onSelected(java.util.List) -> a
 com.zpj.shouji.market.ui.fragment.SubjectListFragment -> com.zpj.shouji.market.e.c.y:
     20:20:void <init>() -> <init>
     20:20:java.lang.Object createData(com.zpj.http.parser.html.nodes.Element) -> a
@@ -45601,7 +45629,7 @@ com.zpj.shouji.market.ui.fragment.WallpaperListFragment -> com.zpj.shouji.market
     java.lang.String tag -> s
     47:55:void <init>() -> <init>
     186:186:int getHeaderLayout() -> A
-    190:199:void initNextUrl() -> B
+    190:200:void initNextUrl() -> B
     void lambda$R-E4fakUYPDCy4peq6uagcSG0cA(com.zpj.shouji.market.ui.fragment.WallpaperListFragment,android.view.View) -> a
     47:47:java.lang.Object createData(com.zpj.http.parser.html.nodes.Element) -> a
     47:47:void onClick(com.zpj.recyclerview.EasyViewHolder,android.view.View,java.lang.Object) -> a
@@ -45612,10 +45640,10 @@ com.zpj.shouji.market.ui.fragment.WallpaperListFragment -> com.zpj.shouji.market
     105:150:void onBindViewHolder(com.zpj.recyclerview.EasyViewHolder,java.util.List,int,java.util.List) -> a
     154:167:void onClick(com.zpj.recyclerview.EasyViewHolder,android.view.View,com.zpj.shouji.market.model.WallpaperInfo) -> a
     171:174:com.zpj.shouji.market.model.WallpaperInfo createData(com.zpj.http.parser.html.nodes.Element) -> a
-    209:213:void lambda$showSortPupWindow$1(android.view.View,android.view.View,java.lang.String,int) -> a
-    215:217:void lambda$showSortPupWindow$2(com.github.zagum.expandicon.ExpandIconView) -> a
+    210:214:void lambda$showSortPupWindow$1(android.view.View,android.view.View,java.lang.String,int) -> a
+    216:218:void lambda$showSortPupWindow$2(com.github.zagum.expandicon.ExpandIconView) -> a
     80:83:void handleArguments(android.os.Bundle) -> d
-    202:224:void showSortPupWindow(android.view.View) -> e
+    203:225:void showSortPupWindow(android.view.View) -> e
     73:76:void onCreate(android.os.Bundle) -> onCreate
     179:183:void onRefresh() -> onRefresh
     87:87:int getItemLayoutId() -> y
@@ -45660,7 +45688,7 @@ com.zpj.shouji.market.ui.fragment.WebFragment$CustomSettings -> com.zpj.shouji.m
 com.zpj.shouji.market.ui.fragment.base.-$$Lambda$A_JLxQYF62rMENjwzdhca8QmTok -> com.zpj.shouji.market.e.c.e0.a:
     com.zpj.shouji.market.ui.fragment.base.NextUrlFragment f$0 -> e
 com.zpj.shouji.market.ui.fragment.base.-$$Lambda$NextUrlFragment$dpTa-3O8VvPrxG6Skd3BeAF4pr4 -> com.zpj.shouji.market.e.c.e0.b:
-    com.zpj.shouji.market.ui.fragment.base.NextUrlFragment f$0 -> a
+    com.zpj.shouji.market.ui.fragment.base.NextUrlFragment f$0 -> e
 com.zpj.shouji.market.ui.fragment.base.NextUrlFragment -> com.zpj.shouji.market.e.c.e0.c:
     java.lang.String defaultUrl -> o
     java.lang.String nextUrl -> p
@@ -45691,18 +45719,21 @@ com.zpj.shouji.market.ui.fragment.base.RecyclerLayoutFragment -> com.zpj.shouji.
     int getItemLayoutId() -> y
 com.zpj.shouji.market.ui.fragment.chat.-$$Lambda$ChatFragment$4$9akCDSbRu8mTsyGK_x_8ElujRFA -> com.zpj.shouji.market.e.c.f0.a:
     com.zpj.shouji.market.ui.fragment.chat.ChatFragment$4 f$0 -> e
-com.zpj.shouji.market.ui.fragment.chat.-$$Lambda$ChatFragment$5$hKCh0cqt5AyQO-nLfpJkBuxzel8 -> com.zpj.shouji.market.e.c.f0.b:
-    com.zpj.shouji.market.ui.fragment.chat.ChatFragment$5 f$0 -> e
-com.zpj.shouji.market.ui.fragment.chat.-$$Lambda$ChatFragment$5$z8Ojw9eZDYK6eZpemJxVIctKpys -> com.zpj.shouji.market.e.c.f0.c:
-    java.lang.String f$1 -> f
-    com.zpj.shouji.market.ui.fragment.chat.ChatFragment$5 f$0 -> e
-com.zpj.shouji.market.ui.fragment.chat.-$$Lambda$ChatFragment$hVjEwF9Wb-Kt8oSe5o2cxWWsd7M -> com.zpj.shouji.market.e.c.f0.d:
+com.zpj.shouji.market.ui.fragment.chat.-$$Lambda$ChatFragment$4b59BmfCntgC0dygUaVSff9tdhI -> com.zpj.shouji.market.e.c.f0.b:
     java.lang.String f$1 -> f
     com.zpj.shouji.market.ui.fragment.chat.ChatFragment f$0 -> e
-com.zpj.shouji.market.ui.fragment.chat.-$$Lambda$ChatFragment$wOrMahmJ9kzHsbMsr_VyWl6b3i8 -> com.zpj.shouji.market.e.c.f0.e:
+com.zpj.shouji.market.ui.fragment.chat.-$$Lambda$ChatFragment$5$hKCh0cqt5AyQO-nLfpJkBuxzel8 -> com.zpj.shouji.market.e.c.f0.c:
+    com.zpj.shouji.market.ui.fragment.chat.ChatFragment$5 f$0 -> e
+com.zpj.shouji.market.ui.fragment.chat.-$$Lambda$ChatFragment$5$z8Ojw9eZDYK6eZpemJxVIctKpys -> com.zpj.shouji.market.e.c.f0.d:
+    java.lang.String f$1 -> f
+    com.zpj.shouji.market.ui.fragment.chat.ChatFragment$5 f$0 -> e
+com.zpj.shouji.market.ui.fragment.chat.-$$Lambda$ChatFragment$deDAjO0drRjywyaoQcQkAemUmXk -> com.zpj.shouji.market.e.c.f0.e:
+    com.zpj.shouji.market.ui.fragment.chat.ChatFragment f$0 -> a
+    void onSoftInputChanged(int) -> a
+com.zpj.shouji.market.ui.fragment.chat.-$$Lambda$ChatFragment$r44Rd42Puw7knH80VpjGcR9s-yI -> com.zpj.shouji.market.e.c.f0.f:
     com.zpj.shouji.market.ui.fragment.chat.ChatFragment f$0 -> a
     void onClick(int) -> a
-com.zpj.shouji.market.ui.fragment.chat.ChatFragment -> com.zpj.shouji.market.e.c.f0.f:
+com.zpj.shouji.market.ui.fragment.chat.ChatFragment -> com.zpj.shouji.market.e.c.f0.g:
     java.util.List tblist -> q
     java.util.List pagelist -> t
     boolean isDown -> l
@@ -45710,62 +45741,62 @@ com.zpj.shouji.market.ui.fragment.chat.ChatFragment -> com.zpj.shouji.market.e.c
     java.lang.String filePath -> w
     com.zpj.shouji.market.ui.widget.ChatPanel chatPanel -> m
     int i -> x
-    com.zpj.utils.KeyboardHeightProvider keyboardHeightProvider -> y
     com.zpj.shouji.market.ui.adapter.ChatRecyclerAdapter tbAdapter -> o
     java.util.ArrayList imageList -> u
     int page -> r
     java.util.HashMap imagePosition -> v
     int number -> s
     android.support.v7.widget.RecyclerView recyclerView -> n
-    30:55:void <init>() -> <init>
-    263:266:java.lang.String returnTime() -> A
-    60:61:void start() -> B
-    30:30:com.zpj.shouji.market.ui.adapter.ChatRecyclerAdapter access$000(com.zpj.shouji.market.ui.fragment.chat.ChatFragment) -> a
-    30:30:void access$400(com.zpj.shouji.market.ui.fragment.chat.ChatFragment,java.lang.String) -> a
-    116:124:void initView(android.view.View,android.os.Bundle) -> a
-    243:258:com.zpj.shouji.market.model.ChatMessageBean getTbub(java.lang.String,int,java.lang.String,java.lang.String,java.lang.String,java.lang.String,java.lang.String,java.lang.String,java.lang.Float,int) -> a
-    362:364:void onStickerSelected(java.lang.String,java.lang.String,java.lang.String) -> a
-    30:30:com.zpj.shouji.market.ui.widget.ChatPanel access$100(com.zpj.shouji.market.ui.fragment.chat.ChatFragment) -> b
-    134:139:void lambda$initRecyclerView$0(int) -> b
-    345:353:void sendText(java.lang.String) -> b
-    30:30:void access$200(com.zpj.shouji.market.ui.fragment.chat.ChatFragment) -> c
-    103:112:void onEnterAnimationEnd(android.os.Bundle) -> c
-    358:358:void onEmojiSelected(java.lang.String) -> c
-    30:30:android.support.v7.widget.RecyclerView access$300(com.zpj.shouji.market.ui.fragment.chat.ChatFragment) -> d
-    352:352:void lambda$sendText$1(java.lang.String) -> f
-    314:341:void sendImage(java.lang.String) -> g
-    289:310:void receiveImageText(java.lang.String) -> h
-    273:286:void receiveMsgText(java.lang.String) -> i
-    75:81:void onDestroy() -> onDestroy
-    91:93:void onPause() -> onPause
-    85:87:void onResume() -> onResume
-    97:99:void onStop() -> onStop
-    65:65:int getLayoutId() -> v
-    70:70:boolean supportSwipeBack() -> x
-    174:224:void loadRecords() -> y
-    127:171:void initRecyclerView() -> z
-com.zpj.shouji.market.ui.fragment.chat.ChatFragment$1 -> com.zpj.shouji.market.e.c.f0.f$a:
+    31:56:void <init>() -> <init>
+    269:272:java.lang.String returnTime() -> A
+    61:62:void start() -> B
+    31:31:com.zpj.shouji.market.ui.adapter.ChatRecyclerAdapter access$000(com.zpj.shouji.market.ui.fragment.chat.ChatFragment) -> a
+    31:31:void access$400(com.zpj.shouji.market.ui.fragment.chat.ChatFragment,java.lang.String) -> a
+    117:130:void initView(android.view.View,android.os.Bundle) -> a
+    249:264:com.zpj.shouji.market.model.ChatMessageBean getTbub(java.lang.String,int,java.lang.String,java.lang.String,java.lang.String,java.lang.String,java.lang.String,java.lang.String,java.lang.Float,int) -> a
+    351:359:void sendText(java.lang.String) -> a
+    368:370:void onStickerSelected(java.lang.String,java.lang.String,java.lang.String) -> a
+    31:31:com.zpj.shouji.market.ui.widget.ChatPanel access$100(com.zpj.shouji.market.ui.fragment.chat.ChatFragment) -> b
+    140:145:void lambda$initRecyclerView$1(int) -> b
+    31:31:void access$200(com.zpj.shouji.market.ui.fragment.chat.ChatFragment) -> c
+    104:113:void onEnterAnimationEnd(android.os.Bundle) -> c
+    127:128:void lambda$initView$0(int) -> c
+    364:364:void onEmojiSelected(java.lang.String) -> c
+    31:31:android.support.v7.widget.RecyclerView access$300(com.zpj.shouji.market.ui.fragment.chat.ChatFragment) -> d
+    358:358:void lambda$sendText$2(java.lang.String) -> f
+    320:347:void sendImage(java.lang.String) -> g
+    295:316:void receiveImageText(java.lang.String) -> h
+    279:292:void receiveMsgText(java.lang.String) -> i
+    76:82:void onDestroy() -> onDestroy
+    92:94:void onPause() -> onPause
+    86:88:void onResume() -> onResume
+    98:100:void onStop() -> onStop
+    66:66:int getLayoutId() -> v
+    71:71:boolean supportSwipeBack() -> x
+    180:230:void loadRecords() -> y
+    133:177:void initRecyclerView() -> z
+com.zpj.shouji.market.ui.fragment.chat.ChatFragment$1 -> com.zpj.shouji.market.e.c.f0.g$a:
     com.zpj.shouji.market.ui.fragment.chat.ChatFragment this$0 -> a
-    140:140:void <init>(com.zpj.shouji.market.ui.fragment.chat.ChatFragment) -> <init>
-    145:164:void onScrollStateChanged(android.support.v7.widget.RecyclerView,int) -> onScrollStateChanged
-    168:169:void onScrolled(android.support.v7.widget.RecyclerView,int,int) -> onScrolled
-com.zpj.shouji.market.ui.fragment.chat.ChatFragment$2 -> com.zpj.shouji.market.e.c.f0.f$b:
+    146:146:void <init>(com.zpj.shouji.market.ui.fragment.chat.ChatFragment) -> <init>
+    151:170:void onScrollStateChanged(android.support.v7.widget.RecyclerView,int) -> onScrollStateChanged
+    174:175:void onScrolled(android.support.v7.widget.RecyclerView,int,int) -> onScrolled
+com.zpj.shouji.market.ui.fragment.chat.ChatFragment$2 -> com.zpj.shouji.market.e.c.f0.g$b:
     com.zpj.shouji.market.ui.fragment.chat.ChatFragment this$0 -> e
-    203:203:void <init>(com.zpj.shouji.market.ui.fragment.chat.ChatFragment) -> <init>
-    207:210:void run() -> run
-com.zpj.shouji.market.ui.fragment.chat.ChatFragment$4 -> com.zpj.shouji.market.e.c.f0.f$c:
+    209:209:void <init>(com.zpj.shouji.market.ui.fragment.chat.ChatFragment) -> <init>
+    213:216:void run() -> run
+com.zpj.shouji.market.ui.fragment.chat.ChatFragment$4 -> com.zpj.shouji.market.e.c.f0.g$c:
     com.zpj.shouji.market.ui.fragment.chat.ChatFragment this$0 -> f
     java.lang.String val$filePath -> e
-    289:289:void <init>(com.zpj.shouji.market.ui.fragment.chat.ChatFragment,java.lang.String) -> <init>
-    302:306:void lambda$run$0() -> a
-    292:308:void run() -> run
-com.zpj.shouji.market.ui.fragment.chat.ChatFragment$5 -> com.zpj.shouji.market.e.c.f0.f$d:
+    295:295:void <init>(com.zpj.shouji.market.ui.fragment.chat.ChatFragment,java.lang.String) -> <init>
+    308:312:void lambda$run$0() -> a
+    298:314:void run() -> run
+com.zpj.shouji.market.ui.fragment.chat.ChatFragment$5 -> com.zpj.shouji.market.e.c.f0.g$d:
     com.zpj.shouji.market.ui.fragment.chat.ChatFragment this$0 -> f
     java.lang.String val$filePath -> e
-    314:314:void <init>(com.zpj.shouji.market.ui.fragment.chat.ChatFragment,java.lang.String) -> <init>
-    331:335:void lambda$run$0() -> a
-    337:337:void lambda$run$1(java.lang.String) -> a
-    317:339:void run() -> run
+    320:320:void <init>(com.zpj.shouji.market.ui.fragment.chat.ChatFragment,java.lang.String) -> <init>
+    337:341:void lambda$run$0() -> a
+    343:343:void lambda$run$1(java.lang.String) -> a
+    323:345:void run() -> run
 com.zpj.shouji.market.ui.fragment.collection.-$$Lambda$CollectionDetailFragment$1$M8X8uIovFtj7PlbdcjPR0FdVksw -> com.zpj.shouji.market.e.c.g0.a:
     int f$1 -> f
     com.zpj.shouji.market.ui.fragment.collection.CollectionDetailFragment$1 f$0 -> e
@@ -45778,11 +45809,11 @@ com.zpj.shouji.market.ui.fragment.collection.-$$Lambda$CollectionDetailFragment$
 com.zpj.shouji.market.ui.fragment.collection.-$$Lambda$CollectionDetailFragment$2$L-Adpi09l4f345DaXndGUKgcHK0 -> com.zpj.shouji.market.e.c.g0.d:
     com.zpj.shouji.market.ui.fragment.collection.CollectionDetailFragment$2 f$0 -> a
 com.zpj.shouji.market.ui.fragment.collection.-$$Lambda$CollectionDetailFragment$Iaa3ha6I0GNEI_hkjgrpwt5jX0U -> com.zpj.shouji.market.e.c.g0.e:
-    com.zpj.shouji.market.ui.fragment.collection.CollectionDetailFragment f$0 -> a
+    com.zpj.shouji.market.ui.fragment.collection.CollectionDetailFragment f$0 -> e
 com.zpj.shouji.market.ui.fragment.collection.-$$Lambda$CollectionDetailFragment$QtHHI5KaVli7zOPeAqAs6y-zqCo -> com.zpj.shouji.market.e.c.g0.f:
     com.zpj.shouji.market.ui.fragment.collection.CollectionDetailFragment f$0 -> a
 com.zpj.shouji.market.ui.fragment.collection.-$$Lambda$CollectionDetailFragment$RU407XvEHS_EYRrIuBfO-Yomr2Y -> com.zpj.shouji.market.e.c.g0.g:
-    com.zpj.shouji.market.ui.fragment.collection.CollectionDetailFragment f$0 -> a
+    com.zpj.shouji.market.ui.fragment.collection.CollectionDetailFragment f$0 -> e
 com.zpj.shouji.market.ui.fragment.collection.CollectionAppListFragment -> com.zpj.shouji.market.e.c.g0.h:
     21:21:void <init>() -> <init>
     21:21:java.lang.Object createData(com.zpj.http.parser.html.nodes.Element) -> a
@@ -45797,7 +45828,13 @@ com.zpj.shouji.market.ui.fragment.collection.CollectionAppListFragment$1 -> com.
     38:38:void <init>(com.zpj.shouji.market.ui.fragment.collection.CollectionAppListFragment) -> <init>
     38:38:void onClick(com.zpj.recyclerview.EasyViewHolder,android.view.View,java.lang.Object) -> a
     41:47:void onClick(com.zpj.recyclerview.EasyViewHolder,android.view.View,com.zpj.shouji.market.model.CollectionAppInfo) -> a
-com.zpj.shouji.market.ui.fragment.collection.CollectionDetailFragment -> com.zpj.shouji.market.e.c.g0.i:
+com.zpj.shouji.market.ui.fragment.collection.CollectionCommentFragment -> com.zpj.shouji.market.e.c.g0.i:
+    13:13:void <init>() -> <init>
+    16:20:com.zpj.shouji.market.ui.fragment.collection.CollectionCommentFragment newInstance(java.lang.String) -> f
+    25:27:void onCreate(android.os.Bundle) -> onCreate
+    31:33:void onDestroy() -> onDestroy
+    37:40:void onRefreshEvent(com.zpj.shouji.market.event.RefreshEvent) -> onRefreshEvent
+com.zpj.shouji.market.ui.fragment.collection.CollectionDetailFragment -> com.zpj.shouji.market.e.c.g0.j:
     android.widget.TextView tvTitle -> q
     android.widget.TextView tvDesc -> s
     android.widget.TextView tvUserName -> r
@@ -45814,38 +45851,38 @@ com.zpj.shouji.market.ui.fragment.collection.CollectionDetailFragment -> com.zpj
     com.zpj.shouji.market.model.CollectionInfo item -> A
     android.widget.ImageView ivIcon -> o
     android.support.v4.view.ViewPager viewPager -> w
-    53:55:void <init>() -> <init>
-    53:53:java.lang.String[] access$000(com.zpj.shouji.market.ui.fragment.collection.CollectionDetailFragment) -> a
-    99:184:void initView(android.view.View,android.os.Bundle) -> a
-    193:194:void setAppCollectionItem(com.zpj.shouji.market.model.CollectionInfo) -> a
-    200:235:void lambda$getCollectionInfo$0(com.zpj.http.parser.html.nodes.Document) -> a
-    236:236:void lambda$getCollectionInfo$1(java.lang.Throwable) -> a
-    241:266:void getColor(android.graphics.Bitmap) -> a
-    243:265:void lambda$getColor$3(android.support.v7.graphics.Palette) -> a
-    247:261:void lambda$null$2(android.support.v7.graphics.Palette$Swatch) -> a
-    53:53:android.support.v4.view.ViewPager access$100(com.zpj.shouji.market.ui.fragment.collection.CollectionDetailFragment) -> b
-    80:85:void start(com.zpj.shouji.market.model.CollectionInfo) -> b
-    53:53:android.widget.ImageView access$200(com.zpj.shouji.market.ui.fragment.collection.CollectionDetailFragment) -> c
-    188:190:void onEnterAnimationEnd(android.os.Bundle) -> c
-    53:53:android.support.design.widget.AppBarLayout access$300(com.zpj.shouji.market.ui.fragment.collection.CollectionDetailFragment) -> d
-    89:89:int getLayoutId() -> v
-    94:94:boolean supportSwipeBack() -> x
-    197:238:void getCollectionInfo() -> y
-com.zpj.shouji.market.ui.fragment.collection.CollectionDetailFragment$1 -> com.zpj.shouji.market.e.c.g0.i$a:
+    51:53:void <init>() -> <init>
+    51:51:java.lang.String[] access$000(com.zpj.shouji.market.ui.fragment.collection.CollectionDetailFragment) -> a
+    97:182:void initView(android.view.View,android.os.Bundle) -> a
+    191:192:void setAppCollectionItem(com.zpj.shouji.market.model.CollectionInfo) -> a
+    198:233:void lambda$getCollectionInfo$0(com.zpj.http.parser.html.nodes.Document) -> a
+    234:234:void lambda$getCollectionInfo$1(java.lang.Throwable) -> a
+    239:264:void getColor(android.graphics.Bitmap) -> a
+    241:263:void lambda$getColor$3(android.support.v7.graphics.Palette) -> a
+    245:259:void lambda$null$2(android.support.v7.graphics.Palette$Swatch) -> a
+    51:51:android.support.v4.view.ViewPager access$100(com.zpj.shouji.market.ui.fragment.collection.CollectionDetailFragment) -> b
+    78:83:void start(com.zpj.shouji.market.model.CollectionInfo) -> b
+    51:51:android.widget.ImageView access$200(com.zpj.shouji.market.ui.fragment.collection.CollectionDetailFragment) -> c
+    186:188:void onEnterAnimationEnd(android.os.Bundle) -> c
+    51:51:android.support.design.widget.AppBarLayout access$300(com.zpj.shouji.market.ui.fragment.collection.CollectionDetailFragment) -> d
+    87:87:int getLayoutId() -> v
+    92:92:boolean supportSwipeBack() -> x
+    195:236:void getCollectionInfo() -> y
+com.zpj.shouji.market.ui.fragment.collection.CollectionDetailFragment$1 -> com.zpj.shouji.market.e.c.g0.j$a:
     com.zpj.shouji.market.ui.fragment.collection.CollectionDetailFragment this$0 -> b
-    154:154:void <init>(com.zpj.shouji.market.ui.fragment.collection.CollectionDetailFragment) -> <init>
-    157:157:int getCount() -> a
-    162:168:net.lucode.hackware.magicindicator.buildins.commonnavigator.abs.IPagerTitleView getTitleView(android.content.Context,int) -> a
-    167:167:void lambda$getTitleView$0(int,android.view.View) -> a
-    173:179:net.lucode.hackware.magicindicator.buildins.commonnavigator.abs.IPagerIndicator getIndicator(android.content.Context) -> a
-com.zpj.shouji.market.ui.fragment.collection.CollectionDetailFragment$2 -> com.zpj.shouji.market.e.c.g0.j:
+    152:152:void <init>(com.zpj.shouji.market.ui.fragment.collection.CollectionDetailFragment) -> <init>
+    155:155:int getCount() -> a
+    160:166:net.lucode.hackware.magicindicator.buildins.commonnavigator.abs.IPagerTitleView getTitleView(android.content.Context,int) -> a
+    165:165:void lambda$getTitleView$0(int,android.view.View) -> a
+    171:177:net.lucode.hackware.magicindicator.buildins.commonnavigator.abs.IPagerIndicator getIndicator(android.content.Context) -> a
+com.zpj.shouji.market.ui.fragment.collection.CollectionDetailFragment$2 -> com.zpj.shouji.market.e.c.g0.k:
     com.zpj.shouji.market.ui.fragment.collection.CollectionDetailFragment this$0 -> h
-    213:213:void <init>(com.zpj.shouji.market.ui.fragment.collection.CollectionDetailFragment) -> <init>
-    213:213:void onResourceReady(java.lang.Object,com.bumptech.glide.request.transition.Transition) -> a
-    216:232:void onResourceReady(android.graphics.Bitmap,com.bumptech.glide.request.transition.Transition) -> a
-    218:224:void lambda$onResourceReady$0(android.graphics.Bitmap,io.reactivex.ObservableEmitter) -> a
-    228:230:void lambda$onResourceReady$1(android.graphics.Bitmap) -> a
-com.zpj.shouji.market.ui.fragment.collection.CollectionListFragment -> com.zpj.shouji.market.e.c.g0.k:
+    211:211:void <init>(com.zpj.shouji.market.ui.fragment.collection.CollectionDetailFragment) -> <init>
+    211:211:void onResourceReady(java.lang.Object,com.bumptech.glide.request.transition.Transition) -> a
+    214:230:void onResourceReady(android.graphics.Bitmap,com.bumptech.glide.request.transition.Transition) -> a
+    216:222:void lambda$onResourceReady$0(android.graphics.Bitmap,io.reactivex.ObservableEmitter) -> a
+    226:228:void lambda$onResourceReady$1(android.graphics.Bitmap) -> a
+com.zpj.shouji.market.ui.fragment.collection.CollectionListFragment -> com.zpj.shouji.market.e.c.g0.l:
     int[] ICON_RES -> s
     22:22:void <clinit>() -> <clinit>
     19:19:void <init>() -> <init>
@@ -45856,7 +45893,7 @@ com.zpj.shouji.market.ui.fragment.collection.CollectionListFragment -> com.zpj.s
     75:78:com.zpj.shouji.market.model.CollectionInfo createData(com.zpj.http.parser.html.nodes.Element) -> a
     66:71:void updateKeyword(java.lang.String) -> e
     38:38:int getItemLayoutId() -> y
-com.zpj.shouji.market.ui.fragment.collection.CollectionRecommendListFragment -> com.zpj.shouji.market.e.c.g0.l:
+com.zpj.shouji.market.ui.fragment.collection.CollectionRecommendListFragment -> com.zpj.shouji.market.e.c.g0.m:
     15:15:void <init>() -> <init>
     15:15:java.lang.Object createData(com.zpj.http.parser.html.nodes.Element) -> a
     37:39:void initView(android.view.View,android.os.Bundle) -> a
@@ -45864,42 +45901,53 @@ com.zpj.shouji.market.ui.fragment.collection.CollectionRecommendListFragment -> 
     18:23:void start(java.lang.String) -> f
     32:32:int getLayoutId() -> v
     27:27:boolean supportSwipeBack() -> x
-com.zpj.shouji.market.ui.fragment.detail.-$$Lambda$AppDetailFragment$1$9vp58VDxddyuDmY1lX5njpTLZ9w -> com.zpj.shouji.market.e.c.h0.a:
+com.zpj.shouji.market.ui.fragment.detail.-$$Lambda$AppDetailFragment$2$oSP5IlsBgY1U9E1j_yaGtSbe_eo -> com.zpj.shouji.market.e.c.h0.a:
     int f$1 -> f
     android.support.v4.view.ViewPager f$0 -> e
-com.zpj.shouji.market.ui.fragment.detail.-$$Lambda$AppDetailFragment$2$BridlUXqKDLI2rtXwFu6e6zo_LA -> com.zpj.shouji.market.e.c.h0.b:
+com.zpj.shouji.market.ui.fragment.detail.-$$Lambda$AppDetailFragment$3$60fmCovmo-MTTphchNIhM8See0U -> com.zpj.shouji.market.e.c.h0.b:
+    com.zpj.shouji.market.ui.fragment.detail.AppDetailFragment$3 f$0 -> a
+com.zpj.shouji.market.ui.fragment.detail.-$$Lambda$AppDetailFragment$3$eZslKWSOlX0m6zihyUs28v45SoM -> com.zpj.shouji.market.e.c.h0.c:
     android.graphics.Bitmap f$0 -> a
     void subscribe(io.reactivex.ObservableEmitter) -> a
-com.zpj.shouji.market.ui.fragment.detail.-$$Lambda$AppDetailFragment$2$a5iR7qZ_f4HbjdWs9ozWG5IvYRM -> com.zpj.shouji.market.e.c.h0.c:
-    com.zpj.shouji.market.ui.fragment.detail.AppDetailFragment$2 f$0 -> a
-com.zpj.shouji.market.ui.fragment.detail.-$$Lambda$AppDetailFragment$IsXWVUv65FGrGSZRDIV1akjFxjY -> com.zpj.shouji.market.e.c.h0.d:
+com.zpj.shouji.market.ui.fragment.detail.-$$Lambda$AppDetailFragment$PSACeIPsceubpz1mGv9fjvGznT8 -> com.zpj.shouji.market.e.c.h0.d:
+    com.zpj.shouji.market.ui.fragment.detail.AppDetailFragment f$0 -> e
+com.zpj.shouji.market.ui.fragment.detail.-$$Lambda$AppDetailFragment$VUop7H9C6d9pK2IBeliX_QReNhg -> com.zpj.shouji.market.e.c.h0.e:
     com.zpj.shouji.market.ui.fragment.detail.AppDetailFragment f$0 -> a
-com.zpj.shouji.market.ui.fragment.detail.-$$Lambda$AppDetailFragment$OorE0Aje9Ha9cj250CEZ5cnIVvM -> com.zpj.shouji.market.e.c.h0.e:
-    com.zpj.shouji.market.ui.fragment.detail.AppDetailFragment f$0 -> a
-com.zpj.shouji.market.ui.fragment.detail.-$$Lambda$AppDetailFragment$g5-QghyDXVnbORSPkJTLPea0BaU -> com.zpj.shouji.market.e.c.h0.f:
-    com.zpj.shouji.market.ui.fragment.detail.AppDetailFragment f$0 -> a
-com.zpj.shouji.market.ui.fragment.detail.-$$Lambda$AppInfoFragment$49Zb9iyv_wV98nk6GyQbC36X36g -> com.zpj.shouji.market.e.c.h0.g:
+com.zpj.shouji.market.ui.fragment.detail.-$$Lambda$AppDetailFragment$YZBYb-Z4VLL264VlyQ8BUzpEEzU -> com.zpj.shouji.market.e.c.h0.f:
+    com.zpj.shouji.market.ui.fragment.detail.AppDetailFragment f$0 -> e
+com.zpj.shouji.market.ui.fragment.detail.-$$Lambda$AppDetailFragment$hI2VjzxRG0xe2hw3H7ponZ9K4Zk -> com.zpj.shouji.market.e.c.h0.g:
+    com.zpj.shouji.market.ui.fragment.detail.AppDetailFragment f$0 -> e
+com.zpj.shouji.market.ui.fragment.detail.-$$Lambda$AppInfoFragment$49Zb9iyv_wV98nk6GyQbC36X36g -> com.zpj.shouji.market.e.c.h0.h:
     com.zpj.shouji.market.ui.fragment.detail.AppInfoFragment f$0 -> a
     com.zpj.recyclerview.EasyViewHolder f$1 -> b
     android.widget.ImageView f$3 -> d
     int f$2 -> c
     android.widget.ImageView getImageView(int) -> a
-com.zpj.shouji.market.ui.fragment.detail.-$$Lambda$AppInfoFragment$w_3KC6mQYy0Dmtl6vAFz9nl3CEw -> com.zpj.shouji.market.e.c.h0.h:
+com.zpj.shouji.market.ui.fragment.detail.-$$Lambda$AppInfoFragment$w_3KC6mQYy0Dmtl6vAFz9nl3CEw -> com.zpj.shouji.market.e.c.h0.i:
     android.widget.ImageView f$4 -> i
     java.util.List f$1 -> f
     int f$3 -> h
     com.zpj.recyclerview.EasyViewHolder f$2 -> g
     com.zpj.shouji.market.ui.fragment.detail.AppInfoFragment f$0 -> e
-com.zpj.shouji.market.ui.fragment.detail.-$$Lambda$AppRecommendFragment$DZaMP2xNfvce1olUQjkMFtjh2ko -> com.zpj.shouji.market.e.c.h0.i:
-    com.zpj.shouji.market.ui.fragment.detail.AppRecommendFragment f$0 -> a
-com.zpj.shouji.market.ui.fragment.detail.-$$Lambda$AppRecommendFragment$EGIfdR7XPL27ztTg6FT_nvkPVSg -> com.zpj.shouji.market.e.c.h0.j:
+com.zpj.shouji.market.ui.fragment.detail.-$$Lambda$AppRecommendFragment$DZaMP2xNfvce1olUQjkMFtjh2ko -> com.zpj.shouji.market.e.c.h0.j:
     com.zpj.shouji.market.ui.fragment.detail.AppRecommendFragment f$0 -> e
-com.zpj.shouji.market.ui.fragment.detail.AppCommentFragment -> com.zpj.shouji.market.e.c.h0.k:
-    7:7:void <init>() -> <init>
-    10:14:com.zpj.shouji.market.ui.fragment.detail.AppCommentFragment newInstance(java.lang.String) -> f
-    24:25:void onSupportVisible() -> k
-    19:20:void onSupportInvisible() -> q
-com.zpj.shouji.market.ui.fragment.detail.AppDetailFragment -> com.zpj.shouji.market.e.c.h0.l:
+com.zpj.shouji.market.ui.fragment.detail.-$$Lambda$AppRecommendFragment$EGIfdR7XPL27ztTg6FT_nvkPVSg -> com.zpj.shouji.market.e.c.h0.k:
+    com.zpj.shouji.market.ui.fragment.detail.AppRecommendFragment f$0 -> e
+com.zpj.shouji.market.ui.fragment.detail.AppCommentFragment -> com.zpj.shouji.market.e.c.h0.l:
+    21:21:void <init>() -> <init>
+    24:28:com.zpj.shouji.market.ui.fragment.detail.AppCommentFragment newInstance(java.lang.String,java.lang.String) -> a
+    33:45:void initView(android.view.View,android.os.Bundle) -> a
+    66:67:void onSupportVisible() -> k
+    49:51:void onCreate(android.os.Bundle) -> onCreate
+    55:57:void onDestroy() -> onDestroy
+    71:74:void onRefreshEvent(com.zpj.shouji.market.event.RefreshEvent) -> onRefreshEvent
+    61:62:void onSupportInvisible() -> q
+com.zpj.shouji.market.ui.fragment.detail.AppCommentFragment$1 -> com.zpj.shouji.market.e.c.h0.l$a:
+    int mScrollThreshold -> a
+    34:35:void <init>(com.zpj.shouji.market.ui.fragment.detail.AppCommentFragment) -> <init>
+    38:43:void onScrolled(android.support.v7.widget.RecyclerView,int,int) -> onScrolled
+com.zpj.shouji.market.ui.fragment.detail.AppDetailFragment -> com.zpj.shouji.market.e.c.h0.m:
+    android.support.design.widget.FloatingActionButton fabComment -> v
     android.widget.TextView title -> s
     java.lang.String id -> m
     android.support.design.widget.AppBarLayout appBarLayout -> q
@@ -45908,49 +45956,60 @@ com.zpj.shouji.market.ui.fragment.detail.AppDetailFragment -> com.zpj.shouji.mar
     android.widget.TextView shortInfo -> t
     com.zpj.shouji.market.model.AppDetailInfo appDetailInfo -> o
     java.lang.String type -> n
+    java.lang.String[] TAB_TITLES -> w
     com.zpj.widget.statelayout.StateLayout stateLayout -> p
     com.shehuan.niv.NiceImageView icon -> r
-    java.lang.String[] TAB_TITLES -> v
-    61:61:void <clinit>() -> <clinit>
-    57:57:void <init>() -> <init>
-    57:57:com.shehuan.niv.NiceImageView access$100(com.zpj.shouji.market.ui.fragment.detail.AppDetailFragment) -> a
-    82:88:void start(java.lang.String,java.lang.String) -> a
-    91:92:void start(com.zpj.shouji.market.model.AppInfo) -> a
-    95:96:void start(com.zpj.shouji.market.model.AppUpdateInfo) -> a
-    103:104:void start(com.zpj.shouji.market.model.UserDownloadedAppInfo) -> a
-    107:108:void start(com.zpj.shouji.market.model.CollectionAppInfo) -> a
-    123:133:void initView(android.view.View,android.os.Bundle) -> a
-    219:261:void lambda$getAppInfo$0(com.zpj.http.parser.html.nodes.Document) -> a
-    262:262:void lambda$getAppInfo$1(java.lang.Throwable) -> a
-    268:332:void getColor(android.graphics.Bitmap) -> a
-    274:331:void lambda$getColor$2(android.support.v7.graphics.Palette) -> a
-    57:57:android.support.design.widget.AppBarLayout access$200(com.zpj.shouji.market.ui.fragment.detail.AppDetailFragment) -> b
-    211:213:void onEnterAnimationEnd(android.os.Bundle) -> c
-    99:100:void start(com.zpj.shouji.market.model.InstalledAppInfo) -> e
-    216:264:void getAppInfo(java.lang.String) -> f
-    113:113:int getLayoutId() -> v
-    118:118:boolean supportSwipeBack() -> x
-    57:57:java.lang.String[] access$000() -> y
-com.zpj.shouji.market.ui.fragment.detail.AppDetailFragment$1 -> com.zpj.shouji.market.e.c.h0.l$a:
+    68:68:void <clinit>() -> <clinit>
+    64:64:void <init>() -> <init>
+    64:64:android.support.design.widget.FloatingActionButton access$000(com.zpj.shouji.market.ui.fragment.detail.AppDetailFragment) -> a
+    90:96:void start(java.lang.String,java.lang.String) -> a
+    99:100:void start(com.zpj.shouji.market.model.AppInfo) -> a
+    103:104:void start(com.zpj.shouji.market.model.AppUpdateInfo) -> a
+    111:112:void start(com.zpj.shouji.market.model.UserDownloadedAppInfo) -> a
+    115:116:void start(com.zpj.shouji.market.model.CollectionAppInfo) -> a
+    143:153:void initView(android.view.View,android.os.Bundle) -> a
+    267:309:void lambda$getAppInfo$1(com.zpj.http.parser.html.nodes.Document) -> a
+    310:310:void lambda$getAppInfo$2(java.lang.Throwable) -> a
+    316:381:void getColor(android.graphics.Bitmap) -> a
+    322:380:void lambda$getColor$3(android.support.v7.graphics.Palette) -> a
+    64:64:com.shehuan.niv.NiceImageView access$200(com.zpj.shouji.market.ui.fragment.detail.AppDetailFragment) -> b
+    64:64:android.support.design.widget.AppBarLayout access$300(com.zpj.shouji.market.ui.fragment.detail.AppDetailFragment) -> c
+    259:261:void onEnterAnimationEnd(android.os.Bundle) -> c
+    107:108:void start(com.zpj.shouji.market.model.InstalledAppInfo) -> e
+    166:167:void lambda$initView$0(android.view.View) -> e
+    264:312:void getAppInfo(java.lang.String) -> f
+    131:133:void onCreate(android.os.Bundle) -> onCreate
+    137:139:void onDestroy() -> onDestroy
+    385:390:void onFabEvent(com.zpj.shouji.market.event.FabEvent) -> onFabEvent
+    121:121:int getLayoutId() -> v
+    126:126:boolean supportSwipeBack() -> x
+    64:64:java.lang.String[] access$100() -> y
+com.zpj.shouji.market.ui.fragment.detail.AppDetailFragment$1 -> com.zpj.shouji.market.e.c.h0.m$a:
+    com.zpj.shouji.market.ui.fragment.detail.AppDetailFragment this$0 -> a
+    197:197:void <init>(com.zpj.shouji.market.ui.fragment.detail.AppDetailFragment) -> <init>
+    215:215:void onPageScrollStateChanged(int) -> onPageScrollStateChanged
+    201:201:void onPageScrolled(int,float,int) -> onPageScrolled
+    205:210:void onPageSelected(int) -> onPageSelected
+com.zpj.shouji.market.ui.fragment.detail.AppDetailFragment$2 -> com.zpj.shouji.market.e.c.h0.m$b:
     android.support.v4.view.ViewPager val$viewPager -> b
     com.zpj.shouji.market.ui.fragment.detail.AppDetailFragment this$0 -> c
-    177:177:void <init>(com.zpj.shouji.market.ui.fragment.detail.AppDetailFragment,android.support.v4.view.ViewPager) -> <init>
-    180:180:int getCount() -> a
-    185:191:net.lucode.hackware.magicindicator.buildins.commonnavigator.abs.IPagerTitleView getTitleView(android.content.Context,int) -> a
-    190:190:void lambda$getTitleView$0(android.support.v4.view.ViewPager,int,android.view.View) -> a
-    196:202:net.lucode.hackware.magicindicator.buildins.commonnavigator.abs.IPagerIndicator getIndicator(android.content.Context) -> a
-com.zpj.shouji.market.ui.fragment.detail.AppDetailFragment$2 -> com.zpj.shouji.market.e.c.h0.m:
-    com.zpj.shouji.market.ui.fragment.detail.AppDetailFragment this$0 -> h
-    226:226:void <init>(com.zpj.shouji.market.ui.fragment.detail.AppDetailFragment) -> <init>
-    226:226:void onResourceReady(java.lang.Object,com.bumptech.glide.request.transition.Transition) -> a
-    229:248:void onResourceReady(android.graphics.Bitmap,com.bumptech.glide.request.transition.Transition) -> a
-    232:240:void lambda$onResourceReady$0(android.graphics.Bitmap,io.reactivex.ObservableEmitter) -> a
-    244:246:void lambda$onResourceReady$1(android.graphics.Bitmap) -> a
+    222:222:void <init>(com.zpj.shouji.market.ui.fragment.detail.AppDetailFragment,android.support.v4.view.ViewPager) -> <init>
+    225:225:int getCount() -> a
+    230:236:net.lucode.hackware.magicindicator.buildins.commonnavigator.abs.IPagerTitleView getTitleView(android.content.Context,int) -> a
+    235:235:void lambda$getTitleView$0(android.support.v4.view.ViewPager,int,android.view.View) -> a
+    241:247:net.lucode.hackware.magicindicator.buildins.commonnavigator.abs.IPagerIndicator getIndicator(android.content.Context) -> a
 com.zpj.shouji.market.ui.fragment.detail.AppDetailFragment$3 -> com.zpj.shouji.market.e.c.h0.n:
+    com.zpj.shouji.market.ui.fragment.detail.AppDetailFragment this$0 -> h
+    274:274:void <init>(com.zpj.shouji.market.ui.fragment.detail.AppDetailFragment) -> <init>
+    274:274:void onResourceReady(java.lang.Object,com.bumptech.glide.request.transition.Transition) -> a
+    277:296:void onResourceReady(android.graphics.Bitmap,com.bumptech.glide.request.transition.Transition) -> a
+    280:288:void lambda$onResourceReady$0(android.graphics.Bitmap,io.reactivex.ObservableEmitter) -> a
+    292:294:void lambda$onResourceReady$1(android.graphics.Bitmap) -> a
+com.zpj.shouji.market.ui.fragment.detail.AppDetailFragment$4 -> com.zpj.shouji.market.e.c.h0.o:
     com.zpj.shouji.market.model.AppDetailInfo val$info -> e
-    255:255:void <init>(com.zpj.shouji.market.ui.fragment.detail.AppDetailFragment,com.zpj.shouji.market.model.AppDetailInfo) -> <init>
-    258:259:void run() -> run
-com.zpj.shouji.market.ui.fragment.detail.AppInfoFragment -> com.zpj.shouji.market.e.c.h0.o:
+    303:303:void <init>(com.zpj.shouji.market.ui.fragment.detail.AppDetailFragment,com.zpj.shouji.market.model.AppDetailInfo) -> <init>
+    306:307:void run() -> run
+com.zpj.shouji.market.ui.fragment.detail.AppInfoFragment -> com.zpj.shouji.market.e.c.h0.p:
     com.zpj.recyclerview.EasyRecyclerView recyclerView -> l
     android.widget.LinearLayout content -> m
     float screenHeight -> o
@@ -45970,13 +46029,13 @@ com.zpj.shouji.market.ui.fragment.detail.AppInfoFragment -> com.zpj.shouji.marke
     168:180:void onGetAppDetailInfo(com.zpj.shouji.market.model.AppDetailInfo) -> onGetAppDetailInfo
     66:67:void onSupportInvisible() -> q
     49:49:int getLayoutId() -> v
-com.zpj.shouji.market.ui.fragment.detail.AppInfoFragment$1 -> com.zpj.shouji.market.e.c.h0.o$a:
+com.zpj.shouji.market.ui.fragment.detail.AppInfoFragment$1 -> com.zpj.shouji.market.e.c.h0.p$a:
     android.widget.ImageView val$img -> h
     com.zpj.shouji.market.ui.fragment.detail.AppInfoFragment this$0 -> i
     90:90:void <init>(com.zpj.shouji.market.ui.fragment.detail.AppInfoFragment,android.widget.ImageView) -> <init>
     90:90:void onResourceReady(java.lang.Object,com.bumptech.glide.request.transition.Transition) -> a
     93:111:void onResourceReady(android.graphics.drawable.Drawable,com.bumptech.glide.request.transition.Transition) -> a
-com.zpj.shouji.market.ui.fragment.detail.AppRecommendFragment -> com.zpj.shouji.market.e.c.h0.p:
+com.zpj.shouji.market.ui.fragment.detail.AppRecommendFragment -> com.zpj.shouji.market.e.c.h0.q:
     com.zpj.shouji.market.ui.widget.recommend.SimilarAppCard similarAppCard -> q
     com.zpj.shouji.market.ui.widget.recommend.SimilarCollectionCard similarCollectionCard -> p
     java.util.List appInfoList -> n
@@ -46000,24 +46059,24 @@ com.zpj.shouji.market.ui.fragment.detail.AppRecommendFragment -> com.zpj.shouji.
     48:48:int getLayoutId() -> v
     60:63:void lambda$initView$0() -> y
     116:137:void getSimilar() -> z
-com.zpj.shouji.market.ui.fragment.detail.AppRecommendFragment$1 -> com.zpj.shouji.market.e.c.h0.p$a:
+com.zpj.shouji.market.ui.fragment.detail.AppRecommendFragment$1 -> com.zpj.shouji.market.e.c.h0.q$a:
     com.zpj.shouji.market.ui.fragment.detail.AppRecommendFragment this$0 -> e
     80:80:void <init>(com.zpj.shouji.market.ui.fragment.detail.AppRecommendFragment) -> <init>
     83:90:void onBindViewHolder(com.zpj.recyclerview.EasyViewHolder,java.util.List,int,java.util.List) -> a
-com.zpj.shouji.market.ui.fragment.detail.AppRecommendFragment$2 -> com.zpj.shouji.market.e.c.h0.p$b:
+com.zpj.shouji.market.ui.fragment.detail.AppRecommendFragment$2 -> com.zpj.shouji.market.e.c.h0.q$b:
     com.zpj.shouji.market.ui.fragment.detail.AppRecommendFragment this$0 -> a
     70:70:void <init>(com.zpj.shouji.market.ui.fragment.detail.AppRecommendFragment) -> <init>
     73:76:android.view.View onCreateViewHolder(android.view.ViewGroup,int,int) -> a
-com.zpj.shouji.market.ui.fragment.detail.AppRecommendFragment$3 -> com.zpj.shouji.market.e.c.h0.p$c:
+com.zpj.shouji.market.ui.fragment.detail.AppRecommendFragment$3 -> com.zpj.shouji.market.e.c.h0.q$c:
     64:64:void <init>(com.zpj.shouji.market.ui.fragment.detail.AppRecommendFragment) -> <init>
     67:67:int onGetViewType(int) -> a
-com.zpj.shouji.market.ui.fragment.detail.AppRecommendFragment$4 -> com.zpj.shouji.market.e.c.h0.p$d:
-    com.zpj.shouji.market.ui.fragment.detail.AppRecommendFragment this$0 -> a
+com.zpj.shouji.market.ui.fragment.detail.AppRecommendFragment$4 -> com.zpj.shouji.market.e.c.h0.q$d:
+    com.zpj.shouji.market.ui.fragment.detail.AppRecommendFragment this$0 -> e
     130:130:void <init>(com.zpj.shouji.market.ui.fragment.detail.AppRecommendFragment) -> <init>
     133:134:void onError(java.lang.Throwable) -> onError
-com.zpj.shouji.market.ui.fragment.detail.AppThemeFragment -> com.zpj.shouji.market.e.c.h0.q:
+com.zpj.shouji.market.ui.fragment.detail.AppThemeFragment -> com.zpj.shouji.market.e.c.h0.r:
     7:7:void <init>() -> <init>
-    10:14:com.zpj.shouji.market.ui.fragment.detail.AppThemeFragment newInstance(java.lang.String) -> f
+    10:14:com.zpj.shouji.market.ui.fragment.detail.AppThemeFragment newInstance(java.lang.String,java.lang.String) -> a
     24:25:void onSupportVisible() -> k
     19:20:void onSupportInvisible() -> q
 com.zpj.shouji.market.ui.fragment.homepage.-$$Lambda$HomeFragment$1$zzo7wKrOFDCnXL48Y1_P_BAy5SU -> com.zpj.shouji.market.e.c.i0.a:
@@ -46033,9 +46092,9 @@ com.zpj.shouji.market.ui.fragment.homepage.-$$Lambda$WallpaperFragment$2$SZSqT0y
 com.zpj.shouji.market.ui.fragment.homepage.-$$Lambda$WallpaperFragment$Y0rhhBcVwxnl0eFpdpHIstq-JAc -> com.zpj.shouji.market.e.c.i0.e:
     com.zpj.shouji.market.ui.fragment.homepage.WallpaperFragment f$0 -> a
 com.zpj.shouji.market.ui.fragment.homepage.-$$Lambda$WallpaperFragment$r-ZPHTL8Yg4E2q5icpUUifBWvb4 -> com.zpj.shouji.market.e.c.i0.f:
-    com.zpj.shouji.market.ui.fragment.homepage.WallpaperFragment f$0 -> a
+    com.zpj.shouji.market.ui.fragment.homepage.WallpaperFragment f$0 -> e
 com.zpj.shouji.market.ui.fragment.homepage.-$$Lambda$WallpaperFragment$zRjUYZT9_W2uUtoXLHUBK6-GW_0 -> com.zpj.shouji.market.e.c.i0.g:
-    com.zpj.shouji.market.ui.fragment.homepage.WallpaperFragment f$0 -> a
+    com.zpj.shouji.market.ui.fragment.homepage.WallpaperFragment f$0 -> e
 com.zpj.shouji.market.ui.fragment.homepage.DiscoverFragment -> com.zpj.shouji.market.e.c.i0.h:
     9:9:void <init>() -> <init>
     14:18:com.zpj.shouji.market.ui.fragment.homepage.DiscoverFragment newInstance() -> B
@@ -46077,29 +46136,29 @@ com.zpj.shouji.market.ui.fragment.homepage.WallpaperFragment -> com.zpj.shouji.m
     java.util.List wallpaperTags -> n
     java.util.concurrent.atomic.AtomicBoolean isInitTags -> l
     java.util.List fragments -> m
-    37:42:void <init>() -> <init>
-    100:117:void initWallpaperTags() -> A
-    37:37:android.support.v4.view.ViewPager access$000(com.zpj.shouji.market.ui.fragment.homepage.WallpaperFragment) -> a
-    56:62:void initView(android.view.View,android.os.Bundle) -> a
-    66:70:void onLazyInitView(android.os.Bundle) -> a
-    102:108:void lambda$initWallpaperTags$1(com.zpj.http.parser.html.nodes.Document) -> a
-    111:115:void lambda$initWallpaperTags$2(java.lang.Throwable) -> a
-    37:37:java.util.List access$100(com.zpj.shouji.market.ui.fragment.homepage.WallpaperFragment) -> b
-    74:97:void onClick(android.view.View) -> onClick
-    51:51:int getLayoutId() -> v
-    88:90:void lambda$onClick$0() -> y
-    120:159:void initMagicIndicator() -> z
+    35:40:void <init>() -> <init>
+    98:115:void initWallpaperTags() -> A
+    35:35:android.support.v4.view.ViewPager access$000(com.zpj.shouji.market.ui.fragment.homepage.WallpaperFragment) -> a
+    54:60:void initView(android.view.View,android.os.Bundle) -> a
+    64:68:void onLazyInitView(android.os.Bundle) -> a
+    100:106:void lambda$initWallpaperTags$1(com.zpj.http.parser.html.nodes.Document) -> a
+    109:113:void lambda$initWallpaperTags$2(java.lang.Throwable) -> a
+    35:35:java.util.List access$100(com.zpj.shouji.market.ui.fragment.homepage.WallpaperFragment) -> b
+    72:95:void onClick(android.view.View) -> onClick
+    49:49:int getLayoutId() -> v
+    86:88:void lambda$onClick$0() -> y
+    118:157:void initMagicIndicator() -> z
 com.zpj.shouji.market.ui.fragment.homepage.WallpaperFragment$1 -> com.zpj.shouji.market.e.c.i0.k$a:
     com.zpj.shouji.market.ui.fragment.homepage.WallpaperFragment this$0 -> a
-    81:81:void <init>(com.zpj.shouji.market.ui.fragment.homepage.WallpaperFragment) -> <init>
-    84:85:void onClick(int,android.view.View,java.lang.String) -> a
+    79:79:void <init>(com.zpj.shouji.market.ui.fragment.homepage.WallpaperFragment) -> <init>
+    82:83:void onClick(int,android.view.View,java.lang.String) -> a
 com.zpj.shouji.market.ui.fragment.homepage.WallpaperFragment$2 -> com.zpj.shouji.market.e.c.i0.k$b:
     com.zpj.shouji.market.ui.fragment.homepage.WallpaperFragment this$0 -> b
-    129:129:void <init>(com.zpj.shouji.market.ui.fragment.homepage.WallpaperFragment) -> <init>
-    132:132:int getCount() -> a
-    137:143:net.lucode.hackware.magicindicator.buildins.commonnavigator.abs.IPagerTitleView getTitleView(android.content.Context,int) -> a
-    142:142:void lambda$getTitleView$0(int,android.view.View) -> a
-    148:154:net.lucode.hackware.magicindicator.buildins.commonnavigator.abs.IPagerIndicator getIndicator(android.content.Context) -> a
+    127:127:void <init>(com.zpj.shouji.market.ui.fragment.homepage.WallpaperFragment) -> <init>
+    130:130:int getCount() -> a
+    135:141:net.lucode.hackware.magicindicator.buildins.commonnavigator.abs.IPagerTitleView getTitleView(android.content.Context,int) -> a
+    140:140:void lambda$getTitleView$0(int,android.view.View) -> a
+    146:152:net.lucode.hackware.magicindicator.buildins.commonnavigator.abs.IPagerIndicator getIndicator(android.content.Context) -> a
 com.zpj.shouji.market.ui.fragment.login.-$$Lambda$SignUpFragment$nMBKVVHHzLvbIUsQ6HKTQkpYX0M -> com.zpj.shouji.market.ui.fragment.login.a:
     com.zpj.shouji.market.ui.fragment.login.SignUpFragment f$0 -> e
 com.zpj.shouji.market.ui.fragment.login.LoginFragment -> com.zpj.shouji.market.ui.fragment.login.b:
@@ -46120,8 +46179,8 @@ com.zpj.shouji.market.ui.fragment.login.LoginFragment -> com.zpj.shouji.market.u
     83:117:void initView(android.view.View,android.os.Bundle) -> a
     218:227:android.animation.AnimatorSet createTranslationAnimator(android.view.View,float,float) -> a
     239:243:long calculateDuration(float,float,float,float) -> a
-    254:254:void onSignInFailed(java.lang.String) -> a
     121:121:com.zpj.fragmentation.anim.FragmentAnimator onCreateFragmentAnimator() -> b
+    254:254:void onSignInFailed(java.lang.String) -> b
     248:249:void onSignInSuccess() -> c
     266:266:void onSignUpFailed(java.lang.String) -> d
     184:210:android.animation.AnimatorSet startCircleAnim(android.view.View) -> e
@@ -46150,7 +46209,7 @@ com.zpj.shouji.market.ui.fragment.login.SignInFragment -> com.zpj.shouji.market.
     com.zpj.shouji.market.ui.widget.input.PasswordInputView piv_password -> n
     17:17:void <init>() -> <init>
     32:52:void initView(android.view.View,android.os.Bundle) -> a
-    84:85:void onSignInFailed(java.lang.String) -> a
+    84:85:void onSignInFailed(java.lang.String) -> b
     79:80:void onSignInSuccess() -> c
     62:75:void onClick(android.view.View) -> onClick
     56:58:void onDestroy() -> onDestroy
@@ -46184,7 +46243,7 @@ com.zpj.shouji.market.ui.fragment.manager.-$$Lambda$DownloadFragment$gh961edfJYQ
     com.zpj.shouji.market.ui.fragment.manager.DownloadFragment f$0 -> a
     void subscribe(io.reactivex.ObservableEmitter) -> a
 com.zpj.shouji.market.ui.fragment.manager.-$$Lambda$DownloadFragment$qRlNfDADV3YpVmzgclNYNSDxiuc -> com.zpj.shouji.market.ui.fragment.manager.c:
-    com.zpj.shouji.market.ui.fragment.manager.DownloadFragment f$0 -> a
+    com.zpj.shouji.market.ui.fragment.manager.DownloadFragment f$0 -> e
 com.zpj.shouji.market.ui.fragment.manager.-$$Lambda$InstalledFragment$9uuL1bTTWG2SyUntwU4KQjHautA -> com.zpj.shouji.market.ui.fragment.manager.d:
     com.zpj.shouji.market.ui.fragment.manager.InstalledFragment f$0 -> e
 com.zpj.shouji.market.ui.fragment.manager.-$$Lambda$InstalledFragment$HenXYlJt9i5ToyAzmUb0n3WHtL4 -> com.zpj.shouji.market.ui.fragment.manager.e:
@@ -46502,9 +46561,9 @@ com.zpj.shouji.market.ui.fragment.profile.-$$Lambda$MyBlacklistFragment$GYgMQzj3
     com.zpj.shouji.market.model.BlacklistInfo f$1 -> b
     void onClick(com.zpj.shouji.market.ui.widget.popup.BottomListPopupMenu,android.view.View,android.view.MenuItem) -> a
 com.zpj.shouji.market.ui.fragment.profile.-$$Lambda$MyBlacklistFragment$gsykGJYgiG9VBEJNsX_k3cR_rps -> com.zpj.shouji.market.e.c.j0.b:
-    com.zpj.shouji.market.ui.fragment.profile.MyBlacklistFragment f$0 -> a
+    com.zpj.shouji.market.ui.fragment.profile.MyBlacklistFragment f$0 -> e
 com.zpj.shouji.market.ui.fragment.profile.-$$Lambda$MyBlacklistFragment$z4GJIUtH3VVH0lYUluLOsjMHcck -> com.zpj.shouji.market.e.c.j0.c:
-    com.zpj.shouji.market.ui.fragment.profile.-$$Lambda$MyBlacklistFragment$z4GJIUtH3VVH0lYUluLOsjMHcck INSTANCE -> a
+    com.zpj.shouji.market.ui.fragment.profile.-$$Lambda$MyBlacklistFragment$z4GJIUtH3VVH0lYUluLOsjMHcck INSTANCE -> e
 com.zpj.shouji.market.ui.fragment.profile.-$$Lambda$MyBookingFragment$1$5SHWMCUqVMFn5sRU64huYzQ_S74 -> com.zpj.shouji.market.e.c.j0.d:
     com.zpj.shouji.market.ui.fragment.profile.MyBookingFragment$1 f$0 -> e
     int f$1 -> f
@@ -46531,8 +46590,8 @@ com.zpj.shouji.market.ui.fragment.profile.-$$Lambda$MyFragment$AD1Ne7zlSevnAfA1c
     com.zpj.shouji.market.ui.fragment.profile.MyFragment f$0 -> a
     void onConfirm(com.zpj.popup.core.BasePopup) -> a
 com.zpj.shouji.market.ui.fragment.profile.-$$Lambda$MyFragment$CWzim0stfmJDY2tPoCj8bRElDhE -> com.zpj.shouji.market.e.c.j0.m:
-    com.zpj.shouji.market.ui.fragment.profile.MyFragment f$0 -> a
-    com.zpj.shouji.market.model.MemberInfo f$1 -> b
+    com.zpj.shouji.market.model.MemberInfo f$1 -> f
+    com.zpj.shouji.market.ui.fragment.profile.MyFragment f$0 -> e
 com.zpj.shouji.market.ui.fragment.profile.-$$Lambda$MyFragment$Mu65oKmgAmBgl3HT_IyYyPbH6yA -> com.zpj.shouji.market.e.c.j0.n:
     com.zpj.shouji.market.ui.fragment.profile.-$$Lambda$MyFragment$Mu65oKmgAmBgl3HT_IyYyPbH6yA INSTANCE -> a
     void onSelect(int,java.lang.Object) -> a
@@ -46546,7 +46605,7 @@ com.zpj.shouji.market.ui.fragment.profile.-$$Lambda$MyFragment$aiL45JAfoehbxhu4O
     com.zpj.shouji.market.ui.fragment.profile.MyFragment f$0 -> a
     boolean onLongClick(android.view.View,float,float) -> a
 com.zpj.shouji.market.ui.fragment.profile.-$$Lambda$MyFragment$foC8a4f4gd0gjnz1Z1UztBJp9ww -> com.zpj.shouji.market.e.c.j0.r:
-    com.zpj.shouji.market.ui.fragment.profile.-$$Lambda$MyFragment$foC8a4f4gd0gjnz1Z1UztBJp9ww INSTANCE -> a
+    com.zpj.shouji.market.ui.fragment.profile.-$$Lambda$MyFragment$foC8a4f4gd0gjnz1Z1UztBJp9ww INSTANCE -> e
 com.zpj.shouji.market.ui.fragment.profile.-$$Lambda$MyFragment$kZ2-i2JuyTVMHGojDA1dfDaEytc -> com.zpj.shouji.market.e.c.j0.s:
     com.zpj.shouji.market.ui.fragment.profile.MyFragment f$0 -> e
 com.zpj.shouji.market.ui.fragment.profile.-$$Lambda$MyFriendsFragment$1$ygbKQen2-VtcRtrJ9sZubeSW9ws -> com.zpj.shouji.market.e.c.j0.t:
@@ -46557,11 +46616,11 @@ com.zpj.shouji.market.ui.fragment.profile.-$$Lambda$MyFriendsFragment$ErHrVbiOHX
 com.zpj.shouji.market.ui.fragment.profile.-$$Lambda$ProfileFragment$3Kn_egGXmgGKNhAJxdKuyydyiiw -> com.zpj.shouji.market.e.c.j0.v:
     com.zpj.shouji.market.ui.fragment.profile.ProfileFragment f$0 -> e
 com.zpj.shouji.market.ui.fragment.profile.-$$Lambda$ProfileFragment$3ovbDgHH7xzMhG_efqj5DltngKo -> com.zpj.shouji.market.e.c.j0.w:
-    com.zpj.shouji.market.ui.fragment.profile.-$$Lambda$ProfileFragment$3ovbDgHH7xzMhG_efqj5DltngKo INSTANCE -> a
+    com.zpj.shouji.market.ui.fragment.profile.-$$Lambda$ProfileFragment$3ovbDgHH7xzMhG_efqj5DltngKo INSTANCE -> e
 com.zpj.shouji.market.ui.fragment.profile.-$$Lambda$ProfileFragment$961ybHmtOUe-WjyWsPTfwRCb1LY -> com.zpj.shouji.market.e.c.j0.x:
-    com.zpj.shouji.market.ui.fragment.profile.ProfileFragment f$0 -> a
+    com.zpj.shouji.market.ui.fragment.profile.ProfileFragment f$0 -> e
 com.zpj.shouji.market.ui.fragment.profile.-$$Lambda$ProfileFragment$A0g3-l_cyvV1v3mdDmuLmUCSnJk -> com.zpj.shouji.market.e.c.j0.y:
-    com.zpj.shouji.market.ui.fragment.profile.ProfileFragment f$0 -> a
+    com.zpj.shouji.market.ui.fragment.profile.ProfileFragment f$0 -> e
 com.zpj.shouji.market.ui.fragment.profile.-$$Lambda$ProfileFragment$GZXvrgwqOr5zSVA2DqJaHuE0NdM -> com.zpj.shouji.market.e.c.j0.z:
     com.zpj.shouji.market.ui.fragment.profile.ProfileFragment f$0 -> e
 com.zpj.shouji.market.ui.fragment.profile.-$$Lambda$ProfileFragment$NrUC7UghzOYAxJ6_xU7-YC6yIU8 -> com.zpj.shouji.market.e.c.j0.a0:
@@ -46573,18 +46632,18 @@ com.zpj.shouji.market.ui.fragment.profile.-$$Lambda$ProfileFragment$X6Gyjeg4O5tq
     com.zpj.shouji.market.ui.fragment.profile.ProfileFragment f$0 -> e
     android.widget.ImageButton f$1 -> f
 com.zpj.shouji.market.ui.fragment.profile.-$$Lambda$ProfileFragment$ettLN_kMLvsLNgemuh2Vj4bu0nc -> com.zpj.shouji.market.e.c.j0.d0:
-    com.zpj.shouji.market.ui.fragment.profile.-$$Lambda$ProfileFragment$ettLN_kMLvsLNgemuh2Vj4bu0nc INSTANCE -> a
+    com.zpj.shouji.market.ui.fragment.profile.-$$Lambda$ProfileFragment$ettLN_kMLvsLNgemuh2Vj4bu0nc INSTANCE -> e
 com.zpj.shouji.market.ui.fragment.profile.-$$Lambda$ProfileFragment$fZItjAfnPeDWd1Eh4H7_w0MStPo -> com.zpj.shouji.market.e.c.j0.e0:
-    com.zpj.shouji.market.ui.fragment.profile.-$$Lambda$ProfileFragment$fZItjAfnPeDWd1Eh4H7_w0MStPo INSTANCE -> a
+    com.zpj.shouji.market.ui.fragment.profile.-$$Lambda$ProfileFragment$fZItjAfnPeDWd1Eh4H7_w0MStPo INSTANCE -> e
 com.zpj.shouji.market.ui.fragment.profile.-$$Lambda$ProfileFragment$jZht5kzojKIy5ybbh43jKZnnbCk -> com.zpj.shouji.market.e.c.j0.f0:
     com.zpj.shouji.market.ui.fragment.profile.ProfileFragment f$0 -> a
     void onSelect(int,java.lang.Object) -> a
 com.zpj.shouji.market.ui.fragment.profile.-$$Lambda$ProfileFragment$pESjZx_BaOfXWKBBiqJ95pw5uCU -> com.zpj.shouji.market.e.c.j0.g0:
-    com.zpj.shouji.market.ui.fragment.profile.ProfileFragment f$0 -> a
+    com.zpj.shouji.market.ui.fragment.profile.ProfileFragment f$0 -> e
 com.zpj.shouji.market.ui.fragment.profile.-$$Lambda$ProfileFragment$vgVHsTus_EZ4zJYsXspkH5XAzGc -> com.zpj.shouji.market.e.c.j0.h0:
-    com.zpj.shouji.market.ui.fragment.profile.-$$Lambda$ProfileFragment$vgVHsTus_EZ4zJYsXspkH5XAzGc INSTANCE -> a
+    com.zpj.shouji.market.ui.fragment.profile.-$$Lambda$ProfileFragment$vgVHsTus_EZ4zJYsXspkH5XAzGc INSTANCE -> e
 com.zpj.shouji.market.ui.fragment.profile.-$$Lambda$ProfileFragment$w0taI4FQDOYpJsKFUu6b8ZDlh98 -> com.zpj.shouji.market.e.c.j0.i0:
-    com.zpj.shouji.market.ui.fragment.profile.ProfileFragment f$0 -> a
+    com.zpj.shouji.market.ui.fragment.profile.ProfileFragment f$0 -> e
 com.zpj.shouji.market.ui.fragment.profile.-$$Lambda$ProfileFragment$w5ouHmtkrxFc4XtrnGePNMH3HAQ -> com.zpj.shouji.market.e.c.j0.j0:
     com.zpj.shouji.market.ui.fragment.profile.ProfileFragment f$0 -> e
 com.zpj.shouji.market.ui.fragment.profile.MyBlacklistFragment -> com.zpj.shouji.market.e.c.j0.k0:
@@ -46703,27 +46762,27 @@ com.zpj.shouji.market.ui.fragment.profile.MyDiscoverFragment -> com.zpj.shouji.m
     35:35:void <clinit>() -> <clinit>
     33:33:void <init>() -> <init>
     56:59:void initView(android.view.View,android.os.Bundle) -> a
-    63:114:void onEnterAnimationEnd(android.os.Bundle) -> c
+    63:115:void onEnterAnimationEnd(android.os.Bundle) -> c
     46:46:int getLayoutId() -> v
     51:51:boolean supportSwipeBack() -> x
     33:33:java.lang.String[] access$000() -> y
     41:42:void start() -> z
 com.zpj.shouji.market.ui.fragment.profile.MyDiscoverFragment$1 -> com.zpj.shouji.market.e.c.j0.o0$a:
     com.zpj.shouji.market.ui.fragment.profile.MyDiscoverFragment this$0 -> b
-    84:84:void <init>(com.zpj.shouji.market.ui.fragment.profile.MyDiscoverFragment) -> <init>
-    87:87:int getCount() -> a
-    92:98:net.lucode.hackware.magicindicator.buildins.commonnavigator.abs.IPagerTitleView getTitleView(android.content.Context,int) -> a
-    97:97:void lambda$getTitleView$0(int,android.view.View) -> a
-    103:109:net.lucode.hackware.magicindicator.buildins.commonnavigator.abs.IPagerIndicator getIndicator(android.content.Context) -> a
+    85:85:void <init>(com.zpj.shouji.market.ui.fragment.profile.MyDiscoverFragment) -> <init>
+    88:88:int getCount() -> a
+    93:99:net.lucode.hackware.magicindicator.buildins.commonnavigator.abs.IPagerTitleView getTitleView(android.content.Context,int) -> a
+    98:98:void lambda$getTitleView$0(int,android.view.View) -> a
+    104:110:net.lucode.hackware.magicindicator.buildins.commonnavigator.abs.IPagerIndicator getIndicator(android.content.Context) -> a
 com.zpj.shouji.market.ui.fragment.profile.MyDiscoverFragment$MyPrivateDiscoverFragment -> com.zpj.shouji.market.e.c.j0.o0$b:
-    142:142:void <init>() -> <init>
-    145:150:com.zpj.shouji.market.ui.fragment.profile.MyDiscoverFragment$MyPrivateDiscoverFragment newInstance() -> B
+    143:143:void <init>() -> <init>
+    146:151:com.zpj.shouji.market.ui.fragment.profile.MyDiscoverFragment$MyPrivateDiscoverFragment newInstance() -> B
 com.zpj.shouji.market.ui.fragment.profile.MyDiscoverFragment$MyPublishDiscoverFragment -> com.zpj.shouji.market.e.c.j0.o0$c:
-    129:129:void <init>() -> <init>
-    132:137:com.zpj.shouji.market.ui.fragment.profile.MyDiscoverFragment$MyPublishDiscoverFragment newInstance() -> B
+    130:130:void <init>() -> <init>
+    133:138:com.zpj.shouji.market.ui.fragment.profile.MyDiscoverFragment$MyPublishDiscoverFragment newInstance() -> B
 com.zpj.shouji.market.ui.fragment.profile.MyDiscoverFragment$MyRelatedDiscoverFragment -> com.zpj.shouji.market.e.c.j0.o0$d:
-    116:116:void <init>() -> <init>
-    119:124:com.zpj.shouji.market.ui.fragment.profile.MyDiscoverFragment$MyRelatedDiscoverFragment newInstance() -> B
+    117:117:void <init>() -> <init>
+    120:125:com.zpj.shouji.market.ui.fragment.profile.MyDiscoverFragment$MyRelatedDiscoverFragment newInstance() -> B
 com.zpj.shouji.market.ui.fragment.profile.MyDynamicFragment -> com.zpj.shouji.market.e.c.j0.p0:
     boolean showToolbar -> o
     android.support.v4.view.ViewPager viewPager -> l
@@ -46790,23 +46849,23 @@ com.zpj.shouji.market.ui.fragment.profile.MyFragment -> com.zpj.shouji.market.e.
     71:156:void initView(android.view.View,android.os.Bundle) -> a
     115:131:boolean lambda$initView$1(android.view.View,float,float) -> a
     192:213:void lambda$null$4(int,java.lang.String) -> a
-    227:241:void lambda$onClick$6(com.zpj.shouji.market.model.MemberInfo,com.zpj.http.parser.html.nodes.Document) -> a
-    242:242:void lambda$onClick$7(java.lang.Throwable) -> a
-    310:310:void onSignInFailed(java.lang.String) -> a
-    343:355:void lambda$showSignOutPopup$8(com.zpj.popup.impl.AlertPopup) -> a
+    225:239:void lambda$onClick$6(com.zpj.shouji.market.model.MemberInfo,com.zpj.http.parser.html.nodes.Document) -> a
+    240:240:void lambda$onClick$7(java.lang.Throwable) -> a
+    341:353:void lambda$showSignOutPopup$8(com.zpj.popup.impl.AlertPopup) -> a
     122:129:void lambda$null$0(int,java.lang.String) -> b
     136:152:boolean lambda$initView$3(android.view.View,float,float) -> b
     187:216:void toolbarRightImageButton(android.widget.ImageButton) -> b
-    313:336:void showLoginPopup(int) -> b
+    308:308:void onSignInFailed(java.lang.String) -> b
+    311:334:void showLoginPopup(int) -> b
     143:150:void lambda$null$2(int,java.lang.String) -> c
-    274:305:void onSignInSuccess() -> c
+    272:303:void onSignInSuccess() -> c
     188:215:void lambda$toolbarRightImageButton$5(android.view.View) -> e
     160:165:void onSupportVisible() -> k
-    220:270:void onClick(android.view.View) -> onClick
+    220:268:void onClick(android.view.View) -> onClick
     178:183:void onDestroy() -> onDestroy
     169:174:void onSupportInvisible() -> q
     66:66:int getLayoutId() -> v
-    339:357:void showSignOutPopup() -> y
+    337:355:void showSignOutPopup() -> y
 com.zpj.shouji.market.ui.fragment.profile.MyFriendsFragment -> com.zpj.shouji.market.e.c.j0.r0:
     boolean showToolbar -> o
     android.support.v4.view.ViewPager viewPager -> l
@@ -46866,57 +46925,57 @@ com.zpj.shouji.market.ui.fragment.profile.ProfileFragment -> com.zpj.shouji.mark
     android.support.v4.view.ViewPager mViewPager -> w
     java.lang.String userId -> E
     android.support.v7.widget.Toolbar mToolBar -> v
-    76:76:void <clinit>() -> <clinit>
-    71:413:void <init>() -> <init>
+    78:78:void <clinit>() -> <clinit>
+    71:415:void <init>() -> <init>
     71:71:java.lang.String[] access$400() -> A
-    359:363:void dealWithViewPager() -> B
-    239:286:void getMemberInfo() -> C
-    289:356:void initViewPager() -> D
+    361:365:void dealWithViewPager() -> B
+    241:288:void getMemberInfo() -> C
+    291:358:void initViewPager() -> D
     71:71:int access$000(com.zpj.shouji.market.ui.fragment.profile.ProfileFragment) -> a
     71:71:int access$002(com.zpj.shouji.market.ui.fragment.profile.ProfileFragment,int) -> a
-    109:115:void start(java.lang.String,boolean) -> a
-    129:193:void initView(android.view.View,android.os.Bundle) -> a
-    197:199:void toolbarLeftImageButton(android.widget.ImageButton) -> a
-    205:235:void lambda$toolbarRightImageButton$5(android.widget.ImageButton,android.view.View) -> a
-    212:233:void lambda$null$4(int,java.lang.String) -> a
-    241:280:void lambda$getMemberInfo$7(com.zpj.http.parser.html.nodes.Document) -> a
-    282:284:void lambda$getMemberInfo$8(java.lang.Throwable) -> a
-    376:376:void lambda$onClick$11(com.zpj.popup.impl.AlertPopup) -> a
+    111:117:void start(java.lang.String,boolean) -> a
+    131:195:void initView(android.view.View,android.os.Bundle) -> a
+    199:201:void toolbarLeftImageButton(android.widget.ImageButton) -> a
+    207:237:void lambda$toolbarRightImageButton$5(android.widget.ImageButton,android.view.View) -> a
+    214:235:void lambda$null$4(int,java.lang.String) -> a
+    243:282:void lambda$getMemberInfo$7(com.zpj.http.parser.html.nodes.Document) -> a
+    284:286:void lambda$getMemberInfo$8(java.lang.Throwable) -> a
+    378:378:void lambda$onClick$11(com.zpj.popup.impl.AlertPopup) -> a
     71:71:int access$100(com.zpj.shouji.market.ui.fragment.profile.ProfileFragment) -> b
-    203:236:void toolbarRightImageButton(android.widget.ImageButton) -> b
-    378:388:void lambda$null$9(com.zpj.http.parser.html.nodes.Document) -> b
-    389:389:void lambda$null$10(java.lang.Throwable) -> b
+    205:238:void toolbarRightImageButton(android.widget.ImageButton) -> b
+    380:390:void lambda$null$9(com.zpj.http.parser.html.nodes.Document) -> b
+    391:391:void lambda$null$10(java.lang.Throwable) -> b
     71:71:android.widget.ImageView access$200(com.zpj.shouji.market.ui.fragment.profile.ProfileFragment) -> c
-    226:226:void lambda$null$3(java.lang.Throwable) -> c
-    395:405:void lambda$onClick$12(com.zpj.http.parser.html.nodes.Document) -> c
+    228:228:void lambda$null$3(java.lang.Throwable) -> c
+    397:407:void lambda$onClick$12(com.zpj.http.parser.html.nodes.Document) -> c
     71:71:android.support.v7.widget.Toolbar access$300(com.zpj.shouji.market.ui.fragment.profile.ProfileFragment) -> d
-    219:225:void lambda$null$2(com.zpj.http.parser.html.nodes.Document) -> d
-    406:406:void lambda$onClick$13(java.lang.Throwable) -> d
+    221:227:void lambda$null$2(com.zpj.http.parser.html.nodes.Document) -> d
+    408:408:void lambda$onClick$13(java.lang.Throwable) -> d
     71:71:android.support.v4.view.ViewPager access$500(com.zpj.shouji.market.ui.fragment.profile.ProfileFragment) -> e
-    198:198:void lambda$toolbarLeftImageButton$1(android.view.View) -> e
+    200:200:void lambda$toolbarLeftImageButton$1(android.view.View) -> e
     void lambda$w5ouHmtkrxFc4XtrnGePNMH3HAQ(com.zpj.shouji.market.ui.fragment.profile.ProfileFragment) -> f
-    367:410:void onClick(android.view.View) -> onClick
-    417:444:void onScrollChange(android.support.v4.widget.NestedScrollView,int,int,int,int) -> onScrollChange
-    119:119:int getLayoutId() -> v
-    124:124:boolean supportSwipeBack() -> x
-    190:190:void lambda$initView$0() -> y
-    276:279:void lambda$null$6() -> z
+    369:412:void onClick(android.view.View) -> onClick
+    419:446:void onScrollChange(android.support.v4.widget.NestedScrollView,int,int,int,int) -> onScrollChange
+    121:121:int getLayoutId() -> v
+    126:126:boolean supportSwipeBack() -> x
+    192:192:void lambda$initView$0() -> y
+    278:281:void lambda$null$6() -> z
 com.zpj.shouji.market.ui.fragment.profile.ProfileFragment$1 -> com.zpj.shouji.market.e.c.j0.s0$a:
     com.zpj.shouji.market.ui.fragment.profile.ProfileFragment this$0 -> e
-    168:168:void <init>(com.zpj.shouji.market.ui.fragment.profile.ProfileFragment) -> <init>
-    171:174:void onHeaderPulling(com.scwang.smartrefresh.layout.api.RefreshHeader,float,int,int,int) -> a
-    178:181:void onHeaderReleasing(com.scwang.smartrefresh.layout.api.RefreshHeader,float,int,int,int) -> b
+    170:170:void <init>(com.zpj.shouji.market.ui.fragment.profile.ProfileFragment) -> <init>
+    173:176:void onHeaderPulling(com.scwang.smartrefresh.layout.api.RefreshHeader,float,int,int,int) -> a
+    180:183:void onHeaderReleasing(com.scwang.smartrefresh.layout.api.RefreshHeader,float,int,int,int) -> b
 com.zpj.shouji.market.ui.fragment.profile.ProfileFragment$2 -> com.zpj.shouji.market.e.c.j0.s0$b:
     com.zpj.shouji.market.ui.fragment.profile.ProfileFragment this$0 -> b
-    318:318:void <init>(com.zpj.shouji.market.ui.fragment.profile.ProfileFragment) -> <init>
-    321:321:int getCount() -> a
-    326:337:net.lucode.hackware.magicindicator.buildins.commonnavigator.abs.IPagerTitleView getTitleView(android.content.Context,int) -> a
-    342:349:net.lucode.hackware.magicindicator.buildins.commonnavigator.abs.IPagerIndicator getIndicator(android.content.Context) -> a
+    320:320:void <init>(com.zpj.shouji.market.ui.fragment.profile.ProfileFragment) -> <init>
+    323:323:int getCount() -> a
+    328:339:net.lucode.hackware.magicindicator.buildins.commonnavigator.abs.IPagerTitleView getTitleView(android.content.Context,int) -> a
+    344:351:net.lucode.hackware.magicindicator.buildins.commonnavigator.abs.IPagerIndicator getIndicator(android.content.Context) -> a
 com.zpj.shouji.market.ui.fragment.profile.ProfileFragment$2$1 -> com.zpj.shouji.market.e.c.j0.s0$b$a:
     com.zpj.shouji.market.ui.fragment.profile.ProfileFragment$2 this$1 -> f
     int val$index -> e
-    331:331:void <init>(com.zpj.shouji.market.ui.fragment.profile.ProfileFragment$2,int) -> <init>
-    334:335:void onClick(android.view.View) -> onClick
+    333:333:void <init>(com.zpj.shouji.market.ui.fragment.profile.ProfileFragment$2,int) -> <init>
+    336:337:void onClick(android.view.View) -> onClick
 com.zpj.shouji.market.ui.fragment.profile.UserDownloadedFragment -> com.zpj.shouji.market.e.c.j0.t0:
     16:16:void <init>() -> <init>
     16:16:java.lang.Object createData(com.zpj.http.parser.html.nodes.Element) -> a
@@ -46939,12 +46998,12 @@ com.zpj.shouji.market.ui.fragment.recommond.-$$Lambda$SoftRecommendFragment2$4SV
 com.zpj.shouji.market.ui.fragment.recommond.BaseRecommendFragment2 -> com.zpj.shouji.market.e.c.k0.e:
     android.widget.LinearLayout llContainer -> l
     15:15:void <init>() -> <init>
-    29:30:void initView(android.view.View,android.os.Bundle) -> a
-    39:40:void addCard(com.zpj.shouji.market.ui.widget.recommend.RecommendCard) -> a
-    34:36:void toolbarRightCustomView(android.view.View) -> d
-    34:34:void lambda$toolbarRightCustomView$0(android.view.View) -> e
-    35:35:void lambda$toolbarRightCustomView$1(android.view.View) -> f
-    24:24:int getLayoutId() -> v
+    28:29:void initView(android.view.View,android.os.Bundle) -> a
+    38:39:void addCard(com.zpj.shouji.market.ui.widget.recommend.RecommendCard) -> a
+    33:35:void toolbarRightCustomView(android.view.View) -> d
+    33:33:void lambda$toolbarRightCustomView$0(android.view.View) -> e
+    34:34:void lambda$toolbarRightCustomView$1(android.view.View) -> f
+    23:23:int getLayoutId() -> v
 com.zpj.shouji.market.ui.fragment.recommond.GameRecommendFragment2 -> com.zpj.shouji.market.e.c.k0.f:
     java.lang.String[] TITLES -> m
     14:14:void <clinit>() -> <clinit>
@@ -46966,7 +47025,7 @@ com.zpj.shouji.market.ui.fragment.search.-$$Lambda$SearchFragment$pHGHwYrlMcAxD-
     com.zpj.shouji.market.ui.fragment.search.SearchFragment f$0 -> a
     void onClick(int,android.view.View,java.lang.String) -> a
 com.zpj.shouji.market.ui.fragment.search.-$$Lambda$SearchPanelFragment$K4MPkXnhXOGureER9fINAs0zCMU -> com.zpj.shouji.market.e.c.l0.d:
-    com.zpj.shouji.market.ui.fragment.search.SearchPanelFragment f$0 -> a
+    com.zpj.shouji.market.ui.fragment.search.SearchPanelFragment f$0 -> e
 com.zpj.shouji.market.ui.fragment.search.-$$Lambda$SearchResultFragment$1$IkHJh8q9EGXygL0MJxlEs8XhABc -> com.zpj.shouji.market.e.c.l0.e:
     int f$1 -> f
     android.support.v4.view.ViewPager f$0 -> e
@@ -47062,14 +47121,11 @@ com.zpj.shouji.market.ui.fragment.setting.InstallSettingFragment -> com.zpj.shou
 com.zpj.shouji.market.ui.fragment.theme.-$$Lambda$ThemeDetailFragment$2$r51epSxz6hJr1Kb6Q2BI9xN0sOU -> com.zpj.shouji.market.e.c.n0.a:
     int f$1 -> f
     android.support.v4.view.ViewPager f$0 -> e
-com.zpj.shouji.market.ui.fragment.theme.-$$Lambda$ThemeListFragment$bohJPMYL2YU5u0GdE5sNvXZi2Xw -> com.zpj.shouji.market.e.c.n0.b:
-    com.zpj.shouji.market.ui.fragment.theme.-$$Lambda$ThemeListFragment$bohJPMYL2YU5u0GdE5sNvXZi2Xw INSTANCE -> a
-    void onClick(com.zpj.recyclerview.EasyViewHolder,android.view.View,java.lang.Object) -> a
-com.zpj.shouji.market.ui.fragment.theme.-$$Lambda$ThemeListFragment$p3k8aLpXnG8xWUDRfTJXgt9dYeE -> com.zpj.shouji.market.e.c.n0.c:
-    com.zpj.shouji.market.ui.fragment.theme.ThemeListFragment f$0 -> a
-com.zpj.shouji.market.ui.fragment.theme.-$$Lambda$ThemeListFragment$ppAm-QZS0Qh0bUFfgngug0uI4Js -> com.zpj.shouji.market.e.c.n0.d:
-    com.zpj.shouji.market.ui.fragment.theme.ThemeListFragment f$0 -> a
-com.zpj.shouji.market.ui.fragment.theme.SupportUserListFragment -> com.zpj.shouji.market.e.c.n0.e:
+com.zpj.shouji.market.ui.fragment.theme.-$$Lambda$ThemeListFragment$p3k8aLpXnG8xWUDRfTJXgt9dYeE -> com.zpj.shouji.market.e.c.n0.b:
+    com.zpj.shouji.market.ui.fragment.theme.ThemeListFragment f$0 -> e
+com.zpj.shouji.market.ui.fragment.theme.-$$Lambda$ThemeListFragment$ppAm-QZS0Qh0bUFfgngug0uI4Js -> com.zpj.shouji.market.e.c.n0.c:
+    com.zpj.shouji.market.ui.fragment.theme.ThemeListFragment f$0 -> e
+com.zpj.shouji.market.ui.fragment.theme.SupportUserListFragment -> com.zpj.shouji.market.e.c.n0.d:
     18:18:void <init>() -> <init>
     18:18:java.lang.Object createData(com.zpj.http.parser.html.nodes.Element) -> a
     18:18:void onClick(com.zpj.recyclerview.EasyViewHolder,android.view.View,java.lang.Object) -> a
@@ -47079,65 +47135,72 @@ com.zpj.shouji.market.ui.fragment.theme.SupportUserListFragment -> com.zpj.shouj
     22:30:void setData(java.util.List) -> b
     34:36:void onViewCreated(android.view.View,android.os.Bundle) -> onViewCreated
     45:45:int getItemLayoutId() -> y
-com.zpj.shouji.market.ui.fragment.theme.ThemeCommentListFragment -> com.zpj.shouji.market.e.c.n0.f:
+com.zpj.shouji.market.ui.fragment.theme.ThemeCommentListFragment -> com.zpj.shouji.market.e.c.n0.e:
     java.lang.String rootId -> u
-    11:11:void <init>() -> <init>
-    52:52:boolean showComment() -> A
-    11:11:java.lang.Object createData(com.zpj.http.parser.html.nodes.Element) -> a
-    11:11:void onClick(com.zpj.recyclerview.EasyViewHolder,android.view.View,java.lang.Object) -> a
-    38:42:com.zpj.shouji.market.model.DiscoverInfo createData(com.zpj.http.parser.html.nodes.Element) -> a
-    48:48:void onClick(com.zpj.recyclerview.EasyViewHolder,android.view.View,com.zpj.shouji.market.model.DiscoverInfo) -> a
-    27:34:void handleArguments(android.os.Bundle) -> d
-    18:22:com.zpj.shouji.market.ui.fragment.theme.ThemeCommentListFragment newInstance(java.lang.String) -> f
-com.zpj.shouji.market.ui.fragment.theme.ThemeDetailFragment -> com.zpj.shouji.market.e.c.n0.g:
+    17:17:void <init>() -> <init>
+    74:74:boolean showComment() -> A
+    17:17:java.lang.Object createData(com.zpj.http.parser.html.nodes.Element) -> a
+    17:17:void onClick(com.zpj.recyclerview.EasyViewHolder,android.view.View,java.lang.Object) -> a
+    26:31:com.zpj.shouji.market.ui.fragment.theme.ThemeCommentListFragment newInstance(java.lang.String,java.lang.String) -> a
+    60:64:com.zpj.shouji.market.model.DiscoverInfo createData(com.zpj.http.parser.html.nodes.Element) -> a
+    70:70:void onClick(com.zpj.recyclerview.EasyViewHolder,android.view.View,com.zpj.shouji.market.model.DiscoverInfo) -> a
+    48:52:void handleArguments(android.os.Bundle) -> d
+    36:38:void onCreate(android.os.Bundle) -> onCreate
+    42:44:void onDestroy() -> onDestroy
+    79:82:void onRefreshEvent(com.zpj.shouji.market.event.RefreshEvent) -> onRefreshEvent
+com.zpj.shouji.market.ui.fragment.theme.ThemeDetailFragment -> com.zpj.shouji.market.e.c.n0.f:
     java.lang.String[] TAB_TITLES -> l
-    com.zpj.shouji.market.model.DiscoverInfo item -> n
+    com.zpj.shouji.market.ui.widget.popup.CommentPopup commentPopup -> n
+    com.zpj.shouji.market.model.DiscoverInfo item -> o
     com.zpj.shouji.market.ui.fragment.theme.SupportUserListFragment supportUserListFragment -> m
-    33:37:void <init>() -> <init>
-    33:33:android.content.Context access$000(com.zpj.shouji.market.ui.fragment.theme.ThemeDetailFragment) -> a
-    62:126:void initView(android.view.View,android.os.Bundle) -> a
-    135:136:void setDiscoverInfo(com.zpj.shouji.market.model.DiscoverInfo) -> a
-    33:33:com.zpj.shouji.market.model.DiscoverInfo access$100(com.zpj.shouji.market.ui.fragment.theme.ThemeDetailFragment) -> b
-    43:48:void start(com.zpj.shouji.market.model.DiscoverInfo) -> b
-    33:33:java.lang.String[] access$200(com.zpj.shouji.market.ui.fragment.theme.ThemeDetailFragment) -> c
-    130:132:void onEnterAnimationEnd(android.os.Bundle) -> c
-    52:52:int getLayoutId() -> v
-    57:57:boolean supportSwipeBack() -> x
-com.zpj.shouji.market.ui.fragment.theme.ThemeDetailFragment$1 -> com.zpj.shouji.market.e.c.n0.g$a:
+    39:41:void <init>() -> <init>
+    39:39:android.content.Context access$000(com.zpj.shouji.market.ui.fragment.theme.ThemeDetailFragment) -> a
+    53:59:void start(com.zpj.shouji.market.model.DiscoverInfo,boolean) -> a
+    73:138:void initView(android.view.View,android.os.Bundle) -> a
+    168:169:void setDiscoverInfo(com.zpj.shouji.market.model.DiscoverInfo) -> a
+    39:39:com.zpj.shouji.market.model.DiscoverInfo access$100(com.zpj.shouji.market.ui.fragment.theme.ThemeDetailFragment) -> b
+    39:39:java.lang.String[] access$200(com.zpj.shouji.market.ui.fragment.theme.ThemeDetailFragment) -> c
+    142:149:void onEnterAnimationEnd(android.os.Bundle) -> c
+    161:165:void onPause() -> onPause
+    153:157:void onResume() -> onResume
+    63:63:int getLayoutId() -> v
+    68:68:boolean supportSwipeBack() -> x
+com.zpj.shouji.market.ui.fragment.theme.ThemeDetailFragment$1 -> com.zpj.shouji.market.e.c.n0.f$a:
     com.zpj.shouji.market.ui.fragment.theme.ThemeDetailFragment this$0 -> e
-    67:67:void <init>(com.zpj.shouji.market.ui.fragment.theme.ThemeDetailFragment) -> <init>
-    70:71:boolean onLongClick(android.view.View) -> onLongClick
-com.zpj.shouji.market.ui.fragment.theme.ThemeDetailFragment$2 -> com.zpj.shouji.market.e.c.n0.g$b:
+    78:78:void <init>(com.zpj.shouji.market.ui.fragment.theme.ThemeDetailFragment) -> <init>
+    81:82:boolean onLongClick(android.view.View) -> onLongClick
+com.zpj.shouji.market.ui.fragment.theme.ThemeDetailFragment$2 -> com.zpj.shouji.market.e.c.n0.f$b:
     android.support.v4.view.ViewPager val$viewPager -> b
     com.zpj.shouji.market.ui.fragment.theme.ThemeDetailFragment this$0 -> c
-    96:96:void <init>(com.zpj.shouji.market.ui.fragment.theme.ThemeDetailFragment,android.support.v4.view.ViewPager) -> <init>
-    99:99:int getCount() -> a
-    104:110:net.lucode.hackware.magicindicator.buildins.commonnavigator.abs.IPagerTitleView getTitleView(android.content.Context,int) -> a
-    109:109:void lambda$getTitleView$0(android.support.v4.view.ViewPager,int,android.view.View) -> a
-    115:121:net.lucode.hackware.magicindicator.buildins.commonnavigator.abs.IPagerIndicator getIndicator(android.content.Context) -> a
-com.zpj.shouji.market.ui.fragment.theme.ThemeListFragment -> com.zpj.shouji.market.e.c.n0.h:
+    107:107:void <init>(com.zpj.shouji.market.ui.fragment.theme.ThemeDetailFragment,android.support.v4.view.ViewPager) -> <init>
+    110:110:int getCount() -> a
+    115:121:net.lucode.hackware.magicindicator.buildins.commonnavigator.abs.IPagerTitleView getTitleView(android.content.Context,int) -> a
+    120:120:void lambda$getTitleView$0(android.support.v4.view.ViewPager,int,android.view.View) -> a
+    126:132:net.lucode.hackware.magicindicator.buildins.commonnavigator.abs.IPagerIndicator getIndicator(android.content.Context) -> a
+com.zpj.shouji.market.ui.fragment.theme.ThemeListFragment -> com.zpj.shouji.market.e.c.n0.g:
     com.zpj.shouji.market.ui.adapter.DiscoverBinder binder -> s
     boolean enableSwipeRefresh -> t
     29:42:void <init>() -> <init>
-    179:179:boolean showComment() -> A
+    185:185:boolean showComment() -> A
     29:29:java.lang.Object createData(com.zpj.http.parser.html.nodes.Element) -> a
     29:29:void onClick(com.zpj.recyclerview.EasyViewHolder,android.view.View,java.lang.Object) -> a
-    52:56:com.zpj.shouji.market.ui.fragment.theme.ThemeListFragment newInstance(java.lang.String,boolean) -> a
     108:113:void lambda$run$1(java.lang.Throwable) -> a
     119:120:void onBindViewHolder(com.zpj.recyclerview.EasyViewHolder,java.util.List,int,java.util.List) -> a
-    124:128:void buildRecyclerLayout(com.zpj.recyclerview.EasyRecyclerLayout) -> a
-    132:149:void onClick(com.zpj.recyclerview.EasyViewHolder,android.view.View,com.zpj.shouji.market.model.DiscoverInfo) -> a
-    175:175:com.zpj.shouji.market.model.DiscoverInfo createData(com.zpj.http.parser.html.nodes.Element) -> a
+    124:133:void buildRecyclerLayout(com.zpj.recyclerview.EasyRecyclerLayout) -> a
+    137:154:void onClick(com.zpj.recyclerview.EasyViewHolder,android.view.View,com.zpj.shouji.market.model.DiscoverInfo) -> a
+    181:181:com.zpj.shouji.market.model.DiscoverInfo createData(com.zpj.http.parser.html.nodes.Element) -> a
     29:29:boolean onLongClick(com.zpj.recyclerview.EasyViewHolder,android.view.View,java.lang.Object) -> b
     75:106:void lambda$run$0(com.zpj.http.parser.html.nodes.Document) -> b
-    153:154:boolean onLongClick(com.zpj.recyclerview.EasyViewHolder,android.view.View,com.zpj.shouji.market.model.DiscoverInfo) -> b
-    126:127:void lambda$buildRecyclerLayout$2(com.zpj.recyclerview.EasyViewHolder,android.view.View,com.zpj.shouji.market.model.DiscoverInfo) -> c
-    159:164:void updateKeyword(java.lang.String) -> e
-    48:48:com.zpj.shouji.market.ui.fragment.theme.ThemeListFragment newInstance(java.lang.String) -> f
+    158:160:boolean onLongClick(com.zpj.recyclerview.EasyViewHolder,android.view.View,com.zpj.shouji.market.model.DiscoverInfo) -> b
+    165:170:void updateKeyword(java.lang.String) -> e
     61:63:void onCreate(android.os.Bundle) -> onCreate
     72:115:void run() -> run
     67:67:int getItemLayoutId() -> y
-    169:171:void getData() -> z
+    175:177:void getData() -> z
+com.zpj.shouji.market.ui.fragment.theme.ThemeListFragment$1 -> com.zpj.shouji.market.e.c.n0.g$a:
+    124:124:void <init>(com.zpj.shouji.market.ui.fragment.theme.ThemeListFragment) -> <init>
+    124:124:void onClick(com.zpj.recyclerview.EasyViewHolder,android.view.View,java.lang.Object) -> a
+    127:128:void onClick(com.zpj.recyclerview.EasyViewHolder,android.view.View,com.zpj.shouji.market.model.DiscoverInfo) -> a
 com.zpj.shouji.market.ui.widget.-$$Lambda$ChatPanel$HLVb_J9Kr3PtI9_Btdb7Iw_6acg -> com.zpj.shouji.market.ui.widget.a:
     com.zpj.recyclerview.EasyRecyclerView f$1 -> f
     com.zpj.shouji.market.ui.widget.ChatPanel f$0 -> e
@@ -47310,38 +47373,38 @@ com.zpj.shouji.market.ui.widget.ChatPanel -> com.zpj.shouji.market.ui.widget.Cha
     com.rockerhieu.emojicon.EmojiconEditText etEditor -> f
     android.widget.ImageView ivSend -> j
     com.zpj.shouji.market.ui.widget.ChatPanel$OnOperationListener listener -> l
-    75:77:void <init>(android.content.Context) -> <init>
-    80:82:void <init>(android.content.Context,android.util.AttributeSet) -> <init>
-    85:87:void <init>(android.content.Context,android.util.AttributeSet,int) -> <init>
-    52:52:java.util.List access$000(com.zpj.shouji.market.ui.widget.ChatPanel) -> a
-    90:92:void init(android.content.Context) -> a
-    129:162:void lambda$initWidget$5(com.zpj.recyclerview.EasyRecyclerView,com.zpj.recyclerview.EasyViewHolder,java.util.List,int,java.util.List) -> a
-    136:161:void lambda$null$4(com.zpj.recyclerview.EasyRecyclerView,android.widget.ImageView,com.zpj.recyclerview.EasyViewHolder,int,android.view.View) -> a
-    137:143:void lambda$null$0(com.zpj.recyclerview.EasyRecyclerView) -> a
-    148:157:void lambda$null$1(com.zpj.recyclerview.EasyRecyclerView,com.zpj.recyclerview.EasyViewHolder,int,android.widget.ImageView,com.zpj.popup.core.ImageViewerPopup,int) -> a
-    158:158:void lambda$null$2(com.zpj.matisse.model.SelectedItemManager$OnCheckStateListener) -> a
-    167:175:void lambda$initWidget$6(android.view.View) -> a
-    189:216:void lambda$initWidget$8(com.zpj.recyclerview.EasyRecyclerView,android.view.View) -> a
-    240:241:void hideEmojiPanel() -> a
-    253:263:void onKeyboardHeightChanged(int,int) -> a
-    101:224:void initWidget() -> b
-    159:159:void lambda$null$3(com.zpj.matisse.model.SelectedItemManager$OnCheckStateListener) -> b
-    177:187:void lambda$initWidget$7(android.view.View) -> b
-    218:223:void lambda$initWidget$9(android.view.View) -> c
-    227:227:com.rockerhieu.emojicon.EmojiconEditText getEditor() -> getEditor
-    96:98:void onFinishInflate() -> onFinishInflate
-    245:249:void setOnOperationListener(com.zpj.shouji.market.ui.widget.ChatPanel$OnOperationListener) -> setOnOperationListener
+    76:78:void <init>(android.content.Context) -> <init>
+    81:83:void <init>(android.content.Context,android.util.AttributeSet) -> <init>
+    86:88:void <init>(android.content.Context,android.util.AttributeSet,int) -> <init>
+    53:53:java.util.List access$000(com.zpj.shouji.market.ui.widget.ChatPanel) -> a
+    91:93:void init(android.content.Context) -> a
+    130:163:void lambda$initWidget$5(com.zpj.recyclerview.EasyRecyclerView,com.zpj.recyclerview.EasyViewHolder,java.util.List,int,java.util.List) -> a
+    137:162:void lambda$null$4(com.zpj.recyclerview.EasyRecyclerView,android.widget.ImageView,com.zpj.recyclerview.EasyViewHolder,int,android.view.View) -> a
+    138:144:void lambda$null$0(com.zpj.recyclerview.EasyRecyclerView) -> a
+    149:158:void lambda$null$1(com.zpj.recyclerview.EasyRecyclerView,com.zpj.recyclerview.EasyViewHolder,int,android.widget.ImageView,com.zpj.popup.core.ImageViewerPopup,int) -> a
+    159:159:void lambda$null$2(com.zpj.matisse.model.SelectedItemManager$OnCheckStateListener) -> a
+    168:176:void lambda$initWidget$6(android.view.View) -> a
+    189:217:void lambda$initWidget$8(com.zpj.recyclerview.EasyRecyclerView,android.view.View) -> a
+    241:242:void hideEmojiPanel() -> a
+    254:278:void onKeyboardHeightChanged(int,int) -> a
+    102:225:void initWidget() -> b
+    160:160:void lambda$null$3(com.zpj.matisse.model.SelectedItemManager$OnCheckStateListener) -> b
+    178:187:void lambda$initWidget$7(android.view.View) -> b
+    219:224:void lambda$initWidget$9(android.view.View) -> c
+    228:228:com.rockerhieu.emojicon.EmojiconEditText getEditor() -> getEditor
+    97:99:void onFinishInflate() -> onFinishInflate
+    246:250:void setOnOperationListener(com.zpj.shouji.market.ui.widget.ChatPanel$OnOperationListener) -> setOnOperationListener
 com.zpj.shouji.market.ui.widget.ChatPanel$1 -> com.zpj.shouji.market.ui.widget.ChatPanel$a:
-    112:112:void <init>(com.zpj.shouji.market.ui.widget.ChatPanel) -> <init>
-    115:116:void onEmotionAddClick(android.view.View) -> a
-    120:121:void onEmotionSettingClick(android.view.View) -> b
+    113:113:void <init>(com.zpj.shouji.market.ui.widget.ChatPanel) -> <init>
+    116:117:void onEmotionAddClick(android.view.View) -> a
+    121:122:void onEmotionSettingClick(android.view.View) -> b
 com.zpj.shouji.market.ui.widget.ChatPanel$2 -> com.zpj.shouji.market.ui.widget.q:
     com.zpj.recyclerview.EasyRecyclerView val$recyclerView -> a
     com.zpj.shouji.market.ui.widget.ChatPanel this$0 -> b
-    206:206:void <init>(com.zpj.shouji.market.ui.widget.ChatPanel,com.zpj.recyclerview.EasyRecyclerView) -> <init>
-    209:213:void onSelected(java.util.List) -> a
+    207:207:void <init>(com.zpj.shouji.market.ui.widget.ChatPanel,com.zpj.recyclerview.EasyRecyclerView) -> <init>
+    210:214:void onSelected(java.util.List) -> a
 com.zpj.shouji.market.ui.widget.ChatPanel$OnOperationListener -> com.zpj.shouji.market.ui.widget.ChatPanel$b:
-    void sendText(java.lang.String) -> b
+    void sendText(java.lang.String) -> a
 com.zpj.shouji.market.ui.widget.DetailLayout -> com.zpj.shouji.market.ui.widget.DetailLayout:
     android.widget.TextView detailTitle -> e
     android.widget.TextView detailContent -> f
@@ -47804,8 +47867,8 @@ com.zpj.shouji.market.ui.widget.SignUpLayout -> com.zpj.shouji.market.ui.widget.
     37:39:void <init>(android.content.Context,android.util.AttributeSet,int) -> <init>
     19:19:com.zpj.widget.editor.EditTextWithClear access$000(com.zpj.shouji.market.ui.widget.SignUpLayout) -> a
     42:67:void init(android.content.Context) -> a
-    105:110:void onSignInFailed(java.lang.String) -> a
     19:19:com.zpj.widget.editor.PasswordEditText access$100(com.zpj.shouji.market.ui.widget.SignUpLayout) -> b
+    105:110:void onSignInFailed(java.lang.String) -> b
     101:101:void onSignInSuccess() -> c
     71:78:void clearFocus() -> clearFocus
     93:96:void setOnClickListener(android.view.View$OnClickListener) -> setOnClickListener
@@ -48038,36 +48101,49 @@ com.zpj.shouji.market.ui.widget.popup.-$$Lambda$BottomListPopupMenu$2Sq572RnD6sc
 com.zpj.shouji.market.ui.widget.popup.-$$Lambda$BottomListPopupMenu$75Is0CZUnY6Xx-76F7R3-3I7SN0 -> com.zpj.shouji.market.ui.widget.popup.b:
     com.zpj.shouji.market.ui.widget.popup.BottomListPopupMenu f$0 -> e
     boolean onLongClick(com.zpj.recyclerview.EasyViewHolder,android.view.View,java.lang.Object) -> b
-com.zpj.shouji.market.ui.widget.popup.-$$Lambda$GhQQ18uhxfbYlGrXF7dLqQTTRqs -> com.zpj.shouji.market.ui.widget.popup.c:
+com.zpj.shouji.market.ui.widget.popup.-$$Lambda$CommentPopup$pQGzhRST5Lrb8y_btYMWurYMOBA -> com.zpj.shouji.market.ui.widget.popup.c:
+    com.zpj.shouji.market.ui.widget.popup.CommentPopup f$0 -> a
+    void onSoftInputChanged(int) -> a
+com.zpj.shouji.market.ui.widget.popup.-$$Lambda$GhQQ18uhxfbYlGrXF7dLqQTTRqs -> com.zpj.shouji.market.ui.widget.popup.d:
     android.widget.ImageView f$0 -> a
-com.zpj.shouji.market.ui.widget.popup.-$$Lambda$LoginPopup$2$zDdlhwqjF5X_OhjQlqPoffrtN7Y -> com.zpj.shouji.market.ui.widget.popup.d:
+com.zpj.shouji.market.ui.widget.popup.-$$Lambda$LoginPopup$2$zDdlhwqjF5X_OhjQlqPoffrtN7Y -> com.zpj.shouji.market.ui.widget.popup.e:
     int f$1 -> f
     com.zpj.shouji.market.ui.widget.popup.LoginPopup$2 f$0 -> e
-com.zpj.shouji.market.ui.widget.popup.-$$Lambda$LoginPopup$6ORQ_K3xiA8WRX4cEH0oE2aO2Ng -> com.zpj.shouji.market.ui.widget.popup.e:
+com.zpj.shouji.market.ui.widget.popup.-$$Lambda$LoginPopup$6ORQ_K3xiA8WRX4cEH0oE2aO2Ng -> com.zpj.shouji.market.ui.widget.popup.f:
     com.zpj.shouji.market.ui.widget.popup.LoginPopup f$0 -> e
-com.zpj.shouji.market.ui.widget.popup.-$$Lambda$MorePopup$1$xxgCsReIBGaog-qlZNgmqzN1Orc -> com.zpj.shouji.market.ui.widget.popup.f:
+com.zpj.shouji.market.ui.widget.popup.-$$Lambda$MorePopup$1$xxgCsReIBGaog-qlZNgmqzN1Orc -> com.zpj.shouji.market.ui.widget.popup.g:
     com.zpj.shouji.market.ui.widget.popup.MorePopup$1 f$0 -> e
     android.view.View f$1 -> f
-com.zpj.shouji.market.ui.widget.popup.-$$Lambda$MorePopup$P8PkgeUa-TqqOwFxNLH1yLi9N4U -> com.zpj.shouji.market.ui.widget.popup.g:
+com.zpj.shouji.market.ui.widget.popup.-$$Lambda$MorePopup$P8PkgeUa-TqqOwFxNLH1yLi9N4U -> com.zpj.shouji.market.ui.widget.popup.h:
     com.zpj.shouji.market.ui.widget.popup.-$$Lambda$MorePopup$P8PkgeUa-TqqOwFxNLH1yLi9N4U INSTANCE -> a
-com.zpj.shouji.market.ui.widget.popup.-$$Lambda$MorePopup$TgXV9JTLhMYVYWKu0iycNaO5ejY -> com.zpj.shouji.market.ui.widget.popup.h:
+com.zpj.shouji.market.ui.widget.popup.-$$Lambda$MorePopup$TgXV9JTLhMYVYWKu0iycNaO5ejY -> com.zpj.shouji.market.ui.widget.popup.i:
     com.zpj.shouji.market.ui.widget.popup.MorePopup f$0 -> a
     void subscribe(io.reactivex.ObservableEmitter) -> a
-com.zpj.shouji.market.ui.widget.popup.-$$Lambda$MorePopup$dswhqK_jFQvROp1P7cYZcepsFfA -> com.zpj.shouji.market.ui.widget.popup.i:
+com.zpj.shouji.market.ui.widget.popup.-$$Lambda$MorePopup$dswhqK_jFQvROp1P7cYZcepsFfA -> com.zpj.shouji.market.ui.widget.popup.j:
     com.zpj.shouji.market.ui.widget.popup.MorePopup f$0 -> e
-com.zpj.shouji.market.ui.widget.popup.-$$Lambda$MorePopup$fhbfvCWQrVG5ZXZRqnrFlkjeves -> com.zpj.shouji.market.ui.widget.popup.j:
+com.zpj.shouji.market.ui.widget.popup.-$$Lambda$MorePopup$fhbfvCWQrVG5ZXZRqnrFlkjeves -> com.zpj.shouji.market.ui.widget.popup.k:
     com.zpj.shouji.market.ui.widget.popup.MorePopup f$0 -> e
-com.zpj.shouji.market.ui.widget.popup.-$$Lambda$RecyclerPopup$fOP5NYhntC_xdNUzSGo0m4Y5ZAo -> com.zpj.shouji.market.ui.widget.popup.k:
+com.zpj.shouji.market.ui.widget.popup.-$$Lambda$RecyclerPopup$fOP5NYhntC_xdNUzSGo0m4Y5ZAo -> com.zpj.shouji.market.ui.widget.popup.l:
     com.zpj.shouji.market.ui.widget.popup.RecyclerPopup f$0 -> e
     void onBindViewHolder(com.zpj.recyclerview.EasyViewHolder,java.util.List,int,java.util.List) -> a
-com.zpj.shouji.market.ui.widget.popup.-$$Lambda$RecyclerPopup$g9tneyrPVp-krThFgvsu0uWR2Jk -> com.zpj.shouji.market.ui.widget.popup.l:
+com.zpj.shouji.market.ui.widget.popup.-$$Lambda$RecyclerPopup$g9tneyrPVp-krThFgvsu0uWR2Jk -> com.zpj.shouji.market.ui.widget.popup.m:
     com.zpj.recyclerview.EasyViewHolder f$3 -> h
     int f$1 -> f
     com.zpj.shouji.market.ui.widget.popup.RecyclerPopup f$0 -> e
     java.util.List f$2 -> g
-com.zpj.shouji.market.ui.widget.popup.-$$Lambda$WallpaperTagPopup$dnGPwCwoUv_5A-JwizlQKdK6vY4 -> com.zpj.shouji.market.ui.widget.popup.m:
+com.zpj.shouji.market.ui.widget.popup.-$$Lambda$WallpaperTagPopup$dnGPwCwoUv_5A-JwizlQKdK6vY4 -> com.zpj.shouji.market.ui.widget.popup.n:
     com.zpj.shouji.market.ui.widget.popup.WallpaperTagPopup f$0 -> a
     void onClick(int,android.view.View,java.lang.String) -> a
+com.zpj.shouji.market.ui.widget.popup.AppCommentPopup -> com.zpj.shouji.market.ui.widget.popup.AppCommentPopup:
+    java.lang.String appId -> C
+    java.lang.String appPackage -> E
+    java.lang.String appType -> D
+    38:41:void <init>(android.content.Context) -> <init>
+    30:34:com.zpj.shouji.market.ui.widget.popup.AppCommentPopup with(android.content.Context,java.lang.String,java.lang.String,java.lang.String) -> a
+    46:54:void sendText(java.lang.String) -> a
+    57:58:void setAppId(java.lang.String) -> setAppId
+    65:66:void setAppPackage(java.lang.String) -> setAppPackage
+    61:62:void setAppType(java.lang.String) -> setAppType
 com.zpj.shouji.market.ui.widget.popup.BottomListPopupMenu -> com.zpj.shouji.market.ui.widget.popup.BottomListPopupMenu:
     com.zpj.shouji.market.ui.widget.popup.BottomListPopupMenu$OnItemLongClickListener onItemLongClickListener -> A
     com.zpj.recyclerview.IEasy$OnBindHeaderListener onBindHeaderListener -> C
@@ -48077,16 +48153,36 @@ com.zpj.shouji.market.ui.widget.popup.BottomListPopupMenu -> com.zpj.shouji.mark
     38:39:void <init>(android.content.Context) -> <init>
     42:42:com.zpj.shouji.market.ui.widget.popup.BottomListPopupMenu with(android.content.Context) -> a
     68:71:void lambda$onCreate$0(com.zpj.recyclerview.EasyViewHolder,android.view.View,android.view.MenuItem) -> a
-    87:88:com.zpj.shouji.market.ui.widget.popup.BottomListPopupMenu setMenu(int) -> a
     92:93:com.zpj.shouji.market.ui.widget.popup.BottomListPopupMenu onItemClick(com.zpj.shouji.market.ui.widget.popup.BottomListPopupMenu$OnItemClickListener) -> a
     109:111:void onBindViewHolder(com.zpj.recyclerview.EasyViewHolder,java.util.List,int,java.util.List) -> a
     73:76:boolean lambda$onCreate$1(com.zpj.recyclerview.EasyViewHolder,android.view.View,android.view.MenuItem) -> b
+    87:88:com.zpj.shouji.market.ui.widget.popup.BottomListPopupMenu setMenu(int) -> b
     47:47:int getImplLayoutId() -> getImplLayoutId
     52:79:void onCreate() -> s
 com.zpj.shouji.market.ui.widget.popup.BottomListPopupMenu$OnItemClickListener -> com.zpj.shouji.market.ui.widget.popup.BottomListPopupMenu$a:
     void onClick(com.zpj.shouji.market.ui.widget.popup.BottomListPopupMenu,android.view.View,android.view.MenuItem) -> a
 com.zpj.shouji.market.ui.widget.popup.BottomListPopupMenu$OnItemLongClickListener -> com.zpj.shouji.market.ui.widget.popup.BottomListPopupMenu$b:
     boolean onLongClick(com.zpj.shouji.market.ui.widget.popup.BottomListPopupMenu,android.view.View,android.view.MenuItem) -> a
+com.zpj.shouji.market.ui.widget.popup.CommentPopup -> com.zpj.shouji.market.ui.widget.popup.CommentPopup:
+    com.zpj.shouji.market.ui.widget.ChatPanel chatPanel -> z
+    java.lang.String replyId -> A
+    java.lang.String contentType -> B
+    41:42:void <init>(android.content.Context) -> <init>
+    34:37:com.zpj.shouji.market.ui.widget.popup.CommentPopup with(android.content.Context,java.lang.String,java.lang.String) -> a
+    91:106:void sendText(java.lang.String) -> a
+    116:116:void onStickerSelected(java.lang.String,java.lang.String,java.lang.String) -> a
+    134:143:void onSuccess(com.zpj.http.parser.html.nodes.Document) -> a
+    60:62:void lambda$onCreate$0(int) -> b
+    111:111:void onEmojiSelected(java.lang.String) -> c
+    78:80:void dismiss() -> d
+    46:46:int getImplLayoutId() -> getImplLayoutId
+    128:130:void onError(java.lang.Throwable) -> onError
+    23:23:void onSuccess(java.lang.Object) -> onSuccess
+    51:63:void onCreate() -> s
+    123:124:void setContentType(java.lang.String) -> setContentType
+    119:120:void setReplyId(java.lang.String) -> setReplyId
+    84:87:void onDismiss() -> t
+    67:74:void onShow() -> v
 com.zpj.shouji.market.ui.widget.popup.ImageViewer -> com.zpj.shouji.market.ui.widget.popup.ImageViewer:
     23:25:void <init>(android.content.Context) -> <init>
     18:18:com.zpj.shouji.market.ui.widget.popup.ImageViewer with(android.content.Context) -> a
@@ -48112,8 +48208,8 @@ com.zpj.shouji.market.ui.widget.popup.LoginPopup -> com.zpj.shouji.market.ui.wid
     34:34:void <clinit>() -> <clinit>
     47:48:void <init>(android.content.Context) -> <init>
     31:31:com.zpj.shouji.market.ui.widget.AutoSizeViewPager access$100(com.zpj.shouji.market.ui.widget.popup.LoginPopup) -> a
-    148:148:void onSignInFailed(java.lang.String) -> a
     71:71:void lambda$onCreate$0(android.view.View) -> b
+    148:148:void onSignInFailed(java.lang.String) -> b
     142:143:void onSignInSuccess() -> c
     52:52:int getImplLayoutId() -> getImplLayoutId
     57:125:void onCreate() -> s
@@ -48170,7 +48266,7 @@ com.zpj.shouji.market.ui.widget.popup.MorePopup$1 -> com.zpj.shouji.market.ui.wi
     103:103:void <init>(com.zpj.shouji.market.ui.widget.popup.MorePopup,android.widget.LinearLayout) -> <init>
     112:119:void lambda$onGlobalLayout$0(android.view.View) -> a
     106:124:void onGlobalLayout() -> onGlobalLayout
-com.zpj.shouji.market.ui.widget.popup.MorePopup$2 -> com.zpj.shouji.market.ui.widget.popup.n:
+com.zpj.shouji.market.ui.widget.popup.MorePopup$2 -> com.zpj.shouji.market.ui.widget.popup.o:
     185:185:void <init>(com.zpj.shouji.market.ui.widget.popup.MorePopup) -> <init>
     194:194:void onAnimationEnd(android.animation.Animator) -> onAnimationEnd
     189:189:void onAnimationStart(android.animation.Animator) -> onAnimationStart
@@ -48200,9 +48296,9 @@ com.zpj.shouji.market.ui.widget.popup.RecyclerPopup -> com.zpj.shouji.market.ui.
     28:28:com.zpj.shouji.market.ui.widget.popup.RecyclerPopup with(android.content.Context) -> a
     52:59:void lambda$null$0(int,java.util.List,com.zpj.recyclerview.EasyViewHolder,android.view.View) -> a
     65:66:com.zpj.shouji.market.ui.widget.popup.RecyclerPopup setOnItemClickListener(com.zpj.shouji.market.ui.widget.popup.RecyclerPopup$OnItemClickListener) -> a
-    70:71:com.zpj.shouji.market.ui.widget.popup.RecyclerPopup setSelectedItem(int) -> a
     80:81:com.zpj.shouji.market.ui.widget.popup.RecyclerPopup addItems(java.lang.String[]) -> a
     47:60:void lambda$onCreate$1(com.zpj.recyclerview.EasyViewHolder,java.util.List,int,java.util.List) -> b
+    70:71:com.zpj.shouji.market.ui.widget.popup.RecyclerPopup setSelectedItem(int) -> b
     85:87:com.zpj.shouji.market.ui.widget.popup.RecyclerPopup show(android.view.View) -> b
     37:37:int getImplLayoutId() -> getImplLayoutId
     42:62:void onCreate() -> s
@@ -48215,9 +48311,9 @@ com.zpj.shouji.market.ui.widget.popup.WallpaperTagPopup -> com.zpj.shouji.market
     27:28:void <init>(android.content.Context) -> <init>
     23:23:com.zpj.shouji.market.ui.widget.popup.WallpaperTagPopup with(android.content.Context) -> a
     40:44:void lambda$onCreate$0(int,android.view.View,java.lang.String) -> a
-    52:53:com.zpj.shouji.market.ui.widget.popup.WallpaperTagPopup setSelectedPosition(int) -> a
     57:58:com.zpj.shouji.market.ui.widget.popup.WallpaperTagPopup setLabels(java.util.List) -> a
     62:63:com.zpj.shouji.market.ui.widget.popup.WallpaperTagPopup setOnItemClickListener(com.zpj.shouji.market.ui.widget.flowlayout.FlowLayout$OnItemClickListener) -> a
+    52:53:com.zpj.shouji.market.ui.widget.popup.WallpaperTagPopup setSelectedPosition(int) -> b
     67:69:com.zpj.shouji.market.ui.widget.popup.WallpaperTagPopup show(android.view.View) -> b
     32:32:int getImplLayoutId() -> getImplLayoutId
     37:49:void onCreate() -> s
@@ -48225,9 +48321,9 @@ com.zpj.shouji.market.ui.widget.recommend.-$$Lambda$AppInfoRecommendCard$MKdQzoe
     com.zpj.shouji.market.ui.widget.recommend.AppInfoRecommendCard f$0 -> a
     void onLoad(com.zpj.http.parser.html.nodes.Document) -> a
 com.zpj.shouji.market.ui.widget.recommend.-$$Lambda$AppInfoRecommendCard$tRGg9Olto3D9EXvde_cPR5lkp14 -> com.zpj.shouji.market.ui.widget.recommend.b:
-    com.zpj.shouji.market.ui.widget.recommend.AppInfoRecommendCard f$0 -> a
+    com.zpj.shouji.market.ui.widget.recommend.AppInfoRecommendCard f$0 -> e
 com.zpj.shouji.market.ui.widget.recommend.-$$Lambda$CollectionRecommendCard$RNGj6fcFuuBX89VMz_vt5dotJa4 -> com.zpj.shouji.market.ui.widget.recommend.c:
-    com.zpj.shouji.market.ui.widget.recommend.CollectionRecommendCard f$0 -> a
+    com.zpj.shouji.market.ui.widget.recommend.CollectionRecommendCard f$0 -> e
 com.zpj.shouji.market.ui.widget.recommend.-$$Lambda$CollectionRecommendCard$TrAohpNPV6yJEUgL1z7WjcN5sIM -> com.zpj.shouji.market.ui.widget.recommend.d:
     com.zpj.shouji.market.ui.widget.recommend.CollectionRecommendCard f$0 -> a
     void onLoad(com.zpj.http.parser.html.nodes.Document) -> a
@@ -48238,12 +48334,12 @@ com.zpj.shouji.market.ui.widget.recommend.-$$Lambda$RecommendBanner$WB-Fi3HZEhcL
     com.zpj.shouji.market.ui.widget.recommend.RecommendBanner f$0 -> a
     void onLoad(com.zpj.http.parser.html.nodes.Document) -> a
 com.zpj.shouji.market.ui.widget.recommend.-$$Lambda$SoftUpdateRecommendCard$S6bI4bvx0SYgiS2Rm6ibb24f8JY -> com.zpj.shouji.market.ui.widget.recommend.g:
-    com.zpj.shouji.market.ui.widget.recommend.SoftUpdateRecommendCard f$0 -> a
+    com.zpj.shouji.market.ui.widget.recommend.SoftUpdateRecommendCard f$0 -> e
 com.zpj.shouji.market.ui.widget.recommend.-$$Lambda$SubjectRecommendCard$mtCcWxoJPf1am99bmmaXIQ79unA -> com.zpj.shouji.market.ui.widget.recommend.h:
     com.zpj.shouji.market.ui.widget.recommend.SubjectRecommendCard f$0 -> a
     void onLoad(com.zpj.http.parser.html.nodes.Document) -> a
 com.zpj.shouji.market.ui.widget.recommend.-$$Lambda$TutorialRecommendCard$XLI1oMPD_qTNlWIHfg9XcYyOcbA -> com.zpj.shouji.market.ui.widget.recommend.i:
-    com.zpj.shouji.market.ui.widget.recommend.TutorialRecommendCard f$0 -> a
+    com.zpj.shouji.market.ui.widget.recommend.TutorialRecommendCard f$0 -> e
 com.zpj.shouji.market.ui.widget.recommend.-$$Lambda$xlW2wIBrmmqHrdLCrs-vlLhVtmE -> com.zpj.shouji.market.ui.widget.recommend.j:
     com.zpj.shouji.market.ui.widget.recommend.RecommendCard f$0 -> e
 com.zpj.shouji.market.ui.widget.recommend.AppInfoRecommendCard -> com.zpj.shouji.market.ui.widget.recommend.AppInfoRecommendCard:
@@ -48295,7 +48391,7 @@ com.zpj.shouji.market.ui.widget.recommend.GameUpdateRecommendCard -> com.zpj.sho
     50:51:void onMoreClicked(android.view.View) -> a
     55:55:java.lang.String getKey() -> getKey
 com.zpj.shouji.market.ui.widget.recommend.GameUpdateRecommendCard$1 -> com.zpj.shouji.market.ui.widget.recommend.GameUpdateRecommendCard$a:
-    com.zpj.shouji.market.ui.widget.recommend.GameUpdateRecommendCard this$0 -> a
+    com.zpj.shouji.market.ui.widget.recommend.GameUpdateRecommendCard this$0 -> e
     28:28:void <init>(com.zpj.shouji.market.ui.widget.recommend.GameUpdateRecommendCard) -> <init>
     31:43:void onSuccess(com.zpj.http.parser.html.nodes.Document) -> a
     28:28:void onSuccess(java.lang.Object) -> onSuccess
@@ -48306,7 +48402,7 @@ com.zpj.shouji.market.ui.widget.recommend.NetGameRecommendCard -> com.zpj.shouji
     50:51:void onMoreClicked(android.view.View) -> a
     55:55:java.lang.String getKey() -> getKey
 com.zpj.shouji.market.ui.widget.recommend.NetGameRecommendCard$1 -> com.zpj.shouji.market.ui.widget.recommend.NetGameRecommendCard$a:
-    com.zpj.shouji.market.ui.widget.recommend.NetGameRecommendCard this$0 -> a
+    com.zpj.shouji.market.ui.widget.recommend.NetGameRecommendCard this$0 -> e
     28:28:void <init>(com.zpj.shouji.market.ui.widget.recommend.NetGameRecommendCard) -> <init>
     31:43:void onSuccess(com.zpj.http.parser.html.nodes.Document) -> a
     28:28:void onSuccess(java.lang.Object) -> onSuccess
@@ -48387,17 +48483,17 @@ com.zpj.shouji.market.ui.widget.recommend.SubjectRecommendCard -> com.zpj.shouji
     93:93:int getItemRes() -> getItemRes
 com.zpj.shouji.market.ui.widget.recommend.TutorialRecommendCard -> com.zpj.shouji.market.ui.widget.recommend.TutorialRecommendCard:
     java.lang.String type -> j
-    39:40:void <init>(android.content.Context) -> <init>
-    43:44:void <init>(android.content.Context,java.lang.String,int) -> <init>
-    47:48:void <init>(android.content.Context,android.util.AttributeSet,java.lang.String,int) -> <init>
-    51:65:void <init>(android.content.Context,android.util.AttributeSet,int,java.lang.String,int) -> <init>
-    33:33:void onClick(com.zpj.recyclerview.EasyViewHolder,android.view.View,java.lang.Object) -> a
-    56:62:void lambda$new$0(com.zpj.http.parser.html.nodes.Document) -> a
-    70:71:void buildRecyclerView(com.zpj.recyclerview.EasyRecyclerView) -> a
-    75:79:void onBindViewHolder(com.zpj.recyclerview.EasyViewHolder,java.util.List,int,java.util.List) -> a
-    83:84:void onClick(com.zpj.recyclerview.EasyViewHolder,android.view.View,com.zpj.shouji.market.model.article.ArticleInfo) -> a
-    93:94:void onMoreClicked(android.view.View) -> a
-    88:88:int getItemRes() -> getItemRes
+    29:30:void <init>(android.content.Context) -> <init>
+    33:34:void <init>(android.content.Context,java.lang.String,int) -> <init>
+    37:38:void <init>(android.content.Context,android.util.AttributeSet,java.lang.String,int) -> <init>
+    41:55:void <init>(android.content.Context,android.util.AttributeSet,int,java.lang.String,int) -> <init>
+    23:23:void onClick(com.zpj.recyclerview.EasyViewHolder,android.view.View,java.lang.Object) -> a
+    46:52:void lambda$new$0(com.zpj.http.parser.html.nodes.Document) -> a
+    60:61:void buildRecyclerView(com.zpj.recyclerview.EasyRecyclerView) -> a
+    65:69:void onBindViewHolder(com.zpj.recyclerview.EasyViewHolder,java.util.List,int,java.util.List) -> a
+    73:74:void onClick(com.zpj.recyclerview.EasyViewHolder,android.view.View,com.zpj.shouji.market.model.article.ArticleInfo) -> a
+    83:84:void onMoreClicked(android.view.View) -> a
+    78:78:int getItemRes() -> getItemRes
 com.zpj.shouji.market.ui.widget.recommend.UpdateRecommendCard -> com.zpj.shouji.market.ui.widget.recommend.UpdateRecommendCard:
     13:14:void <init>(android.content.Context) -> <init>
     17:18:void <init>(android.content.Context,android.util.AttributeSet) -> <init>
@@ -48642,7 +48738,16 @@ com.zpj.utils.ClickHelper$OnClickListener -> com.zpj.utils.a$a:
     void onClick(android.view.View,float,float) -> a
 com.zpj.utils.ClickHelper$OnLongClickListener -> com.zpj.utils.a$b:
     boolean onLongClick(android.view.View,float,float) -> a
-com.zpj.utils.FlymeStatusBarUtils -> com.zpj.utils.b:
+com.zpj.utils.ContextUtils -> com.zpj.utils.b:
+    android.app.Application INSTANCE -> a
+    19:38:void <clinit>() -> <clinit>
+    41:58:android.app.Application getApplication() -> a
+    92:92:android.content.Context getApplicationContext() -> b
+com.zpj.utils.ContextUtils$1 -> com.zpj.utils.b$a:
+    java.lang.Object val$obj -> e
+    23:23:void <init>(java.lang.Object) -> <init>
+    26:28:void run() -> run
+com.zpj.utils.FlymeStatusBarUtils -> com.zpj.utils.c:
     int SYSTEM_UI_FLAG_LIGHT_STATUS_BAR -> b
     java.lang.reflect.Field mStatusBarColorFiled -> a
     20:41:void <clinit>() -> <clinit>
@@ -48650,7 +48755,7 @@ com.zpj.utils.FlymeStatusBarUtils -> com.zpj.utils.b:
     151:161:void setStatusBarDarkIcon(android.view.View,boolean) -> a
     170:181:void setStatusBarColor(android.view.Window,int) -> a
     190:199:void setStatusBarDarkIcon(android.view.Window,boolean) -> a
-com.zpj.utils.KeyboardHeightProvider -> com.zpj.utils.c:
+com.zpj.utils.KeyboardHeightProvider -> com.zpj.utils.d:
     android.app.Activity activity -> d
     android.view.ViewTreeObserver$OnGlobalLayoutListener onGlobalLayoutListener -> e
     com.zpj.utils.KeyboardHeightProvider$KeyboardHeightObserver observer -> a
@@ -48659,30 +48764,32 @@ com.zpj.utils.KeyboardHeightProvider -> com.zpj.utils.c:
     android.view.View parentView -> c
     android.view.View popupView -> b
     68:68:void <clinit>() -> <clinit>
-    77:107:void <init>(android.app.Activity) -> <init>
+    72:73:void <init>(android.app.Activity) -> <init>
+    81:111:void <init>(android.app.Activity,long) -> <init>
     39:39:android.view.View access$000(com.zpj.utils.KeyboardHeightProvider) -> a
-    127:131:void close() -> a
-    141:142:void setKeyboardHeightObserver(com.zpj.utils.KeyboardHeightProvider$KeyboardHeightObserver) -> a
-    170:180:int getDecorViewInvisibleHeight(android.app.Activity) -> a
-    197:200:void notifyKeyboardHeightChanged(int,int) -> a
+    131:135:void close() -> a
+    145:146:void setKeyboardHeightObserver(com.zpj.utils.KeyboardHeightProvider$KeyboardHeightObserver) -> a
+    174:184:int getDecorViewInvisibleHeight(android.app.Activity) -> a
+    201:204:void notifyKeyboardHeightChanged(int,int) -> a
     39:39:void access$100(com.zpj.utils.KeyboardHeightProvider) -> b
-    115:119:void start() -> b
-    184:189:int getNavBarHeight() -> c
-    150:150:int getScreenOrientation() -> d
-    159:167:void handleOnGlobalLayout() -> e
-com.zpj.utils.KeyboardHeightProvider$1 -> com.zpj.utils.c$a:
-    com.zpj.utils.KeyboardHeightProvider this$0 -> e
-    92:92:void <init>(com.zpj.utils.KeyboardHeightProvider) -> <init>
-    95:103:void onGlobalLayout() -> onGlobalLayout
-com.zpj.utils.KeyboardHeightProvider$1$1 -> com.zpj.utils.c$a$a:
+    119:123:void start() -> b
+    188:193:int getNavBarHeight() -> c
+    154:154:int getScreenOrientation() -> d
+    163:171:void handleOnGlobalLayout() -> e
+com.zpj.utils.KeyboardHeightProvider$1 -> com.zpj.utils.d$a:
+    com.zpj.utils.KeyboardHeightProvider this$0 -> f
+    long val$delayMillis -> e
+    96:96:void <init>(com.zpj.utils.KeyboardHeightProvider,long) -> <init>
+    99:107:void onGlobalLayout() -> onGlobalLayout
+com.zpj.utils.KeyboardHeightProvider$1$1 -> com.zpj.utils.d$a$a:
     com.zpj.utils.KeyboardHeightProvider$1 this$1 -> e
-    96:96:void <init>(com.zpj.utils.KeyboardHeightProvider$1) -> <init>
-    99:100:void run() -> run
-com.zpj.utils.KeyboardHeightProvider$KeyboardHeightObserver -> com.zpj.utils.c$b:
+    100:100:void <init>(com.zpj.utils.KeyboardHeightProvider$1) -> <init>
+    103:104:void run() -> run
+com.zpj.utils.KeyboardHeightProvider$KeyboardHeightObserver -> com.zpj.utils.d$b:
     void onKeyboardHeightChanged(int,int) -> a
-com.zpj.utils.KeyboardUtils -> com.zpj.utils.d:
+com.zpj.utils.KeyboardUtils -> com.zpj.utils.e:
     75:75:void hideSoftInputKeyboard(android.view.View) -> a
-com.zpj.utils.OSUtils -> com.zpj.utils.e:
+com.zpj.utils.OSUtils -> com.zpj.utils.f:
     java.lang.String sName -> a
     java.lang.String sVersion -> b
     45:45:boolean isFlyme() -> a
@@ -48690,17 +48797,17 @@ com.zpj.utils.OSUtils -> com.zpj.utils.e:
     33:33:boolean isMiui() -> b
     99:106:java.lang.String getProp(java.lang.String) -> b
     41:41:boolean isOppo() -> c
-com.zpj.utils.PrefsHelper -> com.zpj.utils.f:
+com.zpj.utils.PrefsHelper -> com.zpj.utils.g:
     java.util.Map sharedPreferencesMap -> a
     android.content.SharedPreferences sharedPreferences -> b
     com.zpj.utils.PrefsHelper prefsInstance -> c
-    30:32:void <init>() -> <init>
-    35:42:com.zpj.utils.PrefsHelper getInstance() -> a
-    50:51:com.zpj.utils.PrefsHelper with(java.lang.String) -> a
-    55:64:void setCurrentPrefs(android.content.Context,java.lang.String) -> a
-    82:82:java.lang.String getString(java.lang.String,java.lang.String) -> a
-    46:46:com.zpj.utils.PrefsHelper with() -> b
-    90:91:void putString(java.lang.String,java.lang.String) -> b
+    29:31:void <init>() -> <init>
+    34:41:com.zpj.utils.PrefsHelper getInstance() -> a
+    49:50:com.zpj.utils.PrefsHelper with(java.lang.String) -> a
+    54:63:void setCurrentPrefs(android.content.Context,java.lang.String) -> a
+    81:81:java.lang.String getString(java.lang.String,java.lang.String) -> a
+    45:45:com.zpj.utils.PrefsHelper with() -> b
+    89:90:void putString(java.lang.String,java.lang.String) -> b
 com.zpj.utils.R$anim -> com.zpj.utils.R$anim:
     13:13:void <init>() -> <init>
 com.zpj.utils.R$attr -> com.zpj.utils.R$attr:
@@ -48726,14 +48833,14 @@ com.zpj.utils.R$style -> com.zpj.utils.R$style:
 com.zpj.utils.R$styleable -> com.zpj.utils.R$styleable:
     1179:1634:void <clinit>() -> <clinit>
     1177:1177:void <init>() -> <init>
-com.zpj.utils.ScreenUtils -> com.zpj.utils.g:
+com.zpj.utils.ScreenUtils -> com.zpj.utils.h:
     26:29:float dp2px(android.content.Context,float) -> a
     40:40:float density(android.content.Context) -> a
     45:45:int dp2pxInt(android.content.Context,float) -> b
     145:150:int getNavigationBarHeight(android.content.Context) -> b
     91:91:int getScreenHeight(android.content.Context) -> c
     87:87:int getScreenWidth(android.content.Context) -> d
-com.zpj.utils.StatusBarUtils -> com.zpj.utils.h:
+com.zpj.utils.StatusBarUtils -> com.zpj.utils.i:
     20:20:boolean supportTransparentStatusBar() -> a
     77:86:void setDarkMode(android.view.Window) -> a
     114:115:void setFlymeStatusBarDarkMode(android.view.Window,boolean) -> a
@@ -48744,15 +48851,6 @@ com.zpj.utils.StatusBarUtils -> com.zpj.utils.h:
     120:135:void setOppoStatusBarDarkMode(android.view.Window,boolean) -> c
     47:52:void transparentStatusBarAbove21(android.view.Window) -> d
     89:96:void setStatusBarDarkMode(android.view.Window,boolean) -> d
-com.zpj.utils.ZUtils -> com.zpj.utils.i:
-    android.app.Application INSTANCE -> a
-    19:38:void <clinit>() -> <clinit>
-    41:58:android.app.Application getApplication() -> a
-    92:92:android.content.Context getApplicationContext() -> b
-com.zpj.utils.ZUtils$1 -> com.zpj.utils.i$a:
-    java.lang.Object val$obj -> e
-    23:23:void <init>(java.lang.Object) -> <init>
-    26:28:void run() -> run
 com.zpj.widget.R$anim -> com.zpj.widget.R$anim:
     13:13:void <init>() -> <init>
 com.zpj.widget.R$attr -> com.zpj.widget.R$attr:

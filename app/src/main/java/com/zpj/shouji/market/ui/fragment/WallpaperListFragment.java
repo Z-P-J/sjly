@@ -189,12 +189,13 @@ public class WallpaperListFragment extends NextUrlFragment<WallpaperInfo> {
     private void initNextUrl() {
         nextUrl = DEFAULT_URL;
         if (!TextUtils.isEmpty(tag) && !"全部".equals(tag)) {
-            nextUrl = nextUrl + "&tag=" + tag;
+            nextUrl = nextUrl + "?tag=" + tag;
         }
+        nextUrl += nextUrl.equals(DEFAULT_URL) ? "?" : "&";
         if (sortPosition == 1) {
-            nextUrl = nextUrl + "&sort=time";
+            nextUrl = nextUrl + "sort=time";
         } else if (sortPosition == 2) {
-            nextUrl = nextUrl + "&sort=user";
+            nextUrl = nextUrl + "sort=user";
         }
     }
 

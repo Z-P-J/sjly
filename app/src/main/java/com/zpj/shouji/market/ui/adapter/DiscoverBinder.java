@@ -39,8 +39,10 @@ import com.zpj.shouji.market.model.DiscoverInfo;
 import com.zpj.shouji.market.model.SupportUserInfo;
 import com.zpj.shouji.market.ui.fragment.detail.AppDetailFragment;
 import com.zpj.shouji.market.ui.fragment.profile.ProfileFragment;
+import com.zpj.shouji.market.ui.fragment.theme.ThemeDetailFragment;
 import com.zpj.shouji.market.ui.widget.DrawableTintTextView;
 import com.zpj.shouji.market.ui.widget.popup.BottomListPopupMenu;
+import com.zpj.shouji.market.ui.widget.popup.CommentPopup;
 import com.zpj.shouji.market.ui.widget.popup.ImageViewer;
 import com.zpj.shouji.market.utils.PopupImageLoader;
 
@@ -284,7 +286,9 @@ public class DiscoverBinder implements IEasy.OnBindViewHolderListener<DiscoverIn
         holder.getView(R.id.comment_view).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                AToast.normal("回复");
+//                AToast.normal("回复");
+//                CommentPopup.with(context, discoverInfo.getId()).show();
+                ThemeDetailFragment.start(discoverInfo, true);
             }
         });
 

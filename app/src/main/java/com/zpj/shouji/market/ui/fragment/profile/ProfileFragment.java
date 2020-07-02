@@ -68,7 +68,9 @@ import net.lucode.hackware.magicindicator.buildins.commonnavigator.titles.ColorT
 import java.util.ArrayList;
 import java.util.List;
 
-public class ProfileFragment extends BaseFragment implements View.OnClickListener, NestedScrollView.OnScrollChangeListener {
+public class ProfileFragment extends BaseFragment
+        implements View.OnClickListener,
+        NestedScrollView.OnScrollChangeListener {
 
     private static final String USER_ID = "user_id";
     public static final String DEFAULT_URL = "http://tt.shouji.com.cn/app/view_member_xml_v4.jsp?id=5636865";

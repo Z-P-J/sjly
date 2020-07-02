@@ -6,6 +6,7 @@ import android.util.Log;
 
 import com.felix.atoast.library.AToast;
 import com.zpj.http.ZHttp;
+import com.zpj.http.core.Connection;
 import com.zpj.http.parser.html.nodes.Document;
 import com.zpj.shouji.market.model.MemberInfo;
 import com.zpj.shouji.market.api.HttpApi;
@@ -108,7 +109,7 @@ public final class UserManager {
     private void signIn() {
         String sessionId = getSessionId();
         Log.d(getClass().getName(), "jsessionid=" + sessionId);
-        HttpApi.openConnection("http://tt.shouji.com.cn/app/xml_login_v4.jsp?version=2.9.9.9.3")
+        HttpApi.openConnection("http://tt.shouji.com.cn/app/xml_login_v4.jsp?version=2.9.9.9.3", Connection.Method.POST)
                 .data("jsessionid", sessionId)
                 .data("s", "12345678910")
                 .data("stime", "" + System.currentTimeMillis())
@@ -121,7 +122,7 @@ public final class UserManager {
 
     public void signIn(String userName, String password) {
         AToast.normal("isLogin=" + isLogin());
-        HttpApi.openConnection("http://tt.shouji.com.cn/app/xml_login_v4.jsp?version=2.9.9.9.3")
+        HttpApi.openConnection("http://tt.shouji.com.cn/app/xml_login_v4.jsp?version=2.9.9.9.3", Connection.Method.POST)
                 .data("openid", "")
                 .data("s", "12345678910")
                 .data("stime", "" + System.currentTimeMillis())
@@ -169,7 +170,7 @@ public final class UserManager {
     }
 
     public void signUp(String account, String password, String email) {
-        HttpApi.openConnection("http://tt.shouji.com.cn/app/xml_register_v4.jsp?")
+        HttpApi.openConnection("http://tt.shouji.com.cn/app/xml_register_v4.jsp?", Connection.Method.POST)
                 .data("m", account)
                 .data("p", password)
                 .data("MemberEmail", email)

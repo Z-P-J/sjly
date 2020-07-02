@@ -17,8 +17,11 @@ import com.zpj.fragmentation.SupportFragment;
 import com.zpj.fragmentation.anim.DefaultHorizontalAnimator;
 import com.zpj.fragmentation.anim.FragmentAnimator;
 import com.zpj.popup.ZPopup;
+import com.zpj.popup.impl.LoadingPopup;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.api.HttpPreLoader;
+import com.zpj.shouji.market.event.HideLoadingEvent;
+import com.zpj.shouji.market.event.ShowLoadingEvent;
 import com.zpj.shouji.market.event.StartFragmentEvent;
 import com.zpj.shouji.market.manager.AppInstalledManager;
 import com.zpj.shouji.market.manager.AppUpdateManager;
@@ -39,6 +42,7 @@ public class MainActivity extends SupportActivity {
     private long firstTime = 0;
 
     private OpeningStartAnimation openingStartAnimation3;
+    private LoadingPopup loadingPopup;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -143,5 +147,26 @@ public class MainActivity extends SupportActivity {
     public void onStartFragmentEvent(StartFragmentEvent event) {
         start(event.getFragment());
     }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onShowLoadingEvent(ShowLoadingEvent event) {
+        if (loadingPopup != null && event.isUpdate()) {
+            loadingPopup.setTitle(event.getText());
+            return;
+        }
+        loadingPopup = null;
+        loadingPopup = ZPopup.loading(MainActivity.this)
+                .setTitle(event.getText())
+                .show();
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onHideLoadingEvent(HideLoadingEvent event) {
+        if (loadingPopup != null) {
+            loadingPopup.dismiss();
+            loadingPopup = null;
+        }
+    }
+
 
 }

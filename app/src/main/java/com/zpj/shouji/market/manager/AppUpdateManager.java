@@ -56,11 +56,11 @@ public final class AppUpdateManager {
 
         @Override
         public void run() {
-            HttpApi.openConnection(CHECK_UPDATE_URL)
+            HttpApi.openConnection(CHECK_UPDATE_URL, Connection.Method.POST)
                     .userAgent("Sjly(2.9.9.9.3)")
-                    .header("Cookie", cookie)
-                    .header("Content-Type", "application/x-www-form-urlencoded")
-                    .header("referer", CHECK_UPDATE_URL)
+                    .cookie(cookie)
+                    .contentType("application/x-www-form-urlencoded")
+                    .referer(CHECK_UPDATE_URL)
                     .data("setupid", "sjly2.9.9.9.3")
                     .data("skin", "0")
                     .data("sdk", "26")
@@ -148,7 +148,7 @@ public final class AppUpdateManager {
         throwable = null;
         checked.set(false);
         running.set(true);
-        HttpApi.openConnection("http://tt.shouji.com.cn/app/update.jsp")
+        HttpApi.openConnection("http://tt.shouji.com.cn/app/update.jsp", Connection.Method.POST)
                 .userAgent("Sjly(2.9.9.9.3)")
                 .execute()
                 .flatMap((ObservableTask.OnFlatMapListener<Connection.Response, CheckUpdate>) (response, emitter) -> {

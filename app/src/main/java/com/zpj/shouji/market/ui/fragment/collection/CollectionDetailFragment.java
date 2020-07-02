@@ -12,8 +12,6 @@ import android.support.v4.app.Fragment;
 import android.support.v4.graphics.ColorUtils;
 import android.support.v4.view.ViewPager;
 import android.support.v7.graphics.Palette;
-import android.support.v7.widget.Toolbar;
-import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
@@ -138,12 +136,12 @@ public class CollectionDetailFragment extends BaseFragment {
         if (appListFragment == null) {
             appListFragment = CollectionAppListFragment.newInstance(item.getId());
         }
-        ThemeListFragment themeListFragment = findChildFragment(ThemeListFragment.class);
-        if (themeListFragment == null) {
-            themeListFragment = ThemeListFragment.newInstance("http://tt.shouji.com.cn/app/yyj_comment.jsp?t=discuss&parent=" + item.getId());
+        CollectionCommentFragment commentFragment = findChildFragment(CollectionCommentFragment.class);
+        if (commentFragment == null) {
+            commentFragment = CollectionCommentFragment.newInstance(item.getId());
         }
         list.add(appListFragment);
-        list.add(themeListFragment);
+        list.add(commentFragment);
 
         FragmentsPagerAdapter adapter = new FragmentsPagerAdapter(getChildFragmentManager(), list, TAB_TITLES);
 
@@ -195,7 +193,7 @@ public class CollectionDetailFragment extends BaseFragment {
 
     private void getCollectionInfo() {
         Log.d("getCollectionInfo", "start id=" + item.getId());
-        HttpApi.connect("http://tt.shouji.com.cn/androidv3/yyj_info_xml.jsp?reviewid=" + item.getId())
+        HttpApi.get("http://tt.shouji.com.cn/androidv3/yyj_info_xml.jsp?reviewid=" + item.getId())
                 .onSuccess(doc -> {
                     Log.d("getCollectionInfo", "doc=" + doc.toString());
 //                collectionInfo.collectionId = doc.selectFirst("yyjid").text();

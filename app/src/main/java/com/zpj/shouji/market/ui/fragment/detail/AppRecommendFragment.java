@@ -113,7 +113,7 @@ public class AppRecommendFragment extends BaseFragment {
     }
 
     private void getSimilar() {
-        HttpApi.connect("http://tt.shouji.com.cn/androidv3/soft_yyj_similar.jsp?id=" + id)
+        HttpApi.get("http://tt.shouji.com.cn/androidv3/soft_yyj_similar.jsp?id=" + id)
                 .onSuccess(data -> {
                     Elements elements = data.select("item");
                     for (Element element : elements) {

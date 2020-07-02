@@ -42,7 +42,7 @@ public class HttpPreLoader {
     }
 
     public void load(final String key, final String url) {
-        HttpApi.connect(url)
+        HttpApi.get(url)
                 .subscribeOn(Schedulers.io())
                 .observeOn(Schedulers.io())
                 .onSuccess(data -> {

@@ -3,29 +3,19 @@ package com.zpj.shouji.market.ui.widget.recommend;
 import android.content.Context;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.View;
 
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.request.RequestOptions;
 import com.felix.atoast.library.AToast;
-import com.shehuan.niv.NiceImageView;
 import com.zpj.http.parser.html.nodes.Element;
 import com.zpj.http.parser.html.select.Elements;
 import com.zpj.recyclerview.EasyRecyclerView;
 import com.zpj.recyclerview.EasyViewHolder;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.api.HttpApi;
-import com.zpj.shouji.market.api.HttpPreLoader;
-import com.zpj.shouji.market.glide.blur.BlurTransformation2;
-import com.zpj.shouji.market.model.CollectionInfo;
 import com.zpj.shouji.market.model.article.ArticleInfo;
 import com.zpj.shouji.market.ui.fragment.ArticleDetailFragment;
-import com.zpj.shouji.market.ui.fragment.collection.CollectionDetailFragment;
-
-import org.greenrobot.eventbus.EventBus;
 
 import java.util.List;
 import java.util.Locale;
@@ -51,7 +41,7 @@ public class TutorialRecommendCard extends RecommendCard<ArticleInfo> {
         super(context, attrs, defStyleAttr);
         this.type = type;
 //        this.index = index;
-        HttpApi.connect(String.format(Locale.CHINA, "https://%s.shouji.com.cn/newslist/list_%d_1.html", type, index))
+        HttpApi.get(String.format(Locale.CHINA, "https://%s.shouji.com.cn/newslist/list_%d_1.html", type, index))
                 .onSuccess(data -> {
                     Elements elements = data.selectFirst("ul.news_list").select("li");
                     list.clear();

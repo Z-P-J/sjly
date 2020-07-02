@@ -56,7 +56,7 @@ public class SearchPanelFragment extends BaseFragment {
     }
 
     private void getHotSearch() {
-        HttpApi.connect("http://tt.shouji.com.cn/app/user_app_search_rm_xml.jsp?searchKey=")
+        HttpApi.get("http://tt.shouji.com.cn/app/user_app_search_rm_xml.jsp?searchKey=")
                 .onSuccess(data -> {
                     List<String> list = new ArrayList<>();
                     for (Element item : data.select("item")) {

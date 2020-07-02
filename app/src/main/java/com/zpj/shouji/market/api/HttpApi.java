@@ -8,6 +8,7 @@ import com.zpj.http.core.ObservableTask;
 import com.zpj.http.core.IHttp;
 import com.zpj.http.parser.html.nodes.Document;
 import com.zpj.shouji.market.manager.UserManager;
+import com.zpj.utils.OSUtils;
 
 import io.reactivex.Observable;
 import io.reactivex.ObservableOnSubscribe;
@@ -25,8 +26,8 @@ public final class HttpApi {
 
     }
 
-    public static Connection openConnection(String url) {
-        Connection connection = ZHttp.get(url);
+    public static Connection openConnection(String url, Connection.Method method) {
+        Connection connection = ZHttp.connect(url).method(method);
         connection.data("versioncode", VERSION_CODE);
         connection.data("sn", UserManager.getInstance().getSn());
         if (UserManager.getInstance().isLogin()) {
@@ -48,8 +49,12 @@ public final class HttpApi {
         return connection;
     }
 
-    public static ObservableTask<Document> connect(String url) {
-        return openConnection(url).toHtml();
+    public static ObservableTask<Document> get(String url) {
+        return openConnection(url, Connection.Method.GET).toHtml();
+    }
+
+    public static ObservableTask<Document> post(String url) {
+        return openConnection(url, Connection.Method.POST).toHtml();
     }
 
     public static ObservableTask<Runnable> with(Runnable runnable) {
@@ -62,39 +67,39 @@ public final class HttpApi {
     }
 
     public static ObservableTask<Document> collectionRecommend() {
-        return connect("http://tt.shouji.com.cn/androidv3/yyj_tj_xml.jsp");
+        return get("http://tt.shouji.com.cn/androidv3/yyj_tj_xml.jsp");
     }
 
     public static ObservableTask<Document> bannerApi() {
-        return connect("http://tt.tljpxm.com/androidv3/app_index_xml.jsp?index=1");
+        return get("http://tt.tljpxm.com/androidv3/app_index_xml.jsp?index=1");
     }
 
     public static ObservableTask<Document> recentUpdateAppApi() {
-        return connect("http://tt.shouji.com.cn/androidv3/app_list_xml.jsp?index=1");
+        return get("http://tt.shouji.com.cn/androidv3/app_list_xml.jsp?index=1");
     }
 
     public static ObservableTask<Document> homeRecommendSoftApi() {
-        return connect("http://tt.shouji.com.cn/androidv3/special_list_xml.jsp?id=-9998");
+        return get("http://tt.shouji.com.cn/androidv3/special_list_xml.jsp?id=-9998");
     }
 
     public static ObservableTask<Document> homeRecommendGameApi() {
-        return connect("http://tt.shouji.com.cn/androidv3/game_index_xml.jsp?sdk=100&sort=day");
+        return get("http://tt.shouji.com.cn/androidv3/game_index_xml.jsp?sdk=100&sort=day");
     }
 
     public static ObservableTask<Document> subjectApi() {
-        return connect("http://tt.tljpxm.com/androidv3/app_index_xml.jsp?index=1");
+        return get("http://tt.tljpxm.com/androidv3/app_index_xml.jsp?index=1");
     }
 
     public static ObservableTask<Document> recentUpdateSoft() {
-        return connect("http://tt.shouji.com.cn/androidv3/soft_index_xml.jsp?sort=time");
+        return get("http://tt.shouji.com.cn/androidv3/soft_index_xml.jsp?sort=time");
     }
 
     public static ObservableTask<Document> recentUpdateGame() {
-        return connect("http://tt.shouji.com.cn/androidv3/game_index_xml.jsp?sort=time");
+        return get("http://tt.shouji.com.cn/androidv3/game_index_xml.jsp?sort=time");
     }
 
     public static ObservableTask<Document> netGame() {
-        return connect("http://tt.shouji.com.cn/androidv3/netgame.jsp");
+        return get("http://tt.shouji.com.cn/androidv3/netgame.jsp");
     }
 
     public static String myCollectionAppsUrl(String id) {
@@ -139,27 +144,27 @@ public final class HttpApi {
 
     public static ObservableTask<Document> likeApi(String type, String id) {
         String url = "http://tt.shouji.com.cn/app/comment_flower_xml.jsp?t=" + type + "&id=" + id;
-        return connect(url);
+        return get(url);
     }
 
     public static ObservableTask<Document> addFriendApi(String id) {
         String url = "http://tt.tljpxm.com/xml/addfriendprocess?memberid=" + id;
-        return connect(url);
+        return get(url);
     }
 
     public static ObservableTask<Document> deleteFriendApi(String id) {
         String url = "http://tt.tljpxm.com/xml/deletefriendprocess?friendMemberID=" + id;
-        return connect(url);
+        return get(url);
     }
 
     public static ObservableTask<Document> getMemberInfoApi(String id) {
         String url = "http://tt.tljpxm.com/app/view_member_xml_v4.jsp?id=" + id;
-        return connect(url);
+        return get(url);
     }
 
     public static ObservableTask<Document> blacklistApi(String id, boolean isAdd) {
         String url = String.format("http://tt.tljpxm.com/app/user_blacklist_add.jsp?mid=%s&t=%s", id, isAdd ? "add" : "del");
-        return connect(url);
+        return get(url);
     }
 
     public static ObservableTask<Document> addBlacklistApi(String id) {
@@ -172,5 +177,31 @@ public final class HttpApi {
         return blacklistApi(id, false);
     }
 
+    public static ObservableTask<Document> commentApi(String id, String content) {
+        return openConnection("http://tt.tljpxm.com/app/comment_xml_v5.jsp", Connection.Method.POST)
+                .data("replyid", id)
+                .data("phone", "MI%205s")
+                .data("content", content)
+                .toHtml();
+    }
+
+    public static ObservableTask<Document> discussCommentApi(String replyId, String content) {
+        return openConnection("http://tt.tljpxm.com/app/square_disscuss_text_post_xml.jsp", Connection.Method.POST)
+                .data("replyid", replyId)
+                .data("phone", "MI%205s")
+                .data("content", content)
+                .toHtml();
+    }
+
+    public static ObservableTask<Document> appCommentApi(String content, String appId, String appType, String appPackage) {
+        return openConnection("http://tt.tljpxm.com/app/comment_xml_v5.jsp", Connection.Method.POST)
+                .data("replyid", "0")
+                .data("phone", "MI%205s")
+                .data("content", content)
+                .data("appid", appId)
+                .data("apptype", appType)
+                .data("package", appPackage)
+                .toHtml();
+    }
 
 }

@@ -14,7 +14,7 @@
         android:inputType="textMultiLine"
         android:gravity="start"
         android:maxHeight="180dp"
-        android:hint="写私信..."
+        android:hint="说点什么..."
         android:maxLines="5"
         android:padding="16dp"
         android:textSize="16sp"/>

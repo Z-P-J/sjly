@@ -10,11 +10,14 @@ import android.view.View;
 
 import com.zpj.recyclerview.EasyViewHolder;
 import com.zpj.shouji.market.R;
+import com.zpj.shouji.market.event.HideLoadingEvent;
+import com.zpj.shouji.market.event.RefreshEvent;
 import com.zpj.shouji.market.event.StartFragmentEvent;
 import com.zpj.shouji.market.model.DiscoverInfo;
 import com.zpj.shouji.market.ui.adapter.DiscoverBinder;
 import com.zpj.shouji.market.ui.adapter.FragmentsPagerAdapter;
 import com.zpj.fragmentation.BaseFragment;
+import com.zpj.shouji.market.ui.widget.popup.CommentPopup;
 import com.zpj.utils.ClickHelper;
 import com.zpj.utils.ScreenUtils;
 
@@ -27,6 +30,9 @@ import net.lucode.hackware.magicindicator.buildins.commonnavigator.abs.IPagerTit
 import net.lucode.hackware.magicindicator.buildins.commonnavigator.indicators.LinePagerIndicator;
 import net.lucode.hackware.magicindicator.buildins.commonnavigator.titles.ColorTransitionPagerTitleView;
 
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -34,13 +40,18 @@ public class ThemeDetailFragment extends BaseFragment {
 
     private final String[] TAB_TITLES = {"评论", "赞"};
 
-    private List<Fragment> fragments = new ArrayList<>();
+    private final static String KEY_COMMENT = "key_comment";
+
+//    private List<Fragment> fragments = new ArrayList<>();
     private SupportUserListFragment supportUserListFragment;
+
+    private CommentPopup commentPopup;
 
     private DiscoverInfo item;
 
-    public static void start(DiscoverInfo item) {
+    public static void start(DiscoverInfo item, boolean showCommentPopup) {
         Bundle args = new Bundle();
+        args.putBoolean(KEY_COMMENT, showCommentPopup);
         ThemeDetailFragment fragment = new ThemeDetailFragment();
         fragment.setDiscoverInfo(item);
         fragment.setArguments(args);
@@ -77,7 +88,7 @@ public class ThemeDetailFragment extends BaseFragment {
 
         ThemeCommentListFragment discoverListFragment = findChildFragment(ThemeCommentListFragment.class);
         if (discoverListFragment == null) {
-            discoverListFragment = ThemeCommentListFragment.newInstance(item.getId());
+            discoverListFragment = ThemeCommentListFragment.newInstance(item.getId(), item.getContentType());
         }
         supportUserListFragment = findChildFragment(SupportUserListFragment.class);
         if (supportUserListFragment == null) {
@@ -123,15 +134,38 @@ public class ThemeDetailFragment extends BaseFragment {
         });
         magicIndicator.setNavigator(navigator);
         ViewPagerHelper.bind(magicIndicator, viewPager);
+
     }
 
     @Override
     public void onEnterAnimationEnd(Bundle savedInstanceState) {
         super.onEnterAnimationEnd(savedInstanceState);
         supportUserListFragment.setData(item.getSupportUserInfoList());
+        if (getArguments() != null) {
+            if (getArguments().getBoolean(KEY_COMMENT, false)) {
+                commentPopup = CommentPopup.with(context, item.getId(), item.getContentType()).show();
+            }
+        }
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        if (commentPopup != null) {
+            commentPopup.show();
+        }
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        if (commentPopup != null) {
+            commentPopup.hide();
+        }
     }
 
     private void setDiscoverInfo(DiscoverInfo discoverInfo) {
         this.item = discoverInfo;
     }
+
 }

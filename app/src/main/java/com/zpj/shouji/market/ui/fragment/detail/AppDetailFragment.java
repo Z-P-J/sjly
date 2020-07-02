@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.AppBarLayout;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.graphics.ColorUtils;
 import android.support.v4.view.ViewPager;
@@ -24,6 +25,9 @@ import com.shehuan.niv.NiceImageView;
 import com.zpj.fragmentation.BaseFragment;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.api.HttpApi;
+import com.zpj.shouji.market.event.BaseEvent;
+import com.zpj.shouji.market.event.FabEvent;
+import com.zpj.shouji.market.event.RefreshEvent;
 import com.zpj.shouji.market.event.StartFragmentEvent;
 import com.zpj.shouji.market.model.AppDetailInfo;
 import com.zpj.shouji.market.model.AppInfo;
@@ -32,6 +36,7 @@ import com.zpj.shouji.market.model.CollectionAppInfo;
 import com.zpj.shouji.market.model.InstalledAppInfo;
 import com.zpj.shouji.market.model.UserDownloadedAppInfo;
 import com.zpj.shouji.market.ui.adapter.FragmentsPagerAdapter;
+import com.zpj.shouji.market.ui.widget.popup.AppCommentPopup;
 import com.zpj.utils.ScreenUtils;
 import com.zpj.widget.statelayout.StateLayout;
 
@@ -45,6 +50,8 @@ import net.lucode.hackware.magicindicator.buildins.commonnavigator.indicators.Li
 import net.lucode.hackware.magicindicator.buildins.commonnavigator.titles.ColorTransitionPagerTitleView;
 
 import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
 
@@ -76,6 +83,7 @@ public class AppDetailFragment extends BaseFragment {
     private TextView title;
     private TextView shortInfo;
     private TextView shortIntroduce;
+    private FloatingActionButton fabComment;
 
 
     public static void start(String type, String id) {
@@ -119,6 +127,18 @@ public class AppDetailFragment extends BaseFragment {
     }
 
     @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        EventBus.getDefault().register(this);
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        EventBus.getDefault().unregister(this);
+    }
+
+    @Override
     protected void initView(View view, @Nullable Bundle savedInstanceState) {
         if (getArguments() != null) {
             type = getArguments().getString(KEY_TYPE);
@@ -140,6 +160,11 @@ public class AppDetailFragment extends BaseFragment {
         shortInfo = view.findViewById(R.id.tv_info);
         shortIntroduce = view.findViewById(R.id.tv_detail);
 
+        fabComment = view.findViewById(R.id.fab_comment);
+        fabComment.hide();
+        fabComment.setOnClickListener(v -> {
+            AppCommentPopup.with(context, id, type, "").show();
+        });
 
 
         ArrayList<Fragment> list = new ArrayList<>();
@@ -150,12 +175,12 @@ public class AppDetailFragment extends BaseFragment {
 
         AppCommentFragment commentFragment = findChildFragment(AppCommentFragment.class);
         if (commentFragment == null) {
-                commentFragment = AppCommentFragment.newInstance("http://tt.shouji.com.cn/app/comment_index_xml_v5.jsp?type=" + type + "&id=" + id);
+            commentFragment = AppCommentFragment.newInstance(id, type);
         }
 
         AppThemeFragment exploreFragment = findChildFragment(AppThemeFragment.class);
         if (exploreFragment == null) {
-            exploreFragment = AppThemeFragment.newInstance("http://tt.shouji.com.cn/app/faxian.jsp?apptype=" + type + "&appid=" + id);
+            exploreFragment = AppThemeFragment.newInstance(id, type);
         }
 
         AppRecommendFragment recommendFragment = findChildFragment(AppRecommendFragment.class);
@@ -169,6 +194,26 @@ public class AppDetailFragment extends BaseFragment {
 
         FragmentsPagerAdapter adapter = new FragmentsPagerAdapter(getChildFragmentManager(), list, TAB_TITLES);
         ViewPager viewPager = view.findViewById(R.id.view_pager);
+        viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int i, float v, int i1) {
+
+            }
+
+            @Override
+            public void onPageSelected(int i) {
+                if (i == 1) {
+                    fabComment.show();
+                } else {
+                    fabComment.hide();
+                }
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int i) {
+
+            }
+        });
         viewPager.setAdapter(adapter);
         viewPager.setOffscreenPageLimit(list.size());
         MagicIndicator magicIndicator = view.findViewById(R.id.magic_indicator);
@@ -204,6 +249,9 @@ public class AppDetailFragment extends BaseFragment {
         });
         magicIndicator.setNavigator(navigator);
         ViewPagerHelper.bind(magicIndicator, viewPager);
+
+
+
     }
 
     @Override
@@ -212,9 +260,9 @@ public class AppDetailFragment extends BaseFragment {
         getAppInfo(url);
     }
 
-    private void getAppInfo(final String url){
+    private void getAppInfo(final String url) {
         Log.d("apppppp", url);
-        HttpApi.connect(url)
+        HttpApi.get(url)
                 .onSuccess(data -> {
                     if ("NoApp".equals(data.selectFirst("errorcode").text())) {
                         AToast.warning("应用不存在");
@@ -290,7 +338,8 @@ public class AppDetailFragment extends BaseFragment {
 //
 //                });
 
-                boolean isDark = ColorUtils.calculateLuminance(s.getRgb()) <= 0.5;;
+                boolean isDark = ColorUtils.calculateLuminance(s.getRgb()) <= 0.5;
+                ;
                 if (isDark) {
                     lightStatusBar();
                 } else {
@@ -329,6 +378,15 @@ public class AppDetailFragment extends BaseFragment {
 //                }
 
         });
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onFabEvent(FabEvent event) {
+        if (event.isShow()) {
+            fabComment.show();
+        } else {
+            fabComment.hide();
+        }
     }
 
 

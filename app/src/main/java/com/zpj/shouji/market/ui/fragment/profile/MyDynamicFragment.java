@@ -126,7 +126,7 @@ public class MyDynamicFragment extends BaseFragment {
         fragments.add(collectionsFragment);
         fragments.add(wallpaperFragment);
         viewPager.setAdapter(new FragmentsPagerAdapter(getChildFragmentManager(), fragments, TAB_TITLES));
-        viewPager.setOffscreenPageLimit(2);
+        viewPager.setOffscreenPageLimit(fragments.size());
 
         CommonNavigator navigator = new CommonNavigator(getContext());
         navigator.setAdapter(new CommonNavigatorAdapter() {

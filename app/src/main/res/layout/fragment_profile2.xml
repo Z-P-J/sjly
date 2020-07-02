@@ -169,9 +169,9 @@
                     <net.lucode.hackware.magicindicator.MagicIndicator
                         android:id="@+id/magic_indicator"
                         android:layout_width="match_parent"
-                        android:layout_height="38dp"
+                        android:layout_height="36dp"
                         android:layout_gravity="bottom"
-                        android:background="@color/white" />
+                        android:background="@drawable/magic_indicator_bg" />
 
                     <android.support.v4.view.ViewPager
                         android:id="@+id/view_pager"

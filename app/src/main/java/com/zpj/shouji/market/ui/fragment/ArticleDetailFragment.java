@@ -39,7 +39,6 @@ import com.zpj.shouji.market.model.article.TextElement;
 import com.zpj.shouji.market.ui.fragment.detail.AppDetailFragment;
 import com.zpj.shouji.market.ui.widget.popup.ImageViewer;
 import com.zpj.shouji.market.ui.widget.selection.SelectableTextView;
-import com.zpj.shouji.market.utils.PopupImageLoader;
 import com.zpj.utils.ScreenUtils;
 import com.zpj.widget.statelayout.StateLayout;
 
@@ -118,7 +117,7 @@ public class ArticleDetailFragment extends BaseFragment {
     }
 
     private void parseHtml(final String url) {
-        HttpApi.connect(url)
+        HttpApi.get(url)
                 .onSuccess(data -> {
                     articleDetailInfo = ArticleDetailInfo.parse(url.startsWith("https://soft.shouji.com.cn/") ? "soft" : "game", data);
                     if (isEnterAnimationEnd.get()) {

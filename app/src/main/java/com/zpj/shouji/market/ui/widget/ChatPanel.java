@@ -22,6 +22,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
@@ -30,16 +31,16 @@ import com.felix.atoast.library.AToast;
 import com.lqr.emoji.EmotionLayout;
 import com.lqr.emoji.IEmotionExtClickListener;
 import com.lqr.emoji.IEmotionSelectedListener;
+import com.rockerhieu.emojicon.EmojiconEditText;
 import com.zpj.fragmentation.SupportActivity;
 import com.zpj.matisse.CaptureMode;
 import com.zpj.matisse.Matisse;
 import com.zpj.matisse.MimeType;
 import com.zpj.matisse.engine.impl.GlideEngine;
 import com.zpj.matisse.entity.Item;
+import com.zpj.matisse.listener.OnSelectedListener;
 import com.zpj.matisse.model.SelectedItemManager;
 import com.zpj.matisse.ui.widget.CustomImageViewerPopup;
-import com.zpj.matisse.listener.OnSelectedListener;
-import com.rockerhieu.emojicon.EmojiconEditText;
 import com.zpj.recyclerview.EasyRecyclerView;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.glide.MyRequestOptions;
@@ -180,7 +181,6 @@ public class ChatPanel extends RelativeLayout
                 return;
             }
             if (listener != null) {
-
                 listener.sendText(content);
                 etEditor.setText(null);
             }
@@ -196,7 +196,8 @@ public class ChatPanel extends RelativeLayout
                     .countable(true)//true:选中后显示数字;false:选中后显示对号
                     .maxSelectable(3)//最大选择数量为9
                     //.addFilter(new GifSizeFilter(320, 320, 5 * Filter.K * Filter.K))
-                    .gridExpectedSize(this.getResources().getDimensionPixelSize(R.dimen.photo))//图片显示表格的大小
+//                    .gridExpectedSize(this.getResources().getDimensionPixelSize(R.dimen.photo))//图片显示表格的大小
+                    .spanCount(2)
                     .restrictOrientation(ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED)//图像选择和预览活动所需的方向
                     .thumbnailScale(0.85f)//缩放比例
                     .imageEngine(new GlideEngine())//图片加载方式，Glide4需要自定义实现
@@ -253,8 +254,22 @@ public class ChatPanel extends RelativeLayout
         isKeyboardShowing = height > 0;
         if (height != 0) {
             elEmotion.setVisibility(View.INVISIBLE);
-            elEmotion.getLayoutParams().height = height;
-            elEmotion.requestLayout();
+//            ValueAnimator animator = ValueAnimator.ofFloat(0, 1);
+//            animator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+//                @Override
+//                public void onAnimationUpdate(ValueAnimator animation) {
+//                    float v = (float) animation.getAnimatedValue();
+//                    elEmotion.getLayoutParams().height = (int) (v * height);
+//                    elEmotion.requestLayout();
+//                }
+//            });
+//            animator.setDuration(200);
+//            animator.start();
+            ViewGroup.LayoutParams params = elEmotion.getLayoutParams();
+            params.height = height;
+            elEmotion.setLayoutParams(params);
+//            elEmotion.invalidate();
+//            elEmotion.requestLayout();
         } else {
             if (elEmotion.getVisibility() != View.VISIBLE) {
                 elEmotion.setVisibility(View.GONE);
