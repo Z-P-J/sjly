@@ -1,7 +1,7 @@
 # compiler: R8
 # compiler_version: 1.5.69
 # min_api: 19
-# pg_map_id: 52871b9
+# pg_map_id: 6291476
 android.arch.core.executor.ArchTaskExecutor -> a.a.a.a.a:
     android.arch.core.executor.ArchTaskExecutor sInstance -> c
     android.arch.core.executor.TaskExecutor mDelegate -> a
@@ -27829,17 +27829,13 @@ com.nineoldandroids.animation.Animator -> b.a.a.a:
     192:203:com.nineoldandroids.animation.Animator clone() -> clone
 com.nineoldandroids.animation.Animator$AnimatorListener -> b.a.a.a$a:
     void onAnimationEnd(com.nineoldandroids.animation.Animator) -> a
-    void onAnimationCancel(com.nineoldandroids.animation.Animator) -> b
-    void onAnimationRepeat(com.nineoldandroids.animation.Animator) -> c
-    void onAnimationStart(com.nineoldandroids.animation.Animator) -> d
-com.nineoldandroids.animation.ArgbEvaluator -> b.a.a.b:
-    23:23:void <init>() -> <init>
-    42:54:java.lang.Object evaluate(float,java.lang.Object,java.lang.Object) -> evaluate
-com.nineoldandroids.animation.FloatEvaluator -> b.a.a.c:
+    void onAnimationRepeat(com.nineoldandroids.animation.Animator) -> b
+    void onAnimationStart(com.nineoldandroids.animation.Animator) -> c
+com.nineoldandroids.animation.FloatEvaluator -> b.a.a.b:
     22:22:void <init>() -> <init>
     39:40:java.lang.Float evaluate(float,java.lang.Number,java.lang.Number) -> a
     22:22:java.lang.Object evaluate(float,java.lang.Object,java.lang.Object) -> evaluate
-com.nineoldandroids.animation.FloatKeyframeSet -> b.a.a.d:
+com.nineoldandroids.animation.FloatKeyframeSet -> b.a.a.c:
     float deltaValue -> h
     boolean firstTime -> i
     float lastValue -> g
@@ -27850,16 +27846,14 @@ com.nineoldandroids.animation.FloatKeyframeSet -> b.a.a.d:
     35:35:com.nineoldandroids.animation.KeyframeSet clone() -> clone
     35:35:java.lang.Object clone() -> clone
     52:59:com.nineoldandroids.animation.FloatKeyframeSet clone() -> clone
-com.nineoldandroids.animation.IntEvaluator -> b.a.a.e:
+com.nineoldandroids.animation.IntEvaluator -> b.a.a.d:
     22:22:void <init>() -> <init>
     39:40:java.lang.Integer evaluate(float,java.lang.Integer,java.lang.Integer) -> a
     22:22:java.lang.Object evaluate(float,java.lang.Object,java.lang.Object) -> evaluate
-com.nineoldandroids.animation.Keyframe -> b.a.a.f:
+com.nineoldandroids.animation.Keyframe -> b.a.a.e:
     float mFraction -> e
-    boolean mHasValue -> g
     android.view.animation.Interpolator mInterpolator -> f
     38:320:void <init>() -> <init>
-    void setValue(java.lang.Object) -> a
     108:108:com.nineoldandroids.animation.Keyframe ofFloat(float,float) -> a
     124:124:com.nineoldandroids.animation.Keyframe ofFloat(float) -> a
     191:191:float getFraction() -> a
@@ -27867,18 +27861,16 @@ com.nineoldandroids.animation.Keyframe -> b.a.a.f:
     211:211:android.view.animation.Interpolator getInterpolator() -> b
     java.lang.Object getValue() -> c
     38:38:java.lang.Object clone() -> clone
-    167:167:boolean hasValue() -> d
-com.nineoldandroids.animation.Keyframe$FloatKeyframe -> b.a.a.f$a:
-    float mValue -> h
+com.nineoldandroids.animation.Keyframe$FloatKeyframe -> b.a.a.e$a:
+    float mValue -> g
     326:331:void <init>(float,float) -> <init>
     333:336:void <init>(float) -> <init>
-    347:351:void setValue(java.lang.Object) -> a
     343:343:java.lang.Object getValue() -> c
     320:320:com.nineoldandroids.animation.Keyframe clone() -> clone
     320:320:java.lang.Object clone() -> clone
     355:357:com.nineoldandroids.animation.Keyframe$FloatKeyframe clone() -> clone
-    339:339:float getFloatValue() -> e
-com.nineoldandroids.animation.KeyframeSet -> b.a.a.g:
+    339:339:float getFloatValue() -> d
+com.nineoldandroids.animation.KeyframeSet -> b.a.a.f:
     android.view.animation.Interpolator mInterpolator -> c
     com.nineoldandroids.animation.Keyframe mLastKeyframe -> b
     java.util.ArrayList mKeyframes -> d
@@ -27889,183 +27881,36 @@ com.nineoldandroids.animation.KeyframeSet -> b.a.a.g:
     69:80:com.nineoldandroids.animation.KeyframeSet ofFloat(float[]) -> a
     139:140:void setEvaluator(com.nineoldandroids.animation.TypeEvaluator) -> a
     221:225:java.lang.String toString() -> toString
-com.nineoldandroids.animation.ObjectAnimator -> b.a.a.h:
-    java.lang.String mPropertyName -> G
-    com.nineoldandroids.util.Property mProperty -> H
-    java.lang.Object mTarget -> F
-    java.util.Map PROXY_PROPERTIES -> I
-    41:58:void <clinit>() -> <clinit>
-    150:151:void <init>() -> <init>
-    162:165:void <init>(java.lang.Object,java.lang.String) -> <init>
-    96:106:void setPropertyName(java.lang.String) -> a
-    118:131:void setProperty(com.nineoldandroids.util.Property) -> a
-    231:233:com.nineoldandroids.animation.ObjectAnimator ofFloat(java.lang.Object,java.lang.String,float[]) -> a
-    345:356:void setFloatValues(float[]) -> a
-    491:496:void animateValue(float) -> a
-    39:39:com.nineoldandroids.animation.ValueAnimator setDuration(long) -> c
-    402:414:void initAnimation() -> c
-    427:428:com.nineoldandroids.animation.ObjectAnimator setDuration(long) -> c
-    39:39:com.nineoldandroids.animation.Animator clone() -> clone
-    39:39:com.nineoldandroids.animation.ValueAnimator clone() -> clone
-    39:39:java.lang.Object clone() -> clone
-    500:501:com.nineoldandroids.animation.ObjectAnimator clone() -> clone
-    385:386:void start() -> f
-    506:513:java.lang.String toString() -> toString
-com.nineoldandroids.animation.PreHoneycombCompat -> b.a.a.i:
-    com.nineoldandroids.util.Property ROTATION_Y -> h
-    com.nineoldandroids.util.Property SCALE_X -> i
-    com.nineoldandroids.util.Property SCALE_Y -> j
-    com.nineoldandroids.util.Property SCROLL_X -> k
-    com.nineoldandroids.util.Property SCROLL_Y -> l
-    com.nineoldandroids.util.Property X -> m
-    com.nineoldandroids.util.Property Y -> n
-    com.nineoldandroids.util.Property ALPHA -> a
-    com.nineoldandroids.util.Property PIVOT_X -> b
-    com.nineoldandroids.util.Property PIVOT_Y -> c
-    com.nineoldandroids.util.Property TRANSLATION_X -> d
-    com.nineoldandroids.util.Property TRANSLATION_Y -> e
-    com.nineoldandroids.util.Property ROTATION -> f
-    com.nineoldandroids.util.Property ROTATION_X -> g
-    10:153:void <clinit>() -> <clinit>
-com.nineoldandroids.animation.PreHoneycombCompat$1 -> b.a.a.i$f:
-    10:10:void <init>(java.lang.String) -> <init>
-    10:10:java.lang.Object get(java.lang.Object) -> a
-    10:10:void setValue(java.lang.Object,float) -> a
-    13:14:void setValue(android.view.View,float) -> a
-    18:18:java.lang.Float get(android.view.View) -> a
-com.nineoldandroids.animation.PreHoneycombCompat$10 -> b.a.a.i$a:
-    109:109:void <init>(java.lang.String) -> <init>
-    109:109:java.lang.Object get(java.lang.Object) -> a
-    109:109:void setValue(java.lang.Object,float) -> a
-    112:113:void setValue(android.view.View,float) -> a
-    117:117:java.lang.Float get(android.view.View) -> a
-com.nineoldandroids.animation.PreHoneycombCompat$11 -> b.a.a.i$b:
-    120:120:void <init>(java.lang.String) -> <init>
-    120:120:java.lang.Object get(java.lang.Object) -> a
-    128:128:java.lang.Integer get(android.view.View) -> a
-com.nineoldandroids.animation.PreHoneycombCompat$12 -> b.a.a.i$c:
-    131:131:void <init>(java.lang.String) -> <init>
-    131:131:java.lang.Object get(java.lang.Object) -> a
-    139:139:java.lang.Integer get(android.view.View) -> a
-com.nineoldandroids.animation.PreHoneycombCompat$13 -> b.a.a.i$d:
-    142:142:void <init>(java.lang.String) -> <init>
-    142:142:java.lang.Object get(java.lang.Object) -> a
-    142:142:void setValue(java.lang.Object,float) -> a
-    145:146:void setValue(android.view.View,float) -> a
-    150:150:java.lang.Float get(android.view.View) -> a
-com.nineoldandroids.animation.PreHoneycombCompat$14 -> b.a.a.i$e:
-    153:153:void <init>(java.lang.String) -> <init>
-    153:153:java.lang.Object get(java.lang.Object) -> a
-    153:153:void setValue(java.lang.Object,float) -> a
-    156:157:void setValue(android.view.View,float) -> a
-    161:161:java.lang.Float get(android.view.View) -> a
-com.nineoldandroids.animation.PreHoneycombCompat$2 -> b.a.a.i$g:
-    21:21:void <init>(java.lang.String) -> <init>
-    21:21:java.lang.Object get(java.lang.Object) -> a
-    21:21:void setValue(java.lang.Object,float) -> a
-    24:25:void setValue(android.view.View,float) -> a
-    29:29:java.lang.Float get(android.view.View) -> a
-com.nineoldandroids.animation.PreHoneycombCompat$3 -> b.a.a.i$h:
-    32:32:void <init>(java.lang.String) -> <init>
-    32:32:java.lang.Object get(java.lang.Object) -> a
-    32:32:void setValue(java.lang.Object,float) -> a
-    35:36:void setValue(android.view.View,float) -> a
-    40:40:java.lang.Float get(android.view.View) -> a
-com.nineoldandroids.animation.PreHoneycombCompat$4 -> b.a.a.i$i:
-    43:43:void <init>(java.lang.String) -> <init>
-    43:43:java.lang.Object get(java.lang.Object) -> a
-    43:43:void setValue(java.lang.Object,float) -> a
-    46:47:void setValue(android.view.View,float) -> a
-    51:51:java.lang.Float get(android.view.View) -> a
-com.nineoldandroids.animation.PreHoneycombCompat$5 -> b.a.a.i$j:
-    54:54:void <init>(java.lang.String) -> <init>
-    54:54:java.lang.Object get(java.lang.Object) -> a
-    54:54:void setValue(java.lang.Object,float) -> a
-    57:58:void setValue(android.view.View,float) -> a
-    62:62:java.lang.Float get(android.view.View) -> a
-com.nineoldandroids.animation.PreHoneycombCompat$6 -> b.a.a.i$k:
-    65:65:void <init>(java.lang.String) -> <init>
-    65:65:java.lang.Object get(java.lang.Object) -> a
-    65:65:void setValue(java.lang.Object,float) -> a
-    68:69:void setValue(android.view.View,float) -> a
-    73:73:java.lang.Float get(android.view.View) -> a
-com.nineoldandroids.animation.PreHoneycombCompat$7 -> b.a.a.i$l:
-    76:76:void <init>(java.lang.String) -> <init>
-    76:76:java.lang.Object get(java.lang.Object) -> a
-    76:76:void setValue(java.lang.Object,float) -> a
-    79:80:void setValue(android.view.View,float) -> a
-    84:84:java.lang.Float get(android.view.View) -> a
-com.nineoldandroids.animation.PreHoneycombCompat$8 -> b.a.a.i$m:
-    87:87:void <init>(java.lang.String) -> <init>
-    87:87:java.lang.Object get(java.lang.Object) -> a
-    87:87:void setValue(java.lang.Object,float) -> a
-    90:91:void setValue(android.view.View,float) -> a
-    95:95:java.lang.Float get(android.view.View) -> a
-com.nineoldandroids.animation.PreHoneycombCompat$9 -> b.a.a.i$n:
-    98:98:void <init>(java.lang.String) -> <init>
-    98:98:java.lang.Object get(java.lang.Object) -> a
-    98:98:void setValue(java.lang.Object,float) -> a
-    101:102:void setValue(android.view.View,float) -> a
-    106:106:java.lang.Float get(android.view.View) -> a
-com.nineoldandroids.animation.PropertyValuesHolder -> b.a.a.j:
-    java.lang.Class[] DOUBLE_VARIANTS -> s
-    com.nineoldandroids.animation.TypeEvaluator sFloatEvaluator -> p
-    com.nineoldandroids.animation.TypeEvaluator sIntEvaluator -> o
-    java.lang.reflect.Method mSetter -> g
-    com.nineoldandroids.animation.TypeEvaluator mEvaluator -> m
-    java.lang.reflect.Method mGetter -> h
-    java.lang.Class mValueType -> i
-    java.lang.Class[] FLOAT_VARIANTS -> q
-    java.lang.Class[] INTEGER_VARIANTS -> r
-    java.lang.Object mAnimatedValue -> n
-    com.nineoldandroids.animation.KeyframeSet mKeyframeSet -> j
-    java.util.concurrent.locks.ReentrantReadWriteLock mPropertyMapLock -> k
-    java.lang.Object[] mTmpValueArray -> l
-    java.util.HashMap sGetterPropertyMap -> u
-    java.util.HashMap sSetterPropertyMap -> t
+com.nineoldandroids.animation.PropertyValuesHolder -> b.a.a.g:
+    java.lang.Class mValueType -> g
+    com.nineoldandroids.animation.TypeEvaluator sFloatEvaluator -> k
+    com.nineoldandroids.animation.TypeEvaluator sIntEvaluator -> j
+    com.nineoldandroids.animation.TypeEvaluator mEvaluator -> i
+    com.nineoldandroids.animation.KeyframeSet mKeyframeSet -> h
     java.lang.String mPropertyName -> e
     com.nineoldandroids.util.Property mProperty -> f
     80:102:void <clinit>() -> <clinit>
-    36:36:void <init>(com.nineoldandroids.util.Property,com.nineoldandroids.animation.PropertyValuesHolder$1) -> <init>
     36:36:void <init>(java.lang.String,com.nineoldandroids.animation.PropertyValuesHolder$1) -> <init>
     131:133:void <init>(java.lang.String) -> <init>
-    139:144:void <init>(com.nineoldandroids.util.Property) -> <init>
     176:176:com.nineoldandroids.animation.PropertyValuesHolder ofFloat(java.lang.String,float[]) -> a
-    187:187:com.nineoldandroids.animation.PropertyValuesHolder ofFloat(com.nineoldandroids.util.Property,float[]) -> a
     327:329:void setFloatValues(float[]) -> a
-    381:440:java.lang.reflect.Method getPropertyFunction(java.lang.Class,java.lang.String,java.lang.Class) -> a
-    457:476:java.lang.reflect.Method setupSetterOrGetter(java.lang.Class,java.util.HashMap,java.lang.String,java.lang.Class) -> a
-    486:487:void setupSetter(java.lang.Class) -> a
-    614:627:void setAnimatedValue(java.lang.Object) -> a
     670:671:void calculateValue(float) -> a
-    689:690:void setPropertyName(java.lang.String) -> a
-    701:702:void setProperty(com.nineoldandroids.util.Property) -> a
-    722:722:java.lang.Object getAnimatedValue() -> a
-    744:746:java.lang.String getMethodName(java.lang.String,java.lang.String) -> a
-    493:494:void setupGetter(java.lang.Class) -> b
-    507:541:void setupSetterAndGetter(java.lang.Object) -> b
-    713:713:java.lang.String getPropertyName() -> b
-    634:646:void init() -> c
+    713:713:java.lang.String getPropertyName() -> a
+    634:646:void init() -> b
     36:36:java.lang.Object clone() -> clone
     594:602:com.nineoldandroids.animation.PropertyValuesHolder clone() -> clone
     727:727:java.lang.String toString() -> toString
-com.nineoldandroids.animation.PropertyValuesHolder$1 -> b.a.a.j$a:
-com.nineoldandroids.animation.PropertyValuesHolder$FloatPropertyValuesHolder -> b.a.a.j$b:
-    float mFloatAnimatedValue -> x
-    com.nineoldandroids.util.FloatProperty mFloatProperty -> v
-    com.nineoldandroids.animation.FloatKeyframeSet mFloatKeyframeSet -> w
+com.nineoldandroids.animation.PropertyValuesHolder$1 -> b.a.a.g$a:
+com.nineoldandroids.animation.PropertyValuesHolder$FloatPropertyValuesHolder -> b.a.a.g$b:
+    com.nineoldandroids.animation.FloatKeyframeSet mFloatKeyframeSet -> l
     918:920:void <init>(java.lang.String,float[]) -> <init>
-    923:928:void <init>(com.nineoldandroids.util.Property,float[]) -> <init>
     932:934:void setFloatValues(float[]) -> a
     938:939:void calculateValue(float) -> a
-    943:943:java.lang.Object getAnimatedValue() -> a
-    962:984:void setAnimatedValue(java.lang.Object) -> a
-    988:1022:void setupSetter(java.lang.Class) -> a
     889:889:com.nineoldandroids.animation.PropertyValuesHolder clone() -> clone
     889:889:java.lang.Object clone() -> clone
     948:950:com.nineoldandroids.animation.PropertyValuesHolder$FloatPropertyValuesHolder clone() -> clone
-com.nineoldandroids.animation.TypeEvaluator -> b.a.a.k:
-com.nineoldandroids.animation.ValueAnimator -> b.a.a.l:
+com.nineoldandroids.animation.TypeEvaluator -> b.a.a.h:
+com.nineoldandroids.animation.ValueAnimator -> b.a.a.i:
     boolean mInitialized -> o
     java.lang.ThreadLocal sDelayedAnims -> A
     java.lang.ThreadLocal sReadyAnims -> C
@@ -28114,117 +27959,48 @@ com.nineoldandroids.animation.ValueAnimator -> b.a.a.l:
     43:43:void access$900(com.nineoldandroids.animation.ValueAnimator) -> c
     490:497:void initAnimation() -> c
     510:511:com.nineoldandroids.animation.ValueAnimator setDuration(long) -> c
-    958:970:void cancel() -> cancel
     43:43:com.nineoldandroids.animation.Animator clone() -> clone
     43:43:java.lang.Object clone() -> clone
     1185:1211:com.nineoldandroids.animation.ValueAnimator clone() -> clone
     830:835:void removeAllUpdateListeners() -> d
     1071:1084:boolean delayedAnimationFrame(long) -> d
-    1009:1018:void reverse() -> e
-    951:952:void start() -> f
-    43:43:java.lang.ThreadLocal access$000() -> g
-    43:43:java.lang.ThreadLocal access$100() -> h
-    43:43:long access$1000() -> i
-    43:43:java.lang.ThreadLocal access$200() -> j
-    43:43:java.lang.ThreadLocal access$500() -> k
-    43:43:java.lang.ThreadLocal access$600() -> l
-    1025:1039:void endAnimation() -> m
-    1046:1058:void startAnimation() -> n
+    951:952:void start() -> e
+    43:43:java.lang.ThreadLocal access$000() -> f
+    43:43:java.lang.ThreadLocal access$100() -> g
+    43:43:long access$1000() -> h
+    43:43:java.lang.ThreadLocal access$200() -> i
+    43:43:java.lang.ThreadLocal access$500() -> j
+    43:43:java.lang.ThreadLocal access$600() -> k
+    1025:1039:void endAnimation() -> l
+    1046:1058:void startAnimation() -> m
     1256:1262:java.lang.String toString() -> toString
-com.nineoldandroids.animation.ValueAnimator$1 -> b.a.a.l$a:
+com.nineoldandroids.animation.ValueAnimator$1 -> b.a.a.i$a:
     99:99:void <init>() -> <init>
     99:99:java.lang.Object initialValue() -> initialValue
     102:102:java.util.ArrayList initialValue() -> initialValue
-com.nineoldandroids.animation.ValueAnimator$2 -> b.a.a.l$b:
+com.nineoldandroids.animation.ValueAnimator$2 -> b.a.a.i$b:
     108:108:void <init>() -> <init>
     108:108:java.lang.Object initialValue() -> initialValue
     111:111:java.util.ArrayList initialValue() -> initialValue
-com.nineoldandroids.animation.ValueAnimator$3 -> b.a.a.l$c:
+com.nineoldandroids.animation.ValueAnimator$3 -> b.a.a.i$c:
     120:120:void <init>() -> <init>
     120:120:java.lang.Object initialValue() -> initialValue
     123:123:java.util.ArrayList initialValue() -> initialValue
-com.nineoldandroids.animation.ValueAnimator$4 -> b.a.a.l$d:
+com.nineoldandroids.animation.ValueAnimator$4 -> b.a.a.i$d:
     128:128:void <init>() -> <init>
     128:128:java.lang.Object initialValue() -> initialValue
     131:131:java.util.ArrayList initialValue() -> initialValue
-com.nineoldandroids.animation.ValueAnimator$5 -> b.a.a.l$e:
+com.nineoldandroids.animation.ValueAnimator$5 -> b.a.a.i$e:
     136:136:void <init>() -> <init>
     136:136:java.lang.Object initialValue() -> initialValue
     139:139:java.util.ArrayList initialValue() -> initialValue
-com.nineoldandroids.animation.ValueAnimator$AnimationHandler -> b.a.a.l$f:
+com.nineoldandroids.animation.ValueAnimator$AnimationHandler -> b.a.a.i$f:
     570:570:void <init>() -> <init>
     570:570:void <init>(com.nineoldandroids.animation.ValueAnimator$1) -> <init>
     585:682:void handleMessage(android.os.Message) -> handleMessage
-com.nineoldandroids.animation.ValueAnimator$AnimatorUpdateListener -> b.a.a.l$g:
+com.nineoldandroids.animation.ValueAnimator$AnimatorUpdateListener -> b.a.a.i$g:
     void onAnimationUpdate(com.nineoldandroids.animation.ValueAnimator) -> a
-com.nineoldandroids.util.FloatProperty -> b.a.b.a:
-    32:33:void <init>(java.lang.String) -> <init>
-    void setValue(java.lang.Object,float) -> a
-    29:29:void set(java.lang.Object,java.lang.Object) -> a
-    43:44:void set(java.lang.Object,java.lang.Float) -> a
-com.nineoldandroids.util.IntProperty -> b.a.b.b:
-    32:33:void <init>(java.lang.String) -> <init>
-    29:29:void set(java.lang.Object,java.lang.Object) -> a
-    43:44:void set(java.lang.Object,java.lang.Integer) -> a
-com.nineoldandroids.util.Property -> b.a.b.c:
-    java.lang.String mName -> a
-    61:64:void <init>(java.lang.Class,java.lang.String) -> <init>
-    java.lang.Object get(java.lang.Object) -> a
-    85:85:void set(java.lang.Object,java.lang.Object) -> a
-    97:97:java.lang.String getName() -> a
-com.nineoldandroids.view.animation.AnimatorProxy -> b.a.c.a.a:
-    float mRotationY -> l
-    float mRotationX -> k
-    float mPivotY -> j
-    float mPivotX -> i
-    float mAlpha -> h
-    android.graphics.Camera mCamera -> f
-    java.lang.ref.WeakReference mView -> e
-    boolean NEEDS_PROXY -> u
-    java.util.WeakHashMap PROXIES -> v
-    android.graphics.Matrix mTempMatrix -> t
-    android.graphics.RectF mBefore -> r
-    android.graphics.RectF mAfter -> s
-    boolean mHasPivot -> g
-    float mTranslationY -> q
-    float mTranslationX -> p
-    float mScaleY -> o
-    float mScaleX -> n
-    float mRotationZ -> m
-    21:23:void <clinit>() -> <clinit>
-    63:68:void <init>(android.view.View) -> <init>
-    35:41:com.nineoldandroids.view.animation.AnimatorProxy wrap(android.view.View) -> a
-    71:71:float getAlpha() -> a
-    74:81:void setAlpha(float) -> a
-    254:278:void computeRect(android.graphics.RectF,android.view.View) -> a
-    281:312:void transformMatrix(android.graphics.Matrix,android.view.View) -> a
-    316:321:void applyTransformation(float,android.view.animation.Transformation) -> applyTransformation
-    83:83:float getPivotX() -> b
-    86:92:void setPivotX(float) -> b
-    94:94:float getPivotY() -> c
-    97:103:void setPivotY(float) -> c
-    105:105:float getRotation() -> d
-    108:113:void setRotation(float) -> d
-    115:115:float getRotationX() -> e
-    118:123:void setRotationX(float) -> e
-    125:125:float getRotationY() -> f
-    129:134:void setRotationY(float) -> f
-    136:136:float getScaleX() -> g
-    139:144:void setScaleX(float) -> g
-    146:146:float getScaleY() -> h
-    149:154:void setScaleY(float) -> h
-    156:160:int getScrollX() -> i
-    186:191:void setTranslationX(float) -> i
-    169:173:int getScrollY() -> j
-    196:201:void setTranslationY(float) -> j
-    183:183:float getTranslationX() -> k
-    210:214:void setX(float) -> k
-    193:193:float getTranslationY() -> l
-    223:227:void setY(float) -> l
-    203:207:float getX() -> m
-    216:220:float getY() -> n
-    236:238:void invalidateAfterUpdate() -> o
-    230:234:void prepareForUpdate() -> p
+com.nineoldandroids.util.Property -> b.a.b.a:
 com.raizlabs.android.dbflow.StringUtils -> b.b.a.a.a:
     12:12:boolean isNotNullOrEmpty(java.lang.String) -> a
 com.raizlabs.android.dbflow.annotation.Collate -> b.b.a.a.b.a:
@@ -29102,638 +28878,6 @@ com.raizlabs.android.dbflow.structure.database.transaction.Transaction$Error -> 
     void onError(com.raizlabs.android.dbflow.structure.database.transaction.Transaction,java.lang.Throwable) -> a
 com.raizlabs.android.dbflow.structure.database.transaction.Transaction$Success -> b.b.a.a.f.k.l.f$e:
     void onSuccess(com.raizlabs.android.dbflow.structure.database.transaction.Transaction) -> a
-com.rengwuxian.materialedittext.Colors -> com.rengwuxian.materialedittext.a:
-    10:10:boolean isLight(int) -> a
-com.rengwuxian.materialedittext.Density -> com.rengwuxian.materialedittext.b:
-    12:14:int dp2px(android.content.Context,float) -> a
-com.rengwuxian.materialedittext.MaterialAutoCompleteTextView -> com.rengwuxian.materialedittext.MaterialAutoCompleteTextView:
-    boolean firstShown -> d0
-    int floatingLabelPadding -> l
-    java.lang.String tempErrorText -> I
-    float floatingLabelFraction -> J
-    boolean hideUnderline -> P
-    int extraPaddingRight -> h
-    float bottomLines -> F
-    boolean validateOnFocusLost -> b0
-    android.text.StaticLayout textLayout -> p0
-    int minBottomLines -> C
-    boolean floatingLabelAnimating -> T
-    boolean singleLineEllipsis -> y
-    android.content.res.ColorStateList textColorStateList -> k0
-    com.nineoldandroids.animation.ObjectAnimator labelFocusAnimator -> r0
-    int primaryColor -> u
-    int innerPaddingTop -> q
-    boolean floatingLabelEnabled -> n
-    int bottomSpacing -> m
-    int iconPadding -> h0
-    int helperTextColor -> H
-    int iconOuterWidth -> f0
-    int floatingLabelTextSize -> i
-    boolean checkCharactersCountAtBeginning -> U
-    int minBottomTextLines -> D
-    com.nineoldandroids.animation.ArgbEvaluator focusEvaluator -> m0
-    int extraPaddingTop -> e
-    java.lang.CharSequence floatingLabelText -> O
-    android.text.TextPaint textPaint -> o0
-    boolean floatingLabelAlwaysShown -> z
-    int errorColor -> v
-    int innerPaddingBottom -> r
-    boolean clearButtonClicking -> j0
-    android.view.View$OnFocusChangeListener innerFocusChangeListener -> t0
-    int underlineColor -> Q
-    java.lang.String helperText -> G
-    float focusFraction -> L
-    boolean highlightFloatingLabel -> o
-    int floatingLabelTextColor -> j
-    boolean showClearButton -> c0
-    int extraPaddingBottom -> f
-    java.util.List validators -> v0
-    boolean autoValidate -> R
-    android.content.res.ColorStateList textColorHintStateList -> l0
-    android.graphics.Typeface typeface -> N
-    int minCharacters -> w
-    com.nineoldandroids.animation.ObjectAnimator bottomLinesAnimator -> s0
-    android.graphics.Bitmap[] iconLeftBitmaps -> V
-    boolean helperTextAlwaysShown -> A
-    int innerPaddingLeft -> s
-    com.nineoldandroids.animation.ObjectAnimator labelAnimator -> q0
-    android.graphics.Bitmap[] clearButtonBitmaps -> a0
-    int bottomTextSize -> k
-    int iconOuterHeight -> g0
-    boolean floatingLabelShown -> K
-    float currentBottomLines -> E
-    int iconSize -> e0
-    int extraPaddingLeft -> g
-    int bottomEllipsisSize -> B
-    boolean charactersCountValid -> S
-    android.graphics.Typeface accentTypeface -> M
-    int maxCharacters -> x
-    com.rengwuxian.materialedittext.validation.METLengthChecker lengthChecker -> w0
-    int innerPaddingRight -> t
-    android.graphics.Bitmap[] iconRightBitmaps -> W
-    android.graphics.Paint paint -> n0
-    boolean clearButtonTouched -> i0
-    int baseColor -> p
-    android.view.View$OnFocusChangeListener outerFocusChangeListener -> u0
-    319:321:void <init>(android.content.Context) -> <init>
-    324:326:void <init>(android.content.Context,android.util.AttributeSet) -> <init>
-    330:332:void <init>(android.content.Context,android.util.AttributeSet,int) -> <init>
-    51:51:void access$000(com.rengwuxian.materialedittext.MaterialAutoCompleteTextView) -> a
-    51:51:boolean access$302(com.rengwuxian.materialedittext.MaterialAutoCompleteTextView,boolean) -> a
-    335:447:void init(android.content.Context,android.util.AttributeSet) -> a
-    488:488:android.graphics.Typeface getCustomTypeface(java.lang.String) -> a
-    531:540:android.graphics.Bitmap[] generateIconBitmaps(int) -> a
-    544:550:android.graphics.Bitmap[] generateIconBitmaps(android.graphics.drawable.Drawable) -> a
-    554:571:android.graphics.Bitmap[] generateIconBitmaps(android.graphics.Bitmap) -> a
-    1263:1269:com.nineoldandroids.animation.ObjectAnimator getBottomLinesAnimator(float) -> a
-    1441:1441:boolean isCharactersCountValid() -> a
-    1505:1516:boolean insideClearButton(android.view.MotionEvent) -> a
-    1520:1521:int checkLength(java.lang.CharSequence) -> a
-    51:51:boolean access$100(com.rengwuxian.materialedittext.MaterialAutoCompleteTextView) -> b
-    522:522:boolean isShowClearButton() -> b
-    575:592:android.graphics.Bitmap scaleIcon(android.graphics.Bitmap) -> b
-    732:732:int getPixel(int) -> b
-    51:51:boolean access$200(com.rengwuxian.materialedittext.MaterialAutoCompleteTextView) -> c
-    1179:1180:boolean validate() -> c
-    51:51:boolean access$300(com.rengwuxian.materialedittext.MaterialAutoCompleteTextView) -> d
-    812:830:boolean adjustBottomLines() -> d
-    51:51:com.nineoldandroids.animation.ObjectAnimator access$400(com.rengwuxian.materialedittext.MaterialAutoCompleteTextView) -> e
-    1431:1438:void checkCharactersCount() -> e
-    51:51:boolean access$500(com.rengwuxian.materialedittext.MaterialAutoCompleteTextView) -> f
-    777:785:void correctPaddings() -> f
-    51:51:com.nineoldandroids.animation.ObjectAnimator access$600(com.rengwuxian.materialedittext.MaterialAutoCompleteTextView) -> g
-    1445:1445:boolean hasCharactersCounter() -> g
-    643:643:android.graphics.Typeface getAccentTypeface() -> getAccentTypeface
-    1427:1427:int getBottomEllipsisWidth() -> getBottomEllipsisWidth
-    1415:1415:int getBottomTextLeftOffset() -> getBottomTextLeftOffset
-    1419:1419:int getBottomTextRightOffset() -> getBottomTextRightOffset
-    723:723:int getBottomTextSize() -> getBottomTextSize
-    788:788:int getButtonsCount() -> getButtonsCount
-    1450:1457:java.lang.String getCharactersCounterText() -> getCharactersCounterText
-    1423:1423:int getCharactersCounterWidth() -> getCharactersCounterWidth
-    615:615:float getCurrentBottomLines() -> getCurrentBottomLines
-    1114:1114:java.lang.CharSequence getError() -> getError
-    1076:1076:int getErrorColor() -> getErrorColor
-    597:597:float getFloatingLabelFraction() -> getFloatingLabelFraction
-    1004:1004:int getFloatingLabelPadding() -> getFloatingLabelPadding
-    689:689:java.lang.CharSequence getFloatingLabelText() -> getFloatingLabelText
-    714:714:int getFloatingLabelTextColor() -> getFloatingLabelTextColor
-    705:705:int getFloatingLabelTextSize() -> getFloatingLabelTextSize
-    606:606:float getFocusFraction() -> getFocusFraction
-    1092:1092:java.lang.String getHelperText() -> getHelperText
-    1096:1096:int getHelperTextColor() -> getHelperTextColor
-    844:844:int getInnerPaddingBottom() -> getInnerPaddingBottom
-    851:851:int getInnerPaddingLeft() -> getInnerPaddingLeft
-    858:858:int getInnerPaddingRight() -> getInnerPaddingRight
-    837:837:int getInnerPaddingTop() -> getInnerPaddingTop
-    1248:1252:com.nineoldandroids.animation.ObjectAnimator getLabelAnimator() -> getLabelAnimator
-    1256:1259:com.nineoldandroids.animation.ObjectAnimator getLabelFocusAnimator() -> getLabelFocusAnimator
-    1032:1032:int getMaxCharacters() -> getMaxCharacters
-    1054:1054:int getMinBottomTextLines() -> getMinBottomTextLines
-    1043:1043:int getMinCharacters() -> getMinCharacters
-    676:676:int getUnderlineColor() -> getUnderlineColor
-    1231:1231:java.util.List getValidators() -> getValidators
-    51:51:boolean access$700(com.rengwuxian.materialedittext.MaterialAutoCompleteTextView) -> h
-    863:907:void initFloatingLabel() -> h
-    749:751:void initMinBottomLines() -> i
-    736:743:void initPadding() -> j
-    450:462:void initText() -> k
-    465:485:void initTextWatcher() -> l
-    1121:1121:boolean isInternalValid() -> m
-    1407:1411:boolean isRTL() -> n
-    974:979:void resetHintTextColor() -> o
-    793:797:void onAttachedToWindow() -> onAttachedToWindow
-    1274:1403:void onDraw(android.graphics.Canvas) -> onDraw
-    801:805:void onLayout(boolean,int,int,int,int) -> onLayout
-    1462:1501:boolean onTouchEvent(android.view.MotionEvent) -> onTouchEvent
-    949:955:void resetTextColor() -> p
-    650:653:void setAccentTypeface(android.graphics.Typeface) -> setAccentTypeface
-    1069:1073:void setAutoValidate(boolean) -> setAutoValidate
-    918:925:void setBaseColor(int) -> setBaseColor
-    727:729:void setBottomTextSize(int) -> setBottomTextSize
-    619:621:void setCurrentBottomLines(float) -> setCurrentBottomLines
-    1106:1110:void setError(java.lang.CharSequence) -> setError
-    1080:1082:void setErrorColor(int) -> setErrorColor
-    999:1001:void setFloatingLabel(int) -> setFloatingLabel
-    628:630:void setFloatingLabelAlwaysShown(boolean) -> setFloatingLabelAlwaysShown
-    1017:1018:void setFloatingLabelAnimating(boolean) -> setFloatingLabelAnimating
-    601:603:void setFloatingLabelFraction(float) -> setFloatingLabelFraction
-    982:996:void setFloatingLabelInternal(int) -> setFloatingLabelInternal
-    1008:1010:void setFloatingLabelPadding(int) -> setFloatingLabelPadding
-    700:702:void setFloatingLabelText(java.lang.CharSequence) -> setFloatingLabelText
-    718:720:void setFloatingLabelTextColor(int) -> setFloatingLabelTextColor
-    709:711:void setFloatingLabelTextSize(int) -> setFloatingLabelTextSize
-    610:612:void setFocusFraction(float) -> setFocusFraction
-    1085:1089:void setHelperText(java.lang.CharSequence) -> setHelperText
-    637:639:void setHelperTextAlwaysShown(boolean) -> setHelperTextAlwaysShown
-    1100:1102:void setHelperTextColor(int) -> setHelperTextColor
-    667:670:void setHideUnderline(boolean) -> setHideUnderline
-    492:494:void setIconLeft(int) -> setIconLeft
-    497:499:void setIconLeft(android.graphics.drawable.Drawable) -> setIconLeft
-    502:504:void setIconLeft(android.graphics.Bitmap) -> setIconLeft
-    507:509:void setIconRight(int) -> setIconRight
-    512:514:void setIconRight(android.graphics.drawable.Drawable) -> setIconRight
-    517:519:void setIconRight(android.graphics.Bitmap) -> setIconRight
-    1235:1236:void setLengthChecker(com.rengwuxian.materialedittext.validation.METLengthChecker) -> setLengthChecker
-    1036:1040:void setMaxCharacters(int) -> setMaxCharacters
-    961:963:void setMetHintTextColor(int) -> setMetHintTextColor
-    969:971:void setMetHintTextColor(android.content.res.ColorStateList) -> setMetHintTextColor
-    936:938:void setMetTextColor(int) -> setMetTextColor
-    944:946:void setMetTextColor(android.content.res.ColorStateList) -> setMetTextColor
-    1058:1062:void setMinBottomTextLines(int) -> setMinBottomTextLines
-    1047:1051:void setMinCharacters(int) -> setMinCharacters
-    1240:1245:void setOnFocusChangeListener(android.view.View$OnFocusChangeListener) -> setOnFocusChangeListener
-    759:760:void setPadding(int,int,int,int) -> setPadding
-    928:930:void setPrimaryColor(int) -> setPrimaryColor
-    526:528:void setShowClearButton(boolean) -> setShowClearButton
-    1025:1029:void setSingleLineEllipsis(boolean) -> setSingleLineEllipsis
-    684:686:void setUnderlineColor(int) -> setUnderlineColor
-    914:915:void setValidateOnFocusLost(boolean) -> setValidateOnFocusLost
-com.rengwuxian.materialedittext.MaterialAutoCompleteTextView$1 -> com.rengwuxian.materialedittext.MaterialAutoCompleteTextView$a:
-    com.rengwuxian.materialedittext.MaterialAutoCompleteTextView this$0 -> e
-    465:465:void <init>(com.rengwuxian.materialedittext.MaterialAutoCompleteTextView) -> <init>
-    476:483:void afterTextChanged(android.text.Editable) -> afterTextChanged
-    468:468:void beforeTextChanged(java.lang.CharSequence,int,int,int) -> beforeTextChanged
-    472:472:void onTextChanged(java.lang.CharSequence,int,int,int) -> onTextChanged
-com.rengwuxian.materialedittext.MaterialAutoCompleteTextView$2 -> com.rengwuxian.materialedittext.MaterialAutoCompleteTextView$b:
-    com.rengwuxian.materialedittext.MaterialAutoCompleteTextView this$0 -> e
-    863:863:void <init>(com.rengwuxian.materialedittext.MaterialAutoCompleteTextView) -> <init>
-    874:885:void afterTextChanged(android.text.Editable) -> afterTextChanged
-    866:866:void beforeTextChanged(java.lang.CharSequence,int,int,int) -> beforeTextChanged
-    870:870:void onTextChanged(java.lang.CharSequence,int,int,int) -> onTextChanged
-com.rengwuxian.materialedittext.MaterialAutoCompleteTextView$3 -> com.rengwuxian.materialedittext.MaterialAutoCompleteTextView$c:
-    com.rengwuxian.materialedittext.MaterialAutoCompleteTextView this$0 -> e
-    888:888:void <init>(com.rengwuxian.materialedittext.MaterialAutoCompleteTextView) -> <init>
-    891:904:void onFocusChange(android.view.View,boolean) -> onFocusChange
-com.rengwuxian.materialedittext.MaterialEditText -> com.rengwuxian.materialedittext.MaterialEditText:
-    boolean firstShown -> d0
-    int floatingLabelPadding -> l
-    java.lang.String tempErrorText -> I
-    float floatingLabelFraction -> J
-    boolean hideUnderline -> P
-    int extraPaddingRight -> h
-    float bottomLines -> F
-    boolean validateOnFocusLost -> b0
-    android.text.StaticLayout textLayout -> p0
-    int minBottomLines -> C
-    boolean floatingLabelAnimating -> T
-    boolean singleLineEllipsis -> y
-    android.content.res.ColorStateList textColorStateList -> k0
-    com.nineoldandroids.animation.ObjectAnimator labelFocusAnimator -> r0
-    int primaryColor -> u
-    int innerPaddingTop -> q
-    boolean floatingLabelEnabled -> n
-    int bottomSpacing -> m
-    int iconPadding -> h0
-    int helperTextColor -> H
-    int iconOuterWidth -> f0
-    int floatingLabelTextSize -> i
-    boolean checkCharactersCountAtBeginning -> U
-    int minBottomTextLines -> D
-    com.nineoldandroids.animation.ArgbEvaluator focusEvaluator -> m0
-    int extraPaddingTop -> e
-    java.lang.CharSequence floatingLabelText -> O
-    android.text.TextPaint textPaint -> o0
-    boolean floatingLabelAlwaysShown -> z
-    int errorColor -> v
-    int innerPaddingBottom -> r
-    boolean clearButtonClicking -> j0
-    android.view.View$OnFocusChangeListener innerFocusChangeListener -> t0
-    int underlineColor -> Q
-    java.lang.String helperText -> G
-    float focusFraction -> L
-    boolean highlightFloatingLabel -> o
-    int floatingLabelTextColor -> j
-    boolean showClearButton -> c0
-    int extraPaddingBottom -> f
-    java.util.List validators -> v0
-    boolean autoValidate -> R
-    android.content.res.ColorStateList textColorHintStateList -> l0
-    android.graphics.Typeface typeface -> N
-    int minCharacters -> w
-    com.nineoldandroids.animation.ObjectAnimator bottomLinesAnimator -> s0
-    android.graphics.Bitmap[] iconLeftBitmaps -> V
-    boolean helperTextAlwaysShown -> A
-    int innerPaddingLeft -> s
-    com.nineoldandroids.animation.ObjectAnimator labelAnimator -> q0
-    android.graphics.Bitmap[] clearButtonBitmaps -> a0
-    int bottomTextSize -> k
-    int iconOuterHeight -> g0
-    boolean floatingLabelShown -> K
-    float currentBottomLines -> E
-    int iconSize -> e0
-    int extraPaddingLeft -> g
-    int bottomEllipsisSize -> B
-    boolean charactersCountValid -> S
-    android.graphics.Typeface accentTypeface -> M
-    int maxCharacters -> x
-    com.rengwuxian.materialedittext.validation.METLengthChecker lengthChecker -> w0
-    int innerPaddingRight -> t
-    android.graphics.Bitmap[] iconRightBitmaps -> W
-    android.graphics.Paint paint -> n0
-    boolean clearButtonTouched -> i0
-    int baseColor -> p
-    android.view.View$OnFocusChangeListener outerFocusChangeListener -> u0
-    319:321:void <init>(android.content.Context) -> <init>
-    324:326:void <init>(android.content.Context,android.util.AttributeSet) -> <init>
-    330:332:void <init>(android.content.Context,android.util.AttributeSet,int) -> <init>
-    51:51:void access$000(com.rengwuxian.materialedittext.MaterialEditText) -> a
-    51:51:boolean access$302(com.rengwuxian.materialedittext.MaterialEditText,boolean) -> a
-    335:447:void init(android.content.Context,android.util.AttributeSet) -> a
-    488:488:android.graphics.Typeface getCustomTypeface(java.lang.String) -> a
-    531:540:android.graphics.Bitmap[] generateIconBitmaps(int) -> a
-    544:550:android.graphics.Bitmap[] generateIconBitmaps(android.graphics.drawable.Drawable) -> a
-    554:571:android.graphics.Bitmap[] generateIconBitmaps(android.graphics.Bitmap) -> a
-    1263:1269:com.nineoldandroids.animation.ObjectAnimator getBottomLinesAnimator(float) -> a
-    1441:1441:boolean isCharactersCountValid() -> a
-    1505:1516:boolean insideClearButton(android.view.MotionEvent) -> a
-    1520:1521:int checkLength(java.lang.CharSequence) -> a
-    51:51:boolean access$100(com.rengwuxian.materialedittext.MaterialEditText) -> b
-    522:522:boolean isShowClearButton() -> b
-    575:592:android.graphics.Bitmap scaleIcon(android.graphics.Bitmap) -> b
-    732:732:int getPixel(int) -> b
-    51:51:boolean access$200(com.rengwuxian.materialedittext.MaterialEditText) -> c
-    1179:1180:boolean validate() -> c
-    51:51:boolean access$300(com.rengwuxian.materialedittext.MaterialEditText) -> d
-    812:830:boolean adjustBottomLines() -> d
-    51:51:com.nineoldandroids.animation.ObjectAnimator access$400(com.rengwuxian.materialedittext.MaterialEditText) -> e
-    1431:1438:void checkCharactersCount() -> e
-    51:51:boolean access$500(com.rengwuxian.materialedittext.MaterialEditText) -> f
-    777:785:void correctPaddings() -> f
-    51:51:com.nineoldandroids.animation.ObjectAnimator access$600(com.rengwuxian.materialedittext.MaterialEditText) -> g
-    1445:1445:boolean hasCharactersCounter() -> g
-    643:643:android.graphics.Typeface getAccentTypeface() -> getAccentTypeface
-    1427:1427:int getBottomEllipsisWidth() -> getBottomEllipsisWidth
-    1415:1415:int getBottomTextLeftOffset() -> getBottomTextLeftOffset
-    1419:1419:int getBottomTextRightOffset() -> getBottomTextRightOffset
-    723:723:int getBottomTextSize() -> getBottomTextSize
-    788:788:int getButtonsCount() -> getButtonsCount
-    1450:1457:java.lang.String getCharactersCounterText() -> getCharactersCounterText
-    1423:1423:int getCharactersCounterWidth() -> getCharactersCounterWidth
-    615:615:float getCurrentBottomLines() -> getCurrentBottomLines
-    1114:1114:java.lang.CharSequence getError() -> getError
-    1076:1076:int getErrorColor() -> getErrorColor
-    597:597:float getFloatingLabelFraction() -> getFloatingLabelFraction
-    1004:1004:int getFloatingLabelPadding() -> getFloatingLabelPadding
-    689:689:java.lang.CharSequence getFloatingLabelText() -> getFloatingLabelText
-    714:714:int getFloatingLabelTextColor() -> getFloatingLabelTextColor
-    705:705:int getFloatingLabelTextSize() -> getFloatingLabelTextSize
-    606:606:float getFocusFraction() -> getFocusFraction
-    1092:1092:java.lang.String getHelperText() -> getHelperText
-    1096:1096:int getHelperTextColor() -> getHelperTextColor
-    844:844:int getInnerPaddingBottom() -> getInnerPaddingBottom
-    851:851:int getInnerPaddingLeft() -> getInnerPaddingLeft
-    858:858:int getInnerPaddingRight() -> getInnerPaddingRight
-    837:837:int getInnerPaddingTop() -> getInnerPaddingTop
-    1248:1252:com.nineoldandroids.animation.ObjectAnimator getLabelAnimator() -> getLabelAnimator
-    1256:1259:com.nineoldandroids.animation.ObjectAnimator getLabelFocusAnimator() -> getLabelFocusAnimator
-    1032:1032:int getMaxCharacters() -> getMaxCharacters
-    1054:1054:int getMinBottomTextLines() -> getMinBottomTextLines
-    1043:1043:int getMinCharacters() -> getMinCharacters
-    676:676:int getUnderlineColor() -> getUnderlineColor
-    1231:1231:java.util.List getValidators() -> getValidators
-    51:51:boolean access$700(com.rengwuxian.materialedittext.MaterialEditText) -> h
-    863:907:void initFloatingLabel() -> h
-    749:751:void initMinBottomLines() -> i
-    736:743:void initPadding() -> j
-    450:462:void initText() -> k
-    465:485:void initTextWatcher() -> l
-    1121:1121:boolean isInternalValid() -> m
-    1407:1411:boolean isRTL() -> n
-    974:979:void resetHintTextColor() -> o
-    793:797:void onAttachedToWindow() -> onAttachedToWindow
-    1274:1403:void onDraw(android.graphics.Canvas) -> onDraw
-    801:805:void onLayout(boolean,int,int,int,int) -> onLayout
-    1462:1501:boolean onTouchEvent(android.view.MotionEvent) -> onTouchEvent
-    949:955:void resetTextColor() -> p
-    650:653:void setAccentTypeface(android.graphics.Typeface) -> setAccentTypeface
-    1069:1073:void setAutoValidate(boolean) -> setAutoValidate
-    918:925:void setBaseColor(int) -> setBaseColor
-    727:729:void setBottomTextSize(int) -> setBottomTextSize
-    619:621:void setCurrentBottomLines(float) -> setCurrentBottomLines
-    1106:1110:void setError(java.lang.CharSequence) -> setError
-    1080:1082:void setErrorColor(int) -> setErrorColor
-    999:1001:void setFloatingLabel(int) -> setFloatingLabel
-    628:630:void setFloatingLabelAlwaysShown(boolean) -> setFloatingLabelAlwaysShown
-    1017:1018:void setFloatingLabelAnimating(boolean) -> setFloatingLabelAnimating
-    601:603:void setFloatingLabelFraction(float) -> setFloatingLabelFraction
-    982:996:void setFloatingLabelInternal(int) -> setFloatingLabelInternal
-    1008:1010:void setFloatingLabelPadding(int) -> setFloatingLabelPadding
-    700:702:void setFloatingLabelText(java.lang.CharSequence) -> setFloatingLabelText
-    718:720:void setFloatingLabelTextColor(int) -> setFloatingLabelTextColor
-    709:711:void setFloatingLabelTextSize(int) -> setFloatingLabelTextSize
-    610:612:void setFocusFraction(float) -> setFocusFraction
-    1085:1089:void setHelperText(java.lang.CharSequence) -> setHelperText
-    637:639:void setHelperTextAlwaysShown(boolean) -> setHelperTextAlwaysShown
-    1100:1102:void setHelperTextColor(int) -> setHelperTextColor
-    667:670:void setHideUnderline(boolean) -> setHideUnderline
-    492:494:void setIconLeft(int) -> setIconLeft
-    497:499:void setIconLeft(android.graphics.drawable.Drawable) -> setIconLeft
-    502:504:void setIconLeft(android.graphics.Bitmap) -> setIconLeft
-    507:509:void setIconRight(int) -> setIconRight
-    512:514:void setIconRight(android.graphics.drawable.Drawable) -> setIconRight
-    517:519:void setIconRight(android.graphics.Bitmap) -> setIconRight
-    1235:1236:void setLengthChecker(com.rengwuxian.materialedittext.validation.METLengthChecker) -> setLengthChecker
-    1036:1040:void setMaxCharacters(int) -> setMaxCharacters
-    961:963:void setMetHintTextColor(int) -> setMetHintTextColor
-    969:971:void setMetHintTextColor(android.content.res.ColorStateList) -> setMetHintTextColor
-    936:938:void setMetTextColor(int) -> setMetTextColor
-    944:946:void setMetTextColor(android.content.res.ColorStateList) -> setMetTextColor
-    1058:1062:void setMinBottomTextLines(int) -> setMinBottomTextLines
-    1047:1051:void setMinCharacters(int) -> setMinCharacters
-    1240:1245:void setOnFocusChangeListener(android.view.View$OnFocusChangeListener) -> setOnFocusChangeListener
-    759:760:void setPadding(int,int,int,int) -> setPadding
-    928:930:void setPrimaryColor(int) -> setPrimaryColor
-    526:528:void setShowClearButton(boolean) -> setShowClearButton
-    1025:1029:void setSingleLineEllipsis(boolean) -> setSingleLineEllipsis
-    684:686:void setUnderlineColor(int) -> setUnderlineColor
-    914:915:void setValidateOnFocusLost(boolean) -> setValidateOnFocusLost
-com.rengwuxian.materialedittext.MaterialEditText$1 -> com.rengwuxian.materialedittext.MaterialEditText$a:
-    com.rengwuxian.materialedittext.MaterialEditText this$0 -> e
-    465:465:void <init>(com.rengwuxian.materialedittext.MaterialEditText) -> <init>
-    476:483:void afterTextChanged(android.text.Editable) -> afterTextChanged
-    468:468:void beforeTextChanged(java.lang.CharSequence,int,int,int) -> beforeTextChanged
-    472:472:void onTextChanged(java.lang.CharSequence,int,int,int) -> onTextChanged
-com.rengwuxian.materialedittext.MaterialEditText$2 -> com.rengwuxian.materialedittext.MaterialEditText$b:
-    com.rengwuxian.materialedittext.MaterialEditText this$0 -> e
-    863:863:void <init>(com.rengwuxian.materialedittext.MaterialEditText) -> <init>
-    874:885:void afterTextChanged(android.text.Editable) -> afterTextChanged
-    866:866:void beforeTextChanged(java.lang.CharSequence,int,int,int) -> beforeTextChanged
-    870:870:void onTextChanged(java.lang.CharSequence,int,int,int) -> onTextChanged
-com.rengwuxian.materialedittext.MaterialEditText$3 -> com.rengwuxian.materialedittext.MaterialEditText$c:
-    com.rengwuxian.materialedittext.MaterialEditText this$0 -> e
-    888:888:void <init>(com.rengwuxian.materialedittext.MaterialEditText) -> <init>
-    891:904:void onFocusChange(android.view.View,boolean) -> onFocusChange
-com.rengwuxian.materialedittext.MaterialMultiAutoCompleteTextView -> com.rengwuxian.materialedittext.MaterialMultiAutoCompleteTextView:
-    boolean firstShown -> d0
-    int floatingLabelPadding -> l
-    java.lang.String tempErrorText -> I
-    float floatingLabelFraction -> J
-    boolean hideUnderline -> P
-    int extraPaddingRight -> h
-    float bottomLines -> F
-    boolean validateOnFocusLost -> b0
-    android.text.StaticLayout textLayout -> p0
-    int minBottomLines -> C
-    boolean floatingLabelAnimating -> T
-    boolean singleLineEllipsis -> y
-    android.content.res.ColorStateList textColorStateList -> k0
-    com.nineoldandroids.animation.ObjectAnimator labelFocusAnimator -> r0
-    int primaryColor -> u
-    int innerPaddingTop -> q
-    boolean floatingLabelEnabled -> n
-    int bottomSpacing -> m
-    int iconPadding -> h0
-    int helperTextColor -> H
-    int iconOuterWidth -> f0
-    int floatingLabelTextSize -> i
-    boolean checkCharactersCountAtBeginning -> U
-    int minBottomTextLines -> D
-    com.nineoldandroids.animation.ArgbEvaluator focusEvaluator -> m0
-    int extraPaddingTop -> e
-    java.lang.CharSequence floatingLabelText -> O
-    android.text.TextPaint textPaint -> o0
-    boolean floatingLabelAlwaysShown -> z
-    int errorColor -> v
-    int innerPaddingBottom -> r
-    boolean clearButtonClicking -> j0
-    android.view.View$OnFocusChangeListener innerFocusChangeListener -> t0
-    int underlineColor -> Q
-    java.lang.String helperText -> G
-    float focusFraction -> L
-    boolean highlightFloatingLabel -> o
-    int floatingLabelTextColor -> j
-    boolean showClearButton -> c0
-    int extraPaddingBottom -> f
-    java.util.List validators -> v0
-    boolean autoValidate -> R
-    android.content.res.ColorStateList textColorHintStateList -> l0
-    android.graphics.Typeface typeface -> N
-    int minCharacters -> w
-    com.nineoldandroids.animation.ObjectAnimator bottomLinesAnimator -> s0
-    android.graphics.Bitmap[] iconLeftBitmaps -> V
-    boolean helperTextAlwaysShown -> A
-    int innerPaddingLeft -> s
-    com.nineoldandroids.animation.ObjectAnimator labelAnimator -> q0
-    android.graphics.Bitmap[] clearButtonBitmaps -> a0
-    int bottomTextSize -> k
-    int iconOuterHeight -> g0
-    boolean floatingLabelShown -> K
-    float currentBottomLines -> E
-    int iconSize -> e0
-    int extraPaddingLeft -> g
-    int bottomEllipsisSize -> B
-    boolean charactersCountValid -> S
-    android.graphics.Typeface accentTypeface -> M
-    int maxCharacters -> x
-    com.rengwuxian.materialedittext.validation.METLengthChecker lengthChecker -> w0
-    int innerPaddingRight -> t
-    android.graphics.Bitmap[] iconRightBitmaps -> W
-    android.graphics.Paint paint -> n0
-    boolean clearButtonTouched -> i0
-    int baseColor -> p
-    android.view.View$OnFocusChangeListener outerFocusChangeListener -> u0
-    316:318:void <init>(android.content.Context) -> <init>
-    321:323:void <init>(android.content.Context,android.util.AttributeSet) -> <init>
-    327:329:void <init>(android.content.Context,android.util.AttributeSet,int) -> <init>
-    48:48:void access$000(com.rengwuxian.materialedittext.MaterialMultiAutoCompleteTextView) -> a
-    48:48:boolean access$302(com.rengwuxian.materialedittext.MaterialMultiAutoCompleteTextView,boolean) -> a
-    332:444:void init(android.content.Context,android.util.AttributeSet) -> a
-    485:485:android.graphics.Typeface getCustomTypeface(java.lang.String) -> a
-    528:537:android.graphics.Bitmap[] generateIconBitmaps(int) -> a
-    541:547:android.graphics.Bitmap[] generateIconBitmaps(android.graphics.drawable.Drawable) -> a
-    551:568:android.graphics.Bitmap[] generateIconBitmaps(android.graphics.Bitmap) -> a
-    1260:1266:com.nineoldandroids.animation.ObjectAnimator getBottomLinesAnimator(float) -> a
-    1438:1438:boolean isCharactersCountValid() -> a
-    1502:1513:boolean insideClearButton(android.view.MotionEvent) -> a
-    1517:1518:int checkLength(java.lang.CharSequence) -> a
-    48:48:boolean access$100(com.rengwuxian.materialedittext.MaterialMultiAutoCompleteTextView) -> b
-    519:519:boolean isShowClearButton() -> b
-    572:589:android.graphics.Bitmap scaleIcon(android.graphics.Bitmap) -> b
-    729:729:int getPixel(int) -> b
-    48:48:boolean access$200(com.rengwuxian.materialedittext.MaterialMultiAutoCompleteTextView) -> c
-    1176:1177:boolean validate() -> c
-    48:48:boolean access$300(com.rengwuxian.materialedittext.MaterialMultiAutoCompleteTextView) -> d
-    809:827:boolean adjustBottomLines() -> d
-    48:48:com.nineoldandroids.animation.ObjectAnimator access$400(com.rengwuxian.materialedittext.MaterialMultiAutoCompleteTextView) -> e
-    1428:1435:void checkCharactersCount() -> e
-    48:48:boolean access$500(com.rengwuxian.materialedittext.MaterialMultiAutoCompleteTextView) -> f
-    774:782:void correctPaddings() -> f
-    48:48:com.nineoldandroids.animation.ObjectAnimator access$600(com.rengwuxian.materialedittext.MaterialMultiAutoCompleteTextView) -> g
-    1442:1442:boolean hasCharactersCounter() -> g
-    640:640:android.graphics.Typeface getAccentTypeface() -> getAccentTypeface
-    1424:1424:int getBottomEllipsisWidth() -> getBottomEllipsisWidth
-    1412:1412:int getBottomTextLeftOffset() -> getBottomTextLeftOffset
-    1416:1416:int getBottomTextRightOffset() -> getBottomTextRightOffset
-    720:720:int getBottomTextSize() -> getBottomTextSize
-    785:785:int getButtonsCount() -> getButtonsCount
-    1447:1454:java.lang.String getCharactersCounterText() -> getCharactersCounterText
-    1420:1420:int getCharactersCounterWidth() -> getCharactersCounterWidth
-    612:612:float getCurrentBottomLines() -> getCurrentBottomLines
-    1111:1111:java.lang.CharSequence getError() -> getError
-    1073:1073:int getErrorColor() -> getErrorColor
-    594:594:float getFloatingLabelFraction() -> getFloatingLabelFraction
-    1001:1001:int getFloatingLabelPadding() -> getFloatingLabelPadding
-    686:686:java.lang.CharSequence getFloatingLabelText() -> getFloatingLabelText
-    711:711:int getFloatingLabelTextColor() -> getFloatingLabelTextColor
-    702:702:int getFloatingLabelTextSize() -> getFloatingLabelTextSize
-    603:603:float getFocusFraction() -> getFocusFraction
-    1089:1089:java.lang.String getHelperText() -> getHelperText
-    1093:1093:int getHelperTextColor() -> getHelperTextColor
-    841:841:int getInnerPaddingBottom() -> getInnerPaddingBottom
-    848:848:int getInnerPaddingLeft() -> getInnerPaddingLeft
-    855:855:int getInnerPaddingRight() -> getInnerPaddingRight
-    834:834:int getInnerPaddingTop() -> getInnerPaddingTop
-    1245:1249:com.nineoldandroids.animation.ObjectAnimator getLabelAnimator() -> getLabelAnimator
-    1253:1256:com.nineoldandroids.animation.ObjectAnimator getLabelFocusAnimator() -> getLabelFocusAnimator
-    1029:1029:int getMaxCharacters() -> getMaxCharacters
-    1051:1051:int getMinBottomTextLines() -> getMinBottomTextLines
-    1040:1040:int getMinCharacters() -> getMinCharacters
-    673:673:int getUnderlineColor() -> getUnderlineColor
-    1228:1228:java.util.List getValidators() -> getValidators
-    48:48:boolean access$700(com.rengwuxian.materialedittext.MaterialMultiAutoCompleteTextView) -> h
-    860:904:void initFloatingLabel() -> h
-    746:748:void initMinBottomLines() -> i
-    733:740:void initPadding() -> j
-    447:459:void initText() -> k
-    462:482:void initTextWatcher() -> l
-    1118:1118:boolean isInternalValid() -> m
-    1404:1408:boolean isRTL() -> n
-    971:976:void resetHintTextColor() -> o
-    790:794:void onAttachedToWindow() -> onAttachedToWindow
-    1271:1400:void onDraw(android.graphics.Canvas) -> onDraw
-    798:802:void onLayout(boolean,int,int,int,int) -> onLayout
-    1459:1498:boolean onTouchEvent(android.view.MotionEvent) -> onTouchEvent
-    946:952:void resetTextColor() -> p
-    647:650:void setAccentTypeface(android.graphics.Typeface) -> setAccentTypeface
-    1066:1070:void setAutoValidate(boolean) -> setAutoValidate
-    915:922:void setBaseColor(int) -> setBaseColor
-    724:726:void setBottomTextSize(int) -> setBottomTextSize
-    616:618:void setCurrentBottomLines(float) -> setCurrentBottomLines
-    1103:1107:void setError(java.lang.CharSequence) -> setError
-    1077:1079:void setErrorColor(int) -> setErrorColor
-    996:998:void setFloatingLabel(int) -> setFloatingLabel
-    625:627:void setFloatingLabelAlwaysShown(boolean) -> setFloatingLabelAlwaysShown
-    1014:1015:void setFloatingLabelAnimating(boolean) -> setFloatingLabelAnimating
-    598:600:void setFloatingLabelFraction(float) -> setFloatingLabelFraction
-    979:993:void setFloatingLabelInternal(int) -> setFloatingLabelInternal
-    1005:1007:void setFloatingLabelPadding(int) -> setFloatingLabelPadding
-    697:699:void setFloatingLabelText(java.lang.CharSequence) -> setFloatingLabelText
-    715:717:void setFloatingLabelTextColor(int) -> setFloatingLabelTextColor
-    706:708:void setFloatingLabelTextSize(int) -> setFloatingLabelTextSize
-    607:609:void setFocusFraction(float) -> setFocusFraction
-    1082:1086:void setHelperText(java.lang.CharSequence) -> setHelperText
-    634:636:void setHelperTextAlwaysShown(boolean) -> setHelperTextAlwaysShown
-    1097:1099:void setHelperTextColor(int) -> setHelperTextColor
-    664:667:void setHideUnderline(boolean) -> setHideUnderline
-    489:491:void setIconLeft(int) -> setIconLeft
-    494:496:void setIconLeft(android.graphics.drawable.Drawable) -> setIconLeft
-    499:501:void setIconLeft(android.graphics.Bitmap) -> setIconLeft
-    504:506:void setIconRight(int) -> setIconRight
-    509:511:void setIconRight(android.graphics.drawable.Drawable) -> setIconRight
-    514:516:void setIconRight(android.graphics.Bitmap) -> setIconRight
-    1232:1233:void setLengthChecker(com.rengwuxian.materialedittext.validation.METLengthChecker) -> setLengthChecker
-    1033:1037:void setMaxCharacters(int) -> setMaxCharacters
-    958:960:void setMetHintTextColor(int) -> setMetHintTextColor
-    966:968:void setMetHintTextColor(android.content.res.ColorStateList) -> setMetHintTextColor
-    933:935:void setMetTextColor(int) -> setMetTextColor
-    941:943:void setMetTextColor(android.content.res.ColorStateList) -> setMetTextColor
-    1055:1059:void setMinBottomTextLines(int) -> setMinBottomTextLines
-    1044:1048:void setMinCharacters(int) -> setMinCharacters
-    1237:1242:void setOnFocusChangeListener(android.view.View$OnFocusChangeListener) -> setOnFocusChangeListener
-    756:757:void setPadding(int,int,int,int) -> setPadding
-    925:927:void setPrimaryColor(int) -> setPrimaryColor
-    523:525:void setShowClearButton(boolean) -> setShowClearButton
-    1022:1026:void setSingleLineEllipsis(boolean) -> setSingleLineEllipsis
-    681:683:void setUnderlineColor(int) -> setUnderlineColor
-    911:912:void setValidateOnFocusLost(boolean) -> setValidateOnFocusLost
-com.rengwuxian.materialedittext.MaterialMultiAutoCompleteTextView$1 -> com.rengwuxian.materialedittext.MaterialMultiAutoCompleteTextView$a:
-    com.rengwuxian.materialedittext.MaterialMultiAutoCompleteTextView this$0 -> e
-    462:462:void <init>(com.rengwuxian.materialedittext.MaterialMultiAutoCompleteTextView) -> <init>
-    473:480:void afterTextChanged(android.text.Editable) -> afterTextChanged
-    465:465:void beforeTextChanged(java.lang.CharSequence,int,int,int) -> beforeTextChanged
-    469:469:void onTextChanged(java.lang.CharSequence,int,int,int) -> onTextChanged
-com.rengwuxian.materialedittext.MaterialMultiAutoCompleteTextView$2 -> com.rengwuxian.materialedittext.MaterialMultiAutoCompleteTextView$b:
-    com.rengwuxian.materialedittext.MaterialMultiAutoCompleteTextView this$0 -> e
-    860:860:void <init>(com.rengwuxian.materialedittext.MaterialMultiAutoCompleteTextView) -> <init>
-    871:882:void afterTextChanged(android.text.Editable) -> afterTextChanged
-    863:863:void beforeTextChanged(java.lang.CharSequence,int,int,int) -> beforeTextChanged
-    867:867:void onTextChanged(java.lang.CharSequence,int,int,int) -> onTextChanged
-com.rengwuxian.materialedittext.MaterialMultiAutoCompleteTextView$3 -> com.rengwuxian.materialedittext.MaterialMultiAutoCompleteTextView$c:
-    com.rengwuxian.materialedittext.MaterialMultiAutoCompleteTextView this$0 -> e
-    885:885:void <init>(com.rengwuxian.materialedittext.MaterialMultiAutoCompleteTextView) -> <init>
-    888:901:void onFocusChange(android.view.View,boolean) -> onFocusChange
-com.rengwuxian.materialedittext.R$anim -> com.rengwuxian.materialedittext.R$anim:
-    13:13:void <init>() -> <init>
-com.rengwuxian.materialedittext.R$attr -> com.rengwuxian.materialedittext.R$attr:
-    27:27:void <init>() -> <init>
-com.rengwuxian.materialedittext.R$bool -> com.rengwuxian.materialedittext.R$bool:
-    256:256:void <init>() -> <init>
-com.rengwuxian.materialedittext.R$color -> com.rengwuxian.materialedittext.R$color:
-    262:262:void <init>() -> <init>
-com.rengwuxian.materialedittext.R$dimen -> com.rengwuxian.materialedittext.R$dimen:
-    324:324:void <init>() -> <init>
-com.rengwuxian.materialedittext.R$drawable -> com.rengwuxian.materialedittext.R$drawable:
-    396:396:void <init>() -> <init>
-com.rengwuxian.materialedittext.R$id -> com.rengwuxian.materialedittext.R$id:
-    449:449:void <init>() -> <init>
-com.rengwuxian.materialedittext.R$integer -> com.rengwuxian.materialedittext.R$integer:
-    544:544:void <init>() -> <init>
-com.rengwuxian.materialedittext.R$layout -> com.rengwuxian.materialedittext.R$layout:
-    552:552:void <init>() -> <init>
-com.rengwuxian.materialedittext.R$string -> com.rengwuxian.materialedittext.R$string:
-    590:590:void <init>() -> <init>
-com.rengwuxian.materialedittext.R$style -> com.rengwuxian.materialedittext.R$style:
-    610:610:void <init>() -> <init>
-com.rengwuxian.materialedittext.R$styleable -> com.rengwuxian.materialedittext.R$styleable:
-    892:1153:void <clinit>() -> <clinit>
-    890:890:void <init>() -> <init>
-com.rengwuxian.materialedittext.validation.METLengthChecker -> com.rengwuxian.materialedittext.c.a:
-    int getLength(java.lang.CharSequence) -> a
-com.rengwuxian.materialedittext.validation.METValidator -> com.rengwuxian.materialedittext.c.b:
-    java.lang.String errorMessage -> a
-    boolean isValid(java.lang.CharSequence,boolean) -> a
-    28:28:java.lang.String getErrorMessage() -> a
 com.rockerhieu.emojicon.EmojiconEditText -> com.rockerhieu.emojicon.EmojiconEditText:
     int mEmojiconTextSize -> f
     boolean mUseSystemDefault -> g
@@ -30775,395 +29919,6 @@ com.shehuan.niv.R$styleable -> com.shehuan.niv.R$styleable:
     1188:1188:void <init>() -> <init>
 com.shehuan.niv.Utils -> com.shehuan.niv.a:
     8:9:int dp2px(android.content.Context,float) -> a
-com.shuyu.textutillib.EmojiLayout -> com.shuyu.textutillib.EmojiLayout:
-    int richMarginBottom -> o
-    java.lang.String deleteIconName -> n
-    android.widget.LinearLayout edittextBarMore -> h
-    android.widget.LinearLayout edittextBarLlFaceContainer -> g
-    android.support.v4.view.ViewPager edittextBarVPager -> e
-    android.widget.LinearLayout edittextBarViewGroupFace -> f
-    java.util.List reslist -> j
-    android.widget.ImageView[] imageFaceViews -> k
-    android.graphics.drawable.Drawable focusIndicator -> l
-    android.graphics.drawable.Drawable unFocusIndicator -> m
-    int numRows -> r
-    com.shuyu.textutillib.RichEditText editTextEmoji -> i
-    int pageCount -> s
-    int richMarginTop -> p
-    int numColumns -> q
-    59:61:void <init>(android.content.Context) -> <init>
-    64:66:void <init>(android.content.Context,android.util.AttributeSet) -> <init>
-    69:71:void <init>(android.content.Context,android.util.AttributeSet,int) -> <init>
-    32:32:java.lang.String access$100(com.shuyu.textutillib.EmojiLayout) -> a
-    75:114:void init(android.content.Context,android.util.AttributeSet) -> a
-    122:157:void initViews() -> a
-    164:219:android.view.View getGridChildView(int) -> a
-    226:227:int dip2px(android.content.Context,float) -> a
-    32:32:com.shuyu.textutillib.RichEditText access$200(com.shuyu.textutillib.EmojiLayout) -> b
-    32:32:android.widget.ImageView[] access$300(com.shuyu.textutillib.EmojiLayout) -> c
-    32:32:android.graphics.drawable.Drawable access$400(com.shuyu.textutillib.EmojiLayout) -> d
-    32:32:android.graphics.drawable.Drawable access$500(com.shuyu.textutillib.EmojiLayout) -> e
-    266:266:com.shuyu.textutillib.RichEditText getEditTextEmoji() -> getEditTextEmoji
-    294:294:com.shuyu.textutillib.RichEditText getEditTextSmile() -> getEditTextSmile
-    258:258:android.widget.LinearLayout getEdittextBarLlFaceContainer() -> getEdittextBarLlFaceContainer
-    262:262:android.widget.LinearLayout getEdittextBarMore() -> getEdittextBarMore
-    254:254:android.widget.LinearLayout getEdittextBarViewGroupFace() -> getEdittextBarViewGroupFace
-    298:299:void setEditTextSmile(com.shuyu.textutillib.RichEditText) -> setEditTextSmile
-com.shuyu.textutillib.EmojiLayout$1 -> com.shuyu.textutillib.EmojiLayout$a:
-    com.shuyu.textutillib.adapter.SmileImageExpressionAdapter val$smileImageExpressionAdapter -> e
-    com.shuyu.textutillib.EmojiLayout this$0 -> f
-    181:181:void <init>(com.shuyu.textutillib.EmojiLayout,com.shuyu.textutillib.adapter.SmileImageExpressionAdapter) -> <init>
-    185:217:void onItemClick(android.widget.AdapterView,android.view.View,int,long) -> onItemClick
-com.shuyu.textutillib.EmojiLayout$GuidePageChangeListener -> com.shuyu.textutillib.EmojiLayout$b:
-    com.shuyu.textutillib.EmojiLayout this$0 -> a
-    230:230:void <init>(com.shuyu.textutillib.EmojiLayout) -> <init>
-    230:230:void <init>(com.shuyu.textutillib.EmojiLayout,com.shuyu.textutillib.EmojiLayout$1) -> <init>
-    234:234:void onPageScrollStateChanged(int) -> onPageScrollStateChanged
-    239:239:void onPageScrolled(int,float,int) -> onPageScrolled
-    243:249:void onPageSelected(int) -> onPageSelected
-com.shuyu.textutillib.KeyBoardLockLayout -> com.shuyu.textutillib.KeyBoardLockLayout:
-    java.lang.String TAG -> g
-    java.lang.String KEY_PREF_SOFT_KEYBOARD_HEIGHT -> i
-    android.content.SharedPreferences softKeyboardSharedPreferences -> f
-    java.lang.String NAME_PREF_SOFT_KEYBOARD -> h
-    android.content.Context context -> e
-    27:31:void <clinit>() -> <clinit>
-    46:48:void <init>(android.content.Context) -> <init>
-    51:53:void <init>(android.content.Context,android.util.AttributeSet) -> <init>
-    56:58:void <init>(android.content.Context,android.util.AttributeSet,int) -> <init>
-    61:64:void init(android.content.Context) -> a
-    114:115:int dip2px(android.content.Context,float) -> a
-    125:145:int getCurrentSoftInputHeight() -> getCurrentSoftInputHeight
-    94:106:int getNavigationBarHeight() -> getNavigationBarHeight
-    151:166:int getSupportSoftKeyboardHeight() -> getSupportSoftKeyboardHeight
-    176:177:void setBottomView(android.view.View) -> setBottomView
-    180:181:void setKeyBoardStateListener(com.shuyu.textutillib.KeyBoardLockLayout$KeyBoardStateListener) -> setKeyBoardStateListener
-com.shuyu.textutillib.KeyBoardLockLayout$KeyBoardStateListener -> com.shuyu.textutillib.KeyBoardLockLayout$a:
-com.shuyu.textutillib.LockGridView -> com.shuyu.textutillib.LockGridView:
-    23:24:void <init>(android.content.Context) -> <init>
-    27:28:void <init>(android.content.Context,android.util.AttributeSet) -> <init>
-    33:35:void onMeasure(int,int) -> onMeasure
-com.shuyu.textutillib.MentionEditText -> com.shuyu.textutillib.MentionEditText:
-    java.util.regex.Pattern mTopicPattern -> f
-    com.shuyu.textutillib.MentionEditText$Range mLastSelectedRange -> g
-    boolean mIsSelected -> i
-    java.util.regex.Pattern mPattern -> e
-    java.util.List mRangeArrayList -> h
-    70:72:void <init>(android.content.Context) -> <init>
-    75:77:void <init>(android.content.Context,android.util.AttributeSet) -> <init>
-    80:82:void <init>(android.content.Context,android.util.AttributeSet,int) -> <init>
-    53:53:boolean access$000(com.shuyu.textutillib.MentionEditText) -> a
-    53:53:boolean access$002(com.shuyu.textutillib.MentionEditText,boolean) -> a
-    53:53:com.shuyu.textutillib.MentionEditText$Range access$102(com.shuyu.textutillib.MentionEditText,com.shuyu.textutillib.MentionEditText$Range) -> a
-    139:146:void colorMentionString() -> a
-    199:207:com.shuyu.textutillib.MentionEditText$Range getRangeOfClosestMentionString(int,int) -> a
-    129:135:void init() -> b
-    211:219:com.shuyu.textutillib.MentionEditText$Range getRangeOfNearbyMentionString(int,int) -> b
-    86:86:android.view.inputmethod.InputConnection onCreateInputConnection(android.view.inputmethod.EditorInfo) -> onCreateInputConnection
-    97:126:void onSelectionChanged(int,int) -> onSelectionChanged
-    92:93:void onTextChanged(java.lang.CharSequence,int,int,int) -> onTextChanged
-com.shuyu.textutillib.MentionEditText$HackInputConnection -> com.shuyu.textutillib.MentionEditText$a:
-    com.shuyu.textutillib.MentionEditText this$0 -> b
-    android.widget.EditText editText -> a
-    226:229:void <init>(com.shuyu.textutillib.MentionEditText,android.view.inputmethod.InputConnection,boolean,com.shuyu.textutillib.MentionEditText) -> <init>
-    258:269:boolean deleteSurroundingText(int,int) -> deleteSurroundingText
-    233:253:boolean sendKeyEvent(android.view.KeyEvent) -> sendKeyEvent
-com.shuyu.textutillib.MentionEditText$Range -> com.shuyu.textutillib.MentionEditText$b:
-    int to -> b
-    int from -> a
-    278:281:void <init>(com.shuyu.textutillib.MentionEditText,int,int) -> <init>
-    288:288:boolean contains(int,int) -> a
-    296:299:int getAnchorPosition(int) -> a
-    292:292:boolean isEqual(int,int) -> b
-    284:284:boolean isWrappedBy(int,int) -> c
-com.shuyu.textutillib.R$anim -> com.shuyu.textutillib.R$anim:
-    13:13:void <init>() -> <init>
-com.shuyu.textutillib.R$attr -> com.shuyu.textutillib.R$attr:
-    27:27:void <init>() -> <init>
-com.shuyu.textutillib.R$bool -> com.shuyu.textutillib.R$bool:
-    253:253:void <init>() -> <init>
-com.shuyu.textutillib.R$color -> com.shuyu.textutillib.R$color:
-    259:259:void <init>() -> <init>
-com.shuyu.textutillib.R$dimen -> com.shuyu.textutillib.R$dimen:
-    321:321:void <init>() -> <init>
-com.shuyu.textutillib.R$drawable -> com.shuyu.textutillib.R$drawable:
-    385:385:void <init>() -> <init>
-com.shuyu.textutillib.R$id -> com.shuyu.textutillib.R$id:
-    439:439:void <init>() -> <init>
-com.shuyu.textutillib.R$integer -> com.shuyu.textutillib.R$integer:
-    539:539:void <init>() -> <init>
-com.shuyu.textutillib.R$layout -> com.shuyu.textutillib.R$layout:
-    547:547:void <init>() -> <init>
-com.shuyu.textutillib.R$string -> com.shuyu.textutillib.R$string:
-    588:588:void <init>() -> <init>
-com.shuyu.textutillib.R$style -> com.shuyu.textutillib.R$style:
-    609:609:void <init>() -> <init>
-com.shuyu.textutillib.R$styleable -> com.shuyu.textutillib.R$styleable:
-    891:1150:void <clinit>() -> <clinit>
-    889:889:void <init>() -> <init>
-com.shuyu.textutillib.RichEditText -> com.shuyu.textutillib.RichEditText:
-    boolean deleteByEnter -> p
-    int richMaxLength -> j
-    int richIconSize -> k
-    com.shuyu.textutillib.listener.OnEditTextUtilJumpListener editTextAtUtilJumpListener -> o
-    boolean isRequestTouchInList -> l
-    java.util.List topicList -> n
-    java.util.List nameList -> m
-    82:84:void <init>(android.content.Context) -> <init>
-    87:89:void <init>(android.content.Context,android.util.AttributeSet) -> <init>
-    92:94:void <init>(android.content.Context,android.util.AttributeSet,int) -> <init>
-    38:38:boolean access$000(com.shuyu.textutillib.RichEditText) -> a
-    38:38:boolean access$002(com.shuyu.textutillib.RichEditText,boolean) -> a
-    38:38:void access$100(com.shuyu.textutillib.RichEditText,java.lang.String,int,int) -> a
-    99:124:void init(android.content.Context,android.util.AttributeSet) -> a
-    143:144:int dip2px(android.content.Context,float) -> a
-    192:244:void resolveDeleteList(java.lang.String,int,int) -> a
-    286:353:void resolveAtPersonEditText() -> a
-    677:701:void insertIcon(java.lang.String) -> a
-    38:38:void access$200(com.shuyu.textutillib.RichEditText) -> b
-    152:166:void resolveDeleteName() -> b
-    38:38:void access$300(com.shuyu.textutillib.RichEditText) -> c
-    172:189:void resolveDeleteTopic() -> c
-    38:38:com.shuyu.textutillib.listener.OnEditTextUtilJumpListener access$400(com.shuyu.textutillib.RichEditText) -> d
-    250:280:void resolveEditTextClick() -> d
-    38:38:void access$500(com.shuyu.textutillib.RichEditText) -> e
-    747:747:int getEditTextMaxLength() -> getEditTextMaxLength
-    792:796:java.lang.String getRealText() -> getRealText
-    774:782:java.util.List getRealTopicList() -> getRealTopicList
-    756:765:java.util.List getRealUserList() -> getRealUserList
-    478:478:int getRichIconSize() -> getRichIconSize
-    465:465:int getRichMaxLength() -> getRichMaxLength
-    38:38:android.view.inputmethod.InputConnection onCreateInputConnection(android.view.inputmethod.EditorInfo) -> onCreateInputConnection
-    129:135:boolean onTouchEvent(android.view.MotionEvent) -> onTouchEvent
-    526:527:void setColorAtUser(java.lang.String) -> setColorAtUser
-    517:518:void setColorTopic(java.lang.String) -> setColorTopic
-    574:575:void setEditTextAtUtilJumpListener(com.shuyu.textutillib.listener.OnEditTextUtilJumpListener) -> setEditTextAtUtilJumpListener
-    743:744:void setEditTextMaxLength(int) -> setEditTextMaxLength
-    730:731:void setIsRequestTouchIn(boolean) -> setIsRequestTouchIn
-    495:496:void setRichEditColorAtUser(java.lang.String) -> setRichEditColorAtUser
-    499:500:void setRichEditColorTopic(java.lang.String) -> setRichEditColorTopic
-    489:492:void setRichEditNameList(java.util.List) -> setRichEditNameList
-    483:486:void setRichEditTopicList(java.util.List) -> setRichEditTopicList
-    508:509:void setRichIconSize(int) -> setRichIconSize
-    474:475:void setRichMaxLength(int) -> setRichMaxLength
-com.shuyu.textutillib.RichEditText$1 -> com.shuyu.textutillib.RichEditText$a:
-    int delIndex -> f
-    int beforeCount -> g
-    int length -> e
-    com.shuyu.textutillib.RichEditText this$0 -> h
-    286:289:void <init>(com.shuyu.textutillib.RichEditText) -> <init>
-    343:343:void afterTextChanged(android.text.Editable) -> afterTextChanged
-    294:309:void beforeTextChanged(java.lang.CharSequence,int,int,int) -> beforeTextChanged
-    313:338:void onTextChanged(java.lang.CharSequence,int,int,int) -> onTextChanged
-com.shuyu.textutillib.RichEditText$2 -> com.shuyu.textutillib.RichEditText$b:
-    com.shuyu.textutillib.RichEditText this$0 -> e
-    346:346:void <init>(com.shuyu.textutillib.RichEditText) -> <init>
-    349:350:void onClick(android.view.View) -> onClick
-com.shuyu.textutillib.RichTextBuilder -> com.shuyu.textutillib.a:
-    android.content.Context context -> a
-    int verticalAlignment -> n
-    int linkColor -> l
-    boolean needNum -> o
-    int emojiSize -> m
-    boolean needUrl -> p
-    com.shuyu.textutillib.listener.SpanAtUserCallBack spanAtUserCallBack -> f
-    int atColor -> j
-    int topicColor -> k
-    com.shuyu.textutillib.listener.SpanUrlCallBack spanUrlCallBack -> g
-    java.util.List listTopic -> d
-    android.widget.TextView textView -> e
-    com.shuyu.textutillib.listener.SpanTopicCallBack spanTopicCallBack -> h
-    java.util.List listUser -> c
-    com.shuyu.textutillib.listener.SpanCreateListener spanCreateListener -> i
-    java.lang.String content -> b
-    46:48:void <init>(android.content.Context) -> <init>
-    28:28:android.widget.TextView access$000(com.shuyu.textutillib.RichTextBuilder) -> a
-    54:55:com.shuyu.textutillib.RichTextBuilder setContent(java.lang.String) -> a
-    70:71:com.shuyu.textutillib.RichTextBuilder setListTopic(java.util.List) -> a
-    78:79:com.shuyu.textutillib.RichTextBuilder setTextView(android.widget.TextView) -> a
-    86:87:com.shuyu.textutillib.RichTextBuilder setAtColor(int) -> a
-    110:111:com.shuyu.textutillib.RichTextBuilder setNeedNum(boolean) -> a
-    123:124:com.shuyu.textutillib.RichTextBuilder setSpanAtUserCallBack(com.shuyu.textutillib.listener.SpanAtUserCallBack) -> a
-    131:132:com.shuyu.textutillib.RichTextBuilder setSpanUrlCallBack(com.shuyu.textutillib.listener.SpanUrlCallBack) -> a
-    139:140:com.shuyu.textutillib.RichTextBuilder setSpanTopicCallBack(com.shuyu.textutillib.listener.SpanTopicCallBack) -> a
-    163:164:com.shuyu.textutillib.RichTextBuilder setSpanCreateListener(com.shuyu.textutillib.listener.SpanCreateListener) -> a
-    191:192:void build() -> a
-    28:28:com.shuyu.textutillib.listener.SpanCreateListener access$100(com.shuyu.textutillib.RichTextBuilder) -> b
-    62:63:com.shuyu.textutillib.RichTextBuilder setListUser(java.util.List) -> b
-    115:116:com.shuyu.textutillib.RichTextBuilder setNeedUrl(boolean) -> b
-    147:148:com.shuyu.textutillib.RichTextBuilder setEmojiSize(int) -> b
-    28:28:int access$200(com.shuyu.textutillib.RichTextBuilder) -> c
-    102:103:com.shuyu.textutillib.RichTextBuilder setLinkColor(int) -> c
-    28:28:int access$300(com.shuyu.textutillib.RichTextBuilder) -> d
-    94:95:com.shuyu.textutillib.RichTextBuilder setTopicColor(int) -> d
-    155:156:com.shuyu.textutillib.RichTextBuilder setVerticalAlignment(int) -> e
-com.shuyu.textutillib.RichTextBuilder$1 -> com.shuyu.textutillib.a$a:
-    com.shuyu.textutillib.RichTextBuilder this$0 -> a
-    199:199:void <init>(com.shuyu.textutillib.RichTextBuilder) -> <init>
-    202:203:void setText(java.lang.CharSequence) -> a
-    207:207:java.lang.CharSequence getText() -> a
-    212:213:void setMovementMethod(android.text.method.MovementMethod) -> a
-    217:218:void setAutoLinkMask(int) -> a
-    223:226:com.shuyu.textutillib.span.ClickAtUserSpan getCustomClickAtUserSpan(android.content.Context,com.shuyu.textutillib.model.UserModel,int,com.shuyu.textutillib.listener.SpanAtUserCallBack) -> a
-    231:234:com.shuyu.textutillib.span.ClickTopicSpan getCustomClickTopicSpan(android.content.Context,com.shuyu.textutillib.model.TopicModel,int,com.shuyu.textutillib.listener.SpanTopicCallBack) -> a
-    239:242:com.shuyu.textutillib.span.LinkSpan getCustomLinkSpan(android.content.Context,java.lang.String,int,com.shuyu.textutillib.listener.SpanUrlCallBack) -> a
-    247:247:int emojiSize() -> b
-    252:252:int verticalAlignment() -> c
-com.shuyu.textutillib.RichTextView -> com.shuyu.textutillib.RichTextView:
-    com.shuyu.textutillib.listener.SpanCreateListener spanCreateListener -> n
-    boolean needNumberShow -> o
-    boolean needUrlShow -> p
-    int emojiSize -> j
-    int topicColor -> h
-    int linkColor -> i
-    int atColor -> g
-    com.shuyu.textutillib.listener.SpanAtUserCallBack spanAtUserCallBackListener -> l
-    com.shuyu.textutillib.listener.SpanUrlCallBack spanUrlCallBack -> r
-    com.shuyu.textutillib.listener.SpanTopicCallBack spanTopicCallBackListener -> m
-    com.shuyu.textutillib.listener.SpanAtUserCallBack spanAtUserCallBack -> s
-    java.util.List nameList -> f
-    java.util.List topicList -> e
-    com.shuyu.textutillib.listener.SpanTopicCallBack spanTopicCallBack -> t
-    com.shuyu.textutillib.listener.SpanUrlCallBack spanUrlCallBackListener -> k
-    int emojiVerticalAlignment -> q
-    60:62:void <init>(android.content.Context) -> <init>
-    65:67:void <init>(android.content.Context,android.util.AttributeSet) -> <init>
-    70:72:void <init>(android.content.Context,android.util.AttributeSet,int) -> <init>
-    31:31:com.shuyu.textutillib.listener.SpanUrlCallBack access$000(com.shuyu.textutillib.RichTextView) -> a
-    75:89:void init(android.content.Context,android.util.AttributeSet) -> a
-    166:184:void resolveRichShow(java.lang.String) -> a
-    214:221:void setRichText(java.lang.String,java.util.List,java.util.List) -> a
-    31:31:com.shuyu.textutillib.listener.SpanAtUserCallBack access$100(com.shuyu.textutillib.RichTextView) -> b
-    31:31:com.shuyu.textutillib.listener.SpanTopicCallBack access$200(com.shuyu.textutillib.RichTextView) -> c
-    309:309:int getAtColor() -> getAtColor
-    355:355:int getEmojiVerticalAlignment() -> getEmojiVerticalAlignment
-    331:331:int getLinkColor() -> getLinkColor
-    248:248:java.util.List getNameList() -> getNameList
-    320:320:int getTopicColor() -> getTopicColor
-    237:237:java.util.List getTopicList() -> getTopicList
-    93:124:void onMeasure(int,int) -> onMeasure
-    316:317:void setAtColor(int) -> setAtColor
-    343:344:void setEmojiSize(int) -> setEmojiSize
-    351:352:void setEmojiVerticalAlignment(int) -> setEmojiVerticalAlignment
-    338:339:void setLinkColor(int) -> setLinkColor
-    255:256:void setNameList(java.util.List) -> setNameList
-    264:265:void setNeedNumberShow(boolean) -> setNeedNumberShow
-    277:278:void setNeedUrlShow(boolean) -> setNeedUrlShow
-    229:230:void setRichText(java.lang.String) -> setRichText
-    291:292:void setSpanAtUserCallBackListener(com.shuyu.textutillib.listener.SpanAtUserCallBack) -> setSpanAtUserCallBackListener
-    298:299:void setSpanCreateListener(com.shuyu.textutillib.listener.SpanCreateListener) -> setSpanCreateListener
-    305:306:void setSpanTopicCallBackListener(com.shuyu.textutillib.listener.SpanTopicCallBack) -> setSpanTopicCallBackListener
-    284:285:void setSpanUrlCallBackListener(com.shuyu.textutillib.listener.SpanUrlCallBack) -> setSpanUrlCallBackListener
-    327:328:void setTopicColor(int) -> setTopicColor
-    244:245:void setTopicList(java.util.List) -> setTopicList
-com.shuyu.textutillib.RichTextView$1 -> com.shuyu.textutillib.RichTextView$a:
-    com.shuyu.textutillib.RichTextView this$0 -> a
-    126:126:void <init>(com.shuyu.textutillib.RichTextView) -> <init>
-    129:132:void phone(android.view.View,java.lang.String) -> a
-    136:139:void url(android.view.View,java.lang.String) -> b
-com.shuyu.textutillib.RichTextView$2 -> com.shuyu.textutillib.RichTextView$b:
-    com.shuyu.textutillib.RichTextView this$0 -> a
-    142:142:void <init>(com.shuyu.textutillib.RichTextView) -> <init>
-    145:148:void onClick(android.view.View,com.shuyu.textutillib.model.UserModel) -> a
-com.shuyu.textutillib.RichTextView$3 -> com.shuyu.textutillib.RichTextView$c:
-    com.shuyu.textutillib.RichTextView this$0 -> a
-    151:151:void <init>(com.shuyu.textutillib.RichTextView) -> <init>
-    154:157:void onClick(android.view.View,com.shuyu.textutillib.model.TopicModel) -> a
-com.shuyu.textutillib.SmileUtils -> com.shuyu.textutillib.b:
-    android.text.Spannable$Factory spannableFactory -> a
-    java.util.Map emoticons -> b
-    java.util.List textList -> c
-    33:269:void <clinit>() -> <clinit>
-    167:200:boolean addSmiles(android.content.Context,int,int,android.text.Spannable) -> a
-    213:215:android.text.Spannable getSmiledText(android.content.Context,java.lang.CharSequence,int,int) -> a
-    219:228:boolean containsKey(java.lang.String) -> a
-    313:314:android.text.Spannable unicodeToEmojiName(android.content.Context,java.lang.String,int,int) -> a
-    328:328:java.util.List getTextList() -> a
-    88:94:int getRedId(java.lang.String) -> b
-com.shuyu.textutillib.TextCommonUtils -> com.shuyu.textutillib.c:
-    63:63:android.text.Spannable getEmojiText(android.content.Context,java.lang.String,int) -> a
-    78:81:android.text.Spannable getEmojiText(android.content.Context,java.lang.String,int,int) -> a
-    151:208:android.text.Spannable getAtText(android.content.Context,java.util.List,java.util.List,java.lang.String,com.shuyu.textutillib.listener.ITextViewShow,boolean,int,int,com.shuyu.textutillib.listener.SpanAtUserCallBack,com.shuyu.textutillib.listener.SpanTopicCallBack) -> a
-    226:227:android.text.Spannable getTopicText(android.content.Context,java.util.List,java.lang.String,com.shuyu.textutillib.listener.ITextViewShow,boolean,int,com.shuyu.textutillib.listener.SpanTopicCallBack) -> a
-    311:324:android.text.Spannable getAllSpanText(android.content.Context,java.lang.String,java.util.List,java.util.List,com.shuyu.textutillib.listener.ITextViewShow,int,int,int,boolean,boolean,com.shuyu.textutillib.listener.SpanAtUserCallBack,com.shuyu.textutillib.listener.SpanUrlCallBack,com.shuyu.textutillib.listener.SpanTopicCallBack) -> a
-    342:398:android.text.Spannable resolveUrlLogic(android.content.Context,com.shuyu.textutillib.listener.ITextViewShow,android.text.Spannable,int,boolean,boolean,com.shuyu.textutillib.listener.SpanUrlCallBack) -> a
-    439:440:boolean isMobileSimple(java.lang.String) -> a
-    426:431:boolean isNumeric(java.lang.String) -> b
-    411:415:boolean isTopURL(java.lang.String) -> c
-com.shuyu.textutillib.adapter.ExpressionPagerAdapter -> com.shuyu.textutillib.d.a:
-    java.util.List views -> a
-    26:28:void <init>(java.util.List) -> <init>
-    48:50:void destroyItem(android.view.View,int,java.lang.Object) -> destroyItem
-    32:32:int getCount() -> getCount
-    42:43:java.lang.Object instantiateItem(android.view.View,int) -> instantiateItem
-    37:37:boolean isViewFromObject(android.view.View,java.lang.Object) -> isViewFromObject
-com.shuyu.textutillib.adapter.SmileImageExpressionAdapter -> com.shuyu.textutillib.d.b:
-    31:32:void <init>(android.content.Context,int,java.util.List) -> <init>
-    37:51:android.view.View getView(int,android.view.View,android.view.ViewGroup) -> getView
-com.shuyu.textutillib.listener.ITextViewShow -> com.shuyu.textutillib.e.a:
-    com.shuyu.textutillib.span.ClickAtUserSpan getCustomClickAtUserSpan(android.content.Context,com.shuyu.textutillib.model.UserModel,int,com.shuyu.textutillib.listener.SpanAtUserCallBack) -> a
-    com.shuyu.textutillib.span.ClickTopicSpan getCustomClickTopicSpan(android.content.Context,com.shuyu.textutillib.model.TopicModel,int,com.shuyu.textutillib.listener.SpanTopicCallBack) -> a
-    com.shuyu.textutillib.span.LinkSpan getCustomLinkSpan(android.content.Context,java.lang.String,int,com.shuyu.textutillib.listener.SpanUrlCallBack) -> a
-    java.lang.CharSequence getText() -> a
-    void setAutoLinkMask(int) -> a
-    void setMovementMethod(android.text.method.MovementMethod) -> a
-    void setText(java.lang.CharSequence) -> a
-    int emojiSize() -> b
-    int verticalAlignment() -> c
-com.shuyu.textutillib.listener.OnEditTextUtilJumpListener -> com.shuyu.textutillib.e.b:
-    void notifyTopic() -> a
-    void notifyAt() -> b
-com.shuyu.textutillib.listener.SpanAtUserCallBack -> com.shuyu.textutillib.e.c:
-    void onClick(android.view.View,com.shuyu.textutillib.model.UserModel) -> a
-com.shuyu.textutillib.listener.SpanCreateListener -> com.shuyu.textutillib.e.d:
-    com.shuyu.textutillib.span.ClickAtUserSpan getCustomClickAtUserSpan(android.content.Context,com.shuyu.textutillib.model.UserModel,int,com.shuyu.textutillib.listener.SpanAtUserCallBack) -> a
-    com.shuyu.textutillib.span.ClickTopicSpan getCustomClickTopicSpan(android.content.Context,com.shuyu.textutillib.model.TopicModel,int,com.shuyu.textutillib.listener.SpanTopicCallBack) -> a
-    com.shuyu.textutillib.span.LinkSpan getCustomLinkSpan(android.content.Context,java.lang.String,int,com.shuyu.textutillib.listener.SpanUrlCallBack) -> a
-com.shuyu.textutillib.listener.SpanTopicCallBack -> com.shuyu.textutillib.e.e:
-    void onClick(android.view.View,com.shuyu.textutillib.model.TopicModel) -> a
-com.shuyu.textutillib.listener.SpanUrlCallBack -> com.shuyu.textutillib.e.f:
-    void phone(android.view.View,java.lang.String) -> a
-    void url(android.view.View,java.lang.String) -> b
-com.shuyu.textutillib.model.TopicModel -> com.shuyu.textutillib.f.a:
-    java.lang.String topicId -> f
-    java.lang.String topicName -> e
-    17:19:void <init>() -> <init>
-    21:24:void <init>(java.lang.String,java.lang.String) -> <init>
-    35:35:java.lang.String getTopicId() -> d
-    27:27:java.lang.String getTopicName() -> e
-    44:44:java.lang.String toString() -> toString
-com.shuyu.textutillib.model.UserModel -> com.shuyu.textutillib.f.b:
-    java.lang.String user_id -> f
-    java.lang.String user_name -> e
-    12:14:void <init>() -> <init>
-    16:19:void <init>(java.lang.String,java.lang.String) -> <init>
-    37:37:java.lang.String getUser_id() -> d
-    29:29:java.lang.String getUser_name() -> e
-    46:46:java.lang.String toString() -> toString
-com.shuyu.textutillib.span.CenteredImageSpan -> com.shuyu.textutillib.g.a:
-    35:36:void <init>(android.graphics.drawable.Drawable,int) -> <init>
-    59:60:void <init>(android.content.Context,int,int) -> <init>
-    93:95:void draw(android.graphics.Canvas,java.lang.CharSequence,int,int,float,int,int,int,android.graphics.Paint) -> draw
-    66:67:int getSize(android.graphics.Paint,java.lang.CharSequence,int,int,android.graphics.Paint$FontMetricsInt) -> getSize
-com.shuyu.textutillib.span.ClickAtUserSpan -> com.shuyu.textutillib.g.b:
-    com.shuyu.textutillib.listener.SpanAtUserCallBack spanClickCallBack -> f
-    com.shuyu.textutillib.model.UserModel userModel -> e
-    int color -> g
-    22:27:void <init>(android.content.Context,com.shuyu.textutillib.model.UserModel,int,com.shuyu.textutillib.listener.SpanAtUserCallBack) -> <init>
-    31:34:void onClick(android.view.View) -> onClick
-    39:42:void updateDrawState(android.text.TextPaint) -> updateDrawState
-com.shuyu.textutillib.span.ClickTopicSpan -> com.shuyu.textutillib.g.c:
-    com.shuyu.textutillib.model.TopicModel topicModel -> h
-    com.shuyu.textutillib.listener.SpanTopicCallBack spanTopicCallBack -> i
-    21:24:void <init>(android.content.Context,com.shuyu.textutillib.model.TopicModel,int,com.shuyu.textutillib.listener.SpanTopicCallBack) -> <init>
-    28:32:void onClick(android.view.View) -> onClick
-com.shuyu.textutillib.span.LinkSpan -> com.shuyu.textutillib.g.d:
-    com.shuyu.textutillib.listener.SpanUrlCallBack spanUrlCallBack -> f
-    int color -> g
-    java.lang.String url -> e
-    23:28:void <init>(android.content.Context,java.lang.String,int,com.shuyu.textutillib.listener.SpanUrlCallBack) -> <init>
-    32:39:void onClick(android.view.View) -> onClick
-    44:47:void updateDrawState(android.text.TextPaint) -> updateDrawState
 com.spx.gifdecoder.ByteBufferGifDecoder -> b.c.a.a:
     android.content.Context context -> a
     java.util.List parsers -> b
@@ -41113,15 +39868,15 @@ com.zpj.matisse.ui.fragment.AlbumFragment -> com.zpj.matisse.k.a.f:
     com.zpj.matisse.model.AlbumManager mAlbumManager -> l
     java.util.List albumList -> m
     51:55:void <init>() -> <init>
-    66:114:void initView(android.view.View,android.os.Bundle) -> a
-    83:98:void lambda$initView$0(android.graphics.drawable.Drawable,com.zpj.recyclerview.EasyViewHolder,java.util.List,int,java.util.List) -> a
-    100:104:void lambda$initView$1(com.zpj.recyclerview.EasyViewHolder,android.view.View,com.zpj.matisse.entity.Album) -> a
-    135:138:void onAlbumLoad(android.database.Cursor) -> a
-    149:156:void onAlbumSelected(com.zpj.matisse.entity.Album) -> a
-    118:118:com.zpj.fragmentation.anim.FragmentAnimator onCreateFragmentAnimator() -> b
-    144:146:void onAlbumReset() -> l
-    129:131:void onDestroy() -> onDestroy
-    123:125:void onSaveInstanceState(android.os.Bundle) -> onSaveInstanceState
+    66:115:void initView(android.view.View,android.os.Bundle) -> a
+    84:99:void lambda$initView$0(android.graphics.drawable.Drawable,com.zpj.recyclerview.EasyViewHolder,java.util.List,int,java.util.List) -> a
+    101:105:void lambda$initView$1(com.zpj.recyclerview.EasyViewHolder,android.view.View,com.zpj.matisse.entity.Album) -> a
+    136:139:void onAlbumLoad(android.database.Cursor) -> a
+    150:157:void onAlbumSelected(com.zpj.matisse.entity.Album) -> a
+    119:119:com.zpj.fragmentation.anim.FragmentAnimator onCreateFragmentAnimator() -> b
+    145:147:void onAlbumReset() -> l
+    130:132:void onDestroy() -> onDestroy
+    124:126:void onSaveInstanceState(android.os.Bundle) -> onSaveInstanceState
     61:61:int getLayoutId() -> v
 com.zpj.matisse.ui.fragment.MatisseFragment -> com.zpj.matisse.k.a.g:
     android.widget.TextView mButtonPreview -> o
@@ -43852,36 +42607,36 @@ com.zpj.shouji.market.R$array -> com.zpj.shouji.market.R$array:
 com.zpj.shouji.market.R$attr -> com.zpj.shouji.market.R$attr:
     89:89:void <init>() -> <init>
 com.zpj.shouji.market.R$bool -> com.zpj.shouji.market.R$bool:
-    7363:7363:void <init>() -> <init>
+    6441:6441:void <init>() -> <init>
 com.zpj.shouji.market.R$color -> com.zpj.shouji.market.R$color:
-    7369:7369:void <init>() -> <init>
+    6447:6447:void <init>() -> <init>
 com.zpj.shouji.market.R$dimen -> com.zpj.shouji.market.R$dimen:
-    7747:7747:void <init>() -> <init>
+    6825:6825:void <init>() -> <init>
 com.zpj.shouji.market.R$drawable -> com.zpj.shouji.market.R$drawable:
-    8021:8021:void <init>() -> <init>
+    7091:7091:void <init>() -> <init>
 com.zpj.shouji.market.R$font -> com.zpj.shouji.market.R$font:
-    9415:9415:void <init>() -> <init>
+    8482:8482:void <init>() -> <init>
 com.zpj.shouji.market.R$id -> com.zpj.shouji.market.R$id:
-    9418:9418:void <init>() -> <init>
+    8485:8485:void <init>() -> <init>
 com.zpj.shouji.market.R$integer -> com.zpj.shouji.market.R$integer:
-    10243:10243:void <init>() -> <init>
+    9303:9303:void <init>() -> <init>
 com.zpj.shouji.market.R$interpolator -> com.zpj.shouji.market.R$interpolator:
-    10261:10261:void <init>() -> <init>
+    9321:9321:void <init>() -> <init>
 com.zpj.shouji.market.R$layout -> com.zpj.shouji.market.R$layout:
-    10267:10267:void <init>() -> <init>
+    9327:9327:void <init>() -> <init>
 com.zpj.shouji.market.R$menu -> com.zpj.shouji.market.R$menu:
-    10562:10562:void <init>() -> <init>
+    9619:9619:void <init>() -> <init>
 com.zpj.shouji.market.R$mipmap -> com.zpj.shouji.market.R$mipmap:
-    10569:10569:void <init>() -> <init>
+    9626:9626:void <init>() -> <init>
 com.zpj.shouji.market.R$string -> com.zpj.shouji.market.R$string:
-    10605:10605:void <init>() -> <init>
+    9662:9662:void <init>() -> <init>
 com.zpj.shouji.market.R$style -> com.zpj.shouji.market.R$style:
-    10782:10782:void <init>() -> <init>
+    9839:9839:void <init>() -> <init>
 com.zpj.shouji.market.R$styleable -> com.zpj.shouji.market.R$styleable:
-    11350:31384:void <clinit>() -> <clinit>
-    11328:11328:void <init>() -> <init>
+    10407:28778:void <clinit>() -> <clinit>
+    10385:10385:void <init>() -> <init>
 com.zpj.shouji.market.R$xml -> com.zpj.shouji.market.R$xml:
-    31526:31526:void <init>() -> <init>
+    28920:28920:void <init>() -> <init>
 com.zpj.shouji.market.api.-$$Lambda$HttpPreLoader$N7fCks9SRR_M-_BpKEqEc48rpCg -> com.zpj.shouji.market.b.a:
     java.lang.String f$1 -> f
     com.zpj.shouji.market.api.HttpPreLoader f$0 -> e
@@ -44128,20 +42883,6 @@ com.zpj.shouji.market.glide.apk.ApkModelLoaderFactory -> com.zpj.shouji.market.g
     android.content.Context context -> a
     16:18:void <init>(android.content.Context) -> <init>
     23:23:com.bumptech.glide.load.model.ModelLoader build(com.bumptech.glide.load.model.MultiModelLoaderFactory) -> a
-com.zpj.shouji.market.glide.blur.BlurTransformation -> com.zpj.shouji.market.glide.h.b:
-    int DEFAULT_RADIUS -> d
-    int DEFAULT_DOWN_SAMPLING -> e
-    int radius -> b
-    int sampling -> c
-    23:24:void <clinit>() -> <clinit>
-    30:31:void <init>() -> <init>
-    34:35:void <init>(int,int) -> <init>
-    41:45:void <init>(android.content.Context,int,int) -> <init>
-    49:72:android.graphics.Bitmap transform(com.bumptech.glide.load.engine.bitmap_recycle.BitmapPool,android.graphics.Bitmap,int,int) -> a
-    94:95:void updateDiskCacheKey(java.security.MessageDigest) -> a
-    82:82:boolean equals(java.lang.Object) -> equals
-    89:89:int hashCode() -> hashCode
-    77:77:java.lang.String toString() -> toString
 com.zpj.shouji.market.glide.blur.BlurTransformation2 -> com.zpj.shouji.market.glide.h.a:
     float SCALE -> f
     float PERCENT -> e
@@ -45135,47 +43876,47 @@ com.zpj.shouji.market.ui.adapter.ChatRecyclerAdapter$ToUserMsgViewHolder -> com.
     160:160:com.zpj.shouji.market.ui.widget.GifTextView access$900(com.zpj.shouji.market.ui.adapter.ChatRecyclerAdapter$ToUserMsgViewHolder) -> c
 com.zpj.shouji.market.ui.adapter.DiscoverBinder -> com.zpj.shouji.market.e.a.g:
     boolean showComment -> e
-    59:61:void <init>(boolean) -> <init>
-    65:296:void onBindViewHolder(com.zpj.recyclerview.EasyViewHolder,java.util.List,int,java.util.List) -> a
-    154:160:void lambda$onBindViewHolder$0(com.zpj.shouji.market.model.DiscoverInfo,android.view.View) -> a
-    299:321:android.text.SpannableString getComment(com.zpj.shouji.market.model.DiscoverInfo) -> a
-    325:350:void showMenu(android.content.Context,com.zpj.shouji.market.model.DiscoverInfo) -> a
-    328:348:void lambda$showMenu$1(com.zpj.shouji.market.ui.widget.popup.BottomListPopupMenu,android.view.View,android.view.MenuItem) -> a
+    52:54:void <init>(boolean) -> <init>
+    58:291:void onBindViewHolder(com.zpj.recyclerview.EasyViewHolder,java.util.List,int,java.util.List) -> a
+    149:155:void lambda$onBindViewHolder$0(com.zpj.shouji.market.model.DiscoverInfo,android.view.View) -> a
+    294:316:android.text.SpannableString getComment(com.zpj.shouji.market.model.DiscoverInfo) -> a
+    320:345:void showMenu(android.content.Context,com.zpj.shouji.market.model.DiscoverInfo) -> a
+    323:343:void lambda$showMenu$1(com.zpj.shouji.market.ui.widget.popup.BottomListPopupMenu,android.view.View,android.view.MenuItem) -> a
 com.zpj.shouji.market.ui.adapter.DiscoverBinder$1 -> com.zpj.shouji.market.e.a.g$a:
     android.content.Context val$context -> a
     com.zpj.shouji.market.model.DiscoverInfo val$discoverInfo -> b
     com.lwkandroid.widget.ninegridview.NineGridView val$nineGridImageView -> c
-    74:74:void <init>(com.zpj.shouji.market.ui.adapter.DiscoverBinder,android.content.Context,com.zpj.shouji.market.model.DiscoverInfo,com.lwkandroid.widget.ninegridview.NineGridView) -> <init>
-    78:78:void onNineGirdAddMoreClick(int) -> a
-    82:90:void onNineGirdItemClick(int,com.lwkandroid.widget.ninegridview.NineGridBean,com.lwkandroid.widget.ninegridview.NineGirdImageContainer) -> a
-    86:87:android.widget.ImageView lambda$onNineGirdItemClick$0(com.lwkandroid.widget.ninegridview.NineGridView,int) -> a
-    95:95:void onNineGirdItemDeleted(int,com.lwkandroid.widget.ninegridview.NineGridBean,com.lwkandroid.widget.ninegridview.NineGirdImageContainer) -> b
+    67:67:void <init>(com.zpj.shouji.market.ui.adapter.DiscoverBinder,android.content.Context,com.zpj.shouji.market.model.DiscoverInfo,com.lwkandroid.widget.ninegridview.NineGridView) -> <init>
+    71:71:void onNineGirdAddMoreClick(int) -> a
+    75:83:void onNineGirdItemClick(int,com.lwkandroid.widget.ninegridview.NineGridBean,com.lwkandroid.widget.ninegridview.NineGirdImageContainer) -> a
+    79:80:android.widget.ImageView lambda$onNineGirdItemClick$0(com.lwkandroid.widget.ninegridview.NineGridView,int) -> a
+    88:88:void onNineGirdItemDeleted(int,com.lwkandroid.widget.ninegridview.NineGridBean,com.lwkandroid.widget.ninegridview.NineGirdImageContainer) -> b
 com.zpj.shouji.market.ui.adapter.DiscoverBinder$2 -> com.zpj.shouji.market.e.a.g$b:
-    163:163:void <init>(com.zpj.shouji.market.ui.adapter.DiscoverBinder) -> <init>
-    166:167:void onClick(android.view.View) -> onClick
+    158:158:void <init>(com.zpj.shouji.market.ui.adapter.DiscoverBinder) -> <init>
+    161:162:void onClick(android.view.View) -> onClick
 com.zpj.shouji.market.ui.adapter.DiscoverBinder$3 -> com.zpj.shouji.market.e.a.g$c:
-    226:226:void <init>(com.zpj.shouji.market.ui.adapter.DiscoverBinder) -> <init>
-    242:243:void onClick(android.view.View) -> onClick
+    221:221:void <init>(com.zpj.shouji.market.ui.adapter.DiscoverBinder) -> <init>
+    237:238:void onClick(android.view.View) -> onClick
 com.zpj.shouji.market.ui.adapter.DiscoverBinder$4 -> com.zpj.shouji.market.e.a.g$d:
     com.sunbinqiang.iconcountview.IconCountView val$supportView -> b
     com.zpj.shouji.market.model.DiscoverInfo val$discoverInfo -> a
-    248:248:void <init>(com.zpj.shouji.market.ui.adapter.DiscoverBinder,com.zpj.shouji.market.model.DiscoverInfo,com.sunbinqiang.iconcountview.IconCountView) -> <init>
-    252:279:void select(boolean) -> a
-    254:273:void lambda$select$0(com.zpj.shouji.market.model.DiscoverInfo,boolean,com.sunbinqiang.iconcountview.IconCountView,com.zpj.http.parser.html.nodes.Document) -> a
-    275:277:void lambda$select$1(com.sunbinqiang.iconcountview.IconCountView,boolean,java.lang.Throwable) -> a
+    243:243:void <init>(com.zpj.shouji.market.ui.adapter.DiscoverBinder,com.zpj.shouji.market.model.DiscoverInfo,com.sunbinqiang.iconcountview.IconCountView) -> <init>
+    247:274:void select(boolean) -> a
+    249:268:void lambda$select$0(com.zpj.shouji.market.model.DiscoverInfo,boolean,com.sunbinqiang.iconcountview.IconCountView,com.zpj.http.parser.html.nodes.Document) -> a
+    270:272:void lambda$select$1(com.sunbinqiang.iconcountview.IconCountView,boolean,java.lang.Throwable) -> a
 com.zpj.shouji.market.ui.adapter.DiscoverBinder$5 -> com.zpj.shouji.market.e.a.g$e:
     com.zpj.shouji.market.model.DiscoverInfo val$discoverInfo -> e
-    286:286:void <init>(com.zpj.shouji.market.ui.adapter.DiscoverBinder,com.zpj.shouji.market.model.DiscoverInfo) -> <init>
-    291:292:void onClick(android.view.View) -> onClick
+    281:281:void <init>(com.zpj.shouji.market.ui.adapter.DiscoverBinder,com.zpj.shouji.market.model.DiscoverInfo) -> <init>
+    286:287:void onClick(android.view.View) -> onClick
 com.zpj.shouji.market.ui.adapter.DiscoverBinder$GlideImageLoader -> com.zpj.shouji.market.e.a.g$f:
-    352:352:void <init>() -> <init>
-    356:364:void displayNineGridImage(android.content.Context,java.lang.String,android.widget.ImageView) -> a
-    368:369:void displayNineGridImage(android.content.Context,java.lang.String,android.widget.ImageView,int,int) -> a
+    347:347:void <init>() -> <init>
+    351:359:void displayNineGridImage(android.content.Context,java.lang.String,android.widget.ImageView) -> a
+    363:364:void displayNineGridImage(android.content.Context,java.lang.String,android.widget.ImageView,int,int) -> a
 com.zpj.shouji.market.ui.adapter.DiscoverBinder$MyClickableSpan -> com.zpj.shouji.market.e.a.g$g:
     java.lang.String memberId -> e
-    396:398:void <init>(java.lang.String) -> <init>
-    402:403:void onClick(android.view.View) -> onClick
-    407:409:void updateDrawState(android.text.TextPaint) -> updateDrawState
+    391:393:void <init>(java.lang.String) -> <init>
+    397:398:void onClick(android.view.View) -> onClick
+    402:404:void updateDrawState(android.text.TextPaint) -> updateDrawState
 com.zpj.shouji.market.ui.adapter.FragmentsPagerAdapter -> com.zpj.shouji.market.e.a.h:
     java.util.List fragments -> a
     java.lang.String[] tabTitle -> b
@@ -45456,27 +44197,27 @@ com.zpj.shouji.market.ui.fragment.-$$Lambda$WebFragment$M1b3mNSgpLDXMMDHxREXvy_G
     void onSelect(int,java.lang.Object) -> a
 com.zpj.shouji.market.ui.fragment.AboutMeFragment -> com.zpj.shouji.market.e.c.s:
     android.widget.ImageView iv_blur -> l
-    33:33:void <init>() -> <init>
-    33:33:void access$000(com.zpj.shouji.market.ui.fragment.AboutMeFragment,android.view.View,float,float,long) -> a
-    69:86:void initView(android.view.View,android.os.Bundle) -> a
-    131:135:void changeViewAlpha(android.view.View,float,float,long) -> a
-    33:33:void access$100(com.zpj.shouji.market.ui.fragment.AboutMeFragment,android.view.View,float,float,long) -> b
-    112:128:void changeViewSize(android.view.View,float,float,long) -> b
-    90:93:void onEnterAnimationEnd(android.os.Bundle) -> c
-    53:55:void onCreate(android.os.Bundle) -> onCreate
-    59:59:int getLayoutId() -> v
-    64:64:boolean supportSwipeBack() -> x
-    48:49:void start() -> y
+    31:31:void <init>() -> <init>
+    31:31:void access$000(com.zpj.shouji.market.ui.fragment.AboutMeFragment,android.view.View,float,float,long) -> a
+    67:84:void initView(android.view.View,android.os.Bundle) -> a
+    129:133:void changeViewAlpha(android.view.View,float,float,long) -> a
+    31:31:void access$100(com.zpj.shouji.market.ui.fragment.AboutMeFragment,android.view.View,float,float,long) -> b
+    110:126:void changeViewSize(android.view.View,float,float,long) -> b
+    88:91:void onEnterAnimationEnd(android.os.Bundle) -> c
+    51:53:void onCreate(android.os.Bundle) -> onCreate
+    57:57:int getLayoutId() -> v
+    62:62:boolean supportSwipeBack() -> x
+    46:47:void start() -> y
 com.zpj.shouji.market.ui.fragment.AboutMeFragment$1 -> com.zpj.shouji.market.e.c.s$a:
     com.zpj.shouji.market.ui.fragment.AboutMeFragment this$0 -> h
-    75:75:void <init>(com.zpj.shouji.market.ui.fragment.AboutMeFragment) -> <init>
-    75:75:void onResourceReady(java.lang.Object,com.bumptech.glide.request.transition.Transition) -> a
-    78:84:void onResourceReady(android.graphics.drawable.Drawable,com.bumptech.glide.request.transition.Transition) -> a
-    81:83:void lambda$onResourceReady$0() -> b
+    73:73:void <init>(com.zpj.shouji.market.ui.fragment.AboutMeFragment) -> <init>
+    73:73:void onResourceReady(java.lang.Object,com.bumptech.glide.request.transition.Transition) -> a
+    76:82:void onResourceReady(android.graphics.drawable.Drawable,com.bumptech.glide.request.transition.Transition) -> a
+    79:81:void lambda$onResourceReady$0() -> b
 com.zpj.shouji.market.ui.fragment.AboutMeFragment$2 -> com.zpj.shouji.market.e.c.s$b:
     android.view.View val$target -> a
-    115:115:void <init>(com.zpj.shouji.market.ui.fragment.AboutMeFragment,android.view.View) -> <init>
-    118:125:void onAnimationUpdate(android.animation.ValueAnimator) -> onAnimationUpdate
+    113:113:void <init>(com.zpj.shouji.market.ui.fragment.AboutMeFragment,android.view.View) -> <init>
+    116:123:void onAnimationUpdate(android.animation.ValueAnimator) -> onAnimationUpdate
 com.zpj.shouji.market.ui.fragment.AppListFragment -> com.zpj.shouji.market.e.c.t:
     boolean updateKeyword -> s
     18:21:void <init>() -> <init>
@@ -45959,56 +44700,56 @@ com.zpj.shouji.market.ui.fragment.detail.AppDetailFragment -> com.zpj.shouji.mar
     java.lang.String[] TAB_TITLES -> w
     com.zpj.widget.statelayout.StateLayout stateLayout -> p
     com.shehuan.niv.NiceImageView icon -> r
-    68:68:void <clinit>() -> <clinit>
-    64:64:void <init>() -> <init>
-    64:64:android.support.design.widget.FloatingActionButton access$000(com.zpj.shouji.market.ui.fragment.detail.AppDetailFragment) -> a
-    90:96:void start(java.lang.String,java.lang.String) -> a
-    99:100:void start(com.zpj.shouji.market.model.AppInfo) -> a
-    103:104:void start(com.zpj.shouji.market.model.AppUpdateInfo) -> a
-    111:112:void start(com.zpj.shouji.market.model.UserDownloadedAppInfo) -> a
-    115:116:void start(com.zpj.shouji.market.model.CollectionAppInfo) -> a
-    143:153:void initView(android.view.View,android.os.Bundle) -> a
-    267:309:void lambda$getAppInfo$1(com.zpj.http.parser.html.nodes.Document) -> a
-    310:310:void lambda$getAppInfo$2(java.lang.Throwable) -> a
-    316:381:void getColor(android.graphics.Bitmap) -> a
-    322:380:void lambda$getColor$3(android.support.v7.graphics.Palette) -> a
-    64:64:com.shehuan.niv.NiceImageView access$200(com.zpj.shouji.market.ui.fragment.detail.AppDetailFragment) -> b
-    64:64:android.support.design.widget.AppBarLayout access$300(com.zpj.shouji.market.ui.fragment.detail.AppDetailFragment) -> c
-    259:261:void onEnterAnimationEnd(android.os.Bundle) -> c
-    107:108:void start(com.zpj.shouji.market.model.InstalledAppInfo) -> e
-    166:167:void lambda$initView$0(android.view.View) -> e
-    264:312:void getAppInfo(java.lang.String) -> f
-    131:133:void onCreate(android.os.Bundle) -> onCreate
-    137:139:void onDestroy() -> onDestroy
-    385:390:void onFabEvent(com.zpj.shouji.market.event.FabEvent) -> onFabEvent
-    121:121:int getLayoutId() -> v
-    126:126:boolean supportSwipeBack() -> x
-    64:64:java.lang.String[] access$100() -> y
+    70:70:void <clinit>() -> <clinit>
+    66:66:void <init>() -> <init>
+    66:66:android.support.design.widget.FloatingActionButton access$000(com.zpj.shouji.market.ui.fragment.detail.AppDetailFragment) -> a
+    92:98:void start(java.lang.String,java.lang.String) -> a
+    101:102:void start(com.zpj.shouji.market.model.AppInfo) -> a
+    105:106:void start(com.zpj.shouji.market.model.AppUpdateInfo) -> a
+    113:114:void start(com.zpj.shouji.market.model.UserDownloadedAppInfo) -> a
+    117:118:void start(com.zpj.shouji.market.model.CollectionAppInfo) -> a
+    145:155:void initView(android.view.View,android.os.Bundle) -> a
+    268:325:void lambda$getAppInfo$1(com.zpj.http.parser.html.nodes.Document) -> a
+    326:326:void lambda$getAppInfo$2(java.lang.Throwable) -> a
+    332:397:void getColor(android.graphics.Bitmap) -> a
+    338:396:void lambda$getColor$3(android.support.v7.graphics.Palette) -> a
+    66:66:com.shehuan.niv.NiceImageView access$200(com.zpj.shouji.market.ui.fragment.detail.AppDetailFragment) -> b
+    66:66:android.support.design.widget.AppBarLayout access$300(com.zpj.shouji.market.ui.fragment.detail.AppDetailFragment) -> c
+    260:262:void onEnterAnimationEnd(android.os.Bundle) -> c
+    109:110:void start(com.zpj.shouji.market.model.InstalledAppInfo) -> e
+    168:169:void lambda$initView$0(android.view.View) -> e
+    265:328:void getAppInfo(java.lang.String) -> f
+    133:135:void onCreate(android.os.Bundle) -> onCreate
+    139:141:void onDestroy() -> onDestroy
+    401:406:void onFabEvent(com.zpj.shouji.market.event.FabEvent) -> onFabEvent
+    123:123:int getLayoutId() -> v
+    128:128:boolean supportSwipeBack() -> x
+    66:66:java.lang.String[] access$100() -> y
 com.zpj.shouji.market.ui.fragment.detail.AppDetailFragment$1 -> com.zpj.shouji.market.e.c.h0.m$a:
     com.zpj.shouji.market.ui.fragment.detail.AppDetailFragment this$0 -> a
-    197:197:void <init>(com.zpj.shouji.market.ui.fragment.detail.AppDetailFragment) -> <init>
-    215:215:void onPageScrollStateChanged(int) -> onPageScrollStateChanged
-    201:201:void onPageScrolled(int,float,int) -> onPageScrolled
-    205:210:void onPageSelected(int) -> onPageSelected
+    199:199:void <init>(com.zpj.shouji.market.ui.fragment.detail.AppDetailFragment) -> <init>
+    217:217:void onPageScrollStateChanged(int) -> onPageScrollStateChanged
+    203:203:void onPageScrolled(int,float,int) -> onPageScrolled
+    207:212:void onPageSelected(int) -> onPageSelected
 com.zpj.shouji.market.ui.fragment.detail.AppDetailFragment$2 -> com.zpj.shouji.market.e.c.h0.m$b:
     android.support.v4.view.ViewPager val$viewPager -> b
     com.zpj.shouji.market.ui.fragment.detail.AppDetailFragment this$0 -> c
-    222:222:void <init>(com.zpj.shouji.market.ui.fragment.detail.AppDetailFragment,android.support.v4.view.ViewPager) -> <init>
-    225:225:int getCount() -> a
-    230:236:net.lucode.hackware.magicindicator.buildins.commonnavigator.abs.IPagerTitleView getTitleView(android.content.Context,int) -> a
-    235:235:void lambda$getTitleView$0(android.support.v4.view.ViewPager,int,android.view.View) -> a
-    241:247:net.lucode.hackware.magicindicator.buildins.commonnavigator.abs.IPagerIndicator getIndicator(android.content.Context) -> a
+    224:224:void <init>(com.zpj.shouji.market.ui.fragment.detail.AppDetailFragment,android.support.v4.view.ViewPager) -> <init>
+    227:227:int getCount() -> a
+    232:238:net.lucode.hackware.magicindicator.buildins.commonnavigator.abs.IPagerTitleView getTitleView(android.content.Context,int) -> a
+    237:237:void lambda$getTitleView$0(android.support.v4.view.ViewPager,int,android.view.View) -> a
+    243:249:net.lucode.hackware.magicindicator.buildins.commonnavigator.abs.IPagerIndicator getIndicator(android.content.Context) -> a
 com.zpj.shouji.market.ui.fragment.detail.AppDetailFragment$3 -> com.zpj.shouji.market.e.c.h0.n:
     com.zpj.shouji.market.ui.fragment.detail.AppDetailFragment this$0 -> h
-    274:274:void <init>(com.zpj.shouji.market.ui.fragment.detail.AppDetailFragment) -> <init>
-    274:274:void onResourceReady(java.lang.Object,com.bumptech.glide.request.transition.Transition) -> a
-    277:296:void onResourceReady(android.graphics.Bitmap,com.bumptech.glide.request.transition.Transition) -> a
-    280:288:void lambda$onResourceReady$0(android.graphics.Bitmap,io.reactivex.ObservableEmitter) -> a
-    292:294:void lambda$onResourceReady$1(android.graphics.Bitmap) -> a
+    289:289:void <init>(com.zpj.shouji.market.ui.fragment.detail.AppDetailFragment) -> <init>
+    289:289:void onResourceReady(java.lang.Object,com.bumptech.glide.request.transition.Transition) -> a
+    292:311:void onResourceReady(android.graphics.Bitmap,com.bumptech.glide.request.transition.Transition) -> a
+    295:303:void lambda$onResourceReady$0(android.graphics.Bitmap,io.reactivex.ObservableEmitter) -> a
+    307:309:void lambda$onResourceReady$1(android.graphics.Bitmap) -> a
 com.zpj.shouji.market.ui.fragment.detail.AppDetailFragment$4 -> com.zpj.shouji.market.e.c.h0.o:
     com.zpj.shouji.market.model.AppDetailInfo val$info -> e
-    303:303:void <init>(com.zpj.shouji.market.ui.fragment.detail.AppDetailFragment,com.zpj.shouji.market.model.AppDetailInfo) -> <init>
-    306:307:void run() -> run
+    319:319:void <init>(com.zpj.shouji.market.ui.fragment.detail.AppDetailFragment,com.zpj.shouji.market.model.AppDetailInfo) -> <init>
+    322:323:void run() -> run
 com.zpj.shouji.market.ui.fragment.detail.AppInfoFragment -> com.zpj.shouji.market.e.c.h0.p:
     com.zpj.recyclerview.EasyRecyclerView recyclerView -> l
     android.widget.LinearLayout content -> m
@@ -48012,35 +46753,35 @@ com.zpj.shouji.market.ui.widget.flowlayout.SpaceItemDecoration -> com.zpj.shouji
 com.zpj.shouji.market.ui.widget.input.AccountInputView -> com.zpj.shouji.market.ui.widget.input.AccountInputView:
     android.widget.ImageView mIvAccountIcon -> m
     android.widget.ImageView mIvDeleteIcon -> n
-    26:27:void <init>(android.content.Context) -> <init>
-    30:31:void <init>(android.content.Context,android.util.AttributeSet) -> <init>
-    34:35:void <init>(android.content.Context,android.util.AttributeSet,int) -> <init>
-    39:42:void initViews(android.util.AttributeSet) -> a
-    76:87:void changeFocusMode(boolean) -> a
-    91:97:void afterTextChanged(android.text.Editable) -> afterTextChanged
-    46:49:android.widget.ImageView[] getLeftIcons() -> getLeftIcons
-    54:66:android.widget.ImageView[] getRightIcons() -> getRightIcons
-    71:73:void onFocusChange(android.view.View,boolean) -> onFocusChange
+    23:24:void <init>(android.content.Context) -> <init>
+    27:28:void <init>(android.content.Context,android.util.AttributeSet) -> <init>
+    31:32:void <init>(android.content.Context,android.util.AttributeSet,int) -> <init>
+    36:39:void initViews(android.util.AttributeSet) -> a
+    73:84:void changeFocusMode(boolean) -> a
+    88:94:void afterTextChanged(android.text.Editable) -> afterTextChanged
+    43:46:android.widget.ImageView[] getLeftIcons() -> getLeftIcons
+    51:63:android.widget.ImageView[] getRightIcons() -> getRightIcons
+    68:70:void onFocusChange(android.view.View,boolean) -> onFocusChange
 com.zpj.shouji.market.ui.widget.input.AccountInputView$1 -> com.zpj.shouji.market.ui.widget.input.AccountInputView$a:
     com.zpj.shouji.market.ui.widget.input.AccountInputView this$0 -> e
-    60:60:void <init>(com.zpj.shouji.market.ui.widget.input.AccountInputView) -> <init>
-    63:64:void onClick(android.view.View) -> onClick
+    57:57:void <init>(com.zpj.shouji.market.ui.widget.input.AccountInputView) -> <init>
+    60:61:void onClick(android.view.View) -> onClick
 com.zpj.shouji.market.ui.widget.input.EmailInputView -> com.zpj.shouji.market.ui.widget.input.EmailInputView:
     android.widget.ImageView mIvAccountIcon -> m
     android.widget.ImageView mIvDeleteIcon -> n
-    25:26:void <init>(android.content.Context) -> <init>
-    29:30:void <init>(android.content.Context,android.util.AttributeSet) -> <init>
-    33:34:void <init>(android.content.Context,android.util.AttributeSet,int) -> <init>
-    38:41:void initViews(android.util.AttributeSet) -> a
-    75:86:void changeFocusMode(boolean) -> a
-    90:96:void afterTextChanged(android.text.Editable) -> afterTextChanged
-    45:48:android.widget.ImageView[] getLeftIcons() -> getLeftIcons
-    53:65:android.widget.ImageView[] getRightIcons() -> getRightIcons
-    70:72:void onFocusChange(android.view.View,boolean) -> onFocusChange
+    23:24:void <init>(android.content.Context) -> <init>
+    27:28:void <init>(android.content.Context,android.util.AttributeSet) -> <init>
+    31:32:void <init>(android.content.Context,android.util.AttributeSet,int) -> <init>
+    36:39:void initViews(android.util.AttributeSet) -> a
+    73:84:void changeFocusMode(boolean) -> a
+    88:94:void afterTextChanged(android.text.Editable) -> afterTextChanged
+    43:46:android.widget.ImageView[] getLeftIcons() -> getLeftIcons
+    51:63:android.widget.ImageView[] getRightIcons() -> getRightIcons
+    68:70:void onFocusChange(android.view.View,boolean) -> onFocusChange
 com.zpj.shouji.market.ui.widget.input.EmailInputView$1 -> com.zpj.shouji.market.ui.widget.input.EmailInputView$a:
     com.zpj.shouji.market.ui.widget.input.EmailInputView this$0 -> e
-    59:59:void <init>(com.zpj.shouji.market.ui.widget.input.EmailInputView) -> <init>
-    62:63:void onClick(android.view.View) -> onClick
+    57:57:void <init>(com.zpj.shouji.market.ui.widget.input.EmailInputView) -> <init>
+    60:61:void onClick(android.view.View) -> onClick
 com.zpj.shouji.market.ui.widget.input.InputView -> com.zpj.shouji.market.ui.widget.input.InputView:
     int mViewHeightNormal -> j
     int mViewColorNormal -> k
@@ -48167,22 +46908,25 @@ com.zpj.shouji.market.ui.widget.popup.CommentPopup -> com.zpj.shouji.market.ui.w
     com.zpj.shouji.market.ui.widget.ChatPanel chatPanel -> z
     java.lang.String replyId -> A
     java.lang.String contentType -> B
-    41:42:void <init>(android.content.Context) -> <init>
-    34:37:com.zpj.shouji.market.ui.widget.popup.CommentPopup with(android.content.Context,java.lang.String,java.lang.String) -> a
-    91:106:void sendText(java.lang.String) -> a
-    116:116:void onStickerSelected(java.lang.String,java.lang.String,java.lang.String) -> a
-    134:143:void onSuccess(com.zpj.http.parser.html.nodes.Document) -> a
-    60:62:void lambda$onCreate$0(int) -> b
-    111:111:void onEmojiSelected(java.lang.String) -> c
-    78:80:void dismiss() -> d
-    46:46:int getImplLayoutId() -> getImplLayoutId
-    128:130:void onError(java.lang.Throwable) -> onError
-    23:23:void onSuccess(java.lang.Object) -> onSuccess
-    51:63:void onCreate() -> s
-    123:124:void setContentType(java.lang.String) -> setContentType
-    119:120:void setReplyId(java.lang.String) -> setReplyId
-    84:87:void onDismiss() -> t
-    67:74:void onShow() -> v
+    42:43:void <init>(android.content.Context) -> <init>
+    35:38:com.zpj.shouji.market.ui.widget.popup.CommentPopup with(android.content.Context,java.lang.String,java.lang.String) -> a
+    98:113:void sendText(java.lang.String) -> a
+    123:123:void onStickerSelected(java.lang.String,java.lang.String,java.lang.String) -> a
+    151:160:void onSuccess(com.zpj.http.parser.html.nodes.Document) -> a
+    61:63:void lambda$onCreate$0(int) -> b
+    118:118:void onEmojiSelected(java.lang.String) -> c
+    85:87:void dismiss() -> d
+    68:75:void doAfterShow() -> g
+    47:47:int getImplLayoutId() -> getImplLayoutId
+    140:140:com.zpj.popup.animator.PopupAnimator getPopupAnimator() -> getPopupAnimator
+    135:135:com.zpj.popup.animator.PopupAnimator genAnimatorByPopupType() -> k
+    145:147:void onError(java.lang.Throwable) -> onError
+    24:24:void onSuccess(java.lang.Object) -> onSuccess
+    52:64:void onCreate() -> s
+    130:131:void setContentType(java.lang.String) -> setContentType
+    126:127:void setReplyId(java.lang.String) -> setReplyId
+    91:94:void onDismiss() -> t
+    79:81:void onShow() -> v
 com.zpj.shouji.market.ui.widget.popup.ImageViewer -> com.zpj.shouji.market.ui.widget.popup.ImageViewer:
     23:25:void <init>(android.content.Context) -> <init>
     18:18:com.zpj.shouji.market.ui.widget.popup.ImageViewer with(android.content.Context) -> a
@@ -48365,15 +47109,15 @@ com.zpj.shouji.market.ui.widget.recommend.AppInfoRecommendCard$2 -> com.zpj.shou
     103:104:void onClick(android.view.View) -> onClick
 com.zpj.shouji.market.ui.widget.recommend.CollectionRecommendCard -> com.zpj.shouji.market.ui.widget.recommend.CollectionRecommendCard:
     int[] RES_ICONS -> j
-    37:38:void <init>(android.content.Context) -> <init>
-    41:42:void <init>(android.content.Context,android.util.AttributeSet) -> <init>
-    45:47:void <init>(android.content.Context,android.util.AttributeSet,int) -> <init>
+    36:37:void <init>(android.content.Context) -> <init>
+    40:41:void <init>(android.content.Context,android.util.AttributeSet) -> <init>
+    44:46:void <init>(android.content.Context,android.util.AttributeSet,int) -> <init>
     void lambda$RNGj6fcFuuBX89VMz_vt5dotJa4(com.zpj.shouji.market.ui.widget.recommend.CollectionRecommendCard,com.zpj.http.parser.html.nodes.Document) -> a
-    32:32:void onClick(com.zpj.recyclerview.EasyViewHolder,android.view.View,java.lang.Object) -> a
-    50:58:void init() -> a
-    61:70:void onGetDoc(com.zpj.http.parser.html.nodes.Document) -> a
-    74:75:void buildRecyclerView(com.zpj.recyclerview.EasyRecyclerView) -> a
-    79:114:void onBindViewHolder(com.zpj.recyclerview.EasyViewHolder,java.util.List,int,java.util.List) -> a
+    31:31:void onClick(com.zpj.recyclerview.EasyViewHolder,android.view.View,java.lang.Object) -> a
+    49:57:void init() -> a
+    60:69:void onGetDoc(com.zpj.http.parser.html.nodes.Document) -> a
+    73:74:void buildRecyclerView(com.zpj.recyclerview.EasyRecyclerView) -> a
+    78:114:void onBindViewHolder(com.zpj.recyclerview.EasyViewHolder,java.util.List,int,java.util.List) -> a
     118:119:void onClick(com.zpj.recyclerview.EasyViewHolder,android.view.View,com.zpj.shouji.market.model.CollectionInfo) -> a
     128:129:void onMoreClicked(android.view.View) -> a
     void lambda$TrAohpNPV6yJEUgL1z7WjcN5sIM(com.zpj.shouji.market.ui.widget.recommend.CollectionRecommendCard,com.zpj.http.parser.html.nodes.Document) -> b
@@ -51057,10 +49801,30 @@ it.sephiroth.android.library.imagezoom.graphics.FastBitmapDrawable -> it.sephiro
     66:67:void setColorFilter(android.graphics.ColorFilter) -> setColorFilter
 it.sephiroth.android.library.imagezoom.graphics.IBitmapDrawable -> it.sephiroth.android.library.imagezoom.a.b:
 it.sephiroth.android.library.imagezoom.utils.IDisposable -> it.sephiroth.android.library.imagezoom.b.a:
-kotlin.Function -> e.a:
-kotlin.KotlinNullPointerException -> e.b:
+jp.wasabeef.glide.transformations.BitmapTransformation -> e.a.a.a.a:
+    35:35:void <init>() -> <init>
+    android.graphics.Bitmap transform(android.content.Context,com.bumptech.glide.load.engine.bitmap_recycle.BitmapPool,android.graphics.Bitmap,int,int) -> a
+    41:42:com.bumptech.glide.load.engine.Resource transform(android.content.Context,com.bumptech.glide.load.engine.Resource,int,int) -> a
+    62:63:void setCanvasBitmapDensity(android.graphics.Bitmap,android.graphics.Bitmap) -> a
+jp.wasabeef.glide.transformations.BlurTransformation -> e.a.a.a.b:
+    int MAX_RADIUS -> d
+    int DEFAULT_DOWN_SAMPLING -> e
+    int radius -> b
+    int sampling -> c
+    38:39:void <clinit>() -> <clinit>
+    45:46:void <init>() -> <init>
+    52:55:void <init>(int,int) -> <init>
+    61:78:android.graphics.Bitmap transform(android.content.Context,com.bumptech.glide.load.engine.bitmap_recycle.BitmapPool,android.graphics.Bitmap,int,int) -> a
+    100:101:void updateDiskCacheKey(java.security.MessageDigest) -> a
+    88:88:boolean equals(java.lang.Object) -> equals
+    95:95:int hashCode() -> hashCode
+    83:83:java.lang.String toString() -> toString
+jp.wasabeef.glide.transformations.internal.FastBlur -> e.a.a.a.c.a:
+    54:255:android.graphics.Bitmap blur(android.graphics.Bitmap,int,boolean) -> a
+kotlin.Function -> f.a:
+kotlin.KotlinNullPointerException -> f.b:
     9:9:void <init>() -> <init>
-kotlin.Triple -> e.c:
+kotlin.Triple -> f.c:
     java.lang.Object second -> f
     java.lang.Object third -> g
     java.lang.Object first -> e
@@ -51069,31 +49833,31 @@ kotlin.Triple -> e.c:
     java.lang.Object component2() -> e
     java.lang.Object component3() -> f
     75:75:java.lang.String toString() -> toString
-kotlin.TypeCastException -> e.d:
+kotlin.TypeCastException -> f.d:
     11:11:void <init>(java.lang.String) -> <init>
-kotlin.collections.ArraysKt -> e.e.a:
+kotlin.collections.ArraysKt -> f.e.a:
     char single(char[]) -> a
-kotlin.collections.ArraysKt__ArraysJVMKt -> e.e.b:
-kotlin.collections.ArraysKt__ArraysKt -> e.e.c:
-kotlin.collections.ArraysKt___ArraysJvmKt -> e.e.d:
-kotlin.collections.ArraysKt___ArraysKt -> e.e.e:
+kotlin.collections.ArraysKt__ArraysJVMKt -> f.e.b:
+kotlin.collections.ArraysKt__ArraysKt -> f.e.c:
+kotlin.collections.ArraysKt___ArraysJvmKt -> f.e.d:
+kotlin.collections.ArraysKt___ArraysKt -> f.e.e:
     2403:2404:char single(char[]) -> a
-kotlin.collections.IntIterator -> e.e.f:
+kotlin.collections.IntIterator -> f.e.f:
     35:35:void <init>() -> <init>
     int nextInt() -> b
     35:35:java.lang.Object next() -> next
     36:36:java.lang.Integer next() -> next
-kotlin.internal.ProgressionUtilKt -> e.f.a:
+kotlin.internal.ProgressionUtilKt -> f.f.a:
     10:11:int mod(int,int) -> a
     21:21:int differenceModulo(int,int,int) -> a
     45:48:int getProgressionLastElement(int,int,int) -> b
-kotlin.jvm.functions.Function0 -> e.g.a.a:
+kotlin.jvm.functions.Function0 -> f.g.a.a:
     java.lang.Object invoke() -> d
-kotlin.jvm.functions.Function3 -> e.g.a.b:
+kotlin.jvm.functions.Function3 -> f.g.a.b:
     java.lang.Object invoke(java.lang.Object,java.lang.Object,java.lang.Object) -> a
-kotlin.jvm.internal.DefaultConstructorMarker -> e.g.b.a:
-kotlin.jvm.internal.FunctionBase -> e.g.b.b:
-kotlin.jvm.internal.Intrinsics -> e.g.b.c:
+kotlin.jvm.internal.DefaultConstructorMarker -> f.g.b.a:
+kotlin.jvm.internal.FunctionBase -> f.g.b.b:
+kotlin.jvm.internal.Intrinsics -> f.g.b.c:
     17:18:void <init>() -> <init>
     37:37:void throwNpe() -> a
     77:78:void checkExpressionValueIsNotNull(java.lang.Object,java.lang.String) -> a
@@ -51102,20 +49866,20 @@ kotlin.jvm.internal.Intrinsics -> e.g.b.c:
     237:237:java.lang.Throwable sanitizeStackTrace(java.lang.Throwable) -> a
     241:253:java.lang.Throwable sanitizeStackTrace(java.lang.Throwable,java.lang.String) -> a
     115:116:void checkParameterIsNotNull(java.lang.Object,java.lang.String) -> b
-kotlin.jvm.internal.Lambda -> e.g.b.d:
+kotlin.jvm.internal.Lambda -> f.g.b.d:
     10:10:void <init>(int) -> <init>
     11:11:java.lang.String toString() -> toString
-kotlin.jvm.internal.Reflection -> e.g.b.e:
+kotlin.jvm.internal.Reflection -> f.g.b.e:
     kotlin.jvm.internal.ReflectionFactory factory -> a
     22:35:void <clinit>() -> <clinit>
     69:69:java.lang.String renderLambdaToString(kotlin.jvm.internal.Lambda) -> a
-kotlin.jvm.internal.ReflectionFactory -> e.g.b.f:
+kotlin.jvm.internal.ReflectionFactory -> f.g.b.f:
     11:11:void <init>() -> <init>
     36:36:java.lang.String renderLambdaToString(kotlin.jvm.internal.Lambda) -> a
     41:42:java.lang.String renderLambdaToString(kotlin.jvm.internal.FunctionBase) -> a
-kotlin.jvm.internal.markers.KMappedMarker -> e.g.b.g.a:
-kotlin.ranges.ClosedRange -> e.h.a:
-kotlin.ranges.IntProgression -> e.h.b:
+kotlin.jvm.internal.markers.KMappedMarker -> f.g.b.g.a:
+kotlin.ranges.ClosedRange -> f.h.a:
+kotlin.ranges.IntProgression -> f.h.b:
     int last -> f
     int step -> g
     int first -> e
@@ -51124,10 +49888,10 @@ kotlin.ranges.IntProgression -> e.h.b:
     92:92:int getLast() -> getLast
     72:72:java.util.Iterator iterator() -> iterator
     99:99:kotlin.collections.IntIterator iterator() -> iterator
-kotlin.ranges.IntProgression$Companion -> e.h.b$a:
+kotlin.ranges.IntProgression$Companion -> f.h.b$a:
     113:113:void <init>() -> <init>
     113:113:void <init>(kotlin.jvm.internal.DefaultConstructorMarker) -> <init>
-kotlin.ranges.IntProgressionIterator -> e.h.c:
+kotlin.ranges.IntProgressionIterator -> f.h.c:
     int step -> h
     boolean hasNext -> f
     int next -> g
@@ -51135,7 +49899,7 @@ kotlin.ranges.IntProgressionIterator -> e.h.c:
     38:41:void <init>(int,int,int) -> <init>
     46:54:int nextInt() -> b
     43:43:boolean hasNext() -> hasNext
-kotlin.ranges.IntRange -> e.h.d:
+kotlin.ranges.IntRange -> f.h.d:
     kotlin.ranges.IntRange$Companion Companion -> i
     kotlin.ranges.IntRange EMPTY -> h
     58:58:void <clinit>() -> <clinit>
@@ -51147,23 +49911,23 @@ kotlin.ranges.IntRange -> e.h.d:
     52:52:int hashCode() -> hashCode
     45:45:boolean isEmpty() -> isEmpty
     54:54:java.lang.String toString() -> toString
-kotlin.ranges.IntRange$Companion -> e.h.d$a:
+kotlin.ranges.IntRange$Companion -> f.h.d$a:
     56:56:void <init>() -> <init>
     56:56:void <init>(kotlin.jvm.internal.DefaultConstructorMarker) -> <init>
     58:58:kotlin.ranges.IntRange getEMPTY() -> a
-kotlin.ranges.RangesKt -> e.h.e:
+kotlin.ranges.RangesKt -> f.h.e:
     int coerceAtLeast(int,int) -> a
     kotlin.ranges.IntRange until(int,int) -> b
-kotlin.ranges.RangesKt__RangesJVMKt -> e.h.f:
-kotlin.ranges.RangesKt__RangesKt -> e.h.g:
-kotlin.ranges.RangesKt___RangesKt -> e.h.h:
+kotlin.ranges.RangesKt__RangesJVMKt -> f.h.f:
+kotlin.ranges.RangesKt__RangesKt -> f.h.g:
+kotlin.ranges.RangesKt___RangesKt -> f.h.h:
     855:855:int coerceAtLeast(int,int) -> a
     705:706:kotlin.ranges.IntRange until(int,int) -> b
-kotlin.text.CharsKt__CharJVMKt -> e.i.a:
-kotlin.text.CharsKt__CharKt -> e.i.b:
+kotlin.text.CharsKt__CharJVMKt -> f.i.a:
+kotlin.text.CharsKt__CharKt -> f.i.b:
     32:37:boolean equals(char,char,boolean) -> a
-kotlin.text.FlagEnum -> e.i.c:
-kotlin.text.Regex -> e.i.d:
+kotlin.text.FlagEnum -> f.i.c:
+kotlin.text.Regex -> f.i.d:
     java.util.regex.Pattern nativePattern -> e
     kotlin.text.Regex$Companion Companion -> f
     85:85:void <init>(java.util.regex.Pattern) -> <init>
@@ -51172,20 +49936,20 @@ kotlin.text.Regex -> e.i.d:
     107:107:boolean matches(java.lang.CharSequence) -> a
     212:212:java.lang.String toString() -> toString
     221:221:java.lang.Object writeReplace() -> writeReplace
-kotlin.text.Regex$Companion -> e.i.d$a:
+kotlin.text.Regex$Companion -> f.i.d$a:
     231:231:void <init>() -> <init>
     231:231:void <init>(kotlin.jvm.internal.DefaultConstructorMarker) -> <init>
     231:231:int access$ensureUnicodeCase(kotlin.text.Regex$Companion,int) -> a
     250:250:int ensureUnicodeCase(int) -> a
-kotlin.text.Regex$Serialized -> e.i.d$b:
+kotlin.text.Regex$Serialized -> f.i.d$b:
     int flags -> f
     java.lang.String pattern -> e
     223:223:void <init>(java.lang.String,int) -> <init>
     228:228:java.lang.Object readResolve() -> readResolve
-kotlin.text.Regex$Serialized$Companion -> e.i.d$b$a:
+kotlin.text.Regex$Serialized$Companion -> f.i.d$b$a:
     224:224:void <init>() -> <init>
     224:224:void <init>(kotlin.jvm.internal.DefaultConstructorMarker) -> <init>
-kotlin.text.RegexOption -> e.i.e:
+kotlin.text.RegexOption -> f.i.e:
     kotlin.text.RegexOption IGNORE_CASE -> f
     int value -> e
     kotlin.text.RegexOption[] $VALUES -> g
@@ -51193,27 +49957,27 @@ kotlin.text.RegexOption -> e.i.e:
     29:29:void <init>(java.lang.String,int,int,int) -> <init>
     29:29:void <init>(java.lang.String,int,int,int,int,kotlin.jvm.internal.DefaultConstructorMarker) -> <init>
     29:29:int getValue() -> u
-kotlin.text.StringsKt -> e.i.f:
+kotlin.text.StringsKt -> f.i.f:
     int indexOf$default(java.lang.CharSequence,char,int,boolean,int,java.lang.Object) -> a
     java.lang.String repeat(java.lang.CharSequence,int) -> a
     java.lang.String substring(java.lang.String,kotlin.ranges.IntRange) -> a
-kotlin.text.StringsKt__IndentKt -> e.i.g:
-kotlin.text.StringsKt__RegexExtensionsJVMKt -> e.i.h:
-kotlin.text.StringsKt__RegexExtensionsKt -> e.i.i:
-kotlin.text.StringsKt__StringBuilderJVMKt -> e.i.j:
-kotlin.text.StringsKt__StringBuilderKt -> e.i.k:
-kotlin.text.StringsKt__StringNumberConversionsJVMKt -> e.i.l:
-kotlin.text.StringsKt__StringNumberConversionsKt -> e.i.m:
-kotlin.text.StringsKt__StringsJVMKt -> e.i.n:
+kotlin.text.StringsKt__IndentKt -> f.i.g:
+kotlin.text.StringsKt__RegexExtensionsJVMKt -> f.i.h:
+kotlin.text.StringsKt__RegexExtensionsKt -> f.i.i:
+kotlin.text.StringsKt__StringBuilderJVMKt -> f.i.j:
+kotlin.text.StringsKt__StringBuilderKt -> f.i.k:
+kotlin.text.StringsKt__StringNumberConversionsJVMKt -> f.i.l:
+kotlin.text.StringsKt__StringNumberConversionsKt -> f.i.m:
+kotlin.text.StringsKt__StringsJVMKt -> f.i.n:
     447:447:java.lang.String repeat(java.lang.CharSequence,int) -> a
-kotlin.text.StringsKt__StringsKt -> e.i.o:
+kotlin.text.StringsKt__StringsKt -> f.i.o:
     307:307:int getLastIndex(java.lang.CharSequence) -> a
     321:321:java.lang.String substring(java.lang.String,kotlin.ranges.IntRange) -> a
     825:835:int indexOfAny(java.lang.CharSequence,char[],int,boolean) -> a
     978:978:int indexOf$default(java.lang.CharSequence,char,int,boolean,int,java.lang.Object) -> a
     979:979:int indexOf(java.lang.CharSequence,char,int,boolean) -> a
-kotlin.text.StringsKt___StringsJvmKt -> e.i.p:
-kotlin.text.StringsKt___StringsKt -> e.i.q:
+kotlin.text.StringsKt___StringsJvmKt -> f.i.p:
+kotlin.text.StringsKt___StringsKt -> f.i.q:
 me.jingbin.richeditor.R$anim -> me.jingbin.richeditor.R$anim:
     13:13:void <init>() -> <init>
 me.jingbin.richeditor.R$attr -> me.jingbin.richeditor.R$attr:
@@ -55372,7 +54136,7 @@ org.greenrobot.eventbus.meta.SubscriberInfo -> org.greenrobot.eventbus.r.a:
     org.greenrobot.eventbus.meta.SubscriberInfo getSuperSubscriberInfo() -> c
 org.greenrobot.eventbus.meta.SubscriberInfoIndex -> org.greenrobot.eventbus.r.b:
     org.greenrobot.eventbus.meta.SubscriberInfo getSubscriberInfo(java.lang.Class) -> a
-org.nibor.autolink.LinkExtractor -> f.a.a.a:
+org.nibor.autolink.LinkExtractor -> g.a.a.a:
     org.nibor.autolink.internal.Scanner urlScanner -> a
     org.nibor.autolink.internal.Scanner wwwScanner -> b
     org.nibor.autolink.internal.Scanner emailScanner -> c
@@ -55382,19 +54146,19 @@ org.nibor.autolink.LinkExtractor -> f.a.a.a:
     28:28:org.nibor.autolink.LinkExtractor$Builder builder() -> a
     38:38:java.lang.Iterable extractLinks(java.lang.CharSequence) -> a
     47:49:org.nibor.autolink.internal.Scanner trigger(char) -> a
-org.nibor.autolink.LinkExtractor$1 -> f.a.a.a$a:
+org.nibor.autolink.LinkExtractor$1 -> g.a.a.a$a:
     java.lang.CharSequence val$input -> e
     org.nibor.autolink.LinkExtractor this$0 -> f
     38:38:void <init>(org.nibor.autolink.LinkExtractor,java.lang.CharSequence) -> <init>
     41:41:java.util.Iterator iterator() -> iterator
-org.nibor.autolink.LinkExtractor$Builder -> f.a.a.a$b:
+org.nibor.autolink.LinkExtractor$Builder -> g.a.a.a$b:
     java.util.Set linkTypes -> a
     boolean emailDomainMustHaveDot -> b
     61:61:void <init>(org.nibor.autolink.LinkExtractor$1) -> <init>
     66:67:void <init>() -> <init>
     74:75:org.nibor.autolink.LinkExtractor$Builder linkTypes(java.util.Set) -> a
     95:98:org.nibor.autolink.LinkExtractor build() -> a
-org.nibor.autolink.LinkExtractor$LinkIterator -> f.a.a.a$c:
+org.nibor.autolink.LinkExtractor$LinkIterator -> g.a.a.a$c:
     int rewindIndex -> h
     java.lang.CharSequence input -> e
     int index -> g
@@ -55406,11 +54170,11 @@ org.nibor.autolink.LinkExtractor$LinkIterator -> f.a.a.a$c:
     102:102:java.lang.Object next() -> next
     122:127:org.nibor.autolink.LinkSpan next() -> next
     133:133:void remove() -> remove
-org.nibor.autolink.LinkSpan -> f.a.a.b:
+org.nibor.autolink.LinkSpan -> g.a.a.b:
     int getBeginIndex() -> a
     org.nibor.autolink.LinkType getType() -> b
     int getEndIndex() -> c
-org.nibor.autolink.LinkType -> f.a.a.c:
+org.nibor.autolink.LinkType -> g.a.a.c:
     org.nibor.autolink.LinkType[] $VALUES -> h
     org.nibor.autolink.LinkType URL -> e
     org.nibor.autolink.LinkType WWW -> g
@@ -55419,7 +54183,7 @@ org.nibor.autolink.LinkType -> f.a.a.c:
     6:6:void <init>(java.lang.String,int) -> <init>
     6:6:org.nibor.autolink.LinkType valueOf(java.lang.String) -> valueOf
     6:6:org.nibor.autolink.LinkType[] values() -> values
-org.nibor.autolink.internal.EmailScanner -> f.a.a.d.a:
+org.nibor.autolink.internal.EmailScanner -> g.a.a.d.a:
     boolean domainMustHaveDot -> a
     15:17:void <init>(boolean) -> <init>
     21:33:org.nibor.autolink.LinkSpan scan(java.lang.CharSequence,int,int) -> a
@@ -55427,7 +54191,7 @@ org.nibor.autolink.internal.EmailScanner -> f.a.a.d.a:
     101:102:boolean localAtomAllowed(char) -> a
     38:54:int findFirst(java.lang.CharSequence,int,int) -> b
     131:131:boolean subDomainAllowed(char) -> b
-org.nibor.autolink.internal.LinkSpanImpl -> f.a.a.d.b:
+org.nibor.autolink.internal.LinkSpanImpl -> g.a.a.d.b:
     org.nibor.autolink.LinkType linkType -> a
     int beginIndex -> b
     int endIndex -> c
@@ -55436,28 +54200,28 @@ org.nibor.autolink.internal.LinkSpanImpl -> f.a.a.d.b:
     20:20:org.nibor.autolink.LinkType getType() -> b
     30:30:int getEndIndex() -> c
     35:35:java.lang.String toString() -> toString
-org.nibor.autolink.internal.Scanner -> f.a.a.d.c:
+org.nibor.autolink.internal.Scanner -> g.a.a.d.c:
     org.nibor.autolink.LinkSpan scan(java.lang.CharSequence,int,int) -> a
-org.nibor.autolink.internal.Scanners -> f.a.a.d.d:
+org.nibor.autolink.internal.Scanners -> g.a.a.d.d:
     14:14:boolean isAlnum(char) -> a
     22:174:int findUrlEnd(java.lang.CharSequence,int) -> a
     6:6:boolean isAlpha(char) -> b
     10:10:boolean isDigit(char) -> c
     18:18:boolean isNonAscii(char) -> d
-org.nibor.autolink.internal.UrlScanner -> f.a.a.d.e:
+org.nibor.autolink.internal.UrlScanner -> g.a.a.d.e:
     11:11:void <init>() -> <init>
     15:18:org.nibor.autolink.LinkSpan scan(java.lang.CharSequence,int,int) -> a
     54:58:boolean schemeSpecial(char) -> a
     33:50:int findFirst(java.lang.CharSequence,int,int) -> b
-org.nibor.autolink.internal.WwwScanner -> f.a.a.d.f:
+org.nibor.autolink.internal.WwwScanner -> g.a.a.d.f:
     12:12:void <init>() -> <init>
     16:18:org.nibor.autolink.LinkSpan scan(java.lang.CharSequence,int,int) -> a
     48:57:int findLast(java.lang.CharSequence,int) -> a
     61:61:boolean isAllowed(char) -> a
     35:44:int findFirst(java.lang.CharSequence,int,int) -> b
     65:65:boolean isWWW(java.lang.CharSequence,int) -> b
-org.reactivestreams.Publisher -> f.b.a:
-org.reactivestreams.Subscription -> f.b.b:
+org.reactivestreams.Publisher -> g.b.a:
+org.reactivestreams.Subscription -> g.b.b:
 per.goweii.burred.BitmapProcessor -> per.goweii.burred.a:
     per.goweii.burred.BitmapProcessor INSTANCE -> e
     android.graphics.Paint mPaint -> c
@@ -55502,13 +54266,11 @@ per.goweii.burred.Blurred -> per.goweii.burred.b:
     138:140:per.goweii.burred.Blurred bitmap(android.graphics.Bitmap) -> a
     156:157:per.goweii.burred.Blurred backgroundColor(int) -> a
     166:167:per.goweii.burred.Blurred percent(float) -> a
-    186:187:per.goweii.burred.Blurred keepSize(boolean) -> a
     221:243:android.graphics.Bitmap blur() -> a
     102:102:per.goweii.burred.Blurred with(android.graphics.Bitmap) -> b
     106:106:per.goweii.burred.Blurred with(android.view.View) -> b
     110:129:void reset() -> b
     171:172:per.goweii.burred.Blurred radius(float) -> b
-    201:202:per.goweii.burred.Blurred recycleOriginal(boolean) -> b
     176:177:per.goweii.burred.Blurred scale(float) -> c
     303:306:per.goweii.burred.Blurred$SnapshotInterceptor checkSnapshotInterceptor() -> c
     91:91:per.goweii.burred.IBlur requireBlur() -> d

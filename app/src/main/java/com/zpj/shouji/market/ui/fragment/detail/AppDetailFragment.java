@@ -18,6 +18,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.bumptech.glide.request.target.SimpleTarget;
 import com.bumptech.glide.request.transition.Transition;
 import com.felix.atoast.library.AToast;
@@ -59,6 +60,7 @@ import io.reactivex.Observable;
 import io.reactivex.ObservableOnSubscribe;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
+import jp.wasabeef.glide.transformations.BlurTransformation;
 import per.goweii.burred.Blurred;
 
 public class AppDetailFragment extends BaseFragment {
@@ -251,7 +253,6 @@ public class AppDetailFragment extends BaseFragment {
         ViewPagerHelper.bind(magicIndicator, viewPager);
 
 
-
     }
 
     @Override
@@ -271,6 +272,20 @@ public class AppDetailFragment extends BaseFragment {
                     }
                     AppDetailInfo info = AppDetailInfo.create(data);
                     appDetailInfo = info;
+
+//                    Glide.with(context).load(appDetailInfo.getIconUrl()).into(icon);
+//                    Glide.with(context)
+//                            .asBitmap()
+//                            .load(appDetailInfo.getIconUrl())
+//                            .apply(RequestOptions.bitmapTransform(new BlurTransformation(25, 8)))
+//                            .into(new SimpleTarget<Bitmap>() {
+//                                @Override
+//                                public void onResourceReady(@NonNull Bitmap resource, @Nullable Transition<? super Bitmap> transition) {
+//                                    appBarLayout.setBackground(new BitmapDrawable(getResources(), resource));
+//                                    getColor(resource);
+//                                }
+//                            });
+
                     Glide.with(context).asBitmap().load(appDetailInfo.getIconUrl()).into(new SimpleTarget<Bitmap>() {
                         @Override
                         public void onResourceReady(@NonNull Bitmap resource, @Nullable Transition<? super Bitmap> transition) {
@@ -295,6 +310,7 @@ public class AppDetailFragment extends BaseFragment {
                                     .subscribe();
                         }
                     });
+
 //                    Glide.with(context).load(appDetailInfo.getIconUrl()).into(icon);
                     title.setText(info.getName());
                     shortInfo.setText(info.getBaseInfo());

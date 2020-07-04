@@ -65,27 +65,28 @@ public class AlbumFragment extends BaseFragment implements
     protected void initView(View view, @Nullable Bundle savedInstanceState) {
         Drawable placeholder = new ColorDrawable(getResources().getColor(R.color.zhihu_album_dropdown_thumbnail_placeholder));
         recyclerLayout = view.findViewById(R.id.recycler_layout);
-        int spanCount;
-        SelectionSpec mSpec = SelectionSpec.getInstance();
-        if (mSpec.gridExpectedSize > 0) {
-            spanCount = UIUtils.spanCount(context, mSpec.gridExpectedSize);
-        } else {
-            spanCount = mSpec.spanCount;
-        }
+//        int spanCount;
+//        SelectionSpec mSpec = SelectionSpec.getInstance();
+//        if (mSpec.gridExpectedSize > 0) {
+//            spanCount = UIUtils.spanCount(context, mSpec.gridExpectedSize);
+//        } else {
+//            spanCount = mSpec.spanCount;
+//        }
+
 //        int spacing = getResources().getDimensionPixelSize(R.dimen.media_grid_spacing);
 //        recyclerLayout.getEasyRecyclerView().getRecyclerView().addItemDecoration(new MediaGridInset(spanCount, spacing, false));
         recyclerLayout.setItemRes(R.layout.item_album_grid)
                 .setData(albumList)
                 .setEnableLoadMore(false)
                 .setEnableSwipeRefresh(false)
-                .setLayoutManager(new GridLayoutManager(context, spanCount))
+                .setLayoutManager(new GridLayoutManager(context, 2))
                 .onBindViewHolder((holder, list, position, payloads) -> {
                     Album album = list.get(position);
 
                     holder.getItemView().setBackgroundColor(Color.TRANSPARENT);
 
-                    holder.getTextView(R.id.tv_title).setText(album.getDisplayName(context));
-                    holder.getTextView(R.id.tv_count).setText("共" + album.getCount() + "张图片");
+                    holder.setText(R.id.tv_title, album.getDisplayName(context));
+                    holder.setText(R.id.tv_count, "共" + album.getCount() + "张图片");
 
                     // do not need to load animated Gif
                     SelectionSpec.getInstance().imageEngine.loadThumbnail(

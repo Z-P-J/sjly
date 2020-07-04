@@ -25,31 +25,24 @@ import com.lwkandroid.widget.ninegridview.NineGirdImageContainer;
 import com.lwkandroid.widget.ninegridview.NineGridBean;
 import com.lwkandroid.widget.ninegridview.NineGridView;
 import com.sunbinqiang.iconcountview.IconCountView;
-import com.zpj.http.core.IHttp;
-import com.zpj.http.parser.html.nodes.Document;
-import com.zpj.popup.ZPopup;
-import com.zpj.popup.imagetrans.listener.SourceImageViewGet;
 import com.zpj.recyclerview.EasyViewHolder;
 import com.zpj.recyclerview.IEasy;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.api.HttpApi;
 import com.zpj.shouji.market.glide.GlideApp;
-import com.zpj.shouji.market.glide.blur.BlurTransformation;
+import com.zpj.shouji.market.glide.blur.BlurTransformation2;
 import com.zpj.shouji.market.model.DiscoverInfo;
-import com.zpj.shouji.market.model.SupportUserInfo;
 import com.zpj.shouji.market.ui.fragment.detail.AppDetailFragment;
 import com.zpj.shouji.market.ui.fragment.profile.ProfileFragment;
 import com.zpj.shouji.market.ui.fragment.theme.ThemeDetailFragment;
 import com.zpj.shouji.market.ui.widget.DrawableTintTextView;
 import com.zpj.shouji.market.ui.widget.popup.BottomListPopupMenu;
-import com.zpj.shouji.market.ui.widget.popup.CommentPopup;
 import com.zpj.shouji.market.ui.widget.popup.ImageViewer;
-import com.zpj.shouji.market.utils.PopupImageLoader;
-
-import org.greenrobot.eventbus.EventBus;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import jp.wasabeef.glide.transformations.BlurTransformation;
 
 public class DiscoverBinder implements IEasy.OnBindViewHolderListener<DiscoverInfo> {
 
@@ -128,7 +121,9 @@ public class DiscoverBinder implements IEasy.OnBindViewHolderListener<DiscoverIn
 
             Glide.with(context)
                     .load(discoverInfo.getSharePics().get(0))
-                    .apply(RequestOptions.bitmapTransform(new BlurTransformation(26, 6)))
+//                    .apply(RequestOptions.bitmapTransform(new BlurTransformation(26, 6)))
+                    .apply(RequestOptions.bitmapTransform(new BlurTransformation2(0.1f, 1 / 4f)))
+//                    .apply(RequestOptions.bitmapTransform(new BlurTransformation()))
                     .into(holder.getImageView(R.id.img_bg));
 
             holder.getTextView(R.id.tv_title).setText(discoverInfo.getShareTitle());

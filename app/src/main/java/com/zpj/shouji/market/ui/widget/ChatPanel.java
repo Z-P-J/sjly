@@ -197,7 +197,7 @@ public class ChatPanel extends RelativeLayout
                     .maxSelectable(3)//最大选择数量为9
                     //.addFilter(new GifSizeFilter(320, 320, 5 * Filter.K * Filter.K))
 //                    .gridExpectedSize(this.getResources().getDimensionPixelSize(R.dimen.photo))//图片显示表格的大小
-                    .spanCount(2)
+                    .spanCount(3)
                     .restrictOrientation(ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED)//图像选择和预览活动所需的方向
                     .thumbnailScale(0.85f)//缩放比例
                     .imageEngine(new GlideEngine())//图片加载方式，Glide4需要自定义实现

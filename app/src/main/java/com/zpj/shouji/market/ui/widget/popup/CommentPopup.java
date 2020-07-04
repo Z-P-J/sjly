@@ -9,6 +9,8 @@ import android.util.Log;
 import com.felix.atoast.library.AToast;
 import com.zpj.http.core.IHttp;
 import com.zpj.http.parser.html.nodes.Document;
+import com.zpj.popup.animator.EmptyAnimator;
+import com.zpj.popup.animator.PopupAnimator;
 import com.zpj.popup.core.BottomPopup;
 import com.zpj.popup.util.ActivityUtils;
 import com.zpj.popup.util.KeyboardUtils;
@@ -62,14 +64,20 @@ public class CommentPopup extends BottomPopup<CommentPopup>
     }
 
     @Override
-    protected void onShow() {
-        super.onShow();
+    protected void doAfterShow() {
+        super.doAfterShow();
         if (TextUtils.isEmpty(replyId) || TextUtils.isEmpty(contentType)) {
             AToast.warning("出错了");
             dismiss();
         } else {
             KeyboardUtils.showSoftInput(chatPanel.getEditor());
         }
+    }
+
+    @Override
+    protected void onShow() {
+        super.onShow();
+
     }
 
     @Override
@@ -120,6 +128,16 @@ public class CommentPopup extends BottomPopup<CommentPopup>
 
     public void setContentType(String contentType) {
         this.contentType = contentType;
+    }
+
+    @Override
+    protected PopupAnimator genAnimatorByPopupType() {
+        return new EmptyAnimator();
+    }
+
+    @Override
+    protected PopupAnimator getPopupAnimator() {
+        return new EmptyAnimator();
     }
 
     @Override

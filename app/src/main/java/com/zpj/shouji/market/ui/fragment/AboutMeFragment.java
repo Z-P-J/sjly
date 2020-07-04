@@ -9,7 +9,6 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.view.View;
-import android.view.animation.Animation;
 import android.view.animation.DecelerateInterpolator;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
@@ -22,13 +21,12 @@ import com.bumptech.glide.request.transition.Transition;
 import com.daimajia.swipe.SwipeLayout;
 import com.zpj.fragmentation.BaseFragment;
 import com.zpj.fragmentation.anim.DefaultHorizontalAnimator;
+import com.zpj.fragmentation.anim.DefaultNoAnimator;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.event.StartFragmentEvent;
-import com.zpj.shouji.market.glide.blur.BlurTransformation2;
 import com.zpj.shouji.market.ui.widget.PercentImageView;
 
-import com.zpj.fragmentation.anim.DefaultNoAnimator;
-import com.zpj.fragmentation.anim.FragmentAnimator;
+import jp.wasabeef.glide.transformations.BlurTransformation;
 
 public class AboutMeFragment extends BaseFragment {
 
@@ -71,7 +69,7 @@ public class AboutMeFragment extends BaseFragment {
 
         Glide.with(context)
                 .load(getResources().getDrawable(R.drawable.logo_author))
-                .apply(RequestOptions.bitmapTransform(new BlurTransformation2(1f, 1f)))
+                .apply(RequestOptions.bitmapTransform(new BlurTransformation()))
                 .into(new SimpleTarget<Drawable>() {
                     @Override
                     public void onResourceReady(@NonNull Drawable resource, @Nullable Transition<? super Drawable> transition) {

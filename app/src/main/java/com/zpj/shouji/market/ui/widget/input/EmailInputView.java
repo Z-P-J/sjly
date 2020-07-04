@@ -3,12 +3,10 @@ package com.zpj.shouji.market.ui.widget.input;
 import android.content.Context;
 import android.text.Editable;
 import android.util.AttributeSet;
-import android.util.Patterns;
 import android.util.TypedValue;
 import android.view.View;
 import android.widget.ImageView;
 
-import com.rengwuxian.materialedittext.validation.RegexpValidator;
 import com.zpj.shouji.market.R;
 
 /**

@@ -5,7 +5,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/background_color"
+    android:background="@color/white"
     >
 
     <include layout="@layout/layout_toolbar" />
@@ -51,72 +51,56 @@
                 android:layout_marginBottom="16dp"
                 />
 
-            <com.lihang.ShadowLayout
-                style="@style/setting_card_style"
-                app:hl_shadowLimit="16dp"
-                >
+            <com.zpj.widget.setting.CommonSettingItem
+                android:id="@+id/item_user_agreement"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:z_setting_titleText="用户协议"
+                />
 
-                <LinearLayout
-                    android:orientation="vertical"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:padding="8dp"
-                    >
+            <com.zpj.widget.setting.CommonSettingItem
+                android:id="@+id/item_privacy_agreement"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:z_setting_titleText="隐私协议"
+                />
 
-                    <com.zpj.widget.setting.CommonSettingItem
-                        android:id="@+id/item_user_agreement"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        app:z_setting_titleText="用户协议"
-                        />
+            <com.zpj.widget.setting.CommonSettingItem
+                android:id="@+id/item_about_me"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:z_setting_titleText="关于作者"
+                />
 
-                    <com.zpj.widget.setting.CommonSettingItem
-                        android:id="@+id/item_privacy_agreement"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        app:z_setting_titleText="隐私协议"
-                        />
+            <com.zpj.widget.setting.CommonSettingItem
+                android:id="@+id/item_check_update"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:z_setting_titleText="检查更新"
+                />
 
-                    <com.zpj.widget.setting.CommonSettingItem
-                        android:id="@+id/item_about_me"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        app:z_setting_titleText="关于作者"
-                        />
+            <com.zpj.shouji.market.ui.widget.DetailLayout
+                android:id="@+id/app_version"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:left_text="应用版本"
+                app:right_text="1.0.0"
+                />
 
-                    <com.zpj.widget.setting.CommonSettingItem
-                        android:id="@+id/item_check_update"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        app:z_setting_titleText="检查更新"
-                        />
+            <com.zpj.shouji.market.ui.widget.DetailLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:left_text="开发者"
+                app:right_text="Z-P-J"
+                />
 
-                    <com.zpj.shouji.market.ui.widget.DetailLayout
-                        android:id="@+id/app_version"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        app:left_text="应用版本"
-                        app:right_text="1.0.0"
-                        />
-
-                    <com.zpj.shouji.market.ui.widget.DetailLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        app:left_text="开发者"
-                        app:right_text="Z-P-J"
-                        />
-
-                    <com.zpj.shouji.market.ui.widget.DetailLayout
-                        android:id="@+id/link_open_source"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        app:left_text="开源地址"
-                        app:right_text="https://github.com/Z-P-J/sjly"
-                        />
-
-                </LinearLayout>
-
-            </com.lihang.ShadowLayout>
+            <com.zpj.shouji.market.ui.widget.DetailLayout
+                android:id="@+id/link_open_source"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:left_text="开源地址"
+                app:right_text="https://github.com/Z-P-J/sjly"
+                />
 
         </LinearLayout>
 

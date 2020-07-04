@@ -10,7 +10,6 @@ import android.view.View;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
-import com.felix.atoast.library.AToast;
 import com.shehuan.niv.NiceImageView;
 import com.zpj.http.parser.html.nodes.Document;
 import com.zpj.http.parser.html.nodes.Element;
@@ -25,9 +24,9 @@ import com.zpj.shouji.market.model.CollectionInfo;
 import com.zpj.shouji.market.ui.fragment.collection.CollectionDetailFragment;
 import com.zpj.shouji.market.ui.fragment.collection.CollectionRecommendListFragment;
 
-import org.greenrobot.eventbus.EventBus;
-
 import java.util.List;
+
+import jp.wasabeef.glide.transformations.BlurTransformation;
 
 public class CollectionRecommendCard extends RecommendCard<CollectionInfo> {
 
@@ -107,6 +106,7 @@ public class CollectionRecommendCard extends RecommendCard<CollectionInfo> {
                 Glide.with(context)
                         .load(info.getIcons().get(0))
                         .apply(RequestOptions.bitmapTransform(new BlurTransformation2(0.1f, 1 / 4f)))
+//                        .apply(RequestOptions.bitmapTransform(new BlurTransformation(25, 8)))
                         .into(imgBg);
             }
             Glide.with(context).load(info.getIcons().get(i)).into(holder.getImageView(res));
