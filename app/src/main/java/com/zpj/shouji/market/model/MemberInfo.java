@@ -135,10 +135,10 @@ public class MemberInfo {
                 Element element = doc.appendElement(selector);
                 if (type.equals("boolean")) {
                     field.setAccessible(true);
-                    element.appendText(field.getBoolean(info) ? "1" : "0");
+                    element.appendText(field.getBoolean(this) ? "1" : "0");
                 } else if (type.equals("int")) {
                     field.setAccessible(true);
-                    element.appendText(String.valueOf(field.getInt(info)));
+                    element.appendText(String.valueOf(field.getInt(this)));
                 } else if (type.equals("class java.lang.String")) { // 如果type是类类型，则前面包含"class
                     field.setAccessible(true);
                     element.appendText(field.get(this).toString());

@@ -142,7 +142,12 @@ public class DiscoverBinder implements IEasy.OnBindViewHolderListener<DiscoverIn
                 && !TextUtils.isEmpty(discoverInfo.getAppPackageName())) {
             shareInfo.setText("分享应用:");
             appLayout.setVisibility(View.VISIBLE);
-            Glide.with(context).load(discoverInfo.getAppIcon()).into(holder.getImageView(R.id.app_icon));
+            Glide.with(context)
+                    .load(
+                            discoverInfo.getAppIcon()
+                                    .replaceAll("img.shouji.com.cn", "imgo.tljpxm.com")
+                    )
+                    .into(holder.getImageView(R.id.app_icon));
             holder.getTextView(R.id.app_name).setText(discoverInfo.getAppName());
             holder.getTextView(R.id.app_info).setText(discoverInfo.getAppPackageName());
             appLayout.setOnClickListener(v -> {

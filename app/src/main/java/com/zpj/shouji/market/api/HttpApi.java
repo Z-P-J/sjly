@@ -29,6 +29,7 @@ public final class HttpApi {
     public static Connection openConnection(String url, Connection.Method method) {
         Connection connection = ZHttp.connect(url).method(method);
         connection.data("versioncode", VERSION_CODE);
+        connection.data("version", "2.9.9.9.3");
         connection.data("sn", UserManager.getInstance().getSn());
         if (UserManager.getInstance().isLogin()) {
             connection.data("jsessionid", UserManager.getInstance().getSessionId());
@@ -201,6 +202,18 @@ public final class HttpApi {
                 .data("appid", appId)
                 .data("apptype", appType)
                 .data("package", appPackage)
+                .toHtml();
+    }
+
+    public static ObservableTask<Document> rsyncMessageApi() {
+        return openConnection("http://tt.tljpxm.com/app/rsyncMessageV3.jsp", Connection.Method.POST)
+                .data("from", "refresh")
+                .toHtml();
+    }
+
+    public static ObservableTask<Document> updateFlagApi() {
+        return openConnection("http://tt.tljpxm.com/app/updateFlag.jsp", Connection.Method.GET)
+                .data("action", "review")
                 .toHtml();
     }
 

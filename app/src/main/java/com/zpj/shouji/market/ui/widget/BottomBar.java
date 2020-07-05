@@ -13,10 +13,15 @@ import android.view.animation.AccelerateDecelerateInterpolator;
 import android.view.animation.Interpolator;
 import android.widget.LinearLayout;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class BottomBar extends LinearLayout {
     private static final int TRANSLATE_DURATION_MILLIS = 200;
 
     private final Interpolator mInterpolator = new AccelerateDecelerateInterpolator();
+    private final List<BottomBarTab> mTabs = new ArrayList<>();
+
     private boolean mVisible = true;
 
     private LinearLayout mTabLayout;
@@ -76,7 +81,13 @@ public class BottomBar extends LinearLayout {
         tab.setTabPosition(mTabLayout.getChildCount());
         tab.setLayoutParams(mTabParams);
         mTabLayout.addView(tab);
+        mTabs.add(tab);
         return this;
+    }
+
+    public BottomBarTab getItem(int index) {
+        if (mTabs.size() < index) return null;
+        return mTabs.get(index);
     }
 
     public void setOnTabSelectedListener(OnTabSelectedListener onTabSelectedListener) {

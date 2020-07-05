@@ -7,9 +7,11 @@ import android.util.Log;
 import com.felix.atoast.library.AToast;
 import com.zpj.http.ZHttp;
 import com.zpj.http.core.Connection;
+import com.zpj.http.core.IHttp;
 import com.zpj.http.parser.html.nodes.Document;
 import com.zpj.shouji.market.model.MemberInfo;
 import com.zpj.shouji.market.api.HttpApi;
+import com.zpj.shouji.market.model.MessageInfo;
 import com.zpj.utils.PrefsHelper;
 
 import java.lang.ref.WeakReference;
@@ -27,6 +29,11 @@ public final class UserManager {
     private boolean isLogin;
     private final List<WeakReference<OnSignInListener>> onSignInListeners = new ArrayList<>();
     private final List<WeakReference<OnSignUpListener>> onSignUpListeners = new ArrayList<>();
+
+    private static final long SYNC_MSG_DURATION = 60000;
+
+    private long lastTime = 0;
+    private MessageInfo messageInfo;
 
     public static UserManager getInstance() {
         return USER_MANAGER;
@@ -59,6 +66,13 @@ public final class UserManager {
     public void setCookie(String cookie) {
         this.cookie = cookie;
         PrefsHelper.with().putString("cookie", cookie);
+    }
+
+    public MessageInfo getMessageInfo() {
+        if (messageInfo == null) {
+            return new MessageInfo();
+        }
+        return messageInfo;
     }
 
     public void setUserInfo(String info) {
@@ -95,10 +109,15 @@ public final class UserManager {
     }
 
     public String getSn() {
+        String sn = null;
         if (isLogin()) {
-            return memberInfo.getSn();
+            sn = memberInfo.getSn();
         }
-        return "0123456789";
+        if (TextUtils.isEmpty(sn)) {
+            return "0123456789";
+        } else {
+            return sn;
+        }
     }
 
     public boolean isLogin() {
@@ -106,10 +125,48 @@ public final class UserManager {
         return memberInfo != null;
     }
 
+//    public void rsyncMessage(IHttp.OnSuccessListener<MessageInfo> listener) {
+//        long currentTime = System.currentTimeMillis();
+//        if (lastTime == 0 || lastTime - currentTime > DEFAULT_RESUME_DELTA_TIME) {
+//            lastTime = currentTime;
+//            HttpApi.rsyncMessageApi()
+//                    .onSuccess(data -> {
+//                        messageInfo = MessageInfo.from(data);
+//                        Log.d("rsyncMessage", "messageInfo=" + messageInfo);
+//                        if (listener != null) {
+//                            listener.onSuccess(messageInfo);
+//                        }
+//                    })
+//                    .subscribe();
+//        }
+//    }
+
+    public void rsyncMessage(boolean force) {
+        if (isLogin())  {
+            if (force) {
+                messageInfo = null;
+            }
+            long currentTime = System.currentTimeMillis();
+            if (messageInfo == null || lastTime == 0 || currentTime - lastTime > SYNC_MSG_DURATION) {
+                lastTime = currentTime;
+                HttpApi.rsyncMessageApi()
+                        .onSuccess(data -> {
+                            Log.d("rsyncMessage", "data=" + data);
+                            messageInfo = MessageInfo.from(data);
+                            Log.d("rsyncMessage", "messageInfo=" + messageInfo);
+                            messageInfo.post();
+                        })
+                        .subscribe();
+            } else if (messageInfo != null) {
+                messageInfo.post();
+            }
+        }
+    }
+
     private void signIn() {
         String sessionId = getSessionId();
         Log.d(getClass().getName(), "jsessionid=" + sessionId);
-        HttpApi.openConnection("http://tt.shouji.com.cn/app/xml_login_v4.jsp?version=2.9.9.9.3", Connection.Method.POST)
+        HttpApi.openConnection("http://tt.shouji.com.cn/app/xml_login_v4.jsp", Connection.Method.POST)
                 .data("jsessionid", sessionId)
                 .data("s", "12345678910")
                 .data("stime", "" + System.currentTimeMillis())
@@ -122,7 +179,7 @@ public final class UserManager {
 
     public void signIn(String userName, String password) {
         AToast.normal("isLogin=" + isLogin());
-        HttpApi.openConnection("http://tt.shouji.com.cn/app/xml_login_v4.jsp?version=2.9.9.9.3", Connection.Method.POST)
+        HttpApi.openConnection("http://tt.shouji.com.cn/app/xml_login_v4.jsp", Connection.Method.POST)
                 .data("openid", "")
                 .data("s", "12345678910")
                 .data("stime", "" + System.currentTimeMillis())
@@ -154,6 +211,7 @@ public final class UserManager {
                 setUserInfo(data.toString());
                 onSignInSuccess();
                 AToast.normal("登录成功");
+                rsyncMessage(true);
                 return;
             }
         }

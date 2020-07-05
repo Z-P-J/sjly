@@ -112,6 +112,9 @@ dependencies {
     // 下拉刷新
     implementation 'com.scwang.smartrefresh:SmartRefreshLayout:1.0.4-4'
 
+    // Badge
+    implementation 'q.rorbin:badgeview:1.1.3'
+
     // 其他
 //    implementation 'com.github.CarGuo.RickText:textUtilsLib:v2.1.5'
 //    implementation 'com.rengwuxian.materialedittext:library:2.1.4'

@@ -8,9 +8,12 @@ import android.support.design.widget.FloatingActionButton;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.felix.atoast.library.AToast;
 import com.zpj.fragmentation.BaseFragment;
 import com.zpj.fragmentation.anim.DefaultHorizontalAnimator;
 import com.zpj.fragmentation.anim.FragmentAnimator;
+import com.zpj.http.core.IHttp;
+import com.zpj.http.parser.html.nodes.Document;
 import com.zpj.matisse.CaptureMode;
 import com.zpj.matisse.Matisse;
 import com.zpj.matisse.MimeType;
@@ -18,6 +21,9 @@ import com.zpj.matisse.engine.impl.GlideEngine;
 import com.zpj.matisse.entity.Item;
 import com.zpj.matisse.listener.OnSelectedListener;
 import com.zpj.shouji.market.R;
+import com.zpj.shouji.market.api.HttpApi;
+import com.zpj.shouji.market.manager.UserManager;
+import com.zpj.shouji.market.model.MessageInfo;
 import com.zpj.shouji.market.ui.adapter.FragmentsPagerAdapter;
 import com.zpj.shouji.market.ui.fragment.chat.ChatFragment;
 import com.zpj.shouji.market.ui.fragment.homepage.HomeFragment;
@@ -28,15 +34,21 @@ import com.zpj.shouji.market.ui.widget.BottomBar;
 import com.zpj.shouji.market.ui.widget.BottomBarTab;
 import com.zpj.shouji.market.ui.widget.popup.MorePopup;
 import com.zpj.shouji.market.ui.widget.ZViewPager;
+import com.zpj.utils.PrefsHelper;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class MainFragment extends BaseFragment
         implements MorePopup.OnItemClickListener {
+//    IHttp.OnSuccessListener<MessageInfo>
 
     private final List<BaseFragment> fragments = new ArrayList<>();
     private ZViewPager viewPager;
+    private BottomBar mBottomBar;
 
     @Override
     protected int getLayoutId() {
@@ -51,6 +63,18 @@ public class MainFragment extends BaseFragment
     @Override
     public FragmentAnimator onCreateFragmentAnimator() {
         return new DefaultHorizontalAnimator();
+    }
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        EventBus.getDefault().register(this);
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        EventBus.getDefault().unregister(this);
     }
 
     @Override
@@ -82,7 +106,7 @@ public class MainFragment extends BaseFragment
 
         FloatingActionButton floatingActionButton = view.findViewById(R.id.fab);
 
-        BottomBar mBottomBar = view.findViewById(R.id.bottom_bar);
+        mBottomBar = view.findViewById(R.id.bottom_bar);
 
         BottomBarTab emptyTab = new BottomBarTab(context);
         emptyTab.setClickable(false);
@@ -133,6 +157,14 @@ public class MainFragment extends BaseFragment
         });
 
         mBottomBar.setCurrentItem(0);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        AToast.success("onResume");
+//        UserManager.getInstance().rsyncMessage(this);
+        UserManager.getInstance().rsyncMessage(false);
     }
 
     @Override
@@ -191,4 +223,15 @@ public class MainFragment extends BaseFragment
     public void onChatWithFriendItemClick() {
         ChatFragment.start();
     }
+
+//    @Override
+//    public void onSuccess(MessageInfo info) throws Exception {
+//
+//    }
+
+    @Subscribe
+    public void onUpdateMessageInfoEvent(MessageInfo info) {
+        mBottomBar.getItem(4).setUnreadCount(info.getTotalCount());
+    }
+
 }

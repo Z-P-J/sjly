@@ -64,20 +64,14 @@ public class CommentPopup extends BottomPopup<CommentPopup>
     }
 
     @Override
-    protected void doAfterShow() {
-        super.doAfterShow();
+    protected void onShow() {
+        super.onShow();
         if (TextUtils.isEmpty(replyId) || TextUtils.isEmpty(contentType)) {
             AToast.warning("出错了");
             dismiss();
         } else {
             KeyboardUtils.showSoftInput(chatPanel.getEditor());
         }
-    }
-
-    @Override
-    protected void onShow() {
-        super.onShow();
-
     }
 
     @Override

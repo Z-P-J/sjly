@@ -24,6 +24,7 @@ import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.api.HttpApi;
 import com.zpj.shouji.market.manager.UserManager;
 import com.zpj.shouji.market.model.MemberInfo;
+import com.zpj.shouji.market.model.MessageInfo;
 import com.zpj.shouji.market.ui.fragment.WebFragment;
 import com.zpj.shouji.market.ui.fragment.login.LoginFragment;
 import com.zpj.shouji.market.ui.fragment.setting.AboutSettingFragment;
@@ -34,6 +35,9 @@ import com.zpj.shouji.market.ui.widget.MyToolsCard;
 import com.zpj.shouji.market.ui.widget.PullZoomView;
 import com.zpj.shouji.market.ui.widget.popup.LoginPopup;
 import com.zpj.utils.ClickHelper;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
 
 public class MyFragment extends BaseFragment
         implements View.OnClickListener,
@@ -83,8 +87,8 @@ public class MyFragment extends BaseFragment
         tvFollower = view.findViewById(R.id.tv_follower);
         tvFans = view.findViewById(R.id.tv_fans);
         myToolsCard = view.findViewById(R.id.my_tools_card);
+        EventBus.getDefault().register(myToolsCard);
         myToolsCard.attachFragment(this);
-        myToolsCard.attachActivity(_mActivity);
 
         tvCloudBackup = view.findViewById(R.id.tv_cloud_backup);
         tvFeedback = view.findViewById(R.id.tv_feedback);
@@ -175,11 +179,18 @@ public class MyFragment extends BaseFragment
 
     @Override
     public void onDestroy() {
+        EventBus.getDefault().unregister(myToolsCard);
         UserManager.getInstance().removeOnSignInListener(this);
         if (loginPopup != null && loginPopup.isShow()) {
             loginPopup.dismiss();
         }
         super.onDestroy();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        UserManager.getInstance().getMessageInfo().post();
     }
 
     @Override
@@ -220,7 +231,7 @@ public class MyFragment extends BaseFragment
         if (v == tvCheckIn) {
             MemberInfo memberInfo = UserManager.getInstance().getMemberInfo();
             if (memberInfo.isCanSigned()) {
-                HttpApi.get("http://tt.shouji.com.cn/app/xml_signed.jsp?version=2.9.9.9.3")
+                HttpApi.get("http://tt.shouji.com.cn/app/xml_signed.jsp")
                         .onSuccess(data -> {
                             String info = data.selectFirst("info").text();
                             if ("success".equals(data.selectFirst("result").text())) {

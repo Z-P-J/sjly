@@ -160,7 +160,8 @@ public class DiscoverInfo {
             if (!appNames.isEmpty()) {
                 info.setAppName(appNames.get(0).text());
                 info.setAppPackageName(element.selectFirst("apppackagename").text());
-                info.setAppIcon(element.selectFirst("appicon").text());
+                info.setAppIcon(element.selectFirst("appicon").text()
+                        .replaceAll("img.shouji.com.cn", "imgo.tljpxm.com"));
                 info.setApkExist("1".equals(element.selectFirst("isApkExist").text()));
                 info.setAppUrl(element.selectFirst("appurl").text());
                 info.setApkUrl(element.selectFirst("apkurl").text());
