@@ -8,20 +8,20 @@
 
     <item
         android:id="@+id/share"
-        android:icon="@drawable/ic_comment_grey_24dp"
+        android:icon="@drawable/ic_share_white_24dp"
         android:title="分享">
 
     </item>
 
     <item
         android:id="@+id/collect"
-        android:icon="@drawable/ic_star_border_grey_24dp"
+        android:icon="@drawable/ic_app_collection_white_24dp"
         android:title="收藏">
     </item>
 
     <item
         android:id="@+id/delete"
-        android:icon="@drawable/ic_more_vert_grey_24dp"
+        android:icon="@drawable/ic_delete"
         android:title="删除"
         />
 

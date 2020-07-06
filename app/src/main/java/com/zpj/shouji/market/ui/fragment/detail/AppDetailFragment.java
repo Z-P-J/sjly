@@ -26,6 +26,7 @@ import com.shehuan.niv.NiceImageView;
 import com.zpj.fragmentation.BaseFragment;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.api.HttpApi;
+import com.zpj.shouji.market.constant.Keys;
 import com.zpj.shouji.market.event.BaseEvent;
 import com.zpj.shouji.market.event.FabEvent;
 import com.zpj.shouji.market.event.RefreshEvent;
@@ -71,8 +72,6 @@ public class AppDetailFragment extends BaseFragment {
 
     private static final String SOFT_URL = "http://tt.shouji.com.cn/androidv3/soft_show.jsp?id=";
     private static final String GAME_URL = "http://tt.shouji.com.cn/androidv3/game_show.jsp?id=";
-    private final static String KEY_ID = "app_id";
-    private final static String KEY_TYPE = "app_type";
 
     private String url;
     private String id;
@@ -90,8 +89,8 @@ public class AppDetailFragment extends BaseFragment {
 
     public static void start(String type, String id) {
         Bundle args = new Bundle();
-        args.putString(KEY_ID, id);
-        args.putString(KEY_TYPE, type);
+        args.putString(Keys.ID, id);
+        args.putString(Keys.TYPE, type);
         AppDetailFragment fragment = new AppDetailFragment();
         fragment.setArguments(args);
         StartFragmentEvent.start(fragment);
@@ -143,8 +142,8 @@ public class AppDetailFragment extends BaseFragment {
     @Override
     protected void initView(View view, @Nullable Bundle savedInstanceState) {
         if (getArguments() != null) {
-            type = getArguments().getString(KEY_TYPE);
-            id = getArguments().getString(KEY_ID);
+            type = getArguments().getString(Keys.TYPE);
+            id = getArguments().getString(Keys.ID);
             if ("game".equals(type)) {
                 url = GAME_URL + id;
             } else {

@@ -32,6 +32,7 @@ import com.zpj.recyclerview.EasyRecyclerLayout;
 import com.zpj.recyclerview.EasyViewHolder;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.api.HttpApi;
+import com.zpj.shouji.market.constant.Keys;
 import com.zpj.shouji.market.glide.MyRequestOptions;
 import com.zpj.shouji.market.model.WallpaperInfo;
 import com.zpj.shouji.market.model.WallpaperTag;
@@ -46,8 +47,6 @@ import java.util.List;
 
 public class WallpaperListFragment extends NextUrlFragment<WallpaperInfo> {
 
-    private static final String KEY_ID = "id";
-    private static final String KEY_TAG = "tag";
     private static final String DEFAULT_URL = "http://tt.shouji.com.cn/app/bizhi_list.jsp";
 
     private String id;
@@ -61,8 +60,8 @@ public class WallpaperListFragment extends NextUrlFragment<WallpaperInfo> {
 
     public static WallpaperListFragment newInstance(WallpaperTag tag) {
         Bundle args = new Bundle();
-        args.putString(KEY_ID, tag.getId());
-        args.putString(KEY_TAG, tag.getName());
+        args.putString(Keys.ID, tag.getId());
+        args.putString(Keys.TAG, tag.getName());
         WallpaperListFragment fragment = new WallpaperListFragment();
         fragment.setArguments(args);
         return fragment;
@@ -77,8 +76,8 @@ public class WallpaperListFragment extends NextUrlFragment<WallpaperInfo> {
 
     @Override
     protected void handleArguments(Bundle arguments) {
-        id = arguments.getString(KEY_ID, "1");
-        tag = arguments.getString(KEY_TAG, "全部");
+        id = arguments.getString(Keys.ID, "1");
+        tag = arguments.getString(Keys.TAG, "全部");
         initNextUrl();
     }
 

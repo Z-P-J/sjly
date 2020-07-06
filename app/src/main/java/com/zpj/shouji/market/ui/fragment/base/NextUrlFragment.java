@@ -9,10 +9,10 @@ import com.zpj.http.parser.html.nodes.Element;
 import com.zpj.recyclerview.EasyAdapter;
 import com.zpj.recyclerview.EasyViewHolder;
 import com.zpj.shouji.market.api.HttpApi;
+import com.zpj.shouji.market.constant.Keys;
 
 public abstract class NextUrlFragment<T> extends RecyclerLayoutFragment<T> {
 
-    protected static final String KEY_DEFAULT_URL = "default_url";
     protected String defaultUrl;
     protected String nextUrl;
     private boolean flag = false;
@@ -20,7 +20,7 @@ public abstract class NextUrlFragment<T> extends RecyclerLayoutFragment<T> {
 
     @Override
     protected void handleArguments(Bundle arguments) {
-        defaultUrl = arguments.getString(KEY_DEFAULT_URL, "");
+        defaultUrl = arguments.getString(Keys.DEFAULT_URL, "");
         nextUrl = defaultUrl;
     }
 

@@ -18,7 +18,12 @@ import net.lucode.hackware.magicindicator.buildins.commonnavigator.titles.ColorT
 public class MagicIndicatorHelper {
 
     public static void bindViewPager(Context context, MagicIndicator magicIndicator, ViewPager viewPager, String[] tabTitles) {
+        bindViewPager(context, magicIndicator, viewPager, tabTitles, false);
+    }
+
+    public static void bindViewPager(Context context, MagicIndicator magicIndicator, ViewPager viewPager, String[] tabTitles, boolean adjustMode) {
         CommonNavigator navigator = new CommonNavigator(context);
+        navigator.setAdjustMode(adjustMode);
         navigator.setAdapter(new CommonNavigatorAdapter() {
             @Override
             public int getCount() {

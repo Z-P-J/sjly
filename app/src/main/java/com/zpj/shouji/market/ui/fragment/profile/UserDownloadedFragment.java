@@ -7,6 +7,7 @@ import android.view.View;
 import com.zpj.http.parser.html.nodes.Element;
 import com.zpj.recyclerview.EasyViewHolder;
 import com.zpj.shouji.market.R;
+import com.zpj.shouji.market.constant.Keys;
 import com.zpj.shouji.market.model.UserDownloadedAppInfo;
 import com.zpj.shouji.market.ui.fragment.base.NextUrlFragment;
 import com.zpj.shouji.market.ui.fragment.detail.AppDetailFragment;
@@ -16,12 +17,11 @@ import java.util.List;
 
 public class UserDownloadedFragment extends NextUrlFragment<UserDownloadedAppInfo> {
 
-    private static final String KEY_ID = "key_id";
 //    private static final String DEFAULT_URL = "http://tt.shouji.com.cn/app/view_member_down_xml_v2.jsp?id=5636865";
 
     public static UserDownloadedFragment newInstance(String id) {
         Bundle args = new Bundle();
-        args.putString(KEY_ID, id);
+        args.putString(Keys.ID, id);
         UserDownloadedFragment fragment = new UserDownloadedFragment();
         fragment.setArguments(args);
         return fragment;
@@ -41,7 +41,7 @@ public class UserDownloadedFragment extends NextUrlFragment<UserDownloadedAppInf
 
     @Override
     protected void handleArguments(Bundle arguments) {
-        defaultUrl = "http://tt.shouji.com.cn/app/view_member_down_xml_v2.jsp?id=" + arguments.getString(KEY_ID, "");
+        defaultUrl = "http://tt.shouji.com.cn/app/view_member_down_xml_v2.jsp?id=" + arguments.getString(Keys.ID, "");
         nextUrl = defaultUrl;
     }
 

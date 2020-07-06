@@ -13,11 +13,14 @@ import com.zpj.http.core.IHttp;
 import com.zpj.http.parser.html.nodes.Document;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.api.HttpApi;
+import com.zpj.shouji.market.constant.Keys;
+import com.zpj.shouji.market.constant.UpdateFlagAction;
 import com.zpj.shouji.market.event.StartFragmentEvent;
 import com.zpj.shouji.market.manager.UserManager;
 import com.zpj.shouji.market.ui.adapter.FragmentsPagerAdapter;
 import com.zpj.shouji.market.ui.fragment.theme.ThemeListFragment;
 import com.zpj.shouji.market.ui.widget.ScaleTransitionPagerTitleView;
+import com.zpj.shouji.market.utils.MagicIndicatorHelper;
 import com.zpj.utils.ScreenUtils;
 
 import net.lucode.hackware.magicindicator.MagicIndicator;
@@ -77,49 +80,12 @@ public class MyCommentFragment extends BaseFragment {
         viewPager.setAdapter(new FragmentsPagerAdapter(getChildFragmentManager(), fragments, TAB_TITLES));
         viewPager.setOffscreenPageLimit(2);
 
-        CommonNavigator navigator = new CommonNavigator(getContext());
-        navigator.setAdapter(new CommonNavigatorAdapter() {
-            @Override
-            public int getCount() {
-                return TAB_TITLES.length;
-            }
-
-            @Override
-            public IPagerTitleView getTitleView(Context context, int index) {
-                ColorTransitionPagerTitleView titleView = new ColorTransitionPagerTitleView(context);
-                titleView.setNormalColor(getResources().getColor(R.color.color_text_major));
-                titleView.setSelectedColor(getResources().getColor(R.color.colorPrimary));
-                titleView.setTextSize(14);
-                titleView.setText(TAB_TITLES[index]);
-                titleView.setOnClickListener(view1 -> viewPager.setCurrentItem(index, true));
-                return titleView;
-            }
-
-            @Override
-            public IPagerIndicator getIndicator(Context context) {
-                LinePagerIndicator indicator = new LinePagerIndicator(context);
-                indicator.setMode(LinePagerIndicator.MODE_EXACTLY);
-                indicator.setLineHeight(ScreenUtils.dp2px(context, 4f));
-                indicator.setLineWidth(ScreenUtils.dp2px(context, 12f));
-                indicator.setRoundRadius(ScreenUtils.dp2px(context, 4f));
-                indicator.setColors(getResources().getColor(R.color.colorPrimary), getResources().getColor(R.color.colorPrimary));
-                return indicator;
-            }
-        });
-        magicIndicator.setNavigator(navigator);
-        ViewPagerHelper.bind(magicIndicator, viewPager);
+        MagicIndicatorHelper.bindViewPager(context, magicIndicator, viewPager, TAB_TITLES);
     }
 
     @Override
     public void onDestroy() {
-        if (UserManager.getInstance().getMessageInfo().getMessageCount() != 0) {
-            HttpApi.updateFlagApi()
-                    .onSuccess(data -> {
-//                        AToast.normal("updateFlag result=" + data.selectFirst("result"));
-                        UserManager.getInstance().rsyncMessage(true);
-                    })
-                    .subscribe();
-        }
+        HttpApi.updateFlagApi(UpdateFlagAction.COMMENT);
         super.onDestroy();
     }
 
@@ -128,7 +94,7 @@ public class MyCommentFragment extends BaseFragment {
         public static MyRelatedCommentFragment newInstance() {
             String url = "http://tt.tljpxm.com/app/user_content_list_xml_v2.jsp?t=review";
             Bundle args = new Bundle();
-            args.putString(KEY_DEFAULT_URL, url);
+            args.putString(Keys.DEFAULT_URL, url);
             MyRelatedCommentFragment fragment = new MyRelatedCommentFragment();
             fragment.setArguments(args);
             return fragment;
@@ -141,7 +107,7 @@ public class MyCommentFragment extends BaseFragment {
         public static MyPublishCommentFragment newInstance() {
             String url = "http://tt.tljpxm.com/app/user_content_list_xml_v2.jsp?t=review&thread=thread";
             Bundle args = new Bundle();
-            args.putString(KEY_DEFAULT_URL, url);
+            args.putString(Keys.DEFAULT_URL, url);
             MyPublishCommentFragment fragment = new MyPublishCommentFragment();
             fragment.setArguments(args);
             return fragment;

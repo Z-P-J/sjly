@@ -52,6 +52,7 @@ import com.zpj.shouji.market.ui.fragment.theme.ThemeListFragment;
 import com.zpj.shouji.market.ui.widget.JudgeNestedScrollView;
 import com.zpj.shouji.market.ui.widget.RoundProgressBar;
 import com.zpj.shouji.market.ui.widget.ZViewPager;
+import com.zpj.shouji.market.utils.MagicIndicatorHelper;
 import com.zpj.utils.ScreenUtils;
 import com.zpj.widget.statelayout.StateLayout;
 import com.zpj.widget.tinted.TintedImageView;
@@ -313,46 +314,47 @@ public class ProfileFragment extends BaseFragment
         mViewPager.setAdapter(adapter);
         mViewPager.setOffscreenPageLimit(fragments.size());
 
+        MagicIndicatorHelper.bindViewPager(context, magicIndicator, mViewPager, TAB_TITLES, true);
 
-        CommonNavigator navigator = new CommonNavigator(getContext());
-        navigator.setAdjustMode(true);
-        navigator.setScrollPivotX(0.65f);
-        navigator.setAdapter(new CommonNavigatorAdapter() {
-            @Override
-            public int getCount() {
-                return TAB_TITLES.length;
-            }
-
-            @Override
-            public IPagerTitleView getTitleView(Context context, int index) {
-                ColorTransitionPagerTitleView titleView = new ColorTransitionPagerTitleView(context);
-                titleView.setNormalColor(getResources().getColor(R.color.color_text_major));
-                titleView.setSelectedColor(getResources().getColor(R.color.colorPrimary));
-                titleView.setTextSize(14);
-                titleView.setText(TAB_TITLES[index]);
-                titleView.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        mViewPager.setCurrentItem(index);
-                    }
-                });
-                return titleView;
-            }
-
-            @Override
-            public IPagerIndicator getIndicator(Context context) {
-                LinePagerIndicator indicator = new LinePagerIndicator(context);
-                indicator.setMode(LinePagerIndicator.MODE_EXACTLY);
-                indicator.setLineHeight(ScreenUtils.dp2px(context, 4f));
-                indicator.setLineWidth(ScreenUtils.dp2px(context, 12f));
-                indicator.setRoundRadius(ScreenUtils.dp2px(context, 4f));
-                int color = getResources().getColor(R.color.colorPrimary);
-                indicator.setColors(color, color);
-                return indicator;
-            }
-        });
-        magicIndicator.setNavigator(navigator);
-        ViewPagerHelper.bind(magicIndicator, mViewPager);
+//        CommonNavigator navigator = new CommonNavigator(getContext());
+//        navigator.setAdjustMode(true);
+//        navigator.setScrollPivotX(0.65f);
+//        navigator.setAdapter(new CommonNavigatorAdapter() {
+//            @Override
+//            public int getCount() {
+//                return TAB_TITLES.length;
+//            }
+//
+//            @Override
+//            public IPagerTitleView getTitleView(Context context, int index) {
+//                ColorTransitionPagerTitleView titleView = new ColorTransitionPagerTitleView(context);
+//                titleView.setNormalColor(getResources().getColor(R.color.color_text_major));
+//                titleView.setSelectedColor(getResources().getColor(R.color.colorPrimary));
+//                titleView.setTextSize(14);
+//                titleView.setText(TAB_TITLES[index]);
+//                titleView.setOnClickListener(new View.OnClickListener() {
+//                    @Override
+//                    public void onClick(View view) {
+//                        mViewPager.setCurrentItem(index);
+//                    }
+//                });
+//                return titleView;
+//            }
+//
+//            @Override
+//            public IPagerIndicator getIndicator(Context context) {
+//                LinePagerIndicator indicator = new LinePagerIndicator(context);
+//                indicator.setMode(LinePagerIndicator.MODE_EXACTLY);
+//                indicator.setLineHeight(ScreenUtils.dp2px(context, 4f));
+//                indicator.setLineWidth(ScreenUtils.dp2px(context, 12f));
+//                indicator.setRoundRadius(ScreenUtils.dp2px(context, 4f));
+//                int color = getResources().getColor(R.color.colorPrimary);
+//                indicator.setColors(color, color);
+//                return indicator;
+//            }
+//        });
+//        magicIndicator.setNavigator(navigator);
+//        ViewPagerHelper.bind(magicIndicator, mViewPager);
 
 //        dealWithViewPager();
     }

@@ -8,6 +8,7 @@ import com.bumptech.glide.Glide;
 import com.zpj.http.parser.html.nodes.Element;
 import com.zpj.recyclerview.EasyViewHolder;
 import com.zpj.shouji.market.R;
+import com.zpj.shouji.market.constant.Keys;
 import com.zpj.shouji.market.model.UserInfo;
 import com.zpj.shouji.market.ui.fragment.base.NextUrlFragment;
 import com.zpj.shouji.market.ui.fragment.profile.ProfileFragment;
@@ -21,7 +22,7 @@ public class UserListFragment extends NextUrlFragment<UserInfo>
 
     public static UserListFragment newInstance(String defaultUrl) {
         Bundle args = new Bundle();
-        args.putString(KEY_DEFAULT_URL, defaultUrl);
+        args.putString(Keys.DEFAULT_URL, defaultUrl);
         UserListFragment fragment = new UserListFragment();
         fragment.setArguments(args);
         return fragment;

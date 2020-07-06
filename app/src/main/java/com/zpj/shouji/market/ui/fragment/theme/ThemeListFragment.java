@@ -13,6 +13,7 @@ import com.zpj.recyclerview.EasyRecyclerLayout;
 import com.zpj.recyclerview.EasyViewHolder;
 import com.zpj.recyclerview.IEasy;
 import com.zpj.shouji.market.R;
+import com.zpj.shouji.market.constant.Keys;
 import com.zpj.shouji.market.model.CollectionInfo;
 import com.zpj.shouji.market.model.DiscoverInfo;
 import com.zpj.shouji.market.ui.adapter.DiscoverBinder;
@@ -51,7 +52,7 @@ public class ThemeListFragment extends NextUrlFragment<DiscoverInfo>
     public static ThemeListFragment newInstance(String url, boolean shouldLazyLoad) {
         ThemeListFragment fragment = new ThemeListFragment();
         Bundle bundle = new Bundle();
-        bundle.putString(KEY_DEFAULT_URL, url);
+        bundle.putString(Keys.DEFAULT_URL, url);
         fragment.setArguments(bundle);
         return fragment;
     }
@@ -72,6 +73,7 @@ public class ThemeListFragment extends NextUrlFragment<DiscoverInfo>
         Log.d("ThemeListFragment", "nextUrl=" + nextUrl);
         HttpApi.get(nextUrl)
                 .onSuccess(doc -> {
+                    Log.d("ThemeListFragment", "data=" + doc);
                     Elements elements = doc.select("item");
 //                    if (nextUrl.equals(defaultUrl)) {
 //                        Element userElement = elements.get(0);

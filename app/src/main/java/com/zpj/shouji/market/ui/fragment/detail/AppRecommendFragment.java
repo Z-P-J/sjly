@@ -14,6 +14,7 @@ import com.zpj.recyclerview.EasyViewHolder;
 import com.zpj.recyclerview.IEasy;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.api.HttpApi;
+import com.zpj.shouji.market.constant.Keys;
 import com.zpj.shouji.market.model.AppInfo;
 import com.zpj.shouji.market.model.CollectionInfo;
 import com.zpj.shouji.market.ui.widget.recommend.SimilarAppCard;
@@ -24,7 +25,6 @@ import java.util.List;
 
 public class AppRecommendFragment extends BaseFragment {
 
-    private static final String KEY_ID = "key_id";
     private final List<Object> datas = new ArrayList<>();
     private List<CollectionInfo> collectionInfoList = new ArrayList<>();
     private List<AppInfo> appInfoList = new ArrayList<>();
@@ -37,7 +37,7 @@ public class AppRecommendFragment extends BaseFragment {
 
     public static AppRecommendFragment newInstance(String id) {
         Bundle args = new Bundle();
-        args.putString(KEY_ID, id);
+        args.putString(Keys.ID, id);
         AppRecommendFragment fragment = new AppRecommendFragment();
         fragment.setArguments(args);
         return fragment;
@@ -53,7 +53,7 @@ public class AppRecommendFragment extends BaseFragment {
         if (getArguments() == null) {
             return;
         }
-        id = getArguments().getString(KEY_ID, "");
+        id = getArguments().getString(Keys.ID, "");
         recyclerLayout = view.findViewById(R.id.recycler_layout);
         recyclerLayout.setData(datas)
                 .setOnRefreshListener(() -> {

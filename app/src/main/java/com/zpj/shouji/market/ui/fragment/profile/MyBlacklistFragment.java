@@ -10,6 +10,7 @@ import com.zpj.http.parser.html.nodes.Element;
 import com.zpj.recyclerview.EasyViewHolder;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.api.HttpApi;
+import com.zpj.shouji.market.constant.Keys;
 import com.zpj.shouji.market.event.StartFragmentEvent;
 import com.zpj.shouji.market.model.BlacklistInfo;
 import com.zpj.shouji.market.ui.fragment.WebFragment;
@@ -23,7 +24,7 @@ public class MyBlacklistFragment extends NextUrlFragment<BlacklistInfo> {
 
     public static void start() {
         Bundle args = new Bundle();
-        args.putString(KEY_DEFAULT_URL, "http://tt.tljpxm.com/androidv3/user_blacklist_xml.jsp");
+        args.putString(Keys.DEFAULT_URL, "http://tt.tljpxm.com/androidv3/user_blacklist_xml.jsp");
         MyBlacklistFragment fragment = new MyBlacklistFragment();
         fragment.setArguments(args);
         StartFragmentEvent.start(fragment);

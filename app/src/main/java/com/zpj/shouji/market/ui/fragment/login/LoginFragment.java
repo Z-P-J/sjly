@@ -17,6 +17,7 @@ import com.zpj.fragmentation.BaseFragment;
 import com.zpj.fragmentation.anim.DefaultNoAnimator;
 import com.zpj.fragmentation.swipeback.SwipeBackLayout;
 import com.zpj.shouji.market.R;
+import com.zpj.shouji.market.constant.Keys;
 import com.zpj.shouji.market.event.StartFragmentEvent;
 import com.zpj.shouji.market.event.ToggleLoginModeEvent;
 import com.zpj.shouji.market.manager.UserManager;
@@ -37,8 +38,6 @@ import com.zpj.fragmentation.anim.FragmentAnimator;
 public class LoginFragment extends BaseFragment
         implements UserManager.OnSignInListener, UserManager.OnSignUpListener {
 
-    private static final String KEY_PAGE = "key_page";
-
     private RelativeLayout rl_input;
     private ImageView iv_circle_1;
     private ImageView iv_circle_2;
@@ -52,7 +51,7 @@ public class LoginFragment extends BaseFragment
 
     public static LoginFragment newInstance(int page) {
         Bundle args = new Bundle();
-        args.putInt(KEY_PAGE, page);
+        args.putInt(Keys.PAGE, page);
         LoginFragment fragment = new LoginFragment();
         fragment.setArguments(args);
         return fragment;
@@ -112,7 +111,7 @@ public class LoginFragment extends BaseFragment
 
 
         if (getArguments() != null) {
-            vp.setCurrentItem(getArguments().getInt(KEY_PAGE), false);
+            vp.setCurrentItem(getArguments().getInt(Keys.PAGE), false);
         }
     }
 

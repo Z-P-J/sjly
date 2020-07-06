@@ -7,6 +7,7 @@ import com.zpj.http.core.Connection;
 import com.zpj.http.core.ObservableTask;
 import com.zpj.http.core.IHttp;
 import com.zpj.http.parser.html.nodes.Document;
+import com.zpj.shouji.market.constant.UpdateFlagAction;
 import com.zpj.shouji.market.manager.UserManager;
 import com.zpj.utils.OSUtils;
 
@@ -211,10 +212,39 @@ public final class HttpApi {
                 .toHtml();
     }
 
-    public static ObservableTask<Document> updateFlagApi() {
-        return openConnection("http://tt.tljpxm.com/app/updateFlag.jsp", Connection.Method.GET)
-                .data("action", "review")
-                .toHtml();
+    public static void updateFlagApi(UpdateFlagAction action) {
+        if (action == UpdateFlagAction.COMMENT
+                && UserManager.getInstance().getMessageInfo().getMessageCount() < 1) {
+            return;
+        }
+        if (action == UpdateFlagAction.GOOD
+                && UserManager.getInstance().getMessageInfo().getLikeCount() < 1) {
+            return;
+        }
+        if (action == UpdateFlagAction.AT
+                && UserManager.getInstance().getMessageInfo().getAiteCount() < 1) {
+            return;
+        }
+        if (action == UpdateFlagAction.DISCOVER
+                && UserManager.getInstance().getMessageInfo().getDiscoverCount() < 1) {
+            return;
+        }
+        if (action == UpdateFlagAction.PRIVATE
+                && UserManager.getInstance().getMessageInfo().getPrivateLetterCount() < 1) {
+            return;
+        }
+        if (action == UpdateFlagAction.FAN
+                && UserManager.getInstance().getMessageInfo().getFanCount() < 1) {
+            return;
+        }
+        openConnection("http://tt.tljpxm.com/app/updateFlag.jsp", Connection.Method.GET)
+                .data("action", action.getAction())
+                .toHtml()
+                .onSuccess(data -> {
+                    Log.d("HttpApi", "updateFlagApi data=" + data);
+                    UserManager.getInstance().rsyncMessage(true);
+                })
+                .subscribe();
     }
 
 }

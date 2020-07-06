@@ -28,6 +28,7 @@ import com.zpj.popup.ZPopup;
 import com.zpj.popup.imagetrans.listener.SourceImageViewGet;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.api.HttpApi;
+import com.zpj.shouji.market.constant.Keys;
 import com.zpj.shouji.market.event.StartFragmentEvent;
 import com.zpj.shouji.market.model.AppInfo;
 import com.zpj.shouji.market.model.article.ArticleDetailInfo;
@@ -48,8 +49,6 @@ import java.util.concurrent.atomic.AtomicBoolean;
 
 public class ArticleDetailFragment extends BaseFragment {
 
-    private static final String KEY_URL = "key_url";
-
     private String url;
     private StateLayout stateLayout;
     private LinearLayout contentWrapper;
@@ -58,7 +57,7 @@ public class ArticleDetailFragment extends BaseFragment {
 
     public static void start(String url) {
         Bundle args = new Bundle();
-        args.putString(KEY_URL, url);
+        args.putString(Keys.URL, url);
         ArticleDetailFragment fragment = new ArticleDetailFragment();
         fragment.setArguments(args);
         StartFragmentEvent.start(fragment);
@@ -80,7 +79,7 @@ public class ArticleDetailFragment extends BaseFragment {
             pop();
             return;
         }
-        url = getArguments().getString(KEY_URL);
+        url = getArguments().getString(Keys.URL);
         setToolbarTitle(url);
         setToolbarSubTitle(url);
         stateLayout = view.findViewById(R.id.state_layout);

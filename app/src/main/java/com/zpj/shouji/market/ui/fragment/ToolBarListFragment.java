@@ -5,11 +5,10 @@ import android.support.annotation.Nullable;
 import android.view.View;
 
 import com.zpj.shouji.market.R;
+import com.zpj.shouji.market.constant.Keys;
 import com.zpj.shouji.market.event.StartFragmentEvent;
 
 public class ToolBarListFragment extends AppListFragment {
-
-    private static final String KEY_TITLE = "key_title";
 
     @Override
     protected int getLayoutId() {
@@ -23,8 +22,8 @@ public class ToolBarListFragment extends AppListFragment {
 
     public static void start(String url, String title) {
         Bundle args = new Bundle();
-        args.putString(KEY_DEFAULT_URL, url);
-        args.putString(KEY_TITLE, title);
+        args.putString(Keys.DEFAULT_URL, url);
+        args.putString(Keys.TITLE, title);
         ToolBarListFragment fragment = new ToolBarListFragment();
         fragment.setArguments(args);
         StartFragmentEvent.start(fragment);
@@ -66,7 +65,7 @@ public class ToolBarListFragment extends AppListFragment {
     protected void initView(View view, @Nullable Bundle savedInstanceState) {
         super.initView(view, savedInstanceState);
         if (getArguments() != null) {
-            setToolbarTitle(getArguments().getString(KEY_TITLE, "Title"));
+            setToolbarTitle(getArguments().getString(Keys.TITLE, "Title"));
         }
 
     }

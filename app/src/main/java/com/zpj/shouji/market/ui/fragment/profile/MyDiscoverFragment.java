@@ -11,11 +11,15 @@ import com.zpj.fragmentation.BaseFragment;
 import com.zpj.markdown.MarkdownEditorFragment;
 import com.zpj.markdown.MarkdownViewFragment;
 import com.zpj.shouji.market.R;
+import com.zpj.shouji.market.api.HttpApi;
+import com.zpj.shouji.market.constant.Keys;
+import com.zpj.shouji.market.constant.UpdateFlagAction;
 import com.zpj.shouji.market.event.StartFragmentEvent;
 import com.zpj.shouji.market.manager.UserManager;
 import com.zpj.shouji.market.ui.adapter.FragmentsPagerAdapter;
 import com.zpj.shouji.market.ui.fragment.theme.ThemeListFragment;
 import com.zpj.shouji.market.ui.widget.ScaleTransitionPagerTitleView;
+import com.zpj.shouji.market.utils.MagicIndicatorHelper;
 import com.zpj.utils.ScreenUtils;
 
 import net.lucode.hackware.magicindicator.MagicIndicator;
@@ -81,37 +85,13 @@ public class MyDiscoverFragment extends BaseFragment {
         viewPager.setAdapter(new FragmentsPagerAdapter(getChildFragmentManager(), fragments, TAB_TITLES));
         viewPager.setOffscreenPageLimit(fragments.size());
 
-        CommonNavigator navigator = new CommonNavigator(getContext());
-        navigator.setAdapter(new CommonNavigatorAdapter() {
-            @Override
-            public int getCount() {
-                return TAB_TITLES.length;
-            }
+        MagicIndicatorHelper.bindViewPager(context, magicIndicator, viewPager, TAB_TITLES);
+    }
 
-            @Override
-            public IPagerTitleView getTitleView(Context context, int index) {
-                ColorTransitionPagerTitleView titleView = new ColorTransitionPagerTitleView(context);
-                titleView.setNormalColor(getResources().getColor(R.color.color_text_major));
-                titleView.setSelectedColor(getResources().getColor(R.color.colorPrimary));
-                titleView.setTextSize(14);
-                titleView.setText(TAB_TITLES[index]);
-                titleView.setOnClickListener(view1 -> viewPager.setCurrentItem(index, true));
-                return titleView;
-            }
-
-            @Override
-            public IPagerIndicator getIndicator(Context context) {
-                LinePagerIndicator indicator = new LinePagerIndicator(context);
-                indicator.setMode(LinePagerIndicator.MODE_EXACTLY);
-                indicator.setLineHeight(ScreenUtils.dp2px(context, 4f));
-                indicator.setLineWidth(ScreenUtils.dp2px(context, 12f));
-                indicator.setRoundRadius(ScreenUtils.dp2px(context, 4f));
-                indicator.setColors(getResources().getColor(R.color.colorPrimary), getResources().getColor(R.color.colorPrimary));
-                return indicator;
-            }
-        });
-        magicIndicator.setNavigator(navigator);
-        ViewPagerHelper.bind(magicIndicator, viewPager);
+    @Override
+    public void onDestroy() {
+        HttpApi.updateFlagApi(UpdateFlagAction.DISCOVER);
+        super.onDestroy();
     }
 
     public static class MyRelatedDiscoverFragment extends ThemeListFragment {
@@ -119,7 +99,7 @@ public class MyDiscoverFragment extends BaseFragment {
         public static MyRelatedDiscoverFragment newInstance() {
             String url = "http://tt.shouji.com.cn/app/user_content_list_xml_v2.jsp?t=discuss";
             Bundle args = new Bundle();
-            args.putString(KEY_DEFAULT_URL, url);
+            args.putString(Keys.DEFAULT_URL, url);
             MyRelatedDiscoverFragment fragment = new MyRelatedDiscoverFragment();
             fragment.setArguments(args);
             return fragment;
@@ -132,7 +112,7 @@ public class MyDiscoverFragment extends BaseFragment {
         public static MyPublishDiscoverFragment newInstance() {
             String url = "http://tt.shouji.com.cn/app/user_content_list_xml_v2.jsp?t=discuss&thread=thread";
             Bundle args = new Bundle();
-            args.putString(KEY_DEFAULT_URL, url);
+            args.putString(Keys.DEFAULT_URL, url);
             MyPublishDiscoverFragment fragment = new MyPublishDiscoverFragment();
             fragment.setArguments(args);
             return fragment;
@@ -145,7 +125,7 @@ public class MyDiscoverFragment extends BaseFragment {
         public static MyPrivateDiscoverFragment newInstance() {
             String url = "http://tt.shouji.com.cn/app/user_content_list_xml_v2.jsp?t=discuss&thread=private";
             Bundle args = new Bundle();
-            args.putString(KEY_DEFAULT_URL, url);
+            args.putString(Keys.DEFAULT_URL, url);
             MyPrivateDiscoverFragment fragment = new MyPrivateDiscoverFragment();
             fragment.setArguments(args);
             return fragment;

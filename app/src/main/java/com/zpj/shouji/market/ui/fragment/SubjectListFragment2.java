@@ -22,7 +22,7 @@
 //
 //    public static SubjectListFragment2 newInstance(String id) {
 //        Bundle args = new Bundle();
-//        args.putString(KEY_DEFAULT_URL, "http://tt.shouji.com.cn/androidv3/special_list_xml.jsp?id=" + id);
+//        args.putString(Keys.DEFAULT_URL, "http://tt.shouji.com.cn/androidv3/special_list_xml.jsp?id=" + id);
 //        SubjectListFragment2 fragment = new SubjectListFragment2();
 //        fragment.setArguments(args);
 //        return fragment;

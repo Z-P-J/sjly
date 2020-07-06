@@ -7,6 +7,7 @@ import android.view.View;
 
 import com.zpj.http.parser.html.nodes.Element;
 import com.zpj.recyclerview.EasyViewHolder;
+import com.zpj.shouji.market.constant.Keys;
 import com.zpj.shouji.market.event.RefreshEvent;
 import com.zpj.shouji.market.model.DiscoverInfo;
 
@@ -16,17 +17,14 @@ import org.greenrobot.eventbus.ThreadMode;
 
 public class ThemeCommentListFragment extends ThemeListFragment {
 
-    protected static final String KEY_ID= "key_id";
-    protected static final String KEY_TYPE= "key_type";
-
     private String rootId;
 //    private String contentType;
 
     public static ThemeCommentListFragment newInstance(String id, String type) {
         ThemeCommentListFragment fragment = new ThemeCommentListFragment();
         Bundle bundle = new Bundle();
-        bundle.putString(KEY_ID, id);
-        bundle.putString(KEY_TYPE, type);
+        bundle.putString(Keys.ID, id);
+        bundle.putString(Keys.TYPE, type);
         fragment.setArguments(bundle);
         return fragment;
     }
@@ -45,8 +43,8 @@ public class ThemeCommentListFragment extends ThemeListFragment {
 
     @Override
     protected void handleArguments(Bundle arguments) {
-        rootId = arguments.getString(KEY_ID, "");
-        String contentType = arguments.getString(KEY_TYPE, "");
+        rootId = arguments.getString(Keys.ID, "");
+        String contentType = arguments.getString(Keys.TYPE, "");
         if (TextUtils.isEmpty(rootId) || TextUtils.isEmpty(contentType)) {
             pop();
             return;

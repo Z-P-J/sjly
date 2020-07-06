@@ -19,19 +19,17 @@ import com.just.agentweb.IAgentWebSettings;
 import com.zpj.fragmentation.BaseFragment;
 import com.zpj.popup.ZPopup;
 import com.zpj.shouji.market.R;
+import com.zpj.shouji.market.constant.Keys;
 import com.zpj.shouji.market.event.StartFragmentEvent;
 
 public class WebFragment extends BaseFragment {
-
-    private static final String KEY_URL = "key_url";
-    private static final String KEY_TITLE = "key_title";
 
     private AgentWeb mAgentWeb;
 
     public static void start(String url, String title) {
         Bundle args = new Bundle();
-        args.putString(KEY_URL, url);
-        args.putString(KEY_TITLE, title);
+        args.putString(Keys.URL, url);
+        args.putString(Keys.TITLE, title);
         WebFragment fragment = new WebFragment();
         fragment.setArguments(args);
         StartFragmentEvent.start(fragment);
@@ -96,8 +94,8 @@ public class WebFragment extends BaseFragment {
             pop();
             return;
         }
-        String url = getArguments().getString(KEY_URL);
-        String title = getArguments().getString(KEY_TITLE);
+        String url = getArguments().getString(Keys.URL);
+        String title = getArguments().getString(Keys.TITLE);
         if (TextUtils.isEmpty(title)) {
             title = url;
         }

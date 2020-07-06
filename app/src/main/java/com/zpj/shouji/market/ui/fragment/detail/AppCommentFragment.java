@@ -8,6 +8,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
 import com.zpj.shouji.market.R;
+import com.zpj.shouji.market.constant.Keys;
 import com.zpj.shouji.market.event.FabEvent;
 import com.zpj.shouji.market.event.RefreshEvent;
 import com.zpj.shouji.market.ui.fragment.theme.ThemeListFragment;
@@ -23,7 +24,7 @@ public class AppCommentFragment extends ThemeListFragment {
     public static AppCommentFragment newInstance(String id, String type) {
         AppCommentFragment fragment = new AppCommentFragment();
         Bundle bundle = new Bundle();
-        bundle.putString(KEY_DEFAULT_URL, "http://tt.shouji.com.cn/app/comment_index_xml_v5.jsp?type=" + type + "&id=" + id);
+        bundle.putString(Keys.DEFAULT_URL, "http://tt.shouji.com.cn/app/comment_index_xml_v5.jsp?type=" + type + "&id=" + id);
         fragment.setArguments(bundle);
         return fragment;
     }

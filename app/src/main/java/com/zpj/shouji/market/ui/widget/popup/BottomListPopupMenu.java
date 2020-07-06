@@ -44,7 +44,7 @@ public class BottomListPopupMenu extends BottomPopup<BottomListPopupMenu>
 
     @Override
     protected int getImplLayoutId() {
-        return R.layout.layout_menu_bottom_sheet_dialog;
+        return R.layout.layout_popup_bottom_sheet_menu;
     }
 
     @Override
@@ -60,7 +60,7 @@ public class BottomListPopupMenu extends BottomPopup<BottomListPopupMenu>
         }
         EasyRecyclerView<MenuItem> recyclerView = new EasyRecyclerView<>(findViewById(R.id.recycler_view));
         recyclerView.setData(list)
-                .setItemRes(R.layout.item_menu_bottom_sheet_dialog)
+                .setItemRes(R.layout.item_menu)
                 .setLayoutManager(new LinearLayoutManager(getContext()))
                 .onBindViewHolder(this)
                 .setHeaderView(headerRes, onBindHeaderListener)
@@ -79,7 +79,7 @@ public class BottomListPopupMenu extends BottomPopup<BottomListPopupMenu>
     }
 
     //    public BottomListPopupMenu() {
-//        setContentView(R.layout.layout_menu_bottom_sheet_dialog);
+//        setContentView(R.layout.layout_popup_bottom_sheet_menu);
 //        setOnViewCreateListener(this);
 //    }
 

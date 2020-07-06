@@ -50,7 +50,7 @@
 
         <com.zpj.shouji.market.ui.widget.DrawableTintTextView
             style="@style/me_tool_card_item_style"
-            android:id="@+id/tv_my_messages"
+            android:id="@+id/tv_my_private_letter"
             android:drawableTop="@drawable/ic_message_white_24dp"
             android:text="我的私信"
             app:drawable_tint_color="@color/light_brown"

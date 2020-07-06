@@ -9,6 +9,9 @@ import com.bumptech.glide.Glide;
 import com.zpj.http.parser.html.nodes.Element;
 import com.zpj.recyclerview.EasyViewHolder;
 import com.zpj.shouji.market.R;
+import com.zpj.shouji.market.api.HttpApi;
+import com.zpj.shouji.market.constant.Keys;
+import com.zpj.shouji.market.constant.UpdateFlagAction;
 import com.zpj.shouji.market.event.StartFragmentEvent;
 import com.zpj.shouji.market.model.PrivateLetterInfo;
 import com.zpj.shouji.market.ui.fragment.base.NextUrlFragment;
@@ -20,7 +23,7 @@ public class MyPrivateLetterFragment extends NextUrlFragment<PrivateLetterInfo> 
 
     public static void start() {
         Bundle args = new Bundle();
-        args.putString(KEY_DEFAULT_URL, "http://tt.tljpxm.com/app/user_message_index_xml_v3.jsp");
+        args.putString(Keys.DEFAULT_URL, "http://tt.tljpxm.com/app/user_message_index_xml_v3.jsp");
         MyPrivateLetterFragment fragment = new MyPrivateLetterFragment();
         fragment.setArguments(args);
         StartFragmentEvent.start(fragment);
@@ -45,6 +48,12 @@ public class MyPrivateLetterFragment extends NextUrlFragment<PrivateLetterInfo> 
     protected void initView(View view, @Nullable Bundle savedInstanceState) {
         super.initView(view, savedInstanceState);
         setToolbarTitle("我的私信");
+    }
+
+    @Override
+    public void onDestroy() {
+        HttpApi.updateFlagApi(UpdateFlagAction.PRIVATE);
+        super.onDestroy();
     }
 
     @Override

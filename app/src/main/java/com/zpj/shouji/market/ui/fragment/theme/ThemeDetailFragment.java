@@ -10,6 +10,7 @@ import android.view.View;
 
 import com.zpj.recyclerview.EasyViewHolder;
 import com.zpj.shouji.market.R;
+import com.zpj.shouji.market.constant.Keys;
 import com.zpj.shouji.market.event.HideLoadingEvent;
 import com.zpj.shouji.market.event.RefreshEvent;
 import com.zpj.shouji.market.event.StartFragmentEvent;
@@ -40,8 +41,6 @@ public class ThemeDetailFragment extends BaseFragment {
 
     private final String[] TAB_TITLES = {"评论", "赞"};
 
-    private final static String KEY_COMMENT = "key_comment";
-
 //    private List<Fragment> fragments = new ArrayList<>();
     private SupportUserListFragment supportUserListFragment;
 
@@ -51,7 +50,7 @@ public class ThemeDetailFragment extends BaseFragment {
 
     public static void start(DiscoverInfo item, boolean showCommentPopup) {
         Bundle args = new Bundle();
-        args.putBoolean(KEY_COMMENT, showCommentPopup);
+        args.putBoolean(Keys.SHOW_TOOLBAR, showCommentPopup);
         ThemeDetailFragment fragment = new ThemeDetailFragment();
         fragment.setDiscoverInfo(item);
         fragment.setArguments(args);
@@ -142,7 +141,7 @@ public class ThemeDetailFragment extends BaseFragment {
         super.onEnterAnimationEnd(savedInstanceState);
         supportUserListFragment.setData(item.getSupportUserInfoList());
         if (getArguments() != null) {
-            if (getArguments().getBoolean(KEY_COMMENT, false)) {
+            if (getArguments().getBoolean(Keys.SHOW_TOOLBAR, false)) {
                 commentPopup = CommentPopup.with(context, item.getId(), item.getContentType()).show();
             }
         }

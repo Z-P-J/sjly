@@ -253,7 +253,6 @@ public class DiscoverBinder implements IEasy.OnBindViewHolderListener<DiscoverIn
                         .onSuccess(data -> {
                             String result = data.selectFirst("info").text();
                             if ("success".equals(data.selectFirst("result").text())) {
-                                AToast.success(result);
                                 String count = String.valueOf(Long.parseLong(discoverInfo.getSupportCount()) + (isSelected ? 1 : -1));
                                 discoverInfo.setSupportCount(count);
                                 discoverInfo.setLike(isSelected);

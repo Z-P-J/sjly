@@ -7,6 +7,7 @@ import com.bumptech.glide.Glide;
 import com.zpj.http.parser.html.nodes.Element;
 import com.zpj.recyclerview.EasyViewHolder;
 import com.zpj.shouji.market.R;
+import com.zpj.shouji.market.constant.Keys;
 import com.zpj.shouji.market.event.StartFragmentEvent;
 import com.zpj.shouji.market.model.CollectionInfo;
 import com.zpj.shouji.market.ui.fragment.base.NextUrlFragment;
@@ -23,7 +24,7 @@ public class CollectionListFragment extends NextUrlFragment<CollectionInfo>
 
     public static CollectionListFragment newInstance(String defaultUrl) {
         Bundle args = new Bundle();
-        args.putString(KEY_DEFAULT_URL, defaultUrl);
+        args.putString(Keys.DEFAULT_URL, defaultUrl);
         CollectionListFragment fragment = new CollectionListFragment();
         fragment.setArguments(args);
         return fragment;
