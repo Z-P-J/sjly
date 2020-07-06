@@ -12,6 +12,7 @@ import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.model.SubjectInfo;
 import com.zpj.shouji.market.ui.fragment.base.NextUrlFragment;
 import com.zpj.shouji.market.ui.fragment.search.SearchResultFragment;
+import com.zpj.shouji.market.utils.BeanUtils;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -59,7 +60,8 @@ public class SubjectListFragment extends NextUrlFragment<SubjectInfo>
 
     @Override
     public SubjectInfo createData(Element element) {
-        return SubjectInfo.create(element);
+        return BeanUtils.createBean(element, SubjectInfo.class);
+//        return SubjectInfo.create(element);
     }
 
 }

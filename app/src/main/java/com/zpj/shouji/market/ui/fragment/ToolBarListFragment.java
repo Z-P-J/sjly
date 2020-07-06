@@ -7,15 +7,13 @@ import android.view.View;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.event.StartFragmentEvent;
 
-import org.greenrobot.eventbus.EventBus;
-
 public class ToolBarListFragment extends AppListFragment {
 
     private static final String KEY_TITLE = "key_title";
 
     @Override
     protected int getLayoutId() {
-        return R.layout.fragment_toolbar_list;
+        return R.layout.fragment_list_with_toolbar;
     }
 
     @Override

@@ -129,7 +129,7 @@
                     app:z_setting_leftIcon="@drawable/ic_github"
                     app:z_setting_titleTextColor="@color/white"
                     app:z_setting_titleText="Github"
-                    app:z_setting_infoText="https://github.com/z-p-j"
+                    app:z_setting_infoText="https://github.com/Z-P-J"
                     app:z_setting_infoTextColor="@color/white"
                     />
 
@@ -140,7 +140,7 @@
                     app:z_setting_leftIcon="@drawable/ic_github"
                     app:z_setting_titleTextColor="@color/white"
                     app:z_setting_titleText="手机乐园"
-                    app:z_setting_infoText="https://wap.shouji.com.cn/user/5544802//home.html"
+                    app:z_setting_infoText="https://www.shouji.com.cn/user/5544802/home.html"
                     app:z_setting_infoTextColor="@color/white"
                     />
 

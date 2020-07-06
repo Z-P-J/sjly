@@ -1,36 +1,49 @@
 package com.zpj.shouji.market.model;
 
+import android.support.annotation.Keep;
+
 import com.zpj.http.parser.html.nodes.Document;
 import com.zpj.shouji.market.event.BaseEvent;
+import com.zpj.shouji.market.utils.BeanUtils;
+import com.zpj.shouji.market.utils.BeanUtils.Select;
 
+@Keep
 public class MessageInfo extends BaseEvent {
 
     // 评论数量
+    @Select(selector = "message")
     private int messageCount;
     // @数量
+    @Select(selector = "aite")
     private int aiteCount;
     // 发现数量
+    @Select(selector = "faxian")
     private int discoverCount;
     // 私信数量
-    private int chatCount;
+    @Select(selector = "private")
+    private int privateLetterCount;
     // 点赞数量
-    private int followerCount;
+    @Select(selector = "flower")
+    private int likeCount;
     // 粉丝数量
+    @Select(selector = "fensi")
     private int fanCount;
+    @Select(selector = "haoyoucontent")
     private int friendMsgCount;
 
     public static MessageInfo from(Document doc) {
-        MessageInfo info = new MessageInfo();
         if ("success".equals(doc.selectFirst("result").text())) {
-            info.setMessageCount(Integer.parseInt(doc.selectFirst("message").text()));
-            info.setAiteCount(Integer.parseInt(doc.selectFirst("aite").text()));
-            info.setDiscoverCount(Integer.parseInt(doc.selectFirst("faxian").text()));
-            info.setChatCount(Integer.parseInt(doc.selectFirst("private").text()));
-            info.setFollowerCount(Integer.parseInt(doc.selectFirst("flower").text()));
-            info.setFanCount(Integer.parseInt(doc.selectFirst("fensi").text()));
-            info.setFriendMsgCount(Integer.parseInt(doc.selectFirst("haoyoucontent").text()));
+//            MessageInfo info = new MessageInfo();
+//            info.setMessageCount(Integer.parseInt(doc.selectFirst("message").text()));
+//            info.setAiteCount(Integer.parseInt(doc.selectFirst("aite").text()));
+//            info.setDiscoverCount(Integer.parseInt(doc.selectFirst("faxian").text()));
+//            info.setPrivateLetterCount(Integer.parseInt(doc.selectFirst("private").text()));
+//            info.setLikeCount(Integer.parseInt(doc.selectFirst("flower").text()));
+//            info.setFanCount(Integer.parseInt(doc.selectFirst("fensi").text()));
+//            info.setFriendMsgCount(Integer.parseInt(doc.selectFirst("haoyoucontent").text()));
+            return BeanUtils.createBean(doc, MessageInfo.class);
         }
-        return info;
+        return new MessageInfo();
     }
 
     public int getMessageCount() {
@@ -57,20 +70,20 @@ public class MessageInfo extends BaseEvent {
         this.discoverCount = discoverCount;
     }
 
-    public int getChatCount() {
-        return chatCount;
+    public int getPrivateLetterCount() {
+        return privateLetterCount;
     }
 
-    public void setChatCount(int chatCount) {
-        this.chatCount = chatCount;
+    public void setPrivateLetterCount(int privateLetterCount) {
+        this.privateLetterCount = privateLetterCount;
     }
 
-    public int getFollowerCount() {
-        return followerCount;
+    public int getLikeCount() {
+        return likeCount;
     }
 
-    public void setFollowerCount(int followerCount) {
-        this.followerCount = followerCount;
+    public void setLikeCount(int likeCount) {
+        this.likeCount = likeCount;
     }
 
     public int getFanCount() {
@@ -90,7 +103,7 @@ public class MessageInfo extends BaseEvent {
     }
 
     public int getTotalCount() {
-        return messageCount + aiteCount + discoverCount + chatCount + followerCount + friendMsgCount;
+        return messageCount + aiteCount + discoverCount + privateLetterCount + likeCount + friendMsgCount;
     }
 
     @Override
@@ -99,8 +112,8 @@ public class MessageInfo extends BaseEvent {
                 "messageCount=" + messageCount +
                 ", aiteCount=" + aiteCount +
                 ", discoverCount=" + discoverCount +
-                ", chatCount=" + chatCount +
-                ", followerCount=" + followerCount +
+                ", chatCount=" + privateLetterCount +
+                ", followerCount=" + likeCount +
                 ", friendMsgCount=" + friendMsgCount +
                 '}';
     }

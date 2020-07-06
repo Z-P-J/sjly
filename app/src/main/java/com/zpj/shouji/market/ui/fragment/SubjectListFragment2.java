@@ -17,7 +17,7 @@
 //
 //    @Override
 //    protected int getLayoutId() {
-//        return R.layout.fragment_toolbar_list;
+//        return R.layout.fragment_list_with_toolbar;
 //    }
 //
 //    public static SubjectListFragment2 newInstance(String id) {

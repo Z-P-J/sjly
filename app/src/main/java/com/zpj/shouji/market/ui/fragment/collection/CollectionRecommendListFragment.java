@@ -5,12 +5,9 @@ import android.support.annotation.Nullable;
 import android.view.View;
 
 import com.zpj.http.parser.html.nodes.Element;
-import com.zpj.recyclerview.EasyViewHolder;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.event.StartFragmentEvent;
 import com.zpj.shouji.market.model.CollectionInfo;
-
-import org.greenrobot.eventbus.EventBus;
 
 public class CollectionRecommendListFragment extends CollectionListFragment {
 
@@ -29,7 +26,7 @@ public class CollectionRecommendListFragment extends CollectionListFragment {
 
     @Override
     protected int getLayoutId() {
-        return R.layout.fragment_toolbar_list;
+        return R.layout.fragment_list_with_toolbar;
     }
 
     @Override

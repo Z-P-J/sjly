@@ -1,28 +1,35 @@
 package com.zpj.shouji.market.model;
 
-import com.zpj.http.parser.html.nodes.Element;
+import android.support.annotation.Keep;
 
+import com.zpj.http.parser.html.nodes.Element;
+import com.zpj.shouji.market.utils.BeanUtils;
+import com.zpj.shouji.market.utils.BeanUtils.Select;
+
+@Keep
 public class SubjectInfo {
 
     private String id;
     private String icon;
     private String title;
     private String m;
+    @Select(selector = "viewtype")
     private String viewType;
+    @Select(selector = "apptype")
     private String appType;
     private String comment;
 
-    public static SubjectInfo create(Element element) {
-        SubjectInfo item = new SubjectInfo();
-        item.setId(element.selectFirst("id").text());
-        item.setIcon(element.selectFirst("icon").text());
-        item.setTitle(element.selectFirst("title").text());
-        item.setViewType(element.selectFirst("viewtype").text());
-        item.setAppType(element.selectFirst("apptype").text());
-        item.setComment(element.selectFirst("comment").text());
-        item.setM(element.selectFirst("m").text());
-        return item;
-    }
+//    public static SubjectInfo create(Element element) {
+//        SubjectInfo item = new SubjectInfo();
+//        item.setId(element.selectFirst("id").text());
+//        item.setIcon(element.selectFirst("icon").text());
+//        item.setTitle(element.selectFirst("title").text());
+//        item.setViewType(element.selectFirst("viewtype").text());
+//        item.setAppType(element.selectFirst("apptype").text());
+//        item.setComment(element.selectFirst("comment").text());
+//        item.setM(element.selectFirst("m").text());
+//        return item;
+//    }
 
     public String getId() {
         return id;

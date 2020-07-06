@@ -18,6 +18,7 @@ import com.zpj.fragmentation.SupportActivity;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.manager.UserManager;
 import com.zpj.shouji.market.model.MessageInfo;
+import com.zpj.shouji.market.ui.fragment.profile.MyAtFragment;
 import com.zpj.shouji.market.ui.fragment.profile.MyBlacklistFragment;
 import com.zpj.shouji.market.ui.fragment.profile.MyBookingFragment;
 import com.zpj.shouji.market.ui.fragment.profile.MyCollectionFragment;
@@ -26,6 +27,8 @@ import com.zpj.shouji.market.ui.fragment.profile.MyDiscoverFragment;
 import com.zpj.shouji.market.ui.fragment.profile.MyDynamicFragment;
 import com.zpj.shouji.market.ui.fragment.profile.MyFragment;
 import com.zpj.shouji.market.ui.fragment.profile.MyFriendsFragment;
+import com.zpj.shouji.market.ui.fragment.profile.MyLikeFragment;
+import com.zpj.shouji.market.ui.fragment.profile.MyPrivateLetterFragment;
 import com.zpj.shouji.market.ui.fragment.profile.ProfileFragment;
 
 import org.greenrobot.eventbus.EventBus;
@@ -49,6 +52,8 @@ public class MyToolsCard extends ShadowLayout implements View.OnClickListener {
     private DrawableTintTextView tvMyCollections;
     private DrawableTintTextView tvMyBookings;
     private DrawableTintTextView tvMyBlacklist;
+    private DrawableTintTextView tvMyAt;
+    private DrawableTintTextView tvMyLike;
 
     private Badge commentBadge;
 
@@ -105,6 +110,8 @@ public class MyToolsCard extends ShadowLayout implements View.OnClickListener {
         tvMyCollections = findViewById(R.id.tv_my_collections);
         tvMyBookings = findViewById(R.id.tv_my_bookings);
         tvMyBlacklist = findViewById(R.id.tv_my_blacklist);
+        tvMyAt = findViewById(R.id.tv_my_at);
+        tvMyLike = findViewById(R.id.tv_my_like);
 
         tvSignUp.setOnClickListener(this);
         tvSignIn.setOnClickListener(this);
@@ -116,6 +123,8 @@ public class MyToolsCard extends ShadowLayout implements View.OnClickListener {
         tvMyCollections.setOnClickListener(this);
         tvMyBookings.setOnClickListener(this);
         tvMyBlacklist.setOnClickListener(this);
+        tvMyAt.setOnClickListener(this);
+        tvMyLike.setOnClickListener(this);
 
         commentBadge = new QBadgeView(context).bindTarget(tvMyMessages);
     }
@@ -153,7 +162,7 @@ public class MyToolsCard extends ShadowLayout implements View.OnClickListener {
                 MyFriendsFragment.start(UserManager.getInstance().getUserId());
                 break;
             case R.id.tv_my_messages:
-
+                MyPrivateLetterFragment.start();
                 break;
             case R.id.tv_my_collections:
                 MyCollectionFragment.start(UserManager.getInstance().getUserId());
@@ -163,6 +172,12 @@ public class MyToolsCard extends ShadowLayout implements View.OnClickListener {
                 break;
             case R.id.tv_my_blacklist:
                 MyBlacklistFragment.start();
+                break;
+            case R.id.tv_my_at:
+                MyAtFragment.start();
+                break;
+            case R.id.tv_my_like:
+                MyLikeFragment.start();
                 break;
         }
     }

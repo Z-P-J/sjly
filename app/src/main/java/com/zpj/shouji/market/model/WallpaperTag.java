@@ -1,5 +1,7 @@
 package com.zpj.shouji.market.model;
 
+import android.support.annotation.Keep;
+
 import com.zpj.http.parser.html.nodes.Element;
 
 public class WallpaperTag {

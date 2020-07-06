@@ -61,7 +61,7 @@ public class MyFragment extends BaseFragment
     private TextView tvDownloadSetting;
     private TextView tvInstallSetting;
     private TextView tvAbout;
-    private TextView tvSignOut;
+    private View tvSignOut;
 
     private LoginPopup loginPopup;
 

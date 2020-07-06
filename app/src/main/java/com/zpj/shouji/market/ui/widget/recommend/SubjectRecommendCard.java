@@ -17,6 +17,7 @@ import com.zpj.shouji.market.model.SubjectInfo;
 import com.zpj.shouji.market.ui.fragment.SubjectListFragment;
 import com.zpj.shouji.market.ui.fragment.SubjectRecommendListFragment;
 import com.zpj.shouji.market.ui.fragment.ToolBarListFragment;
+import com.zpj.shouji.market.utils.BeanUtils;
 
 import java.util.List;
 
@@ -36,7 +37,8 @@ public class SubjectRecommendCard extends RecommendCard<SubjectInfo> {
         HttpPreLoader.getInstance().setLoadListener(HttpPreLoader.HOME_SUBJECT, document -> {
             Elements elements = document.select("item");
             for (int i = 0; i < elements.size(); i++) {
-                list.add(SubjectInfo.create(elements.get(i)));
+//                list.add(SubjectInfo.create(elements.get(i)));
+                list.add(BeanUtils.createBean(elements.get(i), SubjectInfo.class));
             }
             if (list.size() % 2 != 0) {
                 list.remove(list.size() - 1);

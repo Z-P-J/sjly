@@ -2,51 +2,68 @@ package com.zpj.shouji.market.model;
 
 import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
+import android.support.annotation.Keep;
 import android.util.SparseArray;
 
 import com.zpj.http.parser.html.nodes.Element;
 import com.zpj.http.parser.html.select.Elements;
+import com.zpj.shouji.market.utils.BeanUtils;
+import com.zpj.shouji.market.utils.BeanUtils.Select;
 
 import java.util.ArrayList;
 import java.util.List;
 
+@Keep
 public class CollectionInfo {
 
     private String id;
     private String parent;
+    @Select(selector = "contenttype")
     private String contentType;
     private String type;
     private List<String> icons = new ArrayList<>(0);
     private String title;
     private String comment;
     private int size;
+    @Select(selector = "appsize")
     private int appSize;
+    @Select(selector = "memberid")
     private String memberId;
+    @Select(selector = "nickname")
     private String nickName;
+    @Select(selector = "viewcount")
     private int viewCount;
+    @Select(selector = "favcount")
     private int favCount;
+    @Select(selector = "supportcount")
     private int supportCount;
     private String time;
+    @Select(selector = "replycount")
     private int replyCount;
-    private List<SupportUserInfo> supportUserList = new ArrayList<>(0);
+//    private List<SupportUserInfo> supportUserList = new ArrayList<>(0);
 
     public static CollectionInfo create(Element item) {
-        CollectionInfo collectionItem = new CollectionInfo();
-        collectionItem.setId(item.selectFirst("id").text());
-        collectionItem.setParent(item.selectFirst("parent").text());
-        collectionItem.setContentType(item.selectFirst("contenttype").text());
-        collectionItem.setType(item.selectFirst("type").text());
-        collectionItem.setTitle(item.selectFirst("title").text());
-        collectionItem.setComment(item.selectFirst("comment").text());
-        collectionItem.setSize(Integer.parseInt(item.selectFirst("size").text()));
-        collectionItem.setMemberId(item.selectFirst("memberid").text());
-        collectionItem.setNickName(item.selectFirst("nickname").text());
-        collectionItem.setFavCount(Integer.parseInt(item.selectFirst("favcount").text()));
-        collectionItem.setAppSize(Integer.parseInt(item.selectFirst("appsize").text()));
-        collectionItem.setSupportCount(Integer.parseInt(item.selectFirst("supportcount").text()));
-        collectionItem.setViewCount(Integer.parseInt(item.selectFirst("viewcount").text()));
-        collectionItem.setReplyCount(Integer.parseInt(item.selectFirst("replycount").text()));
-        collectionItem.setTime(item.selectFirst("time").text());
+//        CollectionInfo collectionItem = new CollectionInfo();
+//        collectionItem.setId(item.selectFirst("id").text());
+//        collectionItem.setParent(item.selectFirst("parent").text());
+//        collectionItem.setContentType(item.selectFirst("contenttype").text());
+//        collectionItem.setType(item.selectFirst("type").text());
+//        collectionItem.setTitle(item.selectFirst("title").text());
+//        collectionItem.setComment(item.selectFirst("comment").text());
+//        collectionItem.setSize(Integer.parseInt(item.selectFirst("size").text()));
+//        collectionItem.setMemberId(item.selectFirst("memberid").text());
+//        collectionItem.setNickName(item.selectFirst("nickname").text());
+//        collectionItem.setFavCount(Integer.parseInt(item.selectFirst("favcount").text()));
+//        collectionItem.setAppSize(Integer.parseInt(item.selectFirst("appsize").text()));
+//        collectionItem.setSupportCount(Integer.parseInt(item.selectFirst("supportcount").text()));
+//        collectionItem.setViewCount(Integer.parseInt(item.selectFirst("viewcount").text()));
+//        collectionItem.setReplyCount(Integer.parseInt(item.selectFirst("replycount").text()));
+//        collectionItem.setTime(item.selectFirst("time").text());
+
+        CollectionInfo collectionItem = BeanUtils.createBean(item, CollectionInfo.class);
+        if (collectionItem == null) {
+            return null;
+        }
 //                    collectionItem.setSupportCount(Integer.valueOf(item.select("supportcount").text()));
 //                    collectionItem.setSupportCount(Integer.valueOf(item.select("supportcount").text()));
         Elements icons = item.selectFirst("icons").select("icon");
@@ -204,16 +221,16 @@ public class CollectionInfo {
         return icons;
     }
 
-    public List<SupportUserInfo> getSupportUserList() {
-        return supportUserList;
-    }
-
     public void addIcon(String icon) {
         this.icons.add(icon);
     }
 
-    public void addSupportUserList(SupportUserInfo supportUser) {
-        this.supportUserList.add(supportUser);
-    }
+//    public List<SupportUserInfo> getSupportUserList() {
+//        return supportUserList;
+//    }
+
+//    public void addSupportUserList(SupportUserInfo supportUser) {
+//        this.supportUserList.add(supportUser);
+//    }
 
 }

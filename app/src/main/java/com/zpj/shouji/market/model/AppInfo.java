@@ -2,41 +2,60 @@ package com.zpj.shouji.market.model;
 
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.support.annotation.Keep;
 
 import com.zpj.http.parser.html.nodes.Element;
+import com.zpj.shouji.market.utils.BeanUtils;
+import com.zpj.shouji.market.utils.BeanUtils.Select;
 
+@Keep
 public class AppInfo implements Parcelable {
+
+    @Select(selector = "icon")
     private String appIcon;
+    @Select(selector = "title")
     private String appTitle;
+    @Select(selector = "id")
     private String appId;
+    @Select(selector = "viewtype")
     private String appViewType;
+    @Select(selector = "apptype")
     private String appType;
+    @Select(selector = "package")
     private String appPackage;
+    @Select(selector = "articleNum")
     private String appArticleNum;
+//    @Select(selector = "appNum")
     private String appNum;
+    @Select(selector = "msdk")
     private String appMinSdk;
+    @Select(selector = "m")
     private String appSize;
+    @Select(selector = "r")
     private String appInfo;
+    @Select(selector = "comment")
     private String appComment;
 
     public static AppInfo parse(Element item) {
-        if (!"app".equals(item.selectFirst("viewtype").text()) && !"image".equals(item.selectFirst("viewtype").text())) {
+        String viewType = item.selectFirst("viewtype").text();
+        if (!"app".equals(viewType) && !"image".equals(viewType)) {
             return null;
         }
-        AppInfo appInfo = new AppInfo();
-        appInfo.setAppIcon(item.select("icon").text());
-        appInfo.setAppTitle(item.select("title").text());
-        appInfo.setAppId(item.select("id").text());
-        appInfo.setAppViewType(item.select("viewtype").text());
-        appInfo.setAppType(item.select("apptype").text());
-        appInfo.setAppPackage(item.select("package").text());
-        appInfo.setAppArticleNum(item.select("articleNum").text());
-        appInfo.setAppNum(item.select("appNum").text());
-        appInfo.setAppMinSdk(item.select("msdk").text());
-        appInfo.setAppSize(item.select("m").text());
-        appInfo.setAppInfo(item.select("r").text());
-        appInfo.setAppComment(item.select("comment").text());
-        return appInfo;
+        return BeanUtils.createBean(item, AppInfo.class);
+//        AppInfo appInfo = new AppInfo();
+//        appInfo.setAppIcon(item.select("icon").text());
+//        appInfo.setAppTitle(item.select("title").text());
+//        appInfo.setAppId(item.select("id").text());
+//        appInfo.setAppViewType(item.select("viewtype").text());
+//        appInfo.setAppType(item.select("apptype").text());
+//        appInfo.setAppPackage(item.select("package").text());
+//        appInfo.setAppArticleNum(item.select("articleNum").text());
+//        appInfo.setAppNum(item.select("appNum").text());
+//        appInfo.setAppMinSdk(item.select("msdk").text());
+//        appInfo.setAppSize(item.select("m").text());
+//        appInfo.setAppInfo(item.select("r").text());
+//        appInfo.setAppComment(item.select("comment").text());
+//        return appInfo;
     }
 
     public AppInfo() {

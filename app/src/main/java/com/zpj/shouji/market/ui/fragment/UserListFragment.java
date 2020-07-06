@@ -12,6 +12,7 @@ import com.zpj.shouji.market.model.UserInfo;
 import com.zpj.shouji.market.ui.fragment.base.NextUrlFragment;
 import com.zpj.shouji.market.ui.fragment.profile.ProfileFragment;
 import com.zpj.shouji.market.ui.fragment.search.SearchResultFragment;
+import com.zpj.shouji.market.utils.BeanUtils;
 
 import java.util.List;
 
@@ -56,7 +57,8 @@ public class UserListFragment extends NextUrlFragment<UserInfo>
 
     @Override
     public UserInfo createData(Element element) {
-        return UserInfo.from(element);
+        return BeanUtils.createBean(element, UserInfo.class);
+//        return UserInfo.from(element);
     }
 
 }

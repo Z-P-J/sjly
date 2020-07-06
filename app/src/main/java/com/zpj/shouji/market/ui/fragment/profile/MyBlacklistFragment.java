@@ -15,6 +15,7 @@ import com.zpj.shouji.market.model.BlacklistInfo;
 import com.zpj.shouji.market.ui.fragment.WebFragment;
 import com.zpj.shouji.market.ui.fragment.base.NextUrlFragment;
 import com.zpj.shouji.market.ui.widget.popup.BottomListPopupMenu;
+import com.zpj.shouji.market.utils.BeanUtils;
 
 import java.util.List;
 
@@ -30,7 +31,7 @@ public class MyBlacklistFragment extends NextUrlFragment<BlacklistInfo> {
 
     @Override
     protected int getLayoutId() {
-        return R.layout.fragment_my_blacklist;
+        return R.layout.fragment_list_with_toolbar;
     }
 
     @Override
@@ -51,7 +52,8 @@ public class MyBlacklistFragment extends NextUrlFragment<BlacklistInfo> {
 
     @Override
     public BlacklistInfo createData(Element element) {
-        return BlacklistInfo.from(element);
+        return BeanUtils.createBean(element, BlacklistInfo.class);
+//        return BlacklistInfo.from(element);
     }
 
     @Override

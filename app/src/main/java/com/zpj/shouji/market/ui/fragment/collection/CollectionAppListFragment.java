@@ -15,6 +15,7 @@ import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.model.CollectionAppInfo;
 import com.zpj.shouji.market.ui.fragment.base.NextUrlFragment;
 import com.zpj.shouji.market.ui.fragment.detail.AppDetailFragment;
+import com.zpj.shouji.market.utils.BeanUtils;
 
 import java.util.List;
 
@@ -79,7 +80,11 @@ public class CollectionAppListFragment extends NextUrlFragment<CollectionAppInfo
 
     @Override
     public CollectionAppInfo createData(Element element) {
-        return CollectionAppInfo.from(element);
+        if (!"app".equals(element.selectFirst("viewtype").text())) {
+            return null;
+        }
+        return BeanUtils.createBean(element, CollectionAppInfo.class);
+//        return CollectionAppInfo.from(element);
     }
 
 }

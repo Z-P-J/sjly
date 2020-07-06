@@ -1,19 +1,24 @@
 package com.zpj.shouji.market.model;
 
+import android.support.annotation.Keep;
+
+import com.zpj.shouji.market.utils.BeanUtils;
+import com.zpj.shouji.market.utils.BeanUtils.Select;
+
+@Keep
 public class UserDownloadedAppInfo {
 
     private String id;
-
+    @Select(selector = "downid")
     private String downId;
-
     private String title;
-
+    @Select(selector = "package")
     private String packageName;
-
+    @Select(selector = "apptype")
     private String appType;
-
+    @Select(selector = "m")
     private String appSize;
-
+    @Select(selector = "r")
     private String downloadTime;
 
     public String getId() {

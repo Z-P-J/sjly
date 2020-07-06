@@ -275,17 +275,35 @@
 
                     </com.lihang.ShadowLayout>
 
-                    <TextView
+                    <com.lihang.ShadowLayout
+                        style="@style/setting_card_style"
                         android:id="@+id/tv_sign_out"
-                        style="@style/button_submit"
-                        android:background="@drawable/bg_button_round_red"
-                        android:layout_marginStart="40dp"
-                        android:layout_marginTop="16dp"
-                        android:layout_marginEnd="40dp"
-                        android:layout_marginBottom="16dp"
-                        android:text="注销账户"
                         android:visibility="gone"
-                        />
+                        >
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="56dp"
+                            android:textStyle="bold"
+                            android:textColor="#FF4040"
+                            android:gravity="center"
+                            android:text="注销账户"
+                            android:background="?attr/selectableItemBackground"
+                            />
+
+                    </com.lihang.ShadowLayout>
+
+<!--                    <TextView-->
+<!--                        android:id="@+id/tv_sign_out"-->
+<!--                        style="@style/button_submit"-->
+<!--                        android:background="@drawable/bg_button_round_red"-->
+<!--                        android:layout_marginStart="40dp"-->
+<!--                        android:layout_marginTop="16dp"-->
+<!--                        android:layout_marginEnd="40dp"-->
+<!--                        android:layout_marginBottom="16dp"-->
+<!--                        android:text="注销账户"-->
+<!--                        android:visibility="gone"-->
+<!--                        />-->
 
                 </LinearLayout>
 

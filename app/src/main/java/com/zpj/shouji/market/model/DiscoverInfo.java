@@ -5,6 +5,7 @@ import android.text.TextUtils;
 import com.zpj.http.parser.html.nodes.Element;
 import com.zpj.http.parser.html.select.Elements;
 import com.zpj.shouji.market.manager.UserManager;
+import com.zpj.shouji.market.utils.BeanUtils;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -197,7 +198,7 @@ public class DiscoverInfo {
         info.setReplyCount(replayCountElements.isEmpty() ? "0" : replayCountElements.get(0).text());
         String userId = UserManager.getInstance().getUserId();
         for (Element support : element.selectFirst("supportusers").select("supportuser")) {
-            SupportUserInfo supportUserInfo = SupportUserInfo.from(support);
+            SupportUserInfo supportUserInfo = BeanUtils.createBean(support, SupportUserInfo.class);
             info.supportUserInfoList.add(supportUserInfo);
             if (!TextUtils.isEmpty(userId)
                     && TextUtils.equals(supportUserInfo.getUserId(), userId)) {
