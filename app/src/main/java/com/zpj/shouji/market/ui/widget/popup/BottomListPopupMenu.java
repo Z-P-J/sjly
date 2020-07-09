@@ -27,6 +27,8 @@ public class BottomListPopupMenu extends BottomPopup<BottomListPopupMenu>
     private OnItemClickListener onItemClickListener;
     private OnItemLongClickListener onItemLongClickListener;
 
+    protected final List<Integer> hideMenuItemList = new ArrayList<>();
+
     @LayoutRes
     private int headerRes = -1;
     private IEasy.OnBindHeaderListener onBindHeaderListener;
@@ -34,7 +36,7 @@ public class BottomListPopupMenu extends BottomPopup<BottomListPopupMenu>
     @MenuRes
     private int menuRes;
 
-    private BottomListPopupMenu(@NonNull Context context) {
+    protected BottomListPopupMenu(@NonNull Context context) {
         super(context);
     }
 
@@ -56,7 +58,11 @@ public class BottomListPopupMenu extends BottomPopup<BottomListPopupMenu>
         int size = menu.size();
         List<MenuItem> list = new ArrayList<>();
         for (int i = 0; i < size; i++) {
-            list.add(menu.getItem(i));
+            MenuItem item = menu.getItem(i);
+            if (hideMenuItemList.contains(item.getItemId())) {
+                continue;
+            }
+            list.add(item);
         }
         EasyRecyclerView<MenuItem> recyclerView = new EasyRecyclerView<>(findViewById(R.id.recycler_view));
         recyclerView.setData(list)
@@ -82,6 +88,11 @@ public class BottomListPopupMenu extends BottomPopup<BottomListPopupMenu>
 //        setContentView(R.layout.layout_popup_bottom_sheet_menu);
 //        setOnViewCreateListener(this);
 //    }
+
+    public BottomListPopupMenu addHideItem(List<Integer> list) {
+        hideMenuItemList.addAll(list);
+        return this;
+    }
 
     public BottomListPopupMenu setMenu(@MenuRes int menuRes) {
         this.menuRes = menuRes;

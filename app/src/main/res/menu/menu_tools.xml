@@ -20,6 +20,12 @@
     </item>
 
     <item
+        android:id="@+id/delete_collect"
+        android:icon="@drawable/ic_app_collection_white_24dp"
+        android:title="取消收藏">
+    </item>
+
+    <item
         android:id="@+id/delete"
         android:icon="@drawable/ic_delete"
         android:title="删除"
@@ -35,6 +41,18 @@
         android:id="@+id/black_list"
         android:icon="@drawable/ic_move_to_inbox_black_24dp"
         android:title="加入黑名单">
+    </item>
+
+    <item
+        android:id="@+id/private_theme"
+        android:icon="@drawable/ic_move_to_inbox_black_24dp"
+        android:title="私有">
+    </item>
+
+    <item
+        android:id="@+id/public_theme"
+        android:icon="@drawable/ic_move_to_inbox_black_24dp"
+        android:title="公开">
     </item>
 
 </menu>

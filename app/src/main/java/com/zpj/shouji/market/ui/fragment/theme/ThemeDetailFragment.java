@@ -19,6 +19,7 @@ import com.zpj.shouji.market.ui.adapter.DiscoverBinder;
 import com.zpj.shouji.market.ui.adapter.FragmentsPagerAdapter;
 import com.zpj.fragmentation.BaseFragment;
 import com.zpj.shouji.market.ui.widget.popup.CommentPopup;
+import com.zpj.shouji.market.ui.widget.popup.ThemeMorePopupMenu;
 import com.zpj.utils.ClickHelper;
 import com.zpj.utils.ScreenUtils;
 
@@ -74,12 +75,11 @@ public class ThemeDetailFragment extends BaseFragment {
         List<DiscoverInfo> discoverInfoList = new ArrayList<>();
         discoverInfoList.add(item);
         binder.onBindViewHolder(holder, discoverInfoList, 0, new ArrayList<>(0));
-        holder.setOnItemLongClickListener(new View.OnLongClickListener() {
-            @Override
-            public boolean onLongClick(View v) {
-                DiscoverBinder.showMenu(context, item);
-                return true;
-            }
+        holder.setOnItemLongClickListener(v -> {
+            ThemeMorePopupMenu.with(context)
+                    .setDiscoverInfo(item)
+                    .show();
+            return true;
         });
 
 

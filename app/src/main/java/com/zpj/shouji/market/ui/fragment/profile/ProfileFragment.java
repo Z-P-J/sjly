@@ -217,17 +217,7 @@ public class ProfileFragment extends BaseFragment
                                 WebFragment.shareHomepage(userId);
                                 break;
                             case 1:
-                                HttpApi.addBlacklistApi(userId)
-                                        .onSuccess(data -> {
-                                            String info = data.selectFirst("info").text();
-                                            if ("success".equals(data.selectFirst("result").text())) {
-                                                AToast.success(info);
-                                            } else {
-                                                AToast.error(info);
-                                            }
-                                        })
-                                        .onError(throwable -> AToast.error(throwable.getMessage()))
-                                        .subscribe();
+                                HttpApi.addBlacklistApi(userId);
                                 break;
                             case 2:
                                 AToast.warning("TODO");

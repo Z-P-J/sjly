@@ -22,6 +22,7 @@ import com.zpj.shouji.market.ui.fragment.collection.CollectionDetailFragment;
 import com.zpj.shouji.market.ui.fragment.profile.ProfileFragment;
 import com.zpj.shouji.market.ui.fragment.search.SearchResultFragment;
 import com.zpj.shouji.market.api.HttpApi;
+import com.zpj.shouji.market.ui.widget.popup.ThemeMorePopupMenu;
 
 import java.util.HashMap;
 import java.util.List;
@@ -157,8 +158,9 @@ public class ThemeListFragment extends NextUrlFragment<DiscoverInfo>
 
     @Override
     public boolean onLongClick(EasyViewHolder holder, View view, DiscoverInfo data) {
-        DiscoverBinder.showMenu(context, data);
-        ;
+        ThemeMorePopupMenu.with(context)
+                .setDiscoverInfo(data)
+                .show();
         return true;
     }
 

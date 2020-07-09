@@ -2,6 +2,7 @@ package com.zpj.shouji.market.api;
 
 import android.util.Log;
 
+import com.felix.atoast.library.AToast;
 import com.zpj.http.ZHttp;
 import com.zpj.http.core.Connection;
 import com.zpj.http.core.ObservableTask;
@@ -169,14 +170,109 @@ public final class HttpApi {
         return get(url);
     }
 
-    public static ObservableTask<Document> addBlacklistApi(String id) {
+    public static void addBlacklistApi(String id) {
 //        String url = "http://tt.tljpxm.com/app/user_blacklist_add.jsp?t=add&mid=" + id;
 //        return connect(url);
-        return blacklistApi(id, true);
+        blacklistApi(id, true)
+                .onSuccess(data -> {
+                    String info = data.selectFirst("info").text();
+                    if ("success".equals(data.selectFirst("result").text())) {
+                        AToast.success(info);
+                    } else {
+                        AToast.error(info);
+                    }
+                })
+                .onError(throwable -> AToast.error(throwable.getMessage()))
+                .subscribe();;
     }
 
     public static ObservableTask<Document> removeBlacklistApi(String id) {
         return blacklistApi(id, false);
+    }
+
+    public static void addCollectionApi(String id) {
+        openConnection("http://tt.shouji.com.cn/app/user_review_fav_add.jsp", Connection.Method.GET)
+                .data("id", id)
+                .data("t", "discuss")
+                .toHtml()
+                .onSuccess(doc -> {
+                    String info = doc.selectFirst("info").text();
+                    if ("success".equals(doc.selectFirst("result").text())) {
+                        AToast.success(info);
+                    } else {
+                        AToast.error(info);
+                    }
+                })
+                .onError(throwable -> AToast.error(throwable.getMessage()))
+                .subscribe();
+    }
+
+    public static void deleteCollectionApi(String id) {
+        openConnection("http://tt.shouji.com.cn/app/user_review_fav_del.jsp", Connection.Method.GET)
+                .data("id", id)
+                .data("t", "discuss")
+                .toHtml()
+                .onSuccess(doc -> {
+                    String info = doc.selectFirst("info").text();
+                    if ("success".equals(doc.selectFirst("result").text())) {
+                        AToast.success(info);
+                    } else {
+                        AToast.error(info);
+                    }
+                })
+                .onError(throwable -> AToast.error(throwable.getMessage()))
+                .subscribe();
+    }
+
+    public static void deleteThemeApi(String id) {
+        openConnection("http://tt.shouji.com.cn/app/user_review_del_xml.jsp", Connection.Method.GET)
+                .data("id", id)
+                .data("t", "discuss")
+                .toHtml()
+                .onSuccess(doc -> {
+                    String info = doc.selectFirst("info").text();
+                    if ("success".equals(doc.selectFirst("result").text())) {
+                        AToast.success(info);
+                    } else {
+                        AToast.error(info);
+                    }
+                })
+                .onError(throwable -> AToast.error(throwable.getMessage()))
+                .subscribe();
+    }
+
+    public static void privateThemeApi(String id) {
+        openConnection("http://tt.shouji.com.cn/app/user_review_pass_xml.jsp", Connection.Method.GET)
+                .data("id", id)
+                .data("t", "discuss")
+                .toHtml()
+                .onSuccess(doc -> {
+                    String info = doc.selectFirst("info").text();
+                    if ("success".equals(doc.selectFirst("result").text())) {
+                        AToast.success(info);
+                    } else {
+                        AToast.error(info);
+                    }
+                })
+                .onError(throwable -> AToast.error(throwable.getMessage()))
+                .subscribe();
+    }
+
+    public static void publicThemeApi(String id) {
+        openConnection("http://tt.shouji.com.cn/app/user_review_public_xml.jsp", Connection.Method.GET)
+                .data("id", id)
+                .data("t", "discuss")
+                .toHtml()
+                .onSuccess(doc -> {
+                    String info = doc.selectFirst("info").text();
+                    if ("success".equals(doc.selectFirst("result").text())) {
+                        AToast.success(info);
+                    } else {
+                        AToast.error(info);
+                    }
+                })
+                .onError(throwable -> AToast.error(throwable.getMessage()))
+                .subscribe();
     }
 
     public static ObservableTask<Document> commentApi(String id, String content) {

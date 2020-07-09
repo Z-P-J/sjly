@@ -11,16 +11,19 @@ import android.view.View;
 import com.felix.atoast.library.AToast;
 import com.zpj.fragmentation.BaseFragment;
 import com.zpj.fragmentation.SupportFragment;
+import com.zpj.recyclerview.EasyViewHolder;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.api.HttpApi;
 import com.zpj.shouji.market.constant.Keys;
 import com.zpj.shouji.market.event.StartFragmentEvent;
 import com.zpj.shouji.market.manager.UserManager;
+import com.zpj.shouji.market.model.DiscoverInfo;
 import com.zpj.shouji.market.ui.adapter.FragmentsPagerAdapter;
 import com.zpj.shouji.market.ui.fragment.AppListFragment;
 import com.zpj.shouji.market.ui.fragment.WallpaperListFragment;
 import com.zpj.shouji.market.ui.fragment.collection.CollectionListFragment;
 import com.zpj.shouji.market.ui.fragment.theme.ThemeListFragment;
+import com.zpj.shouji.market.ui.widget.popup.ThemeMorePopupMenu;
 import com.zpj.shouji.market.utils.MagicIndicatorHelper;
 import com.zpj.utils.ScreenUtils;
 
@@ -175,6 +178,14 @@ public class MyCollectionFragment extends BaseFragment {
             return fragment;
         }
 
+        @Override
+        public boolean onLongClick(EasyViewHolder holder, View view, DiscoverInfo data) {
+            ThemeMorePopupMenu.with(context)
+                    .isCollection()
+                    .setDiscoverInfo(data)
+                    .show();
+            return true;
+        }
     }
 
     public static class MyCollectionWallpaperFragment extends WallpaperListFragment {
@@ -214,6 +225,15 @@ public class MyCollectionFragment extends BaseFragment {
             MyCollectionCommentFragment fragment = new MyCollectionCommentFragment();
             fragment.setArguments(args);
             return fragment;
+        }
+
+        @Override
+        public boolean onLongClick(EasyViewHolder holder, View view, DiscoverInfo data) {
+            ThemeMorePopupMenu.with(context)
+                    .isCollection()
+                    .setDiscoverInfo(data)
+                    .show();
+            return true;
         }
 
     }

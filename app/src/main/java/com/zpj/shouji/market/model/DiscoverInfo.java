@@ -142,6 +142,10 @@ public class DiscoverInfo {
         info.setTime(element.selectFirst("time").text());
         info.setContent(element.selectFirst("content").text());
         info.setPhone(element.selectFirst("phone").text());
+        info.setCollection("1".equals(element.selectFirst("iscollection").text()));
+        info.setIsShared(element.selectFirst("isShared").text());
+        info.setLast("1".equals(element.selectFirst("islast").text()));
+        info.setDetail("1".equals(element.selectFirst("isdetail").text()));
 
         Elements pics = element.select("pics");
         Elements spics = element.select("spics");

@@ -1,5 +1,7 @@
 package com.zpj.shouji.market.ui.adapter;
 
+import android.content.ClipData;
+import android.content.ClipboardManager;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.support.annotation.NonNull;
@@ -25,12 +27,15 @@ import com.lwkandroid.widget.ninegridview.NineGirdImageContainer;
 import com.lwkandroid.widget.ninegridview.NineGridBean;
 import com.lwkandroid.widget.ninegridview.NineGridView;
 import com.sunbinqiang.iconcountview.IconCountView;
+import com.zpj.http.core.IHttp;
+import com.zpj.http.parser.html.nodes.Document;
 import com.zpj.recyclerview.EasyViewHolder;
 import com.zpj.recyclerview.IEasy;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.api.HttpApi;
 import com.zpj.shouji.market.glide.GlideApp;
 import com.zpj.shouji.market.glide.blur.BlurTransformation2;
+import com.zpj.shouji.market.manager.UserManager;
 import com.zpj.shouji.market.model.DiscoverInfo;
 import com.zpj.shouji.market.ui.fragment.detail.AppDetailFragment;
 import com.zpj.shouji.market.ui.fragment.profile.ProfileFragment;
@@ -320,33 +325,67 @@ public class DiscoverBinder implements IEasy.OnBindViewHolderListener<DiscoverIn
         return sp;
     }
 
-    public static void showMenu(Context context, DiscoverInfo data) {
-        BottomListPopupMenu.with(context)
-                .setMenu(R.menu.menu_tools)
-                .onItemClick((menu, view, data1) -> {
-                    switch (data1.getItemId()) {
-                        case R.id.copy:
-
-                            break;
-                        case R.id.share:
-
-                            break;
-                        case R.id.collect:
-
-                            break;
-                        case R.id.delete:
-
-                            break;
-                        case R.id.report:
-
-                            break;
-                        case R.id.black_list:
-                            break;
-                    }
-                    menu.dismiss();
-                })
-                .show();
-    }
+//    public static void showMenu(Context context, DiscoverInfo data) {
+//        List<Integer> hideList = new ArrayList<>();
+//        boolean isLogin = UserManager.getInstance().isLogin();
+//        if (isLogin) {
+//            if (data.getMemberId().equals(UserManager.getInstance().getUserId())) {
+//                hideList.add(R.id.black_list);
+//            } else {
+//                hideList.add(R.id.delete);
+//                hideList.add(R.id.private_theme);
+//                hideList.add(R.id.public_theme);
+//            }
+//            hideList.add(data.isCollection() ? R.id.collect : R.id.delete_collect);
+//        } else {
+//            hideList.add(R.id.collect);
+//            hideList.add(R.id.delete);
+//            hideList.add(R.id.delete_collect);
+//            hideList.add(R.id.report);
+//            hideList.add(R.id.black_list);
+//            hideList.add(R.id.private_theme);
+//            hideList.add(R.id.public_theme);
+//        }
+//
+//        BottomListPopupMenu.with(context)
+//                .setMenu(R.menu.menu_tools)
+//                .addHideItem(hideList)
+//                .onItemClick((menu, view, data1) -> {
+//                    switch (data1.getItemId()) {
+//                        case R.id.copy:
+//                            ClipboardManager cm = (ClipboardManager) context.getSystemService(Context.CLIPBOARD_SERVICE);
+//                            cm.setPrimaryClip(ClipData.newPlainText(null, data.getContent()));
+//                            AToast.success("已复制到粘贴板");
+//                            break;
+//                        case R.id.share:
+//                            AToast.normal("TODO 分享");
+//                            break;
+//                        case R.id.collect:
+//                            HttpApi.addCollectionApi(data.getId());
+//                            break;
+//                        case R.id.delete_collect:
+//                            HttpApi.deleteCollectionApi(data.getId());
+//                            break;
+//                        case R.id.delete:
+//                            HttpApi.deleteThemeApi(data.getId());
+//                            break;
+//                        case R.id.report:
+//                            AToast.normal("举报");
+//                            break;
+//                        case R.id.black_list:
+//                            HttpApi.addBlacklistApi(data.getMemberId());
+//                            break;
+//                        case R.id.private_theme:
+//                            HttpApi.privateThemeApi(data.getId());
+//                            break;
+//                        case R.id.public_theme:
+//                            HttpApi.publicThemeApi(data.getId());
+//                            break;
+//                    }
+//                    menu.dismiss();
+//                })
+//                .show();
+//    }
 
     public static class GlideImageLoader implements INineGridImageLoader {
 
