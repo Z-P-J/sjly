@@ -98,6 +98,10 @@ public class ChatPanel extends RelativeLayout
         initWidget();
     }
 
+    public boolean isEmotionPanelShow() {
+        return !isKeyboardShowing && elEmotion.getVisibility() == VISIBLE;
+    }
+
     private void initWidget() {
         etEditor = findViewById(R.id.et_editor);
         ivImage = findViewById(R.id.iv_image);

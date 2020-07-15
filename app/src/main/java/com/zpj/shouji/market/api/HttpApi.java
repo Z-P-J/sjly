@@ -349,4 +349,11 @@ public final class HttpApi {
                 .toHtml();
     }
 
+    public static ObservableTask<Document> sendPrivateLetterApi(String id, String text) {
+        return openConnection("http://tt.tljpxm.com/app/user_message_add_text_xml.jsp", Connection.Method.GET)
+                .data("mmid", id)
+                .data("content", text)
+                .toHtml();
+    }
+
 }

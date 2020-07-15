@@ -49,6 +49,7 @@ public class ChatFragment2 extends NextUrlFragment<PrivateLetterInfo> implements
     public int position; //加载滚动刷新位置
 
 
+    private String userId;
     private ChatPanel chatPanel;
 
 //    public final List<PrivateLetterInfo> letterInfoList = new ArrayList<>();
@@ -57,6 +58,7 @@ public class ChatFragment2 extends NextUrlFragment<PrivateLetterInfo> implements
     public static void start(String id, String title) {
         Bundle args = new Bundle();
         args.putString(Keys.DEFAULT_URL, "http://tt.tljpxm.com/app/user_message_index_xml_v3.jsp?mmid=" + id);
+        args.putString(Keys.ID, id);
         args.putString(Keys.TITLE, title);
         ChatFragment2 fragment = new ChatFragment2();
         fragment.setArguments(args);
@@ -94,6 +96,7 @@ public class ChatFragment2 extends NextUrlFragment<PrivateLetterInfo> implements
     protected void handleArguments(Bundle arguments) {
         super.handleArguments(arguments);
         setToolbarTitle(arguments.getString(Keys.TITLE, ""));
+        userId = arguments.getString(Keys.ID, "");
     }
 
     @Override
@@ -106,6 +109,15 @@ public class ChatFragment2 extends NextUrlFragment<PrivateLetterInfo> implements
         com.zpj.popup.util.KeyboardUtils.registerSoftInputChangedListener(_mActivity, view, height -> {
             chatPanel.onKeyboardHeightChanged(height, 0);
         });
+    }
+
+    @Override
+    public boolean onBackPressedSupport() {
+        if (chatPanel.isEmotionPanelShow()) {
+            chatPanel.hideEmojiPanel();
+            return true;
+        }
+        return super.onBackPressedSupport();
     }
 
     @Override
@@ -348,14 +360,19 @@ public class ChatFragment2 extends NextUrlFragment<PrivateLetterInfo> implements
 
     @Override
     public void sendText(String content) {
-        AToast.normal("send");
-//        hideSoftInput();
-//        tblist.add(0, getTbub(userName, ChatRecyclerAdapter.TO_USER_MSG, content, null, null,
-//                null, null, null, 0f, ChatConst.COMPLETED));
-//        recyclerLayout.notifyItemInserted(0);
-////        recyclerView.smoothScrollToPosition(tbAdapter.getItemCount() - 1);
-//        recyclerLayout.getEasyRecyclerView().getRecyclerView().smoothScrollToPosition(0);
-//        postDelayed(() -> receiveMsgText(content), 1000);
+        HttpApi.sendPrivateLetterApi(userId, content)
+                .onSuccess(element -> {
+                    Log.d("deleteFriendApi", "element=" + element);
+                    String result = element.selectFirst("result").text();
+                    if ("success".equals(result)) {
+                        AToast.success("发送成功");
+                        onRefresh();
+                    } else {
+                        AToast.error(element.selectFirst("info").text());
+                    }
+                })
+                .onError(throwable -> AToast.error(throwable.getMessage()))
+                .subscribe();
     }
 
     @Override
