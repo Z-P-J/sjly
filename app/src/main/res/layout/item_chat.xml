@@ -66,6 +66,7 @@
             android:layout_marginBottom="8dp"
             android:paddingStart="8dp"
             android:paddingEnd="8dp"
+            android:textSize="12sp"
             android:textColor="@color/color_text_normal"
             />
 

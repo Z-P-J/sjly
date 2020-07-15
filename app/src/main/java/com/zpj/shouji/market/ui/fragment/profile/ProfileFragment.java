@@ -1,19 +1,12 @@
 package com.zpj.shouji.market.ui.fragment.profile;
 
-import android.content.Context;
-import android.graphics.Color;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.design.widget.AppBarLayout;
-import android.support.design.widget.CollapsingToolbarLayout;
-import android.support.design.widget.CoordinatorLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.NestedScrollView;
-import android.support.v7.widget.ButtonBarLayout;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.util.Log;
@@ -29,42 +22,24 @@ import com.felix.atoast.library.AToast;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshHeader;
 import com.scwang.smartrefresh.layout.listener.SimpleMultiPurposeListener;
-import com.scwang.smartrefresh.layout.util.DensityUtil;
 import com.shehuan.niv.NiceImageView;
 import com.zpj.fragmentation.BaseFragment;
-import com.zpj.http.core.IHttp;
-import com.zpj.http.parser.html.nodes.Document;
-import com.zpj.http.parser.html.nodes.Element;
 import com.zpj.popup.ZPopup;
-import com.zpj.popup.core.AttachPopup;
-import com.zpj.popup.impl.AlertPopup;
 import com.zpj.popup.impl.AttachListPopup;
-import com.zpj.popup.interfaces.OnConfirmListener;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.api.HttpApi;
 import com.zpj.shouji.market.event.StartFragmentEvent;
 import com.zpj.shouji.market.manager.UserManager;
 import com.zpj.shouji.market.ui.adapter.FragmentsPagerAdapter;
-import com.zpj.shouji.market.ui.behavior.AppBarLayoutOverScrollViewBehavior;
 import com.zpj.shouji.market.ui.fragment.WebFragment;
-import com.zpj.shouji.market.ui.fragment.chat.ChatFragment;
-import com.zpj.shouji.market.ui.fragment.theme.ThemeListFragment;
+import com.zpj.shouji.market.ui.fragment.chat.ChatFragment2;
 import com.zpj.shouji.market.ui.widget.JudgeNestedScrollView;
-import com.zpj.shouji.market.ui.widget.RoundProgressBar;
-import com.zpj.shouji.market.ui.widget.ZViewPager;
 import com.zpj.shouji.market.utils.MagicIndicatorHelper;
 import com.zpj.utils.ScreenUtils;
 import com.zpj.widget.statelayout.StateLayout;
 import com.zpj.widget.tinted.TintedImageView;
 
 import net.lucode.hackware.magicindicator.MagicIndicator;
-import net.lucode.hackware.magicindicator.ViewPagerHelper;
-import net.lucode.hackware.magicindicator.buildins.commonnavigator.CommonNavigator;
-import net.lucode.hackware.magicindicator.buildins.commonnavigator.abs.CommonNavigatorAdapter;
-import net.lucode.hackware.magicindicator.buildins.commonnavigator.abs.IPagerIndicator;
-import net.lucode.hackware.magicindicator.buildins.commonnavigator.abs.IPagerTitleView;
-import net.lucode.hackware.magicindicator.buildins.commonnavigator.indicators.LinePagerIndicator;
-import net.lucode.hackware.magicindicator.buildins.commonnavigator.titles.ColorTransitionPagerTitleView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -359,7 +334,7 @@ public class ProfileFragment extends BaseFragment
     @Override
     public void onClick(View v) {
         if (v == ivChat) {
-            ChatFragment.start();
+            ChatFragment2.start(userId, tvName.getText().toString());
         } else if (v == tvFollow) {
             if (isMe) {
                 AToast.normal("编辑");
