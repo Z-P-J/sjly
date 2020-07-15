@@ -11,6 +11,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical"
         android:background="@drawable/top_line_gray"
+        android:textColor="@color/color_text_major"
         android:inputType="textMultiLine"
         android:gravity="start"
         android:maxHeight="180dp"

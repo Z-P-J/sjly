@@ -126,6 +126,7 @@ dependencies {
 //    implementation 'org.linwg1988:lcardview:1.5.2'
 //    implementation 'com.henley.android:shadowlayout:1.0.2'
     implementation 'com.github.lihangleo2:ShadowLayout:2.1.8'
+    implementation 'com.houtrry.bubble:bubbleView:1.0.0'
 
     implementation 'com.zpj.widget:StateLayout:1.0.1'
     implementation 'com.zpj.widget:SmoothCheckBox:1.0.0'

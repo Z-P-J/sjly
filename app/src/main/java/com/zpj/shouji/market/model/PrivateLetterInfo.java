@@ -8,6 +8,9 @@ import com.zpj.shouji.market.event.BaseEvent;
 import com.zpj.shouji.market.utils.BeanUtils;
 import com.zpj.shouji.market.utils.BeanUtils.Select;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Keep
 public class PrivateLetterInfo extends BaseEvent {
 
@@ -26,6 +29,9 @@ public class PrivateLetterInfo extends BaseEvent {
     @Select(selector = "read")
     private boolean isRead;
     private String content;
+    private List<String> pics = new ArrayList<>(0);
+    private List<String> spics = new ArrayList<>(0);
+
 
     public String getId() {
         return id;
@@ -113,6 +119,22 @@ public class PrivateLetterInfo extends BaseEvent {
 
     public void setContent(String content) {
         this.content = content;
+    }
+
+    public List<String> getSpics() {
+        return spics;
+    }
+
+    public void addSpic(String spic) {
+        this.spics.add(spic);
+    }
+
+    public List<String> getPics() {
+        return pics;
+    }
+
+    public void addPic(String pic) {
+        this.pics.add(pic);
     }
 
     @Override

@@ -343,4 +343,10 @@ public final class HttpApi {
                 .subscribe();
     }
 
+    public static ObservableTask<Document> privateLetterApi(String id) {
+        return openConnection("http://tt.tljpxm.com/app/user_message_index_xml_v3.jsp", Connection.Method.GET)
+                .data("mmid", id)
+                .toHtml();
+    }
+
 }

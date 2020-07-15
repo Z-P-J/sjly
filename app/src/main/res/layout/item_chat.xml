@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:padding="8dp">
+
+    <com.shehuan.niv.NiceImageView
+        android:id="@+id/iv_icon"
+        android:layout_width="36dp"
+        android:layout_height="36dp"
+        android:layout_alignParentEnd="true"
+        app:is_circle="true"
+        />
+
+<!--    <LinearLayout-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_toLeftOf="@+id/iv_icon"-->
+<!--        android:orientation="horizontal">-->
+
+<!--        <com.zpj.shouji.market.ui.widget.GifTextView-->
+<!--            android:id="@+id/mycontent"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_margin="5dp"-->
+<!--            android:background="@drawable/chatto_bg_focused"-->
+<!--            android:textColor="@color/white"-->
+<!--            android:textSize="16sp"-->
+<!--            android:text="srjdfhgfffffffffffffffffffffffff\nsdfhgjbnjg\n\n\n\sdhfgh\n"-->
+<!--            />-->
+<!--    </LinearLayout>-->
+
+    <com.houtrry.bubble.BubbleLinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:background="#eeeeee"
+        android:orientation="vertical"
+        android:layout_toStartOf="@id/iv_icon"
+        app:arrowOffset="8dp"
+        app:arrowType="left"
+        app:arrow_height="8dp"
+        app:arrow_width="8dp"
+        app:borderColor="#eeeeee"
+        app:border_width="1dp"
+        app:bubbleType="right"
+        app:cornerRadius="8dp"
+        >
+
+        <TextView
+            android:id="@+id/tv_content"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:padding="8dp"
+            android:textColor="@color/color_text_major"
+            />
+
+        <TextView
+            android:id="@+id/tv_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="8dp"
+            android:paddingStart="8dp"
+            android:paddingEnd="8dp"
+            android:textColor="@color/color_text_normal"
+            />
+
+    </com.houtrry.bubble.BubbleLinearLayout>
+
+</RelativeLayout>

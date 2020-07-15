@@ -26,8 +26,10 @@ import com.zpj.shouji.market.manager.UserManager;
 import com.zpj.shouji.market.model.MessageInfo;
 import com.zpj.shouji.market.ui.adapter.FragmentsPagerAdapter;
 import com.zpj.shouji.market.ui.fragment.chat.ChatFragment;
+import com.zpj.shouji.market.ui.fragment.chat.ChatFragment2;
 import com.zpj.shouji.market.ui.fragment.homepage.HomeFragment;
 import com.zpj.shouji.market.ui.fragment.profile.MyFragment;
+import com.zpj.shouji.market.ui.fragment.profile.MyPrivateLetterFragment;
 import com.zpj.shouji.market.ui.fragment.recommond.GameRecommendFragment2;
 import com.zpj.shouji.market.ui.fragment.recommond.SoftRecommendFragment2;
 import com.zpj.shouji.market.ui.widget.BottomBar;
@@ -221,7 +223,8 @@ public class MainFragment extends BaseFragment
 
     @Override
     public void onChatWithFriendItemClick() {
-        ChatFragment.start();
+//        ChatFragment2.start();
+        MyPrivateLetterFragment.start();
     }
 
 //    @Override

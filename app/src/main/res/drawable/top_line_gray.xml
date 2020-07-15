@@ -6,7 +6,7 @@
         </shape>
     </item>
     <item
-        android:top="1px">
+        android:top="2px">
         <shape>
             <solid android:color="#FFFFFF"/>
         </shape>
