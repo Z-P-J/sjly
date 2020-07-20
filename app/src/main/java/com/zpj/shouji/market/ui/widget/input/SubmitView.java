@@ -1,4 +1,4 @@
-package com.zpj.shouji.market.ui.widget;
+package com.zpj.shouji.market.ui.widget.input;
 
 import android.content.Context;
 import android.content.res.TypedArray;

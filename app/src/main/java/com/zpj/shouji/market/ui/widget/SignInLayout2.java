@@ -14,10 +14,12 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.felix.atoast.library.AToast;
-import com.zpj.fragmentation.SupportActivity;
 import com.zpj.shouji.market.R;
-import com.zpj.shouji.market.ui.fragment.WebFragment;
 import com.zpj.shouji.market.manager.UserManager;
+import com.zpj.shouji.market.ui.fragment.WebFragment;
+import com.zpj.shouji.market.ui.widget.input.AccountInputView2;
+import com.zpj.shouji.market.ui.widget.input.EmailInputView2;
+import com.zpj.shouji.market.ui.widget.input.PasswordInputView2;
 import com.zpj.utils.ScreenUtils;
 import com.zpj.widget.checkbox.SmoothCheckBox;
 import com.zpj.widget.editor.EditTextWithClear;
@@ -26,27 +28,27 @@ import com.zpj.widget.editor.validator.EmailValidator;
 import com.zpj.widget.editor.validator.LengthValidator;
 import com.zpj.widget.editor.validator.SameValueValidator;
 
-public class SignInLayout extends LinearLayout
+public class SignInLayout2 extends LinearLayout
         implements UserManager.OnSignUpListener {
 
-    private EditTextWithClear etAccount;
-    private PasswordEditText etPassword;
-    private PasswordEditText etPasswordAgain;
-    private EditTextWithClear etEmail;
+    private AccountInputView2 etAccount;
+    private PasswordInputView2 etPassword;
+    private PasswordInputView2 etPasswordAgain;
+    private EmailInputView2 etEmail;
 
     private SmoothCheckBox cbAgreement;
     private TextView tvAgreement;
     private TextView tvSignIn;
 
-    public SignInLayout(Context context) {
+    public SignInLayout2(Context context) {
         this(context, null);
     }
 
-    public SignInLayout(Context context, @Nullable AttributeSet attrs) {
+    public SignInLayout2(Context context, @Nullable AttributeSet attrs) {
         this(context, attrs, 0);
     }
 
-    public SignInLayout(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
+    public SignInLayout2(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         init(context);
     }
@@ -54,23 +56,23 @@ public class SignInLayout extends LinearLayout
     private void init(Context context) {
         setOrientation(VERTICAL);
 
-        LayoutInflater.from(context).inflate(R.layout.layout_sign_in, this, true);
+        LayoutInflater.from(context).inflate(R.layout.layout_sign_in2, this, true);
 
         int padding = ScreenUtils.dp2pxInt(context, 16);
         setPadding(padding, padding, padding, padding);
 
 
-//        etAccount = findViewById(R.id.et_account);
-//        etAccount.addValidator(new LengthValidator("账号长度必须在3-20之间", 3, 20));
-//        etPassword = findViewById(R.id.et_password);
-//        etPassword.addValidator(new LengthValidator("密码长度不能小于6", 6, Integer.MAX_VALUE));
-//        etPasswordAgain = findViewById(R.id.et_password_again);
-//        etPasswordAgain.addValidator(new LengthValidator("密码长度不能小于6", 6, Integer.MAX_VALUE));
-//        etPasswordAgain.addValidator(new SameValueValidator(etPassword, "两次输入的密码不相同"));
-//        etEmail = findViewById(R.id.et_email);
-//        etEmail.addValidator(new EmailValidator("邮箱格式有误"));
-//        cbAgreement = findViewById(R.id.cb_agreement);
-//        tvAgreement = findViewById(R.id.tv_agreement);
+        etAccount = findViewById(R.id.et_account);
+        etAccount.addValidator(new LengthValidator("账号长度必须在3-20之间", 3, 20));
+        etPassword = findViewById(R.id.et_password);
+        etPassword.addValidator(new LengthValidator("密码长度不能小于6", 6, Integer.MAX_VALUE));
+        etPasswordAgain = findViewById(R.id.et_password_again);
+        etPasswordAgain.addValidator(new LengthValidator("密码长度不能小于6", 6, Integer.MAX_VALUE));
+        etPasswordAgain.addValidator(new SameValueValidator(etPassword.getEditText(), "两次输入的密码不相同"));
+        etEmail = findViewById(R.id.et_email);
+        etEmail.addValidator(new EmailValidator("邮箱格式有误"));
+        cbAgreement = findViewById(R.id.cb_agreement);
+        tvAgreement = findViewById(R.id.tv_agreement);
 
 
         String text = "同意《用户协议》和《隐私协议》";

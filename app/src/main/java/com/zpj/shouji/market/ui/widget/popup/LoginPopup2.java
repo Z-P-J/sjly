@@ -7,13 +7,17 @@ import android.support.v4.view.ViewPager;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.zpj.popup.core.BottomPopup;
 import com.zpj.popup.core.CenterPopup;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.manager.UserManager;
+import com.zpj.shouji.market.ui.adapter.FragmentsPagerAdapter;
 import com.zpj.shouji.market.ui.widget.AutoSizeViewPager;
 import com.zpj.shouji.market.ui.widget.ScaleTransitionPagerTitleView;
 import com.zpj.shouji.market.ui.widget.SignInLayout;
+import com.zpj.shouji.market.ui.widget.SignInLayout2;
 import com.zpj.shouji.market.ui.widget.SignUpLayout;
+import com.zpj.shouji.market.ui.widget.SignUpLayout2;
 import com.zpj.utils.ScreenUtils;
 import com.zpj.widget.toolbar.ZToolBar;
 
@@ -28,28 +32,31 @@ import net.lucode.hackware.magicindicator.buildins.commonnavigator.indicators.Li
 import java.util.ArrayList;
 import java.util.List;
 
-public class LoginPopup extends CenterPopup<LoginPopup>
+public class LoginPopup2 extends BottomPopup<LoginPopup2>
         implements UserManager.OnSignInListener {
 
     private static final String[] TAB_TITLES = {"登录", "注册"};
     private AutoSizeViewPager viewPager;
     private int currentPosition = 0;
 
-    private SignUpLayout signUpLayout;
-    private SignInLayout signInLayout;
+    private SignUpLayout2 signUpLayout;
+    private SignInLayout2 signInLayout;
+
+    private FragmentsPagerAdapter adapter;
 
 
-    public static LoginPopup with(Context context) {
-        return new LoginPopup(context);
+    public static LoginPopup2 with(Context context) {
+        return new LoginPopup2(context);
     }
 
-    public LoginPopup(@NonNull Context context) {
+    public LoginPopup2(@NonNull Context context) {
         super(context);
+        popupInfo.hasShadowBg = false;
     }
 
     @Override
     protected int getImplLayoutId() {
-        return R.layout.layout_popup_login;
+        return R.layout.layout_popup_login2;
     }
 
     @Override
@@ -59,8 +66,8 @@ public class LoginPopup extends CenterPopup<LoginPopup>
             UserManager.getInstance().addOnSignInListener(this);
         }
         List<View> list = new ArrayList<>();
-        signUpLayout = new SignUpLayout(getContext());
-        signInLayout = new SignInLayout(getContext());
+        signUpLayout = new SignUpLayout2(getContext());
+        signInLayout = new SignInLayout2(getContext());
         list.add(signUpLayout);
         list.add(signInLayout);
 
@@ -132,7 +139,7 @@ public class LoginPopup extends CenterPopup<LoginPopup>
         UserManager.getInstance().removeOnSignInListener(this);
     }
 
-    public LoginPopup setCurrentPosition(int currentPosition) {
+    public LoginPopup2 setCurrentPosition(int currentPosition) {
         this.currentPosition = currentPosition;
         return this;
     }

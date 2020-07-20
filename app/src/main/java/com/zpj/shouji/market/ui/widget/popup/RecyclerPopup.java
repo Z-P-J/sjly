@@ -47,14 +47,13 @@ public class RecyclerPopup extends PartShadowPopup<RecyclerPopup> {
                     TextView title = holder.getTextView(R.id.tv_title);
                     title.setText(list.get(position));
                     title.setTextColor(getContext().getResources().getColor(position == selectPosition ? R.color.colorPrimary : R.color.text_gray));
-                    holder.setPosition(position);
                     holder.setOnItemClickListener(v -> {
                         if (position == selectPosition) {
                             return;
                         }
                         dismiss();
                         if (onItemClickListener != null) {
-                            onItemClickListener.onItemClick(v, list.get(position), holder.getHolderPosition());
+                            onItemClickListener.onItemClick(v, list.get(holder.getRealPosition()), holder.getRealPosition());
                         }
                     });
                 })

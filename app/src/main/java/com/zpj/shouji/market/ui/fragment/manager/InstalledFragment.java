@@ -26,6 +26,7 @@ import com.zpj.popupmenuview.PopupMenuView;
 import com.zpj.recyclerview.EasyAdapter;
 import com.zpj.recyclerview.EasyRecyclerLayout;
 import com.zpj.recyclerview.EasyViewHolder;
+import com.zpj.recyclerview.IEasy;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.glide.GlideApp;
 import com.zpj.shouji.market.model.InstalledAppInfo;
@@ -133,7 +134,7 @@ public class InstalledFragment extends RecyclerLayoutFragment<InstalledAppInfo>
     protected void buildRecyclerLayout(EasyRecyclerLayout<InstalledAppInfo> recyclerLayout) {
         recyclerLayout.setEnableSwipeRefresh(false)
                 .setEnableSelection(true)
-                .setOnSelectChangeListener(new EasyRecyclerLayout.OnSelectChangeListener<InstalledAppInfo>() {
+                .setOnSelectChangeListener(new IEasy.OnSelectChangeListener<InstalledAppInfo>() {
                     @Override
                     public void onSelectModeChange(boolean selectMode) {
                         if (selectMode) {
@@ -145,7 +146,7 @@ public class InstalledFragment extends RecyclerLayoutFragment<InstalledAppInfo>
                     }
 
                     @Override
-                    public void onChange(List<InstalledAppInfo> list, int position, boolean isChecked) {
+                    public void onSelectChange(List<InstalledAppInfo> list, int position, boolean isChecked) {
                         infoTextView.setText("共计：" + data.size() + " | 已选：" + recyclerLayout.getSelectedCount());
                     }
 

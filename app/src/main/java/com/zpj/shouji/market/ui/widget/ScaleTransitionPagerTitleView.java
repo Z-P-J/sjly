@@ -8,7 +8,7 @@ import net.lucode.hackware.magicindicator.buildins.commonnavigator.titles.ColorT
 public class ScaleTransitionPagerTitleView extends ColorTransitionPagerTitleView {
 
     private static final float MIN_SCALE = 0.7f;
-    private static final float MAX_SCALE = 1.3f;
+    private static final float MAX_SCALE = 1.2f;
 
     public ScaleTransitionPagerTitleView(Context context) {
         super(context);

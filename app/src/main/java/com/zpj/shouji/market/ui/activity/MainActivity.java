@@ -7,6 +7,7 @@ import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.StrictMode;
+import android.support.v4.app.ActivityCompat;
 
 import com.felix.atoast.library.AToast;
 import com.lxj.xpermission.PermissionConstants;
@@ -101,7 +102,8 @@ public class MainActivity extends SupportActivity {
             AToast.warning("再次点击退出！");
             firstTime = System.currentTimeMillis();
         } else {
-            finish();
+//            finish();
+            ActivityCompat.finishAfterTransition(this);
         }
     }
 

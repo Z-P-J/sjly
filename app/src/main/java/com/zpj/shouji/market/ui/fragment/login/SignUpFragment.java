@@ -17,20 +17,23 @@ import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.event.ToggleLoginModeEvent;
 import com.zpj.shouji.market.manager.UserManager;
 import com.zpj.shouji.market.ui.fragment.WebFragment;
-import com.zpj.shouji.market.ui.widget.input.InputView;
+import com.zpj.shouji.market.ui.widget.input.InputView2;
 import com.zpj.shouji.market.ui.widget.input.PasswordInputView;
-import com.zpj.shouji.market.ui.widget.SubmitView;
+import com.zpj.shouji.market.ui.widget.input.SubmitView;
+import com.zpj.shouji.market.ui.widget.input.PasswordInputView2;
 import com.zpj.widget.checkbox.SmoothCheckBox;
+import com.zpj.widget.editor.validator.LengthValidator;
+import com.zpj.widget.editor.validator.SameValueValidator;
 
 public class SignUpFragment extends BaseFragment
         implements View.OnClickListener, UserManager.OnSignUpListener {
 
 
     LinearLayout ll_go_login;
-    InputView piv_account;
-    InputView aiv_email;
-    PasswordInputView piv_password;
-    PasswordInputView piv_password_again;
+    InputView2 piv_account;
+    InputView2 aiv_email;
+    PasswordInputView2 piv_password;
+    PasswordInputView2 piv_password_again;
     SubmitView sv_register;
     private SmoothCheckBox cbAgreement;
     private TextView tvAgreement;
@@ -45,19 +48,23 @@ public class SignUpFragment extends BaseFragment
         UserManager.getInstance().addOnSignUpListener(this);
         ll_go_login = view.findViewById(R.id.ll_go_login);
         piv_account = view.findViewById(R.id.piv_register_account);
+        piv_account.addValidator(new LengthValidator("账号长度必须在3-20之间", 3, 20));
         piv_password = view.findViewById(R.id.piv_register_password);
+        piv_password.addValidator(new LengthValidator("密码长度不能小于6", 6, Integer.MAX_VALUE));
         piv_password_again = view.findViewById(R.id.piv_register_password_again);
+        piv_password_again.addValidator(new LengthValidator("密码长度不能小于6", 6, Integer.MAX_VALUE));
+        piv_password_again.addValidator(new SameValueValidator(piv_password.getEditText(), "两次输入的密码不相同"));
         aiv_email = view.findViewById(R.id.aiv_register_email);
         sv_register = view.findViewById(R.id.sv_register);
 
         ll_go_login.setOnClickListener(this);
         sv_register.setOnClickListener(this);
 
-        if (getParentFragment() instanceof LoginFragment) {
-            ((LoginFragment) getParentFragment()).getSoftInputHelper().moveWith(sv_register,
-                    piv_account.getEditText(), piv_password.getEditText(),
-                    piv_password_again.getEditText(), aiv_email.getEditText());
-        }
+//        if (getParentFragment() instanceof LoginFragment) {
+//            ((LoginFragment) getParentFragment()).getSoftInputHelper().moveWith(sv_register,
+//                    piv_account.getEditText(), piv_password.getEditText(),
+//                    piv_password_again.getEditText(), aiv_email.getEditText());
+//        }
 
         cbAgreement = view.findViewById(R.id.cb_agreement);
         tvAgreement = view.findViewById(R.id.tv_agreement);

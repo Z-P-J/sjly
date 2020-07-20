@@ -49,11 +49,11 @@ public class EditTextWithClear extends ZEditText implements TextWatcher {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
                 EditTextWithClear.this.hasFocus = hasFocus;
-                if (hasFocus) {
-                    setClearIconVisible(getText().length() > 0);
-                } else if (isValid()){
-                    setClearIconVisible(false);
-                }
+//                if (hasFocus) {
+//                    setClearIconVisible(getText().length() > 0);
+//                } else if (isValid()){
+//                    setClearIconVisible(false);
+//                }
 
             }
         });
@@ -61,7 +61,7 @@ public class EditTextWithClear extends ZEditText implements TextWatcher {
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 if (hasFocus) {
-                    setClearIconVisible(isValid() && s.length() > 0);
+//                    setClearIconVisible(isValid() && s.length() > 0);
                 } else {
                     setClearIconVisible(false);
                 }
@@ -129,14 +129,14 @@ public class EditTextWithClear extends ZEditText implements TextWatcher {
                               int lengthAfter) { // text是原有的文本
         // 从start开始的lengthAfter个字符替换旧的长度为lengthBefore的旧文本
         Log.d("onTextChanged", "onTextChanged");
-        if (isValid()) {
-            Log.d("onTextChanged", "isValid hasFocus=" + hasFocus);
-            if (hasFocus) {
-                setClearIconVisible(text.length() > 0);
-            } else {
-                setClearIconVisible(false);
-            }
-        }
+//        if (isValid()) {
+//            Log.d("onTextChanged", "isValid hasFocus=" + hasFocus);
+//            if (hasFocus) {
+//                setClearIconVisible(text.length() > 0);
+//            } else {
+//                setClearIconVisible(false);
+//            }
+//        }
 
     }
 

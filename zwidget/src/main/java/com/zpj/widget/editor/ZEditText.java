@@ -27,9 +27,9 @@ public class ZEditText extends AppCompatEditText implements
     private OnFocusChangeListener onFocusChangeListener;
     private final List<WeakReference<OnFocusChangeListener>> listeners = new ArrayList<>();
 
-    private List<Validator> validators;
+//    private List<Validator> validators;
 
-    private boolean allowEmpty = false;
+//    private boolean allowEmpty = false;
 
     public ZEditText(Context context) {
         super(context);
@@ -53,32 +53,38 @@ public class ZEditText extends AppCompatEditText implements
 //    }
 
     private void init() {
-        validators = new ArrayList<>();
-        allowEmpty(allowEmpty);
-        addTextChangedListener(new SimpleTextWatcher() {
-            @Override
-            public void afterTextChanged(Editable s) {
-                isValid();
-            }
-        });
+//        validators = new ArrayList<>();
+//        allowEmpty(allowEmpty);
+//        addTextChangedListener(new SimpleTextWatcher() {
+//            @Override
+//            public void afterTextChanged(Editable s) {
+//                isValid();
+//            }
+//        });
         super.setOnFocusChangeListener(this);
     }
 
-
-    @Deprecated
     @Override
     public void setOnFocusChangeListener(OnFocusChangeListener onFocusChangeListener) {
-        if (onFocusChangeListener != this) {
+        if (onFocusChangeListener != null && onFocusChangeListener != this) {
+            removeOnFocusChangeListener(this.onFocusChangeListener);
             this.onFocusChangeListener = onFocusChangeListener;
+            addOnFocusChangeListener(onFocusChangeListener);
         }
         super.setOnFocusChangeListener(this);
     }
 
     public void addOnFocusChangeListener(OnFocusChangeListener onFocusChangeListener) {
+        if (onFocusChangeListener == null) {
+            return;
+        }
         listeners.add(new WeakReference<>(onFocusChangeListener));
     }
 
     public void removeOnFocusChangeListener(OnFocusChangeListener onFocusChangeListener) {
+        if (onFocusChangeListener == null) {
+            return;
+        }
         for (WeakReference<OnFocusChangeListener> listener : listeners) {
             if (listener != null && listener.get() != null && listener.get() == onFocusChangeListener) {
                 listeners.remove(listener);
@@ -87,71 +93,71 @@ public class ZEditText extends AppCompatEditText implements
         }
     }
 
-    public void addValidator(Validator validator) {
-        validators.add(validator);
-    }
+//    public void addValidator(Validator validator) {
+//        validators.add(validator);
+//    }
 
 
-    public boolean isEmptyAllowed() {
-        return allowEmpty;
-    }
+//    public boolean isEmptyAllowed() {
+//        return allowEmpty;
+//    }
+//
+//
+//    public void allowEmpty(boolean empty) {
+//        if (empty) {
+//            allowEmpty = false;
+//            for (int i = validators.size() - 1; i >= 0; --i) {
+//                Validator validator = validators.get(i);
+//                if (validator instanceof EmptyValidator) {
+//                    validators.remove(i);
+//                }
+//            }
+//        } else {
+//            for (Validator validator : validators) {
+//                if (validator instanceof EmptyValidator) {
+//                    return;
+//                }
+//            }
+//            allowEmpty = true;
+//            validators.add(0, new EmptyValidator("输入内容不能为空"));
+//        }
+//    }
+//
+//    public boolean isValid() {
+//        if (validators == null || validators.isEmpty()) {
+//            return true;
+//        }
+//        for (Validator validator : validators) {
+//            if (!validator.isValid(this)) {
+//                setError(validator.getErrorMessage());
+//                return false;
+//            }
+//        }
+//        return true;
+//    }
 
-
-    public void allowEmpty(boolean empty) {
-        if (empty) {
-            allowEmpty = false;
-            for (int i = validators.size() - 1; i >= 0; --i) {
-                Validator validator = validators.get(i);
-                if (validator instanceof EmptyValidator) {
-                    validators.remove(i);
-                }
-            }
-        } else {
-            for (Validator validator : validators) {
-                if (validator instanceof EmptyValidator) {
-                    return;
-                }
-            }
-            allowEmpty = true;
-            validators.add(0, new EmptyValidator("输入内容不能为空"));
-        }
-    }
-
-    public boolean isValid() {
-        if (validators == null || validators.isEmpty()) {
-            return true;
-        }
-        for (Validator validator : validators) {
-            if (!validator.isValid(this)) {
-                setError(validator.getErrorMessage());
-                return false;
-            }
-        }
-        return true;
-    }
-
-    public String testValid() {
-        if (validators == null || validators.isEmpty()) {
-            return null;
-        }
-        for (Validator validator : validators) {
-            if (!validator.isValid(this)) {
-                return validator.getErrorMessage();
-            }
-        }
-        return null;
-    }
+//    public String testValid() {
+//        if (validators == null || validators.isEmpty()) {
+//            return null;
+//        }
+//        for (Validator validator : validators) {
+//            if (!validator.isValid(this)) {
+//                return validator.getErrorMessage();
+//            }
+//        }
+//        return null;
+//    }
 
     @Override
     public final void onFocusChange(View v, boolean hasFocus) {
         Log.d("ZEditText", "onFocusChange hasFocus=" + hasFocus);
-        if (!hasFocus) {
-            isValid();
-        }
+//        if (!hasFocus) {
+//            isValid();
+//        }
 
-        if (onFocusChangeListener != null) {
-            onFocusChangeListener.onFocusChange(v, hasFocus);
-        }
+//        if (onFocusChangeListener != null) {
+//            onFocusChangeListener.onFocusChange(v, hasFocus);
+//        }
 
         for (WeakReference<OnFocusChangeListener> listener : listeners) {
             if (listener != null && listener.get() != null) {

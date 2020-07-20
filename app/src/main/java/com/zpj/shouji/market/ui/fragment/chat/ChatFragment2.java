@@ -23,6 +23,7 @@ import com.zpj.matisse.Matisse;
 import com.zpj.popup.ZPopup;
 import com.zpj.recyclerview.EasyRecyclerLayout;
 import com.zpj.recyclerview.EasyViewHolder;
+import com.zpj.recyclerview.IEasy;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.api.HttpApi;
 import com.zpj.shouji.market.constant.Keys;
@@ -135,8 +136,8 @@ public class ChatFragment2 extends NextUrlFragment<PrivateLetterInfo> implements
                 .setItemAnimator(new SlideInOutBottomItemAnimator(
                         recyclerLayout.getEasyRecyclerView().getRecyclerView()
                 ))
-                .onGetChildViewType(position -> {
-                    PrivateLetterInfo info = data.get(position);
+                .onGetChildViewType((list, position) -> {
+                    PrivateLetterInfo info = list.get(position);
                     if (UserManager.getInstance().getUserId().equals(info.getSendId())) {
                         if (info.getPics().size() == 0) {
                             return 0;
@@ -151,36 +152,18 @@ public class ChatFragment2 extends NextUrlFragment<PrivateLetterInfo> implements
                         }
                     }
                 })
-//                .onGetChildLayoutId(viewType -> {
-//                    switch (viewType) {
-//                        case 0:
-//                            return R.layout.item_chat;
-//                        case 1:
-//                            return R.layout.item_chat_replay;
-//                        case 2:
-//                            return R.layout.item_chat_img;
-//                        case 3:
-//                            return R.layout.item_chat_replay_img;
-//                    }
-//                    return 0;
-//                })
-                .onCreateViewHolder((parent, layoutRes, viewType) -> {
+                .onGetChildLayoutId(viewType -> {
                     switch (viewType) {
                         case 0:
-                            layoutRes = R.layout.item_chat;
-                            break;
+                            return R.layout.item_chat;
                         case 1:
-                            layoutRes = R.layout.item_chat_replay;
-                            break;
+                            return R.layout.item_chat_replay;
                         case 2:
-                            layoutRes = R.layout.item_chat_img;
-                            break;
+                            return R.layout.item_chat_img;
                         case 3:
-                            layoutRes = R.layout.item_chat_replay_img;
-                            break;
+                            return R.layout.item_chat_replay_img;
                     }
-                    return LayoutInflater.from(parent.getContext()).
-                            inflate(layoutRes, parent, false);
+                    return 0;
                 })
                 .onViewClick(R.id.iv_icon, (holder, view, data) ->
                         ProfileFragment.start(data.getSendId(), true))

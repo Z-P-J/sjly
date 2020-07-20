@@ -3,13 +3,17 @@ package com.zpj.shouji.market.ui.fragment.login;
 import android.animation.Animator;
 import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
+import android.animation.ValueAnimator;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
 import com.felix.atoast.library.AToast;
@@ -23,6 +27,9 @@ import com.zpj.shouji.market.event.ToggleLoginModeEvent;
 import com.zpj.shouji.market.manager.UserManager;
 import com.zpj.shouji.market.ui.adapter.FragmentsPagerAdapter;
 import com.zpj.shouji.market.ui.fragment.setting.CommonSettingFragment;
+import com.zpj.shouji.market.ui.widget.AutoSizeViewPager;
+import com.zpj.shouji.market.ui.widget.popup.LoginPopup2;
+import com.zpj.shouji.market.utils.RxAnimationTool;
 import com.zpj.shouji.market.utils.SoftInputHelper;
 
 import org.greenrobot.eventbus.EventBus;
@@ -38,16 +45,18 @@ import com.zpj.fragmentation.anim.FragmentAnimator;
 public class LoginFragment extends BaseFragment
         implements UserManager.OnSignInListener, UserManager.OnSignUpListener {
 
-    private RelativeLayout rl_input;
-    private ImageView iv_circle_1;
-    private ImageView iv_circle_2;
-    private ViewPager vp;
+//    private RelativeLayout rl_input;
+//    private ImageView iv_circle_1;
+//    private ImageView iv_circle_2;
+    private AutoSizeViewPager vp;
 //    private FrameLayout fl_eye;
 
     private boolean isRunning = false;
     private AnimatorSet mSet1;
     private AnimatorSet mSet2;
     private SoftInputHelper mSoftInputHelper;
+
+    private ValueAnimator valueAnimator;
 
     public static LoginFragment newInstance(int page) {
         Bundle args = new Bundle();
@@ -83,36 +92,88 @@ public class LoginFragment extends BaseFragment
         UserManager.getInstance().addOnSignInListener(this);
         UserManager.getInstance().addOnSignUpListener(this);
 
-        rl_input = view.findViewById(R.id.rl_input);
-        iv_circle_1 = view.findViewById(R.id.iv_circle_1);
-        iv_circle_2 = view.findViewById(R.id.iv_circle_2);
+//        rl_input = view.findViewById(R.id.rl_input);
+//        iv_circle_1 = view.findViewById(R.id.iv_circle_1);
+//        iv_circle_2 = view.findViewById(R.id.iv_circle_2);
         vp = view.findViewById(R.id.vp);
+//        vp.setCanScroll(false);
 //        fl_eye = view.findViewById(R.id.fl_eye);
 
-        mSoftInputHelper = SoftInputHelper.attach(_mActivity).moveBy(rl_input);
+//        view.findViewById(R.id.scroll_view)
+//        mSoftInputHelper = SoftInputHelper.attach(_mActivity).moveBy(vp);
 
-        ArrayList<Fragment> list = new ArrayList<>();
-        SignInFragment signInFragment = findChildFragment(SignInFragment.class);
-        if (signInFragment == null) {
-            signInFragment = new SignInFragment();
-        }
-        SignUpFragment signUpFragment = findChildFragment(SignUpFragment.class);
-        if (signUpFragment == null) {
-            signUpFragment = new SignUpFragment();
-        }
-
-        list.add(signInFragment);
-        list.add(signUpFragment);
-
-        FragmentsPagerAdapter adapter = new FragmentsPagerAdapter(getChildFragmentManager(), list, null);
-        vp.setAdapter(adapter);
-
-        setEdgeOrientation(SwipeBackLayout.EDGE_TOP);
+//        View test = view.findViewById(R.id.test);
 
 
-        if (getArguments() != null) {
-            vp.setCurrentItem(getArguments().getInt(Keys.PAGE), false);
-        }
+        com.zpj.popup.util.KeyboardUtils.registerSoftInputChangedListener(_mActivity, vp, height -> {
+
+            Log.d("KeyboardUtils", "height=" + height);
+            if (height == 0) {
+                vp.setTranslationY(0);
+                return;
+            }
+            if (valueAnimator != null) {
+                valueAnimator.cancel();
+            }
+            valueAnimator = ValueAnimator.ofInt((int) vp.getTranslationY(), -height);
+            valueAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+                @Override
+                public void onAnimationUpdate(ValueAnimator animation) {
+                    int value = (int) animation.getAnimatedValue();//根据时间因子的变化系数进行设置高度
+                    vp.setTranslationY(value);
+                }
+            });
+            valueAnimator.addListener(new Animator.AnimatorListener() {
+                @Override
+                public void onAnimationStart(Animator animation) {
+
+                }
+
+                @Override
+                public void onAnimationEnd(Animator animation) {
+                    valueAnimator = null;
+                }
+
+                @Override
+                public void onAnimationCancel(Animator animation) {
+                    valueAnimator = null;
+                }
+
+                @Override
+                public void onAnimationRepeat(Animator animation) {
+
+                }
+            });
+            valueAnimator.setDuration(250);
+            valueAnimator.start();
+        });
+
+        postOnEnterAnimationEnd(() -> {
+            ArrayList<Fragment> list = new ArrayList<>();
+            SignInFragment signInFragment = findChildFragment(SignInFragment.class);
+            if (signInFragment == null) {
+                signInFragment = new SignInFragment();
+            }
+            SignUpFragment signUpFragment = findChildFragment(SignUpFragment.class);
+            if (signUpFragment == null) {
+                signUpFragment = new SignUpFragment();
+            }
+
+            list.add(signInFragment);
+            list.add(signUpFragment);
+
+            FragmentsPagerAdapter adapter = new FragmentsPagerAdapter(getChildFragmentManager(), list, null);
+            vp.setAdapter(adapter);
+
+            setEdgeOrientation(SwipeBackLayout.EDGE_TOP);
+
+
+            if (getArguments() != null) {
+                vp.setCurrentItem(getArguments().getInt(Keys.PAGE), false);
+            }
+
+//            LoginPopup2.with(context).show();
+        });
     }
 
     @Override
@@ -132,8 +193,8 @@ public class LoginFragment extends BaseFragment
     @Override
     public void onStart() {
         isRunning = true;
-        mSet1 = startCircleAnim(iv_circle_1);
-        mSet2 = startCircleAnim(iv_circle_2);
+//        mSet1 = startCircleAnim(iv_circle_1);
+//        mSet2 = startCircleAnim(iv_circle_2);
         super.onStart();
     }
 

@@ -61,32 +61,21 @@ public class AppRecommendFragment extends BaseFragment {
                     appInfoList.clear();
                     recyclerLayout.notifyDataSetChanged();
                 })
-                .onGetChildViewType(new IEasy.OnGetChildViewTypeListener() {
-                    @Override
-                    public int onGetViewType(int position) {
-                        return position;
+                .onGetChildViewType((list, position) -> position)
+                .onCreateViewHolder((parent, layoutRes, viewType) -> {
+                    if (viewType == 0) {
+                        return similarCollectionCard;
+                    } else {
+                        return similarAppCard;
                     }
                 })
-                .onCreateViewHolder(new IEasy.OnCreateViewHolderListener<Object>() {
-                    @Override
-                    public View onCreateViewHolder(ViewGroup parent, int layoutRes, int viewType) {
-                        if (viewType == 0) {
-                            return similarCollectionCard;
-                        } else {
-                            return similarAppCard;
-                        }
-                    }
-                })
-                .onBindViewHolder(new IEasy.OnBindViewHolderListener<Object>() {
-                    @Override
-                    public void onBindViewHolder(EasyViewHolder holder, List<Object> list, int position, List<Object> payloads) {
-                        if (appInfoList.isEmpty() && collectionInfoList.isEmpty()) {
-                            getSimilar();
-                        } else if (position == 1) {
-                            similarAppCard.setData(appInfoList);
-                        } else if (position == 0) {
-                            similarCollectionCard.setData(collectionInfoList);
-                        }
+                .onBindViewHolder((holder, list, position, payloads) -> {
+                    if (appInfoList.isEmpty() && collectionInfoList.isEmpty()) {
+                        getSimilar();
+                    } else if (position == 1) {
+                        similarAppCard.setData(appInfoList);
+                    } else if (position == 0) {
+                        similarCollectionCard.setData(collectionInfoList);
                     }
                 })
                 .build();

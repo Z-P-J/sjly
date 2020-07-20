@@ -14,7 +14,7 @@ import android.widget.Scroller;
 
 import java.lang.reflect.Field;
 
-public class AutoSizeViewPager extends ViewPager {
+public class AutoSizeViewPager extends ZViewPager {
 
     private static final String TAG = "AutoSizeViewPager";
 
@@ -156,44 +156,44 @@ public class AutoSizeViewPager extends ViewPager {
         return position >= 0 && position < heightArray.size() ? heightArray.get(position, 0) : 0;
     }
 
-    public void setScrollerSpeed(int speed) {
-        try {
-            Field mScroller = ViewPager.class.getDeclaredField("mScroller");
-            mScroller.setAccessible(true);
-            FixedSpeedScroller scroller = new FixedSpeedScroller(getContext(), null, speed);
-            mScroller.set(this, scroller);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
+//    public void setScrollerSpeed(int speed) {
+//        try {
+//            Field mScroller = ViewPager.class.getDeclaredField("mScroller");
+//            mScroller.setAccessible(true);
+//            FixedSpeedScroller scroller = new FixedSpeedScroller(getContext(), null, speed);
+//            mScroller.set(this, scroller);
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+//    }
 
-    private static class FixedSpeedScroller extends Scroller {
-
-        private int mDuration = 1000;
-
-        FixedSpeedScroller(Context context) {
-            super(context);
-        }
-
-        FixedSpeedScroller(Context context, Interpolator interpolator) {
-            super(context, interpolator);
-        }
-
-        FixedSpeedScroller(Context context, Interpolator interpolator, int duration) {
-            this(context, interpolator);
-            mDuration = duration;
-        }
-
-        @Override
-        public void startScroll(int startX, int startY, int dx, int dy) {
-            super.startScroll(startX, startY, dx, dy, mDuration);
-        }
-
-        @Override
-        public void startScroll(int startX, int startY, int dx, int dy, int duration) {
-            super.startScroll(startX, startY, dx, dy, mDuration);
-        }
-
-    }
+//    private static class FixedSpeedScroller extends Scroller {
+//
+//        private int mDuration = 1000;
+//
+//        FixedSpeedScroller(Context context) {
+//            super(context);
+//        }
+//
+//        FixedSpeedScroller(Context context, Interpolator interpolator) {
+//            super(context, interpolator);
+//        }
+//
+//        FixedSpeedScroller(Context context, Interpolator interpolator, int duration) {
+//            this(context, interpolator);
+//            mDuration = duration;
+//        }
+//
+//        @Override
+//        public void startScroll(int startX, int startY, int dx, int dy) {
+//            super.startScroll(startX, startY, dx, dy, mDuration);
+//        }
+//
+//        @Override
+//        public void startScroll(int startX, int startY, int dx, int dy, int duration) {
+//            super.startScroll(startX, startY, dx, dy, mDuration);
+//        }
+//
+//    }
 
 }

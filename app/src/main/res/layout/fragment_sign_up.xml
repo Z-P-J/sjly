@@ -41,40 +41,34 @@
 
     </LinearLayout>
 
-    <com.zpj.shouji.market.ui.widget.input.AccountInputView
+    <com.zpj.shouji.market.ui.widget.input.AccountInputView2
         android:id="@+id/piv_register_account"
         android:layout_width="match_parent"
-        android:layout_height="44dp"
-        android:layout_below="@id/ll_go_login"
-        android:layout_marginLeft="40dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginRight="40dp" />
+        android:layout_height="wrap_content"
+        android:layout_marginStart="40dp"
+        android:layout_marginEnd="40dp" />
 
-    <com.zpj.shouji.market.ui.widget.input.PasswordInputView
+    <com.zpj.shouji.market.ui.widget.input.PasswordInputView2
         android:id="@+id/piv_register_password"
         android:layout_width="match_parent"
-        android:layout_height="44dp"
-        android:layout_below="@+id/piv_register_account"
-        android:layout_marginLeft="40dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginRight="40dp" />
+        android:layout_height="wrap_content"
+        android:layout_marginStart="40dp"
+        android:layout_marginEnd="40dp" />
 
-    <com.zpj.shouji.market.ui.widget.input.PasswordInputView
+    <com.zpj.shouji.market.ui.widget.input.PasswordInputView2
         android:id="@+id/piv_register_password_again"
         android:layout_width="match_parent"
-        android:layout_height="44dp"
-        android:layout_below="@+id/piv_register_password"
-        android:layout_marginLeft="40dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginRight="40dp" />
+        android:layout_height="wrap_content"
+        android:layout_marginStart="40dp"
+        android:layout_marginEnd="40dp"
+        />
 
-    <com.zpj.shouji.market.ui.widget.input.EmailInputView
+    <com.zpj.shouji.market.ui.widget.input.EmailInputView2
         android:id="@+id/aiv_register_email"
         android:layout_width="match_parent"
-        android:layout_height="44dp"
-        android:layout_marginLeft="40dp"
-        android:layout_marginRight="40dp"
-        android:layout_below="@id/piv_register_password_again"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="40dp"
+        android:layout_marginEnd="40dp"
         />
 
     <LinearLayout
@@ -86,7 +80,6 @@
         android:paddingBottom="8dp"
         android:layout_marginLeft="40dp"
         android:layout_marginRight="40dp"
-        android:layout_below="@+id/aiv_register_email"
         >
 
         <com.zpj.widget.checkbox.SmoothCheckBox
@@ -110,10 +103,9 @@
 
     </LinearLayout>
 
-    <com.zpj.shouji.market.ui.widget.SubmitView
+    <com.zpj.shouji.market.ui.widget.input.SubmitView
         android:id="@+id/sv_register"
         style="@style/button_submit"
-        android:layout_below="@+id/ll_wrapper"
         android:layout_marginLeft="60dp"
         android:layout_marginRight="60dp"
         android:text="注册"

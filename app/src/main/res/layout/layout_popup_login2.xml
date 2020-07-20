@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/bg_transparent_top_round"
+    android:paddingTop="8dp"
+    >
+
+    <com.zpj.widget.toolbar.ZToolBar
+        android:id="@+id/tool_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:z_toolbar_titleBarColor="@color/transparent"
+        app:z_toolbar_isLightStyle="true"
+        app:z_toolbar_centerType="customView"
+        app:z_toolbar_centerCustomView="@layout/layout_magic_indicator"
+        app:z_toolbar_rightType="imageButton"
+        app:z_toolbar_rightImageResource="@drawable/ic_clear_black_24dp"
+        />
+
+    <com.zpj.shouji.market.ui.widget.ElasticScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <com.zpj.shouji.market.ui.widget.AutoSizeViewPager
+            android:id="@+id/view_pager"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+    </com.zpj.shouji.market.ui.widget.ElasticScrollView>
+
+</LinearLayout>
