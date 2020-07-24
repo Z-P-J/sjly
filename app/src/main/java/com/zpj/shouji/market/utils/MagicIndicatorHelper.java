@@ -1,6 +1,7 @@
 package com.zpj.shouji.market.utils;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.support.v4.view.ViewPager;
 
 import com.zpj.shouji.market.R;
@@ -33,7 +34,7 @@ public class MagicIndicatorHelper {
             @Override
             public IPagerTitleView getTitleView(Context context, int index) {
                 ColorTransitionPagerTitleView titleView = new ColorTransitionPagerTitleView(context);
-                titleView.setNormalColor(context.getResources().getColor(R.color.color_text_major));
+                titleView.setNormalColor(Color.GRAY); // context.getResources().getColor(R.color.color_text_normal)
                 titleView.setSelectedColor(context.getResources().getColor(R.color.colorPrimary));
                 titleView.setTextSize(14);
                 titleView.setText(tabTitles[index]);

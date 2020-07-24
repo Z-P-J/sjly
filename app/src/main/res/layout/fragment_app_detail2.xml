@@ -1,0 +1,247 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.zpj.widget.statelayout.StateLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/state_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    >
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <com.zpj.shouji.market.ui.widget.JudgeNestedScrollView
+            android:id="@+id/scroll_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:fillViewport="true"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior"
+            >
+            <!--            android:layout_above="@id/bottom_bar"-->
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:focusableInTouchMode="true"
+                android:orientation="vertical">
+
+                <FrameLayout
+
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_marginBottom="-48dp"
+                    >
+
+                    <com.zpj.widget.tinted.TintedImageView
+                        android:id="@+id/iv_header"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:scaleType="centerCrop"
+                        android:src="@drawable/bg_member_default"
+                        android:tint="#40000000"
+                        />
+
+                    <android.support.design.widget.CollapsingToolbarLayout
+                        android:id="@+id/collapse"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:contentScrim="?attr/colorPrimary"
+                        app:layout_scrollFlags="scroll|exitUntilCollapsed|snap"
+                        app:titleEnabled="false"
+                        android:layout_marginBottom="48dp"
+                        >
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:orientation="vertical"
+                            android:padding="16dp"
+                            >
+
+                            <com.shehuan.niv.NiceImageView
+                                android:id="@+id/iv_icon"
+                                android:layout_marginTop="80dp"
+                                android:layout_width="56dp"
+                                android:layout_height="56dp"
+                                android:src="@mipmap/ic_launcher"
+                                android:layout_gravity="center_horizontal"
+                                app:is_circle="true"
+                                app:border_width="1dp"
+                                app:border_color="@android:color/white"
+                                android:scaleType="centerCrop"
+                                />
+
+                            <TextView
+                                android:id="@+id/tv_title"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="应用名"
+                                android:textSize="16sp"
+                                android:textColor="@android:color/white"
+                                android:maxLines="1"
+                                android:ellipsize="end"
+                                android:paddingStart="20dp"
+                                android:paddingEnd="20dp"
+                                android:padding="5dp"
+                                android:gravity="center"
+                                />
+
+                            <TextView
+                                android:id="@+id/tv_detail"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="24dp"
+                                android:layout_marginEnd="24dp"
+                                android:text="xfgbkf,nhbc,fbnkcm,fgfbngbmfgnvk,bd\nfcxfgjnfj,nbfgv\nfdghkbfjnfjjgjkbjh"
+                                android:textColor="@android:color/white"
+                                android:maxLines="1"
+                                android:ellipsize="end"
+                                android:paddingStart="24dp"
+                                android:paddingEnd="24dp"
+                                android:gravity="center"
+                                />
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:gravity="center"
+                                android:padding="8dp"
+                                >
+
+                                <TextView
+                                    android:id="@+id/tv_version"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="V 12.0.0"
+                                    android:textStyle="italic|bold"
+                                    android:textColor="@android:color/white"
+                                    android:textSize="12sp"
+                                    android:background="@drawable/bg_round_gray"
+                                    android:paddingStart="8dp"
+                                    android:paddingEnd="8dp"
+                                    android:paddingTop="2dp"
+                                    android:paddingBottom="2dp"
+                                    android:gravity="center_vertical"
+                                    android:layout_gravity="center_vertical"
+                                    android:layout_marginStart="10dp"
+                                    />
+
+                                <TextView
+                                    android:id="@+id/tv_size"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="80MB"
+                                    android:textStyle="italic|bold"
+                                    android:textColor="@android:color/white"
+                                    android:textSize="12sp"
+                                    android:background="@drawable/bg_round_gray"
+                                    android:paddingStart="8dp"
+                                    android:paddingEnd="8dp"
+                                    android:paddingTop="2dp"
+                                    android:paddingBottom="2dp"
+                                    android:gravity="center_vertical"
+                                    android:layout_gravity="center_vertical"
+                                    android:layout_marginStart="10dp"
+                                    />
+
+                            </LinearLayout>
+
+                            <TextView
+                                android:id="@+id/tv_info"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="中文 | 免费 | 无广告 | 4.0.3及更高固件"
+                                android:textColor="@android:color/white"
+                                android:maxLines="1"
+                                android:ellipsize="end"
+                                android:paddingStart="24dp"
+                                android:paddingEnd="24dp"
+                                android:padding="5dp"
+                                android:gravity="center"
+                                android:textSize="12sp"
+                                />
+
+
+
+
+                        </LinearLayout>
+
+                    </android.support.design.widget.CollapsingToolbarLayout>
+
+
+
+                </FrameLayout>
+
+                <net.lucode.hackware.magicindicator.MagicIndicator
+                    android:id="@+id/magic_indicator"
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp"
+                    android:layout_gravity="bottom"
+                    android:background="@drawable/magic_indicator_bg"
+                    android:paddingTop="8dp"
+                    android:paddingBottom="8dp"
+                    />
+
+
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <android.support.v4.view.ViewPager
+                        android:id="@+id/view_pager"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@color/white"/>
+
+                    <View style="@style/layout_shadow_bottom" />
+
+                </FrameLayout>
+
+            </LinearLayout>
+
+        </com.zpj.shouji.market.ui.widget.JudgeNestedScrollView>
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/layout_toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="0dp"
+            android:background="@android:color/transparent"
+            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+            app:contentInsetStart="0dp"
+            app:layout_collapseMode="pin">
+
+            <com.zpj.widget.toolbar.ZToolBar
+                android:id="@+id/tool_bar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:z_toolbar_fillStatusBar="true"
+                app:z_toolbar_statusBarColor="@color/transparent"
+                app:z_toolbar_titleBarColor="@color/transparent"
+                app:z_toolbar_isLightStyle="true"
+                app:z_toolbar_leftType="imageButton"
+                app:z_toolbar_leftImageResource="@drawable/ic_arrow_back_white_24dp"
+                app:z_toolbar_centerType="customView"
+                app:z_toolbar_centerCustomView="@layout/layout_profile_header"
+                app:z_toolbar_rightType="customView"
+                app:z_toolbar_rightCustomView="@layout/layout_detail_tools"
+                />
+
+        </android.support.v7.widget.Toolbar>
+
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/fab_comment"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_file_download_white_24dp"
+            android:layout_margin="24dp"
+            android:tint="@color/white"
+            android:layout_gravity="bottom|end"
+            />
+
+    </FrameLayout>
+
+</com.zpj.widget.statelayout.StateLayout>

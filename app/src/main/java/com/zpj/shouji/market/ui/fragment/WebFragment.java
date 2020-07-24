@@ -43,6 +43,10 @@ public class WebFragment extends BaseFragment {
         start("https://www.shouji.com.cn/user/" + id + "/home.html");
     }
 
+    public static void appPage(String type, String id) {
+        start("https://" + type + ".shouji.com.cn/down/" + id + ".html");
+    }
+
 
 
     @Override

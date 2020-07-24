@@ -1,7 +1,7 @@
 # compiler: R8
 # compiler_version: 1.5.69
 # min_api: 19
-# pg_map_id: cae8a77
+# pg_map_id: 47ebe01
 android.arch.core.executor.ArchTaskExecutor -> a.a.a.a.a:
     android.arch.core.executor.ArchTaskExecutor sInstance -> c
     android.arch.core.executor.TaskExecutor mDelegate -> a
@@ -24615,6 +24615,244 @@ com.daimajia.swipe.SwipeLayout$SwipeListener -> com.daimajia.swipe.SwipeLayout$m
     void onStartClose(com.daimajia.swipe.SwipeLayout) -> b
     void onOpen(com.daimajia.swipe.SwipeLayout) -> c
     void onClose(com.daimajia.swipe.SwipeLayout) -> d
+com.donkingliang.consecutivescroller.ConsecutiveScrollerLayout -> com.donkingliang.consecutivescroller.ConsecutiveScrollerLayout:
+    int mEventX -> n
+    int mTouchSlop -> l
+    int[] mScrollConsumed -> y
+    android.view.View mScrollToTopView -> z
+    int mMaximumVelocity -> j
+    com.donkingliang.consecutivescroller.ConsecutiveScrollerLayout$OnScrollChangeListener mOnScrollChangeListener -> t
+    int mStickyOffset -> I
+    int mScrollRange -> f
+    android.view.VelocityTracker mAdjustVelocityTracker -> i
+    int mLastScrollerY -> G
+    int mSmoothScrollOffset -> C
+    int mAdjust -> A
+    android.widget.EdgeEffect mEdgeGlowBottom -> F
+    android.view.View mCurrentStickyView -> J
+    com.donkingliang.consecutivescroller.ConsecutiveScrollerLayout$OnStickyChangeListener mOnStickyChangeListener -> O
+    int mActivePointerId -> u
+    int SCROLL_ORIENTATION -> s
+    java.util.List mViews -> M
+    java.util.List mCurrentStickyViews -> K
+    int mNestedYOffset -> N
+    int mEventY -> o
+    int[] mScrollOffset -> x
+    int mTouchY -> m
+    int mMinimumVelocity -> k
+    android.support.v4.view.NestedScrollingChildHelper mChildHelper -> w
+    android.view.VelocityTracker mVelocityTracker -> h
+    int mScrollToIndexWithOffset -> D
+    int mOwnScrollY -> e
+    android.widget.OverScroller mScroller -> g
+    int mScrollToIndex -> B
+    boolean mTouching -> r
+    android.view.animation.Interpolator sQuinticInterpolator -> R
+    android.widget.EdgeEffect mEdgeGlowTop -> E
+    com.donkingliang.consecutivescroller.ConsecutiveScrollerLayout$OnPermanentStickyChangeListener mOnPermanentStickyChangeListener -> P
+    int[] mDownLocation -> q
+    boolean isPermanent -> H
+    float mFixedY -> p
+    android.support.v4.view.NestedScrollingParentHelper mParentHelper -> v
+    java.util.List mTempStickyViews -> L
+    int mScrollState -> Q
+    196:196:void <clinit>() -> <clinit>
+    205:206:void <init>(android.content.Context) -> <init>
+    209:210:void <init>(android.content.Context,android.util.AttributeSet) -> <init>
+    213:222:void <init>(android.content.Context,android.util.AttributeSet,int) -> <init>
+    274:278:void disableChildScroll(android.view.View) -> a
+    390:394:int getChildLeft(android.view.View,int,int,int) -> a
+    920:925:void dispatchScroll(int) -> a
+    1074:1077:void stickyChange(android.view.View,android.view.View) -> a
+    1080:1083:void permanentStickyChange(java.util.List) -> a
+    1103:1127:void scrollChild(android.view.View,int) -> a
+    1137:1150:void checkLayoutChange(boolean,boolean) -> a
+    1557:1562:int getPermanentHeight(java.util.List,int) -> a
+    1624:1633:android.view.View findFirstVisibleView() -> a
+    1759:1768:android.view.View getTouchTarget(int,int) -> a
+    1778:1779:boolean isIntercept(android.view.MotionEvent) -> a
+    242:266:void addView(android.view.View,int,android.view.ViewGroup$LayoutParams) -> addView
+    302:307:int getContentWidth(android.view.View) -> b
+    810:826:void fling(int) -> b
+    1157:1224:void checkTargetsScroll(boolean,boolean) -> b
+    1515:1520:void stickyChild(android.view.View,int) -> b
+    1537:1554:void permanentStickyChild(java.util.List) -> b
+    1642:1651:android.view.View findLastVisibleView() -> b
+    1789:1794:boolean isIntercept(int,int) -> b
+    311:325:int measureSize(int,int) -> c
+    1417:1421:boolean isStickyChild(android.view.View) -> c
+    1675:1681:boolean isScrollBottom() -> c
+    1985:1994:int getViewsScrollOffset(int) -> c
+    1721:1721:int computeHorizontalScrollExtent() -> computeHorizontalScrollExtent
+    1716:1716:int computeHorizontalScrollOffset() -> computeHorizontalScrollOffset
+    1711:1711:int computeHorizontalScrollRange() -> computeHorizontalScrollRange
+    830:892:void computeScroll() -> computeScroll
+    1754:1754:int computeVerticalScrollExtent() -> computeVerticalScrollExtent
+    1749:1749:int computeVerticalScrollOffset() -> computeVerticalScrollOffset
+    1726:1744:int computeVerticalScrollRange() -> computeVerticalScrollRange
+    1001:1054:void scrollDown(int) -> d
+    1250:1259:void scrollChildContentToBottom(android.view.View) -> d
+    1660:1666:boolean isScrollTop() -> d
+    2198:2203:void onNestedScrollInternal(int,int) -> d
+    2115:2115:boolean dispatchNestedFling(float,float,boolean) -> dispatchNestedFling
+    2120:2120:boolean dispatchNestedPreFling(float,float) -> dispatchNestedPreFling
+    2157:2157:boolean dispatchNestedPreScroll(int,int,int[],int[]) -> dispatchNestedPreScroll
+    2162:2162:boolean dispatchNestedPreScroll(int,int,int[],int[],int) -> dispatchNestedPreScroll
+    2146:2146:boolean dispatchNestedScroll(int,int,int,int,int[]) -> dispatchNestedScroll
+    2152:2152:boolean dispatchNestedScroll(int,int,int,int,int[],int) -> dispatchNestedScroll
+    429:590:boolean dispatchTouchEvent(android.view.MotionEvent) -> dispatchTouchEvent
+    748:797:void draw(android.graphics.Canvas) -> draw
+    735:735:boolean canScrollVertically() -> e
+    1068:1071:void scrollChange(int,int) -> e
+    1091:1100:void scrollSelf(int) -> e
+    1232:1241:void scrollChildContentToTop(android.view.View) -> e
+    934:998:void scrollUp(int) -> f
+    1494:1499:void clearCurrentStickyView() -> f
+    1502:1506:void clearCurrentStickyViews() -> g
+    36:36:android.view.ViewGroup$LayoutParams generateDefaultLayoutParams() -> generateDefaultLayoutParams
+    414:414:com.donkingliang.consecutivescroller.ConsecutiveScrollerLayout$LayoutParams generateDefaultLayoutParams() -> generateDefaultLayoutParams
+    36:36:android.view.ViewGroup$LayoutParams generateLayoutParams(android.util.AttributeSet) -> generateLayoutParams
+    36:36:android.view.ViewGroup$LayoutParams generateLayoutParams(android.view.ViewGroup$LayoutParams) -> generateLayoutParams
+    419:419:com.donkingliang.consecutivescroller.ConsecutiveScrollerLayout$LayoutParams generateLayoutParams(android.view.ViewGroup$LayoutParams) -> generateLayoutParams
+    424:424:com.donkingliang.consecutivescroller.ConsecutiveScrollerLayout$LayoutParams generateLayoutParams(android.util.AttributeSet) -> generateLayoutParams
+    1353:1357:android.view.View getBottomView() -> getBottomView
+    740:743:int getChildDrawingOrder(int,int) -> getChildDrawingOrder
+    2035:2035:android.view.View getCurrentStickyView() -> getCurrentStickyView
+    2044:2044:java.util.List getCurrentStickyViews() -> getCurrentStickyViews
+    1382:1390:java.util.List getEffectiveChildren() -> getEffectiveChildren
+    2233:2233:int getNestedScrollAxes() -> getNestedScrollAxes
+    1367:1375:java.util.List getNonGoneChildren() -> getNonGoneChildren
+    2061:2061:com.donkingliang.consecutivescroller.ConsecutiveScrollerLayout$OnPermanentStickyChangeListener getOnPermanentStickyChangeListener() -> getOnPermanentStickyChangeListener
+    2048:2048:com.donkingliang.consecutivescroller.ConsecutiveScrollerLayout$OnStickyChangeListener getOnStickyChangeListener() -> getOnStickyChangeListener
+    1706:1706:com.donkingliang.consecutivescroller.ConsecutiveScrollerLayout$OnScrollChangeListener getOnVerticalScrollChangeListener() -> getOnVerticalScrollChangeListener
+    1602:1602:int getOwnScrollY() -> getOwnScrollY
+    800:806:int getScrollRange() -> getScrollRange
+    1585:1585:int getScrollState() -> getScrollState
+    1399:1407:java.util.List getStickyChildren() -> getStickyChildren
+    2026:2026:int getStickyOffset() -> getStickyOffset
+    1528:1528:int getStickyY() -> getStickyY
+    1268:1279:void computeOwnScrollOffset() -> h
+    2140:2140:boolean hasNestedScrollingParent(int) -> hasNestedScrollingParent
+    895:899:void endDrag() -> i
+    2110:2110:boolean isNestedScrollingEnabled() -> isNestedScrollingEnabled
+    902:912:void ensureGlows() -> j
+    1606:1615:android.view.View findScrollToTopView() -> k
+    1326:1329:void initAdjustVelocityTrackerIfNotExists() -> l
+    1315:1320:void initOrResetAdjustVelocityTracker() -> m
+    330:332:void measureChildWithMargins(android.view.View,int,int,int,int) -> measureChildWithMargins
+    1285:1290:void initOrResetVelocityTracker() -> n
+    1566:1575:boolean isListEqual() -> o
+    595:614:boolean onInterceptTouchEvent(android.view.MotionEvent) -> onInterceptTouchEvent
+    336:364:void onLayout(boolean,int,int,int,int) -> onLayout
+    282:299:void onMeasure(int,int) -> onMeasure
+    2243:2248:boolean onNestedFling(android.view.View,float,float,boolean) -> onNestedFling
+    2253:2253:boolean onNestedPreFling(android.view.View,float,float) -> onNestedPreFling
+    2228:2229:void onNestedPreScroll(android.view.View,int,int,int[]) -> onNestedPreScroll
+    2238:2239:void onNestedPreScroll(android.view.View,int,int,int[],int) -> onNestedPreScroll
+    2194:2195:void onNestedScroll(android.view.View,int,int,int,int,int) -> onNestedScroll
+    2223:2224:void onNestedScroll(android.view.View,int,int,int,int) -> onNestedScroll
+    2181:2184:void onNestedScrollAccepted(android.view.View,android.view.View,int,int) -> onNestedScrollAccepted
+    2212:2213:void onNestedScrollAccepted(android.view.View,android.view.View,int) -> onNestedScrollAccepted
+    2167:2175:boolean onStartNestedScroll(android.view.View,android.view.View,int,int) -> onStartNestedScroll
+    2207:2207:boolean onStartNestedScroll(android.view.View,android.view.View,int) -> onStartNestedScroll
+    2188:2190:void onStopNestedScroll(android.view.View,int) -> onStopNestedScroll
+    2217:2218:void onStopNestedScroll(android.view.View) -> onStopNestedScroll
+    620:731:boolean onTouchEvent(android.view.MotionEvent) -> onTouchEvent
+    1335:1339:void recycleAdjustVelocityTracker() -> p
+    1305:1309:void recycleVelocityTracker() -> q
+    1428:1432:void resetChildren() -> r
+    406:410:void resetScrollToTopView() -> s
+    1058:1059:void scrollBy(int,int) -> scrollBy
+    1064:1065:void scrollTo(int,int) -> scrollTo
+    2105:2106:void setNestedScrollingEnabled(boolean) -> setNestedScrollingEnabled
+    2070:2071:void setOnPermanentStickyChangeListener(com.donkingliang.consecutivescroller.ConsecutiveScrollerLayout$OnPermanentStickyChangeListener) -> setOnPermanentStickyChangeListener
+    1694:1694:void setOnScrollChangeListener(android.view.View$OnScrollChangeListener) -> setOnScrollChangeListener
+    2057:2058:void setOnStickyChangeListener(com.donkingliang.consecutivescroller.ConsecutiveScrollerLayout$OnStickyChangeListener) -> setOnStickyChangeListener
+    1702:1703:void setOnVerticalScrollChangeListener(com.donkingliang.consecutivescroller.ConsecutiveScrollerLayout$OnScrollChangeListener) -> setOnVerticalScrollChangeListener
+    2003:2007:void setPermanent(boolean) -> setPermanent
+    1589:1594:void setScrollState(int) -> setScrollState
+    2019:2023:void setStickyOffset(int) -> setStickyOffset
+    2125:2125:boolean startNestedScroll(int,int) -> startNestedScroll
+    2130:2131:void stopNestedScroll(int) -> stopNestedScroll
+    2135:2136:void stopNestedScroll() -> stopNestedScroll
+    1438:1491:void resetSticky() -> t
+    367:384:void sortViews() -> u
+    1345:1350:void stopScroll() -> v
+com.donkingliang.consecutivescroller.ConsecutiveScrollerLayout$1 -> com.donkingliang.consecutivescroller.ConsecutiveScrollerLayout$a:
+    196:196:void <init>() -> <init>
+    199:200:float getInterpolation(float) -> getInterpolation
+com.donkingliang.consecutivescroller.ConsecutiveScrollerLayout$2 -> com.donkingliang.consecutivescroller.ConsecutiveScrollerLayout$b:
+    android.support.v7.widget.RecyclerView val$view -> e
+    1119:1119:void <init>(com.donkingliang.consecutivescroller.ConsecutiveScrollerLayout,android.support.v7.widget.RecyclerView) -> <init>
+    1122:1123:void run() -> run
+com.donkingliang.consecutivescroller.ConsecutiveScrollerLayout$3 -> com.donkingliang.consecutivescroller.ConsecutiveScrollerLayout$c:
+    int[] $SwitchMap$com$donkingliang$consecutivescroller$ConsecutiveScrollerLayout$LayoutParams$Align -> a
+    391:391:void <clinit>() -> <clinit>
+com.donkingliang.consecutivescroller.ConsecutiveScrollerLayout$LayoutParams -> com.donkingliang.consecutivescroller.ConsecutiveScrollerLayout$d:
+    boolean isConsecutive -> a
+    com.donkingliang.consecutivescroller.ConsecutiveScrollerLayout$LayoutParams$Align align -> d
+    boolean isNestedScroll -> b
+    boolean isSticky -> c
+    1852:1868:void <init>(android.content.Context,android.util.AttributeSet) -> <init>
+    1872:1873:void <init>(int,int) -> <init>
+    1876:1877:void <init>(android.view.ViewGroup$LayoutParams) -> <init>
+com.donkingliang.consecutivescroller.ConsecutiveScrollerLayout$LayoutParams$Align -> com.donkingliang.consecutivescroller.ConsecutiveScrollerLayout$d$a:
+    com.donkingliang.consecutivescroller.ConsecutiveScrollerLayout$LayoutParams$Align[] $VALUES -> h
+    com.donkingliang.consecutivescroller.ConsecutiveScrollerLayout$LayoutParams$Align LEFT -> e
+    com.donkingliang.consecutivescroller.ConsecutiveScrollerLayout$LayoutParams$Align RIGHT -> f
+    com.donkingliang.consecutivescroller.ConsecutiveScrollerLayout$LayoutParams$Align CENTER -> g
+    1826:1824:void <clinit>() -> <clinit>
+    1834:1836:void <init>(java.lang.String,int,int) -> <init>
+    1839:1841:com.donkingliang.consecutivescroller.ConsecutiveScrollerLayout$LayoutParams$Align get(int) -> f
+    1824:1824:com.donkingliang.consecutivescroller.ConsecutiveScrollerLayout$LayoutParams$Align valueOf(java.lang.String) -> valueOf
+    1824:1824:com.donkingliang.consecutivescroller.ConsecutiveScrollerLayout$LayoutParams$Align[] values() -> values
+com.donkingliang.consecutivescroller.ConsecutiveScrollerLayout$OnPermanentStickyChangeListener -> com.donkingliang.consecutivescroller.ConsecutiveScrollerLayout$e:
+    void onStickyChange(java.util.List) -> a
+com.donkingliang.consecutivescroller.ConsecutiveScrollerLayout$OnScrollChangeListener -> com.donkingliang.consecutivescroller.ConsecutiveScrollerLayout$f:
+    void onScrollChange(android.view.View,int,int,int) -> a
+com.donkingliang.consecutivescroller.ConsecutiveScrollerLayout$OnStickyChangeListener -> com.donkingliang.consecutivescroller.ConsecutiveScrollerLayout$g:
+    void onStickyChange(android.view.View,android.view.View) -> a
+com.donkingliang.consecutivescroller.ConsecutiveViewPager -> com.donkingliang.consecutivescroller.ConsecutiveViewPager:
+    int mAdjustHeight -> e
+    26:27:void <init>(android.content.Context) -> <init>
+    30:31:void <init>(android.content.Context,android.util.AttributeSet) -> <init>
+    67:71:void disableChildScroll(android.view.View) -> a
+    74:79:boolean isConsecutiveParent() -> a
+    48:59:void addView(android.view.View,int,android.view.ViewGroup$LayoutParams) -> addView
+    83:83:int getAdjustHeight() -> getAdjustHeight
+    100:107:android.view.View getCurrentScrollerView() -> getCurrentScrollerView
+    117:124:java.util.List getScrolledViews() -> getScrolledViews
+    35:44:void onMeasure(int,int) -> onMeasure
+    87:91:void setAdjustHeight(int) -> setAdjustHeight
+com.donkingliang.consecutivescroller.IConsecutiveScroller -> com.donkingliang.consecutivescroller.a:
+com.donkingliang.consecutivescroller.LayoutParamsUtils -> com.donkingliang.consecutivescroller.b:
+    18:22:void invalidTopAndBottomMargin(android.view.ViewGroup$MarginLayoutParams) -> a
+com.donkingliang.consecutivescroller.R$attr -> com.donkingliang.consecutivescroller.R$attr:
+    13:13:void <init>() -> <init>
+com.donkingliang.consecutivescroller.R$id -> com.donkingliang.consecutivescroller.R$id:
+    22:22:void <init>() -> <init>
+com.donkingliang.consecutivescroller.R$styleable -> com.donkingliang.consecutivescroller.R$styleable:
+    31:33:void <clinit>() -> <clinit>
+    29:29:void <init>() -> <init>
+com.donkingliang.consecutivescroller.ScrollUtils -> com.donkingliang.consecutivescroller.c:
+    109:109:boolean canScrollVertically(android.view.View) -> a
+    120:130:boolean canScrollVertically(android.view.View,int) -> a
+    143:145:java.util.List getTouchViews(android.view.View,int,int) -> a
+    149:160:void addTouchViews(java.util.List,android.view.View,int,int) -> a
+    188:194:int getRawX(android.view.View,android.view.MotionEvent,int) -> a
+    268:277:boolean startInterceptRequestLayout(android.support.v7.widget.RecyclerView) -> a
+    57:70:int computeVerticalScrollExtent(android.view.View) -> b
+    199:205:int getRawY(android.view.View,android.view.MotionEvent,int) -> b
+    281:289:void stopInterceptRequestLayout(android.support.v7.widget.RecyclerView) -> b
+    319:325:boolean isHorizontalScroll(android.view.View,int,int) -> b
+    23:36:int computeVerticalScrollOffset(android.view.View) -> c
+    171:184:boolean isTouchPointInView(android.view.View,int,int) -> c
+    40:53:int computeVerticalScrollRange(android.view.View) -> d
+    94:98:int getScrollBottomOffset(android.view.View) -> e
+    80:83:int getScrollTopOffset(android.view.View) -> f
+    258:264:android.view.View getScrolledView(android.view.View) -> g
+    298:306:boolean isConsecutiveScrollParent(android.view.View) -> h
+    240:248:boolean isConsecutiveScrollerChild(android.view.View) -> i
 com.felix.atoast.library.AToast -> com.felix.atoast.library.a:
     int SUCCESS_COLOR -> d
     int WARNING_COLOR -> e
@@ -36080,6 +36318,77 @@ com.yalantis.ucrop.view.widget.HorizontalProgressWheelView$ScrollingListener -> 
     void onScroll(float,float) -> a
     void onScrollEnd() -> a
     void onScrollStart() -> b
+com.yanyusong.y_divideritemdecoration.Dp2Px -> com.yanyusong.y_divideritemdecoration.a:
+    25:25:int convert(android.content.Context,float) -> a
+com.yanyusong.y_divideritemdecoration.R$anim -> com.yanyusong.y_divideritemdecoration.R$anim:
+    13:13:void <init>() -> <init>
+com.yanyusong.y_divideritemdecoration.R$attr -> com.yanyusong.y_divideritemdecoration.R$attr:
+    27:27:void <init>() -> <init>
+com.yanyusong.y_divideritemdecoration.R$bool -> com.yanyusong.y_divideritemdecoration.R$bool:
+    263:263:void <init>() -> <init>
+com.yanyusong.y_divideritemdecoration.R$color -> com.yanyusong.y_divideritemdecoration.R$color:
+    270:270:void <init>() -> <init>
+com.yanyusong.y_divideritemdecoration.R$dimen -> com.yanyusong.y_divideritemdecoration.R$dimen:
+    355:355:void <init>() -> <init>
+com.yanyusong.y_divideritemdecoration.R$drawable -> com.yanyusong.y_divideritemdecoration.R$drawable:
+    459:459:void <init>() -> <init>
+com.yanyusong.y_divideritemdecoration.R$id -> com.yanyusong.y_divideritemdecoration.R$id:
+    558:558:void <init>() -> <init>
+com.yanyusong.y_divideritemdecoration.R$integer -> com.yanyusong.y_divideritemdecoration.R$integer:
+    672:672:void <init>() -> <init>
+com.yanyusong.y_divideritemdecoration.R$layout -> com.yanyusong.y_divideritemdecoration.R$layout:
+    680:680:void <init>() -> <init>
+com.yanyusong.y_divideritemdecoration.R$string -> com.yanyusong.y_divideritemdecoration.R$string:
+    729:729:void <init>() -> <init>
+com.yanyusong.y_divideritemdecoration.R$style -> com.yanyusong.y_divideritemdecoration.R$style:
+    765:765:void <init>() -> <init>
+com.yanyusong.y_divideritemdecoration.R$styleable -> com.yanyusong.y_divideritemdecoration.R$styleable:
+    1096:1494:void <clinit>() -> <clinit>
+    1094:1094:void <init>() -> <init>
+com.yanyusong.y_divideritemdecoration.Y_Divider -> com.yanyusong.y_divideritemdecoration.b:
+    com.yanyusong.y_divideritemdecoration.Y_SideLine leftSideLine -> a
+    com.yanyusong.y_divideritemdecoration.Y_SideLine rightSideLine -> c
+    com.yanyusong.y_divideritemdecoration.Y_SideLine topSideLine -> b
+    com.yanyusong.y_divideritemdecoration.Y_SideLine bottomSideLine -> d
+    15:20:void <init>(com.yanyusong.y_divideritemdecoration.Y_SideLine,com.yanyusong.y_divideritemdecoration.Y_SideLine,com.yanyusong.y_divideritemdecoration.Y_SideLine,com.yanyusong.y_divideritemdecoration.Y_SideLine) -> <init>
+    47:47:com.yanyusong.y_divideritemdecoration.Y_SideLine getBottomSideLine() -> a
+    23:23:com.yanyusong.y_divideritemdecoration.Y_SideLine getLeftSideLine() -> b
+    39:39:com.yanyusong.y_divideritemdecoration.Y_SideLine getRightSideLine() -> c
+    31:31:com.yanyusong.y_divideritemdecoration.Y_SideLine getTopSideLine() -> d
+com.yanyusong.y_divideritemdecoration.Y_DividerBuilder -> com.yanyusong.y_divideritemdecoration.c:
+    com.yanyusong.y_divideritemdecoration.Y_SideLine leftSideLine -> a
+    com.yanyusong.y_divideritemdecoration.Y_SideLine rightSideLine -> c
+    com.yanyusong.y_divideritemdecoration.Y_SideLine topSideLine -> b
+    com.yanyusong.y_divideritemdecoration.Y_SideLine bottomSideLine -> d
+    9:9:void <init>() -> <init>
+    33:34:com.yanyusong.y_divideritemdecoration.Y_DividerBuilder setBottomSideLine(boolean,int,float,float,float) -> a
+    39:46:com.yanyusong.y_divideritemdecoration.Y_Divider create() -> a
+    18:19:com.yanyusong.y_divideritemdecoration.Y_DividerBuilder setLeftSideLine(boolean,int,float,float,float) -> b
+    28:29:com.yanyusong.y_divideritemdecoration.Y_DividerBuilder setRightSideLine(boolean,int,float,float,float) -> c
+    23:24:com.yanyusong.y_divideritemdecoration.Y_DividerBuilder setTopSideLine(boolean,int,float,float,float) -> d
+com.yanyusong.y_divideritemdecoration.Y_DividerItemDecoration -> com.yanyusong.y_divideritemdecoration.d:
+    android.content.Context context -> b
+    android.graphics.Paint mPaint -> a
+    17:21:void <init>(android.content.Context) -> <init>
+    com.yanyusong.y_divideritemdecoration.Y_Divider getDivider(int) -> a
+    63:90:void drawChildBottomHorizontal(android.view.View,android.graphics.Canvas,android.support.v7.widget.RecyclerView,int,int,int,int) -> a
+    122:148:void drawChildLeftVertical(android.view.View,android.graphics.Canvas,android.support.v7.widget.RecyclerView,int,int,int,int) -> b
+    152:178:void drawChildRightVertical(android.view.View,android.graphics.Canvas,android.support.v7.widget.RecyclerView,int,int,int,int) -> c
+    93:119:void drawChildTopHorizontal(android.view.View,android.graphics.Canvas,android.support.v7.widget.RecyclerView,int,int,int,int) -> d
+    186:195:void getItemOffsets(android.graphics.Rect,android.view.View,android.support.v7.widget.RecyclerView,android.support.v7.widget.RecyclerView$State) -> getItemOffsets
+    26:59:void onDraw(android.graphics.Canvas,android.support.v7.widget.RecyclerView,android.support.v7.widget.RecyclerView$State) -> onDraw
+com.yanyusong.y_divideritemdecoration.Y_SideLine -> com.yanyusong.y_divideritemdecoration.e:
+    float endPaddingDp -> e
+    float startPaddingDp -> d
+    float widthDp -> c
+    boolean isHave -> a
+    int color -> b
+    27:33:void <init>(boolean,int,float,float,float) -> <init>
+    60:60:int getColor() -> a
+    44:44:float getEndPaddingDp() -> b
+    36:36:float getStartPaddingDp() -> c
+    68:68:float getWidthDp() -> d
+    52:52:boolean isHave() -> e
 com.zhouwei.mzbanner.CustomViewPager -> com.zhouwei.mzbanner.CustomViewPager:
     java.util.ArrayList childCenterXAbs -> e
     android.util.SparseArray childIndex -> f
@@ -42990,36 +43299,36 @@ com.zpj.shouji.market.R$array -> com.zpj.shouji.market.R$array:
 com.zpj.shouji.market.R$attr -> com.zpj.shouji.market.R$attr:
     89:89:void <init>() -> <init>
 com.zpj.shouji.market.R$bool -> com.zpj.shouji.market.R$bool:
-    7179:7179:void <init>() -> <init>
+    6661:6661:void <init>() -> <init>
 com.zpj.shouji.market.R$color -> com.zpj.shouji.market.R$color:
-    7185:7185:void <init>() -> <init>
+    6667:6667:void <init>() -> <init>
 com.zpj.shouji.market.R$dimen -> com.zpj.shouji.market.R$dimen:
-    7563:7563:void <init>() -> <init>
+    7048:7048:void <init>() -> <init>
 com.zpj.shouji.market.R$drawable -> com.zpj.shouji.market.R$drawable:
-    7829:7829:void <init>() -> <init>
+    7314:7314:void <init>() -> <init>
 com.zpj.shouji.market.R$font -> com.zpj.shouji.market.R$font:
-    9223:9223:void <init>() -> <init>
+    8712:8712:void <init>() -> <init>
 com.zpj.shouji.market.R$id -> com.zpj.shouji.market.R$id:
-    9226:9226:void <init>() -> <init>
+    8715:8715:void <init>() -> <init>
 com.zpj.shouji.market.R$integer -> com.zpj.shouji.market.R$integer:
-    10065:10065:void <init>() -> <init>
+    9560:9560:void <init>() -> <init>
 com.zpj.shouji.market.R$interpolator -> com.zpj.shouji.market.R$interpolator:
-    10083:10083:void <init>() -> <init>
+    9578:9578:void <init>() -> <init>
 com.zpj.shouji.market.R$layout -> com.zpj.shouji.market.R$layout:
-    10089:10089:void <init>() -> <init>
+    9584:9584:void <init>() -> <init>
 com.zpj.shouji.market.R$menu -> com.zpj.shouji.market.R$menu:
-    10390:10390:void <init>() -> <init>
+    9887:9887:void <init>() -> <init>
 com.zpj.shouji.market.R$mipmap -> com.zpj.shouji.market.R$mipmap:
-    10398:10398:void <init>() -> <init>
+    9895:9895:void <init>() -> <init>
 com.zpj.shouji.market.R$string -> com.zpj.shouji.market.R$string:
-    10435:10435:void <init>() -> <init>
+    9932:9932:void <init>() -> <init>
 com.zpj.shouji.market.R$style -> com.zpj.shouji.market.R$style:
-    10615:10615:void <init>() -> <init>
+    10112:10112:void <init>() -> <init>
 com.zpj.shouji.market.R$styleable -> com.zpj.shouji.market.R$styleable:
-    11183:30842:void <clinit>() -> <clinit>
-    11161:11161:void <init>() -> <init>
+    10682:29614:void <clinit>() -> <clinit>
+    10660:10660:void <init>() -> <init>
 com.zpj.shouji.market.R$xml -> com.zpj.shouji.market.R$xml:
-    30984:30984:void <init>() -> <init>
+    29756:29756:void <init>() -> <init>
 com.zpj.shouji.market.api.-$$Lambda$HttpApi$19HJ1w-YehgaXRss40gm74Wum8I -> com.zpj.shouji.market.b.a:
     com.zpj.shouji.market.api.-$$Lambda$HttpApi$19HJ1w-YehgaXRss40gm74Wum8I INSTANCE -> e
 com.zpj.shouji.market.api.-$$Lambda$HttpApi$3-mIr8pKIvuyg-UkAEDNoWy1h20 -> com.zpj.shouji.market.b.b:
@@ -43516,28 +43825,46 @@ com.zpj.shouji.market.manager.UserManager$OnSignUpListener -> com.zpj.shouji.mar
     void onSignUpFailed(java.lang.String) -> d
     void onSignUpSuccess() -> d
 com.zpj.shouji.market.model.AppDetailInfo -> com.zpj.shouji.market.model.a:
-    java.lang.String appIntroduceContent -> g
+    java.lang.String baseInfo -> g
+    java.lang.String iconUrl -> f
+    java.lang.String appIntroduceContent -> i
+    java.lang.String lineInfo -> h
+    java.lang.String downloadUrl -> k
+    java.lang.String updateContent -> j
+    java.lang.String appInfo -> m
+    java.lang.String permissionContent -> l
+    java.lang.String size -> o
+    java.lang.String version -> n
+    java.lang.String language -> q
+    java.lang.String updateTime -> p
+    java.lang.String ads -> s
+    java.lang.String fee -> r
+    java.lang.String author -> u
+    java.lang.String firmware -> t
     java.util.List imgUrlList -> a
-    java.lang.String lineInfo -> f
-    java.lang.String downloadUrl -> i
-    java.lang.String updateContent -> h
-    java.lang.String appInfo -> k
-    java.lang.String permissionContent -> j
-    java.lang.String name -> c
+    java.lang.String packageName -> c
     java.lang.String id -> b
-    java.lang.String baseInfo -> e
-    java.lang.String iconUrl -> d
+    java.lang.String name -> e
+    java.lang.String appType -> d
     12:14:void <init>() -> <init>
-    30:85:com.zpj.shouji.market.model.AppDetailInfo create(com.zpj.http.parser.html.nodes.Document) -> a
-    121:121:java.lang.String getAppInfo() -> a
-    105:105:java.lang.String getAppIntroduceContent() -> b
-    133:133:java.lang.String getBaseInfo() -> c
-    101:101:java.lang.String getIconUrl() -> d
-    89:89:java.util.List getImgUrlList() -> e
-    137:137:java.lang.String getLineInfo() -> f
-    97:97:java.lang.String getName() -> g
-    117:117:java.lang.String getPermissionContent() -> h
-    109:109:java.lang.String getUpdateContent() -> i
+    39:126:com.zpj.shouji.market.model.AppDetailInfo create(com.zpj.http.parser.html.nodes.Document) -> a
+    202:202:java.lang.String getAds() -> a
+    162:162:java.lang.String getAppInfo() -> b
+    146:146:java.lang.String getAppIntroduceContent() -> c
+    174:174:java.lang.String getBaseInfo() -> d
+    198:198:java.lang.String getFee() -> e
+    206:206:java.lang.String getFirmware() -> f
+    142:142:java.lang.String getIconUrl() -> g
+    130:130:java.util.List getImgUrlList() -> h
+    194:194:java.lang.String getLanguage() -> i
+    178:178:java.lang.String getLineInfo() -> j
+    138:138:java.lang.String getName() -> k
+    166:166:java.lang.String getPackageName() -> l
+    158:158:java.lang.String getPermissionContent() -> m
+    186:186:java.lang.String getSize() -> n
+    150:150:java.lang.String getUpdateContent() -> o
+    182:182:java.lang.String getVersion() -> p
+    215:215:java.lang.String toString() -> toString
 com.zpj.shouji.market.model.AppInfo -> com.zpj.shouji.market.model.AppInfo:
     80:80:void <clinit>() -> <clinit>
     62:63:void <init>() -> <init>
@@ -44621,10 +44948,11 @@ com.zpj.shouji.market.ui.fragment.SubjectListFragment -> com.zpj.shouji.market.f
     57:60:void updateKeyword(java.lang.String) -> e
     35:35:int getItemLayoutId() -> y
 com.zpj.shouji.market.ui.fragment.SubjectRecommendListFragment -> com.zpj.shouji.market.f.c.z:
-    9:9:void <init>() -> <init>
-    12:17:void start(java.lang.String) -> f
-    21:21:int getLayoutId() -> v
-    26:26:boolean supportSwipeBack() -> x
+    11:11:void <init>() -> <init>
+    28:30:void initView(android.view.View,android.os.Bundle) -> a
+    14:19:void start(java.lang.String) -> f
+    23:23:int getLayoutId() -> v
+    34:34:boolean supportSwipeBack() -> x
 com.zpj.shouji.market.ui.fragment.ToolBarListFragment -> com.zpj.shouji.market.f.c.a0:
     11:11:void <init>() -> <init>
     57:58:void startNetGameList() -> A
@@ -44687,30 +45015,31 @@ com.zpj.shouji.market.ui.fragment.WallpaperListFragment$2 -> com.zpj.shouji.mark
 com.zpj.shouji.market.ui.fragment.WebFragment -> com.zpj.shouji.market.f.c.d0:
     com.just.agentweb.AgentWeb mAgentWeb -> l
     25:25:void <init>() -> <init>
-    30:36:void start(java.lang.String,java.lang.String) -> a
-    93:131:void initView(android.view.View,android.os.Bundle) -> a
-    135:135:void lambda$toolbarRightImageButton$1(android.widget.ImageButton,android.view.View) -> a
-    140:147:void lambda$null$0(int,java.lang.String) -> a
-    84:88:boolean onBackPressedSupport() -> b
-    135:149:void toolbarRightImageButton(android.widget.ImageButton) -> b
+    47:48:void appPage(java.lang.String,java.lang.String) -> a
+    97:135:void initView(android.view.View,android.os.Bundle) -> a
+    139:139:void lambda$toolbarRightImageButton$1(android.widget.ImageButton,android.view.View) -> a
+    144:151:void lambda$null$0(int,java.lang.String) -> a
+    30:36:void start(java.lang.String,java.lang.String) -> b
+    88:92:boolean onBackPressedSupport() -> b
+    139:153:void toolbarRightImageButton(android.widget.ImageButton) -> b
     43:44:void shareHomepage(java.lang.String) -> f
     39:40:void start(java.lang.String) -> g
-    60:64:void onDestroy() -> onDestroy
-    76:80:void onPause() -> onPause
-    68:72:void onResume() -> onResume
-    50:50:int getLayoutId() -> v
-    55:55:boolean supportSwipeBack() -> x
+    64:68:void onDestroy() -> onDestroy
+    80:84:void onPause() -> onPause
+    72:76:void onResume() -> onResume
+    54:54:int getLayoutId() -> v
+    59:59:boolean supportSwipeBack() -> x
 com.zpj.shouji.market.ui.fragment.WebFragment$1 -> com.zpj.shouji.market.f.c.d0$a:
     com.zpj.shouji.market.ui.fragment.WebFragment this$0 -> a
-    110:110:void <init>(com.zpj.shouji.market.ui.fragment.WebFragment) -> <init>
-    125:126:void onPageFinished(android.webkit.WebView,java.lang.String) -> onPageFinished
-    119:121:void onPageStarted(android.webkit.WebView,java.lang.String,android.graphics.Bitmap) -> onPageStarted
-    113:114:boolean shouldOverrideUrlLoading(android.webkit.WebView,java.lang.String) -> shouldOverrideUrlLoading
+    114:114:void <init>(com.zpj.shouji.market.ui.fragment.WebFragment) -> <init>
+    129:130:void onPageFinished(android.webkit.WebView,java.lang.String) -> onPageFinished
+    123:125:void onPageStarted(android.webkit.WebView,java.lang.String,android.graphics.Bitmap) -> onPageStarted
+    117:118:boolean shouldOverrideUrlLoading(android.webkit.WebView,java.lang.String) -> shouldOverrideUrlLoading
 com.zpj.shouji.market.ui.fragment.WebFragment$CustomSettings -> com.zpj.shouji.market.f.c.d0$b:
-    151:151:void <init>() -> <init>
-    151:151:void <init>(com.zpj.shouji.market.ui.fragment.WebFragment$1) -> <init>
-    156:156:void bindAgentWebSupport(com.just.agentweb.AgentWeb) -> bindAgentWebSupport
-    160:171:com.just.agentweb.IAgentWebSettings toSetting(android.webkit.WebView) -> toSetting
+    155:155:void <init>() -> <init>
+    155:155:void <init>(com.zpj.shouji.market.ui.fragment.WebFragment$1) -> <init>
+    160:160:void bindAgentWebSupport(com.just.agentweb.AgentWeb) -> bindAgentWebSupport
+    164:175:com.just.agentweb.IAgentWebSettings toSetting(android.webkit.WebView) -> toSetting
 com.zpj.shouji.market.ui.fragment.base.-$$Lambda$A_JLxQYF62rMENjwzdhca8QmTok -> com.zpj.shouji.market.f.c.e0.a:
     com.zpj.shouji.market.ui.fragment.base.NextUrlFragment f$0 -> e
 com.zpj.shouji.market.ui.fragment.base.-$$Lambda$NextUrlFragment$dpTa-3O8VvPrxG6Skd3BeAF4pr4 -> com.zpj.shouji.market.f.c.e0.b:
@@ -44959,32 +45288,57 @@ com.zpj.shouji.market.ui.fragment.detail.-$$Lambda$AppDetailFragment$YZBYb-Z4VLL
     com.zpj.shouji.market.ui.fragment.detail.AppDetailFragment f$0 -> e
 com.zpj.shouji.market.ui.fragment.detail.-$$Lambda$AppDetailFragment$hI2VjzxRG0xe2hw3H7ponZ9K4Zk -> com.zpj.shouji.market.f.c.h0.g:
     com.zpj.shouji.market.ui.fragment.detail.AppDetailFragment f$0 -> e
-com.zpj.shouji.market.ui.fragment.detail.-$$Lambda$AppInfoFragment$49Zb9iyv_wV98nk6GyQbC36X36g -> com.zpj.shouji.market.f.c.h0.h:
+com.zpj.shouji.market.ui.fragment.detail.-$$Lambda$AppDetailFragment2$1eMrWNhEYSttTZ28sw0rZw--lH4 -> com.zpj.shouji.market.f.c.h0.h:
+    com.zpj.shouji.market.ui.fragment.detail.AppDetailFragment2 f$0 -> e
+com.zpj.shouji.market.ui.fragment.detail.-$$Lambda$AppDetailFragment2$1lRmi54mP4FBLyV-XAORc59cL5w -> com.zpj.shouji.market.f.c.h0.i:
+    com.zpj.shouji.market.ui.fragment.detail.AppDetailFragment2 f$0 -> e
+com.zpj.shouji.market.ui.fragment.detail.-$$Lambda$AppDetailFragment2$2$EADUKaHA08ErFBR-hdNEcFQod5Y -> com.zpj.shouji.market.f.c.h0.j:
+    android.graphics.Bitmap f$0 -> a
+    void subscribe(io.reactivex.ObservableEmitter) -> a
+com.zpj.shouji.market.ui.fragment.detail.-$$Lambda$AppDetailFragment2$2$phteeihCCubKCPw6MEuoW_eDg-g -> com.zpj.shouji.market.f.c.h0.k:
+    com.zpj.shouji.market.ui.fragment.detail.AppDetailFragment2$2 f$0 -> a
+com.zpj.shouji.market.ui.fragment.detail.-$$Lambda$AppDetailFragment2$JxNBWGUkCrFCdEo5deI7u3vbZpU -> com.zpj.shouji.market.f.c.h0.l:
+    com.zpj.shouji.market.ui.fragment.detail.AppDetailFragment2 f$0 -> e
+com.zpj.shouji.market.ui.fragment.detail.-$$Lambda$AppDetailFragment2$MXN8QMFz8HwvaMGnojoakSlhfZo -> com.zpj.shouji.market.f.c.h0.m:
+    com.zpj.shouji.market.ui.fragment.detail.AppDetailFragment2 f$0 -> e
+com.zpj.shouji.market.ui.fragment.detail.-$$Lambda$AppDetailFragment2$MuLMgJM5VpUWRtok_x_pp2-N8eI -> com.zpj.shouji.market.f.c.h0.n:
+    com.zpj.shouji.market.ui.fragment.detail.AppDetailFragment2 f$0 -> a
+com.zpj.shouji.market.ui.fragment.detail.-$$Lambda$AppDetailFragment2$bBBueZn79mL0LR23br5UpZSis30 -> com.zpj.shouji.market.f.c.h0.o:
+    com.zpj.shouji.market.ui.fragment.detail.AppDetailFragment2 f$0 -> a
+    void onSelect(int,java.lang.Object) -> a
+com.zpj.shouji.market.ui.fragment.detail.-$$Lambda$AppDetailFragment2$iaKfv7iqdcaYqf50eGddQg3eYKM -> com.zpj.shouji.market.f.c.h0.p:
+    com.zpj.shouji.market.ui.fragment.detail.AppDetailFragment2 f$0 -> e
+com.zpj.shouji.market.ui.fragment.detail.-$$Lambda$AppDetailFragment2$pFJvt5dUf9z1FcuXfx5hhsVXVh4 -> com.zpj.shouji.market.f.c.h0.q:
+    com.zpj.shouji.market.ui.fragment.detail.AppDetailFragment2 f$0 -> e
+com.zpj.shouji.market.ui.fragment.detail.-$$Lambda$AppDetailFragment2$sT-JX1IgmZPhqJh8ZDEons39ehw -> com.zpj.shouji.market.f.c.h0.r:
+    com.zpj.http.parser.html.nodes.Document f$1 -> f
+    com.zpj.shouji.market.ui.fragment.detail.AppDetailFragment2 f$0 -> e
+com.zpj.shouji.market.ui.fragment.detail.-$$Lambda$AppInfoFragment$49Zb9iyv_wV98nk6GyQbC36X36g -> com.zpj.shouji.market.f.c.h0.s:
     com.zpj.shouji.market.ui.fragment.detail.AppInfoFragment f$0 -> a
     com.zpj.recyclerview.EasyViewHolder f$1 -> b
     android.widget.ImageView f$3 -> d
     int f$2 -> c
     android.widget.ImageView getImageView(int) -> a
-com.zpj.shouji.market.ui.fragment.detail.-$$Lambda$AppInfoFragment$w_3KC6mQYy0Dmtl6vAFz9nl3CEw -> com.zpj.shouji.market.f.c.h0.i:
+com.zpj.shouji.market.ui.fragment.detail.-$$Lambda$AppInfoFragment$w_3KC6mQYy0Dmtl6vAFz9nl3CEw -> com.zpj.shouji.market.f.c.h0.t:
     android.widget.ImageView f$4 -> i
     java.util.List f$1 -> f
     int f$3 -> h
     com.zpj.recyclerview.EasyViewHolder f$2 -> g
     com.zpj.shouji.market.ui.fragment.detail.AppInfoFragment f$0 -> e
-com.zpj.shouji.market.ui.fragment.detail.-$$Lambda$AppRecommendFragment$CnGishuHYdZjIwWf7Vg63qyAEWE -> com.zpj.shouji.market.f.c.h0.j:
+com.zpj.shouji.market.ui.fragment.detail.-$$Lambda$AppRecommendFragment$CnGishuHYdZjIwWf7Vg63qyAEWE -> com.zpj.shouji.market.f.c.h0.u:
     com.zpj.shouji.market.ui.fragment.detail.AppRecommendFragment f$0 -> e
     android.view.View onCreateViewHolder(android.view.ViewGroup,int,int) -> a
-com.zpj.shouji.market.ui.fragment.detail.-$$Lambda$AppRecommendFragment$EGIfdR7XPL27ztTg6FT_nvkPVSg -> com.zpj.shouji.market.f.c.h0.k:
+com.zpj.shouji.market.ui.fragment.detail.-$$Lambda$AppRecommendFragment$EGIfdR7XPL27ztTg6FT_nvkPVSg -> com.zpj.shouji.market.f.c.h0.v:
     com.zpj.shouji.market.ui.fragment.detail.AppRecommendFragment f$0 -> e
-com.zpj.shouji.market.ui.fragment.detail.-$$Lambda$AppRecommendFragment$HLyQFCiw5m42zzPkq16b_kZvdos -> com.zpj.shouji.market.f.c.h0.l:
+com.zpj.shouji.market.ui.fragment.detail.-$$Lambda$AppRecommendFragment$HLyQFCiw5m42zzPkq16b_kZvdos -> com.zpj.shouji.market.f.c.h0.w:
     com.zpj.shouji.market.ui.fragment.detail.AppRecommendFragment f$0 -> e
-com.zpj.shouji.market.ui.fragment.detail.-$$Lambda$AppRecommendFragment$NI84DyBx6UrYKqjoJILimyjcMNM -> com.zpj.shouji.market.f.c.h0.m:
+com.zpj.shouji.market.ui.fragment.detail.-$$Lambda$AppRecommendFragment$NI84DyBx6UrYKqjoJILimyjcMNM -> com.zpj.shouji.market.f.c.h0.x:
     com.zpj.shouji.market.ui.fragment.detail.AppRecommendFragment f$0 -> e
     void onBindViewHolder(com.zpj.recyclerview.EasyViewHolder,java.util.List,int,java.util.List) -> a
-com.zpj.shouji.market.ui.fragment.detail.-$$Lambda$AppRecommendFragment$Pra1VM3Q6WP1mq3HbE2U6dmznSI -> com.zpj.shouji.market.f.c.h0.n:
+com.zpj.shouji.market.ui.fragment.detail.-$$Lambda$AppRecommendFragment$Pra1VM3Q6WP1mq3HbE2U6dmznSI -> com.zpj.shouji.market.f.c.h0.y:
     com.zpj.shouji.market.ui.fragment.detail.-$$Lambda$AppRecommendFragment$Pra1VM3Q6WP1mq3HbE2U6dmznSI INSTANCE -> e
     int onGetViewType(java.util.List,int) -> a
-com.zpj.shouji.market.ui.fragment.detail.AppCommentFragment -> com.zpj.shouji.market.f.c.h0.o:
+com.zpj.shouji.market.ui.fragment.detail.AppCommentFragment -> com.zpj.shouji.market.f.c.h0.z:
     22:22:void <init>() -> <init>
     25:29:com.zpj.shouji.market.ui.fragment.detail.AppCommentFragment newInstance(java.lang.String,java.lang.String) -> a
     34:46:void initView(android.view.View,android.os.Bundle) -> a
@@ -44993,11 +45347,11 @@ com.zpj.shouji.market.ui.fragment.detail.AppCommentFragment -> com.zpj.shouji.ma
     56:58:void onDestroy() -> onDestroy
     72:75:void onRefreshEvent(com.zpj.shouji.market.event.RefreshEvent) -> onRefreshEvent
     62:63:void onSupportInvisible() -> q
-com.zpj.shouji.market.ui.fragment.detail.AppCommentFragment$1 -> com.zpj.shouji.market.f.c.h0.o$a:
+com.zpj.shouji.market.ui.fragment.detail.AppCommentFragment$1 -> com.zpj.shouji.market.f.c.h0.z$a:
     int mScrollThreshold -> a
     35:36:void <init>(com.zpj.shouji.market.ui.fragment.detail.AppCommentFragment) -> <init>
     39:44:void onScrolled(android.support.v7.widget.RecyclerView,int,int) -> onScrolled
-com.zpj.shouji.market.ui.fragment.detail.AppDetailFragment -> com.zpj.shouji.market.f.c.h0.p:
+com.zpj.shouji.market.ui.fragment.detail.AppDetailFragment -> com.zpj.shouji.market.f.c.h0.a0:
     android.support.design.widget.FloatingActionButton fabComment -> v
     android.widget.TextView title -> s
     java.lang.String id -> m
@@ -45035,13 +45389,13 @@ com.zpj.shouji.market.ui.fragment.detail.AppDetailFragment -> com.zpj.shouji.mar
     122:122:int getLayoutId() -> v
     127:127:boolean supportSwipeBack() -> x
     67:67:java.lang.String[] access$100() -> y
-com.zpj.shouji.market.ui.fragment.detail.AppDetailFragment$1 -> com.zpj.shouji.market.f.c.h0.p$a:
+com.zpj.shouji.market.ui.fragment.detail.AppDetailFragment$1 -> com.zpj.shouji.market.f.c.h0.a0$a:
     com.zpj.shouji.market.ui.fragment.detail.AppDetailFragment this$0 -> a
     198:198:void <init>(com.zpj.shouji.market.ui.fragment.detail.AppDetailFragment) -> <init>
     216:216:void onPageScrollStateChanged(int) -> onPageScrollStateChanged
     202:202:void onPageScrolled(int,float,int) -> onPageScrolled
     206:211:void onPageSelected(int) -> onPageSelected
-com.zpj.shouji.market.ui.fragment.detail.AppDetailFragment$2 -> com.zpj.shouji.market.f.c.h0.p$b:
+com.zpj.shouji.market.ui.fragment.detail.AppDetailFragment$2 -> com.zpj.shouji.market.f.c.h0.a0$b:
     android.support.v4.view.ViewPager val$viewPager -> b
     com.zpj.shouji.market.ui.fragment.detail.AppDetailFragment this$0 -> c
     223:223:void <init>(com.zpj.shouji.market.ui.fragment.detail.AppDetailFragment,android.support.v4.view.ViewPager) -> <init>
@@ -45049,44 +45403,124 @@ com.zpj.shouji.market.ui.fragment.detail.AppDetailFragment$2 -> com.zpj.shouji.m
     231:237:net.lucode.hackware.magicindicator.buildins.commonnavigator.abs.IPagerTitleView getTitleView(android.content.Context,int) -> a
     236:236:void lambda$getTitleView$0(android.support.v4.view.ViewPager,int,android.view.View) -> a
     242:248:net.lucode.hackware.magicindicator.buildins.commonnavigator.abs.IPagerIndicator getIndicator(android.content.Context) -> a
-com.zpj.shouji.market.ui.fragment.detail.AppDetailFragment$3 -> com.zpj.shouji.market.f.c.h0.q:
+com.zpj.shouji.market.ui.fragment.detail.AppDetailFragment$3 -> com.zpj.shouji.market.f.c.h0.b0:
     com.zpj.shouji.market.ui.fragment.detail.AppDetailFragment this$0 -> h
     288:288:void <init>(com.zpj.shouji.market.ui.fragment.detail.AppDetailFragment) -> <init>
     288:288:void onResourceReady(java.lang.Object,com.bumptech.glide.request.transition.Transition) -> a
     291:310:void onResourceReady(android.graphics.Bitmap,com.bumptech.glide.request.transition.Transition) -> a
     294:302:void lambda$onResourceReady$0(android.graphics.Bitmap,io.reactivex.ObservableEmitter) -> a
     306:308:void lambda$onResourceReady$1(android.graphics.Bitmap) -> a
-com.zpj.shouji.market.ui.fragment.detail.AppDetailFragment$4 -> com.zpj.shouji.market.f.c.h0.r:
+com.zpj.shouji.market.ui.fragment.detail.AppDetailFragment$4 -> com.zpj.shouji.market.f.c.h0.c0:
     com.zpj.shouji.market.model.AppDetailInfo val$info -> e
     318:318:void <init>(com.zpj.shouji.market.ui.fragment.detail.AppDetailFragment,com.zpj.shouji.market.model.AppDetailInfo) -> <init>
     321:322:void run() -> run
-com.zpj.shouji.market.ui.fragment.detail.AppInfoFragment -> com.zpj.shouji.market.f.c.h0.s:
+com.zpj.shouji.market.ui.fragment.detail.AppDetailFragment2 -> com.zpj.shouji.market.f.c.h0.d0:
+    android.support.v4.view.ViewPager viewPager -> x
+    android.widget.TextView title -> r
+    java.lang.String id -> l
+    android.widget.TextView tvSize -> t
+    int toolBarPositionY -> I
+    com.zpj.widget.statelayout.StateLayout stateLayout -> o
+    android.widget.TextView shortIntroduce -> v
+    com.shehuan.niv.NiceImageView ivToolbarAvater -> D
+    android.support.design.widget.FloatingActionButton fabComment -> w
+    java.lang.String[] TAB_TITLES -> M
+    com.zpj.widget.tinted.TintedImageButton btnMenu -> H
+    android.widget.TextView tvToolbarName -> E
+    com.zpj.widget.tinted.TintedImageButton btnShare -> F
+    com.shehuan.niv.NiceImageView icon -> q
+    net.lucode.hackware.magicindicator.MagicIndicator magicIndicator -> y
+    com.zpj.shouji.market.ui.widget.JudgeNestedScrollView scrollView -> B
+    int lastScrollY -> L
+    android.widget.TextView tvVersion -> s
+    int mScrollY -> J
+    java.lang.String type -> m
+    android.widget.TextView shortInfo -> u
+    android.support.design.widget.CollapsingToolbarLayout collapsingToolbarLayout -> z
+    android.support.v7.widget.Toolbar mToolBar -> A
+    com.zpj.widget.tinted.TintedImageButton btnCollect -> G
+    com.zpj.shouji.market.model.AppDetailInfo info -> K
+    com.zpj.shouji.market.model.AppDetailInfo appDetailInfo -> n
+    android.widget.ImageView ivHeader -> p
+    android.view.View buttonBarLayout -> C
+    91:91:void <clinit>() -> <clinit>
+    85:556:void <init>() -> <init>
+    387:392:void dealWithViewPager() -> A
+    401:457:void getAppInfo() -> B
+    330:384:void initViewPager() -> C
+    85:85:android.support.design.widget.FloatingActionButton access$000(com.zpj.shouji.market.ui.fragment.detail.AppDetailFragment2) -> a
+    186:191:void initView(android.view.View,android.os.Bundle) -> a
+    405:454:void lambda$getAppInfo$4(com.zpj.http.parser.html.nodes.Document) -> a
+    455:455:void lambda$getAppInfo$5(java.lang.Throwable) -> a
+    461:544:void getColor(android.graphics.Bitmap) -> a
+    467:542:void lambda$getColor$6(android.support.v7.graphics.Palette) -> a
+    592:612:void lambda$onClick$7(int,java.lang.String) -> a
+    85:85:net.lucode.hackware.magicindicator.MagicIndicator access$100(com.zpj.shouji.market.ui.fragment.detail.AppDetailFragment2) -> b
+    412:453:void lambda$null$3(com.zpj.http.parser.html.nodes.Document) -> b
+    85:85:com.shehuan.niv.NiceImageView access$200(com.zpj.shouji.market.ui.fragment.detail.AppDetailFragment2) -> c
+    396:398:void onEnterAnimationEnd(android.os.Bundle) -> c
+    85:85:com.shehuan.niv.NiceImageView access$300(com.zpj.shouji.market.ui.fragment.detail.AppDetailFragment2) -> d
+    85:85:android.widget.ImageView access$400(com.zpj.shouji.market.ui.fragment.detail.AppDetailFragment2) -> e
+    void lambda$pFJvt5dUf9z1FcuXfx5hhsVXVh4(com.zpj.shouji.market.ui.fragment.detail.AppDetailFragment2) -> f
+    214:219:void lambda$initView$0(android.view.View) -> f
+    585:615:void onClick(android.view.View) -> onClick
+    174:176:void onCreate(android.os.Bundle) -> onCreate
+    180:182:void onDestroy() -> onDestroy
+    548:553:void onFabEvent(com.zpj.shouji.market.event.FabEvent) -> onFabEvent
+    559:581:void onScrollChange(android.support.v4.widget.NestedScrollView,int,int,int,int) -> onScrollChange
+    164:164:int getLayoutId() -> v
+    169:169:boolean supportSwipeBack() -> x
+    288:288:void lambda$initView$1() -> y
+    452:452:void lambda$null$2() -> z
+com.zpj.shouji.market.ui.fragment.detail.AppDetailFragment2$1 -> com.zpj.shouji.market.f.c.h0.d0$a:
+    com.zpj.shouji.market.ui.fragment.detail.AppDetailFragment2 this$0 -> a
+    356:356:void <init>(com.zpj.shouji.market.ui.fragment.detail.AppDetailFragment2) -> <init>
+    378:378:void onPageScrollStateChanged(int) -> onPageScrollStateChanged
+    360:360:void onPageScrolled(int,float,int) -> onPageScrolled
+    364:373:void onPageSelected(int) -> onPageSelected
+com.zpj.shouji.market.ui.fragment.detail.AppDetailFragment2$2 -> com.zpj.shouji.market.f.c.h0.e0:
+    com.zpj.shouji.market.ui.fragment.detail.AppDetailFragment2 this$0 -> h
+    417:417:void <init>(com.zpj.shouji.market.ui.fragment.detail.AppDetailFragment2) -> <init>
+    417:417:void onResourceReady(java.lang.Object,com.bumptech.glide.request.transition.Transition) -> a
+    420:442:void onResourceReady(android.graphics.Bitmap,com.bumptech.glide.request.transition.Transition) -> a
+    424:432:void lambda$onResourceReady$0(android.graphics.Bitmap,io.reactivex.ObservableEmitter) -> a
+    437:440:void lambda$onResourceReady$1(android.graphics.Bitmap) -> a
+com.zpj.shouji.market.ui.fragment.detail.AppDetailFragment2$3 -> com.zpj.shouji.market.f.c.h0.f0:
+    com.zpj.shouji.market.ui.fragment.detail.AppDetailFragment2 this$0 -> a
+    532:532:void <init>(com.zpj.shouji.market.ui.fragment.detail.AppDetailFragment2) -> <init>
+    535:538:boolean needScroll() -> a
+com.zpj.shouji.market.ui.fragment.detail.AppInfoFragment -> com.zpj.shouji.market.f.c.h0.g0:
     com.zpj.recyclerview.EasyRecyclerView recyclerView -> l
     android.widget.LinearLayout content -> m
     float screenHeight -> o
     float screenWidth -> n
-    37:41:void <init>() -> <init>
-    37:37:android.content.Context access$000(com.zpj.shouji.market.ui.fragment.detail.AppInfoFragment) -> a
-    76:83:void initView(android.view.View,android.os.Bundle) -> a
-    87:147:void onBindViewHolder(com.zpj.recyclerview.EasyViewHolder,java.util.List,int,java.util.List) -> a
-    131:146:void lambda$onBindViewHolder$1(java.util.List,com.zpj.recyclerview.EasyViewHolder,int,android.widget.ImageView,android.view.View) -> a
-    135:143:android.widget.ImageView lambda$null$0(com.zpj.recyclerview.EasyViewHolder,int,android.widget.ImageView,int) -> a
-    183:192:void addItem(java.lang.String,java.lang.String) -> a
-    37:37:float access$100(com.zpj.shouji.market.ui.fragment.detail.AppInfoFragment) -> b
-    37:37:float access$200(com.zpj.shouji.market.ui.fragment.detail.AppInfoFragment) -> c
-    71:72:void onSupportVisible() -> k
-    54:56:void onCreate(android.os.Bundle) -> onCreate
-    60:62:void onDestroy() -> onDestroy
-    168:180:void onGetAppDetailInfo(com.zpj.shouji.market.model.AppDetailInfo) -> onGetAppDetailInfo
-    66:67:void onSupportInvisible() -> q
-    49:49:int getLayoutId() -> v
-com.zpj.shouji.market.ui.fragment.detail.AppInfoFragment$1 -> com.zpj.shouji.market.f.c.h0.s$a:
+    43:47:void <init>() -> <init>
+    43:43:android.content.Context access$000(com.zpj.shouji.market.ui.fragment.detail.AppInfoFragment) -> a
+    82:89:void initView(android.view.View,android.os.Bundle) -> a
+    93:149:void onBindViewHolder(com.zpj.recyclerview.EasyViewHolder,java.util.List,int,java.util.List) -> a
+    133:148:void lambda$onBindViewHolder$1(java.util.List,com.zpj.recyclerview.EasyViewHolder,int,android.widget.ImageView,android.view.View) -> a
+    137:145:android.widget.ImageView lambda$null$0(com.zpj.recyclerview.EasyViewHolder,int,android.widget.ImageView,int) -> a
+    169:178:void addItem(java.lang.String,java.lang.String) -> a
+    43:43:float access$100(com.zpj.shouji.market.ui.fragment.detail.AppInfoFragment) -> b
+    43:43:float access$200(com.zpj.shouji.market.ui.fragment.detail.AppInfoFragment) -> c
+    77:78:void onSupportVisible() -> k
+    60:62:void onCreate(android.os.Bundle) -> onCreate
+    66:68:void onDestroy() -> onDestroy
+    153:166:void onGetAppDetailInfo(com.zpj.shouji.market.model.AppDetailInfo) -> onGetAppDetailInfo
+    72:73:void onSupportInvisible() -> q
+    55:55:int getLayoutId() -> v
+com.zpj.shouji.market.ui.fragment.detail.AppInfoFragment$1 -> com.zpj.shouji.market.f.c.h0.g0$a:
     android.widget.ImageView val$img -> h
     com.zpj.shouji.market.ui.fragment.detail.AppInfoFragment this$0 -> i
-    90:90:void <init>(com.zpj.shouji.market.ui.fragment.detail.AppInfoFragment,android.widget.ImageView) -> <init>
-    90:90:void onResourceReady(java.lang.Object,com.bumptech.glide.request.transition.Transition) -> a
-    93:111:void onResourceReady(android.graphics.drawable.Drawable,com.bumptech.glide.request.transition.Transition) -> a
-com.zpj.shouji.market.ui.fragment.detail.AppRecommendFragment -> com.zpj.shouji.market.f.c.h0.t:
+    96:96:void <init>(com.zpj.shouji.market.ui.fragment.detail.AppInfoFragment,android.widget.ImageView) -> <init>
+    96:96:void onResourceReady(java.lang.Object,com.bumptech.glide.request.transition.Transition) -> a
+    99:129:void onResourceReady(android.graphics.drawable.Drawable,com.bumptech.glide.request.transition.Transition) -> a
+com.zpj.shouji.market.ui.fragment.detail.AppInfoFragment$DividerItemDecoration -> com.zpj.shouji.market.f.c.h0.g0$b:
+    int total -> c
+    181:181:void <init>(android.content.Context,int,com.zpj.shouji.market.ui.fragment.detail.AppInfoFragment$1) -> <init>
+    186:188:void <init>(android.content.Context,int) -> <init>
+    192:206:com.yanyusong.y_divideritemdecoration.Y_Divider getDivider(int) -> a
+com.zpj.shouji.market.ui.fragment.detail.AppRecommendFragment -> com.zpj.shouji.market.f.c.h0.h0:
     com.zpj.shouji.market.ui.widget.recommend.SimilarAppCard similarAppCard -> q
     com.zpj.shouji.market.ui.widget.recommend.SimilarCollectionCard similarCollectionCard -> p
     java.util.List appInfoList -> n
@@ -45108,11 +45542,11 @@ com.zpj.shouji.market.ui.fragment.detail.AppRecommendFragment -> com.zpj.shouji.
     48:48:int getLayoutId() -> v
     60:63:void lambda$initView$0() -> y
     105:126:void getSimilar() -> z
-com.zpj.shouji.market.ui.fragment.detail.AppRecommendFragment$1 -> com.zpj.shouji.market.f.c.h0.t$a:
+com.zpj.shouji.market.ui.fragment.detail.AppRecommendFragment$1 -> com.zpj.shouji.market.f.c.h0.h0$a:
     com.zpj.shouji.market.ui.fragment.detail.AppRecommendFragment this$0 -> e
     119:119:void <init>(com.zpj.shouji.market.ui.fragment.detail.AppRecommendFragment) -> <init>
     122:123:void onError(java.lang.Throwable) -> onError
-com.zpj.shouji.market.ui.fragment.detail.AppThemeFragment -> com.zpj.shouji.market.f.c.h0.u:
+com.zpj.shouji.market.ui.fragment.detail.AppThemeFragment -> com.zpj.shouji.market.f.c.h0.i0:
     8:8:void <init>() -> <init>
     11:15:com.zpj.shouji.market.ui.fragment.detail.AppThemeFragment newInstance(java.lang.String,java.lang.String) -> a
     25:26:void onSupportVisible() -> k
@@ -46593,11 +47027,15 @@ com.zpj.shouji.market.ui.widget.JudgeNestedScrollView -> com.zpj.shouji.market.u
     float yDistance -> g
     float xDistance -> f
     boolean isNeedScroll -> e
+    com.zpj.shouji.market.ui.widget.JudgeNestedScrollView$OnNeedScrollListener onNeedScrollListener -> k
     25:26:void <init>(android.content.Context) -> <init>
     29:30:void <init>(android.content.Context,android.util.AttributeSet) -> <init>
     33:35:void <init>(android.content.Context,android.util.AttributeSet,int) -> <init>
-    39:57:boolean onInterceptTouchEvent(android.view.MotionEvent) -> onInterceptTouchEvent
-    64:65:void setNeedScroll(boolean) -> setNeedScroll
+    39:61:boolean onInterceptTouchEvent(android.view.MotionEvent) -> onInterceptTouchEvent
+    68:69:void setNeedScroll(boolean) -> setNeedScroll
+    74:75:void setOnNeedScrollListener(com.zpj.shouji.market.ui.widget.JudgeNestedScrollView$OnNeedScrollListener) -> setOnNeedScrollListener
+com.zpj.shouji.market.ui.widget.JudgeNestedScrollView$OnNeedScrollListener -> com.zpj.shouji.market.ui.widget.JudgeNestedScrollView$a:
+    boolean needScroll() -> a
 com.zpj.shouji.market.ui.widget.LazyScrollView -> com.zpj.shouji.market.ui.widget.LazyScrollView:
     android.view.View view -> e
     com.zpj.shouji.market.ui.widget.LazyScrollView$OnScrollListener onScrollListener -> f
@@ -47954,16 +48392,16 @@ com.zpj.shouji.market.utils.FileUtils -> com.zpj.shouji.market.g.d:
     706:707:void copyFile(java.io.File,java.io.File,boolean) -> a
     737:757:void doCopyFile(java.io.File,java.io.File,boolean) -> b
 com.zpj.shouji.market.utils.MagicIndicatorHelper -> com.zpj.shouji.market.g.e:
-    21:22:void bindViewPager(android.content.Context,net.lucode.hackware.magicindicator.MagicIndicator,android.support.v4.view.ViewPager,java.lang.String[]) -> a
-    25:57:void bindViewPager(android.content.Context,net.lucode.hackware.magicindicator.MagicIndicator,android.support.v4.view.ViewPager,java.lang.String[],boolean) -> a
+    22:23:void bindViewPager(android.content.Context,net.lucode.hackware.magicindicator.MagicIndicator,android.support.v4.view.ViewPager,java.lang.String[]) -> a
+    26:58:void bindViewPager(android.content.Context,net.lucode.hackware.magicindicator.MagicIndicator,android.support.v4.view.ViewPager,java.lang.String[],boolean) -> a
 com.zpj.shouji.market.utils.MagicIndicatorHelper$1 -> com.zpj.shouji.market.g.e$a:
     android.support.v4.view.ViewPager val$viewPager -> c
     java.lang.String[] val$tabTitles -> b
-    27:27:void <init>(java.lang.String[],android.support.v4.view.ViewPager) -> <init>
-    30:30:int getCount() -> a
-    35:41:net.lucode.hackware.magicindicator.buildins.commonnavigator.abs.IPagerTitleView getTitleView(android.content.Context,int) -> a
-    40:40:void lambda$getTitleView$0(android.support.v4.view.ViewPager,int,android.view.View) -> a
-    46:52:net.lucode.hackware.magicindicator.buildins.commonnavigator.abs.IPagerIndicator getIndicator(android.content.Context) -> a
+    28:28:void <init>(java.lang.String[],android.support.v4.view.ViewPager) -> <init>
+    31:31:int getCount() -> a
+    36:42:net.lucode.hackware.magicindicator.buildins.commonnavigator.abs.IPagerTitleView getTitleView(android.content.Context,int) -> a
+    41:41:void lambda$getTitleView$0(android.support.v4.view.ViewPager,int,android.view.View) -> a
+    47:53:net.lucode.hackware.magicindicator.buildins.commonnavigator.abs.IPagerIndicator getIndicator(android.content.Context) -> a
 com.zpj.utils.ClickHelper -> com.zpj.utils.a:
     float lastY -> i
     float lastX -> h
@@ -50329,7 +50767,20 @@ kotlin.collections.ArraysKt__ArraysKt -> f.e.c:
 kotlin.collections.ArraysKt___ArraysJvmKt -> f.e.d:
 kotlin.collections.ArraysKt___ArraysKt -> f.e.e:
     2403:2404:char single(char[]) -> a
-kotlin.collections.IntIterator -> f.e.f:
+kotlin.collections.CollectionsKt -> f.e.f:
+    int[] toIntArray(java.util.Collection) -> a
+kotlin.collections.CollectionsKt__CollectionsJVMKt -> f.e.g:
+kotlin.collections.CollectionsKt__CollectionsKt -> f.e.h:
+kotlin.collections.CollectionsKt__IterablesKt -> f.e.i:
+kotlin.collections.CollectionsKt__IteratorsJVMKt -> f.e.j:
+kotlin.collections.CollectionsKt__IteratorsKt -> f.e.k:
+kotlin.collections.CollectionsKt__MutableCollectionsJVMKt -> f.e.l:
+kotlin.collections.CollectionsKt__MutableCollectionsKt -> f.e.m:
+kotlin.collections.CollectionsKt__ReversedViewsKt -> f.e.n:
+kotlin.collections.CollectionsKt___CollectionsJvmKt -> f.e.o:
+kotlin.collections.CollectionsKt___CollectionsKt -> f.e.p:
+    1003:1007:int[] toIntArray(java.util.Collection) -> a
+kotlin.collections.IntIterator -> f.e.q:
     35:35:void <init>() -> <init>
     int nextInt() -> b
     35:35:java.lang.Object next() -> next
@@ -50338,13 +50789,49 @@ kotlin.internal.ProgressionUtilKt -> f.f.a:
     10:11:int mod(int,int) -> a
     21:21:int differenceModulo(int,int,int) -> a
     45:48:int getProgressionLastElement(int,int,int) -> b
-kotlin.jvm.functions.Function0 -> f.g.a.a:
+kotlin.jvm.JvmClassMappingKt -> f.g.a:
+    58:61:java.lang.Class getJavaObjectType(kotlin.reflect.KClass) -> a
+kotlin.jvm.functions.Function0 -> f.g.b.a:
     java.lang.Object invoke() -> d
-kotlin.jvm.functions.Function3 -> f.g.a.b:
+kotlin.jvm.functions.Function1 -> f.g.b.b:
+    java.lang.Object invoke(java.lang.Object) -> a
+kotlin.jvm.functions.Function3 -> f.g.b.c:
     java.lang.Object invoke(java.lang.Object,java.lang.Object,java.lang.Object) -> a
-kotlin.jvm.internal.DefaultConstructorMarker -> f.g.b.a:
-kotlin.jvm.internal.FunctionBase -> f.g.b.b:
-kotlin.jvm.internal.Intrinsics -> f.g.b.c:
+kotlin.jvm.internal.CallableReference -> f.g.c.a:
+    java.lang.Object receiver -> f
+    kotlin.reflect.KCallable reflected -> e
+    36:36:void <clinit>() -> <clinit>
+    52:54:void <init>(java.lang.Object) -> <init>
+    65:70:kotlin.reflect.KCallable compute() -> d
+    kotlin.reflect.KCallable computeReflected() -> e
+    60:60:java.lang.Object getBoundReceiver() -> f
+    97:97:java.lang.String getName() -> g
+    89:89:kotlin.reflect.KDeclarationContainer getOwner() -> h
+    109:109:java.lang.String getSignature() -> i
+kotlin.jvm.internal.CallableReference$NoReceiver -> f.g.c.a$a:
+    kotlin.jvm.internal.CallableReference$NoReceiver INSTANCE -> e
+    40:40:void <clinit>() -> <clinit>
+    39:39:void <init>() -> <init>
+    39:39:kotlin.jvm.internal.CallableReference$NoReceiver access$000() -> d
+    43:43:java.lang.Object readResolve() -> readResolve
+kotlin.jvm.internal.ClassBasedDeclarationContainer -> f.g.c.b:
+    java.lang.Class getJClass() -> a
+kotlin.jvm.internal.ClassReference -> f.g.c.c:
+    java.lang.Class jClass -> e
+    10:10:void <init>(java.lang.Class) -> <init>
+    10:10:java.lang.Class getJClass() -> a
+    82:82:boolean equals(java.lang.Object) -> equals
+    85:85:int hashCode() -> hashCode
+    88:88:java.lang.String toString() -> toString
+kotlin.jvm.internal.DefaultConstructorMarker -> f.g.c.d:
+kotlin.jvm.internal.FunctionBase -> f.g.c.e:
+kotlin.jvm.internal.FunctionReference -> f.g.c.f:
+    21:23:void <init>(int,java.lang.Object) -> <init>
+    39:39:kotlin.reflect.KCallable computeReflected() -> e
+    74:86:boolean equals(java.lang.Object) -> equals
+    91:91:int hashCode() -> hashCode
+    96:102:java.lang.String toString() -> toString
+kotlin.jvm.internal.Intrinsics -> f.g.c.g:
     17:18:void <init>() -> <init>
     37:37:void throwNpe() -> a
     77:78:void checkExpressionValueIsNotNull(java.lang.Object,java.lang.String) -> a
@@ -50353,18 +50840,22 @@ kotlin.jvm.internal.Intrinsics -> f.g.b.c:
     237:237:java.lang.Throwable sanitizeStackTrace(java.lang.Throwable) -> a
     241:253:java.lang.Throwable sanitizeStackTrace(java.lang.Throwable,java.lang.String) -> a
     115:116:void checkParameterIsNotNull(java.lang.Object,java.lang.String) -> b
-kotlin.jvm.internal.Lambda -> f.g.b.d:
+kotlin.jvm.internal.Lambda -> f.g.c.h:
     10:10:void <init>(int) -> <init>
     11:11:java.lang.String toString() -> toString
-kotlin.jvm.internal.Reflection -> f.g.b.e:
+kotlin.jvm.internal.Reflection -> f.g.c.i:
     kotlin.jvm.internal.ReflectionFactory factory -> a
     22:35:void <clinit>() -> <clinit>
+    50:50:kotlin.reflect.KClass getOrCreateKotlinClass(java.lang.Class) -> a
     69:69:java.lang.String renderLambdaToString(kotlin.jvm.internal.Lambda) -> a
-kotlin.jvm.internal.ReflectionFactory -> f.g.b.f:
+    80:80:kotlin.reflect.KFunction function(kotlin.jvm.internal.FunctionReference) -> a
+kotlin.jvm.internal.ReflectionFactory -> f.g.c.j:
     11:11:void <init>() -> <init>
+    27:27:kotlin.reflect.KClass getOrCreateKotlinClass(java.lang.Class) -> a
     36:36:java.lang.String renderLambdaToString(kotlin.jvm.internal.Lambda) -> a
     41:42:java.lang.String renderLambdaToString(kotlin.jvm.internal.FunctionBase) -> a
-kotlin.jvm.internal.markers.KMappedMarker -> f.g.b.g.a:
+    48:48:kotlin.reflect.KFunction function(kotlin.jvm.internal.FunctionReference) -> a
+kotlin.jvm.internal.markers.KMappedMarker -> f.g.c.k.a:
 kotlin.ranges.ClosedRange -> f.h.a:
 kotlin.ranges.IntProgression -> f.h.b:
     int last -> f
@@ -50410,11 +50901,17 @@ kotlin.ranges.RangesKt__RangesKt -> f.h.g:
 kotlin.ranges.RangesKt___RangesKt -> f.h.h:
     855:855:int coerceAtLeast(int,int) -> a
     705:706:kotlin.ranges.IntRange until(int,int) -> b
-kotlin.text.CharsKt__CharJVMKt -> f.i.a:
-kotlin.text.CharsKt__CharKt -> f.i.b:
+kotlin.reflect.KAnnotatedElement -> f.i.a:
+kotlin.reflect.KCallable -> f.i.b:
+kotlin.reflect.KClass -> f.i.c:
+kotlin.reflect.KClassifier -> f.i.d:
+kotlin.reflect.KDeclarationContainer -> f.i.e:
+kotlin.reflect.KFunction -> f.i.f:
+kotlin.text.CharsKt__CharJVMKt -> f.j.a:
+kotlin.text.CharsKt__CharKt -> f.j.b:
     32:37:boolean equals(char,char,boolean) -> a
-kotlin.text.FlagEnum -> f.i.c:
-kotlin.text.Regex -> f.i.d:
+kotlin.text.FlagEnum -> f.j.c:
+kotlin.text.Regex -> f.j.d:
     java.util.regex.Pattern nativePattern -> e
     kotlin.text.Regex$Companion Companion -> f
     85:85:void <init>(java.util.regex.Pattern) -> <init>
@@ -50423,20 +50920,20 @@ kotlin.text.Regex -> f.i.d:
     107:107:boolean matches(java.lang.CharSequence) -> a
     212:212:java.lang.String toString() -> toString
     221:221:java.lang.Object writeReplace() -> writeReplace
-kotlin.text.Regex$Companion -> f.i.d$a:
+kotlin.text.Regex$Companion -> f.j.d$a:
     231:231:void <init>() -> <init>
     231:231:void <init>(kotlin.jvm.internal.DefaultConstructorMarker) -> <init>
     231:231:int access$ensureUnicodeCase(kotlin.text.Regex$Companion,int) -> a
     250:250:int ensureUnicodeCase(int) -> a
-kotlin.text.Regex$Serialized -> f.i.d$b:
+kotlin.text.Regex$Serialized -> f.j.d$b:
     int flags -> f
     java.lang.String pattern -> e
     223:223:void <init>(java.lang.String,int) -> <init>
     228:228:java.lang.Object readResolve() -> readResolve
-kotlin.text.Regex$Serialized$Companion -> f.i.d$b$a:
+kotlin.text.Regex$Serialized$Companion -> f.j.d$b$a:
     224:224:void <init>() -> <init>
     224:224:void <init>(kotlin.jvm.internal.DefaultConstructorMarker) -> <init>
-kotlin.text.RegexOption -> f.i.e:
+kotlin.text.RegexOption -> f.j.e:
     kotlin.text.RegexOption IGNORE_CASE -> f
     int value -> e
     kotlin.text.RegexOption[] $VALUES -> g
@@ -50444,27 +50941,27 @@ kotlin.text.RegexOption -> f.i.e:
     29:29:void <init>(java.lang.String,int,int,int) -> <init>
     29:29:void <init>(java.lang.String,int,int,int,int,kotlin.jvm.internal.DefaultConstructorMarker) -> <init>
     29:29:int getValue() -> u
-kotlin.text.StringsKt -> f.i.f:
+kotlin.text.StringsKt -> f.j.f:
     int indexOf$default(java.lang.CharSequence,char,int,boolean,int,java.lang.Object) -> a
     java.lang.String repeat(java.lang.CharSequence,int) -> a
     java.lang.String substring(java.lang.String,kotlin.ranges.IntRange) -> a
-kotlin.text.StringsKt__IndentKt -> f.i.g:
-kotlin.text.StringsKt__RegexExtensionsJVMKt -> f.i.h:
-kotlin.text.StringsKt__RegexExtensionsKt -> f.i.i:
-kotlin.text.StringsKt__StringBuilderJVMKt -> f.i.j:
-kotlin.text.StringsKt__StringBuilderKt -> f.i.k:
-kotlin.text.StringsKt__StringNumberConversionsJVMKt -> f.i.l:
-kotlin.text.StringsKt__StringNumberConversionsKt -> f.i.m:
-kotlin.text.StringsKt__StringsJVMKt -> f.i.n:
+kotlin.text.StringsKt__IndentKt -> f.j.g:
+kotlin.text.StringsKt__RegexExtensionsJVMKt -> f.j.h:
+kotlin.text.StringsKt__RegexExtensionsKt -> f.j.i:
+kotlin.text.StringsKt__StringBuilderJVMKt -> f.j.j:
+kotlin.text.StringsKt__StringBuilderKt -> f.j.k:
+kotlin.text.StringsKt__StringNumberConversionsJVMKt -> f.j.l:
+kotlin.text.StringsKt__StringNumberConversionsKt -> f.j.m:
+kotlin.text.StringsKt__StringsJVMKt -> f.j.n:
     447:447:java.lang.String repeat(java.lang.CharSequence,int) -> a
-kotlin.text.StringsKt__StringsKt -> f.i.o:
+kotlin.text.StringsKt__StringsKt -> f.j.o:
     307:307:int getLastIndex(java.lang.CharSequence) -> a
     321:321:java.lang.String substring(java.lang.String,kotlin.ranges.IntRange) -> a
     825:835:int indexOfAny(java.lang.CharSequence,char[],int,boolean) -> a
     978:978:int indexOf$default(java.lang.CharSequence,char,int,boolean,int,java.lang.Object) -> a
     979:979:int indexOf(java.lang.CharSequence,char,int,boolean) -> a
-kotlin.text.StringsKt___StringsJvmKt -> f.i.p:
-kotlin.text.StringsKt___StringsKt -> f.i.q:
+kotlin.text.StringsKt___StringsJvmKt -> f.j.p:
+kotlin.text.StringsKt___StringsKt -> f.j.q:
 me.jingbin.richeditor.R$anim -> me.jingbin.richeditor.R$anim:
     13:13:void <init>() -> <init>
 me.jingbin.richeditor.R$attr -> me.jingbin.richeditor.R$attr:
@@ -55022,3 +55519,240 @@ site.gemus.openingstartanimation.WidthAndHeightOfView -> site.gemus.openingstart
     29:29:int getHeight() -> a
     17:18:void setWidth(int) -> b
     25:25:int getWidth() -> b
+top.defaults.drawabletoolbox.CompatibleKt -> top.defaults.drawabletoolbox.a:
+    java.lang.Class rotateState -> b
+    java.lang.Class gradientState -> a
+    11:21:void <clinit>() -> <clinit>
+    14:18:java.lang.Class resolveGradientState() -> a
+    33:35:java.lang.reflect.Field resolveField(java.lang.Class,java.lang.String) -> a
+    40:42:java.lang.reflect.Method resolveMethod(java.lang.Class,java.lang.String,java.lang.Class[]) -> a
+    90:98:void setUseLevelForShape(android.graphics.drawable.GradientDrawable,boolean) -> a
+    101:116:void setOrientation(android.graphics.drawable.GradientDrawable,android.graphics.drawable.GradientDrawable$Orientation) -> a
+    119:132:void setColors(android.graphics.drawable.GradientDrawable,int[]) -> a
+    135:143:void setGradientRadiusType(android.graphics.drawable.GradientDrawable,int) -> a
+    146:154:void setGradientRadius(android.graphics.drawable.GradientDrawable,float) -> a
+    168:182:void setDrawable(android.graphics.drawable.RotateDrawable,android.graphics.drawable.Drawable) -> a
+    219:231:void setFromDegrees(android.graphics.drawable.RotateDrawable,float) -> a
+    249:261:void setRadius(android.graphics.drawable.RippleDrawable,int) -> a
+    24:28:java.lang.Class resolveRotateState() -> b
+    46:54:void setInnerRadius(android.graphics.drawable.GradientDrawable,int) -> b
+    57:65:void setInnerRadiusRatio(android.graphics.drawable.GradientDrawable,float) -> b
+    185:199:void setPivotX(android.graphics.drawable.RotateDrawable,float) -> b
+    79:87:void setThicknessRatio(android.graphics.drawable.GradientDrawable,float) -> c
+    157:165:void setStrokeColor(android.graphics.drawable.GradientDrawable,int) -> c
+    202:216:void setPivotY(android.graphics.drawable.RotateDrawable,float) -> c
+    68:76:void setThickness(android.graphics.drawable.GradientDrawable,int) -> d
+    234:246:void setToDegrees(android.graphics.drawable.RotateDrawable,float) -> d
+top.defaults.drawabletoolbox.DrawableBuilder -> top.defaults.drawabletoolbox.b:
+    android.graphics.drawable.Drawable baseDrawable -> c
+    java.lang.Integer solidColorPressed -> d
+    java.lang.Integer solidColorPressedWhenRippleUnsupported -> e
+    int scaleOrder -> l
+    java.lang.Integer solidColorDisabled -> f
+    java.lang.Integer solidColorSelected -> g
+    java.lang.Integer strokeColorPressed -> h
+    int rotateOrder -> k
+    java.util.TreeMap transformsMap -> b
+    java.lang.Integer strokeColorDisabled -> i
+    java.lang.Integer strokeColorSelected -> j
+    top.defaults.drawabletoolbox.DrawableProperties properties -> a
+    11:15:void <init>() -> <init>
+    11:11:android.graphics.drawable.Drawable access$wrapRotateIfNeeded(top.defaults.drawabletoolbox.DrawableBuilder,android.graphics.drawable.Drawable) -> a
+    34:34:top.defaults.drawabletoolbox.DrawableBuilder cornerRadius(int) -> a
+    85:85:top.defaults.drawabletoolbox.DrawableBuilder solidColorPressed(java.lang.Integer) -> a
+    163:190:android.graphics.drawable.Drawable build() -> a
+    294:326:void setupGradientDrawable(android.graphics.drawable.GradientDrawable) -> a
+    344:373:android.graphics.drawable.Drawable wrap(android.graphics.drawable.Drawable) -> a
+    11:11:android.graphics.drawable.Drawable access$wrapScaleIfNeeded(top.defaults.drawabletoolbox.DrawableBuilder,android.graphics.drawable.Drawable) -> b
+    22:22:top.defaults.drawabletoolbox.DrawableBuilder shape(int) -> b
+    23:23:top.defaults.drawabletoolbox.DrawableBuilder rectangle() -> b
+    385:394:android.graphics.drawable.Drawable wrapRotateIfNeeded(android.graphics.drawable.Drawable) -> b
+    39:39:top.defaults.drawabletoolbox.DrawableBuilder rounded() -> c
+    83:83:top.defaults.drawabletoolbox.DrawableBuilder solidColor(int) -> c
+    399:408:android.graphics.drawable.Drawable wrapScaleIfNeeded(android.graphics.drawable.Drawable) -> c
+    97:97:top.defaults.drawabletoolbox.DrawableBuilder strokeColor(int) -> d
+    260:270:android.graphics.drawable.Drawable buildDisabledDrawable() -> d
+    288:290:android.graphics.drawable.Drawable buildNormalDrawable() -> e
+    246:256:android.graphics.drawable.Drawable buildPressedDrawable() -> f
+    274:284:android.graphics.drawable.Drawable buildSelectedDrawable() -> g
+    194:421:android.content.res.ColorStateList getSolidColorStateList() -> h
+    220:423:android.content.res.ColorStateList getStrokeColorStateList() -> i
+    413:413:boolean hasSolidColorStateList() -> j
+    417:417:boolean hasStrokeColorStateList() -> k
+    381:381:boolean isRippleSupported() -> l
+    334:336:boolean needRotateDrawable() -> m
+    340:340:boolean needScaleDrawable() -> n
+    329:330:boolean needStateListDrawable() -> o
+    377:377:boolean shouldFallbackRipple() -> p
+top.defaults.drawabletoolbox.DrawableBuilder$wrap$1 -> top.defaults.drawabletoolbox.b$a:
+    11:11:java.lang.Object invoke(java.lang.Object) -> a
+    347:347:android.graphics.drawable.Drawable invoke(android.graphics.drawable.Drawable) -> a
+    java.lang.String getName() -> g
+    kotlin.reflect.KDeclarationContainer getOwner() -> h
+    java.lang.String getSignature() -> i
+top.defaults.drawabletoolbox.DrawableBuilder$wrap$2 -> top.defaults.drawabletoolbox.b$b:
+    11:11:java.lang.Object invoke(java.lang.Object) -> a
+    350:350:android.graphics.drawable.Drawable invoke(android.graphics.drawable.Drawable) -> a
+    java.lang.String getName() -> g
+    kotlin.reflect.KDeclarationContainer getOwner() -> h
+    java.lang.String getSignature() -> i
+top.defaults.drawabletoolbox.DrawableProperties -> top.defaults.drawabletoolbox.DrawableProperties:
+    int bottomRightRadius -> n
+    float pivotX -> L
+    int topLeftRadius -> l
+    float thicknessRatio -> i
+    boolean useScale -> P
+    float innerRadiusRatio -> g
+    int thickness -> h
+    int dashWidth -> I
+    int innerRadius -> f
+    boolean useCenterColor -> u
+    int strokeColor -> G
+    android.content.res.ColorStateList rippleColorStateList -> Y
+    int height -> C
+    int rippleRadius -> Z
+    int rippleColor -> X
+    int gradientRadiusType -> y
+    android.content.res.ColorStateList strokeColorStateList -> H
+    float scaleHeight -> T
+    int orientation -> V
+    float centerX -> s
+    boolean useLevelForGradient -> A
+    int scaleGravity -> R
+    float fromDegrees -> N
+    int type -> q
+    int bottomLeftRadius -> o
+    int topRightRadius -> m
+    boolean useGradient -> p
+    int dashGap -> J
+    boolean useLevelForRing -> j
+    int _cornerRadius -> k
+    boolean useRotate -> K
+    int strokeWidth -> F
+    boolean useFlip -> U
+    int solidColor -> D
+    boolean useRipple -> W
+    int shape -> e
+    int width -> B
+    float gradientRadius -> z
+    java.lang.Integer centerColor -> w
+    int endColor -> x
+    android.content.res.ColorStateList solidColorStateList -> E
+    float centerY -> t
+    int startColor -> v
+    float scaleWidth -> S
+    int angle -> r
+    float toDegrees -> O
+    float pivotY -> M
+    int scaleLevel -> Q
+    86:86:void <clinit>() -> <clinit>
+    11:97:void <init>(int,int,float,int,float,boolean,int,int,int,int,int,boolean,int,int,float,float,boolean,int,java.lang.Integer,int,int,float,boolean,int,int,int,android.content.res.ColorStateList,int,int,android.content.res.ColorStateList,int,int,boolean,float,float,float,float,boolean,int,int,float,float,boolean,int,boolean,int,android.content.res.ColorStateList,int) -> <init>
+    14:79:void <init>(int,int,float,int,float,boolean,int,int,int,int,int,boolean,int,int,float,float,boolean,int,java.lang.Integer,int,int,float,boolean,int,int,int,android.content.res.ColorStateList,int,int,android.content.res.ColorStateList,int,int,boolean,float,float,float,float,boolean,int,int,float,float,boolean,int,boolean,int,android.content.res.ColorStateList,int,int,int,kotlin.jvm.internal.DefaultConstructorMarker) -> <init>
+    106:106:void <init>(android.os.Parcel) -> <init>
+    99:104:void setCornerRadius(int) -> a
+    191:191:int[] getColors() -> d
+    250:250:int describeContents() -> describeContents
+    167:167:float[] getCornerRadii() -> e
+    174:187:android.graphics.drawable.GradientDrawable$Orientation getOrientation() -> f
+    199:247:void writeToParcel(android.os.Parcel,int) -> writeToParcel
+top.defaults.drawabletoolbox.DrawableProperties$Companion -> top.defaults.drawabletoolbox.DrawableProperties$b:
+    82:82:void <init>() -> <init>
+    82:82:void <init>(kotlin.jvm.internal.DefaultConstructorMarker) -> <init>
+top.defaults.drawabletoolbox.DrawableProperties$Companion$CREATOR$1 -> top.defaults.drawabletoolbox.DrawableProperties$a:
+    86:86:void <init>() -> <init>
+    86:86:java.lang.Object createFromParcel(android.os.Parcel) -> createFromParcel
+    88:88:top.defaults.drawabletoolbox.DrawableProperties createFromParcel(android.os.Parcel) -> createFromParcel
+    86:86:java.lang.Object[] newArray(int) -> newArray
+    92:92:top.defaults.drawabletoolbox.DrawableProperties[] newArray(int) -> newArray
+top.defaults.drawabletoolbox.DrawableWrapperBuilder -> top.defaults.drawabletoolbox.c:
+    android.graphics.drawable.Drawable drawable -> a
+    5:5:void <init>() -> <init>
+    7:7:android.graphics.drawable.Drawable getDrawable() -> a
+    10:10:top.defaults.drawabletoolbox.DrawableWrapperBuilder drawable(android.graphics.drawable.Drawable) -> a
+top.defaults.drawabletoolbox.FlipDrawable -> top.defaults.drawabletoolbox.d:
+    int orientation -> b
+    android.graphics.drawable.Drawable drawable -> a
+    8:8:void <init>(android.graphics.drawable.Drawable,int) -> <init>
+    16:25:void draw(android.graphics.Canvas) -> draw
+    38:38:int getIntrinsicHeight() -> getIntrinsicHeight
+    34:34:int getIntrinsicWidth() -> getIntrinsicWidth
+    46:46:int getOpacity() -> getOpacity
+    28:30:boolean onLevelChange(int) -> onLevelChange
+    42:43:void setAlpha(int) -> setAlpha
+    50:51:void setColorFilter(android.graphics.ColorFilter) -> setColorFilter
+top.defaults.drawabletoolbox.FlipDrawable$Companion -> top.defaults.drawabletoolbox.d$a:
+    10:10:void <init>() -> <init>
+    10:10:void <init>(kotlin.jvm.internal.DefaultConstructorMarker) -> <init>
+top.defaults.drawabletoolbox.FlipDrawableBuilder -> top.defaults.drawabletoolbox.e:
+    int orientation -> b
+    5:5:void <init>() -> <init>
+    9:9:top.defaults.drawabletoolbox.FlipDrawableBuilder orientation(int) -> a
+    12:12:android.graphics.drawable.Drawable build() -> b
+top.defaults.drawabletoolbox.R$anim -> top.defaults.drawabletoolbox.R$anim:
+    13:13:void <init>() -> <init>
+top.defaults.drawabletoolbox.R$attr -> top.defaults.drawabletoolbox.R$attr:
+    29:29:void <init>() -> <init>
+top.defaults.drawabletoolbox.R$bool -> top.defaults.drawabletoolbox.R$bool:
+    299:299:void <init>() -> <init>
+top.defaults.drawabletoolbox.R$color -> top.defaults.drawabletoolbox.R$color:
+    306:306:void <init>() -> <init>
+top.defaults.drawabletoolbox.R$dimen -> top.defaults.drawabletoolbox.R$dimen:
+    392:392:void <init>() -> <init>
+top.defaults.drawabletoolbox.R$drawable -> top.defaults.drawabletoolbox.R$drawable:
+    507:507:void <init>() -> <init>
+top.defaults.drawabletoolbox.R$id -> top.defaults.drawabletoolbox.R$id:
+    608:608:void <init>() -> <init>
+top.defaults.drawabletoolbox.R$integer -> top.defaults.drawabletoolbox.R$integer:
+    713:713:void <init>() -> <init>
+top.defaults.drawabletoolbox.R$layout -> top.defaults.drawabletoolbox.R$layout:
+    722:722:void <init>() -> <init>
+top.defaults.drawabletoolbox.R$string -> top.defaults.drawabletoolbox.R$string:
+    763:763:void <init>() -> <init>
+top.defaults.drawabletoolbox.R$style -> top.defaults.drawabletoolbox.R$style:
+    798:798:void <init>() -> <init>
+top.defaults.drawabletoolbox.R$styleable -> top.defaults.drawabletoolbox.R$styleable:
+    1145:1559:void <clinit>() -> <clinit>
+    1143:1143:void <init>() -> <init>
+top.defaults.drawabletoolbox.RippleDrawableBuilder -> top.defaults.drawabletoolbox.f:
+    android.content.res.ColorStateList colorStateList -> c
+    int radius -> d
+    int color -> b
+    9:13:void <init>() -> <init>
+    15:15:top.defaults.drawabletoolbox.RippleDrawableBuilder color(int) -> a
+    16:16:top.defaults.drawabletoolbox.RippleDrawableBuilder colorStateList(android.content.res.ColorStateList) -> a
+    17:17:top.defaults.drawabletoolbox.RippleDrawableBuilder radius(int) -> b
+    20:20:android.graphics.drawable.Drawable build() -> b
+top.defaults.drawabletoolbox.RotateDrawableBuilder -> top.defaults.drawabletoolbox.g:
+    float toDegrees -> e
+    float fromDegrees -> d
+    float pivotY -> c
+    float pivotX -> b
+    6:11:void <init>() -> <init>
+    15:15:top.defaults.drawabletoolbox.RotateDrawableBuilder fromDegrees(float) -> a
+    13:13:top.defaults.drawabletoolbox.RotateDrawableBuilder pivotX(float) -> b
+    19:29:android.graphics.drawable.Drawable build() -> b
+    14:14:top.defaults.drawabletoolbox.RotateDrawableBuilder pivotY(float) -> c
+    16:16:top.defaults.drawabletoolbox.RotateDrawableBuilder toDegrees(float) -> d
+top.defaults.drawabletoolbox.ScaleDrawableBuilder -> top.defaults.drawabletoolbox.h:
+    float scaleHeight -> e
+    float scaleWidth -> d
+    int level -> b
+    int scaleGravity -> c
+    7:10:void <init>() -> <init>
+    14:14:top.defaults.drawabletoolbox.ScaleDrawableBuilder level(int) -> a
+    17:17:top.defaults.drawabletoolbox.ScaleDrawableBuilder scaleHeight(float) -> a
+    15:15:top.defaults.drawabletoolbox.ScaleDrawableBuilder scaleGravity(int) -> b
+    16:16:top.defaults.drawabletoolbox.ScaleDrawableBuilder scaleWidth(float) -> b
+    20:22:android.graphics.drawable.Drawable build() -> b
+top.defaults.drawabletoolbox.StateListDrawableBuilder -> top.defaults.drawabletoolbox.i:
+    android.graphics.drawable.Drawable selected -> c
+    android.graphics.drawable.Drawable normal -> d
+    android.graphics.drawable.Drawable pressed -> a
+    android.graphics.drawable.Drawable disabled -> b
+    9:14:void <init>() -> <init>
+    17:17:top.defaults.drawabletoolbox.StateListDrawableBuilder disabled(android.graphics.drawable.Drawable) -> a
+    22:24:android.graphics.drawable.StateListDrawable build() -> a
+    28:38:void setupStateListDrawable(android.graphics.drawable.StateListDrawable) -> a
+    19:19:top.defaults.drawabletoolbox.StateListDrawableBuilder normal(android.graphics.drawable.Drawable) -> b
+    16:16:top.defaults.drawabletoolbox.StateListDrawableBuilder pressed(android.graphics.drawable.Drawable) -> c
+    18:18:top.defaults.drawabletoolbox.StateListDrawableBuilder selected(android.graphics.drawable.Drawable) -> d

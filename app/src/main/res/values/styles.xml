@@ -73,4 +73,16 @@
         <item name="android:background">@drawable/bg_press_color_main_radius_max</item>
     </style>
 
+    <style name="layout_shadow_bottom">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">4dp</item>
+        <item name="android:background">@drawable/shadow_line_bottom</item>
+    </style>
+
+    <style name="layout_shadow_up">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">4dp</item>
+        <item name="android:background">@drawable/shadow_line_up</item>
+    </style>
+
 </resources>

@@ -26,6 +26,15 @@ public class AppDetailInfo {
     private String permissionContent;
     private String appInfo;
 
+    private String version;
+    private String size;
+    private String updateTime;
+    private String language;
+    private String fee;
+    private String ads;
+    private String firmware;
+    private String author;
+
     public static AppDetailInfo create(Document doc) {
         AppDetailInfo info = new AppDetailInfo();
         Elements elements = doc.select("pics").select("pic");
@@ -68,7 +77,39 @@ public class AppDetailInfo {
                 info.permissionContent = permissionContent.toString();
             } else if ("text".equals(introduceType)) {
                 if ("软件信息".equals(introduceTitle) || "游戏信息".equals(introduceTitle)) {
-                    info.appInfo = introduce.selectFirst("introduceContent").text().replaceAll(" ", "\n");
+                    String introduceContent = introduce.selectFirst("introduceContent").text();
+                    info.version = introduceContent.substring(
+                            introduceContent.indexOf("版本：") + 3,
+                            introduceContent.indexOf("大小：")
+                    ).trim();
+                    info.size = introduceContent.substring(
+                            introduceContent.indexOf("大小：") + 3,
+                            introduceContent.indexOf("更新：")
+                    ).trim();
+                    info.updateTime = introduceContent.substring(
+                            introduceContent.indexOf("更新：") + 3,
+                            introduceContent.indexOf("语言：")
+                    ).trim();
+                    info.language = introduceContent.substring(
+                            introduceContent.indexOf("语言：") + 3,
+                            introduceContent.indexOf("资费：")
+                    ).trim();
+                    info.fee = introduceContent.substring(
+                            introduceContent.indexOf("资费：") + 3,
+                            introduceContent.indexOf("广告：")
+                    ).trim();
+                    info.ads = introduceContent.substring(
+                            introduceContent.indexOf("广告：") + 3,
+                            introduceContent.indexOf("固件：")
+                    ).trim();
+                    info.firmware = introduceContent.substring(
+                            introduceContent.indexOf("固件：") + 3,
+                            introduceContent.indexOf("作者：")
+                    ).trim();
+                    info.author = introduceContent.substring(
+                            introduceContent.indexOf("作者：") + 3
+                    ).trim();
+                    info.appInfo = introduceContent.replaceAll(" ", "\n");
                 } else if ("软件简介".equals(introduceTitle) || "游戏简介".equals(introduceTitle)) {
                     info.appIntroduceContent = introduce.selectFirst("introduceContent").text();
                     Log.d("getAppInfo", "appIntroduceContent=" + info.appIntroduceContent);
@@ -135,5 +176,64 @@ public class AppDetailInfo {
 
     public String getLineInfo() {
         return lineInfo;
+    }
+
+    public String getVersion() {
+        return version;
+    }
+
+    public String getSize() {
+        return size;
+    }
+
+    public String getUpdateTime() {
+        return updateTime;
+    }
+
+    public String getLanguage() {
+        return language;
+    }
+
+    public String getFee() {
+        return fee;
+    }
+
+    public String getAds() {
+        return ads;
+    }
+
+    public String getFirmware() {
+        return firmware;
+    }
+
+    public String getAuthor() {
+        return author;
+    }
+
+    @Override
+    public String toString() {
+        return "AppDetailInfo{" +
+                "imgUrlList=" + imgUrlList +
+                ", id='" + id + '\'' +
+                ", packageName='" + packageName + '\'' +
+                ", appType='" + appType + '\'' +
+                ", name='" + name + '\'' +
+                ", iconUrl='" + iconUrl + '\'' +
+                ", baseInfo='" + baseInfo + '\'' +
+                ", lineInfo='" + lineInfo + '\'' +
+                ", appIntroduceContent='" + appIntroduceContent + '\'' +
+                ", updateContent='" + updateContent + '\'' +
+                ", downloadUrl='" + downloadUrl + '\'' +
+                ", permissionContent='" + permissionContent + '\'' +
+                ", appInfo='" + appInfo + '\'' +
+                ", version='" + version + '\'' +
+                ", size='" + size + '\'' +
+                ", updateTime='" + updateTime + '\'' +
+                ", language='" + language + '\'' +
+                ", fee='" + fee + '\'' +
+                ", ads='" + ads + '\'' +
+                ", firmware='" + firmware + '\'' +
+                ", author='" + author + '\'' +
+                '}';
     }
 }

@@ -128,6 +128,9 @@ dependencies {
     implementation 'com.github.lihangleo2:ShadowLayout:2.1.8'
     implementation 'com.houtrry.bubble:bubbleView:1.0.0'
     implementation 'com.github.MZCretin:ExpandableTextView:1.6.1'
+    implementation 'com.github.donkingliang:ConsecutiveScroller:4.0.0-support'
+    implementation 'com.yanyusong.y_divideritemdecoration:y_divideritemdecoration:2.0'
+    implementation 'com.github.duanhong169:drawabletoolbox:1.0.7'
 
     implementation 'com.zpj.widget:StateLayout:1.0.1'
     implementation 'com.zpj.widget:SmoothCheckBox:1.0.0'

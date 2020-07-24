@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="?attr/actionBarSize"
     android:layout_gravity="center"
-    android:gravity="center">
+    android:gravity="center_vertical">
 
     <com.shehuan.niv.NiceImageView
         android:id="@+id/toolbar_avatar"
@@ -24,6 +24,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:maxLines="1"
+        android:ellipsize="end"
         android:text="Z-P-J"
         android:textColor="@color/white"
         android:textSize="16sp" />

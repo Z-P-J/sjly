@@ -36,6 +36,7 @@ public class JudgeNestedScrollView extends NestedScrollView {
 
     @Override
     public boolean onInterceptTouchEvent(MotionEvent ev) {
+        Log.e("SiberiaDante", "onInterceptTouchEvent action=" + ev.getAction());
         switch (ev.getAction()) {
             case MotionEvent.ACTION_DOWN:
                 xDistance = yDistance = 0f;
@@ -51,6 +52,9 @@ public class JudgeNestedScrollView extends NestedScrollView {
                 xLast = curX;
                 yLast = curY;
                 Log.e("SiberiaDante", "xDistance ：" + xDistance + "---yDistance:" + yDistance);
+                if (onNeedScrollListener != null) {
+                    isNeedScroll = onNeedScrollListener.needScroll();
+                }
                 return !(xDistance >= yDistance || yDistance < scaledTouchSlop) && isNeedScroll;
 
         }
@@ -63,4 +67,15 @@ public class JudgeNestedScrollView extends NestedScrollView {
     public void setNeedScroll(boolean isNeedScroll) {
         this.isNeedScroll = isNeedScroll;
     }
+
+    private OnNeedScrollListener onNeedScrollListener;
+
+    public void setOnNeedScrollListener(OnNeedScrollListener onNeedScrollListener) {
+        this.onNeedScrollListener = onNeedScrollListener;
+    }
+
+    public interface OnNeedScrollListener {
+        boolean needScroll();
+    }
+
 }

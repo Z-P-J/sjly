@@ -91,7 +91,7 @@ public class AppDetailFragment extends BaseFragment {
         Bundle args = new Bundle();
         args.putString(Keys.ID, id);
         args.putString(Keys.TYPE, type);
-        AppDetailFragment fragment = new AppDetailFragment();
+        AppDetailFragment2 fragment = new AppDetailFragment2();
         fragment.setArguments(args);
         StartFragmentEvent.start(fragment);
     }

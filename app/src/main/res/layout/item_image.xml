@@ -6,5 +6,7 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:scaleType="centerCrop"
+    app:border_width="0.5dp"
+    app:border_color="#cccccc"
     app:corner_radius="8dp"
     />
