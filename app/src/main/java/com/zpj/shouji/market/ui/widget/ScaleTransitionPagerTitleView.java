@@ -12,8 +12,20 @@ public class ScaleTransitionPagerTitleView extends ColorTransitionPagerTitleView
 
     public ScaleTransitionPagerTitleView(Context context) {
         super(context);
+    }
+
+    @Override
+    public void onSelected(int index, int totalCount) {
+        super.onSelected(index, totalCount);
         TextPaint paint = getPaint();
         paint.setFakeBoldText(true);
+    }
+
+    @Override
+    public void onDeselected(int index, int totalCount) {
+        super.onDeselected(index, totalCount);
+        TextPaint paint = getPaint();
+        paint.setFakeBoldText(false);
     }
 
     @Override

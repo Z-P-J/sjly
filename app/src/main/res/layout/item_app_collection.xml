@@ -4,14 +4,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="240dp"
     android:layout_height="wrap_content"
-    app:cardCornerRadius="8dp"
-    app:cardElevation="4dp"
-    app:cardUseCompatPadding="true"
-
-
     app:hl_cornerRadius="8dp"
-    app:hl_shadowColor="#80cccccc"
-    app:hl_shadowLimit="8dp"
+    app:hl_shadowLimit="4dp"
     >
 
     <com.shehuan.niv.NiceImageView
@@ -20,6 +14,7 @@
         android:layout_height="match_parent"
         app:corner_radius="8dp"
         android:scaleType="centerCrop"
+        android:tint="#80000000"
         />
 
     <LinearLayout
@@ -79,7 +74,7 @@
             android:padding="5dp"
             >
 
-            <TextView
+            <com.zpj.shouji.market.ui.widget.DrawableTintTextView
                 android:id="@+id/tv_view_count"
                 android:drawableStart="@drawable/good"
                 android:layout_width="wrap_content"
@@ -89,10 +84,11 @@
                 android:layout_marginEnd="10dp"
                 android:drawablePadding="2dp"
                 android:textSize="12sp"
-                android:textColor="#ffffff"
+                android:textColor="@color/white"
+                app:drawable_tint_color="@color/white"
                 />
 
-            <TextView
+            <com.zpj.shouji.market.ui.widget.DrawableTintTextView
                 android:id="@+id/tv_favorite_count"
                 android:drawableStart="@drawable/good"
                 android:layout_width="wrap_content"
@@ -102,10 +98,11 @@
                 android:layout_marginEnd="10dp"
                 android:drawablePadding="2dp"
                 android:textSize="12sp"
-                android:textColor="#ffffff"
+                android:textColor="@color/white"
+                app:drawable_tint_color="@color/white"
                 />
 
-            <TextView
+            <com.zpj.shouji.market.ui.widget.DrawableTintTextView
                 android:id="@+id/tv_support_count"
                 android:drawableStart="@drawable/good"
                 android:layout_width="wrap_content"
@@ -115,7 +112,8 @@
                 android:drawablePadding="2dp"
                 android:layout_marginStart="10dp"
                 android:textSize="12sp"
-                android:textColor="#ffffff"
+                android:textColor="@color/white"
+                app:drawable_tint_color="@color/white"
                 />
 
         </LinearLayout>

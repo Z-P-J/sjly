@@ -9,6 +9,14 @@
 
     <include layout="@layout/layout_toolbar" />
 
-    <include layout="@layout/fragment_recycler_layout"/>
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <include layout="@layout/fragment_recycler_layout" />
+
+        <View style="@style/layout_shadow_bottom" />
+
+    </FrameLayout>
 
 </LinearLayout>

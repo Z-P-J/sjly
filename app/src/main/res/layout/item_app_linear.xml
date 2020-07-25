@@ -6,7 +6,7 @@
     android:gravity="center_vertical"
     android:orientation="horizontal"
     android:background="#fff"
-    android:padding="10dp"
+    android:padding="8dp"
     >
 
     <com.shehuan.niv.NiceImageView
@@ -14,11 +14,8 @@
         android:layout_width="56dp"
         android:layout_height="56dp"
         android:src="@mipmap/ic_launcher"
-        app:border_width="1dp"
-        app:border_color="#80cccccc"
-        android:layout_margin="10dp"
+        android:layout_margin="8dp"
         android:layout_gravity="center_vertical"
-        app:is_circle="true"
         android:scaleType="centerCrop"
         />
 
@@ -29,6 +26,7 @@
         android:layout_toEndOf="@id/iv_icon"
         android:layout_toStartOf="@id/tv_download"
         android:layout_centerVertical="true"
+        android:layout_margin="8dp"
         >
         <TextView
             android:id="@+id/tv_title"
@@ -40,7 +38,7 @@
             android:text="文件夹"
             android:textSize="16sp"
             android:textStyle="bold"
-            android:textColor="#333" />
+            android:textColor="@color/color_text_major" />
 
         <TextView
             android:id="@+id/tv_info"
@@ -53,7 +51,6 @@
             android:paddingTop="1dp"
             android:paddingBottom="1dp"
             android:textColor="@android:color/darker_gray"
-            android:textStyle="bold"
             android:textSize="12sp" />
 
         <TextView
@@ -67,7 +64,7 @@
             android:textStyle="bold"
             android:paddingTop="1dp"
             android:paddingBottom="1dp"
-            android:textColor="#333"
+            android:textColor="@color/color_text_normal"
             android:textSize="12sp"
             />
 
@@ -89,7 +86,7 @@
         android:textStyle="bold"
         android:paddingTop="4dp"
         android:paddingBottom="4dp"
-        android:layout_margin="10dp"
+        android:layout_margin="8dp"
         android:gravity="center"
         />
 

@@ -77,7 +77,7 @@ public class ProfileFragment extends BaseFragment
 
     private final List<Fragment> fragments = new ArrayList<>();
 
-    private String userId = "5544802";
+    private String userId;
     private boolean isMe;
     private boolean isFriend;
 
@@ -110,14 +110,17 @@ public class ProfileFragment extends BaseFragment
         } else {
             userId = null;
         }
+
+
+        stateLayout = view.findViewById(R.id.state_layout);
+
         if (TextUtils.isEmpty(userId)) {
-            AToast.warning("用户不存在！");
-            pop();
+//            AToast.warning("用户不存在！");
+            stateLayout.showErrorView("用户不存在！");
             return;
         }
         isMe = userId.equals(UserManager.getInstance().getUserId());
 
-        stateLayout = view.findViewById(R.id.state_layout);
         tvFollow = view.findViewById(R.id.tv_follow);
         tvFollow.setOnClickListener(this);
         ivChat = view.findViewById(R.id.iv_chat);
@@ -168,12 +171,6 @@ public class ProfileFragment extends BaseFragment
         postDelayed(() -> stateLayout.showLoadingView(), 5);
 //        stateLayout.showLoadingView();
         getMemberInfo();
-    }
-
-    @Override
-    public void toolbarLeftImageButton(@NonNull ImageButton imageButton) {
-        super.toolbarLeftImageButton(imageButton);
-        imageButton.setOnClickListener(v -> pop());
     }
 
     @Override
@@ -247,8 +244,8 @@ public class ProfileFragment extends BaseFragment
                     });
                 })
                 .onError(throwable -> {
-                    pop();
                     AToast.error(throwable.getMessage());
+                    stateLayout.showErrorView(throwable.getMessage());
                 })
                 .subscribe();
     }
@@ -280,48 +277,6 @@ public class ProfileFragment extends BaseFragment
         mViewPager.setOffscreenPageLimit(fragments.size());
 
         MagicIndicatorHelper.bindViewPager(context, magicIndicator, mViewPager, TAB_TITLES, true);
-
-//        CommonNavigator navigator = new CommonNavigator(getContext());
-//        navigator.setAdjustMode(true);
-//        navigator.setScrollPivotX(0.65f);
-//        navigator.setAdapter(new CommonNavigatorAdapter() {
-//            @Override
-//            public int getCount() {
-//                return TAB_TITLES.length;
-//            }
-//
-//            @Override
-//            public IPagerTitleView getTitleView(Context context, int index) {
-//                ColorTransitionPagerTitleView titleView = new ColorTransitionPagerTitleView(context);
-//                titleView.setNormalColor(getResources().getColor(R.color.color_text_major));
-//                titleView.setSelectedColor(getResources().getColor(R.color.colorPrimary));
-//                titleView.setTextSize(14);
-//                titleView.setText(TAB_TITLES[index]);
-//                titleView.setOnClickListener(new View.OnClickListener() {
-//                    @Override
-//                    public void onClick(View view) {
-//                        mViewPager.setCurrentItem(index);
-//                    }
-//                });
-//                return titleView;
-//            }
-//
-//            @Override
-//            public IPagerIndicator getIndicator(Context context) {
-//                LinePagerIndicator indicator = new LinePagerIndicator(context);
-//                indicator.setMode(LinePagerIndicator.MODE_EXACTLY);
-//                indicator.setLineHeight(ScreenUtils.dp2px(context, 4f));
-//                indicator.setLineWidth(ScreenUtils.dp2px(context, 12f));
-//                indicator.setRoundRadius(ScreenUtils.dp2px(context, 4f));
-//                int color = getResources().getColor(R.color.colorPrimary);
-//                indicator.setColors(color, color);
-//                return indicator;
-//            }
-//        });
-//        magicIndicator.setNavigator(navigator);
-//        ViewPagerHelper.bind(magicIndicator, mViewPager);
-
-//        dealWithViewPager();
     }
 
     private void dealWithViewPager() {

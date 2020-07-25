@@ -41,7 +41,7 @@
                         android:layout_height="match_parent"
                         android:scaleType="centerCrop"
                         android:src="@drawable/bg_member_default"
-                        android:tint="#40000000"
+                        android:tint="#80000000"
                         />
 
                     <android.support.design.widget.CollapsingToolbarLayout
@@ -89,21 +89,6 @@
                                 android:gravity="center"
                                 />
 
-                            <TextView
-                                android:id="@+id/tv_detail"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_marginStart="24dp"
-                                android:layout_marginEnd="24dp"
-                                android:text="xfgbkf,nhbc,fbnkcm,fgfbngbmfgnvk,bd\nfcxfgjnfj,nbfgv\nfdghkbfjnfjjgjkbjh"
-                                android:textColor="@android:color/white"
-                                android:maxLines="1"
-                                android:ellipsize="end"
-                                android:paddingStart="24dp"
-                                android:paddingEnd="24dp"
-                                android:gravity="center"
-                                />
-
                             <LinearLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
@@ -148,6 +133,21 @@
                                     />
 
                             </LinearLayout>
+
+                            <TextView
+                                android:id="@+id/tv_detail"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="24dp"
+                                android:layout_marginEnd="24dp"
+                                android:text="xfgbkf,nhbc,fbnkcm,fgfbngbmfgnvk,bd\nfcxfgjnfj,nbfgv\nfdghkbfjnfjjgjkbjh"
+                                android:textColor="@android:color/white"
+                                android:maxLines="1"
+                                android:ellipsize="end"
+                                android:paddingStart="24dp"
+                                android:paddingEnd="24dp"
+                                android:gravity="center"
+                                />
 
                             <TextView
                                 android:id="@+id/tv_info"

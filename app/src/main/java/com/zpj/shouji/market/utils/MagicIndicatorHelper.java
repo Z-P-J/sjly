@@ -2,6 +2,7 @@ package com.zpj.shouji.market.utils;
 
 import android.content.Context;
 import android.graphics.Color;
+import android.os.Build;
 import android.support.v4.view.ViewPager;
 
 import com.zpj.shouji.market.R;
@@ -34,7 +35,7 @@ public class MagicIndicatorHelper {
             @Override
             public IPagerTitleView getTitleView(Context context, int index) {
                 ColorTransitionPagerTitleView titleView = new ColorTransitionPagerTitleView(context);
-                titleView.setNormalColor(Color.GRAY); // context.getResources().getColor(R.color.color_text_normal)
+                titleView.setNormalColor(context.getResources().getColor(R.color.color_text_normal)); // context.getResources().getColor(R.color.color_text_normal)
                 titleView.setSelectedColor(context.getResources().getColor(R.color.colorPrimary));
                 titleView.setTextSize(14);
                 titleView.setText(tabTitles[index]);
@@ -55,6 +56,105 @@ public class MagicIndicatorHelper {
         });
         magicIndicator.setNavigator(navigator);
         ViewPagerHelper.bind(magicIndicator, viewPager);
+    }
+
+    public static Builder builder(Context context) {
+        return new Builder(context);
+    }
+
+    public interface OnGetTitleViewListener {
+        IPagerTitleView getTitleView(Context context, int index);
+    }
+
+    public interface OnGetIndicatorListener {
+        IPagerIndicator getIndicator(Context context);
+    }
+
+    public static class Builder {
+
+        private Context context;
+        private MagicIndicator magicIndicator;
+        private ViewPager viewPager;
+        private String[] tabTitles;
+        private boolean adjustMode;
+        private OnGetTitleViewListener onGetTitleViewListener;
+        private OnGetIndicatorListener onGetIndicatorListener;
+
+        private Builder(Context context) {
+            this.context = context;
+        }
+
+        public Builder setMagicIndicator(MagicIndicator magicIndicator) {
+            this.magicIndicator = magicIndicator;
+            return this;
+        }
+
+        public Builder setViewPager(ViewPager viewPager) {
+            this.viewPager = viewPager;
+            return this;
+        }
+
+        public Builder setTabTitles(String[] tabTitles) {
+            this.tabTitles = tabTitles;
+            return this;
+        }
+
+        public Builder setAdjustMode(boolean adjustMode) {
+            this.adjustMode = adjustMode;
+            return this;
+        }
+
+        public Builder setOnGetTitleViewListener(OnGetTitleViewListener onGetTitleViewListener) {
+            this.onGetTitleViewListener = onGetTitleViewListener;
+            return this;
+        }
+
+        public Builder setOnGetIndicatorListener(OnGetIndicatorListener onGetIndicatorListener) {
+            this.onGetIndicatorListener = onGetIndicatorListener;
+            return this;
+        }
+
+        public void build() {
+            CommonNavigator navigator = new CommonNavigator(context);
+            navigator.setAdjustMode(adjustMode);
+            navigator.setAdapter(new CommonNavigatorAdapter() {
+                @Override
+                public int getCount() {
+                    return tabTitles.length;
+                }
+
+                @Override
+                public IPagerTitleView getTitleView(Context context, int index) {
+                    if (onGetTitleViewListener != null) {
+                        return onGetTitleViewListener.getTitleView(context, index);
+                    }
+                    ColorTransitionPagerTitleView titleView = new ColorTransitionPagerTitleView(context);
+                    titleView.setNormalColor(context.getResources().getColor(R.color.color_text_normal)); // context.getResources().getColor(R.color.color_text_normal)
+                    titleView.setSelectedColor(context.getResources().getColor(R.color.colorPrimary));
+                    titleView.setTextSize(14);
+                    titleView.setText(tabTitles[index]);
+                    titleView.setOnClickListener(view1 -> viewPager.setCurrentItem(index, true));
+                    return titleView;
+                }
+
+                @Override
+                public IPagerIndicator getIndicator(Context context) {
+                    if (onGetIndicatorListener != null) {
+                        return onGetIndicatorListener.getIndicator(context);
+                    }
+                    LinePagerIndicator indicator = new LinePagerIndicator(context);
+                    indicator.setMode(LinePagerIndicator.MODE_EXACTLY);
+                    indicator.setLineHeight(ScreenUtils.dp2px(context, 4f));
+                    indicator.setLineWidth(ScreenUtils.dp2px(context, 12f));
+                    indicator.setRoundRadius(ScreenUtils.dp2px(context, 4f));
+                    indicator.setColors(context.getResources().getColor(R.color.colorPrimary), context.getResources().getColor(R.color.colorPrimary));
+                    return indicator;
+                }
+            });
+            magicIndicator.setNavigator(navigator);
+            ViewPagerHelper.bind(magicIndicator, viewPager);
+        }
+
     }
 
 }

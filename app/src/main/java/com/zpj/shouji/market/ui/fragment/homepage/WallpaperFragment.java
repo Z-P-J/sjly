@@ -68,6 +68,16 @@ public class WallpaperFragment extends BaseFragment implements View.OnClickListe
     }
 
     @Override
+    public void onSupportVisible() {
+
+    }
+
+    @Override
+    public void onSupportInvisible() {
+
+    }
+
+    @Override
     public void onClick(View v) {
         int id = v.getId();
         if (id == R.id.iv_expand) {

@@ -2,6 +2,7 @@ package com.zpj.shouji.market.ui.widget.recommend;
 
 import android.content.Context;
 import android.content.res.TypedArray;
+import android.graphics.Color;
 import android.support.annotation.LayoutRes;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.GridLayoutManager;
@@ -11,6 +12,9 @@ import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.TextView;
 
+import com.yanyusong.y_divideritemdecoration.Y_Divider;
+import com.yanyusong.y_divideritemdecoration.Y_DividerBuilder;
+import com.yanyusong.y_divideritemdecoration.Y_DividerItemDecoration;
 import com.zpj.recyclerview.EasyRecyclerView;
 import com.zpj.recyclerview.IEasy;
 import com.zpj.shouji.market.R;
@@ -60,6 +64,28 @@ public abstract class RecommendCard<T> extends FrameLayout
         recyclerView = new EasyRecyclerView<>(findViewById(R.id.recycler_view));
         recyclerView.setData(list)
                 .setItemRes(getItemRes())
+                .addItemDecoration(new Y_DividerItemDecoration(context) {
+                    @Override
+                    public Y_Divider getDivider(int itemPosition) {
+                        Y_DividerBuilder builder;
+                        if (itemPosition == 0 || itemPosition == 1) {
+                            builder = new Y_DividerBuilder()
+                                    .setLeftSideLine(true, Color.WHITE, 12, 0, 0)
+                                    .setRightSideLine(true, Color.WHITE, 4, 0, 0);
+                        } else if (itemPosition == list.size() - 1 || itemPosition == list.size() - 2) {
+                            builder = new Y_DividerBuilder()
+                                    .setRightSideLine(true, Color.WHITE, 12, 0, 0)
+                                    .setLeftSideLine(true, Color.WHITE, 4, 0, 0);
+                        } else {
+                            builder = new Y_DividerBuilder()
+                                    .setLeftSideLine(true, Color.WHITE, 4, 0, 0)
+                                    .setRightSideLine(true, Color.WHITE, 4, 0, 0);
+                        }
+                        return builder.setTopSideLine(true, Color.WHITE, 4, 0, 0)
+                                .setBottomSideLine(true, Color.WHITE, 4, 0, 0)
+                                .create();
+                    }
+                })
                 .setLayoutManager(new GridLayoutManager(context, 4))
                 .onBindViewHolder(this)
                 .onItemClick(this);

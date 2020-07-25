@@ -10,113 +10,119 @@
 
     <include layout="@layout/layout_toolbar"/>
 
-    <com.zpj.shouji.market.ui.widget.ElasticScrollView
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:scrollbars="none"
-        >
+        android:layout_height="match_parent">
 
-        <LinearLayout
-            android:orientation="vertical"
+        <com.zpj.shouji.market.ui.widget.ElasticScrollView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:padding="8dp"
+            android:layout_height="match_parent"
+            android:scrollbars="none"
             >
 
-            <TextView
+            <LinearLayout
+                android:orientation="vertical"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="基本设置"
-                android:gravity="center_vertical"
-                android:padding="5dp"
-                android:paddingStart="15dp"
-                android:paddingEnd="15dp"
-                android:textColor="@color/colorPrimary"
-                android:layout_marginTop="10dp"
-                android:background="@drawable/bottom_line_gray"
-                />
+                android:padding="8dp"
+                >
 
-            <com.zpj.widget.setting.SwitchSettingItem
-                android:id="@+id/item_show_start_page"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:z_setting_titleText="显示启动页"
-                />
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="基本设置"
+                    android:gravity="center_vertical"
+                    android:padding="5dp"
+                    android:paddingStart="15dp"
+                    android:paddingEnd="15dp"
+                    android:textColor="@color/colorPrimary"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/bottom_line_gray"
+                    />
 
-            <com.zpj.widget.setting.SwitchSettingItem
-                android:id="@+id/item_show_update_notification"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:z_setting_titleText="通知栏显示可更新应用数"
-                />
+                <com.zpj.widget.setting.SwitchSettingItem
+                    android:id="@+id/item_show_start_page"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:z_setting_titleText="显示启动页"
+                    />
 
-            <com.zpj.widget.setting.CommonSettingItem
-                android:id="@+id/item_brightness_control"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:z_setting_titleText="亮度调节"
-                />
+                <com.zpj.widget.setting.SwitchSettingItem
+                    android:id="@+id/item_show_update_notification"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:z_setting_titleText="通知栏显示可更新应用数"
+                    />
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="省流设置"
-                android:gravity="center_vertical"
-                android:padding="5dp"
-                android:paddingStart="15dp"
-                android:paddingEnd="15dp"
-                android:textColor="@color/colorPrimary"
-                android:layout_marginTop="10dp"
-                android:background="@drawable/bottom_line_gray"
-                />
+                <com.zpj.widget.setting.CommonSettingItem
+                    android:id="@+id/item_brightness_control"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:z_setting_titleText="亮度调节"
+                    />
 
-            <com.zpj.widget.setting.SwitchSettingItem
-                android:id="@+id/item_auto_save_traffic"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:z_setting_titleText="自动省流模式"
-                />
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="省流设置"
+                    android:gravity="center_vertical"
+                    android:padding="5dp"
+                    android:paddingStart="15dp"
+                    android:paddingEnd="15dp"
+                    android:textColor="@color/colorPrimary"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/bottom_line_gray"
+                    />
 
-            <com.zpj.widget.setting.SwitchSettingItem
-                android:id="@+id/item_show_original_image"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:z_setting_titleText="WiFi下自动显示原图"
-                />
+                <com.zpj.widget.setting.SwitchSettingItem
+                    android:id="@+id/item_auto_save_traffic"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:z_setting_titleText="自动省流模式"
+                    />
 
-            <com.zpj.widget.setting.SwitchSettingItem
-                android:id="@+id/item_compress_upload_image"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:z_setting_titleText="压缩上传图片"
-                />
+                <com.zpj.widget.setting.SwitchSettingItem
+                    android:id="@+id/item_show_original_image"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:z_setting_titleText="WiFi下自动显示原图"
+                    />
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="其它"
-                android:gravity="center_vertical"
-                android:padding="5dp"
-                android:paddingStart="15dp"
-                android:paddingEnd="15dp"
-                android:textColor="@color/colorPrimary"
-                android:layout_marginTop="10dp"
-                android:background="@drawable/bottom_line_gray"
-                />
+                <com.zpj.widget.setting.SwitchSettingItem
+                    android:id="@+id/item_compress_upload_image"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:z_setting_titleText="压缩上传图片"
+                    />
 
-            <com.zpj.widget.setting.CommonSettingItem
-                android:id="@+id/item_clear_cache"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:z_setting_titleText="清除缓存"
-                />
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="其它"
+                    android:gravity="center_vertical"
+                    android:padding="5dp"
+                    android:paddingStart="15dp"
+                    android:paddingEnd="15dp"
+                    android:textColor="@color/colorPrimary"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/bottom_line_gray"
+                    />
+
+                <com.zpj.widget.setting.CommonSettingItem
+                    android:id="@+id/item_clear_cache"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:z_setting_titleText="清除缓存"
+                    />
 
 
-        </LinearLayout>
+            </LinearLayout>
 
 
-    </com.zpj.shouji.market.ui.widget.ElasticScrollView>
+        </com.zpj.shouji.market.ui.widget.ElasticScrollView>
 
+        <View style="@style/layout_shadow_bottom"/>
 
+    </FrameLayout>
 
 </LinearLayout>

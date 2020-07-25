@@ -1,6 +1,7 @@
 package com.zpj.shouji.market.ui.widget.recommend;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -11,6 +12,9 @@ import android.view.View;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.shehuan.niv.NiceImageView;
+import com.yanyusong.y_divideritemdecoration.Y_Divider;
+import com.yanyusong.y_divideritemdecoration.Y_DividerBuilder;
+import com.yanyusong.y_divideritemdecoration.Y_DividerItemDecoration;
 import com.zpj.http.parser.html.nodes.Document;
 import com.zpj.http.parser.html.nodes.Element;
 import com.zpj.http.parser.html.select.Elements;
@@ -56,6 +60,8 @@ public class CollectionRecommendCard extends RecommendCard<CollectionInfo> {
         }
     }
 
+
+
     private void onGetDoc(Document document) {
         Log.d("CollectionRecommendCard", "onGetDoc document=" + document);
         Elements elements = document.select("item");
@@ -70,7 +76,9 @@ public class CollectionRecommendCard extends RecommendCard<CollectionInfo> {
 
     @Override
     protected void buildRecyclerView(EasyRecyclerView<CollectionInfo> recyclerView) {
-        recyclerView.setLayoutManager(new GridLayoutManager(context, 2, LinearLayoutManager.HORIZONTAL, false));
+        recyclerView.setLayoutManager(
+                new GridLayoutManager(context, 2,
+                        LinearLayoutManager.HORIZONTAL, false));
     }
 
     @Override

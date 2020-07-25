@@ -4,28 +4,30 @@
     android:orientation="horizontal"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:paddingStart="10dp"
-    android:paddingEnd="10dp"
+    android:paddingStart="8dp"
+    android:paddingEnd="8dp"
     >
 
-    <ImageView
+    <com.zpj.widget.tinted.TintedImageButton
         android:id="@+id/btn_search"
         android:layout_width="wrap_content"
-        android:layout_height="56dp"
-        android:paddingStart="10dp"
-        android:paddingEnd="10dp"
+        android:layout_height="match_parent"
+        android:paddingStart="8dp"
+        android:paddingEnd="8dp"
         android:src="@drawable/ic_search_white_24dp"
         android:tint="@color/color_text_major"
+        android:background="?attr/actionBarItemBackground"
         />
 
-    <ImageView
+    <com.zpj.widget.tinted.TintedImageButton
         android:id="@+id/btn_manage"
         android:layout_width="wrap_content"
-        android:layout_height="56dp"
-        android:paddingStart="10dp"
-        android:paddingEnd="10dp"
+        android:layout_height="match_parent"
+        android:paddingStart="8dp"
+        android:paddingEnd="8dp"
         android:src="@drawable/ic_move_to_inbox_black_24dp"
         android:tint="@color/color_text_major"
+        android:background="?attr/actionBarItemBackground"
         />
 
 </LinearLayout>

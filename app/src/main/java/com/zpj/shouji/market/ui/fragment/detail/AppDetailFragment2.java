@@ -5,15 +5,11 @@ import android.content.ClipboardManager;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Color;
-import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
-import android.support.v4.content.ContextCompat;
 import android.support.v4.graphics.ColorUtils;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.NestedScrollView;
@@ -22,14 +18,11 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.FrameLayout;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.request.target.SimpleTarget;
-import com.bumptech.glide.request.transition.Transition;
+import com.bumptech.glide.request.RequestOptions;
 import com.felix.atoast.library.AToast;
 import com.shehuan.niv.NiceImageView;
 import com.zpj.fragmentation.BaseFragment;
@@ -40,6 +33,7 @@ import com.zpj.shouji.market.api.HttpApi;
 import com.zpj.shouji.market.constant.Keys;
 import com.zpj.shouji.market.event.FabEvent;
 import com.zpj.shouji.market.event.StartFragmentEvent;
+import com.zpj.shouji.market.glide.blur.BlurTransformation2;
 import com.zpj.shouji.market.manager.UserManager;
 import com.zpj.shouji.market.model.AppDetailInfo;
 import com.zpj.shouji.market.model.AppInfo;
@@ -50,7 +44,6 @@ import com.zpj.shouji.market.model.UserDownloadedAppInfo;
 import com.zpj.shouji.market.ui.adapter.FragmentsPagerAdapter;
 import com.zpj.shouji.market.ui.fragment.WebFragment;
 import com.zpj.shouji.market.ui.fragment.manager.AppManagerFragment;
-import com.zpj.shouji.market.ui.fragment.profile.ProfileFragment;
 import com.zpj.shouji.market.ui.widget.JudgeNestedScrollView;
 import com.zpj.shouji.market.ui.widget.popup.AppCommentPopup;
 import com.zpj.shouji.market.utils.MagicIndicatorHelper;
@@ -58,16 +51,8 @@ import com.zpj.utils.ScreenUtils;
 import com.zpj.utils.StatusBarUtils;
 import com.zpj.widget.statelayout.StateLayout;
 import com.zpj.widget.tinted.TintedImageButton;
-import com.zpj.widget.tinted.TintedImageView;
 
 import net.lucode.hackware.magicindicator.MagicIndicator;
-import net.lucode.hackware.magicindicator.ViewPagerHelper;
-import net.lucode.hackware.magicindicator.buildins.commonnavigator.CommonNavigator;
-import net.lucode.hackware.magicindicator.buildins.commonnavigator.abs.CommonNavigatorAdapter;
-import net.lucode.hackware.magicindicator.buildins.commonnavigator.abs.IPagerIndicator;
-import net.lucode.hackware.magicindicator.buildins.commonnavigator.abs.IPagerTitleView;
-import net.lucode.hackware.magicindicator.buildins.commonnavigator.indicators.LinePagerIndicator;
-import net.lucode.hackware.magicindicator.buildins.commonnavigator.titles.ColorTransitionPagerTitleView;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -75,11 +60,6 @@ import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
 
-import io.reactivex.Observable;
-import io.reactivex.ObservableOnSubscribe;
-import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.schedulers.Schedulers;
-import per.goweii.burred.Blurred;
 import top.defaults.drawabletoolbox.DrawableBuilder;
 
 public class AppDetailFragment2 extends BaseFragment
@@ -414,33 +394,45 @@ public class AppDetailFragment2 extends BaseFragment
                         Log.d("getAppInfo", "info=" + info);
                         appDetailInfo = info;
 
-                        Glide.with(context).asBitmap().load(appDetailInfo.getIconUrl()).into(new SimpleTarget<Bitmap>() {
-                            @Override
-                            public void onResourceReady(@NonNull Bitmap resource, @Nullable Transition<? super Bitmap> transition) {
-                                icon.setImageBitmap(resource);
-                                ivToolbarAvater.setImageBitmap(resource);
-                                Log.d(TAG, "resource=" + resource);
-                                Observable.create((ObservableOnSubscribe<Bitmap>) emitter -> {
-                                    Bitmap bitmap = Blurred.with(resource)
-//                                        .recycleOriginal(true)
-                                            .percent(0.2f)
-                                            .scale(0.3f)
-                                            .blur();
-                                    emitter.onNext(bitmap);
-                                    Log.d(TAG, "bitmap=" + bitmap);
-                                    emitter.onComplete();
-                                })
-                                        .subscribeOn(Schedulers.io())
-                                        .observeOn(AndroidSchedulers.mainThread())
-                                        .doOnNext(bitmap -> {
-//                                            ivHeader.setBackground(new BitmapDrawable(getResources(), bitmap));
-                                            ivHeader.setImageBitmap(bitmap);
-                                            getColor(bitmap);
+//                        Glide.with(context).asBitmap().load(appDetailInfo.getIconUrl()).into(new SimpleTarget<Bitmap>() {
+//                            @Override
+//                            public void onResourceReady(@NonNull Bitmap resource, @Nullable Transition<? super Bitmap> transition) {
+//                                icon.setImageBitmap(resource);
+//                                ivToolbarAvater.setImageBitmap(resource);
+//                                Log.d(TAG, "resource=" + resource);
+//                                Observable.create((ObservableOnSubscribe<Bitmap>) emitter -> {
+//                                    Bitmap bitmap = Blurred.with(resource)
+////                                        .recycleOriginal(true)
+//                                            .percent(0.2f)
+//                                            .scale(0.3f)
+//                                            .blur();
+//                                    emitter.onNext(bitmap);
+//                                    Log.d(TAG, "bitmap=" + bitmap);
+//                                    emitter.onComplete();
+//                                })
+//                                        .subscribeOn(Schedulers.io())
+//                                        .observeOn(AndroidSchedulers.mainThread())
+//                                        .doOnNext(bitmap -> {
+////                                            ivHeader.setBackground(new BitmapDrawable(getResources(), bitmap));
+//                                            ivHeader.setImageBitmap(bitmap);
+//                                            getColor(bitmap);
+//
+//                                        })
+//                                        .subscribe();
+//                            }
+//                        });
+                        Glide.with(context)
+                                .load(appDetailInfo.getIconUrl())
+                                .into(icon);
+                        Glide.with(context)
+                                .load(appDetailInfo.getIconUrl())
+                                .into(ivToolbarAvater);
 
-                                        })
-                                        .subscribe();
-                            }
-                        });
+                        Glide.with(context)
+                                .asBitmap()
+                                .load(appDetailInfo.getIconUrl())
+                                .apply(RequestOptions.bitmapTransform(new BlurTransformation2(0.2f, 0.3f)))
+                                .into(ivHeader);
 
                         title.setText(info.getName());
                         tvVersion.setText(info.getVersion());
@@ -450,6 +442,43 @@ public class AppDetailFragment2 extends BaseFragment
                                 + " | " + info.getAds() + " | " + info.getFirmware());
                         shortIntroduce.setText(info.getLineInfo());
                         postDelayed(() -> EventBus.getDefault().post(info), 50);
+
+
+                        lightStatusBar();
+                        tvVersion.setBackground(new DrawableBuilder()
+                                .rectangle()
+                                .rounded()
+                                .strokeColor(getResources().getColor(R.color.colorPrimary))
+                                .solidColor(getResources().getColor(R.color.colorPrimary))
+                                .build());
+                        tvSize.setBackground(new DrawableBuilder()
+                                .rectangle()
+                                .rounded()
+                                .strokeColor(getResources().getColor(R.color.light_blue1))
+                                .solidColor(getResources().getColor(R.color.light_blue1))
+                                .build());
+                        int color = Color.WHITE;
+                        title.setTextColor(color);
+                        tvVersion.setTextColor(color);
+                        tvSize.setTextColor(color);
+                        tvToolbarName.setTextColor(color);
+                        shortInfo.setTextColor(color);
+                        shortIntroduce.setTextColor(color);
+                        toolbar.setLightStyle(true);
+                        btnMenu.setTint(color);
+                        btnCollect.setTint(color);
+                        btnShare.setTint(color);
+                        stateLayout.showContentView();
+                        scrollView.setOnScrollChangeListener(AppDetailFragment2.this);
+                        scrollView.setOnNeedScrollListener(new JudgeNestedScrollView.OnNeedScrollListener() {
+                            @Override
+                            public boolean needScroll() {
+                                int[] location = new int[2];
+                                magicIndicator.getLocationOnScreen(location);
+                                int yPosition = location[1];
+                                return yPosition > toolBarPositionY;
+                            }
+                        });
                     });
                 })
                 .onError(throwable -> stateLayout.showErrorView(throwable.getMessage()))
@@ -484,7 +513,6 @@ public class AppDetailFragment2 extends BaseFragment
 //                });
 
                 boolean isDark = ColorUtils.calculateLuminance(s.getRgb()) <= 0.5;
-                ;
                 if (isDark) {
                     lightStatusBar();
                     tvVersion.setBackground(new DrawableBuilder()

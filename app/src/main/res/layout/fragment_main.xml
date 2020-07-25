@@ -13,16 +13,20 @@
         android:layout_height="match_parent"
         android:layout_above="@id/bottom_bar" />
 
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+<!--    <View-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_above="@id/bottom_bar"-->
+<!--        android:background="@drawable/actionbar_shadow_up" />-->
+
+    <View style="@style/layout_shadow_up"
         android:layout_above="@id/bottom_bar"
-        android:background="@drawable/actionbar_shadow_up" />
+        />
 
     <com.zpj.shouji.market.ui.widget.BottomBar
         android:id="@+id/bottom_bar"
         android:layout_width="match_parent"
-        android:layout_height="54dp"
+        android:layout_height="56dp"
         android:layout_alignParentBottom="true"
         />
 
@@ -34,14 +38,14 @@
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_alignParentBottom="true"
-        android:layout_marginBottom="6dp"
+        android:layout_marginBottom="8dp"
         android:src="@drawable/add_button"
         android:background="@color/colorPrimary"
         app:backgroundTint="@color/transparent"
         app:borderWidth="0dp"
         app:elevation="10dp"
-        app:fabCustomSize="42dp"
-        app:maxImageSize="42dp"
+        app:fabCustomSize="40dp"
+        app:maxImageSize="40dp"
         />
 
 </RelativeLayout>

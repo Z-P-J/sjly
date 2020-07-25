@@ -43,7 +43,7 @@ public class DrawableTintTextView extends AppCompatTextView {
             for (int i = 0; i < drawables.length; i++) {
                 Drawable drawable = drawables[i];
                 if (drawable != null) {
-                    final Drawable wrappedDrawable = DrawableCompat.wrap(drawable);
+                    final Drawable wrappedDrawable = DrawableCompat.wrap(drawable.mutate());
                     DrawableCompat.setTintList(wrappedDrawable, ColorStateList.valueOf(drawableTintColor));
                     drawables[i] = wrappedDrawable;
                 }

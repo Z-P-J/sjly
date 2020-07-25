@@ -10,76 +10,84 @@
 
     <include layout="@layout/layout_toolbar"/>
 
-    <com.zpj.shouji.market.ui.widget.ElasticScrollView
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:scrollbars="none"
-        >
+        android:layout_height="match_parent">
 
-        <LinearLayout
-            android:orientation="vertical"
+        <com.zpj.shouji.market.ui.widget.ElasticScrollView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
+            android:scrollbars="none"
             >
 
-            <TextView
+            <LinearLayout
+                android:orientation="vertical"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="下载设置"
-                android:gravity="center_vertical"
-                android:padding="5dp"
-                android:paddingStart="15dp"
-                android:paddingEnd="15dp"
-                android:textColor="@color/colorPrimary"
-                android:layout_marginTop="10dp"
-                android:background="@drawable/bottom_line_gray"
-                />
+                >
 
-            <com.zpj.widget.setting.CommonSettingItem
-                android:id="@+id/item_download_folder"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:z_setting_titleText="下载位置"
-                />
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="下载设置"
+                    android:gravity="center_vertical"
+                    android:padding="5dp"
+                    android:paddingStart="15dp"
+                    android:paddingEnd="15dp"
+                    android:textColor="@color/colorPrimary"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/bottom_line_gray"
+                    />
 
-            <com.zpj.widget.setting.CommonSettingItem
-                android:id="@+id/item_max_downloading"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:z_setting_titleText="最大任务数"
-                />
+                <com.zpj.widget.setting.CommonSettingItem
+                    android:id="@+id/item_download_folder"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:z_setting_titleText="下载位置"
+                    />
 
-            <com.zpj.widget.setting.CommonSettingItem
-                android:id="@+id/item_max_thread"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:z_setting_titleText="最大线程数"
-                />
+                <com.zpj.widget.setting.CommonSettingItem
+                    android:id="@+id/item_max_downloading"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:z_setting_titleText="最大任务数"
+                    />
 
-            <com.zpj.widget.setting.SwitchSettingItem
-                android:id="@+id/item_install_downloaded"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:z_setting_titleText="下载完成后安装"
-                />
+                <com.zpj.widget.setting.CommonSettingItem
+                    android:id="@+id/item_max_thread"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:z_setting_titleText="最大线程数"
+                    />
 
-            <com.zpj.widget.setting.SwitchSettingItem
-                android:id="@+id/item_show_downloaded_ring"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:z_setting_titleText="下载完成声音提示"
-                />
+                <com.zpj.widget.setting.SwitchSettingItem
+                    android:id="@+id/item_install_downloaded"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:z_setting_titleText="下载完成后安装"
+                    />
 
-            <com.zpj.widget.setting.SwitchSettingItem
-                android:id="@+id/item_show_downloaded_notification"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:z_setting_titleText="通知栏显示下载进度"
-                />
+                <com.zpj.widget.setting.SwitchSettingItem
+                    android:id="@+id/item_show_downloaded_ring"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:z_setting_titleText="下载完成声音提示"
+                    />
 
-        </LinearLayout>
+                <com.zpj.widget.setting.SwitchSettingItem
+                    android:id="@+id/item_show_downloaded_notification"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:z_setting_titleText="通知栏显示下载进度"
+                    />
+
+            </LinearLayout>
 
 
-    </com.zpj.shouji.market.ui.widget.ElasticScrollView>
+        </com.zpj.shouji.market.ui.widget.ElasticScrollView>
+
+        <View style="@style/layout_shadow_bottom"/>
+
+    </FrameLayout>
 
 </LinearLayout>

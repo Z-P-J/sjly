@@ -39,7 +39,6 @@
                 android:text="Lv.0"
                 android:textSize="10sp"
                 android:gravity="center"
-                android:background="#fcee81"
                 android:textColor="@color/colorPrimary"
                 android:paddingStart="5dp"
                 android:paddingEnd="5dp"
@@ -149,6 +148,7 @@
                     android:paddingBottom="4dp"
                     android:paddingStart="12dp"
                     android:paddingEnd="12dp"
+                    android:visibility="gone"
                     />
 
 <!--                android:background="@drawable/bg_button"-->

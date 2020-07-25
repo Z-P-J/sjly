@@ -225,8 +225,8 @@ public class DiscoverBinder implements IEasy.OnBindViewHolderListener<DiscoverIn
 
         holder.setBackground(R.id.tv_state, new DrawableBuilder()
                 .rectangle()
-                .cornerRadius(2)
-                .solidColor(Color.parseColor("#fcee81"))
+                .rounded()
+                .solidColor(context.getResources().getColor(R.color.light_gray_4)) // Color.parseColor("#fcee81")
                 .build());
         holder.setText(R.id.tv_state, discoverInfo.getIconState());
         holder.getTextView(R.id.phone_type).setText(discoverInfo.getPhone());
