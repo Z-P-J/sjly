@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.zpj.widget.tinted.TintedImageView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="56dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:src="@drawable/app_name"
+    android:tint="@color/white"
+    android:paddingStart="16dp"
+    android:paddingEnd="16dp"
+    >
+
+</com.zpj.widget.tinted.TintedImageView>

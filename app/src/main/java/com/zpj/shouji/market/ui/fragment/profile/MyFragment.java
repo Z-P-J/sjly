@@ -1,5 +1,6 @@
 package com.zpj.shouji.market.ui.fragment.profile;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -35,6 +36,7 @@ import com.zpj.shouji.market.ui.widget.MyToolsCard;
 import com.zpj.shouji.market.ui.widget.PullZoomView;
 import com.zpj.shouji.market.ui.widget.popup.LoginPopup;
 import com.zpj.utils.ClickHelper;
+import com.zpj.widget.tinted.TintedImageView;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -63,6 +65,9 @@ public class MyFragment extends BaseFragment
     private TextView tvAbout;
     private View tvSignOut;
 
+    private View shadowView;
+    private TintedImageView ivAppName;
+
     private LoginPopup loginPopup;
 
     @Override
@@ -77,6 +82,40 @@ public class MyFragment extends BaseFragment
         pullZoomView.setIsParallax(false);
         pullZoomView.setSensitive(2.5f);
         pullZoomView.setZoomTime(500);
+        pullZoomView.setOnScrollListener(new PullZoomView.OnScrollListener() {
+            @Override
+            public void onScroll(int offsetX, int offsetY, int oldOffsetX, int oldOffsetY) {
+                super.onScroll(offsetX, offsetY, oldOffsetX, oldOffsetY);
+                if (oldOffsetY <= toolbar.getHeight()) {
+                    if (Math.abs(offsetY - oldOffsetY) < 2) {
+                        return;
+                    }
+                    float alpha = 1f * offsetY / toolbar.getHeight();
+                    alpha = Math.min(alpha, 1f);
+                    int color = alphaColor(Color.WHITE, alpha * 0.95f);
+                    toolbar.setBackgroundColor(color);
+                    toolbar.setLightStyle(alpha <= 0.5);
+                    if (alpha > 0.5) {
+                        darkStatusBar();
+                        shadowView.setVisibility(View.VISIBLE);
+                        ivAppName.setTint(Color.BLACK);
+                    } else {
+                        lightStatusBar();
+                        shadowView.setVisibility(View.GONE);
+                        ivAppName.setTint(Color.WHITE);
+                    }
+                }
+            }
+        });
+        pullZoomView.setOnPullZoomListener(new PullZoomView.OnPullZoomListener() {
+            @Override
+            public void onPullZoom(int originHeight, int currentHeight) {
+                super.onPullZoom(originHeight, currentHeight);
+                Log.d("onPullZoom", "onPullZoom originHeight=" + originHeight + " currentHeight=" + currentHeight);
+            }
+        });
+
+        shadowView = view.findViewById(R.id.shadow_view);
 
         ivWallpaper = view.findViewById(R.id.iv_wallpaper);
         tvName = view.findViewById(R.id.tv_name);
@@ -157,6 +196,12 @@ public class MyFragment extends BaseFragment
                 });
 
         UserManager.getInstance().addOnSignInListener(this);
+    }
+
+    @Override
+    public void toolbarLeftCustomView(@NonNull View view) {
+        super.toolbarLeftCustomView(view);
+        ivAppName = (TintedImageView) view;
     }
 
     @Override
@@ -363,6 +408,12 @@ public class MyFragment extends BaseFragment
                     AToast.success("TODO 注销成功");
                 })
                 .show();
+    }
+
+    public static int alphaColor(int color, float alpha) {
+        int a = Math.min(255, Math.max(0, (int) (alpha * 255))) << 24;
+        int rgb = 0x00ffffff & color;
+        return a + rgb;
     }
 
 }

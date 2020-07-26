@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.res.TypedArray;
 import android.support.v4.view.ViewCompat;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewConfiguration;
@@ -58,7 +59,7 @@ public class PullZoomView extends ScrollView {
 
     /** 滚动的监听，范围从 0 ~ maxY */
     public static abstract class OnScrollListener {
-        public void onScroll(int l, int t, int oldl, int oldt) {
+        public void onScroll(int offsetX, int offsetY, int oldOffsetX, int oldOffsetY) {
         }
 
         public void onHeaderScroll(int currentY, int maxY) {
@@ -123,7 +124,9 @@ public class PullZoomView extends ScrollView {
             throw new IllegalStateException("content, header, zoom 都不允许为空,请在Xml布局中设置Tag，或者使用属性设置");
         }
         headerParams = (MarginLayoutParams) headerView.getLayoutParams();
-        headerHeight = headerParams.height;
+//        headerHeight = headerParams.height;
+        headerHeight = headerView.getMeasuredHeight();
+        Log.d("onSizeChanged", "onSizeChanged headerHeight=" + headerHeight);
         smoothScrollTo(0, 0);//如果是滚动到最顶部，默认最顶部是ListView的顶部
     }
 
