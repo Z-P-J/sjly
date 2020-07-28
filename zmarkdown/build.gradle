@@ -45,7 +45,7 @@ dependencies {
     testImplementation 'junit:junit:4.12'
 
     implementation 'com.zpj.widget:Fragmentation:1.0.1'
-    implementation 'com.zpj.widget:ZToolBar:1.0.4'
+    implementation 'com.zpj.widget:ZToolBar:1.0.5'
     implementation 'com.zpj.utils:ZUtils:1.0.2'
 
     implementation project(":zpopup")

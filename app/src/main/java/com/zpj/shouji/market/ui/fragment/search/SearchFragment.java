@@ -80,6 +80,14 @@ public class SearchFragment extends BaseFragment {
     }
 
     @Override
+    public boolean onBackPressedSupport() {
+        if (viewPager != null && viewPager.getCurrentItem() == 1) {
+            viewPager.setCurrentItem(9, true);
+        }
+        return super.onBackPressedSupport();
+    }
+
+    @Override
     public void onEnterAnimationEnd(Bundle savedInstanceState) {
         super.onEnterAnimationEnd(savedInstanceState);
         List<Fragment> list = new ArrayList<>();
@@ -114,7 +122,7 @@ public class SearchFragment extends BaseFragment {
             AToast.warning("关键词不能为空");
             return false;
         }
-        viewPager.setCurrentItem(1, true);
+        viewPager.setCurrentItem(1, false);
         EventBus.getDefault().post(new SearchEvent(text));
         return true;
     }

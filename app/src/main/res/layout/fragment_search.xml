@@ -14,14 +14,22 @@
         app:z_toolbar_centerSearchEditable="true"
         app:z_toolbar_fillStatusBar="true"
         app:z_toolbar_hint_text="请输入关键词"
-        app:z_toolbar_statusBarColor="@color/colorPrimary"
-        app:z_toolbar_titleBarColor="@color/colorPrimary"
-        app:z_toolbar_statusBarMode="light"
+        app:z_toolbar_statusBarColor="@color/white"
+        app:z_toolbar_titleBarColor="@color/white"
         />
 
-    <com.zpj.shouji.market.ui.widget.ZViewPager
-        android:id="@+id/view_pager"
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="match_parent">
+
+
+        <com.zpj.shouji.market.ui.widget.ZViewPager
+            android:id="@+id/view_pager"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+
+        <View style="@style/layout_shadow_bottom"/>
+
+    </FrameLayout>
 
 </LinearLayout>

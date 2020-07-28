@@ -8,6 +8,7 @@ import com.zpj.popup.impl.PartShadowPopup;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.model.WallpaperTag;
 import com.zpj.shouji.market.ui.widget.flowlayout.FlowLayout;
+import com.zpj.utils.ScreenUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -42,6 +43,7 @@ public class WallpaperTagPopup extends PartShadowPopup<WallpaperTagPopup> {
                 onItemClickListener.onClick(index, v, text);
             }
         });
+        flowLayout.setSpace(ScreenUtils.dp2pxInt(context, 8));
         flowLayout.setSelectedPosition(selectedPosition);
         for (WallpaperTag tag : tags) {
             flowLayout.addItem(tag.getName());

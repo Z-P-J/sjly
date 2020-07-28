@@ -278,6 +278,7 @@ public class MyFragment extends BaseFragment
             if (memberInfo.isCanSigned()) {
                 HttpApi.get("http://tt.shouji.com.cn/app/xml_signed.jsp")
                         .onSuccess(data -> {
+                            Log.d("tvCheckIn", "data=" + data);
                             String info = data.selectFirst("info").text();
                             if ("success".equals(data.selectFirst("result").text())) {
                                 AToast.success(info);
@@ -290,10 +291,13 @@ public class MyFragment extends BaseFragment
                                 tvCheckIn.setBackgroundResource(R.drawable.bg_button_round_purple);
                                 tvCheckIn.setText("已签到");
                             } else {
-                                AToast.error(info);
+                                AToast.error(info + "，登录可能已失效");
                             }
                         })
-                        .onError(throwable -> AToast.error(throwable.getMessage()))
+                        .onError(throwable -> {
+                            throwable.printStackTrace();
+                            AToast.error(throwable.getMessage());
+                        })
                         .subscribe();
             } else {
                 AToast.warning("你已签到过了");

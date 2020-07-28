@@ -2,6 +2,7 @@ package com.zpj.shouji.market.ui.widget.flowlayout;
 
 import android.content.Context;
 import android.graphics.Color;
+import android.graphics.Rect;
 import android.graphics.drawable.GradientDrawable;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -35,6 +36,7 @@ public class FlowLayout extends RecyclerView implements IEasy.OnBindViewHolderLi
 
     private int dp8;
 
+
     public FlowLayout(@NonNull Context context) {
         this(context, null);
     }
@@ -46,14 +48,24 @@ public class FlowLayout extends RecyclerView implements IEasy.OnBindViewHolderLi
     public FlowLayout(@NonNull Context context, @Nullable AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
         dp8 = ScreenUtils.dp2pxInt(context, 8);
+        int dp12 = ScreenUtils.dp2pxInt(context, 12);
+        int dp4 = dp8 / 2;
         if (getPaddingStart() == 0) {
-            setPadding(dp8, dp8, dp8, dp8);
+            setPadding(dp12, dp12, dp12, dp12);
         }
         recyclerView = new EasyRecyclerView<>(this);
         recyclerView.setData(list)
                 .setItemRes(R.layout.item_wallpaper_tag)
                 .setLayoutManager(new FlowLayoutManager())
-                .addItemDecoration(new SpaceItemDecoration(dp8))
+                .addItemDecoration(new ItemDecoration() {
+                    @Override
+                    public void getItemOffsets(@NonNull Rect outRect, @NonNull View view, @NonNull RecyclerView parent, @NonNull State state) {
+                        outRect.top = dp4;
+                        outRect.left = dp4;
+                        outRect.right = dp4;
+                        outRect.bottom = dp4;
+                    }
+                })
                 .onBindViewHolder(this)
                 .onItemClick((holder, view, data) -> {
                     if (onItemClickListener != null) {
@@ -106,6 +118,25 @@ public class FlowLayout extends RecyclerView implements IEasy.OnBindViewHolderLi
 
     public void setSelectedPosition(int selectedPosition) {
         this.selectedPosition = selectedPosition;
+    }
+
+    public void setSpace(int space) {
+        RecyclerView view = recyclerView.getRecyclerView();
+        for (int i = view.getItemDecorationCount() - 1; i >= 0; i-- ) {
+            view.removeItemDecorationAt(i);
+        }
+        int padding = ScreenUtils.dp2pxInt(getContext(), 16) - space;
+        setPadding(padding, padding, padding, padding);
+        view.addItemDecoration(new ItemDecoration() {
+            @Override
+            public void getItemOffsets(@NonNull Rect outRect, @NonNull View view, @NonNull RecyclerView parent, @NonNull State state) {
+                outRect.top = space;
+                outRect.left = space;
+                outRect.right = space;
+                outRect.bottom = space;
+            }
+        });
+        recyclerView.notifyDataSetChanged();
     }
 
     public void addItems(List<String> items) {

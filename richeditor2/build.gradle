@@ -48,6 +48,6 @@ dependencies {
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
 
-    implementation 'com.zpj.widget:ZToolBar:1.0.4'
+    implementation 'com.zpj.widget:ZToolBar:1.0.5'
     implementation 'com.zpj.utils:ZUtils:1.0.2'
 }

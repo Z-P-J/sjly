@@ -356,4 +356,8 @@ public final class HttpApi {
                 .toHtml();
     }
 
+    public static ObservableTask<Document> hotKeywordApi() {
+        return get("http://tt.shouji.com.cn/app/user_app_search_rm_xml.jsp?searchKey=");
+    }
+
 }
