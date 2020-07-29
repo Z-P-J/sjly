@@ -1,9 +1,6 @@
 package com.zpj.shouji.market.ui.adapter;
 
-import android.content.ClipData;
-import android.content.ClipboardManager;
 import android.content.Context;
-import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.support.annotation.NonNull;
 import android.text.SpannableString;
@@ -28,27 +25,22 @@ import com.lwkandroid.widget.ninegridview.NineGirdImageContainer;
 import com.lwkandroid.widget.ninegridview.NineGridBean;
 import com.lwkandroid.widget.ninegridview.NineGridView;
 import com.sunbinqiang.iconcountview.IconCountView;
-import com.zpj.http.core.IHttp;
-import com.zpj.http.parser.html.nodes.Document;
 import com.zpj.recyclerview.EasyViewHolder;
 import com.zpj.recyclerview.IEasy;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.api.HttpApi;
 import com.zpj.shouji.market.glide.GlideApp;
 import com.zpj.shouji.market.glide.blur.BlurTransformation2;
-import com.zpj.shouji.market.manager.UserManager;
 import com.zpj.shouji.market.model.DiscoverInfo;
 import com.zpj.shouji.market.ui.fragment.detail.AppDetailFragment;
 import com.zpj.shouji.market.ui.fragment.profile.ProfileFragment;
 import com.zpj.shouji.market.ui.fragment.theme.ThemeDetailFragment;
 import com.zpj.shouji.market.ui.widget.DrawableTintTextView;
-import com.zpj.shouji.market.ui.widget.popup.BottomListPopupMenu;
 import com.zpj.shouji.market.ui.widget.popup.ImageViewer;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import jp.wasabeef.glide.transformations.BlurTransformation;
 import top.defaults.drawabletoolbox.DrawableBuilder;
 
 public class DiscoverBinder implements IEasy.OnBindViewHolderListener<DiscoverInfo> {

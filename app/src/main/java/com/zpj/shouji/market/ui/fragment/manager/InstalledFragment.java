@@ -29,22 +29,20 @@ import com.zpj.recyclerview.EasyViewHolder;
 import com.zpj.recyclerview.IEasy;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.glide.GlideApp;
+import com.zpj.shouji.market.manager.AppBackupManager;
+import com.zpj.shouji.market.manager.AppInstalledManager;
+import com.zpj.shouji.market.manager.AppUpdateManager;
 import com.zpj.shouji.market.model.InstalledAppInfo;
 import com.zpj.shouji.market.ui.fragment.base.RecyclerLayoutFragment;
 import com.zpj.shouji.market.ui.fragment.detail.AppDetailFragment;
 import com.zpj.shouji.market.ui.widget.GradientButton;
 import com.zpj.shouji.market.ui.widget.popup.RecyclerPopup;
-import com.zpj.shouji.market.manager.AppBackupManager;
-import com.zpj.shouji.market.manager.AppInstalledManager;
-import com.zpj.shouji.market.manager.AppUpdateManager;
 import com.zpj.shouji.market.utils.AppUtil;
 import com.zpj.utils.ScreenUtils;
+import com.zpj.widget.checkbox.SmoothCheckBox;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import com.zpj.fragmentation.SupportActivity;
-import com.zpj.widget.checkbox.SmoothCheckBox;
 
 public class InstalledFragment extends RecyclerLayoutFragment<InstalledAppInfo>
         implements AppInstalledManager.CallBack,

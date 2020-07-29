@@ -2,16 +2,11 @@ package com.zpj.shouji.market.ui.widget.recommend;
 
 import android.content.Context;
 import android.graphics.Bitmap;
-import android.graphics.drawable.BitmapDrawable;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.v4.graphics.ColorUtils;
 import android.support.v4.view.ViewPager;
-import android.support.v7.graphics.Palette;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -27,23 +22,16 @@ import com.zpj.http.parser.html.nodes.Element;
 import com.zpj.http.parser.html.select.Elements;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.api.HttpPreLoader;
-import com.zpj.shouji.market.event.ColorChangeEvent;
 import com.zpj.shouji.market.glide.blur.BlurTransformation2;
 import com.zpj.shouji.market.model.AppInfo;
 import com.zpj.shouji.market.ui.fragment.SubjectRecommendListFragment;
 import com.zpj.shouji.market.ui.fragment.ToolBarListFragment;
 import com.zpj.shouji.market.ui.fragment.collection.CollectionRecommendListFragment;
 import com.zpj.shouji.market.ui.fragment.detail.AppDetailFragment;
-import com.zpj.shouji.market.ui.fragment.detail.AppDetailFragment2;
-import com.zpj.shouji.market.ui.widget.JudgeNestedScrollView;
 import com.zpj.utils.ScreenUtils;
-
-import org.greenrobot.eventbus.EventBus;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import top.defaults.drawabletoolbox.DrawableBuilder;
 
 public class RecommendBanner extends LinearLayout implements View.OnClickListener {
 

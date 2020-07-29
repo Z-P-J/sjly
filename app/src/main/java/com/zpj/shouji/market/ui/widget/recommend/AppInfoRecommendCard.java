@@ -8,7 +8,6 @@ import android.view.View;
 
 import com.bumptech.glide.Glide;
 import com.felix.atoast.library.AToast;
-import com.zpj.http.core.IHttp;
 import com.zpj.http.parser.html.nodes.Document;
 import com.zpj.http.parser.html.nodes.Element;
 import com.zpj.http.parser.html.select.Elements;
@@ -19,9 +18,6 @@ import com.zpj.shouji.market.api.HttpApi;
 import com.zpj.shouji.market.api.HttpPreLoader;
 import com.zpj.shouji.market.model.AppInfo;
 import com.zpj.shouji.market.ui.fragment.detail.AppDetailFragment;
-import com.zpj.shouji.market.ui.widget.recommend.RecommendCard;
-
-import org.greenrobot.eventbus.EventBus;
 
 import java.util.List;
 

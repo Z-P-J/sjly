@@ -1,7 +1,5 @@
 package com.zpj.shouji.market.event;
 
-import com.zpj.shouji.market.ui.fragment.detail.AppDetailFragment;
-
 public class FabEvent extends BaseEvent {
 
     private final boolean show;

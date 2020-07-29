@@ -360,4 +360,8 @@ public final class HttpApi {
         return get("http://tt.shouji.com.cn/app/user_app_search_rm_xml.jsp?searchKey=");
     }
 
+    public static ObservableTask<Document> appInfoApi(String type, String id) {
+        return get(String.format("http://tt.shouji.com.cn/androidv3/%s_show.jsp?id=%s", type, id));
+    }
+
 }

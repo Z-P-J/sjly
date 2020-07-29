@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginBottom="-48dp"
+        >
+
+        <com.zpj.widget.tinted.TintedImageView
+            android:id="@+id/iv_header"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="centerCrop"
+            android:src="@drawable/bg_member_default"
+            android:tint="#40000000"
+            />
+
+        <LinearLayout
+            android:id="@+id/ll_info"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:padding="16dp"
+            android:layout_marginBottom="48dp"
+            >
+
+            <com.shehuan.niv.NiceImageView
+                android:id="@+id/iv_icon"
+                android:layout_marginTop="80dp"
+                android:layout_width="56dp"
+                android:layout_height="56dp"
+                android:src="@mipmap/ic_launcher"
+                android:layout_gravity="center_horizontal"
+                app:is_circle="true"
+                app:border_width="1dp"
+                app:border_color="@android:color/white"
+                android:scaleType="centerCrop"
+                />
+
+            <TextView
+                android:id="@+id/tv_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="应用名"
+                android:textSize="16sp"
+                android:textColor="@android:color/white"
+                android:maxLines="1"
+                android:ellipsize="end"
+                android:paddingStart="20dp"
+                android:paddingEnd="20dp"
+                android:padding="5dp"
+                android:gravity="center"
+                />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:padding="8dp"
+                >
+
+                <TextView
+                    android:id="@+id/tv_version"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="V 12.0.0"
+                    android:textStyle="italic|bold"
+                    android:textColor="@android:color/white"
+                    android:textSize="12sp"
+                    android:background="@drawable/bg_round_gray"
+                    android:paddingStart="8dp"
+                    android:paddingEnd="8dp"
+                    android:paddingTop="2dp"
+                    android:paddingBottom="2dp"
+                    android:gravity="center_vertical"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginStart="10dp"
+                    />
+
+                <TextView
+                    android:id="@+id/tv_size"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="80MB"
+                    android:textStyle="italic|bold"
+                    android:textColor="@android:color/white"
+                    android:textSize="12sp"
+                    android:background="@drawable/bg_round_gray"
+                    android:paddingStart="8dp"
+                    android:paddingEnd="8dp"
+                    android:paddingTop="2dp"
+                    android:paddingBottom="2dp"
+                    android:gravity="center_vertical"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginStart="10dp"
+                    />
+
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/tv_detail"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="24dp"
+                android:layout_marginEnd="24dp"
+                android:text="xfgbkf,nhbc,fbnkcm,fgfbngbmfgnvk,bd\nfcxfgjnfj,nbfgv\nfdghkbfjnfjjgjkbjh"
+                android:textColor="@android:color/white"
+                android:maxLines="1"
+                android:ellipsize="end"
+                android:paddingStart="24dp"
+                android:paddingEnd="24dp"
+                android:gravity="center"
+                />
+
+            <TextView
+                android:id="@+id/tv_info"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="中文 | 免费 | 无广告 | 4.0.3及更高固件"
+                android:textColor="@android:color/white"
+                android:maxLines="1"
+                android:ellipsize="end"
+                android:paddingStart="24dp"
+                android:paddingEnd="24dp"
+                android:padding="5dp"
+                android:gravity="center"
+                android:textSize="12sp"
+                />
+
+
+
+
+        </LinearLayout>
+
+
+
+    </FrameLayout>
+
+    <net.lucode.hackware.magicindicator.MagicIndicator
+        android:id="@+id/magic_indicator"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_gravity="bottom"
+        android:background="@drawable/magic_indicator_bg"
+        android:paddingTop="8dp"
+        android:paddingBottom="8dp"
+        />
+
+
+    <FrameLayout
+        android:id="@+id/fl_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <android.support.v4.view.ViewPager
+            android:id="@+id/view_pager"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/white"/>
+
+        <View style="@style/layout_shadow_bottom"
+            android:id="@+id/shadow_view"
+            />
+
+    </FrameLayout>
+
+</merge>
