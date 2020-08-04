@@ -1,6 +1,7 @@
 package com.zpj.shouji.market.ui.adapter;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.support.annotation.NonNull;
 import android.text.SpannableString;
@@ -47,9 +48,16 @@ public class DiscoverBinder implements IEasy.OnBindViewHolderListener<DiscoverIn
 
 
     private final boolean showComment;
+    private final boolean isLightBackground;
 
     public DiscoverBinder(boolean showComment) {
         this.showComment = showComment;
+        this.isLightBackground = true;
+    }
+
+    public DiscoverBinder(boolean showComment, boolean isLightBackground) {
+        this.showComment = showComment;
+        this.isLightBackground = isLightBackground;
     }
 
     @Override
@@ -294,6 +302,15 @@ public class DiscoverBinder implements IEasy.OnBindViewHolderListener<DiscoverIn
                 ThemeDetailFragment.start(discoverInfo, true);
             }
         });
+
+//        if (!isLightBackground) {
+//            holder.setTextColor(R.id.item_title, Color.WHITE);
+//            holder.setTextColor(R.id.text_info, Color.WHITE);
+//            holder.setTextColor(R.id.phone_type, Color.WHITE);
+//            holder.setTextColor(R.id.tv_content, Color.WHITE);
+////            holder.setTextColor(R.id.app_name, Color.WHITE);
+////            holder.setTextColor(R.id.app_info, Color.WHITE);
+//        }
 
 
     }
