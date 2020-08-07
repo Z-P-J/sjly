@@ -3,6 +3,7 @@ package com.zpj.shouji.market.ui.fragment.profile;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.design.widget.AppBarLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
@@ -14,6 +15,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
@@ -44,9 +46,10 @@ import net.lucode.hackware.magicindicator.MagicIndicator;
 import java.util.ArrayList;
 import java.util.List;
 
+import top.defaults.drawabletoolbox.DrawableBuilder;
+
 public class ProfileFragment extends BaseFragment
-        implements View.OnClickListener,
-        NestedScrollView.OnScrollChangeListener {
+        implements View.OnClickListener {
 
     private static final String USER_ID = "user_id";
     public static final String DEFAULT_URL = "http://tt.shouji.com.cn/app/view_member_xml_v4.jsp?id=5636865";
@@ -54,8 +57,7 @@ public class ProfileFragment extends BaseFragment
     private static final String[] TAB_TITLES = {"动态", "收藏", "下载", "好友"};
 
     private StateLayout stateLayout;
-    //    private ImageView ivBack;
-//    private ImageView ivMenu;
+    private LinearLayout headerLayout;
     private ImageView ivHeader;
     private NiceImageView ivAvater;
     private NiceImageView ivToolbarAvater;
@@ -64,24 +66,13 @@ public class ProfileFragment extends BaseFragment
     private TextView tvName;
     private TextView tvToolbarName;
     private TextView tvInfo;
-    private SmartRefreshLayout refreshLayout;
-    private Toolbar mToolBar;
     private ViewPager mViewPager;
-    private JudgeNestedScrollView scrollView;
     private View buttonBarLayout;
     private MagicIndicator magicIndicator;
-//    private MagicIndicator magicIndicatorTitle;
-    int toolBarPositionY = 0;
-    private int mOffset = 0;
-    private int mScrollY = 0;
-
-    private final List<Fragment> fragments = new ArrayList<>();
 
     private String userId;
     private boolean isMe;
     private boolean isFriend;
-
-    private int lastState = 1;
 
     public static void start(String userId, boolean shouldLazyLoad) {
         ProfileFragment profileFragment = new ProfileFragment();
@@ -94,12 +85,17 @@ public class ProfileFragment extends BaseFragment
 
     @Override
     protected int getLayoutId() {
-        return R.layout.fragment_profile2;
+        return R.layout.fragment_profile3;
     }
 
     @Override
     protected boolean supportSwipeBack() {
         return true;
+    }
+
+    @Override
+    public void onSupportInvisible() {
+        super.onSupportInvisible();
     }
 
     @Override
@@ -115,11 +111,12 @@ public class ProfileFragment extends BaseFragment
         stateLayout = view.findViewById(R.id.state_layout);
 
         if (TextUtils.isEmpty(userId)) {
-//            AToast.warning("用户不存在！");
             stateLayout.showErrorView("用户不存在！");
             return;
         }
         isMe = userId.equals(UserManager.getInstance().getUserId());
+
+        headerLayout = view.findViewById(R.id.layout_header);
 
         tvFollow = view.findViewById(R.id.tv_follow);
         tvFollow.setOnClickListener(this);
@@ -128,6 +125,12 @@ public class ProfileFragment extends BaseFragment
         if (isMe) {
             tvFollow.setText("编辑");
             tvFollow.setBackgroundResource(R.drawable.bg_button_round_gray);
+//            tvFollow.setBackground(new DrawableBuilder()
+//                    .rectangle()
+//                    .rounded()
+//                    .strokeColor(getResources().getColor(R.color.colorPrimary))
+//                    .solidColor(getResources().getColor(R.color.colorPrimary))
+//                    .build());
         }
 
         ivHeader = view.findViewById(R.id.iv_header);
@@ -136,40 +139,22 @@ public class ProfileFragment extends BaseFragment
         tvName = view.findViewById(R.id.tv_name);
         tvToolbarName = view.findViewById(R.id.toolbar_name);
         tvInfo = view.findViewById(R.id.tv_info);
-        refreshLayout = view.findViewById(R.id.layout_refresh);
-        mToolBar = view.findViewById(R.id.layout_toolbar);
 
         mViewPager = view.findViewById(R.id.view_pager);
-        scrollView = view.findViewById(R.id.scroll_view);
-//        buttonBarLayout = view.findViewById(R.id.layout_button_bar);
         buttonBarLayout = toolbar.getCenterCustomView();
         magicIndicator = view.findViewById(R.id.magic_indicator);
-//        magicIndicatorTitle = view.findViewById(R.id.magic_indicator_title);
 
-        refreshLayout.setOnMultiPurposeListener(new SimpleMultiPurposeListener() {
-            @Override
-            public void onHeaderPulling(RefreshHeader header, float percent, int offset, int bottomHeight, int extendHeight) {
-                mOffset = offset / 2;
-                ivHeader.setTranslationY(mOffset - mScrollY);
-                mToolBar.setAlpha(1 - Math.min(percent, 1));
-            }
-
-            @Override
-            public void onHeaderReleasing(RefreshHeader header, float percent, int offset, int bottomHeight, int extendHeight) {
-                mOffset = offset / 2;
-                ivHeader.setTranslationY(mOffset - mScrollY);
-                mToolBar.setAlpha(1 - Math.min(percent, 1));
-            }
+        AppBarLayout appBarLayout = view.findViewById(R.id.appbar);
+        appBarLayout.addOnOffsetChangedListener((appBarLayout1, i) -> {
+            float alpha = (float) Math.abs(i) / appBarLayout1.getTotalScrollRange();
+            alpha = Math.min(1f, alpha);
+            buttonBarLayout.setAlpha(alpha);
+            headerLayout.setAlpha(1f -alpha);
         });
 
-        mToolBar.post(this::dealWithViewPager);
-
         buttonBarLayout.setAlpha(0);
-        mToolBar.setBackgroundColor(0);
 
-
-        postDelayed(() -> stateLayout.showLoadingView(), 5);
-//        stateLayout.showLoadingView();
+        stateLayout.showLoadingView();
         getMemberInfo();
     }
 
@@ -239,8 +224,8 @@ public class ProfileFragment extends BaseFragment
 
                     postOnEnterAnimationEnd(() -> {
                         stateLayout.showContentView();
-                        scrollView.setOnScrollChangeListener(ProfileFragment.this);
                         initViewPager();
+                        lightStatusBar();
                     });
                 })
                 .onError(throwable -> {
@@ -251,6 +236,7 @@ public class ProfileFragment extends BaseFragment
     }
 
     private void initViewPager() {
+        List<Fragment> fragments = new ArrayList<>();
         MyDynamicFragment dynamicFragment = findChildFragment(MyDynamicFragment.class);
         if (dynamicFragment == null) {
             dynamicFragment = MyDynamicFragment.newInstance(userId, false);
@@ -277,13 +263,6 @@ public class ProfileFragment extends BaseFragment
         mViewPager.setOffscreenPageLimit(fragments.size());
 
         MagicIndicatorHelper.bindViewPager(context, magicIndicator, mViewPager, TAB_TITLES, true);
-    }
-
-    private void dealWithViewPager() {
-        toolBarPositionY = mToolBar.getHeight();
-        ViewGroup.LayoutParams params = mViewPager.getLayoutParams();
-        params.height = ScreenUtils.getScreenHeight(context) - toolBarPositionY - magicIndicator.getHeight() + 1;
-        mViewPager.setLayoutParams(params);
     }
 
     @Override
@@ -333,37 +312,4 @@ public class ProfileFragment extends BaseFragment
         }
     }
 
-
-    private int lastScrollY = 0;
-//    private int h = DensityUtil.dp2px(100);
-    @Override
-    public void onScrollChange(NestedScrollView v, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
-        Log.d("onScrollChange", "scrollX=" + scrollX + " scrollY=" + scrollY + " oldScrollX=" + oldScrollX + " oldScrollY=" + oldScrollY);
-        int[] location = new int[2];
-        magicIndicator.getLocationOnScreen(location);
-        int yPosition = location[1];
-        if (yPosition < toolBarPositionY) {
-            scrollView.setNeedScroll(false);
-        } else {
-            scrollView.setNeedScroll(true);
-        }
-
-        int h = ScreenUtils.dp2pxInt(context, 100);
-        if (lastScrollY < h) {
-            scrollY = Math.min(h, scrollY);
-            mScrollY = Math.min(scrollY, h);
-            buttonBarLayout.setAlpha(1f * mScrollY / h);
-            mToolBar.setBackgroundColor(((255 * mScrollY / h) << 24) | (ContextCompat.getColor(context, R.color.colorPrimary) & 0x00ffffff));
-            ivHeader.setTranslationY(mOffset - mScrollY);
-        }
-//                if (scrollY == 0) {
-//                    ivBack.setImageResource(R.drawable.ic_back);
-//                    ivMenu.setImageResource(R.drawable.ic_more_vert_grey_24dp);
-//                } else {
-//                    ivBack.setImageResource(R.drawable.ic_back);
-//                    ivMenu.setImageResource(R.drawable.ic_more_vert_grey_24dp);
-//                }
-
-        lastScrollY = scrollY;
-    }
 }
