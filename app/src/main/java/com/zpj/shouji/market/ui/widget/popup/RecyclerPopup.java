@@ -34,7 +34,7 @@ public class RecyclerPopup extends PartShadowPopup<RecyclerPopup> {
 
     @Override
     protected int getImplLayoutId() {
-        return R.layout.layout_recycler_view;
+        return R.layout.layout_popup_recycler;
     }
 
     @Override

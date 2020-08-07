@@ -1,12 +1,10 @@
 package com.zpj.shouji.market.ui.fragment;
 
 import android.content.Context;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.IntRange;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.v4.view.ViewPager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.text.TextUtils;
@@ -16,18 +14,11 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.request.target.SimpleTarget;
-import com.bumptech.glide.request.transition.Transition;
 import com.felix.atoast.library.AToast;
 import com.github.zagum.expandicon.ExpandIconView;
 import com.sunbinqiang.iconcountview.IconCountView;
 import com.zpj.http.parser.html.nodes.Element;
-import com.zpj.popup.ZPopup;
-import com.zpj.popup.imagetrans.ImageLoad;
-import com.zpj.popup.imagetrans.ImageTransAdapter;
 import com.zpj.popup.imagetrans.listener.SourceImageViewGet;
-import com.zpj.popup.impl.FullScreenPopup;
-import com.zpj.popup.interfaces.OnDismissListener;
 import com.zpj.recyclerview.EasyRecyclerLayout;
 import com.zpj.recyclerview.EasyViewHolder;
 import com.zpj.shouji.market.R;
@@ -39,7 +30,6 @@ import com.zpj.shouji.market.model.WallpaperTag;
 import com.zpj.shouji.market.ui.fragment.base.NextUrlFragment;
 import com.zpj.shouji.market.ui.widget.popup.ImageViewer;
 import com.zpj.shouji.market.ui.widget.popup.RecyclerPopup;
-import com.zpj.shouji.market.utils.PopupImageLoader;
 import com.zpj.utils.ScreenUtils;
 
 import java.util.ArrayList;
@@ -88,15 +78,29 @@ public class WallpaperListFragment extends NextUrlFragment<WallpaperInfo> {
 
     @Override
     protected RecyclerView.LayoutManager getLayoutManager(Context context) {
-        return new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
+        StaggeredGridLayoutManager layoutManager = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
+        layoutManager.setGapStrategy(StaggeredGridLayoutManager.GAP_HANDLING_NONE);
+        return layoutManager;
     }
 
     @Override
     protected void buildRecyclerLayout(EasyRecyclerLayout<WallpaperInfo> recyclerLayout) {
-        halfScreenWidth = ScreenUtils.getScreenWidth(context) / 2 - ScreenUtils.dp2pxInt(context, 8);
+        halfScreenWidth = ScreenUtils.getScreenWidth(context) / 2 - ScreenUtils.dp2pxInt(context, 12);
         if (getHeaderLayout() > 0) {
             recyclerLayout.setHeaderView(getHeaderLayout(), holder -> holder.setOnItemClickListener((this::showSortPupWindow)));
         }
+        recyclerLayout.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
+                super.onScrollStateChanged(recyclerView, newState);
+                RecyclerView.LayoutManager layoutManager = recyclerView.getLayoutManager();
+                if (layoutManager instanceof StaggeredGridLayoutManager) {
+                    ((StaggeredGridLayoutManager) layoutManager).invalidateSpanAssignments();
+                }
+            }
+        });
+        int dp4 = ScreenUtils.dp2pxInt(context, 4);
+        recyclerLayout.getRecyclerView().setPadding(dp4, 0, dp4, 0);
     }
 
     @Override

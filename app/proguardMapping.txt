@@ -1,7 +1,7 @@
 # compiler: R8
 # compiler_version: 1.5.69
 # min_api: 19
-# pg_map_id: 0671f97
+# pg_map_id: edbc15b
 android.arch.core.executor.ArchTaskExecutor -> a.a.a.a.a:
     android.arch.core.executor.ArchTaskExecutor sInstance -> c
     android.arch.core.executor.TaskExecutor mDelegate -> a
@@ -43316,18 +43316,18 @@ com.zpj.shouji.market.R$interpolator -> com.zpj.shouji.market.R$interpolator:
 com.zpj.shouji.market.R$layout -> com.zpj.shouji.market.R$layout:
     10233:10233:void <init>() -> <init>
 com.zpj.shouji.market.R$menu -> com.zpj.shouji.market.R$menu:
-    10542:10542:void <init>() -> <init>
+    10543:10543:void <init>() -> <init>
 com.zpj.shouji.market.R$mipmap -> com.zpj.shouji.market.R$mipmap:
-    10550:10550:void <init>() -> <init>
+    10551:10551:void <init>() -> <init>
 com.zpj.shouji.market.R$string -> com.zpj.shouji.market.R$string:
-    10587:10587:void <init>() -> <init>
+    10588:10588:void <init>() -> <init>
 com.zpj.shouji.market.R$style -> com.zpj.shouji.market.R$style:
-    10768:10768:void <init>() -> <init>
+    10769:10769:void <init>() -> <init>
 com.zpj.shouji.market.R$styleable -> com.zpj.shouji.market.R$styleable:
-    11338:31242:void <clinit>() -> <clinit>
-    11316:11316:void <init>() -> <init>
+    11339:31243:void <clinit>() -> <clinit>
+    11317:11317:void <init>() -> <init>
 com.zpj.shouji.market.R$xml -> com.zpj.shouji.market.R$xml:
-    31384:31384:void <init>() -> <init>
+    31385:31385:void <init>() -> <init>
 com.zpj.shouji.market.api.-$$Lambda$HttpApi$19HJ1w-YehgaXRss40gm74Wum8I -> com.zpj.shouji.market.b.a:
     com.zpj.shouji.market.api.-$$Lambda$HttpApi$19HJ1w-YehgaXRss40gm74Wum8I INSTANCE -> e
 com.zpj.shouji.market.api.-$$Lambda$HttpApi$3-mIr8pKIvuyg-UkAEDNoWy1h20 -> com.zpj.shouji.market.b.b:
@@ -44789,13 +44789,13 @@ com.zpj.shouji.market.ui.fragment.-$$Lambda$MainFragment$cd6RfpwbelIYWF16yVnF7ws
     android.view.View f$1 -> f
 com.zpj.shouji.market.ui.fragment.-$$Lambda$MainFragment$xys442jYOF73bCIBJZp0Fc5_pUk -> com.zpj.shouji.market.f.c.j:
     com.zpj.shouji.market.ui.fragment.MainFragment f$0 -> e
-com.zpj.shouji.market.ui.fragment.-$$Lambda$WallpaperListFragment$1$6nvv_J4QpOITjtgWpB3vstBhDCE -> com.zpj.shouji.market.f.c.k:
+com.zpj.shouji.market.ui.fragment.-$$Lambda$WallpaperListFragment$2$Jb3l8I29eiBN11GFZ5wgGU75pRw -> com.zpj.shouji.market.f.c.k:
+    boolean f$1 -> f
+    com.sunbinqiang.iconcountview.IconCountView f$0 -> e
+com.zpj.shouji.market.ui.fragment.-$$Lambda$WallpaperListFragment$2$Mb65xzhlTcqyxH3cPEOyvfPjm8E -> com.zpj.shouji.market.f.c.l:
     com.zpj.shouji.market.model.WallpaperInfo f$0 -> e
     boolean f$1 -> f
     com.sunbinqiang.iconcountview.IconCountView f$2 -> g
-com.zpj.shouji.market.ui.fragment.-$$Lambda$WallpaperListFragment$1$hyqo5XH0-uJJ99FNqhrS3cOUZlM -> com.zpj.shouji.market.f.c.l:
-    boolean f$1 -> f
-    com.sunbinqiang.iconcountview.IconCountView f$0 -> e
 com.zpj.shouji.market.ui.fragment.-$$Lambda$WallpaperListFragment$GeC6IpGACBjPUU_m_21mWPdtsTg -> com.zpj.shouji.market.f.c.m:
     com.github.zagum.expandicon.ExpandIconView f$1 -> b
     com.zpj.shouji.market.ui.fragment.WallpaperListFragment f$0 -> a
@@ -44993,37 +44993,40 @@ com.zpj.shouji.market.ui.fragment.WallpaperListFragment -> com.zpj.shouji.market
     int sortPosition -> t
     int halfScreenWidth -> u
     java.lang.String tag -> s
-    48:54:void <init>() -> <init>
-    185:185:int getHeaderLayout() -> A
-    189:199:void initNextUrl() -> B
+    38:44:void <init>() -> <init>
+    189:189:int getHeaderLayout() -> A
+    193:203:void initNextUrl() -> B
     void lambda$R-E4fakUYPDCy4peq6uagcSG0cA(com.zpj.shouji.market.ui.fragment.WallpaperListFragment,android.view.View) -> a
-    48:48:java.lang.Object createData(com.zpj.http.parser.html.nodes.Element) -> a
-    48:48:void onClick(com.zpj.recyclerview.EasyViewHolder,android.view.View,java.lang.Object) -> a
-    62:67:com.zpj.shouji.market.ui.fragment.WallpaperListFragment newInstance(com.zpj.shouji.market.model.WallpaperTag) -> a
-    91:91:android.support.v7.widget.RecyclerView$LayoutManager getLayoutManager(android.content.Context) -> a
-    96:100:void buildRecyclerLayout(com.zpj.recyclerview.EasyRecyclerLayout) -> a
-    98:98:void lambda$buildRecyclerLayout$0(com.zpj.recyclerview.EasyViewHolder) -> a
-    104:149:void onBindViewHolder(com.zpj.recyclerview.EasyViewHolder,java.util.List,int,java.util.List) -> a
-    153:166:void onClick(com.zpj.recyclerview.EasyViewHolder,android.view.View,com.zpj.shouji.market.model.WallpaperInfo) -> a
-    170:173:com.zpj.shouji.market.model.WallpaperInfo createData(com.zpj.http.parser.html.nodes.Element) -> a
-    209:213:void lambda$showSortPupWindow$1(android.view.View,android.view.View,java.lang.String,int) -> a
-    215:217:void lambda$showSortPupWindow$2(com.github.zagum.expandicon.ExpandIconView) -> a
-    79:82:void handleArguments(android.os.Bundle) -> d
-    202:224:void showSortPupWindow(android.view.View) -> f
-    72:75:void onCreate(android.os.Bundle) -> onCreate
-    178:182:void onRefresh() -> onRefresh
-    86:86:int getItemLayoutId() -> y
+    38:38:java.lang.Object createData(com.zpj.http.parser.html.nodes.Element) -> a
+    38:38:void onClick(com.zpj.recyclerview.EasyViewHolder,android.view.View,java.lang.Object) -> a
+    52:57:com.zpj.shouji.market.ui.fragment.WallpaperListFragment newInstance(com.zpj.shouji.market.model.WallpaperTag) -> a
+    81:83:android.support.v7.widget.RecyclerView$LayoutManager getLayoutManager(android.content.Context) -> a
+    88:104:void buildRecyclerLayout(com.zpj.recyclerview.EasyRecyclerLayout) -> a
+    90:90:void lambda$buildRecyclerLayout$0(com.zpj.recyclerview.EasyViewHolder) -> a
+    108:153:void onBindViewHolder(com.zpj.recyclerview.EasyViewHolder,java.util.List,int,java.util.List) -> a
+    157:170:void onClick(com.zpj.recyclerview.EasyViewHolder,android.view.View,com.zpj.shouji.market.model.WallpaperInfo) -> a
+    174:177:com.zpj.shouji.market.model.WallpaperInfo createData(com.zpj.http.parser.html.nodes.Element) -> a
+    213:217:void lambda$showSortPupWindow$1(android.view.View,android.view.View,java.lang.String,int) -> a
+    219:221:void lambda$showSortPupWindow$2(com.github.zagum.expandicon.ExpandIconView) -> a
+    69:72:void handleArguments(android.os.Bundle) -> d
+    206:228:void showSortPupWindow(android.view.View) -> f
+    62:65:void onCreate(android.os.Bundle) -> onCreate
+    182:186:void onRefresh() -> onRefresh
+    76:76:int getItemLayoutId() -> y
 com.zpj.shouji.market.ui.fragment.WallpaperListFragment$1 -> com.zpj.shouji.market.f.c.c0$a:
+    92:92:void <init>(com.zpj.shouji.market.ui.fragment.WallpaperListFragment) -> <init>
+    95:100:void onScrollStateChanged(android.support.v7.widget.RecyclerView,int) -> onScrollStateChanged
+com.zpj.shouji.market.ui.fragment.WallpaperListFragment$2 -> com.zpj.shouji.market.f.c.c0$b:
     com.sunbinqiang.iconcountview.IconCountView val$countView -> b
     com.zpj.shouji.market.model.WallpaperInfo val$info -> a
-    127:127:void <init>(com.zpj.shouji.market.ui.fragment.WallpaperListFragment,com.zpj.shouji.market.model.WallpaperInfo,com.sunbinqiang.iconcountview.IconCountView) -> <init>
-    130:147:void select(boolean) -> a
-    132:141:void lambda$select$0(com.zpj.shouji.market.model.WallpaperInfo,boolean,com.sunbinqiang.iconcountview.IconCountView,com.zpj.http.parser.html.nodes.Document) -> a
-    143:145:void lambda$select$1(com.sunbinqiang.iconcountview.IconCountView,boolean,java.lang.Throwable) -> a
-com.zpj.shouji.market.ui.fragment.WallpaperListFragment$2 -> com.zpj.shouji.market.f.c.c0$b:
+    131:131:void <init>(com.zpj.shouji.market.ui.fragment.WallpaperListFragment,com.zpj.shouji.market.model.WallpaperInfo,com.sunbinqiang.iconcountview.IconCountView) -> <init>
+    134:151:void select(boolean) -> a
+    136:145:void lambda$select$0(com.zpj.shouji.market.model.WallpaperInfo,boolean,com.sunbinqiang.iconcountview.IconCountView,com.zpj.http.parser.html.nodes.Document) -> a
+    147:149:void lambda$select$1(com.sunbinqiang.iconcountview.IconCountView,boolean,java.lang.Throwable) -> a
+com.zpj.shouji.market.ui.fragment.WallpaperListFragment$3 -> com.zpj.shouji.market.f.c.c0$c:
     android.widget.ImageView val$wallpaper -> a
-    159:159:void <init>(com.zpj.shouji.market.ui.fragment.WallpaperListFragment,android.widget.ImageView) -> <init>
-    162:162:android.widget.ImageView getImageView(int) -> a
+    163:163:void <init>(com.zpj.shouji.market.ui.fragment.WallpaperListFragment,android.widget.ImageView) -> <init>
+    166:166:android.widget.ImageView getImageView(int) -> a
 com.zpj.shouji.market.ui.fragment.WebFragment -> com.zpj.shouji.market.f.c.d0:
     com.just.agentweb.AgentWeb mAgentWeb -> l
     25:25:void <init>() -> <init>
@@ -45385,32 +45388,32 @@ com.zpj.shouji.market.ui.fragment.detail.AppInfoFragment -> com.zpj.shouji.marke
     android.widget.LinearLayout content -> m
     float screenHeight -> o
     float screenWidth -> n
-    43:47:void <init>() -> <init>
-    43:43:android.content.Context access$000(com.zpj.shouji.market.ui.fragment.detail.AppInfoFragment) -> a
-    82:89:void initView(android.view.View,android.os.Bundle) -> a
-    93:149:void onBindViewHolder(com.zpj.recyclerview.EasyViewHolder,java.util.List,int,java.util.List) -> a
-    133:148:void lambda$onBindViewHolder$1(java.util.List,com.zpj.recyclerview.EasyViewHolder,int,android.widget.ImageView,android.view.View) -> a
-    137:145:android.widget.ImageView lambda$null$0(com.zpj.recyclerview.EasyViewHolder,int,android.widget.ImageView,int) -> a
-    169:178:void addItem(java.lang.String,java.lang.String) -> a
-    43:43:float access$100(com.zpj.shouji.market.ui.fragment.detail.AppInfoFragment) -> b
-    43:43:float access$200(com.zpj.shouji.market.ui.fragment.detail.AppInfoFragment) -> c
-    77:78:void onSupportVisible() -> k
-    60:62:void onCreate(android.os.Bundle) -> onCreate
-    66:68:void onDestroy() -> onDestroy
-    153:166:void onGetAppDetailInfo(com.zpj.shouji.market.model.AppDetailInfo) -> onGetAppDetailInfo
-    72:73:void onSupportInvisible() -> q
-    55:55:int getLayoutId() -> v
+    38:42:void <init>() -> <init>
+    38:38:android.content.Context access$000(com.zpj.shouji.market.ui.fragment.detail.AppInfoFragment) -> a
+    77:84:void initView(android.view.View,android.os.Bundle) -> a
+    88:144:void onBindViewHolder(com.zpj.recyclerview.EasyViewHolder,java.util.List,int,java.util.List) -> a
+    128:143:void lambda$onBindViewHolder$1(java.util.List,com.zpj.recyclerview.EasyViewHolder,int,android.widget.ImageView,android.view.View) -> a
+    132:140:android.widget.ImageView lambda$null$0(com.zpj.recyclerview.EasyViewHolder,int,android.widget.ImageView,int) -> a
+    164:173:void addItem(java.lang.String,java.lang.String) -> a
+    38:38:float access$100(com.zpj.shouji.market.ui.fragment.detail.AppInfoFragment) -> b
+    38:38:float access$200(com.zpj.shouji.market.ui.fragment.detail.AppInfoFragment) -> c
+    72:73:void onSupportVisible() -> k
+    55:57:void onCreate(android.os.Bundle) -> onCreate
+    61:63:void onDestroy() -> onDestroy
+    148:161:void onGetAppDetailInfo(com.zpj.shouji.market.model.AppDetailInfo) -> onGetAppDetailInfo
+    67:68:void onSupportInvisible() -> q
+    50:50:int getLayoutId() -> v
 com.zpj.shouji.market.ui.fragment.detail.AppInfoFragment$1 -> com.zpj.shouji.market.f.c.h0.p$a:
     android.widget.ImageView val$img -> h
     com.zpj.shouji.market.ui.fragment.detail.AppInfoFragment this$0 -> i
-    96:96:void <init>(com.zpj.shouji.market.ui.fragment.detail.AppInfoFragment,android.widget.ImageView) -> <init>
-    96:96:void onResourceReady(java.lang.Object,com.bumptech.glide.request.transition.Transition) -> a
-    99:129:void onResourceReady(android.graphics.drawable.Drawable,com.bumptech.glide.request.transition.Transition) -> a
+    91:91:void <init>(com.zpj.shouji.market.ui.fragment.detail.AppInfoFragment,android.widget.ImageView) -> <init>
+    91:91:void onResourceReady(java.lang.Object,com.bumptech.glide.request.transition.Transition) -> a
+    94:124:void onResourceReady(android.graphics.drawable.Drawable,com.bumptech.glide.request.transition.Transition) -> a
 com.zpj.shouji.market.ui.fragment.detail.AppInfoFragment$DividerItemDecoration -> com.zpj.shouji.market.f.c.h0.p$b:
     int total -> c
-    181:181:void <init>(android.content.Context,int,com.zpj.shouji.market.ui.fragment.detail.AppInfoFragment$1) -> <init>
-    186:188:void <init>(android.content.Context,int) -> <init>
-    192:206:com.yanyusong.y_divideritemdecoration.Y_Divider getDivider(int) -> a
+    176:176:void <init>(android.content.Context,int,com.zpj.shouji.market.ui.fragment.detail.AppInfoFragment$1) -> <init>
+    181:183:void <init>(android.content.Context,int) -> <init>
+    187:201:com.yanyusong.y_divideritemdecoration.Y_Divider getDivider(int) -> a
 com.zpj.shouji.market.ui.fragment.detail.AppRecommendFragment -> com.zpj.shouji.market.f.c.h0.q:
     com.zpj.shouji.market.ui.widget.recommend.SimilarAppCard similarAppCard -> q
     com.zpj.shouji.market.ui.widget.recommend.SimilarCollectionCard similarCollectionCard -> p
@@ -48189,29 +48192,29 @@ com.zpj.shouji.market.ui.widget.recommend.SoftUpdateRecommendCard -> com.zpj.sho
     45:46:void onMoreClicked(android.view.View) -> a
     50:50:java.lang.String getKey() -> getKey
 com.zpj.shouji.market.ui.widget.recommend.SubjectRecommendCard -> com.zpj.shouji.market.ui.widget.recommend.SubjectRecommendCard:
-    31:32:void <init>(android.content.Context) -> <init>
-    35:36:void <init>(android.content.Context,android.util.AttributeSet) -> <init>
-    39:52:void <init>(android.content.Context,android.util.AttributeSet,int) -> <init>
-    28:28:void onClick(com.zpj.recyclerview.EasyViewHolder,android.view.View,java.lang.Object) -> a
-    42:51:void lambda$new$0(com.zpj.http.parser.html.nodes.Document) -> a
-    56:59:void buildRecyclerView(com.zpj.recyclerview.EasyRecyclerView) -> a
-    63:68:void onBindViewHolder(com.zpj.recyclerview.EasyViewHolder,java.util.List,int,java.util.List) -> a
-    72:73:void onClick(com.zpj.recyclerview.EasyViewHolder,android.view.View,com.zpj.shouji.market.model.SubjectInfo) -> a
-    82:83:void onMoreClicked(android.view.View) -> a
-    77:77:int getItemRes() -> getItemRes
+    25:26:void <init>(android.content.Context) -> <init>
+    29:30:void <init>(android.content.Context,android.util.AttributeSet) -> <init>
+    33:46:void <init>(android.content.Context,android.util.AttributeSet,int) -> <init>
+    22:22:void onClick(com.zpj.recyclerview.EasyViewHolder,android.view.View,java.lang.Object) -> a
+    36:45:void lambda$new$0(com.zpj.http.parser.html.nodes.Document) -> a
+    50:53:void buildRecyclerView(com.zpj.recyclerview.EasyRecyclerView) -> a
+    57:62:void onBindViewHolder(com.zpj.recyclerview.EasyViewHolder,java.util.List,int,java.util.List) -> a
+    66:67:void onClick(com.zpj.recyclerview.EasyViewHolder,android.view.View,com.zpj.shouji.market.model.SubjectInfo) -> a
+    76:77:void onMoreClicked(android.view.View) -> a
+    71:71:int getItemRes() -> getItemRes
 com.zpj.shouji.market.ui.widget.recommend.TutorialRecommendCard -> com.zpj.shouji.market.ui.widget.recommend.TutorialRecommendCard:
     java.lang.String type -> j
-    33:34:void <init>(android.content.Context) -> <init>
-    37:38:void <init>(android.content.Context,java.lang.String,int) -> <init>
-    41:42:void <init>(android.content.Context,android.util.AttributeSet,java.lang.String,int) -> <init>
-    45:59:void <init>(android.content.Context,android.util.AttributeSet,int,java.lang.String,int) -> <init>
-    27:27:void onClick(com.zpj.recyclerview.EasyViewHolder,android.view.View,java.lang.Object) -> a
-    50:56:void lambda$new$0(com.zpj.http.parser.html.nodes.Document) -> a
-    64:66:void buildRecyclerView(com.zpj.recyclerview.EasyRecyclerView) -> a
-    70:74:void onBindViewHolder(com.zpj.recyclerview.EasyViewHolder,java.util.List,int,java.util.List) -> a
-    78:79:void onClick(com.zpj.recyclerview.EasyViewHolder,android.view.View,com.zpj.shouji.market.model.article.ArticleInfo) -> a
-    88:89:void onMoreClicked(android.view.View) -> a
-    83:83:int getItemRes() -> getItemRes
+    29:30:void <init>(android.content.Context) -> <init>
+    33:34:void <init>(android.content.Context,java.lang.String,int) -> <init>
+    37:38:void <init>(android.content.Context,android.util.AttributeSet,java.lang.String,int) -> <init>
+    41:55:void <init>(android.content.Context,android.util.AttributeSet,int,java.lang.String,int) -> <init>
+    23:23:void onClick(com.zpj.recyclerview.EasyViewHolder,android.view.View,java.lang.Object) -> a
+    46:52:void lambda$new$0(com.zpj.http.parser.html.nodes.Document) -> a
+    60:62:void buildRecyclerView(com.zpj.recyclerview.EasyRecyclerView) -> a
+    66:70:void onBindViewHolder(com.zpj.recyclerview.EasyViewHolder,java.util.List,int,java.util.List) -> a
+    74:75:void onClick(com.zpj.recyclerview.EasyViewHolder,android.view.View,com.zpj.shouji.market.model.article.ArticleInfo) -> a
+    84:85:void onMoreClicked(android.view.View) -> a
+    79:79:int getItemRes() -> getItemRes
 com.zpj.shouji.market.ui.widget.recommend.UpdateRecommendCard -> com.zpj.shouji.market.ui.widget.recommend.UpdateRecommendCard:
     13:14:void <init>(android.content.Context) -> <init>
     17:18:void <init>(android.content.Context,android.util.AttributeSet) -> <init>

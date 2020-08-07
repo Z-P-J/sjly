@@ -279,7 +279,7 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:text="下载"
-                        android:background="@drawable/bg_download_button"
+                        android:background="@drawable/bg_download_button_border"
                         android:textSize="12sp"
                         android:textColor="@color/colorPrimary"
                         android:layout_alignParentEnd="true"
