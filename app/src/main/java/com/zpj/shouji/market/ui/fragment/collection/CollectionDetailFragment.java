@@ -21,13 +21,19 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.bumptech.glide.request.target.SimpleTarget;
 import com.bumptech.glide.request.transition.Transition;
+import com.shehuan.niv.NiceImageView;
 import com.zpj.fragmentation.BaseFragment;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.api.HttpApi;
 import com.zpj.shouji.market.event.StartFragmentEvent;
+import com.zpj.shouji.market.glide.blur.BlurTransformation2;
+import com.zpj.shouji.market.manager.UserManager;
 import com.zpj.shouji.market.model.CollectionInfo;
 import com.zpj.shouji.market.ui.adapter.FragmentsPagerAdapter;
+import com.zpj.shouji.market.ui.fragment.profile.ProfileFragment;
 import com.zpj.shouji.market.ui.fragment.theme.ThemeListFragment;
+import com.zpj.shouji.market.ui.widget.popup.AppCommentPopup;
+import com.zpj.shouji.market.utils.MagicIndicatorHelper;
 import com.zpj.utils.ScreenUtils;
 import com.zpj.widget.statelayout.StateLayout;
 
@@ -54,6 +60,7 @@ public class CollectionDetailFragment extends BaseFragment {
 
     private StateLayout stateLayout;
     private AppBarLayout appBarLayout;
+    private ImageView ivHeader;
     private ImageView ivIcon;
     private ImageView ivAvatar;
     private TextView tvTitle;
@@ -65,6 +72,10 @@ public class CollectionDetailFragment extends BaseFragment {
     private TextView tvDownload;
     private ViewPager viewPager;
     private MagicIndicator magicIndicator;
+
+    private View buttonBarLayout;
+    private NiceImageView ivToolbarAvater;
+    private TextView tvToolbarName;
 
     private String backgroundUrl;
     private String time;
@@ -84,7 +95,7 @@ public class CollectionDetailFragment extends BaseFragment {
 
     @Override
     protected int getLayoutId() {
-        return R.layout.fragment_collection_detail;
+        return R.layout.fragment_collection_detail2;
     }
 
     @Override
@@ -102,7 +113,32 @@ public class CollectionDetailFragment extends BaseFragment {
         stateLayout = view.findViewById(R.id.state_layout);
         stateLayout.showLoadingView();
 
+        buttonBarLayout = toolbar.getCenterCustomView();
+        buttonBarLayout.setAlpha(0);
+        ivToolbarAvater = toolbar.findViewById(R.id.toolbar_avatar);
+        tvToolbarName = toolbar.findViewById(R.id.toolbar_name);
+
+        View header = view.findViewById(R.id.layout_header);
         appBarLayout = view.findViewById(R.id.appbar);
+        appBarLayout.addOnOffsetChangedListener(new AppBarLayout.OnOffsetChangedListener() {
+            @Override
+            public void onOffsetChanged(AppBarLayout appBarLayout, int i) {
+                float alpha = (float) Math.abs(i) / appBarLayout.getTotalScrollRange();
+                alpha = Math.min(1f, alpha);
+                buttonBarLayout.setAlpha(alpha);
+                if (alpha >= 1f) {
+                    header.setAlpha(0f);
+                } else {
+                    header.setAlpha(1f);
+                }
+//                int color = alphaColor(Color.WHITE, alpha);
+//                toolbar.setBackgroundColor(color);
+            }
+        });
+
+        ivHeader = view.findViewById(R.id.iv_header);
+
+
         ivIcon = view.findViewById(R.id.iv_icon);
         tvTitle = view.findViewById(R.id.tv_title);
         ivAvatar = view.findViewById(R.id.iv_avatar);
@@ -124,67 +160,41 @@ public class CollectionDetailFragment extends BaseFragment {
         setToolbarTitle(item.getTitle());
 
         tvTitle.setText(item.getTitle());
+        tvToolbarName.setText(item.getTitle());
         tvUserName.setText(item.getNickName());
-        tvDesc.setText(item.getComment());
+        tvDesc.setText("简介：" + item.getComment());
 //        tvFavorite.setText(item.getFavCount() + "");
 //        tvSupport.setText(item.getSupportCount() + "");
 //        tvView.setText(item.getViewCount() + "");
 
+        View fabComment = view.findViewById(R.id.fab_comment);
+        fabComment.setOnClickListener(v -> {
+            AppCommentPopup.with(context, item.getId(), item.getContentType(), "").show();
+        });
 
-        ArrayList<Fragment> list = new ArrayList<>();
-        CollectionAppListFragment appListFragment = findChildFragment(CollectionAppListFragment.class);
-        if (appListFragment == null) {
-            appListFragment = CollectionAppListFragment.newInstance(item.getId());
-        }
-        CollectionCommentFragment commentFragment = findChildFragment(CollectionCommentFragment.class);
-        if (commentFragment == null) {
-            commentFragment = CollectionCommentFragment.newInstance(item.getId());
-        }
-        list.add(appListFragment);
-        list.add(commentFragment);
-
-        FragmentsPagerAdapter adapter = new FragmentsPagerAdapter(getChildFragmentManager(), list, TAB_TITLES);
-
-        viewPager.setAdapter(adapter);
-        viewPager.setOffscreenPageLimit(list.size());
-        CommonNavigator navigator = new CommonNavigator(context);
-        navigator.setAdjustMode(true);
-        navigator.setAdapter(new CommonNavigatorAdapter() {
+        ivAvatar.setOnClickListener(new View.OnClickListener() {
             @Override
-            public int getCount() {
-                return TAB_TITLES.length;
-            }
-
-            @Override
-            public IPagerTitleView getTitleView(Context context, int index) {
-                ColorTransitionPagerTitleView titleView = new ColorTransitionPagerTitleView(context);
-                titleView.setNormalColor(Color.GRAY);
-                titleView.setSelectedColor(getResources().getColor(R.color.colorPrimary));
-                titleView.setTextSize(14);
-                titleView.setText(TAB_TITLES[index]);
-                titleView.setOnClickListener(view1 -> viewPager.setCurrentItem(index));
-                return titleView;
-            }
-
-            @Override
-            public IPagerIndicator getIndicator(Context context) {
-                LinePagerIndicator indicator = new LinePagerIndicator(context);
-                indicator.setMode(LinePagerIndicator.MODE_EXACTLY);
-                indicator.setLineHeight(ScreenUtils.dp2px(context, 4f));
-                indicator.setLineWidth(ScreenUtils.dp2px(context, 12f));
-                indicator.setRoundRadius(ScreenUtils.dp2px(context, 4f));
-                indicator.setColors(getResources().getColor(R.color.colorPrimary), getResources().getColor(R.color.colorPrimary));
-                return indicator;
+            public void onClick(View v) {
+                ProfileFragment.start(item.getMemberId(), false);
             }
         });
-        magicIndicator.setNavigator(navigator);
-        ViewPagerHelper.bind(magicIndicator, viewPager);
+
+        tvUserName.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ProfileFragment.start(item.getMemberId(), false);
+            }
+        });
+
+
+        getCollectionInfo();
+
     }
 
     @Override
     public void onEnterAnimationEnd(Bundle savedInstanceState) {
         super.onEnterAnimationEnd(savedInstanceState);
-        getCollectionInfo();
+        lightStatusBar();
     }
 
     private void setAppCollectionItem(CollectionInfo item) {
@@ -208,28 +218,58 @@ public class CollectionDetailFragment extends BaseFragment {
                     RequestOptions options = new RequestOptions().centerCrop().error(R.mipmap.ic_launcher).placeholder(R.mipmap.ic_launcher);
 //                    Glide.with(context).load(backgroundUrl).apply(options).into(ivIcon);
                     Glide.with(context).load(userAvatarUrl).apply(options).into(ivAvatar);
-                    Glide.with(context).asBitmap().load(backgroundUrl).apply(options).into(new SimpleTarget<Bitmap>() {
-                        @Override
-                        public void onResourceReady(@NonNull Bitmap resource, @Nullable Transition<? super Bitmap> transition) {
-                            ivIcon.setImageBitmap(resource);
-                            Observable.create((ObservableOnSubscribe<Bitmap>) emitter -> {
-                                Bitmap bitmap = Blurred.with(resource)
-                                        .percent(0.1f)
-                                        .scale(0.1f)
-                                        .blur();
-                                emitter.onNext(bitmap);
-                                emitter.onComplete();
-                            })
-                                    .subscribeOn(Schedulers.io())
-                                    .observeOn(AndroidSchedulers.mainThread())
-                                    .doOnNext(bitmap -> {
-                                        appBarLayout.setBackground(new BitmapDrawable(getResources(), bitmap));
-                                        getColor(bitmap);
-                                    })
-                                    .subscribe();
-                        }
+                    Glide.with(context).load(backgroundUrl).apply(options).into(ivIcon);
+                    Glide.with(context).load(backgroundUrl).apply(options).into(ivToolbarAvater);
+//                    Glide.with(context).asBitmap().load(backgroundUrl).apply(options).into(new SimpleTarget<Bitmap>() {
+//                        @Override
+//                        public void onResourceReady(@NonNull Bitmap resource, @Nullable Transition<? super Bitmap> transition) {
+//                            ivIcon.setImageBitmap(resource);
+//                            Observable.create((ObservableOnSubscribe<Bitmap>) emitter -> {
+//                                Bitmap bitmap = Blurred.with(resource)
+//                                        .percent(0.1f)
+//                                        .scale(0.1f)
+//                                        .blur();
+//                                emitter.onNext(bitmap);
+//                                emitter.onComplete();
+//                            })
+//                                    .subscribeOn(Schedulers.io())
+//                                    .observeOn(AndroidSchedulers.mainThread())
+//                                    .doOnNext(bitmap -> {
+//                                        getColor(bitmap);
+//                                    })
+//                                    .subscribe();
+//                        }
+//                    });
+                    Glide.with(context).load(backgroundUrl)
+                            .apply(new RequestOptions()
+                                    .error(R.drawable.bg_member_default)
+                                    .placeholder(R.drawable.bg_member_default)
+                            )
+                            .apply(RequestOptions.bitmapTransform(new BlurTransformation2(0.2f, 0.3f)))
+                            .into(ivHeader);
+
+                    ArrayList<Fragment> list = new ArrayList<>();
+                    CollectionAppListFragment appListFragment = findChildFragment(CollectionAppListFragment.class);
+                    if (appListFragment == null) {
+                        appListFragment = CollectionAppListFragment.newInstance(item.getId());
+                    }
+                    CollectionCommentFragment commentFragment = findChildFragment(CollectionCommentFragment.class);
+                    if (commentFragment == null) {
+                        commentFragment = CollectionCommentFragment.newInstance(item.getId());
+                    }
+                    list.add(appListFragment);
+                    list.add(commentFragment);
+                    postOnEnterAnimationEnd(() -> {
+
+
+                        FragmentsPagerAdapter adapter = new FragmentsPagerAdapter(getChildFragmentManager(), list, TAB_TITLES);
+
+                        viewPager.setAdapter(adapter);
+                        viewPager.setOffscreenPageLimit(list.size());
+                        MagicIndicatorHelper.bindViewPager(context, magicIndicator, viewPager, TAB_TITLES, true);
+
+                        stateLayout.showContentView();
                     });
-                    stateLayout.showContentView();
                 })
                 .onError(throwable -> stateLayout.showErrorView(throwable.getMessage()))
                 .subscribe();
@@ -261,6 +301,12 @@ public class CollectionDetailFragment extends BaseFragment {
                         }
                     }
                 });
+    }
+
+    public static int alphaColor(int color, float alpha) {
+        int a = Math.min(255, Math.max(0, (int) (alpha * 255))) << 24;
+        int rgb = 0x00ffffff & color;
+        return a + rgb;
     }
 
 }

@@ -50,7 +50,8 @@
                             android:layout_height="match_parent"
                             android:adjustViewBounds="true"
                             android:scaleType="centerCrop"
-                            android:src="@drawable/bg_member_default"/>
+                            android:src="@drawable/bg_member_default"
+                            />
 
                         <LinearLayout
                             android:id="@+id/layout_header"

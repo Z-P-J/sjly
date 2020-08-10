@@ -69,8 +69,8 @@ public class CollectionAppListFragment extends NextUrlFragment<CollectionAppInfo
         TextView tvDownload = holder.getTextView(R.id.tv_download);
         if (appItem.isApkExist()) {
             tvDownload.setText("下载");
-            tvDownload.setTextColor(Color.WHITE);
-            tvDownload.setBackgroundResource(R.drawable.bg_button);
+            tvDownload.setTextColor(getResources().getColor(R.color.colorPrimary));
+            tvDownload.setBackgroundResource(R.drawable.bg_download_button);
         } else {
             tvDownload.setText("未收录");
             tvDownload.setTextColor(Color.GRAY);
