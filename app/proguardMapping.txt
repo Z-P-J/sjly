@@ -1,7 +1,7 @@
 # compiler: R8
 # compiler_version: 1.5.69
 # min_api: 19
-# pg_map_id: edbc15b
+# pg_map_id: d9366a4
 android.arch.core.executor.ArchTaskExecutor -> a.a.a.a.a:
     android.arch.core.executor.ArchTaskExecutor sInstance -> c
     android.arch.core.executor.TaskExecutor mDelegate -> a
@@ -43310,24 +43310,24 @@ com.zpj.shouji.market.R$font -> com.zpj.shouji.market.R$font:
 com.zpj.shouji.market.R$id -> com.zpj.shouji.market.R$id:
     9359:9359:void <init>() -> <init>
 com.zpj.shouji.market.R$integer -> com.zpj.shouji.market.R$integer:
-    10209:10209:void <init>() -> <init>
+    10210:10210:void <init>() -> <init>
 com.zpj.shouji.market.R$interpolator -> com.zpj.shouji.market.R$interpolator:
-    10227:10227:void <init>() -> <init>
+    10228:10228:void <init>() -> <init>
 com.zpj.shouji.market.R$layout -> com.zpj.shouji.market.R$layout:
-    10233:10233:void <init>() -> <init>
+    10234:10234:void <init>() -> <init>
 com.zpj.shouji.market.R$menu -> com.zpj.shouji.market.R$menu:
-    10543:10543:void <init>() -> <init>
+    10545:10545:void <init>() -> <init>
 com.zpj.shouji.market.R$mipmap -> com.zpj.shouji.market.R$mipmap:
-    10551:10551:void <init>() -> <init>
+    10553:10553:void <init>() -> <init>
 com.zpj.shouji.market.R$string -> com.zpj.shouji.market.R$string:
-    10588:10588:void <init>() -> <init>
+    10590:10590:void <init>() -> <init>
 com.zpj.shouji.market.R$style -> com.zpj.shouji.market.R$style:
-    10769:10769:void <init>() -> <init>
+    10771:10771:void <init>() -> <init>
 com.zpj.shouji.market.R$styleable -> com.zpj.shouji.market.R$styleable:
-    11339:31243:void <clinit>() -> <clinit>
-    11317:11317:void <init>() -> <init>
+    11341:31245:void <clinit>() -> <clinit>
+    11319:11319:void <init>() -> <init>
 com.zpj.shouji.market.R$xml -> com.zpj.shouji.market.R$xml:
-    31385:31385:void <init>() -> <init>
+    31387:31387:void <init>() -> <init>
 com.zpj.shouji.market.api.-$$Lambda$HttpApi$19HJ1w-YehgaXRss40gm74Wum8I -> com.zpj.shouji.market.b.a:
     com.zpj.shouji.market.api.-$$Lambda$HttpApi$19HJ1w-YehgaXRss40gm74Wum8I INSTANCE -> e
 com.zpj.shouji.market.api.-$$Lambda$HttpApi$3-mIr8pKIvuyg-UkAEDNoWy1h20 -> com.zpj.shouji.market.b.b:
@@ -46182,45 +46182,45 @@ com.zpj.shouji.market.ui.fragment.profile.MyFragment -> com.zpj.shouji.market.f.
     com.zpj.shouji.market.ui.widget.MyToolsCard myToolsCard -> t
     android.view.View tvSignOut -> B
     android.widget.TextView tvName -> m
-    44:44:void <init>() -> <init>
-    44:44:com.zpj.widget.toolbar.ZToolBar access$000(com.zpj.shouji.market.ui.fragment.profile.MyFragment) -> a
-    80:199:void initView(android.view.View,android.os.Bundle) -> a
-    158:174:boolean lambda$initView$1(android.view.View,float,float) -> a
-    248:269:void lambda$null$4(int,java.lang.String) -> a
-    281:296:void lambda$onClick$6(com.zpj.shouji.market.model.MemberInfo,com.zpj.http.parser.html.nodes.Document) -> a
-    298:300:void lambda$onClick$7(java.lang.Throwable) -> a
-    332:363:void onSignInSuccess() -> a
-    368:368:void onSignInFailed(java.lang.String) -> a
-    401:413:void lambda$showSignOutPopup$8(com.zpj.popup.impl.AlertPopup) -> a
-    418:420:int alphaColor(int,float) -> a
-    44:44:com.zpj.widget.toolbar.ZToolBar access$100(com.zpj.shouji.market.ui.fragment.profile.MyFragment) -> b
-    165:172:void lambda$null$0(int,java.lang.String) -> b
-    179:195:boolean lambda$initView$3(android.view.View,float,float) -> b
-    243:272:void toolbarRightImageButton(android.widget.ImageButton) -> b
-    371:394:void showLoginPopup(int) -> b
-    44:44:com.zpj.widget.toolbar.ZToolBar access$200(com.zpj.shouji.market.ui.fragment.profile.MyFragment) -> c
-    186:193:void lambda$null$2(int,java.lang.String) -> c
-    44:44:com.zpj.widget.toolbar.ZToolBar access$300(com.zpj.shouji.market.ui.fragment.profile.MyFragment) -> d
-    203:205:void toolbarLeftCustomView(android.view.View) -> d
-    44:44:void access$400(com.zpj.shouji.market.ui.fragment.profile.MyFragment) -> e
-    44:44:android.view.View access$500(com.zpj.shouji.market.ui.fragment.profile.MyFragment) -> f
-    244:271:void lambda$toolbarRightImageButton$5(android.view.View) -> f
-    44:44:com.zpj.widget.tinted.TintedImageView access$600(com.zpj.shouji.market.ui.fragment.profile.MyFragment) -> g
-    44:44:void access$700(com.zpj.shouji.market.ui.fragment.profile.MyFragment) -> h
-    209:214:void onSupportVisible() -> k
-    276:328:void onClick(android.view.View) -> onClick
-    227:233:void onDestroy() -> onDestroy
-    237:239:void onResume() -> onResume
-    218:223:void onSupportInvisible() -> q
-    75:75:int getLayoutId() -> v
-    397:415:void showSignOutPopup() -> y
+    45:45:void <init>() -> <init>
+    45:45:com.zpj.widget.toolbar.ZToolBar access$000(com.zpj.shouji.market.ui.fragment.profile.MyFragment) -> a
+    81:201:void initView(android.view.View,android.os.Bundle) -> a
+    160:176:boolean lambda$initView$1(android.view.View,float,float) -> a
+    250:271:void lambda$null$4(int,java.lang.String) -> a
+    283:298:void lambda$onClick$6(com.zpj.shouji.market.model.MemberInfo,com.zpj.http.parser.html.nodes.Document) -> a
+    300:302:void lambda$onClick$7(java.lang.Throwable) -> a
+    340:371:void onSignInSuccess() -> a
+    376:376:void onSignInFailed(java.lang.String) -> a
+    409:421:void lambda$showSignOutPopup$8(com.zpj.popup.impl.AlertPopup) -> a
+    426:428:int alphaColor(int,float) -> a
+    45:45:com.zpj.widget.toolbar.ZToolBar access$100(com.zpj.shouji.market.ui.fragment.profile.MyFragment) -> b
+    167:174:void lambda$null$0(int,java.lang.String) -> b
+    181:197:boolean lambda$initView$3(android.view.View,float,float) -> b
+    245:274:void toolbarRightImageButton(android.widget.ImageButton) -> b
+    379:402:void showLoginPopup(int) -> b
+    45:45:com.zpj.widget.toolbar.ZToolBar access$200(com.zpj.shouji.market.ui.fragment.profile.MyFragment) -> c
+    188:195:void lambda$null$2(int,java.lang.String) -> c
+    45:45:com.zpj.widget.toolbar.ZToolBar access$300(com.zpj.shouji.market.ui.fragment.profile.MyFragment) -> d
+    205:207:void toolbarLeftCustomView(android.view.View) -> d
+    45:45:void access$400(com.zpj.shouji.market.ui.fragment.profile.MyFragment) -> e
+    45:45:android.view.View access$500(com.zpj.shouji.market.ui.fragment.profile.MyFragment) -> f
+    246:273:void lambda$toolbarRightImageButton$5(android.view.View) -> f
+    45:45:com.zpj.widget.tinted.TintedImageView access$600(com.zpj.shouji.market.ui.fragment.profile.MyFragment) -> g
+    45:45:void access$700(com.zpj.shouji.market.ui.fragment.profile.MyFragment) -> h
+    211:216:void onSupportVisible() -> k
+    278:336:void onClick(android.view.View) -> onClick
+    229:235:void onDestroy() -> onDestroy
+    239:241:void onResume() -> onResume
+    220:225:void onSupportInvisible() -> q
+    76:76:int getLayoutId() -> v
+    405:423:void showSignOutPopup() -> y
 com.zpj.shouji.market.ui.fragment.profile.MyFragment$1 -> com.zpj.shouji.market.f.c.j0.h0$a:
     com.zpj.shouji.market.ui.fragment.profile.MyFragment this$0 -> a
-    85:85:void <init>(com.zpj.shouji.market.ui.fragment.profile.MyFragment) -> <init>
-    88:108:void onScroll(int,int,int,int) -> b
+    86:86:void <init>(com.zpj.shouji.market.ui.fragment.profile.MyFragment) -> <init>
+    89:109:void onScroll(int,int,int,int) -> b
 com.zpj.shouji.market.ui.fragment.profile.MyFragment$2 -> com.zpj.shouji.market.f.c.j0.h0$b:
-    110:110:void <init>(com.zpj.shouji.market.ui.fragment.profile.MyFragment) -> <init>
-    113:115:void onPullZoom(int,int) -> a
+    111:111:void <init>(com.zpj.shouji.market.ui.fragment.profile.MyFragment) -> <init>
+    114:116:void onPullZoom(int,int) -> a
 com.zpj.shouji.market.ui.fragment.profile.MyFriendsFragment -> com.zpj.shouji.market.f.c.j0.i0:
     boolean showToolbar -> o
     android.support.v4.view.ViewPager viewPager -> l
@@ -46586,8 +46586,8 @@ com.zpj.shouji.market.ui.widget.-$$Lambda$SignInLayout$TU1VvK_EXYIxa8Qh4XPFgvZfD
     com.zpj.shouji.market.ui.widget.SignInLayout f$0 -> e
 com.zpj.shouji.market.ui.widget.-$$Lambda$SignInLayout2$7PDFTkDcQK8IZVgcTZjdkMRROHE -> com.zpj.shouji.market.ui.widget.q:
     com.zpj.shouji.market.ui.widget.SignInLayout2 f$0 -> e
-com.zpj.shouji.market.ui.widget.-$$Lambda$SignInLayout2$Nc458804aqVLgQc1HP6WYQCS4TU -> com.zpj.shouji.market.ui.widget.r:
-    com.zpj.shouji.market.ui.widget.-$$Lambda$SignInLayout2$Nc458804aqVLgQc1HP6WYQCS4TU INSTANCE -> e
+com.zpj.shouji.market.ui.widget.-$$Lambda$SignInLayout2$AodaCl4RaAvdOAT9MWzeQxDvy4c -> com.zpj.shouji.market.ui.widget.r:
+    com.zpj.shouji.market.ui.widget.SignInLayout2 f$0 -> e
 com.zpj.shouji.market.ui.widget.AppDetailLayout -> com.zpj.shouji.market.ui.widget.AppDetailLayout:
     android.widget.TextView tvVersion -> o
     android.widget.TextView title -> n
@@ -47268,14 +47268,14 @@ com.zpj.shouji.market.ui.widget.SignInLayout2 -> com.zpj.shouji.market.ui.widget
     44:45:void <init>(android.content.Context) -> <init>
     48:49:void <init>(android.content.Context,android.util.AttributeSet) -> <init>
     52:54:void <init>(android.content.Context,android.util.AttributeSet,int) -> <init>
-    57:131:void init(android.content.Context) -> a
+    57:130:void init(android.content.Context) -> a
     106:112:void lambda$init$0(android.view.View) -> a
-    130:130:void lambda$init$1(android.view.View) -> b
-    135:148:void clearFocus() -> clearFocus
-    165:165:void onSignUpSuccess() -> d
-    169:175:void onSignUpFailed(java.lang.String) -> d
-    151:151:java.lang.String getAccountText() -> getAccountText
-    155:155:java.lang.String getPasswordText() -> getPasswordText
+    116:129:void lambda$init$1(android.view.View) -> b
+    134:147:void clearFocus() -> clearFocus
+    164:164:void onSignUpSuccess() -> d
+    168:174:void onSignUpFailed(java.lang.String) -> d
+    150:150:java.lang.String getAccountText() -> getAccountText
+    154:154:java.lang.String getPasswordText() -> getPasswordText
 com.zpj.shouji.market.ui.widget.SignInLayout2$1 -> com.zpj.shouji.market.ui.widget.SignInLayout2$1:
     84:84:void <init>(com.zpj.shouji.market.ui.widget.SignInLayout2,java.lang.String) -> <init>
     87:90:void onClick(android.view.View) -> onClick
@@ -47981,6 +47981,15 @@ com.zpj.shouji.market.ui.widget.popup.MorePopup$OnItemClickListener -> com.zpj.s
     void onDiscoverItemClick() -> n
     void onCollectionItemClick() -> o
     void onWallpaperItemClick() -> p
+com.zpj.shouji.market.ui.widget.popup.NicknameModifiedPopup -> com.zpj.shouji.market.ui.widget.popup.NicknameModifiedPopup:
+    22:23:void <init>(android.content.Context) -> <init>
+    18:18:com.zpj.shouji.market.ui.widget.popup.NicknameModifiedPopup with(android.content.Context) -> a
+    27:27:int getImplLayoutId() -> getImplLayoutId
+    32:43:void onCreate() -> s
+com.zpj.shouji.market.ui.widget.popup.NicknameModifiedPopup$1 -> com.zpj.shouji.market.ui.widget.popup.NicknameModifiedPopup$a:
+    com.zpj.shouji.market.ui.widget.input.AccountInputView2 val$inputView -> e
+    36:36:void <init>(com.zpj.shouji.market.ui.widget.popup.NicknameModifiedPopup,com.zpj.shouji.market.ui.widget.input.AccountInputView2) -> <init>
+    39:41:void onClick(android.view.View) -> onClick
 com.zpj.shouji.market.ui.widget.popup.RecyclerPopup -> com.zpj.shouji.market.ui.widget.popup.RecyclerPopup:
     int selectPosition -> J
     com.zpj.shouji.market.ui.widget.popup.RecyclerPopup$OnItemClickListener onItemClickListener -> I

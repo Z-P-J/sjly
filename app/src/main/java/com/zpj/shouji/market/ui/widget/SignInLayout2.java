@@ -113,20 +113,19 @@ public class SignInLayout2 extends LinearLayout
 
         tvSignIn = findViewById(R.id.tv_sign_in);
         tvSignIn.setOnClickListener(v -> {
-//            if (cbAgreement.isChecked()) {
-//                if (etAccount.isValid() && etPassword.isValid() && etEmail.isValid()) {
-//                    String accountName = etAccount.getText().toString();
-//                    String password = etPassword.getText().toString();
-//                    String email = etPassword.getText().toString();
-//                    AToast.normal("onClick");
-//                    UserManager.getInstance().signUp(accountName, password, email);
-//                } else {
-//                    AToast.warning("输入内容有误");
-//                }
-//            } else {
-//                AToast.warning("请同意《手机乐园协议》");
-//            }
-
+            if (cbAgreement.isChecked()) {
+                if (etAccount.isValid() && etPassword.isValid() && etEmail.isValid()) {
+                    String accountName = etAccount.getText();
+                    String password = etPassword.getText();
+                    String email = etPassword.getText();
+                    AToast.normal("onClick");
+                    UserManager.getInstance().signUp(accountName, password, email);
+                } else {
+                    AToast.warning("输入内容有误");
+                }
+            } else {
+                AToast.warning("请同意《手机乐园协议》");
+            }
         });
     }
 

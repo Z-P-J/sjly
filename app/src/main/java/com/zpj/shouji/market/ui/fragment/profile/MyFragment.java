@@ -35,6 +35,7 @@ import com.zpj.shouji.market.ui.fragment.setting.InstallSettingFragment;
 import com.zpj.shouji.market.ui.widget.MyToolsCard;
 import com.zpj.shouji.market.ui.widget.PullZoomView;
 import com.zpj.shouji.market.ui.widget.popup.LoginPopup;
+import com.zpj.shouji.market.ui.widget.popup.NicknameModifiedPopup;
 import com.zpj.utils.ClickHelper;
 import com.zpj.widget.tinted.TintedImageView;
 
@@ -139,6 +140,7 @@ public class MyFragment extends BaseFragment
         tvSignOut = view.findViewById(R.id.tv_sign_out);
 
 
+        tvName.setOnClickListener(this);
         ivAvatar.setOnClickListener(this);
         tvCheckIn.setOnClickListener(this);
         tvCloudBackup.setOnClickListener(this);
@@ -307,6 +309,12 @@ public class MyFragment extends BaseFragment
                 AToast.normal("TODO 显示用户信息");
             } else {
                 showLoginPopup(0);
+            }
+        }  else if (v == tvName) {
+            if (UserManager.getInstance().isLogin()) {
+                NicknameModifiedPopup.with(context).show();
+            } else {
+                AToast.normal("TODO 未登录");
             }
         } else if (v == tvCloudBackup) {
 //            _mActivity.start(new FragmentTest());
