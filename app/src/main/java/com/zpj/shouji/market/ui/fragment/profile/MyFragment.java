@@ -23,6 +23,7 @@ import com.zpj.popup.impl.AttachListPopup;
 import com.zpj.popup.interfaces.OnConfirmListener;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.api.HttpApi;
+import com.zpj.shouji.market.event.SignInEvent;
 import com.zpj.shouji.market.manager.UserManager;
 import com.zpj.shouji.market.model.MemberInfo;
 import com.zpj.shouji.market.model.MessageInfo;
@@ -43,8 +44,7 @@ import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
 public class MyFragment extends BaseFragment
-        implements View.OnClickListener,
-        UserManager.OnSignInListener {
+        implements View.OnClickListener { // UserManager.OnSignInListener
 
     private ImageView ivWallpaper;
     private TextView tvName;
@@ -69,7 +69,7 @@ public class MyFragment extends BaseFragment
     private View shadowView;
     private TintedImageView ivAppName;
 
-    private LoginPopup loginPopup;
+//    private LoginPopup loginPopup;
 
     @Override
     protected int getLayoutId() {
@@ -197,7 +197,10 @@ public class MyFragment extends BaseFragment
                     return true;
                 });
 
-        UserManager.getInstance().addOnSignInListener(this);
+//        UserManager.getInstance().addOnSignInListener(this);
+        if (UserManager.getInstance().isLogin()) {
+            onSignInEvent(new SignInEvent(true));
+        }
     }
 
     @Override
@@ -210,27 +213,34 @@ public class MyFragment extends BaseFragment
     public void onSupportVisible() {
         super.onSupportVisible();
         lightStatusBar();
-        if (loginPopup != null && !loginPopup.isShow()) {
-            loginPopup.show();
-        }
+//        if (loginPopup != null && !loginPopup.isShow()) {
+//            loginPopup.show();
+//        }
     }
 
     @Override
     public void onSupportInvisible() {
         super.onSupportInvisible();
         darkStatusBar();
-        if (loginPopup != null && loginPopup.isShow()) {
-            loginPopup.hide();
-        }
+//        if (loginPopup != null && loginPopup.isShow()) {
+//            loginPopup.hide();
+//        }
+    }
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        EventBus.getDefault().register(this);
     }
 
     @Override
     public void onDestroy() {
         EventBus.getDefault().unregister(myToolsCard);
-        UserManager.getInstance().removeOnSignInListener(this);
-        if (loginPopup != null && loginPopup.isShow()) {
-            loginPopup.dismiss();
-        }
+        EventBus.getDefault().unregister(this);
+//        UserManager.getInstance().removeOnSignInListener(this);
+//        if (loginPopup != null && loginPopup.isShow()) {
+//            loginPopup.dismiss();
+//        }
         super.onDestroy();
     }
 
@@ -335,44 +345,81 @@ public class MyFragment extends BaseFragment
         }
     }
 
-    @Override
-    public void onSignInSuccess() {
-        myToolsCard.onLogin();
-        MemberInfo info = UserManager.getInstance().getMemberInfo();
-        tvCheckIn.setVisibility(View.VISIBLE);
-        if (!info.isCanSigned()) {
-            tvCheckIn.setBackgroundResource(R.drawable.bg_button_round_purple);
-            tvCheckIn.setText("已签到");
-        }
-        tvName.setText(info.getMemberNickName());
-        tvLevel.setText("Lv." + info.getMemberLevel());
-        if (TextUtils.isEmpty(info.getMemberSignature())) {
-            tvSignature.setText(info.getMemberScoreInfo());
-        } else {
-            tvSignature.setText(info.getMemberSignature());
-        }
-        tvFollower.setText("关注 " + info.getFollowerCount());
-        tvFans.setText("粉丝 " + info.getFansCount());
-        Glide.with(context).load(info.getMemberAvatar())
-                .apply(new RequestOptions()
-                        .error(R.drawable.ic_user_head)
-                        .placeholder(R.drawable.ic_user_head)
-                )
-                .into(ivAvatar);
-        if (!TextUtils.isEmpty(info.getMemberBackGround())) {
-            Glide.with(context).load(info.getMemberBackGround())
+//    @Override
+//    public void onSignInSuccess() {
+//        myToolsCard.onLogin();
+//        MemberInfo info = UserManager.getInstance().getMemberInfo();
+//        tvCheckIn.setVisibility(View.VISIBLE);
+//        if (!info.isCanSigned()) {
+//            tvCheckIn.setBackgroundResource(R.drawable.bg_button_round_purple);
+//            tvCheckIn.setText("已签到");
+//        }
+//        tvName.setText(info.getMemberNickName());
+//        tvLevel.setText("Lv." + info.getMemberLevel());
+//        if (TextUtils.isEmpty(info.getMemberSignature())) {
+//            tvSignature.setText(info.getMemberScoreInfo());
+//        } else {
+//            tvSignature.setText(info.getMemberSignature());
+//        }
+//        tvFollower.setText("关注 " + info.getFollowerCount());
+//        tvFans.setText("粉丝 " + info.getFansCount());
+//        Glide.with(context).load(info.getMemberAvatar())
+//                .apply(new RequestOptions()
+//                        .error(R.drawable.ic_user_head)
+//                        .placeholder(R.drawable.ic_user_head)
+//                )
+//                .into(ivAvatar);
+//        if (!TextUtils.isEmpty(info.getMemberBackGround())) {
+//            Glide.with(context).load(info.getMemberBackGround())
+//                    .apply(new RequestOptions()
+//                            .error(R.drawable.bg_member_default)
+//                            .placeholder(R.drawable.bg_member_default)
+//                    )
+//                    .into(ivWallpaper);
+//        }
+//        tvSignOut.setVisibility(View.VISIBLE);
+//    }
+//
+//    @Override
+//    public void onSignInFailed(String errInfo) {
+//
+//    }
+
+    @Subscribe
+    public void onSignInEvent(SignInEvent event) {
+        if (event.isSuccess()) {
+            myToolsCard.onLogin();
+            MemberInfo info = UserManager.getInstance().getMemberInfo();
+            tvCheckIn.setVisibility(View.VISIBLE);
+            if (!info.isCanSigned()) {
+                tvCheckIn.setBackgroundResource(R.drawable.bg_button_round_purple);
+                tvCheckIn.setText("已签到");
+            }
+            tvName.setText(info.getMemberNickName());
+            tvLevel.setText("Lv." + info.getMemberLevel());
+            if (TextUtils.isEmpty(info.getMemberSignature())) {
+                tvSignature.setText(info.getMemberScoreInfo());
+            } else {
+                tvSignature.setText(info.getMemberSignature());
+            }
+            tvFollower.setText("关注 " + info.getFollowerCount());
+            tvFans.setText("粉丝 " + info.getFansCount());
+            Glide.with(context).load(info.getMemberAvatar())
                     .apply(new RequestOptions()
-                            .error(R.drawable.bg_member_default)
-                            .placeholder(R.drawable.bg_member_default)
+                            .error(R.drawable.ic_user_head)
+                            .placeholder(R.drawable.ic_user_head)
                     )
-                    .into(ivWallpaper);
+                    .into(ivAvatar);
+            if (!TextUtils.isEmpty(info.getMemberBackGround())) {
+                Glide.with(context).load(info.getMemberBackGround())
+                        .apply(new RequestOptions()
+                                .error(R.drawable.bg_member_default)
+                                .placeholder(R.drawable.bg_member_default)
+                        )
+                        .into(ivWallpaper);
+            }
+            tvSignOut.setVisibility(View.VISIBLE);
         }
-        tvSignOut.setVisibility(View.VISIBLE);
-    }
-
-    @Override
-    public void onSignInFailed(String errInfo) {
-
     }
 
     public void showLoginPopup(int page) {

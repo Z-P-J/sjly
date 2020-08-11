@@ -14,6 +14,7 @@ import android.widget.TextView;
 import com.felix.atoast.library.AToast;
 import com.zpj.fragmentation.BaseFragment;
 import com.zpj.shouji.market.R;
+import com.zpj.shouji.market.event.SignUpEvent;
 import com.zpj.shouji.market.event.ToggleLoginModeEvent;
 import com.zpj.shouji.market.manager.UserManager;
 import com.zpj.shouji.market.ui.fragment.WebFragment;
@@ -25,8 +26,11 @@ import com.zpj.widget.checkbox.SmoothCheckBox;
 import com.zpj.widget.editor.validator.LengthValidator;
 import com.zpj.widget.editor.validator.SameValueValidator;
 
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+
 public class SignUpFragment extends BaseFragment
-        implements View.OnClickListener, UserManager.OnSignUpListener {
+        implements View.OnClickListener { // UserManager.OnSignUpListener
 
 
     LinearLayout ll_go_login;
@@ -45,7 +49,7 @@ public class SignUpFragment extends BaseFragment
 
     @Override
     protected void initView(View view, @Nullable Bundle savedInstanceState) {
-        UserManager.getInstance().addOnSignUpListener(this);
+//        UserManager.getInstance().addOnSignUpListener(this);
         ll_go_login = view.findViewById(R.id.ll_go_login);
         piv_account = view.findViewById(R.id.piv_register_account);
         piv_account.addValidator(new LengthValidator("账号长度必须在3-20之间", 3, 20));
@@ -107,8 +111,15 @@ public class SignUpFragment extends BaseFragment
     }
 
     @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        EventBus.getDefault().register(this);
+    }
+
+    @Override
     public void onDestroy() {
-        UserManager.getInstance().removeOnSignUpListener(this);
+//        UserManager.getInstance().removeOnSignUpListener(this);
+        EventBus.getDefault().unregister(this);
         super.onDestroy();
     }
 
@@ -135,17 +146,32 @@ public class SignUpFragment extends BaseFragment
         }
     }
 
-    @Override
-    public void onSignUpSuccess() {
-        AToast.success("注册成功！");
-    }
+//    @Override
+//    public void onSignUpSuccess() {
+//        AToast.success("注册成功！");
+//    }
+//
+//    @Override
+//    public void onSignUpFailed(String errInfo) {
+//        if ("用户名已被注册".equals(errInfo)) {
+//            AToast.error(errInfo);
+//        } else {
+//            AToast.error(errInfo);
+//        }
+//    }
 
-    @Override
-    public void onSignUpFailed(String errInfo) {
-        if ("用户名已被注册".equals(errInfo)) {
-            AToast.error(errInfo);
+    @Subscribe
+    public void onSignUpEvent(SignUpEvent event) {
+        if (event.isSuccess()) {
+            AToast.success("注册成功！");
         } else {
-            AToast.error(errInfo);
+            String errInfo = event.getErrorMsg();
+            if ("用户名已被注册".equals(errInfo)) {
+                AToast.error(errInfo);
+            } else {
+                AToast.error(errInfo);
+            }
         }
     }
+
 }

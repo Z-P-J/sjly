@@ -8,6 +8,7 @@ import android.widget.LinearLayout;
 import com.felix.atoast.library.AToast;
 import com.zpj.fragmentation.BaseFragment;
 import com.zpj.shouji.market.R;
+import com.zpj.shouji.market.event.SignInEvent;
 import com.zpj.shouji.market.event.ToggleLoginModeEvent;
 import com.zpj.shouji.market.manager.UserManager;
 import com.zpj.shouji.market.ui.widget.input.InputView2;
@@ -15,8 +16,11 @@ import com.zpj.shouji.market.ui.widget.input.SubmitView;
 import com.zpj.shouji.market.ui.widget.input.PasswordInputView2;
 import com.zpj.widget.editor.validator.LengthValidator;
 
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+
 public class SignInFragment extends BaseFragment
-        implements View.OnClickListener, UserManager.OnSignInListener {
+        implements View.OnClickListener { // UserManager.OnSignInListener
 
     LinearLayout ll_go_register;
     InputView2 piv_account;
@@ -30,7 +34,7 @@ public class SignInFragment extends BaseFragment
 
     @Override
     protected void initView(View view, @Nullable Bundle savedInstanceState) {
-        UserManager.getInstance().addOnSignInListener(this);
+//        UserManager.getInstance().addOnSignInListener(this);
         ll_go_register = view.findViewById(R.id.ll_go_register);
         piv_account = view.findViewById(R.id.piv_login_account);
         piv_account.addValidator(new LengthValidator("账号长度必须在3-20之间", 3, 20));
@@ -55,8 +59,15 @@ public class SignInFragment extends BaseFragment
     }
 
     @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        EventBus.getDefault().register(this);
+    }
+
+    @Override
     public void onDestroy() {
-        UserManager.getInstance().removeOnSignInListener(this);
+//        UserManager.getInstance().removeOnSignInListener(this);
+        EventBus.getDefault().unregister(this);
         super.onDestroy();
     }
 
@@ -77,13 +88,23 @@ public class SignInFragment extends BaseFragment
         }
     }
 
-    @Override
-    public void onSignInSuccess() {
-        AToast.success("登录成功！");
+//    @Override
+//    public void onSignInSuccess() {
+//        AToast.success("登录成功！");
+//    }
+//
+//    @Override
+//    public void onSignInFailed(String errInfo) {
+//        AToast.success(errInfo);
+//    }
+
+    @Subscribe
+    public void onSignInEvent(SignInEvent event) {
+        if (event.isSuccess()) {
+            AToast.success("登录成功！");
+        } else {
+            AToast.success(event.getErrorMsg());
+        }
     }
 
-    @Override
-    public void onSignInFailed(String errInfo) {
-        AToast.success(errInfo);
-    }
 }

@@ -29,11 +29,12 @@ import net.lucode.hackware.magicindicator.buildins.commonnavigator.abs.IPagerInd
 import net.lucode.hackware.magicindicator.buildins.commonnavigator.abs.IPagerTitleView;
 import net.lucode.hackware.magicindicator.buildins.commonnavigator.indicators.LinePagerIndicator;
 
+import org.greenrobot.eventbus.EventBus;
+
 import java.util.ArrayList;
 import java.util.List;
 
-public class LoginPopup2 extends BottomPopup<LoginPopup2>
-        implements UserManager.OnSignInListener {
+public class LoginPopup2 extends BottomPopup<LoginPopup2> { // implements UserManager.OnSignInListener
 
     private static final String[] TAB_TITLES = {"登录", "注册"};
     private AutoSizeViewPager viewPager;
@@ -62,17 +63,19 @@ public class LoginPopup2 extends BottomPopup<LoginPopup2>
     @Override
     protected void onCreate() {
         super.onCreate();
-        if (!UserManager.getInstance().isLogin()) {
-            UserManager.getInstance().addOnSignInListener(this);
-        }
+//        if (!UserManager.getInstance().isLogin()) {
+//            UserManager.getInstance().addOnSignInListener(this);
+//        }
         List<View> list = new ArrayList<>();
         signUpLayout = new SignUpLayout2(getContext());
         signInLayout = new SignInLayout2(getContext());
         list.add(signUpLayout);
         list.add(signInLayout);
 
-        UserManager.getInstance().addOnSignInListener(signUpLayout);
-        UserManager.getInstance().addOnSignUpListener(signInLayout);
+        EventBus.getDefault().register(signInLayout);
+        EventBus.getDefault().register(signUpLayout);
+//        UserManager.getInstance().addOnSignInListener(signUpLayout);
+//        UserManager.getInstance().addOnSignUpListener(signInLayout);
 
         ZToolBar toolbar = findViewById(R.id.tool_bar);
         toolbar.getRightImageButton().setOnClickListener(v -> dismiss());
@@ -134,9 +137,11 @@ public class LoginPopup2 extends BottomPopup<LoginPopup2>
     @Override
     protected void onDismiss() {
         super.onDismiss();
-        UserManager.getInstance().removeOnSignInListener(signUpLayout);
-        UserManager.getInstance().removeOnSignUpListener(signInLayout);
-        UserManager.getInstance().removeOnSignInListener(this);
+//        UserManager.getInstance().removeOnSignInListener(signUpLayout);
+//        UserManager.getInstance().removeOnSignUpListener(signInLayout);
+//        UserManager.getInstance().removeOnSignInListener(this);
+        EventBus.getDefault().unregister(signUpLayout);
+        EventBus.getDefault().unregister(signInLayout);
     }
 
     public LoginPopup2 setCurrentPosition(int currentPosition) {
@@ -144,15 +149,15 @@ public class LoginPopup2 extends BottomPopup<LoginPopup2>
         return this;
     }
 
-    @Override
-    public void onSignInSuccess() {
-        dismiss();
-    }
-
-    @Override
-    public void onSignInFailed(String errInfo) {
-
-    }
+//    @Override
+//    public void onSignInSuccess() {
+//        dismiss();
+//    }
+//
+//    @Override
+//    public void onSignInFailed(String errInfo) {
+//
+//    }
 
     private static class LoginPagerAdapter extends PagerAdapter {
 

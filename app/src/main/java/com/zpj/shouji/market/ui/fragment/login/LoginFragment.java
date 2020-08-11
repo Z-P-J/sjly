@@ -7,29 +7,22 @@ import android.animation.ValueAnimator;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v4.view.ViewPager;
 import android.util.Log;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.FrameLayout;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 
-import com.felix.atoast.library.AToast;
 import com.zpj.fragmentation.BaseFragment;
-import com.zpj.fragmentation.anim.DefaultNoAnimator;
+import com.zpj.fragmentation.anim.DefaultHorizontalAnimator;
+import com.zpj.fragmentation.anim.DefaultVerticalAnimator;
+import com.zpj.fragmentation.anim.FragmentAnimator;
 import com.zpj.fragmentation.swipeback.SwipeBackLayout;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.constant.Keys;
+import com.zpj.shouji.market.event.SignInEvent;
+import com.zpj.shouji.market.event.SignUpEvent;
 import com.zpj.shouji.market.event.StartFragmentEvent;
 import com.zpj.shouji.market.event.ToggleLoginModeEvent;
-import com.zpj.shouji.market.manager.UserManager;
 import com.zpj.shouji.market.ui.adapter.FragmentsPagerAdapter;
-import com.zpj.shouji.market.ui.fragment.setting.CommonSettingFragment;
 import com.zpj.shouji.market.ui.widget.AutoSizeViewPager;
-import com.zpj.shouji.market.ui.widget.popup.LoginPopup2;
-import com.zpj.shouji.market.utils.RxAnimationTool;
 import com.zpj.shouji.market.utils.SoftInputHelper;
 
 import org.greenrobot.eventbus.EventBus;
@@ -38,12 +31,7 @@ import org.greenrobot.eventbus.Subscribe;
 import java.util.ArrayList;
 import java.util.Random;
 
-import com.zpj.fragmentation.anim.DefaultHorizontalAnimator;
-import com.zpj.fragmentation.anim.DefaultVerticalAnimator;
-import com.zpj.fragmentation.anim.FragmentAnimator;
-
-public class LoginFragment extends BaseFragment
-        implements UserManager.OnSignInListener, UserManager.OnSignUpListener {
+public class LoginFragment extends BaseFragment { // UserManager.OnSignInListener, implements UserManager.OnSignUpListener
 
 //    private RelativeLayout rl_input;
 //    private ImageView iv_circle_1;
@@ -74,6 +62,7 @@ public class LoginFragment extends BaseFragment
     public void onCreate(@Nullable Bundle savedInstanceState) {
         setFragmentAnimator(new DefaultVerticalAnimator());
         super.onCreate(savedInstanceState);
+        EventBus.getDefault().register(this);
     }
 
     @Override
@@ -88,9 +77,9 @@ public class LoginFragment extends BaseFragment
 
     @Override
     protected void initView(View view, @Nullable Bundle savedInstanceState) {
-        EventBus.getDefault().register(this);
-        UserManager.getInstance().addOnSignInListener(this);
-        UserManager.getInstance().addOnSignUpListener(this);
+//        EventBus.getDefault().register(this);
+//        UserManager.getInstance().addOnSignInListener(this);
+//        UserManager.getInstance().addOnSignUpListener(this);
 
 //        rl_input = view.findViewById(R.id.rl_input);
 //        iv_circle_1 = view.findViewById(R.id.iv_circle_1);
@@ -184,8 +173,8 @@ public class LoginFragment extends BaseFragment
     @Override
     public void onDestroy() {
         _mActivity.setFragmentAnimator(new DefaultHorizontalAnimator());
-        UserManager.getInstance().removeOnSignInListener(this);
-        UserManager.getInstance().removeOnSignUpListener(this);
+//        UserManager.getInstance().removeOnSignInListener(this);
+//        UserManager.getInstance().removeOnSignUpListener(this);
         EventBus.getDefault().unregister(this);
         super.onDestroy();
     }
@@ -303,26 +292,42 @@ public class LoginFragment extends BaseFragment
         return duration;
     }
 
-    @Override
-    public void onSignInSuccess() {
-        pop();
-    }
+//    @Override
+//    public void onSignInSuccess() {
+//        pop();
+//    }
+//
+//    @Override
+//    public void onSignInFailed(String errInfo) {
+//
+//    }
 
-    @Override
-    public void onSignInFailed(String errInfo) {
-
-    }
-
-    @Override
-    public void onSignUpSuccess() {
-        if (vp != null) {
-            vp.setCurrentItem(0, true);
+    @Subscribe
+    public void onSignInEvent(SignInEvent event) {
+        if (event.isSuccess()) {
+            pop();
         }
     }
 
-    @Override
-    public void onSignUpFailed(String errInfo) {
-
+    @Subscribe
+    public void onSignUpEvent(SignUpEvent event) {
+        if (event.isSuccess()) {
+            if (vp != null) {
+                vp.setCurrentItem(0, true);
+            }
+        }
     }
+
+//    @Override
+//    public void onSignUpSuccess() {
+//        if (vp != null) {
+//            vp.setCurrentItem(0, true);
+//        }
+//    }
+//
+//    @Override
+//    public void onSignUpFailed(String errInfo) {
+//
+//    }
 
 }

@@ -15,6 +15,7 @@ import android.widget.TextView;
 
 import com.felix.atoast.library.AToast;
 import com.zpj.shouji.market.R;
+import com.zpj.shouji.market.event.SignUpEvent;
 import com.zpj.shouji.market.manager.UserManager;
 import com.zpj.shouji.market.ui.fragment.WebFragment;
 import com.zpj.shouji.market.ui.widget.input.AccountInputView2;
@@ -28,8 +29,9 @@ import com.zpj.widget.editor.validator.EmailValidator;
 import com.zpj.widget.editor.validator.LengthValidator;
 import com.zpj.widget.editor.validator.SameValueValidator;
 
-public class SignInLayout2 extends LinearLayout
-        implements UserManager.OnSignUpListener {
+import org.greenrobot.eventbus.Subscribe;
+
+public class SignInLayout2 extends LinearLayout { // implements UserManager.OnSignUpListener
 
     private AccountInputView2 etAccount;
     private PasswordInputView2 etPassword;
@@ -158,18 +160,31 @@ public class SignInLayout2 extends LinearLayout
         return cbAgreement.isChecked();
     }
 
-    @Override
-    public void onSignUpSuccess() {
+//    @Override
+//    public void onSignUpSuccess() {
+//
+//    }
+//
+//    @Override
+//    public void onSignUpFailed(String errInfo) {
+//        if ("用户名已被注册".equals(errInfo)) {
+//            etAccount.requestFocus();
+//            etAccount.setError(errInfo);
+//        } else {
+//            AToast.error(errInfo);
+//        }
+//    }
 
-    }
-
-    @Override
-    public void onSignUpFailed(String errInfo) {
-        if ("用户名已被注册".equals(errInfo)) {
-            etAccount.requestFocus();
-            etAccount.setError(errInfo);
-        } else {
-            AToast.error(errInfo);
+    @Subscribe
+    public void onSignUpEvent(SignUpEvent event) {
+        if (!event.isSuccess()) {
+            String errInfo = event.getErrorMsg();
+            if ("用户名已被注册".equals(errInfo)) {
+                etAccount.requestFocus();
+                etAccount.setError(errInfo);
+            } else {
+                AToast.error(errInfo);
+            }
         }
     }
 

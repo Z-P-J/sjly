@@ -9,6 +9,8 @@ import com.zpj.http.ZHttp;
 import com.zpj.http.core.Connection;
 import com.zpj.http.core.IHttp;
 import com.zpj.http.parser.html.nodes.Document;
+import com.zpj.shouji.market.event.SignInEvent;
+import com.zpj.shouji.market.event.SignUpEvent;
 import com.zpj.shouji.market.model.MemberInfo;
 import com.zpj.shouji.market.api.HttpApi;
 import com.zpj.shouji.market.model.MessageInfo;
@@ -27,8 +29,8 @@ public final class UserManager {
     private MemberInfo memberInfo;
     private String cookie;
     private boolean isLogin;
-    private final List<WeakReference<OnSignInListener>> onSignInListeners = new ArrayList<>();
-    private final List<WeakReference<OnSignUpListener>> onSignUpListeners = new ArrayList<>();
+//    private final List<WeakReference<OnSignInListener>> onSignInListeners = new ArrayList<>();
+//    private final List<WeakReference<OnSignUpListener>> onSignUpListeners = new ArrayList<>();
 
     private static final long SYNC_MSG_DURATION = 60000;
 
@@ -279,88 +281,94 @@ public final class UserManager {
     }
 
     private void onSignInSuccess() {
-        synchronized (onSignInListeners) {
-            isLogin = true;
-            for (WeakReference<OnSignInListener> listener : onSignInListeners) {
-                if (listener != null && listener.get() != null) {
-                    listener.get().onSignInSuccess();
-                }
-            }
-        }
+        SignInEvent.postSuccess();
+//        synchronized (onSignInListeners) {
+//            isLogin = true;
+//            for (WeakReference<OnSignInListener> listener : onSignInListeners) {
+//                if (listener != null && listener.get() != null) {
+//                    listener.get().onSignInSuccess();
+//                }
+//            }
+//        }
     }
 
     private void onSignInFailed(String info) {
-        synchronized (onSignInListeners) {
-            isLogin = false;
-            for (WeakReference<OnSignInListener> listener : onSignInListeners) {
-                if (listener != null && listener.get() != null) {
-                    listener.get().onSignInFailed(info);
-                }
-            }
-        }
+        SignInEvent.postFailed(info);
+//        synchronized (onSignInListeners) {
+//            isLogin = false;
+//            for (WeakReference<OnSignInListener> listener : onSignInListeners) {
+//                if (listener != null && listener.get() != null) {
+//                    listener.get().onSignInFailed(info);
+//                }
+//            }
+//        }
     }
 
-    public void addOnSignInListener(OnSignInListener listener) {
-        synchronized (onSignInListeners) {
-            if (isLogin) {
-                listener.onSignInSuccess();
-            }
-            onSignInListeners.add(new WeakReference<>(listener));
-        }
-    }
-
-    public void removeOnSignInListener(OnSignInListener onSignInListener) {
-        synchronized (onSignInListeners) {
-            for (WeakReference<OnSignInListener> listener : onSignInListeners) {
-                if (listener != null && listener.get() != null && listener.get() == onSignInListener) {
-                    onSignInListeners.remove(listener);
-                    return;
-                }
-            }
-        }
-    }
+//    public void addOnSignInListener(OnSignInListener listener) {
+//        synchronized (onSignInListeners) {
+//            if (isLogin) {
+//                listener.onSignInSuccess();
+//            }
+//            onSignInListeners.add(new WeakReference<>(listener));
+//        }
+//    }
+//
+//    public void removeOnSignInListener(OnSignInListener onSignInListener) {
+//        synchronized (onSignInListeners) {
+//            for (WeakReference<OnSignInListener> listener : onSignInListeners) {
+//                if (listener != null && listener.get() != null && listener.get() == onSignInListener) {
+//                    onSignInListeners.remove(listener);
+//                    return;
+//                }
+//            }
+//        }
+//    }
 
     private void onSignUpSuccess() {
-        synchronized (onSignUpListeners) {
-            isLogin = true;
-            for (WeakReference<OnSignUpListener> listener : onSignUpListeners) {
-                if (listener != null && listener.get() != null) {
-                    listener.get().onSignUpSuccess();
-                }
-            }
-        }
+        isLogin = true;
+        SignUpEvent.postSuccess();
+//        synchronized (onSignUpListeners) {
+//            isLogin = true;
+//            for (WeakReference<OnSignUpListener> listener : onSignUpListeners) {
+//                if (listener != null && listener.get() != null) {
+//                    listener.get().onSignUpSuccess();
+//                }
+//            }
+//        }
     }
 
     private void onSignUpFailed(String info) {
-        synchronized (onSignUpListeners) {
-            isLogin = false;
-            for (WeakReference<OnSignUpListener> listener : onSignUpListeners) {
-                if (listener != null && listener.get() != null) {
-                    listener.get().onSignUpFailed(info);
-                }
-            }
-        }
+        isLogin = false;
+        SignUpEvent.postFailed(info);
+//        synchronized (onSignUpListeners) {
+//            isLogin = false;
+//            for (WeakReference<OnSignUpListener> listener : onSignUpListeners) {
+//                if (listener != null && listener.get() != null) {
+//                    listener.get().onSignUpFailed(info);
+//                }
+//            }
+//        }
     }
 
-    public void addOnSignUpListener(OnSignUpListener listener) {
-        synchronized (onSignUpListeners) {
-            if (isLogin) {
-                listener.onSignUpSuccess();
-            }
-            onSignUpListeners.add(new WeakReference<>(listener));
-        }
-    }
-
-    public void removeOnSignUpListener(OnSignUpListener onSignUpListener) {
-        synchronized (onSignUpListeners) {
-            for (WeakReference<OnSignUpListener> listener : onSignUpListeners) {
-                if (listener != null && listener.get() != null && listener.get() == onSignUpListener) {
-                    onSignUpListeners.remove(listener);
-                    return;
-                }
-            }
-        }
-    }
+//    public void addOnSignUpListener(OnSignUpListener listener) {
+//        synchronized (onSignUpListeners) {
+//            if (isLogin) {
+//                listener.onSignUpSuccess();
+//            }
+//            onSignUpListeners.add(new WeakReference<>(listener));
+//        }
+//    }
+//
+//    public void removeOnSignUpListener(OnSignUpListener onSignUpListener) {
+//        synchronized (onSignUpListeners) {
+//            for (WeakReference<OnSignUpListener> listener : onSignUpListeners) {
+//                if (listener != null && listener.get() != null && listener.get() == onSignUpListener) {
+//                    onSignUpListeners.remove(listener);
+//                    return;
+//                }
+//            }
+//        }
+//    }
 
     public interface OnSignInListener {
         void onSignInSuccess();

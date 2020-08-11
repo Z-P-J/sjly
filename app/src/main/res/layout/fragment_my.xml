@@ -185,8 +185,7 @@
                         android:maxLines="3"
                         android:ellipsize="end"
                         android:text="手机乐园，发现应用的乐趣"
-                        android:textColor="@android:color/white"
-                        android:layout_alignParentBottom="true"
+                        android:textColor="@color/white"
                         android:layout_marginStart="20dp"
                         android:layout_marginEnd="20dp"
 

@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import com.felix.atoast.library.AToast;
 import com.zpj.shouji.market.R;
+import com.zpj.shouji.market.event.SignInEvent;
 import com.zpj.shouji.market.manager.UserManager;
 import com.zpj.shouji.market.ui.widget.input.AccountInputView2;
 import com.zpj.shouji.market.ui.widget.input.PasswordInputView2;
@@ -19,7 +20,9 @@ import com.zpj.widget.editor.EditTextWithClear;
 import com.zpj.widget.editor.PasswordEditText;
 import com.zpj.widget.editor.validator.LengthValidator;
 
-public class SignUpLayout2 extends LinearLayout implements UserManager.OnSignInListener {
+import org.greenrobot.eventbus.Subscribe;
+
+public class SignUpLayout2 extends LinearLayout { // implements UserManager.OnSignInListener
 
     private AccountInputView2 etAccount;
     private PasswordInputView2 etPassword;
@@ -98,17 +101,26 @@ public class SignUpLayout2 extends LinearLayout implements UserManager.OnSignInL
         tvSignUp.setOnClickListener(listener);
     }
 
-    @Override
-    public void onSignInSuccess() {
-
-    }
-
-    @Override
-    public void onSignInFailed(String errInfo) {
-        AToast.error("onLoginFailed " + errInfo);
-        etAccount.setError(errInfo);
-//        if ("".equals(errInfo)) {
+//    @Override
+//    public void onSignInSuccess() {
 //
-//        }
+//    }
+//
+//    @Override
+//    public void onSignInFailed(String errInfo) {
+//        AToast.error("onLoginFailed " + errInfo);
+//        etAccount.setError(errInfo);
+////        if ("".equals(errInfo)) {
+////
+////        }
+//    }
+
+    @Subscribe
+    public void onSignInEvent(SignInEvent event) {
+        if (!event.isSuccess()) {
+            AToast.error("onLoginFailed " + event.getErrorMsg());
+            etAccount.setError(event.getErrorMsg());
+        }
     }
+
 }

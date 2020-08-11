@@ -75,11 +75,12 @@ public class InputView2 extends FrameLayout
 //        mEditText.setError(error);
         mHelperTextView.setText(error);
         if (TextUtils.isEmpty(error)) {
-            if (getEditText().getText() != null) {
-                mHelperTextView.setText("" + getEditText().getText().toString().length());
-            } else {
-                mHelperTextView.setText("");
-            }
+//            if (getEditText().getText() != null) {
+//                mHelperTextView.setText("" + getEditText().getText().toString().length());
+//            } else {
+//                mHelperTextView.setText("");
+//            }
+            mHelperTextView.setText("");
         }
     }
 

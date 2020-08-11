@@ -364,4 +364,8 @@ public final class HttpApi {
         return get(String.format("http://tt.shouji.com.cn/androidv3/%s_show.jsp?id=%s", type, id));
     }
 
+    public static ObservableTask<Document> nicknameApi(String nickname) {
+        return get(String.format("http://tt.shouji.com.cn/app/user_nickname_xml.jsp?NickName=%s", nickname));
+    }
+
 }

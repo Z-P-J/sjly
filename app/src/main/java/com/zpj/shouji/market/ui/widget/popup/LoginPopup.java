@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 
 import com.zpj.popup.core.CenterPopup;
 import com.zpj.shouji.market.R;
+import com.zpj.shouji.market.event.SignInEvent;
 import com.zpj.shouji.market.manager.UserManager;
 import com.zpj.shouji.market.ui.widget.AutoSizeViewPager;
 import com.zpj.shouji.market.ui.widget.ScaleTransitionPagerTitleView;
@@ -25,11 +26,13 @@ import net.lucode.hackware.magicindicator.buildins.commonnavigator.abs.IPagerInd
 import net.lucode.hackware.magicindicator.buildins.commonnavigator.abs.IPagerTitleView;
 import net.lucode.hackware.magicindicator.buildins.commonnavigator.indicators.LinePagerIndicator;
 
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+
 import java.util.ArrayList;
 import java.util.List;
 
-public class LoginPopup extends CenterPopup<LoginPopup>
-        implements UserManager.OnSignInListener {
+public class LoginPopup extends CenterPopup<LoginPopup> { // implements UserManager.OnSignInListener
 
     private static final String[] TAB_TITLES = {"登录", "注册"};
     private AutoSizeViewPager viewPager;
@@ -55,17 +58,20 @@ public class LoginPopup extends CenterPopup<LoginPopup>
     @Override
     protected void onCreate() {
         super.onCreate();
-        if (!UserManager.getInstance().isLogin()) {
-            UserManager.getInstance().addOnSignInListener(this);
-        }
+        EventBus.getDefault().register(this);
+//        if (!UserManager.getInstance().isLogin()) {
+//            UserManager.getInstance().addOnSignInListener(this);
+//        }
         List<View> list = new ArrayList<>();
         signUpLayout = new SignUpLayout(getContext());
         signInLayout = new SignInLayout(getContext());
         list.add(signUpLayout);
         list.add(signInLayout);
 
-        UserManager.getInstance().addOnSignInListener(signUpLayout);
-        UserManager.getInstance().addOnSignUpListener(signInLayout);
+//        UserManager.getInstance().addOnSignInListener(signUpLayout);
+//        UserManager.getInstance().addOnSignUpListener(signInLayout);
+        EventBus.getDefault().register(signInLayout);
+        EventBus.getDefault().register(signUpLayout);
 
         ZToolBar toolbar = findViewById(R.id.tool_bar);
         toolbar.getRightImageButton().setOnClickListener(v -> dismiss());
@@ -127,9 +133,12 @@ public class LoginPopup extends CenterPopup<LoginPopup>
     @Override
     protected void onDismiss() {
         super.onDismiss();
-        UserManager.getInstance().removeOnSignInListener(signUpLayout);
-        UserManager.getInstance().removeOnSignUpListener(signInLayout);
-        UserManager.getInstance().removeOnSignInListener(this);
+//        UserManager.getInstance().removeOnSignInListener(signUpLayout);
+//        UserManager.getInstance().removeOnSignUpListener(signInLayout);
+//        UserManager.getInstance().removeOnSignInListener(this);
+        EventBus.getDefault().unregister(signUpLayout);
+        EventBus.getDefault().unregister(signInLayout);
+        EventBus.getDefault().unregister(this);
     }
 
     public LoginPopup setCurrentPosition(int currentPosition) {
@@ -137,14 +146,21 @@ public class LoginPopup extends CenterPopup<LoginPopup>
         return this;
     }
 
-    @Override
-    public void onSignInSuccess() {
-        dismiss();
-    }
+//    @Override
+//    public void onSignInSuccess() {
+//        dismiss();
+//    }
+//
+//    @Override
+//    public void onSignInFailed(String errInfo) {
+//
+//    }
 
-    @Override
-    public void onSignInFailed(String errInfo) {
-
+    @Subscribe
+    public void onSignInEvent(SignInEvent event) {
+        if (event.isSuccess()) {
+            dismiss();
+        }
     }
 
     private static class LoginPagerAdapter extends PagerAdapter {
