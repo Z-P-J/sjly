@@ -59,7 +59,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_gravity="bottom"
-                            android:layout_marginTop="100dp"
+                            android:layout_marginTop="80dp"
                             android:orientation="vertical"
                             android:layout_marginBottom="48dp"
                             >
@@ -93,7 +93,7 @@
                                         android:layout_width="match_parent"
                                         android:layout_height="wrap_content"
                                         android:text="title"
-                                        android:textColor="@android:color/white"
+                                        android:textColor="@color/white"
                                         android:textSize="18sp"
                                         android:textStyle="bold"
                                         android:maxLines="2"
@@ -138,6 +138,16 @@
                                     </LinearLayout>
 
                                     <TextView
+                                        android:id="@+id/tv_time"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:text="3天前更新"
+                                        android:textColor="@android:color/white"
+                                        android:paddingBottom="10dp"
+                                        android:textSize="12sp"
+                                        />
+
+                                    <TextView
                                         android:id="@+id/tv_desc"
                                         android:layout_width="match_parent"
                                         android:layout_height="wrap_content"
@@ -145,8 +155,7 @@
                                         android:textColor="@android:color/white"
                                         android:maxLines="2"
                                         android:ellipsize="end"
-                                        android:paddingTop="10dp"
-                                        android:paddingBottom="10dp"
+
                                         />
 
 
@@ -157,12 +166,10 @@
                             <LinearLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:layout_below="@id/wrap"
-                                android:layout_alignParentBottom="true"
                                 android:padding="10dp"
                                 >
 
-                                <TextView
+                                <com.zpj.shouji.market.ui.widget.DrawableTintTextView
                                     android:id="@+id/tv_support"
                                     android:layout_width="0dp"
                                     android:layout_height="wrap_content"
@@ -170,10 +177,11 @@
                                     android:text="100"
                                     android:layout_weight="1"
                                     android:gravity="center"
-                                    android:textColor="@android:color/white"
+                                    android:textColor="@color/white"
+                                    android:background="?attr/selectableItemBackground"
                                     />
 
-                                <TextView
+                                <com.zpj.shouji.market.ui.widget.DrawableTintTextView
                                     android:id="@+id/tv_favorite"
                                     android:layout_width="0dp"
                                     android:layout_height="wrap_content"
@@ -181,10 +189,11 @@
                                     android:text="100"
                                     android:layout_weight="1"
                                     android:gravity="center"
-                                    android:textColor="@android:color/white"
+                                    android:textColor="@color/white"
+                                    android:background="?attr/selectableItemBackground"
                                     />
 
-                                <TextView
+                                <com.zpj.shouji.market.ui.widget.DrawableTintTextView
                                     android:id="@+id/tv_view"
                                     android:layout_width="0dp"
                                     android:layout_height="wrap_content"
@@ -192,10 +201,11 @@
                                     android:text="100"
                                     android:layout_weight="1"
                                     android:gravity="center"
-                                    android:textColor="@android:color/white"
+                                    android:textColor="@color/white"
+                                    android:background="?attr/selectableItemBackground"
                                     />
 
-                                <TextView
+                                <com.zpj.shouji.market.ui.widget.DrawableTintTextView
                                     android:id="@+id/tv_download"
                                     android:layout_width="0dp"
                                     android:layout_height="wrap_content"
@@ -203,7 +213,8 @@
                                     android:text="下载"
                                     android:layout_weight="1"
                                     android:gravity="center"
-                                    android:textColor="@android:color/white"
+                                    android:textColor="@color/white"
+                                    android:background="?attr/selectableItemBackground"
                                     />
 
                             </LinearLayout>

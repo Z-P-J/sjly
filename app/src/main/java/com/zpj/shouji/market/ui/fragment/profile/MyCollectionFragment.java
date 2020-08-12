@@ -8,11 +8,13 @@ import android.view.View;
 
 import com.zpj.fragmentation.BaseFragment;
 import com.zpj.fragmentation.SupportFragment;
+import com.zpj.http.parser.html.nodes.Element;
 import com.zpj.recyclerview.EasyViewHolder;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.api.HttpApi;
 import com.zpj.shouji.market.constant.Keys;
 import com.zpj.shouji.market.event.StartFragmentEvent;
+import com.zpj.shouji.market.model.CollectionInfo;
 import com.zpj.shouji.market.model.DiscoverInfo;
 import com.zpj.shouji.market.ui.adapter.FragmentsPagerAdapter;
 import com.zpj.shouji.market.ui.fragment.AppListFragment;
@@ -154,6 +156,11 @@ public class MyCollectionFragment extends BaseFragment {
             return fragment;
         }
 
+        @Override
+        public CollectionInfo createData(Element element) {
+            return CollectionInfo.create(element);
+        }
+
     }
 
     public static class MyCollectionDiscoverFragment extends ThemeListFragment {
@@ -169,8 +176,8 @@ public class MyCollectionFragment extends BaseFragment {
         @Override
         public boolean onLongClick(EasyViewHolder holder, View view, DiscoverInfo data) {
             ThemeMorePopupMenu.with(context)
-                    .isCollection()
                     .setDiscoverInfo(data)
+                    .isCollection()
                     .show();
             return true;
         }
@@ -218,8 +225,8 @@ public class MyCollectionFragment extends BaseFragment {
         @Override
         public boolean onLongClick(EasyViewHolder holder, View view, DiscoverInfo data) {
             ThemeMorePopupMenu.with(context)
-                    .isCollection()
                     .setDiscoverInfo(data)
+                    .isCollection()
                     .show();
             return true;
         }

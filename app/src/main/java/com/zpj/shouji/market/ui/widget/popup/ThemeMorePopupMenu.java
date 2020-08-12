@@ -13,7 +13,8 @@ import com.zpj.shouji.market.api.HttpApi;
 import com.zpj.shouji.market.manager.UserManager;
 import com.zpj.shouji.market.model.DiscoverInfo;
 
-public class ThemeMorePopupMenu extends BottomListPopupMenu implements BottomListPopupMenu.OnItemClickListener {
+public class ThemeMorePopupMenu extends BottomListPopupMenu
+        implements BottomListPopupMenu.OnItemClickListener {
 
     private DiscoverInfo info;
 
@@ -70,7 +71,7 @@ public class ThemeMorePopupMenu extends BottomListPopupMenu implements BottomLis
 
     public ThemeMorePopupMenu isCollection() {
         hideMenuItemList.add(R.id.collect);
-        hideMenuItemList.remove(R.id.delete_collect);
+        hideMenuItemList.remove((Integer) R.id.delete_collect);
         return this;
     }
 

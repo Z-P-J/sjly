@@ -235,18 +235,18 @@ public class AppDetailFragment extends BaseFragment
                         pop();
                         return;
                     }
+                    info = AppDetailInfo.create(data);
+                    Log.d("getAppInfo", "info=" + info);
+                    appDetailLayout.loadInfo(info);
+                    int color = Color.WHITE;
+                    toolbar.setLightStyle(true);
+                    btnMenu.setTint(color);
+                    btnCollect.setTint(color);
+                    btnShare.setTint(color);
                     postOnEnterAnimationEnd(() -> {
                         initViewPager();
-                        info = AppDetailInfo.create(data);
-                        Log.d("getAppInfo", "info=" + info);
-                        appDetailLayout.loadInfo(info);
                         postDelayed(() -> EventBus.getDefault().post(info), 50);
                         lightStatusBar();
-                        int color = Color.WHITE;
-                        toolbar.setLightStyle(true);
-                        btnMenu.setTint(color);
-                        btnCollect.setTint(color);
-                        btnShare.setTint(color);
                         stateLayout.showContentView();
                     });
                 })

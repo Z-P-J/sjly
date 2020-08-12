@@ -21,6 +21,7 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.bumptech.glide.request.target.SimpleTarget;
 import com.bumptech.glide.request.transition.Transition;
+import com.felix.atoast.library.AToast;
 import com.shehuan.niv.NiceImageView;
 import com.zpj.fragmentation.BaseFragment;
 import com.zpj.shouji.market.R;
@@ -32,7 +33,9 @@ import com.zpj.shouji.market.model.CollectionInfo;
 import com.zpj.shouji.market.ui.adapter.FragmentsPagerAdapter;
 import com.zpj.shouji.market.ui.fragment.profile.ProfileFragment;
 import com.zpj.shouji.market.ui.fragment.theme.ThemeListFragment;
+import com.zpj.shouji.market.ui.widget.DrawableTintTextView;
 import com.zpj.shouji.market.ui.widget.popup.AppCommentPopup;
+import com.zpj.shouji.market.ui.widget.popup.CommentPopup;
 import com.zpj.shouji.market.utils.MagicIndicatorHelper;
 import com.zpj.utils.ScreenUtils;
 import com.zpj.widget.statelayout.StateLayout;
@@ -54,7 +57,8 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 import per.goweii.burred.Blurred;
 
-public class CollectionDetailFragment extends BaseFragment {
+public class CollectionDetailFragment extends BaseFragment
+        implements View.OnClickListener {
 
     private final String[] TAB_TITLES = {"应用", "评论"};
 
@@ -65,11 +69,12 @@ public class CollectionDetailFragment extends BaseFragment {
     private ImageView ivAvatar;
     private TextView tvTitle;
     private TextView tvUserName;
+    private TextView tvTime;
     private TextView tvDesc;
-    private TextView tvSupport;
-    private TextView tvFavorite;
-    private TextView tvView;
-    private TextView tvDownload;
+    private DrawableTintTextView tvSupport;
+    private DrawableTintTextView tvFavorite;
+    private DrawableTintTextView tvView;
+    private DrawableTintTextView tvDownload;
     private ViewPager viewPager;
     private MagicIndicator magicIndicator;
 
@@ -142,12 +147,20 @@ public class CollectionDetailFragment extends BaseFragment {
         ivIcon = view.findViewById(R.id.iv_icon);
         tvTitle = view.findViewById(R.id.tv_title);
         ivAvatar = view.findViewById(R.id.iv_avatar);
+        ivAvatar.setOnClickListener(this);
         tvUserName = view.findViewById(R.id.tv_user_name);
+        tvUserName.setOnClickListener(this);
+        tvTime = view.findViewById(R.id.tv_time);
         tvDesc = view.findViewById(R.id.tv_desc);
         tvSupport = view.findViewById(R.id.tv_support);
+        tvSupport.setOnClickListener(this);
         tvFavorite = view.findViewById(R.id.tv_favorite);
+        tvFavorite.setTag(false);
+        tvFavorite.setOnClickListener(this);
         tvView = view.findViewById(R.id.tv_view);
+//        tvView.setOnClickListener(this);
         tvDownload = view.findViewById(R.id.tv_download);
+        tvDownload.setOnClickListener(this);
 //        Toolbar toolbar = view.findViewById(R.id.toolbar);
 //        toolbar.setTitle(item.getTitle());
 
@@ -168,23 +181,7 @@ public class CollectionDetailFragment extends BaseFragment {
 //        tvView.setText(item.getViewCount() + "");
 
         View fabComment = view.findViewById(R.id.fab_comment);
-        fabComment.setOnClickListener(v -> {
-            AppCommentPopup.with(context, item.getId(), item.getContentType(), "").show();
-        });
-
-        ivAvatar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                ProfileFragment.start(item.getMemberId(), false);
-            }
-        });
-
-        tvUserName.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                ProfileFragment.start(item.getMemberId(), false);
-            }
-        });
+        fabComment.setOnClickListener(this);
 
 
         getCollectionInfo();
@@ -211,9 +208,21 @@ public class CollectionDetailFragment extends BaseFragment {
                     isLike = "1".equals(doc.selectFirst("islike").text());
                     backgroundUrl = doc.selectFirst("memberBackGround").text();
                     time = doc.selectFirst("time").text();
+                    tvTime.setText(time);
                     userAvatarUrl = doc.selectFirst("memberAvatar").text();
                     tvFavorite.setText(doc.selectFirst("favcount").text());
                     tvSupport.setText(doc.selectFirst("supportcount").text());
+                    tvDownload.setText(doc.selectFirst("size").text());
+//                    boolean isFav = "1".equals(doc.selectFirst("isfav").text());
+//                    boolean isLike = "1".equals(doc.selectFirst("islike").text());
+                    if (isFav) {
+                        tvFavorite.setDrawableTintColor(Color.RED);
+                        tvFavorite.setTag(true);
+                    }
+                    if (isLike) {
+                        tvSupport.setDrawableTintColor(Color.RED);
+                        tvSupport.setTag(true);
+                    }
                     tvView.setText(doc.selectFirst("viewcount").text());
                     RequestOptions options = new RequestOptions().centerCrop().error(R.mipmap.ic_launcher).placeholder(R.mipmap.ic_launcher);
 //                    Glide.with(context).load(backgroundUrl).apply(options).into(ivIcon);
@@ -309,4 +318,80 @@ public class CollectionDetailFragment extends BaseFragment {
         return a + rgb;
     }
 
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.fab_comment:
+                viewPager.setCurrentItem(1);
+                CommentPopup.with(context, item.getId(), item.getContentType())
+                        .show();
+                break;
+            case R.id.iv_avatar:
+            case R.id.tv_user_name:
+                ProfileFragment.start(item.getMemberId(), false);
+                break;
+            case R.id.tv_support:
+                HttpApi.likeApi("discuss", item.getId())
+                        .onSuccess(data -> {
+                            String info = data.selectFirst("info").text();
+                            if ("success".equals(data.selectFirst("result").text())) {
+                                boolean isLike = "点赞成功".equals(info);
+                                tvSupport.setDrawableTintColor(isLike ? Color.RED : Color.WHITE);
+                                tvSupport.setText(data.selectFirst("flower").text());
+                            } else {
+                                AToast.error(info);
+                            }
+                        })
+                        .onError(throwable -> {
+                            AToast.error("点赞失败！" + throwable.getMessage());
+                        })
+                        .subscribe();
+                break;
+            case R.id.tv_favorite:
+                if ((boolean) tvFavorite.getTag()) {
+                    HttpApi.delFavCollectionApi(item.getId(), "discuss")
+                            .onSuccess(data -> {
+                                String info = data.selectFirst("info").text();
+                                if ("success".equals(data.selectFirst("result").text())) {
+                                    int count = Integer.parseInt(tvFavorite.getText().toString());
+                                    tvFavorite.setDrawableTintColor(Color.WHITE);
+                                    tvFavorite.setText(String.valueOf(count - 1));
+                                    tvFavorite.setTag(false);
+                                    AToast.success("取消收藏成功！");
+                                } else {
+                                    AToast.error(info);
+                                }
+                            })
+                            .onError(throwable -> {
+                                AToast.error("取消收藏失败！" + throwable.getMessage());
+                            })
+                            .subscribe();
+                } else {
+                    HttpApi.addFavCollectionApi(item.getId(), "discuss")
+                            .onSuccess(data -> {
+                                String info = data.selectFirst("info").text();
+                                if ("success".equals(data.selectFirst("result").text())) {
+                                    int count = Integer.parseInt(tvFavorite.getText().toString());
+                                    tvFavorite.setDrawableTintColor(Color.RED);
+                                    tvFavorite.setText(String.valueOf(count + 1));
+                                    tvFavorite.setTag(true);
+                                    AToast.error("收藏成功！");
+                                } else {
+                                    AToast.error(info);
+                                }
+                            })
+                            .onError(throwable -> {
+                                AToast.error("收藏失败！" + throwable.getMessage());
+                            })
+                            .subscribe();
+                }
+                break;
+//            case R.id.tv_view:
+//
+//                break;
+            case R.id.tv_download:
+                AToast.normal("TODO 应用集下载");
+                break;
+        }
+    }
 }

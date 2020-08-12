@@ -7,10 +7,12 @@ import android.support.v4.view.ViewPager;
 import android.view.View;
 
 import com.zpj.fragmentation.BaseFragment;
+import com.zpj.http.parser.html.nodes.Element;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.constant.Keys;
 import com.zpj.shouji.market.event.StartFragmentEvent;
 import com.zpj.shouji.market.manager.UserManager;
+import com.zpj.shouji.market.model.CollectionInfo;
 import com.zpj.shouji.market.ui.adapter.FragmentsPagerAdapter;
 import com.zpj.shouji.market.ui.fragment.WallpaperListFragment;
 import com.zpj.shouji.market.ui.fragment.collection.CollectionListFragment;
@@ -168,6 +170,11 @@ public class MyDynamicFragment extends BaseFragment {
             CollectionsFragment fragment = new CollectionsFragment();
             fragment.setArguments(args);
             return fragment;
+        }
+
+        @Override
+        public CollectionInfo createData(Element element) {
+            return CollectionInfo.create(element);
         }
 
     }

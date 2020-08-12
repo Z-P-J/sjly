@@ -9,6 +9,7 @@ import com.zpj.http.core.ObservableTask;
 import com.zpj.http.core.IHttp;
 import com.zpj.http.parser.html.nodes.Document;
 import com.zpj.shouji.market.constant.UpdateFlagAction;
+import com.zpj.shouji.market.event.RefreshEvent;
 import com.zpj.shouji.market.manager.UserManager;
 import com.zpj.utils.OSUtils;
 
@@ -216,6 +217,7 @@ public final class HttpApi {
                     String info = doc.selectFirst("info").text();
                     if ("success".equals(doc.selectFirst("result").text())) {
                         AToast.success(info);
+                        RefreshEvent.postEvent();
                     } else {
                         AToast.error(info);
                     }
@@ -233,6 +235,7 @@ public final class HttpApi {
                     String info = doc.selectFirst("info").text();
                     if ("success".equals(doc.selectFirst("result").text())) {
                         AToast.success(info);
+                        RefreshEvent.postEvent();
                     } else {
                         AToast.error(info);
                     }
@@ -250,6 +253,7 @@ public final class HttpApi {
                     String info = doc.selectFirst("info").text();
                     if ("success".equals(doc.selectFirst("result").text())) {
                         AToast.success(info);
+                        RefreshEvent.postEvent();
                     } else {
                         AToast.error(info);
                     }
@@ -267,6 +271,7 @@ public final class HttpApi {
                     String info = doc.selectFirst("info").text();
                     if ("success".equals(doc.selectFirst("result").text())) {
                         AToast.success(info);
+                        RefreshEvent.postEvent();
                     } else {
                         AToast.error(info);
                     }
@@ -366,6 +371,14 @@ public final class HttpApi {
 
     public static ObservableTask<Document> nicknameApi(String nickname) {
         return get(String.format("http://tt.shouji.com.cn/app/user_nickname_xml.jsp?NickName=%s", nickname));
+    }
+
+    public static ObservableTask<Document> addFavCollectionApi(String id, String type) {
+        return get(String.format("http://tt.shouji.com.cn/app/user_yyj_fav_add.jsp?id=%s&t=%s", id, type));
+    }
+
+    public static ObservableTask<Document> delFavCollectionApi(String id, String type) {
+        return get(String.format("http://tt.shouji.com.cn/app/user_yyj_fav_del.jsp?id=%s&t=%s", id, type));
     }
 
 }
