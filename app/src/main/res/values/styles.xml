@@ -51,7 +51,7 @@
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="hl_cornerRadius">8dp</item>
-        <item name="hl_shadowColor">#bdbdbd</item>
+        <item name="hl_shadowColor">@color/transparent</item>
         <item name="hl_shadowLimit">8dp</item>
     </style>
 

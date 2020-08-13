@@ -78,6 +78,7 @@ public class AppInfoFragment extends BaseFragment
         this.screenWidth = ScreenUtils.getScreenWidth(context);
         content = view.findViewById(R.id.content);
         recyclerView = new EasyRecyclerView<>(view.findViewById(R.id.recycler_view));
+        recyclerView.setNestedScrollingEnabled(false);
 //        recyclerView.setItemViewCacheSize(100);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
         layoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);

@@ -77,7 +77,7 @@ public class AboutMeFragment extends BaseFragment {
                         iv_blur.setAlpha(0F);
                         post(() -> {
                             changeViewAlpha(iv_blur, 0, 1, 500);
-                            changeViewSize(iv_blur, 2, 1, 2000);
+                            changeViewSize(iv_blur, 4, 1, 2000);
                         });
                     }
                 });

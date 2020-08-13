@@ -26,14 +26,16 @@ import java.util.List;
 public class AppRecommendFragment extends BaseFragment {
 
     private final List<Object> datas = new ArrayList<>();
-    private List<CollectionInfo> collectionInfoList = new ArrayList<>();
-    private List<AppInfo> appInfoList = new ArrayList<>();
+    private final List<CollectionInfo> collectionInfoList = new ArrayList<>();
+    private final List<AppInfo> appInfoList = new ArrayList<>();
 
     private EasyRecyclerLayout<Object> recyclerLayout;
     private SimilarCollectionCard similarCollectionCard;
     private SimilarAppCard similarAppCard;
 
     private String id;
+
+    private boolean flag;
 
     public static AppRecommendFragment newInstance(String id) {
         Bundle args = new Bundle();
@@ -59,6 +61,7 @@ public class AppRecommendFragment extends BaseFragment {
                 .setOnRefreshListener(() -> {
                     collectionInfoList.clear();
                     appInfoList.clear();
+                    flag = false;
                     recyclerLayout.notifyDataSetChanged();
                 })
                 .onGetChildViewType((list, position) -> position)
@@ -70,7 +73,8 @@ public class AppRecommendFragment extends BaseFragment {
                     }
                 })
                 .onBindViewHolder((holder, list, position, payloads) -> {
-                    if (appInfoList.isEmpty() && collectionInfoList.isEmpty()) {
+                    if (!flag) {
+                        flag = true;
                         getSimilar();
                     } else if (position == 1) {
                         similarAppCard.setData(appInfoList);

@@ -58,7 +58,7 @@ public class ToolBarListFragment extends AppListFragment {
     }
 
     public static void startRecentDownload() {
-        start("http://tt.shouji.com.cn/androidv3/app_downing_xml.jsp", "看看");
+        start("http://tt.shouji.com.cn/androidv3/app_downing_xml.jsp", "看看-乐友们都在下载什么");
     }
 
     @Override

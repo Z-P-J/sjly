@@ -63,7 +63,6 @@ public class CollectionDetailFragment extends BaseFragment
     private final String[] TAB_TITLES = {"应用", "评论"};
 
     private StateLayout stateLayout;
-    private AppBarLayout appBarLayout;
     private ImageView ivHeader;
     private ImageView ivIcon;
     private ImageView ivAvatar;
@@ -80,7 +79,6 @@ public class CollectionDetailFragment extends BaseFragment
 
     private View buttonBarLayout;
     private NiceImageView ivToolbarAvater;
-    private TextView tvToolbarName;
 
     private String backgroundUrl;
     private String time;
@@ -121,24 +119,21 @@ public class CollectionDetailFragment extends BaseFragment
         buttonBarLayout = toolbar.getCenterCustomView();
         buttonBarLayout.setAlpha(0);
         ivToolbarAvater = toolbar.findViewById(R.id.toolbar_avatar);
-        tvToolbarName = toolbar.findViewById(R.id.toolbar_name);
+        TextView tvToolbarName = toolbar.findViewById(R.id.toolbar_name);
 
         View header = view.findViewById(R.id.layout_header);
-        appBarLayout = view.findViewById(R.id.appbar);
-        appBarLayout.addOnOffsetChangedListener(new AppBarLayout.OnOffsetChangedListener() {
-            @Override
-            public void onOffsetChanged(AppBarLayout appBarLayout, int i) {
-                float alpha = (float) Math.abs(i) / appBarLayout.getTotalScrollRange();
-                alpha = Math.min(1f, alpha);
-                buttonBarLayout.setAlpha(alpha);
-                if (alpha >= 1f) {
-                    header.setAlpha(0f);
-                } else {
-                    header.setAlpha(1f);
-                }
+        AppBarLayout appBarLayout = view.findViewById(R.id.appbar);
+        appBarLayout.addOnOffsetChangedListener((appBarLayout1, i) -> {
+            float alpha = (float) Math.abs(i) / appBarLayout1.getTotalScrollRange();
+            alpha = Math.min(1f, alpha);
+            buttonBarLayout.setAlpha(alpha);
+            if (alpha >= 1f) {
+                header.setAlpha(0f);
+            } else {
+                header.setAlpha(1f);
+            }
 //                int color = alphaColor(Color.WHITE, alpha);
 //                toolbar.setBackgroundColor(color);
-            }
         });
 
         ivHeader = view.findViewById(R.id.iv_header);
@@ -284,39 +279,39 @@ public class CollectionDetailFragment extends BaseFragment
                 .subscribe();
     }
 
-    public void getColor(Bitmap bitmap) {
-        Palette.from(bitmap)
-                .generate(palette -> {
-                    if (palette != null) {
-                        Palette.Swatch s = palette.getDominantSwatch();//独特的一种
-                        if (s != null) {
-                            post(() -> {
-                                boolean isDark = ColorUtils.calculateLuminance(s.getRgb()) <= 0.5;
-                                if (isDark) {
-                                    lightStatusBar();
-                                } else {
-                                    darkStatusBar();
-                                }
-                                int color = getResources().getColor(isDark ? R.color.white : R.color.color_text_major);
-                                tvTitle.setTextColor(color);
-                                tvUserName.setTextColor(color);
-                                tvDesc.setTextColor(color);
-                                tvFavorite.setTextColor(color);
-                                tvSupport.setTextColor(color);
-                                tvView.setTextColor(color);
-                                toolbar.setLightStyle(isDark);
-                            });
+//    public void getColor(Bitmap bitmap) {
+//        Palette.from(bitmap)
+//                .generate(palette -> {
+//                    if (palette != null) {
+//                        Palette.Swatch s = palette.getDominantSwatch();//独特的一种
+//                        if (s != null) {
+//                            post(() -> {
+//                                boolean isDark = ColorUtils.calculateLuminance(s.getRgb()) <= 0.5;
+//                                if (isDark) {
+//                                    lightStatusBar();
+//                                } else {
+//                                    darkStatusBar();
+//                                }
+//                                int color = getResources().getColor(isDark ? R.color.white : R.color.color_text_major);
+//                                tvTitle.setTextColor(color);
+//                                tvUserName.setTextColor(color);
+//                                tvDesc.setTextColor(color);
+//                                tvFavorite.setTextColor(color);
+//                                tvSupport.setTextColor(color);
+//                                tvView.setTextColor(color);
+//                                toolbar.setLightStyle(isDark);
+//                            });
+//
+//                        }
+//                    }
+//                });
+//    }
 
-                        }
-                    }
-                });
-    }
-
-    public static int alphaColor(int color, float alpha) {
-        int a = Math.min(255, Math.max(0, (int) (alpha * 255))) << 24;
-        int rgb = 0x00ffffff & color;
-        return a + rgb;
-    }
+//    public static int alphaColor(int color, float alpha) {
+//        int a = Math.min(255, Math.max(0, (int) (alpha * 255))) << 24;
+//        int rgb = 0x00ffffff & color;
+//        return a + rgb;
+//    }
 
     @Override
     public void onClick(View v) {
@@ -375,7 +370,7 @@ public class CollectionDetailFragment extends BaseFragment
                                     tvFavorite.setDrawableTintColor(Color.RED);
                                     tvFavorite.setText(String.valueOf(count + 1));
                                     tvFavorite.setTag(true);
-                                    AToast.error("收藏成功！");
+                                    AToast.success("收藏成功！");
                                 } else {
                                     AToast.error(info);
                                 }

@@ -46,7 +46,9 @@
             android:id="@+id/view_pager"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@color/white"/>
+            android:background="@color/white"
+            android:overScrollMode="never"
+            />
 
         <View style="@style/layout_shadow_bottom"
             android:id="@+id/shadow_view"

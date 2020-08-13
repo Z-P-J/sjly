@@ -144,6 +144,7 @@ public class ThemeListFragment extends NextUrlFragment<DiscoverInfo>
             info.setTitle(data.getShareTitle());
             info.setComment(data.getContent());
             info.setNickName(data.getNickName());
+            info.setMemberId(data.getMemberId());
 //            info.setFavCount(0);
 //            info.setSupportCount(0);
 //            info.setViewCount(0);

@@ -6,6 +6,7 @@ import android.graphics.Color;
 import android.support.annotation.LayoutRes;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -64,6 +65,7 @@ public abstract class RecommendCard<T> extends FrameLayout
         recyclerView = new EasyRecyclerView<>(findViewById(R.id.recycler_view));
         recyclerView.setData(list)
                 .setItemRes(getItemRes())
+                .setNestedScrollingEnabled(false)
                 .addItemDecoration(new Y_DividerItemDecoration(context) {
                     @Override
                     public Y_Divider getDivider(int itemPosition) {

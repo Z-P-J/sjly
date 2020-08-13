@@ -135,42 +135,6 @@ public class ThemeDetailFragment extends BaseFragment {
         fabComment.setOnClickListener(v -> {
             commentPopup = AppCommentPopup.with(context, item.getId(), item.getContentType(), "").show();
         });
-
-
-
-//        CommonNavigator navigator = new CommonNavigator(context);
-//        navigator.setAdjustMode(true);
-//        navigator.setAdapter(new CommonNavigatorAdapter() {
-//            @Override
-//            public int getCount() {
-//                return TAB_TITLES.length;
-//            }
-//
-//            @Override
-//            public IPagerTitleView getTitleView(Context context, int index) {
-//                ColorTransitionPagerTitleView titleView = new ColorTransitionPagerTitleView(context);
-//                titleView.setNormalColor(Color.GRAY);
-//                titleView.setSelectedColor(getResources().getColor(R.color.colorPrimary));
-//                titleView.setTextSize(14);
-//                titleView.setText(TAB_TITLES[index]);
-//                titleView.setOnClickListener(view1 -> viewPager.setCurrentItem(index));
-//                return titleView;
-//            }
-//
-//            @Override
-//            public IPagerIndicator getIndicator(Context context) {
-//                LinePagerIndicator indicator = new LinePagerIndicator(context);
-//                indicator.setMode(LinePagerIndicator.MODE_EXACTLY);
-//                indicator.setLineHeight(ScreenUtils.dp2px(context, 4f));
-//                indicator.setLineWidth(ScreenUtils.dp2px(context, 12f));
-//                indicator.setRoundRadius(ScreenUtils.dp2px(context, 4f));
-//                indicator.setColors(getResources().getColor(R.color.colorPrimary), getResources().getColor(R.color.colorPrimary));
-//                return indicator;
-//            }
-//        });
-//        magicIndicator.setNavigator(navigator);
-//        ViewPagerHelper.bind(magicIndicator, viewPager);
-
     }
 
     @Override

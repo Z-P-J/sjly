@@ -11,7 +11,8 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:scrollbars="none"
-        android:background="#f4f5f7"
+        android:background="#f3f3f5"
+        android:overScrollMode="never"
         >
 
         <LinearLayout

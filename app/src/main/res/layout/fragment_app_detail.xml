@@ -12,29 +12,37 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <com.zpj.shouji.market.ui.widget.AppDetailLayout
+<!--        <com.zpj.shouji.market.ui.widget.AppDetailLayout-->
+<!--            android:id="@+id/layout_app_detail"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="match_parent"-->
+<!--            android:orientation="vertical">-->
+
+<!--        </com.zpj.shouji.market.ui.widget.AppDetailLayout>-->
+
+        <com.zpj.shouji.market.ui.widget.AppDetailLayout2
             android:id="@+id/layout_app_detail"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
 
-        </com.zpj.shouji.market.ui.widget.AppDetailLayout>
+        </com.zpj.shouji.market.ui.widget.AppDetailLayout2>
 
-        <com.zpj.widget.toolbar.ZToolBar
-            android:id="@+id/tool_bar"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:z_toolbar_fillStatusBar="true"
-            app:z_toolbar_statusBarColor="@color/transparent"
-            app:z_toolbar_titleBarColor="@color/transparent"
-            app:z_toolbar_isLightStyle="true"
-            app:z_toolbar_leftType="imageButton"
-            app:z_toolbar_leftImageResource="@drawable/ic_arrow_back_white_24dp"
-            app:z_toolbar_centerType="customView"
-            app:z_toolbar_centerCustomView="@layout/layout_profile_header"
-            app:z_toolbar_rightType="customView"
-            app:z_toolbar_rightCustomView="@layout/layout_detail_tools"
-            />
+<!--        <com.zpj.widget.toolbar.ZToolBar-->
+<!--            android:id="@+id/tool_bar"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            app:z_toolbar_fillStatusBar="true"-->
+<!--            app:z_toolbar_statusBarColor="@color/transparent"-->
+<!--            app:z_toolbar_titleBarColor="@color/transparent"-->
+<!--            app:z_toolbar_isLightStyle="true"-->
+<!--            app:z_toolbar_leftType="imageButton"-->
+<!--            app:z_toolbar_leftImageResource="@drawable/ic_arrow_back_white_24dp"-->
+<!--            app:z_toolbar_centerType="customView"-->
+<!--            app:z_toolbar_centerCustomView="@layout/layout_profile_header"-->
+<!--            app:z_toolbar_rightType="customView"-->
+<!--            app:z_toolbar_rightCustomView="@layout/layout_detail_tools"-->
+<!--            />-->
 
         <android.support.design.widget.FloatingActionButton
             android:id="@+id/fab_comment"

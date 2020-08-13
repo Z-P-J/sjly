@@ -32,6 +32,7 @@ import com.zpj.shouji.market.ui.adapter.FragmentsPagerAdapter;
 import com.zpj.shouji.market.ui.fragment.WebFragment;
 import com.zpj.shouji.market.ui.fragment.manager.AppManagerFragment;
 import com.zpj.shouji.market.ui.widget.AppDetailLayout;
+import com.zpj.shouji.market.ui.widget.AppDetailLayout2;
 import com.zpj.shouji.market.ui.widget.popup.AppCommentPopup;
 import com.zpj.shouji.market.utils.MagicIndicatorHelper;
 import com.zpj.widget.statelayout.StateLayout;
@@ -62,7 +63,7 @@ public class AppDetailFragment extends BaseFragment
     private TintedImageButton btnCollect;
     private TintedImageButton btnMenu;
 
-    private AppDetailLayout appDetailLayout;
+    private AppDetailLayout2 appDetailLayout;
     private ViewPager viewPager;
     private MagicIndicator magicIndicator;
 
@@ -200,12 +201,18 @@ public class AppDetailFragment extends BaseFragment
             public void onPageSelected(int i) {
                 if (i == 0) {
                     fabComment.setImageResource(R.drawable.ic_file_download_white_24dp);
-                    fabComment.show();
+                    if (fabComment.getVisibility() != View.VISIBLE) {
+                        fabComment.show();
+                    }
                 } else if (i == 1) {
                     fabComment.setImageResource(R.drawable.ic_comment_white_24dp);
-                    fabComment.show();
+                    if (fabComment.getVisibility() != View.VISIBLE) {
+                        fabComment.show();
+                    }
                 } else {
-                    fabComment.hide();
+                    if (fabComment.getVisibility() == View.VISIBLE) {
+                        fabComment.hide();
+                    }
                 }
             }
 
@@ -257,9 +264,13 @@ public class AppDetailFragment extends BaseFragment
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onFabEvent(FabEvent event) {
         if (event.isShow()) {
-            fabComment.show();
+            if (fabComment.getVisibility() != View.VISIBLE) {
+                fabComment.show();
+            }
         } else {
-            fabComment.hide();
+            if (fabComment.getVisibility() == View.VISIBLE) {
+                fabComment.hide();
+            }
         }
     }
 

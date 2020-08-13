@@ -94,6 +94,9 @@ public class RecommendBanner extends LinearLayout implements View.OnClickListene
                     continue;
                 }
                 bannerItemList.add(info);
+                if (bannerItemList.size() >= 8) {
+                    break;
+                }
             }
             if (!bannerItemList.isEmpty()) {
                 setBg(0);

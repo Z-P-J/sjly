@@ -53,6 +53,7 @@ public class FlowLayout extends RecyclerView implements IEasy.OnBindViewHolderLi
         if (getPaddingStart() == 0) {
             setPadding(dp12, dp12, dp12, dp12);
         }
+        setOverScrollMode(OVER_SCROLL_NEVER);
         recyclerView = new EasyRecyclerView<>(this);
         recyclerView.setData(list)
                 .setItemRes(R.layout.item_wallpaper_tag)
