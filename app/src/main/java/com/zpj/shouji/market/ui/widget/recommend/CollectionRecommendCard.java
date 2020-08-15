@@ -1,7 +1,6 @@
 package com.zpj.shouji.market.ui.widget.recommend;
 
 import android.content.Context;
-import android.graphics.Color;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -12,9 +11,6 @@ import android.view.View;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.shehuan.niv.NiceImageView;
-import com.yanyusong.y_divideritemdecoration.Y_Divider;
-import com.yanyusong.y_divideritemdecoration.Y_DividerBuilder;
-import com.yanyusong.y_divideritemdecoration.Y_DividerItemDecoration;
 import com.zpj.http.parser.html.nodes.Document;
 import com.zpj.http.parser.html.nodes.Element;
 import com.zpj.http.parser.html.select.Elements;
@@ -23,14 +19,12 @@ import com.zpj.recyclerview.EasyViewHolder;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.api.HttpApi;
 import com.zpj.shouji.market.api.HttpPreLoader;
-import com.zpj.shouji.market.glide.blur.BlurTransformation2;
+import com.zpj.shouji.market.glide.blur.CropBlurTransformation;
 import com.zpj.shouji.market.model.CollectionInfo;
 import com.zpj.shouji.market.ui.fragment.collection.CollectionDetailFragment;
 import com.zpj.shouji.market.ui.fragment.collection.CollectionRecommendListFragment;
 
 import java.util.List;
-
-import jp.wasabeef.glide.transformations.BlurTransformation;
 
 public class CollectionRecommendCard extends RecommendCard<CollectionInfo> {
 
@@ -113,7 +107,7 @@ public class CollectionRecommendCard extends RecommendCard<CollectionInfo> {
             if (i == 0) {
                 Glide.with(context)
                         .load(info.getIcons().get(0))
-                        .apply(RequestOptions.bitmapTransform(new BlurTransformation2(0.1f, 1 / 4f)))
+                        .apply(RequestOptions.bitmapTransform(new CropBlurTransformation(25, 0.3f)))
 //                        .apply(RequestOptions.bitmapTransform(new BlurTransformation(25, 8)))
                         .into(imgBg);
             }

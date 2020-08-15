@@ -80,6 +80,7 @@ public class SignInFragment extends BaseFragment
                 new ToggleLoginModeEvent().post();
                 break;
             case R.id.sv_login:
+                hideSoftInput();
                 String userName = piv_account.getText();
                 String password = piv_password.getText();
                 UserManager.getInstance().signIn(userName, password);
@@ -103,7 +104,13 @@ public class SignInFragment extends BaseFragment
         if (event.isSuccess()) {
             AToast.success("登录成功！");
         } else {
-            AToast.success(event.getErrorMsg());
+            String msg = event.getErrorMsg();
+            AToast.success(msg);
+            if ("密码错误".equals(msg)) {
+                piv_password.setError(msg);
+            } else {
+                piv_account.setError(msg);
+            }
         }
     }
 

@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <com.zpj.widget.toolbar.ZToolBar
+        android:id="@+id/tool_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:z_toolbar_fillStatusBar="true"
+        app:z_toolbar_titleBarColor="@color/preview_bottom_toolbar_bg"
+        app:z_toolbar_statusBarColor="@color/preview_bottom_toolbar_bg"
+        app:z_toolbar_showBottomLine="false"
+        app:z_toolbar_statusBarMode="light"
+        app:z_toolbar_leftType="imageButton"
+        app:z_toolbar_leftImageResource="@drawable/ic_arrow_back_white_24dp"
+        app:z_toolbar_centerType="textView"
+        app:z_toolbar_centerTextColor="@android:color/white"
+        app:z_toolbar_centerSubTextColor="#f8f8f8"
+        />
+
+    <com.zpj.popup.widget.LoadingView
+        android:id="@+id/lv_loading"
+        android:layout_width="56dp"
+        android:layout_height="56dp"
+        android:layout_centerInParent="true"
+        android:visibility="gone"
+        />
+
+    <RelativeLayout
+        android:id="@+id/bottom_bar"
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:layout_alignParentBottom="true"
+        android:background="@color/preview_bottom_toolbar_bg"
+        >
+
+
+        <TextView
+            android:id="@+id/tv_indicator"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:textColor="@android:color/white"
+            android:paddingStart="16dp"
+            android:paddingEnd="16dp"
+            android:text="size"
+            android:textSize="16sp"/>
+
+        <TextView
+            android:id="@+id/tv_info"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:textColor="@android:color/white"
+            android:text="info"
+            android:textSize="16sp"/>
+
+        <com.zpj.widget.tinted.TintedImageButton
+            android:id="@+id/btn_more"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_more_vert_grey_24dp"
+            android:layout_centerVertical="true"
+            android:background="?attr/actionBarItemBackground"
+            android:padding="16dp"
+            android:tint="@color/white"
+            android:layout_alignParentEnd="true"
+            />
+
+<!--        <com.zpj.widget.tinted.TintedImageButton-->
+<!--            android:id="@+id/btn_share"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:src="@drawable/ic_share_white_24dp"-->
+<!--            android:layout_centerVertical="true"-->
+<!--            android:background="?attr/actionBarItemBackground"-->
+<!--            android:padding="8dp"-->
+<!--            android:layout_toStartOf="@id/btn_download"-->
+<!--            android:tint="@color/white"-->
+<!--            />-->
+<!--        -->
+<!--        <com.zpj.widget.tinted.TintedImageButton-->
+<!--            android:id="@+id/btn_download"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:src="@drawable/ic_file_download_white_24dp"-->
+<!--            android:layout_centerVertical="true"-->
+<!--            android:background="?attr/actionBarItemBackground"-->
+<!--            android:padding="8dp"-->
+<!--            android:layout_alignParentEnd="true"-->
+<!--            android:tint="@color/white"-->
+<!--            />-->
+
+    </RelativeLayout>
+
+</RelativeLayout>

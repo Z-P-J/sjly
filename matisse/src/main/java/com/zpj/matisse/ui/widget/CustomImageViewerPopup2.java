@@ -26,6 +26,7 @@ import com.zpj.matisse.model.SelectedItemManager;
 import com.zpj.popup.core.ImageViewerPopup2;
 import com.zpj.popup.imagetrans.ImageLoad;
 import com.zpj.popup.imagetrans.ImageTransAdapter;
+import com.zpj.popup.imagetrans.listener.SourceImageViewGet;
 import com.zpj.popup.impl.FullScreenPopup;
 import com.zpj.popup.interfaces.IImageLoader;
 import com.zpj.widget.toolbar.ZToolBar;
@@ -73,17 +74,17 @@ public class CustomImageViewerPopup2 extends ImageViewerPopup2<Item>
         mSpec = SelectionSpec.getInstance();
     }
 
-    @Override
-    protected int getImplLayoutId() {
-        return R.layout.matisse_custom_image_viewer_popup;
-    }
+//    @Override
+//    protected int getImplLayoutId() {
+//        return R.layout.matisse_custom_image_viewer_popup;
+//    }
 
-    @Override
-    protected void initPopupContent() {
-
-        super.initPopupContent();
-
-    }
+//    @Override
+//    protected void initPopupContent() {
+//
+//        super.initPopupContent();
+//
+//    }
 
     @Override
     protected void onCreate() {
@@ -120,10 +121,9 @@ public class CustomImageViewerPopup2 extends ImageViewerPopup2<Item>
         dialogView.addOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener(){
             @Override
             public void onPageSelected(int position) {
-                int posi = position;
-                titleBar.getCenterTextView().setText(build.imageList.get(posi).getFile(getContext()).getName());
+                titleBar.getCenterTextView().setText(build.imageList.get(position).getFile(getContext()).getName());
 //                Log.d("CustomImageViewerPopup", "posi=" + posi + " position=" + position);
-                Item item = build.imageList.get(posi);
+                Item item = build.imageList.get(position);
                 if (mSpec.countable) {
                     int checkedNum = mSelectedCollection.checkedNumOf(item);
                     mCheckView.setCheckedNum(checkedNum);
@@ -141,7 +141,7 @@ public class CustomImageViewerPopup2 extends ImageViewerPopup2<Item>
                         mCheckView.setEnabled(!mSelectedCollection.maxSelectableReached());
                     }
                 }
-                tvIndicator.setText(build.imageList.size() + "/" + (posi + 1));
+                tvIndicator.setText(build.imageList.size() + "/" + (position + 1));
             }
         });
 
@@ -154,7 +154,7 @@ public class CustomImageViewerPopup2 extends ImageViewerPopup2<Item>
 
         mCheckView.setCheckedNum(mSelectedCollection.checkedNumOf(build.imageList.get(dialogView.getCurrentItem())));
         titleBar.getCenterTextView().setText(build.imageList.get(dialogView.getCurrentItem()).getFile(getContext()).getName());
-        titleBar.getLeftImageButton().setOnClickListener(v -> onBackPressed());
+        titleBar.getLeftImageButton().setOnClickListener(v -> dismiss());
 
 
         tvIndicator.setText(build.imageList.size() + "/" + (dialogView.getCurrentItem() + 1));

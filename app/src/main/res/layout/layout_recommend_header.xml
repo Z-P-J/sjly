@@ -71,7 +71,7 @@
         android:layout_height="100dp"
         android:layout_marginStart="12dp"
         android:layout_marginEnd="12dp"
-        app:hl_cornerRadius="8dp"
+        app:hl_cornerRadius="16dp"
         app:hl_shadowColor="#40333333"
         app:hl_shadowBackColor="#ffffff"
         app:hl_shadowLimit="4dp"

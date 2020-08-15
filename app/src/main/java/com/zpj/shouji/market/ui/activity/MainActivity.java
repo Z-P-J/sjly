@@ -72,7 +72,7 @@ public class MainActivity extends SupportActivity {
                         MainFragment mainFragment = findFragment(MainFragment.class);
                         if (mainFragment == null) {
                             mainFragment = new MainFragment();
-                            loadRootFragment(R.id.content, mainFragment);
+                            loadRootFragment(R.id.main_content, mainFragment);
                         }
                     }, 50);
                 })

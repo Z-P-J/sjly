@@ -1,371 +1,384 @@
-//package com.zpj.shouji.market.ui.fragment.chat;
-//
-//import android.annotation.SuppressLint;
-//import android.os.Bundle;
-//import android.support.annotation.Nullable;
-//import android.support.v7.widget.LinearLayoutManager;
-//import android.support.v7.widget.RecyclerView;
-//import android.view.View;
-//
-//import com.felix.atoast.library.AToast;
-//import com.zpj.matisse.Matisse;
-//import com.zpj.popup.util.ActivityUtils;
-//import com.zpj.shouji.market.R;
-//import com.zpj.shouji.market.database.ChatManager;
-//import com.zpj.shouji.market.event.StartFragmentEvent;
-//import com.zpj.shouji.market.model.ChatMessageBean;
-//import com.zpj.shouji.market.ui.adapter.ChatRecyclerAdapter;
-//import com.zpj.shouji.market.ui.animator.SlideInOutBottomItemAnimator;
-//import com.zpj.fragmentation.BaseFragment;
-//import com.zpj.shouji.market.ui.widget.ChatPanel;
-//import com.zpj.shouji.market.ui.widget.WrapContentLinearLayoutManager;
-//import com.zpj.utils.KeyboardHeightProvider;
-//import com.zpj.utils.ScreenUtils;
-//
-//import java.text.SimpleDateFormat;
-//import java.util.ArrayList;
-//import java.util.Collections;
-//import java.util.HashMap;
-//import java.util.List;
-//
-//public class ChatFragment extends BaseFragment implements ChatPanel.OnOperationListener {
-//
-////    public PullToRefreshLayout pullList;
-//    public boolean isDown = false;
-//    public int position; //加载滚动刷新位置
-//    public int bottomStatusHeight = 0;
-//
-//    private ChatPanel chatPanel;
-//
-//    private RecyclerView recyclerView;
-//    private ChatRecyclerAdapter tbAdapter;
-//
-//    public String userName = "test";//聊天对象昵称
-//    public String[] item = {"你好!", "我正忙着呢,等等", "有啥事吗？", "有时间聊聊吗", "再见！"};
-//    public final List<ChatMessageBean> tblist = new ArrayList<ChatMessageBean>();
-//    private List<String> reslist;
-//    public int page = 0;
-//    public int number = 10;
-//    public List<ChatMessageBean> pagelist = new ArrayList<ChatMessageBean>();
-//    public ArrayList<String> imageList = new ArrayList<String>();//adapter图片数据
-//    public HashMap<Integer, Integer> imagePosition = new HashMap<Integer, Integer>();//图片下标位置
-//
-//
-//
-//    String filePath = "";
-//    int i = 0;
-//
-////    private KeyboardHeightProvider keyboardHeightProvider;
-//
-//    public static void start() {
-//        StartFragmentEvent.start(new ChatFragment());
-//    }
-//
-//    @Override
-//    protected int getLayoutId() {
-//        return R.layout.fragment_chat;
-//    }
-//
-//    @Override
-//    protected boolean supportSwipeBack() {
-//        return true;
-//    }
-//
-//    @Override
-//    public void onDestroy() {
-//        tblist.clear();
-//        tbAdapter.notifyDataSetChanged();
-//        recyclerView.setAdapter(null);
-////        keyboardHeightProvider.close();
-//        Matisse.onDestroy();
-//        super.onDestroy();
-//    }
-//
-//    @Override
-//    public void onResume() {
-//        super.onResume();
-////        keyboardHeightProvider.setKeyboardHeightObserver(chatPanel);
-//    }
-//
-//    @Override
-//    public void onPause() {
-//        super.onPause();
-////        keyboardHeightProvider.setKeyboardHeightObserver(null);
-//    }
-//
-//    @Override
-//    public void onStop() {
-//        super.onStop();
-//        hideSoftInput();
-//    }
-//
-//    @Override
-//    public void onEnterAnimationEnd(Bundle savedInstanceState) {
-//        super.onEnterAnimationEnd(savedInstanceState);
-//        //加载本地聊天记录
-//        page = (int) ChatManager.getPages(number);
-//
-//
-////        keyboardHeightProvider.setKeyboardHeightObserver(chatPanel);
-////        keyboardHeightProvider.start();
-//
-//        loadRecords();
-//    }
-//
-//    @Override
-//    protected void initView(View view, @Nullable Bundle savedInstanceState) {
-//        bottomStatusHeight = ScreenUtils.getNavigationBarHeight(context);
-////        keyboardHeightProvider = new KeyboardHeightProvider(_mActivity);
-//
-//        recyclerView = view.findViewById(R.id.recycler_view);
-//        initRecyclerView();
-//
-//        chatPanel = view.findViewById(R.id.chat_panel);
-//        chatPanel.setOnOperationListener(this);
-//
-//        com.zpj.popup.util.KeyboardUtils.registerSoftInputChangedListener(_mActivity, view, height -> {
-//            chatPanel.onKeyboardHeightChanged(height, 0);
-//        });
-//
-//    }
-//
-//    private void initRecyclerView() {
-//        tbAdapter = new ChatRecyclerAdapter(context, tblist);
-//        recyclerView.setLayoutManager(new WrapContentLinearLayoutManager(context, LinearLayoutManager.VERTICAL, true));
-//        recyclerView.setItemAnimator(new SlideInOutBottomItemAnimator(recyclerView));
-//        recyclerView.setAdapter(tbAdapter);
-//        tbAdapter.isPicRefresh = true;
-//        tbAdapter.notifyDataSetChanged();
-//        tbAdapter.setSendErrorListener(position -> {
-//            ChatMessageBean tbub = tblist.get(position);
-//            if (tbub.getType() == ChatRecyclerAdapter.TO_USER_IMG) {
-//                sendImage(tbub.getImageLocal());
-//                tblist.remove(position);
-//            }
-//        });
-//        recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
-//
-//            @Override
-//            public void onScrollStateChanged(RecyclerView view, int scrollState) {
-//                // TODO Auto-generated method stub
-//                switch (scrollState) {
-//                    case RecyclerView.SCROLL_STATE_IDLE:
-//                        tbAdapter.handler.removeCallbacksAndMessages(null);
-//                        tbAdapter.setIsGif(true);
-//                        tbAdapter.isPicRefresh = false;
-//                        tbAdapter.notifyDataSetChanged();
-//                        break;
-//                    case RecyclerView.SCROLL_STATE_DRAGGING:
-//                        tbAdapter.handler.removeCallbacksAndMessages(null);
-//                        tbAdapter.setIsGif(false);
-//                        tbAdapter.isPicRefresh = true;
-//
-//                        chatPanel.hideEmojiPanel();
-//
-//                        hideSoftInput();
-//                        break;
-//                    default:
-//                        break;
-//                }
-//            }
-//
-//            @Override
-//            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
-//                super.onScrolled(recyclerView, dx, dy);
-//            }
-//        });
-//    }
-//
-//    protected void loadRecords() {
-//        isDown = true;
-//        if (pagelist != null) {
-//            pagelist.clear();
-//        }
-//        pagelist = ChatManager.loadPages(); // page, number
-//        Collections.reverse(pagelist);
-//        position = pagelist.size();
-//        if (pagelist.size() != 0) {
-//            pagelist.addAll(tblist);
-//            tblist.clear();
-//            tblist.addAll(pagelist);
-//            if (imageList != null) {
-//                imageList.clear();
-//            }
-//            if (imagePosition != null) {
-//                imagePosition.clear();
-//            }
-//            int key = 0;
-//            int position = 0;
-//            for (ChatMessageBean cmb : tblist) {
-//                if (cmb.getType() == ChatRecyclerAdapter.FROM_USER_IMG || cmb.getType() == ChatRecyclerAdapter.TO_USER_IMG) {
-//                    imageList.add(cmb.getImageLocal());
-//                    imagePosition.put(key, position);
-//                    position++;
-//                }
-//                key++;
-//            }
-//            tbAdapter.setImageList(imageList);
-//            tbAdapter.setImagePosition(imagePosition);
-//            post(new Runnable() {
-//                @Override
-//                public void run() {
-////                    pullList.refreshComplete();
-//                    tbAdapter.notifyDataSetChanged();
-////                    recyclerView.smoothScrollToPosition(ChatFragment.this.position - 1);
-//                    isDown = false;
-//                }
-//            });
-//            if (page == 0) {
-////                pullList.refreshComplete();
-////                pullList.setPullGone();
-//            } else {
-//                page--;
-//            }
-//        } else {
-//            if (page == 0) {
-////                pullList.refreshComplete();
-////                pullList.setPullGone();
-//            }
-//        }
-//    }
-//
-//    private void downLoad() {
-//        if (!isDown) {
-//            new Thread(new Runnable() {
-//
-//                @Override
-//                public void run() {
-//                    // TODO Auto-generated method stub
-//                    loadRecords();
-//                }
-//            }).start();
-//        }
-//    }
-//
-//    public ChatMessageBean getTbub(String username, int type,
-//                                   String Content, String imageIconUrl, String imageUrl,
-//                                   String imageLocal, String userVoicePath, String userVoiceUrl,
-//                                   Float userVoiceTime, @ChatConst.SendState int sendState) {
-//        ChatMessageBean tbub = new ChatMessageBean();
-//        tbub.setUserName(username);
-//        String time = returnTime();
-//        tbub.setTime(time);
-//        tbub.setType(type);
-//        tbub.setUserContent(Content);
-//        tbub.setImageIconUrl(imageIconUrl);
-//        tbub.setImageUrl(imageUrl);
-//        tbub.setUserVoicePath(userVoicePath);
-//        tbub.setUserVoiceUrl(userVoiceUrl);
-//        tbub.setUserVoiceTime(userVoiceTime);
-//        tbub.setSendState(sendState);
-//        tbub.setImageLocal(imageLocal);
-//        tbub.save();
-//
-//        return tbub;
-//    }
-//
-//    @SuppressLint("SimpleDateFormat")
-//    public static String returnTime() {
-//        SimpleDateFormat sDateFormat = new SimpleDateFormat(
-//                "yyyy-MM-dd HH:mm:ss");
-//        String date = sDateFormat.format(new java.util.Date());
-//        return date;
-//    }
-//
-//
-//
-//
-//    private void receiveMsgText(final String content) {
-//        String message = "回复：" + content;
-//        ChatMessageBean tbub = new ChatMessageBean();
-//        tbub.setUserName(userName);
-//        String time = returnTime();
-//        tbub.setUserContent(message);
-//        tbub.setTime(time);
-//        tbub.setType(ChatRecyclerAdapter.FROM_USER_MSG);
-//        tblist.add(0, tbub);
-//        tbAdapter.isPicRefresh = true;
-//        tbAdapter.notifyItemInserted(0);
-////            recyclerView.smoothScrollToPosition(tbAdapter.getItemCount() - 1);
-//        recyclerView.smoothScrollToPosition(0);
-//        tbub.save();
-//    }
-//
-//    private void receiveImageText(final String filePath) {
-//        new Thread(new Runnable() {
-//            @Override
-//            public void run() {
-//                ChatMessageBean tbub = new ChatMessageBean();
-//                tbub.setUserName(userName);
-//                String time = returnTime();
-//                tbub.setTime(time);
-//                tbub.setImageLocal(filePath);
-//                tbub.setType(ChatRecyclerAdapter.FROM_USER_IMG);
-//                tblist.add(tbub);
-//                imageList.add(tblist.get(tblist.size() - 1).getImageLocal());
-//                imagePosition.put(tblist.size() - 1, imageList.size() - 1);
-//                post(() -> {
-//                    tbAdapter.isPicRefresh = true;
-//                    tbAdapter.notifyItemInserted(0);
-////                    recyclerView.smoothScrollToPosition(tbAdapter.getItemCount() - 1);
-//                    recyclerView.smoothScrollToPosition(0);
-//                });
-//                tbub.save();
-//            }
-//        }).start();
-//    }
-//
-//    protected void sendImage(final String filePath) {
-//        // TODO 压缩图片 Bitmap bitmap = PictureUtil.compressSizeImage(path);
-//        new Thread(new Runnable() {
-//            @Override
-//            public void run() {
-//                if (i == 0) {
-//                    tblist.add(0, getTbub(userName, ChatRecyclerAdapter.TO_USER_IMG, null, null, null, filePath, null, null,
-//                            0f, ChatConst.SENDING));
-//                } else if (i == 1) {
-//                    tblist.add(0, getTbub(userName, ChatRecyclerAdapter.TO_USER_IMG, null, null, null, filePath, null, null,
-//                            0f, ChatConst.SENDERROR));
-//                } else if (i == 2) {
-//                    tblist.add(0, getTbub(userName, ChatRecyclerAdapter.TO_USER_IMG, null, null, null, filePath, null, null,
-//                            0f, ChatConst.COMPLETED));
-//                    i = -1;
-//                }
-//                imageList.add(tblist.get(tblist.size() - 1).getImageLocal());
-//                imagePosition.put(tblist.size() - 1, imageList.size() - 1);
-//                post(() -> {
-//                    tbAdapter.isPicRefresh = true;
-//                    tbAdapter.notifyItemInserted(0);
-////                    recyclerView.smoothScrollToPosition(tbAdapter.getItemCount() - 1);
-//                    recyclerView.smoothScrollToPosition(0);
-//                });
-//                ChatFragment.this.filePath = filePath;
-//                postDelayed(() -> receiveImageText(filePath), 3000);
-//                i++;
-//            }
-//        }).start();
-//    }
-//
-//    @Override
-//    public void sendText(String content) {
-//        hideSoftInput();
-//        tblist.add(0, getTbub(userName, ChatRecyclerAdapter.TO_USER_MSG, content, null, null,
-//                null, null, null, 0f, ChatConst.COMPLETED));
-//        tbAdapter.isPicRefresh = true;
-//        tbAdapter.notifyItemInserted(0);
-////        recyclerView.smoothScrollToPosition(tbAdapter.getItemCount() - 1);
-//        recyclerView.smoothScrollToPosition(0);
-//        postDelayed(() -> receiveMsgText(content), 1000);
-//    }
-//
-//    @Override
-//    public void onEmojiSelected(String key) {
-//
-//    }
-//
-//    @Override
-//    public void onStickerSelected(String categoryName, String stickerName, String stickerBitmapPath) {
-//        AToast.normal("categoryName=" + categoryName + " stickerName=" + stickerName);
+package com.zpj.shouji.market.ui.fragment.chat;
+
+import android.content.ClipData;
+import android.content.ClipboardManager;
+import android.content.Context;
+import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.util.Log;
+import android.view.View;
+
+import com.bumptech.glide.Glide;
+import com.felix.atoast.library.AToast;
+import com.lwkandroid.widget.ninegridview.NineGirdImageContainer;
+import com.lwkandroid.widget.ninegridview.NineGridBean;
+import com.lwkandroid.widget.ninegridview.NineGridView;
+import com.zpj.http.parser.html.nodes.Element;
+import com.zpj.matisse.Matisse;
+import com.zpj.popup.ZPopup;
+import com.zpj.recyclerview.EasyRecyclerLayout;
+import com.zpj.recyclerview.EasyViewHolder;
+import com.zpj.shouji.market.R;
+import com.zpj.shouji.market.api.HttpApi;
+import com.zpj.shouji.market.constant.Keys;
+import com.zpj.shouji.market.event.StartFragmentEvent;
+import com.zpj.shouji.market.manager.UserManager;
+import com.zpj.shouji.market.model.PrivateLetterInfo;
+import com.zpj.shouji.market.ui.adapter.DiscoverBinder;
+import com.zpj.shouji.market.ui.animator.SlideInOutBottomItemAnimator;
+import com.zpj.shouji.market.ui.fragment.base.NextUrlFragment;
+import com.zpj.shouji.market.ui.fragment.profile.ProfileFragment;
+import com.zpj.shouji.market.ui.widget.ChatPanel;
+import com.zpj.shouji.market.ui.widget.WrapContentLinearLayoutManager;
+import com.zpj.shouji.market.ui.widget.popup.BottomListPopupMenu;
+import com.zpj.shouji.market.ui.widget.popup.CommonImageViewerPopup;
+import com.zpj.shouji.market.utils.BeanUtils;
+
+import java.util.ArrayList;
+import java.util.List;
+
+public class ChatFragment extends NextUrlFragment<PrivateLetterInfo> implements ChatPanel.OnOperationListener {
+
+    public int position; //加载滚动刷新位置
+
+
+    private String userId;
+    private ChatPanel chatPanel;
+
+//    public final List<PrivateLetterInfo> letterInfoList = new ArrayList<>();
+
+
+    public static void start(String id, String title) {
+        Bundle args = new Bundle();
+        args.putString(Keys.DEFAULT_URL, "http://tt.tljpxm.com/app/user_message_index_xml_v3.jsp?mmid=" + id);
+        args.putString(Keys.ID, id);
+        args.putString(Keys.TITLE, title);
+        ChatFragment fragment = new ChatFragment();
+        fragment.setArguments(args);
+        StartFragmentEvent.start(fragment);
+    }
+
+    @Override
+    protected int getLayoutId() {
+        return R.layout.fragment_chat2;
+    }
+
+    @Override
+    protected int getItemLayoutId() {
+        return 0;
+    }
+
+    @Override
+    protected boolean supportSwipeBack() {
+        return true;
+    }
+
+    @Override
+    public void onDestroy() {
+        Matisse.onDestroy();
+        super.onDestroy();
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        hideSoftInput();
+    }
+
+    @Override
+    protected void handleArguments(Bundle arguments) {
+        super.handleArguments(arguments);
+        setToolbarTitle(arguments.getString(Keys.TITLE, ""));
+        userId = arguments.getString(Keys.ID, "");
+    }
+
+    @Override
+    protected void initView(View view, @Nullable Bundle savedInstanceState) {
+        super.initView(view, savedInstanceState);
+
+        chatPanel = view.findViewById(R.id.chat_panel);
+        chatPanel.setOnOperationListener(this);
+
+        com.zpj.popup.util.KeyboardUtils.registerSoftInputChangedListener(_mActivity, view, height -> {
+            chatPanel.onKeyboardHeightChanged(height, 0);
+        });
+    }
+
+    @Override
+    public boolean onBackPressedSupport() {
+        if (chatPanel.isEmotionPanelShow()) {
+            chatPanel.hideEmojiPanel();
+            return true;
+        }
+        return super.onBackPressedSupport();
+    }
+
+    @Override
+    public void onEnterAnimationEnd(Bundle savedInstanceState) {
+        super.onEnterAnimationEnd(savedInstanceState);
+        showSoftInput(chatPanel.getEditor());
+    }
+
+    @Override
+    protected void buildRecyclerLayout(EasyRecyclerLayout<PrivateLetterInfo> recyclerLayout) {
+        recyclerLayout.setLayoutManager(
+                new WrapContentLinearLayoutManager(
+                        context, LinearLayoutManager.VERTICAL, true
+                ))
+                .setItemAnimator(new SlideInOutBottomItemAnimator(
+                        recyclerLayout.getEasyRecyclerView().getRecyclerView()
+                ))
+                .onGetChildViewType((list, position) -> {
+                    PrivateLetterInfo info = list.get(position);
+                    if (UserManager.getInstance().getUserId().equals(info.getSendId())) {
+                        if (info.getPics().size() == 0) {
+                            return 0;
+                        } else {
+                            return 2;
+                        }
+                    } else {
+                        if (info.getPics().size() == 0) {
+                            return 1;
+                        } else {
+                            return 3;
+                        }
+                    }
+                })
+                .onGetChildLayoutId(viewType -> {
+                    switch (viewType) {
+                        case 0:
+                            return R.layout.item_chat;
+                        case 1:
+                            return R.layout.item_chat_replay;
+                        case 2:
+                            return R.layout.item_chat_img;
+                        case 3:
+                            return R.layout.item_chat_replay_img;
+                    }
+                    return 0;
+                })
+                .onViewClick(R.id.iv_icon, (holder, view, data) ->
+                        ProfileFragment.start(data.getSendId(), true))
+                .addOnScrollListener(new RecyclerView.OnScrollListener() {
+
+                    @Override
+                    public void onScrollStateChanged(@NonNull RecyclerView view, int scrollState) {
+                        // TODO Auto-generated method stub
+                        switch (scrollState) {
+                            case RecyclerView.SCROLL_STATE_IDLE:
+//                                isGif = true;
+//                                tbAdapter.isPicRefresh = false;
+//                                tbAdapter.notifyDataSetChanged();
+                                break;
+                            case RecyclerView.SCROLL_STATE_DRAGGING:
+//                                tbAdapter.handler.removeCallbacksAndMessages(null);
+//                                tbAdapter.setIsGif(false);
+//                                tbAdapter.isPicRefresh = true;
+
+                                chatPanel.hideEmojiPanel();
+
+                                hideSoftInput();
+                                break;
+                            default:
+                                break;
+                        }
+                    }
+
+                    @Override
+                    public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
+                        super.onScrolled(recyclerView, dx, dy);
+                    }
+                });
+    }
+
+    @Override
+    public PrivateLetterInfo createData(Element element) {
+        PrivateLetterInfo info = BeanUtils.createBean(element, PrivateLetterInfo.class);
+        Element pics = element.selectFirst("pics");
+        for (Element pic : pics.select("pic")) {
+            info.addPic(pic.text());
+        }
+        for (Element size : pics.select("psize")) {
+            info.addSize(size.text());
+        }
+        for (Element spic : element.selectFirst("spics").select("spic")) {
+            info.addSpic(spic.text());
+        }
+        data.add(0, info);
+        return null;
+    }
+
+    @Override
+    public void onBindViewHolder(EasyViewHolder holder, List<PrivateLetterInfo> list, int position, List<Object> payloads) {
+        PrivateLetterInfo info = list.get(position);
+        Glide.with(context).load(info.getAvatar()).into(holder.getImageView(R.id.iv_icon));
+        holder.setText(R.id.tv_content, info.getContent());
+        holder.setText(R.id.tv_time, info.getTime());
+        switch (holder.getViewType()) {
+            case 0:
+                break;
+            case 3:
+            case 1:
+                holder.setText(R.id.tv_name, info.getNikeName());
+                break;
+            case 2:
+
+                break;
+        }
+        gridImageView(holder, info, position);
+    }
+
+    @Override
+    public boolean onLongClick(EasyViewHolder holder, View view, PrivateLetterInfo data) {
+        List<Integer> hideList = new ArrayList<>();
+        if (UserManager.getInstance().getUserId().equals(data.getSendId())) {
+            hideList.add(R.id.blacklist);
+            hideList.add(R.id.cancel_follow);
+        } else {
+            hideList.add(R.id.delete);
+        }
+        BottomListPopupMenu.with(context)
+                .setMenu(R.menu.menu_private_letter)
+                .addHideItem(hideList)
+                .onItemClick((menu, view1, data1) -> {
+                    switch (data1.getItemId()) {
+                        case R.id.blacklist:
+                            ZPopup.alert(context)
+                                    .setTitle("添加黑名单")
+                                    .setContent("确定将该用户加入黑名单？")
+                                    .setConfirmButton(popup -> HttpApi.addBlacklistApi(data.getSendId()))
+                                    .show();
+                            break;
+                        case R.id.cancel_follow:
+                            ZPopup.alert(context)
+                                    .setTitle("取消关注")
+                                    .setContent("确定取消关注该用户？")
+                                    .setConfirmButton(popup -> HttpApi.deleteFriendApi(data.getSendId())
+                                            .onSuccess(element -> {
+                                                Log.d("deleteFriendApi", "element=" + element);
+                                                String result = element.selectFirst("result").text();
+                                                if ("success".equals(result)) {
+                                                    AToast.success("取消关注成功");
+                                                } else {
+                                                    AToast.error(element.selectFirst("info").text());
+                                                }
+                                            })
+                                            .onError(throwable -> AToast.error(throwable.getMessage()))
+                                            .subscribe())
+                                    .show();
+                            break;
+                        case R.id.copy:
+                            ClipboardManager cm = (ClipboardManager) context.getSystemService(Context.CLIPBOARD_SERVICE);
+                            cm.setPrimaryClip(ClipData.newPlainText(null, data.getContent()));
+                            AToast.success("已复制到粘贴板");
+                            break;
+                        case R.id.delete:
+                            ZPopup.alert(context)
+                                    .setTitle("删除信息")
+                                    .setContent("确定删除该信息？")
+                                    .setConfirmButton(popup -> HttpApi.deletePrivateLetterApi(data.getId())
+                                            .onSuccess(element -> {
+                                                Log.d("deleteFriendApi", "element=" + element);
+                                                String result = element.selectFirst("result").text();
+                                                if ("success".equals(result)) {
+                                                    AToast.success("删除成功");
+                                                    onRefresh();
+                                                } else {
+                                                    AToast.error(element.selectFirst("info").text());
+                                                }
+                                            })
+                                            .onError(throwable -> AToast.error(throwable.getMessage()))
+                                            .subscribe())
+                                    .show();
+                            break;
+                        case R.id.share:
+                            AToast.normal("分享");
+                            break;
+                    }
+                    menu.dismiss();
+                })
+                .show();
+        return super.onLongClick(holder, view, data);
+    }
+
+    private void gridImageView(final EasyViewHolder holder, final PrivateLetterInfo info, final int position) {
+        NineGridView nineGridImageView = holder.getView(R.id.gv_img);
+        if (nineGridImageView == null) {
+            return;
+        }
+        nineGridImageView.setImageLoader(new DiscoverBinder.GlideImageLoader());
+        nineGridImageView.setOnItemClickListener(new NineGridView.onItemClickListener() {
+            @Override
+            public void onNineGirdAddMoreClick(int dValue) {
+
+            }
+
+            @Override
+            public void onNineGirdItemClick(int position, NineGridBean gridBean, NineGirdImageContainer imageContainer) {
+//                ImageViewer.with(context)
+//                        .setImageList(info.getSpics())
+//                        .setNowIndex(position)
+//                        .setSourceImageView(pos -> {
+//                            NineGirdImageContainer view = (NineGirdImageContainer) nineGridImageView.getChildAt(pos);
+//                            return view.getImageView();
+//                        })
+//                        .show();
+                CommonImageViewerPopup.with(context)
+                        .setOriginalImageList(info.getPics())
+                        .setImageSizeList(info.getSizes())
+                        .setImageUrls(info.getSpics())
+                        .setSrcView(imageContainer.getImageView(), position)
+                        .setSrcViewUpdateListener((popup, pos) -> {
+                            NineGirdImageContainer view = (NineGirdImageContainer) nineGridImageView.getChildAt(pos);
+                            popup.updateSrcView(view.getImageView());
+                        })
+                        .show();
+            }
+
+            @Override
+            public void onNineGirdItemDeleted(int position, NineGridBean gridBean, NineGirdImageContainer imageContainer) {
+
+            }
+        });
+        List<NineGridBean> gridList = new ArrayList<>();
+        for (String url : info.getSpics()) {
+            gridList.add(new NineGridBean(url));
+        }
+        nineGridImageView.setDataList(gridList);
+    }
+
+    @Override
+    public void sendText(String content) {
+        HttpApi.sendPrivateLetterApi(userId, content)
+                .onSuccess(element -> {
+                    Log.d("deleteFriendApi", "element=" + element);
+                    String result = element.selectFirst("result").text();
+                    if ("success".equals(result)) {
+                        AToast.success("发送成功");
+                        onRefresh();
+                    } else {
+                        AToast.error(element.selectFirst("info").text());
+                    }
+                    hideSoftInput();
+                })
+                .onError(throwable -> AToast.error(throwable.getMessage()))
+                .subscribe();
+    }
+
+    @Override
+    public void onEmojiSelected(String key) {
+
+    }
+
+    @Override
+    public void onStickerSelected(String categoryName, String stickerName, String stickerBitmapPath) {
+        AToast.normal("categoryName=" + categoryName + " stickerName=" + stickerName);
 //        sendImage(stickerBitmapPath);
-//    }
-//}
+    }
+
+
+
+}

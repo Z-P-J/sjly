@@ -111,9 +111,11 @@ public class DiscoverInfo {
 
     private String shielding;
 
-    private List<String> pics = new ArrayList<>(0);
+    private final List<String> pics = new ArrayList<>(0);
 
-    private List<String> spics = new ArrayList<>(0);
+    private final List<String> spics = new ArrayList<>(0);
+
+    private final List<String> picSizes = new ArrayList<>(0);
 
     private final List<SupportUserInfo> supportUserInfoList = new ArrayList<>();
 
@@ -150,8 +152,12 @@ public class DiscoverInfo {
         Elements pics = element.select("pics");
         Elements spics = element.select("spics");
         if (!pics.isEmpty()) {
-            for (Element pic : element.selectFirst("pics").select("pic")) {
+            for (Element pic : pics.select("pic")) {
                 info.addPic(pic.text());
+            }
+
+            for (Element size : pics.select("psize")) {
+                info.addPicSize(size.text());
             }
         }
         if (!spics.isEmpty()) {
@@ -619,6 +625,14 @@ public class DiscoverInfo {
 
     public void addSpic(String spic) {
         this.spics.add(spic);
+    }
+
+    public List<String> getPicSizes() {
+        return picSizes;
+    }
+
+    public void addPicSize(String size) {
+        this.picSizes.add(size);
     }
 
     public List<String> getPics() {

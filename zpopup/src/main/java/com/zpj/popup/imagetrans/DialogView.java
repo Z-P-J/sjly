@@ -60,8 +60,20 @@ public class DialogView<T> extends FrameLayout implements OnTransformListener {
         });
     }
 
+    public ImagePagerAdapter<T> getAdapter() {
+        return mAdapter;
+    }
+
     public void addOnPageChangeListener(ViewPager.OnPageChangeListener listener) {
         viewPager.addOnPageChangeListener(listener);
+    }
+
+    public void loadNewUrl(T url) {
+        int now = build.nowIndex;
+        build.imageList.set(now, url);
+        ImageItemView itemView = mAdapter.getItemView(now);
+        itemView.setUrl(url);
+        itemView.loadImage();
     }
 
     public int getCurrentItem() {

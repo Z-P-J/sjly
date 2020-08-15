@@ -1,7 +1,6 @@
 package com.zpj.shouji.market.ui.adapter;
 
 import android.content.Context;
-import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.support.annotation.NonNull;
 import android.text.SpannableString;
@@ -31,13 +30,14 @@ import com.zpj.recyclerview.IEasy;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.api.HttpApi;
 import com.zpj.shouji.market.glide.GlideApp;
-import com.zpj.shouji.market.glide.blur.BlurTransformation2;
+import com.zpj.shouji.market.glide.blur.CropBlurTransformation;
+import com.zpj.shouji.market.glide.blur.PercentBlurTransformation;
 import com.zpj.shouji.market.model.DiscoverInfo;
 import com.zpj.shouji.market.ui.fragment.detail.AppDetailFragment;
 import com.zpj.shouji.market.ui.fragment.profile.ProfileFragment;
 import com.zpj.shouji.market.ui.fragment.theme.ThemeDetailFragment;
 import com.zpj.shouji.market.ui.widget.DrawableTintTextView;
-import com.zpj.shouji.market.ui.widget.popup.ImageViewer;
+import com.zpj.shouji.market.ui.widget.popup.CommonImageViewerPopup;
 import com.zpj.shouji.market.ui.widget.popup.ThemeAppDownloadPopup;
 
 import java.util.ArrayList;
@@ -80,12 +80,22 @@ public class DiscoverBinder implements IEasy.OnBindViewHolderListener<DiscoverIn
 
             @Override
             public void onNineGirdItemClick(int position, NineGridBean gridBean, NineGirdImageContainer imageContainer) {
-                ImageViewer.with(context)
-                        .setImageList(discoverInfo.getSpics())
-                        .setNowIndex(position)
-                        .setSourceImageView(pos -> {
+//                ImageViewer.with(context)
+//                        .setImageList(discoverInfo.getSpics())
+//                        .setNowIndex(position)
+//                        .setSourceImageView(pos -> {
+//                            NineGirdImageContainer view = (NineGirdImageContainer) nineGridImageView.getChildAt(pos);
+//                            return view.getImageView();
+//                        })
+//                        .show();
+                CommonImageViewerPopup.with(context)
+                        .setOriginalImageList(discoverInfo.getPics())
+                        .setImageSizeList(discoverInfo.getPicSizes())
+                        .setImageUrls(discoverInfo.getSpics())
+                        .setSrcView(imageContainer.getImageView(), position)
+                        .setSrcViewUpdateListener((popup, pos) -> {
                             NineGirdImageContainer view = (NineGirdImageContainer) nineGridImageView.getChildAt(pos);
-                            return view.getImageView();
+                            popup.updateSrcView(view.getImageView());
                         })
                         .show();
             }
@@ -121,6 +131,9 @@ public class DiscoverBinder implements IEasy.OnBindViewHolderListener<DiscoverIn
             List<NineGridBean> gridList = new ArrayList<>();
             for (String url : discoverInfo.getSharePics()) {
                 gridList.add(new NineGridBean(url));
+                if (gridList.size() >= 4) {
+                    break;
+                }
             }
             gridImageView.setDataList(gridList);
 //            gridImageView.setAdapter(new NineGridImageAdapter());
@@ -130,8 +143,8 @@ public class DiscoverBinder implements IEasy.OnBindViewHolderListener<DiscoverIn
             Glide.with(context)
                     .load(discoverInfo.getSharePics().get(0))
 //                    .apply(RequestOptions.bitmapTransform(new BlurTransformation(26, 6)))
-                    .apply(RequestOptions.bitmapTransform(new BlurTransformation2(0.1f, 1 / 4f)))
-//                    .apply(RequestOptions.bitmapTransform(new BlurTransformation()))
+//                    .apply(RequestOptions.bitmapTransform(new PercentBlurTransformation(0.1f, 1 / 4f)))
+                    .apply(RequestOptions.bitmapTransform(new CropBlurTransformation(18, 0.8f)))
                     .into(holder.getImageView(R.id.img_bg));
 
             holder.getTextView(R.id.tv_title).setText(discoverInfo.getShareTitle());

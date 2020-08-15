@@ -52,10 +52,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="end"
-            android:foreground="?android:attr/selectableItemBackground"
+            android:background="?android:attr/selectableItemBackground"
             android:padding="16dp"
             android:textColor="@color/colorPrimary"
-            android:text="@string/ok"
+            android:text="ok"
             android:textSize="16sp"/>
 
     </FrameLayout>

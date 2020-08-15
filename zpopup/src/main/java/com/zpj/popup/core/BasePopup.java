@@ -17,6 +17,7 @@ import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.FrameLayout;
+import android.widget.Toast;
 
 import com.zpj.popup.XPopup;
 import com.zpj.popup.animator.EmptyAnimator;
@@ -341,7 +342,7 @@ public abstract class BasePopup<T extends BasePopup> extends FrameLayout impleme
         }
     }
 
-    class BackPressListener implements OnKeyListener {
+    public class BackPressListener implements OnKeyListener {
         @Override
         public boolean onKey(View v, int keyCode, KeyEvent event) {
             if (keyCode == KeyEvent.KEYCODE_BACK && event.getAction() == KeyEvent.ACTION_UP) {
@@ -534,7 +535,8 @@ public abstract class BasePopup<T extends BasePopup> extends FrameLayout impleme
     @Override
     public void clearFocus() {
         super.clearFocus();
-        if (!stack.isEmpty()) stack.pop();
+//        if (!stack.isEmpty()) stack.pop();
+        stack.remove(this);
         if (popupInfo != null && popupInfo.isRequestFocus) {
             if (!stack.isEmpty()) {
                 stack.get(stack.size() - 1).focusAndProcessBackPress();

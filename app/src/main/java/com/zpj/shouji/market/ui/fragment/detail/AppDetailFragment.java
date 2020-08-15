@@ -12,6 +12,7 @@ import android.support.v4.view.ViewPager;
 import android.util.Log;
 import android.view.View;
 
+import com.bumptech.glide.Glide;
 import com.felix.atoast.library.AToast;
 import com.zpj.fragmentation.BaseFragment;
 import com.zpj.popup.ZPopup;
@@ -32,7 +33,6 @@ import com.zpj.shouji.market.ui.adapter.FragmentsPagerAdapter;
 import com.zpj.shouji.market.ui.fragment.WebFragment;
 import com.zpj.shouji.market.ui.fragment.manager.AppManagerFragment;
 import com.zpj.shouji.market.ui.widget.AppDetailLayout;
-import com.zpj.shouji.market.ui.widget.AppDetailLayout2;
 import com.zpj.shouji.market.ui.widget.popup.AppCommentPopup;
 import com.zpj.shouji.market.utils.MagicIndicatorHelper;
 import com.zpj.widget.statelayout.StateLayout;
@@ -63,7 +63,7 @@ public class AppDetailFragment extends BaseFragment
     private TintedImageButton btnCollect;
     private TintedImageButton btnMenu;
 
-    private AppDetailLayout2 appDetailLayout;
+    private AppDetailLayout appDetailLayout;
     private ViewPager viewPager;
     private MagicIndicator magicIndicator;
 
@@ -250,6 +250,9 @@ public class AppDetailFragment extends BaseFragment
                     btnMenu.setTint(color);
                     btnCollect.setTint(color);
                     btnShare.setTint(color);
+                    for (String img : info.getImgUrlList()) {
+                        Glide.with(context).load(img).preload();
+                    }
                     postOnEnterAnimationEnd(() -> {
                         initViewPager();
                         postDelayed(() -> EventBus.getDefault().post(info), 50);

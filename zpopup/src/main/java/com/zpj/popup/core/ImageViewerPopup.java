@@ -52,14 +52,16 @@ import java.util.List;
  * Description: 大图预览的弹窗，使用Transition实现
  * Create by lxj, at 2019/1/22
  */
-public class ImageViewerPopup<T> extends BasePopup<ImageViewerPopup<T>> implements OnDragChangeListener, View.OnClickListener {
+public class ImageViewerPopup<T> extends BasePopup<ImageViewerPopup<T>>
+        implements OnDragChangeListener, View.OnClickListener {
+
     protected FrameLayout container;
     protected PhotoViewContainer photoViewContainer;
     protected BlankView placeholderView;
     protected TextView tv_pager_indicator, tv_save;
     protected HackyViewPager pager;
     protected ArgbEvaluator argbEvaluator = new ArgbEvaluator();
-    protected List<T> urls = new ArrayList<>();
+    protected final List<T> urls = new ArrayList<>();
     protected IImageLoader<T> imageLoader;
     protected OnSrcViewUpdateListener srcViewUpdateListener;
     protected int position;
@@ -307,7 +309,8 @@ public class ImageViewerPopup<T> extends BasePopup<ImageViewerPopup<T>> implemen
         popupStatus = PopupStatus.Dismissing;
         if (srcView != null) {
             //snapshotView拥有当前pager中photoView的样子(matrix)
-            PhotoView current = (PhotoView) pager.getChildAt(pager.getCurrentItem());
+//            PhotoView current = (PhotoView) pager.getChildAt(pager.getCurrentItem());
+            PhotoView current = pager.findViewWithTag(pager.getCurrentItem());
             if (current != null) {
                 Matrix matrix = new Matrix();
                 current.getSuppMatrix(matrix);
@@ -328,7 +331,7 @@ public class ImageViewerPopup<T> extends BasePopup<ImageViewerPopup<T>> implemen
     }
 
     public ImageViewerPopup<T> setImageUrls(List<T> urls) {
-        this.urls = urls;
+        this.urls.addAll(urls);
         return this;
     }
 
@@ -402,9 +405,6 @@ public class ImageViewerPopup<T> extends BasePopup<ImageViewerPopup<T>> implemen
      * @return
      */
     public ImageViewerPopup<T> setSingleSrcView(ImageView srcView, T url) {
-        if (this.urls == null) {
-            urls = new ArrayList<>();
-        }
         urls.clear();
         urls.add(url);
         setSrcView(srcView, 0);
@@ -423,6 +423,14 @@ public class ImageViewerPopup<T> extends BasePopup<ImageViewerPopup<T>> implemen
     }
 
     public void updateSrcView(ImageView srcView) {
+        setSrcView(srcView, position);
+        addOrUpdateSnapshot();
+    }
+
+    public void updateSrcView(ImageView srcView, int position) {
+        if (this.position != position) {
+            return;
+        }
         setSrcView(srcView, position);
         addOrUpdateSnapshot();
     }
@@ -489,6 +497,7 @@ public class ImageViewerPopup<T> extends BasePopup<ImageViewerPopup<T>> implemen
         @Override
         public Object instantiateItem(@NonNull ViewGroup container, int position) {
             final PhotoView photoView = new PhotoView(container.getContext());
+            photoView.setTag(position);
             // call LoadImageListener
             if (imageLoader != null)
                 imageLoader.loadImage(position, urls.get(isInfinite ? position % urls.size() : position), photoView);

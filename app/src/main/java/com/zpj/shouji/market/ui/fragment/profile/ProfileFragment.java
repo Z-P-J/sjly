@@ -5,14 +5,10 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.AppBarLayout;
 import android.support.v4.app.Fragment;
-import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
-import android.support.v4.widget.NestedScrollView;
-import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -21,9 +17,6 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.felix.atoast.library.AToast;
-import com.scwang.smartrefresh.layout.SmartRefreshLayout;
-import com.scwang.smartrefresh.layout.api.RefreshHeader;
-import com.scwang.smartrefresh.layout.listener.SimpleMultiPurposeListener;
 import com.shehuan.niv.NiceImageView;
 import com.zpj.fragmentation.BaseFragment;
 import com.zpj.popup.ZPopup;
@@ -34,10 +27,8 @@ import com.zpj.shouji.market.event.StartFragmentEvent;
 import com.zpj.shouji.market.manager.UserManager;
 import com.zpj.shouji.market.ui.adapter.FragmentsPagerAdapter;
 import com.zpj.shouji.market.ui.fragment.WebFragment;
-import com.zpj.shouji.market.ui.fragment.chat.ChatFragment2;
-import com.zpj.shouji.market.ui.widget.JudgeNestedScrollView;
+import com.zpj.shouji.market.ui.fragment.chat.ChatFragment;
 import com.zpj.shouji.market.utils.MagicIndicatorHelper;
-import com.zpj.utils.ScreenUtils;
 import com.zpj.widget.statelayout.StateLayout;
 import com.zpj.widget.tinted.TintedImageView;
 
@@ -45,8 +36,6 @@ import net.lucode.hackware.magicindicator.MagicIndicator;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import top.defaults.drawabletoolbox.DrawableBuilder;
 
 public class ProfileFragment extends BaseFragment
         implements View.OnClickListener {
@@ -268,7 +257,7 @@ public class ProfileFragment extends BaseFragment
     @Override
     public void onClick(View v) {
         if (v == ivChat) {
-            ChatFragment2.start(userId, tvName.getText().toString());
+            ChatFragment.start(userId, tvName.getText().toString());
         } else if (v == tvFollow) {
             if (isMe) {
                 AToast.normal("编辑");

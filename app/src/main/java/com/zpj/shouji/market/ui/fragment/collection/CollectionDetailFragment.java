@@ -1,17 +1,14 @@
 package com.zpj.shouji.market.ui.fragment.collection;
 
-import android.content.Context;
-import android.graphics.Bitmap;
 import android.graphics.Color;
-import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.AppBarLayout;
+import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v4.app.Fragment;
-import android.support.v4.graphics.ColorUtils;
 import android.support.v4.view.ViewPager;
-import android.support.v7.graphics.Palette;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
@@ -27,43 +24,28 @@ import com.zpj.fragmentation.BaseFragment;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.api.HttpApi;
 import com.zpj.shouji.market.event.StartFragmentEvent;
-import com.zpj.shouji.market.glide.blur.BlurTransformation2;
-import com.zpj.shouji.market.manager.UserManager;
 import com.zpj.shouji.market.model.CollectionInfo;
 import com.zpj.shouji.market.ui.adapter.FragmentsPagerAdapter;
 import com.zpj.shouji.market.ui.fragment.profile.ProfileFragment;
-import com.zpj.shouji.market.ui.fragment.theme.ThemeListFragment;
 import com.zpj.shouji.market.ui.widget.DrawableTintTextView;
-import com.zpj.shouji.market.ui.widget.popup.AppCommentPopup;
 import com.zpj.shouji.market.ui.widget.popup.CommentPopup;
 import com.zpj.shouji.market.utils.MagicIndicatorHelper;
-import com.zpj.utils.ScreenUtils;
 import com.zpj.widget.statelayout.StateLayout;
 
 import net.lucode.hackware.magicindicator.MagicIndicator;
-import net.lucode.hackware.magicindicator.ViewPagerHelper;
-import net.lucode.hackware.magicindicator.buildins.commonnavigator.CommonNavigator;
-import net.lucode.hackware.magicindicator.buildins.commonnavigator.abs.CommonNavigatorAdapter;
-import net.lucode.hackware.magicindicator.buildins.commonnavigator.abs.IPagerIndicator;
-import net.lucode.hackware.magicindicator.buildins.commonnavigator.abs.IPagerTitleView;
-import net.lucode.hackware.magicindicator.buildins.commonnavigator.indicators.LinePagerIndicator;
-import net.lucode.hackware.magicindicator.buildins.commonnavigator.titles.ColorTransitionPagerTitleView;
 
 import java.util.ArrayList;
 
-import io.reactivex.Observable;
-import io.reactivex.ObservableOnSubscribe;
-import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.schedulers.Schedulers;
-import per.goweii.burred.Blurred;
+import jp.wasabeef.glide.transformations.BlurTransformation;
 
 public class CollectionDetailFragment extends BaseFragment
         implements View.OnClickListener {
 
     private final String[] TAB_TITLES = {"应用", "评论"};
 
+    private CollapsingToolbarLayout toolbarLayout;
     private StateLayout stateLayout;
-    private ImageView ivHeader;
+//    private ImageView ivHeader;
     private ImageView ivIcon;
     private ImageView ivAvatar;
     private TextView tvTitle;
@@ -116,6 +98,8 @@ public class CollectionDetailFragment extends BaseFragment
         stateLayout = view.findViewById(R.id.state_layout);
         stateLayout.showLoadingView();
 
+        toolbarLayout = view.findViewById(R.id.collapsingToolbar);
+
         buttonBarLayout = toolbar.getCenterCustomView();
         buttonBarLayout.setAlpha(0);
         ivToolbarAvater = toolbar.findViewById(R.id.toolbar_avatar);
@@ -136,7 +120,7 @@ public class CollectionDetailFragment extends BaseFragment
 //                toolbar.setBackgroundColor(color);
         });
 
-        ivHeader = view.findViewById(R.id.iv_header);
+//        ivHeader = view.findViewById(R.id.iv_header);
 
 
         ivIcon = view.findViewById(R.id.iv_icon);
@@ -244,13 +228,29 @@ public class CollectionDetailFragment extends BaseFragment
 //                                    .subscribe();
 //                        }
 //                    });
-                    Glide.with(context).load(backgroundUrl)
-                            .apply(new RequestOptions()
-                                    .error(R.drawable.bg_member_default)
-                                    .placeholder(R.drawable.bg_member_default)
+//                    Glide.with(context).load(backgroundUrl)
+//                            .apply(new RequestOptions()
+//                                    .error(R.drawable.bg_member_default)
+//                                    .placeholder(R.drawable.bg_member_default)
+//                            )
+//                            .apply(RequestOptions.bitmapTransform(new BlurTransformation2(0.2f, 0.3f)))
+//                            .into(ivHeader);
+
+                    Glide.with(context)
+                            .asDrawable()
+                            .load(backgroundUrl)
+                            .apply(
+                                    RequestOptions
+                                            .bitmapTransform(new BlurTransformation(25, 4))
+                                            .error(R.drawable.bg_member_default)
+                                            .placeholder(R.drawable.bg_member_default)
                             )
-                            .apply(RequestOptions.bitmapTransform(new BlurTransformation2(0.2f, 0.3f)))
-                            .into(ivHeader);
+                            .into(new SimpleTarget<Drawable>() {
+                                @Override
+                                public void onResourceReady(@NonNull Drawable resource, @Nullable Transition<? super Drawable> transition) {
+                                    toolbarLayout.setBackground(resource);
+                                }
+                            });
 
                     ArrayList<Fragment> list = new ArrayList<>();
                     CollectionAppListFragment appListFragment = findChildFragment(CollectionAppListFragment.class);

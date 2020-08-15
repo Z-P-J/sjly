@@ -18,6 +18,7 @@ import com.zpj.matisse.MimeType;
 import com.zpj.matisse.engine.impl.GlideEngine;
 import com.zpj.matisse.entity.Item;
 import com.zpj.matisse.listener.OnSelectedListener;
+import com.zpj.popup.interfaces.OnDismissListener;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.manager.UserManager;
 import com.zpj.shouji.market.model.MessageInfo;
@@ -30,7 +31,8 @@ import com.zpj.shouji.market.ui.fragment.recommond.SoftRecommendFragment2;
 import com.zpj.shouji.market.ui.widget.BottomBar;
 import com.zpj.shouji.market.ui.widget.BottomBarTab;
 import com.zpj.shouji.market.ui.widget.ZViewPager;
-import com.zpj.shouji.market.ui.widget.popup.MorePopup;
+import com.zpj.shouji.market.ui.widget.popup.MainActionPopup;
+import com.zpj.shouji.market.ui.widget.recommend.RecommendBanner;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -39,7 +41,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MainFragment extends BaseFragment
-        implements MorePopup.OnItemClickListener {
+        implements MainActionPopup.OnItemClickListener {
 //    IHttp.OnSuccessListener<MessageInfo>
 
     private final List<BaseFragment> fragments = new ArrayList<>();
@@ -147,8 +149,18 @@ public class MainFragment extends BaseFragment
 
         floatingActionButton.setOnClickListener(v -> {
             postDelayed(this::darkStatusBar, 300);
-            MorePopup.with((ViewGroup) view)
+            RecommendBanner mBanner = _mActivity.findViewById(R.id.rb_banner);
+            if (mBanner != null) {
+                mBanner.onPause();
+            }
+            MainActionPopup.with(context)
                     .setListener(this)
+                    .setOnDismissListener(() -> {
+                        if (mBanner != null) {
+                            mBanner.onResume();
+                        }
+                        lightStatusBar();
+                    })
                     .show();
         });
 

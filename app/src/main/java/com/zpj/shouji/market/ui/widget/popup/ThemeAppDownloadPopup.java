@@ -53,7 +53,7 @@ public class ThemeAppDownloadPopup extends BottomPopup<ThemeAppDownloadPopup> {
 //                recyclerView.notifyDataSetChanged();
             if (permissionList.isEmpty()) {
                 TextView textView = new TextView(context);
-                textView.setText("无敏感权限");
+                textView.setText("权限未知！");
                 textView.setGravity(Gravity.CENTER);
                 int padding = ScreenUtils.dp2pxInt(context, 56);
                 textView.setPadding(0, padding, 0, padding);

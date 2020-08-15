@@ -43,6 +43,10 @@ public class ImageItemView<T> extends FrameLayout implements
         uniqueStr = UUID.randomUUID().toString();
     }
 
+    public void setUrl(T url) {
+        this.url = url;
+    }
+
     void init(boolean opened) {
         imageView = new TransImageView(getContext());
         imageView.setOnTransformListener(transformOpenListener);
@@ -62,7 +66,7 @@ public class ImageItemView<T> extends FrameLayout implements
         if (!needTransOpen) loadImage();
     }
 
-    private void loadImage() {
+    void loadImage() {
         isCached = build.imageLoad.isCached(url);
         final boolean needShowThumb = !build.itConfig.noThumb && !(build.itConfig.noThumbWhenCached && build.imageLoad.isCached(url));
         if (needShowThumb) {

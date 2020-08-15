@@ -2,6 +2,7 @@ package com.zpj.shouji.market.ui.widget;
 
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.graphics.Color;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.GridLayout;
@@ -39,7 +40,7 @@ import per.goweii.burred.Blurred;
 import q.rorbin.badgeview.Badge;
 import q.rorbin.badgeview.QBadgeView;
 
-public class MyToolsCard extends ShadowLayout implements View.OnClickListener {
+public class ToolBoxCard extends ShadowLayout implements View.OnClickListener {
 
     private DrawableTintTextView tvMyHomepage;
     private DrawableTintTextView tvMyDiscovers;
@@ -65,18 +66,18 @@ public class MyToolsCard extends ShadowLayout implements View.OnClickListener {
 
     private MyFragment fragment;
     
-    public MyToolsCard(@NonNull Context context) {
+    public ToolBoxCard(@NonNull Context context) {
         this(context, null);
     }
 
-    public MyToolsCard(@NonNull Context context, @Nullable AttributeSet attrs) {
+    public ToolBoxCard(@NonNull Context context, @Nullable AttributeSet attrs) {
         this(context, attrs, 0);
     }
 
-    public MyToolsCard(@NonNull Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
+    public ToolBoxCard(@NonNull Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
 
-        LayoutInflater.from(context).inflate(R.layout.card_my_tools, this);
+        LayoutInflater.from(context).inflate(R.layout.layout_card_tool_box, this);
 
         flNotLogin = findViewById(R.id.fl_not_login);
         ImageView ivBg = findViewById(R.id.iv_bg);
@@ -86,9 +87,10 @@ public class MyToolsCard extends ShadowLayout implements View.OnClickListener {
             public void onGlobalLayout() {
                 getViewTreeObserver().removeOnGlobalLayoutListener(this);
                 Observable.create((ObservableOnSubscribe<Bitmap>) emitter -> {
-                    Bitmap bitmap = Blurred.with(MyToolsCard.this)
-//                            .foregroundColor(Color.parseColor("#40ffffff"))
-                            .scale(1f / 8f)
+                    Bitmap bitmap = Blurred.with(ToolBoxCard.this)
+                            .backgroundColor(Color.WHITE)
+                            .foregroundColor(Color.parseColor("#80ffffff"))
+                            .scale(0.5f)
                             .radius(20)
                             .blur();
                     emitter.onNext(bitmap);

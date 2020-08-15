@@ -22,7 +22,7 @@ import com.zpj.http.parser.html.nodes.Element;
 import com.zpj.http.parser.html.select.Elements;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.api.HttpPreLoader;
-import com.zpj.shouji.market.glide.blur.BlurTransformation2;
+import com.zpj.shouji.market.glide.blur.CropBlurTransformation;
 import com.zpj.shouji.market.model.AppInfo;
 import com.zpj.shouji.market.ui.fragment.SubjectRecommendListFragment;
 import com.zpj.shouji.market.ui.fragment.ToolBarListFragment;
@@ -32,6 +32,8 @@ import com.zpj.utils.ScreenUtils;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import jp.wasabeef.glide.transformations.BlurTransformation;
 
 public class RecommendBanner extends LinearLayout implements View.OnClickListener {
 
@@ -83,7 +85,8 @@ public class RecommendBanner extends LinearLayout implements View.OnClickListene
         ViewGroup.LayoutParams params = mMZBanner.getLayoutParams();
         int screenWidth = ScreenUtils.getScreenWidth(context);
 
-        params.height = (int) ((float) screenWidth * screenWidth / ScreenUtils.getScreenHeight(context));
+//        params.height = (int) ((float) screenWidth * screenWidth / ScreenUtils.getScreenHeight(context));
+        params.height = (int) ((float) screenWidth / 2f);
 
         HttpPreLoader.getInstance().setLoadListener(HttpPreLoader.HOME_BANNER, document -> {
             Elements elements = document.select("item");
@@ -136,7 +139,7 @@ public class RecommendBanner extends LinearLayout implements View.OnClickListene
         Glide.with(ivBg.getContext())
                 .asBitmap()
                 .load(bannerItemList.get(position).getAppIcon())
-                .apply(RequestOptions.bitmapTransform(new BlurTransformation2(0.1f, 1 / 4f)))
+                .apply(RequestOptions.bitmapTransform(new BlurTransformation()))
                 .into(new SimpleTarget<Bitmap>() {
                     @Override
                     public void onResourceReady(@NonNull Bitmap resource, @Nullable Transition<? super Bitmap> transition) {

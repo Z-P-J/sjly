@@ -18,24 +18,20 @@ import com.shehuan.niv.NiceImageView;
 import com.zpj.fragmentation.BaseFragment;
 import com.zpj.fragmentation.anim.DefaultVerticalAnimator;
 import com.zpj.popup.ZPopup;
-import com.zpj.popup.impl.AlertPopup;
 import com.zpj.popup.impl.AttachListPopup;
-import com.zpj.popup.interfaces.OnConfirmListener;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.api.HttpApi;
 import com.zpj.shouji.market.event.SignInEvent;
 import com.zpj.shouji.market.manager.UserManager;
 import com.zpj.shouji.market.model.MemberInfo;
-import com.zpj.shouji.market.model.MessageInfo;
 import com.zpj.shouji.market.ui.fragment.WebFragment;
 import com.zpj.shouji.market.ui.fragment.login.LoginFragment;
 import com.zpj.shouji.market.ui.fragment.setting.AboutSettingFragment;
 import com.zpj.shouji.market.ui.fragment.setting.CommonSettingFragment;
 import com.zpj.shouji.market.ui.fragment.setting.DownloadSettingFragment;
 import com.zpj.shouji.market.ui.fragment.setting.InstallSettingFragment;
-import com.zpj.shouji.market.ui.widget.MyToolsCard;
+import com.zpj.shouji.market.ui.widget.ToolBoxCard;
 import com.zpj.shouji.market.ui.widget.PullZoomView;
-import com.zpj.shouji.market.ui.widget.popup.LoginPopup;
 import com.zpj.shouji.market.ui.widget.popup.NicknameModifiedPopup;
 import com.zpj.utils.ClickHelper;
 import com.zpj.widget.tinted.TintedImageView;
@@ -55,7 +51,7 @@ public class MyFragment extends BaseFragment
     private TextView tvFollower;
     private TextView tvFans;
 
-    private MyToolsCard myToolsCard;
+    private ToolBoxCard toolBoxCard;
 
     private TextView tvCloudBackup;
     private TextView tvFeedback;
@@ -126,9 +122,9 @@ public class MyFragment extends BaseFragment
         tvLevel = view.findViewById(R.id.tv_level);
         tvFollower = view.findViewById(R.id.tv_follower);
         tvFans = view.findViewById(R.id.tv_fans);
-        myToolsCard = view.findViewById(R.id.my_tools_card);
-        EventBus.getDefault().register(myToolsCard);
-        myToolsCard.attachFragment(this);
+        toolBoxCard = view.findViewById(R.id.my_tools_card);
+        EventBus.getDefault().register(toolBoxCard);
+        toolBoxCard.attachFragment(this);
 
         tvCloudBackup = view.findViewById(R.id.tv_cloud_backup);
         tvFeedback = view.findViewById(R.id.tv_feedback);
@@ -235,7 +231,7 @@ public class MyFragment extends BaseFragment
 
     @Override
     public void onDestroy() {
-        EventBus.getDefault().unregister(myToolsCard);
+        EventBus.getDefault().unregister(toolBoxCard);
         EventBus.getDefault().unregister(this);
 //        UserManager.getInstance().removeOnSignInListener(this);
 //        if (loginPopup != null && loginPopup.isShow()) {
@@ -388,7 +384,7 @@ public class MyFragment extends BaseFragment
     @Subscribe
     public void onSignInEvent(SignInEvent event) {
         if (event.isSuccess()) {
-            myToolsCard.onLogin();
+            toolBoxCard.onLogin();
             MemberInfo info = UserManager.getInstance().getMemberInfo();
             tvCheckIn.setVisibility(View.VISIBLE);
             if (!info.isCanSigned()) {
@@ -454,7 +450,7 @@ public class MyFragment extends BaseFragment
                 .setContent("您将注销当前登录的账户，确认继续？")
                 .setConfirmButton(popup -> {
                     UserManager.getInstance().signOut();
-                    myToolsCard.onSignOut();
+                    toolBoxCard.onSignOut();
                     tvCheckIn.setVisibility(View.GONE);
                     tvSignOut.setVisibility(View.GONE);
                     tvName.setText("点击头像登录");

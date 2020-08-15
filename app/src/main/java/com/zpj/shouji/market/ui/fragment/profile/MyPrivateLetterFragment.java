@@ -15,7 +15,7 @@ import com.zpj.shouji.market.constant.UpdateFlagAction;
 import com.zpj.shouji.market.event.StartFragmentEvent;
 import com.zpj.shouji.market.model.PrivateLetterInfo;
 import com.zpj.shouji.market.ui.fragment.base.NextUrlFragment;
-import com.zpj.shouji.market.ui.fragment.chat.ChatFragment2;
+import com.zpj.shouji.market.ui.fragment.chat.ChatFragment;
 import com.zpj.shouji.market.utils.BeanUtils;
 
 import java.util.List;
@@ -60,7 +60,7 @@ public class MyPrivateLetterFragment extends NextUrlFragment<PrivateLetterInfo> 
     @Override
     public void onClick(EasyViewHolder holder, View view, PrivateLetterInfo data) {
 //        super.onClick(holder, view, data);
-        ChatFragment2.start(data.getSendId(), data.getNikeName());
+        ChatFragment.start(data.getSendId(), data.getNikeName());
     }
 
     @Override

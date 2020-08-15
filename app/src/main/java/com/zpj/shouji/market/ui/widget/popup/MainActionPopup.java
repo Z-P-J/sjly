@@ -5,6 +5,7 @@ import android.animation.AnimatorListenerAdapter;
 import android.animation.ObjectAnimator;
 import android.animation.TypeEvaluator;
 import android.animation.ValueAnimator;
+import android.app.Activity;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Color;
@@ -20,6 +21,7 @@ import android.widget.TextView;
 import com.felix.atoast.library.AToast;
 import com.zpj.popup.enums.PopupAnimation;
 import com.zpj.popup.impl.FullScreenPopup;
+import com.zpj.popup.util.ActivityUtils;
 import com.zpj.shouji.market.R;
 
 import io.reactivex.Observable;
@@ -28,12 +30,11 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 import per.goweii.burred.Blurred;
 
-public class MorePopup extends FullScreenPopup<MorePopup> implements View.OnClickListener {
+public class MainActionPopup extends FullScreenPopup<MainActionPopup> implements View.OnClickListener {
 
     private final int[] menuIconItems = {R.drawable.pic1, R.drawable.pic2, R.drawable.pic3, R.drawable.pic4};
     private final String[] menuTextItems = {"动态", "应用集", "乐图", "私聊"};
 
-    private final Context context;
     private FloatingActionButton floatingActionButton;
     private ViewGroup anchorView;
 
@@ -49,24 +50,18 @@ public class MorePopup extends FullScreenPopup<MorePopup> implements View.OnClic
         void onChatWithFriendItemClick();
     }
 
-    public static MorePopup with(ViewGroup anchorView) {
-        return new MorePopup(anchorView);
+    public static MainActionPopup with(Context context) {
+        return new MainActionPopup(context);
     }
 
-    private MorePopup(Context context) {
+    private MainActionPopup(Context context) {
         super(context);
-        this.context = context;
-    }
-
-    private MorePopup(ViewGroup anchorView) {
-        this(anchorView.getContext());
-        this.anchorView = anchorView;
         popupInfo.popupAnimation = PopupAnimation.NoAnimation;
     }
 
     @Override
     protected int getImplLayoutId() {
-        return R.layout.layout_add_view;
+        return R.layout.layout_popup_main_action;
     }
 
     @Override
@@ -85,11 +80,12 @@ public class MorePopup extends FullScreenPopup<MorePopup> implements View.OnClic
         ImageView ivBg = findViewById(R.id.iv_bg);
 
         Observable.create((ObservableOnSubscribe<Bitmap>) emitter -> {
-            Bitmap bitmap = Blurred.with(anchorView)
+            Activity activity = ActivityUtils.getActivity(context);
+            Bitmap bitmap = Blurred.with(activity.findViewById(R.id.main_content))
                     .backgroundColor(Color.WHITE)
-//                    .foregroundColor(Color.parseColor("#40ffffff"))
-                    .scale(1f / 8f)
-                    .radius(20)
+                    .foregroundColor(Color.parseColor("#80ffffff"))
+                    .scale(0.5f)
+                    .radius(25)
                     .blur();
             emitter.onNext(bitmap);
             emitter.onComplete();
@@ -125,7 +121,7 @@ public class MorePopup extends FullScreenPopup<MorePopup> implements View.OnClic
         });
     }
 
-    public MorePopup setListener(OnItemClickListener listener) {
+    public MainActionPopup setListener(OnItemClickListener listener) {
         this.listener = listener;
         return this;
     }
@@ -180,7 +176,7 @@ public class MorePopup extends FullScreenPopup<MorePopup> implements View.OnClic
                 if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
                     int x = floatingActionButton.getLeft() + floatingActionButton.getWidth() / 2;
                     int y = floatingActionButton.getTop() + floatingActionButton.getHeight() / 2;
-                    Animator animator = ViewAnimationUtils.createCircularReveal(MorePopup.this, x,
+                    Animator animator = ViewAnimationUtils.createCircularReveal(MainActionPopup.this, x,
                             y, 0, getHeight());
                     animator.addListener(new AnimatorListenerAdapter() {
                         @Override
@@ -207,7 +203,7 @@ public class MorePopup extends FullScreenPopup<MorePopup> implements View.OnClic
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
             int x = floatingActionButton.getLeft() + floatingActionButton.getWidth() / 2;
             int y = floatingActionButton.getTop() + floatingActionButton.getHeight() / 2;
-            Animator animator = ViewAnimationUtils.createCircularReveal(MorePopup.this, x,
+            Animator animator = ViewAnimationUtils.createCircularReveal(MainActionPopup.this, x,
                     y, getHeight(), 0);
             animator.addListener(new AnimatorListenerAdapter() {
                 @Override

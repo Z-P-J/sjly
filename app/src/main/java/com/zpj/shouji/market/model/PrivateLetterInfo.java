@@ -29,8 +29,9 @@ public class PrivateLetterInfo extends BaseEvent {
     @Select(selector = "read")
     private boolean isRead;
     private String content;
-    private List<String> pics = new ArrayList<>(0);
-    private List<String> spics = new ArrayList<>(0);
+    private final List<String> pics = new ArrayList<>(0);
+    private final List<String> spics = new ArrayList<>(0);
+    private final List<String> sizes = new ArrayList<>(0);
 
 
     public String getId() {
@@ -135,6 +136,14 @@ public class PrivateLetterInfo extends BaseEvent {
 
     public void addPic(String pic) {
         this.pics.add(pic);
+    }
+
+    public List<String> getSizes() {
+        return sizes;
+    }
+
+    public void addSize(String size) {
+        this.sizes.add(size);
     }
 
     @Override

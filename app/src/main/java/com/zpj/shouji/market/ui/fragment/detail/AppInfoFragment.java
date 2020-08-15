@@ -26,20 +26,18 @@ import com.zpj.recyclerview.EasyViewHolder;
 import com.zpj.recyclerview.IEasy;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.model.AppDetailInfo;
-import com.zpj.shouji.market.ui.widget.popup.ImageViewer;
+import com.zpj.shouji.market.ui.widget.popup.CommonImageViewerPopup;
 import com.zpj.utils.ScreenUtils;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class AppInfoFragment extends BaseFragment
         implements IEasy.OnBindViewHolderListener<String> {
 
     private EasyRecyclerView<String> recyclerView;
-    private final List<String> imgUrlList = new ArrayList<>();
     private LinearLayout content;
 
     private float screenWidth;
@@ -110,13 +108,16 @@ public class AppInfoFragment extends BaseFragment
 //                        }
 
 
-                        params.height = (int) (screenHeight / 3);
+//                        params.height = (int) (screenHeight / 3);
+                        params.height = (int) (screenWidth / 2f);
+                        float ratio = screenHeight / screenWidth;
                         if (width > height) {
-                            params.width = (int) (screenWidth - margin * 10f);
+//                            params.width = (int) (screenWidth - margin * 10f);
+                            params.width = (int) (params.height * ratio);
 //                            params.width = (int) ((screenHeight / screenWidth) * screenHeight / 3);
 //                            params = new RecyclerView.LayoutParams((int) ((screenHeight / screenWidth) * screenHeight / 4), (int) (screenHeight / 4));
                         } else {
-                            params.width = (int) (screenWidth / 3);
+                            params.width = (int) (params.height / ratio);
 
 //                            params = new RecyclerView.LayoutParams((int) (screenWidth / 4), (int) (screenHeight / 4));
                         }
@@ -126,19 +127,42 @@ public class AppInfoFragment extends BaseFragment
                 });
         img.setTag(position);
         img.setOnClickListener(v -> {
-            ImageViewer.with(context)
-                    .setImageList(list)
-                    .setNowIndex( (int)v.getTag())
-                    .setSourceImageView(pos -> {
-                        int layoutPos = recyclerView.getRecyclerView().indexOfChild(holder.getItemView());
-                        View view = recyclerView.getRecyclerView().getChildAt(layoutPos + pos - position);
-                        ImageView imageView;
-                        if (view != null) {
-                            imageView = view.findViewById(R.id.iv_img);
-                        } else {
-                            imageView = img;
-                        }
-                        return imageView;
+//            ImageViewer.with(context)
+//                    .setImageList(list)
+//                    .setNowIndex( (int)v.getTag())
+//                    .setSourceImageView(pos -> {
+//                        int layoutPos = recyclerView.getRecyclerView().indexOfChild(holder.getItemView());
+//                        View view = recyclerView.getRecyclerView().getChildAt(layoutPos + pos - position);
+//                        ImageView imageView;
+//                        if (view != null) {
+//                            imageView = view.findViewById(R.id.iv_img);
+//                        } else {
+//                            imageView = img;
+//                        }
+//                        return imageView;
+//                    })
+//                    .show();
+            CommonImageViewerPopup.with(context)
+                    .setImageUrls(list)
+                    .setSrcView(img, position)
+                    .setSrcViewUpdateListener((popup, pos) -> {
+                        recyclerView.getRecyclerView().scrollToPosition(pos);
+
+                        postDelayed(() -> {
+//                                int layoutPos = recyclerView.getRecyclerView().indexOfChild(holder.getItemView());
+//                                View view = recyclerView.getRecyclerView().getChildAt(layoutPos + pos - position);
+//                                ImageView imageView;
+//                                if (view != null) {
+//                                    imageView = view.findViewById(R.id.iv_img);
+//                                } else {
+//                                    imageView = img;
+//                                }
+                            ImageView imageView = recyclerView.getRecyclerView().findViewWithTag(pos);
+                            if (imageView == null) {
+                                imageView = img;
+                            }
+                            popup.updateSrcView(imageView, pos);
+                        }, 100);
                     })
                     .show();
         });

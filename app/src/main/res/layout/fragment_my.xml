@@ -214,7 +214,7 @@
 
                     <!--                    <include layout="@layout/layout_my_tools" />-->
 
-                    <com.zpj.shouji.market.ui.widget.MyToolsCard
+                    <com.zpj.shouji.market.ui.widget.ToolBoxCard
                         android:id="@+id/my_tools_card"
                         style="@style/setting_card_style"
                         />

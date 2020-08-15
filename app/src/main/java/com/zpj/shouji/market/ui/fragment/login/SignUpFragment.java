@@ -138,6 +138,7 @@ public class SignUpFragment extends BaseFragment
                 String email = aiv_email.getText();
                 AToast.normal("userName=" + userName + " password=" + password + " repassword=" + repassword + " email=" + email);
                 if (cbAgreement.isChecked()) {
+                    hideSoftInput();
                     UserManager.getInstance().signUp(userName, password, email);
                 } else {
                     AToast.warning("请同意《手机乐园协议》");
@@ -168,6 +169,7 @@ public class SignUpFragment extends BaseFragment
             String errInfo = event.getErrorMsg();
             if ("用户名已被注册".equals(errInfo)) {
                 AToast.error(errInfo);
+                piv_account.setError(errInfo);
             } else {
                 AToast.error(errInfo);
             }
