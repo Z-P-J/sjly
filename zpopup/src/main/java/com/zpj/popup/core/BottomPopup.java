@@ -19,6 +19,7 @@ import com.zpj.popup.R;
  * Create by lxj, at 2018/12/11
  */
 public class BottomPopup<T extends BottomPopup> extends BasePopup<T> {
+
     protected SmartDragLayout bottomPopupContainer;
     public BottomPopup(@NonNull Context context) {
         super(context);

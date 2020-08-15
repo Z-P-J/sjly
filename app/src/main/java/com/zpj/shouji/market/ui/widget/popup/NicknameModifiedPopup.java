@@ -54,8 +54,4 @@ public class NicknameModifiedPopup extends BottomPopup<NicknameModifiedPopup> {
         });
     }
 
-    @Override
-    protected void onDismiss() {
-        super.onDismiss();
-    }
 }

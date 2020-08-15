@@ -171,7 +171,7 @@ public class DiscoverInfo {
                 info.setAppUrl(element.selectFirst("appurl").text());
                 info.setApkUrl(element.selectFirst("apkurl").text());
                 info.setAppSize(element.selectFirst("apksize").text());
-                info.setAppId(element.selectFirst("appiid").text());
+                info.setAppId(element.selectFirst("appid").text());
                 info.setSoftId(element.selectFirst("softid").text());
                 info.setAppType(element.selectFirst("apptype").text());
             }

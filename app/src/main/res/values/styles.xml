@@ -66,8 +66,8 @@
 
     <style name="button_submit">
         <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">44dp</item>
-        <item name="android:textSize">15sp</item>
+        <item name="android:layout_height">48dp</item>
+        <item name="android:textSize">16sp</item>
         <item name="android:textColor">@color/white</item>
         <item name="android:gravity">center</item>
         <item name="android:background">@drawable/bg_press_color_main_radius_max</item>

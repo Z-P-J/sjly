@@ -1,0 +1,200 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/background_bottom_sheet_dialog"
+    android:orientation="vertical"
+    >
+
+    <RelativeLayout
+        android:id="@+id/ll_top"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="分享应用"
+            android:textColor="@color/color_text_major"
+            android:textSize="16sp"
+            android:layout_centerVertical="true"
+            />
+
+        <com.zpj.widget.tinted.TintedImageButton
+            android:id="@+id/btn_close"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_close_black_24dp"
+            android:layout_alignParentEnd="true"
+            android:background="?attr/actionBarItemBackground"
+            android:layout_centerVertical="true"
+            android:padding="8dp"
+            android:tint="@color/light_gray_10"
+            />
+
+    </RelativeLayout>
+
+    <com.zpj.widget.statelayout.StateLayout
+        android:id="@+id/state_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@id/tv_down"
+        android:layout_below="@id/ll_top"
+        >
+
+        <!--        <include layout="@layout/layout_recycler_view"/>-->
+
+        <com.zpj.shouji.market.ui.widget.ElasticScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scrollbars="none"
+            android:overScrollMode="never"
+            >
+
+            <LinearLayout
+                android:id="@+id/ll_container"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="16dp"
+                >
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    >
+
+                    <com.shehuan.niv.NiceImageView
+                        android:id="@+id/iv_icon"
+                        android:layout_width="48dp"
+                        android:layout_height="48dp"
+                        android:src="@mipmap/ic_launcher"
+                        android:layout_gravity="center_vertical"
+                        android:layout_centerVertical="true"
+                        android:scaleType="centerCrop"
+                        app:corner_radius="4dp"
+                        app:border_width="1dp"
+                        app:border_color="@color/gray_little"
+                        />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:layout_toEndOf="@id/iv_icon"
+                        android:layout_centerVertical="true"
+                        android:layout_marginStart="8dp"
+                        >
+                        <TextView
+                            android:id="@+id/tv_title"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:gravity="center_vertical"
+                            android:maxLines="2"
+                            android:ellipsize="end"
+                            android:text="文件夹"
+                            android:textSize="16sp"
+                            android:textColor="@color/black" />
+
+                        <TextView
+                            android:id="@+id/tv_desc"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:maxLines="1"
+                            android:gravity="center_vertical"
+                            android:ellipsize="end"
+                            android:text="文件： 文件夹："
+                            android:paddingTop="1dp"
+                            android:paddingBottom="1dp"
+                            android:textColor="@color/color_text_major"
+                            android:textSize="12sp"
+                            />
+
+                        <TextView
+                            android:id="@+id/tv_info"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:maxLines="1"
+                            android:gravity="center_vertical"
+                            android:ellipsize="end"
+                            android:text="文件： 文件夹："
+                            android:paddingTop="1dp"
+                            android:paddingBottom="1dp"
+                            android:textColor="@android:color/darker_gray"
+                            android:textSize="12sp" />
+
+
+
+                    </LinearLayout>
+
+                </RelativeLayout>
+
+                <com.zpj.shouji.market.ui.widget.DrawableTintTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="应用安全未知，请谨慎下载！"
+                    android:textColor="@color/red3"
+                    android:drawableStart="@drawable/ic_info_black_24dp"
+                    android:gravity="center"
+                    android:layout_gravity="center_horizontal"
+                    android:drawablePadding="8dp"
+                    android:layout_marginBottom="8dp"
+                    android:layout_marginTop="8dp"
+                    app:drawable_tint_color="@color/red3"
+                    />
+
+                <View android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/light_gray_2"
+                    />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="应用权限"
+                    android:textColor="@color/color_text_major"
+                    android:gravity="center"
+                    android:textSize="16sp"
+                    android:padding="8dp"
+                    />
+
+            </LinearLayout>
+
+        </com.zpj.shouji.market.ui.widget.ElasticScrollView>
+
+    </com.zpj.widget.statelayout.StateLayout>
+
+    <TextView
+        android:id="@+id/tv_down"
+        style="@style/button_submit"
+        android:text="立即下载"
+        android:layout_margin="16dp"
+        android:layout_alignParentBottom="true"
+        />
+
+    <View style="@style/layout_shadow_up"
+        android:layout_above="@id/tv_down"
+        />
+
+    <View style="@style/layout_shadow_bottom"
+        android:layout_below="@id/ll_top"
+        />
+
+    <!--    <View android:layout_width="match_parent"-->
+    <!--        android:layout_height="1dp"-->
+    <!--        android:background="@color/gray_little"-->
+    <!--        android:layout_below="@id/ll_top"-->
+    <!--        android:layout_marginStart="16dp"-->
+    <!--        android:layout_marginEnd="16dp"-->
+    <!--        />-->
+
+</RelativeLayout>

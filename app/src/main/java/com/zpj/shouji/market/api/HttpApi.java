@@ -381,4 +381,8 @@ public final class HttpApi {
         return get(String.format("http://tt.shouji.com.cn/app/user_yyj_fav_del.jsp?id=%s&t=%s", id, type));
     }
 
+    public static ObservableTask<Document> getShareInfoApi(String id) {
+        return get(String.format("http://tt.shouji.com.cn/app/getShareInfo.jsp?id=%s", id));
+    }
+
 }

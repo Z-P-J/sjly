@@ -38,6 +38,7 @@ import com.zpj.shouji.market.ui.fragment.profile.ProfileFragment;
 import com.zpj.shouji.market.ui.fragment.theme.ThemeDetailFragment;
 import com.zpj.shouji.market.ui.widget.DrawableTintTextView;
 import com.zpj.shouji.market.ui.widget.popup.ImageViewer;
+import com.zpj.shouji.market.ui.widget.popup.ThemeAppDownloadPopup;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -167,11 +168,12 @@ public class DiscoverBinder implements IEasy.OnBindViewHolderListener<DiscoverIn
             });
             if (discoverInfo.isApkExist()) {
                 tvDownload.setVisibility(View.VISIBLE);
-                tvDownload.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        AToast.normal("TODO Download");
-                    }
+                tvDownload.setOnClickListener(v -> {
+                    AToast.normal("TODO Download");
+                    ThemeAppDownloadPopup.with(context)
+                            .setId(discoverInfo.getAppId())
+                            .setDiscoverInfo(discoverInfo)
+                            .show();
                 });
             } else {
                 tvDownload.setVisibility(View.GONE);
