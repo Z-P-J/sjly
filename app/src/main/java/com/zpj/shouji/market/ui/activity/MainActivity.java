@@ -1,7 +1,5 @@
 package com.zpj.shouji.market.ui.activity;
 
-import android.app.Activity;
-import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
@@ -24,11 +22,11 @@ import com.zpj.shouji.market.api.HttpPreLoader;
 import com.zpj.shouji.market.event.HideLoadingEvent;
 import com.zpj.shouji.market.event.ShowLoadingEvent;
 import com.zpj.shouji.market.event.StartFragmentEvent;
+import com.zpj.shouji.market.event.StatusBarEvent;
 import com.zpj.shouji.market.manager.AppInstalledManager;
 import com.zpj.shouji.market.manager.AppUpdateManager;
 import com.zpj.shouji.market.manager.UserManager;
 import com.zpj.shouji.market.ui.fragment.MainFragment;
-import com.zpj.utils.PrefsHelper;
 import com.zpj.utils.StatusBarUtils;
 
 import org.greenrobot.eventbus.EventBus;
@@ -167,6 +165,15 @@ public class MainActivity extends SupportActivity {
         if (loadingPopup != null) {
             loadingPopup.dismiss();
             loadingPopup = null;
+        }
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onStatusBarEvent(StatusBarEvent event) {
+        if (event.isLightMode()) {
+            StatusBarUtils.setLightMode(getWindow());
+        } else {
+            StatusBarUtils.setDarkMode(getWindow());
         }
     }
 

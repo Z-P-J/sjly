@@ -160,8 +160,8 @@ public class ChatPanel extends RelativeLayout
                                     }
                                     popupView.updateSrcView(imageView);
                                 })
-                                .setOnPopupShowListener(() -> SelectedItemManager.getInstance().addOnCheckStateListener(listener))
-                                .setOnPopupDismissListener(() -> SelectedItemManager.getInstance().removeOnCheckStateListener(listener))
+                                .setOnShowListener(() -> SelectedItemManager.getInstance().addOnCheckStateListener(listener))
+                                .setOnDismissListener(() -> SelectedItemManager.getInstance().removeOnCheckStateListener(listener))
                                 .show();
                     });
                 })

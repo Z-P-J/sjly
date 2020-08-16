@@ -647,6 +647,10 @@ public class DiscoverInfo {
         return supportUserInfoList;
     }
 
+    public void setSupportUserInfoList(List<SupportUserInfo> supportUserInfos) {
+        supportUserInfoList.addAll(supportUserInfos);
+    }
+
     public void setLike(boolean like) {
         isLike = like;
     }

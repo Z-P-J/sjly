@@ -27,6 +27,7 @@ import com.zpj.shouji.market.event.StartFragmentEvent;
 import com.zpj.shouji.market.manager.UserManager;
 import com.zpj.shouji.market.ui.adapter.FragmentsPagerAdapter;
 import com.zpj.shouji.market.ui.fragment.WebFragment;
+import com.zpj.shouji.market.ui.fragment.base.ListenerFragment;
 import com.zpj.shouji.market.ui.fragment.chat.ChatFragment;
 import com.zpj.shouji.market.utils.MagicIndicatorHelper;
 import com.zpj.widget.statelayout.StateLayout;
@@ -37,7 +38,7 @@ import net.lucode.hackware.magicindicator.MagicIndicator;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ProfileFragment extends BaseFragment
+public class ProfileFragment extends ListenerFragment
         implements View.OnClickListener {
 
     private static final String USER_ID = "user_id";
@@ -69,6 +70,16 @@ public class ProfileFragment extends BaseFragment
         Bundle bundle = new Bundle();
         bundle.putString(USER_ID, userId);
         profileFragment.setArguments(bundle);
+        StartFragmentEvent.start(profileFragment);
+    }
+
+    public static void start(String userId, FragmentLifeCycler lifeCycler) {
+        ProfileFragment profileFragment = new ProfileFragment();
+//        profileFragment.setShouldLazyLoad(shouldLazyLoad);
+        Bundle bundle = new Bundle();
+        bundle.putString(USER_ID, userId);
+        profileFragment.setArguments(bundle);
+        profileFragment.setFragmentLifeCycler(lifeCycler);
         StartFragmentEvent.start(profileFragment);
     }
 

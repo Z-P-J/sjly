@@ -6,7 +6,6 @@
     android:layout_height="wrap_content"
     android:gravity="center_vertical"
     android:orientation="vertical"
-    android:background="@drawable/bottom_line_gray"
     >
 
     <LinearLayout
@@ -14,7 +13,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="?android:attr/selectableItemBackground"
-        android:padding="10dp"
+        android:padding="8dp"
         >
 
         <LinearLayout
@@ -35,19 +34,18 @@
 
             <TextView
                 android:id="@+id/tv_state"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Lv.0"
                 android:textSize="10sp"
                 android:gravity="center"
                 android:textColor="@color/colorPrimary"
-                android:paddingStart="5dp"
-                android:paddingEnd="5dp"
-                android:paddingTop="1dp"
-                android:paddingBottom="1dp"
+                android:paddingTop="2dp"
+                android:paddingBottom="2dp"
                 android:textStyle="bold"
-                android:layout_marginTop="5dp"
+                android:layout_marginTop="8dp"
                 android:layout_gravity="center_horizontal"
+                android:background="@drawable/grey_shape"
                 />
 
         </LinearLayout>
@@ -55,14 +53,15 @@
         <LinearLayout
             android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            >
 
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:gravity="center_vertical"
-                android:layout_marginStart="10dp"
                 android:paddingEnd="0dp"
                 >
 
@@ -160,7 +159,6 @@
                 android:id="@+id/tv_content"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginBottom="8dp"
                 android:textColor="@color/color_text_major"
@@ -172,7 +170,8 @@
                 android:id="@+id/nine_grid_image_view"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_margin="10dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp"
                 app:column_count="3"
                 app:is_edit_mode="false"
                 app:max_num="9"
@@ -184,8 +183,7 @@
                 android:id="@+id/collection_layout"
                 android:layout_width="match_parent"
                 android:layout_height="120dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginStart="10dp"
+                android:layout_marginTop="16dp"
                 android:visibility="gone"
                 />
 
@@ -193,7 +191,6 @@
                 android:id="@+id/layout_app"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
                 android:background="@drawable/grey_shape"
                 >
 
@@ -294,17 +291,14 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="start"
-                android:layout_marginStart="10dp"
                 >
-
-
-
 
                 <com.sunbinqiang.iconcountview.IconCountView
                     android:id="@+id/support_view"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center"
                     app:count="1"
                     app:checked="false"
                     app:zeroText="赞"
@@ -318,6 +312,8 @@
                     android:id="@+id/like_view"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center"
                     app:count="1"
                     app:checked="false"
                     app:zeroText="收藏"
@@ -332,6 +328,8 @@
                     android:id="@+id/comment_view"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
                     app:count="0"
                     app:checked="false"
                     app:zeroText="回复"
@@ -366,7 +364,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/grey_shape"
-                android:layout_marginStart="10dp"
                 android:padding="8dp"
                 >
 

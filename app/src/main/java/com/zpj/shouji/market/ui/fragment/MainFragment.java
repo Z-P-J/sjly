@@ -20,6 +20,7 @@ import com.zpj.matisse.entity.Item;
 import com.zpj.matisse.listener.OnSelectedListener;
 import com.zpj.popup.interfaces.OnDismissListener;
 import com.zpj.shouji.market.R;
+import com.zpj.shouji.market.event.GetMainFragmentEvent;
 import com.zpj.shouji.market.manager.UserManager;
 import com.zpj.shouji.market.model.MessageInfo;
 import com.zpj.shouji.market.ui.adapter.FragmentsPagerAdapter;
@@ -107,7 +108,6 @@ public class MainFragment extends BaseFragment
         mBottomBar = view.findViewById(R.id.bottom_bar);
 
         BottomBarTab emptyTab = new BottomBarTab(context);
-        emptyTab.setClickable(false);
         mBottomBar.addItem(BottomBarTab.build(context, "主页", R.drawable.ic_home_normal, R.drawable.ic_home_checked))
                 .addItem(BottomBarTab.build(context, "应用", R.drawable.ic_software_normal, R.drawable.ic_software_checked))
                 .addItem(emptyTab)
@@ -241,6 +241,13 @@ public class MainFragment extends BaseFragment
     @Subscribe
     public void onUpdateMessageInfoEvent(MessageInfo info) {
         mBottomBar.getItem(4).setUnreadCount(info.getTotalCount());
+    }
+
+    @Subscribe
+    public void onGetMainFragmentEvent(GetMainFragmentEvent event) {
+        if (event.getCallback() != null) {
+            event.getCallback().onCallback(this);
+        }
     }
 
 }

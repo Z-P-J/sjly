@@ -1,45 +1,43 @@
 package com.zpj.shouji.market.ui.fragment.theme;
 
-import android.content.Context;
 import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.AppBarLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
+import android.support.v7.widget.CardView;
+import android.text.TextUtils;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
+import com.lihang.ShadowLayout;
 import com.shehuan.niv.NiceImageView;
-import com.zpj.fragmentation.BaseFragment;
 import com.zpj.recyclerview.EasyViewHolder;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.constant.Keys;
 import com.zpj.shouji.market.event.StartFragmentEvent;
+import com.zpj.shouji.market.glide.blur.BlurTransformation;
 import com.zpj.shouji.market.model.DiscoverInfo;
 import com.zpj.shouji.market.ui.adapter.DiscoverBinder;
 import com.zpj.shouji.market.ui.adapter.FragmentsPagerAdapter;
+import com.zpj.shouji.market.ui.fragment.base.ListenerFragment;
 import com.zpj.shouji.market.ui.widget.popup.AppCommentPopup;
 import com.zpj.shouji.market.ui.widget.popup.CommentPopup;
 import com.zpj.shouji.market.ui.widget.popup.ThemeMorePopupMenu;
 import com.zpj.shouji.market.utils.MagicIndicatorHelper;
-import com.zpj.utils.ScreenUtils;
 import com.zpj.widget.tinted.TintedImageButton;
 
 import net.lucode.hackware.magicindicator.MagicIndicator;
-import net.lucode.hackware.magicindicator.ViewPagerHelper;
-import net.lucode.hackware.magicindicator.buildins.commonnavigator.CommonNavigator;
-import net.lucode.hackware.magicindicator.buildins.commonnavigator.abs.CommonNavigatorAdapter;
-import net.lucode.hackware.magicindicator.buildins.commonnavigator.abs.IPagerIndicator;
-import net.lucode.hackware.magicindicator.buildins.commonnavigator.abs.IPagerTitleView;
-import net.lucode.hackware.magicindicator.buildins.commonnavigator.indicators.LinePagerIndicator;
-import net.lucode.hackware.magicindicator.buildins.commonnavigator.titles.ColorTransitionPagerTitleView;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class ThemeDetailFragment extends BaseFragment {
+public class ThemeDetailFragment extends ListenerFragment {
 
     private final String[] TAB_TITLES = {"评论", "赞"};
 
@@ -57,6 +55,12 @@ public class ThemeDetailFragment extends BaseFragment {
 
     private DiscoverInfo item;
 
+    private String wallpaper;
+
+    public static void start(DiscoverInfo item) {
+        start(item, false);
+    }
+
     public static void start(DiscoverInfo item, boolean showCommentPopup) {
         Bundle args = new Bundle();
         args.putBoolean(Keys.SHOW_TOOLBAR, showCommentPopup);
@@ -66,9 +70,20 @@ public class ThemeDetailFragment extends BaseFragment {
         StartFragmentEvent.start(fragment);
     }
 
+    public static void start(DiscoverInfo item, String wallpaperUrl, FragmentLifeCycler lifeCycler) {
+        Bundle args = new Bundle();
+        args.putBoolean(Keys.SHOW_TOOLBAR, false);
+        args.putString(Keys.URL, wallpaperUrl);
+        ThemeDetailFragment fragment = new ThemeDetailFragment();
+        fragment.setDiscoverInfo(item);
+        fragment.setFragmentLifeCycler(lifeCycler);
+        fragment.setArguments(args);
+        StartFragmentEvent.start(fragment);
+    }
+
     @Override
     protected int getLayoutId() {
-        return R.layout.fragment_discover_detail;
+        return R.layout.fragment_theme_detail;
     }
 
     @Override
@@ -78,7 +93,25 @@ public class ThemeDetailFragment extends BaseFragment {
 
     @Override
     protected void initView(View view, @Nullable Bundle savedInstanceState) {
+
+        if (getArguments() != null) {
+            wallpaper = getArguments().getString(Keys.URL, null);
+        }
+
         View themeLayout = view.findViewById(R.id.layout_discover);
+
+        ImageView ivBg = view.findViewById(R.id.iv_bg);
+        if (!TextUtils.isEmpty(wallpaper)) {
+            ivBg.setVisibility(View.VISIBLE);
+            Glide.with(context)
+                    .load(wallpaper)
+//                    .apply(RequestOptions.bitmapTransform(new BlurTransformation()))
+                    .apply(RequestOptions.bitmapTransform(new BlurTransformation(25, 2)))
+                    .into(ivBg);
+//            ShadowLayout shadowLayout = themeLayout.findViewById(R.id.layout_theme);
+        }
+
+
         EasyViewHolder holder = new EasyViewHolder(themeLayout);
         DiscoverBinder binder = new DiscoverBinder(false);
         List<DiscoverInfo> discoverInfoList = new ArrayList<>();
@@ -103,8 +136,10 @@ public class ThemeDetailFragment extends BaseFragment {
                 } else {
                     themeLayout.setAlpha(1f);
                 }
-                int color = alphaColor(Color.WHITE, alpha);
-                toolbar.setBackgroundColor(color);
+                if (TextUtils.isEmpty(wallpaper)) {
+                    int color = alphaColor(Color.WHITE, alpha);
+                    toolbar.setBackgroundColor(color);
+                }
             }
         });
 

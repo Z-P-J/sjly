@@ -182,7 +182,7 @@ public abstract class BasePopup<T extends BasePopup> extends FrameLayout impleme
         }
     }
     protected void applyFull(){
-        LayoutParams params = (LayoutParams) getLayoutParams();
+        MarginLayoutParams params = (MarginLayoutParams) getLayoutParams();
         params.topMargin = 0;
         params.leftMargin = 0;
         params.bottomMargin = 0;
@@ -190,7 +190,7 @@ public abstract class BasePopup<T extends BasePopup> extends FrameLayout impleme
         setLayoutParams(params);
     }
     protected void applySize(boolean isShowNavBar){
-        LayoutParams params = (LayoutParams) getLayoutParams();
+        MarginLayoutParams params = (MarginLayoutParams) getLayoutParams();
         int rotation = ((WindowManager) getContext().getSystemService(Context.WINDOW_SERVICE)).getDefaultDisplay().getRotation();
         boolean isNavBarShown = isShowNavBar || XPopupUtils.isNavBarVisible(getContext());
         if (rotation == 0) {
@@ -214,6 +214,11 @@ public abstract class BasePopup<T extends BasePopup> extends FrameLayout impleme
         return self();
     }
 
+    public T setOnShowListener(OnShowListener onShowListener) {
+        this.onShowListener = onShowListener;
+        return self();
+    }
+
     public T setOnBackPressedListener(OnBackPressedListener onBackPressedListener) {
         this.onBackPressedListener = onBackPressedListener;
         return self();
@@ -229,11 +234,18 @@ public abstract class BasePopup<T extends BasePopup> extends FrameLayout impleme
         return self();
     }
 
+    public T setDecorView(ViewGroup decorView) {
+        popupInfo.decorView = decorView;
+        return self();
+    }
+
     public T show() {
         if (getParent() != null) return self();
         final Activity activity = ActivityUtils.getActivity(context);
 //        final Activity activity = (Activity) getContext();
-        popupInfo.decorView = (ViewGroup) activity.getWindow().getDecorView();
+        if (popupInfo.decorView == null) {
+            popupInfo.decorView = (ViewGroup) activity.getWindow().getDecorView();
+        }
         KeyboardUtils.registerSoftInputChangedListener(activity, this, height -> {
             if (height == 0) { // 说明对话框隐藏
                 XPopupUtils.moveDown(BasePopup.this);

@@ -192,10 +192,7 @@ public final class HttpApi {
     }
 
     public static void addCollectionApi(String id) {
-        openConnection("http://tt.shouji.com.cn/app/user_review_fav_add.jsp", Connection.Method.GET)
-                .data("id", id)
-                .data("t", "discuss")
-                .toHtml()
+        get(String.format("http://tt.shouji.com.cn/app/user_review_fav_add.jsp?t=discuss&id=%s", id))
                 .onSuccess(doc -> {
                     String info = doc.selectFirst("info").text();
                     if ("success".equals(doc.selectFirst("result").text())) {
@@ -206,6 +203,10 @@ public final class HttpApi {
                 })
                 .onError(throwable -> AToast.error(throwable.getMessage()))
                 .subscribe();
+    }
+
+    public static ObservableTask<Document> addCollectionApi(String id, String type) {
+        return get(String.format("http://tt.shouji.com.cn/app/user_review_fav_add.jsp?t=%s&id=%s", type, id));
     }
 
     public static void deleteCollectionApi(String id) {
@@ -224,6 +225,10 @@ public final class HttpApi {
                 })
                 .onError(throwable -> AToast.error(throwable.getMessage()))
                 .subscribe();
+    }
+
+    public static ObservableTask<Document> deleteCollectionApi(String id, String type) {
+        return get(String.format("http://tt.shouji.com.cn/app/user_review_fav_del.jsp?t=%s&id=%s", type, id));
     }
 
     public static void deleteThemeApi(String id) {

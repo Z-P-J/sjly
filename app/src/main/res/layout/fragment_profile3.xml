@@ -107,7 +107,7 @@
                                         android:background="@drawable/grey_shape"
                                         android:src="@drawable/ic_email_black_24dp"
                                         android:gravity="center"
-                                        android:tint="@color/white"
+                                        android:tint="@color/black"
                                         />
 
                                 </LinearLayout>

@@ -1,0 +1,240 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <com.zpj.widget.toolbar.ZToolBar
+        android:id="@+id/tool_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:z_toolbar_fillStatusBar="true"
+        app:z_toolbar_titleBarColor="@color/preview_bottom_toolbar_bg"
+        app:z_toolbar_statusBarColor="@color/preview_bottom_toolbar_bg"
+        app:z_toolbar_showBottomLine="false"
+        app:z_toolbar_statusBarMode="light"
+        app:z_toolbar_leftType="imageButton"
+        app:z_toolbar_leftImageResource="@drawable/ic_arrow_back_white_24dp"
+        app:z_toolbar_centerType="textView"
+        app:z_toolbar_centerTextColor="@android:color/white"
+        app:z_toolbar_center_text_gravity="center"
+        app:z_toolbar_centerSubTextColor="#f8f8f8"
+        app:z_toolbar_rightType="imageButton"
+        app:z_toolbar_rightImageResource="@drawable/ic_more_vert_grey_24dp"
+        />
+
+    <com.zpj.popup.widget.LoadingView
+        android:id="@+id/lv_loading"
+        android:layout_width="56dp"
+        android:layout_height="56dp"
+        android:layout_centerInParent="true"
+        android:visibility="gone"
+        />
+
+    <TextView
+        android:id="@+id/tv_origin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="查看原图"
+        android:layout_above="@id/bottom_bar"
+        android:layout_margin="8dp"
+        android:layout_centerHorizontal="true"
+        android:background="@drawable/bg_round_black_alpha"
+        android:padding="8dp"
+        android:textColor="@color/white"
+        />
+
+    <LinearLayout
+        android:id="@+id/bottom_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:background="@drawable/bg_wallpaper_viewer_bottom_bar"
+        android:layout_alignParentBottom="true"
+        >
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="8dp"
+            >
+
+            <com.shehuan.niv.NiceImageView
+                android:id="@+id/iv_icon"
+                android:layout_width="36dp"
+                android:layout_height="36dp"
+                android:src="@mipmap/ic_launcher"
+                app:border_color="@color/white"
+                app:border_width="1dp"
+                android:layout_centerVertical="true"
+                app:is_circle="true"
+                android:scaleType="centerCrop"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp"
+                />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_toEndOf="@id/iv_icon"
+                android:layout_toStartOf="@id/btn_favorite"
+                android:layout_centerVertical="true"
+                >
+
+                <TextView
+                    android:id="@+id/tv_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:ellipsize="end"
+                    android:gravity="center_vertical"
+                    android:maxLines="1"
+                    android:text="用户名"
+                    android:textColor="@color/white"
+                    android:layout_gravity="center"
+                    android:layout_marginBottom="4dp"
+                    />
+
+                <TextView
+                    android:id="@+id/tv_time"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:ellipsize="end"
+                    android:gravity="center_vertical"
+                    android:maxLines="1"
+                    android:text="3小时前"
+                    android:textColor="@color/white"
+                    android:layout_gravity="center"
+                    android:textSize="12sp"
+                    />
+
+            </LinearLayout>
+
+            <com.zpj.widget.tinted.TintedImageButton
+                android:id="@+id/btn_favorite"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toStartOf="@id/btn_down"
+                android:layout_centerVertical="true"
+                android:src="@drawable/ic_favorite_border_white_24dp"
+                android:padding="8dp"
+                android:background="?attr/actionBarItemBackground"
+                />
+
+            <com.zpj.widget.tinted.TintedImageButton
+                android:id="@+id/btn_down"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:src="@drawable/ic_expand_more_black_24dp"
+                android:padding="8dp"
+                android:background="?attr/actionBarItemBackground"
+                android:tint="@color/white"
+                />
+
+        </RelativeLayout>
+
+        <TextView
+            android:id="@+id/tv_content"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:maxLines="2"
+            android:ellipsize="end"
+            android:text="内容"
+            android:textColor="@color/white"
+            android:paddingStart="16dp"
+            android:paddingEnd="16dp"
+            android:paddingTop="8dp"
+            android:paddingBottom="8dp"
+            android:textSize="14sp"
+            />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            >
+
+            <com.zpj.shouji.market.ui.widget.DrawableTintTextView
+                android:id="@+id/tv_download"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:drawableTop="@drawable/ic_file_download_white_24dp"
+                android:text="保存"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:textColor="@color/white"
+                android:background="?attr/selectableItemBackground"
+                android:padding="8dp"
+                android:textSize="12sp"
+                android:drawablePadding="4dp"
+                />
+
+            <com.zpj.shouji.market.ui.widget.DrawableTintTextView
+                android:id="@+id/tv_share"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:drawableTop="@drawable/ic_share_white_24dp"
+                android:text="分享"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:textColor="@color/white"
+                android:background="?attr/selectableItemBackground"
+                android:padding="8dp"
+                android:textSize="12sp"
+                android:drawablePadding="4dp"
+                />
+
+            <com.zpj.shouji.market.ui.widget.DrawableTintTextView
+                android:id="@+id/tv_comment"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:drawableTop="@drawable/ic_comment_grey_24dp"
+                android:text="100"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:textColor="@color/white"
+                android:background="?attr/selectableItemBackground"
+                android:padding="8dp"
+                android:textSize="12sp"
+                android:drawablePadding="4dp"
+                />
+
+            <com.zpj.shouji.market.ui.widget.DrawableTintTextView
+                android:id="@+id/tv_support"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:drawableTop="@drawable/ic_thumb_up_white_24dp"
+                android:text="100"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:textColor="@color/white"
+                android:background="?attr/selectableItemBackground"
+                android:padding="8dp"
+                android:textSize="12sp"
+                android:drawablePadding="4dp"
+                />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <com.zpj.widget.tinted.TintedImageButton
+        android:id="@+id/btn_up"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:src="@drawable/ic_expand_less_black_24dp"
+        android:padding="8dp"
+        android:background="@drawable/bg_circle_black_alpha"
+        android:tint="@color/white"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="16dp"
+        android:alpha="0"
+        />
+
+
+
+</RelativeLayout>

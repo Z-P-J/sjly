@@ -31,18 +31,16 @@ import android.widget.Toast;
 
 import com.lxj.xpermission.PermissionConstants;
 import com.lxj.xpermission.XPermission;
+import com.zpj.popup.R;
 import com.zpj.popup.XPopup;
 import com.zpj.popup.enums.PopupStatus;
-import com.zpj.popup.interfaces.OnDragChangeListener;
 import com.zpj.popup.interfaces.IImageLoader;
-import com.zpj.popup.photoview.OnPopupDismissListener;
-import com.zpj.popup.photoview.OnPopupShowListener;
+import com.zpj.popup.interfaces.OnDragChangeListener;
 import com.zpj.popup.photoview.PhotoView;
 import com.zpj.popup.util.XPopupUtils;
 import com.zpj.popup.widget.BlankView;
 import com.zpj.popup.widget.HackyViewPager;
 import com.zpj.popup.widget.PhotoViewContainer;
-import com.zpj.popup.R;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -63,7 +61,7 @@ public class ImageViewerPopup<T> extends BasePopup<ImageViewerPopup<T>>
     protected ArgbEvaluator argbEvaluator = new ArgbEvaluator();
     protected final List<T> urls = new ArrayList<>();
     protected IImageLoader<T> imageLoader;
-    protected OnSrcViewUpdateListener srcViewUpdateListener;
+    protected OnSrcViewUpdateListener<T> srcViewUpdateListener;
     protected int position;
     protected Rect rect = null;
     protected ImageView srcView; //动画起始的View，如果为null，移动和过渡动画效果会没有，只有弹窗的缩放功能
@@ -77,11 +75,9 @@ public class ImageViewerPopup<T> extends BasePopup<ImageViewerPopup<T>>
     protected boolean isInfinite = false;//是否需要无限滚动
     protected View customView;
     protected int bgColor = Color.rgb(32, 36, 46);//弹窗的背景颜色，可以自定义
-    private OnPopupShowListener onPopupShowListener;
-    private OnPopupDismissListener onPopupDismissListener;
 
-    public interface OnSrcViewUpdateListener {
-        void onSrcViewUpdate(@NonNull ImageViewerPopup popupView, int position);
+    public interface OnSrcViewUpdateListener<T> {
+        void onSrcViewUpdate(@NonNull ImageViewerPopup<T> popup, int position);
     }
 
     public ImageViewerPopup(@NonNull Context context) {
@@ -183,7 +179,7 @@ public class ImageViewerPopup<T> extends BasePopup<ImageViewerPopup<T>>
     @Override
     public void doShowAnimation() {
         if (customView != null) customView.setVisibility(VISIBLE);
-        if (srcView == null) {
+        if (srcView == null || popupStatus == PopupStatus.Hide) {
             photoViewContainer.setBackgroundColor(bgColor);
             pager.setVisibility(VISIBLE);
             showPagerIndicator();
@@ -245,7 +241,7 @@ public class ImageViewerPopup<T> extends BasePopup<ImageViewerPopup<T>>
 
     @Override
     public void doDismissAnimation() {
-        if (srcView == null) {
+        if (srcView == null || popupStatus == PopupStatus.Hiding) {
             photoViewContainer.setBackgroundColor(Color.TRANSPARENT);
             doAfterDismiss();
             pager.setVisibility(INVISIBLE);
@@ -320,14 +316,21 @@ public class ImageViewerPopup<T> extends BasePopup<ImageViewerPopup<T>>
         doDismissAnimation();
     }
 
-    public ImageViewerPopup<T> setOnPopupDismissListener(OnPopupDismissListener onPopupDismissListener) {
-        this.onPopupDismissListener = onPopupDismissListener;
-        return this;
-    }
-
-    public ImageViewerPopup<T> setOnPopupShowListener(OnPopupShowListener onPopupShowListener) {
-        this.onPopupShowListener = onPopupShowListener;
-        return this;
+    @Override
+    public void hide() {
+        if (popupStatus != PopupStatus.Show) return;
+        popupStatus = PopupStatus.Hiding;
+        if (srcView != null) {
+            //snapshotView拥有当前pager中photoView的样子(matrix)
+//            PhotoView current = (PhotoView) pager.getChildAt(pager.getCurrentItem());
+            PhotoView current = pager.findViewWithTag(pager.getCurrentItem());
+            if (current != null) {
+                Matrix matrix = new Matrix();
+                current.getSuppMatrix(matrix);
+                snapshotView.setSuppMatrix(matrix);
+            }
+        }
+        doDismissAnimation();
     }
 
     public ImageViewerPopup<T> setImageUrls(List<T> urls) {
@@ -451,10 +454,7 @@ public class ImageViewerPopup<T> extends BasePopup<ImageViewerPopup<T>>
     @Override
     protected void onDismiss() {
         super.onDismiss();
-        srcView = null;
-        if (onPopupDismissListener != null) {
-            onPopupDismissListener.onDismiss();
-        }
+//        srcView = null;
     }
 
     @Override
@@ -515,14 +515,6 @@ public class ImageViewerPopup<T> extends BasePopup<ImageViewerPopup<T>>
         @Override
         public void destroyItem(@NonNull ViewGroup container, int position, @NonNull Object object) {
             container.removeView((View) object);
-        }
-    }
-
-    @Override
-    protected void onShow() {
-        super.onShow();
-        if (onPopupShowListener != null) {
-            onPopupShowListener.onShow();
         }
     }
 

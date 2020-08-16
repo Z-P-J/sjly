@@ -4,6 +4,7 @@ import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Context;
 import android.support.annotation.NonNull;
+import android.text.TextUtils;
 import android.view.MenuItem;
 import android.view.View;
 
@@ -80,7 +81,7 @@ public class ThemeMorePopupMenu extends BottomListPopupMenu
 //        List<Integer> hideList = new ArrayList<>();
         boolean isLogin = UserManager.getInstance().isLogin();
         if (isLogin) {
-            if (info.getMemberId().equals(UserManager.getInstance().getUserId())) {
+            if (TextUtils.equals(info.getMemberId(), UserManager.getInstance().getUserId())) {
                 hideMenuItemList.add(R.id.black_list);
             } else {
                 hideMenuItemList.add(R.id.delete);

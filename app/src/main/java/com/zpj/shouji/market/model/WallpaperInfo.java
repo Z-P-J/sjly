@@ -8,6 +8,9 @@ import com.zpj.shouji.market.manager.UserManager;
 import com.zpj.shouji.market.utils.BeanUtils;
 import com.zpj.shouji.market.utils.BeanUtils.Select;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Keep
 public class WallpaperInfo {
 
@@ -31,8 +34,11 @@ public class WallpaperInfo {
     private String spic;
     private String pic;
     @Select(selector = "supportcount")
-    private long supportCount = 0;
+    private int supportCount = 0;
+    @Select(selector = "replycount")
+    private int replyCount = 0;
     private boolean isLike;
+    private final List<SupportUserInfo> supportUserInfoList = new ArrayList<>();
 
     public static WallpaperInfo create(Element element) {
 //        WallpaperInfo info = new WallpaperInfo();
@@ -54,11 +60,11 @@ public class WallpaperInfo {
         String userId = UserManager.getInstance().getUserId();
         if (!TextUtils.isEmpty(userId)) {
             for (Element support : element.selectFirst("supportusers").select("supportuser")) {
-                String supportUserId = support.selectFirst("supportuserid").text();
+                SupportUserInfo supportUserInfo = BeanUtils.createBean(support, SupportUserInfo.class);
+                info.supportUserInfoList.add(supportUserInfo);
                 if (!TextUtils.isEmpty(userId)
-                        && TextUtils.equals(supportUserId, userId)) {
+                        && TextUtils.equals(supportUserInfo.getUserId(), userId)) {
                     info.isLike = true;
-                    break;
                 }
             }
         }
@@ -118,12 +124,20 @@ public class WallpaperInfo {
         return pic;
     }
 
-    public long getSupportCount() {
+    public int getSupportCount() {
         return supportCount;
     }
 
-    public void setSupportCount(long supportCount) {
+    public void setSupportCount(int supportCount) {
         this.supportCount = supportCount;
+    }
+
+    public int getReplyCount() {
+        return replyCount;
+    }
+
+    public void setReplyCount(int replyCount) {
+        this.replyCount = replyCount;
     }
 
     public void setLike(boolean like) {
@@ -132,5 +146,9 @@ public class WallpaperInfo {
 
     public boolean isLike() {
         return isLike;
+    }
+
+    public List<SupportUserInfo> getSupportUserInfoList() {
+        return supportUserInfoList;
     }
 }

@@ -46,11 +46,14 @@ public class BottomBarTab extends FrameLayout {
 
     private Badge badge;
 
+    private boolean isEmptyTab = true;
+
     public static BottomBarTab build(Context context, String title, @DrawableRes int normalIcon, @DrawableRes int selectedIcon) {
         BottomBarTab tab = new BottomBarTab(context);
         tab.setNormalIcon(normalIcon);
         tab.setSelectedIcon(selectedIcon);
         tab.setTitle(title);
+        tab.isEmptyTab = false;
         return tab;
     }
 
@@ -206,4 +209,9 @@ public class BottomBarTab extends FrameLayout {
     public void setTitle(String title) {
         this.mTvTitle.setText(title);
     }
+
+    public boolean isEmptyTab() {
+        return isEmptyTab;
+    }
+
 }

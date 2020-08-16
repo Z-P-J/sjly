@@ -46,30 +46,30 @@ public class BlurTransformation extends BitmapTransformation {
 
     @Override
     protected Bitmap transform(@NonNull BitmapPool pool, @NonNull Bitmap toTransform, int outWidth, int outHeight) {
-        int width = toTransform.getWidth();
-        int height = toTransform.getHeight();
-//        toTransform = Bitmap.createBitmap(toTransform, width / 4, height / 4, width / 2, height / 2);
-//        int scaledWidth = toTransform.getWidth() / sampling;
-//        int scaledHeight = toTransform.getHeight() / sampling;
-
-        Bitmap bitmap = pool.get(width, height, Bitmap.Config.ARGB_8888);
-
-        Canvas canvas = new Canvas(bitmap);
-//        canvas.scale(1 / (float) sampling, 1 / (float) sampling);
-        Paint paint = new Paint();
-        paint.setFlags(Paint.FILTER_BITMAP_FLAG);
-        canvas.drawBitmap(toTransform, 0, 0, paint);
+//        int width = toTransform.getWidth();
+//        int height = toTransform.getHeight();
+////        toTransform = Bitmap.createBitmap(toTransform, width / 4, height / 4, width / 2, height / 2);
+////        int scaledWidth = toTransform.getWidth() / sampling;
+////        int scaledHeight = toTransform.getHeight() / sampling;
+//
+//        Bitmap bitmap = pool.get(width, height, Bitmap.Config.ARGB_8888);
+//
+//        Canvas canvas = new Canvas(bitmap);
+////        canvas.scale(1 / (float) sampling, 1 / (float) sampling);
+//        Paint paint = new Paint();
+//        paint.setFlags(Paint.FILTER_BITMAP_FLAG);
+//        canvas.drawBitmap(toTransform, 0, 0, paint);
 
         Blurred mBlurred = new Blurred();
-        bitmap = mBlurred.bitmap(bitmap)
-                .keepSize(true)
+        toTransform = mBlurred.bitmap(toTransform)
+                .keepSize(false)
 //                .backgroundColor(Color.GRAY)
                 .recycleOriginal(false)
                 .scale(1F / sampling)
                 .radius(radius)
                 .blur();
 
-        return bitmap;
+        return toTransform;
     }
 
     @Override

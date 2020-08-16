@@ -60,22 +60,22 @@ public class BottomBar extends LinearLayout {
     }
 
     public BottomBar addItem(final BottomBarTab tab) {
-        tab.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (mListener == null) return;
+        tab.setOnClickListener(v -> {
+            if (mListener == null) return;
 
+            if (tab.isEmptyTab()) {
+                return;
+            }
 
-                int pos = tab.getTabPosition();
-                if (mCurrentPosition == pos) {
-                    mListener.onTabReselected(pos);
-                } else {
-                    tab.setSelected(true);
-                    mTabLayout.getChildAt(mCurrentPosition).setSelected(false);
-                    mListener.onTabSelected(pos, mCurrentPosition);
-                    mListener.onTabUnselected(mCurrentPosition);
-                    mCurrentPosition = pos;
-                }
+            int pos = tab.getTabPosition();
+            if (mCurrentPosition == pos) {
+                mListener.onTabReselected(pos);
+            } else {
+                tab.setSelected(true);
+                mTabLayout.getChildAt(mCurrentPosition).setSelected(false);
+                mListener.onTabSelected(pos, mCurrentPosition);
+                mListener.onTabUnselected(mCurrentPosition);
+                mCurrentPosition = pos;
             }
         });
         tab.setTabPosition(mTabLayout.getChildCount());

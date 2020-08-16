@@ -18,19 +18,26 @@ import com.felix.atoast.library.AToast;
 import com.github.zagum.expandicon.ExpandIconView;
 import com.sunbinqiang.iconcountview.IconCountView;
 import com.zpj.http.parser.html.nodes.Element;
-import com.zpj.popup.imagetrans.listener.SourceImageViewGet;
+import com.zpj.popup.core.ImageViewerPopup;
+import com.zpj.popup.interfaces.OnDismissListener;
 import com.zpj.recyclerview.EasyRecyclerLayout;
 import com.zpj.recyclerview.EasyViewHolder;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.api.HttpApi;
 import com.zpj.shouji.market.constant.Keys;
+import com.zpj.shouji.market.event.GetMainActivityEvent;
+import com.zpj.shouji.market.event.GetMainFragmentEvent;
+import com.zpj.shouji.market.event.StatusBarEvent;
 import com.zpj.shouji.market.glide.MyRequestOptions;
 import com.zpj.shouji.market.model.WallpaperInfo;
 import com.zpj.shouji.market.model.WallpaperTag;
+import com.zpj.shouji.market.ui.activity.MainActivity;
 import com.zpj.shouji.market.ui.fragment.base.NextUrlFragment;
-import com.zpj.shouji.market.ui.widget.popup.ImageViewer;
 import com.zpj.shouji.market.ui.widget.popup.RecyclerPopup;
+import com.zpj.shouji.market.ui.widget.popup.WallpaperViewerPopup;
+import com.zpj.shouji.market.utils.Callback;
 import com.zpj.utils.ScreenUtils;
+import com.zpj.utils.StatusBarUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -118,6 +125,7 @@ public class WallpaperListFragment extends NextUrlFragment<WallpaperInfo> {
         layoutParams.height = (int) (p * layoutParams.width);
 
         wallpaper.setLayoutParams(layoutParams);
+        wallpaper.setTag(position);
         Glide.with(context)
                 .load(list.get(position).getSpic())
                 .apply(MyRequestOptions.DEFAULT_OPTIONS).into(wallpaper);
@@ -155,18 +163,26 @@ public class WallpaperListFragment extends NextUrlFragment<WallpaperInfo> {
     @Override
     public void onClick(EasyViewHolder holder, View view, WallpaperInfo data) {
         ImageView wallpaper = holder.getImageView(R.id.iv_wallpaper);
-        List<String> objects = new ArrayList<>();
-        objects.add(data.getSpic());
-        ImageViewer.with(context)
-                .setImageList(objects)
-                .setNowIndex(0)
-                .setSourceImageView(new SourceImageViewGet() {
-                    @Override
-                    public ImageView getImageView(int pos) {
-                        return wallpaper;
-                    }
-                })
-                .show();
+
+        GetMainFragmentEvent.post(mainFragment -> {
+            if (mainFragment.getView() != null) {
+                List<String> objects = new ArrayList<>();
+                objects.add(data.getSpic());
+                List<String> original = new ArrayList<>();
+                original.add(data.getPic());
+                WallpaperViewerPopup.with(context)
+                        .setWallpaperInfo(data)
+                        .setOriginalImageList(original)
+                        .setDecorView((ViewGroup) mainFragment.getView())
+                        .setImageUrls(objects)
+                        .setSrcView(wallpaper, 0)
+                        .setSrcViewUpdateListener((popup, position) -> popup.updateSrcView(wallpaper))
+                        .setOnDismissListener(() -> StatusBarEvent.post(false))
+                        .show();
+            }
+
+        });
+
     }
 
     @Override
