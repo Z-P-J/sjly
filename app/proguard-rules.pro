@@ -80,6 +80,10 @@
 
 #---------------------------------2.第三方包-------------------------------
 
+-dontwarn com.yalantis.ucrop**
+-keep class com.yalantis.ucrop** { *; }
+-keep interface com.yalantis.ucrop** { *; }
+
 # banner 的混淆代码
 -keep class com.youth.banner.** {
     *;

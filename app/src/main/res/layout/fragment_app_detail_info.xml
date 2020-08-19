@@ -22,6 +22,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:layout_marginBottom="16dp"
+            android:overScrollMode="never"
             >
 
         </android.support.v7.widget.RecyclerView>

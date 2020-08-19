@@ -170,8 +170,6 @@ public class MainFragment extends BaseFragment
     @Override
     public void onResume() {
         super.onResume();
-        AToast.success("onResume");
-//        UserManager.getInstance().rsyncMessage(this);
         UserManager.getInstance().rsyncMessage(false);
     }
 

@@ -22,26 +22,23 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.View;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.yalantis.ucrop.UCrop;
+import com.zpj.fragmentation.BaseFragment;
 import com.zpj.fragmentation.anim.DefaultHorizontalAnimator;
 import com.zpj.fragmentation.anim.FragmentAnimator;
 import com.zpj.matisse.R;
-import com.zpj.matisse.event.UpdateTitleEvent;
 import com.zpj.matisse.entity.Item;
 import com.zpj.matisse.entity.SelectionSpec;
+import com.zpj.matisse.event.UpdateTitleEvent;
 import com.zpj.matisse.model.SelectedItemManager;
 import com.zpj.matisse.ui.widget.CheckRadioView;
 import com.zpj.matisse.ui.widget.CustomImageViewerPopup;
-import com.zpj.matisse.ui.widget.CustomImageViewerPopup2;
 import com.zpj.matisse.ui.widget.IncapableDialog;
 import com.zpj.matisse.utils.MediaStoreCompat;
 import com.zpj.matisse.utils.PhotoMetadataUtils;
-import com.yalantis.ucrop.UCrop;
-import com.zpj.fragmentation.BaseFragment;
-import com.zpj.popup.imagetrans.listener.SourceImageViewGet;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -289,19 +286,19 @@ public class MatisseFragment extends BaseFragment implements
     @Override
     public void onClick(View v) {
         if (v.getId() == R.id.button_preview) {
-//            CustomImageViewerPopup.with(context)
-//                    .setImageUrls(mSelectedCollection.asList())
-//                    .show();
-
-            CustomImageViewerPopup2.with(context)
-                    .setImageList(mSelectedCollection.asList())
-                    .setSourceImageView(new SourceImageViewGet() {
-                        @Override
-                        public ImageView getImageView(int pos) {
-                            return null;
-                        }
-                    })
+            CustomImageViewerPopup.with(context)
+                    .setImageUrls(mSelectedCollection.asList())
                     .show();
+
+//            CustomImageViewerPopup2.with(context)
+//                    .setImageList(mSelectedCollection.asList())
+//                    .setSourceImageView(new SourceImageViewGet() {
+//                        @Override
+//                        public ImageView getImageView(int pos) {
+//                            return null;
+//                        }
+//                    })
+//                    .show();
         } else if (v.getId() == R.id.button_apply) {
 
             List<Uri> selectedUris =  mSelectedCollection.asListOfUri();

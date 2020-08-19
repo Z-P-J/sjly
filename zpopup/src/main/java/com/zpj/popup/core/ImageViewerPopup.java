@@ -338,7 +338,7 @@ public class ImageViewerPopup<T> extends BasePopup<ImageViewerPopup<T>>
         return this;
     }
 
-    public ImageViewerPopup<T> setSrcViewUpdateListener(OnSrcViewUpdateListener srcViewUpdateListener) {
+    public ImageViewerPopup<T> setSrcViewUpdateListener(OnSrcViewUpdateListener<T> srcViewUpdateListener) {
         this.srcViewUpdateListener = srcViewUpdateListener;
         return this;
     }

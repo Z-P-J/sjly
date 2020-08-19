@@ -1,5 +1,8 @@
 package com.zpj.shouji.market.event;
 
+import io.reactivex.Observable;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+
 public class ShowLoadingEvent extends BaseEvent {
 
     private final String text;
@@ -23,11 +26,17 @@ public class ShowLoadingEvent extends BaseEvent {
     }
 
     public static void post(String text) {
-        new ShowLoadingEvent(text).post();
+        Observable.empty()
+                .observeOn(AndroidSchedulers.mainThread())
+                .doOnComplete(() -> new ShowLoadingEvent(text).post())
+                .subscribe();
     }
 
     public static void post(String text, boolean isUpdate) {
-        new ShowLoadingEvent(text, isUpdate).post();
+        Observable.empty()
+                .observeOn(AndroidSchedulers.mainThread())
+                .doOnComplete(() -> new ShowLoadingEvent(text, isUpdate).post())
+                .subscribe();
     }
 
 }

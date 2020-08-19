@@ -51,7 +51,6 @@
                         android:id="@+id/rl_icon"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_above="@id/ll_name"
                         android:layout_marginStart="20dp"
                         android:layout_marginEnd="20dp"
                         >
@@ -76,7 +75,8 @@
                             android:textColor="@android:color/white"
                             android:layout_centerVertical="true"
                             android:layout_toStartOf="@id/tv_follow"
-                            android:visibility="gone"
+                            android:visibility="visible"
+                            android:textSize="12sp"
                             />
 
                         <TextView
@@ -90,7 +90,7 @@
                             android:textColor="@android:color/white"
                             android:layout_centerVertical="true"
                             android:layout_alignParentEnd="true"
-
+                            android:textSize="12sp"
                             />
 
                     </RelativeLayout>
@@ -127,13 +127,11 @@
                             android:textColor="@android:color/white"
                             android:textSize="12sp"
                             android:background="@drawable/bg_round_gray"
-                            android:paddingStart="8dp"
-                            android:paddingEnd="8dp"
-                            android:paddingTop="2dp"
-                            android:paddingBottom="2dp"
+                            android:paddingHorizontal="12dp"
+                            android:paddingVertical="2dp"
                             android:gravity="center_vertical"
                             android:layout_gravity="center_vertical"
-                            android:layout_marginStart="10dp"
+                            android:layout_marginStart="8dp"
                             />
 
                     </LinearLayout>

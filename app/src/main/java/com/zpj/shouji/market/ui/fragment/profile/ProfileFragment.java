@@ -30,6 +30,7 @@ import com.zpj.shouji.market.ui.fragment.WebFragment;
 import com.zpj.shouji.market.ui.fragment.base.ListenerFragment;
 import com.zpj.shouji.market.ui.fragment.chat.ChatFragment;
 import com.zpj.shouji.market.utils.MagicIndicatorHelper;
+import com.zpj.shouji.market.utils.PictureUtil;
 import com.zpj.widget.statelayout.StateLayout;
 import com.zpj.widget.tinted.TintedImageView;
 
@@ -63,6 +64,9 @@ public class ProfileFragment extends ListenerFragment
     private String userId;
     private boolean isMe;
     private boolean isFriend;
+
+    private String memberAvatar;
+    private String memberBackground;
 
     public static void start(String userId, boolean shouldLazyLoad) {
         ProfileFragment profileFragment = new ProfileFragment();
@@ -125,12 +129,6 @@ public class ProfileFragment extends ListenerFragment
         if (isMe) {
             tvFollow.setText("编辑");
             tvFollow.setBackgroundResource(R.drawable.bg_button_round_gray);
-//            tvFollow.setBackground(new DrawableBuilder()
-//                    .rectangle()
-//                    .rounded()
-//                    .strokeColor(getResources().getColor(R.color.colorPrimary))
-//                    .solidColor(getResources().getColor(R.color.colorPrimary))
-//                    .build());
         }
 
         ivHeader = view.findViewById(R.id.iv_header);
@@ -162,21 +160,24 @@ public class ProfileFragment extends ListenerFragment
     public void toolbarRightImageButton(@NonNull ImageButton imageButton) {
         super.toolbarRightImageButton(imageButton);
         imageButton.setOnClickListener(v -> {
-            AttachListPopup<String> popup = ZPopup.attachList(context);
-            popup.addItem("分享主页");
-            if (!isMe) {
-                popup.addItem("加入黑名单");
-                popup.addItem("举报Ta");
-            }
-            popup.setOnSelectListener((position, title) -> {
+            ZPopup.attachList(context)
+                    .addItems("分享主页", "保存头像", "保存背景")
+                    .addItemsIf(!isMe, "加入黑名单", "举报Ta")
+                    .setOnSelectListener((position, title) -> {
                         switch (position) {
                             case 0:
                                 WebFragment.shareHomepage(userId);
                                 break;
                             case 1:
-                                HttpApi.addBlacklistApi(userId);
+                                PictureUtil.saveImage(context, memberAvatar);
                                 break;
                             case 2:
+                                PictureUtil.saveImage(context, memberBackground);
+                                break;
+                            case 3:
+                                HttpApi.addBlacklistApi(userId);
+                                break;
+                            case 4:
                                 AToast.warning("TODO");
                                 break;
                         }
@@ -195,25 +196,23 @@ public class ProfileFragment extends ListenerFragment
                     } else {
                         ivChat.setVisibility(View.GONE);
                     }
-                    String memberBackground = element.selectFirst("memberbackground").text();
-                    if (!TextUtils.isEmpty(memberBackground)) {
-                        Glide.with(context).load(memberBackground)
-                                .apply(new RequestOptions()
-                                        .error(R.drawable.bg_member_default)
-                                        .placeholder(R.drawable.bg_member_default)
-                                )
-                                .into(ivHeader);
-                    }
-                    String url = element.selectFirst("memberavatar").text();
+                    memberBackground = element.selectFirst("memberbackground").text();
+                    Glide.with(context).load(memberBackground)
+                            .apply(new RequestOptions()
+                                    .error(R.drawable.bg_member_default)
+                                    .placeholder(R.drawable.bg_member_default)
+                            )
+                            .into(ivHeader);
+                    memberAvatar = element.selectFirst("memberavatar").text();
                     RequestOptions options = new RequestOptions()
                             .error(R.drawable.ic_user_head)
                             .placeholder(R.drawable.ic_user_head);
                     Glide.with(context)
-                            .load(url)
+                            .load(memberAvatar)
                             .apply(options)
                             .into(ivAvater);
                     Glide.with(context)
-                            .load(url)
+                            .load(memberAvatar)
                             .apply(options)
                             .into(ivToolbarAvater);
 

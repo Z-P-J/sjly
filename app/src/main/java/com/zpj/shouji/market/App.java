@@ -2,17 +2,14 @@ package com.zpj.shouji.market;
 
 import android.app.Application;
 import android.content.Context;
-import android.os.Environment;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.request.target.ViewTarget;
 import com.felix.atoast.library.AToast;
 import com.lqr.emoji.IImageLoader;
 import com.lqr.emoji.LQREmotionKit;
 import com.maning.librarycrashmonitor.MCrashMonitor;
-import com.maning.librarycrashmonitor.utils.MFileUtils;
 import com.raizlabs.android.dbflow.config.FlowManager;
 import com.zpj.downloader.ZDownloader;
 

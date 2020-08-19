@@ -80,7 +80,7 @@ public class SignUpFragment extends BaseFragment
 
         int index1 = text.indexOf("用户协议");
         int index2 = text.indexOf("隐私协议");
-        sp.setSpan(new URLSpan("https://wap.shouji.com.cn/sjlyyhxy.html") {
+        sp.setSpan(new URLSpan("https://m.shouji.com.cn/sjlyyhxy.html") {
                        @Override
                        public void onClick(View widget) {
                            widget.setTag(true);
@@ -89,7 +89,7 @@ public class SignUpFragment extends BaseFragment
                        }
                    }, index1, index1 + 4,
                 Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-        sp.setSpan(new URLSpan("https://wap.shouji.com.cn/ysxy.html") {
+        sp.setSpan(new URLSpan("https://m.shouji.com.cn/ysxy.html") {
                        @Override
                        public void onClick(View widget) {
                            widget.setTag(true);

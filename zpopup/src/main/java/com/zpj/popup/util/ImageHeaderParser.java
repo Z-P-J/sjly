@@ -34,7 +34,7 @@ public class ImageHeaderParser {
     private static final int WEBP_EXTENDED_ALPHA_FLAG = 1 << 4;
     private static final int WEBP_LOSSLESS_ALPHA_FLAG = 1 << 3;
 
-    static ImageType getImageType(InputStream is) throws IOException{
+    public static ImageType getImageType(InputStream is) throws IOException{
         Reader reader = new StreamReader(is);
         final int firstTwoBytes = reader.getUInt16();
 

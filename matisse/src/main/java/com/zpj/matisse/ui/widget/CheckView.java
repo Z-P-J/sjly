@@ -111,7 +111,9 @@ public class CheckView extends View {
 
     public void setCheckedNum(int checkedNum) {
         if (!mCountable) {
-            throw new IllegalStateException("CheckView is not countable, call setChecked() instead.");
+//            throw new IllegalStateException("CheckView is not countable, call setChecked() instead.");
+            setChecked(checkedNum != UNCHECKED);
+            return;
         }
         if (checkedNum != UNCHECKED && checkedNum <= 0) {
             throw new IllegalArgumentException("checked num can't be negative.");

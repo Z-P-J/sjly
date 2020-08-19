@@ -21,6 +21,7 @@ import com.yanyusong.y_divideritemdecoration.Y_Divider;
 import com.yanyusong.y_divideritemdecoration.Y_DividerBuilder;
 import com.yanyusong.y_divideritemdecoration.Y_DividerItemDecoration;
 import com.zpj.fragmentation.BaseFragment;
+import com.zpj.popup.core.ImageViewerPopup;
 import com.zpj.recyclerview.EasyRecyclerView;
 import com.zpj.recyclerview.EasyViewHolder;
 import com.zpj.recyclerview.IEasy;
@@ -145,10 +146,17 @@ public class AppInfoFragment extends BaseFragment
             CommonImageViewerPopup.with(context)
                     .setImageUrls(list)
                     .setSrcView(img, position)
-                    .setSrcViewUpdateListener((popup, pos) -> {
-                        recyclerView.getRecyclerView().scrollToPosition(pos);
+                    .setSrcViewUpdateListener(new ImageViewerPopup.OnSrcViewUpdateListener<String>() {
+                        private boolean flag = true;
+                        @Override
+                        public void onSrcViewUpdate(@NonNull ImageViewerPopup<String> popup, int pos) {
+                            if (flag) {
+                                flag = false;
+                            } else {
+                                recyclerView.getRecyclerView().scrollToPosition(pos);
+                            }
 
-                        postDelayed(() -> {
+                            postDelayed(() -> {
 //                                int layoutPos = recyclerView.getRecyclerView().indexOfChild(holder.getItemView());
 //                                View view = recyclerView.getRecyclerView().getChildAt(layoutPos + pos - position);
 //                                ImageView imageView;
@@ -157,12 +165,13 @@ public class AppInfoFragment extends BaseFragment
 //                                } else {
 //                                    imageView = img;
 //                                }
-                            ImageView imageView = recyclerView.getRecyclerView().findViewWithTag(pos);
-                            if (imageView == null) {
-                                imageView = img;
-                            }
-                            popup.updateSrcView(imageView, pos);
-                        }, 100);
+                                ImageView imageView = recyclerView.getRecyclerView().findViewWithTag(pos);
+                                if (imageView == null) {
+                                    imageView = img;
+                                }
+                                popup.updateSrcView(imageView, pos);
+                            }, 100);
+                        }
                     })
                     .show();
         });

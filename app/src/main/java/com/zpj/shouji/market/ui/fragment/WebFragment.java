@@ -40,7 +40,7 @@ public class WebFragment extends BaseFragment {
     }
 
     public static void shareHomepage(String id) {
-        start("https://www.shouji.com.cn/user/" + id + "/home.html");
+        start("https://m.shouji.com.cn/user/" + id + "/home.html");
     }
 
     public static void appPage(String type, String id) {
@@ -115,6 +115,7 @@ public class WebFragment extends BaseFragment {
                     @Override
                     public boolean shouldOverrideUrlLoading(WebView view, String url) {
                         view.loadUrl(url);
+                        setToolbarTitle(view.getTitle());
                         return true;
                     }
 
@@ -122,6 +123,7 @@ public class WebFragment extends BaseFragment {
                     public void onPageStarted(WebView view, String url, Bitmap favicon) {
                         super.onPageStarted(view, url, favicon);
                         setToolbarSubTitle(url);
+                        setToolbarTitle(view.getTitle());
                     }
 
                     @Override

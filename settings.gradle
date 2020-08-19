@@ -10,5 +10,8 @@ include ':app',
         ':emojilib',
         ':matisse',
         ':filescannercore',
-        ':niceimageview'
-//        ':third-part-color-cardview'
+        ':niceimageview',
+//        ':photopicker',
+//        ':takephoto',
+//        ':android-crop',
+        ':ucrop'

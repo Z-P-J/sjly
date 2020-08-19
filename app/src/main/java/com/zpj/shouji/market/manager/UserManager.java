@@ -81,6 +81,12 @@ public final class UserManager {
         PrefsHelper.with("user_info").putString("user_info", info);
     }
 
+    public void saveUserInfo() {
+        if (memberInfo != null) {
+            setUserInfo(memberInfo.toStr());
+        }
+    }
+
     public String getUserInfo() {
         return PrefsHelper.with("user_info").getString("user_info", "");
     }

@@ -51,6 +51,7 @@
                             android:adjustViewBounds="true"
                             android:scaleType="centerCrop"
                             android:src="@drawable/bg_member_default"
+                            android:tint="#20333333"
                             />
 
                         <LinearLayout
@@ -92,11 +93,13 @@
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
                                         android:layout_gravity="center_vertical"
-                                        android:layout_marginEnd="4dp"
+                                        android:layout_marginEnd="8dp"
                                         android:background="@drawable/bg_button_round_red"
                                         android:gravity="center"
                                         android:text="关注"
-                                        android:textColor="@android:color/white" />
+                                        android:textColor="@android:color/white"
+                                        android:textSize="12sp"
+                                        />
 
                                     <com.zpj.widget.tinted.TintedImageView
                                         android:id="@+id/iv_chat"
@@ -104,10 +107,10 @@
                                         android:layout_height="36dp"
                                         android:padding="6dp"
                                         android:layout_gravity="center_vertical"
-                                        android:background="@drawable/grey_shape"
+                                        android:background="@drawable/bg_button_round_gray"
                                         android:src="@drawable/ic_email_black_24dp"
                                         android:gravity="center"
-                                        android:tint="@color/black"
+                                        android:tint="@color/white"
                                         />
 
                                 </LinearLayout>

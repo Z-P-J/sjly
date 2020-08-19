@@ -1,5 +1,6 @@
 package com.zpj.shouji.market.api;
 
+import android.net.Uri;
 import android.util.Log;
 
 import com.felix.atoast.library.AToast;
@@ -12,6 +13,9 @@ import com.zpj.shouji.market.constant.UpdateFlagAction;
 import com.zpj.shouji.market.event.RefreshEvent;
 import com.zpj.shouji.market.manager.UserManager;
 import com.zpj.utils.OSUtils;
+
+import java.io.File;
+import java.io.FileInputStream;
 
 import io.reactivex.Observable;
 import io.reactivex.ObservableOnSubscribe;
@@ -162,7 +166,11 @@ public final class HttpApi {
     }
 
     public static ObservableTask<Document> getMemberInfoApi(String id) {
-        String url = "http://tt.tljpxm.com/app/view_member_xml_v4.jsp?id=" + id;
+        String url = String.format("http://tt.shouji.com.cn/app/view_member_xml_v4.jsp?id=%s", id);
+        if (id.equals(UserManager.getInstance().getUserId())) {
+            url += "&myself=yes";
+        }
+        Log.d("getMemberInfoApi", "url=" + url);
         return get(url);
     }
 
@@ -388,6 +396,72 @@ public final class HttpApi {
 
     public static ObservableTask<Document> getShareInfoApi(String id) {
         return get(String.format("http://tt.shouji.com.cn/app/getShareInfo.jsp?id=%s", id));
+    }
+
+    public static ObservableTask<Document> uploadAvatarApi(Uri uri, IHttp.OnStreamWriteListener listener) throws Exception {
+        return ZHttp.post(String.format("http://tt.shouji.com.cn/app/user_upload_avatar.jsp?jsessionid=%s&versioncode=%s", UserManager.getInstance().getSessionId(), VERSION_CODE))
+                .validateTLSCertificates(false)
+                .userAgent(USER_AGENT)
+                .onRedirect(redirectUrl -> {
+                    Log.d("connect", "onRedirect redirectUrl=" + redirectUrl);
+                    return true;
+                })
+                .cookie(UserManager.getInstance().getCookie())
+                .ignoreContentType(true)
+                .data("image", "image.png", new FileInputStream(uri.getPath()), listener)
+                .header("Charset", "UTF-8")
+                .toXml();
+    }
+
+    public static ObservableTask<Document> uploadAvatarApi(Uri uri) throws Exception {
+        return uploadAvatarApi(uri, new IHttp.OnStreamWriteListener() {
+            @Override
+            public void onBytesWritten(int bytesWritten) {
+
+            }
+
+            @Override
+            public boolean shouldContinue() {
+                return true;
+            }
+        });
+    }
+
+    public static ObservableTask<Document> deleteBackgroundApi() {
+        return get("http://tt.shouji.com.cn/app/user_upload_background.jsp?action=delete");
+    }
+
+    public static ObservableTask<Document> uploadBackgroundApi(Uri uri, IHttp.OnStreamWriteListener listener) throws Exception {
+        return ZHttp.post(String.format(
+                "http://tt.shouji.com.cn/app/user_upload_background.jsp?action=save&sn=%s&jsessionid=%s&versioncode=%s",
+                UserManager.getInstance().getSn(),
+                UserManager.getInstance().getSessionId(),
+                VERSION_CODE))
+                .validateTLSCertificates(false)
+                .userAgent(USER_AGENT)
+                .onRedirect(redirectUrl -> {
+                    Log.d("connect", "onRedirect redirectUrl=" + redirectUrl);
+                    return true;
+                })
+                .cookie(UserManager.getInstance().getCookie())
+                .ignoreContentType(true)
+                .data("image", "image.png", new FileInputStream(uri.getPath()), listener)
+                .header("Charset", "UTF-8")
+                .toXml();
+    }
+
+    public static ObservableTask<Document> uploadBackgroundApi(Uri uri) throws Exception {
+        return uploadBackgroundApi(uri, new IHttp.OnStreamWriteListener() {
+            @Override
+            public void onBytesWritten(int bytesWritten) {
+
+            }
+
+            @Override
+            public boolean shouldContinue() {
+                return true;
+            }
+        });
     }
 
 }

@@ -158,8 +158,22 @@ public class AttachListPopup<T> extends AttachPopup<AttachListPopup<T>> {
         return this;
     }
 
+    public AttachListPopup<T> addItemsIf(boolean flag, T...items) {
+        if (flag) {
+            this.items.addAll(Arrays.asList(items));
+        }
+        return this;
+    }
+
     public AttachListPopup<T> addItem(T item) {
         this.items.add(item);
+        return this;
+    }
+
+    public AttachListPopup<T> addItemIf(boolean flag, T item) {
+        if (flag) {
+            this.items.add(item);
+        }
         return this;
     }
 

@@ -48,10 +48,10 @@ public class AboutSettingFragment extends BaseSettingFragment {
     public void onItemClick(CommonSettingItem item) {
         switch (item.getId()) {
             case R.id.item_user_agreement:
-                WebFragment.start("https://wap.shouji.com.cn/sjlyyhxy.html", "用户协议");
+                WebFragment.start("https://m.shouji.com.cn/sjlyyhxy.html", "用户协议");
                 break;
             case R.id.item_privacy_agreement:
-                WebFragment.start("https://wap.shouji.com.cn/ysxy.html", "隐私协议");
+                WebFragment.start("https://m.shouji.com.cn/ysxy.html", "隐私协议");
                 break;
             case R.id.item_about_me:
                 _mActivity.setFragmentAnimator(new DefaultNoAnimator());

@@ -124,6 +124,7 @@ public class MemberInfo {
     }
 
     public String toStr() {
+        Log.d("MemberInfo", "toStr");
         try {
             Document doc = ZHttp.parse("<member></member>");
             for(Field field : getClass().getDeclaredFields()) {
@@ -146,13 +147,17 @@ public class MemberInfo {
                     element.appendText(String.valueOf(field.getInt(this)));
                 } else if (type.equals("class java.lang.String")) { // 如果type是类类型，则前面包含"class
                     field.setAccessible(true);
-                    element.appendText(field.get(this).toString());
+                    Object value = field.get(this);
+                    element.appendText(value == null ? "" : value.toString());
                 }
             }
+            Log.d("MemberInfo", "toStr str=" + doc.toString());
             return doc.toString();
         } catch (Exception e) {
             e.printStackTrace();
+            Log.d("MemberInfo", "toStr error=" + e.getMessage());
         }
+        Log.d("MemberInfo", "toStr null");
         return null;
     }
 
@@ -334,6 +339,14 @@ public class MemberInfo {
 
     public String getSn() {
         return sn;
+    }
+
+    public void setMemberBackGround(String memberBackGround) {
+        this.memberBackGround = memberBackGround;
+    }
+
+    public void setMemberAvatar(String memberAvatar) {
+        this.memberAvatar = memberAvatar;
     }
 
     @Override
