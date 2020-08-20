@@ -158,9 +158,9 @@ public class InputView2 extends FrameLayout
         });
         mEditText.addTextChangedListener(this);
 
-        mViewColorError = ContextCompat.getColor(getContext(), R.color.red5);
-        mViewColorNormal = ContextCompat.getColor(getContext(), R.color.color_text_normal);
-        mViewHeightNormal = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 1, getContext().getResources().getDisplayMetrics());
+        mViewColorError = ContextCompat.getColor(getContext(), R.color.red4);
+        mViewColorNormal = ContextCompat.getColor(getContext(), R.color.color_text_minor);
+        mViewHeightNormal = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 2, getContext().getResources().getDisplayMetrics());
         mViewColorFocus = ContextCompat.getColor(getContext(), R.color.colorPrimary);
         mViewHeightFocus = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 2, getContext().getResources().getDisplayMetrics());
 

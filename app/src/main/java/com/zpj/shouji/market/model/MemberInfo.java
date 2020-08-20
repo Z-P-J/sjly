@@ -349,6 +349,10 @@ public class MemberInfo {
         this.memberAvatar = memberAvatar;
     }
 
+    public void setMemberEmail(String memberEmail) {
+        this.memberEmail = memberEmail;
+    }
+
     @Override
     public String toString() {
         return "MemberInfo{" +

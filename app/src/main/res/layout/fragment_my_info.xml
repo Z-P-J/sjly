@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    android:orientation="vertical"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/dark_gray_5"
+    >
+
+    <include layout="@layout/layout_toolbar"/>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <com.zpj.shouji.market.ui.widget.ElasticScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scrollbars="none"
+            >
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                >
+
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/white"
+                    android:layout_marginTop="8dp"
+                    >
+
+                    <com.zpj.widget.setting.CommonSettingItem
+                        android:id="@+id/item_member_id"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:z_setting_titleText="用户ID"
+                        app:z_setting_rightText="123456"
+                        />
+
+                    <com.zpj.widget.setting.CommonSettingItem
+                        android:id="@+id/item_nickname"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:z_setting_titleText="昵称"
+                        app:z_setting_rightText="天蓝蓝的"
+                        />
+
+                    <com.zpj.widget.setting.CommonSettingItem
+                        android:id="@+id/item_level"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:z_setting_titleText="等级"
+                        app:z_setting_rightText="Lv.100"
+                        />
+
+                    <com.zpj.shouji.market.ui.widget.IconSettingItem
+                        android:id="@+id/item_avatar"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:z_setting_titleText="头像"
+                        app:z_setting_rightIcon="@mipmap/ic_launcher"
+                        />
+
+                    <com.zpj.shouji.market.ui.widget.IconSettingItem
+                        android:id="@+id/item_background"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:z_setting_titleText="主页背景"
+                        app:z_setting_rightIcon="@drawable/bg_member_default"
+                        />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/white"
+                    android:layout_marginTop="8dp"
+                    >
+
+                    <com.zpj.widget.setting.CommonSettingItem
+                        android:id="@+id/item_qq"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:z_setting_titleText="绑定QQ"
+                        app:z_setting_rightText="2571490256"
+                        />
+
+                    <com.zpj.widget.setting.CommonSettingItem
+                        android:id="@+id/item_wx"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:z_setting_titleText="绑定微信"
+                        app:z_setting_rightText="xxxxxxxx"
+                        />
+
+                    <com.zpj.widget.setting.CommonSettingItem
+                        android:id="@+id/item_email"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:z_setting_titleText="绑定邮箱"
+                        app:z_setting_rightText="2571490256@qq.com"
+                        />
+
+                    <com.zpj.widget.setting.CommonSettingItem
+                        android:id="@+id/item_password"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:z_setting_titleText="修改密码"
+                        />
+
+                </LinearLayout>
+
+                <com.lihang.ShadowLayout
+                    style="@style/setting_card_style"
+                    android:id="@+id/tv_sign_out"
+                    android:layout_margin="8dp"
+                    >
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="56dp"
+                        android:textStyle="bold"
+                        android:textColor="@color/light_red_1"
+                        android:gravity="center"
+                        android:text="注销账户"
+                        android:background="?attr/selectableItemBackground"
+                        />
+
+                </com.lihang.ShadowLayout>
+
+            </LinearLayout>
+
+
+        </com.zpj.shouji.market.ui.widget.ElasticScrollView>
+
+        <View style="@style/layout_shadow_bottom"/>
+
+    </FrameLayout>
+
+
+</LinearLayout>

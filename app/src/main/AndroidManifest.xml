@@ -23,6 +23,7 @@
             android:name="com.zpj.shouji.market.ui.activity.MainActivity"
             android:theme="@style/MainActivityTheme"
             android:configChanges="keyboardHidden|orientation|screenSize"
+            android:windowSoftInputMode="adjustResize|stateAlwaysHidden"
             >
 
             <intent-filter>

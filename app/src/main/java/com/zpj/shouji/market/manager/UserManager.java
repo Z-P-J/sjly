@@ -10,7 +10,9 @@ import com.zpj.http.core.Connection;
 import com.zpj.http.core.IHttp;
 import com.zpj.http.parser.html.nodes.Document;
 import com.zpj.shouji.market.event.SignInEvent;
+import com.zpj.shouji.market.event.SignOutEvent;
 import com.zpj.shouji.market.event.SignUpEvent;
+import com.zpj.shouji.market.event.UserInfoChangeEvent;
 import com.zpj.shouji.market.model.MemberInfo;
 import com.zpj.shouji.market.api.HttpApi;
 import com.zpj.shouji.market.model.MessageInfo;
@@ -63,6 +65,7 @@ public final class UserManager {
         setUserInfo("");
         setCookie("");
         isLogin = false;
+        SignOutEvent.postEvent();
     }
 
     public void setCookie(String cookie) {
@@ -84,6 +87,7 @@ public final class UserManager {
     public void saveUserInfo() {
         if (memberInfo != null) {
             setUserInfo(memberInfo.toStr());
+            UserInfoChangeEvent.post();
         }
     }
 

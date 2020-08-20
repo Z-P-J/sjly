@@ -34,8 +34,10 @@ import com.zpj.popup.ZPopup;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.api.HttpApi;
 import com.zpj.shouji.market.event.HideLoadingEvent;
+import com.zpj.shouji.market.event.IconUploadSuccessEvent;
 import com.zpj.shouji.market.event.ShowLoadingEvent;
 import com.zpj.shouji.market.event.SignInEvent;
+import com.zpj.shouji.market.event.SignOutEvent;
 import com.zpj.shouji.market.manager.UserManager;
 import com.zpj.shouji.market.model.MemberInfo;
 import com.zpj.shouji.market.ui.fragment.WebFragment;
@@ -48,6 +50,7 @@ import com.zpj.shouji.market.ui.widget.PullZoomView;
 import com.zpj.shouji.market.ui.widget.ToolBoxCard;
 import com.zpj.shouji.market.ui.widget.popup.NicknameModifiedPopup;
 import com.zpj.shouji.market.utils.PictureUtil;
+import com.zpj.shouji.market.utils.UploadUtils;
 import com.zpj.utils.ClickHelper;
 import com.zpj.utils.ScreenUtils;
 import com.zpj.widget.tinted.TintedImageView;
@@ -66,6 +69,7 @@ public class MyFragment extends BaseFragment
     private TextView tvSignature;
     private NiceImageView ivAvatar;
     private TextView tvCheckIn;
+    private TextView tvEditInfo;
     private TextView tvLevel;
     private TextView tvFollower;
     private TextView tvFans;
@@ -83,8 +87,6 @@ public class MyFragment extends BaseFragment
 
     private View shadowView;
     private TintedImageView ivAppName;
-
-    private boolean isPickAvatar;
 
 //    private LoginPopup loginPopup;
 
@@ -140,6 +142,7 @@ public class MyFragment extends BaseFragment
         tvSignature = view.findViewById(R.id.tv_signature);
         ivAvatar = view.findViewById(R.id.iv_avatar);
         tvCheckIn = view.findViewById(R.id.tv_check_in);
+        tvEditInfo = view.findViewById(R.id.tv_edit_info);
         tvLevel = view.findViewById(R.id.tv_level);
         tvFollower = view.findViewById(R.id.tv_follower);
         tvFans = view.findViewById(R.id.tv_fans);
@@ -160,6 +163,7 @@ public class MyFragment extends BaseFragment
         tvName.setOnClickListener(this);
         ivAvatar.setOnClickListener(this);
         tvCheckIn.setOnClickListener(this);
+        tvEditInfo.setOnClickListener(this);
         tvCloudBackup.setOnClickListener(this);
         tvFeedback.setOnClickListener(this);
         tvNightMode.setOnClickListener(this);
@@ -182,7 +186,7 @@ public class MyFragment extends BaseFragment
                             .setOnSelectListener((position, title) -> {
                                 switch (position) {
                                     case 0:
-                                        showImagePicker(true);
+                                        UploadUtils.upload(_mActivity, true);
                                         break;
                                     case 1:
                                         PictureUtil.saveImage(context, UserManager.getInstance().getMemberInfo().getMemberAvatar());
@@ -207,7 +211,7 @@ public class MyFragment extends BaseFragment
                             .setOnSelectListener((position, title) -> {
                                 switch (position) {
                                     case 0:
-                                        showImagePicker(false);
+                                        UploadUtils.upload(_mActivity, false);
                                         break;
                                     case 1:
                                         PictureUtil.saveImage(context, bgUrl);
@@ -355,9 +359,15 @@ public class MyFragment extends BaseFragment
             } else {
                 AToast.warning("你已签到过了");
             }
+        } else if (v == tvEditInfo) {
+            if (UserManager.getInstance().isLogin()) {
+                MyInfoFragment.start();
+            } else {
+                showLoginPopup(0);
+            }
         } else if (v == ivAvatar) {
             if (UserManager.getInstance().isLogin()) {
-                showImagePicker(true);
+                UploadUtils.upload(_mActivity, true);
             } else {
                 showLoginPopup(0);
             }
@@ -386,62 +396,6 @@ public class MyFragment extends BaseFragment
         }
     }
 
-    private void showImagePicker(boolean isAvatar) {
-        this.isPickAvatar = isAvatar;
-        Matisse.from(_mActivity)
-                .choose(MimeType.ofImage())//照片视频全部显示MimeType.allOf()
-                .countable(true)//true:选中后显示数字;false:选中后显示对号
-                .maxSelectable(1)//最大选择数量为9
-                .spanCount(3)
-                .restrictOrientation(ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED)//图像选择和预览活动所需的方向
-                .thumbnailScale(0.85f)//缩放比例
-                .imageEngine(new GlideEngine())//图片加载方式，Glide4需要自定义实现
-                .capture(true) //是否提供拍照功能，兼容7.0系统需要下面的配置
-                //参数1 true表示拍照存储在共有目录，false表示存储在私有目录；参数2与 AndroidManifest中authorities值相同，用于适配7.0系统 必须设置
-                .capture(true, CaptureMode.All)//存储到哪里
-                .setOnSelectedListener(new OnSelectedListener() {
-                    @Override
-                    public void onSelected(@NonNull List<Item> itemList) {
-                        String clipImageName = "clip_" + (System.currentTimeMillis() / 1000) + ".png";
-                        File clipImage = new File(
-                                Environment.getExternalStorageDirectory().getAbsolutePath()
-                                        + File.separator + "PhotoPick/image",
-                                clipImageName
-                        );
-                        UCrop uCrop = UCrop.of(itemList.get(0).getContentUri(), Uri.fromFile(clipImage));
-
-                        if (isPickAvatar) {
-                            uCrop.withAspectRatio(1, 1);
-                            int maxSize = ScreenUtils.dp2pxInt(context, 144);
-                            uCrop.withMaxResultSize(maxSize, maxSize);
-                        } else {
-                            int height = ScreenUtils.getScreenHeight(context);
-                            int width = ScreenUtils.getScreenWidth(context);
-                            uCrop.withAspectRatio(height, width);
-//                            uCrop.withAspectRatio(16, 9);
-                            uCrop.withMaxResultSize(width / 2, (int) ((float) width * width / height) / 2);
-                        }
-
-
-                        UCrop.Options options = new UCrop.Options();
-                        options.setCompressionFormat(Bitmap.CompressFormat.PNG);
-                        options.setAllowedGestures(UCropActivity.SCALE, UCropActivity.NONE, UCropActivity.NONE);
-                        options.setCompressionQuality(100);
-                        options.setFreeStyleCropEnabled(true);
-                        options.setCircleDimmedLayer(isPickAvatar);
-                        options.setShowCropGrid(false);
-                        options.setHideBottomControls(true);
-                        options.setShowCropFrame(false);
-                        options.setToolbarColor(getResources().getColor(R.color.colorPrimary));
-                        options.setStatusBarColor(getResources().getColor(R.color.colorPrimary));
-                        uCrop.withOptions(options);
-
-                        uCrop.start(_mActivity);
-                    }
-                })
-                .start();
-    }
-
     @Subscribe
     public void onSignInEvent(SignInEvent event) {
         if (event.isSuccess()) {
@@ -452,6 +406,7 @@ public class MyFragment extends BaseFragment
                 tvCheckIn.setBackgroundResource(R.drawable.bg_button_round_pink);
                 tvCheckIn.setText("已签到");
             }
+            tvEditInfo.setText("编辑");
             tvName.setText(info.getMemberNickName());
             tvLevel.setText("Lv." + info.getMemberLevel());
             if (TextUtils.isEmpty(info.getMemberSignature())) {
@@ -478,82 +433,120 @@ public class MyFragment extends BaseFragment
             tvSignOut.setVisibility(View.VISIBLE);
         } else {
             tvCheckIn.setVisibility(View.GONE);
+            tvEditInfo.setText("未登录");
+        }
+    }
+
+//    @Subscribe
+//    public void onCropEvent(CropEvent event) {
+//        AToast.success("path=" + event.getUri().getPath());
+//        if (event.isAvatar()) {
+//            ShowLoadingEvent.post("上传头像...");
+//            try {
+//                HttpApi.uploadAvatarApi(event.getUri())
+//                        .onSuccess(doc -> {
+//                            Log.d("uploadAvatarApi", "data=" + doc);
+//                            String info = doc.selectFirst("info").text();
+//                            if ("success".equals(doc.selectFirst("result").text())) {
+//                                AToast.success(info);
+//                                Glide.with(context)
+//                                        .load(event.getUri())
+//                                        .apply(
+//                                                new RequestOptions()
+//                                                        .error(R.drawable.ic_user_head)
+//                                                        .placeholder(R.drawable.ic_user_head)
+//                                        )
+//                                        .into(ivAvatar);
+//                                UserManager.getInstance().getMemberInfo().setMemberAvatar(info);
+//                                UserManager.getInstance().saveUserInfo();
+//                            } else {
+//                                AToast.error(info);
+//                            }
+//                            HideLoadingEvent.postDelayed(500);
+//                        })
+//                        .onError(throwable -> {
+//                            AToast.error("上传头像失败！" + throwable.getMessage());
+//                            HideLoadingEvent.postDelayed(500);
+//                        })
+//                        .subscribe();
+//            } catch (Exception e) {
+//                e.printStackTrace();
+//                AToast.error("上传头像失败！" + e.getMessage());
+//                HideLoadingEvent.postDelayed(500);
+//            }
+//        } else {
+//            ShowLoadingEvent.post("上传背景...");
+//            try {
+//                HttpApi.uploadBackgroundApi(event.getUri())
+//                        .onSuccess(doc -> {
+//                            Log.d("uploadBackgroundApi", "data=" + doc);
+//                            String info = doc.selectFirst("info").text();
+//                            if ("success".equals(doc.selectFirst("result").text())) {
+////                                AToast.success(info);
+//                                Glide.with(context)
+//                                        .load(event.getUri())
+//                                        .apply(
+//                                                new RequestOptions()
+//                                                        .error(R.drawable.bg_member_default)
+//                                                        .placeholder(R.drawable.bg_member_default)
+//                                        )
+//                                        .into(ivWallpaper);
+//                                UserManager.getInstance().getMemberInfo().setMemberBackGround(info);
+//                                UserManager.getInstance().saveUserInfo();
+//                            } else {
+//                                AToast.error(info);
+//                            }
+//                            HideLoadingEvent.postDelayed(500);
+//                        })
+//                        .onError(throwable -> {
+//                            AToast.error("上传背景失败！" + throwable.getMessage());
+//                            HideLoadingEvent.postDelayed(500);
+//                        })
+//                        .subscribe();
+//            } catch (Exception e) {
+//                e.printStackTrace();
+//                AToast.error("上传背景失败！" + e.getMessage());
+//                HideLoadingEvent.postDelayed(500);
+//            }
+//        }
+//    }
+
+    @Subscribe
+    public void onIconUploadSuccessEvent(IconUploadSuccessEvent event) {
+        if (event.isAvatar()) {
+            Glide.with(context)
+                    .load(event.getUri())
+                    .apply(
+                            new RequestOptions()
+                                    .error(R.drawable.ic_user_head)
+                                    .placeholder(R.drawable.ic_user_head)
+                    )
+                    .into(ivAvatar);
+        } else {
+            Glide.with(context)
+                    .load(event.getUri())
+                    .apply(
+                            new RequestOptions()
+                                    .error(R.drawable.bg_member_default)
+                                    .placeholder(R.drawable.bg_member_default)
+                    )
+                    .into(ivWallpaper);
         }
     }
 
     @Subscribe
-    public void onCropEvent(CropEvent event) {
-        AToast.success("path=" + event.getUri().getPath());
-        if (isPickAvatar) {
-            ShowLoadingEvent.post("上传头像...");
-            try {
-                HttpApi.uploadAvatarApi(event.getUri())
-                        .onSuccess(doc -> {
-                            Log.d("uploadAvatarApi", "data=" + doc);
-                            String info = doc.selectFirst("info").text();
-                            if ("success".equals(doc.selectFirst("result").text())) {
-                                AToast.success(info);
-                                Glide.with(context)
-                                        .load(event.getUri())
-                                        .apply(
-                                                new RequestOptions()
-                                                        .error(R.drawable.ic_user_head)
-                                                        .placeholder(R.drawable.ic_user_head)
-                                        )
-                                        .into(ivAvatar);
-                                UserManager.getInstance().getMemberInfo().setMemberAvatar(info);
-                                UserManager.getInstance().saveUserInfo();
-                            } else {
-                                AToast.error(info);
-                            }
-                            HideLoadingEvent.postDelayed(500);
-                        })
-                        .onError(throwable -> {
-                            AToast.error("上传头像失败！" + throwable.getMessage());
-                            HideLoadingEvent.postDelayed(500);
-                        })
-                        .subscribe();
-            } catch (Exception e) {
-                e.printStackTrace();
-                AToast.error("上传头像失败！" + e.getMessage());
-                HideLoadingEvent.postDelayed(500);
-            }
-        } else {
-            ShowLoadingEvent.post("上传背景...");
-            try {
-                HttpApi.uploadBackgroundApi(event.getUri())
-                        .onSuccess(doc -> {
-                            Log.d("uploadBackgroundApi", "data=" + doc);
-                            String info = doc.selectFirst("info").text();
-                            if ("success".equals(doc.selectFirst("result").text())) {
-//                                AToast.success(info);
-                                Glide.with(context)
-                                        .load(event.getUri())
-                                        .apply(
-                                                new RequestOptions()
-                                                        .error(R.drawable.bg_member_default)
-                                                        .placeholder(R.drawable.bg_member_default)
-                                        )
-                                        .into(ivWallpaper);
-                                UserManager.getInstance().getMemberInfo().setMemberBackGround(info);
-                                UserManager.getInstance().saveUserInfo();
-                            } else {
-                                AToast.error(info);
-                            }
-                            HideLoadingEvent.postDelayed(500);
-                        })
-                        .onError(throwable -> {
-                            AToast.error("上传背景失败！" + throwable.getMessage());
-                            HideLoadingEvent.postDelayed(500);
-                        })
-                        .subscribe();
-            } catch (Exception e) {
-                e.printStackTrace();
-                AToast.error("上传背景失败！" + e.getMessage());
-                HideLoadingEvent.postDelayed(500);
-            }
-        }
-
+    public void onSignOutEvent(SignOutEvent event) {
+        toolBoxCard.onSignOut();
+        tvCheckIn.setVisibility(View.GONE);
+        tvSignOut.setVisibility(View.GONE);
+        tvName.setText("点击头像登录");
+        tvLevel.setText("Lv.0");
+        tvSignature.setText("手机乐园，发现应用的乐趣");
+        tvFollower.setText("关注 0");
+        tvFans.setText("粉丝 0");
+        ivAvatar.setImageResource(R.drawable.ic_user_head);
+        ivWallpaper.setImageResource(R.drawable.bg_member_default);
+        AToast.success("注销成功");
     }
 
     public void showLoginPopup(int page) {
@@ -588,17 +581,6 @@ public class MyFragment extends BaseFragment
                 .setContent("您将注销当前登录的账户，确认继续？")
                 .setConfirmButton(popup -> {
                     UserManager.getInstance().signOut();
-                    toolBoxCard.onSignOut();
-                    tvCheckIn.setVisibility(View.GONE);
-                    tvSignOut.setVisibility(View.GONE);
-                    tvName.setText("点击头像登录");
-                    tvLevel.setText("Lv.0");
-                    tvSignature.setText("手机乐园，发现应用的乐趣");
-                    tvFollower.setText("关注 0");
-                    tvFans.setText("粉丝 0");
-                    ivAvatar.setImageResource(R.drawable.ic_user_head);
-                    ivWallpaper.setImageResource(R.drawable.bg_member_default);
-                    AToast.success("TODO 注销成功");
                 })
                 .show();
     }

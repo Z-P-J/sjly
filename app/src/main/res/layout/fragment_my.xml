@@ -74,13 +74,13 @@
                             android:text="签到"
                             android:textColor="@android:color/white"
                             android:layout_centerVertical="true"
-                            android:layout_toStartOf="@id/tv_follow"
+                            android:layout_toStartOf="@id/tv_edit_info"
                             android:visibility="visible"
                             android:textSize="12sp"
                             />
 
                         <TextView
-                            android:id="@+id/tv_follow"
+                            android:id="@+id/tv_edit_info"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="16dp"
@@ -297,7 +297,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="56dp"
                             android:textStyle="bold"
-                            android:textColor="#FF4040"
+                            android:textColor="@color/light_red_1"
                             android:gravity="center"
                             android:text="注销账户"
                             android:background="?attr/selectableItemBackground"

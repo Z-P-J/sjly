@@ -6,10 +6,14 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.support.v4.app.ActivityCompat;
+import android.util.Log;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.felix.atoast.library.AToast;
 import com.lxj.xpermission.PermissionConstants;
 import com.lxj.xpermission.XPermission;
+import com.yalantis.ucrop.CropEvent;
 import com.zpj.downloader.util.permission.PermissionUtil;
 import com.zpj.fragmentation.SupportActivity;
 import com.zpj.fragmentation.SupportFragment;
@@ -18,8 +22,10 @@ import com.zpj.fragmentation.anim.FragmentAnimator;
 import com.zpj.popup.ZPopup;
 import com.zpj.popup.impl.LoadingPopup;
 import com.zpj.shouji.market.R;
+import com.zpj.shouji.market.api.HttpApi;
 import com.zpj.shouji.market.api.HttpPreLoader;
 import com.zpj.shouji.market.event.HideLoadingEvent;
+import com.zpj.shouji.market.event.IconUploadSuccessEvent;
 import com.zpj.shouji.market.event.ShowLoadingEvent;
 import com.zpj.shouji.market.event.StartFragmentEvent;
 import com.zpj.shouji.market.event.StatusBarEvent;
@@ -174,6 +180,65 @@ public class MainActivity extends SupportActivity {
             StatusBarUtils.setLightMode(getWindow());
         } else {
             StatusBarUtils.setDarkMode(getWindow());
+        }
+    }
+
+    @Subscribe
+    public void onCropEvent(CropEvent event) {
+        AToast.success("path=" + event.getUri().getPath());
+        if (event.isAvatar()) {
+            ShowLoadingEvent.post("上传头像...");
+            try {
+                HttpApi.uploadAvatarApi(event.getUri())
+                        .onSuccess(doc -> {
+                            Log.d("uploadAvatarApi", "data=" + doc);
+                            String info = doc.selectFirst("info").text();
+                            if ("success".equals(doc.selectFirst("result").text())) {
+//                                AToast.success(info);
+                                IconUploadSuccessEvent.post(event);
+                                UserManager.getInstance().getMemberInfo().setMemberAvatar(info);
+                                UserManager.getInstance().saveUserInfo();
+                            } else {
+                                AToast.error(info);
+                            }
+                            HideLoadingEvent.postDelayed(500);
+                        })
+                        .onError(throwable -> {
+                            AToast.error("上传头像失败！" + throwable.getMessage());
+                            HideLoadingEvent.postDelayed(500);
+                        })
+                        .subscribe();
+            } catch (Exception e) {
+                e.printStackTrace();
+                AToast.error("上传头像失败！" + e.getMessage());
+                HideLoadingEvent.postDelayed(500);
+            }
+        } else {
+            ShowLoadingEvent.post("上传背景...");
+            try {
+                HttpApi.uploadBackgroundApi(event.getUri())
+                        .onSuccess(doc -> {
+                            Log.d("uploadBackgroundApi", "data=" + doc);
+                            String info = doc.selectFirst("info").text();
+                            if ("success".equals(doc.selectFirst("result").text())) {
+                                IconUploadSuccessEvent.post(event);
+                                UserManager.getInstance().getMemberInfo().setMemberBackGround(info);
+                                UserManager.getInstance().saveUserInfo();
+                            } else {
+                                AToast.error(info);
+                            }
+                            HideLoadingEvent.postDelayed(500);
+                        })
+                        .onError(throwable -> {
+                            AToast.error("上传背景失败！" + throwable.getMessage());
+                            HideLoadingEvent.postDelayed(500);
+                        })
+                        .subscribe();
+            } catch (Exception e) {
+                e.printStackTrace();
+                AToast.error("上传背景失败！" + e.getMessage());
+                HideLoadingEvent.postDelayed(500);
+            }
         }
     }
 

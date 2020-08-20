@@ -1,6 +1,8 @@
 package com.zpj.shouji.market.api;
 
 import android.net.Uri;
+import android.text.TextUtils;
+import android.util.Base64;
 import android.util.Log;
 
 import com.felix.atoast.library.AToast;
@@ -16,6 +18,8 @@ import com.zpj.utils.OSUtils;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.nio.charset.StandardCharsets;
+import java.security.MessageDigest;
 
 import io.reactivex.Observable;
 import io.reactivex.ObservableOnSubscribe;
@@ -386,6 +390,18 @@ public final class HttpApi {
         return get(String.format("http://tt.shouji.com.cn/app/user_nickname_xml.jsp?NickName=%s", nickname));
     }
 
+    public static ObservableTask<Document> emailApi(String email, String password) {
+        return get(String.format("http://tt.shouji.com.cn/app/user_email_xml.jsp?MemberEmail=%s&p=%s", email, encodePassword(password)));
+    }
+
+    public static ObservableTask<Document> passwordApi(String oldPassword, String newPassword) {
+        String url = "http://tt.shouji.com.cn/app/user_password_xml.jsp?p=";
+        url += encodePassword(oldPassword.trim());
+        url += ("&np=" + encodePassword(newPassword.trim()));
+        Log.d("passwordApi", "url=" + url);
+        return get(url);
+    }
+
     public static ObservableTask<Document> addFavCollectionApi(String id, String type) {
         return get(String.format("http://tt.shouji.com.cn/app/user_yyj_fav_add.jsp?id=%s&t=%s", id, type));
     }
@@ -462,6 +478,21 @@ public final class HttpApi {
                 return true;
             }
         });
+    }
+
+    private static String encodePassword(String string) {
+        if (TextUtils.isEmpty(string)) {
+            return "";
+        }
+        MessageDigest md5 = null;
+        try {
+            md5 = MessageDigest.getInstance("MD5");
+            md5.update(string.getBytes(StandardCharsets.UTF_8));
+            return android.util.Base64.encodeToString(md5.digest(), Base64.DEFAULT).trim();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return "";
     }
 
 }
