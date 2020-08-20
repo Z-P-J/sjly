@@ -15,22 +15,28 @@ import com.zpj.matisse.R;
 import com.zpj.matisse.entity.IncapableCause;
 import com.zpj.matisse.entity.Item;
 import com.zpj.matisse.entity.SelectionSpec;
+import com.zpj.matisse.listener.OnSelectedListener;
 import com.zpj.matisse.model.SelectedItemManager;
 import com.zpj.popup.core.ImageViewerPopup;
 import com.zpj.popup.interfaces.IImageLoader;
 import com.zpj.widget.toolbar.ZToolBar;
 
 import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
 
 public class CustomImageViewerPopup extends ImageViewerPopup<Item>
         implements IImageLoader<Item> {
 
-    protected final SelectedItemManager mSelectedCollection;
-    protected final SelectionSpec mSpec;
+    protected SelectedItemManager mSelectedCollection;
     private ZToolBar titleBar;
     protected CheckView mCheckView;
     protected TextView mButtonApply;
     protected TextView tvIndicator;
+    protected boolean countable = true;
+    protected boolean singleSelectionModeEnabled;
+    protected List<Item> selectedList;
+    protected OnSelectedListener onSelectListener;
 
     public static CustomImageViewerPopup with(@NonNull Context context) {
         return new CustomImageViewerPopup(context);
@@ -42,8 +48,6 @@ public class CustomImageViewerPopup extends ImageViewerPopup<Item>
         isShowPlaceholder(false);
         isShowSaveButton(false);
         setImageLoader(this);
-        mSelectedCollection = SelectedItemManager.getInstance();
-        mSpec = SelectionSpec.getInstance();
     }
 
     @Override
@@ -53,9 +57,12 @@ public class CustomImageViewerPopup extends ImageViewerPopup<Item>
 
     @Override
     protected void initPopupContent() {
+        if (mSelectedCollection == null) {
+            selectedList = new ArrayList<>(urls);
+        }
         titleBar = findViewById(R.id.tool_bar);
         mCheckView = findViewById(R.id.check_view);
-        mCheckView.setCountable(mSpec.countable);
+        mCheckView.setCountable(countable);
         tvIndicator = findViewById(R.id.tv_indicator);
         mButtonApply = findViewById(R.id.button_apply);
         super.initPopupContent();
@@ -66,21 +73,21 @@ public class CustomImageViewerPopup extends ImageViewerPopup<Item>
                 titleBar.getCenterTextView().setText(urls.get(posi).getFile(getContext()).getName());
                 Log.d("CustomImageViewerPopup", "posi=" + posi + " position=" + position);
                 Item item = urls.get(posi);
-                if (mSpec.countable) {
-                    int checkedNum = mSelectedCollection.checkedNumOf(item);
+                if (countable) {
+                    int checkedNum = checkedNumOf(item);
                     mCheckView.setCheckedNum(checkedNum);
                     if (checkedNum > 0) {
                         mCheckView.setEnabled(true);
                     } else {
-                        mCheckView.setEnabled(!mSelectedCollection.maxSelectableReached());
+                        mCheckView.setEnabled(!maxSelectableReached());
                     }
                 } else {
-                    boolean checked = mSelectedCollection.isSelected(item);
+                    boolean checked = isSelected(item);
                     mCheckView.setChecked(checked);
                     if (checked) {
                         mCheckView.setEnabled(true);
                     } else {
-                        mCheckView.setEnabled(!mSelectedCollection.maxSelectableReached());
+                        mCheckView.setEnabled(!maxSelectableReached());
                     }
                 }
                 tvIndicator.setText(urls.size() + "/" + (posi + 1));
@@ -92,7 +99,7 @@ public class CustomImageViewerPopup extends ImageViewerPopup<Item>
     protected void onCreate() {
         super.onCreate();
 
-        mCheckView.setCheckedNum(mSelectedCollection.checkedNumOf(urls.get(pager.getCurrentItem())));
+        mCheckView.setCheckedNum(checkedNumOf(urls.get(pager.getCurrentItem())));
         titleBar.getCenterTextView().setText(urls.get(pager.getCurrentItem()).getFile(getContext()).getName());
 
 
@@ -103,18 +110,18 @@ public class CustomImageViewerPopup extends ImageViewerPopup<Item>
             @Override
             public void onClick(View v) {
                 Item item = urls.get(pager.getCurrentItem());
-                if (mSelectedCollection.isSelected(item)) {
-                    mSelectedCollection.remove(item);
-                    if (mSpec.countable) {
+                if (isSelected(item)) {
+                    removeItem(item);
+                    if (countable) {
                         mCheckView.setCheckedNum(CheckView.UNCHECKED);
                     } else {
                         mCheckView.setChecked(false);
                     }
                 } else {
                     if (assertAddSelection(item)) {
-                        mSelectedCollection.add(item);
-                        if (mSpec.countable) {
-                            mCheckView.setCheckedNum(mSelectedCollection.checkedNumOf(item));
+                        addItem(item);
+                        if (countable) {
+                            mCheckView.setCheckedNum(checkedNumOf(item));
                         } else {
                             mCheckView.setChecked(true);
                         }
@@ -127,12 +134,32 @@ public class CustomImageViewerPopup extends ImageViewerPopup<Item>
         updateApplyButton();
     }
 
+    public CustomImageViewerPopup setSelectedItemManager(SelectedItemManager mSelectedCollection) {
+        this.mSelectedCollection = mSelectedCollection;
+        return this;
+    }
+
+    public CustomImageViewerPopup setCountable(boolean countable) {
+        this.countable = countable;
+        return this;
+    }
+
+    public CustomImageViewerPopup setSingleSelectionModeEnabled(boolean singleSelectionModeEnabled) {
+        this.singleSelectionModeEnabled = singleSelectionModeEnabled;
+        return this;
+    }
+
+    public CustomImageViewerPopup setOnSelectedListener(OnSelectedListener onSelectListener) {
+        this.onSelectListener = onSelectListener;
+        return this;
+    }
+
     private void updateApplyButton() {
-        int selectedCount = mSelectedCollection.count();
+        int selectedCount = selectedCount();
         if (selectedCount == 0) {
             mButtonApply.setText(R.string.button_sure_default);
             mButtonApply.setEnabled(false);
-        } else if (selectedCount == 1 && mSpec.singleSelectionModeEnabled()) {
+        } else if (selectedCount == 1 && singleSelectionModeEnabled) {
             mButtonApply.setText(R.string.button_sure_default);
             mButtonApply.setEnabled(true);
         } else {
@@ -159,12 +186,6 @@ public class CustomImageViewerPopup extends ImageViewerPopup<Item>
         return null;
     }
 
-    private boolean assertAddSelection(Item item) {
-        IncapableCause cause = mSelectedCollection.isAcceptable(getContext(), item);
-        IncapableCause.handleCause(getContext(), cause);
-        return cause == null;
-    }
-
     @Override
     protected void onShow() {
         super.onShow();
@@ -173,5 +194,73 @@ public class CustomImageViewerPopup extends ImageViewerPopup<Item>
     @Override
     protected void onDismiss() {
         super.onDismiss();
+        if (selectedList != null && onSelectListener != null) {
+            onSelectListener.onSelected(selectedList);
+        }
     }
+
+    private boolean assertAddSelection(Item item) {
+        if (mSelectedCollection == null) {
+            return true;
+        }
+        IncapableCause cause = mSelectedCollection.isAcceptable(getContext(), item);
+        IncapableCause.handleCause(getContext(), cause);
+        return cause == null;
+    }
+
+    private int checkedNumOf(Item item) {
+        if (mSelectedCollection == null) {
+//            int index = urls.indexOf(item);
+            int index = selectedList.indexOf(item);
+            return index == -1 ? CheckView.UNCHECKED : index + 1;
+        } else {
+            return mSelectedCollection.checkedNumOf(item);
+        }
+    }
+
+    private boolean maxSelectableReached() {
+//        if (mSelectedCollection == null) {
+//            return false;
+//        } else {
+//            return mSelectedCollection.maxSelectableReached();
+//        }
+        return mSelectedCollection != null && mSelectedCollection.maxSelectableReached();
+    }
+
+    private boolean isSelected(Item item) {
+        if (mSelectedCollection == null) {
+            return selectedList.contains(item);
+//            return urls.contains(item);
+        } else {
+            return mSelectedCollection.isSelected(item);
+        }
+    }
+
+    private void removeItem(Item item) {
+        if (mSelectedCollection == null) {
+//            urls.remove(item);
+            selectedList.remove(item);
+        } else {
+            mSelectedCollection.remove(item);
+        }
+    }
+
+    private void addItem(Item item) {
+        if (mSelectedCollection == null) {
+//            urls.add(item);
+            selectedList.add(item);
+        } else {
+            mSelectedCollection.add(item);
+        }
+    }
+
+    private int selectedCount() {
+        if (mSelectedCollection == null) {
+//            return urls.size();
+            return selectedList.size();
+        } else {
+            return mSelectedCollection.count();
+        }
+    }
+
 }

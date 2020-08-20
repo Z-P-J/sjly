@@ -87,7 +87,7 @@ public class WebFragment extends BaseFragment {
     public boolean onBackPressedSupport() {
         if (mAgentWeb != null && mAgentWeb.getWebCreator().getWebView().canGoBack()) {
             mAgentWeb.getWebCreator().getWebView().goBack();
-            return false;
+            return true;
         }
         return super.onBackPressedSupport();
     }

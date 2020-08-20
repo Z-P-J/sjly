@@ -10,15 +10,24 @@ import android.net.Uri;
 import android.os.Environment;
 import android.os.Handler;
 import android.os.Looper;
+import android.text.TextUtils;
+import android.util.Log;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.request.RequestOptions;
 import com.felix.atoast.library.AToast;
 import com.zpj.http.core.IHttp;
 import com.zpj.http.core.ObservableTask;
 import com.zpj.popup.enums.ImageType;
 import com.zpj.popup.util.ImageHeaderParser;
+import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.event.ShowLoadingEvent;
+import com.zpj.shouji.market.manager.UserManager;
+import com.zpj.utils.ContextUtils;
+import com.zpj.utils.FileUtils;
 
 import java.io.BufferedOutputStream;
 import java.io.ByteArrayInputStream;
@@ -279,6 +288,249 @@ public class PictureUtil {
                     AToast.error("保存失败！" + throwable.getMessage());
                 })
                 .subscribe();
+    }
+
+    public static void saveIcon(Context context, String url, String fileName, IHttp.OnSuccessListener<File> listener) {
+        new ObservableTask<File>(
+                emitter -> {
+                    File source = Glide.with(context).downloadOnly().load(url).submit().get();
+                    if (source == null) {
+                        emitter.onComplete();
+                        return;
+                    }
+
+                    //1. create path
+                    String dirPath = getIconPath(context);
+
+//                    ImageType type = ImageHeaderParser.getImageType(new FileInputStream(source));
+                    final File target = new File(dirPath, fileName + ".png");
+                    if (target.exists()) target.delete();
+                    target.createNewFile();
+                    //2. save
+                    writeFileFromIS(target, new FileInputStream(source));
+
+                    emitter.onNext(target);
+                    emitter.onComplete();
+                })
+                .onSuccess(listener)
+                .subscribe();
+    }
+
+    public static void saveIcon(IHttp.OnCompleteListener listener) {
+        Context context = ContextUtils.getApplicationContext();
+        new ObservableTask<>(
+                emitter -> {
+                    saveIcon(
+                            context,
+                            UserManager.getInstance().getMemberInfo().getMemberAvatar(),
+                            "user_avatar",
+                            R.drawable.ic_user_head
+                    );
+                    saveIcon(
+                            context,
+                            UserManager.getInstance().getMemberInfo().getMemberBackGround(),
+                            "user_background",
+                            R.drawable.bg_member_default
+                    );
+
+                    emitter.onComplete();
+                })
+                .onComplete(listener)
+                .subscribe();
+    }
+
+    public static void saveDefaultIcon(IHttp.OnCompleteListener listener) {
+        Context context = ContextUtils.getApplicationContext();
+        new ObservableTask<>(
+                emitter -> {
+                    saveDefaultIcon(
+                            context,
+                            R.drawable.ic_user_head,
+                            "user_avatar"
+                    );
+                    saveDefaultIcon(
+                            context,
+                            R.drawable.bg_member_default,
+                            "user_background"
+                    );
+                    emitter.onComplete();
+                })
+                .onComplete(listener)
+                .subscribe();
+    }
+
+    public static void saveDefaultAvatar(IHttp.OnCompleteListener listener) {
+        Context context = ContextUtils.getApplicationContext();
+        new ObservableTask<>(
+                emitter -> {
+                    saveDefaultIcon(
+                            context,
+                            R.drawable.ic_user_head,
+                            "user_avatar"
+                    );
+
+                    emitter.onComplete();
+                })
+                .onComplete(listener)
+                .subscribe();
+    }
+
+    public static void saveDefaultBackground(IHttp.OnCompleteListener listener) {
+        Context context = ContextUtils.getApplicationContext();
+        new ObservableTask<>(
+                emitter -> {
+                    saveDefaultIcon(
+                            context,
+                            R.drawable.bg_member_default,
+                            "user_background"
+                    );
+
+                    emitter.onComplete();
+                })
+                .onComplete(listener)
+                .subscribe();
+    }
+
+    private static void saveDefaultIcon(Context context, int id, String fileName) throws Exception {
+        //1. create path
+        String dirPath = getIconPath(context);
+
+        final File target = new File(dirPath, fileName + ".png");
+        if (target.exists()) target.delete();
+        target.createNewFile();
+        //2. save
+        writeFileFromIS(target, context.getResources().openRawResource(id));
+    }
+
+    private static void saveIcon(Context context, String url, String fileName, int res) throws Exception {
+        File source = null;
+        if (!TextUtils.isEmpty(url)) {
+            source = Glide.with(context).downloadOnly().load(url).submit().get();
+        }
+        InputStream inputStream;
+        if (source == null) {
+            inputStream = context.getResources().openRawResource(res);
+        } else {
+            inputStream = new FileInputStream(source);
+        }
+        //1. create path
+        String dirPath = getIconPath(context);
+
+        final File target = new File(dirPath, fileName + ".png");
+        if (target.exists()) target.delete();
+        target.createNewFile();
+        //2. save
+        writeFileFromIS(target, inputStream);
+    }
+
+    public static void saveAvatar(Uri uri, IHttp.OnSuccessListener<File> listener) {
+        saveIcon(uri, "user_avatar", listener);
+    }
+
+    public static void saveBackground(Uri uri, IHttp.OnSuccessListener<File> listener) {
+        saveIcon(uri, "user_background", listener);
+    }
+
+    public static void saveIcon(Uri uri, String fileName, IHttp.OnSuccessListener<File> listener) {
+        new ObservableTask<File>(
+                emitter -> {
+                    File source = new File(uri.getPath());
+                    //1. create path
+                    String dirPath = getIconPath(ContextUtils.getApplicationContext());
+
+//                    ImageType type = ImageHeaderParser.getImageType(new FileInputStream(source));
+                    final File target = new File(dirPath, fileName + ".png");
+                    if (target.exists()) target.delete();
+                    target.createNewFile();
+                    //2. save
+                    writeFileFromIS(target, new FileInputStream(source));
+
+                    emitter.onNext(target);
+                    emitter.onComplete();
+                })
+                .onSuccess(listener)
+                .subscribe();
+    }
+
+    public static void loadAvatar(ImageView imageView) {
+        loadIcon(imageView, true);
+    }
+
+    public static void loadBackground(ImageView imageView) {
+        loadIcon(imageView, false);
+    }
+
+    private static void loadIcon(ImageView imageView, boolean isAvatar) {
+        Log.d("loadIcon", "isAvatar=" + isAvatar);
+        int res = isAvatar ? R.drawable.ic_user_head : R.drawable.bg_member_default;
+        if (UserManager.getInstance().isLogin()) {
+            String fileName = isAvatar ? "user_avatar" : "user_background";
+            File file = new File(getIconPath(imageView.getContext()), fileName + ".png");
+            RequestOptions options = new RequestOptions()
+                    .error(res)
+                    .placeholder(res)
+                    .skipMemoryCache(true)
+                    .diskCacheStrategy(DiskCacheStrategy.NONE);
+            Log.d("loadIcon", "exists=" + file.exists() + " path=" + file.getPath());
+            if (file.exists()) {
+                Glide.with(imageView)
+                        .load(file)
+                        .apply(options)
+                        .into(imageView);
+            } else {
+                String url = isAvatar ?
+                        UserManager.getInstance().getMemberInfo().getMemberAvatar()
+                        : UserManager.getInstance().getMemberInfo().getMemberBackGround();
+                saveIcon(imageView.getContext(),
+                        url,
+                        fileName,
+                        new IHttp.OnSuccessListener<File>() {
+                            @Override
+                            public void onSuccess(File data) throws Exception {
+                                Glide.with(imageView)
+                                        .load(file)
+                                        .apply(options)
+                                        .into(imageView);
+                            }
+                        });
+            }
+        } else {
+            imageView.setImageResource(res);
+        }
+    }
+
+    public static String getIconPath(Context context) {
+        String path = getCachePath(context) + File.separator + "icon";
+        File dirFile = new File(path);
+        if (!dirFile.exists()) {
+            dirFile.mkdirs();
+        }
+        return path;
+    }
+
+    public static String getCachePath(Context context) {
+        String cachePath = null;
+        if (Environment.MEDIA_MOUNTED.equals(Environment.getExternalStorageState())
+                || !Environment.isExternalStorageRemovable()) {
+            //外部存储可用
+            File cacheDir = context.getExternalCacheDir();
+            if (cacheDir != null) {
+                cachePath = context.getExternalCacheDir().getParentFile().getAbsolutePath() + File.separator;
+            }
+        } else {
+            //外部存储不可用
+            cachePath = context.getCacheDir().getParentFile().getAbsolutePath() + File.separator;
+        }
+        if (TextUtils.isEmpty(cachePath)) {
+            cachePath = Environment.getExternalStorageDirectory().getAbsolutePath()
+                    + "/Android/data/" + context.getPackageName();
+        }
+        File dirFile = new File(cachePath);
+        if (!dirFile.exists()) {
+            dirFile.mkdirs();
+        }
+        Log.d("getCachePath", "cachePath=" + cachePath);
+        return cachePath;
     }
 
 }

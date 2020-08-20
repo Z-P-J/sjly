@@ -1,11 +1,7 @@
 package com.zpj.shouji.market.ui.fragment.profile;
 
-import android.content.pm.ActivityInfo;
-import android.graphics.Bitmap;
 import android.graphics.Color;
-import android.net.Uri;
 import android.os.Bundle;
-import android.os.Environment;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
@@ -15,27 +11,14 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.request.RequestOptions;
 import com.felix.atoast.library.AToast;
 import com.shehuan.niv.NiceImageView;
-import com.yalantis.ucrop.CropEvent;
-import com.yalantis.ucrop.UCrop;
-import com.yalantis.ucrop.UCropActivity;
 import com.zpj.fragmentation.BaseFragment;
 import com.zpj.fragmentation.anim.DefaultVerticalAnimator;
-import com.zpj.matisse.CaptureMode;
-import com.zpj.matisse.Matisse;
-import com.zpj.matisse.MimeType;
-import com.zpj.matisse.engine.impl.GlideEngine;
-import com.zpj.matisse.entity.Item;
-import com.zpj.matisse.listener.OnSelectedListener;
 import com.zpj.popup.ZPopup;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.api.HttpApi;
-import com.zpj.shouji.market.event.HideLoadingEvent;
 import com.zpj.shouji.market.event.IconUploadSuccessEvent;
-import com.zpj.shouji.market.event.ShowLoadingEvent;
 import com.zpj.shouji.market.event.SignInEvent;
 import com.zpj.shouji.market.event.SignOutEvent;
 import com.zpj.shouji.market.manager.UserManager;
@@ -52,14 +35,10 @@ import com.zpj.shouji.market.ui.widget.popup.NicknameModifiedPopup;
 import com.zpj.shouji.market.utils.PictureUtil;
 import com.zpj.shouji.market.utils.UploadUtils;
 import com.zpj.utils.ClickHelper;
-import com.zpj.utils.ScreenUtils;
 import com.zpj.widget.tinted.TintedImageView;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
-
-import java.io.File;
-import java.util.List;
 
 public class MyFragment extends BaseFragment
         implements View.OnClickListener { // UserManager.OnSignInListener
@@ -192,7 +171,6 @@ public class MyFragment extends BaseFragment
                                         PictureUtil.saveImage(context, UserManager.getInstance().getMemberInfo().getMemberAvatar());
                                         break;
                                 }
-                                AToast.normal(title);
                             })
                             .show(x, y);
                     return true;
@@ -223,9 +201,9 @@ public class MyFragment extends BaseFragment
                                                     String info = data.selectFirst("info").text();
                                                     if ("success".equals(data.selectFirst("result").text())) {
                                                         AToast.success(info);
-                                                        ivWallpaper.setImageResource(R.drawable.bg_member_default);
                                                         UserManager.getInstance().getMemberInfo().setMemberBackGround("");
                                                         UserManager.getInstance().saveUserInfo();
+                                                        PictureUtil.saveDefaultBackground(() -> ivWallpaper.setImageResource(R.drawable.bg_member_default));
                                                     } else {
                                                         AToast.error(info);
                                                     }
@@ -237,7 +215,6 @@ public class MyFragment extends BaseFragment
                                                 .subscribe();
                                         break;
                                 }
-                                AToast.normal(title);
                             })
                             .show(x, y);
                     return true;
@@ -314,7 +291,7 @@ public class MyFragment extends BaseFragment
                                 break;
                             case 3:
                                 if (UserManager.getInstance().isLogin()) {
-                                    showSignOutPopup();
+                                    UserManager.getInstance().signOut(context);
                                 } else {
                                     showLoginPopup(0);
                                 }
@@ -367,7 +344,9 @@ public class MyFragment extends BaseFragment
             }
         } else if (v == ivAvatar) {
             if (UserManager.getInstance().isLogin()) {
-                UploadUtils.upload(_mActivity, true);
+//                UploadUtils.upload(_mActivity, true);
+                ProfileFragment.start(UserManager.getInstance().getUserId(), false);
+
             } else {
                 showLoginPopup(0);
             }
@@ -392,7 +371,7 @@ public class MyFragment extends BaseFragment
         } else if (v == tvAbout) {
             AboutSettingFragment.start();
         } else if (v == tvSignOut) {
-            showSignOutPopup();
+            UserManager.getInstance().signOut(context);
         }
     }
 
@@ -416,20 +395,22 @@ public class MyFragment extends BaseFragment
             }
             tvFollower.setText("关注 " + info.getFollowerCount());
             tvFans.setText("粉丝 " + info.getFansCount());
-            Glide.with(context).load(info.getMemberAvatar())
-                    .apply(new RequestOptions()
-                            .error(R.drawable.ic_user_head)
-                            .placeholder(R.drawable.ic_user_head)
-                    )
-                    .into(ivAvatar);
-            if (!TextUtils.isEmpty(info.getMemberBackGround())) {
-                Glide.with(context).load(info.getMemberBackGround())
-                        .apply(new RequestOptions()
-                                .error(R.drawable.bg_member_default)
-                                .placeholder(R.drawable.bg_member_default)
-                        )
-                        .into(ivWallpaper);
-            }
+//            Glide.with(context).load(info.getMemberAvatar())
+//                    .apply(new RequestOptions()
+//                            .error(R.drawable.ic_user_head)
+//                            .placeholder(R.drawable.ic_user_head)
+//                    )
+//                    .into(ivAvatar);
+            PictureUtil.loadAvatar(ivAvatar);
+//            if (!TextUtils.isEmpty(info.getMemberBackGround())) {
+//                Glide.with(context).load(info.getMemberBackGround())
+//                        .apply(new RequestOptions()
+//                                .error(R.drawable.bg_member_default)
+//                                .placeholder(R.drawable.bg_member_default)
+//                        )
+//                        .into(ivWallpaper);
+//            }
+            PictureUtil.loadBackground(ivWallpaper);
             tvSignOut.setVisibility(View.VISIBLE);
         } else {
             tvCheckIn.setVisibility(View.GONE);
@@ -514,23 +495,25 @@ public class MyFragment extends BaseFragment
     @Subscribe
     public void onIconUploadSuccessEvent(IconUploadSuccessEvent event) {
         if (event.isAvatar()) {
-            Glide.with(context)
-                    .load(event.getUri())
-                    .apply(
-                            new RequestOptions()
-                                    .error(R.drawable.ic_user_head)
-                                    .placeholder(R.drawable.ic_user_head)
-                    )
-                    .into(ivAvatar);
+//            Glide.with(context)
+//                    .load(event.getUri())
+//                    .apply(
+//                            new RequestOptions()
+//                                    .error(R.drawable.ic_user_head)
+//                                    .placeholder(R.drawable.ic_user_head)
+//                    )
+//                    .into(ivAvatar);
+            PictureUtil.loadAvatar(ivAvatar);
         } else {
-            Glide.with(context)
-                    .load(event.getUri())
-                    .apply(
-                            new RequestOptions()
-                                    .error(R.drawable.bg_member_default)
-                                    .placeholder(R.drawable.bg_member_default)
-                    )
-                    .into(ivWallpaper);
+//            Glide.with(context)
+//                    .load(event.getUri())
+//                    .apply(
+//                            new RequestOptions()
+//                                    .error(R.drawable.bg_member_default)
+//                                    .placeholder(R.drawable.bg_member_default)
+//                    )
+//                    .into(ivWallpaper);
+            PictureUtil.loadBackground(ivWallpaper);
         }
     }
 
@@ -573,16 +556,6 @@ public class MyFragment extends BaseFragment
 //        }
 //        loginPopup.setCurrentPosition(page);
 //        loginPopup.show();
-    }
-
-    private void showSignOutPopup() {
-        ZPopup.alert(context)
-                .setTitle("确认注销？")
-                .setContent("您将注销当前登录的账户，确认继续？")
-                .setConfirmButton(popup -> {
-                    UserManager.getInstance().signOut();
-                })
-                .show();
     }
 
     public static int alphaColor(int color, float alpha) {

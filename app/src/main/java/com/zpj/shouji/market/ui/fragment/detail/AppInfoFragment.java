@@ -95,54 +95,18 @@ public class AppInfoFragment extends BaseFragment
                         int height = resource.getIntrinsicHeight();
 
                         RecyclerView.LayoutParams params = (RecyclerView.LayoutParams) img.getLayoutParams();
-                        int margin = ScreenUtils.dp2pxInt(context, 4);
-//                        if (holder.getRealPosition() == 0) {
-//                            params.leftMargin = margin * 5;
-//                        } else {
-//                            params.leftMargin = margin;
-//                        }
-//
-//                        if (holder.getRealPosition() == list.size()) {
-//                            params.rightMargin = margin * 5;
-//                        } else {
-//                            params.rightMargin = margin;
-//                        }
-
-
-//                        params.height = (int) (screenHeight / 3);
                         params.height = (int) (screenWidth / 2f);
                         float ratio = screenHeight / screenWidth;
                         if (width > height) {
-//                            params.width = (int) (screenWidth - margin * 10f);
                             params.width = (int) (params.height * ratio);
-//                            params.width = (int) ((screenHeight / screenWidth) * screenHeight / 3);
-//                            params = new RecyclerView.LayoutParams((int) ((screenHeight / screenWidth) * screenHeight / 4), (int) (screenHeight / 4));
                         } else {
                             params.width = (int) (params.height / ratio);
-
-//                            params = new RecyclerView.LayoutParams((int) (screenWidth / 4), (int) (screenHeight / 4));
                         }
-//                        img.setLayoutParams(params);
                         img.setImageDrawable(resource);
                     }
                 });
         img.setTag(position);
         img.setOnClickListener(v -> {
-//            ImageViewer.with(context)
-//                    .setImageList(list)
-//                    .setNowIndex( (int)v.getTag())
-//                    .setSourceImageView(pos -> {
-//                        int layoutPos = recyclerView.getRecyclerView().indexOfChild(holder.getItemView());
-//                        View view = recyclerView.getRecyclerView().getChildAt(layoutPos + pos - position);
-//                        ImageView imageView;
-//                        if (view != null) {
-//                            imageView = view.findViewById(R.id.iv_img);
-//                        } else {
-//                            imageView = img;
-//                        }
-//                        return imageView;
-//                    })
-//                    .show();
             CommonImageViewerPopup.with(context)
                     .setImageUrls(list)
                     .setSrcView(img, position)

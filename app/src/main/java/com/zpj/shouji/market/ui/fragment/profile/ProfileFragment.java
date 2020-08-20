@@ -147,12 +147,19 @@ public class ProfileFragment extends ListenerFragment
             float alpha = (float) Math.abs(i) / appBarLayout1.getTotalScrollRange();
             alpha = Math.min(1f, alpha);
             buttonBarLayout.setAlpha(alpha);
-            headerLayout.setAlpha(1f -alpha);
+            headerLayout.setAlpha(1f - alpha);
         });
 
         buttonBarLayout.setAlpha(0);
 
         stateLayout.showLoadingView();
+
+        if (isMe) {
+            PictureUtil.loadAvatar(ivAvater);
+            PictureUtil.loadAvatar(ivToolbarAvater);
+            PictureUtil.loadBackground(ivHeader);
+        }
+
         getMemberInfo();
     }
 
@@ -197,24 +204,28 @@ public class ProfileFragment extends ListenerFragment
                         ivChat.setVisibility(View.GONE);
                     }
                     memberBackground = element.selectFirst("memberbackground").text();
-                    Glide.with(context).load(memberBackground)
-                            .apply(new RequestOptions()
-                                    .error(R.drawable.bg_member_default)
-                                    .placeholder(R.drawable.bg_member_default)
-                            )
-                            .into(ivHeader);
                     memberAvatar = element.selectFirst("memberavatar").text();
-                    RequestOptions options = new RequestOptions()
-                            .error(R.drawable.ic_user_head)
-                            .placeholder(R.drawable.ic_user_head);
-                    Glide.with(context)
-                            .load(memberAvatar)
-                            .apply(options)
-                            .into(ivAvater);
-                    Glide.with(context)
-                            .load(memberAvatar)
-                            .apply(options)
-                            .into(ivToolbarAvater);
+
+                    if (!isMe) {
+                        Glide.with(context).load(memberBackground)
+                                .apply(
+                                        new RequestOptions()
+                                                .error(R.drawable.bg_member_default)
+                                                .placeholder(R.drawable.bg_member_default)
+                                )
+                                .into(ivHeader);
+                        RequestOptions options = new RequestOptions()
+                                .error(R.drawable.ic_user_head)
+                                .placeholder(R.drawable.ic_user_head);
+                        Glide.with(context)
+                                .load(memberAvatar)
+                                .apply(options)
+                                .into(ivAvater);
+                        Glide.with(context)
+                                .load(memberAvatar)
+                                .apply(options)
+                                .into(ivToolbarAvater);
+                    }
 
                     String nickName = element.selectFirst("nickname").text();
                     tvName.setText(nickName);

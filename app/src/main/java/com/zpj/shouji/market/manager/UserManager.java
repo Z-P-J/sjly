@@ -1,5 +1,6 @@
 package com.zpj.shouji.market.manager;
 
+import android.content.Context;
 import android.text.TextUtils;
 import android.util.Base64;
 import android.util.Log;
@@ -9,6 +10,7 @@ import com.zpj.http.ZHttp;
 import com.zpj.http.core.Connection;
 import com.zpj.http.core.IHttp;
 import com.zpj.http.parser.html.nodes.Document;
+import com.zpj.popup.ZPopup;
 import com.zpj.shouji.market.event.SignInEvent;
 import com.zpj.shouji.market.event.SignOutEvent;
 import com.zpj.shouji.market.event.SignUpEvent;
@@ -16,6 +18,7 @@ import com.zpj.shouji.market.event.UserInfoChangeEvent;
 import com.zpj.shouji.market.model.MemberInfo;
 import com.zpj.shouji.market.api.HttpApi;
 import com.zpj.shouji.market.model.MessageInfo;
+import com.zpj.shouji.market.utils.PictureUtil;
 import com.zpj.utils.PrefsHelper;
 
 import java.lang.ref.WeakReference;
@@ -60,12 +63,18 @@ public final class UserManager {
         }
     }
 
-    public void signOut() {
-        memberInfo = null;
-        setUserInfo("");
-        setCookie("");
-        isLogin = false;
-        SignOutEvent.postEvent();
+    public void signOut(Context context) {
+        ZPopup.alert(context)
+                .setTitle("确认注销？")
+                .setContent("您将注销当前登录的账户，确认继续？")
+                .setConfirmButton(popup -> {
+                    memberInfo = null;
+                    setUserInfo("");
+                    setCookie("");
+                    isLogin = false;
+                    PictureUtil.saveDefaultIcon(SignOutEvent::postEvent);
+                })
+                .show();
     }
 
     public void setCookie(String cookie) {
@@ -222,7 +231,6 @@ public final class UserManager {
                 Log.d("UserManager", "memberInfo=" + memberInfo);
                 setUserInfo(data.toString());
                 onSignInSuccess();
-                AToast.normal("登录成功");
                 rsyncMessage(true);
                 return;
             }
@@ -291,103 +299,21 @@ public final class UserManager {
     }
 
     private void onSignInSuccess() {
-        SignInEvent.postSuccess();
-//        synchronized (onSignInListeners) {
-//            isLogin = true;
-//            for (WeakReference<OnSignInListener> listener : onSignInListeners) {
-//                if (listener != null && listener.get() != null) {
-//                    listener.get().onSignInSuccess();
-//                }
-//            }
-//        }
+        PictureUtil.saveIcon(SignInEvent::postSuccess);
     }
 
     private void onSignInFailed(String info) {
-        SignInEvent.postFailed(info);
-//        synchronized (onSignInListeners) {
-//            isLogin = false;
-//            for (WeakReference<OnSignInListener> listener : onSignInListeners) {
-//                if (listener != null && listener.get() != null) {
-//                    listener.get().onSignInFailed(info);
-//                }
-//            }
-//        }
+        PictureUtil.saveDefaultIcon(() -> SignInEvent.postFailed(info));
     }
-
-//    public void addOnSignInListener(OnSignInListener listener) {
-//        synchronized (onSignInListeners) {
-//            if (isLogin) {
-//                listener.onSignInSuccess();
-//            }
-//            onSignInListeners.add(new WeakReference<>(listener));
-//        }
-//    }
-//
-//    public void removeOnSignInListener(OnSignInListener onSignInListener) {
-//        synchronized (onSignInListeners) {
-//            for (WeakReference<OnSignInListener> listener : onSignInListeners) {
-//                if (listener != null && listener.get() != null && listener.get() == onSignInListener) {
-//                    onSignInListeners.remove(listener);
-//                    return;
-//                }
-//            }
-//        }
-//    }
 
     private void onSignUpSuccess() {
         isLogin = true;
         SignUpEvent.postSuccess();
-//        synchronized (onSignUpListeners) {
-//            isLogin = true;
-//            for (WeakReference<OnSignUpListener> listener : onSignUpListeners) {
-//                if (listener != null && listener.get() != null) {
-//                    listener.get().onSignUpSuccess();
-//                }
-//            }
-//        }
     }
 
     private void onSignUpFailed(String info) {
         isLogin = false;
         SignUpEvent.postFailed(info);
-//        synchronized (onSignUpListeners) {
-//            isLogin = false;
-//            for (WeakReference<OnSignUpListener> listener : onSignUpListeners) {
-//                if (listener != null && listener.get() != null) {
-//                    listener.get().onSignUpFailed(info);
-//                }
-//            }
-//        }
-    }
-
-//    public void addOnSignUpListener(OnSignUpListener listener) {
-//        synchronized (onSignUpListeners) {
-//            if (isLogin) {
-//                listener.onSignUpSuccess();
-//            }
-//            onSignUpListeners.add(new WeakReference<>(listener));
-//        }
-//    }
-//
-//    public void removeOnSignUpListener(OnSignUpListener onSignUpListener) {
-//        synchronized (onSignUpListeners) {
-//            for (WeakReference<OnSignUpListener> listener : onSignUpListeners) {
-//                if (listener != null && listener.get() != null && listener.get() == onSignUpListener) {
-//                    onSignUpListeners.remove(listener);
-//                    return;
-//                }
-//            }
-//        }
-//    }
-
-    public interface OnSignInListener {
-        void onSignInSuccess();
-        void onSignInFailed(String errInfo);
-    }
-
-    public interface OnSignUpListener {
-        void onSignUpSuccess();
-        void onSignUpFailed(String errInfo);
     }
 
 }

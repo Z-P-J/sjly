@@ -191,6 +191,9 @@ public class MediaSelectionFragment extends BaseFragment implements
         final int position = holder.getAdapterPosition();
         CustomImageViewerPopup.with(thumbnail.getContext())
 //                .setCheckStateListener(this::notifyCheckStateChanged)
+                .setSelectedItemManager(mSelectedCollection)
+                .setCountable(mSpec.countable)
+                .setSingleSelectionModeEnabled(mSpec.singleSelectionModeEnabled())
                 .setImageUrls(itemList)
                 .setSrcView(thumbnail, holder.getAdapterPosition())
                 .setSrcViewUpdateListener((popupView, pos) -> {

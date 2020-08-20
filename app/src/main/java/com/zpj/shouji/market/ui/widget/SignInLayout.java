@@ -26,8 +26,7 @@ import com.zpj.widget.editor.validator.EmailValidator;
 import com.zpj.widget.editor.validator.LengthValidator;
 import com.zpj.widget.editor.validator.SameValueValidator;
 
-public class SignInLayout extends LinearLayout
-        implements UserManager.OnSignUpListener {
+public class SignInLayout extends LinearLayout {
 
     private EditTextWithClear etAccount;
     private PasswordEditText etPassword;
@@ -157,20 +156,20 @@ public class SignInLayout extends LinearLayout
         return cbAgreement.isChecked();
     }
 
-    @Override
-    public void onSignUpSuccess() {
-
-    }
-
-    @Override
-    public void onSignUpFailed(String errInfo) {
-        if ("用户名已被注册".equals(errInfo)) {
-            etAccount.requestFocus();
-            etAccount.setError(errInfo);
-        } else {
-            AToast.error(errInfo);
-        }
-    }
+//    @Override
+//    public void onSignUpSuccess() {
+//
+//    }
+//
+//    @Override
+//    public void onSignUpFailed(String errInfo) {
+//        if ("用户名已被注册".equals(errInfo)) {
+//            etAccount.requestFocus();
+//            etAccount.setError(errInfo);
+//        } else {
+//            AToast.error(errInfo);
+//        }
+//    }
 
     public interface OnLoginListener {
         void onSignInSuccess();

@@ -30,11 +30,13 @@ import com.felix.atoast.library.AToast;
 import com.zpj.fragmentation.SupportActivity;
 import com.zpj.fragmentation.SupportFragment;
 import com.zpj.matisse.engine.ImageEngine;
+import com.zpj.matisse.entity.Item;
 import com.zpj.matisse.filter.Filter;
 import com.zpj.matisse.entity.CaptureStrategy;
 import com.zpj.matisse.entity.SelectionSpec;
 import com.zpj.matisse.listener.OnCheckedListener;
 import com.zpj.matisse.listener.OnSelectedListener;
+import com.zpj.matisse.model.SelectedItemManager;
 import com.zpj.matisse.ui.fragment.MatisseFragment;
 import com.lxj.xpermission.PermissionConstants;
 import com.lxj.xpermission.XPermission;
@@ -42,6 +44,7 @@ import com.lxj.xpermission.XPermission;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 
 import static android.content.pm.ActivityInfo.SCREEN_ORIENTATION_BEHIND;
@@ -414,4 +417,11 @@ public final class SelectionCreator {
         mSelectionSpec.isCrop = isCrop;
         return this;
     }
+
+    public SelectionCreator setDefaultSelection(List<Item> list) {
+        mSelectionSpec.selectedList = list;
+        SelectedItemManager.getInstance().setDefaultSelection(list);
+        return this;
+    }
+
 }

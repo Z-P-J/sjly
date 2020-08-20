@@ -144,6 +144,7 @@ public class MatisseFragment extends BaseFragment implements
         super.onDestroy();
         EventBus.getDefault().unregister(this);
         mSelectedCollection.removeOnCheckStateListener(this);
+        mSelectedCollection.onDestroy();
         mSpec.onCheckedListener = null;
         mSpec.onSelectedListener = null;
     }
@@ -287,6 +288,9 @@ public class MatisseFragment extends BaseFragment implements
     public void onClick(View v) {
         if (v.getId() == R.id.button_preview) {
             CustomImageViewerPopup.with(context)
+                    .setCountable(mSpec.countable)
+                    .setSingleSelectionModeEnabled(mSpec.singleSelectionModeEnabled())
+                    .setSelectedItemManager(mSelectedCollection)
                     .setImageUrls(mSelectedCollection.asList())
                     .show();
 
@@ -308,7 +312,13 @@ public class MatisseFragment extends BaseFragment implements
                 startCrop(_mActivity, selectedUris.get(0));
             } else {
                 if (mSpec.onSelectedListener != null) {
-                    mSpec.onSelectedListener.onSelected(mSelectedCollection.asList());
+                    if (mSpec.selectedList != null) {
+                        mSpec.selectedList.clear();
+                        mSpec.selectedList.addAll(mSelectedCollection.asList());
+                        mSpec.onSelectedListener.onSelected(mSpec.selectedList);
+                    } else {
+                        mSpec.onSelectedListener.onSelected(mSelectedCollection.asList());
+                    }
                 }
                 pop();
             }

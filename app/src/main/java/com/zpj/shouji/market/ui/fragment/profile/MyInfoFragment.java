@@ -23,6 +23,7 @@ import com.zpj.shouji.market.ui.widget.IconSettingItem;
 import com.zpj.shouji.market.ui.widget.popup.EmailModifiedPopup;
 import com.zpj.shouji.market.ui.widget.popup.NicknameModifiedPopup;
 import com.zpj.shouji.market.ui.widget.popup.PasswordModifiedPopup;
+import com.zpj.shouji.market.utils.PictureUtil;
 import com.zpj.shouji.market.utils.UploadUtils;
 import com.zpj.widget.setting.CommonSettingItem;
 import com.zpj.widget.setting.OnCommonItemClickListener;
@@ -89,11 +90,7 @@ public class MyInfoFragment extends BaseFragment implements OnCommonItemClickLis
         wxItem.setOnItemClickListener(this);
         emailItem.setOnItemClickListener(this);
         passwordItem.setOnItemClickListener(this);
-        tvSignOut.setOnClickListener(v -> ZPopup.alert(context)
-                .setTitle("确认注销？")
-                .setContent("您将注销当前登录的账户，确认继续？")
-                .setConfirmButton(popup -> UserManager.getInstance().signOut())
-                .show());
+        tvSignOut.setOnClickListener(v -> UserManager.getInstance().signOut(context));
 
         memberIdItem.setRightText(memberInfo.getMemberId());
         nickNameItem.setRightText(memberInfo.getMemberNickName());
@@ -101,14 +98,16 @@ public class MyInfoFragment extends BaseFragment implements OnCommonItemClickLis
         ivAvatar = avatarItem.getRightIcon();
         ivAvatar.setCornerRadius(0);
         ivAvatar.isCircle(true);
-        Glide.with(context)
-                .load(memberInfo.getMemberAvatar())
-                .into(ivAvatar);
+//        Glide.with(context)
+//                .load(memberInfo.getMemberAvatar())
+//                .into(ivAvatar);
+        PictureUtil.loadAvatar(ivAvatar);
 
         ivWallpaper = backgroundItem.getRightIcon();
-        Glide.with(context)
-                .load(memberInfo.getMemberBackGround())
-                .into(ivWallpaper);
+//        Glide.with(context)
+//                .load(memberInfo.getMemberBackGround())
+//                .into(ivWallpaper);
+        PictureUtil.loadBackground(ivWallpaper);
 
         if (memberInfo.isBindQQ()) {
             qqItem.setRightText(memberInfo.getBindQQName());
@@ -178,15 +177,20 @@ public class MyInfoFragment extends BaseFragment implements OnCommonItemClickLis
 
     @Subscribe
     public void onIconUploadSuccessEvent(IconUploadSuccessEvent event) {
-        ImageView imageView = event.isAvatar() ? ivAvatar : ivWallpaper;
-        Glide.with(context)
-                .load(event.getUri())
-                .apply(
-                        new RequestOptions()
-                                .error(imageView.getDrawable())
-                                .placeholder(imageView.getDrawable())
-                )
-                .into(imageView);
+//        ImageView imageView = event.isAvatar() ? ivAvatar : ivWallpaper;
+//        Glide.with(context)
+//                .load(event.getUri())
+//                .apply(
+//                        new RequestOptions()
+//                                .error(imageView.getDrawable())
+//                                .placeholder(imageView.getDrawable())
+//                )
+//                .into(imageView);
+        if (event.isAvatar()) {
+            PictureUtil.loadAvatar(ivAvatar);
+        } else {
+            PictureUtil.loadBackground(ivWallpaper);
+        }
     }
 
     @Subscribe

@@ -19,11 +19,13 @@ import com.zpj.fragmentation.SupportActivity;
 import com.zpj.fragmentation.SupportFragment;
 import com.zpj.fragmentation.anim.DefaultHorizontalAnimator;
 import com.zpj.fragmentation.anim.FragmentAnimator;
+import com.zpj.http.core.IHttp;
 import com.zpj.popup.ZPopup;
 import com.zpj.popup.impl.LoadingPopup;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.api.HttpApi;
 import com.zpj.shouji.market.api.HttpPreLoader;
+import com.zpj.shouji.market.event.GetMainActivityEvent;
 import com.zpj.shouji.market.event.HideLoadingEvent;
 import com.zpj.shouji.market.event.IconUploadSuccessEvent;
 import com.zpj.shouji.market.event.ShowLoadingEvent;
@@ -33,11 +35,14 @@ import com.zpj.shouji.market.manager.AppInstalledManager;
 import com.zpj.shouji.market.manager.AppUpdateManager;
 import com.zpj.shouji.market.manager.UserManager;
 import com.zpj.shouji.market.ui.fragment.MainFragment;
+import com.zpj.shouji.market.utils.PictureUtil;
 import com.zpj.utils.StatusBarUtils;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
+
+import java.io.File;
 
 import site.gemus.openingstartanimation.NormalDrawStrategy;
 import site.gemus.openingstartanimation.OpeningStartAnimation;
@@ -145,6 +150,13 @@ public class MainActivity extends SupportActivity {
     }
 
     @Subscribe
+    public void onGetMainActivityEvent(GetMainActivityEvent event) {
+        if (event.getCallback() != null) {
+            event.getCallback().onCallback(this);
+        }
+    }
+
+    @Subscribe
     public void startFragment(SupportFragment fragment) {
         start(fragment);
     }
@@ -185,7 +197,7 @@ public class MainActivity extends SupportActivity {
 
     @Subscribe
     public void onCropEvent(CropEvent event) {
-        AToast.success("path=" + event.getUri().getPath());
+//        AToast.success("path=" + event.getUri().getPath());
         if (event.isAvatar()) {
             ShowLoadingEvent.post("上传头像...");
             try {
@@ -195,9 +207,15 @@ public class MainActivity extends SupportActivity {
                             String info = doc.selectFirst("info").text();
                             if ("success".equals(doc.selectFirst("result").text())) {
 //                                AToast.success(info);
-                                IconUploadSuccessEvent.post(event);
+
                                 UserManager.getInstance().getMemberInfo().setMemberAvatar(info);
                                 UserManager.getInstance().saveUserInfo();
+                                PictureUtil.saveAvatar(event.getUri(), new IHttp.OnSuccessListener<File>() {
+                                    @Override
+                                    public void onSuccess(File data) throws Exception {
+                                        IconUploadSuccessEvent.post(event);
+                                    }
+                                });
                             } else {
                                 AToast.error(info);
                             }
@@ -221,21 +239,24 @@ public class MainActivity extends SupportActivity {
                             Log.d("uploadBackgroundApi", "data=" + doc);
                             String info = doc.selectFirst("info").text();
                             if ("success".equals(doc.selectFirst("result").text())) {
-                                IconUploadSuccessEvent.post(event);
                                 UserManager.getInstance().getMemberInfo().setMemberBackGround(info);
                                 UserManager.getInstance().saveUserInfo();
+                                PictureUtil.saveBackground(event.getUri(), data -> IconUploadSuccessEvent.post(event));
                             } else {
                                 AToast.error(info);
                             }
                             HideLoadingEvent.postDelayed(500);
                         })
                         .onError(throwable -> {
+                            Log.d("uploadBackgroundApi", "throwable.msg=" + throwable.getMessage());
+                            throwable.printStackTrace();
                             AToast.error("上传背景失败！" + throwable.getMessage());
                             HideLoadingEvent.postDelayed(500);
                         })
                         .subscribe();
             } catch (Exception e) {
                 e.printStackTrace();
+                Log.d("uploadBackgroundApi", "e.msg=" + e.getMessage());
                 AToast.error("上传背景失败！" + e.getMessage());
                 HideLoadingEvent.postDelayed(500);
             }
