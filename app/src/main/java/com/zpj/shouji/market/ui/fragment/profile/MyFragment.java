@@ -316,11 +316,6 @@ public class MyFragment extends BaseFragment
                             if ("success".equals(data.selectFirst("result").text())) {
                                 AToast.success(info);
                                 memberInfo.setCanSigned(false);
-//                                info = memberInfo.toStr();
-//                                if (info != null) {
-//                                    Log.d("xml_signed", "memberInfo=" + info);
-//                                    UserManager.getInstance().setUserInfo(info);
-//                                }
                                 UserManager.getInstance().saveUserInfo();
                                 tvCheckIn.setBackgroundResource(R.drawable.bg_button_round_pink);
                                 tvCheckIn.setText("已签到");

@@ -29,6 +29,7 @@ import com.zpj.shouji.market.ui.fragment.profile.MyFragment;
 import com.zpj.shouji.market.ui.fragment.profile.MyPrivateLetterFragment;
 import com.zpj.shouji.market.ui.fragment.recommond.GameRecommendFragment2;
 import com.zpj.shouji.market.ui.fragment.recommond.SoftRecommendFragment2;
+import com.zpj.shouji.market.ui.fragment.wallpaper.WallpaperShareFragment;
 import com.zpj.shouji.market.ui.widget.BottomBar;
 import com.zpj.shouji.market.ui.widget.BottomBarTab;
 import com.zpj.shouji.market.ui.widget.ZViewPager;
@@ -41,9 +42,7 @@ import org.greenrobot.eventbus.Subscribe;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MainFragment extends BaseFragment
-        implements MainActionPopup.OnItemClickListener {
-//    IHttp.OnSuccessListener<MessageInfo>
+public class MainFragment extends BaseFragment {
 
     private final List<BaseFragment> fragments = new ArrayList<>();
     private ZViewPager viewPager;
@@ -154,7 +153,6 @@ public class MainFragment extends BaseFragment
                 mBanner.onPause();
             }
             MainActionPopup.with(context)
-                    .setListener(this)
                     .setOnDismissListener(() -> {
                         if (mBanner != null) {
                             mBanner.onResume();
@@ -190,51 +188,6 @@ public class MainFragment extends BaseFragment
             darkStatusBar();
         }
     }
-
-    @Override
-    public void onDiscoverItemClick() {
-        DiscoverEditorFragment2.start();
-    }
-
-    @Override
-    public void onCollectionItemClick() {
-
-    }
-
-    @Override
-    public void onWallpaperItemClick() {
-        Matisse.from(_mActivity)
-                .choose(MimeType.ofImage())//照片视频全部显示MimeType.allOf()
-                .countable(true)//true:选中后显示数字;false:选中后显示对号
-                .maxSelectable(3)//最大选择数量为9
-                //.addFilter(new GifSizeFilter(320, 320, 5 * Filter.K * Filter.K))
-//                .gridExpectedSize(this.getResources().getDimensionPixelSize(R.dimen.photo))//图片显示表格的大小
-                .spanCount(3)
-                .restrictOrientation(ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED)//图像选择和预览活动所需的方向
-                .thumbnailScale(0.85f)//缩放比例
-                .imageEngine(new GlideEngine())//图片加载方式，Glide4需要自定义实现
-                .capture(true) //是否提供拍照功能，兼容7.0系统需要下面的配置
-                //参数1 true表示拍照存储在共有目录，false表示存储在私有目录；参数2与 AndroidManifest中authorities值相同，用于适配7.0系统 必须设置
-                .capture(true, CaptureMode.All)//存储到哪里
-                .setOnSelectedListener(new OnSelectedListener() {
-                    @Override
-                    public void onSelected(@NonNull List<Item> itemList) {
-
-                    }
-                })
-                .start();
-    }
-
-    @Override
-    public void onChatWithFriendItemClick() {
-//        ChatFragment2.start();
-        MyPrivateLetterFragment.start();
-    }
-
-//    @Override
-//    public void onSuccess(MessageInfo info) throws Exception {
-//
-//    }
 
     @Subscribe
     public void onUpdateMessageInfoEvent(MessageInfo info) {

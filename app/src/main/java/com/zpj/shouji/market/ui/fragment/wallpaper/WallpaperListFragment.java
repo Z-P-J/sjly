@@ -1,4 +1,4 @@
-package com.zpj.shouji.market.ui.fragment;
+package com.zpj.shouji.market.ui.fragment.wallpaper;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -18,26 +18,20 @@ import com.felix.atoast.library.AToast;
 import com.github.zagum.expandicon.ExpandIconView;
 import com.sunbinqiang.iconcountview.IconCountView;
 import com.zpj.http.parser.html.nodes.Element;
-import com.zpj.popup.core.ImageViewerPopup;
-import com.zpj.popup.interfaces.OnDismissListener;
 import com.zpj.recyclerview.EasyRecyclerLayout;
 import com.zpj.recyclerview.EasyViewHolder;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.api.HttpApi;
 import com.zpj.shouji.market.constant.Keys;
-import com.zpj.shouji.market.event.GetMainActivityEvent;
 import com.zpj.shouji.market.event.GetMainFragmentEvent;
 import com.zpj.shouji.market.event.StatusBarEvent;
 import com.zpj.shouji.market.glide.MyRequestOptions;
 import com.zpj.shouji.market.model.WallpaperInfo;
 import com.zpj.shouji.market.model.WallpaperTag;
-import com.zpj.shouji.market.ui.activity.MainActivity;
 import com.zpj.shouji.market.ui.fragment.base.NextUrlFragment;
 import com.zpj.shouji.market.ui.widget.popup.RecyclerPopup;
 import com.zpj.shouji.market.ui.widget.popup.WallpaperViewerPopup;
-import com.zpj.shouji.market.utils.Callback;
 import com.zpj.utils.ScreenUtils;
-import com.zpj.utils.StatusBarUtils;
 
 import java.util.ArrayList;
 import java.util.List;

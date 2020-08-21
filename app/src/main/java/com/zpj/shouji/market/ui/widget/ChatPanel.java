@@ -18,6 +18,7 @@ package com.zpj.shouji.market.ui.widget;
 import android.content.Context;
 import android.content.pm.ActivityInfo;
 import android.graphics.Color;
+import android.support.annotation.DrawableRes;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.LinearLayoutManager;
 import android.text.TextUtils;
@@ -25,7 +26,9 @@ import android.util.AttributeSet;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.felix.atoast.library.AToast;
@@ -53,6 +56,7 @@ import com.zpj.shouji.market.ui.activity.MainActivity;
 import com.zpj.shouji.market.utils.Callback;
 import com.zpj.utils.KeyboardHeightProvider;
 import com.zpj.utils.KeyboardUtils;
+import com.zpj.utils.ScreenUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -68,6 +72,7 @@ public class ChatPanel extends RelativeLayout
 
     private final List<Item> imgList = new ArrayList<>();
     private EmojiconEditText etEditor;
+    private LinearLayout llActionsContainer;
     private ImageView ivEmoji;
     private ImageView ivImage;
     private ImageView ivApp;
@@ -111,6 +116,7 @@ public class ChatPanel extends RelativeLayout
 
     private void initWidget() {
         etEditor = findViewById(R.id.et_editor);
+        llActionsContainer = findViewById(R.id.ll_actions_container);
         ivImage = findViewById(R.id.iv_image);
         ivEmoji = findViewById(R.id.iv_emoji);
         ivApp = findViewById(R.id.iv_app);
@@ -216,6 +222,7 @@ public class ChatPanel extends RelativeLayout
             }
         });
         ivSend.setOnClickListener(v -> {
+            KeyboardUtils.hideSoftInputKeyboard(etEditor);
             String content = etEditor.getText().toString();
             if (TextUtils.isEmpty(content)) {
                 AToast.warning("内容为空！");
@@ -223,7 +230,6 @@ public class ChatPanel extends RelativeLayout
             }
             if (listener != null) {
                 listener.sendText(content);
-                etEditor.setText(null);
             }
         });
         ivImage.setOnClickListener(v -> {
@@ -265,6 +271,45 @@ public class ChatPanel extends RelativeLayout
             elEmotion.setVisibility(View.GONE);
             AToast.normal("app");
         });
+    }
+
+    public void removeImageAction() {
+        llActionsContainer.removeView(ivImage);
+    }
+
+    public void removeAppAction() {
+        llActionsContainer.removeView(ivApp);
+    }
+
+    public ImageView addAction(@DrawableRes int res, OnClickListener listener) {
+        ImageView imageView = new ImageView(getContext());
+        imageView.setOnClickListener(listener);
+        imageView.setImageResource(res);
+//        int size = ScreenUtils.dp2pxInt(getContext(), 24);
+        int margin = ScreenUtils.dp2pxInt(getContext(), 8);
+        MarginLayoutParams params = new MarginLayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        params.leftMargin = margin;
+        params.rightMargin = margin;
+        imageView.setLayoutParams(params);
+//        int padding = ScreenUtils.dp2pxInt(getContext(), 6);
+//        imageView.setPadding(padding, padding, padding, padding);
+        llActionsContainer.addView(imageView);
+        return imageView;
+    }
+
+    public TextView addAction(String text, OnClickListener listener) {
+        TextView textView = new TextView(getContext());
+        textView.setOnClickListener(listener);
+        textView.setText(text);
+        int margin = ScreenUtils.dp2pxInt(getContext(), 8);
+        MarginLayoutParams params = new MarginLayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        params.leftMargin = margin;
+        params.rightMargin = margin;
+        textView.setLayoutParams(params);
+//        int padding = ScreenUtils.dp2pxInt(getContext(), 6);
+//        textView.setPadding(padding, padding, padding, padding);
+        llActionsContainer.addView(textView);
+        return textView;
     }
 
     public EmojiconEditText getEditor() {

@@ -78,7 +78,7 @@ public class ChatFragment extends NextUrlFragment<PrivateLetterInfo> implements 
 
     @Override
     public void onDestroy() {
-        Matisse.onDestroy();
+//        Matisse.onDestroy();
         super.onDestroy();
     }
 
@@ -318,14 +318,6 @@ public class ChatFragment extends NextUrlFragment<PrivateLetterInfo> implements 
 
             @Override
             public void onNineGirdItemClick(int position, NineGridBean gridBean, NineGirdImageContainer imageContainer) {
-//                ImageViewer.with(context)
-//                        .setImageList(info.getSpics())
-//                        .setNowIndex(position)
-//                        .setSourceImageView(pos -> {
-//                            NineGirdImageContainer view = (NineGirdImageContainer) nineGridImageView.getChildAt(pos);
-//                            return view.getImageView();
-//                        })
-//                        .show();
                 CommonImageViewerPopup.with(context)
                         .setOriginalImageList(info.getPics())
                         .setImageSizeList(info.getSizes())
@@ -358,6 +350,7 @@ public class ChatFragment extends NextUrlFragment<PrivateLetterInfo> implements 
                     String result = element.selectFirst("result").text();
                     if ("success".equals(result)) {
                         AToast.success("发送成功");
+                        chatPanel.getEditor().setText(null);
                         onRefresh();
                     } else {
                         AToast.error(element.selectFirst("info").text());

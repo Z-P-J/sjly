@@ -23,6 +23,10 @@ import com.zpj.popup.enums.PopupAnimation;
 import com.zpj.popup.impl.FullScreenPopup;
 import com.zpj.popup.util.ActivityUtils;
 import com.zpj.shouji.market.R;
+import com.zpj.shouji.market.ui.animator.KickBackAnimator;
+import com.zpj.shouji.market.ui.fragment.DiscoverEditorFragment2;
+import com.zpj.shouji.market.ui.fragment.profile.MyPrivateLetterFragment;
+import com.zpj.shouji.market.ui.fragment.wallpaper.WallpaperShareFragment;
 
 import io.reactivex.Observable;
 import io.reactivex.ObservableOnSubscribe;
@@ -36,19 +40,6 @@ public class MainActionPopup extends FullScreenPopup<MainActionPopup> implements
     private final String[] menuTextItems = {"动态", "应用集", "乐图", "私聊"};
 
     private FloatingActionButton floatingActionButton;
-    private ViewGroup anchorView;
-
-    private OnItemClickListener listener;
-
-    public interface OnItemClickListener {
-        void onDiscoverItemClick();
-
-        void onCollectionItemClick();
-
-        void onWallpaperItemClick();
-
-        void onChatWithFriendItemClick();
-    }
 
     public static MainActionPopup with(Context context) {
         return new MainActionPopup(context);
@@ -119,11 +110,6 @@ public class MainActionPopup extends FullScreenPopup<MainActionPopup> implements
                 startAnimation();
             }
         });
-    }
-
-    public MainActionPopup setListener(OnItemClickListener listener) {
-        this.listener = listener;
-        return this;
     }
 
 //    @Override
@@ -229,43 +215,19 @@ public class MainActionPopup extends FullScreenPopup<MainActionPopup> implements
         if (v == floatingActionButton) {
             return;
         }
-        if (listener != null) {
-            switch ((int) v.getTag()) {
-                case 0:
-                    listener.onDiscoverItemClick();
-                    break;
-                case 1:
-                    listener.onCollectionItemClick();
-                    break;
-                case 2:
-                    listener.onWallpaperItemClick();
-                    break;
-                case 3:
-                    listener.onChatWithFriendItemClick();
-                    break;
-            }
+        switch ((int) v.getTag()) {
+            case 0:
+                DiscoverEditorFragment2.start();
+                break;
+            case 1:
+                break;
+            case 2:
+                WallpaperShareFragment.start();
+                break;
+            case 3:
+                MyPrivateLetterFragment.start();
+                break;
         }
     }
 
-    private class KickBackAnimator implements TypeEvaluator<Float> {
-
-        private static final float s = 1.70158f;
-        private float mDuration = 0f;
-
-        public void setDuration(float duration) {
-            mDuration = duration;
-        }
-
-        public Float evaluate(float fraction, Float startValue, Float endValue) {
-            float t = mDuration * fraction;
-            float b = startValue;
-            float c = endValue - startValue;
-            float d = mDuration;
-            return calculate(t, b, c, d);
-        }
-
-        private Float calculate(float t, float b, float c, float d) {
-            return c * ((t = t / d - 1) * t * ((s + 1) * t + s) + 1) + b;
-        }
-    }
 }

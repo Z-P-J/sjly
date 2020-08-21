@@ -12,11 +12,13 @@ import com.zpj.http.parser.html.nodes.Element;
 import com.zpj.http.parser.html.select.Elements;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.api.HttpApi;
+import com.zpj.shouji.market.api.WallpaperApi;
 import com.zpj.shouji.market.model.WallpaperTag;
 import com.zpj.shouji.market.ui.adapter.FragmentsPagerAdapter;
-import com.zpj.shouji.market.ui.fragment.WallpaperListFragment;
+import com.zpj.shouji.market.ui.fragment.wallpaper.WallpaperListFragment;
 import com.zpj.shouji.market.ui.widget.flowlayout.FlowLayout;
 import com.zpj.shouji.market.ui.widget.popup.WallpaperTagPopup;
+import com.zpj.shouji.market.utils.Callback;
 import com.zpj.utils.ScreenUtils;
 
 import net.lucode.hackware.magicindicator.MagicIndicator;
@@ -105,23 +107,26 @@ public class WallpaperFragment extends BaseFragment implements View.OnClickListe
     }
 
     private void initWallpaperTags() {
-        HttpApi.get("http://tt.shouji.com.cn/app/bizhi_tags.jsp")
-                .onSuccess(data -> {
-                    Elements elements = data.select("item");
-                    wallpaperTags.clear();
-                    for (Element item : elements) {
-                        wallpaperTags.add(WallpaperTag.create(item));
-                    }
-                    initMagicIndicator();
-                })
-                .onError(throwable -> {
-                    // TODO 加载默认分类
-                    String[] tags = getResources().getStringArray(R.array.default_wallpaper_tags);
-                    for (int i = 0; i < tags.length; i++) {
-                        wallpaperTags.add(WallpaperTag.create(Integer.toString(i + 1), tags[i]));
-                    }
-                })
-                .subscribe();
+//        HttpApi.get("http://tt.shouji.com.cn/app/bizhi_tags.jsp")
+//                .onSuccess(data -> {
+//                    Elements elements = data.select("item");
+//                    wallpaperTags.clear();
+//                    for (Element item : elements) {
+//                        wallpaperTags.add(WallpaperTag.create(item));
+//                    }
+//                    initMagicIndicator();
+//                })
+//                .onError(throwable -> {
+//                    String[] tags = getResources().getStringArray(R.array.default_wallpaper_tags);
+//                    for (int i = 0; i < tags.length; i++) {
+//                        wallpaperTags.add(WallpaperTag.create(Integer.toString(i + 1), tags[i]));
+//                    }
+//                })
+//                .subscribe();
+        WallpaperApi.getWallpaperTags(tags -> {
+            wallpaperTags.addAll(tags);
+            initMagicIndicator();
+        });
     }
 
     private void initMagicIndicator() {

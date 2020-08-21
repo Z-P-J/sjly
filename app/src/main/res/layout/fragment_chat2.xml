@@ -22,4 +22,8 @@
         android:layout_alignParentBottom="true"
         />
 
+    <View style="@style/layout_shadow_bottom"
+        android:layout_below="@id/tool_bar"
+        />
+
 </RelativeLayout>

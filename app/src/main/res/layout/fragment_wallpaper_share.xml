@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    >
+
+    <include layout="@layout/layout_toolbar"/>
+
+    <com.zpj.shouji.market.ui.widget.ElasticScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/tool_bar"
+        android:layout_above="@+id/chat_panel"
+        >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="选择乐图分类"
+                android:textColor="@color/colorPrimary"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                />
+
+            <com.zpj.shouji.market.ui.widget.flowlayout.FlowLayout
+                android:id="@+id/wallpaper_tags"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                />
+
+
+
+            <ImageView
+                android:id="@+id/iv_wallpaper"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="16dp"
+                />
+
+            <FrameLayout
+                android:id="@+id/fl_empty"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="请添加一张图片"
+                    android:textSize="16sp"
+                    android:textColor="@color/colorPrimary"
+                    android:paddingVertical="100dp"
+                    android:gravity="center"
+                    android:layout_gravity="center"
+                    android:drawablePadding="16dp"
+                    android:drawableStart="@drawable/add_button"
+                    />
+
+            </FrameLayout>
+
+
+
+
+        </LinearLayout>
+
+
+
+    </com.zpj.shouji.market.ui.widget.ElasticScrollView>
+
+    <com.zpj.shouji.market.ui.widget.ChatPanel
+        android:id="@+id/chat_panel"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        />
+
+    <View style="@style/layout_shadow_bottom"
+        android:layout_below="@id/tool_bar"
+        />
+
+</RelativeLayout>
