@@ -3,16 +3,23 @@ package com.zpj.shouji.market.ui.widget.popup;
 import android.app.WallpaperManager;
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.view.ViewPager;
 import android.text.TextUtils;
+import android.util.Log;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.Key;
+import com.bumptech.glide.load.resource.gif.GifDrawable;
+import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.RequestOptions;
+import com.bumptech.glide.request.target.CustomViewTarget;
 import com.bumptech.glide.request.target.SimpleTarget;
 import com.bumptech.glide.request.target.Target;
 import com.bumptech.glide.request.transition.Transition;
@@ -26,12 +33,17 @@ import com.zpj.popup.widget.LoadingView;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.event.HideLoadingEvent;
 import com.zpj.shouji.market.event.ShowLoadingEvent;
+import com.zpj.shouji.market.glide.GlideApp;
+import com.zpj.shouji.market.utils.PictureUtil;
 import com.zpj.widget.tinted.TintedImageButton;
 import com.zpj.widget.toolbar.ZToolBar;
 
 import java.io.File;
 import java.io.IOException;
+import java.security.MessageDigest;
 import java.util.List;
+import java.util.UUID;
+import java.util.concurrent.Executor;
 
 public class CommonImageViewerPopup extends ImageViewerPopup<String>
         implements IImageLoader<String> {
@@ -75,9 +87,7 @@ public class CommonImageViewerPopup extends ImageViewerPopup<String>
             public void onPageSelected(int position) {
                 updateTitle();
                 tvIndicator.setText(urls.size() + "/" + (position + 1));
-                if (imageSizeList != null) {
-                    tvInfo.setText(imageSizeList.get(position));
-                }
+                setInfoText();
                 loadingView.setVisibility(GONE);
             }
         });
@@ -89,64 +99,29 @@ public class CommonImageViewerPopup extends ImageViewerPopup<String>
 
         btnMore.setOnClickListener(v -> {
             AttachListPopup<String> popup = ZPopup.attachList(context);
-            popup.addItems("分享图片", "保存图片", "设为壁纸");
-            if (originalImageList != null && !TextUtils.equals(urls.get(position), originalImageList.get(position))) {
-                popup.addItem("查看原图");
-            }
-            popup.setOnDismissListener(this::focusAndProcessBackPress)
+            popup.addItems("分享图片", "保存图片", "设为壁纸")
+                    .addItemIf(isOriginalImageAvailable(), "查看原图")
+                    .setOnDismissListener(this::focusAndProcessBackPress)
                     .setOnSelectListener((pos, title) -> {
                         switch (pos) {
                             case 0:
                                 AToast.normal("TODO share");
                                 break;
                             case 1:
-                                save();
+//                                save();
+                                PictureUtil.saveImage(context, urls.get(position));
                                 break;
                             case 2:
-                                ShowLoadingEvent.post("图片准备中...");
                                 String url;
                                 if (originalImageList != null) {
                                     url = originalImageList.get(position);
                                 } else {
                                     url = urls.get(position);
                                 }
-                                Glide.with(context)
-                                        .asBitmap()
-                                        .load(url)
-                                        .into(new SimpleTarget<Bitmap>() {
-                                            @Override
-                                            public void onResourceReady(@NonNull Bitmap resource, @Nullable Transition<? super Bitmap> transition) {
-                                                HideLoadingEvent.postEvent();
-                                                postDelayed(() -> {
-                                                    try {
-                                                        WallpaperManager wpm = (WallpaperManager) context.getSystemService(
-                                                                Context.WALLPAPER_SERVICE);
-                                                        wpm.setBitmap(resource);
-                                                        AToast.success("设置壁纸成功！");
-                                                    } catch (IOException e) {
-                                                        e.printStackTrace();
-                                                        AToast.error("设置壁纸失败！" + e.getMessage());
-                                                    }
-                                                }, 250);
-                                            }
-                                        });
-
+                                PictureUtil.setWallpaper(context, url);
                                 break;
                             case 3:
-                                loadingView.setVisibility(VISIBLE);
-                                urls.set(position, originalImageList.get(position));
-                                PhotoView current = pager.findViewWithTag(pager.getCurrentItem());
-                                Glide.with(context)
-                                        .asDrawable()
-                                        .load(originalImageList.get(position))
-                                        .into(new SimpleTarget<Drawable>() {
-                                            @Override
-                                            public void onResourceReady(@NonNull Drawable resource, @Nullable Transition<? super Drawable> transition) {
-                                                current.setImageDrawable(resource);
-                                                updateTitle();
-                                                loadingView.setVisibility(GONE);
-                                            }
-                                        });
+                                showOriginalImage();
                                 break;
                         }
                     })
@@ -156,15 +131,12 @@ public class CommonImageViewerPopup extends ImageViewerPopup<String>
 
         updateTitle();
         titleBar.getLeftImageButton().setOnClickListener(v -> dismiss());
+        titleBar.getCenterTextView().setShadowLayer(8, 4, 4, Color.BLACK);
 
 
         tvIndicator.setText(urls.size() + "/" + (position + 1));
 
-        if (imageSizeList != null) {
-            tvInfo.setText(imageSizeList.get(position));
-        } else {
-            tvInfo.setVisibility(GONE);
-        }
+        setInfoText();
 
     }
 
@@ -175,10 +147,50 @@ public class CommonImageViewerPopup extends ImageViewerPopup<String>
 
     @Override
     public void loadImage(int position, @NonNull String url, @NonNull ImageView imageView) {
-        Glide.with(imageView).load(url)
-                .apply(new RequestOptions()
-                        .override(Target.SIZE_ORIGINAL))
+        Glide.with(imageView)
+                .load(url)
+                .apply(
+                        new RequestOptions()
+                                .placeholder(R.drawable.bga_pp_ic_holder_light)
+                                .error(R.drawable.bga_pp_ic_holder_light)
+                                .override(Target.SIZE_ORIGINAL)
+                )
                 .into(imageView);
+//        if (url.toLowerCase().endsWith(".gif")) {
+//            GlideApp.with(context)
+//                    .asGif()
+//                    .load(url)
+//                    .apply(
+//                            new RequestOptions()
+//                                    .override(Target.SIZE_ORIGINAL)
+//                    )
+//                    .into(new SimpleTarget<GifDrawable>() {
+//                        @Override
+//                        public void onResourceReady(@NonNull GifDrawable resource, @Nullable Transition<? super GifDrawable> transition) {
+//                            imageView.setImageDrawable(resource);
+//                        }
+//
+//                        @Override
+//                        public void onLoadFailed(@Nullable Drawable errorDrawable) {
+//                            super.onLoadFailed(errorDrawable);
+//                            Glide.with(context)
+//                                    .load(url)
+//                                    .apply(
+//                                            new RequestOptions()
+//                                                    .override(Target.SIZE_ORIGINAL)
+//                                    )
+//                                    .into(imageView);
+//                        }
+//                    });
+//        } else {
+//            Glide.with(context)
+//                    .load(url)
+//                    .apply(
+//                            new RequestOptions()
+//                                    .override(Target.SIZE_ORIGINAL)
+//                    )
+//                    .into(imageView);
+//        }
     }
 
     @Override
@@ -205,4 +217,42 @@ public class CommonImageViewerPopup extends ImageViewerPopup<String>
         this.imageSizeList = imageSizeList;
         return this;
     }
+
+    private void setInfoText() {
+        if (imageSizeList != null) {
+            if (isOriginalImageAvailable()) {
+                tvInfo.setText(String.format("查看原图(%s)", imageSizeList.get(position)));
+                tvInfo.setOnClickListener(v -> showOriginalImage());
+            } else {
+                tvInfo.setText(imageSizeList.get(position));
+                tvInfo.setOnClickListener(null);
+            }
+        } else {
+            tvInfo.setVisibility(GONE);
+        }
+    }
+
+
+    private boolean isOriginalImageAvailable() {
+        return originalImageList != null && !TextUtils.equals(urls.get(position), originalImageList.get(position));
+    }
+
+    private void showOriginalImage() {
+        loadingView.setVisibility(VISIBLE);
+        urls.set(position, originalImageList.get(position));
+        PhotoView current = pager.findViewWithTag(pager.getCurrentItem());
+        Glide.with(context)
+                .asDrawable()
+                .load(originalImageList.get(position))
+                .into(new SimpleTarget<Drawable>() {
+                    @Override
+                    public void onResourceReady(@NonNull Drawable resource, @Nullable Transition<? super Drawable> transition) {
+                        current.setImageDrawable(resource);
+                        updateTitle();
+                        loadingView.setVisibility(GONE);
+                        setInfoText();
+                    }
+                });
+    }
+
 }

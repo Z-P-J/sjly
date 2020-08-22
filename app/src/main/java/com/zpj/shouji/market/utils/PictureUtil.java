@@ -1,5 +1,6 @@
 package com.zpj.shouji.market.utils;
 
+import android.app.WallpaperManager;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -10,6 +11,8 @@ import android.net.Uri;
 import android.os.Environment;
 import android.os.Handler;
 import android.os.Looper;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.text.TextUtils;
 import android.util.Log;
 import android.widget.ImageView;
@@ -18,12 +21,18 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.request.RequestOptions;
+import com.bumptech.glide.request.target.SimpleTarget;
+import com.bumptech.glide.request.transition.Transition;
 import com.felix.atoast.library.AToast;
+import com.lxj.xpermission.PermissionConstants;
+import com.lxj.xpermission.XPermission;
 import com.zpj.http.core.IHttp;
 import com.zpj.http.core.ObservableTask;
 import com.zpj.popup.enums.ImageType;
 import com.zpj.popup.util.ImageHeaderParser;
+import com.zpj.popup.util.XPopupUtils;
 import com.zpj.shouji.market.R;
+import com.zpj.shouji.market.event.HideLoadingEvent;
 import com.zpj.shouji.market.event.ShowLoadingEvent;
 import com.zpj.shouji.market.manager.UserManager;
 import com.zpj.utils.ContextUtils;
@@ -40,11 +49,13 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
 
 import io.reactivex.Observable;
 import io.reactivex.ObservableEmitter;
 import io.reactivex.ObservableOnSubscribe;
 import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.functions.Action;
 
 public class PictureUtil {
 
@@ -241,53 +252,64 @@ public class PictureUtil {
     }
 
     public static void saveImage(Context context, String url) {
-        new ObservableTask<>(
-                emitter -> {
-                    File source = Glide.with(context).downloadOnly().load(url).submit().get();
-                    if (source == null) {
-                        emitter.onError(new Exception("图片下载失败！"));
-                        emitter.onComplete();
-                        return;
+        XPermission.create(context, PermissionConstants.STORAGE)
+                .callback(new XPermission.SimpleCallback() {
+                    @Override
+                    public void onGranted() {
+                        new ObservableTask<>(
+                                emitter -> {
+                                    File source = Glide.with(context).downloadOnly().load(url).submit().get();
+                                    if (source == null) {
+                                        emitter.onError(new Exception("图片下载失败！"));
+                                        emitter.onComplete();
+                                        return;
+                                    }
+
+                                    //1. create path
+                                    String dirPath = Environment.getExternalStorageDirectory().getAbsolutePath() + "/" + Environment.DIRECTORY_PICTURES;
+                                    File dirFile = new File(dirPath);
+                                    if (!dirFile.exists()) {
+                                        dirFile.mkdirs();
+                                    }
+
+                                    ImageType type = ImageHeaderParser.getImageType(new FileInputStream(source));
+                                    String ext = getFileExt(type);
+                                    final File target = new File(dirPath, System.currentTimeMillis() + "." + ext);
+                                    if (target.exists()) target.delete();
+                                    target.createNewFile();
+                                    //2. save
+                                    writeFileFromIS(target, new FileInputStream(source));
+                                    //3. notify
+                                    MediaScannerConnection.scanFile(
+                                            context,
+                                            new String[]{target.getAbsolutePath()},
+                                            new String[]{"image/" + ext},
+                                            new MediaScannerConnection.OnScanCompletedListener() {
+                                                @Override
+                                                public void onScanCompleted(final String path, Uri uri) {
+                                                    Observable.empty()
+                                                            .observeOn(AndroidSchedulers.mainThread())
+                                                            .doOnComplete(() -> AToast.success("已保存到相册！"))
+                                                            .subscribe();
+                                                }
+                                            }
+                                    );
+
+
+                                    emitter.onComplete();
+                                })
+                                .onError(throwable -> {
+                                    throwable.printStackTrace();
+                                    AToast.error("保存失败！" + throwable.getMessage());
+                                })
+                                .subscribe();
                     }
 
-                    //1. create path
-                    String dirPath = Environment.getExternalStorageDirectory().getAbsolutePath() + "/" + Environment.DIRECTORY_PICTURES;
-                    File dirFile = new File(dirPath);
-                    if (!dirFile.exists()) {
-                        dirFile.mkdirs();
+                    @Override
+                    public void onDenied() {
+                        AToast.warning("没有保存权限，保存功能无法使用！");
                     }
-
-                    ImageType type = ImageHeaderParser.getImageType(new FileInputStream(source));
-                    String ext = getFileExt(type);
-                    final File target = new File(dirPath, System.currentTimeMillis() + "." + ext);
-                    if (target.exists()) target.delete();
-                    target.createNewFile();
-                    //2. save
-                    writeFileFromIS(target, new FileInputStream(source));
-                    //3. notify
-                    MediaScannerConnection.scanFile(
-                            context,
-                            new String[]{target.getAbsolutePath()},
-                            new String[]{"image/" + ext},
-                            new MediaScannerConnection.OnScanCompletedListener() {
-                                @Override
-                                public void onScanCompleted(final String path, Uri uri) {
-                                    Observable.empty()
-                                            .observeOn(AndroidSchedulers.mainThread())
-                                            .doOnComplete(() -> AToast.success("已保存到相册！"))
-                                            .subscribe();
-                                }
-                            }
-                    );
-
-
-                    emitter.onComplete();
-                })
-                .onError(throwable -> {
-                    throwable.printStackTrace();
-                    AToast.error("保存失败！" + throwable.getMessage());
-                })
-                .subscribe();
+                }).request();
     }
 
     public static void saveIcon(Context context, String url, String fileName, IHttp.OnSuccessListener<File> listener) {
@@ -531,6 +553,33 @@ public class PictureUtil {
         }
         Log.d("getCachePath", "cachePath=" + cachePath);
         return cachePath;
+    }
+
+    public static void setWallpaper(Context context, String url) {
+        ShowLoadingEvent.post("图片准备中...");
+        Glide.with(context)
+                .asBitmap()
+                .load(url)
+                .into(new SimpleTarget<Bitmap>() {
+                    @Override
+                    public void onResourceReady(@NonNull Bitmap resource, @Nullable Transition<? super Bitmap> transition) {
+                        HideLoadingEvent.postEvent();
+                        Observable.timer(250 , TimeUnit.MILLISECONDS)
+                                .observeOn(AndroidSchedulers.mainThread())
+                                .doOnComplete(() -> {
+                                    try {
+                                        WallpaperManager wpm = (WallpaperManager) context.getSystemService(
+                                                Context.WALLPAPER_SERVICE);
+                                        wpm.setBitmap(resource);
+                                        AToast.success("设置壁纸成功！");
+                                    } catch (IOException e) {
+                                        e.printStackTrace();
+                                        AToast.error("设置壁纸失败！" + e.getMessage());
+                                    }
+                                })
+                                .subscribe();
+                    }
+                });
     }
 
 }

@@ -9,8 +9,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:z_toolbar_fillStatusBar="true"
-        app:z_toolbar_titleBarColor="@color/preview_bottom_toolbar_bg"
-        app:z_toolbar_statusBarColor="@color/preview_bottom_toolbar_bg"
         app:z_toolbar_showBottomLine="false"
         app:z_toolbar_statusBarMode="light"
         app:z_toolbar_leftType="imageButton"
@@ -21,6 +19,9 @@
         app:z_toolbar_centerSubTextColor="#f8f8f8"
         app:z_toolbar_rightType="imageButton"
         app:z_toolbar_rightImageResource="@drawable/ic_more_vert_grey_24dp"
+        app:z_toolbar_background_fill_status_bar="true"
+        app:z_toolbar_background="@drawable/bg_wallpaper_viewer_toolbar_bar"
+        app:z_toolbar_isLightStyle="true"
         />
 
     <com.zpj.popup.widget.LoadingView
@@ -37,11 +38,12 @@
         android:layout_height="wrap_content"
         android:text="查看原图"
         android:layout_above="@id/bottom_bar"
-        android:layout_margin="8dp"
+        android:layout_margin="16dp"
         android:layout_centerHorizontal="true"
         android:background="@drawable/bg_round_black_alpha"
         android:padding="8dp"
         android:textColor="@color/white"
+        style="@style/style_text_shadow"
         />
 
     <LinearLayout
@@ -94,6 +96,7 @@
                     android:textColor="@color/white"
                     android:layout_gravity="center"
                     android:layout_marginBottom="4dp"
+                    style="@style/style_text_shadow"
                     />
 
                 <TextView
@@ -107,6 +110,7 @@
                     android:textColor="@color/white"
                     android:layout_gravity="center"
                     android:textSize="12sp"
+                    style="@style/style_text_shadow"
                     />
 
             </LinearLayout>
@@ -149,6 +153,7 @@
             android:paddingTop="8dp"
             android:paddingBottom="8dp"
             android:textSize="14sp"
+            style="@style/style_text_shadow"
             />
 
         <LinearLayout
@@ -169,6 +174,7 @@
                 android:padding="8dp"
                 android:textSize="12sp"
                 android:drawablePadding="4dp"
+                style="@style/style_text_shadow"
                 />
 
             <com.zpj.shouji.market.ui.widget.DrawableTintTextView
@@ -184,6 +190,7 @@
                 android:padding="8dp"
                 android:textSize="12sp"
                 android:drawablePadding="4dp"
+                style="@style/style_text_shadow"
                 />
 
             <com.zpj.shouji.market.ui.widget.DrawableTintTextView
@@ -199,6 +206,7 @@
                 android:padding="8dp"
                 android:textSize="12sp"
                 android:drawablePadding="4dp"
+                style="@style/style_text_shadow"
                 />
 
             <com.zpj.shouji.market.ui.widget.DrawableTintTextView
@@ -214,6 +222,7 @@
                 android:padding="8dp"
                 android:textSize="12sp"
                 android:drawablePadding="4dp"
+                style="@style/style_text_shadow"
                 />
 
         </LinearLayout>

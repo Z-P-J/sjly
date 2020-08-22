@@ -18,6 +18,8 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.bumptech.glide.request.target.SimpleTarget;
 import com.bumptech.glide.request.transition.Transition;
+import com.ctetin.expandabletextviewlibrary.ExpandableTextView;
+import com.ctetin.expandabletextviewlibrary.app.LinkType;
 import com.felix.atoast.library.AToast;
 import com.shehuan.niv.NiceImageView;
 import com.zpj.fragmentation.BaseFragment;
@@ -26,8 +28,11 @@ import com.zpj.shouji.market.api.HttpApi;
 import com.zpj.shouji.market.event.StartFragmentEvent;
 import com.zpj.shouji.market.model.CollectionInfo;
 import com.zpj.shouji.market.ui.adapter.FragmentsPagerAdapter;
+import com.zpj.shouji.market.ui.fragment.WebFragment;
 import com.zpj.shouji.market.ui.fragment.profile.ProfileFragment;
+import com.zpj.shouji.market.ui.fragment.theme.TopicThemeListFragment;
 import com.zpj.shouji.market.ui.widget.DrawableTintTextView;
+import com.zpj.shouji.market.ui.widget.emoji.EmojiExpandableTextView;
 import com.zpj.shouji.market.ui.widget.popup.CommentPopup;
 import com.zpj.shouji.market.utils.MagicIndicatorHelper;
 import com.zpj.widget.statelayout.StateLayout;
@@ -51,7 +56,7 @@ public class CollectionDetailFragment extends BaseFragment
     private TextView tvTitle;
     private TextView tvUserName;
     private TextView tvTime;
-    private TextView tvDesc;
+    private EmojiExpandableTextView tvDesc;
     private DrawableTintTextView tvSupport;
     private DrawableTintTextView tvFavorite;
     private DrawableTintTextView tvView;
@@ -154,7 +159,7 @@ public class CollectionDetailFragment extends BaseFragment
         tvTitle.setText(item.getTitle());
         tvToolbarName.setText(item.getTitle());
         tvUserName.setText(item.getNickName());
-        tvDesc.setText("简介：" + item.getComment());
+        tvDesc.setContent(item.getComment());
 //        tvFavorite.setText(item.getFavCount() + "");
 //        tvSupport.setText(item.getSupportCount() + "");
 //        tvView.setText(item.getViewCount() + "");
@@ -389,4 +394,5 @@ public class CollectionDetailFragment extends BaseFragment
                 break;
         }
     }
+
 }

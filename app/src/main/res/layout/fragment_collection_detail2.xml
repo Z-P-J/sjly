@@ -63,8 +63,8 @@
 
                                 <com.shehuan.niv.NiceImageView
                                     android:id="@+id/iv_icon"
-                                    android:layout_width="160dp"
-                                    android:layout_height="160dp"
+                                    android:layout_width="120dp"
+                                    android:layout_height="120dp"
                                     android:src="@mipmap/ic_launcher"
                                     android:scaleType="centerCrop"
                                     app:corner_radius="8dp"
@@ -90,6 +90,15 @@
                                         android:ellipsize="end"
                                         android:paddingTop="5dp"
                                         android:paddingBottom="5dp"
+                                        />
+
+                                    <TextView
+                                        android:id="@+id/tv_time"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:text="3天前更新"
+                                        android:textColor="@android:color/white"
+                                        android:textSize="12sp"
                                         />
 
                                     <LinearLayout
@@ -127,36 +136,53 @@
 
                                     </LinearLayout>
 
-                                    <TextView
-                                        android:id="@+id/tv_time"
-                                        android:layout_width="match_parent"
-                                        android:layout_height="wrap_content"
-                                        android:text="3天前更新"
-                                        android:textColor="@android:color/white"
-                                        android:paddingBottom="10dp"
-                                        android:textSize="12sp"
-                                        />
 
-                                    <TextView
-                                        android:id="@+id/tv_desc"
-                                        android:layout_width="match_parent"
-                                        android:layout_height="wrap_content"
-                                        android:text="fkhdrghdjkfghnbdjfbkfkgnbf"
-                                        android:textColor="@android:color/white"
-                                        android:maxLines="2"
-                                        android:ellipsize="end"
 
-                                        />
+
 
 
                                 </LinearLayout>
 
                             </LinearLayout>
 
+<!--                            <TextView-->
+<!--                                android:id="@+id/tv_desc"-->
+<!--                                android:layout_width="match_parent"-->
+<!--                                android:layout_height="wrap_content"-->
+<!--                                android:text="fkhdrghdjkfghnbdjfbkfkgnbf"-->
+<!--                                android:textColor="@android:color/white"-->
+<!--                                android:maxLines="2"-->
+<!--                                android:ellipsize="end"-->
+<!--                                android:paddingHorizontal="16dp"-->
+<!--                                />-->
+
+                            <com.zpj.shouji.market.ui.widget.emoji.EmojiExpandableTextView
+                                android:id="@+id/tv_desc"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:paddingVertical="8dp"
+                                android:paddingHorizontal="16dp"
+                                android:textColor="@color/white"
+                                android:lineSpacingExtra="4dp"
+                                app:ep_max_line="3"
+                                app:ep_need_animation="true"
+                                app:ep_expand_text="查看更多"
+                                app:ep_contract_text="收起"
+                                app:ep_expand_color="@color/colorPrimary"
+                                app:ep_contract_color="@color/colorPrimary"
+                                app:ep_need_contract="true"
+                                app:ep_need_expand="true"
+                                app:ep_need_link="true"
+                                app:ep_need_mention="true"
+                                app:ep_need_self="false"
+                                app:ep_need_convert_url="false"
+                                app:ep_link_color="@color/colorPrimary"
+                                app:ep_mention_color="@color/colorPrimary"
+                                />
+
                             <LinearLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:padding="16dp"
                                 >
 
                                 <com.zpj.shouji.market.ui.widget.DrawableTintTextView
@@ -169,6 +195,7 @@
                                     android:gravity="center"
                                     android:textColor="@color/white"
                                     android:background="?attr/selectableItemBackground"
+                                    android:paddingVertical="16dp"
                                     />
 
                                 <com.zpj.shouji.market.ui.widget.DrawableTintTextView
@@ -181,6 +208,7 @@
                                     android:gravity="center"
                                     android:textColor="@color/white"
                                     android:background="?attr/selectableItemBackground"
+                                    android:paddingVertical="16dp"
                                     />
 
                                 <com.zpj.shouji.market.ui.widget.DrawableTintTextView
@@ -193,6 +221,7 @@
                                     android:gravity="center"
                                     android:textColor="@color/white"
                                     android:background="?attr/selectableItemBackground"
+                                    android:paddingVertical="16dp"
                                     />
 
                                 <com.zpj.shouji.market.ui.widget.DrawableTintTextView
@@ -205,6 +234,7 @@
                                     android:gravity="center"
                                     android:textColor="@color/white"
                                     android:background="?attr/selectableItemBackground"
+                                    android:paddingVertical="16dp"
                                     />
 
                             </LinearLayout>

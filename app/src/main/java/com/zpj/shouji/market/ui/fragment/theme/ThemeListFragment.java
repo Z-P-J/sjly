@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.View;
 
 import com.felix.atoast.library.AToast;
+import com.zpj.http.parser.html.nodes.Document;
 import com.zpj.http.parser.html.nodes.Element;
 import com.zpj.http.parser.html.select.Elements;
 import com.zpj.recyclerview.EasyRecyclerLayout;
@@ -30,8 +31,7 @@ import java.util.List;
 import java.util.Map;
 
 public class ThemeListFragment extends NextUrlFragment<DiscoverInfo>
-        implements Runnable,
-        IEasy.OnLoadMoreListener,
+        implements IEasy.OnLoadMoreListener,
         SwipeRefreshLayout.OnRefreshListener,
         SearchResultFragment.KeywordObserver {
 
@@ -68,54 +68,6 @@ public class ThemeListFragment extends NextUrlFragment<DiscoverInfo>
     @Override
     protected int getItemLayoutId() {
         return R.layout.item_theme;
-    }
-
-    @Override
-    public void run() {
-        Log.d("ThemeListFragment", "nextUrl=" + nextUrl);
-        HttpApi.get(nextUrl)
-                .onSuccess(doc -> {
-                    Log.d("ThemeListFragment", "data=" + doc);
-                    Elements elements = doc.select("item");
-//                    if (nextUrl.equals(defaultUrl)) {
-//                        Element userElement = elements.get(0);
-//                        if (callback != null) {
-//                            callback.onGetUserItem(userElement);
-//                        }
-//                    }
-
-                    nextUrl = doc.selectFirst("nextUrl").text();
-                    Map<String, DiscoverInfo> map = new HashMap<>();
-                    for (Element element : elements) {
-                        DiscoverInfo info = createData(element);
-                        if (info == null) {
-                            continue;
-                        }
-                        String parent = info.getParent();
-                        String id = info.getId();
-                        if (parent.equals(id)) {
-                            map.put(id, info);
-                            data.add(info);
-                        } else {
-                            DiscoverInfo parentItem = map.get(parent);
-                            if (parentItem != null) {
-                                parentItem.addChild(info);
-                            }
-                        }
-                    }
-                    recyclerLayout.notifyDataSetChanged();
-                    if (data.isEmpty()) {
-                        recyclerLayout.showEmpty();
-                    }
-                })
-                .onError(throwable -> {
-                    Log.d("ThemeListFragment", "showError");
-                    recyclerLayout.showErrorView(throwable.getMessage());
-//                    if (callback != null) {
-//                        callback.onError(throwable);
-//                    }
-                })
-                .subscribe();
     }
 
     @Override
@@ -176,10 +128,33 @@ public class ThemeListFragment extends NextUrlFragment<DiscoverInfo>
     }
 
     @Override
-    protected void getData() {
-//        ExecutorHelper.submit(this);
-        Log.d("ThemeListFragment", "getData");
-        run();
+    public void onGetDocument(Document doc) throws Exception {
+        Log.d("ThemeListFragment", "data=" + doc);
+        Elements elements = doc.select("item");
+        Map<String, DiscoverInfo> map = new HashMap<>();
+        for (Element element : elements) {
+            DiscoverInfo info = createData(element);
+            if (info == null) {
+                continue;
+            }
+            String parent = info.getParent();
+            String id = info.getId();
+            if (parent.equals(id)) {
+                map.put(id, info);
+                data.add(info);
+            } else {
+                DiscoverInfo parentItem = map.get(parent);
+                if (parentItem != null) {
+                    parentItem.addChild(info);
+                }
+            }
+        }
+    }
+
+    @Override
+    public void onError(Throwable throwable) {
+        Log.d("ThemeListFragment", "showError");
+        super.onError(throwable);
     }
 
     @Override

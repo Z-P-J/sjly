@@ -1,2 +1,1 @@
-[1/2] Building CXX object CMakeFiles/FileScanner.dir/src/main/cpp/FilesScanner.cpp.o
-[2/2] Linking CXX shared library ..\..\..\..\build\intermediates\cmake\debug\obj\armeabi-v7a\libFileScanner.so
+ninja: no work to do.

@@ -39,10 +39,16 @@ public final class HttpApi {
 
     public static Connection openConnection(String url, Connection.Method method) {
         Connection connection = ZHttp.connect(url).method(method);
-        connection.data("versioncode", VERSION_CODE);
-        connection.data("version", "2.9.9.9.3");
-        connection.data("sn", UserManager.getInstance().getSn());
-        if (UserManager.getInstance().isLogin()) {
+        if (!url.contains("versioncode=")) {
+            connection.data("versioncode", VERSION_CODE);
+        }
+        if (!url.contains("version=")) {
+            connection.data("version", "2.9.9.9.3");
+        }
+        if (!url.contains("sn=")) {
+            connection.data("sn", UserManager.getInstance().getSn());
+        }
+        if (UserManager.getInstance().isLogin() && !url.contains("jsessionid=")) {
             connection.data("jsessionid", UserManager.getInstance().getSessionId());
         }
         connection.validateTLSCertificates(false)

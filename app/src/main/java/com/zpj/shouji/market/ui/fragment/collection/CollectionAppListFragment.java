@@ -3,6 +3,8 @@ package com.zpj.shouji.market.ui.fragment.collection;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
@@ -16,7 +18,11 @@ import com.zpj.shouji.market.constant.Keys;
 import com.zpj.shouji.market.model.CollectionAppInfo;
 import com.zpj.shouji.market.ui.fragment.base.NextUrlFragment;
 import com.zpj.shouji.market.ui.fragment.detail.AppDetailFragment;
+import com.zpj.shouji.market.ui.widget.emoji.EmojiExpandableTextView;
 import com.zpj.shouji.market.utils.BeanUtils;
+import com.zpj.utils.ScreenUtils;
+
+import org.w3c.dom.Text;
 
 import java.util.List;
 
@@ -32,7 +38,7 @@ public class CollectionAppListFragment extends NextUrlFragment<CollectionAppInfo
 
     @Override
     protected int getItemLayoutId() {
-        return R.layout.item_app_linear;
+        return R.layout.item_app_collection_list;
     }
 
     @Override
@@ -62,20 +68,25 @@ public class CollectionAppListFragment extends NextUrlFragment<CollectionAppInfo
     @Override
     public void onBindViewHolder(EasyViewHolder holder, List<CollectionAppInfo> list, int position, List<Object> payloads) {
         final CollectionAppInfo appItem = list.get(position);
-        holder.getTextView(R.id.tv_title).setText(appItem.getTitle());
+        holder.setText(R.id.tv_title, appItem.getTitle());
+
         holder.getTextView(R.id.tv_info).setText(appItem.getPackageName());
-        holder.getTextView(R.id.tv_desc).setMaxLines(3);
-        holder.getTextView(R.id.tv_desc).setText(appItem.getComment());
+
+        EmojiExpandableTextView tvDesc = holder.getView(R.id.tv_desc);
+        tvDesc.setContent(appItem.getComment());
+
         TextView tvDownload = holder.getTextView(R.id.tv_download);
         if (appItem.isApkExist()) {
             tvDownload.setText("下载");
-            tvDownload.setTextColor(getResources().getColor(R.color.colorPrimary));
-            tvDownload.setBackgroundResource(R.drawable.bg_download_button);
+//            tvDownload.setTextColor(getResources().getColor(R.color.colorPrimary));
+//            tvDownload.setBackgroundResource(R.drawable.bg_download_button);
         } else {
-            tvDownload.setText("未收录");
-            tvDownload.setTextColor(Color.GRAY);
-            tvDownload.setBackgroundColor(Color.WHITE);
+            tvDownload.setText("查看");
+//            tvDownload.setText("未收录");
+//            tvDownload.setTextColor(Color.GRAY);
+//            tvDownload.setBackgroundColor(Color.WHITE);
         }
+
         Glide.with(context).load(appItem.getIcon()).into(holder.getImageView(R.id.iv_icon));
     }
 

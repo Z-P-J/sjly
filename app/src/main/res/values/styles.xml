@@ -87,4 +87,11 @@
         <item name="android:background">@drawable/shadow_line_up</item>
     </style>
 
+    <style name="style_text_shadow">
+        <item name="android:shadowColor">@color/black</item>
+        <item name="android:shadowRadius">8</item>
+        <item name="android:shadowDx">4</item>
+        <item name="android:shadowDy">4</item>
+    </style>
+
 </resources>

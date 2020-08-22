@@ -15,7 +15,9 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.bumptech.glide.request.target.SimpleTarget;
+import com.bumptech.glide.request.target.Target;
 import com.bumptech.glide.request.transition.Transition;
 import com.yanyusong.y_divideritemdecoration.Y_Divider;
 import com.yanyusong.y_divideritemdecoration.Y_DividerBuilder;
@@ -43,6 +45,7 @@ public class AppInfoFragment extends BaseFragment
 
     private float screenWidth;
     private float screenHeight;
+    private float ratio;
 
     @Override
     protected int getLayoutId() {
@@ -75,6 +78,7 @@ public class AppInfoFragment extends BaseFragment
     protected void initView(View view, @Nullable Bundle savedInstanceState) {
         this.screenHeight = ScreenUtils.getScreenHeight(context);
         this.screenWidth = ScreenUtils.getScreenWidth(context);
+        this.ratio = screenHeight / screenWidth;
         content = view.findViewById(R.id.content);
         recyclerView = new EasyRecyclerView<>(view.findViewById(R.id.recycler_view));
         recyclerView.setNestedScrollingEnabled(false);
@@ -86,8 +90,12 @@ public class AppInfoFragment extends BaseFragment
     @Override
     public void onBindViewHolder(EasyViewHolder holder, List<String> list, int position, List<Object> payloads) {
         ImageView img = holder.getView(R.id.iv_img);
+
         Glide.with(context)
                 .load(list.get(position))
+                .apply(new RequestOptions()
+                        .placeholder(R.drawable.bga_pp_ic_holder_light)
+                        .error(R.drawable.bga_pp_ic_holder_light))
                 .into(new SimpleTarget<Drawable>() {
                     @Override
                     public void onResourceReady(@NonNull Drawable resource, @Nullable Transition<? super Drawable> transition) {
@@ -96,13 +104,27 @@ public class AppInfoFragment extends BaseFragment
 
                         RecyclerView.LayoutParams params = (RecyclerView.LayoutParams) img.getLayoutParams();
                         params.height = (int) (screenWidth / 2f);
-                        float ratio = screenHeight / screenWidth;
+
                         if (width > height) {
                             params.width = (int) (params.height * ratio);
                         } else {
                             params.width = (int) (params.height / ratio);
                         }
                         img.setImageDrawable(resource);
+                    }
+
+                    @Override
+                    public void onLoadStarted(@Nullable Drawable placeholder) {
+                        super.onLoadStarted(placeholder);
+                        RecyclerView.LayoutParams params = (RecyclerView.LayoutParams) img.getLayoutParams();
+                        params.height = (int) (screenWidth / 2f);
+                        params.width = (int) (params.height / ratio);
+                        img.setImageDrawable(placeholder);
+                    }
+
+                    @Override
+                    public void onLoadFailed(@Nullable Drawable errorDrawable) {
+                        this.onLoadStarted(errorDrawable);
                     }
                 });
         img.setTag(position);

@@ -28,7 +28,8 @@
         android:textStyle="bold"
         android:textColor="@color/white"
         android:padding="8dp"
-        android:background="#aa000000"
+        android:background="@drawable/bg_wallpaper_viewer_bottom_bar"
+        style="@style/style_text_shadow"
         />
 
 </android.support.v7.widget.CardView>

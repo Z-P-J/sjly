@@ -4,8 +4,10 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="320dp"
     android:layout_height="wrap_content"
+    app:hl_shadowBackColor="@color/light_gray_5"
     app:hl_cornerRadius="8dp"
     app:hl_shadowLimit="4dp"
+    app:hl_shadowColor="#80cccccc"
     >
 
     <LinearLayout
@@ -14,18 +16,19 @@
         android:background="?android:attr/selectableItemBackground"
         android:gravity="center"
         android:orientation="vertical"
-        android:padding="10dp"
+        android:padding="8dp"
         >
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="68dp">
+            android:layout_height="56dp">
 
             <com.shehuan.niv.NiceImageView
                 android:id="@+id/iv_icon"
                 android:layout_width="48dp"
                 android:layout_height="48dp"
-                android:layout_margin="10dp"
+                android:layout_marginEnd="8dp"
+                android:layout_gravity="center_vertical"
                 android:src="@mipmap/ic_launcher"
                 app:border_color="#80cccccc"
                 app:border_width="1dp"
@@ -59,16 +62,13 @@
             android:ellipsize="end"
             android:gravity="top"
             android:maxLines="3"
-            android:paddingTop="2dp"
-            android:paddingBottom="2dp"
-            android:paddingStart="10dp"
-            android:paddingEnd="10dp"
+            android:paddingVertical="4dp"
             android:text="100MB"
             android:textColor="@android:color/darker_gray"
             android:textSize="12sp"
             />
 
-        <TextView
+        <com.zpj.shouji.market.ui.widget.DrawableTintTextView
             android:id="@+id/tv_m"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -76,10 +76,9 @@
             android:gravity="end|center_vertical"
             android:text="10个应用"
             android:textColor="#333"
-            android:drawableEnd="@drawable/format_app"
-            android:drawablePadding="10dp"
-            android:paddingStart="10dp"
-            android:paddingEnd="10dp"
+            android:drawableEnd="@drawable/ic_app_manager_white_24dp"
+            android:drawablePadding="8dp"
+            app:drawable_tint_color="@color/colorPrimary"
             />
 
 

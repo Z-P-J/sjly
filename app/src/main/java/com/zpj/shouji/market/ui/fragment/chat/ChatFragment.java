@@ -16,6 +16,7 @@ import com.felix.atoast.library.AToast;
 import com.lwkandroid.widget.ninegridview.NineGirdImageContainer;
 import com.lwkandroid.widget.ninegridview.NineGridBean;
 import com.lwkandroid.widget.ninegridview.NineGridView;
+import com.zpj.http.parser.html.nodes.Document;
 import com.zpj.http.parser.html.nodes.Element;
 import com.zpj.matisse.Matisse;
 import com.zpj.popup.ZPopup;
@@ -207,8 +208,23 @@ public class ChatFragment extends NextUrlFragment<PrivateLetterInfo> implements 
         for (Element spic : element.selectFirst("spics").select("spic")) {
             info.addSpic(spic.text());
         }
-        data.add(0, info);
-        return null;
+//        data.add(0, info);
+//        return null;
+        return info;
+    }
+
+    @Override
+    public void onGetDocument(Document doc) throws Exception {
+        Log.d("getData", "doc=" + doc);
+        List<PrivateLetterInfo> list = new ArrayList<>();
+        for (Element element : doc.select("item")) {
+            PrivateLetterInfo item = createData(element);
+            if (item == null) {
+                continue;
+            }
+            list.add(0, item);
+        }
+        data.addAll(list);
     }
 
     @Override

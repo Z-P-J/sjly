@@ -39,6 +39,7 @@ import com.zpj.shouji.market.ui.fragment.base.ListenerFragment;
 import com.zpj.shouji.market.ui.fragment.profile.ProfileFragment;
 import com.zpj.shouji.market.ui.fragment.theme.ThemeDetailFragment;
 import com.zpj.shouji.market.ui.widget.DrawableTintTextView;
+import com.zpj.shouji.market.utils.PictureUtil;
 import com.zpj.widget.tinted.TintedImageButton;
 import com.zpj.widget.toolbar.ZToolBar;
 
@@ -114,7 +115,8 @@ public class WallpaperViewerPopup extends ImageViewerPopup<String>
                                 shareWallpaper();
                                 break;
                             case 1:
-                                save();
+//                                save();
+                                PictureUtil.saveImage(context, urls.get(position));
                                 break;
                             case 2:
                                 setWallpaper();
@@ -127,6 +129,7 @@ public class WallpaperViewerPopup extends ImageViewerPopup<String>
                     .show(titleBar.getRightImageButton());
         });
         titleBar.setCenterText(urls.size() + "/" + (position + 1));
+        titleBar.getCenterTextView().setShadowLayer(8, 4, 4, Color.BLACK);
 
         Glide.with(context).load(wallpaperInfo.getMemberIcon()).into(ivIcon);
         TextView tvName = findViewById(R.id.tv_name);
@@ -332,33 +335,13 @@ public class WallpaperViewerPopup extends ImageViewerPopup<String>
     }
 
     private void setWallpaper() {
-        ShowLoadingEvent.post("图片准备中...");
         String url;
         if (originalImageList != null) {
             url = originalImageList.get(position);
         } else {
             url = urls.get(position);
         }
-        Glide.with(context)
-                .asBitmap()
-                .load(url)
-                .into(new SimpleTarget<Bitmap>() {
-                    @Override
-                    public void onResourceReady(@NonNull Bitmap resource, @Nullable Transition<? super Bitmap> transition) {
-                        HideLoadingEvent.postEvent();
-                        postDelayed(() -> {
-                            try {
-                                WallpaperManager wpm = (WallpaperManager) context.getSystemService(
-                                        Context.WALLPAPER_SERVICE);
-                                wpm.setBitmap(resource);
-                                AToast.success("设置壁纸成功！");
-                            } catch (IOException e) {
-                                e.printStackTrace();
-                                AToast.error("设置壁纸失败！" + e.getMessage());
-                            }
-                        }, 250);
-                    }
-                });
+        PictureUtil.setWallpaper(context, url);
     }
 
     private void showOriginalImage() {

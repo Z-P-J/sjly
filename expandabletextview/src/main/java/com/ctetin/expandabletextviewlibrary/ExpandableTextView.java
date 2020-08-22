@@ -338,6 +338,13 @@ public class ExpandableTextView extends AppCompatTextView {
             doSetContent();
     }
 
+    public void setLimitLines(int mLimitLines) {
+        this.mLimitLines = mLimitLines;
+        this.currentLines = mLimitLines;
+        if (isAttached)
+            doSetContent();
+    }
+
     /**
      * 实际设置内容的
      */
@@ -1069,7 +1076,7 @@ public class ExpandableTextView extends AppCompatTextView {
         public void updateDrawState(TextPaint tp) {
             // TODO Auto-generated method stub
             tp.setColor(mIsPressed ? Color.BLACK : textColor);
-            tp.bgColor = mIsPressed ? 0xffeeeeee : Color.TRANSPARENT;
+            tp.bgColor = mIsPressed ? 0x80eeeeee : Color.TRANSPARENT;
             tp.setUnderlineText(false);
             tp.clearShadowLayer();
         }
@@ -1373,6 +1380,10 @@ public class ExpandableTextView extends AppCompatTextView {
 
     public void setExpandableLinkTextColor(int mLinkTextColor) {
         this.mLinkTextColor = mLinkTextColor;
+    }
+
+    public void setMentionTextColor(int mMentionTextColor) {
+        this.mMentionTextColor = mMentionTextColor;
     }
 
     public int getContractTextColor() {

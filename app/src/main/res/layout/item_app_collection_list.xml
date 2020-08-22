@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:background="?attr/selectableItemBackground"
+    android:padding="16dp"
+    >
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        >
+
+        <com.shehuan.niv.NiceImageView
+            android:id="@+id/iv_icon"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_marginEnd="16dp"
+            android:src="@mipmap/ic_launcher"
+            android:layout_gravity="center_vertical"
+            android:layout_centerVertical="true"
+            android:scaleType="centerCrop"
+            app:corner_radius="4dp"
+            />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_toEndOf="@id/iv_icon"
+            android:layout_toStartOf="@id/tv_download"
+            android:layout_centerVertical="true"
+            >
+
+            <TextView
+                android:id="@+id/tv_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:maxLines="1"
+                android:ellipsize="end"
+                android:text="文件夹"
+                android:textColor="@color/color_text_major" />
+
+            <TextView
+                android:id="@+id/tv_info"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:maxLines="1"
+                android:gravity="center_vertical"
+                android:ellipsize="end"
+                android:text="文件： 文件夹："
+                android:paddingTop="1dp"
+                android:paddingBottom="1dp"
+                android:textColor="@color/color_text_normal"
+                android:textSize="12sp" />
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/tv_download"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="下载"
+            android:textSize="12sp"
+            android:textColor="@color/colorPrimary"
+            android:background="@drawable/bg_download_button"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:paddingStart="12dp"
+            android:paddingEnd="12dp"
+            android:textStyle="bold"
+            android:paddingTop="4dp"
+            android:paddingBottom="4dp"
+            android:gravity="center"
+            android:layout_marginStart="16dp"
+            />
+
+
+
+    </RelativeLayout>
+
+<!--    <TextView-->
+<!--        android:id="@+id/tv_desc"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:textSize="12sp"-->
+<!--        android:layout_marginStart="64dp"-->
+<!--        android:textColor="@color/color_text_major"-->
+<!--        />-->
+
+    <com.zpj.shouji.market.ui.widget.emoji.EmojiExpandableTextView
+        android:id="@+id/tv_desc"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="12sp"
+        android:layout_marginStart="64dp"
+        android:textColor="@color/color_text_major"
+        android:lineSpacingExtra="4dp"
+        app:ep_need_animation="true"
+        app:ep_need_link="true"
+        app:ep_need_mention="true"
+        app:ep_need_self="false"
+        app:ep_need_convert_url="false"
+        app:ep_link_color="@color/colorPrimary"
+        app:ep_mention_color="@color/colorPrimary"
+        />
+
+
+
+</LinearLayout>

@@ -5,13 +5,16 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 
+import com.zpj.http.core.IHttp;
+import com.zpj.http.parser.html.nodes.Document;
 import com.zpj.http.parser.html.nodes.Element;
 import com.zpj.recyclerview.EasyAdapter;
 import com.zpj.recyclerview.EasyViewHolder;
 import com.zpj.shouji.market.api.HttpApi;
 import com.zpj.shouji.market.constant.Keys;
 
-public abstract class NextUrlFragment<T> extends RecyclerLayoutFragment<T> {
+public abstract class NextUrlFragment<T> extends RecyclerLayoutFragment<T>
+        implements IHttp.OnSuccessListener<Document>, IHttp.OnErrorListener {
 
     protected String defaultUrl;
     protected String nextUrl;
@@ -27,8 +30,16 @@ public abstract class NextUrlFragment<T> extends RecyclerLayoutFragment<T> {
     @Override
     public void onRefresh() {
         nextUrl = defaultUrl;
-        refresh = true;
-        super.onRefresh();
+//        super.onRefresh();
+//        data.clear();
+//        recyclerLayout.notifyDataSetChanged();
+        if (data.isEmpty()) {
+            refresh = false;
+            recyclerLayout.showContent();
+        } else {
+            refresh = true;
+            getData();
+        }
     }
 
     @Override
@@ -60,7 +71,7 @@ public abstract class NextUrlFragment<T> extends RecyclerLayoutFragment<T> {
         } else {
             getData();
         }
-        refresh = false;
+//        refresh = false;
         return true;
     }
 
@@ -70,23 +81,48 @@ public abstract class NextUrlFragment<T> extends RecyclerLayoutFragment<T> {
         flag = false;
     }
 
+    @Override
+    public void onSuccess(Document doc) throws Exception {
+        Log.d("getData", "doc=" + doc);
+        nextUrl = doc.selectFirst("nextUrl").text();
+        if (refresh) {
+            data.clear();
+        }
+        int start = data.size();
+        onGetDocument(doc);
+        int end = data.size() == 0 ? 0 : data.size() - 1;
+        if (start < end) {
+            recyclerLayout.notifyItemRangeChanged(start, end);
+        }
+        refresh = false;
+        if (data.size() == 0) {
+            recyclerLayout.showEmpty();
+        } else {
+            recyclerLayout.showContent();
+        }
+//        recyclerLayout.notifyDataSetChanged();
+    }
+
+    protected void onGetDocument(Document doc) throws Exception {
+        for (Element element : doc.select("item")) {
+            T item = createData(element);
+            if (item == null) {
+                continue;
+            }
+            data.add(item);
+        }
+    }
+
+    @Override
+    public void onError(Throwable throwable) {
+        recyclerLayout.showErrorView(throwable.getMessage());
+    }
+
     protected void getData() {
+        Log.d("NextUrlFragment", "getData nextUrl=" + nextUrl);
         HttpApi.get(nextUrl)
-                .onSuccess(doc -> {
-                    Log.d("getData", "doc=" + doc);
-                    nextUrl = doc.selectFirst("nextUrl").text();
-                    for (Element element : doc.select("item")) {
-                        T item = createData(element);
-                        if (item == null) {
-                            continue;
-                        }
-                        data.add(item);
-                    }
-                    recyclerLayout.notifyDataSetChanged();
-                    if (data.isEmpty()) {
-                        recyclerLayout.showEmpty();
-                    }
-                })
+                .onSuccess(this)
+                .onError(this)
                 .subscribe();
     }
 

@@ -49,10 +49,12 @@ import java.util.List;
 
 public class DiscoverBinder
         implements IEasy.OnBindViewHolderListener<DiscoverInfo>,
-        TextUrlUtil.OnClickString {
+        TextUrlUtil.OnClickString, ExpandableTextView.OnLinkClickListener {
 
 
     private static NineGridImageLoader imageLoader;
+
+    private static final RequestOptions BLUR_OPTIONS = RequestOptions.bitmapTransform(new CropBlurTransformation(18, 0.6f));
 
 
     private final boolean showComment;
@@ -84,11 +86,6 @@ public class DiscoverBinder
 
         holder.setVisible(R.id.collection_layout, false);
         EmojiExpandableTextView tvContent = holder.getView(R.id.tv_content);
-//        tvContent.setClickable(false);
-//        tvContent.setLongClickable(false);
-//        tvContent.setSpanAtUserCallBackListener(this);
-//        tvContent.setSpanTopicCallBackListener(this);
-//        tvContent.setSpanUrlCallBackListener(this);
         NineGridView nineGridImageView = holder.getView(R.id.nine_grid_image_view);
         if (!discoverInfo.getSpics().isEmpty()) {
             tvContent.setVisibility(View.VISIBLE);
@@ -99,35 +96,10 @@ public class DiscoverBinder
             }
             nineGridImageView.setVisibility(View.VISIBLE);
             nineGridImageView.setImageLoader(getImageLoader());
-            nineGridImageView.setOnItemClickListener(new NineGridView.onItemClickListener() {
-                @Override
-                public void onNineGirdAddMoreClick(int dValue) {
-
-                }
-
-                @Override
-                public void onNineGirdItemClick(int position, NineGridBean gridBean, NineGirdImageContainer imageContainer) {
-                    CommonImageViewerPopup.with(context)
-                            .setOriginalImageList(discoverInfo.getPics())
-                            .setImageSizeList(discoverInfo.getPicSizes())
-                            .setImageUrls(discoverInfo.getSpics())
-                            .setSrcView(imageContainer.getImageView(), position)
-                            .setSrcViewUpdateListener((popup, pos) -> {
-                                NineGirdImageContainer view = (NineGirdImageContainer) nineGridImageView.getChildAt(pos);
-                                popup.updateSrcView(view.getImageView());
-                            })
-                            .show();
-                }
-
-                @Override
-                public void onNineGirdItemDeleted(int position, NineGridBean gridBean, NineGirdImageContainer imageContainer) {
-
-                }
-            });
-
+            nineGridImageView.setOnItemClickListener(new OnNineGridImageViewItemClickListener(nineGridImageView, discoverInfo));
             nineGridImageView.setDataList(gridList);
         } else if (!discoverInfo.getSharePics().isEmpty()) {
-            tvContent.setVisibility(View.GONE);
+            tvContent.setVisibility(View.VISIBLE);
             shareInfo.setText("分享应用集:");
             nineGridImageView.setVisibility(View.GONE);
 
@@ -148,12 +120,13 @@ public class DiscoverBinder
 
             Glide.with(context)
                     .load(discoverInfo.getSharePics().get(0))
-                    .apply(RequestOptions.bitmapTransform(new CropBlurTransformation(18, 0.8f)))
+//                    .apply(RequestOptions.bitmapTransform(new CropBlurTransformation(18, 0.8f)))
+                    .apply(BLUR_OPTIONS)
                     .into(holder.getImageView(R.id.img_bg));
 
             holder.getTextView(R.id.tv_title).setText(discoverInfo.getShareTitle());
             holder.setText(R.id.tv_info, "共" + discoverInfo.getShareCount() + "个应用");
-            holder.getTextView(R.id.tv_desc).setText("简介：" + discoverInfo.getContent());
+//            holder.getTextView(R.id.tv_desc).setText("简介：" + discoverInfo.getContent());
         } else {
             tvContent.setVisibility(View.VISIBLE);
             shareInfo.setText("分享动态:");
@@ -208,9 +181,10 @@ public class DiscoverBinder
                 commentLayout.setVisibility(View.GONE);
             } else {
                 commentLayout.setVisibility(View.VISIBLE);
+                int i = 0;
                 for (DiscoverInfo child : discoverInfo.getChildren()) {
 
-                    if (commentLayout.getChildCount() >= 3) {
+                    if (i >= 3) {
                         int total = discoverInfo.getChildren().size();
                         if (total > 3) {
                             DrawableTintTextView textView = new DrawableTintTextView(context);
@@ -228,33 +202,28 @@ public class DiscoverBinder
                     }
                     EmojiExpandableTextView textView = new EmojiExpandableTextView(context);
                     textView.setNeedExpend(false);
-                    textView.setNeedSelf(true);
-                    textView.setSelfTextColor(context.getResources().getColor(R.color.colorPrimary));
                     textView.setTextColor(context.getResources().getColor(R.color.color_text_major));
+                    textView.setLimitLines(8);
                     textView.setContent(getComment2(child));
-                    textView.setMaxLines(8);
                     textView.setEllipsize(TextUtils.TruncateAt.MIDDLE);
-                    textView.setLinkClickListener(new ExpandableTextView.OnLinkClickListener() {
-                        @Override
-                        public void onLinkClickListener(LinkType type, String content, String selfContent) {
-//                            if (type == LinkType.SELF && selfContent.startsWith("memberId=")) {
-//                                ProfileFragment.start(selfContent.replace("memberId=", ""), false);
-//                            }
-                            if (type == LinkType.SELF) {
-                                ProfileFragment.start(content);
-                            }
-                        }
-                    });
-//                    textView.setMovementMethod(LinkMovementMethod.getInstance());
-//                    textView.setMovementMethod(new TextUrlUtil.LinkTouchMovementMethod(new View.OnClickListener() {
-//                        @Override
-//                        public void onClick(View v) {
-//                            holder.getItemView().performClick();
-//                        }
-//                    }));
+//                    textView.setLinkClickListener(this);
 
                     textView.setPadding(0, 0, 0, 8);
                     commentLayout.addView(textView);
+
+                    if (!child.getSpics().isEmpty()) {
+                        NineGridView nineGridView = new NineGridView(context);
+                        nineGridView.setImageLoader(getImageLoader());
+                        nineGridView.setOnItemClickListener(new OnNineGridImageViewItemClickListener(nineGridView, child));
+                        List<NineGridBean> gridList = new ArrayList<>();
+                        for (String url : child.getSpics()) {
+                            gridList.add(new NineGridBean(url));
+                        }
+                        nineGridView.addDataList(gridList);
+                        nineGridView.setPadding(0, 0, 0, 8);
+                        commentLayout.addView(nineGridView);
+                    }
+                    i++;
                 }
             }
         } else {
@@ -267,32 +236,8 @@ public class DiscoverBinder
         holder.setText(R.id.user_name, discoverInfo.getNickName());
         holder.setText(R.id.text_info, discoverInfo.getTime());
         if (tvContent.getVisibility() == View.VISIBLE) {
-//            tvContent.setRichText(discoverInfo.getContent());
-//            ViewParent parent = tvContent.getParent();
-//            if (parent instanceof ViewGroup) {
-//                Log.d("LinkTouchMovementMethod", "onTouchEvent other performClick");
-//                ((ViewGroup) parent).setOnClickListener(v -> holder.getItemView().performClick());
-//            }
-//            tvContent.setTag(holder.getItemView());
-//            TextUrlUtil.dealContent(discoverInfo.getContent(), tvContent, -100, this, new View.OnClickListener() {
-//                @Override
-//                public void onClick(View v) {
-//                    holder.getItemView().performClick();
-//                }
-//            });
             tvContent.setContent(discoverInfo.getContent());
-            tvContent.setLinkClickListener((type, content, selfContent) -> {
-                if (type == LinkType.LINK_TYPE) {
-                    WebFragment.start(content);
-                } else if (type == LinkType.MENTION_TYPE) {
-                    ProfileFragment.start(content.replace("@", "").trim());
-                } else if (type == LinkType.TOPIC_TYPE) {
-                    TopicThemeListFragment.start(content.replaceAll("#", "").trim());
-                }
-//                else if (type == LinkType.SELF) {
-//                    AToast.success("self:" + content);
-//                }
-            });
+//            tvContent.setLinkClickListener(this);
         }
 
         TextView tvFollow = holder.getView(R.id.tv_follow);
@@ -346,12 +291,12 @@ public class DiscoverBinder
         IconCountView starView = holder.getView(R.id.like_view);
         starView.setCount(0);
 
-        holder.setOnClickListener(R.id.comment_view, new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                ThemeDetailFragment.start(discoverInfo, true);
-            }
-        });
+//        holder.setOnClickListener(R.id.comment_view, new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                ThemeDetailFragment.start(discoverInfo, true);
+//            }
+//        });
 
     }
 
@@ -423,23 +368,111 @@ public class DiscoverBinder
         return imageLoader;
     }
 
+    @Override
+    public void onLinkClickListener(LinkType type, String content, String selfContent) {
+        if (type == LinkType.LINK_TYPE) {
+            WebFragment.start(content);
+        } else if (type == LinkType.MENTION_TYPE) {
+            ProfileFragment.start(content.replace("@", "").trim());
+        } else if (type == LinkType.TOPIC_TYPE) {
+            TopicThemeListFragment.start(content.replaceAll("#", "").trim());
+        } else if (type == LinkType.SELF) {
+            ProfileFragment.start(content);
+        }
+    }
+
     public static class NineGridImageLoader implements INineGridImageLoader {
+
+        private static final RequestOptions REQUEST_OPTIONS = new RequestOptions()
+                .centerCrop()
+                .placeholder(R.drawable.bga_pp_ic_holder_light)
+                .error(R.drawable.bga_pp_ic_holder_light)
+                .override(Target.SIZE_ORIGINAL);
 
         @Override
         public void displayNineGridImage(Context context, String url, ImageView imageView) {
-            if (url.toLowerCase().endsWith(".gif")) {
-                Log.d("PopupImageLoader", "gif");
-                GlideApp.with(context).asGif().load(url)
-                        .apply(new RequestOptions().centerCrop().placeholder(R.drawable.bga_pp_ic_holder_light).error(R.drawable.bga_pp_ic_holder_light).override(Target.SIZE_ORIGINAL)).into(imageView);
-            } else {
-                Log.d("PopupImageLoader", "png");
-                Glide.with(context).load(url).apply(new RequestOptions().centerCrop().placeholder(R.drawable.bga_pp_ic_holder_light).error(R.drawable.bga_pp_ic_holder_light).override(Target.SIZE_ORIGINAL).dontAnimate()).into(imageView);
-            }
+//            if (url.toLowerCase().endsWith(".gif")) {
+//                Log.d("PopupImageLoader", "gif");
+//                GlideApp.with(context)
+//                        .asGif()
+//                        .load(url)
+//                        .apply(
+////                                new RequestOptions()
+////                                        .centerCrop()
+////                                        .placeholder(R.drawable.bga_pp_ic_holder_light)
+////                                        .error(R.drawable.bga_pp_ic_holder_light)
+////                                        .override(Target.SIZE_ORIGINAL)
+//                                REQUEST_OPTIONS
+//
+//                        )
+//                        .into(imageView);
+//            } else {
+//                Log.d("PopupImageLoader", "png");
+//                Glide.with(context)
+//                        .load(url)
+//                        .apply(
+////                                new RequestOptions()
+////                                        .centerCrop()
+////                                        .placeholder(R.drawable.bga_pp_ic_holder_light)
+////                                        .error(R.drawable.bga_pp_ic_holder_light)
+////                                        .override(Target.SIZE_ORIGINAL)
+////                                        .dontAnimate()
+//                                REQUEST_OPTIONS
+//                        ).into(imageView);
+//            }
+
+            Glide.with(context)
+                    .load(url)
+                    .apply(
+//                                new RequestOptions()
+//                                        .centerCrop()
+//                                        .placeholder(R.drawable.bga_pp_ic_holder_light)
+//                                        .error(R.drawable.bga_pp_ic_holder_light)
+//                                        .override(Target.SIZE_ORIGINAL)
+//                                        .dontAnimate()
+                            REQUEST_OPTIONS
+                    ).into(imageView);
         }
 
         @Override
         public void displayNineGridImage(Context context, String url, ImageView imageView, int width, int height) {
             displayNineGridImage(context, url, imageView);
+        }
+
+    }
+
+    public static class OnNineGridImageViewItemClickListener implements NineGridView.onItemClickListener {
+
+        private final NineGridView nineGridView;
+        private final DiscoverInfo discoverInfo;
+
+        public OnNineGridImageViewItemClickListener(NineGridView nineGridView, DiscoverInfo discoverInfo) {
+            this.nineGridView = nineGridView;
+            this.discoverInfo = discoverInfo;
+        }
+
+        @Override
+        public void onNineGirdAddMoreClick(int dValue) {
+
+        }
+
+        @Override
+        public void onNineGirdItemClick(int position, NineGridBean gridBean, NineGirdImageContainer imageContainer) {
+            CommonImageViewerPopup.with(nineGridView.getContext())
+                    .setOriginalImageList(discoverInfo.getPics())
+                    .setImageSizeList(discoverInfo.getPicSizes())
+                    .setImageUrls(discoverInfo.getSpics())
+                    .setSrcView(imageContainer.getImageView(), position)
+                    .setSrcViewUpdateListener((popup, pos) -> {
+                        NineGirdImageContainer view = (NineGirdImageContainer) nineGridView.getChildAt(pos);
+                        popup.updateSrcView(view.getImageView());
+                    })
+                    .show();
+        }
+
+        @Override
+        public void onNineGirdItemDeleted(int position, NineGridBean gridBean, NineGirdImageContainer imageContainer) {
+
         }
 
     }

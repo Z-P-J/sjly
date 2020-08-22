@@ -8,6 +8,7 @@ import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -17,6 +18,7 @@ import com.bumptech.glide.Glide;
 import com.felix.atoast.library.AToast;
 import com.github.zagum.expandicon.ExpandIconView;
 import com.sunbinqiang.iconcountview.IconCountView;
+import com.zpj.http.parser.html.nodes.Document;
 import com.zpj.http.parser.html.nodes.Element;
 import com.zpj.recyclerview.EasyRecyclerLayout;
 import com.zpj.recyclerview.EasyViewHolder;
@@ -26,6 +28,7 @@ import com.zpj.shouji.market.constant.Keys;
 import com.zpj.shouji.market.event.GetMainFragmentEvent;
 import com.zpj.shouji.market.event.StatusBarEvent;
 import com.zpj.shouji.market.glide.MyRequestOptions;
+import com.zpj.shouji.market.model.PrivateLetterInfo;
 import com.zpj.shouji.market.model.WallpaperInfo;
 import com.zpj.shouji.market.model.WallpaperTag;
 import com.zpj.shouji.market.ui.fragment.base.NextUrlFragment;
@@ -190,11 +193,38 @@ public class WallpaperListFragment extends NextUrlFragment<WallpaperInfo> {
     }
 
     @Override
+    public void onSuccess(Document doc) throws Exception {
+        Log.d("getData", "doc=" + doc);
+        nextUrl = doc.selectFirst("nextUrl").text();
+        for (Element element : doc.select("item")) {
+            WallpaperInfo item = createData(element);
+            if (item == null) {
+                continue;
+            }
+            data.add(item);
+            recyclerLayout.notifyItemInserted(data.size() - 1);
+        }
+        if (data.size() == 0) {
+            recyclerLayout.showEmpty();
+        } else {
+            recyclerLayout.showContent();
+        }
+    }
+
+    @Override
     public void onRefresh() {
-        data.clear();
+//        data.clear();
         initNextUrl();
-        refresh = true;
-        recyclerLayout.notifyDataSetChanged();
+//        refresh = true;
+//        recyclerLayout.notifyDataSetChanged();
+
+        if (data.isEmpty()) {
+            refresh = false;
+            recyclerLayout.showContent();
+        } else {
+            refresh = true;
+            getData();
+        }
     }
 
     protected int getHeaderLayout() {

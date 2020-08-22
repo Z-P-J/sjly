@@ -201,9 +201,18 @@ public class MyCollectionFragment extends BaseFragment {
 
         @Override
         public void onRefresh() {
-            data.clear();
+//            data.clear();
+//            nextUrl = defaultUrl;
+//            recyclerLayout.notifyDataSetChanged();
+
             nextUrl = defaultUrl;
-            recyclerLayout.notifyDataSetChanged();
+            if (data.isEmpty()) {
+                refresh = false;
+                recyclerLayout.showContent();
+            } else {
+                refresh = true;
+                getData();
+            }
         }
 
         @Override
