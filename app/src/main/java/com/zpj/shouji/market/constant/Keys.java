@@ -4,6 +4,7 @@ public final class Keys {
 
     public static final String DEFAULT_URL = "key_default_url";
     public static final String URL = "key_url";
+    public static final String NAME = "key_name";
     public static final String ID = "key_id";
     public static final String TAG = "key_tag";
     public static final String TITLE = "key_title";

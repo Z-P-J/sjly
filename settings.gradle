@@ -11,7 +11,5 @@ include ':app',
         ':matisse',
         ':filescannercore',
         ':niceimageview',
-//        ':photopicker',
-//        ':takephoto',
-//        ':android-crop',
-        ':ucrop'
+        ':ucrop',
+        ':expandabletextview'

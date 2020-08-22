@@ -35,7 +35,12 @@ public class EmojiManager {
     private static final int CACHE_MAX_SIZE = 1024;
     private static Pattern mPattern;
 
+
+    private static final List<String> CATEGORY_LIST = new ArrayList<>();
+    private static final Map<String, List<Entry>> CATEGORY_MAP = new HashMap<>();
+
     private static final List<Entry> mDefaultEntries = new ArrayList<>();
+//    private static final List<Entry> mQQEntries = new ArrayList<>();
     private static final Map<String, Entry> mText2Entry = new HashMap<>();
     private static LruCache<String, Bitmap> mDrawableCache;
 
@@ -55,20 +60,29 @@ public class EmojiManager {
         };
     }
 
-    public static final int getDisplayCount() {
-        return mDefaultEntries.size();
+    public static int getCategoryCount() {
+        return CATEGORY_LIST.size();
     }
 
-    public static final Drawable getDisplayDrawable(Context context, int index) {
-        String text = (index >= 0 && index < mDefaultEntries.size() ? mDefaultEntries.get(index).text : null);
-        return text == null ? null : getDrawable(context, text);
+    public static List<Entry> getCategoryList(int index) {
+        return CATEGORY_MAP.get(CATEGORY_LIST.get(index));
     }
 
-    public static final String getDisplayText(int index) {
-        return index >= 0 && index < mDefaultEntries.size() ? mDefaultEntries.get(index).text : null;
+//    public static int getDisplayCount() {
+//        return mDefaultEntries.size();
+//    }
+
+//    public static Drawable getDisplayDrawable(Context context, int index) {
+//        String text = (index >= 0 && index < mDefaultEntries.size() ? mDefaultEntries.get(index).text : null);
+//        return text == null ? null : getDrawable(context, text);
+//    }
+
+    public static String getDisplayText(int categoryIndex, int index) {
+        List<Entry> list = getCategoryList(categoryIndex);
+        return index >= 0 && index < list.size() ? list.get(index).text : null;
     }
 
-    public static final Drawable getDrawable(Context context, String text) {
+    public static Drawable getDrawable(Context context, String text) {
         Entry entry = mText2Entry.get(text);
         if (entry == null || TextUtils.isEmpty(entry.text)) {
             return null;
@@ -109,7 +123,7 @@ public class EmojiManager {
         return null;
     }
 
-    public static final Pattern getPattern() {
+    public static Pattern getPattern() {
         return mPattern;
     }
 
@@ -121,20 +135,42 @@ public class EmojiManager {
         return "\\[[^\\[]{1,10}\\]";
     }
 
-    private static final void load(Context context, String xmlPath) {
+    private static void load(Context context, String xmlPath) {
         new EntryLoader().load(context, xmlPath);
 
-        //补充最后一页少的表情
-        int tmp = mDefaultEntries.size() % EmotionLayout.EMOJI_PER_PAGE;
-        if (tmp != 0) {
-            int tmp2 = EmotionLayout.EMOJI_PER_PAGE - (mDefaultEntries.size() - (mDefaultEntries.size() / EmotionLayout.EMOJI_PER_PAGE) * EmotionLayout.EMOJI_PER_PAGE);
-            for (int i = 0; i < tmp2; i++) {
-                mDefaultEntries.add(new Entry("", ""));
+        for (String category : CATEGORY_LIST) {
+            List<Entry> entries = CATEGORY_MAP.get(category);
+            if (entries != null) {
+                //补充最后一页少的表情
+                int tmp = entries.size() % EmotionLayout.EMOJI_PER_PAGE;
+                if (tmp != 0) {
+                    int tmp2 = EmotionLayout.EMOJI_PER_PAGE - (entries.size() - (entries.size() / EmotionLayout.EMOJI_PER_PAGE) * EmotionLayout.EMOJI_PER_PAGE);
+                    for (int i = 0; i < tmp2; i++) {
+                        entries.add(new Entry("", ""));
+                    }
+                }
             }
         }
+
+//        //补充最后一页少的表情
+//        int tmp = mDefaultEntries.size() % EmotionLayout.EMOJI_PER_PAGE;
+//        if (tmp != 0) {
+//            int tmp2 = EmotionLayout.EMOJI_PER_PAGE - (mDefaultEntries.size() - (mDefaultEntries.size() / EmotionLayout.EMOJI_PER_PAGE) * EmotionLayout.EMOJI_PER_PAGE);
+//            for (int i = 0; i < tmp2; i++) {
+//                mDefaultEntries.add(new Entry("", ""));
+//            }
+//        }
+
+//        tmp = mQQEntries.size() % EmotionLayout.EMOJI_PER_PAGE;
+//        if (tmp != 0) {
+//            int tmp2 = EmotionLayout.EMOJI_PER_PAGE - (mQQEntries.size() - (mQQEntries.size() / EmotionLayout.EMOJI_PER_PAGE) * EmotionLayout.EMOJI_PER_PAGE);
+//            for (int i = 0; i < tmp2; i++) {
+//                mQQEntries.add(new Entry("", ""));
+//            }
+//        }
     }
 
-    private static class Entry {
+    public static class Entry {
         String text;
         String assetPath;
 
@@ -171,15 +207,27 @@ public class EmojiManager {
         public void startElement(String uri, String localName, String qName, Attributes attributes) throws SAXException {
             if (localName.equals("Catalog")) {
                 catalog = attributes.getValue(uri, "Title");
+                if (!CATEGORY_MAP.containsKey(catalog)) {
+                    CATEGORY_MAP.put(catalog, new ArrayList<Entry>());
+                    CATEGORY_LIST.add(catalog);
+                }
             } else if (localName.equals("Emoticon")) {
                 String tag = attributes.getValue(uri, "Tag");
                 String fileName = attributes.getValue(uri, "File");
                 Entry entry = new Entry(tag, EMOT_DIR + catalog + "/" + fileName);
 
                 mText2Entry.put(entry.text, entry);
-                if (catalog.equals("default")) {
-                    mDefaultEntries.add(entry);
+                if (!"[\\超链接]".equals(tag)) {
+                    List<Entry> list = CATEGORY_MAP.get(catalog);
+                    if (list == null) {
+                        list = new ArrayList<>();
+                        CATEGORY_MAP.put(catalog, list);
+                    }
+                    list.add(entry);
                 }
+
+
+
             }
         }
     }

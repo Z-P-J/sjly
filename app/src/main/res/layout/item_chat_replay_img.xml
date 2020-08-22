@@ -46,7 +46,7 @@
             app:cornerRadius="8dp"
             >
 
-            <TextView
+            <com.zpj.shouji.market.ui.widget.emoji.EmojiTextView
                 android:id="@+id/tv_content"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

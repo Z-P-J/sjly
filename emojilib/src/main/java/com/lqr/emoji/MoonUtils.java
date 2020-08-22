@@ -10,6 +10,7 @@ import android.text.TextPaint;
 import android.text.TextUtils;
 import android.text.style.ClickableSpan;
 import android.text.style.ImageSpan;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -53,7 +54,7 @@ public class MoonUtils {
             int start = matcher.start();
             int end = matcher.end();
             String emot = value.substring(start, end);
-            Drawable d = getEmotDrawable(context, emot, scale);
+            Drawable d = getEmojiDrawable(context, emot, scale);
             if (d != null) {
                 ImageSpan span = new ImageSpan(d, align);
                 mSpannableString.setSpan(span, start, end, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
@@ -96,7 +97,7 @@ public class MoonUtils {
             start = matcher.start();
             end = matcher.end();
             String emot = value.substring(start, end);
-            Drawable d = getEmotDrawable(context, emot, scale);
+            Drawable d = getEmojiDrawable(context, emot, scale);
             if (d != null) {
                 ImageSpan span = new ImageSpan(d, align);
                 mSpannableString.setSpan(span, start, end, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
@@ -151,6 +152,25 @@ public class MoonUtils {
      * EditText用来转换表情文字的方法，如果没有使用EmoticonPickerView的attachEditText方法，则需要开发人员手动调用方法来又识别EditText中的表情
      */
     public static void replaceEmoticons(Context context, Editable editable, int start, int count) {
+//        if (count <= 0 || editable.length() < start + count)
+//            return;
+//
+//        CharSequence s = editable.subSequence(start, start + count);
+//        Matcher matcher = EmojiManager.getPattern().matcher(s);
+//        while (matcher.find()) {
+//            int from = start + matcher.start();
+//            int to = start + matcher.end();
+//            String emot = editable.subSequence(from, to).toString();
+//            Drawable d = getEmojiDrawable(context, emot, SMALL_SCALE);
+//            if (d != null) {
+//                ImageSpan span = new ImageSpan(d, ImageSpan.ALIGN_BOTTOM);
+//                editable.setSpan(span, from, to, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+//            }
+//        }
+        replaceEmoticons(context, editable, -1, -1, start, count);
+    }
+
+    public static void replaceEmoticons(Context context, Editable editable, float emojiSize, float textSize, int start, int count) {
         if (count <= 0 || editable.length() < start + count)
             return;
 
@@ -160,15 +180,16 @@ public class MoonUtils {
             int from = start + matcher.start();
             int to = start + matcher.end();
             String emot = editable.subSequence(from, to).toString();
-            Drawable d = getEmotDrawable(context, emot, SMALL_SCALE);
+            Drawable d = getEmojiDrawable2(context, emot, emojiSize, textSize);
             if (d != null) {
-                ImageSpan span = new ImageSpan(d, ImageSpan.ALIGN_BOTTOM);
+//                ImageSpan span = new ImageSpan(d, ImageSpan.ALIGN_BOTTOM);
+                ImageSpan span = new CenterAlignImageSpan(d);
                 editable.setSpan(span, from, to, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
             }
         }
     }
 
-    private static Drawable getEmotDrawable(Context context, String text, float scale) {
+    private static Drawable getEmojiDrawable(Context context, String text, float scale) {
         Drawable drawable = EmojiManager.getDrawable(context, text);
 
         // scale
@@ -176,6 +197,30 @@ public class MoonUtils {
             int width = (int) (drawable.getIntrinsicWidth() * scale);
             int height = (int) (drawable.getIntrinsicHeight() * scale);
             drawable.setBounds(0, 0, width, height);
+        }
+
+        return drawable;
+    }
+
+    private static Drawable getEmojiDrawable2(Context context, String text, float emojiSize, float textSize) {
+        Drawable drawable = EmojiManager.getDrawable(context, text);
+
+        Log.d("getEmojiDrawable2", "text=" + text + " emojiSize=" + emojiSize + " textSize=" + textSize);
+        // scale
+        if (drawable != null) {
+            if (textSize > 0) {
+
+                float mHeight = "[\\超链接]".equals(text) ? textSize : (emojiSize > 0 ? emojiSize : textSize * 1.6f); //  * 1.6f
+                float mWidth = mHeight * drawable.getIntrinsicWidth() / drawable.getIntrinsicHeight();
+//                float mTop = Math.abs((textSize - mHeight) / 2);
+//                float mTop = (textSize - mHeight) / 2;
+                float mTop = 0;
+                drawable.setBounds(0, (int) mTop, (int) mWidth, (int) (mTop + mHeight));
+            } else {
+                int width = (int) (drawable.getIntrinsicWidth() * SMALL_SCALE);
+                int height = (int) (drawable.getIntrinsicHeight() * SMALL_SCALE);
+                drawable.setBounds(0, 0, width, height);
+            }
         }
 
         return drawable;

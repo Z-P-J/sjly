@@ -31,14 +31,17 @@ public class AboutSettingFragment extends BaseSettingFragment {
         CommonSettingItem userAgreementItem = view.findViewById(R.id.item_user_agreement);
         userAgreementItem.setOnItemClickListener(this);
 
+        CommonSettingItem itemOpenSource = view.findViewById(R.id.item_open_source);
+        itemOpenSource.setOnItemClickListener(this);
+
         CommonSettingItem privacyAgreementItem = view.findViewById(R.id.item_privacy_agreement);
         privacyAgreementItem.setOnItemClickListener(this);
 
         CommonSettingItem aboutMeItem = view.findViewById(R.id.item_about_me);
         aboutMeItem.setOnItemClickListener(this);
 
-        CommonSettingItem itemSearchEngine = view.findViewById(R.id.item_check_update);
-        itemSearchEngine.setOnItemClickListener(this);
+        CommonSettingItem itemCheckUpdate = view.findViewById(R.id.item_check_update);
+        itemCheckUpdate.setOnItemClickListener(this);
     }
 
     @Override
@@ -56,6 +59,9 @@ public class AboutSettingFragment extends BaseSettingFragment {
             case R.id.item_about_me:
                 _mActivity.setFragmentAnimator(new DefaultNoAnimator());
                 AboutMeFragment.start();
+                break;
+            case R.id.item_open_source:
+                WebFragment.start(item.getRightText(), item.getTitleText());
                 break;
             case R.id.item_check_update:
                 break;

@@ -309,7 +309,7 @@ public class ChatFragment extends NextUrlFragment<PrivateLetterInfo> implements 
         if (nineGridImageView == null) {
             return;
         }
-        nineGridImageView.setImageLoader(new DiscoverBinder.GlideImageLoader());
+        nineGridImageView.setImageLoader(DiscoverBinder.getImageLoader());
         nineGridImageView.setOnItemClickListener(new NineGridView.onItemClickListener() {
             @Override
             public void onNineGirdAddMoreClick(int dValue) {

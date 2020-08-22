@@ -30,38 +30,42 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="48dp"
         android:orientation="horizontal">
 
         <RelativeLayout
             android:id="@+id/rlEmotionAdd"
-            android:layout_width="55dp"
-            android:layout_height="35dp"
-            android:background="@drawable/selector_common_item">
+            android:layout_width="56dp"
+            android:layout_height="match_parent"
+            android:background="@drawable/selector_common_item"
+            android:visibility="gone"
+            >
 
             <View
                 android:layout_width="1dp"
                 android:layout_height="match_parent"
-                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true"
                 android:background="@color/line"/>
 
             <ImageView
                 android:id="@+id/ivIcon"
-                android:layout_width="25dp"
-                android:layout_height="25dp"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
                 android:layout_centerInParent="true"
                 android:src="@drawable/ic_tab_add"/>
+
+
         </RelativeLayout>
+
         <!--表情设置Tab-->
         <HorizontalScrollView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:scrollbars="none">
 
             <LinearLayout
                 android:id="@+id/llTabContainer"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"/>
 

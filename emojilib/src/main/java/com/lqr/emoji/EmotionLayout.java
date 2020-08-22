@@ -26,7 +26,7 @@ public class EmotionLayout extends LinearLayout implements View.OnClickListener 
     private static final String TAG = "EmotionLayout";
 
     public static final int EMOJI_COLUMNS = 7;
-    public static final int EMOJI_ROWS = 3;
+    public static final int EMOJI_ROWS = 4;
     public static final int EMOJI_PER_PAGE = EMOJI_COLUMNS * EMOJI_ROWS - 1;//最后一个是删除键
 
     public static final int STICKER_COLUMNS = 4;
@@ -173,9 +173,15 @@ public class EmotionLayout extends LinearLayout implements View.OnClickListener 
 
     private void initTabs() {
         //默认添加一个表情tab
-        EmotionTab emojiTab = new EmotionTab(mContext, R.drawable.ic_tab_emoji);
-        mLlTabContainer.addView(emojiTab);
-        mTabViewArray.put(0, emojiTab);
+//        EmotionTab emojiTab = new EmotionTab(mContext, R.drawable.ic_tab_emoji);
+//        mLlTabContainer.addView(emojiTab);
+//        mTabViewArray.put(0, emojiTab);
+
+        for (int i = 0; i < EmojiManager.getCategoryCount(); i++) {
+            EmotionTab emojiTab = new EmotionTab(mContext, EmojiManager.getDrawable(getContext(), EmojiManager.getCategoryList(i).get(0).text));
+            mLlTabContainer.addView(emojiTab);
+            mTabViewArray.put(i, emojiTab);
+        }
 
         //添加所有的贴图tab
         List<StickerCategory> stickerCategories = StickerManager.getInstance().getStickerCategories();
@@ -184,11 +190,11 @@ public class EmotionLayout extends LinearLayout implements View.OnClickListener 
             StickerCategory category = stickerCategories.get(i);
             EmotionTab tab = new EmotionTab(mContext, category.getCoverImgPath());
             mLlTabContainer.addView(tab);
-            mTabViewArray.put(i + 1, tab);
+            mTabViewArray.put(i + EmojiManager.getCategoryCount(), tab);
         }
 
         //最后添加一个表情设置Tab
-        mSettingTab = new EmotionTab(mContext, R.drawable.ic_emotion_setting);
+        mSettingTab = new EmotionTab(mContext, getResources().getDrawable(R.drawable.ic_emotion_setting));
         StateListDrawable drawable = new StateListDrawable();
         Drawable unSelected = mContext.getResources().getDrawable(R.color.white);
         drawable.addState(new int[]{-android.R.attr.state_pressed}, unSelected);
@@ -249,10 +255,10 @@ public class EmotionLayout extends LinearLayout implements View.OnClickListener 
     }
 
     private void setCurPageCommon(int position) {
-        if (mTabPosi == 0)
-            setCurPage(position, (int) Math.ceil(EmojiManager.getDisplayCount() / (float) EmotionLayout.EMOJI_PER_PAGE));
+        if (mTabPosi < EmojiManager.getCategoryCount())
+            setCurPage(position, (int) Math.ceil(EmojiManager.getCategoryList(mTabPosi).size() / (float) EmotionLayout.EMOJI_PER_PAGE));
         else {
-            StickerCategory category = StickerManager.getInstance().getStickerCategories().get(mTabPosi - 1);
+            StickerCategory category = StickerManager.getInstance().getStickerCategories().get(mTabPosi - EmojiManager.getCategoryCount());
             setCurPage(position, (int) Math.ceil(category.getStickers().size() / (float) EmotionLayout.STICKER_PER_PAGE));
         }
     }
@@ -280,11 +286,11 @@ public class EmotionLayout extends LinearLayout implements View.OnClickListener 
     }
 
     private void fillVpEmotioin(int tabPosi) {
-        EmotionViewPagerAdapter adapter = new EmotionViewPagerAdapter(mMeasuredWidth, mMeasuredHeight, tabPosi, mEmotionSelectedListener);
+        EmotionViewPagerAdapter adapter = new EmotionViewPagerAdapter(getMeasuredWidth(), getMeasuredHeight(), tabPosi, mEmotionSelectedListener);
         mVpEmotioin.setAdapter(adapter);
         mLlPageNumber.removeAllViews();
-        setCurPageCommon(0);
-        if (tabPosi == 0) {
+        setCurPageCommon(tabPosi);
+        if (tabPosi < EmojiManager.getCategoryCount()) {
             adapter.attachEditText(mMessageEditText);
         }
     }

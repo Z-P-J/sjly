@@ -18,11 +18,12 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.felix.atoast.library.AToast;
 import com.shehuan.niv.NiceImageView;
-import com.zpj.fragmentation.BaseFragment;
+import com.zpj.http.core.ObservableTask;
+import com.zpj.http.parser.html.nodes.Document;
 import com.zpj.popup.ZPopup;
-import com.zpj.popup.impl.AttachListPopup;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.api.HttpApi;
+import com.zpj.shouji.market.constant.Keys;
 import com.zpj.shouji.market.event.StartFragmentEvent;
 import com.zpj.shouji.market.manager.UserManager;
 import com.zpj.shouji.market.ui.adapter.FragmentsPagerAdapter;
@@ -42,7 +43,6 @@ import java.util.List;
 public class ProfileFragment extends ListenerFragment
         implements View.OnClickListener {
 
-    private static final String USER_ID = "user_id";
     public static final String DEFAULT_URL = "http://tt.shouji.com.cn/app/view_member_xml_v4.jsp?id=5636865";
 
     private static final String[] TAB_TITLES = {"动态", "收藏", "下载", "好友"};
@@ -62,6 +62,7 @@ public class ProfileFragment extends ListenerFragment
     private MagicIndicator magicIndicator;
 
     private String userId;
+    private String userName;
     private boolean isMe;
     private boolean isFriend;
 
@@ -72,7 +73,15 @@ public class ProfileFragment extends ListenerFragment
         ProfileFragment profileFragment = new ProfileFragment();
 //        profileFragment.setShouldLazyLoad(shouldLazyLoad);
         Bundle bundle = new Bundle();
-        bundle.putString(USER_ID, userId);
+        bundle.putString(Keys.ID, userId);
+        profileFragment.setArguments(bundle);
+        StartFragmentEvent.start(profileFragment);
+    }
+
+    public static void start(String userName) {
+        ProfileFragment profileFragment = new ProfileFragment();
+        Bundle bundle = new Bundle();
+        bundle.putString(Keys.NAME, userName);
         profileFragment.setArguments(bundle);
         StartFragmentEvent.start(profileFragment);
     }
@@ -81,7 +90,7 @@ public class ProfileFragment extends ListenerFragment
         ProfileFragment profileFragment = new ProfileFragment();
 //        profileFragment.setShouldLazyLoad(shouldLazyLoad);
         Bundle bundle = new Bundle();
-        bundle.putString(USER_ID, userId);
+        bundle.putString(Keys.ID, userId);
         profileFragment.setArguments(bundle);
         profileFragment.setFragmentLifeCycler(lifeCycler);
         StartFragmentEvent.start(profileFragment);
@@ -89,7 +98,7 @@ public class ProfileFragment extends ListenerFragment
 
     @Override
     protected int getLayoutId() {
-        return R.layout.fragment_profile3;
+        return R.layout.fragment_profile;
     }
 
     @Override
@@ -106,7 +115,13 @@ public class ProfileFragment extends ListenerFragment
     protected void initView(View view, @Nullable Bundle savedInstanceState) {
         Bundle bundle = getArguments();
         if (bundle != null) {
-            userId = bundle.getString(USER_ID);
+            userId = bundle.getString(Keys.ID, "");
+            if (TextUtils.isEmpty(userId)) {
+                userName = bundle.getString(Keys.NAME, "");
+                isMe = userName.equals(UserManager.getInstance().getUserNickName());
+            } else {
+                isMe = userId.equals(UserManager.getInstance().getUserId());
+            }
         } else {
             userId = null;
         }
@@ -114,11 +129,10 @@ public class ProfileFragment extends ListenerFragment
 
         stateLayout = view.findViewById(R.id.state_layout);
 
-        if (TextUtils.isEmpty(userId)) {
+        if (TextUtils.isEmpty(userId) && TextUtils.isEmpty(userName)) {
             stateLayout.showErrorView("用户不存在！");
             return;
         }
-        isMe = userId.equals(UserManager.getInstance().getUserId());
 
         headerLayout = view.findViewById(R.id.layout_header);
 
@@ -194,8 +208,9 @@ public class ProfileFragment extends ListenerFragment
     }
 
     private void getMemberInfo() {
-        HttpApi.getMemberInfoApi(userId)
-                .onSuccess(element -> {
+        ObservableTask<Document> task = TextUtils.isEmpty(userId)
+                ? HttpApi.getMemberInfoByNameApi(userName) : HttpApi.getMemberInfoByIdApi(userId);
+        task.onSuccess(element -> {
                     Log.d("onGetUserItem", "element=" + element);
                     isFriend = "1".equals(element.selectFirst("isfriend").text());
                     if (isFriend) {
@@ -205,6 +220,10 @@ public class ProfileFragment extends ListenerFragment
                     }
                     memberBackground = element.selectFirst("memberbackground").text();
                     memberAvatar = element.selectFirst("memberavatar").text();
+
+                    if (TextUtils.isEmpty(userId)) {
+                        userId = element.selectFirst("memberid").text();
+                    }
 
                     if (!isMe) {
                         Glide.with(context).load(memberBackground)

@@ -7,7 +7,6 @@ import android.text.SpannableString;
 import android.text.Spanned;
 import android.text.TextPaint;
 import android.text.TextUtils;
-import android.text.method.LinkMovementMethod;
 import android.text.style.ClickableSpan;
 import android.util.Log;
 import android.view.View;
@@ -19,6 +18,8 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.bumptech.glide.request.target.Target;
+import com.ctetin.expandabletextviewlibrary.ExpandableTextView;
+import com.ctetin.expandabletextviewlibrary.app.LinkType;
 import com.felix.atoast.library.AToast;
 import com.lwkandroid.widget.ninegridview.INineGridImageLoader;
 import com.lwkandroid.widget.ninegridview.NineGirdImageContainer;
@@ -31,21 +32,27 @@ import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.api.HttpApi;
 import com.zpj.shouji.market.glide.GlideApp;
 import com.zpj.shouji.market.glide.blur.CropBlurTransformation;
-import com.zpj.shouji.market.glide.blur.PercentBlurTransformation;
 import com.zpj.shouji.market.model.DiscoverInfo;
+import com.zpj.shouji.market.ui.fragment.WebFragment;
 import com.zpj.shouji.market.ui.fragment.detail.AppDetailFragment;
 import com.zpj.shouji.market.ui.fragment.profile.ProfileFragment;
 import com.zpj.shouji.market.ui.fragment.theme.ThemeDetailFragment;
+import com.zpj.shouji.market.ui.fragment.theme.TopicThemeListFragment;
 import com.zpj.shouji.market.ui.widget.DrawableTintTextView;
+import com.zpj.shouji.market.ui.widget.emoji.EmojiExpandableTextView;
 import com.zpj.shouji.market.ui.widget.popup.CommonImageViewerPopup;
 import com.zpj.shouji.market.ui.widget.popup.ThemeAppDownloadPopup;
+import com.zpj.shouji.market.utils.TextUrlUtil;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import top.defaults.drawabletoolbox.DrawableBuilder;
+public class DiscoverBinder
+        implements IEasy.OnBindViewHolderListener<DiscoverInfo>,
+        TextUrlUtil.OnClickString {
 
-public class DiscoverBinder implements IEasy.OnBindViewHolderListener<DiscoverInfo> {
+
+    private static NineGridImageLoader imageLoader;
 
 
     private final boolean showComment;
@@ -70,64 +77,63 @@ public class DiscoverBinder implements IEasy.OnBindViewHolderListener<DiscoverIn
                 .load(discoverInfo.getIcon())
                 .into(holder.getImageView(R.id.item_icon));
 
-        NineGridView nineGridImageView = holder.getView(R.id.nine_grid_image_view);
-        nineGridImageView.setImageLoader(new GlideImageLoader());
-        nineGridImageView.setOnItemClickListener(new NineGridView.onItemClickListener() {
-            @Override
-            public void onNineGirdAddMoreClick(int dValue) {
 
-            }
-
-            @Override
-            public void onNineGirdItemClick(int position, NineGridBean gridBean, NineGirdImageContainer imageContainer) {
-//                ImageViewer.with(context)
-//                        .setImageList(discoverInfo.getSpics())
-//                        .setNowIndex(position)
-//                        .setSourceImageView(pos -> {
-//                            NineGirdImageContainer view = (NineGirdImageContainer) nineGridImageView.getChildAt(pos);
-//                            return view.getImageView();
-//                        })
-//                        .show();
-                CommonImageViewerPopup.with(context)
-                        .setOriginalImageList(discoverInfo.getPics())
-                        .setImageSizeList(discoverInfo.getPicSizes())
-                        .setImageUrls(discoverInfo.getSpics())
-                        .setSrcView(imageContainer.getImageView(), position)
-                        .setSrcViewUpdateListener((popup, pos) -> {
-                            NineGirdImageContainer view = (NineGirdImageContainer) nineGridImageView.getChildAt(pos);
-                            popup.updateSrcView(view.getImageView());
-                        })
-                        .show();
-            }
-
-            @Override
-            public void onNineGirdItemDeleted(int position, NineGridBean gridBean, NineGirdImageContainer imageContainer) {
-
-            }
-        });
         TextView shareInfo = holder.getTextView(R.id.share_info);
         View appLayout = holder.getView(R.id.layout_app);
 
 
         holder.setVisible(R.id.collection_layout, false);
-        nineGridImageView.setVisibility(View.VISIBLE);
-        holder.setVisible(R.id.tv_content, true);
+        EmojiExpandableTextView tvContent = holder.getView(R.id.tv_content);
+//        tvContent.setClickable(false);
+//        tvContent.setLongClickable(false);
+//        tvContent.setSpanAtUserCallBackListener(this);
+//        tvContent.setSpanTopicCallBackListener(this);
+//        tvContent.setSpanUrlCallBackListener(this);
+        NineGridView nineGridImageView = holder.getView(R.id.nine_grid_image_view);
         if (!discoverInfo.getSpics().isEmpty()) {
+            tvContent.setVisibility(View.VISIBLE);
             shareInfo.setText("分享乐图:");
             List<NineGridBean> gridList = new ArrayList<>();
             for (String url : discoverInfo.getSpics()) {
                 gridList.add(new NineGridBean(url));
             }
+            nineGridImageView.setVisibility(View.VISIBLE);
+            nineGridImageView.setImageLoader(getImageLoader());
+            nineGridImageView.setOnItemClickListener(new NineGridView.onItemClickListener() {
+                @Override
+                public void onNineGirdAddMoreClick(int dValue) {
+
+                }
+
+                @Override
+                public void onNineGirdItemClick(int position, NineGridBean gridBean, NineGirdImageContainer imageContainer) {
+                    CommonImageViewerPopup.with(context)
+                            .setOriginalImageList(discoverInfo.getPics())
+                            .setImageSizeList(discoverInfo.getPicSizes())
+                            .setImageUrls(discoverInfo.getSpics())
+                            .setSrcView(imageContainer.getImageView(), position)
+                            .setSrcViewUpdateListener((popup, pos) -> {
+                                NineGirdImageContainer view = (NineGirdImageContainer) nineGridImageView.getChildAt(pos);
+                                popup.updateSrcView(view.getImageView());
+                            })
+                            .show();
+                }
+
+                @Override
+                public void onNineGirdItemDeleted(int position, NineGridBean gridBean, NineGirdImageContainer imageContainer) {
+
+                }
+            });
+
             nineGridImageView.setDataList(gridList);
-//            nineGridImageView.setImagesData(discoverInfo.getSpics());
         } else if (!discoverInfo.getSharePics().isEmpty()) {
+            tvContent.setVisibility(View.GONE);
             shareInfo.setText("分享应用集:");
             nineGridImageView.setVisibility(View.GONE);
-//            nineGridImageView.setImagesData(discoverInfo.getSharePics());
 
             holder.setVisible(R.id.collection_layout, true);
             NineGridView gridImageView = holder.getView(R.id.grid_image_view);
-            gridImageView.setImageLoader(new GlideImageLoader());
+            gridImageView.setImageLoader(getImageLoader());
             List<NineGridBean> gridList = new ArrayList<>();
             for (String url : discoverInfo.getSharePics()) {
                 gridList.add(new NineGridBean(url));
@@ -142,17 +148,14 @@ public class DiscoverBinder implements IEasy.OnBindViewHolderListener<DiscoverIn
 
             Glide.with(context)
                     .load(discoverInfo.getSharePics().get(0))
-//                    .apply(RequestOptions.bitmapTransform(new BlurTransformation(26, 6)))
-//                    .apply(RequestOptions.bitmapTransform(new PercentBlurTransformation(0.1f, 1 / 4f)))
                     .apply(RequestOptions.bitmapTransform(new CropBlurTransformation(18, 0.8f)))
                     .into(holder.getImageView(R.id.img_bg));
 
             holder.getTextView(R.id.tv_title).setText(discoverInfo.getShareTitle());
             holder.setText(R.id.tv_info, "共" + discoverInfo.getShareCount() + "个应用");
             holder.getTextView(R.id.tv_desc).setText("简介：" + discoverInfo.getContent());
-            holder.setVisible(R.id.tv_content, false);
-
         } else {
+            tvContent.setVisibility(View.VISIBLE);
             shareInfo.setText("分享动态:");
             nineGridImageView.setVisibility(View.GONE);
         }
@@ -223,11 +226,32 @@ public class DiscoverBinder implements IEasy.OnBindViewHolderListener<DiscoverIn
                         }
                         break;
                     }
-                    TextView textView = new TextView(context);
-
+                    EmojiExpandableTextView textView = new EmojiExpandableTextView(context);
+                    textView.setNeedExpend(false);
+                    textView.setNeedSelf(true);
+                    textView.setSelfTextColor(context.getResources().getColor(R.color.colorPrimary));
                     textView.setTextColor(context.getResources().getColor(R.color.color_text_major));
-                    textView.setText(getComment(child));
-                    textView.setMovementMethod(LinkMovementMethod.getInstance());
+                    textView.setContent(getComment2(child));
+                    textView.setMaxLines(8);
+                    textView.setEllipsize(TextUtils.TruncateAt.MIDDLE);
+                    textView.setLinkClickListener(new ExpandableTextView.OnLinkClickListener() {
+                        @Override
+                        public void onLinkClickListener(LinkType type, String content, String selfContent) {
+//                            if (type == LinkType.SELF && selfContent.startsWith("memberId=")) {
+//                                ProfileFragment.start(selfContent.replace("memberId=", ""), false);
+//                            }
+                            if (type == LinkType.SELF) {
+                                ProfileFragment.start(content);
+                            }
+                        }
+                    });
+//                    textView.setMovementMethod(LinkMovementMethod.getInstance());
+//                    textView.setMovementMethod(new TextUrlUtil.LinkTouchMovementMethod(new View.OnClickListener() {
+//                        @Override
+//                        public void onClick(View v) {
+//                            holder.getItemView().performClick();
+//                        }
+//                    }));
 
                     textView.setPadding(0, 0, 0, 8);
                     commentLayout.addView(textView);
@@ -238,16 +262,38 @@ public class DiscoverBinder implements IEasy.OnBindViewHolderListener<DiscoverIn
         }
 
 
-//        holder.setBackground(R.id.tv_state, new DrawableBuilder()
-//                .rectangle()
-//                .rounded()
-//                .solidColor(context.getResources().getColor(R.color.light_gray_4)) // Color.parseColor("#fcee81")
-//                .build());
         holder.setText(R.id.tv_state, discoverInfo.getIconState());
-        holder.getTextView(R.id.phone_type).setText(discoverInfo.getPhone());
-        holder.getTextView(R.id.user_name).setText(discoverInfo.getNickName());
-        holder.getTextView(R.id.text_info).setText(discoverInfo.getTime());
-        holder.getTextView(R.id.tv_content).setText(discoverInfo.getContent());
+        holder.setText(R.id.phone_type, discoverInfo.getPhone());
+        holder.setText(R.id.user_name, discoverInfo.getNickName());
+        holder.setText(R.id.text_info, discoverInfo.getTime());
+        if (tvContent.getVisibility() == View.VISIBLE) {
+//            tvContent.setRichText(discoverInfo.getContent());
+//            ViewParent parent = tvContent.getParent();
+//            if (parent instanceof ViewGroup) {
+//                Log.d("LinkTouchMovementMethod", "onTouchEvent other performClick");
+//                ((ViewGroup) parent).setOnClickListener(v -> holder.getItemView().performClick());
+//            }
+//            tvContent.setTag(holder.getItemView());
+//            TextUrlUtil.dealContent(discoverInfo.getContent(), tvContent, -100, this, new View.OnClickListener() {
+//                @Override
+//                public void onClick(View v) {
+//                    holder.getItemView().performClick();
+//                }
+//            });
+            tvContent.setContent(discoverInfo.getContent());
+            tvContent.setLinkClickListener((type, content, selfContent) -> {
+                if (type == LinkType.LINK_TYPE) {
+                    WebFragment.start(content);
+                } else if (type == LinkType.MENTION_TYPE) {
+                    ProfileFragment.start(content.replace("@", "").trim());
+                } else if (type == LinkType.TOPIC_TYPE) {
+                    TopicThemeListFragment.start(content.replaceAll("#", "").trim());
+                }
+//                else if (type == LinkType.SELF) {
+//                    AToast.success("self:" + content);
+//                }
+            });
+        }
 
         TextView tvFollow = holder.getView(R.id.tv_follow);
         tvFollow.setOnClickListener(new View.OnClickListener() {
@@ -283,15 +329,6 @@ public class DiscoverBinder implements IEasy.OnBindViewHolderListener<DiscoverIn
                                 String count = String.valueOf(Long.parseLong(discoverInfo.getSupportCount()) + (isSelected ? 1 : -1));
                                 discoverInfo.setSupportCount(count);
                                 discoverInfo.setLike(isSelected);
-//                                if (isSelected) {
-//                                    SupportUserInfo userInfo = new SupportUserInfo();
-//                                    userInfo.setUserId(discoverInfo.getMemberId());
-//                                    userInfo.setNickName(discoverInfo.getNickName());
-//                                    userInfo.setUserLogo(discoverInfo.getIcon());
-//                                    discoverInfo.getSupportUserInfoList().add(userInfo);
-//                                } else {
-//
-//                                }
                             } else {
                                 AToast.error(result);
                                 supportView.setState(!isSelected);
@@ -309,116 +346,84 @@ public class DiscoverBinder implements IEasy.OnBindViewHolderListener<DiscoverIn
         IconCountView starView = holder.getView(R.id.like_view);
         starView.setCount(0);
 
-        holder.getView(R.id.comment_view).setOnClickListener(new View.OnClickListener() {
+        holder.setOnClickListener(R.id.comment_view, new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                AToast.normal("回复");
-//                CommentPopup.with(context, discoverInfo.getId()).show();
                 ThemeDetailFragment.start(discoverInfo, true);
             }
         });
 
-//        if (!isLightBackground) {
-//            holder.setTextColor(R.id.item_title, Color.WHITE);
-//            holder.setTextColor(R.id.text_info, Color.WHITE);
-//            holder.setTextColor(R.id.phone_type, Color.WHITE);
-//            holder.setTextColor(R.id.tv_content, Color.WHITE);
-////            holder.setTextColor(R.id.app_name, Color.WHITE);
-////            holder.setTextColor(R.id.app_info, Color.WHITE);
-//        }
-
-
     }
 
-    private SpannableString getComment(DiscoverInfo info) {
+    private String getComment2(DiscoverInfo info) {
         String nickName = info.getNickName();
         String toNickName = info.getToNickName();
-        String content = info.getContent();
-        SpannableString sp;
-        if (TextUtils.isEmpty(toNickName)) {
-            sp = new SpannableString(nickName + "：" + content);
-        } else {
-            sp = new SpannableString(nickName + " 回复 " + toNickName
-                    + "：" + content);
-            sp.setSpan(
-                    new MyClickableSpan(info.getToMemberId()),
-                    nickName.length() + 4,
-                    nickName.length() + 4 + toNickName.length(),
-                    Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
-            );
+        String model = "[%s](%s)";
+        String comment = String.format(model, nickName, info.getMemberId());
+
+        if (!TextUtils.isEmpty(toNickName)) {
+            comment += (" 回复 " + String.format(model, toNickName, info.getToMemberId()));
         }
-        sp.setSpan(
-                new MyClickableSpan(info.getMemberId()),
-                0,
-                nickName.length(),
-                Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
-        );
-        return sp;
+        comment += ("：" + info.getContent());
+        return comment;
     }
 
-//    public static void showMenu(Context context, DiscoverInfo data) {
-//        List<Integer> hideList = new ArrayList<>();
-//        boolean isLogin = UserManager.getInstance().isLogin();
-//        if (isLogin) {
-//            if (data.getMemberId().equals(UserManager.getInstance().getUserId())) {
-//                hideList.add(R.id.black_list);
-//            } else {
-//                hideList.add(R.id.delete);
-//                hideList.add(R.id.private_theme);
-//                hideList.add(R.id.public_theme);
-//            }
-//            hideList.add(data.isCollection() ? R.id.collect : R.id.delete_collect);
+//    private SpannableString getComment(DiscoverInfo info) {
+//        String nickName = info.getNickName();
+//        String toNickName = info.getToNickName();
+//        String content = info.getContent();
+//        SpannableString sp;
+//        if (TextUtils.isEmpty(toNickName)) {
+//            sp = new SpannableString(nickName + "：" + content);
 //        } else {
-//            hideList.add(R.id.collect);
-//            hideList.add(R.id.delete);
-//            hideList.add(R.id.delete_collect);
-//            hideList.add(R.id.report);
-//            hideList.add(R.id.black_list);
-//            hideList.add(R.id.private_theme);
-//            hideList.add(R.id.public_theme);
+//            sp = new SpannableString(nickName + " 回复 " + toNickName
+//                    + "：" + content);
+//            sp.setSpan(
+//                    new MyClickableSpan(info.getToMemberId()),
+//                    nickName.length() + 4,
+//                    nickName.length() + 4 + toNickName.length(),
+//                    Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
+//            );
 //        }
-//
-//        BottomListPopupMenu.with(context)
-//                .setMenu(R.menu.menu_tools)
-//                .addHideItem(hideList)
-//                .onItemClick((menu, view, data1) -> {
-//                    switch (data1.getItemId()) {
-//                        case R.id.copy:
-//                            ClipboardManager cm = (ClipboardManager) context.getSystemService(Context.CLIPBOARD_SERVICE);
-//                            cm.setPrimaryClip(ClipData.newPlainText(null, data.getContent()));
-//                            AToast.success("已复制到粘贴板");
-//                            break;
-//                        case R.id.share:
-//                            AToast.normal("TODO 分享");
-//                            break;
-//                        case R.id.collect:
-//                            HttpApi.addCollectionApi(data.getId());
-//                            break;
-//                        case R.id.delete_collect:
-//                            HttpApi.deleteCollectionApi(data.getId());
-//                            break;
-//                        case R.id.delete:
-//                            HttpApi.deleteThemeApi(data.getId());
-//                            break;
-//                        case R.id.report:
-//                            AToast.normal("举报");
-//                            break;
-//                        case R.id.black_list:
-//                            HttpApi.addBlacklistApi(data.getMemberId());
-//                            break;
-//                        case R.id.private_theme:
-//                            HttpApi.privateThemeApi(data.getId());
-//                            break;
-//                        case R.id.public_theme:
-//                            HttpApi.publicThemeApi(data.getId());
-//                            break;
-//                    }
-//                    menu.dismiss();
-//                })
-//                .show();
+//        sp.setSpan(
+//                new MyClickableSpan(info.getMemberId()),
+//                0,
+//                nickName.length(),
+//                Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
+//        );
+//        return sp;
 //    }
 
-    public static class GlideImageLoader implements INineGridImageLoader {
+    @Override
+    public void onLinkClick(String link) {
+        WebFragment.start(link);
+    }
+
+    @Override
+    public void onAtClick(String at) {
+        AToast.success(at);
+    }
+
+    @Override
+    public void onTopicClick(String topic) {
+        AToast.success(topic);
+    }
+
+    @Override
+    public void onViewClick(View view) {
+//        if (view.getTag() instanceof ViewGroup) {
+//            ((ViewGroup) view.getTag()).performClick();
+//        }
+    }
+
+    public static INineGridImageLoader getImageLoader() {
+        if (imageLoader == null) {
+            imageLoader = new NineGridImageLoader();
+        }
+        return imageLoader;
+    }
+
+    public static class NineGridImageLoader implements INineGridImageLoader {
 
         @Override
         public void displayNineGridImage(Context context, String url, ImageView imageView) {
@@ -436,46 +441,27 @@ public class DiscoverBinder implements IEasy.OnBindViewHolderListener<DiscoverIn
         public void displayNineGridImage(Context context, String url, ImageView imageView, int width, int height) {
             displayNineGridImage(context, url, imageView);
         }
+
     }
 
-//    public static class NineGridImageAdapter extends NineGridImageViewAdapter<String> {
+//    public static class MyClickableSpan extends ClickableSpan {
 //
-//        @Override
-//        protected void onDisplayImage(Context context, ImageView imageView, String s) {
-//            if (s.toLowerCase().endsWith(".gif")) {
-//                Log.d("PopupImageLoader", "gif");
-//                GlideApp.with(context).asGif().load(s)
-//                        .apply(new RequestOptions().centerCrop().placeholder(R.drawable.bga_pp_ic_holder_light).error(R.drawable.bga_pp_ic_holder_light).override(Target.SIZE_ORIGINAL)).into(imageView);
-//            } else {
-//                Log.d("PopupImageLoader", "png");
-//                Glide.with(context).load(s).apply(new RequestOptions().centerCrop().placeholder(R.drawable.bga_pp_ic_holder_light).error(R.drawable.bga_pp_ic_holder_light).override(Target.SIZE_ORIGINAL).dontAnimate()).into(imageView);
-//            }
+//        private final String memberId;
+//
+//        public MyClickableSpan(String memberId) {
+//            this.memberId = memberId;
 //        }
 //
 //        @Override
-//        protected void onItemImageClick(Context context, ImageView imageView, int index, List<String> list) {
-//            super.onItemImageClick(context, imageView, index, list);
+//        public void onClick(View widget) {
+//            ProfileFragment.start(memberId, false);
+//        }
+//
+//        @Override
+//        public void updateDrawState(@NonNull TextPaint ds) {
+//            super.updateDrawState(ds);
+//            ds.setUnderlineText(false);
 //        }
 //    }
-
-    public static class MyClickableSpan extends ClickableSpan {
-
-        private final String memberId;
-
-        public MyClickableSpan(String memberId) {
-            this.memberId = memberId;
-        }
-
-        @Override
-        public void onClick(View widget) {
-            ProfileFragment.start(memberId, false);
-        }
-
-        @Override
-        public void updateDrawState(@NonNull TextPaint ds) {
-            super.updateDrawState(ds);
-            ds.setUnderlineText(false);
-        }
-    }
 
 }

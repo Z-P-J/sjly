@@ -29,6 +29,7 @@ import com.zpj.shouji.market.glide.MyRequestOptions;
 import com.zpj.shouji.market.model.WallpaperInfo;
 import com.zpj.shouji.market.model.WallpaperTag;
 import com.zpj.shouji.market.ui.fragment.base.NextUrlFragment;
+import com.zpj.shouji.market.ui.widget.emoji.EmojiExpandableTextView;
 import com.zpj.shouji.market.ui.widget.popup.RecyclerPopup;
 import com.zpj.shouji.market.ui.widget.popup.WallpaperViewerPopup;
 import com.zpj.utils.ScreenUtils;
@@ -125,7 +126,8 @@ public class WallpaperListFragment extends NextUrlFragment<WallpaperInfo> {
                 .apply(MyRequestOptions.DEFAULT_OPTIONS).into(wallpaper);
 
         Glide.with(context).load(info.getMemberIcon()).into(holder.getImageView(R.id.iv_icon));
-        holder.getTextView(R.id.tv_content).setText(info.getContent());
+        EmojiExpandableTextView tvContent = holder.getView(R.id.tv_content);
+        tvContent.setContent(info.getContent());
         holder.getTextView(R.id.tv_name).setText(info.getNickName());
         IconCountView countView = holder.getView(R.id.support_view);
         countView.setCount(info.getSupportCount());

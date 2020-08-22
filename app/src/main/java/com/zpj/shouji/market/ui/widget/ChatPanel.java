@@ -25,6 +25,7 @@ import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -35,7 +36,6 @@ import com.felix.atoast.library.AToast;
 import com.lqr.emoji.EmotionLayout;
 import com.lqr.emoji.IEmotionExtClickListener;
 import com.lqr.emoji.IEmotionSelectedListener;
-import com.rockerhieu.emojicon.EmojiconEditText;
 import com.yanyusong.y_divideritemdecoration.Y_Divider;
 import com.yanyusong.y_divideritemdecoration.Y_DividerBuilder;
 import com.yanyusong.y_divideritemdecoration.Y_DividerItemDecoration;
@@ -52,8 +52,6 @@ import com.zpj.recyclerview.IEasy;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.event.GetMainActivityEvent;
 import com.zpj.shouji.market.glide.MyRequestOptions;
-import com.zpj.shouji.market.ui.activity.MainActivity;
-import com.zpj.shouji.market.utils.Callback;
 import com.zpj.utils.KeyboardHeightProvider;
 import com.zpj.utils.KeyboardUtils;
 import com.zpj.utils.ScreenUtils;
@@ -71,7 +69,7 @@ public class ChatPanel extends RelativeLayout
     }
 
     private final List<Item> imgList = new ArrayList<>();
-    private EmojiconEditText etEditor;
+    private EditText etEditor;
     private LinearLayout llActionsContainer;
     private ImageView ivEmoji;
     private ImageView ivImage;
@@ -312,7 +310,7 @@ public class ChatPanel extends RelativeLayout
         return textView;
     }
 
-    public EmojiconEditText getEditor() {
+    public EditText getEditor() {
         return etEditor;
     }
 

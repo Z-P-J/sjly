@@ -169,12 +169,18 @@ public final class HttpApi {
         return get(url);
     }
 
-    public static ObservableTask<Document> getMemberInfoApi(String id) {
+    public static ObservableTask<Document> getMemberInfoByIdApi(String id) {
         String url = String.format("http://tt.shouji.com.cn/app/view_member_xml_v4.jsp?id=%s", id);
         if (id.equals(UserManager.getInstance().getUserId())) {
             url += "&myself=yes";
         }
-        Log.d("getMemberInfoApi", "url=" + url);
+        Log.d("getMemberInfoByIdApi", "url=" + url);
+        return get(url);
+    }
+
+    public static ObservableTask<Document> getMemberInfoByNameApi(String name) {
+        String url = String.format("http://tt.shouji.com.cn/app/view_member_xml_v4.jsp?mm=%s", name);
+        Log.d("getMemberInfoByNameApi", "url=" + url);
         return get(url);
     }
 
@@ -376,10 +382,6 @@ public final class HttpApi {
                 .data("mmid", id)
                 .data("content", text)
                 .toHtml();
-    }
-
-    public static ObservableTask<Document> hotKeywordApi() {
-        return get("http://tt.shouji.com.cn/app/user_app_search_rm_xml.jsp?searchKey=");
     }
 
     public static ObservableTask<Document> appInfoApi(String type, String id) {

@@ -3,7 +3,6 @@ package com.zpj.shouji.market.ui.widget.flowlayout;
 import android.content.Context;
 import android.graphics.Color;
 import android.graphics.Rect;
-import android.graphics.drawable.Drawable;
 import android.graphics.drawable.GradientDrawable;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -25,8 +24,6 @@ import com.zpj.utils.ScreenUtils;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
-
-import top.defaults.drawabletoolbox.DrawableBuilder;
 
 public class FlowLayout extends RecyclerView implements IEasy.OnBindViewHolderListener<FlowLayout.FlowItem> {
 

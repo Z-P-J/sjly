@@ -64,7 +64,7 @@
 
         </RelativeLayout>
 
-        <TextView
+        <com.zpj.shouji.market.ui.widget.emoji.EmojiTextView
             android:id="@+id/tv_content"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -75,6 +75,7 @@
             android:layout_marginTop="8dp"
             android:textSize="12sp"
             android:textColor="@color/color_text_minor"
+            app:z_emojiSize="16dp"
             />
 
     </LinearLayout>

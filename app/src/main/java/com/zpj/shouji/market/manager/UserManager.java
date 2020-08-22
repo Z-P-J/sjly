@@ -111,6 +111,20 @@ public final class UserManager {
         return "";
     }
 
+    public String getUserNickName() {
+        if (isLogin()) {
+            return memberInfo.getMemberNickName();
+        }
+        return "";
+    }
+
+    public String getUserName() {
+        if (isLogin()) {
+            return memberInfo.getMemberName();
+        }
+        return "";
+    }
+
     public MemberInfo getMemberInfo() {
         return memberInfo;
     }

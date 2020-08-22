@@ -8,9 +8,12 @@ import com.zpj.fragmentation.BaseFragment;
 import com.zpj.http.parser.html.nodes.Element;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.api.HttpApi;
+import com.zpj.shouji.market.api.SearchApi;
 import com.zpj.shouji.market.database.SearchHistoryManager;
 import com.zpj.shouji.market.model.SearchHistory;
 import com.zpj.shouji.market.ui.widget.flowlayout.FlowLayout;
+import com.zpj.shouji.market.utils.Callback;
+import com.zpj.utils.ScreenUtils;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -43,9 +46,12 @@ public class SearchPanelFragment extends BaseFragment {
 
     @Override
     protected void initView(View view, @Nullable Bundle savedInstanceState) {
+        int dp8 = ScreenUtils.dp2pxInt(context, 8);
         hotSearch = view.findViewById(R.id.hot_search);
+        hotSearch.setSpace(dp8);
         hotSearch.setOnItemClickListener(onItemClickListener);
         searchHistory = view.findViewById(R.id.search_history);
+        searchHistory.setSpace(dp8);
         searchHistory.setOnItemClickListener(onItemClickListener);
         getHotSearch();
         getSearchHistory();
@@ -56,15 +62,7 @@ public class SearchPanelFragment extends BaseFragment {
     }
 
     private void getHotSearch() {
-        HttpApi.hotKeywordApi()
-                .onSuccess(data -> {
-                    List<String> list = new ArrayList<>();
-                    for (Element item : data.select("item")) {
-                        list.add(item.selectFirst("name").text());
-                    }
-                    hotSearch.addItems(list);
-                })
-                .subscribe();
+        SearchApi.getHotKeywordApi(obj -> hotSearch.addItems(obj));
     }
 
     private void getSearchHistory() {

@@ -49,10 +49,26 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
                     android:text="发现应用的乐趣"
-                    android:textColor="@color/color_text_normal"
+                    android:textColor="@color/colorPrimary"
                     android:textSize="14sp"
                     android:padding="8dp"
                     android:layout_marginBottom="16dp"
+                    />
+
+                <com.zpj.widget.setting.CommonSettingItem
+                    android:id="@+id/item_about_me"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:z_setting_titleText="关于开发者"
+                    app:z_setting_rightText="Z-P-J"
+                    />
+
+                <com.zpj.widget.setting.CommonSettingItem
+                    android:id="@+id/item_open_source"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:z_setting_titleText="开源地址"
+                    app:z_setting_rightText="https://github.com/Z-P-J/sjly"
                     />
 
                 <com.zpj.widget.setting.CommonSettingItem
@@ -70,41 +86,37 @@
                     />
 
                 <com.zpj.widget.setting.CommonSettingItem
-                    android:id="@+id/item_about_me"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    app:z_setting_titleText="关于作者"
-                    />
-
-                <com.zpj.widget.setting.CommonSettingItem
                     android:id="@+id/item_check_update"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     app:z_setting_titleText="检查更新"
+                    app:z_setting_rightText="v1.0.0"
                     />
 
-                <com.zpj.shouji.market.ui.widget.DetailLayout
-                    android:id="@+id/app_version"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    app:left_text="应用版本"
-                    app:right_text="1.0.0"
-                    />
 
-                <com.zpj.shouji.market.ui.widget.DetailLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    app:left_text="开发者"
-                    app:right_text="Z-P-J"
-                    />
 
-                <com.zpj.shouji.market.ui.widget.DetailLayout
-                    android:id="@+id/link_open_source"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    app:left_text="开源地址"
-                    app:right_text="https://github.com/Z-P-J/sjly"
-                    />
+<!--                <com.zpj.shouji.market.ui.widget.DetailLayout-->
+<!--                    android:id="@+id/app_version"-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    app:left_text="应用版本"-->
+<!--                    app:right_text="1.0.0"-->
+<!--                    />-->
+
+<!--                <com.zpj.shouji.market.ui.widget.DetailLayout-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    app:left_text="开发者"-->
+<!--                    app:right_text="Z-P-J"-->
+<!--                    />-->
+
+<!--                <com.zpj.shouji.market.ui.widget.DetailLayout-->
+<!--                    android:id="@+id/link_open_source"-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    app:left_text="开源地址"-->
+<!--                    app:right_text="https://github.com/Z-P-J/sjly"-->
+<!--                    />-->
 
             </LinearLayout>
 

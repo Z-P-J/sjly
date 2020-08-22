@@ -103,9 +103,9 @@
         <attr name="pv_background" format="reference" />
     </declare-styleable>
 
-
-
-
+    <declare-styleable name="EmojiTextView">
+        <attr name="z_emojiSize" format="dimension" />
+    </declare-styleable>
 
 
     <string-array name="default_wallpaper_tags">

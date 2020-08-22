@@ -23,7 +23,8 @@ public abstract class RecyclerLayoutFragment<T> extends BaseFragment
         IEasy.OnItemClickListener<T>,
         IEasy.OnItemLongClickListener<T>,
         IEasy.OnLoadMoreListener,
-        SwipeRefreshLayout.OnRefreshListener {
+        SwipeRefreshLayout.OnRefreshListener,
+        IEasy.OnLoadRetryListener {
 
     protected final List<T> data = new ArrayList<>();
     protected EasyRecyclerLayout<T> recyclerLayout;
@@ -51,6 +52,7 @@ public abstract class RecyclerLayoutFragment<T> extends BaseFragment
         recyclerLayout.setData(data)
                 .setItemRes(getItemLayoutId())
                 .setLayoutManager(getLayoutManager(context))
+                .setOnLoadRetryListener(this)
                 .setEnableLoadMore(true)
                 .setEnableSwipeRefresh(true)
                 .setOnRefreshListener(this)
@@ -67,6 +69,11 @@ public abstract class RecyclerLayoutFragment<T> extends BaseFragment
     public void onRefresh() {
         data.clear();
         recyclerLayout.notifyDataSetChanged();
+    }
+
+    @Override
+    public void onLoadRetry() {
+        onRefresh();
     }
 
     protected void handleArguments(Bundle arguments) {

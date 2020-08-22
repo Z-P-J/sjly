@@ -2,6 +2,7 @@ package com.lqr.emoji;
 
 
 import android.content.Context;
+import android.graphics.drawable.Drawable;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,8 +11,11 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
+import java.util.List;
+
 public class EmojiAdapter extends BaseAdapter {
 
+    private final List<EmojiManager.Entry> entries;
     private Context mContext;
     private int mStartIndex;
     private int mEmotionLayoutWidth;
@@ -20,11 +24,12 @@ public class EmojiAdapter extends BaseAdapter {
     private final float mPerHeight;
     private final float mIvSize;
 
-    public EmojiAdapter(Context context, int emotionLayoutWidth, int emotionLayoutHeight, int startIndex) {
+    public EmojiAdapter(Context context, List<EmojiManager.Entry> entries, int emotionLayoutWidth, int emotionLayoutHeight, int startIndex) {
+        this.entries = entries;
         mContext = context;
         mStartIndex = startIndex;
         mEmotionLayoutWidth = emotionLayoutWidth;
-        mEmotionLayoutHeight = emotionLayoutHeight - LQREmotionKit.dip2px(35 + 26 + 50);//减去底部的tab高度、小圆点的高度才是viewpager的高度，再减少30dp是让表情整体的顶部和底部有个外间距
+        mEmotionLayoutHeight = emotionLayoutHeight - LQREmotionKit.dip2px(26 + 48);//35 + 26 + 50   减去底部的tab高度、小圆点的高度才是viewpager的高度，再减少30dp是让表情整体的顶部和底部有个外间距
 
         mPerWidth = mEmotionLayoutWidth * 1f / EmotionLayout.EMOJI_COLUMNS;
         mPerHeight = mEmotionLayoutHeight * 1f / EmotionLayout.EMOJI_ROWS;
@@ -35,7 +40,10 @@ public class EmojiAdapter extends BaseAdapter {
 
     @Override
     public int getCount() {
-        int count = EmojiManager.getDisplayCount() - mStartIndex + 1;
+//        int count = EmojiManager.getDisplayCount() - mStartIndex + 1;
+//        count = Math.min(count, EmotionLayout.EMOJI_PER_PAGE + 1);
+//        return count;
+        int count = entries.size() - mStartIndex + 1;
         count = Math.min(count, EmotionLayout.EMOJI_PER_PAGE + 1);
         return count;
     }
@@ -57,12 +65,13 @@ public class EmojiAdapter extends BaseAdapter {
 //        rl.setBackgroundColor(Color.RED);
 
         ImageView emojiThumb = new ImageView(mContext);
-        int count = EmojiManager.getDisplayCount();
+//        int count = EmojiManager.getDisplayCount();
+        int count = entries.size();
         int index = mStartIndex + position;
         if (position == EmotionLayout.EMOJI_PER_PAGE || index == count) {
             emojiThumb.setBackgroundResource(R.drawable.ic_emoji_del);
         } else if (index < count) {
-            emojiThumb.setBackground(EmojiManager.getDisplayDrawable(mContext, index));
+            emojiThumb.setBackground(getDisplayDrawable(mContext, index));
         }
 
         RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
@@ -76,4 +85,10 @@ public class EmojiAdapter extends BaseAdapter {
 
         return rl;
     }
+
+    public Drawable getDisplayDrawable(Context context, int index) {
+        String text = (index >= 0 && index < entries.size() ? entries.get(index).text : null);
+        return text == null ? null : EmojiManager.getDrawable(context, text);
+    }
+
 }
