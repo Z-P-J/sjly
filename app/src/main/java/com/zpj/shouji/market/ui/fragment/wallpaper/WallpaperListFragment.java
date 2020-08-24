@@ -21,6 +21,7 @@ import com.sunbinqiang.iconcountview.IconCountView;
 import com.zpj.http.parser.html.nodes.Document;
 import com.zpj.http.parser.html.nodes.Element;
 import com.zpj.recyclerview.EasyRecyclerLayout;
+import com.zpj.recyclerview.EasyState;
 import com.zpj.recyclerview.EasyViewHolder;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.api.HttpApi;
@@ -196,19 +197,28 @@ public class WallpaperListFragment extends NextUrlFragment<WallpaperInfo> {
     public void onSuccess(Document doc) throws Exception {
         Log.d("getData", "doc=" + doc);
         nextUrl = doc.selectFirst("nextUrl").text();
+        if (refresh) {
+            data.clear();
+        }
+        int start = data.size();
         for (Element element : doc.select("item")) {
             WallpaperInfo item = createData(element);
             if (item == null) {
                 continue;
             }
             data.add(item);
-            recyclerLayout.notifyItemInserted(data.size() - 1);
         }
+        int end = data.size();
         if (data.size() == 0) {
             recyclerLayout.showEmpty();
         } else {
             recyclerLayout.showContent();
         }
+        if (start < end) {
+            // 这里加1是因为我们给RecyclerView添加了一个header View
+            recyclerLayout.notifyItemRangeChanged(start + 1, end - start);
+        }
+        refresh = false;
     }
 
     @Override
@@ -220,7 +230,7 @@ public class WallpaperListFragment extends NextUrlFragment<WallpaperInfo> {
 
         if (data.isEmpty()) {
             refresh = false;
-            recyclerLayout.showContent();
+            recyclerLayout.showEmpty();
         } else {
             refresh = true;
             getData();

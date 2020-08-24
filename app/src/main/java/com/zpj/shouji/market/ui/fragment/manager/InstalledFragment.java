@@ -76,7 +76,15 @@ public class InstalledFragment extends RecyclerLayoutFragment<InstalledAppInfo>
 
     private boolean isLoading = false;
 
-    @Override
+    public static InstalledFragment newInstance() {
+
+        Bundle args = new Bundle();
+        InstalledFragment fragment = new InstalledFragment();
+        fragment.setArguments(args);
+        return fragment;
+    }
+
+   @Override
     protected int getLayoutId() {
         return R.layout.fragment_installed;
     }
@@ -112,6 +120,7 @@ public class InstalledFragment extends RecyclerLayoutFragment<InstalledAppInfo>
         });
 
         checkBox = view.findViewById(R.id.checkbox);
+        checkBox.setChecked(false);
         checkBox.setOnClickListener(v -> {
             if (checkBox.isChecked()) {
                 recyclerLayout.unSelectAll();
@@ -162,18 +171,18 @@ public class InstalledFragment extends RecyclerLayoutFragment<InstalledAppInfo>
                 });
     }
 
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == AppUtil.UNINSTALL_REQUEST_CODE) {
-            if (resultCode == Activity.RESULT_OK) {
-                AToast.success("应用卸载成功！");
-                loadInstallApps();
-            } else if (resultCode == Activity.RESULT_CANCELED) {
-                AToast.normal("应用卸载取消！");
-            }
-        }
-    }
+//    @Override
+//    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+//        super.onActivityResult(requestCode, resultCode, data);
+//        if (requestCode == AppUtil.UNINSTALL_REQUEST_CODE) {
+//            if (resultCode == Activity.RESULT_OK) {
+//                AToast.success("应用卸载成功！");
+//                loadInstallApps();
+//            } else if (resultCode == Activity.RESULT_CANCELED) {
+//                AToast.normal("应用卸载取消！");
+//            }
+//        }
+//    }
 
     @Override
     public void onClick(EasyViewHolder holder, View view, InstalledAppInfo data) {

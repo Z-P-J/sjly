@@ -1,5 +1,7 @@
 package com.zpj.shouji.market.ui.activity;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
@@ -35,6 +37,7 @@ import com.zpj.shouji.market.manager.AppInstalledManager;
 import com.zpj.shouji.market.manager.AppUpdateManager;
 import com.zpj.shouji.market.manager.UserManager;
 import com.zpj.shouji.market.ui.fragment.MainFragment;
+import com.zpj.shouji.market.utils.AppUtil;
 import com.zpj.shouji.market.utils.PictureUtil;
 import com.zpj.utils.StatusBarUtils;
 
@@ -113,6 +116,18 @@ public class MainActivity extends SupportActivity {
         } else {
 //            finish();
             ActivityCompat.finishAfterTransition(this);
+        }
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == AppUtil.UNINSTALL_REQUEST_CODE) {
+            if (resultCode == Activity.RESULT_OK) {
+                AToast.success("应用卸载成功！");
+            } else if (resultCode == Activity.RESULT_CANCELED) {
+                AToast.normal("应用卸载取消！");
+            }
         }
     }
 

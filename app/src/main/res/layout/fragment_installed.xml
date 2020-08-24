@@ -9,7 +9,8 @@
         android:id="@+id/layout_header"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="5dp"
+        android:paddingHorizontal="16dp"
+        android:paddingVertical="8dp"
         android:background="@drawable/bottom_line_gray"
         >
 
@@ -17,7 +18,6 @@
             android:id="@+id/text_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:padding="5dp"
             android:text="用户应用"
             android:drawableEnd="@drawable/ic_expand_more_black_24dp"
             android:gravity="center"
@@ -28,7 +28,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="已选：8"
-            android:padding="5dp"
             android:layout_alignParentEnd="true"
             />
 

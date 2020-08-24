@@ -1,5 +1,7 @@
 package com.zpj.shouji.market.model;
 
+import android.text.TextUtils;
+
 public class InstalledAppInfo {
 
     private String name;
@@ -182,5 +184,19 @@ public class InstalledAppInfo {
 
     public boolean isDamaged() {
         return isDamaged;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        InstalledAppInfo that = (InstalledAppInfo) o;
+        return TextUtils.equals(this.packageName, that.packageName);
+    }
+
+    @Override
+    public int hashCode() {
+        return packageName != null ? packageName.hashCode() : 0;
     }
 }

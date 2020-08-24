@@ -127,4 +127,36 @@
         <item>酷车</item>
     </string-array>
 
+    <string-array name="default_publish_tags">
+        <item>自言自语</item>
+        <item>晒游戏</item>
+        <item>晒应用</item>
+        <item>游戏</item>
+        <item>汉化</item>
+        <item>破解</item>
+        <item>评测</item>
+        <item>吐槽</item>
+        <item>工具</item>
+        <item>每日故事</item>
+        <item>申请收录</item>
+        <item>教程</item>
+    </string-array>
+
+    <string-array name="default_hot_keyword">
+        <item>奥特曼传奇英雄破解版</item>
+        <item>和平精英破解版</item>
+        <item>奥特曼</item>
+        <item>我的世界</item>
+        <item>玩具熊的五夜后宫</item>
+        <item>奥特曼传奇英雄</item>
+        <item>破解版</item>
+        <item>植物大战僵尸</item>
+        <item>植物大战僵尸破解版</item>
+        <item>奥特曼格斗进化</item>
+        <item>穿越火线</item>
+        <item>英雄联盟</item>
+        <item>元气骑士</item>
+        <item>鬼畜天线宝宝</item>
+    </string-array>
+
 </resources>

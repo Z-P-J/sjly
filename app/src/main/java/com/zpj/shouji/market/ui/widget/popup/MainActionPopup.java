@@ -19,18 +19,26 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.felix.atoast.library.AToast;
+import com.zpj.http.core.IHttp;
+import com.zpj.http.core.ObservableTask;
 import com.zpj.popup.enums.PopupAnimation;
 import com.zpj.popup.impl.FullScreenPopup;
 import com.zpj.popup.util.ActivityUtils;
 import com.zpj.shouji.market.R;
+import com.zpj.shouji.market.event.GetMainActivityEvent;
+import com.zpj.shouji.market.ui.activity.MainActivity;
 import com.zpj.shouji.market.ui.animator.KickBackAnimator;
 import com.zpj.shouji.market.ui.fragment.DiscoverEditorFragment2;
+import com.zpj.shouji.market.ui.fragment.collection.CollectionShareFragment;
+import com.zpj.shouji.market.ui.fragment.manager.AppPickerFragment;
 import com.zpj.shouji.market.ui.fragment.profile.MyPrivateLetterFragment;
 import com.zpj.shouji.market.ui.fragment.wallpaper.WallpaperShareFragment;
+import com.zpj.shouji.market.utils.Callback;
 
 import io.reactivex.Observable;
 import io.reactivex.ObservableOnSubscribe;
 import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 import per.goweii.burred.Blurred;
 
@@ -40,6 +48,8 @@ public class MainActionPopup extends FullScreenPopup<MainActionPopup> implements
     private final String[] menuTextItems = {"动态", "应用集", "乐图", "私聊"};
 
     private FloatingActionButton floatingActionButton;
+
+    private Disposable disposable;
 
     public static MainActionPopup with(Context context) {
         return new MainActionPopup(context);
@@ -70,22 +80,63 @@ public class MainActionPopup extends FullScreenPopup<MainActionPopup> implements
         }
         ImageView ivBg = findViewById(R.id.iv_bg);
 
-        Observable.create((ObservableOnSubscribe<Bitmap>) emitter -> {
-            Activity activity = ActivityUtils.getActivity(context);
-            Bitmap bitmap = Blurred.with(activity.findViewById(R.id.main_content))
-                    .backgroundColor(Color.WHITE)
-                    .foregroundColor(Color.parseColor("#80ffffff"))
-                    .scale(0.5f)
-                    .radius(25)
-                    .blur();
-            emitter.onNext(bitmap);
-            emitter.onComplete();
-        })
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .doOnNext(ivBg::setImageBitmap)
-                .doOnError(throwable -> AToast.error(throwable.getMessage()))
-                .subscribe();
+        GetMainActivityEvent.post(new Callback<MainActivity>() {
+            @Override
+            public void onCallback(MainActivity activity) {
+                disposable = new ObservableTask<Bitmap>(
+                        emitter -> {
+                            Bitmap bitmap = Blurred.with(activity.findViewById(R.id.main_content))
+                                    .backgroundColor(Color.WHITE)
+                                    .foregroundColor(Color.parseColor("#80ffffff"))
+                                    .scale(0.5f)
+                                    .radius(25)
+                                    .blur();
+                            emitter.onNext(bitmap);
+                            emitter.onComplete();
+                        })
+                        .onSuccess(data -> {
+                            if (ivBg != null) {
+                                ivBg.setImageBitmap(data);
+                            }
+                        })
+                        .onError(throwable -> AToast.error(throwable.getMessage()))
+                        .subscribe();
+            }
+        });
+//        new ObservableTask<Bitmap>(
+//                emitter -> {
+//
+//                    Activity activity = ActivityUtils.getActivity(context);
+//                    Bitmap bitmap = Blurred.with(activity.findViewById(R.id.main_content))
+//                            .backgroundColor(Color.WHITE)
+//                            .foregroundColor(Color.parseColor("#80ffffff"))
+//                            .scale(0.5f)
+//                            .radius(25)
+//                            .blur();
+//                    emitter.onNext(bitmap);
+//                    emitter.onComplete();
+//                })
+//                .onSuccess(ivBg::setImageBitmap)
+//                .onError(throwable -> AToast.error(throwable.getMessage()))
+//                .subscribe();
+
+//        Observable.create(
+//                (ObservableOnSubscribe<Bitmap>) emitter -> {
+//                    Activity activity = ActivityUtils.getActivity(context);
+//                    Bitmap bitmap = Blurred.with(activity.findViewById(R.id.main_content))
+//                            .backgroundColor(Color.WHITE)
+//                            .foregroundColor(Color.parseColor("#80ffffff"))
+//                            .scale(0.5f)
+//                            .radius(25)
+//                            .blur();
+//                    emitter.onNext(bitmap);
+//                    emitter.onComplete();
+//                })
+//                .subscribeOn(Schedulers.io())
+//                .observeOn(AndroidSchedulers.mainThread())
+//                .doOnNext(ivBg::setImageBitmap)
+//                .doOnError(throwable -> AToast.error(throwable.getMessage()))
+//                .subscribe();
 
         floatingActionButton.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
             @Override
@@ -200,6 +251,9 @@ public class MainActionPopup extends FullScreenPopup<MainActionPopup> implements
                 @Override
                 public void onAnimationEnd(Animator animation) {
                     setVisibility(View.GONE);
+                    if (disposable != null) {
+                        disposable.dispose();
+                    }
                 }
             });
             animator.setDuration(300);
@@ -220,6 +274,7 @@ public class MainActionPopup extends FullScreenPopup<MainActionPopup> implements
                 DiscoverEditorFragment2.start();
                 break;
             case 1:
+                CollectionShareFragment.start();
                 break;
             case 2:
                 WallpaperShareFragment.start();

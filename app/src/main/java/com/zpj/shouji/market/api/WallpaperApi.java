@@ -25,7 +25,6 @@ import java.util.List;
 
 public class WallpaperApi {
 
-    private static final String USER_AGENT = "okhttp/3.0.1";
     private static final List<WallpaperTag> wallpaperTags = new ArrayList<>(0);
     private static boolean flag;
 
@@ -38,6 +37,8 @@ public class WallpaperApi {
             callback.onCallback(wallpaperTags);
             return;
         }
+        returnDefaultTags(callback);
+
         HttpApi.get("http://tt.shouji.com.cn/app/bizhi_tags.jsp")
                 .onSuccess(data -> {
                     Elements elements = data.select("item");
@@ -49,14 +50,18 @@ public class WallpaperApi {
                     flag = true;
                 })
                 .onError(throwable -> {
-                    String[] tags = ContextUtils.getApplicationContext().getResources().getStringArray(R.array.default_wallpaper_tags);
-                    wallpaperTags.clear();
-                    for (int i = 0; i < tags.length; i++) {
-                        wallpaperTags.add(WallpaperTag.create(Integer.toString(i + 1), tags[i]));
-                    }
-                    callback.onCallback(wallpaperTags);
+                    returnDefaultTags(callback);
                 })
                 .subscribe();
+    }
+
+    private static void returnDefaultTags(Callback<List<WallpaperTag>> callback) {
+        String[] tags = ContextUtils.getApplicationContext().getResources().getStringArray(R.array.default_wallpaper_tags);
+        wallpaperTags.clear();
+        for (int i = 0; i < tags.length; i++) {
+            wallpaperTags.add(WallpaperTag.create(Integer.toString(i + 1), tags[i]));
+        }
+        callback.onCallback(wallpaperTags);
     }
 
 
@@ -76,7 +81,7 @@ public class WallpaperApi {
                     .data("content", content)
                     .data("image", "image.png", new FileInputStream(file), listener)
                     .validateTLSCertificates(false)
-                    .userAgent(USER_AGENT)
+                    .userAgent(HttpApi.USER_AGENT)
                     .onRedirect(redirectUrl -> {
                         Log.d("connect", "onRedirect redirectUrl=" + redirectUrl);
                         return true;

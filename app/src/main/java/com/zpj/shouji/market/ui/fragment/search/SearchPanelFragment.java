@@ -62,7 +62,7 @@ public class SearchPanelFragment extends BaseFragment {
     }
 
     private void getHotSearch() {
-        SearchApi.getHotKeywordApi(obj -> hotSearch.addItems(obj));
+        SearchApi.getHotKeywordApi(obj -> hotSearch.setItems(obj));
     }
 
     private void getSearchHistory() {

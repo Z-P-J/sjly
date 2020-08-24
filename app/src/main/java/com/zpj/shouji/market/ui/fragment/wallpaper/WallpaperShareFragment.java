@@ -41,7 +41,6 @@ public class WallpaperShareFragment extends BaseFragment
         implements ChatPanel.OnOperationListener,
         View.OnClickListener {
 
-    private final List<WallpaperTag> wallpaperTags = new ArrayList<>(0);
     private FlowLayout flowLayout;
     private FrameLayout flEmpty;
     private ImageView ivWallpaper;
@@ -88,8 +87,6 @@ public class WallpaperShareFragment extends BaseFragment
             tvShareMode.setText(isPrivate ? "公开" : "私有");
             isPrivate = !isPrivate;
         });
-
-        initFlowLayout();
     }
 
     @Override
@@ -102,6 +99,7 @@ public class WallpaperShareFragment extends BaseFragment
     public void onEnterAnimationEnd(Bundle savedInstanceState) {
         super.onEnterAnimationEnd(savedInstanceState);
         showSoftInput(chatPanel.getEditor());
+        initFlowLayout();
     }
 
     @Override
@@ -146,10 +144,11 @@ public class WallpaperShareFragment extends BaseFragment
         WallpaperApi.getWallpaperTags(tags -> {
             flowLayout.setOnItemClickListener((index, v, text) -> {
                 tag = text;
-                flowLayout.setSelectedPosition(index);
+//                flowLayout.setSelectedPosition(index);
             });
             flowLayout.setSpace(ScreenUtils.dp2pxInt(context, 8));
             flowLayout.setSelectedPosition(0);
+            flowLayout.clear();
             for (WallpaperTag tag : tags) {
                 if ("全部".equals(tag.getName())) {
                     continue;

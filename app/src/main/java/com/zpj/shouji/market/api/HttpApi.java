@@ -28,7 +28,7 @@ import io.reactivex.schedulers.Schedulers;
 
 public final class HttpApi {
 
-    private static final String USER_AGENT = "okhttp/3.0.1";
+    public static final String USER_AGENT = "okhttp/3.0.1";
     private static final String VERSION_CODE = "199";
     private static final String HEADER_ACCEPT_ENCODING = "Accept-Encoding";
     private static final String VALUE_ACCEPT_ENCODING = "gzip";

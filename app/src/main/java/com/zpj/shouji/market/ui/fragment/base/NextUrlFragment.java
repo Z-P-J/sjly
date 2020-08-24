@@ -90,9 +90,24 @@ public abstract class NextUrlFragment<T> extends RecyclerLayoutFragment<T>
         }
         int start = data.size();
         onGetDocument(doc);
-        int end = data.size() == 0 ? 0 : data.size() - 1;
-        if (start < end) {
-            recyclerLayout.notifyItemRangeChanged(start, end);
+//        int end = data.size() == 0 ? 0 : data.size() - 1;
+        int end = data.size();
+
+        Log.d("getData", "start=" + start + " end=" + end + " count=" + (end - start));
+        Log.d("getData", "getHeaderView=" + recyclerLayout.getAdapter().getHeaderView());
+        Log.d("getData", "getFooterView=" + recyclerLayout.getAdapter().getFooterView());
+        if (start == 0) {
+            recyclerLayout.notifyDataSetChanged();
+        } else {
+            if (start < end) {
+//            recyclerLayout.notifyItemRangeChanged(start, end);
+                int count = end - start;
+                if (recyclerLayout.getAdapter().getHeaderView() != null) {
+                    start += 1;
+                }
+                Log.d("getData222222222222", "start=" + start + " count=" + count);
+                recyclerLayout.notifyItemRangeChanged(start, count);
+            }
         }
         refresh = false;
         if (data.size() == 0) {

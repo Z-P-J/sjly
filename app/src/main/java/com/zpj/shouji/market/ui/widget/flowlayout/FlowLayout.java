@@ -6,6 +6,7 @@ import android.graphics.Rect;
 import android.graphics.drawable.GradientDrawable;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.graphics.ColorUtils;
 import android.support.v7.widget.RecyclerView;
 import android.text.SpannableString;
 import android.text.Spanned;
@@ -14,6 +15,7 @@ import android.util.AttributeSet;
 import android.view.View;
 import android.widget.TextView;
 
+import com.felix.atoast.library.AToast;
 import com.zpj.recyclerview.EasyRecyclerView;
 import com.zpj.recyclerview.EasyViewHolder;
 import com.zpj.recyclerview.IEasy;
@@ -22,8 +24,10 @@ import com.zpj.shouji.market.ui.widget.DotSpan;
 import com.zpj.utils.ScreenUtils;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Random;
+import java.util.Set;
 
 public class FlowLayout extends RecyclerView implements IEasy.OnBindViewHolderListener<FlowLayout.FlowItem> {
 
@@ -32,7 +36,12 @@ public class FlowLayout extends RecyclerView implements IEasy.OnBindViewHolderLi
     private OnItemClickListener onItemClickListener;
     private OnItemLongClickListener onItemLongClickListener;
 
-    private int selectedPosition = -1;
+    private final Set<Integer> selectedList = new HashSet<>();
+
+//    private int selectedPosition = -1;
+    private boolean selectMode;
+    private boolean multiSelectMode;
+    private int maxSelectCount = Integer.MAX_VALUE;
 
     private int dp8;
 
@@ -69,6 +78,14 @@ public class FlowLayout extends RecyclerView implements IEasy.OnBindViewHolderLi
                 })
                 .onBindViewHolder(this)
                 .onItemClick((holder, view, data) -> {
+                    if (selectMode || !selectedList.isEmpty()) {
+                        if (selectedList.contains(holder.getAdapterPosition())) {
+                            selectedList.remove(holder.getAdapterPosition());
+                            recyclerView.notifyDataSetChanged();
+                        } else {
+                            addSelectedPosition(holder.getAdapterPosition());
+                        }
+                    }
                     if (onItemClickListener != null) {
                         onItemClickListener.onClick(holder.getAdapterPosition(), view, data.text);
                     }
@@ -89,9 +106,10 @@ public class FlowLayout extends RecyclerView implements IEasy.OnBindViewHolderLi
         int color;
         GradientDrawable drawable;
         if (item.drawable == null) {
-            color = Color.rgb(new Random().nextInt(255),
-                    new Random().nextInt(255),
-                    new Random().nextInt(255));
+//            color = Color.rgb(new Random().nextInt(255),
+//                    new Random().nextInt(255),
+//                    new Random().nextInt(255));
+            color = getRandomColor();
             drawable = new GradientDrawable();
             drawable.setCornerRadius(100);
             drawable.setColor(color);
@@ -108,16 +126,16 @@ public class FlowLayout extends RecyclerView implements IEasy.OnBindViewHolderLi
 //                .strokeColor(getResources().getColor(R.color.color_text_minor))
 //                .build();
 
-        if (position != selectedPosition) {
-            drawable.setStroke(1, getResources().getColor(R.color.color_text_minor));
-            drawable.setColor(Color.WHITE);
-            drawable.setAlpha(0xff);
-            tvText.setTextColor(getResources().getColor(R.color.color_text_minor));
-        } else {
+        if (selectedList.contains(position)) {
             drawable.setStroke(0, Color.TRANSPARENT);
             drawable.setAlpha(0x20);
             drawable.setColor(color);
             tvText.setTextColor(color);
+        } else {
+            drawable.setStroke(1, getResources().getColor(R.color.color_text_minor));
+            drawable.setColor(Color.WHITE);
+            drawable.setAlpha(0xff);
+            tvText.setTextColor(getResources().getColor(R.color.color_text_minor));
         }
         tvText.setBackground(drawable);
 
@@ -152,6 +170,18 @@ public class FlowLayout extends RecyclerView implements IEasy.OnBindViewHolderLi
         tvText.setText(spannableString);
     }
 
+    private int getRandomColor() {
+        int color = Color.rgb(new Random().nextInt(255),
+                new Random().nextInt(255),
+                new Random().nextInt(255));
+        boolean isDark = ColorUtils.calculateLuminance(color) <= 0.6;
+        if (isDark) {
+            return color;
+        } else {
+            return getRandomColor();
+        }
+    }
+
     public void setOnItemClickListener(OnItemClickListener onItemClickListener) {
         this.onItemClickListener = onItemClickListener;
     }
@@ -159,9 +189,43 @@ public class FlowLayout extends RecyclerView implements IEasy.OnBindViewHolderLi
         this.onItemLongClickListener = onItemLongClickListener;
     }
 
+    public void setMultiSelectMode(boolean multiSelectMode) {
+        this.multiSelectMode = multiSelectMode;
+        selectMode = true;
+    }
+
     public void setSelectedPosition(int selectedPosition) {
-        this.selectedPosition = selectedPosition;
+        this.selectedList.clear();
+        this.selectedList.add(selectedPosition);
+        selectMode = true;
+//        this.selectedPosition = selectedPosition;
         recyclerView.notifyDataSetChanged();
+    }
+
+    public void addSelectedPosition(int position) {
+        if (multiSelectMode) {
+            selectMode = true;
+            if (selectedList.size() >= maxSelectCount) {
+                AToast.warning("最多只能选择" + maxSelectCount + "项");
+            } else {
+                this.selectedList.add(position);
+                recyclerView.notifyDataSetChanged();
+            }
+        } else {
+            setSelectedPosition(position);
+        }
+    }
+
+    public List<String> getSelectedItem() {
+        List<String> itemList = new ArrayList<>();
+        for (int position : selectedList) {
+            itemList.add(list.get(position).text);
+        }
+        return itemList;
+    }
+
+    public void setMaxSelectCount(int maxSelectCount) {
+        this.maxSelectCount = maxSelectCount;
     }
 
     public void setSpace(int space) {
@@ -183,7 +247,22 @@ public class FlowLayout extends RecyclerView implements IEasy.OnBindViewHolderLi
         recyclerView.notifyDataSetChanged();
     }
 
+    public void setItems(List<String> items) {
+        list.clear();
+        addItems(items);
+    }
+
     public void addItems(List<String> items) {
+        for (String text : items) {
+            FlowItem flowItem = new FlowItem();
+            flowItem.text = text;
+            list.add(flowItem);
+        }
+//        list.addAll(items);
+        recyclerView.notifyDataSetChanged();
+    }
+
+    public void addItems(String...items) {
         for (String text : items) {
             FlowItem flowItem = new FlowItem();
             flowItem.text = text;

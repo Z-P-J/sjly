@@ -108,6 +108,7 @@ public class SearchFragment extends BaseFragment {
         list.add(searchResultFragment);
         FragmentsPagerAdapter adapter = new FragmentsPagerAdapter(getChildFragmentManager(), list, null);
         viewPager.setAdapter(adapter);
+        showSoftInput(searchBar.getEditor());
     }
 
 //    @Override

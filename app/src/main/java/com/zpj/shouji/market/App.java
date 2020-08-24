@@ -13,6 +13,8 @@ import com.maning.librarycrashmonitor.MCrashMonitor;
 import com.raizlabs.android.dbflow.config.FlowManager;
 import com.zpj.downloader.ZDownloader;
 
+import io.reactivex.functions.Consumer;
+import io.reactivex.plugins.RxJavaPlugins;
 import per.goweii.burred.Blurred;
 
 public class App extends Application {
@@ -36,6 +38,12 @@ public class App extends Application {
             }
         });
         Blurred.init(this);
+        RxJavaPlugins.setErrorHandler(new Consumer<Throwable>() {
+            @Override
+            public void accept(Throwable throwable) throws Exception {
+                throwable.printStackTrace();
+            }
+        });
     }
 
 }

@@ -124,6 +124,7 @@ public class WallpaperFragment extends BaseFragment implements View.OnClickListe
 //                })
 //                .subscribe();
         WallpaperApi.getWallpaperTags(tags -> {
+            wallpaperTags.clear();
             wallpaperTags.addAll(tags);
             initMagicIndicator();
         });

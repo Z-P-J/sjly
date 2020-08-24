@@ -5,21 +5,6 @@
     android:layout_height="wrap_content"
     android:background="@android:color/white">
 
-    <EditText
-        android:id="@+id/et_editor"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_vertical"
-        android:background="@drawable/top_line_gray"
-        android:textColor="@color/color_text_major"
-        android:inputType="textMultiLine"
-        android:gravity="start"
-        android:maxHeight="180dp"
-        android:hint="说点什么..."
-        android:maxLines="5"
-        android:padding="16dp"
-        android:textSize="16sp"/>
-
     <android.support.v7.widget.RecyclerView
         android:id="@+id/rv_img"
         android:layout_width="match_parent"
@@ -32,7 +17,7 @@
         android:id="@+id/rl_actions"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/top_line_gray"
+        android:background="@color/white"
         android:orientation="horizontal"
         android:padding="8dp"
         >

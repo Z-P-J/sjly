@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@android:color/white">
+
+    <EditText
+        android:id="@+id/et_editor"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:background="@drawable/top_line_gray"
+        android:textColor="@color/color_text_major"
+        android:inputType="textMultiLine"
+        android:gravity="start"
+        android:maxHeight="180dp"
+        android:hint="说点什么..."
+        android:maxLines="5"
+        android:padding="16dp"
+        android:textSize="16sp"/>
+
+    <include layout="@layout/layout_panel_action"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/top_line_gray"
+        />
+
+<!--    <android.support.v7.widget.RecyclerView-->
+<!--        android:id="@+id/rv_img"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="120dp"-->
+<!--        android:orientation="horizontal"-->
+<!--        android:visibility="gone"-->
+<!--        />-->
+
+<!--    <RelativeLayout-->
+<!--        android:id="@+id/rl_actions"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:background="@drawable/top_line_gray"-->
+<!--        android:orientation="horizontal"-->
+<!--        android:padding="8dp"-->
+<!--        >-->
+
+<!--        <HorizontalScrollView-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_toStartOf="@id/iv_send"-->
+<!--            android:layout_marginHorizontal="8dp"-->
+<!--            android:layout_centerVertical="true"-->
+<!--            >-->
+
+<!--            <LinearLayout-->
+<!--                android:id="@+id/ll_actions_container"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:orientation="horizontal"-->
+<!--                android:layout_gravity="center_vertical"-->
+<!--                android:gravity="center_vertical"-->
+<!--                >-->
+
+<!--                <ImageView-->
+<!--                    android:id="@+id/iv_emoji"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:background="@drawable/ic_insert_emoticon_black_24dp"-->
+<!--                    android:layout_marginEnd="8dp"-->
+<!--                    />-->
+
+<!--                <ImageView-->
+<!--                    android:id="@+id/iv_image"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:background="@drawable/ic_image_black_24dp"-->
+<!--                    android:layout_marginHorizontal="8dp"-->
+<!--                    />-->
+
+<!--                <ImageView-->
+<!--                    android:id="@+id/iv_app"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:background="@drawable/ic_android_black_24dp"-->
+<!--                    android:layout_marginHorizontal="8dp"-->
+<!--                    />-->
+
+<!--            </LinearLayout>-->
+
+<!--        </HorizontalScrollView>-->
+
+<!--        <ImageView-->
+<!--            android:id="@+id/iv_send"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_gravity="center_vertical"-->
+<!--            android:background="@drawable/ic_send_black_24dp"-->
+<!--            android:layout_marginStart="8dp"-->
+<!--            android:layout_marginEnd="8dp"-->
+<!--            android:layout_alignParentEnd="true"-->
+<!--            android:layout_centerVertical="true"-->
+<!--            />-->
+
+<!--    </RelativeLayout>-->
+
+<!--    <com.lqr.emoji.EmotionLayout-->
+<!--        android:id="@+id/el_emotion"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="match_parent"-->
+<!--        android:visibility="gone"-->
+<!--        />-->
+
+</LinearLayout>

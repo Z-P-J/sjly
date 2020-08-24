@@ -59,7 +59,7 @@ import com.zpj.utils.ScreenUtils;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ChatPanel extends RelativeLayout
+public class ActionPanel extends RelativeLayout
         implements KeyboardHeightProvider.KeyboardHeightObserver {
 
     public interface OnOperationListener extends IEmotionSelectedListener {
@@ -82,23 +82,23 @@ public class ChatPanel extends RelativeLayout
 
     private boolean isKeyboardShowing;
 
-    public ChatPanel(Context context) {
+    public ActionPanel(Context context) {
         super(context);
         init(context);
     }
 
-    public ChatPanel(Context context, AttributeSet attrs) {
+    public ActionPanel(Context context, AttributeSet attrs) {
         super(context, attrs);
         init(context);
     }
 
-    public ChatPanel(Context context, AttributeSet attrs, int defStyle) {
+    public ActionPanel(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
         init(context);
     }
 
     private void init(Context context) {
-        View root = View.inflate(context, R.layout.layout_panel_chat, null);
+        View root = View.inflate(context, R.layout.layout_panel_action, null);
         this.addView(root);
     }
 
@@ -113,7 +113,6 @@ public class ChatPanel extends RelativeLayout
     }
 
     private void initWidget() {
-        etEditor = findViewById(R.id.et_editor);
         llActionsContainer = findViewById(R.id.ll_actions_container);
         ivImage = findViewById(R.id.iv_image);
         ivEmoji = findViewById(R.id.iv_emoji);
@@ -121,7 +120,6 @@ public class ChatPanel extends RelativeLayout
         ivSend = findViewById(R.id.iv_send);
 //        rlEmojiPanel = findViewById(R.id.rl_emoji_panel);
         elEmotion = findViewById(R.id.el_emotion);
-        elEmotion.attachEditText(etEditor);
         elEmotion.setEmotionSelectedListener(listener);
         elEmotion.setEmotionAddVisiable(false);
         elEmotion.setEmotionSettingVisiable(false);
@@ -271,6 +269,11 @@ public class ChatPanel extends RelativeLayout
         });
     }
 
+    public void attachEditText(EditText etEditor) {
+        this.etEditor = etEditor;
+        elEmotion.attachEditText(etEditor);
+    }
+
     public void removeImageAction() {
         llActionsContainer.removeView(ivImage);
     }
@@ -278,6 +281,14 @@ public class ChatPanel extends RelativeLayout
     public void removeAppAction() {
         llActionsContainer.removeView(ivApp);
     }
+
+    public void setSendAction(OnClickListener listener) {
+        ivSend.setOnClickListener(listener);
+    }
+
+//    public void removeSendAction() {
+//        llActionsContainer.removeView(ivSend);
+//    }
 
     public ImageView addAction(@DrawableRes int res, OnClickListener listener) {
         ImageView imageView = new ImageView(getContext());

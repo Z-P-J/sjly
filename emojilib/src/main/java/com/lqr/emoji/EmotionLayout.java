@@ -332,6 +332,9 @@ public class EmotionLayout extends LinearLayout implements View.OnClickListener 
 
     public void attachEditText(EditText messageEditText) {
         mMessageEditText = messageEditText;
+        if (mVpEmotioin != null && mVpEmotioin.getAdapter() instanceof EmotionViewPagerAdapter) {
+            ((EmotionViewPagerAdapter) mVpEmotioin.getAdapter()).attachEditText(mMessageEditText);
+        }
     }
 
 }
