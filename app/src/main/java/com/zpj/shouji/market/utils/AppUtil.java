@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
+import android.content.pm.Signature;
 import android.content.res.Resources;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
@@ -17,12 +18,16 @@ import com.zpj.shouji.market.model.InstalledAppInfo;
 
 import java.io.File;
 import java.io.IOException;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.List;
 
 public class AppUtil {
 
     public static final int INSTALL_REQUEST_CODE = 1;
     public static final int UNINSTALL_REQUEST_CODE = 2;
+
+    public final static String SHA1 = "SHA1";
 
 
     public static void loadAppIcons(Context context) {
@@ -153,6 +158,69 @@ public class AppUtil {
 
     public static void backupApp(InstalledAppInfo appInfo) throws IOException {
         FileUtils.copyFile(new File(appInfo.getApkFilePath()), getAppBackupFile(appInfo));
+    }
+
+    public static String getSignatureString(Signature sig, String type) {
+        byte[] hexBytes = sig.toByteArray();
+        String fingerprint = "error!";
+        try {
+            MessageDigest digest = MessageDigest.getInstance(type);
+            if (digest != null) {
+                byte[] digestBytes = digest.digest(hexBytes);
+                StringBuilder sb = new StringBuilder();
+                for (byte digestByte : digestBytes) {
+                    sb.append((Integer.toHexString((digestByte & 0xFF) | 0x100)).substring(1, 3));
+                }
+                fingerprint = sb.toString();
+            }
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        }
+
+        return fingerprint;
+    }
+
+    public static String getSingInfo(Context context, String packageName, String type) {
+        String tmp = null;
+        Signature[] signs = getSignatures(context, packageName);
+        if (signs == null) {
+            return null;
+        }
+        for (Signature sig : signs) {
+            if (SHA1.equals(type)) {
+                tmp = getSignatureString(sig, SHA1);
+                break;
+            }
+        }
+        return tmp;
+    }
+
+    public static String getSignature(Context context, String packageName) {
+        String tmp = null;
+        Signature[] signs = getSignatures(context, packageName);
+        if (signs == null) {
+            return null;
+        }
+        for (Signature sig : signs) {
+//            if (SHA1.equals(type)) {
+//                tmp = getSignatureString(sig, SHA1);
+//                break;
+//            }
+            tmp = getSignatureString(sig, SHA1);
+            break;
+        }
+        return tmp;
+    }
+
+    public static Signature[] getSignatures(Context context, String packageName) {
+        PackageInfo packageInfo = null;
+        try {
+            packageInfo = context.getPackageManager().getPackageInfo(packageName, PackageManager.GET_SIGNATURES);
+            return packageInfo.signatures;
+        } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
 }

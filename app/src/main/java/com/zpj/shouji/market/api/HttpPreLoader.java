@@ -37,6 +37,12 @@ public class HttpPreLoader {
 
     }
 
+    public void onDestroy() {
+        this.map.clear();
+        this.listeners.clear();
+        LOADER = null;
+    }
+
     public void load(String url) {
         load(url, url);
     }

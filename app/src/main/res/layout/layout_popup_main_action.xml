@@ -21,11 +21,19 @@
         android:id="@+id/layout_add_view"
         >
 
+<!--        <ImageView-->
+<!--            android:layout_width="64dp"-->
+<!--            android:layout_height="64dp"-->
+<!--            android:src="@mipmap/ic_launcher"-->
+<!--            app:layout_constraintLeft_toLeftOf="parent"-->
+<!--            app:layout_constraintTop_toTopOf="parent"-->
+<!--            />-->
+
         <TextView
             android:id="@+id/day_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="15dp"
+            android:layout_marginStart="16dp"
             android:layout_marginTop="30dp"
             android:gravity="center"
             android:includeFontPadding="false"
@@ -39,7 +47,7 @@
             android:id="@+id/week_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="15dp"
+            android:layout_marginStart="16dp"
             android:gravity="center"
             android:text="星期一"
             android:textSize="14sp"
@@ -52,7 +60,7 @@
             android:id="@+id/date_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="15dp"
+            android:layout_marginStart="16dp"
             android:gravity="center"
             android:text="04/2020"
             android:textColor="#666666"
@@ -61,29 +69,29 @@
             app:layout_constraintBottom_toBottomOf="@+id/day_tv"
             app:layout_constraintLeft_toRightOf="@+id/day_tv" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:text="重庆:    雨  21度"
-            android:textSize="14sp"
-            android:textColor="#666666"
-            android:layout_marginLeft="10dp"
-            app:layout_constraintLeft_toLeftOf="@+id/day_tv"
-            app:layout_constraintTop_toBottomOf="@+id/day_tv" />
-
-        <LinearLayout
-            android:id="@+id/icon_group"
-            android:layout_width="match_parent"
-            android:layout_height="200dp"
-            android:orientation="horizontal"
-            app:layout_constraintBottom_toBottomOf="parent"
-            android:layout_marginBottom="100dp"
-            >
-
-        </LinearLayout>
+<!--        <TextView-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_marginTop="10dp"-->
+<!--            android:text="重庆:    雨  21度"-->
+<!--            android:textSize="14sp"-->
+<!--            android:textColor="#666666"-->
+<!--            android:layout_marginLeft="10dp"-->
+<!--            app:layout_constraintLeft_toLeftOf="@+id/day_tv"-->
+<!--            app:layout_constraintTop_toBottomOf="@+id/day_tv" />-->
 
     </android.support.constraint.ConstraintLayout>
+
+    <LinearLayout
+        android:id="@+id/icon_group"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
+        android:gravity="bottom"
+        android:paddingHorizontal="8dp"
+        >
+
+    </LinearLayout>
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/fab"

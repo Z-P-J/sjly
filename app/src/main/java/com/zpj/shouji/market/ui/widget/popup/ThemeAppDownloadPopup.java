@@ -54,6 +54,7 @@ public class ThemeAppDownloadPopup extends BottomPopup<ThemeAppDownloadPopup> {
             if (permissionList.isEmpty()) {
                 TextView textView = new TextView(context);
                 textView.setText("权限未知！");
+                textView.setTextColor(getResources().getColor(R.color.colorPrimary));
                 textView.setGravity(Gravity.CENTER);
                 int padding = ScreenUtils.dp2pxInt(context, 56);
                 textView.setPadding(0, padding, 0, padding);

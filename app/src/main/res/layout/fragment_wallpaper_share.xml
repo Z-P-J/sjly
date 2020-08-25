@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
-    >
+    android:background="@color/white">
 
     <include layout="@layout/layout_toolbar"/>
 
@@ -12,7 +12,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@id/tool_bar"
-        android:layout_above="@+id/chat_panel"
+        android:layout_above="@+id/panel_action"
         >
 
         <LinearLayout
@@ -21,10 +21,36 @@
             android:orientation="vertical"
             >
 
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="8dp"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="发现内容"
+                android:textColor="@color/colorPrimary"
+                android:paddingHorizontal="16dp"
+                />
+
+            <android.support.v7.widget.AppCompatEditText
+                android:id="@+id/et_content"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:textColor="@color/color_text_major"
+                android:background="@drawable/grey_shape"
+                android:inputType="textMultiLine"
+                android:hint="我来说两句..."
+                android:padding="16dp"
+                android:textSize="16sp"
+                android:layout_margin="16dp"
+                />
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="选择乐图分类"
+                android:text="乐图分类"
                 android:textColor="@color/colorPrimary"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
@@ -34,21 +60,35 @@
                 android:id="@+id/wallpaper_tags"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:background="@drawable/grey_shape"
+                android:layout_margin="16dp"
+                />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="分享乐图"
+                android:textColor="@color/colorPrimary"
+                android:paddingHorizontal="16dp"
                 />
 
 
-
-            <ImageView
+            <com.shehuan.niv.NiceImageView
                 android:id="@+id/iv_wallpaper"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                app:corner_radius="8dp"
                 android:layout_margin="16dp"
+                android:visibility="gone"
                 />
 
             <FrameLayout
                 android:id="@+id/fl_empty"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:background="@drawable/grey_shape"
+                android:layout_margin="16dp"
+                >
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -74,8 +114,8 @@
 
     </com.zpj.shouji.market.ui.widget.ElasticScrollView>
 
-    <com.zpj.shouji.market.ui.widget.ChatPanel
-        android:id="@+id/chat_panel"
+    <com.zpj.shouji.market.ui.widget.ActionPanel
+        android:id="@+id/panel_action"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
@@ -83,6 +123,10 @@
 
     <View style="@style/layout_shadow_bottom"
         android:layout_below="@id/tool_bar"
+        />
+
+    <View style="@style/layout_shadow_up"
+        android:layout_above="@id/panel_action"
         />
 
 </RelativeLayout>

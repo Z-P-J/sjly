@@ -7,6 +7,7 @@ import android.animation.TypeEvaluator;
 import android.animation.ValueAnimator;
 import android.app.Activity;
 import android.content.Context;
+import android.content.res.ColorStateList;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.support.design.widget.FloatingActionButton;
@@ -32,8 +33,10 @@ import com.zpj.shouji.market.ui.fragment.DiscoverEditorFragment2;
 import com.zpj.shouji.market.ui.fragment.collection.CollectionShareFragment;
 import com.zpj.shouji.market.ui.fragment.manager.AppPickerFragment;
 import com.zpj.shouji.market.ui.fragment.profile.MyPrivateLetterFragment;
+import com.zpj.shouji.market.ui.fragment.theme.ThemeShareFragment;
 import com.zpj.shouji.market.ui.fragment.wallpaper.WallpaperShareFragment;
 import com.zpj.shouji.market.utils.Callback;
+import com.zpj.utils.ScreenUtils;
 
 import io.reactivex.Observable;
 import io.reactivex.ObservableOnSubscribe;
@@ -44,7 +47,18 @@ import per.goweii.burred.Blurred;
 
 public class MainActionPopup extends FullScreenPopup<MainActionPopup> implements View.OnClickListener {
 
-    private final int[] menuIconItems = {R.drawable.pic1, R.drawable.pic2, R.drawable.pic3, R.drawable.pic4};
+    private final int[] menuIconItems = {
+            R.drawable.ic_homepage_white_24dp,
+            R.drawable.ic_app_collection_white_24dp,
+            R.drawable.ic_image_black_24dp,
+            R.drawable.ic_message_white_24dp
+    };
+    private final int[] menuItemColors = {
+            R.color.light_blue_1,
+            R.color.light_red_1,
+            R.color.light_blue_2,
+            R.color.light_purple
+    };
     private final String[] menuTextItems = {"动态", "应用集", "乐图", "私聊"};
 
     private FloatingActionButton floatingActionButton;
@@ -79,6 +93,9 @@ public class MainActionPopup extends FullScreenPopup<MainActionPopup> implements
             menuLayout.addView(itemView);
         }
         ImageView ivBg = findViewById(R.id.iv_bg);
+
+//        findViewById(R.id.layout_add_view).setOnClickListener(v -> dismiss());
+        menuLayout.setOnClickListener(v -> dismiss());
 
         GetMainActivityEvent.post(new Callback<MainActivity>() {
             @Override
@@ -188,14 +205,20 @@ public class MainActionPopup extends FullScreenPopup<MainActionPopup> implements
 
     private View createView(Context context, int index) {
         View itemView = View.inflate(context, R.layout.item_icon, null);
-        ImageView menuImage = itemView.findViewById(R.id.menu_icon_iv);
+//        ImageView menuImage = itemView.findViewById(R.id.menu_icon_iv);
+        FloatingActionButton btnAction = itemView.findViewById(R.id.btn_action);
         TextView menuText = itemView.findViewById(R.id.menu_text_tv);
 
-        menuImage.setImageResource(menuIconItems[index]);
+        btnAction.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(menuItemColors[index])));
+        btnAction.setImageResource(menuIconItems[index]);
+//        menuImage.setImageResource(menuIconItems[index]);
         menuText.setText(menuTextItems[index]);
+        menuText.setTextColor(getResources().getColor(menuItemColors[index]));
+        menuText.setShadowLayer(1, 1, 1, Color.WHITE);
 
-        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
+        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         params.weight = 1;
+        params.bottomMargin = ScreenUtils.dp2pxInt(context, 120);
         itemView.setLayoutParams(params);
         itemView.setVisibility(View.GONE);
         return itemView;
@@ -271,7 +294,8 @@ public class MainActionPopup extends FullScreenPopup<MainActionPopup> implements
         }
         switch ((int) v.getTag()) {
             case 0:
-                DiscoverEditorFragment2.start();
+//                DiscoverEditorFragment2.start();
+                ThemeShareFragment.start();
                 break;
             case 1:
                 CollectionShareFragment.start();

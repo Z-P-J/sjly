@@ -34,7 +34,7 @@ dependencies {
 //    implementation 'com.github.SheHuan:NiceImageView:1.0.5'
 
     implementation 'com.zpj.widget:Fragmentation:1.0.1'
-    implementation 'com.zpj.widget:ZRecyclerView:1.0.9'
+    implementation 'com.zpj.widget:ZRecyclerView:1.1.1'
     implementation 'com.zpj.widget:ZToolBar:1.0.5'
     implementation 'com.zpj.utils:ZUtils:1.0.2'
 

@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
+import android.text.TextUtils;
 import android.view.View;
 
 import com.zpj.fragmentation.BaseFragment;
@@ -22,11 +23,12 @@ import com.zpj.shouji.market.utils.MagicIndicatorHelper;
 import net.lucode.hackware.magicindicator.MagicIndicator;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class MyDynamicFragment extends BaseFragment {
 
-    private static final String[] TAB_TITLES = {"全部", "发现", "评论", "应用集", "乐图"};
+    private static final String[] TAB_TITLES = {"全部", "发现", "评论", "应用集", "乐图", "下载", "赞"};
 
     private ViewPager viewPager;
     private MagicIndicator magicIndicator;
@@ -111,15 +113,34 @@ public class MyDynamicFragment extends BaseFragment {
             wallpaperFragment = WallpaperFragment.newInstance(userId);
         }
 
+        UserDownloadedFragment userDownloadedFragment = findChildFragment(UserDownloadedFragment.class);
+        if (userDownloadedFragment == null) {
+            userDownloadedFragment = UserDownloadedFragment.newInstance(userId);
+        }
+
         fragments.add(allFragment);
         fragments.add(discoverFragment);
         fragments.add(commentFragment);
         fragments.add(collectionsFragment);
         fragments.add(wallpaperFragment);
-        viewPager.setAdapter(new FragmentsPagerAdapter(getChildFragmentManager(), fragments, TAB_TITLES));
+        fragments.add(userDownloadedFragment);
+
+        String[] tabTitles;
+        if (TextUtils.equals(UserManager.getInstance().getUserId(), userId)) {
+            tabTitles = TAB_TITLES;
+            GiveLikeFragment giveLikeFragment = findChildFragment(GiveLikeFragment.class);
+            if (giveLikeFragment == null) {
+                giveLikeFragment = GiveLikeFragment.newInstance();
+            }
+            fragments.add(giveLikeFragment);
+        } else {
+            tabTitles = Arrays.copyOfRange(TAB_TITLES, 0, TAB_TITLES.length - 1);
+        }
+
+        viewPager.setAdapter(new FragmentsPagerAdapter(getChildFragmentManager(), fragments, tabTitles));
         viewPager.setOffscreenPageLimit(fragments.size());
 
-        MagicIndicatorHelper.bindViewPager(context, magicIndicator, viewPager, TAB_TITLES);
+        MagicIndicatorHelper.bindViewPager(context, magicIndicator, viewPager, tabTitles);
     }
 
     public static class AllFragment extends ThemeListFragment {
@@ -215,6 +236,19 @@ public class MyDynamicFragment extends BaseFragment {
         @Override
         protected int getHeaderLayout() {
             return 0;
+        }
+
+    }
+
+    public static class GiveLikeFragment extends ThemeListFragment {
+
+        public static GiveLikeFragment newInstance() {
+            String url = "http://tt.shouji.com.cn/app/user_content_flower_send_xml_v2.jsp";
+            Bundle args = new Bundle();
+            args.putString(Keys.DEFAULT_URL, url);
+            GiveLikeFragment fragment = new GiveLikeFragment();
+            fragment.setArguments(args);
+            return fragment;
         }
 
     }

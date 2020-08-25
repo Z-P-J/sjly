@@ -59,18 +59,51 @@
             >
 
             <LinearLayout
-                android:id="@+id/ll_container"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:padding="16dp"
                 >
+
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/grey_shape"
+                    android:paddingVertical="4dp"
+                    android:layout_margin="16dp"
+                    >
+
+                    <com.zpj.shouji.market.ui.widget.DrawableTintTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="应用安全未知，请谨慎下载！"
+                        android:textColor="@color/red3"
+                        android:drawableStart="@drawable/ic_info_black_24dp"
+                        android:gravity="center"
+                        android:layout_gravity="center_horizontal"
+                        android:drawablePadding="8dp"
+                        android:layout_marginBottom="8dp"
+                        android:layout_marginTop="8dp"
+                        app:drawable_tint_color="@color/red3"
+                        />
+
+                </FrameLayout>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="应用信息"
+                    android:textColor="@color/colorPrimary"
+                    android:paddingHorizontal="16dp"
+                    />
 
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center_vertical"
                     android:orientation="horizontal"
+                    android:background="@drawable/grey_shape"
+                    android:padding="16dp"
+                    android:layout_margin="16dp"
                     >
 
                     <com.shehuan.niv.NiceImageView
@@ -138,34 +171,26 @@
 
                 </RelativeLayout>
 
-                <com.zpj.shouji.market.ui.widget.DrawableTintTextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="应用安全未知，请谨慎下载！"
-                    android:textColor="@color/red3"
-                    android:drawableStart="@drawable/ic_info_black_24dp"
-                    android:gravity="center"
-                    android:layout_gravity="center_horizontal"
-                    android:drawablePadding="8dp"
-                    android:layout_marginBottom="8dp"
-                    android:layout_marginTop="8dp"
-                    app:drawable_tint_color="@color/red3"
-                    />
-
-                <View android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:background="@color/light_gray_2"
-                    />
-
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="应用权限"
-                    android:textColor="@color/color_text_major"
-                    android:gravity="center"
-                    android:textSize="16sp"
-                    android:padding="8dp"
+                    android:textColor="@color/colorPrimary"
+                    android:paddingHorizontal="16dp"
                     />
+
+            <LinearLayout
+                android:id="@+id/ll_container"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/grey_shape"
+                android:orientation="vertical"
+                android:padding="16dp"
+                android:layout_margin="16dp"
+                >
+
+
+            </LinearLayout>
 
             </LinearLayout>
 

@@ -1,6 +1,7 @@
 package com.zpj.shouji.market.ui.fragment.manager;
 
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
@@ -50,6 +51,8 @@ private static final String[] TAB_TITLES = {"本地应用"};
 
     private LocalAppFragment localAppFragment;
 
+    private boolean singleSelectMode;
+
     private final List<InstalledAppInfo> selectedList = new ArrayList<>();
     private Callback<List<InstalledAppInfo>> callback;
 
@@ -58,6 +61,17 @@ private static final String[] TAB_TITLES = {"本地应用"};
         fragment.callback = callback;
         fragment.selectedList.clear();
         fragment.selectedList.addAll(selectedList);
+        StartFragmentEvent.start(fragment);
+    }
+
+    public static void start(InstalledAppInfo info, Callback<List<InstalledAppInfo>> callback) {
+        AppPickerFragment fragment = new AppPickerFragment();
+        fragment.callback = callback;
+        fragment.selectedList.clear();
+        if (info != null) {
+            fragment.selectedList.add(info);
+        }
+        fragment.singleSelectMode = true;
         StartFragmentEvent.start(fragment);
     }
 
@@ -83,6 +97,12 @@ private static final String[] TAB_TITLES = {"本地应用"};
     }
 
     @Override
+    public void toolbarRightTextView(@NonNull TextView view) {
+        super.toolbarRightTextView(view);
+        view.setOnClickListener(v -> pop());
+    }
+
+    @Override
     public void onEnterAnimationEnd(Bundle savedInstanceState) {
         super.onEnterAnimationEnd(savedInstanceState);
         List<Fragment> fragments = new ArrayList<>();
@@ -90,6 +110,7 @@ private static final String[] TAB_TITLES = {"本地应用"};
         if (localAppFragment == null) {
             localAppFragment = new LocalAppFragment();
         }
+        localAppFragment.maxCount = singleSelectMode ? 1 : Integer.MAX_VALUE;
         localAppFragment.setSelectApp(selectedList);
 
         fragments.add(localAppFragment);
@@ -110,6 +131,7 @@ private static final String[] TAB_TITLES = {"本地应用"};
     public static class LocalAppFragment extends BaseInstalledFragment {
 
         private final List<InstalledAppInfo> selectedList = new ArrayList<>();
+        private int maxCount = Integer.MAX_VALUE;
 
         @Override
         public void onLoadAppFinished() {
@@ -121,6 +143,12 @@ private static final String[] TAB_TITLES = {"本地应用"};
         protected void buildRecyclerLayout(EasyRecyclerLayout<InstalledAppInfo> recyclerLayout) {
             super.buildRecyclerLayout(recyclerLayout);
 //            recyclerLayout.setShowCheckBox(true);
+            recyclerLayout.setMaxSelectCount(maxCount);
+        }
+
+        @Override
+        public void onBindViewHolder(EasyViewHolder holder, List<InstalledAppInfo> list, int position, List<Object> payloads) {
+            super.onBindViewHolder(holder, list, position, payloads);
         }
 
         @Override
@@ -130,21 +158,13 @@ private static final String[] TAB_TITLES = {"本地应用"};
         }
 
         @Override
-        public void onSelectModeChange(boolean selectMode) {
-            super.onSelectModeChange(selectMode);
-//            if (!selectMode) {
-//                recyclerLayout.enterSelectMode();
-//            }
-        }
-
-        @Override
         protected void initData(List<InstalledAppInfo> infoList) {
             addAllSelected();
             super.initData(infoList);
-            recyclerLayout.getSelectedSet().clear();
+            recyclerLayout.clearSelectedPosition();
             for (int i = 0; i < data.size(); i++) {
                 if (selectedList.contains(data.get(i))) {
-                    recyclerLayout.getSelectedSet().add(i);
+                    recyclerLayout.addSelectedPosition(i);
                 }
             }
         }

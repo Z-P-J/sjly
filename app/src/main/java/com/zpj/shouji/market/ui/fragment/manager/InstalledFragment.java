@@ -106,14 +106,14 @@ public class InstalledFragment extends RecyclerLayoutFragment<InstalledAppInfo>
 
         uninstallBtn = view.findViewById(R.id.btn_uninstall);
         uninstallBtn.setOnClickListener(v -> {
-            AToast.normal(recyclerLayout.getSelectedSet().toString());
-            for (int position : recyclerLayout.getSelectedSet()) {
-                AppUtil.uninstallApp(_mActivity, data.get(position).getPackageName());
+            AToast.normal(recyclerLayout.getSelectedPositionList().toString());
+            for (InstalledAppInfo info : recyclerLayout.getSelectedItem()) {
+                AppUtil.uninstallApp(_mActivity, info.getPackageName());
             }
         });
         backupBtn = view.findViewById(R.id.btn_backup);
         backupBtn.setOnClickListener(v -> {
-            AToast.normal(recyclerLayout.getSelectedSet().toString());
+            AToast.normal(recyclerLayout.getSelectedPositionList().toString());
             AppBackupManager.getInstance()
                     .addAppBackupListener(this)
                     .startBackup(recyclerLayout.getSelectedItem());
@@ -168,6 +168,11 @@ public class InstalledFragment extends RecyclerLayoutFragment<InstalledAppInfo>
                         checkBox.setChecked(false, true);
                         infoTextView.setText("共计：" + data.size() + " | 已选：0");
                     }
+
+                    @Override
+                    public void onSelectOverMax(int maxSelectCount) {
+                        AToast.warning("最多只能选择" + maxSelectCount + "项");
+                    }
                 });
     }
 
@@ -195,7 +200,7 @@ public class InstalledFragment extends RecyclerLayoutFragment<InstalledAppInfo>
     @Override
     public boolean onLongClick(EasyViewHolder holder, View view, InstalledAppInfo data) {
         if (!recyclerLayout.isSelectMode()) {
-            recyclerLayout.getSelectedSet().add(holder.getAdapterPosition());
+            recyclerLayout.addSelectedPosition(holder.getAdapterPosition());
             recyclerLayout.enterSelectMode();
             enterSelectModeAnim();
             return true;
@@ -286,7 +291,7 @@ public class InstalledFragment extends RecyclerLayoutFragment<InstalledAppInfo>
         if (totalCount == finishedCount) {
             NotifyUtil.with(getContext())
                     .buildNotify()
-                    .setContentTitle("手机乐园S")
+                    .setContentTitle(getString(R.string.app_name))
                     .setContentText(totalCount + "个应用备份完成！")
                     .setId(hashCode())
                     .show();
@@ -306,7 +311,7 @@ public class InstalledFragment extends RecyclerLayoutFragment<InstalledAppInfo>
         AToast.error(appInfo.getName() + "备份失败！");
         NotifyUtil.with(getContext())
                 .buildNotify()
-                .setContentTitle("手机乐园S")
+                .setContentTitle(getString(R.string.app_name))
                 .setContentText(appInfo.getName() + "备份失败！")
                 .setId(appInfo.hashCode())
                 .show();

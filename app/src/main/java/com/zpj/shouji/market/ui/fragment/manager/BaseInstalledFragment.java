@@ -176,6 +176,11 @@ public class BaseInstalledFragment extends RecyclerLayoutFragment<InstalledAppIn
     }
 
     @Override
+    public void onSelectOverMax(int maxSelectCount) {
+
+    }
+
+    @Override
     public void onGetUserApp(InstalledAppInfo appInfo) {
         USER_APP_LIST.add(appInfo);
     }

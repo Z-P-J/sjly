@@ -1,11 +1,12 @@
 package com.zpj.shouji.market.ui.fragment.wallpaper;
 
-import android.content.Context;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.text.TextUtils;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -14,38 +15,33 @@ import com.bumptech.glide.Glide;
 import com.felix.atoast.library.AToast;
 import com.zpj.fragmentation.BaseFragment;
 import com.zpj.http.core.IHttp;
-import com.zpj.matisse.CaptureMode;
 import com.zpj.matisse.Matisse;
 import com.zpj.matisse.MimeType;
 import com.zpj.matisse.engine.impl.GlideEngine;
-import com.zpj.matisse.entity.IncapableCause;
 import com.zpj.matisse.entity.Item;
-import com.zpj.matisse.filter.Filter;
 import com.zpj.matisse.listener.OnSelectedListener;
 import com.zpj.popup.util.KeyboardUtils;
 import com.zpj.shouji.market.R;
-import com.zpj.shouji.market.api.HttpApi;
 import com.zpj.shouji.market.api.WallpaperApi;
 import com.zpj.shouji.market.event.StartFragmentEvent;
 import com.zpj.shouji.market.model.WallpaperTag;
+import com.zpj.shouji.market.ui.widget.ActionPanel;
 import com.zpj.shouji.market.ui.widget.ChatPanel;
 import com.zpj.shouji.market.ui.widget.flowlayout.FlowLayout;
 import com.zpj.utils.ScreenUtils;
 
 import java.io.File;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
 public class WallpaperShareFragment extends BaseFragment
-        implements ChatPanel.OnOperationListener,
-        View.OnClickListener {
+        implements View.OnClickListener {
 
+    private EditText etContent;
     private FlowLayout flowLayout;
     private FrameLayout flEmpty;
     private ImageView ivWallpaper;
     private TextView tvShareMode;
-    private ChatPanel chatPanel;
+    private ActionPanel actionPanel;
 
 
     private File imgFile;
@@ -69,23 +65,49 @@ public class WallpaperShareFragment extends BaseFragment
     @Override
     protected void initView(View view, @Nullable Bundle savedInstanceState) {
         setToolbarTitle("分享乐图");
+        etContent = view.findViewById(R.id.et_content);
         flowLayout = view.findViewById(R.id.wallpaper_tags);
         flEmpty = view.findViewById(R.id.fl_empty);
         flEmpty.setOnClickListener(this);
         ivWallpaper = view.findViewById(R.id.iv_wallpaper);
         ivWallpaper.setOnClickListener(this);
-        chatPanel = view.findViewById(R.id.chat_panel);
-        chatPanel.setOnOperationListener(this);
+        actionPanel = view.findViewById(R.id.panel_action);
+        actionPanel.attachEditText(etContent);
         KeyboardUtils.registerSoftInputChangedListener(_mActivity, view, height -> {
-            chatPanel.onKeyboardHeightChanged(height, 0);
+            actionPanel.onKeyboardHeightChanged(height, 0);
         });
 
-        chatPanel.removeImageAction();
-        chatPanel.removeAppAction();
-        chatPanel.addAction(R.drawable.ic_image_black_24dp, this);
-        tvShareMode = chatPanel.addAction("公开", v -> {
+        actionPanel.removeImageAction();
+        actionPanel.removeAppAction();
+        actionPanel.addAction(R.drawable.ic_image_black_24dp, this);
+        tvShareMode = actionPanel.addAction("公开", v -> {
             tvShareMode.setText(isPrivate ? "公开" : "私有");
             isPrivate = !isPrivate;
+        });
+        actionPanel.setSendAction(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (TextUtils.isEmpty(etContent.getText())) {
+                    AToast.warning("请输入内容");
+                    return;
+                }
+                if (imgFile == null) {
+                    AToast.warning("请选择图片");
+                    return;
+                }
+
+                WallpaperApi.shareWallpaperApi(imgFile, etContent.getText().toString(), tag, isPrivate, () -> pop(), new IHttp.OnStreamWriteListener() {
+                    @Override
+                    public void onBytesWritten(int bytesWritten) {
+
+                    }
+
+                    @Override
+                    public boolean shouldContinue() {
+                        return true;
+                    }
+                });
+            }
         });
     }
 
@@ -98,46 +120,17 @@ public class WallpaperShareFragment extends BaseFragment
     @Override
     public void onEnterAnimationEnd(Bundle savedInstanceState) {
         super.onEnterAnimationEnd(savedInstanceState);
-        showSoftInput(chatPanel.getEditor());
+        showSoftInput(actionPanel.getEditor());
         initFlowLayout();
     }
 
     @Override
     public boolean onBackPressedSupport() {
-        if (chatPanel.isEmotionPanelShow()) {
-            chatPanel.hideEmojiPanel();
+        if (actionPanel.isEmotionPanelShow()) {
+            actionPanel.hideEmojiPanel();
             return true;
         }
         return super.onBackPressedSupport();
-    }
-
-    @Override
-    public void sendText(String content) {
-        if (imgFile == null) {
-            AToast.warning("请选择图片");
-            return;
-        }
-        WallpaperApi.shareWallpaperApi(imgFile, content, tag, isPrivate, this::pop, new IHttp.OnStreamWriteListener() {
-            @Override
-            public void onBytesWritten(int bytesWritten) {
-
-            }
-
-            @Override
-            public boolean shouldContinue() {
-                return true;
-            }
-        });
-    }
-
-    @Override
-    public void onEmojiSelected(String key) {
-
-    }
-
-    @Override
-    public void onStickerSelected(String categoryName, String stickerName, String stickerBitmapPath) {
-
     }
 
     private void initFlowLayout() {
@@ -176,6 +169,7 @@ public class WallpaperShareFragment extends BaseFragment
                     public void onSelected(@NonNull List<Item> itemList) {
                         imgFile = itemList.get(0).getFile(context);
                         Glide.with(context).load(imgFile).into(ivWallpaper);
+                        ivWallpaper.setVisibility(View.VISIBLE);
                         flEmpty.setVisibility(View.GONE);
                     }
                 })

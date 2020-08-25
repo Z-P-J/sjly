@@ -1,0 +1,241 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white">
+
+    <include layout="@layout/layout_toolbar"/>
+
+    <com.zpj.shouji.market.ui.widget.ElasticScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:layout_below="@id/tool_bar"
+        android:layout_above="@+id/panel_action"
+        android:scrollbars="none"
+        >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            >
+
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="16dp"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="发现内容"
+                android:textColor="@color/colorPrimary"
+                android:paddingHorizontal="16dp"
+                />
+
+            <android.support.v7.widget.AppCompatEditText
+                android:id="@+id/et_content"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:textColor="@color/color_text_major"
+                android:background="@drawable/grey_shape"
+                android:inputType="textMultiLine"
+                android:hint="我来说两句..."
+                android:padding="16dp"
+                android:textSize="16sp"
+                android:layout_margin="16dp"
+                />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="添加应用"
+                android:textColor="@color/colorPrimary"
+                android:paddingHorizontal="16dp"
+                />
+
+            <RelativeLayout
+                android:id="@+id/rl_upload_app"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:background="@drawable/grey_shape"
+                android:layout_margin="16dp"
+                >
+
+                <RelativeLayout
+                    android:id="@+id/rl_app_item"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal"
+                    android:background="@drawable/grey_shape"
+                    android:paddingHorizontal="8dp"
+                    android:paddingVertical="4dp"
+                    android:visibility="invisible"
+                    >
+
+                    <com.shehuan.niv.NiceImageView
+                        android:id="@+id/iv_icon"
+                        android:layout_width="56dp"
+                        android:layout_height="56dp"
+                        android:src="@mipmap/ic_launcher"
+                        android:layout_margin="8dp"
+                        android:layout_gravity="center_vertical"
+                        android:layout_centerVertical="true"
+                        android:scaleType="centerCrop"
+                        app:corner_radius="4dp"
+                        />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:layout_toEndOf="@id/iv_icon"
+                        android:layout_toStartOf="@id/tv_remove"
+                        android:layout_centerVertical="true"
+                        android:layout_margin="8dp"
+                        >
+
+                        <TextView
+                            android:id="@+id/tv_app_name"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:gravity="center_vertical"
+                            android:maxLines="1"
+                            android:ellipsize="end"
+                            android:text="文件夹"
+                            android:textColor="@color/color_text_major" />
+
+                        <TextView
+                            android:id="@+id/tv_info"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:maxLines="1"
+                            android:gravity="center_vertical"
+                            android:ellipsize="end"
+                            android:text="文件： 文件夹："
+                            android:paddingTop="1dp"
+                            android:paddingBottom="1dp"
+                            android:textColor="@color/color_text_normal"
+                            android:textSize="12sp" />
+
+                        <TextView
+                            android:id="@+id/tv_desc"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:maxLines="1"
+                            android:gravity="center_vertical"
+                            android:ellipsize="end"
+                            android:text="上传apk文件"
+                            android:paddingTop="1dp"
+                            android:paddingBottom="1dp"
+                            android:textColor="@android:color/darker_gray"
+                            android:textSize="12sp"
+                            />
+
+                    </LinearLayout>
+
+                    <TextView
+                        android:id="@+id/tv_remove"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:text="移除"
+                        android:textSize="12sp"
+                        android:textColor="@color/red5"
+                        android:background="@drawable/bg_button_remove"
+                        android:layout_alignParentEnd="true"
+                        android:layout_centerVertical="true"
+                        android:paddingStart="12dp"
+                        android:paddingEnd="12dp"
+                        android:textStyle="bold"
+                        android:paddingTop="4dp"
+                        android:paddingBottom="4dp"
+                        android:layout_margin="8dp"
+                        android:gravity="center"
+                        />
+
+                </RelativeLayout>
+
+                <TextView
+                    android:id="@+id/tv_add_app"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:background="@drawable/grey_shape"
+                    android:drawablePadding="8dp"
+                    android:drawableStart="@drawable/add_button"
+                    android:text="添加应用"
+                    android:gravity="center"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="18sp"
+                    />
+
+            </RelativeLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="添加图片"
+                android:textColor="@color/colorPrimary"
+                android:paddingHorizontal="16dp"
+                />
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/grey_shape"
+                android:layout_margin="16dp"
+                android:padding="8dp"
+                >
+
+                <com.lwkandroid.widget.ninegridview.NineGridView
+                    android:id="@+id/nine_grid_image_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    app:column_count="3"
+                    app:is_edit_mode="true"
+                    app:max_num="9"
+                    app:sapce_size="4dp"
+                    app:single_image_size="160dp"
+                    />
+
+            </FrameLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="选择标签"
+                android:textColor="@color/colorPrimary"
+                android:paddingHorizontal="16dp"
+                />
+
+            <com.zpj.shouji.market.ui.widget.flowlayout.FlowLayout
+                android:id="@+id/fl_tags"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/grey_shape"
+                android:layout_margin="16dp"
+                />
+
+        </LinearLayout>
+
+    </com.zpj.shouji.market.ui.widget.ElasticScrollView>
+
+    <com.zpj.shouji.market.ui.widget.ActionPanel
+        android:id="@+id/panel_action"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        />
+
+    <View style="@style/layout_shadow_bottom"
+        android:layout_below="@id/tool_bar" />
+
+    <View style="@style/layout_shadow_up"
+        android:layout_above="@id/panel_action" />
+
+</RelativeLayout>

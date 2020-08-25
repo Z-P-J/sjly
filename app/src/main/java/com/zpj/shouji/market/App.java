@@ -2,6 +2,7 @@ package com.zpj.shouji.market;
 
 import android.app.Application;
 import android.content.Context;
+import android.util.Log;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
@@ -12,6 +13,9 @@ import com.lqr.emoji.LQREmotionKit;
 import com.maning.librarycrashmonitor.MCrashMonitor;
 import com.raizlabs.android.dbflow.config.FlowManager;
 import com.zpj.downloader.ZDownloader;
+import com.zpj.utils.AppUtils;
+
+import java.util.Arrays;
 
 import io.reactivex.functions.Consumer;
 import io.reactivex.plugins.RxJavaPlugins;

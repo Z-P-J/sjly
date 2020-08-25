@@ -28,17 +28,27 @@
             android:paddingHorizontal="16dp"
             />
 
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="16dp"/>
+
         <EditText
             android:id="@+id/et_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:textColor="@color/color_text_major"
-            android:background="@color/white"
+            android:background="@drawable/grey_shape"
             android:inputType="textMultiLine"
             android:hint="应用集标题..."
             android:padding="16dp"
-            android:textSize="16sp"/>
+            android:textSize="16sp"
+            android:layout_margin="16dp"
+            />
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="16dp"/>
 
         <TextView
             android:layout_width="match_parent"
@@ -48,32 +58,48 @@
             android:paddingHorizontal="16dp"
             />
 
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="16dp"/>
+
         <EditText
             android:id="@+id/et_content"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-            android:background="@color/white"
+            android:background="@drawable/grey_shape"
             android:textColor="@color/color_text_major"
             android:inputType="textMultiLine"
             android:gravity="start"
             android:hint="应用集描述..."
             android:padding="16dp"
-            android:textSize="14sp"/>
+            android:textSize="14sp"
+            android:layout_margin="16dp"
+            />
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="16dp"/>
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="应用集分类"
+            android:text="应用集标签"
             android:textColor="@color/colorPrimary"
             android:paddingHorizontal="16dp"
             />
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="16dp"/>
 
 
         <com.zpj.shouji.market.ui.widget.flowlayout.FlowLayout
             android:id="@+id/fl_tags"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="@drawable/grey_shape"
+            android:layout_margin="16dp"
             />
 
         <RelativeLayout
@@ -107,14 +133,17 @@
 
         </RelativeLayout>
 
-        <View style="@style/layout_shadow_bottom"
-            />
-
         <android.support.v7.widget.RecyclerView
             android:id="@+id/recycler_view"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="@drawable/grey_shape"
+            android:layout_margin="16dp"
             />
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="16dp"/>
 
     </com.donkingliang.consecutivescroller.ConsecutiveScrollerLayout>
 

@@ -50,9 +50,9 @@
 
         <com.zpj.shouji.market.ui.widget.DrawableTintTextView
             style="@style/me_tool_card_item_style"
-            android:id="@+id/tv_my_private_letter"
+            android:id="@+id/tv_my_msg"
             android:drawableTop="@drawable/ic_message_white_24dp"
-            android:text="我的私信"
+            android:text="我的消息"
             app:drawable_tint_color="@color/light_brown"
             />
 
@@ -80,21 +80,21 @@
             app:drawable_tint_color="@color/light_red_1"
             />
 
-        <com.zpj.shouji.market.ui.widget.DrawableTintTextView
-            style="@style/me_tool_card_item_style"
-            android:id="@+id/tv_my_at"
-            android:drawableTop="@drawable/ic_blacklist_white_24dp"
-            android:text=" @我的"
-            app:drawable_tint_color="@color/black"
-            />
+<!--        <com.zpj.shouji.market.ui.widget.DrawableTintTextView-->
+<!--            style="@style/me_tool_card_item_style"-->
+<!--            android:id="@+id/tv_my_at"-->
+<!--            android:drawableTop="@drawable/ic_blacklist_white_24dp"-->
+<!--            android:text=" @我的"-->
+<!--            app:drawable_tint_color="@color/black"-->
+<!--            />-->
 
-        <com.zpj.shouji.market.ui.widget.DrawableTintTextView
-            style="@style/me_tool_card_item_style"
-            android:id="@+id/tv_my_like"
-            android:drawableTop="@drawable/ic_blacklist_white_24dp"
-            android:text="我的赞"
-            app:drawable_tint_color="@color/light_red_1"
-            />
+<!--        <com.zpj.shouji.market.ui.widget.DrawableTintTextView-->
+<!--            style="@style/me_tool_card_item_style"-->
+<!--            android:id="@+id/tv_my_like"-->
+<!--            android:drawableTop="@drawable/ic_blacklist_white_24dp"-->
+<!--            android:text="我的赞"-->
+<!--            app:drawable_tint_color="@color/light_red_1"-->
+<!--            />-->
 
 
     </android.support.v7.widget.GridLayout>

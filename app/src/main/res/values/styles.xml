@@ -12,7 +12,6 @@
     <style name="AppThemeTransparent" parent="AppTheme">
         <item name="android:windowNoTitle">true</item>
         <item name="android:windowTranslucentStatus">true</item>
-        <item name="android:overScrollMode">never</item>
     </style>
 
     <style name="SplashTheme" parent="Theme.AppCompat.Light.NoActionBar">

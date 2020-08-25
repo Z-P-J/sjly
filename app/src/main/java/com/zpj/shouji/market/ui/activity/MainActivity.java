@@ -103,6 +103,7 @@ public class MainActivity extends SupportActivity {
     @Override
     protected void onDestroy() {
         EventBus.getDefault().unregister(this);
+        HttpPreLoader.getInstance().onDestroy();
         super.onDestroy();
     }
 

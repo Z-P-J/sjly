@@ -6,20 +6,12 @@ import android.support.annotation.Nullable;
 import android.support.v4.widget.NestedScrollView;
 import android.util.Log;
 import android.view.View;
-import android.widget.LinearLayout;
-import android.widget.ScrollView;
 
 import com.zpj.fragmentation.BaseFragment;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.event.ColorChangeEvent;
 import com.zpj.shouji.market.event.ToolbarColorChangeEvent;
-import com.zpj.shouji.market.ui.widget.recommend.CollectionRecommendCard;
-import com.zpj.shouji.market.ui.widget.recommend.GameRecommendCard;
 import com.zpj.shouji.market.ui.widget.recommend.RecommendBanner;
-import com.zpj.shouji.market.ui.widget.recommend.SoftRecommendCard;
-import com.zpj.shouji.market.ui.widget.recommend.SubjectRecommendCard;
-import com.zpj.shouji.market.ui.widget.recommend.UpdateRecommendCard;
-import com.zpj.utils.ColorUtils;
 import com.zpj.utils.ScreenUtils;
 
 public class RecommendFragment2 extends BaseFragment {
