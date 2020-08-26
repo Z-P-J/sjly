@@ -107,6 +107,14 @@
         <attr name="z_emojiSize" format="dimension" />
     </declare-styleable>
 
+    <declare-styleable name="RankHeaderLayout">
+        <attr name="rank_num" format="enum">
+            <enum name="rank1" value="1" />
+            <enum name="rank2" value="2" />
+            <enum name="rank3" value="3" />
+        </attr>
+    </declare-styleable>
+
 
     <string-array name="default_wallpaper_tags">
         <item>全部</item>

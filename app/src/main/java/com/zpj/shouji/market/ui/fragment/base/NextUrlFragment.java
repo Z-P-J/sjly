@@ -4,12 +4,15 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.zpj.http.core.IHttp;
 import com.zpj.http.parser.html.nodes.Document;
 import com.zpj.http.parser.html.nodes.Element;
 import com.zpj.recyclerview.EasyAdapter;
 import com.zpj.recyclerview.EasyViewHolder;
+import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.api.HttpApi;
 import com.zpj.shouji.market.constant.Keys;
 
@@ -107,6 +110,20 @@ public abstract class NextUrlFragment<T> extends RecyclerLayoutFragment<T>
                 }
                 Log.d("getData222222222222", "start=" + start + " count=" + count);
                 recyclerLayout.notifyItemRangeChanged(start, count);
+            } else {
+                View footerView = recyclerLayout.getAdapter().getFooterView();
+                if (footerView != null) {
+                    LinearLayout llContainerProgress = footerView.findViewById(R.id.ll_container_progress);
+                    TextView tvMsg = footerView.findViewById(R.id.tv_msg);
+                    if (llContainerProgress != null) {
+                        llContainerProgress.setVisibility(View.GONE);
+                    }
+                    if (tvMsg != null) {
+                        tvMsg.setVisibility(View.VISIBLE);
+                        tvMsg.setText(R.string.easy_has_no_more);
+                    }
+                }
+                return;
             }
         }
         refresh = false;

@@ -146,7 +146,12 @@ public class MyDynamicFragment extends BaseFragment {
     public static class AllFragment extends ThemeListFragment {
 
         public static AllFragment newInstance(String userId) {
-            String url = "http://tt.shouji.com.cn/app/view_member_content_xml_v2.jsp?id=" + userId;
+            String url;
+            if (TextUtils.equals(userId, UserManager.getInstance().getUserId())) {
+                url = "http://tt.shouji.com.cn/app/user_content_list_xml_v2.jsp";
+            } else {
+                url = "http://tt.shouji.com.cn/app/view_member_content_xml_v2.jsp?id=" + userId;
+            }
             Bundle args = new Bundle();
             args.putString(Keys.DEFAULT_URL, url);
             AllFragment fragment = new AllFragment();
@@ -159,7 +164,13 @@ public class MyDynamicFragment extends BaseFragment {
     public static class DiscoverFragment extends ThemeListFragment {
 
         public static DiscoverFragment newInstance(String userId) {
-            String url = "http://tt.shouji.com.cn/app/view_member_content_xml_v2.jsp?t=discuss&id=" + userId;
+            String url;
+            if (TextUtils.equals(userId, UserManager.getInstance().getUserId())) {
+                url = "http://tt.shouji.com.cn/app/user_content_list_xml_v2.jsp?t=discuss";
+            } else {
+                url = "http://tt.shouji.com.cn/app/view_member_content_xml_v2.jsp?t=discuss&id=" + userId;
+            }
+
             Bundle args = new Bundle();
             args.putString(Keys.DEFAULT_URL, url);
             DiscoverFragment fragment = new DiscoverFragment();

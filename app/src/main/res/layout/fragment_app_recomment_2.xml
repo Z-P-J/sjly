@@ -4,6 +4,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/white"
     android:orientation="vertical"
     >
 
@@ -24,34 +25,34 @@
         app:z_toolbar_rightCustomView="@layout/layout_tools_dark"
         />
 
-<!--    <com.zpj.widget.statelayout.StateLayout-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="match_parent">-->
-<!--        -->
-<!--        -->
-<!--        -->
-<!--    </com.zpj.widget.statelayout.StateLayout>-->
-
-    <ScrollView
-        android:id="@+id/scroll_view"
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:scrollbars="none"
-        >
+        android:layout_height="match_parent">
 
-        <LinearLayout
-            android:id="@+id/ll_container"
+        <com.zpj.shouji.market.ui.widget.ElasticScrollView
+            android:id="@+id/scroll_view"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:layout_height="match_parent"
+            android:scrollbars="none"
+            >
 
-            <include layout="@layout/layout_app_header"/>
+            <LinearLayout
+                android:id="@+id/ll_container"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <!--            <include layout="@layout/layout_app_header"/>-->
 
 
 
 
-        </LinearLayout>
+            </LinearLayout>
 
-    </ScrollView>
+        </com.zpj.shouji.market.ui.widget.ElasticScrollView>
+
+        <View style="@style/layout_shadow_bottom"/>
+
+    </FrameLayout>
 
 </LinearLayout>

@@ -79,7 +79,7 @@ public class CollectionRecommendCard extends RecommendCard<CollectionInfo> {
     public void onBindViewHolder(EasyViewHolder holder, List<CollectionInfo> list, int position, List<Object> payloads) {
         CollectionInfo info = list.get(position);
         NiceImageView imgBg = holder.getView(R.id.img_bg);
-        RecyclerView.LayoutParams params = (RecyclerView.LayoutParams) holder.getItemView().getLayoutParams();
+//        RecyclerView.LayoutParams params = (RecyclerView.LayoutParams) holder.getItemView().getLayoutParams();
 //        if (position % 2 == 0) {
 //            if (position == 0) {
 //                params.setMargins(margin, 0, margin / 2, margin / 2);
@@ -127,6 +127,6 @@ public class CollectionRecommendCard extends RecommendCard<CollectionInfo> {
 
     @Override
     public void onMoreClicked(View v) {
-        CollectionRecommendListFragment.start("http://tt.shouji.com.cn/androidv3/yyj_tj_xml.jsp");
+        CollectionRecommendListFragment.start();
     }
 }

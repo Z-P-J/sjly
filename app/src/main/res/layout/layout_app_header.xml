@@ -2,13 +2,13 @@
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="@drawable/gradient_bg"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:padding="8dp"
     >
 
     <com.lihang.ShadowLayout
-        android:id="@+id/cv_item1"
+        android:id="@+id/sl_rank"
         android:layout_width="wrap_content"
         android:layout_weight="1"
         android:layout_height="wrap_content"
@@ -34,7 +34,7 @@
     </com.lihang.ShadowLayout>
 
     <com.lihang.ShadowLayout
-        android:id="@+id/cv_item2"
+        android:id="@+id/sl_classification"
         android:layout_width="wrap_content"
         android:layout_weight="1"
         android:layout_height="wrap_content"

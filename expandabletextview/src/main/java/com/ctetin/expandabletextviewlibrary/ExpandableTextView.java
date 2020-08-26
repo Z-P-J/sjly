@@ -1075,7 +1075,8 @@ public class ExpandableTextView extends AppCompatTextView {
         @Override
         public void updateDrawState(TextPaint tp) {
             // TODO Auto-generated method stub
-            tp.setColor(mIsPressed ? Color.BLACK : textColor);
+//            tp.setColor(mIsPressed ? Color.BLACK : textColor);
+            tp.setColor(textColor);
             tp.bgColor = mIsPressed ? 0x80eeeeee : Color.TRANSPARENT;
             tp.setUnderlineText(false);
             tp.clearShadowLayer();

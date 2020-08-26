@@ -41,6 +41,10 @@ public class ToolBarListFragment extends AppListFragment {
         start("http://tt.shouji.com.cn/androidv3/special_list_xml.jsp?id=-9998", "应用推荐");
     }
 
+    public static void startNecessarySoftList() {
+        start("http://tt.shouji.com.cn/androidv3/special_list_xml.jsp?id=-9998", "必备应用");
+    }
+
     public static void startUpdateSoftList() {
         start("http://tt.shouji.com.cn/androidv3/soft_index_xml.jsp?sort=time", "最新应用");
     }

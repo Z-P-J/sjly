@@ -163,7 +163,7 @@ public class RecommendBanner extends LinearLayout implements View.OnClickListene
                 SubjectRecommendListFragment.start("http://tt.shouji.com.cn/androidv3/special_index_xml.jsp?jse=yes");
                 break;
             case R.id.tv_collections:
-                CollectionRecommendListFragment.start("http://tt.shouji.com.cn/androidv3/yyj_tj_xml.jsp");
+                CollectionRecommendListFragment.start();
                 break;
         }
     }
