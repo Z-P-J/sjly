@@ -215,6 +215,14 @@
                 tools:visibility="visible"
                 />
 
+<!--            <include layout="@layout/item_app_collection"-->
+<!--                android:id="@+id/collection_layout"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:visibility="gone"-->
+<!--                tools:visibility="visible"-->
+<!--                />-->
+
             <FrameLayout
                 android:id="@+id/layout_app"
                 android:layout_width="match_parent"
@@ -319,6 +327,7 @@
             </FrameLayout>
 
             <LinearLayout
+                android:id="@+id/ll_action_contaienr"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 >
@@ -379,6 +388,25 @@
 <!--                    />-->
 
             </LinearLayout>
+
+            <com.ctetin.expandabletextviewlibrary.ExpandableTextView
+                android:id="@+id/tv_support_users"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:maxLines="1"
+                android:ellipsize="end"
+                app:ep_need_self="true"
+                app:ep_need_expand="false"
+                app:ep_need_contract="false"
+                app:ep_max_line="1"
+                app:ep_need_mention="false"
+                app:ep_need_link="false"
+                app:ep_self_color="@color/colorPrimary"
+                android:textSize="12sp"
+                android:visibility="gone"
+                tools:visibility="visible"
+                android:paddingVertical="8dp"
+                />
 
 <!--            <TextView-->
 <!--                android:layout_width="match_parent"-->

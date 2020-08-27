@@ -3,12 +3,19 @@ package com.zpj.shouji.market.ui.fragment.theme;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.text.TextUtils;
 import android.view.View;
 
 import com.bumptech.glide.Glide;
+import com.zpj.http.core.IHttp;
+import com.zpj.http.parser.html.nodes.Document;
 import com.zpj.http.parser.html.nodes.Element;
 import com.zpj.recyclerview.EasyViewHolder;
 import com.zpj.shouji.market.R;
+import com.zpj.shouji.market.api.HttpApi;
+import com.zpj.shouji.market.constant.Keys;
+import com.zpj.shouji.market.event.StartFragmentEvent;
+import com.zpj.shouji.market.model.DiscoverInfo;
 import com.zpj.shouji.market.model.SupportUserInfo;
 import com.zpj.shouji.market.ui.fragment.base.NextUrlFragment;
 import com.zpj.shouji.market.ui.fragment.profile.ProfileFragment;
@@ -29,15 +36,45 @@ public class SupportUserListFragment extends NextUrlFragment<SupportUserInfo> {
         }
     }
 
+    private String themeId;
+
+    public static SupportUserListFragment newInstance(String id) {
+        Bundle args = new Bundle();
+        args.putString(Keys.ID, id);
+        args.putString(Keys.DEFAULT_URL, "http://tt.shouji.com.cn/app/flower_show_xml_v2.jsp?type=discuss&id=" + id);
+        SupportUserListFragment fragment = new SupportUserListFragment();
+        fragment.setArguments(args);
+        return fragment;
+    }
+
     @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-//        recyclerLayout.showLoading();
+    protected void handleArguments(Bundle arguments) {
+        super.handleArguments(arguments);
+        themeId = arguments.getString(Keys.ID);
+    }
+
+    @Override
+    public void onLazyInitView(@Nullable Bundle savedInstanceState) {
+        super.onLazyInitView(savedInstanceState);
+//        if (TextUtils.isEmpty(themeId)) {
+//            recyclerLayout.showEmpty();
+//        }
+    }
+
+    @Override
+    protected void onGetDocument(Document doc) throws Exception {
+        for (Element element : doc.select("fuser")) {
+            data.add(createData(element));
+        }
     }
 
     @Override
     public SupportUserInfo createData(Element element) {
-        return null;
+        SupportUserInfo userInfo = new SupportUserInfo();
+        userInfo.setNickName(element.selectFirst("fname").text());
+        userInfo.setUserId(element.selectFirst("fid").text());
+        userInfo.setUserLogo(element.selectFirst("avatar").text());
+        return userInfo;
     }
 
     @Override

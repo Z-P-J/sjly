@@ -29,16 +29,26 @@
         android:padding="8dp"
         >
 
-        <com.lwkandroid.widget.ninegridview.NineGridView
-            android:id="@+id/grid_image_view"
+<!--        <com.lwkandroid.widget.ninegridview.NineGridView-->
+<!--            android:id="@+id/grid_image_view"-->
+<!--            android:layout_width="64dp"-->
+<!--            android:layout_height="64dp"-->
+<!--            android:background="@drawable/bg_collection_icon_grid"-->
+<!--            app:column_count="2"-->
+<!--            app:is_edit_mode="false"-->
+<!--            app:max_num="4"-->
+<!--            app:sapce_size="2dp"-->
+<!--            app:single_image_size="24dp"-->
+<!--            android:layout_margin="8dp"-->
+<!--            />-->
+
+        <com.zpj.shouji.market.ui.widget.CombineImageView
+            android:id="@+id/iv_icon"
             android:layout_width="64dp"
             android:layout_height="64dp"
-            android:background="@drawable/bg_collection_icon_grid"
-            app:column_count="2"
-            app:is_edit_mode="false"
-            app:max_num="4"
-            app:sapce_size="2dp"
-            app:single_image_size="24dp"
+            android:src="@mipmap/ic_launcher"
+            android:layout_gravity="center_vertical"
+            android:scaleType="centerCrop"
             android:layout_margin="8dp"
             />
 

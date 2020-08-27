@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    >
+
+    <com.lihang.ShadowLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:hl_shadowLimit="4dp"
+        app:hl_shadowColor="#40000000"
+        app:hl_shadowBackColor="@color/color_background_gray"
+        app:hl_cornerRadius="8dp"
+        android:layout_margin="4dp"
+        >
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            >
+
+            <com.shehuan.niv.NiceImageView
+                android:id="@+id/img_view"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scaleType="centerCrop"
+                app:corner_top_left_radius="8dp"
+                app:corner_top_right_radius="8dp"
+                android:src="@drawable/bga_pp_ic_holder_light"
+                android:layout_above="@+id/rl_app_info"
+                />
+
+            <RelativeLayout
+                android:id="@+id/rl_app_info"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_alignParentBottom="true"
+                >
+
+                <com.shehuan.niv.NiceImageView
+                    android:id="@+id/iv_icon"
+                    android:layout_width="36dp"
+                    android:layout_height="36dp"
+                    android:src="@mipmap/ic_launcher"
+                    android:layout_margin="8dp"
+                    android:layout_gravity="center_vertical"
+                    android:layout_centerVertical="true"
+                    android:scaleType="centerCrop"
+                    app:corner_radius="4dp"
+                    />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_toEndOf="@id/iv_icon"
+                    android:layout_toStartOf="@id/tv_download"
+                    android:layout_centerVertical="true"
+                    android:layout_margin="8dp"
+                    >
+
+                    <TextView
+                        android:id="@+id/tv_title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        android:maxLines="1"
+                        android:ellipsize="end"
+                        android:text="文件夹"
+                        android:textSize="14sp"
+                        android:textColor="@color/color_text_major" />
+
+                    <TextView
+                        android:id="@+id/tv_info"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:maxLines="1"
+                        android:gravity="center_vertical"
+                        android:ellipsize="end"
+                        android:text="文件： 文件夹："
+                        android:paddingTop="1dp"
+                        android:paddingBottom="1dp"
+                        android:textColor="@color/color_text_normal"
+                        android:textSize="12sp" />
+
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/tv_download"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="下载"
+                    android:textSize="12sp"
+                    android:textColor="@color/colorPrimary"
+                    android:background="@drawable/bg_download_button"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:paddingStart="12dp"
+                    android:paddingEnd="12dp"
+                    android:textStyle="bold"
+                    android:paddingTop="4dp"
+                    android:paddingBottom="4dp"
+                    android:layout_margin="8dp"
+                    android:gravity="center"
+                    />
+
+
+
+            </RelativeLayout>
+
+        </RelativeLayout>
+
+
+    </com.lihang.ShadowLayout>
+
+</FrameLayout>

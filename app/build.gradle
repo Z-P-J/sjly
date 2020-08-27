@@ -75,6 +75,7 @@ dependencies {
 //    implementation 'com.lqr.ninegridimageview:library:1.0.0'
     implementation 'com.lwkandroid.widget:NineGridView:1.2.6'
     implementation 'com.zpj.widget:TintedImageView:1.0.0'
+    implementation 'com.github.Othershe:CombineBitmap:1.0.5'
 
     // TabLayout
     implementation 'com.github.hackware1993:MagicIndicator:1.6.0'

@@ -173,7 +173,9 @@ public class ThemeAppDownloadPopup extends BottomPopup<ThemeAppDownloadPopup> {
                         }
                     }
                     if (!TextUtils.isEmpty(version)) {
-                        tvDesc.setText(version + "\t" + discoverInfo.getAppSize());
+                        tvDesc.setText(discoverInfo.getAppSize() + " | " + version);
+                    } else {
+                        tvDesc.setText(discoverInfo.getAppSize());
                     }
                     permissionList.addAll(data.selectFirst("pers").select("ptitle"));
                     if (isShow) {

@@ -39,7 +39,7 @@ import java.util.List;
 
 public class ThemeDetailFragment extends ListenerFragment {
 
-    private final String[] TAB_TITLES = {"评论", "赞"};
+    private final String[] TAB_TITLES = {"评论", "点赞"};
 
     private CommentPopup commentPopup;
     private ViewPager viewPager;
@@ -113,7 +113,7 @@ public class ThemeDetailFragment extends ListenerFragment {
 
 
         EasyViewHolder holder = new EasyViewHolder(themeLayout);
-        DiscoverBinder binder = new DiscoverBinder(false);
+        DiscoverBinder binder = new DiscoverBinder(false, false);
         List<DiscoverInfo> discoverInfoList = new ArrayList<>();
         discoverInfoList.add(item);
         binder.onBindViewHolder(holder, discoverInfoList, 0, new ArrayList<>(0));
@@ -128,9 +128,12 @@ public class ThemeDetailFragment extends ListenerFragment {
         appBarLayout.addOnOffsetChangedListener(new AppBarLayout.OnOffsetChangedListener() {
             @Override
             public void onOffsetChanged(AppBarLayout appBarLayout, int i) {
-                float alpha = (float) Math.abs(i) / appBarLayout.getTotalScrollRange();
+//                float alpha = (float) Math.abs(i) / appBarLayout.getTotalScrollRange();
+                float alpha = (float) Math.abs(i) / toolbar.getMeasuredHeight();
                 alpha = Math.min(1f, alpha);
                 buttonBarLayout.setAlpha(alpha);
+
+                alpha = (float) Math.abs(i) / appBarLayout.getTotalScrollRange();
                 if (alpha >= 1f) {
                     themeLayout.setAlpha(0f);
                 } else {
@@ -184,7 +187,7 @@ public class ThemeDetailFragment extends ListenerFragment {
         //    private List<Fragment> fragments = new ArrayList<>();
         SupportUserListFragment supportUserListFragment = findChildFragment(SupportUserListFragment.class);
         if (supportUserListFragment == null) {
-            supportUserListFragment = new SupportUserListFragment();
+            supportUserListFragment = SupportUserListFragment.newInstance(item.getId());
         }
         list.add(discoverListFragment);
         list.add(supportUserListFragment);
@@ -196,7 +199,6 @@ public class ThemeDetailFragment extends ListenerFragment {
 
 
         MagicIndicatorHelper.bindViewPager(context, magicIndicator, viewPager, TAB_TITLES, true);
-        supportUserListFragment.setData(item.getSupportUserInfoList());
 
         if (getArguments() != null) {
             if (getArguments().getBoolean(Keys.SHOW_TOOLBAR, false)) {

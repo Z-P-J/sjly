@@ -422,6 +422,10 @@ public final class HttpApi {
         return get(String.format("http://tt.shouji.com.cn/app/getShareInfo.jsp?id=%s", id));
     }
 
+    public static ObservableTask<Document> getSupportUserListApi(String id) {
+        return get(String.format("http://tt.shouji.com.cn/app/flower_show_xml_v2.jsp?type=discuss&id=%s", id));
+    }
+
     public static ObservableTask<Document> uploadAvatarApi(Uri uri, IHttp.OnStreamWriteListener listener) throws Exception {
         return ZHttp.post(String.format("http://tt.shouji.com.cn/app/user_upload_avatar.jsp?jsessionid=%s&versioncode=%s", UserManager.getInstance().getSessionId(), VERSION_CODE))
                 .validateTLSCertificates(false)

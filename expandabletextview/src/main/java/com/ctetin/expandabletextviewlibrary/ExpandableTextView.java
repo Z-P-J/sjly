@@ -16,6 +16,7 @@ import android.text.DynamicLayout;
 import android.text.Layout;
 import android.text.Selection;
 import android.text.Spannable;
+import android.text.SpannableString;
 import android.text.SpannableStringBuilder;
 import android.text.TextPaint;
 import android.text.TextUtils;
@@ -24,7 +25,6 @@ import android.text.method.Touch;
 import android.text.style.ClickableSpan;
 import android.text.style.ForegroundColorSpan;
 import android.text.style.ImageSpan;
-import android.text.util.Linkify;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.MotionEvent;
@@ -239,6 +239,50 @@ public class ExpandableTextView extends AppCompatTextView {
         });
     }
 
+    @Override
+    public void setMaxLines(int maxLines) {
+        super.setMaxLines(maxLines);
+        if (maxLines > 0) {
+            setOnTouchListener(new View.OnTouchListener() {
+                @Override
+                public boolean onTouch(View v, MotionEvent event) {
+                    int action = event.getAction();
+
+                    TextView tv = (TextView) v;
+                    CharSequence text = tv.getText();
+                    if (text instanceof SpannableString) {
+                        if (action == MotionEvent.ACTION_UP) {
+                            int x = (int) event.getX();
+                            int y = (int) event.getY();
+
+                            x -= tv.getTotalPaddingLeft();
+                            y -= tv.getTotalPaddingTop();
+
+                            x += tv.getScrollX();
+                            y += tv.getScrollY();
+
+                            Layout layout = tv.getLayout();
+                            int line = layout.getLineForVertical(y);
+                            int off = layout.getOffsetForHorizontal(line, x);
+
+                            ClickableSpan[] link = ((SpannableString) text).getSpans(off, off, ClickableSpan.class);
+                            if (link.length != 0) {
+                                link[0].onClick(tv);
+                            } else {
+                                //do textview click event
+                                return false;
+                            }
+                        }
+                    }
+
+                    return true;
+                }
+            });
+        } else {
+            setOnTouchListener(null);
+        }
+    }
+
     private void init(Context context, AttributeSet attrs, int defStyleAttr) {
         //适配英文版
         TEXT_CONTRACT = context.getString(R.string.social_contract);
@@ -309,6 +353,12 @@ public class ExpandableTextView extends AppCompatTextView {
         if (onGetLineCountListener != null) {
             onGetLineCountListener.onGetLineCount(mLineCount, mLineCount > mLimitLines);
         }
+
+//        if (mLineCount > mLimitLines || mNeedExpend) {
+//            return dealLink(mFormatData, true);
+//        } else {
+//            return dealLink(mFormatData, false);
+//        }
 
         if (!mNeedExpend || mLineCount <= mLimitLines) {
             //不需要展开功能 直接处理链接模块

@@ -1,6 +1,10 @@
 package com.zpj.shouji.market.ui.widget.recommend;
 
 import android.content.Context;
+import android.graphics.Color;
+import android.graphics.drawable.Drawable;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -10,6 +14,13 @@ import android.view.View;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
+import com.bumptech.glide.request.target.SimpleTarget;
+import com.bumptech.glide.request.transition.Transition;
+import com.lwkandroid.widget.ninegridview.NineGridBean;
+import com.lwkandroid.widget.ninegridview.NineGridView;
+import com.othershe.combinebitmap.CombineBitmap;
+import com.othershe.combinebitmap.layout.DingLayoutManager;
+import com.othershe.combinebitmap.layout.WechatLayoutManager;
 import com.shehuan.niv.NiceImageView;
 import com.zpj.http.parser.html.nodes.Document;
 import com.zpj.http.parser.html.nodes.Element;
@@ -21,9 +32,13 @@ import com.zpj.shouji.market.api.HttpApi;
 import com.zpj.shouji.market.api.HttpPreLoader;
 import com.zpj.shouji.market.glide.blur.CropBlurTransformation;
 import com.zpj.shouji.market.model.CollectionInfo;
+import com.zpj.shouji.market.ui.adapter.DiscoverBinder;
 import com.zpj.shouji.market.ui.fragment.collection.CollectionDetailFragment;
 import com.zpj.shouji.market.ui.fragment.collection.CollectionRecommendListFragment;
+import com.zpj.shouji.market.ui.widget.CombineImageView;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class CollectionRecommendCard extends RecommendCard<CollectionInfo> {
@@ -79,40 +94,50 @@ public class CollectionRecommendCard extends RecommendCard<CollectionInfo> {
     public void onBindViewHolder(EasyViewHolder holder, List<CollectionInfo> list, int position, List<Object> payloads) {
         CollectionInfo info = list.get(position);
         NiceImageView imgBg = holder.getView(R.id.img_bg);
-//        RecyclerView.LayoutParams params = (RecyclerView.LayoutParams) holder.getItemView().getLayoutParams();
-//        if (position % 2 == 0) {
-//            if (position == 0) {
-//                params.setMargins(margin, 0, margin / 2, margin / 2);
-//            } else if (position == list1.size() - 2) {
-//                params.setMargins(margin / 2, 0, margin, margin / 2);
-//            } else {
-//                params.setMargins(margin / 2, 0, margin / 2, margin / 2);
-//            }
-//        } else {
-//            if (position == 1) {
-//                params.setMargins(margin, margin / 2, margin / 2, 0);
-//            } else if (position == list1.size() - 1) {
-//                params.setMargins(margin / 2, margin / 2, margin, 0);
-//            } else {
-//                params.setMargins(margin / 2, margin / 2, margin / 2, 0);
+
+        holder.setText(R.id.tv_title, info.getTitle());
+        holder.setText(R.id.tv_info, "共" + info.getAppSize() + "个应用");
+        holder.setText(R.id.tv_time, info.getTime());
+        holder.setText(R.id.tv_more_info, info.getViewCount() + "人气 · " + info.getSupportCount() + "赞 · " + info.getFavCount() + "收藏");
+        holder.setText(R.id.tv_creator, info.getNickName());
+
+//        NineGridView gridImageView = holder.getView(R.id.grid_image_view);
+//        gridImageView.setImageLoader(DiscoverBinder.getImageLoader());
+//        List<NineGridBean> gridList = new ArrayList<>();
+//        for (String url : info.getIcons()) {
+//            gridList.add(new NineGridBean(url));
+//            if (gridList.size() >= 4) {
+//                break;
 //            }
 //        }
+//        gridImageView.setDataList(gridList);
 
-        holder.getTextView(R.id.item_title).setText(info.getTitle());
-        holder.setText(R.id.tv_view_count, info.getViewCount() + "");
-        holder.setText(R.id.tv_favorite_count, info.getFavCount() + "");
-        holder.setText(R.id.tv_support_count, info.getSupportCount() + "");
-        for (int i = 0; i < Math.min(RES_ICONS.length, info.getIcons().size()); i++) {
-            int res = RES_ICONS[i];
-            if (i == 0) {
-                Glide.with(context)
-                        .load(info.getIcons().get(0))
-                        .apply(RequestOptions.bitmapTransform(new CropBlurTransformation(25, 0.3f)))
+        Glide.with(context)
+                .load(info.getIcons().get(0))
+                .apply(RequestOptions.bitmapTransform(new CropBlurTransformation(25, 0.5f)))
 //                        .apply(RequestOptions.bitmapTransform(new BlurTransformation(25, 8)))
-                        .into(imgBg);
-            }
-            Glide.with(context).load(info.getIcons().get(i)).into(holder.getImageView(res));
-        }
+                .into(imgBg);
+
+        CombineImageView ivIcon = holder.getView(R.id.iv_icon);
+        ivIcon.setUrls(info.getIcons());
+
+//        String[] urls = new String[Math.min(info.getIcons().size(), 4)];
+//
+//        for (int i = 0; i < urls.length; i++) {
+//            urls[i] = info.getIcons().get(i);
+//        }
+//
+//        CombineBitmap.init(context)
+//                .setLayoutManager(new DingLayoutManager()) // 必选， 设置图片的组合形式，支持WechatLayoutManager、DingLayoutManager
+//                .setSize(48) // 必选，组合后Bitmap的尺寸，单位dp
+//                .setGap(2) // 单个图片之间的距离，单位dp，默认0dp
+//                .setGapColor(getResources().getColor(R.color.color_background_gray)) // 单个图片间距的颜色，默认白色
+////                .setPlaceholder() // 单个图片加载失败的默认显示图片
+//                .setUrls(urls) // 要加载的图片url数组
+//                .setImageView(holder.getImageView(R.id.iv_icon)) // 直接设置要显示图片的ImageView
+//                // 设置“子图片”的点击事件，需使用setImageView()，index和图片资源数组的索引对应
+//                .build();
+
     }
 
     @Override

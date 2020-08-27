@@ -3,83 +3,67 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical"
-    android:padding="8dp"
+    android:paddingHorizontal="16dp"
     >
 
-
-<!--    <com.shehuan.niv.NiceImageView-->
-<!--        android:id="@+id/iv_display"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="wrap_content"/>-->
-
-    <LinearLayout
-        android:layout_width="match_parent"
+    <TextView
+        android:id="@+id/tv_necessary"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:padding="8dp"
-        >
+        android:layout_weight="1"
+        android:drawableTop="@drawable/ic_common_app"
+        android:drawablePadding="4dp"
+        android:gravity="center"
+        android:paddingVertical="8dp"
+        android:textSize="12sp"
+        android:textColor="@color/color_text_major"
+        android:text="必备"
+        android:background="?android:attr/selectableItemBackground"
+        />
 
-        <TextView
-            android:id="@+id/tv_necessary"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:drawableTop="@drawable/ic_common_app"
-            android:drawablePadding="4dp"
-            android:gravity="center"
-            android:paddingVertical="16dp"
-            android:textSize="12sp"
-            android:textColor="@color/color_text_major"
-            android:text="必备"
-            android:background="?android:attr/selectableItemBackground"
-            />
+    <TextView
+        android:id="@+id/tv_collection"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:drawableTop="@drawable/ic_app_collection"
+        android:drawablePadding="4dp"
+        android:gravity="center"
+        android:paddingVertical="8dp"
+        android:textSize="12sp"
+        android:textColor="@color/color_text_major"
+        android:text="应用集"
+        android:background="?android:attr/selectableItemBackground"
+        />
 
-        <TextView
-            android:id="@+id/tv_collection"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:drawableTop="@drawable/ic_app_collection"
-            android:drawablePadding="4dp"
-            android:gravity="center"
-            android:paddingVertical="16dp"
-            android:textSize="12sp"
-            android:textColor="@color/color_text_major"
-            android:text="应用集"
-            android:background="?android:attr/selectableItemBackground"
-            />
+    <TextView
+        android:id="@+id/tv_rank"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:drawableTop="@drawable/ic_others_download"
+        android:drawablePadding="4dp"
+        android:gravity="center"
+        android:paddingVertical="8dp"
+        android:textSize="12sp"
+        android:textColor="@color/color_text_major"
+        android:text="排行"
+        android:background="?android:attr/selectableItemBackground"
+        />
 
-        <TextView
-            android:id="@+id/tv_rank"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:drawableTop="@drawable/ic_others_download"
-            android:drawablePadding="4dp"
-            android:gravity="center"
-            android:paddingVertical="16dp"
-            android:textSize="12sp"
-            android:textColor="@color/color_text_major"
-            android:text="排行"
-            android:background="?android:attr/selectableItemBackground"
-            />
-
-        <TextView
-            android:id="@+id/tv_classification"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:drawableTop="@drawable/ic_app_topic"
-            android:drawablePadding="4dp"
-            android:gravity="center"
-            android:paddingVertical="16dp"
-            android:textSize="12sp"
-            android:textColor="@color/color_text_major"
-            android:text="分类"
-            android:background="?android:attr/selectableItemBackground"
-            />
-
-    </LinearLayout>
+    <TextView
+        android:id="@+id/tv_classification"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:drawableTop="@drawable/ic_app_topic"
+        android:drawablePadding="4dp"
+        android:gravity="center"
+        android:paddingVertical="8dp"
+        android:textSize="12sp"
+        android:textColor="@color/color_text_major"
+        android:text="分类"
+        android:background="?android:attr/selectableItemBackground"
+        />
 
 </LinearLayout>

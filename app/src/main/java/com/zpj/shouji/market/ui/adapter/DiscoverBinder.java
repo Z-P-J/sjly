@@ -9,6 +9,7 @@ import android.text.TextPaint;
 import android.text.TextUtils;
 import android.text.style.ClickableSpan;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -26,6 +27,7 @@ import com.lwkandroid.widget.ninegridview.NineGirdImageContainer;
 import com.lwkandroid.widget.ninegridview.NineGridBean;
 import com.lwkandroid.widget.ninegridview.NineGridView;
 import com.sunbinqiang.iconcountview.IconCountView;
+import com.zpj.popup.ZPopup;
 import com.zpj.recyclerview.EasyViewHolder;
 import com.zpj.recyclerview.IEasy;
 import com.zpj.shouji.market.R;
@@ -33,14 +35,17 @@ import com.zpj.shouji.market.api.HttpApi;
 import com.zpj.shouji.market.glide.GlideApp;
 import com.zpj.shouji.market.glide.blur.CropBlurTransformation;
 import com.zpj.shouji.market.model.DiscoverInfo;
+import com.zpj.shouji.market.model.SupportUserInfo;
 import com.zpj.shouji.market.ui.fragment.WebFragment;
 import com.zpj.shouji.market.ui.fragment.detail.AppDetailFragment;
 import com.zpj.shouji.market.ui.fragment.profile.ProfileFragment;
 import com.zpj.shouji.market.ui.fragment.theme.ThemeDetailFragment;
 import com.zpj.shouji.market.ui.fragment.theme.TopicThemeListFragment;
+import com.zpj.shouji.market.ui.widget.CombineImageView;
 import com.zpj.shouji.market.ui.widget.DrawableTintTextView;
 import com.zpj.shouji.market.ui.widget.emoji.EmojiExpandableTextView;
 import com.zpj.shouji.market.ui.widget.popup.CommonImageViewerPopup;
+import com.zpj.shouji.market.ui.widget.popup.SupportUserListPopup;
 import com.zpj.shouji.market.ui.widget.popup.ThemeAppDownloadPopup;
 import com.zpj.shouji.market.utils.TextUrlUtil;
 
@@ -58,16 +63,16 @@ public class DiscoverBinder
 
 
     private final boolean showComment;
-    private final boolean isLightBackground;
+    private final boolean expanable;
 
     public DiscoverBinder(boolean showComment) {
         this.showComment = showComment;
-        this.isLightBackground = true;
+        this.expanable = true;
     }
 
-    public DiscoverBinder(boolean showComment, boolean isLightBackground) {
+    public DiscoverBinder(boolean showComment, boolean expanable) {
         this.showComment = showComment;
-        this.isLightBackground = isLightBackground;
+        this.expanable = expanable;
     }
 
     @Override
@@ -104,19 +109,20 @@ public class DiscoverBinder
             nineGridImageView.setVisibility(View.GONE);
 
             holder.setVisible(R.id.collection_layout, true);
-            NineGridView gridImageView = holder.getView(R.id.grid_image_view);
-            gridImageView.setImageLoader(getImageLoader());
-            List<NineGridBean> gridList = new ArrayList<>();
-            for (String url : discoverInfo.getSharePics()) {
-                gridList.add(new NineGridBean(url));
-                if (gridList.size() >= 4) {
-                    break;
-                }
-            }
-            gridImageView.setDataList(gridList);
-//            gridImageView.setAdapter(new NineGridImageAdapter());
-//            int size = Math.min(discoverInfo.getSharePics().size(), 4);
-//            gridImageView.setImagesData(discoverInfo.getSharePics().subList(0, size));
+//            NineGridView gridImageView = holder.getView(R.id.grid_image_view);
+//            gridImageView.setImageLoader(getImageLoader());
+//            List<NineGridBean> gridList = new ArrayList<>();
+//            for (String url : discoverInfo.getSharePics()) {
+//                gridList.add(new NineGridBean(url));
+//                if (gridList.size() >= 4) {
+//                    break;
+//                }
+//            }
+//            gridImageView.setDataList(gridList);
+
+            CombineImageView ivIcon = holder.getView(R.id.iv_icon);
+            ivIcon.setUrls(discoverInfo.getSharePics());
+
 
             Glide.with(context)
                     .load(discoverInfo.getSharePics().get(0))
@@ -174,6 +180,35 @@ public class DiscoverBinder
             appLayout.setOnClickListener(null);
         }
 
+        ExpandableTextView tvSupportUsers = holder.getView(R.id.tv_support_users);
+        if (!expanable || discoverInfo.getSupportUserInfoList().isEmpty()) {
+            tvSupportUsers.setVisibility(View.GONE);
+            tvSupportUsers.setLinkClickListener(null);
+        } else {
+            tvSupportUsers.setVisibility(View.VISIBLE);
+            int size = discoverInfo.getSupportUserInfoList().size();
+            StringBuilder supportUsers = new StringBuilder("[" + discoverInfo.getSupportCount() + "人赞过](support_users)：");
+            for (int i = 0; i < size; i++) {
+                SupportUserInfo userInfo = discoverInfo.getSupportUserInfoList().get(i);
+                if (i != 0) {
+                    supportUsers.append("，");
+                }
+                supportUsers.append(String.format("[%s](%s)", userInfo.getNickName(), userInfo.getUserId()));
+            }
+            tvSupportUsers.setContent(supportUsers.toString());
+            tvSupportUsers.setLinkClickListener((type, title, content) -> {
+                if (type == LinkType.SELF) {
+                    if ("support_users".equals(content)) {
+                        SupportUserListPopup.with(context)
+                                .setThemeId(discoverInfo.getId())
+                                .show();
+                    } else {
+                        ProfileFragment.start(content, false);
+                    }
+                }
+            });
+        }
+
         LinearLayout commentLayout = holder.getView(R.id.layout_comment);
         commentLayout.removeAllViews();
         if (showComment) {
@@ -191,7 +226,8 @@ public class DiscoverBinder
                             textView.setText("共" + total + "条回复");
                             Drawable drawable = context.getResources().getDrawable(R.drawable.ic_keyboard_arrow_right_black_24dp);
                             textView.setCompoundDrawablesRelativeWithIntrinsicBounds(null, null, drawable, null);
-                            textView.setCompoundDrawablePadding(16);
+                            textView.setCompoundDrawablePadding(8);
+                            textView.setGravity(Gravity.CENTER_VERTICAL);
                             int color = context.getResources().getColor(R.color.colorPrimary);
                             textView.setTextColor(color);
                             textView.setDrawableTintColor(color);
@@ -230,12 +266,15 @@ public class DiscoverBinder
             commentLayout.setVisibility(View.GONE);
         }
 
+        holder.setVisible(R.id.ll_action_contaienr, expanable);
 
         holder.setText(R.id.tv_state, discoverInfo.getIconState());
         holder.setText(R.id.phone_type, discoverInfo.getPhone());
         holder.setText(R.id.user_name, discoverInfo.getNickName());
         holder.setText(R.id.text_info, discoverInfo.getTime());
         if (tvContent.getVisibility() == View.VISIBLE) {
+            tvContent.setNeedExpend(expanable);
+            tvContent.setNeedContract(expanable);
             tvContent.setContent(discoverInfo.getContent());
 //            tvContent.setLinkClickListener(this);
         }

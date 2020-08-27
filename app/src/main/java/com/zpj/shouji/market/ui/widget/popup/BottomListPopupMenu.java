@@ -17,6 +17,7 @@ import com.zpj.recyclerview.EasyRecyclerView;
 import com.zpj.recyclerview.EasyViewHolder;
 import com.zpj.recyclerview.IEasy;
 import com.zpj.shouji.market.R;
+import com.zpj.widget.tinted.TintedImageView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -117,8 +118,10 @@ public class BottomListPopupMenu extends BottomPopup<BottomListPopupMenu>
 
     @Override
     public void onBindViewHolder(EasyViewHolder holder, List<MenuItem> list, int position, List<Object> payloads) {
-        holder.getImageView(R.id.iv_icon).setImageDrawable(list.get(position).getIcon());
-        holder.getTextView(R.id.tv_title).setText(list.get(position).getTitle());
+        TintedImageView ivIcon = holder.getView(R.id.iv_icon);
+        ivIcon.setTint(getResources().getColor(R.color.color_text_major));
+        ivIcon.setImageDrawable(list.get(position).getIcon());
+        holder.setText(R.id.tv_title, list.get(position).getTitle());
     }
 
     public interface OnItemClickListener {
