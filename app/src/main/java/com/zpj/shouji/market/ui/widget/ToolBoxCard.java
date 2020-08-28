@@ -19,7 +19,7 @@ import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.manager.UserManager;
 import com.zpj.shouji.market.model.MessageInfo;
 import com.zpj.shouji.market.ui.fragment.profile.MyBlacklistFragment;
-import com.zpj.shouji.market.ui.fragment.profile.MyBookingFragment;
+import com.zpj.shouji.market.ui.fragment.booking.UserBookingFragment;
 import com.zpj.shouji.market.ui.fragment.profile.MyCollectionFragment;
 import com.zpj.shouji.market.ui.fragment.profile.MyCommentFragment;
 import com.zpj.shouji.market.ui.fragment.profile.MyDiscoverFragment;
@@ -176,7 +176,7 @@ public class ToolBoxCard extends ShadowLayout implements View.OnClickListener {
                 MyCollectionFragment.start(UserManager.getInstance().getUserId());
                 break;
             case R.id.tv_my_bookings:
-                MyBookingFragment.start();
+                UserBookingFragment.start();
                 break;
             case R.id.tv_my_blacklist:
                 MyBlacklistFragment.start();

@@ -1,6 +1,7 @@
 package com.zpj.shouji.market.model;
 
 import android.support.annotation.Keep;
+import android.text.TextUtils;
 
 import com.zpj.http.parser.html.nodes.Element;
 import com.zpj.shouji.market.utils.BeanUtils;
@@ -18,6 +19,8 @@ public class UserInfo {
     private String avatarUrl;
     @Select(selector = "nickname")
     private String nickName;
+    @Select(selector = "xbType")
+    private String editorType;
     private boolean online;
     private boolean imgFormat;
     private String signature;
@@ -66,6 +69,24 @@ public class UserInfo {
 
     public String getSignature() {
         return signature;
+    }
+
+    public String getEditorType() {
+        return editorType;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        UserInfo userInfo = (UserInfo) o;
+        return TextUtils.equals(memberId, userInfo.memberId);
+    }
+
+    @Override
+    public int hashCode() {
+        return memberId != null ? memberId.hashCode() : 0;
     }
 
     @Override

@@ -16,6 +16,8 @@
         android:tint="#80000000"
         android:layout_marginTop="24dp"
         tools:background="@color/black"
+        app:border_color="#80cccccc"
+        app:border_width="1dp"
         />
 
 <!--    <com.lihang.ShadowLayout-->

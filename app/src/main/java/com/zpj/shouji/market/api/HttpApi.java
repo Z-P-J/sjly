@@ -255,10 +255,10 @@ public final class HttpApi {
         return get(String.format("http://tt.shouji.com.cn/app/user_review_fav_del.jsp?t=%s&id=%s", type, id));
     }
 
-    public static void deleteThemeApi(String id) {
+    public static void deleteThemeApi(String id, String type) {
         openConnection("http://tt.shouji.com.cn/app/user_review_del_xml.jsp", Connection.Method.GET)
                 .data("id", id)
-                .data("t", "discuss")
+                .data("t", type)
                 .toHtml()
                 .onSuccess(doc -> {
                     String info = doc.selectFirst("info").text();

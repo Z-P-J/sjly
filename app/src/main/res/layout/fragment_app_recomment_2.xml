@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<FrameLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
@@ -8,24 +8,8 @@
     android:orientation="vertical"
     >
 
-    <com.zpj.widget.toolbar.ZToolBar
-        android:id="@+id/tool_bar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:z_toolbar_fillStatusBar="true"
-        app:z_toolbar_titleBarColor="@android:color/white"
-        app:z_toolbar_statusBarColor="@android:color/white"
-        app:z_toolbar_showBottomLine="false"
-        app:z_toolbar_statusBarMode="dark"
-        app:z_toolbar_leftType="textView"
-        app:z_toolbar_leftText="应用"
-        app:z_toolbar_leftTextColor="@color/colorPrimary"
-        app:z_toolbar_leftTextSize="18sp"
-        app:z_toolbar_rightType="customView"
-        app:z_toolbar_rightCustomView="@layout/layout_tools_dark"
-        />
-
-    <FrameLayout
+    <com.zpj.widget.statelayout.StateLayout
+        android:id="@+id/state_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
@@ -42,7 +26,9 @@
                 android:layout_height="wrap_content"
                 android:focusable="true"
                 android:focusableInTouchMode="true"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:paddingTop="80dp"
+                >
 
                 <!--            <include layout="@layout/layout_app_header"/>-->
 
@@ -62,8 +48,25 @@
 
         </com.zpj.shouji.market.ui.widget.ElasticScrollView>
 
-        <View style="@style/layout_shadow_bottom"/>
+<!--        <View style="@style/layout_shadow_bottom"/>-->
 
-    </FrameLayout>
+    </com.zpj.widget.statelayout.StateLayout>
 
-</LinearLayout>
+    <com.zpj.widget.toolbar.ZToolBar
+        android:id="@+id/tool_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:z_toolbar_fillStatusBar="true"
+        app:z_toolbar_titleBarColor="#aaffffff"
+        app:z_toolbar_statusBarColor="#aaffffff"
+        app:z_toolbar_showBottomLine="false"
+        app:z_toolbar_statusBarMode="dark"
+        app:z_toolbar_leftType="textView"
+        app:z_toolbar_leftText="应用"
+        app:z_toolbar_leftTextColor="@color/colorPrimary"
+        app:z_toolbar_leftTextSize="18sp"
+        app:z_toolbar_rightType="customView"
+        app:z_toolbar_rightCustomView="@layout/layout_tools_dark"
+        />
+
+</FrameLayout>

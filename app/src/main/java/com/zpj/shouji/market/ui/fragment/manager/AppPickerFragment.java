@@ -43,8 +43,8 @@ import java.util.Set;
 
 public class AppPickerFragment extends BaseFragment {
 
-//    private static final String[] TAB_TITLES = {"本地应用", "我的收藏", "搜索应用"};
-private static final String[] TAB_TITLES = {"本地应用"};
+    //    private static final String[] TAB_TITLES = {"本地应用", "我的收藏", "搜索应用"};
+    private static final String[] TAB_TITLES = {"本地应用"};
 
     protected ViewPager viewPager;
     private MagicIndicator magicIndicator;

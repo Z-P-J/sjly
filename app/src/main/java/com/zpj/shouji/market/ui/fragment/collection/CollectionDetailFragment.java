@@ -18,8 +18,6 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.bumptech.glide.request.target.SimpleTarget;
 import com.bumptech.glide.request.transition.Transition;
-import com.ctetin.expandabletextviewlibrary.ExpandableTextView;
-import com.ctetin.expandabletextviewlibrary.app.LinkType;
 import com.felix.atoast.library.AToast;
 import com.shehuan.niv.NiceImageView;
 import com.zpj.fragmentation.BaseFragment;
@@ -28,9 +26,7 @@ import com.zpj.shouji.market.api.HttpApi;
 import com.zpj.shouji.market.event.StartFragmentEvent;
 import com.zpj.shouji.market.model.CollectionInfo;
 import com.zpj.shouji.market.ui.adapter.FragmentsPagerAdapter;
-import com.zpj.shouji.market.ui.fragment.WebFragment;
 import com.zpj.shouji.market.ui.fragment.profile.ProfileFragment;
-import com.zpj.shouji.market.ui.fragment.theme.TopicThemeListFragment;
 import com.zpj.shouji.market.ui.widget.DrawableTintTextView;
 import com.zpj.shouji.market.ui.widget.emoji.EmojiExpandableTextView;
 import com.zpj.shouji.market.ui.widget.popup.CommentPopup;
@@ -40,6 +36,7 @@ import com.zpj.widget.statelayout.StateLayout;
 import net.lucode.hackware.magicindicator.MagicIndicator;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 import jp.wasabeef.glide.transformations.BlurTransformation;
 
@@ -85,7 +82,7 @@ public class CollectionDetailFragment extends BaseFragment
 
     @Override
     protected int getLayoutId() {
-        return R.layout.fragment_collection_detail2;
+        return R.layout.fragment_collection_detail;
     }
 
     @Override
@@ -323,7 +320,8 @@ public class CollectionDetailFragment extends BaseFragment
         switch (v.getId()) {
             case R.id.fab_comment:
                 viewPager.setCurrentItem(1);
-                CommentPopup.with(context, item.getId(), item.getContentType())
+                CommentPopup.with(context, item.getId(), item.getNickName(), item.getContentType())
+                        .setDecorView(Objects.requireNonNull(getView()).findViewById(R.id.fl_container))
                         .show();
                 break;
             case R.id.iv_avatar:

@@ -1,40 +1,27 @@
 package com.zpj.shouji.market.ui.fragment;
 
-import android.content.pm.ActivityInfo;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.view.View;
-import android.view.ViewGroup;
 
-import com.felix.atoast.library.AToast;
 import com.zpj.fragmentation.BaseFragment;
 import com.zpj.fragmentation.anim.DefaultHorizontalAnimator;
 import com.zpj.fragmentation.anim.FragmentAnimator;
-import com.zpj.matisse.CaptureMode;
-import com.zpj.matisse.Matisse;
-import com.zpj.matisse.MimeType;
-import com.zpj.matisse.engine.impl.GlideEngine;
-import com.zpj.matisse.entity.Item;
-import com.zpj.matisse.listener.OnSelectedListener;
-import com.zpj.popup.interfaces.OnDismissListener;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.event.GetMainFragmentEvent;
+import com.zpj.shouji.market.event.MainActionPopupEvent;
 import com.zpj.shouji.market.manager.UserManager;
 import com.zpj.shouji.market.model.MessageInfo;
 import com.zpj.shouji.market.ui.adapter.FragmentsPagerAdapter;
 import com.zpj.shouji.market.ui.fragment.homepage.HomeFragment;
 import com.zpj.shouji.market.ui.fragment.profile.MyFragment;
-import com.zpj.shouji.market.ui.fragment.profile.MyPrivateLetterFragment;
 import com.zpj.shouji.market.ui.fragment.recommond.GameRecommendFragment2;
 import com.zpj.shouji.market.ui.fragment.recommond.SoftRecommendFragment2;
-import com.zpj.shouji.market.ui.fragment.wallpaper.WallpaperShareFragment;
 import com.zpj.shouji.market.ui.widget.BottomBar;
 import com.zpj.shouji.market.ui.widget.BottomBarTab;
 import com.zpj.shouji.market.ui.widget.ZViewPager;
 import com.zpj.shouji.market.ui.widget.popup.MainActionPopup;
-import com.zpj.shouji.market.ui.widget.recommend.RecommendBanner;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -124,7 +111,7 @@ public class MainFragment extends BaseFragment {
                     position -= 1;
                 }
                 if(viewPager.getCurrentItem() != position) {
-                    viewPager.setCurrentItem(position, true);
+                    viewPager.setCurrentItem(position, false);
                 }
             }
 
@@ -148,16 +135,15 @@ public class MainFragment extends BaseFragment {
 
         floatingActionButton.setOnClickListener(v -> {
             postDelayed(this::darkStatusBar, 300);
-            RecommendBanner mBanner = _mActivity.findViewById(R.id.rb_banner);
-            if (mBanner != null) {
-                mBanner.onPause();
-            }
+            MainActionPopupEvent.post(true);
             MainActionPopup.with(context)
                     .setOnDismissListener(() -> {
-                        if (mBanner != null) {
-                            mBanner.onResume();
+                        MainActionPopupEvent.post(false);
+                        if (viewPager.getCurrentItem() == 0 || viewPager.getCurrentItem() == 1) {
+                            lightStatusBar();
+                        } else {
+                            darkStatusBar();
                         }
-                        lightStatusBar();
                     })
                     .show();
         });

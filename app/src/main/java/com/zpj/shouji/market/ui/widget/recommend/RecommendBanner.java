@@ -23,6 +23,7 @@ import com.zpj.http.parser.html.nodes.Element;
 import com.zpj.http.parser.html.select.Elements;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.api.HttpPreLoader;
+import com.zpj.shouji.market.api.PreloadApi;
 import com.zpj.shouji.market.glide.blur.CropBlurTransformation;
 import com.zpj.shouji.market.model.AppInfo;
 import com.zpj.shouji.market.ui.fragment.SubjectRecommendListFragment;
@@ -89,7 +90,7 @@ public class RecommendBanner extends LinearLayout implements View.OnClickListene
 //        params.height = (int) ((float) screenWidth * screenWidth / ScreenUtils.getScreenHeight(context));
         params.height = (int) ((float) screenWidth / 2f);
 
-        HttpPreLoader.getInstance().setLoadListener(HttpPreLoader.HOME_BANNER, document -> {
+        HttpPreLoader.getInstance().setLoadListener(PreloadApi.HOME_BANNER, document -> {
             Elements elements = document.select("item");
             bannerItemList.clear();
             for (Element element : elements) {

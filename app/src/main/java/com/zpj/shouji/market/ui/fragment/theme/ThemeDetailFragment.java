@@ -1,13 +1,11 @@
 package com.zpj.shouji.market.ui.fragment.theme;
 
 import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.AppBarLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
-import android.support.v7.widget.CardView;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
@@ -15,7 +13,6 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
-import com.lihang.ShadowLayout;
 import com.shehuan.niv.NiceImageView;
 import com.zpj.recyclerview.EasyViewHolder;
 import com.zpj.shouji.market.R;
@@ -26,7 +23,6 @@ import com.zpj.shouji.market.model.DiscoverInfo;
 import com.zpj.shouji.market.ui.adapter.DiscoverBinder;
 import com.zpj.shouji.market.ui.adapter.FragmentsPagerAdapter;
 import com.zpj.shouji.market.ui.fragment.base.ListenerFragment;
-import com.zpj.shouji.market.ui.widget.popup.AppCommentPopup;
 import com.zpj.shouji.market.ui.widget.popup.CommentPopup;
 import com.zpj.shouji.market.ui.widget.popup.ThemeMorePopupMenu;
 import com.zpj.shouji.market.utils.MagicIndicatorHelper;
@@ -36,6 +32,7 @@ import net.lucode.hackware.magicindicator.MagicIndicator;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class ThemeDetailFragment extends ListenerFragment {
 
@@ -171,7 +168,10 @@ public class ThemeDetailFragment extends ListenerFragment {
 
         View fabComment = view.findViewById(R.id.fab_comment);
         fabComment.setOnClickListener(v -> {
-            commentPopup = AppCommentPopup.with(context, item.getId(), item.getContentType(), "").show();
+//            commentPopup = AppCommentPopup.with(context, item.getId(), item.getContentType(), "").show();
+            commentPopup = CommentPopup.with(context, item.getId(), item.getNickName(), item.getContentType())
+                    .setDecorView(Objects.requireNonNull(getView()).findViewById(R.id.fl_container))
+                    .show();
         });
     }
 
@@ -202,7 +202,9 @@ public class ThemeDetailFragment extends ListenerFragment {
 
         if (getArguments() != null) {
             if (getArguments().getBoolean(Keys.SHOW_TOOLBAR, false)) {
-                commentPopup = CommentPopup.with(context, item.getId(), item.getContentType()).show();
+                commentPopup = CommentPopup.with(context, item.getId(), item.getNickName(), item.getContentType())
+                        .setDecorView(Objects.requireNonNull(getView()).findViewById(R.id.fl_container))
+                        .show();
             }
         }
     }

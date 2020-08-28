@@ -52,10 +52,10 @@ public class ThemeMorePopupMenu extends BottomListPopupMenu
                 HttpApi.deleteCollectionApi(info.getId());
                 break;
             case R.id.delete:
-                HttpApi.deleteThemeApi(info.getId());
+                HttpApi.deleteThemeApi(info.getId(), info.getContentType());
                 break;
             case R.id.report:
-                AToast.normal("举报");
+                AToast.normal("TODO 举报");
                 break;
             case R.id.black_list:
                 HttpApi.addBlacklistApi(info.getMemberId());

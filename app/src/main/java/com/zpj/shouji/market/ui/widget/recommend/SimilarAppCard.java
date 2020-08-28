@@ -6,6 +6,7 @@ import android.view.View;
 
 import com.felix.atoast.library.AToast;
 import com.zpj.shouji.market.api.HttpPreLoader;
+import com.zpj.shouji.market.api.PreloadApi;
 
 public class SimilarAppCard extends AppInfoRecommendCard {
 
@@ -32,7 +33,7 @@ public class SimilarAppCard extends AppInfoRecommendCard {
     }
 
     @Override
-    public String getKey() {
+    public PreloadApi getKey() {
         return null;
     }
 

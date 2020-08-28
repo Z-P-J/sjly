@@ -10,9 +10,13 @@ import android.view.View;
 import com.zpj.fragmentation.BaseFragment;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.event.ColorChangeEvent;
+import com.zpj.shouji.market.event.MainActionPopupEvent;
 import com.zpj.shouji.market.event.ToolbarColorChangeEvent;
 import com.zpj.shouji.market.ui.widget.recommend.RecommendBanner;
 import com.zpj.utils.ScreenUtils;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
 
 public class RecommendFragment2 extends BaseFragment {
 
@@ -76,6 +80,18 @@ public class RecommendFragment2 extends BaseFragment {
     }
 
     @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        EventBus.getDefault().register(this);
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        EventBus.getDefault().unregister(this);
+    }
+
+    @Override
     public void onSupportVisible() {
 //        super.onSupportVisible();
 //        lightStatusBar();
@@ -114,6 +130,17 @@ public class RecommendFragment2 extends BaseFragment {
         super.onStop();
         if (mBanner != null) {
             mBanner.onStop();
+        }
+    }
+
+    @Subscribe
+    public void onMainActionPopupEvent(MainActionPopupEvent event) {
+        if (isSupportVisible() && mBanner != null) {
+            if (event.isShow()) {
+                mBanner.onPause();
+            } else {
+                mBanner.onResume();
+            }
         }
     }
 

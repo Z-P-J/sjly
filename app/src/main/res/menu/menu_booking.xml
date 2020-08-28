@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/cancel_booking"
+        android:icon="@drawable/ic_close_white_24dp"
+        android:title="取消预约">
+    </item>
+
+    <item
+        android:id="@+id/auto_download"
+        android:icon="@drawable/ic_file_download_white_24dp"
+        android:title="自动下载(Wifi)">
+
+    </item>
+
+    <item
+        android:id="@+id/cancel_auto_download"
+        android:icon="@drawable/ic_file_download_white_24dp"
+        android:title="取消自动下载">
+
+    </item>
+
+</menu>

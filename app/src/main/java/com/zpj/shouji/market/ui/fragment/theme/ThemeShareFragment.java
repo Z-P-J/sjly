@@ -3,7 +3,6 @@ package com.zpj.shouji.market.ui.fragment.theme;
 import android.content.Context;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
 import android.view.View;
@@ -26,22 +25,18 @@ import com.zpj.matisse.Matisse;
 import com.zpj.matisse.MimeType;
 import com.zpj.matisse.engine.impl.GlideEngine;
 import com.zpj.matisse.entity.Item;
-import com.zpj.matisse.listener.OnSelectedListener;
 import com.zpj.matisse.ui.widget.CustomImageViewerPopup;
 import com.zpj.popup.util.KeyboardUtils;
-import com.zpj.recyclerview.EasyRecyclerView;
-import com.zpj.recyclerview.EasyViewHolder;
-import com.zpj.recyclerview.IEasy;
 import com.zpj.shouji.market.R;
-import com.zpj.shouji.market.api.CollectionApi;
 import com.zpj.shouji.market.api.PublishApi;
 import com.zpj.shouji.market.api.ThemePublishApi;
 import com.zpj.shouji.market.event.StartFragmentEvent;
 import com.zpj.shouji.market.model.InstalledAppInfo;
+import com.zpj.shouji.market.model.UserInfo;
 import com.zpj.shouji.market.ui.fragment.manager.AppPickerFragment;
+import com.zpj.shouji.market.ui.fragment.profile.UserPickerFragment;
 import com.zpj.shouji.market.ui.widget.ActionPanel;
 import com.zpj.shouji.market.ui.widget.flowlayout.FlowLayout;
-import com.zpj.shouji.market.ui.widget.popup.CommonImageViewerPopup;
 import com.zpj.utils.ScreenUtils;
 
 import java.io.File;
@@ -165,8 +160,11 @@ public class ThemeShareFragment extends BaseFragment {
             actionPanel.onKeyboardHeightChanged(height, 0);
         });
 
-        actionPanel.removeImageAction();
+//        actionPanel.removeImageAction();
         actionPanel.removeAppAction();
+        actionPanel.addAction(R.drawable.ic_at_black_24dp, v -> {
+            showUserPicker();
+        });
         actionPanel.addAction(R.drawable.ic_image_black_24dp, new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -277,6 +275,14 @@ public class ThemeShareFragment extends BaseFragment {
             beanList.add(bean);
         }
         nineGridView.setDataList(beanList);
+    }
+
+    private void showUserPicker() {
+        hideSoftInput();
+        UserPickerFragment.start(content -> {
+            etContent.append(content);
+            showSoftInput(etContent);
+        });
     }
 
     private void showImagePicker() {

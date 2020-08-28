@@ -59,7 +59,7 @@ import com.zpj.utils.ScreenUtils;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ChatPanel extends RelativeLayout
+public class ReplyPanel extends RelativeLayout
         implements KeyboardHeightProvider.KeyboardHeightObserver {
 
     public interface OnOperationListener extends IEmotionSelectedListener {
@@ -82,23 +82,23 @@ public class ChatPanel extends RelativeLayout
 
     private boolean isKeyboardShowing;
 
-    public ChatPanel(Context context) {
+    public ReplyPanel(Context context) {
         super(context);
         init(context);
     }
 
-    public ChatPanel(Context context, AttributeSet attrs) {
+    public ReplyPanel(Context context, AttributeSet attrs) {
         super(context, attrs);
         init(context);
     }
 
-    public ChatPanel(Context context, AttributeSet attrs, int defStyle) {
+    public ReplyPanel(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
         init(context);
     }
 
     private void init(Context context) {
-        View root = View.inflate(context, R.layout.layout_panel_chat, null);
+        View root = View.inflate(context, R.layout.layout_panel_reply, null);
         this.addView(root);
     }
 

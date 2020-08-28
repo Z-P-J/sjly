@@ -17,6 +17,7 @@ import com.felix.atoast.library.AToast;
 import com.zpj.fragmentation.BaseFragment;
 import com.zpj.popup.ZPopup;
 import com.zpj.popup.impl.AttachListPopup;
+import com.zpj.popup.interfaces.OnDismissListener;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.api.HttpApi;
 import com.zpj.shouji.market.constant.Keys;
@@ -34,6 +35,7 @@ import com.zpj.shouji.market.ui.fragment.WebFragment;
 import com.zpj.shouji.market.ui.fragment.manager.AppManagerFragment;
 import com.zpj.shouji.market.ui.widget.AppDetailLayout;
 import com.zpj.shouji.market.ui.widget.popup.AppCommentPopup;
+import com.zpj.shouji.market.ui.widget.popup.CommentPopup;
 import com.zpj.shouji.market.utils.MagicIndicatorHelper;
 import com.zpj.widget.statelayout.StateLayout;
 import com.zpj.widget.tinted.TintedImageButton;
@@ -66,6 +68,8 @@ public class AppDetailFragment extends BaseFragment
     private AppDetailLayout appDetailLayout;
     private ViewPager viewPager;
     private MagicIndicator magicIndicator;
+
+    private CommentPopup commentPopup;
 
     private AppDetailInfo info;
 
@@ -148,7 +152,21 @@ public class AppDetailFragment extends BaseFragment
             if (viewPager.getCurrentItem() == 0) {
                 AToast.normal("TODO Download");
             } else {
-                AppCommentPopup.with(context, id, type, "").show();
+                fabComment.hide();
+                setSwipeBackEnable(false);
+                if (commentPopup == null) {
+                    commentPopup = AppCommentPopup.with(context, id, type, "")
+                            .setDecorView(view.findViewById(R.id.fl_container))
+                            .setOnDismissListener(new OnDismissListener() {
+                                @Override
+                                public void onDismiss() {
+                                    setSwipeBackEnable(true);
+                                    fabComment.show();
+                                }
+                            })
+                            .show();
+                }
+                commentPopup.show();
             }
         });
 
@@ -280,33 +298,31 @@ public class AppDetailFragment extends BaseFragment
     @Override
     public void onClick(View v) {
         if (v == btnMenu) {
-            AttachListPopup<String> popup = ZPopup.attachList(context)
-                    .addItems("下载管理", "复制包名", "浏览器中打开");
-            if (UserManager.getInstance().isLogin()) {
-                popup.addItem("添加到应用集");
-            }
-            popup.setOnSelectListener((position, title) -> {
-                AToast.normal(title);
-                switch (position) {
-                    case 0:
-                        AppManagerFragment.start();
-                        break;
-                    case 1:
-                        ClipboardManager cm = (ClipboardManager) context.getSystemService(Context.CLIPBOARD_SERVICE);
-                        cm.setPrimaryClip(ClipData.newPlainText(null, info.getPackageName()));
-                        AToast.success("已复制到粘贴板");
-                        break;
-                    case 2:
-                        WebFragment.appPage(type, id);
-                        AToast.normal("TODO 分享主页");
-                        break;
-                    case 3:
+            ZPopup.attachList(context)
+                    .addItems("下载管理", "复制包名", "浏览器中打开")
+                    .addItemIf(UserManager.getInstance().isLogin(), "添加到应用集")
+                    .setOnSelectListener((position, title) -> {
+                        AToast.normal(title);
+                        switch (position) {
+                            case 0:
+                                AppManagerFragment.start();
+                                break;
+                            case 1:
+                                ClipboardManager cm = (ClipboardManager) context.getSystemService(Context.CLIPBOARD_SERVICE);
+                                cm.setPrimaryClip(ClipData.newPlainText(null, info.getPackageName()));
+                                AToast.success("已复制到粘贴板");
+                                break;
+                            case 2:
+                                WebFragment.appPage(type, id);
+                                AToast.normal("TODO 分享主页");
+                                break;
+                            case 3:
 
-                        break;
-                    case 4:
-                        break;
-                }
-            })
+                                break;
+                            case 4:
+                                break;
+                        }
+                    })
                     .show(v);
         }
     }

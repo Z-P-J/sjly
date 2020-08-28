@@ -4,6 +4,7 @@ import android.content.Context;
 import android.support.annotation.NonNull;
 import android.view.View;
 
+import com.felix.atoast.library.AToast;
 import com.zpj.popup.impl.PartShadowPopup;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.model.WallpaperTag;

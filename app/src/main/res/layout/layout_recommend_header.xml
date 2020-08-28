@@ -5,7 +5,6 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-
     >
 
     <ImageView
@@ -14,6 +13,12 @@
         android:layout_height="match_parent"
         android:scaleType="centerCrop"
         android:tint="#80000000"
+        />
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/bg_banner_header_placeholder"
         />
 
     <LinearLayout
@@ -56,41 +61,116 @@
 <!--            android:background="@drawable/bg_banner_header_placeholder"-->
 <!--            />-->
 
-        <View
+<!--        <View-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="50dp"-->
+<!--            android:layout_marginTop="50dp"-->
+<!--            android:background="@color/white"-->
+<!--            />-->
+
+        <com.lihang.ShadowLayout
+            android:id="@+id/shadow_view"
             android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:layout_marginTop="50dp"
-            android:background="@color/white"
-            />
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            android:layout_marginEnd="12dp"
+            app:hl_cornerRadius="12dp"
+            app:hl_shadowColor="#20000000"
+            app:hl_shadowBackColor="#ffffff"
+            app:hl_shadowLimit="4dp"
+            android:layout_gravity="bottom"
+            android:visibility="gone"
+            >
 
-    </LinearLayout>
+<!--            <android.support.v7.widget.LinearLayoutCompat-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="match_parent"-->
+<!--                android:layout_gravity="center"-->
+<!--                android:orientation="horizontal"-->
+<!--                app:divider="@drawable/divider_vertical_bg"-->
+<!--                app:dividerPadding="16dp"-->
+<!--                app:showDividers="middle">-->
 
-    <com.lihang.ShadowLayout
-        android:id="@+id/shadow_view"
-        android:layout_width="match_parent"
-        android:layout_height="100dp"
-        android:layout_marginStart="12dp"
-        android:layout_marginEnd="12dp"
-        app:hl_cornerRadius="12dp"
-        app:hl_shadowColor="#20333333"
-        app:hl_shadowBackColor="#ffffff"
-        app:hl_shadowLimit="4dp"
-        android:layout_gravity="bottom"
-        >
+<!--                <TextView-->
+<!--                    android:id="@+id/tv_common_app"-->
+<!--                    android:layout_width="0dp"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_weight="1"-->
+<!--                    android:drawableTop="@drawable/ic_common_app"-->
+<!--                    android:drawablePadding="4dp"-->
+<!--                    android:gravity="center"-->
+<!--                    android:paddingVertical="8dp"-->
+<!--                    android:textSize="12sp"-->
+<!--                    android:textColor="@color/color_text_major"-->
+<!--                    android:text="常用"-->
+<!--                    android:background="?android:attr/selectableItemBackground"-->
+<!--                    />-->
+
+<!--                <TextView-->
+<!--                    android:id="@+id/tv_recent_download"-->
+<!--                    android:layout_width="0dp"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_weight="1"-->
+<!--                    android:drawableTop="@drawable/ic_others_download"-->
+<!--                    android:drawablePadding="4dp"-->
+<!--                    android:gravity="center"-->
+<!--                    android:paddingVertical="8dp"-->
+<!--                    android:textSize="12sp"-->
+<!--                    android:textColor="@color/color_text_major"-->
+<!--                    android:text="看看"-->
+<!--                    android:background="?android:attr/selectableItemBackground"-->
+<!--                    />-->
+
+<!--                <TextView-->
+<!--                    android:id="@+id/tv_subjects"-->
+<!--                    android:layout_width="0dp"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_weight="1"-->
+<!--                    android:drawableTop="@drawable/ic_app_topic"-->
+<!--                    android:drawablePadding="4dp"-->
+<!--                    android:gravity="center"-->
+<!--                    android:paddingVertical="8dp"-->
+<!--                    android:textSize="12sp"-->
+<!--                    android:textColor="@color/color_text_major"-->
+<!--                    android:text="专题"-->
+<!--                    android:background="?android:attr/selectableItemBackground"-->
+<!--                    />-->
+
+<!--                <TextView-->
+<!--                    android:id="@+id/tv_collections"-->
+<!--                    android:layout_width="0dp"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_weight="1"-->
+<!--                    android:drawableTop="@drawable/ic_app_collection"-->
+<!--                    android:drawablePadding="4dp"-->
+<!--                    android:gravity="center"-->
+<!--                    android:paddingVertical="8dp"-->
+<!--                    android:textSize="12sp"-->
+<!--                    android:textColor="@color/color_text_major"-->
+<!--                    android:text="应用集"-->
+<!--                    android:background="?android:attr/selectableItemBackground"-->
+<!--                    />-->
+
+<!--            </android.support.v7.widget.LinearLayoutCompat>-->
+
+        </com.lihang.ShadowLayout>
 
         <android.support.v7.widget.LinearLayoutCompat
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_gravity="center"
             android:orientation="horizontal"
-            app:divider="@drawable/divider_vertical_bg"
-            app:dividerPadding="16dp"
-            app:showDividers="middle">
+            android:paddingHorizontal="16dp"
+            >
+
+<!--            app:divider="@drawable/divider_vertical_bg"-->
+<!--            app:dividerPadding="16dp"-->
+<!--            app:showDividers="middle"-->
 
             <TextView
                 android:id="@+id/tv_common_app"
                 android:layout_width="0dp"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:drawableTop="@drawable/ic_common_app"
                 android:drawablePadding="4dp"
@@ -105,7 +185,7 @@
             <TextView
                 android:id="@+id/tv_recent_download"
                 android:layout_width="0dp"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:drawableTop="@drawable/ic_others_download"
                 android:drawablePadding="4dp"
@@ -120,7 +200,7 @@
             <TextView
                 android:id="@+id/tv_subjects"
                 android:layout_width="0dp"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:drawableTop="@drawable/ic_app_topic"
                 android:drawablePadding="4dp"
@@ -135,7 +215,7 @@
             <TextView
                 android:id="@+id/tv_collections"
                 android:layout_width="0dp"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:drawableTop="@drawable/ic_app_collection"
                 android:drawablePadding="4dp"
@@ -149,7 +229,97 @@
 
         </android.support.v7.widget.LinearLayoutCompat>
 
-    </com.lihang.ShadowLayout>
+<!--        <View style="@style/layout_shadow_bottom"-->
+<!--            android:layout_marginHorizontal="16dp"-->
+<!--            />-->
+
+    </LinearLayout>
+
+<!--    <com.lihang.ShadowLayout-->
+<!--        android:id="@+id/shadow_view"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_marginStart="12dp"-->
+<!--        android:layout_marginEnd="12dp"-->
+<!--        app:hl_cornerRadius="12dp"-->
+<!--        app:hl_shadowColor="#20000000"-->
+<!--        app:hl_shadowBackColor="#ffffff"-->
+<!--        app:hl_shadowLimit="4dp"-->
+<!--        android:layout_gravity="bottom"-->
+<!--        >-->
+
+<!--        <android.support.v7.widget.LinearLayoutCompat-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="match_parent"-->
+<!--            android:layout_gravity="center"-->
+<!--            android:orientation="horizontal"-->
+<!--            app:divider="@drawable/divider_vertical_bg"-->
+<!--            app:dividerPadding="16dp"-->
+<!--            app:showDividers="middle">-->
+
+<!--            <TextView-->
+<!--                android:id="@+id/tv_common_app"-->
+<!--                android:layout_width="0dp"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_weight="1"-->
+<!--                android:drawableTop="@drawable/ic_common_app"-->
+<!--                android:drawablePadding="4dp"-->
+<!--                android:gravity="center"-->
+<!--                android:paddingVertical="8dp"-->
+<!--                android:textSize="12sp"-->
+<!--                android:textColor="@color/color_text_major"-->
+<!--                android:text="常用"-->
+<!--                android:background="?android:attr/selectableItemBackground"-->
+<!--                />-->
+
+<!--            <TextView-->
+<!--                android:id="@+id/tv_recent_download"-->
+<!--                android:layout_width="0dp"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_weight="1"-->
+<!--                android:drawableTop="@drawable/ic_others_download"-->
+<!--                android:drawablePadding="4dp"-->
+<!--                android:gravity="center"-->
+<!--                android:paddingVertical="8dp"-->
+<!--                android:textSize="12sp"-->
+<!--                android:textColor="@color/color_text_major"-->
+<!--                android:text="看看"-->
+<!--                android:background="?android:attr/selectableItemBackground"-->
+<!--                />-->
+
+<!--            <TextView-->
+<!--                android:id="@+id/tv_subjects"-->
+<!--                android:layout_width="0dp"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_weight="1"-->
+<!--                android:drawableTop="@drawable/ic_app_topic"-->
+<!--                android:drawablePadding="4dp"-->
+<!--                android:gravity="center"-->
+<!--                android:paddingVertical="8dp"-->
+<!--                android:textSize="12sp"-->
+<!--                android:textColor="@color/color_text_major"-->
+<!--                android:text="专题"-->
+<!--                android:background="?android:attr/selectableItemBackground"-->
+<!--                />-->
+
+<!--            <TextView-->
+<!--                android:id="@+id/tv_collections"-->
+<!--                android:layout_width="0dp"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_weight="1"-->
+<!--                android:drawableTop="@drawable/ic_app_collection"-->
+<!--                android:drawablePadding="4dp"-->
+<!--                android:gravity="center"-->
+<!--                android:paddingVertical="8dp"-->
+<!--                android:textSize="12sp"-->
+<!--                android:textColor="@color/color_text_major"-->
+<!--                android:text="应用集"-->
+<!--                android:background="?android:attr/selectableItemBackground"-->
+<!--                />-->
+
+<!--        </android.support.v7.widget.LinearLayoutCompat>-->
+
+<!--    </com.lihang.ShadowLayout>-->
 
 
 </FrameLayout>

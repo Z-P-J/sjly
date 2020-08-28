@@ -1,26 +1,26 @@
 package com.zpj.shouji.market.api;
 
+import com.zpj.http.core.IHttp;
 import com.zpj.http.parser.html.nodes.Document;
 
 import java.lang.ref.WeakReference;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
+import io.reactivex.Observable;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.functions.Action;
 import io.reactivex.schedulers.Schedulers;
 
 public class HttpPreLoader {
 
-    public static final String HOME_BANNER = "home_banner";
-    public static final String HOME_RECENT = "home_recent";
-    public static final String HOME_COLLECTION = "home_collection";
-    public static final String HOME_SOFT = "home_soft";
-    public static final String HOME_GAME = "home_game";
-    public static final String HOME_SUBJECT = "home_subject";
-
     private static HttpPreLoader LOADER;
 
-    private final Map<String, Document> map = new HashMap<>();
-    private final Map<String, WeakReference<OnLoadListener>> listeners = new HashMap<>();
+    private final Map<PreloadApi, Document> map = new HashMap<>();
+    private final Map<PreloadApi, WeakReference<OnLoadListener>> listeners = new HashMap<>();
+    private final List<PreloadApi> preloadApiList = new ArrayList<>();
 
     public static HttpPreLoader getInstance() {
         if (LOADER == null) {
@@ -40,50 +40,72 @@ public class HttpPreLoader {
     public void onDestroy() {
         this.map.clear();
         this.listeners.clear();
+        this.preloadApiList.clear();
         LOADER = null;
     }
 
-    public void load(String url) {
-        load(url, url);
-    }
+//    public void load(String url) {
+//        load(url, url);
+//    }
 
-    public void load(final String key, final String url) {
-        HttpApi.get(url)
+    public void load(final PreloadApi key) {
+        preloadApiList.add(key);
+        HttpApi.get(key.getUrl())
                 .subscribeOn(Schedulers.io())
-                .observeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
                 .onSuccess(data -> {
                     synchronized (map) {
                         WeakReference<OnLoadListener> weakReference = listeners.remove(key);
                         if (weakReference != null && weakReference.get() != null) {
+//                            Observable.empty()
+//                                    .subscribeOn(Schedulers.io())
+//                                    .observeOn(AndroidSchedulers.mainThread())
+//                                    .doOnComplete(new Action() {
+//                                        @Override
+//                                        public void run() throws Exception {
+//                                            weakReference.get().onLoad(data);
+//                                        }
+//                                    })
+//                                    .subscribe();
                             weakReference.get().onLoad(data);
                         } else {
                             map.put(key, data);
                         }
+                        preloadApiList.remove(key);
+                    }
+                })
+                .onError(new IHttp.OnErrorListener() {
+                    @Override
+                    public void onError(Throwable throwable) {
+                        preloadApiList.remove(key);
                     }
                 })
                 .subscribe();
     }
 
     public void loadHomepage() {
-        HttpPreLoader.getInstance().load(HOME_BANNER, "http://tt.tljpxm.com/androidv3/app_index_xml.jsp?index=1");
-        HttpPreLoader.getInstance().load(HOME_RECENT, "http://tt.shouji.com.cn/androidv3/app_list_xml.jsp?index=1");
-        HttpPreLoader.getInstance().load(HOME_COLLECTION, "http://tt.shouji.com.cn/androidv3/yyj_tj_xml.jsp");
-        HttpPreLoader.getInstance().load(HOME_SOFT, "http://tt.shouji.com.cn/androidv3/special_list_xml.jsp?id=-9998");
-        HttpPreLoader.getInstance().load(HOME_GAME, "http://tt.shouji.com.cn/androidv3/game_index_xml.jsp?sdk=100&sort=day");
-        HttpPreLoader.getInstance().load(HOME_SUBJECT, "http://tt.shouji.com.cn/androidv3/special_index_xml.jsp?jse=yes");
+        HttpPreLoader.getInstance().load(PreloadApi.HOME_BANNER);
+        HttpPreLoader.getInstance().load(PreloadApi.HOME_RECENT);
+        HttpPreLoader.getInstance().load(PreloadApi.HOME_COLLECTION);
+        HttpPreLoader.getInstance().load(PreloadApi.HOME_SOFT);
+        HttpPreLoader.getInstance().load(PreloadApi.HOME_GAME);
+        HttpPreLoader.getInstance().load(PreloadApi.HOME_SUBJECT);
     }
 
-    public void setLoadListener(String key, OnLoadListener listener) {
+    public void setLoadListener(PreloadApi key, OnLoadListener listener) {
         synchronized (map) {
             if (map.containsKey(key)) {
                 listener.onLoad(map.remove(key));
             } else {
                 listeners.put(key, new WeakReference<>(listener));
+                if (!preloadApiList.contains(key)) {
+                    HttpPreLoader.getInstance().load(key);
+                }
             }
         }
     }
 
-    public boolean hasKey(String key) {
+    public boolean hasKey(PreloadApi key) {
         synchronized (map) {
             return map.containsKey(key);
         }

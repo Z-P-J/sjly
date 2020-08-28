@@ -18,6 +18,9 @@ import com.bumptech.glide.Glide;
 import com.felix.atoast.library.AToast;
 import com.github.zagum.expandicon.ExpandIconView;
 import com.sunbinqiang.iconcountview.IconCountView;
+import com.zpj.fragmentation.BaseFragment;
+import com.zpj.fragmentation.SupportFragment;
+import com.zpj.fragmentation.SupportHelper;
 import com.zpj.http.parser.html.nodes.Document;
 import com.zpj.http.parser.html.nodes.Element;
 import com.zpj.recyclerview.EasyRecyclerLayout;
@@ -26,16 +29,19 @@ import com.zpj.recyclerview.EasyViewHolder;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.api.HttpApi;
 import com.zpj.shouji.market.constant.Keys;
+import com.zpj.shouji.market.event.GetMainActivityEvent;
 import com.zpj.shouji.market.event.GetMainFragmentEvent;
 import com.zpj.shouji.market.event.StatusBarEvent;
 import com.zpj.shouji.market.glide.MyRequestOptions;
 import com.zpj.shouji.market.model.PrivateLetterInfo;
 import com.zpj.shouji.market.model.WallpaperInfo;
 import com.zpj.shouji.market.model.WallpaperTag;
+import com.zpj.shouji.market.ui.activity.MainActivity;
 import com.zpj.shouji.market.ui.fragment.base.NextUrlFragment;
 import com.zpj.shouji.market.ui.widget.emoji.EmojiExpandableTextView;
 import com.zpj.shouji.market.ui.widget.popup.RecyclerPopup;
 import com.zpj.shouji.market.ui.widget.popup.WallpaperViewerPopup;
+import com.zpj.shouji.market.utils.Callback;
 import com.zpj.utils.ScreenUtils;
 
 import java.util.ArrayList;
@@ -164,24 +170,60 @@ public class WallpaperListFragment extends NextUrlFragment<WallpaperInfo> {
     public void onClick(EasyViewHolder holder, View view, WallpaperInfo data) {
         ImageView wallpaper = holder.getImageView(R.id.iv_wallpaper);
 
-        GetMainFragmentEvent.post(mainFragment -> {
-            if (mainFragment.getView() != null) {
-                List<String> objects = new ArrayList<>();
-                objects.add(data.getSpic());
-                List<String> original = new ArrayList<>();
-                original.add(data.getPic());
-                WallpaperViewerPopup.with(context)
-                        .setWallpaperInfo(data)
-                        .setOriginalImageList(original)
-                        .setDecorView((ViewGroup) mainFragment.getView())
-                        .setImageUrls(objects)
-                        .setSrcView(wallpaper, 0)
-                        .setSrcViewUpdateListener((popup, position) -> popup.updateSrcView(wallpaper))
-                        .setOnDismissListener(() -> StatusBarEvent.post(false))
-                        .show();
+        GetMainActivityEvent.post(new Callback<MainActivity>() {
+            @Override
+            public void onCallback(MainActivity activity) {
+                BaseFragment fragment = (BaseFragment) SupportHelper.getBackStackTopFragment(activity.getSupportFragmentManager());
+                Log.d("WallpaperListFragment", "fragment=" + fragment + " fragment.getView()=" + fragment.getView());
+                if (fragment.getView() != null) {
+                    List<String> objects = new ArrayList<>();
+                    objects.add(data.getSpic());
+                    List<String> original = new ArrayList<>();
+                    original.add(data.getPic());
+                    WallpaperViewerPopup.with(context)
+                            .setWallpaperInfo(data)
+                            .setOriginalImageList(original)
+                            .setDecorView((ViewGroup) fragment.getView().findViewWithTag("container"))
+                            .setImageUrls(objects)
+                            .setSrcView(wallpaper, 0)
+                            .setSrcViewUpdateListener((popup, position) -> popup.updateSrcView(wallpaper))
+                            .setOnDismissListener(() -> StatusBarEvent.post(false))
+                            .show();
+                }
+//                List<String> objects = new ArrayList<>();
+//                objects.add(data.getSpic());
+//                List<String> original = new ArrayList<>();
+//                original.add(data.getPic());
+//                WallpaperViewerPopup.with(context)
+//                        .setWallpaperInfo(data)
+//                        .setOriginalImageList(original)
+//                        .setDecorView((ViewGroup) activity.findViewById(R.id.main_content))
+//                        .setImageUrls(objects)
+//                        .setSrcView(wallpaper, 0)
+//                        .setSrcViewUpdateListener((popup, position) -> popup.updateSrcView(wallpaper))
+//                        .setOnDismissListener(() -> StatusBarEvent.post(false))
+//                        .show();
             }
-
         });
+
+//        GetMainFragmentEvent.post(mainFragment -> {
+//            if (mainFragment.getView() != null) {
+//                List<String> objects = new ArrayList<>();
+//                objects.add(data.getSpic());
+//                List<String> original = new ArrayList<>();
+//                original.add(data.getPic());
+//                WallpaperViewerPopup.with(context)
+//                        .setWallpaperInfo(data)
+//                        .setOriginalImageList(original)
+//                        .setDecorView((ViewGroup) mainFragment.getView())
+//                        .setImageUrls(objects)
+//                        .setSrcView(wallpaper, 0)
+//                        .setSrcViewUpdateListener((popup, position) -> popup.updateSrcView(wallpaper))
+//                        .setOnDismissListener(() -> StatusBarEvent.post(false))
+//                        .show();
+//            }
+//
+//        });
 
     }
 

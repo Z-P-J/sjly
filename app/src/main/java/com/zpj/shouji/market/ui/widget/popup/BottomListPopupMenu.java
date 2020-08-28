@@ -95,6 +95,11 @@ public class BottomListPopupMenu extends BottomPopup<BottomListPopupMenu>
         return this;
     }
 
+    public BottomListPopupMenu addHideItem(int id) {
+        hideMenuItemList.add(id);
+        return this;
+    }
+
     public BottomListPopupMenu setMenu(@MenuRes int menuRes) {
         this.menuRes = menuRes;
         return this;

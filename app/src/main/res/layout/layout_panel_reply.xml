@@ -5,22 +5,57 @@
     android:layout_height="wrap_content"
     android:background="@android:color/white">
 
-    <EditText
-        android:id="@+id/et_editor"
+    <com.zpj.shouji.market.ui.widget.MaxHeightLayout
+        android:id="@+id/layout_max_height"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_vertical"
-        android:background="@drawable/top_line_gray"
-        android:textColor="@color/color_text_major"
-        android:inputType="textMultiLine"
-        android:gravity="start"
-        android:maxHeight="180dp"
-        android:hint="说点什么..."
-        android:maxLines="5"
-        android:padding="16dp"
-        android:textSize="16sp"/>
+        android:layout_height="wrap_content">
+
+        <ScrollView
+            android:id="@+id/scroll_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scrollbars="none"
+            >
+
+            <LinearLayout
+                android:id="@+id/ll_scroll_content"
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <EditText
+                    android:id="@+id/et_editor"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:background="@drawable/grey_shape"
+                    android:textColor="@color/color_text_major"
+                    android:inputType="textMultiLine"
+                    android:gravity="start"
+                    android:hint="说点什么吧..."
+                    android:minLines="2"
+                    android:maxLines="8"
+                    android:padding="8dp"
+                    android:layout_marginVertical="8dp"
+                    android:layout_marginHorizontal="16dp"
+                    android:textSize="14sp"/>
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/rv_img"
+                    android:layout_width="match_parent"
+                    android:layout_height="120dp"
+                    android:orientation="horizontal"
+                    android:visibility="gone"
+                    />
+
+            </LinearLayout>
+
+        </ScrollView>
+
+    </com.zpj.shouji.market.ui.widget.MaxHeightLayout>
 
     <include layout="@layout/layout_panel_action"
+        android:id="@+id/panel_action"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/top_line_gray"

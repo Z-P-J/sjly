@@ -9,6 +9,7 @@ import com.zpj.http.parser.html.nodes.Document;
 import com.zpj.http.parser.html.nodes.Element;
 import com.zpj.http.parser.html.select.Elements;
 import com.zpj.shouji.market.api.HttpApi;
+import com.zpj.shouji.market.api.PreloadApi;
 import com.zpj.shouji.market.model.AppInfo;
 import com.zpj.shouji.market.ui.fragment.ToolBarListFragment;
 
@@ -51,7 +52,7 @@ public class NetGameRecommendCard extends AppInfoRecommendCard {
     }
 
     @Override
-    public String getKey() {
+    public PreloadApi getKey() {
         return null;
     }
 

@@ -1,24 +1,14 @@
 package com.zpj.shouji.market.ui.widget.popup;
 
-import android.app.Activity;
 import android.content.Context;
 import android.support.annotation.NonNull;
-import android.text.TextUtils;
 import android.util.Log;
+import android.widget.TextView;
 
-import com.felix.atoast.library.AToast;
-import com.zpj.http.core.IHttp;
-import com.zpj.http.parser.html.nodes.Document;
-import com.zpj.popup.core.BottomPopup;
-import com.zpj.popup.util.ActivityUtils;
 import com.zpj.popup.util.KeyboardUtils;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.api.HttpApi;
-import com.zpj.shouji.market.event.HideLoadingEvent;
-import com.zpj.shouji.market.event.RefreshEvent;
 import com.zpj.shouji.market.event.ShowLoadingEvent;
-import com.zpj.shouji.market.ui.fragment.detail.AppCommentFragment;
-import com.zpj.shouji.market.ui.widget.ChatPanel;
 
 public class AppCommentPopup extends CommentPopup {
 
@@ -40,10 +30,17 @@ public class AppCommentPopup extends CommentPopup {
         setContentType("app_comment");
     }
 
+    @Override
+    protected void onCreate() {
+        super.onCreate();
+        TextView tvTitle = findViewById(R.id.tv_title);
+        tvTitle.setText("评论");
+        replyPanel.getEditor().setHint("评论一下吧...");
+    }
 
     @Override
     public void sendText(String content) {
-        KeyboardUtils.hideSoftInput(chatPanel.getEditor());
+        KeyboardUtils.hideSoftInput(replyPanel.getEditor());
         Log.d("sendText", "content=" + content + " appId=" + appId + " appType=" + appType + " appPackage=" + appPackage);
         ShowLoadingEvent.post("评论中...");
         HttpApi.appCommentApi(content, appId, appType, appPackage)

@@ -5,6 +5,7 @@ import android.util.AttributeSet;
 import android.view.View;
 
 import com.zpj.shouji.market.api.HttpPreLoader;
+import com.zpj.shouji.market.api.PreloadApi;
 import com.zpj.shouji.market.ui.fragment.ToolBarListFragment;
 
 public class UpdateRecommendCard extends AppInfoRecommendCard {
@@ -27,8 +28,8 @@ public class UpdateRecommendCard extends AppInfoRecommendCard {
     }
 
     @Override
-    public String getKey() {
-        return HttpPreLoader.HOME_RECENT;
+    public PreloadApi getKey() {
+        return PreloadApi.HOME_RECENT;
     }
 
 }

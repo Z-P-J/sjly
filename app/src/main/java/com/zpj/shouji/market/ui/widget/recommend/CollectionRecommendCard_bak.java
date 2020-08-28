@@ -18,6 +18,7 @@ import com.zpj.recyclerview.EasyViewHolder;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.api.HttpApi;
 import com.zpj.shouji.market.api.HttpPreLoader;
+import com.zpj.shouji.market.api.PreloadApi;
 import com.zpj.shouji.market.glide.blur.CropBlurTransformation;
 import com.zpj.shouji.market.model.CollectionInfo;
 import com.zpj.shouji.market.ui.fragment.collection.CollectionDetailFragment;
@@ -44,8 +45,8 @@ public class CollectionRecommendCard_bak extends RecommendCard<CollectionInfo> {
 
     protected void init() {
         setTitle("应用集推荐");
-        if (HttpPreLoader.getInstance().hasKey(HttpPreLoader.HOME_COLLECTION)) {
-            HttpPreLoader.getInstance().setLoadListener(HttpPreLoader.HOME_COLLECTION, this::onGetDoc);
+        if (HttpPreLoader.getInstance().hasKey(PreloadApi.HOME_COLLECTION)) {
+            HttpPreLoader.getInstance().setLoadListener(PreloadApi.HOME_COLLECTION, this::onGetDoc);
         } else {
             HttpApi.collectionRecommend()
                     .onSuccess(this::onGetDoc)

@@ -1,45 +1,32 @@
 package com.zpj.shouji.market.ui.fragment.collection;
 
-import android.content.pm.ActivityInfo;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.FrameLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.felix.atoast.library.AToast;
 import com.zpj.fragmentation.BaseFragment;
 import com.zpj.http.core.IHttp;
-import com.zpj.matisse.Matisse;
-import com.zpj.matisse.MimeType;
-import com.zpj.matisse.engine.impl.GlideEngine;
-import com.zpj.matisse.entity.Item;
-import com.zpj.matisse.listener.OnSelectedListener;
 import com.zpj.popup.util.KeyboardUtils;
-import com.zpj.recyclerview.EasyRecyclerLayout;
 import com.zpj.recyclerview.EasyRecyclerView;
 import com.zpj.recyclerview.EasyViewHolder;
 import com.zpj.recyclerview.IEasy;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.api.CollectionApi;
 import com.zpj.shouji.market.api.PublishApi;
-import com.zpj.shouji.market.api.WallpaperApi;
 import com.zpj.shouji.market.event.StartFragmentEvent;
 import com.zpj.shouji.market.model.InstalledAppInfo;
-import com.zpj.shouji.market.model.WallpaperTag;
 import com.zpj.shouji.market.ui.fragment.manager.AppPickerFragment;
+import com.zpj.shouji.market.ui.fragment.profile.UserPickerFragment;
 import com.zpj.shouji.market.ui.widget.ActionPanel;
-import com.zpj.shouji.market.ui.widget.ChatPanel;
 import com.zpj.shouji.market.ui.widget.flowlayout.FlowLayout;
+import com.zpj.shouji.market.utils.Callback;
 import com.zpj.utils.ScreenUtils;
-import com.zpj.widget.statelayout.StateLayout;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -132,8 +119,13 @@ public class CollectionShareFragment extends BaseFragment {
             }
         });
 
-        actionPanel.removeImageAction();
+//        actionPanel.removeImageAction();
         actionPanel.removeAppAction();
+
+        actionPanel.addAction(R.drawable.ic_at_black_24dp, v -> {
+            showUserPicker();
+        });
+
         actionPanel.addAction(R.drawable.ic_android_black_24dp, v -> {
             hideSoftInput();
             showAppPicker();
@@ -222,6 +214,14 @@ public class CollectionShareFragment extends BaseFragment {
             flowLayout.setItems(tags);
         });
 
+    }
+
+    private void showUserPicker() {
+        hideSoftInput();
+        UserPickerFragment.start((Callback<String>) content -> {
+            actionPanel.getEditor().append(content);
+            showSoftInput(actionPanel.getEditor());
+        });
     }
 
     private void showAppPicker() {

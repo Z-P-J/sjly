@@ -12,6 +12,7 @@ import com.zpj.recyclerview.EasyRecyclerView;
 import com.zpj.recyclerview.EasyViewHolder;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.api.HttpPreLoader;
+import com.zpj.shouji.market.api.PreloadApi;
 import com.zpj.shouji.market.model.SubjectInfo;
 import com.zpj.shouji.market.ui.fragment.SubjectRecommendListFragment;
 import com.zpj.shouji.market.ui.fragment.ToolBarListFragment;
@@ -32,7 +33,7 @@ public class SubjectRecommendCard extends RecommendCard<SubjectInfo> {
     public SubjectRecommendCard(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
 
-        HttpPreLoader.getInstance().setLoadListener(HttpPreLoader.HOME_SUBJECT, document -> {
+        HttpPreLoader.getInstance().setLoadListener(PreloadApi.HOME_SUBJECT, document -> {
             Elements elements = document.select("item");
             for (int i = 0; i < elements.size(); i++) {
 //                list.add(SubjectInfo.create(elements.get(i)));

@@ -72,7 +72,7 @@ public class ActionPanel extends RelativeLayout
     private EditText etEditor;
     private LinearLayout llActionsContainer;
     private ImageView ivEmoji;
-    private ImageView ivImage;
+//    private ImageView ivImage;
     private ImageView ivApp;
     private ImageView ivSend;
     //    private RelativeLayout rlEmojiPanel;
@@ -114,7 +114,7 @@ public class ActionPanel extends RelativeLayout
 
     private void initWidget() {
         llActionsContainer = findViewById(R.id.ll_actions_container);
-        ivImage = findViewById(R.id.iv_image);
+//        ivImage = findViewById(R.id.iv_image);
         ivEmoji = findViewById(R.id.iv_emoji);
         ivApp = findViewById(R.id.iv_app);
         ivSend = findViewById(R.id.iv_send);
@@ -135,76 +135,76 @@ public class ActionPanel extends RelativeLayout
             }
         });
 
-        EasyRecyclerView<Item> recyclerView = new EasyRecyclerView<>(findViewById(R.id.rv_img));
-        recyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false))
-                .setItemRes(R.layout.item_image_square)
-                .addItemDecoration(new Y_DividerItemDecoration(getContext()) {
-                    @Override
-                    public Y_Divider getDivider(int itemPosition) {
-                        Y_DividerBuilder builder = null;
-                        if (itemPosition == 0) {
-                            builder = new Y_DividerBuilder()
-                                    .setLeftSideLine(true, Color.WHITE, 12, 0, 0);
-                        } else if (itemPosition == imgList.size() - 1) {
-                            builder = new Y_DividerBuilder()
-                                    .setRightSideLine(true, Color.WHITE, 12, 0, 0);
-                        } else {
-                            builder = new Y_DividerBuilder();
-                        }
-                        return builder.setTopSideLine(true, Color.WHITE, 4, 0, 0)
-                                .setBottomSideLine(true, Color.WHITE, 4, 0, 0)
-                                .create();
-                    }
-                })
-                .setData(imgList)
-                .onBindViewHolder((holder, list, position, payloads) -> {
-                    ImageView img = holder.getImageView(R.id.iv_img);
-                    Glide.with(getContext())
-                            .load(list.get(position).uri)
-                            .apply(MyRequestOptions.DEFAULT_OPTIONS)
-                            .into(img);
-
-                    holder.setOnItemClickListener(v -> {
-                        CustomImageViewerPopup.with(getContext())
-                                .setOnSelectedListener(itemList -> {
-                                    postDelayed(() -> {
-                                        imgList.clear();
-                                        imgList.addAll(itemList);
-                                        recyclerView.notifyDataSetChanged();
-                                        if (imgList.isEmpty()) {
-                                            recyclerView.getRecyclerView().setVisibility(GONE);
-                                        }
-                                    }, 100);
-                                })
-                                .setImageUrls(imgList)
-                                .setSrcView(img, holder.getAdapterPosition())
-                                .setSrcViewUpdateListener((popupView, pos) -> {
-                                    int layoutPos = recyclerView.getRecyclerView().indexOfChild(holder.getItemView());
-                                    View view = recyclerView.getRecyclerView().getChildAt(layoutPos + pos - position);
-                                    ImageView imageView;
-                                    if (view != null) {
-                                        imageView = view.findViewById(R.id.iv_img);
-                                    } else {
-                                        imageView = img;
-                                    }
-                                    popupView.updateSrcView(imageView);
-                                })
-                                .show();
-                    });
-                })
-                .onViewClick(R.id.iv_close, new IEasy.OnClickListener<Item>() {
-                    @Override
-                    public void onClick(EasyViewHolder holder, View view, Item data) {
-                        imgList.remove(data);
-                        if (imgList.isEmpty()) {
-                            recyclerView.getRecyclerView().setVisibility(GONE);
-                        } else {
-//                            recyclerView.notifyItemRemoved(holder.getRealPosition());
-                            recyclerView.notifyDataSetChanged();
-                        }
-                    }
-                })
-                .build();
+//        EasyRecyclerView<Item> recyclerView = new EasyRecyclerView<>(findViewById(R.id.rv_img));
+//        recyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false))
+//                .setItemRes(R.layout.item_image_square)
+//                .addItemDecoration(new Y_DividerItemDecoration(getContext()) {
+//                    @Override
+//                    public Y_Divider getDivider(int itemPosition) {
+//                        Y_DividerBuilder builder = null;
+//                        if (itemPosition == 0) {
+//                            builder = new Y_DividerBuilder()
+//                                    .setLeftSideLine(true, Color.WHITE, 12, 0, 0);
+//                        } else if (itemPosition == imgList.size() - 1) {
+//                            builder = new Y_DividerBuilder()
+//                                    .setRightSideLine(true, Color.WHITE, 12, 0, 0);
+//                        } else {
+//                            builder = new Y_DividerBuilder();
+//                        }
+//                        return builder.setTopSideLine(true, Color.WHITE, 4, 0, 0)
+//                                .setBottomSideLine(true, Color.WHITE, 4, 0, 0)
+//                                .create();
+//                    }
+//                })
+//                .setData(imgList)
+//                .onBindViewHolder((holder, list, position, payloads) -> {
+//                    ImageView img = holder.getImageView(R.id.iv_img);
+//                    Glide.with(getContext())
+//                            .load(list.get(position).uri)
+//                            .apply(MyRequestOptions.DEFAULT_OPTIONS)
+//                            .into(img);
+//
+//                    holder.setOnItemClickListener(v -> {
+//                        CustomImageViewerPopup.with(getContext())
+//                                .setOnSelectedListener(itemList -> {
+//                                    postDelayed(() -> {
+//                                        imgList.clear();
+//                                        imgList.addAll(itemList);
+//                                        recyclerView.notifyDataSetChanged();
+//                                        if (imgList.isEmpty()) {
+//                                            recyclerView.getRecyclerView().setVisibility(GONE);
+//                                        }
+//                                    }, 100);
+//                                })
+//                                .setImageUrls(imgList)
+//                                .setSrcView(img, holder.getAdapterPosition())
+//                                .setSrcViewUpdateListener((popupView, pos) -> {
+//                                    int layoutPos = recyclerView.getRecyclerView().indexOfChild(holder.getItemView());
+//                                    View view = recyclerView.getRecyclerView().getChildAt(layoutPos + pos - position);
+//                                    ImageView imageView;
+//                                    if (view != null) {
+//                                        imageView = view.findViewById(R.id.iv_img);
+//                                    } else {
+//                                        imageView = img;
+//                                    }
+//                                    popupView.updateSrcView(imageView);
+//                                })
+//                                .show();
+//                    });
+//                })
+//                .onViewClick(R.id.iv_close, new IEasy.OnClickListener<Item>() {
+//                    @Override
+//                    public void onClick(EasyViewHolder holder, View view, Item data) {
+//                        imgList.remove(data);
+//                        if (imgList.isEmpty()) {
+//                            recyclerView.getRecyclerView().setVisibility(GONE);
+//                        } else {
+////                            recyclerView.notifyItemRemoved(holder.getRealPosition());
+//                            recyclerView.notifyDataSetChanged();
+//                        }
+//                    }
+//                })
+//                .build();
 
 
         ivEmoji.setOnClickListener(v -> {
@@ -228,38 +228,38 @@ public class ActionPanel extends RelativeLayout
                 listener.sendText(content);
             }
         });
-        ivImage.setOnClickListener(v -> {
-            if (isKeyboardShowing) {
-                KeyboardUtils.hideSoftInputKeyboard(etEditor);
-            }
-            elEmotion.setVisibility(View.GONE);
-            AToast.normal("图片");
-            GetMainActivityEvent.post(obj -> Matisse.from(obj)
-                    .choose(MimeType.ofImage())//照片视频全部显示MimeType.allOf()
-                    .countable(true)//true:选中后显示数字;false:选中后显示对号
-                    .maxSelectable(9)//最大选择数量为9
-                    //.addFilter(new GifSizeFilter(320, 320, 5 * Filter.K * Filter.K))
-//                    .gridExpectedSize(this.getResources().getDimensionPixelSize(R.dimen.photo))//图片显示表格的大小
-                    .spanCount(3)
-                    .restrictOrientation(ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED)//图像选择和预览活动所需的方向
-                    .thumbnailScale(0.85f)//缩放比例
-                    .imageEngine(new GlideEngine())//图片加载方式，Glide4需要自定义实现
-                    .capture(true) //是否提供拍照功能，兼容7.0系统需要下面的配置
-                    //参数1 true表示拍照存储在共有目录，false表示存储在私有目录；参数2与 AndroidManifest中authorities值相同，用于适配7.0系统 必须设置
-                    .setDefaultSelection(imgList)
-                    .capture(true, CaptureMode.All)//存储到哪里
-                    .setOnSelectedListener(new OnSelectedListener() {
-                        @Override
-                        public void onSelected(@NonNull List<Item> itemList) {
-                            recyclerView.getRecyclerView().setVisibility(VISIBLE);
-//                                    imgList.clear();
-//                                    imgList.addAll(itemList);
-                            recyclerView.notifyDataSetChanged();
-                        }
-                    })
-                    .start());
-
-        });
+//        ivImage.setOnClickListener(v -> {
+//            if (isKeyboardShowing) {
+//                KeyboardUtils.hideSoftInputKeyboard(etEditor);
+//            }
+//            elEmotion.setVisibility(View.GONE);
+//            AToast.normal("图片");
+//            GetMainActivityEvent.post(obj -> Matisse.from(obj)
+//                    .choose(MimeType.ofImage())//照片视频全部显示MimeType.allOf()
+//                    .countable(true)//true:选中后显示数字;false:选中后显示对号
+//                    .maxSelectable(9)//最大选择数量为9
+//                    //.addFilter(new GifSizeFilter(320, 320, 5 * Filter.K * Filter.K))
+////                    .gridExpectedSize(this.getResources().getDimensionPixelSize(R.dimen.photo))//图片显示表格的大小
+//                    .spanCount(3)
+//                    .restrictOrientation(ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED)//图像选择和预览活动所需的方向
+//                    .thumbnailScale(0.85f)//缩放比例
+//                    .imageEngine(new GlideEngine())//图片加载方式，Glide4需要自定义实现
+//                    .capture(true) //是否提供拍照功能，兼容7.0系统需要下面的配置
+//                    //参数1 true表示拍照存储在共有目录，false表示存储在私有目录；参数2与 AndroidManifest中authorities值相同，用于适配7.0系统 必须设置
+//                    .setDefaultSelection(imgList)
+//                    .capture(true, CaptureMode.All)//存储到哪里
+//                    .setOnSelectedListener(new OnSelectedListener() {
+//                        @Override
+//                        public void onSelected(@NonNull List<Item> itemList) {
+//                            recyclerView.getRecyclerView().setVisibility(VISIBLE);
+////                                    imgList.clear();
+////                                    imgList.addAll(itemList);
+//                            recyclerView.notifyDataSetChanged();
+//                        }
+//                    })
+//                    .start());
+//
+//        });
         ivApp.setOnClickListener(v -> {
             if (isKeyboardShowing) {
                 KeyboardUtils.hideSoftInputKeyboard(etEditor);
@@ -274,9 +274,9 @@ public class ActionPanel extends RelativeLayout
         elEmotion.attachEditText(etEditor);
     }
 
-    public void removeImageAction() {
-        llActionsContainer.removeView(ivImage);
-    }
+//    public void removeImageAction() {
+//        llActionsContainer.removeView(ivImage);
+//    }
 
     public void removeAppAction() {
         llActionsContainer.removeView(ivApp);

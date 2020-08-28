@@ -78,6 +78,9 @@ public class FlowLayout extends RecyclerView implements IEasy.OnBindViewHolderLi
                 })
                 .onBindViewHolder(this)
                 .onItemClick((holder, view, data) -> {
+                    if (onItemClickListener != null) {
+                        onItemClickListener.onClick(holder.getAdapterPosition(), view, data.text);
+                    }
                     if (selectMode || !selectedList.isEmpty()) {
                         if (selectedList.contains(holder.getAdapterPosition())) {
                             selectedList.remove(holder.getAdapterPosition());
@@ -85,9 +88,6 @@ public class FlowLayout extends RecyclerView implements IEasy.OnBindViewHolderLi
                         } else {
                             addSelectedPosition(holder.getAdapterPosition());
                         }
-                    }
-                    if (onItemClickListener != null) {
-                        onItemClickListener.onClick(holder.getAdapterPosition(), view, data.text);
                     }
                 })
                 .onItemLongClick((holder, view, data) -> {

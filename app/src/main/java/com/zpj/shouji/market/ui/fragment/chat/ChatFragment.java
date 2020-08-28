@@ -18,7 +18,6 @@ import com.lwkandroid.widget.ninegridview.NineGridBean;
 import com.lwkandroid.widget.ninegridview.NineGridView;
 import com.zpj.http.parser.html.nodes.Document;
 import com.zpj.http.parser.html.nodes.Element;
-import com.zpj.matisse.Matisse;
 import com.zpj.popup.ZPopup;
 import com.zpj.recyclerview.EasyRecyclerLayout;
 import com.zpj.recyclerview.EasyViewHolder;
@@ -32,7 +31,7 @@ import com.zpj.shouji.market.ui.adapter.DiscoverBinder;
 import com.zpj.shouji.market.ui.animator.SlideInOutBottomItemAnimator;
 import com.zpj.shouji.market.ui.fragment.base.NextUrlFragment;
 import com.zpj.shouji.market.ui.fragment.profile.ProfileFragment;
-import com.zpj.shouji.market.ui.widget.ChatPanel;
+import com.zpj.shouji.market.ui.widget.ReplyPanel;
 import com.zpj.shouji.market.ui.widget.WrapContentLinearLayoutManager;
 import com.zpj.shouji.market.ui.widget.popup.BottomListPopupMenu;
 import com.zpj.shouji.market.ui.widget.popup.CommonImageViewerPopup;
@@ -41,13 +40,13 @@ import com.zpj.shouji.market.utils.BeanUtils;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ChatFragment extends NextUrlFragment<PrivateLetterInfo> implements ChatPanel.OnOperationListener {
+public class ChatFragment extends NextUrlFragment<PrivateLetterInfo> implements ReplyPanel.OnOperationListener {
 
     public int position; //加载滚动刷新位置
 
 
     private String userId;
-    private ChatPanel chatPanel;
+    private ReplyPanel replyPanel;
 
 //    public final List<PrivateLetterInfo> letterInfoList = new ArrayList<>();
 
@@ -64,7 +63,7 @@ public class ChatFragment extends NextUrlFragment<PrivateLetterInfo> implements 
 
     @Override
     protected int getLayoutId() {
-        return R.layout.fragment_chat2;
+        return R.layout.fragment_chat;
     }
 
     @Override
@@ -100,18 +99,20 @@ public class ChatFragment extends NextUrlFragment<PrivateLetterInfo> implements 
     protected void initView(View view, @Nullable Bundle savedInstanceState) {
         super.initView(view, savedInstanceState);
 
-        chatPanel = view.findViewById(R.id.chat_panel);
-        chatPanel.setOnOperationListener(this);
+        replyPanel = view.findViewById(R.id.panel_reply);
+        replyPanel.setOnOperationListener(this);
+
+        replyPanel.getEditor().setBackground(getResources().getDrawable(R.drawable.grey_shape));
 
         com.zpj.popup.util.KeyboardUtils.registerSoftInputChangedListener(_mActivity, view, height -> {
-            chatPanel.onKeyboardHeightChanged(height, 0);
+            replyPanel.onKeyboardHeightChanged(height, 0);
         });
     }
 
     @Override
     public boolean onBackPressedSupport() {
-        if (chatPanel.isEmotionPanelShow()) {
-            chatPanel.hideEmojiPanel();
+        if (replyPanel.isEmotionPanelShow()) {
+            replyPanel.hideEmojiPanel();
             return true;
         }
         return super.onBackPressedSupport();
@@ -120,7 +121,7 @@ public class ChatFragment extends NextUrlFragment<PrivateLetterInfo> implements 
     @Override
     public void onEnterAnimationEnd(Bundle savedInstanceState) {
         super.onEnterAnimationEnd(savedInstanceState);
-        showSoftInput(chatPanel.getEditor());
+        showSoftInput(replyPanel.getEditor());
     }
 
     @Override
@@ -179,7 +180,7 @@ public class ChatFragment extends NextUrlFragment<PrivateLetterInfo> implements 
 //                                tbAdapter.setIsGif(false);
 //                                tbAdapter.isPicRefresh = true;
 
-                                chatPanel.hideEmojiPanel();
+                                replyPanel.hideEmojiPanel();
 
                                 hideSoftInput();
                                 break;
@@ -366,7 +367,7 @@ public class ChatFragment extends NextUrlFragment<PrivateLetterInfo> implements 
                     String result = element.selectFirst("result").text();
                     if ("success".equals(result)) {
                         AToast.success("发送成功");
-                        chatPanel.getEditor().setText(null);
+                        replyPanel.getEditor().setText(null);
                         onRefresh();
                     } else {
                         AToast.error(element.selectFirst("info").text());

@@ -6,8 +6,8 @@
     android:layout_height="wrap_content"
     app:hl_shadowBackColor="@color/light_gray_5"
     app:hl_cornerRadius="8dp"
-    app:hl_shadowLimit="4dp"
-    app:hl_shadowColor="#80cccccc"
+    app:hl_shadowLimit="8dp"
+    app:hl_shadowColor="#40333333"
     >
 
     <LinearLayout

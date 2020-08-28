@@ -25,8 +25,8 @@ import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.api.WallpaperApi;
 import com.zpj.shouji.market.event.StartFragmentEvent;
 import com.zpj.shouji.market.model.WallpaperTag;
+import com.zpj.shouji.market.ui.fragment.profile.UserPickerFragment;
 import com.zpj.shouji.market.ui.widget.ActionPanel;
-import com.zpj.shouji.market.ui.widget.ChatPanel;
 import com.zpj.shouji.market.ui.widget.flowlayout.FlowLayout;
 import com.zpj.utils.ScreenUtils;
 
@@ -77,37 +77,37 @@ public class WallpaperShareFragment extends BaseFragment
             actionPanel.onKeyboardHeightChanged(height, 0);
         });
 
-        actionPanel.removeImageAction();
+//        actionPanel.removeImageAction();
         actionPanel.removeAppAction();
+        actionPanel.addAction(R.drawable.ic_at_black_24dp, v -> {
+            showUserPicker();
+        });
         actionPanel.addAction(R.drawable.ic_image_black_24dp, this);
         tvShareMode = actionPanel.addAction("公开", v -> {
             tvShareMode.setText(isPrivate ? "公开" : "私有");
             isPrivate = !isPrivate;
         });
-        actionPanel.setSendAction(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (TextUtils.isEmpty(etContent.getText())) {
-                    AToast.warning("请输入内容");
-                    return;
-                }
-                if (imgFile == null) {
-                    AToast.warning("请选择图片");
-                    return;
-                }
-
-                WallpaperApi.shareWallpaperApi(imgFile, etContent.getText().toString(), tag, isPrivate, () -> pop(), new IHttp.OnStreamWriteListener() {
-                    @Override
-                    public void onBytesWritten(int bytesWritten) {
-
-                    }
-
-                    @Override
-                    public boolean shouldContinue() {
-                        return true;
-                    }
-                });
+        actionPanel.setSendAction(v -> {
+            if (TextUtils.isEmpty(etContent.getText())) {
+                AToast.warning("请输入内容");
+                return;
             }
+            if (imgFile == null) {
+                AToast.warning("请选择图片");
+                return;
+            }
+
+            WallpaperApi.shareWallpaperApi(imgFile, etContent.getText().toString(), tag, isPrivate, this::pop, new IHttp.OnStreamWriteListener() {
+                @Override
+                public void onBytesWritten(int bytesWritten) {
+
+                }
+
+                @Override
+                public boolean shouldContinue() {
+                    return true;
+                }
+            });
         });
     }
 
@@ -150,6 +150,14 @@ public class WallpaperShareFragment extends BaseFragment
             }
         });
 
+    }
+
+    private void showUserPicker() {
+        hideSoftInput();
+        UserPickerFragment.start(content -> {
+            etContent.append(content);
+            showSoftInput(etContent);
+        });
     }
 
     private void showImagePicker() {

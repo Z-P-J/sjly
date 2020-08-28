@@ -104,7 +104,7 @@ public class MyFriendsFragment extends BaseFragment {
         fragments.add(fansFragment);
         viewPager.setAdapter(new FragmentsPagerAdapter(getChildFragmentManager(), fragments, TAB_TITLES));
         viewPager.setOffscreenPageLimit(fragments.size());
-        MagicIndicatorHelper.bindViewPager(context, magicIndicator, viewPager, TAB_TITLES);
+        MagicIndicatorHelper.bindViewPager(context, magicIndicator, viewPager, TAB_TITLES, true);
     }
 
     public static class FollowersFragment extends UserListFragment {

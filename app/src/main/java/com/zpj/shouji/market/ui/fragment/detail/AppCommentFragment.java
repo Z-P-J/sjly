@@ -3,17 +3,13 @@ package com.zpj.shouji.market.ui.fragment.detail;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.design.widget.FloatingActionButton;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
-import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.constant.Keys;
 import com.zpj.shouji.market.event.FabEvent;
 import com.zpj.shouji.market.event.RefreshEvent;
 import com.zpj.shouji.market.ui.fragment.theme.ThemeListFragment;
-import com.zpj.shouji.market.ui.widget.popup.AppCommentPopup;
-import com.zpj.shouji.market.ui.widget.popup.CommentPopup;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;

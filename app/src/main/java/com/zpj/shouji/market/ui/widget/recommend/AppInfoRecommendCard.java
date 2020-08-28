@@ -16,6 +16,7 @@ import com.zpj.recyclerview.EasyViewHolder;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.api.HttpApi;
 import com.zpj.shouji.market.api.HttpPreLoader;
+import com.zpj.shouji.market.api.PreloadApi;
 import com.zpj.shouji.market.model.AppInfo;
 import com.zpj.shouji.market.ui.fragment.detail.AppDetailFragment;
 
@@ -37,21 +38,18 @@ public abstract class AppInfoRecommendCard extends RecommendCard<AppInfo> {
     }
 
     protected void init() {
-        if (!TextUtils.isEmpty(getKey())) {
+        if (getKey() != null) {
             if (HttpPreLoader.getInstance().hasKey(getKey())) {
                 HttpPreLoader.getInstance().setLoadListener(getKey(), this::onGetDoc);
             } else {
-                switch (getKey()) {
-                    case HttpPreLoader.HOME_SOFT:
-                        HttpApi.homeRecommendSoftApi()
-                                .onSuccess(this::onGetDoc)
-                                .subscribe();
-                        break;
-                    case HttpPreLoader.HOME_GAME:
-                        HttpApi.homeRecommendGameApi()
-                                .onSuccess(this::onGetDoc)
-                                .subscribe();
-                        break;
+                if (getKey() == PreloadApi.HOME_SOFT) {
+                    HttpApi.homeRecommendSoftApi()
+                            .onSuccess(this::onGetDoc)
+                            .subscribe();
+                } else if (getKey() == PreloadApi.HOME_GAME) {
+                    HttpApi.homeRecommendGameApi()
+                            .onSuccess(this::onGetDoc)
+                            .subscribe();
                 }
             }
         }
@@ -106,7 +104,7 @@ public abstract class AppInfoRecommendCard extends RecommendCard<AppInfo> {
         AppDetailFragment.start(data);
     }
 
-    public abstract String getKey();
+    public abstract PreloadApi getKey();
 
     public String getUrl() {
         return "";

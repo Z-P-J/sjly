@@ -1,13 +1,68 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="#fff"
+    android:background="@drawable/background_bottom_sheet_dialog"
     android:orientation="vertical">
 
-    <com.zpj.shouji.market.ui.widget.ChatPanel
-        android:id="@+id/chat_panel"
+    <RelativeLayout
+        android:id="@+id/ll_top"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="8dp"
+        android:paddingVertical="8dp"
+        >
+
+        <TextView
+            android:id="@+id/tv_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="回复"
+            android:textColor="@color/color_text_major"
+            android:textSize="16sp"
+            android:layout_centerVertical="true"
+            android:paddingHorizontal="8dp"
+            />
+
+        <com.zpj.widget.tinted.TintedImageButton
+            android:id="@+id/btn_close"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_close_black_24dp"
+            android:layout_alignParentEnd="true"
+            android:background="?attr/actionBarItemBackground"
+            android:layout_centerVertical="true"
+            android:padding="8dp"
+            android:tint="@color/light_gray_10"
+            />
+
+    </RelativeLayout>
+
+    <com.zpj.shouji.market.ui.widget.ReplyPanel
+        android:id="@+id/panel_reply"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         />
+
+<!--    <EditText-->
+<!--        android:id="@+id/et_content"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_gravity="center_vertical"-->
+<!--        android:background="@color/white"-->
+<!--        android:textColor="@color/color_text_major"-->
+<!--        android:inputType="textMultiLine"-->
+<!--        android:gravity="start"-->
+<!--        android:hint="说点什么..."-->
+<!--        android:maxLines="8"-->
+<!--        android:minLines="4"-->
+<!--        android:paddingHorizontal="16dp"-->
+<!--        android:paddingVertical="8dp"-->
+<!--        android:textSize="16sp"/>-->
+
+<!--    <com.zpj.shouji.market.ui.widget.ActionPanel-->
+<!--        android:id="@+id/panel_action"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        />-->
 
 </LinearLayout>

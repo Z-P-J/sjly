@@ -1,12 +1,17 @@
 package com.zpj.shouji.market.ui.fragment;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.bumptech.glide.Glide;
+import com.yanyusong.y_divideritemdecoration.Y_Divider;
+import com.yanyusong.y_divideritemdecoration.Y_DividerBuilder;
+import com.yanyusong.y_divideritemdecoration.Y_DividerItemDecoration;
 import com.zpj.http.parser.html.nodes.Element;
+import com.zpj.recyclerview.EasyRecyclerLayout;
 import com.zpj.recyclerview.EasyViewHolder;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.constant.Keys;
@@ -33,6 +38,34 @@ public class SubjectListFragment extends NextUrlFragment<SubjectInfo>
     @Override
     protected int getItemLayoutId() {
         return R.layout.item_app_subject;
+    }
+
+    @Override
+    protected void buildRecyclerLayout(EasyRecyclerLayout<SubjectInfo> recyclerLayout) {
+        super.buildRecyclerLayout(recyclerLayout);
+        recyclerLayout.addItemDecoration(new Y_DividerItemDecoration(context) {
+            @Override
+            public Y_Divider getDivider(int itemPosition) {
+                Y_DividerBuilder builder = null;
+                if (itemPosition == 0) {
+                    builder = new Y_DividerBuilder()
+                            .setTopSideLine(true, Color.WHITE, 8, 0, 0);
+//                            .setBottomSideLine(true, Color.WHITE, 4, 0, 0);
+                } else if (itemPosition == data.size() - 1) {
+                    builder = new Y_DividerBuilder()
+//                            .setTopSideLine(true, Color.WHITE, 4, 0, 0)
+                            .setBottomSideLine(true, Color.WHITE, 8, 0, 0);
+                } else {
+                    builder = new Y_DividerBuilder();
+//                            .setTopSideLine(true, Color.WHITE, 4, 0, 0)
+//                            .setBottomSideLine(true, Color.WHITE, 4, 0, 0);
+                }
+                return builder
+                        .setLeftSideLine(true, Color.WHITE, 8, 0, 0)
+                        .setRightSideLine(true, Color.WHITE, 8, 0, 0)
+                        .create();
+            }
+        });
     }
 
     @Override

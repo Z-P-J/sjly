@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:background="?attr/selectableItemBackground"
+    android:padding="8dp"
+    >
+
+    <com.shehuan.niv.NiceImageView
+        android:id="@+id/iv_icon"
+        android:layout_width="56dp"
+        android:layout_height="56dp"
+        android:src="@mipmap/ic_launcher"
+        android:layout_margin="8dp"
+        android:layout_gravity="center_vertical"
+        android:layout_centerVertical="true"
+        android:scaleType="centerCrop"
+        app:corner_radius="4dp"
+        />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_toEndOf="@id/iv_icon"
+        android:layout_toStartOf="@id/tv_download"
+        android:layout_centerVertical="true"
+        android:layout_margin="8dp"
+        >
+
+        <TextView
+            android:id="@+id/tv_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:maxLines="2"
+            android:ellipsize="end"
+            android:text="文件夹"
+            android:textSize="16sp"
+            android:textColor="@color/color_text_major" />
+
+        <TextView
+            android:id="@+id/tv_info"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:maxLines="1"
+            android:gravity="center_vertical"
+            android:ellipsize="end"
+            android:text="文件： 文件夹："
+            android:paddingTop="1dp"
+            android:paddingBottom="1dp"
+            android:textColor="@color/color_text_normal"
+            android:textSize="12sp" />
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/tv_booking"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="预约"
+        android:textSize="12sp"
+        android:textColor="@color/colorPrimary"
+        android:background="@drawable/bg_download_button"
+        android:layout_alignParentEnd="true"
+        android:layout_centerVertical="true"
+        android:paddingStart="12dp"
+        android:paddingEnd="12dp"
+        android:textStyle="bold"
+        android:paddingTop="4dp"
+        android:paddingBottom="4dp"
+        android:layout_margin="8dp"
+        android:gravity="center"
+        />
+
+
+
+</RelativeLayout>
