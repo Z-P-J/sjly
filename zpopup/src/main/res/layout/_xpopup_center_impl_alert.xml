@@ -5,6 +5,8 @@
     android:background="@drawable/_xpopup_round3_bg"
     android:orientation="vertical">
 
+<!--    android:background="@drawable/_xpopup_round3_bg"-->
+
     <TextView
         android:id="@+id/tv_title"
         style="@style/XPopupTitle"
@@ -14,6 +16,7 @@
         android:paddingEnd="24dp"
         android:paddingTop="24dp"
         android:paddingBottom="0dp"
+        android:textSize="18sp"
         android:text="Title" />
 
     <ScrollView
@@ -33,10 +36,10 @@
         android:layout_height="wrap_content"
         android:gravity="end"
         android:orientation="horizontal"
-        android:paddingStart="24dp"
-        android:paddingEnd="24dp"
+        android:paddingStart="16dp"
+        android:paddingEnd="16dp"
         android:paddingTop="0dp"
-        android:paddingBottom="16dp"
+        android:paddingBottom="12dp"
         >
 
         <TextView
@@ -48,7 +51,6 @@
             android:padding="8dp"
             android:text="@string/btn_cancel"
             android:textSize="14sp"
-            android:textStyle="bold"
             />
 
         <TextView
@@ -59,7 +61,6 @@
             android:padding="8dp"
             android:text="@string/btn_ok"
             android:textSize="14sp"
-            android:textStyle="bold"
             />
 
     </LinearLayout>

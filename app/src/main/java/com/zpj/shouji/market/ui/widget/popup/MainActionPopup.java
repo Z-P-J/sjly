@@ -3,9 +3,7 @@ package com.zpj.shouji.market.ui.widget.popup;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.animation.ObjectAnimator;
-import android.animation.TypeEvaluator;
 import android.animation.ValueAnimator;
-import android.app.Activity;
 import android.content.Context;
 import android.content.res.ColorStateList;
 import android.graphics.Bitmap;
@@ -20,29 +18,21 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.felix.atoast.library.AToast;
-import com.zpj.http.core.IHttp;
 import com.zpj.http.core.ObservableTask;
 import com.zpj.popup.enums.PopupAnimation;
 import com.zpj.popup.impl.FullScreenPopup;
-import com.zpj.popup.util.ActivityUtils;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.event.GetMainActivityEvent;
 import com.zpj.shouji.market.ui.activity.MainActivity;
 import com.zpj.shouji.market.ui.animator.KickBackAnimator;
-import com.zpj.shouji.market.ui.fragment.DiscoverEditorFragment2;
 import com.zpj.shouji.market.ui.fragment.collection.CollectionShareFragment;
-import com.zpj.shouji.market.ui.fragment.manager.AppPickerFragment;
 import com.zpj.shouji.market.ui.fragment.profile.MyPrivateLetterFragment;
 import com.zpj.shouji.market.ui.fragment.theme.ThemeShareFragment;
 import com.zpj.shouji.market.ui.fragment.wallpaper.WallpaperShareFragment;
 import com.zpj.shouji.market.utils.Callback;
 import com.zpj.utils.ScreenUtils;
 
-import io.reactivex.Observable;
-import io.reactivex.ObservableOnSubscribe;
-import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
-import io.reactivex.schedulers.Schedulers;
 import per.goweii.burred.Blurred;
 
 public class MainActionPopup extends FullScreenPopup<MainActionPopup> implements View.OnClickListener {

@@ -25,28 +25,14 @@
             android:id="@+id/fab_comment"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/ic_file_download_white_24dp"
+
             android:layout_margin="24dp"
-            android:scaleType="center"
             android:tint="@color/white"
             app:fabSize="normal"
-            app:borderWidth="0dp"
-            app:maxImageSize="24dp"
             android:layout_gravity="bottom|end"
             />
 
-<!--        <com.github.clans.fab.FloatingActionButton-->
-<!--            android:id="@+id/fab_comment"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:src="@drawable/ic_file_download_white_24dp"-->
-<!--            android:layout_margin="24dp"-->
-<!--            android:scaleType="center"-->
-<!--            android:tint="@color/white"-->
-<!--            android:layout_gravity="bottom|end"-->
-<!--            app:fab_colorNormal="@color/colorPrimary"-->
-<!--            app:fab_colorPressed="@color/colorPrimary"-->
-<!--            />-->
+<!--        android:src="@drawable/ic_file_download_white_24dp"-->
 
     </FrameLayout>
 

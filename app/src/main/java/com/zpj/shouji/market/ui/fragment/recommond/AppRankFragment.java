@@ -2,8 +2,12 @@ package com.zpj.shouji.market.ui.fragment.recommond;
 
 import android.graphics.Color;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.View;
 
 import com.bumptech.glide.Glide;
@@ -16,6 +20,7 @@ import com.yanyusong.y_divideritemdecoration.Y_DividerItemDecoration;
 import com.zpj.http.parser.html.nodes.Document;
 import com.zpj.http.parser.html.nodes.Element;
 import com.zpj.http.parser.html.select.Elements;
+import com.zpj.recyclerview.EasyAdapter;
 import com.zpj.recyclerview.EasyRecyclerLayout;
 import com.zpj.recyclerview.EasyViewHolder;
 import com.zpj.recyclerview.IEasy;
@@ -35,6 +40,9 @@ import java.util.List;
 
 public class AppRankFragment extends NextUrlFragment<AppRankFragment.RankItem> {
 
+    private View shadowBottomView;
+
+    private boolean flag = false;
 
     public static void startSoft() {
         Bundle args = new Bundle();
@@ -62,7 +70,7 @@ public class AppRankFragment extends NextUrlFragment<AppRankFragment.RankItem> {
 
     @Override
     protected int getLayoutId() {
-        return R.layout.fragment_list_with_toolbar;
+        return R.layout.fragment_app_rank;
     }
 
     @Override
@@ -81,6 +89,7 @@ public class AppRankFragment extends NextUrlFragment<AppRankFragment.RankItem> {
         if (getArguments() != null) {
             setToolbarTitle(getArguments().getString(Keys.TITLE, "Title"));
         }
+        shadowBottomView = view.findViewById(R.id.shadow_bottom_view);
     }
 
     @Override
@@ -96,6 +105,46 @@ public class AppRankFragment extends NextUrlFragment<AppRankFragment.RankItem> {
                         return 1;
                     }
                 })
+//                .addOnScrollListener(new RecyclerView.OnScrollListener() {
+//                    @Override
+//                    public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
+//                        super.onScrolled(recyclerView, dx, dy);
+//                        LinearLayoutManager layoutManager = (LinearLayoutManager) recyclerView.getLayoutManager();
+//                        if (layoutManager != null) {
+//                            int firstCompletelyVisibleItemPosition = layoutManager.findFirstCompletelyVisibleItemPosition();
+//                            if (firstCompletelyVisibleItemPosition == 0) {
+//                                toolbar.setBackgroundColor(Color.TRANSPARENT);
+//                            } else {
+//                                toolbar.setBackgroundColor(Color.parseColor("#aaffffff"));
+//                            }
+//                        }
+//                    }
+//                })
+                .addOnScrollListener(new RecyclerView.OnScrollListener() {
+                    @Override
+                    public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
+//                        if (newState == RecyclerView.SCROLL_STATE_IDLE) { //当前状态为停止滑动
+//                            if (!recyclerLayout.getRecyclerView().canScrollVertically(-1)) {
+//                                toolbar.setBackgroundColor(Color.TRANSPARENT);
+//                                toolbar.setLightStyle(true);
+//
+//                            } else {
+//                                toolbar.setBackgroundColor(Color.parseColor("#aaffffff"));
+//                                toolbar.setLightStyle(false);
+//                            }
+//                        }
+
+                        if (!recyclerLayout.getRecyclerView().canScrollVertically(-1)) {
+                            toolbar.setBackgroundColor(Color.TRANSPARENT);
+                            toolbar.setLightStyle(true);
+                            shadowBottomView.setVisibility(View.GONE);
+                        } else {
+                            toolbar.setBackgroundColor(Color.parseColor("#aaffffff"));
+                            toolbar.setLightStyle(false);
+                            shadowBottomView.setVisibility(View.VISIBLE);
+                        }
+                    }
+                })
                 .onGetChildLayoutId(viewType -> {
                     if (viewType == 0) {
                         return R.layout.item_rank_header;
@@ -104,6 +153,36 @@ public class AppRankFragment extends NextUrlFragment<AppRankFragment.RankItem> {
                     }
                     return 0;
                 });
+    }
+
+    @Override
+    public void onEnterAnimationEnd(Bundle savedInstanceState) {
+        super.onEnterAnimationEnd(savedInstanceState);
+        flag = false;
+    }
+
+    @Override
+    public boolean onLoadMore(EasyAdapter.Enabled enabled, int currentPage) {
+        if (TextUtils.isEmpty(nextUrl)) {
+            return false;
+        }
+//        if (data.isEmpty()) {
+//            recyclerLayout.showLoading();
+//        }
+//        getData();
+
+        if (data.isEmpty() && !refresh) {
+            if (flag) {
+                return false;
+            }
+            flag = true;
+            recyclerLayout.showLoading();
+            postOnEnterAnimationEnd(this::getData);
+        } else {
+            getData();
+        }
+//        refresh = false;
+        return true;
     }
 
     @Override

@@ -26,6 +26,7 @@ import android.util.AttributeSet;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -52,6 +53,8 @@ import com.zpj.recyclerview.IEasy;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.event.GetMainActivityEvent;
 import com.zpj.shouji.market.glide.MyRequestOptions;
+import com.zpj.shouji.market.model.InstalledAppInfo;
+import com.zpj.shouji.market.ui.fragment.manager.AppPickerFragment;
 import com.zpj.utils.KeyboardHeightProvider;
 import com.zpj.utils.KeyboardUtils;
 import com.zpj.utils.ScreenUtils;
@@ -59,7 +62,7 @@ import com.zpj.utils.ScreenUtils;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ReplyPanel extends RelativeLayout
+public class ReplyPanel extends FrameLayout
         implements KeyboardHeightProvider.KeyboardHeightObserver {
 
     public interface OnOperationListener extends IEmotionSelectedListener {
@@ -69,6 +72,8 @@ public class ReplyPanel extends RelativeLayout
     }
 
     private final List<Item> imgList = new ArrayList<>();
+
+    private EasyRecyclerView<Item> recyclerView;
     private EditText etEditor;
     private LinearLayout llActionsContainer;
     private ImageView ivEmoji;
@@ -81,6 +86,13 @@ public class ReplyPanel extends RelativeLayout
     private OnOperationListener listener;
 
     private boolean isKeyboardShowing;
+
+
+    private InstalledAppInfo installedAppInfo;
+    private RelativeLayout rlAppItem;
+    private ImageView ivIcon;
+    private TextView tvTitle;
+    private TextView tvInfo;
 
     public ReplyPanel(Context context) {
         super(context);
@@ -137,7 +149,18 @@ public class ReplyPanel extends RelativeLayout
             }
         });
 
-        EasyRecyclerView<Item> recyclerView = new EasyRecyclerView<>(findViewById(R.id.rv_img));
+
+        findViewById(R.id.tv_remove).setOnClickListener(v -> {
+            installedAppInfo = null;
+            initUploadApp();
+        });
+        rlAppItem = findViewById(R.id.rl_app_item);
+        ivIcon = findViewById(R.id.iv_icon);
+        tvTitle = findViewById(R.id.tv_app_name);
+        tvInfo = findViewById(R.id.tv_info);
+
+
+        recyclerView = new EasyRecyclerView<>(findViewById(R.id.rv_img));
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false))
                 .setItemRes(R.layout.item_image_square)
                 .addItemDecoration(new Y_DividerItemDecoration(getContext()) {
@@ -210,9 +233,9 @@ public class ReplyPanel extends RelativeLayout
 
 
         ivEmoji.setOnClickListener(v -> {
+            KeyboardUtils.hideSoftInputKeyboard(etEditor);
             if (isKeyboardShowing) {
                 elEmotion.setVisibility(View.VISIBLE);
-                KeyboardUtils.hideSoftInputKeyboard(etEditor);
             } else if (elEmotion.getVisibility() == View.GONE) {
                 elEmotion.setVisibility(View.VISIBLE);
             } else {
@@ -267,8 +290,12 @@ public class ReplyPanel extends RelativeLayout
                 KeyboardUtils.hideSoftInputKeyboard(etEditor);
             }
             elEmotion.setVisibility(View.GONE);
-            AToast.normal("app");
+            showAppPicker();
         });
+    }
+
+    public List<Item> getImgList() {
+        return imgList;
     }
 
     public void removeImageAction() {
@@ -312,6 +339,13 @@ public class ReplyPanel extends RelativeLayout
 
     public EditText getEditor() {
         return etEditor;
+    }
+
+    public void clear() {
+        etEditor.setText(null);
+        imgList.clear();
+        recyclerView.notifyDataSetChanged();
+        recyclerView.getRecyclerView().setVisibility(GONE);
     }
 
 //    public void backspace() {
@@ -363,4 +397,28 @@ public class ReplyPanel extends RelativeLayout
         }
     }
 
+    private void showAppPicker() {
+        AppPickerFragment.start(installedAppInfo, obj -> {
+            if (!obj.isEmpty()) {
+                this.installedAppInfo = obj.get(0);
+                initUploadApp();
+            }
+        });
+    }
+
+    private void initUploadApp() {
+        if (installedAppInfo != null) {
+            rlAppItem.setVisibility(View.VISIBLE);
+            Glide.with(getContext()).load(installedAppInfo).into(ivIcon);
+            tvTitle.setText(installedAppInfo.getName());
+            tvInfo.setText(installedAppInfo.getVersionName() + " | "
+                    + installedAppInfo.getAppSize() + " | " + installedAppInfo.getPackageName());
+        } else {
+            rlAppItem.setVisibility(View.GONE);
+        }
+    }
+
+    public InstalledAppInfo getSelectedAppInfo() {
+        return installedAppInfo;
+    }
 }

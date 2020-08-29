@@ -1,0 +1,208 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.lihang.ShadowLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:hl_shadowLimit="4dp"
+    app:hl_shadowColor="#40000000"
+    app:hl_shadowBackColor="@color/color_background_gray"
+    app:hl_cornerRadius="8dp"
+    >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        >
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <com.shehuan.niv.NiceImageView
+                android:id="@+id/iv_bg"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scaleType="centerCrop"
+                app:corner_top_left_radius="8dp"
+                app:corner_top_right_radius="8dp"
+                android:src="@drawable/bga_pp_ic_holder_light"
+                />
+
+<!--            android:layout_marginEnd="52dp"-->
+
+            <FrameLayout
+                android:layout_width="88dp"
+                android:layout_height="match_parent"
+                android:layout_gravity="end"
+                android:background="@drawable/bg_picked_game_info"
+                />
+
+            <LinearLayout
+                android:layout_width="88dp"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:layout_gravity="end"
+                android:orientation="vertical"
+                android:paddingHorizontal="8dp"
+                android:paddingVertical="16dp"
+                >
+
+                <com.shehuan.niv.NiceImageView
+                    android:id="@+id/iv_icon"
+                    android:layout_width="56dp"
+                    android:layout_height="56dp"
+                    android:scaleType="centerCrop"
+                    android:src="@mipmap/ic_launcher"
+                    app:border_color="@color/color_line"
+                    app:border_width="0.5dp"
+                    app:corner_radius="8dp" />
+
+                <TextView
+                    android:id="@+id/tv_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:maxLines="1"
+                    android:ellipsize="end"
+                    android:text="应用名"
+                    android:textColor="@color/color_text_major"
+                    android:layout_marginTop="8dp"
+                    android:textSize="12sp"
+                    android:shadowColor="@color/black"
+                    android:shadowRadius="1"
+                    android:shadowDx="1"
+                    android:shadowDy="1"
+                    />
+
+                <TextView
+                    android:id="@+id/tv_size"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:maxLines="1"
+                    android:gravity="center_vertical"
+                    android:ellipsize="end"
+                    android:text="100MB"
+                    android:textColor="@color/color_text_major"
+                    android:textSize="12sp"
+                    android:layout_marginTop="8dp"
+                    />
+
+                <TextView
+                    android:id="@+id/tv_download"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="下载"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="12sp"
+                    android:background="@drawable/bg_download_button"
+                    android:paddingStart="12dp"
+                    android:paddingEnd="12dp"
+                    android:textStyle="bold"
+                    android:paddingTop="4dp"
+                    android:paddingBottom="4dp"
+                    android:layout_marginTop="8dp"
+                    android:gravity="center"
+                    />
+
+            </LinearLayout>
+
+<!--            <include layout="@layout/item_app_grid"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="match_parent"-->
+<!--                android:layout_gravity="end"-->
+<!--                android:layout_margin="16dp"-->
+<!--                />-->
+
+        </FrameLayout>
+
+
+        <TextView
+            android:id="@+id/tv_content"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:maxLines="1"
+            android:ellipsize="end"
+            android:text="真正百人手游吃鸡，谁才是最后的胜利者？"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:textColor="@color/color_text_major"
+            android:padding="8dp"
+            />
+
+        <TextView
+            android:id="@+id/tv_info"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:maxLines="1"
+            android:gravity="center_vertical"
+            android:ellipsize="end"
+            android:text="25486浏览 | 404评论 | 623收藏"
+            android:textColor="@color/color_text_normal"
+            android:textSize="12sp"
+            android:paddingHorizontal="8dp"
+            />
+
+
+        <RelativeLayout
+            android:id="@+id/ll_editor_info"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            >
+
+            <com.shehuan.niv.NiceImageView
+                android:id="@+id/iv_avatar"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_margin="8dp"
+                android:src="@mipmap/ic_launcher"
+                app:border_color="#80cccccc"
+                app:border_width="1dp"
+                app:is_circle="true"
+                android:scaleType="centerCrop"
+                android:layout_centerVertical="true"
+                />
+
+            <TextView
+                android:id="@+id/tv_editor"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:gravity="center_vertical"
+                android:maxLines="1"
+                android:text="虾兵蟹将丶 推荐"
+                android:textColor="@color/color_text_normal"
+                android:layout_gravity="center"
+                android:textSize="12sp"
+                android:layout_marginEnd="8dp"
+                android:layout_toEndOf="@id/iv_avatar"
+                android:layout_toStartOf="@id/tv_time"
+                android:layout_centerVertical="true"
+                />
+
+            <TextView
+                android:id="@+id/tv_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:gravity="end"
+                android:maxLines="1"
+                android:textColor="@color/color_text_normal"
+                android:layout_gravity="center"
+                android:textSize="12sp"
+                android:layout_marginEnd="8dp"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                />
+
+        </RelativeLayout>
+
+
+    </LinearLayout>
+
+
+</com.lihang.ShadowLayout>

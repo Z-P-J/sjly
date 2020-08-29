@@ -24,6 +24,7 @@ import com.zpj.fragmentation.anim.FragmentAnimator;
 import com.zpj.http.core.IHttp;
 import com.zpj.popup.ZPopup;
 import com.zpj.popup.impl.LoadingPopup;
+import com.zpj.popup.interfaces.OnDismissListener;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.api.HttpApi;
 import com.zpj.shouji.market.api.HttpPreLoader;
@@ -184,9 +185,12 @@ public class MainActivity extends SupportActivity {
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onShowLoadingEvent(ShowLoadingEvent event) {
-        if (loadingPopup != null && event.isUpdate()) {
-            loadingPopup.setTitle(event.getText());
-            return;
+        if (loadingPopup != null) {
+            if (event.isUpdate()) {
+                loadingPopup.setTitle(event.getText());
+                return;
+            }
+            loadingPopup.dismiss();
         }
         loadingPopup = null;
         loadingPopup = ZPopup.loading(MainActivity.this)
@@ -197,6 +201,7 @@ public class MainActivity extends SupportActivity {
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onHideLoadingEvent(HideLoadingEvent event) {
         if (loadingPopup != null) {
+            loadingPopup.setOnDismissListener(event.getOnDismissListener());
             loadingPopup.dismiss();
             loadingPopup = null;
         }

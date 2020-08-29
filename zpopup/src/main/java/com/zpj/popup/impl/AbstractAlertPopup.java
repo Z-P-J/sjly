@@ -146,7 +146,7 @@ public abstract class AbstractAlertPopup<T extends AbstractAlertPopup> extends C
     public T setContent(CharSequence content) {
         TextView textView = new TextView(context);
         textView.setText(content);
-        textView.setTextColor(context.getResources().getColor(R.color._xpopup_content_color));
+//        textView.setTextColor(context.getResources().getColor(R.color._xpopup_text_normal_color));
         textView.setTextSize(14);
         textView.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
             @Override

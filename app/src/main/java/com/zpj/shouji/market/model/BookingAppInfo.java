@@ -17,7 +17,13 @@ public class BookingAppInfo {
     @Select(selector = "num")
     private String bookingCount;
     @Select(selector = "autodownload")
-    private boolean autoDownload;
+    private String autoDownload;
+    @Select(selector = "isYuyue")
+    private boolean isBooking;
+    @Select(selector = "comment")
+    private String comment;
+    @Select(selector = "r")
+    private String bookingInfo;
 
     public String getAppIcon() {
         return appIcon;
@@ -68,10 +74,34 @@ public class BookingAppInfo {
     }
 
     public boolean isAutoDownload() {
-        return autoDownload;
+        return "3".equals(autoDownload);
     }
 
     public void setAutoDownload(boolean autoDownload) {
-        this.autoDownload = autoDownload;
+        this.autoDownload = autoDownload ? "3" : "1";
+    }
+
+    public void setBooking(boolean booking) {
+        isBooking = booking;
+    }
+
+    public boolean isBooking() {
+        return isBooking;
+    }
+
+    public void setComment(String comment) {
+        this.comment = comment;
+    }
+
+    public String getComment() {
+        return comment;
+    }
+
+    public void setBookingInfo(String bookingInfo) {
+        this.bookingInfo = bookingInfo;
+    }
+
+    public String getBookingInfo() {
+        return bookingInfo;
     }
 }

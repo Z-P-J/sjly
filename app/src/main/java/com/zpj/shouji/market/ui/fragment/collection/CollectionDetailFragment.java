@@ -7,6 +7,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CollapsingToolbarLayout;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
@@ -23,6 +24,7 @@ import com.shehuan.niv.NiceImageView;
 import com.zpj.fragmentation.BaseFragment;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.api.HttpApi;
+import com.zpj.shouji.market.event.RefreshEvent;
 import com.zpj.shouji.market.event.StartFragmentEvent;
 import com.zpj.shouji.market.model.CollectionInfo;
 import com.zpj.shouji.market.ui.adapter.FragmentsPagerAdapter;
@@ -47,7 +49,7 @@ public class CollectionDetailFragment extends BaseFragment
 
     private CollapsingToolbarLayout toolbarLayout;
     private StateLayout stateLayout;
-//    private ImageView ivHeader;
+    //    private ImageView ivHeader;
     private ImageView ivIcon;
     private ImageView ivAvatar;
     private TextView tvTitle;
@@ -63,6 +65,10 @@ public class CollectionDetailFragment extends BaseFragment
 
     private View buttonBarLayout;
     private NiceImageView ivToolbarAvater;
+
+    private FloatingActionButton fabComment;
+
+    private CommentPopup commentPopup;
 
     private String backgroundUrl;
     private String time;
@@ -161,7 +167,7 @@ public class CollectionDetailFragment extends BaseFragment
 //        tvSupport.setText(item.getSupportCount() + "");
 //        tvView.setText(item.getViewCount() + "");
 
-        View fabComment = view.findViewById(R.id.fab_comment);
+        fabComment = view.findViewById(R.id.fab_comment);
         fabComment.setOnClickListener(this);
 
 
@@ -320,9 +326,22 @@ public class CollectionDetailFragment extends BaseFragment
         switch (v.getId()) {
             case R.id.fab_comment:
                 viewPager.setCurrentItem(1);
-                CommentPopup.with(context, item.getId(), item.getNickName(), item.getContentType())
-                        .setDecorView(Objects.requireNonNull(getView()).findViewById(R.id.fl_container))
-                        .show();
+                fabComment.hide();
+                if (commentPopup == null) {
+                    commentPopup = CommentPopup.with(
+                            context,
+                            item.getId(),
+                            item.getNickName(),
+                            item.getContentType(),
+                            () -> {
+                                commentPopup = null;
+                                RefreshEvent.postEvent();
+                            })
+                            .setDecorView(Objects.requireNonNull(getView()).findViewById(R.id.fl_container))
+                            .setOnDismissListener(() -> fabComment.show())
+                            .show();
+                }
+                commentPopup.show();
                 break;
             case R.id.iv_avatar:
             case R.id.tv_user_name:

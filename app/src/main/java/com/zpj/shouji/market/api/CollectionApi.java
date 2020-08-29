@@ -20,6 +20,7 @@ import com.zpj.shouji.market.model.InstalledAppInfo;
 import com.zpj.shouji.market.model.WallpaperTag;
 import com.zpj.shouji.market.utils.Callback;
 import com.zpj.utils.ContextUtils;
+import com.zpj.utils.DeviceUtils;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -68,7 +69,7 @@ public class CollectionApi {
                                         "199", UserManager.getInstance().getSessionId()))
                                 .data("tagurl", "http://tt.shouji.com.cn/app/faxian.jsp?index=faxian")
                                 .data("sn", UserManager.getInstance().getSn())
-                                .data("phone", "MI 5s")
+                                .data("phone", DeviceUtils.getModel())
                                 .data("replyid", "0")
                                 .data("gkbz", isPrivate ? "0" : "1")
                                 .data("tag", tags)

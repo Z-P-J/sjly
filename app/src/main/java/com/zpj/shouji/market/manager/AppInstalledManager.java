@@ -121,24 +121,25 @@ public class AppInstalledManager extends BroadcastReceiver {
         if (context == null) {
             return;
         }
-        Observable.create((ObservableOnSubscribe<InstalledAppInfo>) emitter -> {
-            if (isLoaded.get() && !isLoading.get() && !installedAppInfoList.isEmpty()) {
-                isLoading.set(true);
-                for (InstalledAppInfo appInfo : installedAppInfoList) {
-                    emitter.onNext(appInfo);
-                }
-            } else {
-                isLoading.set(true);
-                PackageManager manager = context.getPackageManager();
-                List<PackageInfo> packageInfoList = manager.getInstalledPackages(0);
-                for (PackageInfo packageInfo : packageInfoList) {
-                    emitter.onNext(onAppAdded(manager, packageInfo));
-                }
-                isLoaded.set(true);
-                isLoading.set(false);
-            }
-            emitter.onComplete();
-        })
+        Observable.create(
+                (ObservableOnSubscribe<InstalledAppInfo>) emitter -> {
+                    if (isLoaded.get() && !isLoading.get() && !installedAppInfoList.isEmpty()) {
+                        isLoading.set(true);
+                        for (InstalledAppInfo appInfo : installedAppInfoList) {
+                            emitter.onNext(appInfo);
+                        }
+                    } else {
+                        isLoading.set(true);
+                        PackageManager manager = context.getPackageManager();
+                        List<PackageInfo> packageInfoList = manager.getInstalledPackages(0);
+                        for (PackageInfo packageInfo : packageInfoList) {
+                            emitter.onNext(onAppAdded(manager, packageInfo));
+                        }
+                        isLoaded.set(true);
+                        isLoading.set(false);
+                    }
+                    emitter.onComplete();
+                })
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .doOnNext(installedAppInfo -> {

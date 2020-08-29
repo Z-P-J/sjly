@@ -1401,6 +1401,10 @@ public class ExpandableTextView extends AppCompatTextView {
         this.mNeedExpend = mNeedExpend;
     }
 
+    public void setNeedConvertUrl(boolean mNeedConvertUrl) {
+        this.mNeedConvertUrl = mNeedConvertUrl;
+    }
+
     public boolean isNeedAnimation() {
         return mNeedAnimation;
     }

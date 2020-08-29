@@ -5,7 +5,7 @@ public enum UpdateFlagAction {
     GOOD("good"),
     AT("theme"),
     COMMENT("review"),
-    DISCOVER("review"),
+    DISCOVER("discuss"),
     PRIVATE("review"),
     FAN("review");;
     private String action;

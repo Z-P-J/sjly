@@ -4,6 +4,7 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.AppBarLayout;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.text.TextUtils;
@@ -14,9 +15,11 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.shehuan.niv.NiceImageView;
+import com.zpj.popup.interfaces.OnDismissListener;
 import com.zpj.recyclerview.EasyViewHolder;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.constant.Keys;
+import com.zpj.shouji.market.event.RefreshEvent;
 import com.zpj.shouji.market.event.StartFragmentEvent;
 import com.zpj.shouji.market.glide.blur.BlurTransformation;
 import com.zpj.shouji.market.model.DiscoverInfo;
@@ -38,6 +41,7 @@ public class ThemeDetailFragment extends ListenerFragment {
 
     private final String[] TAB_TITLES = {"评论", "点赞"};
 
+    private FloatingActionButton fabComment;
     private CommentPopup commentPopup;
     private ViewPager viewPager;
     private MagicIndicator magicIndicator;
@@ -166,12 +170,9 @@ public class ThemeDetailFragment extends ListenerFragment {
         btnCollect.setTint(Color.BLACK);
         btnMenu.setTint(Color.BLACK);
 
-        View fabComment = view.findViewById(R.id.fab_comment);
+        fabComment = view.findViewById(R.id.fab_comment);
         fabComment.setOnClickListener(v -> {
-//            commentPopup = AppCommentPopup.with(context, item.getId(), item.getContentType(), "").show();
-            commentPopup = CommentPopup.with(context, item.getId(), item.getNickName(), item.getContentType())
-                    .setDecorView(Objects.requireNonNull(getView()).findViewById(R.id.fl_container))
-                    .show();
+            showCommentPopup();
         });
     }
 
@@ -202,9 +203,7 @@ public class ThemeDetailFragment extends ListenerFragment {
 
         if (getArguments() != null) {
             if (getArguments().getBoolean(Keys.SHOW_TOOLBAR, false)) {
-                commentPopup = CommentPopup.with(context, item.getId(), item.getNickName(), item.getContentType())
-                        .setDecorView(Objects.requireNonNull(getView()).findViewById(R.id.fl_container))
-                        .show();
+                showCommentPopup();
             }
         }
     }
@@ -223,6 +222,26 @@ public class ThemeDetailFragment extends ListenerFragment {
         if (commentPopup != null) {
             commentPopup.hide();
         }
+    }
+
+    private void showCommentPopup() {
+        fabComment.hide();
+        if (commentPopup == null) {
+            commentPopup = CommentPopup.with(
+                    context, item.getId(), item.getNickName(), item.getContentType(), () -> {
+                        commentPopup = null;
+                        RefreshEvent.postEvent();
+                    })
+                    .setDecorView(Objects.requireNonNull(getView()).findViewById(R.id.fl_container))
+                    .setOnDismissListener(new OnDismissListener() {
+                        @Override
+                        public void onDismiss() {
+                            fabComment.show();
+                        }
+                    })
+                    .show();
+        }
+        commentPopup.show();
     }
 
     private void setDiscoverInfo(DiscoverInfo discoverInfo) {

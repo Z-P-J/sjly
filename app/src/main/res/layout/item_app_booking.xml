@@ -25,7 +25,7 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:layout_toEndOf="@id/iv_icon"
-        android:layout_toStartOf="@id/tv_download"
+        android:layout_toStartOf="@id/tv_booking"
         android:layout_centerVertical="true"
         android:layout_margin="8dp"
         >

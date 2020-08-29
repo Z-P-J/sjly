@@ -238,6 +238,7 @@ public class DiscoverBinder
                     }
                     EmojiExpandableTextView textView = new EmojiExpandableTextView(context);
                     textView.setNeedExpend(false);
+                    textView.setNeedConvertUrl(false);
                     textView.setTextColor(context.getResources().getColor(R.color.color_text_major));
                     textView.setLimitLines(8);
                     textView.setContent(getComment2(child));

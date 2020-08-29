@@ -98,6 +98,7 @@ public class ThemeListFragment extends NextUrlFragment<DiscoverInfo>
             info.setComment(data.getContent());
             info.setNickName(data.getNickName());
             info.setMemberId(data.getMemberId());
+            info.setContentType(data.getContentType());
 //            info.setFavCount(0);
 //            info.setSupportCount(0);
 //            info.setViewCount(0);

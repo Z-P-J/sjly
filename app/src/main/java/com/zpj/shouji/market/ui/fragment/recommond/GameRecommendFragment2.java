@@ -12,6 +12,7 @@ import com.zpj.http.parser.html.nodes.Element;
 import com.zpj.http.parser.html.select.Elements;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.model.AppInfo;
+import com.zpj.shouji.market.ui.fragment.booking.LatestBookingFragment;
 import com.zpj.shouji.market.ui.widget.recommend.GameRecommendCard;
 import com.zpj.shouji.market.ui.widget.recommend.GameUpdateRecommendCard;
 import com.zpj.shouji.market.ui.widget.recommend.NetGameRecommendCard;
@@ -92,10 +93,11 @@ public class GameRecommendFragment2 extends BaseRecommendFragment2 implements Vi
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.tv_booking:
-                AToast.normal("TODO");
+                LatestBookingFragment.start();
                 break;
             case R.id.tv_handpick:
                 AToast.normal("TODO");
+                PickedGameFragment.start();
                 break;
             case R.id.tv_rank:
                 AppRankFragment.startGame();

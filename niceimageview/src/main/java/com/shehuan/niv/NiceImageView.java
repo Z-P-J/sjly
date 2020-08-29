@@ -129,13 +129,14 @@ public class NiceImageView extends AppCompatImageView {
     @Override
     protected void onDraw(Canvas canvas) {
         // 使用图形混合模式来显示指定区域的图片
-        canvas.saveLayer(srcRectF, null, Canvas.ALL_SAVE_FLAG);
+        int save = canvas.saveLayer(srcRectF, null, Canvas.ALL_SAVE_FLAG);
         if (!isCoverSrc) {
             float sx = 1.0f * (width - 2 * borderWidth - 2 * innerBorderWidth) / width;
             float sy = 1.0f * (height - 2 * borderWidth - 2 * innerBorderWidth) / height;
             // 缩小画布，使图片内容不被borders覆盖
             canvas.scale(sx, sy, width / 2.0f, height / 2.0f);
         }
+        int cropSave = canvas.saveLayer(srcRectF, null, Canvas.ALL_SAVE_FLAG);
         super.onDraw(canvas);
         paint.reset();
         path.reset();
@@ -157,6 +158,11 @@ public class NiceImageView extends AppCompatImageView {
             canvas.drawPath(srcPath, paint);
             //zhangshi
             srcPath.reset();
+
+//            srcPath.addRect(srcRectF, Path.Direction.CCW);
+//            // 计算tempPath和path的差集
+//            srcPath.op(path, Path.Op.DIFFERENCE);
+//            canvas.drawPath(srcPath, paint);
         }
         paint.setXfermode(null);
 
@@ -166,7 +172,9 @@ public class NiceImageView extends AppCompatImageView {
             canvas.drawPath(path, paint);
         }
         // 恢复画布
-        canvas.restore();
+//        canvas.restore();
+        canvas.restoreToCount(cropSave);
+        canvas.restoreToCount(save);
         // 绘制边框
         drawBorders(canvas);
     }

@@ -1,5 +1,6 @@
 package com.zpj.shouji.market.ui.fragment.detail;
 
+import android.animation.Animator;
 import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Context;
@@ -9,6 +10,7 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 
@@ -16,9 +18,8 @@ import com.bumptech.glide.Glide;
 import com.felix.atoast.library.AToast;
 import com.zpj.fragmentation.BaseFragment;
 import com.zpj.popup.ZPopup;
-import com.zpj.popup.impl.AttachListPopup;
-import com.zpj.popup.interfaces.OnDismissListener;
 import com.zpj.shouji.market.R;
+import com.zpj.shouji.market.api.BookingApi;
 import com.zpj.shouji.market.api.HttpApi;
 import com.zpj.shouji.market.constant.Keys;
 import com.zpj.shouji.market.event.FabEvent;
@@ -27,6 +28,7 @@ import com.zpj.shouji.market.manager.UserManager;
 import com.zpj.shouji.market.model.AppDetailInfo;
 import com.zpj.shouji.market.model.AppInfo;
 import com.zpj.shouji.market.model.AppUpdateInfo;
+import com.zpj.shouji.market.model.BookingAppInfo;
 import com.zpj.shouji.market.model.CollectionAppInfo;
 import com.zpj.shouji.market.model.InstalledAppInfo;
 import com.zpj.shouji.market.model.UserDownloadedAppInfo;
@@ -53,10 +55,15 @@ public class AppDetailFragment extends BaseFragment
 
     private static final String TAG = "AppDetailFragment";
 
+    private static final String BOOKING = "key_booking";
+    private static final String AUTO_DOWNLOAD = "key_auto_download";
+
     private static final String[] TAB_TITLES = {"详情", "评论", "发现", "推荐"};
 
     private String id;
     private String type;
+    private boolean isBooking;
+    private boolean isAutoDownload;
 
     private StateLayout stateLayout;
     private FloatingActionButton fabComment;
@@ -78,6 +85,17 @@ public class AppDetailFragment extends BaseFragment
         Bundle args = new Bundle();
         args.putString(Keys.ID, id);
         args.putString(Keys.TYPE, type);
+        AppDetailFragment fragment = new AppDetailFragment();
+        fragment.setArguments(args);
+        StartFragmentEvent.start(fragment);
+    }
+
+    public static void start(BookingAppInfo appInfo) {
+        Bundle args = new Bundle();
+        args.putString(Keys.ID, appInfo.getAppId());
+        args.putString(Keys.TYPE, appInfo.getAppType());
+        args.putBoolean(BOOKING, appInfo.isBooking());
+        args.putBoolean(AUTO_DOWNLOAD, appInfo.isAutoDownload());
         AppDetailFragment fragment = new AppDetailFragment();
         fragment.setArguments(args);
         StartFragmentEvent.start(fragment);
@@ -124,13 +142,15 @@ public class AppDetailFragment extends BaseFragment
     public void onDestroy() {
         super.onDestroy();
         EventBus.getDefault().unregister(this);
+        commentPopup = null;
     }
-
     @Override
     protected void initView(View view, @Nullable Bundle savedInstanceState) {
         if (getArguments() != null) {
             type = getArguments().getString(Keys.TYPE);
             id = getArguments().getString(Keys.ID);
+            isBooking = getArguments().getBoolean(BOOKING);
+            isAutoDownload = getArguments().getBoolean(AUTO_DOWNLOAD);
         } else {
             pop();
             return;
@@ -148,21 +168,35 @@ public class AppDetailFragment extends BaseFragment
 
 
         fabComment = view.findViewById(R.id.fab_comment);
+//        fabComment.show(true);
+        fabComment.setImageResource(R.drawable.ic_file_download_white_24dp);
         fabComment.setOnClickListener(v -> {
             if (viewPager.getCurrentItem() == 0) {
-                AToast.normal("TODO Download");
+                if (TextUtils.isEmpty(info.getPackageName())) {
+                    if (isBooking) {
+                        BookingAppInfo appInfo = new BookingAppInfo();
+                        appInfo.setAppId(id);
+                        BookingApi.bookingApi(appInfo, new Runnable() {
+                            @Override
+                            public void run() {
+                                isBooking = true;
+                            }
+                        });
+                    } else {
+                        AToast.warning("已预约，应用上架后将及时通知您");
+                    }
+                } else {
+                    AToast.normal("TODO Download");
+                }
             } else {
                 fabComment.hide();
                 setSwipeBackEnable(false);
                 if (commentPopup == null) {
-                    commentPopup = AppCommentPopup.with(context, id, type, "")
+                    commentPopup = AppCommentPopup.with(context, id, type, "", () -> commentPopup = null)
                             .setDecorView(view.findViewById(R.id.fl_container))
-                            .setOnDismissListener(new OnDismissListener() {
-                                @Override
-                                public void onDismiss() {
-                                    setSwipeBackEnable(true);
-                                    fabComment.show();
-                                }
+                            .setOnDismissListener(() -> {
+                                setSwipeBackEnable(true);
+                                fabComment.show();
                             })
                             .show();
                 }
@@ -218,19 +252,41 @@ public class AppDetailFragment extends BaseFragment
             @Override
             public void onPageSelected(int i) {
                 if (i == 0) {
-                    fabComment.setImageResource(R.drawable.ic_file_download_white_24dp);
                     if (fabComment.getVisibility() != View.VISIBLE) {
+                        fabComment.setImageResource(R.drawable.ic_file_download_white_24dp);
                         fabComment.show();
+                    } else {
+                        fabComment.hide(new FloatingActionButton.OnVisibilityChangedListener() {
+                            @Override
+                            public void onHidden(FloatingActionButton fab) {
+                                super.onHidden(fab);
+                                fabComment.setImageResource(R.drawable.ic_file_download_white_24dp);
+                                fabComment.show();
+                            }
+                        });
                     }
                 } else if (i == 1) {
-                    fabComment.setImageResource(R.drawable.ic_comment_white_24dp);
                     if (fabComment.getVisibility() != View.VISIBLE) {
+                        fabComment.setImageResource(R.drawable.ic_comment_white_24dp);
                         fabComment.show();
+                    } else {
+                        fabComment.hide(new FloatingActionButton.OnVisibilityChangedListener() {
+                            @Override
+                            public void onHidden(FloatingActionButton fab) {
+                                super.onHidden(fab);
+                                fabComment.setImageResource(R.drawable.ic_comment_white_24dp);
+                                fabComment.show();
+                            }
+                        });
                     }
                 } else {
-                    if (fabComment.getVisibility() == View.VISIBLE) {
-                        fabComment.hide();
-                    }
+                    fabComment.hide(new FloatingActionButton.OnVisibilityChangedListener() {
+                        @Override
+                        public void onHidden(FloatingActionButton fab) {
+                            super.onHidden(fab);
+                            fabComment.setImageDrawable(null);
+                        }
+                    });
                 }
             }
 
@@ -243,12 +299,6 @@ public class AppDetailFragment extends BaseFragment
         viewPager.setOffscreenPageLimit(list.size());
 
         MagicIndicatorHelper.bindViewPager(context, magicIndicator, viewPager, TAB_TITLES, true);
-    }
-
-    @Override
-    public void onEnterAnimationEnd(Bundle savedInstanceState) {
-        super.onEnterAnimationEnd(savedInstanceState);
-
     }
 
     private void getAppInfo() {
@@ -285,13 +335,9 @@ public class AppDetailFragment extends BaseFragment
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onFabEvent(FabEvent event) {
         if (event.isShow()) {
-            if (fabComment.getVisibility() != View.VISIBLE) {
-                fabComment.show();
-            }
+            fabComment.show();
         } else {
-            if (fabComment.getVisibility() == View.VISIBLE) {
-                fabComment.hide();
-            }
+            fabComment.hide();
         }
     }
 

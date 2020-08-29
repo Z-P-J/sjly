@@ -5,8 +5,6 @@ import android.content.Context;
 import android.support.annotation.NonNull;
 import android.text.TextUtils;
 import android.util.Log;
-import android.view.ViewGroup;
-import android.widget.LinearLayout;
 
 import com.felix.atoast.library.AToast;
 import com.zpj.http.core.IHttp;
@@ -17,21 +15,21 @@ import com.zpj.popup.core.BottomPopup;
 import com.zpj.popup.util.ActivityUtils;
 import com.zpj.popup.util.KeyboardUtils;
 import com.zpj.shouji.market.R;
-import com.zpj.shouji.market.api.HttpApi;
+import com.zpj.shouji.market.api.CommentApi;
+import com.zpj.shouji.market.api.ThemePublishApi;
 import com.zpj.shouji.market.event.HideLoadingEvent;
 import com.zpj.shouji.market.event.RefreshEvent;
 import com.zpj.shouji.market.event.ShowLoadingEvent;
+import com.zpj.shouji.market.manager.AppInstalledManager;
+import com.zpj.shouji.market.model.InstalledAppInfo;
 import com.zpj.shouji.market.ui.fragment.profile.UserPickerFragment;
 import com.zpj.shouji.market.ui.widget.MaxHeightLayout;
 import com.zpj.shouji.market.ui.widget.ReplyPanel;
 import com.zpj.utils.ScreenUtils;
 
-import static android.view.ViewGroup.LayoutParams.WRAP_CONTENT;
-
 public class CommentPopup extends BottomPopup<CommentPopup>
         implements ReplyPanel.OnOperationListener,
-        IHttp.OnSuccessListener<Document>,
-        IHttp.OnErrorListener {
+        IHttp.OnStreamWriteListener {
 
     protected ReplyPanel replyPanel;
     protected MaxHeightLayout maxHeightLayout;
@@ -40,11 +38,14 @@ public class CommentPopup extends BottomPopup<CommentPopup>
     protected String replyUser;
     protected String contentType;
 
-    public static CommentPopup with(Context context, String replyId, String replyUser, String contentType) {
+    protected Runnable successRunnable;
+
+    public static CommentPopup with(Context context, String replyId, String replyUser, String contentType, Runnable successRunnable) {
         CommentPopup popup = new CommentPopup(context);
         popup.setReplyId(replyId);
         popup.setReplyUser(replyUser);
         popup.setContentType(contentType);
+        popup.successRunnable = successRunnable;
         return popup;
     }
 
@@ -80,9 +81,14 @@ public class CommentPopup extends BottomPopup<CommentPopup>
             replyPanel.getEditor().setHint("回复：" + replyUser);
         }
 
+        if ("review".equals(contentType)) {
+            replyPanel.removeAppAction();
+        }
+
         findViewById(R.id.btn_close).setOnClickListener(v -> dismiss());
         maxHeightLayout = findViewById(R.id.layout_max_height);
 //        LinearLayout llContent = findViewById(R.id.ll_scroll_content);
+//        maxHeightLayout.post(() -> maxHeightLayout.setMaxHeight(ScreenUtils.getScreenHeight(context) - ScreenUtils.getStatusBarHeight(context)));
 
         com.zpj.popup.util.KeyboardUtils.removeLayoutChangeListener(popupInfo.decorView, this);
         com.zpj.popup.util.KeyboardUtils.registerSoftInputChangedListener(activity, this, height -> {
@@ -91,23 +97,24 @@ public class CommentPopup extends BottomPopup<CommentPopup>
 //            if (height > 0) {
 //
 //            }
-            int temp = height;
+            replyPanel.onKeyboardHeightChanged(height, 0);
 
-            height = ScreenUtils.getScreenHeight(context) - height - ScreenUtils.getStatusBarHeight(context);
-            height -= findViewById(R.id.ll_top).getMeasuredHeight();
-            height -= findViewById(R.id.rl_actions).getMeasuredHeight();
-            int maxHeight = height;
-            maxHeightLayout.post(() -> maxHeightLayout.setMaxHeight(maxHeight));
-            int contentHeight = replyPanel.getEditor().getMeasuredHeight() + findViewById(R.id.rv_img).getMeasuredHeight();
-            Log.d("CommentPopup", "maxHeight=" + maxHeight + " contentHeight=" + contentHeight);
-//            ViewGroup.LayoutParams params = maxHeightLayout.getLayoutParams();
-//            if (contentHeight <= maxHeight) {
-//                params.height = contentHeight;
-//            } else {
-//                params.height = WRAP_CONTENT;
-//            }
+            if (height > 0) {
+                height = ScreenUtils.getScreenHeight(context) - height - ScreenUtils.getStatusBarHeight(context);
+                height -= findViewById(R.id.ll_top).getMeasuredHeight();
+                height -= findViewById(R.id.rl_actions).getMeasuredHeight();
+                int maxHeight = height;
+                maxHeightLayout.post(() -> maxHeightLayout.setMaxHeight(maxHeight));
+            }
 
-            replyPanel.onKeyboardHeightChanged(temp, 0);
+//            height = ScreenUtils.getScreenHeight(context) - height - ScreenUtils.getStatusBarHeight(context);
+//            height -= findViewById(R.id.ll_top).getMeasuredHeight();
+//            height -= findViewById(R.id.rl_actions).getMeasuredHeight();
+//            int maxHeight = height;
+//            maxHeightLayout.post(() -> maxHeightLayout.setMaxHeight(maxHeight));
+//            int contentHeight = replyPanel.getEditor().getMeasuredHeight() + findViewById(R.id.rv_img).getMeasuredHeight();
+//            Log.d("CommentPopup", "maxHeight=" + maxHeight + " contentHeight=" + contentHeight);
+
 
         });
     }
@@ -115,6 +122,7 @@ public class CommentPopup extends BottomPopup<CommentPopup>
     @Override
     protected void onShow() {
         super.onShow();
+        Log.d("onShow", "replyId=" + replyId + " contentType=" + contentType);
         if (TextUtils.isEmpty(replyId) || TextUtils.isEmpty(contentType)) {
             AToast.warning("出错了");
             dismiss();
@@ -126,6 +134,7 @@ public class CommentPopup extends BottomPopup<CommentPopup>
     @Override
     public void dismiss() {
         KeyboardUtils.hideSoftInput(replyPanel.getEditor());
+        replyPanel.hideEmojiPanel();
         super.dismiss();
     }
 
@@ -136,21 +145,102 @@ public class CommentPopup extends BottomPopup<CommentPopup>
         replyPanel.setOnOperationListener(null);
     }
 
+//    @Override
+//    protected int getMaxHeight() {
+//        return ScreenUtils.getScreenHeight(context) - ScreenUtils.getStatusBarHeight(context);
+//    }
+
     @Override
     public void sendText(String content) {
         KeyboardUtils.hideSoftInput(replyPanel.getEditor());
         Log.d("sendText", "content=" + content + " replyId=" + replyId + " contentType=" + contentType);
-        ShowLoadingEvent.post("评论中...");
         if ("discuss".equals(contentType)) {
-            HttpApi.discussCommentApi(replyId, content)
-                    .onSuccess(this)
-                    .onError(this)
-                    .subscribe();
+//            HttpApi.discussCommentApi(replyId, content)
+//                    .onSuccess(this)
+//                    .onError(this)
+//                    .subscribe();
+
+            CommentApi.discussCommentWithFileApi(
+                    context,
+                    content,
+                    replyId,
+                    replyPanel.getSelectedAppInfo(),
+                    replyPanel.getImgList(),
+                    "",
+                    false,
+                    () -> {
+                        dismiss();
+                        if (successRunnable != null) {
+                            successRunnable.run();
+                        }
+                    },
+                    this
+            );
+
+//            if (replyPanel.getImgList().isEmpty()) {
+//                CommentApi.discussCommentApi(replyId, content)
+//                        .onSuccess(this)
+//                        .onError(this)
+//                        .subscribe();
+//            } else {
+////                CommentApi.discussCommentWithFileApi(
+////                        context,
+////                        replyId,
+////                        content,
+////                        replyPanel.getImgList(),
+////                        () -> {
+////                            dismiss();
+////                            if (successRunnable != null) {
+////                                successRunnable.run();
+////                            }
+////                        },
+////                        this
+////                );
+//
+//
+//
+//            }
         } else if ("review".equals(contentType)) {
-            HttpApi.commentApi(replyId, content)
-                    .onSuccess(this)
-                    .onError(this)
-                    .subscribe();
+//            if (replyPanel.getImgList().isEmpty()) {
+//                ShowLoadingEvent.post("评论中...");
+//                CommentApi.appCommentApi(content, replyId, "", "", "")
+//                        .onSuccess(this)
+//                        .onError(this)
+//                        .subscribe();
+//            } else {
+//                CommentApi.appCommentWithFileApi(
+//                        context,
+//                        content,
+//                        replyId,
+//                        "",
+//                        "",
+//                        "",
+//                        replyPanel.getImgList(),
+//                        () -> {
+//                            dismiss();
+//                            if (successRunnable != null) {
+//                                successRunnable.run();
+//                            }
+//                        },
+//                        this
+//                );
+//            }
+            CommentApi.appCommentWithFileApi(
+                    context,
+                    content,
+                    replyId,
+                    "",
+                    "",
+                    "",
+                    replyPanel.getImgList(),
+                    () -> {
+                        dismiss();
+                        if (successRunnable != null) {
+                            successRunnable.run();
+                        }
+                    },
+                    this
+            );
         }
 
     }
@@ -187,22 +277,35 @@ public class CommentPopup extends BottomPopup<CommentPopup>
         return new EmptyAnimator();
     }
 
+//    @Override
+//    public void onError(Throwable throwable) {
+//        AToast.error(throwable.getMessage());
+//        HideLoadingEvent.postEvent();
+//    }
+//
+//    @Override
+//    public void onSuccess(Document data) throws Exception {
+//        String info = data.selectFirst("info").text();
+//        if ("success".equals(data.selectFirst("result").text())) {
+//            AToast.success(info);
+////            RefreshEvent.postEvent();
+//            if (successRunnable != null) {
+//                successRunnable.run();
+//            }
+//            dismiss();
+//        } else {
+//            AToast.error(info);
+//        }
+//        HideLoadingEvent.postEvent();
+//    }
+
     @Override
-    public void onError(Throwable throwable) {
-        AToast.error(throwable.getMessage());
-        HideLoadingEvent.postEvent();
+    public void onBytesWritten(int bytesWritten) {
+
     }
 
     @Override
-    public void onSuccess(Document data) throws Exception {
-        String info = data.selectFirst("info").text();
-        if ("success".equals(data.selectFirst("result").text())) {
-            AToast.success(info);
-            RefreshEvent.postEvent();
-            dismiss();
-        } else {
-            AToast.error(info);
-        }
-        HideLoadingEvent.postEvent();
+    public boolean shouldContinue() {
+        return true;
     }
 }

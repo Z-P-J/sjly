@@ -16,6 +16,7 @@ import com.felix.atoast.library.AToast;
 import com.lwkandroid.widget.ninegridview.NineGirdImageContainer;
 import com.lwkandroid.widget.ninegridview.NineGridBean;
 import com.lwkandroid.widget.ninegridview.NineGridView;
+import com.zpj.http.core.IHttp;
 import com.zpj.http.parser.html.nodes.Document;
 import com.zpj.http.parser.html.nodes.Element;
 import com.zpj.popup.ZPopup;
@@ -361,21 +362,28 @@ public class ChatFragment extends NextUrlFragment<PrivateLetterInfo> implements 
 
     @Override
     public void sendText(String content) {
-        HttpApi.sendPrivateLetterApi(userId, content)
-                .onSuccess(element -> {
-                    Log.d("deleteFriendApi", "element=" + element);
-                    String result = element.selectFirst("result").text();
-                    if ("success".equals(result)) {
-                        AToast.success("发送成功");
-                        replyPanel.getEditor().setText(null);
-                        onRefresh();
-                    } else {
-                        AToast.error(element.selectFirst("info").text());
+        hideSoftInput();
+        HttpApi.sendPrivateLetterApi(
+                context,
+                userId,
+                content,
+                replyPanel.getImgList(),
+                () -> {
+                    replyPanel.getEditor().setText(null);
+                    onRefresh();
+                },
+                new IHttp.OnStreamWriteListener() {
+                    @Override
+                    public void onBytesWritten(int bytesWritten) {
+
                     }
-                    hideSoftInput();
-                })
-                .onError(throwable -> AToast.error(throwable.getMessage()))
-                .subscribe();
+
+                    @Override
+                    public boolean shouldContinue() {
+                        return true;
+                    }
+                }
+        );
     }
 
     @Override
@@ -388,7 +396,6 @@ public class ChatFragment extends NextUrlFragment<PrivateLetterInfo> implements 
         AToast.normal("categoryName=" + categoryName + " stickerName=" + stickerName);
 //        sendImage(stickerBitmapPath);
     }
-
 
 
 }

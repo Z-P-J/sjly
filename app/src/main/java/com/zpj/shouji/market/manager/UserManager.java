@@ -19,6 +19,7 @@ import com.zpj.shouji.market.model.MemberInfo;
 import com.zpj.shouji.market.api.HttpApi;
 import com.zpj.shouji.market.model.MessageInfo;
 import com.zpj.shouji.market.utils.PictureUtil;
+import com.zpj.utils.DeviceUtils;
 import com.zpj.utils.PrefsHelper;
 
 import java.lang.ref.WeakReference;
@@ -149,7 +150,8 @@ public final class UserManager {
             sn = memberInfo.getSn();
         }
         if (TextUtils.isEmpty(sn)) {
-            return "0123456789";
+//            return "0123456789";
+            return DeviceUtils.getSerial();
         } else {
             return sn;
         }

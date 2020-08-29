@@ -1,5 +1,6 @@
 package com.zpj.shouji.market.api;
 
+import android.content.Context;
 import android.net.Uri;
 import android.text.TextUtils;
 import android.util.Base64;
@@ -8,11 +9,15 @@ import android.util.Log;
 import com.felix.atoast.library.AToast;
 import com.zpj.http.ZHttp;
 import com.zpj.http.core.Connection;
+import com.zpj.http.core.HttpKeyVal;
 import com.zpj.http.core.ObservableTask;
 import com.zpj.http.core.IHttp;
 import com.zpj.http.parser.html.nodes.Document;
+import com.zpj.matisse.entity.Item;
 import com.zpj.shouji.market.constant.UpdateFlagAction;
+import com.zpj.shouji.market.event.HideLoadingEvent;
 import com.zpj.shouji.market.event.RefreshEvent;
+import com.zpj.shouji.market.event.ShowLoadingEvent;
 import com.zpj.shouji.market.manager.UserManager;
 import com.zpj.utils.OSUtils;
 
@@ -20,6 +25,8 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
+import java.util.ArrayList;
+import java.util.List;
 
 import io.reactivex.Observable;
 import io.reactivex.ObservableOnSubscribe;
@@ -309,13 +316,13 @@ public final class HttpApi {
                 .subscribe();
     }
 
-    public static ObservableTask<Document> commentApi(String id, String content) {
-        return openConnection("http://tt.tljpxm.com/app/comment_xml_v5.jsp", Connection.Method.POST)
-                .data("replyid", id)
-                .data("phone", "MI%205s")
-                .data("content", content)
-                .toHtml();
-    }
+//    public static ObservableTask<Document> commentApi(String id, String content) {
+//        return openConnection("http://tt.tljpxm.com/app/comment_xml_v5.jsp", Connection.Method.POST)
+//                .data("replyid", id)
+//                .data("phone", "MI%205s")
+//                .data("content", content)
+//                .toHtml();
+//    }
 
     public static ObservableTask<Document> discussCommentApi(String replyId, String content) {
         return openConnection("http://tt.tljpxm.com/app/square_disscuss_text_post_xml.jsp", Connection.Method.POST)
@@ -325,16 +332,16 @@ public final class HttpApi {
                 .toHtml();
     }
 
-    public static ObservableTask<Document> appCommentApi(String content, String appId, String appType, String appPackage) {
-        return openConnection("http://tt.tljpxm.com/app/comment_xml_v5.jsp", Connection.Method.POST)
-                .data("replyid", "0")
-                .data("phone", "MI%205s")
-                .data("content", content)
-                .data("appid", appId)
-                .data("apptype", appType)
-                .data("package", appPackage)
-                .toHtml();
-    }
+//    public static ObservableTask<Document> appCommentApi(String content, String appId, String appType, String appPackage) {
+//        return openConnection("http://tt.tljpxm.com/app/comment_xml_v5.jsp", Connection.Method.POST)
+//                .data("replyid", "0")
+//                .data("phone", "MI%205s")
+//                .data("content", content)
+//                .data("appid", appId)
+//                .data("apptype", appType)
+//                .data("package", appPackage)
+//                .toHtml();
+//    }
 
     public static ObservableTask<Document> rsyncMessageApi() {
         return openConnection("http://tt.tljpxm.com/app/rsyncMessageV3.jsp", Connection.Method.POST)
@@ -383,11 +390,64 @@ public final class HttpApi {
                 .toHtml();
     }
 
-    public static ObservableTask<Document> sendPrivateLetterApi(String id, String text) {
-        return openConnection("http://tt.tljpxm.com/app/user_message_add_text_xml.jsp", Connection.Method.GET)
-                .data("mmid", id)
-                .data("content", text)
-                .toHtml();
+    public static void sendPrivateLetterApi(Context context, String id, String content, List<Item> imgList, Runnable successRunnable, IHttp.OnStreamWriteListener listener) {
+        ShowLoadingEvent.post("发送中...");
+        ObservableTask<Document> task;
+        if (imgList == null || imgList.isEmpty()) {
+            task = openConnection("http://tt.tljpxm.com/app/user_message_add_text_xml.jsp", Connection.Method.GET)
+                    .data("mmid", id)
+                    .data("content", content)
+                    .toHtml();
+        } else {
+            task = new ObservableTask<>(
+                    (ObservableOnSubscribe<List<Connection.KeyVal>>) emitter -> {
+                        List<Connection.KeyVal> dataList = new ArrayList<>();
+                        for (int i = 0; i < imgList.size(); i++) {
+                            Item img = imgList.get(i);
+                            Connection.KeyVal keyVal = HttpKeyVal.create("image_" + i, "image_" + i + ".png", new FileInputStream(img.getFile(context)), listener);
+                            dataList.add(keyVal);
+                        }
+                        emitter.onNext(dataList);
+                        emitter.onComplete();
+                    })
+                    .onNext(new ObservableTask.OnNextListener<List<Connection.KeyVal>, Document>() {
+                        @Override
+                        public ObservableTask<Document> onNext(List<Connection.KeyVal> dataList) throws Exception {
+                            return ZHttp.post(
+                                    String.format("http://tt.shouji.com.cn/app/user_message_add_post_xml.jsp?versioncode=%s&jsessionid=%s",
+                                            "199", UserManager.getInstance().getSessionId()))
+                                    .data("mmid", id)
+                                    .data("content", content)
+                                    .data(dataList)
+                                    .validateTLSCertificates(false)
+                                    .userAgent(HttpApi.USER_AGENT)
+                                    .onRedirect(redirectUrl -> {
+                                        Log.d("connect", "onRedirect redirectUrl=" + redirectUrl);
+                                        return true;
+                                    })
+                                    .cookie(UserManager.getInstance().getCookie())
+                                    .ignoreContentType(true)
+                                    .toXml();
+                        }
+                    });
+        }
+
+        task
+                .onSuccess(data -> {
+                    String info = data.selectFirst("info").text();
+                    if ("success".equals(data.selectFirst("result").text())) {
+                        AToast.success(info);
+                        successRunnable.run();
+                    } else {
+                        AToast.error(info);
+                    }
+                    HideLoadingEvent.postDelayed(250);
+                })
+                .onError(throwable -> {
+                    AToast.error("发送失败！" + throwable.getMessage());
+                    HideLoadingEvent.postDelayed(250);
+                })
+                .subscribe();
     }
 
     public static ObservableTask<Document> appInfoApi(String type, String id) {

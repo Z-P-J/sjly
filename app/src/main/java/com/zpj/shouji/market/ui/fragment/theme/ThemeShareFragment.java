@@ -197,6 +197,7 @@ public class ThemeShareFragment extends BaseFragment {
             ThemePublishApi.publishThemeApi(
                     context,
                     etContent.getText().toString(),
+                    "0",
                     installedAppInfo,
                     imgList,
                     tags,

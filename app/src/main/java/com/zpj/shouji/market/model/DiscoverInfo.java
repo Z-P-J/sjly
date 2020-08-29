@@ -1,6 +1,7 @@
 package com.zpj.shouji.market.model;
 
 import android.text.TextUtils;
+import android.util.Log;
 
 import com.zpj.http.parser.html.nodes.Element;
 import com.zpj.http.parser.html.select.Elements;
@@ -124,11 +125,13 @@ public class DiscoverInfo {
 
     public static DiscoverInfo from(Element element) {
         String type = element.selectFirst("type").text();
+        Log.d("DiscoverInfo", "type=" + type);
         if ("tag".equals(type) || "lable".equals(type)) {
             return null;
         }
         String id = element.selectFirst("id").text();
         String parent = element.selectFirst("parent").text();
+        Log.d("DiscoverInfo", "id=" + id + " parent=" + parent);
         if (id == null && parent == null) {
             return null;
         }

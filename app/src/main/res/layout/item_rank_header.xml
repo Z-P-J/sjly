@@ -3,7 +3,10 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="@drawable/bg_member_default">
+    android:background="@drawable/bg_member_default"
+    android:paddingTop="80dp"
+    >
+
 
 <!--    <com.shehuan.niv.NiceImageView-->
 <!--        android:id="@+id/iv_rank_bg"-->

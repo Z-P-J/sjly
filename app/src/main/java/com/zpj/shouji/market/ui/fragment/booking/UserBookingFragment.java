@@ -4,7 +4,6 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
-import android.view.MenuItem;
 import android.view.View;
 
 import com.zpj.fragmentation.BaseFragment;
@@ -15,9 +14,7 @@ import com.zpj.shouji.market.constant.Keys;
 import com.zpj.shouji.market.event.StartFragmentEvent;
 import com.zpj.shouji.market.model.BookingAppInfo;
 import com.zpj.shouji.market.ui.adapter.FragmentsPagerAdapter;
-import com.zpj.shouji.market.ui.fragment.AppListFragment;
 import com.zpj.shouji.market.ui.fragment.detail.AppDetailFragment;
-import com.zpj.shouji.market.ui.fragment.theme.ThemeListFragment;
 import com.zpj.shouji.market.ui.widget.popup.BottomListPopupMenu;
 import com.zpj.shouji.market.utils.MagicIndicatorHelper;
 
@@ -94,17 +91,22 @@ public class UserBookingFragment extends BaseFragment {
         public boolean onLongClick(EasyViewHolder holder, View view, BookingAppInfo appInfo) {
             BottomListPopupMenu.with(context)
                     .setMenu(R.menu.menu_booking)
-                    .addHideItem(appInfo.isAutoDownload() ? R.id.auto_download : R.id.cancel_auto_download)
+                    .addHideItem(appInfo.isAutoDownload() ?  R.id.auto_download : R.id.cancel_auto_download)
                     .onItemClick((menu, view1, data) -> {
+                        Runnable successRunnable = () -> {
+                            menu.dismiss();
+                            onRefresh();
+                        };
                         switch (data.getItemId()) {
                             case R.id.cancel_booking:
-                                BookingApi.cancelBookingApi(appInfo, this::onRefresh);
+                                showCancelBookingPopup(appInfo, successRunnable);
+//                                BookingApi.cancelBookingApi(appInfo, successRunnable);
                                 break;
                             case R.id.auto_download:
-                                BookingApi.autoDownloadApi(appInfo);
+                                BookingApi.autoDownloadApi(appInfo, successRunnable);
                                 break;
                             case R.id.cancel_auto_download:
-                                BookingApi.cancelAutoDownloadApi(appInfo);
+                                BookingApi.cancelAutoDownloadApi(appInfo, successRunnable);
                                 break;
                         }
                     })
