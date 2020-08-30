@@ -139,11 +139,13 @@ public class MainFragment extends BaseFragment {
             MainActionPopup.with(context)
                     .setOnDismissListener(() -> {
                         MainActionPopupEvent.post(false);
-                        if (viewPager.getCurrentItem() == 0 || viewPager.getCurrentItem() == 1) {
-                            lightStatusBar();
-                        } else {
-                            darkStatusBar();
-                        }
+//                        lightStatusBar();
+                        fragments.get(viewPager.getCurrentItem()).onSupportVisible();
+//                        if (viewPager.getCurrentItem() == 0 || viewPager.getCurrentItem() == 1) {
+//                            lightStatusBar();
+//                        } else {
+//                            darkStatusBar();
+//                        }
                     })
                     .show();
         });
@@ -157,23 +159,23 @@ public class MainFragment extends BaseFragment {
         UserManager.getInstance().rsyncMessage(false);
     }
 
-    @Override
-    public void onSupportVisible() {
-        if (viewPager != null && !fragments.isEmpty()) {
-            fragments.get(viewPager.getCurrentItem()).onSupportVisible();
-        } else {
-            darkStatusBar();
-        }
-    }
-
-    @Override
-    public void onSupportInvisible() {
-        if (viewPager != null && !fragments.isEmpty()) {
-            fragments.get(viewPager.getCurrentItem()).onSupportInvisible();
-        } else {
-            darkStatusBar();
-        }
-    }
+//    @Override
+//    public void onSupportVisible() {
+//        if (viewPager != null && !fragments.isEmpty()) {
+//            fragments.get(viewPager.getCurrentItem()).onSupportVisible();
+//        } else {
+//            darkStatusBar();
+//        }
+//    }
+//
+//    @Override
+//    public void onSupportInvisible() {
+//        if (viewPager != null && !fragments.isEmpty()) {
+//            fragments.get(viewPager.getCurrentItem()).onSupportInvisible();
+//        } else {
+//            darkStatusBar();
+//        }
+//    }
 
     @Subscribe
     public void onUpdateMessageInfoEvent(MessageInfo info) {

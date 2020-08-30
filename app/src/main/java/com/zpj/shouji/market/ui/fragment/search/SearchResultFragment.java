@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
+import android.text.TextUtils;
 import android.view.View;
 
 import com.zpj.shouji.market.R;
@@ -64,24 +65,24 @@ public class SearchResultFragment extends BaseFragment {
     protected void initView(View view, @Nullable Bundle savedInstanceState) {
         List<Fragment> list = new ArrayList<>();
 
-        AppListFragment appListFragment = findChildFragment(AppListFragment.class);
+        SearchAppListFragment appListFragment = findChildFragment(SearchAppListFragment.class);
         if (appListFragment == null) {
-            appListFragment = new AppListFragment();
+            appListFragment = new SearchAppListFragment();
         }
 
-        CollectionListFragment collectionListFragment = findChildFragment(CollectionListFragment.class);
+        SearchCollectionListFragment collectionListFragment = findChildFragment(SearchCollectionListFragment.class);
         if (collectionListFragment == null) {
-            collectionListFragment = new CollectionListFragment();
+            collectionListFragment = new SearchCollectionListFragment();
         }
 
-        ThemeListFragment exploreFragment = findChildFragment(ThemeListFragment.class);
+        SearchThemeListFragment exploreFragment = findChildFragment(SearchThemeListFragment.class);
         if (exploreFragment == null) {
-            exploreFragment = new ThemeListFragment();
+            exploreFragment = new SearchThemeListFragment();
         }
 
-        UserListFragment userListFragment = findChildFragment(UserListFragment.class);
+        SearchUserListFragment userListFragment = findChildFragment(SearchUserListFragment.class);
         if (userListFragment == null) {
-            userListFragment = new UserListFragment();
+            userListFragment = new SearchUserListFragment();
         }
 
         list.add(appListFragment);
@@ -99,39 +100,120 @@ public class SearchResultFragment extends BaseFragment {
         viewPager.setAdapter(adapter);
         viewPager.setOffscreenPageLimit(TAB_TITLES.length);
         MagicIndicator magicIndicator = view.findViewById(R.id.magic_indicator);
-//        CommonNavigator navigator = new CommonNavigator(getContext());
-//        navigator.setAdjustMode(true);
-//        navigator.setAdapter(new CommonNavigatorAdapter() {
-//            @Override
-//            public int getCount() {
-//                return TAB_TITLES.length;
-//            }
-//
-//            @Override
-//            public IPagerTitleView getTitleView(Context context, int index) {
-//                ColorTransitionPagerTitleView titleView = new ColorTransitionPagerTitleView(context);
-//                titleView.setNormalColor(Color.parseColor("#fafafa"));
-//                titleView.setSelectedColor(Color.WHITE);
-//                titleView.setTextSize(14);
-//                titleView.setText(TAB_TITLES[index]);
-//                titleView.setOnClickListener(view1 -> viewPager.setCurrentItem(index));
-//                return titleView;
-//            }
-//
-//            @Override
-//            public IPagerIndicator getIndicator(Context context) {
-//                LinePagerIndicator indicator = new LinePagerIndicator(context);
-//                indicator.setMode(LinePagerIndicator.MODE_EXACTLY);
-//                indicator.setLineHeight(ScreenUtils.dp2px(context, 4f));
-//                indicator.setLineWidth(ScreenUtils.dp2px(context, 12f));
-//                indicator.setRoundRadius(ScreenUtils.dp2px(context, 4f));
-//                indicator.setColors(Color.WHITE, Color.WHITE);
-//                return indicator;
-//            }
-//        });
-//        magicIndicator.setNavigator(navigator);
-//        ViewPagerHelper.bind(magicIndicator, viewPager);
         MagicIndicatorHelper.bindViewPager(context, magicIndicator, viewPager, TAB_TITLES, true);
+    }
+
+
+    public static class SearchAppListFragment extends AppListFragment
+            implements SearchResultFragment.KeywordObserver {
+
+        private String keyword;
+
+        @Override
+        public void updateKeyword(String key) {
+//            if (TextUtils.equals(key, keyword)) {
+//                return;
+//            }
+//            this.keyword = key;
+//
+//            defaultUrl = "http://tt.shouji.com.cn/androidv3/app_search_xml.jsp?sdk=26&type=default&s=" + key;
+//            nextUrl = defaultUrl;
+//
+//            recyclerLayout.showLoading();
+//            postOnSupportVisibleDelayed(new Runnable() {
+//                @Override
+//                public void run() {
+//                    data.clear();
+//                    getData();
+//                }
+//            }, 100);
+        }
+
+    }
+
+    public static class SearchCollectionListFragment extends CollectionListFragment
+            implements SearchResultFragment.KeywordObserver {
+
+        private String keyword;
+
+        @Override
+        public void updateKeyword(String key) {
+//            if (TextUtils.equals(key, keyword)) {
+//                return;
+//            }
+//            this.keyword = key;
+//
+//            defaultUrl = "http://tt.shouji.com.cn/androidv3/yyj_view_phb_xml.jsp?title=" + key;
+//            nextUrl = defaultUrl;
+//
+//            recyclerLayout.showLoading();
+//            postOnSupportVisibleDelayed(new Runnable() {
+//                @Override
+//                public void run() {
+//                    data.clear();
+//                    getData();
+//                }
+//            }, 100);
+        }
+
+    }
+
+    public static class SearchThemeListFragment extends ThemeListFragment
+            implements SearchResultFragment.KeywordObserver {
+
+        private String keyword;
+
+        @Override
+        public void updateKeyword(String key) {
+//            if (TextUtils.equals(key, keyword)) {
+//                return;
+//            }
+//            this.keyword = key;
+//
+//            defaultUrl = "http://tt.shouji.com.cn/app/faxian.jsp?s=" + key;
+//            nextUrl = defaultUrl;
+////            if (isLazyInit()) {
+////                onRefresh();
+////            }
+//
+//            recyclerLayout.showLoading();
+//            postOnSupportVisibleDelayed(new Runnable() {
+//                @Override
+//                public void run() {
+//                    data.clear();
+//                    getData();
+//                }
+//            }, 100);
+        }
+
+    }
+
+    public static class SearchUserListFragment extends UserListFragment
+            implements SearchResultFragment.KeywordObserver {
+
+        private String keyword;
+
+        @Override
+        public void updateKeyword(String key) {
+//            if (TextUtils.equals(key, keyword)) {
+//                return;
+//            }
+//            this.keyword = key;
+//            defaultUrl = "http://tt.shouji.com.cn/androidv3/app_search_user_xml.jsp?s=" + key;
+//            nextUrl = defaultUrl;
+////            if (isLazyInit) {
+////                onRefresh();
+////            }
+//
+//            recyclerLayout.showLoading();
+//            postOnSupportVisibleDelayed(new Runnable() {
+//                @Override
+//                public void run() {
+//                    data.clear();
+//                    getData();
+//                }
+//            }, 100);
+        }
 
     }
 

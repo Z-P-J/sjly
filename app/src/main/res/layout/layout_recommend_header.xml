@@ -43,12 +43,32 @@
                 app:z_toolbar_fillStatusBar="true"
                 />
 
-            <com.zhouwei.mzbanner.MZBannerView
-                android:id="@+id/banner"
+<!--            <com.zhouwei.mzbanner.MZBannerView-->
+<!--                android:id="@+id/banner"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="160dp"-->
+<!--                app:canLoop="true"-->
+<!--                app:open_mz_mode="true"-->
+<!--                android:visibility="gone"-->
+<!--                />-->
+
+            <com.geek.banner.Banner
+                android:id="@+id/banner2"
                 android:layout_width="match_parent"
-                android:layout_height="160dp"
-                app:canLoop="true"
-                app:open_mz_mode="true"
+                android:layout_height="200dp"
+                android:layout_marginTop="10dp"
+                app:banner_auto_play="true"
+                app:banner_default_image="@drawable/bga_pp_ic_holder_light"
+                app:banner_expose_width="20dp"
+                app:banner_interval_time="5000"
+                app:banner_multi_anim="ScaleIn"
+                app:banner_page_spacing="14dp"
+                app:banner_scroll_time="1000"
+                app:banner_show_indicator="true"
+                app:indicator_default_drawable="@color/white"
+                app:indicator_select_drawable="@color/colorPrimary"
+                app:banner_show_model="MZ_EFFECT"
+                app:layout_scrollFlags="scroll"
                 />
 
             <!--            android:paddingBottom="50dp"-->

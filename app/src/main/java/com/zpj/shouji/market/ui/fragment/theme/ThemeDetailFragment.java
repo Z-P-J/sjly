@@ -209,6 +209,12 @@ public class ThemeDetailFragment extends ListenerFragment {
     }
 
     @Override
+    public void onSupportVisible() {
+        super.onSupportVisible();
+        darkStatusBar();
+    }
+
+    @Override
     public void onResume() {
         super.onResume();
         if (commentPopup != null) {

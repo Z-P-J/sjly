@@ -191,7 +191,7 @@
                 android:alpha="0.6"
                 android:rotation="90"
                 android:scaleType="fitCenter"
-                android:src="@drawable/ic_back"
+                android:src="@drawable/ic_arrow_drop_down_white_24dp"
                 android:tint="@color/white" />
 
         </RelativeLayout>

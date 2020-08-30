@@ -117,7 +117,7 @@ public class InputView extends FrameLayout implements View.OnFocusChangeListener
         mEditText.setBackground(null);
         mEditText.setTextColor(ContextCompat.getColor(getContext(), R.color.color_text_major));
         mEditText.setHintTextColor(ContextCompat.getColor(getContext(), R.color.color_text_minor));
-        mEditText.setTextSize(TypedValue.COMPLEX_UNIT_PX, getContext().getResources().getDimension(R.dimen.text_medium));
+        mEditText.setTextSize(TypedValue.COMPLEX_UNIT_SP, 14);
         mEditText.setSingleLine();
         mEditText.setInputType(InputType.TYPE_TEXT_VARIATION_EMAIL_ADDRESS);
         mEditText.setOnFocusChangeListener(this);

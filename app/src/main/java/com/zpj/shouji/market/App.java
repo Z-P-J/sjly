@@ -7,6 +7,7 @@ import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.target.ViewTarget;
+import com.didichuxing.doraemonkit.DoraemonKit;
 import com.felix.atoast.library.AToast;
 import com.lqr.emoji.IImageLoader;
 import com.lqr.emoji.LQREmotionKit;
@@ -32,6 +33,7 @@ public class App extends Application {
 //                MCrashMonitor.startCrashShowPage(getContext());
         });
         FlowManager.init(this);
+        DoraemonKit.install(this);
         AToast.onInit(this);
         ZDownloader.init(this);
         ViewTarget.setTagId(R.id.glide_tag_id);

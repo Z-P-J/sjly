@@ -1,6 +1,7 @@
 package com.zpj.shouji.market.ui.fragment.base;
 
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
@@ -96,10 +97,17 @@ public abstract class NextUrlFragment<T> extends RecyclerLayoutFragment<T>
 //        int end = data.size() == 0 ? 0 : data.size() - 1;
         int end = data.size();
 
+        int last = -1;
+        if (recyclerLayout.getLayoutManager() instanceof LinearLayoutManager) {
+            last = ((LinearLayoutManager) recyclerLayout.getLayoutManager()).findLastVisibleItemPosition();
+        }
+
+        Log.d("getData", "last=" + last);
+
         Log.d("getData", "start=" + start + " end=" + end + " count=" + (end - start));
         Log.d("getData", "getHeaderView=" + recyclerLayout.getAdapter().getHeaderView());
         Log.d("getData", "getFooterView=" + recyclerLayout.getAdapter().getFooterView());
-        if (start == 0) {
+        if (start == 0 || last <= start) {
             recyclerLayout.notifyDataSetChanged();
         } else {
             if (start < end) {

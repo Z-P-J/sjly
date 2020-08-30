@@ -70,7 +70,7 @@ public class SearchPanelFragment extends BaseFragment {
         for (SearchHistory history : SearchHistoryManager.getAllSearchHistory()) {
             list.add(history.getText());
         }
-        searchHistory.addItems(list);
+        searchHistory.setItems(list);
     }
 
     @Subscribe
@@ -83,6 +83,8 @@ public class SearchPanelFragment extends BaseFragment {
         }
         history.setTime(System.currentTimeMillis());
         history.save();
-        getSearchHistory();
+        searchHistory.remove(history.getText());
+        searchHistory.addItem(0, history.getText());
+//        getSearchHistory();
     }
 }

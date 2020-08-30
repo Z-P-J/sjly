@@ -18,19 +18,12 @@ import com.zpj.utils.ScreenUtils;
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
-public class RecommendFragment2 extends BaseFragment {
+public class RecommendFragment2 extends BaseFragment
+        implements NestedScrollView.OnScrollChangeListener {
 
     private static final String TAG = "RecommendFragment";
 
-//    private final int[] RES_ICONS = {R.id.item_icon_1, R.id.item_icon_2, R.id.item_icon_3};
-
     private RecommendBanner mBanner;
-    private NestedScrollView scrollView;
-//    private UpdateRecommendCard updateRecommendCard;
-//    private CollectionRecommendCard collectionRecommendCard;
-//    private SoftRecommendCard softRecommendCard;
-//    private GameRecommendCard gameRecommendCard;
-//    private SubjectRecommendCard subjectRecommendCard;
 
     @Override
     protected int getLayoutId() {
@@ -39,44 +32,9 @@ public class RecommendFragment2 extends BaseFragment {
 
     @Override
     protected void initView(View view, @Nullable Bundle savedInstanceState) {
-//        LinearLayout llContainer = view.findViewById(R.id.ll_container);
         mBanner = view.findViewById(R.id.rb_banner);
-        scrollView = view.findViewById(R.id.scroll_view);
-        scrollView.setOnScrollChangeListener(new NestedScrollView.OnScrollChangeListener() {
-            @Override
-            public void onScrollChange(NestedScrollView v, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
-                int h = ScreenUtils.dp2pxInt(context, 100);
-                if (oldScrollY <= h) {
-                    if (Math.abs(scrollY - oldScrollY) < 2) {
-                        return;
-                    }
-//                    scrollY = Math.min(h, scrollY);
-//                    int mScrollY = Math.min(scrollY, h);
-                    Log.d(TAG, "scrollY=" + scrollY + " h=" + h + " oldScrollY=" + oldScrollY);
-                    float alpha = 1f * scrollY / h;
-                    Log.d(TAG, "alpha=" + alpha);
-                    alpha = Math.min(alpha, 1f);
-                    int color = alphaColor(Color.WHITE, alpha * 0.95f);
-//                    boolean isDark = android.support.v4.graphics.ColorUtils.calculateLuminance(color) <= 0.5;
-//                    Log.d(TAG, "isDark=" + isDark);
-                    ToolbarColorChangeEvent.post(color, alpha >= 0.5);
-
-//                    if (scrollY >= oldScrollY) {
-//                        ColorChangeEvent.post(alpha < 0.5f);
-//                    } else {
-//                        ColorChangeEvent.post(alpha < 0.5f);
-//                    }
-                    ColorChangeEvent.post(alpha < 0.5f);
-                } else {
-                    ColorChangeEvent.post(false);
-                }
-            }
-        });
-//        updateRecommendCard = view.findViewById(R.id.rc_update);
-//        collectionRecommendCard = view.findViewById(R.id.rc_collection);
-//        softRecommendCard = view.findViewById(R.id.rc_soft);
-//        gameRecommendCard = view.findViewById(R.id.rc_game);
-//        subjectRecommendCard = view.findViewById(R.id.rc_subject);
+        NestedScrollView scrollView = view.findViewById(R.id.scroll_view);
+        scrollView.setOnScrollChangeListener(this);
     }
 
     @Override
@@ -150,4 +108,38 @@ public class RecommendFragment2 extends BaseFragment {
         return a + rgb;
     }
 
+    @Override
+    public void onScrollChange(NestedScrollView v, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
+        int h = ScreenUtils.dp2pxInt(context, 100);
+        if (oldScrollY <= h) {
+            if (Math.abs(scrollY - oldScrollY) < 2) {
+                return;
+            }
+//                    scrollY = Math.min(h, scrollY);
+//                    int mScrollY = Math.min(scrollY, h);
+            Log.d(TAG, "scrollY=" + scrollY + " h=" + h + " oldScrollY=" + oldScrollY);
+            float alpha = 1f * scrollY / h;
+            Log.d(TAG, "alpha=" + alpha);
+            alpha = Math.min(alpha, 1f);
+            int color = alphaColor(Color.WHITE, alpha * 0.95f);
+//                    boolean isDark = android.support.v4.graphics.ColorUtils.calculateLuminance(color) <= 0.5;
+//                    Log.d(TAG, "isDark=" + isDark);
+            ToolbarColorChangeEvent.post(color, alpha >= 0.5);
+
+//                    if (scrollY >= oldScrollY) {
+//                        ColorChangeEvent.post(alpha < 0.5f);
+//                    } else {
+//                        ColorChangeEvent.post(alpha < 0.5f);
+//                    }
+            ColorChangeEvent.post(alpha < 0.5f);
+            if (alpha < 0.5) {
+                mBanner.onResume();
+            } else {
+                mBanner.onPause();
+            }
+        } else {
+            ColorChangeEvent.post(false);
+            mBanner.onPause();
+        }
+    }
 }

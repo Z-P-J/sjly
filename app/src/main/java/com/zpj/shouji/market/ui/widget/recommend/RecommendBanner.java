@@ -4,7 +4,6 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.v4.view.ViewPager;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,14 +16,14 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.bumptech.glide.request.target.SimpleTarget;
 import com.bumptech.glide.request.transition.Transition;
-import com.zhouwei.mzbanner.MZBannerView;
-import com.zhouwei.mzbanner.holder.MZViewHolder;
+import com.geek.banner.Banner;
+import com.geek.banner.loader.BannerEntry;
+import com.geek.banner.loader.BannerLoader;
 import com.zpj.http.parser.html.nodes.Element;
 import com.zpj.http.parser.html.select.Elements;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.api.HttpPreLoader;
 import com.zpj.shouji.market.api.PreloadApi;
-import com.zpj.shouji.market.glide.blur.CropBlurTransformation;
 import com.zpj.shouji.market.model.AppInfo;
 import com.zpj.shouji.market.ui.fragment.SubjectRecommendListFragment;
 import com.zpj.shouji.market.ui.fragment.ToolBarListFragment;
@@ -40,10 +39,10 @@ import jp.wasabeef.glide.transformations.BlurTransformation;
 public class RecommendBanner extends LinearLayout implements View.OnClickListener {
 
     private final List<AppInfo> bannerItemList = new ArrayList<>();
-    private final BannerViewHolder bannerViewHolder = new BannerViewHolder();
+//    private final BannerViewHolder bannerViewHolder = new BannerViewHolder();
 
     private final ImageView ivBg;
-    private final MZBannerView<AppInfo> mMZBanner;
+    private final Banner banner;
 
     private int currentPosition = 0;
 
@@ -58,37 +57,71 @@ public class RecommendBanner extends LinearLayout implements View.OnClickListene
     public RecommendBanner(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         LayoutInflater.from(context).inflate(R.layout.layout_recommend_header, this, true);
-        ivBg = findViewById(R.id.iv_bg);
-        mMZBanner = findViewById(R.id.banner);
-        mMZBanner.setDelayedTime(5 * 1000);
-        mMZBanner.setBannerPageClickListener(new MZBannerView.BannerPageClickListener() {
-            @Override
-            public void onPageClick(View view, int i) {
-                AppDetailFragment.start(bannerItemList.get(i));
-            }
-        });
-        mMZBanner.addPageChangeListener(new ViewPager.OnPageChangeListener() {
-            @Override
-            public void onPageScrolled(int i, float v, int i1) {
+        banner = findViewById(R.id.banner2);
+        banner.setBannerLoader(new AppBannerLoader());
 
-            }
-
+        banner.setOnBannerClickListener(new Banner.OnBannerClickListener() {
             @Override
-            public void onPageSelected(int i) {
-                setBg(i);
-            }
-
-            @Override
-            public void onPageScrollStateChanged(int i) {
-
+            public void onBannerClick(int position) {
+                AppDetailFragment.start(bannerItemList.get(position));
             }
         });
 
-        ViewGroup.LayoutParams params = mMZBanner.getLayoutParams();
+        banner.setBannerPagerChangedListener(new Banner.OnBannerPagerChangedListener() {
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
+            }
+
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+                setBg(position);
+            }
+        });
+
+        ViewGroup.LayoutParams params = banner.getLayoutParams();
         int screenWidth = ScreenUtils.getScreenWidth(context);
 
 //        params.height = (int) ((float) screenWidth * screenWidth / ScreenUtils.getScreenHeight(context));
         params.height = (int) ((float) screenWidth / 2f);
+
+
+        ivBg = findViewById(R.id.iv_bg);
+//        mMZBanner = findViewById(R.id.banner);
+//        mMZBanner.setDelayedTime(5 * 1000);
+//        mMZBanner.setBannerPageClickListener(new MZBannerView.BannerPageClickListener() {
+//            @Override
+//            public void onPageClick(View view, int i) {
+//                AppDetailFragment.start(bannerItemList.get(i));
+//            }
+//        });
+//        mMZBanner.addPageChangeListener(new ViewPager.OnPageChangeListener() {
+//            @Override
+//            public void onPageScrolled(int i, float v, int i1) {
+//
+//            }
+//
+//            @Override
+//            public void onPageSelected(int i) {
+//                setBg(i);
+//            }
+//
+//            @Override
+//            public void onPageScrollStateChanged(int i) {
+//
+//            }
+//        });
+
+//        ViewGroup.LayoutParams params = mMZBanner.getLayoutParams();
+//        int screenWidth = ScreenUtils.getScreenWidth(context);
+//
+////        params.height = (int) ((float) screenWidth * screenWidth / ScreenUtils.getScreenHeight(context));
+//        params.height = (int) ((float) screenWidth / 2f);
 
         HttpPreLoader.getInstance().setLoadListener(PreloadApi.HOME_BANNER, document -> {
             Elements elements = document.select("item");
@@ -106,9 +139,13 @@ public class RecommendBanner extends LinearLayout implements View.OnClickListene
             if (!bannerItemList.isEmpty()) {
                 setBg(0);
             }
-            mMZBanner.setPages(bannerItemList, () -> bannerViewHolder);
+//            mMZBanner.setPages(bannerItemList, () -> bannerViewHolder);
+//
+//            mMZBanner.start();
 
-            mMZBanner.start();
+            banner.loadImagePaths(bannerItemList);
+            banner.startAutoPlay();
+
         });
 
         findViewById(R.id.tv_common_app).setOnClickListener(this);
@@ -118,21 +155,21 @@ public class RecommendBanner extends LinearLayout implements View.OnClickListene
     }
 
     public void onResume() {
-        if (mMZBanner != null) {
-            mMZBanner.start();
+        if (banner != null) {
+            banner.startAutoPlay();
         }
 //        setBg(currentPosition);
     }
 
     public void onPause() {
-        if (mMZBanner != null) {
-            mMZBanner.pause();
+        if (banner != null) {
+            banner.stopAutoPlay();
         }
     }
 
     public void onStop() {
-        if (mMZBanner != null) {
-            mMZBanner.pause();
+        if (banner != null) {
+            banner.stopAutoPlay();
         }
     }
 

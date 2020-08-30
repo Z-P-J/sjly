@@ -82,7 +82,8 @@ public class SearchFragment extends BaseFragment {
     @Override
     public boolean onBackPressedSupport() {
         if (viewPager != null && viewPager.getCurrentItem() == 1) {
-            viewPager.setCurrentItem(9, true);
+            viewPager.setCurrentItem(0, true);
+            return true;
         }
         return super.onBackPressedSupport();
     }
@@ -123,7 +124,7 @@ public class SearchFragment extends BaseFragment {
             AToast.warning("关键词不能为空");
             return false;
         }
-        viewPager.setCurrentItem(1, false);
+        viewPager.setCurrentItem(1, true);
         EventBus.getDefault().post(new SearchEvent(text));
         return true;
     }

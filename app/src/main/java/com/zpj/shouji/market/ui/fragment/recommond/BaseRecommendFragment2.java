@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
+import com.geek.banner.Banner;
 import com.zhouwei.mzbanner.MZBannerView;
 import com.zhouwei.mzbanner.holder.MZHolderCreator;
 import com.zpj.fragmentation.BaseFragment;
@@ -17,6 +18,7 @@ import com.zpj.shouji.market.model.AppInfo;
 import com.zpj.shouji.market.ui.fragment.detail.AppDetailFragment;
 import com.zpj.shouji.market.ui.fragment.manager.AppManagerFragment;
 import com.zpj.shouji.market.ui.fragment.search.SearchFragment;
+import com.zpj.shouji.market.ui.widget.recommend.AppBannerLoader;
 import com.zpj.shouji.market.ui.widget.recommend.BannerViewHolder;
 import com.zpj.shouji.market.ui.widget.recommend.RecommendCard;
 import com.zpj.utils.ScreenUtils;
@@ -36,7 +38,8 @@ public abstract class BaseRecommendFragment2 extends BaseFragment {
 
     protected StateLayout stateLayout;
 
-    protected MZBannerView<AppInfo> mMZBanner;
+//    protected MZBannerView<AppInfo> mMZBanner;
+    protected Banner banner;
 
     private LinearLayout llContainer;
 
@@ -52,19 +55,34 @@ public abstract class BaseRecommendFragment2 extends BaseFragment {
         stateLayout = view.findViewById(R.id.state_layout);
         stateLayout.showLoadingView();
 
-        mMZBanner = view.findViewById(R.id.banner);
-        mMZBanner.setDelayedTime(5 * 1000);
-        mMZBanner.setBannerPageClickListener(new MZBannerView.BannerPageClickListener() {
+        banner = view.findViewById(R.id.banner2);
+        banner.setBannerLoader(new AppBannerLoader());
+
+        banner.setOnBannerClickListener(new Banner.OnBannerClickListener() {
             @Override
-            public void onPageClick(View view, int i) {
-                AppDetailFragment.start(bannerItemList.get(i));
+            public void onBannerClick(int position) {
+                AppDetailFragment.start(bannerItemList.get(position));
             }
         });
-        ViewGroup.LayoutParams params = mMZBanner.getLayoutParams();
+
+        ViewGroup.LayoutParams params = banner.getLayoutParams();
         int screenWidth = ScreenUtils.getScreenWidth(context);
 
-//        params.height = (int) ((float) screenWidth * screenWidth / ScreenUtils.getScreenHeight(context));
         params.height = (int) ((float) screenWidth / 2f);
+
+//        mMZBanner = view.findViewById(R.id.banner);
+//        mMZBanner.setDelayedTime(5 * 1000);
+//        mMZBanner.setBannerPageClickListener(new MZBannerView.BannerPageClickListener() {
+//            @Override
+//            public void onPageClick(View view, int i) {
+//                AppDetailFragment.start(bannerItemList.get(i));
+//            }
+//        });
+//        ViewGroup.LayoutParams params = mMZBanner.getLayoutParams();
+//        int screenWidth = ScreenUtils.getScreenWidth(context);
+//
+////        params.height = (int) ((float) screenWidth * screenWidth / ScreenUtils.getScreenHeight(context));
+//        params.height = (int) ((float) screenWidth / 2f);
 
         if (getHeaderLayoutId() > 0) {
             View header = LayoutInflater.from(context).inflate(getHeaderLayoutId(), null, false);
@@ -93,26 +111,41 @@ public abstract class BaseRecommendFragment2 extends BaseFragment {
     @Override
     public void onSupportVisible() {
         super.onSupportVisible();
-        if (mMZBanner != null) {
-            mMZBanner.start();
+        darkStatusBar();
+//        if (mMZBanner != null) {
+//            mMZBanner.start();
+//        }
+        if (banner != null) {
+            banner.startAutoPlay();
         }
     }
 
     @Override
     public void onSupportInvisible() {
         super.onSupportInvisible();
-        if (mMZBanner != null) {
-            mMZBanner.pause();
+//        if (mMZBanner != null) {
+//            mMZBanner.pause();
+//        }
+        if (banner != null) {
+            banner.stopAutoPlay();
         }
     }
 
     @Subscribe
     public void onMainActionPopupEvent(MainActionPopupEvent event) {
-        if (isSupportVisible() && mMZBanner != null) {
+//        if (isSupportVisible() && mMZBanner != null) {
+//            if (event.isShow()) {
+//                mMZBanner.pause();
+//            } else {
+//                mMZBanner.start();
+//            }
+//        }
+
+        if (isSupportVisible() && banner != null) {
             if (event.isShow()) {
-                mMZBanner.pause();
+                banner.stopAutoPlay();
             } else {
-                mMZBanner.start();
+                banner.startAutoPlay();
             }
         }
     }
@@ -120,13 +153,15 @@ public abstract class BaseRecommendFragment2 extends BaseFragment {
     protected void initData(List<AppInfo> list) {
         bannerItemList.clear();
         bannerItemList.addAll(list);
-        mMZBanner.setPages(bannerItemList, new MZHolderCreator<BannerViewHolder>() {
-            @Override
-            public BannerViewHolder createViewHolder() {
-                return new BannerViewHolder();
-            }
-        });
-        mMZBanner.start();
+        banner.loadImagePaths(bannerItemList);
+        banner.startAutoPlay();
+//        mMZBanner.setPages(bannerItemList, new MZHolderCreator<BannerViewHolder>() {
+//            @Override
+//            public BannerViewHolder createViewHolder() {
+//                return new BannerViewHolder();
+//            }
+//        });
+//        mMZBanner.start();
         stateLayout.showContentView();
     }
 

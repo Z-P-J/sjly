@@ -35,6 +35,8 @@ public class HomeFragment extends BaseFragment {
     private TintedImageButton btnSearch;
     private TintedImageButton btnManage;
 
+    private boolean isLightStyle = true;
+
     @Override
     protected int getLayoutId() {
         return R.layout.fragment_home;
@@ -125,11 +127,6 @@ public class HomeFragment extends BaseFragment {
     }
 
     @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-    }
-
-    @Override
     public void onLazyInitView(@Nullable Bundle savedInstanceState) {
         super.onLazyInitView(savedInstanceState);
         ColorChangeEvent.post(true);
@@ -137,12 +134,12 @@ public class HomeFragment extends BaseFragment {
 
     @Override
     public void onSupportVisible() {
-//        darkStatusBar();
-    }
-
-    @Override
-    public void onSupportInvisible() {
-//        super.onSupportInvisible();
+        super.onSupportVisible();
+        if (isLightStyle) {
+            lightStatusBar();
+        } else {
+            darkStatusBar();
+        }
     }
 
     @Override
@@ -155,6 +152,7 @@ public class HomeFragment extends BaseFragment {
 
     @Subscribe
     public void onColorChangeEvent(ColorChangeEvent event) {
+        isLightStyle = event.isDark();
         int color = getResources().getColor(event.isDark() ? R.color.white : R.color.color_text_major);
         btnManage.setTint(color);
         btnSearch.setTint(color);

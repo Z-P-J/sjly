@@ -279,6 +279,13 @@ public class FlowLayout extends RecyclerView implements IEasy.OnBindViewHolderLi
         recyclerView.notifyItemInserted(list.size() - 1);
     }
 
+    public void addItem(int index, String text) {
+        FlowItem flowItem = new FlowItem();
+        flowItem.text = text;
+        list.add(index, flowItem);
+        recyclerView.notifyItemInserted(index);
+    }
+
     public int count() {
         return list.size();
     }

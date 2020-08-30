@@ -208,6 +208,7 @@ public class ProfileFragment extends ListenerFragment
     }
 
     private void getMemberInfo() {
+        darkStatusBar();
         ObservableTask<Document> task = TextUtils.isEmpty(userId)
                 ? HttpApi.getMemberInfoByNameApi(userName) : HttpApi.getMemberInfoByIdApi(userId);
         task.onSuccess(element -> {

@@ -67,6 +67,8 @@ public class MyFragment extends BaseFragment
     private View shadowView;
     private TintedImageView ivAppName;
 
+    private boolean isLightStyle = true;
+
 //    private LoginPopup loginPopup;
 
     @Override
@@ -95,10 +97,12 @@ public class MyFragment extends BaseFragment
                     toolbar.setBackgroundColor(color);
                     toolbar.setLightStyle(alpha <= 0.5);
                     if (alpha > 0.5) {
+                        isLightStyle = false;
                         darkStatusBar();
                         shadowView.setVisibility(View.VISIBLE);
                         ivAppName.setTint(Color.BLACK);
                     } else {
+                        isLightStyle = true;
                         lightStatusBar();
                         shadowView.setVisibility(View.GONE);
                         ivAppName.setTint(Color.WHITE);
@@ -233,7 +237,11 @@ public class MyFragment extends BaseFragment
     @Override
     public void onSupportVisible() {
         super.onSupportVisible();
-        lightStatusBar();
+        if (isLightStyle) {
+            lightStatusBar();
+        } else {
+            darkStatusBar();
+        }
 //        if (loginPopup != null && !loginPopup.isShow()) {
 //            loginPopup.show();
 //        }
@@ -242,7 +250,6 @@ public class MyFragment extends BaseFragment
     @Override
     public void onSupportInvisible() {
         super.onSupportInvisible();
-        darkStatusBar();
 //        if (loginPopup != null && loginPopup.isShow()) {
 //            loginPopup.hide();
 //        }

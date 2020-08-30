@@ -1,6 +1,5 @@
 package com.zpj.shouji.market.ui.fragment.detail;
 
-import android.animation.Animator;
 import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Context;
@@ -218,24 +217,24 @@ public class AppDetailFragment extends BaseFragment
 
     private void initViewPager() {
         ArrayList<Fragment> list = new ArrayList<>();
-        AppInfoFragment infoFragment = findChildFragment(AppInfoFragment.class);
+        AppDetailInfoFragment infoFragment = findChildFragment(AppDetailInfoFragment.class);
         if (infoFragment == null) {
-            infoFragment = new AppInfoFragment();
+            infoFragment = new AppDetailInfoFragment();
         }
 
-        AppCommentFragment commentFragment = findChildFragment(AppCommentFragment.class);
+        AppDetailCommentFragment commentFragment = findChildFragment(AppDetailCommentFragment.class);
         if (commentFragment == null) {
-            commentFragment = AppCommentFragment.newInstance(id, type);
+            commentFragment = AppDetailCommentFragment.newInstance(id, type);
         }
 
-        AppThemeFragment exploreFragment = findChildFragment(AppThemeFragment.class);
+        AppDetailThemeFragment exploreFragment = findChildFragment(AppDetailThemeFragment.class);
         if (exploreFragment == null) {
-            exploreFragment = AppThemeFragment.newInstance(id, type);
+            exploreFragment = AppDetailThemeFragment.newInstance(id, type);
         }
 
-        AppRecommendFragment recommendFragment = findChildFragment(AppRecommendFragment.class);
+        AppDetailRecommendFragment recommendFragment = findChildFragment(AppDetailRecommendFragment.class);
         if (recommendFragment == null) {
-            recommendFragment = AppRecommendFragment.newInstance(id);
+            recommendFragment = AppDetailRecommendFragment.newInstance(id);
         }
         list.add(infoFragment);
         list.add(commentFragment);
@@ -302,26 +301,29 @@ public class AppDetailFragment extends BaseFragment
     }
 
     private void getAppInfo() {
+        darkStatusBar();
         HttpApi.appInfoApi(type, id)
                 .onSuccess(data -> {
-                    Log.d("getAppInfo", "data=" + data);
-                    if ("NoApp".equals(data.selectFirst("errorcode").text())) {
-                        AToast.warning("应用不存在");
-                        pop();
-                        return;
-                    }
-                    info = AppDetailInfo.create(data);
-                    Log.d("getAppInfo", "info=" + info);
-                    appDetailLayout.loadInfo(info);
-                    int color = Color.WHITE;
-                    toolbar.setLightStyle(true);
-                    btnMenu.setTint(color);
-                    btnCollect.setTint(color);
-                    btnShare.setTint(color);
-                    for (String img : info.getImgUrlList()) {
-                        Glide.with(context).load(img).preload();
-                    }
                     postOnEnterAnimationEnd(() -> {
+                        Log.d("getAppInfo", "data=" + data);
+                        if ("NoApp".equals(data.selectFirst("errorcode").text())) {
+                            AToast.warning("应用不存在");
+                            pop();
+                            return;
+                        }
+                        info = AppDetailInfo.create(data);
+                        Log.d("getAppInfo", "info=" + info);
+                        appDetailLayout.loadInfo(info);
+                        int color = Color.WHITE;
+                        toolbar.setLightStyle(true);
+                        btnMenu.setTint(color);
+                        btnCollect.setTint(color);
+                        btnShare.setTint(color);
+                        for (String img : info.getImgUrlList()) {
+                            Glide.with(context).load(img).preload();
+                        }
+
+
                         initViewPager();
                         postDelayed(() -> EventBus.getDefault().post(info), 50);
                         lightStatusBar();
@@ -348,7 +350,6 @@ public class AppDetailFragment extends BaseFragment
                     .addItems("下载管理", "复制包名", "浏览器中打开")
                     .addItemIf(UserManager.getInstance().isLogin(), "添加到应用集")
                     .setOnSelectListener((position, title) -> {
-                        AToast.normal(title);
                         switch (position) {
                             case 0:
                                 AppManagerFragment.start();
@@ -360,10 +361,10 @@ public class AppDetailFragment extends BaseFragment
                                 break;
                             case 2:
                                 WebFragment.appPage(type, id);
-                                AToast.normal("TODO 分享主页");
+//                                AToast.normal("TODO 分享主页");
                                 break;
                             case 3:
-
+                                AToast.normal("TODO " + title);
                                 break;
                             case 4:
                                 break;

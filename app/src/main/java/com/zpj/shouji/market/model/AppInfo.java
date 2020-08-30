@@ -4,12 +4,13 @@ import android.os.Parcel;
 import android.os.Parcelable;
 import android.support.annotation.Keep;
 
+import com.geek.banner.loader.BannerEntry;
 import com.zpj.http.parser.html.nodes.Element;
 import com.zpj.shouji.market.utils.BeanUtils;
 import com.zpj.shouji.market.utils.BeanUtils.Select;
 
 @Keep
-public class AppInfo implements Parcelable {
+public class AppInfo implements Parcelable, BannerEntry<AppInfo> {
 
     @Select(selector = "icon")
     private String appIcon;
@@ -204,5 +205,15 @@ public class AppInfo implements Parcelable {
         dest.writeString(appSize);
         dest.writeString(appInfo);
         dest.writeString(appComment);
+    }
+
+    @Override
+    public AppInfo getBannerPath() {
+        return this;
+    }
+
+    @Override
+    public String getIndicatorText() {
+        return getAppTitle();
     }
 }

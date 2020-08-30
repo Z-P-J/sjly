@@ -1,0 +1,37 @@
+package com.zpj.shouji.market.ui.widget.recommend;
+
+import android.content.Context;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.widget.ImageView;
+import android.widget.TextView;
+
+import com.bumptech.glide.Glide;
+import com.geek.banner.loader.BannerEntry;
+import com.geek.banner.loader.BannerLoader;
+import com.zpj.shouji.market.R;
+import com.zpj.shouji.market.model.AppInfo;
+
+public class AppBannerLoader implements BannerLoader<AppInfo, View> {
+
+    @Override
+    public void loadView(Context context, BannerEntry entry, int position, View itemView) {
+        ImageView mImageView = itemView.findViewById(R.id.img_view);
+        ImageView ivIcon = itemView.findViewById(R.id.iv_icon);
+        TextView tvTitle = itemView.findViewById(R.id.tv_title);
+        TextView tvInfo = itemView.findViewById(R.id.tv_info);
+
+
+        AppInfo appInfo = (AppInfo) entry.getBannerPath();
+        Glide.with(context).load(appInfo.getAppIcon()).into(mImageView);
+        Glide.with(context).load(appInfo.getAppIcon()).into(ivIcon);
+        tvTitle.setText(appInfo.getAppTitle());
+        tvInfo.setText(appInfo.getAppSize());
+    }
+
+    @Override
+    public View createView(Context context, int position) {
+        return LayoutInflater.from(context).inflate(R.layout.item_banner_recommend, null, false);
+    }
+
+}

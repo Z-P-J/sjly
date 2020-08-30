@@ -107,4 +107,5 @@ public class SoftRecommendFragment2 extends BaseRecommendFragment2 implements Vi
                 break;
         }
     }
+
 }

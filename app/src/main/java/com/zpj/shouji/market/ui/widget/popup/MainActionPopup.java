@@ -94,7 +94,7 @@ public class MainActionPopup extends FullScreenPopup<MainActionPopup> implements
                         emitter -> {
                             Bitmap bitmap = Blurred.with(activity.findViewById(R.id.main_content))
                                     .backgroundColor(Color.WHITE)
-                                    .foregroundColor(Color.parseColor("#80ffffff"))
+                                    .foregroundColor(Color.parseColor("#aaffffff"))
                                     .scale(0.5f)
                                     .radius(25)
                                     .blur();

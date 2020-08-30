@@ -175,47 +175,43 @@ public class CollectionDetailFragment extends BaseFragment
 
     }
 
-    @Override
-    public void onEnterAnimationEnd(Bundle savedInstanceState) {
-        super.onEnterAnimationEnd(savedInstanceState);
-        lightStatusBar();
-    }
-
     private void setAppCollectionItem(CollectionInfo item) {
         this.item = item;
     }
 
     private void getCollectionInfo() {
+        darkStatusBar();
         Log.d("getCollectionInfo", "start id=" + item.getId());
         HttpApi.get("http://tt.shouji.com.cn/androidv3/yyj_info_xml.jsp?reviewid=" + item.getId())
                 .onSuccess(doc -> {
-                    Log.d("getCollectionInfo", "doc=" + doc.toString());
+                    postOnEnterAnimationEnd(() -> {
+                        Log.d("getCollectionInfo", "doc=" + doc.toString());
 //                collectionInfo.collectionId = doc.selectFirst("yyjid").text();
-                    isFav = "1".equals(doc.selectFirst("isfav").text());
-                    isLike = "1".equals(doc.selectFirst("islike").text());
-                    backgroundUrl = doc.selectFirst("memberBackGround").text();
-                    time = doc.selectFirst("time").text();
-                    tvTime.setText(time);
-                    userAvatarUrl = doc.selectFirst("memberAvatar").text();
-                    tvFavorite.setText(doc.selectFirst("favcount").text());
-                    tvSupport.setText(doc.selectFirst("supportcount").text());
-                    tvDownload.setText(doc.selectFirst("size").text());
+                        isFav = "1".equals(doc.selectFirst("isfav").text());
+                        isLike = "1".equals(doc.selectFirst("islike").text());
+                        backgroundUrl = doc.selectFirst("memberBackGround").text();
+                        time = doc.selectFirst("time").text();
+                        tvTime.setText(time);
+                        userAvatarUrl = doc.selectFirst("memberAvatar").text();
+                        tvFavorite.setText(doc.selectFirst("favcount").text());
+                        tvSupport.setText(doc.selectFirst("supportcount").text());
+                        tvDownload.setText(doc.selectFirst("size").text());
 //                    boolean isFav = "1".equals(doc.selectFirst("isfav").text());
 //                    boolean isLike = "1".equals(doc.selectFirst("islike").text());
-                    if (isFav) {
-                        tvFavorite.setDrawableTintColor(Color.RED);
-                        tvFavorite.setTag(true);
-                    }
-                    if (isLike) {
-                        tvSupport.setDrawableTintColor(Color.RED);
-                        tvSupport.setTag(true);
-                    }
-                    tvView.setText(doc.selectFirst("viewcount").text());
-                    RequestOptions options = new RequestOptions().centerCrop().error(R.mipmap.ic_launcher).placeholder(R.mipmap.ic_launcher);
+                        if (isFav) {
+                            tvFavorite.setDrawableTintColor(Color.RED);
+                            tvFavorite.setTag(true);
+                        }
+                        if (isLike) {
+                            tvSupport.setDrawableTintColor(Color.RED);
+                            tvSupport.setTag(true);
+                        }
+                        tvView.setText(doc.selectFirst("viewcount").text());
+                        RequestOptions options = new RequestOptions().centerCrop().error(R.mipmap.ic_launcher).placeholder(R.mipmap.ic_launcher);
 //                    Glide.with(context).load(backgroundUrl).apply(options).into(ivIcon);
-                    Glide.with(context).load(userAvatarUrl).apply(options).into(ivAvatar);
-                    Glide.with(context).load(backgroundUrl).apply(options).into(ivIcon);
-                    Glide.with(context).load(backgroundUrl).apply(options).into(ivToolbarAvater);
+                        Glide.with(context).load(userAvatarUrl).apply(options).into(ivAvatar);
+                        Glide.with(context).load(backgroundUrl).apply(options).into(ivIcon);
+                        Glide.with(context).load(backgroundUrl).apply(options).into(ivToolbarAvater);
 //                    Glide.with(context).asBitmap().load(backgroundUrl).apply(options).into(new SimpleTarget<Bitmap>() {
 //                        @Override
 //                        public void onResourceReady(@NonNull Bitmap resource, @Nullable Transition<? super Bitmap> transition) {
@@ -244,34 +240,33 @@ public class CollectionDetailFragment extends BaseFragment
 //                            .apply(RequestOptions.bitmapTransform(new BlurTransformation2(0.2f, 0.3f)))
 //                            .into(ivHeader);
 
-                    Glide.with(context)
-                            .asDrawable()
-                            .load(backgroundUrl)
-                            .apply(
-                                    RequestOptions
-                                            .bitmapTransform(new BlurTransformation(25, 4))
-                                            .error(R.drawable.bg_member_default)
-                                            .placeholder(R.drawable.bg_member_default)
-                            )
-                            .into(new SimpleTarget<Drawable>() {
-                                @Override
-                                public void onResourceReady(@NonNull Drawable resource, @Nullable Transition<? super Drawable> transition) {
-                                    toolbarLayout.setBackground(resource);
-                                }
-                            });
+                        Glide.with(context)
+                                .asDrawable()
+                                .load(backgroundUrl)
+                                .apply(
+                                        RequestOptions
+                                                .bitmapTransform(new BlurTransformation(25, 4))
+                                                .error(R.drawable.bg_member_default)
+                                                .placeholder(R.drawable.bg_member_default)
+                                )
+                                .into(new SimpleTarget<Drawable>() {
+                                    @Override
+                                    public void onResourceReady(@NonNull Drawable resource, @Nullable Transition<? super Drawable> transition) {
+                                        toolbarLayout.setBackground(resource);
+                                    }
+                                });
 
-                    ArrayList<Fragment> list = new ArrayList<>();
-                    CollectionAppListFragment appListFragment = findChildFragment(CollectionAppListFragment.class);
-                    if (appListFragment == null) {
-                        appListFragment = CollectionAppListFragment.newInstance(item.getId());
-                    }
-                    CollectionCommentFragment commentFragment = findChildFragment(CollectionCommentFragment.class);
-                    if (commentFragment == null) {
-                        commentFragment = CollectionCommentFragment.newInstance(item.getId());
-                    }
-                    list.add(appListFragment);
-                    list.add(commentFragment);
-                    postOnEnterAnimationEnd(() -> {
+                        ArrayList<Fragment> list = new ArrayList<>();
+                        CollectionAppListFragment appListFragment = findChildFragment(CollectionAppListFragment.class);
+                        if (appListFragment == null) {
+                            appListFragment = CollectionAppListFragment.newInstance(item.getId());
+                        }
+                        CollectionCommentFragment commentFragment = findChildFragment(CollectionCommentFragment.class);
+                        if (commentFragment == null) {
+                            commentFragment = CollectionCommentFragment.newInstance(item.getId());
+                        }
+                        list.add(appListFragment);
+                        list.add(commentFragment);
 
 
                         FragmentsPagerAdapter adapter = new FragmentsPagerAdapter(getChildFragmentManager(), list, TAB_TITLES);
@@ -281,6 +276,7 @@ public class CollectionDetailFragment extends BaseFragment
                         MagicIndicatorHelper.bindViewPager(context, magicIndicator, viewPager, TAB_TITLES, true);
 
                         stateLayout.showContentView();
+                        lightStatusBar();
                     });
                 })
                 .onError(throwable -> stateLayout.showErrorView(throwable.getMessage()))

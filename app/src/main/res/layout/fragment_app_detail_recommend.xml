@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.zpj.widget.statelayout.StateLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/state_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    >
+
+    <android.support.v4.widget.NestedScrollView
+        android:id="@+id/scroll_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scrollbars="none"
+        android:overScrollMode="never"
+        >
+
+        <LinearLayout
+            android:id="@+id/ll_container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:orientation="vertical">
+
+            <com.zpj.shouji.market.ui.widget.recommend.SimilarCollectionCard
+                android:id="@+id/card_similar_collection"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                />
+
+            <com.zpj.shouji.market.ui.widget.recommend.SimilarAppCard
+                android:id="@+id/card_similar_app"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                />
+
+        </LinearLayout>
+
+    </android.support.v4.widget.NestedScrollView>
+
+</com.zpj.widget.statelayout.StateLayout>
