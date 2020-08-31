@@ -328,8 +328,9 @@
 
             <LinearLayout
                 android:id="@+id/ll_action_contaienr"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_gravity="end"
                 >
 
                 <com.sunbinqiang.iconcountview.IconCountView
@@ -347,21 +348,21 @@
                     app:normalRes="@drawable/good"
                     app:selectedRes="@drawable/good_checked"/>
 
-                <com.sunbinqiang.iconcountview.IconCountView
-                    android:id="@+id/like_view"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:gravity="center"
-                    app:count="1"
-                    app:checked="false"
-                    app:zeroText="收藏"
-                    app:textNormalColor="#8a8a8a"
-                    app:textSelectedColor="#d4237a"
-                    app:textSize="12sp"
-                    app:normalRes="@drawable/collection"
-                    app:selectedRes="@drawable/collection_checked"
-                    />
+<!--                <com.sunbinqiang.iconcountview.IconCountView-->
+<!--                    android:id="@+id/like_view"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="match_parent"-->
+<!--                    android:layout_weight="1"-->
+<!--                    android:gravity="center"-->
+<!--                    app:count="1"-->
+<!--                    app:checked="false"-->
+<!--                    app:zeroText="收藏"-->
+<!--                    app:textNormalColor="#8a8a8a"-->
+<!--                    app:textSelectedColor="#d4237a"-->
+<!--                    app:textSize="12sp"-->
+<!--                    app:normalRes="@drawable/collection"-->
+<!--                    app:selectedRes="@drawable/collection_checked"-->
+<!--                    />-->
 
                 <com.sunbinqiang.iconcountview.IconCountView
                     android:id="@+id/comment_view"

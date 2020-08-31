@@ -14,7 +14,7 @@
         <item name="android:windowTranslucentStatus">true</item>
     </style>
 
-    <style name="SplashTheme" parent="Theme.AppCompat.Light.NoActionBar">
+    <style name="SplashTheme" parent="AppTheme">
         <!--不设置activity进入和退出动画样式-->
         <item name="android:windowAnimationStyle">@null</item>
         <!--设置窗口的背景为透明，设置透明背景必须要设置此项-->
@@ -67,8 +67,8 @@
 
     <style name="button_submit">
         <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">48dp</item>
-        <item name="android:textSize">16sp</item>
+        <item name="android:layout_height">42dp</item>
+        <item name="android:textSize">14sp</item>
         <item name="android:textColor">@color/white</item>
         <item name="android:gravity">center</item>
         <item name="android:background">@drawable/bg_press_color_main_radius_max</item>

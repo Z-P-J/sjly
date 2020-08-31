@@ -13,7 +13,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <com.zpj.shouji.market.ui.widget.ElasticScrollView
+        <com.zpj.shouji.market.ui.widget.SmartNestedScrollView
             android:id="@+id/scroll_view"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -64,7 +64,7 @@
 
             </LinearLayout>
 
-        </com.zpj.shouji.market.ui.widget.ElasticScrollView>
+        </com.zpj.shouji.market.ui.widget.SmartNestedScrollView>
 
 <!--        <View style="@style/layout_shadow_bottom"/>-->
 

@@ -55,7 +55,7 @@ public class LoginFragment extends BaseFragment { // UserManager.OnSignInListene
     }
 
     public static void start() {
-        StartFragmentEvent.start(new LoginFragment());
+        StartFragmentEvent.start(new LoginFragment3());
     }
 
     @Override

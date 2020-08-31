@@ -38,6 +38,8 @@ public class FlowLayout extends RecyclerView implements IEasy.OnBindViewHolderLi
 
     private final Set<Integer> selectedList = new HashSet<>();
 
+    private final List<Integer> colorList = new ArrayList<>();
+
 //    private int selectedPosition = -1;
     private boolean selectMode;
     private boolean multiSelectMode;
@@ -109,7 +111,7 @@ public class FlowLayout extends RecyclerView implements IEasy.OnBindViewHolderLi
 //            color = Color.rgb(new Random().nextInt(255),
 //                    new Random().nextInt(255),
 //                    new Random().nextInt(255));
-            color = getRandomColor();
+            color = getRandomColor(position);
             drawable = new GradientDrawable();
             drawable.setCornerRadius(100);
             drawable.setColor(color);
@@ -170,15 +172,19 @@ public class FlowLayout extends RecyclerView implements IEasy.OnBindViewHolderLi
         tvText.setText(spannableString);
     }
 
-    private int getRandomColor() {
+    private int getRandomColor(int position) {
+        if (colorList.size() > position) {
+            return colorList.get(position);
+        }
         int color = Color.rgb(new Random().nextInt(255),
                 new Random().nextInt(255),
                 new Random().nextInt(255));
-        boolean isDark = ColorUtils.calculateLuminance(color) <= 0.6;
+        boolean isDark = ColorUtils.calculateLuminance(color) <= 0.7;
         if (isDark) {
+            colorList.add(color);
             return color;
         } else {
-            return getRandomColor();
+            return getRandomColor(position);
         }
     }
 
@@ -292,6 +298,7 @@ public class FlowLayout extends RecyclerView implements IEasy.OnBindViewHolderLi
 
     public void clear() {
         list.clear();
+        recyclerView.notifyDataSetChanged();
     }
 
     public void remove(int index) {

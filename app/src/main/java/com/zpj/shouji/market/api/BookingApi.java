@@ -1,17 +1,57 @@
 package com.zpj.shouji.market.api;
 
 import com.felix.atoast.library.AToast;
+import com.zpj.http.parser.html.nodes.Element;
+import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.event.HideLoadingEvent;
 import com.zpj.shouji.market.event.ShowLoadingEvent;
+import com.zpj.shouji.market.manager.UserManager;
 import com.zpj.shouji.market.model.BookingAppInfo;
+import com.zpj.shouji.market.ui.fragment.login.LoginFragment3;
+import com.zpj.shouji.market.utils.BeanUtils;
+import com.zpj.shouji.market.utils.Callback;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class BookingApi {
+
+    public static final String LATEST_BOOKING_URL = "http://tt.shouji.com.cn/app/app_game_yuyue_list.jsp?sort=date&sdk=100";
+    public static final String HOT_BOOKING_URL = "http://tt.shouji.com.cn/app/app_game_yuyue_list.jsp?sort=date&sdk=100";
 
     private BookingApi() {
 
     }
+    public static void latestBookingApi(Callback<List<BookingAppInfo>> callback) {
+        HttpApi.get(LATEST_BOOKING_URL)
+                .onSuccess(doc -> {
+                    List<BookingAppInfo> list = new ArrayList<>();
+                    for (Element element : doc.select("item")) {
+                        BookingAppInfo item = BeanUtils.createBean(element, BookingAppInfo.class);
+                        if (item == null) {
+                            continue;
+                        }
+                        list.add(item);
+                    }
+                    if (callback != null) {
+                        callback.onCallback(list);
+                    }
+                })
+                .onError(throwable -> {
+                    if (callback != null) {
+                        callback.onCallback(new ArrayList<>());
+                    }
+                })
+                .subscribe();
+    }
+
 
     public static void bookingApi(BookingAppInfo appInfo, Runnable successRunnable) {
+        if (!UserManager.getInstance().isLogin()) {
+            AToast.warning(R.string.text_msg_not_login);
+            LoginFragment3.start();
+            return;
+        }
         ShowLoadingEvent.post("预约中...");
         HttpApi.get("http://tt.shouji.com.cn/appv3/app_game_yuyue.jsp?id=" + appInfo.getAppId())
                 .onSuccess(data -> {

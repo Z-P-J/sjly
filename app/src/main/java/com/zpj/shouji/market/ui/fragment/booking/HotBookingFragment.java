@@ -5,15 +5,15 @@ import android.support.annotation.Nullable;
 import android.view.View;
 
 import com.zpj.shouji.market.R;
+import com.zpj.shouji.market.api.BookingApi;
 import com.zpj.shouji.market.constant.Keys;
 import com.zpj.shouji.market.event.StartFragmentEvent;
 
 public class HotBookingFragment extends BookingAppListFragment {
 
     public static void start() {
-        String url = "http://tt.shouji.com.cn/app/app_game_yuyue_list.jsp?sort=count&sdk=100";
         Bundle args = new Bundle();
-        args.putString(Keys.DEFAULT_URL, url);
+        args.putString(Keys.DEFAULT_URL, BookingApi.HOT_BOOKING_URL);
         HotBookingFragment fragment = new HotBookingFragment();
         fragment.setArguments(args);
         StartFragmentEvent.start(fragment);

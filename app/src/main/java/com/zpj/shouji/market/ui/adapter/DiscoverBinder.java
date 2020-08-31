@@ -2,13 +2,7 @@ package com.zpj.shouji.market.ui.adapter;
 
 import android.content.Context;
 import android.graphics.drawable.Drawable;
-import android.support.annotation.NonNull;
-import android.text.SpannableString;
-import android.text.Spanned;
-import android.text.TextPaint;
 import android.text.TextUtils;
-import android.text.style.ClickableSpan;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
@@ -27,19 +21,18 @@ import com.lwkandroid.widget.ninegridview.NineGirdImageContainer;
 import com.lwkandroid.widget.ninegridview.NineGridBean;
 import com.lwkandroid.widget.ninegridview.NineGridView;
 import com.sunbinqiang.iconcountview.IconCountView;
-import com.zpj.popup.ZPopup;
 import com.zpj.recyclerview.EasyViewHolder;
 import com.zpj.recyclerview.IEasy;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.api.HttpApi;
-import com.zpj.shouji.market.glide.GlideApp;
 import com.zpj.shouji.market.glide.blur.CropBlurTransformation;
+import com.zpj.shouji.market.manager.UserManager;
 import com.zpj.shouji.market.model.DiscoverInfo;
 import com.zpj.shouji.market.model.SupportUserInfo;
 import com.zpj.shouji.market.ui.fragment.WebFragment;
 import com.zpj.shouji.market.ui.fragment.detail.AppDetailFragment;
+import com.zpj.shouji.market.ui.fragment.login.LoginFragment3;
 import com.zpj.shouji.market.ui.fragment.profile.ProfileFragment;
-import com.zpj.shouji.market.ui.fragment.theme.ThemeDetailFragment;
 import com.zpj.shouji.market.ui.fragment.theme.TopicThemeListFragment;
 import com.zpj.shouji.market.ui.widget.CombineImageView;
 import com.zpj.shouji.market.ui.widget.DrawableTintTextView;
@@ -306,6 +299,12 @@ public class DiscoverBinder
         supportView.setOnStateChangedListener(new IconCountView.OnSelectedStateChangedListener() {
             @Override
             public void select(boolean isSelected) {
+                if (!UserManager.getInstance().isLogin()) {
+                    supportView.setState(!isSelected);
+                    AToast.warning(R.string.text_msg_not_login);
+                    LoginFragment3.start();
+                    return;
+                }
 
                 HttpApi.likeApi(discoverInfo.getContentType(), discoverInfo.getId())
                         .onSuccess(data -> {
@@ -328,8 +327,8 @@ public class DiscoverBinder
         });
         supportView.setState(discoverInfo.isLike());
 
-        IconCountView starView = holder.getView(R.id.like_view);
-        starView.setCount(0);
+//        IconCountView starView = holder.getView(R.id.like_view);
+//        starView.setCount(0);
 
 //        holder.setOnClickListener(R.id.comment_view, new View.OnClickListener() {
 //            @Override

@@ -52,6 +52,12 @@ public class MyPrivateLetterFragment extends NextUrlFragment<PrivateLetterInfo> 
     }
 
     @Override
+    public void onEnterAnimationEnd(Bundle savedInstanceState) {
+        super.onEnterAnimationEnd(savedInstanceState);
+        darkStatusBar();
+    }
+
+    @Override
     public void onDestroy() {
         HttpApi.updateFlagApi(UpdateFlagAction.PRIVATE);
         super.onDestroy();

@@ -75,19 +75,37 @@ public class SoftRecommendFragment2 extends BaseRecommendFragment2 implements Vi
                     stateLayout.showContentView();
                 })
                 .subscribe();
-        postDelayed(() -> {
-            // TODO 排行
-            addCard(new SoftUpdateRecommendCard(context));
-            addCard(new CollectionRecommendCard(context));
-            SoftRecommendCard softRecommendCard = new SoftRecommendCard(context);
-            softRecommendCard.setTitle("常用应用");
-            addCard(softRecommendCard);
-            for (int i = 0; i < TITLES.length; i++) {
-                TutorialRecommendCard card = new TutorialRecommendCard(context, "soft", i + 1);
-                card.setTitle(TITLES[i]);
-                addCard(card);
-            }
-        }, 500);
+
+        recommendCardList.add(0, new SoftUpdateRecommendCard(context));
+        recommendCardList.add(0, new CollectionRecommendCard(context));
+
+        SoftRecommendCard softRecommendCard = new SoftRecommendCard(context);
+        softRecommendCard.setTitle("常用应用");
+        recommendCardList.add(0, softRecommendCard);
+
+
+        for (int i = 0; i < TITLES.length; i++) {
+            TutorialRecommendCard card = new TutorialRecommendCard(context, "soft", i + 1);
+            card.setTitle(TITLES[i]);
+            recommendCardList.add(0, card);
+        }
+
+        onScrolledToBottom();
+
+
+//        postDelayed(() -> {
+//            // TODO 排行
+//            addCard(new SoftUpdateRecommendCard(context));
+//            addCard(new CollectionRecommendCard(context));
+//            SoftRecommendCard softRecommendCard = new SoftRecommendCard(context);
+//            softRecommendCard.setTitle("常用应用");
+//            addCard(softRecommendCard);
+//            for (int i = 0; i < TITLES.length; i++) {
+//                TutorialRecommendCard card = new TutorialRecommendCard(context, "soft", i + 1);
+//                card.setTitle(TITLES[i]);
+//                addCard(card);
+//            }
+//        }, 500);
     }
 
     @Override
@@ -108,4 +126,13 @@ public class SoftRecommendFragment2 extends BaseRecommendFragment2 implements Vi
         }
     }
 
+//    @Override
+//    public void onScrolledToBottom() {
+//
+//    }
+//
+//    @Override
+//    public void onScrolledToTop() {
+//
+//    }
 }

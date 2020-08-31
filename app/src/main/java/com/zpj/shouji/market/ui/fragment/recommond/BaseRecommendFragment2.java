@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.geek.banner.Banner;
 import com.zhouwei.mzbanner.MZBannerView;
@@ -18,6 +19,7 @@ import com.zpj.shouji.market.model.AppInfo;
 import com.zpj.shouji.market.ui.fragment.detail.AppDetailFragment;
 import com.zpj.shouji.market.ui.fragment.manager.AppManagerFragment;
 import com.zpj.shouji.market.ui.fragment.search.SearchFragment;
+import com.zpj.shouji.market.ui.widget.SmartNestedScrollView;
 import com.zpj.shouji.market.ui.widget.recommend.AppBannerLoader;
 import com.zpj.shouji.market.ui.widget.recommend.BannerViewHolder;
 import com.zpj.shouji.market.ui.widget.recommend.RecommendCard;
@@ -30,18 +32,24 @@ import org.greenrobot.eventbus.Subscribe;
 import java.util.ArrayList;
 import java.util.List;
 
-public abstract class BaseRecommendFragment2 extends BaseFragment {
+public abstract class BaseRecommendFragment2 extends BaseFragment
+        implements SmartNestedScrollView.ISmartScrollChangedListener {
 
     private static final String TAG = "BaseRecommendFragment2";
+
+    protected final List<RecommendCard> recommendCardList = new ArrayList<>();
 
     private final List<AppInfo> bannerItemList = new ArrayList<>();
 
     protected StateLayout stateLayout;
+    protected SmartNestedScrollView scrollView;
+
+    protected View loadingFooter;
 
 //    protected MZBannerView<AppInfo> mMZBanner;
     protected Banner banner;
 
-    private LinearLayout llContainer;
+    protected LinearLayout llContainer;
 
     @Override
     protected int getLayoutId() {
@@ -54,6 +62,11 @@ public abstract class BaseRecommendFragment2 extends BaseFragment {
 
         stateLayout = view.findViewById(R.id.state_layout);
         stateLayout.showLoadingView();
+
+        scrollView = findViewById(R.id.scroll_view);
+        scrollView.setScanScrollChangedListener(this);
+
+        loadingFooter = LayoutInflater.from(context).inflate(R.layout.easy_base_footer, null, false);
 
         banner = view.findViewById(R.id.banner2);
         banner.setBannerLoader(new AppBannerLoader());
@@ -69,20 +82,6 @@ public abstract class BaseRecommendFragment2 extends BaseFragment {
         int screenWidth = ScreenUtils.getScreenWidth(context);
 
         params.height = (int) ((float) screenWidth / 2f);
-
-//        mMZBanner = view.findViewById(R.id.banner);
-//        mMZBanner.setDelayedTime(5 * 1000);
-//        mMZBanner.setBannerPageClickListener(new MZBannerView.BannerPageClickListener() {
-//            @Override
-//            public void onPageClick(View view, int i) {
-//                AppDetailFragment.start(bannerItemList.get(i));
-//            }
-//        });
-//        ViewGroup.LayoutParams params = mMZBanner.getLayoutParams();
-//        int screenWidth = ScreenUtils.getScreenWidth(context);
-//
-////        params.height = (int) ((float) screenWidth * screenWidth / ScreenUtils.getScreenHeight(context));
-//        params.height = (int) ((float) screenWidth / 2f);
 
         if (getHeaderLayoutId() > 0) {
             View header = LayoutInflater.from(context).inflate(getHeaderLayoutId(), null, false);
@@ -131,6 +130,27 @@ public abstract class BaseRecommendFragment2 extends BaseFragment {
         }
     }
 
+    @Override
+    public void onScrolledToBottom() {
+        if (recommendCardList.size() >= 2) {
+            RecommendCard recommendCard = recommendCardList.remove(recommendCardList.size() - 1);
+            RecommendCard recommendCard2 = recommendCardList.remove(recommendCardList.size() - 1);
+            recommendCard2.loadData(null);
+            recommendCard.loadData(() -> {
+                addCard(recommendCard, false);
+                addCard(recommendCard2, recommendCardList.isEmpty());
+            });
+        } else if (recommendCardList.size() == 1) {
+            RecommendCard recommendCard = recommendCardList.remove(0);
+            recommendCard.loadData(() -> addCard(recommendCard, true));
+        }
+    }
+
+    @Override
+    public void onScrolledToTop() {
+
+    }
+
     @Subscribe
     public void onMainActionPopupEvent(MainActionPopupEvent event) {
 //        if (isSupportVisible() && mMZBanner != null) {
@@ -168,7 +188,27 @@ public abstract class BaseRecommendFragment2 extends BaseFragment {
     protected abstract int getHeaderLayoutId();
 
     protected void addCard(RecommendCard recommendCard) {
+        llContainer.removeView(loadingFooter);
         llContainer.addView(recommendCard);
+
+//        loadingFooter.findViewById(R.id.ll_container_progress).setVisibility(View.GONE);
+//        TextView tvMsg = loadingFooter.findViewById(R.id.tv_msg);
+//        tvMsg.setVisibility(View.VISIBLE);
+
+        llContainer.addView(loadingFooter);
+    }
+
+    protected void addCard(RecommendCard recommendCard, boolean hasNoMore) {
+        llContainer.removeView(loadingFooter);
+        llContainer.addView(recommendCard);
+
+        if (hasNoMore) {
+            loadingFooter.findViewById(R.id.ll_container_progress).setVisibility(View.GONE);
+            TextView tvMsg = loadingFooter.findViewById(R.id.tv_msg);
+            tvMsg.setVisibility(View.VISIBLE);
+        }
+
+        llContainer.addView(loadingFooter);
     }
 
 }

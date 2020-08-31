@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    >
+
+    <com.zpj.shouji.market.ui.widget.input.AccountInputView2
+        android:id="@+id/piv_login_account"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginEnd="32dp"/>
+
+    <com.zpj.shouji.market.ui.widget.input.PasswordInputView2
+        android:id="@+id/piv_login_password"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginEnd="32dp" />
+
+    <com.zpj.shouji.market.ui.widget.input.SubmitView
+        android:id="@+id/sv_login"
+        style="@style/button_submit"
+        android:layout_marginTop="16dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginEnd="32dp"
+        android:text="登录"
+        app:sv_bindEditText1="@+id/piv_login_account"
+        app:sv_bindEditText2="@+id/piv_login_password" />
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginHorizontal="32dp"
+        android:layout_marginVertical="16dp"
+        >
+
+        <TextView
+            android:id="@+id/tv_regist"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="注册新用户"
+            android:textColor="#b0b8b2" />
+
+        <TextView
+            android:id="@+id/tv_forget_password"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="忘记密码"
+            android:textColor="#b0b8b2"
+            android:layout_gravity="end"
+            />
+    </FrameLayout>
+
+
+</LinearLayout>
+

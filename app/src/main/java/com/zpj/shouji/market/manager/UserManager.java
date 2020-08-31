@@ -9,6 +9,7 @@ import com.felix.atoast.library.AToast;
 import com.zpj.http.ZHttp;
 import com.zpj.http.core.Connection;
 import com.zpj.http.core.IHttp;
+import com.zpj.http.core.ObservableTask;
 import com.zpj.http.parser.html.nodes.Document;
 import com.zpj.popup.ZPopup;
 import com.zpj.shouji.market.event.SignInEvent;
@@ -28,6 +29,11 @@ import java.security.MessageDigest;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+
+import io.reactivex.ObservableEmitter;
+import io.reactivex.ObservableOnSubscribe;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.schedulers.Schedulers;
 
 public final class UserManager {
 
@@ -52,6 +58,41 @@ public final class UserManager {
     }
 
     public void init() {
+//        new ObservableTask<MemberInfo>(
+//                emitter -> {
+//                    String info = getUserInfo();
+//                    if (!TextUtils.isEmpty(info)) {
+//                        Document doc = ZHttp.parse(info);
+//                        if ("登录成功".equals(doc.selectFirst("info").text())
+//                                && !TextUtils.isEmpty(doc.selectFirst("jsession").text())) {
+////                        memberInfo = MemberInfo.from(doc);
+//                            emitter.onNext(MemberInfo.from(doc));
+////                                signIn();
+//                        }
+//                    }
+//                    emitter.onComplete();
+//                })
+//                .onNext(new ObservableTask.OnNextListener<MemberInfo, Document>() {
+//
+//                    @Override
+//                    public ObservableTask<Document> onNext(MemberInfo data) throws Exception {
+//                        memberInfo = data;
+//                        Log.d("UserManager", "memberInfo=" + memberInfo);
+//                        String sessionId = getSessionId();
+//                        Log.d(getClass().getName(), "jsessionid=" + sessionId);
+//                        return HttpApi.openConnection("http://tt.shouji.com.cn/app/xml_login_v4.jsp", Connection.Method.POST)
+//                                .data("jsessionid", sessionId)
+//                                .data("s", "12345678910")
+//                                .data("stime", "" + System.currentTimeMillis())
+//                                .data("setupid", "sjly2.9.9.9.3")
+//                                .toHtml();
+//                    }
+//                })
+//                .subscribeOn(Schedulers.io())
+//                .observeOn(AndroidSchedulers.mainThread())
+//                .onSuccess(this::onSignIn)
+//                .onError(throwable -> AToast.error(throwable.getMessage()))
+//                .subscribe();
         String info = getUserInfo();
         if (!TextUtils.isEmpty(info)) {
             Document doc = ZHttp.parse(info);
@@ -179,7 +220,7 @@ public final class UserManager {
 //    }
 
     public void rsyncMessage(boolean force) {
-        if (isLogin())  {
+        if (isLogin()) {
             if (force) {
                 messageInfo = null;
             }

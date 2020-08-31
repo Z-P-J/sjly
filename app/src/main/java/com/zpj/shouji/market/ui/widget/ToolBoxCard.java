@@ -18,6 +18,7 @@ import com.lihang.ShadowLayout;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.manager.UserManager;
 import com.zpj.shouji.market.model.MessageInfo;
+import com.zpj.shouji.market.ui.fragment.login.LoginFragment3;
 import com.zpj.shouji.market.ui.fragment.profile.MyBlacklistFragment;
 import com.zpj.shouji.market.ui.fragment.booking.UserBookingFragment;
 import com.zpj.shouji.market.ui.fragment.profile.MyCollectionFragment;
@@ -87,8 +88,8 @@ public class ToolBoxCard extends ShadowLayout implements View.OnClickListener {
                 Observable.create((ObservableOnSubscribe<Bitmap>) emitter -> {
                     Bitmap bitmap = Blurred.with(ToolBoxCard.this)
                             .backgroundColor(Color.WHITE)
-                            .foregroundColor(Color.parseColor("#80ffffff"))
-                            .scale(0.5f)
+//                            .foregroundColor(Color.parseColor("#80ffffff"))
+                            .scale(0.3f)
                             .radius(20)
                             .blur();
                     emitter.onNext(bitmap);
@@ -139,10 +140,10 @@ public class ToolBoxCard extends ShadowLayout implements View.OnClickListener {
     @Override
     public void onClick(View v) {
         if (v.getId() == R.id.tv_sign_up) {
-            fragment.showLoginPopup(0);
+            LoginFragment3.start(false);
             return;
         } else if (v.getId() == R.id.tv_sign_in) {
-            fragment.showLoginPopup(1);
+            LoginFragment3.start(true);
             return;
         }
         if (!UserManager.getInstance().isLogin()) {

@@ -20,16 +20,12 @@ public class SimilarAppCard extends AppInfoRecommendCard {
 
     public SimilarAppCard(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
+        setTitle("相似应用");
     }
 
     @Override
     public void onMoreClicked(View v) {
         AToast.normal("TODO");
-    }
-
-    @Override
-    protected void init() {
-        setTitle("相似应用");
     }
 
     @Override

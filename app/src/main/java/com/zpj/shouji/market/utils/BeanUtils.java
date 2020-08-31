@@ -43,7 +43,9 @@ public class BeanUtils {
                 if (TextUtils.isEmpty(text)) {
                     continue;
                 }
+
                 Log.d("BeanUtils", "selector=" + selector + " text=" + text + " type=" + type);
+                text = text.replace("<![CDATA[","").replace("]]>", "").trim();
                 if (type.equals("boolean")) {
                     String t = text.trim();
                     boolean value;

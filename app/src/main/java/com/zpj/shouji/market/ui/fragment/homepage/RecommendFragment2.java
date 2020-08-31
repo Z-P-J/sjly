@@ -5,25 +5,54 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.widget.NestedScrollView;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
+import com.felix.atoast.library.AToast;
 import com.zpj.fragmentation.BaseFragment;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.event.ColorChangeEvent;
+import com.zpj.shouji.market.event.InitialedEvent;
 import com.zpj.shouji.market.event.MainActionPopupEvent;
 import com.zpj.shouji.market.event.ToolbarColorChangeEvent;
+import com.zpj.shouji.market.ui.widget.SmartNestedScrollView;
+import com.zpj.shouji.market.ui.widget.recommend.CollectionRecommendCard;
+import com.zpj.shouji.market.ui.widget.recommend.GameRecommendCard;
+import com.zpj.shouji.market.ui.widget.recommend.GuessYouLikeRecommendCard;
 import com.zpj.shouji.market.ui.widget.recommend.RecommendBanner;
+import com.zpj.shouji.market.ui.widget.recommend.RecommendCard;
+import com.zpj.shouji.market.ui.widget.recommend.SoftRecommendCard;
+import com.zpj.shouji.market.ui.widget.recommend.SubjectRecommendCard;
+import com.zpj.shouji.market.ui.widget.recommend.UpdateRecommendCard;
 import com.zpj.utils.ScreenUtils;
+import com.zpj.widget.statelayout.StateLayout;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
+import java.util.ArrayDeque;
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Queue;
+
 public class RecommendFragment2 extends BaseFragment
-        implements NestedScrollView.OnScrollChangeListener {
+        implements NestedScrollView.OnScrollChangeListener,
+        SmartNestedScrollView.ISmartScrollChangedListener {
 
     private static final String TAG = "RecommendFragment";
 
+    protected final Queue<RecommendCard> recommendCardList = new LinkedList<>();
+
+    private StateLayout stateLayout;
+    private LinearLayout llContainer;
     private RecommendBanner mBanner;
+
+    private View loadingFooter;
+
+//    private boolean hasLoading;
 
     @Override
     protected int getLayoutId() {
@@ -32,9 +61,38 @@ public class RecommendFragment2 extends BaseFragment
 
     @Override
     protected void initView(View view, @Nullable Bundle savedInstanceState) {
-        mBanner = view.findViewById(R.id.rb_banner);
-        NestedScrollView scrollView = view.findViewById(R.id.scroll_view);
+        loadingFooter = LayoutInflater.from(context).inflate(R.layout.easy_base_footer, null, false);
+
+        stateLayout = findViewById(R.id.state_layout);
+        stateLayout.showLoadingView();
+
+//        mBanner = view.findViewById(R.id.rb_banner);
+        llContainer = findViewById(R.id.ll_container);
+        SmartNestedScrollView scrollView = view.findViewById(R.id.scroll_view);
+        scrollView.setScanScrollChangedListener(this);
         scrollView.setOnScrollChangeListener(this);
+
+        mBanner = new RecommendBanner(context);
+        mBanner.loadData(new Runnable() {
+            @Override
+            public void run() {
+                stateLayout.showContentView();
+                ColorChangeEvent.post(true);
+            }
+        });
+        llContainer.addView(mBanner);
+
+        llContainer.addView(loadingFooter);
+
+        recommendCardList.add(new UpdateRecommendCard(context));
+        recommendCardList.add(new CollectionRecommendCard(context));
+        recommendCardList.add(new SoftRecommendCard(context));
+        recommendCardList.add(new GameRecommendCard(context));
+        recommendCardList.add(new SubjectRecommendCard(context));
+        recommendCardList.add(new GuessYouLikeRecommendCard(context));
+
+        onScrolledToBottom();
+
     }
 
     @Override
@@ -91,6 +149,29 @@ public class RecommendFragment2 extends BaseFragment
         }
     }
 
+//    @Subscribe
+//    public void onInitialedEvent(InitialedEvent event) {
+//        mBanner = new RecommendBanner(context);
+//        mBanner.loadData(new Runnable() {
+//            @Override
+//            public void run() {
+//                stateLayout.showContentView();
+//            }
+//        });
+//        llContainer.addView(mBanner);
+//
+//        llContainer.addView(loadingFooter);
+//
+//        recommendCardList.add(new UpdateRecommendCard(context));
+//        recommendCardList.add(new CollectionRecommendCard(context));
+//        recommendCardList.add(new SoftRecommendCard(context));
+//        recommendCardList.add(new GameRecommendCard(context));
+//        recommendCardList.add(new SubjectRecommendCard(context));
+//        recommendCardList.add(new GuessYouLikeRecommendCard(context));
+//
+//        onScrolledToBottom();
+//    }
+
     @Subscribe
     public void onMainActionPopupEvent(MainActionPopupEvent event) {
         if (isSupportVisible() && mBanner != null) {
@@ -142,4 +223,39 @@ public class RecommendFragment2 extends BaseFragment
             mBanner.onPause();
         }
     }
+
+    @Override
+    public void onScrolledToBottom() {
+        if (recommendCardList.size() >= 2) {
+            RecommendCard recommendCard = recommendCardList.remove();
+            RecommendCard recommendCard2 = recommendCardList.remove();
+            recommendCard2.loadData(null);
+            recommendCard.loadData(() -> {
+                addCard(recommendCard, false);
+                addCard(recommendCard2, recommendCardList.isEmpty());
+            });
+        } else if (recommendCardList.size() == 1) {
+            RecommendCard recommendCard = recommendCardList.remove();
+            recommendCard.loadData(() -> addCard(recommendCard, true));
+        }
+    }
+
+    @Override
+    public void onScrolledToTop() {
+
+    }
+
+    protected void addCard(RecommendCard recommendCard, boolean hasNoMore) {
+        llContainer.removeView(loadingFooter);
+        llContainer.addView(recommendCard);
+
+        if (hasNoMore) {
+            loadingFooter.findViewById(R.id.ll_container_progress).setVisibility(View.GONE);
+            TextView tvMsg = loadingFooter.findViewById(R.id.tv_msg);
+            tvMsg.setVisibility(View.VISIBLE);
+        }
+
+        llContainer.addView(loadingFooter);
+    }
+
 }

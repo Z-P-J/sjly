@@ -143,39 +143,66 @@ public class AppInstalledManager extends BroadcastReceiver {
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .doOnNext(installedAppInfo -> {
-                    if (installedAppInfo.isUserApp()) {
-                        // 非系统应用
-                        for (WeakReference<CallBack> callBackWeakReference : callbacks) {
-                            if (callBackWeakReference.get() != null) {
-                                callBackWeakReference.get().onGetUserApp(installedAppInfo);
+
+                    for (WeakReference<CallBack> callBackWeakReference : callbacks) {
+                        CallBack callBack = callBackWeakReference.get();
+                        if (callBack != null) {
+                            if (installedAppInfo.isUserApp()) {
+                                // 非系统应用
+                                callBack.onGetUserApp(installedAppInfo);
+                            } else {
+                                // 系统应用
+                                callBack.onGetSystemApp(installedAppInfo);
                             }
-                        }
-                    } else {
-                        // 系统应用
-                        for (WeakReference<CallBack> callBackWeakReference : callbacks) {
-                            if (callBackWeakReference.get() != null) {
-                                callBackWeakReference.get().onGetSystemApp(installedAppInfo);
+
+                            if (installedAppInfo.isBackuped()) {
+                                // 已备份
+                                callBack.onGetBackupApp(installedAppInfo);
                             }
-                        }
-                    }
-                    if (installedAppInfo.isBackuped()) {
-                        // 已备份
-                        for (WeakReference<CallBack> callBackWeakReference : callbacks) {
-                            if (callBackWeakReference.get() != null) {
-                                callBackWeakReference.get().onGetBackupApp(installedAppInfo);
+
+                            if (!installedAppInfo.isEnabled()) {
+                                // 已禁用
+                                callBack.onGetForbidApp(installedAppInfo);
                             }
-                        }
-                    }
-                    if (!installedAppInfo.isEnabled()) {
-                        // 已禁用
-                        for (WeakReference<CallBack> callBackWeakReference : callbacks) {
-                            if (callBackWeakReference.get() != null) {
-                                callBackWeakReference.get().onGetForbidApp(installedAppInfo);
-                            }
+
                         }
                     }
 
                     // TODO 获取隐藏应用
+
+
+//                    if (installedAppInfo.isUserApp()) {
+//                        // 非系统应用
+//                        for (WeakReference<CallBack> callBackWeakReference : callbacks) {
+//                            if (callBackWeakReference.get() != null) {
+//                                callBackWeakReference.get().onGetUserApp(installedAppInfo);
+//                            }
+//                        }
+//                    } else {
+//                        // 系统应用
+//                        for (WeakReference<CallBack> callBackWeakReference : callbacks) {
+//                            if (callBackWeakReference.get() != null) {
+//                                callBackWeakReference.get().onGetSystemApp(installedAppInfo);
+//                            }
+//                        }
+//                    }
+//                    if (installedAppInfo.isBackuped()) {
+//                        // 已备份
+//                        for (WeakReference<CallBack> callBackWeakReference : callbacks) {
+//                            if (callBackWeakReference.get() != null) {
+//                                callBackWeakReference.get().onGetBackupApp(installedAppInfo);
+//                            }
+//                        }
+//                    }
+//                    if (!installedAppInfo.isEnabled()) {
+//                        // 已禁用
+//                        for (WeakReference<CallBack> callBackWeakReference : callbacks) {
+//                            if (callBackWeakReference.get() != null) {
+//                                callBackWeakReference.get().onGetForbidApp(installedAppInfo);
+//                            }
+//                        }
+//                    }
+
                 })
                 .doOnError(Throwable::printStackTrace)
                 .doOnComplete(() -> {

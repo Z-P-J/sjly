@@ -69,6 +69,7 @@
     <color name="three_transparent">#30ffffff</color>
     <color name="black">#000000</color>
     <color name="white">#ffffff</color>
+    <color name="light_gray_0">#dedede</color>
     <color name="light_gray_1">#e5e5e5</color>
     <color name="light_gray_2">#f0f2f6</color>
     <color name="light_gray_3">#fafafa</color>
@@ -99,6 +100,7 @@
     <color name="yellow_1">#ffb802</color>
     <color name="yellow_2">#fff5e5</color>
     <color name="yellow_3">#fd9c00</color>
+    <color name="red111">#aadd2727</color>
     <color name="red">#ffdd2727</color> <!-- 酱红色 -->
     <color name="red1">#c82300</color> <!-- 深红色 -->
     <color name="red2">#e64a4b</color>

@@ -13,9 +13,11 @@ import com.zpj.http.parser.html.select.Elements;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.model.AppInfo;
 import com.zpj.shouji.market.ui.fragment.booking.LatestBookingFragment;
+import com.zpj.shouji.market.ui.widget.recommend.GameBookingRecommendCard;
 import com.zpj.shouji.market.ui.widget.recommend.GameRecommendCard;
 import com.zpj.shouji.market.ui.widget.recommend.GameUpdateRecommendCard;
 import com.zpj.shouji.market.ui.widget.recommend.NetGameRecommendCard;
+import com.zpj.shouji.market.ui.widget.recommend.RecommendCard;
 import com.zpj.shouji.market.ui.widget.recommend.TutorialRecommendCard;
 
 import java.util.ArrayList;
@@ -70,17 +72,35 @@ public class GameRecommendFragment2 extends BaseRecommendFragment2 implements Vi
                 })
                 .subscribe();
 
-        postDelayed(() -> {
-            // TODO 排行
-            addCard(new GameUpdateRecommendCard(context));
-            addCard(new GameRecommendCard(context));
-            addCard(new NetGameRecommendCard(context));
-            for (int i = 0; i < TITLES.length; i++) {
-                TutorialRecommendCard card = new TutorialRecommendCard(context, "game", i + 1);
-                card.setTitle(TITLES[i]);
-                addCard(card);
-            }
-        }, 500);
+        recommendCardList.add(0, new GameUpdateRecommendCard(context));
+        recommendCardList.add(0, new GameRecommendCard(context));
+
+        recommendCardList.add(0, new GameBookingRecommendCard(context));
+        recommendCardList.add(0, new NetGameRecommendCard(context));
+        for (int i = 0; i < TITLES.length; i++) {
+            TutorialRecommendCard card = new TutorialRecommendCard(context, "game", i + 1);
+            card.setTitle(TITLES[i]);
+            recommendCardList.add(0, card);
+        }
+
+        onScrolledToBottom();
+
+//        postDelayed(() -> {
+//            // TODO 排行
+//            addCard(new GameUpdateRecommendCard(context));
+//            addCard(new GameRecommendCard(context));
+//
+//            GameBookingRecommendCard bookingRecommendCard = new GameBookingRecommendCard(context);
+//            addCard(bookingRecommendCard);
+//            bookingRecommendCard.loadData(null);
+//
+//            addCard(new NetGameRecommendCard(context));
+//            for (int i = 0; i < TITLES.length; i++) {
+//                TutorialRecommendCard card = new TutorialRecommendCard(context, "game", i + 1);
+//                card.setTitle(TITLES[i]);
+//                addCard(card);
+//            }
+//        }, 500);
     }
 
     @Override
@@ -108,4 +128,36 @@ public class GameRecommendFragment2 extends BaseRecommendFragment2 implements Vi
         }
     }
 
+//    @Override
+//    public void onScrolledToBottom() {
+//        AToast.normal("onScrolledToBottom");
+//        if (recommendCardList.size() >= 2) {
+//            RecommendCard recommendCard = recommendCardList.remove(recommendCardList.size() - 1);
+//            RecommendCard recommendCard2 = recommendCardList.remove(recommendCardList.size() - 1);
+//            recommendCard2.loadData(null);
+//            recommendCard.loadData(() -> {
+//                addCard(recommendCard, false);
+//                addCard(recommendCard2, recommendCardList.isEmpty());
+//            });
+//        } else if (recommendCardList.size() == 1) {
+//            RecommendCard recommendCard = recommendCardList.remove(0);
+//            recommendCard.loadData(() -> addCard(recommendCard, true));
+//        }
+////        if (!recommendCardList.isEmpty()) {
+////            RecommendCard recommendCard = recommendCardList.remove(recommendCardList.size() - 1);
+////            recommendCard.loadData(new Runnable() {
+////                @Override
+////                public void run() {
+////
+////                    addCard(recommendCard, recommendCardList.isEmpty());
+////
+////                }
+////            });
+////        }
+//    }
+
+//    @Override
+//    public void onScrolledToTop() {
+//
+//    }
 }

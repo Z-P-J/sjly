@@ -41,7 +41,6 @@ public class SearchResultFragment extends BaseFragment {
     }
 
     private static final String[] TAB_TITLES = {"应用", "应用集", "发现", "用户"}; // "专题"
-    private FragmentsPagerAdapter adapter;
     private final List<KeywordObserver> observers = new ArrayList<>();
 
     @Override
@@ -95,7 +94,7 @@ public class SearchResultFragment extends BaseFragment {
                 observers.add((KeywordObserver) fragment);
             }
         }
-        adapter = new FragmentsPagerAdapter(getChildFragmentManager(), list, TAB_TITLES);
+        FragmentsPagerAdapter adapter = new FragmentsPagerAdapter(getChildFragmentManager(), list, TAB_TITLES);
         ViewPager viewPager = view.findViewById(R.id.view_pager);
         viewPager.setAdapter(adapter);
         viewPager.setOffscreenPageLimit(TAB_TITLES.length);
@@ -111,22 +110,22 @@ public class SearchResultFragment extends BaseFragment {
 
         @Override
         public void updateKeyword(String key) {
-//            if (TextUtils.equals(key, keyword)) {
-//                return;
-//            }
-//            this.keyword = key;
-//
-//            defaultUrl = "http://tt.shouji.com.cn/androidv3/app_search_xml.jsp?sdk=26&type=default&s=" + key;
-//            nextUrl = defaultUrl;
-//
-//            recyclerLayout.showLoading();
-//            postOnSupportVisibleDelayed(new Runnable() {
-//                @Override
-//                public void run() {
-//                    data.clear();
-//                    getData();
-//                }
-//            }, 100);
+            if (TextUtils.equals(key, keyword)) {
+                return;
+            }
+            this.keyword = key;
+
+            defaultUrl = "http://tt.shouji.com.cn/androidv3/app_search_xml.jsp?sdk=26&type=default&s=" + key;
+            nextUrl = defaultUrl;
+
+            recyclerLayout.showLoading();
+            postOnSupportVisibleDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    data.clear();
+                    getData();
+                }
+            }, 250);
         }
 
     }
@@ -138,22 +137,22 @@ public class SearchResultFragment extends BaseFragment {
 
         @Override
         public void updateKeyword(String key) {
-//            if (TextUtils.equals(key, keyword)) {
-//                return;
-//            }
-//            this.keyword = key;
-//
-//            defaultUrl = "http://tt.shouji.com.cn/androidv3/yyj_view_phb_xml.jsp?title=" + key;
-//            nextUrl = defaultUrl;
-//
-//            recyclerLayout.showLoading();
-//            postOnSupportVisibleDelayed(new Runnable() {
-//                @Override
-//                public void run() {
-//                    data.clear();
-//                    getData();
-//                }
-//            }, 100);
+            if (TextUtils.equals(key, keyword)) {
+                return;
+            }
+            this.keyword = key;
+
+            defaultUrl = "http://tt.shouji.com.cn/androidv3/yyj_view_phb_xml.jsp?title=" + key;
+            nextUrl = defaultUrl;
+
+            recyclerLayout.showLoading();
+            postOnSupportVisibleDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    data.clear();
+                    getData();
+                }
+            }, 250);
         }
 
     }
@@ -165,25 +164,25 @@ public class SearchResultFragment extends BaseFragment {
 
         @Override
         public void updateKeyword(String key) {
-//            if (TextUtils.equals(key, keyword)) {
-//                return;
+            if (TextUtils.equals(key, keyword)) {
+                return;
+            }
+            this.keyword = key;
+
+            defaultUrl = "http://tt.shouji.com.cn/app/faxian.jsp?s=" + key;
+            nextUrl = defaultUrl;
+//            if (isLazyInit()) {
+//                onRefresh();
 //            }
-//            this.keyword = key;
-//
-//            defaultUrl = "http://tt.shouji.com.cn/app/faxian.jsp?s=" + key;
-//            nextUrl = defaultUrl;
-////            if (isLazyInit()) {
-////                onRefresh();
-////            }
-//
-//            recyclerLayout.showLoading();
-//            postOnSupportVisibleDelayed(new Runnable() {
-//                @Override
-//                public void run() {
-//                    data.clear();
-//                    getData();
-//                }
-//            }, 100);
+
+            recyclerLayout.showLoading();
+            postOnSupportVisibleDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    data.clear();
+                    getData();
+                }
+            }, 250);
         }
 
     }
@@ -195,24 +194,24 @@ public class SearchResultFragment extends BaseFragment {
 
         @Override
         public void updateKeyword(String key) {
-//            if (TextUtils.equals(key, keyword)) {
-//                return;
+            if (TextUtils.equals(key, keyword)) {
+                return;
+            }
+            this.keyword = key;
+            defaultUrl = "http://tt.shouji.com.cn/androidv3/app_search_user_xml.jsp?s=" + key;
+            nextUrl = defaultUrl;
+//            if (isLazyInit) {
+//                onRefresh();
 //            }
-//            this.keyword = key;
-//            defaultUrl = "http://tt.shouji.com.cn/androidv3/app_search_user_xml.jsp?s=" + key;
-//            nextUrl = defaultUrl;
-////            if (isLazyInit) {
-////                onRefresh();
-////            }
-//
-//            recyclerLayout.showLoading();
-//            postOnSupportVisibleDelayed(new Runnable() {
-//                @Override
-//                public void run() {
-//                    data.clear();
-//                    getData();
-//                }
-//            }, 100);
+
+            recyclerLayout.showLoading();
+            postOnSupportVisibleDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    data.clear();
+                    getData();
+                }
+            }, 250);
         }
 
     }

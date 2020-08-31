@@ -120,6 +120,7 @@ public class WallpaperShareFragment extends BaseFragment
     @Override
     public void onEnterAnimationEnd(Bundle savedInstanceState) {
         super.onEnterAnimationEnd(savedInstanceState);
+        darkStatusBar();
         showSoftInput(actionPanel.getEditor());
         initFlowLayout();
     }

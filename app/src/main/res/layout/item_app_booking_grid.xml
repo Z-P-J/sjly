@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.lihang.ShadowLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="120dp"
+    android:layout_height="wrap_content"
+    app:hl_shadowLimit="0dp"
+    app:hl_cornerRadius="8dp"
+    app:hl_shadowBackColor="@color/light_gray_9"
+    >
+
+    <com.shehuan.niv.NiceImageView
+        android:id="@+id/iv_bg"
+        android:layout_width="match_parent"
+        android:layout_height="84dp"
+        android:src="@drawable/bg_member_default"
+        android:scaleType="centerCrop"
+        app:corner_top_right_radius="8dp"
+        app:corner_top_left_radius="8dp"
+        />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:background="?android:attr/selectableItemBackground"
+        android:padding="8dp"
+        >
+
+        <com.shehuan.niv.NiceImageView
+            android:id="@+id/iv_icon"
+            android:layout_width="56dp"
+            android:layout_height="56dp"
+            android:src="@mipmap/ic_launcher"
+            android:scaleType="centerCrop"
+            app:corner_radius="8dp"
+            app:border_width="0.5dp"
+            app:border_color="@color/color_line"
+            android:layout_marginTop="48dp"
+            />
+
+        <TextView
+            android:id="@+id/tv_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:maxLines="1"
+            android:ellipsize="end"
+            android:text="应用名"
+            android:textColor="@color/color_text_major"
+            android:layout_marginTop="8dp"
+            />
+
+        <TextView
+            android:id="@+id/tv_info"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:maxLines="1"
+            android:gravity="center_vertical"
+            android:ellipsize="end"
+            android:text="xxxxxxxxxxxxxx"
+            android:textColor="@color/color_text_minor"
+            android:textSize="12sp"
+            android:layout_marginTop="8dp"
+            />
+
+        <TextView
+            android:id="@+id/tv_booking"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="预约"
+            android:textColor="@color/colorPrimary"
+            android:textSize="12sp"
+            android:background="@drawable/bg_download_button"
+            android:paddingStart="12dp"
+            android:paddingEnd="12dp"
+            android:textStyle="bold"
+            android:paddingTop="4dp"
+            android:paddingBottom="4dp"
+            android:layout_marginTop="8dp"
+            android:gravity="center"
+            />
+
+    </LinearLayout>
+
+</com.lihang.ShadowLayout>

@@ -85,11 +85,11 @@ public class HttpPreLoader {
 
     public void loadHomepage() {
         HttpPreLoader.getInstance().load(PreloadApi.HOME_BANNER);
-        HttpPreLoader.getInstance().load(PreloadApi.HOME_RECENT);
-        HttpPreLoader.getInstance().load(PreloadApi.HOME_COLLECTION);
-        HttpPreLoader.getInstance().load(PreloadApi.HOME_SOFT);
-        HttpPreLoader.getInstance().load(PreloadApi.HOME_GAME);
-        HttpPreLoader.getInstance().load(PreloadApi.HOME_SUBJECT);
+//        HttpPreLoader.getInstance().load(PreloadApi.HOME_RECENT);
+//        HttpPreLoader.getInstance().load(PreloadApi.HOME_COLLECTION);
+//        HttpPreLoader.getInstance().load(PreloadApi.HOME_SOFT);
+//        HttpPreLoader.getInstance().load(PreloadApi.HOME_GAME);
+//        HttpPreLoader.getInstance().load(PreloadApi.HOME_SUBJECT);
     }
 
     public void setLoadListener(PreloadApi key, OnLoadListener listener) {

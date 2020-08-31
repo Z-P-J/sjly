@@ -49,20 +49,20 @@ public class SubjectListFragment extends NextUrlFragment<SubjectInfo>
                 Y_DividerBuilder builder = null;
                 if (itemPosition == 0) {
                     builder = new Y_DividerBuilder()
-                            .setTopSideLine(true, Color.WHITE, 8, 0, 0);
-//                            .setBottomSideLine(true, Color.WHITE, 4, 0, 0);
+                            .setTopSideLine(true, Color.WHITE, 16, 0, 0)
+                            .setBottomSideLine(true, Color.WHITE, 8, 0, 0);
                 } else if (itemPosition == data.size() - 1) {
                     builder = new Y_DividerBuilder()
-//                            .setTopSideLine(true, Color.WHITE, 4, 0, 0)
-                            .setBottomSideLine(true, Color.WHITE, 8, 0, 0);
+                            .setTopSideLine(true, Color.WHITE, 8, 0, 0)
+                            .setBottomSideLine(true, Color.WHITE, 16, 0, 0);
                 } else {
-                    builder = new Y_DividerBuilder();
-//                            .setTopSideLine(true, Color.WHITE, 4, 0, 0)
-//                            .setBottomSideLine(true, Color.WHITE, 4, 0, 0);
+                    builder = new Y_DividerBuilder()
+                            .setTopSideLine(true, Color.WHITE, 8, 0, 0)
+                            .setBottomSideLine(true, Color.WHITE, 8, 0, 0);
                 }
                 return builder
-                        .setLeftSideLine(true, Color.WHITE, 8, 0, 0)
-                        .setRightSideLine(true, Color.WHITE, 8, 0, 0)
+                        .setLeftSideLine(true, Color.WHITE, 16, 0, 0)
+                        .setRightSideLine(true, Color.WHITE, 16, 0, 0)
                         .create();
             }
         });

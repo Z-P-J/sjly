@@ -4,6 +4,7 @@ import android.content.Context;
 import android.util.AttributeSet;
 import android.view.View;
 
+import com.zpj.shouji.market.api.HttpApi;
 import com.zpj.shouji.market.api.HttpPreLoader;
 import com.zpj.shouji.market.api.PreloadApi;
 import com.zpj.shouji.market.ui.fragment.ToolBarListFragment;
@@ -20,7 +21,15 @@ public class UpdateRecommendCard extends AppInfoRecommendCard {
 
     public UpdateRecommendCard(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
+        setTitle("最近更新");
     }
+
+//    @Override
+//    public void loadData(Runnable runnable) {
+//        HttpApi.get(PreloadApi.HOME_RECENT.getUrl())
+//                .onSuccess(document -> onGetDoc(document, runnable))
+//                .subscribe();
+//    }
 
     @Override
     public void onMoreClicked(View v) {
@@ -30,6 +39,7 @@ public class UpdateRecommendCard extends AppInfoRecommendCard {
     @Override
     public PreloadApi getKey() {
         return PreloadApi.HOME_RECENT;
+//        return null;
     }
 
 }

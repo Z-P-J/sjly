@@ -26,8 +26,10 @@ import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.api.HttpApi;
 import com.zpj.shouji.market.event.RefreshEvent;
 import com.zpj.shouji.market.event.StartFragmentEvent;
+import com.zpj.shouji.market.manager.UserManager;
 import com.zpj.shouji.market.model.CollectionInfo;
 import com.zpj.shouji.market.ui.adapter.FragmentsPagerAdapter;
+import com.zpj.shouji.market.ui.fragment.login.LoginFragment3;
 import com.zpj.shouji.market.ui.fragment.profile.ProfileFragment;
 import com.zpj.shouji.market.ui.widget.DrawableTintTextView;
 import com.zpj.shouji.market.ui.widget.emoji.EmojiExpandableTextView;
@@ -321,6 +323,13 @@ public class CollectionDetailFragment extends BaseFragment
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.fab_comment:
+
+                if (!UserManager.getInstance().isLogin()) {
+                    AToast.warning(R.string.text_msg_not_login);
+                    LoginFragment3.start();
+                    return;
+                }
+
                 viewPager.setCurrentItem(1);
                 fabComment.hide();
                 if (commentPopup == null) {
@@ -344,6 +353,11 @@ public class CollectionDetailFragment extends BaseFragment
                 ProfileFragment.start(item.getMemberId(), false);
                 break;
             case R.id.tv_support:
+                if (!UserManager.getInstance().isLogin()) {
+                    AToast.warning(R.string.text_msg_not_login);
+                    LoginFragment3.start();
+                    return;
+                }
                 HttpApi.likeApi("discuss", item.getId())
                         .onSuccess(data -> {
                             String info = data.selectFirst("info").text();
@@ -361,6 +375,11 @@ public class CollectionDetailFragment extends BaseFragment
                         .subscribe();
                 break;
             case R.id.tv_favorite:
+                if (!UserManager.getInstance().isLogin()) {
+                    AToast.warning(R.string.text_msg_not_login);
+                    LoginFragment3.start();
+                    return;
+                }
                 if ((boolean) tvFavorite.getTag()) {
                     HttpApi.delFavCollectionApi(item.getId(), "discuss")
                             .onSuccess(data -> {

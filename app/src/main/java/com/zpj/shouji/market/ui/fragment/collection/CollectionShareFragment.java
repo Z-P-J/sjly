@@ -189,6 +189,7 @@ public class CollectionShareFragment extends BaseFragment {
     @Override
     public void onEnterAnimationEnd(Bundle savedInstanceState) {
         super.onEnterAnimationEnd(savedInstanceState);
+        darkStatusBar();
         showSoftInput(etTitle);
         initFlowLayout();
     }

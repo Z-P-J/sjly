@@ -99,6 +99,10 @@ public abstract class RecommendCard<T> extends FrameLayout
 
     }
 
+    public void loadData(Runnable runnable) {
+
+    }
+
 //    public void setOnItemClickListener(IEasy.OnItemClickListener<T> onItemClickListener) {
 //        this.onItemClickListener = onItemClickListener;
 //    }

@@ -64,6 +64,7 @@ public class MainFragment extends BaseFragment {
 
     @Override
     protected void initView(View view, @Nullable Bundle savedInstanceState) {
+
         HomeFragment homeFragment = findChildFragment(HomeFragment.class);
         if (homeFragment == null) {
             homeFragment = new HomeFragment();
@@ -129,9 +130,11 @@ public class MainFragment extends BaseFragment {
         viewPager = view.findViewById(R.id.vp);
         viewPager.setScrollerSpeed(500);
         viewPager.setCanScroll(false);
+
         viewPager.setOffscreenPageLimit(fragments.size());
         FragmentsPagerAdapter adapter = new FragmentsPagerAdapter(getChildFragmentManager(), fragments, null);
         viewPager.setAdapter(adapter);
+
 
         floatingActionButton.setOnClickListener(v -> {
             postDelayed(this::darkStatusBar, 300);
@@ -151,6 +154,7 @@ public class MainFragment extends BaseFragment {
         });
 
         mBottomBar.setCurrentItem(0);
+
     }
 
     @Override

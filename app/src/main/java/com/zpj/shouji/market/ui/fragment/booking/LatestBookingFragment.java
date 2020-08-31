@@ -26,9 +26,8 @@ import java.util.List;
 public class LatestBookingFragment extends BookingAppListFragment {
 
     public static void start() {
-        String url = "http://tt.shouji.com.cn/app/app_game_yuyue_list.jsp?sort=date&sdk=100";
         Bundle args = new Bundle();
-        args.putString(Keys.DEFAULT_URL, url);
+        args.putString(Keys.DEFAULT_URL, BookingApi.LATEST_BOOKING_URL);
         LatestBookingFragment fragment = new LatestBookingFragment();
         fragment.setArguments(args);
         StartFragmentEvent.start(fragment);

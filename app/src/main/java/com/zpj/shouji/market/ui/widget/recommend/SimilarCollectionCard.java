@@ -19,10 +19,6 @@ public class SimilarCollectionCard extends CollectionRecommendCard {
 
     public SimilarCollectionCard(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
-    }
-
-    @Override
-    protected void init() {
         setTitle("相关应用集");
     }
 

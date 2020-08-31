@@ -34,6 +34,14 @@ public class SearchFragment extends BaseFragment {
         }
     }
 
+    static class TextChangedEvent {
+        String keyword;
+
+        TextChangedEvent(String keyword) {
+            this.keyword = keyword;
+        }
+    }
+
     private ZSearchBar searchBar;
     private ZViewPager viewPager;
 
@@ -70,6 +78,7 @@ public class SearchFragment extends BaseFragment {
                 if (TextUtils.isEmpty(s.toString()) && viewPager.getCurrentItem() == 1) {
                     viewPager.setCurrentItem(0, true);
                 }
+                EventBus.getDefault().post(new TextChangedEvent(s.toString()));
             }
 
             @Override

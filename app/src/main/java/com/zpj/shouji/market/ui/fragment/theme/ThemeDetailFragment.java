@@ -14,6 +14,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
+import com.felix.atoast.library.AToast;
 import com.shehuan.niv.NiceImageView;
 import com.zpj.popup.interfaces.OnDismissListener;
 import com.zpj.recyclerview.EasyViewHolder;
@@ -22,10 +23,12 @@ import com.zpj.shouji.market.constant.Keys;
 import com.zpj.shouji.market.event.RefreshEvent;
 import com.zpj.shouji.market.event.StartFragmentEvent;
 import com.zpj.shouji.market.glide.blur.BlurTransformation;
+import com.zpj.shouji.market.manager.UserManager;
 import com.zpj.shouji.market.model.DiscoverInfo;
 import com.zpj.shouji.market.ui.adapter.DiscoverBinder;
 import com.zpj.shouji.market.ui.adapter.FragmentsPagerAdapter;
 import com.zpj.shouji.market.ui.fragment.base.ListenerFragment;
+import com.zpj.shouji.market.ui.fragment.login.LoginFragment3;
 import com.zpj.shouji.market.ui.widget.popup.CommentPopup;
 import com.zpj.shouji.market.ui.widget.popup.ThemeMorePopupMenu;
 import com.zpj.shouji.market.utils.MagicIndicatorHelper;
@@ -231,6 +234,11 @@ public class ThemeDetailFragment extends ListenerFragment {
     }
 
     private void showCommentPopup() {
+        if (!UserManager.getInstance().isLogin()) {
+            AToast.warning(R.string.text_msg_not_login);
+            LoginFragment3.start();
+            return;
+        }
         fabComment.hide();
         if (commentPopup == null) {
             commentPopup = CommentPopup.with(

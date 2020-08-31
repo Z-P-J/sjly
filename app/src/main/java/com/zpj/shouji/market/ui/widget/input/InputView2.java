@@ -1,6 +1,7 @@
 package com.zpj.shouji.market.ui.widget.input;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.support.v4.content.ContextCompat;
 import android.text.Editable;
 import android.text.InputType;
@@ -46,6 +47,8 @@ public class InputView2 extends FrameLayout
     protected int mViewColorNormal;
     protected int mViewColorError;
     private boolean isEmpty = true;
+
+    private boolean firstFocus = false;
 
 
     private final List<Validator> validators = new ArrayList<>();
@@ -104,26 +107,7 @@ public class InputView2 extends FrameLayout
 
         allowEmpty(allowEmpty);
 
-        int icIconSize = ScreenUtils.dp2pxInt(context, 24);
-        int icIconMargin = ScreenUtils.dp2pxInt(context, 8);
-        ImageView[] ivIconLefts = getLeftIcons();
-        int ivIconLeftCount = ivIconLefts != null ? ivIconLefts.length : 0;
-        for (int i = 0; i < ivIconLeftCount; i++) {
-            ImageView ivIconLeft = ivIconLefts[i];
-            LayoutParams ivIconLeftParams = new LayoutParams(icIconSize, icIconSize);
-            ivIconLeftParams.rightMargin = icIconMargin;
-            ivIconLeftParams.gravity = Gravity.START | Gravity.CENTER_VERTICAL;
-            llLeftContainer.addView(ivIconLeft, ivIconLeftParams);
-        }
-        ImageView[] ivIconRights = getRightIcons();
-        int ivIconRightCount = ivIconRights != null ? ivIconRights.length : 0;
-        for (int i = 0; i < ivIconRightCount; i++) {
-            ImageView ivIconRight = ivIconRights[i];
-            LayoutParams ivIconRightParams = new LayoutParams(icIconSize, icIconSize);
-            ivIconRightParams.leftMargin = icIconMargin;
-            ivIconRightParams.gravity = Gravity.END | Gravity.CENTER_VERTICAL;
-            llRightContainer.addView(ivIconRight, ivIconRightParams);
-        }
+
 
 //        int etMargin = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 10, getContext().getResources().getDisplayMetrics());
         mEditText = findViewById(R.id.et_text);
@@ -134,7 +118,7 @@ public class InputView2 extends FrameLayout
 //        mEditText.setBackgroundColor(Color.TRANSPARENT);
 //        mEditText.setBackground(null);
         mEditText.setTextColor(ContextCompat.getColor(getContext(), R.color.color_text_major));
-        mEditText.setHintTextColor(ContextCompat.getColor(getContext(), R.color.color_text_minor));
+        mEditText.setHintTextColor(ContextCompat.getColor(getContext(), R.color.light_gray_10));
 //        mEditText.setTextSize(TypedValue.COMPLEX_UNIT_PX, getContext().getResources().getDimension(R.dimen.text_medium));
 //        mEditText.setSingleLine();
         mEditText.setInputType(InputType.TYPE_TEXT_VARIATION_EMAIL_ADDRESS);
@@ -158,18 +142,47 @@ public class InputView2 extends FrameLayout
         });
         mEditText.addTextChangedListener(this);
 
-        mViewColorError = ContextCompat.getColor(getContext(), R.color.red4);
-        mViewColorNormal = ContextCompat.getColor(getContext(), R.color.color_text_minor);
-        mViewHeightNormal = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 2, getContext().getResources().getDisplayMetrics());
+        mViewColorError = ContextCompat.getColor(getContext(), R.color.red);
+//        mViewColorError = Color.parseColor("#aadd2727");
+        mViewColorNormal = ContextCompat.getColor(getContext(), R.color.light_gray_10);
+        mViewHeightNormal = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 1f, getContext().getResources().getDisplayMetrics());
         mViewColorFocus = ContextCompat.getColor(getContext(), R.color.colorPrimary);
-        mViewHeightFocus = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 2, getContext().getResources().getDisplayMetrics());
+        mViewHeightFocus = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 1f, getContext().getResources().getDisplayMetrics());
 
         mBottomLine = findViewById(R.id.bottom_line);
-        mBottomLine.setBackgroundColor(mViewColorNormal);
+        mBottomLine.setBackgroundColor(getResources().getColor(R.color.light_gray_1));
 
         mHelperTextView = findViewById(R.id.tv_helper);
 //        mHelperTextView.setTextSize(12);
-        mHelperTextView.setText("Helper Info");
+//        mHelperTextView.setText("Helper Info");
+        mHelperTextView.setText("");
+        mHelperTextView.setTextColor(mViewColorError);
+
+
+        int icIconSize = ScreenUtils.dp2pxInt(context, 16);
+        int icIconMargin = ScreenUtils.dp2pxInt(context, 8);
+        ImageView[] ivIconLefts = getLeftIcons();
+        int ivIconLeftCount = ivIconLefts != null ? ivIconLefts.length : 0;
+        for (int i = 0; i < ivIconLeftCount; i++) {
+            ImageView ivIconLeft = ivIconLefts[i];
+            ivIconLeft.setColorFilter(mViewColorNormal);
+            LayoutParams ivIconLeftParams = new LayoutParams(icIconSize, icIconSize);
+            ivIconLeftParams.rightMargin = icIconMargin;
+            ivIconLeftParams.gravity = Gravity.START | Gravity.CENTER_VERTICAL;
+            llLeftContainer.addView(ivIconLeft, ivIconLeftParams);
+        }
+
+        icIconSize = ScreenUtils.dp2pxInt(context, 24);
+        ImageView[] ivIconRights = getRightIcons();
+        int ivIconRightCount = ivIconRights != null ? ivIconRights.length : 0;
+        for (int i = 0; i < ivIconRightCount; i++) {
+            ImageView ivIconRight = ivIconRights[i];
+            ivIconRight.setColorFilter(mViewColorNormal);
+            LayoutParams ivIconRightParams = new LayoutParams(icIconSize, icIconSize);
+            ivIconRightParams.leftMargin = icIconMargin;
+            ivIconRightParams.gravity = Gravity.END | Gravity.CENTER_VERTICAL;
+            llRightContainer.addView(ivIconRight, ivIconRightParams);
+        }
 
     }
 
@@ -208,7 +221,7 @@ public class InputView2 extends FrameLayout
             color = mViewColorFocus;
             height = mViewHeightFocus;
         } else {
-            color = mViewColorNormal;
+            color = getResources().getColor(R.color.light_gray_1);
             height = mViewHeightNormal;
         }
         mBottomLine.setBackgroundColor(color);
@@ -226,6 +239,7 @@ public class InputView2 extends FrameLayout
 //            }
             isValid();
         }
+        firstFocus = true;
         changeBottomStyle(hasFocus);
     }
 
@@ -248,6 +262,9 @@ public class InputView2 extends FrameLayout
     }
 
     public boolean isValid() {
+        if (!firstFocus) {
+            return true;
+        }
         if (validators == null || validators.isEmpty()) {
             setError("");
             return true;

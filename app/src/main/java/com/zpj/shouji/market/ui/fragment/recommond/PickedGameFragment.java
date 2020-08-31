@@ -47,9 +47,20 @@ public class PickedGameFragment extends NextUrlFragment<PickedGameInfo> {
     }
 
     @Override
+    protected boolean supportSwipeBack() {
+        return true;
+    }
+
+    @Override
     protected void initView(View view, @Nullable Bundle savedInstanceState) {
         super.initView(view, savedInstanceState);
         setToolbarTitle("精选游戏");
+    }
+
+    @Override
+    public void onSupportVisible() {
+        super.onSupportVisible();
+        darkStatusBar();
     }
 
     @Override

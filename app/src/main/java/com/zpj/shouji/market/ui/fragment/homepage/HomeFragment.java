@@ -8,6 +8,7 @@ import android.support.v4.view.ViewPager;
 import android.util.Log;
 import android.view.View;
 
+import com.felix.atoast.library.AToast;
 import com.zpj.fragmentation.BaseFragment;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.event.ColorChangeEvent;
@@ -35,7 +36,7 @@ public class HomeFragment extends BaseFragment {
     private TintedImageButton btnSearch;
     private TintedImageButton btnManage;
 
-    private boolean isLightStyle = true;
+    private boolean isLightStyle = false;
 
     @Override
     protected int getLayoutId() {
@@ -60,6 +61,7 @@ public class HomeFragment extends BaseFragment {
         shadowView = view.findViewById(R.id.view_shadow);
         toolbar.setLightStyle(false);
 
+
         ArrayList<Fragment> list = new ArrayList<>();
         RecommendFragment2 recommendFragment = findChildFragment(RecommendFragment2.class);
         if (recommendFragment == null) {
@@ -78,7 +80,7 @@ public class HomeFragment extends BaseFragment {
         list.add(wallpaperFragment);
 
         FragmentsPagerAdapter adapter = new FragmentsPagerAdapter(getChildFragmentManager(), list, TAB_TITLES);
-        ViewPager viewPager = view.findViewById(R.id.view_pager);
+        ViewPager viewPager = findViewById(R.id.view_pager);
         viewPager.setAdapter(adapter);
         viewPager.setOffscreenPageLimit(3);
         viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
@@ -124,12 +126,14 @@ public class HomeFragment extends BaseFragment {
                     return titleView;
                 })
                 .build();
+
+        AToast.success("mmmmmmmmmmmmmmmm");
+
     }
 
     @Override
     public void onLazyInitView(@Nullable Bundle savedInstanceState) {
         super.onLazyInitView(savedInstanceState);
-        ColorChangeEvent.post(true);
     }
 
     @Override

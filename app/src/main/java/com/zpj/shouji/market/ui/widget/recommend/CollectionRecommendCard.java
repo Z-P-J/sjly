@@ -22,6 +22,7 @@ import com.othershe.combinebitmap.CombineBitmap;
 import com.othershe.combinebitmap.layout.DingLayoutManager;
 import com.othershe.combinebitmap.layout.WechatLayoutManager;
 import com.shehuan.niv.NiceImageView;
+import com.zpj.http.core.IHttp;
 import com.zpj.http.parser.html.nodes.Document;
 import com.zpj.http.parser.html.nodes.Element;
 import com.zpj.http.parser.html.select.Elements;
@@ -56,23 +57,35 @@ public class CollectionRecommendCard extends RecommendCard<CollectionInfo> {
 
     public CollectionRecommendCard(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
-        init();
+        setTitle("应用集推荐");
+//        init();
     }
 
-    protected void init() {
-        setTitle("应用集推荐");
+    @Override
+    public void loadData(Runnable runnable) {
         if (HttpPreLoader.getInstance().hasKey(PreloadApi.HOME_COLLECTION)) {
-            HttpPreLoader.getInstance().setLoadListener(PreloadApi.HOME_COLLECTION, this::onGetDoc);
+            HttpPreLoader.getInstance()
+                    .setLoadListener(PreloadApi.HOME_COLLECTION, document -> onGetDoc(document, runnable));
         } else {
             HttpApi.collectionRecommend()
-                    .onSuccess(this::onGetDoc)
+                    .onSuccess(data -> onGetDoc(data, runnable))
                     .subscribe();
         }
     }
 
+//    protected void init() {
+//        if (HttpPreLoader.getInstance().hasKey(PreloadApi.HOME_COLLECTION)) {
+//            HttpPreLoader.getInstance().setLoadListener(PreloadApi.HOME_COLLECTION, this::onGetDoc);
+//        } else {
+//            HttpApi.collectionRecommend()
+//                    .onSuccess(this::onGetDoc)
+//                    .subscribe();
+//        }
+//    }
 
 
-    private void onGetDoc(Document document) {
+
+    private void onGetDoc(Document document, Runnable runnable) {
         Log.d("CollectionRecommendCard", "onGetDoc document=" + document);
         Elements elements = document.select("item");
         for (Element element : elements) {
@@ -82,6 +95,9 @@ public class CollectionRecommendCard extends RecommendCard<CollectionInfo> {
             list.remove(list.size() - 1);
         }
         recyclerView.notifyDataSetChanged();
+        if (runnable != null) {
+            runnable.run();
+        }
     }
 
     @Override

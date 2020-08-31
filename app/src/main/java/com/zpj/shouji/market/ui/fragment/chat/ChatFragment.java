@@ -41,7 +41,8 @@ import com.zpj.shouji.market.utils.BeanUtils;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ChatFragment extends NextUrlFragment<PrivateLetterInfo> implements ReplyPanel.OnOperationListener {
+public class ChatFragment extends NextUrlFragment<PrivateLetterInfo>
+        implements ReplyPanel.OnOperationListener {
 
     public int position; //加载滚动刷新位置
 

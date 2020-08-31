@@ -7,19 +7,17 @@ import com.bumptech.glide.Glide;
 import com.felix.atoast.library.AToast;
 import com.zpj.http.parser.html.nodes.Element;
 import com.zpj.popup.ZPopup;
-import com.zpj.popup.impl.AlertPopup;
-import com.zpj.popup.interfaces.OnCancelListener;
-import com.zpj.popup.interfaces.OnConfirmListener;
 import com.zpj.recyclerview.EasyViewHolder;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.api.BookingApi;
+import com.zpj.shouji.market.manager.UserManager;
 import com.zpj.shouji.market.model.BookingAppInfo;
 import com.zpj.shouji.market.ui.fragment.base.NextUrlFragment;
 import com.zpj.shouji.market.ui.fragment.detail.AppDetailFragment;
+import com.zpj.shouji.market.ui.fragment.login.LoginFragment3;
 import com.zpj.shouji.market.utils.BeanUtils;
 
 import java.util.List;
-import java.util.Locale;
 
 public class BookingAppListFragment extends NextUrlFragment<BookingAppInfo> {
 
@@ -54,11 +52,6 @@ public class BookingAppListFragment extends NextUrlFragment<BookingAppInfo> {
                 holder.setBackgroundResource(R.id.tv_download, R.drawable.bg_download_button);
                 holder.setTextColor(R.id.tv_download, getResources().getColor(R.color.colorPrimary));
                 holder.setOnClickListener(R.id.tv_download, v -> {
-//                    if (appInfo.isBooking()) {
-//
-//                    } else {
-//
-//                    }
                     BookingApi.bookingApi(appInfo, refreshRunnable);
                 });
             } else {

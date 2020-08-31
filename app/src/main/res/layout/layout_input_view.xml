@@ -47,7 +47,7 @@
             android:singleLine="true"
             android:text=""
             android:textColor="@color/color_text_normal"
-            android:textColorHint="@color/color_text_normal"
+            android:textColorHint="@color/light_gray_10"
             android:textSize="14sp"
             />
 
@@ -89,8 +89,8 @@
     <View
         android:id="@+id/bottom_line"
         android:layout_width="match_parent"
-        android:layout_height="2dp"
-        android:background="@color/color_text_normal"
+        android:layout_height="1dp"
+        android:background="@color/light_gray_1"
         />
 
     <TextView
@@ -98,7 +98,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="error"
-        android:textColor="@color/red5"
+        android:textColor="@color/red1"
         android:gravity="end"
         android:textSize="12sp"
         />

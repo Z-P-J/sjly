@@ -22,7 +22,7 @@ import java.util.Locale;
 
 public class TutorialRecommendCard extends RecommendCard<ArticleInfo> {
 
-//    private final int index;
+    private final int index;
     private final String type;
 
     public TutorialRecommendCard(Context context) {
@@ -40,7 +40,22 @@ public class TutorialRecommendCard extends RecommendCard<ArticleInfo> {
     public TutorialRecommendCard(Context context, AttributeSet attrs, int defStyleAttr, String type, int index) {
         super(context, attrs, defStyleAttr);
         this.type = type;
-//        this.index = index;
+        this.index = index;
+//        HttpApi.get(String.format(Locale.CHINA, "https://%s.shouji.com.cn/newslist/list_%d_1.html", type, index))
+//                .onSuccess(data -> {
+//                    Elements elements = data.selectFirst("ul.news_list").select("li");
+//                    list.clear();
+//                    for (Element element : elements) {
+//                        list.add(ArticleInfo.from(element));
+//                    }
+//                    recyclerView.notifyDataSetChanged();
+//                })
+////                .onError(this)
+//                .subscribe();
+    }
+
+    @Override
+    public void loadData(Runnable runnable) {
         HttpApi.get(String.format(Locale.CHINA, "https://%s.shouji.com.cn/newslist/list_%d_1.html", type, index))
                 .onSuccess(data -> {
                     Elements elements = data.selectFirst("ul.news_list").select("li");
@@ -49,11 +64,12 @@ public class TutorialRecommendCard extends RecommendCard<ArticleInfo> {
                         list.add(ArticleInfo.from(element));
                     }
                     recyclerView.notifyDataSetChanged();
+                    if (runnable != null) {
+                        runnable.run();
+                    }
                 })
-//                .onError(this)
                 .subscribe();
     }
-
 
     @Override
     protected void buildRecyclerView(EasyRecyclerView<ArticleInfo> recyclerView) {

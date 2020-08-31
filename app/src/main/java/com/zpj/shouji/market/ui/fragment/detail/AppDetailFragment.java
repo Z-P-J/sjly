@@ -29,10 +29,13 @@ import com.zpj.shouji.market.model.AppInfo;
 import com.zpj.shouji.market.model.AppUpdateInfo;
 import com.zpj.shouji.market.model.BookingAppInfo;
 import com.zpj.shouji.market.model.CollectionAppInfo;
+import com.zpj.shouji.market.model.GuessAppInfo;
 import com.zpj.shouji.market.model.InstalledAppInfo;
+import com.zpj.shouji.market.model.QuickAppInfo;
 import com.zpj.shouji.market.model.UserDownloadedAppInfo;
 import com.zpj.shouji.market.ui.adapter.FragmentsPagerAdapter;
 import com.zpj.shouji.market.ui.fragment.WebFragment;
+import com.zpj.shouji.market.ui.fragment.login.LoginFragment3;
 import com.zpj.shouji.market.ui.fragment.manager.AppManagerFragment;
 import com.zpj.shouji.market.ui.widget.AppDetailLayout;
 import com.zpj.shouji.market.ui.widget.popup.AppCommentPopup;
@@ -104,6 +107,14 @@ public class AppDetailFragment extends BaseFragment
         start(item.getAppType(), item.getAppId());
     }
 
+    public static void start(GuessAppInfo item) {
+        start(item.getAppType(), item.getAppId());
+    }
+
+    public static void start(QuickAppInfo item) {
+        start(item.getAppType(), item.getAppId());
+    }
+
     public static void start(AppUpdateInfo item) {
         start(item.getAppType(), item.getId());
     }
@@ -145,6 +156,7 @@ public class AppDetailFragment extends BaseFragment
     }
     @Override
     protected void initView(View view, @Nullable Bundle savedInstanceState) {
+        darkStatusBar();
         if (getArguments() != null) {
             type = getArguments().getString(Keys.TYPE);
             id = getArguments().getString(Keys.ID);
@@ -188,6 +200,11 @@ public class AppDetailFragment extends BaseFragment
                     AToast.normal("TODO Download");
                 }
             } else {
+                if (!UserManager.getInstance().isLogin()) {
+                    AToast.warning(R.string.text_msg_not_login);
+                    LoginFragment3.start();
+                    return;
+                }
                 fabComment.hide();
                 setSwipeBackEnable(false);
                 if (commentPopup == null) {
@@ -301,7 +318,6 @@ public class AppDetailFragment extends BaseFragment
     }
 
     private void getAppInfo() {
-        darkStatusBar();
         HttpApi.appInfoApi(type, id)
                 .onSuccess(data -> {
                     postOnEnterAnimationEnd(() -> {

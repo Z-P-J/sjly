@@ -232,6 +232,7 @@ public class ThemeShareFragment extends BaseFragment {
     @Override
     public void onEnterAnimationEnd(Bundle savedInstanceState) {
         super.onEnterAnimationEnd(savedInstanceState);
+        darkStatusBar();
         showSoftInput(etContent);
         initFlowLayout();
     }

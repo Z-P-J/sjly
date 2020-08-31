@@ -34,28 +34,50 @@ public abstract class AppInfoRecommendCard extends RecommendCard<AppInfo> {
 
     public AppInfoRecommendCard(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
-        init();
+//        init();
     }
 
-    protected void init() {
+//    protected void init() {
+//        if (getKey() != null) {
+//            if (HttpPreLoader.getInstance().hasKey(getKey())) {
+//                HttpPreLoader.getInstance().setLoadListener(getKey(), this::onGetDoc);
+//            } else {
+//                if (getKey() == PreloadApi.HOME_SOFT) {
+//                    HttpApi.homeRecommendSoftApi()
+//                            .onSuccess(this::onGetDoc)
+//                            .subscribe();
+//                } else if (getKey() == PreloadApi.HOME_GAME) {
+//                    HttpApi.homeRecommendGameApi()
+//                            .onSuccess(this::onGetDoc)
+//                            .subscribe();
+//                }
+//            }
+//        }
+//    }
+
+    @Override
+    public void loadData(Runnable runnable) {
         if (getKey() != null) {
             if (HttpPreLoader.getInstance().hasKey(getKey())) {
-                HttpPreLoader.getInstance().setLoadListener(getKey(), this::onGetDoc);
+                HttpPreLoader.getInstance().setLoadListener(getKey(), document -> onGetDoc(document, runnable));
             } else {
-                if (getKey() == PreloadApi.HOME_SOFT) {
-                    HttpApi.homeRecommendSoftApi()
-                            .onSuccess(this::onGetDoc)
-                            .subscribe();
-                } else if (getKey() == PreloadApi.HOME_GAME) {
-                    HttpApi.homeRecommendGameApi()
-                            .onSuccess(this::onGetDoc)
-                            .subscribe();
-                }
+                HttpApi.get(getKey().getUrl())
+                        .onSuccess(document -> onGetDoc(document, runnable))
+                        .subscribe();
+//                if (getKey() == PreloadApi.HOME_SOFT) {
+//                    HttpApi.homeRecommendSoftApi()
+//                            .onSuccess(document -> onGetDoc(document, runnable))
+//                            .subscribe();
+//                } else if (getKey() == PreloadApi.HOME_GAME) {
+//                    HttpApi.homeRecommendGameApi()
+//                            .onSuccess(document -> onGetDoc(document, runnable))
+//                            .subscribe();
+//                }
             }
         }
     }
 
-    private void onGetDoc(Document document) {
+    protected void onGetDoc(Document document, Runnable runnable) {
         Elements elements = document.select("item");
         for (Element element : elements) {
             AppInfo info = AppInfo.parse(element);
@@ -68,6 +90,9 @@ public abstract class AppInfoRecommendCard extends RecommendCard<AppInfo> {
             }
         }
         recyclerView.notifyDataSetChanged();
+        if (runnable != null) {
+            runnable.run();
+        }
     }
 
     @Override

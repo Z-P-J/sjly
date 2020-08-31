@@ -23,9 +23,11 @@ import com.zpj.popup.enums.PopupAnimation;
 import com.zpj.popup.impl.FullScreenPopup;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.event.GetMainActivityEvent;
+import com.zpj.shouji.market.manager.UserManager;
 import com.zpj.shouji.market.ui.activity.MainActivity;
 import com.zpj.shouji.market.ui.animator.KickBackAnimator;
 import com.zpj.shouji.market.ui.fragment.collection.CollectionShareFragment;
+import com.zpj.shouji.market.ui.fragment.login.LoginFragment3;
 import com.zpj.shouji.market.ui.fragment.profile.MyPrivateLetterFragment;
 import com.zpj.shouji.market.ui.fragment.theme.ThemeShareFragment;
 import com.zpj.shouji.market.ui.fragment.wallpaper.WallpaperShareFragment;
@@ -94,7 +96,7 @@ public class MainActionPopup extends FullScreenPopup<MainActionPopup> implements
                         emitter -> {
                             Bitmap bitmap = Blurred.with(activity.findViewById(R.id.main_content))
                                     .backgroundColor(Color.WHITE)
-                                    .foregroundColor(Color.parseColor("#aaffffff"))
+//                                    .foregroundColor(Color.parseColor("#aaffffff"))
                                     .scale(0.5f)
                                     .radius(25)
                                     .blur();
@@ -280,6 +282,11 @@ public class MainActionPopup extends FullScreenPopup<MainActionPopup> implements
     public void onClick(View v) {
         dismiss();
         if (v == floatingActionButton) {
+            return;
+        }
+        if (!UserManager.getInstance().isLogin()) {
+            AToast.warning(R.string.text_msg_not_login);
+            LoginFragment3.start();
             return;
         }
         switch ((int) v.getTag()) {

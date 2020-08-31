@@ -24,7 +24,7 @@ import com.zpj.shouji.market.event.SignOutEvent;
 import com.zpj.shouji.market.manager.UserManager;
 import com.zpj.shouji.market.model.MemberInfo;
 import com.zpj.shouji.market.ui.fragment.WebFragment;
-import com.zpj.shouji.market.ui.fragment.login.LoginFragment;
+import com.zpj.shouji.market.ui.fragment.login.LoginFragment3;
 import com.zpj.shouji.market.ui.fragment.setting.AboutSettingFragment;
 import com.zpj.shouji.market.ui.fragment.setting.CommonSettingFragment;
 import com.zpj.shouji.market.ui.fragment.setting.DownloadSettingFragment;
@@ -300,7 +300,7 @@ public class MyFragment extends BaseFragment
                                 if (UserManager.getInstance().isLogin()) {
                                     UserManager.getInstance().signOut(context);
                                 } else {
-                                    showLoginPopup(0);
+                                    LoginFragment3.start(false);
                                 }
                                 break;
                             case 4:
@@ -342,7 +342,7 @@ public class MyFragment extends BaseFragment
             if (UserManager.getInstance().isLogin()) {
                 MyInfoFragment.start();
             } else {
-                showLoginPopup(0);
+                LoginFragment3.start(false);
             }
         } else if (v == ivAvatar) {
             if (UserManager.getInstance().isLogin()) {
@@ -350,13 +350,13 @@ public class MyFragment extends BaseFragment
                 ProfileFragment.start(UserManager.getInstance().getUserId(), false);
 
             } else {
-                showLoginPopup(0);
+                LoginFragment3.start(false);
             }
         } else if (v == tvName) {
             if (UserManager.getInstance().isLogin()) {
                 NicknameModifiedPopup.with(context).show();
             } else {
-                showLoginPopup(0);
+                LoginFragment3.start(false);
             }
         } else if (v == tvCloudBackup) {
 //            _mActivity.start(new FragmentTest());
@@ -497,24 +497,8 @@ public class MyFragment extends BaseFragment
     @Subscribe
     public void onIconUploadSuccessEvent(IconUploadSuccessEvent event) {
         if (event.isAvatar()) {
-//            Glide.with(context)
-//                    .load(event.getUri())
-//                    .apply(
-//                            new RequestOptions()
-//                                    .error(R.drawable.ic_user_head)
-//                                    .placeholder(R.drawable.ic_user_head)
-//                    )
-//                    .into(ivAvatar);
             PictureUtil.loadAvatar(ivAvatar);
         } else {
-//            Glide.with(context)
-//                    .load(event.getUri())
-//                    .apply(
-//                            new RequestOptions()
-//                                    .error(R.drawable.bg_member_default)
-//                                    .placeholder(R.drawable.bg_member_default)
-//                    )
-//                    .into(ivWallpaper);
             PictureUtil.loadBackground(ivWallpaper);
         }
     }
@@ -536,7 +520,7 @@ public class MyFragment extends BaseFragment
 
     public void showLoginPopup(int page) {
         _mActivity.setFragmentAnimator(new DefaultVerticalAnimator());
-        LoginFragment.start();
+        LoginFragment3.start();
 //        if (loginPopup == null) {
 //            loginPopup = LoginPopup.with(context);
 //            loginPopup.setPopupCallback(new SimpleCallback() {

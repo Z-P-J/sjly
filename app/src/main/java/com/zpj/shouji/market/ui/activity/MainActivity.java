@@ -9,6 +9,9 @@ import android.os.Bundle;
 import android.os.StrictMode;
 import android.support.v4.app.ActivityCompat;
 import android.util.Log;
+import android.view.MotionEvent;
+import android.view.View;
+import android.widget.RelativeLayout;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
@@ -24,6 +27,7 @@ import com.zpj.fragmentation.anim.FragmentAnimator;
 import com.zpj.http.core.IHttp;
 import com.zpj.popup.ZPopup;
 import com.zpj.popup.impl.LoadingPopup;
+import com.zpj.popup.interfaces.OnCancelListener;
 import com.zpj.popup.interfaces.OnDismissListener;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.api.HttpApi;
@@ -38,6 +42,8 @@ import com.zpj.shouji.market.manager.AppInstalledManager;
 import com.zpj.shouji.market.manager.AppUpdateManager;
 import com.zpj.shouji.market.manager.UserManager;
 import com.zpj.shouji.market.ui.fragment.MainFragment;
+import com.zpj.shouji.market.ui.fragment.MainFragment3;
+import com.zpj.shouji.market.ui.fragment.TestFragment;
 import com.zpj.shouji.market.utils.AppUtil;
 import com.zpj.shouji.market.utils.PictureUtil;
 import com.zpj.utils.StatusBarUtils;
@@ -47,7 +53,12 @@ import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
 import java.io.File;
+import java.util.concurrent.TimeUnit;
 
+import io.reactivex.Observable;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.functions.Action;
+import io.reactivex.schedulers.Schedulers;
 import site.gemus.openingstartanimation.NormalDrawStrategy;
 import site.gemus.openingstartanimation.OpeningStartAnimation;
 
@@ -58,6 +69,8 @@ public class MainActivity extends SupportActivity {
     private OpeningStartAnimation openingStartAnimation3;
     private LoadingPopup loadingPopup;
 
+    private MainFragment3 mainFragment;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -66,39 +79,125 @@ public class MainActivity extends SupportActivity {
 
         setContentView(R.layout.activity_main);
 
+        RelativeLayout rlSplash = findViewById(R.id.rl_splash);
+        rlSplash.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+        rlSplash.setOnTouchListener((v, event) -> true);
+
+//        loadRootFragment(R.id.main_content, new TestFragment());
+
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
             StrictMode.VmPolicy.Builder builder = new StrictMode.VmPolicy.Builder();
             StrictMode.setVmPolicy(builder.build());
         }
 
-        StatusBarUtils.setDarkMode(getWindow());
-        openingStartAnimation3 = new OpeningStartAnimation.Builder(MainActivity.this)
-                .setDrawStategy(new NormalDrawStrategy())
-                .setAppName("手机乐园")
-                .setAppStatement("分享优质应用")
-                .setAnimationInterval(1500)
-                .setAppIcon(getResources().getDrawable(R.mipmap.ic_launcher))
-                .setAnimationListener((openingStartAnimation, activity) -> {
-                    AppUpdateManager.getInstance().checkUpdate(MainActivity.this);
-                    showRequestPermissionPopup();
-                    postDelayed(() -> {
-                        MainFragment mainFragment = findFragment(MainFragment.class);
-                        if (mainFragment == null) {
-                            mainFragment = new MainFragment();
-                            loadRootFragment(R.id.main_content, mainFragment);
-                        }
-                    }, 50);
-                })
-                .create();
-        openingStartAnimation3.show(MainActivity.this);
+//        StatusBarUtils.setDarkMode(getWindow());
+        getWindow().setBackgroundDrawable(new ColorDrawable(Color.WHITE));
+
 
         UserManager.getInstance().init();
 
         HttpPreLoader.getInstance().loadHomepage();
 
-        getWindow().setBackgroundDrawable(new ColorDrawable(Color.WHITE));
+        AppUpdateManager.getInstance().checkUpdate(MainActivity.this);
 
         AppInstalledManager.getInstance().loadApps(this);
+
+//        postDelayed(() -> {
+//            mainFragment = findFragment(MainFragment3.class);
+//            if (mainFragment == null) {
+//                mainFragment = new MainFragment3();
+//                loadRootFragment(R.id.fl_container, mainFragment);
+//            }
+//        }, 200);
+
+//        Observable.timer(250, TimeUnit.MILLISECONDS)
+//                .subscribeOn(Schedulers.io())
+//                .observeOn(AndroidSchedulers.mainThread())
+//                .doOnComplete(() -> {
+//                    mainFragment = findFragment(MainFragment3.class);
+//                    if (mainFragment == null) {
+//                        mainFragment = new MainFragment3();
+//                        loadRootFragment(R.id.fl_container, mainFragment);
+//                    }
+//                })
+//                .subscribe();
+
+
+        Observable.timer(2000, TimeUnit.MILLISECONDS)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .doOnComplete(() -> {
+                    showRequestPermissionPopup();
+                    rlSplash.setVisibility(View.GONE);
+                })
+                .subscribe();
+
+//        postDelayed(new Runnable() {
+//            @Override
+//            public void run() {
+//                showRequestPermissionPopup();
+//                rlSplash.setVisibility(View.GONE);
+//            }
+//        }, 10000);
+
+//        openingStartAnimation3 = new OpeningStartAnimation.Builder(MainActivity.this)
+//                .setDrawStategy(new NormalDrawStrategy())
+//                .setAppName("手机乐园")
+//                .setAppStatement("分享优质应用")
+//                .setAnimationInterval(2500)
+////                .setAnimationFinishTime(350)
+//                .setAppIcon(getResources().getDrawable(R.mipmap.ic_launcher))
+//                .setAnimationListener((openingStartAnimation, activity) -> {
+////                    postDelayed(() -> {
+////                        mainFragment = findFragment(MainFragment.class);
+////                        if (mainFragment == null) {
+////                            mainFragment = new MainFragment();
+////                            loadRootFragment(R.id.main_content, mainFragment);
+////                        }
+//////                        loadRootFragment(R.id.main_content, new TestFragment());
+////                    }, 50);
+//
+//                    UserManager.getInstance().init();
+//
+//                    HttpPreLoader.getInstance().loadHomepage();
+//
+//                    AppUpdateManager.getInstance().checkUpdate(MainActivity.this);
+//
+//                    AppInstalledManager.getInstance().loadApps(this);
+//
+//                    mainFragment = findFragment(MainFragment3.class);
+//                    if (mainFragment == null) {
+//                        mainFragment = new MainFragment3();
+//                        loadRootFragment(R.id.fl_container, mainFragment);
+//                    }
+//                    postDelayed(new Runnable() {
+//                        @Override
+//                        public void run() {
+//                            showRequestPermissionPopup();
+//
+//                        }
+//                    }, 1000);
+//                })
+//                .create();
+//        openingStartAnimation3.show(MainActivity.this);
+
+
+
+    }
+
+    @Override
+    public void onEnterAnimationComplete() {
+        super.onEnterAnimationComplete();
+        mainFragment = findFragment(MainFragment3.class);
+        if (mainFragment == null) {
+            mainFragment = new MainFragment3();
+            loadRootFragment(R.id.fl_container, mainFragment);
+        }
     }
 
     @Override
@@ -146,7 +245,7 @@ public class MainActivity extends SupportActivity {
                     .setTitle("权限申请")
                     .setContent("本软件需要读写手机存储的权限用于文件的下载与查看，是否申请该权限？")
                     .setConfirmButton("去申请", popup -> requestPermission())
-                    .setCancelButton("拒绝", this::finish)
+                    .setCancelButton("拒绝", () -> ActivityCompat.finishAfterTransition(MainActivity.this))
                     .show();
         }
     }
@@ -156,7 +255,9 @@ public class MainActivity extends SupportActivity {
                 .callback(new XPermission.SimpleCallback() {
                     @Override
                     public void onGranted() {
-                        openingStartAnimation3.dismiss(MainActivity.this);
+                        if (openingStartAnimation3 != null) {
+                            openingStartAnimation3.dismiss(MainActivity.this);
+                        }
                     }
 
                     @Override

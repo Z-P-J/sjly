@@ -26,23 +26,29 @@ public class NetGameRecommendCard extends AppInfoRecommendCard {
     public NetGameRecommendCard(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         setTitle("热门网游");
-        HttpApi.netGame().onSuccess(new IHttp.OnSuccessListener<Document>() {
-            @Override
-            public void onSuccess(Document document) throws Exception {
-                Elements elements = document.select("item");
-                for (Element element : elements) {
-                    AppInfo info = AppInfo.parse(element);
-                    if (info == null) {
-                        continue;
+
+    }
+
+    @Override
+    public void loadData(Runnable runnable) {
+        HttpApi.netGame()
+                .onSuccess(document -> {
+                    Elements elements = document.select("item");
+                    for (Element element : elements) {
+                        AppInfo info = AppInfo.parse(element);
+                        if (info == null) {
+                            continue;
+                        }
+                        list.add(info);
+                        if (list.size() == 8) {
+                            break;
+                        }
                     }
-                    list.add(info);
-                    if (list.size() == 8) {
-                        break;
+                    recyclerView.notifyDataSetChanged();
+                    if (runnable != null) {
+                        runnable.run();
                     }
-                }
-                recyclerView.notifyDataSetChanged();
-            }
-        })
+                })
                 .subscribe();
     }
 

@@ -19,9 +19,12 @@ import com.bumptech.glide.request.transition.Transition;
 import com.geek.banner.Banner;
 import com.geek.banner.loader.BannerEntry;
 import com.geek.banner.loader.BannerLoader;
+import com.zpj.http.core.IHttp;
+import com.zpj.http.parser.html.nodes.Document;
 import com.zpj.http.parser.html.nodes.Element;
 import com.zpj.http.parser.html.select.Elements;
 import com.zpj.shouji.market.R;
+import com.zpj.shouji.market.api.HttpApi;
 import com.zpj.shouji.market.api.HttpPreLoader;
 import com.zpj.shouji.market.api.PreloadApi;
 import com.zpj.shouji.market.model.AppInfo;
@@ -123,35 +126,76 @@ public class RecommendBanner extends LinearLayout implements View.OnClickListene
 ////        params.height = (int) ((float) screenWidth * screenWidth / ScreenUtils.getScreenHeight(context));
 //        params.height = (int) ((float) screenWidth / 2f);
 
-        HttpPreLoader.getInstance().setLoadListener(PreloadApi.HOME_BANNER, document -> {
-            Elements elements = document.select("item");
-            bannerItemList.clear();
-            for (Element element : elements) {
-                AppInfo info = AppInfo.parse(element);
-                if (info == null) {
-                    continue;
-                }
-                bannerItemList.add(info);
-                if (bannerItemList.size() >= 8) {
-                    break;
-                }
-            }
-            if (!bannerItemList.isEmpty()) {
-                setBg(0);
-            }
-//            mMZBanner.setPages(bannerItemList, () -> bannerViewHolder);
-//
-//            mMZBanner.start();
 
-            banner.loadImagePaths(bannerItemList);
-            banner.startAutoPlay();
-
-        });
 
         findViewById(R.id.tv_common_app).setOnClickListener(this);
         findViewById(R.id.tv_recent_download).setOnClickListener(this);
         findViewById(R.id.tv_subjects).setOnClickListener(this);
         findViewById(R.id.tv_collections).setOnClickListener(this);
+    }
+
+    public void loadData(Runnable runnable) {
+        if (HttpPreLoader.getInstance().hasKey(PreloadApi.HOME_BANNER)) {
+            HttpPreLoader.getInstance().setLoadListener(PreloadApi.HOME_BANNER, document -> {
+                onGetDoc(document, runnable);
+            });
+        } else {
+            HttpApi.get(PreloadApi.HOME_BANNER.getUrl())
+                    .onSuccess(document -> {
+                        onGetDoc(document, runnable);
+                    })
+                    .subscribe();
+        }
+//        HttpPreLoader.getInstance().setLoadListener(PreloadApi.HOME_BANNER, document -> {
+//            Elements elements = document.select("item");
+//            bannerItemList.clear();
+//            for (Element element : elements) {
+//                AppInfo info = AppInfo.parse(element);
+//                if (info == null) {
+//                    continue;
+//                }
+//                bannerItemList.add(info);
+//                if (bannerItemList.size() >= 8) {
+//                    break;
+//                }
+//            }
+//            if (!bannerItemList.isEmpty()) {
+//                setBg(0);
+//            }
+////            mMZBanner.setPages(bannerItemList, () -> bannerViewHolder);
+////
+////            mMZBanner.start();
+//
+//            banner.loadImagePaths(bannerItemList);
+//            banner.startAutoPlay();
+//            if (runnable != null) {
+//                runnable.run();
+//            }
+//
+//        });
+    }
+
+    private void onGetDoc(Document document, Runnable runnable) {
+        Elements elements = document.select("item");
+        bannerItemList.clear();
+        for (Element element : elements) {
+            AppInfo info = AppInfo.parse(element);
+            if (info == null) {
+                continue;
+            }
+            bannerItemList.add(info);
+            if (bannerItemList.size() >= 8) {
+                break;
+            }
+        }
+        if (!bannerItemList.isEmpty()) {
+            setBg(0);
+        }
+        banner.loadImagePaths(bannerItemList);
+        banner.startAutoPlay();
+        if (runnable != null) {
+            runnable.run();
+        }
     }
 
     public void onResume() {

@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    >
+
+    <com.zpj.shouji.market.ui.widget.input.AccountInputView2
+        android:id="@+id/et_account"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:layout_marginHorizontal="32dp"
+        />
+
+    <com.zpj.shouji.market.ui.widget.input.PasswordInputView2
+        android:id="@+id/et_password"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="32dp"
+        />
+
+    <com.zpj.shouji.market.ui.widget.input.PasswordInputView2
+        android:id="@+id/et_password_again"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="32dp"
+        />
+
+    <com.zpj.shouji.market.ui.widget.input.EmailInputView2
+        android:id="@+id/et_email"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="32dp"
+        />
+
+    <LinearLayout
+        android:id="@+id/ll_agreement"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingTop="8dp"
+        android:paddingBottom="8dp"
+        android:layout_marginHorizontal="32dp"
+        android:gravity="center"
+        >
+
+        <com.zpj.widget.checkbox.SmoothCheckBox
+            android:id="@+id/cb_agreement"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            app:color_checked="@color/colorPrimary"
+            android:layout_marginEnd="8dp"
+            />
+
+        <com.ctetin.expandabletextviewlibrary.ExpandableTextView
+            android:id="@+id/tv_agreement"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="同意《用户协议》和《隐私协议》"
+            android:layout_gravity="center_vertical"
+            android:gravity="center_vertical"
+            android:paddingTop="8dp"
+            android:paddingBottom="8dp"
+            app:ep_need_expand="false"
+            app:ep_need_link="false"
+            app:ep_need_mention="false"
+            app:ep_need_self="true"
+            app:ep_need_contract="false"
+            app:ep_need_convert_url="false"
+            app:ep_self_color="@color/colorPrimary"
+            />
+
+
+    </LinearLayout>
+
+    <com.zpj.shouji.market.ui.widget.input.SubmitView
+        android:id="@+id/tv_sign_in"
+        style="@style/button_submit"
+        android:text="注册"
+        app:sv_bindEditText1="@+id/et_account"
+        app:sv_bindEditText2="@+id/et_password"
+        app:sv_bindEditText3="@+id/et_password_again"
+        app:sv_bindEditText4="@+id/et_email"
+        android:layout_marginHorizontal="32dp"
+        android:layout_marginBottom="16dp"
+        />
+
+</LinearLayout>

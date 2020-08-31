@@ -1,5 +1,7 @@
 package site.gemus.openingstartanimation;
+import android.animation.Animator;
 import android.animation.ObjectAnimator;
+import android.animation.ValueAnimator;
 import android.app.Activity;
 import android.content.Context;
 import android.content.pm.PackageManager;
@@ -10,6 +12,7 @@ import android.os.Handler;
 import android.os.Message;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
@@ -99,7 +102,7 @@ import java.util.TimerTask;
         SoftReference<Activity> softReference = new SoftReference<Activity>(mactivity);
         final Activity activity = softReference.get();
         View decorView = activity.getWindow().getDecorView();
-        decorView.setSystemUiVisibility(View.SYSTEM_UI_FLAG_FULLSCREEN);
+//        decorView.setSystemUiVisibility(View.SYSTEM_UI_FLAG_FULLSCREEN);
         if (activity instanceof AppCompatActivity) {
             ActionBar actionBar = ((AppCompatActivity) activity).getSupportActionBar();
             if (actionBar != null)
@@ -112,29 +115,50 @@ import java.util.TimerTask;
         ViewGroup.LayoutParams layoutParams = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
                 ViewGroup.LayoutParams.MATCH_PARENT);
         activity.addContentView(this, layoutParams);
-        ObjectAnimator objectAnimator = ObjectAnimator.ofFloat(this, "fraction", 0, 1);
-        objectAnimator.setDuration(animationInterval - 50);
-        objectAnimator.start();
+
+        setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+
+        setOnLongClickListener(new OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                return true;
+            }
+        });
+//        setOnTouchListener((v, event) -> true);
+
+
         //处理动画定时
         final Handler handler = new Handler(new Handler.Callback() {
             @Override
             public boolean handleMessage(Message message) {
                 if (message.what == FINISHANIMATION) {
-                    moveAnimation(activity);
+                    moveAnimation(activity, null);
                 }
                 return false;
             }
         });
-        //动画定时器
-        new Timer().schedule(new TimerTask() {
+
+        ObjectAnimator objectAnimator = ObjectAnimator.ofFloat(this, "fraction", 0, 1);
+        objectAnimator.setDuration(animationInterval - 2000);
+        objectAnimator.addListener(new Animator.AnimatorListener() {
             @Override
-            public void run() {
+            public void onAnimationStart(Animator animation) {
+
+            }
+
+            @Override
+            public void onAnimationEnd(Animator animation) {
                 if (animationListener == null) {
                     Message message = new Message();
                     message.what = FINISHANIMATION;
                     handler.sendMessage(message);
                 } else {
-                    handler.post(new Runnable() {
+                    post(new Runnable() {
                         @Override
                         public void run() {
                             animationListener.onFinish(OpeningStartAnimation.this, activity);
@@ -142,34 +166,91 @@ import java.util.TimerTask;
                     });
                 }
             }
-        }, animationInterval);
+
+            @Override
+            public void onAnimationCancel(Animator animation) {
+
+            }
+
+            @Override
+            public void onAnimationRepeat(Animator animation) {
+
+            }
+        });
+        objectAnimator.start();
+
+        //动画定时器
+//        new Timer().schedule(new TimerTask() {
+//            @Override
+//            public void run() {
+//                if (animationListener == null) {
+//                    Message message = new Message();
+//                    message.what = FINISHANIMATION;
+//                    handler.sendMessage(message);
+//                } else {
+//                    handler.post(new Runnable() {
+//                        @Override
+//                        public void run() {
+//                            animationListener.onFinish(OpeningStartAnimation.this, activity);
+//                        }
+//                    });
+//                }
+//            }
+//        }, animationInterval);
     }
 
     public void dismiss(Activity activity) {
-        moveAnimation(activity);
+        moveAnimation(activity, null);
+    }
+
+    public void dismiss(Activity activity, Runnable endRunnable) {
+        moveAnimation(activity, endRunnable);
     }
 
     /**
      * 隐藏动画view
      * @param activity 当前活动
      */
-    private void moveAnimation(Activity activity) {
+    private void moveAnimation(Activity activity, Runnable endRunnable) {
         View decorView = activity.getWindow().getDecorView();
-        decorView.setSystemUiVisibility(View.SYSTEM_UI_FLAG_VISIBLE);
-        if (activity instanceof AppCompatActivity) {
-            ActionBar actionBar = ((AppCompatActivity) activity).getSupportActionBar();
-            if (actionBar != null)
-                actionBar.show();
-        } else {
-            android.app.ActionBar actionBar = activity.getActionBar();
-            if (actionBar != null)
-                actionBar.show();
-        }
+//        decorView.setSystemUiVisibility(View.SYSTEM_UI_FLAG_VISIBLE);
+//        if (activity instanceof AppCompatActivity) {
+//            ActionBar actionBar = ((AppCompatActivity) activity).getSupportActionBar();
+//            if (actionBar != null)
+//                actionBar.show();
+//        } else {
+//            android.app.ActionBar actionBar = activity.getActionBar();
+//            if (actionBar != null)
+//                actionBar.show();
+//        }
         this.animate()
                 .scaleX(0)
                 .scaleY(0)
                 .withLayer()
                 .alpha(0)
+                .setListener(new Animator.AnimatorListener() {
+                    @Override
+                    public void onAnimationStart(Animator animation) {
+
+                    }
+
+                    @Override
+                    public void onAnimationEnd(Animator animation) {
+                        if (endRunnable != null) {
+                            endRunnable.run();
+                        }
+                    }
+
+                    @Override
+                    public void onAnimationCancel(Animator animation) {
+
+                    }
+
+                    @Override
+                    public void onAnimationRepeat(Animator animation) {
+
+                    }
+                })
                 .setDuration(animationFinishTime);
         mDelegateRecycleView.finishAnimation();
     }

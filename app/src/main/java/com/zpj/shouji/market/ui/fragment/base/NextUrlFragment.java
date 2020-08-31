@@ -98,8 +98,10 @@ public abstract class NextUrlFragment<T> extends RecyclerLayoutFragment<T>
         int end = data.size();
 
         int last = -1;
+        int first = -1;
         if (recyclerLayout.getLayoutManager() instanceof LinearLayoutManager) {
             last = ((LinearLayoutManager) recyclerLayout.getLayoutManager()).findLastVisibleItemPosition();
+            first = ((LinearLayoutManager) recyclerLayout.getLayoutManager()).findFirstVisibleItemPosition();
         }
 
         Log.d("getData", "last=" + last);
@@ -107,7 +109,7 @@ public abstract class NextUrlFragment<T> extends RecyclerLayoutFragment<T>
         Log.d("getData", "start=" + start + " end=" + end + " count=" + (end - start));
         Log.d("getData", "getHeaderView=" + recyclerLayout.getAdapter().getHeaderView());
         Log.d("getData", "getFooterView=" + recyclerLayout.getAdapter().getFooterView());
-        if (start == 0 || last <= start) {
+        if (start == 0 || first == 0) { // last <= start
             recyclerLayout.notifyDataSetChanged();
         } else {
             if (start < end) {
