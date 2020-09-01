@@ -50,7 +50,7 @@ public class MyDynamicFragment extends BaseFragment {
 
     @Override
     protected int getLayoutId() {
-        return R.layout.fragment_my_dynamic;
+        return R.layout.fragment_my_viewpager;
     }
 
     @Override

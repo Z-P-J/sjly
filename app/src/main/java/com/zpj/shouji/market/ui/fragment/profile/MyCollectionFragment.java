@@ -54,7 +54,7 @@ public class MyCollectionFragment extends BaseFragment {
 
     @Override
     protected int getLayoutId() {
-        return R.layout.fragment_my_discover;
+        return R.layout.fragment_my_viewpager;
     }
 
     @Override

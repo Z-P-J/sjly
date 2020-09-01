@@ -1,6 +1,7 @@
 package com.zpj.shouji.market.ui.adapter;
 
 import android.content.Context;
+import android.content.res.TypedArray;
 import android.graphics.drawable.Drawable;
 import android.text.TextUtils;
 import android.view.Gravity;
@@ -21,10 +22,12 @@ import com.lwkandroid.widget.ninegridview.NineGirdImageContainer;
 import com.lwkandroid.widget.ninegridview.NineGridBean;
 import com.lwkandroid.widget.ninegridview.NineGridView;
 import com.sunbinqiang.iconcountview.IconCountView;
+import com.zpj.popup.interfaces.OnDismissListener;
 import com.zpj.recyclerview.EasyViewHolder;
 import com.zpj.recyclerview.IEasy;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.api.HttpApi;
+import com.zpj.shouji.market.event.MainActionPopupEvent;
 import com.zpj.shouji.market.glide.blur.CropBlurTransformation;
 import com.zpj.shouji.market.manager.UserManager;
 import com.zpj.shouji.market.model.DiscoverInfo;
@@ -40,6 +43,7 @@ import com.zpj.shouji.market.ui.widget.emoji.EmojiExpandableTextView;
 import com.zpj.shouji.market.ui.widget.popup.CommonImageViewerPopup;
 import com.zpj.shouji.market.ui.widget.popup.SupportUserListPopup;
 import com.zpj.shouji.market.ui.widget.popup.ThemeAppDownloadPopup;
+import com.zpj.shouji.market.ui.widget.popup.ThemeMorePopupMenu;
 import com.zpj.shouji.market.utils.TextUrlUtil;
 
 import java.util.ArrayList;
@@ -210,9 +214,26 @@ public class DiscoverBinder
             } else {
                 commentLayout.setVisibility(View.VISIBLE);
                 int i = 0;
+
                 for (DiscoverInfo child : discoverInfo.getChildren()) {
 
+                    TypedArray typedArray = context.obtainStyledAttributes(new int[]{R.attr.selectableItemBackground});
+                    Drawable background = typedArray.getDrawable(0);
+                    typedArray.recycle();
+                    LinearLayout container = new LinearLayout(context);
+                    container.setBackground(background);
+                    commentLayout.addView(container);
+
+                    container.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+//                            AToast.normal("hhhhhhh");
+                            holder.performClick();
+                        }
+                    });
+
                     if (i >= 3) {
+                        container.setOnLongClickListener(v -> true);
                         int total = discoverInfo.getChildren().size();
                         if (total > 3) {
                             DrawableTintTextView textView = new DrawableTintTextView(context);
@@ -225,11 +246,23 @@ public class DiscoverBinder
                             textView.setTextColor(color);
                             textView.setDrawableTintColor(color);
                             ViewGroup.LayoutParams params = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-                            commentLayout.addView(textView, params);
+                            container.addView(textView);
                         }
                         break;
                     }
+
+                    container.setOnLongClickListener(new View.OnLongClickListener() {
+                        @Override
+                        public boolean onLongClick(View v) {
+                            ThemeMorePopupMenu.with(context)
+                                    .setDiscoverInfo(child)
+                                    .show();
+                            return true;
+                        }
+                    });
+
                     EmojiExpandableTextView textView = new EmojiExpandableTextView(context);
+
                     textView.setNeedExpend(false);
                     textView.setNeedConvertUrl(false);
                     textView.setTextColor(context.getResources().getColor(R.color.color_text_major));
@@ -239,7 +272,7 @@ public class DiscoverBinder
 //                    textView.setLinkClickListener(this);
 
                     textView.setPadding(0, 0, 0, 8);
-                    commentLayout.addView(textView);
+                    container.addView(textView);
 
                     if (!child.getSpics().isEmpty()) {
                         NineGridView nineGridView = new NineGridView(context);
@@ -251,7 +284,7 @@ public class DiscoverBinder
                         }
                         nineGridView.addDataList(gridList);
                         nineGridView.setPadding(0, 0, 0, 8);
-                        commentLayout.addView(nineGridView);
+                        container.addView(nineGridView);
                     }
                     i++;
                 }

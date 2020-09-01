@@ -76,18 +76,18 @@ public class SoftRecommendFragment2 extends BaseRecommendFragment2 implements Vi
                 })
                 .subscribe();
 
-        recommendCardList.add(0, new SoftUpdateRecommendCard(context));
-        recommendCardList.add(0, new CollectionRecommendCard(context));
+        recommendCardList.add(new SoftUpdateRecommendCard(context));
+        recommendCardList.add(new CollectionRecommendCard(context));
 
         SoftRecommendCard softRecommendCard = new SoftRecommendCard(context);
         softRecommendCard.setTitle("常用应用");
-        recommendCardList.add(0, softRecommendCard);
+        recommendCardList.add(softRecommendCard);
 
 
         for (int i = 0; i < TITLES.length; i++) {
             TutorialRecommendCard card = new TutorialRecommendCard(context, "soft", i + 1);
             card.setTitle(TITLES[i]);
-            recommendCardList.add(0, card);
+            recommendCardList.add(card);
         }
 
         onScrolledToBottom();
@@ -126,13 +126,4 @@ public class SoftRecommendFragment2 extends BaseRecommendFragment2 implements Vi
         }
     }
 
-//    @Override
-//    public void onScrolledToBottom() {
-//
-//    }
-//
-//    @Override
-//    public void onScrolledToTop() {
-//
-//    }
 }

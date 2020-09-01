@@ -1,4 +1,4 @@
-package com.zpj.shouji.market.ui.fragment;
+package com.zpj.shouji.market.ui.fragment.subject;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;

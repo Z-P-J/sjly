@@ -191,7 +191,7 @@ public class RecommendFragment2 extends BaseFragment
 
     @Override
     public void onScrollChange(NestedScrollView v, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
-        int h = ScreenUtils.dp2pxInt(context, 100);
+        int h = ScreenUtils.dp2pxInt(context, 80);
         if (oldScrollY <= h) {
             if (Math.abs(scrollY - oldScrollY) < 2) {
                 return;
@@ -207,20 +207,19 @@ public class RecommendFragment2 extends BaseFragment
 //                    Log.d(TAG, "isDark=" + isDark);
             ToolbarColorChangeEvent.post(color, alpha >= 0.5);
 
-//                    if (scrollY >= oldScrollY) {
-//                        ColorChangeEvent.post(alpha < 0.5f);
-//                    } else {
-//                        ColorChangeEvent.post(alpha < 0.5f);
-//                    }
             ColorChangeEvent.post(alpha < 0.5f);
-            if (alpha < 0.5) {
-                mBanner.onResume();
-            } else {
-                mBanner.onPause();
+            if (mBanner != null) {
+                if (alpha < 0.5) {
+                    mBanner.onResume();
+                } else {
+                    mBanner.onPause();
+                }
             }
         } else {
             ColorChangeEvent.post(false);
-            mBanner.onPause();
+            if (mBanner != null) {
+                mBanner.onPause();
+            }
         }
     }
 
@@ -242,7 +241,11 @@ public class RecommendFragment2 extends BaseFragment
 
     @Override
     public void onScrolledToTop() {
-
+        ToolbarColorChangeEvent.post(Color.TRANSPARENT, false);
+        ColorChangeEvent.post(true);
+        if (mBanner != null) {
+            mBanner.onResume();
+        }
     }
 
     protected void addCard(RecommendCard recommendCard, boolean hasNoMore) {

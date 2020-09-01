@@ -108,7 +108,7 @@ public class AppDetailLayout extends FrameLayout {
                 .load(info.getIconUrl())
                 .apply(
                         RequestOptions
-                                .bitmapTransform(new CropBlurTransformation(25, 1f))
+                                .bitmapTransform(new CropBlurTransformation(25, 0.3f))
                                 .error(R.drawable.bg_member_default)
                                 .placeholder(R.drawable.bg_member_default)
                 )

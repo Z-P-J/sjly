@@ -18,7 +18,8 @@ import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.api.HttpPreLoader;
 import com.zpj.shouji.market.api.PreloadApi;
 import com.zpj.shouji.market.model.SubjectInfo;
-import com.zpj.shouji.market.ui.fragment.SubjectRecommendListFragment;
+import com.zpj.shouji.market.ui.fragment.subject.SubjectDetailFragment;
+import com.zpj.shouji.market.ui.fragment.subject.SubjectRecommendListFragment;
 import com.zpj.shouji.market.ui.fragment.ToolBarListFragment;
 import com.zpj.shouji.market.utils.BeanUtils;
 
@@ -101,7 +102,8 @@ public class SubjectRecommendCard extends RecommendCard<SubjectInfo> {
 
     @Override
     public void onClick(EasyViewHolder holder, View view, SubjectInfo data) {
-        ToolBarListFragment.startSubjectDetail(data.getId());
+//        ToolBarListFragment.startSubjectDetail(data.getId());
+        SubjectDetailFragment.start(data);
     }
 
     @Override

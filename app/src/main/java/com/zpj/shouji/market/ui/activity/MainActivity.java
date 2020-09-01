@@ -1,6 +1,7 @@
 package com.zpj.shouji.market.ui.activity;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
@@ -9,16 +10,20 @@ import android.os.Bundle;
 import android.os.StrictMode;
 import android.support.v4.app.ActivityCompat;
 import android.util.Log;
-import android.view.MotionEvent;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.request.RequestOptions;
 import com.felix.atoast.library.AToast;
+import com.lqr.emoji.IImageLoader;
+import com.lqr.emoji.LQREmotionKit;
 import com.lxj.xpermission.PermissionConstants;
 import com.lxj.xpermission.XPermission;
+import com.maning.librarycrashmonitor.MCrashMonitor;
+import com.raizlabs.android.dbflow.config.FlowManager;
 import com.yalantis.ucrop.CropEvent;
+import com.zpj.downloader.ZDownloader;
 import com.zpj.downloader.util.permission.PermissionUtil;
 import com.zpj.fragmentation.SupportActivity;
 import com.zpj.fragmentation.SupportFragment;
@@ -27,8 +32,6 @@ import com.zpj.fragmentation.anim.FragmentAnimator;
 import com.zpj.http.core.IHttp;
 import com.zpj.popup.ZPopup;
 import com.zpj.popup.impl.LoadingPopup;
-import com.zpj.popup.interfaces.OnCancelListener;
-import com.zpj.popup.interfaces.OnDismissListener;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.api.HttpApi;
 import com.zpj.shouji.market.api.HttpPreLoader;
@@ -42,8 +45,6 @@ import com.zpj.shouji.market.manager.AppInstalledManager;
 import com.zpj.shouji.market.manager.AppUpdateManager;
 import com.zpj.shouji.market.manager.UserManager;
 import com.zpj.shouji.market.ui.fragment.MainFragment;
-import com.zpj.shouji.market.ui.fragment.MainFragment3;
-import com.zpj.shouji.market.ui.fragment.TestFragment;
 import com.zpj.shouji.market.utils.AppUtil;
 import com.zpj.shouji.market.utils.PictureUtil;
 import com.zpj.utils.StatusBarUtils;
@@ -57,9 +58,8 @@ import java.util.concurrent.TimeUnit;
 
 import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.functions.Action;
 import io.reactivex.schedulers.Schedulers;
-import site.gemus.openingstartanimation.NormalDrawStrategy;
+import per.goweii.burred.Blurred;
 import site.gemus.openingstartanimation.OpeningStartAnimation;
 
 public class MainActivity extends SupportActivity {
@@ -69,7 +69,7 @@ public class MainActivity extends SupportActivity {
     private OpeningStartAnimation openingStartAnimation3;
     private LoadingPopup loadingPopup;
 
-    private MainFragment3 mainFragment;
+    private RelativeLayout rlSplash;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -79,7 +79,7 @@ public class MainActivity extends SupportActivity {
 
         setContentView(R.layout.activity_main);
 
-        RelativeLayout rlSplash = findViewById(R.id.rl_splash);
+        rlSplash = findViewById(R.id.rl_splash);
         rlSplash.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -99,13 +99,7 @@ public class MainActivity extends SupportActivity {
         getWindow().setBackgroundDrawable(new ColorDrawable(Color.WHITE));
 
 
-        UserManager.getInstance().init();
 
-        HttpPreLoader.getInstance().loadHomepage();
-
-        AppUpdateManager.getInstance().checkUpdate(MainActivity.this);
-
-        AppInstalledManager.getInstance().loadApps(this);
 
 //        postDelayed(() -> {
 //            mainFragment = findFragment(MainFragment3.class);
@@ -126,16 +120,6 @@ public class MainActivity extends SupportActivity {
 //                    }
 //                })
 //                .subscribe();
-
-
-        Observable.timer(2000, TimeUnit.MILLISECONDS)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .doOnComplete(() -> {
-                    showRequestPermissionPopup();
-                    rlSplash.setVisibility(View.GONE);
-                })
-                .subscribe();
 
 //        postDelayed(new Runnable() {
 //            @Override
@@ -193,9 +177,45 @@ public class MainActivity extends SupportActivity {
     @Override
     public void onEnterAnimationComplete() {
         super.onEnterAnimationComplete();
-        mainFragment = findFragment(MainFragment3.class);
+
+        //        MFileUtils.setCrashLogPath(Environment.getExternalStorageDirectory().getPath() + "/sjly/Crash/Log");
+//        MFileUtils.setCrashPicPath(Environment.getExternalStorageDirectory().getPath() + "/sjly/Crash/ScreenShoot");
+        MCrashMonitor.init(this, true, file -> {
+//                MCrashMonitor.startCrashShowPage(getContext());
+        });
+        FlowManager.init(this);
+
+        AToast.onInit(this);
+        ZDownloader.init(this);
+        LQREmotionKit.init(this, new IImageLoader() {
+            @Override
+            public void displayImage(Context context, String path, ImageView imageView) {
+                Glide.with(context).load(path).centerCrop().into(imageView);
+            }
+        });
+        Blurred.init(this);
+
+
+        UserManager.getInstance().init();
+
+        HttpPreLoader.getInstance().loadHomepage();
+
+        AppUpdateManager.getInstance().checkUpdate(MainActivity.this);
+
+        AppInstalledManager.getInstance().loadApps(this);
+
+        Observable.timer(2000, TimeUnit.MILLISECONDS)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .doOnComplete(() -> {
+                    showRequestPermissionPopup();
+                    rlSplash.setVisibility(View.GONE);
+                })
+                .subscribe();
+
+        MainFragment mainFragment = findFragment(MainFragment.class);
         if (mainFragment == null) {
-            mainFragment = new MainFragment3();
+            mainFragment = new MainFragment();
             loadRootFragment(R.id.fl_container, mainFragment);
         }
     }

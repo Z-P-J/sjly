@@ -127,8 +127,6 @@ public class HomeFragment extends BaseFragment {
                 })
                 .build();
 
-        AToast.success("mmmmmmmmmmmmmmmm");
-
     }
 
     @Override

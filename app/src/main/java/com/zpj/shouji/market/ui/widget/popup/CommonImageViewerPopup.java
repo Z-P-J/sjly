@@ -24,6 +24,7 @@ import com.bumptech.glide.request.target.SimpleTarget;
 import com.bumptech.glide.request.target.Target;
 import com.bumptech.glide.request.transition.Transition;
 import com.felix.atoast.library.AToast;
+import com.zpj.fragmentation.SupportHelper;
 import com.zpj.popup.ZPopup;
 import com.zpj.popup.core.ImageViewerPopup;
 import com.zpj.popup.impl.AttachListPopup;
@@ -31,9 +32,12 @@ import com.zpj.popup.interfaces.IImageLoader;
 import com.zpj.popup.photoview.PhotoView;
 import com.zpj.popup.widget.LoadingView;
 import com.zpj.shouji.market.R;
+import com.zpj.shouji.market.event.GetMainActivityEvent;
 import com.zpj.shouji.market.event.HideLoadingEvent;
 import com.zpj.shouji.market.event.ShowLoadingEvent;
 import com.zpj.shouji.market.glide.GlideApp;
+import com.zpj.shouji.market.ui.activity.MainActivity;
+import com.zpj.shouji.market.utils.Callback;
 import com.zpj.shouji.market.utils.PictureUtil;
 import com.zpj.widget.tinted.TintedImageButton;
 import com.zpj.widget.toolbar.ZToolBar;
@@ -143,6 +147,12 @@ public class CommonImageViewerPopup extends ImageViewerPopup<String>
     @Override
     protected void onDismiss() {
         super.onDismiss();
+        GetMainActivityEvent.post(new Callback<MainActivity>() {
+            @Override
+            public void onCallback(MainActivity activity) {
+                SupportHelper.getTopFragment(activity.getSupportFragmentManager()).onSupportVisible();
+            }
+        });
     }
 
     @Override

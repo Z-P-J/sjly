@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.zpj.widget.statelayout.StateLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/state_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white">
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <com.donkingliang.consecutivescroller.ConsecutiveScrollerLayout
+            android:id="@+id/layout_scroller"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:id="@+id/iv_bg"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/bg_member_default"
+                    android:tint="#80000000"
+                    />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:paddingTop="80dp">
+
+                    <TextView
+                        android:id="@+id/tv_title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginTop="16dp"
+                        android:ellipsize="end"
+                        android:gravity="center"
+                        android:maxLines="2"
+                        android:text="xxxxxxxxx专题"
+                        android:textColor="@color/white"
+                        android:textSize="16sp"
+                        android:textStyle="bold"
+                        android:paddingHorizontal="32dp"
+                        />
+
+                    <com.shehuan.niv.NiceImageView
+                        android:id="@+id/iv_icon"
+                        android:layout_width="48dp"
+                        android:layout_height="48dp"
+                        android:layout_gravity="center"
+                        android:layout_marginTop="16dp"
+                        android:src="@mipmap/ic_launcher"
+                        android:scaleType="centerCrop"
+                        app:is_circle="true" />
+
+                    <TextView
+                        android:id="@+id/tv_info"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginBottom="16dp"
+                        android:ellipsize="end"
+                        android:maxLines="1"
+                        android:text="8个应用 | 10000浏览 | 7人收藏"
+                        android:textColor="@color/white"
+                        android:textSize="12sp"
+                        />
+
+                </LinearLayout>
+
+
+            </FrameLayout>
+
+            <TextView
+                android:id="@+id/tv_desc"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="16dp"
+                android:text="xxxxxxxxxxxxxx\nxxxxxxxxxx\nxxxxxxx"
+                android:lineSpacingExtra="4dp"
+                android:textSize="12sp"
+                />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/light_gray_1"
+                android:layout_marginHorizontal="16dp"
+                />
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/recycler_view"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+        </com.donkingliang.consecutivescroller.ConsecutiveScrollerLayout>
+
+        <include layout="@layout/layout_toolbar" />
+
+    </FrameLayout>
+
+</com.zpj.widget.statelayout.StateLayout>

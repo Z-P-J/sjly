@@ -1,8 +1,7 @@
-package com.zpj.shouji.market.ui.fragment;
+package com.zpj.shouji.market.ui.fragment.subject;
 
 import android.graphics.Color;
 import android.os.Bundle;
-import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -16,11 +15,10 @@ import com.zpj.recyclerview.EasyViewHolder;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.constant.Keys;
 import com.zpj.shouji.market.model.SubjectInfo;
+import com.zpj.shouji.market.ui.fragment.ToolBarListFragment;
 import com.zpj.shouji.market.ui.fragment.base.NextUrlFragment;
 import com.zpj.shouji.market.ui.fragment.search.SearchResultFragment;
 import com.zpj.shouji.market.utils.BeanUtils;
-
-import org.greenrobot.eventbus.EventBus;
 
 import java.util.List;
 
@@ -81,8 +79,8 @@ public class SubjectListFragment extends NextUrlFragment<SubjectInfo>
 
     @Override
     public void onClick(EasyViewHolder holder, View view, SubjectInfo data) {
-        super.onClick(holder, view, data);
-        ToolBarListFragment.startSubjectDetail(data.getId());
+//        ToolBarListFragment.startSubjectDetail(data.getId());
+        SubjectDetailFragment.start(data);
     }
 
     @Override

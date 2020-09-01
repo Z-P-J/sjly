@@ -20,6 +20,7 @@ import com.bumptech.glide.request.target.SimpleTarget;
 import com.bumptech.glide.request.target.Target;
 import com.bumptech.glide.request.transition.Transition;
 import com.felix.atoast.library.AToast;
+import com.zpj.fragmentation.SupportHelper;
 import com.zpj.http.core.IHttp;
 import com.zpj.http.parser.html.nodes.Document;
 import com.zpj.http.parser.html.nodes.Element;
@@ -31,14 +32,17 @@ import com.zpj.popup.photoview.PhotoView;
 import com.zpj.popup.widget.LoadingView;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.api.HttpApi;
+import com.zpj.shouji.market.event.GetMainActivityEvent;
 import com.zpj.shouji.market.event.HideLoadingEvent;
 import com.zpj.shouji.market.event.ShowLoadingEvent;
 import com.zpj.shouji.market.model.DiscoverInfo;
 import com.zpj.shouji.market.model.WallpaperInfo;
+import com.zpj.shouji.market.ui.activity.MainActivity;
 import com.zpj.shouji.market.ui.fragment.base.ListenerFragment;
 import com.zpj.shouji.market.ui.fragment.profile.ProfileFragment;
 import com.zpj.shouji.market.ui.fragment.theme.ThemeDetailFragment;
 import com.zpj.shouji.market.ui.widget.DrawableTintTextView;
+import com.zpj.shouji.market.utils.Callback;
 import com.zpj.shouji.market.utils.PictureUtil;
 import com.zpj.widget.tinted.TintedImageButton;
 import com.zpj.widget.toolbar.ZToolBar;
@@ -285,6 +289,12 @@ public class WallpaperViewerPopup extends ImageViewerPopup<String>
     @Override
     protected void onDismiss() {
         super.onDismiss();
+        GetMainActivityEvent.post(new Callback<MainActivity>() {
+            @Override
+            public void onCallback(MainActivity activity) {
+                SupportHelper.getTopFragment(activity.getSupportFragmentManager()).onSupportVisible();
+            }
+        });
     }
 
     @Override

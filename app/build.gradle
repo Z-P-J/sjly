@@ -92,7 +92,7 @@ dependencies {
 //    implementation 'com.eightbitlab:blurview:1.6.3'
 
     // 轮播图
-    implementation 'com.github.pinguo-zhouwei:MZBannerView:v2.0.2'
+//    implementation 'com.github.pinguo-zhouwei:MZBannerView:v2.0.2'
     implementation 'com.github.AlpsDog:Banner:v1.0.6'
 
     // 加载动画
@@ -134,8 +134,8 @@ dependencies {
     implementation 'com.github.duanhong169:drawabletoolbox:1.0.7'
 //    implementation 'com.github.CarGuo.RickText:textUtilsLib:v2.1.5'
 //    implementation 'com.github.clans:fab:1.6.4'
-    debugImplementation 'com.didichuxing.doraemonkit:doraemonkit:2.2.2'
-    releaseImplementation 'com.didichuxing.doraemonkit:doraemonkit-no-op:2.2.2'
+//    debugImplementation 'com.didichuxing.doraemonkit:doraemonkit:2.2.2'
+//    releaseImplementation 'com.didichuxing.doraemonkit:doraemonkit-no-op:2.2.2'
 
     implementation 'com.zpj.widget:StateLayout:1.0.2'
     implementation 'com.zpj.widget:SmoothCheckBox:1.0.0'

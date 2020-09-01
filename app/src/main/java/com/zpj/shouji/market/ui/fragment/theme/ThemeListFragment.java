@@ -90,7 +90,6 @@ public class ThemeListFragment extends NextUrlFragment<DiscoverInfo>
 
     @Override
     public void onClick(EasyViewHolder holder, View view, DiscoverInfo data) {
-        AToast.normal("TODO click");
         if (data.getSpics().isEmpty() && !data.getSharePics().isEmpty()) {
             CollectionInfo info = new CollectionInfo();
             info.setId(data.getId());

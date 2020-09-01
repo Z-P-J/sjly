@@ -72,15 +72,15 @@ public class GameRecommendFragment2 extends BaseRecommendFragment2 implements Vi
                 })
                 .subscribe();
 
-        recommendCardList.add(0, new GameUpdateRecommendCard(context));
-        recommendCardList.add(0, new GameRecommendCard(context));
+        recommendCardList.add(new GameUpdateRecommendCard(context));
+        recommendCardList.add(new GameRecommendCard(context));
 
-        recommendCardList.add(0, new GameBookingRecommendCard(context));
-        recommendCardList.add(0, new NetGameRecommendCard(context));
+        recommendCardList.add(new GameBookingRecommendCard(context));
+        recommendCardList.add(new NetGameRecommendCard(context));
         for (int i = 0; i < TITLES.length; i++) {
             TutorialRecommendCard card = new TutorialRecommendCard(context, "game", i + 1);
             card.setTitle(TITLES[i]);
-            recommendCardList.add(0, card);
+            recommendCardList.add(card);
         }
 
         onScrolledToBottom();

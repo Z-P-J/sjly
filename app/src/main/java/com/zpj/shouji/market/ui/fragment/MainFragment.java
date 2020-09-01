@@ -137,18 +137,13 @@ public class MainFragment extends BaseFragment {
 
 
         floatingActionButton.setOnClickListener(v -> {
-            postDelayed(this::darkStatusBar, 300);
+//            postDelayed(this::darkStatusBar, 300);
             MainActionPopupEvent.post(true);
             MainActionPopup.with(context)
                     .setOnDismissListener(() -> {
                         MainActionPopupEvent.post(false);
 //                        lightStatusBar();
-                        fragments.get(viewPager.getCurrentItem()).onSupportVisible();
-//                        if (viewPager.getCurrentItem() == 0 || viewPager.getCurrentItem() == 1) {
-//                            lightStatusBar();
-//                        } else {
-//                            darkStatusBar();
-//                        }
+//                        fragments.get(viewPager.getCurrentItem()).onSupportVisible();
                     })
                     .show();
         });
@@ -163,14 +158,18 @@ public class MainFragment extends BaseFragment {
         UserManager.getInstance().rsyncMessage(false);
     }
 
-//    @Override
-//    public void onSupportVisible() {
+    @Override
+    public void onSupportVisible() {
 //        if (viewPager != null && !fragments.isEmpty()) {
 //            fragments.get(viewPager.getCurrentItem()).onSupportVisible();
 //        } else {
 //            darkStatusBar();
 //        }
-//    }
+
+        if (viewPager != null && !fragments.isEmpty()) {
+            fragments.get(viewPager.getCurrentItem()).onSupportVisible();
+        }
+    }
 //
 //    @Override
 //    public void onSupportInvisible() {

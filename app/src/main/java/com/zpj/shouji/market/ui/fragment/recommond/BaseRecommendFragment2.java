@@ -10,8 +10,6 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.geek.banner.Banner;
-import com.zhouwei.mzbanner.MZBannerView;
-import com.zhouwei.mzbanner.holder.MZHolderCreator;
 import com.zpj.fragmentation.BaseFragment;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.event.MainActionPopupEvent;
@@ -21,7 +19,6 @@ import com.zpj.shouji.market.ui.fragment.manager.AppManagerFragment;
 import com.zpj.shouji.market.ui.fragment.search.SearchFragment;
 import com.zpj.shouji.market.ui.widget.SmartNestedScrollView;
 import com.zpj.shouji.market.ui.widget.recommend.AppBannerLoader;
-import com.zpj.shouji.market.ui.widget.recommend.BannerViewHolder;
 import com.zpj.shouji.market.ui.widget.recommend.RecommendCard;
 import com.zpj.utils.ScreenUtils;
 import com.zpj.widget.statelayout.StateLayout;
@@ -30,14 +27,16 @@ import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Queue;
 
 public abstract class BaseRecommendFragment2 extends BaseFragment
         implements SmartNestedScrollView.ISmartScrollChangedListener {
 
     private static final String TAG = "BaseRecommendFragment2";
 
-    protected final List<RecommendCard> recommendCardList = new ArrayList<>();
+    protected final Queue<RecommendCard> recommendCardList = new LinkedList<>();
 
     private final List<AppInfo> bannerItemList = new ArrayList<>();
 
@@ -133,15 +132,15 @@ public abstract class BaseRecommendFragment2 extends BaseFragment
     @Override
     public void onScrolledToBottom() {
         if (recommendCardList.size() >= 2) {
-            RecommendCard recommendCard = recommendCardList.remove(recommendCardList.size() - 1);
-            RecommendCard recommendCard2 = recommendCardList.remove(recommendCardList.size() - 1);
+            RecommendCard recommendCard = recommendCardList.remove();
+            RecommendCard recommendCard2 = recommendCardList.remove();
             recommendCard2.loadData(null);
             recommendCard.loadData(() -> {
                 addCard(recommendCard, false);
                 addCard(recommendCard2, recommendCardList.isEmpty());
             });
         } else if (recommendCardList.size() == 1) {
-            RecommendCard recommendCard = recommendCardList.remove(0);
+            RecommendCard recommendCard = recommendCardList.remove();
             recommendCard.loadData(() -> addCard(recommendCard, true));
         }
     }
