@@ -37,6 +37,7 @@ import com.zpj.shouji.market.ui.fragment.manager.AppPickerFragment;
 import com.zpj.shouji.market.ui.fragment.profile.UserPickerFragment;
 import com.zpj.shouji.market.ui.widget.ActionPanel;
 import com.zpj.shouji.market.ui.widget.flowlayout.FlowLayout;
+import com.zpj.utils.KeyboardHeightProvider;
 import com.zpj.utils.ScreenUtils;
 
 import java.io.File;

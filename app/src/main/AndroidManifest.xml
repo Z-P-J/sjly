@@ -26,6 +26,10 @@
             android:windowSoftInputMode="adjustResize|stateAlwaysHidden"
             >
 
+<!--            adjustPan|stateHidden-->
+
+<!--            adjustResize|stateAlwaysHidden-->
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <action android:name="android.intent.action.VIEW" />

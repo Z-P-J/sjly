@@ -86,6 +86,12 @@ public class MyDynamicFragment extends BaseFragment {
         }
     }
 
+    @Override
+    public void onSupportVisible() {
+        super.onSupportVisible();
+        darkStatusBar();
+    }
+
     private void initViewPager() {
         List<Fragment> fragments = new ArrayList<>();
         AllFragment allFragment = findChildFragment(AllFragment.class);

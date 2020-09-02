@@ -16,4 +16,9 @@ public final class Keys {
     public static final String SHOW_TOOLBAR = "key_show_toolbar";
     public final static String SHOW_COMMENT = "key_show_comment";
 
+
+
+    public final static String SYSTEM_BRIGHTNESS = "key_system_brightness";
+    public final static String APP_BRIGHTNESS = "key_app_brightness";
+
 }

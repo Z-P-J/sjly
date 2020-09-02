@@ -24,6 +24,8 @@ import com.bumptech.glide.request.target.SimpleTarget;
 import com.bumptech.glide.request.target.Target;
 import com.bumptech.glide.request.transition.Transition;
 import com.felix.atoast.library.AToast;
+import com.zpj.fragmentation.ISupportFragment;
+import com.zpj.fragmentation.SupportFragment;
 import com.zpj.fragmentation.SupportHelper;
 import com.zpj.popup.ZPopup;
 import com.zpj.popup.core.ImageViewerPopup;
@@ -147,10 +149,14 @@ public class CommonImageViewerPopup extends ImageViewerPopup<String>
     @Override
     protected void onDismiss() {
         super.onDismiss();
-        GetMainActivityEvent.post(new Callback<MainActivity>() {
-            @Override
-            public void onCallback(MainActivity activity) {
-                SupportHelper.getTopFragment(activity.getSupportFragmentManager()).onSupportVisible();
+        GetMainActivityEvent.post(activity -> {
+            ISupportFragment fragment = SupportHelper.getBackStackTopFragment(activity.getSupportFragmentManager());
+            if (fragment == null) {
+                fragment = SupportHelper.getTopFragment(activity.getSupportFragmentManager());
+            }
+            Log.d("CommonImageViewerPopup", "fragment=" + fragment);
+            if (fragment != null) {
+                fragment.onSupportVisible();
             }
         });
     }

@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white">
+
+    <include layout="@layout/layout_toolbar"/>
+
+    <com.zpj.shouji.market.ui.widget.ElasticScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:layout_below="@id/tool_bar"
+        android:layout_above="@id/tv_submit"
+        android:scrollbars="none"
+        >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            >
+
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="16dp"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="举报动态"
+                android:textColor="@color/colorPrimary"
+                android:paddingHorizontal="16dp"
+                />
+
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="8dp"
+                >
+
+                <include layout="@layout/item_theme"
+                    />
+
+            </FrameLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="举报原因"
+                android:textColor="@color/colorPrimary"
+                android:paddingHorizontal="16dp"
+                />
+
+            <com.zpj.shouji.market.ui.widget.flowlayout.FlowLayout
+                android:id="@+id/fl_tags"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/grey_shape"
+                android:layout_margin="16dp"
+                />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="其他原因"
+                android:textColor="@color/colorPrimary"
+                android:paddingHorizontal="16dp"
+                />
+
+            <android.support.v7.widget.AppCompatEditText
+                android:id="@+id/et_content"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="start"
+                android:textColor="@color/color_text_major"
+                android:background="@drawable/grey_shape"
+                android:inputType="textMultiLine"
+                android:minLines="4"
+                android:hint="请输入补充原因(可选)"
+                android:padding="16dp"
+                android:textSize="16sp"
+                android:layout_margin="16dp"
+                />
+
+        </LinearLayout>
+
+    </com.zpj.shouji.market.ui.widget.ElasticScrollView>
+
+    <TextView
+        android:id="@+id/tv_submit"
+        style="@style/button_submit"
+        android:layout_marginVertical="16dp"
+        android:layout_marginHorizontal="32dp"
+        android:text="举报"
+        android:layout_alignParentBottom="true"
+        />
+
+    <View style="@style/layout_shadow_bottom"
+        android:layout_below="@id/tool_bar" />
+
+    <View style="@style/layout_shadow_up"
+        android:layout_above="@id/tv_submit" />
+
+</RelativeLayout>

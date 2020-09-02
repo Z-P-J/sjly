@@ -70,6 +70,12 @@ public class MyCommentFragment extends BaseFragment {
     }
 
     @Override
+    public void onSupportVisible() {
+        super.onSupportVisible();
+        darkStatusBar();
+    }
+
+    @Override
     public void onDestroy() {
         HttpApi.updateFlagApi(UpdateFlagAction.COMMENT);
         super.onDestroy();

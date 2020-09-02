@@ -76,6 +76,12 @@ public class MyDiscoverFragment extends BaseFragment {
     }
 
     @Override
+    public void onSupportVisible() {
+        super.onSupportVisible();
+        darkStatusBar();
+    }
+
+    @Override
     public void onDestroy() {
         HttpApi.updateFlagApi(UpdateFlagAction.DISCOVER);
         super.onDestroy();

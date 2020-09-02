@@ -167,4 +167,13 @@
         <item>鬼畜天线宝宝</item>
     </string-array>
 
+    <string-array name="default_report_reason">
+        <item>暴力/血腥/敏感/涉政</item>
+        <item>低俗色情内容</item>
+        <item>发布小广告</item>
+        <item>辱骂/攻击</item>
+        <item>发布虚假信息、制造谣言</item>
+        <item>该用户涉嫌传播、出售违规软件</item>
+    </string-array>
+
 </resources>

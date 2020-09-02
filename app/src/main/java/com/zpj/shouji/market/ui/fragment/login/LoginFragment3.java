@@ -2,6 +2,7 @@ package com.zpj.shouji.market.ui.fragment.login;
 
 import android.animation.ObjectAnimator;
 import android.content.Context;
+import android.graphics.Rect;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.text.Editable;
@@ -24,6 +25,7 @@ import android.widget.TextView;
 import com.felix.atoast.library.AToast;
 import com.zpj.fragmentation.BaseFragment;
 import com.zpj.fragmentation.SupportHelper;
+import com.zpj.popup.util.KeyboardUtils;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.constant.Keys;
 import com.zpj.shouji.market.event.SignInEvent;
@@ -34,6 +36,7 @@ import com.zpj.shouji.market.ui.widget.SignUpLayout2;
 import com.zpj.shouji.market.ui.widget.SignUpLayout3;
 import com.zpj.shouji.market.utils.RxAnimationTool;
 import com.zpj.shouji.market.utils.SoftInputHelper;
+import com.zpj.utils.ScreenUtils;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -97,6 +100,7 @@ public class LoginFragment3 extends BaseFragment {
     @Override
     protected void initView(View view, @Nullable Bundle savedInstanceState) {
         LinearLayout llContainer = findViewById(R.id.ll_container);
+        View tvSubmit;
         if (isRegistration) {
             setToolbarTitle("账号注册");
             SignUpLayout3 signUpLayout3 = new SignUpLayout3(context);
@@ -109,6 +113,7 @@ public class LoginFragment3 extends BaseFragment {
                     signUpLayout3.getEtPassword(),
                     signUpLayout3.getEtPasswordAgain()
             );
+            tvSubmit = contentView.findViewById(R.id.tv_sign_in);
         } else {
             setToolbarTitle("账号登录");
             SignInLayout3 signInLayout3 = new SignInLayout3(context);
@@ -126,9 +131,25 @@ public class LoginFragment3 extends BaseFragment {
                     signInLayout3.getEtAccount(),
                     signInLayout3.getEtPassword()
             );
+            tvSubmit = contentView.findViewById(R.id.sv_login);
         }
         EventBus.getDefault().register(contentView);
         llContainer.addView(contentView);
+
+        int dp16 = ScreenUtils.dp2pxInt(context, 16);
+        KeyboardUtils.registerSoftInputChangedListener(_mActivity, view, height -> {
+            if (height > 0) {
+                Rect rect = new Rect();
+                tvSubmit.getGlobalVisibleRect(rect);
+                float bottom = ScreenUtils.getScreenHeight(context) - rect.bottom - dp16;
+                Log.d("LoginFragment3", "rect.bottom=" + rect.bottom + " bottom=" + bottom + " height=" + height);
+                if (bottom < height) {
+                    llContainer.setTranslationY(bottom - height);
+                }
+            } else {
+                llContainer.setTranslationY(0);
+            }
+        });
 
     }
 

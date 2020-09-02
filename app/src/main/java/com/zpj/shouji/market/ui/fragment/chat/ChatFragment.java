@@ -112,6 +112,12 @@ public class ChatFragment extends NextUrlFragment<PrivateLetterInfo>
     }
 
     @Override
+    public void onSupportVisible() {
+        super.onSupportVisible();
+        darkStatusBar();
+    }
+
+    @Override
     public boolean onBackPressedSupport() {
         if (replyPanel.isEmotionPanelShow()) {
             replyPanel.hideEmojiPanel();

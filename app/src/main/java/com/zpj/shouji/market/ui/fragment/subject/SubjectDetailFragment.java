@@ -98,6 +98,7 @@ public class SubjectDetailFragment extends BaseFragment
 
             title = getArguments().getString(Keys.TITLE, "Title");
             setToolbarTitle(title);
+            toolbar.getCenterTextView().setAlpha(0);
             tvTitle.setText(title);
 
             tvInfo.setText(getArguments().getString(Keys.INFO, ""));
@@ -108,7 +109,7 @@ public class SubjectDetailFragment extends BaseFragment
                     .load(getArguments().getString(Keys.ICON))
                     .apply(
                             RequestOptions
-                                    .bitmapTransform(new CropBlurTransformation(25, 0.3f))
+                                    .bitmapTransform(new CropBlurTransformation(25, 0.1f))
                                     .error(R.drawable.bg_member_default)
                                     .placeholder(R.drawable.bg_member_default)
                     )
@@ -132,7 +133,7 @@ public class SubjectDetailFragment extends BaseFragment
                     toolbar.setBackgroundColor(color);
                     isLightStyle = alpha <= 0.5;
                     toolbar.setLightStyle(isLightStyle);
-                    toolbar.getCenterTextView().setAlpha(1 - alpha);
+                    toolbar.getCenterTextView().setAlpha(alpha);
 
                     if (isLightStyle) {
                         lightStatusBar();
@@ -145,7 +146,7 @@ public class SubjectDetailFragment extends BaseFragment
                     toolbar.setLightStyle(false);
                     darkStatusBar();
 //                    setToolbarTitle(title);
-                    toolbar.getCenterTextView().setAlpha(0);
+                    toolbar.getCenterTextView().setAlpha(1);
                 }
             }
         });

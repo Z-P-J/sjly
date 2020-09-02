@@ -26,7 +26,7 @@
                     android:layout_height="match_parent"
                     android:scaleType="centerCrop"
                     android:src="@drawable/bg_member_default"
-                    android:tint="#80000000"
+                    android:tint="#40000000"
                     />
 
                 <LinearLayout
@@ -53,10 +53,10 @@
 
                     <com.shehuan.niv.NiceImageView
                         android:id="@+id/iv_icon"
-                        android:layout_width="48dp"
-                        android:layout_height="48dp"
+                        android:layout_width="36dp"
+                        android:layout_height="36dp"
                         android:layout_gravity="center"
-                        android:layout_marginTop="16dp"
+                        android:layout_marginTop="32dp"
                         android:src="@mipmap/ic_launcher"
                         android:scaleType="centerCrop"
                         app:is_circle="true" />
@@ -67,12 +67,11 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:layout_marginTop="8dp"
-                        android:layout_marginBottom="16dp"
+                        android:layout_marginBottom="32dp"
                         android:ellipsize="end"
                         android:maxLines="1"
                         android:text="8个应用 | 10000浏览 | 7人收藏"
                         android:textColor="@color/white"
-                        android:textSize="12sp"
                         />
 
                 </LinearLayout>

@@ -8,9 +8,11 @@ import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.StrictMode;
+import android.provider.Settings;
 import android.support.v4.app.ActivityCompat;
 import android.util.Log;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
@@ -35,6 +37,7 @@ import com.zpj.popup.impl.LoadingPopup;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.api.HttpApi;
 import com.zpj.shouji.market.api.HttpPreLoader;
+import com.zpj.shouji.market.constant.Keys;
 import com.zpj.shouji.market.event.GetMainActivityEvent;
 import com.zpj.shouji.market.event.HideLoadingEvent;
 import com.zpj.shouji.market.event.IconUploadSuccessEvent;
@@ -47,6 +50,7 @@ import com.zpj.shouji.market.manager.UserManager;
 import com.zpj.shouji.market.ui.fragment.MainFragment;
 import com.zpj.shouji.market.utils.AppUtil;
 import com.zpj.shouji.market.utils.PictureUtil;
+import com.zpj.utils.PrefsHelper;
 import com.zpj.utils.StatusBarUtils;
 
 import org.greenrobot.eventbus.EventBus;
@@ -98,6 +102,15 @@ public class MainActivity extends SupportActivity {
 //        StatusBarUtils.setDarkMode(getWindow());
         getWindow().setBackgroundDrawable(new ColorDrawable(Color.WHITE));
 
+        WindowManager.LayoutParams lp = getWindow().getAttributes();
+        float brightness;
+        if (PrefsHelper.with().getBoolean(Keys.SYSTEM_BRIGHTNESS, false)) {
+            brightness = getSystemBrightness();
+        } else {
+            brightness  = PrefsHelper.with().getFloat(Keys.APP_BRIGHTNESS, getSystemBrightness());
+        }
+        lp.screenBrightness = brightness / 100;
+        getWindow().setAttributes(lp);
 
 
 
@@ -403,6 +416,16 @@ public class MainActivity extends SupportActivity {
                 HideLoadingEvent.postDelayed(500);
             }
         }
+    }
+
+    private float getSystemBrightness(){
+        int screenBrightness=255;
+        try{
+            screenBrightness = Settings.System.getInt(getContentResolver(), Settings.System.SCREEN_BRIGHTNESS);
+        } catch (Exception e){
+            e.printStackTrace();
+        }
+        return (float) screenBrightness / 255 * 100;
     }
 
 

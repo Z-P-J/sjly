@@ -82,6 +82,12 @@ public class MyMsgFragment extends BaseFragment {
     }
 
     @Override
+    public void onSupportVisible() {
+        super.onSupportVisible();
+        darkStatusBar();
+    }
+
+    @Override
     public void onDestroy() {
         HttpApi.updateFlagApi(UpdateFlagAction.GOOD);
         super.onDestroy();

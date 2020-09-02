@@ -13,6 +13,7 @@ import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.api.HttpApi;
 import com.zpj.shouji.market.manager.UserManager;
 import com.zpj.shouji.market.model.DiscoverInfo;
+import com.zpj.shouji.market.ui.fragment.ReportFragment;
 
 public class ThemeMorePopupMenu extends BottomListPopupMenu
         implements BottomListPopupMenu.OnItemClickListener {
@@ -56,6 +57,7 @@ public class ThemeMorePopupMenu extends BottomListPopupMenu
                 break;
             case R.id.report:
                 AToast.normal("TODO 举报");
+                ReportFragment.start(info);
                 break;
             case R.id.black_list:
                 HttpApi.addBlacklistApi(info.getMemberId());

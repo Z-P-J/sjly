@@ -90,6 +90,12 @@ public class MyCollectionFragment extends BaseFragment {
         }
     }
 
+    @Override
+    public void onSupportVisible() {
+        super.onSupportVisible();
+        darkStatusBar();
+    }
+
     private void initViewPager() {
         List<Fragment> fragments = new ArrayList<>();
         MyCollectionAppFragment myRelatedDiscoverFragment = findChildFragment(MyCollectionAppFragment.class);

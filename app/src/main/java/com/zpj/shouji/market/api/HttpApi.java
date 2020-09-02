@@ -552,6 +552,12 @@ public final class HttpApi {
         });
     }
 
+    public static ObservableTask<Document> reportApi(String id, String type, String reason) {
+        return get(String.format("http://tt.shouji.com.cn/app/jubao.jsp?id=%s&t=%s&reason=%s", id, type, reason));
+    }
+
+
+
     private static String encodePassword(String string) {
         if (TextUtils.isEmpty(string)) {
             return "";
