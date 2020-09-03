@@ -22,19 +22,18 @@ import com.lwkandroid.widget.ninegridview.NineGirdImageContainer;
 import com.lwkandroid.widget.ninegridview.NineGridBean;
 import com.lwkandroid.widget.ninegridview.NineGridView;
 import com.sunbinqiang.iconcountview.IconCountView;
-import com.zpj.popup.interfaces.OnDismissListener;
 import com.zpj.recyclerview.EasyViewHolder;
 import com.zpj.recyclerview.IEasy;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.api.HttpApi;
-import com.zpj.shouji.market.event.MainActionPopupEvent;
+import com.zpj.shouji.market.constant.AppConfig;
 import com.zpj.shouji.market.glide.blur.CropBlurTransformation;
 import com.zpj.shouji.market.manager.UserManager;
 import com.zpj.shouji.market.model.DiscoverInfo;
 import com.zpj.shouji.market.model.SupportUserInfo;
 import com.zpj.shouji.market.ui.fragment.WebFragment;
 import com.zpj.shouji.market.ui.fragment.detail.AppDetailFragment;
-import com.zpj.shouji.market.ui.fragment.login.LoginFragment3;
+import com.zpj.shouji.market.ui.fragment.login.LoginFragment;
 import com.zpj.shouji.market.ui.fragment.profile.ProfileFragment;
 import com.zpj.shouji.market.ui.fragment.theme.TopicThemeListFragment;
 import com.zpj.shouji.market.ui.widget.CombineImageView;
@@ -45,6 +44,7 @@ import com.zpj.shouji.market.ui.widget.popup.SupportUserListPopup;
 import com.zpj.shouji.market.ui.widget.popup.ThemeAppDownloadPopup;
 import com.zpj.shouji.market.ui.widget.popup.ThemeMorePopupMenu;
 import com.zpj.shouji.market.utils.TextUrlUtil;
+import com.zpj.utils.NetUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -335,7 +335,7 @@ public class DiscoverBinder
                 if (!UserManager.getInstance().isLogin()) {
                     supportView.setState(!isSelected);
                     AToast.warning(R.string.text_msg_not_login);
-                    LoginFragment3.start();
+                    LoginFragment.start();
                     return;
                 }
 
@@ -530,10 +530,11 @@ public class DiscoverBinder
 
         @Override
         public void onNineGirdItemClick(int position, NineGridBean gridBean, NineGirdImageContainer imageContainer) {
+
             CommonImageViewerPopup.with(nineGridView.getContext())
                     .setOriginalImageList(discoverInfo.getPics())
                     .setImageSizeList(discoverInfo.getPicSizes())
-                    .setImageUrls(discoverInfo.getSpics())
+                    .setImageUrls(AppConfig.isShowOriginalImage() && NetUtils.isWiFi(nineGridView.getContext()) ? discoverInfo.getPics() : discoverInfo.getSpics())
                     .setSrcView(imageContainer.getImageView(), position)
                     .setSrcViewUpdateListener((popup, pos) -> {
                         NineGirdImageContainer view = (NineGirdImageContainer) nineGridView.getChildAt(pos);

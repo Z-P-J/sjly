@@ -34,6 +34,8 @@ public class InstallSettingFragment extends BaseSettingFragment {
 
         CheckableSettingItem itemRootInstall = view.findViewById(R.id.item_root_install);
         itemRootInstall.setOnItemClickListener(this);
+
+        afterInitView();
     }
 
 

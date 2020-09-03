@@ -4,27 +4,24 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.View;
+import android.widget.LinearLayout;
 
 import com.felix.atoast.library.AToast;
 import com.zpj.http.core.IHttp;
 import com.zpj.http.core.ObservableTask;
 import com.zpj.popup.ZPopup;
-import com.zpj.popup.impl.AlertPopup;
-import com.zpj.popup.interfaces.OnConfirmListener;
-import com.zpj.popup.interfaces.OnDismissListener;
+import com.zpj.popup.core.BasePopup;
 import com.zpj.shouji.market.R;
+import com.zpj.shouji.market.constant.AppConfig;
 import com.zpj.shouji.market.event.HideLoadingEvent;
 import com.zpj.shouji.market.event.ShowLoadingEvent;
 import com.zpj.shouji.market.event.StartFragmentEvent;
+import com.zpj.shouji.market.manager.AppUpdateManager;
 import com.zpj.shouji.market.ui.widget.popup.BrightnessPopup;
+import com.zpj.shouji.market.utils.AnimationUtil;
 import com.zpj.shouji.market.utils.DataCleanManagerUtils;
 import com.zpj.widget.setting.CheckableSettingItem;
 import com.zpj.widget.setting.CommonSettingItem;
-
-import io.reactivex.Observable;
-import io.reactivex.ObservableEmitter;
-import io.reactivex.ObservableOnSubscribe;
-import io.reactivex.internal.operators.observable.ObservableObserveOn;
 
 public class CommonSettingFragment extends BaseSettingFragment {
 
@@ -46,20 +43,28 @@ public class CommonSettingFragment extends BaseSettingFragment {
     protected void initView(View view, @Nullable Bundle savedInstanceState) {
 
         CheckableSettingItem itemShowStartPage = view.findViewById(R.id.item_show_start_page);
+        itemShowStartPage.setChecked(AppConfig.isShowSplash());
         itemShowStartPage.setOnItemClickListener(this);
 
         CheckableSettingItem itemShowUpdateNotification = view.findViewById(R.id.item_show_update_notification);
+        itemShowUpdateNotification.setChecked(AppConfig.isShowUpdateNotification());
         itemShowUpdateNotification.setOnItemClickListener(this);
 
         CommonSettingItem itemBrightnessControl = view.findViewById(R.id.item_brightness_control);
         itemBrightnessControl.setOnItemClickListener(this);
 
 
-        CheckableSettingItem itemAutoSaveTraffic = view.findViewById(R.id.item_auto_save_traffic);
-        itemAutoSaveTraffic.setOnItemClickListener(this);
+//        CheckableSettingItem itemAutoSaveTraffic = view.findViewById(R.id.item_auto_save_traffic);
+//        itemAutoSaveTraffic.setChecked(AppConfig.isAutoSaveTraffic());
+//        itemAutoSaveTraffic.setOnItemClickListener(this);
 
         CheckableSettingItem itemShowOriginalImage = view.findViewById(R.id.item_show_original_image);
+        itemShowOriginalImage.setChecked(AppConfig.isShowOriginalImage());
         itemShowOriginalImage.setOnItemClickListener(this);
+
+        CheckableSettingItem compressUploadImageItem = view.findViewById(R.id.item_compress_upload_image);
+        compressUploadImageItem.setChecked(AppConfig.isCompressUploadImage());
+        compressUploadImageItem.setOnItemClickListener(this);
 
         CommonSettingItem itemClearCache = view.findViewById(R.id.item_clear_cache);
         itemClearCache.setOnItemClickListener(this);
@@ -70,22 +75,32 @@ public class CommonSettingFragment extends BaseSettingFragment {
                 })
                 .onSuccess(itemClearCache::setRightText)
                 .subscribe();
+
+        afterInitView();
     }
 
     @Override
     public void onItemClick(CheckableSettingItem item) {
         switch (item.getId()) {
             case R.id.item_show_start_page:
-
+                AppConfig.setShowSplash(item.isChecked());
                 break;
             case R.id.item_show_update_notification:
-
+                AppConfig.setShowUpdateNotification(item.isChecked());
+                if (item.isChecked()) {
+                    AppUpdateManager.getInstance().notifyUpdate();
+                } else {
+                    AppUpdateManager.getInstance().cancelNotifyUpdate();
+                }
                 break;
-            case R.id.item_auto_save_traffic:
-
-                break;
+//            case R.id.item_auto_save_traffic:
+//                AppConfig.setAutoSaveTraffic(item.isChecked());
+//                break;
             case R.id.item_show_original_image:
-
+                AppConfig.setShowOriginalImage(item.isChecked());
+                break;
+            case R.id.item_compress_upload_image:
+                AppConfig.setCompressUploadImage(item.isChecked());
                 break;
             default:
                 break;
@@ -126,6 +141,7 @@ public class CommonSettingFragment extends BaseSettingFragment {
                                 });
                                 popup.dismiss();
                             })
+                            .setCancelButton(BasePopup::dismiss)
                             .show();
                 } else {
                     AToast.warning("暂无缓存");

@@ -32,7 +32,7 @@ import org.greenrobot.eventbus.Subscribe;
 import java.util.ArrayList;
 import java.util.List;
 
-public class LoginPopup extends CenterPopup<LoginPopup> { // implements UserManager.OnSignInListener
+public class LoginPopup extends CenterPopup<LoginPopup> {
 
     private static final String[] TAB_TITLES = {"登录", "注册"};
     private AutoSizeViewPager viewPager;

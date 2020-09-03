@@ -24,6 +24,7 @@ import com.zpj.recyclerview.EasyRecyclerLayout;
 import com.zpj.recyclerview.EasyViewHolder;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.api.HttpApi;
+import com.zpj.shouji.market.constant.AppConfig;
 import com.zpj.shouji.market.constant.Keys;
 import com.zpj.shouji.market.event.StartFragmentEvent;
 import com.zpj.shouji.market.manager.UserManager;
@@ -37,6 +38,7 @@ import com.zpj.shouji.market.ui.widget.WrapContentLinearLayoutManager;
 import com.zpj.shouji.market.ui.widget.popup.BottomListPopupMenu;
 import com.zpj.shouji.market.ui.widget.popup.CommonImageViewerPopup;
 import com.zpj.shouji.market.utils.BeanUtils;
+import com.zpj.utils.NetUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -346,7 +348,7 @@ public class ChatFragment extends NextUrlFragment<PrivateLetterInfo>
                 CommonImageViewerPopup.with(context)
                         .setOriginalImageList(info.getPics())
                         .setImageSizeList(info.getSizes())
-                        .setImageUrls(info.getSpics())
+                        .setImageUrls(AppConfig.isShowOriginalImage() && NetUtils.isWiFi(context) ? info.getPics() : info.getSpics())
                         .setSrcView(imageContainer.getImageView(), position)
                         .setSrcViewUpdateListener((popup, pos) -> {
                             NineGirdImageContainer view = (NineGirdImageContainer) nineGridImageView.getChildAt(pos);

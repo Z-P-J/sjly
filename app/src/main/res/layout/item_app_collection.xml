@@ -302,7 +302,7 @@
                 android:text="srdthy"
                 android:textStyle="bold"
                 android:drawablePadding="8dp"
-                android:drawableEnd="@drawable/ic_user_head"
+                android:drawableEnd="@drawable/ic_friend_white_24dp"
                 android:layout_marginVertical="4dp"
                 />
 

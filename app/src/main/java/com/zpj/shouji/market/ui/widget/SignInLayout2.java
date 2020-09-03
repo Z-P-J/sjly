@@ -18,13 +18,11 @@ import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.event.SignUpEvent;
 import com.zpj.shouji.market.manager.UserManager;
 import com.zpj.shouji.market.ui.fragment.WebFragment;
-import com.zpj.shouji.market.ui.widget.input.AccountInputView2;
-import com.zpj.shouji.market.ui.widget.input.EmailInputView2;
-import com.zpj.shouji.market.ui.widget.input.PasswordInputView2;
+import com.zpj.shouji.market.ui.widget.input.AccountInputView;
+import com.zpj.shouji.market.ui.widget.input.EmailInputView;
+import com.zpj.shouji.market.ui.widget.input.PasswordInputView;
 import com.zpj.utils.ScreenUtils;
 import com.zpj.widget.checkbox.SmoothCheckBox;
-import com.zpj.widget.editor.EditTextWithClear;
-import com.zpj.widget.editor.PasswordEditText;
 import com.zpj.widget.editor.validator.EmailValidator;
 import com.zpj.widget.editor.validator.LengthValidator;
 import com.zpj.widget.editor.validator.SameValueValidator;
@@ -33,10 +31,10 @@ import org.greenrobot.eventbus.Subscribe;
 
 public class SignInLayout2 extends LinearLayout { // implements UserManager.OnSignUpListener
 
-    private AccountInputView2 etAccount;
-    private PasswordInputView2 etPassword;
-    private PasswordInputView2 etPasswordAgain;
-    private EmailInputView2 etEmail;
+    private AccountInputView etAccount;
+    private PasswordInputView etPassword;
+    private PasswordInputView etPasswordAgain;
+    private EmailInputView etEmail;
 
     private SmoothCheckBox cbAgreement;
     private TextView tvAgreement;

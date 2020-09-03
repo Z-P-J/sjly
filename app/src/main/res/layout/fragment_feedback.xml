@@ -31,27 +31,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="举报动态"
-                android:textColor="@color/colorPrimary"
-                android:paddingHorizontal="16dp"
-                />
-
-
-            <FrameLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="8dp"
-                >
-
-                <include layout="@layout/item_theme"
-                    />
-
-            </FrameLayout>
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="举报原因"
+                android:text="反馈类型"
                 android:textColor="@color/colorPrimary"
                 android:paddingHorizontal="16dp"
                 />
@@ -67,25 +47,48 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="其他原因"
+                android:text="反馈情况"
                 android:textColor="@color/colorPrimary"
                 android:paddingHorizontal="16dp"
                 />
 
-            <android.support.v7.widget.AppCompatEditText
-                android:id="@+id/et_content"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="start"
-                android:textColor="@color/color_text_major"
                 android:background="@drawable/grey_shape"
-                android:inputType="textMultiLine"
-                android:minLines="4"
-                android:hint="请输入补充原因(可选)"
-                android:padding="16dp"
-                android:textSize="16sp"
                 android:layout_margin="16dp"
-                />
+                android:orientation="vertical"
+                >
+
+                <android.support.v7.widget.AppCompatEditText
+                    android:id="@+id/et_content"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="start"
+                    android:textColor="@color/color_text_major"
+                    android:inputType="textMultiLine"
+                    android:minLines="4"
+                    android:hint="请详细写下您遇到的问题或建议，我们将第一时间进行处理。"
+                    android:padding="16dp"
+                    android:textSize="16sp"
+                    android:background="@color/transparent"
+                    />
+
+                <com.lwkandroid.widget.ninegridview.NineGridView
+                    android:id="@+id/nine_grid_image_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_margin="16dp"
+                    app:column_count="3"
+                    app:is_edit_mode="true"
+                    app:max_num="9"
+                    app:sapce_size="4dp"
+                    app:single_image_size="160dp"
+                    />
+
+            </LinearLayout>
+
+
 
         </LinearLayout>
 
@@ -96,7 +99,7 @@
         style="@style/button_submit"
         android:layout_marginVertical="16dp"
         android:layout_marginHorizontal="32dp"
-        android:text="举报"
+        android:text="提交反馈"
         android:layout_alignParentBottom="true"
         />
 

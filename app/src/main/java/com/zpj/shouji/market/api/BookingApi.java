@@ -7,7 +7,7 @@ import com.zpj.shouji.market.event.HideLoadingEvent;
 import com.zpj.shouji.market.event.ShowLoadingEvent;
 import com.zpj.shouji.market.manager.UserManager;
 import com.zpj.shouji.market.model.BookingAppInfo;
-import com.zpj.shouji.market.ui.fragment.login.LoginFragment3;
+import com.zpj.shouji.market.ui.fragment.login.LoginFragment;
 import com.zpj.shouji.market.utils.BeanUtils;
 import com.zpj.shouji.market.utils.Callback;
 
@@ -49,7 +49,7 @@ public class BookingApi {
     public static void bookingApi(BookingAppInfo appInfo, Runnable successRunnable) {
         if (!UserManager.getInstance().isLogin()) {
             AToast.warning(R.string.text_msg_not_login);
-            LoginFragment3.start();
+            LoginFragment.start();
             return;
         }
         ShowLoadingEvent.post("预约中...");

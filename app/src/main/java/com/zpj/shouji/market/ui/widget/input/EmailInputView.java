@@ -32,8 +32,8 @@ public class EmailInputView extends InputView {
     }
 
     @Override
-    protected void initViews(AttributeSet attrs) {
-        super.initViews(attrs);
+    protected void initViews(Context context, AttributeSet attrs) {
+        super.initViews(context, attrs);
         getEditText().setHint("请输入注册邮箱");
         changeFocusMode(false);
     }
@@ -53,7 +53,7 @@ public class EmailInputView extends InputView {
         mIvDeleteIcon.setVisibility(INVISIBLE);
         mIvDeleteIcon.setPadding(padding, padding, padding, padding);
         mIvDeleteIcon.setScaleType(ImageView.ScaleType.FIT_CENTER);
-        mIvDeleteIcon.setImageResource(R.drawable.ic_delete);
+        mIvDeleteIcon.setImageResource(R.drawable.ic_clear_black_24dp);
         mIvDeleteIcon.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -72,13 +72,13 @@ public class EmailInputView extends InputView {
     private void changeFocusMode(boolean focus) {
         if (focus) {
             if (isEmpty()) {
-                mIvDeleteIcon.setVisibility(INVISIBLE);
+                mIvDeleteIcon.setVisibility(GONE);
             } else {
                 mIvDeleteIcon.setVisibility(VISIBLE);
             }
             mIvAccountIcon.setColorFilter(mViewColorFocus);
         } else {
-            mIvDeleteIcon.setVisibility(INVISIBLE);
+            mIvDeleteIcon.setVisibility(GONE);
             mIvAccountIcon.setColorFilter(mViewColorNormal);
         }
     }
@@ -87,7 +87,7 @@ public class EmailInputView extends InputView {
     public void afterTextChanged(Editable s) {
         super.afterTextChanged(s);
         if (isEmpty()) {
-            mIvDeleteIcon.setVisibility(INVISIBLE);
+            mIvDeleteIcon.setVisibility(GONE);
         } else {
             mIvDeleteIcon.setVisibility(VISIBLE);
         }

@@ -26,7 +26,7 @@ import java.util.List;
 public class ListPopup<T> extends CenterPopup<ListPopup<T>> {
 
     private EasyRecyclerView<T> easyRecyclerView;
-    private OnCancelListener cancelListener;
+    private OnCancelListener<ListPopup<T>> cancelListener;
     private OnConfirmListener<ListPopup<T>> confirmListener;
 
     private List<T> list;
@@ -77,7 +77,7 @@ public class ListPopup<T> extends CenterPopup<ListPopup<T>> {
             @Override
             public void onClick(View v) {
                 if (cancelListener != null) {
-                    cancelListener.onCancel();
+                    cancelListener.onCancel(self());
                 }
                 if (popupInfo.autoDismiss) {
                     dismiss();
@@ -100,7 +100,7 @@ public class ListPopup<T> extends CenterPopup<ListPopup<T>> {
         return this;
     }
 
-    public ListPopup<T> setCancelButton(OnCancelListener listener) {
+    public ListPopup<T> setCancelButton(OnCancelListener<ListPopup<T>> listener) {
         this.cancelListener = listener;
         return this;
     }

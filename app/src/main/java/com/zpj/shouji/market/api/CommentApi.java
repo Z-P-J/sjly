@@ -1,11 +1,13 @@
 package com.zpj.shouji.market.api;
 
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.text.TextUtils;
 import android.util.Log;
 
 import com.bumptech.glide.Glide;
 import com.felix.atoast.library.AToast;
+import com.nanchen.compresshelper.CompressHelper;
 import com.zpj.http.ZHttp;
 import com.zpj.http.core.Connection;
 import com.zpj.http.core.HttpKeyVal;
@@ -13,15 +15,19 @@ import com.zpj.http.core.IHttp;
 import com.zpj.http.core.ObservableTask;
 import com.zpj.http.parser.html.nodes.Document;
 import com.zpj.matisse.entity.Item;
+import com.zpj.shouji.market.constant.AppConfig;
 import com.zpj.shouji.market.event.HideLoadingEvent;
 import com.zpj.shouji.market.event.ShowLoadingEvent;
 import com.zpj.shouji.market.manager.UserManager;
 import com.zpj.shouji.market.model.InstalledAppInfo;
+import com.zpj.shouji.market.utils.FileUtils;
+import com.zpj.shouji.market.utils.PictureUtil;
 import com.zpj.utils.AppUtils;
 import com.zpj.utils.CipherUtils;
 import com.zpj.utils.ContextUtils;
 import com.zpj.utils.DeviceUtils;
 import com.zpj.utils.OSUtils;
+import com.zpj.utils.ScreenUtils;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -93,20 +99,96 @@ public class CommentApi {
                 .subscribe();
     }
 
-    public static ObservableTask<Document> appCommentApi(String content, String replyId, String appId, String appType, String appPackage) {
-        return HttpApi.openConnection("http://tt.shouji.com.cn/app/comment_xml_v5.jsp", Connection.Method.POST)
-                .data("replyid", replyId)
-                .data("phone", DeviceUtils.getModel())
-                .data("content", content)
-                .data("appid", appId)
-                .data("apptype", appType)
-                .data("package", appPackage)
-                .toHtml();
-    }
+//    public static ObservableTask<Document> appCommentApi(String content, String replyId, String appId, String appType, String appPackage) {
+//        return HttpApi.openConnection("http://tt.shouji.com.cn/app/comment_xml_v5.jsp", Connection.Method.POST)
+//                .data("replyid", replyId)
+//                .data("phone", DeviceUtils.getModel())
+//                .data("content", content)
+//                .data("appid", appId)
+//                .data("apptype", appType)
+//                .data("package", appPackage)
+//                .toHtml();
+//    }
 
     public static void appCommentWithFileApi(Context context, String content, String replyId, String appId, String appType, String appPackage, List<Item> imgList, Runnable successRunnable, IHttp.OnStreamWriteListener listener) {
-        ShowLoadingEvent.post("评论中...");
+//        ShowLoadingEvent.post("评论中...");
+//        ObservableTask<Document> task;
+//        if (imgList == null || imgList.isEmpty()) {
+//            task = HttpApi.openConnection("http://tt.shouji.com.cn/app/comment_xml_v5.jsp", Connection.Method.POST)
+//                    .data("replyid", replyId)
+//                    .data("phone", DeviceUtils.getModel())
+//                    .data("content", content)
+//                    .data("appid", appId)
+//                    .data("apptype", appType)
+//                    .data("package", appPackage)
+//                    .toHtml();
+//        } else {
+//            task = new ObservableTask<>(
+//                    (ObservableOnSubscribe<List<Connection.KeyVal>>) emitter -> {
+//                        List<Connection.KeyVal> dataList = new ArrayList<>();
+//                        for (int i = 0; i < imgList.size(); i++) {
+//                            Item img = imgList.get(i);
+//                            Connection.KeyVal keyVal = HttpKeyVal.create("image_" + i, "image_" + i + ".png", new FileInputStream(img.getFile(context)), listener);
+//                            dataList.add(keyVal);
+//                        }
+//                        emitter.onNext(dataList);
+//                        emitter.onComplete();
+//                    })
+//                    .onNext(new ObservableTask.OnNextListener<List<Connection.KeyVal>, Document>() {
+//                        @Override
+//                        public ObservableTask<Document> onNext(List<Connection.KeyVal> dataList) throws Exception {
+//                            return ZHttp.post(
+//                                    String.format("http://tt.shouji.com.cn/app/comment_xml_v5_file.jsp?versioncode=%s&jsessionid=%s",
+//                                            "199", UserManager.getInstance().getSessionId()))
+//                                    .data("sn", UserManager.getInstance().getSn())
+//                                    .data("phone", DeviceUtils.getModel())
+//                                    .data("replyid", replyId)
+//                                    .data("apptype", appType)
+//                                    .data("appid", appId)
+//                                    .data("package", appPackage)
+//                                    .data("content", content)
+//
+//                                    .data(dataList)
+//                                    .validateTLSCertificates(false)
+//                                    .userAgent(HttpApi.USER_AGENT)
+//                                    .onRedirect(redirectUrl -> {
+//                                        Log.d("connect", "onRedirect redirectUrl=" + redirectUrl);
+//                                        return true;
+//                                    })
+//                                    .cookie(UserManager.getInstance().getCookie())
+//                                    .ignoreContentType(true)
+//                                    .toXml();
+//                        }
+//                    });
+//        }
+//        task
+//                .onSuccess(data -> {
+//                    String info = data.selectFirst("info").text();
+//                    if ("success".equals(data.selectFirst("result").text())) {
+//                        AToast.success(info);
+//                        successRunnable.run();
+//                    } else {
+//                        AToast.error(info);
+//                    }
+//                    HideLoadingEvent.postDelayed(250);
+//                })
+//                .onError(throwable -> {
+//                    AToast.error("评论失败！" + throwable.getMessage());
+//                    HideLoadingEvent.postDelayed(250);
+//                })
+//                .subscribe();
+
+        appCommentWithFileApi(context, "评论中...", content, replyId, appId, appType, appPackage, imgList, successRunnable, listener);
+    }
+
+    public static void feedbackApi(Context context, String content, String replyId, String appId, String appType, String appPackage, List<Item> imgList, Runnable successRunnable, IHttp.OnStreamWriteListener listener) {
+        appCommentWithFileApi(context, "反馈中...", content, replyId, appId, appType, appPackage, imgList, successRunnable, listener);
+    }
+
+    private static void appCommentWithFileApi(Context context, String msg, String content, String replyId, String appId, String appType, String appPackage, List<Item> imgList, Runnable successRunnable, IHttp.OnStreamWriteListener listener) {
+        ShowLoadingEvent.post(msg);
         ObservableTask<Document> task;
+        boolean compress = AppConfig.isCompressUploadImage();
         if (imgList == null || imgList.isEmpty()) {
             task = HttpApi.openConnection("http://tt.shouji.com.cn/app/comment_xml_v5.jsp", Connection.Method.POST)
                     .data("replyid", replyId)
@@ -122,7 +204,11 @@ public class CommentApi {
                         List<Connection.KeyVal> dataList = new ArrayList<>();
                         for (int i = 0; i < imgList.size(); i++) {
                             Item img = imgList.get(i);
-                            Connection.KeyVal keyVal = HttpKeyVal.create("image_" + i, "image_" + i + ".png", new FileInputStream(img.getFile(context)), listener);
+                            File file = img.getFile(context);
+                            if (compress && !file.getName().equalsIgnoreCase(".gif")) {
+                                file = PictureUtil.compressImage(context, file);
+                            }
+                            Connection.KeyVal keyVal = HttpKeyVal.create("image_" + i, "image_" + i + ".png", new FileInputStream(file), listener);
                             dataList.add(keyVal);
                         }
                         emitter.onNext(dataList);

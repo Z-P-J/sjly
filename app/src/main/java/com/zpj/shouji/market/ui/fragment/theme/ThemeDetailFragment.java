@@ -28,7 +28,7 @@ import com.zpj.shouji.market.model.DiscoverInfo;
 import com.zpj.shouji.market.ui.adapter.DiscoverBinder;
 import com.zpj.shouji.market.ui.adapter.FragmentsPagerAdapter;
 import com.zpj.shouji.market.ui.fragment.base.ListenerFragment;
-import com.zpj.shouji.market.ui.fragment.login.LoginFragment3;
+import com.zpj.shouji.market.ui.fragment.login.LoginFragment;
 import com.zpj.shouji.market.ui.widget.popup.CommentPopup;
 import com.zpj.shouji.market.ui.widget.popup.ThemeMorePopupMenu;
 import com.zpj.shouji.market.utils.MagicIndicatorHelper;
@@ -236,7 +236,7 @@ public class ThemeDetailFragment extends ListenerFragment {
     private void showCommentPopup() {
         if (!UserManager.getInstance().isLogin()) {
             AToast.warning(R.string.text_msg_not_login);
-            LoginFragment3.start();
+            LoginFragment.start();
             return;
         }
         fabComment.hide();

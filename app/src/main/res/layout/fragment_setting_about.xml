@@ -21,13 +21,14 @@
             >
 
             <LinearLayout
+                android:id="@+id/ll_container"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
 
                 <ImageView
-                    android:layout_width="100dp"
-                    android:layout_height="100dp"
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
                     android:layout_gravity="center_horizontal"
                     android:src="@mipmap/ic_launcher_round"
                     android:layout_marginTop="16dp"
@@ -51,7 +52,6 @@
                     android:text="发现应用的乐趣"
                     android:textColor="@color/colorPrimary"
                     android:textSize="14sp"
-                    android:padding="8dp"
                     android:layout_marginBottom="16dp"
                     />
 
@@ -92,31 +92,6 @@
                     app:z_setting_titleText="检查更新"
                     app:z_setting_rightText="v1.0.0"
                     />
-
-
-
-<!--                <com.zpj.shouji.market.ui.widget.DetailLayout-->
-<!--                    android:id="@+id/app_version"-->
-<!--                    android:layout_width="match_parent"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    app:left_text="应用版本"-->
-<!--                    app:right_text="1.0.0"-->
-<!--                    />-->
-
-<!--                <com.zpj.shouji.market.ui.widget.DetailLayout-->
-<!--                    android:layout_width="match_parent"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    app:left_text="开发者"-->
-<!--                    app:right_text="Z-P-J"-->
-<!--                    />-->
-
-<!--                <com.zpj.shouji.market.ui.widget.DetailLayout-->
-<!--                    android:id="@+id/link_open_source"-->
-<!--                    android:layout_width="match_parent"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    app:left_text="开源地址"-->
-<!--                    app:right_text="https://github.com/Z-P-J/sjly"-->
-<!--                    />-->
 
             </LinearLayout>
 

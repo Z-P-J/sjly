@@ -71,7 +71,7 @@ public class AbstractInputPopup<T extends AbstractAlertPopup> extends AbstractAl
     @Override
     public void onClick(View v) {
         if (v == tv_cancel) {
-            if (cancelListener != null) cancelListener.onCancel();
+            if (cancelListener != null) cancelListener.onCancel(self());
             dismiss();
         } else if (v == tv_confirm) {
             if (!emptyable && TextUtils.isEmpty(getText())) {

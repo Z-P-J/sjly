@@ -29,7 +29,7 @@ import com.zpj.shouji.market.event.StartFragmentEvent;
 import com.zpj.shouji.market.manager.UserManager;
 import com.zpj.shouji.market.model.CollectionInfo;
 import com.zpj.shouji.market.ui.adapter.FragmentsPagerAdapter;
-import com.zpj.shouji.market.ui.fragment.login.LoginFragment3;
+import com.zpj.shouji.market.ui.fragment.login.LoginFragment;
 import com.zpj.shouji.market.ui.fragment.profile.ProfileFragment;
 import com.zpj.shouji.market.ui.widget.DrawableTintTextView;
 import com.zpj.shouji.market.ui.widget.emoji.EmojiExpandableTextView;
@@ -326,7 +326,7 @@ public class CollectionDetailFragment extends BaseFragment
 
                 if (!UserManager.getInstance().isLogin()) {
                     AToast.warning(R.string.text_msg_not_login);
-                    LoginFragment3.start();
+                    LoginFragment.start();
                     return;
                 }
 
@@ -355,7 +355,7 @@ public class CollectionDetailFragment extends BaseFragment
             case R.id.tv_support:
                 if (!UserManager.getInstance().isLogin()) {
                     AToast.warning(R.string.text_msg_not_login);
-                    LoginFragment3.start();
+                    LoginFragment.start();
                     return;
                 }
                 HttpApi.likeApi("discuss", item.getId())
@@ -377,7 +377,7 @@ public class CollectionDetailFragment extends BaseFragment
             case R.id.tv_favorite:
                 if (!UserManager.getInstance().isLogin()) {
                     AToast.warning(R.string.text_msg_not_login);
-                    LoginFragment3.start();
+                    LoginFragment.start();
                     return;
                 }
                 if ((boolean) tvFavorite.getTag()) {

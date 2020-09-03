@@ -41,6 +41,8 @@ public class DownloadSettingFragment extends BaseSettingFragment {
 
         SwitchSettingItem itemShowDownloadNotification = view.findViewById(R.id.item_show_downloaded_notification);
         itemShowDownloadNotification.setOnItemClickListener(this);
+
+        afterInitView();
     }
 
     @Override

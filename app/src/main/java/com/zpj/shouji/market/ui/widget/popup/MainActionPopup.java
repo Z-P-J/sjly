@@ -27,7 +27,7 @@ import com.zpj.shouji.market.manager.UserManager;
 import com.zpj.shouji.market.ui.activity.MainActivity;
 import com.zpj.shouji.market.ui.animator.KickBackAnimator;
 import com.zpj.shouji.market.ui.fragment.collection.CollectionShareFragment;
-import com.zpj.shouji.market.ui.fragment.login.LoginFragment3;
+import com.zpj.shouji.market.ui.fragment.login.LoginFragment;
 import com.zpj.shouji.market.ui.fragment.profile.MyPrivateLetterFragment;
 import com.zpj.shouji.market.ui.fragment.theme.ThemeShareFragment;
 import com.zpj.shouji.market.ui.fragment.wallpaper.WallpaperShareFragment;
@@ -286,7 +286,7 @@ public class MainActionPopup extends FullScreenPopup<MainActionPopup> implements
         }
         if (!UserManager.getInstance().isLogin()) {
             AToast.warning(R.string.text_msg_not_login);
-            LoginFragment3.start();
+            LoginFragment.start();
             return;
         }
         switch ((int) v.getTag()) {

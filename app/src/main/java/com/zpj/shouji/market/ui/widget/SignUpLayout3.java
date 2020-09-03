@@ -2,16 +2,10 @@ package com.zpj.shouji.market.ui.widget;
 
 import android.content.Context;
 import android.support.annotation.Nullable;
-import android.text.SpannableString;
-import android.text.Spanned;
-import android.text.method.LinkMovementMethod;
-import android.text.style.URLSpan;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.LinearLayout;
-import android.widget.TextView;
 
 import com.ctetin.expandabletextviewlibrary.ExpandableTextView;
 import com.ctetin.expandabletextviewlibrary.app.LinkType;
@@ -20,11 +14,10 @@ import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.event.SignUpEvent;
 import com.zpj.shouji.market.manager.UserManager;
 import com.zpj.shouji.market.ui.fragment.WebFragment;
-import com.zpj.shouji.market.ui.widget.input.AccountInputView2;
-import com.zpj.shouji.market.ui.widget.input.EmailInputView2;
-import com.zpj.shouji.market.ui.widget.input.PasswordInputView2;
+import com.zpj.shouji.market.ui.widget.input.AccountInputView;
+import com.zpj.shouji.market.ui.widget.input.EmailInputView;
+import com.zpj.shouji.market.ui.widget.input.PasswordInputView;
 import com.zpj.shouji.market.ui.widget.input.SubmitView;
-import com.zpj.utils.ScreenUtils;
 import com.zpj.widget.checkbox.SmoothCheckBox;
 import com.zpj.widget.editor.validator.EmailValidator;
 import com.zpj.widget.editor.validator.LengthValidator;
@@ -34,10 +27,10 @@ import org.greenrobot.eventbus.Subscribe;
 
 public class SignUpLayout3 extends LinearLayout {
 
-    private AccountInputView2 etAccount;
-    private PasswordInputView2 etPassword;
-    private PasswordInputView2 etPasswordAgain;
-    private EmailInputView2 etEmail;
+    private AccountInputView etAccount;
+    private PasswordInputView etPassword;
+    private PasswordInputView etPasswordAgain;
+    private EmailInputView etEmail;
 
     private SmoothCheckBox cbAgreement;
     private ExpandableTextView tvAgreement;
@@ -56,19 +49,19 @@ public class SignUpLayout3 extends LinearLayout {
         init(context);
     }
 
-    public AccountInputView2 getEtAccount() {
+    public AccountInputView getEtAccount() {
         return etAccount;
     }
 
-    public EmailInputView2 getEtEmail() {
+    public EmailInputView getEtEmail() {
         return etEmail;
     }
 
-    public PasswordInputView2 getEtPassword() {
+    public PasswordInputView getEtPassword() {
         return etPassword;
     }
 
-    public PasswordInputView2 getEtPasswordAgain() {
+    public PasswordInputView getEtPasswordAgain() {
         return etPasswordAgain;
     }
 

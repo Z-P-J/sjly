@@ -1,68 +1,52 @@
 package com.zpj.shouji.market.ui.fragment.login;
 
-import android.animation.Animator;
-import android.animation.AnimatorSet;
-import android.animation.ObjectAnimator;
-import android.animation.ValueAnimator;
+import android.content.Context;
+import android.graphics.Rect;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.View;
+import android.widget.LinearLayout;
 
+import com.felix.atoast.library.AToast;
 import com.zpj.fragmentation.BaseFragment;
-import com.zpj.fragmentation.anim.DefaultHorizontalAnimator;
-import com.zpj.fragmentation.anim.DefaultVerticalAnimator;
-import com.zpj.fragmentation.anim.FragmentAnimator;
-import com.zpj.fragmentation.swipeback.SwipeBackLayout;
+import com.zpj.fragmentation.SupportHelper;
+import com.zpj.popup.util.KeyboardUtils;
 import com.zpj.shouji.market.R;
-import com.zpj.shouji.market.constant.Keys;
 import com.zpj.shouji.market.event.SignInEvent;
 import com.zpj.shouji.market.event.SignUpEvent;
 import com.zpj.shouji.market.event.StartFragmentEvent;
-import com.zpj.shouji.market.event.ToggleLoginModeEvent;
-import com.zpj.shouji.market.ui.adapter.FragmentsPagerAdapter;
-import com.zpj.shouji.market.ui.widget.AutoSizeViewPager;
+import com.zpj.shouji.market.ui.widget.SignInLayout3;
+import com.zpj.shouji.market.ui.widget.SignUpLayout3;
 import com.zpj.shouji.market.utils.SoftInputHelper;
+import com.zpj.utils.ScreenUtils;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
-import java.util.ArrayList;
-import java.util.Random;
 
-public class LoginFragment extends BaseFragment { // UserManager.OnSignInListener, implements UserManager.OnSignUpListener
+public class LoginFragment extends BaseFragment {
 
-//    private RelativeLayout rl_input;
-//    private ImageView iv_circle_1;
-//    private ImageView iv_circle_2;
-    private AutoSizeViewPager vp;
-//    private FrameLayout fl_eye;
+    private static final String REGISTRATION = "key_registration";
 
-    private boolean isRunning = false;
-    private AnimatorSet mSet1;
-    private AnimatorSet mSet2;
-    private SoftInputHelper mSoftInputHelper;
+    private View contentView;
 
-    private ValueAnimator valueAnimator;
+    private boolean isRegistration = false;
 
-    public static LoginFragment newInstance(int page) {
+    public static LoginFragment newInstance(boolean isRegistration) {
         Bundle args = new Bundle();
-        args.putInt(Keys.PAGE, page);
+        args.putBoolean(REGISTRATION, isRegistration);
         LoginFragment fragment = new LoginFragment();
         fragment.setArguments(args);
         return fragment;
     }
 
-    public static void start() {
-        StartFragmentEvent.start(new LoginFragment3());
+    public static void start(boolean isRegistration) {
+        StartFragmentEvent.start(LoginFragment.newInstance(isRegistration));
     }
 
-    @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        setFragmentAnimator(new DefaultVerticalAnimator());
-        super.onCreate(savedInstanceState);
-        EventBus.getDefault().register(this);
+    public static void start() {
+        start(false);
     }
 
     @Override
@@ -76,235 +60,86 @@ public class LoginFragment extends BaseFragment { // UserManager.OnSignInListene
     }
 
     @Override
-    protected void initView(View view, @Nullable Bundle savedInstanceState) {
-//        EventBus.getDefault().register(this);
-//        UserManager.getInstance().addOnSignInListener(this);
-//        UserManager.getInstance().addOnSignUpListener(this);
-
-//        rl_input = view.findViewById(R.id.rl_input);
-//        iv_circle_1 = view.findViewById(R.id.iv_circle_1);
-//        iv_circle_2 = view.findViewById(R.id.iv_circle_2);
-        vp = view.findViewById(R.id.vp);
-//        vp.setCanScroll(false);
-//        fl_eye = view.findViewById(R.id.fl_eye);
-
-//        view.findViewById(R.id.scroll_view)
-//        mSoftInputHelper = SoftInputHelper.attach(_mActivity).moveBy(vp);
-
-//        View test = view.findViewById(R.id.test);
-
-
-        com.zpj.popup.util.KeyboardUtils.registerSoftInputChangedListener(_mActivity, vp, height -> {
-
-            Log.d("KeyboardUtils", "height=" + height);
-            if (height == 0) {
-                vp.setTranslationY(0);
-                return;
-            }
-            if (valueAnimator != null) {
-                valueAnimator.cancel();
-            }
-            valueAnimator = ValueAnimator.ofInt((int) vp.getTranslationY(), -height);
-            valueAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
-                @Override
-                public void onAnimationUpdate(ValueAnimator animation) {
-                    int value = (int) animation.getAnimatedValue();//根据时间因子的变化系数进行设置高度
-                    vp.setTranslationY(value);
-                }
-            });
-            valueAnimator.addListener(new Animator.AnimatorListener() {
-                @Override
-                public void onAnimationStart(Animator animation) {
-
-                }
-
-                @Override
-                public void onAnimationEnd(Animator animation) {
-                    valueAnimator = null;
-                }
-
-                @Override
-                public void onAnimationCancel(Animator animation) {
-                    valueAnimator = null;
-                }
-
-                @Override
-                public void onAnimationRepeat(Animator animation) {
-
-                }
-            });
-            valueAnimator.setDuration(250);
-            valueAnimator.start();
-        });
-
-        postOnEnterAnimationEnd(() -> {
-            ArrayList<Fragment> list = new ArrayList<>();
-            SignInFragment signInFragment = findChildFragment(SignInFragment.class);
-            if (signInFragment == null) {
-                signInFragment = new SignInFragment();
-            }
-            SignUpFragment signUpFragment = findChildFragment(SignUpFragment.class);
-            if (signUpFragment == null) {
-                signUpFragment = new SignUpFragment();
-            }
-
-            list.add(signInFragment);
-            list.add(signUpFragment);
-
-            FragmentsPagerAdapter adapter = new FragmentsPagerAdapter(getChildFragmentManager(), list, null);
-            vp.setAdapter(adapter);
-
-            setEdgeOrientation(SwipeBackLayout.EDGE_TOP);
-
-
-            if (getArguments() != null) {
-                vp.setCurrentItem(getArguments().getInt(Keys.PAGE), false);
-            }
-
-//            LoginPopup2.with(context).show();
-        });
+    public CharSequence getToolbarTitle(Context context) {
+        return "账号登录";
     }
 
     @Override
-    public FragmentAnimator onCreateFragmentAnimator() {
-        return new DefaultVerticalAnimator();
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        EventBus.getDefault().register(this);
+        if (getArguments() != null) {
+            isRegistration = getArguments().getBoolean(REGISTRATION, false);
+        }
     }
 
     @Override
     public void onDestroy() {
-        _mActivity.setFragmentAnimator(new DefaultHorizontalAnimator());
-//        UserManager.getInstance().removeOnSignInListener(this);
-//        UserManager.getInstance().removeOnSignUpListener(this);
+        EventBus.getDefault().unregister(contentView);
         EventBus.getDefault().unregister(this);
         super.onDestroy();
     }
 
     @Override
-    public void onStart() {
-        isRunning = true;
-//        mSet1 = startCircleAnim(iv_circle_1);
-//        mSet2 = startCircleAnim(iv_circle_2);
-        super.onStart();
-    }
-
-    @Override
-    public void onStop() {
-        isRunning = false;
-        stopCircleAnim();
-        super.onStop();
-    }
-
-    @Subscribe
-    public void onToggleLoginModeEvent(ToggleLoginModeEvent event) {
-        if (vp != null) {
-            if (vp.getCurrentItem() <= 1) {
-                vp.setCurrentItem(1 - vp.getCurrentItem());
-            }
-        }
-    }
-
-    public SoftInputHelper getSoftInputHelper() {
-        return mSoftInputHelper;
-    }
-
-    private void stopCircleAnim() {
-        if (mSet1 != null) {
-            mSet1.cancel();
-            mSet1 = null;
-        }
-        if (mSet2 != null) {
-            mSet2.cancel();
-            mSet2 = null;
-        }
-    }
-
-//    public void doEyeAnim(boolean close) {
-//        int h = fl_eye.getHeight();
-//        if (h <= 0) {
-//            return;
-//        }
-//        float endY = close ? h : 0;
-//        ObjectAnimator anim = ObjectAnimator.ofFloat(fl_eye, "translationY", fl_eye.getTranslationY(), endY);
-//        anim.setInterpolator(new AccelerateDecelerateInterpolator());
-//        anim.start();
-//    }
-
-    private AnimatorSet startCircleAnim(View target) {
-        if (target == null) {
-            return null;
-        }
-        float[] xy = calculateRandomXY();
-        AnimatorSet set = createTranslationAnimator(target, xy[0], xy[1]);
-        set.addListener(new Animator.AnimatorListener() {
-            @Override
-            public void onAnimationStart(Animator animation) {
-            }
-
-            @Override
-            public void onAnimationEnd(Animator animation) {
-                if (isRunning) {
-                    startCircleAnim(target);
+    protected void initView(View view, @Nullable Bundle savedInstanceState) {
+        LinearLayout llContainer = findViewById(R.id.ll_container);
+        View tvSubmit;
+        if (isRegistration) {
+            setToolbarTitle("账号注册");
+            SignUpLayout3 signUpLayout3 = new SignUpLayout3(context);
+            contentView = signUpLayout3;
+            SoftInputHelper mSoftInputHelper = SoftInputHelper.attach(_mActivity).moveBy(contentView);
+            mSoftInputHelper.moveWith(
+                    signUpLayout3.getSubmitView(),
+                    signUpLayout3.getEtAccount(),
+                    signUpLayout3.getEtEmail(),
+                    signUpLayout3.getEtPassword(),
+                    signUpLayout3.getEtPasswordAgain()
+            );
+            tvSubmit = contentView.findViewById(R.id.tv_sign_in);
+        } else {
+            setToolbarTitle("账号登录");
+            SignInLayout3 signInLayout3 = new SignInLayout3(context);
+            contentView = signInLayout3;
+            contentView.findViewById(R.id.tv_regist).setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+//                    startWithPop(LoginFragment3.newInstance(true));
+                    LoginFragment.start(true);
                 }
-            }
+            });
+            SoftInputHelper mSoftInputHelper = SoftInputHelper.attach(_mActivity).moveBy(contentView);
+            mSoftInputHelper.moveWith(
+                    signInLayout3.getSubmitView(),
+                    signInLayout3.getEtAccount(),
+                    signInLayout3.getEtPassword()
+            );
+            tvSubmit = contentView.findViewById(R.id.sv_login);
+        }
+        EventBus.getDefault().register(contentView);
+        llContainer.addView(contentView);
 
-            @Override
-            public void onAnimationCancel(Animator animation) {
-            }
-
-            @Override
-            public void onAnimationRepeat(Animator animation) {
+        int dp16 = ScreenUtils.dp2pxInt(context, 16);
+        KeyboardUtils.registerSoftInputChangedListener(_mActivity, view, height -> {
+            if (height > 0) {
+                Rect rect = new Rect();
+                tvSubmit.getGlobalVisibleRect(rect);
+                float bottom = ScreenUtils.getScreenHeight(context) - rect.bottom - dp16;
+                Log.d("LoginFragment3", "rect.bottom=" + rect.bottom + " bottom=" + bottom + " height=" + height);
+                if (bottom < height) {
+                    llContainer.setTranslationY(bottom - height);
+                }
+            } else {
+                llContainer.setTranslationY(0);
             }
         });
-        set.start();
-        return set;
+
     }
-
-    private final long mMaxMoveDuration = 20000L;
-    private final int mMaxMoveDistanceX = 200;
-    private final int mMaxMoveDistanceY = 20;
-
-    private AnimatorSet createTranslationAnimator(View target, float toX, float toY) {
-        float fromX = target.getTranslationX();
-        float fromY = target.getTranslationY();
-        long duration = calculateDuration(fromX, fromY, toX, toY);
-        ObjectAnimator animatorX = ObjectAnimator.ofFloat(target, "translationX", fromX, toX);
-        animatorX.setDuration(duration);
-        ObjectAnimator animatorY = ObjectAnimator.ofFloat(target, "translationY", fromY, toY);
-        animatorY.setDuration(duration);
-        AnimatorSet set = new AnimatorSet();
-        set.playTogether(animatorX, animatorY);
-        return set;
-    }
-
-    private Random mRandom = new Random();
-
-    private float[] calculateRandomXY() {
-        float x = mRandom.nextInt(mMaxMoveDistanceX) - (mMaxMoveDistanceX * 0.5F);
-        float y = mRandom.nextInt(mMaxMoveDistanceY) - (mMaxMoveDistanceY * 0.5F);
-        return new float[]{x, y};
-    }
-
-    private long calculateDuration(float x1, float y1, float x2, float y2) {
-        float distance = (float) Math.abs(Math.sqrt(Math.pow(Math.abs((x1 - x2)), 2) + Math.pow(Math.abs((y1 - y2)), 2)));
-        float maxDistance = (float) Math.abs(Math.sqrt(Math.pow(mMaxMoveDistanceX, 2) + Math.pow(mMaxMoveDistanceY, 2)));
-        long duration = (long) (mMaxMoveDuration * (distance / maxDistance));
-        Log.d("calculateDuration", "distance=" + distance + ", duration=" + duration);
-        return duration;
-    }
-
-//    @Override
-//    public void onSignInSuccess() {
-//        pop();
-//    }
-//
-//    @Override
-//    public void onSignInFailed(String errInfo) {
-//
-//    }
 
     @Subscribe
     public void onSignInEvent(SignInEvent event) {
         if (event.isSuccess()) {
+            AToast.success("登录成功！");
             pop();
         }
     }
@@ -312,22 +147,14 @@ public class LoginFragment extends BaseFragment { // UserManager.OnSignInListene
     @Subscribe
     public void onSignUpEvent(SignUpEvent event) {
         if (event.isSuccess()) {
-            if (vp != null) {
-                vp.setCurrentItem(0, true);
+            AToast.success("注册成功，请输入账账户信息登录！");
+            if (SupportHelper.getPreFragment(this) instanceof LoginFragment) {
+                pop();
+            } else {
+                startWithPop(LoginFragment.newInstance(false));
             }
         }
     }
 
-//    @Override
-//    public void onSignUpSuccess() {
-//        if (vp != null) {
-//            vp.setCurrentItem(0, true);
-//        }
-//    }
-//
-//    @Override
-//    public void onSignUpFailed(String errInfo) {
-//
-//    }
 
 }

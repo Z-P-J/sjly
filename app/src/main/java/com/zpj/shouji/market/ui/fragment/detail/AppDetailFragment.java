@@ -35,7 +35,7 @@ import com.zpj.shouji.market.model.QuickAppInfo;
 import com.zpj.shouji.market.model.UserDownloadedAppInfo;
 import com.zpj.shouji.market.ui.adapter.FragmentsPagerAdapter;
 import com.zpj.shouji.market.ui.fragment.WebFragment;
-import com.zpj.shouji.market.ui.fragment.login.LoginFragment3;
+import com.zpj.shouji.market.ui.fragment.login.LoginFragment;
 import com.zpj.shouji.market.ui.fragment.manager.AppManagerFragment;
 import com.zpj.shouji.market.ui.widget.AppDetailLayout;
 import com.zpj.shouji.market.ui.widget.popup.AppCommentPopup;
@@ -202,7 +202,7 @@ public class AppDetailFragment extends BaseFragment
             } else {
                 if (!UserManager.getInstance().isLogin()) {
                     AToast.warning(R.string.text_msg_not_login);
-                    LoginFragment3.start();
+                    LoginFragment.start();
                     return;
                 }
                 fabComment.hide();

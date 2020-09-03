@@ -42,8 +42,8 @@ public class PasswordInputView extends InputView {
     }
 
     @Override
-    protected void initViews(AttributeSet attrs) {
-        super.initViews(attrs);
+    protected void initViews(Context context, AttributeSet attrs) {
+        super.initViews(context, attrs);
         getEditText().setHint("请输入密码");
         changeFocusMode(false);
         changePwdHideMode(true);
@@ -61,10 +61,10 @@ public class PasswordInputView extends InputView {
     protected ImageView[] getRightIcons() {
         int paddingDelete = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 3, getContext().getResources().getDisplayMetrics());
         mIvDeleteIcon = new ImageView(getContext());
-        mIvDeleteIcon.setVisibility(INVISIBLE);
+        mIvDeleteIcon.setVisibility(GONE);
         mIvDeleteIcon.setPadding(paddingDelete, paddingDelete, paddingDelete, paddingDelete);
-        mIvDeleteIcon.setScaleType(ImageView.ScaleType.FIT_CENTER);
-        mIvDeleteIcon.setImageResource(R.drawable.ic_delete);
+        mIvDeleteIcon.setScaleType(ImageView.ScaleType.CENTER_CROP);
+        mIvDeleteIcon.setImageResource(R.drawable.ic_clear_black_24dp);
         mIvDeleteIcon.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -73,9 +73,9 @@ public class PasswordInputView extends InputView {
         });
         int paddingEye = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 2, getContext().getResources().getDisplayMetrics());
         mIcEyeIcon = new ImageView(getContext());
-        mIcEyeIcon.setVisibility(INVISIBLE);
+        mIcEyeIcon.setVisibility(GONE);
         mIcEyeIcon.setPadding(paddingEye, paddingEye, paddingEye, paddingEye);
-        mIcEyeIcon.setScaleType(ImageView.ScaleType.FIT_CENTER);
+        mIcEyeIcon.setScaleType(ImageView.ScaleType.CENTER_CROP);
         mIcEyeIcon.setImageResource(R.drawable.ic_eye_normal);
         mIcEyeIcon.setOnClickListener(new OnClickListener() {
             @Override
@@ -83,7 +83,7 @@ public class PasswordInputView extends InputView {
                 changePwdHideMode(!isHidePwdMode);
             }
         });
-        return new ImageView[]{mIcEyeIcon, mIvDeleteIcon};
+        return new ImageView[]{mIvDeleteIcon, mIcEyeIcon};
     }
 
     @Override
@@ -98,15 +98,15 @@ public class PasswordInputView extends InputView {
     private void changeFocusMode(boolean focus) {
         if (focus) {
             if (isEmpty()) {
-                mIvDeleteIcon.setVisibility(INVISIBLE);
+                mIvDeleteIcon.setVisibility(GONE);
             } else {
                 mIvDeleteIcon.setVisibility(VISIBLE);
             }
             mIcEyeIcon.setVisibility(VISIBLE);
             mIvPasswordIcon.setColorFilter(mViewColorFocus);
         } else {
-            mIvDeleteIcon.setVisibility(INVISIBLE);
-            mIcEyeIcon.setVisibility(INVISIBLE);
+            mIvDeleteIcon.setVisibility(GONE);
+//            mIcEyeIcon.setVisibility(INVISIBLE);
             mIvPasswordIcon.setColorFilter(mViewColorNormal);
         }
     }
@@ -130,7 +130,7 @@ public class PasswordInputView extends InputView {
     public void afterTextChanged(Editable s) {
         super.afterTextChanged(s);
         if (isEmpty()) {
-            mIvDeleteIcon.setVisibility(INVISIBLE);
+            mIvDeleteIcon.setVisibility(GONE);
         } else {
             mIvDeleteIcon.setVisibility(VISIBLE);
         }

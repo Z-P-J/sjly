@@ -15,6 +15,7 @@ import com.zpj.shouji.market.constant.Keys;
 import com.zpj.shouji.market.event.GetMainActivityEvent;
 import com.zpj.shouji.market.ui.activity.MainActivity;
 import com.zpj.shouji.market.ui.widget.CheckLayout;
+import com.zpj.shouji.market.utils.BrightnessUtils;
 import com.zpj.shouji.market.utils.Callback;
 import com.zpj.utils.PrefsHelper;
 import com.zpj.widget.toolbar.ZToolBar;
@@ -46,15 +47,40 @@ public class BrightnessPopup extends CenterPopup<BrightnessPopup> {
 
         IndicatorSeekBar seekBar = findViewById(R.id.seek_bar);
 
+        CheckLayout checkLayout = findViewById(R.id.check_layout);
+        checkLayout.setChecked(PrefsHelper.with().getBoolean(Keys.SYSTEM_BRIGHTNESS, false));
+        checkLayout.setOnItemClickListener(item -> {
+            PrefsHelper.with().putBoolean(Keys.SYSTEM_BRIGHTNESS, item.isChecked());
+            seekBar.setEnabled(!item.isChecked());
+            if (item.isChecked()) {
+                getActivity(new Callback<MainActivity>() {
+                    @Override
+                    public void onCallback(MainActivity activity) {
+                        BrightnessUtils.setAutoBrightness(activity);
+                    }
+                });
+//                if (BrightnessUtils.getBrightnessMode(context) == 1) {
+//                    BrightnessUtils.setAutoBrightness();
+//                } else {
+//                    float brightness = BrightnessUtils.getSystemBrightness(context);
+//                    seekBar.setProgress(brightness);
+//                    PrefsHelper.with().putFloat(Keys.APP_BRIGHTNESS, brightness);
+//                }
+            } else {
+                seekBar.setProgress(BrightnessUtils.getAppBrightness(context));
+            }
+        });
+
+
+        seekBar.setEnabled(!checkLayout.isChecked());
         seekBar.setOnSeekChangeListener(new OnSeekChangeListener() {
             @Override
             public void onSeeking(SeekParams seekParams) {
-                getActivity(activity -> {
-                    WindowManager.LayoutParams lp = activity.getWindow().getAttributes();
-                    lp.screenBrightness = seekParams.progressFloat / 100;
-                    PrefsHelper.with().putFloat(Keys.APP_BRIGHTNESS, seekParams.progressFloat);
-                    activity.getWindow().setAttributes(lp);
-                });
+                if (seekBar.isEnabled()) {
+                    getActivity(activity -> {
+                        BrightnessUtils.setBrightness(activity, seekParams.progressFloat);
+                    });
+                }
             }
 
             @Override
@@ -68,29 +94,16 @@ public class BrightnessPopup extends CenterPopup<BrightnessPopup> {
             }
         });
 
-        CheckLayout checkLayout = findViewById(R.id.check_layout);
-        checkLayout.setChecked(PrefsHelper.with().getBoolean(Keys.SYSTEM_BRIGHTNESS, false));
-        checkLayout.setOnItemClickListener(item -> {
-            PrefsHelper.with().putBoolean(Keys.SYSTEM_BRIGHTNESS, item.isChecked());
-            seekBar.setEnabled(!item.isChecked());
-            if (item.isChecked()) {
-                float brightness = getSystemBrightness();
-                seekBar.setProgress(brightness);
-                PrefsHelper.with().putFloat(Keys.APP_BRIGHTNESS, brightness);
-            }
-        });
-
         getActivity(activity -> {
-            WindowManager.LayoutParams lp = activity.getWindow().getAttributes();
-            seekBar.setProgress(lp.screenBrightness * 100);
-            if (checkLayout.isChecked()) {
-                seekBar.setProgress(getSystemBrightness());
-            } else {
-                seekBar.setProgress(PrefsHelper.with().getFloat(Keys.APP_BRIGHTNESS, getSystemBrightness()));
-            }
+//            WindowManager.LayoutParams lp = activity.getWindow().getAttributes();
+//            seekBar.setProgress(lp.screenBrightness * 100);
+//            if (checkLayout.isChecked()) {
+//                seekBar.setProgress(BrightnessUtils.getSystemBrightness(context));
+//            } else {
+//                seekBar.setProgress(BrightnessUtils.getAppBrightness(context));
+//            }
+            seekBar.setProgress(BrightnessUtils.getAppBrightness(context));
         });
-
-        seekBar.setEnabled(!checkLayout.isChecked());
 
     }
 
@@ -107,16 +120,6 @@ public class BrightnessPopup extends CenterPopup<BrightnessPopup> {
                 callback.onCallback(obj);
             }
         });
-    }
-
-    private float getSystemBrightness(){
-        int screenBrightness=255;
-        try{
-            screenBrightness = Settings.System.getInt(context.getContentResolver(), Settings.System.SCREEN_BRIGHTNESS);
-        } catch (Exception e){
-            e.printStackTrace();
-        }
-        return (float) screenBrightness / 255 * 100;
     }
 
 }

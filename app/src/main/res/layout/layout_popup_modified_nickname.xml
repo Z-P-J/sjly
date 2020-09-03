@@ -50,7 +50,7 @@
         android:layout_marginHorizontal="16dp"
         />
 
-    <com.zpj.shouji.market.ui.widget.input.AccountInputView2
+    <com.zpj.shouji.market.ui.widget.input.AccountInputView
         android:id="@+id/et_account"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

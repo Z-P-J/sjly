@@ -76,7 +76,7 @@
             android:gravity="end|center_vertical"
             android:text="10个应用"
             android:textColor="#333"
-            android:drawableEnd="@drawable/ic_app_manager_white_24dp"
+            android:drawableEnd="@drawable/ic_software_checked"
             android:drawablePadding="8dp"
             app:drawable_tint_color="@color/colorPrimary"
             />

@@ -9,24 +9,18 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.provider.Settings;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.ActivityCompat;
 import android.util.Log;
 import android.view.View;
-import android.view.WindowManager;
-import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
-import com.bumptech.glide.Glide;
 import com.felix.atoast.library.AToast;
-import com.lqr.emoji.IImageLoader;
-import com.lqr.emoji.LQREmotionKit;
 import com.lxj.xpermission.PermissionConstants;
 import com.lxj.xpermission.XPermission;
-import com.maning.librarycrashmonitor.MCrashMonitor;
-import com.raizlabs.android.dbflow.config.FlowManager;
 import com.yalantis.ucrop.CropEvent;
-import com.zpj.downloader.ZDownloader;
 import com.zpj.downloader.util.permission.PermissionUtil;
+import com.zpj.fragmentation.BaseFragment;
 import com.zpj.fragmentation.SupportActivity;
 import com.zpj.fragmentation.SupportFragment;
 import com.zpj.fragmentation.anim.DefaultHorizontalAnimator;
@@ -38,21 +32,29 @@ import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.api.HttpApi;
 import com.zpj.shouji.market.api.HttpPreLoader;
 import com.zpj.shouji.market.constant.AppConfig;
-import com.zpj.shouji.market.constant.Keys;
 import com.zpj.shouji.market.event.GetMainActivityEvent;
 import com.zpj.shouji.market.event.HideLoadingEvent;
 import com.zpj.shouji.market.event.IconUploadSuccessEvent;
+import com.zpj.shouji.market.event.MainActionPopupEvent;
 import com.zpj.shouji.market.event.ShowLoadingEvent;
 import com.zpj.shouji.market.event.StartFragmentEvent;
 import com.zpj.shouji.market.event.StatusBarEvent;
 import com.zpj.shouji.market.manager.AppInstalledManager;
 import com.zpj.shouji.market.manager.AppUpdateManager;
 import com.zpj.shouji.market.manager.UserManager;
+import com.zpj.shouji.market.ui.adapter.FragmentsPagerAdapter;
 import com.zpj.shouji.market.ui.fragment.MainFragment;
+import com.zpj.shouji.market.ui.fragment.homepage.HomeFragment;
+import com.zpj.shouji.market.ui.fragment.profile.MyFragment;
+import com.zpj.shouji.market.ui.fragment.recommond.GameRecommendFragment2;
+import com.zpj.shouji.market.ui.fragment.recommond.SoftRecommendFragment2;
+import com.zpj.shouji.market.ui.widget.BottomBar;
+import com.zpj.shouji.market.ui.widget.BottomBarTab;
+import com.zpj.shouji.market.ui.widget.ZViewPager;
+import com.zpj.shouji.market.ui.widget.popup.MainActionPopup;
 import com.zpj.shouji.market.utils.AppUtil;
 import com.zpj.shouji.market.utils.BrightnessUtils;
 import com.zpj.shouji.market.utils.PictureUtil;
-import com.zpj.utils.PrefsHelper;
 import com.zpj.utils.StatusBarUtils;
 
 import org.greenrobot.eventbus.EventBus;
@@ -60,127 +62,62 @@ import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
 import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
-import per.goweii.burred.Blurred;
 import site.gemus.openingstartanimation.OpeningStartAnimation;
 
-public class MainActivity extends SupportActivity {
+public class MainActivity2 extends SupportActivity {
+
+
+    private final List<BaseFragment> fragments = new ArrayList<>();
+    private ZViewPager viewPager;
+    private BottomBar mBottomBar;
 
     private long firstTime = 0;
 
-    private OpeningStartAnimation openingStartAnimation3;
     private LoadingPopup loadingPopup;
 
-    private RelativeLayout rlSplash;
+//    private RelativeLayout rlSplash;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        long start = System.currentTimeMillis();
+
         EventBus.getDefault().register(this);
 
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_main2);
 
-        rlSplash = findViewById(R.id.rl_splash);
-        rlSplash.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-            }
-        });
-        rlSplash.setOnTouchListener((v, event) -> true);
-        rlSplash.setVisibility(AppConfig.isShowSplash() ? View.VISIBLE : View.GONE);
-
-//        loadRootFragment(R.id.main_content, new TestFragment());
+//        rlSplash = findViewById(R.id.rl_splash);
+//        rlSplash.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//
+//            }
+//        });
+//        rlSplash.setOnTouchListener((v, event) -> true);
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
             StrictMode.VmPolicy.Builder builder = new StrictMode.VmPolicy.Builder();
             StrictMode.setVmPolicy(builder.build());
         }
 
-//        StatusBarUtils.setDarkMode(getWindow());
         getWindow().setBackgroundDrawable(new ColorDrawable(Color.WHITE));
-
         BrightnessUtils.setBrightness(this);
 
-
-
-//        postDelayed(() -> {
-//            mainFragment = findFragment(MainFragment3.class);
-//            if (mainFragment == null) {
-//                mainFragment = new MainFragment3();
-//                loadRootFragment(R.id.fl_container, mainFragment);
-//            }
-//        }, 200);
-
-//        Observable.timer(250, TimeUnit.MILLISECONDS)
-//                .subscribeOn(Schedulers.io())
-//                .observeOn(AndroidSchedulers.mainThread())
-//                .doOnComplete(() -> {
-//                    mainFragment = findFragment(MainFragment3.class);
-//                    if (mainFragment == null) {
-//                        mainFragment = new MainFragment3();
-//                        loadRootFragment(R.id.fl_container, mainFragment);
-//                    }
-//                })
-//                .subscribe();
-
-//        postDelayed(new Runnable() {
-//            @Override
-//            public void run() {
-//                showRequestPermissionPopup();
-//                rlSplash.setVisibility(View.GONE);
-//            }
-//        }, 10000);
-
-//        openingStartAnimation3 = new OpeningStartAnimation.Builder(MainActivity.this)
-//                .setDrawStategy(new NormalDrawStrategy())
-//                .setAppName("手机乐园")
-//                .setAppStatement("分享优质应用")
-//                .setAnimationInterval(2500)
-////                .setAnimationFinishTime(350)
-//                .setAppIcon(getResources().getDrawable(R.mipmap.ic_launcher))
-//                .setAnimationListener((openingStartAnimation, activity) -> {
-////                    postDelayed(() -> {
-////                        mainFragment = findFragment(MainFragment.class);
-////                        if (mainFragment == null) {
-////                            mainFragment = new MainFragment();
-////                            loadRootFragment(R.id.main_content, mainFragment);
-////                        }
-//////                        loadRootFragment(R.id.main_content, new TestFragment());
-////                    }, 50);
-//
-//                    UserManager.getInstance().init();
-//
-//                    HttpPreLoader.getInstance().loadHomepage();
-//
-//                    AppUpdateManager.getInstance().checkUpdate(MainActivity.this);
-//
-//                    AppInstalledManager.getInstance().loadApps(this);
-//
-//                    mainFragment = findFragment(MainFragment3.class);
-//                    if (mainFragment == null) {
-//                        mainFragment = new MainFragment3();
-//                        loadRootFragment(R.id.fl_container, mainFragment);
-//                    }
-//                    postDelayed(new Runnable() {
-//                        @Override
-//                        public void run() {
-//                            showRequestPermissionPopup();
-//
-//                        }
-//                    }, 1000);
-//                })
-//                .create();
-//        openingStartAnimation3.show(MainActivity.this);
+        Log.d("MainActivity", "temptime=" + (System.currentTimeMillis() - start));
 
 //        if (!AppConfig.isShowSplash()) {
 //            init(false);
 //        }
+
+        init(false);
 
 
     }
@@ -188,7 +125,10 @@ public class MainActivity extends SupportActivity {
     @Override
     public void onEnterAnimationComplete() {
         super.onEnterAnimationComplete();
-        init(AppConfig.isShowSplash());
+//        if (AppConfig.isShowSplash()) {
+//            init(true);
+//        }
+//        init(false);
     }
 
     private void init(boolean isShowSplash) {
@@ -200,12 +140,12 @@ public class MainActivity extends SupportActivity {
                     .observeOn(AndroidSchedulers.mainThread())
                     .doOnComplete(() -> {
                         showRequestPermissionPopup();
-                        rlSplash.setVisibility(View.GONE);
+//                        rlSplash.setVisibility(View.GONE);
                     })
                     .subscribe();
         } else {
             showRequestPermissionPopup();
-            rlSplash.setVisibility(View.GONE);
+//            rlSplash.setVisibility(View.GONE);
         }
 
 
@@ -215,18 +155,100 @@ public class MainActivity extends SupportActivity {
 
         HttpPreLoader.getInstance().loadHomepage();
 
-        AppUpdateManager.getInstance().checkUpdate(MainActivity.this);
-
-        AppInstalledManager.getInstance().loadApps(this);
+//        AppUpdateManager.getInstance().checkUpdate(MainActivity2.this);
+//
+//        AppInstalledManager.getInstance().loadApps(this);
 
         long temp1 = System.currentTimeMillis();
         Log.d("MainActivity", "duration111=" + (temp1 - start));
 
-        MainFragment mainFragment = findFragment(MainFragment.class);
-        if (mainFragment == null) {
-            mainFragment = new MainFragment();
-            loadRootFragment(R.id.fl_container, mainFragment);
+        Context context = this;
+
+        HomeFragment homeFragment = findFragment(HomeFragment.class);
+        if (homeFragment == null) {
+            homeFragment = new HomeFragment();
         }
+
+        SoftRecommendFragment2 softFragment = findFragment(SoftRecommendFragment2.class);
+        if (softFragment == null) {
+            softFragment = new SoftRecommendFragment2();
+        }
+
+        GameRecommendFragment2 game = findFragment(GameRecommendFragment2.class);
+        if (game == null) {
+            game = new GameRecommendFragment2();
+        }
+
+        MyFragment profileFragment = findFragment(MyFragment.class);
+        if (profileFragment == null) {
+            profileFragment = new MyFragment();
+        }
+        fragments.clear();
+        fragments.add(homeFragment);
+        fragments.add(softFragment);
+        fragments.add(game);
+        fragments.add(profileFragment);
+
+        FloatingActionButton floatingActionButton = findViewById(R.id.fab);
+
+        mBottomBar = findViewById(R.id.bottom_bar);
+
+        BottomBarTab emptyTab = new BottomBarTab(context);
+        mBottomBar.addItem(BottomBarTab.build(context, "主页", R.drawable.ic_home_normal, R.drawable.ic_home_checked))
+                .addItem(BottomBarTab.build(context, "应用", R.drawable.ic_software_normal, R.drawable.ic_software_checked))
+                .addItem(emptyTab)
+                .addItem(BottomBarTab.build(context, "游戏", R.drawable.ic_game_normal, R.drawable.ic_game_checked))
+                .addItem(BottomBarTab.build(context, "我的", R.drawable.ic_me_normal, R.drawable.ic_me_checked));
+
+        mBottomBar.setOnTabSelectedListener(new BottomBar.OnTabSelectedListener() {
+            @Override
+            public void onTabSelected(int position, int prePosition) {
+                if (position == 2) {
+                    floatingActionButton.performClick();
+                    return;
+                }
+                if (position > 2) {
+                    position -= 1;
+                }
+                if(viewPager.getCurrentItem() != position) {
+                    viewPager.setCurrentItem(position, false);
+                }
+            }
+
+            @Override
+            public void onTabUnselected(int position) {
+
+            }
+
+            @Override
+            public void onTabReselected(int position) {
+            }
+        });
+
+
+        viewPager = findViewById(R.id.vp);
+        viewPager.setScrollerSpeed(500);
+        viewPager.setCanScroll(false);
+
+        viewPager.setOffscreenPageLimit(fragments.size());
+        FragmentsPagerAdapter adapter = new FragmentsPagerAdapter(getSupportFragmentManager(), fragments, null);
+        viewPager.setAdapter(adapter);
+
+
+        floatingActionButton.setOnClickListener(v -> {
+//            postDelayed(this::darkStatusBar, 300);
+            MainActionPopupEvent.post(true);
+            MainActionPopup.with(context)
+                    .setOnDismissListener(() -> {
+                        MainActionPopupEvent.post(false);
+//                        lightStatusBar();
+//                        fragments.get(viewPager.getCurrentItem()).onSupportVisible();
+                    })
+                    .show();
+        });
+
+        mBottomBar.setCurrentItem(0);
+
         Log.d("MainActivity", "duration111=" + (System.currentTimeMillis() - temp1));
     }
 
@@ -271,11 +293,11 @@ public class MainActivity extends SupportActivity {
         if (PermissionUtil.checkStoragePermissions(getApplicationContext())) {
             requestPermission();
         } else {
-            ZPopup.alert(MainActivity.this)
+            ZPopup.alert(MainActivity2.this)
                     .setTitle("权限申请")
                     .setContent("本软件需要读写手机存储的权限用于文件的下载与查看，是否申请该权限？")
                     .setConfirmButton("去申请", popup -> requestPermission())
-                    .setCancelButton("拒绝", popup -> ActivityCompat.finishAfterTransition(MainActivity.this))
+                    .setCancelButton("拒绝", popup -> ActivityCompat.finishAfterTransition(MainActivity2.this))
                     .show();
         }
     }
@@ -285,9 +307,6 @@ public class MainActivity extends SupportActivity {
                 .callback(new XPermission.SimpleCallback() {
                     @Override
                     public void onGranted() {
-                        if (openingStartAnimation3 != null) {
-                            openingStartAnimation3.dismiss(MainActivity.this);
-                        }
                     }
 
                     @Override
@@ -297,12 +316,12 @@ public class MainActivity extends SupportActivity {
                 }).request();
     }
 
-    @Subscribe
-    public void onGetMainActivityEvent(GetMainActivityEvent event) {
-        if (event.getCallback() != null) {
-            event.getCallback().onCallback(this);
-        }
-    }
+//    @Subscribe
+//    public void onGetMainActivityEvent(GetMainActivityEvent event) {
+//        if (event.getCallback() != null) {
+//            event.getCallback().onCallback(this);
+//        }
+//    }
 
     @Subscribe
     public void startFragment(SupportFragment fragment) {
@@ -324,7 +343,7 @@ public class MainActivity extends SupportActivity {
             loadingPopup.dismiss();
         }
         loadingPopup = null;
-        loadingPopup = ZPopup.loading(MainActivity.this)
+        loadingPopup = ZPopup.loading(MainActivity2.this)
                 .setTitle(event.getText())
                 .show();
     }

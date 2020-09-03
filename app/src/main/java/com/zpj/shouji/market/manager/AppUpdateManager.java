@@ -5,13 +5,18 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.util.Log;
 
+import com.felix.atoast.library.AToast;
+import com.zpj.downloader.util.notification.NotifyUtil;
 import com.zpj.http.core.Connection;
 import com.zpj.http.core.ObservableTask;
 import com.zpj.http.parser.html.nodes.Element;
 import com.zpj.http.parser.html.select.Elements;
+import com.zpj.shouji.market.R;
+import com.zpj.shouji.market.constant.AppConfig;
 import com.zpj.shouji.market.model.AppUpdateInfo;
 import com.zpj.shouji.market.utils.AppUtil;
 import com.zpj.shouji.market.api.HttpApi;
+import com.zpj.utils.ContextUtils;
 
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
@@ -185,6 +190,7 @@ public final class AppUpdateManager {
                             packageid = new StringBuilder();
                         }
                     }
+                    emitter.onComplete();
                 })
                 .onError(throwable -> {
                     AppUpdateManager.this.throwable = throwable;
@@ -196,6 +202,35 @@ public final class AppUpdateManager {
                 })
                 .subscribe();
 
+    }
+
+    public void notifyUpdate() {
+        if (AppConfig.isShowUpdateNotification() && checked.get() && !running.get()) {
+            List<AppUpdateInfo> list = new ArrayList<>(APP_UPDATE_INFO_LIST);
+            StringBuilder content = new StringBuilder();
+            for (int i = 0; i < list.size(); i++) {
+                AppUpdateInfo info = list.get(i);
+                content.append(info.getAppName());
+                if (i > 10 || i == (list.size() - 1)) {
+                    break;
+                }
+                content.append("，");
+            }
+            NotifyUtil.with(ContextUtils.getApplicationContext())
+                    .buildNotify()
+                    .setSmallIcon(R.mipmap.ic_launcher)
+                    .setBigIcon(R.mipmap.ic_launcher)
+                    .setContentTitle(list.size() + "个应用待更新")
+                    .setContentText(content.toString())
+                    .setId(hashCode())
+                    .show();
+        }
+    }
+
+    public void cancelNotifyUpdate() {
+        if (!AppConfig.isShowUpdateNotification()) {
+            NotifyUtil.cancel(hashCode());
+        }
     }
 
     public boolean hasPackage(String packageName) {
@@ -211,6 +246,7 @@ public final class AppUpdateManager {
             checked.set(true);
             running.set(false);
             List<AppUpdateInfo> list = new ArrayList<>(APP_UPDATE_INFO_LIST);
+            notifyUpdate();
             for (WeakReference<CheckUpdateListener> checkUpdateListener : LISTENERS) {
                 if (checkUpdateListener.get() != null) {
                     Log.e("checkUpdate", "size22222222222=" + list.size());

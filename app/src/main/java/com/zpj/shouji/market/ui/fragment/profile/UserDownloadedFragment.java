@@ -36,7 +36,7 @@ public class UserDownloadedFragment extends NextUrlFragment<UserDownloadedAppInf
 
     @Override
     protected int getItemLayoutId() {
-        return R.layout.layout_user_downloaded;
+        return R.layout.item_user_downloaded;
     }
 
     @Override

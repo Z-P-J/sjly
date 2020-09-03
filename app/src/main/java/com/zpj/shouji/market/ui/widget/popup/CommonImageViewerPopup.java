@@ -167,8 +167,8 @@ public class CommonImageViewerPopup extends ImageViewerPopup<String>
                 .load(url)
                 .apply(
                         new RequestOptions()
-                                .placeholder(R.drawable.bga_pp_ic_holder_light)
-                                .error(R.drawable.bga_pp_ic_holder_light)
+//                                .placeholder(R.drawable.bga_pp_ic_holder_light)
+//                                .error(R.drawable.bga_pp_ic_holder_light)
                                 .override(Target.SIZE_ORIGINAL)
                 )
                 .into(imageView);

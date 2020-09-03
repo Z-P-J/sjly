@@ -14,10 +14,12 @@ import com.zpj.http.core.ObservableTask;
 import com.zpj.http.parser.html.nodes.Document;
 import com.zpj.matisse.entity.Item;
 import com.zpj.popup.interfaces.OnDismissListener;
+import com.zpj.shouji.market.constant.AppConfig;
 import com.zpj.shouji.market.event.HideLoadingEvent;
 import com.zpj.shouji.market.event.ShowLoadingEvent;
 import com.zpj.shouji.market.manager.UserManager;
 import com.zpj.shouji.market.model.InstalledAppInfo;
+import com.zpj.shouji.market.utils.PictureUtil;
 import com.zpj.utils.AppUtils;
 import com.zpj.utils.CipherUtils;
 import com.zpj.utils.ContextUtils;
@@ -43,6 +45,7 @@ public class ThemePublishApi {
     public static void publishThemeApi(Context context, String content, String replyId, InstalledAppInfo appInfo, List<Item> imgList, String tags, boolean isPrivate, Runnable successRunnable, IHttp.OnStreamWriteListener listener) {
         Log.d("publishThemeApi", "content=" + content + " tag=" + tags);
         ShowLoadingEvent.post("发布动态...");
+        boolean compress = AppConfig.isCompressUploadImage();
         ObservableTask<Document> task;
         if (appInfo == null && imgList.isEmpty()) {
             task = getConnection(
@@ -95,7 +98,11 @@ public class ThemePublishApi {
                         }
                         for (int i = 0; i < imgList.size(); i++) {
                             Item img = imgList.get(i);
-                            Connection.KeyVal keyVal = HttpKeyVal.create("image_" + i, "image_" + i + ".png", new FileInputStream(img.getFile(context)), listener);
+                            File file = img.getFile(context);
+                            if (compress && !file.getName().equalsIgnoreCase(".gif")) {
+                                file = PictureUtil.compressImage(context, file);
+                            }
+                            Connection.KeyVal keyVal = HttpKeyVal.create("image_" + i, "image_" + i + ".png", new FileInputStream(file), listener);
                             dataList.add(keyVal);
                         }
                         emitter.onNext(dataList);

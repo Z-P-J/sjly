@@ -22,6 +22,7 @@
         <activity
             android:name="com.zpj.shouji.market.ui.activity.MainActivity"
             android:theme="@style/SplashTheme"
+            android:hardwareAccelerated="true"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:windowSoftInputMode="adjustResize|stateAlwaysHidden"
             >

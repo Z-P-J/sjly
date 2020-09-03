@@ -8,17 +8,9 @@ import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.util.AttributeSet;
 import android.view.View;
-import android.widget.EditText;
 
 import com.zpj.shouji.market.R;
-import com.zpj.shouji.market.ui.widget.input.AccountInputView;
-import com.zpj.shouji.market.ui.widget.input.EmailInputView;
-import com.zpj.widget.editor.PasswordEditText;
 import com.zpj.widget.editor.ZEditText;
-import com.zpj.widget.editor.validator.EmailValidator;
-import com.zpj.widget.editor.validator.LengthValidator;
-import com.zpj.widget.editor.validator.SameValueValidator;
-import com.zpj.widget.editor.validator.Validator;
 
 /**
  * @author CuiZhen

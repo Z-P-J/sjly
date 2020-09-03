@@ -26,6 +26,7 @@ import com.bumptech.glide.request.transition.Transition;
 import com.felix.atoast.library.AToast;
 import com.lxj.xpermission.PermissionConstants;
 import com.lxj.xpermission.XPermission;
+import com.nanchen.compresshelper.CompressHelper;
 import com.zpj.http.core.IHttp;
 import com.zpj.http.core.ObservableTask;
 import com.zpj.popup.enums.ImageType;
@@ -36,7 +37,7 @@ import com.zpj.shouji.market.event.HideLoadingEvent;
 import com.zpj.shouji.market.event.ShowLoadingEvent;
 import com.zpj.shouji.market.manager.UserManager;
 import com.zpj.utils.ContextUtils;
-import com.zpj.utils.FileUtils;
+import com.zpj.utils.ScreenUtils;
 
 import java.io.BufferedOutputStream;
 import java.io.ByteArrayInputStream;
@@ -580,6 +581,23 @@ public class PictureUtil {
                                 .subscribe();
                     }
                 });
+    }
+
+    public static File compressImage(Context context, File file) {
+        int max = ScreenUtils.getScreenHeight(context);
+        String fileName = file.getName();
+        String suffix = fileName.substring(fileName.lastIndexOf("."));
+        boolean isJpg = ".jpg".equalsIgnoreCase(suffix);
+        File newFile = new CompressHelper.Builder(context)
+                .setMaxWidth(max)  // 默认最大宽度为720
+                .setMaxHeight(max) // 默认最大高度为960
+                .setQuality(80)    // 默认压缩质量为80
+                .setFileName(file.getName()) // 设置你需要修改的文件名
+                .setCompressFormat(isJpg ? Bitmap.CompressFormat.JPEG : Bitmap.CompressFormat.PNG) // 设置默认压缩为jpg格式
+                .setDestinationDirectoryPath(FileUtils.getCachePath(context) + File.separator + "compress")
+                .build()
+                .compressToFile(file);
+        return newFile.length() < file.length() ? newFile : file;
     }
 
 }

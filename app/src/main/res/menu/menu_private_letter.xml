@@ -21,7 +21,7 @@
 
     <item
         android:id="@+id/delete"
-        android:icon="@drawable/ic_delete"
+        android:icon="@drawable/ic_ngv_delete"
         android:title="删除">
 
     </item>

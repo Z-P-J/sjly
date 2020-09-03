@@ -28,6 +28,7 @@ import com.zpj.recyclerview.EasyState;
 import com.zpj.recyclerview.EasyViewHolder;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.api.HttpApi;
+import com.zpj.shouji.market.constant.AppConfig;
 import com.zpj.shouji.market.constant.Keys;
 import com.zpj.shouji.market.event.GetMainActivityEvent;
 import com.zpj.shouji.market.event.GetMainFragmentEvent;
@@ -42,6 +43,7 @@ import com.zpj.shouji.market.ui.widget.emoji.EmojiExpandableTextView;
 import com.zpj.shouji.market.ui.widget.popup.RecyclerPopup;
 import com.zpj.shouji.market.ui.widget.popup.WallpaperViewerPopup;
 import com.zpj.shouji.market.utils.Callback;
+import com.zpj.utils.NetUtils;
 import com.zpj.utils.ScreenUtils;
 
 import java.util.ArrayList;
@@ -183,8 +185,8 @@ public class WallpaperListFragment extends NextUrlFragment<WallpaperInfo> {
                     WallpaperViewerPopup.with(context)
                             .setWallpaperInfo(data)
                             .setOriginalImageList(original)
-                            .setDecorView((ViewGroup) fragment.getView().findViewWithTag("container"))
-                            .setImageUrls(objects)
+                            .setDecorView(fragment.getView().findViewWithTag("container"))
+                            .setImageUrls(AppConfig.isShowOriginalImage() && NetUtils.isWiFi(context) ? original : objects)
                             .setSrcView(wallpaper, 0)
                             .setSrcViewUpdateListener((popup, position) -> popup.updateSrcView(wallpaper))
                             .setOnDismissListener(() -> StatusBarEvent.post(false))

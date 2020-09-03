@@ -52,7 +52,7 @@ public abstract class BaseRecommendFragment2 extends BaseFragment
 
     @Override
     protected int getLayoutId() {
-        return R.layout.fragment_app_recomment_2;
+        return R.layout.fragment_app_recomment;
     }
 
     @Override

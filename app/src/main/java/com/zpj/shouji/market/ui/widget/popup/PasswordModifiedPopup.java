@@ -2,20 +2,16 @@ package com.zpj.shouji.market.ui.widget.popup;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
-import android.view.View;
 
 import com.felix.atoast.library.AToast;
 import com.zpj.popup.core.BottomPopup;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.api.HttpApi;
 import com.zpj.shouji.market.manager.UserManager;
-import com.zpj.shouji.market.ui.widget.input.EmailInputView2;
-import com.zpj.shouji.market.ui.widget.input.PasswordInputView2;
+import com.zpj.shouji.market.ui.widget.input.PasswordInputView;
 import com.zpj.shouji.market.ui.widget.input.SubmitView;
 import com.zpj.widget.editor.validator.DifferentValueValidator;
-import com.zpj.widget.editor.validator.EmailValidator;
 import com.zpj.widget.editor.validator.LengthValidator;
-import com.zpj.widget.editor.validator.SameValueValidator;
 
 public class PasswordModifiedPopup extends BottomPopup<PasswordModifiedPopup> {
 
@@ -39,8 +35,8 @@ public class PasswordModifiedPopup extends BottomPopup<PasswordModifiedPopup> {
 
         findViewById(R.id.btn_close).setOnClickListener(v -> dismiss());
 
-        PasswordInputView2 oldPasswordView = findViewById(R.id.et_password_old);
-        PasswordInputView2 newPasswordView = findViewById(R.id.et_password_new);
+        PasswordInputView oldPasswordView = findViewById(R.id.et_password_old);
+        PasswordInputView newPasswordView = findViewById(R.id.et_password_new);
 
         oldPasswordView.getEditText().setHint("请输入旧密码");
         newPasswordView.getEditText().setHint("请输入新密码");

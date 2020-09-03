@@ -23,7 +23,7 @@ import com.zpj.popup.util.XPopupUtils;
 public abstract class AbstractAlertPopup<T extends AbstractAlertPopup> extends CenterPopup<T>
         implements View.OnClickListener {
 
-    OnCancelListener cancelListener;
+    OnCancelListener<T> cancelListener;
     OnConfirmListener<T> confirmListener;
     TextView tv_title, tv_cancel, tv_confirm;
     String title, cancelText, confirmText;
@@ -115,18 +115,18 @@ public abstract class AbstractAlertPopup<T extends AbstractAlertPopup> extends C
         return self();
     }
 
-    public T setCancelButton(OnCancelListener listener) {
+    public T setCancelButton(OnCancelListener<T> listener) {
         this.cancelListener = listener;
         return self();
     }
 
-    public T setCancelButton(String btnStr, OnCancelListener listener) {
+    public T setCancelButton(String btnStr, OnCancelListener<T> listener) {
         this.cancelText = btnStr;
         this.cancelListener = listener;
         return self();
     }
 
-    public T setCancelButton(int btnStrId, OnCancelListener listener) {
+    public T setCancelButton(int btnStrId, OnCancelListener<T> listener) {
         this.cancelText = context.getString(btnStrId);
         this.cancelListener = listener;
         return self();
@@ -137,7 +137,7 @@ public abstract class AbstractAlertPopup<T extends AbstractAlertPopup> extends C
 //        return this;
 //    }
 
-    public T setListener(OnConfirmListener<T> confirmListener, OnCancelListener cancelListener) {
+    public T setListener(OnConfirmListener<T> confirmListener, OnCancelListener<T> cancelListener) {
         this.cancelListener = cancelListener;
         this.confirmListener = confirmListener;
         return self();
@@ -205,11 +205,15 @@ public abstract class AbstractAlertPopup<T extends AbstractAlertPopup> extends C
     @Override
     public void onClick(View v) {
         if (v == tv_cancel) {
-            if (cancelListener != null) cancelListener.onCancel();
-            if (autoDismiss) dismiss();
+            if (cancelListener != null) cancelListener.onCancel(self());
+            if (autoDismiss) {
+                dismiss();
+            }
         } else if (v == tv_confirm) {
             if (confirmListener != null) confirmListener.onConfirm(self());
-            if (autoDismiss) dismiss();
+            if (autoDismiss) {
+                dismiss();
+            }
         }
     }
 

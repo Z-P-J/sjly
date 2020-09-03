@@ -2,12 +2,7 @@ package com.zpj.shouji.market.ui.widget;
 
 import android.content.Context;
 import android.support.annotation.Nullable;
-import android.text.SpannableString;
-import android.text.Spanned;
-import android.text.method.LinkMovementMethod;
-import android.text.style.URLSpan;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.LinearLayout;
@@ -16,26 +11,18 @@ import android.widget.TextView;
 import com.felix.atoast.library.AToast;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.event.SignInEvent;
-import com.zpj.shouji.market.event.ToggleLoginModeEvent;
 import com.zpj.shouji.market.manager.UserManager;
-import com.zpj.shouji.market.ui.fragment.WebFragment;
-import com.zpj.shouji.market.ui.widget.input.AccountInputView2;
-import com.zpj.shouji.market.ui.widget.input.EmailInputView2;
-import com.zpj.shouji.market.ui.widget.input.InputView2;
-import com.zpj.shouji.market.ui.widget.input.PasswordInputView2;
+import com.zpj.shouji.market.ui.widget.input.AccountInputView;
+import com.zpj.shouji.market.ui.widget.input.PasswordInputView;
 import com.zpj.shouji.market.ui.widget.input.SubmitView;
-import com.zpj.utils.ScreenUtils;
-import com.zpj.widget.checkbox.SmoothCheckBox;
-import com.zpj.widget.editor.EditTextWithClear;
-import com.zpj.widget.editor.PasswordEditText;
 import com.zpj.widget.editor.validator.LengthValidator;
 
 import org.greenrobot.eventbus.Subscribe;
 
 public class SignInLayout3 extends LinearLayout implements View.OnClickListener  {
 
-    private AccountInputView2 piv_account;
-    private PasswordInputView2 piv_password;
+    private AccountInputView piv_account;
+    private PasswordInputView piv_password;
     private SubmitView svLogin;
 
     public SignInLayout3(Context context) {
@@ -97,11 +84,11 @@ public class SignInLayout3 extends LinearLayout implements View.OnClickListener 
         }
     }
 
-    public AccountInputView2 getEtAccount() {
+    public AccountInputView getEtAccount() {
         return piv_account;
     }
 
-    public PasswordInputView2 getEtPassword() {
+    public PasswordInputView getEtPassword() {
         return piv_password;
     }
 

@@ -8,7 +8,7 @@ import com.zpj.popup.core.BottomPopup;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.api.HttpApi;
 import com.zpj.shouji.market.manager.UserManager;
-import com.zpj.shouji.market.ui.widget.input.AccountInputView2;
+import com.zpj.shouji.market.ui.widget.input.AccountInputView;
 import com.zpj.shouji.market.ui.widget.input.SubmitView;
 import com.zpj.widget.editor.validator.LengthValidator;
 
@@ -32,7 +32,7 @@ public class NicknameModifiedPopup extends BottomPopup<NicknameModifiedPopup> {
     protected void onCreate() {
         super.onCreate();
         findViewById(R.id.btn_close).setOnClickListener(v -> dismiss());
-        AccountInputView2 inputView = findViewById(R.id.et_account);
+        AccountInputView inputView = findViewById(R.id.et_account);
         inputView.addValidator(new LengthValidator("昵称长度必须在2-15之间", 2, 15));
         SubmitView submitView = findViewById(R.id.sv_submit);
         submitView.setOnClickListener(v -> {

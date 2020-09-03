@@ -1,6 +1,11 @@
 package com.zpj.shouji.market.ui.fragment;
 
+import android.content.ClipData;
+import android.content.ClipboardManager;
+import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -23,6 +28,9 @@ import com.zpj.shouji.market.constant.Keys;
 import com.zpj.shouji.market.event.StartFragmentEvent;
 
 public class WebFragment extends BaseFragment {
+
+    private static final String UA_PHONE = "Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.163 Mobile Safari/537.36";
+    private static final String UA_PC = "Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.163 Safari/537.36";
 
     private AgentWeb mAgentWeb;
 
@@ -48,7 +56,6 @@ public class WebFragment extends BaseFragment {
     }
 
 
-
     @Override
     protected int getLayoutId() {
         return R.layout.fragment_web;
@@ -56,7 +63,7 @@ public class WebFragment extends BaseFragment {
 
     @Override
     protected boolean supportSwipeBack() {
-        return true;
+        return false;
     }
 
     @Override
@@ -83,9 +90,10 @@ public class WebFragment extends BaseFragment {
         super.onPause();
     }
 
+
     @Override
     public boolean onBackPressedSupport() {
-        if (mAgentWeb != null && mAgentWeb.getWebCreator().getWebView().canGoBack()) {
+        if (mAgentWeb != null && mAgentWeb.back()) {
             mAgentWeb.getWebCreator().getWebView().goBack();
             return true;
         }
@@ -111,26 +119,26 @@ public class WebFragment extends BaseFragment {
                 .setAgentWebParent(content, new FrameLayout.LayoutParams(-1, -1))
                 .useDefaultIndicator()
                 .setAgentWebWebSettings(new CustomSettings())
-                .setWebViewClient(new WebViewClient(){
-                    @Override
-                    public boolean shouldOverrideUrlLoading(WebView view, String url) {
-                        view.loadUrl(url);
-                        setToolbarTitle(view.getTitle());
-                        return true;
-                    }
-
-                    @Override
-                    public void onPageStarted(WebView view, String url, Bitmap favicon) {
-                        super.onPageStarted(view, url, favicon);
-                        setToolbarSubTitle(url);
-                        setToolbarTitle(view.getTitle());
-                    }
-
-                    @Override
-                    public void onPageFinished(WebView view, String url) {
-                        super.onPageFinished(view, url);
-                    }
-                })
+//                .setWebViewClient(new WebViewClient(){
+//                    @Override
+//                    public boolean shouldOverrideUrlLoading(WebView view, String url) {
+//                        view.loadUrl(url);
+//                        setToolbarTitle(view.getTitle());
+//                        return true;
+//                    }
+//
+//                    @Override
+//                    public void onPageStarted(WebView view, String url, Bitmap favicon) {
+//                        super.onPageStarted(view, url, favicon);
+//                        setToolbarSubTitle(url);
+//                        setToolbarTitle(view.getTitle());
+//                    }
+//
+//                    @Override
+//                    public void onPageFinished(WebView view, String url) {
+//                        super.onPageFinished(view, url);
+//                    }
+//                })
                 .createAgentWeb()
                 .ready()
                 .go(url);
@@ -138,20 +146,36 @@ public class WebFragment extends BaseFragment {
 
     @Override
     public void toolbarRightImageButton(@NonNull ImageButton imageButton) {
-        imageButton.setOnClickListener(v -> ZPopup.attachList(context)
-                .addItem("浏览器中打开")
-                .addItem("电脑版网页")
-                .addItem("收藏")
-                .setOnSelectListener((position, title) -> {
-                    switch (position) {
-                        case 0:
-                        case 1:
-                        case 2:
-                            AToast.warning("TODO");
-                            break;
-                    }
-                })
-                .show(imageButton));
+        imageButton.setOnClickListener(v -> {
+            boolean isPhoneUA = isPhoneUA();
+            ZPopup.attachList(context)
+                    .addItem("浏览器中打开")
+                    .addItem(isPhoneUA ? "电脑版网页" : "移动版网页")
+                    .addItem("复制链接")
+                    .setOnSelectListener((position, title) -> {
+                        switch (position) {
+                            case 0:
+                                Uri uri = Uri.parse(mAgentWeb.getWebCreator().getWebView().getUrl());
+                                Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+                                startActivity(intent);
+                                break;
+                            case 1:
+                                mAgentWeb.getAgentWebSettings().getWebSettings().setUserAgentString(isPhoneUA ? UA_PC : UA_PHONE);
+                                mAgentWeb.getWebCreator().getWebView().reload();
+                                break;
+                            case 2:
+                                ClipboardManager cm = (ClipboardManager) context.getSystemService(Context.CLIPBOARD_SERVICE);
+                                cm.setPrimaryClip(ClipData.newPlainText(null, mAgentWeb.getWebCreator().getWebView().getUrl()));
+                                AToast.success("已复制到粘贴板");
+                                break;
+                        }
+                    })
+                    .show(imageButton);
+        });
+    }
+
+    private boolean isPhoneUA() {
+        return UA_PHONE.equals(mAgentWeb.getAgentWebSettings().getWebSettings().getUserAgentString());
     }
 
     private static class CustomSettings extends AbsAgentWebSettings {
@@ -174,6 +198,7 @@ public class WebFragment extends BaseFragment {
             getWebSettings().setLoadWithOverviewMode(true);
             getWebSettings().setSupportZoom(true);
             getWebSettings().setBuiltInZoomControls(true);
+            getWebSettings().setUserAgentString(UA_PHONE);
             return this;
         }
     }

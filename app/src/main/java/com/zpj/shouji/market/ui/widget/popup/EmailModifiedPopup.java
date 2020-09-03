@@ -2,23 +2,17 @@ package com.zpj.shouji.market.ui.widget.popup;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
-import android.text.TextUtils;
-import android.util.Base64;
 
 import com.felix.atoast.library.AToast;
 import com.zpj.popup.core.BottomPopup;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.api.HttpApi;
 import com.zpj.shouji.market.manager.UserManager;
-import com.zpj.shouji.market.ui.widget.input.AccountInputView2;
-import com.zpj.shouji.market.ui.widget.input.EmailInputView2;
-import com.zpj.shouji.market.ui.widget.input.PasswordInputView2;
+import com.zpj.shouji.market.ui.widget.input.EmailInputView;
+import com.zpj.shouji.market.ui.widget.input.PasswordInputView;
 import com.zpj.shouji.market.ui.widget.input.SubmitView;
 import com.zpj.widget.editor.validator.EmailValidator;
 import com.zpj.widget.editor.validator.LengthValidator;
-
-import java.nio.charset.StandardCharsets;
-import java.security.MessageDigest;
 
 public class EmailModifiedPopup extends BottomPopup<EmailModifiedPopup> {
 
@@ -40,9 +34,9 @@ public class EmailModifiedPopup extends BottomPopup<EmailModifiedPopup> {
     protected void onCreate() {
         super.onCreate();
         findViewById(R.id.btn_close).setOnClickListener(v -> dismiss());
-        EmailInputView2 emailView = findViewById(R.id.et_email);
+        EmailInputView emailView = findViewById(R.id.et_email);
         emailView.getEditText().setHint("请输入新邮箱");
-        PasswordInputView2 passwordView = findViewById(R.id.et_password);
+        PasswordInputView passwordView = findViewById(R.id.et_password);
         passwordView.addValidator(new LengthValidator("密码长度不能小于6", 6, Integer.MAX_VALUE));
         emailView.addValidator(new EmailValidator("邮箱格式有误"));
         SubmitView submitView = findViewById(R.id.sv_submit);

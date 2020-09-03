@@ -84,7 +84,7 @@
         app:z_toolbar_leftTextColor="@color/colorPrimary"
         app:z_toolbar_leftTextSize="18sp"
         app:z_toolbar_rightType="customView"
-        app:z_toolbar_rightCustomView="@layout/layout_tools_dark"
+        app:z_toolbar_rightCustomView="@layout/layout_tools"
         />
 
 </FrameLayout>

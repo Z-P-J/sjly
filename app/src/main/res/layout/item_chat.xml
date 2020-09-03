@@ -13,24 +13,6 @@
         app:is_circle="true"
         />
 
-<!--    <LinearLayout-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:layout_toLeftOf="@+id/iv_icon"-->
-<!--        android:orientation="horizontal">-->
-
-<!--        <com.zpj.shouji.market.ui.widget.GifTextView-->
-<!--            android:id="@+id/mycontent"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:layout_margin="5dp"-->
-<!--            android:background="@drawable/chatto_bg_focused"-->
-<!--            android:textColor="@color/white"-->
-<!--            android:textSize="16sp"-->
-<!--            android:text="srjdfhgfffffffffffffffffffffffff\nsdfhgjbnjg\n\n\n\sdhfgh\n"-->
-<!--            />-->
-<!--    </LinearLayout>-->
-
     <com.houtrry.bubble.BubbleLinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

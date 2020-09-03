@@ -6,23 +6,23 @@
     android:orientation="vertical"
     >
 
-    <com.zpj.shouji.market.ui.widget.input.AccountInputView2
+    <com.zpj.shouji.market.ui.widget.input.AccountInputView
         android:id="@+id/et_account"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
 
-    <com.zpj.shouji.market.ui.widget.input.PasswordInputView2
+    <com.zpj.shouji.market.ui.widget.input.PasswordInputView
         android:id="@+id/et_password"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
 
-    <com.zpj.shouji.market.ui.widget.input.PasswordInputView2
+    <com.zpj.shouji.market.ui.widget.input.PasswordInputView
         android:id="@+id/et_password_again"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         />
 
-    <com.zpj.shouji.market.ui.widget.input.EmailInputView2
+    <com.zpj.shouji.market.ui.widget.input.EmailInputView
         android:id="@+id/et_email"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

@@ -830,4 +830,29 @@ public class FileUtils {
         }
     }
 
+    public static String getCachePath(Context context) {
+        String cachePath = null;
+        if (Environment.MEDIA_MOUNTED.equals(Environment.getExternalStorageState())
+                || !Environment.isExternalStorageRemovable()) {
+            //外部存储可用
+            File cacheDir = context.getExternalCacheDir();
+            if (cacheDir != null) {
+                cachePath = context.getExternalCacheDir().getAbsolutePath();
+            }
+        } else {
+            //外部存储不可用
+            cachePath = context.getCacheDir().getAbsolutePath();
+        }
+        if (TextUtils.isEmpty(cachePath)) {
+            cachePath = Environment.getExternalStorageDirectory().getAbsolutePath()
+                    + "/Android/data/" + context.getPackageName() + "/cache";
+        }
+        File dirFile = new File(cachePath);
+        if (!dirFile.exists()) {
+            dirFile.mkdirs();
+        }
+        Log.d("getCachePath", "cachePath=" + cachePath);
+        return dirFile.getAbsolutePath();
+    }
+
 }

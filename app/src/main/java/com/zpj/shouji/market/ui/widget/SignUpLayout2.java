@@ -12,20 +12,18 @@ import com.felix.atoast.library.AToast;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.event.SignInEvent;
 import com.zpj.shouji.market.manager.UserManager;
-import com.zpj.shouji.market.ui.widget.input.AccountInputView2;
-import com.zpj.shouji.market.ui.widget.input.PasswordInputView2;
+import com.zpj.shouji.market.ui.widget.input.AccountInputView;
+import com.zpj.shouji.market.ui.widget.input.PasswordInputView;
 import com.zpj.shouji.market.ui.widget.input.SubmitView;
 import com.zpj.utils.ScreenUtils;
-import com.zpj.widget.editor.EditTextWithClear;
-import com.zpj.widget.editor.PasswordEditText;
 import com.zpj.widget.editor.validator.LengthValidator;
 
 import org.greenrobot.eventbus.Subscribe;
 
 public class SignUpLayout2 extends LinearLayout { // implements UserManager.OnSignInListener
 
-    private AccountInputView2 etAccount;
-    private PasswordInputView2 etPassword;
+    private AccountInputView etAccount;
+    private PasswordInputView etPassword;
 
     private TextView tvFogotPassword;
     private TextView tvLoginFailed;

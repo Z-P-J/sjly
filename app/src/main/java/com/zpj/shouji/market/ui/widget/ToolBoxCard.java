@@ -18,7 +18,7 @@ import com.lihang.ShadowLayout;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.manager.UserManager;
 import com.zpj.shouji.market.model.MessageInfo;
-import com.zpj.shouji.market.ui.fragment.login.LoginFragment3;
+import com.zpj.shouji.market.ui.fragment.login.LoginFragment;
 import com.zpj.shouji.market.ui.fragment.profile.MyBlacklistFragment;
 import com.zpj.shouji.market.ui.fragment.booking.UserBookingFragment;
 import com.zpj.shouji.market.ui.fragment.profile.MyCollectionFragment;
@@ -140,10 +140,10 @@ public class ToolBoxCard extends ShadowLayout implements View.OnClickListener {
     @Override
     public void onClick(View v) {
         if (v.getId() == R.id.tv_sign_up) {
-            LoginFragment3.start(false);
+            LoginFragment.start(false);
             return;
         } else if (v.getId() == R.id.tv_sign_in) {
-            LoginFragment3.start(true);
+            LoginFragment.start(true);
             return;
         }
         if (!UserManager.getInstance().isLogin()) {

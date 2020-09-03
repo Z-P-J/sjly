@@ -6,14 +6,11 @@ import android.support.annotation.Nullable;
 import android.support.v7.widget.AppCompatEditText;
 import android.text.TextUtils;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.felix.atoast.library.AToast;
 import com.zpj.fragmentation.BaseFragment;
 import com.zpj.http.core.IHttp;
-import com.zpj.http.parser.html.nodes.Document;
 import com.zpj.popup.util.KeyboardUtils;
 import com.zpj.recyclerview.EasyViewHolder;
 import com.zpj.shouji.market.R;
@@ -21,9 +18,8 @@ import com.zpj.shouji.market.api.HttpApi;
 import com.zpj.shouji.market.event.StartFragmentEvent;
 import com.zpj.shouji.market.model.DiscoverInfo;
 import com.zpj.shouji.market.ui.adapter.DiscoverBinder;
+import com.zpj.shouji.market.ui.widget.ElasticScrollView;
 import com.zpj.shouji.market.ui.widget.flowlayout.FlowLayout;
-import com.zpj.utils.ContextUtils;
-import com.zpj.utils.ScreenUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -114,9 +110,11 @@ public class ReportFragment extends BaseFragment {
             }
         });
 
-        KeyboardUtils.registerSoftInputChangedListener(_mActivity, view, height -> {
-            view.setTranslationY(-height);
-        });
+//        ElasticScrollView scrollView = findViewById(R.id.scroll_view);
+//        KeyboardUtils.registerSoftInputChangedListener(_mActivity, view, height -> {
+//            tvSubmit.setTranslationY(-height);
+//            scrollView.setTranslationY(-height);
+//        });
 
 
     }
