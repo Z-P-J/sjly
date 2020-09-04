@@ -5,6 +5,7 @@ import com.zpj.popup.interfaces.OnDismissListener;
 import java.util.concurrent.TimeUnit;
 
 import io.reactivex.Observable;
+import io.reactivex.functions.Action;
 
 public class HideLoadingEvent extends BaseEvent {
 
@@ -31,6 +32,12 @@ public class HideLoadingEvent extends BaseEvent {
         HideLoadingEvent event = new HideLoadingEvent();
         event.onDismissListener = onDismissListener;
         event.post();
+    }
+
+    public static void post(long delay, OnDismissListener onDismissListener) {
+        Observable.timer(delay, TimeUnit.MILLISECONDS)
+                .doOnComplete(() -> post(onDismissListener))
+                .subscribe();
     }
 
 //    public static void post(Runnable onDismissRunnable) {

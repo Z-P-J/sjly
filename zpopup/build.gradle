@@ -43,5 +43,4 @@ dependencies {
     implementation 'com.zpj.widget:SmoothCheckBox:1.0.0'
     implementation 'com.zpj.widget:TintedImageView:1.0.0'
 //    implementation 'org.linwg1988:lcardview:1.5.2'
-    implementation 'com.shizhefei:LargeImageView:1.1.0'
 }

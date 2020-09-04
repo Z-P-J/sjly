@@ -123,8 +123,7 @@ public class AppDetailLayout extends FrameLayout {
         tvVersion.setText(info.getVersion());
         tvSize.setText(info.getSize());
         tvToolbarName.setText(info.getName());
-        shortInfo.setText(info.getLanguage() + " | " + info.getFee()
-                + " | " + info.getAds() + " | " + info.getFirmware());
+        shortInfo.setText(info.getLanguage() + " | " + info.getAds() + " | " + info.getFirmware());
         shortIntroduce.setText(info.getLineInfo());
 
         tvVersion.setBackground(new DrawableBuilder()

@@ -9,14 +9,11 @@ import android.media.ExifInterface;
 import android.media.MediaScannerConnection;
 import android.net.Uri;
 import android.os.Environment;
-import android.os.Handler;
-import android.os.Looper;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
 import android.util.Log;
 import android.widget.ImageView;
-import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
@@ -31,7 +28,6 @@ import com.zpj.http.core.IHttp;
 import com.zpj.http.core.ObservableTask;
 import com.zpj.popup.enums.ImageType;
 import com.zpj.popup.util.ImageHeaderParser;
-import com.zpj.popup.util.XPopupUtils;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.event.HideLoadingEvent;
 import com.zpj.shouji.market.event.ShowLoadingEvent;
@@ -48,15 +44,10 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
 import io.reactivex.Observable;
-import io.reactivex.ObservableEmitter;
-import io.reactivex.ObservableOnSubscribe;
 import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.functions.Action;
 
 public class PictureUtil {
 
@@ -96,7 +87,6 @@ public class PictureUtil {
     /**
      * 根据路径获得图片并压缩返回bitmap用于显示
      *
-     * @param imagesrc
      * @return
      */
     public static Bitmap getSmallBitmap(String filePath) {
@@ -583,11 +573,12 @@ public class PictureUtil {
                 });
     }
 
-    public static File compressImage(Context context, File file) {
+    public static File compressImage(Context context, File file) throws IOException {
         int max = ScreenUtils.getScreenHeight(context);
         String fileName = file.getName();
         String suffix = fileName.substring(fileName.lastIndexOf("."));
         boolean isJpg = ".jpg".equalsIgnoreCase(suffix);
+
         File newFile = new CompressHelper.Builder(context)
                 .setMaxWidth(max)  // 默认最大宽度为720
                 .setMaxHeight(max) // 默认最大高度为960

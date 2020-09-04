@@ -20,8 +20,8 @@ public class BlurTransformation extends BitmapTransformation {
     private static final String ID = "BlurTransformation." + VERSION;
 
     private Context context;
-    private static int DEFAULT_RADIUS = 20;
-    private static int DEFAULT_DOWN_SAMPLING = 8;
+    private static int DEFAULT_RADIUS = 25;
+    private static int DEFAULT_DOWN_SAMPLING = 1;
 
     private int radius;
     private int sampling;

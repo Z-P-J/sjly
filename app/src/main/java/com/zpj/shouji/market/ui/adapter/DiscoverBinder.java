@@ -541,6 +541,38 @@ public class DiscoverBinder
                         popup.updateSrcView(view.getImageView());
                     })
                     .show();
+
+//            TransferConfig config = TransferConfig.build()
+//                    .setOnGetImageViewListener(new TransferConfig.OnGetImageViewListener() {
+//                        @Override
+//                        public ImageView onGetImageView(int pos) {
+//                            NineGirdImageContainer view = (NineGirdImageContainer) nineGridView.getChildAt(pos);
+//                            return view.getImageView();
+//                        }
+//                    })
+//                    .setSourceUrlList(discoverInfo.getPics())
+////                    .setMissPlaceHolder(R.mipmap.ic_empty_photo) // 资源加载前的占位图
+////                    .setErrorPlaceHolder(R.mipmap.ic_empty_photo) // 资源加载错误后的占位图
+//                    .setProgressIndicator(new ProgressPieIndicator()) // 资源加载进度指示器, 可以实现 IProgressIndicator 扩展
+//                    .setIndexIndicator(new NumberIndexIndicator()) // 资源数量索引指示器，可以实现 IIndexIndicator 扩展
+//                    .setImageLoader(GlideImageLoader.with(nineGridView.getContext())) // 图片加载器，可以实现 ImageLoader 扩展
+//                    .setBackgroundColor(Color.parseColor("#000000")) // 背景色
+//                    .setDuration(300) // 开启、关闭、手势拖拽关闭、显示、扩散消失等动画时长
+//                    .setOffscreenPageLimit(3) // 第一次初始化或者切换页面时预加载资源的数量，与 justLoadHitImage 属性冲突，默认为 1
+////                    .setCustomView(customView) // 自定义视图，将放在 transferee 的面板上
+//                    .setNowThumbnailIndex(position) // 缩略图在图组中的索引
+//                    .enableJustLoadHitPage(false) // 是否只加载当前显示在屏幕中的的资源，默认关闭
+//                    .enableDragClose(true) // 是否开启下拉手势关闭，默认开启
+//                    .enableDragHide(false) // 下拉拖拽关闭时，是否先隐藏页面上除主视图以外的其他视图，默认开启
+//                    .enableDragPause(false) // 下拉拖拽关闭时，如果当前是视频，是否暂停播放，默认关闭
+//                    .enableHideThumb(false) // 是否开启当 transferee 打开时，隐藏缩略图, 默认关闭
+//                    .enableScrollingWithPageChange(false).create(); // 是否启动列表随着页面的切换而滚动你的列表，默认关闭
+////                    .bindImageView(imageContainer.getImageView(), gridBean.getOriginUrl()); // 绑定一个 ImageView, 所有绑定方法只能调用一个
+////                    .bindListView(listView, R.id.iv_thumb) // 绑定一个 ListView， 所有绑定方法只能调用一个
+////                    .bindRecyclerView(recyclerView, R.id.iv_thumb)  // 绑定一个 RecyclerView， 所有绑定方法只能调用一个
+//
+//            Transferee transfer = Transferee.getDefault(nineGridView.getContext());
+//            transfer.apply(config).show();
         }
 
         @Override

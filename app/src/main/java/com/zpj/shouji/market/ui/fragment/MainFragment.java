@@ -6,6 +6,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.view.View;
 
 import com.zpj.fragmentation.BaseFragment;
+import com.zpj.fragmentation.SupportFragment;
 import com.zpj.fragmentation.anim.DefaultHorizontalAnimator;
 import com.zpj.fragmentation.anim.FragmentAnimator;
 import com.zpj.shouji.market.R;
@@ -14,6 +15,7 @@ import com.zpj.shouji.market.event.MainActionPopupEvent;
 import com.zpj.shouji.market.manager.UserManager;
 import com.zpj.shouji.market.model.MessageInfo;
 import com.zpj.shouji.market.ui.adapter.FragmentsPagerAdapter;
+import com.zpj.shouji.market.ui.fragment.base.BaseContainerFragment;
 import com.zpj.shouji.market.ui.fragment.homepage.HomeFragment;
 import com.zpj.shouji.market.ui.fragment.profile.MyFragment;
 import com.zpj.shouji.market.ui.fragment.recommond.GameRecommendFragment2;
@@ -34,6 +36,58 @@ public class MainFragment extends BaseFragment {
     private final List<BaseFragment> fragments = new ArrayList<>();
     private ZViewPager viewPager;
     private BottomBar mBottomBar;
+
+    public static class FirstFragment extends BaseContainerFragment {
+
+        @Override
+        protected SupportFragment getRootFragment() {
+            HomeFragment fragment = findChildFragment(HomeFragment.class);
+            if (fragment == null) {
+                fragment = new HomeFragment();
+            }
+            return fragment;
+        }
+
+    }
+
+    public static class SecondFragment extends BaseContainerFragment {
+
+        @Override
+        protected SupportFragment getRootFragment() {
+            SoftRecommendFragment2 fragment = findChildFragment(SoftRecommendFragment2.class);
+            if (fragment == null) {
+                fragment = new SoftRecommendFragment2();
+            }
+            return fragment;
+        }
+
+    }
+
+    public static class ThirdFragment extends BaseContainerFragment {
+
+        @Override
+        protected SupportFragment getRootFragment() {
+            GameRecommendFragment2 fragment = findChildFragment(GameRecommendFragment2.class);
+            if (fragment == null) {
+                fragment = new GameRecommendFragment2();
+            }
+            return fragment;
+        }
+
+    }
+
+    public static class FourthFragment extends BaseContainerFragment {
+
+        @Override
+        protected SupportFragment getRootFragment() {
+            MyFragment fragment = findChildFragment(MyFragment.class);
+            if (fragment == null) {
+                fragment = new MyFragment();
+            }
+            return fragment;
+        }
+
+    }
 
     @Override
     protected int getLayoutId() {
@@ -65,25 +119,46 @@ public class MainFragment extends BaseFragment {
     @Override
     protected void initView(View view, @Nullable Bundle savedInstanceState) {
 
-        HomeFragment homeFragment = findChildFragment(HomeFragment.class);
-        if (homeFragment == null) {
-            homeFragment = new HomeFragment();
-        }
-
-        SoftRecommendFragment2 softFragment = findChildFragment(SoftRecommendFragment2.class);
-        if (softFragment == null) {
-            softFragment = new SoftRecommendFragment2();
-        }
-
-        GameRecommendFragment2 game = findChildFragment(GameRecommendFragment2.class);
-        if (game == null) {
-            game = new GameRecommendFragment2();
-        }
-
+//        HomeFragment homeFragment = findChildFragment(HomeFragment.class);
+//        if (homeFragment == null) {
+//            homeFragment = new HomeFragment();
+//        }
+//
+//        SoftRecommendFragment2 softFragment = findChildFragment(SoftRecommendFragment2.class);
+//        if (softFragment == null) {
+//            softFragment = new SoftRecommendFragment2();
+//        }
+//
+//        GameRecommendFragment2 game = findChildFragment(GameRecommendFragment2.class);
+//        if (game == null) {
+//            game = new GameRecommendFragment2();
+//        }
+//
         MyFragment profileFragment = findChildFragment(MyFragment.class);
         if (profileFragment == null) {
             profileFragment = new MyFragment();
         }
+
+        FirstFragment homeFragment = findChildFragment(FirstFragment.class);
+        if (homeFragment == null) {
+            homeFragment = new FirstFragment();
+        }
+
+        SecondFragment softFragment = findChildFragment(SecondFragment.class);
+        if (softFragment == null) {
+            softFragment = new SecondFragment();
+        }
+
+        ThirdFragment game = findChildFragment(ThirdFragment.class);
+        if (game == null) {
+            game = new ThirdFragment();
+        }
+
+//        FourthFragment profileFragment = findChildFragment(FourthFragment.class);
+//        if (profileFragment == null) {
+//            profileFragment = new FourthFragment();
+//        }
+
         fragments.clear();
         fragments.add(homeFragment);
         fragments.add(softFragment);

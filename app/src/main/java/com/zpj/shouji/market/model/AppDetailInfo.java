@@ -1,10 +1,12 @@
 package com.zpj.shouji.market.model;
 
+import android.text.TextUtils;
 import android.util.Log;
 
 import com.zpj.http.parser.html.nodes.Document;
 import com.zpj.http.parser.html.nodes.Element;
 import com.zpj.http.parser.html.select.Elements;
+import com.zpj.shouji.market.utils.BeanUtils.Select;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,6 +24,7 @@ public class AppDetailInfo {
     private String lineInfo;
     private String appIntroduceContent;
     private String updateContent;
+    private String editorComment;
     private String downloadUrl;
     private String permissionContent;
     private String appInfo;
@@ -34,6 +37,13 @@ public class AppDetailInfo {
     private String ads;
     private String firmware;
     private String author;
+
+    @Select(selector = "ratingvalue")
+    private String ratingValue;
+    @Select(selector = "scoreInfo")
+    private String scoreInfo;
+    @Select(selector = "scoreState")
+    private boolean scoreState;
 
     public static AppDetailInfo create(Document doc) {
         AppDetailInfo info = new AppDetailInfo();
@@ -57,6 +67,10 @@ public class AppDetailInfo {
         info.lineInfo = doc.selectFirst("lineinfo").text();
 //        Log.d("getAppInfo", "app_info=" + info.shortInfo);
 
+        info.ratingValue = doc.selectFirst("ratingvalue").text();
+        info.scoreInfo = doc.selectFirst("scoreInfo").text();
+        info.scoreState = "1".equals(doc.selectFirst("scoreState").text());
+
         elements = doc.select("introduces").select("introduce");
         for (Element introduce : elements) {
             String introduceType = introduce.selectFirst("introducetype").text();
@@ -64,7 +78,9 @@ public class AppDetailInfo {
             String introduceTitle = introduce.selectFirst("introducetitle").text();
             Log.d("getAppInfo", "introduceTitle=" + introduceTitle);
             if ("permission".equals(introduceType.toLowerCase())) {
-                Elements permissions = introduce.select("permissions").select("permission");
+                Log.d("getAppInfo", "permissions111=" + introduce.selectFirst("permissions"));
+                Elements permissions = introduce.selectFirst("permissions").select("permission");
+                Log.d("getAppInfo", "permissions222=" + permissions.toString());
                 StringBuilder permissionContent = new StringBuilder();
                 for (Element permission : permissions) {
                     if (permissionContent.toString().equals("")) {
@@ -78,6 +94,10 @@ public class AppDetailInfo {
             } else if ("text".equals(introduceType)) {
                 if ("软件信息".equals(introduceTitle) || "游戏信息".equals(introduceTitle)) {
                     String introduceContent = introduce.selectFirst("introduceContent").text();
+                    info.packageName = introduceContent.substring(
+                            introduceContent.indexOf("包名：") + 3,
+                            introduceContent.indexOf("版本：")
+                    ).trim();
                     info.version = introduceContent.substring(
                             introduceContent.indexOf("版本：") + 3,
                             introduceContent.indexOf("大小：")
@@ -92,12 +112,13 @@ public class AppDetailInfo {
                     ).trim();
                     info.language = introduceContent.substring(
                             introduceContent.indexOf("语言：") + 3,
-                            introduceContent.indexOf("资费：")
-                    ).trim();
-                    info.fee = introduceContent.substring(
-                            introduceContent.indexOf("资费：") + 3,
+//                            introduceContent.indexOf("资费：")
                             introduceContent.indexOf("广告：")
                     ).trim();
+//                    info.fee = introduceContent.substring(
+//                            introduceContent.indexOf("资费：") + 3,
+//                            introduceContent.indexOf("广告：")
+//                    ).trim();
                     info.ads = introduceContent.substring(
                             introduceContent.indexOf("广告：") + 3,
                             introduceContent.indexOf("固件：")
@@ -109,13 +130,23 @@ public class AppDetailInfo {
                     info.author = introduceContent.substring(
                             introduceContent.indexOf("作者：") + 3
                     ).trim();
-                    info.appInfo = introduceContent.replaceAll(" ", "\n");
+//                    info.appInfo = introduceContent.replaceAll(" ", "\n");
+                    info.appInfo = "包名：" + info.packageName + "\n" +
+                            "版本：" + info.version + "\n" +
+                            "大小：" + info.size + "\n" +
+                            "更新：" + info.updateTime + "\n" +
+                            "语言：" + info.language + "\n" +
+                            "广告：" + info.ads + "\n" +
+                            "固件：" + info.firmware + "\n" +
+                            "作者：" + info.author;
                 } else if ("软件简介".equals(introduceTitle) || "游戏简介".equals(introduceTitle)) {
                     info.appIntroduceContent = introduce.selectFirst("introduceContent").text();
                     Log.d("getAppInfo", "appIntroduceContent=" + info.appIntroduceContent);
                 } else if ("更新内容".equals(introduceTitle)) {
                     info.updateContent = introduce.selectFirst("introduceContent").text();
                     Log.d("getAppInfo", "updateContent=" + info.updateContent);
+                } else if ("小编点评".equals(introduceTitle) || "游戏点评".equals(introduceTitle)) {
+                    info.editorComment = introduce.selectFirst("introduceContent").text();
                 }
             }
         }
@@ -155,6 +186,9 @@ public class AppDetailInfo {
     }
 
     public String getPermissionContent() {
+        if (TextUtils.isEmpty(permissionContent)) {
+            return "无";
+        }
         return permissionContent;
     }
 
@@ -208,6 +242,22 @@ public class AppDetailInfo {
 
     public String getAuthor() {
         return author;
+    }
+
+    public String getEditorComment() {
+        return editorComment;
+    }
+
+    public String getRatingValue() {
+        return ratingValue;
+    }
+
+    public String getScoreInfo() {
+        return scoreInfo;
+    }
+
+    public boolean isScoreState() {
+        return scoreState;
     }
 
     @Override

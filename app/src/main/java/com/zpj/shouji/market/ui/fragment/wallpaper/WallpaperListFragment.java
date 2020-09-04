@@ -135,7 +135,8 @@ public class WallpaperListFragment extends NextUrlFragment<WallpaperInfo> {
         wallpaper.setTag(position);
         Glide.with(context)
                 .load(list.get(position).getSpic())
-                .apply(MyRequestOptions.DEFAULT_OPTIONS).into(wallpaper);
+                .apply(MyRequestOptions.DEFAULT_OPTIONS)
+                .into(wallpaper);
 
         Glide.with(context).load(info.getMemberIcon()).into(holder.getImageView(R.id.iv_icon));
         EmojiExpandableTextView tvContent = holder.getView(R.id.tv_content);

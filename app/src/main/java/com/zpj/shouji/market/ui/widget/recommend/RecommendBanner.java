@@ -23,6 +23,7 @@ import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.api.HttpApi;
 import com.zpj.shouji.market.api.HttpPreLoader;
 import com.zpj.shouji.market.api.PreloadApi;
+import com.zpj.shouji.market.glide.blur.BlurTransformation;
 import com.zpj.shouji.market.model.AppInfo;
 import com.zpj.shouji.market.ui.fragment.subject.SubjectRecommendListFragment;
 import com.zpj.shouji.market.ui.fragment.ToolBarListFragment;
@@ -32,8 +33,6 @@ import com.zpj.utils.ScreenUtils;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import jp.wasabeef.glide.transformations.BlurTransformation;
 
 public class RecommendBanner extends LinearLayout implements View.OnClickListener {
 

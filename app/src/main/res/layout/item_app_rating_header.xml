@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="8dp"
+    >
+
+    <FrameLayout
+        android:id="@+id/header_recent_update"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingBottom="4dp"
+        android:paddingTop="4dp"
+        android:layout_marginBottom="8dp"
+        >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="乐友评分"
+            android:textSize="16sp"
+            android:textColor="@color/color_text_major"
+            android:textStyle="bold"
+            android:layout_gravity="bottom"
+            />
+
+        <View
+            android:layout_width="14dp"
+            android:layout_height="10dp"
+            android:background="#8009bd14"
+            android:layout_gravity="bottom"
+            />
+
+    </FrameLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:background="@drawable/grey_shape"
+        android:padding="8dp"
+        >
+
+        <TextView
+            android:id="@+id/tv_score"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/colorPrimary"
+            android:textSize="56sp"
+            android:textStyle="italic"
+            android:text="5.0"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="8dp"
+            />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_toEndOf="@id/tv_score"
+            android:layout_toStartOf="@id/tv_marking"
+            android:layout_centerVertical="true"
+            android:layout_marginHorizontal="16dp"
+            >
+
+            <com.cb.ratingbar.CBRatingBar
+                android:id="@+id/rating_bar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:starSize="16dp"
+                app:starSpace="8dp"
+                app:starCount="5"
+                android:padding="16dp"
+                app:starMaxProgress="100"
+                app:starProgress="60"
+
+                />
+
+<!--            app:starPathData="@string/round_star"-->
+<!--            app:starCoverColor="@color/yellow_1"-->
+<!--            app:starStrokeColor="@color/white"-->
+
+            <TextView
+                android:id="@+id/tv_info"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:maxLines="1"
+                android:gravity="center_vertical"
+                android:ellipsize="end"
+                android:text="100位乐友参与评分"
+                android:layout_marginTop="4dp"
+                android:textColor="@color/color_text_normal"
+                />
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/tv_marking"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="打分"
+            android:textSize="12sp"
+            android:textColor="@color/colorPrimary"
+            android:background="@drawable/bg_download_button"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:paddingStart="12dp"
+            android:paddingEnd="12dp"
+            android:textStyle="bold"
+            android:paddingTop="4dp"
+            android:paddingBottom="4dp"
+            android:gravity="center"
+            android:visibility="invisible"
+            tools:visibility="visible"
+            />
+
+
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/rl_my_score"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:background="@drawable/grey_shape"
+        android:padding="8dp"
+        android:layout_marginTop="8dp"
+        >
+
+        <com.shehuan.niv.NiceImageView
+            android:id="@+id/iv_icon"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:layout_centerVertical="true"
+            android:src="@mipmap/ic_launcher"
+            app:is_circle="true"
+            />
+
+        <TextView
+            android:id="@+id/tv_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_toEndOf="@id/iv_icon"
+            android:layout_toStartOf="@id/my_rating"
+            android:layout_centerVertical="true"
+            android:maxLines="1"
+            android:ellipsize="end"
+            android:text="我的打分"
+            android:layout_marginTop="4dp"
+            android:textColor="@color/color_text_major"
+            android:layout_marginHorizontal="8dp"
+            />
+
+        <com.cb.ratingbar.CBRatingBar
+            android:id="@+id/my_rating"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            app:starSize="14dp"
+            app:starSpace="4dp"
+            app:starCount="5"
+            android:padding="16dp"
+            app:starMaxProgress="100"
+            app:starProgress="60"
+            app:starPathData="@string/round_star"
+
+            />
+
+<!--        app:starCoverColor="@color/yellow_1"-->
+<!--        app:starStrokeColor="@color/white"-->
+<!--        app:starFillColor="@color/white"-->
+
+    </RelativeLayout>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingBottom="4dp"
+        android:paddingTop="4dp"
+        android:layout_marginTop="16dp"
+        >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="乐友评论"
+            android:textSize="16sp"
+            android:textColor="@color/color_text_major"
+            android:textStyle="bold"
+            android:layout_gravity="bottom"
+            />
+
+        <View
+            android:layout_width="14dp"
+            android:layout_height="10dp"
+            android:background="#8009bd14"
+            android:layout_gravity="bottom"
+            />
+
+    </FrameLayout>
+
+</LinearLayout>

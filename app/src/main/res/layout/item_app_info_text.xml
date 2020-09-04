@@ -1,14 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@android:color/white"
-    android:padding="20dp"
-    >
+    android:padding="20dp">
 
-    <RelativeLayout
+    <FrameLayout
         android:id="@+id/header_recent_update"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -26,26 +25,39 @@
             android:textSize="16sp"
             android:textColor="@color/color_text_major"
             android:textStyle="bold"
-            android:layout_alignParentBottom="true"
+            android:layout_gravity="bottom"
             />
 
         <View
             android:layout_width="14dp"
             android:layout_height="10dp"
             android:background="#8009bd14"
-            android:layout_alignParentBottom="true"
+            android:layout_gravity="bottom"
             />
 
+    </FrameLayout>
 
+<!--    <com.zpj.shouji.market.ui.widget.selection.SelectableTextView-->
+<!--        android:id="@+id/tv_content"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:textColor="#000000"-->
+<!--        android:lineSpacingExtra="4dp"-->
+<!--        />-->
 
-    </RelativeLayout>
-
-    <com.zpj.shouji.market.ui.widget.selection.SelectableTextView
+    <com.ctetin.expandabletextviewlibrary.ExpandableTextView
         android:id="@+id/tv_content"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textColor="#000000"
         android:lineSpacingExtra="4dp"
+        app:ep_need_expand="false"
+        app:ep_need_link="false"
+        app:ep_need_self="false"
+        app:ep_need_contract="false"
+        app:ep_need_convert_url="false"
+        app:ep_need_mention="true"
+        app:ep_mention_color="@color/colorPrimary"
         />
 
 </LinearLayout>

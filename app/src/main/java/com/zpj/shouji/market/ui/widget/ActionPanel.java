@@ -73,7 +73,7 @@ public class ActionPanel extends RelativeLayout
     private LinearLayout llActionsContainer;
     private ImageView ivEmoji;
 //    private ImageView ivImage;
-    private ImageView ivApp;
+//    private ImageView ivApp;
     private ImageView ivSend;
     //    private RelativeLayout rlEmojiPanel;
     private EmotionLayout elEmotion;
@@ -116,7 +116,7 @@ public class ActionPanel extends RelativeLayout
         llActionsContainer = findViewById(R.id.ll_actions_container);
 //        ivImage = findViewById(R.id.iv_image);
         ivEmoji = findViewById(R.id.iv_emoji);
-        ivApp = findViewById(R.id.iv_app);
+//        ivApp = findViewById(R.id.iv_app);
         ivSend = findViewById(R.id.iv_send);
 //        rlEmojiPanel = findViewById(R.id.rl_emoji_panel);
         elEmotion = findViewById(R.id.el_emotion);
@@ -260,13 +260,13 @@ public class ActionPanel extends RelativeLayout
 //                    .start());
 //
 //        });
-        ivApp.setOnClickListener(v -> {
-            if (isKeyboardShowing) {
-                KeyboardUtils.hideSoftInputKeyboard(etEditor);
-            }
-            elEmotion.setVisibility(View.GONE);
-            AToast.normal("app");
-        });
+//        ivApp.setOnClickListener(v -> {
+//            if (isKeyboardShowing) {
+//                KeyboardUtils.hideSoftInputKeyboard(etEditor);
+//            }
+//            elEmotion.setVisibility(View.GONE);
+//            AToast.normal("app");
+//        });
     }
 
     public void attachEditText(EditText etEditor) {
@@ -278,9 +278,9 @@ public class ActionPanel extends RelativeLayout
 //        llActionsContainer.removeView(ivImage);
 //    }
 
-    public void removeAppAction() {
-        llActionsContainer.removeView(ivApp);
-    }
+//    public void removeAppAction() {
+//        llActionsContainer.removeView(ivApp);
+//    }
 
     public void setSendAction(OnClickListener listener) {
         ivSend.setOnClickListener(listener);

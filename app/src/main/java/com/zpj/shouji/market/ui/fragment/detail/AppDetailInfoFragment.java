@@ -9,6 +9,7 @@ import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -17,8 +18,9 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.bumptech.glide.request.target.SimpleTarget;
-import com.bumptech.glide.request.target.Target;
 import com.bumptech.glide.request.transition.Transition;
+import com.ctetin.expandabletextviewlibrary.ExpandableTextView;
+import com.ctetin.expandabletextviewlibrary.app.LinkType;
 import com.yanyusong.y_divideritemdecoration.Y_Divider;
 import com.yanyusong.y_divideritemdecoration.Y_DividerBuilder;
 import com.yanyusong.y_divideritemdecoration.Y_DividerItemDecoration;
@@ -29,6 +31,7 @@ import com.zpj.recyclerview.EasyViewHolder;
 import com.zpj.recyclerview.IEasy;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.model.AppDetailInfo;
+import com.zpj.shouji.market.ui.fragment.profile.ProfileFragment;
 import com.zpj.shouji.market.ui.widget.popup.CommonImageViewerPopup;
 import com.zpj.utils.ScreenUtils;
 
@@ -38,7 +41,8 @@ import org.greenrobot.eventbus.Subscribe;
 import java.util.List;
 
 public class AppDetailInfoFragment extends BaseFragment
-        implements IEasy.OnBindViewHolderListener<String> {
+        implements IEasy.OnBindViewHolderListener<String>,
+        ExpandableTextView.OnLinkClickListener {
 
     private EasyRecyclerView<String> recyclerView;
     private LinearLayout content;
@@ -165,6 +169,7 @@ public class AppDetailInfoFragment extends BaseFragment
 
     @Subscribe
     public void onGetAppDetailInfo(AppDetailInfo info) {
+        Log.d("AppDetailInfoFragment", "onGetAppDetailInfo info=" + info);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
         layoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
         recyclerView.setItemRes(R.layout.item_image)
@@ -174,22 +179,46 @@ public class AppDetailInfoFragment extends BaseFragment
                 .onBindViewHolder(this)
                 .build();
         recyclerView.notifyDataSetChanged();
+        addItem("小编评论", info.getEditorComment(), 0);
         addItem("应用简介", info.getAppIntroduceContent());
         addItem("新版特性", info.getUpdateContent());
         addItem("详细信息", info.getAppInfo());
         addItem("权限信息", info.getPermissionContent());
+
     }
 
     private void addItem(String title, String text) {
+//        if (TextUtils.isEmpty(text)) {
+//            return;
+//        }
+//        View view = getLayoutInflater().inflate(R.layout.item_app_info_text, null, false);
+//        content.addView(view);
+//        TextView tvTitle = view.findViewById(R.id.tv_title);
+//        TextView tvContent = view.findViewById(R.id.tv_content);
+//        tvTitle.setText(title);
+//        tvContent.setText(text);
+
+        addItem(title, text, content.getChildCount());
+    }
+
+    private void addItem(String title, String text, int index) {
         if (TextUtils.isEmpty(text)) {
             return;
         }
         View view = getLayoutInflater().inflate(R.layout.item_app_info_text, null, false);
-        content.addView(view);
+        content.addView(view, index);
         TextView tvTitle = view.findViewById(R.id.tv_title);
-        TextView tvContent = view.findViewById(R.id.tv_content);
+        ExpandableTextView tvContent = view.findViewById(R.id.tv_content);
+        tvContent.setLinkClickListener(this);
         tvTitle.setText(title);
-        tvContent.setText(text);
+        tvContent.setContent(text);
+    }
+
+    @Override
+    public void onLinkClickListener(LinkType type, String content, String selfContent) {
+        if (type == LinkType.MENTION_TYPE) {
+            ProfileFragment.start(content.replace("@", "").trim());
+        }
     }
 
 

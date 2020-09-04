@@ -149,6 +149,17 @@ public class AppDetailFragment extends BaseFragment
     }
 
     @Override
+    public void onSupportVisible() {
+        super.onSupportVisible();
+    }
+
+    @Override
+    public void onSupportInvisible() {
+        super.onSupportInvisible();
+        postOnSupportVisible(this::lightStatusBar);
+    }
+
+    @Override
     public void onDestroy() {
         super.onDestroy();
         EventBus.getDefault().unregister(this);
@@ -241,7 +252,7 @@ public class AppDetailFragment extends BaseFragment
 
         AppDetailCommentFragment commentFragment = findChildFragment(AppDetailCommentFragment.class);
         if (commentFragment == null) {
-            commentFragment = AppDetailCommentFragment.newInstance(id, type);
+            commentFragment = AppDetailCommentFragment.newInstance(info);
         }
 
         AppDetailThemeFragment exploreFragment = findChildFragment(AppDetailThemeFragment.class);

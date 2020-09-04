@@ -162,7 +162,7 @@ public class ThemeShareFragment extends BaseFragment {
         });
 
 //        actionPanel.removeImageAction();
-        actionPanel.removeAppAction();
+//        actionPanel.removeAppAction();
         actionPanel.addAction(R.drawable.ic_at_black_24dp, v -> {
             showUserPicker();
         });

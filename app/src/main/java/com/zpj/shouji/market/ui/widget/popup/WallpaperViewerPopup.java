@@ -300,8 +300,8 @@ public class WallpaperViewerPopup extends ImageViewerPopup<String>
     @Override
     public void loadImage(int position, @NonNull String url, @NonNull ImageView imageView) {
         Glide.with(imageView).load(url)
-                .apply(new RequestOptions()
-                        .override(Target.SIZE_ORIGINAL))
+//                .apply(new RequestOptions()
+//                        .override(Target.SIZE_ORIGINAL))
                 .into(imageView);
     }
 

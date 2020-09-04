@@ -20,6 +20,7 @@ import android.support.transition.TransitionSet;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v4.view.animation.FastOutSlowInInterpolator;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -253,6 +254,7 @@ public class ImageViewerPopup<T> extends BasePopup<ImageViewerPopup<T>>
         pager.setVisibility(INVISIBLE);
         snapshotView.setVisibility(VISIBLE);
         photoViewContainer.isReleasing = true;
+        Log.d("ImageViewerPopup", "snapshotView.getParent()=" + snapshotView.getParent());
         TransitionManager.beginDelayedTransition((ViewGroup) snapshotView.getParent(), new TransitionSet()
                 .setDuration(XPopup.getAnimationDuration())
                 .addTransition(new ChangeBounds())

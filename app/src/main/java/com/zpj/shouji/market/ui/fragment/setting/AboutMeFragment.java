@@ -27,14 +27,13 @@ import com.zpj.fragmentation.anim.DefaultHorizontalAnimator;
 import com.zpj.fragmentation.anim.DefaultNoAnimator;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.event.StartFragmentEvent;
+import com.zpj.shouji.market.glide.blur.BlurTransformation;
 import com.zpj.shouji.market.ui.fragment.WebFragment;
 import com.zpj.shouji.market.ui.widget.PercentImageView;
 import com.zpj.shouji.market.utils.AnimationUtil;
 import com.zpj.utils.AnimatorUtils;
 import com.zpj.widget.setting.CommonSettingItem;
 import com.zpj.widget.setting.OnCommonItemClickListener;
-
-import jp.wasabeef.glide.transformations.BlurTransformation;
 
 public class AboutMeFragment extends BaseFragment implements OnCommonItemClickListener {
 

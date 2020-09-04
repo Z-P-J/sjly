@@ -26,14 +26,11 @@ import com.zpj.shouji.market.event.StartFragmentEvent;
 import com.zpj.shouji.market.glide.blur.CropBlurTransformation;
 import com.zpj.shouji.market.model.AppInfo;
 import com.zpj.shouji.market.model.SubjectInfo;
-import com.zpj.shouji.market.ui.fragment.AppListFragment;
 import com.zpj.shouji.market.ui.fragment.detail.AppDetailFragment;
 import com.zpj.widget.statelayout.StateLayout;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import jp.wasabeef.glide.transformations.BlurTransformation;
 
 public class SubjectDetailFragment extends BaseFragment
         implements IEasy.OnBindViewHolderListener<AppInfo>,

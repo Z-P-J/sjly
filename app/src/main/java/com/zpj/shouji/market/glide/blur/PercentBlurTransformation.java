@@ -10,12 +10,6 @@ import java.security.MessageDigest;
 
 import per.goweii.burred.Blurred;
 
-/**
- * 描述：高斯模糊
- *
- * @author Cuizhen
- * @date 2018/9/13
- */
 public class PercentBlurTransformation extends BitmapTransformation {
 
     private static final String ID = PercentBlurTransformation.class.getName();

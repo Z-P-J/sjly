@@ -1,8 +1,6 @@
 package com.zpj.shouji.market.ui.widget.popup;
 
-import android.app.WallpaperManager;
 import android.content.Context;
-import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.support.annotation.NonNull;
@@ -10,22 +8,14 @@ import android.support.annotation.Nullable;
 import android.support.v4.view.ViewPager;
 import android.text.TextUtils;
 import android.util.Log;
-import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.Key;
-import com.bumptech.glide.load.resource.gif.GifDrawable;
-import com.bumptech.glide.request.RequestListener;
-import com.bumptech.glide.request.RequestOptions;
-import com.bumptech.glide.request.target.CustomViewTarget;
 import com.bumptech.glide.request.target.SimpleTarget;
-import com.bumptech.glide.request.target.Target;
 import com.bumptech.glide.request.transition.Transition;
 import com.felix.atoast.library.AToast;
 import com.zpj.fragmentation.ISupportFragment;
-import com.zpj.fragmentation.SupportFragment;
 import com.zpj.fragmentation.SupportHelper;
 import com.zpj.popup.ZPopup;
 import com.zpj.popup.core.ImageViewerPopup;
@@ -35,21 +25,12 @@ import com.zpj.popup.photoview.PhotoView;
 import com.zpj.popup.widget.LoadingView;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.event.GetMainActivityEvent;
-import com.zpj.shouji.market.event.HideLoadingEvent;
-import com.zpj.shouji.market.event.ShowLoadingEvent;
-import com.zpj.shouji.market.glide.GlideApp;
-import com.zpj.shouji.market.ui.activity.MainActivity;
-import com.zpj.shouji.market.utils.Callback;
 import com.zpj.shouji.market.utils.PictureUtil;
 import com.zpj.widget.tinted.TintedImageButton;
 import com.zpj.widget.toolbar.ZToolBar;
 
 import java.io.File;
-import java.io.IOException;
-import java.security.MessageDigest;
 import java.util.List;
-import java.util.UUID;
-import java.util.concurrent.Executor;
 
 public class CommonImageViewerPopup extends ImageViewerPopup<String>
         implements IImageLoader<String> {
@@ -165,48 +146,13 @@ public class CommonImageViewerPopup extends ImageViewerPopup<String>
     public void loadImage(int position, @NonNull String url, @NonNull ImageView imageView) {
         Glide.with(imageView)
                 .load(url)
-                .apply(
-                        new RequestOptions()
-//                                .placeholder(R.drawable.bga_pp_ic_holder_light)
-//                                .error(R.drawable.bga_pp_ic_holder_light)
-                                .override(Target.SIZE_ORIGINAL)
-                )
+//                .apply(
+//                        new RequestOptions()
+////                                .placeholder(R.drawable.bga_pp_ic_holder_light)
+////                                .error(R.drawable.bga_pp_ic_holder_light)
+//                                .override(Target.SIZE_ORIGINAL)
+//                )
                 .into(imageView);
-//        if (url.toLowerCase().endsWith(".gif")) {
-//            GlideApp.with(context)
-//                    .asGif()
-//                    .load(url)
-//                    .apply(
-//                            new RequestOptions()
-//                                    .override(Target.SIZE_ORIGINAL)
-//                    )
-//                    .into(new SimpleTarget<GifDrawable>() {
-//                        @Override
-//                        public void onResourceReady(@NonNull GifDrawable resource, @Nullable Transition<? super GifDrawable> transition) {
-//                            imageView.setImageDrawable(resource);
-//                        }
-//
-//                        @Override
-//                        public void onLoadFailed(@Nullable Drawable errorDrawable) {
-//                            super.onLoadFailed(errorDrawable);
-//                            Glide.with(context)
-//                                    .load(url)
-//                                    .apply(
-//                                            new RequestOptions()
-//                                                    .override(Target.SIZE_ORIGINAL)
-//                                    )
-//                                    .into(imageView);
-//                        }
-//                    });
-//        } else {
-//            Glide.with(context)
-//                    .load(url)
-//                    .apply(
-//                            new RequestOptions()
-//                                    .override(Target.SIZE_ORIGINAL)
-//                    )
-//                    .into(imageView);
-//        }
     }
 
     @Override

@@ -458,7 +458,7 @@ public final class HttpApi {
     }
 
     public static ObservableTask<Document> appInfoApi(String type, String id) {
-        return get(String.format("http://tt.shouji.com.cn/androidv3/%s_show.jsp?id=%s", type, id));
+        return get(String.format("http://tt.shouji.com.cn/androidv4/%s_show.jsp?id=%s", type, id));
     }
 
     public static ObservableTask<Document> nicknameApi(String nickname) {
@@ -561,6 +561,16 @@ public final class HttpApi {
 
     public static ObservableTask<Document> reportApi(String id, String type, String reason) {
         return get(String.format("http://tt.shouji.com.cn/app/jubao.jsp?id=%s&t=%s&reason=%s", id, type, reason));
+    }
+
+    public static ObservableTask<Document> appRatingApi(String id, String value, String type, String packageName, String versionName) {
+        String url = String.format("http://tt.shouji.com.cn/appv3/score_post_xml_v2.jsp?id=%s&value=%s&type=%s&packagename=%s&versionname=%s", id, value, type, packageName, versionName);
+        return get(url);
+    }
+
+    public static ObservableTask<Document> findDetailMemberInfoApi(String appId, String memberId) {
+        String url = String.format("http://tt.shouji.com.cn/appv3/findDetailMemberInfo.jsp?id=%s&t=1&memberid=%s", appId, memberId);
+        return get(url);
     }
 
 

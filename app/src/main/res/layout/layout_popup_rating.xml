@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.lihang.ShadowLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    app:hl_cornerRadius="8dp"
+    app:hl_shadowLimit="4dp"
+    app:hl_shadowBackColor="@android:color/white"
+    app:hl_shadowColor="#80cccccc"
+    >
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <com.zpj.widget.toolbar.ZToolBar
+            android:id="@+id/tool_bar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:z_toolbar_titleBarColor="@color/transparent"
+            app:z_toolbar_isLightStyle="false"
+            app:z_toolbar_centerType="textView"
+            app:z_toolbar_centerText="应用评分"
+            app:z_toolbar_centerTextSize="14sp"
+            app:z_toolbar_rightType="imageButton"
+            app:z_toolbar_rightImageResource="@drawable/ic_clear_black_24dp"
+            />
+
+        <com.cb.ratingbar.CBRatingBar
+            android:id="@+id/rating_bar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginVertical="16dp"
+            app:starSize="32dp"
+            app:starSpace="8dp"
+            app:starCount="5"
+            android:padding="16dp"
+            app:starMaxProgress="100"
+            app:starProgress="60"
+            app:starPathData="@string/round_star"
+            app:starCanTouch="true"
+            />
+
+<!--        app:starCoverColor="@color/yellow_1"-->
+<!--        app:starStrokeColor="@color/yellow_1"-->
+<!--        app:starFillColor="@color/white"-->
+
+        <TextView
+            android:id="@+id/tv_submit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="8dp"
+            android:background="?attr/actionBarItemBackground"
+            android:layout_gravity="end"
+            android:text="提交"
+            android:textColor="@color/colorPrimary"
+            android:layout_margin="16dp"
+            />
+
+    </LinearLayout>
+
+</com.lihang.ShadowLayout>

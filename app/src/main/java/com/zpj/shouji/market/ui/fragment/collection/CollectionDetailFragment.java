@@ -26,6 +26,7 @@ import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.api.HttpApi;
 import com.zpj.shouji.market.event.RefreshEvent;
 import com.zpj.shouji.market.event.StartFragmentEvent;
+import com.zpj.shouji.market.glide.blur.BlurTransformation;
 import com.zpj.shouji.market.manager.UserManager;
 import com.zpj.shouji.market.model.CollectionInfo;
 import com.zpj.shouji.market.ui.adapter.FragmentsPagerAdapter;
@@ -41,8 +42,6 @@ import net.lucode.hackware.magicindicator.MagicIndicator;
 
 import java.util.ArrayList;
 import java.util.Objects;
-
-import jp.wasabeef.glide.transformations.BlurTransformation;
 
 public class CollectionDetailFragment extends BaseFragment
         implements View.OnClickListener {

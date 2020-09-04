@@ -10,10 +10,12 @@ import android.view.View;
 
 import com.felix.atoast.library.AToast;
 import com.zpj.fragmentation.BaseFragment;
+import com.zpj.fragmentation.SupportFragment;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.event.ColorChangeEvent;
 import com.zpj.shouji.market.event.ToolbarColorChangeEvent;
 import com.zpj.shouji.market.ui.adapter.FragmentsPagerAdapter;
+import com.zpj.shouji.market.ui.fragment.base.BaseContainerFragment;
 import com.zpj.shouji.market.ui.fragment.manager.AppManagerFragment;
 import com.zpj.shouji.market.ui.fragment.search.SearchFragment;
 import com.zpj.shouji.market.ui.widget.ColorChangePagerTitleView;
@@ -37,6 +39,45 @@ public class HomeFragment extends BaseFragment {
     private TintedImageButton btnManage;
 
     private boolean isLightStyle = false;
+
+    public static class FirstFragment extends BaseContainerFragment {
+
+        @Override
+        protected SupportFragment getRootFragment() {
+            RecommendFragment2 fragment = findChildFragment(RecommendFragment2.class);
+            if (fragment == null) {
+                fragment = new RecommendFragment2();
+            }
+            return fragment;
+        }
+
+    }
+
+    public static class SecondFragment extends BaseContainerFragment {
+
+        @Override
+        protected SupportFragment getRootFragment() {
+            DiscoverFragment fragment = findChildFragment(DiscoverFragment.class);
+            if (fragment == null) {
+                fragment = DiscoverFragment.newInstance();
+            }
+            return fragment;
+        }
+
+    }
+
+    public static class ThirdFragment extends BaseContainerFragment {
+
+        @Override
+        protected SupportFragment getRootFragment() {
+            WallpaperFragment fragment = findChildFragment(WallpaperFragment.class);
+            if (fragment == null) {
+                fragment = new WallpaperFragment();
+            }
+            return fragment;
+        }
+
+    }
 
     @Override
     protected int getLayoutId() {
@@ -62,19 +103,34 @@ public class HomeFragment extends BaseFragment {
         toolbar.setLightStyle(false);
 
 
+//        ArrayList<Fragment> list = new ArrayList<>();
+//        RecommendFragment2 recommendFragment = findChildFragment(RecommendFragment2.class);
+//        if (recommendFragment == null) {
+//            recommendFragment = new RecommendFragment2();
+//        }
+//        DiscoverFragment exploreFragment = findChildFragment(DiscoverFragment.class);
+//        if (exploreFragment == null) {
+//            exploreFragment = DiscoverFragment.newInstance();
+//        }
+//        WallpaperFragment wallpaperFragment = findChildFragment(WallpaperFragment.class);
+//        if (wallpaperFragment == null) {
+//            wallpaperFragment = new WallpaperFragment();
+//        }
+
         ArrayList<Fragment> list = new ArrayList<>();
-        RecommendFragment2 recommendFragment = findChildFragment(RecommendFragment2.class);
+        FirstFragment recommendFragment = findChildFragment(FirstFragment.class);
         if (recommendFragment == null) {
-            recommendFragment = new RecommendFragment2();
+            recommendFragment = new FirstFragment();
         }
-        DiscoverFragment exploreFragment = findChildFragment(DiscoverFragment.class);
+        SecondFragment exploreFragment = findChildFragment(SecondFragment.class);
         if (exploreFragment == null) {
-            exploreFragment = DiscoverFragment.newInstance();
+            exploreFragment = new SecondFragment();
         }
-        WallpaperFragment wallpaperFragment = findChildFragment(WallpaperFragment.class);
+        ThirdFragment wallpaperFragment = findChildFragment(ThirdFragment.class);
         if (wallpaperFragment == null) {
-            wallpaperFragment = new WallpaperFragment();
+            wallpaperFragment = new ThirdFragment();
         }
+
         list.add(recommendFragment);
         list.add(exploreFragment);
         list.add(wallpaperFragment);
