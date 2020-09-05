@@ -12,8 +12,8 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
 import com.bumptech.glide.request.RequestOptions;
-import com.bumptech.glide.request.target.Target;
 import com.ctetin.expandabletextviewlibrary.ExpandableTextView;
 import com.ctetin.expandabletextviewlibrary.app.LinkType;
 import com.felix.atoast.library.AToast;
@@ -27,6 +27,7 @@ import com.zpj.recyclerview.IEasy;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.api.HttpApi;
 import com.zpj.shouji.market.constant.AppConfig;
+import com.zpj.shouji.market.glide.GlideUtils;
 import com.zpj.shouji.market.glide.blur.CropBlurTransformation;
 import com.zpj.shouji.market.manager.UserManager;
 import com.zpj.shouji.market.model.DiscoverInfo;
@@ -455,12 +456,6 @@ public class DiscoverBinder
 
     public static class NineGridImageLoader implements INineGridImageLoader {
 
-        private static final RequestOptions REQUEST_OPTIONS = new RequestOptions()
-                .centerCrop()
-                .placeholder(R.drawable.bga_pp_ic_holder_light)
-                .error(R.drawable.bga_pp_ic_holder_light)
-                .override(Target.SIZE_ORIGINAL);
-
         @Override
         public void displayNineGridImage(Context context, String url, ImageView imageView) {
 //            if (url.toLowerCase().endsWith(".gif")) {
@@ -495,15 +490,9 @@ public class DiscoverBinder
 
             Glide.with(context)
                     .load(url)
-                    .apply(
-//                                new RequestOptions()
-//                                        .centerCrop()
-//                                        .placeholder(R.drawable.bga_pp_ic_holder_light)
-//                                        .error(R.drawable.bga_pp_ic_holder_light)
-//                                        .override(Target.SIZE_ORIGINAL)
-//                                        .dontAnimate()
-                            REQUEST_OPTIONS
-                    ).into(imageView);
+                    .apply(GlideUtils.REQUEST_OPTIONS)
+//                    .transition(GlideUtils.DRAWABLE_TRANSITION_OPTIONS)
+                    .into(imageView);
         }
 
         @Override

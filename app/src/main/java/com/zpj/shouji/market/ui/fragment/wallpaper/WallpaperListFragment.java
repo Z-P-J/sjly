@@ -19,22 +19,18 @@ import com.felix.atoast.library.AToast;
 import com.github.zagum.expandicon.ExpandIconView;
 import com.sunbinqiang.iconcountview.IconCountView;
 import com.zpj.fragmentation.BaseFragment;
-import com.zpj.fragmentation.SupportFragment;
 import com.zpj.fragmentation.SupportHelper;
 import com.zpj.http.parser.html.nodes.Document;
 import com.zpj.http.parser.html.nodes.Element;
 import com.zpj.recyclerview.EasyRecyclerLayout;
-import com.zpj.recyclerview.EasyState;
 import com.zpj.recyclerview.EasyViewHolder;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.api.HttpApi;
 import com.zpj.shouji.market.constant.AppConfig;
 import com.zpj.shouji.market.constant.Keys;
 import com.zpj.shouji.market.event.GetMainActivityEvent;
-import com.zpj.shouji.market.event.GetMainFragmentEvent;
 import com.zpj.shouji.market.event.StatusBarEvent;
-import com.zpj.shouji.market.glide.MyRequestOptions;
-import com.zpj.shouji.market.model.PrivateLetterInfo;
+import com.zpj.shouji.market.glide.GlideUtils;
 import com.zpj.shouji.market.model.WallpaperInfo;
 import com.zpj.shouji.market.model.WallpaperTag;
 import com.zpj.shouji.market.ui.activity.MainActivity;
@@ -135,7 +131,7 @@ public class WallpaperListFragment extends NextUrlFragment<WallpaperInfo> {
         wallpaper.setTag(position);
         Glide.with(context)
                 .load(list.get(position).getSpic())
-                .apply(MyRequestOptions.DEFAULT_OPTIONS)
+                .apply(GlideUtils.REQUEST_OPTIONS)
                 .into(wallpaper);
 
         Glide.with(context).load(info.getMemberIcon()).into(holder.getImageView(R.id.iv_icon));

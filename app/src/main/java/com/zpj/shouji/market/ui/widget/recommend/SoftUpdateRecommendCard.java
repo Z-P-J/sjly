@@ -9,7 +9,7 @@ import com.zpj.http.parser.html.select.Elements;
 import com.zpj.shouji.market.api.HttpApi;
 import com.zpj.shouji.market.api.PreloadApi;
 import com.zpj.shouji.market.model.AppInfo;
-import com.zpj.shouji.market.ui.fragment.ToolBarListFragment;
+import com.zpj.shouji.market.ui.fragment.ToolBarAppListFragment;
 
 public class SoftUpdateRecommendCard extends AppInfoRecommendCard {
 
@@ -51,7 +51,7 @@ public class SoftUpdateRecommendCard extends AppInfoRecommendCard {
 
     @Override
     public void onMoreClicked(View v) {
-        ToolBarListFragment.startUpdateSoftList();
+        ToolBarAppListFragment.startUpdateSoftList();
     }
 
     @Override

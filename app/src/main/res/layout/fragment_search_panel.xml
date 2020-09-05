@@ -6,17 +6,142 @@
     android:background="@android:color/white"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <com.donkingliang.consecutivescroller.ConsecutiveScrollerLayout
+<!--    <com.donkingliang.consecutivescroller.ConsecutiveScrollerLayout-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="match_parent">-->
+
+
+
+<!--        <FrameLayout-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            app:layout_isConsecutive="false"-->
+<!--            >-->
+
+<!--            <LinearLayout-->
+<!--                android:id="@+id/ll_recommend"-->
+<!--                android:orientation="vertical"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:paddingTop="16dp"-->
+<!--                app:layout_isConsecutive="false"-->
+<!--                >-->
+
+<!--                <TextView-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:text="猜你喜欢"-->
+<!--                    android:textSize="14sp"-->
+<!--                    android:textColor="@color/colorPrimary"-->
+<!--                    android:paddingStart="16dp"-->
+<!--                    android:paddingEnd="16dp"-->
+<!--                    />-->
+
+<!--                <android.support.v7.widget.RecyclerView-->
+<!--                    android:id="@+id/rv_guess"-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:padding="8dp"-->
+<!--                    />-->
+
+<!--                <TextView-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:text="热门搜索"-->
+<!--                    android:textSize="14sp"-->
+<!--                    android:textColor="@color/colorPrimary"-->
+<!--                    android:paddingStart="16dp"-->
+<!--                    android:paddingEnd="16dp"-->
+<!--                    />-->
+
+<!--                <com.zpj.shouji.market.ui.widget.flowlayout.FlowLayout-->
+<!--                    android:id="@+id/hot_search"-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    />-->
+
+<!--                <RelativeLayout-->
+<!--                    android:id="@+id/rl_history_bar"-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:paddingStart="16dp"-->
+<!--                    android:paddingEnd="16dp"-->
+<!--                    >-->
+
+<!--                    <TextView-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:text="搜索历史"-->
+<!--                        android:layout_alignParentStart="true"-->
+<!--                        android:textSize="14sp"-->
+<!--                        android:textColor="@color/colorPrimary"-->
+<!--                        android:layout_centerVertical="true"-->
+<!--                        />-->
+
+<!--                    <TextView android:id="@+id/tv_clear_history"-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:text="清空"-->
+<!--                        android:layout_alignParentEnd="true"-->
+<!--                        android:layout_centerVertical="true"-->
+<!--                        android:textSize="12sp"-->
+<!--                        android:padding="4dp"-->
+<!--                        />-->
+
+<!--                </RelativeLayout>-->
+
+<!--                <com.zpj.shouji.market.ui.widget.flowlayout.FlowLayout-->
+<!--                    android:id="@+id/search_history"-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    />-->
+
+<!--            </LinearLayout>-->
+
+<!--            <LinearLayout-->
+<!--                android:id="@+id/ll_quick"-->
+<!--                android:orientation="vertical"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:paddingTop="16dp"-->
+<!--                android:visibility="gone"-->
+<!--                app:layout_isConsecutive="false"-->
+<!--                >-->
+
+<!--                <TextView-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:text="应用速递"-->
+<!--                    android:textSize="14sp"-->
+<!--                    android:textColor="@color/colorPrimary"-->
+<!--                    android:paddingStart="16dp"-->
+<!--                    android:paddingEnd="16dp"-->
+<!--                    />-->
+
+<!--                <android.support.v7.widget.RecyclerView-->
+<!--                    android:id="@+id/rv_quick"-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    />-->
+
+<!--            </LinearLayout>-->
+
+<!--        </FrameLayout>-->
+
+
+<!--    </com.donkingliang.consecutivescroller.ConsecutiveScrollerLayout>-->
+
+
+
+
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        >
 
-
-
-        <FrameLayout
+        <com.zpj.shouji.market.ui.widget.ElasticNestedScrollView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:layout_isConsecutive="false"
-            >
+            android:layout_height="match_parent">
 
             <LinearLayout
                 android:id="@+id/ll_recommend"
@@ -24,7 +149,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:paddingTop="16dp"
-                app:layout_isConsecutive="false"
                 >
 
                 <TextView
@@ -98,37 +222,35 @@
 
             </LinearLayout>
 
-            <LinearLayout
-                android:id="@+id/ll_quick"
-                android:orientation="vertical"
+        </com.zpj.shouji.market.ui.widget.ElasticNestedScrollView>
+
+        <LinearLayout
+            android:id="@+id/ll_quick"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            >
+
+            <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingTop="16dp"
-                android:visibility="gone"
-                app:layout_isConsecutive="false"
-                >
+                android:text="应用速递"
+                android:textSize="14sp"
+                android:textColor="@color/colorPrimary"
+                android:padding="16dp"
+                />
 
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="应用速递"
-                    android:textSize="14sp"
-                    android:textColor="@color/colorPrimary"
-                    android:paddingStart="16dp"
-                    android:paddingEnd="16dp"
-                    />
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/rv_quick"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                />
 
-                <android.support.v7.widget.RecyclerView
-                    android:id="@+id/rv_quick"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    />
+        </LinearLayout>
 
-            </LinearLayout>
-
-        </FrameLayout>
+    </FrameLayout>
 
 
-    </com.donkingliang.consecutivescroller.ConsecutiveScrollerLayout>
 
 </LinearLayout>

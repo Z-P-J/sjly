@@ -12,10 +12,12 @@ import com.zpj.popup.impl.AttachListPopup;
 import com.zpj.popup.impl.BottomListPopup;
 import com.zpj.popup.impl.BottomSelectPopup;
 import com.zpj.popup.impl.CenterListPopup;
+import com.zpj.popup.impl.CenterListPopup2;
 import com.zpj.popup.impl.CenterSelectPopup;
 import com.zpj.popup.impl.CheckPopup;
 import com.zpj.popup.impl.InputPopup;
 import com.zpj.popup.impl.LoadingPopup;
+import com.zpj.popup.impl.SimpleCenterListPopup;
 
 import java.lang.reflect.Constructor;
 
@@ -70,6 +72,14 @@ public class ZPopup {
 
     public static CenterListPopup<CenterListPopup> centerList(Context context) {
         return new CenterListPopup<>(context);
+    }
+
+    public static <T> CenterListPopup2<T> centerList(Context context, Class<T> clazz) {
+        return new CenterListPopup2<T>(context);
+    }
+
+    public static SimpleCenterListPopup simpleCenterList(Context context) {
+        return new SimpleCenterListPopup(context);
     }
 
     public static BottomListPopup<String> bottomList(Context context) {

@@ -31,12 +31,14 @@ public class AppDetailRecommendFragment extends BaseFragment {
     private SimilarAppCard similarAppCard;
 
     private String id;
+    private String type;
 
     private boolean flag;
 
-    public static AppDetailRecommendFragment newInstance(String id) {
+    public static AppDetailRecommendFragment newInstance(String id, String type) {
         Bundle args = new Bundle();
         args.putString(Keys.ID, id);
+        args.putString(Keys.TYPE, type);
         AppDetailRecommendFragment fragment = new AppDetailRecommendFragment();
         fragment.setArguments(args);
         return fragment;
@@ -53,6 +55,7 @@ public class AppDetailRecommendFragment extends BaseFragment {
             return;
         }
         id = getArguments().getString(Keys.ID, "");
+        type = getArguments().getString(Keys.TYPE, "soft");
 
         stateLayout = findViewById(R.id.state_layout);
         stateLayout.showLoadingView();
@@ -68,7 +71,7 @@ public class AppDetailRecommendFragment extends BaseFragment {
     }
 
     private void getSimilar() {
-        HttpApi.get("http://tt.shouji.com.cn/androidv3/soft_yyj_similar.jsp?id=" + id)
+        HttpApi.get("http://tt.shouji.com.cn/androidv3/" + type + "_yyj_similar.jsp?id=" + id)
                 .onSuccess(data -> {
                     Elements elements = data.select("item");
                     for (Element element : elements) {

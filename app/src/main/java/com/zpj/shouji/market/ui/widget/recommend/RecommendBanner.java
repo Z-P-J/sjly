@@ -26,7 +26,7 @@ import com.zpj.shouji.market.api.PreloadApi;
 import com.zpj.shouji.market.glide.blur.BlurTransformation;
 import com.zpj.shouji.market.model.AppInfo;
 import com.zpj.shouji.market.ui.fragment.subject.SubjectRecommendListFragment;
-import com.zpj.shouji.market.ui.fragment.ToolBarListFragment;
+import com.zpj.shouji.market.ui.fragment.ToolBarAppListFragment;
 import com.zpj.shouji.market.ui.fragment.collection.CollectionRecommendListFragment;
 import com.zpj.shouji.market.ui.fragment.detail.AppDetailFragment;
 import com.zpj.utils.ScreenUtils;
@@ -232,10 +232,10 @@ public class RecommendBanner extends LinearLayout implements View.OnClickListene
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.tv_common_app:
-                ToolBarListFragment.startRecommendSoftList();
+                ToolBarAppListFragment.startRecommendSoftList();
                 break;
             case R.id.tv_recent_download:
-                ToolBarListFragment.startRecentDownload();
+                ToolBarAppListFragment.startRecentDownload();
                 break;
             case R.id.tv_subjects:
                 SubjectRecommendListFragment.start("http://tt.shouji.com.cn/androidv3/special_index_xml.jsp?jse=yes");

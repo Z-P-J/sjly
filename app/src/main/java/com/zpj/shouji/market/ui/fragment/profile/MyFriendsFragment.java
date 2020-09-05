@@ -85,6 +85,14 @@ public class MyFriendsFragment extends BaseFragment {
     }
 
     @Override
+    public void onSupportVisible() {
+        super.onSupportVisible();
+        if (showToolbar) {
+            darkStatusBar();
+        }
+    }
+
+    @Override
     public void onDestroy() {
         HttpApi.updateFlagApi(UpdateFlagAction.FAN);
         super.onDestroy();

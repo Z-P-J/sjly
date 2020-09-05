@@ -4,9 +4,8 @@ import android.content.Context;
 import android.util.AttributeSet;
 import android.view.View;
 
-import com.zpj.shouji.market.api.HttpPreLoader;
 import com.zpj.shouji.market.api.PreloadApi;
-import com.zpj.shouji.market.ui.fragment.ToolBarListFragment;
+import com.zpj.shouji.market.ui.fragment.ToolBarAppListFragment;
 
 public class SoftRecommendCard extends AppInfoRecommendCard {
 
@@ -25,7 +24,7 @@ public class SoftRecommendCard extends AppInfoRecommendCard {
 
     @Override
     public void onMoreClicked(View v) {
-        ToolBarListFragment.startRecommendSoftList();
+        ToolBarAppListFragment.startRecommendSoftList();
     }
 
     @Override

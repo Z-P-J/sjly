@@ -107,8 +107,9 @@ public class ProfileFragment extends ListenerFragment
     }
 
     @Override
-    public void onSupportInvisible() {
-        super.onSupportInvisible();
+    public void onSupportVisible() {
+        super.onSupportVisible();
+        lightStatusBar();
     }
 
     @Override
@@ -301,7 +302,7 @@ public class ProfileFragment extends ListenerFragment
             ChatFragment.start(userId, tvName.getText().toString());
         } else if (v == tvFollow) {
             if (isMe) {
-                AToast.normal("编辑");
+                MyInfoFragment.start();
             } else if (isFriend) {
                 ZPopup.alert(context)
                         .setTitle("取消关注")

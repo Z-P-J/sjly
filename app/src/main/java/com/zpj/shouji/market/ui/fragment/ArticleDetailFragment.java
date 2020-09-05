@@ -29,6 +29,7 @@ import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.api.HttpApi;
 import com.zpj.shouji.market.constant.Keys;
 import com.zpj.shouji.market.event.StartFragmentEvent;
+import com.zpj.shouji.market.glide.GlideUtils;
 import com.zpj.shouji.market.model.AppInfo;
 import com.zpj.shouji.market.model.article.ArticleDetailInfo;
 import com.zpj.shouji.market.model.article.ArticleInfo;
@@ -176,11 +177,6 @@ public class ArticleDetailFragment extends BaseFragment {
     }
 
     private void initContent(ArticleDetailInfo info) {
-        final RequestOptions options = new RequestOptions()
-                .centerCrop()
-                .placeholder(R.drawable.bga_pp_ic_holder_light)
-                .error(R.drawable.bga_pp_ic_holder_light)
-                .override(Target.SIZE_ORIGINAL);
         for (HtmlElement element : info.getContentElementList()) {
             if (element instanceof LinkElement) {
                 SelectableTextView tvText = (SelectableTextView) LayoutInflater.from(context).inflate(R.layout.layout_article_text, null, false);
@@ -242,20 +238,23 @@ public class ArticleDetailFragment extends BaseFragment {
                             .show();
                 });
                 contentWrapper.addView(view);
-                Glide.with(context).load(url).apply(options).into(new SimpleTarget<Drawable>() {
-                    @Override
-                    public void onResourceReady(@NonNull Drawable resource, @Nullable Transition<? super Drawable> transition) {
-                        int width = resource.getIntrinsicWidth();
-                        int height = resource.getIntrinsicHeight();
-                        int margin = ScreenUtils.dp2pxInt(context, 20f);
-                        int scaledW = ScreenUtils.getScreenWidth(context) - 2 * margin;
-                        int scaledH = (height * scaledW) / width;
-                        LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(scaledW, scaledH);
-                        lp.setMargins(margin, margin / 2, margin, margin / 2);
-                        ivImage.setLayoutParams(lp);
-                        ivImage.setImageDrawable(resource);
-                    }
-                });
+                Glide.with(context)
+                        .load(url)
+                        .apply(GlideUtils.REQUEST_OPTIONS)
+                        .into(new SimpleTarget<Drawable>() {
+                            @Override
+                            public void onResourceReady(@NonNull Drawable resource, @Nullable Transition<? super Drawable> transition) {
+                                int width = resource.getIntrinsicWidth();
+                                int height = resource.getIntrinsicHeight();
+                                int margin = ScreenUtils.dp2pxInt(context, 20f);
+                                int scaledW = ScreenUtils.getScreenWidth(context) - 2 * margin;
+                                int scaledH = (height * scaledW) / width;
+                                LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(scaledW, scaledH);
+                                lp.setMargins(margin, margin / 2, margin, margin / 2);
+                                ivImage.setLayoutParams(lp);
+                                ivImage.setImageDrawable(resource);
+                            }
+                        });
 
             }
         }

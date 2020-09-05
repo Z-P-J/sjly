@@ -52,7 +52,7 @@ import com.zpj.recyclerview.EasyViewHolder;
 import com.zpj.recyclerview.IEasy;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.event.GetMainActivityEvent;
-import com.zpj.shouji.market.glide.MyRequestOptions;
+import com.zpj.shouji.market.glide.GlideUtils;
 import com.zpj.shouji.market.model.InstalledAppInfo;
 import com.zpj.shouji.market.ui.fragment.manager.AppPickerFragment;
 import com.zpj.utils.KeyboardHeightProvider;
@@ -224,7 +224,7 @@ public class ReplyPanel extends FrameLayout
                     ImageView img = holder.getImageView(R.id.iv_img);
                     Glide.with(getContext())
                             .load(list.get(position).uri)
-                            .apply(MyRequestOptions.DEFAULT_OPTIONS)
+                            .apply(GlideUtils.REQUEST_OPTIONS)
                             .into(img);
 
                     holder.setOnItemClickListener(v -> {

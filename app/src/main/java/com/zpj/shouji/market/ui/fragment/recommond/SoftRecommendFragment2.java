@@ -12,7 +12,7 @@ import com.zpj.http.parser.html.nodes.Element;
 import com.zpj.http.parser.html.select.Elements;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.model.AppInfo;
-import com.zpj.shouji.market.ui.fragment.ToolBarListFragment;
+import com.zpj.shouji.market.ui.fragment.ToolBarAppListFragment;
 import com.zpj.shouji.market.ui.fragment.collection.CollectionRecommendListFragment;
 import com.zpj.shouji.market.ui.widget.recommend.CollectionRecommendCard;
 import com.zpj.shouji.market.ui.widget.recommend.SoftRecommendCard;
@@ -112,7 +112,7 @@ public class SoftRecommendFragment2 extends BaseRecommendFragment2 implements Vi
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.tv_necessary:
-                ToolBarListFragment.startNecessarySoftList();
+                ToolBarAppListFragment.startNecessarySoftList();
                 break;
             case R.id.tv_collection:
                 CollectionRecommendListFragment.start();

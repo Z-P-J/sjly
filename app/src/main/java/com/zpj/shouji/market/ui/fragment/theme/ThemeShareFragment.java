@@ -31,6 +31,7 @@ import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.api.PublishApi;
 import com.zpj.shouji.market.api.ThemePublishApi;
 import com.zpj.shouji.market.event.StartFragmentEvent;
+import com.zpj.shouji.market.glide.GlideUtils;
 import com.zpj.shouji.market.model.InstalledAppInfo;
 import com.zpj.shouji.market.model.UserInfo;
 import com.zpj.shouji.market.ui.fragment.manager.AppPickerFragment;
@@ -106,15 +107,13 @@ public class ThemeShareFragment extends BaseFragment {
 
         nineGridView = view.findViewById(R.id.nine_grid_image_view);
         nineGridView.setImageLoader(new INineGridImageLoader() {
-            private final RequestOptions REQUEST_OPTIONS = new RequestOptions()
-                    .centerCrop()
-                    .placeholder(R.drawable.bga_pp_ic_holder_light)
-                    .error(R.drawable.bga_pp_ic_holder_light)
-                    .override(Target.SIZE_ORIGINAL);
 
             @Override
             public void displayNineGridImage(Context context, String url, ImageView imageView) {
-                Glide.with(context).load(new File(url)).apply(REQUEST_OPTIONS).into(imageView);
+                Glide.with(context)
+                        .load(new File(url))
+                        .apply(GlideUtils.REQUEST_OPTIONS)
+                        .into(imageView);
             }
 
             @Override

@@ -89,7 +89,9 @@ public class MyDynamicFragment extends BaseFragment {
     @Override
     public void onSupportVisible() {
         super.onSupportVisible();
-        darkStatusBar();
+        if (showToolbar) {
+            darkStatusBar();
+        }
     }
 
     private void initViewPager() {

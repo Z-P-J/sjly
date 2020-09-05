@@ -32,6 +32,11 @@ public class FullScreenPopup<T extends FullScreenPopup> extends CenterPopup<T> {
     }
 
     @Override
+    protected void applyMaxHeight() {
+        
+    }
+
+    @Override
     protected void initPopupContent() {
         super.initPopupContent();
         popupInfo.hasShadowBg = false;

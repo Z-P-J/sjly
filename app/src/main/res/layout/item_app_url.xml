@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    >
+
+    <com.github.florent37.expansionpanel.ExpansionHeader
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:background="?attr/selectableItemBackground"
+        app:expansion_headerIndicator="@id/iv_indicator"
+        app:expansion_layout="@id/layout_expansion"
+        app:expansion_toggleOnClick="true"
+        android:padding="16dp"
+        >
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:adjustViewBounds="true"
+                android:id="@+id/iv_indicator"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:layout_centerVertical="true"
+                android:tint="@color/color_text_major"
+                app:srcCompat="@drawable/ic_expansion_header_indicator_grey_24dp" />
+
+
+            <TextView
+                android:id="@+id/tv_title"
+                android:layout_toEndOf="@id/iv_indicator"
+                android:layout_toStartOf="@id/tv_download"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/title_game"
+                android:textColor="@color/color_text_major"
+                android:maxLines="1"
+                android:ellipsize="end"
+                android:layout_centerVertical="true"
+                android:layout_marginHorizontal="4dp"
+                />
+
+            <TextView
+                android:id="@+id/tv_download"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="下载"
+                android:textSize="12sp"
+                android:textColor="@color/colorPrimary"
+                android:background="@drawable/bg_download_button"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:paddingStart="12dp"
+                android:paddingEnd="12dp"
+                android:paddingTop="4dp"
+                android:paddingBottom="4dp"
+                android:gravity="center"
+                />
+
+        </RelativeLayout>
+
+    </com.github.florent37.expansionpanel.ExpansionHeader>
+
+    <com.github.florent37.expansionpanel.ExpansionLayout
+        android:id="@+id/layout_expansion"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/tv_content"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/title_game"
+                android:textColor="@color/color_text_major"
+                android:textSize="12sp"
+                android:lineSpacingExtra="4dp"
+                android:layout_gravity="center_vertical"
+                android:background="@drawable/grey_shape"
+                android:padding="16dp"
+                android:layout_margin="16dp"
+                />
+
+        </LinearLayout>
+
+    </com.github.florent37.expansionpanel.ExpansionLayout>
+
+
+
+</LinearLayout>

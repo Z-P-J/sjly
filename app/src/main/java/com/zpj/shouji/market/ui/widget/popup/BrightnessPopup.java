@@ -41,9 +41,7 @@ public class BrightnessPopup extends CenterPopup<BrightnessPopup> {
     protected void onCreate() {
         super.onCreate();
 
-        ZToolBar toolBar = findViewById(R.id.tool_bar);
-        toolBar.setRightButtonTint(getResources().getColor(R.color.light_gray_10));
-        toolBar.getRightImageButton().setOnClickListener(v -> dismiss());
+        findViewById(R.id.btn_close).setOnClickListener(v -> dismiss());
 
         IndicatorSeekBar seekBar = findViewById(R.id.seek_bar);
 

@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -20,12 +19,11 @@
             android:id="@+id/tv_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:gravity="center"
-            android:text="最近更新"
+            android:text="开发者其他应用"
             android:textSize="16sp"
             android:textColor="@color/color_text_major"
             android:textStyle="bold"
-            android:layout_gravity="bottom"
+            android:layout_gravity="center_vertical"
             />
 
         <View
@@ -35,29 +33,22 @@
             android:layout_gravity="bottom"
             />
 
+        <TextView
+            android:id="@+id/tv_more"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:text="更多"
+            android:textColor="@color/colorPrimary"
+            android:layout_gravity="end"
+            android:paddingHorizontal="8dp"
+            />
+
     </FrameLayout>
 
-<!--    <com.zpj.shouji.market.ui.widget.selection.SelectableTextView-->
-<!--        android:id="@+id/tv_content"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:textColor="#000000"-->
-<!--        android:lineSpacingExtra="4dp"-->
-<!--        />-->
-
-    <com.ctetin.expandabletextviewlibrary.ExpandableTextView
-        android:id="@+id/tv_content"
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recycler_view"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textColor="#000000"
-        android:lineSpacingExtra="4dp"
-        app:ep_need_expand="false"
-        app:ep_need_link="false"
-        app:ep_need_self="false"
-        app:ep_need_contract="false"
-        app:ep_need_convert_url="false"
-        app:ep_need_mention="true"
-        app:ep_mention_color="@color/colorPrimary"
-        />
+        android:layout_height="wrap_content"/>
 
 </LinearLayout>

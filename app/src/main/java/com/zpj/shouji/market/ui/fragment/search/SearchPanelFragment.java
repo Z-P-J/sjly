@@ -1,11 +1,14 @@
 package com.zpj.shouji.market.ui.fragment.search;
 
+import android.content.res.ColorStateList;
 import android.graphics.Paint;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.GridLayoutManager;
 import android.text.TextUtils;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -131,10 +134,20 @@ public class SearchPanelFragment extends BaseFragment {
                 .setItemRes(R.layout.item_app_linear)
                 .onBindViewHolder((holder, list, position, payloads) -> {
                     QuickAppInfo info = list.get(position);
-                    holder.setVisible(R.id.iv_icon, false);
+//                    holder.setVisible(R.id.iv_icon, false);
+                    ImageView ivIcon = holder.getView(R.id.iv_icon);
+                    ViewGroup.LayoutParams params = ivIcon.getLayoutParams();
+                    int size = ScreenUtils.dp2pxInt(context, 36);
+                    params.height = size;
+                    params.width = size;
+                    ivIcon.setImageResource(R.drawable.ic_apk);
                     holder.setVisible(R.id.tv_info, false);
+                    ivIcon.setColorFilter(getResources().getColor(R.color.colorPrimary));
 
-                    holder.setText(R.id.tv_title, info.getAppTitle());
+                    TextView tvTitle = holder.getView(R.id.tv_title);
+                    tvTitle.setMaxLines(1);
+                    tvTitle.setTextSize(14);
+                    tvTitle.setText(info.getAppTitle());
                     holder.setText(R.id.tv_desc, info.getAppPackage());
 
                     holder.getView(R.id.tv_download).setOnClickListener(new View.OnClickListener() {
@@ -151,6 +164,12 @@ public class SearchPanelFragment extends BaseFragment {
                 .onItemClick((holder, view1, data) -> AppDetailFragment.start(data))
                 .build();
 
+//        getGuessApp();
+//        getHotSearch();
+//        getSearchHistory();
+    }
+
+    public void init() {
         getGuessApp();
         getHotSearch();
         getSearchHistory();
@@ -161,24 +180,43 @@ public class SearchPanelFragment extends BaseFragment {
     }
 
     private void getHotSearch() {
-        SearchApi.getHotKeywordApi(obj -> hotSearch.setItems(obj));
+        SearchApi.getHotKeywordApi(obj -> {
+            postOnEnterAnimationEnd(new Runnable() {
+                @Override
+                public void run() {
+                    hotSearch.setItems(obj);
+                }
+            });
+        });
     }
 
     private void getGuessApp() {
         SearchApi.getGuessApi(list -> {
-            appInfoList.addAll(list);
-            rvGuess.notifyDataSetChanged();
+//            appInfoList.addAll(list);
+//            rvGuess.notifyDataSetChanged();
+            postOnEnterAnimationEnd(new Runnable() {
+                @Override
+                public void run() {
+                    appInfoList.addAll(list);
+                    rvGuess.notifyDataSetChanged();
+                }
+            });
         });
     }
 
     private void getSearchHistory() {
-        List<String> list = new ArrayList<>();
-        for (SearchHistory history : SearchHistoryManager.getAllSearchHistory()) {
-            list.add(history.getText());
-        }
-        searchHistory.setItems(list);
-        searchHistory.setVisibility(list.isEmpty() ? View.GONE : View.VISIBLE);
-        rlHistoryBar.setVisibility(searchHistory.count() == 0 ? View.GONE : View.VISIBLE);
+        postOnEnterAnimationEnd(new Runnable() {
+            @Override
+            public void run() {
+                List<String> list = new ArrayList<>();
+                for (SearchHistory history : SearchHistoryManager.getAllSearchHistory()) {
+                    list.add(history.getText());
+                }
+                searchHistory.setItems(list);
+                searchHistory.setVisibility(list.isEmpty() ? View.GONE : View.VISIBLE);
+                rlHistoryBar.setVisibility(searchHistory.count() == 0 ? View.GONE : View.VISIBLE);
+            }
+        });
     }
 
     @Subscribe

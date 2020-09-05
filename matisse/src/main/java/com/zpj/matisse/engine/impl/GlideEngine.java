@@ -64,8 +64,8 @@ public class GlideEngine implements ImageEngine {
         Glide.with(context)
                 .load(uri)
                 .apply(new RequestOptions()
-                        .override(Target.SIZE_ORIGINAL)
-                        .priority(Priority.HIGH)
+//                        .override(Target.SIZE_ORIGINAL)
+//                        .priority(Priority.HIGH)
                         .centerCrop())
                 .into(imageView);
     }
@@ -76,8 +76,8 @@ public class GlideEngine implements ImageEngine {
                 .asGif()
                 .load(uri)
                 .apply(new RequestOptions()
-                        .override(Target.SIZE_ORIGINAL)
-                        .priority(Priority.HIGH)
+//                        .override(Target.SIZE_ORIGINAL)
+//                        .priority(Priority.HIGH)
                         .centerCrop())
                 .into(imageView);
     }

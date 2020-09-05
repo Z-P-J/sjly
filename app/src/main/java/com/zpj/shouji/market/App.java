@@ -13,6 +13,7 @@ import com.lqr.emoji.LQREmotionKit;
 import com.maning.librarycrashmonitor.MCrashMonitor;
 import com.raizlabs.android.dbflow.config.FlowManager;
 import com.zpj.downloader.ZDownloader;
+import com.zpj.shouji.market.glide.GlideUtils;
 
 import io.reactivex.functions.Consumer;
 import io.reactivex.plugins.RxJavaPlugins;
@@ -45,6 +46,8 @@ public class App extends Application {
         Blurred.init(this);
 
         ViewTarget.setTagId(R.id.glide_tag_id);
+//        Glide.with(getApplicationContext())
+//                .setDefaultRequestOptions(GlideUtils.REQUEST_OPTIONS).applyDefaultRequestOptions()
 
         RxJavaPlugins.setErrorHandler(new Consumer<Throwable>() {
             @Override

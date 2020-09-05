@@ -103,7 +103,7 @@ public class XPopupUtils {
         content.post(new Runnable() {
             @Override
             public void run() {
-                ViewGroup.LayoutParams params = content.getLayoutParams();
+                ViewGroup.MarginLayoutParams params = (ViewGroup.MarginLayoutParams) content.getLayoutParams();
                 View implView = content.getChildAt(0);
                 ViewGroup.LayoutParams implParams = implView.getLayoutParams();
                 // 假设默认Content宽是match，高是wrap
@@ -131,6 +131,9 @@ public class XPopupUtils {
                     } else {
                         params.height = Math.min(h, maxHeight);
                     }
+//                    int margin = getWindowHeight(content.getContext()) - maxHeight - XPopupUtils.getStatusBarHeight();
+//                    params.topMargin = XPopupUtils.getStatusBarHeight() + margin / 2;
+//                    params.bottomMargin = margin / 2;
                 }
                 content.setLayoutParams(params);
 

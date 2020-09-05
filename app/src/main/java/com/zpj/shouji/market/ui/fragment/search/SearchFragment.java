@@ -10,12 +10,14 @@ import android.view.View;
 
 import com.felix.atoast.library.AToast;
 import com.zpj.fragmentation.BaseFragment;
+import com.zpj.fragmentation.SupportFragment;
 import com.zpj.fragmentation.anim.DefaultHorizontalAnimator;
 import com.zpj.fragmentation.anim.DefaultNoAnimator;
 import com.zpj.fragmentation.anim.FragmentAnimator;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.event.StartFragmentEvent;
 import com.zpj.shouji.market.ui.adapter.FragmentsPagerAdapter;
+import com.zpj.shouji.market.ui.fragment.base.BaseContainerFragment;
 import com.zpj.shouji.market.ui.widget.ZViewPager;
 import com.zpj.widget.toolbar.ZSearchBar;
 
@@ -62,7 +64,6 @@ public class SearchFragment extends BaseFragment {
     @Override
     protected void initView(View view, @Nullable Bundle savedInstanceState) {
         viewPager = view.findViewById(R.id.view_pager);
-        viewPager.setOffscreenPageLimit(2);
         viewPager.setCanScroll(false);
         searchBar = view.findViewById(R.id.search_bar);
         searchBar.setOnSearchListener(this::getSearchResult);
@@ -86,20 +87,8 @@ public class SearchFragment extends BaseFragment {
 
             }
         });
-    }
 
-    @Override
-    public boolean onBackPressedSupport() {
-        if (viewPager != null && viewPager.getCurrentItem() == 1) {
-            viewPager.setCurrentItem(0, true);
-            return true;
-        }
-        return super.onBackPressedSupport();
-    }
 
-    @Override
-    public void onEnterAnimationEnd(Bundle savedInstanceState) {
-        super.onEnterAnimationEnd(savedInstanceState);
         List<Fragment> list = new ArrayList<>();
         SearchPanelFragment searchPanelFragment = findChildFragment(SearchPanelFragment.class);
         if (searchPanelFragment == null) {
@@ -109,19 +98,49 @@ public class SearchFragment extends BaseFragment {
             searchBar.setText(text);
             getSearchResult(text);
         });
+        searchPanelFragment.init();
 
         SearchResultFragment searchResultFragment = findChildFragment(SearchResultFragment.class);
         if (searchResultFragment == null) {
             searchResultFragment = new SearchResultFragment();
         }
+
         list.add(searchPanelFragment);
         list.add(searchResultFragment);
-        FragmentsPagerAdapter adapter = new FragmentsPagerAdapter(getChildFragmentManager(), list, null);
-        viewPager.setAdapter(adapter);
-        showSoftInput(searchBar.getEditor());
+        postOnEnterAnimationEnd(new Runnable() {
+            @Override
+            public void run() {
+                viewPager.setOffscreenPageLimit(list.size());
+                FragmentsPagerAdapter adapter = new FragmentsPagerAdapter(getChildFragmentManager(), list, null);
+                viewPager.setAdapter(adapter);
+                showSoftInput(searchBar.getEditor());
+            }
+        });
     }
 
-//    @Override
+    @Override
+    public boolean onBackPressedSupport() {
+        if (viewPager != null && viewPager.getCurrentItem() == 1) {
+            viewPager.setCurrentItem(0, true);
+            searchBar.setText("");
+            return true;
+        }
+        return super.onBackPressedSupport();
+    }
+
+    @Override
+    public void onEnterAnimationEnd(Bundle savedInstanceState) {
+        super.onEnterAnimationEnd(savedInstanceState);
+
+    }
+
+    @Override
+    public void onSupportVisible() {
+        super.onSupportVisible();
+        darkStatusBar();
+    }
+
+    //    @Override
 //    public FragmentAnimator onCreateFragmentAnimator() {
 //        return new DefaultHorizontalAnimator();
 //    }

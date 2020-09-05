@@ -3,6 +3,7 @@ package com.zpj.popup.core;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.CardView;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,6 +15,8 @@ import com.zpj.popup.animator.ScaleAlphaAnimator;
 import com.zpj.popup.impl.LoadingPopup;
 import com.zpj.popup.util.XPopupUtils;
 import com.zpj.popup.R;
+import com.zpj.popupmenuview.popup.ScreenUtil;
+import com.zpj.utils.ScreenUtils;
 
 import static com.zpj.popup.enums.PopupAnimation.ScaleAlphaFromCenter;
 
@@ -24,7 +27,6 @@ import static com.zpj.popup.enums.PopupAnimation.ScaleAlphaFromCenter;
 public class CenterPopup<T extends CenterPopup> extends BasePopup<T> {
     protected CardView centerPopupContainer;
     protected int bindLayoutId;
-    protected int bindItemLayoutId;
     private View contentView;
 
     public CenterPopup(@NonNull Context context) {
@@ -62,7 +64,18 @@ public class CenterPopup<T extends CenterPopup> extends BasePopup<T> {
         centerPopupContainer.addView(contentView, params);
         getPopupContentView().setTranslationX(popupInfo.offsetX);
         getPopupContentView().setTranslationY(popupInfo.offsetY);
-        XPopupUtils.applyPopupSize((ViewGroup) getPopupContentView(), getMaxWidth(), getMaxHeight());
+        XPopupUtils.applyPopupSize((ViewGroup) getPopupContentView(), getMaxWidth(), 0);
+
+        applyMaxHeight();
+    }
+
+    protected void applyMaxHeight() {
+        float margin = ScreenUtils.getScreenHeight(context) * 0.14f;
+        MarginLayoutParams containerLayoutParams = (MarginLayoutParams) centerPopupContainer.getLayoutParams();
+//        containerLayoutParams.topMargin = (int) (margin / 2);
+        containerLayoutParams.bottomMargin = (int) (margin / 2);
+        containerLayoutParams.topMargin = (int) (ScreenUtils.getStatusBarHeight(context) / 2 + margin / 2);
+        Log.d("CenterPopup", "topMargin=" + containerLayoutParams.topMargin + " bottomMargin=" + containerLayoutParams.bottomMargin);
     }
 
     @Override
@@ -96,4 +109,6 @@ public class CenterPopup<T extends CenterPopup> extends BasePopup<T> {
     protected PopupAnimator getPopupAnimator() {
         return new ScaleAlphaAnimator(getPopupContentView(), ScaleAlphaFromCenter);
     }
+
+
 }

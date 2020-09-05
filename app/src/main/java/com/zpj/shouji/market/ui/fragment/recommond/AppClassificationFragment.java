@@ -1,16 +1,12 @@
 package com.zpj.shouji.market.ui.fragment.recommond;
 
 import android.graphics.Color;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.view.View;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
-import com.bumptech.glide.request.target.SimpleTarget;
-import com.bumptech.glide.request.transition.Transition;
 import com.ctetin.expandabletextviewlibrary.ExpandableTextView;
 import com.ctetin.expandabletextviewlibrary.app.LinkType;
 import com.yanyusong.y_divideritemdecoration.Y_Divider;
@@ -20,18 +16,14 @@ import com.zpj.http.parser.html.nodes.Document;
 import com.zpj.http.parser.html.nodes.Element;
 import com.zpj.recyclerview.EasyRecyclerLayout;
 import com.zpj.recyclerview.EasyViewHolder;
-import com.zpj.recyclerview.IEasy;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.constant.Keys;
 import com.zpj.shouji.market.event.StartFragmentEvent;
 import com.zpj.shouji.market.glide.blur.CropBlurTransformation;
 import com.zpj.shouji.market.model.ClassificationItem;
-import com.zpj.shouji.market.ui.fragment.ToolBarListFragment;
+import com.zpj.shouji.market.ui.fragment.ToolBarAppListFragment;
 import com.zpj.shouji.market.ui.fragment.base.NextUrlFragment;
-import com.zpj.shouji.market.ui.widget.flowlayout.FlowLayout;
-import com.zpj.utils.ScreenUtils;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class AppClassificationFragment extends NextUrlFragment<ClassificationItem> {
@@ -132,7 +124,7 @@ public class AppClassificationFragment extends NextUrlFragment<ClassificationIte
             @Override
             public void onLinkClickListener(LinkType type, String content, String selfContent) {
                 if (type == LinkType.SELF) {
-                    ToolBarListFragment.start(selfContent, content);
+                    ToolBarAppListFragment.start(selfContent, content);
                 }
             }
         });

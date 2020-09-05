@@ -4,14 +4,12 @@ import android.content.Context;
 import android.util.AttributeSet;
 import android.view.View;
 
-import com.zpj.http.core.IHttp;
-import com.zpj.http.parser.html.nodes.Document;
 import com.zpj.http.parser.html.nodes.Element;
 import com.zpj.http.parser.html.select.Elements;
 import com.zpj.shouji.market.api.HttpApi;
 import com.zpj.shouji.market.api.PreloadApi;
 import com.zpj.shouji.market.model.AppInfo;
-import com.zpj.shouji.market.ui.fragment.ToolBarListFragment;
+import com.zpj.shouji.market.ui.fragment.ToolBarAppListFragment;
 
 public class NetGameRecommendCard extends AppInfoRecommendCard {
 
@@ -54,7 +52,7 @@ public class NetGameRecommendCard extends AppInfoRecommendCard {
 
     @Override
     public void onMoreClicked(View v) {
-        ToolBarListFragment.startNetGameList();
+        ToolBarAppListFragment.startNetGameList();
     }
 
     @Override

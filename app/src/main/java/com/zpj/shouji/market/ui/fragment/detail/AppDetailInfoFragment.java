@@ -6,6 +6,7 @@ import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
@@ -21,6 +22,7 @@ import com.bumptech.glide.request.target.SimpleTarget;
 import com.bumptech.glide.request.transition.Transition;
 import com.ctetin.expandabletextviewlibrary.ExpandableTextView;
 import com.ctetin.expandabletextviewlibrary.app.LinkType;
+import com.felix.atoast.library.AToast;
 import com.yanyusong.y_divideritemdecoration.Y_Divider;
 import com.yanyusong.y_divideritemdecoration.Y_DividerBuilder;
 import com.yanyusong.y_divideritemdecoration.Y_DividerItemDecoration;
@@ -31,6 +33,8 @@ import com.zpj.recyclerview.EasyViewHolder;
 import com.zpj.recyclerview.IEasy;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.model.AppDetailInfo;
+import com.zpj.shouji.market.model.AppInfo;
+import com.zpj.shouji.market.ui.fragment.ToolBarAppListFragment;
 import com.zpj.shouji.market.ui.fragment.profile.ProfileFragment;
 import com.zpj.shouji.market.ui.widget.popup.CommonImageViewerPopup;
 import com.zpj.utils.ScreenUtils;
@@ -169,6 +173,7 @@ public class AppDetailInfoFragment extends BaseFragment
 
     @Subscribe
     public void onGetAppDetailInfo(AppDetailInfo info) {
+        EventBus.getDefault().unregister(this);
         Log.d("AppDetailInfoFragment", "onGetAppDetailInfo info=" + info);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
         layoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
@@ -180,11 +185,50 @@ public class AppDetailInfoFragment extends BaseFragment
                 .build();
         recyclerView.notifyDataSetChanged();
         addItem("小编评论", info.getEditorComment(), 0);
+        addItem("特别说明", info.getSpecialStatement(), 0);
         addItem("应用简介", info.getAppIntroduceContent());
         addItem("新版特性", info.getUpdateContent());
         addItem("详细信息", info.getAppInfo());
         addItem("权限信息", info.getPermissionContent());
 
+        if (info.getOtherAppList() != null) {
+            View view = getLayoutInflater().inflate(R.layout.item_app_info_other, null, false);
+            content.addView(view);
+            view.findViewById(R.id.tv_more).setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    ToolBarAppListFragment.start(info.getOtherAppUrl(), "开发者其他应用");
+                }
+            });
+            EasyRecyclerView<AppInfo> recyclerView = new EasyRecyclerView<>(view.findViewById(R.id.recycler_view));
+            recyclerView.setData(info.getOtherAppList())
+                    .setItemRes(R.layout.item_app_grid)
+                    .setLayoutManager(new GridLayoutManager(context, 3) {
+                        @Override
+                        public boolean canScrollHorizontally() {
+                            return false;
+                        }
+
+                        @Override
+                        public boolean canScrollVertically() {
+                            return false;
+                        }
+                    })
+                    .onBindViewHolder((holder, list, position, payloads) -> {
+                        AppInfo info1 = list.get(position);
+                        holder.getTextView(R.id.item_title).setText(info1.getAppTitle());
+                        holder.getTextView(R.id.item_info).setText(info1.getAppSize());
+                        Glide.with(context).load(info1.getAppIcon()).into(holder.getImageView(R.id.item_icon));
+                        holder.getView(R.id.tv_download).setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                AToast.normal("TODO Download");
+                            }
+                        });
+                    })
+                    .onItemClick((holder, view1, data) -> AppDetailFragment.start(data))
+                    .build();
+        }
     }
 
     private void addItem(String title, String text) {
@@ -236,11 +280,11 @@ public class AppDetailInfoFragment extends BaseFragment
             Y_DividerBuilder builder = null;
             if (itemPosition == 0) {
                 builder = new Y_DividerBuilder()
-                        .setLeftSideLine(true, Color.WHITE, 20, 0, 0)
+                        .setLeftSideLine(true, Color.WHITE, 16, 0, 0)
                         .setRightSideLine(true, Color.WHITE, 4, 0, 0);
             } else if (itemPosition == total - 1) {
                 builder = new Y_DividerBuilder()
-                        .setRightSideLine(true, Color.WHITE, 20, 0, 0)
+                        .setRightSideLine(true, Color.WHITE, 16, 0, 0)
                         .setLeftSideLine(true, Color.WHITE, 4, 0, 0);
             } else {
                 builder = new Y_DividerBuilder()

@@ -142,16 +142,6 @@ public class AppDetailCommentFragment extends ThemeListFragment {
         EventBus.getDefault().unregister(this);
     }
 
-    @Override
-    public void onSupportInvisible() {
-        getSupportDelegate().onSupportInvisible();
-    }
-
-    @Override
-    public void onSupportVisible() {
-        getSupportDelegate().onSupportVisible();
-    }
-
     private void findDetailMemberInfo() {
         HttpApi.findDetailMemberInfoApi(info.getId(), UserManager.getInstance().getUserId())
                 .onSuccess(data -> {

@@ -8,7 +8,7 @@ import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.constant.Keys;
 import com.zpj.shouji.market.event.StartFragmentEvent;
 
-public class ToolBarListFragment extends AppListFragment {
+public class ToolBarAppListFragment extends AppListFragment {
 
     @Override
     protected int getLayoutId() {
@@ -24,7 +24,7 @@ public class ToolBarListFragment extends AppListFragment {
         Bundle args = new Bundle();
         args.putString(Keys.DEFAULT_URL, url);
         args.putString(Keys.TITLE, title);
-        ToolBarListFragment fragment = new ToolBarListFragment();
+        ToolBarAppListFragment fragment = new ToolBarAppListFragment();
         fragment.setArguments(args);
         StartFragmentEvent.start(fragment);
     }
@@ -62,7 +62,7 @@ public class ToolBarListFragment extends AppListFragment {
     }
 
     public static void startRecentDownload() {
-        start("http://tt.shouji.com.cn/androidv3/app_downing_xml.jsp", "看看-乐友们都在下载什么");
+        start("http://tt.shouji.com.cn/androidv3/app_downing_xml.jsp", "看看 - 乐友们都在下载什么");
     }
 
     @Override

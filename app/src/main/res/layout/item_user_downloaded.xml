@@ -8,13 +8,15 @@
     android:background="@drawable/bottom_line_gray">
 
     <com.shehuan.niv.NiceImageView
-        android:layout_width="48dp"
-        android:layout_height="48dp"
+        android:layout_width="36dp"
+        android:layout_height="36dp"
         android:id="@+id/icon_app"
         android:contentDescription="@string/app_name"
         android:scaleType="centerCrop"
-        android:src="@mipmap/ic_launcher"
+        android:src="@drawable/ic_apk"
+        android:layout_centerVertical="true"
         app:is_circle="true"
+        android:tint="@color/colorPrimary"
         />
 
     <LinearLayout
@@ -31,23 +33,33 @@
             android:layout_height="wrap_content"
             android:singleLine="true"
             android:textStyle="bold"
-            android:textColor="#CC000000"
-            android:textSize="16sp"
+            android:textColor="@color/color_text_major"
+            android:maxLines="1"
+            android:gravity="center_vertical"
+            android:ellipsize="end"
+            android:textSize="14sp"
             android:text="手机乐园S" />
 
         <TextView
+            android:id="@+id/text_package_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/text_package_name"
-            android:text="com.zpj.sjly"
-            />
+            android:paddingTop="1dp"
+            android:paddingBottom="1dp"
+            android:maxLines="1"
+            android:gravity="center_vertical"
+            android:ellipsize="end"
+            android:text="com.zpj.sjly" />
 
         <TextView
             android:id="@+id/text_info"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:singleLine="true"
+            android:paddingTop="1dp"
+            android:paddingBottom="1dp"
+            android:maxLines="1"
+            android:gravity="center_vertical"
+            android:ellipsize="end"
             android:textColor="#88000000"
             android:textSize="12sp"
             android:text="100MB | 于2015-02-06下载" />

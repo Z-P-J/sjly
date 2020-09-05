@@ -20,7 +20,6 @@ import com.zpj.shouji.market.api.PreloadApi;
 import com.zpj.shouji.market.model.SubjectInfo;
 import com.zpj.shouji.market.ui.fragment.subject.SubjectDetailFragment;
 import com.zpj.shouji.market.ui.fragment.subject.SubjectRecommendListFragment;
-import com.zpj.shouji.market.ui.fragment.ToolBarListFragment;
 import com.zpj.shouji.market.utils.BeanUtils;
 
 import java.util.List;

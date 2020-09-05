@@ -51,9 +51,7 @@ public class AppRatingPopup extends CenterPopup<AppRatingPopup> {
     protected void onCreate() {
         super.onCreate();
 
-        ZToolBar toolBar = findViewById(R.id.tool_bar);
-        toolBar.setRightButtonTint(getResources().getColor(R.color.light_gray_10));
-        toolBar.getRightImageButton().setOnClickListener(v -> dismiss());
+        findViewById(R.id.btn_close).setOnClickListener(v -> dismiss());
 
         CBRatingBar ratingBar = findViewById(R.id.rating_bar);
         ratingBar.setStarProgress(starProgress);
@@ -64,26 +62,23 @@ public class AppRatingPopup extends CenterPopup<AppRatingPopup> {
             }
         });
 
-        findViewById(R.id.tv_submit).setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                ShowLoadingEvent.post("评分中...");
-                HttpApi.appRatingApi(appDetailInfo.getId(), String.valueOf((int) ratingBar.getStarProgress() / 20), appDetailInfo.getAppType(), appDetailInfo.getPackageName(), appDetailInfo.getVersion())
-                        .onSuccess(doc -> {
-                            Log.d("AppRatingPopup", "doc=" + doc);
-                            if ("success".equals(doc.selectFirst("result").text())) {
-                                if (callback != null) {
-                                    callback.onCallback(ratingBar.getStarProgress());
-                                }
-                                AToast.success("评分成功！");
-                                HideLoadingEvent.post(500, () -> dismiss());
-                            } else {
-                                AToast.success("评分失败！");
+        findViewById(R.id.tv_submit).setOnClickListener(v -> {
+            ShowLoadingEvent.post("评分中...");
+            HttpApi.appRatingApi(appDetailInfo.getId(), String.valueOf((int) ratingBar.getStarProgress() / 20), appDetailInfo.getAppType(), appDetailInfo.getPackageName(), appDetailInfo.getVersion())
+                    .onSuccess(doc -> {
+                        Log.d("AppRatingPopup", "doc=" + doc);
+                        if ("success".equals(doc.selectFirst("result").text())) {
+                            if (callback != null) {
+                                callback.onCallback(ratingBar.getStarProgress());
                             }
-                        })
-                        .onError(throwable -> AToast.error("出错了！" + throwable.getMessage()))
-                        .subscribe();
-            }
+                            AToast.success("评分成功！");
+                            HideLoadingEvent.post(500, this::dismiss);
+                        } else {
+                            AToast.success("评分失败！");
+                        }
+                    })
+                    .onError(throwable -> AToast.error("出错了！" + throwable.getMessage()))
+                    .subscribe();
         });
 
     }

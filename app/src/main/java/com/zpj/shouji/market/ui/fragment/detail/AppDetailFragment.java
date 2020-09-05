@@ -17,6 +17,10 @@ import com.bumptech.glide.Glide;
 import com.felix.atoast.library.AToast;
 import com.zpj.fragmentation.BaseFragment;
 import com.zpj.popup.ZPopup;
+import com.zpj.popup.animator.ScrollScaleAnimator;
+import com.zpj.popup.enums.PopupAnimation;
+import com.zpj.recyclerview.EasyViewHolder;
+import com.zpj.recyclerview.IEasy;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.api.BookingApi;
 import com.zpj.shouji.market.api.HttpApi;
@@ -39,6 +43,7 @@ import com.zpj.shouji.market.ui.fragment.login.LoginFragment;
 import com.zpj.shouji.market.ui.fragment.manager.AppManagerFragment;
 import com.zpj.shouji.market.ui.widget.AppDetailLayout;
 import com.zpj.shouji.market.ui.widget.popup.AppCommentPopup;
+import com.zpj.shouji.market.ui.widget.popup.AppUrlCenterListPopup;
 import com.zpj.shouji.market.ui.widget.popup.CommentPopup;
 import com.zpj.shouji.market.utils.MagicIndicatorHelper;
 import com.zpj.widget.statelayout.StateLayout;
@@ -51,6 +56,7 @@ import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class AppDetailFragment extends BaseFragment
         implements View.OnClickListener {
@@ -192,44 +198,7 @@ public class AppDetailFragment extends BaseFragment
         fabComment = view.findViewById(R.id.fab_comment);
 //        fabComment.show(true);
         fabComment.setImageResource(R.drawable.ic_file_download_white_24dp);
-        fabComment.setOnClickListener(v -> {
-            if (viewPager.getCurrentItem() == 0) {
-                if (TextUtils.isEmpty(info.getPackageName())) {
-                    if (isBooking) {
-                        BookingAppInfo appInfo = new BookingAppInfo();
-                        appInfo.setAppId(id);
-                        BookingApi.bookingApi(appInfo, new Runnable() {
-                            @Override
-                            public void run() {
-                                isBooking = true;
-                            }
-                        });
-                    } else {
-                        AToast.warning("已预约，应用上架后将及时通知您");
-                    }
-                } else {
-                    AToast.normal("TODO Download");
-                }
-            } else {
-                if (!UserManager.getInstance().isLogin()) {
-                    AToast.warning(R.string.text_msg_not_login);
-                    LoginFragment.start();
-                    return;
-                }
-                fabComment.hide();
-                setSwipeBackEnable(false);
-                if (commentPopup == null) {
-                    commentPopup = AppCommentPopup.with(context, id, type, "", () -> commentPopup = null)
-                            .setDecorView(view.findViewById(R.id.fl_container))
-                            .setOnDismissListener(() -> {
-                                setSwipeBackEnable(true);
-                                fabComment.show();
-                            })
-                            .show();
-                }
-                commentPopup.show();
-            }
-        });
+        fabComment.setOnClickListener(this);
 
         appDetailLayout = view.findViewById(R.id.layout_app_detail);
         appDetailLayout.bindToolbar(toolbar);
@@ -262,7 +231,7 @@ public class AppDetailFragment extends BaseFragment
 
         AppDetailRecommendFragment recommendFragment = findChildFragment(AppDetailRecommendFragment.class);
         if (recommendFragment == null) {
-            recommendFragment = AppDetailRecommendFragment.newInstance(id);
+            recommendFragment = AppDetailRecommendFragment.newInstance(id, type);
         }
         list.add(infoFragment);
         list.add(commentFragment);
@@ -373,31 +342,78 @@ public class AppDetailFragment extends BaseFragment
     @Override
     public void onClick(View v) {
         if (v == btnMenu) {
-            ZPopup.attachList(context)
-                    .addItems("下载管理", "复制包名", "浏览器中打开")
-                    .addItemIf(UserManager.getInstance().isLogin(), "添加到应用集")
-                    .setOnSelectListener((position, title) -> {
-                        switch (position) {
-                            case 0:
-                                AppManagerFragment.start();
-                                break;
-                            case 1:
-                                ClipboardManager cm = (ClipboardManager) context.getSystemService(Context.CLIPBOARD_SERVICE);
-                                cm.setPrimaryClip(ClipData.newPlainText(null, info.getPackageName()));
-                                AToast.success("已复制到粘贴板");
-                                break;
-                            case 2:
-                                WebFragment.appPage(type, id);
+            showMenu();
+        } else if (v == fabComment) {
+            onFabClicked();
+        }
+    }
+
+    private void showMenu() {
+        ZPopup.attachList(context)
+                .addItems("下载管理", "复制包名", "浏览器中打开")
+                .addItemIf(UserManager.getInstance().isLogin(), "添加到应用集")
+                .setOnSelectListener((position, title) -> {
+                    switch (position) {
+                        case 0:
+                            AppManagerFragment.start();
+                            break;
+                        case 1:
+                            ClipboardManager cm = (ClipboardManager) context.getSystemService(Context.CLIPBOARD_SERVICE);
+                            cm.setPrimaryClip(ClipData.newPlainText(null, info.getPackageName()));
+                            AToast.success("已复制到粘贴板");
+                            break;
+                        case 2:
+                            WebFragment.appPage(type, id);
 //                                AToast.normal("TODO 分享主页");
-                                break;
-                            case 3:
-                                AToast.normal("TODO " + title);
-                                break;
-                            case 4:
-                                break;
+                            break;
+                        case 3:
+                            AToast.normal("TODO " + title);
+                            break;
+                        case 4:
+                            break;
+                    }
+                })
+                .show(btnMenu);
+    }
+
+    private void onFabClicked() {
+        if (viewPager.getCurrentItem() == 0) {
+            if (TextUtils.isEmpty(info.getPackageName())) {
+                if (isBooking) {
+                    BookingAppInfo appInfo = new BookingAppInfo();
+                    appInfo.setAppId(id);
+                    BookingApi.bookingApi(appInfo, new Runnable() {
+                        @Override
+                        public void run() {
+                            isBooking = false;
                         }
-                    })
-                    .show(v);
+                    });
+                } else {
+                    AToast.warning("已预约，应用上架后将及时通知您");
+                }
+            } else {
+                AppUrlCenterListPopup.with(context)
+                        .setAppDetailInfo(info)
+                        .show();
+            }
+        } else {
+            if (!UserManager.getInstance().isLogin()) {
+                AToast.warning(R.string.text_msg_not_login);
+                LoginFragment.start();
+                return;
+            }
+            fabComment.hide();
+            setSwipeBackEnable(false);
+            if (commentPopup == null) {
+                commentPopup = AppCommentPopup.with(context, id, type, "", () -> commentPopup = null)
+                        .setDecorView(findViewById(R.id.fl_container))
+                        .setOnDismissListener(() -> {
+                            setSwipeBackEnable(true);
+                            fabComment.show();
+                        })
+                        .show();
+            }
+            commentPopup.show();
         }
     }
 

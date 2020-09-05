@@ -6,6 +6,7 @@ import android.util.Log;
 import com.zpj.http.parser.html.nodes.Document;
 import com.zpj.http.parser.html.nodes.Element;
 import com.zpj.http.parser.html.select.Elements;
+import com.zpj.shouji.market.utils.BeanUtils;
 import com.zpj.shouji.market.utils.BeanUtils.Select;
 
 import java.util.ArrayList;
@@ -25,6 +26,7 @@ public class AppDetailInfo {
     private String appIntroduceContent;
     private String updateContent;
     private String editorComment;
+    private String specialStatement;
     private String downloadUrl;
     private String permissionContent;
     private String appInfo;
@@ -44,6 +46,63 @@ public class AppDetailInfo {
     private String scoreInfo;
     @Select(selector = "scoreState")
     private boolean scoreState;
+
+    private String otherAppUrl;
+
+    private List<AppInfo> otherAppList;
+
+    private List<AppUrlInfo> appUrlInfoList = new ArrayList<>();
+
+    public static class AppUrlInfo {
+        @Select(selector = "urltype")
+        private String urlType;
+        @Select(selector = "urlname")
+        private String urlName;
+        @Select(selector = "urlpackage")
+        private String urlPackage;
+        @Select(selector = "minsdk")
+        private String minSdk;
+        @Select(selector = "urladress")
+        private String urlAdress;
+        @Select(selector = "yunUrl")
+        private String yunUrl;
+        @Select(selector = "md5")
+        private String md5;
+        @Select(selector = "more")
+        private String more;
+
+        public String getUrlType() {
+            return urlType;
+        }
+
+        public String getUrlName() {
+            return urlName;
+        }
+
+        public String getUrlPackage() {
+            return urlPackage;
+        }
+
+        public String getMinSdk() {
+            return minSdk;
+        }
+
+        public String getUrlAdress() {
+            return urlAdress;
+        }
+
+        public String getYunUrl() {
+            return yunUrl;
+        }
+
+        public String getMd5() {
+            return md5;
+        }
+
+        public String getMore() {
+            return more;
+        }
+    }
 
     public static AppDetailInfo create(Document doc) {
         AppDetailInfo info = new AppDetailInfo();
@@ -147,7 +206,28 @@ public class AppDetailInfo {
                     Log.d("getAppInfo", "updateContent=" + info.updateContent);
                 } else if ("小编点评".equals(introduceTitle) || "游戏点评".equals(introduceTitle)) {
                     info.editorComment = introduce.selectFirst("introduceContent").text();
+                } else if ("特别说明".equals(introduceTitle)) {
+                    info.specialStatement = introduce.selectFirst("introduceContent").text();
                 }
+            } else if ("app".equals(introduceType)) {
+                info.otherAppList = new ArrayList<>();
+                info.otherAppUrl = introduce.selectFirst("introduceurl").text();
+                for (Element element : introduce.selectFirst("apps").select("app")) {
+                    AppInfo appInfo = new AppInfo();
+                    appInfo.setAppId(element.selectFirst("appid").text());
+                    appInfo.setAppTitle(element.selectFirst("appname").text());
+                    appInfo.setAppType(element.selectFirst("recommendapptype").text());
+                    appInfo.setAppSize(element.selectFirst("appnsize").text());
+                    appInfo.setAppIcon(element.selectFirst("appicon").text());
+                    info.otherAppList.add(appInfo);
+                }
+            }
+        }
+
+        for (Element url : doc.selectFirst("urls").select("url")) {
+            AppUrlInfo appUrlInfo = BeanUtils.createBean(url, AppUrlInfo.class);
+            if (appUrlInfo != null) {
+                info.appUrlInfoList.add(appUrlInfo);
             }
         }
 
@@ -248,6 +328,10 @@ public class AppDetailInfo {
         return editorComment;
     }
 
+    public String getSpecialStatement() {
+        return specialStatement;
+    }
+
     public String getRatingValue() {
         return ratingValue;
     }
@@ -258,6 +342,21 @@ public class AppDetailInfo {
 
     public boolean isScoreState() {
         return scoreState;
+    }
+
+    public String getOtherAppUrl() {
+        if (TextUtils.isEmpty(otherAppUrl)) {
+            return "http://tt.shouji.com.cn/androidv4/app_auther_xml.jsp?author=" + getAuthor() + "&t=" + getAppType();
+        }
+        return otherAppUrl;
+    }
+
+    public List<AppInfo> getOtherAppList() {
+        return otherAppList;
+    }
+
+    public List<AppUrlInfo> getAppUrlInfoList() {
+        return appUrlInfoList;
     }
 
     @Override
