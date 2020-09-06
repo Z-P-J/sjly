@@ -98,6 +98,16 @@ public class CollectionDetailFragment extends BaseFragment
     }
 
     @Override
+    public void onSupportVisible() {
+        super.onSupportVisible();
+        if (isLazyInit()) {
+            lightStatusBar();
+        } else {
+            darkStatusBar();
+        }
+    }
+
+    @Override
     protected void initView(View view, @Nullable Bundle savedInstanceState) {
         if (item == null) {
             pop();

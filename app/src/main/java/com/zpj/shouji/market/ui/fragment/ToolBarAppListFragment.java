@@ -29,6 +29,12 @@ public class ToolBarAppListFragment extends AppListFragment {
         StartFragmentEvent.start(fragment);
     }
 
+    @Override
+    public void onSupportVisible() {
+        super.onSupportVisible();
+        darkStatusBar();
+    }
+
     public static void startRecentUpdate() {
         start("http://tt.shouji.com.cn/androidv3/app_list_xml.jsp?index=1", "最近更新");
     }

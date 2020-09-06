@@ -34,7 +34,6 @@ import com.zpj.shouji.market.ui.animator.SlideInOutBottomItemAnimator;
 import com.zpj.shouji.market.ui.fragment.base.NextUrlFragment;
 import com.zpj.shouji.market.ui.fragment.profile.ProfileFragment;
 import com.zpj.shouji.market.ui.widget.ReplyPanel;
-import com.zpj.shouji.market.ui.widget.WrapContentLinearLayoutManager;
 import com.zpj.shouji.market.ui.widget.popup.BottomListPopupMenu;
 import com.zpj.shouji.market.ui.widget.popup.CommonImageViewerPopup;
 import com.zpj.shouji.market.utils.BeanUtils;
@@ -137,7 +136,7 @@ public class ChatFragment extends NextUrlFragment<PrivateLetterInfo>
     @Override
     protected void buildRecyclerLayout(EasyRecyclerLayout<PrivateLetterInfo> recyclerLayout) {
         recyclerLayout.setLayoutManager(
-                new WrapContentLinearLayoutManager(
+                new LinearLayoutManager(
                         context, LinearLayoutManager.VERTICAL, true
                 ))
                 .setItemAnimator(new SlideInOutBottomItemAnimator(

@@ -260,6 +260,10 @@ public class InputView extends FrameLayout
         isEmpty = s.toString().length() == 0;
     }
 
+    public void setHint(CharSequence hint) {
+        getEditText().setHint(hint);
+    }
+
     public boolean isValid() {
         if (!firstFocus) {
             return true;

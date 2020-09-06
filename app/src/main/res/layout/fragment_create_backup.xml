@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white">
+
+    <include layout="@layout/layout_toolbar"/>
+
+    <com.donkingliang.consecutivescroller.ConsecutiveScrollerLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:layout_below="@id/tool_bar"
+        android:layout_above="@+id/tv_create"
+        >
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="16dp"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="备份标题"
+            android:textColor="@color/colorPrimary"
+            android:paddingHorizontal="16dp"
+            />
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="16dp"/>
+
+        <EditText
+            android:id="@+id/et_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:textColor="@color/color_text_major"
+            android:background="@drawable/grey_shape"
+            android:inputType="textMultiLine"
+            android:hint="云备份标题..."
+            android:padding="16dp"
+            android:textSize="16sp"
+            android:layout_margin="16dp"
+            />
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="16dp"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="备份描述"
+            android:textColor="@color/colorPrimary"
+            android:paddingHorizontal="16dp"
+            />
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="16dp"/>
+
+        <EditText
+            android:id="@+id/et_content"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:background="@drawable/grey_shape"
+            android:textColor="@color/color_text_major"
+            android:inputType="textMultiLine"
+            android:gravity="start"
+            android:hint="云备份描述..."
+            android:padding="16dp"
+            android:textSize="14sp"
+            android:layout_margin="16dp"
+            />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:padding="16dp"
+            app:layout_isSticky="true"
+            >
+
+            <TextView
+                android:id="@+id/tv_list_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="应用列表"
+                android:layout_alignParentStart="true"
+                android:textSize="14sp"
+                android:textColor="@color/colorPrimary"
+                android:layout_centerVertical="true"
+                />
+
+            <TextView
+                android:id="@+id/tv_add"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="添加应用"
+                android:textSize="12sp"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                />
+
+        </RelativeLayout>
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recycler_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/grey_shape"
+            android:layout_margin="16dp"
+            />
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="16dp"/>
+
+    </com.donkingliang.consecutivescroller.ConsecutiveScrollerLayout>
+
+    <TextView
+        android:id="@+id/tv_create"
+        style="@style/button_submit"
+        android:text="创建备份"
+        android:layout_margin="16dp"
+        android:layout_alignParentBottom="true"
+        />
+
+    <View style="@style/layout_shadow_bottom"
+        android:layout_below="@id/tool_bar"
+        />
+
+</RelativeLayout>

@@ -25,6 +25,7 @@ import com.zpj.shouji.market.manager.UserManager;
 import com.zpj.shouji.market.model.MemberInfo;
 import com.zpj.shouji.market.ui.fragment.FeedbackFragment;
 import com.zpj.shouji.market.ui.fragment.WebFragment;
+import com.zpj.shouji.market.ui.fragment.backup.CloudBackupFragment;
 import com.zpj.shouji.market.ui.fragment.login.LoginFragment;
 import com.zpj.shouji.market.ui.fragment.setting.AboutSettingFragment;
 import com.zpj.shouji.market.ui.fragment.setting.CommonSettingFragment;
@@ -360,11 +361,11 @@ public class MyFragment extends BaseFragment
                 LoginFragment.start(false);
             }
         } else if (v == tvCloudBackup) {
-//            _mActivity.start(new FragmentTest());
+            CloudBackupFragment.start();
         } else if (v == tvFeedback) {
             FeedbackFragment.start();
         } else if (v == tvNightMode) {
-
+            AToast.normal("TODO 夜间模式");
         } else if (v == tvCommonSetting) {
             CommonSettingFragment.start();
         } else if (v == tvDownloadSetting) {

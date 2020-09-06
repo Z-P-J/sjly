@@ -26,6 +26,12 @@ public class CollectionRecommendListFragment extends CollectionListFragment {
     }
 
     @Override
+    public void onSupportVisible() {
+        super.onSupportVisible();
+        darkStatusBar();
+    }
+
+    @Override
     protected int getLayoutId() {
         return R.layout.fragment_list_with_toolbar;
     }

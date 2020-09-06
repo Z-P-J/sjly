@@ -2,19 +2,15 @@ package com.zpj.popup.impl;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
-import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.TextView;
 
-import com.lxj.easyadapter.EasyAdapter;
-import com.lxj.easyadapter.MultiItemTypeAdapter;
-import com.lxj.easyadapter.ViewHolder;
+import com.zpj.popup.R;
 import com.zpj.popup.XPopup;
 import com.zpj.popup.core.CenterPopup;
 import com.zpj.popup.interfaces.OnSelectListener;
 import com.zpj.popup.widget.CheckView;
-import com.zpj.popup.R;
 import com.zpj.recyclerview.EasyRecyclerView;
 import com.zpj.recyclerview.EasyViewHolder;
 import com.zpj.recyclerview.IEasy;

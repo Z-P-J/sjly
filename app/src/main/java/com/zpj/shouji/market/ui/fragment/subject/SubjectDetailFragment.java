@@ -160,8 +160,13 @@ public class SubjectDetailFragment extends BaseFragment
     @Override
     public void onSupportVisible() {
         super.onSupportVisible();
-        if (isLightStyle) {
-            lightStatusBar();
+
+        if (isLazyInit()) {
+            if (isLightStyle) {
+                lightStatusBar();
+            } else {
+                darkStatusBar();
+            }
         } else {
             darkStatusBar();
         }
@@ -192,6 +197,7 @@ public class SubjectDetailFragment extends BaseFragment
                         postOnEnterAnimationEnd(() -> {
                             recyclerView.notifyDataSetChanged();
                             stateLayout.showContentView();
+                            onSupportVisible();
                         });
                     }
                 })

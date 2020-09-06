@@ -157,13 +157,18 @@ public class AppDetailFragment extends BaseFragment
     @Override
     public void onSupportVisible() {
         super.onSupportVisible();
+        if (isLazyInit()) {
+            lightStatusBar();
+        } else {
+            darkStatusBar();
+        }
     }
 
-    @Override
-    public void onSupportInvisible() {
-        super.onSupportInvisible();
-        postOnSupportVisible(this::lightStatusBar);
-    }
+//    @Override
+//    public void onSupportInvisible() {
+//        super.onSupportInvisible();
+//        postOnSupportVisible(this::lightStatusBar);
+//    }
 
     @Override
     public void onDestroy() {
@@ -173,7 +178,6 @@ public class AppDetailFragment extends BaseFragment
     }
     @Override
     protected void initView(View view, @Nullable Bundle savedInstanceState) {
-        darkStatusBar();
         if (getArguments() != null) {
             type = getArguments().getString(Keys.TYPE);
             id = getArguments().getString(Keys.ID);
@@ -322,8 +326,8 @@ public class AppDetailFragment extends BaseFragment
 
                         initViewPager();
                         postDelayed(() -> EventBus.getDefault().post(info), 50);
-                        lightStatusBar();
                         stateLayout.showContentView();
+                        lightStatusBar();
                     });
                 })
                 .onError(throwable -> stateLayout.showErrorView(throwable.getMessage()))

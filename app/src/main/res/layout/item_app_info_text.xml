@@ -37,14 +37,6 @@
 
     </FrameLayout>
 
-<!--    <com.zpj.shouji.market.ui.widget.selection.SelectableTextView-->
-<!--        android:id="@+id/tv_content"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:textColor="#000000"-->
-<!--        android:lineSpacingExtra="4dp"-->
-<!--        />-->
-
     <com.ctetin.expandabletextviewlibrary.ExpandableTextView
         android:id="@+id/tv_content"
         android:layout_width="match_parent"

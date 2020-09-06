@@ -24,6 +24,12 @@ public class SubjectRecommendListFragment extends SubjectListFragment {
     }
 
     @Override
+    public void onSupportVisible() {
+        super.onSupportVisible();
+        darkStatusBar();
+    }
+
+    @Override
     protected void initView(View view, @Nullable Bundle savedInstanceState) {
         super.initView(view, savedInstanceState);
         setToolbarTitle("专题");

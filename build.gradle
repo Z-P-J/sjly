@@ -20,6 +20,7 @@ allprojects {
         maven { url 'http://maven.aliyun.com/nexus/content/repositories/jcenter' }
         maven { url 'http://maven.aliyun.com/nexus/content/repositories/google' }
         maven { url 'http://maven.aliyun.com/nexus/content/repositories/gradle-plugin' }
+        maven { url 'https://dl.bintray.com/umsdk/release' }
     }
 }
 

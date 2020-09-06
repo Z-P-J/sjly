@@ -32,14 +32,14 @@
         <attr name="button_padding_bottom" format="dimension" />
     </declare-styleable>
 
-    <declare-styleable name="RoundProgressBar">
-        <attr name="round_color" format="color" />
-        <attr name="round_progressColor" format="color" />
-        <attr name="round_width" format="dimension" />
-        <attr name="round_textColor" format="color" />
-        <attr name="round_textsize" format="dimension" />
-        <attr name="round_max" format="integer" />
-    </declare-styleable>
+<!--    <declare-styleable name="RoundProgressBar">-->
+<!--        <attr name="round_color" format="color" />-->
+<!--        <attr name="round_progressColor" format="color" />-->
+<!--        <attr name="round_width" format="dimension" />-->
+<!--        <attr name="round_textColor" format="color" />-->
+<!--        <attr name="round_textsize" format="dimension" />-->
+<!--        <attr name="round_max" format="integer" />-->
+<!--    </declare-styleable>-->
 
     <declare-styleable name="SmileView">
         <attr name="smil_radius" format="integer" />

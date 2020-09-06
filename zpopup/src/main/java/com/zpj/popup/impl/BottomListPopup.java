@@ -2,18 +2,17 @@ package com.zpj.popup.impl;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
-import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.TextView;
 
-import com.lxj.easyadapter.EasyAdapter;
-import com.lxj.easyadapter.MultiItemTypeAdapter;
-import com.lxj.easyadapter.ViewHolder;
 import com.zpj.popup.R;
 import com.zpj.popup.XPopup;
 import com.zpj.popup.core.BottomPopup;
 import com.zpj.popup.widget.CheckView;
+import com.zpj.recyclerview.EasyRecyclerView;
+import com.zpj.recyclerview.EasyViewHolder;
+import com.zpj.recyclerview.IEasy;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,9 +21,10 @@ import java.util.List;
  * Description: 底部的列表对话框
  * Create by dance, at 2018/12/16
  */
-public class BottomListPopup<T> extends BottomPopup<BottomListPopup<T>> {
+public class BottomListPopup<T> extends BottomPopup<BottomListPopup<T>>
+        implements IEasy.OnBindViewHolderListener<T>, IEasy.OnItemClickListener<T> {
 
-    RecyclerView recyclerView;
+    protected EasyRecyclerView<T> recyclerView;
     TextView tv_title;
     protected int bindLayoutId;
     protected int bindItemLayoutId;
@@ -67,7 +67,6 @@ public class BottomListPopup<T> extends BottomPopup<BottomListPopup<T>> {
     @Override
     protected void initPopupContent() {
         super.initPopupContent();
-        recyclerView = findViewById(R.id.recyclerView);
         tv_title = findViewById(R.id.tv_title);
 
         if (tv_title != null) {
@@ -79,58 +78,116 @@ public class BottomListPopup<T> extends BottomPopup<BottomListPopup<T>> {
             }
         }
 
-        final EasyAdapter<T> adapter = new EasyAdapter<T>(list, bindItemLayoutId == 0 ? R.layout._xpopup_adapter_text : bindItemLayoutId) {
-            @Override
-            protected void bind(@NonNull ViewHolder holder, @NonNull T s, int position) {
-                holder.setText(R.id.tv_text, s.toString());
-                if (iconIds != null && iconIds.length > position) {
-                    holder.getView(R.id.iv_image).setVisibility(VISIBLE);
-                    holder.getView(R.id.iv_image).setBackgroundResource(iconIds[position]);
-                } else {
-                    holder.getView(R.id.iv_image).setVisibility(GONE);
-                }
+        EasyRecyclerView<T> recyclerView = new EasyRecyclerView<>(findViewById(R.id.recyclerView));
+        recyclerView.setData(list)
+                .setItemRes(bindItemLayoutId == 0 ? R.layout._xpopup_adapter_text : bindItemLayoutId)
+                .onBindViewHolder(this)
+                .onItemClick(this)
+                .build();
 
-                // 对勾View
-                if (checkedPosition != -1) {
-                    if (holder.getView(R.id.check_view) != null) {
-                        holder.getView(R.id.check_view).setVisibility(position == checkedPosition ? VISIBLE : GONE);
-                        holder.<CheckView>getView(R.id.check_view).setColor(XPopup.getPrimaryColor());
-                    }
-                    holder.<TextView>getView(R.id.tv_text).setTextColor(
-                            getResources().getColor(position == checkedPosition ?
-                                    R.color._xpopup_text_major_color : R.color._xpopup_text_normal_color));
-                } else if (selectedPosition != -1) {
-                    holder.<TextView>getView(R.id.tv_text).setTextColor(
-                            getResources().getColor(position == selectedPosition ?
-                                    R.color._xpopup_text_major_color : R.color._xpopup_text_normal_color));
-                }
-                if (position == (list.size() - 1)) {
-                    holder.getView(R.id.xpopup_divider).setVisibility(INVISIBLE);
-                }
+//        final EasyAdapter<T> adapter = new EasyAdapter<T>(list, bindItemLayoutId == 0 ? R.layout._xpopup_adapter_text : bindItemLayoutId) {
+//            @Override
+//            protected void bind(@NonNull ViewHolder holder, @NonNull T s, int position) {
+//                holder.setText(R.id.tv_text, s.toString());
+//                if (iconIds != null && iconIds.length > position) {
+//                    holder.getView(R.id.iv_image).setVisibility(VISIBLE);
+//                    holder.getView(R.id.iv_image).setBackgroundResource(iconIds[position]);
+//                } else {
+//                    holder.getView(R.id.iv_image).setVisibility(GONE);
+//                }
+//
+//                // 对勾View
+//                if (checkedPosition != -1) {
+//                    if (holder.getView(R.id.check_view) != null) {
+//                        holder.getView(R.id.check_view).setVisibility(position == checkedPosition ? VISIBLE : GONE);
+//                        holder.<CheckView>getView(R.id.check_view).setColor(XPopup.getPrimaryColor());
+//                    }
+//                    holder.<TextView>getView(R.id.tv_text).setTextColor(
+//                            getResources().getColor(position == checkedPosition ?
+//                                    R.color._xpopup_text_major_color : R.color._xpopup_text_normal_color));
+//                } else if (selectedPosition != -1) {
+//                    holder.<TextView>getView(R.id.tv_text).setTextColor(
+//                            getResources().getColor(position == selectedPosition ?
+//                                    R.color._xpopup_text_major_color : R.color._xpopup_text_normal_color));
+//                }
+//                if (position == (list.size() - 1)) {
+//                    holder.getView(R.id.xpopup_divider).setVisibility(INVISIBLE);
+//                }
+//            }
+//        };
+//        adapter.setOnItemClickListener(new MultiItemTypeAdapter.SimpleOnItemClickListener() {
+//            @Override
+//            public void onItemClick(View view, RecyclerView.ViewHolder holder, int position) {
+//                if (selectListener != null) {
+//                    selectListener.onSelect(BottomListPopup.this, position, adapter.getData().get(position));
+//                }
+//                if (checkedPosition != -1) {
+//                    checkedPosition = position;
+//                    adapter.notifyDataSetChanged();
+//                } else if (selectedPosition != -1) {
+//                    selectedPosition = position;
+//                    adapter.notifyDataSetChanged();
+//                }
+////                postDelayed(new Runnable() {
+////                    @Override
+////                    public void run() {
+////                        if (popupInfo.autoDismiss) dismiss();
+////                    }
+////                }, 100);
+//            }
+//        });
+//        recyclerView.setAdapter(adapter);
+    }
+
+    @Override
+    public void onBindViewHolder(EasyViewHolder holder, List<T> list, int position, List<Object> payloads) {
+
+        holder.setText(R.id.tv_text, list.get(position).toString());
+        if (iconIds != null && iconIds.length > position) {
+            holder.getView(R.id.iv_image).setVisibility(VISIBLE);
+            holder.getView(R.id.iv_image).setBackgroundResource(iconIds[position]);
+        } else {
+            holder.getView(R.id.iv_image).setVisibility(GONE);
+        }
+
+        // 对勾View
+        if (checkedPosition != -1) {
+            if (holder.getView(R.id.check_view) != null) {
+                holder.getView(R.id.check_view).setVisibility(position == checkedPosition ? VISIBLE : GONE);
+                holder.<CheckView>getView(R.id.check_view).setColor(XPopup.getPrimaryColor());
             }
-        };
-        adapter.setOnItemClickListener(new MultiItemTypeAdapter.SimpleOnItemClickListener() {
-            @Override
-            public void onItemClick(View view, RecyclerView.ViewHolder holder, int position) {
-                if (selectListener != null) {
-                    selectListener.onSelect(BottomListPopup.this, position, adapter.getData().get(position));
-                }
-                if (checkedPosition != -1) {
-                    checkedPosition = position;
-                    adapter.notifyDataSetChanged();
-                } else if (selectedPosition != -1) {
-                    selectedPosition = position;
-                    adapter.notifyDataSetChanged();
-                }
+            holder.<TextView>getView(R.id.tv_text).setTextColor(
+                    getResources().getColor(position == checkedPosition ?
+                            R.color._xpopup_text_major_color : R.color._xpopup_text_normal_color));
+        } else if (selectedPosition != -1) {
+            holder.<TextView>getView(R.id.tv_text).setTextColor(
+                    getResources().getColor(position == selectedPosition ?
+                            R.color._xpopup_text_major_color : R.color._xpopup_text_normal_color));
+        }
+        if (position == (list.size() - 1)) {
+            holder.getView(R.id.xpopup_divider).setVisibility(INVISIBLE);
+        }
+    }
+
+    @Override
+    public void onClick(EasyViewHolder holder, View view, T data) {
+        int position = holder.getRealPosition();
+        if (selectListener != null) {
+            selectListener.onSelect(BottomListPopup.this, position, list.get(position));
+        }
+        if (checkedPosition != -1) {
+            checkedPosition = position;
+            recyclerView.notifyDataSetChanged();
+        } else if (selectedPosition != -1) {
+            selectedPosition = position;
+            recyclerView.notifyDataSetChanged();
+        }
 //                postDelayed(new Runnable() {
 //                    @Override
 //                    public void run() {
 //                        if (popupInfo.autoDismiss) dismiss();
 //                    }
 //                }, 100);
-            }
-        });
-        recyclerView.setAdapter(adapter);
     }
 
     String title;

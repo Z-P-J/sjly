@@ -13,7 +13,6 @@ import com.lqr.emoji.LQREmotionKit;
 import com.maning.librarycrashmonitor.MCrashMonitor;
 import com.raizlabs.android.dbflow.config.FlowManager;
 import com.zpj.downloader.ZDownloader;
-import com.zpj.shouji.market.glide.GlideUtils;
 
 import io.reactivex.functions.Consumer;
 import io.reactivex.plugins.RxJavaPlugins;
@@ -34,6 +33,9 @@ public class App extends Application {
 //                MCrashMonitor.startCrashShowPage(getContext());
         });
         FlowManager.init(this);
+
+//        UMConfigure.init(this,"5f53cf523739314483bc4020"
+//                ,"umeng",UMConfigure.DEVICE_TYPE_PHONE,"");
 
         AToast.onInit(this);
         ZDownloader.init(this);

@@ -74,6 +74,12 @@ public class ArticleDetailFragment extends BaseFragment {
     }
 
     @Override
+    public void onSupportVisible() {
+        super.onSupportVisible();
+        lightStatusBar();
+    }
+
+    @Override
     protected void initView(View view, @Nullable Bundle savedInstanceState) {
         if (getArguments() == null) {
             pop();
