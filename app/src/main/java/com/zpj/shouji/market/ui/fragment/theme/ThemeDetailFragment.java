@@ -19,6 +19,7 @@ import com.shehuan.niv.NiceImageView;
 import com.zpj.popup.interfaces.OnDismissListener;
 import com.zpj.recyclerview.EasyViewHolder;
 import com.zpj.shouji.market.R;
+import com.zpj.shouji.market.api.HttpApi;
 import com.zpj.shouji.market.constant.Keys;
 import com.zpj.shouji.market.event.RefreshEvent;
 import com.zpj.shouji.market.event.StartFragmentEvent;
@@ -30,6 +31,7 @@ import com.zpj.shouji.market.ui.adapter.FragmentsPagerAdapter;
 import com.zpj.shouji.market.ui.fragment.base.ListenerFragment;
 import com.zpj.shouji.market.ui.fragment.login.LoginFragment;
 import com.zpj.shouji.market.ui.widget.popup.CommentPopup;
+import com.zpj.shouji.market.ui.widget.popup.SharePopup;
 import com.zpj.shouji.market.ui.widget.popup.ThemeMorePopupMenu;
 import com.zpj.shouji.market.utils.MagicIndicatorHelper;
 import com.zpj.widget.tinted.TintedImageButton;
@@ -170,7 +172,30 @@ public class ThemeDetailFragment extends ListenerFragment {
         btnMenu = toolbar.getRightCustomView().findViewById(R.id.btn_menu);
 
         btnShare.setTint(Color.BLACK);
+        btnShare.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                SharePopup.with(context)
+                        .setShareContent(context.getString(R.string.text_theme_share_content, item.getContent(), item.getId()))
+                        .show();
+            }
+        });
         btnCollect.setTint(Color.BLACK);
+
+        btnCollect.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                HttpApi.addCollectionApi(item.getId(), new Runnable() {
+                    @Override
+                    public void run() {
+                        btnCollect.setImageResource(R.drawable.ic_star_black_24dp);
+                        btnCollect.setTint(Color.RED);
+                    }
+                });
+//                HttpApi.deleteCollectionApi(info.getId());
+            }
+        });
+
         btnMenu.setTint(Color.BLACK);
 
         fabComment = view.findViewById(R.id.fab_comment);

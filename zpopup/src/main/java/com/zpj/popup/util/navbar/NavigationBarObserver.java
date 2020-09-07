@@ -62,8 +62,7 @@ public final class NavigationBarObserver extends ContentObserver {
     @Override
     public void onChange(boolean selfChange) {
         super.onChange(selfChange);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1 && context != null && context.getContentResolver() != null
-                && mListeners != null && !mListeners.isEmpty()) {
+        if (context != null && context.getContentResolver() != null && mListeners != null && !mListeners.isEmpty()) {
             int show = 0;
             if (OSUtils.isMIUI()) {
                 show = Settings.Global.getInt(context.getContentResolver(), IMMERSION_MIUI_NAVIGATION_BAR_HIDE_SHOW, 0);

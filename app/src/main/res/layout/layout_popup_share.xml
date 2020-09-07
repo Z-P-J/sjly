@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/background_bottom_sheet_dialog"
+    android:orientation="vertical"
+    >
+
+    <RelativeLayout
+        android:id="@+id/ll_top"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="16dp"
+        android:layout_marginVertical="8dp"
+        >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="分享"
+            android:textColor="@color/color_text_major"
+            android:textSize="16sp"
+            android:layout_centerVertical="true"
+            />
+
+        <com.zpj.widget.tinted.TintedImageButton
+            android:id="@+id/btn_close"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_close_black_24dp"
+            android:layout_alignParentEnd="true"
+            android:background="?attr/actionBarItemBackground"
+            android:layout_centerVertical="true"
+            android:padding="8dp"
+            android:tint="@color/light_gray_10"
+            />
+
+    </RelativeLayout>
+
+    <View style="@style/layout_shadow_bottom"/>
+
+    <android.support.v7.widget.GridLayout
+        android:id="@+id/grid"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="16dp"
+        app:orientation="horizontal"
+        app:columnCount="4"
+        app:rowCount="2"
+        >
+
+        <TextView
+            style="@style/me_tool_card_item_style"
+            android:id="@+id/tv_qq"
+            android:drawableTop="@drawable/ic_logo_qq"
+            android:text="QQ"
+            />
+
+        <TextView
+            style="@style/me_tool_card_item_style"
+            android:id="@+id/tv_wechat"
+            android:drawableTop="@drawable/ic_logo_wechat"
+            android:text="微信"
+            />
+
+        <TextView
+            style="@style/me_tool_card_item_style"
+            android:id="@+id/tv_moments"
+            android:drawableTop="@drawable/ic_logo_moments"
+            android:text="朋友圈"
+            />
+
+        <TextView
+            style="@style/me_tool_card_item_style"
+            android:id="@+id/tv_weibo"
+            android:drawableTop="@drawable/ic_logo_weibo"
+            android:text="微博"
+            />
+
+        <com.zpj.shouji.market.ui.widget.DrawableTintTextView
+            style="@style/me_tool_card_item_style"
+            android:id="@+id/tv_copy"
+            android:drawableTop="@drawable/ic_logo_link"
+            android:text="复制链接"
+            />
+
+        <com.zpj.shouji.market.ui.widget.DrawableTintTextView
+            style="@style/me_tool_card_item_style"
+            android:id="@+id/tv_more"
+            android:drawableTop="@drawable/ic_logo_more"
+            android:text="更多"
+            />
+
+    </android.support.v7.widget.GridLayout>
+
+</LinearLayout>

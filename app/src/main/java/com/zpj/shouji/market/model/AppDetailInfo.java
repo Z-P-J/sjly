@@ -46,6 +46,8 @@ public class AppDetailInfo {
     private String scoreInfo;
     @Select(selector = "scoreState")
     private boolean scoreState;
+    @Select(selector = "favState")
+    private boolean favState;
 
     private String otherAppUrl;
 
@@ -129,6 +131,7 @@ public class AppDetailInfo {
         info.ratingValue = doc.selectFirst("ratingvalue").text();
         info.scoreInfo = doc.selectFirst("scoreInfo").text();
         info.scoreState = "1".equals(doc.selectFirst("scoreState").text());
+        info.favState = "1".equals(doc.selectFirst("favState").text());
 
         elements = doc.select("introduces").select("introduce");
         for (Element introduce : elements) {
@@ -342,6 +345,14 @@ public class AppDetailInfo {
 
     public boolean isScoreState() {
         return scoreState;
+    }
+
+    public void setFavState(boolean favState) {
+        this.favState = favState;
+    }
+
+    public boolean isFavState() {
+        return favState;
     }
 
     public String getOtherAppUrl() {

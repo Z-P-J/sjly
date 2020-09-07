@@ -23,7 +23,7 @@
         android:id="@+id/btn_collect"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        android:src="@drawable/ic_star_border_grey_24dp"
+        android:src="@drawable/ic_star_border_black_24dp"
         app:tint="@color/white"
         android:background="?android:attr/actionBarItemBackground"
         android:paddingStart="8dp"

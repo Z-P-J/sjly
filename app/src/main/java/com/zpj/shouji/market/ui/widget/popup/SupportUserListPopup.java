@@ -67,6 +67,16 @@ public class SupportUserListPopup extends BottomPopup<SupportUserListPopup>
     }
 
     @Override
+    protected void initPopupContent() {
+        super.initPopupContent();
+
+        MarginLayoutParams containerLayoutParams = (MarginLayoutParams) getPopupImplView().getLayoutParams();
+//        ScreenUtils.dp2pxInt(context, 56) - ScreenUtils.getStatusBarHeight(context)
+        containerLayoutParams.topMargin = ScreenUtils.getStatusBarHeight(context) + ScreenUtils.dp2pxInt(context, 56);
+        getPopupImplView().setMinimumHeight(ScreenUtils.getScreenHeight(context) / 2);
+    }
+
+    @Override
     protected void onCreate() {
         super.onCreate();
 
@@ -80,7 +90,7 @@ public class SupportUserListPopup extends BottomPopup<SupportUserListPopup>
                 .onBindViewHolder(this)
                 .onItemClick((holder, view1, data) -> {
                     dismiss();
-                    ProfileFragment.start(data.getUserId());
+                    ProfileFragment.start(data.getUserId(), false);
                 })
                 .build();
         stateLayout.showLoadingView();
@@ -148,9 +158,9 @@ public class SupportUserListPopup extends BottomPopup<SupportUserListPopup>
         holder.setText(R.id.tv_title, userInfo.getNickName());
     }
 
-    @Override
-    protected int getMaxHeight() {
-        return ScreenUtils.getScreenHeight(context) - ScreenUtils.dp2pxInt(context, 56) - ScreenUtils.getStatusBarHeight(context);
-    }
+//    @Override
+//    protected int getMaxHeight() {
+//        return ScreenUtils.getScreenHeight(context) - ScreenUtils.dp2pxInt(context, 56) - ScreenUtils.getStatusBarHeight(context);
+//    }
 
 }

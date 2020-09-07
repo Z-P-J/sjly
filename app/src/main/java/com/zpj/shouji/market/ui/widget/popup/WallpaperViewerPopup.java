@@ -35,6 +35,7 @@ import com.zpj.shouji.market.api.HttpApi;
 import com.zpj.shouji.market.event.GetMainActivityEvent;
 import com.zpj.shouji.market.event.HideLoadingEvent;
 import com.zpj.shouji.market.event.ShowLoadingEvent;
+import com.zpj.shouji.market.glide.GlideUtils;
 import com.zpj.shouji.market.model.DiscoverInfo;
 import com.zpj.shouji.market.model.WallpaperInfo;
 import com.zpj.shouji.market.ui.activity.MainActivity;
@@ -302,6 +303,7 @@ public class WallpaperViewerPopup extends ImageViewerPopup<String>
         Glide.with(imageView).load(url)
 //                .apply(new RequestOptions()
 //                        .override(Target.SIZE_ORIGINAL))
+                .transition(GlideUtils.DRAWABLE_TRANSITION_NONE)
                 .into(imageView);
     }
 

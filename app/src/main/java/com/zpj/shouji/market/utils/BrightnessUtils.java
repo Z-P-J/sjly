@@ -35,7 +35,7 @@ public final class BrightnessUtils {
 
     public static void setBrightness(Activity activity) {
         WindowManager.LayoutParams lp = activity.getWindow().getAttributes();
-        if (PrefsHelper.with().getBoolean(Keys.SYSTEM_BRIGHTNESS, false)) {
+        if (PrefsHelper.with().getBoolean(Keys.SYSTEM_BRIGHTNESS, true)) {
             lp.screenBrightness = BRIGHTNESS_OVERRIDE_NONE;
         } else {
             float brightness  = PrefsHelper.with().getFloat(Keys.APP_BRIGHTNESS, BrightnessUtils.getSystemBrightness(activity));

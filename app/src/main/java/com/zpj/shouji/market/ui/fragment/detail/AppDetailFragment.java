@@ -45,6 +45,7 @@ import com.zpj.shouji.market.ui.widget.AppDetailLayout;
 import com.zpj.shouji.market.ui.widget.popup.AppCommentPopup;
 import com.zpj.shouji.market.ui.widget.popup.AppUrlCenterListPopup;
 import com.zpj.shouji.market.ui.widget.popup.CommentPopup;
+import com.zpj.shouji.market.ui.widget.popup.SharePopup;
 import com.zpj.shouji.market.utils.MagicIndicatorHelper;
 import com.zpj.widget.statelayout.StateLayout;
 import com.zpj.widget.tinted.TintedImageButton;
@@ -317,8 +318,14 @@ public class AppDetailFragment extends BaseFragment
                         int color = Color.WHITE;
                         toolbar.setLightStyle(true);
                         btnMenu.setTint(color);
-                        btnCollect.setTint(color);
                         btnShare.setTint(color);
+                        if (info.isFavState()) {
+                            btnCollect.setImageResource(R.drawable.ic_star_black_24dp);
+                            btnCollect.setTint(Color.RED);
+                        } else {
+                            btnCollect.setImageResource(R.drawable.ic_star_border_black_24dp);
+                            btnCollect.setTint(color);
+                        }
                         for (String img : info.getImgUrlList()) {
                             Glide.with(context).load(img).preload();
                         }
@@ -349,6 +356,46 @@ public class AppDetailFragment extends BaseFragment
             showMenu();
         } else if (v == fabComment) {
             onFabClicked();
+        } else if (v == btnShare) {
+            SharePopup.with(getContext())
+                    .setShareContent(getContext().getString(R.string.text_app_share_content, info.getName(), info.getId()))
+                    .show();
+        } else if (v == btnCollect) {
+            if (!UserManager.getInstance().isLogin()) {
+                AToast.warning(R.string.text_msg_not_login);
+                LoginFragment.start();
+                return;
+            }
+            if (info.isFavState()) {
+                HttpApi.cancelAppFavoriteApi(info.getId(), info.getAppType())
+                        .onSuccess(data -> {
+                            if ("success".equals(data.selectFirst("result").text())) {
+                                AToast.success("取消收藏成功！");
+                                info.setFavState(false);
+                                btnCollect.setImageResource(R.drawable.ic_star_border_black_24dp);
+                                btnCollect.setColorFilter(Color.WHITE);
+                            } else {
+                                AToast.error("取消收藏失败！");
+                            }
+                        })
+                        .onError(throwable -> AToast.error("取消收藏失败！" + throwable.getMessage()))
+                        .subscribe();
+            } else {
+                HttpApi.appFavoriteApi(info.getId(), info.getAppType())
+                        .onSuccess(data -> {
+                            Log.d("appFavoriteApi", "data=" + data);
+                            if ("success".equals(data.selectFirst("result").text())) {
+                                AToast.success("收藏成功！");
+                                info.setFavState(true);
+                                btnCollect.setImageResource(R.drawable.ic_star_black_24dp);
+                                btnCollect.setColorFilter(Color.RED);
+                            } else {
+                                AToast.error("收藏失败！");
+                            }
+                        })
+                        .onError(throwable -> AToast.error("收藏失败！" + throwable.getMessage()))
+                        .subscribe();
+            }
         }
     }
 

@@ -16,6 +16,7 @@
     <color name="colorPrimary">#4caf50</color>
     <color name="colorPrimaryDark">#4caf50</color>
     <color name="colorAccent">#4caf50</color>
+    <color name="test">#4eeaab</color>
 
     <color name="switcher_checked_color">@color/colorPrimary</color>
 

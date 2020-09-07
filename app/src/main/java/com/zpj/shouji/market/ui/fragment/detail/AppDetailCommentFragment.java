@@ -143,7 +143,7 @@ public class AppDetailCommentFragment extends ThemeListFragment {
     }
 
     private void findDetailMemberInfo() {
-        HttpApi.findDetailMemberInfoApi(info.getId(), UserManager.getInstance().getUserId())
+        HttpApi.findDetailMemberInfoApi(info.getId(), info.getAppType(), UserManager.getInstance().getUserId())
                 .onSuccess(data -> {
                     Log.d("findDetailMemberInfoApi", "data=" + data);
                     userRatingValue = data.selectFirst("scoreValue").text();

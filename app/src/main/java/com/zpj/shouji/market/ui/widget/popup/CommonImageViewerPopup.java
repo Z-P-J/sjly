@@ -25,6 +25,7 @@ import com.zpj.popup.photoview.PhotoView;
 import com.zpj.popup.widget.LoadingView;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.event.GetMainActivityEvent;
+import com.zpj.shouji.market.glide.GlideUtils;
 import com.zpj.shouji.market.utils.PictureUtil;
 import com.zpj.widget.tinted.TintedImageButton;
 import com.zpj.widget.toolbar.ZToolBar;
@@ -152,6 +153,7 @@ public class CommonImageViewerPopup extends ImageViewerPopup<String>
 ////                                .error(R.drawable.bga_pp_ic_holder_light)
 //                                .override(Target.SIZE_ORIGINAL)
 //                )
+                .transition(GlideUtils.DRAWABLE_TRANSITION_NONE)
                 .into(imageView);
     }
 

@@ -13,7 +13,7 @@
     </item>
 
     <item
-        android:icon="@drawable/ic_star_border_grey_24dp"
+        android:icon="@drawable/ic_star_border_black_24dp"
         android:title="收藏">
     </item>
 

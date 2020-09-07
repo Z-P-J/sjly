@@ -15,7 +15,7 @@
 
     <item
         android:id="@+id/share"
-        android:icon="@drawable/ic_star_border_grey_24dp"
+        android:icon="@drawable/ic_star_border_black_24dp"
         android:title="分享主页">
     </item>
 

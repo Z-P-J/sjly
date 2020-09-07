@@ -44,10 +44,13 @@ public class ThemeMorePopupMenu extends BottomListPopupMenu
                 AToast.success("已复制到粘贴板");
                 break;
             case R.id.share:
-                AToast.normal("TODO 分享");
+                dismiss();
+                SharePopup.with(getContext())
+                        .setShareContent(getContext().getString(R.string.text_theme_share_content, info.getContent(), info.getId()))
+                        .show();
                 break;
             case R.id.collect:
-                HttpApi.addCollectionApi(info.getId());
+                HttpApi.addCollectionApi(info.getId(), this::dismiss);
                 break;
             case R.id.delete_collect:
                 HttpApi.deleteCollectionApi(info.getId());

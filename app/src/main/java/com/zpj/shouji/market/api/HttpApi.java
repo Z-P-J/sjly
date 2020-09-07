@@ -224,12 +224,15 @@ public final class HttpApi {
         return blacklistApi(id, false);
     }
 
-    public static void addCollectionApi(String id) {
+    public static void addCollectionApi(String id, Runnable runnable) {
         get(String.format("http://tt.shouji.com.cn/app/user_review_fav_add.jsp?t=discuss&id=%s", id))
                 .onSuccess(doc -> {
                     String info = doc.selectFirst("info").text();
                     if ("success".equals(doc.selectFirst("result").text())) {
                         AToast.success(info);
+                        if (runnable != null) {
+                            runnable.run();
+                        }
                     } else {
                         AToast.error(info);
                     }
@@ -568,8 +571,19 @@ public final class HttpApi {
         return get(url);
     }
 
-    public static ObservableTask<Document> findDetailMemberInfoApi(String appId, String memberId) {
-        String url = String.format("http://tt.shouji.com.cn/appv3/findDetailMemberInfo.jsp?id=%s&t=1&memberid=%s", appId, memberId);
+    public static ObservableTask<Document> findDetailMemberInfoApi(String appId, String type, String memberId) {
+        String url = String.format("http://tt.shouji.com.cn/appv3/findDetailMemberInfo.jsp?id=%s&t=%s&memberid=%s", appId, "soft".equals(type) ? "1" : "2", memberId);
+        return get(url);
+    }
+
+    public static ObservableTask<Document> appFavoriteApi(String appId, String type) {
+        String url = String.format("http://tt.shouji.com.cn/appv3/user_fav_add_xml_v2.jsp?id=%s&t=%s", appId, "soft".equals(type) ? "1" : "2");
+        Log.d("appFavoriteApi", "url=" + url);
+        return get(url);
+    }
+
+    public static ObservableTask<Document> cancelAppFavoriteApi(String appId, String type) {
+        String url = String.format("http://tt.shouji.com.cn/appv3/user_fav_delete_member_xml_v2.jsp?id=%s&t=1&apptype=%s", appId, type);
         return get(url);
     }
 
