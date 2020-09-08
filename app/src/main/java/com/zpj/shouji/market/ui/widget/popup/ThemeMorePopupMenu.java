@@ -28,6 +28,7 @@ public class ThemeMorePopupMenu extends BottomListPopupMenu
         super(context);
         setMenu(R.menu.menu_tools);
         onItemClick(this);
+        setTitle("更多操作");
     }
 
     @Override

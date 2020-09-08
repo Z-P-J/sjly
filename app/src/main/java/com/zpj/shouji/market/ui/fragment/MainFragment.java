@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.view.View;
+import android.view.animation.Animation;
 
 import com.zpj.fragmentation.BaseFragment;
 import com.zpj.fragmentation.SupportFragment;
@@ -99,10 +100,10 @@ public class MainFragment extends BaseFragment {
         return false;
     }
 
-    @Override
-    public FragmentAnimator onCreateFragmentAnimator() {
-        return new DefaultHorizontalAnimator();
-    }
+//    @Override
+//    public FragmentAnimator onCreateFragmentAnimator() {
+//        return new DefaultHorizontalAnimator();
+//    }
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {

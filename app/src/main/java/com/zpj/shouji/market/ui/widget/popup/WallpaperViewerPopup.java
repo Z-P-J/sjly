@@ -347,13 +347,17 @@ public class WallpaperViewerPopup extends ImageViewerPopup<String>
     }
 
     private void setWallpaper() {
+        PictureUtil.setWallpaper(context, getOriginalImageUrl());
+    }
+
+    private String getOriginalImageUrl() {
         String url;
         if (originalImageList != null) {
             url = originalImageList.get(position);
         } else {
             url = urls.get(position);
         }
-        PictureUtil.setWallpaper(context, url);
+        return url;
     }
 
     private void showOriginalImage() {
@@ -399,7 +403,7 @@ public class WallpaperViewerPopup extends ImageViewerPopup<String>
     }
 
     private void shareWallpaper() {
-        AToast.normal("TODO Share");
+        PictureUtil.shareWebImage(context, getOriginalImageUrl());
     }
 
     private boolean isOriginalImageAvailable() {

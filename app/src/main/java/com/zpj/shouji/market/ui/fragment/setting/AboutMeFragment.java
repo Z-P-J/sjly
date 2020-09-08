@@ -31,23 +31,17 @@ import com.zpj.shouji.market.glide.blur.BlurTransformation;
 import com.zpj.shouji.market.ui.fragment.WebFragment;
 import com.zpj.shouji.market.ui.widget.PercentImageView;
 import com.zpj.shouji.market.utils.AnimationUtil;
+import com.zpj.shouji.market.utils.PictureUtil;
 import com.zpj.utils.AnimatorUtils;
 import com.zpj.widget.setting.CommonSettingItem;
 import com.zpj.widget.setting.OnCommonItemClickListener;
 
 public class AboutMeFragment extends BaseFragment implements OnCommonItemClickListener {
 
-    private SwipeLayout sl;
+
     private ImageView iv_blur;
-    private ImageView civ_icon;
-    private TextView tv_name;
-    private TextView tv_sign;
-
-
-    private RelativeLayout rl_info;
-    private RelativeLayout rl_reward;
-    private PercentImageView piv_qq_qrcode;
-    private PercentImageView piv_wx_qrcode;
+    private ImageView ivAlipay;
+    private ImageView ivWxpay;
 
     public static void start() {
         StartFragmentEvent.start(new AboutMeFragment());
@@ -77,6 +71,19 @@ public class AboutMeFragment extends BaseFragment implements OnCommonItemClickLi
     @Override
     protected void initView(View view, @Nullable Bundle savedInstanceState) {
         iv_blur = view.findViewById(R.id.iv_blur);
+
+        ivAlipay = findViewById(R.id.iv_alipay);
+        ivWxpay = findViewById(R.id.iv_wxpay);
+
+        ivAlipay.setOnLongClickListener(v -> {
+            PictureUtil.saveResource(context, R.drawable.ic_alipay, "支付宝付款码");
+            return true;
+        });
+
+        ivWxpay.setOnLongClickListener(v -> {
+            PictureUtil.saveResource(context, R.drawable.ic_wechat_pay, "微信付款码");
+            return true;
+        });
 
         Glide.with(context)
                 .load(getResources().getDrawable(R.drawable.logo_author))

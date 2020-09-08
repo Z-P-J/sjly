@@ -9,6 +9,7 @@ import android.media.ExifInterface;
 import android.media.MediaScannerConnection;
 import android.net.Uri;
 import android.os.Environment;
+import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
@@ -27,11 +28,13 @@ import com.nanchen.compresshelper.CompressHelper;
 import com.zpj.http.core.IHttp;
 import com.zpj.http.core.ObservableTask;
 import com.zpj.popup.enums.ImageType;
+import com.zpj.popup.interfaces.OnDismissListener;
 import com.zpj.popup.util.ImageHeaderParser;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.event.HideLoadingEvent;
 import com.zpj.shouji.market.event.ShowLoadingEvent;
 import com.zpj.shouji.market.manager.UserManager;
+import com.zpj.shouji.market.ui.widget.popup.SharePopup;
 import com.zpj.utils.ContextUtils;
 import com.zpj.utils.ScreenUtils;
 
@@ -301,6 +304,67 @@ public class PictureUtil {
                         AToast.warning("没有保存权限，保存功能无法使用！");
                     }
                 }).request();
+    }
+
+    public static void shareWebImage(Context context, String url) {
+        ShowLoadingEvent.post("获取图片...");
+        XPermission.create(context, PermissionConstants.STORAGE)
+                .callback(new XPermission.SimpleCallback() {
+                    @Override
+                    public void onGranted() {
+                        new ObservableTask<File>(
+                                emitter -> {
+                                    File source = Glide.with(context).downloadOnly().load(url).submit().get();
+                                    if (source == null) {
+                                        emitter.onError(new Exception("图片下载失败！"));
+                                    } else {
+
+
+                                        //1. create path
+                                        String dirPath = getIconPath(context);
+                                        final File target = new File(dirPath, source.getName());
+                                        if (target.exists()) {
+                                            if (source.length() != target.length()) {
+                                                target.delete();
+                                                target.createNewFile();
+                                                //2. save
+                                                writeFileFromIS(target, new FileInputStream(source));
+                                            }
+                                        } else {
+                                            //2. save
+                                            writeFileFromIS(target, new FileInputStream(source));
+                                        }
+
+                                        emitter.onNext(target);
+                                    }
+                                    emitter.onComplete();
+                                })
+                                .onSuccess(new IHttp.OnSuccessListener<File>() {
+                                    @Override
+                                    public void onSuccess(File data) throws Exception {
+                                        HideLoadingEvent.post(500, new OnDismissListener() {
+                                            @Override
+                                            public void onDismiss() {
+                                                SharePopup.with(context)
+                                                        .setShareFile(data)
+                                                        .show();
+                                            }
+                                        });
+                                    }
+                                })
+                                .onError(throwable -> {
+                                    throwable.printStackTrace();
+                                    AToast.error("保存失败！" + throwable.getMessage());
+                                })
+                                .subscribe();
+                    }
+
+                    @Override
+                    public void onDenied() {
+                        AToast.warning("没有保存权限，保存功能无法使用！");
+                    }
+                })
+                .request();
     }
 
     public static void saveIcon(Context context, String url, String fileName, IHttp.OnSuccessListener<File> listener) {
@@ -589,6 +653,64 @@ public class PictureUtil {
                 .build()
                 .compressToFile(file);
         return newFile.length() < file.length() ? newFile : file;
+    }
+
+
+    public static void saveResource(Context context, int res, String fileName) {
+        new ObservableTask<>(
+                emitter -> {
+                    InputStream inputStream = context.getResources().openRawResource(res);
+
+                    Bitmap bmp = BitmapFactory.decodeResource(context.getResources(), res);
+
+                    //1. create path
+                    String dirPath = Environment.getExternalStorageDirectory().getAbsolutePath() + "/" + Environment.DIRECTORY_PICTURES;
+                    File dirFile = new File(dirPath);
+                    if (!dirFile.exists()) {
+                        dirFile.mkdirs();
+                    }
+
+                    ImageType type = ImageHeaderParser.getImageType(inputStream);
+                    String ext = getFileExt(type);
+                    String name = fileName + "." + ext;
+                    final File target = new File(dirPath, name);
+                    if (target.exists()) target.delete();
+                    target.createNewFile();
+
+
+                    FileOutputStream fos = new FileOutputStream(target);
+                    bmp.compress(Bitmap.CompressFormat.JPEG, 100, fos);
+                    fos.flush();
+                    fos.close();
+
+//                    MediaStore.Images.Media.insertImage(context.getContentResolver(),  target.getAbsolutePath(), name, null);
+
+                    //2. save
+//                    writeFileFromIS(target, inputStream);
+                    //3. notify
+                    MediaScannerConnection.scanFile(
+                            context,
+                            new String[]{target.getAbsolutePath()},
+                            new String[]{"image/" + ext},
+                            new MediaScannerConnection.OnScanCompletedListener() {
+                                @Override
+                                public void onScanCompleted(final String path, Uri uri) {
+                                    Observable.empty()
+                                            .observeOn(AndroidSchedulers.mainThread())
+                                            .doOnComplete(() -> AToast.success("已保存到相册！"))
+                                            .subscribe();
+                                }
+                            }
+                    );
+
+
+                    emitter.onComplete();
+                })
+                .onError(throwable -> {
+                    throwable.printStackTrace();
+                    AToast.error("保存失败！" + throwable.getMessage());
+                })
+                .subscribe();
     }
 
 }

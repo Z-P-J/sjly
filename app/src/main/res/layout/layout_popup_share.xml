@@ -17,9 +17,10 @@
         >
 
         <TextView
+            android:id="@+id/tv_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="分享"
+            android:text="分享内容至"
             android:textColor="@color/color_text_major"
             android:textSize="16sp"
             android:layout_centerVertical="true"
@@ -83,7 +84,7 @@
             style="@style/me_tool_card_item_style"
             android:id="@+id/tv_copy"
             android:drawableTop="@drawable/ic_logo_link"
-            android:text="复制链接"
+            android:text="复制内容"
             />
 
         <com.zpj.shouji.market.ui.widget.DrawableTintTextView

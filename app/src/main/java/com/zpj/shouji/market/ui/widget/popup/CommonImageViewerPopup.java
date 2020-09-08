@@ -17,14 +17,18 @@ import com.bumptech.glide.request.transition.Transition;
 import com.felix.atoast.library.AToast;
 import com.zpj.fragmentation.ISupportFragment;
 import com.zpj.fragmentation.SupportHelper;
+import com.zpj.http.core.IHttp;
 import com.zpj.popup.ZPopup;
 import com.zpj.popup.core.ImageViewerPopup;
 import com.zpj.popup.impl.AttachListPopup;
 import com.zpj.popup.interfaces.IImageLoader;
+import com.zpj.popup.interfaces.OnDismissListener;
 import com.zpj.popup.photoview.PhotoView;
 import com.zpj.popup.widget.LoadingView;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.event.GetMainActivityEvent;
+import com.zpj.shouji.market.event.HideLoadingEvent;
+import com.zpj.shouji.market.event.ShowLoadingEvent;
 import com.zpj.shouji.market.glide.GlideUtils;
 import com.zpj.shouji.market.utils.PictureUtil;
 import com.zpj.widget.tinted.TintedImageButton;
@@ -93,20 +97,13 @@ public class CommonImageViewerPopup extends ImageViewerPopup<String>
                     .setOnSelectListener((pos, title) -> {
                         switch (pos) {
                             case 0:
-                                AToast.normal("TODO share");
+                                PictureUtil.shareWebImage(context, getOriginalImageUrl());
                                 break;
                             case 1:
-//                                save();
                                 PictureUtil.saveImage(context, urls.get(position));
                                 break;
                             case 2:
-                                String url;
-                                if (originalImageList != null) {
-                                    url = originalImageList.get(position);
-                                } else {
-                                    url = urls.get(position);
-                                }
-                                PictureUtil.setWallpaper(context, url);
+                                PictureUtil.setWallpaper(context, getOriginalImageUrl());
                                 break;
                             case 3:
                                 showOriginalImage();
@@ -165,6 +162,16 @@ public class CommonImageViewerPopup extends ImageViewerPopup<String>
             e.printStackTrace();
         }
         return null;
+    }
+
+    private String getOriginalImageUrl() {
+        String url;
+        if (originalImageList != null) {
+            url = originalImageList.get(position);
+        } else {
+            url = urls.get(position);
+        }
+        return url;
     }
 
     private void updateTitle() {

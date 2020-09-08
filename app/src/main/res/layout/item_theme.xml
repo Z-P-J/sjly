@@ -14,7 +14,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="?android:attr/selectableItemBackground"
-        android:padding="8dp"
+        android:padding="16dp"
         >
 
         <LinearLayout
@@ -55,7 +55,7 @@
             android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
+            android:layout_marginStart="16dp"
             >
 
             <RelativeLayout
@@ -102,7 +102,9 @@
 
                     <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="2dp"
+                        >
 
                         <TextView
                             android:id="@+id/text_info"
@@ -125,7 +127,7 @@
                             android:textSize="12sp"
                             android:maxLines="1"
                             android:ellipsize="end"
-                            android:layout_marginStart="10dp"
+                            android:layout_marginStart="8dp"
                             />
 
                     </LinearLayout>
@@ -175,7 +177,7 @@
                 android:paddingVertical="8dp"
                 android:textColor="@color/color_text_major"
                 android:lineSpacingExtra="4dp"
-                app:ep_max_line="10"
+                app:ep_max_line="5"
                 app:ep_need_animation="true"
                 app:ep_expand_text="查看更多"
                 app:ep_contract_text="收起"

@@ -15,6 +15,7 @@ import android.view.View;
 
 import com.bumptech.glide.Glide;
 import com.felix.atoast.library.AToast;
+import com.like.LikeButton;
 import com.zpj.fragmentation.BaseFragment;
 import com.zpj.popup.ZPopup;
 import com.zpj.popup.animator.ScrollScaleAnimator;
@@ -46,6 +47,7 @@ import com.zpj.shouji.market.ui.widget.popup.AppCommentPopup;
 import com.zpj.shouji.market.ui.widget.popup.AppUrlCenterListPopup;
 import com.zpj.shouji.market.ui.widget.popup.CommentPopup;
 import com.zpj.shouji.market.ui.widget.popup.SharePopup;
+import com.zpj.shouji.market.utils.Callback;
 import com.zpj.shouji.market.utils.MagicIndicatorHelper;
 import com.zpj.widget.statelayout.StateLayout;
 import com.zpj.widget.tinted.TintedImageButton;
@@ -79,6 +81,7 @@ public class AppDetailFragment extends BaseFragment
 
     private TintedImageButton btnShare;
     private TintedImageButton btnCollect;
+//    private LikeButton btnCollect;
     private TintedImageButton btnMenu;
 
     private AppDetailLayout appDetailLayout;
@@ -319,6 +322,8 @@ public class AppDetailFragment extends BaseFragment
                         toolbar.setLightStyle(true);
                         btnMenu.setTint(color);
                         btnShare.setTint(color);
+
+
                         if (info.isFavState()) {
                             btnCollect.setImageResource(R.drawable.ic_star_black_24dp);
                             btnCollect.setTint(Color.RED);
@@ -366,35 +371,20 @@ public class AppDetailFragment extends BaseFragment
                 LoginFragment.start();
                 return;
             }
+            Callback<Boolean> callback = result -> {
+                if (result) {
+                    btnCollect.setImageResource(R.drawable.ic_star_black_24dp);
+                    btnCollect.setTint(Color.RED);
+                } else {
+                    btnCollect.setImageResource(R.drawable.ic_star_border_black_24dp);
+                    btnCollect.setTint(Color.WHITE);
+                }
+                info.setFavState(result);
+            };
             if (info.isFavState()) {
-                HttpApi.cancelAppFavoriteApi(info.getId(), info.getAppType())
-                        .onSuccess(data -> {
-                            if ("success".equals(data.selectFirst("result").text())) {
-                                AToast.success("取消收藏成功！");
-                                info.setFavState(false);
-                                btnCollect.setImageResource(R.drawable.ic_star_border_black_24dp);
-                                btnCollect.setColorFilter(Color.WHITE);
-                            } else {
-                                AToast.error("取消收藏失败！");
-                            }
-                        })
-                        .onError(throwable -> AToast.error("取消收藏失败！" + throwable.getMessage()))
-                        .subscribe();
+                HttpApi.cancelAppFavoriteApi(info.getId(), info.getAppType(), callback);
             } else {
-                HttpApi.appFavoriteApi(info.getId(), info.getAppType())
-                        .onSuccess(data -> {
-                            Log.d("appFavoriteApi", "data=" + data);
-                            if ("success".equals(data.selectFirst("result").text())) {
-                                AToast.success("收藏成功！");
-                                info.setFavState(true);
-                                btnCollect.setImageResource(R.drawable.ic_star_black_24dp);
-                                btnCollect.setColorFilter(Color.RED);
-                            } else {
-                                AToast.error("收藏失败！");
-                            }
-                        })
-                        .onError(throwable -> AToast.error("收藏失败！" + throwable.getMessage()))
-                        .subscribe();
+                HttpApi.appFavoriteApi(info.getId(), info.getAppType(), callback);
             }
         }
     }

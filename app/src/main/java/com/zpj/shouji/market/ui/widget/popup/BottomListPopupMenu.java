@@ -11,6 +11,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.TextView;
 
 import com.zpj.popup.core.BottomPopup;
 import com.zpj.recyclerview.EasyRecyclerView;
@@ -30,12 +31,16 @@ public class BottomListPopupMenu extends BottomPopup<BottomListPopupMenu>
 
     protected final List<Integer> hideMenuItemList = new ArrayList<>();
 
+    private TextView tvTitle;
+
     @LayoutRes
     private int headerRes = -1;
     private IEasy.OnBindHeaderListener onBindHeaderListener;
 
     @MenuRes
     private int menuRes;
+
+    private String title;
 
     protected BottomListPopupMenu(@NonNull Context context) {
         super(context);
@@ -53,6 +58,11 @@ public class BottomListPopupMenu extends BottomPopup<BottomListPopupMenu>
     @Override
     protected void onCreate() {
         super.onCreate();
+
+        findViewById(R.id.btn_close).setOnClickListener(v -> dismiss());
+        tvTitle = findViewById(R.id.tv_title);
+        tvTitle.setText(title);
+
         MenuInflater inflater = new MenuInflater(getContext());
         @SuppressLint("RestrictedApi") Menu menu = new MenuBuilder(getContext());
         inflater.inflate(menuRes, menu);
@@ -118,6 +128,14 @@ public class BottomListPopupMenu extends BottomPopup<BottomListPopupMenu>
 
     public BottomListPopupMenu onItemLongClick(OnItemLongClickListener listener) {
         this.onItemLongClickListener = listener;
+        return this;
+    }
+
+    public BottomListPopupMenu setTitle(String title) {
+        this.title = title;
+        if (tvTitle != null) {
+            tvTitle.setText(title);
+        }
         return this;
     }
 

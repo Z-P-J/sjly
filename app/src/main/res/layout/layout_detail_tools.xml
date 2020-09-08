@@ -30,6 +30,17 @@
         android:paddingEnd="8dp"
         />
 
+<!--    <com.like.LikeButton-->
+<!--        android:id="@+id/btn_collect"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="match_parent"-->
+<!--        android:background="?android:attr/actionBarItemBackground"-->
+<!--        android:paddingStart="8dp"-->
+<!--        android:paddingEnd="8dp"-->
+<!--        app:icon_type="star"-->
+<!--        app:icon_size="24dp"-->
+<!--        />-->
+
     <com.zpj.widget.tinted.TintedImageButton
         android:id="@+id/btn_menu"
         android:layout_width="wrap_content"

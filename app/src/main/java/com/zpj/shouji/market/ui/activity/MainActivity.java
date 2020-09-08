@@ -30,6 +30,7 @@ import com.zpj.downloader.util.permission.PermissionUtil;
 import com.zpj.fragmentation.SupportActivity;
 import com.zpj.fragmentation.SupportFragment;
 import com.zpj.fragmentation.anim.DefaultHorizontalAnimator;
+import com.zpj.fragmentation.anim.DefaultVerticalAnimator;
 import com.zpj.fragmentation.anim.FragmentAnimator;
 import com.zpj.http.core.IHttp;
 import com.zpj.popup.ZPopup;
@@ -48,6 +49,7 @@ import com.zpj.shouji.market.event.StatusBarEvent;
 import com.zpj.shouji.market.manager.AppInstalledManager;
 import com.zpj.shouji.market.manager.AppUpdateManager;
 import com.zpj.shouji.market.manager.UserManager;
+import com.zpj.shouji.market.ui.animator.MyFragmentAnimator;
 import com.zpj.shouji.market.ui.fragment.MainFragment;
 import com.zpj.shouji.market.utils.AppUtil;
 import com.zpj.shouji.market.utils.BrightnessUtils;
@@ -264,7 +266,7 @@ public class MainActivity extends SupportActivity {
 
     @Override
     public FragmentAnimator onCreateFragmentAnimator() {
-        return new DefaultHorizontalAnimator();
+        return new MyFragmentAnimator();
     }
 
     private void showRequestPermissionPopup() {

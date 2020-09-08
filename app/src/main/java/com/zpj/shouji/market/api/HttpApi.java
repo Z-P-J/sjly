@@ -1,6 +1,7 @@
 package com.zpj.shouji.market.api;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.net.Uri;
 import android.text.TextUtils;
 import android.util.Base64;
@@ -14,12 +15,14 @@ import com.zpj.http.core.ObservableTask;
 import com.zpj.http.core.IHttp;
 import com.zpj.http.parser.html.nodes.Document;
 import com.zpj.matisse.entity.Item;
+import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.constant.AppConfig;
 import com.zpj.shouji.market.constant.UpdateFlagAction;
 import com.zpj.shouji.market.event.HideLoadingEvent;
 import com.zpj.shouji.market.event.RefreshEvent;
 import com.zpj.shouji.market.event.ShowLoadingEvent;
 import com.zpj.shouji.market.manager.UserManager;
+import com.zpj.shouji.market.utils.Callback;
 import com.zpj.shouji.market.utils.PictureUtil;
 import com.zpj.utils.OSUtils;
 
@@ -217,7 +220,8 @@ public final class HttpApi {
                     }
                 })
                 .onError(throwable -> AToast.error(throwable.getMessage()))
-                .subscribe();;
+                .subscribe();
+        ;
     }
 
     public static ObservableTask<Document> removeBlacklistApi(String id) {
@@ -576,17 +580,57 @@ public final class HttpApi {
         return get(url);
     }
 
-    public static ObservableTask<Document> appFavoriteApi(String appId, String type) {
+    public static void appFavoriteApi(String appId, String type, Callback<Boolean> callback) {
         String url = String.format("http://tt.shouji.com.cn/appv3/user_fav_add_xml_v2.jsp?id=%s&t=%s", appId, "soft".equals(type) ? "1" : "2");
         Log.d("appFavoriteApi", "url=" + url);
-        return get(url);
+        get(url)
+                .onSuccess(data -> {
+                    Log.d("appFavoriteApi", "data=" + data);
+                    if ("success".equals(data.selectFirst("result").text())) {
+                        AToast.success("收藏成功！");
+                        if (callback != null) {
+                            callback.onCallback(true);
+                        }
+                    } else {
+                        AToast.error("收藏失败！");
+                        if (callback != null) {
+                            callback.onCallback(false);
+                        }
+                    }
+                })
+                .onError(throwable -> {
+                    AToast.error("收藏失败！" + throwable.getMessage());
+                    if (callback != null) {
+                        callback.onCallback(false);
+                    }
+                })
+                .subscribe();
     }
 
-    public static ObservableTask<Document> cancelAppFavoriteApi(String appId, String type) {
+    public static void cancelAppFavoriteApi(String appId, String type, Callback<Boolean> callback) {
         String url = String.format("http://tt.shouji.com.cn/appv3/user_fav_delete_member_xml_v2.jsp?id=%s&t=1&apptype=%s", appId, type);
-        return get(url);
+        get(url)
+                .onSuccess(data -> {
+                    if ("success".equals(data.selectFirst("result").text())) {
+                        AToast.success("取消收藏成功！");
+                        if (callback != null) {
+                            callback.onCallback(false);
+                        }
+                    } else {
+                        AToast.error("取消收藏失败！");
+                        if (callback != null) {
+                            callback.onCallback(true);
+                        }
+                    }
+                })
+                .onError(throwable -> {
+                    AToast.error("取消收藏失败！" + throwable.getMessage());
+                    if (callback != null) {
+                        callback.onCallback(true);
+                    }
+                })
+                .subscribe();
     }
-
 
 
     private static String encodePassword(String string) {

@@ -40,13 +40,14 @@
                 android:orientation="vertical">
 
                 <com.zpj.shouji.market.ui.widget.PercentImageView
-                    android:id="@+id/piv_qq_qrcode"
+                    android:id="@+id/iv_alipay"
                     android:layout_width="0dp"
                     android:layout_height="0dp"
                     android:layout_weight="1"
                     android:layout_marginTop="16dp"
                     android:layout_marginBottom="16dp"
                     android:scaleType="fitCenter"
+                    android:src="@drawable/ic_alipay"
                     tools:src="#f5f5f5"
                     app:piv_basics="height"
                     app:piv_percent="0.85" />
@@ -61,13 +62,14 @@
                     />
 
                 <com.zpj.shouji.market.ui.widget.PercentImageView
-                    android:id="@+id/piv_wx_qrcode"
+                    android:id="@+id/iv_wxpay"
                     android:layout_width="0dp"
                     android:layout_height="0dp"
                     android:layout_marginTop="16dp"
                     android:layout_marginBottom="16dp"
                     android:layout_weight="1"
                     android:scaleType="fitCenter"
+                    android:src="@drawable/ic_wechat_pay"
                     tools:src="#f5f5f5"
                     app:piv_basics="height"
                     app:piv_percent="0.85" />
