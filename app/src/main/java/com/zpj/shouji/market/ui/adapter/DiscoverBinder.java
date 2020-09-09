@@ -222,6 +222,7 @@ public class DiscoverBinder
                     Drawable background = typedArray.getDrawable(0);
                     typedArray.recycle();
                     LinearLayout container = new LinearLayout(context);
+                    container.setOrientation(LinearLayout.VERTICAL);
                     container.setBackground(background);
                     commentLayout.addView(container);
 

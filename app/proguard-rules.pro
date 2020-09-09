@@ -80,6 +80,9 @@
 
 #---------------------------------2.第三方包-------------------------------
 
+-dontwarn com.lwkandroid.widget.ninegridview.**
+-keep class com.lwkandroid.widget.ninegridview.**{*;}
+
 -dontwarn com.yalantis.ucrop**
 -keep class com.yalantis.ucrop** { *; }
 -keep interface com.yalantis.ucrop** { *; }

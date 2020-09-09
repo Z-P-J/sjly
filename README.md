@@ -1,6 +1,7 @@
-# sjly
-手机乐园第三方客户端
+# 手机乐园Pro - 手机乐园第三方客户端
+采用单Activity多Fragment架构，支持全局滑动返回，实现手机乐园各种基本功能，支持登录、浏览、下载、发布动态等功能
 
+# 截图预览
 <div>
     <img src="screenshots/screenshot0.jpg" width="19%">
     <img src="screenshots/screenshot1.jpg" width="19%">
@@ -62,3 +63,45 @@
     <img src="screenshots/screenshot57.jpg" width="19%">
     <img src="screenshots/screenshot58.jpg" width="19%">
 </div>
+
+## 感谢以下开源库
+
+- [Fragment框架Fragmentation](https://github.com/Z-P-J/Fragmentation)
+- [基于Fragmentation改造的Fragment框架ZFragmentation](https://github.com/Z-P-J/Fragmentation)
+- [HTML解析器Jsoup](https://github.com/jhy/jsoup)
+- [基于Jsoup改造的网络请求和数据解析库ZHttp](https://github.com/Z-P-J/ZHttp)
+- [图片加载框架Glide](https://github.com/bumptech/glide)
+- [事件发布/订阅框架EventBus](https://github.com/greenrobot/EventBus)
+- [响应式编程框架RxJava](https://github.com/ReactiveX/RxJava)
+- [RxJava for Android：RxAndroid](https://github.com/ReactiveX/RxAndroid)
+- [数据库框架DBFlow](https://github.com/agrosner/DBFlow)
+- [强大的弹窗框架XPopup](https://github.com/li-xiaojun/XPopup)
+- [基于XPopup改造的弹窗框架ZPopup](https://github.com/Z-P-J/sjly/tree/master/zpopup)
+- [ViewPager指示器框架MagicIndicator](https://github.com/hackware1993/MagicIndicator)
+- [图片裁剪库uCrop](https://github.com/Yalantis/uCrop)
+- [知乎图片选择框架Matisse](https://github.com/zhihu/Matisse)
+- [WebView库AgentWeb](https://github.com/Justson/AgentWeb)
+- [圆角图片NiceImageView](https://github.com/SheHuan/NiceImageView)
+- [毛玻璃效果Blurred](https://github.com/goweii/Blurred)
+- [轮播图Banner](https://github.com/AlpsDog/Banner)
+- [权限申请XPermission](https://github.com/li-xiaojun/XPermission)
+- [文件下载框架ZDownloader](https://github.com/Z-P-J/ZDownloader)
+- [RecyclerView框架ZRecyclerView](https://github.com/Z-P-J/ZRecyclerView)
+- [ZToolBar](https://github.com/Z-P-J/ZToolBar)
+- [ZSwitcher](https://github.com/Z-P-J/ZSwitcher)
+- [TintedImageView](https://github.com/Z-P-J/TintedImageView)
+- [SmoothCheckBox](https://github.com/Z-P-J/SmoothCheckBox)
+- [StateLayout](https://github.com/Z-P-J/StateLayout)
+- [万能阴影布局ShadowLayout](https://github.com/lihangleo2/ShadowLayout)
+- [持续连贯滑动的容器ConsecutiveScroller](https://github.com/donkingliang/ConsecutiveScroller)
+- [自定义SeekBar库indicatorseekbar](https://github.com/warkiz/IndicatorSeekBar)
+- [等级评分控件CBRatingBar](https://github.com/CB-ysx/CBRatingBar)
+- [可折叠面板控件ExpansionPanel](https://github.com/florent37/ExpansionPanel)
+- [AndroidSwipeLayout](https://github.com/daimajia/AndroidSwipeLayout)
+- [组合头像CombineBitmap](https://github.com/SheHuan/CombineBitmap)
+- [图片压缩CompressHelper](https://github.com/nanchen2251/CompressHelper)
+- [九宫格图片NineGridView](https://github.com/Vanish136/NineGridView)
+- [ExpandableTextView](https://github.com/MZCretin/ExpandableTextView)
+- [聊天气泡控件BubbleView](https://github.com/houtrry/BubbleView)
+- [BadgeView](https://github.com/qstumn/BadgeView)
+
