@@ -103,33 +103,33 @@ public class HomeFragment extends BaseFragment {
         toolbar.setLightStyle(false);
 
 
-//        ArrayList<Fragment> list = new ArrayList<>();
-//        RecommendFragment2 recommendFragment = findChildFragment(RecommendFragment2.class);
-//        if (recommendFragment == null) {
-//            recommendFragment = new RecommendFragment2();
-//        }
-//        DiscoverFragment exploreFragment = findChildFragment(DiscoverFragment.class);
-//        if (exploreFragment == null) {
-//            exploreFragment = DiscoverFragment.newInstance();
-//        }
-//        WallpaperFragment wallpaperFragment = findChildFragment(WallpaperFragment.class);
-//        if (wallpaperFragment == null) {
-//            wallpaperFragment = new WallpaperFragment();
-//        }
-
         ArrayList<Fragment> list = new ArrayList<>();
-        FirstFragment recommendFragment = findChildFragment(FirstFragment.class);
+        RecommendFragment2 recommendFragment = findChildFragment(RecommendFragment2.class);
         if (recommendFragment == null) {
-            recommendFragment = new FirstFragment();
+            recommendFragment = new RecommendFragment2();
         }
-        SecondFragment exploreFragment = findChildFragment(SecondFragment.class);
+        DiscoverFragment exploreFragment = findChildFragment(DiscoverFragment.class);
         if (exploreFragment == null) {
-            exploreFragment = new SecondFragment();
+            exploreFragment = DiscoverFragment.newInstance();
         }
-        ThirdFragment wallpaperFragment = findChildFragment(ThirdFragment.class);
+        WallpaperFragment wallpaperFragment = findChildFragment(WallpaperFragment.class);
         if (wallpaperFragment == null) {
-            wallpaperFragment = new ThirdFragment();
+            wallpaperFragment = new WallpaperFragment();
         }
+
+//        ArrayList<Fragment> list = new ArrayList<>();
+//        FirstFragment recommendFragment = findChildFragment(FirstFragment.class);
+//        if (recommendFragment == null) {
+//            recommendFragment = new FirstFragment();
+//        }
+//        SecondFragment exploreFragment = findChildFragment(SecondFragment.class);
+//        if (exploreFragment == null) {
+//            exploreFragment = new SecondFragment();
+//        }
+//        ThirdFragment wallpaperFragment = findChildFragment(ThirdFragment.class);
+//        if (wallpaperFragment == null) {
+//            wallpaperFragment = new ThirdFragment();
+//        }
 
         list.add(recommendFragment);
         list.add(exploreFragment);

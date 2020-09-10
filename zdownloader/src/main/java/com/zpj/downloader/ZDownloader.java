@@ -40,17 +40,21 @@ public class ZDownloader {
         init(DownloaderConfig.with(context));
     }
 
-    public static void init(final DownloaderConfig options) {
+    public static <T extends DownloadMission> void init(final DownloaderConfig options, Class<T> clazz) {
         final Context context = options.getContext();
 
 //        PermissionUtil.grandStoragePermission(context);
 
         SPHelper.init(context);
         NotifyUtil.init(context);
-        DownloadManagerImpl.register(options);
+        DownloadManagerImpl.register(options, clazz);
         IntentFilter intentFilter = new IntentFilter();
         intentFilter.addAction("android.net.conn.CONNECTIVITY_CHANGE");
         options.getContext().registerReceiver(NetworkChangeReceiver.getInstance(), intentFilter);
+    }
+
+    public static void init(final DownloaderConfig options) {
+        init(options, DownloadMission.class);
     }
 
     public static void onDestroy() {

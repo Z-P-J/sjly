@@ -40,6 +40,7 @@ import com.zpj.matisse.model.SelectedItemManager;
 import com.zpj.matisse.ui.fragment.MatisseFragment;
 import com.lxj.xpermission.PermissionConstants;
 import com.lxj.xpermission.XPermission;
+import com.zpj.matisse.ui.fragment.MatisseFragment2;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
@@ -393,10 +394,10 @@ public final class SelectionCreator {
                     public void onGranted() {
                         SupportFragment fragment = mMatisse.getFragment();
                         if (fragment != null) {
-                            fragment.start(new MatisseFragment());
+                            fragment.start(new MatisseFragment2());
                             return;
                         }
-                        activity.start(new MatisseFragment());
+                        activity.start(new MatisseFragment2());
                     }
                     @Override
                     public void onDenied() {

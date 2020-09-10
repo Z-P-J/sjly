@@ -21,10 +21,10 @@ import android.net.Uri;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.Priority;
 import com.bumptech.glide.request.RequestOptions;
 import com.bumptech.glide.request.target.Target;
 import com.zpj.matisse.engine.ImageEngine;
+import com.zpj.matisse.utils.ScaleTransformation;
 
 /**
  * {@link ImageEngine} implementation using Glide 4.
@@ -35,13 +35,15 @@ public class GlideEngine implements ImageEngine {
     @Override
     public void loadThumbnail(Context context, int resize, Drawable placeholder, ImageView imageView, Uri uri) {
         Glide.with(context)
-                .asBitmap() // some .jpeg files are actually gif
+//                .asBitmap() // some .jpeg files are actually gif
                 .load(uri)
-                .apply(new RequestOptions()
-                        .override(resize, resize)
+                .apply(
+                        RequestOptions.bitmapTransform(new ScaleTransformation(0.8f))
+//                        .override(resize, resize)
 //                        .override(Target.SIZE_ORIGINAL)
-                        .placeholder(placeholder)
-                        .centerCrop())
+                                .placeholder(placeholder)
+//                        .fitCenter()
+                )
                 .into(imageView);
     }
 
@@ -51,11 +53,13 @@ public class GlideEngine implements ImageEngine {
         Glide.with(context)
                 .asBitmap() // some .jpeg files are actually gif
                 .load(uri)
-                .apply(new RequestOptions()
-                        .override(resize, resize)
+                .apply(
+                        new RequestOptions()
+//                        .override(resize, resize)
 //                        .override(Target.SIZE_ORIGINAL)
-                        .placeholder(placeholder)
-                        .centerCrop())
+                                .placeholder(placeholder)
+//                        .fitCenter()
+                )
                 .into(imageView);
     }
 
@@ -64,7 +68,7 @@ public class GlideEngine implements ImageEngine {
         Glide.with(context)
                 .load(uri)
                 .apply(new RequestOptions()
-//                        .override(Target.SIZE_ORIGINAL)
+                        .override(Target.SIZE_ORIGINAL)
 //                        .priority(Priority.HIGH)
                         .centerCrop())
                 .into(imageView);
@@ -76,7 +80,7 @@ public class GlideEngine implements ImageEngine {
                 .asGif()
                 .load(uri)
                 .apply(new RequestOptions()
-//                        .override(Target.SIZE_ORIGINAL)
+                        .override(Target.SIZE_ORIGINAL)
 //                        .priority(Priority.HIGH)
                         .centerCrop())
                 .into(imageView);

@@ -66,7 +66,7 @@ public class DownloadManagerImpl implements DownloadManager {
 		return mManager;
 	}
 
-	public static void register(DownloaderConfig options) {
+	public static <T extends DownloadMission> void register(DownloaderConfig options, Class<T> clazz) {
 		if (mManager == null) {
 			mManager = new DownloadManagerImpl(options.getContext(), options);
 			mManager.loadMissions();
@@ -131,6 +131,11 @@ public class DownloadManagerImpl implements DownloadManager {
 
 	@Override
 	public void loadMissions() {
+		loadMissions(DownloadMission.class);
+	}
+
+	@Override
+	public <T extends DownloadMission> void loadMissions(Class<T> clazz) {
 		long time1 = System.currentTimeMillis();
 		ALL_MISSIONS.clear();
 		File f;
@@ -148,7 +153,7 @@ public class DownloadManagerImpl implements DownloadManager {
 				if (sub.getName().endsWith(MISSION_INFO_FILE_SUFFIX_NAME)) {
 					String str = Utility.readFromFile(sub.getAbsolutePath());
 					if (!TextUtils.isEmpty(str)) {
-						DownloadMission mis = new Gson().fromJson(str, DownloadMission.class);
+						DownloadMission mis = new Gson().fromJson(str, clazz);
 						Log.d("initMissions", "mis=null? " + (mis == null));
 						if (mis != null) {
 							mis.init();

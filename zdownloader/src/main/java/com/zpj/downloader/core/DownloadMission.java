@@ -3,6 +3,7 @@ package com.zpj.downloader.core;
 import android.content.Context;
 import android.os.Handler;
 import android.os.Looper;
+import android.support.annotation.Keep;
 import android.text.TextUtils;
 import android.util.Log;
 import android.util.LongSparseArray;
@@ -40,6 +41,7 @@ import java.util.concurrent.ThreadPoolExecutor;
 /**
  * @author Z-P-J
  */
+@Keep
 public class DownloadMission {
     private static final String TAG = DownloadMission.class.getSimpleName();
 
@@ -247,7 +249,7 @@ public class DownloadMission {
 //        }
 //    };
 
-    private void initMission() {
+    protected void initMission() {
         ZHttp.head(url)
                 .proxy(Proxy.NO_PROXY)
                 .userAgent(getUserAgent())
@@ -414,7 +416,7 @@ public class DownloadMission {
         }
     };
 
-    private DownloadMission() {
+    protected DownloadMission() {
 
     }
 
@@ -494,6 +496,9 @@ public class DownloadMission {
     }
 
     public void start() {
+        if (!hasInit) {
+            init();
+        }
         errorCount = 0;
         if (!isRunning() && !isFinished()) {
             initCurrentRetryCount();

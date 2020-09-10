@@ -69,6 +69,8 @@ public interface DownloadManager {
 
     void loadMissions();
 
+    <T extends DownloadMission> void loadMissions(Class<T> clazz);
+
     void setDownloadManagerListener(DownloadManagerListener downloadManagerListener);
 
     DownloadManagerListener getDownloadManagerListener();

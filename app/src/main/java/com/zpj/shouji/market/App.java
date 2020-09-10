@@ -2,6 +2,7 @@ package com.zpj.shouji.market;
 
 import android.app.Application;
 import android.content.Context;
+import android.os.Environment;
 import android.util.Log;
 import android.widget.ImageView;
 
@@ -13,6 +14,9 @@ import com.lqr.emoji.LQREmotionKit;
 import com.maning.librarycrashmonitor.MCrashMonitor;
 import com.raizlabs.android.dbflow.config.FlowManager;
 import com.zpj.downloader.ZDownloader;
+import com.zpj.downloader.config.DownloaderConfig;
+import com.zpj.shouji.market.download.AppDownloadMission;
+import com.zpj.utils.PrefsHelper;
 
 import io.reactivex.functions.Consumer;
 import io.reactivex.plugins.RxJavaPlugins;
@@ -38,7 +42,18 @@ public class App extends Application {
 //                ,"umeng",UMConfigure.DEVICE_TYPE_PHONE,"");
 
         AToast.onInit(this);
-        ZDownloader.init(this);
+//        ZDownloader.init(this);
+        ZDownloader.init(
+                DownloaderConfig.with(this)
+                        .setUserAgent("Sjly(3.0)")
+                        .setDownloadPath(
+                                PrefsHelper.with()
+                                        .getString(
+                                                "download_directory",
+                                                Environment.getExternalStorageDirectory().getAbsolutePath()
+                                                        + "/sjly/ProDownload/")),
+                AppDownloadMission.class
+        );
         LQREmotionKit.init(this, new IImageLoader() {
             @Override
             public void displayImage(Context context, String path, ImageView imageView) {

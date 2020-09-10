@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -21,6 +22,8 @@ import com.zpj.downloader.constant.Error;
 import com.zpj.downloader.core.DownloadManager;
 import com.zpj.downloader.core.DownloadMission;
 import com.zpj.downloader.util.FileUtil;
+import com.zpj.http.ZHttp;
+import com.zpj.http.core.IHttp;
 import com.zpj.http.core.ObservableTask;
 import com.zpj.shouji.market.R;
 import com.zpj.fragmentation.BaseFragment;
@@ -32,7 +35,9 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
-public class DownloadFragment extends BaseFragment implements DownloadManager.DownloadManagerListener, GroupRecyclerViewAdapter.OnItemClickListener<DownloadFragment.DownloadWrapper> {
+public class DownloadFragment extends BaseFragment
+        implements DownloadManager.DownloadManagerListener,
+        GroupRecyclerViewAdapter.OnItemClickListener<DownloadFragment.DownloadWrapper> {
 
     private final List<List<DownloadWrapper>> downloadTaskList = new ArrayList<>();
 
@@ -90,12 +95,12 @@ public class DownloadFragment extends BaseFragment implements DownloadManager.Do
 
     @Override
     public void onMissionAdd(DownloadMission mission) {
-
+        loadDownloadMissions();
     }
 
     @Override
     public void onMissionDelete(DownloadMission mission) {
-
+        loadDownloadMissions();
     }
 
     @Override
@@ -104,34 +109,44 @@ public class DownloadFragment extends BaseFragment implements DownloadManager.Do
     }
 
     private void loadDownloadMissions() {
-        new ObservableTask<>(emitter -> {
-            downloadTaskList.clear();
-            List<DownloadWrapper> downloadingList = new ArrayList<>();
-            List<DownloadWrapper> downloadedList = new ArrayList<>();
-            downloadTaskList.add(downloadingList);
-            downloadTaskList.add(downloadedList);
-            downloadingList.add(new DownloadWrapper("下载中"));
-            downloadedList.add(new DownloadWrapper("已完成"));
-            for (DownloadMission mission : ZDownloader.getAllMissions(true)) {
-                downloadingList.add(new DownloadWrapper(mission));
-            }
-            for (DownloadMission mission : ZDownloader.getAllMissions(false)) {
-                downloadedList.add(new DownloadWrapper(mission));
-            }
-            if (downloadingList.size() == 1) {
-                downloadingList.add(new DownloadWrapper());
-            }
-            if (downloadedList.size() == 1) {
-                downloadedList.add(new DownloadWrapper());
-            }
-            emitter.onNext(new Object());
-            emitter.onComplete();
-        })
-                .onSuccess(data -> expandableAdapter.notifyDataSetChanged())
+        new ObservableTask<>(
+                emitter -> {
+                    downloadTaskList.clear();
+                    List<DownloadWrapper> downloadingList = new ArrayList<>();
+                    List<DownloadWrapper> downloadedList = new ArrayList<>();
+                    downloadTaskList.add(downloadingList);
+                    downloadTaskList.add(downloadedList);
+                    downloadingList.add(new DownloadWrapper("下载中"));
+                    downloadedList.add(new DownloadWrapper("已完成"));
+                    for (DownloadMission mission : ZDownloader.getAllMissions(true)) {
+                        downloadingList.add(new DownloadWrapper(mission));
+                    }
+                    for (DownloadMission mission : ZDownloader.getAllMissions(false)) {
+                        downloadedList.add(new DownloadWrapper(mission));
+                    }
+                    Log.d("DownloadFragment", "getAllMissions=" + ZDownloader.getAllMissions());
+                    Log.d("DownloadFragment", "downloadingList.size=" + downloadingList.size());
+                    Log.d("DownloadFragment", "downloadedList.size=" + downloadedList.size());
+                    if (downloadingList.size() == 1) {
+                        downloadingList.add(new DownloadWrapper());
+                    }
+                    if (downloadedList.size() == 1) {
+                        downloadedList.add(new DownloadWrapper());
+                    }
+//                    emitter.onNext(new Object());
+                    emitter.onComplete();
+                })
+//                .onSuccess(data -> expandableAdapter.notifyDataSetChanged())
+                .onComplete(new IHttp.OnCompleteListener() {
+                    @Override
+                    public void onComplete() throws Exception {
+                        expandableAdapter.notifyDataSetChanged();
+                    }
+                })
                 .subscribe();
     }
 
-    public class DownloadWrapper {
+    public static class DownloadWrapper {
 
         private DownloadMission mission;
         private String title;
@@ -157,7 +172,7 @@ public class DownloadFragment extends BaseFragment implements DownloadManager.Do
         }
     }
 
-    public class ExpandCollapseGroupAdapter extends ExpandableGroupRecyclerViewAdapter<DownloadWrapper> {
+    public static class ExpandCollapseGroupAdapter extends ExpandableGroupRecyclerViewAdapter<DownloadWrapper> {
 
         private static final int TYPE_CHILD = 111;
         private static final int TYPE_EMPTY = 222;

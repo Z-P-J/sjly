@@ -8,6 +8,7 @@ import android.view.View;
 
 import com.bumptech.glide.Glide;
 import com.felix.atoast.library.AToast;
+import com.zpj.downloader.core.DownloadMission;
 import com.zpj.http.parser.html.nodes.Document;
 import com.zpj.http.parser.html.nodes.Element;
 import com.zpj.http.parser.html.select.Elements;
@@ -19,6 +20,7 @@ import com.zpj.shouji.market.api.HttpPreLoader;
 import com.zpj.shouji.market.api.PreloadApi;
 import com.zpj.shouji.market.model.AppInfo;
 import com.zpj.shouji.market.ui.fragment.detail.AppDetailFragment;
+import com.zpj.shouji.market.ui.widget.DownloadButton;
 
 import java.util.List;
 
@@ -116,12 +118,17 @@ public abstract class AppInfoRecommendCard extends RecommendCard<AppInfo> {
         holder.getTextView(R.id.item_title).setText(info.getAppTitle());
         holder.getTextView(R.id.item_info).setText(info.getAppSize());
         Glide.with(context).load(info.getAppIcon()).into(holder.getImageView(R.id.item_icon));
-        holder.getView(R.id.tv_download).setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                AToast.normal("TODO Download");
-            }
-        });
+        DownloadButton downloadButton = holder.getView(R.id.tv_download);
+        downloadButton.bindApp(info.getAppId(), info.getAppTitle(), info.getAppType());
+//        holder.getView(R.id.tv_download).setOnClickListener(new OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                AToast.normal("TODO Download");
+//                DownloadMission mission = DownloadMission.create("", "", null);
+//                mission.start();
+//
+//            }
+//        });
     }
 
     @Override

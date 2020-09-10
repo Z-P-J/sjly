@@ -31,6 +31,7 @@ dependencies {
 
     implementation 'com.github.chaichuanfa:atoast:0.0.2'
     implementation 'com.github.lihangleo2:ShadowLayout:2.1.8'
+    implementation 'com.sothree.slidinguppanel:library:3.4.0'
 //    implementation 'com.github.SheHuan:NiceImageView:1.0.5'
 
     implementation 'com.zpj.widget:Fragmentation:1.0.2'
