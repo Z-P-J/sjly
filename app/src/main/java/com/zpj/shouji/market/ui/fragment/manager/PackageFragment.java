@@ -22,11 +22,11 @@ import com.zpj.recyclerview.EasyRecyclerLayout;
 import com.zpj.recyclerview.EasyViewHolder;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.glide.GlideApp;
+import com.zpj.shouji.market.manager.AppUpdateManager;
 import com.zpj.shouji.market.model.InstalledAppInfo;
 import com.zpj.shouji.market.model.XpkInfo;
 import com.zpj.shouji.market.ui.fragment.base.RecyclerLayoutFragment;
-import com.zpj.shouji.market.ui.widget.popup.RecyclerPopup;
-import com.zpj.shouji.market.manager.AppUpdateManager;
+import com.zpj.shouji.market.ui.fragment.dialog.RecyclerPartShadowDialogFragment;
 import com.zpj.shouji.market.utils.AppUtil;
 import com.zpj.shouji.market.utils.FileUtils;
 
@@ -208,7 +208,7 @@ public class PackageFragment extends RecyclerLayoutFragment<InstalledAppInfo> {
     }
 
     private void showSortPopWindow() {
-        RecyclerPopup.with(context)
+        new RecyclerPartShadowDialogFragment()
                 .addItems("按应用名称", "按占用空间", "按安装时间", "按更新时间", "按使用频率")
                 .setSelectedItem(sortPosition)
                 .setOnItemClickListener((view, title, position) -> {
@@ -260,7 +260,61 @@ public class PackageFragment extends RecyclerLayoutFragment<InstalledAppInfo> {
                     }
                     recyclerLayout.notifyDataSetChanged();
                 })
-                .show(sortTextView);
+                .setAttachView(sortTextView)
+                .show(context);
+//        RecyclerPopup.with(context)
+//                .addItems("按应用名称", "按占用空间", "按安装时间", "按更新时间", "按使用频率")
+//                .setSelectedItem(sortPosition)
+//                .setOnItemClickListener((view, title, position) -> {
+//                    sortPosition = position;
+//                    sortTextView.setText(title);
+//                    switch (position) {
+//                        case 0:
+//                            Collections.sort(data, new Comparator<InstalledAppInfo>() {
+//                                @Override
+//                                public int compare(InstalledAppInfo o1, InstalledAppInfo o2) {
+//                                    return o1.getName().compareTo(o2.getName());
+//                                }
+//                            });
+//                            break;
+//                        case 1:
+//                            Collections.sort(data, new Comparator<InstalledAppInfo>() {
+//                                @Override
+//                                public int compare(InstalledAppInfo o1, InstalledAppInfo o2) {
+//                                    return (int) (o1.getAppSize() - o2.getAppSize());
+//                                }
+//                            });
+//                            break;
+//                        case 2:
+////                                Collections.sort(appInfoList, new Comparator<InstalledAppInfo>() {
+////                                    @Override
+////                                    public int compare(InstalledAppInfo o1, InstalledAppInfo o2) {
+////                                        return o1.getInstallTime().compareTo(o2.getInstallTime());
+////                                    }
+////                                });
+//                            break;
+//                        case 3:
+////                                Collections.sort(appInfoList, new Comparator<InstalledAppInfo>() {
+////                                    @Override
+////                                    public int compare(InstalledAppInfo o1, InstalledAppInfo o2) {
+////                                        return o1.getRecentUpdateTime().compareTo(o2.getRecentUpdateTime());
+////                                    }
+////                                });
+//                            break;
+//                        case 4:
+////                                Collections.sort(appInfoList, new Comparator<InstalledAppInfo>() {
+////                                    @Override
+////                                    public int compare(InstalledAppInfo o1, InstalledAppInfo o2) {
+////                                        return o1.getName().compareTo(o2.getName());
+////                                    }
+////                                });
+//                            break;
+//                        default:
+//                            break;
+//                    }
+//                    recyclerLayout.notifyDataSetChanged();
+//                })
+//                .show(sortTextView);
     }
 
     private InstalledAppInfo parseFromApk(Context context, File file) {

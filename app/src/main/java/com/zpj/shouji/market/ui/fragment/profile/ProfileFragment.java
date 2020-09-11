@@ -18,9 +18,10 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.felix.atoast.library.AToast;
 import com.shehuan.niv.NiceImageView;
+import com.zpj.fragmentation.dialog.impl.AlertDialogFragment;
+import com.zpj.fragmentation.dialog.impl.AttachListDialogFragment;
 import com.zpj.http.core.ObservableTask;
 import com.zpj.http.parser.html.nodes.Document;
-import com.zpj.popup.ZPopup;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.api.HttpApi;
 import com.zpj.shouji.market.constant.Keys;
@@ -182,7 +183,7 @@ public class ProfileFragment extends ListenerFragment
     public void toolbarRightImageButton(@NonNull ImageButton imageButton) {
         super.toolbarRightImageButton(imageButton);
         imageButton.setOnClickListener(v -> {
-            ZPopup.attachList(context)
+            new AttachListDialogFragment<String>()
                     .addItems("分享主页", "保存头像", "保存背景")
                     .addItemsIf(!isMe, "加入黑名单", "举报Ta")
                     .setOnSelectListener((position, title) -> {
@@ -204,7 +205,31 @@ public class ProfileFragment extends ListenerFragment
                                 break;
                         }
                     })
-                    .show(imageButton);
+                    .setAttachView(imageButton)
+                    .show(context);
+//            ZPopup.attachList(context)
+//                    .addItems("分享主页", "保存头像", "保存背景")
+//                    .addItemsIf(!isMe, "加入黑名单", "举报Ta")
+//                    .setOnSelectListener((position, title) -> {
+//                        switch (position) {
+//                            case 0:
+//                                WebFragment.shareHomepage(userId);
+//                                break;
+//                            case 1:
+//                                PictureUtil.saveImage(context, memberAvatar);
+//                                break;
+//                            case 2:
+//                                PictureUtil.saveImage(context, memberBackground);
+//                                break;
+//                            case 3:
+//                                HttpApi.addBlacklistApi(userId);
+//                                break;
+//                            case 4:
+//                                AToast.warning("TODO");
+//                                break;
+//                        }
+//                    })
+//                    .show(imageButton);
         });
     }
 
@@ -304,10 +329,10 @@ public class ProfileFragment extends ListenerFragment
             if (isMe) {
                 MyInfoFragment.start();
             } else if (isFriend) {
-                ZPopup.alert(context)
+                new AlertDialogFragment()
                         .setTitle("取消关注")
                         .setContent("确定取消关注该用户？")
-                        .setConfirmButton(popup -> HttpApi.deleteFriendApi(userId)
+                        .setPositiveButton(popup -> HttpApi.deleteFriendApi(userId)
                                 .onSuccess(data -> {
                                     Log.d("deleteFriendApi", "data=" + data);
                                     String result = data.selectFirst("result").text();
@@ -322,7 +347,26 @@ public class ProfileFragment extends ListenerFragment
                                 })
                                 .onError(throwable -> AToast.error(throwable.getMessage()))
                                 .subscribe())
-                        .show();
+                        .show(context);
+//                ZPopup.alert(context)
+//                        .setTitle("取消关注")
+//                        .setContent("确定取消关注该用户？")
+//                        .setConfirmButton(popup -> HttpApi.deleteFriendApi(userId)
+//                                .onSuccess(data -> {
+//                                    Log.d("deleteFriendApi", "data=" + data);
+//                                    String result = data.selectFirst("result").text();
+//                                    if ("success".equals(result)) {
+//                                        AToast.success("取消关注成功");
+//                                        tvFollow.setText("关注");
+//                                        ivChat.setVisibility(View.GONE);
+//                                        isFriend = false;
+//                                    } else {
+//                                        AToast.error(data.selectFirst("info").text());
+//                                    }
+//                                })
+//                                .onError(throwable -> AToast.error(throwable.getMessage()))
+//                                .subscribe())
+//                        .show();
             } else {
                 HttpApi.addFriendApi(userId)
                         .onSuccess(data -> {

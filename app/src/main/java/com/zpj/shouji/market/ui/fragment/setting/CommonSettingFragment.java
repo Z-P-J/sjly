@@ -4,21 +4,18 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.View;
-import android.widget.LinearLayout;
 
 import com.felix.atoast.library.AToast;
+import com.zpj.fragmentation.dialog.impl.AlertDialogFragment;
 import com.zpj.http.core.IHttp;
 import com.zpj.http.core.ObservableTask;
-import com.zpj.popup.ZPopup;
-import com.zpj.popup.core.BasePopup;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.constant.AppConfig;
 import com.zpj.shouji.market.event.HideLoadingEvent;
 import com.zpj.shouji.market.event.ShowLoadingEvent;
 import com.zpj.shouji.market.event.StartFragmentEvent;
 import com.zpj.shouji.market.manager.AppUpdateManager;
-import com.zpj.shouji.market.ui.widget.popup.BrightnessPopup;
-import com.zpj.shouji.market.utils.AnimationUtil;
+import com.zpj.shouji.market.ui.fragment.dialog.BrightnessDialogFragment;
 import com.zpj.shouji.market.utils.DataCleanManagerUtils;
 import com.zpj.widget.setting.CheckableSettingItem;
 import com.zpj.widget.setting.CommonSettingItem;
@@ -111,38 +108,63 @@ public class CommonSettingFragment extends BaseSettingFragment {
     public void onItemClick(CommonSettingItem item) {
         switch (item.getId()) {
             case R.id.item_brightness_control:
-                BrightnessPopup.with(context).show();
+                new BrightnessDialogFragment().show(context);
+//                BrightnessPopup.with(context).show();
                 break;
             case R.id.item_clear_cache:
                 if (DataCleanManagerUtils.getTotalCacheSize(context) > 0) {
-                    ZPopup.alert(context)
+                    new AlertDialogFragment()
                             .setTitle("清除缓存")
                             .setContent("您将清除本应用所有缓存数据，确认清除？")
-                            .setAutoDismiss(false)
-                            .setConfirmButton(popup -> {
-                                popup.setOnDismissListener(() -> {
-                                    ShowLoadingEvent.post("清除中...");
-                                    new ObservableTask<String>(
-                                            emitter -> {
-                                                DataCleanManagerUtils.clearAllCache(context);
-                                                emitter.onNext(DataCleanManagerUtils.getTotalCacheSizeStr(context));
-                                                emitter.onComplete();
-                                            })
-                                            .onSuccess(new IHttp.OnSuccessListener<String>() {
-                                                @Override
-                                                public void onSuccess(String data) throws Exception {
-                                                    HideLoadingEvent.post(() -> {
-                                                        AToast.success("清理成功");
-                                                        item.setRightText(data);
-                                                    });
-                                                }
-                                            })
-                                            .subscribe();
-                                });
-                                popup.dismiss();
+//                            .setAutoDismiss(false)
+                            .setPositiveButton(popup -> {
+                                ShowLoadingEvent.post("清除中...");
+                                new ObservableTask<String>(
+                                        emitter -> {
+                                            DataCleanManagerUtils.clearAllCache(context);
+                                            emitter.onNext(DataCleanManagerUtils.getTotalCacheSizeStr(context));
+                                            emitter.onComplete();
+                                        })
+                                        .onSuccess(new IHttp.OnSuccessListener<String>() {
+                                            @Override
+                                            public void onSuccess(String data) throws Exception {
+                                                HideLoadingEvent.post(() -> {
+                                                    AToast.success("清理成功");
+                                                    item.setRightText(data);
+                                                });
+                                            }
+                                        })
+                                        .subscribe();
                             })
-                            .setCancelButton(BasePopup::dismiss)
-                            .show();
+                            .show(context);
+//                    ZPopup.alert(context)
+//                            .setTitle("清除缓存")
+//                            .setContent("您将清除本应用所有缓存数据，确认清除？")
+//                            .setAutoDismiss(false)
+//                            .setConfirmButton(popup -> {
+//                                popup.setOnDismissListener(() -> {
+//                                    ShowLoadingEvent.post("清除中...");
+//                                    new ObservableTask<String>(
+//                                            emitter -> {
+//                                                DataCleanManagerUtils.clearAllCache(context);
+//                                                emitter.onNext(DataCleanManagerUtils.getTotalCacheSizeStr(context));
+//                                                emitter.onComplete();
+//                                            })
+//                                            .onSuccess(new IHttp.OnSuccessListener<String>() {
+//                                                @Override
+//                                                public void onSuccess(String data) throws Exception {
+//                                                    HideLoadingEvent.post(() -> {
+//                                                        AToast.success("清理成功");
+//                                                        item.setRightText(data);
+//                                                    });
+//                                                }
+//                                            })
+//                                            .subscribe();
+//                                });
+//                                popup.dismiss();
+//                            })
+//                            .setCancelButton(BasePopup::dismiss)
+//                            .show();
                 } else {
                     AToast.warning("暂无缓存");
                 }

@@ -46,7 +46,7 @@ public class DownloadMission {
     private static final String TAG = DownloadMission.class.getSimpleName();
 
     public interface MissionListener {
-        HashMap<MissionListener, Handler> HANDLER_STORE = new HashMap<>();
+//        HashMap<MissionListener, Handler> HANDLER_STORE = new HashMap<>();
 
         void onInit();
 
@@ -63,6 +63,10 @@ public class DownloadMission {
         void onFinish();
 
         void onError(Error e);
+
+        void onDelete();
+
+        void onClear();
     }
 
     public enum MissionStatus {
@@ -91,24 +95,24 @@ public class DownloadMission {
 //    private final List<Error> errorHistoryList = new ArrayList<>();
     private final List<Long> speedHistoryList = new ArrayList<>();
 
-    private String uuid = "";
-    private String name = "";
-    private String url = "";
-    private String redirectUrl = "";
-    private String originUrl = "";
-    private long createTime = 0;
-    private long finishTime = 0;
-    private int notifyId = 0;
-    private long blocks = 0;
-    private int finishCount = 0;
-    private long length = 0;
-    private long done = 0;
+    protected String uuid = "";
+    protected String name = "";
+    protected String url = "";
+    protected String redirectUrl = "";
+    protected String originUrl = "";
+    protected long createTime = 0;
+    protected long finishTime = 0;
+    protected int notifyId = 0;
+    protected long blocks = 0;
+    protected int finishCount = 0;
+    protected long length = 0;
+    protected long done = 0;
 //    private List<Long> threadPositions = new ArrayList<>();
-    private MissionStatus missionStatus = MissionStatus.INITING;
-    private boolean fallback = false;
-    private int errCode = -1;
-    private boolean hasInit = false;
-    private MissionConfig missionConfig = MissionConfig.with();
+    protected MissionStatus missionStatus = MissionStatus.INITING;
+    protected boolean fallback = false;
+    protected int errCode = -1;
+    protected boolean hasInit = false;
+    protected MissionConfig missionConfig = MissionConfig.with();
 
     //-----------------------------------------------------transient---------------------------------------------------------------
 
@@ -497,7 +501,9 @@ public class DownloadMission {
 
     public void start() {
         if (!hasInit) {
+            DownloadManagerImpl.getInstance().insertMission(this);
             init();
+            return;
         }
         errorCount = 0;
         if (!isRunning() && !isFinished()) {
@@ -571,13 +577,40 @@ public class DownloadMission {
     }
 
     public void delete() {
-        clear();
+        pause();
+        deleteMissionInfo();
         new File(missionConfig.getDownloadPath() + File.separator + name).delete();
+        DownloadManagerImpl.getInstance().ALL_MISSIONS.remove(this);
+        if (DownloadManagerImpl.getInstance().getDownloadManagerListener() != null) {
+            DownloadManagerImpl.getInstance().getDownloadManagerListener().onMissionDelete(this);
+        }
+        for (WeakReference<MissionListener> ref : mListeners) {
+            final MissionListener listener = ref.get();
+            if (listener != null) {
+                handler.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        listener.onDelete();
+                    }
+                });
+            }
+        }
     }
 
     public void clear() {
         pause();
         deleteMissionInfo();
+        for (WeakReference<MissionListener> ref : mListeners) {
+            final MissionListener listener = ref.get();
+            if (listener != null) {
+                handler.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        listener.onClear();
+                    }
+                });
+            }
+        }
     }
 
     public boolean renameTo(String newFileName) {
@@ -615,7 +648,8 @@ public class DownloadMission {
 
         finishCount++;
 
-        if (isFallback() || done == length) {
+        File file = getFile();
+        if (isFallback() || done == length || (file != null && length == file.length())) {
             onFinish();
         } else {
             pause();
@@ -729,25 +763,31 @@ public class DownloadMission {
         }
     }
 
-    private void notifyError(final Error e) {
+    protected void notifyError(final Error e) {
         for (WeakReference<MissionListener> ref : mListeners) {
             final MissionListener listener = ref.get();
             if (listener != null) {
-                MissionListener.HANDLER_STORE.get(listener).post(new Runnable() {
+                handler.post(new Runnable() {
                     @Override
                     public void run() {
                         listener.onError(e);
                     }
                 });
+//                MissionListener.HANDLER_STORE.get(listener).post(new Runnable() {
+//                    @Override
+//                    public void run() {
+//                        listener.onError(e);
+//                    }
+//                });
             }
         }
     }
 
-    private void notifyStatus(final MissionStatus status) {
+    protected void notifyStatus(final MissionStatus status) {
         for (WeakReference<MissionListener> ref : mListeners) {
             final MissionListener listener = ref.get();
             if (listener != null) {
-                MissionListener.HANDLER_STORE.get(listener).post(new Runnable() {
+                handler.post(new Runnable() {
                     @Override
                     public void run() {
                         switch (status) {
@@ -785,15 +825,54 @@ public class DownloadMission {
                         }
                     }
                 });
+//                MissionListener.HANDLER_STORE.get(listener).post(new Runnable() {
+//                    @Override
+//                    public void run() {
+//                        switch (status) {
+//                            case INITING:
+//                                listener.onInit();
+//                                break;
+//                            case START:
+//                                listener.onStart();
+//                                break;
+//                            case RUNNING:
+//                                listener.onProgress(updateInfo);
+//                                break;
+//                            case WAITING:
+//                                listener.onWaiting();
+//                                break;
+//                            case PAUSE:
+//                                listener.onPause();
+//                                break;
+//                            case RETRY:
+//                                listener.onRetry();
+//                                break;
+//                            case FINISHED:
+//                                updateInfo.setDone(getDone());
+//                                updateInfo.setSize(getLength());
+//                                updateInfo.setProgress(100);
+//                                updateInfo.setFileSizeStr(getFileSizeStr());
+//                                updateInfo.setDownloadedSizeStr(getDownloadedSizeStr());
+//                                updateInfo.setProgressStr(String.format(Locale.US, "%.2f%%", getProgress()));
+//                                updateInfo.setSpeedStr(tempSpeed);
+//                                listener.onProgress(updateInfo);
+//                                listener.onFinish();
+//                                break;
+//                            default:
+//                                break;
+//                        }
+//                    }
+//                });
             }
         }
     }
 
-    private void onFinish() {
+    protected void onFinish() {
         if (errCode > 0) {
             return;
         }
         Log.d(TAG, "onFinish");
+        done = length;
         handler.removeCallbacks(progressRunnable);
 
         missionStatus = MissionStatus.FINISHED;
@@ -819,7 +898,7 @@ public class DownloadMission {
 
     public synchronized void addListener(MissionListener listener) {
         Handler handler = new Handler(Looper.getMainLooper());
-        MissionListener.HANDLER_STORE.put(listener, handler);
+//        MissionListener.HANDLER_STORE.put(listener, handler);
         mListeners.add(new WeakReference<>(listener));
     }
 
@@ -1128,7 +1207,7 @@ public class DownloadMission {
         return "";
     }
 
-    private String getMissionNameFromUrl(DownloadMission mission, String url) {
+    protected String getMissionNameFromUrl(DownloadMission mission, String url) {
         Log.d("getMissionNameFromUrl", "1");
         if (!TextUtils.isEmpty(url)) {
             int index = url.lastIndexOf("/");
@@ -1178,7 +1257,7 @@ public class DownloadMission {
         return true;
     }
 
-    public class UpdateInfo {
+    public static class UpdateInfo {
 
         private long size;
         private long done;

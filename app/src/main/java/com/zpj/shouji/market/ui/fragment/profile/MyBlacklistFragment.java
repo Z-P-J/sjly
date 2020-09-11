@@ -15,7 +15,7 @@ import com.zpj.shouji.market.event.StartFragmentEvent;
 import com.zpj.shouji.market.model.BlacklistInfo;
 import com.zpj.shouji.market.ui.fragment.WebFragment;
 import com.zpj.shouji.market.ui.fragment.base.NextUrlFragment;
-import com.zpj.shouji.market.ui.widget.popup.BottomListPopupMenu;
+import com.zpj.shouji.market.ui.fragment.dialog.BottomListMenuDialogFragment;
 import com.zpj.shouji.market.utils.BeanUtils;
 
 import java.util.List;
@@ -72,7 +72,7 @@ public class MyBlacklistFragment extends NextUrlFragment<BlacklistInfo> {
 
     @Override
     public boolean onLongClick(EasyViewHolder holder, View view, BlacklistInfo data) {
-        BottomListPopupMenu.with(context)
+        new BottomListMenuDialogFragment()
                 .setMenu(R.menu.menu_blacklist)
                 .onItemClick((menu, view1, data1) -> {
                     switch (data1.getItemId()) {
@@ -99,7 +99,35 @@ public class MyBlacklistFragment extends NextUrlFragment<BlacklistInfo> {
                     }
                     menu.dismiss();
                 })
-                .show();
+                .show(context);
+//        BottomListPopupMenu.with(context)
+//                .setMenu(R.menu.menu_blacklist)
+//                .onItemClick((menu, view1, data1) -> {
+//                    switch (data1.getItemId()) {
+//                        case R.id.remove:
+//                            HttpApi.removeBlacklistApi(data.getMemberId())
+//                                    .onSuccess(doc -> {
+//                                        String info = doc.selectFirst("info").text();
+//                                        if ("success".equals(doc.selectFirst("result").text())) {
+//                                            AToast.success(info);
+//                                            onRefresh();
+//                                        } else {
+//                                            AToast.error(info);
+//                                        }
+//                                    })
+//                                    .onError(throwable -> AToast.error(throwable.getMessage()))
+//                                    .subscribe();
+//                            break;
+//                        case R.id.report:
+//                            AToast.normal("TODO 举报");
+//                            break;
+//                        case R.id.share:
+//                            WebFragment.shareHomepage(data.getMemberId());
+//                            break;
+//                    }
+//                    menu.dismiss();
+//                })
+//                .show();
         return true;
     }
 }

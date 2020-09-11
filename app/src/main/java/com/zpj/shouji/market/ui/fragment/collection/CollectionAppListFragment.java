@@ -2,6 +2,8 @@ package com.zpj.shouji.market.ui.fragment.collection;
 
 import android.graphics.Color;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
@@ -18,6 +20,7 @@ import com.zpj.shouji.market.constant.Keys;
 import com.zpj.shouji.market.model.CollectionAppInfo;
 import com.zpj.shouji.market.ui.fragment.base.NextUrlFragment;
 import com.zpj.shouji.market.ui.fragment.detail.AppDetailFragment;
+import com.zpj.shouji.market.ui.widget.DownloadButton;
 import com.zpj.shouji.market.ui.widget.emoji.EmojiExpandableTextView;
 import com.zpj.shouji.market.utils.BeanUtils;
 import com.zpj.utils.ScreenUtils;
@@ -54,6 +57,18 @@ public class CollectionAppListFragment extends NextUrlFragment<CollectionAppInfo
                 }
             }
         });
+        recyclerLayout.getRecyclerView().addOnChildAttachStateChangeListener(new RecyclerView.OnChildAttachStateChangeListener() {
+            @Override
+            public void onChildViewAttachedToWindow(@NonNull View view) {
+
+            }
+
+            @Override
+            public void onChildViewDetachedFromWindow(@NonNull View view) {
+                DownloadButton tvDownload = view.findViewById(R.id.tv_download);
+                tvDownload.onChildViewDetachedFromWindow();
+            }
+        });
     }
 
     @Override
@@ -75,9 +90,10 @@ public class CollectionAppListFragment extends NextUrlFragment<CollectionAppInfo
         EmojiExpandableTextView tvDesc = holder.getView(R.id.tv_desc);
         tvDesc.setContent(appItem.getComment());
 
-        TextView tvDownload = holder.getTextView(R.id.tv_download);
+        DownloadButton tvDownload = holder.getView(R.id.tv_download);
         if (appItem.isApkExist()) {
             tvDownload.setText("下载");
+            tvDownload.bindApp(appItem);
 //            tvDownload.setTextColor(getResources().getColor(R.color.colorPrimary));
 //            tvDownload.setBackgroundResource(R.drawable.bg_download_button);
         } else {

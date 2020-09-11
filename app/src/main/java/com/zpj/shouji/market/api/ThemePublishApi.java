@@ -13,7 +13,6 @@ import com.zpj.http.core.IHttp;
 import com.zpj.http.core.ObservableTask;
 import com.zpj.http.parser.html.nodes.Document;
 import com.zpj.matisse.entity.Item;
-import com.zpj.popup.interfaces.OnDismissListener;
 import com.zpj.shouji.market.constant.AppConfig;
 import com.zpj.shouji.market.event.HideLoadingEvent;
 import com.zpj.shouji.market.event.ShowLoadingEvent;
@@ -30,11 +29,8 @@ import java.io.FileInputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.concurrent.TimeUnit;
 
-import io.reactivex.Observable;
 import io.reactivex.ObservableOnSubscribe;
-import io.reactivex.functions.Action;
 
 public class ThemePublishApi {
 

@@ -29,6 +29,7 @@ public class RankHeaderLayout extends FrameLayout {
     private TextView tvInfo;
     private ImageView ivIcon;
     private ImageView ivBg;
+    private DownloadButton downloadButton;
 
     public RankHeaderLayout(@NonNull Context context) {
         this(context, null);
@@ -50,6 +51,7 @@ public class RankHeaderLayout extends FrameLayout {
         tvInfo = findViewById(R.id.tv_info);
         ivIcon = findViewById(R.id.iv_icon);
         ivBg = findViewById(R.id.iv_bg);
+        downloadButton = findViewById(R.id.tv_download);
         TextView tvRank = findViewById(R.id.tv_rank);
         tvRank.setText(String.valueOf(rankNum));
         tvRank.setTextSize(TypedValue.COMPLEX_UNIT_SP, (float) Math.sqrt((4 - rankNum)) * 48);
@@ -57,6 +59,7 @@ public class RankHeaderLayout extends FrameLayout {
         int height = ScreenUtils.dp2pxInt(context, (float) (Math.pow(2, 3 - rankNum) * 16 - 8));
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, height);
         space.setLayoutParams(params);
+
 
     }
 
@@ -75,6 +78,7 @@ public class RankHeaderLayout extends FrameLayout {
                 AppDetailFragment.start(appInfo);
             }
         });
+        downloadButton.bindApp(appInfo);
     }
 
 }

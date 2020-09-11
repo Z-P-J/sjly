@@ -12,8 +12,6 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.request.RequestOptions;
-import com.bumptech.glide.request.target.Target;
 import com.felix.atoast.library.AToast;
 import com.lwkandroid.widget.ninegridview.INineGridImageLoader;
 import com.lwkandroid.widget.ninegridview.NineGirdImageContainer;
@@ -25,7 +23,7 @@ import com.zpj.matisse.Matisse;
 import com.zpj.matisse.MimeType;
 import com.zpj.matisse.engine.impl.GlideEngine;
 import com.zpj.matisse.entity.Item;
-import com.zpj.matisse.ui.widget.CustomImageViewerPopup;
+import com.zpj.matisse.ui.fragment.CustomImageViewerDialogFragment;
 import com.zpj.popup.util.KeyboardUtils;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.api.PublishApi;
@@ -33,12 +31,10 @@ import com.zpj.shouji.market.api.ThemePublishApi;
 import com.zpj.shouji.market.event.StartFragmentEvent;
 import com.zpj.shouji.market.glide.GlideUtils;
 import com.zpj.shouji.market.model.InstalledAppInfo;
-import com.zpj.shouji.market.model.UserInfo;
 import com.zpj.shouji.market.ui.fragment.manager.AppPickerFragment;
 import com.zpj.shouji.market.ui.fragment.profile.UserPickerFragment;
 import com.zpj.shouji.market.ui.widget.ActionPanel;
 import com.zpj.shouji.market.ui.widget.flowlayout.FlowLayout;
-import com.zpj.utils.KeyboardHeightProvider;
 import com.zpj.utils.ScreenUtils;
 
 import java.io.File;
@@ -129,7 +125,7 @@ public class ThemeShareFragment extends BaseFragment {
 
             @Override
             public void onNineGirdItemClick(int position, NineGridBean gridBean, NineGirdImageContainer imageContainer) {
-                CustomImageViewerPopup.with(context)
+                new CustomImageViewerDialogFragment()
                         .setOnSelectedListener(itemList -> {
                             postDelayed(() -> {
                                 if (imgList.size() != itemList.size()) {
@@ -145,7 +141,25 @@ public class ThemeShareFragment extends BaseFragment {
                             NineGirdImageContainer view = (NineGirdImageContainer) nineGridView.getChildAt(pos);
                             popup.updateSrcView(view.getImageView());
                         })
-                        .show();
+                        .show(context);
+
+//                CustomImageViewerPopup.with(context)
+//                        .setOnSelectedListener(itemList -> {
+//                            postDelayed(() -> {
+//                                if (imgList.size() != itemList.size()) {
+//                                    imgList.clear();
+//                                    imgList.addAll(itemList);
+//                                    initNineGrid();
+//                                }
+//                            }, 100);
+//                        })
+//                        .setImageUrls(imgList)
+//                        .setSrcView(imageContainer.getImageView(), position)
+//                        .setSrcViewUpdateListener((popup, pos) -> {
+//                            NineGirdImageContainer view = (NineGirdImageContainer) nineGridView.getChildAt(pos);
+//                            popup.updateSrcView(view.getImageView());
+//                        })
+//                        .show();
             }
 
             @Override

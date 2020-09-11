@@ -21,6 +21,7 @@ import com.zpj.shouji.market.api.SearchApi;
 import com.zpj.shouji.market.model.AppInfo;
 import com.zpj.shouji.market.model.GuessAppInfo;
 import com.zpj.shouji.market.ui.fragment.detail.AppDetailFragment;
+import com.zpj.shouji.market.ui.widget.DownloadButton;
 import com.zpj.shouji.market.utils.Callback;
 
 import java.util.List;
@@ -86,12 +87,14 @@ public class GuessYouLikeRecommendCard extends RecommendCard<GuessAppInfo> {
         holder.setText(R.id.tv_info, info.getAppSize());
         holder.setText(R.id.tv_desc, info.getAppComment());
         Glide.with(context).load(info.getAppIcon()).into(holder.getImageView(R.id.iv_icon));
-        holder.getView(R.id.tv_download).setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                AToast.normal("TODO Download");
-            }
-        });
+//        holder.getView(R.id.tv_download).setOnClickListener(new OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                AToast.normal("TODO Download");
+//            }
+//        });
+        DownloadButton downloadButton = holder.getView(R.id.tv_download);
+        downloadButton.bindApp(info);
     }
 
     @Override

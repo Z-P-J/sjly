@@ -16,10 +16,10 @@ import com.felix.atoast.library.AToast;
 import com.lwkandroid.widget.ninegridview.NineGirdImageContainer;
 import com.lwkandroid.widget.ninegridview.NineGridBean;
 import com.lwkandroid.widget.ninegridview.NineGridView;
+import com.zpj.fragmentation.dialog.impl.AlertDialogFragment;
 import com.zpj.http.core.IHttp;
 import com.zpj.http.parser.html.nodes.Document;
 import com.zpj.http.parser.html.nodes.Element;
-import com.zpj.popup.ZPopup;
 import com.zpj.recyclerview.EasyRecyclerLayout;
 import com.zpj.recyclerview.EasyViewHolder;
 import com.zpj.shouji.market.R;
@@ -32,10 +32,10 @@ import com.zpj.shouji.market.model.PrivateLetterInfo;
 import com.zpj.shouji.market.ui.adapter.DiscoverBinder;
 import com.zpj.shouji.market.ui.animator.SlideInOutBottomItemAnimator;
 import com.zpj.shouji.market.ui.fragment.base.NextUrlFragment;
+import com.zpj.shouji.market.ui.fragment.dialog.BottomListMenuDialogFragment;
+import com.zpj.shouji.market.ui.fragment.dialog.CommonImageViewerDialogFragment;
 import com.zpj.shouji.market.ui.fragment.profile.ProfileFragment;
 import com.zpj.shouji.market.ui.widget.ReplyPanel;
-import com.zpj.shouji.market.ui.widget.popup.BottomListPopupMenu;
-import com.zpj.shouji.market.ui.widget.popup.CommonImageViewerPopup;
 import com.zpj.shouji.market.utils.BeanUtils;
 import com.zpj.utils.NetUtils;
 
@@ -266,23 +266,23 @@ public class ChatFragment extends NextUrlFragment<PrivateLetterInfo>
         } else {
             hideList.add(R.id.delete);
         }
-        BottomListPopupMenu.with(context)
+        new BottomListMenuDialogFragment()
                 .setMenu(R.menu.menu_private_letter)
                 .addHideItem(hideList)
                 .onItemClick((menu, view1, data1) -> {
                     switch (data1.getItemId()) {
                         case R.id.blacklist:
-                            ZPopup.alert(context)
+                            new AlertDialogFragment()
                                     .setTitle("添加黑名单")
                                     .setContent("确定将该用户加入黑名单？")
-                                    .setConfirmButton(popup -> HttpApi.addBlacklistApi(data.getSendId()))
-                                    .show();
+                                    .setPositiveButton(popup -> HttpApi.addBlacklistApi(data.getSendId()))
+                                    .show(context);
                             break;
                         case R.id.cancel_follow:
-                            ZPopup.alert(context)
+                            new AlertDialogFragment()
                                     .setTitle("取消关注")
                                     .setContent("确定取消关注该用户？")
-                                    .setConfirmButton(popup -> HttpApi.deleteFriendApi(data.getSendId())
+                                    .setPositiveButton(popup -> HttpApi.deleteFriendApi(data.getSendId())
                                             .onSuccess(element -> {
                                                 Log.d("deleteFriendApi", "element=" + element);
                                                 String result = element.selectFirst("result").text();
@@ -294,7 +294,7 @@ public class ChatFragment extends NextUrlFragment<PrivateLetterInfo>
                                             })
                                             .onError(throwable -> AToast.error(throwable.getMessage()))
                                             .subscribe())
-                                    .show();
+                                    .show(context);
                             break;
                         case R.id.copy:
                             ClipboardManager cm = (ClipboardManager) context.getSystemService(Context.CLIPBOARD_SERVICE);
@@ -302,10 +302,10 @@ public class ChatFragment extends NextUrlFragment<PrivateLetterInfo>
                             AToast.success("已复制到粘贴板");
                             break;
                         case R.id.delete:
-                            ZPopup.alert(context)
+                            new AlertDialogFragment()
                                     .setTitle("删除信息")
                                     .setContent("确定删除该信息？")
-                                    .setConfirmButton(popup -> HttpApi.deletePrivateLetterApi(data.getId())
+                                    .setPositiveButton(popup -> HttpApi.deletePrivateLetterApi(data.getId())
                                             .onSuccess(element -> {
                                                 Log.d("deleteFriendApi", "element=" + element);
                                                 String result = element.selectFirst("result").text();
@@ -318,7 +318,7 @@ public class ChatFragment extends NextUrlFragment<PrivateLetterInfo>
                                             })
                                             .onError(throwable -> AToast.error(throwable.getMessage()))
                                             .subscribe())
-                                    .show();
+                                    .show(context);
                             break;
                         case R.id.share:
                             AToast.normal("分享");
@@ -326,7 +326,106 @@ public class ChatFragment extends NextUrlFragment<PrivateLetterInfo>
                     }
                     menu.dismiss();
                 })
-                .show();
+                .show(context);
+//        BottomListPopupMenu.with(context)
+//                .setMenu(R.menu.menu_private_letter)
+//                .addHideItem(hideList)
+//                .onItemClick((menu, view1, data1) -> {
+//                    switch (data1.getItemId()) {
+//                        case R.id.blacklist:
+////                            ZPopup.alert(context)
+////                                    .setTitle("添加黑名单")
+////                                    .setContent("确定将该用户加入黑名单？")
+////                                    .setConfirmButton(popup -> HttpApi.addBlacklistApi(data.getSendId()))
+////                                    .show();
+//                            new AlertDialogFragment()
+//                                    .setTitle("添加黑名单")
+//                                    .setContent("确定将该用户加入黑名单？")
+//                                    .setPositiveButton(popup -> HttpApi.addBlacklistApi(data.getSendId()))
+//                                    .show(context);
+//                            break;
+//                        case R.id.cancel_follow:
+//                            new AlertDialogFragment()
+//                                    .setTitle("取消关注")
+//                                    .setContent("确定取消关注该用户？")
+//                                    .setPositiveButton(popup -> HttpApi.deleteFriendApi(data.getSendId())
+//                                            .onSuccess(element -> {
+//                                                Log.d("deleteFriendApi", "element=" + element);
+//                                                String result = element.selectFirst("result").text();
+//                                                if ("success".equals(result)) {
+//                                                    AToast.success("取消关注成功");
+//                                                } else {
+//                                                    AToast.error(element.selectFirst("info").text());
+//                                                }
+//                                            })
+//                                            .onError(throwable -> AToast.error(throwable.getMessage()))
+//                                            .subscribe())
+//                                    .show(context);
+////                            ZPopup.alert(context)
+////                                    .setTitle("取消关注")
+////                                    .setContent("确定取消关注该用户？")
+////                                    .setConfirmButton(popup -> HttpApi.deleteFriendApi(data.getSendId())
+////                                            .onSuccess(element -> {
+////                                                Log.d("deleteFriendApi", "element=" + element);
+////                                                String result = element.selectFirst("result").text();
+////                                                if ("success".equals(result)) {
+////                                                    AToast.success("取消关注成功");
+////                                                } else {
+////                                                    AToast.error(element.selectFirst("info").text());
+////                                                }
+////                                            })
+////                                            .onError(throwable -> AToast.error(throwable.getMessage()))
+////                                            .subscribe())
+////                                    .show();
+//                            break;
+//                        case R.id.copy:
+//                            ClipboardManager cm = (ClipboardManager) context.getSystemService(Context.CLIPBOARD_SERVICE);
+//                            cm.setPrimaryClip(ClipData.newPlainText(null, data.getContent()));
+//                            AToast.success("已复制到粘贴板");
+//                            break;
+//                        case R.id.delete:
+//                            new AlertDialogFragment()
+//                                    .setTitle("删除信息")
+//                                    .setContent("确定删除该信息？")
+//                                    .setPositiveButton(popup -> HttpApi.deletePrivateLetterApi(data.getId())
+//                                            .onSuccess(element -> {
+//                                                Log.d("deleteFriendApi", "element=" + element);
+//                                                String result = element.selectFirst("result").text();
+//                                                if ("success".equals(result)) {
+//                                                    AToast.success("删除成功");
+//                                                    onRefresh();
+//                                                } else {
+//                                                    AToast.error(element.selectFirst("info").text());
+//                                                }
+//                                            })
+//                                            .onError(throwable -> AToast.error(throwable.getMessage()))
+//                                            .subscribe())
+//                                    .show(context);
+////                            ZPopup.alert(context)
+////                                    .setTitle("删除信息")
+////                                    .setContent("确定删除该信息？")
+////                                    .setConfirmButton(popup -> HttpApi.deletePrivateLetterApi(data.getId())
+////                                            .onSuccess(element -> {
+////                                                Log.d("deleteFriendApi", "element=" + element);
+////                                                String result = element.selectFirst("result").text();
+////                                                if ("success".equals(result)) {
+////                                                    AToast.success("删除成功");
+////                                                    onRefresh();
+////                                                } else {
+////                                                    AToast.error(element.selectFirst("info").text());
+////                                                }
+////                                            })
+////                                            .onError(throwable -> AToast.error(throwable.getMessage()))
+////                                            .subscribe())
+////                                    .show();
+//                            break;
+//                        case R.id.share:
+//                            AToast.normal("分享");
+//                            break;
+//                    }
+//                    menu.dismiss();
+//                })
+//                .show();
         return super.onLongClick(holder, view, data);
     }
 
@@ -344,7 +443,17 @@ public class ChatFragment extends NextUrlFragment<PrivateLetterInfo>
 
             @Override
             public void onNineGirdItemClick(int position, NineGridBean gridBean, NineGirdImageContainer imageContainer) {
-                CommonImageViewerPopup.with(context)
+//                CommonImageViewerPopup.with(context)
+//                        .setOriginalImageList(info.getPics())
+//                        .setImageSizeList(info.getSizes())
+//                        .setImageUrls(AppConfig.isShowOriginalImage() && NetUtils.isWiFi(context) ? info.getPics() : info.getSpics())
+//                        .setSrcView(imageContainer.getImageView(), position)
+//                        .setSrcViewUpdateListener((popup, pos) -> {
+//                            NineGirdImageContainer view = (NineGirdImageContainer) nineGridImageView.getChildAt(pos);
+//                            popup.updateSrcView(view.getImageView());
+//                        })
+//                        .show();
+                new CommonImageViewerDialogFragment()
                         .setOriginalImageList(info.getPics())
                         .setImageSizeList(info.getSizes())
                         .setImageUrls(AppConfig.isShowOriginalImage() && NetUtils.isWiFi(context) ? info.getPics() : info.getSpics())
@@ -353,7 +462,7 @@ public class ChatFragment extends NextUrlFragment<PrivateLetterInfo>
                             NineGirdImageContainer view = (NineGirdImageContainer) nineGridImageView.getChildAt(pos);
                             popup.updateSrcView(view.getImageView());
                         })
-                        .show();
+                        .show(context);
             }
 
             @Override

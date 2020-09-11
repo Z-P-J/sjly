@@ -15,13 +15,8 @@ import android.view.View;
 
 import com.bumptech.glide.Glide;
 import com.felix.atoast.library.AToast;
-import com.like.LikeButton;
 import com.zpj.fragmentation.BaseFragment;
-import com.zpj.popup.ZPopup;
-import com.zpj.popup.animator.ScrollScaleAnimator;
-import com.zpj.popup.enums.PopupAnimation;
-import com.zpj.recyclerview.EasyViewHolder;
-import com.zpj.recyclerview.IEasy;
+import com.zpj.fragmentation.dialog.impl.AttachListDialogFragment;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.api.BookingApi;
 import com.zpj.shouji.market.api.HttpApi;
@@ -40,13 +35,13 @@ import com.zpj.shouji.market.model.QuickAppInfo;
 import com.zpj.shouji.market.model.UserDownloadedAppInfo;
 import com.zpj.shouji.market.ui.adapter.FragmentsPagerAdapter;
 import com.zpj.shouji.market.ui.fragment.WebFragment;
+import com.zpj.shouji.market.ui.fragment.dialog.AppCommentDialogFragment;
+import com.zpj.shouji.market.ui.fragment.dialog.AppUrlCenterListDialogFragment;
+import com.zpj.shouji.market.ui.fragment.dialog.CommentDialogFragment;
+import com.zpj.shouji.market.ui.fragment.dialog.ShareDialogFragment;
 import com.zpj.shouji.market.ui.fragment.login.LoginFragment;
 import com.zpj.shouji.market.ui.fragment.manager.AppManagerFragment;
 import com.zpj.shouji.market.ui.widget.AppDetailLayout;
-import com.zpj.shouji.market.ui.widget.popup.AppCommentPopup;
-import com.zpj.shouji.market.ui.widget.popup.AppUrlCenterListPopup;
-import com.zpj.shouji.market.ui.widget.popup.CommentPopup;
-import com.zpj.shouji.market.ui.widget.popup.SharePopup;
 import com.zpj.shouji.market.utils.Callback;
 import com.zpj.shouji.market.utils.MagicIndicatorHelper;
 import com.zpj.widget.statelayout.StateLayout;
@@ -59,7 +54,6 @@ import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class AppDetailFragment extends BaseFragment
         implements View.OnClickListener {
@@ -81,14 +75,15 @@ public class AppDetailFragment extends BaseFragment
 
     private TintedImageButton btnShare;
     private TintedImageButton btnCollect;
-//    private LikeButton btnCollect;
+    //    private LikeButton btnCollect;
     private TintedImageButton btnMenu;
 
     private AppDetailLayout appDetailLayout;
     private ViewPager viewPager;
     private MagicIndicator magicIndicator;
 
-    private CommentPopup commentPopup;
+    //    private CommentPopup commentPopup;
+    private CommentDialogFragment commentDialogFragment;
 
     private AppDetailInfo info;
 
@@ -176,10 +171,12 @@ public class AppDetailFragment extends BaseFragment
 
     @Override
     public void onDestroy() {
+        commentDialogFragment = null;
         super.onDestroy();
         EventBus.getDefault().unregister(this);
-        commentPopup = null;
+//        commentPopup = null;
     }
+
     @Override
     protected void initView(View view, @Nullable Bundle savedInstanceState) {
         if (getArguments() != null) {
@@ -362,9 +359,12 @@ public class AppDetailFragment extends BaseFragment
         } else if (v == fabComment) {
             onFabClicked();
         } else if (v == btnShare) {
-            SharePopup.with(getContext())
-                    .setShareContent(getContext().getString(R.string.text_app_share_content, info.getName(), info.getId()))
-                    .show();
+            new ShareDialogFragment()
+                    .setShareContent(getString(R.string.text_app_share_content, info.getName(), info.getId()))
+                    .show(context);
+//            SharePopup.with(getContext())
+//                    .setShareContent(getContext().getString(R.string.text_app_share_content, info.getName(), info.getId()))
+//                    .show();
         } else if (v == btnCollect) {
             if (!UserManager.getInstance().isLogin()) {
                 AToast.warning(R.string.text_msg_not_login);
@@ -390,7 +390,7 @@ public class AppDetailFragment extends BaseFragment
     }
 
     private void showMenu() {
-        ZPopup.attachList(context)
+        new AttachListDialogFragment<String>()
                 .addItems("下载管理", "复制包名", "浏览器中打开")
                 .addItemIf(UserManager.getInstance().isLogin(), "添加到应用集")
                 .setOnSelectListener((position, title) -> {
@@ -414,7 +414,34 @@ public class AppDetailFragment extends BaseFragment
                             break;
                     }
                 })
-                .show(btnMenu);
+                .setAttachView(btnMenu)
+                .show(this);
+
+//        ZPopup.attachList(context)
+//                .addItems("下载管理", "复制包名", "浏览器中打开")
+//                .addItemIf(UserManager.getInstance().isLogin(), "添加到应用集")
+//                .setOnSelectListener((position, title) -> {
+//                    switch (position) {
+//                        case 0:
+//                            AppManagerFragment.start();
+//                            break;
+//                        case 1:
+//                            ClipboardManager cm = (ClipboardManager) context.getSystemService(Context.CLIPBOARD_SERVICE);
+//                            cm.setPrimaryClip(ClipData.newPlainText(null, info.getPackageName()));
+//                            AToast.success("已复制到粘贴板");
+//                            break;
+//                        case 2:
+//                            WebFragment.appPage(type, id);
+////                                AToast.normal("TODO 分享主页");
+//                            break;
+//                        case 3:
+//                            AToast.normal("TODO " + title);
+//                            break;
+//                        case 4:
+//                            break;
+//                    }
+//                })
+//                .show(btnMenu);
     }
 
     private void onFabClicked() {
@@ -433,9 +460,12 @@ public class AppDetailFragment extends BaseFragment
                     AToast.warning("已预约，应用上架后将及时通知您");
                 }
             } else {
-                AppUrlCenterListPopup.with(context)
+                new AppUrlCenterListDialogFragment()
                         .setAppDetailInfo(info)
-                        .show();
+                        .show(context);
+//                AppUrlCenterListPopup.with(context)
+//                        .setAppDetailInfo(info)
+//                        .show();
             }
         } else {
             if (!UserManager.getInstance().isLogin()) {
@@ -445,16 +475,26 @@ public class AppDetailFragment extends BaseFragment
             }
             fabComment.hide();
             setSwipeBackEnable(false);
-            if (commentPopup == null) {
-                commentPopup = AppCommentPopup.with(context, id, type, "", () -> commentPopup = null)
-                        .setDecorView(findViewById(R.id.fl_container))
-                        .setOnDismissListener(() -> {
-                            setSwipeBackEnable(true);
-                            fabComment.show();
-                        })
-                        .show();
+
+            if (commentDialogFragment == null) {
+                commentDialogFragment = AppCommentDialogFragment.with(context, id, type, "", () -> commentDialogFragment = null);
+                commentDialogFragment.setOnDismissListener(() -> {
+                    setSwipeBackEnable(true);
+                    fabComment.show();
+                });
             }
-            commentPopup.show();
+            commentDialogFragment.show(context);
+
+//            if (commentPopup == null) {
+//                commentPopup = AppCommentPopup.with(context, id, type, "", () -> commentPopup = null)
+//                        .setDecorView(findViewById(R.id.fl_container))
+//                        .setOnDismissListener(() -> {
+//                            setSwipeBackEnable(true);
+//                            fabComment.show();
+//                        })
+//                        .show();
+//            }
+//            commentPopup.show();
         }
     }
 

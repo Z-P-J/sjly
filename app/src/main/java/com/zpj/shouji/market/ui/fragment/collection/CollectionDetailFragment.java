@@ -30,18 +30,17 @@ import com.zpj.shouji.market.glide.blur.BlurTransformation;
 import com.zpj.shouji.market.manager.UserManager;
 import com.zpj.shouji.market.model.CollectionInfo;
 import com.zpj.shouji.market.ui.adapter.FragmentsPagerAdapter;
+import com.zpj.shouji.market.ui.fragment.dialog.CommentDialogFragment;
 import com.zpj.shouji.market.ui.fragment.login.LoginFragment;
 import com.zpj.shouji.market.ui.fragment.profile.ProfileFragment;
 import com.zpj.shouji.market.ui.widget.DrawableTintTextView;
 import com.zpj.shouji.market.ui.widget.emoji.EmojiExpandableTextView;
-import com.zpj.shouji.market.ui.widget.popup.CommentPopup;
 import com.zpj.shouji.market.utils.MagicIndicatorHelper;
 import com.zpj.widget.statelayout.StateLayout;
 
 import net.lucode.hackware.magicindicator.MagicIndicator;
 
 import java.util.ArrayList;
-import java.util.Objects;
 
 public class CollectionDetailFragment extends BaseFragment
         implements View.OnClickListener {
@@ -69,7 +68,9 @@ public class CollectionDetailFragment extends BaseFragment
 
     private FloatingActionButton fabComment;
 
-    private CommentPopup commentPopup;
+//    private CommentPopup commentPopup;
+
+    private CommentDialogFragment commentDialogFragment;
 
     private String backgroundUrl;
     private String time;
@@ -341,21 +342,39 @@ public class CollectionDetailFragment extends BaseFragment
 
                 viewPager.setCurrentItem(1);
                 fabComment.hide();
-                if (commentPopup == null) {
-                    commentPopup = CommentPopup.with(
+
+                if (commentDialogFragment == null) {
+                    commentDialogFragment = CommentDialogFragment.with(
                             context,
                             item.getId(),
                             item.getNickName(),
                             item.getContentType(),
                             () -> {
-                                commentPopup = null;
+                                commentDialogFragment = null;
                                 RefreshEvent.postEvent();
-                            })
-                            .setDecorView(Objects.requireNonNull(getView()).findViewById(R.id.fl_container))
-                            .setOnDismissListener(() -> fabComment.show())
-                            .show();
+                            });
+                    commentDialogFragment.setOnDismissListener(() -> fabComment.show());
                 }
-                commentPopup.show();
+//                else {
+//                    _mActivity.showHideFragment(commentDialogFragment);
+//                }
+                commentDialogFragment.show(context);
+
+//                if (commentPopup == null) {
+//                    commentPopup = CommentPopup.with(
+//                            context,
+//                            item.getId(),
+//                            item.getNickName(),
+//                            item.getContentType(),
+//                            () -> {
+//                                commentPopup = null;
+//                                RefreshEvent.postEvent();
+//                            })
+//                            .setDecorView(Objects.requireNonNull(getView()).findViewById(R.id.fl_container))
+//                            .setOnDismissListener(() -> fabComment.show())
+//                            .show();
+//                }
+//                commentPopup.show();
                 break;
             case R.id.iv_avatar:
             case R.id.tv_user_name:

@@ -1,16 +1,15 @@
 package com.zpj.shouji.market.event;
 
-import com.zpj.popup.interfaces.OnDismissListener;
+import com.zpj.fragmentation.dialog.IDialog;
 
 import java.util.concurrent.TimeUnit;
 
 import io.reactivex.Observable;
-import io.reactivex.functions.Action;
 
 public class HideLoadingEvent extends BaseEvent {
 
 //    private Runnable runnable;
-    private OnDismissListener onDismissListener;
+    private IDialog.OnDismissListener onDismissListener;
 
     public HideLoadingEvent() {
 
@@ -20,7 +19,7 @@ public class HideLoadingEvent extends BaseEvent {
 //        return runnable;
 //    }
 
-    public OnDismissListener getOnDismissListener() {
+    public IDialog.OnDismissListener getOnDismissListener() {
         return onDismissListener;
     }
 
@@ -28,13 +27,13 @@ public class HideLoadingEvent extends BaseEvent {
         new HideLoadingEvent().post();
     }
 
-    public static void post(OnDismissListener onDismissListener) {
+    public static void post(IDialog.OnDismissListener onDismissListener) {
         HideLoadingEvent event = new HideLoadingEvent();
         event.onDismissListener = onDismissListener;
         event.post();
     }
 
-    public static void post(long delay, OnDismissListener onDismissListener) {
+    public static void post(long delay, IDialog.OnDismissListener onDismissListener) {
         Observable.timer(delay, TimeUnit.MILLISECONDS)
                 .doOnComplete(() -> post(onDismissListener))
                 .subscribe();

@@ -9,6 +9,7 @@ import com.zpj.downloader.util.io.BufferedRandomAccessFile;
 import com.zpj.downloader.util.permission.PermissionUtil;
 
 import java.io.BufferedInputStream;
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.HttpURLConnection;
@@ -228,7 +229,8 @@ public class DownloadRunnable implements Runnable {
         Log.d(TAG, "thread " + mId + " exited main loop");
         Log.d(TAG, "mMission.getDone()=" + mMission.getDone());
         Log.d(TAG, "mMission.getLength()=" + mMission.getLength());
-        if (mMission.getErrCode() == -1 && mMission.isRunning() && (mMission.getDone() == mMission.getLength() || mMission.isFallback())) {
+		File file = mMission.getFile();
+        if (mMission.getErrCode() == -1 && mMission.isRunning() && (mMission.getDone() == mMission.getLength() || (file != null && mMission.getLength() == file.length()) || mMission.isFallback())) {
             Log.d(TAG, "no error has happened, notifying");
             notifyFinished();
         }

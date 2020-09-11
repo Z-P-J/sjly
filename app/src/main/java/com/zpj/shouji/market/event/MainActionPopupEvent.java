@@ -1,7 +1,5 @@
 package com.zpj.shouji.market.event;
 
-import com.zpj.shouji.market.ui.widget.popup.MainActionPopup;
-
 import org.greenrobot.eventbus.EventBus;
 
 public class MainActionPopupEvent {

@@ -39,7 +39,6 @@ import com.zpj.matisse.event.UpdateTitleEvent;
 import com.zpj.matisse.model.AlbumMediaManager;
 import com.zpj.matisse.model.SelectedItemManager;
 import com.zpj.matisse.ui.widget.CheckView;
-import com.zpj.matisse.ui.widget.CustomImageViewerPopup;
 import com.zpj.matisse.ui.widget.MediaGrid;
 import com.zpj.matisse.ui.widget.MediaGridInset;
 import com.zpj.matisse.utils.UIUtils;
@@ -189,8 +188,7 @@ public class MediaSelectionFragment extends BaseFragment implements
     @Override
     public void onThumbnailClicked(ImageView thumbnail, Item item, EasyViewHolder holder) {
         final int position = holder.getAdapterPosition();
-        CustomImageViewerPopup.with(thumbnail.getContext())
-//                .setCheckStateListener(this::notifyCheckStateChanged)
+        new CustomImageViewerDialogFragment()
                 .setSelectedItemManager(mSelectedCollection)
                 .setCountable(mSpec.countable)
                 .setSingleSelectionModeEnabled(mSpec.singleSelectionModeEnabled())
@@ -208,7 +206,28 @@ public class MediaSelectionFragment extends BaseFragment implements
                     }
                     popupView.updateSrcView(imageView);
                 })
-                .show();
+                .show(context);
+
+//        CustomImageViewerPopup.with(thumbnail.getContext())
+////                .setCheckStateListener(this::notifyCheckStateChanged)
+//                .setSelectedItemManager(mSelectedCollection)
+//                .setCountable(mSpec.countable)
+//                .setSingleSelectionModeEnabled(mSpec.singleSelectionModeEnabled())
+//                .setImageUrls(itemList)
+//                .setSrcView(thumbnail, holder.getAdapterPosition())
+//                .setSrcViewUpdateListener((popupView, pos) -> {
+//                    RecyclerView recyclerView = recyclerLayout.getEasyRecyclerView().getRecyclerView();
+//                    int layoutPos = recyclerView.indexOfChild(holder.getItemView());
+//                    View view = recyclerView.getChildAt(layoutPos + pos - position);
+//                    ImageView imageView;
+//                    if (view != null) {
+//                        imageView = view.findViewById(R.id.media_thumbnail);
+//                    } else {
+//                        imageView = thumbnail;
+//                    }
+//                    popupView.updateSrcView(imageView);
+//                })
+//                .show();
 
 //        CustomImageViewerPopup2.with(context)
 //                .setImageList(itemList)

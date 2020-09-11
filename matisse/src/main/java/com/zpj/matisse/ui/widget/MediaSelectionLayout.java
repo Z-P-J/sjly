@@ -19,16 +19,21 @@ import android.content.Context;
 import android.database.Cursor;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 
 import com.felix.atoast.library.AToast;
+import com.zpj.fragmentation.BaseFragment;
+import com.zpj.fragmentation.anim.DefaultHorizontalAnimator;
+import com.zpj.fragmentation.anim.FragmentAnimator;
 import com.zpj.matisse.R;
 import com.zpj.matisse.entity.Album;
 import com.zpj.matisse.entity.IncapableCause;
@@ -37,6 +42,7 @@ import com.zpj.matisse.entity.SelectionSpec;
 import com.zpj.matisse.event.UpdateTitleEvent;
 import com.zpj.matisse.model.AlbumMediaManager;
 import com.zpj.matisse.model.SelectedItemManager;
+import com.zpj.matisse.ui.fragment.CustomImageViewerDialogFragment;
 import com.zpj.matisse.ui.fragment.MatisseFragment;
 import com.zpj.matisse.utils.UIUtils;
 import com.zpj.recyclerview.EasyRecyclerLayout;
@@ -116,6 +122,7 @@ public class MediaSelectionLayout extends EasyRecyclerLayout<Item> implements
         showLoading();
         mAlbumMediaManager.onCreate(activity, MediaSelectionLayout.this);
         mAlbumMediaManager.load(album);
+        AToast.normal("loadAlbum");
     }
 
     public void onDestroy() {
@@ -126,6 +133,7 @@ public class MediaSelectionLayout extends EasyRecyclerLayout<Item> implements
 
     @Override
     public void onAlbumMediaLoad(Cursor cursor) {
+        AToast.normal("onAlbumMediaLoad");
         itemList.clear();
         cursor.moveToFirst();
         do {
@@ -166,8 +174,7 @@ public class MediaSelectionLayout extends EasyRecyclerLayout<Item> implements
     @Override
     public void onThumbnailClicked(ImageView thumbnail, Item item, EasyViewHolder holder) {
         final int position = holder.getAdapterPosition();
-        CustomImageViewerPopup.with(thumbnail.getContext())
-//                .setCheckStateListener(this::notifyCheckStateChanged)
+        new CustomImageViewerDialogFragment()
                 .setSelectedItemManager(mSelectedCollection)
                 .setCountable(mSpec.countable)
                 .setSingleSelectionModeEnabled(mSpec.singleSelectionModeEnabled())
@@ -185,7 +192,7 @@ public class MediaSelectionLayout extends EasyRecyclerLayout<Item> implements
                     }
                     popupView.updateSrcView(imageView);
                 })
-                .show();
+                .show(getContext());
     }
 
     @Override

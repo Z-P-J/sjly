@@ -16,7 +16,6 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.felix.atoast.library.AToast;
 import com.shehuan.niv.NiceImageView;
-import com.zpj.popup.interfaces.OnDismissListener;
 import com.zpj.recyclerview.EasyViewHolder;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.api.HttpApi;
@@ -29,10 +28,10 @@ import com.zpj.shouji.market.model.DiscoverInfo;
 import com.zpj.shouji.market.ui.adapter.DiscoverBinder;
 import com.zpj.shouji.market.ui.adapter.FragmentsPagerAdapter;
 import com.zpj.shouji.market.ui.fragment.base.ListenerFragment;
+import com.zpj.shouji.market.ui.fragment.dialog.CommentDialogFragment;
+import com.zpj.shouji.market.ui.fragment.dialog.ShareDialogFragment;
+import com.zpj.shouji.market.ui.fragment.dialog.ThemeMoreDialogFragment;
 import com.zpj.shouji.market.ui.fragment.login.LoginFragment;
-import com.zpj.shouji.market.ui.widget.popup.CommentPopup;
-import com.zpj.shouji.market.ui.widget.popup.SharePopup;
-import com.zpj.shouji.market.ui.widget.popup.ThemeMorePopupMenu;
 import com.zpj.shouji.market.utils.MagicIndicatorHelper;
 import com.zpj.widget.tinted.TintedImageButton;
 
@@ -40,14 +39,14 @@ import net.lucode.hackware.magicindicator.MagicIndicator;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 public class ThemeDetailFragment extends ListenerFragment {
 
     private final String[] TAB_TITLES = {"评论", "点赞"};
 
     private FloatingActionButton fabComment;
-    private CommentPopup commentPopup;
+//    private CommentPopup commentPopup;
+    private CommentDialogFragment commentDialogFragment;
     private ViewPager viewPager;
     private MagicIndicator magicIndicator;
 
@@ -124,9 +123,12 @@ public class ThemeDetailFragment extends ListenerFragment {
         discoverInfoList.add(item);
         binder.onBindViewHolder(holder, discoverInfoList, 0, new ArrayList<>(0));
         holder.setOnItemLongClickListener(v -> {
-            ThemeMorePopupMenu.with(context)
+//            ThemeMorePopupMenu.with(context)
+//                    .setDiscoverInfo(item)
+//                    .show();
+            new ThemeMoreDialogFragment()
                     .setDiscoverInfo(item)
-                    .show();
+                    .show(context);
             return true;
         });
 
@@ -175,9 +177,12 @@ public class ThemeDetailFragment extends ListenerFragment {
         btnShare.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                SharePopup.with(context)
-                        .setShareContent(context.getString(R.string.text_theme_share_content, item.getContent(), item.getId()))
-                        .show();
+                new ShareDialogFragment()
+                        .setShareContent(getString(R.string.text_theme_share_content, item.getContent(), item.getId()))
+                        .show(context);
+//                SharePopup.with(context)
+//                        .setShareContent(context.getString(R.string.text_theme_share_content, item.getContent(), item.getId()))
+//                        .show();
             }
         });
         btnCollect.setTint(Color.BLACK);
@@ -245,17 +250,23 @@ public class ThemeDetailFragment extends ListenerFragment {
     @Override
     public void onResume() {
         super.onResume();
-        if (commentPopup != null) {
-            commentPopup.show();
-        }
+//        if (commentPopup != null) {
+//            commentPopup.show();
+//        }
     }
 
     @Override
     public void onPause() {
         super.onPause();
-        if (commentPopup != null) {
-            commentPopup.hide();
-        }
+//        if (commentPopup != null) {
+//            commentPopup.hide();
+//        }
+    }
+
+    @Override
+    public void onDestroy() {
+        commentDialogFragment = null;
+        super.onDestroy();
     }
 
     private void showCommentPopup() {
@@ -265,22 +276,33 @@ public class ThemeDetailFragment extends ListenerFragment {
             return;
         }
         fabComment.hide();
-        if (commentPopup == null) {
-            commentPopup = CommentPopup.with(
+        if (commentDialogFragment == null) {
+            commentDialogFragment = CommentDialogFragment.with(
                     context, item.getId(), item.getNickName(), item.getContentType(), () -> {
-                        commentPopup = null;
+                        commentDialogFragment = null;
                         RefreshEvent.postEvent();
-                    })
-                    .setDecorView(Objects.requireNonNull(getView()).findViewById(R.id.fl_container))
-                    .setOnDismissListener(new OnDismissListener() {
-                        @Override
-                        public void onDismiss() {
-                            fabComment.show();
-                        }
-                    })
-                    .show();
+                    });
+            commentDialogFragment.setOnDismissListener(() -> fabComment.show());
         }
-        commentPopup.show();
+        commentDialogFragment.show(context);
+
+
+//        if (commentPopup == null) {
+//            commentPopup = CommentPopup.with(
+//                    context, item.getId(), item.getNickName(), item.getContentType(), () -> {
+//                        commentPopup = null;
+//                        RefreshEvent.postEvent();
+//                    })
+//                    .setDecorView(Objects.requireNonNull(getView()).findViewById(R.id.fl_container))
+//                    .setOnDismissListener(new OnDismissListener() {
+//                        @Override
+//                        public void onDismiss() {
+//                            fabComment.show();
+//                        }
+//                    })
+//                    .show();
+//        }
+//        commentPopup.show();
     }
 
     private void setDiscoverInfo(DiscoverInfo discoverInfo) {

@@ -11,8 +11,6 @@ import android.widget.RelativeLayout;
 
 import com.bumptech.glide.Glide;
 import com.cb.ratingbar.CBRatingBar;
-import com.zpj.http.core.IHttp;
-import com.zpj.http.parser.html.nodes.Document;
 import com.zpj.recyclerview.EasyRecyclerLayout;
 import com.zpj.recyclerview.EasyViewHolder;
 import com.zpj.recyclerview.IEasy;
@@ -25,8 +23,7 @@ import com.zpj.shouji.market.manager.UserManager;
 import com.zpj.shouji.market.model.AppDetailInfo;
 import com.zpj.shouji.market.model.DiscoverInfo;
 import com.zpj.shouji.market.ui.fragment.theme.ThemeListFragment;
-import com.zpj.shouji.market.ui.widget.popup.AppRatingPopup;
-import com.zpj.shouji.market.utils.Callback;
+import com.zpj.shouji.market.ui.fragment.dialog.AppRatingDialogFragment;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -113,14 +110,22 @@ public class AppDetailCommentFragment extends ThemeListFragment {
                     rlMyScore.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            AppRatingPopup.with(context)
+                            new AppRatingDialogFragment()
                                     .setAppDetailInfo(info)
                                     .setStarProgress(myRating.getStarProgress())
                                     .setCallback(progress -> {
                                         holder.setText(R.id.tv_text, "我的打分");
                                         myRating.setStarProgress(progress);
                                     })
-                                    .show();
+                                    .show(context);
+//                            AppRatingPopup.with(context)
+//                                    .setAppDetailInfo(info)
+//                                    .setStarProgress(myRating.getStarProgress())
+//                                    .setCallback(progress -> {
+//                                        holder.setText(R.id.tv_text, "我的打分");
+//                                        myRating.setStarProgress(progress);
+//                                    })
+//                                    .show();
                         }
                     });
                 } else {

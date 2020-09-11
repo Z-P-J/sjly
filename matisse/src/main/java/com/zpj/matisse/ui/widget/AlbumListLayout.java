@@ -25,14 +25,24 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentActivity;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.AttributeSet;
+import android.view.View;
 
+import com.zpj.fragmentation.BaseFragment;
+import com.zpj.fragmentation.anim.DefaultHorizontalAnimator;
+import com.zpj.fragmentation.anim.FragmentAnimator;
 import com.zpj.matisse.R;
 import com.zpj.matisse.entity.Album;
 import com.zpj.matisse.entity.SelectionSpec;
+import com.zpj.matisse.event.UpdateTitleEvent;
 import com.zpj.matisse.model.AlbumManager;
+import com.zpj.matisse.ui.fragment.MediaSelectionFragment;
+import com.zpj.recyclerview.EasyRecyclerLayout;
 import com.zpj.recyclerview.EasyRecyclerView;
+import com.zpj.recyclerview.EasyViewHolder;
+import com.zpj.recyclerview.IEasy;
 
 import java.io.File;
 import java.util.ArrayList;

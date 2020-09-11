@@ -35,7 +35,6 @@ import com.zpj.matisse.entity.SelectionSpec;
 import com.zpj.matisse.event.UpdateTitleEvent;
 import com.zpj.matisse.model.SelectedItemManager;
 import com.zpj.matisse.ui.widget.CheckRadioView;
-import com.zpj.matisse.ui.widget.CustomImageViewerPopup;
 import com.zpj.matisse.ui.widget.IncapableDialog;
 import com.zpj.matisse.utils.MediaStoreCompat;
 import com.zpj.matisse.utils.PhotoMetadataUtils;
@@ -119,8 +118,14 @@ public class MatisseFragment extends BaseFragment implements
         AlbumFragment albumFragment = findChildFragment(AlbumFragment.class);
         if (albumFragment == null) {
             albumFragment = new AlbumFragment();
-            loadRootFragment(R.id.container, albumFragment);
+            loadRootFragment(R.id.container, albumFragment, false, false);
         }
+    }
+
+    @Override
+    public void onSupportVisible() {
+        super.onSupportVisible();
+        darkStatusBar();
     }
 
     @Override
@@ -287,12 +292,20 @@ public class MatisseFragment extends BaseFragment implements
     @Override
     public void onClick(View v) {
         if (v.getId() == R.id.button_preview) {
-            CustomImageViewerPopup.with(context)
+            new CustomImageViewerDialogFragment()
                     .setCountable(mSpec.countable)
                     .setSingleSelectionModeEnabled(mSpec.singleSelectionModeEnabled())
                     .setSelectedItemManager(mSelectedCollection)
                     .setImageUrls(mSelectedCollection.asList())
-                    .show();
+                    .show(context);
+
+
+//            CustomImageViewerPopup.with(context)
+//                    .setCountable(mSpec.countable)
+//                    .setSingleSelectionModeEnabled(mSpec.singleSelectionModeEnabled())
+//                    .setSelectedItemManager(mSelectedCollection)
+//                    .setImageUrls(mSelectedCollection.asList())
+//                    .show();
 
 //            CustomImageViewerPopup2.with(context)
 //                    .setImageList(mSelectedCollection.asList())

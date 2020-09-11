@@ -42,7 +42,6 @@ public class App extends Application {
 //                ,"umeng",UMConfigure.DEVICE_TYPE_PHONE,"");
 
         AToast.onInit(this);
-//        ZDownloader.init(this);
         ZDownloader.init(
                 DownloaderConfig.with(this)
                         .setUserAgent("Sjly(3.0)")

@@ -18,10 +18,10 @@ import com.zpj.shouji.market.model.CollectionInfo;
 import com.zpj.shouji.market.model.DiscoverInfo;
 import com.zpj.shouji.market.ui.adapter.FragmentsPagerAdapter;
 import com.zpj.shouji.market.ui.fragment.AppListFragment;
-import com.zpj.shouji.market.ui.fragment.wallpaper.WallpaperListFragment;
 import com.zpj.shouji.market.ui.fragment.collection.CollectionListFragment;
+import com.zpj.shouji.market.ui.fragment.dialog.ThemeMoreDialogFragment;
 import com.zpj.shouji.market.ui.fragment.theme.ThemeListFragment;
-import com.zpj.shouji.market.ui.widget.popup.ThemeMorePopupMenu;
+import com.zpj.shouji.market.ui.fragment.wallpaper.WallpaperListFragment;
 import com.zpj.shouji.market.utils.MagicIndicatorHelper;
 
 import net.lucode.hackware.magicindicator.MagicIndicator;
@@ -183,10 +183,14 @@ public class MyCollectionFragment extends BaseFragment {
 
         @Override
         public boolean onLongClick(EasyViewHolder holder, View view, DiscoverInfo data) {
-            ThemeMorePopupMenu.with(context)
+            new ThemeMoreDialogFragment()
                     .setDiscoverInfo(data)
                     .isCollection()
-                    .show();
+                    .show(context);
+//            ThemeMorePopupMenu.with(context)
+//                    .setDiscoverInfo(data)
+//                    .isCollection()
+//                    .show();
             return true;
         }
     }
@@ -241,10 +245,14 @@ public class MyCollectionFragment extends BaseFragment {
 
         @Override
         public boolean onLongClick(EasyViewHolder holder, View view, DiscoverInfo data) {
-            ThemeMorePopupMenu.with(context)
+//            ThemeMorePopupMenu.with(context)
+//                    .setDiscoverInfo(data)
+//                    .isCollection()
+//                    .show();
+            new ThemeMoreDialogFragment()
                     .setDiscoverInfo(data)
                     .isCollection()
-                    .show();
+                    .show(context);
             return true;
         }
 

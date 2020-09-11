@@ -4,8 +4,8 @@ import android.text.TextUtils;
 import android.view.View;
 
 import com.bumptech.glide.Glide;
+import com.zpj.fragmentation.dialog.impl.AlertDialogFragment;
 import com.zpj.http.parser.html.nodes.Element;
-import com.zpj.popup.ZPopup;
 import com.zpj.recyclerview.EasyViewHolder;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.api.BookingApi;
@@ -76,13 +76,20 @@ public class BookingAppListFragment extends NextUrlFragment<BookingAppInfo> {
     }
 
     protected void showCancelBookingPopup(BookingAppInfo appInfo, Runnable runnable) {
-        ZPopup.alert(context)
+        new AlertDialogFragment()
                 .setTitle("取消预约？")
                 .setContent("确定取消预约？取消预约后您将不能及时在软件上架时及时收到通知。")
-                .setConfirmButton(popup -> {
-                    postDelayed(() -> BookingApi.cancelBookingApi(appInfo, runnable), popup.getAnimationDuration());
+                .setPositiveButton(popup -> {
+                    BookingApi.cancelBookingApi(appInfo, runnable);
                 })
-                .show();
+                .show(context);
+//        ZPopup.alert(context)
+//                .setTitle("取消预约？")
+//                .setContent("确定取消预约？取消预约后您将不能及时在软件上架时及时收到通知。")
+//                .setConfirmButton(popup -> {
+//                    postDelayed(() -> BookingApi.cancelBookingApi(appInfo, runnable), popup.getAnimationDuration());
+//                })
+//                .show();
     }
 
     private final Runnable refreshRunnable = new Runnable() {

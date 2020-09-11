@@ -12,6 +12,8 @@
     <string name="title_soft">应用乐园</string>
     <string name="title_game">游戏乐园</string>
 
+    <string name="text_download">下载</string>
+
     <string name="text_msg_not_login">登录后发现更多乐趣!</string>
     <string name="text_agreement">同意[《用户协议》](https://m.shouji.com.cn/sjlyyhxy.html)和[《隐私协议》](https://m.shouji.com.cn/ysxy.html)!</string>
 

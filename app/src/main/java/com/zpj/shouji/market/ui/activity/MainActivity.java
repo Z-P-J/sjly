@@ -1,7 +1,6 @@
 package com.zpj.shouji.market.ui.activity;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
@@ -12,34 +11,24 @@ import android.provider.Settings;
 import android.support.v4.app.ActivityCompat;
 import android.util.Log;
 import android.view.View;
-import android.view.WindowManager;
-import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
-import com.bumptech.glide.Glide;
 import com.felix.atoast.library.AToast;
-import com.lqr.emoji.IImageLoader;
-import com.lqr.emoji.LQREmotionKit;
 import com.lxj.xpermission.PermissionConstants;
 import com.lxj.xpermission.XPermission;
-import com.maning.librarycrashmonitor.MCrashMonitor;
-import com.raizlabs.android.dbflow.config.FlowManager;
 import com.yalantis.ucrop.CropEvent;
 import com.zpj.downloader.ZDownloader;
 import com.zpj.downloader.util.permission.PermissionUtil;
 import com.zpj.fragmentation.SupportActivity;
 import com.zpj.fragmentation.SupportFragment;
-import com.zpj.fragmentation.anim.DefaultHorizontalAnimator;
-import com.zpj.fragmentation.anim.DefaultVerticalAnimator;
 import com.zpj.fragmentation.anim.FragmentAnimator;
+import com.zpj.fragmentation.dialog.impl.AlertDialogFragment;
+import com.zpj.fragmentation.dialog.impl.LoadingDialogFragment;
 import com.zpj.http.core.IHttp;
-import com.zpj.popup.ZPopup;
-import com.zpj.popup.impl.LoadingPopup;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.api.HttpApi;
 import com.zpj.shouji.market.api.HttpPreLoader;
 import com.zpj.shouji.market.constant.AppConfig;
-import com.zpj.shouji.market.constant.Keys;
 import com.zpj.shouji.market.event.GetMainActivityEvent;
 import com.zpj.shouji.market.event.HideLoadingEvent;
 import com.zpj.shouji.market.event.IconUploadSuccessEvent;
@@ -54,7 +43,6 @@ import com.zpj.shouji.market.ui.fragment.MainFragment;
 import com.zpj.shouji.market.utils.AppUtil;
 import com.zpj.shouji.market.utils.BrightnessUtils;
 import com.zpj.shouji.market.utils.PictureUtil;
-import com.zpj.utils.PrefsHelper;
 import com.zpj.utils.StatusBarUtils;
 
 import org.greenrobot.eventbus.EventBus;
@@ -67,7 +55,6 @@ import java.util.concurrent.TimeUnit;
 import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
-import per.goweii.burred.Blurred;
 import site.gemus.openingstartanimation.OpeningStartAnimation;
 
 public class MainActivity extends SupportActivity {
@@ -75,7 +62,8 @@ public class MainActivity extends SupportActivity {
     private long firstTime = 0;
 
     private OpeningStartAnimation openingStartAnimation3;
-    private LoadingPopup loadingPopup;
+//    private LoadingPopup loadingPopup;
+    private LoadingDialogFragment loadingDialogFragment;
 
     private RelativeLayout rlSplash;
 
@@ -234,6 +222,7 @@ public class MainActivity extends SupportActivity {
 
     @Override
     protected void onDestroy() {
+        loadingDialogFragment = null;
         EventBus.getDefault().unregister(this);
         HttpPreLoader.getInstance().onDestroy();
         super.onDestroy();
@@ -248,6 +237,8 @@ public class MainActivity extends SupportActivity {
             firstTime = System.currentTimeMillis();
         } else {
 //            finish();
+            ZDownloader.pauseAll();
+            ZDownloader.onDestroy();
             ActivityCompat.finishAfterTransition(this);
         }
     }
@@ -273,12 +264,18 @@ public class MainActivity extends SupportActivity {
         if (PermissionUtil.checkStoragePermissions(getApplicationContext())) {
             requestPermission();
         } else {
-            ZPopup.alert(MainActivity.this)
+            new AlertDialogFragment()
                     .setTitle("权限申请")
                     .setContent("本软件需要读写手机存储的权限用于文件的下载与查看，是否申请该权限？")
-                    .setConfirmButton("去申请", popup -> requestPermission())
-                    .setCancelButton("拒绝", popup -> ActivityCompat.finishAfterTransition(MainActivity.this))
-                    .show();
+                    .setPositiveButton("去申请", popup -> requestPermission())
+                    .setNegativeButton("拒绝", popup -> ActivityCompat.finishAfterTransition(MainActivity.this))
+                    .show(this);
+//            ZPopup.alert(MainActivity.this)
+//                    .setTitle("权限申请")
+//                    .setContent("本软件需要读写手机存储的权限用于文件的下载与查看，是否申请该权限？")
+//                    .setConfirmButton("去申请", popup -> requestPermission())
+//                    .setCancelButton("拒绝", popup -> ActivityCompat.finishAfterTransition(MainActivity.this))
+//                    .show();
         }
     }
 
@@ -318,25 +315,41 @@ public class MainActivity extends SupportActivity {
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onShowLoadingEvent(ShowLoadingEvent event) {
-        if (loadingPopup != null) {
+//        if (loadingPopup != null) {
+//            if (event.isUpdate()) {
+//                loadingPopup.setTitle(event.getText());
+//                return;
+//            }
+//            loadingPopup.dismiss();
+//        }
+//        loadingPopup = null;
+//        loadingPopup = ZPopup.loading(MainActivity.this)
+//                .setTitle(event.getText())
+//                .show();
+
+        if (loadingDialogFragment != null) {
             if (event.isUpdate()) {
-                loadingPopup.setTitle(event.getText());
+                loadingDialogFragment.setTitle(event.getText());
                 return;
             }
-            loadingPopup.dismiss();
+            loadingDialogFragment.dismiss();
         }
-        loadingPopup = null;
-        loadingPopup = ZPopup.loading(MainActivity.this)
-                .setTitle(event.getText())
-                .show();
+        loadingDialogFragment = null;
+        loadingDialogFragment = new LoadingDialogFragment().setTitle(event.getText());
+                loadingDialogFragment.show(MainActivity.this);
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onHideLoadingEvent(HideLoadingEvent event) {
-        if (loadingPopup != null) {
-            loadingPopup.setOnDismissListener(event.getOnDismissListener());
-            loadingPopup.dismiss();
-            loadingPopup = null;
+//        if (loadingPopup != null) {
+//            loadingPopup.setOnDismissListener(event.getOnDismissListener());
+//            loadingPopup.dismiss();
+//            loadingPopup = null;
+//        }
+        if (loadingDialogFragment != null) {
+            loadingDialogFragment.setOnDismissListener(event.getOnDismissListener());
+            loadingDialogFragment.dismiss();
+            loadingDialogFragment = null;
         }
     }
 

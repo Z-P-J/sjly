@@ -1,43 +1,22 @@
 package com.zpj.shouji.market.ui.fragment.manager;
 
-import android.animation.Animator;
-import android.animation.AnimatorSet;
-import android.animation.ObjectAnimator;
-import android.animation.ValueAnimator;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
-import android.view.ViewGroup;
-import android.view.animation.DecelerateInterpolator;
-import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.felix.atoast.library.AToast;
-import com.zpj.downloader.util.notification.NotifyUtil;
-import com.zpj.popupmenuview.OptionMenu;
-import com.zpj.popupmenuview.OptionMenuView;
-import com.zpj.popupmenuview.PopupMenuView;
 import com.zpj.recyclerview.EasyAdapter;
 import com.zpj.recyclerview.EasyRecyclerLayout;
 import com.zpj.recyclerview.EasyViewHolder;
 import com.zpj.recyclerview.IEasy;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.glide.GlideApp;
-import com.zpj.shouji.market.manager.AppBackupManager;
 import com.zpj.shouji.market.manager.AppInstalledManager;
 import com.zpj.shouji.market.manager.AppUpdateManager;
 import com.zpj.shouji.market.model.InstalledAppInfo;
 import com.zpj.shouji.market.ui.fragment.base.RecyclerLayoutFragment;
-import com.zpj.shouji.market.ui.fragment.detail.AppDetailFragment;
-import com.zpj.shouji.market.ui.widget.GradientButton;
-import com.zpj.shouji.market.ui.widget.popup.RecyclerPopup;
-import com.zpj.shouji.market.utils.AppUtil;
-import com.zpj.utils.ScreenUtils;
-import com.zpj.widget.checkbox.SmoothCheckBox;
+import com.zpj.shouji.market.ui.fragment.dialog.RecyclerPartShadowDialogFragment;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -45,7 +24,8 @@ import java.util.List;
 public class BaseInstalledFragment extends RecyclerLayoutFragment<InstalledAppInfo>
         implements AppInstalledManager.CallBack,
         IEasy.OnSelectChangeListener<InstalledAppInfo>,
-        RecyclerPopup.OnItemClickListener {
+//        RecyclerPopup.OnItemClickListener,
+        RecyclerPartShadowDialogFragment.OnItemClickListener{
 
     private static final List<InstalledAppInfo> USER_APP_LIST = new ArrayList<>();
     private static final List<InstalledAppInfo> SYSTEM_APP_LIST = new ArrayList<>();
@@ -226,11 +206,17 @@ public class BaseInstalledFragment extends RecyclerLayoutFragment<InstalledAppIn
     }
 
     private void showFilterPopWindow() {
-        RecyclerPopup.with(context)
+        new RecyclerPartShadowDialogFragment()
                 .addItems("用户应用", "系统应用", "已备份", "已禁用", "已隐藏")
                 .setSelectedItem(sortPosition)
                 .setOnItemClickListener(this)
-                .show(titleTextView);
+                .setAttachView(titleTextView)
+                .show(context);
+//        RecyclerPopup.with(context)
+//                .addItems("用户应用", "系统应用", "已备份", "已禁用", "已隐藏")
+//                .setSelectedItem(sortPosition)
+//                .setOnItemClickListener(this)
+//                .show(titleTextView);
     }
 
     @Override

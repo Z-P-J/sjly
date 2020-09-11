@@ -18,13 +18,11 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.request.RequestOptions;
 import com.bumptech.glide.request.target.SimpleTarget;
-import com.bumptech.glide.request.target.Target;
 import com.bumptech.glide.request.transition.Transition;
 import com.felix.atoast.library.AToast;
 import com.zpj.fragmentation.BaseFragment;
-import com.zpj.popup.ZPopup;
+import com.zpj.fragmentation.dialog.impl.AttachListDialogFragment;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.api.HttpApi;
 import com.zpj.shouji.market.constant.Keys;
@@ -38,7 +36,8 @@ import com.zpj.shouji.market.model.article.ImageElement;
 import com.zpj.shouji.market.model.article.LinkElement;
 import com.zpj.shouji.market.model.article.TextElement;
 import com.zpj.shouji.market.ui.fragment.detail.AppDetailFragment;
-import com.zpj.shouji.market.ui.widget.popup.CommonImageViewerPopup;
+import com.zpj.shouji.market.ui.fragment.dialog.CommonImageViewerDialogFragment;
+import com.zpj.shouji.market.ui.widget.DownloadButton;
 import com.zpj.shouji.market.ui.widget.selection.SelectableTextView;
 import com.zpj.utils.ScreenUtils;
 import com.zpj.widget.statelayout.StateLayout;
@@ -96,20 +95,37 @@ public class ArticleDetailFragment extends BaseFragment {
 
     @Override
     public void toolbarRightImageButton(@NonNull ImageButton imageButton) {
-        imageButton.setOnClickListener(v -> ZPopup.attachList(context)
-                .addItem("网页中打开")
-                .addItem("收藏")
-                .setOnSelectListener((position, title) -> {
-                    switch (position) {
-                        case 0:
-                            WebFragment.start(url);
-                            break;
-                        case 1:
-                            AToast.warning("TODO");
-                            break;
-                    }
-                })
-                .show(imageButton));
+        imageButton.setOnClickListener(v -> {
+            new AttachListDialogFragment<String>()
+                    .addItem("网页中打开")
+                    .addItem("收藏")
+                    .setOnSelectListener((position, title) -> {
+                        switch (position) {
+                            case 0:
+                                WebFragment.start(url);
+                                break;
+                            case 1:
+                                AToast.warning("TODO");
+                                break;
+                        }
+                    })
+                    .setAttachView(imageButton)
+                    .show(this);
+//            ZPopup.attachList(context)
+//                    .addItem("网页中打开")
+//                    .addItem("收藏")
+//                    .setOnSelectListener((position, title) -> {
+//                        switch (position) {
+//                            case 0:
+//                                WebFragment.start(url);
+//                                break;
+//                            case 1:
+//                                AToast.warning("TODO");
+//                                break;
+//                        }
+//                    })
+//                    .show(imageButton);
+        });
     }
 
     @Override
@@ -179,6 +195,8 @@ public class ArticleDetailFragment extends BaseFragment {
             } else {
                 i.setText(appInfo.getAppInfo());
             }
+            DownloadButton downloadButton = app.findViewById(R.id.tv_download);
+            downloadButton.bindApp(appInfo);
         }
     }
 
@@ -235,13 +253,20 @@ public class ArticleDetailFragment extends BaseFragment {
 //                                }
 //                            })
 //                            .show();
-                    CommonImageViewerPopup.with(context)
+//                    CommonImageViewerPopup.with(context)
+//                            .setImageUrls(objects)
+//                            .setSrcView(ivImage, 0)
+//                            .setSrcViewUpdateListener((popup, pos) -> {
+//                                popup.updateSrcView(ivImage);
+//                            })
+//                            .show();
+                    new CommonImageViewerDialogFragment()
                             .setImageUrls(objects)
                             .setSrcView(ivImage, 0)
                             .setSrcViewUpdateListener((popup, pos) -> {
                                 popup.updateSrcView(ivImage);
                             })
-                            .show();
+                            .show(context);
                 });
                 contentWrapper.addView(view);
                 Glide.with(context)
@@ -310,6 +335,8 @@ public class ArticleDetailFragment extends BaseFragment {
                 tvInfo1.setText(app.getAppSize());
                 TextView tvDesc = view.findViewById(R.id.tv_desc);
                 tvDesc.setText(app.getAppComment());
+                DownloadButton downloadButton = view.findViewById(R.id.tv_download);
+                downloadButton.bindApp(app);
                 contentWrapper.addView(view);
             }
         }

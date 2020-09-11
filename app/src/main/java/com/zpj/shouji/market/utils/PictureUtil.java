@@ -9,7 +9,6 @@ import android.media.ExifInterface;
 import android.media.MediaScannerConnection;
 import android.net.Uri;
 import android.os.Environment;
-import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
@@ -25,6 +24,7 @@ import com.felix.atoast.library.AToast;
 import com.lxj.xpermission.PermissionConstants;
 import com.lxj.xpermission.XPermission;
 import com.nanchen.compresshelper.CompressHelper;
+import com.zpj.fragmentation.dialog.IDialog;
 import com.zpj.http.core.IHttp;
 import com.zpj.http.core.ObservableTask;
 import com.zpj.popup.enums.ImageType;
@@ -34,7 +34,7 @@ import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.event.HideLoadingEvent;
 import com.zpj.shouji.market.event.ShowLoadingEvent;
 import com.zpj.shouji.market.manager.UserManager;
-import com.zpj.shouji.market.ui.widget.popup.SharePopup;
+import com.zpj.shouji.market.ui.fragment.dialog.ShareDialogFragment;
 import com.zpj.utils.ContextUtils;
 import com.zpj.utils.ScreenUtils;
 
@@ -342,13 +342,13 @@ public class PictureUtil {
                                 .onSuccess(new IHttp.OnSuccessListener<File>() {
                                     @Override
                                     public void onSuccess(File data) throws Exception {
-                                        HideLoadingEvent.post(500, new OnDismissListener() {
-                                            @Override
-                                            public void onDismiss() {
-                                                SharePopup.with(context)
-                                                        .setShareFile(data)
-                                                        .show();
-                                            }
+                                        HideLoadingEvent.post(500, () -> {
+                                            new ShareDialogFragment()
+                                                    .setShareFile(data)
+                                                    .show(context);
+//                                                SharePopup.with(context)
+//                                                        .setShareFile(data)
+//                                                        .show();
                                         });
                                     }
                                 })

@@ -69,13 +69,16 @@ public class DownloadManagerImpl implements DownloadManager {
 	public static <T extends DownloadMission> void register(DownloaderConfig options, Class<T> clazz) {
 		if (mManager == null) {
 			mManager = new DownloadManagerImpl(options.getContext(), options);
-			mManager.loadMissions();
+			mManager.loadMissions(clazz);
 		}
 	}
 
 	public static void unRegister() {
+		getInstance().removeDownloadManagerListener(null);
 		getInstance().pauseAllMissions();
 		getInstance().getContext().unregisterReceiver(NetworkChangeReceiver.getInstance());
+		ALL_MISSIONS.clear();
+		mManager = null;
 	}
 
 	public static void setDownloadPath(String downloadPath) {
@@ -182,6 +185,11 @@ public class DownloadManagerImpl implements DownloadManager {
 	}
 
 	@Override
+	public void removeDownloadManagerListener(DownloadManagerListener downloadManagerListener) {
+		this.downloadManagerListener = null;
+	}
+
+	@Override
 	public DownloadManagerListener getDownloadManagerListener() {
 		return downloadManagerListener;
 	}
@@ -200,9 +208,9 @@ public class DownloadManagerImpl implements DownloadManager {
 	public int startMission(String url, String name, MissionConfig config) {
 		DownloadMission mission = DownloadMission.create(url, name, config);
 		int i = insertMission(mission);
-		if (downloadManagerListener != null) {
-			downloadManagerListener.onMissionAdd(mission);
-		}
+//		if (downloadManagerListener != null) {
+//			downloadManagerListener.onMissionAdd(mission);
+//		}
 		mission.init();
 		return i;
 	}
@@ -331,9 +339,16 @@ public class DownloadManagerImpl implements DownloadManager {
 	public int getCount() {
 		return ALL_MISSIONS.size();
 	}
-	
-	private int insertMission(DownloadMission mission) {
+
+	@Override
+	public int insertMission(DownloadMission mission) {
+		if (ALL_MISSIONS.contains(mission)) {
+			return ALL_MISSIONS.indexOf(mission);
+		}
 		ALL_MISSIONS.add(mission);
+		if (downloadManagerListener != null) {
+			downloadManagerListener.onMissionAdd(mission);
+		}
 		return ALL_MISSIONS.size() - 1;
 	}
 

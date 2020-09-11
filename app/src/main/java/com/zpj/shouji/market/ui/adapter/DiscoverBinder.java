@@ -12,7 +12,6 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
 import com.bumptech.glide.request.RequestOptions;
 import com.ctetin.expandabletextviewlibrary.ExpandableTextView;
 import com.ctetin.expandabletextviewlibrary.app.LinkType;
@@ -34,16 +33,16 @@ import com.zpj.shouji.market.model.DiscoverInfo;
 import com.zpj.shouji.market.model.SupportUserInfo;
 import com.zpj.shouji.market.ui.fragment.WebFragment;
 import com.zpj.shouji.market.ui.fragment.detail.AppDetailFragment;
+import com.zpj.shouji.market.ui.fragment.dialog.CommonImageViewerDialogFragment;
+import com.zpj.shouji.market.ui.fragment.dialog.SupportUserListDialogFragment;
+import com.zpj.shouji.market.ui.fragment.dialog.ThemeAppDownloadDialogFragment;
+import com.zpj.shouji.market.ui.fragment.dialog.ThemeMoreDialogFragment;
 import com.zpj.shouji.market.ui.fragment.login.LoginFragment;
 import com.zpj.shouji.market.ui.fragment.profile.ProfileFragment;
 import com.zpj.shouji.market.ui.fragment.theme.TopicThemeListFragment;
 import com.zpj.shouji.market.ui.widget.CombineImageView;
 import com.zpj.shouji.market.ui.widget.DrawableTintTextView;
 import com.zpj.shouji.market.ui.widget.emoji.EmojiExpandableTextView;
-import com.zpj.shouji.market.ui.widget.popup.CommonImageViewerPopup;
-import com.zpj.shouji.market.ui.widget.popup.SupportUserListPopup;
-import com.zpj.shouji.market.ui.widget.popup.ThemeAppDownloadPopup;
-import com.zpj.shouji.market.ui.widget.popup.ThemeMorePopupMenu;
 import com.zpj.shouji.market.utils.TextUrlUtil;
 import com.zpj.utils.NetUtils;
 
@@ -162,11 +161,14 @@ public class DiscoverBinder
             if (discoverInfo.isApkExist()) {
                 tvDownload.setVisibility(View.VISIBLE);
                 tvDownload.setOnClickListener(v -> {
-                    AToast.normal("TODO Download");
-                    ThemeAppDownloadPopup.with(context)
+                    new ThemeAppDownloadDialogFragment()
                             .setId(discoverInfo.getAppId())
                             .setDiscoverInfo(discoverInfo)
-                            .show();
+                            .show(context);
+//                    ThemeAppDownloadPopup.with(context)
+//                            .setId(discoverInfo.getAppId())
+//                            .setDiscoverInfo(discoverInfo)
+//                            .show();
                 });
             } else {
                 tvDownload.setVisibility(View.GONE);
@@ -197,9 +199,12 @@ public class DiscoverBinder
             tvSupportUsers.setLinkClickListener((type, title, content) -> {
                 if (type == LinkType.SELF) {
                     if ("support_users".equals(content)) {
-                        SupportUserListPopup.with(context)
+                        new SupportUserListDialogFragment()
                                 .setThemeId(discoverInfo.getId())
-                                .show();
+                                .show(context);
+//                        SupportUserListPopup.with(context)
+//                                .setThemeId(discoverInfo.getId())
+//                                .show();
                     } else {
                         ProfileFragment.start(content, false);
                     }
@@ -256,9 +261,12 @@ public class DiscoverBinder
                     container.setOnLongClickListener(new View.OnLongClickListener() {
                         @Override
                         public boolean onLongClick(View v) {
-                            ThemeMorePopupMenu.with(context)
+                            new ThemeMoreDialogFragment()
                                     .setDiscoverInfo(child)
-                                    .show();
+                                    .show(context);
+//                            ThemeMorePopupMenu.with(context)
+//                                    .setDiscoverInfo(child)
+//                                    .show();
                             return true;
                         }
                     });
@@ -521,7 +529,7 @@ public class DiscoverBinder
         @Override
         public void onNineGirdItemClick(int position, NineGridBean gridBean, NineGirdImageContainer imageContainer) {
 
-            CommonImageViewerPopup.with(nineGridView.getContext())
+            new CommonImageViewerDialogFragment()
                     .setOriginalImageList(discoverInfo.getPics())
                     .setImageSizeList(discoverInfo.getPicSizes())
                     .setImageUrls(AppConfig.isShowOriginalImage() && NetUtils.isWiFi(nineGridView.getContext()) ? discoverInfo.getPics() : discoverInfo.getSpics())
@@ -530,7 +538,17 @@ public class DiscoverBinder
                         NineGirdImageContainer view = (NineGirdImageContainer) nineGridView.getChildAt(pos);
                         popup.updateSrcView(view.getImageView());
                     })
-                    .show();
+                    .show(nineGridView.getContext());
+//            CommonImageViewerPopup.with(nineGridView.getContext())
+//                    .setOriginalImageList(discoverInfo.getPics())
+//                    .setImageSizeList(discoverInfo.getPicSizes())
+//                    .setImageUrls(AppConfig.isShowOriginalImage() && NetUtils.isWiFi(nineGridView.getContext()) ? discoverInfo.getPics() : discoverInfo.getSpics())
+//                    .setSrcView(imageContainer.getImageView(), position)
+//                    .setSrcViewUpdateListener((popup, pos) -> {
+//                        NineGirdImageContainer view = (NineGirdImageContainer) nineGridView.getChildAt(pos);
+//                        popup.updateSrcView(view.getImageView());
+//                    })
+//                    .show();
 
 //            TransferConfig config = TransferConfig.build()
 //                    .setOnGetImageViewListener(new TransferConfig.OnGetImageViewListener() {

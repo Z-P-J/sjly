@@ -14,12 +14,13 @@
             <option value="$PROJECT_DIR$/emojilib" />
             <option value="$PROJECT_DIR$/expandabletextview" />
             <option value="$PROJECT_DIR$/filescannercore" />
+            <option value="$PROJECT_DIR$/fragmentation" />
+            <option value="$PROJECT_DIR$/fragmentation-dialog" />
             <option value="$PROJECT_DIR$/iconcountview" />
             <option value="$PROJECT_DIR$/matisse" />
             <option value="$PROJECT_DIR$/niceimageview" />
             <option value="$PROJECT_DIR$/ucrop" />
             <option value="$PROJECT_DIR$/zdownloader" />
-            <option value="$PROJECT_DIR$/zpopup" />
             <option value="$PROJECT_DIR$/zwidget" />
           </set>
         </option>

@@ -8,21 +8,17 @@ import android.util.AttributeSet;
 import android.view.View;
 
 import com.bumptech.glide.Glide;
-import com.felix.atoast.library.AToast;
 import com.yanyusong.y_divideritemdecoration.Y_Divider;
 import com.yanyusong.y_divideritemdecoration.Y_DividerBuilder;
 import com.yanyusong.y_divideritemdecoration.Y_DividerItemDecoration;
-import com.zpj.popup.ZPopup;
+import com.zpj.fragmentation.dialog.impl.AlertDialogFragment;
 import com.zpj.recyclerview.EasyRecyclerView;
 import com.zpj.recyclerview.EasyViewHolder;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.api.BookingApi;
-import com.zpj.shouji.market.api.SearchApi;
 import com.zpj.shouji.market.model.BookingAppInfo;
-import com.zpj.shouji.market.model.GuessAppInfo;
 import com.zpj.shouji.market.ui.fragment.booking.LatestBookingFragment;
 import com.zpj.shouji.market.ui.fragment.detail.AppDetailFragment;
-import com.zpj.shouji.market.utils.Callback;
 
 import java.util.List;
 
@@ -123,13 +119,20 @@ public class GameBookingRecommendCard extends RecommendCard<BookingAppInfo> {
     }
 
     protected void showCancelBookingPopup(BookingAppInfo appInfo, Runnable runnable) {
-        ZPopup.alert(context)
+        new AlertDialogFragment()
                 .setTitle("取消预约？")
                 .setContent("确定取消预约？取消预约后您将不能及时在软件上架时及时收到通知。")
-                .setConfirmButton(popup -> {
-                    postDelayed(() -> BookingApi.cancelBookingApi(appInfo, runnable), popup.getAnimationDuration());
+                .setPositiveButton(popup -> {
+                    BookingApi.cancelBookingApi(appInfo, runnable);
                 })
-                .show();
+                .show(context);
+//        ZPopup.alert(context)
+//                .setTitle("取消预约？")
+//                .setContent("确定取消预约？取消预约后您将不能及时在软件上架时及时收到通知。")
+//                .setConfirmButton(popup -> {
+//                    postDelayed(() -> BookingApi.cancelBookingApi(appInfo, runnable), popup.getAnimationDuration());
+//                })
+//                .show();
     }
 
     private final Runnable refreshRunnable = new Runnable() {

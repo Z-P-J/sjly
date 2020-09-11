@@ -4,14 +4,11 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
 import android.view.View;
-import android.widget.ImageView;
 
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.request.RequestOptions;
 import com.felix.atoast.library.AToast;
 import com.shehuan.niv.NiceImageView;
 import com.zpj.fragmentation.BaseFragment;
-import com.zpj.popup.ZPopup;
+import com.zpj.fragmentation.dialog.impl.AlertDialogFragment;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.event.IconUploadSuccessEvent;
 import com.zpj.shouji.market.event.SignOutEvent;
@@ -19,10 +16,10 @@ import com.zpj.shouji.market.event.StartFragmentEvent;
 import com.zpj.shouji.market.event.UserInfoChangeEvent;
 import com.zpj.shouji.market.manager.UserManager;
 import com.zpj.shouji.market.model.MemberInfo;
+import com.zpj.shouji.market.ui.fragment.dialog.EmailModifiedDialogFragment;
+import com.zpj.shouji.market.ui.fragment.dialog.NicknameModifiedDialogFragment;
+import com.zpj.shouji.market.ui.fragment.dialog.PasswordModifiedDialogFragment;
 import com.zpj.shouji.market.ui.widget.IconSettingItem;
-import com.zpj.shouji.market.ui.widget.popup.EmailModifiedPopup;
-import com.zpj.shouji.market.ui.widget.popup.NicknameModifiedPopup;
-import com.zpj.shouji.market.ui.widget.popup.PasswordModifiedPopup;
 import com.zpj.shouji.market.utils.PictureUtil;
 import com.zpj.shouji.market.utils.UploadUtils;
 import com.zpj.widget.setting.CommonSettingItem;
@@ -134,7 +131,8 @@ public class MyInfoFragment extends BaseFragment implements OnCommonItemClickLis
     public void onItemClick(CommonSettingItem item) {
         switch (item.getId()) {
             case R.id.item_nickname:
-                NicknameModifiedPopup.with(context).show();
+                new NicknameModifiedDialogFragment().show(context);
+//                NicknameModifiedPopup.with(context).show();
                 break;
             case R.id.item_level:
                 String content;
@@ -143,11 +141,16 @@ public class MyInfoFragment extends BaseFragment implements OnCommonItemClickLis
                 } else {
                     content = memberInfo.getMemberSignature();
                 }
-                ZPopup.alert(context)
+                new AlertDialogFragment()
                         .setTitle(memberInfo.getMemberNickName())
                         .setContent(content)
                         .hideCancelBtn()
-                        .show();
+                        .show(context);
+//                ZPopup.alert(context)
+//                        .setTitle(memberInfo.getMemberNickName())
+//                        .setContent(content)
+//                        .hideCancelBtn()
+//                        .show();
                 break;
             case R.id.item_avatar:
                 UploadUtils.upload(_mActivity, true);
@@ -156,7 +159,8 @@ public class MyInfoFragment extends BaseFragment implements OnCommonItemClickLis
                 UploadUtils.upload(_mActivity, false);
                 break;
             case R.id.item_email:
-                EmailModifiedPopup.with(context).show();
+                new EmailModifiedDialogFragment().show(context);
+//                EmailModifiedPopup.with(context).show();
                 break;
             case R.id.item_qq:
                 AToast.normal("TODO 绑定QQ");
@@ -165,7 +169,8 @@ public class MyInfoFragment extends BaseFragment implements OnCommonItemClickLis
                 AToast.normal("TODO 绑定微信");
                 break;
             case R.id.item_password:
-                PasswordModifiedPopup.with(context).show();
+//                PasswordModifiedPopup.with(context).show();
+                new PasswordModifiedDialogFragment().show(context);
                 break;
         }
     }

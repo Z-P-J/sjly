@@ -218,11 +218,39 @@ public class ZDownloader {
         return DownloadManagerImpl.getInstance().getMissions();
     }
 
+    public static <T extends DownloadMission> List<T> getAllMissions(Class<T> clazz) {
+        List<T> downloadMissionList = new ArrayList<>();
+        for (DownloadMission mission : getAllMissions()) {
+            downloadMissionList.add((T) mission);
+        }
+        return downloadMissionList;
+    }
+
     public static List<DownloadMission> getAllMissions(boolean downloading) {
         List<DownloadMission> downloadMissionList = new ArrayList<>();
         for (DownloadMission mission : getAllMissions()) {
             if (mission.isFinished() != downloading) {
                 downloadMissionList.add(mission);
+            }
+        }
+        return downloadMissionList;
+    }
+
+    public static <T extends DownloadMission> List<T> getAllMissions(boolean downloading, Class<T> clazz) {
+        List<T> downloadMissionList = new ArrayList<>();
+        for (DownloadMission mission : getAllMissions()) {
+            if (mission.isFinished() != downloading) {
+                downloadMissionList.add((T) mission);
+            }
+        }
+        return downloadMissionList;
+    }
+
+    public static <T extends DownloadMission> List<T> getRunningMissions(Class<T> clazz) {
+        List<T> downloadMissionList = new ArrayList<>();
+        for (DownloadMission mission : getAllMissions()) {
+            if (mission.isRunning()) {
+                downloadMissionList.add((T) mission);
             }
         }
         return downloadMissionList;
@@ -243,6 +271,16 @@ public class ZDownloader {
         for (DownloadMission mission : getAllMissions()) {
             if (status == mission.getStatus()) {
                 downloadMissionList.add(mission);
+            }
+        }
+        return downloadMissionList;
+    }
+
+    public static <T extends DownloadMission> List<T> getMissions(DownloadMission.MissionStatus status, Class<T> clazz) {
+        List<T> downloadMissionList = new ArrayList<>();
+        for (DownloadMission mission : getAllMissions()) {
+            if (status == mission.getStatus()) {
+                downloadMissionList.add((T) mission);
             }
         }
         return downloadMissionList;

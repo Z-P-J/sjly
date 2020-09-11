@@ -35,9 +35,9 @@ import com.zpj.shouji.market.model.WallpaperInfo;
 import com.zpj.shouji.market.model.WallpaperTag;
 import com.zpj.shouji.market.ui.activity.MainActivity;
 import com.zpj.shouji.market.ui.fragment.base.NextUrlFragment;
+import com.zpj.shouji.market.ui.fragment.dialog.RecyclerPartShadowDialogFragment;
+import com.zpj.shouji.market.ui.fragment.dialog.WallpaperViewerDialogFragment;
 import com.zpj.shouji.market.ui.widget.emoji.EmojiExpandableTextView;
-import com.zpj.shouji.market.ui.widget.popup.RecyclerPopup;
-import com.zpj.shouji.market.ui.widget.popup.WallpaperViewerPopup;
 import com.zpj.shouji.market.utils.Callback;
 import com.zpj.utils.NetUtils;
 import com.zpj.utils.ScreenUtils;
@@ -56,7 +56,7 @@ public class WallpaperListFragment extends NextUrlFragment<WallpaperInfo> {
 
     private int halfScreenWidth;
 
-    private RecyclerPopup recyclerPopup;
+//    private RecyclerPopup recyclerPopup;
 
     public static WallpaperListFragment newInstance(WallpaperTag tag) {
         Bundle args = new Bundle();
@@ -179,15 +179,24 @@ public class WallpaperListFragment extends NextUrlFragment<WallpaperInfo> {
                     objects.add(data.getSpic());
                     List<String> original = new ArrayList<>();
                     original.add(data.getPic());
-                    WallpaperViewerPopup.with(context)
+
+                    new WallpaperViewerDialogFragment()
                             .setWallpaperInfo(data)
                             .setOriginalImageList(original)
-                            .setDecorView(fragment.getView().findViewWithTag("container"))
                             .setImageUrls(AppConfig.isShowOriginalImage() && NetUtils.isWiFi(context) ? original : objects)
                             .setSrcView(wallpaper, 0)
                             .setSrcViewUpdateListener((popup, position) -> popup.updateSrcView(wallpaper))
                             .setOnDismissListener(() -> StatusBarEvent.post(false))
-                            .show();
+                            .show(context);
+//                    WallpaperViewerPopup.with(context)
+//                            .setWallpaperInfo(data)
+//                            .setOriginalImageList(original)
+//                            .setDecorView(fragment.getView().findViewWithTag("container"))
+//                            .setImageUrls(AppConfig.isShowOriginalImage() && NetUtils.isWiFi(context) ? original : objects)
+//                            .setSrcView(wallpaper, 0)
+//                            .setSrcViewUpdateListener((popup, position) -> popup.updateSrcView(wallpaper))
+//                            .setOnDismissListener(() -> StatusBarEvent.post(false))
+//                            .show();
                 }
 //                List<String> objects = new ArrayList<>();
 //                objects.add(data.getSpic());
@@ -297,26 +306,41 @@ public class WallpaperListFragment extends NextUrlFragment<WallpaperInfo> {
 
     private void showSortPupWindow(View v) {
         ExpandIconView expandIconView = v.findViewById(R.id.expand_icon);
-        if (recyclerPopup == null) {
-            expandIconView.switchState();
-            recyclerPopup = RecyclerPopup.with(context)
-                    .addItems("默认排序", "时间排序", "人气排序")
-                    .setSelectedItem(sortPosition)
-                    .setOnItemClickListener((view, title, position) -> {
-                        sortPosition = position;
-                        TextView titleText = v.findViewById(R.id.tv_title);
-                        titleText.setText(title);
-                        onRefresh();
-                    })
-                    .setOnDismissListener(() -> {
-                        expandIconView.switchState();
-                        recyclerPopup = null;
-                    })
-                    .show(v);
-        } else {
-            recyclerPopup.dismiss();
-            recyclerPopup = null;
-        }
+
+        expandIconView.switchState();
+        new RecyclerPartShadowDialogFragment()
+                .addItems("默认排序", "时间排序", "人气排序")
+                .setSelectedItem(sortPosition)
+                .setOnItemClickListener((view, title, position) -> {
+                    sortPosition = position;
+                    TextView titleText = v.findViewById(R.id.tv_title);
+                    titleText.setText(title);
+                    onRefresh();
+                })
+                .setAttachView(v)
+                .setOnDismissListener(expandIconView::switchState)
+                .show(context);
+
+//        if (recyclerPopup == null) {
+//            expandIconView.switchState();
+//            recyclerPopup = RecyclerPopup.with(context)
+//                    .addItems("默认排序", "时间排序", "人气排序")
+//                    .setSelectedItem(sortPosition)
+//                    .setOnItemClickListener((view, title, position) -> {
+//                        sortPosition = position;
+//                        TextView titleText = v.findViewById(R.id.tv_title);
+//                        titleText.setText(title);
+//                        onRefresh();
+//                    })
+//                    .setOnDismissListener(() -> {
+//                        expandIconView.switchState();
+//                        recyclerPopup = null;
+//                    })
+//                    .show(v);
+//        } else {
+//            recyclerPopup.dismiss();
+//            recyclerPopup = null;
+//        }
 
     }
 }

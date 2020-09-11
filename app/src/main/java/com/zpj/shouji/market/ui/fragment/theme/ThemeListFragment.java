@@ -1,6 +1,5 @@
 package com.zpj.shouji.market.ui.fragment.theme;
 
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -21,10 +20,9 @@ import com.zpj.shouji.market.model.DiscoverInfo;
 import com.zpj.shouji.market.ui.adapter.DiscoverBinder;
 import com.zpj.shouji.market.ui.fragment.base.NextUrlFragment;
 import com.zpj.shouji.market.ui.fragment.collection.CollectionDetailFragment;
+import com.zpj.shouji.market.ui.fragment.dialog.ThemeMoreDialogFragment;
 import com.zpj.shouji.market.ui.fragment.profile.ProfileFragment;
 import com.zpj.shouji.market.ui.fragment.search.SearchResultFragment;
-import com.zpj.shouji.market.api.HttpApi;
-import com.zpj.shouji.market.ui.widget.popup.ThemeMorePopupMenu;
 
 import java.util.HashMap;
 import java.util.List;
@@ -112,9 +110,12 @@ public class ThemeListFragment extends NextUrlFragment<DiscoverInfo>
 
     @Override
     public boolean onLongClick(EasyViewHolder holder, View view, DiscoverInfo data) {
-        ThemeMorePopupMenu.with(context)
+//        ThemeMorePopupMenu.with(context)
+//                .setDiscoverInfo(data)
+//                .show();
+        new ThemeMoreDialogFragment()
                 .setDiscoverInfo(data)
-                .show();
+                .show(context);
         return true;
     }
 

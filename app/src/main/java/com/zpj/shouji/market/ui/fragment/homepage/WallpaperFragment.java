@@ -6,20 +6,15 @@ import android.support.annotation.Nullable;
 import android.support.v4.view.ViewPager;
 import android.view.View;
 
-import com.felix.atoast.library.AToast;
 import com.github.zagum.expandicon.ExpandIconView;
 import com.zpj.fragmentation.BaseFragment;
-import com.zpj.http.parser.html.nodes.Element;
-import com.zpj.http.parser.html.select.Elements;
 import com.zpj.shouji.market.R;
-import com.zpj.shouji.market.api.HttpApi;
 import com.zpj.shouji.market.api.WallpaperApi;
 import com.zpj.shouji.market.model.WallpaperTag;
 import com.zpj.shouji.market.ui.adapter.FragmentsPagerAdapter;
+import com.zpj.shouji.market.ui.fragment.dialog.WallpaperTagDialogFragment;
 import com.zpj.shouji.market.ui.fragment.wallpaper.WallpaperListFragment;
 import com.zpj.shouji.market.ui.widget.flowlayout.FlowLayout;
-import com.zpj.shouji.market.ui.widget.popup.WallpaperTagPopup;
-import com.zpj.shouji.market.utils.Callback;
 import com.zpj.utils.ScreenUtils;
 
 import net.lucode.hackware.magicindicator.MagicIndicator;
@@ -45,7 +40,7 @@ public class WallpaperFragment extends BaseFragment implements View.OnClickListe
     private ViewPager viewPager;
     private MagicIndicator magicIndicator;
     private ExpandIconView expandIconView;
-    private WallpaperTagPopup wallpaperTagPopup;
+//    private WallpaperTagPopup wallpaperTagPopup;
 
     @Override
     protected int getLayoutId() {
@@ -84,26 +79,42 @@ public class WallpaperFragment extends BaseFragment implements View.OnClickListe
     public void onClick(View v) {
         int id = v.getId();
         if (id == R.id.iv_expand) {
-            if (wallpaperTagPopup == null) {
-                expandIconView.switchState();
-                wallpaperTagPopup = WallpaperTagPopup.with(context)
-                        .setLabels(wallpaperTags)
-                        .setSelectedPosition(viewPager.getCurrentItem())
-                        .setOnItemClickListener(new FlowLayout.OnItemClickListener() {
-                            @Override
-                            public void onClick(int index, View v, String text) {
-                                viewPager.setCurrentItem(index);
-                            }
-                        })
-                        .setOnDismissListener(() -> {
-                            wallpaperTagPopup = null;
-                            expandIconView.switchState();
-                        })
-                        .show(v);
-            } else {
-                wallpaperTagPopup.dismiss();
-                wallpaperTagPopup = null;
-            }
+            expandIconView.switchState();
+            new WallpaperTagDialogFragment()
+                    .setLabels(wallpaperTags)
+                    .setSelectedPosition(viewPager.getCurrentItem())
+                    .setOnItemClickListener(new FlowLayout.OnItemClickListener() {
+                        @Override
+                        public void onClick(int index, View v, String text) {
+                            viewPager.setCurrentItem(index);
+                        }
+                    })
+                    .setAttachView(v)
+                    .setOnDismissListener(() -> {
+                        expandIconView.switchState();
+                    })
+                    .show(context);
+
+//            if (wallpaperTagPopup == null) {
+//                expandIconView.switchState();
+//                wallpaperTagPopup = WallpaperTagPopup.with(context)
+//                        .setLabels(wallpaperTags)
+//                        .setSelectedPosition(viewPager.getCurrentItem())
+//                        .setOnItemClickListener(new FlowLayout.OnItemClickListener() {
+//                            @Override
+//                            public void onClick(int index, View v, String text) {
+//                                viewPager.setCurrentItem(index);
+//                            }
+//                        })
+//                        .setOnDismissListener(() -> {
+//                            wallpaperTagPopup = null;
+//                            expandIconView.switchState();
+//                        })
+//                        .show(v);
+//            } else {
+//                wallpaperTagPopup.dismiss();
+//                wallpaperTagPopup = null;
+//            }
         }
     }
 

@@ -4,8 +4,6 @@ import android.animation.Animator;
 import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
 import android.animation.ValueAnimator;
-import android.app.Activity;
-import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -35,8 +33,8 @@ import com.zpj.shouji.market.manager.AppUpdateManager;
 import com.zpj.shouji.market.model.InstalledAppInfo;
 import com.zpj.shouji.market.ui.fragment.base.RecyclerLayoutFragment;
 import com.zpj.shouji.market.ui.fragment.detail.AppDetailFragment;
+import com.zpj.shouji.market.ui.fragment.dialog.RecyclerPartShadowDialogFragment;
 import com.zpj.shouji.market.ui.widget.GradientButton;
-import com.zpj.shouji.market.ui.widget.popup.RecyclerPopup;
 import com.zpj.shouji.market.utils.AppUtil;
 import com.zpj.utils.ScreenUtils;
 import com.zpj.widget.checkbox.SmoothCheckBox;
@@ -330,7 +328,7 @@ public class InstalledFragment extends RecyclerLayoutFragment<InstalledAppInfo>
     }
 
     private void showFilterPopWindow() {
-        RecyclerPopup.with(context)
+        new RecyclerPartShadowDialogFragment()
                 .addItems("用户应用", "系统应用", "已备份", "已禁用", "已隐藏")
                 .setSelectedItem(sortPosition)
                 .setOnItemClickListener((view, title, position) -> {
@@ -359,7 +357,38 @@ public class InstalledFragment extends RecyclerLayoutFragment<InstalledAppInfo>
                     infoTextView.setText("共计：" + data.size() + " | 已选：0");
                     recyclerLayout.notifyDataSetChanged();
                 })
-                .show(titleTextView);
+                .setAttachView(titleTextView)
+                .show(context);
+//        RecyclerPopup.with(context)
+//                .addItems("用户应用", "系统应用", "已备份", "已禁用", "已隐藏")
+//                .setSelectedItem(sortPosition)
+//                .setOnItemClickListener((view, title, position) -> {
+//                    sortPosition = position;
+//                    titleTextView.setText(title);
+//                    data.clear();
+//                    switch (position) {
+//                        case 0:
+//                            data.addAll(USER_APP_LIST);
+//                            break;
+//                        case 1:
+//                            data.addAll(SYSTEM_APP_LIST);
+//                            break;
+//                        case 2:
+//                            data.addAll(BACKUP_APP_LIST);
+//                            break;
+//                        case 3:
+//                            data.addAll(FORBID_APP_LIST);
+//                            break;
+//                        case 4:
+//                            data.addAll(HIDDEN_APP_LIST);
+//                            break;
+//                        default:
+//                            break;
+//                    }
+//                    infoTextView.setText("共计：" + data.size() + " | 已选：0");
+//                    recyclerLayout.notifyDataSetChanged();
+//                })
+//                .show(titleTextView);
     }
 
     public void onMenuClicked(View view, InstalledAppInfo appInfo) {

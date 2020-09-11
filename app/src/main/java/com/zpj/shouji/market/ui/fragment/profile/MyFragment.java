@@ -15,7 +15,7 @@ import com.felix.atoast.library.AToast;
 import com.shehuan.niv.NiceImageView;
 import com.zpj.fragmentation.BaseFragment;
 import com.zpj.fragmentation.anim.DefaultVerticalAnimator;
-import com.zpj.popup.ZPopup;
+import com.zpj.fragmentation.dialog.impl.AttachListDialogFragment;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.api.HttpApi;
 import com.zpj.shouji.market.event.IconUploadSuccessEvent;
@@ -26,6 +26,7 @@ import com.zpj.shouji.market.model.MemberInfo;
 import com.zpj.shouji.market.ui.fragment.FeedbackFragment;
 import com.zpj.shouji.market.ui.fragment.WebFragment;
 import com.zpj.shouji.market.ui.fragment.backup.CloudBackupFragment;
+import com.zpj.shouji.market.ui.fragment.dialog.NicknameModifiedDialogFragment;
 import com.zpj.shouji.market.ui.fragment.login.LoginFragment;
 import com.zpj.shouji.market.ui.fragment.setting.AboutSettingFragment;
 import com.zpj.shouji.market.ui.fragment.setting.CommonSettingFragment;
@@ -33,7 +34,6 @@ import com.zpj.shouji.market.ui.fragment.setting.DownloadSettingFragment;
 import com.zpj.shouji.market.ui.fragment.setting.InstallSettingFragment;
 import com.zpj.shouji.market.ui.widget.PullZoomView;
 import com.zpj.shouji.market.ui.widget.ToolBoxCard;
-import com.zpj.shouji.market.ui.widget.popup.NicknameModifiedPopup;
 import com.zpj.shouji.market.utils.PictureUtil;
 import com.zpj.shouji.market.utils.UploadUtils;
 import com.zpj.utils.ClickHelper;
@@ -166,7 +166,7 @@ public class MyFragment extends BaseFragment
                     if (!UserManager.getInstance().isLogin()) {
                         return false;
                     }
-                    ZPopup.attachList(context)
+                    new AttachListDialogFragment<String>()
                             .addItems("更换我的头像", "保存头像")
                             .setOnSelectListener((position, title) -> {
                                 switch (position) {
@@ -178,7 +178,21 @@ public class MyFragment extends BaseFragment
                                         break;
                                 }
                             })
-                            .show(x, y);
+                            .setTouchPoint(x, y)
+                            .show(context);
+//                    ZPopup.attachList(context)
+//                            .addItems("更换我的头像", "保存头像")
+//                            .setOnSelectListener((position, title) -> {
+//                                switch (position) {
+//                                    case 0:
+//                                        UploadUtils.upload(_mActivity, true);
+//                                        break;
+//                                    case 1:
+//                                        PictureUtil.saveImage(context, UserManager.getInstance().getMemberInfo().getMemberAvatar());
+//                                        break;
+//                                }
+//                            })
+//                            .show(x, y);
                     return true;
                 });
 
@@ -189,7 +203,7 @@ public class MyFragment extends BaseFragment
                     }
                     String bgUrl = UserManager.getInstance().getMemberInfo().getMemberBackGround();
                     boolean canDelete = !TextUtils.isEmpty(bgUrl) && !bgUrl.contains("default_user_bg");
-                    ZPopup.attachList(context)
+                    new AttachListDialogFragment<String>()
                             .addItems("更换主页背景", "保存背景")
                             .addItemIf(canDelete, "删除背景")
                             .setOnSelectListener((position, title) -> {
@@ -222,7 +236,42 @@ public class MyFragment extends BaseFragment
                                         break;
                                 }
                             })
-                            .show(x, y);
+                            .setTouchPoint(x, y)
+                            .show(context);
+//                    ZPopup.attachList(context)
+//                            .addItems("更换主页背景", "保存背景")
+//                            .addItemIf(canDelete, "删除背景")
+//                            .setOnSelectListener((position, title) -> {
+//                                switch (position) {
+//                                    case 0:
+//                                        UploadUtils.upload(_mActivity, false);
+//                                        break;
+//                                    case 1:
+//                                        PictureUtil.saveImage(context, bgUrl);
+//                                        break;
+//                                    case 2:
+//                                        HttpApi.deleteBackgroundApi()
+//                                                .onSuccess(data -> {
+//                                                    Log.d("deleteBackgroundApi", "data=" + data);
+//                                                    String info = data.selectFirst("info").text();
+//                                                    if ("success".equals(data.selectFirst("result").text())) {
+//                                                        AToast.success(info);
+//                                                        UserManager.getInstance().getMemberInfo().setMemberBackGround("");
+//                                                        UserManager.getInstance().saveUserInfo();
+//                                                        PictureUtil.saveDefaultBackground(() -> ivWallpaper.setImageResource(R.drawable.bg_member_default));
+//                                                    } else {
+//                                                        AToast.error(info);
+//                                                    }
+//                                                })
+//                                                .onError(throwable -> {
+//                                                    throwable.printStackTrace();
+//                                                    AToast.error(throwable.getMessage());
+//                                                })
+//                                                .subscribe();
+//                                        break;
+//                                }
+//                            })
+//                            .show(x, y);
                     return true;
                 });
 
@@ -283,11 +332,10 @@ public class MyFragment extends BaseFragment
     @Override
     public void toolbarRightImageButton(@NonNull ImageButton imageButton) {
         imageButton.setOnClickListener(v -> {
-            ZPopup.attachList(context)
+            new AttachListDialogFragment<String>()
                     .addItems("打开我的主页", "打开主页网页", "分享主页")
                     .addItem(UserManager.getInstance().isLogin() ? "注销" : "登录")
                     .setOnSelectListener((position, title) -> {
-                        AToast.normal(title);
                         switch (position) {
                             case 0:
                                 ProfileFragment.start(UserManager.getInstance().getUserId(), false);
@@ -309,7 +357,35 @@ public class MyFragment extends BaseFragment
                                 break;
                         }
                     })
-                    .show(v);
+                    .setAttachView(v)
+                    .show(context);
+//            ZPopup.attachList(context)
+//                    .addItems("打开我的主页", "打开主页网页", "分享主页")
+//                    .addItem(UserManager.getInstance().isLogin() ? "注销" : "登录")
+//                    .setOnSelectListener((position, title) -> {
+//                        AToast.normal(title);
+//                        switch (position) {
+//                            case 0:
+//                                ProfileFragment.start(UserManager.getInstance().getUserId(), false);
+//                                break;
+//                            case 1:
+//                                WebFragment.shareHomepage(UserManager.getInstance().getUserId());
+//                                break;
+//                            case 2:
+//                                AToast.normal("TODO 分享主页");
+//                                break;
+//                            case 3:
+//                                if (UserManager.getInstance().isLogin()) {
+//                                    UserManager.getInstance().signOut(context);
+//                                } else {
+//                                    LoginFragment.start(false);
+//                                }
+//                                break;
+//                            case 4:
+//                                break;
+//                        }
+//                    })
+//                    .show(v);
         });
     }
 
@@ -356,7 +432,8 @@ public class MyFragment extends BaseFragment
             }
         } else if (v == tvName) {
             if (UserManager.getInstance().isLogin()) {
-                NicknameModifiedPopup.with(context).show();
+//                NicknameModifiedPopup.with(context).show();
+                new NicknameModifiedDialogFragment().show(context);
             } else {
                 LoginFragment.start(false);
             }

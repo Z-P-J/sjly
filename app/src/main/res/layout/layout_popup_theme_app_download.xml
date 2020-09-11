@@ -45,7 +45,7 @@
         android:id="@+id/state_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_above="@id/tv_down"
+        android:layout_above="@id/fl_bottom_container"
         android:layout_below="@id/ll_top"
         >
 
@@ -198,16 +198,25 @@
 
     </com.zpj.widget.statelayout.StateLayout>
 
-    <TextView
-        android:id="@+id/tv_down"
-        style="@style/button_submit"
-        android:text="立即下载"
-        android:layout_margin="16dp"
+    <FrameLayout
+        android:id="@+id/fl_bottom_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        />
+        android:padding="16dp"
+        >
+        <TextView
+            android:id="@+id/tv_down"
+            style="@style/button_submit"
+            android:text="立即下载"
+            />
+
+    </FrameLayout>
+
+
 
     <View style="@style/layout_shadow_up"
-        android:layout_above="@id/tv_down"
+        android:layout_above="@id/fl_bottom_container"
         />
 
     <View style="@style/layout_shadow_bottom"

@@ -46,7 +46,7 @@ import com.zpj.matisse.MimeType;
 import com.zpj.matisse.engine.impl.GlideEngine;
 import com.zpj.matisse.entity.Item;
 import com.zpj.matisse.listener.OnSelectedListener;
-import com.zpj.matisse.ui.widget.CustomImageViewerPopup;
+import com.zpj.matisse.ui.fragment.CustomImageViewerDialogFragment;
 import com.zpj.recyclerview.EasyRecyclerView;
 import com.zpj.recyclerview.EasyViewHolder;
 import com.zpj.recyclerview.IEasy;
@@ -228,7 +228,7 @@ public class ReplyPanel extends FrameLayout
                             .into(img);
 
                     holder.setOnItemClickListener(v -> {
-                        CustomImageViewerPopup.with(getContext())
+                        new CustomImageViewerDialogFragment()
                                 .setOnSelectedListener(itemList -> {
                                     postDelayed(() -> {
                                         imgList.clear();
@@ -252,7 +252,34 @@ public class ReplyPanel extends FrameLayout
                                     }
                                     popupView.updateSrcView(imageView);
                                 })
-                                .show();
+                                .show(getContext());
+
+
+//                        CustomImageViewerPopup.with(getContext())
+//                                .setOnSelectedListener(itemList -> {
+//                                    postDelayed(() -> {
+//                                        imgList.clear();
+//                                        imgList.addAll(itemList);
+//                                        recyclerView.notifyDataSetChanged();
+//                                        if (imgList.isEmpty()) {
+//                                            recyclerView.getRecyclerView().setVisibility(GONE);
+//                                        }
+//                                    }, 100);
+//                                })
+//                                .setImageUrls(imgList)
+//                                .setSrcView(img, holder.getAdapterPosition())
+//                                .setSrcViewUpdateListener((popupView, pos) -> {
+//                                    int layoutPos = recyclerView.getRecyclerView().indexOfChild(holder.getItemView());
+//                                    View view = recyclerView.getRecyclerView().getChildAt(layoutPos + pos - position);
+//                                    ImageView imageView;
+//                                    if (view != null) {
+//                                        imageView = view.findViewById(R.id.iv_img);
+//                                    } else {
+//                                        imageView = img;
+//                                    }
+//                                    popupView.updateSrcView(imageView);
+//                                })
+//                                .show();
                     });
                 })
                 .onViewClick(R.id.iv_close, new IEasy.OnClickListener<Item>() {

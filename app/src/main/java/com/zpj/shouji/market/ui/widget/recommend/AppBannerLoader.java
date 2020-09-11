@@ -11,6 +11,7 @@ import com.geek.banner.loader.BannerEntry;
 import com.geek.banner.loader.BannerLoader;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.model.AppInfo;
+import com.zpj.shouji.market.ui.widget.DownloadButton;
 
 public class AppBannerLoader implements BannerLoader<AppInfo, View> {
 
@@ -20,6 +21,7 @@ public class AppBannerLoader implements BannerLoader<AppInfo, View> {
         ImageView ivIcon = itemView.findViewById(R.id.iv_icon);
         TextView tvTitle = itemView.findViewById(R.id.tv_title);
         TextView tvInfo = itemView.findViewById(R.id.tv_info);
+        DownloadButton downloadButton = itemView.findViewById(R.id.tv_download);
 
 
         AppInfo appInfo = (AppInfo) entry.getBannerPath();
@@ -27,6 +29,7 @@ public class AppBannerLoader implements BannerLoader<AppInfo, View> {
         Glide.with(context).load(appInfo.getAppIcon()).into(ivIcon);
         tvTitle.setText(appInfo.getAppTitle());
         tvInfo.setText(appInfo.getAppSize());
+        downloadButton.bindApp(appInfo);
     }
 
     @Override

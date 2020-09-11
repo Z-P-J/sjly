@@ -1,7 +1,9 @@
 package com.zpj.shouji.market.ui.widget.recommend;
 
 import android.content.Context;
+import android.support.annotation.NonNull;
 import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.view.View;
@@ -110,6 +112,18 @@ public abstract class AppInfoRecommendCard extends RecommendCard<AppInfo> {
                 return false;
             }
         });
+        recyclerView.getRecyclerView().addOnChildAttachStateChangeListener(new RecyclerView.OnChildAttachStateChangeListener() {
+            @Override
+            public void onChildViewAttachedToWindow(@NonNull View view) {
+
+            }
+
+            @Override
+            public void onChildViewDetachedFromWindow(@NonNull View view) {
+                DownloadButton downloadButton = view.findViewById(R.id.tv_download);
+                downloadButton.onChildViewDetachedFromWindow();
+            }
+        });
     }
 
     @Override
@@ -119,7 +133,8 @@ public abstract class AppInfoRecommendCard extends RecommendCard<AppInfo> {
         holder.getTextView(R.id.item_info).setText(info.getAppSize());
         Glide.with(context).load(info.getAppIcon()).into(holder.getImageView(R.id.item_icon));
         DownloadButton downloadButton = holder.getView(R.id.tv_download);
-        downloadButton.bindApp(info.getAppId(), info.getAppTitle(), info.getAppType());
+        downloadButton.bindApp(info);
+
 //        holder.getView(R.id.tv_download).setOnClickListener(new OnClickListener() {
 //            @Override
 //            public void onClick(View v) {

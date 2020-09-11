@@ -2,26 +2,12 @@ package com.zpj.shouji.market.ui.fragment.booking;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
-import android.support.v4.view.ViewPager;
 import android.view.View;
 
-import com.zpj.fragmentation.BaseFragment;
-import com.zpj.recyclerview.EasyViewHolder;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.api.BookingApi;
 import com.zpj.shouji.market.constant.Keys;
 import com.zpj.shouji.market.event.StartFragmentEvent;
-import com.zpj.shouji.market.model.BookingAppInfo;
-import com.zpj.shouji.market.ui.adapter.FragmentsPagerAdapter;
-import com.zpj.shouji.market.ui.fragment.detail.AppDetailFragment;
-import com.zpj.shouji.market.ui.widget.popup.BottomListPopupMenu;
-import com.zpj.shouji.market.utils.MagicIndicatorHelper;
-
-import net.lucode.hackware.magicindicator.MagicIndicator;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class LatestBookingFragment extends BookingAppListFragment {
 

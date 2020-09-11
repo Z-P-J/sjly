@@ -139,6 +139,16 @@ public class DownloadService extends Service implements DownloadMission.MissionL
         postUpdateMessage();
     }
 
+    @Override
+    public void onDelete() {
+
+    }
+
+    @Override
+    public void onClear() {
+
+    }
+
     private void postUpdateMessage() {
         mHandler.sendEmptyMessage(0);
     }

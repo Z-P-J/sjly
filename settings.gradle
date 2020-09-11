@@ -1,7 +1,7 @@
 include ':app',
         ':zwidget',
         ':zdownloader',
-        ':zpopup',
+//        ':zpopup',
 //        ':likewidget',
         ':iconcountview',
 //        ':richeditor',
@@ -12,4 +12,6 @@ include ':app',
         ':filescannercore',
         ':niceimageview',
         ':ucrop',
-        ':expandabletextview'
+        ':expandabletextview',
+        ':fragmentation',
+        ':fragmentation-dialog'

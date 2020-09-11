@@ -152,7 +152,7 @@ public class AlbumFragment extends BaseFragment implements
         } else {
             recyclerLayout.showContent();
             start(MediaSelectionFragment.newInstance(album));
-            EventBus.getDefault().post(new UpdateTitleEvent(album.getDisplayName(context)));
+            UpdateTitleEvent.post(album.getDisplayName(context));
         }
     }
 }

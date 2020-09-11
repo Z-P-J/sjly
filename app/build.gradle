@@ -165,7 +165,7 @@ dependencies {
     implementation 'com.zpj.widget:StateLayout:1.0.2'
     implementation 'com.zpj.widget:SmoothCheckBox:1.0.0'
     implementation 'com.zpj.widget:ZSwitcher:1.0.4'
-    implementation 'com.zpj.widget:Fragmentation:1.0.2'
+//    implementation 'com.zpj.widget:Fragmentation:1.0.2'
     implementation 'com.zpj.widget:ZSettingItem:1.0.3'
     implementation 'com.zpj.widget:ZToolBar:1.0.5'
     implementation 'com.zpj.utils:ZUtils:1.0.2'
@@ -175,7 +175,7 @@ dependencies {
     implementation project(':niceimageview')
     implementation project(":filescannercore")
     implementation project(":zwidget")
-    implementation project(":zpopup")
+    implementation project(":fragmentation-dialog")
     implementation project(":zdownloader")
 //    implementation project(':zmarkdown')
 //    implementation project(':richeditor')
@@ -184,5 +184,6 @@ dependencies {
     implementation project(':iconcountview')
     implementation project(':ucrop')
     implementation project(':expandabletextview')
+    implementation project(':fragmentation')
 
 }

@@ -6,34 +6,24 @@ import android.util.Base64;
 import android.util.Log;
 
 import com.felix.atoast.library.AToast;
+import com.zpj.fragmentation.dialog.impl.AlertDialogFragment;
 import com.zpj.http.ZHttp;
 import com.zpj.http.core.Connection;
-import com.zpj.http.core.IHttp;
-import com.zpj.http.core.ObservableTask;
 import com.zpj.http.parser.html.nodes.Document;
-import com.zpj.popup.ZPopup;
+import com.zpj.shouji.market.api.HttpApi;
 import com.zpj.shouji.market.event.SignInEvent;
 import com.zpj.shouji.market.event.SignOutEvent;
 import com.zpj.shouji.market.event.SignUpEvent;
 import com.zpj.shouji.market.event.UserInfoChangeEvent;
 import com.zpj.shouji.market.model.MemberInfo;
-import com.zpj.shouji.market.api.HttpApi;
 import com.zpj.shouji.market.model.MessageInfo;
 import com.zpj.shouji.market.utils.PictureUtil;
 import com.zpj.utils.DeviceUtils;
 import com.zpj.utils.PrefsHelper;
 
-import java.lang.ref.WeakReference;
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Map;
-
-import io.reactivex.ObservableEmitter;
-import io.reactivex.ObservableOnSubscribe;
-import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.schedulers.Schedulers;
 
 public final class UserManager {
 
@@ -106,17 +96,28 @@ public final class UserManager {
     }
 
     public void signOut(Context context) {
-        ZPopup.alert(context)
+        new AlertDialogFragment()
                 .setTitle("确认注销？")
                 .setContent("您将注销当前登录的账户，确认继续？")
-                .setConfirmButton(popup -> {
+                .setPositiveButton(popup -> {
                     memberInfo = null;
                     setUserInfo("");
                     setCookie("");
                     isLogin = false;
                     PictureUtil.saveDefaultIcon(SignOutEvent::postEvent);
                 })
-                .show();
+                .show(context);
+//        ZPopup.alert(context)
+//                .setTitle("确认注销？")
+//                .setContent("您将注销当前登录的账户，确认继续？")
+//                .setConfirmButton(popup -> {
+//                    memberInfo = null;
+//                    setUserInfo("");
+//                    setCookie("");
+//                    isLogin = false;
+//                    PictureUtil.saveDefaultIcon(SignOutEvent::postEvent);
+//                })
+//                .show();
     }
 
     public void setCookie(String cookie) {

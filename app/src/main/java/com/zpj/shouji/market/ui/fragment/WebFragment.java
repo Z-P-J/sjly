@@ -4,7 +4,6 @@ import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -13,7 +12,6 @@ import android.text.TextUtils;
 import android.view.View;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
-import android.webkit.WebViewClient;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
 
@@ -22,7 +20,7 @@ import com.just.agentweb.AbsAgentWebSettings;
 import com.just.agentweb.AgentWeb;
 import com.just.agentweb.IAgentWebSettings;
 import com.zpj.fragmentation.BaseFragment;
-import com.zpj.popup.ZPopup;
+import com.zpj.fragmentation.dialog.impl.AttachListDialogFragment;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.constant.Keys;
 import com.zpj.shouji.market.event.StartFragmentEvent;
@@ -148,7 +146,7 @@ public class WebFragment extends BaseFragment {
     public void toolbarRightImageButton(@NonNull ImageButton imageButton) {
         imageButton.setOnClickListener(v -> {
             boolean isPhoneUA = isPhoneUA();
-            ZPopup.attachList(context)
+            new AttachListDialogFragment<String>()
                     .addItem("浏览器中打开")
                     .addItem(isPhoneUA ? "电脑版网页" : "移动版网页")
                     .addItem("复制链接")
@@ -170,7 +168,31 @@ public class WebFragment extends BaseFragment {
                                 break;
                         }
                     })
-                    .show(imageButton);
+                    .setAttachView(imageButton)
+                    .show(this);
+//            ZPopup.attachList(context)
+//                    .addItem("浏览器中打开")
+//                    .addItem(isPhoneUA ? "电脑版网页" : "移动版网页")
+//                    .addItem("复制链接")
+//                    .setOnSelectListener((position, title) -> {
+//                        switch (position) {
+//                            case 0:
+//                                Uri uri = Uri.parse(mAgentWeb.getWebCreator().getWebView().getUrl());
+//                                Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+//                                startActivity(intent);
+//                                break;
+//                            case 1:
+//                                mAgentWeb.getAgentWebSettings().getWebSettings().setUserAgentString(isPhoneUA ? UA_PC : UA_PHONE);
+//                                mAgentWeb.getWebCreator().getWebView().reload();
+//                                break;
+//                            case 2:
+//                                ClipboardManager cm = (ClipboardManager) context.getSystemService(Context.CLIPBOARD_SERVICE);
+//                                cm.setPrimaryClip(ClipData.newPlainText(null, mAgentWeb.getWebCreator().getWebView().getUrl()));
+//                                AToast.success("已复制到粘贴板");
+//                                break;
+//                        }
+//                    })
+//                    .show(imageButton);
         });
     }
 

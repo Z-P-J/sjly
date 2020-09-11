@@ -17,10 +17,14 @@ package com.zpj.matisse.ui.fragment;
 
 import android.app.Activity;
 import android.content.res.TypedArray;
+import android.database.Cursor;
 import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v7.widget.GridLayoutManager;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -35,19 +39,22 @@ import com.zpj.matisse.entity.Album;
 import com.zpj.matisse.entity.Item;
 import com.zpj.matisse.entity.SelectionSpec;
 import com.zpj.matisse.event.UpdateTitleEvent;
+import com.zpj.matisse.model.AlbumManager;
 import com.zpj.matisse.model.SelectedItemManager;
 import com.zpj.matisse.ui.widget.AlbumListLayout;
 import com.zpj.matisse.ui.widget.CheckRadioView;
-import com.zpj.matisse.ui.widget.CustomImageViewerPopup;
 import com.zpj.matisse.ui.widget.IncapableDialog;
 import com.zpj.matisse.ui.widget.MediaSelectionLayout;
 import com.zpj.matisse.utils.MediaStoreCompat;
 import com.zpj.matisse.utils.PhotoMetadataUtils;
+import com.zpj.recyclerview.EasyRecyclerLayout;
+import com.zpj.recyclerview.EasyRecyclerView;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -301,12 +308,12 @@ public class MatisseFragment2 extends BaseFragment implements
     @Override
     public void onClick(View v) {
         if (v.getId() == R.id.button_preview) {
-            CustomImageViewerPopup.with(context)
+            new CustomImageViewerDialogFragment()
                     .setCountable(mSpec.countable)
                     .setSingleSelectionModeEnabled(mSpec.singleSelectionModeEnabled())
                     .setSelectedItemManager(mSelectedCollection)
                     .setImageUrls(mSelectedCollection.asList())
-                    .show();
+                    .show(context);
         } else if (v.getId() == R.id.button_apply) {
 
             List<Uri> selectedUris =  mSelectedCollection.asListOfUri();

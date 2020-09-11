@@ -27,7 +27,7 @@ import com.yanyusong.y_divideritemdecoration.Y_Divider;
 import com.yanyusong.y_divideritemdecoration.Y_DividerBuilder;
 import com.yanyusong.y_divideritemdecoration.Y_DividerItemDecoration;
 import com.zpj.fragmentation.BaseFragment;
-import com.zpj.popup.core.ImageViewerPopup;
+import com.zpj.fragmentation.dialog.impl.ImageViewerDialogFragment;
 import com.zpj.recyclerview.EasyRecyclerView;
 import com.zpj.recyclerview.EasyViewHolder;
 import com.zpj.recyclerview.IEasy;
@@ -35,8 +35,8 @@ import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.model.AppDetailInfo;
 import com.zpj.shouji.market.model.AppInfo;
 import com.zpj.shouji.market.ui.fragment.ToolBarAppListFragment;
+import com.zpj.shouji.market.ui.fragment.dialog.CommonImageViewerDialogFragment;
 import com.zpj.shouji.market.ui.fragment.profile.ProfileFragment;
-import com.zpj.shouji.market.ui.widget.popup.CommonImageViewerPopup;
 import com.zpj.utils.ScreenUtils;
 
 import org.greenrobot.eventbus.EventBus;
@@ -137,13 +137,14 @@ public class AppDetailInfoFragment extends BaseFragment
                 });
         img.setTag(position);
         img.setOnClickListener(v -> {
-            CommonImageViewerPopup.with(context)
+
+            new CommonImageViewerDialogFragment()
                     .setImageUrls(list)
                     .setSrcView(img, position)
-                    .setSrcViewUpdateListener(new ImageViewerPopup.OnSrcViewUpdateListener<String>() {
+                    .setSrcViewUpdateListener(new ImageViewerDialogFragment.OnSrcViewUpdateListener<String>() {
                         private boolean flag = true;
                         @Override
-                        public void onSrcViewUpdate(@NonNull ImageViewerPopup<String> popup, int pos) {
+                        public void onSrcViewUpdate(@NonNull ImageViewerDialogFragment<String> popup, int pos) {
                             if (flag) {
                                 flag = false;
                             } else {
@@ -167,7 +168,39 @@ public class AppDetailInfoFragment extends BaseFragment
                             }, 100);
                         }
                     })
-                    .show();
+                    .show(context);
+
+//            CommonImageViewerPopup.with(context)
+//                    .setImageUrls(list)
+//                    .setSrcView(img, position)
+//                    .setSrcViewUpdateListener(new ImageViewerPopup.OnSrcViewUpdateListener<String>() {
+//                        private boolean flag = true;
+//                        @Override
+//                        public void onSrcViewUpdate(@NonNull ImageViewerPopup<String> popup, int pos) {
+//                            if (flag) {
+//                                flag = false;
+//                            } else {
+//                                recyclerView.getRecyclerView().scrollToPosition(pos);
+//                            }
+//
+//                            postDelayed(() -> {
+////                                int layoutPos = recyclerView.getRecyclerView().indexOfChild(holder.getItemView());
+////                                View view = recyclerView.getRecyclerView().getChildAt(layoutPos + pos - position);
+////                                ImageView imageView;
+////                                if (view != null) {
+////                                    imageView = view.findViewById(R.id.iv_img);
+////                                } else {
+////                                    imageView = img;
+////                                }
+//                                ImageView imageView = recyclerView.getRecyclerView().findViewWithTag(pos);
+//                                if (imageView == null) {
+//                                    imageView = img;
+//                                }
+//                                popup.updateSrcView(imageView, pos);
+//                            }, 100);
+//                        }
+//                    })
+//                    .show();
         });
     }
 

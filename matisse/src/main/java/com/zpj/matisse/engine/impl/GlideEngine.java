@@ -41,7 +41,7 @@ public class GlideEngine implements ImageEngine {
                         RequestOptions.bitmapTransform(new ScaleTransformation(0.8f))
 //                        .override(resize, resize)
 //                        .override(Target.SIZE_ORIGINAL)
-                                .placeholder(placeholder)
+                        .placeholder(placeholder)
 //                        .fitCenter()
                 )
                 .into(imageView);
@@ -57,7 +57,7 @@ public class GlideEngine implements ImageEngine {
                         new RequestOptions()
 //                        .override(resize, resize)
 //                        .override(Target.SIZE_ORIGINAL)
-                                .placeholder(placeholder)
+                        .placeholder(placeholder)
 //                        .fitCenter()
                 )
                 .into(imageView);
