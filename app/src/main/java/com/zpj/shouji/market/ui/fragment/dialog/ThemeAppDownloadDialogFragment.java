@@ -19,6 +19,7 @@ import com.zpj.http.parser.html.select.Elements;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.api.HttpApi;
 import com.zpj.shouji.market.model.DiscoverInfo;
+import com.zpj.shouji.market.ui.widget.DownloadButton;
 import com.zpj.utils.ScreenUtils;
 import com.zpj.widget.statelayout.StateLayout;
 
@@ -29,7 +30,7 @@ public class ThemeAppDownloadDialogFragment extends BottomDialogFragment {
     private StateLayout stateLayout;
     private LinearLayout llContainer;
     private TextView tvDesc;
-    private TextView tvDownload;
+    private DownloadButton tvDownload;
 
     private String id;
     private DiscoverInfo discoverInfo;
@@ -100,12 +101,13 @@ public class ThemeAppDownloadDialogFragment extends BottomDialogFragment {
         tvDesc.setText(discoverInfo.getAppSize());
 
         tvDownload = findViewById(R.id.tv_down);
-        tvDownload.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                AToast.normal("TODO Download " + apkUrl);
-            }
-        });
+
+//        tvDownload.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                AToast.normal("TODO Download " + apkUrl);
+//            }
+//        });
         tvDownload.setEnabled(false);
         tvDownload.setAlpha(0.8f);
 
@@ -130,6 +132,15 @@ public class ThemeAppDownloadDialogFragment extends BottomDialogFragment {
                     if (!TextUtils.isEmpty(apkUrl)) {
                         tvDownload.setAlpha(1f);
                         tvDownload.setEnabled(true);
+                        tvDownload.bindApp(
+                                apkUrl.substring(apkUrl.lastIndexOf("id=") + 3),
+                                discoverInfo.getAppName(),
+                                discoverInfo.getAppPackageName(),
+                                discoverInfo.getAppType(),
+                                discoverInfo.getAppIcon(),
+                                null,
+                                true
+                        );
                     }
                     String version = null;
                     for (Element element : data.selectFirst("infos").select("info")) {

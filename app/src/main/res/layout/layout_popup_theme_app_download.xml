@@ -205,7 +205,7 @@
         android:layout_alignParentBottom="true"
         android:padding="16dp"
         >
-        <TextView
+        <com.zpj.shouji.market.ui.widget.DownloadButton
             android:id="@+id/tv_down"
             style="@style/button_submit"
             android:text="立即下载"

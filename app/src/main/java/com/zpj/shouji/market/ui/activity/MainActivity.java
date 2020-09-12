@@ -223,9 +223,11 @@ public class MainActivity extends SupportActivity {
     @Override
     protected void onDestroy() {
         loadingDialogFragment = null;
+        ZDownloader.onDestroy();
         EventBus.getDefault().unregister(this);
         HttpPreLoader.getInstance().onDestroy();
         super.onDestroy();
+        System.exit(0);
     }
 
     @Override
@@ -238,7 +240,7 @@ public class MainActivity extends SupportActivity {
         } else {
 //            finish();
             ZDownloader.pauseAll();
-            ZDownloader.onDestroy();
+//            ZDownloader.onDestroy();
             ActivityCompat.finishAfterTransition(this);
         }
     }

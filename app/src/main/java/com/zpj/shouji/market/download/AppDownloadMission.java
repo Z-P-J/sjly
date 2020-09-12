@@ -6,6 +6,7 @@ import android.util.Log;
 import com.zpj.downloader.config.MissionConfig;
 import com.zpj.downloader.constant.Error;
 import com.zpj.downloader.core.DownloadMission;
+import com.zpj.downloader.util.FileUtil;
 import com.zpj.http.ZHttp;
 import com.zpj.http.core.IHttp;
 import com.zpj.http.parser.html.nodes.Document;
@@ -20,9 +21,15 @@ public class AppDownloadMission extends DownloadMission {
     private String appId;
     private String appType;
     private String appName;
+    private boolean isShareApp;
 
     public static AppDownloadMission create(String appId, String appName, String packageName, String appType, MissionConfig config) {
+        return create(appId, appName, packageName, appType, config, false);
+    }
+
+    public static AppDownloadMission create(String appId, String appName, String packageName, String appType, MissionConfig config, boolean isShareApp) {
         AppDownloadMission mission = new AppDownloadMission();
+        mission.isShareApp = isShareApp;
         mission.packageName = packageName;
         mission.appId = appId;
         mission.appType = appType;
@@ -35,21 +42,21 @@ public class AppDownloadMission extends DownloadMission {
         return mission;
     }
 
-    public static AppDownloadMission create(String appUrl, String appId, String appName, String packageName, String appType, MissionConfig config) {
-        AppDownloadMission mission = new AppDownloadMission();
-        mission.url = appUrl;
-        mission.originUrl = appUrl;
-        mission.packageName = packageName;
-        mission.appId = appId;
-        mission.appType = appType;
-        mission.appName = appName;
-        mission.name = appName + "_" + appId + ".apk";
-        mission.uuid = UUID.randomUUID().toString();
-        mission.createTime = System.currentTimeMillis();
-        mission.missionStatus = MissionStatus.INITING;
-        mission.missionConfig = config;
-        return mission;
-    }
+//    public static AppDownloadMission create(String appUrl, String appId, String appName, String packageName, String appType, MissionConfig config) {
+//        AppDownloadMission mission = new AppDownloadMission();
+//        mission.url = appUrl;
+//        mission.originUrl = appUrl;
+//        mission.packageName = packageName;
+//        mission.appId = appId;
+//        mission.appType = appType;
+//        mission.appName = appName;
+//        mission.name = appName + "_" + appId + ".apk";
+//        mission.uuid = UUID.randomUUID().toString();
+//        mission.createTime = System.currentTimeMillis();
+//        mission.missionStatus = MissionStatus.INITING;
+//        mission.missionConfig = config;
+//        return mission;
+//    }
 
 
 
@@ -57,7 +64,14 @@ public class AppDownloadMission extends DownloadMission {
     protected void initMission() {
         Log.d("AppDownloadMission", "initMission");
         if (TextUtils.isEmpty(url)) {
-            HttpApi.get(String.format("http://tt.shouji.com.cn/wap/down/cmwap/package?package=%s&id=%s&sjly=199", packageName, appId))
+            String downloadUrl;
+            if (isShareApp) {
+                downloadUrl = String.format("http://tt.shouji.com.cn/wap/down/cmwap/share?id=%s&sjly=199", appId);
+            } else {
+                downloadUrl = String.format("http://tt.shouji.com.cn/wap/down/cmwap/package?package=%s&id=%s&sjly=199", packageName, appId);
+            }
+            Log.d("AppDownloadMission", "initMission downloadUrl=" + downloadUrl);
+            HttpApi.get(downloadUrl)
                     .onSuccess(new IHttp.OnSuccessListener<Document>() {
                         @Override
                         public void onSuccess(Document data) throws Exception {
@@ -80,6 +94,19 @@ public class AppDownloadMission extends DownloadMission {
                     .subscribe();
         } else {
             super.initMission();
+        }
+    }
+
+    @Override
+    protected void onFinish() {
+        if (errCode > 0) {
+            return;
+        }
+        if (FileUtil.checkFileType(name) == FileUtil.FILE_TYPE.ARCHIVE) {
+//            TODO 解压
+            super.onFinish();
+        } else {
+            super.onFinish();
         }
     }
 

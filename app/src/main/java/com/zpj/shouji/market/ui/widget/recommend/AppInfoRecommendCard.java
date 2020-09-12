@@ -120,8 +120,8 @@ public abstract class AppInfoRecommendCard extends RecommendCard<AppInfo> {
 
             @Override
             public void onChildViewDetachedFromWindow(@NonNull View view) {
-                DownloadButton downloadButton = view.findViewById(R.id.tv_download);
-                downloadButton.onChildViewDetachedFromWindow();
+//                DownloadButton downloadButton = view.findViewById(R.id.tv_download);
+//                downloadButton.onChildViewDetachedFromWindow();
             }
         });
     }

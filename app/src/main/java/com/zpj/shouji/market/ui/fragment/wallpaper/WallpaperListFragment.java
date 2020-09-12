@@ -47,7 +47,7 @@ import java.util.List;
 
 public class WallpaperListFragment extends NextUrlFragment<WallpaperInfo> {
 
-    private static final String DEFAULT_URL = "http://tt.shouji.com.cn/app/bizhi_list.jsp";
+    private static final String DEFAULT_URL = "http://tt.shouji.com.cn/appv3/bizhi_list.jsp";
 
     private String id;
     private String tag;
@@ -279,12 +279,15 @@ public class WallpaperListFragment extends NextUrlFragment<WallpaperInfo> {
 //        recyclerLayout.notifyDataSetChanged();
 
         if (data.isEmpty()) {
-            refresh = false;
-            recyclerLayout.showEmpty();
+//            refresh = false;
+            recyclerLayout.showLoading();
+//            recyclerLayout.showEmpty();
         } else {
-            refresh = true;
-            getData();
+//            refresh = true;
+//            getData();
         }
+        refresh = true;
+        getData();
     }
 
     protected int getHeaderLayout() {

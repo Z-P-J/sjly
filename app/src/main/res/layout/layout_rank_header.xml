@@ -85,8 +85,7 @@
             android:paddingBottom="4dp"
             android:text="@string/text_download"
             android:textColor="@color/colorPrimary"
-            android:textSize="12sp"
-            android:textStyle="bold" />
+            android:textSize="12sp"/>
 
     </LinearLayout>
 

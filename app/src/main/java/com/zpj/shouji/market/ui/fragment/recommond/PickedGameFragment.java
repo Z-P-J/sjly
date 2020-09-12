@@ -101,8 +101,8 @@ public class PickedGameFragment extends NextUrlFragment<PickedGameInfo> {
 
                     @Override
                     public void onChildViewDetachedFromWindow(@NonNull View view) {
-                        DownloadButton tvDownload = view.findViewById(R.id.tv_download);
-                        tvDownload.onChildViewDetachedFromWindow();
+//                        DownloadButton tvDownload = view.findViewById(R.id.tv_download);
+//                        tvDownload.onChildViewDetachedFromWindow();
                     }
                 });
     }

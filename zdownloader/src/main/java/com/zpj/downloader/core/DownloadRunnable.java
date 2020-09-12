@@ -229,8 +229,9 @@ public class DownloadRunnable implements Runnable {
         Log.d(TAG, "thread " + mId + " exited main loop");
         Log.d(TAG, "mMission.getDone()=" + mMission.getDone());
         Log.d(TAG, "mMission.getLength()=" + mMission.getLength());
-		File file = mMission.getFile();
-        if (mMission.getErrCode() == -1 && mMission.isRunning() && (mMission.getDone() == mMission.getLength() || (file != null && mMission.getLength() == file.length()) || mMission.isFallback())) {
+//		File file = mMission.getFile();
+//		 || (file != null && mMission.getLength() == file.length())
+        if (mMission.getErrCode() == -1 && mMission.isRunning() && (mMission.getDone() == mMission.getLength()) || mMission.isFallback()) {
             Log.d(TAG, "no error has happened, notifying");
             notifyFinished();
         }

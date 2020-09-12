@@ -37,13 +37,19 @@ public abstract class NextUrlFragment<T> extends RecyclerLayoutFragment<T>
 //        super.onRefresh();
 //        data.clear();
 //        recyclerLayout.notifyDataSetChanged();
+//        if (data.isEmpty()) {
+//            refresh = false;
+//            recyclerLayout.showContent();
+//        } else {
+//            refresh = true;
+//            getData();
+//        }
+
         if (data.isEmpty()) {
-            refresh = false;
-            recyclerLayout.showContent();
-        } else {
-            refresh = true;
-            getData();
+            recyclerLayout.showLoading();
         }
+        refresh = true;
+        getData();
     }
 
     @Override

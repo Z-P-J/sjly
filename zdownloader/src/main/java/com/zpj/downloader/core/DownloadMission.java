@@ -4,6 +4,7 @@ import android.content.Context;
 import android.os.Handler;
 import android.os.Looper;
 import android.support.annotation.Keep;
+import android.support.annotation.NonNull;
 import android.text.TextUtils;
 import android.util.Log;
 import android.util.LongSparseArray;
@@ -37,6 +38,7 @@ import java.util.Map;
 import java.util.UUID;
 import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.concurrent.ThreadPoolExecutor;
+import java.util.concurrent.atomic.AtomicLong;
 
 /**
  * @author Z-P-J
@@ -79,12 +81,13 @@ public class DownloadMission {
         ERROR("出错了"),
         RETRY("重试中");
 
-        private String statusName;
+        private final String statusName;
 
         MissionStatus(String name) {
             statusName = name;
         }
 
+        @NonNull
         @Override
         public String toString() {
             return statusName;
@@ -107,6 +110,7 @@ public class DownloadMission {
     protected int finishCount = 0;
     protected long length = 0;
     protected long done = 0;
+    protected AtomicLong doneLen = new AtomicLong(0);
 //    private List<Long> threadPositions = new ArrayList<>();
     protected MissionStatus missionStatus = MissionStatus.INITING;
     protected boolean fallback = false;
@@ -526,6 +530,7 @@ public class DownloadMission {
                 missionConfig.getThreadPoolConfig().setCorePoolSize(1);
                 threadCount = 1;
                 done = 0;
+                doneLen.set(0);
                 blocks = 0;
             }
 
@@ -634,6 +639,9 @@ public class DownloadMission {
 
     //------------------------------------------------------------notify------------------------------------------------------------
     synchronized void notifyProgress(long deltaLen) {
+        if (doneLen.addAndGet(deltaLen) > length) {
+            doneLen.set(length);
+        }
         done += deltaLen;
         if (done > length) {
             done = length;
@@ -641,15 +649,15 @@ public class DownloadMission {
     }
 
     synchronized void notifyFinished() {
-        Log.d(TAG, "notifyFinished errCode=" + errCode + " done=" + done + " length=" + length);
+        Log.d(TAG, "notifyFinished errCode=" + errCode + " done=" + done + " length=" + length + " doneLen=" + doneLen.get());
         if (errCode > 0) {
             return;
         }
 
         finishCount++;
 
-        File file = getFile();
-        if (isFallback() || done == length || (file != null && length == file.length())) {
+//        File file = getFile();
+        if (isFallback() || done == length) { //  || (file != null && length == file.length())
             onFinish();
         } else {
             pause();
@@ -873,6 +881,7 @@ public class DownloadMission {
         }
         Log.d(TAG, "onFinish");
         done = length;
+        doneLen.set(length);
         handler.removeCallbacks(progressRunnable);
 
         missionStatus = MissionStatus.FINISHED;

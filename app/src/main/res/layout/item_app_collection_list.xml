@@ -73,7 +73,6 @@
             android:layout_centerVertical="true"
             android:paddingStart="12dp"
             android:paddingEnd="12dp"
-            android:textStyle="bold"
             android:paddingTop="4dp"
             android:paddingBottom="4dp"
             android:gravity="center"

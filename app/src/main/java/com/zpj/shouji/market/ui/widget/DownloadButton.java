@@ -41,6 +41,7 @@ public class DownloadButton extends AppCompatTextView
     private String appType;
     private String appName;
     private String yunUrl;
+    private boolean isShareApp;
 
     private AppDownloadMission mission;
 
@@ -104,12 +105,17 @@ public class DownloadButton extends AppCompatTextView
     }
 
     public void bindApp(String appId, String appName, String packageName, String appType, String appIcon, String yunUrl) {
+        bindApp(appId, appName, packageName, appType, appIcon, yunUrl, false);
+    }
+
+    public void bindApp(String appId, String appName, String packageName, String appType, String appIcon, String yunUrl, boolean isShareApp) {
         this.appId = appId;
         this.appName = appName;
         this.packageName = packageName;
         this.appType = appType;
         this.appIcon = appIcon;
         this.yunUrl = yunUrl;
+        this.isShareApp = isShareApp;
         mission = null;
         for (AppDownloadMission mission : ZDownloader.getAllMissions(AppDownloadMission.class)) {
             if (TextUtils.equals(appId, mission.getAppId()) && TextUtils.equals(packageName, mission.getPackageName())) {
@@ -223,7 +229,7 @@ public class DownloadButton extends AppCompatTextView
                     .setCookie(UserManager.getInstance().getCookie());
 
             mission = AppDownloadMission
-                    .create(appId, appName, packageName, appType, config);
+                    .create(appId, appName, packageName, appType, config, isShareApp);
             mission.setAppIcon(appIcon);
             mission.addListener(this);
             mission.start();

@@ -63,6 +63,8 @@ import java.util.List;
 public class ImageViewerDialogFragment<T> extends BaseDialogFragment
         implements OnDragChangeListener, View.OnClickListener {
 
+    private static final int DEFAULT_ANIM_DURATION = 250;
+
     protected FrameLayout container;
     protected PhotoViewContainer photoViewContainer;
     protected BlankView placeholderView;
@@ -120,20 +122,20 @@ public class ImageViewerDialogFragment<T> extends BaseDialogFragment
     protected void initView(View view, @Nullable Bundle savedInstanceState) {
         super.initView(view, savedInstanceState);
 
-        if (srcView != null) {
-            int[] locations = new int[2];
-            this.srcView.getLocationInWindow(locations);
-//            int offset;
-//            if (getActivity() != null && (WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS
-//                    & getActivity().getWindow().getAttributes().flags)
-//                    == WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS) {
-//                offset = 0;
-//            } else {
-//                offset = ScreenUtils.getStatusBarHeight(context);
-//            }
-//            locations[1] = locations[1] - offset;
-            rect = new Rect(locations[0], locations[1], locations[0] + srcView.getWidth(), locations[1] + srcView.getHeight());
-        }
+//        if (srcView != null) {
+//            int[] locations = new int[2];
+//            this.srcView.getLocationInWindow(locations);
+////            int offset;
+////            if (getActivity() != null && (WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS
+////                    & getActivity().getWindow().getAttributes().flags)
+////                    == WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS) {
+////                offset = 0;
+////            } else {
+////                offset = ScreenUtils.getStatusBarHeight(context);
+////            }
+////            locations[1] = locations[1] - offset;
+//            rect = new Rect(locations[0], locations[1], locations[0] + srcView.getWidth(), locations[1] + srcView.getHeight());
+//        }
 
         container = findViewById(R.id.container);
         if (getCustomLayoutId() > 0) {
@@ -196,8 +198,9 @@ public class ImageViewerDialogFragment<T> extends BaseDialogFragment
         snapshotView.post(new Runnable() {
             @Override
             public void run() {
+//                XPopup.getAnimationDuration()
                 TransitionManager.beginDelayedTransition((ViewGroup) snapshotView.getParent(), new TransitionSet()
-                        .setDuration(XPopup.getAnimationDuration())
+                        .setDuration(DEFAULT_ANIM_DURATION)
                         .addTransition(new ChangeBounds())
                         .addTransition(new ChangeTransform())
                         .addTransition(new ChangeImageTransform())
@@ -219,8 +222,9 @@ public class ImageViewerDialogFragment<T> extends BaseDialogFragment
 
                 // do shadow anim.
                 animateShadowBg(bgColor);
+//                XPopup.getAnimationDuration()
                 if (customView != null)
-                    customView.animate().alpha(1f).setDuration(XPopup.getAnimationDuration()).start();
+                    customView.animate().alpha(1f).setDuration(DEFAULT_ANIM_DURATION).start();
             }
         });
 
@@ -277,7 +281,8 @@ public class ImageViewerDialogFragment<T> extends BaseDialogFragment
                         start, endColor));
             }
         });
-        animator.setDuration(XPopup.getAnimationDuration())
+//        XPopup.getAnimationDuration()
+        animator.setDuration(DEFAULT_ANIM_DURATION)
                 .setInterpolator(new LinearInterpolator());
         animator.start();
     }
@@ -297,8 +302,9 @@ public class ImageViewerDialogFragment<T> extends BaseDialogFragment
         snapshotView.setVisibility(View.VISIBLE);
         photoViewContainer.isReleasing = true;
         Log.d("ImageViewerPopup", "snapshotView.getParent()=" + snapshotView.getParent());
+//        XPopup.getAnimationDuration()
         TransitionManager.beginDelayedTransition((ViewGroup) snapshotView.getParent(), new TransitionSet()
-                .setDuration(XPopup.getAnimationDuration())
+                .setDuration(DEFAULT_ANIM_DURATION)
                 .addTransition(new ChangeBounds())
                 .addTransition(new ChangeTransform())
                 .addTransition(new ChangeImageTransform())
@@ -326,8 +332,11 @@ public class ImageViewerDialogFragment<T> extends BaseDialogFragment
 
         // do shadow anim.
         animateShadowBg(Color.TRANSPARENT);
+//        XPopup.getAnimationDuration()
         if (customView != null)
-            customView.animate().alpha(0f).setDuration(XPopup.getAnimationDuration())
+            customView.animate()
+                    .alpha(0f)
+                    .setDuration(DEFAULT_ANIM_DURATION)
                     .setListener(new AnimatorListenerAdapter() {
                         @Override
                         public void onAnimationEnd(Animator animation) {
@@ -440,20 +449,20 @@ public class ImageViewerDialogFragment<T> extends BaseDialogFragment
     public ImageViewerDialogFragment<T> setSrcView(ImageView srcView, int position) {
         this.srcView = srcView;
         this.position = position;
-//        if (srcView != null) {
-//            int[] locations = new int[2];
-//            this.srcView.getLocationInWindow(locations);
+        if (srcView != null) {
+            int[] locations = new int[2];
+            this.srcView.getLocationInWindow(locations);
 //            int offset;
 //            if (getActivity() != null && (WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS
 //                    & getActivity().getWindow().getAttributes().flags)
 //                    == WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS) {
 //                offset = 0;
 //            } else {
-//                offset = ScreenUtils.getStatusBarHeight(context);
+//                offset = ScreenUtils.getStatusBarHeight(srcView.getContext());
 //            }
 //            locations[1] = locations[1] - offset;
-//            rect = new Rect(locations[0], locations[1], locations[0] + srcView.getWidth(), locations[1] + srcView.getHeight());
-//        }
+            rect = new Rect(locations[0], locations[1], locations[0] + srcView.getWidth(), locations[1] + srcView.getHeight());
+        }
         return this;
     }
 
