@@ -50,8 +50,6 @@ public class AboutSettingFragment extends BaseSettingFragment {
         itemCheckUpdate.setOnItemClickListener(this);
         itemCheckUpdate.setRightText(AppUtils.getAppVersionName(context, context.getPackageName()));
 
-
-        afterInitView();
     }
 
     @Override

@@ -10,6 +10,7 @@ import com.bumptech.glide.Glide;
 import com.zpj.http.core.IHttp;
 import com.zpj.http.parser.html.nodes.Document;
 import com.zpj.http.parser.html.nodes.Element;
+import com.zpj.http.parser.html.select.Elements;
 import com.zpj.recyclerview.EasyViewHolder;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.api.HttpApi;
@@ -63,8 +64,13 @@ public class SupportUserListFragment extends NextUrlFragment<SupportUserInfo> {
 
     @Override
     protected void onGetDocument(Document doc) throws Exception {
-        for (Element element : doc.select("fuser")) {
-            data.add(createData(element));
+        Elements users = doc.select("fuser");
+        if (users.isEmpty()) {
+            nextUrl = "";
+        } else {
+            for (Element element : doc.select("fuser")) {
+                data.add(createData(element));
+            }
         }
     }
 

@@ -11,6 +11,7 @@ import android.widget.TextView;
 import com.zpj.http.core.IHttp;
 import com.zpj.http.parser.html.nodes.Document;
 import com.zpj.http.parser.html.nodes.Element;
+import com.zpj.http.parser.html.select.Elements;
 import com.zpj.recyclerview.EasyAdapter;
 import com.zpj.recyclerview.EasyViewHolder;
 import com.zpj.shouji.market.R;
@@ -152,12 +153,17 @@ public abstract class NextUrlFragment<T> extends RecyclerLayoutFragment<T>
     }
 
     protected void onGetDocument(Document doc) throws Exception {
-        for (Element element : doc.select("item")) {
-            T item = createData(element);
-            if (item == null) {
-                continue;
+        Elements items = doc.select("item");
+        if (items.isEmpty()) {
+            nextUrl = "";
+        } else {
+            for (Element element : doc.select("item")) {
+                T item = createData(element);
+                if (item == null) {
+                    continue;
+                }
+                data.add(item);
             }
-            data.add(item);
         }
     }
 

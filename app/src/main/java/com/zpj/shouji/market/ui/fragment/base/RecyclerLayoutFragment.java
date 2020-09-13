@@ -28,7 +28,6 @@ public abstract class RecyclerLayoutFragment<T> extends BaseFragment
 
     protected final List<T> data = new ArrayList<>();
     protected EasyRecyclerLayout<T> recyclerLayout;
-    protected boolean isLazyInit;
 
     @Override
     protected int getLayoutId() {
@@ -62,7 +61,6 @@ public abstract class RecyclerLayoutFragment<T> extends BaseFragment
                 .onLoadMore(this);
         buildRecyclerLayout(recyclerLayout);
         recyclerLayout.build();
-        isLazyInit = true;
     }
 
     @Override

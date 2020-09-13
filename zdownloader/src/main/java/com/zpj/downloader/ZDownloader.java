@@ -214,6 +214,10 @@ public class ZDownloader {
         return DownloadManagerImpl.getInstance();
     }
 
+    public static Context getContext() {
+        return getDownloadManager().getContext();
+    }
+
     public static List<DownloadMission> getAllMissions() {
         return DownloadManagerImpl.getInstance().getMissions();
     }
@@ -284,6 +288,22 @@ public class ZDownloader {
             }
         }
         return downloadMissionList;
+    }
+
+    public static void setEnableNotification(boolean value) {
+        setEnableNotification(value, true);
+    }
+
+    public static void setEnableNotification(boolean value, boolean affectPresent) {
+        DownloadManagerImpl.getInstance().getDownloaderConfig().setEnableNotification(value);
+        if (affectPresent) {
+            for (DownloadMission mission : getAllMissions()) {
+                mission.getMissionConfig().setEnableNotification(value);
+            }
+            if (!value) {
+                NotifyUtil.cancelAll();
+            }
+        }
     }
 
 }

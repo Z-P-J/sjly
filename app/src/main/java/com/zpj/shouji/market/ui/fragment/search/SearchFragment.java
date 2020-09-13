@@ -140,6 +140,12 @@ public class SearchFragment extends BaseFragment {
         darkStatusBar();
     }
 
+    @Override
+    public void onDestroy() {
+        hideSoftInput();
+        super.onDestroy();
+    }
+
     //    @Override
 //    public FragmentAnimator onCreateFragmentAnimator() {
 //        return new DefaultHorizontalAnimator();

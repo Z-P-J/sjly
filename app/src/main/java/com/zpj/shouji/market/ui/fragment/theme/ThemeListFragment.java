@@ -30,8 +30,7 @@ import java.util.Map;
 
 public class ThemeListFragment extends NextUrlFragment<DiscoverInfo>
         implements IEasy.OnLoadMoreListener,
-        SwipeRefreshLayout.OnRefreshListener,
-        SearchResultFragment.KeywordObserver {
+        SwipeRefreshLayout.OnRefreshListener {
 
 //    public interface Callback {
 //        void onGetUserItem(Element element);
@@ -117,15 +116,6 @@ public class ThemeListFragment extends NextUrlFragment<DiscoverInfo>
                 .setDiscoverInfo(data)
                 .show(context);
         return true;
-    }
-
-    @Override
-    public void updateKeyword(String keyword) {
-        defaultUrl = "http://tt.shouji.com.cn/app/faxian.jsp?s=" + keyword;
-        nextUrl = defaultUrl;
-        if (isLazyInit) {
-            onRefresh();
-        }
     }
 
     @Override

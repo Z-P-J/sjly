@@ -45,6 +45,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     app:z_setting_titleText="下载位置"
+                    app:z_setting_infoText="/Download"
                     />
 
                 <com.zpj.widget.setting.CommonSettingItem
@@ -52,6 +53,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     app:z_setting_titleText="最大任务数"
+                    app:z_setting_infoText="3"
                     />
 
                 <com.zpj.widget.setting.CommonSettingItem
@@ -59,6 +61,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     app:z_setting_titleText="最大线程数"
+                    app:z_setting_infoText="3"
                     />
 
                 <com.zpj.widget.setting.SwitchSettingItem
@@ -68,12 +71,12 @@
                     app:z_setting_titleText="下载完成后安装"
                     />
 
-                <com.zpj.widget.setting.SwitchSettingItem
-                    android:id="@+id/item_show_downloaded_ring"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    app:z_setting_titleText="下载完成声音提示"
-                    />
+<!--                <com.zpj.widget.setting.SwitchSettingItem-->
+<!--                    android:id="@+id/item_show_downloaded_ring"-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    app:z_setting_titleText="下载完成声音提示"-->
+<!--                    />-->
 
                 <com.zpj.widget.setting.SwitchSettingItem
                     android:id="@+id/item_show_downloaded_notification"

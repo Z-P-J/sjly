@@ -438,9 +438,17 @@ public class MyFragment extends BaseFragment
                 LoginFragment.start(false);
             }
         } else if (v == tvCloudBackup) {
-            CloudBackupFragment.start();
+            if (UserManager.getInstance().isLogin()) {
+                CloudBackupFragment.start();
+            } else {
+                LoginFragment.start(false);
+            }
         } else if (v == tvFeedback) {
-            FeedbackFragment.start();
+            if (UserManager.getInstance().isLogin()) {
+                FeedbackFragment.start();
+            } else {
+                LoginFragment.start(false);
+            }
         } else if (v == tvNightMode) {
             AToast.normal("TODO 夜间模式");
         } else if (v == tvCommonSetting) {

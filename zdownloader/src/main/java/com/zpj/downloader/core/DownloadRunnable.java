@@ -105,7 +105,7 @@ public class DownloadRunnable implements Runnable {
 				long time0 = System.currentTimeMillis();
 
 				if (Thread.currentThread().isInterrupted()) {
-					return;
+					break;
 				}
 
 				long position = mMission.getPosition();
@@ -212,8 +212,17 @@ public class DownloadRunnable implements Runnable {
 
 					Log.d(TAG, mId + ":errorCode=" + mMission.getErrCode());
 					Log.d(TAG, mId + ":isRunning=" + mMission.isRunning());
+					Log.d(TAG, mId + ":isPause=" + mMission.isPause());
 					Log.d(TAG, mId + ":blocks=" + mMission.getBlocks());
-					mMission.preserveBlock(position);
+					if (mMission.isPause()) {
+						notifyProgress(-total);
+						mMission.onPositionDownloadFailed(position);
+						break;
+					} else {
+						f.flush();
+						mMission.preserveBlock(position);
+					}
+
 
 					// TODO We should save progress for each thread
 				} catch (IOException e) {

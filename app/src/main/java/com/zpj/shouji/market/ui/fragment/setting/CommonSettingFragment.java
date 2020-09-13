@@ -72,8 +72,6 @@ public class CommonSettingFragment extends BaseSettingFragment {
                 })
                 .onSuccess(itemClearCache::setRightText)
                 .subscribe();
-
-        afterInitView();
     }
 
     @Override

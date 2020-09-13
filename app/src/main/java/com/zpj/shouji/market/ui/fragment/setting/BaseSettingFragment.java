@@ -1,5 +1,8 @@
 package com.zpj.shouji.market.ui.fragment.setting;
 
+import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.view.View;
 import android.widget.LinearLayout;
 
@@ -24,6 +27,12 @@ public abstract class BaseSettingFragment extends BaseFragment
     public void onSupportVisible() {
         super.onSupportVisible();
         darkStatusBar();
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        afterInitView();
     }
 
     protected void afterInitView() {

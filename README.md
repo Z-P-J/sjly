@@ -1,6 +1,9 @@
 # 手机乐园Pro - 手机乐园第三方客户端
 采用单Activity多Fragment架构，支持全局滑动返回，实现手机乐园各种基本功能，支持登录、浏览、下载、发布动态等功能
 
+# 下载体验APK
+[app-debug](/app-debug.apk)
+
 # 截图预览
 <div>
     <img src="screenshots/screenshot0.jpg" width="19%">

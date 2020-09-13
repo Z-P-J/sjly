@@ -462,6 +462,7 @@ public class ImageViewerDialogFragment<T> extends BaseDialogFragment
 //            }
 //            locations[1] = locations[1] - offset;
             rect = new Rect(locations[0], locations[1], locations[0] + srcView.getWidth(), locations[1] + srcView.getHeight());
+            Log.d("ImageViewerDialog", "rect=" + rect);
         }
         return this;
     }

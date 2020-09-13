@@ -17,8 +17,7 @@ import org.greenrobot.eventbus.EventBus;
 
 import java.util.List;
 
-public class CollectionListFragment extends NextUrlFragment<CollectionInfo>
-        implements SearchResultFragment.KeywordObserver {
+public class CollectionListFragment extends NextUrlFragment<CollectionInfo> {
 
     private static final int[] ICON_RES = {R.id.iv_icon_1, R.id.iv_icon_2, R.id.iv_icon_3};
 
@@ -60,15 +59,6 @@ public class CollectionListFragment extends NextUrlFragment<CollectionInfo>
     public void onClick(EasyViewHolder holder, View view, CollectionInfo data) {
         super.onClick(holder, view, data);
         CollectionDetailFragment.start(data);
-    }
-
-    @Override
-    public void updateKeyword(String keyword) {
-        defaultUrl = "http://tt.shouji.com.cn/androidv3/yyj_view_phb_xml.jsp?title=" + keyword;
-        nextUrl = defaultUrl;
-        if (isLazyInit) {
-            onRefresh();
-        }
     }
 
     @Override

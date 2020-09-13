@@ -12,6 +12,7 @@ import android.webkit.MimeTypeMap;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
+import com.zpj.downloader.ZDownloader;
 import com.zpj.downloader.config.MissionConfig;
 import com.zpj.downloader.constant.Error;
 import com.zpj.downloader.constant.ErrorCode;
@@ -635,6 +636,10 @@ public class DownloadMission {
         } else {
             Toast.makeText(context, "下载文件不存在!", Toast.LENGTH_SHORT).show();
         }
+    }
+
+    public void openFile() {
+        openFile(getContext());
     }
 
     //------------------------------------------------------------notify------------------------------------------------------------

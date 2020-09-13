@@ -169,50 +169,54 @@ public class WallpaperListFragment extends NextUrlFragment<WallpaperInfo> {
     public void onClick(EasyViewHolder holder, View view, WallpaperInfo data) {
         ImageView wallpaper = holder.getImageView(R.id.iv_wallpaper);
 
-        GetMainActivityEvent.post(new Callback<MainActivity>() {
-            @Override
-            public void onCallback(MainActivity activity) {
-                BaseFragment fragment = (BaseFragment) SupportHelper.getBackStackTopFragment(activity.getSupportFragmentManager());
-                Log.d("WallpaperListFragment", "fragment=" + fragment + " fragment.getView()=" + fragment.getView());
-                if (fragment.getView() != null) {
-                    List<String> objects = new ArrayList<>();
-                    objects.add(data.getSpic());
-                    List<String> original = new ArrayList<>();
-                    original.add(data.getPic());
+        List<String> objects = new ArrayList<>();
+        objects.add(data.getSpic());
+        List<String> original = new ArrayList<>();
+        original.add(data.getPic());
 
-                    new WallpaperViewerDialogFragment()
-                            .setWallpaperInfo(data)
-                            .setOriginalImageList(original)
-                            .setImageUrls(AppConfig.isShowOriginalImage() && NetUtils.isWiFi(context) ? original : objects)
-                            .setSrcView(wallpaper, 0)
-                            .setSrcViewUpdateListener((popup, position) -> popup.updateSrcView(wallpaper))
-                            .setOnDismissListener(() -> StatusBarEvent.post(false))
-                            .show(context);
-//                    WallpaperViewerPopup.with(context)
-//                            .setWallpaperInfo(data)
-//                            .setOriginalImageList(original)
-//                            .setDecorView(fragment.getView().findViewWithTag("container"))
-//                            .setImageUrls(AppConfig.isShowOriginalImage() && NetUtils.isWiFi(context) ? original : objects)
-//                            .setSrcView(wallpaper, 0)
-//                            .setSrcViewUpdateListener((popup, position) -> popup.updateSrcView(wallpaper))
-//                            .setOnDismissListener(() -> StatusBarEvent.post(false))
-//                            .show();
-                }
-//                List<String> objects = new ArrayList<>();
-//                objects.add(data.getSpic());
-//                List<String> original = new ArrayList<>();
-//                original.add(data.getPic());
-//                WallpaperViewerPopup.with(context)
-//                        .setWallpaperInfo(data)
-//                        .setOriginalImageList(original)
-//                        .setDecorView((ViewGroup) activity.findViewById(R.id.main_content))
-//                        .setImageUrls(objects)
-//                        .setSrcView(wallpaper, 0)
-//                        .setSrcViewUpdateListener((popup, position) -> popup.updateSrcView(wallpaper))
-//                        .setOnDismissListener(() -> StatusBarEvent.post(false))
-//                        .show();
-            }
-        });
+        Log.d("WallpaperListFragment", " width / height = " + (Float.parseFloat(data.getWidth()) / Float.parseFloat(data.getHeight())));
+        Log.d("WallpaperListFragment2", " width / height = " + (wallpaper.getWidth() / wallpaper.getHeight()));
+        new WallpaperViewerDialogFragment()
+                .setWallpaperInfo(data)
+                .setOriginalImageList(original)
+                .setImageUrls(AppConfig.isShowOriginalImage() && NetUtils.isWiFi(context) ? original : objects)
+                .setSrcView(wallpaper, 0)
+                .setSrcViewUpdateListener((popup, position) -> popup.updateSrcView(wallpaper))
+                .setOnDismissListener(() -> StatusBarEvent.post(false))
+                .show(context);
+
+//        GetMainActivityEvent.post(new Callback<MainActivity>() {
+//            @Override
+//            public void onCallback(MainActivity activity) {
+//                BaseFragment fragment = (BaseFragment) SupportHelper.getBackStackTopFragment(activity.getSupportFragmentManager());
+//                Log.d("WallpaperListFragment", "fragment=" + fragment + " fragment.getView()=" + fragment.getView());
+//                if (fragment.getView() != null) {
+//
+////                    WallpaperViewerPopup.with(context)
+////                            .setWallpaperInfo(data)
+////                            .setOriginalImageList(original)
+////                            .setDecorView(fragment.getView().findViewWithTag("container"))
+////                            .setImageUrls(AppConfig.isShowOriginalImage() && NetUtils.isWiFi(context) ? original : objects)
+////                            .setSrcView(wallpaper, 0)
+////                            .setSrcViewUpdateListener((popup, position) -> popup.updateSrcView(wallpaper))
+////                            .setOnDismissListener(() -> StatusBarEvent.post(false))
+////                            .show();
+//                }
+////                List<String> objects = new ArrayList<>();
+////                objects.add(data.getSpic());
+////                List<String> original = new ArrayList<>();
+////                original.add(data.getPic());
+////                WallpaperViewerPopup.with(context)
+////                        .setWallpaperInfo(data)
+////                        .setOriginalImageList(original)
+////                        .setDecorView((ViewGroup) activity.findViewById(R.id.main_content))
+////                        .setImageUrls(objects)
+////                        .setSrcView(wallpaper, 0)
+////                        .setSrcViewUpdateListener((popup, position) -> popup.updateSrcView(wallpaper))
+////                        .setOnDismissListener(() -> StatusBarEvent.post(false))
+////                        .show();
+//            }
+//        });
 
 //        GetMainFragmentEvent.post(mainFragment -> {
 //            if (mainFragment.getView() != null) {

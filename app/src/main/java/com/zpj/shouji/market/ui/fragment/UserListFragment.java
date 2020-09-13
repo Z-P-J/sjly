@@ -17,8 +17,7 @@ import com.zpj.shouji.market.utils.BeanUtils;
 
 import java.util.List;
 
-public class UserListFragment extends NextUrlFragment<UserInfo>
-        implements SearchResultFragment.KeywordObserver {
+public class UserListFragment extends NextUrlFragment<UserInfo> {
 
     public static UserListFragment newInstance(String defaultUrl) {
         Bundle args = new Bundle();
@@ -45,15 +44,6 @@ public class UserListFragment extends NextUrlFragment<UserInfo>
         holder.setText(R.id.tv_title, appItem.getNickName());
         holder.setText(R.id.tv_info, "在线：" + appItem.isOnline());
         Glide.with(context).load(appItem.getAvatarUrl()).into(holder.getImageView(R.id.iv_icon));
-    }
-
-    @Override
-    public void updateKeyword(String key) {
-        defaultUrl = "http://tt.shouji.com.cn/androidv3/app_search_user_xml.jsp?s=" + key;
-        nextUrl = defaultUrl;
-        if (isLazyInit) {
-            onRefresh();
-        }
     }
 
     @Override

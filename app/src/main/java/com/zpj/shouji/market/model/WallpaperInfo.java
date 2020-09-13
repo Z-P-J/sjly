@@ -151,4 +151,27 @@ public class WallpaperInfo {
     public List<SupportUserInfo> getSupportUserInfoList() {
         return supportUserInfoList;
     }
+
+    @Override
+    public String toString() {
+        return "WallpaperInfo{" +
+                "id='" + id + '\'' +
+                ", type='" + type + '\'' +
+                ", memberIcon='" + memberIcon + '\'' +
+                ", nickName='" + nickName + '\'' +
+                ", iconState='" + iconState + '\'' +
+                ", memberId='" + memberId + '\'' +
+                ", time='" + time + '\'' +
+                ", content='" + content + '\'' +
+                ", tag='" + tag + '\'' +
+                ", width='" + width + '\'' +
+                ", height='" + height + '\'' +
+                ", spic='" + spic + '\'' +
+                ", pic='" + pic + '\'' +
+                ", supportCount=" + supportCount +
+                ", replyCount=" + replyCount +
+                ", isLike=" + isLike +
+                ", supportUserInfoList=" + supportUserInfoList +
+                '}';
+    }
 }

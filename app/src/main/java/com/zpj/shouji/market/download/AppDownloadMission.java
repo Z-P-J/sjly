@@ -3,6 +3,7 @@ package com.zpj.shouji.market.download;
 import android.text.TextUtils;
 import android.util.Log;
 
+import com.zpj.downloader.ZDownloader;
 import com.zpj.downloader.config.MissionConfig;
 import com.zpj.downloader.constant.Error;
 import com.zpj.downloader.core.DownloadMission;
@@ -11,6 +12,7 @@ import com.zpj.http.ZHttp;
 import com.zpj.http.core.IHttp;
 import com.zpj.http.parser.html.nodes.Document;
 import com.zpj.shouji.market.api.HttpApi;
+import com.zpj.shouji.market.constant.AppConfig;
 
 import java.util.UUID;
 
@@ -107,6 +109,9 @@ public class AppDownloadMission extends DownloadMission {
             super.onFinish();
         } else {
             super.onFinish();
+        }
+        if (AppConfig.isInstallAfterDownloaded()) {
+            openFile();
         }
     }
 

@@ -20,10 +20,9 @@ import com.zpj.shouji.market.ui.widget.DownloadButton;
 
 import java.util.List;
 
-public class AppListFragment extends NextUrlFragment<AppInfo>
-        implements SearchResultFragment.KeywordObserver {
+public class AppListFragment extends NextUrlFragment<AppInfo> {
 
-    private boolean updateKeyword = false;
+//    private boolean updateKeyword = false;
 
     @Override
     protected int getItemLayoutId() {
@@ -33,10 +32,10 @@ public class AppListFragment extends NextUrlFragment<AppInfo>
     @Override
     public void onLazyInitView(@Nullable Bundle savedInstanceState) {
         super.onLazyInitView(savedInstanceState);
-        if (updateKeyword) {
-            updateKeyword = false;
-            onRefresh();
-        }
+//        if (updateKeyword) {
+//            updateKeyword = false;
+//            onRefresh();
+//        }
     }
 
     @Override
@@ -54,16 +53,6 @@ public class AppListFragment extends NextUrlFragment<AppInfo>
 
         DownloadButton downloadButton = holder.getView(R.id.tv_download);
         downloadButton.bindApp(appInfo);
-    }
-
-    @Override
-    public void updateKeyword(String key) {
-        defaultUrl = "http://tt.shouji.com.cn/androidv3/app_search_xml.jsp?sdk=26&type=default&s=" + key;
-        if (isLazyInit) {
-            onRefresh();
-        } else {
-            updateKeyword = true;
-        }
     }
 
     @Override

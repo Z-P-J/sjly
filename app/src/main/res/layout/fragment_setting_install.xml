@@ -54,6 +54,15 @@
                     app:z_setting_titleText="自动删除安装包"
                     />
 
+                <com.zpj.widget.setting.SwitchSettingItem
+                    android:id="@+id/item_check_signature_before_install"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:z_setting_titleText="安装前检查签名"
+                    app:z_setting_infoText="安装应用时将检查应用签名是否与已安装应用的签名匹配"
+                    />
+<!--                如果您的设备已安装旧版已下载应用，-->
+
                 <!--                <com.zpj.widget.setting.CommonSettingItem-->
                 <!--                    android:id="@+id/item_user_agent"-->
                 <!--                    android:layout_width="match_parent"-->
