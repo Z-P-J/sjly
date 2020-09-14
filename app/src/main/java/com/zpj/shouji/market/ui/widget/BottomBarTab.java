@@ -71,28 +71,10 @@ public class BottomBarTab extends FrameLayout {
     }
 
     private void init(Context context) {
-        TypedArray typedArray = context.obtainStyledAttributes(new int[]{R.attr.selectableItemBackgroundBorderless});
+        TypedArray typedArray = context.obtainStyledAttributes(new int[]{R.attr.actionBarItemBackground}); // selectableItemBackgroundBorderless
         Drawable drawable = typedArray.getDrawable(0);
         setBackground(drawable);
         typedArray.recycle();
-
-//        mIvIcon = new FillImageView(context);
-//        LayoutParams params = new LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-//        params.gravity = Gravity.CENTER;
-//        mIvIcon.setLayoutParams(params);
-//        mIvIcon.setColorFilter(ContextCompat.getColor(context, R.color.color_text_minor));
-//        addView(mIvIcon);
-//
-//        mNormalTextColor = getResources().getColor(R.color.color_text_minor);
-//        mSelectedTextColor = getResources().getColor(R.color.color_tab_selected);
-//        mTvTitle = new TextView(context);
-//        mTvTitle.setTextColor(mNormalTextColor);
-//        mTvTitle.setTextSize(12);
-//        mTvTitle.getPaint().setFakeBoldText(true);
-//        params = new LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-//        params.gravity = Gravity.CENTER;
-//        mTvTitle.setLayoutParams(params);
-//        addView(mTvTitle);
 
         LinearLayout lLContainer = new LinearLayout(context);
         lLContainer.setOrientation(LinearLayout.VERTICAL);

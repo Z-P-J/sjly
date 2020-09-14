@@ -125,7 +125,7 @@ public class DownloadButton extends AppCompatTextView
                 } else if (mission.isRunning()) {
                     setText((int) mission.getProgress() + "%");
                 } else if (mission.isFinished()) {
-                    setText("打开");
+                    setText("安装");
                 } else if (mission.isWaiting()) {
                     setText("等待中");
                 } else {
@@ -222,7 +222,7 @@ public class DownloadButton extends AppCompatTextView
             } else if (mission.canStart()){
                 mission.start();
             } else if (mission.isFinished()) {
-                mission.openFile(getContext());
+                mission.openFile();
             }
         } else {
             MissionConfig config = MissionConfig.with()

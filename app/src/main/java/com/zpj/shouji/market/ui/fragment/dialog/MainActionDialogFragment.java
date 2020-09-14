@@ -98,7 +98,8 @@ public class MainActionDialogFragment extends FullScreenDialogFragment
                             Bitmap bitmap = Blurred.with(activity.findViewById(R.id.main_content))
                                     .backgroundColor(Color.WHITE)
 //                                    .foregroundColor(Color.parseColor("#aaffffff"))
-                                    .scale(0.5f)
+                                    .antiAlias(true)
+                                    .scale(0.3f) // 0.5f
                                     .radius(25)
                                     .blur();
                             emitter.onNext(bitmap);

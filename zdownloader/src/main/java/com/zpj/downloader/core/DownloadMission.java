@@ -22,12 +22,16 @@ import com.zpj.downloader.util.ThreadPoolFactory;
 import com.zpj.downloader.util.Utility;
 import com.zpj.downloader.util.io.BufferedRandomAccessFile;
 import com.zpj.downloader.util.notification.NotifyUtil;
+import com.zpj.downloader.util.permission.PermissionUtil;
 import com.zpj.http.ZHttp;
 import com.zpj.http.core.Connection;
 import com.zpj.http.core.IHttp;
 import com.zpj.http.core.ObservableTask;
 
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.RandomAccessFile;
 import java.lang.ref.WeakReference;
 import java.net.Proxy;
 import java.util.ArrayList;
@@ -139,7 +143,9 @@ public class DownloadMission {
     private transient String tempSpeed = "0 KB/s";
     private transient final UpdateInfo updateInfo = new UpdateInfo();
     private transient final Handler handler = new Handler(Looper.getMainLooper());
-    private transient final ConcurrentLinkedQueue<Long> queue = new ConcurrentLinkedQueue<>();
+//    private transient final ConcurrentLinkedQueue<Long> queue = new ConcurrentLinkedQueue<>();
+private final ConcurrentLinkedQueue<Long> queue = new ConcurrentLinkedQueue<>();
+private final List<Long> finished = new ArrayList<>();
 
 
     //------------------------------------------------------runnables---------------------------------------------
@@ -485,7 +491,12 @@ public class DownloadMission {
             threadPoolExecutor = ThreadPoolFactory.newFixedThreadPool(missionConfig.getThreadPoolConfig());
         }
         if (hasInit) {
-            initQueue();
+//            initQueue();
+            for (long position = 0;  position < getBlocks(); position++) {
+                if (!queue.contains(position) && !finished.contains(position)) {
+                    queue.add(position);
+                }
+            }
             pause();
         } else {
             writeMissionInfo();
@@ -543,6 +554,19 @@ public class DownloadMission {
             if (threadPoolExecutor == null || threadPoolExecutor.getCorePoolSize() != 2 * threadCount) {
                 threadPoolExecutor = ThreadPoolFactory.newFixedThreadPool(missionConfig.getThreadPoolConfig());
             }
+
+//            try {
+//                RandomAccessFile f = new RandomAccessFile(getFilePath(), "rw");
+//                for (int i = 0; i < threadCount; i++) {
+//                    threadPoolExecutor.submit(new DownloadRunnable(this, f, i));
+//                }
+//            } catch (FileNotFoundException e) {
+//                e.printStackTrace();
+//                notifyError(Error.FILE_NOT_FOUND, false);
+//                writeMissionInfo();
+//                return;
+//            }
+
             for (int i = 0; i < threadCount; i++) {
                 threadPoolExecutor.submit(new DownloadRunnable(this, i));
             }
@@ -1169,8 +1193,14 @@ public class DownloadMission {
         return state != null && state;
     }
 
+    public boolean isBlockFinished(long block) {
+        return finished.contains(block);
+    }
+
     void preserveBlock(long block) {
+        Log.d("DownloadRunnableLog", block + " finished");
         synchronized (blockState) {
+            finished.add(block);
             blockState.put(block, true);
         }
     }

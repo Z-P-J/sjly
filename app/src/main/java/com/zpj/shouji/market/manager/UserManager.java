@@ -9,6 +9,7 @@ import com.felix.atoast.library.AToast;
 import com.zpj.fragmentation.dialog.impl.AlertDialogFragment;
 import com.zpj.http.ZHttp;
 import com.zpj.http.core.Connection;
+import com.zpj.http.core.IHttp;
 import com.zpj.http.parser.html.nodes.Document;
 import com.zpj.shouji.market.api.HttpApi;
 import com.zpj.shouji.market.event.SignInEvent;
@@ -236,7 +237,7 @@ public final class UserManager {
                             messageInfo.post();
                         })
                         .subscribe();
-            } else if (messageInfo != null) {
+            } else {
                 messageInfo.post();
             }
         }
@@ -250,8 +251,18 @@ public final class UserManager {
                 .data("s", "12345678910")
                 .data("stime", "" + System.currentTimeMillis())
                 .data("setupid", "sjly2.9.9.9.3")
-                .toHtml()
-                .onSuccess(this::onSignIn)
+                .execute()
+                .onSuccess(response -> {
+                    for (Map.Entry<String, String> entry : response.cookies().entrySet()) {
+                        Log.d("signIn cookies", entry.getKey() + " = " + entry.getValue());
+                    }
+                    for (Map.Entry<String, String> entry : response.headers().entrySet()) {
+                        Log.d("signIn headers", entry.getKey() + " = " + entry.getValue());
+                    }
+                    String cookie = response.cookieStr();
+                    setCookie(cookie);
+                    onSignIn(response.parse());
+                })
                 .onError(throwable -> AToast.error(throwable.getMessage()))
                 .subscribe();
     }
@@ -270,8 +281,21 @@ public final class UserManager {
                 .data("logo2", "")
                 .data("n", "")
                 .data("jsessionid", "")
-                .toHtml()
-                .onSuccess(this::onSignIn)
+                .execute()
+                .onSuccess(new IHttp.OnSuccessListener<Connection.Response>() {
+                    @Override
+                    public void onSuccess(Connection.Response response) throws Exception {
+                        for (Map.Entry<String, String> entry : response.cookies().entrySet()) {
+                            Log.d("signIn cookies", entry.getKey() + " = " + entry.getValue());
+                        }
+                        for (Map.Entry<String, String> entry : response.headers().entrySet()) {
+                            Log.d("signIn headers", entry.getKey() + " = " + entry.getValue());
+                        }
+                        String cookie = response.cookieStr();
+                        setCookie(cookie);
+                        onSignIn(response.parse());
+                    }
+                })
                 .onError(throwable -> onSignInFailed(throwable.getMessage()))
                 .subscribe();
     }

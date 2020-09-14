@@ -163,7 +163,7 @@ public class MainFragment extends BaseFragment {
         fragments.add(game);
         fragments.add(profileFragment);
 
-        FloatingActionButton floatingActionButton = view.findViewById(R.id.fab);
+//        FloatingActionButton floatingActionButton = view.findViewById(R.id.fab);
 
         mBottomBar = view.findViewById(R.id.bottom_bar);
 
@@ -178,7 +178,7 @@ public class MainFragment extends BaseFragment {
             @Override
             public void onTabSelected(int position, int prePosition) {
                 if (position == 2) {
-                    floatingActionButton.performClick();
+                    emptyTab.performClick();
                     return;
                 }
                 if (position > 2) {
@@ -201,7 +201,7 @@ public class MainFragment extends BaseFragment {
 
 
         viewPager = view.findViewById(R.id.vp);
-        viewPager.setScrollerSpeed(500);
+//        viewPager.setScrollerSpeed(500);
         viewPager.setCanScroll(false);
 
         viewPager.setOffscreenPageLimit(fragments.size());
@@ -209,7 +209,7 @@ public class MainFragment extends BaseFragment {
         viewPager.setAdapter(adapter);
 
 
-        floatingActionButton.setOnClickListener(v -> {
+        emptyTab.setOnClickListener(v -> {
 //            postDelayed(this::darkStatusBar, 300);
             MainActionPopupEvent.post(true);
             new MainActionDialogFragment()

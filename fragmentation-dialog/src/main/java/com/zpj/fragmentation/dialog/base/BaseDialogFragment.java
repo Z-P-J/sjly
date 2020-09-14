@@ -67,7 +67,7 @@ public abstract class BaseDialogFragment extends AbstractDialogFragment {
         FrameLayout flContainer = findViewById(R.id._dialog_fl_container);
         this.rootView = flContainer;
 
-        flContainer.setOnClickListener(new View.OnClickListener() {
+        rootView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (!cancelable || !cancelableInTouchOutside) {
@@ -77,7 +77,7 @@ public abstract class BaseDialogFragment extends AbstractDialogFragment {
             }
         });
 
-        flContainer.setOnLongClickListener(new View.OnLongClickListener() {
+        rootView.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View v) {
                 return true;
@@ -99,6 +99,26 @@ public abstract class BaseDialogFragment extends AbstractDialogFragment {
         popupContentAnimator = getDialogAnimator((ViewGroup) implView);
 
     }
+
+//    @Override
+//    public void onEnterAnimationEnd(Bundle savedInstanceState) {
+//        super.onEnterAnimationEnd(savedInstanceState);
+//        rootView.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                if (!cancelable || !cancelableInTouchOutside) {
+//                    return;
+//                }
+//                pop();
+//            }
+//        });
+//        rootView.setOnLongClickListener(new View.OnLongClickListener() {
+//            @Override
+//            public boolean onLongClick(View v) {
+//                return true;
+//            }
+//        });
+//    }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {

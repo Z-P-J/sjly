@@ -10,16 +10,15 @@ import java.util.Arrays;
  * A <code>BufferedRandomAccessFile</code> is like a
  * <code>RandomAccessFile</code>, but it uses a private buffer so that most
  * operations do not require a disk access.
- * <P>
- *
+ * <p>
+ * <p>
  * Note: The operations on this class are unmonitored. Also, the correct
  * functioning of the <code>RandomAccessFile</code> methods that are not
  * overridden here relies on the implementation of those methods in the
  * superclass.
  */
 
-public final class BufferedRandomAccessFile extends RandomAccessFile
-{
+public final class BufferedRandomAccessFile extends RandomAccessFile {
     static final int LogBuffSz_ = 16; // 64K buffer
     public static final int BuffSz_ = (1 << LogBuffSz_);
     static final long BuffMask_ = ~(((long) BuffSz_) - 1L);
@@ -97,13 +96,11 @@ public final class BufferedRandomAccessFile extends RandomAccessFile
      * in mode <code>mode</code>, which should be "r" for reading only, or
      * "rw" for reading and writing.
      */
-    public BufferedRandomAccessFile(File file, String mode) throws IOException
-    {
+    public BufferedRandomAccessFile(File file, String mode) throws IOException {
         this(file, mode, 0);
     }
 
-    public BufferedRandomAccessFile(File file, String mode, int size) throws IOException
-    {
+    public BufferedRandomAccessFile(File file, String mode, int size) throws IOException {
         super(file, mode);
         path_ = file.getAbsolutePath();
         this.init(size);
@@ -114,20 +111,17 @@ public final class BufferedRandomAccessFile extends RandomAccessFile
      * <code>name</code> in mode <code>mode</code>, which should be "r" for
      * reading only, or "rw" for reading and writing.
      */
-    public BufferedRandomAccessFile(String name, String mode) throws IOException
-    {
+    public BufferedRandomAccessFile(String name, String mode) throws IOException {
         this(name, mode, 0);
     }
 
-    public BufferedRandomAccessFile(String name, String mode, int size) throws FileNotFoundException
-    {
+    public BufferedRandomAccessFile(String name, String mode, int size) throws FileNotFoundException {
         super(name, mode);
         path_ = name;
         this.init(size);
     }
 
-    private void init(int size)
-    {
+    private void init(int size) {
         this.dirty_ = false;
         this.lo_ = this.curr_ = this.hi_ = 0;
         this.buff_ = (size > BuffSz_) ? new byte[size] : new byte[BuffSz_];
@@ -136,15 +130,12 @@ public final class BufferedRandomAccessFile extends RandomAccessFile
         this.diskPos_ = 0L;
     }
 
-    public String getPath()
-    {
+    public String getPath() {
         return path_;
     }
 
-    public void sync() throws IOException
-    {
-        if (syncNeeded_)
-        {
+    public void sync() throws IOException {
+        if (syncNeeded_) {
             flush();
             getChannel().force(true);
             syncNeeded_ = false;
@@ -158,8 +149,7 @@ public final class BufferedRandomAccessFile extends RandomAccessFile
 //      }
 
     @Override
-    public void close() throws IOException
-    {
+    public void close() throws IOException {
         this.flush();
         this.buff_ = null;
         super.close();
@@ -169,16 +159,13 @@ public final class BufferedRandomAccessFile extends RandomAccessFile
      * Flush any bytes in the file's buffer that have not yet been written to
      * disk. If the file was created read-only, this method is a no-op.
      */
-    public void flush() throws IOException
-    {
+    public void flush() throws IOException {
         this.flushBuffer();
     }
 
     /* Flush any dirty bytes in the buffer to disk. */
-    private void flushBuffer() throws IOException
-    {
-        if (this.dirty_)
-        {
+    private void flushBuffer() throws IOException {
+        if (this.dirty_) {
             if (this.diskPos_ != this.lo_) {
                 super.seek(this.lo_);
             }
@@ -194,12 +181,10 @@ public final class BufferedRandomAccessFile extends RandomAccessFile
      * number of bytes read. If the return result is less than
      * "this.buff.length", then EOF was read.
      */
-    private int fillBuffer() throws IOException
-    {
+    private int fillBuffer() throws IOException {
         int cnt = 0;
         int rem = this.buff_.length;
-        while (rem > 0)
-        {
+        while (rem > 0) {
             int n = super.read(this.buff_, cnt, rem);
             if (n < 0) {
                 break;
@@ -207,8 +192,7 @@ public final class BufferedRandomAccessFile extends RandomAccessFile
             cnt += n;
             rem -= n;
         }
-        if ( (cnt < 0) && (this.hitEOF_ = (cnt < this.buff_.length)) )
-        {
+        if ((cnt < 0) && (this.hitEOF_ = (cnt < this.buff_.length))) {
             // make sure buffer that wasn't read is initialized with -1
             Arrays.fill(this.buff_, cnt, this.buff_.length, (byte) 0xff);
         }
@@ -226,28 +210,22 @@ public final class BufferedRandomAccessFile extends RandomAccessFile
      * opened in read-only mode.
      */
     @Override
-    public void seek(long pos) throws IOException
-    {
-        if (pos >= this.hi_ || pos < this.lo_)
-        {
+    public void seek(long pos) throws IOException {
+        if (pos >= this.hi_ || pos < this.lo_) {
             // seeking outside of current buffer -- flush and read
             this.flushBuffer();
             // start at BuffSz boundary
             this.lo_ = pos & BuffMask_;
             this.maxHi_ = this.lo_ + (long) this.buff_.length;
-            if (this.diskPos_ != this.lo_)
-            {
+            if (this.diskPos_ != this.lo_) {
                 super.seek(this.lo_);
                 this.diskPos_ = this.lo_;
             }
             int n = this.fillBuffer();
             this.hi_ = this.lo_ + (long) n;
-        }
-        else
-        {
+        } else {
             // seeking inside current buffer -- no read required
-            if (pos < this.curr_)
-            {
+            if (pos < this.curr_) {
                 // if seeking backwards, we must flush to maintain V4
                 this.flushBuffer();
             }
@@ -256,23 +234,19 @@ public final class BufferedRandomAccessFile extends RandomAccessFile
     }
 
     @Override
-    public long getFilePointer()
-    {
+    public long getFilePointer() {
         return this.curr_;
     }
 
     @Override
-    public long length() throws IOException
-    {
+    public long length() throws IOException {
         // max accounts for the case where we have written past the old file length, but not yet flushed our buffer
         return Math.max(this.curr_, super.length());
     }
 
     @Override
-    public int read() throws IOException
-    {
-        if (this.curr_ >= this.hi_)
-        {
+    public int read() throws IOException {
+        if (this.curr_ >= this.hi_) {
             // test for EOF
             // if (this.hi < this.maxHi) return -1;
             if (this.hitEOF_) {
@@ -292,16 +266,13 @@ public final class BufferedRandomAccessFile extends RandomAccessFile
     }
 
     @Override
-    public int read(byte[] b) throws IOException
-    {
+    public int read(byte[] b) throws IOException {
         return this.read(b, 0, b.length);
     }
 
     @Override
-    public int read(byte[] b, int off, int len) throws IOException
-    {
-        if (this.curr_ >= this.hi_)
-        {
+    public int read(byte[] b, int off, int len) throws IOException {
+        if (this.curr_ >= this.hi_) {
             // test for EOF
             // if (this.hi < this.maxHi) return -1;
             if (this.hitEOF_) {
@@ -322,21 +293,15 @@ public final class BufferedRandomAccessFile extends RandomAccessFile
     }
 
     @Override
-    public void write(int b) throws IOException
-    {
-        if (this.curr_ >= this.hi_)
-        {
-            if (this.hitEOF_ && this.hi_ < this.maxHi_)
-            {
+    public void write(int b) throws IOException {
+        if (this.curr_ >= this.hi_) {
+            if (this.hitEOF_ && this.hi_ < this.maxHi_) {
                 // at EOF -- bump "hi"
                 this.hi_++;
-            }
-            else
-            {
+            } else {
                 // slow path -- write current buffer; read next one
                 this.seek(this.curr_);
-                if (this.curr_ == this.hi_)
-                {
+                if (this.curr_ == this.hi_) {
                     // appending to EOF -- bump "hi"
                     this.hi_++;
                 }
@@ -349,16 +314,13 @@ public final class BufferedRandomAccessFile extends RandomAccessFile
     }
 
     @Override
-    public void write(byte[] b) throws IOException
-    {
+    public void write(byte[] b) throws IOException {
         this.write(b, 0, b.length);
     }
 
     @Override
-    public void write(byte[] b, int off, int len) throws IOException
-    {
-        while (len > 0)
-        {
+    public void write(byte[] b, int off, int len) throws IOException {
+        while (len > 0) {
             int n = this.writeAtMost(b, off, len);
             off += n;
             len -= n;
@@ -371,21 +333,15 @@ public final class BufferedRandomAccessFile extends RandomAccessFile
      * Write at most "len" bytes to "b" starting at position "off", and return
      * the number of bytes written.
      */
-    private int writeAtMost(byte[] b, int off, int len) throws IOException
-    {
-        if (this.curr_ >= this.hi_)
-        {
-            if (this.hitEOF_ && this.hi_ < this.maxHi_)
-            {
+    private int writeAtMost(byte[] b, int off, int len) throws IOException {
+        if (this.curr_ >= this.hi_) {
+            if (this.hitEOF_ && this.hi_ < this.maxHi_) {
                 // at EOF -- bump "hi"
                 this.hi_ = this.maxHi_;
-            }
-            else
-            {
+            } else {
                 // slow path -- write current buffer; read next one
                 this.seek(this.curr_);
-                if (this.curr_ == this.hi_)
-                {
+                if (this.curr_ == this.hi_) {
                     // appending to EOF -- bump "hi"
                     this.hi_ = this.maxHi_;
                 }
