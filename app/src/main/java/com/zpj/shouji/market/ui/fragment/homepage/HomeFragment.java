@@ -8,7 +8,6 @@ import android.support.v4.view.ViewPager;
 import android.util.Log;
 import android.view.View;
 
-import com.felix.atoast.library.AToast;
 import com.zpj.fragmentation.BaseFragment;
 import com.zpj.fragmentation.SupportFragment;
 import com.zpj.shouji.market.R;
@@ -16,7 +15,7 @@ import com.zpj.shouji.market.event.ColorChangeEvent;
 import com.zpj.shouji.market.event.ToolbarColorChangeEvent;
 import com.zpj.shouji.market.ui.adapter.FragmentsPagerAdapter;
 import com.zpj.shouji.market.ui.fragment.base.BaseContainerFragment;
-import com.zpj.shouji.market.ui.fragment.manager.AppManagerFragment;
+import com.zpj.shouji.market.ui.fragment.manager.ManagerFragment;
 import com.zpj.shouji.market.ui.fragment.search.SearchFragment;
 import com.zpj.shouji.market.ui.widget.ColorChangePagerTitleView;
 import com.zpj.shouji.market.utils.MagicIndicatorHelper;
@@ -205,7 +204,7 @@ public class HomeFragment extends BaseFragment {
         btnSearch = view.findViewById(R.id.btn_search);
         btnManage = view.findViewById(R.id.btn_manage);
         btnSearch.setOnClickListener(v -> SearchFragment.start());
-        btnManage.setOnClickListener(v -> AppManagerFragment.start());
+        btnManage.setOnClickListener(v -> ManagerFragment.start());
     }
 
     @Subscribe

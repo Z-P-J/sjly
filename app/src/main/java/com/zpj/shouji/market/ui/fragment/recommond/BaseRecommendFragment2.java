@@ -15,7 +15,7 @@ import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.event.MainActionPopupEvent;
 import com.zpj.shouji.market.model.AppInfo;
 import com.zpj.shouji.market.ui.fragment.detail.AppDetailFragment;
-import com.zpj.shouji.market.ui.fragment.manager.AppManagerFragment;
+import com.zpj.shouji.market.ui.fragment.manager.ManagerFragment;
 import com.zpj.shouji.market.ui.fragment.search.SearchFragment;
 import com.zpj.shouji.market.ui.widget.SmartNestedScrollView;
 import com.zpj.shouji.market.ui.widget.recommend.AppBannerLoader;
@@ -90,7 +90,7 @@ public abstract class BaseRecommendFragment2 extends BaseFragment
 
     @Override
     public void toolbarRightCustomView(@NonNull View view) {
-        view.findViewById(R.id.btn_manage).setOnClickListener(v -> AppManagerFragment.start());
+        view.findViewById(R.id.btn_manage).setOnClickListener(v -> ManagerFragment.start());
         view.findViewById(R.id.btn_search).setOnClickListener(v -> SearchFragment.start());
     }
 

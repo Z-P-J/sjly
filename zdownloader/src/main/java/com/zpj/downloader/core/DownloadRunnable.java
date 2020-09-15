@@ -3,13 +3,9 @@ package com.zpj.downloader.core;
 import android.util.Log;
 
 import com.zpj.downloader.constant.Error;
-import com.zpj.downloader.constant.ErrorCode;
-import com.zpj.downloader.constant.ResponseCode;
 import com.zpj.downloader.util.io.BufferedRandomAccessFile;
-import com.zpj.downloader.util.permission.PermissionUtil;
 
 import java.io.BufferedInputStream;
-import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.RandomAccessFile;
@@ -21,32 +17,24 @@ public class DownloadRunnable implements Runnable {
     private static final int BUFFER_SIZE = 512;
 
     private final DownloadMission mMission;
-    private int mId;
+    private final int mId;
 
     private final byte[] buf = new byte[BUFFER_SIZE];
 
-//    private BufferedRandomAccessFile f;
+    private BufferedRandomAccessFile f;
 //    private RandomAccessFile f;
 
     DownloadRunnable(DownloadMission mission, int id) {
         mMission = mission;
         mId = id;
-//        try {
-////            f = new BufferedRandomAccessFile(mMission.getFilePath(), "rw");
-//			f = new RandomAccessFile(mMission.getFilePath(), "rw");
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//            if (e instanceof FileNotFoundException) {
-//				notifyError(Error.FILE_NOT_FOUND);
-//			} else {
-//				if (PermissionUtil.checkStoragePermissions(DownloadManagerImpl.getInstance().getContext())) {
-//					notifyError(new Error(e.getMessage()));
-//				} else {
-//					notifyError(Error.WITHOUT_STORAGE_PERMISSIONS);
-//				}
-//			}
-//        }
-    }
+        try {
+//            f = new BufferedRandomAccessFile(mMission.getFilePath(), "rw");
+			f = new BufferedRandomAccessFile(mMission.getFilePath(), "rw");
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+			notifyError(Error.FILE_NOT_FOUND);
+		}
+	}
 
 //	DownloadRunnable(DownloadMission mission, RandomAccessFile f, int id) {
 //		mMission = mission;
@@ -96,7 +84,7 @@ public class DownloadRunnable implements Runnable {
 
 					ipt.close();
 					conn.disconnect();
-					f.close();
+
 				}
 			} catch (IOException e) {
 				e.printStackTrace();
@@ -118,7 +106,7 @@ public class DownloadRunnable implements Runnable {
 					break;
 				}
 
-				long position = mMission.getPosition();
+				long position = mMission.getNextPosition();
 				Log.d(TAG, "id=" + mId + " position=" + position + " blocks=" + mMission.getBlocks());
 				if (position < 0 || position >= mMission.getBlocks()) {
 					break;
@@ -174,7 +162,7 @@ public class DownloadRunnable implements Runnable {
 					long time_1 = System.currentTimeMillis();
 					Log.d("timetimetimetime" + mId, "ttttttttt=" + (time_1 - time_0));
 
-					RandomAccessFile f = new RandomAccessFile(mMission.getFilePath(), "rw");
+//					RandomAccessFile f = new RandomAccessFile(mMission.getFilePath(), "rw");
 					f.seek(start);
 					BufferedInputStream ipt = new BufferedInputStream(conn.getInputStream());
 					long time1 = System.currentTimeMillis();
@@ -213,7 +201,7 @@ public class DownloadRunnable implements Runnable {
 					Log.d("timetimetimetime" + mId, "tempTime2=" + tempTime2);
 					Log.d("timetimetimetime" + mId, "tempTime3=" + tempTime3);
 					Log.d("timetimetimetime" + mId, "tempTime4=" + tempTime4);
-					f.close();
+//					f.close();
 					ipt.close();
 					conn.disconnect();
 
@@ -235,7 +223,8 @@ public class DownloadRunnable implements Runnable {
 						long temp = System.currentTimeMillis();
 //						f.flush();
 						Log.d("timetimetimetime" + mId, "time4444=" + (System.currentTimeMillis() - temp));
-						mMission.preserveBlock(position);
+						f.flush();
+						mMission.onBlockFinished(position);
 						Log.d("DownloadRunnableLog", "position " + position + " finished");
 					}
 				} catch (IOException e) {
@@ -261,12 +250,12 @@ public class DownloadRunnable implements Runnable {
 //        if (!mMission.isRunning()) {
 //            Log.d(TAG, "The mission has been paused. Passing.");
 //        }
-//        try {
-////            f.flush();
-//            f.close();
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
+        try {
+//            f.flush();
+            f.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public void notifyProgress(final int len) {

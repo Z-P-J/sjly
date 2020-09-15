@@ -21,6 +21,8 @@ import com.zpj.recyclerview.EasyAdapter;
 import com.zpj.recyclerview.EasyRecyclerLayout;
 import com.zpj.recyclerview.EasyViewHolder;
 import com.zpj.shouji.market.R;
+import com.zpj.shouji.market.constant.Keys;
+import com.zpj.shouji.market.event.StartFragmentEvent;
 import com.zpj.shouji.market.glide.GlideApp;
 import com.zpj.shouji.market.manager.AppUpdateManager;
 import com.zpj.shouji.market.model.InstalledAppInfo;
@@ -43,7 +45,7 @@ import java.util.zip.ZipFile;
 import io.haydar.filescanner.FileInfo;
 import io.haydar.filescanner.FileScanner;
 
-public class PackageFragment extends RecyclerLayoutFragment<InstalledAppInfo> {
+public class PackageManagerFragment extends RecyclerLayoutFragment<InstalledAppInfo> {
 
     private static final String TAG = "PackageFragment";
 
@@ -64,6 +66,18 @@ public class PackageFragment extends RecyclerLayoutFragment<InstalledAppInfo> {
 
     private int lastProgress = 0;
 
+    public static PackageManagerFragment newInstance(boolean showToolbar) {
+        Bundle args = new Bundle();
+        args.putBoolean(Keys.SHOW_TOOLBAR, showToolbar);
+        PackageManagerFragment fragment = new PackageManagerFragment();
+        fragment.setArguments(args);
+        return fragment;
+    }
+
+    public static void start(boolean showToolbar) {
+        StartFragmentEvent.start(PackageManagerFragment.newInstance(showToolbar));
+    }
+
     @Override
     protected int getLayoutId() {
         return R.layout.fragment_package_manager;
@@ -75,8 +89,20 @@ public class PackageFragment extends RecyclerLayoutFragment<InstalledAppInfo> {
     }
 
     @Override
+    protected boolean supportSwipeBack() {
+        return true;
+    }
+
+    @Override
     protected void initView(View view, @Nullable Bundle savedInstanceState) {
         super.initView(view, savedInstanceState);
+        if (getArguments() != null && getArguments().getBoolean(Keys.SHOW_TOOLBAR, false)) {
+            toolbar.setVisibility(View.VISIBLE);
+//            findViewById(R.id.shadow_view).setVisibility(View.VISIBLE);
+            setToolbarTitle("安装包管理");
+        } else {
+            setSwipeBackEnable(false);
+        }
         sortTextView = view.findViewById(R.id.text_sort);
         sortTextView.setOnClickListener(v -> showSortPopWindow());
         infoTextView = view.findViewById(R.id.text_info);
@@ -156,7 +182,12 @@ public class PackageFragment extends RecyclerLayoutFragment<InstalledAppInfo> {
     @Override
     public boolean onLoadMore(EasyAdapter.Enabled enabled, int currentPage) {
         if (data.isEmpty()) {
-            loadApk();
+            postOnEnterAnimationEnd(new Runnable() {
+                @Override
+                public void run() {
+                    loadApk();
+                }
+            });
             return true;
         }
         return false;
@@ -199,7 +230,13 @@ public class PackageFragment extends RecyclerLayoutFragment<InstalledAppInfo> {
                             synchronized (data) {
                                 post(() -> {
                                     data.add(appInfo);
-                                    recyclerLayout.notifyItemInserted(data.size() - 1);
+                                    if (data.size() < 10) {
+                                        recyclerLayout.notifyDataSetChanged();
+                                    } else {
+                                        recyclerLayout.notifyItemInserted(data.size() - 1);
+                                    }
+                                    recyclerLayout.notifyItemRangeChanged(data.size() - 1, 1);
+//                                    recyclerLayout.notifyItemInserted(data.size() - 1);
                                 });
                             }
                         }

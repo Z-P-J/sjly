@@ -40,7 +40,7 @@ import com.zpj.shouji.market.ui.fragment.dialog.AppUrlCenterListDialogFragment;
 import com.zpj.shouji.market.ui.fragment.dialog.CommentDialogFragment;
 import com.zpj.shouji.market.ui.fragment.dialog.ShareDialogFragment;
 import com.zpj.shouji.market.ui.fragment.login.LoginFragment;
-import com.zpj.shouji.market.ui.fragment.manager.AppManagerFragment;
+import com.zpj.shouji.market.ui.fragment.manager.ManagerFragment;
 import com.zpj.shouji.market.ui.widget.AppDetailLayout;
 import com.zpj.shouji.market.utils.Callback;
 import com.zpj.shouji.market.utils.MagicIndicatorHelper;
@@ -396,7 +396,7 @@ public class AppDetailFragment extends BaseFragment
                 .setOnSelectListener((position, title) -> {
                     switch (position) {
                         case 0:
-                            AppManagerFragment.start();
+                            ManagerFragment.start();
                             break;
                         case 1:
                             ClipboardManager cm = (ClipboardManager) context.getSystemService(Context.CLIPBOARD_SERVICE);

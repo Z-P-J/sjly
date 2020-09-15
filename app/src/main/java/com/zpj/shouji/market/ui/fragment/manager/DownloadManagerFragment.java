@@ -27,18 +27,15 @@ import com.zpj.downloader.constant.Error;
 import com.zpj.downloader.core.DownloadManager;
 import com.zpj.downloader.core.DownloadMission;
 import com.zpj.downloader.util.FileUtil;
-import com.zpj.fragmentation.dialog.impl.AlertDialogFragment;
 import com.zpj.fragmentation.dialog.impl.AttachListDialogFragment;
 import com.zpj.fragmentation.dialog.impl.CheckDialogFragment;
-import com.zpj.http.ZHttp;
 import com.zpj.http.core.IHttp;
 import com.zpj.http.core.ObservableTask;
-import com.zpj.popup.ZPopup;
-import com.zpj.popup.impl.CheckPopup;
-import com.zpj.popup.interfaces.OnConfirmListener;
 import com.zpj.shouji.market.R;
 import com.zpj.fragmentation.BaseFragment;
+import com.zpj.shouji.market.constant.Keys;
 import com.zpj.shouji.market.download.AppDownloadMission;
+import com.zpj.shouji.market.event.StartFragmentEvent;
 import com.zpj.shouji.market.ui.fragment.detail.AppDetailFragment;
 import com.zpj.utils.ClickHelper;
 
@@ -49,13 +46,25 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
-public class DownloadFragment extends BaseFragment
+public class DownloadManagerFragment extends BaseFragment
         implements DownloadManager.DownloadManagerListener,
-        GroupRecyclerViewAdapter.OnItemClickListener<DownloadFragment.DownloadWrapper> {
+        GroupRecyclerViewAdapter.OnItemClickListener<DownloadManagerFragment.DownloadWrapper> {
 
     private final List<List<DownloadWrapper>> downloadTaskList = new ArrayList<>();
 
     private ExpandCollapseGroupAdapter expandableAdapter;
+
+    public static DownloadManagerFragment newInstance(boolean showToolbar) {
+        Bundle args = new Bundle();
+        args.putBoolean(Keys.SHOW_TOOLBAR, showToolbar);
+        DownloadManagerFragment fragment = new DownloadManagerFragment();
+        fragment.setArguments(args);
+        return fragment;
+    }
+
+    public static void start(boolean showToolbar) {
+        StartFragmentEvent.start(DownloadManagerFragment.newInstance(showToolbar));
+    }
 
     @Override
     protected int getLayoutId() {
@@ -63,7 +72,21 @@ public class DownloadFragment extends BaseFragment
     }
 
     @Override
+    protected boolean supportSwipeBack() {
+        return true;
+    }
+
+    @Override
     protected void initView(View view, @Nullable Bundle savedInstanceState) {
+
+        if (getArguments() != null && getArguments().getBoolean(Keys.SHOW_TOOLBAR, false)) {
+            toolbar.setVisibility(View.VISIBLE);
+            findViewById(R.id.shadow_view).setVisibility(View.VISIBLE);
+            setToolbarTitle("下载管理");
+        } else {
+            setSwipeBackEnable(false);
+        }
+
         ZDownloader.getDownloadManager().setDownloadManagerListener(this);
         RecyclerView recyclerView = view.findViewById(R.id.recycler_layout);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
@@ -71,12 +94,12 @@ public class DownloadFragment extends BaseFragment
         recyclerView.setAdapter(expandableAdapter);
         recyclerView.addItemDecoration(new StickyHeaderDecoration());
         expandableAdapter.setOnItemClickListener(this);
+        postOnEnterAnimationEnd(this::loadDownloadMissions);
     }
 
     @Override
     public void onLazyInitView(@Nullable Bundle savedInstanceState) {
         super.onLazyInitView(savedInstanceState);
-        loadDownloadMissions();
     }
 
     @Override

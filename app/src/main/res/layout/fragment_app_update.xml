@@ -5,12 +5,17 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <include layout="@layout/layout_toolbar"
+        android:visibility="gone"
+        />
+
     <RelativeLayout
         android:id="@+id/layout_top"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="5dp"
         android:background="#fff"
+        android:layout_below="@+id/tool_bar"
         >
 
         <TextView

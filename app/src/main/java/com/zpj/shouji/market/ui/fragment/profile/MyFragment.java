@@ -28,10 +28,15 @@ import com.zpj.shouji.market.ui.fragment.WebFragment;
 import com.zpj.shouji.market.ui.fragment.backup.CloudBackupFragment;
 import com.zpj.shouji.market.ui.fragment.dialog.NicknameModifiedDialogFragment;
 import com.zpj.shouji.market.ui.fragment.login.LoginFragment;
+import com.zpj.shouji.market.ui.fragment.manager.DownloadManagerFragment;
+import com.zpj.shouji.market.ui.fragment.manager.InstalledManagerFragment;
+import com.zpj.shouji.market.ui.fragment.manager.PackageManagerFragment;
+import com.zpj.shouji.market.ui.fragment.manager.UpdateManagerFragment;
 import com.zpj.shouji.market.ui.fragment.setting.AboutSettingFragment;
 import com.zpj.shouji.market.ui.fragment.setting.CommonSettingFragment;
 import com.zpj.shouji.market.ui.fragment.setting.DownloadSettingFragment;
 import com.zpj.shouji.market.ui.fragment.setting.InstallSettingFragment;
+import com.zpj.shouji.market.ui.fragment.setting.SettingFragment;
 import com.zpj.shouji.market.ui.widget.PullZoomView;
 import com.zpj.shouji.market.ui.widget.ToolBoxCard;
 import com.zpj.shouji.market.utils.PictureUtil;
@@ -57,9 +62,15 @@ public class MyFragment extends BaseFragment
 
     private ToolBoxCard toolBoxCard;
 
+    private TextView tvDownloadManaer;
+    private TextView tvAppManager;
+    private TextView tvPackageManager;
+    private TextView tvUpdateManager;
+
     private TextView tvCloudBackup;
     private TextView tvFeedback;
     private TextView tvNightMode;
+    private TextView tvSetting;
     private TextView tvCommonSetting;
     private TextView tvDownloadSetting;
     private TextView tvInstallSetting;
@@ -135,9 +146,15 @@ public class MyFragment extends BaseFragment
         EventBus.getDefault().register(toolBoxCard);
         toolBoxCard.attachFragment(this);
 
+        tvDownloadManaer = findViewById(R.id.tv_download_manager);
+        tvAppManager = findViewById(R.id.tv_app_manager);
+        tvPackageManager = findViewById(R.id.tv_package_manager);
+        tvUpdateManager = findViewById(R.id.tv_update_manager);
+
         tvCloudBackup = view.findViewById(R.id.tv_cloud_backup);
         tvFeedback = view.findViewById(R.id.tv_feedback);
         tvNightMode = view.findViewById(R.id.tv_night_mode);
+        tvSetting = view.findViewById(R.id.tv_setting);
         tvCommonSetting = view.findViewById(R.id.tv_common_setting);
         tvDownloadSetting = view.findViewById(R.id.tv_download_setting);
         tvInstallSetting = view.findViewById(R.id.tv_install_setting);
@@ -152,11 +169,17 @@ public class MyFragment extends BaseFragment
         tvCloudBackup.setOnClickListener(this);
         tvFeedback.setOnClickListener(this);
         tvNightMode.setOnClickListener(this);
+        tvSetting.setOnClickListener(this);
         tvCommonSetting.setOnClickListener(this);
         tvDownloadSetting.setOnClickListener(this);
         tvInstallSetting.setOnClickListener(this);
         tvAbout.setOnClickListener(this);
         tvSignOut.setOnClickListener(this);
+
+        tvDownloadManaer.setOnClickListener(this);
+        tvUpdateManager.setOnClickListener(this);
+        tvAppManager.setOnClickListener(this);
+        tvPackageManager.setOnClickListener(this);
 
 
         hideSoftInput();
@@ -451,6 +474,8 @@ public class MyFragment extends BaseFragment
             }
         } else if (v == tvNightMode) {
             AToast.normal("TODO 夜间模式");
+        } else if (v == tvSetting) {
+            SettingFragment.start();
         } else if (v == tvCommonSetting) {
             CommonSettingFragment.start();
         } else if (v == tvDownloadSetting) {
@@ -461,6 +486,14 @@ public class MyFragment extends BaseFragment
             AboutSettingFragment.start();
         } else if (v == tvSignOut) {
             UserManager.getInstance().signOut(context);
+        } else if (v == tvDownloadManaer) {
+            DownloadManagerFragment.start(true);
+        } else if (v == tvAppManager) {
+            InstalledManagerFragment.start(true);
+        } else if (v == tvPackageManager) {
+            PackageManagerFragment.start(true);
+        } else if (v == tvUpdateManager) {
+            UpdateManagerFragment.start(true);
         }
     }
 

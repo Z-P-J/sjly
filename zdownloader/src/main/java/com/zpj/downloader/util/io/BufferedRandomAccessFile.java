@@ -96,11 +96,11 @@ public final class BufferedRandomAccessFile extends RandomAccessFile {
      * in mode <code>mode</code>, which should be "r" for reading only, or
      * "rw" for reading and writing.
      */
-    public BufferedRandomAccessFile(File file, String mode) throws IOException {
+    public BufferedRandomAccessFile(File file, String mode) throws FileNotFoundException {
         this(file, mode, 0);
     }
 
-    public BufferedRandomAccessFile(File file, String mode, int size) throws IOException {
+    public BufferedRandomAccessFile(File file, String mode, int size) throws FileNotFoundException {
         super(file, mode);
         path_ = file.getAbsolutePath();
         this.init(size);
@@ -111,7 +111,7 @@ public final class BufferedRandomAccessFile extends RandomAccessFile {
      * <code>name</code> in mode <code>mode</code>, which should be "r" for
      * reading only, or "rw" for reading and writing.
      */
-    public BufferedRandomAccessFile(String name, String mode) throws IOException {
+    public BufferedRandomAccessFile(String name, String mode) throws FileNotFoundException {
         this(name, mode, 0);
     }
 

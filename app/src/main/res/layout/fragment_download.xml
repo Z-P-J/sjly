@@ -7,10 +7,20 @@
     android:fitsSystemWindows="true"
     >
 
+    <include layout="@layout/layout_toolbar"
+        android:visibility="gone" />
+
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recycler_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_below="@+id/tool_bar"
+        />
+
+    <View style="@style/layout_shadow_bottom"
+        android:id="@+id/shadow_view"
+        android:layout_below="@+id/tool_bar"
+        android:visibility="gone"
         />
 
 </RelativeLayout>

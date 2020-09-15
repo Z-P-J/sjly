@@ -19,6 +19,8 @@ import com.zpj.recyclerview.EasyAdapter;
 import com.zpj.recyclerview.EasyRecyclerLayout;
 import com.zpj.recyclerview.EasyViewHolder;
 import com.zpj.shouji.market.R;
+import com.zpj.shouji.market.constant.Keys;
+import com.zpj.shouji.market.event.StartFragmentEvent;
 import com.zpj.shouji.market.glide.GlideApp;
 import com.zpj.shouji.market.manager.AppUpdateManager;
 import com.zpj.shouji.market.model.AppUpdateInfo;
@@ -30,7 +32,7 @@ import com.zpj.shouji.market.utils.AppUtil;
 import java.util.ArrayList;
 import java.util.List;
 
-public class UpdateFragment extends RecyclerLayoutFragment<AppUpdateInfo>
+public class UpdateManagerFragment extends RecyclerLayoutFragment<AppUpdateInfo>
         implements AppUpdateManager.CheckUpdateListener {
 
     private static final List<OptionMenu> optionMenus = new ArrayList<>();
@@ -43,8 +45,18 @@ public class UpdateFragment extends RecyclerLayoutFragment<AppUpdateInfo>
 
     private RelativeLayout topLayout;
     private TextView updateInfo;
-    private TextView emptyText;
-    private TextView errorText;
+
+    public static UpdateManagerFragment newInstance(boolean showToolbar) {
+        Bundle args = new Bundle();
+        args.putBoolean(Keys.SHOW_TOOLBAR, showToolbar);
+        UpdateManagerFragment fragment = new UpdateManagerFragment();
+        fragment.setArguments(args);
+        return fragment;
+    }
+
+    public static void start(boolean showToolbar) {
+        StartFragmentEvent.start(UpdateManagerFragment.newInstance(showToolbar));
+    }
 
     @Override
     protected int getLayoutId() {
@@ -57,8 +69,22 @@ public class UpdateFragment extends RecyclerLayoutFragment<AppUpdateInfo>
     }
 
     @Override
+    protected boolean supportSwipeBack() {
+        return true;
+    }
+
+    @Override
     protected void initView(View view, @Nullable Bundle savedInstanceState) {
         super.initView(view, savedInstanceState);
+
+        if (getArguments() != null && getArguments().getBoolean(Keys.SHOW_TOOLBAR, false)) {
+            toolbar.setVisibility(View.VISIBLE);
+//            findViewById(R.id.shadow_view).setVisibility(View.VISIBLE);
+            setToolbarTitle("应用更新");
+        } else {
+            setSwipeBackEnable(false);
+        }
+
         topLayout = view.findViewById(R.id.layout_top);
         TextView updateAll = view.findViewById(R.id.update_all);
         updateAll.setOnClickListener(new View.OnClickListener() {
@@ -69,8 +95,6 @@ public class UpdateFragment extends RecyclerLayoutFragment<AppUpdateInfo>
             }
         });
         updateInfo = view.findViewById(R.id.update_info);
-        emptyText = view.findViewById(R.id.text_empty);
-        errorText = view.findViewById(R.id.text_error);
     }
 
     @Override
@@ -84,13 +108,11 @@ public class UpdateFragment extends RecyclerLayoutFragment<AppUpdateInfo>
         data.addAll(updateInfoList);
         AToast.success("onCheckUpdateFinish size=" + updateInfoList.size());
         recyclerLayout.notifyDataSetChanged();
-        errorText.setVisibility(View.GONE);
         if (updateInfoList.isEmpty()) {
             topLayout.setVisibility(View.GONE);
-            emptyText.setVisibility(View.VISIBLE);
+            recyclerLayout.showEmptyView("所有应用均为最新版");
         } else {
             topLayout.setVisibility(View.VISIBLE);
-            emptyText.setVisibility(View.GONE);
             updateInfo.setText(updateInfoList.size() + "款应用可更新");
         }
     }
@@ -191,7 +213,12 @@ public class UpdateFragment extends RecyclerLayoutFragment<AppUpdateInfo>
     @Override
     public boolean onLoadMore(EasyAdapter.Enabled enabled, int currentPage) {
         if (data.isEmpty()) {
-            AppUpdateManager.getInstance().addCheckUpdateListener(this);
+            postOnEnterAnimationEnd(new Runnable() {
+                @Override
+                public void run() {
+                    AppUpdateManager.getInstance().addCheckUpdateListener(UpdateManagerFragment.this);
+                }
+            });
             return true;
         }
         return false;

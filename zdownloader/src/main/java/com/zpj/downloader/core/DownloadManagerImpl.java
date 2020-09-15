@@ -41,7 +41,7 @@ public class DownloadManagerImpl implements DownloadManager {
 
 	private DownloaderConfig options;
 
-	private static AtomicInteger downloadingCount = new AtomicInteger(0);
+	private static final AtomicInteger downloadingCount = new AtomicInteger(0);
 
 	private DownloadManagerImpl(Context context, DownloaderConfig options) {
 		mContext = context;
@@ -149,6 +149,7 @@ public class DownloadManagerImpl implements DownloadManager {
 		}
 
 		if (f.exists() && f.isDirectory()) {
+			Gson gson = new Gson();
 			for (final File sub : f.listFiles()) {
 				if (sub.isDirectory()) {
 					continue;
@@ -156,7 +157,7 @@ public class DownloadManagerImpl implements DownloadManager {
 				if (sub.getName().endsWith(MISSION_INFO_FILE_SUFFIX_NAME)) {
 					String str = Utility.readFromFile(sub.getAbsolutePath());
 					if (!TextUtils.isEmpty(str)) {
-						DownloadMission mis = new Gson().fromJson(str, clazz);
+						DownloadMission mis = gson.fromJson(str, clazz);
 						Log.d("initMissions", "mis=null? " + (mis == null));
 						if (mis != null) {
 							mis.init();

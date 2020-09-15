@@ -221,6 +221,123 @@
                         style="@style/setting_card_style"
                         >
 
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            >
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="工具箱"
+                                android:gravity="center_vertical"
+                                android:paddingHorizontal="16dp"
+                                android:paddingTop="16dp"
+                                android:paddingBottom="8dp"
+                                android:textSize="12sp"
+                                android:textColor="@color/colorPrimary"
+                                />
+
+                            <View
+                                android:layout_width="match_parent"
+                                android:layout_height="1dp"
+                                android:background="@drawable/bg_bottom_line_gray"
+                                android:layout_marginHorizontal="16dp"
+                                />
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal"
+                                android:layout_margin="8dp"
+                                >
+
+                                <com.zpj.shouji.market.ui.widget.DrawableTintTextView
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1"
+                                    android:paddingVertical="16dp"
+                                    android:gravity="center"
+                                    android:drawablePadding="8dp"
+                                    android:id="@+id/tv_download_manager"
+                                    android:drawableTop="@drawable/ic_discover_white_24dp"
+                                    android:text="下载管理"
+                                    app:drawable_tint_color="@color/light_blue_1"
+                                    android:background="?attr/selectableItemBackground"
+                                    android:textSize="12sp"
+                                    />
+
+                                <com.zpj.shouji.market.ui.widget.DrawableTintTextView
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1"
+                                    android:paddingVertical="16dp"
+                                    android:gravity="center"
+                                    android:drawablePadding="8dp"
+                                    android:id="@+id/tv_update_manager"
+                                    android:drawableTop="@drawable/ic_friend_white_24dp"
+                                    android:text="应用更新"
+                                    app:drawable_tint_color="@color/light_purple"
+                                    android:background="?attr/selectableItemBackground"
+                                    android:textSize="12sp"
+                                    />
+
+                                <com.zpj.shouji.market.ui.widget.DrawableTintTextView
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1"
+                                    android:paddingVertical="16dp"
+                                    android:gravity="center"
+                                    android:drawablePadding="8dp"
+                                    android:id="@+id/tv_app_manager"
+                                    android:drawableTop="@drawable/ic_homepage_white_24dp"
+                                    android:text="应用管理"
+                                    app:drawable_tint_color="@color/light_blue_2"
+                                    android:background="?attr/selectableItemBackground"
+                                    android:textSize="12sp"
+                                    />
+
+                                <com.zpj.shouji.market.ui.widget.DrawableTintTextView
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1"
+                                    android:paddingVertical="16dp"
+                                    android:gravity="center"
+                                    android:drawablePadding="8dp"
+                                    android:id="@+id/tv_package_manager"
+                                    android:drawableTop="@drawable/ic_comment_white_24dp"
+                                    android:text="安装包管理"
+                                    app:drawable_tint_color="@color/dark_yellow_1"
+                                    android:background="?attr/selectableItemBackground"
+                                    android:textSize="12sp"
+                                    />
+
+<!--                                <com.zpj.shouji.market.ui.widget.DrawableTintTextView-->
+<!--                                    android:layout_width="0dp"-->
+<!--                                    android:layout_height="wrap_content"-->
+<!--                                    android:layout_weight="1"-->
+<!--                                    android:paddingVertical="16dp"-->
+<!--                                    android:gravity="center"-->
+<!--                                    android:drawablePadding="8dp"-->
+<!--                                    android:id="@+id/tv_google_helper"-->
+<!--                                    android:drawableTop="@drawable/ic_friend_white_24dp"-->
+<!--                                    android:text="谷歌助手"-->
+<!--                                    app:drawable_tint_color="@color/light_purple"-->
+<!--                                    android:background="?attr/selectableItemBackgroundBorderless"-->
+<!--                                    android:textSize="12sp"-->
+<!--                                    />-->
+
+                            </LinearLayout>
+
+                        </LinearLayout>
+
+                    </com.lihang.ShadowLayout>
+
+                    <com.lihang.ShadowLayout
+                        style="@style/setting_card_style"
+                        >
+
                         <android.support.v7.widget.LinearLayoutCompat
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
@@ -235,7 +352,7 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 app:z_setting_titleText="云备份"
-                                android:background="?android:attr/selectableItemBackground"
+                                android:background="?attr/selectableItemBackgroundBorderless"
                                 />
 
                             <com.zpj.widget.setting.SimpleSettingItem
@@ -243,7 +360,7 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 app:z_setting_titleText="意见反馈"
-                                android:background="?android:attr/selectableItemBackground"
+                                android:background="?attr/selectableItemBackgroundBorderless"
                                 />
 
                             <com.zpj.widget.setting.SimpleSettingItem
@@ -251,7 +368,15 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 app:z_setting_titleText="夜间模式"
-                                android:background="?android:attr/selectableItemBackground"
+                                android:background="?attr/selectableItemBackgroundBorderless"
+                                />
+
+                            <com.zpj.widget.setting.SimpleSettingItem
+                                android:id="@+id/tv_setting"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                app:z_setting_titleText="设置"
+                                android:background="?attr/selectableItemBackgroundBorderless"
                                 />
 
                             <com.zpj.widget.setting.SimpleSettingItem
@@ -259,7 +384,8 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 app:z_setting_titleText="通用设置"
-                                android:background="?android:attr/selectableItemBackground"
+                                android:background="?attr/selectableItemBackgroundBorderless"
+                                android:visibility="gone"
                                 />
 
                             <com.zpj.widget.setting.SimpleSettingItem
@@ -267,6 +393,7 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 app:z_setting_titleText="下载设置"
+                                android:visibility="gone"
                                 />
 
                             <com.zpj.widget.setting.SimpleSettingItem
@@ -274,12 +401,15 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 app:z_setting_titleText="安装设置"
+                                android:background="?attr/selectableItemBackgroundBorderless"
+                                android:visibility="gone"
                                 />
 
                             <com.zpj.widget.setting.SimpleSettingItem
                                 android:id="@+id/tv_about"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
+                                android:background="?attr/selectableItemBackgroundBorderless"
                                 app:z_setting_titleText="关于"
                                 />
 

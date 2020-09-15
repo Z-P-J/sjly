@@ -11,9 +11,6 @@
 
         <service android:name="com.zpj.downloader.core.DownloadService"/>
 
-        <activity android:name="com.zpj.downloader.util.permission.bridge.BridgeActivity"
-            />
-
         <provider
             android:name="android.support.v4.content.FileProvider"
             android:authorities="${applicationId}.fileprovider"

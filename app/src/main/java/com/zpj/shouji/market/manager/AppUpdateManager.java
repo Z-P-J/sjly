@@ -3,6 +3,7 @@ package com.zpj.shouji.market.manager;
 import android.content.Context;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
+import android.text.TextUtils;
 import android.util.Log;
 
 import com.felix.atoast.library.AToast;
@@ -160,7 +161,12 @@ public final class AppUpdateManager {
                     String setCookie = response.header("Set-Cookie");
 //                    UserManager.setCookie(setCookie);
                     Log.e("checkUpdate", "setCookie=" + setCookie);
-                    String jsessionId = setCookie.substring(setCookie.indexOf("="), setCookie.indexOf(";"));
+                    String jsessionId;
+                    if (TextUtils.isEmpty(setCookie)) {
+                        jsessionId = setCookie.substring(setCookie.indexOf("="), setCookie.indexOf(";"));
+                    } else {
+                        jsessionId = UserManager.getInstance().getSessionId();
+                    }
 
                     StringBuilder packageid = new StringBuilder();
                     PackageManager manager = context.getPackageManager();

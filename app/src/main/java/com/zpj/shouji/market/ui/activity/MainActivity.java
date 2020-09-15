@@ -1,7 +1,10 @@
 package com.zpj.shouji.market.ui.activity;
 
+import android.Manifest;
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
@@ -9,6 +12,7 @@ import android.os.Bundle;
 import android.os.StrictMode;
 import android.provider.Settings;
 import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.view.View;
 import android.widget.RelativeLayout;
@@ -18,7 +22,6 @@ import com.lxj.xpermission.PermissionConstants;
 import com.lxj.xpermission.XPermission;
 import com.yalantis.ucrop.CropEvent;
 import com.zpj.downloader.ZDownloader;
-import com.zpj.downloader.util.permission.PermissionUtil;
 import com.zpj.fragmentation.SupportActivity;
 import com.zpj.fragmentation.SupportFragment;
 import com.zpj.fragmentation.anim.FragmentAnimator;
@@ -263,7 +266,7 @@ public class MainActivity extends SupportActivity {
     }
 
     private void showRequestPermissionPopup() {
-        if (PermissionUtil.checkStoragePermissions(getApplicationContext())) {
+        if (hasStoragePermissions(getApplicationContext())) {
             requestPermission();
         } else {
             new AlertDialogFragment()
@@ -272,13 +275,14 @@ public class MainActivity extends SupportActivity {
                     .setPositiveButton("去申请", popup -> requestPermission())
                     .setNegativeButton("拒绝", popup -> ActivityCompat.finishAfterTransition(MainActivity.this))
                     .show(this);
-//            ZPopup.alert(MainActivity.this)
-//                    .setTitle("权限申请")
-//                    .setContent("本软件需要读写手机存储的权限用于文件的下载与查看，是否申请该权限？")
-//                    .setConfirmButton("去申请", popup -> requestPermission())
-//                    .setCancelButton("拒绝", popup -> ActivityCompat.finishAfterTransition(MainActivity.this))
-//                    .show();
         }
+    }
+
+    private boolean hasStoragePermissions(Context context) {
+        return ContextCompat.checkSelfPermission(context, Manifest.permission.READ_EXTERNAL_STORAGE)
+                == PackageManager.PERMISSION_GRANTED
+                && ContextCompat.checkSelfPermission(context, Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                == PackageManager.PERMISSION_GRANTED;
     }
 
     private void requestPermission() {

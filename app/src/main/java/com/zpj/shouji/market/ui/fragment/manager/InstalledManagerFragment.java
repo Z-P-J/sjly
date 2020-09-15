@@ -26,6 +26,8 @@ import com.zpj.recyclerview.EasyRecyclerLayout;
 import com.zpj.recyclerview.EasyViewHolder;
 import com.zpj.recyclerview.IEasy;
 import com.zpj.shouji.market.R;
+import com.zpj.shouji.market.constant.Keys;
+import com.zpj.shouji.market.event.StartFragmentEvent;
 import com.zpj.shouji.market.glide.GlideApp;
 import com.zpj.shouji.market.manager.AppBackupManager;
 import com.zpj.shouji.market.manager.AppInstalledManager;
@@ -42,7 +44,7 @@ import com.zpj.widget.checkbox.SmoothCheckBox;
 import java.util.ArrayList;
 import java.util.List;
 
-public class InstalledFragment extends RecyclerLayoutFragment<InstalledAppInfo>
+public class InstalledManagerFragment extends RecyclerLayoutFragment<InstalledAppInfo>
         implements AppInstalledManager.CallBack,
         AppBackupManager.AppBackupListener {
 
@@ -74,12 +76,16 @@ public class InstalledFragment extends RecyclerLayoutFragment<InstalledAppInfo>
 
     private boolean isLoading = false;
 
-    public static InstalledFragment newInstance() {
-
+    public static InstalledManagerFragment newInstance(boolean showToolbar) {
         Bundle args = new Bundle();
-        InstalledFragment fragment = new InstalledFragment();
+        args.putBoolean(Keys.SHOW_TOOLBAR, showToolbar);
+        InstalledManagerFragment fragment = new InstalledManagerFragment();
         fragment.setArguments(args);
         return fragment;
+    }
+
+    public static void start(boolean showToolbar) {
+        StartFragmentEvent.start(InstalledManagerFragment.newInstance(showToolbar));
     }
 
    @Override
@@ -93,8 +99,22 @@ public class InstalledFragment extends RecyclerLayoutFragment<InstalledAppInfo>
     }
 
     @Override
+    protected boolean supportSwipeBack() {
+        return true;
+    }
+
+    @Override
     protected void initView(View view, @Nullable Bundle savedInstanceState) {
         super.initView(view, savedInstanceState);
+
+        if (getArguments() != null && getArguments().getBoolean(Keys.SHOW_TOOLBAR, false)) {
+            toolbar.setVisibility(View.VISIBLE);
+//            findViewById(R.id.shadow_view).setVisibility(View.VISIBLE);
+            setToolbarTitle("应用管理");
+        } else {
+            setSwipeBackEnable(false);
+        }
+
         infoTextView = view.findViewById(R.id.text_info);
         infoTextView.setText("扫描中...");
         titleTextView = view.findViewById(R.id.text_title);
@@ -236,7 +256,12 @@ public class InstalledFragment extends RecyclerLayoutFragment<InstalledAppInfo>
             return false;
         }
         isLoading = true;
-        loadInstallApps();
+        postOnEnterAnimationEnd(new Runnable() {
+            @Override
+            public void run() {
+                loadInstallApps();
+            }
+        });
         return true;
     }
 
