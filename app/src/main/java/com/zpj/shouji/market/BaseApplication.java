@@ -24,7 +24,7 @@ import io.reactivex.functions.Consumer;
 import io.reactivex.plugins.RxJavaPlugins;
 import per.goweii.burred.Blurred;
 
-public class App extends Application {
+public class BaseApplication extends Application {
 
     @Override
     public void onCreate() {

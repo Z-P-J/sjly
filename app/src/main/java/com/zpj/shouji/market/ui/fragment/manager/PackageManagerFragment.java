@@ -5,7 +5,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.util.Log;
@@ -14,9 +13,8 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.felix.atoast.library.AToast;
+import com.zpj.fragmentation.dialog.base.ArrowDialogFragment;
 import com.zpj.popupmenuview.OptionMenu;
-import com.zpj.popupmenuview.OptionMenuView;
-import com.zpj.popupmenuview.PopupMenuView;
 import com.zpj.recyclerview.EasyAdapter;
 import com.zpj.recyclerview.EasyRecyclerLayout;
 import com.zpj.recyclerview.EasyViewHolder;
@@ -299,59 +297,6 @@ public class PackageManagerFragment extends RecyclerLayoutFragment<InstalledAppI
                 })
                 .setAttachView(sortTextView)
                 .show(context);
-//        RecyclerPopup.with(context)
-//                .addItems("按应用名称", "按占用空间", "按安装时间", "按更新时间", "按使用频率")
-//                .setSelectedItem(sortPosition)
-//                .setOnItemClickListener((view, title, position) -> {
-//                    sortPosition = position;
-//                    sortTextView.setText(title);
-//                    switch (position) {
-//                        case 0:
-//                            Collections.sort(data, new Comparator<InstalledAppInfo>() {
-//                                @Override
-//                                public int compare(InstalledAppInfo o1, InstalledAppInfo o2) {
-//                                    return o1.getName().compareTo(o2.getName());
-//                                }
-//                            });
-//                            break;
-//                        case 1:
-//                            Collections.sort(data, new Comparator<InstalledAppInfo>() {
-//                                @Override
-//                                public int compare(InstalledAppInfo o1, InstalledAppInfo o2) {
-//                                    return (int) (o1.getAppSize() - o2.getAppSize());
-//                                }
-//                            });
-//                            break;
-//                        case 2:
-////                                Collections.sort(appInfoList, new Comparator<InstalledAppInfo>() {
-////                                    @Override
-////                                    public int compare(InstalledAppInfo o1, InstalledAppInfo o2) {
-////                                        return o1.getInstallTime().compareTo(o2.getInstallTime());
-////                                    }
-////                                });
-//                            break;
-//                        case 3:
-////                                Collections.sort(appInfoList, new Comparator<InstalledAppInfo>() {
-////                                    @Override
-////                                    public int compare(InstalledAppInfo o1, InstalledAppInfo o2) {
-////                                        return o1.getRecentUpdateTime().compareTo(o2.getRecentUpdateTime());
-////                                    }
-////                                });
-//                            break;
-//                        case 4:
-////                                Collections.sort(appInfoList, new Comparator<InstalledAppInfo>() {
-////                                    @Override
-////                                    public int compare(InstalledAppInfo o1, InstalledAppInfo o2) {
-////                                        return o1.getName().compareTo(o2.getName());
-////                                    }
-////                                });
-//                            break;
-//                        default:
-//                            break;
-//                    }
-//                    recyclerLayout.notifyDataSetChanged();
-//                })
-//                .show(sortTextView);
     }
 
     private InstalledAppInfo parseFromApk(Context context, File file) {
@@ -415,35 +360,30 @@ public class PackageManagerFragment extends RecyclerLayoutFragment<InstalledAppI
     }
 
     public void onMenuClicked(View view, InstalledAppInfo updateInfo) {
-        PopupMenuView popupMenuView = new PopupMenuView(context);
-        popupMenuView.setOrientation(LinearLayout.HORIZONTAL)
-                .setMenuItems(optionMenus)
-                .setBackgroundAlpha(getActivity(), 0.9f, 500)
-                .setBackgroundColor(Color.WHITE)
-                .setOnMenuClickListener(new OptionMenuView.OnOptionMenuClickListener() {
-                    @Override
-                    public boolean onOptionMenuClick(int position, OptionMenu menu) {
-                        popupMenuView.dismiss();
-                        switch (position) {
-                            case 0:
-                                AToast.normal("详细信息");
-                                break;
-                            case 1:
-                                AToast.normal(updateInfo.getApkFilePath());
-                                AppUtil.shareApk(getContext(), updateInfo.getApkFilePath());
-                                break;
-                            case 2:
-                                AppUtil.deleteApk(updateInfo.getApkFilePath());
-                                break;
-                            case 3:
-                                AppUtil.installApk(getActivity(), updateInfo.getApkFilePath());
-                                break;
-                            default:
-                                AToast.warning("未知操作！");
-                                break;
-                        }
-                        return true;
+        new ArrowDialogFragment()
+                .setOptionMenus(optionMenus)
+                .setOrientation(LinearLayout.HORIZONTAL)
+                .setOnItemClickListener((position, menu) -> {
+                    switch (position) {
+                        case 0:
+                            AToast.normal("详细信息");
+                            break;
+                        case 1:
+                            AToast.normal(updateInfo.getApkFilePath());
+                            AppUtil.shareApk(getContext(), updateInfo.getApkFilePath());
+                            break;
+                        case 2:
+                            AppUtil.deleteApk(updateInfo.getApkFilePath());
+                            break;
+                        case 3:
+                            AppUtil.installApk(getActivity(), updateInfo.getApkFilePath());
+                            break;
+                        default:
+                            AToast.warning("未知操作！");
+                            break;
                     }
-                }).show(view);
+                })
+                .setAttachView(view)
+                .show(context);
     }
 }

@@ -2,6 +2,7 @@ package com.zpj.popupmenuview;
 
 import android.content.Context;
 import android.content.res.TypedArray;
+import android.graphics.BitmapShader;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Matrix;
@@ -11,6 +12,7 @@ import android.graphics.PorterDuff;
 import android.graphics.PorterDuffXfermode;
 import android.graphics.RectF;
 import android.graphics.Xfermode;
+import android.os.Build;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.View;
@@ -26,11 +28,14 @@ import com.zpj.popup.R;
 public class PopLayout extends FrameLayout implements View.OnLayoutChangeListener {
     private static final String TAG = "PopLayout";
 
-    private int mOffset = 0;
+    private float mOffset = 0;
 
     private int mRadiusSize = DEFAULT_RADIUS;
 
     private int mBulgeSize = DEFAULT_BULGE_SIZE;
+
+    private RectF layoutRectF;
+    private Path layoutPath;
 
     private Paint mPaint;
 
@@ -52,11 +57,12 @@ public class PopLayout extends FrameLayout implements View.OnLayoutChangeListene
 
     public static final int SITE_BOTTOM = 3;
 
-    private static final int DEFAULT_RADIUS = 16;
+    private static final int DEFAULT_RADIUS = 8;
 
     private static final int DEFAULT_BULGE_SIZE = 16;
 
-    private static final Xfermode MODE = new PorterDuffXfermode(PorterDuff.Mode.DST_IN);
+//    private static final Xfermode MODE = new PorterDuffXfermode(PorterDuff.Mode.DST_IN);
+    private Xfermode xfermode;
 
     public PopLayout(Context context) {
         this(context, null, 0);
@@ -100,8 +106,16 @@ public class PopLayout extends FrameLayout implements View.OnLayoutChangeListene
 //            setBackgroundColor(Color.WHITE);
         }
 
+        xfermode = new PorterDuffXfermode(PorterDuff.Mode.DST_IN);
+//        if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.O_MR1) {
+//            xfermode = new PorterDuffXfermode(PorterDuff.Mode.DST_IN);
+//        } else {
+//            xfermode = new PorterDuffXfermode(PorterDuff.Mode.DST_OUT);
+//            layoutPath = new Path();
+//        }
+
         mPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
-        mPaint.setXfermode(MODE);
+        mPaint.setXfermode(xfermode);
 
         mBulgePath = new Path();
         mPopMaskPath = new Path();
@@ -142,9 +156,10 @@ public class PopLayout extends FrameLayout implements View.OnLayoutChangeListene
         if (width <= mRadiusSize || height <= mRadiusSize) {
             return;
         }
-        int offset = reviseOffset(mOffset);
+        float offset = reviseOffset(mOffset);
         mPopMaskPath.addRect(new RectF(0, 0, width, height), Path.Direction.CW);
-        mPopMaskPath.addRoundRect(new RectF(mBulgeSize, mBulgeSize, width - mBulgeSize, height - mBulgeSize), mRadiusSize, mRadiusSize, Path.Direction.CCW);
+        layoutRectF = new RectF(mBulgeSize, mBulgeSize, width - mBulgeSize, height - mBulgeSize);
+        mPopMaskPath.addRoundRect(layoutRectF, mRadiusSize, mRadiusSize, Path.Direction.CCW);
         mPopMaskPath.setFillType(Path.FillType.INVERSE_EVEN_ODD);
 
         switch (mSiteMode) {
@@ -173,7 +188,7 @@ public class PopLayout extends FrameLayout implements View.OnLayoutChangeListene
         }
     }
 
-    private int reviseOffset(int offset) {
+    private float reviseOffset(float offset) {
         int size = 0, bulgeWidth = mBulgeSize << 1;
         switch (mSiteMode) {
             case SITE_TOP:
@@ -196,7 +211,7 @@ public class PopLayout extends FrameLayout implements View.OnLayoutChangeListene
         return offset;
     }
 
-    public void setOffset(int offset) {
+    public void setOffset(float offset) {
         Log.d("setOffset", "offset=" + offset);
         if (mOffset != offset) {
             mOffset = offset;
@@ -231,7 +246,7 @@ public class PopLayout extends FrameLayout implements View.OnLayoutChangeListene
         }
     }
 
-    public int getOffset() {
+    public float getOffset() {
         return mOffset;
     }
 
@@ -252,6 +267,19 @@ public class PopLayout extends FrameLayout implements View.OnLayoutChangeListene
         int layer = canvas.saveLayer(0, 0, getWidth(),
                 getHeight(), null, Canvas.ALL_SAVE_FLAG);
         super.draw(canvas);
+
+//        if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.O_MR1) {
+//            canvas.drawPath(mPopMaskPath, mPaint);
+//        } else {
+//            canvas.drawPath(mPopMaskPath, mPaint);
+//
+//            layoutPath.addRect(layoutRectF, Path.Direction.CCW);
+//            // 计算tempPath和path的差集
+//            layoutPath.op(mPopMaskPath, Path.Op.DIFFERENCE);
+//            canvas.drawPath(layoutPath, mPaint);
+//            layoutPath.reset();
+//        }
+
         canvas.drawPath(mPopMaskPath, mPaint);
         canvas.restoreToCount(layer);
     }

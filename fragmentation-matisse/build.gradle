@@ -41,7 +41,7 @@ dependencies {
 
     implementation project(':niceimageview')
     implementation project(":fragmentation-dialog")
-    implementation project(":ucrop")
+    implementation project(":fragmentation-ucrop")
     implementation project(':fragmentation')
 }
 

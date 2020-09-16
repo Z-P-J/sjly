@@ -17,10 +17,4 @@
         android:layout_below="@+id/tool_bar"
         />
 
-    <View style="@style/layout_shadow_bottom"
-        android:id="@+id/shadow_view"
-        android:layout_below="@+id/tool_bar"
-        android:visibility="gone"
-        />
-
 </RelativeLayout>

@@ -175,15 +175,15 @@ dependencies {
     implementation project(':niceimageview')
     implementation project(":filescannercore")
     implementation project(":zwidget")
-    implementation project(":fragmentation-dialog")
     implementation project(":zdownloader")
 //    implementation project(':zmarkdown')
 //    implementation project(':richeditor')
 //    implementation project(':richeditor2')
-    implementation project(':matisse')
     implementation project(':iconcountview')
-    implementation project(':ucrop')
     implementation project(':expandabletextview')
     implementation project(':fragmentation')
+    implementation project(":fragmentation-dialog")
+    implementation project(':fragmentation-matisse')
+    implementation project(':fragmentation-ucrop')
 
 }

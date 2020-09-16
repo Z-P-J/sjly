@@ -1,6 +1,5 @@
 package com.zpj.shouji.market.ui.fragment.manager;
 
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.text.SpannableString;
@@ -13,8 +12,8 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.felix.atoast.library.AToast;
+import com.zpj.fragmentation.dialog.base.ArrowDialogFragment;
 import com.zpj.popupmenuview.OptionMenu;
-import com.zpj.popupmenuview.PopupMenuView;
 import com.zpj.recyclerview.EasyAdapter;
 import com.zpj.recyclerview.EasyRecyclerLayout;
 import com.zpj.recyclerview.EasyViewHolder;
@@ -27,6 +26,7 @@ import com.zpj.shouji.market.model.AppUpdateInfo;
 import com.zpj.shouji.market.model.InstalledAppInfo;
 import com.zpj.shouji.market.ui.fragment.base.RecyclerLayoutFragment;
 import com.zpj.shouji.market.ui.fragment.detail.AppDetailFragment;
+import com.zpj.shouji.market.ui.widget.DownloadButton;
 import com.zpj.shouji.market.utils.AppUtil;
 
 import java.util.ArrayList;
@@ -106,7 +106,6 @@ public class UpdateManagerFragment extends RecyclerLayoutFragment<AppUpdateInfo>
     public void onCheckUpdateFinish(List<AppUpdateInfo> updateInfoList) {
         data.clear();
         data.addAll(updateInfoList);
-        AToast.success("onCheckUpdateFinish size=" + updateInfoList.size());
         recyclerLayout.notifyDataSetChanged();
         if (updateInfoList.isEmpty()) {
             topLayout.setVisibility(View.GONE);
@@ -131,13 +130,12 @@ public class UpdateManagerFragment extends RecyclerLayoutFragment<AppUpdateInfo>
     }
 
     public void onMenuClicked(View view, AppUpdateInfo updateInfo) {
-        PopupMenuView popupMenuView = new PopupMenuView(context);
-        popupMenuView.setOrientation(LinearLayout.HORIZONTAL)
-                .setMenuItems(optionMenus)
-                .setBackgroundAlpha(getActivity(), 0.9f, 500)
-                .setBackgroundColor(Color.WHITE)
-                .setOnMenuClickListener((position, menu) -> {
-                    popupMenuView.dismiss();
+
+        new ArrowDialogFragment()
+                .setOptionMenus(optionMenus)
+                .setOrientation(LinearLayout.HORIZONTAL)
+                .setAttachView(view)
+                .setOnItemClickListener((position, menu) -> {
                     switch (position) {
                         case 0:
                             AToast.normal("详细信息");
@@ -155,8 +153,35 @@ public class UpdateManagerFragment extends RecyclerLayoutFragment<AppUpdateInfo>
                             AToast.warning("未知操作！");
                             break;
                     }
-                    return true;
-                }).show(view);
+                })
+                .show(context);
+
+//        PopupMenuView popupMenuView = new PopupMenuView(context);
+//        popupMenuView.setOrientation(LinearLayout.HORIZONTAL)
+//                .setMenuItems(optionMenus)
+//                .setBackgroundAlpha(getActivity(), 0.9f, 500)
+//                .setBackgroundColor(Color.WHITE)
+//                .setOnMenuClickListener((position, menu) -> {
+//                    popupMenuView.dismiss();
+//                    switch (position) {
+//                        case 0:
+//                            AToast.normal("详细信息");
+//                            break;
+//                        case 1:
+//                            AToast.normal("详细信息");
+//                            break;
+//                        case 2:
+//                            AppUtil.uninstallApp(_mActivity, updateInfo.getPackageName());
+//                            break;
+//                        case 3:
+//                            AppUtil.openApp(context, updateInfo.getPackageName());
+//                            break;
+//                        default:
+//                            AToast.warning("未知操作！");
+//                            break;
+//                    }
+//                    return true;
+//                }).show(view);
     }
 
     @Override
@@ -180,6 +205,8 @@ public class UpdateManagerFragment extends RecyclerLayoutFragment<AppUpdateInfo>
         TextView updateTextView = holder.getView(R.id.tv_update_info);
         ImageView settingBtn = holder.getView(R.id.iv_setting);
         ImageView expandBtn = holder.getView(R.id.iv_expand);
+        DownloadButton downloadButton = holder.getView(R.id.tv_update);
+        downloadButton.bindApp(updateInfo);
 
         InstalledAppInfo appInfo = new InstalledAppInfo();
         appInfo.setTempInstalled(true);
@@ -208,6 +235,8 @@ public class UpdateManagerFragment extends RecyclerLayoutFragment<AppUpdateInfo>
         });
 
         settingBtn.setOnClickListener(v -> onMenuClicked(v, updateInfo));
+
+
     }
 
     @Override

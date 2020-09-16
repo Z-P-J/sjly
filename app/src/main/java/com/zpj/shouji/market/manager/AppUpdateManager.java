@@ -163,9 +163,12 @@ public final class AppUpdateManager {
                     Log.e("checkUpdate", "setCookie=" + setCookie);
                     String jsessionId;
                     if (TextUtils.isEmpty(setCookie)) {
-                        jsessionId = setCookie.substring(setCookie.indexOf("="), setCookie.indexOf(";"));
-                    } else {
                         jsessionId = UserManager.getInstance().getSessionId();
+                    } else {
+                        jsessionId = setCookie.substring(setCookie.indexOf("="), setCookie.indexOf(";"));
+                    }
+                    if (setCookie == null) {
+                        setCookie = "";
                     }
 
                     StringBuilder packageid = new StringBuilder();

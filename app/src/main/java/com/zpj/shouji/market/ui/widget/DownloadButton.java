@@ -19,6 +19,7 @@ import com.zpj.shouji.market.manager.AppInstalledManager;
 import com.zpj.shouji.market.manager.UserManager;
 import com.zpj.shouji.market.model.AppDetailInfo;
 import com.zpj.shouji.market.model.AppInfo;
+import com.zpj.shouji.market.model.AppUpdateInfo;
 import com.zpj.shouji.market.model.CollectionAppInfo;
 import com.zpj.shouji.market.model.GuessAppInfo;
 import com.zpj.shouji.market.model.InstalledAppInfo;
@@ -43,6 +44,8 @@ public class DownloadButton extends AppCompatTextView
     private String yunUrl;
     private boolean isShareApp;
 
+    private CharSequence defaultText;
+
     private AppDownloadMission mission;
 
     public DownloadButton(Context context) {
@@ -55,7 +58,7 @@ public class DownloadButton extends AppCompatTextView
 
     public DownloadButton(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
-
+        defaultText = getText();
     }
 
     @Override
@@ -86,6 +89,10 @@ public class DownloadButton extends AppCompatTextView
 
     public void bindApp(AppInfo info) {
         bindApp(info.getAppId(), info.getAppTitle(), info.getAppPackage(), info.getAppType(), info.getAppIcon(), "");
+    }
+
+    public void bindApp(AppUpdateInfo info) {
+        bindApp(info.getId(), info.getAppName(), info.getPackageName(), info.getAppType(), "", "");
     }
 
     public void bindApp(PickedGameInfo info) {
@@ -135,7 +142,8 @@ public class DownloadButton extends AppCompatTextView
             }
         }
         if (mission == null) {
-            setText("下载");
+//            setText("下载");
+            onDelete();
         } else {
             this.mission.addListener(this);
         }
@@ -190,7 +198,11 @@ public class DownloadButton extends AppCompatTextView
     @Override
     public void onDelete() {
         this.mission = null;
-        setText("下载");
+        if (TextUtils.isEmpty(defaultText)) {
+            setText("下载");
+        } else {
+            setText(defaultText);
+        }
     }
 
     @Override

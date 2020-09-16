@@ -8,7 +8,8 @@ import android.widget.ScrollView;
 /**
  * Created by felix on 17/1/10.
  */
-public class PopVerticalScrollView extends ScrollView implements PopLayout.OnBulgeChangeCallback {
+public class PopVerticalScrollView extends ScrollView
+        implements PopLayout.OnBulgeChangeCallback {
 
     public PopVerticalScrollView(Context context) {
         super(context);

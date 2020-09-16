@@ -83,18 +83,34 @@
 
             </LinearLayout>
 
-            <TextView
+<!--            <TextView-->
+<!--                android:id="@+id/tv_update"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_gravity="center"-->
+<!--                android:text="升级"-->
+<!--                android:textColor="@color/colorPrimary"-->
+<!--                android:background="@drawable/bg_download_button"-->
+<!--                android:paddingStart="16dp"-->
+<!--                android:paddingEnd="16dp"-->
+<!--                android:paddingTop="6dp"-->
+<!--                android:paddingBottom="6dp"-->
+<!--                />-->
+
+            <com.zpj.shouji.market.ui.widget.DownloadButton
                 android:id="@+id/tv_update"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:text="升级"
+                android:text="@string/text_upgrade"
                 android:textColor="@color/colorPrimary"
+                android:textSize="12sp"
                 android:background="@drawable/bg_download_button"
-                android:paddingStart="16dp"
-                android:paddingEnd="16dp"
-                android:paddingTop="6dp"
-                android:paddingBottom="6dp"
+                android:paddingStart="12dp"
+                android:paddingEnd="12dp"
+                android:paddingTop="4dp"
+                android:paddingBottom="4dp"
+                android:gravity="center"
                 />
 
         </LinearLayout>
@@ -108,16 +124,29 @@
             android:paddingTop="10dp"
             >
 
-            <RelativeLayout
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:gravity="end"
+                >
 
                 <TextView
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_gravity="center"
                     android:textColor="@color/colorPrimary"
                     android:text="更新内容："
-                    android:layout_centerVertical="true"
+                    />
+
+                <ImageView
+                    android:id="@+id/iv_setting"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="end"
+                    android:src="@drawable/ic_more_vert_grey_24dp"
+                    android:tint="@color/colorPrimary"
+                    android:padding="8dp"
                     />
 
                 <ImageView
@@ -126,10 +155,11 @@
                     android:layout_height="wrap_content"
                     android:src="@drawable/ic_expand_more_black_24dp"
                     android:tint="@color/colorPrimary"
-                    android:layout_alignParentEnd="true"
+                    android:padding="8dp"
+                    android:layout_gravity="end"
                     />
 
-            </RelativeLayout>
+            </LinearLayout>
 
             <TextView
                 android:id="@+id/tv_update_info"
@@ -140,24 +170,24 @@
                 android:text="esjrthgrhdfkglfjtghrftgiftghnjksdgdsfgdhkjghdfkjgdfkgkhdfkjgd"
                 />
 
-            <LinearLayout
-                android:orientation="horizontal"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="end"
-                >
+<!--            <LinearLayout-->
+<!--                android:orientation="horizontal"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:gravity="end"-->
+<!--                >-->
 
-                <ImageView
-                    android:id="@+id/iv_setting"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="end"
-                    android:src="@drawable/ic_settings_white_24dp"
-                    android:tint="@color/colorPrimary"
-                    android:paddingTop="2dp"
-                    />
+<!--                <ImageView-->
+<!--                    android:id="@+id/iv_setting"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_gravity="end"-->
+<!--                    android:src="@drawable/ic_settings_white_24dp"-->
+<!--                    android:tint="@color/colorPrimary"-->
+<!--                    android:paddingTop="2dp"-->
+<!--                    />-->
 
-            </LinearLayout>
+<!--            </LinearLayout>-->
 
 
 

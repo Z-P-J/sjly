@@ -36,7 +36,10 @@ import com.zpj.fragmentation.BaseFragment;
 import com.zpj.shouji.market.constant.Keys;
 import com.zpj.shouji.market.download.AppDownloadMission;
 import com.zpj.shouji.market.event.StartFragmentEvent;
+import com.zpj.shouji.market.glide.GlideApp;
+import com.zpj.shouji.market.model.InstalledAppInfo;
 import com.zpj.shouji.market.ui.fragment.detail.AppDetailFragment;
+import com.zpj.utils.AppUtils;
 import com.zpj.utils.ClickHelper;
 
 import java.text.SimpleDateFormat;
@@ -81,7 +84,7 @@ public class DownloadManagerFragment extends BaseFragment
 
         if (getArguments() != null && getArguments().getBoolean(Keys.SHOW_TOOLBAR, false)) {
             toolbar.setVisibility(View.VISIBLE);
-            findViewById(R.id.shadow_view).setVisibility(View.VISIBLE);
+//            findViewById(R.id.shadow_view).setVisibility(View.VISIBLE);
             setToolbarTitle("下载管理");
         } else {
             setSwipeBackEnable(false);
@@ -283,7 +286,14 @@ public class DownloadManagerFragment extends BaseFragment
                 AppDownloadMission mission = item.getMission();
                 ImageView ivIcon = holder.get(R.id.item_icon);
                 if (TextUtils.isEmpty(mission.getAppIcon())) {
-                    ivIcon.setImageResource(FileUtil.getFileTypeIconId(mission.getTaskName()));
+                    if (AppUtils.isInstalled(context, mission.getPackageName())) {
+                        InstalledAppInfo appInfo = new InstalledAppInfo();
+                        appInfo.setTempInstalled(true);
+                        appInfo.setPackageName(mission.getPackageName());
+                        GlideApp.with(context).load(appInfo).into(ivIcon);
+                    } else {
+                        ivIcon.setImageResource(FileUtil.getFileTypeIconId(mission.getTaskName()));
+                    }
                 } else {
                     Glide.with(context).load(mission.getAppIcon()).into(ivIcon);
                 }

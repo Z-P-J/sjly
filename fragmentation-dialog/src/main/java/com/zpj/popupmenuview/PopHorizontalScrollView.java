@@ -8,7 +8,8 @@ import android.widget.HorizontalScrollView;
 /**
  * Created by felix on 17/1/10.
  */
-public class PopHorizontalScrollView extends HorizontalScrollView implements PopLayout.OnBulgeChangeCallback {
+public class PopHorizontalScrollView extends HorizontalScrollView
+        implements PopLayout.OnBulgeChangeCallback {
 
     public PopHorizontalScrollView(Context context) {
         super(context);

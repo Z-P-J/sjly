@@ -22,11 +22,7 @@ import com.zpj.popup.util.XPopupUtils;
 import com.zpj.popup.widget.PartShadowContainer;
 import com.zpj.utils.ScreenUtils;
 
-/**
- * Description: 依附于某个View的弹窗，弹窗会出现在目标的上方或下方，如果你想要出现在目标的左边或者右边，请使用HorizontalAttachPopupView。
- * 支持通过popupPosition()方法手动指定想要出现在目标的上边还是下边，但是对Left和Right则不生效。
- * Create by dance, at 2018/12/11
- */
+
 public abstract class AttachDialogFragment extends BaseDialogFragment {
 
     private static final String TAG = "AttachDialogFragment";

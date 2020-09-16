@@ -4,7 +4,6 @@ import android.animation.Animator;
 import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
 import android.animation.ValueAnimator;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
@@ -18,9 +17,8 @@ import android.widget.TextView;
 
 import com.felix.atoast.library.AToast;
 import com.zpj.downloader.util.notification.NotifyUtil;
+import com.zpj.fragmentation.dialog.base.ArrowDialogFragment;
 import com.zpj.popupmenuview.OptionMenu;
-import com.zpj.popupmenuview.OptionMenuView;
-import com.zpj.popupmenuview.PopupMenuView;
 import com.zpj.recyclerview.EasyAdapter;
 import com.zpj.recyclerview.EasyRecyclerLayout;
 import com.zpj.recyclerview.EasyViewHolder;
@@ -384,69 +382,34 @@ public class InstalledManagerFragment extends RecyclerLayoutFragment<InstalledAp
                 })
                 .setAttachView(titleTextView)
                 .show(context);
-//        RecyclerPopup.with(context)
-//                .addItems("用户应用", "系统应用", "已备份", "已禁用", "已隐藏")
-//                .setSelectedItem(sortPosition)
-//                .setOnItemClickListener((view, title, position) -> {
-//                    sortPosition = position;
-//                    titleTextView.setText(title);
-//                    data.clear();
-//                    switch (position) {
-//                        case 0:
-//                            data.addAll(USER_APP_LIST);
-//                            break;
-//                        case 1:
-//                            data.addAll(SYSTEM_APP_LIST);
-//                            break;
-//                        case 2:
-//                            data.addAll(BACKUP_APP_LIST);
-//                            break;
-//                        case 3:
-//                            data.addAll(FORBID_APP_LIST);
-//                            break;
-//                        case 4:
-//                            data.addAll(HIDDEN_APP_LIST);
-//                            break;
-//                        default:
-//                            break;
-//                    }
-//                    infoTextView.setText("共计：" + data.size() + " | 已选：0");
-//                    recyclerLayout.notifyDataSetChanged();
-//                })
-//                .show(titleTextView);
     }
 
     public void onMenuClicked(View view, InstalledAppInfo appInfo) {
-        PopupMenuView popupMenuView = new PopupMenuView(getContext());
-        popupMenuView.setOrientation(LinearLayout.HORIZONTAL)
-                .setMenuItems(optionMenus)
-                .setBackgroundAlpha(getActivity(), 0.9f, 500)
-                .setBackgroundColor(Color.WHITE)
-                .setOnMenuClickListener(new OptionMenuView.OnOptionMenuClickListener() {
-                    @Override
-                    public boolean onOptionMenuClick(int position, OptionMenu menu) {
-                        popupMenuView.dismiss();
-                        switch (position) {
-                            case 0:
-                                AToast.normal("详细信息");
-                                break;
-                            case 1:
-                                AToast.normal(appInfo.getApkFilePath());
-                                AppUtil.shareApk(context, appInfo.getApkFilePath());
-                                break;
-                            case 2:
-                                AppUtil.uninstallApp(_mActivity, appInfo.getPackageName());
-                                break;
-                            case 3:
-                                AppUtil.openApp(getContext(), appInfo.getPackageName());
-                                break;
-                            default:
-                                AToast.warning("未知操作！");
-                                break;
-                        }
-                        return true;
+        new ArrowDialogFragment()
+                .setOptionMenus(optionMenus)
+                .setOrientation(LinearLayout.HORIZONTAL)
+                .setOnItemClickListener((position, menu) -> {
+                    switch (position) {
+                        case 0:
+                            AToast.normal("详细信息");
+                            break;
+                        case 1:
+                            AToast.normal(appInfo.getApkFilePath());
+                            AppUtil.shareApk(context, appInfo.getApkFilePath());
+                            break;
+                        case 2:
+                            AppUtil.uninstallApp(_mActivity, appInfo.getPackageName());
+                            break;
+                        case 3:
+                            AppUtil.openApp(getContext(), appInfo.getPackageName());
+                            break;
+                        default:
+                            AToast.warning("未知操作！");
+                            break;
                     }
-                }).show(view);
+                })
+                .setAttachView(view)
+                .show(context);
     }
 
     private void enterSelectModeAnim() {
