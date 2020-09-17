@@ -3,13 +3,13 @@ package com.zpj.fragmentation.dialog.impl;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
+import android.util.TypedValue;
 import android.view.View;
 import android.widget.TextView;
 
 import com.zpj.fragmentation.dialog.base.BottomDialogFragment;
-import com.zpj.popup.R;
-import com.zpj.popup.XPopup;
-import com.zpj.popup.widget.CheckView;
+import com.zpj.fragmentation.dialog.widget.CheckView;
+import com.zpj.fragmentation.dialog.R;
 import com.zpj.recyclerview.EasyRecyclerView;
 import com.zpj.recyclerview.EasyViewHolder;
 import com.zpj.recyclerview.IEasy;
@@ -17,7 +17,9 @@ import com.zpj.recyclerview.IEasy;
 import java.util.ArrayList;
 import java.util.List;
 
-public class BottomListDialogFragment<T> extends BottomDialogFragment implements IEasy.OnBindViewHolderListener<T>, IEasy.OnItemClickListener<T>  {
+public class BottomListDialogFragment<T> extends BottomDialogFragment
+        implements IEasy.OnBindViewHolderListener<T>,
+        IEasy.OnItemClickListener<T>  {
 
     private final List<T> list = new ArrayList<>();
 
@@ -45,7 +47,7 @@ public class BottomListDialogFragment<T> extends BottomDialogFragment implements
         if (tvTitle != null) {
             if (TextUtils.isEmpty(title)) {
                 tvTitle.setVisibility(View.GONE);
-                findViewById(R.id.xpopup_divider).setVisibility(View.GONE);
+                findViewById(R.id._dialog_view_divider).setVisibility(View.GONE);
             } else {
                 tvTitle.setText(title);
             }
@@ -53,7 +55,7 @@ public class BottomListDialogFragment<T> extends BottomDialogFragment implements
 
         EasyRecyclerView<T> recyclerView = new EasyRecyclerView<>(findViewById(R.id.recyclerView));
         recyclerView.setData(list)
-                .setItemRes(R.layout._xpopup_adapter_text)
+                .setItemRes(R.layout._dialog_item_text)
                 .onBindViewHolder(this)
                 .onItemClick(this)
                 .build();
@@ -73,18 +75,18 @@ public class BottomListDialogFragment<T> extends BottomDialogFragment implements
         if (checkedPosition != -1) {
             if (holder.getView(R.id.check_view) != null) {
                 holder.getView(R.id.check_view).setVisibility(position == checkedPosition ? View.VISIBLE : View.GONE);
-                holder.<CheckView>getView(R.id.check_view).setColor(XPopup.getPrimaryColor());
+                holder.<CheckView>getView(R.id.check_view).setColor(getColorPrimary());
             }
             holder.<TextView>getView(R.id.tv_text).setTextColor(
                     getResources().getColor(position == checkedPosition ?
-                            R.color._xpopup_text_major_color : R.color._xpopup_text_normal_color));
+                            R.color._dialog_text_major_color : R.color._dialog_text_normal_color));
         } else if (selectedPosition != -1) {
             holder.<TextView>getView(R.id.tv_text).setTextColor(
                     getResources().getColor(position == selectedPosition ?
-                            R.color._xpopup_text_major_color : R.color._xpopup_text_normal_color));
+                            R.color._dialog_text_major_color : R.color._dialog_text_normal_color));
         }
         if (position == (list.size() - 1)) {
-            holder.getView(R.id.xpopup_divider).setVisibility(View.INVISIBLE);
+            holder.getView(R.id._dialog_view_divider).setVisibility(View.INVISIBLE);
         }
     }
 
@@ -101,6 +103,12 @@ public class BottomListDialogFragment<T> extends BottomDialogFragment implements
             selectedPosition = position;
             recyclerView.notifyDataSetChanged();
         }
+    }
+
+    public int getColorPrimary(){
+        TypedValue typedValue = new TypedValue();
+        context.getTheme().resolveAttribute(R.attr.colorPrimary, typedValue, true);
+        return typedValue.data;
     }
 
     public BottomListDialogFragment<T> setTitle(String title) {

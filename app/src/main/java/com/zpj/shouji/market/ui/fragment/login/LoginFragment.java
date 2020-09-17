@@ -11,7 +11,6 @@ import android.widget.LinearLayout;
 import com.felix.atoast.library.AToast;
 import com.zpj.fragmentation.BaseFragment;
 import com.zpj.fragmentation.SupportHelper;
-import com.zpj.popup.util.KeyboardUtils;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.event.SignInEvent;
 import com.zpj.shouji.market.event.SignUpEvent;
@@ -19,6 +18,7 @@ import com.zpj.shouji.market.event.StartFragmentEvent;
 import com.zpj.shouji.market.ui.widget.SignInLayout3;
 import com.zpj.shouji.market.ui.widget.SignUpLayout3;
 import com.zpj.shouji.market.utils.SoftInputHelper;
+import com.zpj.utils.KeyboardObserver;
 import com.zpj.utils.ScreenUtils;
 
 import org.greenrobot.eventbus.EventBus;
@@ -120,7 +120,7 @@ public class LoginFragment extends BaseFragment {
         llContainer.addView(contentView);
 
         int dp16 = ScreenUtils.dp2pxInt(context, 16);
-        KeyboardUtils.registerSoftInputChangedListener(_mActivity, view, height -> {
+        KeyboardObserver.registerSoftInputChangedListener(_mActivity, view, height -> {
             if (height > 0) {
                 Rect rect = new Rect();
                 tvSubmit.getGlobalVisibleRect(rect);

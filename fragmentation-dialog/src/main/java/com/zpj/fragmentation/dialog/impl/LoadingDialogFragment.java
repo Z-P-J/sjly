@@ -1,25 +1,15 @@
 package com.zpj.fragmentation.dialog.impl;
 
-import android.content.Context;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.zpj.fragmentation.dialog.base.CenterDialogFragment;
-import com.zpj.popup.R;
-import com.zpj.popup.core.CenterPopup;
-import com.zpj.popup.util.XPopupUtils;
-import com.zpj.utils.ScreenUtils;
+import com.zpj.fragmentation.dialog.R;
 
 import static android.view.ViewGroup.LayoutParams.WRAP_CONTENT;
 
-/**
- * Description: 加载对话框
- * Create by dance, at 2018/12/16
- */
 public class LoadingDialogFragment extends CenterDialogFragment {
 
     private TextView tvTitle;

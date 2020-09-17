@@ -28,6 +28,7 @@ import com.zpj.shouji.market.model.AppInfo;
 import com.zpj.shouji.market.model.SubjectInfo;
 import com.zpj.shouji.market.ui.fragment.detail.AppDetailFragment;
 import com.zpj.shouji.market.ui.widget.DownloadButton;
+import com.zpj.utils.ColorUtils;
 import com.zpj.widget.statelayout.StateLayout;
 
 import java.util.ArrayList;
@@ -127,7 +128,7 @@ public class SubjectDetailFragment extends BaseFragment
             public void onScrollChange(View v, int scrollY, int oldScrollY, int scrollState) {
                 if (scrollY < toolbar.getMeasuredHeight()) {
                     float alpha = (float) scrollY / toolbar.getMeasuredHeight();
-                    int color = alphaColor(Color.WHITE, alpha * 0.95f);
+                    int color = ColorUtils.alphaColor(Color.WHITE, alpha * 0.95f);
                     toolbar.setBackgroundColor(color);
                     isLightStyle = alpha <= 0.5;
                     toolbar.setLightStyle(isLightStyle);
@@ -211,12 +212,6 @@ public class SubjectDetailFragment extends BaseFragment
                     }
                 })
                 .subscribe();
-    }
-
-    public static int alphaColor(int color, float alpha) {
-        int a = Math.min(255, Math.max(0, (int) (alpha * 255))) << 24;
-        int rgb = 0x00ffffff & color;
-        return a + rgb;
     }
 
 

@@ -461,6 +461,7 @@ public class AppDetailFragment extends BaseFragment
                 }
             } else {
                 new AppUrlCenterListDialogFragment()
+                        .setAnchorView(fabComment)
                         .setAppDetailInfo(info)
                         .show(context);
 //                AppUrlCenterListPopup.with(context)

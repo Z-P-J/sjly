@@ -41,7 +41,7 @@ dependencies {
     implementation 'com.github.lihangleo2:ShadowLayout:2.1.8'
     api 'com.zpj.widget:SmoothCheckBox:1.0.0'
     implementation 'com.zpj.widget:TintedImageView:1.0.0'
-    implementation 'com.zpj.utils:ZUtils:1.0.2'
+    implementation 'com.zpj.utils:ZUtils:1.0.3'
 
     implementation project(':fragmentation')
 

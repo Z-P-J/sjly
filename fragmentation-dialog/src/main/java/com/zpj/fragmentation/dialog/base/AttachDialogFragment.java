@@ -11,15 +11,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
-import android.view.WindowManager;
 
-import com.zpj.popup.R;
-import com.zpj.popup.animator.PopupAnimator;
-import com.zpj.popup.animator.ScrollScaleAnimator;
-import com.zpj.popup.enums.PopupAnimation;
-import com.zpj.popup.enums.PopupPosition;
-import com.zpj.popup.util.XPopupUtils;
-import com.zpj.popup.widget.PartShadowContainer;
+import com.zpj.fragmentation.dialog.animator.PopupAnimator;
+import com.zpj.fragmentation.dialog.animator.ScrollScaleAnimator;
+import com.zpj.fragmentation.dialog.enums.PopupAnimation;
+import com.zpj.fragmentation.dialog.enums.PopupPosition;
+import com.zpj.fragmentation.dialog.widget.PartShadowContainer;
+import com.zpj.fragmentation.dialog.R;
 import com.zpj.utils.ScreenUtils;
 
 
@@ -43,7 +41,7 @@ public abstract class AttachDialogFragment extends BaseDialogFragment {
 
     @Override
     protected final int getImplLayoutId() {
-        return R.layout._dialog_layout_attach_popup_view;
+        return R.layout._dialog_layout_attach_view;
     }
 
     protected abstract int getContentLayoutId();
@@ -68,17 +66,6 @@ public abstract class AttachDialogFragment extends BaseDialogFragment {
 
         contentView = LayoutInflater.from(getContext()).inflate(getContentLayoutId(), attachPopupContainer, false);
         attachPopupContainer.addView(contentView);
-
-//        defaultOffsetY = popupInfo.offsetY == 0 ? XPopupUtils.dp2px(getContext(), 4) : popupInfo.offsetY;
-//        defaultOffsetX = popupInfo.offsetX == 0 ? XPopupUtils.dp2px(getContext(), 0) : popupInfo.offsetX;
-
-
-//        XPopupUtils.applyPopupSize((ViewGroup) getPopupContentView(), getMaxWidth(), getMaxHeight(), new Runnable() {
-//            @Override
-//            public void run() {
-//                doAttach();
-//            }
-//        });
 
     }
 
@@ -116,12 +103,12 @@ public abstract class AttachDialogFragment extends BaseDialogFragment {
     }
 
     protected void doAttach() {
-        maxY = XPopupUtils.getWindowHeight(context);
+        maxY = ScreenUtils.getScreenHeight(context);
         int width = getImplView().getMeasuredWidth();
         int height = getImplView().getMeasuredHeight();
         Log.d(TAG, "width=" + width + " height=" + height);
-        int windowWidth = XPopupUtils.getWindowWidth(context);
-        int windowHeight = XPopupUtils.getWindowHeight(context);
+        int windowWidth = ScreenUtils.getScreenWidth(context);
+        int windowHeight = ScreenUtils.getScreenHeight(context);
         //0. 判断是依附于某个点还是某个View
         if (touchPoint != null) {
 
@@ -151,7 +138,7 @@ public abstract class AttachDialogFragment extends BaseDialogFragment {
             if (isShowUpToTarget()) {
                 if (getImplView().getMeasuredHeight() > touchPoint.y) {
                     ViewGroup.LayoutParams params = getImplView().getLayoutParams();
-                    params.height = (int) (touchPoint.y - XPopupUtils.getStatusBarHeight());
+                    params.height = (int) (touchPoint.y - ScreenUtils.getStatusBarHeight(context));
                     getImplView().setLayoutParams(params);
                 }
             } else {
@@ -223,7 +210,7 @@ public abstract class AttachDialogFragment extends BaseDialogFragment {
             if (isShowUpToTarget()) {
                 if (height > rect.top) {
                     ViewGroup.LayoutParams params = getImplView().getLayoutParams();
-                    params.height = rect.top - XPopupUtils.getStatusBarHeight();
+                    params.height = rect.top - ScreenUtils.getStatusBarHeight(context);
                     getImplView().setLayoutParams(params);
                 }
             } else {

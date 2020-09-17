@@ -16,7 +16,6 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.zpj.fragmentation.dialog.base.BottomDialogFragment;
-import com.zpj.popup.core.BottomPopup;
 import com.zpj.recyclerview.EasyRecyclerView;
 import com.zpj.recyclerview.EasyViewHolder;
 import com.zpj.recyclerview.IEasy;

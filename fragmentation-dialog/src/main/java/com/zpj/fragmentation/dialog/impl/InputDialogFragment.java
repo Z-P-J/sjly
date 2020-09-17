@@ -1,19 +1,13 @@
 package com.zpj.fragmentation.dialog.impl;
 
-import android.content.Context;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.AppCompatEditText;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Toast;
 
-import com.zpj.fragmentation.dialog.base.CenterDialogFragment;
-import com.zpj.popup.R;
-import com.zpj.popup.impl.AbstractAlertPopup;
-import com.zpj.popup.util.KeyboardUtils;
-import com.zpj.popup.util.XPopupUtils;
+import com.zpj.fragmentation.dialog.R;
 
 /**
  * Description: 带输入框，确定和取消的对话框
@@ -32,7 +26,7 @@ public class InputDialogFragment extends AlertDialogFragment implements View.OnC
 
     @Override
     protected int getContentLayoutId() {
-        return R.layout._xpopup_center_impl_input;
+        return R.layout._dialog_layout_center_impl_input;
     }
 
     @Override
@@ -56,9 +50,15 @@ public class InputDialogFragment extends AlertDialogFragment implements View.OnC
             }
         }
         applyPrimary();
-        if (autoShowKeyboard) {
-            KeyboardUtils.showSoftInput(et_input);
-        }
+        et_input.post(new Runnable() {
+            @Override
+            public void run() {
+                if (autoShowKeyboard) {
+                    showSoftInput(et_input);
+                }
+            }
+        });
+
     }
 
     @Override
@@ -115,6 +115,6 @@ public class InputDialogFragment extends AlertDialogFragment implements View.OnC
 
     protected void applyPrimary(){
         super.applyPrimaryColor();
-        XPopupUtils.setCursorDrawableColor(et_input, getColorPrimary());
+//        XPopupUtils.setCursorDrawableColor(et_input, getColorPrimary());
     }
 }

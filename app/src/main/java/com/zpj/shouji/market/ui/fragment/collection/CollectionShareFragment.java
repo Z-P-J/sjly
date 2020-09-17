@@ -11,7 +11,6 @@ import com.bumptech.glide.Glide;
 import com.felix.atoast.library.AToast;
 import com.zpj.fragmentation.BaseFragment;
 import com.zpj.http.core.IHttp;
-import com.zpj.popup.util.KeyboardUtils;
 import com.zpj.recyclerview.EasyRecyclerView;
 import com.zpj.recyclerview.EasyViewHolder;
 import com.zpj.recyclerview.IEasy;
@@ -25,6 +24,7 @@ import com.zpj.shouji.market.ui.fragment.profile.UserPickerFragment;
 import com.zpj.shouji.market.ui.widget.ActionPanel;
 import com.zpj.shouji.market.ui.widget.flowlayout.FlowLayout;
 import com.zpj.shouji.market.utils.Callback;
+import com.zpj.utils.KeyboardObserver;
 import com.zpj.utils.ScreenUtils;
 
 import java.util.ArrayList;
@@ -108,7 +108,7 @@ public class CollectionShareFragment extends BaseFragment {
         flowLayout = view.findViewById(R.id.fl_tags);
         actionPanel = view.findViewById(R.id.panel_action);
         actionPanel.attachEditText(etTitle);
-        KeyboardUtils.registerSoftInputChangedListener(_mActivity, view, height -> {
+        KeyboardObserver.registerSoftInputChangedListener(_mActivity, view, height -> {
             actionPanel.onKeyboardHeightChanged(height, 0);
             if (height != 0) {
                 if (etContent.isFocused()) {

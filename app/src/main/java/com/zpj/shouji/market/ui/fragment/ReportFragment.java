@@ -11,14 +11,12 @@ import android.widget.TextView;
 import com.felix.atoast.library.AToast;
 import com.zpj.fragmentation.BaseFragment;
 import com.zpj.http.core.IHttp;
-import com.zpj.popup.util.KeyboardUtils;
 import com.zpj.recyclerview.EasyViewHolder;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.api.HttpApi;
 import com.zpj.shouji.market.event.StartFragmentEvent;
 import com.zpj.shouji.market.model.DiscoverInfo;
 import com.zpj.shouji.market.ui.adapter.DiscoverBinder;
-import com.zpj.shouji.market.ui.widget.ElasticScrollView;
 import com.zpj.shouji.market.ui.widget.flowlayout.FlowLayout;
 
 import java.util.ArrayList;

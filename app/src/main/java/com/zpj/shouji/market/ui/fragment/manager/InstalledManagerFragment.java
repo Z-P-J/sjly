@@ -17,8 +17,8 @@ import android.widget.TextView;
 
 import com.felix.atoast.library.AToast;
 import com.zpj.downloader.util.notification.NotifyUtil;
-import com.zpj.fragmentation.dialog.base.ArrowDialogFragment;
-import com.zpj.popupmenuview.OptionMenu;
+import com.zpj.fragmentation.dialog.impl.ArrowMenuDialogFragment;
+import com.zpj.fragmentation.dialog.model.OptionMenu;
 import com.zpj.recyclerview.EasyAdapter;
 import com.zpj.recyclerview.EasyRecyclerLayout;
 import com.zpj.recyclerview.EasyViewHolder;
@@ -385,7 +385,7 @@ public class InstalledManagerFragment extends RecyclerLayoutFragment<InstalledAp
     }
 
     public void onMenuClicked(View view, InstalledAppInfo appInfo) {
-        new ArrowDialogFragment()
+        new ArrowMenuDialogFragment()
                 .setOptionMenus(optionMenus)
                 .setOrientation(LinearLayout.HORIZONTAL)
                 .setOnItemClickListener((position, menu) -> {

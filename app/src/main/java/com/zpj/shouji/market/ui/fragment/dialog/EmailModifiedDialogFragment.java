@@ -1,15 +1,10 @@
 package com.zpj.shouji.market.ui.fragment.dialog;
 
-import android.content.Context;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.view.View;
 
 import com.felix.atoast.library.AToast;
-import com.zpj.fragmentation.dialog.base.BottomDialogFragment;
-import com.zpj.popup.core.BottomPopup;
-import com.zpj.popup.util.KeyboardUtils;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.api.HttpApi;
 import com.zpj.shouji.market.manager.UserManager;

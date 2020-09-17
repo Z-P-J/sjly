@@ -6,7 +6,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.zpj.fragmentation.dialog.base.PartShadowDialogFragment;
-import com.zpj.popup.enums.PopupPosition;
+import com.zpj.fragmentation.dialog.enums.PopupPosition;
 import com.zpj.recyclerview.EasyRecyclerView;
 import com.zpj.shouji.market.R;
 

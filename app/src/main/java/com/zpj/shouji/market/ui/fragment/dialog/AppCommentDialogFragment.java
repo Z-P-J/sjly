@@ -8,7 +8,6 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.zpj.http.core.IHttp;
-import com.zpj.popup.util.KeyboardUtils;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.api.CommentApi;
 
@@ -44,7 +43,7 @@ public class AppCommentDialogFragment extends CommentDialogFragment {
 
     @Override
     public void sendText(String content) {
-        KeyboardUtils.hideSoftInput(replyPanel.getEditor());
+        hideSoftInput();
         Log.d("sendText", "content=" + content + " appId=" + appId + " appType=" + appType + " appPackage=" + appPackage);
 //        ShowLoadingEvent.post("评论中...");
 //        if (replyPanel.getImgList().isEmpty()) {

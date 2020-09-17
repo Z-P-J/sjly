@@ -26,6 +26,7 @@ import com.zpj.shouji.market.ui.widget.recommend.RecommendCard;
 import com.zpj.shouji.market.ui.widget.recommend.SoftRecommendCard;
 import com.zpj.shouji.market.ui.widget.recommend.SubjectRecommendCard;
 import com.zpj.shouji.market.ui.widget.recommend.UpdateRecommendCard;
+import com.zpj.utils.ColorUtils;
 import com.zpj.utils.ScreenUtils;
 import com.zpj.widget.statelayout.StateLayout;
 
@@ -183,12 +184,6 @@ public class RecommendFragment2 extends BaseFragment
         }
     }
 
-    public static int alphaColor(int color, float alpha) {
-        int a = Math.min(255, Math.max(0, (int) (alpha * 255))) << 24;
-        int rgb = 0x00ffffff & color;
-        return a + rgb;
-    }
-
     @Override
     public void onScrollChange(NestedScrollView v, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
         int h = ScreenUtils.dp2pxInt(context, 80);
@@ -202,7 +197,7 @@ public class RecommendFragment2 extends BaseFragment
             float alpha = 1f * scrollY / h;
             Log.d(TAG, "alpha=" + alpha);
             alpha = Math.min(alpha, 1f);
-            int color = alphaColor(Color.WHITE, alpha * 0.95f);
+            int color = ColorUtils.alphaColor(Color.WHITE, alpha * 0.95f);
 //                    boolean isDark = android.support.v4.graphics.ColorUtils.calculateLuminance(color) <= 0.5;
 //                    Log.d(TAG, "isDark=" + isDark);
             ToolbarColorChangeEvent.post(color, alpha >= 0.5);

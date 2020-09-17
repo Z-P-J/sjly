@@ -9,10 +9,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
 
-import com.zpj.popup.R;
-import com.zpj.popup.animator.PopupAnimator;
-import com.zpj.popup.util.XPopupUtils;
-import com.zpj.popup.widget.SmartDragLayout;
+import com.zpj.fragmentation.dialog.animator.PopupAnimator;
+import com.zpj.fragmentation.dialog.utils.Utility;
+import com.zpj.fragmentation.dialog.widget.SmartDragLayout;
+import com.zpj.fragmentation.dialog.R;
 import com.zpj.utils.ScreenUtils;
 
 import static android.view.ViewGroup.LayoutParams.MATCH_PARENT;
@@ -100,7 +100,7 @@ public abstract class BottomDialogFragment extends BaseDialogFragment {
             }
         });
 
-        XPopupUtils.applyPopupSize((ViewGroup) getImplView(), getMaxWidth(), 0);
+        Utility.applyPopupSize((ViewGroup) getImplView(), getMaxWidth(), 0);
 
     }
 

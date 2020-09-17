@@ -11,14 +11,12 @@ import android.view.ViewTreeObserver;
 import android.widget.FrameLayout;
 import android.widget.TextView;
 
-import com.zpj.fragmentation.SupportActivity;
-import com.zpj.fragmentation.SupportFragment;
 import com.zpj.fragmentation.dialog.base.CenterDialogFragment;
-import com.zpj.popup.R;
-import com.zpj.popup.XPopup;
-import com.zpj.popup.util.XPopupUtils;
+import com.zpj.fragmentation.dialog.R;
+import com.zpj.utils.ScreenUtils;
 
-public class AlertDialogFragment extends CenterDialogFragment implements View.OnClickListener {
+public class AlertDialogFragment extends CenterDialogFragment
+        implements View.OnClickListener {
 
     protected TextView tv_title, tv_cancel, tv_confirm;
     protected String title, cancelText, confirmText;
@@ -34,8 +32,6 @@ public class AlertDialogFragment extends CenterDialogFragment implements View.On
     protected boolean autoDismiss = true;
 
     protected OnViewCreateListener onViewCreateListener;
-
-    private Runnable runnable;
 
     @Override
     protected int getContentLayoutId() {
@@ -61,11 +57,11 @@ public class AlertDialogFragment extends CenterDialogFragment implements View.On
                 @Override
                 public void onGlobalLayout() {
                     textView.getViewTreeObserver().removeOnGlobalLayoutListener(this);
-                    int padding = XPopupUtils.dp2px(context, 24);
+                    int padding = ScreenUtils.dp2pxInt(context, 24);
                     textView.setPadding(padding, padding, padding, padding);
                 }
             });
-            textView.setMinHeight(XPopupUtils.dp2px(context, 80));
+            textView.setMinHeight(ScreenUtils.dp2pxInt(context, 80));
             textView.setLineSpacing(6, 1);
             this.contentView = textView;
         }
@@ -131,7 +127,7 @@ public class AlertDialogFragment extends CenterDialogFragment implements View.On
     }
 
     protected void applyPrimaryColor() {
-        tv_cancel.setTextColor(XPopup.getPrimaryColor());
+//        tv_cancel.setTextColor(XPopup.getPrimaryColor());
         tv_confirm.setTextColor(getColorPrimary());
     }
 

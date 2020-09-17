@@ -37,6 +37,7 @@ import com.zpj.shouji.market.ui.fragment.dialog.CommonImageViewerDialogFragment;
 import com.zpj.shouji.market.ui.fragment.profile.ProfileFragment;
 import com.zpj.shouji.market.ui.widget.ReplyPanel;
 import com.zpj.shouji.market.utils.BeanUtils;
+import com.zpj.utils.KeyboardObserver;
 import com.zpj.utils.NetUtils;
 
 import java.util.ArrayList;
@@ -107,7 +108,7 @@ public class ChatFragment extends NextUrlFragment<PrivateLetterInfo>
 
         replyPanel.getEditor().setBackground(getResources().getDrawable(R.drawable.grey_shape));
 
-        com.zpj.popup.util.KeyboardUtils.registerSoftInputChangedListener(_mActivity, view, height -> {
+        KeyboardObserver.registerSoftInputChangedListener(_mActivity, view, height -> {
             replyPanel.onKeyboardHeightChanged(height, 0);
         });
     }

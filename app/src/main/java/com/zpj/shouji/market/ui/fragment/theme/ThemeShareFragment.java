@@ -24,7 +24,6 @@ import com.zpj.matisse.MimeType;
 import com.zpj.matisse.engine.impl.GlideEngine;
 import com.zpj.matisse.entity.Item;
 import com.zpj.matisse.ui.fragment.CustomImageViewerDialogFragment;
-import com.zpj.popup.util.KeyboardUtils;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.api.PublishApi;
 import com.zpj.shouji.market.api.ThemePublishApi;
@@ -35,6 +34,7 @@ import com.zpj.shouji.market.ui.fragment.manager.AppPickerFragment;
 import com.zpj.shouji.market.ui.fragment.profile.UserPickerFragment;
 import com.zpj.shouji.market.ui.widget.ActionPanel;
 import com.zpj.shouji.market.ui.widget.flowlayout.FlowLayout;
+import com.zpj.utils.KeyboardObserver;
 import com.zpj.utils.ScreenUtils;
 
 import java.io.File;
@@ -170,7 +170,7 @@ public class ThemeShareFragment extends BaseFragment {
 
         actionPanel = view.findViewById(R.id.panel_action);
         actionPanel.attachEditText(etContent);
-        KeyboardUtils.registerSoftInputChangedListener(_mActivity, view, height -> {
+        KeyboardObserver.registerSoftInputChangedListener(_mActivity, view, height -> {
             actionPanel.onKeyboardHeightChanged(height, 0);
         });
 

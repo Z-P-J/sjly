@@ -4,7 +4,6 @@ import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.animation.ArgbEvaluator;
 import android.animation.ValueAnimator;
-import android.content.Context;
 import android.graphics.Color;
 import android.graphics.Matrix;
 import android.graphics.Rect;
@@ -27,7 +26,6 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.WindowManager;
 import android.view.animation.LinearInterpolator;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
@@ -36,30 +34,22 @@ import android.widget.Toast;
 
 import com.lxj.xpermission.PermissionConstants;
 import com.lxj.xpermission.XPermission;
+import com.zpj.fragmentation.dialog.animator.PopupAnimator;
 import com.zpj.fragmentation.dialog.base.BaseDialogFragment;
-import com.zpj.popup.R;
-import com.zpj.popup.XPopup;
-import com.zpj.popup.animator.PopupAnimator;
-import com.zpj.popup.core.BasePopup;
-import com.zpj.popup.enums.PopupStatus;
-import com.zpj.popup.interfaces.IImageLoader;
-import com.zpj.popup.interfaces.OnDragChangeListener;
-import com.zpj.popup.photoview.PhotoView;
-import com.zpj.popup.util.XPopupUtils;
-import com.zpj.popup.widget.BlankView;
-import com.zpj.popup.widget.HackyViewPager;
-import com.zpj.popup.widget.PhotoViewContainer;
-import com.zpj.utils.ScreenUtils;
-import com.zpj.utils.StatusBarUtils;
+import com.zpj.fragmentation.dialog.enums.PopupStatus;
+import com.zpj.fragmentation.dialog.interfaces.IImageLoader;
+import com.zpj.fragmentation.dialog.interfaces.OnDragChangeListener;
+import com.zpj.fragmentation.dialog.photoview.PhotoView;
+import com.zpj.fragmentation.dialog.utils.Utility;
+import com.zpj.fragmentation.dialog.widget.BlankView;
+import com.zpj.fragmentation.dialog.widget.HackyViewPager;
+import com.zpj.fragmentation.dialog.widget.PhotoViewContainer;
+import com.zpj.fragmentation.dialog.R;
 
 import java.util.ArrayList;
 import java.util.List;
 
 
-/**
- * Description: 大图预览的弹窗，使用Transition实现
- * Create by lxj, at 2019/1/22
- */
 public class ImageViewerDialogFragment<T> extends BaseDialogFragment
         implements OnDragChangeListener, View.OnClickListener {
 
@@ -96,7 +86,7 @@ public class ImageViewerDialogFragment<T> extends BaseDialogFragment
 
     @Override
     protected final int getImplLayoutId() {
-        return R.layout._xpopup_image_viewer_popup_view;
+        return R.layout._dialog_layout_image_viewer;
     }
 
     @Override
@@ -218,7 +208,7 @@ public class ImageViewerDialogFragment<T> extends BaseDialogFragment
                 snapshotView.setTranslationY(0);
                 snapshotView.setTranslationX(0);
                 snapshotView.setScaleType(ImageView.ScaleType.FIT_CENTER);
-                XPopupUtils.setWidthHeight(snapshotView, photoViewContainer.getWidth(), photoViewContainer.getHeight());
+                setWidthHeight(snapshotView, photoViewContainer.getWidth(), photoViewContainer.getHeight());
 
                 // do shadow anim.
                 animateShadowBg(bgColor);
@@ -242,7 +232,7 @@ public class ImageViewerDialogFragment<T> extends BaseDialogFragment
             if (placeholderStrokeColor != -1) {
                 placeholderView.strokeColor = placeholderStrokeColor;
             }
-            XPopupUtils.setWidthHeight(placeholderView, rect.width(), rect.height());
+            setWidthHeight(placeholderView, rect.width(), rect.height());
             placeholderView.setTranslationX(rect.left);
             placeholderView.setTranslationY(rect.top);
             placeholderView.invalidate();
@@ -265,7 +255,7 @@ public class ImageViewerDialogFragment<T> extends BaseDialogFragment
             snapshotView.setScaleType(srcView.getScaleType());
             snapshotView.setTranslationX(rect.left);
             snapshotView.setTranslationY(rect.top);
-            XPopupUtils.setWidthHeight(snapshotView, rect.width(), rect.height());
+            setWidthHeight(snapshotView, rect.width(), rect.height());
         }
         setupPlaceholder();
         snapshotView.setImageDrawable(srcView.getDrawable());
@@ -328,7 +318,7 @@ public class ImageViewerDialogFragment<T> extends BaseDialogFragment
         snapshotView.setScaleX(1f);
         snapshotView.setScaleY(1f);
         snapshotView.setScaleType(srcView.getScaleType());
-        XPopupUtils.setWidthHeight(snapshotView, rect.width(), rect.height());
+        setWidthHeight(snapshotView, rect.width(), rect.height());
 
         // do shadow anim.
         animateShadowBg(Color.TRANSPARENT);
@@ -508,7 +498,7 @@ public class ImageViewerDialogFragment<T> extends BaseDialogFragment
                     @Override
                     public void onGranted() {
                         //save bitmap to album.
-                        XPopupUtils.saveBmpToAlbum(getContext(), imageLoader, urls.get(isInfinite ? position % urls.size() : position));
+                        Utility.saveBmpToAlbum(getContext(), imageLoader, urls.get(isInfinite ? position % urls.size() : position));
                     }
 
                     @Override
@@ -560,6 +550,14 @@ public class ImageViewerDialogFragment<T> extends BaseDialogFragment
 
     protected void doAfterDismiss() {
         popupStatus = PopupStatus.Dismiss;
+    }
+
+    public static void setWidthHeight(View target, int width, int height) {
+        if (width <= 0 && height <= 0) return;
+        ViewGroup.LayoutParams params = target.getLayoutParams();
+        if (width > 0) params.width = width;
+        if (height > 0) params.height = height;
+        target.setLayoutParams(params);
     }
 
 

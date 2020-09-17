@@ -2,11 +2,9 @@ package com.zpj.fragmentation.dialog.base;
 
 import android.app.Activity;
 import android.content.Context;
-import android.content.ContextWrapper;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.v4.app.DialogFragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -19,13 +17,12 @@ import android.widget.Toast;
 import com.zpj.fragmentation.ISupportFragment;
 import com.zpj.fragmentation.SupportActivity;
 import com.zpj.fragmentation.SupportFragment;
-import com.zpj.fragmentation.SupportHelper;
 import com.zpj.fragmentation.dialog.AbstractDialogFragment;
 import com.zpj.fragmentation.dialog.IDialog;
-import com.zpj.popup.R;
-import com.zpj.popup.animator.PopupAnimator;
-import com.zpj.popup.animator.ShadowBgAnimator;
-import com.zpj.popup.util.ActivityUtils;
+import com.zpj.fragmentation.dialog.R;
+import com.zpj.fragmentation.dialog.animator.PopupAnimator;
+import com.zpj.fragmentation.dialog.animator.ShadowBgAnimator;
+import com.zpj.utils.ContextUtils;
 
 import static android.view.ViewGroup.LayoutParams.WRAP_CONTENT;
 
@@ -96,7 +93,6 @@ public abstract class BaseDialogFragment extends AbstractDialogFragment {
         params.width = WRAP_CONTENT;
 
         shadowBgAnimator = getShadowAnimator(flContainer);
-        popupContentAnimator = getDialogAnimator((ViewGroup) implView);
 
     }
 
@@ -125,6 +121,13 @@ public abstract class BaseDialogFragment extends AbstractDialogFragment {
         super.onViewCreated(view, savedInstanceState);
 
         doShowAnimation();
+//        getImplView().post(new Runnable() {
+//            @Override
+//            public void run() {
+//                popupContentAnimator = getDialogAnimator((ViewGroup) implView);
+//                doShowAnimation();
+//            }
+//        });
 
 //        doAfterShow();
 
@@ -174,7 +177,7 @@ public abstract class BaseDialogFragment extends AbstractDialogFragment {
     }
 
     public BaseDialogFragment show(Context context) {
-        Activity activity = ActivityUtils.getActivity(context);
+        Activity activity = ContextUtils.getActivity(context);
         if (activity instanceof SupportActivity) {
             ((SupportActivity) activity).start(this);
         } else if (activity instanceof FragmentActivity) {
@@ -194,6 +197,7 @@ public abstract class BaseDialogFragment extends AbstractDialogFragment {
     }
 
     public void doShowAnimation() {
+        popupContentAnimator = getDialogAnimator((ViewGroup) implView);
         if (shadowBgAnimator != null) {
             shadowBgAnimator.initAnimator();
             shadowBgAnimator.animateShow();
@@ -262,7 +266,6 @@ public abstract class BaseDialogFragment extends AbstractDialogFragment {
     protected void onHide() {
 
     }
-
 
 
     protected FrameLayout getRootView() {

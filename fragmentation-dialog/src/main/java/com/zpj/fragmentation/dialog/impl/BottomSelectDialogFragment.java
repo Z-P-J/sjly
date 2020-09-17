@@ -1,8 +1,6 @@
 package com.zpj.fragmentation.dialog.impl;
 
-import android.content.Context;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -12,8 +10,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.zpj.fragmentation.dialog.base.BottomDialogFragment;
-import com.zpj.popup.R;
-import com.zpj.popup.core.BottomPopup;
+import com.zpj.fragmentation.dialog.R;
 import com.zpj.recyclerview.EasyRecyclerView;
 import com.zpj.widget.checkbox.SmoothCheckBox;
 
@@ -58,7 +55,7 @@ public class BottomSelectDialogFragment<T> extends BottomDialogFragment {
 
     @Override
     protected int getContentLayoutId() {
-        return R.layout._xpopup_bottom_impl_list;
+        return R.layout._dialog_layout_bottom_impl_list;
     }
 
     @Override
@@ -76,7 +73,7 @@ public class BottomSelectDialogFragment<T> extends BottomDialogFragment {
         RecyclerView recyclerView = findViewById(R.id.recyclerView);
         EasyRecyclerView<T> easyRecyclerView = new EasyRecyclerView<>(recyclerView);
         easyRecyclerView.setData(list)
-                .setItemRes(R.layout._zpopup_item_bottom_select)
+                .setItemRes(R.layout._dialog_item_bottom_select)
                 .setLayoutManager(new LinearLayoutManager(context))
                 .onBindViewHolder((holder, list, position, ppayloads) -> {
                     ImageView iconView = holder.getView(R.id.icon_view);

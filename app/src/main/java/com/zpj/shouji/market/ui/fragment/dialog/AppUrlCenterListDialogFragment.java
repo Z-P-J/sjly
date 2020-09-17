@@ -2,24 +2,19 @@ package com.zpj.shouji.market.ui.fragment.dialog;
 
 import android.content.Context;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.text.TextUtils;
 import android.util.SparseBooleanArray;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.felix.atoast.library.AToast;
 import com.github.florent37.expansionpanel.ExpansionLayout;
+import com.zpj.fragmentation.dialog.animator.PopupAnimator;
+import com.zpj.fragmentation.dialog.animator.ScaleAlphaAnimator;
+import com.zpj.fragmentation.dialog.enums.PopupAnimation;
 import com.zpj.fragmentation.dialog.impl.CenterListDialogFragment;
-import com.zpj.popup.animator.PopupAnimator;
-import com.zpj.popup.animator.ScaleAlphaAnimator;
-import com.zpj.popup.enums.PopupAnimation;
-import com.zpj.popup.impl.CenterListPopup2;
 import com.zpj.recyclerview.EasyViewHolder;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.model.AppDetailInfo;
-import com.zpj.shouji.market.ui.fragment.WebFragment;
 import com.zpj.shouji.market.ui.widget.DownloadButton;
 
 import java.util.HashMap;
@@ -31,6 +26,8 @@ public class AppUrlCenterListDialogFragment extends CenterListDialogFragment<App
     private final Map<Integer, ExpansionLayout.Listener> listenerMap = new HashMap<>();
     private final SparseBooleanArray expandedArray = new SparseBooleanArray();
 
+    private View anchorView;
+
     private AppDetailInfo detailInfo;
 
     public static AppUrlCenterListDialogFragment with(Context context) {
@@ -39,7 +36,19 @@ public class AppUrlCenterListDialogFragment extends CenterListDialogFragment<App
 
     @Override
     protected PopupAnimator getDialogAnimator(ViewGroup contentView) {
-        return new ScaleAlphaAnimator(contentView, PopupAnimation.ScaleAlphaFromRightBottom);
+        if (anchorView == null) {
+            return new ScaleAlphaAnimator(contentView, PopupAnimation.ScaleAlphaFromRightBottom);
+        }
+        int[] contentLocation = new int[2];
+        contentView.getLocationInWindow(contentLocation);
+
+        int[] anchorLocation = new int[2];
+        anchorView.getLocationInWindow(anchorLocation);
+
+        float pivotX = anchorLocation[0] + anchorView.getMeasuredWidth() / 2f - contentLocation[0];
+        float pivotY = anchorLocation[1] + anchorView.getMeasuredHeight() / 2f - contentLocation[1];
+        return new ScaleAlphaAnimator(contentView, pivotX, pivotY);
+
     }
 
     @Override
@@ -98,6 +107,11 @@ public class AppUrlCenterListDialogFragment extends CenterListDialogFragment<App
 //            }
 //
 //        });
+    }
+
+    public AppUrlCenterListDialogFragment setAnchorView(View anchorView) {
+        this.anchorView = anchorView;
+        return this;
     }
 
     public AppUrlCenterListDialogFragment setAppDetailInfo(AppDetailInfo info) {

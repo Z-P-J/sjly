@@ -8,9 +8,8 @@ import android.view.ViewTreeObserver;
 import android.widget.TextView;
 
 import com.zpj.fragmentation.dialog.base.CenterDialogFragment;
-import com.zpj.popup.R;
-import com.zpj.popup.animator.PopupAnimator;
-import com.zpj.popup.interfaces.OnSelectListener;
+import com.zpj.fragmentation.dialog.interfaces.OnSelectListener;
+import com.zpj.fragmentation.dialog.R;
 import com.zpj.recyclerview.EasyRecyclerView;
 import com.zpj.recyclerview.EasyViewHolder;
 import com.zpj.recyclerview.IEasy;
@@ -31,7 +30,7 @@ public class CenterListDialogFragment<T> extends CenterDialogFragment
 
     protected OnSelectListener<T> selectListener;
 
-    protected int bindItemLayoutId = R.layout._xpopup_adapter_text;
+    protected int bindItemLayoutId = R.layout._dialog_item_text;
 
     private IEasy.OnBindViewHolderListener<T> onBindViewHolderListener;
     private IEasy.OnItemClickListener<T> onItemClickListener;
@@ -54,7 +53,7 @@ public class CenterListDialogFragment<T> extends CenterDialogFragment
         if (tvTitle != null) {
             if (TextUtils.isEmpty(title)) {
                 tvTitle.setVisibility(View.GONE);
-                findViewById(R.id.xpopup_divider).setVisibility(View.GONE);
+                findViewById(R.id._dialog_view_divider).setVisibility(View.GONE);
             } else {
                 tvTitle.setText(title);
             }

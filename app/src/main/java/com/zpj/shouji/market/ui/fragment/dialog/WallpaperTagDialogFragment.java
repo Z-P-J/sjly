@@ -7,8 +7,7 @@ import android.support.annotation.Nullable;
 import android.view.View;
 
 import com.zpj.fragmentation.dialog.base.PartShadowDialogFragment;
-import com.zpj.popup.enums.PopupPosition;
-import com.zpj.popup.impl.PartShadowPopup;
+import com.zpj.fragmentation.dialog.enums.PopupPosition;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.model.WallpaperTag;
 import com.zpj.shouji.market.ui.widget.flowlayout.FlowLayout;

@@ -2,18 +2,14 @@ package com.zpj.shouji.market.ui.fragment.dialog;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.util.Log;
 import android.view.View;
 
 import com.felix.atoast.library.AToast;
-import com.zpj.fragmentation.dialog.base.BottomDialogFragment;
-import com.zpj.popup.util.KeyboardUtils;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.api.HttpApi;
 import com.zpj.shouji.market.manager.UserManager;
 import com.zpj.shouji.market.ui.widget.input.PasswordInputView;
 import com.zpj.shouji.market.ui.widget.input.SubmitView;
-import com.zpj.utils.ScreenUtils;
 import com.zpj.widget.editor.validator.DifferentValueValidator;
 import com.zpj.widget.editor.validator.LengthValidator;
 

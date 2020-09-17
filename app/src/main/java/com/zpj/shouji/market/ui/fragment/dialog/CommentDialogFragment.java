@@ -3,27 +3,21 @@ package com.zpj.shouji.market.ui.fragment.dialog;
 import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
-import android.view.ViewGroup;
-import android.view.ViewTreeObserver;
 
 import com.felix.atoast.library.AToast;
 import com.zpj.fragmentation.dialog.base.BottomDialogFragment;
 import com.zpj.http.core.IHttp;
-import com.zpj.popup.animator.EmptyAnimator;
-import com.zpj.popup.animator.PopupAnimator;
-import com.zpj.popup.core.BottomPopup;
-import com.zpj.popup.util.ActivityUtils;
-import com.zpj.popup.util.KeyboardUtils;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.api.CommentApi;
 import com.zpj.shouji.market.ui.fragment.profile.UserPickerFragment;
 import com.zpj.shouji.market.ui.widget.MaxHeightLayout;
 import com.zpj.shouji.market.ui.widget.ReplyPanel;
+import com.zpj.utils.ContextUtils;
+import com.zpj.utils.KeyboardObserver;
 import com.zpj.utils.ScreenUtils;
 
 public class CommentDialogFragment extends BottomDialogFragment
@@ -63,7 +57,7 @@ public class CommentDialogFragment extends BottomDialogFragment
             return;
         }
 
-        Activity activity = ActivityUtils.getActivity(context);
+        Activity activity = ContextUtils.getActivity(context);
 
         replyPanel = findViewById(R.id.panel_reply);
         replyPanel.setOnOperationListener(this);
@@ -71,10 +65,10 @@ public class CommentDialogFragment extends BottomDialogFragment
         replyPanel.getEditor().setMaxLines(36);
 
         replyPanel.addAction(R.drawable.ic_at_black_24dp, v -> {
-            KeyboardUtils.hideSoftInput(replyPanel.getEditor());
+            hideSoftInput();
             UserPickerFragment.start(content -> {
                 replyPanel.getEditor().append(content);
-                KeyboardUtils.showSoftInput(replyPanel.getEditor());
+                showSoftInput(replyPanel.getEditor());
             });
         });
 
@@ -92,7 +86,7 @@ public class CommentDialogFragment extends BottomDialogFragment
 //        maxHeightLayout.post(() -> maxHeightLayout.setMaxHeight(ScreenUtils.getScreenHeight(context) - ScreenUtils.getStatusBarHeight(context)));
 
 
-        KeyboardUtils.registerSoftInputChangedListener(activity, getContentView(), height -> {
+        KeyboardObserver.registerSoftInputChangedListener(activity, getContentView(), height -> {
             getContentView().setTranslationY(0);
             Log.d("CommentPopup", "height=" + height);
             replyPanel.onKeyboardHeightChanged(height, 0);
@@ -132,7 +126,7 @@ public class CommentDialogFragment extends BottomDialogFragment
 
     @Override
     public void dismiss() {
-        KeyboardUtils.hideSoftInput(replyPanel.getEditor());
+        hideSoftInput();
         replyPanel.hideEmojiPanel();
         super.dismiss();
     }
@@ -140,7 +134,7 @@ public class CommentDialogFragment extends BottomDialogFragment
     @Override
     protected void onDismiss() {
         super.onDismiss();
-        KeyboardUtils.hideSoftInput(replyPanel.getEditor());
+        hideSoftInput();
         replyPanel.setOnOperationListener(null);
     }
 
@@ -151,7 +145,7 @@ public class CommentDialogFragment extends BottomDialogFragment
 
     @Override
     public void sendText(String content) {
-        KeyboardUtils.hideSoftInput(replyPanel.getEditor());
+        hideSoftInput();
         Log.d("sendText", "content=" + content + " replyId=" + replyId + " contentType=" + contentType);
         if ("discuss".equals(contentType)) {
             CommentApi.discussCommentWithFileApi(

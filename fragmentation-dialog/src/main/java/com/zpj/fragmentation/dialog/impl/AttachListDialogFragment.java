@@ -1,20 +1,17 @@
 package com.zpj.fragmentation.dialog.impl;
 
-import android.content.Context;
 import android.content.res.ColorStateList;
 import android.graphics.PointF;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.TextView;
 
+import com.zpj.fragmentation.dialog.animator.PopupAnimator;
 import com.zpj.fragmentation.dialog.base.AttachDialogFragment;
-import com.zpj.popup.R;
-import com.zpj.popup.animator.PopupAnimator;
-import com.zpj.popup.core.AttachPopup;
-import com.zpj.popup.widget.VerticalRecyclerView;
+import com.zpj.fragmentation.dialog.R;
 import com.zpj.recyclerview.EasyRecyclerView;
 import com.zpj.widget.tinted.TintedImageView;
 
@@ -22,13 +19,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-/**
- * Description: Attach类型的列表弹窗
- * Create by dance, at 2018/12/12
- */
 public class AttachListDialogFragment<T> extends AttachDialogFragment {
 
-    protected VerticalRecyclerView recyclerView;
+    protected RecyclerView recyclerView;
     protected int bindLayoutId;
     protected int bindItemLayoutId;
     protected int tintColor = -1;
@@ -39,7 +32,7 @@ public class AttachListDialogFragment<T> extends AttachDialogFragment {
 
     @Override
     protected int getContentLayoutId() {
-        return R.layout._xpopup_attach_impl_list;
+        return R.layout._dialog_layout_attach_impl_list;
     }
 
     @Override
@@ -58,14 +51,14 @@ public class AttachListDialogFragment<T> extends AttachDialogFragment {
     @Override
     protected void initView(View view, @Nullable Bundle savedInstanceState) {
         super.initView(view, savedInstanceState);
-        textColor = context.getResources().getColor(R.color._xpopup_text_major_color);
+        textColor = context.getResources().getColor(R.color._dialog_text_major_color);
 
         recyclerView = findViewById(R.id.recyclerView);
 //        recyclerView.setupDivider();
 
         EasyRecyclerView<T> easyRecyclerView = new EasyRecyclerView<>(recyclerView);
         easyRecyclerView.setData(items)
-                .setItemRes(bindItemLayoutId == 0 ? R.layout._xpopup_adapter_text : bindItemLayoutId)
+                .setItemRes(bindItemLayoutId == 0 ? R.layout._dialog_item_text : bindItemLayoutId)
                 .onBindViewHolder((holder, list, position, payloads) -> {
                     TextView tvText = holder.getView(R.id.tv_text);
                     tvText.setText(list.get(position).toString());
@@ -82,7 +75,7 @@ public class AttachListDialogFragment<T> extends AttachDialogFragment {
                     } else {
                         ivImage.setVisibility(View.GONE);
                     }
-                    holder.getView(R.id.xpopup_divider).setVisibility(View.GONE);
+                    holder.getView(R.id._dialog_view_divider).setVisibility(View.GONE);
                 })
                 .onItemClick((holder, view1, data) -> {
                     dismiss();

@@ -12,8 +12,8 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.felix.atoast.library.AToast;
-import com.zpj.fragmentation.dialog.base.ArrowDialogFragment;
-import com.zpj.popupmenuview.OptionMenu;
+import com.zpj.fragmentation.dialog.impl.ArrowMenuDialogFragment;
+import com.zpj.fragmentation.dialog.model.OptionMenu;
 import com.zpj.recyclerview.EasyAdapter;
 import com.zpj.recyclerview.EasyRecyclerLayout;
 import com.zpj.recyclerview.EasyViewHolder;
@@ -131,10 +131,9 @@ public class UpdateManagerFragment extends RecyclerLayoutFragment<AppUpdateInfo>
 
     public void onMenuClicked(View view, AppUpdateInfo updateInfo) {
 
-        new ArrowDialogFragment()
+        new ArrowMenuDialogFragment()
                 .setOptionMenus(optionMenus)
                 .setOrientation(LinearLayout.HORIZONTAL)
-                .setAttachView(view)
                 .setOnItemClickListener((position, menu) -> {
                     switch (position) {
                         case 0:
@@ -154,6 +153,7 @@ public class UpdateManagerFragment extends RecyclerLayoutFragment<AppUpdateInfo>
                             break;
                     }
                 })
+                .setAttachView(view)
                 .show(context);
 
 //        PopupMenuView popupMenuView = new PopupMenuView(context);

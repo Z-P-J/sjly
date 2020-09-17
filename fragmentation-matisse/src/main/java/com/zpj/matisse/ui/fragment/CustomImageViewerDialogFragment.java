@@ -12,13 +12,13 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.zpj.fragmentation.dialog.impl.ImageViewerDialogFragment;
+import com.zpj.fragmentation.dialog.interfaces.IImageLoader;
 import com.zpj.matisse.R;
 import com.zpj.matisse.entity.IncapableCause;
 import com.zpj.matisse.entity.Item;
 import com.zpj.matisse.listener.OnSelectedListener;
 import com.zpj.matisse.model.SelectedItemManager;
 import com.zpj.matisse.ui.widget.CheckView;
-import com.zpj.popup.interfaces.IImageLoader;
 import com.zpj.widget.toolbar.ZToolBar;
 
 import java.io.File;

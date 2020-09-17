@@ -9,27 +9,18 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-import com.felix.atoast.library.AToast;
 import com.zpj.fragmentation.BaseFragment;
 import com.zpj.http.core.IHttp;
-import com.zpj.popup.util.KeyboardUtils;
 import com.zpj.recyclerview.EasyRecyclerView;
 import com.zpj.recyclerview.EasyViewHolder;
 import com.zpj.recyclerview.IEasy;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.api.CloudBackupApi;
-import com.zpj.shouji.market.api.CollectionApi;
-import com.zpj.shouji.market.api.PublishApi;
 import com.zpj.shouji.market.event.RefreshEvent;
 import com.zpj.shouji.market.event.StartFragmentEvent;
 import com.zpj.shouji.market.model.InstalledAppInfo;
 import com.zpj.shouji.market.ui.fragment.manager.AppPickerFragment;
-import com.zpj.shouji.market.ui.fragment.profile.UserPickerFragment;
-import com.zpj.shouji.market.ui.widget.ActionPanel;
-import com.zpj.shouji.market.ui.widget.flowlayout.FlowLayout;
-import com.zpj.shouji.market.utils.Callback;
 import com.zpj.utils.DeviceUtils;
-import com.zpj.utils.ScreenUtils;
 
 import java.util.ArrayList;
 import java.util.List;

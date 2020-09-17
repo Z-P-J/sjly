@@ -7,17 +7,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
 
+import com.zpj.fragmentation.dialog.animator.PopupAnimator;
+import com.zpj.fragmentation.dialog.animator.TranslateAnimator;
 import com.zpj.fragmentation.dialog.base.CenterDialogFragment;
-import com.zpj.popup.animator.PopupAnimator;
-import com.zpj.popup.animator.TranslateAnimator;
-import com.zpj.popup.enums.PopupAnimation;
+import com.zpj.fragmentation.dialog.enums.PopupAnimation;
 
 import static android.view.ViewGroup.LayoutParams.MATCH_PARENT;
 
-/**
- * Description: 宽高撑满的全屏弹窗
- * Create by lxj, at 2019/2/1
- */
 public abstract class FullScreenDialogFragment extends CenterDialogFragment {
 
     @Override

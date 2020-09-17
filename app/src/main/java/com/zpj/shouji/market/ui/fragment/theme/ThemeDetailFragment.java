@@ -33,6 +33,7 @@ import com.zpj.shouji.market.ui.fragment.dialog.ShareDialogFragment;
 import com.zpj.shouji.market.ui.fragment.dialog.ThemeMoreDialogFragment;
 import com.zpj.shouji.market.ui.fragment.login.LoginFragment;
 import com.zpj.shouji.market.utils.MagicIndicatorHelper;
+import com.zpj.utils.ColorUtils;
 import com.zpj.widget.tinted.TintedImageButton;
 
 import net.lucode.hackware.magicindicator.MagicIndicator;
@@ -148,7 +149,7 @@ public class ThemeDetailFragment extends ListenerFragment {
                     themeLayout.setAlpha(1f);
                 }
                 if (TextUtils.isEmpty(wallpaper)) {
-                    int color = alphaColor(Color.WHITE, alpha);
+                    int color = ColorUtils.alphaColor(Color.WHITE, alpha);
                     toolbar.setBackgroundColor(color);
                 }
             }
@@ -307,12 +308,6 @@ public class ThemeDetailFragment extends ListenerFragment {
 
     private void setDiscoverInfo(DiscoverInfo discoverInfo) {
         this.item = discoverInfo;
-    }
-
-    public static int alphaColor(int color, float alpha) {
-        int a = Math.min(255, Math.max(0, (int) (alpha * 255))) << 24;
-        int rgb = 0x00ffffff & color;
-        return a + rgb;
     }
 
 }

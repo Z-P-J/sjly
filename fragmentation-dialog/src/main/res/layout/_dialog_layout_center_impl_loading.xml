@@ -3,12 +3,12 @@
     android:layout_gravity="center"
     android:gravity="center"
     android:padding="15dp"
-    android:background="@drawable/_xpopup_round3_dark_bg"
+    android:background="@drawable/_dialog_round_dark_bg"
     android:orientation="horizontal"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content">
 
-    <com.zpj.popup.widget.LoadingView
+    <com.zpj.fragmentation.dialog.widget.LoadingView
         android:layout_width="30dp"
         android:layout_height="30dp" />
     <TextView

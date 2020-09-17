@@ -9,11 +9,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
 
+import com.zpj.fragmentation.dialog.animator.PopupAnimator;
+import com.zpj.fragmentation.dialog.animator.ScaleAlphaAnimator;
+import com.zpj.fragmentation.dialog.enums.PopupAnimation;
 import com.zpj.fragmentation.dialog.impl.FullScreenDialogFragment;
-import com.zpj.popup.R;
-import com.zpj.popup.animator.PopupAnimator;
-import com.zpj.popup.animator.ScaleAlphaAnimator;
-import com.zpj.popup.enums.PopupAnimation;
+import com.zpj.fragmentation.dialog.R;
 import com.zpj.utils.ScreenUtils;
 
 import static android.view.ViewGroup.LayoutParams.MATCH_PARENT;
@@ -21,7 +21,7 @@ import static android.view.ViewGroup.LayoutParams.WRAP_CONTENT;
 
 public abstract class CenterDialogFragment extends BaseDialogFragment {
 
-    private View contentView;
+    protected View contentView;
 
     @Override
     protected final int getImplLayoutId() {
@@ -44,12 +44,11 @@ public abstract class CenterDialogFragment extends BaseDialogFragment {
     protected void initView(View view, @Nullable Bundle savedInstanceState) {
         super.initView(view, savedInstanceState);
 
-//        FrameLayout.LayoutParams params = (FrameLayout.LayoutParams) contentView.getLayoutParams();
-//        params.gravity = getGravity();
-
         CardView centerPopupContainer = view.findViewById(R.id.centerPopupContainer);
-        contentView = LayoutInflater.from(context).inflate(getContentLayoutId(), null, false);
-        centerPopupContainer.addView(contentView);
+        if (getContentLayoutId() > 0) {
+            contentView = LayoutInflater.from(context).inflate(getContentLayoutId(), null, false);
+            centerPopupContainer.addView(contentView);
+        }
 
         FrameLayout.LayoutParams params = (FrameLayout.LayoutParams) centerPopupContainer.getLayoutParams();
         if (this instanceof FullScreenDialogFragment) {
@@ -76,12 +75,12 @@ public abstract class CenterDialogFragment extends BaseDialogFragment {
         params.gravity = Gravity.CENTER;
 
 
-        FrameLayout.LayoutParams layoutParams = (FrameLayout.LayoutParams) contentView.getLayoutParams();
-        layoutParams.height = WRAP_CONTENT;
-        layoutParams.width = MATCH_PARENT;
-        layoutParams.gravity = Gravity.CENTER;
-
-//        XPopupUtils.applyPopupSize((ViewGroup) getContentView(), getMaxWidth(), 0);
+        if (contentView != null) {
+            FrameLayout.LayoutParams layoutParams = (FrameLayout.LayoutParams) contentView.getLayoutParams();
+            layoutParams.height = WRAP_CONTENT;
+            layoutParams.width = MATCH_PARENT;
+            layoutParams.gravity = Gravity.CENTER;
+        }
 
     }
 

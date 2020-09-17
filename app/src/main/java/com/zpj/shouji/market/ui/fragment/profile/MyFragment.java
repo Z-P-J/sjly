@@ -42,6 +42,7 @@ import com.zpj.shouji.market.ui.widget.ToolBoxCard;
 import com.zpj.shouji.market.utils.PictureUtil;
 import com.zpj.shouji.market.utils.UploadUtils;
 import com.zpj.utils.ClickHelper;
+import com.zpj.utils.ColorUtils;
 import com.zpj.widget.tinted.TintedImageView;
 
 import org.greenrobot.eventbus.EventBus;
@@ -106,7 +107,7 @@ public class MyFragment extends BaseFragment
                     }
                     float alpha = 1f * offsetY / toolbar.getHeight();
                     alpha = Math.min(alpha, 1f);
-                    int color = alphaColor(Color.WHITE, alpha * 0.95f);
+                    int color = ColorUtils.alphaColor(Color.WHITE, alpha * 0.95f);
                     toolbar.setBackgroundColor(color);
                     toolbar.setLightStyle(alpha <= 0.5);
                     if (alpha > 0.5) {
@@ -662,12 +663,6 @@ public class MyFragment extends BaseFragment
 //        }
 //        loginPopup.setCurrentPosition(page);
 //        loginPopup.show();
-    }
-
-    public static int alphaColor(int color, float alpha) {
-        int a = Math.min(255, Math.max(0, (int) (alpha * 255))) << 24;
-        int rgb = 0x00ffffff & color;
-        return a + rgb;
     }
 
 }

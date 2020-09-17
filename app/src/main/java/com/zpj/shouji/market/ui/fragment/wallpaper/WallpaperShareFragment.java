@@ -20,7 +20,6 @@ import com.zpj.matisse.MimeType;
 import com.zpj.matisse.engine.impl.GlideEngine;
 import com.zpj.matisse.entity.Item;
 import com.zpj.matisse.listener.OnSelectedListener;
-import com.zpj.popup.util.KeyboardUtils;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.api.WallpaperApi;
 import com.zpj.shouji.market.event.StartFragmentEvent;
@@ -28,6 +27,7 @@ import com.zpj.shouji.market.model.WallpaperTag;
 import com.zpj.shouji.market.ui.fragment.profile.UserPickerFragment;
 import com.zpj.shouji.market.ui.widget.ActionPanel;
 import com.zpj.shouji.market.ui.widget.flowlayout.FlowLayout;
+import com.zpj.utils.KeyboardObserver;
 import com.zpj.utils.ScreenUtils;
 
 import java.io.File;
@@ -73,7 +73,7 @@ public class WallpaperShareFragment extends BaseFragment
         ivWallpaper.setOnClickListener(this);
         actionPanel = view.findViewById(R.id.panel_action);
         actionPanel.attachEditText(etContent);
-        KeyboardUtils.registerSoftInputChangedListener(_mActivity, view, height -> {
+        KeyboardObserver.registerSoftInputChangedListener(_mActivity, view, height -> {
             actionPanel.onKeyboardHeightChanged(height, 0);
         });
 

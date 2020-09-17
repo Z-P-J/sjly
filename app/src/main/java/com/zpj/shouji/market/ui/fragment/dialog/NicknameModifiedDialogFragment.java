@@ -5,8 +5,6 @@ import android.support.annotation.Nullable;
 import android.view.View;
 
 import com.felix.atoast.library.AToast;
-import com.zpj.fragmentation.dialog.base.BottomDialogFragment;
-import com.zpj.popup.util.KeyboardUtils;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.api.HttpApi;
 import com.zpj.shouji.market.manager.UserManager;

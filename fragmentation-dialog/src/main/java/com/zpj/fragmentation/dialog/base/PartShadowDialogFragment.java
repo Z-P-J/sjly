@@ -11,13 +11,13 @@ import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.FrameLayout;
 
-import com.zpj.popup.animator.PopupAnimator;
-import com.zpj.popup.animator.TranslateAnimator;
-import com.zpj.popup.enums.PopupAnimation;
-import com.zpj.popup.enums.PopupPosition;
-import com.zpj.popup.interfaces.OnClickOutsideListener;
-import com.zpj.popup.util.XPopupUtils;
+import com.zpj.fragmentation.dialog.animator.PopupAnimator;
+import com.zpj.fragmentation.dialog.animator.TranslateAnimator;
+import com.zpj.fragmentation.dialog.enums.PopupAnimation;
+import com.zpj.fragmentation.dialog.enums.PopupPosition;
+import com.zpj.fragmentation.dialog.interfaces.OnClickOutsideListener;
 import com.zpj.utils.ScreenUtils;
+import com.zpj.utils.StatusBarUtils;
 
 import static android.view.ViewGroup.LayoutParams.MATCH_PARENT;
 import static android.view.ViewGroup.LayoutParams.WRAP_CONTENT;
@@ -35,11 +35,6 @@ public abstract class PartShadowDialogFragment extends AttachDialogFragment {
     protected void initView(View view, @Nullable Bundle savedInstanceState) {
         super.initView(view, savedInstanceState);
 
-//        defaultOffsetY = popupInfo.offsetY == 0 ? XPopupUtils.dp2px(getContext(), 0) : popupInfo.offsetY;
-//        defaultOffsetX = popupInfo.offsetX == 0 ? XPopupUtils.dp2px(getContext(), 0) : popupInfo.offsetX;
-//
-//        getPopupImplView().setTranslationX(popupInfo.offsetX);
-//        getPopupImplView().setTranslationY(popupInfo.offsetY);
     }
 
     @Override
@@ -56,7 +51,7 @@ public abstract class PartShadowDialogFragment extends AttachDialogFragment {
         if (rotation == 0) {
             params.width = getImplView().getMeasuredWidth(); // 满宽
         } else if (rotation == 1 || rotation == 3) {
-            params.width = getImplView().getMeasuredWidth() - (XPopupUtils.isNavBarVisible(getContext()) ? XPopupUtils.getNavBarHeight() : 0);
+            params.width = getImplView().getMeasuredWidth() - (StatusBarUtils.isNavBarVisible(context) ? ScreenUtils.getNavBarHeight(context) : 0);
         }
 
         Log.d(TAG, "rotation=" + rotation);

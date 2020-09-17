@@ -2,12 +2,12 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@drawable/_xpopup_round3_bg"
+    android:background="@drawable/_dialog_round_bg"
     android:orientation="vertical">
 
     <TextView
         android:id="@+id/tv_title"
-        android:textColor="@color/_xpopup_title_color"
+        android:textColor="@color/_dialog_title_color"
         android:padding="16dp"
         android:maxLines="1"
         android:ellipsize="end"
@@ -16,16 +16,16 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
-    <include layout="@layout/_xpopup_divider"/>
+    <include layout="@layout/_dialog_divider"/>
 
-    <com.zpj.popup.widget.VerticalRecyclerView
+    <android.support.v7.widget.RecyclerView
         android:orientation="vertical"
         android:id="@+id/recyclerView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:overScrollMode="never" />
 
-    <include layout="@layout/_zpopup_buttons"
+    <include layout="@layout/_dialog_buttons"
         android:visibility="gone"
         />
 

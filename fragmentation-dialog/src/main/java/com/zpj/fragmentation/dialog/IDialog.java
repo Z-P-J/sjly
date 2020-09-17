@@ -1,7 +1,6 @@
 package com.zpj.fragmentation.dialog;
 
 import com.zpj.fragmentation.dialog.impl.AlertDialogFragment;
-import com.zpj.popup.core.BasePopup;
 
 public interface IDialog {
 

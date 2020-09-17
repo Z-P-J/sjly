@@ -22,8 +22,6 @@ import android.widget.TextView;
 import com.felix.atoast.library.AToast;
 import com.zpj.fragmentation.dialog.impl.FullScreenDialogFragment;
 import com.zpj.http.core.ObservableTask;
-import com.zpj.popup.enums.PopupAnimation;
-import com.zpj.popup.impl.FullScreenPopup;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.event.GetMainActivityEvent;
 import com.zpj.shouji.market.manager.UserManager;
