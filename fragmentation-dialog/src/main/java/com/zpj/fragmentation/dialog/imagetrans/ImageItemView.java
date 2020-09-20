@@ -34,6 +34,7 @@ public class ImageItemView<T> extends FrameLayout implements
     private boolean isCached = false;
     private String uniqueStr;
     private boolean needTransOpen;
+    private boolean isOpened;
 
     public ImageItemView(@NonNull Context context, ImageTransBuild<T> build, int pos, T url) {
         super(context);
@@ -48,18 +49,36 @@ public class ImageItemView<T> extends FrameLayout implements
     }
 
     void init(boolean opened) {
+        this.isOpened = opened;
+//        imageView = new TransImageView(getContext());
+//        imageView.setOnTransformListener(transformOpenListener);
+//        addView(imageView, new LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
+//        progressBar = build.inflateProgress(getContext(), this);
+//        hideProgress();
+//        needTransOpen = build.needTransOpen(pos, true);
+//        imageView.settingConfig(build.itConfig, new ThumbConfig(build.sourceImageViewGet.getImageView(pos), getResources(), build.scaleType));
+//        imageView.setTransStateChangeListener(this);
+//        imageView.setOnPullCloseListener(this);
+//        imageView.setOnLongClickListener(this);
+//        imageView.setOnClickListener(this);
+//        if (needTransOpen || opened) loadImage();
+
+        build.sourceImageViewGet.updateImageView(this, pos);
+    }
+
+    public void update(View view) {
         imageView = new TransImageView(getContext());
         imageView.setOnTransformListener(transformOpenListener);
         addView(imageView, new LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
         progressBar = build.inflateProgress(getContext(), this);
         hideProgress();
         needTransOpen = build.needTransOpen(pos, true);
-        imageView.settingConfig(build.itConfig, new ThumbConfig(build.sourceImageViewGet.getImageView(pos), getResources(), build.scaleType));
+        imageView.settingConfig(build.itConfig, new ThumbConfig(view, getResources(), build.scaleType));
         imageView.setTransStateChangeListener(this);
         imageView.setOnPullCloseListener(this);
         imageView.setOnLongClickListener(this);
         imageView.setOnClickListener(this);
-        if (needTransOpen || opened) loadImage();
+        if (needTransOpen || isOpened) loadImage();
     }
 
     void loadImageWhenTransEnd() {

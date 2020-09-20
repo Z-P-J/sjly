@@ -188,13 +188,33 @@ public class MediaSelectionFragment extends BaseFragment implements
     @Override
     public void onThumbnailClicked(ImageView thumbnail, Item item, EasyViewHolder holder) {
         final int position = holder.getAdapterPosition();
-        new CustomImageViewerDialogFragment()
+//        new CustomImageViewerDialogFragment()
+//                .setSelectedItemManager(mSelectedCollection)
+//                .setCountable(mSpec.countable)
+//                .setSingleSelectionModeEnabled(mSpec.singleSelectionModeEnabled())
+//                .setImageUrls(itemList)
+//                .setSrcView(thumbnail, holder.getAdapterPosition())
+//                .setSrcViewUpdateListener((popupView, pos) -> {
+//                    RecyclerView recyclerView = recyclerLayout.getEasyRecyclerView().getRecyclerView();
+//                    int layoutPos = recyclerView.indexOfChild(holder.getItemView());
+//                    View view = recyclerView.getChildAt(layoutPos + pos - position);
+//                    ImageView imageView;
+//                    if (view != null) {
+//                        imageView = view.findViewById(R.id.media_thumbnail);
+//                    } else {
+//                        imageView = thumbnail;
+//                    }
+//                    popupView.updateSrcView(imageView);
+//                })
+//                .show(context);
+
+        new CustomImageViewerDialogFragment2()
                 .setSelectedItemManager(mSelectedCollection)
                 .setCountable(mSpec.countable)
                 .setSingleSelectionModeEnabled(mSpec.singleSelectionModeEnabled())
-                .setImageUrls(itemList)
-                .setSrcView(thumbnail, holder.getAdapterPosition())
-                .setSrcViewUpdateListener((popupView, pos) -> {
+                .setImageList(itemList)
+                .setNowIndex(holder.getAdapterPosition())
+                .setSourceImageView((imageItemView, pos) -> {
                     RecyclerView recyclerView = recyclerLayout.getEasyRecyclerView().getRecyclerView();
                     int layoutPos = recyclerView.indexOfChild(holder.getItemView());
                     View view = recyclerView.getChildAt(layoutPos + pos - position);
@@ -204,7 +224,7 @@ public class MediaSelectionFragment extends BaseFragment implements
                     } else {
                         imageView = thumbnail;
                     }
-                    popupView.updateSrcView(imageView);
+                    imageItemView.update(imageView);
                 })
                 .show(context);
 

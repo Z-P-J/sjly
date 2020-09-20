@@ -196,7 +196,13 @@ public class ZDownloader {
     }
 
     public static void resumeAll() {
-        DownloadManagerImpl.getInstance().resumeAllMissions();
+        waitingForInternet = false;
+        for (DownloadMission mission : DownloadManagerImpl.getInstance().getMissions()) {
+            if (mission.isWaiting()) {
+                mission.start();
+            }
+        }
+//        DownloadManagerImpl.getInstance().resumeAllMissions();
     }
 
     public static void deleteAll() {

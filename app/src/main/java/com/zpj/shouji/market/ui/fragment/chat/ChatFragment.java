@@ -10,12 +10,15 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
+import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
 import com.felix.atoast.library.AToast;
 import com.lwkandroid.widget.ninegridview.NineGirdImageContainer;
 import com.lwkandroid.widget.ninegridview.NineGridBean;
 import com.lwkandroid.widget.ninegridview.NineGridView;
+import com.zpj.fragmentation.dialog.imagetrans.ImageItemView;
+import com.zpj.fragmentation.dialog.imagetrans.listener.SourceImageViewGet;
 import com.zpj.fragmentation.dialog.impl.AlertDialogFragment;
 import com.zpj.http.core.IHttp;
 import com.zpj.http.parser.html.nodes.Document;
@@ -33,7 +36,7 @@ import com.zpj.shouji.market.ui.adapter.DiscoverBinder;
 import com.zpj.shouji.market.ui.animator.SlideInOutBottomItemAnimator;
 import com.zpj.shouji.market.ui.fragment.base.NextUrlFragment;
 import com.zpj.shouji.market.ui.fragment.dialog.BottomListMenuDialogFragment;
-import com.zpj.shouji.market.ui.fragment.dialog.CommonImageViewerDialogFragment;
+import com.zpj.shouji.market.ui.fragment.dialog.CommonImageViewerDialogFragment2;
 import com.zpj.shouji.market.ui.fragment.profile.ProfileFragment;
 import com.zpj.shouji.market.ui.widget.ReplyPanel;
 import com.zpj.shouji.market.utils.BeanUtils;
@@ -454,16 +457,29 @@ public class ChatFragment extends NextUrlFragment<PrivateLetterInfo>
 //                            popup.updateSrcView(view.getImageView());
 //                        })
 //                        .show();
-                new CommonImageViewerDialogFragment()
+                new CommonImageViewerDialogFragment2()
                         .setOriginalImageList(info.getPics())
                         .setImageSizeList(info.getSizes())
-                        .setImageUrls(AppConfig.isShowOriginalImage() && NetUtils.isWiFi(context) ? info.getPics() : info.getSpics())
-                        .setSrcView(imageContainer.getImageView(), position)
-                        .setSrcViewUpdateListener((popup, pos) -> {
-                            NineGirdImageContainer view = (NineGirdImageContainer) nineGridImageView.getChildAt(pos);
-                            popup.updateSrcView(view.getImageView());
+                        .setImageList(AppConfig.isShowOriginalImage() && NetUtils.isWiFi(context) ? info.getPics() : info.getSpics())
+                        .setNowIndex(position)
+                        .setSourceImageView(new SourceImageViewGet<String>() {
+                            @Override
+                            public void updateImageView(ImageItemView<String> imageItemView, int pos) {
+                                NineGirdImageContainer view = (NineGirdImageContainer) nineGridImageView.getChildAt(pos);
+                                imageItemView.update(view.getImageView());
+                            }
                         })
                         .show(context);
+//                new CommonImageViewerDialogFragment()
+//                        .setOriginalImageList(info.getPics())
+//                        .setImageSizeList(info.getSizes())
+//                        .setImageUrls(AppConfig.isShowOriginalImage() && NetUtils.isWiFi(context) ? info.getPics() : info.getSpics())
+//                        .setSrcView(imageContainer.getImageView(), position)
+//                        .setSrcViewUpdateListener((popup, pos) -> {
+//                            NineGirdImageContainer view = (NineGirdImageContainer) nineGridImageView.getChildAt(pos);
+//                            popup.updateSrcView(view.getImageView());
+//                        })
+//                        .show(context);
             }
 
             @Override

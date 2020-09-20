@@ -34,10 +34,12 @@ public abstract class FullScreenDialogFragment extends CenterDialogFragment {
         layoutParams.height = MATCH_PARENT;
         layoutParams.width = MATCH_PARENT;
 
-        FrameLayout.LayoutParams params = (FrameLayout.LayoutParams) getContentView().getLayoutParams();
-        params.height = MATCH_PARENT;
-        params.width = MATCH_PARENT;
-        params.gravity = Gravity.CENTER;
+        if (getContentView() != null) {
+            FrameLayout.LayoutParams params = (FrameLayout.LayoutParams) getContentView().getLayoutParams();
+            params.height = MATCH_PARENT;
+            params.width = MATCH_PARENT;
+            params.gravity = Gravity.CENTER;
+        }
 
     }
 }

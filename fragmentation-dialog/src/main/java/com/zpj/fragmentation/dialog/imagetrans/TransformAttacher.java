@@ -18,7 +18,8 @@ import com.zpj.fragmentation.dialog.imagetrans.listener.OnTransformListener;
  */
 
 class TransformAttacher implements OnTransformListener {
-    private final static int ANIM_TIME = 300;
+
+    private final static int ANIM_TIME = 250;
 
     private TransImageView imageView;
     private ThumbConfig thumbConfig;

@@ -44,7 +44,7 @@ public abstract class CenterDialogFragment extends BaseDialogFragment {
     protected void initView(View view, @Nullable Bundle savedInstanceState) {
         super.initView(view, savedInstanceState);
 
-        CardView centerPopupContainer = view.findViewById(R.id.centerPopupContainer);
+        CardView centerPopupContainer = findViewById(R.id.centerPopupContainer);
         if (getContentLayoutId() > 0) {
             contentView = LayoutInflater.from(context).inflate(getContentLayoutId(), null, false);
             centerPopupContainer.addView(contentView);

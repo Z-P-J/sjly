@@ -15,6 +15,7 @@ import android.view.View;
 import android.view.ViewTreeObserver;
 import android.widget.ImageView;
 
+import com.bumptech.glide.load.resource.gif.GifDrawable;
 import com.zpj.fragmentation.dialog.imagetrans.listener.OnPullCloseListener;
 import com.zpj.fragmentation.dialog.imagetrans.listener.OnTransformListener;
 
@@ -188,6 +189,9 @@ public class TransImageView extends ImageView implements TransformAttacher.Trans
                     imageGesturesAttacher.requestDisallowInterceptTouchEvent(false);
                 }
                 setImageDrawable(mDrawable);
+                if (mDrawable instanceof GifDrawable) {
+                    ((GifDrawable) mDrawable).start();
+                }
                 setBackgroundAlpha(255);
                 break;
             case THUMB_TO_CLOSE:

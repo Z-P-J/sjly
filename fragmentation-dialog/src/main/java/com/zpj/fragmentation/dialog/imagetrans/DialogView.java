@@ -2,8 +2,10 @@ package com.zpj.fragmentation.dialog.imagetrans;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.util.AttributeSet;
 import android.util.SparseArray;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,12 +26,20 @@ public class DialogView<T> extends FrameLayout implements OnTransformListener {
     private ImagePagerAdapter<T> mAdapter;
     private boolean isOpened = false;
 
-    public DialogView(Context context, ImageTransBuild<T> build) {
+    public DialogView(@NonNull Context context) {
         super(context);
-        this.build = build;
     }
 
-    public void onCreate(FullScreenDialogFragment dialogInterface) {
+    public DialogView(@NonNull Context context, @Nullable AttributeSet attrs) {
+        super(context, attrs);
+    }
+
+    public DialogView(@NonNull Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
+        super(context, attrs, defStyleAttr);
+    }
+
+    public void onCreate(ImageTransBuild<T> build, FullScreenDialogFragment dialogInterface) {
+        this.build = build;
         viewPager = new InterceptViewPager(getContext());
         addView(viewPager, new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
         mAdapter = new ImagePagerAdapter<>(build.imageList);
@@ -79,10 +89,15 @@ public class DialogView<T> extends FrameLayout implements OnTransformListener {
         return viewPager.getCurrentItem();
     }
 
+    public InterceptViewPager getViewPager() {
+        return viewPager;
+    }
+
     public void onDismiss(FullScreenDialogFragment dialog) {
         ImageItemView itemView = mAdapter.getItemView(build.nowIndex);
-        if (itemView != null) itemView.onDismiss();
-        else dialog.dismiss();
+        if (itemView != null) {
+            itemView.onDismiss();
+        }
     }
 
 

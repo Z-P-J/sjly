@@ -172,6 +172,60 @@ public class Utility {
         });
     }
 
+    public static <T> void saveBmpToAlbum(final Context context, final File file) {
+        final Handler mainHandler = new Handler(Looper.getMainLooper());
+        final ExecutorService executor = Executors.newSingleThreadExecutor();
+        final Context mContext = context;
+        executor.execute(new Runnable() {
+            @Override
+            public void run() {
+                if (file == null) {
+                    mainHandler.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            Toast.makeText(mContext, "图片不存在！", Toast.LENGTH_SHORT).show();
+                        }
+                    });
+                    return;
+                }
+                //1. create path
+                String dirPath = Environment.getExternalStorageDirectory().getAbsolutePath() + "/" + Environment.DIRECTORY_PICTURES;
+                File dirFile = new File(dirPath);
+                if (!dirFile.exists()) dirFile.mkdirs();
+                try {
+                    ImageType type = ImageHeaderParser.getImageType(new FileInputStream(file));
+                    String ext = getFileExt(type);
+                    final File target = new File(dirPath, System.currentTimeMillis() + "." + ext);
+                    if (target.exists()) target.delete();
+                    target.createNewFile();
+                    //2. save
+                    writeFileFromIS(target, new FileInputStream(file));
+                    //3. notify
+                    MediaScannerConnection.scanFile(mContext, new String[]{target.getAbsolutePath()},
+                            new String[]{"image/" + ext}, new MediaScannerConnection.OnScanCompletedListener() {
+                                @Override
+                                public void onScanCompleted(final String path, Uri uri) {
+                                    mainHandler.post(new Runnable() {
+                                        @Override
+                                        public void run() {
+                                            Toast.makeText(mContext, "已保存到相册！", Toast.LENGTH_SHORT).show();
+                                        }
+                                    });
+                                }
+                            });
+                } catch (IOException e) {
+                    e.printStackTrace();
+                    mainHandler.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            Toast.makeText(mContext, "没有保存权限，保存功能无法使用！", Toast.LENGTH_SHORT).show();
+                        }
+                    });
+                }
+            }
+        });
+    }
+
     private static String getFileExt(ImageType type) {
         switch (type) {
             case GIF:

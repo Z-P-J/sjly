@@ -21,12 +21,12 @@ import com.zpj.fragmentation.ISupportFragment;
 import com.zpj.fragmentation.SupportHelper;
 import com.zpj.fragmentation.dialog.impl.AttachListDialogFragment;
 import com.zpj.fragmentation.dialog.impl.ImageViewerDialogFragment;
+import com.zpj.fragmentation.dialog.impl.ImageViewerDialogFragment2;
 import com.zpj.fragmentation.dialog.interfaces.IImageLoader;
 import com.zpj.fragmentation.dialog.photoview.PhotoView;
 import com.zpj.fragmentation.dialog.widget.LoadingView;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.event.GetMainActivityEvent;
-import com.zpj.shouji.market.glide.GlideUtils;
 import com.zpj.shouji.market.utils.PictureUtil;
 import com.zpj.widget.tinted.TintedImageButton;
 import com.zpj.widget.toolbar.ZToolBar;
@@ -34,7 +34,7 @@ import com.zpj.widget.toolbar.ZToolBar;
 import java.io.File;
 import java.util.List;
 
-public class CommonImageViewerDialogFragment extends ImageViewerDialogFragment<String>
+public class CommonImageViewerDialogFragment2 extends ImageViewerDialogFragment2<String>
         implements IImageLoader<String> {
 
     private List<String> originalImageList;
@@ -46,12 +46,8 @@ public class CommonImageViewerDialogFragment extends ImageViewerDialogFragment<S
     private TintedImageButton btnMore;
     private LoadingView loadingView;
 
-    public CommonImageViewerDialogFragment() {
+    public CommonImageViewerDialogFragment2() {
         super();
-        isShowIndicator(false);
-        isShowPlaceholder(false);
-        isShowSaveButton(false);
-        setImageLoader(this);
     }
 
     @Override
@@ -76,11 +72,11 @@ public class CommonImageViewerDialogFragment extends ImageViewerDialogFragment<S
         btnMore = findViewById(R.id.btn_more);
         loadingView = findViewById(R.id.lv_loading);
 
-        pager.addOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
+        dialogView.addOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
             @Override
             public void onPageSelected(int position) {
                 updateTitle();
-                tvIndicator.setText(urls.size() + "/" + (position + 1));
+                tvIndicator.setText(getUrls().size() + "/" + (position + 1));
                 setInfoText();
                 loadingView.setVisibility(View.GONE);
             }
@@ -97,7 +93,7 @@ public class CommonImageViewerDialogFragment extends ImageViewerDialogFragment<S
                                 PictureUtil.shareWebImage(context, getOriginalImageUrl());
                                 break;
                             case 1:
-                                PictureUtil.saveImage(context, urls.get(position));
+                                PictureUtil.saveImage(context, getUrls().get(dialogView.getCurrentItem()));
                                 break;
                             case 2:
                                 PictureUtil.setWallpaper(context, getOriginalImageUrl());
@@ -116,7 +112,7 @@ public class CommonImageViewerDialogFragment extends ImageViewerDialogFragment<S
         titleBar.getCenterTextView().setShadowLayer(8, 4, 4, Color.BLACK);
 
 
-        tvIndicator.setText(urls.size() + "/" + (position + 1));
+        tvIndicator.setText(getUrls().size() + "/" + (dialogView.getCurrentItem() + 1));
 
         setInfoText();
 
@@ -180,24 +176,24 @@ public class CommonImageViewerDialogFragment extends ImageViewerDialogFragment<S
     private String getOriginalImageUrl() {
         String url;
         if (originalImageList != null) {
-            url = originalImageList.get(position);
+            url = originalImageList.get(dialogView.getCurrentItem());
         } else {
-            url = urls.get(position);
+            url = getUrls().get(dialogView.getCurrentItem());
         }
         return url;
     }
 
     private void updateTitle() {
-        String url = urls.get(position);
+        String url = getUrls().get(dialogView.getCurrentItem());
         titleBar.setCenterText(url.substring(url.lastIndexOf("/") + 1));
     }
 
-    public CommonImageViewerDialogFragment setOriginalImageList(List<String> originalImageList) {
+    public CommonImageViewerDialogFragment2 setOriginalImageList(List<String> originalImageList) {
         this.originalImageList = originalImageList;
         return this;
     }
 
-    public CommonImageViewerDialogFragment setImageSizeList(List<String> imageSizeList) {
+    public CommonImageViewerDialogFragment2 setImageSizeList(List<String> imageSizeList) {
         this.imageSizeList = imageSizeList;
         return this;
     }
@@ -205,10 +201,10 @@ public class CommonImageViewerDialogFragment extends ImageViewerDialogFragment<S
     private void setInfoText() {
         if (imageSizeList != null) {
             if (isOriginalImageAvailable()) {
-                tvInfo.setText(String.format("查看原图(%s)", imageSizeList.get(position)));
+                tvInfo.setText(String.format("查看原图(%s)", imageSizeList.get(dialogView.getCurrentItem())));
                 tvInfo.setOnClickListener(v -> showOriginalImage());
             } else {
-                tvInfo.setText(imageSizeList.get(position));
+                tvInfo.setText(imageSizeList.get(dialogView.getCurrentItem()));
                 tvInfo.setOnClickListener(null);
             }
         } else {
@@ -218,16 +214,16 @@ public class CommonImageViewerDialogFragment extends ImageViewerDialogFragment<S
 
 
     private boolean isOriginalImageAvailable() {
-        return originalImageList != null && !TextUtils.equals(urls.get(position), originalImageList.get(position));
+        return originalImageList != null && !TextUtils.equals(getUrls().get(dialogView.getCurrentItem()), originalImageList.get(dialogView.getCurrentItem()));
     }
 
     private void showOriginalImage() {
         loadingView.setVisibility(View.VISIBLE);
-        urls.set(position, originalImageList.get(position));
-        PhotoView current = pager.findViewWithTag(pager.getCurrentItem());
+        getUrls().set(dialogView.getCurrentItem(), originalImageList.get(dialogView.getCurrentItem()));
+        PhotoView current = dialogView.getViewPager().findViewWithTag(dialogView.getCurrentItem());
         Glide.with(context)
                 .asDrawable()
-                .load(originalImageList.get(position))
+                .load(originalImageList.get(dialogView.getCurrentItem()))
                 .into(new SimpleTarget<Drawable>() {
                     @Override
                     public void onResourceReady(@NonNull Drawable resource, @Nullable Transition<? super Drawable> transition) {

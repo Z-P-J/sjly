@@ -21,6 +21,7 @@ import com.felix.atoast.library.AToast;
 import com.zpj.fragmentation.SupportHelper;
 import com.zpj.fragmentation.dialog.impl.AttachListDialogFragment;
 import com.zpj.fragmentation.dialog.impl.ImageViewerDialogFragment;
+import com.zpj.fragmentation.dialog.impl.ImageViewerDialogFragment2;
 import com.zpj.fragmentation.dialog.interfaces.IImageLoader;
 import com.zpj.fragmentation.dialog.photoview.PhotoView;
 import com.zpj.fragmentation.dialog.widget.LoadingView;
@@ -30,7 +31,6 @@ import com.zpj.http.parser.html.nodes.Element;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.api.HttpApi;
 import com.zpj.shouji.market.event.GetMainActivityEvent;
-import com.zpj.shouji.market.glide.GlideUtils;
 import com.zpj.shouji.market.model.DiscoverInfo;
 import com.zpj.shouji.market.model.WallpaperInfo;
 import com.zpj.shouji.market.ui.activity.MainActivity;
@@ -45,8 +45,8 @@ import com.zpj.widget.toolbar.ZToolBar;
 import java.io.File;
 import java.util.List;
 
-public class WallpaperViewerDialogFragment extends ImageViewerDialogFragment<String>
-        implements IImageLoader<String> {
+public class WallpaperViewerDialogFragment2 extends ImageViewerDialogFragment2<String>
+        implements IImageLoader<String>, View.OnClickListener {
 
     private List<String> originalImageList;
 
@@ -61,12 +61,8 @@ public class WallpaperViewerDialogFragment extends ImageViewerDialogFragment<Str
 
     private WallpaperInfo wallpaperInfo;
 
-    public WallpaperViewerDialogFragment() {
+    public WallpaperViewerDialogFragment2() {
         super();
-        isShowIndicator(false);
-        isShowPlaceholder(false);
-        isShowSaveButton(false);
-        setImageLoader(this);
     }
 
     @Override
@@ -95,10 +91,10 @@ public class WallpaperViewerDialogFragment extends ImageViewerDialogFragment<Str
         titleBar = findViewById(R.id.tool_bar);
         loadingView = findViewById(R.id.lv_loading);
 
-        pager.addOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
+        dialogView.addOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
             @Override
             public void onPageSelected(int position) {
-                titleBar.setCenterText(urls.size() + "/" + (position + 1));
+                titleBar.setCenterText(getUrls().size() + "/" + (position + 1));
                 loadingView.setVisibility(View.GONE);
             }
         });
@@ -116,7 +112,7 @@ public class WallpaperViewerDialogFragment extends ImageViewerDialogFragment<Str
                                 break;
                             case 1:
 //                                save();
-                                PictureUtil.saveImage(context, urls.get(position));
+                                PictureUtil.saveImage(context, getUrls().get(dialogView.getCurrentItem()));
                                 break;
                             case 2:
                                 setWallpaper();
@@ -151,7 +147,7 @@ public class WallpaperViewerDialogFragment extends ImageViewerDialogFragment<Str
 //                    })
 //                    .show(titleBar.getRightImageButton());
         });
-        titleBar.setCenterText(urls.size() + "/" + (position + 1));
+        titleBar.setCenterText(getUrls().size() + "/" + (dialogView.getCurrentItem() + 1));
         titleBar.getCenterTextView().setShadowLayer(8, 4, 4, Color.BLACK);
 
         Glide.with(context).load(wallpaperInfo.getMemberIcon()).into(ivIcon);
@@ -264,7 +260,7 @@ public class WallpaperViewerDialogFragment extends ImageViewerDialogFragment<Str
                 animation.start();
                 break;
             case R.id.tv_download:
-                PictureUtil.saveImage(context, urls.get(position));
+//                save();
                 break;
             case R.id.tv_share:
                 shareWallpaper();
@@ -288,9 +284,20 @@ public class WallpaperViewerDialogFragment extends ImageViewerDialogFragment<Str
         }
     }
 
+//    @Override
+//    public void onDragChange(int dy, float scale, float fraction) {
+//        super.onDragChange(dy, scale, fraction);
+//        bottomBar.setTranslationY(bottomBar.getHeight() * fraction);
+//        tvOrigin.setTranslationY(bottomBar.getHeight() * fraction);
+//        titleBar.setTranslationY(-titleBar.getHeight() * fraction);
+//        btnUp.setAlpha(fraction);
+//    }
+
+
     @Override
-    public void onDragChange(int dy, float scale, float fraction) {
-        super.onDragChange(dy, scale, fraction);
+    protected void onTransform(float ratio) {
+        super.onTransform(ratio);
+        float fraction = 1 - ratio;
         bottomBar.setTranslationY(bottomBar.getHeight() * fraction);
         tvOrigin.setTranslationY(bottomBar.getHeight() * fraction);
         titleBar.setTranslationY(-titleBar.getHeight() * fraction);
@@ -343,12 +350,12 @@ public class WallpaperViewerDialogFragment extends ImageViewerDialogFragment<Str
         return null;
     }
 
-    public WallpaperViewerDialogFragment setWallpaperInfo(WallpaperInfo wallpaperInfo) {
+    public WallpaperViewerDialogFragment2 setWallpaperInfo(WallpaperInfo wallpaperInfo) {
         this.wallpaperInfo = wallpaperInfo;
         return this;
     }
 
-    public WallpaperViewerDialogFragment setOriginalImageList(List<String> originalImageList) {
+    public WallpaperViewerDialogFragment2 setOriginalImageList(List<String> originalImageList) {
         this.originalImageList = originalImageList;
         return this;
     }
@@ -379,20 +386,20 @@ public class WallpaperViewerDialogFragment extends ImageViewerDialogFragment<Str
     private String getOriginalImageUrl() {
         String url;
         if (originalImageList != null) {
-            url = originalImageList.get(position);
+            url = originalImageList.get(dialogView.getCurrentItem());
         } else {
-            url = urls.get(position);
+            url = getUrls().get(dialogView.getCurrentItem());
         }
         return url;
     }
 
     private void showOriginalImage() {
         loadingView.setVisibility(View.VISIBLE);
-        urls.set(position, originalImageList.get(position));
-        PhotoView current = pager.findViewWithTag(pager.getCurrentItem());
+        getUrls().set(dialogView.getCurrentItem(), originalImageList.get(dialogView.getCurrentItem()));
+        PhotoView current = dialogView.getViewPager().findViewWithTag(dialogView.getCurrentItem());
         Glide.with(context)
                 .asDrawable()
-                .load(originalImageList.get(position))
+                .load(originalImageList.get(dialogView.getCurrentItem()))
                 .into(new SimpleTarget<Drawable>() {
                     @Override
                     public void onResourceReady(@NonNull Drawable resource, @Nullable Transition<? super Drawable> transition) {
@@ -433,7 +440,7 @@ public class WallpaperViewerDialogFragment extends ImageViewerDialogFragment<Str
     }
 
     private boolean isOriginalImageAvailable() {
-        return originalImageList != null && !TextUtils.equals(urls.get(position), originalImageList.get(position));
+        return originalImageList != null && !TextUtils.equals(getUrls().get(dialogView.getCurrentItem()), originalImageList.get(dialogView.getCurrentItem()));
     }
 
 }

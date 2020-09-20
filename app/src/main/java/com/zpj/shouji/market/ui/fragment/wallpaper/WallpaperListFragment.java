@@ -20,6 +20,8 @@ import com.github.zagum.expandicon.ExpandIconView;
 import com.sunbinqiang.iconcountview.IconCountView;
 import com.zpj.fragmentation.BaseFragment;
 import com.zpj.fragmentation.SupportHelper;
+import com.zpj.fragmentation.dialog.imagetrans.ImageItemView;
+import com.zpj.fragmentation.dialog.imagetrans.listener.SourceImageViewGet;
 import com.zpj.http.parser.html.nodes.Document;
 import com.zpj.http.parser.html.nodes.Element;
 import com.zpj.recyclerview.EasyRecyclerLayout;
@@ -37,6 +39,7 @@ import com.zpj.shouji.market.ui.activity.MainActivity;
 import com.zpj.shouji.market.ui.fragment.base.NextUrlFragment;
 import com.zpj.shouji.market.ui.fragment.dialog.RecyclerPartShadowDialogFragment;
 import com.zpj.shouji.market.ui.fragment.dialog.WallpaperViewerDialogFragment;
+import com.zpj.shouji.market.ui.fragment.dialog.WallpaperViewerDialogFragment2;
 import com.zpj.shouji.market.ui.widget.emoji.EmojiExpandableTextView;
 import com.zpj.shouji.market.utils.Callback;
 import com.zpj.utils.NetUtils;
@@ -176,12 +179,26 @@ public class WallpaperListFragment extends NextUrlFragment<WallpaperInfo> {
 
         Log.d("WallpaperListFragment", " width / height = " + (Float.parseFloat(data.getWidth()) / Float.parseFloat(data.getHeight())));
         Log.d("WallpaperListFragment2", " width / height = " + (wallpaper.getWidth() / wallpaper.getHeight()));
-        new WallpaperViewerDialogFragment()
+//        new WallpaperViewerDialogFragment()
+//                .setWallpaperInfo(data)
+//                .setOriginalImageList(original)
+//                .setImageUrls(AppConfig.isShowOriginalImage() && NetUtils.isWiFi(context) ? original : objects)
+//                .setSrcView(wallpaper, 0)
+//                .setSrcViewUpdateListener((popup, position) -> popup.updateSrcView(wallpaper))
+//                .setOnDismissListener(() -> StatusBarEvent.post(false))
+//                .show(context);
+
+        new WallpaperViewerDialogFragment2()
                 .setWallpaperInfo(data)
                 .setOriginalImageList(original)
-                .setImageUrls(AppConfig.isShowOriginalImage() && NetUtils.isWiFi(context) ? original : objects)
-                .setSrcView(wallpaper, 0)
-                .setSrcViewUpdateListener((popup, position) -> popup.updateSrcView(wallpaper))
+                .setImageList(AppConfig.isShowOriginalImage() && NetUtils.isWiFi(context) ? original : objects)
+                .setNowIndex(0)
+                .setSourceImageView(new SourceImageViewGet<String>() {
+                    @Override
+                    public void updateImageView(ImageItemView<String> imageItemView, int pos) {
+                        imageItemView.update(wallpaper);
+                    }
+                })
                 .setOnDismissListener(() -> StatusBarEvent.post(false))
                 .show(context);
 

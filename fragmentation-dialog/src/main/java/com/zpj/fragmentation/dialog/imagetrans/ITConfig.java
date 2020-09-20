@@ -12,7 +12,7 @@ public class ITConfig {
     //判定是否是长图的变量,默认是视图高度的1.5倍数
     protected float readModeRule = DEFAULT_READMODERULE;
     //在有缓存的情况下是否显示缩略图
-    protected boolean noThumbWhenCached = false;
+    protected boolean noThumbWhenCached = true;
     //是否显示缩略图
     protected boolean noThumb = false;
 

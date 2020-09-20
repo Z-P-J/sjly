@@ -18,12 +18,14 @@ import com.lwkandroid.widget.ninegridview.NineGirdImageContainer;
 import com.lwkandroid.widget.ninegridview.NineGridBean;
 import com.lwkandroid.widget.ninegridview.NineGridView;
 import com.zpj.fragmentation.BaseFragment;
+import com.zpj.fragmentation.dialog.imagetrans.ImageItemView;
+import com.zpj.fragmentation.dialog.imagetrans.listener.SourceImageViewGet;
 import com.zpj.http.core.IHttp;
 import com.zpj.matisse.Matisse;
 import com.zpj.matisse.MimeType;
 import com.zpj.matisse.engine.impl.GlideEngine;
 import com.zpj.matisse.entity.Item;
-import com.zpj.matisse.ui.fragment.CustomImageViewerDialogFragment;
+import com.zpj.matisse.ui.fragment.CustomImageViewerDialogFragment2;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.api.PublishApi;
 import com.zpj.shouji.market.api.ThemePublishApi;
@@ -125,7 +127,25 @@ public class ThemeShareFragment extends BaseFragment {
 
             @Override
             public void onNineGirdItemClick(int position, NineGridBean gridBean, NineGirdImageContainer imageContainer) {
-                new CustomImageViewerDialogFragment()
+//                new CustomImageViewerDialogFragment()
+//                        .setOnSelectedListener(itemList -> {
+//                            postDelayed(() -> {
+//                                if (imgList.size() != itemList.size()) {
+//                                    imgList.clear();
+//                                    imgList.addAll(itemList);
+//                                    initNineGrid();
+//                                }
+//                            }, 100);
+//                        })
+//                        .setImageUrls(imgList)
+//                        .setSrcView(imageContainer.getImageView(), position)
+//                        .setSrcViewUpdateListener((popup, pos) -> {
+//                            NineGirdImageContainer view = (NineGirdImageContainer) nineGridView.getChildAt(pos);
+//                            popup.updateSrcView(view.getImageView());
+//                        })
+//                        .show(context);
+
+                new CustomImageViewerDialogFragment2()
                         .setOnSelectedListener(itemList -> {
                             postDelayed(() -> {
                                 if (imgList.size() != itemList.size()) {
@@ -135,11 +155,14 @@ public class ThemeShareFragment extends BaseFragment {
                                 }
                             }, 100);
                         })
-                        .setImageUrls(imgList)
-                        .setSrcView(imageContainer.getImageView(), position)
-                        .setSrcViewUpdateListener((popup, pos) -> {
-                            NineGirdImageContainer view = (NineGirdImageContainer) nineGridView.getChildAt(pos);
-                            popup.updateSrcView(view.getImageView());
+                        .setImageList(imgList)
+                        .setNowIndex(position)
+                        .setSourceImageView(new SourceImageViewGet<Item>() {
+                            @Override
+                            public void updateImageView(ImageItemView<Item> imageItemView, int pos) {
+                                NineGirdImageContainer view = (NineGirdImageContainer) nineGridView.getChildAt(pos);
+                                imageItemView.update(view.getImageView());
+                            }
                         })
                         .show(context);
 

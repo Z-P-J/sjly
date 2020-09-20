@@ -32,7 +32,7 @@ public abstract class BaseDialogFragment extends AbstractDialogFragment {
     protected PopupAnimator shadowBgAnimator;
 
     private FrameLayout rootView;
-    private View implView;
+    private ViewGroup implView;
 
     private boolean isDismissing;
 
@@ -81,7 +81,7 @@ public abstract class BaseDialogFragment extends AbstractDialogFragment {
             }
         });
 
-        implView = LayoutInflater.from(context).inflate(getImplLayoutId(), null, false);
+        implView = (ViewGroup) LayoutInflater.from(context).inflate(getImplLayoutId(), null, false);
         implView.setFocusableInTouchMode(true);
         implView.setFocusable(true);
         implView.setClickable(true);
@@ -272,7 +272,7 @@ public abstract class BaseDialogFragment extends AbstractDialogFragment {
         return rootView;
     }
 
-    protected View getImplView() {
+    protected ViewGroup getImplView() {
         return implView;
     }
 

@@ -199,7 +199,7 @@ public class ImageViewerDialogFragment<T> extends BaseDialogFragment
                             @Override
                             public void onTransitionEnd(@NonNull Transition transition) {
                                 pager.setVisibility(View.VISIBLE);
-                                snapshotView.setVisibility(View.INVISIBLE);
+//                                snapshotView.setVisibility(View.INVISIBLE);
                                 showPagerIndicator();
                                 photoViewContainer.isReleasing = false;
                                 doAfterShow();
@@ -526,7 +526,20 @@ public class ImageViewerDialogFragment<T> extends BaseDialogFragment
             photoView.setTag(position);
             // call LoadImageListener
             if (imageLoader != null)
-                imageLoader.loadImage(position, urls.get(isInfinite ? position % urls.size() : position), photoView);
+                imageLoader.loadImage(position, urls.get(isInfinite ? position % urls.size() : position), photoView, new Runnable() {
+                    @Override
+                    public void run() {
+                        postOnEnterAnimationEnd(new Runnable() {
+                            @Override
+                            public void run() {
+                                if (snapshotView != null) {
+                                    snapshotView.setVisibility(View.INVISIBLE);
+                                }
+                            }
+                        });
+
+                    }
+                });
 
             container.addView(photoView);
             photoView.setOnClickListener(new View.OnClickListener() {

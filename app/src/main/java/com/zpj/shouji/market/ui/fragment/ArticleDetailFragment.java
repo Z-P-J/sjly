@@ -22,6 +22,8 @@ import com.bumptech.glide.request.target.SimpleTarget;
 import com.bumptech.glide.request.transition.Transition;
 import com.felix.atoast.library.AToast;
 import com.zpj.fragmentation.BaseFragment;
+import com.zpj.fragmentation.dialog.imagetrans.ImageItemView;
+import com.zpj.fragmentation.dialog.imagetrans.listener.SourceImageViewGet;
 import com.zpj.fragmentation.dialog.impl.AttachListDialogFragment;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.api.HttpApi;
@@ -36,7 +38,7 @@ import com.zpj.shouji.market.model.article.ImageElement;
 import com.zpj.shouji.market.model.article.LinkElement;
 import com.zpj.shouji.market.model.article.TextElement;
 import com.zpj.shouji.market.ui.fragment.detail.AppDetailFragment;
-import com.zpj.shouji.market.ui.fragment.dialog.CommonImageViewerDialogFragment;
+import com.zpj.shouji.market.ui.fragment.dialog.CommonImageViewerDialogFragment2;
 import com.zpj.shouji.market.ui.widget.DownloadButton;
 import com.zpj.shouji.market.ui.widget.selection.SelectableTextView;
 import com.zpj.utils.ScreenUtils;
@@ -260,13 +262,23 @@ public class ArticleDetailFragment extends BaseFragment {
 //                                popup.updateSrcView(ivImage);
 //                            })
 //                            .show();
-                    new CommonImageViewerDialogFragment()
-                            .setImageUrls(objects)
-                            .setSrcView(ivImage, 0)
-                            .setSrcViewUpdateListener((popup, pos) -> {
-                                popup.updateSrcView(ivImage);
+                    new CommonImageViewerDialogFragment2()
+                            .setNowIndex(0)
+                            .setImageList(objects)
+                            .setSourceImageView(new SourceImageViewGet<String>() {
+                                @Override
+                                public void updateImageView(ImageItemView<String> imageItemView, int pos) {
+                                    imageItemView.update(ivImage);
+                                }
                             })
                             .show(context);
+//                    new CommonImageViewerDialogFragment()
+//                            .setImageUrls(objects)
+//                            .setSrcView(ivImage, 0)
+//                            .setSrcViewUpdateListener((popup, pos) -> {
+//                                popup.updateSrcView(ivImage);
+//                            })
+//                            .show(context);
                 });
                 contentWrapper.addView(view);
                 Glide.with(context)

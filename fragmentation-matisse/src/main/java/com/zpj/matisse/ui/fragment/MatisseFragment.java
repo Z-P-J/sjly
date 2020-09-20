@@ -292,11 +292,18 @@ public class MatisseFragment extends BaseFragment implements
     @Override
     public void onClick(View v) {
         if (v.getId() == R.id.button_preview) {
-            new CustomImageViewerDialogFragment()
+//            new CustomImageViewerDialogFragment()
+//                    .setCountable(mSpec.countable)
+//                    .setSingleSelectionModeEnabled(mSpec.singleSelectionModeEnabled())
+//                    .setSelectedItemManager(mSelectedCollection)
+//                    .setImageUrls(mSelectedCollection.asList())
+//                    .show(context);
+
+            new CustomImageViewerDialogFragment2()
                     .setCountable(mSpec.countable)
                     .setSingleSelectionModeEnabled(mSpec.singleSelectionModeEnabled())
                     .setSelectedItemManager(mSelectedCollection)
-                    .setImageUrls(mSelectedCollection.asList())
+                    .setImageList(mSelectedCollection.asList())
                     .show(context);
 
 

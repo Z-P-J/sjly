@@ -7,7 +7,7 @@ import android.widget.ImageView;
 import java.io.File;
 
 public interface IImageLoader<T>{
-    void loadImage(int position, @NonNull T uri, @NonNull ImageView imageView);
+    void loadImage(int position, @NonNull T uri, @NonNull ImageView imageView, Runnable runnable);
 
     /**
      * 获取图片对应的文件

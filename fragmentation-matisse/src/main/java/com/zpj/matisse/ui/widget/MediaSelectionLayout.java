@@ -19,21 +19,16 @@ import android.content.Context;
 import android.database.Cursor;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
-import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 
 import com.felix.atoast.library.AToast;
-import com.zpj.fragmentation.BaseFragment;
-import com.zpj.fragmentation.anim.DefaultHorizontalAnimator;
-import com.zpj.fragmentation.anim.FragmentAnimator;
 import com.zpj.matisse.R;
 import com.zpj.matisse.entity.Album;
 import com.zpj.matisse.entity.IncapableCause;
@@ -42,7 +37,7 @@ import com.zpj.matisse.entity.SelectionSpec;
 import com.zpj.matisse.event.UpdateTitleEvent;
 import com.zpj.matisse.model.AlbumMediaManager;
 import com.zpj.matisse.model.SelectedItemManager;
-import com.zpj.matisse.ui.fragment.CustomImageViewerDialogFragment;
+import com.zpj.matisse.ui.fragment.CustomImageViewerDialogFragment2;
 import com.zpj.matisse.ui.fragment.MatisseFragment;
 import com.zpj.matisse.utils.UIUtils;
 import com.zpj.recyclerview.EasyRecyclerLayout;
@@ -174,13 +169,33 @@ public class MediaSelectionLayout extends EasyRecyclerLayout<Item> implements
     @Override
     public void onThumbnailClicked(ImageView thumbnail, Item item, EasyViewHolder holder) {
         final int position = holder.getAdapterPosition();
-        new CustomImageViewerDialogFragment()
+//        new CustomImageViewerDialogFragment()
+//                .setSelectedItemManager(mSelectedCollection)
+//                .setCountable(mSpec.countable)
+//                .setSingleSelectionModeEnabled(mSpec.singleSelectionModeEnabled())
+//                .setImageUrls(itemList)
+//                .setSrcView(thumbnail, holder.getAdapterPosition())
+//                .setSrcViewUpdateListener((popupView, pos) -> {
+//                    RecyclerView recyclerView = getEasyRecyclerView().getRecyclerView();
+//                    int layoutPos = recyclerView.indexOfChild(holder.getItemView());
+//                    View view = recyclerView.getChildAt(layoutPos + pos - position);
+//                    ImageView imageView;
+//                    if (view != null) {
+//                        imageView = view.findViewById(R.id.media_thumbnail);
+//                    } else {
+//                        imageView = thumbnail;
+//                    }
+//                    popupView.updateSrcView(imageView);
+//                })
+//                .show(getContext());
+
+        new CustomImageViewerDialogFragment2()
                 .setSelectedItemManager(mSelectedCollection)
                 .setCountable(mSpec.countable)
                 .setSingleSelectionModeEnabled(mSpec.singleSelectionModeEnabled())
-                .setImageUrls(itemList)
-                .setSrcView(thumbnail, holder.getAdapterPosition())
-                .setSrcViewUpdateListener((popupView, pos) -> {
+                .setImageList(itemList)
+                .setNowIndex(holder.getAdapterPosition())
+                .setSourceImageView((imageItemView, pos) -> {
                     RecyclerView recyclerView = getEasyRecyclerView().getRecyclerView();
                     int layoutPos = recyclerView.indexOfChild(holder.getItemView());
                     View view = recyclerView.getChildAt(layoutPos + pos - position);
@@ -190,7 +205,7 @@ public class MediaSelectionLayout extends EasyRecyclerLayout<Item> implements
                     } else {
                         imageView = thumbnail;
                     }
-                    popupView.updateSrcView(imageView);
+                    imageItemView.update(imageView);
                 })
                 .show(getContext());
     }

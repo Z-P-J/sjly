@@ -21,8 +21,8 @@ public class ImageTransBuild<T> {
     public int clickIndex;
     public int nowIndex;
     public List<T> imageList;
-    public SourceImageViewGet sourceImageViewGet;
-    public ProgressViewGet progressViewGet;
+    public SourceImageViewGet<T> sourceImageViewGet;
+    public ProgressViewGet<View> progressViewGet;
     public ITConfig itConfig;
     public ImageTransAdapter imageTransAdapter;
     public ImageLoad<T> imageLoad;
@@ -43,7 +43,7 @@ public class ImageTransBuild<T> {
         if (sourceImageViewGet == null)
             throw new NullPointerException("not set SourceImageViewGet");
         if (imageLoad == null)
-            throw new NullPointerException("not set ImageLoad");
+            imageLoad = new MyImageLoad<>();
         if (imageList == null)
             throw new NullPointerException("not set ImageList");
     }
