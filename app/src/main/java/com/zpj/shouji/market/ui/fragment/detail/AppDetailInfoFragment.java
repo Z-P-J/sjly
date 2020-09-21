@@ -145,13 +145,19 @@ public class AppDetailInfoFragment extends BaseFragment
                     .setSourceImageView(new SourceImageViewGet<String>() {
                         private boolean flag = true;
                         @Override
-                        public void updateImageView(ImageItemView<String> imageItemView, int pos) {
+                        public void updateImageView(ImageItemView<String> imageItemView, int pos, boolean isCurrent) {
                             if (flag) {
                                 flag = false;
-                            } else {
+                            } else if (isCurrent){
                                 recyclerView.getRecyclerView().scrollToPosition(pos);
                             }
+                            Log.d("updateImageView", "updateImageViewupdateImageView");
 
+                            ImageView imageView = recyclerView.getRecyclerView().findViewWithTag(pos);
+                            if (imageView == null) {
+                                imageView = img;
+                            }
+                            imageItemView.update(imageView);
                             postDelayed(() -> {
 //                                int layoutPos = recyclerView.getRecyclerView().indexOfChild(holder.getItemView());
 //                                View view = recyclerView.getRecyclerView().getChildAt(layoutPos + pos - position);
@@ -161,12 +167,12 @@ public class AppDetailInfoFragment extends BaseFragment
 //                                } else {
 //                                    imageView = img;
 //                                }
-                                ImageView imageView = recyclerView.getRecyclerView().findViewWithTag(pos);
-                                if (imageView == null) {
-                                    imageView = img;
+                                ImageView imageView2 = recyclerView.getRecyclerView().findViewWithTag(pos);
+                                if (imageView2 == null) {
+                                    imageView2 = img;
                                 }
-                                imageItemView.update(imageView);
-                            }, 100);
+                                imageItemView.update(imageView2);
+                            }, 150);
                         }
                     })
                     .show(context);

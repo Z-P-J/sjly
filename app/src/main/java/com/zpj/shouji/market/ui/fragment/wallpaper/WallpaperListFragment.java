@@ -18,8 +18,6 @@ import com.bumptech.glide.Glide;
 import com.felix.atoast.library.AToast;
 import com.github.zagum.expandicon.ExpandIconView;
 import com.sunbinqiang.iconcountview.IconCountView;
-import com.zpj.fragmentation.BaseFragment;
-import com.zpj.fragmentation.SupportHelper;
 import com.zpj.fragmentation.dialog.imagetrans.ImageItemView;
 import com.zpj.fragmentation.dialog.imagetrans.listener.SourceImageViewGet;
 import com.zpj.http.parser.html.nodes.Document;
@@ -30,18 +28,14 @@ import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.api.HttpApi;
 import com.zpj.shouji.market.constant.AppConfig;
 import com.zpj.shouji.market.constant.Keys;
-import com.zpj.shouji.market.event.GetMainActivityEvent;
 import com.zpj.shouji.market.event.StatusBarEvent;
 import com.zpj.shouji.market.glide.GlideUtils;
 import com.zpj.shouji.market.model.WallpaperInfo;
 import com.zpj.shouji.market.model.WallpaperTag;
-import com.zpj.shouji.market.ui.activity.MainActivity;
 import com.zpj.shouji.market.ui.fragment.base.NextUrlFragment;
 import com.zpj.shouji.market.ui.fragment.dialog.RecyclerPartShadowDialogFragment;
-import com.zpj.shouji.market.ui.fragment.dialog.WallpaperViewerDialogFragment;
 import com.zpj.shouji.market.ui.fragment.dialog.WallpaperViewerDialogFragment2;
 import com.zpj.shouji.market.ui.widget.emoji.EmojiExpandableTextView;
-import com.zpj.shouji.market.utils.Callback;
 import com.zpj.utils.NetUtils;
 import com.zpj.utils.ScreenUtils;
 
@@ -195,7 +189,7 @@ public class WallpaperListFragment extends NextUrlFragment<WallpaperInfo> {
                 .setNowIndex(0)
                 .setSourceImageView(new SourceImageViewGet<String>() {
                     @Override
-                    public void updateImageView(ImageItemView<String> imageItemView, int pos) {
+                    public void updateImageView(ImageItemView<String> imageItemView, int pos, boolean isCurrent) {
                         imageItemView.update(wallpaper);
                     }
                 })

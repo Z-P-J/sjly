@@ -48,7 +48,7 @@ public class ImageItemView<T> extends FrameLayout implements
         this.url = url;
     }
 
-    void init(boolean opened) {
+    void init(boolean opened, boolean isCurrent) {
         this.isOpened = opened;
 //        imageView = new TransImageView(getContext());
 //        imageView.setOnTransformListener(transformOpenListener);
@@ -63,10 +63,14 @@ public class ImageItemView<T> extends FrameLayout implements
 //        imageView.setOnClickListener(this);
 //        if (needTransOpen || opened) loadImage();
 
-        build.sourceImageViewGet.updateImageView(this, pos);
+        build.sourceImageViewGet.updateImageView(this, pos, isCurrent);
     }
 
     public void update(View view) {
+        if (imageView != null) {
+            imageView.settingConfig(build.itConfig, new ThumbConfig(view, getResources(), build.scaleType));
+            return;
+        }
         imageView = new TransImageView(getContext());
         imageView.setOnTransformListener(transformOpenListener);
         addView(imageView, new LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
@@ -86,6 +90,9 @@ public class ImageItemView<T> extends FrameLayout implements
     }
 
     void loadImage() {
+        if (imageView == null) {
+            return;
+        }
         isCached = build.imageLoad.isCached(url);
         final boolean needShowThumb = !build.itConfig.noThumb && !(build.itConfig.noThumbWhenCached && build.imageLoad.isCached(url));
         if (needShowThumb) {

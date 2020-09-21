@@ -214,7 +214,7 @@ public class MediaSelectionFragment extends BaseFragment implements
                 .setSingleSelectionModeEnabled(mSpec.singleSelectionModeEnabled())
                 .setImageList(itemList)
                 .setNowIndex(holder.getAdapterPosition())
-                .setSourceImageView((imageItemView, pos) -> {
+                .setSourceImageView((imageItemView, pos, isCurrent) -> {
                     RecyclerView recyclerView = recyclerLayout.getEasyRecyclerView().getRecyclerView();
                     int layoutPos = recyclerView.indexOfChild(holder.getItemView());
                     View view = recyclerView.getChildAt(layoutPos + pos - position);

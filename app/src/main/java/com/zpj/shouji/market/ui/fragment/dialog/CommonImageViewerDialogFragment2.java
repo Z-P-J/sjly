@@ -12,6 +12,7 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
@@ -34,13 +35,13 @@ import com.zpj.widget.toolbar.ZToolBar;
 import java.io.File;
 import java.util.List;
 
-public class CommonImageViewerDialogFragment2 extends ImageViewerDialogFragment2<String>
-        implements IImageLoader<String> {
+public class CommonImageViewerDialogFragment2 extends ImageViewerDialogFragment2<String> {
 
     private List<String> originalImageList;
     private List<String> imageSizeList;
 
     private ZToolBar titleBar;
+    private RelativeLayout bottomBar;
     protected TextView tvInfo;
     protected TextView tvIndicator;
     private TintedImageButton btnMore;
@@ -67,6 +68,7 @@ public class CommonImageViewerDialogFragment2 extends ImageViewerDialogFragment2
         super.initView(view, savedInstanceState);
 
         titleBar = findViewById(R.id.tool_bar);
+        bottomBar = findViewById(R.id.bottom_bar);
         tvIndicator = findViewById(R.id.tv_indicator);
         tvInfo = findViewById(R.id.tv_info);
         btnMore = findViewById(R.id.btn_more);
@@ -133,44 +135,13 @@ public class CommonImageViewerDialogFragment2 extends ImageViewerDialogFragment2
         });
     }
 
-//    @Override
-//    public void loadImage(int position, @NonNull String url, @NonNull ImageView imageView) {
-//        Glide.with(imageView)
-//                .load(url)
-////                .apply(
-////                        new RequestOptions()
-//////                                .placeholder(R.drawable.bga_pp_ic_holder_light)
-//////                                .error(R.drawable.bga_pp_ic_holder_light)
-////                                .override(Target.SIZE_ORIGINAL)
-////                )
-//                .transition(GlideUtils.DRAWABLE_TRANSITION_NONE)
-//                .into(imageView);
-//    }
-
     @Override
-    public void loadImage(int position, @NonNull String url, @NonNull ImageView imageView, Runnable runnable) {
-        Glide.with(imageView)
-                .asBitmap()
-                .load(url)
-                .into(new SimpleTarget<Bitmap>() {
-                    @Override
-                    public void onResourceReady(@NonNull Bitmap resource, @Nullable Transition<? super Bitmap> transition) {
-                        imageView.setImageBitmap(resource);
-                        if (runnable != null) {
-                            runnable.run();
-                        }
-                    }
-                });
-    }
-
-    @Override
-    public File getImageFile(@NonNull Context context, @NonNull String url) {
-        try {
-            return Glide.with(context).downloadOnly().load(url).submit().get();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return null;
+    protected void onTransform(float ratio) {
+        super.onTransform(ratio);
+        float fraction = 1 - ratio;
+        Log.d("onTransform", "fraction=" + fraction);
+        bottomBar.setTranslationY(bottomBar.getHeight() * fraction);
+        titleBar.setTranslationY(-titleBar.getHeight() * fraction);
     }
 
     private String getOriginalImageUrl() {

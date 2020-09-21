@@ -9,7 +9,8 @@ import com.zpj.fragmentation.dialog.imagetrans.ImageItemView;
  */
 
 public interface SourceImageViewGet<T> {
+
 //    ImageView getImageView(int pos);
 
-    public void updateImageView(ImageItemView<T> imageItemView, int pos);
+    public void updateImageView(ImageItemView<T> imageItemView, int pos, boolean isCurrent);
 }

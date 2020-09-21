@@ -10,14 +10,9 @@ import android.view.View;
 
 import com.felix.atoast.library.AToast;
 import com.zpj.fragmentation.BaseFragment;
-import com.zpj.fragmentation.SupportFragment;
-import com.zpj.fragmentation.anim.DefaultHorizontalAnimator;
-import com.zpj.fragmentation.anim.DefaultNoAnimator;
-import com.zpj.fragmentation.anim.FragmentAnimator;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.event.StartFragmentEvent;
 import com.zpj.shouji.market.ui.adapter.FragmentsPagerAdapter;
-import com.zpj.shouji.market.ui.fragment.base.BaseContainerFragment;
 import com.zpj.shouji.market.ui.widget.ZViewPager;
 import com.zpj.widget.toolbar.ZSearchBar;
 

@@ -267,7 +267,7 @@ public class ReplyPanel extends FrameLayout
                                 })
                                 .setImageList(imgList)
                                 .setNowIndex(holder.getAdapterPosition())
-                                .setSourceImageView((imageItemView, pos) -> {
+                                .setSourceImageView((imageItemView, pos, isCurrent) -> {
                                     int layoutPos = recyclerView.getRecyclerView().indexOfChild(holder.getItemView());
                                     View view = recyclerView.getRecyclerView().getChildAt(layoutPos + pos - position);
                                     ImageView imageView;

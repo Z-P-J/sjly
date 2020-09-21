@@ -136,7 +136,7 @@ public class FeedbackFragment extends BaseFragment {
                         .setNowIndex(position)
                         .setSourceImageView(new SourceImageViewGet<Item>() {
                             @Override
-                            public void updateImageView(ImageItemView<Item> imageItemView, int pos) {
+                            public void updateImageView(ImageItemView<Item> imageItemView, int pos, boolean isCurrent) {
                                 NineGirdImageContainer view = (NineGirdImageContainer) nineGridView.getChildAt(pos);
                                 imageItemView.update(view.getImageView());
                             }

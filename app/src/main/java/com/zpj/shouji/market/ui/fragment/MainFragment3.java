@@ -7,11 +7,11 @@ import android.view.View;
 
 import com.zpj.fragmentation.BaseFragment;
 import com.zpj.fragmentation.SupportFragment;
-import com.zpj.fragmentation.anim.DefaultHorizontalAnimator;
 import com.zpj.fragmentation.anim.FragmentAnimator;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.manager.UserManager;
 import com.zpj.shouji.market.model.MessageInfo;
+import com.zpj.shouji.market.ui.animator.MyFragmentAnimator;
 import com.zpj.shouji.market.ui.fragment.homepage.HomeFragment;
 import com.zpj.shouji.market.ui.fragment.profile.MyFragment;
 import com.zpj.shouji.market.ui.fragment.recommond.GameRecommendFragment2;
@@ -46,7 +46,7 @@ public class MainFragment3 extends BaseFragment {
 
     @Override
     public FragmentAnimator onCreateFragmentAnimator() {
-        return new DefaultHorizontalAnimator();
+        return new MyFragmentAnimator();
     }
 
     @Override

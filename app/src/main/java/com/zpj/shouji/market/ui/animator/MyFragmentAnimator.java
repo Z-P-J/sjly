@@ -9,19 +9,19 @@ import com.zpj.shouji.market.R;
 
 public class MyFragmentAnimator extends FragmentAnimator implements Parcelable {
 
-    public MyFragmentAnimator() {
-        enter = R.anim.my_fragment_enter;
-        exit = R.anim.my_fragment_exit;
-        popEnter = R.anim.my_fragment_pop_enter;
-        popExit = R.anim.my_fragment_pop_exit;
-    }
-
 //    public MyFragmentAnimator() {
-//        enter = R.anim.vertical_fragment_enter;
-//        exit = R.anim.vertical_fragment_exit;
-//        popEnter = R.anim.vertical_fragment_pop_enter;
-//        popExit = R.anim.vertical_fragment_pop_exit;
+//        enter = R.anim.my_fragment_enter;
+//        exit = R.anim.my_fragment_exit;
+//        popEnter = R.anim.my_fragment_pop_enter;
+//        popExit = R.anim.my_fragment_pop_exit;
 //    }
+
+    public MyFragmentAnimator() {
+        enter = R.anim.vertical_fragment_enter;
+        exit = R.anim.vertical_fragment_exit;
+        popEnter = R.anim.vertical_fragment_pop_enter;
+        popExit = R.anim.vertical_fragment_pop_exit;
+    }
 
     protected MyFragmentAnimator(Parcel in) {
         super(in);

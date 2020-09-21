@@ -1,7 +1,7 @@
 # compiler: R8
 # compiler_version: 1.5.69
 # min_api: 19
-# pg_map_id: 6a71399
+# pg_map_id: 6929a3c
 android.arch.core.executor.ArchTaskExecutor -> a.a.a.a.a:
     android.arch.core.executor.ArchTaskExecutor sInstance -> c
     android.arch.core.executor.TaskExecutor mDelegate -> a
@@ -35742,34 +35742,36 @@ com.zpj.fragmentation.dialog.imagetrans.DialogView -> com.zpj.fragmentation.dial
     30:31:void <init>(android.content.Context) -> <init>
     34:35:void <init>(android.content.Context,android.util.AttributeSet) -> <init>
     38:39:void <init>(android.content.Context,android.util.AttributeSet,int) -> <init>
-    22:22:com.zpj.fragmentation.dialog.imagetrans.ImageTransBuild access$000(com.zpj.fragmentation.dialog.imagetrans.DialogView) -> a
-    42:70:void onCreate(com.zpj.fragmentation.dialog.imagetrans.ImageTransBuild,com.zpj.fragmentation.dialog.impl.FullScreenDialogFragment) -> a
-    77:78:void addOnPageChangeListener(android.support.v4.view.ViewPager$OnPageChangeListener) -> a
-    97:101:void onDismiss(com.zpj.fragmentation.dialog.impl.FullScreenDialogFragment) -> a
-    106:108:void transformStart() -> a
-    120:121:void onTransform(float) -> a
+    22:22:com.zpj.fragmentation.dialog.imagetrans.DialogView$ImagePagerAdapter access$000(com.zpj.fragmentation.dialog.imagetrans.DialogView) -> a
+    42:75:void onCreate(com.zpj.fragmentation.dialog.imagetrans.ImageTransBuild,com.zpj.fragmentation.dialog.impl.FullScreenDialogFragment) -> a
+    82:83:void addOnPageChangeListener(android.support.v4.view.ViewPager$OnPageChangeListener) -> a
+    102:106:void onDismiss(com.zpj.fragmentation.dialog.impl.FullScreenDialogFragment) -> a
+    111:113:void transformStart() -> a
+    125:126:void onTransform(float) -> a
     22:22:boolean access$100(com.zpj.fragmentation.dialog.imagetrans.DialogView) -> b
-    112:116:void transformEnd() -> b
-    73:73:com.zpj.fragmentation.dialog.imagetrans.DialogView$ImagePagerAdapter getAdapter() -> getAdapter
-    89:89:int getCurrentItem() -> getCurrentItem
-    93:93:com.zpj.fragmentation.dialog.imagetrans.InterceptViewPager getViewPager() -> getViewPager
+    117:121:void transformEnd() -> b
+    22:22:com.zpj.fragmentation.dialog.imagetrans.ImageTransBuild access$200(com.zpj.fragmentation.dialog.imagetrans.DialogView) -> c
+    78:78:com.zpj.fragmentation.dialog.imagetrans.DialogView$ImagePagerAdapter getAdapter() -> getAdapter
+    94:94:int getCurrentItem() -> getCurrentItem
+    98:98:com.zpj.fragmentation.dialog.imagetrans.InterceptViewPager getViewPager() -> getViewPager
 com.zpj.fragmentation.dialog.imagetrans.DialogView$1 -> com.zpj.fragmentation.dialog.imagetrans.DialogView$a:
     com.zpj.fragmentation.dialog.imagetrans.ImageTransBuild val$build -> a
+    com.zpj.fragmentation.dialog.imagetrans.DialogView this$0 -> b
     53:53:void <init>(com.zpj.fragmentation.dialog.imagetrans.DialogView,com.zpj.fragmentation.dialog.imagetrans.ImageTransBuild) -> <init>
-    68:68:void onPageScrollStateChanged(int) -> onPageScrollStateChanged
+    73:73:void onPageScrollStateChanged(int) -> onPageScrollStateChanged
     57:57:void onPageScrolled(int,float,int) -> onPageScrolled
-    61:63:void onPageSelected(int) -> onPageSelected
+    61:68:void onPageSelected(int) -> onPageSelected
 com.zpj.fragmentation.dialog.imagetrans.DialogView$ImagePagerAdapter -> com.zpj.fragmentation.dialog.imagetrans.DialogView$b:
     java.util.List mData -> a
     android.util.SparseArray itemViewSparseArray -> b
     com.zpj.fragmentation.dialog.imagetrans.DialogView this$0 -> c
-    128:131:void <init>(com.zpj.fragmentation.dialog.imagetrans.DialogView,java.util.List) -> <init>
-    149:149:com.zpj.fragmentation.dialog.imagetrans.ImageItemView getItemView(int) -> a
-    169:173:void loadWhenTransEnd() -> a
-    154:156:void destroyItem(android.view.ViewGroup,int,java.lang.Object) -> destroyItem
-    160:160:int getCount() -> getCount
-    135:145:java.lang.Object instantiateItem(android.view.ViewGroup,int) -> instantiateItem
-    165:165:boolean isViewFromObject(android.view.View,java.lang.Object) -> isViewFromObject
+    137:140:void <init>(com.zpj.fragmentation.dialog.imagetrans.DialogView,java.util.List) -> <init>
+    158:158:com.zpj.fragmentation.dialog.imagetrans.ImageItemView getItemView(int) -> a
+    178:182:void loadWhenTransEnd() -> a
+    163:165:void destroyItem(android.view.ViewGroup,int,java.lang.Object) -> destroyItem
+    169:169:int getCount() -> getCount
+    144:154:java.lang.Object instantiateItem(android.view.ViewGroup,int) -> instantiateItem
+    174:174:boolean isViewFromObject(android.view.View,java.lang.Object) -> isViewFromObject
 com.zpj.fragmentation.dialog.imagetrans.ITConfig -> com.zpj.fragmentation.dialog.imagetrans.f:
     boolean noThumb -> e
     float readModeRule -> c
@@ -35915,37 +35917,37 @@ com.zpj.fragmentation.dialog.imagetrans.ImageItemView -> com.zpj.fragmentation.d
     20:20:boolean access$000(com.zpj.fragmentation.dialog.imagetrans.ImageItemView) -> a
     20:20:void access$100(com.zpj.fragmentation.dialog.imagetrans.ImageItemView,float) -> a
     20:20:boolean access$302(com.zpj.fragmentation.dialog.imagetrans.ImageItemView,boolean) -> a
-    52:67:void init(boolean) -> a
-    70:82:void update(android.view.View) -> a
-    89:111:void loadImage() -> a
-    128:129:void bindTransOpenListener(com.zpj.fragmentation.dialog.imagetrans.listener.OnTransformListener) -> a
-    146:170:void onChange(com.zpj.fragmentation.dialog.imagetrans.TransformAttacher$TransState) -> a
-    173:177:com.zpj.fragmentation.dialog.imagetrans.InterceptViewPager getViewPager(android.view.ViewParent) -> a
-    199:200:void onPull(float) -> a
+    52:67:void init(boolean,boolean) -> a
+    70:86:void update(android.view.View) -> a
+    93:118:void loadImage() -> a
+    135:136:void bindTransOpenListener(com.zpj.fragmentation.dialog.imagetrans.listener.OnTransformListener) -> a
+    153:177:void onChange(com.zpj.fragmentation.dialog.imagetrans.TransformAttacher$TransState) -> a
+    180:184:com.zpj.fragmentation.dialog.imagetrans.InterceptViewPager getViewPager(android.view.ViewParent) -> a
+    206:207:void onPull(float) -> a
     20:20:void access$200(com.zpj.fragmentation.dialog.imagetrans.ImageItemView) -> b
-    85:86:void loadImageWhenTransEnd() -> b
-    141:142:void progressChange(float) -> b
+    89:90:void loadImageWhenTransEnd() -> b
+    148:149:void progressChange(float) -> b
     20:20:boolean access$400(com.zpj.fragmentation.dialog.imagetrans.ImageItemView) -> c
-    118:119:void onDestroy() -> c
+    125:126:void onDestroy() -> c
     20:20:com.zpj.fragmentation.dialog.imagetrans.TransImageView access$500(com.zpj.fragmentation.dialog.imagetrans.ImageItemView) -> d
-    114:115:void onDismiss() -> d
-    137:138:void hideProgress() -> e
-    133:134:void showProgress() -> f
-    204:205:void onCancel() -> onCancel
-    189:189:boolean onClick(android.view.View) -> onClick
-    195:195:void onClose() -> onClose
-    123:125:void onDetachedFromWindow() -> onDetachedFromWindow
-    183:184:boolean onLongClick(android.view.View) -> onLongClick
+    121:122:void onDismiss() -> d
+    144:145:void hideProgress() -> e
+    140:141:void showProgress() -> f
+    211:212:void onCancel() -> onCancel
+    196:196:boolean onClick(android.view.View) -> onClick
+    202:202:void onClose() -> onClose
+    130:132:void onDetachedFromWindow() -> onDetachedFromWindow
+    190:191:boolean onLongClick(android.view.View) -> onLongClick
     48:49:void setUrl(java.lang.Object) -> setUrl
 com.zpj.fragmentation.dialog.imagetrans.ImageItemView$1 -> com.zpj.fragmentation.dialog.imagetrans.ImageItemView$a:
     com.zpj.fragmentation.dialog.imagetrans.ImageItemView this$0 -> b
     boolean val$needShowThumb -> a
-    96:96:void <init>(com.zpj.fragmentation.dialog.imagetrans.ImageItemView,boolean) -> <init>
-    99:102:void progress(float) -> a
-    106:109:void loadFinish(android.graphics.drawable.Drawable) -> a
+    103:103:void <init>(com.zpj.fragmentation.dialog.imagetrans.ImageItemView,boolean) -> <init>
+    106:109:void progress(float) -> a
+    113:116:void loadFinish(android.graphics.drawable.Drawable) -> a
 com.zpj.fragmentation.dialog.imagetrans.ImageItemView$2 -> com.zpj.fragmentation.dialog.imagetrans.ImageItemView$b:
     int[] $SwitchMap$com$zpj$fragmentation$dialog$imagetrans$TransformAttacher$TransState -> a
-    146:146:void <clinit>() -> <clinit>
+    153:153:void <clinit>() -> <clinit>
 com.zpj.fragmentation.dialog.imagetrans.ImageLoad -> com.zpj.fragmentation.dialog.imagetrans.h:
     void cancel(java.lang.Object,java.lang.String) -> a
     boolean isCached(java.lang.Object) -> a
@@ -36095,10 +36097,14 @@ com.zpj.fragmentation.dialog.imagetrans.ScaleType -> com.zpj.fragmentation.dialo
     7:7:com.zpj.fragmentation.dialog.imagetrans.ScaleType[] values() -> values
 com.zpj.fragmentation.dialog.imagetrans.ThumbConfig -> com.zpj.fragmentation.dialog.imagetrans.n:
     android.graphics.RectF imageRectF -> a
+    int screenHeight -> f
     java.lang.ref.WeakReference thumbnailWeakRefe -> c
+    int screenWidth -> e
     com.zpj.fragmentation.dialog.imagetrans.ScaleType scaleType -> b
-    25:53:void <init>(android.view.View,android.content.res.Resources,com.zpj.fragmentation.dialog.imagetrans.ScaleType) -> <init>
-    56:64:int getStatesBarHeight(android.content.Context) -> a
+    android.view.View view -> d
+    28:57:void <init>(android.view.View,android.content.res.Resources,com.zpj.fragmentation.dialog.imagetrans.ScaleType) -> <init>
+    60:81:android.graphics.RectF getImageRect() -> a
+    85:93:int getStatesBarHeight(android.content.Context) -> a
 com.zpj.fragmentation.dialog.imagetrans.TileBitmapDrawable -> com.zpj.fragmentation.dialog.imagetrans.o:
     android.graphics.BitmapRegionDecoder mRegionDecoder -> c
     java.util.concurrent.atomic.AtomicInteger sInstanceIds -> q
@@ -36367,7 +36373,7 @@ com.zpj.fragmentation.dialog.imagetrans.listener.ProgressViewGet -> com.zpj.frag
     android.view.View getProgress(android.content.Context) -> a
     void onProgressChange(android.view.View,float) -> a
 com.zpj.fragmentation.dialog.imagetrans.listener.SourceImageViewGet -> com.zpj.fragmentation.dialog.imagetrans.s.e:
-    void updateImageView(com.zpj.fragmentation.dialog.imagetrans.ImageItemView,int) -> a
+    void updateImageView(com.zpj.fragmentation.dialog.imagetrans.ImageItemView,int,boolean) -> a
 com.zpj.fragmentation.dialog.impl.-$$Lambda$AttachListDialogFragment$Eb07rNmlYkxXJREvQybQSwAvYPs -> com.zpj.fragmentation.dialog.g.a:
     com.zpj.fragmentation.dialog.impl.AttachListDialogFragment f$0 -> a
     void onClick(com.zpj.recyclerview.EasyViewHolder,android.view.View,java.lang.Object) -> a
@@ -39960,12 +39966,12 @@ com.zpj.matisse.ui.widget.-$$Lambda$AlbumListLayout$LWnxba9ifmZCJy_ngPWZvsOWhHw 
 com.zpj.matisse.ui.widget.-$$Lambda$AlbumListLayout$W5WwjWMEFwMVeilZhuKnPMoYn8Q -> com.zpj.matisse.ui.widget.b:
     com.zpj.matisse.ui.widget.AlbumListLayout f$0 -> a
     void onClick(com.zpj.recyclerview.EasyViewHolder,android.view.View,java.lang.Object) -> a
-com.zpj.matisse.ui.widget.-$$Lambda$MediaSelectionLayout$0zQus8DL8EM9lKih97jN20on1Uo -> com.zpj.matisse.ui.widget.c:
+com.zpj.matisse.ui.widget.-$$Lambda$MediaSelectionLayout$2hIK7D14edfsiGu58n9S6t-Sdhs -> com.zpj.matisse.ui.widget.c:
     com.zpj.matisse.ui.widget.MediaSelectionLayout f$0 -> a
     com.zpj.recyclerview.EasyViewHolder f$1 -> b
     android.widget.ImageView f$3 -> d
     int f$2 -> c
-    void updateImageView(com.zpj.fragmentation.dialog.imagetrans.ImageItemView,int) -> a
+    void updateImageView(com.zpj.fragmentation.dialog.imagetrans.ImageItemView,int,boolean) -> a
 com.zpj.matisse.ui.widget.AlbumListLayout -> com.zpj.matisse.ui.widget.AlbumListLayout:
     java.util.List albumList -> b
     com.zpj.matisse.model.AlbumManager mAlbumManager -> a
@@ -40083,7 +40089,7 @@ com.zpj.matisse.ui.widget.MediaSelectionLayout -> com.zpj.matisse.ui.widget.Medi
     143:144:void onAlbumMediaReset() -> a
     148:167:void onBindViewHolder(com.zpj.recyclerview.EasyViewHolder,java.util.List,int,java.util.List) -> a
     171:211:void onThumbnailClicked(android.widget.ImageView,com.zpj.matisse.entity.Item,com.zpj.recyclerview.EasyViewHolder) -> a
-    199:209:void lambda$onThumbnailClicked$0(com.zpj.recyclerview.EasyViewHolder,int,android.widget.ImageView,com.zpj.fragmentation.dialog.imagetrans.ImageItemView,int) -> a
+    199:209:void lambda$onThumbnailClicked$0(com.zpj.recyclerview.EasyViewHolder,int,android.widget.ImageView,com.zpj.fragmentation.dialog.imagetrans.ImageItemView,int,boolean) -> a
     215:237:void onCheckViewClicked(com.zpj.matisse.ui.widget.CheckView,com.zpj.matisse.entity.Item,com.zpj.recyclerview.EasyViewHolder) -> a
     252:281:void setCheckStatus(com.zpj.matisse.entity.Item,com.zpj.matisse.ui.widget.MediaGrid) -> a
     284:286:boolean assertAddSelection(com.zpj.matisse.entity.Item) -> a
@@ -42530,7 +42536,7 @@ com.zpj.shouji.market.ui.adapter.DiscoverBinder$OnNineGridImageViewItemClickList
 com.zpj.shouji.market.ui.adapter.DiscoverBinder$OnNineGridImageViewItemClickListener$1 -> com.zpj.shouji.market.f.a.g$f$a:
     com.zpj.shouji.market.ui.adapter.DiscoverBinder$OnNineGridImageViewItemClickListener this$0 -> a
     551:551:void <init>(com.zpj.shouji.market.ui.adapter.DiscoverBinder$OnNineGridImageViewItemClickListener) -> <init>
-    554:556:void updateImageView(com.zpj.fragmentation.dialog.imagetrans.ImageItemView,int) -> a
+    554:556:void updateImageView(com.zpj.fragmentation.dialog.imagetrans.ImageItemView,int,boolean) -> a
 com.zpj.shouji.market.ui.adapter.FragmentsPagerAdapter -> com.zpj.shouji.market.f.a.h:
     java.util.List fragments -> a
     java.lang.String[] tabTitle -> b
@@ -42645,7 +42651,7 @@ com.zpj.shouji.market.ui.animator.KickBackAnimator -> com.zpj.shouji.market.ui.a
     5:5:java.lang.Object evaluate(float,java.lang.Object,java.lang.Object) -> evaluate
 com.zpj.shouji.market.ui.animator.MyFragmentAnimator -> com.zpj.shouji.market.ui.animator.MyFragmentAnimator:
     40:40:void <clinit>() -> <clinit>
-    12:17:void <init>() -> <init>
+    19:24:void <init>() -> <init>
     27:28:void <init>(android.os.Parcel) -> <init>
     37:37:int describeContents() -> describeContents
     32:33:void writeToParcel(android.os.Parcel,int) -> writeToParcel
@@ -42768,7 +42774,7 @@ com.zpj.shouji.market.ui.fragment.ArticleDetailFragment$1 -> com.zpj.shouji.mark
 com.zpj.shouji.market.ui.fragment.ArticleDetailFragment$2 -> com.zpj.shouji.market.f.b.s:
     android.widget.ImageView val$ivImage -> a
     268:268:void <init>(com.zpj.shouji.market.ui.fragment.ArticleDetailFragment,android.widget.ImageView) -> <init>
-    271:272:void updateImageView(com.zpj.fragmentation.dialog.imagetrans.ImageItemView,int) -> a
+    271:272:void updateImageView(com.zpj.fragmentation.dialog.imagetrans.ImageItemView,int,boolean) -> a
 com.zpj.shouji.market.ui.fragment.ArticleDetailFragment$3 -> com.zpj.shouji.market.f.b.r$b:
     com.zpj.shouji.market.ui.fragment.ArticleDetailFragment this$0 -> e
     android.widget.ImageView val$ivImage -> d
@@ -42818,7 +42824,7 @@ com.zpj.shouji.market.ui.fragment.FeedbackFragment$2 -> com.zpj.shouji.market.f.
 com.zpj.shouji.market.ui.fragment.FeedbackFragment$2$1 -> com.zpj.shouji.market.f.b.t$b$a:
     com.zpj.shouji.market.ui.fragment.FeedbackFragment$2 this$1 -> a
     137:137:void <init>(com.zpj.shouji.market.ui.fragment.FeedbackFragment$2) -> <init>
-    140:142:void updateImageView(com.zpj.fragmentation.dialog.imagetrans.ImageItemView,int) -> a
+    140:142:void updateImageView(com.zpj.fragmentation.dialog.imagetrans.ImageItemView,int,boolean) -> a
 com.zpj.shouji.market.ui.fragment.FeedbackFragment$3 -> com.zpj.shouji.market.f.b.u:
     205:205:void <init>(com.zpj.shouji.market.ui.fragment.FeedbackFragment) -> <init>
     209:209:void onBytesWritten(int) -> a
@@ -43232,7 +43238,7 @@ com.zpj.shouji.market.ui.fragment.chat.ChatFragment$2 -> com.zpj.shouji.market.f
 com.zpj.shouji.market.ui.fragment.chat.ChatFragment$2$1 -> com.zpj.shouji.market.f.b.d0.n$b$a:
     com.zpj.shouji.market.ui.fragment.chat.ChatFragment$2 this$1 -> a
     465:465:void <init>(com.zpj.shouji.market.ui.fragment.chat.ChatFragment$2) -> <init>
-    468:470:void updateImageView(com.zpj.fragmentation.dialog.imagetrans.ImageItemView,int) -> a
+    468:470:void updateImageView(com.zpj.fragmentation.dialog.imagetrans.ImageItemView,int,boolean) -> a
 com.zpj.shouji.market.ui.fragment.chat.ChatFragment$3 -> com.zpj.shouji.market.f.b.d0.n$c:
     509:509:void <init>(com.zpj.shouji.market.ui.fragment.chat.ChatFragment) -> <init>
     513:513:void onBytesWritten(int) -> a
@@ -43589,19 +43595,19 @@ com.zpj.shouji.market.ui.fragment.detail.AppDetailInfoFragment -> com.zpj.shouji
     48:48:void <init>() -> <init>
     48:48:float access$000(com.zpj.shouji.market.ui.fragment.detail.AppDetailInfoFragment) -> a
     88:97:void initView(android.view.View,android.os.Bundle) -> a
-    101:238:void onBindViewHolder(com.zpj.recyclerview.EasyViewHolder,java.util.List,int,java.util.List) -> a
-    142:237:void lambda$onBindViewHolder$0(java.util.List,int,android.widget.ImageView,android.view.View) -> a
-    295:295:void lambda$onGetAppDetailInfo$2(com.zpj.recyclerview.EasyViewHolder,android.view.View,com.zpj.shouji.market.model.AppInfo) -> a
-    311:312:void addItem(java.lang.String,java.lang.String) -> a
-    315:325:void addItem(java.lang.String,java.lang.String,int) -> a
-    329:332:void onLinkClickListener(com.ctetin.expandabletextviewlibrary.app.LinkType,java.lang.String,java.lang.String) -> a
+    101:244:void onBindViewHolder(com.zpj.recyclerview.EasyViewHolder,java.util.List,int,java.util.List) -> a
+    142:243:void lambda$onBindViewHolder$0(java.util.List,int,android.widget.ImageView,android.view.View) -> a
+    301:301:void lambda$onGetAppDetailInfo$2(com.zpj.recyclerview.EasyViewHolder,android.view.View,com.zpj.shouji.market.model.AppInfo) -> a
+    317:318:void addItem(java.lang.String,java.lang.String) -> a
+    321:331:void addItem(java.lang.String,java.lang.String,int) -> a
+    335:338:void onLinkClickListener(com.ctetin.expandabletextviewlibrary.app.LinkType,java.lang.String,java.lang.String) -> a
     48:48:float access$100(com.zpj.shouji.market.ui.fragment.detail.AppDetailInfoFragment) -> b
-    284:294:void lambda$onGetAppDetailInfo$1(com.zpj.recyclerview.EasyViewHolder,java.util.List,int,java.util.List) -> b
+    290:300:void lambda$onGetAppDetailInfo$1(com.zpj.recyclerview.EasyViewHolder,java.util.List,int,java.util.List) -> b
     48:48:com.zpj.recyclerview.EasyRecyclerView access$300(com.zpj.shouji.market.ui.fragment.detail.AppDetailInfoFragment) -> c
     61:61:int getLayoutId() -> k
     66:68:void onCreate(android.os.Bundle) -> onCreate
     72:74:void onDestroy() -> onDestroy
-    242:298:void onGetAppDetailInfo(com.zpj.shouji.market.model.AppDetailInfo) -> onGetAppDetailInfo
+    248:304:void onGetAppDetailInfo(com.zpj.shouji.market.model.AppDetailInfo) -> onGetAppDetailInfo
     78:79:void onSupportInvisible() -> onSupportInvisible
     83:84:void onSupportVisible() -> onSupportVisible
 com.zpj.shouji.market.ui.fragment.detail.AppDetailInfoFragment$1 -> com.zpj.shouji.market.f.b.f0.r$a:
@@ -43617,24 +43623,24 @@ com.zpj.shouji.market.ui.fragment.detail.AppDetailInfoFragment$2 -> com.zpj.shou
     boolean flag -> a
     android.widget.ImageView val$img -> b
     145:146:void <init>(com.zpj.shouji.market.ui.fragment.detail.AppDetailInfoFragment,android.widget.ImageView) -> <init>
-    149:170:void updateImageView(com.zpj.fragmentation.dialog.imagetrans.ImageItemView,int) -> a
-    164:169:void lambda$updateImageView$0(int,android.widget.ImageView,com.zpj.fragmentation.dialog.imagetrans.ImageItemView) -> a
+    149:176:void updateImageView(com.zpj.fragmentation.dialog.imagetrans.ImageItemView,int,boolean) -> a
+    170:175:void lambda$updateImageView$0(int,android.widget.ImageView,com.zpj.fragmentation.dialog.imagetrans.ImageItemView) -> a
 com.zpj.shouji.market.ui.fragment.detail.AppDetailInfoFragment$3 -> com.zpj.shouji.market.f.b.f0.r$b:
     com.zpj.shouji.market.model.AppDetailInfo val$info -> a
-    263:263:void <init>(com.zpj.shouji.market.ui.fragment.detail.AppDetailInfoFragment,com.zpj.shouji.market.model.AppDetailInfo) -> <init>
-    266:267:void onClick(android.view.View) -> onClick
+    269:269:void <init>(com.zpj.shouji.market.ui.fragment.detail.AppDetailInfoFragment,com.zpj.shouji.market.model.AppDetailInfo) -> <init>
+    272:273:void onClick(android.view.View) -> onClick
 com.zpj.shouji.market.ui.fragment.detail.AppDetailInfoFragment$4 -> com.zpj.shouji.market.f.b.f0.r$c:
-    272:272:void <init>(com.zpj.shouji.market.ui.fragment.detail.AppDetailInfoFragment,android.content.Context,int) -> <init>
-    275:275:boolean canScrollHorizontally() -> canScrollHorizontally
-    280:280:boolean canScrollVertically() -> canScrollVertically
+    278:278:void <init>(com.zpj.shouji.market.ui.fragment.detail.AppDetailInfoFragment,android.content.Context,int) -> <init>
+    281:281:boolean canScrollHorizontally() -> canScrollHorizontally
+    286:286:boolean canScrollVertically() -> canScrollVertically
 com.zpj.shouji.market.ui.fragment.detail.AppDetailInfoFragment$5 -> com.zpj.shouji.market.f.b.f0.t:
-    288:288:void <init>(com.zpj.shouji.market.ui.fragment.detail.AppDetailInfoFragment) -> <init>
-    291:292:void onClick(android.view.View) -> onClick
+    294:294:void <init>(com.zpj.shouji.market.ui.fragment.detail.AppDetailInfoFragment) -> <init>
+    297:298:void onClick(android.view.View) -> onClick
 com.zpj.shouji.market.ui.fragment.detail.AppDetailInfoFragment$DividerItemDecoration -> com.zpj.shouji.market.f.b.f0.r$d:
     int total -> c
-    335:335:void <init>(android.content.Context,int,com.zpj.shouji.market.ui.fragment.detail.AppDetailInfoFragment$1) -> <init>
-    340:342:void <init>(android.content.Context,int) -> <init>
-    346:360:com.yanyusong.y_divideritemdecoration.Y_Divider getDivider(int) -> a
+    341:341:void <init>(android.content.Context,int,com.zpj.shouji.market.ui.fragment.detail.AppDetailInfoFragment$1) -> <init>
+    346:348:void <init>(android.content.Context,int) -> <init>
+    352:366:com.yanyusong.y_divideritemdecoration.Y_Divider getDivider(int) -> a
 com.zpj.shouji.market.ui.fragment.detail.AppDetailRecommendFragment -> com.zpj.shouji.market.f.b.f0.u:
     java.lang.String type -> i
     java.lang.String id -> h
@@ -43966,42 +43972,44 @@ com.zpj.shouji.market.ui.fragment.dialog.CommentDialogFragment -> com.zpj.shouji
     177:181:void lambda$sendText$7() -> x
 com.zpj.shouji.market.ui.fragment.dialog.CommonImageViewerDialogFragment2 -> com.zpj.shouji.market.f.b.g0.a2:
     com.zpj.widget.toolbar.ZToolBar titleBar -> p
-    android.widget.TextView tvInfo -> q
     java.util.List imageSizeList -> o
-    com.zpj.widget.tinted.TintedImageButton btnMore -> s
-    android.widget.TextView tvIndicator -> r
-    com.zpj.fragmentation.dialog.widget.LoadingView loadingView -> t
+    android.widget.TextView tvIndicator -> s
+    android.widget.TextView tvInfo -> r
+    com.zpj.widget.tinted.TintedImageButton btnMore -> t
+    android.widget.RelativeLayout bottomBar -> q
+    com.zpj.fragmentation.dialog.widget.LoadingView loadingView -> u
     java.util.List originalImageList -> n
-    50:51:void <init>() -> <init>
-    217:217:boolean isOriginalImageAvailable() -> A
-    202:213:void setInfoText() -> B
-    221:236:void showOriginalImage() -> C
-    187:189:void updateTitle() -> D
-    37:37:void access$000(com.zpj.shouji.market.ui.fragment.dialog.CommonImageViewerDialogFragment2) -> a
-    67:119:void initView(android.view.View,android.os.Bundle) -> a
-    86:108:void lambda$initView$1(android.view.View) -> a
-    91:105:void lambda$null$0(int,java.lang.String) -> a
-    125:133:void lambda$onDismiss$3(com.zpj.shouji.market.ui.activity.MainActivity) -> a
-    37:37:void access$100(com.zpj.shouji.market.ui.fragment.dialog.CommonImageViewerDialogFragment2) -> b
-    111:111:void lambda$initView$2(android.view.View) -> b
-    37:37:com.zpj.fragmentation.dialog.widget.LoadingView access$200(com.zpj.shouji.market.ui.fragment.dialog.CommonImageViewerDialogFragment2) -> c
-    197:198:com.zpj.shouji.market.ui.fragment.dialog.CommonImageViewerDialogFragment2 setImageSizeList(java.util.List) -> c
-    205:205:void lambda$setInfoText$4(android.view.View) -> c
-    192:193:com.zpj.shouji.market.ui.fragment.dialog.CommonImageViewerDialogFragment2 setOriginalImageList(java.util.List) -> d
-    60:63:void onSupportVisible() -> onSupportVisible
-    123:134:void onDismiss() -> q
-    55:55:int getCustomLayoutId() -> v
-    178:183:java.lang.String getOriginalImageUrl() -> z
+    51:52:void <init>() -> <init>
+    188:188:boolean isOriginalImageAvailable() -> A
+    173:184:void setInfoText() -> B
+    192:207:void showOriginalImage() -> C
+    158:160:void updateTitle() -> D
+    38:38:void access$000(com.zpj.shouji.market.ui.fragment.dialog.CommonImageViewerDialogFragment2) -> a
+    68:121:void initView(android.view.View,android.os.Bundle) -> a
+    88:110:void lambda$initView$1(android.view.View) -> a
+    93:107:void lambda$null$0(int,java.lang.String) -> a
+    127:135:void lambda$onDismiss$3(com.zpj.shouji.market.ui.activity.MainActivity) -> a
+    38:38:void access$100(com.zpj.shouji.market.ui.fragment.dialog.CommonImageViewerDialogFragment2) -> b
+    113:113:void lambda$initView$2(android.view.View) -> b
+    140:145:void onTransform(float) -> b
+    38:38:com.zpj.fragmentation.dialog.widget.LoadingView access$200(com.zpj.shouji.market.ui.fragment.dialog.CommonImageViewerDialogFragment2) -> c
+    168:169:com.zpj.shouji.market.ui.fragment.dialog.CommonImageViewerDialogFragment2 setImageSizeList(java.util.List) -> c
+    176:176:void lambda$setInfoText$4(android.view.View) -> c
+    163:164:com.zpj.shouji.market.ui.fragment.dialog.CommonImageViewerDialogFragment2 setOriginalImageList(java.util.List) -> d
+    61:64:void onSupportVisible() -> onSupportVisible
+    125:136:void onDismiss() -> q
+    56:56:int getCustomLayoutId() -> v
+    149:154:java.lang.String getOriginalImageUrl() -> z
 com.zpj.shouji.market.ui.fragment.dialog.CommonImageViewerDialogFragment2$1 -> com.zpj.shouji.market.f.b.g0.a2$a:
     com.zpj.shouji.market.ui.fragment.dialog.CommonImageViewerDialogFragment2 this$0 -> a
-    75:75:void <init>(com.zpj.shouji.market.ui.fragment.dialog.CommonImageViewerDialogFragment2) -> <init>
-    78:82:void onPageSelected(int) -> onPageSelected
-com.zpj.shouji.market.ui.fragment.dialog.CommonImageViewerDialogFragment2$3 -> com.zpj.shouji.market.f.b.g0.a2$b:
+    77:77:void <init>(com.zpj.shouji.market.ui.fragment.dialog.CommonImageViewerDialogFragment2) -> <init>
+    80:84:void onPageSelected(int) -> onPageSelected
+com.zpj.shouji.market.ui.fragment.dialog.CommonImageViewerDialogFragment2$2 -> com.zpj.shouji.market.f.b.g0.a2$b:
     com.zpj.fragmentation.dialog.photoview.PhotoView val$current -> d
     com.zpj.shouji.market.ui.fragment.dialog.CommonImageViewerDialogFragment2 this$0 -> e
-    227:227:void <init>(com.zpj.shouji.market.ui.fragment.dialog.CommonImageViewerDialogFragment2,com.zpj.fragmentation.dialog.photoview.PhotoView) -> <init>
-    227:227:void onResourceReady(java.lang.Object,com.bumptech.glide.request.transition.Transition) -> a
-    230:234:void onResourceReady(android.graphics.drawable.Drawable,com.bumptech.glide.request.transition.Transition) -> a
+    198:198:void <init>(com.zpj.shouji.market.ui.fragment.dialog.CommonImageViewerDialogFragment2,com.zpj.fragmentation.dialog.photoview.PhotoView) -> <init>
+    198:198:void onResourceReady(java.lang.Object,com.bumptech.glide.request.transition.Transition) -> a
+    201:205:void onResourceReady(android.graphics.drawable.Drawable,com.bumptech.glide.request.transition.Transition) -> a
 com.zpj.shouji.market.ui.fragment.dialog.EmailModifiedDialogFragment -> com.zpj.shouji.market.f.b.g0.b2:
     17:17:void <init>() -> <init>
     26:64:void initView(android.view.View,android.os.Bundle) -> a
@@ -44190,49 +44198,49 @@ com.zpj.shouji.market.ui.fragment.dialog.WallpaperViewerDialogFragment2 -> com.z
     com.zpj.widget.tinted.TintedImageButton btnUp -> r
     java.util.List originalImageList -> n
     com.zpj.widget.toolbar.ZToolBar titleBar -> o
-    65:66:void <init>() -> <init>
-    443:443:boolean isOriginalImageAvailable() -> A
-    383:384:void setWallpaper() -> B
-    439:440:void shareWallpaper() -> C
-    397:411:void showOriginalImage() -> D
-    414:436:void supportWallpaper() -> E
-    48:48:com.zpj.widget.toolbar.ZToolBar access$000(com.zpj.shouji.market.ui.fragment.dialog.WallpaperViewerDialogFragment2) -> a
-    82:190:void initView(android.view.View,android.os.Bundle) -> a
-    102:102:void lambda$initView$0(android.view.View) -> a
-    109:124:void lambda$null$1(int,java.lang.String) -> a
-    206:214:void lambda$onClick$3(com.zpj.http.parser.html.nodes.Document) -> a
-    215:215:void lambda$onClick$4(java.lang.Throwable) -> a
-    239:244:void lambda$onClick$7(android.animation.ValueAnimator) -> a
-    354:355:com.zpj.shouji.market.ui.fragment.dialog.WallpaperViewerDialogFragment2 setWallpaperInfo(com.zpj.shouji.market.model.WallpaperInfo) -> a
-    48:48:com.zpj.fragmentation.dialog.widget.LoadingView access$100(com.zpj.shouji.market.ui.fragment.dialog.WallpaperViewerDialogFragment2) -> b
-    104:149:void lambda$initView$2(android.view.View) -> b
-    220:228:void lambda$onClick$5(com.zpj.http.parser.html.nodes.Document) -> b
-    229:229:void lambda$onClick$6(java.lang.Throwable) -> b
-    251:259:void lambda$onClick$8(android.animation.ValueAnimator) -> b
-    299:305:void onTransform(float) -> b
-    48:48:android.widget.TextView access$200(com.zpj.shouji.market.ui.fragment.dialog.WallpaperViewerDialogFragment2) -> c
-    359:360:com.zpj.shouji.market.ui.fragment.dialog.WallpaperViewerDialogFragment2 setOriginalImageList(java.util.List) -> c
-    416:431:void lambda$supportWallpaper$9(com.zpj.http.parser.html.nodes.Document) -> c
-    433:434:void lambda$supportWallpaper$10(java.lang.Throwable) -> c
-    194:285:void onClick(android.view.View) -> onClick
-    75:78:void onSupportVisible() -> onSupportVisible
-    309:316:void onDismiss() -> q
-    70:70:int getCustomLayoutId() -> v
-    388:393:java.lang.String getOriginalImageUrl() -> z
+    66:67:void <init>() -> <init>
+    419:419:boolean isOriginalImageAvailable() -> A
+    359:360:void setWallpaper() -> B
+    415:416:void shareWallpaper() -> C
+    373:387:void showOriginalImage() -> D
+    390:412:void supportWallpaper() -> E
+    49:49:com.zpj.widget.toolbar.ZToolBar access$000(com.zpj.shouji.market.ui.fragment.dialog.WallpaperViewerDialogFragment2) -> a
+    83:191:void initView(android.view.View,android.os.Bundle) -> a
+    103:103:void lambda$initView$0(android.view.View) -> a
+    110:125:void lambda$null$1(int,java.lang.String) -> a
+    207:215:void lambda$onClick$3(com.zpj.http.parser.html.nodes.Document) -> a
+    216:216:void lambda$onClick$4(java.lang.Throwable) -> a
+    240:245:void lambda$onClick$7(android.animation.ValueAnimator) -> a
+    330:331:com.zpj.shouji.market.ui.fragment.dialog.WallpaperViewerDialogFragment2 setWallpaperInfo(com.zpj.shouji.market.model.WallpaperInfo) -> a
+    49:49:com.zpj.fragmentation.dialog.widget.LoadingView access$100(com.zpj.shouji.market.ui.fragment.dialog.WallpaperViewerDialogFragment2) -> b
+    105:150:void lambda$initView$2(android.view.View) -> b
+    221:229:void lambda$onClick$5(com.zpj.http.parser.html.nodes.Document) -> b
+    230:230:void lambda$onClick$6(java.lang.Throwable) -> b
+    252:260:void lambda$onClick$8(android.animation.ValueAnimator) -> b
+    300:307:void onTransform(float) -> b
+    49:49:android.widget.TextView access$200(com.zpj.shouji.market.ui.fragment.dialog.WallpaperViewerDialogFragment2) -> c
+    335:336:com.zpj.shouji.market.ui.fragment.dialog.WallpaperViewerDialogFragment2 setOriginalImageList(java.util.List) -> c
+    392:407:void lambda$supportWallpaper$9(com.zpj.http.parser.html.nodes.Document) -> c
+    409:410:void lambda$supportWallpaper$10(java.lang.Throwable) -> c
+    195:286:void onClick(android.view.View) -> onClick
+    76:79:void onSupportVisible() -> onSupportVisible
+    311:318:void onDismiss() -> q
+    71:71:int getCustomLayoutId() -> v
+    364:369:java.lang.String getOriginalImageUrl() -> z
 com.zpj.shouji.market.ui.fragment.dialog.WallpaperViewerDialogFragment2$1 -> com.zpj.shouji.market.f.b.g0.n2$a:
     com.zpj.shouji.market.ui.fragment.dialog.WallpaperViewerDialogFragment2 this$0 -> a
-    94:94:void <init>(com.zpj.shouji.market.ui.fragment.dialog.WallpaperViewerDialogFragment2) -> <init>
-    97:99:void onPageSelected(int) -> onPageSelected
+    95:95:void <init>(com.zpj.shouji.market.ui.fragment.dialog.WallpaperViewerDialogFragment2) -> <init>
+    98:100:void onPageSelected(int) -> onPageSelected
 com.zpj.shouji.market.ui.fragment.dialog.WallpaperViewerDialogFragment2$2 -> com.zpj.shouji.market.f.b.g0.n2$b:
-    310:310:void <init>(com.zpj.shouji.market.ui.fragment.dialog.WallpaperViewerDialogFragment2) -> <init>
-    310:310:void onCallback(java.lang.Object) -> a
-    313:314:void onCallback(com.zpj.shouji.market.ui.activity.MainActivity) -> a
-com.zpj.shouji.market.ui.fragment.dialog.WallpaperViewerDialogFragment2$6 -> com.zpj.shouji.market.f.b.g0.n2$c:
+    312:312:void <init>(com.zpj.shouji.market.ui.fragment.dialog.WallpaperViewerDialogFragment2) -> <init>
+    312:312:void onCallback(java.lang.Object) -> a
+    315:316:void onCallback(com.zpj.shouji.market.ui.activity.MainActivity) -> a
+com.zpj.shouji.market.ui.fragment.dialog.WallpaperViewerDialogFragment2$5 -> com.zpj.shouji.market.f.b.g0.n2$c:
     com.zpj.shouji.market.ui.fragment.dialog.WallpaperViewerDialogFragment2 this$0 -> e
     com.zpj.fragmentation.dialog.photoview.PhotoView val$current -> d
-    403:403:void <init>(com.zpj.shouji.market.ui.fragment.dialog.WallpaperViewerDialogFragment2,com.zpj.fragmentation.dialog.photoview.PhotoView) -> <init>
-    403:403:void onResourceReady(java.lang.Object,com.bumptech.glide.request.transition.Transition) -> a
-    406:409:void onResourceReady(android.graphics.drawable.Drawable,com.bumptech.glide.request.transition.Transition) -> a
+    379:379:void <init>(com.zpj.shouji.market.ui.fragment.dialog.WallpaperViewerDialogFragment2,com.zpj.fragmentation.dialog.photoview.PhotoView) -> <init>
+    379:379:void onResourceReady(java.lang.Object,com.bumptech.glide.request.transition.Transition) -> a
+    382:385:void onResourceReady(android.graphics.drawable.Drawable,com.bumptech.glide.request.transition.Transition) -> a
 com.zpj.shouji.market.ui.fragment.homepage.-$$Lambda$HomeFragment$RUwCg2awE73o_FxsF_7XwiirQQU -> com.zpj.shouji.market.f.b.h0.a:
     android.support.v4.view.ViewPager f$0 -> a
     net.lucode.hackware.magicindicator.buildins.commonnavigator.abs.IPagerTitleView getTitleView(android.content.Context,int) -> a
@@ -45505,39 +45513,39 @@ com.zpj.shouji.market.ui.fragment.search.-$$Lambda$SearchPanelFragment$l4XZjMhM3
 com.zpj.shouji.market.ui.fragment.search.SearchFragment -> com.zpj.shouji.market.f.b.l0.l:
     com.zpj.widget.toolbar.ZSearchBar searchBar -> c
     com.zpj.shouji.market.ui.widget.ZViewPager viewPager -> d
-    29:29:void <init>() -> <init>
+    24:24:void <init>() -> <init>
     boolean lambda$oCKfhBdk2nCXaZu_2MumhJJn5f0(com.zpj.shouji.market.ui.fragment.search.SearchFragment,java.lang.String) -> a
-    29:29:com.zpj.shouji.market.ui.widget.ZViewPager access$000(com.zpj.shouji.market.ui.fragment.search.SearchFragment) -> a
-    29:29:void access$200(com.zpj.shouji.market.ui.fragment.search.SearchFragment,android.view.View) -> a
-    66:119:void initView(android.view.View,android.os.Bundle) -> a
-    98:100:void lambda$initView$1(int,android.view.View,java.lang.String) -> a
-    29:29:com.zpj.widget.toolbar.ZSearchBar access$100(com.zpj.shouji.market.ui.fragment.search.SearchFragment) -> b
-    156:163:boolean getSearchResult(java.lang.String) -> d
-    70:70:void lambda$initView$0(android.view.View) -> e
-    56:56:int getLayoutId() -> k
-    61:61:boolean supportSwipeBack() -> l
-    51:52:void start() -> m
-    123:128:boolean onBackPressedSupport() -> onBackPressedSupport
-    145:147:void onDestroy() -> onDestroy
-    133:135:void onEnterAnimationEnd(android.os.Bundle) -> onEnterAnimationEnd
-    139:141:void onSupportVisible() -> onSupportVisible
+    24:24:com.zpj.shouji.market.ui.widget.ZViewPager access$000(com.zpj.shouji.market.ui.fragment.search.SearchFragment) -> a
+    24:24:void access$200(com.zpj.shouji.market.ui.fragment.search.SearchFragment,android.view.View) -> a
+    61:114:void initView(android.view.View,android.os.Bundle) -> a
+    93:95:void lambda$initView$1(int,android.view.View,java.lang.String) -> a
+    24:24:com.zpj.widget.toolbar.ZSearchBar access$100(com.zpj.shouji.market.ui.fragment.search.SearchFragment) -> b
+    151:158:boolean getSearchResult(java.lang.String) -> d
+    65:65:void lambda$initView$0(android.view.View) -> e
+    51:51:int getLayoutId() -> k
+    56:56:boolean supportSwipeBack() -> l
+    46:47:void start() -> m
+    118:123:boolean onBackPressedSupport() -> onBackPressedSupport
+    140:142:void onDestroy() -> onDestroy
+    128:130:void onEnterAnimationEnd(android.os.Bundle) -> onEnterAnimationEnd
+    134:136:void onSupportVisible() -> onSupportVisible
 com.zpj.shouji.market.ui.fragment.search.SearchFragment$1 -> com.zpj.shouji.market.f.b.l0.l$a:
     com.zpj.shouji.market.ui.fragment.search.SearchFragment this$0 -> a
-    71:71:void <init>(com.zpj.shouji.market.ui.fragment.search.SearchFragment) -> <init>
-    88:88:void afterTextChanged(android.text.Editable) -> afterTextChanged
-    75:75:void beforeTextChanged(java.lang.CharSequence,int,int,int) -> beforeTextChanged
-    79:83:void onTextChanged(java.lang.CharSequence,int,int,int) -> onTextChanged
+    66:66:void <init>(com.zpj.shouji.market.ui.fragment.search.SearchFragment) -> <init>
+    83:83:void afterTextChanged(android.text.Editable) -> afterTextChanged
+    70:70:void beforeTextChanged(java.lang.CharSequence,int,int,int) -> beforeTextChanged
+    74:78:void onTextChanged(java.lang.CharSequence,int,int,int) -> onTextChanged
 com.zpj.shouji.market.ui.fragment.search.SearchFragment$2 -> com.zpj.shouji.market.f.b.l0.l$b:
     java.util.List val$list -> a
     com.zpj.shouji.market.ui.fragment.search.SearchFragment this$0 -> b
-    110:110:void <init>(com.zpj.shouji.market.ui.fragment.search.SearchFragment,java.util.List) -> <init>
-    113:117:void run() -> run
+    105:105:void <init>(com.zpj.shouji.market.ui.fragment.search.SearchFragment,java.util.List) -> <init>
+    108:112:void run() -> run
 com.zpj.shouji.market.ui.fragment.search.SearchFragment$SearchEvent -> com.zpj.shouji.market.f.b.l0.l$c:
     java.lang.String keyword -> a
-    34:36:void <init>(java.lang.String) -> <init>
+    29:31:void <init>(java.lang.String) -> <init>
 com.zpj.shouji.market.ui.fragment.search.SearchFragment$TextChangedEvent -> com.zpj.shouji.market.f.b.l0.l$d:
     java.lang.String keyword -> a
-    42:44:void <init>(java.lang.String) -> <init>
+    37:39:void <init>(java.lang.String) -> <init>
 com.zpj.shouji.market.ui.fragment.search.SearchPanelFragment -> com.zpj.shouji.market.f.b.l0.m:
     com.zpj.shouji.market.ui.widget.flowlayout.FlowLayout$OnItemClickListener onItemClickListener -> l
     java.util.List quickAppInfoList -> d
@@ -45685,24 +45693,24 @@ com.zpj.shouji.market.ui.fragment.setting.AboutMeFragment -> com.zpj.shouji.mark
     android.widget.ImageView ivAlipay -> d
     android.widget.ImageView ivWxpay -> e
     android.widget.ImageView iv_blur -> c
-    39:39:void <init>() -> <init>
-    39:39:android.widget.ImageView access$000(com.zpj.shouji.market.ui.fragment.setting.AboutMeFragment) -> a
-    73:114:void initView(android.view.View,android.os.Bundle) -> a
-    125:136:void onItemClick(com.zpj.widget.setting.CommonSettingItem) -> a
-    68:68:java.lang.CharSequence getToolbarTitle(android.content.Context) -> b
-    79:80:boolean lambda$initView$0(android.view.View) -> e
-    84:85:boolean lambda$initView$1(android.view.View) -> f
-    58:58:int getLayoutId() -> k
-    63:63:boolean supportSwipeBack() -> l
-    47:48:void start() -> m
-    52:54:void onCreate(android.os.Bundle) -> onCreate
-    118:121:void onEnterAnimationEnd(android.os.Bundle) -> onEnterAnimationEnd
+    29:29:void <init>() -> <init>
+    29:29:android.widget.ImageView access$000(com.zpj.shouji.market.ui.fragment.setting.AboutMeFragment) -> a
+    63:104:void initView(android.view.View,android.os.Bundle) -> a
+    115:126:void onItemClick(com.zpj.widget.setting.CommonSettingItem) -> a
+    58:58:java.lang.CharSequence getToolbarTitle(android.content.Context) -> b
+    69:70:boolean lambda$initView$0(android.view.View) -> e
+    74:75:boolean lambda$initView$1(android.view.View) -> f
+    48:48:int getLayoutId() -> k
+    53:53:boolean supportSwipeBack() -> l
+    37:38:void start() -> m
+    42:44:void onCreate(android.os.Bundle) -> onCreate
+    108:111:void onEnterAnimationEnd(android.os.Bundle) -> onEnterAnimationEnd
 com.zpj.shouji.market.ui.fragment.setting.AboutMeFragment$1 -> com.zpj.shouji.market.f.b.m0.n$a:
     com.zpj.shouji.market.ui.fragment.setting.AboutMeFragment this$0 -> d
-    91:91:void <init>(com.zpj.shouji.market.ui.fragment.setting.AboutMeFragment) -> <init>
-    91:91:void onResourceReady(java.lang.Object,com.bumptech.glide.request.transition.Transition) -> a
-    94:100:void onResourceReady(android.graphics.drawable.Drawable,com.bumptech.glide.request.transition.Transition) -> a
-    97:99:void lambda$onResourceReady$0() -> d
+    81:81:void <init>(com.zpj.shouji.market.ui.fragment.setting.AboutMeFragment) -> <init>
+    81:81:void onResourceReady(java.lang.Object,com.bumptech.glide.request.transition.Transition) -> a
+    84:90:void onResourceReady(android.graphics.drawable.Drawable,com.bumptech.glide.request.transition.Transition) -> a
+    87:89:void lambda$onResourceReady$0() -> d
 com.zpj.shouji.market.ui.fragment.setting.AboutSettingFragment -> com.zpj.shouji.market.f.b.m0.o:
     18:18:void <init>() -> <init>
     37:53:void initView(android.view.View,android.os.Bundle) -> a
@@ -46040,7 +46048,7 @@ com.zpj.shouji.market.ui.fragment.theme.ThemeShareFragment$2 -> com.zpj.shouji.m
 com.zpj.shouji.market.ui.fragment.theme.ThemeShareFragment$2$1 -> com.zpj.shouji.market.f.b.o0.w$b$a:
     com.zpj.shouji.market.ui.fragment.theme.ThemeShareFragment$2 this$1 -> a
     160:160:void <init>(com.zpj.shouji.market.ui.fragment.theme.ThemeShareFragment$2) -> <init>
-    163:165:void updateImageView(com.zpj.fragmentation.dialog.imagetrans.ImageItemView,int) -> a
+    163:165:void updateImageView(com.zpj.fragmentation.dialog.imagetrans.ImageItemView,int,boolean) -> a
 com.zpj.shouji.market.ui.fragment.theme.ThemeShareFragment$3 -> com.zpj.shouji.market.f.b.o0.w$c:
     com.zpj.shouji.market.ui.fragment.theme.ThemeShareFragment this$0 -> a
     205:205:void <init>(com.zpj.shouji.market.ui.fragment.theme.ThemeShareFragment) -> <init>
@@ -46104,42 +46112,42 @@ com.zpj.shouji.market.ui.fragment.wallpaper.WallpaperListFragment -> com.zpj.sho
     java.lang.String tag -> i
     int sortPosition -> j
     int halfScreenWidth -> k
-    51:57:void <init>() -> <init>
+    45:51:void <init>() -> <init>
     void lambda$1bAlikF5iCdo_RLMt_N3_nSssEs(com.zpj.shouji.market.ui.fragment.wallpaper.WallpaperListFragment,android.view.View) -> a
-    51:51:java.lang.Object createData(com.zpj.http.parser.html.nodes.Element) -> a
-    51:51:void onClick(com.zpj.recyclerview.EasyViewHolder,android.view.View,java.lang.Object) -> a
-    65:70:com.zpj.shouji.market.ui.fragment.wallpaper.WallpaperListFragment newInstance(com.zpj.shouji.market.model.WallpaperTag) -> a
-    82:85:void handleArguments(android.os.Bundle) -> a
-    101:117:void buildRecyclerLayout(com.zpj.recyclerview.EasyRecyclerLayout) -> a
-    103:103:void lambda$buildRecyclerLayout$0(com.zpj.recyclerview.EasyViewHolder) -> a
-    121:169:void onBindViewHolder(com.zpj.recyclerview.EasyViewHolder,java.util.List,int,java.util.List) -> a
-    173:257:void onClick(com.zpj.recyclerview.EasyViewHolder,android.view.View,com.zpj.shouji.market.model.WallpaperInfo) -> a
-    261:264:com.zpj.shouji.market.model.WallpaperInfo createData(com.zpj.http.parser.html.nodes.Element) -> a
-    339:343:void lambda$showSortPupWindow$2(android.view.View,android.view.View,java.lang.String,int) -> a
-    269:293:void onSuccess(com.zpj.http.parser.html.nodes.Document) -> b
-    94:96:android.support.v7.widget.RecyclerView$LayoutManager getLayoutManager(android.content.Context) -> c
-    332:369:void showSortPupWindow(android.view.View) -> e
-    89:89:int getItemLayoutId() -> m
-    315:315:int getHeaderLayout() -> o
-    75:78:void onCreate(android.os.Bundle) -> onCreate
-    298:312:void onRefresh() -> onRefresh
-    51:51:void onSuccess(java.lang.Object) -> onSuccess
-    319:329:void initNextUrl() -> p
-    202:202:void lambda$onClick$1() -> q
+    45:45:java.lang.Object createData(com.zpj.http.parser.html.nodes.Element) -> a
+    45:45:void onClick(com.zpj.recyclerview.EasyViewHolder,android.view.View,java.lang.Object) -> a
+    59:64:com.zpj.shouji.market.ui.fragment.wallpaper.WallpaperListFragment newInstance(com.zpj.shouji.market.model.WallpaperTag) -> a
+    76:79:void handleArguments(android.os.Bundle) -> a
+    95:111:void buildRecyclerLayout(com.zpj.recyclerview.EasyRecyclerLayout) -> a
+    97:97:void lambda$buildRecyclerLayout$0(com.zpj.recyclerview.EasyViewHolder) -> a
+    115:163:void onBindViewHolder(com.zpj.recyclerview.EasyViewHolder,java.util.List,int,java.util.List) -> a
+    167:251:void onClick(com.zpj.recyclerview.EasyViewHolder,android.view.View,com.zpj.shouji.market.model.WallpaperInfo) -> a
+    255:258:com.zpj.shouji.market.model.WallpaperInfo createData(com.zpj.http.parser.html.nodes.Element) -> a
+    333:337:void lambda$showSortPupWindow$2(android.view.View,android.view.View,java.lang.String,int) -> a
+    263:287:void onSuccess(com.zpj.http.parser.html.nodes.Document) -> b
+    88:90:android.support.v7.widget.RecyclerView$LayoutManager getLayoutManager(android.content.Context) -> c
+    326:363:void showSortPupWindow(android.view.View) -> e
+    83:83:int getItemLayoutId() -> m
+    309:309:int getHeaderLayout() -> o
+    69:72:void onCreate(android.os.Bundle) -> onCreate
+    292:306:void onRefresh() -> onRefresh
+    45:45:void onSuccess(java.lang.Object) -> onSuccess
+    313:323:void initNextUrl() -> p
+    196:196:void lambda$onClick$1() -> q
 com.zpj.shouji.market.ui.fragment.wallpaper.WallpaperListFragment$1 -> com.zpj.shouji.market.f.b.p0.p$a:
-    105:105:void <init>(com.zpj.shouji.market.ui.fragment.wallpaper.WallpaperListFragment) -> <init>
-    108:113:void onScrollStateChanged(android.support.v7.widget.RecyclerView,int) -> onScrollStateChanged
+    99:99:void <init>(com.zpj.shouji.market.ui.fragment.wallpaper.WallpaperListFragment) -> <init>
+    102:107:void onScrollStateChanged(android.support.v7.widget.RecyclerView,int) -> onScrollStateChanged
 com.zpj.shouji.market.ui.fragment.wallpaper.WallpaperListFragment$2 -> com.zpj.shouji.market.f.b.p0.p$b:
     com.sunbinqiang.iconcountview.IconCountView val$countView -> b
     com.zpj.shouji.market.model.WallpaperInfo val$info -> a
-    147:147:void <init>(com.zpj.shouji.market.ui.fragment.wallpaper.WallpaperListFragment,com.zpj.shouji.market.model.WallpaperInfo,com.sunbinqiang.iconcountview.IconCountView) -> <init>
-    150:167:void select(boolean) -> a
-    152:161:void lambda$select$0(com.zpj.shouji.market.model.WallpaperInfo,boolean,com.sunbinqiang.iconcountview.IconCountView,com.zpj.http.parser.html.nodes.Document) -> a
-    163:165:void lambda$select$1(com.sunbinqiang.iconcountview.IconCountView,boolean,java.lang.Throwable) -> a
+    141:141:void <init>(com.zpj.shouji.market.ui.fragment.wallpaper.WallpaperListFragment,com.zpj.shouji.market.model.WallpaperInfo,com.sunbinqiang.iconcountview.IconCountView) -> <init>
+    144:161:void select(boolean) -> a
+    146:155:void lambda$select$0(com.zpj.shouji.market.model.WallpaperInfo,boolean,com.sunbinqiang.iconcountview.IconCountView,com.zpj.http.parser.html.nodes.Document) -> a
+    157:159:void lambda$select$1(com.sunbinqiang.iconcountview.IconCountView,boolean,java.lang.Throwable) -> a
 com.zpj.shouji.market.ui.fragment.wallpaper.WallpaperListFragment$3 -> com.zpj.shouji.market.f.b.p0.p$c:
     android.widget.ImageView val$wallpaper -> a
-    196:196:void <init>(com.zpj.shouji.market.ui.fragment.wallpaper.WallpaperListFragment,android.widget.ImageView) -> <init>
-    199:200:void updateImageView(com.zpj.fragmentation.dialog.imagetrans.ImageItemView,int) -> a
+    190:190:void <init>(com.zpj.shouji.market.ui.fragment.wallpaper.WallpaperListFragment,android.widget.ImageView) -> <init>
+    193:194:void updateImageView(com.zpj.fragmentation.dialog.imagetrans.ImageItemView,int,boolean) -> a
 com.zpj.shouji.market.ui.fragment.wallpaper.WallpaperShareFragment -> com.zpj.shouji.market.f.b.p0.r:
     android.widget.ImageView ivWallpaper -> f
     android.widget.EditText etContent -> c
@@ -46196,22 +46204,22 @@ com.zpj.shouji.market.ui.widget.-$$Lambda$CheckLayout$wfY3GDF-wB-zZlP0JSKU99NssZ
     com.zpj.shouji.market.ui.widget.CheckLayout f$0 -> a
 com.zpj.shouji.market.ui.widget.-$$Lambda$GhQQ18uhxfbYlGrXF7dLqQTTRqs -> com.zpj.shouji.market.ui.widget.f:
     android.widget.ImageView f$0 -> a
-com.zpj.shouji.market.ui.widget.-$$Lambda$ReplyPanel$036j3tgEsvvZ_Rac1aBrSgOEYp4 -> com.zpj.shouji.market.ui.widget.g:
+com.zpj.shouji.market.ui.widget.-$$Lambda$ReplyPanel$4KJ_D9SV8aXtaCGS5oO1Ar8xFBo -> com.zpj.shouji.market.ui.widget.g:
+    com.zpj.shouji.market.ui.widget.ReplyPanel f$0 -> a
+com.zpj.shouji.market.ui.widget.-$$Lambda$ReplyPanel$IWGOcwBAn2y1k5QYdcoIcl6fQUU -> com.zpj.shouji.market.ui.widget.h:
+    com.zpj.shouji.market.ui.widget.ReplyPanel f$0 -> a
+    void onCallback(java.lang.Object) -> a
+com.zpj.shouji.market.ui.widget.-$$Lambda$ReplyPanel$M6My-ENxOtCtBNfJ5ZeZ3rbagP8 -> com.zpj.shouji.market.ui.widget.i:
+    com.zpj.shouji.market.ui.widget.ReplyPanel f$0 -> a
+com.zpj.shouji.market.ui.widget.-$$Lambda$ReplyPanel$QE1DIcnLQ5uZU2OP69dpWB1jED4 -> com.zpj.shouji.market.ui.widget.j:
+    com.zpj.shouji.market.ui.widget.ReplyPanel f$0 -> a
+    void onBindViewHolder(com.zpj.recyclerview.EasyViewHolder,java.util.List,int,java.util.List) -> a
+com.zpj.shouji.market.ui.widget.-$$Lambda$ReplyPanel$Ri1vvw67C69rKY_kIcbJSfQrUs4 -> com.zpj.shouji.market.ui.widget.k:
     com.zpj.recyclerview.EasyViewHolder f$1 -> b
     android.widget.ImageView f$3 -> d
     com.zpj.shouji.market.ui.widget.ReplyPanel f$0 -> a
     int f$2 -> c
-    void updateImageView(com.zpj.fragmentation.dialog.imagetrans.ImageItemView,int) -> a
-com.zpj.shouji.market.ui.widget.-$$Lambda$ReplyPanel$4KJ_D9SV8aXtaCGS5oO1Ar8xFBo -> com.zpj.shouji.market.ui.widget.h:
-    com.zpj.shouji.market.ui.widget.ReplyPanel f$0 -> a
-com.zpj.shouji.market.ui.widget.-$$Lambda$ReplyPanel$IWGOcwBAn2y1k5QYdcoIcl6fQUU -> com.zpj.shouji.market.ui.widget.i:
-    com.zpj.shouji.market.ui.widget.ReplyPanel f$0 -> a
-    void onCallback(java.lang.Object) -> a
-com.zpj.shouji.market.ui.widget.-$$Lambda$ReplyPanel$M6My-ENxOtCtBNfJ5ZeZ3rbagP8 -> com.zpj.shouji.market.ui.widget.j:
-    com.zpj.shouji.market.ui.widget.ReplyPanel f$0 -> a
-com.zpj.shouji.market.ui.widget.-$$Lambda$ReplyPanel$QE1DIcnLQ5uZU2OP69dpWB1jED4 -> com.zpj.shouji.market.ui.widget.k:
-    com.zpj.shouji.market.ui.widget.ReplyPanel f$0 -> a
-    void onBindViewHolder(com.zpj.recyclerview.EasyViewHolder,java.util.List,int,java.util.List) -> a
+    void updateImageView(com.zpj.fragmentation.dialog.imagetrans.ImageItemView,int,boolean) -> a
 com.zpj.shouji.market.ui.widget.-$$Lambda$ReplyPanel$Td5XON54GAOI8vYSZykDVvJWdIw -> com.zpj.shouji.market.ui.widget.l:
     com.zpj.shouji.market.ui.widget.ReplyPanel f$0 -> a
 com.zpj.shouji.market.ui.widget.-$$Lambda$ReplyPanel$W3Ymyk9eoL5wvl9iobYc9K2Io8w -> com.zpj.shouji.market.ui.widget.m:
@@ -46759,7 +46767,7 @@ com.zpj.shouji.market.ui.widget.ReplyPanel -> com.zpj.shouji.market.ui.widget.Re
     224:310:void lambda$initWidget$8(com.zpj.recyclerview.EasyViewHolder,java.util.List,int,java.util.List) -> a
     257:309:void lambda$null$7(com.zpj.recyclerview.EasyViewHolder,int,android.widget.ImageView,android.view.View) -> a
     260:266:void lambda$null$4(java.util.List) -> a
-    271:280:void lambda$null$6(com.zpj.recyclerview.EasyViewHolder,int,android.widget.ImageView,com.zpj.fragmentation.dialog.imagetrans.ImageItemView,int) -> a
+    271:280:void lambda$null$6(com.zpj.recyclerview.EasyViewHolder,int,android.widget.ImageView,com.zpj.fragmentation.dialog.imagetrans.ImageItemView,int,boolean) -> a
     362:374:android.widget.ImageView addAction(int,android.view.View$OnClickListener) -> a
     413:414:void hideEmojiPanel() -> a
     426:450:void onKeyboardHeightChanged(int,int) -> a

@@ -60,6 +60,11 @@ public class DialogView<T> extends FrameLayout implements OnTransformListener {
             public void onPageSelected(int position) {
                 build.nowIndex = position;
                 build.imageTransAdapter.onPageSelected(position);
+
+                ImageItemView itemView = mAdapter.getItemView(position);
+                if (itemView != null) {
+                    itemView.init(isOpened, true);
+                }
             }
 
             @Override
@@ -120,10 +125,14 @@ public class DialogView<T> extends FrameLayout implements OnTransformListener {
         build.imageTransAdapter.onTransform(ratio);
     }
 
+    public boolean isOpened() {
+        return isOpened;
+    }
+
     class ImagePagerAdapter<S> extends PagerAdapter {
 
         private List<S> mData;
-        private SparseArray<ImageItemView> itemViewSparseArray;
+        private SparseArray<ImageItemView<S>> itemViewSparseArray;
 
         public ImagePagerAdapter(@NonNull List<S> data) {
             mData = data;
@@ -132,13 +141,13 @@ public class DialogView<T> extends FrameLayout implements OnTransformListener {
 
         @Override
         public Object instantiateItem(ViewGroup container, int position) {
-            ImageItemView view = itemViewSparseArray.get(position);
+            ImageItemView<S> view = itemViewSparseArray.get(position);
             if (view == null) {
                 view = new ImageItemView(container.getContext(), build, position, mData.get(position));
                 if (build.needTransOpen(position, false)) {
                     view.bindTransOpenListener(DialogView.this);
                 }
-                view.init(isOpened);
+                view.init(isOpened, build.nowIndex == position);
                 itemViewSparseArray.put(position, view);
             }
             container.addView(view);

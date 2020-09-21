@@ -267,7 +267,7 @@ public class ArticleDetailFragment extends BaseFragment {
                             .setImageList(objects)
                             .setSourceImageView(new SourceImageViewGet<String>() {
                                 @Override
-                                public void updateImageView(ImageItemView<String> imageItemView, int pos) {
+                                public void updateImageView(ImageItemView<String> imageItemView, int pos, boolean isCurrent) {
                                     imageItemView.update(ivImage);
                                 }
                             })

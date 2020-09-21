@@ -10,6 +10,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.view.ViewPager;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -46,7 +47,7 @@ import java.io.File;
 import java.util.List;
 
 public class WallpaperViewerDialogFragment2 extends ImageViewerDialogFragment2<String>
-        implements IImageLoader<String>, View.OnClickListener {
+        implements View.OnClickListener {
 
     private List<String> originalImageList;
 
@@ -298,10 +299,11 @@ public class WallpaperViewerDialogFragment2 extends ImageViewerDialogFragment2<S
     protected void onTransform(float ratio) {
         super.onTransform(ratio);
         float fraction = 1 - ratio;
+        Log.d("onTransform", "fraction=" + fraction);
         bottomBar.setTranslationY(bottomBar.getHeight() * fraction);
         tvOrigin.setTranslationY(bottomBar.getHeight() * fraction);
         titleBar.setTranslationY(-titleBar.getHeight() * fraction);
-        btnUp.setAlpha(fraction);
+        btnUp.setAlpha(Math.abs(fraction));
     }
 
     @Override
@@ -323,32 +325,6 @@ public class WallpaperViewerDialogFragment2 extends ImageViewerDialogFragment2<S
 //                .transition(GlideUtils.DRAWABLE_TRANSITION_NONE)
 //                .into(imageView);
 //    }
-
-    @Override
-    public void loadImage(int position, @NonNull String url, @NonNull ImageView imageView, Runnable runnable) {
-        Glide.with(imageView)
-                .asBitmap()
-                .load(url)
-                .into(new SimpleTarget<Bitmap>() {
-                    @Override
-                    public void onResourceReady(@NonNull Bitmap resource, @Nullable Transition<? super Bitmap> transition) {
-                        imageView.setImageBitmap(resource);
-                        if (runnable != null) {
-                            runnable.run();
-                        }
-                    }
-                });
-    }
-
-    @Override
-    public File getImageFile(@NonNull Context context, @NonNull String url) {
-        try {
-            return Glide.with(context).downloadOnly().load(url).submit().get();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return null;
-    }
 
     public WallpaperViewerDialogFragment2 setWallpaperInfo(WallpaperInfo wallpaperInfo) {
         this.wallpaperInfo = wallpaperInfo;

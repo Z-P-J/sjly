@@ -550,7 +550,7 @@ public class DiscoverBinder
                     .setNowIndex(position)
                     .setSourceImageView(new SourceImageViewGet<String>() {
                         @Override
-                        public void updateImageView(ImageItemView<String> imageItemView, int pos) {
+                        public void updateImageView(ImageItemView<String> imageItemView, int pos, boolean isCurrent) {
                             NineGirdImageContainer view = (NineGirdImageContainer) nineGridView.getChildAt(pos);
                             imageItemView.update(view.getImageView());
                         }

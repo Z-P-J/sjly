@@ -265,7 +265,7 @@ class TransformAttacher implements OnTransformListener {
             switch (state) {
                 case OPEN_TO_THUMB:
                 case OPEN_TO_ORI:
-                    return thumbConfig.imageRectF;
+                    return thumbConfig.getImageRect();
                 case THUMB_TO_ORI:
                 case THUMB_TO_CLOSE: {
                     return prevStateInfo.endF;
@@ -290,7 +290,7 @@ class TransformAttacher implements OnTransformListener {
                 }
                 case THUMB_TO_CLOSE:
                 case ORI_TO_CLOSE: {
-                    return thumbConfig.imageRectF;
+                    return thumbConfig.getImageRect();
                 }
                 case THUMB:
                     if (prevStateInfo.state == TransState.DEFAULT) {

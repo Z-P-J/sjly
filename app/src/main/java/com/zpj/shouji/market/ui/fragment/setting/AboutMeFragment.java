@@ -1,9 +1,5 @@
 package com.zpj.shouji.market.ui.fragment.setting;
 
-import android.animation.Animator;
-import android.animation.AnimatorSet;
-import android.animation.ObjectAnimator;
-import android.animation.ValueAnimator;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
@@ -12,27 +8,21 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.view.View;
-import android.view.animation.DecelerateInterpolator;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
-import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.bumptech.glide.request.target.SimpleTarget;
 import com.bumptech.glide.request.transition.Transition;
-import com.daimajia.swipe.SwipeLayout;
 import com.zpj.fragmentation.BaseFragment;
-import com.zpj.fragmentation.anim.DefaultHorizontalAnimator;
 import com.zpj.fragmentation.anim.DefaultNoAnimator;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.event.StartFragmentEvent;
 import com.zpj.shouji.market.glide.blur.BlurTransformation;
+import com.zpj.shouji.market.ui.animator.MyFragmentAnimator;
 import com.zpj.shouji.market.ui.fragment.WebFragment;
-import com.zpj.shouji.market.ui.widget.PercentImageView;
 import com.zpj.shouji.market.utils.AnimationUtil;
 import com.zpj.shouji.market.utils.PictureUtil;
-import com.zpj.utils.AnimatorUtils;
 import com.zpj.widget.setting.CommonSettingItem;
 import com.zpj.widget.setting.OnCommonItemClickListener;
 
@@ -116,8 +106,8 @@ public class AboutMeFragment extends BaseFragment implements OnCommonItemClickLi
     @Override
     public void onEnterAnimationEnd(Bundle savedInstanceState) {
         super.onEnterAnimationEnd(savedInstanceState);
-        _mActivity.setFragmentAnimator(new DefaultHorizontalAnimator());
-        setFragmentAnimator(new DefaultHorizontalAnimator());
+        _mActivity.setFragmentAnimator(new MyFragmentAnimator());
+        setFragmentAnimator(new MyFragmentAnimator());
     }
 
     @Override

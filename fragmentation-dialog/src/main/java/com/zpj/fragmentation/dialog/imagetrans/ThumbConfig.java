@@ -21,11 +21,42 @@ class ThumbConfig {
     final RectF imageRectF = new RectF();
     ScaleType scaleType = ScaleType.CENTER_CROP;
     WeakReference<Drawable> thumbnailWeakRefe;
+    private View view;
+    private final int screenWidth;
+    private final int screenHeight;
 
     ThumbConfig(@Nullable View view, Resources resources, ScaleType scaleType) {
+        this.view = view;
         this.scaleType = scaleType;
-        int screenWidth = resources.getDisplayMetrics().widthPixels;
-        int screenHeight = resources.getDisplayMetrics().heightPixels;
+        screenWidth = resources.getDisplayMetrics().widthPixels;
+        screenHeight = resources.getDisplayMetrics().heightPixels;
+//        Rect rect = new Rect();
+//        if (view == null) {
+//            //如果view为空,则定义从中心点放大图片
+//            rect.left = (int) (screenWidth * .5f);
+//            rect.right = (int) (screenWidth * .5f);
+//            rect.top = (int) (screenHeight * .5f);
+//            rect.bottom = (int) (screenHeight * .5f);
+//            imageRectF.set(rect);
+//            return;
+//        }
+//        int[] a = new int[2];
+//        view.getLocationInWindow(a);
+//        rect.left = a[0];
+//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+//            rect.top = a[1];
+//        } else {
+//            rect.top = a[1] - getStatesBarHeight(view.getContext());
+//        }
+//        rect.right = rect.left + view.getWidth();
+//        rect.bottom = rect.top + view.getHeight();
+//        imageRectF.set(rect);
+        if (view instanceof ImageView) {
+            thumbnailWeakRefe = new WeakReference<>(((ImageView) view).getDrawable());
+        }
+    }
+
+    public RectF getImageRect() {
         Rect rect = new Rect();
         if (view == null) {
             //如果view为空,则定义从中心点放大图片
@@ -33,23 +64,21 @@ class ThumbConfig {
             rect.right = (int) (screenWidth * .5f);
             rect.top = (int) (screenHeight * .5f);
             rect.bottom = (int) (screenHeight * .5f);
-            imageRectF.set(rect);
-            return;
-        }
-        int[] a = new int[2];
-        view.getLocationInWindow(a);
-        rect.left = a[0];
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            rect.top = a[1];
         } else {
-            rect.top = a[1] - getStatesBarHeight(view.getContext());
+            int[] a = new int[2];
+            view.getLocationInWindow(a);
+            rect.left = a[0];
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                rect.top = a[1];
+            } else {
+                rect.top = a[1] - getStatesBarHeight(view.getContext());
+            }
+            rect.right = rect.left + view.getWidth();
+            rect.bottom = rect.top + view.getHeight();
+
         }
-        rect.right = rect.left + view.getWidth();
-        rect.bottom = rect.top + view.getHeight();
         imageRectF.set(rect);
-        if (view instanceof ImageView) {
-            thumbnailWeakRefe = new WeakReference<>(((ImageView) view).getDrawable());
-        }
+        return imageRectF;
     }
 
     static int getStatesBarHeight(Context context) {
