@@ -186,11 +186,8 @@ public class MyCollectionFragment extends BaseFragment {
             new ThemeMoreDialogFragment()
                     .setDiscoverInfo(data)
                     .isCollection()
+                    .isMe()
                     .show(context);
-//            ThemeMorePopupMenu.with(context)
-//                    .setDiscoverInfo(data)
-//                    .isCollection()
-//                    .show();
             return true;
         }
     }
@@ -245,13 +242,10 @@ public class MyCollectionFragment extends BaseFragment {
 
         @Override
         public boolean onLongClick(EasyViewHolder holder, View view, DiscoverInfo data) {
-//            ThemeMorePopupMenu.with(context)
-//                    .setDiscoverInfo(data)
-//                    .isCollection()
-//                    .show();
             new ThemeMoreDialogFragment()
                     .setDiscoverInfo(data)
                     .isCollection()
+                    .isMe()
                     .show(context);
             return true;
         }

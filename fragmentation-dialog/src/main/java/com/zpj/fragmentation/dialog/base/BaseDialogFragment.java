@@ -62,6 +62,10 @@ public abstract class BaseDialogFragment extends AbstractDialogFragment {
     protected void initView(View view, @Nullable Bundle savedInstanceState) {
         preFragment = getPreFragment();
         FrameLayout flContainer = findViewById(R.id._dialog_fl_container);
+        flContainer.setClickable(true);
+        flContainer.setFocusable(true);
+        flContainer.setFocusableInTouchMode(true);
+        flContainer.requestFocus();
         this.rootView = flContainer;
 
         rootView.setOnClickListener(new View.OnClickListener() {

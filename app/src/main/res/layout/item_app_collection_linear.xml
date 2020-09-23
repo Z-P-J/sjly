@@ -6,15 +6,15 @@
     android:gravity="center_vertical"
     android:orientation="horizontal"
     android:background="#fff"
-    android:padding="10dp"
+    android:paddingHorizontal="16dp"
+    android:paddingVertical="8dp"
     >
 
     <RelativeLayout
         android:layout_width="100dp"
-        android:layout_height="84dp"
-        android:layout_marginEnd="10dp"
-        android:paddingTop="10dp"
-        android:paddingBottom="10dp"
+        android:layout_height="80dp"
+        android:layout_marginEnd="16dp"
+        android:paddingVertical="8dp"
         >
 
         <com.shehuan.niv.NiceImageView

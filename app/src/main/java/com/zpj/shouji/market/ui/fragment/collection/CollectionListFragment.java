@@ -11,6 +11,7 @@ import com.zpj.shouji.market.constant.Keys;
 import com.zpj.shouji.market.event.StartFragmentEvent;
 import com.zpj.shouji.market.model.CollectionInfo;
 import com.zpj.shouji.market.ui.fragment.base.NextUrlFragment;
+import com.zpj.shouji.market.ui.fragment.dialog.AppCollectionMoreDialogFragment;
 import com.zpj.shouji.market.ui.fragment.search.SearchResultFragment;
 
 import org.greenrobot.eventbus.EventBus;
@@ -59,6 +60,14 @@ public class CollectionListFragment extends NextUrlFragment<CollectionInfo> {
     public void onClick(EasyViewHolder holder, View view, CollectionInfo data) {
         super.onClick(holder, view, data);
         CollectionDetailFragment.start(data);
+    }
+
+    @Override
+    public boolean onLongClick(EasyViewHolder holder, View view, CollectionInfo data) {
+        new AppCollectionMoreDialogFragment()
+                .setCollectionInfo(data)
+                .show(context);
+        return true;
     }
 
     @Override

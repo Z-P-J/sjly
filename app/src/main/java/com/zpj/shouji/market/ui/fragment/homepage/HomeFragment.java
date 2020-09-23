@@ -175,7 +175,7 @@ public class HomeFragment extends BaseFragment {
                     ColorChangePagerTitleView titleView = new ColorChangePagerTitleView(context);
                     titleView.setNormalColor(context.getResources().getColor(R.color.color_text_normal));
                     titleView.setSelectedColor(context.getResources().getColor(R.color.colorPrimary));
-                    titleView.setTextSize(16);
+                    titleView.setTextSize(14);
                     titleView.setText(TAB_TITLES[index]);
                     titleView.setOnClickListener(view1 -> viewPager.setCurrentItem(index, true));
                     return titleView;

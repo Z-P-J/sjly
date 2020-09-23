@@ -74,6 +74,12 @@ public class LoginFragment extends BaseFragment {
     }
 
     @Override
+    public void onSupportVisible() {
+        super.onSupportVisible();
+        darkStatusBar();
+    }
+
+    @Override
     public void onDestroy() {
         EventBus.getDefault().unregister(contentView);
         EventBus.getDefault().unregister(this);

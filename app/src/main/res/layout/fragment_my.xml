@@ -227,24 +227,24 @@
                             android:orientation="vertical"
                             >
 
-                            <TextView
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:text="工具箱"
-                                android:gravity="center_vertical"
-                                android:paddingHorizontal="16dp"
-                                android:paddingTop="16dp"
-                                android:paddingBottom="8dp"
-                                android:textSize="12sp"
-                                android:textColor="@color/colorPrimary"
-                                />
+<!--                            <TextView-->
+<!--                                android:layout_width="match_parent"-->
+<!--                                android:layout_height="wrap_content"-->
+<!--                                android:text="工具箱"-->
+<!--                                android:gravity="center_vertical"-->
+<!--                                android:paddingHorizontal="16dp"-->
+<!--                                android:paddingTop="16dp"-->
+<!--                                android:paddingBottom="8dp"-->
+<!--                                android:textSize="12sp"-->
+<!--                                android:textColor="@color/colorPrimary"-->
+<!--                                />-->
 
-                            <View
-                                android:layout_width="match_parent"
-                                android:layout_height="1dp"
-                                android:background="@drawable/bg_bottom_line_gray"
-                                android:layout_marginHorizontal="16dp"
-                                />
+<!--                            <View-->
+<!--                                android:layout_width="match_parent"-->
+<!--                                android:layout_height="1dp"-->
+<!--                                android:background="@drawable/bg_bottom_line_gray"-->
+<!--                                android:layout_marginHorizontal="16dp"-->
+<!--                                />-->
 
                             <LinearLayout
                                 android:layout_width="match_parent"
@@ -259,11 +259,9 @@
                                     android:layout_weight="1"
                                     android:paddingVertical="16dp"
                                     android:gravity="center"
-                                    android:drawablePadding="8dp"
                                     android:id="@+id/tv_download_manager"
-                                    android:drawableTop="@drawable/ic_discover_white_24dp"
+                                    android:drawableTop="@drawable/ic_app_download"
                                     android:text="下载管理"
-                                    app:drawable_tint_color="@color/light_blue_1"
                                     android:background="?attr/selectableItemBackground"
                                     android:textSize="12sp"
                                     />
@@ -274,11 +272,9 @@
                                     android:layout_weight="1"
                                     android:paddingVertical="16dp"
                                     android:gravity="center"
-                                    android:drawablePadding="8dp"
                                     android:id="@+id/tv_update_manager"
-                                    android:drawableTop="@drawable/ic_friend_white_24dp"
+                                    android:drawableTop="@drawable/ic_app_update"
                                     android:text="应用更新"
-                                    app:drawable_tint_color="@color/light_purple"
                                     android:background="?attr/selectableItemBackground"
                                     android:textSize="12sp"
                                     />
@@ -289,11 +285,9 @@
                                     android:layout_weight="1"
                                     android:paddingVertical="16dp"
                                     android:gravity="center"
-                                    android:drawablePadding="8dp"
                                     android:id="@+id/tv_app_manager"
-                                    android:drawableTop="@drawable/ic_homepage_white_24dp"
+                                    android:drawableTop="@drawable/ic_app_manager"
                                     android:text="应用管理"
-                                    app:drawable_tint_color="@color/light_blue_2"
                                     android:background="?attr/selectableItemBackground"
                                     android:textSize="12sp"
                                     />
@@ -304,11 +298,9 @@
                                     android:layout_weight="1"
                                     android:paddingVertical="16dp"
                                     android:gravity="center"
-                                    android:drawablePadding="8dp"
                                     android:id="@+id/tv_package_manager"
-                                    android:drawableTop="@drawable/ic_comment_white_24dp"
+                                    android:drawableTop="@drawable/ic_apk_package"
                                     android:text="安装包管理"
-                                    app:drawable_tint_color="@color/dark_yellow_1"
                                     android:background="?attr/selectableItemBackground"
                                     android:textSize="12sp"
                                     />

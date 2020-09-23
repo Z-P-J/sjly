@@ -9,12 +9,16 @@ import android.view.View;
 
 import com.zpj.fragmentation.BaseFragment;
 import com.zpj.http.parser.html.nodes.Element;
+import com.zpj.recyclerview.EasyViewHolder;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.constant.Keys;
 import com.zpj.shouji.market.event.StartFragmentEvent;
 import com.zpj.shouji.market.manager.UserManager;
 import com.zpj.shouji.market.model.CollectionInfo;
+import com.zpj.shouji.market.model.DiscoverInfo;
 import com.zpj.shouji.market.ui.adapter.FragmentsPagerAdapter;
+import com.zpj.shouji.market.ui.fragment.dialog.AppCollectionMoreDialogFragment;
+import com.zpj.shouji.market.ui.fragment.dialog.ThemeMoreDialogFragment;
 import com.zpj.shouji.market.ui.fragment.wallpaper.WallpaperListFragment;
 import com.zpj.shouji.market.ui.fragment.collection.CollectionListFragment;
 import com.zpj.shouji.market.ui.fragment.theme.ThemeListFragment;
@@ -199,6 +203,15 @@ public class MyDynamicFragment extends BaseFragment {
             return fragment;
         }
 
+        @Override
+        public boolean onLongClick(EasyViewHolder holder, View view, DiscoverInfo data) {
+            new ThemeMoreDialogFragment()
+                    .setDiscoverInfo(data)
+                    .isMe()
+                    .show(context);
+            return true;
+        }
+
     }
 
     public static class CollectionsFragment extends CollectionListFragment {
@@ -217,12 +230,20 @@ public class MyDynamicFragment extends BaseFragment {
             return CollectionInfo.create(element);
         }
 
+        @Override
+        public boolean onLongClick(EasyViewHolder holder, View view, CollectionInfo data) {
+            new AppCollectionMoreDialogFragment()
+                    .setCollectionInfo(data)
+                    .isMe()
+                    .show(context);
+            return true;
+        }
     }
 
     public static class WallpaperFragment extends WallpaperListFragment {
 
         public static WallpaperFragment newInstance(String id) {
-            String url = "http://tt.shouji.com.cn/app/bizhi_list.jsp?member=" + id;
+            String url = "http://tt.shouji.com.cn/appv3/bizhi_list.jsp?member=" + id;
             Bundle args = new Bundle();
             args.putString(Keys.DEFAULT_URL, url);
             WallpaperFragment fragment = new WallpaperFragment();

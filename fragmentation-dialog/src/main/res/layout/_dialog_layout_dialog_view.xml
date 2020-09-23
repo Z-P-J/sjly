@@ -6,6 +6,9 @@
     android:id="@+id/_dialog_fl_container"
     android:layout_height="match_parent"
     android:layout_gravity="center"
+    android:focusable="true"
+    android:clickable="true"
+    android:focusableInTouchMode="true"
     >
 
 

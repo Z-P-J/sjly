@@ -152,8 +152,8 @@ public class TileBitmapDrawable extends Drawable {
                     final Rect screenNailRect = new Rect(0, 0, decoder.getWidth(), decoder.getHeight());
 
                     final BitmapFactory.Options options = new BitmapFactory.Options();
-                    options.inPreferredConfig = Config.ARGB_8888;
-                    options.inPreferQualityOverSpeed = true;
+                    options.inPreferredConfig = Config.RGB_565;
+                    options.inPreferQualityOverSpeed = false;
                     options.inSampleSize = (1 << (levelCount - 1));
 
                     Bitmap screenNail;

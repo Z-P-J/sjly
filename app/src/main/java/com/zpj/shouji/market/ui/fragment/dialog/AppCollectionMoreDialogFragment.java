@@ -11,16 +11,17 @@ import com.felix.atoast.library.AToast;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.api.HttpApi;
 import com.zpj.shouji.market.manager.UserManager;
+import com.zpj.shouji.market.model.CollectionInfo;
 import com.zpj.shouji.market.model.DiscoverInfo;
 import com.zpj.shouji.market.ui.fragment.ReportFragment;
 
-public class ThemeMoreDialogFragment extends BottomListMenuDialogFragment
+public class AppCollectionMoreDialogFragment extends BottomListMenuDialogFragment
         implements BottomListMenuDialogFragment.OnItemClickListener {
 
-    private DiscoverInfo info;
+    private CollectionInfo info;
 
-    public ThemeMoreDialogFragment() {
-        setMenu(R.menu.menu_tools);
+    public AppCollectionMoreDialogFragment() {
+        setMenu(R.menu.menu_app_collection);
         onItemClick(this);
         setTitle("更多操作");
     }
@@ -28,82 +29,57 @@ public class ThemeMoreDialogFragment extends BottomListMenuDialogFragment
     @Override
     public void onClick(BottomListMenuDialogFragment menu, View view, MenuItem item) {
 //        menu.dismiss();
+        dismiss();
         switch (item.getItemId()) {
-            case R.id.copy:
-                dismiss();
-                ClipboardManager cm = (ClipboardManager) context.getSystemService(Context.CLIPBOARD_SERVICE);
-                cm.setPrimaryClip(ClipData.newPlainText(null, info.getContent()));
-                AToast.success("已复制到粘贴板");
-                break;
             case R.id.share:
-                dismiss();
                 new ShareDialogFragment()
-                        .setShareContent(getString(R.string.text_theme_share_content, info.getContent(), info.getId()))
+                        .setShareContent(getString(R.string.text_app_collection_share_content, info.getTitle(), info.getMemberId(), info.getId()))
                         .show(context);
                 break;
             case R.id.collect:
-                HttpApi.addCollectionApi(info.getId(), this::dismiss);
+                HttpApi.addFavCollectionApi(info.getId(), info.getType());
                 break;
             case R.id.delete_collect:
-                dismiss();
-                HttpApi.deleteCollectionApi(info.getId());
+                HttpApi.delFavCollectionApi(info.getId(), info.getType());
                 break;
             case R.id.delete:
-                dismiss();
                 HttpApi.deleteThemeApi(info.getId(), info.getContentType());
                 break;
-            case R.id.report:
-                dismiss();
-                ReportFragment.start(info);
-                break;
-            case R.id.black_list:
-                dismiss();
-                HttpApi.addBlacklistApi(info.getMemberId());
-                break;
             case R.id.private_theme:
-                dismiss();
                 HttpApi.privateThemeApi(info.getId());
                 break;
             case R.id.public_theme:
-                dismiss();
                 HttpApi.publicThemeApi(info.getId());
                 break;
         }
     }
 
-    public ThemeMoreDialogFragment isCollection() {
+    public AppCollectionMoreDialogFragment isCollection() {
         hideMenuItemList.add(R.id.collect);
         hideMenuItemList.remove((Integer) R.id.delete_collect);
         return this;
     }
 
-    public ThemeMoreDialogFragment isMe() {
+    public AppCollectionMoreDialogFragment isMe() {
         hideMenuItemList.add(R.id.collect);
         hideMenuItemList.add(R.id.delete_collect);
-        hideMenuItemList.add(R.id.black_list);
         return this;
     }
 
-    public ThemeMoreDialogFragment setDiscoverInfo(DiscoverInfo info) {
+    public AppCollectionMoreDialogFragment setCollectionInfo(CollectionInfo info) {
         this.info = info;
-//        List<Integer> hideList = new ArrayList<>();
         boolean isLogin = UserManager.getInstance().isLogin();
         if (isLogin) {
-            if (TextUtils.equals(info.getMemberId(), UserManager.getInstance().getUserId())) {
-                hideMenuItemList.add(R.id.black_list);
-            } else {
+            if (!TextUtils.equals(info.getMemberId(), UserManager.getInstance().getUserId())) {
                 hideMenuItemList.add(R.id.delete);
                 hideMenuItemList.add(R.id.private_theme);
                 hideMenuItemList.add(R.id.public_theme);
             }
-//            hideMenuItemList.add(info.isCollection() ? R.id.collect : R.id.delete_collect);
             hideMenuItemList.add(R.id.delete_collect);
         } else {
             hideMenuItemList.add(R.id.collect);
             hideMenuItemList.add(R.id.delete);
             hideMenuItemList.add(R.id.delete_collect);
-            hideMenuItemList.add(R.id.report);
-            hideMenuItemList.add(R.id.black_list);
             hideMenuItemList.add(R.id.private_theme);
             hideMenuItemList.add(R.id.public_theme);
         }
