@@ -127,7 +127,8 @@ public class DownloadManagerFragment extends BaseFragment
         } else if (data.getMission() != null) {
             AppDownloadMission mission = data.getMission();
             if (mission.isFinished()) {
-                mission.openFile(getContext());
+//                mission.openFile(getContext());
+                mission.install();
             } else {
                 AppDetailFragment.start(mission.getAppType(), mission.getAppId());
             }
@@ -351,7 +352,8 @@ public class DownloadManagerFragment extends BaseFragment
                                                     mission.pause();
                                                     break;
                                                 case "打开":
-                                                    mission.openFile(context);
+//                                                    mission.openFile(context);
+                                                    mission.install();
                                                     break;
                                                 case "删除":
                                                     new CheckDialogFragment()

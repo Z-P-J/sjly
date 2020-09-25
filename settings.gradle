@@ -12,4 +12,5 @@ include ':app',
         ':fragmentation',
         ':fragmentation-dialog',
         ':fragmentation-matisse',
-        ':fragmentation-ucrop'
+        ':fragmentation-ucrop',
+        ':installerlibrary'

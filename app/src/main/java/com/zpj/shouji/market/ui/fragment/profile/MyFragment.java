@@ -33,9 +33,6 @@ import com.zpj.shouji.market.ui.fragment.manager.InstalledManagerFragment;
 import com.zpj.shouji.market.ui.fragment.manager.PackageManagerFragment;
 import com.zpj.shouji.market.ui.fragment.manager.UpdateManagerFragment;
 import com.zpj.shouji.market.ui.fragment.setting.AboutSettingFragment;
-import com.zpj.shouji.market.ui.fragment.setting.CommonSettingFragment;
-import com.zpj.shouji.market.ui.fragment.setting.DownloadSettingFragment;
-import com.zpj.shouji.market.ui.fragment.setting.InstallSettingFragment;
 import com.zpj.shouji.market.ui.fragment.setting.SettingFragment;
 import com.zpj.shouji.market.ui.widget.PullZoomView;
 import com.zpj.shouji.market.ui.widget.ToolBoxCard;
@@ -477,12 +474,12 @@ public class MyFragment extends BaseFragment
             AToast.normal("TODO 夜间模式");
         } else if (v == tvSetting) {
             SettingFragment.start();
-        } else if (v == tvCommonSetting) {
-            CommonSettingFragment.start();
-        } else if (v == tvDownloadSetting) {
-            DownloadSettingFragment.start();
-        } else if (v == tvInstallSetting) {
-            InstallSettingFragment.start();
+//        } else if (v == tvCommonSetting) {
+//            CommonSettingFragment.start();
+//        } else if (v == tvDownloadSetting) {
+//            DownloadSettingFragment.start();
+//        } else if (v == tvInstallSetting) {
+//            InstallSettingFragment.start();
         } else if (v == tvAbout) {
             AboutSettingFragment.start();
         } else if (v == tvSignOut) {

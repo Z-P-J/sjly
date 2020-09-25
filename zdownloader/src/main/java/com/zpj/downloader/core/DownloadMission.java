@@ -753,7 +753,7 @@ public class DownloadMission {
     }
 
     //--------------------------------------------------------------getter-----------------------------------------------
-    private Context getContext() {
+    protected Context getContext() {
         return DownloadManagerImpl.getInstance().getContext();
     }
 

@@ -54,6 +54,14 @@ public class ZDownloader {
         init(options, DownloadMission.class);
     }
 
+    public static void setMaxDownloadConcurrentCount(int count) {
+        DownloadManagerImpl.getInstance().getDownloaderConfig().setConcurrentMissionCount(count);
+    }
+
+    public static void setMaxDownloadThreadCount(int count) {
+        DownloadManagerImpl.getInstance().getThreadPoolConfig().setMaximumPoolSize(count);
+    }
+
     public static void onDestroy() {
         DownloadManagerImpl.unRegister();
         NotifyUtil.cancelAll();

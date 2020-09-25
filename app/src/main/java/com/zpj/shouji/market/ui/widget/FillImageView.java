@@ -190,7 +190,8 @@ public class FillImageView extends ImageView {
                 } else {
                     mAlpha = (int) animation.getAnimatedValue();
                 }
-                invalidate();
+                postInvalidate();
+//                invalidate();
             }
         });
         valueAnimator.start();

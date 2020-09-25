@@ -17,7 +17,9 @@ import com.zpj.shouji.market.event.ShowLoadingEvent;
 import com.zpj.shouji.market.event.StartFragmentEvent;
 import com.zpj.shouji.market.manager.AppUpdateManager;
 import com.zpj.shouji.market.ui.fragment.dialog.BrightnessDialogFragment;
+import com.zpj.shouji.market.ui.fragment.dialog.SeekBarDialogFragment;
 import com.zpj.shouji.market.utils.DataCleanManagerUtils;
+import com.zpj.utils.RootUtils;
 import com.zpj.widget.setting.CheckableSettingItem;
 import com.zpj.widget.setting.CommonSettingItem;
 import com.zpj.widget.setting.SwitchSettingItem;
@@ -97,15 +99,20 @@ public class SettingFragment extends BaseSettingFragment {
 
 
         CheckableSettingItem itemInstallDownloaded = view.findViewById(R.id.item_install_downloaded);
+        itemInstallDownloaded.setChecked(AppConfig.isInstallAfterDownloaded());
         itemInstallDownloaded.setOnItemClickListener(this);
 
         CheckableSettingItem itemAutoDeleteApk = view.findViewById(R.id.item_auto_delete_apk);
+        itemAutoDeleteApk.setChecked(AppConfig.isAutoDeleteAfterInstalled());
         itemAutoDeleteApk.setOnItemClickListener(this);
 
-        CheckableSettingItem itemAutoInstall = view.findViewById(R.id.item_auto_install);
+        CheckableSettingItem itemAutoInstall = view.findViewById(R.id.item_accessibility_install);
+        itemAutoInstall.setChecked(AppConfig.isAccessibilityInstall());
         itemAutoInstall.setOnItemClickListener(this);
 
         CheckableSettingItem itemRootInstall = view.findViewById(R.id.item_root_install);
+        itemRootInstall.setVisibility(RootUtils.isRooted() ? View.VISIBLE : View.GONE);
+        itemRootInstall.setChecked(AppConfig.isRootInstall());
         itemRootInstall.setOnItemClickListener(this);
 
     }
@@ -144,13 +151,13 @@ public class SettingFragment extends BaseSettingFragment {
                 AppConfig.setInstallAfterDownloaded(item.isChecked());
                 break;
             case R.id.item_auto_delete_apk:
-
+                AppConfig.setAutoDeleteAfterInstalled(item.isChecked());
                 break;
-            case R.id.item_auto_install:
-
+            case R.id.item_accessibility_install:
+                AppConfig.setAccessibilityInstall(item.isChecked());
                 break;
             case R.id.item_root_install:
-
+                AppConfig.setRootInstall(item.isChecked());
                 break;
             default:
                 break;
@@ -226,10 +233,34 @@ public class SettingFragment extends BaseSettingFragment {
 
                 break;
             case R.id.item_max_downloading:
-
+                new SeekBarDialogFragment()
+                        .setTitle("最大任务数")
+                        .setMax(5)
+                        .setMin(1)
+                        .setProgress(AppConfig.getMaxDownloadConcurrentCount())
+                        .setOnSeekProgressChangeListener(new SeekBarDialogFragment.OnSeekProgressChangeListener() {
+                            @Override
+                            public void onSeek(int progress) {
+                                AppConfig.setMaxDownloadConcurrentCount(progress);
+                                item.setInfoText(String.valueOf(progress));
+                            }
+                        })
+                        .show(context);
                 break;
             case R.id.item_max_thread:
-
+                new SeekBarDialogFragment()
+                        .setTitle("最大线程数")
+                        .setMax(9)
+                        .setMin(1)
+                        .setProgress(AppConfig.getMaxDownloadThreadCount())
+                        .setOnSeekProgressChangeListener(new SeekBarDialogFragment.OnSeekProgressChangeListener() {
+                            @Override
+                            public void onSeek(int progress) {
+                                AppConfig.setMaxDownloadThreadCount(progress);
+                                item.setInfoText(String.valueOf(progress));
+                            }
+                        })
+                        .show(context);
                 break;
             default:
                 break;

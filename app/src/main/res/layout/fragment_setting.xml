@@ -198,7 +198,7 @@
                 <!--                    />-->
 
                 <com.zpj.widget.setting.SwitchSettingItem
-                    android:id="@+id/item_auto_install"
+                    android:id="@+id/item_accessibility_install"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     app:z_setting_titleText="无障碍自动安装"

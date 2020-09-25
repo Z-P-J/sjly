@@ -1,0 +1,104 @@
+package com.zpj.shouji.market.ui.fragment.dialog;
+
+import android.content.Context;
+import android.os.Bundle;
+import android.support.annotation.Nullable;
+import android.view.View;
+import android.widget.TextView;
+
+import com.warkiz.widget.IndicatorSeekBar;
+import com.warkiz.widget.OnSeekChangeListener;
+import com.warkiz.widget.SeekParams;
+import com.zpj.fragmentation.dialog.base.CenterDialogFragment;
+import com.zpj.shouji.market.R;
+import com.zpj.shouji.market.constant.AppConfig;
+import com.zpj.shouji.market.constant.Keys;
+import com.zpj.shouji.market.event.GetMainActivityEvent;
+import com.zpj.shouji.market.ui.activity.MainActivity;
+import com.zpj.shouji.market.ui.widget.CheckLayout;
+import com.zpj.shouji.market.utils.BrightnessUtils;
+import com.zpj.shouji.market.utils.Callback;
+import com.zpj.utils.PrefsHelper;
+
+public class SeekBarDialogFragment extends CenterDialogFragment {
+
+    private String title;
+    private int max;
+    private int min;
+    private int progress;
+    private OnSeekProgressChangeListener onSeekProgressChangeListener;
+
+    public static SeekBarDialogFragment with(Context context) {
+        return new SeekBarDialogFragment();
+    }
+
+    @Override
+    protected int getContentLayoutId() {
+        return R.layout.layout_popup_seek_bar;
+    }
+
+    @Override
+    protected void initView(View view, @Nullable Bundle savedInstanceState) {
+        super.initView(view, savedInstanceState);
+
+        findViewById(R.id.btn_close).setOnClickListener(v -> dismiss());
+
+        TextView tvTitle = findViewById(R.id.tv_title);
+        tvTitle.setText(title);
+
+        IndicatorSeekBar seekBar = findViewById(R.id.seek_bar);
+
+        seekBar.setMin(min);
+        seekBar.setMax(max);
+        seekBar.setProgress(progress);
+        seekBar.setTickCount(max - min + 1);
+        seekBar.setOnSeekChangeListener(new OnSeekChangeListener() {
+            @Override
+            public void onSeeking(SeekParams seekParams) {
+                if (onSeekProgressChangeListener != null) {
+                    onSeekProgressChangeListener.onSeek(seekParams.progress);
+                }
+            }
+
+            @Override
+            public void onStartTrackingTouch(IndicatorSeekBar seekBar) {
+
+            }
+
+            @Override
+            public void onStopTrackingTouch(IndicatorSeekBar seekBar) {
+
+            }
+        });
+    }
+
+    public SeekBarDialogFragment setTitle(String title) {
+        this.title = title;
+        return this;
+    }
+
+    public SeekBarDialogFragment setMax(int max) {
+        this.max = max;
+        return this;
+    }
+
+    public SeekBarDialogFragment setMin(int min) {
+        this.min = min;
+        return this;
+    }
+
+    public SeekBarDialogFragment setProgress(int progress) {
+        this.progress = progress;
+        return this;
+    }
+
+    public SeekBarDialogFragment setOnSeekProgressChangeListener(OnSeekProgressChangeListener onSeekProgressChangeListener) {
+        this.onSeekProgressChangeListener = onSeekProgressChangeListener;
+        return this;
+    }
+
+    public interface OnSeekProgressChangeListener {
+        public void onSeek(int progress);
+    }
+
+}

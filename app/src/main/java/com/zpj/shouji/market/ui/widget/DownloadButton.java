@@ -234,7 +234,7 @@ public class DownloadButton extends AppCompatTextView
             } else if (mission.canStart()){
                 mission.start();
             } else if (mission.isFinished()) {
-                mission.openFile();
+                mission.install();
             }
         } else {
             MissionConfig config = MissionConfig.with()

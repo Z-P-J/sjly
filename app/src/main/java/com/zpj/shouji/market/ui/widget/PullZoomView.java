@@ -3,6 +3,7 @@ package com.zpj.shouji.market.ui.widget;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.support.v4.view.ViewCompat;
+import android.support.v4.widget.NestedScrollView;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.MotionEvent;
@@ -25,7 +26,7 @@ import com.zpj.shouji.market.R;
  * 修订历史：
  * ================================================
  */
-public class PullZoomView extends ScrollView {
+public class PullZoomView extends NestedScrollView {
 
     private static final String TAG_HEADER = "header";        //头布局Tag
     private static final String TAG_ZOOM = "zoom";            //缩放布局Tag
@@ -43,7 +44,7 @@ public class PullZoomView extends ScrollView {
     private int headerHeight;               //头部的原始高度
     private View headerView;                //头布局
     private View zoomView;                  //用于缩放的View
-    private View contentView;               //主体内容View
+    protected View contentView;               //主体内容View
     private float lastEventX;               //Move事件最后一次发生时的X坐标
     private float lastEventY;               //Move事件最后一次发生时的Y坐标
     private float downX;                    //Down事件的X坐标

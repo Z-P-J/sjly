@@ -2,6 +2,7 @@ package com.zpj.shouji.market.constant;
 
 import android.os.Environment;
 
+import com.zpj.downloader.ZDownloader;
 import com.zpj.utils.PrefsHelper;
 
 public final class AppConfig {
@@ -19,6 +20,9 @@ public final class AppConfig {
     private static final String KEY_MAX_DOWNLOAD_CONCURRENT_COUNT = "max_download_concurrent_count";
     private static final String KEY_MAX_DOWNLOAD_THREAD_COUNT = "max_download_thread_count";
     private static final String KEY_INSTALL_AFTER_DOWNLOADED = "install_after_download";
+    private static final String KEY_AUTO_DELETE_AFTER_INSTALLED = "auto_delete_after_installed";
+    private static final String KEY_ACCESSIBILITY_INSTALL = "accessibility_install";
+    private static final String KEY_ROOT_INSTALL = "root_install";
 //    private static final String KEY_SHOW_DOWNLOADED_RING = "show_downloaded_ring";
 
     private AppConfig() {
@@ -83,6 +87,7 @@ public final class AppConfig {
 
     public static void setMaxDownloadConcurrentCount(int count) {
         PrefsHelper.with().putInt(KEY_MAX_DOWNLOAD_CONCURRENT_COUNT, count);
+        ZDownloader.setMaxDownloadConcurrentCount(count);
     }
 
     public static int getMaxDownloadConcurrentCount() {
@@ -91,6 +96,7 @@ public final class AppConfig {
 
     public static void setMaxDownloadThreadCount(int count) {
         PrefsHelper.with().putInt(KEY_MAX_DOWNLOAD_THREAD_COUNT, count);
+        ZDownloader.setMaxDownloadThreadCount(count);
     }
 
     public static int getMaxDownloadThreadCount() {
@@ -103,6 +109,30 @@ public final class AppConfig {
 
     public static boolean isInstallAfterDownloaded() {
         return PrefsHelper.with().getBoolean(KEY_INSTALL_AFTER_DOWNLOADED, true);
+    }
+
+    public static void setAutoDeleteAfterInstalled(boolean value) {
+        PrefsHelper.with().putBoolean(KEY_AUTO_DELETE_AFTER_INSTALLED, value);
+    }
+
+    public static boolean isAutoDeleteAfterInstalled() {
+        return PrefsHelper.with().getBoolean(KEY_AUTO_DELETE_AFTER_INSTALLED, true);
+    }
+
+    public static void setAccessibilityInstall(boolean value) {
+        PrefsHelper.with().putBoolean(KEY_ACCESSIBILITY_INSTALL, value);
+    }
+
+    public static boolean isAccessibilityInstall() {
+        return PrefsHelper.with().getBoolean(KEY_ACCESSIBILITY_INSTALL, true);
+    }
+
+    public static void setRootInstall(boolean value) {
+        PrefsHelper.with().putBoolean(KEY_ROOT_INSTALL, value);
+    }
+
+    public static boolean isRootInstall() {
+        return PrefsHelper.with().getBoolean(KEY_ROOT_INSTALL, true);
     }
 
 }

@@ -3,6 +3,7 @@ package com.zpj.shouji.market.download;
 import android.text.TextUtils;
 import android.util.Log;
 
+import com.felix.atoast.library.AToast;
 import com.zpj.downloader.ZDownloader;
 import com.zpj.downloader.config.MissionConfig;
 import com.zpj.downloader.constant.Error;
@@ -13,8 +14,12 @@ import com.zpj.http.core.IHttp;
 import com.zpj.http.parser.html.nodes.Document;
 import com.zpj.shouji.market.api.HttpApi;
 import com.zpj.shouji.market.constant.AppConfig;
+import com.zpj.utils.FileUtils;
 
+import java.io.File;
 import java.util.UUID;
+
+import top.wuhaojie.installerlibrary.AutoInstaller;
 
 public class AppDownloadMission extends DownloadMission {
 
@@ -111,6 +116,53 @@ public class AppDownloadMission extends DownloadMission {
             super.onFinish();
         }
         if (AppConfig.isInstallAfterDownloaded()) {
+            install();
+        }
+    }
+
+    public void install() {
+        if (AppConfig.isAccessibilityInstall() || AppConfig.isRootInstall()) {
+            AutoInstaller installer = new AutoInstaller.Builder(getContext())
+                    .setMode(AppConfig.isRootInstall() ? AutoInstaller.MODE.ROOT_ONLY : AutoInstaller.MODE.AUTO_ONLY)
+                    .setOnStateChangedListener(new AutoInstaller.OnStateChangedListener() {
+                        @Override
+                        public void onStart() {
+
+                        }
+
+                        @Override
+                        public void onComplete() {
+                            if (AppConfig.isAutoDeleteAfterInstalled()) {
+                                FileUtils.deleteFile(getFilePath());
+                            }
+                        }
+
+                        @Override
+                        public void onNeed2OpenService() {
+                            AToast.normal("请打开静默安装服务");
+                        }
+                    })
+                    .build();
+//            installer.setOnStateChangedListener(new AutoInstaller.OnStateChangedListener() {
+//                @Override
+//                public void onStart() {
+//
+//                }
+//
+//                @Override
+//                public void onComplete() {
+//                    if (AppConfig.isAutoDeleteAfterInstalled()) {
+//                        FileUtils.deleteFile(getFilePath());
+//                    }
+//                }
+//
+//                @Override
+//                public void onNeed2OpenService() {
+//                    AToast.normal("请打开静默安装服务");
+//                }
+//            });
+            installer.install(getFile());
+        } else {
             openFile();
         }
     }
