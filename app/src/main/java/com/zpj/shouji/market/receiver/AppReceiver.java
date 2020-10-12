@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 
 import com.felix.atoast.library.AToast;
+import com.zpj.downloader.util.notification.NotifyUtil;
 
 public class AppReceiver extends BroadcastReceiver {
     @Override
@@ -18,6 +19,12 @@ public class AppReceiver extends BroadcastReceiver {
         if ("android.intent.action.PACKAGE_ADDED".equals(intent.getAction())) {
             String packageName = intent.getDataString();
             AToast.warning("安装了:" + packageName + "包名的程序");
+            NotifyUtil.with(context)
+                    .buildNotify()
+                    .setId(hashCode())
+                    .setContentTitle("安装成功")
+                    .setContentText("应用" + packageName + "安装成功")
+                    .show();
         }
         //接收卸载广播
         if ("android.intent.action.PACKAGE_REMOVED".equals(intent.getAction())) {

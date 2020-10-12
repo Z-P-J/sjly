@@ -2,6 +2,8 @@ package com.zpj.matisse.ui.fragment;
 
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.graphics.drawable.Drawable;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -14,6 +16,9 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.target.SimpleTarget;
 import com.bumptech.glide.request.transition.Transition;
+import com.zpj.fragmentation.dialog.imagetrans.ImageLoad;
+import com.zpj.fragmentation.dialog.imagetrans.MyImageLoad;
+import com.zpj.fragmentation.dialog.imagetrans.TileBitmapDrawable;
 import com.zpj.fragmentation.dialog.impl.ImageViewerDialogFragment;
 import com.zpj.fragmentation.dialog.impl.ImageViewerDialogFragment2;
 import com.zpj.fragmentation.dialog.interfaces.IImageLoader;
@@ -29,8 +34,7 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CustomImageViewerDialogFragment2 extends ImageViewerDialogFragment2<Item>
-        implements IImageLoader<Item> {
+public class CustomImageViewerDialogFragment2 extends ImageViewerDialogFragment2<Item> {
 
     protected SelectedItemManager mSelectedCollection;
     private ZToolBar titleBar;
@@ -41,6 +45,28 @@ public class CustomImageViewerDialogFragment2 extends ImageViewerDialogFragment2
     protected boolean singleSelectionModeEnabled;
     protected List<Item> selectedList;
     protected OnSelectedListener onSelectListener;
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        build.imageLoad = new MyImageLoad<Item>() {
+            @Override
+            public void loadImage(Item url, LoadCallback callback, ImageView imageView, String unique) {
+                addLoadCallback(unique, callback);
+                loadImageFromLocal(url.getPath(imageView.getContext()), unique, imageView);
+            }
+
+            @Override
+            public boolean isCached(Item url) {
+                return true;
+            }
+
+            @Override
+            public void cancel(Item url, String unique) {
+                removeLoadCallback(unique);
+            }
+        };
+    }
 
     @Override
     protected int getCustomLayoutId() {
@@ -172,32 +198,6 @@ public class CustomImageViewerDialogFragment2 extends ImageViewerDialogFragment2
 ////                        .override(Target.SIZE_ORIGINAL))
 //                .into(imageView);
 //    }
-
-    @Override
-    public void loadImage(int position, @NonNull Item item, @NonNull ImageView imageView, Runnable runnable) {
-        Glide.with(imageView)
-                .asBitmap()
-                .load(item.uri)
-                .into(new SimpleTarget<Bitmap>() {
-                    @Override
-                    public void onResourceReady(@NonNull Bitmap resource, @Nullable Transition<? super Bitmap> transition) {
-                        imageView.setImageBitmap(resource);
-                        if (runnable != null) {
-                            runnable.run();
-                        }
-                    }
-                });
-    }
-
-    @Override
-    public File getImageFile(@NonNull Context context, @NonNull Item item) {
-        try {
-            return Glide.with(context).downloadOnly().load(item.uri).submit().get();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return null;
-    }
 
     @Override
     protected void onDismiss() {

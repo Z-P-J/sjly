@@ -112,6 +112,12 @@ public class WallpaperShareFragment extends BaseFragment
     }
 
     @Override
+    public void onSupportVisible() {
+        super.onSupportVisible();
+        darkStatusBar();
+    }
+
+    @Override
     public void onStop() {
         super.onStop();
         hideSoftInput();

@@ -58,11 +58,14 @@ public class InstallAccessibilityService extends android.accessibilityservice.Ac
     private boolean iterateNodesAndHandle(AccessibilityNodeInfo nodeInfo) {
         if (nodeInfo != null) {
             int childCount = nodeInfo.getChildCount();
-            if ("android.widget.Button".equals(nodeInfo.getClassName())) {
-                String nodeContent = nodeInfo.getText().toString();
+            if ("android.widget.Button".contentEquals(nodeInfo.getClassName())) {
+//                String nodeContent = nodeInfo.getText().toString();
+                CharSequence text = nodeInfo.getText();
+                String nodeContent = text == null ? "" : text.toString();
                 Log.d("TAG", "content is " + nodeContent);
                 if (!TextUtils.isEmpty(nodeContent)
                         && ("安装".equals(nodeContent)
+                        || "继续安装".equals(nodeContent)
                         || "install".equals(nodeContent.toLowerCase())
                         || "done".equals(nodeContent.toLowerCase())
                         || "完成".equals(nodeContent)
@@ -71,7 +74,7 @@ public class InstallAccessibilityService extends android.accessibilityservice.Ac
                     nodeInfo.performAction(AccessibilityNodeInfo.ACTION_CLICK);
                     return true;
                 }
-            } else if ("android.widget.ScrollView".equals(nodeInfo.getClassName())) {
+            } else if ("android.widget.ScrollView".contentEquals(nodeInfo.getClassName())) {
                 nodeInfo.performAction(AccessibilityNodeInfo.ACTION_SCROLL_FORWARD);
             }
             for (int i = 0; i < childCount; i++) {

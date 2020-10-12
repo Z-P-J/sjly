@@ -14,6 +14,7 @@ import com.zpj.http.core.IHttp;
 import com.zpj.http.parser.html.nodes.Document;
 import com.zpj.shouji.market.api.HttpApi;
 import com.zpj.shouji.market.constant.AppConfig;
+import com.zpj.utils.AppUtils;
 import com.zpj.utils.FileUtils;
 
 import java.io.File;
@@ -132,7 +133,7 @@ public class AppDownloadMission extends DownloadMission {
 
                         @Override
                         public void onComplete() {
-                            if (AppConfig.isAutoDeleteAfterInstalled()) {
+                            if (AppConfig.isAutoDeleteAfterInstalled() && AppUtils.isInstalled(getContext(), getPackageName())) {
                                 FileUtils.deleteFile(getFilePath());
                             }
                         }
@@ -140,6 +141,11 @@ public class AppDownloadMission extends DownloadMission {
                         @Override
                         public void onNeed2OpenService() {
                             AToast.normal("请打开静默安装服务");
+                        }
+
+                        @Override
+                        public void needPermission() {
+
                         }
                     })
                     .build();

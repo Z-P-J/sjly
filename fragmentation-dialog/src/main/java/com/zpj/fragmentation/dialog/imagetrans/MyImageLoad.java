@@ -89,7 +89,7 @@ public class MyImageLoad<T> implements ImageLoad<T> {
     /**
      * 从本地加载图片
      */
-    private void loadImageFromLocal(String url, final String unique, final ImageView imageView) {
+    protected void loadImageFromLocal(String url, final String unique, final ImageView imageView) {
         TileBitmapDrawable.attachTileBitmapDrawable(imageView, url, new TileBitmapDrawable.OnLoadListener() {
             @Override
             public void onLoadFinish(Drawable drawable) {
