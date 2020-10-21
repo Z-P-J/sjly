@@ -88,30 +88,50 @@ public class MainActionDialogFragment extends FullScreenDialogFragment
 //        findViewById(R.id.layout_add_view).setOnClickListener(v -> dismiss());
         menuLayout.setOnClickListener(v -> dismiss());
 
-        GetMainActivityEvent.post(new Callback<MainActivity>() {
-            @Override
-            public void onCallback(MainActivity activity) {
-                disposable = new ObservableTask<Bitmap>(
-                        emitter -> {
-                            Bitmap bitmap = Blurred.with(activity.findViewById(R.id.main_content))
-                                    .backgroundColor(Color.WHITE)
+//        GetMainActivityEvent.post(new Callback<MainActivity>() {
+//            @Override
+//            public void onCallback(MainActivity activity) {
+//                disposable = new ObservableTask<Bitmap>(
+//                        emitter -> {
+//                            Bitmap bitmap = Blurred.with(activity.getWindow().getDecorView()) // findViewById(R.id.fl_container)
+//                                    .backgroundColor(Color.WHITE)
+////                                    .foregroundColor(Color.parseColor("#aaffffff"))
+//                                    .antiAlias(true)
+//                                    .scale(0.3f) // 0.5f
+//                                    .radius(25)
+//                                    .blur();
+//                            emitter.onNext(bitmap);
+//                            emitter.onComplete();
+//                        })
+//                        .onSuccess(data -> {
+//                            if (ivBg != null) {
+//                                ivBg.setImageBitmap(data);
+//                            }
+//                        })
+//                        .onError(throwable -> AToast.error(throwable.getMessage()))
+//                        .subscribe();
+//            }
+//        });
+
+        disposable = new ObservableTask<Bitmap>(
+                emitter -> {
+                    Bitmap bitmap = Blurred.with(_mActivity.getWindow().getDecorView()) // findViewById(R.id.fl_container)
+                            .backgroundColor(Color.WHITE)
 //                                    .foregroundColor(Color.parseColor("#aaffffff"))
-                                    .antiAlias(true)
-                                    .scale(0.3f) // 0.5f
-                                    .radius(25)
-                                    .blur();
-                            emitter.onNext(bitmap);
-                            emitter.onComplete();
-                        })
-                        .onSuccess(data -> {
-                            if (ivBg != null) {
-                                ivBg.setImageBitmap(data);
-                            }
-                        })
-                        .onError(throwable -> AToast.error(throwable.getMessage()))
-                        .subscribe();
-            }
-        });
+                            .antiAlias(true)
+                            .scale(0.3f) // 0.5f
+                            .radius(25)
+                            .blur();
+                    emitter.onNext(bitmap);
+                    emitter.onComplete();
+                })
+                .onSuccess(data -> {
+                    if (ivBg != null) {
+                        ivBg.setImageBitmap(data);
+                    }
+                })
+                .onError(throwable -> AToast.error(throwable.getMessage()))
+                .subscribe();
 
         floatingActionButton.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
             @Override

@@ -1,7 +1,7 @@
 # compiler: R8
 # compiler_version: 1.5.69
 # min_api: 19
-# pg_map_id: d05a8e1
+# pg_map_id: e5f2f73
 android.arch.core.executor.ArchTaskExecutor -> a.a.a.a.a:
     android.arch.core.executor.ArchTaskExecutor sInstance -> c
     android.arch.core.executor.TaskExecutor mDelegate -> a
@@ -36497,10 +36497,10 @@ com.zpj.fragmentation.dialog.impl.CheckDialogFragment -> com.zpj.fragmentation.d
     53:54:com.zpj.fragmentation.dialog.impl.CheckDialogFragment setCheckTitle(java.lang.String) -> e
     31:31:int getContentLayoutId() -> r
 com.zpj.fragmentation.dialog.impl.FullScreenDialogFragment -> com.zpj.fragmentation.dialog.g.i:
-    17:17:void <init>() -> <init>
-    21:21:com.zpj.fragmentation.dialog.animator.PopupAnimator getDialogAnimator(android.view.ViewGroup) -> a
-    26:26:com.zpj.fragmentation.dialog.animator.PopupAnimator getShadowAnimator(android.widget.FrameLayout) -> a
-    31:44:void initView(android.view.View,android.os.Bundle) -> a
+    19:19:void <init>() -> <init>
+    23:23:com.zpj.fragmentation.dialog.animator.PopupAnimator getDialogAnimator(android.view.ViewGroup) -> a
+    28:28:com.zpj.fragmentation.dialog.animator.PopupAnimator getShadowAnimator(android.widget.FrameLayout) -> a
+    33:49:void initView(android.view.View,android.os.Bundle) -> a
 com.zpj.fragmentation.dialog.impl.ImageViewerDialogFragment2 -> com.zpj.fragmentation.dialog.g.j:
     android.view.View customView -> m
     com.zpj.fragmentation.dialog.imagetrans.ImageTransBuild build -> k
@@ -40589,16 +40589,16 @@ com.zpj.shouji.market.-$$Lambda$BaseApplication$rV9AS91GSbhQviWAHWjqgUjFkmk -> c
     com.zpj.shouji.market.-$$Lambda$BaseApplication$rV9AS91GSbhQviWAHWjqgUjFkmk INSTANCE -> a
     void onCrash(java.io.File) -> a
 com.zpj.shouji.market.BaseApplication -> com.zpj.shouji.market.BaseApplication:
-    27:27:void <init>() -> <init>
-    40:40:void lambda$onCreate$0(java.io.File) -> a
-    31:79:void onCreate() -> onCreate
+    29:29:void <init>() -> <init>
+    48:48:void lambda$onCreate$0(java.io.File) -> a
+    33:87:void onCreate() -> onCreate
 com.zpj.shouji.market.BaseApplication$1 -> com.zpj.shouji.market.BaseApplication$a:
-    59:59:void <init>(com.zpj.shouji.market.BaseApplication) -> <init>
-    62:63:void displayImage(android.content.Context,java.lang.String,android.widget.ImageView) -> a
+    67:67:void <init>(com.zpj.shouji.market.BaseApplication) -> <init>
+    70:71:void displayImage(android.content.Context,java.lang.String,android.widget.ImageView) -> a
 com.zpj.shouji.market.BaseApplication$2 -> com.zpj.shouji.market.BaseApplication$b:
-    71:71:void <init>(com.zpj.shouji.market.BaseApplication) -> <init>
-    74:75:void accept(java.lang.Throwable) -> a
-    71:71:void accept(java.lang.Object) -> accept
+    79:79:void <init>(com.zpj.shouji.market.BaseApplication) -> <init>
+    82:83:void accept(java.lang.Throwable) -> a
+    79:79:void accept(java.lang.Object) -> accept
 com.zpj.shouji.market.R$anim -> com.zpj.shouji.market.R$anim:
     11:11:void <init>() -> <init>
 com.zpj.shouji.market.R$animator -> com.zpj.shouji.market.R$animator:
@@ -40608,34 +40608,34 @@ com.zpj.shouji.market.R$array -> com.zpj.shouji.market.R$array:
 com.zpj.shouji.market.R$attr -> com.zpj.shouji.market.R$attr:
     79:79:void <init>() -> <init>
 com.zpj.shouji.market.R$bool -> com.zpj.shouji.market.R$bool:
-    8626:8626:void <init>() -> <init>
+    8043:8043:void <init>() -> <init>
 com.zpj.shouji.market.R$color -> com.zpj.shouji.market.R$color:
-    8632:8632:void <init>() -> <init>
+    8049:8049:void <init>() -> <init>
 com.zpj.shouji.market.R$dimen -> com.zpj.shouji.market.R$dimen:
-    9016:9016:void <init>() -> <init>
+    8433:8433:void <init>() -> <init>
 com.zpj.shouji.market.R$drawable -> com.zpj.shouji.market.R$drawable:
-    9278:9278:void <init>() -> <init>
+    8695:8695:void <init>() -> <init>
 com.zpj.shouji.market.R$id -> com.zpj.shouji.market.R$id:
-    9710:9710:void <init>() -> <init>
+    9129:9129:void <init>() -> <init>
 com.zpj.shouji.market.R$integer -> com.zpj.shouji.market.R$integer:
-    10558:10558:void <init>() -> <init>
+    9976:9976:void <init>() -> <init>
 com.zpj.shouji.market.R$interpolator -> com.zpj.shouji.market.R$interpolator:
-    10576:10576:void <init>() -> <init>
+    9994:9994:void <init>() -> <init>
 com.zpj.shouji.market.R$layout -> com.zpj.shouji.market.R$layout:
-    10582:10582:void <init>() -> <init>
+    10000:10000:void <init>() -> <init>
 com.zpj.shouji.market.R$menu -> com.zpj.shouji.market.R$menu:
-    10890:10890:void <init>() -> <init>
+    10308:10308:void <init>() -> <init>
 com.zpj.shouji.market.R$mipmap -> com.zpj.shouji.market.R$mipmap:
-    10900:10900:void <init>() -> <init>
+    10318:10318:void <init>() -> <init>
 com.zpj.shouji.market.R$string -> com.zpj.shouji.market.R$string:
-    10905:10905:void <init>() -> <init>
+    10323:10323:void <init>() -> <init>
 com.zpj.shouji.market.R$style -> com.zpj.shouji.market.R$style:
-    11048:11048:void <init>() -> <init>
+    10466:10466:void <init>() -> <init>
 com.zpj.shouji.market.R$styleable -> com.zpj.shouji.market.R$styleable:
-    11649:38492:void <clinit>() -> <clinit>
-    11577:11577:void <init>() -> <init>
+    11067:37065:void <clinit>() -> <clinit>
+    10999:10999:void <init>() -> <init>
 com.zpj.shouji.market.R$xml -> com.zpj.shouji.market.R$xml:
-    38636:38636:void <init>() -> <init>
+    37207:37207:void <init>() -> <init>
 com.zpj.shouji.market.api.-$$Lambda$BookingApi$J7p4xgMeAsTvyqiHgcsAwmjVEHU -> com.zpj.shouji.market.b.a:
     com.zpj.shouji.market.utils.Callback f$0 -> a
 com.zpj.shouji.market.api.-$$Lambda$BookingApi$KrMM823YXXgFa0nuO-P8gckHcK4 -> com.zpj.shouji.market.b.b:
@@ -42429,74 +42429,69 @@ com.zpj.shouji.market.model.article.TextElement -> com.zpj.shouji.market.model.n
 com.zpj.shouji.market.receiver.AppReceiver -> com.zpj.shouji.market.receiver.AppReceiver:
     10:10:void <init>() -> <init>
     14:34:void onReceive(android.content.Context,android.content.Intent) -> onReceive
-com.zpj.shouji.market.ui.activity.-$$Lambda$MainActivity$AjJvPazWfLAb9g5Qi5F4cRHlYeg -> com.zpj.shouji.market.ui.activity.a:
+com.zpj.shouji.market.ui.activity.-$$Lambda$MainActivity$1$9FaJ6FEcHuof8vpRmcy4F4lNnyM -> com.zpj.shouji.market.ui.activity.a:
+    com.zpj.shouji.market.ui.activity.MainActivity$1 f$0 -> a
+com.zpj.shouji.market.ui.activity.-$$Lambda$MainActivity$2xOl_Dxw0my-bDUR2Nu-cUTLVaE -> com.zpj.shouji.market.ui.activity.b:
+    com.yalantis.ucrop.CropEvent f$0 -> a
+com.zpj.shouji.market.ui.activity.-$$Lambda$MainActivity$42mrReT47_96VR5BpjRNw0Sc1Kw -> com.zpj.shouji.market.ui.activity.c:
+    com.zpj.shouji.market.ui.activity.-$$Lambda$MainActivity$42mrReT47_96VR5BpjRNw0Sc1Kw INSTANCE -> a
+com.zpj.shouji.market.ui.activity.-$$Lambda$MainActivity$K_4xx1OoEIPFpzg3kOWtK5CF_os -> com.zpj.shouji.market.ui.activity.d:
     com.zpj.shouji.market.ui.activity.MainActivity f$0 -> a
     void onClick(com.zpj.fragmentation.dialog.impl.AlertDialogFragment) -> a
-com.zpj.shouji.market.ui.activity.-$$Lambda$MainActivity$Dbu8PMIsY70f8Kc5Xj1j3O9FftQ -> com.zpj.shouji.market.ui.activity.b:
+com.zpj.shouji.market.ui.activity.-$$Lambda$MainActivity$NU5BH02zicZnMIyIrbzD94I5mMk -> com.zpj.shouji.market.ui.activity.e:
+    com.zpj.shouji.market.ui.activity.MainActivity f$0 -> a
+    void onClick(com.zpj.fragmentation.dialog.impl.AlertDialogFragment) -> a
+com.zpj.shouji.market.ui.activity.-$$Lambda$MainActivity$icrig6mbcIfvG6O-Y1PHkuvHPDs -> com.zpj.shouji.market.ui.activity.f:
+    com.zpj.shouji.market.ui.activity.-$$Lambda$MainActivity$icrig6mbcIfvG6O-Y1PHkuvHPDs INSTANCE -> a
+com.zpj.shouji.market.ui.activity.-$$Lambda$MainActivity$j85Nj5kwd1rFZ51XkTEdfrbmhKs -> com.zpj.shouji.market.ui.activity.g:
+    com.yalantis.ucrop.CropEvent f$0 -> a
+com.zpj.shouji.market.ui.activity.-$$Lambda$MainActivity$oqfQsUgXi3jfTfK7oZBazi5eljM -> com.zpj.shouji.market.ui.activity.h:
     com.zpj.shouji.market.ui.activity.MainActivity f$0 -> a
     com.yalantis.ucrop.CropEvent f$1 -> b
-com.zpj.shouji.market.ui.activity.-$$Lambda$MainActivity$QPUUJ3yYhgYQ7ZDj760CxKw1iE8 -> com.zpj.shouji.market.ui.activity.c:
-    com.yalantis.ucrop.CropEvent f$0 -> a
-com.zpj.shouji.market.ui.activity.-$$Lambda$MainActivity$ZRkXKR91bDQc2alaZ_zfMbCN2cY -> com.zpj.shouji.market.ui.activity.d:
-    com.zpj.shouji.market.ui.activity.MainActivity f$0 -> a
-com.zpj.shouji.market.ui.activity.-$$Lambda$MainActivity$qK_XRB84F44sUPS8WAVWj0GWaHQ -> com.zpj.shouji.market.ui.activity.e:
-    com.zpj.shouji.market.ui.activity.-$$Lambda$MainActivity$qK_XRB84F44sUPS8WAVWj0GWaHQ INSTANCE -> a
-com.zpj.shouji.market.ui.activity.-$$Lambda$MainActivity$qzmn6We04YDaXRhHI_QFRbGdM7Y -> com.zpj.shouji.market.ui.activity.f:
-    com.zpj.shouji.market.ui.activity.MainActivity f$0 -> a
-    void onClick(com.zpj.fragmentation.dialog.impl.AlertDialogFragment) -> a
-com.zpj.shouji.market.ui.activity.-$$Lambda$MainActivity$v1BVWb6st2CKAgqJk8rionl-lcs -> com.zpj.shouji.market.ui.activity.g:
+com.zpj.shouji.market.ui.activity.-$$Lambda$MainActivity$v1BVWb6st2CKAgqJk8rionl-lcs -> com.zpj.shouji.market.ui.activity.i:
     com.zpj.shouji.market.ui.activity.-$$Lambda$MainActivity$v1BVWb6st2CKAgqJk8rionl-lcs INSTANCE -> a
-com.zpj.shouji.market.ui.activity.-$$Lambda$MainActivity$x7bmP647qRuahTevtEi5LCzV1oU -> com.zpj.shouji.market.ui.activity.h:
-    com.yalantis.ucrop.CropEvent f$0 -> a
-com.zpj.shouji.market.ui.activity.-$$Lambda$MainActivity$y_LxJfd6y0ZCEvLo2aBz7_phmoE -> com.zpj.shouji.market.ui.activity.i:
-    com.zpj.shouji.market.ui.activity.-$$Lambda$MainActivity$y_LxJfd6y0ZCEvLo2aBz7_phmoE INSTANCE -> a
 com.zpj.shouji.market.ui.activity.MainActivity -> com.zpj.shouji.market.ui.activity.MainActivity:
-    site.gemus.openingstartanimation.OpeningStartAnimation openingStartAnimation3 -> c
-    android.widget.RelativeLayout rlSplash -> e
-    com.zpj.fragmentation.dialog.impl.LoadingDialogFragment loadingDialogFragment -> d
+    com.zpj.fragmentation.dialog.impl.LoadingDialogFragment loadingDialogFragment -> c
     long firstTime -> b
-    63:65:void <init>() -> <init>
-    63:63:site.gemus.openingstartanimation.OpeningStartAnimation access$000(com.zpj.shouji.market.ui.activity.MainActivity) -> a
-    88:88:boolean lambda$onCreate$0(android.view.View,android.view.MotionEvent) -> a
-    189:224:void init(boolean) -> a
-    275:275:void lambda$showRequestPermissionPopup$2(com.zpj.fragmentation.dialog.impl.AlertDialogFragment) -> a
-    282:282:boolean hasStoragePermissions(android.content.Context) -> a
-    379:396:void lambda$onCropEvent$4(com.yalantis.ucrop.CropEvent,com.zpj.http.parser.html.nodes.Document) -> a
-    398:400:void lambda$onCropEvent$5(java.lang.Throwable) -> a
-    417:417:void lambda$null$6(com.yalantis.ucrop.CropEvent,java.io.File) -> a
-    63:63:void access$100(com.zpj.shouji.market.ui.activity.MainActivity) -> b
-    276:276:void lambda$showRequestPermissionPopup$3(com.zpj.fragmentation.dialog.impl.AlertDialogFragment) -> b
-    412:422:void lambda$onCropEvent$7(com.yalantis.ucrop.CropEvent,com.zpj.http.parser.html.nodes.Document) -> b
-    424:428:void lambda$onCropEvent$8(java.lang.Throwable) -> b
-    195:197:void lambda$init$1() -> c
-    289:303:void requestPermission() -> d
-    269:279:void showRequestPermissionPopup() -> e
-    253:261:void onActivityResult(int,int,android.content.Intent) -> onActivityResult
-    238:249:void onBackPressedSupport() -> onBackPressedSupport
-    75:179:void onCreate(android.os.Bundle) -> onCreate
-    265:265:com.zpj.fragmentation.anim.FragmentAnimator onCreateFragmentAnimator() -> onCreateFragmentAnimator
-    374:437:void onCropEvent(com.yalantis.ucrop.CropEvent) -> onCropEvent
-    228:234:void onDestroy() -> onDestroy
-    183:185:void onEnterAnimationComplete() -> onEnterAnimationComplete
-    307:310:void onGetMainActivityEvent(com.zpj.shouji.market.event.GetMainActivityEvent) -> onGetMainActivityEvent
-    355:360:void onHideLoadingEvent(com.zpj.shouji.market.event.HideLoadingEvent) -> onHideLoadingEvent
-    336:346:void onShowLoadingEvent(com.zpj.shouji.market.event.ShowLoadingEvent) -> onShowLoadingEvent
-    319:320:void onStartFragmentEvent(com.zpj.shouji.market.event.StartFragmentEvent) -> onStartFragmentEvent
-    364:369:void onStatusBarEvent(com.zpj.shouji.market.event.StatusBarEvent) -> onStatusBarEvent
-    314:315:void startFragment(com.zpj.fragmentation.SupportFragment) -> startFragment
+    android.widget.FrameLayout flContainer -> d
+    56:58:void <init>() -> <init>
+    56:56:android.widget.FrameLayout access$000(com.zpj.shouji.market.ui.activity.MainActivity) -> a
+    83:83:boolean lambda$onCreate$0(android.view.View,android.view.MotionEvent) -> a
+    216:216:void lambda$showRequestPermissionPopup$1(com.zpj.fragmentation.dialog.impl.AlertDialogFragment) -> a
+    223:223:boolean hasStoragePermissions(android.content.Context) -> a
+    353:370:void lambda$onCropEvent$3(com.yalantis.ucrop.CropEvent,com.zpj.http.parser.html.nodes.Document) -> a
+    372:374:void lambda$onCropEvent$4(java.lang.Throwable) -> a
+    391:391:void lambda$null$5(com.yalantis.ucrop.CropEvent,java.io.File) -> a
+    56:56:void access$100(com.zpj.shouji.market.ui.activity.MainActivity) -> b
+    217:217:void lambda$showRequestPermissionPopup$2(com.zpj.fragmentation.dialog.impl.AlertDialogFragment) -> b
+    386:396:void lambda$onCropEvent$6(com.yalantis.ucrop.CropEvent,com.zpj.http.parser.html.nodes.Document) -> b
+    398:402:void lambda$onCropEvent$7(java.lang.Throwable) -> b
+    154:165:void init() -> c
+    230:277:void requestPermission() -> d
+    210:220:void showRequestPermissionPopup() -> e
+    194:202:void onActivityResult(int,int,android.content.Intent) -> onActivityResult
+    179:190:void onBackPressedSupport() -> onBackPressedSupport
+    70:134:void onCreate(android.os.Bundle) -> onCreate
+    348:411:void onCropEvent(com.yalantis.ucrop.CropEvent) -> onCropEvent
+    169:175:void onDestroy() -> onDestroy
+    138:141:void onEnterAnimationComplete() -> onEnterAnimationComplete
+    281:284:void onGetMainActivityEvent(com.zpj.shouji.market.event.GetMainActivityEvent) -> onGetMainActivityEvent
+    329:334:void onHideLoadingEvent(com.zpj.shouji.market.event.HideLoadingEvent) -> onHideLoadingEvent
+    310:320:void onShowLoadingEvent(com.zpj.shouji.market.event.ShowLoadingEvent) -> onShowLoadingEvent
+    293:294:void onStartFragmentEvent(com.zpj.shouji.market.event.StartFragmentEvent) -> onStartFragmentEvent
+    338:343:void onStatusBarEvent(com.zpj.shouji.market.event.StatusBarEvent) -> onStatusBarEvent
+    288:289:void startFragment(com.zpj.fragmentation.SupportFragment) -> startFragment
 com.zpj.shouji.market.ui.activity.MainActivity$1 -> com.zpj.shouji.market.ui.activity.MainActivity$a:
-    82:82:void <init>(com.zpj.shouji.market.ui.activity.MainActivity) -> <init>
-    86:86:void onClick(android.view.View) -> onClick
-com.zpj.shouji.market.ui.activity.MainActivity$2 -> com.zpj.shouji.market.ui.activity.MainActivity$b:
     com.zpj.shouji.market.ui.activity.MainActivity this$0 -> a
-    290:290:void <init>(com.zpj.shouji.market.ui.activity.MainActivity) -> <init>
-    293:296:void onGranted() -> a
-    300:301:void onDenied() -> b
-com.zpj.shouji.market.ui.activity.MainActivity$3 -> com.zpj.shouji.market.ui.activity.j:
+    231:231:void <init>(com.zpj.shouji.market.ui.activity.MainActivity) -> <init>
+    238:270:void onGranted() -> a
+    274:275:void onDenied() -> b
+    251:256:void lambda$onGranted$0() -> c
+com.zpj.shouji.market.ui.activity.MainActivity$2 -> com.zpj.shouji.market.ui.activity.j:
     com.yalantis.ucrop.CropEvent val$event -> a
-    386:386:void <init>(com.zpj.shouji.market.ui.activity.MainActivity,com.yalantis.ucrop.CropEvent) -> <init>
-    389:390:void onSuccess(java.io.File) -> a
-    386:386:void onSuccess(java.lang.Object) -> onSuccess
+    360:360:void <init>(com.zpj.shouji.market.ui.activity.MainActivity,com.yalantis.ucrop.CropEvent) -> <init>
+    363:364:void onSuccess(java.io.File) -> a
+    360:360:void onSuccess(java.lang.Object) -> onSuccess
 com.zpj.shouji.market.ui.adapter.-$$Lambda$DiscoverBinder$4$9P-RfVClxfhTapjHysxKaq6cZX4 -> com.zpj.shouji.market.f.a.a:
     com.sunbinqiang.iconcountview.IconCountView f$0 -> a
     boolean f$1 -> b
@@ -43781,19 +43776,19 @@ com.zpj.shouji.market.ui.fragment.dialog.-$$Lambda$EmailModifiedDialogFragment$Q
     com.zpj.shouji.market.ui.widget.input.EmailInputView f$1 -> b
 com.zpj.shouji.market.ui.fragment.dialog.-$$Lambda$EmailModifiedDialogFragment$UK9lsei3ic_ScEWoAIlSmK_gvik -> com.zpj.shouji.market.f.b.g0.d0:
     com.zpj.shouji.market.ui.fragment.dialog.-$$Lambda$EmailModifiedDialogFragment$UK9lsei3ic_ScEWoAIlSmK_gvik INSTANCE -> a
-com.zpj.shouji.market.ui.fragment.dialog.-$$Lambda$MainActionDialogFragment$1$BaESzFlkORS2_NGHiAITSBzo3YQ -> com.zpj.shouji.market.f.b.g0.e0:
-    android.widget.ImageView f$0 -> a
-com.zpj.shouji.market.ui.fragment.dialog.-$$Lambda$MainActionDialogFragment$1$N0-j_KcZhPMjzgRlUXaGap97Ewk -> com.zpj.shouji.market.f.b.g0.f0:
-    com.zpj.shouji.market.ui.activity.MainActivity f$0 -> a
-    void subscribe(io.reactivex.ObservableEmitter) -> a
-com.zpj.shouji.market.ui.fragment.dialog.-$$Lambda$MainActionDialogFragment$1$PyPtcKxqcFWZx_wh4KpipnFTXUc -> com.zpj.shouji.market.f.b.g0.g0:
-    com.zpj.shouji.market.ui.fragment.dialog.-$$Lambda$MainActionDialogFragment$1$PyPtcKxqcFWZx_wh4KpipnFTXUc INSTANCE -> a
-com.zpj.shouji.market.ui.fragment.dialog.-$$Lambda$MainActionDialogFragment$2$zu9-9jsZ1Iy1rfdt20bcmtM5LaY -> com.zpj.shouji.market.f.b.g0.h0:
+com.zpj.shouji.market.ui.fragment.dialog.-$$Lambda$MainActionDialogFragment$1$uGSrZl25W_Rd78HsdL0RqTX0vRk -> com.zpj.shouji.market.f.b.g0.e0:
     android.view.View f$0 -> a
-com.zpj.shouji.market.ui.fragment.dialog.-$$Lambda$MainActionDialogFragment$Uay-gSipQOW8mVf72hFcdLaVhaE -> com.zpj.shouji.market.f.b.g0.i0:
+com.zpj.shouji.market.ui.fragment.dialog.-$$Lambda$MainActionDialogFragment$MmOE9alv3gjahr6GHgvY29CfUEA -> com.zpj.shouji.market.f.b.g0.f0:
     com.zpj.shouji.market.ui.fragment.dialog.MainActionDialogFragment f$0 -> a
-com.zpj.shouji.market.ui.fragment.dialog.-$$Lambda$MainActionDialogFragment$jesLrmYFofV11zNockpb4TYKq4E -> com.zpj.shouji.market.f.b.g0.j0:
+com.zpj.shouji.market.ui.fragment.dialog.-$$Lambda$MainActionDialogFragment$NyjCyKhjWh4Jiyar2fEjcy3J8Ck -> com.zpj.shouji.market.f.b.g0.g0:
     com.zpj.shouji.market.ui.fragment.dialog.MainActionDialogFragment f$0 -> a
+com.zpj.shouji.market.ui.fragment.dialog.-$$Lambda$MainActionDialogFragment$SRhVRfF9ow-UArTQPzDpcLIXyX0 -> com.zpj.shouji.market.f.b.g0.h0:
+    com.zpj.shouji.market.ui.fragment.dialog.MainActionDialogFragment f$0 -> a
+    void subscribe(io.reactivex.ObservableEmitter) -> a
+com.zpj.shouji.market.ui.fragment.dialog.-$$Lambda$MainActionDialogFragment$VHGyohIp_6OSQo_f8RNmLKHHIss -> com.zpj.shouji.market.f.b.g0.i0:
+    com.zpj.shouji.market.ui.fragment.dialog.-$$Lambda$MainActionDialogFragment$VHGyohIp_6OSQo_f8RNmLKHHIss INSTANCE -> a
+com.zpj.shouji.market.ui.fragment.dialog.-$$Lambda$MainActionDialogFragment$iZXEL0xj8DPyKS2a5AYFyOR74LE -> com.zpj.shouji.market.f.b.g0.j0:
+    android.widget.ImageView f$0 -> a
 com.zpj.shouji.market.ui.fragment.dialog.-$$Lambda$MainActionDialogFragment$w-g6TsFcgcATHhTwcwRGJFNT-Do -> com.zpj.shouji.market.f.b.g0.k0:
     com.zpj.shouji.market.ui.fragment.dialog.MainActionDialogFragment f$0 -> a
 com.zpj.shouji.market.ui.fragment.dialog.-$$Lambda$ModifiedDialogFragment$IDciJPEP4wTy1zCkt7DHUggQOiY -> com.zpj.shouji.market.f.b.g0.l0:
@@ -44065,45 +44060,38 @@ com.zpj.shouji.market.ui.fragment.dialog.MainActionDialogFragment -> com.zpj.sho
     int[] menuIconItems -> k
     int[] menuItemColors -> l
     41:56:void <init>() -> <init>
-    41:41:io.reactivex.disposables.Disposable access$000(com.zpj.shouji.market.ui.fragment.dialog.MainActionDialogFragment) -> a
-    41:41:io.reactivex.disposables.Disposable access$002(com.zpj.shouji.market.ui.fragment.dialog.MainActionDialogFragment,io.reactivex.disposables.Disposable) -> a
-    73:140:void initView(android.view.View,android.os.Bundle) -> a
+    41:41:android.support.design.widget.FloatingActionButton access$000(com.zpj.shouji.market.ui.fragment.dialog.MainActionDialogFragment) -> a
+    73:160:void initView(android.view.View,android.os.Bundle) -> a
     89:89:void lambda$initView$0(android.view.View) -> a
-    150:167:android.view.View createView(android.content.Context,int) -> a
-    41:41:android.support.design.widget.FloatingActionButton access$100(com.zpj.shouji.market.ui.fragment.dialog.MainActionDialogFragment) -> b
-    41:41:void access$200(com.zpj.shouji.market.ui.fragment.dialog.MainActionDialogFragment) -> c
-    145:147:void doDismissAnimation() -> l
-    235:259:void onClick(android.view.View) -> onClick
+    118:127:void lambda$initView$1(io.reactivex.ObservableEmitter) -> a
+    129:132:void lambda$initView$2(android.widget.ImageView,android.graphics.Bitmap) -> a
+    133:133:void lambda$initView$3(java.lang.Throwable) -> a
+    170:187:android.view.View createView(android.content.Context,int) -> a
+    41:41:void access$100(com.zpj.shouji.market.ui.fragment.dialog.MainActionDialogFragment) -> b
+    41:41:io.reactivex.disposables.Disposable access$200(com.zpj.shouji.market.ui.fragment.dialog.MainActionDialogFragment) -> c
+    165:167:void doDismissAnimation() -> l
+    255:279:void onClick(android.view.View) -> onClick
     68:68:int getContentLayoutId() -> r
-    145:145:void lambda$doDismissAnimation$1() -> v
-    179:202:void lambda$startAnimation$2() -> w
-    207:231:void closeAnimation() -> x
-    176:204:void startAnimation() -> y
+    165:165:void lambda$doDismissAnimation$4() -> v
+    199:222:void lambda$startAnimation$5() -> w
+    227:251:void closeAnimation() -> x
+    196:224:void startAnimation() -> y
 com.zpj.shouji.market.ui.fragment.dialog.MainActionDialogFragment$1 -> com.zpj.shouji.market.f.b.g0.e2$a:
     com.zpj.shouji.market.ui.fragment.dialog.MainActionDialogFragment this$0 -> b
-    android.widget.ImageView val$ivBg -> a
-    91:91:void <init>(com.zpj.shouji.market.ui.fragment.dialog.MainActionDialogFragment,android.widget.ImageView) -> <init>
-    91:91:void onCallback(java.lang.Object) -> a
-    94:113:void onCallback(com.zpj.shouji.market.ui.activity.MainActivity) -> a
-    96:105:void lambda$onCallback$0(com.zpj.shouji.market.ui.activity.MainActivity,io.reactivex.ObservableEmitter) -> a
-    107:110:void lambda$onCallback$1(android.widget.ImageView,android.graphics.Bitmap) -> a
-    111:111:void lambda$onCallback$2(java.lang.Throwable) -> a
-com.zpj.shouji.market.ui.fragment.dialog.MainActionDialogFragment$2 -> com.zpj.shouji.market.f.b.g0.e2$b:
-    com.zpj.shouji.market.ui.fragment.dialog.MainActionDialogFragment this$0 -> b
     android.widget.LinearLayout val$menuLayout -> a
-    116:116:void <init>(com.zpj.shouji.market.ui.fragment.dialog.MainActionDialogFragment,android.widget.LinearLayout) -> <init>
-    125:132:void lambda$onGlobalLayout$0(android.view.View) -> a
-    119:137:void onGlobalLayout() -> onGlobalLayout
-com.zpj.shouji.market.ui.fragment.dialog.MainActionDialogFragment$3 -> com.zpj.shouji.market.f.b.g0.f2:
+    136:136:void <init>(com.zpj.shouji.market.ui.fragment.dialog.MainActionDialogFragment,android.widget.LinearLayout) -> <init>
+    145:152:void lambda$onGlobalLayout$0(android.view.View) -> a
+    139:157:void onGlobalLayout() -> onGlobalLayout
+com.zpj.shouji.market.ui.fragment.dialog.MainActionDialogFragment$2 -> com.zpj.shouji.market.f.b.g0.f2:
     com.zpj.shouji.market.ui.fragment.dialog.MainActionDialogFragment this$0 -> a
-    184:184:void <init>(com.zpj.shouji.market.ui.fragment.dialog.MainActionDialogFragment) -> <init>
-    194:194:void onAnimationEnd(android.animation.Animator) -> onAnimationEnd
-    188:189:void onAnimationStart(android.animation.Animator) -> onAnimationStart
-com.zpj.shouji.market.ui.fragment.dialog.MainActionDialogFragment$4 -> com.zpj.shouji.market.f.b.g0.e2$c:
+    204:204:void <init>(com.zpj.shouji.market.ui.fragment.dialog.MainActionDialogFragment) -> <init>
+    214:214:void onAnimationEnd(android.animation.Animator) -> onAnimationEnd
+    208:209:void onAnimationStart(android.animation.Animator) -> onAnimationStart
+com.zpj.shouji.market.ui.fragment.dialog.MainActionDialogFragment$3 -> com.zpj.shouji.market.f.b.g0.e2$b:
     com.zpj.shouji.market.ui.fragment.dialog.MainActionDialogFragment this$0 -> a
-    212:212:void <init>(com.zpj.shouji.market.ui.fragment.dialog.MainActionDialogFragment) -> <init>
-    220:224:void onAnimationEnd(android.animation.Animator) -> onAnimationEnd
-    216:216:void onAnimationStart(android.animation.Animator) -> onAnimationStart
+    232:232:void <init>(com.zpj.shouji.market.ui.fragment.dialog.MainActionDialogFragment) -> <init>
+    240:244:void onAnimationEnd(android.animation.Animator) -> onAnimationEnd
+    236:236:void onAnimationStart(android.animation.Animator) -> onAnimationStart
 com.zpj.shouji.market.ui.fragment.dialog.ModifiedDialogFragment -> com.zpj.shouji.market.f.b.g0.g2:
     11:11:void <init>() -> <init>
     28:28:void lambda$showKeyboard$1(android.view.View) -> a
@@ -53561,26 +53549,13 @@ q.rorbin.badgeview.QBadgeView$BadgeContainer -> q.rorbin.badgeview.QBadgeView$a:
     854:873:void onMeasure(int,int) -> onMeasure
 q.rorbin.badgeview.R$string -> q.rorbin.badgeview.R$string:
     13:13:void <init>() -> <init>
-site.gemus.openingstartanimation.DelegateRecycleView -> site.gemus.openingstartanimation.a:
-    void finishAnimation() -> a
 site.gemus.openingstartanimation.OpeningStartAnimation -> site.gemus.openingstartanimation.OpeningStartAnimation:
-    site.gemus.openingstartanimation.DelegateRecycleView mDelegateRecycleView -> e
-    float fraction -> d
-    long animationFinishTime -> a
-    site.gemus.openingstartanimation.WidthAndHeightOfView mWidthAndHeightOfView -> b
-    int colorOfBackground -> c
-    203:204:void dismiss(android.app.Activity) -> a
-    215:256:void moveAnimation(android.app.Activity,java.lang.Runnable) -> a
+    float fraction -> c
+    site.gemus.openingstartanimation.WidthAndHeightOfView mWidthAndHeightOfView -> a
+    int colorOfBackground -> b
     85:87:void onDraw(android.graphics.Canvas) -> onDraw
     69:71:void setFraction(float) -> setFraction
-site.gemus.openingstartanimation.OpeningStartAnimation$5 -> site.gemus.openingstartanimation.OpeningStartAnimation$a:
-    java.lang.Runnable val$endRunnable -> a
-    231:231:void <init>(site.gemus.openingstartanimation.OpeningStartAnimation,java.lang.Runnable) -> <init>
-    247:247:void onAnimationCancel(android.animation.Animator) -> onAnimationCancel
-    239:242:void onAnimationEnd(android.animation.Animator) -> onAnimationEnd
-    252:252:void onAnimationRepeat(android.animation.Animator) -> onAnimationRepeat
-    235:235:void onAnimationStart(android.animation.Animator) -> onAnimationStart
-site.gemus.openingstartanimation.WidthAndHeightOfView -> site.gemus.openingstartanimation.b:
+site.gemus.openingstartanimation.WidthAndHeightOfView -> site.gemus.openingstartanimation.a:
     void setHeight(int) -> a
 top.defaults.drawabletoolbox.CompatibleKt -> top.defaults.drawabletoolbox.a:
     java.lang.Class rotateState -> b

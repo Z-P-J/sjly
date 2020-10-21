@@ -5,17 +5,13 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
-import android.os.Build;
 import android.os.Bundle;
-import android.os.StrictMode;
 import android.provider.Settings;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.util.Log;
-import android.view.View;
-import android.widget.RelativeLayout;
+import android.view.WindowManager;
+import android.widget.FrameLayout;
 
 import com.felix.atoast.library.AToast;
 import com.lxj.xpermission.PermissionConstants;
@@ -24,7 +20,6 @@ import com.yalantis.ucrop.CropEvent;
 import com.zpj.downloader.ZDownloader;
 import com.zpj.fragmentation.SupportActivity;
 import com.zpj.fragmentation.SupportFragment;
-import com.zpj.fragmentation.anim.FragmentAnimator;
 import com.zpj.fragmentation.dialog.impl.AlertDialogFragment;
 import com.zpj.fragmentation.dialog.impl.LoadingDialogFragment;
 import com.zpj.http.core.IHttp;
@@ -41,7 +36,6 @@ import com.zpj.shouji.market.event.StatusBarEvent;
 import com.zpj.shouji.market.manager.AppInstalledManager;
 import com.zpj.shouji.market.manager.AppUpdateManager;
 import com.zpj.shouji.market.manager.UserManager;
-import com.zpj.shouji.market.ui.animator.MyFragmentAnimator;
 import com.zpj.shouji.market.ui.fragment.MainFragment;
 import com.zpj.shouji.market.utils.AppUtil;
 import com.zpj.shouji.market.utils.BrightnessUtils;
@@ -58,77 +52,38 @@ import java.util.concurrent.TimeUnit;
 import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
-import site.gemus.openingstartanimation.OpeningStartAnimation;
 
 public class MainActivity extends SupportActivity {
 
     private long firstTime = 0;
 
-    private OpeningStartAnimation openingStartAnimation3;
+//    private OpeningStartAnimation openingStartAnimation3;
 //    private LoadingPopup loadingPopup;
     private LoadingDialogFragment loadingDialogFragment;
 
-    private RelativeLayout rlSplash;
+    private FrameLayout flContainer;
+//    private RelativeLayout rlSplash;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
 
-        EventBus.getDefault().register(this);
+        long start = System.currentTimeMillis();
+
+        super.onCreate(savedInstanceState);
+        Log.d("MainActivity", "duration000-1=" + (System.currentTimeMillis() - start));
 
         setContentView(R.layout.activity_main);
+        Log.d("MainActivity", "duration000-2=" + (System.currentTimeMillis() - start));
 
-        rlSplash = findViewById(R.id.rl_splash);
-        rlSplash.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
 
-            }
-        });
-        rlSplash.setOnTouchListener((v, event) -> true);
-        rlSplash.setVisibility(AppConfig.isShowSplash() ? View.VISIBLE : View.GONE);
+        EventBus.getDefault().register(this);
+        Log.d("MainActivity", "duration000-3=" + (System.currentTimeMillis() - start));
 
-//        loadRootFragment(R.id.main_content, new TestFragment());
-
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-            StrictMode.VmPolicy.Builder builder = new StrictMode.VmPolicy.Builder();
-            StrictMode.setVmPolicy(builder.build());
-        }
-
-//        StatusBarUtils.setDarkMode(getWindow());
-        getWindow().setBackgroundDrawable(new ColorDrawable(Color.WHITE));
+        flContainer = findViewById(R.id.fl_container);
+        flContainer.setOnTouchListener((v, event) -> true);
+        Log.d("MainActivity", "duration000-4=" + (System.currentTimeMillis() - start));
 
         BrightnessUtils.setBrightness(this);
-
-
-
-//        postDelayed(() -> {
-//            mainFragment = findFragment(MainFragment3.class);
-//            if (mainFragment == null) {
-//                mainFragment = new MainFragment3();
-//                loadRootFragment(R.id.fl_container, mainFragment);
-//            }
-//        }, 200);
-
-//        Observable.timer(250, TimeUnit.MILLISECONDS)
-//                .subscribeOn(Schedulers.io())
-//                .observeOn(AndroidSchedulers.mainThread())
-//                .doOnComplete(() -> {
-//                    mainFragment = findFragment(MainFragment3.class);
-//                    if (mainFragment == null) {
-//                        mainFragment = new MainFragment3();
-//                        loadRootFragment(R.id.fl_container, mainFragment);
-//                    }
-//                })
-//                .subscribe();
-
-//        postDelayed(new Runnable() {
-//            @Override
-//            public void run() {
-//                showRequestPermissionPopup();
-//                rlSplash.setVisibility(View.GONE);
-//            }
-//        }, 10000);
 
 //        openingStartAnimation3 = new OpeningStartAnimation.Builder(MainActivity.this)
 //                .setDrawStategy(new NormalDrawStrategy())
@@ -181,28 +136,22 @@ public class MainActivity extends SupportActivity {
     @Override
     public void onEnterAnimationComplete() {
         super.onEnterAnimationComplete();
-        init(AppConfig.isShowSplash());
+
+        init();
     }
 
-    private void init(boolean isShowSplash) {
+    private void init() {
 
-        long start = System.currentTimeMillis();
-        if (isShowSplash) {
-            Observable.timer(2000, TimeUnit.MILLISECONDS)
-                    .subscribeOn(Schedulers.io())
-                    .observeOn(AndroidSchedulers.mainThread())
-                    .doOnComplete(() -> {
-                        showRequestPermissionPopup();
-                        rlSplash.setVisibility(View.GONE);
-                    })
-                    .subscribe();
-        } else {
-            showRequestPermissionPopup();
-            rlSplash.setVisibility(View.GONE);
-        }
+//        long temp1 = System.currentTimeMillis();
+//
+//        MainFragment mainFragment = findFragment(MainFragment.class);
+//        if (mainFragment == null) {
+//            mainFragment = new MainFragment();
+//            loadRootFragment(R.id.fl_container, mainFragment);
+//        }
+//        Log.d("MainActivity", "duration111=" + (System.currentTimeMillis() - temp1));
 
-
-
+        showRequestPermissionPopup();
 
         UserManager.getInstance().init();
 
@@ -212,15 +161,7 @@ public class MainActivity extends SupportActivity {
 
         AppInstalledManager.getInstance().loadApps(this);
 
-        long temp1 = System.currentTimeMillis();
-        Log.d("MainActivity", "duration111=" + (temp1 - start));
 
-        MainFragment mainFragment = findFragment(MainFragment.class);
-        if (mainFragment == null) {
-            mainFragment = new MainFragment();
-            loadRootFragment(R.id.fl_container, mainFragment);
-        }
-        Log.d("MainActivity", "duration111=" + (System.currentTimeMillis() - temp1));
     }
 
     @Override
@@ -260,10 +201,10 @@ public class MainActivity extends SupportActivity {
         }
     }
 
-    @Override
-    public FragmentAnimator onCreateFragmentAnimator() {
-        return new MyFragmentAnimator();
-    }
+//    @Override
+//    public FragmentAnimator onCreateFragmentAnimator() {
+//        return new MyFragmentAnimator();
+//    }
 
     private void showRequestPermissionPopup() {
         if (hasStoragePermissions(getApplicationContext())) {
@@ -290,9 +231,42 @@ public class MainActivity extends SupportActivity {
                 .callback(new XPermission.SimpleCallback() {
                     @Override
                     public void onGranted() {
-                        if (openingStartAnimation3 != null) {
-                            openingStartAnimation3.dismiss(MainActivity.this);
+//                        if (openingStartAnimation3 != null) {
+//                            openingStartAnimation3.dismiss(MainActivity.this);
+//                        }
+
+                        getWindow().clearFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
+
+                        MainFragment mainFragment = findFragment(MainFragment.class);
+                        if (mainFragment == null) {
+                            mainFragment = new MainFragment();
+                            loadRootFragment(R.id.fl_container, mainFragment);
                         }
+                        if (AppConfig.isShowSplash()) {
+                            Observable.timer(1500, TimeUnit.MILLISECONDS)
+                                    .subscribeOn(Schedulers.io())
+                                    .observeOn(AndroidSchedulers.mainThread())
+                                    .doOnComplete(() -> {
+//                                        rlSplash.setVisibility(View.GONE);
+                                        flContainer.animate()
+                                                .setDuration(500)
+                                                .alpha(1)
+                                                .start();
+                                        flContainer.setOnTouchListener(null);
+                                    })
+                                    .subscribe();
+                        } else {
+                            flContainer.setOnTouchListener(null);
+                            flContainer.animate()
+                                    .setDuration(1000)
+                                    .alpha(1)
+                                    .start();
+                        }
+
+
+
+
+
                     }
 
                     @Override
