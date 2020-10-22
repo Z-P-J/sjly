@@ -62,6 +62,12 @@ public class InputDialogFragment extends AlertDialogFragment implements View.OnC
     }
 
     @Override
+    public void dismiss() {
+        hideSoftInput();
+        super.dismiss();
+    }
+
+    @Override
     public void onClick(View v) {
         if (v == tv_cancel) {
             dismiss();

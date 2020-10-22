@@ -38,6 +38,7 @@ import com.zpj.fragmentation.dialog.utils.Utility;
 import com.zpj.http.core.ObservableTask;
 import com.zpj.utils.ContextUtils;
 import com.zpj.utils.FileUtils;
+import com.zpj.utils.ScreenUtils;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -48,7 +49,7 @@ import java.util.List;
  * Description: 大图预览的弹窗，使用Transition实现
  * Create by lxj, at 2019/1/22
  */
-public abstract class ImageViewerDialogFragment2<T> extends FullScreenDialogFragment {
+public class ImageViewerDialogFragment2<T> extends FullScreenDialogFragment {
 
     protected final ImageTransBuild<T> build = new ImageTransBuild<>();
     protected DialogView<T> dialogView;
@@ -81,7 +82,7 @@ public abstract class ImageViewerDialogFragment2<T> extends FullScreenDialogFrag
         super.initView(view, savedInstanceState);
 
         dialogView = findViewById(R.id._dialog_view);
-        dialogView.onCreate(build, this);
+
 
         build.imageTransAdapter = new ImageTransAdapter() {
             @Override
@@ -104,14 +105,16 @@ public abstract class ImageViewerDialogFragment2<T> extends FullScreenDialogFrag
             @Override
             protected void onOpenTransEnd() {
                 ImageViewerDialogFragment2.this.onOpenTransEnd();
-                customView.setAlpha(1f);
-                customView.setVisibility(View.VISIBLE);
+                if (customView != null) {
+                    customView.setAlpha(1f);
+                    customView.setVisibility(View.VISIBLE);
+                }
             }
 
             @Override
             protected void onOpenTransStart() {
                 ImageViewerDialogFragment2.this.onOpenTransStart();
-                customView.setAlpha(0f);
+                if (customView != null) customView.setAlpha(0f);
             }
         };
 
@@ -140,6 +143,15 @@ public abstract class ImageViewerDialogFragment2<T> extends FullScreenDialogFrag
             getImplView().addView(customView);
         }
 
+
+
+
+    }
+
+    @Override
+    public void doShowAnimation() {
+        build.offset = ScreenUtils.getScreenHeight(context) - getRootView().getMeasuredHeight();
+        dialogView.onCreate(build, this);
     }
 
     @Override

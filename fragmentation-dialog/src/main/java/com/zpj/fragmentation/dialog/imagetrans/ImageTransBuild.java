@@ -28,6 +28,7 @@ public class ImageTransBuild<T> {
     public ImageLoad<T> imageLoad;
     public ScaleType scaleType = ScaleType.CENTER_CROP;
     public FullScreenDialogFragment dialog;
+    public int offset = 0;
 
     public void checkParam() {
         if (itConfig == null)

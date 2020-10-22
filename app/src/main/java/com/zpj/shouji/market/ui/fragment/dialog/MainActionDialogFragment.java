@@ -55,6 +55,7 @@ public class MainActionDialogFragment extends FullScreenDialogFragment
     };
     private final String[] menuTextItems = {"动态", "应用集", "乐图", "私聊"};
 
+    private LinearLayout menuLayout;
     private FloatingActionButton floatingActionButton;
 
     private Disposable disposable;
@@ -73,7 +74,7 @@ public class MainActionDialogFragment extends FullScreenDialogFragment
         super.initView(view, savedInstanceState);
 
         getContentView().setAlpha(0f);
-        LinearLayout menuLayout = findViewById(R.id.icon_group);
+        menuLayout = findViewById(R.id.icon_group);
         floatingActionButton = findViewById(R.id.fab);
         floatingActionButton.setOnClickListener(this);
 
@@ -133,30 +134,51 @@ public class MainActionDialogFragment extends FullScreenDialogFragment
                 .onError(throwable -> AToast.error(throwable.getMessage()))
                 .subscribe();
 
-        floatingActionButton.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
-            @Override
-            public void onGlobalLayout() {
-                floatingActionButton.getViewTreeObserver().removeOnGlobalLayoutListener(this);
-                //菜单项弹出动画
-                for (int i = 0; i < menuLayout.getChildCount(); i++) {
-                    final View child = menuLayout.getChildAt(i);
-                    child.setVisibility(View.INVISIBLE);
-                    getContentView().postDelayed(() -> {
-                        child.setVisibility(View.VISIBLE);
-                        ValueAnimator fadeAnim = ObjectAnimator.ofFloat(child, "translationY", 600, 0);
-                        fadeAnim.setDuration(500);
-                        KickBackAnimator kickAnimator = new KickBackAnimator();
-                        kickAnimator.setDuration(500);
-                        fadeAnim.setEvaluator(kickAnimator);
-                        fadeAnim.start();
-                    }, i * 50 + 100);
-                }
+//        floatingActionButton.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+//            @Override
+//            public void onGlobalLayout() {
+//                floatingActionButton.getViewTreeObserver().removeOnGlobalLayoutListener(this);
+//                //菜单项弹出动画
+//                for (int i = 0; i < menuLayout.getChildCount(); i++) {
+//                    final View child = menuLayout.getChildAt(i);
+//                    child.setVisibility(View.INVISIBLE);
+//                    getContentView().postDelayed(() -> {
+//                        child.setVisibility(View.VISIBLE);
+//                        ValueAnimator fadeAnim = ObjectAnimator.ofFloat(child, "translationY", 600, 0);
+//                        fadeAnim.setDuration(500);
+//                        KickBackAnimator kickAnimator = new KickBackAnimator();
+//                        kickAnimator.setDuration(500);
+//                        fadeAnim.setEvaluator(kickAnimator);
+//                        fadeAnim.start();
+//                    }, i * 50 + 100);
+//                }
+//
+//                floatingActionButton.animate().rotation(135).setDuration(300);
+//                startAnimation();
+//            }
+//        });
 
-                floatingActionButton.animate().rotation(135).setDuration(300);
-                startAnimation();
-            }
-        });
+    }
 
+    @Override
+    public void doShowAnimation() {
+        //菜单项弹出动画
+        for (int i = 0; i < menuLayout.getChildCount(); i++) {
+            final View child = menuLayout.getChildAt(i);
+            child.setVisibility(View.INVISIBLE);
+            getContentView().postDelayed(() -> {
+                child.setVisibility(View.VISIBLE);
+                ValueAnimator fadeAnim = ObjectAnimator.ofFloat(child, "translationY", 600, 0);
+                fadeAnim.setDuration(500);
+                KickBackAnimator kickAnimator = new KickBackAnimator();
+                kickAnimator.setDuration(500);
+                fadeAnim.setEvaluator(kickAnimator);
+                fadeAnim.start();
+            }, i * 50 + 100);
+        }
+
+        floatingActionButton.animate().rotation(135).setDuration(300);
+        startAnimation();
     }
 
     @Override

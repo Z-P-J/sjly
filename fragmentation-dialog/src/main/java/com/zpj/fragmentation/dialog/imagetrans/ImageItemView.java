@@ -68,7 +68,7 @@ public class ImageItemView<T> extends FrameLayout implements
 
     public void update(View view) {
         if (imageView != null) {
-            imageView.settingConfig(build.itConfig, new ThumbConfig(view, getResources(), build.scaleType));
+            imageView.settingConfig(build.itConfig, new ThumbConfig(view, getResources(), build.scaleType, build.offset));
             return;
         }
         imageView = new TransImageView(getContext());
@@ -77,7 +77,7 @@ public class ImageItemView<T> extends FrameLayout implements
         progressBar = build.inflateProgress(getContext(), this);
         hideProgress();
         needTransOpen = build.needTransOpen(pos, true);
-        imageView.settingConfig(build.itConfig, new ThumbConfig(view, getResources(), build.scaleType));
+        imageView.settingConfig(build.itConfig, new ThumbConfig(view, getResources(), build.scaleType, build.offset));
         imageView.setTransStateChangeListener(this);
         imageView.setOnPullCloseListener(this);
         imageView.setOnLongClickListener(this);

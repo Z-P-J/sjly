@@ -11,6 +11,7 @@ import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewTreeObserver;
 import android.widget.FrameLayout;
 import android.widget.Toast;
 
@@ -62,10 +63,10 @@ public abstract class BaseDialogFragment extends AbstractDialogFragment {
     protected void initView(View view, @Nullable Bundle savedInstanceState) {
         preFragment = getPreFragment();
         FrameLayout flContainer = findViewById(R.id._dialog_fl_container);
-        flContainer.setClickable(true);
-        flContainer.setFocusable(true);
-        flContainer.setFocusableInTouchMode(true);
-        flContainer.requestFocus();
+//        flContainer.setClickable(true);
+//        flContainer.setFocusable(true);
+//        flContainer.setFocusableInTouchMode(true);
+//        flContainer.requestFocus();
         this.rootView = flContainer;
 
         rootView.setOnClickListener(new View.OnClickListener() {
@@ -124,7 +125,15 @@ public abstract class BaseDialogFragment extends AbstractDialogFragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        doShowAnimation();
+        getRootView().getViewTreeObserver()
+                .addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+                    @Override
+                    public void onGlobalLayout() {
+                        getRootView().getViewTreeObserver().removeOnGlobalLayoutListener(this);
+                        doShowAnimation();
+                    }
+                });
+
 //        getImplView().post(new Runnable() {
 //            @Override
 //            public void run() {
@@ -201,7 +210,7 @@ public abstract class BaseDialogFragment extends AbstractDialogFragment {
     }
 
     public void doShowAnimation() {
-        popupContentAnimator = getDialogAnimator((ViewGroup) implView);
+        popupContentAnimator = getDialogAnimator(implView);
         if (shadowBgAnimator != null) {
             shadowBgAnimator.initAnimator();
             shadowBgAnimator.animateShow();

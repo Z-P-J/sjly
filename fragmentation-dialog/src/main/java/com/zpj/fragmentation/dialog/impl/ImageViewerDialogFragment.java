@@ -26,6 +26,7 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewTreeObserver;
 import android.view.animation.LinearInterpolator;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
@@ -45,6 +46,7 @@ import com.zpj.fragmentation.dialog.widget.BlankView;
 import com.zpj.fragmentation.dialog.widget.HackyViewPager;
 import com.zpj.fragmentation.dialog.widget.PhotoViewContainer;
 import com.zpj.fragmentation.dialog.R;
+import com.zpj.utils.ScreenUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -160,7 +162,7 @@ public class ImageViewerDialogFragment<T> extends BaseDialogFragment
 //        pager.setOffscreenPageLimit(1);
         pager.setCurrentItem(position);
         pager.setVisibility(View.INVISIBLE);
-        addOrUpdateSnapshot();
+//        addOrUpdateSnapshot();
 //        if (isInfinite) pager.setOffscreenPageLimit(urls.size() / 2);
         if (!isShowIndicator) tv_pager_indicator.setVisibility(View.GONE);
         if (!isShowSaveBtn) {
@@ -172,6 +174,9 @@ public class ImageViewerDialogFragment<T> extends BaseDialogFragment
 
     @Override
     public void doShowAnimation() {
+
+        addOrUpdateSnapshot();
+
         if (customView != null) customView.setVisibility(View.VISIBLE);
         if (srcView == null || popupStatus == PopupStatus.Hide) {
             photoViewContainer.setBackgroundColor(bgColor);
@@ -234,7 +239,8 @@ public class ImageViewerDialogFragment<T> extends BaseDialogFragment
             }
             setWidthHeight(placeholderView, rect.width(), rect.height());
             placeholderView.setTranslationX(rect.left);
-            placeholderView.setTranslationY(rect.top);
+            int offset = ScreenUtils.getScreenHeight(context) - getRootView().getMeasuredHeight();
+            placeholderView.setTranslationY(rect.top - offset);
             placeholderView.invalidate();
         }
     }
@@ -253,8 +259,9 @@ public class ImageViewerDialogFragment<T> extends BaseDialogFragment
             snapshotView = new PhotoView(getContext());
             photoViewContainer.addView(snapshotView);
             snapshotView.setScaleType(srcView.getScaleType());
+            int offset = ScreenUtils.getScreenHeight(context) - getRootView().getMeasuredHeight();
             snapshotView.setTranslationX(rect.left);
-            snapshotView.setTranslationY(rect.top);
+            snapshotView.setTranslationY(rect.top - offset);
             setWidthHeight(snapshotView, rect.width(), rect.height());
         }
         setupPlaceholder();
@@ -313,7 +320,8 @@ public class ImageViewerDialogFragment<T> extends BaseDialogFragment
                     }
                 }));
 
-        snapshotView.setTranslationY(rect.top);
+        int offset = ScreenUtils.getScreenHeight(context) - getRootView().getMeasuredHeight();
+        snapshotView.setTranslationY(rect.top - offset);
         snapshotView.setTranslationX(rect.left);
         snapshotView.setScaleX(1f);
         snapshotView.setScaleY(1f);
@@ -529,6 +537,7 @@ public class ImageViewerDialogFragment<T> extends BaseDialogFragment
                 imageLoader.loadImage(position, urls.get(isInfinite ? position % urls.size() : position), photoView, new Runnable() {
                     @Override
                     public void run() {
+
                         postOnEnterAnimationEnd(new Runnable() {
                             @Override
                             public void run() {

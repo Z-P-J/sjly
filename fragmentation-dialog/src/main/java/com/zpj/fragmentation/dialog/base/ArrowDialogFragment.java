@@ -19,6 +19,7 @@ import com.zpj.fragmentation.dialog.enums.PopupPosition;
 import com.zpj.fragmentation.dialog.R;
 import com.zpj.fragmentation.dialog.model.OptionMenu;
 import com.zpj.fragmentation.dialog.widget.PopLayout;
+import com.zpj.utils.ScreenUtils;
 
 
 public abstract class ArrowDialogFragment extends BaseDialogFragment {
@@ -79,21 +80,25 @@ public abstract class ArrowDialogFragment extends BaseDialogFragment {
 
     }
 
+//    @Override
+//    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+//        super.onViewCreated(view, savedInstanceState);
+//        mPopLayout
+//                .getViewTreeObserver()
+//                .addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+//                    @Override
+//                    public void onGlobalLayout() {
+//                        mPopLayout.getViewTreeObserver().removeOnGlobalLayoutListener(this);
+//                        show(attachView, null, touchPoint);
+//                    }
+//                });
+//    }
+
     @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-        mPopLayout
-                .getViewTreeObserver()
-                .addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
-                    @Override
-                    public void onGlobalLayout() {
-                        mPopLayout.getViewTreeObserver().removeOnGlobalLayoutListener(this);
-                        show(attachView, null, touchPoint);
-                    }
-                });
+    public void doShowAnimation() {
+        super.doShowAnimation();
+        show(attachView, null, touchPoint);
     }
-
-
 
     public void show(View anchor, RectF frame, PointF origin) {
 
@@ -124,24 +129,25 @@ public abstract class ArrowDialogFragment extends BaseDialogFragment {
         float max2 = Math.max(right, left);
         float max = Math.max(max1, max2);
         Log.d("whwhwhwhwh", "max1=" + max1 + "   max2=" + max2 + "  max=" + max);
+        int offsetY = ScreenUtils.getScreenHeight(context) - getRootView().getMeasuredHeight();
         if (max == bottom) {
             Log.d("whwhwhwhwh", "showAtBottom");
-            showAtBottom(anchor, origin, offset.x, 0);
+            showAtBottom(anchor, origin, offset.x, -offsetY);
         } else if (max == top) {
             Log.d("whwhwhwhwh", "showAtTop");
-            showAtTop(anchor, origin, offset.x, -height - contentHeight);
+            showAtTop(anchor, origin, offset.x, -height - contentHeight - offsetY);
         } else if (bottom > 0) {
             Log.d("whwhwhwhwh", "showAtBottom");
-            showAtBottom(anchor, origin, offset.x, 0);
+            showAtBottom(anchor, origin, offset.x, -offsetY);
         } else if (top > 0) {
             Log.d("whwhwhwhwh", "showAtTop");
-            showAtTop(anchor, origin, offset.x, -height - contentHeight);
+            showAtTop(anchor, origin, offset.x, -height - contentHeight - offsetY);
         } else if (max == right) {
             Log.d("whwhwhwhwh", "showAtRight");
-            showAtRight(anchor, origin, width, offset.y);
+            showAtRight(anchor, origin, width, offset.y - offsetY);
         } else {
             Log.d("whwhwhwhwh", "showAtLeft");
-            showAtLeft(anchor, origin, -contentWidth, offset.y);
+            showAtLeft(anchor, origin, -contentWidth, offset.y - offsetY);
         }
     }
 

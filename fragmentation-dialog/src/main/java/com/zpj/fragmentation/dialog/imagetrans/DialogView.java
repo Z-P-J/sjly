@@ -22,25 +22,26 @@ import java.util.List;
 public class DialogView<T> extends FrameLayout implements OnTransformListener {
 
     private ImageTransBuild<T> build;
-    private InterceptViewPager viewPager;
+    private final InterceptViewPager viewPager;
     private ImagePagerAdapter<T> mAdapter;
     private boolean isOpened = false;
 
     public DialogView(@NonNull Context context) {
-        super(context);
+        this(context, null);
     }
 
     public DialogView(@NonNull Context context, @Nullable AttributeSet attrs) {
-        super(context, attrs);
+        this(context, attrs, 0);
     }
 
     public DialogView(@NonNull Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
+        viewPager = new InterceptViewPager(context);
     }
 
     public void onCreate(ImageTransBuild<T> build, FullScreenDialogFragment dialogInterface) {
         this.build = build;
-        viewPager = new InterceptViewPager(getContext());
+
         addView(viewPager, new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
         mAdapter = new ImagePagerAdapter<>(build.imageList);
         viewPager.setAdapter(mAdapter);

@@ -46,6 +46,10 @@ public class OkHttpImageLoad {
 
     private OkHttpImageLoad() {
         IMAGE_CACHE_PATH = ContextUtils.getApplicationContext().getExternalCacheDir().getAbsolutePath() + "/thumbnail_cache";
+        File file = new File(IMAGE_CACHE_PATH);
+        if (!file.exists()) {
+            file.mkdirs();
+        }
     }
 
     public static OkHttpImageLoad getInstance() {

@@ -39,6 +39,8 @@ public abstract class PartShadowDialogFragment extends AttachDialogFragment {
 
     @Override
     protected void doAttach() {
+        Log.d(TAG, "screenHeight=" + ScreenUtils.getScreenHeight(context) + " getRootView().getMeasuredHeight()=" + getRootView().getMeasuredHeight());
+
         if (attachView == null)
             throw new IllegalArgumentException("atView must not be null for PartShadowPopupView！");
 
@@ -69,7 +71,7 @@ public abstract class PartShadowDialogFragment extends AttachDialogFragment {
         int centerY = rect.top + rect.height() / 2;
         Log.d(TAG, "centerY=" + centerY + " getImplView().getMeasuredHeight()=" + getImplView().getMeasuredHeight() + " getContentView().getMeasuredHeight()" + getContentView().getMeasuredHeight());
 
-        int offset = 0;
+        int offset = ScreenUtils.getScreenHeight(context) - getRootView().getMeasuredHeight();
 //        if (getActivity() != null && (WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS
 //                & getActivity().getWindow().getAttributes().flags)
 //                == WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS) {

@@ -103,6 +103,8 @@ public abstract class AttachDialogFragment extends BaseDialogFragment {
     }
 
     protected void doAttach() {
+        int offset = ScreenUtils.getScreenHeight(context) - getRootView().getMeasuredHeight();
+
         maxY = ScreenUtils.getScreenHeight(context);
         int width = getImplView().getMeasuredWidth();
         int height = getImplView().getMeasuredHeight();
@@ -167,6 +169,8 @@ public abstract class AttachDialogFragment extends BaseDialogFragment {
                     } else {
                         translationY = touchPoint.y + defaultOffsetY;
                     }
+
+                    translationY -= offset;
 
                     Log.d(TAG, "translationX=" + translationX + " translationY=" + translationY);
 
@@ -239,6 +243,8 @@ public abstract class AttachDialogFragment extends BaseDialogFragment {
                     } else {
                         translationY = rect.bottom - rect.height() + defaultOffsetY;
                     }
+
+                    translationY -= offset;
 
 //                    translationY -= ScreenUtils.getStatusBarHeight(context);
 

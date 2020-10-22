@@ -24,12 +24,14 @@ class ThumbConfig {
     private View view;
     private final int screenWidth;
     private final int screenHeight;
+    private final int offset;
 
-    ThumbConfig(@Nullable View view, Resources resources, ScaleType scaleType) {
+    ThumbConfig(@Nullable View view, Resources resources, ScaleType scaleType, int offset) {
         this.view = view;
         this.scaleType = scaleType;
         screenWidth = resources.getDisplayMetrics().widthPixels;
         screenHeight = resources.getDisplayMetrics().heightPixels;
+        this.offset = offset;
 //        Rect rect = new Rect();
 //        if (view == null) {
 //            //如果view为空,则定义从中心点放大图片
@@ -62,8 +64,8 @@ class ThumbConfig {
             //如果view为空,则定义从中心点放大图片
             rect.left = (int) (screenWidth * .5f);
             rect.right = (int) (screenWidth * .5f);
-            rect.top = (int) (screenHeight * .5f);
-            rect.bottom = (int) (screenHeight * .5f);
+            rect.top = (int) (screenHeight * .5f) - offset;
+            rect.bottom = (int) (screenHeight * .5f) - offset;
         } else {
             int[] a = new int[2];
             view.getLocationInWindow(a);
@@ -73,6 +75,7 @@ class ThumbConfig {
             } else {
                 rect.top = a[1] - getStatesBarHeight(view.getContext());
             }
+            rect.top -= offset;
             rect.right = rect.left + view.getWidth();
             rect.bottom = rect.top + view.getHeight();
 
