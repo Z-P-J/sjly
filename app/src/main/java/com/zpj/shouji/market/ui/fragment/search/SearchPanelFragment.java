@@ -98,19 +98,6 @@ public class SearchPanelFragment extends BaseFragment {
                             }
                         })
                         .show(context);
-//                ZPopup.alert(context)
-//                        .setTitle("清空记录？")
-//                        .setContent("您将清空您的历史搜索记录，确认清空？")
-//                        .setConfirmButton(new OnConfirmListener<AlertPopup>() {
-//                            @Override
-//                            public void onConfirm(AlertPopup popup) {
-//                                SearchHistoryManager.deleteAllLocalSearchHistory();
-//                                searchHistory.clear();
-//                                searchHistory.setVisibility(View.GONE);
-//                                rlHistoryBar.setVisibility(searchHistory.count() == 0 ? View.GONE : View.VISIBLE);
-//                            }
-//                        })
-//                        .show();
             }
         });
 

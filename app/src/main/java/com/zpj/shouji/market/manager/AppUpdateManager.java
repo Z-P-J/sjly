@@ -154,7 +154,7 @@ public final class AppUpdateManager {
         throwable = null;
         checked.set(false);
         running.set(true);
-        HttpApi.openConnection("http://tt.shouji.com.cn/app/update.jsp", Connection.Method.POST)
+        HttpApi.openConnection("http://tt.shouji.com.cn/appv3/update.jsp", Connection.Method.POST)
                 .userAgent("Sjly(2.9.9.9.3)")
                 .execute()
                 .flatMap((ObservableTask.OnFlatMapListener<Connection.Response, CheckUpdate>) (response, emitter) -> {

@@ -197,34 +197,6 @@ public class SettingFragment extends BaseSettingFragment {
                                         .subscribe();
                             })
                             .show(context);
-//                    ZPopup.alert(context)
-//                            .setTitle("清除缓存")
-//                            .setContent("您将清除本应用所有缓存数据，确认清除？")
-//                            .setAutoDismiss(false)
-//                            .setConfirmButton(popup -> {
-//                                popup.setOnDismissListener(() -> {
-//                                    ShowLoadingEvent.post("清除中...");
-//                                    new ObservableTask<String>(
-//                                            emitter -> {
-//                                                DataCleanManagerUtils.clearAllCache(context);
-//                                                emitter.onNext(DataCleanManagerUtils.getTotalCacheSizeStr(context));
-//                                                emitter.onComplete();
-//                                            })
-//                                            .onSuccess(new IHttp.OnSuccessListener<String>() {
-//                                                @Override
-//                                                public void onSuccess(String data) throws Exception {
-//                                                    HideLoadingEvent.post(() -> {
-//                                                        AToast.success("清理成功");
-//                                                        item.setRightText(data);
-//                                                    });
-//                                                }
-//                                            })
-//                                            .subscribe();
-//                                });
-//                                popup.dismiss();
-//                            })
-//                            .setCancelButton(BasePopup::dismiss)
-//                            .show();
                 } else {
                     AToast.warning("暂无缓存");
                 }

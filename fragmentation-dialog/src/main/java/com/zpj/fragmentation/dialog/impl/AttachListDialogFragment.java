@@ -78,9 +78,9 @@ public class AttachListDialogFragment<T> extends AttachDialogFragment {
                     holder.getView(R.id._dialog_view_divider).setVisibility(View.GONE);
                 })
                 .onItemClick((holder, view1, data) -> {
-                    dismiss();
+//                    dismiss();
                     if (selectListener != null) {
-                        selectListener.onSelect(holder.getAdapterPosition(), data);
+                        selectListener.onSelect(AttachListDialogFragment.this, holder.getAdapterPosition(), data);
                     }
 
                 })
@@ -194,7 +194,7 @@ public class AttachListDialogFragment<T> extends AttachDialogFragment {
     }
 
     public interface OnSelectListener<T> {
-        void onSelect(int position, T text);
+        void onSelect(AttachListDialogFragment<T> fragment, int position, T text);
     }
 
 }

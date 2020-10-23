@@ -146,11 +146,6 @@ public class MyInfoFragment extends BaseFragment implements OnCommonItemClickLis
                         .setContent(content)
                         .hideCancelBtn()
                         .show(context);
-//                ZPopup.alert(context)
-//                        .setTitle(memberInfo.getMemberNickName())
-//                        .setContent(content)
-//                        .hideCancelBtn()
-//                        .show();
                 break;
             case R.id.item_avatar:
                 UploadUtils.upload(_mActivity, true);

@@ -24,10 +24,14 @@ import java.util.List;
 
 public class ReportFragment extends BaseFragment {
 
+    public static ReportFragment newInstance(DiscoverInfo discoverInfo) {
+        ReportFragment fragment = new ReportFragment();
+        fragment.discoverInfo = discoverInfo;
+        return fragment;
+    }
+
     public static void start(DiscoverInfo discoverInfo) {
-        ReportFragment reportFragment = new ReportFragment();
-        reportFragment.discoverInfo = discoverInfo;
-        StartFragmentEvent.start(reportFragment);
+        StartFragmentEvent.start(newInstance(discoverInfo));
     }
 
     private DiscoverInfo discoverInfo;

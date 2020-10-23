@@ -133,17 +133,6 @@ public abstract class BaseDialogFragment extends AbstractDialogFragment {
                         doShowAnimation();
                     }
                 });
-
-//        getImplView().post(new Runnable() {
-//            @Override
-//            public void run() {
-//                popupContentAnimator = getDialogAnimator((ViewGroup) implView);
-//                doShowAnimation();
-//            }
-//        });
-
-//        doAfterShow();
-
     }
 
     @Override
@@ -168,6 +157,7 @@ public abstract class BaseDialogFragment extends AbstractDialogFragment {
             preFragment.onSupportVisible();
             preFragment = null;
         }
+        this.isDismissing = false;
         super.onDestroy();
     }
 
@@ -231,21 +221,41 @@ public abstract class BaseDialogFragment extends AbstractDialogFragment {
         }
     }
 
+//    @Override
+//    public Animation onCreateAnimation(int transit, boolean enter, int nextAnim) {
+//        Toast.makeText(context, "onCreateAnimation enter=" + enter + " ", Toast.LENGTH_SHORT).show();
+//        if (!enter) {
+//            doDismissAnimation();
+//        }
+//        return super.onCreateAnimation(transit, enter, nextAnim);
+//    }
+
     public void dismiss() {
         if (!isDismissing) {
             isDismissing = true;
             doDismissAnimation();
             super.pop();
-            postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    onDismiss();
-                }
-            }, 250);
+            onDismiss();
+//            postDelayed(new Runnable() {
+//                @Override
+//                public void run() {
+//                    onDismiss();
+//                }
+//            }, 250);
+
 //            postDelayed(() -> {
 //                BaseDialogFragment.super.popThis();
 //                onDismiss();
 //            }, XPopup.getAnimationDuration());
+        }
+    }
+
+    public void dismissWithStart(ISupportFragment fragment) {
+        if (!isDismissing) {
+            isDismissing = true;
+            doDismissAnimation();
+            super.startWithPop(fragment);
+            onDismiss();
         }
     }
 
@@ -270,7 +280,7 @@ public abstract class BaseDialogFragment extends AbstractDialogFragment {
 //    }
 
     protected void onDismiss() {
-        isDismissing = false;
+//        isDismissing = false;
         if (onDismissListener != null) {
             onDismissListener.onDismiss();
         }

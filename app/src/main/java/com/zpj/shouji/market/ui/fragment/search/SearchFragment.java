@@ -136,6 +136,12 @@ public class SearchFragment extends BaseFragment {
     }
 
     @Override
+    public void onSupportInvisible() {
+        super.onSupportInvisible();
+        hideSoftInput();
+    }
+
+    @Override
     public void onDestroy() {
         hideSoftInput();
         super.onDestroy();

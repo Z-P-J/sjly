@@ -42,7 +42,7 @@ public class LoginFragment extends BaseFragment {
     }
 
     public static void start(boolean isRegistration) {
-        StartFragmentEvent.start(LoginFragment.newInstance(isRegistration));
+        StartFragmentEvent.start(newInstance(isRegistration));
     }
 
     public static void start() {

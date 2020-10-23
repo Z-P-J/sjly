@@ -89,7 +89,8 @@ public class CommonImageViewerDialogFragment2 extends ImageViewerDialogFragment2
                     .addItems("分享图片", "保存图片", "设为壁纸")
                     .addItemIf(isOriginalImageAvailable(), "查看原图")
 //                    .setOnDismissListener(this::focusAndProcessBackPress)
-                    .setOnSelectListener((pos, title) -> {
+                    .setOnSelectListener((fragment, pos, title) -> {
+                        fragment.dismiss();
                         switch (pos) {
                             case 0:
                                 PictureUtil.shareWebImage(context, getOriginalImageUrl());

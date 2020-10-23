@@ -393,55 +393,29 @@ public class AppDetailFragment extends BaseFragment
         new AttachListDialogFragment<String>()
                 .addItems("下载管理", "复制包名", "浏览器中打开")
                 .addItemIf(UserManager.getInstance().isLogin(), "添加到应用集")
-                .setOnSelectListener((position, title) -> {
+                .setOnSelectListener((fragment, position, title) -> {
                     switch (position) {
                         case 0:
-                            ManagerFragment.start();
+                            fragment.dismissWithStart(new ManagerFragment());
+//                            ManagerFragment.start();
                             break;
                         case 1:
                             ClipboardManager cm = (ClipboardManager) context.getSystemService(Context.CLIPBOARD_SERVICE);
                             cm.setPrimaryClip(ClipData.newPlainText(null, info.getPackageName()));
                             AToast.success("已复制到粘贴板");
+                            fragment.dismiss();
                             break;
                         case 2:
-                            WebFragment.appPage(type, id);
-//                                AToast.normal("TODO 分享主页");
+                            WebFragment.appPage(fragment, type, id);
                             break;
                         case 3:
                             AToast.normal("TODO " + title);
-                            break;
-                        case 4:
+                            fragment.dismiss();
                             break;
                     }
                 })
                 .setAttachView(btnMenu)
                 .show(this);
-
-//        ZPopup.attachList(context)
-//                .addItems("下载管理", "复制包名", "浏览器中打开")
-//                .addItemIf(UserManager.getInstance().isLogin(), "添加到应用集")
-//                .setOnSelectListener((position, title) -> {
-//                    switch (position) {
-//                        case 0:
-//                            AppManagerFragment.start();
-//                            break;
-//                        case 1:
-//                            ClipboardManager cm = (ClipboardManager) context.getSystemService(Context.CLIPBOARD_SERVICE);
-//                            cm.setPrimaryClip(ClipData.newPlainText(null, info.getPackageName()));
-//                            AToast.success("已复制到粘贴板");
-//                            break;
-//                        case 2:
-//                            WebFragment.appPage(type, id);
-////                                AToast.normal("TODO 分享主页");
-//                            break;
-//                        case 3:
-//                            AToast.normal("TODO " + title);
-//                            break;
-//                        case 4:
-//                            break;
-//                    }
-//                })
-//                .show(btnMenu);
     }
 
     private void onFabClicked() {

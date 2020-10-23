@@ -343,7 +343,8 @@ public class DownloadManagerFragment extends BaseFragment
                                 }
                                 new AttachListDialogFragment<String>()
                                         .addItems(titleList)
-                                        .setOnSelectListener((position, text) -> {
+                                        .setOnSelectListener((fragment, position, text) -> {
+                                            fragment.dismiss();
                                             switch (text) {
                                                 case "开始":
                                                     mission.start();
@@ -361,7 +362,7 @@ public class DownloadManagerFragment extends BaseFragment
                                                             .setCheckTitle("删除已下载的文件")
                                                             .setTitle("确定删除？")
                                                             .setContent("你将删除下载任务：" + mission.getTaskName())
-                                                            .setPositiveButton(fragment -> mission.delete())
+                                                            .setPositiveButton(dialog -> mission.delete())
                                                             .show(context);
                                                     break;
                                                 case "复制链接":

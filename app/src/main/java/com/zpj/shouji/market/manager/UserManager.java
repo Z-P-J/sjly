@@ -108,17 +108,6 @@ public final class UserManager {
                     PictureUtil.saveDefaultIcon(SignOutEvent::postEvent);
                 })
                 .show(context);
-//        ZPopup.alert(context)
-//                .setTitle("确认注销？")
-//                .setContent("您将注销当前登录的账户，确认继续？")
-//                .setConfirmButton(popup -> {
-//                    memberInfo = null;
-//                    setUserInfo("");
-//                    setCookie("");
-//                    isLogin = false;
-//                    PictureUtil.saveDefaultIcon(SignOutEvent::postEvent);
-//                })
-//                .show();
     }
 
     public void setCookie(String cookie) {

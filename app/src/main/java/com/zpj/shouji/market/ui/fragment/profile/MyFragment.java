@@ -189,7 +189,8 @@ public class MyFragment extends BaseFragment
                     }
                     new AttachListDialogFragment<String>()
                             .addItems("更换我的头像", "保存头像")
-                            .setOnSelectListener((position, title) -> {
+                            .setOnSelectListener((fragment, position, title) -> {
+                                fragment.dismiss();
                                 switch (position) {
                                     case 0:
                                         UploadUtils.upload(_mActivity, true);
@@ -201,19 +202,6 @@ public class MyFragment extends BaseFragment
                             })
                             .setTouchPoint(x, y)
                             .show(context);
-//                    ZPopup.attachList(context)
-//                            .addItems("更换我的头像", "保存头像")
-//                            .setOnSelectListener((position, title) -> {
-//                                switch (position) {
-//                                    case 0:
-//                                        UploadUtils.upload(_mActivity, true);
-//                                        break;
-//                                    case 1:
-//                                        PictureUtil.saveImage(context, UserManager.getInstance().getMemberInfo().getMemberAvatar());
-//                                        break;
-//                                }
-//                            })
-//                            .show(x, y);
                     return true;
                 });
 
@@ -227,7 +215,8 @@ public class MyFragment extends BaseFragment
                     new AttachListDialogFragment<String>()
                             .addItems("更换主页背景", "保存背景")
                             .addItemIf(canDelete, "删除背景")
-                            .setOnSelectListener((position, title) -> {
+                            .setOnSelectListener((fragment, position, title) -> {
+                                fragment.dismiss();
                                 switch (position) {
                                     case 0:
                                         UploadUtils.upload(_mActivity, false);
@@ -259,40 +248,6 @@ public class MyFragment extends BaseFragment
                             })
                             .setTouchPoint(x, y)
                             .show(context);
-//                    ZPopup.attachList(context)
-//                            .addItems("更换主页背景", "保存背景")
-//                            .addItemIf(canDelete, "删除背景")
-//                            .setOnSelectListener((position, title) -> {
-//                                switch (position) {
-//                                    case 0:
-//                                        UploadUtils.upload(_mActivity, false);
-//                                        break;
-//                                    case 1:
-//                                        PictureUtil.saveImage(context, bgUrl);
-//                                        break;
-//                                    case 2:
-//                                        HttpApi.deleteBackgroundApi()
-//                                                .onSuccess(data -> {
-//                                                    Log.d("deleteBackgroundApi", "data=" + data);
-//                                                    String info = data.selectFirst("info").text();
-//                                                    if ("success".equals(data.selectFirst("result").text())) {
-//                                                        AToast.success(info);
-//                                                        UserManager.getInstance().getMemberInfo().setMemberBackGround("");
-//                                                        UserManager.getInstance().saveUserInfo();
-//                                                        PictureUtil.saveDefaultBackground(() -> ivWallpaper.setImageResource(R.drawable.bg_member_default));
-//                                                    } else {
-//                                                        AToast.error(info);
-//                                                    }
-//                                                })
-//                                                .onError(throwable -> {
-//                                                    throwable.printStackTrace();
-//                                                    AToast.error(throwable.getMessage());
-//                                                })
-//                                                .subscribe();
-//                                        break;
-//                                }
-//                            })
-//                            .show(x, y);
                     return true;
                 });
 
@@ -356,57 +311,36 @@ public class MyFragment extends BaseFragment
             new AttachListDialogFragment<String>()
                     .addItems("打开我的主页", "打开主页网页", "分享主页")
                     .addItem(UserManager.getInstance().isLogin() ? "注销" : "登录")
-                    .setOnSelectListener((position, title) -> {
+                    .setOnSelectListener((fragment, position, title) -> {
                         switch (position) {
                             case 0:
-                                ProfileFragment.start(UserManager.getInstance().getUserId(), false);
+                                if (!UserManager.getInstance().isLogin()) {
+                                    fragment.dismissWithStart(ProfileFragment.newInstance(UserManager.getInstance().getUserId()));
+//                                ProfileFragment.start(UserManager.getInstance().getUserId(), false);
+                                } else {
+                                    fragment.dismissWithStart(LoginFragment.newInstance(false));
+                                }
                                 break;
                             case 1:
-                                WebFragment.shareHomepage(UserManager.getInstance().getUserId());
+                                WebFragment.shareHomepage(fragment, UserManager.getInstance().getUserId());
                                 break;
                             case 2:
                                 AToast.normal("TODO 分享主页");
+                                fragment.dismiss();
                                 break;
                             case 3:
                                 if (UserManager.getInstance().isLogin()) {
                                     UserManager.getInstance().signOut(context);
+                                    fragment.dismiss();
                                 } else {
-                                    LoginFragment.start(false);
+                                    fragment.dismissWithStart(LoginFragment.newInstance(false));
+//                                    LoginFragment.start(false);
                                 }
-                                break;
-                            case 4:
                                 break;
                         }
                     })
                     .setAttachView(v)
                     .show(context);
-//            ZPopup.attachList(context)
-//                    .addItems("打开我的主页", "打开主页网页", "分享主页")
-//                    .addItem(UserManager.getInstance().isLogin() ? "注销" : "登录")
-//                    .setOnSelectListener((position, title) -> {
-//                        AToast.normal(title);
-//                        switch (position) {
-//                            case 0:
-//                                ProfileFragment.start(UserManager.getInstance().getUserId(), false);
-//                                break;
-//                            case 1:
-//                                WebFragment.shareHomepage(UserManager.getInstance().getUserId());
-//                                break;
-//                            case 2:
-//                                AToast.normal("TODO 分享主页");
-//                                break;
-//                            case 3:
-//                                if (UserManager.getInstance().isLogin()) {
-//                                    UserManager.getInstance().signOut(context);
-//                                } else {
-//                                    LoginFragment.start(false);
-//                                }
-//                                break;
-//                            case 4:
-//                                break;
-//                        }
-//                    })
-//                    .show(v);
         });
     }
 

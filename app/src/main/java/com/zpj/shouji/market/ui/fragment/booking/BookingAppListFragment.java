@@ -83,13 +83,6 @@ public class BookingAppListFragment extends NextUrlFragment<BookingAppInfo> {
                     BookingApi.cancelBookingApi(appInfo, runnable);
                 })
                 .show(context);
-//        ZPopup.alert(context)
-//                .setTitle("取消预约？")
-//                .setContent("确定取消预约？取消预约后您将不能及时在软件上架时及时收到通知。")
-//                .setConfirmButton(popup -> {
-//                    postDelayed(() -> BookingApi.cancelBookingApi(appInfo, runnable), popup.getAnimationDuration());
-//                })
-//                .show();
     }
 
     private final Runnable refreshRunnable = new Runnable() {

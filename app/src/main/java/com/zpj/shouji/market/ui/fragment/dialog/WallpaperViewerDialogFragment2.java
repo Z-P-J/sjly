@@ -106,7 +106,8 @@ public class WallpaperViewerDialogFragment2 extends ImageViewerDialogFragment2<S
                     .addItems("分享图片", "保存图片", "设为壁纸")
                     .addItemIf(isOriginalImageAvailable(), "查看原图")
 //                    .setOnDismissListener(this::focusAndProcessBackPress)
-                    .setOnSelectListener((pos, title) -> {
+                    .setOnSelectListener((fragment, pos, title) -> {
+                        fragment.dismiss();
                         switch (pos) {
                             case 0:
                                 shareWallpaper();
@@ -125,28 +126,6 @@ public class WallpaperViewerDialogFragment2 extends ImageViewerDialogFragment2<S
                     })
                     .setAttachView(titleBar.getRightImageButton())
                     .show(context);
-//            ZPopup.attachList(context)
-//                    .addItems("分享图片", "保存图片", "设为壁纸")
-//                    .addItemIf(isOriginalImageAvailable(), "查看原图")
-//                    .setOnDismissListener(this::focusAndProcessBackPress)
-//                    .setOnSelectListener((pos, title) -> {
-//                        switch (pos) {
-//                            case 0:
-//                                shareWallpaper();
-//                                break;
-//                            case 1:
-////                                save();
-//                                PictureUtil.saveImage(context, urls.get(position));
-//                                break;
-//                            case 2:
-//                                setWallpaper();
-//                                break;
-//                            case 3:
-//                                showOriginalImage();
-//                                break;
-//                        }
-//                    })
-//                    .show(titleBar.getRightImageButton());
         });
         titleBar.setCenterText(getUrls().size() + "/" + (dialogView.getCurrentItem() + 1));
         titleBar.getCenterTextView().setShadowLayer(8, 4, 4, Color.BLACK);

@@ -101,32 +101,20 @@ public class ArticleDetailFragment extends BaseFragment {
             new AttachListDialogFragment<String>()
                     .addItem("网页中打开")
                     .addItem("收藏")
-                    .setOnSelectListener((position, title) -> {
+                    .setOnSelectListener((fragment, position, title) -> {
                         switch (position) {
                             case 0:
-                                WebFragment.start(url);
+                                fragment.dismissWithStart(WebFragment.newInstance(url, url));
+//                                WebFragment.start(url);
                                 break;
                             case 1:
                                 AToast.warning("TODO");
+                                fragment.dismiss();
                                 break;
                         }
                     })
                     .setAttachView(imageButton)
                     .show(this);
-//            ZPopup.attachList(context)
-//                    .addItem("网页中打开")
-//                    .addItem("收藏")
-//                    .setOnSelectListener((position, title) -> {
-//                        switch (position) {
-//                            case 0:
-//                                WebFragment.start(url);
-//                                break;
-//                            case 1:
-//                                AToast.warning("TODO");
-//                                break;
-//                        }
-//                    })
-//                    .show(imageButton);
         });
     }
 

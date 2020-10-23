@@ -36,10 +36,14 @@ public class ThemeMoreDialogFragment extends BottomListMenuDialogFragment
                 AToast.success("已复制到粘贴板");
                 break;
             case R.id.share:
-                dismiss();
-                new ShareDialogFragment()
-                        .setShareContent(getString(R.string.text_theme_share_content, info.getContent(), info.getId()))
-                        .show(context);
+//                dismiss();
+//                new ShareDialogFragment()
+//                        .setShareContent(getString(R.string.text_theme_share_content, info.getContent(), info.getId()))
+//                        .show(context);
+                dismissWithStart(
+                        new ShareDialogFragment()
+                                .setShareContent(getString(R.string.text_theme_share_content, info.getContent(), info.getId()))
+                );
                 break;
             case R.id.collect:
                 HttpApi.addCollectionApi(info.getId(), this::dismiss);
@@ -53,8 +57,9 @@ public class ThemeMoreDialogFragment extends BottomListMenuDialogFragment
                 HttpApi.deleteThemeApi(info.getId(), info.getContentType());
                 break;
             case R.id.report:
-                dismiss();
-                ReportFragment.start(info);
+                dismissWithStart(ReportFragment.newInstance(info));
+//                dismiss();
+//                ReportFragment.start(info);
                 break;
             case R.id.black_list:
                 dismiss();

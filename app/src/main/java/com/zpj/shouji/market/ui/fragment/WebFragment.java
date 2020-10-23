@@ -20,6 +20,8 @@ import com.just.agentweb.AbsAgentWebSettings;
 import com.just.agentweb.AgentWeb;
 import com.just.agentweb.IAgentWebSettings;
 import com.zpj.fragmentation.BaseFragment;
+import com.zpj.fragmentation.SupportFragment;
+import com.zpj.fragmentation.dialog.base.BaseDialogFragment;
 import com.zpj.fragmentation.dialog.impl.AttachListDialogFragment;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.constant.Keys;
@@ -32,13 +34,17 @@ public class WebFragment extends BaseFragment {
 
     private AgentWeb mAgentWeb;
 
-    public static void start(String url, String title) {
+    public static WebFragment newInstance(String url, String title) {
         Bundle args = new Bundle();
         args.putString(Keys.URL, url);
         args.putString(Keys.TITLE, title);
         WebFragment fragment = new WebFragment();
         fragment.setArguments(args);
-        StartFragmentEvent.start(fragment);
+        return fragment;
+    }
+
+    public static void start(String url, String title) {
+        StartFragmentEvent.start(newInstance(url, title));
     }
 
     public static void start(String url) {
@@ -49,8 +55,18 @@ public class WebFragment extends BaseFragment {
         start("https://m.shouji.com.cn/user/" + id + "/home.html");
     }
 
+    public static void shareHomepage(BaseDialogFragment fragment, String id) {
+        String url = "https://m.shouji.com.cn/user/" + id + "/home.html";
+        fragment.dismissWithStart(newInstance(url, url));
+    }
+
     public static void appPage(String type, String id) {
         start("https://" + type + ".shouji.com.cn/down/" + id + ".html");
+    }
+
+    public static void appPage(BaseDialogFragment fragment, String type, String id) {
+        String url = "https://" + type + ".shouji.com.cn/down/" + id + ".html";
+        fragment.dismissWithStart(newInstance(url, url));
     }
 
 
@@ -150,7 +166,8 @@ public class WebFragment extends BaseFragment {
                     .addItem("浏览器中打开")
                     .addItem(isPhoneUA ? "电脑版网页" : "移动版网页")
                     .addItem("复制链接")
-                    .setOnSelectListener((position, title) -> {
+                    .setOnSelectListener((fragment, position, title) -> {
+                        fragment.dismiss();
                         switch (position) {
                             case 0:
                                 Uri uri = Uri.parse(mAgentWeb.getWebCreator().getWebView().getUrl());
@@ -170,29 +187,6 @@ public class WebFragment extends BaseFragment {
                     })
                     .setAttachView(imageButton)
                     .show(this);
-//            ZPopup.attachList(context)
-//                    .addItem("浏览器中打开")
-//                    .addItem(isPhoneUA ? "电脑版网页" : "移动版网页")
-//                    .addItem("复制链接")
-//                    .setOnSelectListener((position, title) -> {
-//                        switch (position) {
-//                            case 0:
-//                                Uri uri = Uri.parse(mAgentWeb.getWebCreator().getWebView().getUrl());
-//                                Intent intent = new Intent(Intent.ACTION_VIEW, uri);
-//                                startActivity(intent);
-//                                break;
-//                            case 1:
-//                                mAgentWeb.getAgentWebSettings().getWebSettings().setUserAgentString(isPhoneUA ? UA_PC : UA_PHONE);
-//                                mAgentWeb.getWebCreator().getWebView().reload();
-//                                break;
-//                            case 2:
-//                                ClipboardManager cm = (ClipboardManager) context.getSystemService(Context.CLIPBOARD_SERVICE);
-//                                cm.setPrimaryClip(ClipData.newPlainText(null, mAgentWeb.getWebCreator().getWebView().getUrl()));
-//                                AToast.success("已复制到粘贴板");
-//                                break;
-//                        }
-//                    })
-//                    .show(imageButton);
         });
     }
 

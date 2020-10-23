@@ -23,11 +23,15 @@ import java.util.List;
 public class MyPrivateLetterFragment extends NextUrlFragment<PrivateLetterInfo> {
 
     public static void start() {
+        StartFragmentEvent.start(newInstance());
+    }
+
+    public static MyPrivateLetterFragment newInstance() {
         Bundle args = new Bundle();
         args.putString(Keys.DEFAULT_URL, "http://tt.tljpxm.com/app/user_message_index_xml_v3.jsp");
         MyPrivateLetterFragment fragment = new MyPrivateLetterFragment();
         fragment.setArguments(args);
-        StartFragmentEvent.start(fragment);
+        return fragment;
     }
 
     @Override

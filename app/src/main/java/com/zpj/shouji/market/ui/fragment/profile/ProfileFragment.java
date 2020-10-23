@@ -70,6 +70,14 @@ public class ProfileFragment extends ListenerFragment
     private String memberAvatar;
     private String memberBackground;
 
+    public static ProfileFragment newInstance(String userId) {
+        Bundle args = new Bundle();
+        args.putString(Keys.ID, userId);
+        ProfileFragment fragment = new ProfileFragment();
+        fragment.setArguments(args);
+        return fragment;
+    }
+
     public static void start(String userId, boolean shouldLazyLoad) {
         ProfileFragment profileFragment = new ProfileFragment();
 //        profileFragment.setShouldLazyLoad(shouldLazyLoad);
@@ -186,11 +194,11 @@ public class ProfileFragment extends ListenerFragment
             new AttachListDialogFragment<String>()
                     .addItems("分享主页", "保存头像", "保存背景")
                     .addItemsIf(!isMe, "加入黑名单", "举报Ta")
-                    .setOnSelectListener((position, title) -> {
+                    .setOnSelectListener((fragment, position, title) -> {
                         switch (position) {
                             case 0:
-                                WebFragment.shareHomepage(userId);
-                                break;
+                                WebFragment.shareHomepage(fragment, userId);
+                                return;
                             case 1:
                                 PictureUtil.saveImage(context, memberAvatar);
                                 break;
@@ -204,32 +212,10 @@ public class ProfileFragment extends ListenerFragment
                                 AToast.warning("TODO");
                                 break;
                         }
+                        fragment.dismiss();
                     })
                     .setAttachView(imageButton)
                     .show(context);
-//            ZPopup.attachList(context)
-//                    .addItems("分享主页", "保存头像", "保存背景")
-//                    .addItemsIf(!isMe, "加入黑名单", "举报Ta")
-//                    .setOnSelectListener((position, title) -> {
-//                        switch (position) {
-//                            case 0:
-//                                WebFragment.shareHomepage(userId);
-//                                break;
-//                            case 1:
-//                                PictureUtil.saveImage(context, memberAvatar);
-//                                break;
-//                            case 2:
-//                                PictureUtil.saveImage(context, memberBackground);
-//                                break;
-//                            case 3:
-//                                HttpApi.addBlacklistApi(userId);
-//                                break;
-//                            case 4:
-//                                AToast.warning("TODO");
-//                                break;
-//                        }
-//                    })
-//                    .show(imageButton);
         });
     }
 
@@ -348,25 +334,6 @@ public class ProfileFragment extends ListenerFragment
                                 .onError(throwable -> AToast.error(throwable.getMessage()))
                                 .subscribe())
                         .show(context);
-//                ZPopup.alert(context)
-//                        .setTitle("取消关注")
-//                        .setContent("确定取消关注该用户？")
-//                        .setConfirmButton(popup -> HttpApi.deleteFriendApi(userId)
-//                                .onSuccess(data -> {
-//                                    Log.d("deleteFriendApi", "data=" + data);
-//                                    String result = data.selectFirst("result").text();
-//                                    if ("success".equals(result)) {
-//                                        AToast.success("取消关注成功");
-//                                        tvFollow.setText("关注");
-//                                        ivChat.setVisibility(View.GONE);
-//                                        isFriend = false;
-//                                    } else {
-//                                        AToast.error(data.selectFirst("info").text());
-//                                    }
-//                                })
-//                                .onError(throwable -> AToast.error(throwable.getMessage()))
-//                                .subscribe())
-//                        .show();
             } else {
                 HttpApi.addFriendApi(userId)
                         .onSuccess(data -> {

@@ -86,33 +86,7 @@ public class MainActionDialogFragment extends FullScreenDialogFragment
         }
         ImageView ivBg = findViewById(R.id.iv_bg);
 
-//        findViewById(R.id.layout_add_view).setOnClickListener(v -> dismiss());
         menuLayout.setOnClickListener(v -> dismiss());
-
-//        GetMainActivityEvent.post(new Callback<MainActivity>() {
-//            @Override
-//            public void onCallback(MainActivity activity) {
-//                disposable = new ObservableTask<Bitmap>(
-//                        emitter -> {
-//                            Bitmap bitmap = Blurred.with(activity.getWindow().getDecorView()) // findViewById(R.id.fl_container)
-//                                    .backgroundColor(Color.WHITE)
-////                                    .foregroundColor(Color.parseColor("#aaffffff"))
-//                                    .antiAlias(true)
-//                                    .scale(0.3f) // 0.5f
-//                                    .radius(25)
-//                                    .blur();
-//                            emitter.onNext(bitmap);
-//                            emitter.onComplete();
-//                        })
-//                        .onSuccess(data -> {
-//                            if (ivBg != null) {
-//                                ivBg.setImageBitmap(data);
-//                            }
-//                        })
-//                        .onError(throwable -> AToast.error(throwable.getMessage()))
-//                        .subscribe();
-//            }
-//        });
 
         disposable = new ObservableTask<Bitmap>(
                 emitter -> {
@@ -133,31 +107,6 @@ public class MainActionDialogFragment extends FullScreenDialogFragment
                 })
                 .onError(throwable -> AToast.error(throwable.getMessage()))
                 .subscribe();
-
-//        floatingActionButton.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
-//            @Override
-//            public void onGlobalLayout() {
-//                floatingActionButton.getViewTreeObserver().removeOnGlobalLayoutListener(this);
-//                //菜单项弹出动画
-//                for (int i = 0; i < menuLayout.getChildCount(); i++) {
-//                    final View child = menuLayout.getChildAt(i);
-//                    child.setVisibility(View.INVISIBLE);
-//                    getContentView().postDelayed(() -> {
-//                        child.setVisibility(View.VISIBLE);
-//                        ValueAnimator fadeAnim = ObjectAnimator.ofFloat(child, "translationY", 600, 0);
-//                        fadeAnim.setDuration(500);
-//                        KickBackAnimator kickAnimator = new KickBackAnimator();
-//                        kickAnimator.setDuration(500);
-//                        fadeAnim.setEvaluator(kickAnimator);
-//                        fadeAnim.start();
-//                    }, i * 50 + 100);
-//                }
-//
-//                floatingActionButton.animate().rotation(135).setDuration(300);
-//                startAnimation();
-//            }
-//        });
-
     }
 
     @Override
@@ -274,30 +223,36 @@ public class MainActionDialogFragment extends FullScreenDialogFragment
 
     @Override
     public void onClick(View v) {
-        dismiss();
-        if (v == floatingActionButton) {
-            return;
+        Object tag = v.getTag();
+        if (tag instanceof Integer) {
+            if (!UserManager.getInstance().isLogin()) {
+                AToast.warning(R.string.text_msg_not_login);
+                dismissWithStart(LoginFragment.newInstance(false));
+                return;
+            }
+            switch ((int) v.getTag()) {
+                case 0:
+                    dismissWithStart(new ThemeShareFragment());
+                    break;
+                case 1:
+                    dismissWithStart(new CollectionShareFragment());
+                    break;
+                case 2:
+                    dismissWithStart(new WallpaperShareFragment());
+                    break;
+                case 3:
+                    dismissWithStart(MyPrivateLetterFragment.newInstance());
+                    break;
+                default:
+                    dismiss();
+                    break;
+            }
+        } else {
+            dismiss();
         }
-        if (!UserManager.getInstance().isLogin()) {
-            AToast.warning(R.string.text_msg_not_login);
-            LoginFragment.start();
-            return;
-        }
-        switch ((int) v.getTag()) {
-            case 0:
-//                DiscoverEditorFragment2.start();
-                ThemeShareFragment.start();
-                break;
-            case 1:
-                CollectionShareFragment.start();
-                break;
-            case 2:
-                WallpaperShareFragment.start();
-                break;
-            case 3:
-                MyPrivateLetterFragment.start();
-                break;
-        }
+
+
+
     }
 
 }
