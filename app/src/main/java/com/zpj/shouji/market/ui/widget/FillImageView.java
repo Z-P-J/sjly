@@ -137,8 +137,15 @@ public class FillImageView extends ImageView {
         }
         mPath.addCircle(mCenterX, mCenterY, Math.round(mRadies / 2f), Path.Direction.CW);
         canvas.clipPath(mPath, Region.Op.INTERSECT);
+//        if (mChecked) {
+//            mPaint.setAlpha(255 - (int) ((float) mRadies / mMaxRadies * 255));
+//            canvas.drawCircle(mCenterX, mCenterY, mCheckBitmap.getWidth() / 2.5f, mPaint);
+//        } else {
+////            mPaint.setAlpha(255 - (int) ((float) mRadies / mMaxRadies * 255));
+//        }
         mPaint.setAlpha(mAlpha);
-        canvas.drawCircle(mCenterX, mCenterY, mCheckBitmap.getWidth() / 2f, mPaint);
+        canvas.drawCircle(mCenterX, mCenterY, mCheckBitmap.getWidth() / 2.5f, mPaint);
+
         canvas.drawBitmap(mCheckBitmap, mCenterX - Math.round(mCheckBitmap.getWidth() / 2f), mCenterY - Math.round(mCheckBitmap.getHeight() / 2f), mPaint);
         isDrawComplete = true;
 

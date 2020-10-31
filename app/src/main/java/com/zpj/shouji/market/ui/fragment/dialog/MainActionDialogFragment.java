@@ -223,36 +223,41 @@ public class MainActionDialogFragment extends FullScreenDialogFragment
 
     @Override
     public void onClick(View v) {
+
         Object tag = v.getTag();
         if (tag instanceof Integer) {
             if (!UserManager.getInstance().isLogin()) {
                 AToast.warning(R.string.text_msg_not_login);
-                dismissWithStart(LoginFragment.newInstance(false));
-                return;
+                LoginFragment.start();
+//                dismiss();
+//                dismissWithStart(LoginFragment.newInstance(false));
+//                return;
+            } else {
+                switch ((int) v.getTag()) {
+                    case 0:
+                        ThemeShareFragment.start();
+//                    dismissWithStart(new ThemeShareFragment());
+                        break;
+                    case 1:
+                        CollectionShareFragment.start();
+//                    dismissWithStart(new CollectionShareFragment());
+                        break;
+                    case 2:
+                        WallpaperShareFragment.start();
+//                    dismissWithStart(new WallpaperShareFragment());
+                        break;
+                    case 3:
+                        MyPrivateLetterFragment.start();
+//                    dismissWithStart(MyPrivateLetterFragment.newInstance());
+                        break;
+//                default:
+//                    dismiss();
+//                    break;
+                }
             }
-            switch ((int) v.getTag()) {
-                case 0:
-                    dismissWithStart(new ThemeShareFragment());
-                    break;
-                case 1:
-                    dismissWithStart(new CollectionShareFragment());
-                    break;
-                case 2:
-                    dismissWithStart(new WallpaperShareFragment());
-                    break;
-                case 3:
-                    dismissWithStart(MyPrivateLetterFragment.newInstance());
-                    break;
-                default:
-                    dismiss();
-                    break;
-            }
-        } else {
-            dismiss();
+
         }
-
-
-
+        dismiss();
     }
 
 }

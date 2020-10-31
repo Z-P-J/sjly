@@ -1,6 +1,7 @@
 package android.support.v4.app;
 
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -34,6 +35,60 @@ public class FragmentationMagician {
                 fragmentManager.popBackStack();
             }
         });
+    }
+
+    public static void popBackStackAllowingStateLoss(final FragmentManager fragmentManager, String tag) {
+        FragmentationMagician.hookStateSaved(fragmentManager, new Runnable() {
+            @Override
+            public void run() {
+//                fragmentManager.popBackStack(tag, 2);
+                if (fragmentManager instanceof FragmentManagerImpl) {
+                    FragmentManagerImpl fragmentManagerImpl = ((FragmentManagerImpl) fragmentManager);
+                    fragmentManagerImpl.enqueueAction(new PopBackStackState(fragmentManagerImpl, tag, -1), false);
+                }
+            }
+        });
+    }
+
+    private static class PopBackStackState implements FragmentManagerImpl.OpGenerator {
+
+
+        private final FragmentManagerImpl manager;
+        final String mName;
+        final int mId;
+
+        PopBackStackState(FragmentManagerImpl fragmentManager, String name, int id) {
+            this.manager = fragmentManager;
+            this.mName = name;
+            this.mId = id;
+        }
+
+        @Override
+        public boolean generateOps(ArrayList<BackStackRecord> records, ArrayList<Boolean> isRecordPop) {
+            if (manager.mBackStack == null) {
+                return false;
+            }
+
+            if (mName != null || mId >= 0) {
+                BackStackRecord bss;
+                int index;
+                for(index = manager.mBackStack.size() - 1; index >= 0; --index) {
+                    bss = (BackStackRecord)manager.mBackStack.get(index);
+                    if (mName != null && mName.equals(bss.getName()) || mId >= 0 && mId == bss.mIndex) {
+                        break;
+                    }
+                }
+
+                if (index < 0) {
+                    return false;
+                }
+
+                records.add(manager.mBackStack.remove(index));
+                isRecordPop.add(true);
+                return true;
+            }
+            return false;
+        }
     }
 
     /**

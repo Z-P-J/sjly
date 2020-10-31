@@ -314,30 +314,33 @@ public class MyFragment extends BaseFragment
                     .setOnSelectListener((fragment, position, title) -> {
                         switch (position) {
                             case 0:
-                                if (!UserManager.getInstance().isLogin()) {
-                                    fragment.dismissWithStart(ProfileFragment.newInstance(UserManager.getInstance().getUserId()));
-//                                ProfileFragment.start(UserManager.getInstance().getUserId(), false);
+                                if (UserManager.getInstance().isLogin()) {
+//                                    fragment.dismissWithStart(ProfileFragment.newInstance(UserManager.getInstance().getUserId()));
+                                    ProfileFragment.start(UserManager.getInstance().getUserId(), false);
                                 } else {
-                                    fragment.dismissWithStart(LoginFragment.newInstance(false));
+                                    LoginFragment.start();
+//                                    fragment.dismissWithStart(LoginFragment.newInstance(false));
                                 }
                                 break;
                             case 1:
-                                WebFragment.shareHomepage(fragment, UserManager.getInstance().getUserId());
+//                                WebFragment.shareHomepage(fragment, UserManager.getInstance().getUserId());
+                                WebFragment.shareHomepage(UserManager.getInstance().getUserId());
                                 break;
                             case 2:
                                 AToast.normal("TODO 分享主页");
-                                fragment.dismiss();
+//                                fragment.dismiss();
                                 break;
                             case 3:
                                 if (UserManager.getInstance().isLogin()) {
                                     UserManager.getInstance().signOut(context);
-                                    fragment.dismiss();
                                 } else {
-                                    fragment.dismissWithStart(LoginFragment.newInstance(false));
+                                    LoginFragment.start();
+//                                    fragment.dismissWithStart(LoginFragment.newInstance(false));
 //                                    LoginFragment.start(false);
                                 }
                                 break;
                         }
+                        fragment.dismiss();
                     })
                     .setAttachView(v)
                     .show(context);

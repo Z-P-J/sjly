@@ -55,19 +55,19 @@ public class WebFragment extends BaseFragment {
         start("https://m.shouji.com.cn/user/" + id + "/home.html");
     }
 
-    public static void shareHomepage(BaseDialogFragment fragment, String id) {
-        String url = "https://m.shouji.com.cn/user/" + id + "/home.html";
-        fragment.dismissWithStart(newInstance(url, url));
-    }
+//    public static void shareHomepage(BaseDialogFragment fragment, String id) {
+//        String url = "https://m.shouji.com.cn/user/" + id + "/home.html";
+//        fragment.dismissWithStart(newInstance(url, url));
+//    }
 
     public static void appPage(String type, String id) {
         start("https://" + type + ".shouji.com.cn/down/" + id + ".html");
     }
 
-    public static void appPage(BaseDialogFragment fragment, String type, String id) {
-        String url = "https://" + type + ".shouji.com.cn/down/" + id + ".html";
-        fragment.dismissWithStart(newInstance(url, url));
-    }
+//    public static void appPage(BaseDialogFragment fragment, String type, String id) {
+//        String url = "https://" + type + ".shouji.com.cn/down/" + id + ".html";
+//        fragment.dismissWithStart(newInstance(url, url));
+//    }
 
 
     @Override

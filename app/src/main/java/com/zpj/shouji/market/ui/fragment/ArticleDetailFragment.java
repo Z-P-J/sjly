@@ -104,14 +104,14 @@ public class ArticleDetailFragment extends BaseFragment {
                     .setOnSelectListener((fragment, position, title) -> {
                         switch (position) {
                             case 0:
-                                fragment.dismissWithStart(WebFragment.newInstance(url, url));
-//                                WebFragment.start(url);
+//                                fragment.dismissWithStart(WebFragment.newInstance(url, url));
+                                WebFragment.start(url);
                                 break;
                             case 1:
                                 AToast.warning("TODO");
-                                fragment.dismiss();
                                 break;
                         }
+                        fragment.dismiss();
                     })
                     .setAttachView(imageButton)
                     .show(this);

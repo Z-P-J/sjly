@@ -265,7 +265,8 @@ class TransactionDelegate {
             @Override
             public void run() {
                 handleAfterSaveInStateTransactionException(fm, "pop()");
-                FragmentationMagician.popBackStackAllowingStateLoss(fm);
+                FragmentationMagician.popBackStackAllowingStateLoss(fm, fragment.getTag());
+//                fm.getBackStackEntryAt()
                 try {
                     if (fm != null) {
                         fm.beginTransaction()
@@ -283,6 +284,7 @@ class TransactionDelegate {
     private void removeTopFragment(FragmentManager fm) {
         try { // Safe popBackStack()
             ISupportFragment top = SupportHelper.getBackStackTopFragment(fm);
+            Log.d(TAG, "removeTopFragment top=" + top);
             if (top != null) {
                 fm.beginTransaction()
                         .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_CLOSE)
@@ -434,6 +436,7 @@ class TransactionDelegate {
         Fragment toF = (Fragment) to;
         Bundle args = getArguments(toF);
         args.putBoolean(FRAGMENTATION_ARG_REPLACE, !addMode);
+//        toFragmentTag = to.toString();
         Log.d(TAG, "start from=" + from + " to=" + to + " toFragmentTag=" + toFragmentTag
                 + " dontAddToBackStack=" + dontAddToBackStack + " sharedElementList=" + sharedElementList
                 + " allowRootFragmentAnim=" + allowRootFragmentAnim + " type=" + type + " addMode=" + addMode);

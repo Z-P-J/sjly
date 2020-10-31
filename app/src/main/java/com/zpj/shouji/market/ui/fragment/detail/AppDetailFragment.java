@@ -396,23 +396,22 @@ public class AppDetailFragment extends BaseFragment
                 .setOnSelectListener((fragment, position, title) -> {
                     switch (position) {
                         case 0:
-                            fragment.dismissWithStart(new ManagerFragment());
-//                            ManagerFragment.start();
+//                            fragment.dismissWithStart(new ManagerFragment());
+                            ManagerFragment.start();
                             break;
                         case 1:
                             ClipboardManager cm = (ClipboardManager) context.getSystemService(Context.CLIPBOARD_SERVICE);
                             cm.setPrimaryClip(ClipData.newPlainText(null, info.getPackageName()));
                             AToast.success("已复制到粘贴板");
-                            fragment.dismiss();
                             break;
                         case 2:
-                            WebFragment.appPage(fragment, type, id);
+                            WebFragment.appPage(type, id);
                             break;
                         case 3:
                             AToast.normal("TODO " + title);
-                            fragment.dismiss();
                             break;
                     }
+                    fragment.dismiss();
                 })
                 .setAttachView(btnMenu)
                 .show(this);

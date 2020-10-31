@@ -8,10 +8,14 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.view.animation.FastOutSlowInInterpolator;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
+import android.view.animation.AccelerateInterpolator;
+import android.view.animation.DecelerateInterpolator;
+import android.view.animation.LinearInterpolator;
 import android.widget.FrameLayout;
 import android.widget.Toast;
 
@@ -234,7 +238,7 @@ public abstract class BaseDialogFragment extends AbstractDialogFragment {
         if (!isDismissing) {
             isDismissing = true;
             doDismissAnimation();
-            super.pop();
+            super.popThis();
             onDismiss();
 //            postDelayed(new Runnable() {
 //                @Override
@@ -250,14 +254,25 @@ public abstract class BaseDialogFragment extends AbstractDialogFragment {
         }
     }
 
-    public void dismissWithStart(ISupportFragment fragment) {
-        if (!isDismissing) {
-            isDismissing = true;
-            doDismissAnimation();
-            super.startWithPop(fragment);
-            onDismiss();
-        }
-    }
+//    public void dismissWithStart(ISupportFragment fragment) {
+//        if (!isDismissing) {
+//            isDismissing = true;
+////            doDismissAnimation();
+//            if (implView != null) {
+//
+//                implView.animate()
+//                        .alpha(0)
+//                        .setDuration(90)
+//                        .setInterpolator(new DecelerateInterpolator(2f))
+//                        .start();
+//            }
+//            if (shadowBgAnimator != null) {
+//                shadowBgAnimator.animateDismiss();
+//            }
+//            super.startWithPop(fragment);
+//            onDismiss();
+//        }
+//    }
 
 //    public void showFromHide() {
 //

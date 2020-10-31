@@ -197,8 +197,8 @@ public class ProfileFragment extends ListenerFragment
                     .setOnSelectListener((fragment, position, title) -> {
                         switch (position) {
                             case 0:
-                                WebFragment.shareHomepage(fragment, userId);
-                                return;
+                                WebFragment.shareHomepage(userId);
+                                break;
                             case 1:
                                 PictureUtil.saveImage(context, memberAvatar);
                                 break;

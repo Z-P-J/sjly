@@ -113,6 +113,7 @@ public class ScrollScaleAnimator extends PopupAnimator {
 //                        intEvaluator.evaluate(fraction, startScrollY, 0));
                 float scale = floatEvaluator.evaluate(fraction, startScale, 1f);
                 targetView.setScaleX(scale);
+                targetView.setAlpha(scale);
                 if(!isOnlyScaleX)targetView.setScaleY(scale);
 //                if(fraction>=.9f && targetView.getBackground()!=null) {
 //                    float alphaFraction = (fraction - .9f) / .1f;
@@ -136,6 +137,7 @@ public class ScrollScaleAnimator extends PopupAnimator {
 //                        intEvaluator.evaluate(fraction, 0, startScrollY));
                 float scale = floatEvaluator.evaluate(fraction, 1f, startScale);
                 targetView.setScaleX(scale);
+                targetView.setAlpha(scale);
                 if(!isOnlyScaleX)targetView.setScaleY(scale);
 //                if(targetView.getBackground()!=null)targetView.getBackground().setAlpha((int) (fraction*255));
             }

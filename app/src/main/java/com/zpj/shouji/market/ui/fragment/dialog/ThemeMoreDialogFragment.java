@@ -37,13 +37,14 @@ public class ThemeMoreDialogFragment extends BottomListMenuDialogFragment
                 break;
             case R.id.share:
 //                dismiss();
-//                new ShareDialogFragment()
-//                        .setShareContent(getString(R.string.text_theme_share_content, info.getContent(), info.getId()))
-//                        .show(context);
-                dismissWithStart(
-                        new ShareDialogFragment()
-                                .setShareContent(getString(R.string.text_theme_share_content, info.getContent(), info.getId()))
-                );
+                new ShareDialogFragment()
+                        .setShareContent(getString(R.string.text_theme_share_content, info.getContent(), info.getId()))
+                        .show(context);
+//                dismissWithStart(
+//                        new ShareDialogFragment()
+//                                .setShareContent(getString(R.string.text_theme_share_content, info.getContent(), info.getId()))
+//                );
+                dismiss();
                 break;
             case R.id.collect:
                 HttpApi.addCollectionApi(info.getId(), this::dismiss);
@@ -57,9 +58,9 @@ public class ThemeMoreDialogFragment extends BottomListMenuDialogFragment
                 HttpApi.deleteThemeApi(info.getId(), info.getContentType());
                 break;
             case R.id.report:
-                dismissWithStart(ReportFragment.newInstance(info));
-//                dismiss();
-//                ReportFragment.start(info);
+//                dismissWithStart(ReportFragment.newInstance(info));
+                ReportFragment.start(info);
+                dismiss();
                 break;
             case R.id.black_list:
                 dismiss();
