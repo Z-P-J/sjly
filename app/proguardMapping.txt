@@ -1,7 +1,7 @@
 # compiler: R8
 # compiler_version: 1.5.69
 # min_api: 19
-# pg_map_id: 867c8b5
+# pg_map_id: 125d325
 android.arch.core.executor.ArchTaskExecutor -> a.a.a.a.a:
     android.arch.core.executor.ArchTaskExecutor sInstance -> c
     android.arch.core.executor.TaskExecutor mDelegate -> a
@@ -39945,40 +39945,39 @@ com.zpj.matisse.ui.fragment.MatisseFragment2 -> com.zpj.matisse.k.a.b:
     com.zpj.matisse.utils.MediaStoreCompat mMediaStoreCompat -> c
     52:52:void <init>() -> <init>
     52:52:com.sothree.slidinguppanel.SlidingUpPanelLayout access$000(com.zpj.matisse.ui.fragment.MatisseFragment2) -> a
-    98:178:void initView(android.view.View,android.os.Bundle) -> a
-    343:360:void startCrop(android.app.Activity,android.net.Uri) -> a
+    88:168:void initView(android.view.View,android.os.Bundle) -> a
+    328:345:void startCrop(android.app.Activity,android.net.Uri) -> a
     52:52:com.zpj.matisse.ui.widget.MediaSelectionLayout access$100(com.zpj.matisse.ui.fragment.MatisseFragment2) -> b
     52:52:com.zpj.fragmentation.SupportActivity access$200(com.zpj.matisse.ui.fragment.MatisseFragment2) -> c
     52:52:android.content.Context access$300(com.zpj.matisse.ui.fragment.MatisseFragment2) -> d
     52:52:com.zpj.matisse.ui.widget.AlbumListLayout access$400(com.zpj.matisse.ui.fragment.MatisseFragment2) -> e
-    364:365:void onUpdate() -> h
-    88:88:int getLayoutId() -> k
-    93:93:boolean supportSwipeBack() -> l
-    281:293:int countOverMaxSize() -> m
-    237:261:void updateBottomToolbar() -> n
-    264:277:void updateOriginalState() -> o
-    182:188:boolean onBackPressedSupport() -> onBackPressedSupport
-    298:340:void onClick(android.view.View) -> onClick
-    232:232:com.zpj.fragmentation.anim.FragmentAnimator onCreateFragmentAnimator() -> onCreateFragmentAnimator
-    208:228:void onDestroy() -> onDestroy
-    199:203:void onSaveInstanceState(android.os.Bundle) -> onSaveInstanceState
-    193:195:void onSupportVisible() -> onSupportVisible
+    349:350:void onUpdate() -> h
+    78:78:int getLayoutId() -> k
+    83:83:boolean supportSwipeBack() -> l
+    266:278:int countOverMaxSize() -> m
+    222:246:void updateBottomToolbar() -> n
+    249:262:void updateOriginalState() -> o
+    172:178:boolean onBackPressedSupport() -> onBackPressedSupport
+    283:325:void onClick(android.view.View) -> onClick
+    198:218:void onDestroy() -> onDestroy
+    189:193:void onSaveInstanceState(android.os.Bundle) -> onSaveInstanceState
+    183:185:void onSupportVisible() -> onSupportVisible
 com.zpj.matisse.ui.fragment.MatisseFragment2$1 -> com.zpj.matisse.k.a.b$a:
-    135:135:void <init>(com.zpj.matisse.ui.fragment.MatisseFragment2) -> <init>
-    142:142:void onPanelStateChanged(android.view.View,com.sothree.slidinguppanel.SlidingUpPanelLayout$PanelState,com.sothree.slidinguppanel.SlidingUpPanelLayout$PanelState) -> a
-    138:138:void onPanelSlide(android.view.View,float) -> onPanelSlide
+    125:125:void <init>(com.zpj.matisse.ui.fragment.MatisseFragment2) -> <init>
+    132:132:void onPanelStateChanged(android.view.View,com.sothree.slidinguppanel.SlidingUpPanelLayout$PanelState,com.sothree.slidinguppanel.SlidingUpPanelLayout$PanelState) -> a
+    128:128:void onPanelSlide(android.view.View,float) -> onPanelSlide
 com.zpj.matisse.ui.fragment.MatisseFragment2$2 -> com.zpj.matisse.k.a.b$b:
     com.zpj.matisse.ui.fragment.MatisseFragment2 this$0 -> a
-    144:144:void <init>(com.zpj.matisse.ui.fragment.MatisseFragment2) -> <init>
-    147:148:void onClick(android.view.View) -> onClick
+    134:134:void <init>(com.zpj.matisse.ui.fragment.MatisseFragment2) -> <init>
+    137:138:void onClick(android.view.View) -> onClick
 com.zpj.matisse.ui.fragment.MatisseFragment2$3 -> com.zpj.matisse.k.a.b$c:
     com.zpj.matisse.ui.fragment.MatisseFragment2 this$0 -> a
-    155:155:void <init>(com.zpj.matisse.ui.fragment.MatisseFragment2) -> <init>
-    158:170:void onSelect(com.zpj.matisse.entity.Album) -> a
+    145:145:void <init>(com.zpj.matisse.ui.fragment.MatisseFragment2) -> <init>
+    148:160:void onSelect(com.zpj.matisse.entity.Album) -> a
 com.zpj.matisse.ui.fragment.MatisseFragment2$4 -> com.zpj.matisse.k.a.b$d:
     com.zpj.matisse.ui.fragment.MatisseFragment2 this$0 -> a
-    172:172:void <init>(com.zpj.matisse.ui.fragment.MatisseFragment2) -> <init>
-    175:176:void run() -> run
+    162:162:void <init>(com.zpj.matisse.ui.fragment.MatisseFragment2) -> <init>
+    165:166:void run() -> run
 com.zpj.matisse.ui.widget.-$$Lambda$AlbumListLayout$LWnxba9ifmZCJy_ngPWZvsOWhHw -> com.zpj.matisse.ui.widget.a:
     android.graphics.drawable.Drawable f$2 -> c
     android.content.Context f$1 -> b
@@ -40617,34 +40616,34 @@ com.zpj.shouji.market.R$array -> com.zpj.shouji.market.R$array:
 com.zpj.shouji.market.R$attr -> com.zpj.shouji.market.R$attr:
     79:79:void <init>() -> <init>
 com.zpj.shouji.market.R$bool -> com.zpj.shouji.market.R$bool:
-    8043:8043:void <init>() -> <init>
+    8603:8603:void <init>() -> <init>
 com.zpj.shouji.market.R$color -> com.zpj.shouji.market.R$color:
-    8049:8049:void <init>() -> <init>
+    8609:8609:void <init>() -> <init>
 com.zpj.shouji.market.R$dimen -> com.zpj.shouji.market.R$dimen:
-    8433:8433:void <init>() -> <init>
+    8993:8993:void <init>() -> <init>
 com.zpj.shouji.market.R$drawable -> com.zpj.shouji.market.R$drawable:
-    8695:8695:void <init>() -> <init>
+    9255:9255:void <init>() -> <init>
 com.zpj.shouji.market.R$id -> com.zpj.shouji.market.R$id:
-    9129:9129:void <init>() -> <init>
+    9689:9689:void <init>() -> <init>
 com.zpj.shouji.market.R$integer -> com.zpj.shouji.market.R$integer:
-    9976:9976:void <init>() -> <init>
+    10536:10536:void <init>() -> <init>
 com.zpj.shouji.market.R$interpolator -> com.zpj.shouji.market.R$interpolator:
-    9994:9994:void <init>() -> <init>
+    10554:10554:void <init>() -> <init>
 com.zpj.shouji.market.R$layout -> com.zpj.shouji.market.R$layout:
-    10000:10000:void <init>() -> <init>
+    10560:10560:void <init>() -> <init>
 com.zpj.shouji.market.R$menu -> com.zpj.shouji.market.R$menu:
-    10308:10308:void <init>() -> <init>
+    10868:10868:void <init>() -> <init>
 com.zpj.shouji.market.R$mipmap -> com.zpj.shouji.market.R$mipmap:
-    10318:10318:void <init>() -> <init>
+    10878:10878:void <init>() -> <init>
 com.zpj.shouji.market.R$string -> com.zpj.shouji.market.R$string:
-    10323:10323:void <init>() -> <init>
+    10883:10883:void <init>() -> <init>
 com.zpj.shouji.market.R$style -> com.zpj.shouji.market.R$style:
-    10466:10466:void <init>() -> <init>
+    11026:11026:void <init>() -> <init>
 com.zpj.shouji.market.R$styleable -> com.zpj.shouji.market.R$styleable:
-    11067:37065:void <clinit>() -> <clinit>
-    10999:10999:void <init>() -> <init>
+    11631:38411:void <clinit>() -> <clinit>
+    11559:11559:void <init>() -> <init>
 com.zpj.shouji.market.R$xml -> com.zpj.shouji.market.R$xml:
-    37207:37207:void <init>() -> <init>
+    38555:38555:void <init>() -> <init>
 com.zpj.shouji.market.api.-$$Lambda$BookingApi$J7p4xgMeAsTvyqiHgcsAwmjVEHU -> com.zpj.shouji.market.b.a:
     com.zpj.shouji.market.utils.Callback f$0 -> a
 com.zpj.shouji.market.api.-$$Lambda$BookingApi$KrMM823YXXgFa0nuO-P8gckHcK4 -> com.zpj.shouji.market.b.b:
@@ -43774,19 +43773,19 @@ com.zpj.shouji.market.ui.fragment.dialog.-$$Lambda$CommonImageViewerDialogFragme
     com.zpj.shouji.market.ui.fragment.dialog.CommonImageViewerDialogFragment2 f$0 -> a
 com.zpj.shouji.market.ui.fragment.dialog.-$$Lambda$CommonImageViewerDialogFragment2$keEZAtvd6VgKehIl60vYX3V8pdQ -> com.zpj.shouji.market.f.b.g0.z:
     com.zpj.shouji.market.ui.fragment.dialog.CommonImageViewerDialogFragment2 f$0 -> a
-com.zpj.shouji.market.ui.fragment.dialog.-$$Lambda$EmailModifiedDialogFragment$9QO0czUz_QyPdADDOUB8xoLUag4 -> com.zpj.shouji.market.f.b.g0.a0:
+com.zpj.shouji.market.ui.fragment.dialog.-$$Lambda$EmailModifiedDialogFragment$PnfakXIoiGRQ6h6Pll6NIuS4IOU -> com.zpj.shouji.market.f.b.g0.a0:
     com.zpj.shouji.market.ui.fragment.dialog.EmailModifiedDialogFragment f$0 -> a
-    com.zpj.shouji.market.ui.widget.input.PasswordInputView f$2 -> c
-    com.zpj.shouji.market.ui.widget.input.EmailInputView f$1 -> b
+com.zpj.shouji.market.ui.fragment.dialog.-$$Lambda$EmailModifiedDialogFragment$U63QkehnAO7gxcOQCPlaq_JeyPU -> com.zpj.shouji.market.f.b.g0.b0:
+    com.zpj.widget.editor.EmailInputView f$1 -> b
+    com.zpj.widget.editor.PasswordInputView f$2 -> c
+    com.zpj.shouji.market.ui.fragment.dialog.EmailModifiedDialogFragment f$0 -> a
     java.lang.String f$3 -> d
-com.zpj.shouji.market.ui.fragment.dialog.-$$Lambda$EmailModifiedDialogFragment$PnfakXIoiGRQ6h6Pll6NIuS4IOU -> com.zpj.shouji.market.f.b.g0.b0:
-    com.zpj.shouji.market.ui.fragment.dialog.EmailModifiedDialogFragment f$0 -> a
-com.zpj.shouji.market.ui.fragment.dialog.-$$Lambda$EmailModifiedDialogFragment$QmdXoP23O8jWbLP1w0hmeoF4C6I -> com.zpj.shouji.market.f.b.g0.c0:
-    com.zpj.shouji.market.ui.fragment.dialog.EmailModifiedDialogFragment f$0 -> a
-    com.zpj.shouji.market.ui.widget.input.PasswordInputView f$2 -> c
-    com.zpj.shouji.market.ui.widget.input.EmailInputView f$1 -> b
-com.zpj.shouji.market.ui.fragment.dialog.-$$Lambda$EmailModifiedDialogFragment$UK9lsei3ic_ScEWoAIlSmK_gvik -> com.zpj.shouji.market.f.b.g0.d0:
+com.zpj.shouji.market.ui.fragment.dialog.-$$Lambda$EmailModifiedDialogFragment$UK9lsei3ic_ScEWoAIlSmK_gvik -> com.zpj.shouji.market.f.b.g0.c0:
     com.zpj.shouji.market.ui.fragment.dialog.-$$Lambda$EmailModifiedDialogFragment$UK9lsei3ic_ScEWoAIlSmK_gvik INSTANCE -> a
+com.zpj.shouji.market.ui.fragment.dialog.-$$Lambda$EmailModifiedDialogFragment$Y3oXa_V0FFrrP9WVqyLrLVUZ4Ws -> com.zpj.shouji.market.f.b.g0.d0:
+    com.zpj.widget.editor.EmailInputView f$1 -> b
+    com.zpj.widget.editor.PasswordInputView f$2 -> c
+    com.zpj.shouji.market.ui.fragment.dialog.EmailModifiedDialogFragment f$0 -> a
 com.zpj.shouji.market.ui.fragment.dialog.-$$Lambda$MainActionDialogFragment$8ruaio9pZS6vKk4KWmATETsGOi8 -> com.zpj.shouji.market.f.b.g0.e0:
     android.view.View f$0 -> a
 com.zpj.shouji.market.ui.fragment.dialog.-$$Lambda$MainActionDialogFragment$SRhVRfF9ow-UArTQPzDpcLIXyX0 -> com.zpj.shouji.market.f.b.g0.f0:
@@ -43808,26 +43807,26 @@ com.zpj.shouji.market.ui.fragment.dialog.-$$Lambda$ModifiedDialogFragment$IDciJP
 com.zpj.shouji.market.ui.fragment.dialog.-$$Lambda$ModifiedDialogFragment$vztRWMrPjIhgKSR6VUqxIiD9zKo -> com.zpj.shouji.market.f.b.g0.m0:
     com.zpj.shouji.market.ui.fragment.dialog.ModifiedDialogFragment f$0 -> a
     void onSoftInputChanged(int) -> a
-com.zpj.shouji.market.ui.fragment.dialog.-$$Lambda$NicknameModifiedDialogFragment$UVzGT7aRasVo3aMUDSyUPfwqy4k -> com.zpj.shouji.market.f.b.g0.n0:
+com.zpj.shouji.market.ui.fragment.dialog.-$$Lambda$NicknameModifiedDialogFragment$Rh-_jLfngI4p2TDpjOgm05pN8aw -> com.zpj.shouji.market.f.b.g0.n0:
     com.zpj.shouji.market.ui.fragment.dialog.NicknameModifiedDialogFragment f$0 -> a
-    com.zpj.shouji.market.ui.widget.input.AccountInputView f$1 -> b
+    com.zpj.widget.editor.AccountInputView f$1 -> b
 com.zpj.shouji.market.ui.fragment.dialog.-$$Lambda$NicknameModifiedDialogFragment$XX31DVI41NrfGOjd6ce2kc5xq9Y -> com.zpj.shouji.market.f.b.g0.o0:
     com.zpj.shouji.market.ui.fragment.dialog.-$$Lambda$NicknameModifiedDialogFragment$XX31DVI41NrfGOjd6ce2kc5xq9Y INSTANCE -> a
-com.zpj.shouji.market.ui.fragment.dialog.-$$Lambda$NicknameModifiedDialogFragment$fcIDskuo1URXDuGrAFhMm1Vh9M8 -> com.zpj.shouji.market.f.b.g0.p0:
+com.zpj.shouji.market.ui.fragment.dialog.-$$Lambda$NicknameModifiedDialogFragment$iXqtCc9zw9-yV4pF1X2FK-h1nMs -> com.zpj.shouji.market.f.b.g0.p0:
     com.zpj.shouji.market.ui.fragment.dialog.NicknameModifiedDialogFragment f$0 -> a
-    com.zpj.shouji.market.ui.widget.input.AccountInputView f$1 -> b
-com.zpj.shouji.market.ui.fragment.dialog.-$$Lambda$NicknameModifiedDialogFragment$iXqtCc9zw9-yV4pF1X2FK-h1nMs -> com.zpj.shouji.market.f.b.g0.q0:
+com.zpj.shouji.market.ui.fragment.dialog.-$$Lambda$NicknameModifiedDialogFragment$oL677jXaBm-D2bN-YUKKYffUk9I -> com.zpj.shouji.market.f.b.g0.q0:
     com.zpj.shouji.market.ui.fragment.dialog.NicknameModifiedDialogFragment f$0 -> a
-com.zpj.shouji.market.ui.fragment.dialog.-$$Lambda$PasswordModifiedDialogFragment$DAy-1GgpLXOGueLMP5QzR6Amxq4 -> com.zpj.shouji.market.f.b.g0.r0:
+    com.zpj.widget.editor.AccountInputView f$1 -> b
+com.zpj.shouji.market.ui.fragment.dialog.-$$Lambda$PasswordModifiedDialogFragment$0dAxQGkMDHnH3lidSIbcukd0y4c -> com.zpj.shouji.market.f.b.g0.r0:
     com.zpj.shouji.market.ui.fragment.dialog.PasswordModifiedDialogFragment f$0 -> a
-    com.zpj.shouji.market.ui.widget.input.PasswordInputView f$1 -> b
-    com.zpj.shouji.market.ui.widget.input.PasswordInputView f$2 -> c
+    com.zpj.widget.editor.PasswordInputView f$2 -> c
+    com.zpj.widget.editor.PasswordInputView f$1 -> b
 com.zpj.shouji.market.ui.fragment.dialog.-$$Lambda$PasswordModifiedDialogFragment$Kb-4cIIh4-Szn4lsTCiA9qt3INI -> com.zpj.shouji.market.f.b.g0.s0:
     com.zpj.shouji.market.ui.fragment.dialog.PasswordModifiedDialogFragment f$0 -> a
-com.zpj.shouji.market.ui.fragment.dialog.-$$Lambda$PasswordModifiedDialogFragment$avWI2uPLlbSSS5STLtAWXind24Q -> com.zpj.shouji.market.f.b.g0.t0:
+com.zpj.shouji.market.ui.fragment.dialog.-$$Lambda$PasswordModifiedDialogFragment$OOQBbtXhFdeqU_jYPIdQ1OTAqzM -> com.zpj.shouji.market.f.b.g0.t0:
     com.zpj.shouji.market.ui.fragment.dialog.PasswordModifiedDialogFragment f$0 -> a
-    com.zpj.shouji.market.ui.widget.input.PasswordInputView f$1 -> b
-    com.zpj.shouji.market.ui.widget.input.PasswordInputView f$2 -> c
+    com.zpj.widget.editor.PasswordInputView f$2 -> c
+    com.zpj.widget.editor.PasswordInputView f$1 -> b
 com.zpj.shouji.market.ui.fragment.dialog.-$$Lambda$PasswordModifiedDialogFragment$tMgoGP6R-YmX69kAgxL6KfZY4Y8 -> com.zpj.shouji.market.f.b.g0.u0:
     com.zpj.shouji.market.ui.fragment.dialog.-$$Lambda$PasswordModifiedDialogFragment$tMgoGP6R-YmX69kAgxL6KfZY4Y8 INSTANCE -> a
 com.zpj.shouji.market.ui.fragment.dialog.-$$Lambda$RecyclerPartShadowDialogFragment$T3LG1XHukFRFT-7wYxKStPtJhmg -> com.zpj.shouji.market.f.b.g0.v0:
@@ -44059,8 +44058,8 @@ com.zpj.shouji.market.ui.fragment.dialog.CommonImageViewerDialogFragment2$2 -> c
 com.zpj.shouji.market.ui.fragment.dialog.EmailModifiedDialogFragment -> com.zpj.shouji.market.f.b.g0.d2:
     17:17:void <init>() -> <init>
     26:64:void initView(android.view.View,android.os.Bundle) -> a
-    35:54:void lambda$initView$3(com.zpj.shouji.market.ui.widget.input.EmailInputView,com.zpj.shouji.market.ui.widget.input.PasswordInputView,android.view.View) -> a
-    38:51:void lambda$null$1(com.zpj.shouji.market.ui.widget.input.EmailInputView,com.zpj.shouji.market.ui.widget.input.PasswordInputView,java.lang.String,com.zpj.http.parser.html.nodes.Document) -> a
+    35:54:void lambda$initView$3(com.zpj.widget.editor.EmailInputView,com.zpj.widget.editor.PasswordInputView,android.view.View) -> a
+    38:51:void lambda$null$1(com.zpj.widget.editor.EmailInputView,com.zpj.widget.editor.PasswordInputView,java.lang.String,com.zpj.http.parser.html.nodes.Document) -> a
     52:52:void lambda$null$2(java.lang.Throwable) -> a
     27:27:void lambda$initView$0(android.view.View) -> c
     21:21:int getContentLayoutId() -> s
@@ -44108,16 +44107,16 @@ com.zpj.shouji.market.ui.fragment.dialog.ModifiedDialogFragment -> com.zpj.shouj
 com.zpj.shouji.market.ui.fragment.dialog.NicknameModifiedDialogFragment -> com.zpj.shouji.market.f.b.g0.h2:
     15:15:void <init>() -> <init>
     24:56:void initView(android.view.View,android.os.Bundle) -> a
-    30:46:void lambda$initView$3(com.zpj.shouji.market.ui.widget.input.AccountInputView,android.view.View) -> a
-    33:43:void lambda$null$1(com.zpj.shouji.market.ui.widget.input.AccountInputView,com.zpj.http.parser.html.nodes.Document) -> a
+    30:46:void lambda$initView$3(com.zpj.widget.editor.AccountInputView,android.view.View) -> a
+    33:43:void lambda$null$1(com.zpj.widget.editor.AccountInputView,com.zpj.http.parser.html.nodes.Document) -> a
     44:44:void lambda$null$2(java.lang.Throwable) -> a
     25:25:void lambda$initView$0(android.view.View) -> c
     19:19:int getContentLayoutId() -> s
 com.zpj.shouji.market.ui.fragment.dialog.PasswordModifiedDialogFragment -> com.zpj.shouji.market.f.b.g0.i2:
     16:16:void <init>() -> <init>
     25:67:void initView(android.view.View,android.os.Bundle) -> a
-    42:57:void lambda$initView$3(com.zpj.shouji.market.ui.widget.input.PasswordInputView,com.zpj.shouji.market.ui.widget.input.PasswordInputView,android.view.View) -> a
-    44:54:void lambda$null$1(com.zpj.shouji.market.ui.widget.input.PasswordInputView,com.zpj.shouji.market.ui.widget.input.PasswordInputView,com.zpj.http.parser.html.nodes.Document) -> a
+    42:57:void lambda$initView$3(com.zpj.widget.editor.PasswordInputView,com.zpj.widget.editor.PasswordInputView,android.view.View) -> a
+    44:54:void lambda$null$1(com.zpj.widget.editor.PasswordInputView,com.zpj.widget.editor.PasswordInputView,com.zpj.http.parser.html.nodes.Document) -> a
     55:55:void lambda$null$2(java.lang.Throwable) -> a
     26:26:void lambda$initView$0(android.view.View) -> c
     20:20:int getContentLayoutId() -> s
@@ -46272,16 +46271,12 @@ com.zpj.shouji.market.ui.widget.-$$Lambda$SignInLayout$AezlymHrDyj4TnUxqiMJrqE7x
     com.zpj.shouji.market.ui.widget.-$$Lambda$SignInLayout$AezlymHrDyj4TnUxqiMJrqE7xFQ INSTANCE -> a
 com.zpj.shouji.market.ui.widget.-$$Lambda$SignInLayout$TU1VvK_EXYIxa8Qh4XPFgvZfDMw -> com.zpj.shouji.market.ui.widget.t:
     com.zpj.shouji.market.ui.widget.SignInLayout f$0 -> a
-com.zpj.shouji.market.ui.widget.-$$Lambda$SignInLayout2$7PDFTkDcQK8IZVgcTZjdkMRROHE -> com.zpj.shouji.market.ui.widget.u:
-    com.zpj.shouji.market.ui.widget.SignInLayout2 f$0 -> a
-com.zpj.shouji.market.ui.widget.-$$Lambda$SignInLayout2$AodaCl4RaAvdOAT9MWzeQxDvy4c -> com.zpj.shouji.market.ui.widget.v:
-    com.zpj.shouji.market.ui.widget.SignInLayout2 f$0 -> a
-com.zpj.shouji.market.ui.widget.-$$Lambda$SignUpLayout3$h5JLK00EDRhmcuHYbYQMjFccP0Y -> com.zpj.shouji.market.ui.widget.w:
+com.zpj.shouji.market.ui.widget.-$$Lambda$SignUpLayout3$h5JLK00EDRhmcuHYbYQMjFccP0Y -> com.zpj.shouji.market.ui.widget.u:
     com.zpj.shouji.market.ui.widget.SignUpLayout3 f$0 -> a
-com.zpj.shouji.market.ui.widget.-$$Lambda$SignUpLayout3$y76u9xKK9RK-L2yqVgK_FCzhCCE -> com.zpj.shouji.market.ui.widget.x:
+com.zpj.shouji.market.ui.widget.-$$Lambda$SignUpLayout3$y76u9xKK9RK-L2yqVgK_FCzhCCE -> com.zpj.shouji.market.ui.widget.v:
     com.zpj.shouji.market.ui.widget.-$$Lambda$SignUpLayout3$y76u9xKK9RK-L2yqVgK_FCzhCCE INSTANCE -> a
     void onLinkClickListener(com.ctetin.expandabletextviewlibrary.app.LinkType,java.lang.String,java.lang.String) -> a
-com.zpj.shouji.market.ui.widget.-$$Lambda$ToolBoxCard$1$lcXgUgU9JsFzJNY_maV07JlAmzw -> com.zpj.shouji.market.ui.widget.y:
+com.zpj.shouji.market.ui.widget.-$$Lambda$ToolBoxCard$1$lcXgUgU9JsFzJNY_maV07JlAmzw -> com.zpj.shouji.market.ui.widget.w:
     com.zpj.shouji.market.ui.widget.ToolBoxCard$1 f$0 -> a
     void subscribe(io.reactivex.ObservableEmitter) -> a
 com.zpj.shouji.market.ui.widget.ActionPanel -> com.zpj.shouji.market.ui.widget.ActionPanel:
@@ -46473,7 +46468,7 @@ com.zpj.shouji.market.ui.widget.DotPagerIndicator -> com.zpj.shouji.market.ui.wi
     84:86:void setDotColor(int) -> setDotColor
     66:68:void setRadius(float) -> setRadius
     75:77:void setYOffset(float) -> setYOffset
-com.zpj.shouji.market.ui.widget.DotSpan -> com.zpj.shouji.market.ui.widget.z:
+com.zpj.shouji.market.ui.widget.DotSpan -> com.zpj.shouji.market.ui.widget.x:
     boolean mWantColor -> e
     int mColor -> d
     int mBulletRadius -> b
@@ -46750,11 +46745,6 @@ com.zpj.shouji.market.ui.widget.PullZoomView$OnScrollListener -> com.zpj.shouji.
     67:67:void onHeaderScroll(int,int) -> a
     70:70:void onContentScroll(int,int,int,int) -> a
     64:64:void onScroll(int,int,int,int) -> b
-com.zpj.shouji.market.ui.widget.PullZoomView2 -> com.zpj.shouji.market.ui.widget.PullZoomView2:
-    23:24:void <init>(android.content.Context) -> <init>
-    27:28:void <init>(android.content.Context,android.util.AttributeSet) -> <init>
-    31:32:void <init>(android.content.Context,android.util.AttributeSet,int) -> <init>
-    36:51:void onSizeChanged(int,int,int,int) -> onSizeChanged
 com.zpj.shouji.market.ui.widget.RankHeaderLayout -> com.zpj.shouji.market.ui.widget.RankHeaderLayout:
     android.widget.TextView tvTitle -> a
     com.zpj.shouji.market.ui.widget.DownloadButton downloadButton -> e
@@ -46816,7 +46806,7 @@ com.zpj.shouji.market.ui.widget.ReplyPanel -> com.zpj.shouji.market.ui.widget.Re
     474:474:com.zpj.shouji.market.model.InstalledAppInfo getSelectedAppInfo() -> getSelectedAppInfo
     119:121:void onFinishInflate() -> onFinishInflate
     418:422:void setOnOperationListener(com.zpj.shouji.market.ui.widget.ReplyPanel$OnOperationListener) -> setOnOperationListener
-com.zpj.shouji.market.ui.widget.ReplyPanel$1 -> com.zpj.shouji.market.ui.widget.a0:
+com.zpj.shouji.market.ui.widget.ReplyPanel$1 -> com.zpj.shouji.market.ui.widget.y:
     com.zpj.shouji.market.ui.widget.ReplyPanel this$0 -> a
     152:152:void <init>(com.zpj.shouji.market.ui.widget.ReplyPanel) -> <init>
     155:159:void onSelected(java.util.List) -> a
@@ -46842,106 +46832,68 @@ com.zpj.shouji.market.ui.widget.ScaleTransitionPagerTitleView -> com.zpj.shouji.
     21:24:void onSelected(int,int) -> b
     42:45:void onLeave(int,int,float,boolean) -> b
 com.zpj.shouji.market.ui.widget.SignInLayout -> com.zpj.shouji.market.ui.widget.SignInLayout:
-    com.zpj.widget.editor.EditTextWithClear etAccount -> a
-    com.zpj.widget.editor.PasswordEditText etPassword -> b
+    com.zpj.widget.editor.EmailInputView etEmail -> d
     android.widget.TextView tvSignIn -> g
     android.widget.TextView tvAgreement -> f
+    com.zpj.widget.editor.PasswordInputView etPasswordAgain -> c
     com.zpj.widget.checkbox.SmoothCheckBox cbAgreement -> e
-    com.zpj.widget.editor.PasswordEditText etPasswordAgain -> c
-    com.zpj.widget.editor.EditTextWithClear etEmail -> d
-    41:42:void <init>(android.content.Context) -> <init>
-    45:46:void <init>(android.content.Context,android.util.AttributeSet) -> <init>
-    49:51:void <init>(android.content.Context,android.util.AttributeSet,int) -> <init>
-    54:128:void init(android.content.Context) -> a
-    103:109:void lambda$init$0(android.view.View) -> a
-    127:127:void lambda$init$1(android.view.View) -> b
-    132:145:void clearFocus() -> clearFocus
-    148:148:java.lang.String getAccountText() -> getAccountText
-    152:152:java.lang.String getPasswordText() -> getPasswordText
+    com.zpj.widget.editor.PasswordInputView etPassword -> b
+    com.zpj.widget.editor.AccountInputView etAccount -> a
+    39:40:void <init>(android.content.Context) -> <init>
+    43:44:void <init>(android.content.Context,android.util.AttributeSet) -> <init>
+    47:49:void <init>(android.content.Context,android.util.AttributeSet,int) -> <init>
+    52:126:void init(android.content.Context) -> a
+    101:107:void lambda$init$0(android.view.View) -> a
+    125:125:void lambda$init$1(android.view.View) -> b
+    130:143:void clearFocus() -> clearFocus
+    146:146:java.lang.String getAccountText() -> getAccountText
+    150:150:java.lang.String getPasswordText() -> getPasswordText
 com.zpj.shouji.market.ui.widget.SignInLayout$1 -> com.zpj.shouji.market.ui.widget.SignInLayout$1:
-    81:81:void <init>(com.zpj.shouji.market.ui.widget.SignInLayout,java.lang.String) -> <init>
-    84:87:void onClick(android.view.View) -> onClick
+    79:79:void <init>(com.zpj.shouji.market.ui.widget.SignInLayout,java.lang.String) -> <init>
+    82:85:void onClick(android.view.View) -> onClick
 com.zpj.shouji.market.ui.widget.SignInLayout$2 -> com.zpj.shouji.market.ui.widget.SignInLayout$2:
-    90:90:void <init>(com.zpj.shouji.market.ui.widget.SignInLayout,java.lang.String) -> <init>
-    93:96:void onClick(android.view.View) -> onClick
-com.zpj.shouji.market.ui.widget.SignInLayout2 -> com.zpj.shouji.market.ui.widget.SignInLayout2:
-    com.zpj.shouji.market.ui.widget.input.AccountInputView etAccount -> a
-    android.widget.TextView tvSignIn -> g
-    android.widget.TextView tvAgreement -> f
-    com.zpj.shouji.market.ui.widget.input.PasswordInputView etPassword -> b
-    com.zpj.widget.checkbox.SmoothCheckBox cbAgreement -> e
-    com.zpj.shouji.market.ui.widget.input.PasswordInputView etPasswordAgain -> c
-    com.zpj.shouji.market.ui.widget.input.EmailInputView etEmail -> d
-    44:45:void <init>(android.content.Context) -> <init>
-    48:49:void <init>(android.content.Context,android.util.AttributeSet) -> <init>
-    52:54:void <init>(android.content.Context,android.util.AttributeSet,int) -> <init>
-    57:130:void init(android.content.Context) -> a
-    106:112:void lambda$init$0(android.view.View) -> a
-    116:129:void lambda$init$1(android.view.View) -> b
-    134:147:void clearFocus() -> clearFocus
-    150:150:java.lang.String getAccountText() -> getAccountText
-    154:154:java.lang.String getPasswordText() -> getPasswordText
-    178:187:void onSignUpEvent(com.zpj.shouji.market.event.SignUpEvent) -> onSignUpEvent
-com.zpj.shouji.market.ui.widget.SignInLayout2$1 -> com.zpj.shouji.market.ui.widget.SignInLayout2$1:
-    84:84:void <init>(com.zpj.shouji.market.ui.widget.SignInLayout2,java.lang.String) -> <init>
-    87:90:void onClick(android.view.View) -> onClick
-com.zpj.shouji.market.ui.widget.SignInLayout2$2 -> com.zpj.shouji.market.ui.widget.SignInLayout2$2:
-    93:93:void <init>(com.zpj.shouji.market.ui.widget.SignInLayout2,java.lang.String) -> <init>
-    96:99:void onClick(android.view.View) -> onClick
+    88:88:void <init>(com.zpj.shouji.market.ui.widget.SignInLayout,java.lang.String) -> <init>
+    91:94:void onClick(android.view.View) -> onClick
 com.zpj.shouji.market.ui.widget.SignInLayout3 -> com.zpj.shouji.market.ui.widget.SignInLayout3:
-    com.zpj.shouji.market.ui.widget.input.SubmitView svLogin -> c
-    com.zpj.shouji.market.ui.widget.input.AccountInputView piv_account -> a
-    com.zpj.shouji.market.ui.widget.input.PasswordInputView piv_password -> b
+    com.zpj.widget.editor.SubmitView svLogin -> c
+    com.zpj.widget.editor.PasswordInputView piv_password -> b
+    com.zpj.widget.editor.AccountInputView piv_account -> a
     29:30:void <init>(android.content.Context) -> <init>
     33:34:void <init>(android.content.Context,android.util.AttributeSet) -> <init>
     37:39:void <init>(android.content.Context,android.util.AttributeSet,int) -> <init>
     43:59:void init(android.content.Context) -> a
-    88:88:com.zpj.shouji.market.ui.widget.input.AccountInputView getEtAccount() -> getEtAccount
-    92:92:com.zpj.shouji.market.ui.widget.input.PasswordInputView getEtPassword() -> getEtPassword
-    96:96:com.zpj.shouji.market.ui.widget.input.SubmitView getSubmitView() -> getSubmitView
-    63:78:void onClick(android.view.View) -> onClick
-    82:85:void onSignInEvent(com.zpj.shouji.market.event.SignInEvent) -> onSignInEvent
+    85:85:com.zpj.widget.editor.AccountInputView getEtAccount() -> getEtAccount
+    89:89:com.zpj.widget.editor.PasswordInputView getEtPassword() -> getEtPassword
+    93:93:com.zpj.widget.editor.SubmitView getSubmitView() -> getSubmitView
+    63:75:void onClick(android.view.View) -> onClick
+    79:82:void onSignInEvent(com.zpj.shouji.market.event.SignInEvent) -> onSignInEvent
 com.zpj.shouji.market.ui.widget.SignUpLayout -> com.zpj.shouji.market.ui.widget.SignUpLayout:
-    com.zpj.widget.editor.EditTextWithClear etAccount -> a
     android.widget.TextView tvFogotPassword -> c
     android.widget.TextView tvSignUp -> e
     android.widget.TextView tvLoginFailed -> d
-    com.zpj.widget.editor.PasswordEditText etPassword -> b
-    29:30:void <init>(android.content.Context) -> <init>
-    33:34:void <init>(android.content.Context,android.util.AttributeSet) -> <init>
-    37:39:void <init>(android.content.Context,android.util.AttributeSet,int) -> <init>
-    42:67:void init(android.content.Context) -> a
-    71:78:void clearFocus() -> clearFocus
-    93:96:void setOnClickListener(android.view.View$OnClickListener) -> setOnClickListener
-    89:90:void setOnSignUpClickListener(android.view.View$OnClickListener) -> setOnSignUpClickListener
-com.zpj.shouji.market.ui.widget.SignUpLayout2 -> com.zpj.shouji.market.ui.widget.SignUpLayout2:
-    com.zpj.shouji.market.ui.widget.input.SubmitView tvSignUp -> e
-    android.widget.TextView tvFogotPassword -> c
-    android.widget.TextView tvLoginFailed -> d
-    com.zpj.shouji.market.ui.widget.input.AccountInputView etAccount -> a
-    com.zpj.shouji.market.ui.widget.input.PasswordInputView etPassword -> b
-    33:34:void <init>(android.content.Context) -> <init>
-    37:38:void <init>(android.content.Context,android.util.AttributeSet) -> <init>
-    41:43:void <init>(android.content.Context,android.util.AttributeSet,int) -> <init>
-    23:23:com.zpj.shouji.market.ui.widget.input.AccountInputView access$000(com.zpj.shouji.market.ui.widget.SignUpLayout2) -> a
-    46:71:void init(android.content.Context) -> a
-    23:23:com.zpj.shouji.market.ui.widget.input.PasswordInputView access$100(com.zpj.shouji.market.ui.widget.SignUpLayout2) -> b
-    75:82:void clearFocus() -> clearFocus
-    118:122:void onSignInEvent(com.zpj.shouji.market.event.SignInEvent) -> onSignInEvent
-    97:100:void setOnClickListener(android.view.View$OnClickListener) -> setOnClickListener
-    93:94:void setOnSignUpClickListener(android.view.View$OnClickListener) -> setOnSignUpClickListener
-com.zpj.shouji.market.ui.widget.SignUpLayout2$1 -> com.zpj.shouji.market.ui.widget.SignUpLayout2$a:
-    com.zpj.shouji.market.ui.widget.SignUpLayout2 this$0 -> a
-    61:61:void <init>(com.zpj.shouji.market.ui.widget.SignUpLayout2) -> <init>
-    64:69:void onClick(android.view.View) -> onClick
+    com.zpj.widget.editor.PasswordInputView etPassword -> b
+    com.zpj.widget.editor.AccountInputView etAccount -> a
+    28:29:void <init>(android.content.Context) -> <init>
+    32:33:void <init>(android.content.Context,android.util.AttributeSet) -> <init>
+    36:38:void <init>(android.content.Context,android.util.AttributeSet,int) -> <init>
+    18:18:com.zpj.widget.editor.AccountInputView access$000(com.zpj.shouji.market.ui.widget.SignUpLayout) -> a
+    41:66:void init(android.content.Context) -> a
+    18:18:com.zpj.widget.editor.PasswordInputView access$100(com.zpj.shouji.market.ui.widget.SignUpLayout) -> b
+    70:77:void clearFocus() -> clearFocus
+    92:95:void setOnClickListener(android.view.View$OnClickListener) -> setOnClickListener
+    88:89:void setOnSignUpClickListener(android.view.View$OnClickListener) -> setOnSignUpClickListener
+com.zpj.shouji.market.ui.widget.SignUpLayout$1 -> com.zpj.shouji.market.ui.widget.SignUpLayout$a:
+    com.zpj.shouji.market.ui.widget.SignUpLayout this$0 -> a
+    56:56:void <init>(com.zpj.shouji.market.ui.widget.SignUpLayout) -> <init>
+    59:64:void onClick(android.view.View) -> onClick
 com.zpj.shouji.market.ui.widget.SignUpLayout3 -> com.zpj.shouji.market.ui.widget.SignUpLayout3:
-    com.zpj.shouji.market.ui.widget.input.AccountInputView etAccount -> a
-    com.zpj.shouji.market.ui.widget.input.PasswordInputView etPassword -> b
+    com.zpj.widget.editor.EmailInputView etEmail -> d
+    com.zpj.widget.editor.PasswordInputView etPasswordAgain -> c
     com.zpj.widget.checkbox.SmoothCheckBox cbAgreement -> e
-    com.zpj.shouji.market.ui.widget.input.PasswordInputView etPasswordAgain -> c
+    com.zpj.widget.editor.SubmitView tvSignIn -> g
     com.ctetin.expandabletextviewlibrary.ExpandableTextView tvAgreement -> f
-    com.zpj.shouji.market.ui.widget.input.SubmitView tvSignIn -> g
-    com.zpj.shouji.market.ui.widget.input.EmailInputView etEmail -> d
+    com.zpj.widget.editor.PasswordInputView etPassword -> b
+    com.zpj.widget.editor.AccountInputView etAccount -> a
     40:41:void <init>(android.content.Context) -> <init>
     44:45:void <init>(android.content.Context,android.util.AttributeSet) -> <init>
     48:50:void <init>(android.content.Context,android.util.AttributeSet,int) -> <init>
@@ -46951,12 +46903,12 @@ com.zpj.shouji.market.ui.widget.SignUpLayout3 -> com.zpj.shouji.market.ui.widget
     146:159:void lambda$init$1(android.view.View) -> a
     164:177:void clearFocus() -> clearFocus
     180:180:java.lang.String getAccountText() -> getAccountText
-    53:53:com.zpj.shouji.market.ui.widget.input.AccountInputView getEtAccount() -> getEtAccount
-    57:57:com.zpj.shouji.market.ui.widget.input.EmailInputView getEtEmail() -> getEtEmail
-    61:61:com.zpj.shouji.market.ui.widget.input.PasswordInputView getEtPassword() -> getEtPassword
-    65:65:com.zpj.shouji.market.ui.widget.input.PasswordInputView getEtPasswordAgain() -> getEtPasswordAgain
+    53:53:com.zpj.widget.editor.AccountInputView getEtAccount() -> getEtAccount
+    57:57:com.zpj.widget.editor.EmailInputView getEtEmail() -> getEtEmail
+    61:61:com.zpj.widget.editor.PasswordInputView getEtPassword() -> getEtPassword
+    65:65:com.zpj.widget.editor.PasswordInputView getEtPasswordAgain() -> getEtPasswordAgain
     184:184:java.lang.String getPasswordText() -> getPasswordText
-    69:69:com.zpj.shouji.market.ui.widget.input.SubmitView getSubmitView() -> getSubmitView
+    69:69:com.zpj.widget.editor.SubmitView getSubmitView() -> getSubmitView
     208:217:void onSignUpEvent(com.zpj.shouji.market.event.SignUpEvent) -> onSignUpEvent
 com.zpj.shouji.market.ui.widget.SignUpLayout3$1 -> com.zpj.shouji.market.ui.widget.SignUpLayout3$a:
     com.zpj.shouji.market.ui.widget.SignUpLayout3 this$0 -> a
@@ -47169,139 +47121,6 @@ com.zpj.shouji.market.ui.widget.flowlayout.FlowLayoutManager$Row -> com.zpj.shou
     67:68:void setCuTop(float) -> a
     82:83:void addViews(com.zpj.shouji.market.ui.widget.flowlayout.FlowLayoutManager$Item) -> a
     71:72:void setMaxHeight(float) -> b
-com.zpj.shouji.market.ui.widget.input.AccountInputView -> com.zpj.shouji.market.ui.widget.input.AccountInputView:
-    android.widget.ImageView mIvDeleteIcon -> p
-    android.widget.ImageView mIvAccountIcon -> o
-    23:24:void <init>(android.content.Context) -> <init>
-    27:28:void <init>(android.content.Context,android.util.AttributeSet) -> <init>
-    31:32:void <init>(android.content.Context,android.util.AttributeSet,int) -> <init>
-    36:39:void initViews(android.content.Context,android.util.AttributeSet) -> a
-    88:94:void afterTextChanged(android.text.Editable) -> afterTextChanged
-    73:84:void changeFocusMode(boolean) -> b
-    43:46:android.widget.ImageView[] getLeftIcons() -> getLeftIcons
-    51:63:android.widget.ImageView[] getRightIcons() -> getRightIcons
-    68:70:void onFocusChange(android.view.View,boolean) -> onFocusChange
-com.zpj.shouji.market.ui.widget.input.AccountInputView$1 -> com.zpj.shouji.market.ui.widget.input.AccountInputView$a:
-    com.zpj.shouji.market.ui.widget.input.AccountInputView this$0 -> a
-    57:57:void <init>(com.zpj.shouji.market.ui.widget.input.AccountInputView) -> <init>
-    60:61:void onClick(android.view.View) -> onClick
-com.zpj.shouji.market.ui.widget.input.ClearableInputView -> com.zpj.shouji.market.ui.widget.input.ClearableInputView:
-    android.widget.ImageView mIvDeleteIcon -> p
-    android.widget.ImageView mIvAccountIcon -> o
-    23:24:void <init>(android.content.Context) -> <init>
-    27:28:void <init>(android.content.Context,android.util.AttributeSet) -> <init>
-    31:32:void <init>(android.content.Context,android.util.AttributeSet,int) -> <init>
-    36:39:void initViews(android.content.Context,android.util.AttributeSet) -> a
-    88:94:void afterTextChanged(android.text.Editable) -> afterTextChanged
-    73:84:void changeFocusMode(boolean) -> b
-    43:46:android.widget.ImageView[] getLeftIcons() -> getLeftIcons
-    51:63:android.widget.ImageView[] getRightIcons() -> getRightIcons
-    68:70:void onFocusChange(android.view.View,boolean) -> onFocusChange
-com.zpj.shouji.market.ui.widget.input.ClearableInputView$1 -> com.zpj.shouji.market.ui.widget.input.ClearableInputView$a:
-    com.zpj.shouji.market.ui.widget.input.ClearableInputView this$0 -> a
-    57:57:void <init>(com.zpj.shouji.market.ui.widget.input.ClearableInputView) -> <init>
-    60:61:void onClick(android.view.View) -> onClick
-com.zpj.shouji.market.ui.widget.input.EmailInputView -> com.zpj.shouji.market.ui.widget.input.EmailInputView:
-    android.widget.ImageView mIvDeleteIcon -> p
-    android.widget.ImageView mIvAccountIcon -> o
-    23:24:void <init>(android.content.Context) -> <init>
-    27:28:void <init>(android.content.Context,android.util.AttributeSet) -> <init>
-    31:32:void <init>(android.content.Context,android.util.AttributeSet,int) -> <init>
-    36:39:void initViews(android.content.Context,android.util.AttributeSet) -> a
-    88:94:void afterTextChanged(android.text.Editable) -> afterTextChanged
-    73:84:void changeFocusMode(boolean) -> b
-    43:46:android.widget.ImageView[] getLeftIcons() -> getLeftIcons
-    51:63:android.widget.ImageView[] getRightIcons() -> getRightIcons
-    68:70:void onFocusChange(android.view.View,boolean) -> onFocusChange
-com.zpj.shouji.market.ui.widget.input.EmailInputView$1 -> com.zpj.shouji.market.ui.widget.input.EmailInputView$a:
-    com.zpj.shouji.market.ui.widget.input.EmailInputView this$0 -> a
-    57:57:void <init>(com.zpj.shouji.market.ui.widget.input.EmailInputView) -> <init>
-    60:61:void onClick(android.view.View) -> onClick
-com.zpj.shouji.market.ui.widget.input.InputView -> com.zpj.shouji.market.ui.widget.input.InputView:
-    android.widget.LinearLayout llRightContainer -> b
-    android.widget.LinearLayout llLeftContainer -> a
-    boolean allowEmpty -> n
-    int mViewColorError -> j
-    int mViewHeightNormal -> h
-    boolean isEmpty -> k
-    int mViewColorNormal -> i
-    boolean firstFocus -> l
-    int mViewHeightFocus -> f
-    int mViewColorFocus -> g
-    com.zpj.widget.editor.ZEditText mEditText -> c
-    android.widget.TextView mHelperTextView -> e
-    android.view.View mBottomLine -> d
-    java.util.List validators -> m
-    58:59:void <init>(android.content.Context) -> <init>
-    62:63:void <init>(android.content.Context,android.util.AttributeSet) -> <init>
-    66:68:void <init>(android.content.Context,android.util.AttributeSet,int) -> <init>
-    33:33:boolean access$002(com.zpj.shouji.market.ui.widget.input.InputView,boolean) -> a
-    98:98:boolean isEmpty() -> a
-    103:186:void initViews(android.content.Context,android.util.AttributeSet) -> a
-    189:206:void allowEmpty(boolean) -> a
-    299:300:void addValidator(com.zpj.widget.editor.validator.Validator) -> a
-    259:261:void afterTextChanged(android.text.Editable) -> afterTextChanged
-    219:229:void changeBottomStyle(boolean) -> b
-    268:273:boolean isValid() -> b
-    247:247:void beforeTextChanged(java.lang.CharSequence,int,int,int) -> beforeTextChanged
-    90:90:android.view.View getBottomLine() -> getBottomLine
-    72:72:com.zpj.widget.editor.ZEditText getEditText() -> getEditText
-    209:209:android.widget.ImageView[] getLeftIcons() -> getLeftIcons
-    213:213:android.widget.ImageView[] getRightIcons() -> getRightIcons
-    94:94:java.lang.String getText() -> getText
-    234:243:void onFocusChange(android.view.View,boolean) -> onFocusChange
-    251:251:void onTextChanged(java.lang.CharSequence,int,int,int) -> onTextChanged
-    78:87:void setError(java.lang.CharSequence) -> setError
-    264:265:void setHint(java.lang.CharSequence) -> setHint
-com.zpj.shouji.market.ui.widget.input.InputView$1 -> com.zpj.shouji.market.ui.widget.input.InputView$a:
-    com.zpj.shouji.market.ui.widget.input.InputView this$0 -> a
-    125:125:void <init>(com.zpj.shouji.market.ui.widget.input.InputView) -> <init>
-    138:140:void afterTextChanged(android.text.Editable) -> afterTextChanged
-    129:129:void beforeTextChanged(java.lang.CharSequence,int,int,int) -> beforeTextChanged
-    134:134:void onTextChanged(java.lang.CharSequence,int,int,int) -> onTextChanged
-com.zpj.shouji.market.ui.widget.input.PasswordInputView -> com.zpj.shouji.market.ui.widget.input.PasswordInputView:
-    com.zpj.shouji.market.ui.widget.input.PasswordInputView$OnPwdFocusChangedListener mOnPwdFocusChangedListener -> s
-    android.widget.ImageView mIvDeleteIcon -> p
-    android.widget.ImageView mIcEyeIcon -> q
-    android.widget.ImageView mIvPasswordIcon -> o
-    boolean isHidePwdMode -> r
-    29:30:void <init>(android.content.Context) -> <init>
-    33:34:void <init>(android.content.Context,android.util.AttributeSet) -> <init>
-    37:38:void <init>(android.content.Context,android.util.AttributeSet,int) -> <init>
-    19:19:boolean access$000(com.zpj.shouji.market.ui.widget.input.PasswordInputView) -> a
-    19:19:void access$100(com.zpj.shouji.market.ui.widget.input.PasswordInputView,boolean) -> a
-    46:50:void initViews(android.content.Context,android.util.AttributeSet) -> a
-    131:137:void afterTextChanged(android.text.Editable) -> afterTextChanged
-    99:112:void changeFocusMode(boolean) -> b
-    115:127:void changePwdHideMode(boolean) -> c
-    54:57:android.widget.ImageView[] getLeftIcons() -> getLeftIcons
-    62:86:android.widget.ImageView[] getRightIcons() -> getRightIcons
-    91:96:void onFocusChange(android.view.View,boolean) -> onFocusChange
-    41:42:void setOnPwdFocusChangedListener(com.zpj.shouji.market.ui.widget.input.PasswordInputView$OnPwdFocusChangedListener) -> setOnPwdFocusChangedListener
-com.zpj.shouji.market.ui.widget.input.PasswordInputView$1 -> com.zpj.shouji.market.ui.widget.input.PasswordInputView$a:
-    com.zpj.shouji.market.ui.widget.input.PasswordInputView this$0 -> a
-    68:68:void <init>(com.zpj.shouji.market.ui.widget.input.PasswordInputView) -> <init>
-    71:72:void onClick(android.view.View) -> onClick
-com.zpj.shouji.market.ui.widget.input.PasswordInputView$2 -> com.zpj.shouji.market.ui.widget.input.PasswordInputView$b:
-    com.zpj.shouji.market.ui.widget.input.PasswordInputView this$0 -> a
-    80:80:void <init>(com.zpj.shouji.market.ui.widget.input.PasswordInputView) -> <init>
-    83:84:void onClick(android.view.View) -> onClick
-com.zpj.shouji.market.ui.widget.input.PasswordInputView$OnPwdFocusChangedListener -> com.zpj.shouji.market.ui.widget.input.PasswordInputView$c:
-    void onFocusChanged(boolean) -> a
-com.zpj.shouji.market.ui.widget.input.SubmitView -> com.zpj.shouji.market.ui.widget.input.SubmitView:
-    com.zpj.shouji.market.ui.widget.input.SubmitView$EditTextWrapper[] mEditTexts -> b
-    int[] mBindIds -> a
-    boolean mHasInit -> c
-    27:28:void <init>(android.content.Context) -> <init>
-    31:32:void <init>(android.content.Context,android.util.AttributeSet) -> <init>
-    35:37:void <init>(android.content.Context,android.util.AttributeSet,int) -> <init>
-    40:48:void initAttrs(android.util.AttributeSet) -> a
-    57:84:void initViews() -> a
-    96:137:void afterTextChanged(android.text.Editable) -> afterTextChanged
-    88:88:void beforeTextChanged(java.lang.CharSequence,int,int,int) -> beforeTextChanged
-    52:54:void onMeasure(int,int) -> onMeasure
-    92:92:void onTextChanged(java.lang.CharSequence,int,int,int) -> onTextChanged
-com.zpj.shouji.market.ui.widget.input.SubmitView$EditTextWrapper -> com.zpj.shouji.market.ui.widget.input.SubmitView$a:
 com.zpj.shouji.market.ui.widget.particle.-$$Lambda$Particle$5_tzv-StSJbVGAcvr8E14q8B8fI -> com.zpj.shouji.market.ui.widget.particle.a:
     com.zpj.shouji.market.ui.widget.particle.Particle f$0 -> a
 com.zpj.shouji.market.ui.widget.particle.-$$Lambda$Particle$G6ojpxqoTsUQ8LREZc-yy9omh6k -> com.zpj.shouji.market.ui.widget.particle.b:
@@ -48286,31 +48105,6 @@ com.zpj.utils.StatusBarUtils -> com.zpj.utils.r:
     90:97:void setStatusBarDarkMode(android.view.Window,boolean) -> d
 com.zpj.utils.ViewUtils -> com.zpj.utils.s:
     68:68:boolean isInRect(float,float,android.graphics.Rect) -> a
-com.zpj.widget.R$anim -> com.zpj.widget.R$anim:
-    13:13:void <init>() -> <init>
-com.zpj.widget.R$attr -> com.zpj.widget.R$attr:
-    29:29:void <init>() -> <init>
-com.zpj.widget.R$bool -> com.zpj.widget.R$bool:
-    309:309:void <init>() -> <init>
-com.zpj.widget.R$color -> com.zpj.widget.R$color:
-    316:316:void <init>() -> <init>
-com.zpj.widget.R$dimen -> com.zpj.widget.R$dimen:
-    404:404:void <init>() -> <init>
-com.zpj.widget.R$drawable -> com.zpj.widget.R$drawable:
-    522:522:void <init>() -> <init>
-com.zpj.widget.R$id -> com.zpj.widget.R$id:
-    627:627:void <init>() -> <init>
-com.zpj.widget.R$integer -> com.zpj.widget.R$integer:
-    736:736:void <init>() -> <init>
-com.zpj.widget.R$layout -> com.zpj.widget.R$layout:
-    745:745:void <init>() -> <init>
-com.zpj.widget.R$string -> com.zpj.widget.R$string:
-    787:787:void <init>() -> <init>
-com.zpj.widget.R$style -> com.zpj.widget.R$style:
-    832:832:void <init>() -> <init>
-com.zpj.widget.R$styleable -> com.zpj.widget.R$styleable:
-    1184:1644:void <clinit>() -> <clinit>
-    1182:1182:void <init>() -> <init>
 com.zpj.widget.checkbox.SmoothCheckBox -> com.zpj.widget.checkbox.SmoothCheckBox:
     android.graphics.Point mCenterPoint -> e
     int mStrokeWidth -> n
@@ -48409,73 +48203,139 @@ com.zpj.widget.checkbox.SmoothCheckBox$7 -> com.zpj.widget.checkbox.SmoothCheckB
     430:432:void run() -> run
 com.zpj.widget.checkbox.SmoothCheckBox$OnCheckedChangeListener -> com.zpj.widget.checkbox.SmoothCheckBox$h:
     void onCheckedChanged(com.zpj.widget.checkbox.SmoothCheckBox,boolean) -> a
-com.zpj.widget.editor.EditTextWithClear -> com.zpj.widget.editor.EditTextWithClear:
-    android.graphics.drawable.Drawable mClearDrawable -> c
-    boolean hasFocus -> d
-    25:26:void <init>(android.content.Context) -> <init>
-    29:30:void <init>(android.content.Context,android.util.AttributeSet) -> <init>
-    33:35:void <init>(android.content.Context,android.util.AttributeSet,int) -> <init>
-    19:19:boolean access$000(com.zpj.widget.editor.EditTextWithClear) -> a
-    19:19:boolean access$002(com.zpj.widget.editor.EditTextWithClear,boolean) -> a
-    40:70:void initCustomEditText() -> a
-    124:124:void afterTextChanged(android.text.Editable) -> afterTextChanged
-    19:19:void access$100(com.zpj.widget.editor.EditTextWithClear,boolean) -> b
-    120:120:void beforeTextChanged(java.lang.CharSequence,int,int,int) -> beforeTextChanged
-    131:141:void onTextChanged(java.lang.CharSequence,int,int,int) -> onTextChanged
-    151:172:boolean onTouchEvent(android.view.MotionEvent) -> onTouchEvent
-    110:115:void setClearIconVisible(boolean) -> setClearIconVisible
-com.zpj.widget.editor.EditTextWithClear$1 -> com.zpj.widget.editor.EditTextWithClear$a:
-    com.zpj.widget.editor.EditTextWithClear this$0 -> a
-    48:48:void <init>(com.zpj.widget.editor.EditTextWithClear) -> <init>
-    51:58:void onFocusChange(android.view.View,boolean) -> onFocusChange
-com.zpj.widget.editor.EditTextWithClear$2 -> com.zpj.widget.editor.EditTextWithClear$b:
-    com.zpj.widget.editor.EditTextWithClear this$0 -> a
-    60:60:void <init>(com.zpj.widget.editor.EditTextWithClear) -> <init>
-    63:68:void onTextChanged(java.lang.CharSequence,int,int,int) -> onTextChanged
-com.zpj.widget.editor.PasswordEditText -> com.zpj.widget.editor.PasswordEditText:
-    android.graphics.drawable.Drawable mDrawableSide -> f
-    android.graphics.drawable.Drawable drawableStart -> g
-    int dimension -> h
-    boolean mIsShowPwdIcon -> e
-    int mHidePwdIcon -> d
-    int mShowPwdIcon -> c
-    45:46:void <init>(android.content.Context) -> <init>
-    49:52:void <init>(android.content.Context,android.util.AttributeSet) -> <init>
-    56:62:void <init>(android.content.Context,android.util.AttributeSet,int) -> <init>
-    27:27:boolean access$000(com.zpj.widget.editor.PasswordEditText) -> a
-    27:27:boolean access$002(com.zpj.widget.editor.PasswordEditText,boolean) -> a
-    66:103:void initFields(android.util.AttributeSet,android.content.res.TypedArray) -> a
-    173:176:void togglePasswordIconVisibility() -> a
-    180:190:void restorePasswordIconVisibility(boolean) -> a
-    27:27:void access$100(com.zpj.widget.editor.PasswordEditText,boolean) -> b
-    153:169:void showPasswordVisibilityIndicator(boolean) -> b
-    145:148:android.graphics.PointF getTopRightCorner() -> getTopRightCorner
-    115:119:void onRestoreInstanceState(android.os.Parcelable) -> onRestoreInstanceState
-    108:109:android.os.Parcelable onSaveInstanceState() -> onSaveInstanceState
-    123:140:boolean onTouchEvent(android.view.MotionEvent) -> onTouchEvent
-com.zpj.widget.editor.PasswordEditText$1 -> com.zpj.widget.editor.PasswordEditText$a:
-    com.zpj.widget.editor.PasswordEditText this$0 -> a
-    90:90:void <init>(com.zpj.widget.editor.PasswordEditText) -> <init>
-    93:101:void onTextChanged(java.lang.CharSequence,int,int,int) -> onTextChanged
-com.zpj.widget.editor.PasswordEditText$PwdSavedState -> com.zpj.widget.editor.PasswordEditText$PwdSavedState:
-    boolean mShowingIcon -> a
-    217:217:void <clinit>() -> <clinit>
-    193:193:void <init>(android.os.Parcel,com.zpj.widget.editor.PasswordEditText$1) -> <init>
-    193:193:void <init>(android.os.Parcelable,boolean,com.zpj.widget.editor.PasswordEditText$1) -> <init>
-    198:200:void <init>(android.os.Parcelable,boolean) -> <init>
-    203:205:void <init>(android.os.Parcel) -> <init>
-    208:208:boolean isShowingIcon() -> a
-    213:215:void writeToParcel(android.os.Parcel,int) -> writeToParcel
-com.zpj.widget.editor.PasswordEditText$PwdSavedState$1 -> com.zpj.widget.editor.PasswordEditText$PwdSavedState$a:
-    217:217:void <init>() -> <init>
-    217:217:java.lang.Object createFromParcel(android.os.Parcel) -> createFromParcel
-    219:219:com.zpj.widget.editor.PasswordEditText$PwdSavedState createFromParcel(android.os.Parcel) -> createFromParcel
-    217:217:java.lang.Object[] newArray(int) -> newArray
-    223:223:com.zpj.widget.editor.PasswordEditText$PwdSavedState[] newArray(int) -> newArray
-com.zpj.widget.editor.SimpleTextWatcher -> com.zpj.widget.editor.a:
-    6:6:void <init>() -> <init>
-    21:21:void afterTextChanged(android.text.Editable) -> afterTextChanged
-    11:11:void beforeTextChanged(java.lang.CharSequence,int,int,int) -> beforeTextChanged
+com.zpj.widget.editor.AccountInputView -> com.zpj.widget.editor.AccountInputView:
+    android.widget.ImageView mIvDeleteIcon -> p
+    android.widget.ImageView mIvAccountIcon -> o
+    23:24:void <init>(android.content.Context) -> <init>
+    27:28:void <init>(android.content.Context,android.util.AttributeSet) -> <init>
+    31:32:void <init>(android.content.Context,android.util.AttributeSet,int) -> <init>
+    36:39:void initViews(android.content.Context,android.util.AttributeSet) -> a
+    88:94:void afterTextChanged(android.text.Editable) -> afterTextChanged
+    73:84:void changeFocusMode(boolean) -> b
+    43:46:android.widget.ImageView[] getLeftIcons() -> getLeftIcons
+    51:63:android.widget.ImageView[] getRightIcons() -> getRightIcons
+    68:70:void onFocusChange(android.view.View,boolean) -> onFocusChange
+com.zpj.widget.editor.AccountInputView$1 -> com.zpj.widget.editor.AccountInputView$a:
+    com.zpj.widget.editor.AccountInputView this$0 -> a
+    57:57:void <init>(com.zpj.widget.editor.AccountInputView) -> <init>
+    60:61:void onClick(android.view.View) -> onClick
+com.zpj.widget.editor.ClearableInputView -> com.zpj.widget.editor.ClearableInputView:
+    android.widget.ImageView mIvDeleteIcon -> p
+    android.widget.ImageView mIvAccountIcon -> o
+    23:24:void <init>(android.content.Context) -> <init>
+    27:28:void <init>(android.content.Context,android.util.AttributeSet) -> <init>
+    31:32:void <init>(android.content.Context,android.util.AttributeSet,int) -> <init>
+    36:39:void initViews(android.content.Context,android.util.AttributeSet) -> a
+    88:94:void afterTextChanged(android.text.Editable) -> afterTextChanged
+    73:84:void changeFocusMode(boolean) -> b
+    43:46:android.widget.ImageView[] getLeftIcons() -> getLeftIcons
+    51:63:android.widget.ImageView[] getRightIcons() -> getRightIcons
+    68:70:void onFocusChange(android.view.View,boolean) -> onFocusChange
+com.zpj.widget.editor.ClearableInputView$1 -> com.zpj.widget.editor.ClearableInputView$a:
+    com.zpj.widget.editor.ClearableInputView this$0 -> a
+    57:57:void <init>(com.zpj.widget.editor.ClearableInputView) -> <init>
+    60:61:void onClick(android.view.View) -> onClick
+com.zpj.widget.editor.EmailInputView -> com.zpj.widget.editor.EmailInputView:
+    android.widget.ImageView mIvDeleteIcon -> p
+    android.widget.ImageView mIvAccountIcon -> o
+    23:24:void <init>(android.content.Context) -> <init>
+    27:28:void <init>(android.content.Context,android.util.AttributeSet) -> <init>
+    31:32:void <init>(android.content.Context,android.util.AttributeSet,int) -> <init>
+    36:39:void initViews(android.content.Context,android.util.AttributeSet) -> a
+    88:94:void afterTextChanged(android.text.Editable) -> afterTextChanged
+    73:84:void changeFocusMode(boolean) -> b
+    43:46:android.widget.ImageView[] getLeftIcons() -> getLeftIcons
+    51:63:android.widget.ImageView[] getRightIcons() -> getRightIcons
+    68:70:void onFocusChange(android.view.View,boolean) -> onFocusChange
+com.zpj.widget.editor.EmailInputView$1 -> com.zpj.widget.editor.EmailInputView$a:
+    com.zpj.widget.editor.EmailInputView this$0 -> a
+    57:57:void <init>(com.zpj.widget.editor.EmailInputView) -> <init>
+    60:61:void onClick(android.view.View) -> onClick
+com.zpj.widget.editor.InputView -> com.zpj.widget.editor.InputView:
+    android.widget.LinearLayout llRightContainer -> b
+    android.widget.LinearLayout llLeftContainer -> a
+    boolean allowEmpty -> n
+    int mViewColorError -> j
+    int mViewHeightNormal -> h
+    boolean isEmpty -> k
+    int mViewColorNormal -> i
+    boolean firstFocus -> l
+    int mViewHeightFocus -> f
+    int mViewColorFocus -> g
+    com.zpj.widget.editor.ZEditText mEditText -> c
+    android.widget.TextView mHelperTextView -> e
+    android.view.View mBottomLine -> d
+    java.util.List validators -> m
+    57:58:void <init>(android.content.Context) -> <init>
+    61:62:void <init>(android.content.Context,android.util.AttributeSet) -> <init>
+    65:67:void <init>(android.content.Context,android.util.AttributeSet,int) -> <init>
+    32:32:boolean access$002(com.zpj.widget.editor.InputView,boolean) -> a
+    97:97:boolean isEmpty() -> a
+    102:185:void initViews(android.content.Context,android.util.AttributeSet) -> a
+    188:205:void allowEmpty(boolean) -> a
+    298:299:void addValidator(com.zpj.widget.editor.validator.Validator) -> a
+    258:260:void afterTextChanged(android.text.Editable) -> afterTextChanged
+    218:228:void changeBottomStyle(boolean) -> b
+    267:272:boolean isValid() -> b
+    246:246:void beforeTextChanged(java.lang.CharSequence,int,int,int) -> beforeTextChanged
+    89:89:android.view.View getBottomLine() -> getBottomLine
+    71:71:com.zpj.widget.editor.ZEditText getEditText() -> getEditText
+    208:208:android.widget.ImageView[] getLeftIcons() -> getLeftIcons
+    212:212:android.widget.ImageView[] getRightIcons() -> getRightIcons
+    93:93:java.lang.String getText() -> getText
+    233:242:void onFocusChange(android.view.View,boolean) -> onFocusChange
+    250:250:void onTextChanged(java.lang.CharSequence,int,int,int) -> onTextChanged
+    77:86:void setError(java.lang.CharSequence) -> setError
+    263:264:void setHint(java.lang.CharSequence) -> setHint
+com.zpj.widget.editor.InputView$1 -> com.zpj.widget.editor.InputView$a:
+    com.zpj.widget.editor.InputView this$0 -> a
+    124:124:void <init>(com.zpj.widget.editor.InputView) -> <init>
+    137:139:void afterTextChanged(android.text.Editable) -> afterTextChanged
+    128:128:void beforeTextChanged(java.lang.CharSequence,int,int,int) -> beforeTextChanged
+    133:133:void onTextChanged(java.lang.CharSequence,int,int,int) -> onTextChanged
+com.zpj.widget.editor.PasswordInputView -> com.zpj.widget.editor.PasswordInputView:
+    com.zpj.widget.editor.PasswordInputView$OnPwdFocusChangedListener mOnPwdFocusChangedListener -> s
+    android.widget.ImageView mIvDeleteIcon -> p
+    android.widget.ImageView mIcEyeIcon -> q
+    android.widget.ImageView mIvPasswordIcon -> o
+    boolean isHidePwdMode -> r
+    29:30:void <init>(android.content.Context) -> <init>
+    33:34:void <init>(android.content.Context,android.util.AttributeSet) -> <init>
+    37:38:void <init>(android.content.Context,android.util.AttributeSet,int) -> <init>
+    19:19:boolean access$000(com.zpj.widget.editor.PasswordInputView) -> a
+    19:19:void access$100(com.zpj.widget.editor.PasswordInputView,boolean) -> a
+    46:50:void initViews(android.content.Context,android.util.AttributeSet) -> a
+    131:137:void afterTextChanged(android.text.Editable) -> afterTextChanged
+    99:112:void changeFocusMode(boolean) -> b
+    115:127:void changePwdHideMode(boolean) -> c
+    54:57:android.widget.ImageView[] getLeftIcons() -> getLeftIcons
+    62:86:android.widget.ImageView[] getRightIcons() -> getRightIcons
+    91:96:void onFocusChange(android.view.View,boolean) -> onFocusChange
+    41:42:void setOnPwdFocusChangedListener(com.zpj.widget.editor.PasswordInputView$OnPwdFocusChangedListener) -> setOnPwdFocusChangedListener
+com.zpj.widget.editor.PasswordInputView$1 -> com.zpj.widget.editor.PasswordInputView$a:
+    com.zpj.widget.editor.PasswordInputView this$0 -> a
+    68:68:void <init>(com.zpj.widget.editor.PasswordInputView) -> <init>
+    71:72:void onClick(android.view.View) -> onClick
+com.zpj.widget.editor.PasswordInputView$2 -> com.zpj.widget.editor.PasswordInputView$b:
+    com.zpj.widget.editor.PasswordInputView this$0 -> a
+    80:80:void <init>(com.zpj.widget.editor.PasswordInputView) -> <init>
+    83:84:void onClick(android.view.View) -> onClick
+com.zpj.widget.editor.PasswordInputView$OnPwdFocusChangedListener -> com.zpj.widget.editor.PasswordInputView$c:
+    void onFocusChanged(boolean) -> a
+com.zpj.widget.editor.SubmitView -> com.zpj.widget.editor.SubmitView:
+    com.zpj.widget.editor.SubmitView$EditTextWrapper[] mEditTexts -> b
+    int[] mBindIds -> a
+    boolean mHasInit -> c
+    22:23:void <init>(android.content.Context) -> <init>
+    26:27:void <init>(android.content.Context,android.util.AttributeSet) -> <init>
+    30:32:void <init>(android.content.Context,android.util.AttributeSet,int) -> <init>
+    35:43:void initAttrs(android.util.AttributeSet) -> a
+    52:79:void initViews() -> a
+    91:132:void afterTextChanged(android.text.Editable) -> afterTextChanged
+    83:83:void beforeTextChanged(java.lang.CharSequence,int,int,int) -> beforeTextChanged
+    47:49:void onMeasure(int,int) -> onMeasure
+    87:87:void onTextChanged(java.lang.CharSequence,int,int,int) -> onTextChanged
+com.zpj.widget.editor.SubmitView$EditTextWrapper -> com.zpj.widget.editor.SubmitView$a:
 com.zpj.widget.editor.ZEditText -> com.zpj.widget.editor.ZEditText:
     java.util.List listeners -> b
     android.view.View$OnFocusChangeListener onFocusChangeListener -> a
@@ -48487,29 +48347,29 @@ com.zpj.widget.editor.ZEditText -> com.zpj.widget.editor.ZEditText:
     85:94:void removeOnFocusChangeListener(android.view.View$OnFocusChangeListener) -> b
     153:167:void onFocusChange(android.view.View,boolean) -> onFocusChange
     69:75:void setOnFocusChangeListener(android.view.View$OnFocusChangeListener) -> setOnFocusChangeListener
-com.zpj.widget.editor.validator.DifferentValueValidator -> com.zpj.widget.editor.b.a:
+com.zpj.widget.editor.validator.DifferentValueValidator -> com.zpj.widget.editor.a.a:
     android.widget.EditText otherEditText -> b
     15:17:void <init>(android.widget.EditText,java.lang.String) -> <init>
     21:21:boolean isValid(android.widget.EditText) -> a
-com.zpj.widget.editor.validator.EmailValidator -> com.zpj.widget.editor.b.b:
+com.zpj.widget.editor.validator.EmailValidator -> com.zpj.widget.editor.a.b:
     16:17:void <init>(java.lang.String) -> <init>
-com.zpj.widget.editor.validator.EmptyValidator -> com.zpj.widget.editor.b.c:
+com.zpj.widget.editor.validator.EmptyValidator -> com.zpj.widget.editor.a.c:
     13:14:void <init>(java.lang.String) -> <init>
     17:17:boolean isValid(android.widget.EditText) -> a
-com.zpj.widget.editor.validator.LengthValidator -> com.zpj.widget.editor.b.d:
+com.zpj.widget.editor.validator.LengthValidator -> com.zpj.widget.editor.a.d:
     int min -> b
     int max -> c
     17:26:void <init>(java.lang.String,int,int) -> <init>
     29:34:boolean isValid(android.widget.EditText) -> a
-com.zpj.widget.editor.validator.PatternValidator -> com.zpj.widget.editor.b.e:
+com.zpj.widget.editor.validator.PatternValidator -> com.zpj.widget.editor.a.e:
     java.util.regex.Pattern pattern -> b
     22:23:void <init>(java.lang.String,java.util.regex.Pattern) -> <init>
     28:28:boolean isValid(android.widget.EditText) -> a
-com.zpj.widget.editor.validator.SameValueValidator -> com.zpj.widget.editor.b.f:
+com.zpj.widget.editor.validator.SameValueValidator -> com.zpj.widget.editor.a.f:
     android.widget.EditText otherEditText -> b
     15:17:void <init>(android.widget.EditText,java.lang.String) -> <init>
     21:21:boolean isValid(android.widget.EditText) -> a
-com.zpj.widget.editor.validator.Validator -> com.zpj.widget.editor.b.g:
+com.zpj.widget.editor.validator.Validator -> com.zpj.widget.editor.a.g:
     java.lang.String errorMessage -> a
     13:15:void <init>(java.lang.String) -> <init>
     boolean isValid(android.widget.EditText) -> a

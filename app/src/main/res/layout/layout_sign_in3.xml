@@ -6,7 +6,7 @@
     android:orientation="vertical"
     >
 
-    <com.zpj.shouji.market.ui.widget.input.AccountInputView
+    <com.zpj.widget.editor.AccountInputView
         android:id="@+id/piv_login_account"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -14,14 +14,14 @@
         android:layout_marginStart="32dp"
         android:layout_marginEnd="32dp"/>
 
-    <com.zpj.shouji.market.ui.widget.input.PasswordInputView
+    <com.zpj.widget.editor.PasswordInputView
         android:id="@+id/piv_login_password"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
         android:layout_marginEnd="32dp" />
 
-    <com.zpj.shouji.market.ui.widget.input.SubmitView
+    <com.zpj.widget.editor.SubmitView
         android:id="@+id/sv_login"
         style="@style/button_submit"
         android:layout_marginTop="16dp"

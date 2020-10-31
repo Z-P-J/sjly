@@ -176,7 +176,7 @@ dependencies {
     implementation project(':installerlibrary')
     implementation project(':niceimageview')
     implementation project(":filescannercore")
-    implementation project(":zwidget")
+//    implementation project(":zwidget")
     implementation project(":zdownloader")
 //    implementation project(':zmarkdown')
 //    implementation project(':richeditor')

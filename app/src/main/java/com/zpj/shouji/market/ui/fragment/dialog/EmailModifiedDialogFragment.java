@@ -8,9 +8,9 @@ import com.felix.atoast.library.AToast;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.api.HttpApi;
 import com.zpj.shouji.market.manager.UserManager;
-import com.zpj.shouji.market.ui.widget.input.EmailInputView;
-import com.zpj.shouji.market.ui.widget.input.PasswordInputView;
-import com.zpj.shouji.market.ui.widget.input.SubmitView;
+import com.zpj.widget.editor.EmailInputView;
+import com.zpj.widget.editor.PasswordInputView;
+import com.zpj.widget.editor.SubmitView;
 import com.zpj.widget.editor.validator.EmailValidator;
 import com.zpj.widget.editor.validator.LengthValidator;
 

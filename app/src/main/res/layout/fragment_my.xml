@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     >
 
-    <com.zpj.shouji.market.ui.widget.PullZoomView2
+    <com.zpj.shouji.market.ui.widget.PullZoomView
         android:id="@+id/view_pull_zoom"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -445,7 +445,7 @@
 
         </LinearLayout>
 
-    </com.zpj.shouji.market.ui.widget.PullZoomView2>
+    </com.zpj.shouji.market.ui.widget.PullZoomView>
 
     <com.zpj.widget.toolbar.ZToolBar
         android:id="@+id/tool_bar"

@@ -50,7 +50,7 @@
         android:layout_marginHorizontal="16dp"
         />
 
-    <com.zpj.shouji.market.ui.widget.input.AccountInputView
+    <com.zpj.widget.editor.AccountInputView
         android:id="@+id/et_account"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -71,7 +71,7 @@
         android:layout_marginHorizontal="16dp"
         />
 
-    <com.zpj.shouji.market.ui.widget.input.SubmitView
+    <com.zpj.widget.editor.SubmitView
         android:id="@+id/sv_submit"
         style="@style/button_submit"
         android:text="确认修改"

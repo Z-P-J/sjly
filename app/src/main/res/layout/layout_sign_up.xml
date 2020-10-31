@@ -2,7 +2,7 @@
 <merge xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <com.zpj.widget.editor.EditTextWithClear
+    <com.zpj.widget.editor.AccountInputView
         android:id="@+id/et_account"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -14,7 +14,7 @@
         android:textColorHint="@color/color_text_minor"
         android:textSize="16sp" />
 
-    <com.zpj.widget.editor.PasswordEditText
+    <com.zpj.widget.editor.PasswordInputView
         android:id="@+id/et_password"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

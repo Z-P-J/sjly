@@ -8,18 +8,17 @@ import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.felix.atoast.library.AToast;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.manager.UserManager;
 import com.zpj.utils.ScreenUtils;
-import com.zpj.widget.editor.EditTextWithClear;
-import com.zpj.widget.editor.PasswordEditText;
+import com.zpj.widget.editor.AccountInputView;
+import com.zpj.widget.editor.PasswordInputView;
 import com.zpj.widget.editor.validator.LengthValidator;
 
 public class SignUpLayout extends LinearLayout {
 
-    private EditTextWithClear etAccount;
-    private PasswordEditText etPassword;
+    private AccountInputView etAccount;
+    private PasswordInputView etPassword;
 
     private TextView tvFogotPassword;
     private TextView tvLoginFailed;
@@ -45,25 +44,25 @@ public class SignUpLayout extends LinearLayout {
         int padding = ScreenUtils.dp2pxInt(context, 16);
         setPadding(padding, padding, padding, padding);
 
-//        etAccount = findViewById(R.id.et_account);
-//        etAccount.addValidator(new LengthValidator("账号长度必须在3-20之间", 3, 20));
-//
-//        etPassword = findViewById(R.id.et_password);
-//        etPassword.addValidator(new LengthValidator("密码长度不能小于6", 6, Integer.MAX_VALUE));
-//
-//        tvFogotPassword = findViewById(R.id.tv_forgot_password);
-//        tvLoginFailed = findViewById(R.id.tv_login_failed);
-//        tvSignUp = findViewById(R.id.tv_sign_up);
-//        tvSignUp.setOnClickListener(new OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                if (etAccount.isValid() && etPassword.isValid()) {
-//                    String account = etAccount.getText().toString();
-//                    String password = etPassword.getText().toString();
-//                    UserManager.getInstance().signIn(account, password);
-//                }
-//            }
-//        });
+        etAccount = findViewById(R.id.et_account);
+        etAccount.addValidator(new LengthValidator("账号长度必须在3-20之间", 3, 20));
+
+        etPassword = findViewById(R.id.et_password);
+        etPassword.addValidator(new LengthValidator("密码长度不能小于6", 6, Integer.MAX_VALUE));
+
+        tvFogotPassword = findViewById(R.id.tv_forgot_password);
+        tvLoginFailed = findViewById(R.id.tv_login_failed);
+        tvSignUp = findViewById(R.id.tv_sign_up);
+        tvSignUp.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (etAccount.isValid() && etPassword.isValid()) {
+                    String account = etAccount.getText().toString();
+                    String password = etPassword.getText().toString();
+                    UserManager.getInstance().signIn(account, password);
+                }
+            }
+        });
     }
 
     @Override

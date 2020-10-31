@@ -73,16 +73,6 @@ public class MatisseFragment2 extends BaseFragment implements
 
     private boolean popToSelect;
 
-
-
-
-
-//    private final AlbumManager mAlbumManager = new AlbumManager();
-//    private final List<Album> albumList = new ArrayList<>();
-
-
-
-
     @Override
     protected int getLayoutId() {
         return R.layout.fragment_matisse2;
@@ -225,11 +215,6 @@ public class MatisseFragment2 extends BaseFragment implements
         mSpec.onCheckedListener = null;
         mSpec.onSelectedListener = null;
         super.onDestroy();
-    }
-
-    @Override
-    public FragmentAnimator onCreateFragmentAnimator() {
-        return new DefaultHorizontalAnimator();
     }
 
     private void updateBottomToolbar() {

@@ -22,7 +22,6 @@
             <option value="$PROJECT_DIR$/installerlibrary" />
             <option value="$PROJECT_DIR$/niceimageview" />
             <option value="$PROJECT_DIR$/zdownloader" />
-            <option value="$PROJECT_DIR$/zwidget" />
           </set>
         </option>
         <option name="resolveModulePerSourceSet" value="false" />

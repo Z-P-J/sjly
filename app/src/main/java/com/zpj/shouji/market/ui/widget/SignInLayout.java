@@ -13,25 +13,23 @@ import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.felix.atoast.library.AToast;
-import com.zpj.fragmentation.SupportActivity;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.ui.fragment.WebFragment;
-import com.zpj.shouji.market.manager.UserManager;
 import com.zpj.utils.ScreenUtils;
 import com.zpj.widget.checkbox.SmoothCheckBox;
-import com.zpj.widget.editor.EditTextWithClear;
-import com.zpj.widget.editor.PasswordEditText;
+import com.zpj.widget.editor.AccountInputView;
+import com.zpj.widget.editor.EmailInputView;
+import com.zpj.widget.editor.PasswordInputView;
 import com.zpj.widget.editor.validator.EmailValidator;
 import com.zpj.widget.editor.validator.LengthValidator;
 import com.zpj.widget.editor.validator.SameValueValidator;
 
 public class SignInLayout extends LinearLayout {
 
-    private EditTextWithClear etAccount;
-    private PasswordEditText etPassword;
-    private PasswordEditText etPasswordAgain;
-    private EditTextWithClear etEmail;
+    private AccountInputView etAccount;
+    private PasswordInputView etPassword;
+    private PasswordInputView etPasswordAgain;
+    private EmailInputView etEmail;
 
     private SmoothCheckBox cbAgreement;
     private TextView tvAgreement;
@@ -59,17 +57,17 @@ public class SignInLayout extends LinearLayout {
         setPadding(padding, padding, padding, padding);
 
 
-//        etAccount = findViewById(R.id.et_account);
-//        etAccount.addValidator(new LengthValidator("账号长度必须在3-20之间", 3, 20));
-//        etPassword = findViewById(R.id.et_password);
-//        etPassword.addValidator(new LengthValidator("密码长度不能小于6", 6, Integer.MAX_VALUE));
-//        etPasswordAgain = findViewById(R.id.et_password_again);
-//        etPasswordAgain.addValidator(new LengthValidator("密码长度不能小于6", 6, Integer.MAX_VALUE));
-//        etPasswordAgain.addValidator(new SameValueValidator(etPassword, "两次输入的密码不相同"));
-//        etEmail = findViewById(R.id.et_email);
-//        etEmail.addValidator(new EmailValidator("邮箱格式有误"));
-//        cbAgreement = findViewById(R.id.cb_agreement);
-//        tvAgreement = findViewById(R.id.tv_agreement);
+        etAccount = findViewById(R.id.et_account);
+        etAccount.addValidator(new LengthValidator("账号长度必须在3-20之间", 3, 20));
+        etPassword = findViewById(R.id.et_password);
+        etPassword.addValidator(new LengthValidator("密码长度不能小于6", 6, Integer.MAX_VALUE));
+        etPasswordAgain = findViewById(R.id.et_password_again);
+        etPasswordAgain.addValidator(new LengthValidator("密码长度不能小于6", 6, Integer.MAX_VALUE));
+        etPasswordAgain.addValidator(new SameValueValidator(etPassword.getEditText(), "两次输入的密码不相同"));
+        etEmail = findViewById(R.id.et_email);
+        etEmail.addValidator(new EmailValidator("邮箱格式有误"));
+        cbAgreement = findViewById(R.id.cb_agreement);
+        tvAgreement = findViewById(R.id.tv_agreement);
 
 
         String text = "同意《用户协议》和《隐私协议》";

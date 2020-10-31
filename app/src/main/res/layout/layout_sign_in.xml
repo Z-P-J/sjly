@@ -2,7 +2,7 @@
 <merge xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <com.zpj.widget.editor.EditTextWithClear
+    <com.zpj.widget.editor.AccountInputView
         android:id="@+id/et_account"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -20,7 +20,7 @@
 <!--    app:customRegexp="^[0-9a-zA-Z\u4e00-\u9fa5]{3,20}$"-->
 <!--    app:testErrorString="用户名只能包含数字、字母和汉字，且必须是3-20个字符"-->
 
-    <com.zpj.widget.editor.PasswordEditText
+    <com.zpj.widget.editor.PasswordInputView
         android:id="@+id/et_password"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -34,7 +34,7 @@
         android:layout_marginTop="16dp"
         />
 
-    <com.zpj.widget.editor.PasswordEditText
+    <com.zpj.widget.editor.PasswordInputView
         android:id="@+id/et_password_again"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -48,7 +48,7 @@
         android:layout_marginTop="16dp"
         />
 
-    <com.zpj.widget.editor.EditTextWithClear
+    <com.zpj.widget.editor.EmailInputView
         android:id="@+id/et_email"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

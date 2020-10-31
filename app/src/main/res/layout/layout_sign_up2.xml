@@ -6,12 +6,12 @@
     android:orientation="vertical"
     >
 
-    <com.zpj.shouji.market.ui.widget.input.AccountInputView
+    <com.zpj.widget.editor.AccountInputView
         android:id="@+id/et_account"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
 
-    <com.zpj.shouji.market.ui.widget.input.PasswordInputView
+    <com.zpj.widget.editor.PasswordInputView
         android:id="@+id/et_password"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
@@ -46,7 +46,7 @@
 
     </android.support.v7.widget.LinearLayoutCompat>
 
-    <com.zpj.shouji.market.ui.widget.input.SubmitView
+    <com.zpj.widget.editor.SubmitView
         android:id="@+id/tv_sign_up"
         style="@style/button_submit"
         android:text="登录"

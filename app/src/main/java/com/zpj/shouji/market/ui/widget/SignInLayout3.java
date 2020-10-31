@@ -12,9 +12,9 @@ import com.felix.atoast.library.AToast;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.event.SignInEvent;
 import com.zpj.shouji.market.manager.UserManager;
-import com.zpj.shouji.market.ui.widget.input.AccountInputView;
-import com.zpj.shouji.market.ui.widget.input.PasswordInputView;
-import com.zpj.shouji.market.ui.widget.input.SubmitView;
+import com.zpj.widget.editor.AccountInputView;
+import com.zpj.widget.editor.PasswordInputView;
+import com.zpj.widget.editor.SubmitView;
 import com.zpj.widget.editor.validator.LengthValidator;
 
 import org.greenrobot.eventbus.Subscribe;
@@ -67,10 +67,7 @@ public class SignInLayout3 extends LinearLayout implements View.OnClickListener 
                 String userName = piv_account.getText();
                 String password = piv_password.getText();
                 UserManager.getInstance().signIn(userName, password);
-//                AToast.normal("userName=" + userName + " password=" + password);
                 break;
-//            case R.id.tv_regist:
-//                break;
             case R.id.tv_forget_password:
                 AToast.normal("TODO");
                 break;
@@ -80,7 +77,7 @@ public class SignInLayout3 extends LinearLayout implements View.OnClickListener 
     @Subscribe
     public void onSignInEvent(SignInEvent event) {
         if (!event.isSuccess()) {
-            piv_account.setError(event.getErrorMsg());
+            piv_password.setError(event.getErrorMsg());
         }
     }
 
