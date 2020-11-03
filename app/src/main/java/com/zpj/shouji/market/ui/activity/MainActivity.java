@@ -18,6 +18,8 @@ import com.lxj.xpermission.PermissionConstants;
 import com.lxj.xpermission.XPermission;
 import com.yalantis.ucrop.CropEvent;
 import com.zpj.downloader.ZDownloader;
+import com.zpj.downloader.config.DownloaderConfig;
+import com.zpj.downloader.config.ThreadPoolConfig;
 import com.zpj.fragmentation.SupportActivity;
 import com.zpj.fragmentation.SupportFragment;
 import com.zpj.fragmentation.dialog.impl.AlertDialogFragment;
@@ -27,6 +29,7 @@ import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.api.HttpApi;
 import com.zpj.shouji.market.api.HttpPreLoader;
 import com.zpj.shouji.market.constant.AppConfig;
+import com.zpj.shouji.market.download.AppDownloadMission;
 import com.zpj.shouji.market.event.GetMainActivityEvent;
 import com.zpj.shouji.market.event.HideLoadingEvent;
 import com.zpj.shouji.market.event.IconUploadSuccessEvent;
@@ -84,6 +87,19 @@ public class MainActivity extends SupportActivity {
         Log.d("MainActivity", "duration000-4=" + (System.currentTimeMillis() - start));
 
         BrightnessUtils.setBrightness(this);
+
+        ZDownloader.init(
+                DownloaderConfig.with(this)
+                        .setUserAgent("Sjly(3.0)")
+                        .setConcurrentMissionCount(AppConfig.getMaxDownloadConcurrentCount())
+                        .setEnableNotification(AppConfig.isShowDownloadNotification())
+                        .setThreadPoolConfig(
+                                ThreadPoolConfig.build()
+                                        .setCorePoolSize(AppConfig.getMaxDownloadThreadCount())
+                        )
+                        .setDownloadPath(AppConfig.getDownloadPath()),
+                AppDownloadMission.class
+        );
 
 //        openingStartAnimation3 = new OpeningStartAnimation.Builder(MainActivity.this)
 //                .setDrawStategy(new NormalDrawStrategy())

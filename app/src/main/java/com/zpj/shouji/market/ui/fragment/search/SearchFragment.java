@@ -29,6 +29,11 @@ public class SearchFragment extends BaseFragment {
         SearchEvent(String keyword) {
             this.keyword = keyword;
         }
+
+        public static void post(String keyword) {
+            EventBus.getDefault().post(new SearchEvent(keyword));
+        }
+
     }
 
     static class TextChangedEvent {
@@ -160,7 +165,8 @@ public class SearchFragment extends BaseFragment {
             return false;
         }
         viewPager.setCurrentItem(1, true);
-        EventBus.getDefault().post(new SearchEvent(text));
+        SearchEvent.post(text);
+//        EventBus.getDefault().post(new SearchEvent(text));
         return true;
     }
 

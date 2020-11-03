@@ -7,6 +7,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 
 import com.zpj.shouji.market.R;
@@ -118,14 +119,16 @@ public class SearchResultFragment extends BaseFragment {
             defaultUrl = "http://tt.shouji.com.cn/androidv3/app_search_xml.jsp?sdk=26&type=default&s=" + key;
             nextUrl = defaultUrl;
 
-            recyclerLayout.showLoading();
-            postOnSupportVisibleDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    data.clear();
-                    getData();
-                }
-            }, 250);
+            if (isLazyInit()) {
+                recyclerLayout.showLoading();
+                postOnSupportVisibleDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        data.clear();
+                        getData();
+                    }
+                }, 250);
+            }
         }
 
     }
@@ -145,14 +148,16 @@ public class SearchResultFragment extends BaseFragment {
             defaultUrl = "http://tt.shouji.com.cn/androidv3/yyj_view_phb_xml.jsp?title=" + key;
             nextUrl = defaultUrl;
 
-            recyclerLayout.showLoading();
-            postOnSupportVisibleDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    data.clear();
-                    getData();
-                }
-            }, 250);
+            if (isLazyInit()) {
+                recyclerLayout.showLoading();
+                postOnSupportVisibleDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        data.clear();
+                        getData();
+                    }
+                }, 250);
+            }
         }
 
     }
@@ -175,14 +180,16 @@ public class SearchResultFragment extends BaseFragment {
 //                onRefresh();
 //            }
 
-            recyclerLayout.showLoading();
-            postOnSupportVisibleDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    data.clear();
-                    getData();
-                }
-            }, 250);
+            if (isLazyInit()) {
+                recyclerLayout.showLoading();
+                postOnSupportVisibleDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        data.clear();
+                        getData();
+                    }
+                }, 250);
+            }
         }
 
     }
@@ -200,24 +207,23 @@ public class SearchResultFragment extends BaseFragment {
             this.keyword = key;
             defaultUrl = "http://tt.shouji.com.cn/androidv3/app_search_user_xml.jsp?s=" + key;
             nextUrl = defaultUrl;
-//            if (isLazyInit) {
-//                onRefresh();
-//            }
-
-            recyclerLayout.showLoading();
-            postOnSupportVisibleDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    data.clear();
-                    getData();
-                }
-            }, 250);
+            if (isLazyInit()) {
+                recyclerLayout.showLoading();
+                postOnSupportVisibleDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        data.clear();
+                        getData();
+                    }
+                }, 250);
+            }
         }
 
     }
 
     @Subscribe
     public void onSearchEvent(SearchFragment.SearchEvent event) {
+        Log.d("onSearchEvent", "keyword=" + event.keyword + " observers=" + observers.size());
         for (KeywordObserver observer : observers) {
             observer.updateKeyword(event.keyword);
         }

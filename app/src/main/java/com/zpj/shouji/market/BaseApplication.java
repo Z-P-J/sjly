@@ -52,18 +52,7 @@ public class BaseApplication extends Application {
 //                ,"umeng",UMConfigure.DEVICE_TYPE_PHONE,"");
 
         AToast.onInit(this);
-        ZDownloader.init(
-                DownloaderConfig.with(this)
-                        .setUserAgent("Sjly(3.0)")
-                        .setConcurrentMissionCount(AppConfig.getMaxDownloadConcurrentCount())
-                        .setEnableNotification(AppConfig.isShowDownloadNotification())
-                        .setThreadPoolConfig(
-                                ThreadPoolConfig.build()
-                                        .setCorePoolSize(AppConfig.getMaxDownloadThreadCount())
-                        )
-                        .setDownloadPath(AppConfig.getDownloadPath()),
-                AppDownloadMission.class
-        );
+
         LQREmotionKit.init(this, new IImageLoader() {
             @Override
             public void displayImage(Context context, String path, ImageView imageView) {
