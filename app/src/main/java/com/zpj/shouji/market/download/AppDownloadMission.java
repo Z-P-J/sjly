@@ -12,6 +12,7 @@ import com.zpj.downloader.util.FileUtil;
 import com.zpj.http.ZHttp;
 import com.zpj.http.core.IHttp;
 import com.zpj.http.parser.html.nodes.Document;
+import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.api.HttpApi;
 import com.zpj.shouji.market.constant.AppConfig;
 import com.zpj.utils.AppUtils;
@@ -128,27 +129,31 @@ public class AppDownloadMission extends DownloadMission {
                     .setOnStateChangedListener(new AutoInstaller.OnStateChangedListener() {
                         @Override
                         public void onStart() {
-
+                            AToast.success("开始安装" + appName + "应用！");
                         }
 
                         @Override
                         public void onComplete() {
-                            if (AppConfig.isAutoDeleteAfterInstalled() && AppUtils.isInstalled(getContext(), getPackageName())) {
-                                FileUtils.deleteFile(getFilePath());
+                            if (AppUtils.isInstalled(getContext(), getPackageName())) {
+                                if (AppConfig.isAutoDeleteAfterInstalled()) {
+                                    FileUtils.deleteFile(getFilePath());
+                                }
+                                AToast.success(appName + "应用安装成功！");
                             }
                         }
 
                         @Override
                         public void onNeed2OpenService() {
-                            AToast.normal("请打开静默安装服务");
+                            AToast.normal(R.string.text_enable_accessibility_installation_service);
                         }
 
                         @Override
                         public void needPermission() {
-
+                            AToast.warning(R.string.text_grant_installation_permissions);
                         }
                     })
                     .build();
+
 //            installer.setOnStateChangedListener(new AutoInstaller.OnStateChangedListener() {
 //                @Override
 //                public void onStart() {

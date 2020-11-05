@@ -335,7 +335,7 @@ public class DownloadManagerFragment extends BaseFragment
                                     titleList.add("复制链接");
                                     titleList.add("任务详情");
                                 } else {
-                                    titleList.add("打开");
+                                    titleList.add("安装");
                                     titleList.add("删除");
                                     titleList.add("复制链接");
                                     titleList.add("任务详情");
@@ -352,7 +352,7 @@ public class DownloadManagerFragment extends BaseFragment
                                                 case "暂停":
                                                     mission.pause();
                                                     break;
-                                                case "打开":
+                                                case "安装":
 //                                                    mission.openFile(context);
                                                     mission.install();
                                                     break;

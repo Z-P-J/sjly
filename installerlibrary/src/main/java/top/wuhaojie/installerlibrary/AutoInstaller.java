@@ -87,9 +87,9 @@ public class AutoInstaller extends Handler {
         mOnStateChangedListener = onStateChangedListener;
     }
 
-    private boolean installUseRoot(String filePath) {
-        if (TextUtils.isEmpty(filePath))
-            throw new IllegalArgumentException("Please check apk file path!");
+    private boolean installUseRoot(File file) {
+        if (file == null)
+            throw new IllegalArgumentException("Please check apk file!");
         boolean result = false;
         Process process = null;
         OutputStream outputStream = null;
@@ -98,7 +98,9 @@ public class AutoInstaller extends Handler {
             process = Runtime.getRuntime().exec("su");
             outputStream = process.getOutputStream();
 
-            String command = "pm install -r " + filePath + "\n";
+//            String command = "pm install -r " + file.getAbsolutePath() + "\n";
+            String command = "cat " + file.getAbsolutePath() + " | pm install -S "+ file.length() + "\n";
+            Log.d(TAG, "command=" + command);
             outputStream.write(command.getBytes());
             outputStream.flush();
             outputStream.write("exit\n".getBytes());
@@ -111,7 +113,7 @@ public class AutoInstaller extends Handler {
                 msg.append(line);
             }
             Log.d(TAG, "install msg is " + msg);
-            if (!msg.toString().contains("Failure")) {
+            if (!msg.toString().toLowerCase().contains("failure")) {
                 result = true;
             }
         } catch (Exception e) {
@@ -134,7 +136,7 @@ public class AutoInstaller extends Handler {
         return result;
     }
 
-    private void installUseAS(String filePath) {
+    private void installUseAS(File file) {
         // 存储空间
         if (permissionDenied()) {
             sendEmptyMessage(4);
@@ -150,9 +152,9 @@ public class AutoInstaller extends Handler {
             }
         }
 
-        File file = new File(filePath);
+//        File file = new File(filePath);
         if (!file.exists()) {
-            Log.e(TAG, "apk file not exists, path: " + filePath);
+            Log.e(TAG, "apk file not exists, path: " + file.getAbsolutePath());
             return;
         }
         Uri uri = Uri.fromFile(file);
@@ -234,9 +236,50 @@ public class AutoInstaller extends Handler {
         return false;
     }
 
+//    public void install(final String filePath) {
+//        if (TextUtils.isEmpty(filePath) || !filePath.endsWith(".apk"))
+//            throw new IllegalArgumentException("not a correct apk file path");
+//        new Thread(new Runnable() {
+//            @Override
+//            public void run() {
+//
+//                sendEmptyMessage(1);
+//
+//                switch (mMode) {
+//                    case BOTH:
+//                        if (!Utils.checkRooted() || !installUseRoot(filePath)) {
+//                            installUseAS(filePath);
+//                        }
+//                        break;
+//                    case ROOT_ONLY:
+//                        installUseRoot(filePath);
+//                        break;
+//                    case AUTO_ONLY:
+//                        installUseAS(filePath);
+//                }
+//                sendEmptyMessage(0);
+//
+//            }
+//        }).start();
+//    }
+//
+//    public void install(File file) {
+//        if (file == null)
+//            throw new IllegalArgumentException("file is null");
+//        install(file.getAbsolutePath());
+//    }
+
     public void install(final String filePath) {
-        if (TextUtils.isEmpty(filePath) || !filePath.endsWith(".apk"))
+        install(new File(filePath));
+    }
+
+    public void install(final File file) {
+        if (file == null)
+            throw new IllegalArgumentException("file is null");
+
+        if (!file.getAbsolutePath().toLowerCase().endsWith(".apk"))
             throw new IllegalArgumentException("not a correct apk file path");
+
         new Thread(new Runnable() {
             @Override
             public void run() {
@@ -245,15 +288,15 @@ public class AutoInstaller extends Handler {
 
                 switch (mMode) {
                     case BOTH:
-                        if (!Utils.checkRooted() || !installUseRoot(filePath)) {
-                            installUseAS(filePath);
+                        if (!Utils.checkRooted() || !installUseRoot(file)) {
+                            installUseAS(file);
                         }
                         break;
                     case ROOT_ONLY:
-                        installUseRoot(filePath);
+                        installUseRoot(file);
                         break;
                     case AUTO_ONLY:
-                        installUseAS(filePath);
+                        installUseAS(file);
                 }
                 sendEmptyMessage(0);
 
@@ -285,12 +328,6 @@ public class AutoInstaller extends Handler {
                 break;
 
         }
-    }
-
-    public void install(File file) {
-        if (file == null)
-            throw new IllegalArgumentException("file is null");
-        install(file.getAbsolutePath());
     }
 
 

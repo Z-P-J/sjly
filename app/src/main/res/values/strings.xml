@@ -22,4 +22,7 @@
     <string name="text_app_collection_share_content">我发现了一个有趣的应用集《%s》！https://www.shouji.com.cn/yyj/%s/%s.html</string>
     <string name="text_theme_share_content">%s\nhttps://tt.shouji.com.cn/appv3/faxianshow.jsp?id=%s</string>
 
+    <string name="text_enable_accessibility_installation_service">请启用静默安装服务</string>
+    <string name="text_grant_installation_permissions">请授予安装权限</string>
+
 </resources>

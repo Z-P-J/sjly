@@ -1,7 +1,7 @@
 # compiler: R8
 # compiler_version: 1.5.69
 # min_api: 19
-# pg_map_id: e117360
+# pg_map_id: 135cabc
 android.arch.core.executor.ArchTaskExecutor -> a.a.a.a.a:
     android.arch.core.executor.ArchTaskExecutor sInstance -> c
     android.arch.core.executor.TaskExecutor mDelegate -> a
@@ -26916,13 +26916,14 @@ com.felix.atoast.library.AToast -> com.felix.atoast.library.a:
     android.content.Context mContext -> f
     25:40:void <clinit>() -> <clinit>
     52:55:void onInit(android.content.Context) -> a
+    92:93:void normal(int) -> a
     110:111:void normal(java.lang.String,int,android.graphics.drawable.Drawable,boolean) -> a
-    118:119:void warning(int) -> a
     165:166:void error(java.lang.String) -> a
     177:179:void error(java.lang.String,int,boolean) -> a
     183:184:void custom(java.lang.String,android.graphics.drawable.Drawable,int,int,boolean) -> a
     196:227:void custom(java.lang.String,android.graphics.drawable.Drawable,int,int,int,boolean,boolean) -> a
     88:89:void normal(java.lang.String) -> b
+    118:119:void warning(int) -> b
     160:162:void success(java.lang.String,int,boolean) -> b
     126:128:void warning(java.lang.String,int,boolean) -> c
     148:149:void success(java.lang.String) -> c
@@ -40616,34 +40617,34 @@ com.zpj.shouji.market.R$array -> com.zpj.shouji.market.R$array:
 com.zpj.shouji.market.R$attr -> com.zpj.shouji.market.R$attr:
     79:79:void <init>() -> <init>
 com.zpj.shouji.market.R$bool -> com.zpj.shouji.market.R$bool:
-    8603:8603:void <init>() -> <init>
+    8020:8020:void <init>() -> <init>
 com.zpj.shouji.market.R$color -> com.zpj.shouji.market.R$color:
-    8609:8609:void <init>() -> <init>
+    8026:8026:void <init>() -> <init>
 com.zpj.shouji.market.R$dimen -> com.zpj.shouji.market.R$dimen:
-    8993:8993:void <init>() -> <init>
+    8410:8410:void <init>() -> <init>
 com.zpj.shouji.market.R$drawable -> com.zpj.shouji.market.R$drawable:
-    9255:9255:void <init>() -> <init>
+    8672:8672:void <init>() -> <init>
 com.zpj.shouji.market.R$id -> com.zpj.shouji.market.R$id:
-    9689:9689:void <init>() -> <init>
+    9106:9106:void <init>() -> <init>
 com.zpj.shouji.market.R$integer -> com.zpj.shouji.market.R$integer:
-    10536:10536:void <init>() -> <init>
+    9953:9953:void <init>() -> <init>
 com.zpj.shouji.market.R$interpolator -> com.zpj.shouji.market.R$interpolator:
-    10554:10554:void <init>() -> <init>
+    9971:9971:void <init>() -> <init>
 com.zpj.shouji.market.R$layout -> com.zpj.shouji.market.R$layout:
-    10560:10560:void <init>() -> <init>
+    9977:9977:void <init>() -> <init>
 com.zpj.shouji.market.R$menu -> com.zpj.shouji.market.R$menu:
-    10868:10868:void <init>() -> <init>
+    10285:10285:void <init>() -> <init>
 com.zpj.shouji.market.R$mipmap -> com.zpj.shouji.market.R$mipmap:
-    10878:10878:void <init>() -> <init>
+    10295:10295:void <init>() -> <init>
 com.zpj.shouji.market.R$string -> com.zpj.shouji.market.R$string:
-    10883:10883:void <init>() -> <init>
+    10300:10300:void <init>() -> <init>
 com.zpj.shouji.market.R$style -> com.zpj.shouji.market.R$style:
-    11026:11026:void <init>() -> <init>
+    10445:10445:void <init>() -> <init>
 com.zpj.shouji.market.R$styleable -> com.zpj.shouji.market.R$styleable:
-    11631:38411:void <clinit>() -> <clinit>
-    11559:11559:void <init>() -> <init>
+    11046:36981:void <clinit>() -> <clinit>
+    10978:10978:void <init>() -> <init>
 com.zpj.shouji.market.R$xml -> com.zpj.shouji.market.R$xml:
-    38555:38555:void <init>() -> <init>
+    37123:37123:void <init>() -> <init>
 com.zpj.shouji.market.api.-$$Lambda$BookingApi$J7p4xgMeAsTvyqiHgcsAwmjVEHU -> com.zpj.shouji.market.b.a:
     com.zpj.shouji.market.utils.Callback f$0 -> a
 com.zpj.shouji.market.api.-$$Lambda$BookingApi$KrMM823YXXgFa0nuO-P8gckHcK4 -> com.zpj.shouji.market.b.b:
@@ -41116,45 +41117,46 @@ com.zpj.shouji.market.database.SearchHistoryManager -> com.zpj.shouji.market.d.a
     39:42:void deleteAllLocalSearchHistory() -> a
     17:17:java.util.List getAllSearchHistory() -> b
 com.zpj.shouji.market.download.AppDownloadMission -> com.zpj.shouji.market.download.AppDownloadMission:
-    25:25:void <init>() -> <init>
-    25:25:void access$000(com.zpj.shouji.market.download.AppDownloadMission,com.zpj.downloader.constant.Error) -> access$000
-    25:25:android.content.Context access$1000(com.zpj.shouji.market.download.AppDownloadMission) -> access$1000
-    25:25:java.lang.String access$102(com.zpj.shouji.market.download.AppDownloadMission,java.lang.String) -> access$102
-    25:25:java.lang.String access$200(com.zpj.shouji.market.download.AppDownloadMission) -> access$200
-    25:25:java.lang.String access$300(com.zpj.shouji.market.download.AppDownloadMission) -> access$300
-    25:25:java.lang.String access$402(com.zpj.shouji.market.download.AppDownloadMission,java.lang.String) -> access$402
-    25:25:java.lang.String access$500(com.zpj.shouji.market.download.AppDownloadMission) -> access$500
-    25:25:java.lang.String access$602(com.zpj.shouji.market.download.AppDownloadMission,java.lang.String) -> access$602
-    25:25:java.lang.String access$700(com.zpj.shouji.market.download.AppDownloadMission) -> access$700
-    25:25:long access$802(com.zpj.shouji.market.download.AppDownloadMission,long) -> access$802
-    25:25:void access$901(com.zpj.shouji.market.download.AppDownloadMission) -> access$901
-    35:35:com.zpj.shouji.market.download.AppDownloadMission create(java.lang.String,java.lang.String,java.lang.String,java.lang.String,com.zpj.downloader.config.MissionConfig) -> create
-    39:50:com.zpj.shouji.market.download.AppDownloadMission create(java.lang.String,java.lang.String,java.lang.String,java.lang.String,com.zpj.downloader.config.MissionConfig,boolean) -> create
-    181:181:java.lang.String getAppIcon() -> getAppIcon
-    189:189:java.lang.String getAppId() -> getAppId
-    197:197:java.lang.String getAppName() -> getAppName
-    193:193:java.lang.String getAppType() -> getAppType
-    185:185:java.lang.String getPackageName() -> getPackageName
-    73:106:void initMission() -> initMission
-    125:174:void install() -> install
-    110:122:void onFinish() -> onFinish
-    177:178:void setAppIcon(java.lang.String) -> setAppIcon
+    26:26:void <init>() -> <init>
+    26:26:void access$000(com.zpj.shouji.market.download.AppDownloadMission,com.zpj.downloader.constant.Error) -> access$000
+    26:26:java.lang.String access$1000(com.zpj.shouji.market.download.AppDownloadMission) -> access$1000
+    26:26:java.lang.String access$102(com.zpj.shouji.market.download.AppDownloadMission,java.lang.String) -> access$102
+    26:26:android.content.Context access$1100(com.zpj.shouji.market.download.AppDownloadMission) -> access$1100
+    26:26:java.lang.String access$200(com.zpj.shouji.market.download.AppDownloadMission) -> access$200
+    26:26:java.lang.String access$300(com.zpj.shouji.market.download.AppDownloadMission) -> access$300
+    26:26:java.lang.String access$402(com.zpj.shouji.market.download.AppDownloadMission,java.lang.String) -> access$402
+    26:26:java.lang.String access$500(com.zpj.shouji.market.download.AppDownloadMission) -> access$500
+    26:26:java.lang.String access$602(com.zpj.shouji.market.download.AppDownloadMission,java.lang.String) -> access$602
+    26:26:java.lang.String access$700(com.zpj.shouji.market.download.AppDownloadMission) -> access$700
+    26:26:long access$802(com.zpj.shouji.market.download.AppDownloadMission,long) -> access$802
+    26:26:void access$901(com.zpj.shouji.market.download.AppDownloadMission) -> access$901
+    36:36:com.zpj.shouji.market.download.AppDownloadMission create(java.lang.String,java.lang.String,java.lang.String,java.lang.String,com.zpj.downloader.config.MissionConfig) -> create
+    40:51:com.zpj.shouji.market.download.AppDownloadMission create(java.lang.String,java.lang.String,java.lang.String,java.lang.String,com.zpj.downloader.config.MissionConfig,boolean) -> create
+    186:186:java.lang.String getAppIcon() -> getAppIcon
+    194:194:java.lang.String getAppId() -> getAppId
+    202:202:java.lang.String getAppName() -> getAppName
+    198:198:java.lang.String getAppType() -> getAppType
+    190:190:java.lang.String getPackageName() -> getPackageName
+    74:107:void initMission() -> initMission
+    126:179:void install() -> install
+    111:123:void onFinish() -> onFinish
+    182:183:void setAppIcon(java.lang.String) -> setAppIcon
 com.zpj.shouji.market.download.AppDownloadMission$1 -> com.zpj.shouji.market.download.AppDownloadMission$a:
     com.zpj.shouji.market.download.AppDownloadMission this$0 -> a
-    96:96:void <init>(com.zpj.shouji.market.download.AppDownloadMission) -> <init>
-    99:100:void onError(java.lang.Throwable) -> onError
+    97:97:void <init>(com.zpj.shouji.market.download.AppDownloadMission) -> <init>
+    100:101:void onError(java.lang.Throwable) -> onError
 com.zpj.shouji.market.download.AppDownloadMission$2 -> com.zpj.shouji.market.download.AppDownloadMission$b:
     com.zpj.shouji.market.download.AppDownloadMission this$0 -> a
-    83:83:void <init>(com.zpj.shouji.market.download.AppDownloadMission) -> <init>
-    86:94:void onSuccess(com.zpj.http.parser.html.nodes.Document) -> a
-    83:83:void onSuccess(java.lang.Object) -> onSuccess
+    84:84:void <init>(com.zpj.shouji.market.download.AppDownloadMission) -> <init>
+    87:95:void onSuccess(com.zpj.http.parser.html.nodes.Document) -> a
+    84:84:void onSuccess(java.lang.Object) -> onSuccess
 com.zpj.shouji.market.download.AppDownloadMission$3 -> com.zpj.shouji.market.download.AppDownloadMission$c:
     com.zpj.shouji.market.download.AppDownloadMission this$0 -> a
-    128:128:void <init>(com.zpj.shouji.market.download.AppDownloadMission) -> <init>
-    149:149:void needPermission() -> a
-    143:144:void onNeed2OpenService() -> b
-    136:139:void onComplete() -> c
-    132:132:void onStart() -> onStart
+    129:129:void <init>(com.zpj.shouji.market.download.AppDownloadMission) -> <init>
+    152:153:void needPermission() -> a
+    147:148:void onNeed2OpenService() -> b
+    137:143:void onComplete() -> c
+    132:133:void onStart() -> onStart
 com.zpj.shouji.market.event.-$$Lambda$HideLoadingEvent$aCJdh4WwZUazHSWhpLGAn25tVtY -> com.zpj.shouji.market.e.a:
     com.zpj.fragmentation.dialog.IDialog$OnDismissListener f$0 -> a
 com.zpj.shouji.market.event.-$$Lambda$ShowLoadingEvent$xbtmWth0Jg2w9xe-ozKxN8008L4 -> com.zpj.shouji.market.e.b:
@@ -53674,35 +53676,34 @@ top.wuhaojie.installerlibrary.AutoInstaller -> top.wuhaojie.installerlibrary.a:
     58:60:void <init>(android.content.Context) -> <init>
     40:40:top.wuhaojie.installerlibrary.AutoInstaller$MODE access$000(top.wuhaojie.installerlibrary.AutoInstaller) -> a
     40:40:top.wuhaojie.installerlibrary.AutoInstaller$MODE access$002(top.wuhaojie.installerlibrary.AutoInstaller,top.wuhaojie.installerlibrary.AutoInstaller$MODE) -> a
-    40:40:boolean access$100(top.wuhaojie.installerlibrary.AutoInstaller,java.lang.String) -> a
+    40:40:boolean access$100(top.wuhaojie.installerlibrary.AutoInstaller,java.io.File) -> a
     40:40:top.wuhaojie.installerlibrary.AutoInstaller$OnStateChangedListener access$502(top.wuhaojie.installerlibrary.AutoInstaller,top.wuhaojie.installerlibrary.AutoInstaller$OnStateChangedListener) -> a
-    177:190:boolean permissionDenied() -> a
-    200:234:boolean isAccessibilitySettingsOn(android.content.Context) -> a
-    238:239:void install(java.lang.String) -> a
-    291:292:void install(java.io.File) -> a
-    40:40:void access$200(top.wuhaojie.installerlibrary.AutoInstaller,java.lang.String) -> b
-    139:174:void installUseAS(java.lang.String) -> b
-    194:196:void toAccessibilityService() -> b
-    40:40:java.lang.String access$602(top.wuhaojie.installerlibrary.AutoInstaller,java.lang.String) -> c
-    91:92:boolean installUseRoot(java.lang.String) -> c
-    266:288:void handleMessage(android.os.Message) -> handleMessage
+    40:40:java.lang.String access$602(top.wuhaojie.installerlibrary.AutoInstaller,java.lang.String) -> a
+    179:192:boolean permissionDenied() -> a
+    202:236:boolean isAccessibilitySettingsOn(android.content.Context) -> a
+    277:278:void install(java.io.File) -> a
+    40:40:void access$200(top.wuhaojie.installerlibrary.AutoInstaller,java.io.File) -> b
+    141:176:void installUseAS(java.io.File) -> b
+    196:198:void toAccessibilityService() -> b
+    91:92:boolean installUseRoot(java.io.File) -> c
+    309:331:void handleMessage(android.os.Message) -> handleMessage
 top.wuhaojie.installerlibrary.AutoInstaller$1 -> top.wuhaojie.installerlibrary.a$a:
-    java.lang.String val$filePath -> a
+    java.io.File val$file -> a
     top.wuhaojie.installerlibrary.AutoInstaller this$0 -> b
-    240:240:void <init>(top.wuhaojie.installerlibrary.AutoInstaller,java.lang.String) -> <init>
-    244:260:void run() -> run
+    283:283:void <init>(top.wuhaojie.installerlibrary.AutoInstaller,java.io.File) -> <init>
+    287:303:void run() -> run
 top.wuhaojie.installerlibrary.AutoInstaller$4 -> top.wuhaojie.installerlibrary.a$b:
     int[] $SwitchMap$top$wuhaojie$installerlibrary$AutoInstaller$MODE -> a
-    246:246:void <clinit>() -> <clinit>
+    289:289:void <clinit>() -> <clinit>
 top.wuhaojie.installerlibrary.AutoInstaller$Builder -> top.wuhaojie.installerlibrary.a$c:
     top.wuhaojie.installerlibrary.AutoInstaller$OnStateChangedListener onStateChangedListener -> c
     top.wuhaojie.installerlibrary.AutoInstaller$MODE mode -> a
     android.content.Context context -> b
     java.lang.String directory -> d
-    385:387:void <init>(android.content.Context) -> <init>
-    390:391:top.wuhaojie.installerlibrary.AutoInstaller$Builder setMode(top.wuhaojie.installerlibrary.AutoInstaller$MODE) -> a
-    395:396:top.wuhaojie.installerlibrary.AutoInstaller$Builder setOnStateChangedListener(top.wuhaojie.installerlibrary.AutoInstaller$OnStateChangedListener) -> a
-    405:409:top.wuhaojie.installerlibrary.AutoInstaller build() -> a
+    422:424:void <init>(android.content.Context) -> <init>
+    427:428:top.wuhaojie.installerlibrary.AutoInstaller$Builder setMode(top.wuhaojie.installerlibrary.AutoInstaller$MODE) -> a
+    432:433:top.wuhaojie.installerlibrary.AutoInstaller$Builder setOnStateChangedListener(top.wuhaojie.installerlibrary.AutoInstaller$OnStateChangedListener) -> a
+    442:446:top.wuhaojie.installerlibrary.AutoInstaller build() -> a
 top.wuhaojie.installerlibrary.AutoInstaller$MODE -> top.wuhaojie.installerlibrary.a$d:
     top.wuhaojie.installerlibrary.AutoInstaller$MODE AUTO_ONLY -> b
     top.wuhaojie.installerlibrary.AutoInstaller$MODE ROOT_ONLY -> a
