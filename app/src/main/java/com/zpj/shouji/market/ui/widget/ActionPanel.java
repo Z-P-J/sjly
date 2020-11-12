@@ -33,6 +33,7 @@ import com.lqr.emoji.IEmotionExtClickListener;
 import com.lqr.emoji.IEmotionSelectedListener;
 import com.zpj.matisse.entity.Item;
 import com.zpj.shouji.market.R;
+import com.zpj.shouji.market.utils.ThemeUtils;
 import com.zpj.utils.KeyboardHeightProvider;
 import com.zpj.utils.KeyboardUtils;
 import com.zpj.utils.ScreenUtils;
@@ -97,8 +98,10 @@ public class ActionPanel extends RelativeLayout
         llActionsContainer = findViewById(R.id.ll_actions_container);
 //        ivImage = findViewById(R.id.iv_image);
         ivEmoji = findViewById(R.id.iv_emoji);
+//        ivEmoji.setColorFilter(ThemeUtils.getTextColorMajor(getContext()));
 //        ivApp = findViewById(R.id.iv_app);
         ivSend = findViewById(R.id.iv_send);
+//        ivSend.setColorFilter(ThemeUtils.getTextColorMajor(getContext()));
 //        rlEmojiPanel = findViewById(R.id.rl_emoji_panel);
         elEmotion = findViewById(R.id.el_emotion);
         elEmotion.setEmotionSelectedListener(listener);
@@ -281,6 +284,7 @@ public class ActionPanel extends RelativeLayout
         params.leftMargin = margin;
         params.rightMargin = margin;
         imageView.setLayoutParams(params);
+        imageView.setColorFilter(ThemeUtils.getTextColorMajor(getContext()));
 //        int padding = ScreenUtils.dp2pxInt(getContext(), 6);
 //        imageView.setPadding(padding, padding, padding, padding);
         llActionsContainer.addView(imageView);
@@ -296,6 +300,7 @@ public class ActionPanel extends RelativeLayout
         params.leftMargin = margin;
         params.rightMargin = margin;
         textView.setLayoutParams(params);
+        textView.setTextColor(ThemeUtils.getTextColorMajor(getContext()));
 //        int padding = ScreenUtils.dp2pxInt(getContext(), 6);
 //        textView.setPadding(padding, padding, padding, padding);
         llActionsContainer.addView(textView);

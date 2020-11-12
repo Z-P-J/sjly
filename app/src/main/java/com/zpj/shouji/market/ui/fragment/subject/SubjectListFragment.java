@@ -44,22 +44,23 @@ public class SubjectListFragment extends NextUrlFragment<SubjectInfo>
             @Override
             public Y_Divider getDivider(int itemPosition) {
                 Y_DividerBuilder builder = null;
+                int color = Color.TRANSPARENT;
                 if (itemPosition == 0) {
                     builder = new Y_DividerBuilder()
-                            .setTopSideLine(true, Color.WHITE, 16, 0, 0)
-                            .setBottomSideLine(true, Color.WHITE, 8, 0, 0);
+                            .setTopSideLine(true, color, 16, 0, 0)
+                            .setBottomSideLine(true, color, 8, 0, 0);
                 } else if (itemPosition == data.size() - 1) {
                     builder = new Y_DividerBuilder()
-                            .setTopSideLine(true, Color.WHITE, 8, 0, 0)
-                            .setBottomSideLine(true, Color.WHITE, 16, 0, 0);
+                            .setTopSideLine(true, color, 8, 0, 0)
+                            .setBottomSideLine(true, color, 16, 0, 0);
                 } else {
                     builder = new Y_DividerBuilder()
-                            .setTopSideLine(true, Color.WHITE, 8, 0, 0)
-                            .setBottomSideLine(true, Color.WHITE, 8, 0, 0);
+                            .setTopSideLine(true, color, 8, 0, 0)
+                            .setBottomSideLine(true, color, 8, 0, 0);
                 }
                 return builder
-                        .setLeftSideLine(true, Color.WHITE, 16, 0, 0)
-                        .setRightSideLine(true, Color.WHITE, 16, 0, 0)
+                        .setLeftSideLine(true, color, 16, 0, 0)
+                        .setRightSideLine(true, color, 16, 0, 0)
                         .create();
             }
         });

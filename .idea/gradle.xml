@@ -11,6 +11,7 @@
           <set>
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/app" />
+            <option value="$PROJECT_DIR$/chameleon" />
             <option value="$PROJECT_DIR$/emojilib" />
             <option value="$PROJECT_DIR$/expandabletextview" />
             <option value="$PROJECT_DIR$/filescannercore" />
@@ -19,7 +20,6 @@
             <option value="$PROJECT_DIR$/fragmentation-matisse" />
             <option value="$PROJECT_DIR$/fragmentation-ucrop" />
             <option value="$PROJECT_DIR$/iconcountview" />
-            <option value="$PROJECT_DIR$/installerlibrary" />
             <option value="$PROJECT_DIR$/niceimageview" />
             <option value="$PROJECT_DIR$/zdownloader" />
           </set>

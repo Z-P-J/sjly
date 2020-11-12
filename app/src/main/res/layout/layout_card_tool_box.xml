@@ -11,6 +11,7 @@
         app:orientation="horizontal"
         app:columnCount="4"
         app:rowCount="2"
+        android:background="?attr/backgroundColor"
         >
 
 <!--        android:paddingTop="16dp"-->
@@ -18,6 +19,7 @@
 
         <com.zpj.shouji.market.ui.widget.DrawableTintTextView
             style="@style/me_tool_card_item_style"
+            android:textColor="?attr/textColorMajor"
             android:id="@+id/tv_my_homepage"
             android:drawableTop="@drawable/ic_homepage_white_24dp"
             android:text="我的动态"
@@ -26,6 +28,7 @@
 
         <com.zpj.shouji.market.ui.widget.DrawableTintTextView
             style="@style/me_tool_card_item_style"
+            android:textColor="?attr/textColorMajor"
             android:id="@+id/tv_my_discovers"
             android:drawableTop="@drawable/ic_discover_white_24dp"
             android:text="我的发现"
@@ -34,6 +37,7 @@
 
         <com.zpj.shouji.market.ui.widget.DrawableTintTextView
             style="@style/me_tool_card_item_style"
+            android:textColor="?attr/textColorMajor"
             android:id="@+id/tv_my_comments"
             android:drawableTop="@drawable/ic_comment_white_24dp"
             android:text="我的评论"
@@ -42,6 +46,7 @@
 
         <com.zpj.shouji.market.ui.widget.DrawableTintTextView
             style="@style/me_tool_card_item_style"
+            android:textColor="?attr/textColorMajor"
             android:id="@+id/tv_my_collections"
             android:drawableTop="@drawable/ic_collect_white_24dp"
             android:text="我的收藏"
@@ -50,6 +55,7 @@
 
         <com.zpj.shouji.market.ui.widget.DrawableTintTextView
             style="@style/me_tool_card_item_style"
+            android:textColor="?attr/textColorMajor"
             android:id="@+id/tv_my_friends"
             android:drawableTop="@drawable/ic_friend_white_24dp"
             android:text="我的好友"
@@ -58,6 +64,7 @@
 
         <com.zpj.shouji.market.ui.widget.DrawableTintTextView
             style="@style/me_tool_card_item_style"
+            android:textColor="?attr/textColorMajor"
             android:id="@+id/tv_my_msg"
             android:drawableTop="@drawable/ic_message_white_24dp"
             android:text="我的消息"
@@ -68,6 +75,7 @@
 
         <com.zpj.shouji.market.ui.widget.DrawableTintTextView
             style="@style/me_tool_card_item_style"
+            android:textColor="?attr/textColorMajor"
             android:id="@+id/tv_my_bookings"
             android:drawableTop="@drawable/ic_app_collection_white_24dp"
             android:text="我的预约"
@@ -76,6 +84,7 @@
 
         <com.zpj.shouji.market.ui.widget.DrawableTintTextView
             style="@style/me_tool_card_item_style"
+            android:textColor="?attr/textColorMajor"
             android:id="@+id/tv_my_blacklist"
             android:drawableTop="@drawable/ic_blacklist_white_24dp"
             android:text="黑名单"
@@ -112,6 +121,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             app:corner_radius="8dp"
+            android:scaleType="centerCrop"
             />
 
         <LinearLayout
@@ -171,10 +181,11 @@
                 android:layout_height="wrap_content"
                 android:text="立即登录，发现更多乐趣"
                 android:textSize="14sp"
-                android:textColor="@color/light_blue_gray"
+                android:textColor="?attr/textColorMajor"
                 android:layout_gravity="center"
                 android:layout_marginTop="16dp"
                 />
+<!--            @color/light_blue_gray-->
 
         </LinearLayout>
 

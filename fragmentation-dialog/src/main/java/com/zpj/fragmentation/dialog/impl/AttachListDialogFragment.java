@@ -1,17 +1,21 @@
 package com.zpj.fragmentation.dialog.impl;
 
 import android.content.res.ColorStateList;
+import android.graphics.Color;
 import android.graphics.PointF;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.zpj.fragmentation.dialog.animator.PopupAnimator;
 import com.zpj.fragmentation.dialog.base.AttachDialogFragment;
 import com.zpj.fragmentation.dialog.R;
+import com.zpj.fragmentation.dialog.utils.DialogThemeUtils;
 import com.zpj.recyclerview.EasyRecyclerView;
 import com.zpj.widget.tinted.TintedImageView;
 
@@ -26,6 +30,10 @@ public class AttachListDialogFragment<T> extends AttachDialogFragment {
     protected int bindItemLayoutId;
     protected int tintColor = -1;
     protected int textColor;
+
+    private IconCallback<T> iconCallback;
+    private TitleCallback<T> titleCallback;
+
 
     private final List<T> items = new ArrayList<>();
     private final List<Integer> iconIds = new ArrayList<>();
@@ -51,7 +59,10 @@ public class AttachListDialogFragment<T> extends AttachDialogFragment {
     @Override
     protected void initView(View view, @Nullable Bundle savedInstanceState) {
         super.initView(view, savedInstanceState);
-        textColor = context.getResources().getColor(R.color._dialog_text_major_color);
+
+        CardView cardView = findViewById(R.id.cv_container);
+        cardView.setCardBackgroundColor(DialogThemeUtils.getAttachListDialogBackgroundColor(context));
+        textColor = DialogThemeUtils.getMajorTextColor(context);
 
         recyclerView = findViewById(R.id.recyclerView);
 //        recyclerView.setupDivider();
@@ -61,21 +72,36 @@ public class AttachListDialogFragment<T> extends AttachDialogFragment {
                 .setItemRes(bindItemLayoutId == 0 ? R.layout._dialog_item_text : bindItemLayoutId)
                 .onBindViewHolder((holder, list, position, payloads) -> {
                     TextView tvText = holder.getView(R.id.tv_text);
-                    tvText.setText(list.get(position).toString());
                     tvText.setTextColor(textColor);
 
                     TintedImageView ivImage = holder.getView(R.id.iv_image);
-                    if (iconIds.size() > position) {
-                        ivImage.setVisibility(View.VISIBLE);
-                        ivImage.setImageResource(iconIds.get(position));
+
+                    holder.getView(R.id._dialog_view_divider).setVisibility(View.GONE);
+
+
+                    if (iconCallback == null) {
+                        if (iconIds.size() > position) {
+                            ivImage.setVisibility(View.VISIBLE);
+                            ivImage.setImageResource(iconIds.get(position));
 //                        ivImage.setImageDrawable(context.getResources().getDrawable(iconIds.get(position)));
-                        if (tintColor != -1) {
-                            ivImage.setTint(ColorStateList.valueOf(tintColor));
+                            if (tintColor != -1) {
+                                ivImage.setTint(ColorStateList.valueOf(tintColor));
+                            }
+                        } else {
+                            ivImage.setVisibility(View.GONE);
                         }
                     } else {
-                        ivImage.setVisibility(View.GONE);
+                        ivImage.setVisibility(View.VISIBLE);
+                        iconCallback.onGetIcon(ivImage, list.get(position), position);
                     }
-                    holder.getView(R.id._dialog_view_divider).setVisibility(View.GONE);
+                    if (titleCallback == null) {
+//                        tvText.setVisibility(View.GONE);
+                        tvText.setText(list.get(position).toString());
+                    } else {
+//                        tvText.setVisibility(View.VISIBLE);
+                        titleCallback.onGetTitle(tvText, list.get(position), position);
+                    }
+
                 })
                 .onItemClick((holder, view1, data) -> {
 //                    dismiss();
@@ -193,8 +219,26 @@ public class AttachListDialogFragment<T> extends AttachDialogFragment {
         return this;
     }
 
+    public AttachListDialogFragment<T> setIconCallback(IconCallback<T> iconCallback) {
+        this.iconCallback = iconCallback;
+        return this;
+    }
+
+    public AttachListDialogFragment<T> setTitleCallback(TitleCallback<T> titleCallback) {
+        this.titleCallback = titleCallback;
+        return this;
+    }
+
     public interface OnSelectListener<T> {
         void onSelect(AttachListDialogFragment<T> fragment, int position, T text);
+    }
+
+    public interface IconCallback<T> {
+        void onGetIcon(ImageView icon, T item, int position);
+    }
+
+    public interface TitleCallback<T> {
+        void onGetTitle(TextView titleView, T item, int position);
     }
 
 }

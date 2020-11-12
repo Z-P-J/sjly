@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="24dp"
+    >
+
+    <LinearLayout
+        android:id="@+id/ll_container_progress"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        >
+
+
+        <ProgressBar
+            android:id="@+id/progress_bar"
+            style="@style/Widget.AppCompat.ProgressBar"
+            android:layout_gravity="center"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:textColor="?attr/textColorNormal"
+            android:layout_marginStart="8dp"
+            android:text="加载中..."
+            android:textSize="16sp"
+            />
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/tv_msg"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/easy_has_no_more"
+        android:maxLines="2"
+        android:ellipsize="end"
+        android:paddingHorizontal="16dp"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:textColor="?attr/textColorNormal"
+        android:textSize="16sp"
+        android:visibility="gone"
+        android:minHeight="24dp"
+        />
+
+</FrameLayout>

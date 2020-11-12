@@ -23,6 +23,7 @@ import com.zpj.shouji.market.glide.blur.CropBlurTransformation;
 import com.zpj.shouji.market.model.ClassificationItem;
 import com.zpj.shouji.market.ui.fragment.ToolBarAppListFragment;
 import com.zpj.shouji.market.ui.fragment.base.NextUrlFragment;
+import com.zpj.shouji.market.utils.ThemeUtils;
 
 import java.util.List;
 
@@ -73,25 +74,32 @@ public class AppClassificationFragment extends NextUrlFragment<ClassificationIte
                     @Override
                     public Y_Divider getDivider(int itemPosition) {
                         Y_DividerBuilder builder = null;
+                        int color = Color.TRANSPARENT;
                         if (itemPosition == 0) {
                             builder = new Y_DividerBuilder()
-                                    .setTopSideLine(true, Color.WHITE, 16, 0, 0)
-                                    .setBottomSideLine(true, Color.WHITE, 8, 0, 0);
+                                    .setTopSideLine(true, color, 16, 0, 0)
+                                    .setBottomSideLine(true, color, 8, 0, 0);
                         } else if (itemPosition == data.size() - 1) {
                             builder = new Y_DividerBuilder()
-                                    .setTopSideLine(true, Color.WHITE, 8, 0, 0)
-                                    .setBottomSideLine(true, Color.WHITE, 16, 0, 0);
+                                    .setTopSideLine(true, color, 8, 0, 0)
+                                    .setBottomSideLine(true, color, 16, 0, 0);
                         } else {
                             builder = new Y_DividerBuilder()
-                                    .setTopSideLine(true, Color.WHITE, 8, 0, 0)
-                                    .setBottomSideLine(true, Color.WHITE, 8, 0, 0);
+                                    .setTopSideLine(true, color, 8, 0, 0)
+                                    .setBottomSideLine(true, color, 8, 0, 0);
                         }
                         return builder
-                                .setLeftSideLine(true, Color.WHITE, 16, 0, 0)
-                                .setRightSideLine(true, Color.WHITE, 16, 0, 0)
+                                .setLeftSideLine(true, color, 16, 0, 0)
+                                .setRightSideLine(true, color, 16, 0, 0)
                                 .create();
                     }
                 });
+    }
+
+    @Override
+    public void onSupportVisible() {
+        super.onSupportVisible();
+        ThemeUtils.initStatusBar(this);
     }
 
     @Override
@@ -99,21 +107,6 @@ public class AppClassificationFragment extends NextUrlFragment<ClassificationIte
         ClassificationItem item = list.get(position);
         Glide.with(context).load(item.getIcon()).into(holder.getImageView(R.id.iv_icon));
         holder.setText(R.id.tv_title, item.getTitle());
-//        FlowLayout flowLayout = holder.getView(R.id.flow_layout);
-//        int dp8 = ScreenUtils.dp2pxInt(context, 8);
-//        flowLayout.setSpace(dp8);
-//        List<String> flowTags = new ArrayList<>();
-//        for (ClassificationItem.SubItem subItem : item.getSubItemList()) {
-//            flowTags.add(subItem.getTitle());
-//        }
-//        flowLayout.setItems(flowTags);
-//        flowLayout.setOnItemClickListener(new FlowLayout.OnItemClickListener() {
-//            @Override
-//            public void onClick(int index, View v, String text) {
-//                ClassificationItem.SubItem subItem = item.getSubItemList().get(index);
-//                ToolBarListFragment.start(subItem.getUrl(), subItem.getTitle());
-//            }
-//        });
 
         ExpandableTextView tvTags = holder.getView(R.id.tv_tags);
         tvTags.setNeedSelf(true);

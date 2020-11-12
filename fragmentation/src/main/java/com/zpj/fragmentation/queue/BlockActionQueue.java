@@ -18,14 +18,14 @@ import java.util.concurrent.atomic.AtomicBoolean;
  */
 public class BlockActionQueue {
     private final Queue<Action> mQueue = new LinkedList<>();
-    private final Handler mMainHandler;
+//    private final Handler mMainHandler;
 
 //    private boolean start;
     private final AtomicBoolean start = new AtomicBoolean(false);
 
-    public BlockActionQueue(Handler mainHandler) {
-        this.mMainHandler = mainHandler;
-    }
+//    public BlockActionQueue(Handler mainHandler) {
+//        this.mMainHandler = mainHandler;
+//    }
 
     public boolean isStart() {
         return start.get();
@@ -74,12 +74,13 @@ public class BlockActionQueue {
             return;
         }
 
-        mMainHandler.post(new Runnable() {
-            @Override
-            public void run() {
-                enqueueAction(action);
-            }
-        });
+//        mMainHandler.post(new Runnable() {
+//            @Override
+//            public void run() {
+//                enqueueAction(action);
+//            }
+//        });
+        RxHandler.post(() -> enqueueAction(action));
     }
 
     private void enqueueAction(Action action) {
@@ -93,12 +94,16 @@ public class BlockActionQueue {
         if (!start.get() || mQueue.isEmpty()) return;
 
         final Action action = mQueue.peek();
-        mMainHandler.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                action.run();
-                executeNextAction(action);
-            }
+//        mMainHandler.postDelayed(new Runnable() {
+//            @Override
+//            public void run() {
+//                action.run();
+//                executeNextAction(action);
+//            }
+//        }, action.delay);
+        RxHandler.post(() -> {
+            action.run();
+            executeNextAction(action);
         }, action.delay);
     }
 
@@ -108,12 +113,16 @@ public class BlockActionQueue {
             action.duration = top == null ? Action.DEFAULT_POP_TIME : top.getSupportDelegate().getExitAnimDuration();
         }
 
-        mMainHandler.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                mQueue.poll();
-                handleAction();
-            }
+//        mMainHandler.postDelayed(new Runnable() {
+//            @Override
+//            public void run() {
+//                mQueue.poll();
+//                handleAction();
+//            }
+//        }, action.duration);
+        RxHandler.post(() -> {
+            mQueue.poll();
+            handleAction();
         }, action.duration);
     }
 

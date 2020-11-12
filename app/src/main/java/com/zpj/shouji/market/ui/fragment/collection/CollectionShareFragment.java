@@ -19,6 +19,7 @@ import com.zpj.shouji.market.api.CollectionApi;
 import com.zpj.shouji.market.api.PublishApi;
 import com.zpj.shouji.market.event.StartFragmentEvent;
 import com.zpj.shouji.market.model.InstalledAppInfo;
+import com.zpj.shouji.market.ui.fragment.base.SkinFragment;
 import com.zpj.shouji.market.ui.fragment.manager.AppPickerFragment;
 import com.zpj.shouji.market.ui.fragment.profile.UserPickerFragment;
 import com.zpj.shouji.market.ui.widget.ActionPanel;
@@ -30,7 +31,7 @@ import com.zpj.utils.ScreenUtils;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CollectionShareFragment extends BaseFragment {
+public class CollectionShareFragment extends SkinFragment {
 
 
     private final List<InstalledAppInfo> appList = new ArrayList<>();
@@ -183,7 +184,6 @@ public class CollectionShareFragment extends BaseFragment {
     @Override
     public void onSupportVisible() {
         super.onSupportVisible();
-        darkStatusBar();
     }
 
     @Override
@@ -195,7 +195,6 @@ public class CollectionShareFragment extends BaseFragment {
     @Override
     public void onEnterAnimationEnd(Bundle savedInstanceState) {
         super.onEnterAnimationEnd(savedInstanceState);
-        darkStatusBar();
         showSoftInput(etTitle);
         initFlowLayout();
     }

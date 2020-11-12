@@ -9,10 +9,6 @@ import android.widget.Toast;
 
 import com.zpj.fragmentation.dialog.R;
 
-/**
- * Description: 带输入框，确定和取消的对话框
- * Create by dance, at 2018/12/16
- */
 public class InputDialogFragment extends AlertDialogFragment implements View.OnClickListener{
 
     private boolean autoShowKeyboard = true;

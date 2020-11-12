@@ -26,7 +26,7 @@
                 android:layout_height="wrap_content"
                 android:layout_width="wrap_content"
                 android:layout_centerVertical="true"
-                android:tint="@color/color_text_major"
+                android:tint="?attr/textColorMajor"
                 app:srcCompat="@drawable/ic_expansion_header_indicator_grey_24dp" />
 
 
@@ -37,7 +37,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/title_game"
-                android:textColor="@color/color_text_major"
+                android:textColor="?attr/textColorMajor"
                 android:maxLines="1"
                 android:ellipsize="end"
                 android:layout_centerVertical="true"
@@ -81,7 +81,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/title_game"
-                android:textColor="@color/color_text_major"
+                android:textColor="?attr/textColorMajor"
                 android:textSize="12sp"
                 android:lineSpacingExtra="4dp"
                 android:layout_gravity="center_vertical"

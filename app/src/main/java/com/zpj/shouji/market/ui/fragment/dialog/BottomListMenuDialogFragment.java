@@ -9,6 +9,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.view.menu.MenuBuilder;
 import android.support.v7.widget.LinearLayoutManager;
+import android.text.TextUtils;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -20,6 +21,7 @@ import com.zpj.recyclerview.EasyRecyclerView;
 import com.zpj.recyclerview.EasyViewHolder;
 import com.zpj.recyclerview.IEasy;
 import com.zpj.shouji.market.R;
+import com.zpj.shouji.market.utils.ThemeUtils;
 import com.zpj.widget.tinted.TintedImageView;
 
 import java.util.ArrayList;
@@ -54,6 +56,9 @@ public class BottomListMenuDialogFragment extends BottomDialogFragment
         super.initView(view, savedInstanceState);
         findViewById(R.id.btn_close).setOnClickListener(v -> dismiss());
         tvTitle = findViewById(R.id.tv_title);
+        if (TextUtils.isEmpty(title)) {
+            title = "更多操作";
+        }
         tvTitle.setText(title);
 
         MenuInflater inflater = new MenuInflater(getContext());
@@ -91,7 +96,7 @@ public class BottomListMenuDialogFragment extends BottomDialogFragment
     @Override
     public void onBindViewHolder(EasyViewHolder holder, List<MenuItem> list, int position, List<Object> payloads) {
         TintedImageView ivIcon = holder.getView(R.id.iv_icon);
-        ivIcon.setTint(getResources().getColor(R.color.color_text_major));
+//        ivIcon.setTint(ThemeUtils.getTextColorMajor(context));
         ivIcon.setImageDrawable(list.get(position).getIcon());
         holder.setText(R.id.tv_title, list.get(position).getTitle());
     }

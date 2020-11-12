@@ -17,11 +17,11 @@ import com.zpj.fragmentation.SupportHelper;
  */
 public class ActionQueue {
     private final Queue<Action> mQueue = new LinkedList<>();
-    private final Handler mMainHandler;
+//    private final Handler mMainHandler;
 
-    public ActionQueue(Handler mainHandler) {
-        this.mMainHandler = mainHandler;
-    }
+//    public ActionQueue(Handler mainHandler) {
+//        this.mMainHandler = mainHandler;
+//    }
 
     public void enqueue(final Action action) {
         if (isThrottleBACK(action)) return;
@@ -32,12 +32,20 @@ public class ActionQueue {
             return;
         }
 
-        mMainHandler.post(new Runnable() {
+//        mMainHandler.post(new Runnable() {
+//            @Override
+//            public void run() {
+//                enqueueAction(action);
+//            }
+//        });
+
+        RxHandler.post(new io.reactivex.functions.Action() {
             @Override
-            public void run() {
+            public void run() throws Exception {
                 enqueueAction(action);
             }
         });
+
     }
 
     private void enqueueAction(Action action) {
@@ -51,9 +59,16 @@ public class ActionQueue {
         if (mQueue.isEmpty()) return;
 
         final Action action = mQueue.peek();
-        mMainHandler.postDelayed(new Runnable() {
+//        mMainHandler.postDelayed(new Runnable() {
+//            @Override
+//            public void run() {
+//                action.run();
+//                executeNextAction(action);
+//            }
+//        }, action.delay);
+        RxHandler.post(new io.reactivex.functions.Action() {
             @Override
-            public void run() {
+            public void run() throws Exception {
                 action.run();
                 executeNextAction(action);
             }
@@ -66,9 +81,16 @@ public class ActionQueue {
             action.duration = top == null ? Action.DEFAULT_POP_TIME : top.getSupportDelegate().getExitAnimDuration();
         }
 
-        mMainHandler.postDelayed(new Runnable() {
+//        mMainHandler.postDelayed(new Runnable() {
+//            @Override
+//            public void run() {
+//                mQueue.poll();
+//                handleAction();
+//            }
+//        }, action.duration);
+        RxHandler.post(new io.reactivex.functions.Action() {
             @Override
-            public void run() {
+            public void run() throws Exception {
                 mQueue.poll();
                 handleAction();
             }

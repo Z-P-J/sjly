@@ -28,6 +28,7 @@ import com.zpj.shouji.market.model.AppInfo;
 import com.zpj.shouji.market.model.SubjectInfo;
 import com.zpj.shouji.market.ui.fragment.detail.AppDetailFragment;
 import com.zpj.shouji.market.ui.widget.DownloadButton;
+import com.zpj.shouji.market.utils.ThemeUtils;
 import com.zpj.utils.ColorUtils;
 import com.zpj.widget.statelayout.StateLayout;
 
@@ -170,7 +171,7 @@ public class SubjectDetailFragment extends BaseFragment
                 darkStatusBar();
             }
         } else {
-            darkStatusBar();
+            ThemeUtils.initStatusBar(this);
         }
     }
 

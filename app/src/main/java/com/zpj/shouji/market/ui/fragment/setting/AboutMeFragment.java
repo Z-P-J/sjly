@@ -2,6 +2,7 @@ package com.zpj.shouji.market.ui.fragment.setting;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
@@ -17,6 +18,7 @@ import com.bumptech.glide.request.transition.Transition;
 import com.zpj.fragmentation.BaseFragment;
 import com.zpj.fragmentation.anim.DefaultNoAnimator;
 import com.zpj.shouji.market.R;
+import com.zpj.shouji.market.constant.AppConfig;
 import com.zpj.shouji.market.event.StartFragmentEvent;
 import com.zpj.shouji.market.glide.blur.BlurTransformation;
 import com.zpj.shouji.market.ui.animator.MyFragmentAnimator;
@@ -83,6 +85,9 @@ public class AboutMeFragment extends BaseFragment implements OnCommonItemClickLi
                     public void onResourceReady(@NonNull Drawable resource, @Nullable Transition<? super Drawable> transition) {
                         iv_blur.setImageDrawable(resource);
                         iv_blur.setAlpha(0F);
+//                        if (AppConfig.isNightMode()) {
+//                            iv_blur.setColorFilter(Color.parseColor("aa000000"));
+//                        }
                         post(() -> {
                             AnimationUtil.changeViewAlpha(iv_blur, 0, 1, 500);
                             AnimationUtil.changeViewSize(iv_blur, 4, 1, 1000);

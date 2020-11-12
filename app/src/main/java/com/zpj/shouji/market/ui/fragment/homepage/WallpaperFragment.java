@@ -7,14 +7,16 @@ import android.support.v4.view.ViewPager;
 import android.view.View;
 
 import com.github.zagum.expandicon.ExpandIconView;
-import com.zpj.fragmentation.BaseFragment;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.api.WallpaperApi;
 import com.zpj.shouji.market.model.WallpaperTag;
 import com.zpj.shouji.market.ui.adapter.FragmentsPagerAdapter;
+import com.zpj.shouji.market.ui.fragment.base.SkinFragment;
 import com.zpj.shouji.market.ui.fragment.dialog.WallpaperTagDialogFragment;
 import com.zpj.shouji.market.ui.fragment.wallpaper.WallpaperListFragment;
+import com.zpj.shouji.market.ui.widget.ColorChangePagerTitleView;
 import com.zpj.shouji.market.ui.widget.flowlayout.FlowLayout;
+import com.zpj.shouji.market.utils.MagicIndicatorHelper;
 import com.zpj.utils.ScreenUtils;
 
 import net.lucode.hackware.magicindicator.MagicIndicator;
@@ -30,7 +32,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicBoolean;
 
-public class WallpaperFragment extends BaseFragment implements View.OnClickListener {
+public class WallpaperFragment extends SkinFragment implements View.OnClickListener {
 
     private final AtomicBoolean isInitTags = new AtomicBoolean(false);
 
@@ -40,7 +42,6 @@ public class WallpaperFragment extends BaseFragment implements View.OnClickListe
     private ViewPager viewPager;
     private MagicIndicator magicIndicator;
     private ExpandIconView expandIconView;
-//    private WallpaperTagPopup wallpaperTagPopup;
 
     @Override
     protected int getLayoutId() {
@@ -66,12 +67,7 @@ public class WallpaperFragment extends BaseFragment implements View.OnClickListe
     }
 
     @Override
-    public void onSupportVisible() {
-
-    }
-
-    @Override
-    public void onSupportInvisible() {
+    protected void initStatusBar() {
 
     }
 
@@ -94,47 +90,10 @@ public class WallpaperFragment extends BaseFragment implements View.OnClickListe
                         expandIconView.switchState();
                     })
                     .show(context);
-
-//            if (wallpaperTagPopup == null) {
-//                expandIconView.switchState();
-//                wallpaperTagPopup = WallpaperTagPopup.with(context)
-//                        .setLabels(wallpaperTags)
-//                        .setSelectedPosition(viewPager.getCurrentItem())
-//                        .setOnItemClickListener(new FlowLayout.OnItemClickListener() {
-//                            @Override
-//                            public void onClick(int index, View v, String text) {
-//                                viewPager.setCurrentItem(index);
-//                            }
-//                        })
-//                        .setOnDismissListener(() -> {
-//                            wallpaperTagPopup = null;
-//                            expandIconView.switchState();
-//                        })
-//                        .show(v);
-//            } else {
-//                wallpaperTagPopup.dismiss();
-//                wallpaperTagPopup = null;
-//            }
         }
     }
 
     private void initWallpaperTags() {
-//        HttpApi.get("http://tt.shouji.com.cn/app/bizhi_tags.jsp")
-//                .onSuccess(data -> {
-//                    Elements elements = data.select("item");
-//                    wallpaperTags.clear();
-//                    for (Element item : elements) {
-//                        wallpaperTags.add(WallpaperTag.create(item));
-//                    }
-//                    initMagicIndicator();
-//                })
-//                .onError(throwable -> {
-//                    String[] tags = getResources().getStringArray(R.array.default_wallpaper_tags);
-//                    for (int i = 0; i < tags.length; i++) {
-//                        wallpaperTags.add(WallpaperTag.create(Integer.toString(i + 1), tags[i]));
-//                    }
-//                })
-//                .subscribe();
         WallpaperApi.getWallpaperTags(tags -> {
             wallpaperTags.clear();
             wallpaperTags.addAll(tags);
@@ -145,42 +104,57 @@ public class WallpaperFragment extends BaseFragment implements View.OnClickListe
     private void initMagicIndicator() {
         isInitTags.set(true);
         fragments.clear();
-        for (WallpaperTag tag : wallpaperTags) {
+
+        String[] titles = new String[wallpaperTags.size()];
+        for (int i = 0; i < wallpaperTags.size(); i++) {
+            WallpaperTag tag = wallpaperTags.get(i);
             fragments.add(WallpaperListFragment.newInstance(tag));
+            titles[i] = tag.getName();
         }
+
         FragmentsPagerAdapter adapter = new FragmentsPagerAdapter(getChildFragmentManager(), fragments, null);
         viewPager.setAdapter(adapter);
         viewPager.setOffscreenPageLimit(fragments.size());
-        CommonNavigator navigator = new CommonNavigator(getContext());
-        navigator.setAdapter(new CommonNavigatorAdapter() {
-            @Override
-            public int getCount() {
-                return wallpaperTags.size();
-            }
+        MagicIndicatorHelper.bindViewPager(context, magicIndicator, viewPager, titles);
 
-            @Override
-            public IPagerTitleView getTitleView(Context context, int index) {
-                ColorTransitionPagerTitleView titleView = new ColorTransitionPagerTitleView(context);
-                titleView.setNormalColor(getResources().getColor(R.color.color_text_normal));
-                titleView.setSelectedColor(getResources().getColor(R.color.colorPrimary));
-                titleView.setTextSize(14);
-                titleView.setText(wallpaperTags.get(index).getName());
-                titleView.setOnClickListener(view -> viewPager.setCurrentItem(index));
-                return titleView;
-            }
 
-            @Override
-            public IPagerIndicator getIndicator(Context context) {
-                LinePagerIndicator indicator = new LinePagerIndicator(context);
-                indicator.setMode(LinePagerIndicator.MODE_EXACTLY);
-                indicator.setLineHeight(ScreenUtils.dp2px(context, 4f));
-                indicator.setLineWidth(ScreenUtils.dp2px(context, 12f));
-                indicator.setRoundRadius(ScreenUtils.dp2px(context, 4f));
-                indicator.setColors(getResources().getColor(R.color.colorPrimary), getResources().getColor(R.color.colorPrimary));
-                return indicator;
-            }
-        });
-        magicIndicator.setNavigator(navigator);
-        ViewPagerHelper.bind(magicIndicator, viewPager);
+
+//        FragmentsPagerAdapter adapter = new FragmentsPagerAdapter(getChildFragmentManager(), fragments, null);
+//        viewPager.setAdapter(adapter);
+//        viewPager.setOffscreenPageLimit(fragments.size());
+//        CommonNavigator navigator = new CommonNavigator(getContext());
+//        navigator.setAdapter(new CommonNavigatorAdapter() {
+//            @Override
+//            public int getCount() {
+//                return wallpaperTags.size();
+//            }
+//
+//            @Override
+//            public IPagerTitleView getTitleView(Context context, int index) {
+////                SkinChangePagerTitleView titleView = new SkinChangePagerTitleView(context);
+////                titleView.setNormalColor(context.getResources().getColor(R.color.color_text_normal));
+//                ColorTransitionPagerTitleView titleView = new ColorTransitionPagerTitleView(context);
+//                titleView.setNormalColor(context.getResources().getColor(R.color.middle_gray_1));
+////                titleView.setNormalColor(ThemeUtils.getTextColorNormal(context));
+//                titleView.setSelectedColor(getResources().getColor(R.color.colorPrimary));
+//                titleView.setTextSize(14);
+//                titleView.setText(wallpaperTags.get(index).getName());
+//                titleView.setOnClickListener(view -> viewPager.setCurrentItem(index));
+//                return titleView;
+//            }
+//
+//            @Override
+//            public IPagerIndicator getIndicator(Context context) {
+//                LinePagerIndicator indicator = new LinePagerIndicator(context);
+//                indicator.setMode(LinePagerIndicator.MODE_EXACTLY);
+//                indicator.setLineHeight(ScreenUtils.dp2px(context, 4f));
+//                indicator.setLineWidth(ScreenUtils.dp2px(context, 12f));
+//                indicator.setRoundRadius(ScreenUtils.dp2px(context, 4f));
+//                indicator.setColors(getResources().getColor(R.color.colorPrimary), getResources().getColor(R.color.colorPrimary));
+//                return indicator;
+//            }
+//        });
+//        magicIndicator.setNavigator(navigator);
+//        ViewPagerHelper.bind(magicIndicator, viewPager);
     }
 }

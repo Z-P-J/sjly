@@ -6,7 +6,7 @@
         android:topRightRadius="8dp">
 
     </corners>
-    <solid android:color="@android:color/white">
+    <solid android:color="?attr/backgroundColor">
 
     </solid>
 </shape>

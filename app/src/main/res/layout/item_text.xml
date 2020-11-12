@@ -9,5 +9,6 @@
     android:paddingEnd="16dp"
     android:paddingTop="10dp"
     android:paddingBottom="10dp"
+    android:textColor="?attr/textColorNormal"
     android:background="?android:attr/selectableItemBackground"
     />

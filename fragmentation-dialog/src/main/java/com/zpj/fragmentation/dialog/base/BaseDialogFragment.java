@@ -2,6 +2,7 @@ package com.zpj.fragmentation.dialog.base;
 
 import android.app.Activity;
 import android.content.Context;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -47,6 +48,8 @@ public abstract class BaseDialogFragment extends AbstractDialogFragment {
     protected IDialog.OnDismissListener onDismissListener;
 
     private ISupportFragment preFragment;
+
+    protected Drawable bgDrawable;
 
     @Override
     protected final int getLayoutId() {
@@ -329,4 +332,10 @@ public abstract class BaseDialogFragment extends AbstractDialogFragment {
         this.onDismissListener = onDismissListener;
         return this;
     }
+
+    public BaseDialogFragment setBackgroundDrawable(Drawable drawable) {
+        this.bgDrawable = drawable;
+        return this;
+    }
+
 }

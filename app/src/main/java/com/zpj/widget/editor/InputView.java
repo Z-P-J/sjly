@@ -17,6 +17,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.zpj.shouji.market.R;
+import com.zpj.shouji.market.utils.ThemeUtils;
 import com.zpj.utils.ScreenUtils;
 import com.zpj.widget.editor.validator.EmptyValidator;
 import com.zpj.widget.editor.validator.Validator;
@@ -115,8 +116,9 @@ public class InputView extends FrameLayout
 //        mEditText.setLayoutParams(etParams);
 //        mEditText.setBackgroundColor(Color.TRANSPARENT);
 //        mEditText.setBackground(null);
-        mEditText.setTextColor(ContextCompat.getColor(getContext(), R.color.color_text_major));
-        mEditText.setHintTextColor(ContextCompat.getColor(getContext(), R.color.light_gray_10));
+
+        mEditText.setTextColor(ThemeUtils.getTextColorMajor(context)); // ContextCompat.getColor(getContext(), R.color.color_text_major)
+        mEditText.setHintTextColor(ThemeUtils.getTextColorMinor(context)); // ContextCompat.getColor(getContext(), R.color.light_gray_10)
 //        mEditText.setTextSize(TypedValue.COMPLEX_UNIT_PX, getContext().getResources().getDimension(R.dimen.text_medium));
 //        mEditText.setSingleLine();
         mEditText.setInputType(InputType.TYPE_TEXT_VARIATION_EMAIL_ADDRESS);
@@ -142,7 +144,7 @@ public class InputView extends FrameLayout
 
         mViewColorError = ContextCompat.getColor(getContext(), R.color.red);
 //        mViewColorError = Color.parseColor("#aadd2727");
-        mViewColorNormal = ContextCompat.getColor(getContext(), R.color.light_gray_10);
+        mViewColorNormal = ThemeUtils.getTextColorMinor(context); // ContextCompat.getColor(getContext(), R.color.light_gray_10);
         mViewHeightNormal = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 1f, getContext().getResources().getDisplayMetrics());
         mViewColorFocus = ContextCompat.getColor(getContext(), R.color.colorPrimary);
         mViewHeightFocus = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 1f, getContext().getResources().getDisplayMetrics());

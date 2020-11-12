@@ -14,6 +14,7 @@ import com.zpj.shouji.market.event.StartFragmentEvent;
 import com.zpj.shouji.market.model.CloudBackupAppInfo;
 import com.zpj.shouji.market.ui.fragment.base.NextUrlFragment;
 import com.zpj.shouji.market.ui.fragment.detail.AppDetailFragment;
+import com.zpj.shouji.market.utils.ThemeUtils;
 
 import java.util.List;
 
@@ -50,7 +51,7 @@ public class BackupDetailFragment extends NextUrlFragment<CloudBackupAppInfo> {
     @Override
     public void onSupportVisible() {
         super.onSupportVisible();
-        darkStatusBar();
+        ThemeUtils.initStatusBar(this);
     }
 
     @Override

@@ -7,7 +7,7 @@
     app:hl_shadowLimit="0dp"
     app:hl_cornerRadius_leftBottom="16dp"
     app:hl_cornerRadius_rightBottom="16dp"
-    app:hl_shadowBackColor="@color/white"
+    app:hl_shadowBackColor="?attr/backgroundColor"
     >
 
     <include layout="@layout/layout_recycler_view"

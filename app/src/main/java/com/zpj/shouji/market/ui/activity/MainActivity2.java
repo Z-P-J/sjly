@@ -48,8 +48,8 @@
 //import com.zpj.shouji.market.ui.fragment.profile.MyFragment;
 //import com.zpj.shouji.market.ui.fragment.recommond.GameRecommendFragment2;
 //import com.zpj.shouji.market.ui.fragment.recommond.SoftRecommendFragment2;
-//import com.zpj.shouji.market.ui.widget.BottomBar;
-//import com.zpj.shouji.market.ui.widget.BottomBarTab;
+//import com.zpj.shouji.market.ui.widget.navigation.BottomBar;
+//import com.zpj.shouji.market.ui.widget.navigation.BottomBarTab;
 //import com.zpj.shouji.market.ui.widget.ZViewPager;
 //import com.zpj.shouji.market.ui.widget.popup.MainActionPopup;
 //import com.zpj.shouji.market.utils.AppUtil;

@@ -29,6 +29,7 @@ import com.zpj.shouji.market.ui.fragment.base.RecyclerLayoutFragment;
 import com.zpj.shouji.market.ui.fragment.dialog.RecyclerPartShadowDialogFragment;
 import com.zpj.shouji.market.utils.AppUtil;
 import com.zpj.shouji.market.utils.FileUtils;
+import com.zpj.shouji.market.utils.ThemeUtils;
 
 import org.xmlpull.v1.XmlPullParserException;
 
@@ -64,6 +65,8 @@ public class PackageManagerFragment extends RecyclerLayoutFragment<InstalledAppI
 
     private int lastProgress = 0;
 
+    private boolean showToolbar = false;
+
     public static PackageManagerFragment newInstance(boolean showToolbar) {
         Bundle args = new Bundle();
         args.putBoolean(Keys.SHOW_TOOLBAR, showToolbar);
@@ -92,9 +95,17 @@ public class PackageManagerFragment extends RecyclerLayoutFragment<InstalledAppI
     }
 
     @Override
+    protected void initStatusBar() {
+        if (showToolbar) {
+            ThemeUtils.initStatusBar(this);
+        }
+    }
+
+    @Override
     protected void initView(View view, @Nullable Bundle savedInstanceState) {
         super.initView(view, savedInstanceState);
-        if (getArguments() != null && getArguments().getBoolean(Keys.SHOW_TOOLBAR, false)) {
+        showToolbar = getArguments() != null && getArguments().getBoolean(Keys.SHOW_TOOLBAR, false);
+        if (showToolbar) {
             toolbar.setVisibility(View.VISIBLE);
 //            findViewById(R.id.shadow_view).setVisibility(View.VISIBLE);
             setToolbarTitle("安装包管理");

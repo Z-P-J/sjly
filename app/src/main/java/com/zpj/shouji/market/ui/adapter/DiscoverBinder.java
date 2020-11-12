@@ -47,7 +47,9 @@ import com.zpj.shouji.market.ui.widget.DownloadButton;
 import com.zpj.shouji.market.ui.widget.DrawableTintTextView;
 import com.zpj.shouji.market.ui.widget.emoji.EmojiExpandableTextView;
 import com.zpj.shouji.market.utils.TextUrlUtil;
+import com.zpj.shouji.market.utils.ThemeUtils;
 import com.zpj.utils.NetUtils;
+import com.zxy.skin.sdk.SkinEngine;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -278,7 +280,9 @@ public class DiscoverBinder
 
                     textView.setNeedExpend(false);
                     textView.setNeedConvertUrl(false);
-                    textView.setTextColor(context.getResources().getColor(R.color.color_text_major));
+//                    context.getResources().getColor(R.color.color_text_major)
+//                    textView.setTextColor(ThemeUtils.getTextColorMajor(context));
+                    SkinEngine.setTextColor(textView, R.attr.textColorMajor);
                     textView.setLimitLines(8);
                     textView.setContent(getComment2(child));
                     textView.setEllipsize(TextUtils.TruncateAt.MIDDLE);

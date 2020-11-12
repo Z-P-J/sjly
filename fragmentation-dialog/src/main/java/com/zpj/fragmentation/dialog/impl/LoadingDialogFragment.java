@@ -7,6 +7,7 @@ import android.widget.TextView;
 
 import com.zpj.fragmentation.dialog.base.CenterDialogFragment;
 import com.zpj.fragmentation.dialog.R;
+import com.zpj.fragmentation.dialog.utils.DialogThemeUtils;
 
 import static android.view.ViewGroup.LayoutParams.WRAP_CONTENT;
 
@@ -29,6 +30,7 @@ public class LoadingDialogFragment extends CenterDialogFragment {
     @Override
     protected void initView(View view, @Nullable Bundle savedInstanceState) {
         super.initView(view, savedInstanceState);
+        contentView.setBackground(DialogThemeUtils.getLoadingDialogBackground(context));
         cancelable = false;
         cancelableInTouchOutside = false;
         tvTitle = findViewById(R.id.tv_title);
@@ -44,6 +46,7 @@ public class LoadingDialogFragment extends CenterDialogFragment {
         if (title != null && tvTitle != null) {
             tvTitle.setVisibility(View.VISIBLE);
             tvTitle.setText(title);
+            tvTitle.setTextColor(DialogThemeUtils.getLoadingTextColor(context));
         }
     }
 

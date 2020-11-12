@@ -3,6 +3,7 @@ package com.zpj.shouji.market.ui.widget;
 import android.content.Context;
 
 import com.zpj.shouji.market.R;
+import com.zpj.shouji.market.constant.AppConfig;
 import com.zpj.shouji.market.event.ColorChangeEvent;
 
 import org.greenrobot.eventbus.EventBus;
@@ -37,7 +38,7 @@ public class ColorChangePagerTitleView extends ScaleTransitionPagerTitleView {
 
     @Subscribe
     public void onColorChangeEvent(ColorChangeEvent event) {
-        int color = getResources().getColor(event.isDark() ? R.color.white : R.color.color_text_major);
+        int color = getResources().getColor((AppConfig.isNightMode() || event.isDark()) ? R.color.white : R.color.color_text_major);
         setNormalColor(color);
         if (!isSelected) {
             setTextColor(mNormalColor);

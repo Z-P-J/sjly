@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.FrameLayout;
 
 import com.zpj.fragmentation.dialog.animator.PopupAnimator;
+import com.zpj.fragmentation.dialog.utils.DialogThemeUtils;
 import com.zpj.fragmentation.dialog.utils.Utility;
 import com.zpj.fragmentation.dialog.widget.SmartDragLayout;
 import com.zpj.fragmentation.dialog.R;
@@ -24,7 +25,7 @@ public abstract class BottomDialogFragment extends BaseDialogFragment {
 
     private View contentView;
 
-    protected Boolean enableDrag = true;;
+    protected Boolean enableDrag = true;
 
     @Override
     protected final int getImplLayoutId() {
@@ -60,6 +61,12 @@ public abstract class BottomDialogFragment extends BaseDialogFragment {
 
         contentView = LayoutInflater.from(context).inflate(getContentLayoutId(), null, false);
         bottomPopupContainer.addView(contentView);
+
+        if (bgDrawable != null) {
+            contentView.setBackground(bgDrawable);
+        } else {
+            contentView.setBackground(DialogThemeUtils.getBottomDialogBackground(context));
+        }
 
         FrameLayout.LayoutParams params = (FrameLayout.LayoutParams) contentView.getLayoutParams();
         int maxHeight = getMaxHeight();

@@ -11,6 +11,7 @@ import com.zpj.fragmentation.BaseFragment;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.event.StartFragmentEvent;
 import com.zpj.shouji.market.ui.adapter.FragmentsPagerAdapter;
+import com.zpj.shouji.market.ui.fragment.base.SkinFragment;
 import com.zpj.utils.ScreenUtils;
 
 import net.lucode.hackware.magicindicator.MagicIndicator;
@@ -25,9 +26,11 @@ import net.lucode.hackware.magicindicator.buildins.commonnavigator.titles.ColorT
 import java.util.ArrayList;
 import java.util.List;
 
-public class ManagerFragment extends BaseFragment {
+public class ManagerFragment extends SkinFragment {
 
     private static final String[] TAB_TITLES = {"下载管理", "更新", "已安装", "安装包"};
+
+    private ViewPager viewPager;
 
     public static void start() {
         StartFragmentEvent.start(new ManagerFragment());
@@ -46,6 +49,11 @@ public class ManagerFragment extends BaseFragment {
     @Override
     public CharSequence getToolbarTitle(Context context) {
         return "应用管理";
+    }
+
+    @Override
+    protected void initStatusBar() {
+        lightStatusBar();
     }
 
     @Override
@@ -76,9 +84,10 @@ public class ManagerFragment extends BaseFragment {
         fragments.add(installedManagerFragment);
         fragments.add(packageFragment);
 
+        viewPager = findViewById(R.id.view_pager);
+
         postOnEnterAnimationEnd(() -> {
             FragmentsPagerAdapter adapter = new FragmentsPagerAdapter(getChildFragmentManager(), fragments, TAB_TITLES);
-            ViewPager viewPager = findViewById(R.id.view_pager);
             viewPager.setAdapter(adapter);
             viewPager.setOffscreenPageLimit(4);
             viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
@@ -91,16 +100,16 @@ public class ManagerFragment extends BaseFragment {
                 public void onPageSelected(int i) {
                     switch (i) {
                         case 0:
-                            toolbar.getRightImageButton().setImageResource(R.drawable.ic_settings_white_24dp);
+                            toolbar.setRightButtonImage(R.drawable.ic_settings_white_24dp);
                             break;
                         case 1:
-                            toolbar.getRightImageButton().setImageResource(R.drawable.ic_search_white_24dp);
+                            toolbar.setRightButtonImage(R.drawable.ic_search_white_24dp);
                             break;
                         case 2:
-                            toolbar.getRightImageButton().setImageResource(R.drawable.ic_search_white_24dp);
+                            toolbar.setRightButtonImage(R.drawable.ic_search_white_24dp);
                             break;
                         case 3:
-                            toolbar.getRightImageButton().setImageResource(R.drawable.ic_search_white_24dp);
+                            toolbar.setRightButtonImage(R.drawable.ic_search_white_24dp);
                             break;
                         default:
                             break;
@@ -154,6 +163,22 @@ public class ManagerFragment extends BaseFragment {
         });
 
 
+    }
+
+    public void showUpdateFragment() {
+        postOnSupportVisible(() -> {
+            if (viewPager != null) {
+                viewPager.setCurrentItem(1, true);
+            }
+        });
+    }
+
+    public void showDownloadFragment() {
+        postOnSupportVisible(() -> {
+            if (viewPager != null) {
+                viewPager.setCurrentItem(0, true);
+            }
+        });
     }
 
 }

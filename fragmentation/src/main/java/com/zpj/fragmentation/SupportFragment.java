@@ -9,6 +9,7 @@ import android.os.Looper;
 import android.support.annotation.IdRes;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.View;
 import android.view.animation.Animation;
 
@@ -27,9 +28,11 @@ public class SupportFragment extends Fragment implements ISupportFragment {
 
     protected final SupportFragmentDelegate mDelegate = new SupportFragmentDelegate(this);
 
-    private final Handler handler = new Handler(Looper.getMainLooper());
-    protected final BlockActionQueue mSupportVisibleActionQueue = new BlockActionQueue(handler);
-    protected final BlockActionQueue mEnterAnimationEndActionQueue = new BlockActionQueue(handler);
+    //    private final Handler handler = new Handler(Looper.getMainLooper());
+//    protected final BlockActionQueue mSupportVisibleActionQueue = new BlockActionQueue(handler);
+//    protected final BlockActionQueue mEnterAnimationEndActionQueue = new BlockActionQueue(handler);
+    protected final BlockActionQueue mSupportVisibleActionQueue = new BlockActionQueue();
+    protected final BlockActionQueue mEnterAnimationEndActionQueue = new BlockActionQueue();
 
     protected Context context;
     protected SupportActivity _mActivity;
@@ -77,6 +80,7 @@ public class SupportFragment extends Fragment implements ISupportFragment {
 
     @Override
     public Animation onCreateAnimation(int transit, boolean enter, int nextAnim) {
+        Log.d("SupportFragment", "onCreateAnimation transit=" + transit + " enter=" + enter + " fragment=" + this);
         return mDelegate.onCreateAnimation(transit, enter, nextAnim);
     }
 

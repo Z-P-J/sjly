@@ -78,6 +78,10 @@ public abstract class ArrowDialogFragment extends BaseDialogFragment {
             mPopLayout.addView(contentView);
         }
 
+        if (bgDrawable != null) {
+            mPopLayout.setBackground(bgDrawable);
+        }
+
     }
 
 //    @Override

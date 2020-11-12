@@ -4,7 +4,7 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
+    android:background="?attr/backgroundColor"
     >
 
     <include layout="@layout/layout_toolbar"
@@ -21,13 +21,15 @@
         android:layout_below="@+id/tool_bar"
         >
 
-        <TextView
+        <com.zpj.shouji.market.ui.widget.DrawableTintTextView
             android:id="@+id/text_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="用户应用"
             android:drawableEnd="@drawable/ic_expand_more_black_24dp"
             android:gravity="center"
+            android:textColor="?attr/textColorMajor"
+            app:drawable_tint_color="?attr/textColorMajor"
             />
 
         <TextView
@@ -36,6 +38,7 @@
             android:layout_height="wrap_content"
             android:text="已选：8"
             android:layout_alignParentEnd="true"
+            android:textColor="?attr/textColorNormal"
             />
 
     </RelativeLayout>

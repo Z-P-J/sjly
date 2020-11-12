@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="horizontal"
-    android:background="@drawable/bg_bottom_line_gray"
+    android:background="@drawable/bottom_line_gray"
     android:paddingTop="5dp"
     android:paddingBottom="5dp"
     android:paddingStart="10dp"
@@ -25,7 +25,8 @@
         android:padding="5dp"
         android:text="下载中"
         android:id="@+id/text_title"
-        android:textSize="16sp"
+        android:textSize="14sp"
+        android:textColor="?attr/textColorMajor"
         android:layout_toEndOf="@id/img_icon"
         android:layout_toStartOf="@id/img_arrow"
         android:layout_centerVertical="true"
@@ -39,6 +40,7 @@
         android:layout_margin="5dp"
         android:layout_alignParentEnd="true"
         android:layout_centerVertical="true"
+        android:tint="?attr/textColorMajor"
         />
 
 </RelativeLayout>

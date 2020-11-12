@@ -5,10 +5,9 @@ import android.support.annotation.NonNull;
 
 import com.bumptech.glide.load.engine.bitmap_recycle.BitmapPool;
 import com.bumptech.glide.load.resource.bitmap.BitmapTransformation;
+import com.zpj.blur.ZBlurry;
 
 import java.security.MessageDigest;
-
-import per.goweii.burred.Blurred;
 
 public class CropBlurTransformation extends BitmapTransformation {
 
@@ -40,7 +39,7 @@ public class CropBlurTransformation extends BitmapTransformation {
         int x = (int) (width * 0.15);
         int y = (int) (height * 0.15);
         toTransform = Bitmap.createBitmap(toTransform, x, y, (int) (width * 0.7), (int) (height * 0.7));
-        return Blurred.with(toTransform)
+        return ZBlurry.with(toTransform)
                 .scale(scale)
                 .radius(radius)
                 .blur();

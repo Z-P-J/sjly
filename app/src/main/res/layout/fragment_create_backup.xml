@@ -4,7 +4,7 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white">
+    android:background="?attr/backgroundColor">
 
     <include layout="@layout/layout_toolbar"/>
 
@@ -37,7 +37,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-            android:textColor="@color/color_text_major"
+            android:textColor="?attr/textColorMajor"
+            android:textColorHint="?attr/textColorMinor"
             android:background="@drawable/grey_shape"
             android:inputType="textMultiLine"
             android:hint="云备份标题..."
@@ -68,7 +69,8 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:background="@drawable/grey_shape"
-            android:textColor="@color/color_text_major"
+            android:textColor="?attr/textColorMajor"
+            android:textColorHint="?attr/textColorMinor"
             android:inputType="textMultiLine"
             android:gravity="start"
             android:hint="云备份描述..."
@@ -80,7 +82,6 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/white"
             android:padding="16dp"
             app:layout_isSticky="true"
             >
@@ -104,6 +105,7 @@
                 android:textSize="12sp"
                 android:layout_alignParentEnd="true"
                 android:layout_centerVertical="true"
+                android:textColor="?attr/textColorNormal"
                 />
 
         </RelativeLayout>

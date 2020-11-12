@@ -32,8 +32,8 @@ public abstract class FullScreenDialogFragment extends CenterDialogFragment {
     protected void initView(View view, @Nullable Bundle savedInstanceState) {
         super.initView(view, savedInstanceState);
 
-        CardView centerPopupContainer = findViewById(R.id.centerPopupContainer);
-        centerPopupContainer.setRadius(0);
+//        CardView centerPopupContainer = findViewById(R.id.centerPopupContainer);
+//        centerPopupContainer.setRadius(0);
 
         FrameLayout.LayoutParams layoutParams = (FrameLayout.LayoutParams) getImplView().getLayoutParams();
         layoutParams.height = MATCH_PARENT;
@@ -44,6 +44,7 @@ public abstract class FullScreenDialogFragment extends CenterDialogFragment {
             params.height = MATCH_PARENT;
             params.width = MATCH_PARENT;
             params.gravity = Gravity.CENTER;
+            getContentView().setBackground(null);
         }
 
     }

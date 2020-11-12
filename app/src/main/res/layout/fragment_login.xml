@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="@color/white"
+    android:background="?attr/backgroundColor"
     >
 
     <com.zpj.widget.toolbar.ZToolBar
@@ -15,8 +15,8 @@
         app:z_toolbar_fillStatusBar="true"
         app:z_toolbar_leftImageResource="@drawable/ic_arrow_back_black_24dp"
         app:z_toolbar_leftType="imageButton"
-        app:z_toolbar_statusBarColor="@color/white"
-        app:z_toolbar_titleBarColor="@color/white"
+        app:z_toolbar_statusBarColor="?attr/backgroundColor"
+        app:z_toolbar_titleBarColor="?attr/backgroundColor"
         app:z_toolbar_centerText="账号登录"
         />
 
@@ -52,7 +52,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:text="手机乐园"
-            android:textColor="@color/color_text_major"
+            android:textColor="?attr/textColorMajor"
             android:textSize="18sp"
             android:textStyle="italic"
             android:gravity="center"
@@ -64,7 +64,7 @@
             android:layout_marginTop="4dp"
             android:alpha="0.8"
             android:text="发现应用的乐趣"
-            android:textColor="@color/color_text_minor"
+            android:textColor="?attr/textColorMinor"
             android:layout_marginBottom="16sp"
             />
 

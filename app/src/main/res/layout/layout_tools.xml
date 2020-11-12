@@ -15,7 +15,7 @@
         android:paddingStart="10dp"
         android:paddingEnd="10dp"
         android:src="@drawable/ic_search_white_24dp"
-        android:tint="@color/color_text_major"
+        android:tint="?attr/textColorMajor"
         android:background="?attr/actionBarItemBackground"
         />
 
@@ -26,7 +26,7 @@
         android:paddingStart="10dp"
         android:paddingEnd="10dp"
         android:src="@drawable/ic_move_to_inbox_black_24dp"
-        android:tint="@color/color_text_major"
+        android:tint="?attr/textColorMajor"
         android:background="?attr/actionBarItemBackground"
         />
 

@@ -7,6 +7,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.LayoutInflater;
 import android.view.View;
 
 import com.zpj.fragmentation.BaseFragment;
@@ -18,7 +19,7 @@ import com.zpj.shouji.market.R;
 import java.util.ArrayList;
 import java.util.List;
 
-public abstract class RecyclerLayoutFragment<T> extends BaseFragment
+public abstract class RecyclerLayoutFragment<T> extends SkinFragment
         implements OnBindViewHolderListener<T>,
         IEasy.OnItemClickListener<T>,
         IEasy.OnItemLongClickListener<T>,
@@ -49,6 +50,7 @@ public abstract class RecyclerLayoutFragment<T> extends BaseFragment
     public void onLazyInitView(@Nullable Bundle savedInstanceState) {
         super.onLazyInitView(savedInstanceState);
         recyclerLayout.setData(data)
+                .setFooterView(getFooterView(context))
                 .setItemRes(getItemLayoutId())
                 .setLayoutManager(getLayoutManager(context))
                 .setOnLoadRetryListener(this)
@@ -61,6 +63,11 @@ public abstract class RecyclerLayoutFragment<T> extends BaseFragment
                 .onLoadMore(this);
         buildRecyclerLayout(recyclerLayout);
         recyclerLayout.build();
+    }
+
+    @Override
+    protected void initStatusBar() {
+
     }
 
     @Override
@@ -80,6 +87,10 @@ public abstract class RecyclerLayoutFragment<T> extends BaseFragment
 
     protected void buildRecyclerLayout(EasyRecyclerLayout<T> recyclerLayout) {
 
+    }
+
+    protected View getFooterView(Context context) {
+        return LayoutInflater.from(context).inflate(R.layout.item_footer_normal, null, false);
     }
 
     protected RecyclerView.LayoutManager getLayoutManager(Context context) {

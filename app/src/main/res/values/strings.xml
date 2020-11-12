@@ -25,4 +25,10 @@
     <string name="text_enable_accessibility_installation_service">请启用静默安装服务</string>
     <string name="text_grant_installation_permissions">请授予安装权限</string>
 
+
+
+
+
+    <string name="accessibility_service_description">应用自动安装服务</string>
+
 </resources>

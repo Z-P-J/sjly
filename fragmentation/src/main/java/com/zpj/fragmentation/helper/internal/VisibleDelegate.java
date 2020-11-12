@@ -12,6 +12,7 @@ import android.support.v4.app.FragmentationMagician;
 import java.util.List;
 
 import com.zpj.fragmentation.ISupportFragment;
+import com.zpj.fragmentation.queue.RxHandler;
 
 /**
  * Created by YoKey on 17/4/4.
@@ -29,7 +30,7 @@ public class VisibleDelegate {
     private boolean  mIsLazyInit;
     private boolean mFirstCreateViewCompatReplace = true;
 
-    private Handler mHandler;
+//    private Handler mHandler;
     private Bundle mSaveInstanceState;
 
     private ISupportFragment mSupportF;
@@ -129,11 +130,14 @@ public class VisibleDelegate {
     }
 
     private void enqueueDispatchVisible() {
-        getHandler().post(new Runnable() {
-            @Override
-            public void run() {
-                dispatchSupportVisible(true);
-            }
+//        getHandler().post(new Runnable() {
+//            @Override
+//            public void run() {
+//                dispatchSupportVisible(true);
+//            }
+//        });
+        RxHandler.post(() -> {
+            dispatchSupportVisible(true);
         });
     }
 
@@ -210,10 +214,10 @@ public class VisibleDelegate {
         return mIsLazyInit;
     }
 
-    private Handler getHandler() {
-        if (mHandler == null) {
-            mHandler = new Handler(Looper.getMainLooper());
-        }
-        return mHandler;
-    }
+//    private Handler getHandler() {
+//        if (mHandler == null) {
+//            mHandler = new Handler(Looper.getMainLooper());
+//        }
+//        return mHandler;
+//    }
 }

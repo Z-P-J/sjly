@@ -1,6 +1,9 @@
 package com.zpj.shouji.market.ui.fragment.profile;
 
+import android.graphics.Bitmap;
 import android.graphics.Color;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -13,39 +16,46 @@ import android.widget.TextView;
 
 import com.felix.atoast.library.AToast;
 import com.shehuan.niv.NiceImageView;
-import com.zpj.fragmentation.BaseFragment;
+import com.zpj.blur.ZBlurry;
 import com.zpj.fragmentation.anim.DefaultVerticalAnimator;
 import com.zpj.fragmentation.dialog.impl.AttachListDialogFragment;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.api.HttpApi;
+import com.zpj.shouji.market.constant.AppConfig;
 import com.zpj.shouji.market.event.IconUploadSuccessEvent;
 import com.zpj.shouji.market.event.SignInEvent;
 import com.zpj.shouji.market.event.SignOutEvent;
+import com.zpj.shouji.market.event.SkinChangeEvent;
 import com.zpj.shouji.market.manager.UserManager;
 import com.zpj.shouji.market.model.MemberInfo;
 import com.zpj.shouji.market.ui.fragment.FeedbackFragment;
 import com.zpj.shouji.market.ui.fragment.WebFragment;
 import com.zpj.shouji.market.ui.fragment.backup.CloudBackupFragment;
+import com.zpj.shouji.market.ui.fragment.base.SkinFragment;
 import com.zpj.shouji.market.ui.fragment.dialog.NicknameModifiedDialogFragment;
 import com.zpj.shouji.market.ui.fragment.login.LoginFragment;
 import com.zpj.shouji.market.ui.fragment.manager.DownloadManagerFragment;
 import com.zpj.shouji.market.ui.fragment.manager.InstalledManagerFragment;
 import com.zpj.shouji.market.ui.fragment.manager.PackageManagerFragment;
 import com.zpj.shouji.market.ui.fragment.manager.UpdateManagerFragment;
+import com.zpj.shouji.market.ui.fragment.search.SearchFragment;
 import com.zpj.shouji.market.ui.fragment.setting.AboutSettingFragment;
 import com.zpj.shouji.market.ui.fragment.setting.SettingFragment;
 import com.zpj.shouji.market.ui.widget.PullZoomView;
 import com.zpj.shouji.market.ui.widget.ToolBoxCard;
 import com.zpj.shouji.market.utils.PictureUtil;
+import com.zpj.shouji.market.utils.SkinChangeAnimation;
 import com.zpj.shouji.market.utils.UploadUtils;
 import com.zpj.utils.ClickHelper;
 import com.zpj.utils.ColorUtils;
+import com.zpj.widget.setting.SwitchSettingItem;
 import com.zpj.widget.tinted.TintedImageView;
+import com.zxy.skin.sdk.SkinEngine;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
-public class MyFragment extends BaseFragment
+public class MyFragment extends SkinFragment
         implements View.OnClickListener { // UserManager.OnSignInListener
 
     private ImageView ivWallpaper;
@@ -67,7 +77,7 @@ public class MyFragment extends BaseFragment
 
     private TextView tvCloudBackup;
     private TextView tvFeedback;
-    private TextView tvNightMode;
+    //    private SwitchSettingItem tvNightMode;
     private TextView tvSetting;
     private TextView tvCommonSetting;
     private TextView tvDownloadSetting;
@@ -81,6 +91,9 @@ public class MyFragment extends BaseFragment
     private boolean isLightStyle = true;
 
 //    private LoginPopup loginPopup;
+
+    private float alpha = 0f;
+    private ZBlurry blurred;
 
     @Override
     protected int getLayoutId() {
@@ -102,22 +115,24 @@ public class MyFragment extends BaseFragment
                     if (Math.abs(offsetY - oldOffsetY) < 2) {
                         return;
                     }
-                    float alpha = 1f * offsetY / toolbar.getHeight();
+                    alpha = 1f * offsetY / toolbar.getHeight();
                     alpha = Math.min(alpha, 1f);
-                    int color = ColorUtils.alphaColor(Color.WHITE, alpha * 0.95f);
-                    toolbar.setBackgroundColor(color);
-                    toolbar.setLightStyle(alpha <= 0.5);
-                    if (alpha > 0.5) {
-                        isLightStyle = false;
-                        darkStatusBar();
-                        shadowView.setVisibility(View.VISIBLE);
-                        ivAppName.setTint(Color.BLACK);
-                    } else {
-                        isLightStyle = true;
-                        lightStatusBar();
-                        shadowView.setVisibility(View.GONE);
-                        ivAppName.setTint(Color.WHITE);
-                    }
+//                    int color = ColorUtils.alphaColor(Color.WHITE, alpha * 0.95f);
+//                    toolbar.setBackgroundColor(color);
+//                    toolbar.setLightStyle(alpha <= 0.5);
+                    initStatusBar();
+//                    if (alpha > 0.5) {
+//                        isLightStyle = false;
+////                        darkStatusBar();
+//                        lightStatusBar();
+//                        shadowView.setVisibility(View.VISIBLE);
+//                        ivAppName.setTint(Color.BLACK);
+//                    } else {
+//                        isLightStyle = true;
+//                        lightStatusBar();
+//                        shadowView.setVisibility(View.GONE);
+//                        ivAppName.setTint(Color.WHITE);
+//                    }
                 }
             }
         });
@@ -128,6 +143,23 @@ public class MyFragment extends BaseFragment
                 Log.d("onPullZoom", "onPullZoom originHeight=" + originHeight + " currentHeight=" + currentHeight);
             }
         });
+
+        blurred = ZBlurry.with(findViewById(R.id.fl_container))
+//                .fitIntoViewXY(false)
+//                .antiAlias(true)
+//                .foregroundColor(Color.parseColor("#20000000"))
+                .scale(0.1f)
+                .radius(8)
+//                .maxFps(40)
+                .blur(toolbar, new ZBlurry.Callback() {
+                    @Override
+                    public void down(Bitmap bitmap) {
+                        Drawable drawable = new BitmapDrawable(bitmap);
+                        drawable.setAlpha((int) (alpha * 255));
+                        toolbar.setBackground(drawable, true);
+                    }
+                });
+        blurred.pauseBlur();
 
         shadowView = view.findViewById(R.id.shadow_view);
 
@@ -142,7 +174,6 @@ public class MyFragment extends BaseFragment
         tvFans = view.findViewById(R.id.tv_fans);
         toolBoxCard = view.findViewById(R.id.my_tools_card);
         EventBus.getDefault().register(toolBoxCard);
-        toolBoxCard.attachFragment(this);
 
         tvDownloadManaer = findViewById(R.id.tv_download_manager);
         tvAppManager = findViewById(R.id.tv_app_manager);
@@ -151,7 +182,8 @@ public class MyFragment extends BaseFragment
 
         tvCloudBackup = view.findViewById(R.id.tv_cloud_backup);
         tvFeedback = view.findViewById(R.id.tv_feedback);
-        tvNightMode = view.findViewById(R.id.tv_night_mode);
+        SwitchSettingItem tvNightMode = view.findViewById(R.id.tv_night_mode);
+        tvNightMode.setChecked(AppConfig.isNightMode());
         tvSetting = view.findViewById(R.id.tv_setting);
         tvCommonSetting = view.findViewById(R.id.tv_common_setting);
         tvDownloadSetting = view.findViewById(R.id.tv_download_setting);
@@ -166,13 +198,27 @@ public class MyFragment extends BaseFragment
         tvEditInfo.setOnClickListener(this);
         tvCloudBackup.setOnClickListener(this);
         tvFeedback.setOnClickListener(this);
-        tvNightMode.setOnClickListener(this);
+//        tvNightMode.setOnClickListener(this);
         tvSetting.setOnClickListener(this);
         tvCommonSetting.setOnClickListener(this);
         tvDownloadSetting.setOnClickListener(this);
         tvInstallSetting.setOnClickListener(this);
         tvAbout.setOnClickListener(this);
         tvSignOut.setOnClickListener(this);
+
+//        ClickHelper.with(tvNightMode)
+//                .setOnLongClickListener((v, x, y) -> true)
+//                .setOnClickListener((v, x, y) -> {
+//                    tvNightMode.setChecked(!tvNightMode.isChecked());
+//                    SkinChangeAnimation.with(context)
+//                            .setStartPosition(x, y)
+//                            .setStartRadius(0)
+//                            .setDuration(500)
+//                            .start();
+////                    new SkinChangeAnimationView(context, x, y, 0).setDuration(1000).start();
+//                    SkinEngine.changeSkin(AppConfig.isNightMode() ? R.style.DayTheme : R.style.NightTheme);
+//                    AppConfig.toggleThemeMode();
+//                });
 
         tvDownloadManaer.setOnClickListener(this);
         tvUpdateManager.setOnClickListener(this);
@@ -264,22 +310,65 @@ public class MyFragment extends BaseFragment
     @Override
     public void onSupportVisible() {
         super.onSupportVisible();
-        if (isLightStyle) {
-            lightStatusBar();
-        } else {
-            darkStatusBar();
+        if (blurred != null) {
+            blurred.startBlur();
         }
-//        if (loginPopup != null && !loginPopup.isShow()) {
-//            loginPopup.show();
-//        }
     }
 
     @Override
     public void onSupportInvisible() {
         super.onSupportInvisible();
-//        if (loginPopup != null && loginPopup.isShow()) {
-//            loginPopup.hide();
+        if (blurred != null) {
+            blurred.pauseBlur();
+        }
+    }
+
+    @Override
+    protected void initStatusBar() {
+//        super.initStatusBar();
+//        if (AppConfig.isNightMode()) {
+//            lightStatusBar();
+//        } else {
+//            if (isLightStyle) {
+//                lightStatusBar();
+//            } else {
+//                darkStatusBar();
+//            }
 //        }
+
+        if (AppConfig.isNightMode()) {
+            toolbar.setLightStyle(true);
+            ivAppName.setTint(Color.WHITE);
+            shadowView.setVisibility(alpha > 0.5f ? View.VISIBLE : View.GONE);
+            lightStatusBar();
+        } else if (alpha > 0.5) {
+            isLightStyle = false;
+            toolbar.setLightStyle(false);
+            darkStatusBar();
+            shadowView.setVisibility(View.VISIBLE);
+            ivAppName.setTint(Color.BLACK);
+        } else {
+            isLightStyle = true;
+            toolbar.setLightStyle(true);
+            lightStatusBar();
+            shadowView.setVisibility(View.GONE);
+            ivAppName.setTint(Color.WHITE);
+        }
+
+
+//        if (alpha > 0.5) {
+//            isLightStyle = false;
+//            darkStatusBar();
+////            lightStatusBar();
+//            shadowView.setVisibility(View.VISIBLE);
+//            ivAppName.setTint(Color.BLACK);
+//        } else {
+//            isLightStyle = true;
+//            lightStatusBar();
+//            shadowView.setVisibility(View.GONE);
+//            ivAppName.setTint(Color.WHITE);
+//        }
+
     }
 
     @Override
@@ -308,6 +397,7 @@ public class MyFragment extends BaseFragment
     @Override
     public void toolbarRightImageButton(@NonNull ImageButton imageButton) {
         imageButton.setOnClickListener(v -> {
+//            SearchFragment.start();
             new AttachListDialogFragment<String>()
                     .addItems("打开我的主页", "打开主页网页", "分享主页")
                     .addItem(UserManager.getInstance().isLogin() ? "注销" : "登录")
@@ -407,8 +497,6 @@ public class MyFragment extends BaseFragment
             } else {
                 LoginFragment.start(false);
             }
-        } else if (v == tvNightMode) {
-            AToast.normal("TODO 夜间模式");
         } else if (v == tvSetting) {
             SettingFragment.start();
 //        } else if (v == tvCommonSetting) {
@@ -548,6 +636,11 @@ public class MyFragment extends BaseFragment
 //            }
 //        }
 //    }
+
+    @Subscribe
+    public void onSkinChangeEvent(SkinChangeEvent event) {
+        initStatusBar();
+    }
 
     @Subscribe
     public void onIconUploadSuccessEvent(IconUploadSuccessEvent event) {

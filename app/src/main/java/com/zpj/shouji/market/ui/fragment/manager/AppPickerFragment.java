@@ -15,6 +15,7 @@ import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.event.StartFragmentEvent;
 import com.zpj.shouji.market.model.InstalledAppInfo;
 import com.zpj.shouji.market.ui.adapter.FragmentsPagerAdapter;
+import com.zpj.shouji.market.ui.fragment.base.SkinFragment;
 import com.zpj.shouji.market.utils.Callback;
 import com.zpj.shouji.market.utils.MagicIndicatorHelper;
 
@@ -23,7 +24,7 @@ import net.lucode.hackware.magicindicator.MagicIndicator;
 import java.util.ArrayList;
 import java.util.List;
 
-public class AppPickerFragment extends BaseFragment {
+public class AppPickerFragment extends SkinFragment {
 
     //    private static final String[] TAB_TITLES = {"本地应用", "我的收藏", "搜索应用"};
     private static final String[] TAB_TITLES = {"本地应用"};

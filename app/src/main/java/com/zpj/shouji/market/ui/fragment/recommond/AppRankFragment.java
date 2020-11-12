@@ -24,6 +24,7 @@ import com.zpj.shouji.market.ui.fragment.base.NextUrlFragment;
 import com.zpj.shouji.market.ui.fragment.detail.AppDetailFragment;
 import com.zpj.shouji.market.ui.widget.DownloadButton;
 import com.zpj.shouji.market.ui.widget.RankHeaderLayout;
+import com.zpj.shouji.market.utils.ThemeUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -80,6 +81,12 @@ public class AppRankFragment extends NextUrlFragment<AppRankFragment.RankItem> {
             setToolbarTitle(getArguments().getString(Keys.TITLE, "Title"));
         }
         shadowBottomView = view.findViewById(R.id.shadow_bottom_view);
+    }
+
+    @Override
+    public void onSupportVisible() {
+        super.onSupportVisible();
+        ThemeUtils.initStatusBar(this);
     }
 
     @Override

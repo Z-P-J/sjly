@@ -7,25 +7,32 @@
     android:orientation="vertical"
     >
 
-    <com.zpj.widget.toolbar.ZToolBar
+<!--    <com.zpj.widget.toolbar.ZToolBar-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        app:z_toolbar_fillStatusBar="true"-->
+<!--        app:z_toolbar_titleBarColor="?attr/backgroundColor"-->
+<!--        app:z_toolbar_background_fill_status_bar="true"-->
+<!--        />-->
+
+<!--    <FrameLayout-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="match_parent"-->
+<!--        >-->
+<!--&lt;!&ndash;        android:background="#f3f3f5"&ndash;&gt;-->
+
+<!--        <com.zpj.recyclerview.EasyRecyclerLayout-->
+<!--            android:id="@+id/recycler_layout"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="match_parent"/>-->
+
+<!--        <View style="@style/layout_shadow_bottom" />-->
+
+<!--    </FrameLayout>-->
+
+    <com.zpj.recyclerview.EasyRecyclerLayout
+        android:id="@+id/recycler_layout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:z_toolbar_fillStatusBar="true"
-        />
-
-    <FrameLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        >
-<!--        android:background="#f3f3f5"-->
-
-        <com.zpj.recyclerview.EasyRecyclerLayout
-            android:id="@+id/recycler_layout"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
-
-        <View style="@style/layout_shadow_bottom" />
-
-    </FrameLayout>
+        android:layout_height="match_parent"/>
 
 </LinearLayout>

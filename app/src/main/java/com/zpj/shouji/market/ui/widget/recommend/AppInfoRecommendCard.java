@@ -89,7 +89,7 @@ public abstract class AppInfoRecommendCard extends RecommendCard<AppInfo> {
                 continue;
             }
             list.add(info);
-            if (list.size() == 8) {
+            if (list.size() == 16) {
                 break;
             }
         }

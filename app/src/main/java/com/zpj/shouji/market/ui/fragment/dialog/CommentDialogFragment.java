@@ -157,10 +157,10 @@ public class CommentDialogFragment extends BottomDialogFragment
                     "",
                     false,
                     () -> {
-                        dismiss();
                         if (successRunnable != null) {
                             successRunnable.run();
                         }
+                        dismiss();
                     },
                     this
             );
@@ -174,10 +174,10 @@ public class CommentDialogFragment extends BottomDialogFragment
                     "",
                     replyPanel.getImgList(),
                     () -> {
-                        dismiss();
                         if (successRunnable != null) {
                             successRunnable.run();
                         }
+                        dismiss();
                     },
                     this
             );

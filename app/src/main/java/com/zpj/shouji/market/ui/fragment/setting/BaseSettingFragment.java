@@ -9,6 +9,7 @@ import android.widget.LinearLayout;
 import com.zpj.fragmentation.BaseFragment;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.utils.AnimationUtil;
+import com.zpj.shouji.market.utils.ThemeUtils;
 import com.zpj.widget.setting.OnCheckableItemClickListener;
 import com.zpj.widget.setting.OnCommonItemClickListener;
 
@@ -26,7 +27,7 @@ public abstract class BaseSettingFragment extends BaseFragment
     @Override
     public void onSupportVisible() {
         super.onSupportVisible();
-        darkStatusBar();
+        ThemeUtils.initStatusBar(this);
     }
 
     @Override

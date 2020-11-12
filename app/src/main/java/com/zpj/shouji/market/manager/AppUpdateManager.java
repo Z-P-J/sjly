@@ -1,6 +1,8 @@
 package com.zpj.shouji.market.manager;
 
+import android.app.PendingIntent;
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.text.TextUtils;
@@ -13,8 +15,10 @@ import com.zpj.http.core.ObservableTask;
 import com.zpj.http.parser.html.nodes.Element;
 import com.zpj.http.parser.html.select.Elements;
 import com.zpj.shouji.market.R;
+import com.zpj.shouji.market.constant.Actions;
 import com.zpj.shouji.market.constant.AppConfig;
 import com.zpj.shouji.market.model.AppUpdateInfo;
+import com.zpj.shouji.market.ui.activity.MainActivity;
 import com.zpj.shouji.market.utils.AppUtil;
 import com.zpj.shouji.market.api.HttpApi;
 import com.zpj.utils.ContextUtils;
@@ -225,12 +229,16 @@ public final class AppUpdateManager {
                 }
                 content.append("，");
             }
+            Intent intent = new Intent(ContextUtils.getApplicationContext(), MainActivity.class);
+            intent.putExtra(Actions.ACTION, Actions.ACTION_SHOW_UPDATE);
+            PendingIntent pendingIntent = PendingIntent.getActivity(ContextUtils.getApplicationContext(), 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
             NotifyUtil.with(ContextUtils.getApplicationContext())
                     .buildNotify()
                     .setSmallIcon(R.mipmap.ic_launcher)
                     .setBigIcon(R.mipmap.ic_launcher)
                     .setContentTitle(list.size() + "个应用待更新")
                     .setContentText(content.toString())
+                    .setContentIntent(pendingIntent)
                     .setId(hashCode())
                     .show();
         }

@@ -9,6 +9,8 @@
     android:orientation="vertical"
     >
 
+<!--    android:background="?attr/backgroundColor"-->
+
     <LinearLayout
         android:orientation="horizontal"
         android:layout_width="match_parent"
@@ -96,6 +98,7 @@
                             android:gravity="center_vertical"
                             android:layout_marginStart="4dp"
                             android:text="分享动态:"
+                            android:textColor="?attr/textColorNormal"
                             />
 
                     </LinearLayout>
@@ -115,7 +118,9 @@
                             android:maxLines="1"
                             android:ellipsize="end"
                             android:text="1小时前"
-                            android:textSize="12sp"/>
+                            android:textSize="12sp"
+                            android:textColor="?attr/textColorNormal"
+                            />
 
                         <TextView
                             android:id="@+id/phone_type"
@@ -128,6 +133,7 @@
                             android:maxLines="1"
                             android:ellipsize="end"
                             android:layout_marginStart="8dp"
+                            android:textColor="?attr/textColorNormal"
                             />
 
                     </LinearLayout>
@@ -175,7 +181,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:paddingVertical="8dp"
-                android:textColor="@color/color_text_major"
+                android:textColor="?attr/textColorMajor"
                 android:lineSpacingExtra="4dp"
                 app:ep_max_line="5"
                 app:ep_need_animation="true"
@@ -289,7 +295,7 @@
                                 android:maxLines="1"
                                 android:ellipsize="end"
                                 android:text="应用名"
-                                android:textColor="#000000"
+                                android:textColor="?attr/textColorMajor"
                                 />
 
                             <TextView
@@ -301,8 +307,9 @@
                                 android:maxLines="1"
                                 android:ellipsize="end"
                                 android:text="文件夹"
-                                android:textColor="#8a8a8a"
-                                android:textSize="12sp"/>
+                                android:textSize="12sp"
+                                android:textColor="?attr/textColorNormal"
+                                />
 
                         </LinearLayout>
 

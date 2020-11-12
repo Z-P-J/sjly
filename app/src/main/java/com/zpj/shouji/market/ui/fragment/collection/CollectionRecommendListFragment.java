@@ -9,6 +9,7 @@ import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.constant.Keys;
 import com.zpj.shouji.market.event.StartFragmentEvent;
 import com.zpj.shouji.market.model.CollectionInfo;
+import com.zpj.shouji.market.utils.ThemeUtils;
 
 public class CollectionRecommendListFragment extends CollectionListFragment {
 
@@ -28,7 +29,7 @@ public class CollectionRecommendListFragment extends CollectionListFragment {
     @Override
     public void onSupportVisible() {
         super.onSupportVisible();
-        darkStatusBar();
+        ThemeUtils.initStatusBar(this);
     }
 
     @Override

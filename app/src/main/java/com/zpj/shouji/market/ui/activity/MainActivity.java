@@ -5,13 +5,22 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.content.res.Resources;
 import android.os.Bundle;
 import android.provider.Settings;
+import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.app.AppCompatDelegate;
 import android.util.Log;
+import android.util.TypedValue;
+import android.view.LayoutInflater;
+import android.view.ViewGroup;
 import android.view.WindowManager;
+import android.widget.CheckBox;
 import android.widget.FrameLayout;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.felix.atoast.library.AToast;
 import com.lxj.xpermission.PermissionConstants;
@@ -20,6 +29,9 @@ import com.yalantis.ucrop.CropEvent;
 import com.zpj.downloader.ZDownloader;
 import com.zpj.downloader.config.DownloaderConfig;
 import com.zpj.downloader.config.ThreadPoolConfig;
+import com.zpj.downloader.core.DownloadMission;
+import com.zpj.downloader.core.INotificationListener;
+import com.zpj.downloader.util.notification.NotifyUtil;
 import com.zpj.fragmentation.SupportActivity;
 import com.zpj.fragmentation.SupportFragment;
 import com.zpj.fragmentation.dialog.impl.AlertDialogFragment;
@@ -28,8 +40,10 @@ import com.zpj.http.core.IHttp;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.api.HttpApi;
 import com.zpj.shouji.market.api.HttpPreLoader;
+import com.zpj.shouji.market.constant.Actions;
 import com.zpj.shouji.market.constant.AppConfig;
 import com.zpj.shouji.market.download.AppDownloadMission;
+import com.zpj.shouji.market.download.DownloadNotificationListener;
 import com.zpj.shouji.market.event.GetMainActivityEvent;
 import com.zpj.shouji.market.event.HideLoadingEvent;
 import com.zpj.shouji.market.event.IconUploadSuccessEvent;
@@ -40,10 +54,15 @@ import com.zpj.shouji.market.manager.AppInstalledManager;
 import com.zpj.shouji.market.manager.AppUpdateManager;
 import com.zpj.shouji.market.manager.UserManager;
 import com.zpj.shouji.market.ui.fragment.MainFragment;
+import com.zpj.shouji.market.ui.fragment.manager.DownloadManagerFragment;
+import com.zpj.shouji.market.ui.fragment.manager.ManagerFragment;
+import com.zpj.shouji.market.ui.fragment.manager.UpdateManagerFragment;
 import com.zpj.shouji.market.utils.AppUtil;
 import com.zpj.shouji.market.utils.BrightnessUtils;
 import com.zpj.shouji.market.utils.PictureUtil;
+import com.zpj.shouji.market.utils.SkinChangeAnimation;
 import com.zpj.utils.StatusBarUtils;
+import com.zxy.skin.sdk.SkinLayoutInflater;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -60,6 +79,10 @@ public class MainActivity extends SupportActivity {
 
     private long firstTime = 0;
 
+    private SkinLayoutInflater mLayoutInflater;
+
+    private MainFragment mainFragment;
+
 //    private OpeningStartAnimation openingStartAnimation3;
 //    private LoadingPopup loadingPopup;
     private LoadingDialogFragment loadingDialogFragment;
@@ -67,12 +90,73 @@ public class MainActivity extends SupportActivity {
     private FrameLayout flContainer;
 //    private RelativeLayout rlSplash;
 
+    @NonNull
+    @Override
+    public final LayoutInflater getLayoutInflater() {
+        if (mLayoutInflater == null) {
+            mLayoutInflater = new SkinLayoutInflater(this);
+        }
+        return mLayoutInflater;
+    }
+
+    @Override
+    public final Object getSystemService(@NonNull String name) {
+        if (Context.LAYOUT_INFLATER_SERVICE.equals(name)) {
+            return getLayoutInflater();
+        }
+        return super.getSystemService(name);
+    }
+
+    @Override
+    protected void onDestroy() {
+        loadingDialogFragment = null;
+        ZDownloader.onDestroy();
+        EventBus.getDefault().unregister(this);
+        HttpPreLoader.getInstance().onDestroy();
+        mLayoutInflater.destory();
+        super.onDestroy();
+//        System.exit(0);
+    }
+
+    @Override
+    protected void onNewIntent(Intent intent) {
+        super.onNewIntent(intent);
+        AToast.normal(intent.getStringExtra(Actions.ACTION));
+        if (intent.hasExtra(Actions.ACTION)) {
+            switch (intent.getStringExtra(Actions.ACTION)) {
+                case Actions.ACTION_SHOW_UPDATE:
+                    if (getTopFragment() instanceof ManagerFragment) {
+                        ((ManagerFragment) getTopFragment()).showUpdateFragment();
+                    } else if (!(getTopFragment() instanceof UpdateManagerFragment)) {
+                        UpdateManagerFragment.start(true);
+                    }
+                    break;
+                case Actions.ACTION_SHOW_DOWNLOAD:
+                    if (getTopFragment() instanceof ManagerFragment) {
+                        ((ManagerFragment) getTopFragment()).showDownloadFragment();
+                    } else if (!(getTopFragment() instanceof DownloadManagerFragment)) {
+                        DownloadManagerFragment.start(true);
+                    }
+                    break;
+            }
+        }
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
+//        setTheme(AppConfig.isNightMode() ? R.style.NightTheme : R.style.DayTheme);
         long start = System.currentTimeMillis();
 
         super.onCreate(savedInstanceState);
+
+        getLayoutInflater();
+        mLayoutInflater.applyCurrentSkin();
+        // AppCompatActivity 需要设置
+        AppCompatDelegate delegate = this.getDelegate();
+        if (delegate instanceof LayoutInflater.Factory2) {
+            mLayoutInflater.setFactory2((LayoutInflater.Factory2) delegate);
+        }
+
         Log.d("MainActivity", "duration000-1=" + (System.currentTimeMillis() - start));
 
         setContentView(R.layout.activity_main);
@@ -88,9 +172,12 @@ public class MainActivity extends SupportActivity {
 
         BrightnessUtils.setBrightness(this);
 
+        StatusBarUtils.transparentStatusBar(getWindow());
+
         ZDownloader.init(
-                DownloaderConfig.with(this)
+                DownloaderConfig.with(MainActivity.this)
                         .setUserAgent("Sjly(3.0)")
+                        .setNotificationListener(new DownloadNotificationListener())
                         .setConcurrentMissionCount(AppConfig.getMaxDownloadConcurrentCount())
                         .setEnableNotification(AppConfig.isShowDownloadNotification())
                         .setThreadPoolConfig(
@@ -101,73 +188,26 @@ public class MainActivity extends SupportActivity {
                 AppDownloadMission.class
         );
 
-//        openingStartAnimation3 = new OpeningStartAnimation.Builder(MainActivity.this)
-//                .setDrawStategy(new NormalDrawStrategy())
-//                .setAppName("手机乐园")
-//                .setAppStatement("分享优质应用")
-//                .setAnimationInterval(2500)
-////                .setAnimationFinishTime(350)
-//                .setAppIcon(getResources().getDrawable(R.mipmap.ic_launcher))
-//                .setAnimationListener((openingStartAnimation, activity) -> {
-////                    postDelayed(() -> {
-////                        mainFragment = findFragment(MainFragment.class);
-////                        if (mainFragment == null) {
-////                            mainFragment = new MainFragment();
-////                            loadRootFragment(R.id.main_content, mainFragment);
-////                        }
-//////                        loadRootFragment(R.id.main_content, new TestFragment());
-////                    }, 50);
-//
-//                    UserManager.getInstance().init();
-//
-//                    HttpPreLoader.getInstance().loadHomepage();
-//
-//                    AppUpdateManager.getInstance().checkUpdate(MainActivity.this);
-//
-//                    AppInstalledManager.getInstance().loadApps(this);
-//
-//                    mainFragment = findFragment(MainFragment3.class);
-//                    if (mainFragment == null) {
-//                        mainFragment = new MainFragment3();
-//                        loadRootFragment(R.id.fl_container, mainFragment);
-//                    }
-//                    postDelayed(new Runnable() {
-//                        @Override
-//                        public void run() {
-//                            showRequestPermissionPopup();
-//
-//                        }
-//                    }, 1000);
-//                })
-//                .create();
-//        openingStartAnimation3.show(MainActivity.this);
+        mainFragment = findFragment(MainFragment.class);
+        if (mainFragment == null) {
+            mainFragment = new MainFragment();
+            loadRootFragment(R.id.fl_container, mainFragment);
+        }
 
-//        if (!AppConfig.isShowSplash()) {
-//            init(false);
-//        }
-
+        init();
 
     }
 
     @Override
     public void onEnterAnimationComplete() {
         super.onEnterAnimationComplete();
-
-        init();
     }
 
     private void init() {
 
 //        long temp1 = System.currentTimeMillis();
 //
-//        MainFragment mainFragment = findFragment(MainFragment.class);
-//        if (mainFragment == null) {
-//            mainFragment = new MainFragment();
-//            loadRootFragment(R.id.fl_container, mainFragment);
-//        }
 //        Log.d("MainActivity", "duration111=" + (System.currentTimeMillis() - temp1));
-
-        showRequestPermissionPopup();
 
         UserManager.getInstance().init();
 
@@ -177,17 +217,9 @@ public class MainActivity extends SupportActivity {
 
         AppInstalledManager.getInstance().loadApps(this);
 
+        showRequestPermissionPopup();
 
-    }
 
-    @Override
-    protected void onDestroy() {
-        loadingDialogFragment = null;
-        ZDownloader.onDestroy();
-        EventBus.getDefault().unregister(this);
-        HttpPreLoader.getInstance().onDestroy();
-        super.onDestroy();
-        System.exit(0);
     }
 
     @Override
@@ -247,37 +279,35 @@ public class MainActivity extends SupportActivity {
                 .callback(new XPermission.SimpleCallback() {
                     @Override
                     public void onGranted() {
-//                        if (openingStartAnimation3 != null) {
-//                            openingStartAnimation3.dismiss(MainActivity.this);
-//                        }
 
                         getWindow().clearFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
-                        MainFragment mainFragment = findFragment(MainFragment.class);
-                        if (mainFragment == null) {
-                            mainFragment = new MainFragment();
-                            loadRootFragment(R.id.fl_container, mainFragment);
-                        }
-                        if (AppConfig.isShowSplash()) {
-                            Observable.timer(1500, TimeUnit.MILLISECONDS)
-                                    .subscribeOn(Schedulers.io())
-                                    .observeOn(AndroidSchedulers.mainThread())
-                                    .doOnComplete(() -> {
-//                                        rlSplash.setVisibility(View.GONE);
-                                        flContainer.animate()
-                                                .setDuration(500)
-                                                .alpha(1)
-                                                .start();
-                                        flContainer.setOnTouchListener(null);
-                                    })
-                                    .subscribe();
-                        } else {
-                            flContainer.setOnTouchListener(null);
-                            flContainer.animate()
-                                    .setDuration(1000)
-                                    .alpha(1)
-                                    .start();
-                        }
+                        flContainer.setOnTouchListener(null);
+
+                        mainFragment.animatedToShow();
+
+
+
+//                        if (AppConfig.isShowSplash()) {
+//                            Observable.timer(1500, TimeUnit.MILLISECONDS)
+//                                    .subscribeOn(Schedulers.io())
+//                                    .observeOn(AndroidSchedulers.mainThread())
+//                                    .doOnComplete(() -> {
+////                                        rlSplash.setVisibility(View.GONE);
+//                                        flContainer.animate()
+//                                                .setDuration(500)
+//                                                .alpha(1)
+//                                                .start();
+//                                        flContainer.setOnTouchListener(null);
+//                                    })
+//                                    .subscribe();
+//                        } else {
+//                            flContainer.setOnTouchListener(null);
+//                            flContainer.animate()
+//                                    .setDuration(1000)
+//                                    .alpha(1)
+//                                    .start();
+//                        }
 
 
 
@@ -290,6 +320,16 @@ public class MainActivity extends SupportActivity {
                         showRequestPermissionPopup();
                     }
                 }).request();
+    }
+
+    private void toggleThemeSetting() {
+        if (AppConfig.isNightMode()) {
+            setTheme(R.style.DayTheme);
+        } else {
+            setTheme(R.style.NightTheme);
+        }
+        AppConfig.toggleThemeMode();
+        recreate();
     }
 
     @Subscribe
@@ -311,18 +351,6 @@ public class MainActivity extends SupportActivity {
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onShowLoadingEvent(ShowLoadingEvent event) {
-//        if (loadingPopup != null) {
-//            if (event.isUpdate()) {
-//                loadingPopup.setTitle(event.getText());
-//                return;
-//            }
-//            loadingPopup.dismiss();
-//        }
-//        loadingPopup = null;
-//        loadingPopup = ZPopup.loading(MainActivity.this)
-//                .setTitle(event.getText())
-//                .show();
-
         if (loadingDialogFragment != null) {
             if (event.isUpdate()) {
                 loadingDialogFragment.setTitle(event.getText());
@@ -337,11 +365,6 @@ public class MainActivity extends SupportActivity {
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onHideLoadingEvent(HideLoadingEvent event) {
-//        if (loadingPopup != null) {
-//            loadingPopup.setOnDismissListener(event.getOnDismissListener());
-//            loadingPopup.dismiss();
-//            loadingPopup = null;
-//        }
         if (loadingDialogFragment != null) {
             loadingDialogFragment.setOnDismissListener(event.getOnDismissListener());
             loadingDialogFragment.dismiss();
@@ -360,7 +383,6 @@ public class MainActivity extends SupportActivity {
 
     @Subscribe
     public void onCropEvent(CropEvent event) {
-//        AToast.success("path=" + event.getUri().getPath());
         if (event.isAvatar()) {
             ShowLoadingEvent.post("上传头像...");
             try {

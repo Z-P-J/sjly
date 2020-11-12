@@ -32,10 +32,12 @@ import com.zpj.shouji.market.api.ThemePublishApi;
 import com.zpj.shouji.market.event.StartFragmentEvent;
 import com.zpj.shouji.market.glide.GlideUtils;
 import com.zpj.shouji.market.model.InstalledAppInfo;
+import com.zpj.shouji.market.ui.fragment.base.SkinFragment;
 import com.zpj.shouji.market.ui.fragment.manager.AppPickerFragment;
 import com.zpj.shouji.market.ui.fragment.profile.UserPickerFragment;
 import com.zpj.shouji.market.ui.widget.ActionPanel;
 import com.zpj.shouji.market.ui.widget.flowlayout.FlowLayout;
+import com.zpj.shouji.market.utils.ThemeUtils;
 import com.zpj.utils.KeyboardObserver;
 import com.zpj.utils.ScreenUtils;
 
@@ -43,7 +45,7 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ThemeShareFragment extends BaseFragment {
+public class ThemeShareFragment extends SkinFragment {
 
     private final List<Item> imgList = new ArrayList<>();
 
@@ -263,7 +265,6 @@ public class ThemeShareFragment extends BaseFragment {
     @Override
     public void onSupportVisible() {
         super.onSupportVisible();
-        darkStatusBar();
     }
 
     @Override
@@ -275,7 +276,6 @@ public class ThemeShareFragment extends BaseFragment {
     @Override
     public void onEnterAnimationEnd(Bundle savedInstanceState) {
         super.onEnterAnimationEnd(savedInstanceState);
-        darkStatusBar();
         showSoftInput(etContent);
         initFlowLayout();
     }

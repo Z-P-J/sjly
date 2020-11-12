@@ -341,6 +341,7 @@ public class AppDetailInfoFragment extends BaseFragment
     private static class DividerItemDecoration extends Y_DividerItemDecoration {
 
         private final int total;
+        private final int color = Color.TRANSPARENT; // Color.WHITE
 
         private DividerItemDecoration(Context context, int total) {
             super(context);
@@ -352,19 +353,19 @@ public class AppDetailInfoFragment extends BaseFragment
             Y_DividerBuilder builder = null;
             if (itemPosition == 0) {
                 builder = new Y_DividerBuilder()
-                        .setLeftSideLine(true, Color.WHITE, 16, 0, 0)
-                        .setRightSideLine(true, Color.WHITE, 4, 0, 0);
+                        .setLeftSideLine(true, color, 16, 0, 0)
+                        .setRightSideLine(true, color, 4, 0, 0);
             } else if (itemPosition == total - 1) {
                 builder = new Y_DividerBuilder()
-                        .setRightSideLine(true, Color.WHITE, 16, 0, 0)
-                        .setLeftSideLine(true, Color.WHITE, 4, 0, 0);
+                        .setRightSideLine(true, color, 16, 0, 0)
+                        .setLeftSideLine(true, color, 4, 0, 0);
             } else {
                 builder = new Y_DividerBuilder()
-                        .setLeftSideLine(true, Color.WHITE, 4, 0, 0)
-                        .setRightSideLine(true, Color.WHITE, 4, 0, 0);
+                        .setLeftSideLine(true, color, 4, 0, 0)
+                        .setRightSideLine(true, color, 4, 0, 0);
             }
-            return builder.setTopSideLine(true, Color.WHITE, 4, 0, 0)
-                    .setBottomSideLine(true, Color.WHITE, 4, 0, 0)
+            return builder.setTopSideLine(true, color, 4, 0, 0)
+                    .setBottomSideLine(true, color, 4, 0, 0)
                     .create();
         }
     }

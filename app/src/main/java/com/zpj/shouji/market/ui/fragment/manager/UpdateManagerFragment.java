@@ -28,6 +28,7 @@ import com.zpj.shouji.market.ui.fragment.base.RecyclerLayoutFragment;
 import com.zpj.shouji.market.ui.fragment.detail.AppDetailFragment;
 import com.zpj.shouji.market.ui.widget.DownloadButton;
 import com.zpj.shouji.market.utils.AppUtil;
+import com.zpj.shouji.market.utils.ThemeUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -45,6 +46,8 @@ public class UpdateManagerFragment extends RecyclerLayoutFragment<AppUpdateInfo>
 
     private RelativeLayout topLayout;
     private TextView updateInfo;
+
+    private boolean showToolbar = false;
 
     public static UpdateManagerFragment newInstance(boolean showToolbar) {
         Bundle args = new Bundle();
@@ -74,10 +77,18 @@ public class UpdateManagerFragment extends RecyclerLayoutFragment<AppUpdateInfo>
     }
 
     @Override
+    protected void initStatusBar() {
+        if (showToolbar) {
+            ThemeUtils.initStatusBar(this);
+        }
+    }
+
+    @Override
     protected void initView(View view, @Nullable Bundle savedInstanceState) {
         super.initView(view, savedInstanceState);
 
-        if (getArguments() != null && getArguments().getBoolean(Keys.SHOW_TOOLBAR, false)) {
+        showToolbar = getArguments() != null && getArguments().getBoolean(Keys.SHOW_TOOLBAR, false);
+        if (showToolbar) {
             toolbar.setVisibility(View.VISIBLE);
 //            findViewById(R.id.shadow_view).setVisibility(View.VISIBLE);
             setToolbarTitle("应用更新");
@@ -155,33 +166,6 @@ public class UpdateManagerFragment extends RecyclerLayoutFragment<AppUpdateInfo>
                 })
                 .setAttachView(view)
                 .show(context);
-
-//        PopupMenuView popupMenuView = new PopupMenuView(context);
-//        popupMenuView.setOrientation(LinearLayout.HORIZONTAL)
-//                .setMenuItems(optionMenus)
-//                .setBackgroundAlpha(getActivity(), 0.9f, 500)
-//                .setBackgroundColor(Color.WHITE)
-//                .setOnMenuClickListener((position, menu) -> {
-//                    popupMenuView.dismiss();
-//                    switch (position) {
-//                        case 0:
-//                            AToast.normal("详细信息");
-//                            break;
-//                        case 1:
-//                            AToast.normal("详细信息");
-//                            break;
-//                        case 2:
-//                            AppUtil.uninstallApp(_mActivity, updateInfo.getPackageName());
-//                            break;
-//                        case 3:
-//                            AppUtil.openApp(context, updateInfo.getPackageName());
-//                            break;
-//                        default:
-//                            AToast.warning("未知操作！");
-//                            break;
-//                    }
-//                    return true;
-//                }).show(view);
     }
 
     @Override

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.geek.banner.Banner
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/banner2"
+    android:layout_width="match_parent"
+    android:layout_height="200dp"
+    android:layout_marginTop="10dp"
+    app:banner_auto_play="true"
+    app:banner_default_image="@drawable/bga_pp_ic_holder_light"
+    app:banner_expose_width="20dp"
+    app:banner_interval_time="5000"
+    app:banner_multi_anim="ScaleIn"
+    app:banner_page_spacing="14dp"
+    app:banner_scroll_time="1000"
+    app:banner_show_indicator="true"
+    app:indicator_margin_bottom="0dp"
+    app:indicator_default_height="4dp"
+    app:indicator_default_width="4dp"
+    app:indicator_default_drawable="@color/light_gray_0"
+    app:indicator_select_drawable="@color/colorPrimary"
+    app:indicator_select_height="4dp"
+    app:indicator_select_width="4dp"
+    app:banner_show_model="MZ_EFFECT"
+    app:layout_scrollFlags="scroll"
+    >
+
+</com.geek.banner.Banner>

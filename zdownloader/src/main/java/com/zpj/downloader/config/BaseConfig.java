@@ -318,7 +318,7 @@ abstract class BaseConfig<T extends BaseConfig<T>> {
         return proxy;
     }
 
-    public boolean getEnableNotificatio() {
+    public boolean getEnableNotification() {
         return enableNotification;
     }
 

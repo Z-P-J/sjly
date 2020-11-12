@@ -17,6 +17,7 @@ import com.zpj.shouji.market.ui.fragment.WebFragment;
 import com.zpj.shouji.market.ui.fragment.base.NextUrlFragment;
 import com.zpj.shouji.market.ui.fragment.dialog.BottomListMenuDialogFragment;
 import com.zpj.shouji.market.utils.BeanUtils;
+import com.zpj.shouji.market.utils.ThemeUtils;
 
 import java.util.List;
 
@@ -49,6 +50,12 @@ public class MyBlacklistFragment extends NextUrlFragment<BlacklistInfo> {
     protected void initView(View view, @Nullable Bundle savedInstanceState) {
         super.initView(view, savedInstanceState);
         setToolbarTitle("我的黑名单");
+    }
+
+    @Override
+    public void onSupportVisible() {
+        super.onSupportVisible();
+        ThemeUtils.initStatusBar(this);
     }
 
     @Override
@@ -100,34 +107,6 @@ public class MyBlacklistFragment extends NextUrlFragment<BlacklistInfo> {
                     menu.dismiss();
                 })
                 .show(context);
-//        BottomListPopupMenu.with(context)
-//                .setMenu(R.menu.menu_blacklist)
-//                .onItemClick((menu, view1, data1) -> {
-//                    switch (data1.getItemId()) {
-//                        case R.id.remove:
-//                            HttpApi.removeBlacklistApi(data.getMemberId())
-//                                    .onSuccess(doc -> {
-//                                        String info = doc.selectFirst("info").text();
-//                                        if ("success".equals(doc.selectFirst("result").text())) {
-//                                            AToast.success(info);
-//                                            onRefresh();
-//                                        } else {
-//                                            AToast.error(info);
-//                                        }
-//                                    })
-//                                    .onError(throwable -> AToast.error(throwable.getMessage()))
-//                                    .subscribe();
-//                            break;
-//                        case R.id.report:
-//                            AToast.normal("TODO 举报");
-//                            break;
-//                        case R.id.share:
-//                            WebFragment.shareHomepage(data.getMemberId());
-//                            break;
-//                    }
-//                    menu.dismiss();
-//                })
-//                .show();
         return true;
     }
 }

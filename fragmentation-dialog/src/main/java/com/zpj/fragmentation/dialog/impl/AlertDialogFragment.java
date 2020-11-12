@@ -13,6 +13,8 @@ import android.widget.TextView;
 
 import com.zpj.fragmentation.dialog.base.CenterDialogFragment;
 import com.zpj.fragmentation.dialog.R;
+import com.zpj.fragmentation.dialog.utils.DialogThemeUtils;
+import com.zpj.utils.ContextUtils;
 import com.zpj.utils.ScreenUtils;
 
 public class AlertDialogFragment extends CenterDialogFragment
@@ -46,11 +48,13 @@ public class AlertDialogFragment extends CenterDialogFragment
         tv_title = findViewById(R.id.tv_title);
         tv_cancel = findViewById(R.id.tv_cancel);
         tv_confirm = findViewById(R.id.tv_confirm);
+        tv_title.setTextColor(DialogThemeUtils.getMajorTextColor(context));
 
 
         if (contentView == null && !TextUtils.isEmpty(content)) {
             TextView textView = new TextView(context);
             textView.setText(content);
+            textView.setTextColor(DialogThemeUtils.getNormalTextColor(context));
 //        textView.setTextColor(context.getResources().getColor(R.color._xpopup_text_normal_color));
             textView.setTextSize(14);
             textView.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
@@ -128,13 +132,8 @@ public class AlertDialogFragment extends CenterDialogFragment
 
     protected void applyPrimaryColor() {
 //        tv_cancel.setTextColor(XPopup.getPrimaryColor());
-        tv_confirm.setTextColor(getColorPrimary());
-    }
-
-    public int getColorPrimary(){
-        TypedValue typedValue = new TypedValue();
-        context.getTheme().resolveAttribute(R.attr.colorPrimary, typedValue, true);
-        return typedValue.data;
+        tv_cancel.setTextColor(DialogThemeUtils.getNegativeTextColor(context));
+        tv_confirm.setTextColor(DialogThemeUtils.getPositiveTextColor(context));
     }
 
     public AlertDialogFragment setAutoDismiss(boolean autoDismiss) {
@@ -154,7 +153,7 @@ public class AlertDialogFragment extends CenterDialogFragment
     }
 
     public AlertDialogFragment setPositiveButton(int btnStrId, OnPositiveButtonClickListener listener) {
-        this.confirmText = context.getString(btnStrId);
+        this.confirmText = ContextUtils.getApplicationContext().getString(btnStrId);
         this.confirmListener = listener;
         return this;
     }
@@ -171,7 +170,7 @@ public class AlertDialogFragment extends CenterDialogFragment
     }
 
     public AlertDialogFragment setNegativeButton(int btnStrId, OnNegativeButtonClickListener listener) {
-        this.cancelText = context.getString(btnStrId);
+        this.cancelText = ContextUtils.getApplicationContext().getString(btnStrId);
         this.cancelListener = listener;
         return this;
     }
@@ -182,7 +181,7 @@ public class AlertDialogFragment extends CenterDialogFragment
     }
 
     public AlertDialogFragment setContent(@LayoutRes int resId) {
-        this.contentView = LayoutInflater.from(context).inflate(resId, null, false);
+        this.contentView = LayoutInflater.from(ContextUtils.getApplicationContext()).inflate(resId, null, false);
         return this;
     }
 
@@ -197,7 +196,7 @@ public class AlertDialogFragment extends CenterDialogFragment
     }
 
     public AlertDialogFragment setTitle(int titleRes) {
-        this.title = context.getString(titleRes);
+        this.title = ContextUtils.getApplicationContext().getString(titleRes);
         return this;
     }
 

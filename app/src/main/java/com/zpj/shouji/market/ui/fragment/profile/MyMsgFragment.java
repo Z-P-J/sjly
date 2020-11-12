@@ -23,6 +23,7 @@ import com.zpj.shouji.market.ui.fragment.chat.ChatFragment;
 import com.zpj.shouji.market.ui.fragment.theme.ThemeListFragment;
 import com.zpj.shouji.market.utils.BeanUtils;
 import com.zpj.shouji.market.utils.MagicIndicatorHelper;
+import com.zpj.shouji.market.utils.ThemeUtils;
 
 import net.lucode.hackware.magicindicator.MagicIndicator;
 
@@ -84,7 +85,7 @@ public class MyMsgFragment extends BaseFragment {
     @Override
     public void onSupportVisible() {
         super.onSupportVisible();
-        darkStatusBar();
+        ThemeUtils.initStatusBar(this);
     }
 
     @Override

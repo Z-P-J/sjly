@@ -1,5 +1,6 @@
 package com.zpj.fragmentation.dialog.base;
 
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.CardView;
@@ -14,6 +15,7 @@ import com.zpj.fragmentation.dialog.animator.ScaleAlphaAnimator;
 import com.zpj.fragmentation.dialog.enums.PopupAnimation;
 import com.zpj.fragmentation.dialog.impl.FullScreenDialogFragment;
 import com.zpj.fragmentation.dialog.R;
+import com.zpj.fragmentation.dialog.utils.DialogThemeUtils;
 import com.zpj.utils.ScreenUtils;
 
 import static android.view.ViewGroup.LayoutParams.MATCH_PARENT;
@@ -44,7 +46,7 @@ public abstract class CenterDialogFragment extends BaseDialogFragment {
     protected void initView(View view, @Nullable Bundle savedInstanceState) {
         super.initView(view, savedInstanceState);
 
-        CardView centerPopupContainer = findViewById(R.id.centerPopupContainer);
+        FrameLayout centerPopupContainer = findViewById(R.id.centerPopupContainer);
         if (getContentLayoutId() > 0) {
             contentView = LayoutInflater.from(context).inflate(getContentLayoutId(), null, false);
             centerPopupContainer.addView(contentView);
@@ -76,6 +78,11 @@ public abstract class CenterDialogFragment extends BaseDialogFragment {
 
 
         if (contentView != null) {
+            if (bgDrawable != null) {
+                contentView.setBackground(bgDrawable);
+            } else {
+                contentView.setBackground(DialogThemeUtils.getCenterDialogBackground(context));
+            }
             FrameLayout.LayoutParams layoutParams = (FrameLayout.LayoutParams) contentView.getLayoutParams();
             layoutParams.height = WRAP_CONTENT;
             layoutParams.width = MATCH_PARENT;

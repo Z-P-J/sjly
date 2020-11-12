@@ -5,7 +5,7 @@
     android:id="@+id/state_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white">
+    android:background="?attr/backgroundColor">
 
     <FrameLayout
         android:layout_width="match_parent"
@@ -26,7 +26,7 @@
                     android:layout_height="match_parent"
                     android:scaleType="centerCrop"
                     android:src="@drawable/bg_member_default"
-                    android:tint="#40000000"
+                    android:tint="?attr/backgroundTintColor"
                     />
 
                 <LinearLayout
@@ -87,6 +87,7 @@
                 android:text="xxxxxxxxxxxxxx\nxxxxxxxxxx\nxxxxxxx"
                 android:lineSpacingExtra="4dp"
                 android:textSize="12sp"
+                android:textColor="?attr/textColorNormal"
                 />
 
             <View

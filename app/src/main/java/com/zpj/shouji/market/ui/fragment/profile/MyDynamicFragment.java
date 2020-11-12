@@ -23,6 +23,7 @@ import com.zpj.shouji.market.ui.fragment.wallpaper.WallpaperListFragment;
 import com.zpj.shouji.market.ui.fragment.collection.CollectionListFragment;
 import com.zpj.shouji.market.ui.fragment.theme.ThemeListFragment;
 import com.zpj.shouji.market.utils.MagicIndicatorHelper;
+import com.zpj.shouji.market.utils.ThemeUtils;
 
 import net.lucode.hackware.magicindicator.MagicIndicator;
 
@@ -94,7 +95,7 @@ public class MyDynamicFragment extends BaseFragment {
     public void onSupportVisible() {
         super.onSupportVisible();
         if (showToolbar) {
-            darkStatusBar();
+            ThemeUtils.initStatusBar(this);
         }
     }
 

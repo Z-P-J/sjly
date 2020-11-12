@@ -20,7 +20,9 @@ import com.zpj.recyclerview.EasyRecyclerView;
 import com.zpj.recyclerview.EasyViewHolder;
 import com.zpj.recyclerview.IEasy;
 import com.zpj.shouji.market.R;
+import com.zpj.shouji.market.constant.AppConfig;
 import com.zpj.shouji.market.ui.widget.DotSpan;
+import com.zpj.shouji.market.utils.ThemeUtils;
 import com.zpj.utils.ScreenUtils;
 
 import java.util.ArrayList;
@@ -134,10 +136,12 @@ public class FlowLayout extends RecyclerView implements IEasy.OnBindViewHolderLi
             drawable.setColor(color);
             tvText.setTextColor(color);
         } else {
-            drawable.setStroke(1, getResources().getColor(R.color.color_text_minor));
-            drawable.setColor(Color.WHITE);
+            int minorTextColor = ThemeUtils.getTextColorMinor(getContext());
+//            getResources().getColor(R.color.color_text_minor)
+            drawable.setStroke(1, minorTextColor);
+            drawable.setColor(ThemeUtils.getDefaultBackgroundColor(getContext()));// Color.WHITE
             drawable.setAlpha(0xff);
-            tvText.setTextColor(getResources().getColor(R.color.color_text_minor));
+            tvText.setTextColor(minorTextColor);
         }
         tvText.setBackground(drawable);
 
@@ -180,6 +184,9 @@ public class FlowLayout extends RecyclerView implements IEasy.OnBindViewHolderLi
                 new Random().nextInt(255),
                 new Random().nextInt(255));
         boolean isDark = ColorUtils.calculateLuminance(color) <= 0.7;
+        if (AppConfig.isNightMode()) {
+            isDark = !isDark;
+        }
         if (isDark) {
             colorList.add(color);
             return color;

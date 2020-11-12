@@ -6,7 +6,7 @@
     android:id="@+id/state_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:background="@color/white"
+    android:background="?attr/backgroundColor"
     >
 
 
@@ -81,7 +81,6 @@
                     android:id="@+id/header_recent_update"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@android:color/white"
                     android:padding="16dp"
                     >
 
@@ -92,7 +91,7 @@
                         android:gravity="center"
                         android:text="备份记录"
                         android:textSize="16sp"
-                        android:textColor="@color/color_text_major"
+                        android:textColor="?attr/textColorMajor"
                         android:textStyle="bold"
                         android:layout_gravity="bottom"
                         />

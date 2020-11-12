@@ -47,6 +47,16 @@ public abstract class AbstractDialogFragment extends SupportFragment {
     }
 
     @Override
+    public void onSupportVisible() {
+        super.onSupportVisible();
+    }
+
+    @Override
+    public void onSupportInvisible() {
+        super.onSupportInvisible();
+    }
+
+    @Override
     public final boolean onBackPressedSupport() {
         if (onBackPressed()) {
             return true;

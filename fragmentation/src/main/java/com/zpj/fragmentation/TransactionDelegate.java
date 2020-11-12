@@ -20,6 +20,7 @@ import com.zpj.fragmentation.helper.internal.ResultRecord;
 import com.zpj.fragmentation.helper.internal.TransactionRecord;
 import com.zpj.fragmentation.queue.Action;
 import com.zpj.fragmentation.queue.ActionQueue;
+import com.zpj.fragmentation.queue.RxHandler;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -59,15 +60,16 @@ class TransactionDelegate {
     private ISupportActivity mSupport;
     private FragmentActivity mActivity;
 
-    private Handler mHandler;
+//    private Handler mHandler;
 
     ActionQueue mActionQueue;
 
     TransactionDelegate(ISupportActivity support) {
         this.mSupport = support;
         this.mActivity = (FragmentActivity) support;
-        mHandler = new Handler(Looper.getMainLooper());
-        mActionQueue = new ActionQueue(mHandler);
+//        mHandler = new Handler(Looper.getMainLooper());
+//        mActionQueue = new ActionQueue(mHandler);
+        mActionQueue = new ActionQueue();
     }
 
     void post(final Runnable runnable) {
@@ -538,12 +540,13 @@ class TransactionDelegate {
             }
         } else if (launchMode == ISupportFragment.SINGLETASK) {
             doPopTo(toFragmentTag, false, fm, DEFAULT_POPTO_ANIM);
-            mHandler.post(new Runnable() {
-                @Override
-                public void run() {
-                    handleNewBundle(to, stackToFragment);
-                }
-            });
+//            mHandler.post(new Runnable() {
+//                @Override
+//                public void run() {
+//                    handleNewBundle(to, stackToFragment);
+//                }
+//            });
+            RxHandler.post(() -> handleNewBundle(to, stackToFragment));
             return true;
         }
 
@@ -646,14 +649,21 @@ class TransactionDelegate {
         }
 
         fromView.startAnimation(animation);
-        mHandler.postDelayed(new Runnable() {
+//        mHandler.postDelayed(new Runnable() {
+//            @Override
+//            public void run() {
+//                try {
+//                    mock.removeViewInLayout(fromView);
+//                    container.removeViewInLayout(mock);
+//                } catch (Exception ignored) {
+//                }
+//            }
+//        }, animation.getDuration());
+        RxHandler.post(new io.reactivex.functions.Action() {
             @Override
-            public void run() {
-                try {
-                    mock.removeViewInLayout(fromView);
-                    container.removeViewInLayout(mock);
-                } catch (Exception ignored) {
-                }
+            public void run() throws Exception {
+                mock.removeViewInLayout(fromView);
+                container.removeViewInLayout(mock);
             }
         }, animation.getDuration());
     }
@@ -675,14 +685,21 @@ class TransactionDelegate {
             public void onEnterAnimStart() {
                 fromView.startAnimation(exitAnim);
 
-                mHandler.postDelayed(new Runnable() {
+//                mHandler.postDelayed(new Runnable() {
+//                    @Override
+//                    public void run() {
+//                        try {
+//                            mock.removeViewInLayout(fromView);
+//                            container.removeViewInLayout(mock);
+//                        } catch (Exception ignored) {
+//                        }
+//                    }
+//                }, exitAnim.getDuration());
+                RxHandler.post(new io.reactivex.functions.Action() {
                     @Override
-                    public void run() {
-                        try {
-                            mock.removeViewInLayout(fromView);
-                            container.removeViewInLayout(mock);
-                        } catch (Exception ignored) {
-                        }
+                    public void run() throws Exception {
+                        mock.removeViewInLayout(fromView);
+                        container.removeViewInLayout(mock);
                     }
                 }, exitAnim.getDuration());
             }

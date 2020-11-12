@@ -59,6 +59,7 @@ public class AppUrlCenterListDialogFragment extends CenterListDialogFragment<App
     @Override
     protected void initView(View view, @Nullable Bundle savedInstanceState) {
         super.initView(view, savedInstanceState);
+//        getContentView().setBackgroundResource(R.drawable.bg_center_dialog);
         tvTitle.setTextColor(getResources().getColor(R.color.colorPrimary));
     }
 

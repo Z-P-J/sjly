@@ -20,8 +20,10 @@ import com.zpj.fragmentation.dialog.impl.AttachListDialogFragment;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.api.BookingApi;
 import com.zpj.shouji.market.api.HttpApi;
+import com.zpj.shouji.market.constant.AppConfig;
 import com.zpj.shouji.market.constant.Keys;
 import com.zpj.shouji.market.event.FabEvent;
+import com.zpj.shouji.market.event.RefreshEvent;
 import com.zpj.shouji.market.event.StartFragmentEvent;
 import com.zpj.shouji.market.manager.UserManager;
 import com.zpj.shouji.market.model.AppDetailInfo;
@@ -82,7 +84,6 @@ public class AppDetailFragment extends BaseFragment
     private ViewPager viewPager;
     private MagicIndicator magicIndicator;
 
-    //    private CommentPopup commentPopup;
     private CommentDialogFragment commentDialogFragment;
 
     private AppDetailInfo info;
@@ -156,7 +157,7 @@ public class AppDetailFragment extends BaseFragment
     @Override
     public void onSupportVisible() {
         super.onSupportVisible();
-        if (isLazyInit()) {
+        if (isLazyInit() || AppConfig.isNightMode()) {
             lightStatusBar();
         } else {
             darkStatusBar();
@@ -396,7 +397,6 @@ public class AppDetailFragment extends BaseFragment
                 .setOnSelectListener((fragment, position, title) -> {
                     switch (position) {
                         case 0:
-//                            fragment.dismissWithStart(new ManagerFragment());
                             ManagerFragment.start();
                             break;
                         case 1:
@@ -437,9 +437,6 @@ public class AppDetailFragment extends BaseFragment
                         .setAnchorView(fabComment)
                         .setAppDetailInfo(info)
                         .show(context);
-//                AppUrlCenterListPopup.with(context)
-//                        .setAppDetailInfo(info)
-//                        .show();
             }
         } else {
             if (!UserManager.getInstance().isLogin()) {
@@ -455,20 +452,10 @@ public class AppDetailFragment extends BaseFragment
                 commentDialogFragment.setOnDismissListener(() -> {
                     setSwipeBackEnable(true);
                     fabComment.show();
+                    RefreshEvent.postEvent();
                 });
             }
             commentDialogFragment.show(context);
-
-//            if (commentPopup == null) {
-//                commentPopup = AppCommentPopup.with(context, id, type, "", () -> commentPopup = null)
-//                        .setDecorView(findViewById(R.id.fl_container))
-//                        .setOnDismissListener(() -> {
-//                            setSwipeBackEnable(true);
-//                            fabComment.show();
-//                        })
-//                        .show();
-//            }
-//            commentPopup.show();
         }
     }
 

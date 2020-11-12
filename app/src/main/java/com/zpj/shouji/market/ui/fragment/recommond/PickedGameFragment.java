@@ -26,6 +26,7 @@ import com.zpj.shouji.market.ui.fragment.detail.AppDetailFragment;
 import com.zpj.shouji.market.ui.fragment.profile.MyCollectionFragment;
 import com.zpj.shouji.market.ui.fragment.profile.ProfileFragment;
 import com.zpj.shouji.market.ui.widget.DownloadButton;
+import com.zpj.shouji.market.utils.ThemeUtils;
 
 import java.util.List;
 
@@ -63,7 +64,7 @@ public class PickedGameFragment extends NextUrlFragment<PickedGameInfo> {
     @Override
     public void onSupportVisible() {
         super.onSupportVisible();
-        darkStatusBar();
+        ThemeUtils.initStatusBar(this);
     }
 
     @Override
@@ -73,22 +74,23 @@ public class PickedGameFragment extends NextUrlFragment<PickedGameInfo> {
             @Override
             public Y_Divider getDivider(int itemPosition) {
                 Y_DividerBuilder builder = null;
+                int color = Color.TRANSPARENT;
                 if (itemPosition == 0) {
                     builder = new Y_DividerBuilder()
-                            .setTopSideLine(true, Color.WHITE, 12, 0, 0)
-                            .setBottomSideLine(true, Color.WHITE, 4, 0, 0);
+                            .setTopSideLine(true, color, 12, 0, 0)
+                            .setBottomSideLine(true, color, 4, 0, 0);
                 } else if (itemPosition == data.size() - 1) {
                     builder = new Y_DividerBuilder()
 //                            .setTopSideLine(true, Color.WHITE, 4, 0, 0)
-                            .setBottomSideLine(true, Color.WHITE, 12, 0, 0);
+                            .setBottomSideLine(true, color, 12, 0, 0);
                 } else {
                     builder = new Y_DividerBuilder()
-                            .setTopSideLine(true, Color.WHITE, 4, 0, 0)
-                            .setBottomSideLine(true, Color.WHITE, 4, 0, 0);
+                            .setTopSideLine(true, color, 4, 0, 0)
+                            .setBottomSideLine(true, color, 4, 0, 0);
                 }
                 return builder
-                        .setLeftSideLine(true, Color.WHITE, 12, 0, 0)
-                        .setRightSideLine(true, Color.WHITE, 12, 0, 0)
+                        .setLeftSideLine(true, color, 12, 0, 0)
+                        .setRightSideLine(true, color, 12, 0, 0)
                         .create();
             }
         });

@@ -41,6 +41,7 @@
         app:hl_cornerRadius_leftTop="20dp"
         app:hl_cornerRadius_rigthTop="20dp"
         app:hl_shadowLimit="0dp"
+        app:hl_shadowBackColor="?attr/backgroundColor"
         >
 
         <com.zpj.widget.statelayout.StateLayout

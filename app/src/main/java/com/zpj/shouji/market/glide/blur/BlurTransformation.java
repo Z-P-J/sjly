@@ -2,17 +2,13 @@ package com.zpj.shouji.market.glide.blur;
 
 import android.content.Context;
 import android.graphics.Bitmap;
-import android.graphics.Canvas;
-import android.graphics.Color;
-import android.graphics.Paint;
 import android.support.annotation.NonNull;
 
 import com.bumptech.glide.load.engine.bitmap_recycle.BitmapPool;
 import com.bumptech.glide.load.resource.bitmap.BitmapTransformation;
+import com.zpj.blur.ZBlurry;
 
 import java.security.MessageDigest;
-
-import per.goweii.burred.Blurred;
 
 public class BlurTransformation extends BitmapTransformation {
 
@@ -60,8 +56,7 @@ public class BlurTransformation extends BitmapTransformation {
 //        paint.setFlags(Paint.FILTER_BITMAP_FLAG);
 //        canvas.drawBitmap(toTransform, 0, 0, paint);
 
-        Blurred mBlurred = new Blurred();
-        toTransform = mBlurred.bitmap(toTransform)
+        toTransform = ZBlurry.with(toTransform)
                 .keepSize(false)
 //                .backgroundColor(Color.GRAY)
                 .recycleOriginal(false)

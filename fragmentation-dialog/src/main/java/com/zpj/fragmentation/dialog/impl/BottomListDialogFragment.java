@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.zpj.fragmentation.dialog.base.BottomDialogFragment;
+import com.zpj.fragmentation.dialog.utils.DialogThemeUtils;
 import com.zpj.fragmentation.dialog.widget.CheckView;
 import com.zpj.fragmentation.dialog.R;
 import com.zpj.recyclerview.EasyRecyclerView;
@@ -30,6 +31,9 @@ public class BottomListDialogFragment<T> extends BottomDialogFragment
     private int checkedPosition = -1;
     private int selectedPosition = -1;
 
+    private int majorTextColor;
+    private int normalTextColor;
+
     String title;
     int[] iconIds;
 
@@ -41,6 +45,9 @@ public class BottomListDialogFragment<T> extends BottomDialogFragment
     @Override
     protected void initView(View view, @Nullable Bundle savedInstanceState) {
         super.initView(view, savedInstanceState);
+
+        majorTextColor = DialogThemeUtils.getMajorTextColor(context);
+        normalTextColor = DialogThemeUtils.getNormalTextColor(context);
 
         tvTitle = findViewById(R.id.tv_title);
 
@@ -75,15 +82,11 @@ public class BottomListDialogFragment<T> extends BottomDialogFragment
         if (checkedPosition != -1) {
             if (holder.getView(R.id.check_view) != null) {
                 holder.getView(R.id.check_view).setVisibility(position == checkedPosition ? View.VISIBLE : View.GONE);
-                holder.<CheckView>getView(R.id.check_view).setColor(getColorPrimary());
+                holder.<CheckView>getView(R.id.check_view).setColor(DialogThemeUtils.getColorPrimary(context));
             }
-            holder.<TextView>getView(R.id.tv_text).setTextColor(
-                    getResources().getColor(position == checkedPosition ?
-                            R.color._dialog_text_major_color : R.color._dialog_text_normal_color));
+            holder.<TextView>getView(R.id.tv_text).setTextColor(position == checkedPosition ? majorTextColor : normalTextColor);
         } else if (selectedPosition != -1) {
-            holder.<TextView>getView(R.id.tv_text).setTextColor(
-                    getResources().getColor(position == selectedPosition ?
-                            R.color._dialog_text_major_color : R.color._dialog_text_normal_color));
+            holder.<TextView>getView(R.id.tv_text).setTextColor(position == checkedPosition ? majorTextColor : normalTextColor);
         }
         if (position == (list.size() - 1)) {
             holder.getView(R.id._dialog_view_divider).setVisibility(View.INVISIBLE);
@@ -103,12 +106,6 @@ public class BottomListDialogFragment<T> extends BottomDialogFragment
             selectedPosition = position;
             recyclerView.notifyDataSetChanged();
         }
-    }
-
-    public int getColorPrimary(){
-        TypedValue typedValue = new TypedValue();
-        context.getTheme().resolveAttribute(R.attr.colorPrimary, typedValue, true);
-        return typedValue.data;
     }
 
     public BottomListDialogFragment<T> setTitle(String title) {

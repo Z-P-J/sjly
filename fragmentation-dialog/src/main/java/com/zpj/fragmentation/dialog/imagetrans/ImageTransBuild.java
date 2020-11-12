@@ -60,6 +60,7 @@ public class ImageTransBuild<T> {
     View inflateProgress(Context context, FrameLayout rootView) {
         if (progressViewGet != null) {
             View progress = progressViewGet.getProgress(context);
+            progress.setVisibility(View.VISIBLE);
             if (progress == null) return null;
             int width = ViewGroup.LayoutParams.WRAP_CONTENT;
             int height = ViewGroup.LayoutParams.WRAP_CONTENT;

@@ -7,6 +7,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.zpj.fragmentation.dialog.R;
+import com.zpj.fragmentation.dialog.utils.DialogThemeUtils;
 import com.zpj.widget.checkbox.SmoothCheckBox;
 
 /**
@@ -37,6 +38,7 @@ public class CheckDialogFragment extends AlertDialogFragment {
         checkBox = findViewById(R.id.check_box);
         checkBox.setChecked(isChecked);
         tvTitle = findViewById(R.id.check_title);
+        tvTitle.setTextColor(DialogThemeUtils.getMajorTextColor(context));
         tvTitle.setText(checkTitle);
         checkBox.setOnCheckedChangeListener(onCheckedChangeListener);
 

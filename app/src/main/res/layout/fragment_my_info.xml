@@ -5,7 +5,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/dark_gray_5"
+    android:background="?attr/backgroundColorAccent"
     >
 
     <include layout="@layout/layout_toolbar"/>
@@ -30,46 +30,41 @@
                     android:orientation="vertical"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@color/white"
+                    android:background="?attr/backgroundColor"
                     android:layout_marginTop="8dp"
                     >
 
                     <com.zpj.widget.setting.CommonSettingItem
+                        style="@style/simple_setting_item_style"
                         android:id="@+id/item_member_id"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
                         app:z_setting_titleText="用户ID"
                         app:z_setting_rightText="123456"
                         />
 
                     <com.zpj.widget.setting.CommonSettingItem
+                        style="@style/simple_setting_item_style"
                         android:id="@+id/item_nickname"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
                         app:z_setting_titleText="昵称"
                         app:z_setting_rightText="天蓝蓝的"
                         />
 
                     <com.zpj.widget.setting.CommonSettingItem
+                        style="@style/simple_setting_item_style"
                         android:id="@+id/item_level"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
                         app:z_setting_titleText="等级"
                         app:z_setting_rightText="Lv.100"
                         />
 
                     <com.zpj.shouji.market.ui.widget.IconSettingItem
+                        style="@style/simple_setting_item_style"
                         android:id="@+id/item_avatar"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
                         app:z_setting_titleText="头像"
                         app:z_setting_rightIcon="@mipmap/ic_launcher"
                         />
 
                     <com.zpj.shouji.market.ui.widget.IconSettingItem
+                        style="@style/simple_setting_item_style"
                         android:id="@+id/item_background"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
                         app:z_setting_titleText="主页背景"
                         app:z_setting_rightIcon="@drawable/bg_member_default"
                         />
@@ -80,38 +75,34 @@
                     android:orientation="vertical"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@color/white"
+                    android:background="?attr/backgroundColor"
                     android:layout_marginTop="8dp"
                     >
 
                     <com.zpj.widget.setting.CommonSettingItem
+                        style="@style/simple_setting_item_style"
                         android:id="@+id/item_qq"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
                         app:z_setting_titleText="绑定QQ"
                         app:z_setting_rightText="2571490256"
                         />
 
                     <com.zpj.widget.setting.CommonSettingItem
+                        style="@style/simple_setting_item_style"
                         android:id="@+id/item_wx"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
                         app:z_setting_titleText="绑定微信"
                         app:z_setting_rightText="xxxxxxxx"
                         />
 
                     <com.zpj.widget.setting.CommonSettingItem
+                        style="@style/simple_setting_item_style"
                         android:id="@+id/item_email"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
                         app:z_setting_titleText="绑定邮箱"
                         app:z_setting_rightText="2571490256@qq.com"
                         />
 
                     <com.zpj.widget.setting.CommonSettingItem
+                        style="@style/simple_setting_item_style"
                         android:id="@+id/item_password"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
                         app:z_setting_titleText="修改密码"
                         />
 

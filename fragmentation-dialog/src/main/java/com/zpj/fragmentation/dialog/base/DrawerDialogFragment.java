@@ -42,6 +42,10 @@ public abstract class DrawerDialogFragment extends BaseDialogFragment {
         View contentView = LayoutInflater.from(getContext()).inflate(getContentLayoutId(), drawerContentContainer, false);
         drawerContentContainer.addView(contentView);
 
+        if (bgDrawable != null) {
+            contentView.setBackground(bgDrawable);
+        }
+
 
         drawerLayout.enableShadow = enableShadow;
         drawerLayout.isCanClose = cancelableInTouchOutside;

@@ -1,0 +1,30 @@
+package com.zpj.shouji.market.ui.fragment.base;
+
+import android.view.LayoutInflater;
+
+import com.zpj.fragmentation.BaseFragment;
+import com.zpj.shouji.market.utils.ThemeUtils;
+import com.zxy.skin.sdk.SkinLayoutInflater;
+
+public abstract class SkinFragment extends BaseFragment {
+
+    protected void initStatusBar() {
+        ThemeUtils.initStatusBar(this);
+    }
+
+    @Override
+    public void onSupportVisible() {
+        super.onSupportVisible();
+        initStatusBar();
+    }
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        LayoutInflater layoutInflater = getLayoutInflater();
+        if(layoutInflater instanceof SkinLayoutInflater){
+            SkinLayoutInflater skinLayoutInflater = (SkinLayoutInflater) layoutInflater;
+            skinLayoutInflater.destory();
+        }
+    }
+}

@@ -41,6 +41,7 @@ import com.zpj.shouji.market.ui.fragment.detail.AppDetailFragment;
 import com.zpj.shouji.market.ui.fragment.dialog.CommonImageViewerDialogFragment2;
 import com.zpj.shouji.market.ui.widget.DownloadButton;
 import com.zpj.shouji.market.ui.widget.selection.SelectableTextView;
+import com.zpj.shouji.market.utils.ThemeUtils;
 import com.zpj.utils.ScreenUtils;
 import com.zpj.widget.statelayout.StateLayout;
 
@@ -99,8 +100,7 @@ public class ArticleDetailFragment extends BaseFragment {
     public void toolbarRightImageButton(@NonNull ImageButton imageButton) {
         imageButton.setOnClickListener(v -> {
             new AttachListDialogFragment<String>()
-                    .addItem("网页中打开")
-                    .addItem("收藏")
+                    .addItems("网页中打开", "收藏")
                     .setOnSelectListener((fragment, position, title) -> {
                         switch (position) {
                             case 0:

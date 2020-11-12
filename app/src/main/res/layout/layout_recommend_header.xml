@@ -18,7 +18,7 @@
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@drawable/bg_banner_header_placeholder"
+        android:background="?attr/backgroundBanner"
         />
 
     <LinearLayout
@@ -52,24 +52,26 @@
 <!--                android:visibility="gone"-->
 <!--                />-->
 
-            <com.geek.banner.Banner
-                android:id="@+id/banner2"
-                android:layout_width="match_parent"
-                android:layout_height="200dp"
-                android:layout_marginTop="10dp"
-                app:banner_auto_play="true"
-                app:banner_default_image="@drawable/bga_pp_ic_holder_light"
-                app:banner_expose_width="20dp"
-                app:banner_interval_time="5000"
-                app:banner_multi_anim="ScaleIn"
-                app:banner_page_spacing="14dp"
-                app:banner_scroll_time="1000"
-                app:banner_show_indicator="true"
-                app:indicator_default_drawable="@color/white"
-                app:indicator_select_drawable="@color/colorPrimary"
-                app:banner_show_model="MZ_EFFECT"
-                app:layout_scrollFlags="scroll"
-                />
+<!--            <com.geek.banner.Banner-->
+<!--                android:id="@+id/banner2"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="200dp"-->
+<!--                android:layout_marginTop="10dp"-->
+<!--                app:banner_auto_play="true"-->
+<!--                app:banner_default_image="@drawable/bga_pp_ic_holder_light"-->
+<!--                app:banner_expose_width="20dp"-->
+<!--                app:banner_interval_time="5000"-->
+<!--                app:banner_multi_anim="ScaleIn"-->
+<!--                app:banner_page_spacing="14dp"-->
+<!--                app:banner_scroll_time="1000"-->
+<!--                app:banner_show_indicator="true"-->
+<!--                app:indicator_default_drawable="@color/white"-->
+<!--                app:indicator_select_drawable="@color/colorPrimary"-->
+<!--                app:banner_show_model="MZ_EFFECT"-->
+<!--                app:layout_scrollFlags="scroll"-->
+<!--                />-->
+
+            <include layout="@layout/layout_banner"/>
 
             <!--            android:paddingBottom="50dp"-->
 
@@ -188,63 +190,39 @@
 <!--            app:showDividers="middle"-->
 
             <TextView
+                style="@style/tools_item_style"
+                android:textColor="?attr/textColorMajor"
                 android:id="@+id/tv_common_app"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
                 android:drawableTop="@drawable/ic_common_app"
                 android:drawablePadding="4dp"
-                android:gravity="center"
-                android:paddingVertical="16dp"
-                android:textSize="12sp"
-                android:textColor="@color/color_text_major"
                 android:text="常用"
-                android:background="?android:attr/selectableItemBackground"
                 />
 
             <TextView
+                style="@style/tools_item_style"
+                android:textColor="?attr/textColorMajor"
                 android:id="@+id/tv_recent_download"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
                 android:drawableTop="@drawable/ic_others_download"
                 android:drawablePadding="4dp"
-                android:gravity="center"
-                android:paddingVertical="16dp"
-                android:textSize="12sp"
-                android:textColor="@color/color_text_major"
                 android:text="看看"
-                android:background="?android:attr/selectableItemBackground"
                 />
 
             <TextView
+                style="@style/tools_item_style"
+                android:textColor="?attr/textColorMajor"
                 android:id="@+id/tv_subjects"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
                 android:drawableTop="@drawable/ic_app_topic"
                 android:drawablePadding="4dp"
-                android:gravity="center"
-                android:paddingVertical="16dp"
-                android:textSize="12sp"
-                android:textColor="@color/color_text_major"
                 android:text="专题"
-                android:background="?android:attr/selectableItemBackground"
                 />
 
             <TextView
+                style="@style/tools_item_style"
+                android:textColor="?attr/textColorMajor"
                 android:id="@+id/tv_collections"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
                 android:drawableTop="@drawable/ic_app_collection"
                 android:drawablePadding="4dp"
-                android:gravity="center"
-                android:paddingVertical="16dp"
-                android:textSize="12sp"
-                android:textColor="@color/color_text_major"
                 android:text="应用集"
-                android:background="?android:attr/selectableItemBackground"
                 />
 
         </android.support.v7.widget.LinearLayoutCompat>

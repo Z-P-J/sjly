@@ -24,6 +24,7 @@ import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.api.WallpaperApi;
 import com.zpj.shouji.market.event.StartFragmentEvent;
 import com.zpj.shouji.market.model.WallpaperTag;
+import com.zpj.shouji.market.ui.fragment.base.SkinFragment;
 import com.zpj.shouji.market.ui.fragment.profile.UserPickerFragment;
 import com.zpj.shouji.market.ui.widget.ActionPanel;
 import com.zpj.shouji.market.ui.widget.flowlayout.FlowLayout;
@@ -33,7 +34,7 @@ import com.zpj.utils.ScreenUtils;
 import java.io.File;
 import java.util.List;
 
-public class WallpaperShareFragment extends BaseFragment
+public class WallpaperShareFragment extends SkinFragment
         implements View.OnClickListener {
 
     private EditText etContent;
@@ -114,7 +115,6 @@ public class WallpaperShareFragment extends BaseFragment
     @Override
     public void onSupportVisible() {
         super.onSupportVisible();
-        darkStatusBar();
     }
 
     @Override
@@ -126,7 +126,6 @@ public class WallpaperShareFragment extends BaseFragment
     @Override
     public void onEnterAnimationEnd(Bundle savedInstanceState) {
         super.onEnterAnimationEnd(savedInstanceState);
-        darkStatusBar();
         showSoftInput(actionPanel.getEditor());
         initFlowLayout();
     }

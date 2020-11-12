@@ -32,6 +32,7 @@ import com.zpj.shouji.market.api.CommentApi;
 import com.zpj.shouji.market.event.StartFragmentEvent;
 import com.zpj.shouji.market.glide.GlideUtils;
 import com.zpj.shouji.market.ui.widget.flowlayout.FlowLayout;
+import com.zpj.shouji.market.utils.ThemeUtils;
 import com.zpj.utils.AppUtils;
 import com.zpj.utils.DeviceUtils;
 
@@ -222,6 +223,12 @@ public class FeedbackFragment extends BaseFragment {
 //            scrollView.setTranslationY(-height);
 //        });
 
+    }
+
+    @Override
+    public void onSupportVisible() {
+        super.onSupportVisible();
+        ThemeUtils.initStatusBar(this);
     }
 
     private void initNineGrid() {

@@ -18,7 +18,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/toolbar_title"
-            android:textColor="@color/color_text_major"
+            android:textColor="?attr/textColorMajor"
             android:layout_gravity="center_vertical"
             />
 
@@ -29,7 +29,7 @@
             android:src="@drawable/ic_clear_black_24dp"
             android:background="?attr/actionBarItemBackground"
             android:layout_gravity="end|center_vertical"
-            android:tint="@color/light_gray_10"
+            android:tint="?attr/textColorMinor"
             />
 
     </FrameLayout>

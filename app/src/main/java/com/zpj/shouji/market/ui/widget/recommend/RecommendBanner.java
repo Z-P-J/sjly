@@ -90,38 +90,6 @@ public class RecommendBanner extends LinearLayout implements View.OnClickListene
 
 
         ivBg = findViewById(R.id.iv_bg);
-//        mMZBanner = findViewById(R.id.banner);
-//        mMZBanner.setDelayedTime(5 * 1000);
-//        mMZBanner.setBannerPageClickListener(new MZBannerView.BannerPageClickListener() {
-//            @Override
-//            public void onPageClick(View view, int i) {
-//                AppDetailFragment.start(bannerItemList.get(i));
-//            }
-//        });
-//        mMZBanner.addPageChangeListener(new ViewPager.OnPageChangeListener() {
-//            @Override
-//            public void onPageScrolled(int i, float v, int i1) {
-//
-//            }
-//
-//            @Override
-//            public void onPageSelected(int i) {
-//                setBg(i);
-//            }
-//
-//            @Override
-//            public void onPageScrollStateChanged(int i) {
-//
-//            }
-//        });
-
-//        ViewGroup.LayoutParams params = mMZBanner.getLayoutParams();
-//        int screenWidth = ScreenUtils.getScreenWidth(context);
-//
-////        params.height = (int) ((float) screenWidth * screenWidth / ScreenUtils.getScreenHeight(context));
-//        params.height = (int) ((float) screenWidth / 2f);
-
-
 
         findViewById(R.id.tv_common_app).setOnClickListener(this);
         findViewById(R.id.tv_recent_download).setOnClickListener(this);
@@ -141,33 +109,6 @@ public class RecommendBanner extends LinearLayout implements View.OnClickListene
                     })
                     .subscribe();
         }
-//        HttpPreLoader.getInstance().setLoadListener(PreloadApi.HOME_BANNER, document -> {
-//            Elements elements = document.select("item");
-//            bannerItemList.clear();
-//            for (Element element : elements) {
-//                AppInfo info = AppInfo.parse(element);
-//                if (info == null) {
-//                    continue;
-//                }
-//                bannerItemList.add(info);
-//                if (bannerItemList.size() >= 8) {
-//                    break;
-//                }
-//            }
-//            if (!bannerItemList.isEmpty()) {
-//                setBg(0);
-//            }
-////            mMZBanner.setPages(bannerItemList, () -> bannerViewHolder);
-////
-////            mMZBanner.start();
-//
-//            banner.loadImagePaths(bannerItemList);
-//            banner.startAutoPlay();
-//            if (runnable != null) {
-//                runnable.run();
-//            }
-//
-//        });
     }
 
     private void onGetDoc(Document document, Runnable runnable) {

@@ -4,8 +4,9 @@
     android:id="@+id/fl_container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:alpha="0"
-    android:background="#ffffff"
     >
+
+<!--    android:alpha="1"-->
+<!--    android:background="?attr/backgroundColor"-->
 
 </FrameLayout>

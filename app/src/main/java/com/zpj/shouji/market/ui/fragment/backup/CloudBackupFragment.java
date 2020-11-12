@@ -26,6 +26,7 @@ import com.zpj.shouji.market.ui.fragment.ToolBarAppListFragment;
 import com.zpj.shouji.market.ui.fragment.base.NextUrlFragment;
 import com.zpj.shouji.market.ui.fragment.detail.AppDetailFragment;
 import com.zpj.shouji.market.ui.fragment.search.SearchResultFragment;
+import com.zpj.shouji.market.utils.ThemeUtils;
 import com.zpj.widget.statelayout.StateLayout;
 
 import org.greenrobot.eventbus.Subscribe;
@@ -47,6 +48,11 @@ public class CloudBackupFragment extends BaseFragment
 
     public static void start() {
         StartFragmentEvent.start(new CloudBackupFragment());
+    }
+
+    @Override
+    protected boolean supportSwipeBack() {
+        return true;
     }
 
     @Override
@@ -76,7 +82,6 @@ public class CloudBackupFragment extends BaseFragment
     @Override
     public void onLazyInitView(@Nullable Bundle savedInstanceState) {
         super.onLazyInitView(savedInstanceState);
-        darkStatusBar();
         getData();
     }
 
@@ -85,6 +90,8 @@ public class CloudBackupFragment extends BaseFragment
         super.onSupportVisible();
         if (isLazyInit()) {
             lightStatusBar();
+        } else {
+            ThemeUtils.initStatusBar(this);
         }
     }
 

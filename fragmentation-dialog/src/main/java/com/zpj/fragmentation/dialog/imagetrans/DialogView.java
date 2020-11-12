@@ -88,7 +88,7 @@ public class DialogView<T> extends FrameLayout implements OnTransformListener {
         build.imageList.set(now, url);
         ImageItemView itemView = mAdapter.getItemView(now);
         itemView.setUrl(url);
-        itemView.loadImage();
+        itemView.loadImage(true);
     }
 
     public int getCurrentItem() {

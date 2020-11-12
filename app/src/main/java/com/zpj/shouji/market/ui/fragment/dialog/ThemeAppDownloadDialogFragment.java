@@ -20,6 +20,7 @@ import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.api.HttpApi;
 import com.zpj.shouji.market.model.DiscoverInfo;
 import com.zpj.shouji.market.ui.widget.DownloadButton;
+import com.zpj.shouji.market.utils.ThemeUtils;
 import com.zpj.utils.ScreenUtils;
 import com.zpj.widget.statelayout.StateLayout;
 
@@ -55,6 +56,7 @@ public class ThemeAppDownloadDialogFragment extends BottomDialogFragment {
                 for (Element element : permissionList) {
                     TextView textView = new TextView(context);
                     textView.setText(element.text());
+                    textView.setTextColor(ThemeUtils.getTextColorNormal(context));
                     textView.setPadding(0, padding, 0, padding);
                     llContainer.addView(textView);
                 }

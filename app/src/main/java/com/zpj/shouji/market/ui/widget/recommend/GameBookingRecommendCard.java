@@ -60,21 +60,22 @@ public class GameBookingRecommendCard extends RecommendCard<BookingAppInfo> {
             @Override
             public Y_Divider getDivider(int itemPosition) {
                 Y_DividerBuilder builder;
+                int color = Color.TRANSPARENT;
                 if (itemPosition == 0) {
                     builder = new Y_DividerBuilder()
-                            .setLeftSideLine(true, Color.WHITE, 16, 0, 0)
-                            .setRightSideLine(true, Color.WHITE, 4, 0, 0);
+                            .setLeftSideLine(true, color, 16, 0, 0)
+                            .setRightSideLine(true, color, 4, 0, 0);
                 } else if (itemPosition == list.size() - 1) {
                     builder = new Y_DividerBuilder()
-                            .setRightSideLine(true, Color.WHITE, 16, 0, 0)
-                            .setLeftSideLine(true, Color.WHITE, 4, 0, 0);
+                            .setRightSideLine(true, color, 16, 0, 0)
+                            .setLeftSideLine(true, color, 4, 0, 0);
                 } else {
                     builder = new Y_DividerBuilder()
-                            .setLeftSideLine(true, Color.WHITE, 4, 0, 0)
-                            .setRightSideLine(true, Color.WHITE, 4, 0, 0);
+                            .setLeftSideLine(true, color, 4, 0, 0)
+                            .setRightSideLine(true, color, 4, 0, 0);
                 }
-                return builder.setTopSideLine(true, Color.WHITE, 8, 0, 0)
-                        .setBottomSideLine(true, Color.WHITE, 8, 0, 0)
+                return builder.setTopSideLine(true, color, 8, 0, 0)
+                        .setBottomSideLine(true, color, 8, 0, 0)
                         .create();
             }
         });

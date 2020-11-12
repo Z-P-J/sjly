@@ -13,7 +13,9 @@ import com.zpj.fragmentation.BaseFragment;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.event.StartFragmentEvent;
 import com.zpj.shouji.market.ui.adapter.FragmentsPagerAdapter;
+import com.zpj.shouji.market.ui.fragment.base.SkinFragment;
 import com.zpj.shouji.market.ui.widget.ZViewPager;
+import com.zpj.shouji.market.utils.ThemeUtils;
 import com.zpj.widget.toolbar.ZSearchBar;
 
 import org.greenrobot.eventbus.EventBus;
@@ -21,7 +23,7 @@ import org.greenrobot.eventbus.EventBus;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SearchFragment extends BaseFragment {
+public class SearchFragment extends SkinFragment {
 
     static class SearchEvent {
         String keyword;
@@ -137,7 +139,6 @@ public class SearchFragment extends BaseFragment {
     @Override
     public void onSupportVisible() {
         super.onSupportVisible();
-        darkStatusBar();
     }
 
     @Override

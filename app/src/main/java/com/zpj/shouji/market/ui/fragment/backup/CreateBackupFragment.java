@@ -20,6 +20,7 @@ import com.zpj.shouji.market.event.RefreshEvent;
 import com.zpj.shouji.market.event.StartFragmentEvent;
 import com.zpj.shouji.market.model.InstalledAppInfo;
 import com.zpj.shouji.market.ui.fragment.manager.AppPickerFragment;
+import com.zpj.shouji.market.utils.ThemeUtils;
 import com.zpj.utils.DeviceUtils;
 
 import java.util.ArrayList;
@@ -126,9 +127,14 @@ public class CreateBackupFragment extends BaseFragment {
     }
 
     @Override
+    public void onSupportVisible() {
+        super.onSupportVisible();
+        ThemeUtils.initStatusBar(this);
+    }
+
+    @Override
     public void onEnterAnimationEnd(Bundle savedInstanceState) {
         super.onEnterAnimationEnd(savedInstanceState);
-        darkStatusBar();
         showSoftInput(etTitle);
     }
 

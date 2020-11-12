@@ -1,8 +1,11 @@
 package com.zpj.shouji.market.ui.fragment.homepage;
 
+import android.app.Activity;
+import android.content.Context;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
 import android.support.v4.widget.NestedScrollView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -10,13 +13,15 @@ import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.felix.atoast.library.AToast;
 import com.zpj.fragmentation.BaseFragment;
+import com.zpj.fragmentation.anim.DefaultNoAnimator;
+import com.zpj.fragmentation.anim.FragmentAnimator;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.event.ColorChangeEvent;
-import com.zpj.shouji.market.event.InitialedEvent;
 import com.zpj.shouji.market.event.MainActionPopupEvent;
+import com.zpj.shouji.market.event.ScrollChangeEvent;
 import com.zpj.shouji.market.event.ToolbarColorChangeEvent;
+import com.zpj.shouji.market.ui.fragment.base.SkinFragment;
 import com.zpj.shouji.market.ui.widget.SmartNestedScrollView;
 import com.zpj.shouji.market.ui.widget.recommend.CollectionRecommendCard;
 import com.zpj.shouji.market.ui.widget.recommend.GameRecommendCard;
@@ -26,32 +31,31 @@ import com.zpj.shouji.market.ui.widget.recommend.RecommendCard;
 import com.zpj.shouji.market.ui.widget.recommend.SoftRecommendCard;
 import com.zpj.shouji.market.ui.widget.recommend.SubjectRecommendCard;
 import com.zpj.shouji.market.ui.widget.recommend.UpdateRecommendCard;
-import com.zpj.utils.ColorUtils;
 import com.zpj.utils.ScreenUtils;
 import com.zpj.widget.statelayout.StateLayout;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
-import java.util.ArrayDeque;
-import java.util.ArrayList;
 import java.util.LinkedList;
-import java.util.List;
 import java.util.Queue;
 
-public class RecommendFragment2 extends BaseFragment
+public class RecommendFragment2 extends SkinFragment
         implements NestedScrollView.OnScrollChangeListener,
         SmartNestedScrollView.ISmartScrollChangedListener {
 
-    private static final String TAG = "RecommendFragment";
+    private static final String TAG = "RecommendFragment22";
 
     protected final Queue<RecommendCard> recommendCardList = new LinkedList<>();
 
     private StateLayout stateLayout;
+    private SmartNestedScrollView scrollView;
     private LinearLayout llContainer;
     private RecommendBanner mBanner;
 
     private View loadingFooter;
+
+    private boolean isBannerLoaded = false;
 
 //    private boolean hasLoading;
 
@@ -61,15 +65,20 @@ public class RecommendFragment2 extends BaseFragment
     }
 
     @Override
+    public FragmentAnimator onCreateFragmentAnimator() {
+        return new DefaultNoAnimator();
+    }
+
+    @Override
     protected void initView(View view, @Nullable Bundle savedInstanceState) {
-        loadingFooter = LayoutInflater.from(context).inflate(R.layout.easy_base_footer, null, false);
+        loadingFooter = LayoutInflater.from(context).inflate(R.layout.item_footer_home, null, false);
 
         stateLayout = findViewById(R.id.state_layout);
         stateLayout.showLoadingView();
 
 //        mBanner = view.findViewById(R.id.rb_banner);
         llContainer = findViewById(R.id.ll_container);
-        SmartNestedScrollView scrollView = view.findViewById(R.id.scroll_view);
+        scrollView = view.findViewById(R.id.scroll_view);
         scrollView.setScanScrollChangedListener(this);
         scrollView.setOnScrollChangeListener(this);
 
@@ -77,11 +86,21 @@ public class RecommendFragment2 extends BaseFragment
         mBanner.loadData(new Runnable() {
             @Override
             public void run() {
+                isBannerLoaded = true;
                 stateLayout.showContentView();
                 ColorChangeEvent.post(true);
+                ScrollChangeEvent.post(scrollView.isScrolledToTop() ? 0 : 1);
             }
         });
         llContainer.addView(mBanner);
+
+//        postOnEnterAnimationEnd(new Runnable() {
+//            @Override
+//            public void run() {
+//                stateLayout.showContentView();
+//                ColorChangeEvent.post(true);
+//            }
+//        });
 
         llContainer.addView(loadingFooter);
 
@@ -94,24 +113,43 @@ public class RecommendFragment2 extends BaseFragment
 
         onScrolledToBottom();
 
+//        stateLayout.showContentView();
+
     }
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EventBus.getDefault().register(this);
+        Log.d(TAG, "onCreate");
     }
 
     @Override
     public void onDestroy() {
-        super.onDestroy();
+        Log.d(TAG, "onDestroy");
         EventBus.getDefault().unregister(this);
+        super.onDestroy();
     }
 
     @Override
     public void onSupportVisible() {
-//        super.onSupportVisible();
+        Log.d(TAG, "onSupportVisible");
+        super.onSupportVisible();
+//        postDelayed(new Runnable() {
+//            @Override
+//            public void run() {
+//                llContainer.setFocusable(true);
+//                llContainer.setFocusableInTouchMode(true);
+//            }
+//        }, 2000);
 //        lightStatusBar();
+        if (isBannerLoaded) {
+            if (scrollView != null) {
+                ScrollChangeEvent.post(scrollView.isScrolledToTop() ? 0 : 1);
+            } else {
+                ScrollChangeEvent.post(0);
+            }
+        }
         if (mBanner != null) {
             mBanner.onResume();
         }
@@ -119,7 +157,10 @@ public class RecommendFragment2 extends BaseFragment
 
     @Override
     public void onSupportInvisible() {
-//        super.onSupportInvisible();
+        Log.d(TAG, "onSupportInvisible");
+        super.onSupportInvisible();
+//        llContainer.setFocusable(false);
+//        llContainer.setFocusableInTouchMode(false);
 //        darkStatusBar();
         if (mBanner != null) {
             mBanner.onPause();
@@ -127,7 +168,13 @@ public class RecommendFragment2 extends BaseFragment
     }
 
     @Override
+    protected void initStatusBar() {
+
+    }
+
+    @Override
     public void onResume() {
+        Log.d(TAG, "onResume");
         super.onResume();
         if (mBanner != null) {
             mBanner.onResume();
@@ -136,6 +183,7 @@ public class RecommendFragment2 extends BaseFragment
 
     @Override
     public void onPause() {
+        Log.d(TAG, "onPause");
         super.onPause();
         if (mBanner != null) {
             mBanner.onPause();
@@ -144,34 +192,60 @@ public class RecommendFragment2 extends BaseFragment
 
     @Override
     public void onStop() {
+        Log.d(TAG, "onStop");
         super.onStop();
         if (mBanner != null) {
             mBanner.onStop();
         }
     }
 
-//    @Subscribe
-//    public void onInitialedEvent(InitialedEvent event) {
-//        mBanner = new RecommendBanner(context);
-//        mBanner.loadData(new Runnable() {
-//            @Override
-//            public void run() {
-//                stateLayout.showContentView();
-//            }
-//        });
-//        llContainer.addView(mBanner);
-//
-//        llContainer.addView(loadingFooter);
-//
-//        recommendCardList.add(new UpdateRecommendCard(context));
-//        recommendCardList.add(new CollectionRecommendCard(context));
-//        recommendCardList.add(new SoftRecommendCard(context));
-//        recommendCardList.add(new GameRecommendCard(context));
-//        recommendCardList.add(new SubjectRecommendCard(context));
-//        recommendCardList.add(new GuessYouLikeRecommendCard(context));
-//
-//        onScrolledToBottom();
-//    }
+    @Override
+    public void onDetach() {
+        Log.d(TAG, "onDetach");
+        super.onDetach();
+    }
+
+    @Override
+    public void onStart() {
+        Log.d(TAG, "onStart");
+        super.onStart();
+    }
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        Log.d(TAG, "onAttach context");
+    }
+
+    @Override
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+        Log.d(TAG, "onAttach activity");
+    }
+
+    @Override
+    public void onEnterAnimationEnd(Bundle savedInstanceState) {
+        super.onEnterAnimationEnd(savedInstanceState);
+        Log.d(TAG, "onEnterAnimationEnd");
+    }
+
+    @Override
+    public void onLazyInitView(@Nullable Bundle savedInstanceState) {
+        Log.d(TAG, "onLazyInitView");
+        super.onLazyInitView(savedInstanceState);
+    }
+
+    @Override
+    public void onAttachFragment(Fragment childFragment) {
+        Log.d(TAG, "onAttachFragment");
+        super.onAttachFragment(childFragment);
+    }
+
+    @Override
+    public void onHiddenChanged(boolean hidden) {
+        super.onHiddenChanged(hidden);
+        Log.d(TAG, "onHiddenChanged hidden=" + hidden);
+    }
 
     @Subscribe
     public void onMainActionPopupEvent(MainActionPopupEvent event) {
@@ -197,12 +271,13 @@ public class RecommendFragment2 extends BaseFragment
             float alpha = 1f * scrollY / h;
             Log.d(TAG, "alpha=" + alpha);
             alpha = Math.min(alpha, 1f);
-            int color = ColorUtils.alphaColor(Color.WHITE, alpha * 0.95f);
-//                    boolean isDark = android.support.v4.graphics.ColorUtils.calculateLuminance(color) <= 0.5;
-//                    Log.d(TAG, "isDark=" + isDark);
-            ToolbarColorChangeEvent.post(color, alpha >= 0.5);
-
-            ColorChangeEvent.post(alpha < 0.5f);
+            ScrollChangeEvent.post(alpha);
+//            int color = ColorUtils.alphaColor(Color.WHITE, alpha * 0.95f);
+////                    boolean isDark = android.support.v4.graphics.ColorUtils.calculateLuminance(color) <= 0.5;
+////                    Log.d(TAG, "isDark=" + isDark);
+//            ToolbarColorChangeEvent.post(color, alpha >= 0.5);
+//
+//            ColorChangeEvent.post(alpha < 0.5f);
             if (mBanner != null) {
                 if (alpha < 0.5) {
                     mBanner.onResume();
@@ -211,7 +286,8 @@ public class RecommendFragment2 extends BaseFragment
                 }
             }
         } else {
-            ColorChangeEvent.post(false);
+            ScrollChangeEvent.post(1f);
+//            ColorChangeEvent.post(false);
             if (mBanner != null) {
                 mBanner.onPause();
             }
@@ -236,8 +312,9 @@ public class RecommendFragment2 extends BaseFragment
 
     @Override
     public void onScrolledToTop() {
-        ToolbarColorChangeEvent.post(Color.TRANSPARENT, false);
-        ColorChangeEvent.post(true);
+//        ToolbarColorChangeEvent.post(Color.TRANSPARENT, false);
+//        ColorChangeEvent.post(true);
+        ScrollChangeEvent.post(0f);
         if (mBanner != null) {
             mBanner.onResume();
         }

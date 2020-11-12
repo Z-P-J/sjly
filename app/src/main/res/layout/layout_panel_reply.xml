@@ -5,8 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:background="@android:color/white">
+    android:layout_height="wrap_content">
 
     <com.zpj.shouji.market.ui.widget.MaxHeightLayout
         android:id="@+id/layout_max_height"
@@ -32,7 +31,8 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
                     android:background="@drawable/grey_shape"
-                    android:textColor="@color/color_text_major"
+                    android:textColor="?attr/textColorMajor"
+                    android:textColorHint="?attr/textColorMinor"
                     android:inputType="textMultiLine"
                     android:gravity="start"
                     android:hint="说点什么吧..."
@@ -87,7 +87,7 @@
                             android:maxLines="1"
                             android:ellipsize="end"
                             android:text="文件夹"
-                            android:textColor="@color/color_text_major" />
+                            android:textColor="?attr/textColorMajor" />
 
                         <TextView
                             android:id="@+id/tv_info"
@@ -99,7 +99,7 @@
                             android:text="文件： 文件夹："
                             android:paddingTop="1dp"
                             android:paddingBottom="1dp"
-                            android:textColor="@color/color_text_normal"
+                            android:textColor="?attr/textColorNormal"
                             android:textSize="12sp" />
 
                         <TextView
@@ -112,7 +112,7 @@
                             android:text="上传apk文件"
                             android:paddingTop="1dp"
                             android:paddingBottom="1dp"
-                            android:textColor="@android:color/darker_gray"
+                            android:textColor="?attr/textColorMinor"
                             android:textSize="12sp"
                             />
 

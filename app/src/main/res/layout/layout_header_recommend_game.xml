@@ -8,63 +8,39 @@
     >
 
     <TextView
+        style="@style/tools_item_style"
+        android:textColor="?attr/textColorMajor"
         android:id="@+id/tv_booking"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
         android:drawableTop="@drawable/ic_app_collection"
         android:drawablePadding="4dp"
-        android:gravity="center"
-        android:paddingVertical="8dp"
-        android:textSize="12sp"
-        android:textColor="@color/color_text_major"
         android:text="预约"
-        android:background="?android:attr/selectableItemBackground"
         />
 
     <TextView
+        style="@style/tools_item_style"
+        android:textColor="?attr/textColorMajor"
         android:id="@+id/tv_handpick"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
         android:drawableTop="@drawable/ic_common_app"
         android:drawablePadding="4dp"
-        android:gravity="center"
-        android:paddingVertical="8dp"
-        android:textSize="12sp"
-        android:textColor="@color/color_text_major"
         android:text="精选"
-        android:background="?android:attr/selectableItemBackground"
         />
 
     <TextView
+        style="@style/tools_item_style"
+        android:textColor="?attr/textColorMajor"
         android:id="@+id/tv_rank"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
         android:drawableTop="@drawable/ic_others_download"
         android:drawablePadding="4dp"
-        android:gravity="center"
-        android:paddingVertical="8dp"
-        android:textSize="12sp"
-        android:textColor="@color/color_text_major"
         android:text="排行"
-        android:background="?android:attr/selectableItemBackground"
         />
 
     <TextView
+        style="@style/tools_item_style"
+        android:textColor="?attr/textColorMajor"
         android:id="@+id/tv_classification"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
         android:drawableTop="@drawable/ic_app_topic"
         android:drawablePadding="4dp"
-        android:gravity="center"
-        android:paddingVertical="8dp"
-        android:textSize="12sp"
-        android:textColor="@color/color_text_major"
         android:text="分类"
-        android:background="?android:attr/selectableItemBackground"
         />
 
 </LinearLayout>

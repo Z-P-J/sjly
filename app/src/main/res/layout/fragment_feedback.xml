@@ -4,7 +4,7 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white">
+    android:background="?attr/backgroundColor">
 
     <include layout="@layout/layout_toolbar"/>
 
@@ -65,7 +65,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="start"
-                    android:textColor="@color/color_text_major"
+                    android:textColor="?attr/textColorMajor"
+                    android:textColorHint="?attr/textColorMinor"
                     android:inputType="textMultiLine"
                     android:minLines="4"
                     android:hint="请详细写下您遇到的问题或建议，我们将第一时间进行处理。"

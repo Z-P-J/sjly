@@ -21,6 +21,7 @@ import com.zpj.shouji.market.ui.fragment.dialog.NicknameModifiedDialogFragment;
 import com.zpj.shouji.market.ui.fragment.dialog.PasswordModifiedDialogFragment;
 import com.zpj.shouji.market.ui.widget.IconSettingItem;
 import com.zpj.shouji.market.utils.PictureUtil;
+import com.zpj.shouji.market.utils.ThemeUtils;
 import com.zpj.shouji.market.utils.UploadUtils;
 import com.zpj.widget.setting.CommonSettingItem;
 import com.zpj.widget.setting.OnCommonItemClickListener;
@@ -125,6 +126,12 @@ public class MyInfoFragment extends BaseFragment implements OnCommonItemClickLis
             emailItem.setRightText(email);
         }
 
+    }
+
+    @Override
+    public void onSupportVisible() {
+        super.onSupportVisible();
+        ThemeUtils.initStatusBar(this);
     }
 
     @Override

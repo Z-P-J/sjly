@@ -36,6 +36,7 @@ import com.zpj.shouji.market.ui.fragment.profile.ProfileFragment;
 import com.zpj.shouji.market.ui.widget.DrawableTintTextView;
 import com.zpj.shouji.market.ui.widget.emoji.EmojiExpandableTextView;
 import com.zpj.shouji.market.utils.MagicIndicatorHelper;
+import com.zpj.shouji.market.utils.ThemeUtils;
 import com.zpj.widget.statelayout.StateLayout;
 
 import net.lucode.hackware.magicindicator.MagicIndicator;
@@ -104,7 +105,7 @@ public class CollectionDetailFragment extends BaseFragment
         if (isLazyInit()) {
             lightStatusBar();
         } else {
-            darkStatusBar();
+            ThemeUtils.initStatusBar(this);
         }
     }
 

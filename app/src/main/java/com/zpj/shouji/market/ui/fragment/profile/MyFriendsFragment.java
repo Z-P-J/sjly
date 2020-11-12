@@ -17,6 +17,7 @@ import com.zpj.shouji.market.model.UserInfo;
 import com.zpj.shouji.market.ui.adapter.FragmentsPagerAdapter;
 import com.zpj.shouji.market.ui.fragment.UserListFragment;
 import com.zpj.shouji.market.utils.MagicIndicatorHelper;
+import com.zpj.shouji.market.utils.ThemeUtils;
 
 import net.lucode.hackware.magicindicator.MagicIndicator;
 
@@ -88,7 +89,7 @@ public class MyFriendsFragment extends BaseFragment {
     public void onSupportVisible() {
         super.onSupportVisible();
         if (showToolbar) {
-            darkStatusBar();
+            ThemeUtils.initStatusBar(this);
         }
     }
 

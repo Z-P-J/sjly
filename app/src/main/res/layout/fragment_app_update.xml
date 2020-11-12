@@ -4,7 +4,7 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
+    android:background="?attr/backgroundColor"
     >
 
     <include layout="@layout/layout_toolbar"
@@ -16,7 +16,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="5dp"
-        android:background="#fff"
         android:layout_below="@+id/tool_bar"
         >
 
@@ -27,6 +26,7 @@
             android:padding="5dp"
             android:text="8款应用可更新"
             android:layout_centerVertical="true"
+            android:textColor="?attr/textColorNormal"
             />
 
         <TextView

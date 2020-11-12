@@ -124,6 +124,8 @@ public class ImageViewerDialogFragment2<T> extends FullScreenDialogFragment {
                 public View getProgress(Context context) {
                     ProgressBar progressBar = new ProgressBar(context);
                     progressBar.setMax(100);
+//                    int size = ScreenUtils.dp2pxInt(context, 48);
+//                    progressBar.setLayoutParams(new ViewGroup.LayoutParams(size, size));
                     return progressBar;
                 }
 

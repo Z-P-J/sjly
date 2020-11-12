@@ -5,8 +5,10 @@ import android.support.annotation.Nullable;
 import android.view.View;
 
 import com.zpj.shouji.market.R;
+import com.zpj.shouji.market.constant.AppConfig;
 import com.zpj.shouji.market.constant.Keys;
 import com.zpj.shouji.market.event.StartFragmentEvent;
+import com.zpj.shouji.market.utils.ThemeUtils;
 
 public class SubjectRecommendListFragment extends SubjectListFragment {
 
@@ -26,7 +28,7 @@ public class SubjectRecommendListFragment extends SubjectListFragment {
     @Override
     public void onSupportVisible() {
         super.onSupportVisible();
-        darkStatusBar();
+        ThemeUtils.initStatusBar(this);
     }
 
     @Override

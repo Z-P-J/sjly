@@ -1,5 +1,4 @@
 include ':app',
-//        ':zwidget',
         ':zdownloader',
         ':iconcountview',
 //        ':richeditor',
@@ -13,4 +12,4 @@ include ':app',
         ':fragmentation-dialog',
         ':fragmentation-matisse',
         ':fragmentation-ucrop',
-        ':installerlibrary'
+        ':chameleon'

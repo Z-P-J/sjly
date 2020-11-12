@@ -1,15 +1,22 @@
 package com.zpj.shouji.market.ui.fragment;
 
+import android.graphics.Bitmap;
+import android.graphics.Color;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.design.widget.FloatingActionButton;
+import android.util.Log;
 import android.view.View;
 
+import com.zpj.blur.ZBlurry;
 import com.zpj.fragmentation.BaseFragment;
 import com.zpj.fragmentation.SupportFragment;
 import com.zpj.shouji.market.R;
+import com.zpj.shouji.market.constant.AppConfig;
 import com.zpj.shouji.market.event.GetMainFragmentEvent;
 import com.zpj.shouji.market.event.MainActionPopupEvent;
+import com.zpj.shouji.market.event.SkinChangeEvent;
 import com.zpj.shouji.market.manager.UserManager;
 import com.zpj.shouji.market.model.MessageInfo;
 import com.zpj.shouji.market.ui.adapter.FragmentsPagerAdapter;
@@ -19,21 +26,28 @@ import com.zpj.shouji.market.ui.fragment.homepage.HomeFragment;
 import com.zpj.shouji.market.ui.fragment.profile.MyFragment;
 import com.zpj.shouji.market.ui.fragment.recommond.GameRecommendFragment2;
 import com.zpj.shouji.market.ui.fragment.recommond.SoftRecommendFragment2;
-import com.zpj.shouji.market.ui.widget.BottomBar;
-import com.zpj.shouji.market.ui.widget.BottomBarTab;
 import com.zpj.shouji.market.ui.widget.ZViewPager;
+import com.zpj.shouji.market.ui.widget.navigation.BottomBar;
+import com.zpj.shouji.market.ui.widget.navigation.BottomBarTab;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
+
+import io.reactivex.Observable;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.schedulers.Schedulers;
 
 public class MainFragment extends BaseFragment {
 
     private final List<BaseFragment> fragments = new ArrayList<>();
     private ZViewPager viewPager;
     private BottomBar mBottomBar;
+
+    private ZBlurry blurred;
 
     public static class FirstFragment extends BaseContainerFragment {
 
@@ -117,6 +131,8 @@ public class MainFragment extends BaseFragment {
     @Override
     protected void initView(View view, @Nullable Bundle savedInstanceState) {
 
+        view.setAlpha(0);
+
 //        HomeFragment homeFragment = findChildFragment(HomeFragment.class);
 //        if (homeFragment == null) {
 //            homeFragment = new HomeFragment();
@@ -132,6 +148,7 @@ public class MainFragment extends BaseFragment {
 //            game = new GameRecommendFragment2();
 //        }
 //
+
         MyFragment profileFragment = findChildFragment(MyFragment.class);
         if (profileFragment == null) {
             profileFragment = new MyFragment();
@@ -167,7 +184,31 @@ public class MainFragment extends BaseFragment {
 
         mBottomBar = view.findViewById(R.id.bottom_bar);
 
+        blurred = ZBlurry.with(findViewById(R.id.fl_blur))
+//                .fitIntoViewXY(false)
+//                .antiAlias(true)
+                .foregroundColor(Color.parseColor(AppConfig.isNightMode() ? "#a0000000" : "#a0ffffff"))
+                .scale(0.1f)
+                .radius(20)
+//                .maxFps(40)
+                .blur(mBottomBar, new ZBlurry.Callback() {
+                    @Override
+                    public void down(Bitmap bitmap) {
+                        Log.d("MainFragment", "bitmap=" + bitmap);
+                        Drawable drawable = new BitmapDrawable(bitmap);
+                        mBottomBar.setBackground(drawable);
+                    }
+                });
+        blurred.pauseBlur();
+
         BottomBarTab emptyTab = new BottomBarTab(context);
+        emptyTab.setOnClickListener(v -> {
+            MainActionPopupEvent.post(true);
+            new MainActionDialogFragment()
+                    .setOnDismissListener(() -> MainActionPopupEvent.post(false))
+                    .show(context);
+        });
+
         mBottomBar.addItem(BottomBarTab.build(context, "主页", R.drawable.ic_home_normal, R.drawable.ic_home_checked))
                 .addItem(BottomBarTab.build(context, "应用", R.drawable.ic_software_normal, R.drawable.ic_software_checked))
                 .addItem(emptyTab)
@@ -199,32 +240,11 @@ public class MainFragment extends BaseFragment {
             }
         });
 
-
         viewPager = view.findViewById(R.id.vp);
 //        viewPager.setScrollerSpeed(500);
         viewPager.setCanScroll(false);
 
         viewPager.setOffscreenPageLimit(fragments.size());
-        FragmentsPagerAdapter adapter = new FragmentsPagerAdapter(getChildFragmentManager(), fragments, null);
-        viewPager.setAdapter(adapter);
-
-
-        emptyTab.setOnClickListener(v -> {
-//            postDelayed(this::darkStatusBar, 300);
-            MainActionPopupEvent.post(true);
-            new MainActionDialogFragment()
-                    .setOnDismissListener(() -> MainActionPopupEvent.post(false))
-                    .show(context);
-//            MainActionPopup.with(context)
-//                    .setOnDismissListener(() -> {
-//                        MainActionPopupEvent.post(false);
-////                        lightStatusBar();
-////                        fragments.get(viewPager.getCurrentItem()).onSupportVisible();
-//                    })
-//                    .show();
-        });
-
-        mBottomBar.setCurrentItem(0);
 
     }
 
@@ -236,16 +256,35 @@ public class MainFragment extends BaseFragment {
 
     @Override
     public void onSupportVisible() {
+        super.onSupportVisible();
+        if (blurred != null) {
+            blurred.startBlur();
+        }
 //        if (viewPager != null && !fragments.isEmpty()) {
 //            fragments.get(viewPager.getCurrentItem()).onSupportVisible();
-//        } else {
-//            darkStatusBar();
 //        }
+    }
 
-        if (viewPager != null && !fragments.isEmpty()) {
-            fragments.get(viewPager.getCurrentItem()).onSupportVisible();
+    @Override
+    public void onSupportInvisible() {
+        super.onSupportInvisible();
+        if (blurred != null) {
+            blurred.pauseBlur();
         }
     }
+
+//    @Override
+//    public void onSupportVisible() {
+////        if (viewPager != null && !fragments.isEmpty()) {
+////            fragments.get(viewPager.getCurrentItem()).onSupportVisible();
+////        } else {
+////            darkStatusBar();
+////        }
+//
+//        if (viewPager != null && !fragments.isEmpty()) {
+//            fragments.get(viewPager.getCurrentItem()).onSupportVisible();
+//        }
+//    }
 //
 //    @Override
 //    public void onSupportInvisible() {
@@ -255,6 +294,47 @@ public class MainFragment extends BaseFragment {
 //            darkStatusBar();
 //        }
 //    }
+
+    public void animatedToShow() {
+        postOnEnterAnimationEnd(new Runnable() {
+            @Override
+            public void run() {
+                FragmentsPagerAdapter adapter = new FragmentsPagerAdapter(getChildFragmentManager(), fragments, null);
+                viewPager.setAdapter(adapter);
+
+                mBottomBar.setCurrentItem(0);
+
+//                view.setAlpha(1);
+                if (AppConfig.isShowSplash()) {
+                    Observable.timer(1000, TimeUnit.MILLISECONDS)
+                            .subscribeOn(Schedulers.io())
+                            .observeOn(AndroidSchedulers.mainThread())
+                            .doOnComplete(() -> {
+                                view.setAlpha(1);
+//                                view.animate()
+//                                        .setDuration(500)
+//                                        .alpha(1)
+//                                        .start();
+                            })
+                            .subscribe();
+                } else {
+                    view.animate()
+                            .setDuration(500)
+                            .alpha(1)
+                            .start();
+                }
+
+            }
+        });
+    }
+
+    @Subscribe
+    public void onSkinChangeEvent(SkinChangeEvent info) {
+        if (blurred != null) {
+            blurred.foregroundColor(Color.parseColor(AppConfig.isNightMode() ? "#a0000000" : "#a0ffffff"));
+            blurred.startBlur();
+        }
+    }
 
     @Subscribe
     public void onUpdateMessageInfoEvent(MessageInfo info) {

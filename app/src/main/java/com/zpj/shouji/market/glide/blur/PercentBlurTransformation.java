@@ -5,10 +5,9 @@ import android.support.annotation.NonNull;
 
 import com.bumptech.glide.load.engine.bitmap_recycle.BitmapPool;
 import com.bumptech.glide.load.resource.bitmap.BitmapTransformation;
+import com.zpj.blur.ZBlurry;
 
 import java.security.MessageDigest;
-
-import per.goweii.burred.Blurred;
 
 public class PercentBlurTransformation extends BitmapTransformation {
 
@@ -38,7 +37,7 @@ public class PercentBlurTransformation extends BitmapTransformation {
 //        int width = toTransform.getWidth();
 //        int height = toTransform.getHeight();
 //        toTransform = Bitmap.createBitmap(toTransform, width / 4, height / 4, width / 2, height / 2);
-        return Blurred.with(toTransform)
+        return ZBlurry.with(toTransform)
                 .percent(percent)
                 .scale(scale)
                 .blur();

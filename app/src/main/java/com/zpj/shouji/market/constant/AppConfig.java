@@ -10,6 +10,8 @@ public final class AppConfig {
     private static final String DEFAULT_DOWNLOAD_PATH = Environment.getExternalStorageDirectory()
             .getAbsolutePath() + "/sjly/ProDownload/";
 
+    private static final String KEY_NIGHT_MODE = "is_night_mode";
+
     private static final String KEY_AUTO_SAVE_TRAFFIC = "auto_save_traffic";
     private static final String KEY_SHOW_ORIGINAL_IMAGE = "show_original_image";
     private static final String KEY_COMPRESS_UPLOAD_IMAGE = "compress_upload_image";
@@ -27,6 +29,14 @@ public final class AppConfig {
 
     private AppConfig() {
 
+    }
+
+    public static boolean isNightMode() {
+        return PrefsHelper.with().getBoolean(KEY_NIGHT_MODE, false);
+    }
+
+    public static void toggleThemeMode() {
+        PrefsHelper.with().putBoolean(KEY_NIGHT_MODE, !isNightMode());
     }
 
     public static void setAutoSaveTraffic(boolean value) {

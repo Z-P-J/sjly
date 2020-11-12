@@ -5,7 +5,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
+    android:background="?attr/backgroundColor"
     >
 
     <include layout="@layout/layout_toolbar"/>
@@ -41,23 +41,20 @@
                     />
 
                 <com.zpj.widget.setting.SwitchSettingItem
+                    style="@style/simple_setting_item_style"
                     android:id="@+id/item_show_start_page"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
                     app:z_setting_titleText="显示启动页"
                     />
 
                 <com.zpj.widget.setting.SwitchSettingItem
+                    style="@style/simple_setting_item_style"
                     android:id="@+id/item_show_update_notification"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
                     app:z_setting_titleText="通知栏显示可更新应用数"
                     />
 
                 <com.zpj.widget.setting.CommonSettingItem
+                    style="@style/simple_setting_item_style"
                     android:id="@+id/item_brightness_control"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
                     app:z_setting_titleText="亮度调节"
                     app:z_setting_infoText="调节应用内亮度"
                     />
@@ -84,17 +81,15 @@
 <!--                    />-->
 
                 <com.zpj.widget.setting.SwitchSettingItem
+                    style="@style/simple_setting_item_style"
                     android:id="@+id/item_show_original_image"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
                     app:z_setting_titleText="自动显示原图"
                     app:z_setting_infoText="WIFI环境下将自动显示原图"
                     />
 
                 <com.zpj.widget.setting.SwitchSettingItem
+                    style="@style/simple_setting_item_style"
                     android:id="@+id/item_compress_upload_image"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
                     app:z_setting_titleText="压缩上传图片"
                     app:z_setting_infoText="减少图片大小，节省流量，但图片清晰度可能会受到影响"
                     />
@@ -117,25 +112,22 @@
                     />
 
                 <com.zpj.widget.setting.CommonSettingItem
+                    style="@style/simple_setting_item_style"
                     android:id="@+id/item_download_folder"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
                     app:z_setting_titleText="下载位置"
                     app:z_setting_infoText="/Download"
                     />
 
                 <com.zpj.widget.setting.CommonSettingItem
+                    style="@style/simple_setting_item_style"
                     android:id="@+id/item_max_downloading"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
                     app:z_setting_titleText="最大任务数"
                     app:z_setting_infoText="3"
                     />
 
                 <com.zpj.widget.setting.CommonSettingItem
+                    style="@style/simple_setting_item_style"
                     android:id="@+id/item_max_thread"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
                     app:z_setting_titleText="最大线程数"
                     app:z_setting_infoText="3"
                     />
@@ -148,9 +140,8 @@
 <!--                    />-->
 
                 <com.zpj.widget.setting.SwitchSettingItem
+                    style="@style/simple_setting_item_style"
                     android:id="@+id/item_show_downloaded_notification"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
                     app:z_setting_titleText="通知栏显示下载进度"
                     />
 
@@ -168,23 +159,20 @@
                     />
 
                 <com.zpj.widget.setting.SwitchSettingItem
+                    style="@style/simple_setting_item_style"
                     android:id="@+id/item_install_downloaded"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
                     app:z_setting_titleText="下载完成立即安装"
                     />
 
                 <com.zpj.widget.setting.SwitchSettingItem
+                    style="@style/simple_setting_item_style"
                     android:id="@+id/item_auto_delete_apk"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
                     app:z_setting_titleText="自动删除安装包"
                     />
 
                 <com.zpj.widget.setting.SwitchSettingItem
+                    style="@style/simple_setting_item_style"
                     android:id="@+id/item_check_signature_before_install"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
                     app:z_setting_titleText="安装前检查签名"
                     app:z_setting_infoText="安装应用时将检查应用签名是否与已安装应用的签名匹配"
                     />
@@ -198,16 +186,14 @@
                 <!--                    />-->
 
                 <com.zpj.widget.setting.SwitchSettingItem
+                    style="@style/simple_setting_item_style"
                     android:id="@+id/item_accessibility_install"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
                     app:z_setting_titleText="无障碍自动安装"
                     />
 
                 <com.zpj.widget.setting.SwitchSettingItem
+                    style="@style/simple_setting_item_style"
                     android:id="@+id/item_root_install"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
                     app:z_setting_titleText="ROOT安装"
                     />
 
@@ -226,9 +212,8 @@
                     />
 
                 <com.zpj.widget.setting.CommonSettingItem
+                    style="@style/simple_setting_item_style"
                     android:id="@+id/item_clear_cache"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
                     app:z_setting_titleText="清除缓存"
                     app:z_setting_showRightText="true"
                     app:z_setting_infoText="清除应用缓存"

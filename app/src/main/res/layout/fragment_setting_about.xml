@@ -5,7 +5,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
+    android:background="?attr/backgroundColor"
     >
 
     <include layout="@layout/layout_toolbar" />
@@ -39,7 +39,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
                     android:text="手机乐园"
-                    android:textColor="@color/color_text_major"
+                    android:textColor="?attr/textColorMajor"
                     android:textSize="18sp"
                     android:textStyle="bold"
                     android:padding="8dp"
@@ -56,39 +56,34 @@
                     />
 
                 <com.zpj.widget.setting.CommonSettingItem
+                    style="@style/simple_setting_item_style"
                     android:id="@+id/item_about_me"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
                     app:z_setting_titleText="关于开发者"
                     app:z_setting_rightText="Z-P-J"
                     />
 
                 <com.zpj.widget.setting.CommonSettingItem
+                    style="@style/simple_setting_item_style"
                     android:id="@+id/item_open_source"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
                     app:z_setting_titleText="开源地址"
                     app:z_setting_rightText="https://github.com/Z-P-J/sjly"
                     />
 
                 <com.zpj.widget.setting.CommonSettingItem
+                    style="@style/simple_setting_item_style"
                     android:id="@+id/item_user_agreement"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
                     app:z_setting_titleText="用户协议"
                     />
 
                 <com.zpj.widget.setting.CommonSettingItem
+                    style="@style/simple_setting_item_style"
                     android:id="@+id/item_privacy_agreement"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
                     app:z_setting_titleText="隐私协议"
                     />
 
                 <com.zpj.widget.setting.CommonSettingItem
+                    style="@style/simple_setting_item_style"
                     android:id="@+id/item_check_update"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
                     app:z_setting_titleText="检查更新"
                     app:z_setting_rightText="v1.0.0"
                     />

@@ -1,33 +1,33 @@
 <resources>
 
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
-        <!-- Customize your theme here. -->
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorAccent">@color/colorAccent</item>
-        <item name="android:overScrollMode">never</item>
-    </style>
+    <!--    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">-->
+    <!--        &lt;!&ndash; Customize your theme here. &ndash;&gt;-->
+    <!--        <item name="colorPrimary">@color/colorPrimary</item>-->
+    <!--        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>-->
+    <!--        <item name="colorAccent">@color/colorAccent</item>-->
+    <!--        <item name="android:overScrollMode">never</item>-->
+    <!--    </style>-->
 
-    <style name="AppThemeNoActionbar" parent="Theme.AppCompat.Light.NoActionBar">
-        <!-- Customize your theme here. -->
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorAccent">@color/colorAccent</item>
-        <item name="android:overScrollMode">never</item>
-        <item name="android:windowAnimationStyle">@style/FadeWindowAnimation</item>
-    </style>
+    <!--    <style name="AppThemeNoActionbar" parent="Theme.AppCompat.Light.NoActionBar">-->
+    <!--        &lt;!&ndash; Customize your theme here. &ndash;&gt;-->
+    <!--        <item name="colorPrimary">@color/colorPrimary</item>-->
+    <!--        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>-->
+    <!--        <item name="colorAccent">@color/colorAccent</item>-->
+    <!--        <item name="android:overScrollMode">never</item>-->
+    <!--        <item name="android:windowAnimationStyle">@style/FadeWindowAnimation</item>-->
+    <!--    </style>-->
 
-    <style name="AppThemeTransparent" parent="AppThemeNoActionbar">
-        <!-- Customize your theme here. -->
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorAccent">@color/colorAccent</item>
-        <item name="android:windowNoTitle">true</item>
-        <item name="android:windowTranslucentStatus">true</item>
-<!--        <item name="android:windowIsTranslucent">true</item>-->
-<!--        <item name="android:windowBackground">@drawable/bg_member_default</item>-->
-    </style>
+    <!--    <style name="AppThemeTransparent" parent="AppThemeNoActionbar">-->
+    <!--        &lt;!&ndash; Customize your theme here. &ndash;&gt;-->
+    <!--        <item name="colorPrimary">@color/colorPrimary</item>-->
+    <!--        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>-->
+    <!--        <item name="colorAccent">@color/colorAccent</item>-->
+    <!--        <item name="android:windowNoTitle">true</item>-->
+    <!--        <item name="android:windowTranslucentStatus">true</item>-->
+    <!--&lt;!&ndash;        <item name="android:windowIsTranslucent">true</item>&ndash;&gt;-->
+    <!--&lt;!&ndash;        <item name="android:windowBackground">@drawable/bg_member_default</item>&ndash;&gt;-->
+    <!--    </style>-->
 
     <style name="StartTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="colorPrimary">@color/colorPrimary</item>
@@ -42,52 +42,95 @@
         <item name="android:windowTranslucentStatus">true</item>
     </style>
 
-    <style name="Transparent_Theme" parent="AppThemeNoActionbar">
-        <!--不设置activity进入和退出动画样式-->
-        <item name="android:windowAnimationStyle">@null</item>
-<!--        <item name="android:windowAnimationStyle">@style/FadeWindowAnimation</item>-->
-        <!--设置窗口的背景为透明，设置透明背景必须要设置此项-->
-        <item name="android:windowBackground">@android:color/transparent</item>
-        <!--设置窗口的背景是否为半透明，设置透明背景必须要设置此项-->
-        <item name="android:windowIsTranslucent">true</item>
-        <!--设置状态栏的背景为半透明-->
-        <item name="android:windowNoTitle">true</item>
-        <item name="android:windowTranslucentStatus">true</item>
-        <!--<item name="android:windowTranslucentStatus">true</item>-->
-        <!--        <item name="android:fitsSystemWindows">true</item>-->
+    <style name="DayTheme" parent="StartTheme">
+        <item name="backgroundColor">@android:color/white</item>
+        <item name="backgroundColorAccent">@color/dark_gray_5</item>
+        <item name="backgroundTintColor">#40333333</item>
+<!--        <item name="backgroundColorSubject">@color/light_gray_5</item>-->
+        <item name="backgroundColorCard">@color/light_gray_9</item>
+        <item name="textColorMajor">@color/color_text_major</item>
+        <item name="textColorNormal">@color/color_text_normal</item>
+        <item name="textColorMinor">@color/color_text_minor</item>
+        <item name="backgroundBanner">@drawable/bg_banner_header_placeholder</item>
+        <item name="backgroundPickedGame">@drawable/bg_picked_game_info</item>
+
+        <!--        fragmentation-dialog-->
+        <item name="_dialog_text_color_major">@color/color_text_major</item>
+        <item name="_dialog_text_color_normal">@color/color_text_normal</item>
+        <item name="_dialog_text_color_negative">@color/color_text_normal</item>
+        <item name="_dialog_text_color_positive">@color/colorPrimary</item>
+        <item name="_dialog_background_color_attach_list">@android:color/white</item>
+        <item name="_dialog_background_center">@drawable/_dialog_round_bg</item>
+        <item name="_dialog_background_bottom">@drawable/_dialog_top_round_bg</item>
     </style>
 
-    <style name="FadeWindowAnimation" mce_bogus="1" parent="@android:style/Animation.Activity">
-        <item name="android:activityOpenEnterAnimation">@android:anim/fade_in</item>
-        <item name="android:activityOpenExitAnimation">@android:anim/fade_out</item>
-        <item name="android:activityCloseEnterAnimation">@android:anim/fade_in</item>
-        <item name="android:activityCloseExitAnimation">@android:anim/fade_out</item>
+    <style name="NightTheme" parent="StartTheme">
+        <item name="backgroundColor">@android:color/black</item>
+        <item name="backgroundColorAccent">#303030</item>
+        <item name="backgroundTintColor">#aa000000</item>
+        <item name="backgroundColorCard">@color/dark_gray_3</item>
+        <item name="textColorMajor">@color/white</item>
+        <item name="textColorNormal">#f8f8f8</item>
+        <item name="textColorMinor">#efefef</item>
+        <item name="backgroundBanner">@drawable/bg_banner_header_placeholder_dark</item>
+        <item name="backgroundPickedGame">@drawable/bg_picked_game_info_night</item>
+
+        <!--        fragmentation-dialog-->
+        <item name="_dialog_text_color_major">@color/white</item>
+        <item name="_dialog_text_color_normal">#f8f8f8</item>
+        <item name="_dialog_text_color_negative">#f8f8f8</item>
+        <item name="_dialog_text_color_positive">@color/colorPrimary</item>
+        <item name="_dialog_background_color_attach_list">#333333</item>
+        <item name="_dialog_background_center">@drawable/_dialog_round_dark_bg</item>
+        <item name="_dialog_background_bottom">@drawable/_dialog_top_round_dark_bg</item>
     </style>
 
-<!--    <style name="AppThemeTransparent" parent="AppTheme">-->
-<!--        <item name="android:windowNoTitle">true</item>-->
-<!--        <item name="android:windowTranslucentStatus">true</item>-->
-<!--    </style>-->
+    <!--    <style name="Transparent_Theme" parent="AppThemeNoActionbar">-->
+    <!--        &lt;!&ndash;不设置activity进入和退出动画样式&ndash;&gt;-->
+    <!--        <item name="android:windowAnimationStyle">@null</item>-->
+    <!--&lt;!&ndash;        <item name="android:windowAnimationStyle">@style/FadeWindowAnimation</item>&ndash;&gt;-->
+    <!--        &lt;!&ndash;设置窗口的背景为透明，设置透明背景必须要设置此项&ndash;&gt;-->
+    <!--        <item name="android:windowBackground">@android:color/transparent</item>-->
+    <!--        &lt;!&ndash;设置窗口的背景是否为半透明，设置透明背景必须要设置此项&ndash;&gt;-->
+    <!--        <item name="android:windowIsTranslucent">true</item>-->
+    <!--        &lt;!&ndash;设置状态栏的背景为半透明&ndash;&gt;-->
+    <!--        <item name="android:windowNoTitle">true</item>-->
+    <!--        <item name="android:windowTranslucentStatus">true</item>-->
+    <!--        &lt;!&ndash;<item name="android:windowTranslucentStatus">true</item>&ndash;&gt;-->
+    <!--        &lt;!&ndash;        <item name="android:fitsSystemWindows">true</item>&ndash;&gt;-->
+    <!--    </style>-->
 
-    <style name="SplashTheme" parent="AppTheme">
-        <!--不设置activity进入和退出动画样式-->
-        <item name="android:windowAnimationStyle">@null</item>
-        <!--设置窗口的背景为透明，设置透明背景必须要设置此项-->
-        <item name="android:windowBackground">@android:color/transparent</item>
-        <!--设置窗口的背景是否为半透明，设置透明背景必须要设置此项-->
-        <item name="android:windowIsTranslucent">true</item>
-        <!--设置状态栏的背景为半透明-->
-        <item name="android:windowTranslucentStatus">true</item>
-    </style>
+    <!--    <style name="FadeWindowAnimation" mce_bogus="1" parent="@android:style/Animation.Activity">-->
+    <!--        <item name="android:activityOpenEnterAnimation">@android:anim/fade_in</item>-->
+    <!--        <item name="android:activityOpenExitAnimation">@android:anim/fade_out</item>-->
+    <!--        <item name="android:activityCloseEnterAnimation">@android:anim/fade_in</item>-->
+    <!--        <item name="android:activityCloseExitAnimation">@android:anim/fade_out</item>-->
+    <!--    </style>-->
 
-    <style name="MainActivityTheme" parent="AppThemeTransparent">
-        <!--不设置activity进入和退出动画样式-->
-        <item name="android:windowAnimationStyle">@null</item>
-        <!--设置窗口的背景为透明，设置透明背景必须要设置此项-->
-        <item name="android:windowBackground">@android:color/transparent</item>
-        <!--设置窗口的背景是否为半透明，设置透明背景必须要设置此项-->
-        <item name="android:windowIsTranslucent">true</item>
-    </style>
+    <!--    <style name="AppThemeTransparent" parent="AppTheme">-->
+    <!--        <item name="android:windowNoTitle">true</item>-->
+    <!--        <item name="android:windowTranslucentStatus">true</item>-->
+    <!--    </style>-->
+
+    <!--    <style name="SplashTheme" parent="AppTheme">-->
+    <!--        &lt;!&ndash;不设置activity进入和退出动画样式&ndash;&gt;-->
+    <!--        <item name="android:windowAnimationStyle">@null</item>-->
+    <!--        &lt;!&ndash;设置窗口的背景为透明，设置透明背景必须要设置此项&ndash;&gt;-->
+    <!--        <item name="android:windowBackground">@android:color/transparent</item>-->
+    <!--        &lt;!&ndash;设置窗口的背景是否为半透明，设置透明背景必须要设置此项&ndash;&gt;-->
+    <!--        <item name="android:windowIsTranslucent">true</item>-->
+    <!--        &lt;!&ndash;设置状态栏的背景为半透明&ndash;&gt;-->
+    <!--        <item name="android:windowTranslucentStatus">true</item>-->
+    <!--    </style>-->
+
+    <!--    <style name="MainActivityTheme" parent="AppThemeTransparent">-->
+    <!--        &lt;!&ndash;不设置activity进入和退出动画样式&ndash;&gt;-->
+    <!--        <item name="android:windowAnimationStyle">@null</item>-->
+    <!--        &lt;!&ndash;设置窗口的背景为透明，设置透明背景必须要设置此项&ndash;&gt;-->
+    <!--        <item name="android:windowBackground">@android:color/transparent</item>-->
+    <!--        &lt;!&ndash;设置窗口的背景是否为半透明，设置透明背景必须要设置此项&ndash;&gt;-->
+    <!--        <item name="android:windowIsTranslucent">true</item>-->
+    <!--    </style>-->
 
     <style name="loading_dialog_style" parent="@android:style/Theme.Dialog">
         <item name="android:windowFrame">@null</item>
@@ -98,7 +141,7 @@
     </style>
 
     <style name="CustomTabLayoutTextAppearance" parent="TextAppearance.AppCompat.Widget.ActionBar.Title.Inverse">
-<!--        <item name="android:textSize">16sp</item>-->
+        <!--        <item name="android:textSize">16sp</item>-->
         <item name="android:textStyle">bold</item>
         <item name="android:textAllCaps">true</item>
     </style>
@@ -109,17 +152,39 @@
         <item name="hl_cornerRadius">8dp</item>
         <item name="hl_shadowColor">@color/transparent</item>
         <item name="hl_shadowLimit">8dp</item>
+        <item name="hl_shadowBackColor">?attr/backgroundColor</item>
     </style>
 
     <style name="me_tool_card_item_style">
         <item name="layout_columnWeight">1</item>
         <item name="android:drawablePadding">8dp</item>
-<!--        <item name="android:padding">8dp</item>-->
+        <!--        <item name="android:padding">8dp</item>-->
         <item name="android:paddingTop">8dp</item>
         <item name="android:paddingBottom">8dp</item>
         <item name="android:gravity">center</item>
-        <item name="android:textColor">@color/color_text_major</item>
+        <item name="android:textColor">?attr/textColorMajor</item>
         <item name="android:background">?android:attr/selectableItemBackground</item>
+    </style>
+
+    <style name="tools_item_style">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:paddingTop">16dp</item>
+        <item name="android:paddingBottom">16dp</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textColor">?attr/textColorMajor</item>
+        <item name="android:textSize">12sp</item>
+        <item name="android:background">?android:attr/selectableItemBackground</item>
+    </style>
+
+    <style name="simple_setting_item_style">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:background">?attr/selectableItemBackgroundBorderless</item>
+        <item name="z_setting_titleTextColor">?attr/textColorMajor</item>
+        <item name="z_setting_infoTextColor">?attr/textColorMinor</item>
+        <item name="z_setting_rightTextColor">?attr/textColorNormal</item>
     </style>
 
     <style name="button_submit">

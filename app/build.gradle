@@ -102,7 +102,7 @@ dependencies {
     implementation 'com.just.agentweb:agentweb:4.1.4'
 
     // 毛玻璃效果
-    implementation 'com.github.goweii:Blurred:1.3.0'
+//    implementation 'com.github.goweii:Blurred:1.3.0'
 //    implementation 'com.eightbitlab:blurview:1.6.3'
 
     // 轮播图
@@ -117,7 +117,7 @@ dependencies {
 
     // RecyclerView
     implementation 'com.android.support:recyclerview-v7:28.0.0'
-    implementation 'com.zpj.widget:ZRecyclerView:1.1.1'
+    implementation 'com.zpj.widget:ZRecyclerView:1.1.5'
     implementation 'com.yanyusong.y_divideritemdecoration:y_divideritemdecoration:2.0'
 
     // up/down arrow
@@ -168,15 +168,14 @@ dependencies {
     implementation 'com.zpj.widget:SmoothCheckBox:1.0.0'
     implementation 'com.zpj.widget:ZSwitcher:1.0.4'
 //    implementation 'com.zpj.widget:Fragmentation:1.0.2'
-    implementation 'com.zpj.widget:ZSettingItem:1.0.3'
-    implementation 'com.zpj.widget:ZToolBar:1.0.5'
+    implementation 'com.zpj.widget:ZSettingItem:1.0.6'
+    implementation 'com.zpj.widget:ZToolBar:1.0.7'
     implementation 'com.zpj.utils:ZUtils:1.0.3'
     implementation 'com.zpj.http:ZHttp:1.0.0'
 
-    implementation project(':installerlibrary')
     implementation project(':niceimageview')
     implementation project(":filescannercore")
-//    implementation project(":zwidget")
+    implementation project(":chameleon")
     implementation project(":zdownloader")
 //    implementation project(':zmarkdown')
 //    implementation project(':richeditor')

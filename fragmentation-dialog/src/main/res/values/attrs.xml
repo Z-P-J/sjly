@@ -13,4 +13,18 @@
         </attr>
     </declare-styleable>
 
+    <attr name="_dialog_card_background" format="color"/>
+    <attr name="_dialog_text_color_major" format="color"/>
+    <attr name="_dialog_text_color_normal" format="color"/>
+    <attr name="_dialog_text_color_minus" format="color"/>
+    <attr name="_dialog_text_color_positive" format="color"/>
+    <attr name="_dialog_text_color_negative" format="color"/>
+    <attr name="_dialog_text_color_loading" format="color"/>
+
+    <attr name="_dialog_background_color_attach_list" format="color"/>
+
+    <attr name="_dialog_background_center" format="reference|color" />
+    <attr name="_dialog_background_bottom" format="reference|color" />
+    <attr name="_dialog_background_loading" format="reference|color" />
+
 </resources>

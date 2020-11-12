@@ -38,7 +38,9 @@ import com.zpj.shouji.market.download.AppDownloadMission;
 import com.zpj.shouji.market.event.StartFragmentEvent;
 import com.zpj.shouji.market.glide.GlideApp;
 import com.zpj.shouji.market.model.InstalledAppInfo;
+import com.zpj.shouji.market.ui.fragment.base.SkinFragment;
 import com.zpj.shouji.market.ui.fragment.detail.AppDetailFragment;
+import com.zpj.shouji.market.utils.ThemeUtils;
 import com.zpj.utils.AppUtils;
 import com.zpj.utils.ClickHelper;
 
@@ -49,13 +51,15 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
-public class DownloadManagerFragment extends BaseFragment
+public class DownloadManagerFragment extends SkinFragment
         implements DownloadManager.DownloadManagerListener,
         GroupRecyclerViewAdapter.OnItemClickListener<DownloadManagerFragment.DownloadWrapper> {
 
     private final List<List<DownloadWrapper>> downloadTaskList = new ArrayList<>();
 
     private ExpandCollapseGroupAdapter expandableAdapter;
+
+    private boolean showToolbar = false;
 
     public static DownloadManagerFragment newInstance(boolean showToolbar) {
         Bundle args = new Bundle();
@@ -80,9 +84,16 @@ public class DownloadManagerFragment extends BaseFragment
     }
 
     @Override
-    protected void initView(View view, @Nullable Bundle savedInstanceState) {
+    protected void initStatusBar() {
+        if (showToolbar) {
+            ThemeUtils.initStatusBar(this);
+        }
+    }
 
-        if (getArguments() != null && getArguments().getBoolean(Keys.SHOW_TOOLBAR, false)) {
+    @Override
+    protected void initView(View view, @Nullable Bundle savedInstanceState) {
+        showToolbar = getArguments() != null && getArguments().getBoolean(Keys.SHOW_TOOLBAR, false);
+        if (showToolbar) {
             toolbar.setVisibility(View.VISIBLE);
 //            findViewById(R.id.shadow_view).setVisibility(View.VISIBLE);
             setToolbarTitle("下载管理");
@@ -413,7 +424,7 @@ public class DownloadManagerFragment extends BaseFragment
             progressBar.setMax(100);
             if (isFinished) {
                 progressBar.setVisibility(View.GONE);
-                holder.itemView.setBackground(new ColorDrawable(Color.WHITE));
+                holder.itemView.setBackgroundColor(ThemeUtils.getDefaultBackgroundColor(context));
                 map.remove(mission);
             } else {
                 progressBar.setVisibility(View.VISIBLE);

@@ -7,7 +7,7 @@
     android:gravity="center"
     >
 
-    <com.zpj.shouji.market.ui.widget.FillImageView
+    <com.zpj.shouji.market.ui.widget.navigation.FillImageView
         android:id="@+id/fill_img"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

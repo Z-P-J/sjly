@@ -4,14 +4,16 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
+    android:background="?attr/backgroundColor"
     android:orientation="vertical"
     >
 
     <com.zpj.widget.statelayout.StateLayout
         android:id="@+id/state_layout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="?attr/backgroundColor"
+        >
 
         <com.zpj.shouji.market.ui.widget.SmartNestedScrollView
             android:id="@+id/scroll_view"
@@ -41,24 +43,29 @@
 <!--                    android:layout_marginVertical="8dp"-->
 <!--                    />-->
 
-                <com.geek.banner.Banner
-                    android:id="@+id/banner2"
-                    android:layout_width="match_parent"
-                    android:layout_height="160dp"
-                    android:layout_marginTop="10dp"
-                    app:banner_auto_play="true"
-                    app:banner_default_image="@drawable/bga_pp_ic_holder_light"
-                    app:banner_expose_width="20dp"
-                    app:banner_interval_time="5000"
-                    app:banner_multi_anim="ScaleIn"
-                    app:banner_page_spacing="14dp"
-                    app:banner_scroll_time="1000"
-                    app:banner_show_indicator="true"
-                    app:indicator_default_drawable="@color/white"
-                    app:indicator_select_drawable="@color/colorPrimary"
-                    app:banner_show_model="MZ_EFFECT"
-                    app:layout_scrollFlags="scroll"
-                    />
+<!--                <com.geek.banner.Banner-->
+<!--                    android:id="@+id/banner2"-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="160dp"-->
+<!--                    android:layout_marginTop="10dp"-->
+<!--                    app:banner_auto_play="true"-->
+<!--                    app:banner_default_image="@drawable/bga_pp_ic_holder_light"-->
+<!--                    app:banner_expose_width="20dp"-->
+<!--                    app:banner_interval_time="5000"-->
+<!--                    app:banner_multi_anim="ScaleIn"-->
+<!--                    app:banner_page_spacing="14dp"-->
+<!--                    app:banner_scroll_time="1000"-->
+<!--                    app:banner_show_indicator="true"-->
+<!--                    app:indicator_margin_bottom="0dp"-->
+<!--                    app:indicator_default_height="4dp"-->
+<!--                    app:indicator_default_width="4dp"-->
+<!--                    app:indicator_default_drawable="@color/light_gray_0"-->
+<!--                    app:indicator_select_drawable="@color/colorPrimary"-->
+<!--                    app:banner_show_model="MZ_EFFECT"-->
+<!--                    app:layout_scrollFlags="scroll"-->
+<!--                    />-->
+
+                <include layout="@layout/layout_banner"/>
 
 
 
@@ -75,10 +82,10 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:z_toolbar_fillStatusBar="true"
-        app:z_toolbar_titleBarColor="#aaffffff"
-        app:z_toolbar_statusBarColor="#aaffffff"
+        app:z_toolbar_titleBarColor="@color/transparent"
+        app:z_toolbar_statusBarColor="@color/transparent"
         app:z_toolbar_showBottomLine="false"
-        app:z_toolbar_statusBarMode="dark"
+        app:z_toolbar_isLightStyle="false"
         app:z_toolbar_leftType="textView"
         app:z_toolbar_leftText="应用"
         app:z_toolbar_leftTextColor="@color/colorPrimary"

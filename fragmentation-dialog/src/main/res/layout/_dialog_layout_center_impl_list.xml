@@ -7,7 +7,7 @@
 
     <TextView
         android:id="@+id/tv_title"
-        android:textColor="@color/_dialog_title_color"
+        android:textColor="@color/_dialog_text_major_color"
         android:padding="16dp"
         android:maxLines="1"
         android:ellipsize="end"

@@ -1,5 +1,6 @@
 package com.zpj.downloader.core;
 
+import android.app.DownloadManager;
 import android.content.Context;
 import android.os.Handler;
 import android.os.Looper;
@@ -7,7 +8,6 @@ import android.support.annotation.Keep;
 import android.support.annotation.NonNull;
 import android.text.TextUtils;
 import android.util.Log;
-import android.util.LongSparseArray;
 import android.webkit.MimeTypeMap;
 import android.widget.Toast;
 
@@ -19,7 +19,6 @@ import com.zpj.downloader.constant.ResponseCode;
 import com.zpj.downloader.util.FileUtil;
 import com.zpj.downloader.util.ThreadPoolFactory;
 import com.zpj.downloader.util.Utility;
-import com.zpj.downloader.util.io.BufferedRandomAccessFile;
 import com.zpj.downloader.util.notification.NotifyUtil;
 import com.zpj.http.ZHttp;
 import com.zpj.http.core.Connection;
@@ -36,7 +35,6 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.UUID;
 import java.util.concurrent.ConcurrentLinkedQueue;
-import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.atomic.AtomicLong;
 
@@ -144,6 +142,7 @@ public class DownloadMission {
     //------------------------------------------------------runnables---------------------------------------------
 
     protected void initMission() {
+        notifyStatus(missionStatus);
         ZHttp.head(url)
                 .proxy(Proxy.NO_PROXY)
                 .userAgent(getUserAgent())
@@ -294,13 +293,16 @@ public class DownloadMission {
             updateInfo.setSpeedStr(tempSpeed);
             writeMissionInfo();
             notifyStatus(MissionStatus.RUNNING);
-            if (missionConfig.getEnableNotificatio()) {
-                NotifyUtil.with(getContext())
-                        .buildProgressNotify()
-                        .setProgressAndFormat(getProgress(), false, "")
-                        .setContentTitle(name)
-                        .setId(getNotifyId())
-                        .show();
+//            if (missionConfig.getEnableNotification()) {
+//                NotifyUtil.with(getContext())
+//                        .buildProgressNotify()
+//                        .setProgressAndFormat(getProgress(), false, "")
+//                        .setContentTitle(name)
+//                        .setId(getNotifyId())
+//                        .show();
+//            }
+            if (missionConfig.getEnableNotification() && getNotificationListener() != null) {
+                getNotificationListener().onProgress(getContext(), DownloadMission.this, getProgress(), false);
             }
         }
     };
@@ -451,13 +453,16 @@ public class DownloadMission {
                 DownloadManagerImpl.decreaseDownloadingCount();
             }
 
-            if (missionConfig.getEnableNotificatio()) {
-                NotifyUtil.with(getContext())
-                        .buildProgressNotify()
-                        .setProgressAndFormat(getProgress(), false, "")
-                        .setId(getNotifyId())
-                        .setContentTitle("已暂停：" + name)
-                        .show();
+//            if (missionConfig.getEnableNotification()) {
+//                NotifyUtil.with(getContext())
+//                        .buildProgressNotify()
+//                        .setProgressAndFormat(getProgress(), false, "")
+//                        .setId(getNotifyId())
+//                        .setContentTitle("已暂停：" + name)
+//                        .show();
+//            }
+            if (missionConfig.getEnableNotification() && getNotificationListener() != null) {
+                getNotificationListener().onProgress(getContext(), this, getProgress(), true);
             }
         }
     }
@@ -469,7 +474,10 @@ public class DownloadMission {
     }
 
     public void delete() {
-        NotifyUtil.cancel(getNotifyId());
+//        NotifyUtil.cancel(getNotifyId());
+        if (getNotificationListener() != null) {
+            getNotificationListener().onCancel(getContext(), this);
+        }
         pause();
         deleteMissionInfo();
         new File(missionConfig.getDownloadPath() + File.separator + name).delete();
@@ -491,7 +499,10 @@ public class DownloadMission {
     }
 
     public void clear() {
-        NotifyUtil.cancel(getNotifyId());
+//        NotifyUtil.cancel(getNotifyId());
+        if (getNotificationListener() != null) {
+            getNotificationListener().onCancel(getContext(), this);
+        }
         pause();
         deleteMissionInfo();
         for (WeakReference<MissionListener> ref : mListeners) {
@@ -600,12 +611,13 @@ public class DownloadMission {
 
         DownloadManagerImpl.decreaseDownloadingCount();
 
-        if (missionConfig.getEnableNotificatio()) {
-            NotifyUtil.with(getContext())
-                    .buildNotify()
-                    .setContentTitle("下载出错" + errCode + ":" + name)
-                    .setId(getNotifyId())
-                    .show();
+        if (missionConfig.getEnableNotification() && getNotificationListener() != null) {
+            getNotificationListener().onError(getContext(), this, errCode);
+//            NotifyUtil.with(getContext())
+//                    .buildNotify()
+//                    .setContentTitle("下载出错" + errCode + ":" + name)
+//                    .setId(getNotifyId())
+//                    .show();
         }
     }
 
@@ -692,13 +704,16 @@ public class DownloadMission {
 
         DownloadManagerImpl.decreaseDownloadingCount();
 
-        if (missionConfig.getEnableNotificatio()) {
-            NotifyUtil.with(getContext())
-                    .buildNotify()
-                    .setContentTitle(name)
-                    .setContentText("下载已完成")
-                    .setId(getNotifyId())
-                    .show();
+//        if (missionConfig.getEnableNotification()) {
+//            NotifyUtil.with(getContext())
+//                    .buildNotify()
+//                    .setContentTitle(name)
+//                    .setContentText("下载已完成")
+//                    .setId(getNotifyId())
+//                    .show();
+//        }
+        if (missionConfig.getEnableNotification() && getNotificationListener() != null) {
+            getNotificationListener().onFinished(getContext(), this);
         }
         if (DownloadManagerImpl.getInstance().getDownloadManagerListener() != null) {
             DownloadManagerImpl.getInstance().getDownloadManagerListener().onMissionFinished(this);
@@ -755,6 +770,10 @@ public class DownloadMission {
     //--------------------------------------------------------------getter-----------------------------------------------
     protected Context getContext() {
         return DownloadManagerImpl.getInstance().getContext();
+    }
+
+    private INotificationListener getNotificationListener() {
+        return DownloadManagerImpl.getInstance().getDownloaderConfig().getNotificationListener();
     }
 
     public String getUuid() {
@@ -905,7 +924,7 @@ public class DownloadMission {
         return tempSpeed;
     }
 
-    private int getNotifyId() {
+    public int getNotifyId() {
         if (notifyId == 0) {
             notifyId = (int) (createTime / 10000) + (int) (createTime % 10000) * 100000;
         }

@@ -3,14 +3,13 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@android:color/white"
+    android:background="?attr/backgroundColor"
     android:padding="16dp">
 
     <FrameLayout
         android:id="@+id/header_recent_update"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@android:color/white"
         android:paddingBottom="4dp"
         android:paddingTop="4dp"
         >
@@ -21,7 +20,7 @@
             android:layout_height="wrap_content"
             android:text="开发者其他应用"
             android:textSize="16sp"
-            android:textColor="@color/color_text_major"
+            android:textColor="?attr/textColorMajor"
             android:textStyle="bold"
             android:layout_gravity="center_vertical"
             />

@@ -15,6 +15,7 @@ import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.event.SignInEvent;
 import com.zpj.shouji.market.event.SignUpEvent;
 import com.zpj.shouji.market.event.StartFragmentEvent;
+import com.zpj.shouji.market.ui.fragment.base.SkinFragment;
 import com.zpj.shouji.market.ui.widget.SignInLayout3;
 import com.zpj.shouji.market.ui.widget.SignUpLayout3;
 import com.zpj.shouji.market.utils.SoftInputHelper;
@@ -25,7 +26,7 @@ import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
 
-public class LoginFragment extends BaseFragment {
+public class LoginFragment extends SkinFragment {
 
     private static final String REGISTRATION = "key_registration";
 
@@ -71,12 +72,6 @@ public class LoginFragment extends BaseFragment {
         if (getArguments() != null) {
             isRegistration = getArguments().getBoolean(REGISTRATION, false);
         }
-    }
-
-    @Override
-    public void onSupportVisible() {
-        super.onSupportVisible();
-        darkStatusBar();
     }
 
     @Override

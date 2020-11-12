@@ -40,6 +40,7 @@ import com.zpj.shouji.market.ui.fragment.dialog.CommonImageViewerDialogFragment2
 import com.zpj.shouji.market.ui.fragment.profile.ProfileFragment;
 import com.zpj.shouji.market.ui.widget.ReplyPanel;
 import com.zpj.shouji.market.utils.BeanUtils;
+import com.zpj.shouji.market.utils.ThemeUtils;
 import com.zpj.utils.KeyboardObserver;
 import com.zpj.utils.NetUtils;
 
@@ -119,7 +120,7 @@ public class ChatFragment extends NextUrlFragment<PrivateLetterInfo>
     @Override
     public void onSupportVisible() {
         super.onSupportVisible();
-        darkStatusBar();
+        ThemeUtils.initStatusBar(this);
     }
 
     @Override

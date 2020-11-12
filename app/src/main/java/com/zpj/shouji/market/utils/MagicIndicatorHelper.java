@@ -56,6 +56,7 @@ public class MagicIndicatorHelper {
 //        });
 //        magicIndicator.setNavigator(navigator);
 //        ViewPagerHelper.bind(magicIndicator, viewPager);
+        int normalTextColor = context.getResources().getColor(R.color.middle_gray_1);
         builder(context)
                 .setMagicIndicator(magicIndicator)
                 .setViewPager(viewPager)
@@ -63,7 +64,7 @@ public class MagicIndicatorHelper {
                 .setAdjustMode(adjustMode)
                 .setOnGetTitleViewListener((context12, index) -> {
                     ColorTransitionPagerTitleView titleView = new ColorTransitionPagerTitleView(context12);
-                    titleView.setNormalColor(context12.getResources().getColor(R.color.color_text_normal)); // context.getResources().getColor(R.color.color_text_normal)
+                    titleView.setNormalColor(normalTextColor); // context.getResources().getColor(R.color.color_text_normal)
                     titleView.setSelectedColor(context12.getResources().getColor(R.color.colorPrimary));
                     titleView.setTextSize(14);
                     titleView.setText(tabTitles[index]);
@@ -141,6 +142,7 @@ public class MagicIndicatorHelper {
         public void build() {
             CommonNavigator navigator = new CommonNavigator(context);
             navigator.setAdjustMode(adjustMode);
+            int normalTextColor = context.getResources().getColor(R.color.middle_gray_1);
             navigator.setAdapter(new CommonNavigatorAdapter() {
                 @Override
                 public int getCount() {
@@ -153,7 +155,7 @@ public class MagicIndicatorHelper {
                         return onGetTitleViewListener.getTitleView(context, index);
                     }
                     ColorTransitionPagerTitleView titleView = new ColorTransitionPagerTitleView(context);
-                    titleView.setNormalColor(context.getResources().getColor(R.color.color_text_normal)); // context.getResources().getColor(R.color.color_text_normal)
+                    titleView.setNormalColor(normalTextColor); // context.getResources().getColor(R.color.color_text_normal)
                     titleView.setSelectedColor(context.getResources().getColor(R.color.colorPrimary));
                     titleView.setTextSize(14);
                     titleView.setText(tabTitles[index]);

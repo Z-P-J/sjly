@@ -4,8 +4,9 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:padding="16dp"
-    android:background="@drawable/bottom_line_gray">
+    android:padding="16dp">
+
+<!--    android:background="@drawable/bottom_line_gray"-->
 
     <com.shehuan.niv.NiceImageView
         android:layout_width="36dp"
@@ -33,7 +34,7 @@
             android:layout_height="wrap_content"
             android:singleLine="true"
             android:textStyle="bold"
-            android:textColor="@color/color_text_major"
+            android:textColor="?attr/textColorMajor"
             android:maxLines="1"
             android:gravity="center_vertical"
             android:ellipsize="end"
@@ -49,7 +50,9 @@
             android:maxLines="1"
             android:gravity="center_vertical"
             android:ellipsize="end"
-            android:text="com.zpj.sjly" />
+            android:text="com.zpj.sjly"
+            android:textColor="?attr/textColorNormal"
+            />
 
         <TextView
             android:id="@+id/text_info"
@@ -60,7 +63,7 @@
             android:maxLines="1"
             android:gravity="center_vertical"
             android:ellipsize="end"
-            android:textColor="#88000000"
+            android:textColor="?attr/textColorMinor"
             android:textSize="12sp"
             android:text="100MB | 于2015-02-06下载" />
 

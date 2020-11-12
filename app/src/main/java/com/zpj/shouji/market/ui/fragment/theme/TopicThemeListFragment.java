@@ -8,6 +8,7 @@ import com.felix.atoast.library.AToast;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.constant.Keys;
 import com.zpj.shouji.market.event.StartFragmentEvent;
+import com.zpj.shouji.market.utils.ThemeUtils;
 
 public class TopicThemeListFragment extends ThemeListFragment {
 
@@ -39,4 +40,9 @@ public class TopicThemeListFragment extends ThemeListFragment {
         setToolbarTitle(topic);
     }
 
+    @Override
+    public void onSupportVisible() {
+        super.onSupportVisible();
+        ThemeUtils.initStatusBar(this);
+    }
 }

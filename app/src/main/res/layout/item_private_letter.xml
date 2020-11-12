@@ -43,7 +43,7 @@
                 android:maxLines="2"
                 android:ellipsize="end"
                 android:text="用户名"
-                android:textColor="@color/color_text_major"
+                android:textColor="?attr/textColorMajor"
                 android:layout_toStartOf="@id/tv_time"
                 android:layout_marginEnd="8dp"
                 android:textSize="16sp"
@@ -59,7 +59,7 @@
                 android:textSize="12sp"
                 android:layout_alignParentEnd="true"
                 android:layout_centerVertical="true"
-                android:textColor="@color/color_text_minor"
+                android:textColor="?attr/textColorMinor"
                 />
 
         </RelativeLayout>
@@ -74,7 +74,7 @@
             android:text="content"
             android:layout_marginTop="8dp"
             android:textSize="12sp"
-            android:textColor="@color/color_text_minor"
+            android:textColor="?attr/textColorMinor"
             app:z_emojiSize="16dp"
             />
 

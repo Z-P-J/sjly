@@ -1,6 +1,7 @@
 package com.zpj.shouji.market.ui.widget;
 
 import android.content.Context;
+import android.content.res.TypedArray;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.support.annotation.NonNull;
@@ -23,6 +24,7 @@ import com.shehuan.niv.NiceImageView;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.glide.blur.CropBlurTransformation;
 import com.zpj.shouji.market.model.AppDetailInfo;
+import com.zpj.shouji.market.utils.ThemeUtils;
 import com.zpj.widget.toolbar.BaseToolBar;
 import com.zpj.widget.toolbar.ZToolBar;
 
@@ -68,7 +70,9 @@ public class AppDetailLayout extends FrameLayout {
 
     public AppDetailLayout(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
-        setBackgroundColor(Color.WHITE);
+//        setBackgroundColor(Color.WHITE);
+        setBackgroundColor(ThemeUtils.getDefaultBackgroundColor(context));
+
         LayoutInflater.from(context).inflate(R.layout.layout_app_detail2, this, true);
         toolbarLayout = findViewById(R.id.collapsingToolbar);
         headerLayout = findViewById(R.id.layout_header);

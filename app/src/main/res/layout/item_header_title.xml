@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/rl_header"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="16dp">
+
+    <TextView
+        android:id="@+id/tv_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="备份记录"
+        android:textSize="16sp"
+        android:textColor="?attr/textColorMajor"
+        android:textStyle="bold"
+        android:layout_gravity="bottom"
+        />
+
+    <View
+        android:layout_width="14dp"
+        android:layout_height="10dp"
+        android:background="#8009bd14"
+        android:layout_gravity="bottom"
+        />
+
+    <com.zpj.shouji.market.ui.widget.DrawableTintTextView
+        android:id="@+id/tv_more"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="更多"
+        android:textSize="12sp"
+        android:textColor="@color/colorPrimary"
+        android:layout_gravity="end|center_vertical"
+        android:drawableEnd="@drawable/ic_enter_bak"
+        app:drawable_tint_color="@color/colorPrimary"
+        />
+
+
+
+</FrameLayout>

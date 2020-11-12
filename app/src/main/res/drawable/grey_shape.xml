@@ -5,7 +5,8 @@
     >
 
 <!--    80eeeeee-->
-    <solid android:color="#F4F4F4"/>
+<!--    F4F4F4-->
+    <solid android:color="#80eeeeee"/>
     <corners android:radius="8dp"/>
 
 </shape>

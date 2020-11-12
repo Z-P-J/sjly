@@ -1,5 +1,8 @@
 package com.zpj.shouji.market.ui.fragment.recommond;
 
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -10,10 +13,12 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.geek.banner.Banner;
+import com.zpj.blur.ZBlurry;
 import com.zpj.fragmentation.BaseFragment;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.event.MainActionPopupEvent;
 import com.zpj.shouji.market.model.AppInfo;
+import com.zpj.shouji.market.ui.fragment.base.SkinFragment;
 import com.zpj.shouji.market.ui.fragment.detail.AppDetailFragment;
 import com.zpj.shouji.market.ui.fragment.manager.ManagerFragment;
 import com.zpj.shouji.market.ui.fragment.search.SearchFragment;
@@ -31,7 +36,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
 
-public abstract class BaseRecommendFragment2 extends BaseFragment
+public abstract class BaseRecommendFragment2 extends SkinFragment
         implements SmartNestedScrollView.ISmartScrollChangedListener {
 
     private static final String TAG = "BaseRecommendFragment2";
@@ -45,10 +50,11 @@ public abstract class BaseRecommendFragment2 extends BaseFragment
 
     protected View loadingFooter;
 
-//    protected MZBannerView<AppInfo> mMZBanner;
     protected Banner banner;
 
     protected LinearLayout llContainer;
+
+    private ZBlurry blurred;
 
     @Override
     protected int getLayoutId() {
@@ -57,6 +63,8 @@ public abstract class BaseRecommendFragment2 extends BaseFragment
 
     @Override
     protected void initView(View view, @Nullable Bundle savedInstanceState) {
+
+
         llContainer = view.findViewById(R.id.ll_container);
 
         stateLayout = view.findViewById(R.id.state_layout);
@@ -65,7 +73,21 @@ public abstract class BaseRecommendFragment2 extends BaseFragment
         scrollView = findViewById(R.id.scroll_view);
         scrollView.setScanScrollChangedListener(this);
 
-        loadingFooter = LayoutInflater.from(context).inflate(R.layout.easy_base_footer, null, false);
+        blurred = ZBlurry.with(stateLayout)
+                .scale(0.1f)
+                .radius(20)
+//                .maxFps(40)
+                .blur(toolbar, new ZBlurry.Callback() {
+                    @Override
+                    public void down(Bitmap bitmap) {
+                        Drawable drawable = new BitmapDrawable(bitmap);
+                        drawable.setAlpha(scrollView.isScrolledToTop() ? 0 : 255);
+                        toolbar.setBackground(drawable, true);
+                    }
+                });
+        blurred.pauseBlur();
+
+        loadingFooter = LayoutInflater.from(context).inflate(R.layout.item_footer_home, null, false);
 
         banner = view.findViewById(R.id.banner2);
         banner.setBannerLoader(new AppBannerLoader());
@@ -89,6 +111,11 @@ public abstract class BaseRecommendFragment2 extends BaseFragment
     }
 
     @Override
+    public void onLazyInitView(@Nullable Bundle savedInstanceState) {
+        super.onLazyInitView(savedInstanceState);
+    }
+
+    @Override
     public void toolbarRightCustomView(@NonNull View view) {
         view.findViewById(R.id.btn_manage).setOnClickListener(v -> ManagerFragment.start());
         view.findViewById(R.id.btn_search).setOnClickListener(v -> SearchFragment.start());
@@ -109,10 +136,9 @@ public abstract class BaseRecommendFragment2 extends BaseFragment
     @Override
     public void onSupportVisible() {
         super.onSupportVisible();
-        darkStatusBar();
-//        if (mMZBanner != null) {
-//            mMZBanner.start();
-//        }
+        if (blurred != null) {
+            blurred.startBlur();
+        }
         if (banner != null) {
             banner.startAutoPlay();
         }
@@ -121,9 +147,9 @@ public abstract class BaseRecommendFragment2 extends BaseFragment
     @Override
     public void onSupportInvisible() {
         super.onSupportInvisible();
-//        if (mMZBanner != null) {
-//            mMZBanner.pause();
-//        }
+        if (blurred != null) {
+            blurred.pauseBlur();
+        }
         if (banner != null) {
             banner.stopAutoPlay();
         }
@@ -152,14 +178,6 @@ public abstract class BaseRecommendFragment2 extends BaseFragment
 
     @Subscribe
     public void onMainActionPopupEvent(MainActionPopupEvent event) {
-//        if (isSupportVisible() && mMZBanner != null) {
-//            if (event.isShow()) {
-//                mMZBanner.pause();
-//            } else {
-//                mMZBanner.start();
-//            }
-//        }
-
         if (isSupportVisible() && banner != null) {
             if (event.isShow()) {
                 banner.stopAutoPlay();
@@ -174,13 +192,6 @@ public abstract class BaseRecommendFragment2 extends BaseFragment
         bannerItemList.addAll(list);
         banner.loadImagePaths(bannerItemList);
         banner.startAutoPlay();
-//        mMZBanner.setPages(bannerItemList, new MZHolderCreator<BannerViewHolder>() {
-//            @Override
-//            public BannerViewHolder createViewHolder() {
-//                return new BannerViewHolder();
-//            }
-//        });
-//        mMZBanner.start();
         stateLayout.showContentView();
     }
 

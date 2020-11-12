@@ -9,6 +9,7 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -96,6 +97,7 @@ public class WallpaperListFragment extends NextUrlFragment<WallpaperInfo> {
         if (getHeaderLayout() > 0) {
             recyclerLayout.setHeaderView(getHeaderLayout(), holder -> holder.setOnItemClickListener((this::showSortPupWindow)));
         }
+        recyclerLayout.setFooterView(LayoutInflater.from(context).inflate(R.layout.item_footer_home, null, false));
         recyclerLayout.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
             public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
@@ -306,7 +308,7 @@ public class WallpaperListFragment extends NextUrlFragment<WallpaperInfo> {
     }
 
     protected int getHeaderLayout() {
-        return R.layout.item_image_header;
+        return R.layout.item_header_wallpaper;
     }
 
     private void initNextUrl() {
@@ -338,27 +340,5 @@ public class WallpaperListFragment extends NextUrlFragment<WallpaperInfo> {
                 .setAttachView(v)
                 .setOnDismissListener(expandIconView::switchState)
                 .show(context);
-
-//        if (recyclerPopup == null) {
-//            expandIconView.switchState();
-//            recyclerPopup = RecyclerPopup.with(context)
-//                    .addItems("默认排序", "时间排序", "人气排序")
-//                    .setSelectedItem(sortPosition)
-//                    .setOnItemClickListener((view, title, position) -> {
-//                        sortPosition = position;
-//                        TextView titleText = v.findViewById(R.id.tv_title);
-//                        titleText.setText(title);
-//                        onRefresh();
-//                    })
-//                    .setOnDismissListener(() -> {
-//                        expandIconView.switchState();
-//                        recyclerPopup = null;
-//                    })
-//                    .show(v);
-//        } else {
-//            recyclerPopup.dismiss();
-//            recyclerPopup = null;
-//        }
-
     }
 }

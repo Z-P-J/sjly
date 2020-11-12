@@ -174,4 +174,16 @@
         <item>乐园吐槽</item>
     </string-array>
 
+    <attr name="backgroundColor" format="color" />
+    <attr name="backgroundColorAccent" format="color" />
+    <attr name="backgroundTintColor" format="color" />
+    <attr name="backgroundColorCard" format="color" />
+    <attr name="textColorMajor" format="color" />
+    <attr name="textColorNormal" format="color" />
+    <attr name="textColorMinor" format="color" />
+
+    <attr name="backgroundShape" format="reference|color" />
+    <attr name="backgroundBanner" format="reference|color" />
+    <attr name="backgroundPickedGame" format="reference|color" />
+
 </resources>

@@ -45,7 +45,7 @@ public class CommonImageViewerDialogFragment2 extends ImageViewerDialogFragment2
     protected TextView tvInfo;
     protected TextView tvIndicator;
     private TintedImageButton btnMore;
-    private LoadingView loadingView;
+//    private LoadingView loadingView;
 
     public CommonImageViewerDialogFragment2() {
         super();
@@ -72,7 +72,7 @@ public class CommonImageViewerDialogFragment2 extends ImageViewerDialogFragment2
         tvIndicator = findViewById(R.id.tv_indicator);
         tvInfo = findViewById(R.id.tv_info);
         btnMore = findViewById(R.id.btn_more);
-        loadingView = findViewById(R.id.lv_loading);
+//        loadingView = findViewById(R.id.lv_loading);
 
         dialogView.addOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
             @Override
@@ -80,7 +80,7 @@ public class CommonImageViewerDialogFragment2 extends ImageViewerDialogFragment2
                 updateTitle();
                 tvIndicator.setText(getUrls().size() + "/" + (position + 1));
                 setInfoText();
-                loadingView.setVisibility(View.GONE);
+//                loadingView.setVisibility(View.GONE);
             }
         });
 
@@ -190,21 +190,23 @@ public class CommonImageViewerDialogFragment2 extends ImageViewerDialogFragment2
     }
 
     private void showOriginalImage() {
-        loadingView.setVisibility(View.VISIBLE);
+//        loadingView.setVisibility(View.VISIBLE);
         getUrls().set(dialogView.getCurrentItem(), originalImageList.get(dialogView.getCurrentItem()));
-        PhotoView current = dialogView.getViewPager().findViewWithTag(dialogView.getCurrentItem());
-        Glide.with(context)
-                .asDrawable()
-                .load(originalImageList.get(dialogView.getCurrentItem()))
-                .into(new SimpleTarget<Drawable>() {
-                    @Override
-                    public void onResourceReady(@NonNull Drawable resource, @Nullable Transition<? super Drawable> transition) {
-                        current.setImageDrawable(resource);
-                        updateTitle();
-                        loadingView.setVisibility(View.GONE);
-                        setInfoText();
-                    }
-                });
+        dialogView.loadNewUrl(originalImageList.get(dialogView.getCurrentItem()));
+        setInfoText();
+//        PhotoView current = dialogView.getViewPager().findViewWithTag(dialogView.getCurrentItem());
+//        Glide.with(context)
+//                .asDrawable()
+//                .load(originalImageList.get(dialogView.getCurrentItem()))
+//                .into(new SimpleTarget<Drawable>() {
+//                    @Override
+//                    public void onResourceReady(@NonNull Drawable resource, @Nullable Transition<? super Drawable> transition) {
+//                        current.setImageDrawable(resource);
+//                        updateTitle();
+//                        loadingView.setVisibility(View.GONE);
+//                        setInfoText();
+//                    }
+//                });
     }
 
 }

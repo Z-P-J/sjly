@@ -1,11 +1,15 @@
 package com.zpj.shouji.market.ui.fragment.theme;
 
+import android.content.res.ColorStateList;
 import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
+import android.support.v4.graphics.drawable.DrawableCompat;
 import android.support.v4.view.ViewPager;
 import android.text.TextUtils;
 import android.view.View;
@@ -14,11 +18,14 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
+import com.bumptech.glide.request.target.SimpleTarget;
+import com.bumptech.glide.request.transition.Transition;
 import com.felix.atoast.library.AToast;
 import com.shehuan.niv.NiceImageView;
 import com.zpj.recyclerview.EasyViewHolder;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.api.HttpApi;
+import com.zpj.shouji.market.constant.AppConfig;
 import com.zpj.shouji.market.constant.Keys;
 import com.zpj.shouji.market.event.RefreshEvent;
 import com.zpj.shouji.market.event.StartFragmentEvent;
@@ -33,8 +40,10 @@ import com.zpj.shouji.market.ui.fragment.dialog.ShareDialogFragment;
 import com.zpj.shouji.market.ui.fragment.dialog.ThemeMoreDialogFragment;
 import com.zpj.shouji.market.ui.fragment.login.LoginFragment;
 import com.zpj.shouji.market.utils.MagicIndicatorHelper;
+import com.zpj.shouji.market.utils.ThemeUtils;
 import com.zpj.utils.ColorUtils;
 import com.zpj.widget.tinted.TintedImageButton;
+import com.zxy.skin.sdk.SkinEngine;
 
 import net.lucode.hackware.magicindicator.MagicIndicator;
 
@@ -46,7 +55,6 @@ public class ThemeDetailFragment extends ListenerFragment {
     private final String[] TAB_TITLES = {"评论", "点赞"};
 
     private FloatingActionButton fabComment;
-//    private CommentPopup commentPopup;
     private CommentDialogFragment commentDialogFragment;
     private ViewPager viewPager;
     private MagicIndicator magicIndicator;
@@ -106,14 +114,27 @@ public class ThemeDetailFragment extends ListenerFragment {
 
         View themeLayout = view.findViewById(R.id.layout_discover);
 
+        toolbar.setLightStyle(AppConfig.isNightMode());
+
         ImageView ivBg = view.findViewById(R.id.iv_bg);
         if (!TextUtils.isEmpty(wallpaper)) {
-            ivBg.setVisibility(View.VISIBLE);
             Glide.with(context)
                     .load(wallpaper)
 //                    .apply(RequestOptions.bitmapTransform(new BlurTransformation()))
                     .apply(RequestOptions.bitmapTransform(new BlurTransformation(25, 2)))
-                    .into(ivBg);
+                    .into(new SimpleTarget<Drawable>() {
+                        @Override
+                        public void onResourceReady(@NonNull Drawable resource, @Nullable Transition<? super Drawable> transition) {
+                            ivBg.setImageDrawable(resource);
+                            int color = AppConfig.isNightMode() ? Color.parseColor("#aa000000") : Color.parseColor("#ccffffff");
+                            ivBg.setColorFilter(color);
+                            ivBg.setVisibility(View.VISIBLE);
+//                            final Drawable wrappedDrawable = DrawableCompat.wrap(ivBg.getDrawable().mutate());
+//
+//                            DrawableCompat.setTintList(wrappedDrawable, ColorStateList.valueOf(color));
+//                            ivBg.setImageDrawable(wrappedDrawable);
+                        }
+                    });
 //            ShadowLayout shadowLayout = themeLayout.findViewById(R.id.layout_theme);
         }
 
@@ -148,10 +169,10 @@ public class ThemeDetailFragment extends ListenerFragment {
                 } else {
                     themeLayout.setAlpha(1f);
                 }
-                if (TextUtils.isEmpty(wallpaper)) {
-                    int color = ColorUtils.alphaColor(Color.WHITE, alpha);
-                    toolbar.setBackgroundColor(color);
-                }
+//                if (TextUtils.isEmpty(wallpaper)) {
+//                    int color = ColorUtils.alphaColor(Color.WHITE, alpha);
+//                    toolbar.setBackgroundColor(color);
+//                }
             }
         });
 
@@ -168,13 +189,15 @@ public class ThemeDetailFragment extends ListenerFragment {
                 .into(ivToolbarAvater);
 
         tvToolbarName.setText(item.getNickName());
-        tvToolbarName.setTextColor(Color.BLACK);
+        SkinEngine.setTextColor(tvToolbarName, R.attr.textColorMajor);
+//        tvToolbarName.setTextColor(Color.BLACK);
 
         btnShare = toolbar.getRightCustomView().findViewById(R.id.btn_share);
         btnCollect = toolbar.getRightCustomView().findViewById(R.id.btn_collect);
         btnMenu = toolbar.getRightCustomView().findViewById(R.id.btn_menu);
 
-        btnShare.setTint(Color.BLACK);
+//        btnShare.setTint(Color.BLACK);
+        SkinEngine.applyViewAttr(btnShare, "tint", R.attr.textColorMajor);
         btnShare.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -186,7 +209,8 @@ public class ThemeDetailFragment extends ListenerFragment {
 //                        .show();
             }
         });
-        btnCollect.setTint(Color.BLACK);
+//        btnCollect.setTint(Color.BLACK);
+        SkinEngine.applyViewAttr(btnCollect, "tint", R.attr.textColorMajor);
 
         btnCollect.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -202,7 +226,8 @@ public class ThemeDetailFragment extends ListenerFragment {
             }
         });
 
-        btnMenu.setTint(Color.BLACK);
+//        btnMenu.setTint(Color.BLACK);
+        SkinEngine.applyViewAttr(btnMenu, "tint", R.attr.textColorMajor);
 
         fabComment = view.findViewById(R.id.fab_comment);
         fabComment.setOnClickListener(v -> {
@@ -245,7 +270,7 @@ public class ThemeDetailFragment extends ListenerFragment {
     @Override
     public void onSupportVisible() {
         super.onSupportVisible();
-        darkStatusBar();
+        ThemeUtils.initStatusBar(this);
     }
 
     @Override
@@ -286,24 +311,6 @@ public class ThemeDetailFragment extends ListenerFragment {
             commentDialogFragment.setOnDismissListener(() -> fabComment.show());
         }
         commentDialogFragment.show(context);
-
-
-//        if (commentPopup == null) {
-//            commentPopup = CommentPopup.with(
-//                    context, item.getId(), item.getNickName(), item.getContentType(), () -> {
-//                        commentPopup = null;
-//                        RefreshEvent.postEvent();
-//                    })
-//                    .setDecorView(Objects.requireNonNull(getView()).findViewById(R.id.fl_container))
-//                    .setOnDismissListener(new OnDismissListener() {
-//                        @Override
-//                        public void onDismiss() {
-//                            fabComment.show();
-//                        }
-//                    })
-//                    .show();
-//        }
-//        commentPopup.show();
     }
 
     private void setDiscoverInfo(DiscoverInfo discoverInfo) {

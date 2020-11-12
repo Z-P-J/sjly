@@ -55,7 +55,7 @@ public class WallpaperViewerDialogFragment2 extends ImageViewerDialogFragment2<S
     private View bottomBar;
     private ImageView ivIcon;
     private TintedImageButton btnUp;
-    private LoadingView loadingView;
+//    private LoadingView loadingView;
     private DrawableTintTextView tvSupport;
     private TintedImageButton btnFavorite;
     private TextView tvOrigin;
@@ -90,13 +90,13 @@ public class WallpaperViewerDialogFragment2 extends ImageViewerDialogFragment2<S
         ivIcon = findViewById(R.id.iv_icon);
         btnUp = findViewById(R.id.btn_up);
         titleBar = findViewById(R.id.tool_bar);
-        loadingView = findViewById(R.id.lv_loading);
+//        loadingView = findViewById(R.id.lv_loading);
 
         dialogView.addOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
             @Override
             public void onPageSelected(int position) {
                 titleBar.setCenterText(getUrls().size() + "/" + (position + 1));
-                loadingView.setVisibility(View.GONE);
+//                loadingView.setVisibility(View.GONE);
             }
         });
 
@@ -349,20 +349,23 @@ public class WallpaperViewerDialogFragment2 extends ImageViewerDialogFragment2<S
     }
 
     private void showOriginalImage() {
-        loadingView.setVisibility(View.VISIBLE);
+//        loadingView.setVisibility(View.VISIBLE);
         getUrls().set(dialogView.getCurrentItem(), originalImageList.get(dialogView.getCurrentItem()));
-        PhotoView current = dialogView.getViewPager().findViewWithTag(dialogView.getCurrentItem());
-        Glide.with(context)
-                .asDrawable()
-                .load(originalImageList.get(dialogView.getCurrentItem()))
-                .into(new SimpleTarget<Drawable>() {
-                    @Override
-                    public void onResourceReady(@NonNull Drawable resource, @Nullable Transition<? super Drawable> transition) {
-                        current.setImageDrawable(resource);
-                        loadingView.setVisibility(View.GONE);
-                        tvOrigin.setVisibility(View.GONE);
-                    }
-                });
+        dialogView.loadNewUrl(originalImageList.get(dialogView.getCurrentItem()));
+        tvOrigin.setVisibility(View.GONE);
+
+//        PhotoView current = dialogView.getViewPager().findViewWithTag(dialogView.getCurrentItem());
+//        Glide.with(context)
+//                .asDrawable()
+//                .load(originalImageList.get(dialogView.getCurrentItem()))
+//                .into(new SimpleTarget<Drawable>() {
+//                    @Override
+//                    public void onResourceReady(@NonNull Drawable resource, @Nullable Transition<? super Drawable> transition) {
+//                        current.setImageDrawable(resource);
+//                        loadingView.setVisibility(View.GONE);
+//                        tvOrigin.setVisibility(View.GONE);
+//                    }
+//                });
     }
 
     private void supportWallpaper() {

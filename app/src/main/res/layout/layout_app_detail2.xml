@@ -28,10 +28,11 @@
                 <FrameLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:background="#40000000"
+                    android:background="?attr/backgroundTintColor"
                     app:layout_collapseMode="parallax"
                     app:layout_collapseParallaxMultiplier="0"
                     >
+<!--                    #40000000-->
 
                     <LinearLayout
                         android:id="@+id/layout_header"
@@ -50,9 +51,6 @@
                             android:layout_height="56dp"
                             android:src="@mipmap/ic_launcher"
                             android:layout_gravity="center_horizontal"
-                            app:is_circle="true"
-                            app:border_width="1dp"
-                            app:border_color="@android:color/white"
                             android:scaleType="centerCrop"
                             />
 
@@ -196,7 +194,7 @@
             android:id="@+id/view_pager"
             android:layout_height="wrap_content"
             android:layout_width="match_parent"
-            android:background="@android:color/white"
+            android:background="?attr/backgroundColor"
             app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
 
     </android.support.design.widget.CoordinatorLayout>

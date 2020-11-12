@@ -55,6 +55,7 @@ import com.zpj.shouji.market.event.GetMainActivityEvent;
 import com.zpj.shouji.market.glide.GlideUtils;
 import com.zpj.shouji.market.model.InstalledAppInfo;
 import com.zpj.shouji.market.ui.fragment.manager.AppPickerFragment;
+import com.zpj.shouji.market.utils.ThemeUtils;
 import com.zpj.utils.KeyboardHeightProvider;
 import com.zpj.utils.KeyboardUtils;
 import com.zpj.utils.ScreenUtils;
@@ -129,6 +130,7 @@ public class ReplyPanel extends FrameLayout
         llActionsContainer = findViewById(R.id.ll_actions_container);
 
         ivEmoji = findViewById(R.id.iv_emoji);
+//        ivEmoji.setColorFilter(ThemeUtils.getTextColorMajor(getContext()));
         ivImage = addAction(R.drawable.ic_image_black_24dp, v -> {
             if (isKeyboardShowing) {
                 KeyboardUtils.hideSoftInputKeyboard(etEditor);
@@ -169,6 +171,7 @@ public class ReplyPanel extends FrameLayout
         });
 
         ivSend = findViewById(R.id.iv_send);
+//        ivSend.setColorFilter(ThemeUtils.getTextColorMajor(getContext()));
 //        rlEmojiPanel = findViewById(R.id.rl_emoji_panel);
         elEmotion = findViewById(R.id.el_emotion);
         elEmotion.attachEditText(etEditor);
@@ -205,17 +208,18 @@ public class ReplyPanel extends FrameLayout
                     @Override
                     public Y_Divider getDivider(int itemPosition) {
                         Y_DividerBuilder builder = null;
+                        int color = Color.TRANSPARENT;
                         if (itemPosition == 0) {
                             builder = new Y_DividerBuilder()
-                                    .setLeftSideLine(true, Color.WHITE, 12, 0, 0);
+                                    .setLeftSideLine(true, color, 12, 0, 0);
                         } else if (itemPosition == imgList.size() - 1) {
                             builder = new Y_DividerBuilder()
-                                    .setRightSideLine(true, Color.WHITE, 12, 0, 0);
+                                    .setRightSideLine(true, color, 12, 0, 0);
                         } else {
                             builder = new Y_DividerBuilder();
                         }
-                        return builder.setTopSideLine(true, Color.WHITE, 4, 0, 0)
-                                .setBottomSideLine(true, Color.WHITE, 4, 0, 0)
+                        return builder.setTopSideLine(true, color, 4, 0, 0)
+                                .setBottomSideLine(true, color, 4, 0, 0)
                                 .create();
                     }
                 })
@@ -368,6 +372,7 @@ public class ReplyPanel extends FrameLayout
         params.leftMargin = margin;
         params.rightMargin = margin;
         imageView.setLayoutParams(params);
+        imageView.setColorFilter(ThemeUtils.getTextColorMajor(getContext()));
 //        int padding = ScreenUtils.dp2pxInt(getContext(), 6);
 //        imageView.setPadding(padding, padding, padding, padding);
         llActionsContainer.addView(imageView);
@@ -383,6 +388,7 @@ public class ReplyPanel extends FrameLayout
         params.leftMargin = margin;
         params.rightMargin = margin;
         textView.setLayoutParams(params);
+        textView.setTextColor(ThemeUtils.getTextColorMajor(getContext()));
 //        int padding = ScreenUtils.dp2pxInt(getContext(), 6);
 //        textView.setPadding(padding, padding, padding, padding);
         llActionsContainer.addView(textView);

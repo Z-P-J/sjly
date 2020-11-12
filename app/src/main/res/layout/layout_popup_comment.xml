@@ -19,7 +19,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="回复"
-            android:textColor="@color/color_text_major"
+            android:textColor="?attr/textColorMajor"
             android:textSize="16sp"
             android:layout_centerVertical="true"
             android:paddingHorizontal="8dp"
@@ -34,7 +34,7 @@
             android:background="?attr/actionBarItemBackground"
             android:layout_centerVertical="true"
             android:padding="8dp"
-            android:tint="@color/light_gray_10"
+            android:tint="?attr/textColorMinor"
             />
 
     </RelativeLayout>

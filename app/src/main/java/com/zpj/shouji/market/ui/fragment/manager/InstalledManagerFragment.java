@@ -36,6 +36,7 @@ import com.zpj.shouji.market.ui.fragment.detail.AppDetailFragment;
 import com.zpj.shouji.market.ui.fragment.dialog.RecyclerPartShadowDialogFragment;
 import com.zpj.shouji.market.ui.widget.GradientButton;
 import com.zpj.shouji.market.utils.AppUtil;
+import com.zpj.shouji.market.utils.ThemeUtils;
 import com.zpj.utils.ScreenUtils;
 import com.zpj.widget.checkbox.SmoothCheckBox;
 
@@ -74,6 +75,8 @@ public class InstalledManagerFragment extends RecyclerLayoutFragment<InstalledAp
 
     private boolean isLoading = false;
 
+    private boolean showToolbar = false;
+
     public static InstalledManagerFragment newInstance(boolean showToolbar) {
         Bundle args = new Bundle();
         args.putBoolean(Keys.SHOW_TOOLBAR, showToolbar);
@@ -102,10 +105,17 @@ public class InstalledManagerFragment extends RecyclerLayoutFragment<InstalledAp
     }
 
     @Override
+    protected void initStatusBar() {
+        if (showToolbar) {
+            ThemeUtils.initStatusBar(this);
+        }
+    }
+
+    @Override
     protected void initView(View view, @Nullable Bundle savedInstanceState) {
         super.initView(view, savedInstanceState);
-
-        if (getArguments() != null && getArguments().getBoolean(Keys.SHOW_TOOLBAR, false)) {
+        showToolbar = getArguments() != null && getArguments().getBoolean(Keys.SHOW_TOOLBAR, false);
+        if (showToolbar) {
             toolbar.setVisibility(View.VISIBLE);
 //            findViewById(R.id.shadow_view).setVisibility(View.VISIBLE);
             setToolbarTitle("应用管理");

@@ -163,7 +163,7 @@ public class DownloadButton extends AppCompatTextView
 
     @Override
     public void onPause() {
-        setText("已暂停");
+        setText("继续");
     }
 
     @Override
@@ -245,6 +245,7 @@ public class DownloadButton extends AppCompatTextView
             mission.setAppIcon(appIcon);
             mission.addListener(this);
             mission.start();
+            AToast.normal("开始下载" + appName);
         }
     }
 }

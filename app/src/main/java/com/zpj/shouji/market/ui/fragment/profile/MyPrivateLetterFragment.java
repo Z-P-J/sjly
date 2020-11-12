@@ -17,6 +17,7 @@ import com.zpj.shouji.market.model.PrivateLetterInfo;
 import com.zpj.shouji.market.ui.fragment.base.NextUrlFragment;
 import com.zpj.shouji.market.ui.fragment.chat.ChatFragment;
 import com.zpj.shouji.market.utils.BeanUtils;
+import com.zpj.shouji.market.utils.ThemeUtils;
 
 import java.util.List;
 
@@ -56,9 +57,9 @@ public class MyPrivateLetterFragment extends NextUrlFragment<PrivateLetterInfo> 
     }
 
     @Override
-    public void onEnterAnimationEnd(Bundle savedInstanceState) {
-        super.onEnterAnimationEnd(savedInstanceState);
-        darkStatusBar();
+    public void onSupportVisible() {
+        super.onSupportVisible();
+        ThemeUtils.initStatusBar(this);
     }
 
     @Override

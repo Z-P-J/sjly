@@ -31,7 +31,7 @@
             android:layout_height="wrap_content"
             android:singleLine="true"
             android:textStyle="bold"
-            android:textColor="#CC000000"
+            android:textColor="?attr/textColorMajor"
             android:textSize="16sp"
             android:text="手机乐园S" />
 
@@ -41,7 +41,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:singleLine="true"
-            android:textColor="#88000000"
+            android:textColor="?attr/textColorNormal"
             android:textSize="12sp"
             android:text="v1.2.0 | 2015-02-06" />
 
@@ -60,9 +60,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/ic_more_vert_grey_24dp"
-            android:tint="#ccc"
+            android:tint="?attr/textColorNormal"
             android:layout_gravity="center"
-
             />
 
         <com.zpj.widget.checkbox.SmoothCheckBox

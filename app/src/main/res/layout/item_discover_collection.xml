@@ -7,6 +7,7 @@
     app:hl_cornerRadius="8dp"
     app:hl_shadowColor="#80cccccc"
     app:hl_shadowLimit="8dp"
+    app:hl_shadowBackColor="?attr/backgroundColor"
     >
 
     <com.shehuan.niv.NiceImageView
@@ -15,7 +16,7 @@
         android:layout_height="match_parent"
         app:corner_radius="8dp"
         android:scaleType="centerCrop"
-        android:tint="#a0000000"
+        android:tint="#aa000000"
         />
 
 
@@ -71,7 +72,8 @@
                 android:text="文件夹"
                 android:textSize="16sp"
                 android:textStyle="bold"
-                android:textColor="@color/white" />
+                android:textColor="@color/white"
+                />
 
             <TextView
                 android:id="@+id/tv_info"
@@ -86,6 +88,7 @@
                 android:textColor="@color/light_gray_17"
                 android:textStyle="bold"
                 android:textSize="12sp" />
+<!--            @color/light_gray_17-->
 
 <!--            <TextView-->
 <!--                android:id="@+id/tv_desc"-->

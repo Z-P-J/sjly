@@ -44,14 +44,14 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="注册新用户"
-            android:textColor="#b0b8b2" />
+            android:textColor="?attr/textColorNormal" />
 
         <TextView
             android:id="@+id/tv_forget_password"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="忘记密码"
-            android:textColor="#b0b8b2"
+            android:textColor="?attr/textColorNormal"
             android:layout_gravity="end"
             />
     </FrameLayout>

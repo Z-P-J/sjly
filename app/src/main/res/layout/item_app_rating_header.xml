@@ -24,7 +24,7 @@
             android:gravity="center"
             android:text="乐友评分"
             android:textSize="16sp"
-            android:textColor="@color/color_text_major"
+            android:textColor="?attr/textColorMajor"
             android:textStyle="bold"
             android:layout_gravity="bottom"
             />
@@ -94,7 +94,7 @@
                 android:ellipsize="end"
                 android:text="100位乐友参与评分"
                 android:layout_marginTop="4dp"
-                android:textColor="@color/color_text_normal"
+                android:textColor="?attr/textColorNormal"
                 />
 
         </LinearLayout>
@@ -154,7 +154,7 @@
             android:ellipsize="end"
             android:text="我的打分"
             android:layout_marginTop="4dp"
-            android:textColor="@color/color_text_major"
+            android:textColor="?attr/textColorMajor"
             android:layout_marginHorizontal="8dp"
             />
 
@@ -171,7 +171,7 @@
             app:starMaxProgress="100"
             app:starProgress="60"
             app:starPathData="@string/round_star"
-
+            app:starStrokeWidth="0dp"
             />
 
 <!--        app:starCoverColor="@color/yellow_1"-->
@@ -194,7 +194,7 @@
             android:gravity="center"
             android:text="乐友评论"
             android:textSize="16sp"
-            android:textColor="@color/color_text_major"
+            android:textColor="?attr/textColorMajor"
             android:textStyle="bold"
             android:layout_gravity="bottom"
             />

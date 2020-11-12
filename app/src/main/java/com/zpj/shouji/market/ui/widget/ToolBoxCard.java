@@ -5,6 +5,7 @@ import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.GridLayout;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
@@ -15,7 +16,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.lihang.ShadowLayout;
+import com.zpj.blur.ZBlurry;
 import com.zpj.shouji.market.R;
+import com.zpj.shouji.market.event.SkinChangeEvent;
 import com.zpj.shouji.market.manager.UserManager;
 import com.zpj.shouji.market.model.MessageInfo;
 import com.zpj.shouji.market.ui.fragment.login.LoginFragment;
@@ -28,6 +31,7 @@ import com.zpj.shouji.market.ui.fragment.profile.MyDynamicFragment;
 import com.zpj.shouji.market.ui.fragment.profile.MyFragment;
 import com.zpj.shouji.market.ui.fragment.profile.MyFriendsFragment;
 import com.zpj.shouji.market.ui.fragment.profile.MyMsgFragment;
+import com.zpj.shouji.market.utils.ThemeUtils;
 
 import org.greenrobot.eventbus.Subscribe;
 
@@ -35,11 +39,10 @@ import io.reactivex.Observable;
 import io.reactivex.ObservableOnSubscribe;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
-import per.goweii.burred.Blurred;
 import q.rorbin.badgeview.Badge;
 import q.rorbin.badgeview.QBadgeView;
 
-public class ToolBoxCard extends ShadowLayout implements View.OnClickListener {
+public class ToolBoxCard extends CardView implements View.OnClickListener {
 
     private DrawableTintTextView tvMyHomepage;
     private DrawableTintTextView tvMyDiscovers;
@@ -54,17 +57,20 @@ public class ToolBoxCard extends ShadowLayout implements View.OnClickListener {
 
     private Badge commentBadge;
     private Badge msgBadge;
-//    private Badge atBadge;
+    //    private Badge atBadge;
 //    private Badge likeBadge;
     private Badge discoverBadge;
     private Badge friendsBadge;
 
+    private View gridLayout;
+
     private FrameLayout flNotLogin;
+    private ImageView ivBg;
     private TextView tvSignUp;
     private TextView tvSignIn;
 
-    private MyFragment fragment;
-    
+    private ZBlurry blurred;
+
     public ToolBoxCard(@NonNull Context context) {
         this(context, null);
     }
@@ -79,28 +85,24 @@ public class ToolBoxCard extends ShadowLayout implements View.OnClickListener {
         LayoutInflater.from(context).inflate(R.layout.layout_card_tool_box, this);
 
         flNotLogin = findViewById(R.id.fl_not_login);
-        ImageView ivBg = findViewById(R.id.iv_bg);
-        GridLayout gridLayout = findViewById(R.id.grid);
-        getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
-            @Override
-            public void onGlobalLayout() {
-                getViewTreeObserver().removeOnGlobalLayoutListener(this);
-                Observable.create((ObservableOnSubscribe<Bitmap>) emitter -> {
-                    Bitmap bitmap = Blurred.with(ToolBoxCard.this)
-                            .backgroundColor(Color.WHITE)
-//                            .foregroundColor(Color.parseColor("#80ffffff"))
-                            .scale(0.3f)
-                            .radius(20)
-                            .blur();
-                    emitter.onNext(bitmap);
-                    emitter.onComplete();
-                })
-                        .subscribeOn(Schedulers.io())
-                        .observeOn(AndroidSchedulers.mainThread())
-                        .doOnNext(ivBg::setImageBitmap)
-                        .subscribe();
-            }
-        });
+        ivBg = findViewById(R.id.iv_bg);
+        gridLayout = findViewById(R.id.grid);
+
+//        Blurred.with(findViewById(R.id.grid))
+//                .fitIntoViewXY(true)
+////                .antiAlias(true)
+//                .scale(0.3f)
+//                .radius(20)
+//                .blur(ivBg);
+
+//        Blurred.with(findViewById(R.id.grid))
+////                .fitIntoViewXY(true)
+////                .antiAlias(true)
+//                .scale(0.3f)
+//                .radius(16f)
+//                .blur(ivBg);
+
+        initBackground();
 
         tvSignUp = findViewById(R.id.tv_sign_up);
         tvSignIn = findViewById(R.id.tv_sign_in);
@@ -190,13 +192,30 @@ public class ToolBoxCard extends ShadowLayout implements View.OnClickListener {
 //                break;
         }
     }
-//
-//    public void attachActivity(SupportActivity activity) {
-//        this.activity = activity;
-//    }
 
-    public void attachFragment(MyFragment fragment) {
-        this.fragment = fragment;
+    private void initBackground() {
+        gridLayout.getViewTreeObserver().addOnPreDrawListener(new ViewTreeObserver.OnPreDrawListener() {
+            @Override
+            public boolean onPreDraw() {
+                gridLayout.getViewTreeObserver().removeOnPreDrawListener(this);
+                Observable.create(
+                        (ObservableOnSubscribe<Bitmap>) emitter -> {
+                            Bitmap bitmap = ZBlurry.with(gridLayout)
+//                            .backgroundColor(ThemeUtils.getDefaultBackgroundColor(context)) // Color.WHITE
+//                            .foregroundColor(Color.parseColor("#80ffffff"))
+                                    .scale(0.3f)
+                                    .radius(16)
+                                    .blur();
+                            emitter.onNext(bitmap);
+                            emitter.onComplete();
+                        })
+                        .subscribeOn(Schedulers.io())
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .doOnNext(ivBg::setImageBitmap)
+                        .subscribe();
+                return true;
+            }
+        });
     }
 
     public void onLogin() {
@@ -238,6 +257,11 @@ public class ToolBoxCard extends ShadowLayout implements View.OnClickListener {
         discoverBadge.setBadgeNumber(info.getDiscoverCount());
         friendsBadge.setBadgeNumber(info.getFanCount());
 
+    }
+
+    @Subscribe
+    public void onSkinChangeEvent(SkinChangeEvent event) {
+        initBackground();
     }
 
 }

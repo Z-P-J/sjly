@@ -7,11 +7,20 @@
     >
 
 
-    <android.support.v4.view.ViewPager
-        android:id="@+id/view_pager"
+    <FrameLayout
+        android:id="@+id/fl_blur"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:overScrollMode="never"/>
+        android:layout_height="match_parent">
+
+        <android.support.v4.view.ViewPager
+            android:id="@+id/view_pager"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:overScrollMode="never"
+            android:background="?attr/backgroundColor"
+            />
+
+    </FrameLayout>
 
     <com.zpj.widget.toolbar.ZToolBar
         android:id="@+id/tool_bar"

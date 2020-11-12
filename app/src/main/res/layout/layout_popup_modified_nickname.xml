@@ -20,7 +20,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="修改昵称"
-            android:textColor="@color/color_text_major"
+            android:textColor="?attr/textColorMajor"
             android:textSize="16sp"
             android:layout_centerVertical="true"
             />
@@ -34,7 +34,7 @@
             android:background="?attr/actionBarItemBackground"
             android:layout_centerVertical="true"
             android:padding="8dp"
-            android:tint="@color/light_gray_10"
+            android:tint="?attr/textColorMinor"
             />
 
     </RelativeLayout>
@@ -48,6 +48,7 @@
         android:layout_marginBottom="16dp"
         android:layout_marginTop="16dp"
         android:layout_marginHorizontal="16dp"
+        android:textColor="?attr/textColorNormal"
         />
 
     <com.zpj.widget.editor.AccountInputView
@@ -59,12 +60,13 @@
 
 
 
-    <TextView
+    <com.zpj.shouji.market.ui.widget.DrawableTintTextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="因系统原因，用户昵称只允许修改三次，请乐友三思！"
-        android:textColor="@color/color_text_major"
+        android:textColor="?attr/textColorMajor"
         android:drawableStart="@drawable/ic_info_black_24dp"
+        app:drawable_tint_color="?attr/textColorMajor"
         android:gravity="center_vertical"
         android:drawablePadding="16dp"
         android:layout_marginTop="16dp"

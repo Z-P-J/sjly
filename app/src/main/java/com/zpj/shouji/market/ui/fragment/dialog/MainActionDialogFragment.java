@@ -11,6 +11,7 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v4.app.Fragment;
 import android.view.View;
 import android.view.ViewAnimationUtils;
 import android.view.ViewGroup;
@@ -20,13 +21,16 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.felix.atoast.library.AToast;
+import com.zpj.blur.ZBlurry;
 import com.zpj.fragmentation.dialog.impl.FullScreenDialogFragment;
 import com.zpj.http.core.ObservableTask;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.event.GetMainActivityEvent;
+import com.zpj.shouji.market.event.GetMainFragmentEvent;
 import com.zpj.shouji.market.manager.UserManager;
 import com.zpj.shouji.market.ui.activity.MainActivity;
 import com.zpj.shouji.market.ui.animator.KickBackAnimator;
+import com.zpj.shouji.market.ui.fragment.MainFragment;
 import com.zpj.shouji.market.ui.fragment.collection.CollectionShareFragment;
 import com.zpj.shouji.market.ui.fragment.login.LoginFragment;
 import com.zpj.shouji.market.ui.fragment.profile.MyPrivateLetterFragment;
@@ -36,7 +40,6 @@ import com.zpj.shouji.market.utils.Callback;
 import com.zpj.utils.ScreenUtils;
 
 import io.reactivex.disposables.Disposable;
-import per.goweii.burred.Blurred;
 
 public class MainActionDialogFragment extends FullScreenDialogFragment
         implements View.OnClickListener {
@@ -58,8 +61,6 @@ public class MainActionDialogFragment extends FullScreenDialogFragment
     private LinearLayout menuLayout;
     private FloatingActionButton floatingActionButton;
 
-    private Disposable disposable;
-
     public static MainActionDialogFragment with(Context context) {
         return new MainActionDialogFragment();
     }
@@ -73,6 +74,26 @@ public class MainActionDialogFragment extends FullScreenDialogFragment
     protected void initView(View view, @Nullable Bundle savedInstanceState) {
         super.initView(view, savedInstanceState);
 
+        ImageView ivBg = findViewById(R.id.iv_bg);
+        GetMainFragmentEvent.post(new Callback<MainFragment>() {
+            @Override
+            public void onCallback(MainFragment fragment) {
+                ZBlurry.with(fragment.getView())
+                        .backgroundColor(Color.WHITE)
+                        .scale(0.2f)
+                        .radius(20)
+                        .blur(new ZBlurry.Callback() {
+                            @Override
+                            public void down(Bitmap bitmap) {
+                                if (ivBg != null) {
+                                    ivBg.setImageBitmap(bitmap);
+                                }
+                            }
+                        });
+            }
+        });
+
+
         getContentView().setAlpha(0f);
         menuLayout = findViewById(R.id.icon_group);
         floatingActionButton = findViewById(R.id.fab);
@@ -84,29 +105,8 @@ public class MainActionDialogFragment extends FullScreenDialogFragment
             itemView.setOnClickListener(this);
             menuLayout.addView(itemView);
         }
-        ImageView ivBg = findViewById(R.id.iv_bg);
 
         menuLayout.setOnClickListener(v -> dismiss());
-
-        disposable = new ObservableTask<Bitmap>(
-                emitter -> {
-                    Bitmap bitmap = Blurred.with(_mActivity.getWindow().getDecorView()) // findViewById(R.id.fl_container)
-                            .backgroundColor(Color.WHITE)
-//                                    .foregroundColor(Color.parseColor("#aaffffff"))
-                            .antiAlias(true)
-                            .scale(0.3f) // 0.5f
-                            .radius(25)
-                            .blur();
-                    emitter.onNext(bitmap);
-                    emitter.onComplete();
-                })
-                .onSuccess(data -> {
-                    if (ivBg != null) {
-                        ivBg.setImageBitmap(data);
-                    }
-                })
-                .onError(throwable -> AToast.error(throwable.getMessage()))
-                .subscribe();
     }
 
     @Override
@@ -209,9 +209,6 @@ public class MainActionDialogFragment extends FullScreenDialogFragment
                 @Override
                 public void onAnimationEnd(Animator animation) {
                     getContentView().setVisibility(View.GONE);
-                    if (disposable != null) {
-                        disposable.dispose();
-                    }
                 }
             });
             animator.setDuration(300);

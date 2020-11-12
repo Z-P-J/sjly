@@ -63,7 +63,12 @@ public class AppCommentDialogFragment extends CommentDialogFragment {
                 appType,
                 appPackage,
                 replyPanel.getImgList(),
-                this::dismiss,
+                () -> {
+                    if (successRunnable != null) {
+                        successRunnable.run();
+                    }
+                    dismiss();
+                },
                 new IHttp.OnStreamWriteListener() {
                     @Override
                     public void onBytesWritten(int bytesWritten) {
