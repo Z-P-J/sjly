@@ -441,6 +441,17 @@ public class DownloadMission {
         }
     }
 
+    public void restart() {
+        pause();
+        done = 0;
+        doneLen.set(0);
+        finishTime = 0;
+        finishCount = 0;
+        lastDone = 0;
+
+        start();
+    }
+
     public void pause() {
         initCurrentRetryCount();
         handler.removeCallbacks(progressRunnable);
@@ -849,7 +860,11 @@ public class DownloadMission {
     }
 
     public String getFilePath() {
-        return getDownloadPath() + File.separator + name;
+        String path = getDownloadPath();
+        if (path.endsWith(File.separator)) {
+            return path + name;
+        }
+        return path + File.separator + name;
     }
 
     public File getFile() {

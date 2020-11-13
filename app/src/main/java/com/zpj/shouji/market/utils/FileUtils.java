@@ -260,55 +260,6 @@ public class FileUtils {
         return "com.android.providers.media.documents".equals(uri.getAuthority());
     }
 
-
-    public static String getFileMD5(File file) {
-        if (!file.isFile()) {
-            return null;
-        }
-        MessageDigest digest = null;
-        FileInputStream in = null;
-        byte[] buffer = new byte[1024];
-        int len;
-        try {
-            digest = MessageDigest.getInstance("MD5");
-            in = new FileInputStream(file);
-            while ((len = in.read(buffer, 0, 1024)) != -1) {
-                digest.update(buffer, 0, len);
-            }
-            in.close();
-        } catch (Exception e) {
-            e.printStackTrace();
-            return null;
-        }
-        return bytesToHexString(digest.digest());
-    }
-
-    public static String getFileSliceMD5(File file) {
-        if (!file.isFile() || file.length() < 256 * 1024) {
-            return null;
-        }
-        MessageDigest digest = null;
-        FileInputStream in = null;
-        byte[] buffer = new byte[1024];
-        int len;
-        try {
-            digest = MessageDigest.getInstance("MD5");
-            CRC32 crc = new CRC32();
-            in = new FileInputStream(file);
-            for (int i = 0; i < 256; i++) {
-                len = in.read(buffer, 0, 1024);
-                digest.update(buffer, 0, len);
-                crc.update(buffer, 0, len);
-            }
-            in.close();
-        } catch (Exception e) {
-            e.printStackTrace();
-            return null;
-        }
-        return bytesToHexString(digest.digest());
-    }
-
-
     private static String bytesToHexString(byte[] src) {
         StringBuilder stringBuilder = new StringBuilder("");
         if (src == null || src.length <= 0) {

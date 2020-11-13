@@ -19,7 +19,7 @@ import com.zpj.shouji.market.model.MemberInfo;
 import com.zpj.shouji.market.ui.fragment.dialog.EmailModifiedDialogFragment;
 import com.zpj.shouji.market.ui.fragment.dialog.NicknameModifiedDialogFragment;
 import com.zpj.shouji.market.ui.fragment.dialog.PasswordModifiedDialogFragment;
-import com.zpj.shouji.market.ui.widget.IconSettingItem;
+import com.zpj.shouji.market.ui.widget.setting.IconSettingItem;
 import com.zpj.shouji.market.utils.PictureUtil;
 import com.zpj.shouji.market.utils.ThemeUtils;
 import com.zpj.shouji.market.utils.UploadUtils;

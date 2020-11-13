@@ -55,14 +55,14 @@
                         app:z_setting_rightText="Lv.100"
                         />
 
-                    <com.zpj.shouji.market.ui.widget.IconSettingItem
+                    <com.zpj.shouji.market.ui.widget.setting.IconSettingItem
                         style="@style/simple_setting_item_style"
                         android:id="@+id/item_avatar"
                         app:z_setting_titleText="头像"
                         app:z_setting_rightIcon="@mipmap/ic_launcher"
                         />
 
-                    <com.zpj.shouji.market.ui.widget.IconSettingItem
+                    <com.zpj.shouji.market.ui.widget.setting.IconSettingItem
                         style="@style/simple_setting_item_style"
                         android:id="@+id/item_background"
                         app:z_setting_titleText="主页背景"

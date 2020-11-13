@@ -493,7 +493,7 @@
                                     app:z_setting_titleText="意见反馈"
                                     />
 
-                                <com.zpj.shouji.market.ui.widget.SkinChangeSettingItem
+                                <com.zpj.shouji.market.ui.widget.setting.SkinChangeSettingItem
                                     style="@style/simple_setting_item_style"
                                     app:z_setting_titleTextColor="?attr/textColorMajor"
                                     android:id="@+id/tv_night_mode"

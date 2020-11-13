@@ -9,6 +9,7 @@ import com.zpj.downloader.config.MissionConfig;
 import com.zpj.downloader.constant.Error;
 import com.zpj.downloader.core.DownloadMission;
 import com.zpj.downloader.util.FileUtil;
+import com.zpj.fragmentation.dialog.impl.AlertDialogFragment;
 import com.zpj.http.core.IHttp;
 import com.zpj.http.parser.html.nodes.Document;
 import com.zpj.installer.InstallMode;
@@ -16,6 +17,7 @@ import com.zpj.installer.ZApkInstaller;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.api.HttpApi;
 import com.zpj.shouji.market.constant.AppConfig;
+import com.zpj.shouji.market.utils.AppUtil;
 import com.zpj.utils.AppUtils;
 import com.zpj.utils.FileUtils;
 
@@ -25,6 +27,13 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.util.UUID;
+
+import io.reactivex.Observable;
+import io.reactivex.ObservableEmitter;
+import io.reactivex.ObservableOnSubscribe;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.functions.Consumer;
+import io.reactivex.schedulers.Schedulers;
 
 public class AppDownloadMission extends DownloadMission {
 
@@ -71,7 +80,6 @@ public class AppDownloadMission extends DownloadMission {
 //        mission.missionConfig = config;
 //        return mission;
 //    }
-
 
 
     @Override
@@ -128,6 +136,41 @@ public class AppDownloadMission extends DownloadMission {
     }
 
     public void install() {
+
+        if (AppUtils.isInstalled(getContext(), getPackageName()) && AppConfig.isCheckSignature()) {
+            Observable.create(
+                    (ObservableOnSubscribe<Boolean>) emitter -> {
+                        String currentSign = AppUtil.getAppSignatureMD5(getContext(), getPackageName());
+                        String apkSign = AppUtil.getApkSignatureMD5(getContext(), getFilePath());
+                        emitter.onNext(TextUtils.equals(currentSign, apkSign));
+                        emitter.onComplete();
+                    })
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .doOnNext(flag -> {
+                        if (flag) {
+                            installApk();
+                        } else {
+                            String versionName = AppUtils.getAppVersionName(getContext(), getPackageName());
+                            new AlertDialogFragment()
+                                    .setTitle(R.string.text_title_has_different_signature)
+                                    .setContent(getContext().getString(R.string.text_content_has_different_signature, getAppName(), versionName))
+                                    .setPositiveButton("卸载", fragment -> {
+                                        AppUtil.uninstallApp(getContext(), getPackageName());
+                                    })
+                                    .setNeutralButton("强制安装", fragment -> installApk())
+                                    .setNeutralButtonColor(getContext().getResources().getColor(R.color.colorPrimary))
+                                    .setPositionButtonnColor(getContext().getResources().getColor(R.color.light_red_1))
+                                    .show(getContext());
+                        }
+                    })
+                    .subscribe();
+        } else {
+            installApk();
+        }
+    }
+
+    private void installApk() {
         if (AppConfig.isAccessibilityInstall() || AppConfig.isRootInstall()) {
             Log.d("AppDownloadMission", "install---dir=" + Environment.getExternalStorageDirectory().getAbsolutePath());
 //            AutoInstaller installer = new AutoInstaller.Builder(getContext())
@@ -163,8 +206,6 @@ public class AppDownloadMission extends DownloadMission {
 //            installer.install(getFile());
 
 
-
-
 //            new Thread(new Runnable() {
 //                @Override
 //                public void run() {
@@ -193,7 +234,9 @@ public class AppDownloadMission extends DownloadMission {
 
                         @Override
                         public void onComplete() {
-                            if (AppUtils.isInstalled(getContext(), getPackageName())) {
+                            String currentVersion = AppUtils.getAppVersionName(getContext(), getPackageName());
+                            String apkVersion = AppUtil.getApkVersionName(getContext(), getFilePath());
+                            if (TextUtils.equals(apkVersion, currentVersion)) {
                                 if (AppConfig.isAutoDeleteAfterInstalled()) {
                                     FileUtils.deleteFile(getFilePath());
                                 }
@@ -218,58 +261,6 @@ public class AppDownloadMission extends DownloadMission {
         } else {
             openFile();
         }
-    }
-
-    private boolean installUseRoot(File file) {
-        Log.d(TAG, "installUseRoot");
-        if (file == null)
-            throw new IllegalArgumentException("Please check apk file!");
-        boolean result = false;
-        Process process = null;
-        OutputStream outputStream = null;
-        BufferedReader errorStream = null;
-        try {
-            process = Runtime.getRuntime().exec("su");
-            outputStream = process.getOutputStream();
-
-//            String command = "pm install -r " + file.getAbsolutePath() + "\n";
-            String command = "cat " + file.getAbsolutePath() + " | pm install -S "+ file.length() + "\n";
-            Log.d(TAG, "command=" + command);
-            outputStream.write(command.getBytes());
-            outputStream.flush();
-            outputStream.write("exit\n".getBytes());
-            outputStream.flush();
-            process.waitFor();
-            errorStream = new BufferedReader(new InputStreamReader(process.getErrorStream()));
-            StringBuilder msg = new StringBuilder();
-            String line;
-            while ((line = errorStream.readLine()) != null) {
-                msg.append(line);
-            }
-            Log.d(TAG, "install msg is " + msg);
-            if (!msg.toString().toLowerCase().contains("failure")) {
-                result = true;
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-            Log.e(TAG, e.getMessage(), e);
-            result = false;
-        } finally {
-            try {
-                if (outputStream != null) {
-                    outputStream.close();
-                }
-                if (errorStream != null) {
-                    errorStream.close();
-                }
-            } catch (IOException e) {
-                e.printStackTrace();
-                outputStream = null;
-                errorStream = null;
-                process.destroy();
-            }
-        }
-        return result;
     }
 
     public void setAppIcon(String appIcon) {

@@ -24,8 +24,12 @@ import com.zpj.shouji.market.api.HttpApi;
 import com.zpj.utils.ContextUtils;
 
 import java.lang.ref.WeakReference;
+import java.text.Collator;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
+import java.util.Locale;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.concurrent.ConcurrentMap;
@@ -258,11 +262,25 @@ public final class AppUpdateManager {
         return INCLUDE_APP_MAP.get(packageName);
     }
 
+//    private boolean isLetterOrDigit(char c) {
+//        return Character.isLetter(c) || Character.isDigit(c);
+//    }
+
     private synchronized void onFinished() {
         if (TASK_LIST.isEmpty()) {
             checked.set(true);
             running.set(false);
             List<AppUpdateInfo> list = new ArrayList<>(APP_UPDATE_INFO_LIST);
+
+            Comparator<Object> comparator1 = Collator.getInstance(Locale.CHINA);
+//            Comparator<Object> comparator2 = Collator.getInstance(Locale.US);
+            Collections.sort(list, new Comparator<AppUpdateInfo>() {
+                @Override
+                public int compare(AppUpdateInfo o1, AppUpdateInfo o2) {
+                    return comparator1.compare(o1.getAppName(), o2.getAppName());
+//                    return o1.getAppName().compareTo(o2.getAppName());
+                }
+            });
             notifyUpdate();
             for (WeakReference<CheckUpdateListener> checkUpdateListener : LISTENERS) {
                 if (checkUpdateListener.get() != null) {

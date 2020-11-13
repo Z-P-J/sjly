@@ -106,6 +106,10 @@ public class SettingFragment extends BaseSettingFragment {
         itemAutoDeleteApk.setChecked(AppConfig.isAutoDeleteAfterInstalled());
         itemAutoDeleteApk.setOnItemClickListener(this);
 
+        SwitchSettingItem itemCheckSignature = view.findViewById(R.id.item_check_signature_before_install);
+        itemCheckSignature.setChecked(AppConfig.isCheckSignature());
+        itemCheckSignature.setOnItemClickListener(this);
+
         CheckableSettingItem itemAutoInstall = view.findViewById(R.id.item_accessibility_install);
         itemAutoInstall.setChecked(AppConfig.isAccessibilityInstall());
         itemAutoInstall.setOnItemClickListener(this);
@@ -152,6 +156,9 @@ public class SettingFragment extends BaseSettingFragment {
                 break;
             case R.id.item_auto_delete_apk:
                 AppConfig.setAutoDeleteAfterInstalled(item.isChecked());
+                break;
+            case R.id.item_check_signature_before_install:
+                AppConfig.setCheckSignature(item.isChecked());
                 break;
             case R.id.item_accessibility_install:
                 AppConfig.setAccessibilityInstall(item.isChecked());

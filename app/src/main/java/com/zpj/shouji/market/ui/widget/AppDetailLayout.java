@@ -32,12 +32,6 @@ import net.lucode.hackware.magicindicator.MagicIndicator;
 
 import top.defaults.drawabletoolbox.DrawableBuilder;
 
-
-/**
- * 处理 header + tab + viewPager + recyclerView
- * Description:NestedScrolling2机制下的嵌套滑动，实现NestedScrollingParent2接口下，处理fling效果的区别
- * @author hufeiyang
- */
 public class AppDetailLayout extends FrameLayout {
 
     private CollapsingToolbarLayout toolbarLayout;

@@ -88,14 +88,11 @@ public class SearchPanelFragment extends BaseFragment {
                 new AlertDialogFragment()
                         .setTitle("清空记录？")
                         .setContent("您将清空您的历史搜索记录，确认清空？")
-                        .setPositiveButton(new AlertDialogFragment.OnPositiveButtonClickListener() {
-                            @Override
-                            public void onClick(AlertDialogFragment fragment) {
-                                SearchHistoryManager.deleteAllLocalSearchHistory();
-                                searchHistory.clear();
-                                searchHistory.setVisibility(View.GONE);
-                                rlHistoryBar.setVisibility(searchHistory.count() == 0 ? View.GONE : View.VISIBLE);
-                            }
+                        .setPositiveButton(fragment -> {
+                            SearchHistoryManager.deleteAllLocalSearchHistory();
+                            searchHistory.clear();
+                            searchHistory.setVisibility(View.GONE);
+                            rlHistoryBar.setVisibility(searchHistory.count() == 0 ? View.GONE : View.VISIBLE);
                         })
                         .show(context);
             }

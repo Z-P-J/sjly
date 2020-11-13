@@ -46,8 +46,6 @@ import com.zpj.shouji.market.ui.widget.CombineImageView;
 import com.zpj.shouji.market.ui.widget.DownloadButton;
 import com.zpj.shouji.market.ui.widget.DrawableTintTextView;
 import com.zpj.shouji.market.ui.widget.emoji.EmojiExpandableTextView;
-import com.zpj.shouji.market.utils.TextUrlUtil;
-import com.zpj.shouji.market.utils.ThemeUtils;
 import com.zpj.utils.NetUtils;
 import com.zxy.skin.sdk.SkinEngine;
 
@@ -55,8 +53,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class DiscoverBinder
-        implements IEasy.OnBindViewHolderListener<DiscoverInfo>,
-        TextUrlUtil.OnClickString, ExpandableTextView.OnLinkClickListener {
+        implements IEasy.OnBindViewHolderListener<DiscoverInfo>, ExpandableTextView.OnLinkClickListener {
 
 
     private static NineGridImageLoader imageLoader;
@@ -427,28 +424,6 @@ public class DiscoverBinder
 //        );
 //        return sp;
 //    }
-
-    @Override
-    public void onLinkClick(String link) {
-        WebFragment.start(link);
-    }
-
-    @Override
-    public void onAtClick(String at) {
-        AToast.success(at);
-    }
-
-    @Override
-    public void onTopicClick(String topic) {
-        AToast.success(topic);
-    }
-
-    @Override
-    public void onViewClick(View view) {
-//        if (view.getTag() instanceof ViewGroup) {
-//            ((ViewGroup) view.getTag()).performClick();
-//        }
-    }
 
     public static INineGridImageLoader getImageLoader() {
         if (imageLoader == null) {

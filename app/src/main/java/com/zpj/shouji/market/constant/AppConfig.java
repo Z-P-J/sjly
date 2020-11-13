@@ -25,6 +25,7 @@ public final class AppConfig {
     private static final String KEY_AUTO_DELETE_AFTER_INSTALLED = "auto_delete_after_installed";
     private static final String KEY_ACCESSIBILITY_INSTALL = "accessibility_install";
     private static final String KEY_ROOT_INSTALL = "root_install";
+    private static final String KEY_CHECK_SIGNATURE = "check_signature";
 //    private static final String KEY_SHOW_DOWNLOADED_RING = "show_downloaded_ring";
 
     private AppConfig() {
@@ -143,6 +144,14 @@ public final class AppConfig {
 
     public static boolean isRootInstall() {
         return PrefsHelper.with().getBoolean(KEY_ROOT_INSTALL, true);
+    }
+
+    public static void setCheckSignature(boolean value) {
+        PrefsHelper.with().putBoolean(KEY_CHECK_SIGNATURE, value);
+    }
+
+    public static boolean isCheckSignature() {
+        return PrefsHelper.with().getBoolean(KEY_CHECK_SIGNATURE, true);
     }
 
 }

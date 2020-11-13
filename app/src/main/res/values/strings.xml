@@ -14,6 +14,7 @@
 
     <string name="text_download">下载</string>
     <string name="text_upgrade">升级</string>
+    <string name="text_continue">继续</string>
 
     <string name="text_msg_not_login">登录后发现更多乐趣!</string>
     <string name="text_agreement">同意[《用户协议》](https://m.shouji.com.cn/sjlyyhxy.html)和[《隐私协议》](https://m.shouji.com.cn/ysxy.html)!</string>
@@ -24,6 +25,9 @@
 
     <string name="text_enable_accessibility_installation_service">请启用静默安装服务</string>
     <string name="text_grant_installation_permissions">请授予安装权限</string>
+
+    <string name="text_content_has_different_signature">检测到即将安装的应用[%s]与已安装的版本[%s]签名不一致，请先卸载此应用后安装。</string>
+    <string name="text_title_has_different_signature">签名不一致</string>
 
 
 
