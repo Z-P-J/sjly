@@ -33,6 +33,7 @@ import com.zpj.http.core.IHttp;
 import com.zpj.http.core.ObservableTask;
 import com.zpj.shouji.market.R;
 import com.zpj.fragmentation.BaseFragment;
+import com.zpj.shouji.market.constant.AppConfig;
 import com.zpj.shouji.market.constant.Keys;
 import com.zpj.shouji.market.download.AppDownloadMission;
 import com.zpj.shouji.market.event.StartFragmentEvent;
@@ -40,9 +41,12 @@ import com.zpj.shouji.market.glide.GlideApp;
 import com.zpj.shouji.market.model.InstalledAppInfo;
 import com.zpj.shouji.market.ui.fragment.base.SkinFragment;
 import com.zpj.shouji.market.ui.fragment.detail.AppDetailFragment;
+import com.zpj.shouji.market.ui.widget.DownloadedActionButton;
+import com.zpj.shouji.market.utils.AppUtil;
 import com.zpj.shouji.market.utils.ThemeUtils;
 import com.zpj.utils.AppUtils;
 import com.zpj.utils.ClickHelper;
+import com.zpj.utils.FileUtils;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -326,76 +330,73 @@ public class DownloadManagerFragment extends SkinFragment
                 updateStatus(holder, mission);
 
                 ClickHelper.with(holder.itemView)
-                        .setOnLongClickListener(new ClickHelper.OnLongClickListener() {
-                            @Override
-                            public boolean onLongClick(View v, float x, float y) {
-                                ArrayList<String> titleList = new ArrayList<>();
-                                if (!mission.isFinished()) {
-                                    if (mission.canPause()) {
-                                        titleList.add("暂停");
-                                    } else if (mission.canStart()) {
-                                        titleList.add("开始");
+                        .setOnLongClickListener((v, x, y) -> {
+                            ArrayList<String> titleList = new ArrayList<>();
+                            if (!mission.isFinished()) {
+                                if (mission.canPause()) {
+                                    titleList.add("暂停");
+                                } else if (mission.canStart()) {
+                                    titleList.add("开始");
 
-                                    }
+                                }
 //                                    if (!mission.isRunning()) {
 //                                        titleList.add("删除");
 //                                    } else {
 //                                        titleList.add("暂停");
 //                                    }
-                                    titleList.add("删除");
-                                    titleList.add("复制链接");
-                                    titleList.add("任务详情");
-                                } else {
-                                    titleList.add("安装");
-                                    titleList.add("删除");
-                                    titleList.add("复制链接");
-                                    titleList.add("任务详情");
-                                    titleList.add("分享");
-                                }
-                                new AttachListDialogFragment<String>()
-                                        .addItems(titleList)
-                                        .setOnSelectListener((fragment, position, text) -> {
-                                            fragment.dismiss();
-                                            switch (text) {
-                                                case "开始":
-                                                    mission.start();
-                                                    break;
-                                                case "暂停":
-                                                    mission.pause();
-                                                    break;
-                                                case "安装":
-//                                                    mission.openFile(context);
-                                                    mission.install();
-                                                    break;
-                                                case "删除":
-                                                    new CheckDialogFragment()
-                                                            .setChecked(true)
-                                                            .setCheckTitle("删除已下载的文件")
-                                                            .setTitle("确定删除？")
-                                                            .setContent("你将删除下载任务：" + mission.getTaskName())
-                                                            .setPositiveButton(dialog -> mission.delete())
-                                                            .show(context);
-                                                    break;
-                                                case "复制链接":
-                                                    ClipboardManager cm = (ClipboardManager) context.getSystemService(Context.CLIPBOARD_SERVICE);
-                                                    cm.setPrimaryClip(ClipData.newPlainText(null, mission.getOriginUrl()));
-                                                    AToast.success("已复制到粘贴板");
-                                                    break;
-                                                case "任务详情":
-                                                    AToast.normal("TODO");
-                                                    break;
-                                                case "分享":
-                                                    AToast.normal("分享");
-                                                    break;
-                                                case "检验":
-                                                    AToast.normal("检验");
-                                                    break;
-                                            }
-                                        })
-                                        .setTouchPoint(x, y)
-                                        .show(context);
-                                return true;
+                                titleList.add("删除");
+                                titleList.add("复制链接");
+                                titleList.add("任务详情");
+                            } else {
+                                titleList.add("安装");
+                                titleList.add("删除");
+                                titleList.add("复制链接");
+                                titleList.add("任务详情");
+                                titleList.add("分享");
                             }
+                            new AttachListDialogFragment<String>()
+                                    .addItems(titleList)
+                                    .setOnSelectListener((fragment, position, text) -> {
+                                        fragment.dismiss();
+                                        switch (text) {
+                                            case "开始":
+                                                mission.start();
+                                                break;
+                                            case "暂停":
+                                                mission.pause();
+                                                break;
+                                            case "安装":
+//                                                    mission.openFile(context);
+                                                mission.install();
+                                                break;
+                                            case "删除":
+                                                new CheckDialogFragment()
+                                                        .setChecked(true)
+                                                        .setCheckTitle("删除已下载的文件")
+                                                        .setTitle("确定删除？")
+                                                        .setContent("你将删除下载任务：" + mission.getTaskName())
+                                                        .setPositiveButton(dialog -> mission.delete())
+                                                        .show(context);
+                                                break;
+                                            case "复制链接":
+                                                ClipboardManager cm = (ClipboardManager) context.getSystemService(Context.CLIPBOARD_SERVICE);
+                                                cm.setPrimaryClip(ClipData.newPlainText(null, mission.getOriginUrl()));
+                                                AToast.success("已复制到粘贴板");
+                                                break;
+                                            case "任务详情":
+                                                AToast.normal("TODO");
+                                                break;
+                                            case "分享":
+                                                AToast.normal("分享");
+                                                break;
+                                            case "检验":
+                                                AToast.normal("检验");
+                                                break;
+                                        }
+                                    })
+                                    .setTouchPoint(x, y)
+                                    .show(context);
+                            return true;
                         });
 
             } else if (viewType == TYPE_EMPTY) {
@@ -420,6 +421,50 @@ public class DownloadManagerFragment extends SkinFragment
             holder.setText(R.id.item_size, size);
             holder.setVisible(R.id.item_status, !isFinished);
             holder.setVisible(R.id.btn_download, !isFinished);
+            DownloadedActionButton tvAction = holder.get(R.id.tv_action);
+            tvAction.bindMission(mission);
+//            if (isFinished) {
+//                tvAction.setVisibility(View.VISIBLE);
+//                final int textId;
+//                if (AppUtils.isInstalled(holder.itemView.getContext(), mission.getPackageName())) {
+//                    if (mission.getFile().exists()) {
+//                        String currentVersion = AppUtils.getAppVersionName(getContext(), mission.getPackageName());
+//                        String apkVersion = AppUtil.getApkVersionName(getContext(), mission.getFilePath());
+//                        if (TextUtils.equals(apkVersion, currentVersion)) {
+//                            textId = R.string.text_install;
+//                        } else {
+//                            textId = R.string .text_open;
+//                        }
+//                    } else {
+//                        textId = R.string.text_open;
+//                    }
+//                } else {
+//                    if (mission.getFile().exists()) {
+//                        textId = R.string.text_install;
+//                    } else {
+//                        textId = R.string.text_retry;
+//                    }
+//                }
+//                tvAction.setText(textId);
+//                tvAction.setOnClickListener(v -> {
+//                    switch (textId) {
+//                        case R.string .text_install:
+//                            mission.install();
+//                            break;
+//                        case R.string.text_open:
+//                            AppUtils.runApp(v.getContext(), mission.getPackageName());
+//                            break;
+//                        case R.string.text_retry:
+//                            AToast.warning(R.string.text_retry);
+//                            break;
+//                    }
+//                });
+//            } else {
+//                tvAction.setVisibility(View.GONE);
+//                tvAction.setOnClickListener(null);
+//            }
+//            holder.setVisible(R.id.tv_action, isFinished);
+
             ProgressBar progressBar = holder.get(R.id.progress_bar);
             progressBar.setMax(100);
             if (isFinished) {
