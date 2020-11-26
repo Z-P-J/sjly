@@ -20,6 +20,8 @@ import com.bumptech.glide.request.target.SimpleTarget;
 import com.bumptech.glide.request.transition.Transition;
 import com.zpj.fragmentation.ISupportFragment;
 import com.zpj.fragmentation.SupportHelper;
+import com.zpj.fragmentation.dialog.imagetrans.ITConfig;
+import com.zpj.fragmentation.dialog.imagetrans.MyImageLoad;
 import com.zpj.fragmentation.dialog.impl.AttachListDialogFragment;
 import com.zpj.fragmentation.dialog.impl.ImageViewerDialogFragment;
 import com.zpj.fragmentation.dialog.impl.ImageViewerDialogFragment2;
@@ -61,6 +63,18 @@ public class CommonImageViewerDialogFragment2 extends ImageViewerDialogFragment2
         mSupportVisibleActionQueue.start();
         mDelegate.onSupportVisible();
         lightStatusBar();
+    }
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        build.imageLoad = new MyImageLoad<String>() {
+            @Override
+            public boolean isCached(String url) {
+                return false;
+            }
+        };
+        build.itConfig = new ITConfig().largeThumb();
     }
 
     @Override

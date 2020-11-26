@@ -9,11 +9,11 @@ import android.text.TextUtils;
 import android.util.Log;
 
 import com.felix.atoast.library.AToast;
-import com.zpj.downloader.util.notification.NotifyUtil;
 import com.zpj.http.core.Connection;
 import com.zpj.http.core.ObservableTask;
 import com.zpj.http.parser.html.nodes.Element;
 import com.zpj.http.parser.html.select.Elements;
+import com.zpj.notification.ZNotify;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.constant.Actions;
 import com.zpj.shouji.market.constant.AppConfig;
@@ -236,7 +236,7 @@ public final class AppUpdateManager {
             Intent intent = new Intent(ContextUtils.getApplicationContext(), MainActivity.class);
             intent.putExtra(Actions.ACTION, Actions.ACTION_SHOW_UPDATE);
             PendingIntent pendingIntent = PendingIntent.getActivity(ContextUtils.getApplicationContext(), 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
-            NotifyUtil.with(ContextUtils.getApplicationContext())
+            ZNotify.with(ContextUtils.getApplicationContext())
                     .buildNotify()
                     .setSmallIcon(R.mipmap.ic_launcher)
                     .setBigIcon(R.mipmap.ic_launcher)
@@ -250,7 +250,7 @@ public final class AppUpdateManager {
 
     public void cancelNotifyUpdate() {
         if (!AppConfig.isShowUpdateNotification()) {
-            NotifyUtil.cancel(hashCode());
+            ZNotify.cancel(hashCode());
         }
     }
 

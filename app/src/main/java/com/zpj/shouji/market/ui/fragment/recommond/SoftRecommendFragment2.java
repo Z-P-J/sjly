@@ -10,10 +10,18 @@ import com.felix.atoast.library.AToast;
 import com.zpj.http.ZHttp;
 import com.zpj.http.parser.html.nodes.Element;
 import com.zpj.http.parser.html.select.Elements;
+import com.zpj.recyclerview.EasyViewHolder;
+import com.zpj.recyclerview.MultiData;
 import com.zpj.shouji.market.R;
+import com.zpj.shouji.market.api.PreloadApi;
 import com.zpj.shouji.market.model.AppInfo;
 import com.zpj.shouji.market.ui.fragment.ToolBarAppListFragment;
 import com.zpj.shouji.market.ui.fragment.collection.CollectionRecommendListFragment;
+import com.zpj.shouji.market.ui.fragment.homepage.multi.AppInfoMultiData;
+import com.zpj.shouji.market.ui.fragment.homepage.multi.CollectionMultiData;
+import com.zpj.shouji.market.ui.fragment.homepage.multi.GuessYouLikeMultiData;
+import com.zpj.shouji.market.ui.fragment.homepage.multi.SubjectMultiData;
+import com.zpj.shouji.market.ui.fragment.homepage.multi.TutorialMultiData;
 import com.zpj.shouji.market.ui.widget.recommend.CollectionRecommendCard;
 import com.zpj.shouji.market.ui.widget.recommend.SoftRecommendCard;
 import com.zpj.shouji.market.ui.widget.recommend.SoftUpdateRecommendCard;
@@ -35,10 +43,10 @@ public class SoftRecommendFragment2 extends BaseRecommendFragment2 implements Vi
     @Override
     protected void initView(View view, @Nullable Bundle savedInstanceState) {
         super.initView(view, savedInstanceState);
-        view.findViewById(R.id.tv_necessary).setOnClickListener(this);
-        view.findViewById(R.id.tv_collection).setOnClickListener(this);
-        view.findViewById(R.id.tv_rank).setOnClickListener(this);
-        view.findViewById(R.id.tv_classification).setOnClickListener(this);
+//        view.findViewById(R.id.tv_necessary).setOnClickListener(this);
+//        view.findViewById(R.id.tv_collection).setOnClickListener(this);
+//        view.findViewById(R.id.tv_rank).setOnClickListener(this);
+//        view.findViewById(R.id.tv_classification).setOnClickListener(this);
     }
 
     @Override
@@ -48,9 +56,13 @@ public class SoftRecommendFragment2 extends BaseRecommendFragment2 implements Vi
     }
 
     @Override
-    public void onLazyInitView(@Nullable Bundle savedInstanceState) {
-        super.onLazyInitView(savedInstanceState);
-        ZHttp.get("https://soft.shouji.com.cn/")
+    public void initHeader(EasyViewHolder holder) {
+        holder.setOnClickListener(R.id.tv_necessary, this);
+        holder.setOnClickListener(R.id.tv_collection, this);
+        holder.setOnClickListener(R.id.tv_rank, this);
+        holder.setOnClickListener(R.id.tv_classification, this);
+
+        ZHttp.get("https://soft.shouji.com.cn")
                 .toHtml()
                 .onSuccess(data -> {
                     List<AppInfo> list = new ArrayList<>();
@@ -72,40 +84,44 @@ public class SoftRecommendFragment2 extends BaseRecommendFragment2 implements Vi
                 .onError(throwable -> {
                     throwable.printStackTrace();
                     AToast.error("出错了！" + throwable.getMessage());
-                    stateLayout.showContentView();
                 })
                 .subscribe();
 
-        recommendCardList.add(new SoftUpdateRecommendCard(context));
-        recommendCardList.add(new CollectionRecommendCard(context));
+    }
 
-        SoftRecommendCard softRecommendCard = new SoftRecommendCard(context);
-        softRecommendCard.setTitle("常用应用");
-        recommendCardList.add(softRecommendCard);
+    @Override
+    protected void initMultiData(List<MultiData> list) {
+        list.add(new AppInfoMultiData("最近更新") {
+            @Override
+            public void onHeaderClick() {
+                ToolBarAppListFragment.startUpdateSoftList();
+            }
 
+            @Override
+            public PreloadApi getKey() {
+                return PreloadApi.UPDATE_SOFT;
+            }
+        });
+
+        list.add(new CollectionMultiData());
+
+        list.add(new AppInfoMultiData("常用应用") {
+            @Override
+            public void onHeaderClick() {
+                ToolBarAppListFragment.startRecommendSoftList();
+            }
+
+            @Override
+            public PreloadApi getKey() {
+                return PreloadApi.HOME_SOFT;
+            }
+        });
 
         for (int i = 0; i < TITLES.length; i++) {
-            TutorialRecommendCard card = new TutorialRecommendCard(context, "soft", i + 1);
-            card.setTitle(TITLES[i]);
-            recommendCardList.add(card);
+            list.add(new TutorialMultiData(TITLES[i], "soft", i + 1));
         }
 
-        onScrolledToBottom();
 
-
-//        postDelayed(() -> {
-//            // TODO 排行
-//            addCard(new SoftUpdateRecommendCard(context));
-//            addCard(new CollectionRecommendCard(context));
-//            SoftRecommendCard softRecommendCard = new SoftRecommendCard(context);
-//            softRecommendCard.setTitle("常用应用");
-//            addCard(softRecommendCard);
-//            for (int i = 0; i < TITLES.length; i++) {
-//                TutorialRecommendCard card = new TutorialRecommendCard(context, "soft", i + 1);
-//                card.setTitle(TITLES[i]);
-//                addCard(card);
-//            }
-//        }, 500);
     }
 
     @Override
@@ -125,5 +141,6 @@ public class SoftRecommendFragment2 extends BaseRecommendFragment2 implements Vi
                 break;
         }
     }
+
 
 }

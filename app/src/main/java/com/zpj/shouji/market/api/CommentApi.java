@@ -302,7 +302,7 @@ public class CommentApi {
 //                        dataList.add(HttpKeyVal.create("replyid", replyId));
                         dataList.add(HttpKeyVal.create("content", content));
                         if (appInfo != null) {
-                            File file = Glide.with(ContextUtils.getApplicationContext()).downloadOnly().load(appInfo).submit().get();
+                            File file = Glide.with(ContextUtils.getApplicationContext()).asFile().load(appInfo).submit().get();
                             dataList.add(HttpKeyVal.create("md5", CipherUtils.md5(new FileInputStream(file))));
                             Connection.KeyVal keyVal = HttpKeyVal.create("icon", "icon.png", new FileInputStream(file), listener);
                             dataList.add(keyVal);

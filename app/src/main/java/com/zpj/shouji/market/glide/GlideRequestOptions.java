@@ -1,0 +1,69 @@
+package com.zpj.shouji.market.glide;
+
+import com.bumptech.glide.load.resource.bitmap.BitmapTransformation;
+import com.bumptech.glide.load.resource.bitmap.CenterCrop;
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
+import com.bumptech.glide.request.RequestOptions;
+import com.zpj.utils.ContextUtils;
+import com.zpj.utils.ScreenUtils;
+
+import java.util.ArrayList;
+import java.util.List;
+
+public class GlideRequestOptions {
+
+    private static RequestOptions DEFAULT_ICON_OPTION;
+
+
+    private RequestOptions options;
+    private List<BitmapTransformation> transformationList;
+
+    private GlideRequestOptions() {
+        options = new RequestOptions();
+        transformationList = new ArrayList<>();
+    }
+
+    public static RequestOptions getDefaultIconOption() {
+//        if (DEFAULT_ICON_OPTION == null) {
+//            DEFAULT_ICON_OPTION = GlideRequestOptions.with()
+//                    .centerCrop()
+//                    .roundedCorners(10)
+//                    .get();
+//        }
+//        return DEFAULT_ICON_OPTION.clone();
+        return GlideRequestOptions.with()
+                .centerCrop()
+                .roundedCorners(10)
+                .get();
+    }
+
+    public static GlideRequestOptions with() {
+        return new GlideRequestOptions();
+    }
+
+    public GlideRequestOptions addTransformation(BitmapTransformation transformation) {
+        transformationList.add(transformation);
+        return this;
+    }
+
+    public GlideRequestOptions centerCrop() {
+        transformationList.add(new CenterCrop());
+        return this;
+    }
+
+    public GlideRequestOptions roundedCorners(int dp) {
+        transformationList.add(new RoundedCorners(ScreenUtils.dp2pxInt(ContextUtils.getApplicationContext(), dp)));
+        return this;
+    }
+
+    public GlideRequestOptions skipMemoryCache(boolean flag) {
+        options = options.skipMemoryCache(flag);
+        return this;
+    }
+
+    public RequestOptions get() {
+        options = options.transform(transformationList.toArray(new BitmapTransformation[0]));
+        return options;
+    }
+
+}

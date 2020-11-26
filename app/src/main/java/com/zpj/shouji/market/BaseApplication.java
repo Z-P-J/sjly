@@ -104,22 +104,22 @@ public class BaseApplication extends Application {
         }
     }
 
-    public static class ToolbarApplicator extends SkinViewApplicator {
-        public ToolbarApplicator() {
-            super();
-            addAttributeApplicator("z_toolbar_titleBarColor", new IAttributeApplicator<BaseToolBar>() {
-                @Override
-                public void onApply(BaseToolBar view, TypedArray typedArray, int typedArrayIndex) {
-                    view.setBackgroundColor(typedArray.getColor(typedArrayIndex, ThemeUtils.getDefaultBackgroundColor(view.getContext())), false);
-                }
-            });
-            addAttributeApplicator("z_toolbar_statusBarColor", new IAttributeApplicator<BaseToolBar>() {
-                @Override
-                public void onApply(BaseToolBar view, TypedArray typedArray, int typedArrayIndex) {
-                    view.setStatusBarColor(typedArray.getColor(typedArrayIndex, ThemeUtils.getDefaultBackgroundColor(view.getContext())));
-                }
-            });
-        }
-    }
+//    public static class ToolbarApplicator extends SkinViewApplicator {
+//        public ToolbarApplicator() {
+//            super();
+//            addAttributeApplicator("z_toolbar_titleBarColor", new IAttributeApplicator<BaseToolBar>() {
+//                @Override
+//                public void onApply(BaseToolBar view, TypedArray typedArray, int typedArrayIndex) {
+//                    view.setBackgroundColor(typedArray.getColor(typedArrayIndex, ThemeUtils.getDefaultBackgroundColor(view.getContext())), false);
+//                }
+//            });
+//            addAttributeApplicator("z_toolbar_statusBarColor", new IAttributeApplicator<BaseToolBar>() {
+//                @Override
+//                public void onApply(BaseToolBar view, TypedArray typedArray, int typedArrayIndex) {
+//                    view.setStatusBarColor(typedArray.getColor(typedArrayIndex, ThemeUtils.getDefaultBackgroundColor(view.getContext())));
+//                }
+//            });
+//        }
+//    }
 
 }

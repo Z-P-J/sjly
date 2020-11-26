@@ -7,12 +7,6 @@
     android:paddingTop="80dp"
     >
 
-
-<!--    <com.shehuan.niv.NiceImageView-->
-<!--        android:id="@+id/iv_rank_bg"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="match_parent" />-->
-
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"

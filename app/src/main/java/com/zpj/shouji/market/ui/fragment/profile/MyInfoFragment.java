@@ -4,9 +4,9 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
 import android.view.View;
+import android.widget.ImageView;
 
 import com.felix.atoast.library.AToast;
-import com.shehuan.niv.NiceImageView;
 import com.zpj.fragmentation.BaseFragment;
 import com.zpj.fragmentation.dialog.impl.AlertDialogFragment;
 import com.zpj.shouji.market.R;
@@ -33,8 +33,8 @@ public class MyInfoFragment extends BaseFragment implements OnCommonItemClickLis
 
     private final MemberInfo memberInfo = UserManager.getInstance().getMemberInfo();
 
-    private NiceImageView ivAvatar;
-    private NiceImageView ivWallpaper;
+    private ImageView ivAvatar;
+    private ImageView ivWallpaper;
 
     private CommonSettingItem nickNameItem;
     private CommonSettingItem emailItem;
@@ -94,8 +94,8 @@ public class MyInfoFragment extends BaseFragment implements OnCommonItemClickLis
         nickNameItem.setRightText(memberInfo.getMemberNickName());
         levelItem.setRightText("Lv." + memberInfo.getMemberLevel());
         ivAvatar = avatarItem.getRightIcon();
-        ivAvatar.setCornerRadius(0);
-        ivAvatar.isCircle(true);
+//        ivAvatar.setCornerRadius(0);
+//        ivAvatar.isCircle(true);
 //        Glide.with(context)
 //                .load(memberInfo.getMemberAvatar())
 //                .into(ivAvatar);

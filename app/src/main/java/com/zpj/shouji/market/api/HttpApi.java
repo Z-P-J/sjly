@@ -41,7 +41,7 @@ import io.reactivex.schedulers.Schedulers;
 public final class HttpApi {
 
     public static final String USER_AGENT = "okhttp/3.0.1";
-    private static final String VERSION_CODE = "199";
+    private static final String VERSION_CODE = "210";
     private static final String HEADER_ACCEPT_ENCODING = "Accept-Encoding";
     private static final String VALUE_ACCEPT_ENCODING = "gzip";
 
@@ -55,7 +55,7 @@ public final class HttpApi {
             connection.data("versioncode", VERSION_CODE);
         }
         if (!url.contains("version=")) {
-            connection.data("version", "2.9.9.9.3");
+            connection.data("version", "3.1");
         }
         if (!url.contains("sn=")) {
             connection.data("sn", UserManager.getInstance().getSn());

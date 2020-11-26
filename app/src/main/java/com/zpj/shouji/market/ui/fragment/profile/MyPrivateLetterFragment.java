@@ -6,6 +6,7 @@ import android.view.View;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.zpj.http.parser.html.nodes.Element;
 import com.zpj.recyclerview.EasyViewHolder;
 import com.zpj.shouji.market.R;
@@ -86,6 +87,8 @@ public class MyPrivateLetterFragment extends NextUrlFragment<PrivateLetterInfo> 
         holder.setText(R.id.tv_time, info.getTime());
         holder.setText(R.id.tv_content, info.getContent());
         ImageView img = holder.getView(R.id.iv_icon);
-        Glide.with(img).load(info.getAvatar()).into(img);
+        Glide.with(img).load(info.getAvatar())
+                .apply(RequestOptions.circleCropTransform())
+                .into(img);
     }
 }

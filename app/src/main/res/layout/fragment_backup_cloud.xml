@@ -38,7 +38,7 @@
 
                     <!--            android:background="@drawable/bg_member_default"-->
 
-                    <com.shehuan.niv.NiceImageView
+                    <ImageView
                         android:layout_width="80dp"
                         android:layout_height="80dp"
                         android:layout_marginTop="80dp"

@@ -3,11 +3,10 @@ package com.zpj.shouji.market.ui.widget;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v7.widget.CardView;
 import android.util.AttributeSet;
 
-import com.lihang.ShadowLayout;
-
-public class SquareCardView extends ShadowLayout {
+public class SquareCardView extends CardView {
 
     public SquareCardView(@NonNull Context context) {
         super(context);

@@ -17,6 +17,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
 import com.bumptech.glide.request.RequestOptions;
 import com.bumptech.glide.request.target.SimpleTarget;
 import com.bumptech.glide.request.transition.Transition;
@@ -103,6 +104,7 @@ public class AppDetailInfoFragment extends BaseFragment
         Glide.with(context)
                 .load(list.get(position))
                 .apply(new RequestOptions()
+                        .transform(new RoundedCorners(ScreenUtils.dp2pxInt(context, 8)))
                         .placeholder(R.drawable.bga_pp_ic_holder_light)
                         .error(R.drawable.bga_pp_ic_holder_light))
                 .into(new SimpleTarget<Drawable>() {
@@ -176,70 +178,6 @@ public class AppDetailInfoFragment extends BaseFragment
                         }
                     })
                     .show(context);
-
-//            new CommonImageViewerDialogFragment()
-//                    .setImageUrls(list)
-//                    .setSrcView(img, position)
-//                    .setSrcViewUpdateListener(new ImageViewerDialogFragment.OnSrcViewUpdateListener<String>() {
-//                        private boolean flag = true;
-//                        @Override
-//                        public void onSrcViewUpdate(@NonNull ImageViewerDialogFragment<String> popup, int pos) {
-//                            if (flag) {
-//                                flag = false;
-//                            } else {
-//                                recyclerView.getRecyclerView().scrollToPosition(pos);
-//                            }
-//
-//                            postDelayed(() -> {
-////                                int layoutPos = recyclerView.getRecyclerView().indexOfChild(holder.getItemView());
-////                                View view = recyclerView.getRecyclerView().getChildAt(layoutPos + pos - position);
-////                                ImageView imageView;
-////                                if (view != null) {
-////                                    imageView = view.findViewById(R.id.iv_img);
-////                                } else {
-////                                    imageView = img;
-////                                }
-//                                ImageView imageView = recyclerView.getRecyclerView().findViewWithTag(pos);
-//                                if (imageView == null) {
-//                                    imageView = img;
-//                                }
-//                                popup.updateSrcView(imageView, pos);
-//                            }, 100);
-//                        }
-//                    })
-//                    .show(context);
-
-//            CommonImageViewerPopup.with(context)
-//                    .setImageUrls(list)
-//                    .setSrcView(img, position)
-//                    .setSrcViewUpdateListener(new ImageViewerPopup.OnSrcViewUpdateListener<String>() {
-//                        private boolean flag = true;
-//                        @Override
-//                        public void onSrcViewUpdate(@NonNull ImageViewerPopup<String> popup, int pos) {
-//                            if (flag) {
-//                                flag = false;
-//                            } else {
-//                                recyclerView.getRecyclerView().scrollToPosition(pos);
-//                            }
-//
-//                            postDelayed(() -> {
-////                                int layoutPos = recyclerView.getRecyclerView().indexOfChild(holder.getItemView());
-////                                View view = recyclerView.getRecyclerView().getChildAt(layoutPos + pos - position);
-////                                ImageView imageView;
-////                                if (view != null) {
-////                                    imageView = view.findViewById(R.id.iv_img);
-////                                } else {
-////                                    imageView = img;
-////                                }
-//                                ImageView imageView = recyclerView.getRecyclerView().findViewWithTag(pos);
-//                                if (imageView == null) {
-//                                    imageView = img;
-//                                }
-//                                popup.updateSrcView(imageView, pos);
-//                            }, 100);
-//                        }
-//                    })
-//                    .show();
         });
     }
 

@@ -1,19 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/ll_root"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="horizontal"
+    app:cardCornerRadius="8dp"
+    app:cardElevation="2dp"
+    app:cardUseCompatPadding="true"
     >
 
-    <com.shehuan.niv.NiceImageView
+    <ImageView
         android:id="@+id/iv_bg"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:scaleType="centerCrop"
         android:tint="#ddffffff"
-        app:corner_radius="8dp"
         />
 
     <LinearLayout
@@ -23,13 +25,12 @@
         android:padding="16dp"
         >
 
-        <com.shehuan.niv.NiceImageView
+        <ImageView
             android:id="@+id/iv_icon"
             android:layout_width="48dp"
             android:layout_height="48dp"
             android:src="@mipmap/ic_launcher"
             android:scaleType="centerCrop"
-            app:corner_radius="4dp"
             />
 
         <LinearLayout
@@ -65,4 +66,4 @@
 
     </LinearLayout>
 
-</FrameLayout>
+</android.support.v7.widget.CardView>

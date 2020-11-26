@@ -8,6 +8,8 @@ import android.util.AttributeSet;
 import android.view.View;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
+import com.bumptech.glide.request.RequestOptions;
 import com.yanyusong.y_divideritemdecoration.Y_Divider;
 import com.yanyusong.y_divideritemdecoration.Y_DividerBuilder;
 import com.yanyusong.y_divideritemdecoration.Y_DividerItemDecoration;
@@ -21,10 +23,13 @@ import com.zpj.shouji.market.model.SubjectInfo;
 import com.zpj.shouji.market.ui.fragment.subject.SubjectDetailFragment;
 import com.zpj.shouji.market.ui.fragment.subject.SubjectRecommendListFragment;
 import com.zpj.shouji.market.utils.BeanUtils;
+import com.zpj.utils.ScreenUtils;
 
 import java.util.List;
 
 public class SubjectRecommendCard extends RecommendCard<SubjectInfo> {
+
+    private int dp8;
 
     public SubjectRecommendCard(Context context) {
         this(context, null);
@@ -37,6 +42,7 @@ public class SubjectRecommendCard extends RecommendCard<SubjectInfo> {
     public SubjectRecommendCard(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         setTitle("专题推荐");
+        dp8 = ScreenUtils.dp2pxInt(context, 8);
     }
 
     @Override
@@ -97,7 +103,9 @@ public class SubjectRecommendCard extends RecommendCard<SubjectInfo> {
         holder.setText(R.id.tv_title, info.getTitle());
         holder.setText(R.id.tv_comment, info.getComment());
         holder.setText(R.id.tv_m, info.getM());
-        Glide.with(context).load(info.getIcon()).into(holder.getImageView(R.id.iv_icon));
+        Glide.with(context).load(info.getIcon())
+                .apply(RequestOptions.bitmapTransform(new RoundedCorners(ScreenUtils.dp2pxInt(context, 8))))
+                .into(holder.getImageView(R.id.iv_icon));
     }
 
     @Override

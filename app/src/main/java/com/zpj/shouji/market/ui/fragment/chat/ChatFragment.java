@@ -13,6 +13,7 @@ import android.view.View;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.felix.atoast.library.AToast;
 import com.lwkandroid.widget.ninegridview.NineGirdImageContainer;
 import com.lwkandroid.widget.ninegridview.NineGridBean;
@@ -245,7 +246,9 @@ public class ChatFragment extends NextUrlFragment<PrivateLetterInfo>
     @Override
     public void onBindViewHolder(EasyViewHolder holder, List<PrivateLetterInfo> list, int position, List<Object> payloads) {
         PrivateLetterInfo info = list.get(position);
-        Glide.with(context).load(info.getAvatar()).into(holder.getImageView(R.id.iv_icon));
+        Glide.with(context).load(info.getAvatar())
+                .apply(RequestOptions.circleCropTransform())
+                .into(holder.getImageView(R.id.iv_icon));
         holder.setText(R.id.tv_content, info.getContent());
         holder.setText(R.id.tv_time, info.getTime());
         switch (holder.getViewType()) {
@@ -332,105 +335,6 @@ public class ChatFragment extends NextUrlFragment<PrivateLetterInfo>
                     menu.dismiss();
                 })
                 .show(context);
-//        BottomListPopupMenu.with(context)
-//                .setMenu(R.menu.menu_private_letter)
-//                .addHideItem(hideList)
-//                .onItemClick((menu, view1, data1) -> {
-//                    switch (data1.getItemId()) {
-//                        case R.id.blacklist:
-////                            ZPopup.alert(context)
-////                                    .setTitle("添加黑名单")
-////                                    .setContent("确定将该用户加入黑名单？")
-////                                    .setConfirmButton(popup -> HttpApi.addBlacklistApi(data.getSendId()))
-////                                    .show();
-//                            new AlertDialogFragment()
-//                                    .setTitle("添加黑名单")
-//                                    .setContent("确定将该用户加入黑名单？")
-//                                    .setPositiveButton(popup -> HttpApi.addBlacklistApi(data.getSendId()))
-//                                    .show(context);
-//                            break;
-//                        case R.id.cancel_follow:
-//                            new AlertDialogFragment()
-//                                    .setTitle("取消关注")
-//                                    .setContent("确定取消关注该用户？")
-//                                    .setPositiveButton(popup -> HttpApi.deleteFriendApi(data.getSendId())
-//                                            .onSuccess(element -> {
-//                                                Log.d("deleteFriendApi", "element=" + element);
-//                                                String result = element.selectFirst("result").text();
-//                                                if ("success".equals(result)) {
-//                                                    AToast.success("取消关注成功");
-//                                                } else {
-//                                                    AToast.error(element.selectFirst("info").text());
-//                                                }
-//                                            })
-//                                            .onError(throwable -> AToast.error(throwable.getMessage()))
-//                                            .subscribe())
-//                                    .show(context);
-////                            ZPopup.alert(context)
-////                                    .setTitle("取消关注")
-////                                    .setContent("确定取消关注该用户？")
-////                                    .setConfirmButton(popup -> HttpApi.deleteFriendApi(data.getSendId())
-////                                            .onSuccess(element -> {
-////                                                Log.d("deleteFriendApi", "element=" + element);
-////                                                String result = element.selectFirst("result").text();
-////                                                if ("success".equals(result)) {
-////                                                    AToast.success("取消关注成功");
-////                                                } else {
-////                                                    AToast.error(element.selectFirst("info").text());
-////                                                }
-////                                            })
-////                                            .onError(throwable -> AToast.error(throwable.getMessage()))
-////                                            .subscribe())
-////                                    .show();
-//                            break;
-//                        case R.id.copy:
-//                            ClipboardManager cm = (ClipboardManager) context.getSystemService(Context.CLIPBOARD_SERVICE);
-//                            cm.setPrimaryClip(ClipData.newPlainText(null, data.getContent()));
-//                            AToast.success("已复制到粘贴板");
-//                            break;
-//                        case R.id.delete:
-//                            new AlertDialogFragment()
-//                                    .setTitle("删除信息")
-//                                    .setContent("确定删除该信息？")
-//                                    .setPositiveButton(popup -> HttpApi.deletePrivateLetterApi(data.getId())
-//                                            .onSuccess(element -> {
-//                                                Log.d("deleteFriendApi", "element=" + element);
-//                                                String result = element.selectFirst("result").text();
-//                                                if ("success".equals(result)) {
-//                                                    AToast.success("删除成功");
-//                                                    onRefresh();
-//                                                } else {
-//                                                    AToast.error(element.selectFirst("info").text());
-//                                                }
-//                                            })
-//                                            .onError(throwable -> AToast.error(throwable.getMessage()))
-//                                            .subscribe())
-//                                    .show(context);
-////                            ZPopup.alert(context)
-////                                    .setTitle("删除信息")
-////                                    .setContent("确定删除该信息？")
-////                                    .setConfirmButton(popup -> HttpApi.deletePrivateLetterApi(data.getId())
-////                                            .onSuccess(element -> {
-////                                                Log.d("deleteFriendApi", "element=" + element);
-////                                                String result = element.selectFirst("result").text();
-////                                                if ("success".equals(result)) {
-////                                                    AToast.success("删除成功");
-////                                                    onRefresh();
-////                                                } else {
-////                                                    AToast.error(element.selectFirst("info").text());
-////                                                }
-////                                            })
-////                                            .onError(throwable -> AToast.error(throwable.getMessage()))
-////                                            .subscribe())
-////                                    .show();
-//                            break;
-//                        case R.id.share:
-//                            AToast.normal("分享");
-//                            break;
-//                    }
-//                    menu.dismiss();
-//                })
-//                .show();
         return super.onLongClick(holder, view, data);
     }
 
@@ -448,16 +352,6 @@ public class ChatFragment extends NextUrlFragment<PrivateLetterInfo>
 
             @Override
             public void onNineGirdItemClick(int position, NineGridBean gridBean, NineGirdImageContainer imageContainer) {
-//                CommonImageViewerPopup.with(context)
-//                        .setOriginalImageList(info.getPics())
-//                        .setImageSizeList(info.getSizes())
-//                        .setImageUrls(AppConfig.isShowOriginalImage() && NetUtils.isWiFi(context) ? info.getPics() : info.getSpics())
-//                        .setSrcView(imageContainer.getImageView(), position)
-//                        .setSrcViewUpdateListener((popup, pos) -> {
-//                            NineGirdImageContainer view = (NineGirdImageContainer) nineGridImageView.getChildAt(pos);
-//                            popup.updateSrcView(view.getImageView());
-//                        })
-//                        .show();
                 new CommonImageViewerDialogFragment2()
                         .setOriginalImageList(info.getPics())
                         .setImageSizeList(info.getSizes())
@@ -471,16 +365,6 @@ public class ChatFragment extends NextUrlFragment<PrivateLetterInfo>
                             }
                         })
                         .show(context);
-//                new CommonImageViewerDialogFragment()
-//                        .setOriginalImageList(info.getPics())
-//                        .setImageSizeList(info.getSizes())
-//                        .setImageUrls(AppConfig.isShowOriginalImage() && NetUtils.isWiFi(context) ? info.getPics() : info.getSpics())
-//                        .setSrcView(imageContainer.getImageView(), position)
-//                        .setSrcViewUpdateListener((popup, pos) -> {
-//                            NineGirdImageContainer view = (NineGirdImageContainer) nineGridImageView.getChildAt(pos);
-//                            popup.updateSrcView(view.getImageView());
-//                        })
-//                        .show(context);
             }
 
             @Override

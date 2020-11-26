@@ -9,12 +9,16 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.GlideBuilder;
 import com.bumptech.glide.Registry;
 import com.bumptech.glide.annotation.GlideModule;
+import com.bumptech.glide.gifdecoder.GifDecoder;
 import com.bumptech.glide.load.ImageHeaderParser;
 import com.bumptech.glide.load.resource.bitmap.BitmapTransitionOptions;
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
 import com.bumptech.glide.load.resource.gif.GifDrawable;
 import com.bumptech.glide.load.resource.gif.StreamGifDecoder;
 import com.bumptech.glide.module.AppGlideModule;
+import com.bumptech.glide.request.RequestOptions;
+import com.zpj.shouji.market.glide.combine.CombineImage;
+import com.zpj.shouji.market.glide.combine.CombineImageModelLoaderFactory;
 import com.zpj.shouji.market.model.InstalledAppInfo;
 import com.zpj.shouji.market.glide.apk.ApkModelLoaderFactory;
 
@@ -30,6 +34,8 @@ public class MyAppGlideModule extends AppGlideModule {
         super.applyOptions(context, builder);
         builder.setDefaultTransitionOptions(Drawable.class, DrawableTransitionOptions.withCrossFade(500));
         builder.setDefaultTransitionOptions(Bitmap.class, BitmapTransitionOptions.withCrossFade(500));
+        builder.setDefaultRequestOptions(new RequestOptions().skipMemoryCache(true));
+
     }
 
     @Override
@@ -41,11 +47,15 @@ public class MyAppGlideModule extends AppGlideModule {
         com.spx.gifdecoder.ByteBufferGifDecoder byteBufferGifDecoder =
                 new com.spx.gifdecoder.ByteBufferGifDecoder(context, imageHeaderParsers, glide.getBitmapPool(), glide.getArrayPool());
         registry.prepend(Registry.BUCKET_GIF, ByteBuffer.class, GifDrawable.class, byteBufferGifDecoder);
+//        registry.append(Registry.BUCKET_GIF,
+//                InputStream.class,
+//                FrameSequenceDrawable.class, new GifDecoder(glide.getBitmapPool()));
 
         registry.prepend(Registry.BUCKET_GIF,
                 InputStream.class,
                 GifDrawable.class, new StreamGifDecoder(imageHeaderParsers, byteBufferGifDecoder, glide.getArrayPool()));
 
         registry.prepend(InstalledAppInfo.class, InputStream.class, new ApkModelLoaderFactory(context));
+        registry.prepend(CombineImage.class, InputStream.class, new CombineImageModelLoaderFactory(context));
     }
 }

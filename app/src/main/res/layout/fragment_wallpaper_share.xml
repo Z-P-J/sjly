@@ -73,11 +73,10 @@
                 />
 
 
-            <com.shehuan.niv.NiceImageView
+            <ImageView
                 android:id="@+id/iv_wallpaper"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:corner_radius="8dp"
                 android:layout_margin="16dp"
                 android:visibility="gone"
                 />

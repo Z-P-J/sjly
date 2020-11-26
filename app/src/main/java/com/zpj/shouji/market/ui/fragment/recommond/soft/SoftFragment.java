@@ -25,7 +25,7 @@
 //import com.zpj.http.parser.html.select.Elements;
 //import com.zpj.recyclerview.EasyRecyclerView;
 //import com.zpj.shouji.market.R;
-//import com.zpj.shouji.market.glide.blur.BlurTransformation;
+//import com.zpj.shouji.market.glide.transformation.blur.BlurTransformation;
 //import com.zpj.shouji.market.model.AppInfo;
 //import com.zpj.shouji.market.model.GroupItem;
 //import com.zpj.shouji.market.model.article.ArticleInfo;

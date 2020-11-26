@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.res.TypedArray;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
 import android.util.AttributeSet;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
@@ -16,9 +17,12 @@ import android.widget.Space;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.resource.bitmap.CenterCrop;
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
 import com.bumptech.glide.request.RequestOptions;
 import com.zpj.shouji.market.R;
-import com.zpj.shouji.market.glide.blur.CropBlurTransformation;
+import com.zpj.shouji.market.glide.GlideRequestOptions;
+import com.zpj.shouji.market.glide.transformations.blur.CropBlurTransformation;
 import com.zpj.shouji.market.model.AppInfo;
 import com.zpj.shouji.market.ui.fragment.detail.AppDetailFragment;
 import com.zpj.utils.ScreenUtils;
@@ -63,14 +67,30 @@ public class RankHeaderLayout extends FrameLayout {
 
     }
 
-    public void loadApp(AppInfo appInfo) {
+    public void loadApp(Fragment fragment, AppInfo appInfo) {
         tvTitle.setText(appInfo.getAppTitle());
         tvInfo.setText(appInfo.getAppSize());
-        Glide.with(getContext()).load(appInfo.getAppIcon()).into(ivIcon);
-        Glide.with(getContext())
+        Glide.with(fragment).load(appInfo.getAppIcon()).into(ivIcon);
+        Glide.with(fragment)
                 .asDrawable()
                 .load(appInfo.getAppIcon())
-                .apply(RequestOptions.bitmapTransform(new CropBlurTransformation(25, 0.3f)))
+//                .apply(RequestOptions.bitmapTransform(new RoundedCornersTransformation(ScreenUtils.dp2pxInt(getContext(), 8), 0)))
+                .apply(
+                        GlideRequestOptions.with()
+                                .addTransformation(new CropBlurTransformation(25, 0.3f))
+                                .centerCrop()
+                                .roundedCorners(8)
+                                .skipMemoryCache(true)
+                                .get()
+                )
+//                .apply(new RequestOptions()
+//                        .transforms(
+//                                new CropBlurTransformation(25, 0.3f),
+//                                new CenterCrop(),
+//                                new RoundedCorners(ScreenUtils.dp2pxInt(getContext(), 8))
+//                        )
+//                        .skipMemoryCache(true))
+//                .apply(new RequestOptions().transforms(new CropBlurTransformation(25, 0.3f), new RoundedCornersTransformation(ScreenUtils.dp2pxInt(getContext(), 8), 0)))
                 .into(ivBg);
         setOnClickListener(new OnClickListener() {
             @Override

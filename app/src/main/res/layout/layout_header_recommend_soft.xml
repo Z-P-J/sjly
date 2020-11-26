@@ -3,43 +3,56 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:paddingHorizontal="16dp"
+    android:orientation="vertical"
+    android:paddingTop="80dp"
     >
 
-    <TextView
-        style="@style/tools_item_style"
-        android:textColor="?attr/textColorMajor"
-        android:id="@+id/tv_necessary"
-        android:drawableTop="@drawable/ic_common_app"
-        android:drawablePadding="4dp"
-        android:text="必备"
-        />
+    <include layout="@layout/layout_banner"/>
 
-    <TextView
-        style="@style/tools_item_style"
-        android:textColor="?attr/textColorMajor"
-        android:id="@+id/tv_collection"
-        android:drawableTop="@drawable/ic_app_collection"
-        android:drawablePadding="4dp"
-        android:text="应用集"
-        />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingHorizontal="16dp"
+        >
 
-    <TextView
-        style="@style/tools_item_style"
-        android:textColor="?attr/textColorMajor"
-        android:id="@+id/tv_rank"
-        android:drawableTop="@drawable/ic_others_download"
-        android:drawablePadding="4dp"
-        android:text="排行"
-        />
+        <TextView
+            style="@style/tools_item_style"
+            android:textColor="?attr/textColorMajor"
+            android:id="@+id/tv_necessary"
+            android:drawableTop="@drawable/ic_common_app"
+            android:drawablePadding="4dp"
+            android:text="必备"
+            />
 
-    <TextView
-        style="@style/tools_item_style"
-        android:textColor="?attr/textColorMajor"
-        android:id="@+id/tv_classification"
-        android:drawableTop="@drawable/ic_app_topic"
-        android:drawablePadding="4dp"
-        android:text="分类"
-        />
+        <TextView
+            style="@style/tools_item_style"
+            android:textColor="?attr/textColorMajor"
+            android:id="@+id/tv_collection"
+            android:drawableTop="@drawable/ic_app_collection"
+            android:drawablePadding="4dp"
+            android:text="应用集"
+            />
+
+        <TextView
+            style="@style/tools_item_style"
+            android:textColor="?attr/textColorMajor"
+            android:id="@+id/tv_rank"
+            android:drawableTop="@drawable/ic_others_download"
+            android:drawablePadding="4dp"
+            android:text="排行"
+            />
+
+        <TextView
+            style="@style/tools_item_style"
+            android:textColor="?attr/textColorMajor"
+            android:id="@+id/tv_classification"
+            android:drawableTop="@drawable/ic_app_topic"
+            android:drawablePadding="4dp"
+            android:text="分类"
+            />
+
+    </LinearLayout>
+
+
 
 </LinearLayout>

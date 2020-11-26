@@ -150,9 +150,14 @@ public class RecommendFragment2 extends SkinFragment
                 ScrollChangeEvent.post(0);
             }
         }
-        if (mBanner != null) {
-            mBanner.onResume();
-        }
+        postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                if (mBanner != null) {
+                    mBanner.onResume();
+                }
+            }
+        }, 1500);
     }
 
     @Override
@@ -176,9 +181,17 @@ public class RecommendFragment2 extends SkinFragment
     public void onResume() {
         Log.d(TAG, "onResume");
         super.onResume();
-        if (mBanner != null) {
-            mBanner.onResume();
-        }
+//        if (mBanner != null) {
+//            mBanner.onResume();
+//        }
+        postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                if (mBanner != null) {
+                    mBanner.onResume();
+                }
+            }
+        }, 1500);
     }
 
     @Override

@@ -66,6 +66,10 @@ class ThumbConfig {
             rect.right = (int) (screenWidth * .5f);
             rect.top = (int) (screenHeight * .5f) - offset;
             rect.bottom = (int) (screenHeight * .5f) - offset;
+//            rect.left = screenWidth;
+//            rect.right = screenWidth;
+//            rect.top = screenHeight - offset;
+//            rect.bottom = screenHeight - offset;
         } else {
             int[] a = new int[2];
             view.getLocationInWindow(a);

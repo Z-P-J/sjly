@@ -12,13 +12,12 @@
     android:paddingEnd="2dp"
     >
 
-    <com.shehuan.niv.NiceImageView
+    <ImageView
         android:id="@+id/item_icon"
         android:layout_width="56dp"
         android:layout_height="56dp"
         android:src="@mipmap/ic_launcher"
         android:scaleType="centerCrop"
-        app:corner_radius="8dp"
         />
 
     <TextView

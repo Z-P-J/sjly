@@ -134,6 +134,7 @@ public class MyImageLoad<T> implements ImageLoad<T> {
             return true;
         }
         return OkHttpImageLoad.getInstance().checkImageExists(link);
+//        return false;
     }
 
     @Override

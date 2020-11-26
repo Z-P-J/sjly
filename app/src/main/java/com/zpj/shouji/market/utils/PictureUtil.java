@@ -251,7 +251,7 @@ public class PictureUtil {
                     public void onGranted() {
                         new ObservableTask<>(
                                 emitter -> {
-                                    File source = Glide.with(context).downloadOnly().load(url).submit().get();
+                                    File source = Glide.with(context).asFile().load(url).submit().get();
                                     if (source == null) {
                                         emitter.onError(new Exception("图片下载失败！"));
                                         emitter.onComplete();
@@ -313,7 +313,7 @@ public class PictureUtil {
                     public void onGranted() {
                         new ObservableTask<File>(
                                 emitter -> {
-                                    File source = Glide.with(context).downloadOnly().load(url).submit().get();
+                                    File source = Glide.with(context).asFile().load(url).submit().get();
                                     if (source == null) {
                                         emitter.onError(new Exception("图片下载失败！"));
                                     } else {
@@ -369,7 +369,7 @@ public class PictureUtil {
     public static void saveIcon(Context context, String url, String fileName, IHttp.OnSuccessListener<File> listener) {
         new ObservableTask<File>(
                 emitter -> {
-                    File source = Glide.with(context).downloadOnly().load(url).submit().get();
+                    File source = Glide.with(context).asFile().load(url).submit().get();
                     if (source == null) {
                         emitter.onComplete();
                         return;
@@ -481,7 +481,7 @@ public class PictureUtil {
     private static void saveIcon(Context context, String url, String fileName, int res) throws Exception {
         File source = null;
         if (!TextUtils.isEmpty(url)) {
-            source = Glide.with(context).downloadOnly().load(url).submit().get();
+            source = Glide.with(context).asFile().load(url).submit().get();
         }
         InputStream inputStream;
         if (source == null) {
@@ -542,11 +542,15 @@ public class PictureUtil {
         if (UserManager.getInstance().isLogin()) {
             String fileName = isAvatar ? "user_avatar" : "user_background";
             File file = new File(getIconPath(imageView.getContext()), fileName + ".png");
-            RequestOptions options = new RequestOptions()
+            RequestOptions tempOptions = new RequestOptions()
                     .error(res)
                     .placeholder(res)
                     .skipMemoryCache(true)
                     .diskCacheStrategy(DiskCacheStrategy.NONE);
+            if (isAvatar) {
+                tempOptions = tempOptions.circleCrop();
+            }
+            RequestOptions options = tempOptions;
             Log.d("loadIcon", "exists=" + file.exists() + " path=" + file.getPath());
             if (file.exists()) {
                 Glide.with(imageView)

@@ -52,7 +52,7 @@ public final class CloudBackupApi {
                     }
                     for (int i = 0; i < list.size(); i++) {
                         InstalledAppInfo info = list.get(i);
-                        File file = Glide.with(ContextUtils.getApplicationContext()).downloadOnly().load(info).submit().get();
+                        File file = Glide.with(ContextUtils.getApplicationContext()).asFile().load(info).submit().get();
                         Connection.KeyVal keyVal = HttpKeyVal.create("app" + i, "app" + i + ".png", new FileInputStream(file), listener);
                         dataList.add(keyVal);
                     }

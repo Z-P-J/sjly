@@ -2,27 +2,20 @@ package com.zpj.shouji.market.ui.widget.recommend;
 
 import android.content.Context;
 import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.util.AttributeSet;
 import android.view.View;
 
 import com.bumptech.glide.Glide;
-import com.felix.atoast.library.AToast;
-import com.zpj.http.parser.html.nodes.Document;
-import com.zpj.http.parser.html.nodes.Element;
-import com.zpj.http.parser.html.select.Elements;
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
+import com.bumptech.glide.request.RequestOptions;
 import com.zpj.recyclerview.EasyRecyclerView;
 import com.zpj.recyclerview.EasyViewHolder;
 import com.zpj.shouji.market.R;
-import com.zpj.shouji.market.api.HttpApi;
-import com.zpj.shouji.market.api.HttpPreLoader;
-import com.zpj.shouji.market.api.PreloadApi;
 import com.zpj.shouji.market.api.SearchApi;
-import com.zpj.shouji.market.model.AppInfo;
 import com.zpj.shouji.market.model.GuessAppInfo;
 import com.zpj.shouji.market.ui.fragment.detail.AppDetailFragment;
 import com.zpj.shouji.market.ui.widget.DownloadButton;
-import com.zpj.shouji.market.utils.Callback;
+import com.zpj.utils.ScreenUtils;
 
 import java.util.List;
 
@@ -86,7 +79,10 @@ public class GuessYouLikeRecommendCard extends RecommendCard<GuessAppInfo> {
         holder.setText(R.id.tv_title, info.getAppTitle());
         holder.setText(R.id.tv_info, info.getAppSize());
         holder.setText(R.id.tv_desc, info.getAppComment());
-        Glide.with(context).load(info.getAppIcon()).into(holder.getImageView(R.id.iv_icon));
+        Glide.with(context)
+                .load(info.getAppIcon())
+                .apply(RequestOptions.bitmapTransform(new RoundedCorners(ScreenUtils.dp2pxInt(context, 10))))
+                .into(holder.getImageView(R.id.iv_icon));
 //        holder.getView(R.id.tv_download).setOnClickListener(new OnClickListener() {
 //            @Override
 //            public void onClick(View v) {

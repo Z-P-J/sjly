@@ -45,7 +45,7 @@
                         android:padding="16dp"
                         >
 
-                        <com.shehuan.niv.NiceImageView
+                        <ImageView
                             android:id="@+id/iv_icon"
                             android:layout_width="56dp"
                             android:layout_height="56dp"

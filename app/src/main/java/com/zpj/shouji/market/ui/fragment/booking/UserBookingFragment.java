@@ -14,6 +14,7 @@ import com.zpj.shouji.market.constant.Keys;
 import com.zpj.shouji.market.event.StartFragmentEvent;
 import com.zpj.shouji.market.model.BookingAppInfo;
 import com.zpj.shouji.market.ui.adapter.FragmentsPagerAdapter;
+import com.zpj.shouji.market.ui.fragment.base.SkinFragment;
 import com.zpj.shouji.market.ui.fragment.detail.AppDetailFragment;
 import com.zpj.shouji.market.ui.fragment.dialog.BottomListMenuDialogFragment;
 import com.zpj.shouji.market.utils.MagicIndicatorHelper;
@@ -23,7 +24,7 @@ import net.lucode.hackware.magicindicator.MagicIndicator;
 import java.util.ArrayList;
 import java.util.List;
 
-public class UserBookingFragment extends BaseFragment {
+public class UserBookingFragment extends SkinFragment {
 
     private static final String[] TAB_TITLES = {"已预约", "已上线"};
 
@@ -111,28 +112,6 @@ public class UserBookingFragment extends BaseFragment {
                         }
                     })
                     .show(context);
-//            BottomListPopupMenu.with(context)
-//                    .setMenu(R.menu.menu_booking)
-//                    .addHideItem(appInfo.isAutoDownload() ?  R.id.auto_download : R.id.cancel_auto_download)
-//                    .onItemClick((menu, view1, data) -> {
-//                        Runnable successRunnable = () -> {
-//                            menu.dismiss();
-//                            onRefresh();
-//                        };
-//                        switch (data.getItemId()) {
-//                            case R.id.cancel_booking:
-//                                showCancelBookingPopup(appInfo, successRunnable);
-////                                BookingApi.cancelBookingApi(appInfo, successRunnable);
-//                                break;
-//                            case R.id.auto_download:
-//                                BookingApi.autoDownloadApi(appInfo, successRunnable);
-//                                break;
-//                            case R.id.cancel_auto_download:
-//                                BookingApi.cancelAutoDownloadApi(appInfo, successRunnable);
-//                                break;
-//                        }
-//                    })
-//                    .show();
             return true;
         }
     }

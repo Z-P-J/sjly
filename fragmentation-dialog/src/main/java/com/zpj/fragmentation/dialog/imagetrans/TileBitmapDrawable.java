@@ -119,7 +119,7 @@ public class TileBitmapDrawable extends Drawable {
 
     public static void attachTileBitmapDrawable(ImageView imageView, String path, OnLoadListener listener) {
 //        new InitializationTask(imageView, listener).execute(path);
-        if (path.endsWith(".itgif")) {
+        if (path.toLowerCase().endsWith(".itgif") || path.toLowerCase().endsWith(".gif")) {
             Glide.with(imageView).asDrawable().load(new File(path)).into(new SimpleTarget<Drawable>() {
                 @Override
                 public void onResourceReady(@NonNull Drawable resource, @Nullable Transition<? super Drawable> transition) {

@@ -23,7 +23,7 @@ import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.api.HttpApi;
 import com.zpj.shouji.market.constant.Keys;
 import com.zpj.shouji.market.event.StartFragmentEvent;
-import com.zpj.shouji.market.glide.blur.CropBlurTransformation;
+import com.zpj.shouji.market.glide.transformations.blur.CropBlurTransformation;
 import com.zpj.shouji.market.model.AppInfo;
 import com.zpj.shouji.market.model.SubjectInfo;
 import com.zpj.shouji.market.ui.fragment.detail.AppDetailFragment;
@@ -104,7 +104,10 @@ public class SubjectDetailFragment extends BaseFragment
             tvInfo.setText(getArguments().getString(Keys.INFO, ""));
             tvDesc.setText(getArguments().getString(Keys.CONTENT, ""));
 
-            Glide.with(context).load(getArguments().getString(Keys.ICON)).into(ivIcon);
+            Glide.with(context)
+                    .load(getArguments().getString(Keys.ICON))
+                    .apply(RequestOptions.circleCropTransform())
+                    .into(ivIcon);
             Glide.with(context)
                     .load(getArguments().getString(Keys.ICON))
                     .apply(

@@ -77,6 +77,18 @@
             />
 
         <TextView
+            android:id="@+id/tv_neutral"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:background="?android:attr/selectableItemBackground"
+            android:padding="8dp"
+            android:text="好的"
+            android:textSize="14sp"
+            android:visibility="gone"
+            />
+
+        <TextView
             android:id="@+id/tv_confirm"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

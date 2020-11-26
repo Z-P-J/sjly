@@ -6,11 +6,10 @@
     android:padding="16dp"
     >
 
-    <com.shehuan.niv.NiceImageView
+    <ImageView
         android:id="@+id/iv_icon"
         android:layout_width="36dp"
         android:layout_height="36dp"
-        app:is_circle="true"
         />
 
     <LinearLayout
@@ -40,11 +39,13 @@
             app:arrowType="right"
             app:arrow_height="8dp"
             app:arrow_width="8dp"
-            app:borderColor="#eeeeee"
-            app:border_width="1dp"
+
             app:bubbleType="left"
             app:cornerRadius="8dp"
             >
+
+<!--            app:borderColor="#eeeeee"-->
+<!--            app:border_width="1dp"-->
 
             <com.zpj.shouji.market.ui.widget.emoji.EmojiTextView
                 android:id="@+id/tv_content"

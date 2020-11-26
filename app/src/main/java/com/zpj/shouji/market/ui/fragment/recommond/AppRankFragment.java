@@ -189,9 +189,9 @@ public class AppRankFragment extends NextUrlFragment<AppRankFragment.RankItem> {
             RankHeaderLayout rank1 = holder.getView(R.id.rank_1);
             RankHeaderLayout rank2 = holder.getView(R.id.rank_2);
             RankHeaderLayout rank3 = holder.getView(R.id.rank_3);
-            rank1.loadApp(item.rank1);
-            rank2.loadApp(item.rank2);
-            rank3.loadApp(item.rank3);
+            rank1.loadApp(this, item.rank1);
+            rank2.loadApp(this, item.rank2);
+            rank3.loadApp(this, item.rank3);
         } else {
             final AppInfo appInfo = item.rank1;
             holder.getTextView(R.id.tv_title).setText(appInfo.getAppTitle());

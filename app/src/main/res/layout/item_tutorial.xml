@@ -7,7 +7,7 @@
     app:cardBackgroundColor="@color/gray_little"
     app:cardUseCompatPadding="true"
     app:cardCornerRadius="8dp"
-    app:cardElevation="4dp"
+    app:cardElevation="0dp"
     >
 
     <ImageView

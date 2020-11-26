@@ -18,7 +18,7 @@
         android:layout_height="wrap_content"
         >
 
-        <com.shehuan.niv.NiceImageView
+        <ImageView
             android:id="@+id/item_icon"
             android:layout_width="48dp"
             android:layout_height="48dp"
@@ -28,7 +28,6 @@
             android:gravity="center"
             android:scaleType="fitXY"
             android:src="@mipmap/ic_launcher"
-            app:corner_radius="8dp"
             />
 
         <LinearLayout

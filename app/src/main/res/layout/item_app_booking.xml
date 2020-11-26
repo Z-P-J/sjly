@@ -8,7 +8,7 @@
     android:padding="8dp"
     >
 
-    <com.shehuan.niv.NiceImageView
+    <ImageView
         android:id="@+id/iv_icon"
         android:layout_width="56dp"
         android:layout_height="56dp"
@@ -17,7 +17,6 @@
         android:layout_gravity="center_vertical"
         android:layout_centerVertical="true"
         android:scaleType="centerCrop"
-        app:corner_radius="4dp"
         />
 
     <LinearLayout

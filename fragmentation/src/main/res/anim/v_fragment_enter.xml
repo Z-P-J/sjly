@@ -24,9 +24,9 @@
             android:interpolator="@android:anim/decelerate_interpolator"
             android:fillEnabled="true"
             android:fillBefore="false" android:fillAfter="true"
-            android:duration="300"/>
+            android:duration="1000"/>
     <translate android:fromYDelta="100%" android:toYDelta="0"
             android:fillEnabled="true" android:fillBefore="true" android:fillAfter="true"
             android:interpolator="@android:anim/decelerate_interpolator"
-            android:duration="300"/>
+            android:duration="1000"/>
 </set>

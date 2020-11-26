@@ -15,7 +15,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.felix.atoast.library.AToast;
-import com.shehuan.niv.NiceImageView;
 import com.zpj.blur.ZBlurry;
 import com.zpj.fragmentation.anim.DefaultVerticalAnimator;
 import com.zpj.fragmentation.dialog.impl.AttachListDialogFragment;
@@ -61,7 +60,7 @@ public class MyFragment extends SkinFragment
     private ImageView ivWallpaper;
     private TextView tvName;
     private TextView tvSignature;
-    private NiceImageView ivAvatar;
+    private ImageView ivAvatar;
     private TextView tvCheckIn;
     private TextView tvEditInfo;
     private TextView tvLevel;

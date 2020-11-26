@@ -273,7 +273,7 @@ public class ImageViewerDialogFragment2<T> extends FullScreenDialogFragment {
                             new ObservableTask<File>(
                                     emitter -> {
                                         File file = Glide.with(ContextUtils.getApplicationContext())
-                                                .downloadOnly()
+                                                .asFile()
                                                 .load(url)
                                                 .submit()
                                                 .get();

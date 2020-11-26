@@ -116,11 +116,10 @@
         android:layout_height="match_parent"
         >
 
-        <com.shehuan.niv.NiceImageView
+        <ImageView
             android:id="@+id/iv_bg"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            app:corner_radius="8dp"
             android:scaleType="centerCrop"
             />
 

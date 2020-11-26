@@ -76,16 +76,14 @@
                                     android:layout_height="wrap_content"
                                     android:layout_gravity="center_vertical">
 
-                                    <com.shehuan.niv.NiceImageView
+                                    <ImageView
                                         android:id="@+id/iv_avatar"
                                         android:layout_width="64dp"
                                         android:layout_height="64dp"
                                         android:src="@mipmap/ic_launcher"
                                         android:layout_marginStart="16dp"
                                         android:layout_gravity="center_vertical"
-                                        app:border_color="@color/gray"
-                                        app:border_width="2dp"
-                                        app:is_circle="true" />
+                                        />
 
                                     <LinearLayout
                                         android:layout_width="wrap_content"

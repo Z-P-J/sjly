@@ -2,6 +2,7 @@ package com.zpj.shouji.market.ui.adapter;
 
 import android.content.Context;
 import android.content.res.TypedArray;
+import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.text.TextUtils;
 import android.view.Gravity;
@@ -29,7 +30,8 @@ import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.api.HttpApi;
 import com.zpj.shouji.market.constant.AppConfig;
 import com.zpj.shouji.market.glide.GlideUtils;
-import com.zpj.shouji.market.glide.blur.CropBlurTransformation;
+import com.zpj.shouji.market.glide.transformations.CircleWithBorderTransformation;
+import com.zpj.shouji.market.glide.transformations.blur.CropBlurTransformation;
 import com.zpj.shouji.market.manager.UserManager;
 import com.zpj.shouji.market.model.DiscoverInfo;
 import com.zpj.shouji.market.model.SupportUserInfo;
@@ -81,6 +83,7 @@ public class DiscoverBinder
 
         Glide.with(context)
                 .load(discoverInfo.getIcon())
+                .apply(RequestOptions.bitmapTransform(new CircleWithBorderTransformation(0.5f, Color.LTGRAY)))
                 .into(holder.getImageView(R.id.item_icon));
 
 

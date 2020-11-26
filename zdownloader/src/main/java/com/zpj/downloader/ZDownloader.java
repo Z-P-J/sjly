@@ -14,9 +14,9 @@ import com.zpj.downloader.config.MissionConfig;
 import com.zpj.downloader.core.DownloadManager;
 import com.zpj.downloader.core.DownloadManagerImpl;
 import com.zpj.downloader.core.DownloadMission;
+import com.zpj.downloader.core.INotificationInterceptor;
 import com.zpj.downloader.util.FileUtil;
 import com.zpj.downloader.util.NetworkChangeReceiver;
-import com.zpj.downloader.util.notification.NotifyUtil;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -43,7 +43,6 @@ public class ZDownloader {
 
 //        PermissionUtil.grandStoragePermission(context);
 
-        NotifyUtil.init(context);
         DownloadManagerImpl.register(options, clazz);
         IntentFilter intentFilter = new IntentFilter();
         intentFilter.addAction("android.net.conn.CONNECTIVITY_CHANGE");
@@ -64,7 +63,6 @@ public class ZDownloader {
 
     public static void onDestroy() {
         DownloadManagerImpl.unRegister();
-        NotifyUtil.cancelAll();
 //        System.exit(0);
 //        context.unbindService(mConnection);
 //        Intent intent = new Intent();
@@ -306,13 +304,17 @@ public class ZDownloader {
     }
 
     public static void setEnableNotification(boolean value, boolean affectPresent) {
-        DownloadManagerImpl.getInstance().getDownloaderConfig().setEnableNotification(value);
+        DownloaderConfig config = DownloadManagerImpl.getInstance().getDownloaderConfig();
+        config.setEnableNotification(value);
         if (affectPresent) {
             for (DownloadMission mission : getAllMissions()) {
                 mission.getMissionConfig().setEnableNotification(value);
             }
             if (!value) {
-                NotifyUtil.cancelAll();
+                INotificationInterceptor interceptor = config.getNotificationIntercepter();
+                if (interceptor != null) {
+                    interceptor.onCancelAll(DownloadManagerImpl.getInstance().getContext());
+                }
             }
         }
     }

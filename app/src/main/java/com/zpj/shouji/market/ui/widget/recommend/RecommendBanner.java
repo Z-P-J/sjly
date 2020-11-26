@@ -23,7 +23,7 @@ import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.api.HttpApi;
 import com.zpj.shouji.market.api.HttpPreLoader;
 import com.zpj.shouji.market.api.PreloadApi;
-import com.zpj.shouji.market.glide.blur.BlurTransformation;
+import com.zpj.shouji.market.glide.transformations.blur.BlurTransformation;
 import com.zpj.shouji.market.model.AppInfo;
 import com.zpj.shouji.market.ui.fragment.subject.SubjectRecommendListFragment;
 import com.zpj.shouji.market.ui.fragment.ToolBarAppListFragment;

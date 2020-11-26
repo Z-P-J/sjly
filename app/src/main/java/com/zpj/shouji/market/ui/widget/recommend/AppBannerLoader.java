@@ -7,9 +7,12 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
+import com.bumptech.glide.request.RequestOptions;
 import com.geek.banner.loader.BannerEntry;
 import com.geek.banner.loader.BannerLoader;
 import com.zpj.shouji.market.R;
+import com.zpj.shouji.market.glide.GlideRequestOptions;
 import com.zpj.shouji.market.model.AppInfo;
 import com.zpj.shouji.market.ui.widget.DownloadButton;
 
@@ -26,7 +29,14 @@ public class AppBannerLoader implements BannerLoader<AppInfo, View> {
 
         AppInfo appInfo = (AppInfo) entry.getBannerPath();
         Glide.with(context).load(appInfo.getAppIcon()).into(mImageView);
-        Glide.with(context).load(appInfo.getAppIcon()).into(ivIcon);
+        Glide.with(context).load(appInfo.getAppIcon())
+                .apply(
+                        GlideRequestOptions.with()
+                                .centerCrop()
+                                .roundedCorners(4)
+                                .get()
+                )
+                .into(ivIcon);
         tvTitle.setText(appInfo.getAppTitle());
         tvInfo.setText(appInfo.getAppSize());
         downloadButton.bindApp(appInfo);

@@ -10,7 +10,7 @@
         android:layout_marginBottom="-48dp"
         >
 
-        <com.zpj.widget.tinted.TintedImageView
+        <ImageView
             android:id="@+id/iv_header"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -28,16 +28,13 @@
             android:layout_marginBottom="48dp"
             >
 
-            <com.shehuan.niv.NiceImageView
+            <ImageView
                 android:id="@+id/iv_icon"
                 android:layout_marginTop="80dp"
                 android:layout_width="56dp"
                 android:layout_height="56dp"
                 android:src="@mipmap/ic_launcher"
                 android:layout_gravity="center_horizontal"
-                app:is_circle="true"
-                app:border_width="1dp"
-                app:border_color="@android:color/white"
                 android:scaleType="centerCrop"
                 />
 

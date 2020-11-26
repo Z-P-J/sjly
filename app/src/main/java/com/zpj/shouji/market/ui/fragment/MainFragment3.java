@@ -1,17 +1,30 @@
 //package com.zpj.shouji.market.ui.fragment;
 //
+//import android.graphics.Bitmap;
+//import android.graphics.Color;
+//import android.graphics.drawable.BitmapDrawable;
+//import android.graphics.drawable.Drawable;
 //import android.os.Bundle;
 //import android.support.annotation.Nullable;
 //import android.support.design.widget.FloatingActionButton;
+//import android.util.Log;
 //import android.view.View;
 //
+//import com.zpj.blur.ZBlurry;
 //import com.zpj.fragmentation.BaseFragment;
 //import com.zpj.fragmentation.SupportFragment;
+//import com.zpj.fragmentation.anim.DefaultHorizontalAnimator;
 //import com.zpj.fragmentation.anim.FragmentAnimator;
 //import com.zpj.shouji.market.R;
+//import com.zpj.shouji.market.constant.AppConfig;
+//import com.zpj.shouji.market.event.GetMainFragmentEvent;
+//import com.zpj.shouji.market.event.MainActionPopupEvent;
+//import com.zpj.shouji.market.event.SkinChangeEvent;
 //import com.zpj.shouji.market.manager.UserManager;
 //import com.zpj.shouji.market.model.MessageInfo;
+//import com.zpj.shouji.market.ui.adapter.FragmentsPagerAdapter;
 //import com.zpj.shouji.market.ui.animator.MyFragmentAnimator;
+//import com.zpj.shouji.market.ui.fragment.dialog.MainActionDialogFragment;
 //import com.zpj.shouji.market.ui.fragment.homepage.HomeFragment;
 //import com.zpj.shouji.market.ui.fragment.profile.MyFragment;
 //import com.zpj.shouji.market.ui.fragment.recommond.GameRecommendFragment2;
@@ -21,6 +34,12 @@
 //
 //import org.greenrobot.eventbus.EventBus;
 //import org.greenrobot.eventbus.Subscribe;
+//
+//import java.util.concurrent.TimeUnit;
+//
+//import io.reactivex.Observable;
+//import io.reactivex.android.schedulers.AndroidSchedulers;
+//import io.reactivex.schedulers.Schedulers;
 //
 //public class MainFragment3 extends BaseFragment {
 //
@@ -34,6 +53,8 @@
 //
 //    private BottomBar mBottomBar;
 //
+//    private ZBlurry blurred;
+//
 //    @Override
 //    protected int getLayoutId() {
 //        return R.layout.fragment_main3;
@@ -46,7 +67,8 @@
 //
 //    @Override
 //    public FragmentAnimator onCreateFragmentAnimator() {
-//        return new MyFragmentAnimator();
+//        return new DefaultHorizontalAnimator();
+////        return new MyFragmentAnimator();
 //    }
 //
 //    @Override
@@ -63,6 +85,8 @@
 //
 //    @Override
 //    protected void initView(View view, @Nullable Bundle savedInstanceState) {
+//
+//        view.setAlpha(0);
 //
 //        SupportFragment firstFragment = findChildFragment(HomeFragment.class);
 //        if (firstFragment == null) {
@@ -92,7 +116,31 @@
 //
 //        mBottomBar = view.findViewById(R.id.bottom_bar);
 //
+//        blurred = ZBlurry.with(findViewById(R.id.fl_container))
+////                .fitIntoViewXY(false)
+////                .antiAlias(true)
+//                .foregroundColor(Color.parseColor(AppConfig.isNightMode() ? "#a0000000" : "#a0ffffff"))
+//                .scale(0.1f)
+//                .radius(20)
+////                .maxFps(40)
+//                .blur(mBottomBar, new ZBlurry.Callback() {
+//                    @Override
+//                    public void down(Bitmap bitmap) {
+//                        Log.d("MainFragment", "bitmap=" + bitmap);
+//                        Drawable drawable = new BitmapDrawable(bitmap);
+//                        mBottomBar.setBackground(drawable);
+//                    }
+//                });
+//        blurred.pauseBlur();
+//
 //        BottomBarTab emptyTab = new BottomBarTab(context);
+//        emptyTab.setOnClickListener(v -> {
+//            MainActionPopupEvent.post(true);
+//            new MainActionDialogFragment()
+//                    .setOnDismissListener(() -> MainActionPopupEvent.post(false))
+//                    .show(context);
+//        });
+//
 //        mBottomBar.addItem(BottomBarTab.build(context, "主页", R.drawable.ic_home_normal, R.drawable.ic_home_checked))
 //                .addItem(BottomBarTab.build(context, "应用", R.drawable.ic_software_normal, R.drawable.ic_software_checked))
 //                .addItem(emptyTab)
@@ -137,9 +185,70 @@
 //        UserManager.getInstance().rsyncMessage(false);
 //    }
 //
+//    @Override
+//    public void onSupportVisible() {
+//        super.onSupportVisible();
+//        if (blurred != null) {
+//            blurred.startBlur();
+//        }
+//    }
+//
+//    @Override
+//    public void onSupportInvisible() {
+//        super.onSupportInvisible();
+//        if (blurred != null) {
+//            blurred.pauseBlur();
+//        }
+//    }
+//
+//    public void animatedToShow() {
+//        postOnEnterAnimationEnd(new Runnable() {
+//            @Override
+//            public void run() {
+//                mBottomBar.setCurrentItem(0);
+//
+////                view.setAlpha(1);
+//                if (AppConfig.isShowSplash()) {
+//                    Observable.timer(1000, TimeUnit.MILLISECONDS)
+//                            .subscribeOn(Schedulers.io())
+//                            .observeOn(AndroidSchedulers.mainThread())
+//                            .doOnComplete(() -> {
+//                                view.setAlpha(1);
+////                                view.animate()
+////                                        .setDuration(500)
+////                                        .alpha(1)
+////                                        .start();
+//                            })
+//                            .subscribe();
+//                } else {
+//                    view.animate()
+//                            .setDuration(500)
+//                            .alpha(1)
+//                            .start();
+//                }
+//
+//            }
+//        });
+//    }
+//
+//    @Subscribe
+//    public void onSkinChangeEvent(SkinChangeEvent info) {
+//        if (blurred != null) {
+//            blurred.foregroundColor(Color.parseColor(AppConfig.isNightMode() ? "#a0000000" : "#a0ffffff"));
+//            blurred.startBlur();
+//        }
+//    }
+//
 //    @Subscribe
 //    public void onUpdateMessageInfoEvent(MessageInfo info) {
 //        mBottomBar.getItem(4).setUnreadCount(info.getTotalCount());
+//    }
+//
+//    @Subscribe
+//    public void onGetMainFragmentEvent(GetMainFragmentEvent event) {
+//        if (event.getCallback() != null) {
+//            event.getCallback().onCallback(this);
+//        }
 //    }
 //
 //}

@@ -26,7 +26,7 @@ import com.zpj.shouji.market.R;
  * 修订历史：
  * ================================================
  */
-public class PullZoomView extends NestedScrollView {
+public class PullZoomView extends ScrollView {
 
     private static final String TAG_HEADER = "header";        //头布局Tag
     private static final String TAG_ZOOM = "zoom";            //缩放布局Tag
@@ -108,7 +108,7 @@ public class PullZoomView extends NestedScrollView {
         getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
             @Override
             public void onGlobalLayout() {
-                getViewTreeObserver().removeGlobalOnLayoutListener(this);
+                getViewTreeObserver().removeOnGlobalLayoutListener(this);
                 if (contentView == null) {
                     findTagViews(PullZoomView.this);
                 }

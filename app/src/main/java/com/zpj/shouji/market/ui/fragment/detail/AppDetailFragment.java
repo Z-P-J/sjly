@@ -37,6 +37,7 @@ import com.zpj.shouji.market.model.QuickAppInfo;
 import com.zpj.shouji.market.model.UserDownloadedAppInfo;
 import com.zpj.shouji.market.ui.adapter.FragmentsPagerAdapter;
 import com.zpj.shouji.market.ui.fragment.WebFragment;
+import com.zpj.shouji.market.ui.fragment.base.SkinFragment;
 import com.zpj.shouji.market.ui.fragment.dialog.AppCommentDialogFragment;
 import com.zpj.shouji.market.ui.fragment.dialog.AppUrlCenterListDialogFragment;
 import com.zpj.shouji.market.ui.fragment.dialog.CommentDialogFragment;
@@ -57,7 +58,7 @@ import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
 
-public class AppDetailFragment extends BaseFragment
+public class AppDetailFragment extends SkinFragment
         implements View.OnClickListener {
 
     private static final String TAG = "AppDetailFragment";
@@ -154,9 +155,13 @@ public class AppDetailFragment extends BaseFragment
         EventBus.getDefault().register(this);
     }
 
+//    @Override
+//    public void onSupportVisible() {
+//        super.onSupportVisible();
+//    }
+
     @Override
-    public void onSupportVisible() {
-        super.onSupportVisible();
+    protected void initStatusBar() {
         if (isLazyInit() || AppConfig.isNightMode()) {
             lightStatusBar();
         } else {
@@ -164,18 +169,11 @@ public class AppDetailFragment extends BaseFragment
         }
     }
 
-//    @Override
-//    public void onSupportInvisible() {
-//        super.onSupportInvisible();
-//        postOnSupportVisible(this::lightStatusBar);
-//    }
-
     @Override
     public void onDestroy() {
         commentDialogFragment = null;
-        super.onDestroy();
         EventBus.getDefault().unregister(this);
-//        commentPopup = null;
+        super.onDestroy();
     }
 
     @Override
@@ -202,7 +200,6 @@ public class AppDetailFragment extends BaseFragment
 
 
         fabComment = view.findViewById(R.id.fab_comment);
-//        fabComment.show(true);
         fabComment.setImageResource(R.drawable.ic_file_download_white_24dp);
         fabComment.setOnClickListener(this);
 
@@ -220,9 +217,13 @@ public class AppDetailFragment extends BaseFragment
 
     private void initViewPager() {
         ArrayList<Fragment> list = new ArrayList<>();
-        AppDetailInfoFragment infoFragment = findChildFragment(AppDetailInfoFragment.class);
+//        AppDetailInfoFragment infoFragment = findChildFragment(AppDetailInfoFragment.class);
+//        if (infoFragment == null) {
+//            infoFragment = new AppDetailInfoFragment();
+//        }
+        AppDetailContentFragment infoFragment = findChildFragment(AppDetailContentFragment.class);
         if (infoFragment == null) {
-            infoFragment = new AppDetailInfoFragment();
+            infoFragment = new AppDetailContentFragment();
         }
 
         AppDetailCommentFragment commentFragment = findChildFragment(AppDetailCommentFragment.class);
@@ -235,9 +236,9 @@ public class AppDetailFragment extends BaseFragment
             exploreFragment = AppDetailThemeFragment.newInstance(id, type);
         }
 
-        AppDetailRecommendFragment recommendFragment = findChildFragment(AppDetailRecommendFragment.class);
+        AppDetailRecommendFragment2 recommendFragment = findChildFragment(AppDetailRecommendFragment2.class);
         if (recommendFragment == null) {
-            recommendFragment = AppDetailRecommendFragment.newInstance(id, type);
+            recommendFragment = AppDetailRecommendFragment2.newInstance(id, type);
         }
         list.add(infoFragment);
         list.add(commentFragment);
@@ -245,6 +246,7 @@ public class AppDetailFragment extends BaseFragment
         list.add(recommendFragment);
 
         FragmentsPagerAdapter adapter = new FragmentsPagerAdapter(getChildFragmentManager(), list, TAB_TITLES);
+        viewPager.setOffscreenPageLimit(list.size());
         viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int i, float v, int i1) {
@@ -298,7 +300,6 @@ public class AppDetailFragment extends BaseFragment
             }
         });
         viewPager.setAdapter(adapter);
-        viewPager.setOffscreenPageLimit(list.size());
 
         MagicIndicatorHelper.bindViewPager(context, magicIndicator, viewPager, TAB_TITLES, true);
     }
@@ -307,6 +308,9 @@ public class AppDetailFragment extends BaseFragment
         HttpApi.appInfoApi(type, id)
                 .onSuccess(data -> {
                     postOnEnterAnimationEnd(() -> {
+                        if (isDetached()) {
+                            return;
+                        }
                         Log.d("getAppInfo", "data=" + data);
                         if ("NoApp".equals(data.selectFirst("errorcode").text())) {
                             AToast.warning("应用不存在");
@@ -332,7 +336,6 @@ public class AppDetailFragment extends BaseFragment
                         for (String img : info.getImgUrlList()) {
                             Glide.with(context).load(img).preload();
                         }
-
 
                         initViewPager();
                         postDelayed(() -> EventBus.getDefault().post(info), 50);
@@ -363,9 +366,6 @@ public class AppDetailFragment extends BaseFragment
             new ShareDialogFragment()
                     .setShareContent(getString(R.string.text_app_share_content, info.getName(), info.getId()))
                     .show(context);
-//            SharePopup.with(getContext())
-//                    .setShareContent(getContext().getString(R.string.text_app_share_content, info.getName(), info.getId()))
-//                    .show();
         } else if (v == btnCollect) {
             if (!UserManager.getInstance().isLogin()) {
                 AToast.warning(R.string.text_msg_not_login);

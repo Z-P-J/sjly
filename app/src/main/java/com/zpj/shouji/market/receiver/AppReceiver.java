@@ -5,7 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 
 import com.felix.atoast.library.AToast;
-import com.zpj.downloader.util.notification.NotifyUtil;
+import com.zpj.notification.ZNotify;
 
 public class AppReceiver extends BroadcastReceiver {
     @Override
@@ -19,7 +19,7 @@ public class AppReceiver extends BroadcastReceiver {
         if ("android.intent.action.PACKAGE_ADDED".equals(intent.getAction())) {
             String packageName = intent.getDataString();
             AToast.warning("安装了:" + packageName + "包名的程序");
-            NotifyUtil.with(context)
+            ZNotify.with(context)
                     .buildNotify()
                     .setId(hashCode())
                     .setContentTitle("安装成功")

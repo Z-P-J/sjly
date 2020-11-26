@@ -7,6 +7,7 @@ import android.text.TextUtils;
 import android.view.View;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.zpj.http.core.IHttp;
 import com.zpj.http.parser.html.nodes.Document;
 import com.zpj.http.parser.html.nodes.Element;
@@ -94,7 +95,9 @@ public class SupportUserListFragment extends NextUrlFragment<SupportUserInfo> {
         holder.getTextView(R.id.tv_title).setText(info.getNickName());
         holder.setVisible(R.id.tv_info, false);
         holder.setVisible(R.id.tv_follow, false);
-        Glide.with(context).load(info.getUserLogo()).into(holder.getImageView(R.id.iv_icon));
+        Glide.with(context).load(info.getUserLogo())
+                .apply(RequestOptions.circleCropTransform())
+                .into(holder.getImageView(R.id.iv_icon));
     }
 
     @Override

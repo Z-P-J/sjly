@@ -165,6 +165,11 @@ public class ManagerFragment extends SkinFragment {
 
     }
 
+    @Override
+    public int getLaunchMode() {
+        return super.getLaunchMode();
+    }
+
     public void showUpdateFragment() {
         postOnSupportVisible(() -> {
             if (viewPager != null) {

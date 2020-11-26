@@ -26,7 +26,7 @@ import java.util.List;
 
 public abstract class RecyclerMultiData<T> extends BaseHeaderMultiData<T> {
 
-    private EasyRecyclerView<T> recyclerView;
+    protected EasyRecyclerView<T> recyclerView;
 
     public RecyclerMultiData(String title) {
         super(title);
@@ -56,6 +56,7 @@ public abstract class RecyclerMultiData<T> extends BaseHeaderMultiData<T> {
     public void onBindChild(EasyViewHolder holder, List<T> list, int position, List<Object> payloads) {
         if (recyclerView == null) {
             RecyclerView view = holder.getView(R.id.recycler_view);
+            view.setNestedScrollingEnabled(false);
             recyclerView = new EasyRecyclerView<>(view);
             recyclerView.setData(list)
                     .setItemRes(getItemRes())

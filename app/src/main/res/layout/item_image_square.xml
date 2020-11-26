@@ -4,17 +4,16 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    app:hl_shadowLimit="4dp"
-    app:hl_cornerRadius="4dp"
-    app:hl_shadowColor="#80cccccc"
+    app:cardElevation="4dp"
+    app:cardUseCompatPadding="true"
+    app:cardCornerRadius="4dp"
     >
 
-    <com.shehuan.niv.NiceImageView
+    <ImageView
         android:id="@+id/iv_img"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:scaleType="centerCrop"
-        app:corner_radius="4dp"
         />
 
     <ImageView

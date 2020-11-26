@@ -37,6 +37,7 @@ android {
         }
 
         debug {
+            debuggable true
             minifyEnabled true
 //            minifyEnabled false
             zipAlignEnabled false
@@ -54,10 +55,8 @@ android {
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation 'com.android.support:appcompat-v7:28.0.0'
-    implementation 'com.android.support.constraint:constraint-layout:2.0.1'
-
     implementation 'com.android.support:design:28.0.0'
-    implementation 'com.android.support:palette-v7:28.0.0'
+//    implementation 'com.android.support:palette-v7:28.0.0'
     implementation 'com.android.support:support-v4:28.0.0'
     implementation 'com.android.support:gridlayout-v7:28.0.0'
     implementation 'com.android.support:multidex:1.0.3'
@@ -88,7 +87,6 @@ dependencies {
 //    implementation 'com.lqr.ninegridimageview:library:1.0.0'
     implementation 'com.lwkandroid.widget:NineGridView:1.2.6'
     implementation 'com.zpj.widget:TintedImageView:1.0.0'
-    implementation 'com.github.Othershe:CombineBitmap:1.0.5'
     implementation 'com.github.nanchen2251:CompressHelper:1.0.5'
 
     // TabLayout
@@ -142,7 +140,7 @@ dependencies {
 
     // 其他
 //    implementation 'com.rengwuxian.materialedittext:library:2.1.4'
-    implementation 'com.wx.goodview:goodview:1.0.0'
+//    implementation 'com.wx.goodview:goodview:1.0.0'
 //    implementation 'com.sunbq:iconcountview:1.0.1'
 //    implementation 'io.haydar.filescanner:filescannercore:1.1'
     implementation 'com.github.maning0303:MNCrashMonitor:V1.1.1'
@@ -155,8 +153,9 @@ dependencies {
     implementation 'com.github.donkingliang:ConsecutiveScroller:4.2.0-support'
     implementation 'com.github.duanhong169:drawabletoolbox:1.0.7'
 //    implementation 'com.github.CarGuo.RickText:textUtilsLib:v2.1.5'
-//    debugImplementation 'com.didichuxing.doraemonkit:doraemonkit:2.2.2'
-//    releaseImplementation 'com.didichuxing.doraemonkit:doraemonkit-no-op:2.2.2'
+//    debugImplementation 'com.didichuxing.doraemonkit:doraemonkit:3.0.8.0'
+//    releaseImplementation 'com.didichuxing.doraemonkit:doraemonkit-no-op:3.0.8.0'
+//    debugImplementation 'com.didichuxing.doraemonkit:doraemonkit-leakcanary:3.0.8.0'
     implementation 'com.github.warkiz.widget:indicatorseekbar:2.1.2'
     implementation 'com.github.CB-ysx:CBRatingBar:3.0.1'
     implementation 'com.github.florent37:expansionpanel:1.1.1'
@@ -173,7 +172,6 @@ dependencies {
     implementation 'com.zpj.utils:ZUtils:1.0.3'
     implementation 'com.zpj.http:ZHttp:1.0.0'
 
-    implementation project(':niceimageview')
     implementation project(":filescannercore")
     implementation project(":chameleon")
     implementation project(":zdownloader")

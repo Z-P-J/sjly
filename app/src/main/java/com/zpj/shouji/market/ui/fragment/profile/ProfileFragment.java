@@ -17,7 +17,6 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.felix.atoast.library.AToast;
-import com.shehuan.niv.NiceImageView;
 import com.zpj.fragmentation.dialog.impl.AlertDialogFragment;
 import com.zpj.fragmentation.dialog.impl.AttachListDialogFragment;
 import com.zpj.http.core.ObservableTask;
@@ -51,8 +50,8 @@ public class ProfileFragment extends ListenerFragment
     private StateLayout stateLayout;
     private LinearLayout headerLayout;
     private ImageView ivHeader;
-    private NiceImageView ivAvater;
-    private NiceImageView ivToolbarAvater;
+    private ImageView ivAvater;
+    private ImageView ivToolbarAvater;
     private TextView tvFollow;
     private TintedImageView ivChat;
     private TextView tvName;

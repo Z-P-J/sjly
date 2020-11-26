@@ -2,7 +2,6 @@ package com.zpj.shouji.market.ui.fragment.setting;
 
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
@@ -18,9 +17,8 @@ import com.bumptech.glide.request.transition.Transition;
 import com.zpj.fragmentation.BaseFragment;
 import com.zpj.fragmentation.anim.DefaultNoAnimator;
 import com.zpj.shouji.market.R;
-import com.zpj.shouji.market.constant.AppConfig;
 import com.zpj.shouji.market.event.StartFragmentEvent;
-import com.zpj.shouji.market.glide.blur.BlurTransformation;
+import com.zpj.shouji.market.glide.transformations.blur.BlurTransformation;
 import com.zpj.shouji.market.ui.animator.MyFragmentAnimator;
 import com.zpj.shouji.market.ui.fragment.WebFragment;
 import com.zpj.shouji.market.utils.AnimationUtil;
@@ -62,7 +60,8 @@ public class AboutMeFragment extends BaseFragment implements OnCommonItemClickLi
 
     @Override
     protected void initView(View view, @Nullable Bundle savedInstanceState) {
-        iv_blur = view.findViewById(R.id.iv_blur);
+        ImageView ivIcon = findViewById(R.id.iv_icon);
+        iv_blur = findViewById(R.id.iv_blur);
 
         ivAlipay = findViewById(R.id.iv_alipay);
         ivWxpay = findViewById(R.id.iv_wxpay);
@@ -94,6 +93,11 @@ public class AboutMeFragment extends BaseFragment implements OnCommonItemClickLi
                         });
                     }
                 });
+
+        Glide.with(context)
+                .load(getResources().getDrawable(R.drawable.logo_author))
+                .apply(RequestOptions.circleCropTransform())
+                .into(ivIcon);
 
         CommonSettingItem githubItem = findViewById(R.id.item_github);
         githubItem.setOnItemClickListener(this);

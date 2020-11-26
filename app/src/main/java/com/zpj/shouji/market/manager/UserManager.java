@@ -235,11 +235,12 @@ public final class UserManager {
     private void signIn() {
         String sessionId = getSessionId();
         Log.d(getClass().getName(), "jsessionid=" + sessionId);
-        HttpApi.openConnection("http://tt.shouji.com.cn/app/xml_login_v4.jsp", Connection.Method.POST)
+        HttpApi.openConnection("http://tt.shouji.com.cn/appv3/xml_login_v4.jsp", Connection.Method.GET)
                 .data("jsessionid", sessionId)
                 .data("s", "12345678910")
                 .data("stime", "" + System.currentTimeMillis())
-                .data("setupid", "sjly2.9.9.9.3")
+                .data("setupid", "sjly3.1")
+                .cookie("")
                 .execute()
                 .onSuccess(response -> {
                     for (Map.Entry<String, String> entry : response.cookies().entrySet()) {
@@ -249,7 +250,9 @@ public final class UserManager {
                         Log.d("signIn headers", entry.getKey() + " = " + entry.getValue());
                     }
                     String cookie = response.cookieStr();
-                    setCookie(cookie);
+                    if (!TextUtils.isEmpty(cookie)) {
+                        setCookie(cookie);
+                    }
                     onSignIn(response.parse());
                 })
                 .onError(throwable -> AToast.error(throwable.getMessage()))
@@ -258,11 +261,11 @@ public final class UserManager {
 
     public void signIn(String userName, String password) {
         AToast.normal("isLogin=" + isLogin());
-        HttpApi.openConnection("http://tt.shouji.com.cn/app/xml_login_v4.jsp", Connection.Method.POST)
+        HttpApi.openConnection("http://tt.shouji.com.cn/appv3/xml_login_v4.jsp", Connection.Method.POST)
                 .data("openid", "")
                 .data("s", "12345678910")
                 .data("stime", "" + System.currentTimeMillis())
-                .data("setupid", "sjly2.9.9.9.3")
+                .data("setupid", "sjly3.1")
                 .data("m", userName)
                 .data("p", encodePassword(password))
                 .data("opentype", "")
@@ -281,7 +284,9 @@ public final class UserManager {
                             Log.d("signIn headers", entry.getKey() + " = " + entry.getValue());
                         }
                         String cookie = response.cookieStr();
-                        setCookie(cookie);
+                        if (!TextUtils.isEmpty(cookie)) {
+                            setCookie(cookie);
+                        }
                         onSignIn(response.parse());
                     }
                 })
@@ -341,7 +346,9 @@ public final class UserManager {
                         onSignUpFailed(info);
                     } else {
                         memberInfo = MemberInfo.from(doc);
-                        setCookie(cookie);
+                        if (!TextUtils.isEmpty(cookie)) {
+                            setCookie(cookie);
+                        }
                         setUserInfo(doc.toString());
                         onSignUpSuccess();
                     }

@@ -31,11 +31,13 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:text="更多"
-        android:textSize="12sp"
+        android:textSize="14sp"
+        android:textStyle="bold"
         android:textColor="@color/colorPrimary"
         android:layout_gravity="end|center_vertical"
         android:drawableEnd="@drawable/ic_enter_bak"
         app:drawable_tint_color="@color/colorPrimary"
+        android:background="?attr/actionBarItemBackground"
         />
 
 

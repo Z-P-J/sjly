@@ -220,7 +220,8 @@ public class OkHttpImageLoad {
             disposable = new ObservableTask<File>(
                     emitter -> {
                         File file = Glide.with(ContextUtils.getApplicationContext())
-                                .downloadOnly()
+                                .asFile()
+//                                .downloadOnly()
                                 .load(url)
                                 .submit()
                                 .get();

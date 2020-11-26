@@ -1,12 +1,8 @@
 package com.zpj.shouji.market.ui.fragment.dialog;
 
 import android.animation.ValueAnimator;
-import android.content.Context;
-import android.graphics.Bitmap;
 import android.graphics.Color;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.view.ViewPager;
 import android.text.TextUtils;
@@ -16,22 +12,21 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.request.target.SimpleTarget;
-import com.bumptech.glide.request.transition.Transition;
+import com.bumptech.glide.request.RequestOptions;
 import com.felix.atoast.library.AToast;
 import com.zpj.fragmentation.SupportHelper;
+import com.zpj.fragmentation.dialog.imagetrans.ITConfig;
+import com.zpj.fragmentation.dialog.imagetrans.MyImageLoad;
 import com.zpj.fragmentation.dialog.impl.AttachListDialogFragment;
-import com.zpj.fragmentation.dialog.impl.ImageViewerDialogFragment;
 import com.zpj.fragmentation.dialog.impl.ImageViewerDialogFragment2;
-import com.zpj.fragmentation.dialog.interfaces.IImageLoader;
-import com.zpj.fragmentation.dialog.photoview.PhotoView;
-import com.zpj.fragmentation.dialog.widget.LoadingView;
 import com.zpj.http.core.IHttp;
 import com.zpj.http.parser.html.nodes.Document;
 import com.zpj.http.parser.html.nodes.Element;
+import com.zpj.matisse.entity.Item;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.api.HttpApi;
 import com.zpj.shouji.market.event.GetMainActivityEvent;
+import com.zpj.shouji.market.glide.transformations.CircleWithBorderTransformation;
 import com.zpj.shouji.market.model.DiscoverInfo;
 import com.zpj.shouji.market.model.WallpaperInfo;
 import com.zpj.shouji.market.ui.activity.MainActivity;
@@ -43,7 +38,6 @@ import com.zpj.shouji.market.utils.PictureUtil;
 import com.zpj.widget.tinted.TintedImageButton;
 import com.zpj.widget.toolbar.ZToolBar;
 
-import java.io.File;
 import java.util.List;
 
 public class WallpaperViewerDialogFragment2 extends ImageViewerDialogFragment2<String>
@@ -76,6 +70,18 @@ public class WallpaperViewerDialogFragment2 extends ImageViewerDialogFragment2<S
         mSupportVisibleActionQueue.start();
         mDelegate.onSupportVisible();
         lightStatusBar();
+    }
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        build.imageLoad = new MyImageLoad<String>() {
+            @Override
+            public boolean isCached(String url) {
+                return false;
+            }
+        };
+        build.itConfig = new ITConfig().largeThumb();
     }
 
     @Override
@@ -130,7 +136,9 @@ public class WallpaperViewerDialogFragment2 extends ImageViewerDialogFragment2<S
         titleBar.setCenterText(getUrls().size() + "/" + (dialogView.getCurrentItem() + 1));
         titleBar.getCenterTextView().setShadowLayer(8, 4, 4, Color.BLACK);
 
-        Glide.with(context).load(wallpaperInfo.getMemberIcon()).into(ivIcon);
+        Glide.with(context).load(wallpaperInfo.getMemberIcon())
+                .apply(RequestOptions.bitmapTransform(new CircleWithBorderTransformation(0.5f, Color.WHITE)))
+                .into(ivIcon);
         TextView tvName = findViewById(R.id.tv_name);
         TextView tvContent = findViewById(R.id.tv_content);
         TextView tvTime = findViewById(R.id.tv_time);
@@ -241,6 +249,7 @@ public class WallpaperViewerDialogFragment2 extends ImageViewerDialogFragment2<S
                 break;
             case R.id.tv_download:
 //                save();
+                PictureUtil.saveImage(context, getUrls().get(dialogView.getCurrentItem()));
                 break;
             case R.id.tv_share:
                 shareWallpaper();

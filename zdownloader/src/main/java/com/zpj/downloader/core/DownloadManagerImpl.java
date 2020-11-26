@@ -77,6 +77,10 @@ public class DownloadManagerImpl implements DownloadManager {
 		getInstance().removeDownloadManagerListener(null);
 		getInstance().pauseAllMissions();
 		getInstance().getContext().unregisterReceiver(NetworkChangeReceiver.getInstance());
+		INotificationInterceptor interceptor = getInstance().getDownloaderConfig().getNotificationIntercepter();
+		if (interceptor != null) {
+			interceptor.onCancelAll(getInstance().getContext());
+		}
 		ALL_MISSIONS.clear();
 		mManager = null;
 	}

@@ -16,9 +16,9 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.felix.atoast.library.AToast;
-import com.zpj.downloader.util.notification.NotifyUtil;
 import com.zpj.fragmentation.dialog.impl.ArrowMenuDialogFragment;
 import com.zpj.fragmentation.dialog.model.OptionMenu;
+import com.zpj.notification.ZNotify;
 import com.zpj.recyclerview.EasyAdapter;
 import com.zpj.recyclerview.EasyRecyclerLayout;
 import com.zpj.recyclerview.EasyViewHolder;
@@ -320,14 +320,14 @@ public class InstalledManagerFragment extends RecyclerLayoutFragment<InstalledAp
     @Override
     public void onAppBackupSuccess(int totalCount, int finishedCount, InstalledAppInfo appInfo) {
         if (totalCount == finishedCount) {
-            NotifyUtil.with(getContext())
+            ZNotify.with(getContext())
                     .buildNotify()
                     .setContentTitle(getString(R.string.app_name))
                     .setContentText(totalCount + "个应用备份完成！")
                     .setId(hashCode())
                     .show();
         } else {
-            NotifyUtil.with(getContext())
+            ZNotify.with(getContext())
                     .buildProgressNotify()
                     .setProgress(totalCount, finishedCount, false)
                     .setContentTitle("备份中..." + appInfo.getName() + "备份成功！")
@@ -340,7 +340,7 @@ public class InstalledManagerFragment extends RecyclerLayoutFragment<InstalledAp
     @Override
     public void onAppBackupFailed(int totalCount, int finishedCount, InstalledAppInfo appInfo) {
         AToast.error(appInfo.getName() + "备份失败！");
-        NotifyUtil.with(getContext())
+        ZNotify.with(getContext())
                 .buildNotify()
                 .setContentTitle(getString(R.string.app_name))
                 .setContentText(appInfo.getName() + "备份失败！")

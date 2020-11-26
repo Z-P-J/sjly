@@ -7,34 +7,34 @@
     android:background="?attr/backgroundColor"
     android:padding="16dp">
 
-    <FrameLayout
-        android:id="@+id/header_recent_update"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:paddingBottom="4dp"
-        android:paddingTop="4dp"
-        >
+<!--    <FrameLayout-->
+<!--        android:id="@+id/header_recent_update"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:paddingBottom="4dp"-->
+<!--        android:paddingTop="4dp"-->
+<!--        >-->
 
-        <TextView
-            android:id="@+id/tv_title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:text="最近更新"
-            android:textSize="16sp"
-            android:textColor="?attr/textColorMajor"
-            android:textStyle="bold"
-            android:layout_gravity="bottom"
-            />
+<!--        <TextView-->
+<!--            android:id="@+id/tv_title"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:gravity="center"-->
+<!--            android:text="最近更新"-->
+<!--            android:textSize="16sp"-->
+<!--            android:textColor="?attr/textColorMajor"-->
+<!--            android:textStyle="bold"-->
+<!--            android:layout_gravity="bottom"-->
+<!--            />-->
 
-        <View
-            android:layout_width="14dp"
-            android:layout_height="10dp"
-            android:background="#8009bd14"
-            android:layout_gravity="bottom"
-            />
+<!--        <View-->
+<!--            android:layout_width="14dp"-->
+<!--            android:layout_height="10dp"-->
+<!--            android:background="#8009bd14"-->
+<!--            android:layout_gravity="bottom"-->
+<!--            />-->
 
-    </FrameLayout>
+<!--    </FrameLayout>-->
 
     <com.ctetin.expandabletextviewlibrary.ExpandableTextView
         android:id="@+id/tv_content"

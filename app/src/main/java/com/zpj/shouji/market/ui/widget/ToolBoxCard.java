@@ -2,11 +2,9 @@ package com.zpj.shouji.market.ui.widget;
 
 import android.content.Context;
 import android.graphics.Bitmap;
-import android.graphics.Color;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.CardView;
-import android.support.v7.widget.GridLayout;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,23 +13,20 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.lihang.ShadowLayout;
 import com.zpj.blur.ZBlurry;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.event.SkinChangeEvent;
 import com.zpj.shouji.market.manager.UserManager;
 import com.zpj.shouji.market.model.MessageInfo;
+import com.zpj.shouji.market.ui.fragment.booking.UserBookingFragment;
 import com.zpj.shouji.market.ui.fragment.login.LoginFragment;
 import com.zpj.shouji.market.ui.fragment.profile.MyBlacklistFragment;
-import com.zpj.shouji.market.ui.fragment.booking.UserBookingFragment;
 import com.zpj.shouji.market.ui.fragment.profile.MyCollectionFragment;
 import com.zpj.shouji.market.ui.fragment.profile.MyCommentFragment;
 import com.zpj.shouji.market.ui.fragment.profile.MyDiscoverFragment;
 import com.zpj.shouji.market.ui.fragment.profile.MyDynamicFragment;
-import com.zpj.shouji.market.ui.fragment.profile.MyFragment;
 import com.zpj.shouji.market.ui.fragment.profile.MyFriendsFragment;
 import com.zpj.shouji.market.ui.fragment.profile.MyMsgFragment;
-import com.zpj.shouji.market.utils.ThemeUtils;
 
 import org.greenrobot.eventbus.Subscribe;
 
@@ -246,6 +241,7 @@ public class ToolBoxCard extends CardView implements View.OnClickListener {
         tvMyCollections.setOnClickListener(null);
         tvMyBookings.setOnClickListener(null);
         tvMyBlacklist.setOnClickListener(null);
+        initBackground();
     }
 
     @Subscribe

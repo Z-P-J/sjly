@@ -175,18 +175,34 @@ public class RecommendFragment3 extends SkinFragment {
         } else {
             ScrollChangeEvent.post(0);
         }
-        if (mBanner != null) {
-            mBanner.onResume();
-        }
+//        if (mBanner != null) {
+//            mBanner.onResume();
+//        }
+        postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                if (mBanner != null) {
+                    mBanner.onResume();
+                }
+            }
+        }, 300);
     }
 
     @Override
     public void onSupportInvisible() {
         Log.d(TAG, "onSupportInvisible");
         super.onSupportInvisible();
-        if (mBanner != null) {
-            mBanner.onPause();
-        }
+//        if (mBanner != null) {
+//            mBanner.onPause();
+//        }
+        postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                if (mBanner != null) {
+                    mBanner.onPause();
+                }
+            }
+        }, 300);
     }
 
     @Override
@@ -198,27 +214,51 @@ public class RecommendFragment3 extends SkinFragment {
     public void onResume() {
         Log.d(TAG, "onResume");
         super.onResume();
-        if (mBanner != null) {
-            mBanner.onResume();
-        }
+//        if (mBanner != null) {
+//            mBanner.onResume();
+//        }
+        postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                if (mBanner != null) {
+                    mBanner.onResume();
+                }
+            }
+        }, 300);
     }
 
     @Override
     public void onPause() {
         Log.d(TAG, "onPause");
         super.onPause();
-        if (mBanner != null) {
-            mBanner.onPause();
-        }
+//        if (mBanner != null) {
+//            mBanner.onPause();
+//        }
+        postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                if (mBanner != null) {
+                    mBanner.onPause();
+                }
+            }
+        }, 300);
     }
 
     @Override
     public void onStop() {
         Log.d(TAG, "onStop");
         super.onStop();
-        if (mBanner != null) {
-            mBanner.onStop();
-        }
+//        if (mBanner != null) {
+//            mBanner.onStop();
+//        }
+        postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                if (mBanner != null) {
+                    mBanner.onStop();
+                }
+            }
+        }, 300);
     }
 
     @Subscribe

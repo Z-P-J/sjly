@@ -27,7 +27,7 @@
 //import com.zpj.recyclerview.IEasy;
 //import com.zpj.shouji.market.R;
 //import com.zpj.shouji.market.api.HttpPreLoader;
-//import com.zpj.shouji.market.glide.blur.BlurTransformation2;
+//import com.zpj.shouji.market.glide.transformation.blur.BlurTransformation2;
 //import com.zpj.shouji.market.model.AppInfo;
 //import com.zpj.shouji.market.model.CollectionInfo;
 //import com.zpj.shouji.market.model.GroupItem;

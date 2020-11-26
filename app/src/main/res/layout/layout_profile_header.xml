@@ -7,15 +7,12 @@
     android:layout_gravity="center"
     android:gravity="center_vertical">
 
-    <com.shehuan.niv.NiceImageView
+    <ImageView
         android:id="@+id/toolbar_avatar"
         android:layout_width="32dp"
         android:layout_height="32dp"
         android:layout_marginEnd="4dp"
         android:src="@mipmap/ic_launcher"
-        app:is_circle="true"
-        app:border_width="1dp"
-        app:border_color="@color/gray"
         />
 
     <TextView

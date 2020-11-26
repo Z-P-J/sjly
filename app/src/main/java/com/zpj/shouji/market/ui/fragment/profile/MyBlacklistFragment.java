@@ -5,6 +5,7 @@ import android.support.annotation.Nullable;
 import android.view.View;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.felix.atoast.library.AToast;
 import com.zpj.http.parser.html.nodes.Element;
 import com.zpj.recyclerview.EasyViewHolder;
@@ -69,7 +70,9 @@ public class MyBlacklistFragment extends NextUrlFragment<BlacklistInfo> {
         final BlacklistInfo appItem = list.get(position);
         holder.setText(R.id.tv_title, appItem.getNickName());
         holder.setText(R.id.tv_info, "在线：" + appItem.isOnline());
-        Glide.with(context).load(appItem.getAvatarUrl()).into(holder.getImageView(R.id.iv_icon));
+        Glide.with(context).load(appItem.getAvatarUrl())
+                .apply(RequestOptions.circleCropTransform())
+                .into(holder.getImageView(R.id.iv_icon));
     }
 
     @Override

@@ -16,6 +16,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.felix.atoast.library.AToast;
 import com.github.zagum.expandicon.ExpandIconView;
 import com.sunbinqiang.iconcountview.IconCountView;
@@ -133,7 +134,9 @@ public class WallpaperListFragment extends NextUrlFragment<WallpaperInfo> {
                 .apply(GlideUtils.REQUEST_OPTIONS)
                 .into(wallpaper);
 
-        Glide.with(context).load(info.getMemberIcon()).into(holder.getImageView(R.id.iv_icon));
+        Glide.with(context).load(info.getMemberIcon())
+                .apply(RequestOptions.circleCropTransform())
+                .into(holder.getImageView(R.id.iv_icon));
         EmojiExpandableTextView tvContent = holder.getView(R.id.tv_content);
         tvContent.setContent(info.getContent());
         holder.getTextView(R.id.tv_name).setText(info.getNickName());

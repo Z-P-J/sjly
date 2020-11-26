@@ -17,7 +17,7 @@
 //import com.zpj.shouji.market.api.HttpApi;
 //import com.zpj.shouji.market.api.HttpPreLoader;
 //import com.zpj.shouji.market.api.PreloadApi;
-//import com.zpj.shouji.market.glide.blur.CropBlurTransformation;
+//import com.zpj.shouji.market.glide.transformation.blur.CropBlurTransformation;
 //import com.zpj.shouji.market.model.AppInfo;
 //import com.zpj.shouji.market.model.CollectionInfo;
 //import com.zpj.shouji.market.ui.fragment.collection.CollectionDetailFragment;

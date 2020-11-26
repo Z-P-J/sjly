@@ -188,6 +188,7 @@ public class SupportActivityDelegate {
 
     public boolean dispatchTouchEvent(MotionEvent ev) {
         // 防抖动(防止点击速度过快)
+//        return true;
         return !mFragmentClickable;
     }
 

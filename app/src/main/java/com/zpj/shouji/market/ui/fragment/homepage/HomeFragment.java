@@ -39,7 +39,7 @@ import java.util.ArrayList;
 
 public class HomeFragment extends SkinFragment {
 
-    private static final String[] TAB_TITLES = {"推荐", "发现", "乐图", "测试"};
+    private static final String[] TAB_TITLES = {"推荐", "发现", "乐图"};
 
     private ViewPager viewPager;
 
@@ -148,14 +148,14 @@ public class HomeFragment extends SkinFragment {
 
 
         ArrayList<SupportFragment> list = new ArrayList<>();
-//        RecommendFragment3 recommendFragment = findChildFragment(RecommendFragment3.class);
-//        if (recommendFragment == null) {
-//            recommendFragment = new RecommendFragment3();
-//        }
-        RecommendFragment2 recommendFragment = findChildFragment(RecommendFragment2.class);
+        RecommendFragment3 recommendFragment = findChildFragment(RecommendFragment3.class);
         if (recommendFragment == null) {
-            recommendFragment = new RecommendFragment2();
+            recommendFragment = new RecommendFragment3();
         }
+//        RecommendFragment2 recommendFragment = findChildFragment(RecommendFragment2.class);
+//        if (recommendFragment == null) {
+//            recommendFragment = new RecommendFragment2();
+//        }
 //        SupportFragment recommendFragment = new SupportFragment();
         DiscoverFragment exploreFragment = findChildFragment(DiscoverFragment.class);
         if (exploreFragment == null) {

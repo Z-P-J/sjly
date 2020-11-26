@@ -8,7 +8,7 @@
 
 <!--    android:background="@drawable/bottom_line_gray"-->
 
-    <com.shehuan.niv.NiceImageView
+    <ImageView
         android:layout_width="36dp"
         android:layout_height="36dp"
         android:id="@+id/icon_app"
@@ -16,7 +16,6 @@
         android:scaleType="centerCrop"
         android:src="@drawable/ic_apk"
         android:layout_centerVertical="true"
-        app:is_circle="true"
         android:tint="@color/colorPrimary"
         />
 

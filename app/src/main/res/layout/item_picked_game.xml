@@ -20,13 +20,11 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-            <com.shehuan.niv.NiceImageView
+            <ImageView
                 android:id="@+id/iv_bg"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:scaleType="centerCrop"
-                app:corner_top_left_radius="8dp"
-                app:corner_top_right_radius="8dp"
                 android:src="@drawable/bga_pp_ic_holder_light"
                 />
 
@@ -49,15 +47,12 @@
                 android:paddingVertical="16dp"
                 >
 
-                <com.shehuan.niv.NiceImageView
+                <ImageView
                     android:id="@+id/iv_icon"
                     android:layout_width="56dp"
                     android:layout_height="56dp"
                     android:scaleType="centerCrop"
-                    android:src="@mipmap/ic_launcher"
-                    app:border_color="@color/color_line"
-                    app:border_width="0.5dp"
-                    app:corner_radius="8dp" />
+                    android:src="@mipmap/ic_launcher"/>
 
                 <TextView
                     android:id="@+id/tv_name"
@@ -155,15 +150,12 @@
             android:orientation="horizontal"
             >
 
-            <com.shehuan.niv.NiceImageView
+            <ImageView
                 android:id="@+id/iv_avatar"
                 android:layout_width="24dp"
                 android:layout_height="24dp"
                 android:layout_margin="8dp"
                 android:src="@mipmap/ic_launcher"
-                app:border_color="#80cccccc"
-                app:border_width="1dp"
-                app:is_circle="true"
                 android:scaleType="centerCrop"
                 android:layout_centerVertical="true"
                 />

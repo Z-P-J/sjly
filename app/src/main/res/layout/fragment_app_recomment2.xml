@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    >
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recycler_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:overScrollMode="never"
+        android:background="?attr/backgroundColor"
+        />
+
+    <com.zpj.widget.toolbar.ZToolBar
+        android:id="@+id/tool_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:z_toolbar_fillStatusBar="true"
+        app:z_toolbar_titleBarColor="@color/transparent"
+        app:z_toolbar_statusBarColor="@color/transparent"
+        app:z_toolbar_showBottomLine="false"
+        app:z_toolbar_isLightStyle="false"
+        app:z_toolbar_leftType="textView"
+        app:z_toolbar_leftText="应用"
+        app:z_toolbar_leftTextColor="@color/colorPrimary"
+        app:z_toolbar_leftTextSize="18sp"
+        app:z_toolbar_rightType="customView"
+        app:z_toolbar_rightCustomView="@layout/layout_tools"
+        />
+
+</FrameLayout>

@@ -24,6 +24,7 @@ import com.zpj.shouji.market.model.AppDetailInfo;
 import com.zpj.shouji.market.model.DiscoverInfo;
 import com.zpj.shouji.market.ui.fragment.theme.ThemeListFragment;
 import com.zpj.shouji.market.ui.fragment.dialog.AppRatingDialogFragment;
+import com.zpj.shouji.market.utils.PictureUtil;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -92,9 +93,10 @@ public class AppDetailCommentFragment extends ThemeListFragment {
 
                     rlMyScore.setVisibility(View.VISIBLE);
 
-                    Glide.with(context)
-                            .load(UserManager.getInstance().getMemberInfo().getMemberAvatar())
-                            .into(holder.getImageView(R.id.iv_icon));
+//                    Glide.with(context)
+//                            .load(UserManager.getInstance().getMemberInfo().getMemberAvatar())
+//                            .into(holder.getImageView(R.id.iv_icon));
+                    PictureUtil.loadAvatar(holder.getImageView(R.id.iv_icon));
                     if (info.isScoreState()) {
                         holder.setText(R.id.tv_text, "我的打分");
                         Log.d("onBindHeader", "userRatingValue=" + userRatingValue);

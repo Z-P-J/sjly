@@ -5,7 +5,6 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.content.res.Resources;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.support.annotation.NonNull;
@@ -13,15 +12,11 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatDelegate;
 import android.util.Log;
-import android.util.TypedValue;
 import android.view.LayoutInflater;
-import android.view.ViewGroup;
 import android.view.WindowManager;
-import android.widget.CheckBox;
 import android.widget.FrameLayout;
-import android.widget.RelativeLayout;
-import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.felix.atoast.library.AToast;
 import com.lxj.xpermission.PermissionConstants;
 import com.lxj.xpermission.XPermission;
@@ -29,11 +24,10 @@ import com.yalantis.ucrop.CropEvent;
 import com.zpj.downloader.ZDownloader;
 import com.zpj.downloader.config.DownloaderConfig;
 import com.zpj.downloader.config.ThreadPoolConfig;
-import com.zpj.downloader.core.DownloadMission;
-import com.zpj.downloader.core.INotificationListener;
-import com.zpj.downloader.util.notification.NotifyUtil;
 import com.zpj.fragmentation.SupportActivity;
 import com.zpj.fragmentation.SupportFragment;
+import com.zpj.fragmentation.anim.DefaultHorizontalAnimator;
+import com.zpj.fragmentation.anim.FragmentAnimator;
 import com.zpj.fragmentation.dialog.impl.AlertDialogFragment;
 import com.zpj.fragmentation.dialog.impl.LoadingDialogFragment;
 import com.zpj.http.core.IHttp;
@@ -43,7 +37,7 @@ import com.zpj.shouji.market.api.HttpPreLoader;
 import com.zpj.shouji.market.constant.Actions;
 import com.zpj.shouji.market.constant.AppConfig;
 import com.zpj.shouji.market.download.AppDownloadMission;
-import com.zpj.shouji.market.download.DownloadNotificationListener;
+import com.zpj.shouji.market.download.DownloadNotificationInterceptor;
 import com.zpj.shouji.market.event.GetMainActivityEvent;
 import com.zpj.shouji.market.event.HideLoadingEvent;
 import com.zpj.shouji.market.event.IconUploadSuccessEvent;
@@ -60,7 +54,6 @@ import com.zpj.shouji.market.ui.fragment.manager.UpdateManagerFragment;
 import com.zpj.shouji.market.utils.AppUtil;
 import com.zpj.shouji.market.utils.BrightnessUtils;
 import com.zpj.shouji.market.utils.PictureUtil;
-import com.zpj.shouji.market.utils.SkinChangeAnimation;
 import com.zpj.utils.StatusBarUtils;
 import com.zxy.skin.sdk.SkinLayoutInflater;
 
@@ -69,11 +62,6 @@ import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
 import java.io.File;
-import java.util.concurrent.TimeUnit;
-
-import io.reactivex.Observable;
-import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.schedulers.Schedulers;
 
 public class MainActivity extends SupportActivity {
 
@@ -108,6 +96,21 @@ public class MainActivity extends SupportActivity {
     }
 
     @Override
+    public void onTrimMemory(int level) {
+        super.onTrimMemory(level);
+        if (level == TRIM_MEMORY_UI_HIDDEN) {
+            Glide.get(this).clearMemory();
+        }
+        Glide.get(this).trimMemory(level);
+    }
+
+    @Override
+    public void onLowMemory() {
+        super.onLowMemory();
+        Glide.get(this).clearMemory();
+    }
+
+    @Override
     protected void onDestroy() {
         loadingDialogFragment = null;
         ZDownloader.onDestroy();
@@ -116,6 +119,11 @@ public class MainActivity extends SupportActivity {
         mLayoutInflater.destory();
         super.onDestroy();
 //        System.exit(0);
+    }
+
+    @Override
+    public FragmentAnimator onCreateFragmentAnimator() {
+        return new DefaultHorizontalAnimator();
     }
 
     @Override
@@ -177,7 +185,7 @@ public class MainActivity extends SupportActivity {
         ZDownloader.init(
                 DownloaderConfig.with(MainActivity.this)
                         .setUserAgent("Sjly(3.0)")
-                        .setNotificationListener(new DownloadNotificationListener())
+                        .setNotificationIntercepter(new DownloadNotificationInterceptor())
                         .setConcurrentMissionCount(AppConfig.getMaxDownloadConcurrentCount())
                         .setEnableNotification(AppConfig.isShowDownloadNotification())
                         .setThreadPoolConfig(

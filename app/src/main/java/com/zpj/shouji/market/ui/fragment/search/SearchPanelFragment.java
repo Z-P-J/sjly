@@ -12,17 +12,16 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-import com.felix.atoast.library.AToast;
 import com.zpj.fragmentation.BaseFragment;
 import com.zpj.fragmentation.dialog.impl.AlertDialogFragment;
 import com.zpj.recyclerview.EasyRecyclerView;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.api.SearchApi;
 import com.zpj.shouji.market.database.SearchHistoryManager;
+import com.zpj.shouji.market.glide.GlideRequestOptions;
 import com.zpj.shouji.market.model.GuessAppInfo;
 import com.zpj.shouji.market.model.QuickAppInfo;
 import com.zpj.shouji.market.model.SearchHistory;
-import com.zpj.shouji.market.ui.fragment.WebFragment;
 import com.zpj.shouji.market.ui.fragment.detail.AppDetailFragment;
 import com.zpj.shouji.market.ui.widget.DownloadButton;
 import com.zpj.shouji.market.ui.widget.flowlayout.FlowLayout;
@@ -106,7 +105,11 @@ public class SearchPanelFragment extends BaseFragment {
                     GuessAppInfo info = list.get(position);
                     holder.getTextView(R.id.item_title).setText(info.getAppTitle());
                     holder.getTextView(R.id.item_info).setText(info.getAppSize());
-                    Glide.with(context).load(info.getAppIcon()).into(holder.getImageView(R.id.item_icon));
+                    ImageView ivIcon = holder.getImageView(R.id.item_icon);
+                    Glide.with(ivIcon)
+                            .load(info.getAppIcon())
+                            .apply(GlideRequestOptions.getDefaultIconOption())
+                            .into(ivIcon);
                     DownloadButton downloadButton = holder.getView(R.id.tv_download);
                     downloadButton.bindApp(info);
                 })

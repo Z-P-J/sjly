@@ -16,17 +16,18 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
 import com.bumptech.glide.request.RequestOptions;
 import com.bumptech.glide.request.target.SimpleTarget;
 import com.bumptech.glide.request.transition.Transition;
 import com.felix.atoast.library.AToast;
-import com.shehuan.niv.NiceImageView;
 import com.zpj.fragmentation.BaseFragment;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.api.HttpApi;
 import com.zpj.shouji.market.event.RefreshEvent;
 import com.zpj.shouji.market.event.StartFragmentEvent;
-import com.zpj.shouji.market.glide.blur.BlurTransformation;
+import com.zpj.shouji.market.glide.transformations.CircleWithBorderTransformation;
+import com.zpj.shouji.market.glide.transformations.blur.BlurTransformation;
 import com.zpj.shouji.market.manager.UserManager;
 import com.zpj.shouji.market.model.CollectionInfo;
 import com.zpj.shouji.market.ui.adapter.FragmentsPagerAdapter;
@@ -65,7 +66,7 @@ public class CollectionDetailFragment extends BaseFragment
     private MagicIndicator magicIndicator;
 
     private View buttonBarLayout;
-    private NiceImageView ivToolbarAvater;
+    private ImageView ivToolbarAvater;
 
     private FloatingActionButton fabComment;
 
@@ -222,9 +223,12 @@ public class CollectionDetailFragment extends BaseFragment
                         tvView.setText(doc.selectFirst("viewcount").text());
                         RequestOptions options = new RequestOptions().centerCrop().error(R.mipmap.ic_launcher).placeholder(R.mipmap.ic_launcher);
 //                    Glide.with(context).load(backgroundUrl).apply(options).into(ivIcon);
-                        Glide.with(context).load(userAvatarUrl).apply(options).into(ivAvatar);
-                        Glide.with(context).load(backgroundUrl).apply(options).into(ivIcon);
-                        Glide.with(context).load(backgroundUrl).apply(options).into(ivToolbarAvater);
+                        Glide.with(context).load(backgroundUrl).apply(options.clone().transform(new RoundedCorners(8))).into(ivIcon);
+                        Glide.with(context).load(userAvatarUrl).apply(options.clone().transform(new CircleWithBorderTransformation(0.5f, Color.GRAY))).into(ivAvatar);
+                        Glide.with(context)
+                                .load(backgroundUrl)
+                                .apply(options.clone().transform(new CircleWithBorderTransformation(0.5f, Color.GRAY)))
+                                .into(ivToolbarAvater);
 //                    Glide.with(context).asBitmap().load(backgroundUrl).apply(options).into(new SimpleTarget<Bitmap>() {
 //                        @Override
 //                        public void onResourceReady(@NonNull Bitmap resource, @Nullable Transition<? super Bitmap> transition) {

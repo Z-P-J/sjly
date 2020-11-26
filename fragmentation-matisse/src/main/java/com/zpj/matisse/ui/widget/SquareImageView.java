@@ -2,12 +2,10 @@ package com.zpj.matisse.ui.widget;
 
 import android.content.Context;
 import android.support.annotation.Nullable;
+import android.support.v7.widget.AppCompatImageView;
 import android.util.AttributeSet;
-import android.widget.ImageView;
 
-import com.shehuan.niv.NiceImageView;
-
-public class SquareImageView extends NiceImageView {
+public class SquareImageView extends AppCompatImageView {
 
 
     public SquareImageView(Context context) {

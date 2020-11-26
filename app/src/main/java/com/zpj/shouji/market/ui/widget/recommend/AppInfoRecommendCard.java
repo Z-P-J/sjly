@@ -4,13 +4,12 @@ import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.view.View;
 
 import com.bumptech.glide.Glide;
-import com.felix.atoast.library.AToast;
-import com.zpj.downloader.core.DownloadMission;
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
+import com.bumptech.glide.request.RequestOptions;
 import com.zpj.http.parser.html.nodes.Document;
 import com.zpj.http.parser.html.nodes.Element;
 import com.zpj.http.parser.html.select.Elements;
@@ -23,6 +22,7 @@ import com.zpj.shouji.market.api.PreloadApi;
 import com.zpj.shouji.market.model.AppInfo;
 import com.zpj.shouji.market.ui.fragment.detail.AppDetailFragment;
 import com.zpj.shouji.market.ui.widget.DownloadButton;
+import com.zpj.utils.ScreenUtils;
 
 import java.util.List;
 
@@ -131,7 +131,10 @@ public abstract class AppInfoRecommendCard extends RecommendCard<AppInfo> {
         AppInfo info = list.get(position);
         holder.getTextView(R.id.item_title).setText(info.getAppTitle());
         holder.getTextView(R.id.item_info).setText(info.getAppSize());
-        Glide.with(context).load(info.getAppIcon()).into(holder.getImageView(R.id.item_icon));
+        Glide.with(context)
+                .load(info.getAppIcon())
+                .apply(RequestOptions.bitmapTransform(new RoundedCorners(ScreenUtils.dp2pxInt(context, 10))))
+                .into(holder.getImageView(R.id.item_icon));
         DownloadButton downloadButton = holder.getView(R.id.tv_download);
         downloadButton.bindApp(info);
 
@@ -149,6 +152,7 @@ public abstract class AppInfoRecommendCard extends RecommendCard<AppInfo> {
     @Override
     public void onClick(EasyViewHolder holder, View view, AppInfo data) {
         AppDetailFragment.start(data);
+//        ThemeShareFragment.start();
     }
 
     public abstract PreloadApi getKey();

@@ -2,6 +2,7 @@ package com.zpj.shouji.market.ui.fragment.homepage.multi;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
 import com.zpj.http.parser.html.nodes.Document;
@@ -14,6 +15,7 @@ import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.api.HttpApi;
 import com.zpj.shouji.market.api.HttpPreLoader;
 import com.zpj.shouji.market.api.PreloadApi;
+import com.zpj.shouji.market.glide.GlideRequestOptions;
 import com.zpj.shouji.market.model.AppInfo;
 import com.zpj.shouji.market.ui.fragment.detail.AppDetailFragment;
 import com.zpj.shouji.market.ui.widget.DownloadButton;
@@ -72,7 +74,11 @@ public abstract class AppInfoMultiData extends BaseHeaderMultiData<AppInfo> {
         AppInfo info = list.get(position);
         holder.getTextView(R.id.item_title).setText(info.getAppTitle());
         holder.getTextView(R.id.item_info).setText(info.getAppSize());
-        Glide.with(holder.getItemView().getContext()).load(info.getAppIcon()).into(holder.getImageView(R.id.item_icon));
+        ImageView ivIcon = holder.getImageView(R.id.item_icon);
+        Glide.with(ivIcon)
+                .load(info.getAppIcon())
+                .apply(GlideRequestOptions.getDefaultIconOption())
+                .into(ivIcon);
         DownloadButton downloadButton = holder.getView(R.id.tv_download);
         downloadButton.bindApp(info);
         holder.setOnItemClickListener(new View.OnClickListener() {

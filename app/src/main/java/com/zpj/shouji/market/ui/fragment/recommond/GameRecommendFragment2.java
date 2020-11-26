@@ -10,22 +10,29 @@ import com.felix.atoast.library.AToast;
 import com.zpj.http.ZHttp;
 import com.zpj.http.parser.html.nodes.Element;
 import com.zpj.http.parser.html.select.Elements;
+import com.zpj.recyclerview.EasyViewHolder;
+import com.zpj.recyclerview.MultiData;
 import com.zpj.shouji.market.R;
+import com.zpj.shouji.market.api.PreloadApi;
 import com.zpj.shouji.market.model.AppInfo;
+import com.zpj.shouji.market.ui.fragment.ToolBarAppListFragment;
 import com.zpj.shouji.market.ui.fragment.booking.LatestBookingFragment;
+import com.zpj.shouji.market.ui.fragment.collection.CollectionRecommendListFragment;
+import com.zpj.shouji.market.ui.fragment.homepage.multi.AppInfoMultiData;
+import com.zpj.shouji.market.ui.fragment.homepage.multi.CollectionMultiData;
+import com.zpj.shouji.market.ui.fragment.homepage.multi.GameBookingMultiData;
+import com.zpj.shouji.market.ui.fragment.homepage.multi.TutorialMultiData;
 import com.zpj.shouji.market.ui.widget.recommend.GameBookingRecommendCard;
 import com.zpj.shouji.market.ui.widget.recommend.GameRecommendCard;
 import com.zpj.shouji.market.ui.widget.recommend.GameUpdateRecommendCard;
 import com.zpj.shouji.market.ui.widget.recommend.NetGameRecommendCard;
-import com.zpj.shouji.market.ui.widget.recommend.RecommendCard;
-import com.zpj.shouji.market.ui.widget.recommend.TutorialRecommendCard;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class GameRecommendFragment2 extends BaseRecommendFragment2 implements View.OnClickListener {
 
-    private static final String TAG = "GameRecommendFragment";
+    private static final String TAG = "RecommendFragment";
     private static final String[] TITLES = {"游戏快递", "游戏评测", "游戏攻略", "游戏新闻", "游戏周刊", "游戏公告"};
 
     @Override
@@ -34,21 +41,22 @@ public class GameRecommendFragment2 extends BaseRecommendFragment2 implements Vi
     }
 
     @Override
-    protected void initView(View view, @Nullable Bundle savedInstanceState) {
-        super.initView(view, savedInstanceState);
-        view.findViewById(R.id.tv_booking).setOnClickListener(this);
-        view.findViewById(R.id.tv_handpick).setOnClickListener(this);
-        view.findViewById(R.id.tv_rank).setOnClickListener(this);
-        view.findViewById(R.id.tv_classification).setOnClickListener(this);
+    public void toolbarLeftTextView(@NonNull TextView view) {
+        super.toolbarLeftTextView(view);
+        view.setText(R.string.title_game);
     }
 
     @Override
-    public void onLazyInitView(@Nullable Bundle savedInstanceState) {
-        super.onLazyInitView(savedInstanceState);
+    public void initHeader(EasyViewHolder holder) {
+        holder.setOnClickListener(R.id.tv_booking, this);
+        holder.setOnClickListener(R.id.tv_handpick, this);
+        holder.setOnClickListener(R.id.tv_rank, this);
+        holder.setOnClickListener(R.id.tv_classification, this);
 
-        ZHttp.get("https://game.shouji.com.cn/")
+        ZHttp.get("https://soft.shouji.com.cn/")
                 .toHtml()
                 .onSuccess(data -> {
+
                     List<AppInfo> list = new ArrayList<>();
                     Elements recommends = data.selectFirst("body > div:nth-child(5) > div.boutique.fl > ul").select("li");
                     for (Element recommend : recommends) {
@@ -68,45 +76,57 @@ public class GameRecommendFragment2 extends BaseRecommendFragment2 implements Vi
                 .onError(throwable -> {
                     throwable.printStackTrace();
                     AToast.error("出错了！" + throwable.getMessage());
-                    stateLayout.showContentView();
                 })
                 .subscribe();
 
-        recommendCardList.add(new GameUpdateRecommendCard(context));
-        recommendCardList.add(new GameRecommendCard(context));
-
-        recommendCardList.add(new GameBookingRecommendCard(context));
-        recommendCardList.add(new NetGameRecommendCard(context));
-        for (int i = 0; i < TITLES.length; i++) {
-            TutorialRecommendCard card = new TutorialRecommendCard(context, "game", i + 1);
-            card.setTitle(TITLES[i]);
-            recommendCardList.add(card);
-        }
-
-        onScrolledToBottom();
-
-//        postDelayed(() -> {
-//            // TODO 排行
-//            addCard(new GameUpdateRecommendCard(context));
-//            addCard(new GameRecommendCard(context));
-//
-//            GameBookingRecommendCard bookingRecommendCard = new GameBookingRecommendCard(context);
-//            addCard(bookingRecommendCard);
-//            bookingRecommendCard.loadData(null);
-//
-//            addCard(new NetGameRecommendCard(context));
-//            for (int i = 0; i < TITLES.length; i++) {
-//                TutorialRecommendCard card = new TutorialRecommendCard(context, "game", i + 1);
-//                card.setTitle(TITLES[i]);
-//                addCard(card);
-//            }
-//        }, 500);
     }
 
     @Override
-    public void toolbarLeftTextView(@NonNull TextView view) {
-        super.toolbarLeftTextView(view);
-        view.setText(R.string.title_game);
+    protected void initMultiData(List<MultiData> list) {
+
+        list.add(new AppInfoMultiData("最近更新") {
+            @Override
+            public void onHeaderClick() {
+                ToolBarAppListFragment.startUpdateGameList();
+            }
+
+            @Override
+            public PreloadApi getKey() {
+                return PreloadApi.UPDATE_GAME;
+            }
+        });
+
+        list.add(new AppInfoMultiData("游戏推荐") {
+            @Override
+            public void onHeaderClick() {
+                ToolBarAppListFragment.startRecommendGameList();
+            }
+
+            @Override
+            public PreloadApi getKey() {
+                return PreloadApi.HOME_GAME;
+            }
+        });
+
+        list.add(new GameBookingMultiData());
+
+        list.add(new AppInfoMultiData("热门网游") {
+            @Override
+            public void onHeaderClick() {
+                ToolBarAppListFragment.startNetGameList();
+            }
+
+            @Override
+            public PreloadApi getKey() {
+                return PreloadApi.NET_GAME;
+            }
+        });
+
+        for (int i = 0; i < TITLES.length; i++) {
+            list.add(new TutorialMultiData(TITLES[i], "game", i + 1));
+        }
+
+
     }
 
     @Override
@@ -128,36 +148,5 @@ public class GameRecommendFragment2 extends BaseRecommendFragment2 implements Vi
         }
     }
 
-//    @Override
-//    public void onScrolledToBottom() {
-//        AToast.normal("onScrolledToBottom");
-//        if (recommendCardList.size() >= 2) {
-//            RecommendCard recommendCard = recommendCardList.remove(recommendCardList.size() - 1);
-//            RecommendCard recommendCard2 = recommendCardList.remove(recommendCardList.size() - 1);
-//            recommendCard2.loadData(null);
-//            recommendCard.loadData(() -> {
-//                addCard(recommendCard, false);
-//                addCard(recommendCard2, recommendCardList.isEmpty());
-//            });
-//        } else if (recommendCardList.size() == 1) {
-//            RecommendCard recommendCard = recommendCardList.remove(0);
-//            recommendCard.loadData(() -> addCard(recommendCard, true));
-//        }
-////        if (!recommendCardList.isEmpty()) {
-////            RecommendCard recommendCard = recommendCardList.remove(recommendCardList.size() - 1);
-////            recommendCard.loadData(new Runnable() {
-////                @Override
-////                public void run() {
-////
-////                    addCard(recommendCard, recommendCardList.isEmpty());
-////
-////                }
-////            });
-////        }
-//    }
 
-//    @Override
-//    public void onScrolledToTop() {
-//
-//    }
 }

@@ -1,7 +1,6 @@
 package com.zpj.shouji.market.ui.widget;
 
 import android.content.Context;
-import android.content.res.TypedArray;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.support.annotation.NonNull;
@@ -13,6 +12,7 @@ import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -20,9 +20,9 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.bumptech.glide.request.target.SimpleTarget;
 import com.bumptech.glide.request.transition.Transition;
-import com.shehuan.niv.NiceImageView;
 import com.zpj.shouji.market.R;
-import com.zpj.shouji.market.glide.blur.CropBlurTransformation;
+import com.zpj.shouji.market.glide.GlideRequestOptions;
+import com.zpj.shouji.market.glide.transformations.blur.CropBlurTransformation;
 import com.zpj.shouji.market.model.AppDetailInfo;
 import com.zpj.shouji.market.utils.ThemeUtils;
 import com.zpj.widget.toolbar.BaseToolBar;
@@ -39,7 +39,7 @@ public class AppDetailLayout extends FrameLayout {
     private final MagicIndicator magicIndicator;
     private final ViewPager mViewPager;
 
-    private final NiceImageView icon;
+    private final ImageView icon;
     private final TextView title;
     private final TextView tvVersion;
     private final TextView tvSize;
@@ -48,7 +48,7 @@ public class AppDetailLayout extends FrameLayout {
 
     private BaseToolBar toolBar;
     private View buttonBarLayout;
-    private NiceImageView ivToolbarAvater;
+    private ImageView ivToolbarAvater;
     private TextView tvToolbarName;
 
     private int mTopViewHeight;
@@ -94,8 +94,9 @@ public class AppDetailLayout extends FrameLayout {
     }
 
     public void loadInfo(AppDetailInfo info) {
-        Glide.with(getContext())
+        Glide.with(icon)
                 .load(info.getIconUrl())
+                .apply(GlideRequestOptions.getDefaultIconOption())
                 .into(icon);
         Glide.with(getContext())
                 .load(info.getIconUrl())

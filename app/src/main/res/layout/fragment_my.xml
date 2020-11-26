@@ -61,13 +61,12 @@
                             android:layout_marginEnd="20dp"
                             >
 
-                            <com.shehuan.niv.NiceImageView
+                            <ImageView
                                 android:id="@+id/iv_avatar"
                                 android:layout_width="72dp"
                                 android:layout_height="72dp"
                                 android:src="@drawable/ic_user_head"
                                 android:layout_centerVertical="true"
-                                app:is_circle="true"
                                 />
 
                             <TextView

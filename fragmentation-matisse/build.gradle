@@ -39,7 +39,7 @@ dependencies {
     implementation 'com.zpj.widget:ZToolBar:1.0.7'
     implementation 'com.zpj.utils:ZUtils:1.0.3'
 
-    implementation project(':niceimageview')
+//    implementation project(':niceimageview')
     implementation project(":fragmentation-dialog")
     implementation project(":fragmentation-ucrop")
     implementation project(':fragmentation')

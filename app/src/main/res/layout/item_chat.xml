@@ -5,12 +5,11 @@
     android:layout_height="wrap_content"
     android:padding="8dp">
 
-    <com.shehuan.niv.NiceImageView
+    <ImageView
         android:id="@+id/iv_icon"
         android:layout_width="36dp"
         android:layout_height="36dp"
         android:layout_alignParentEnd="true"
-        app:is_circle="true"
         />
 
     <com.houtrry.bubble.BubbleLinearLayout
@@ -25,11 +24,13 @@
         app:arrowType="left"
         app:arrow_height="8dp"
         app:arrow_width="8dp"
-        app:borderColor="#eeeeee"
-        app:border_width="1dp"
+
         app:bubbleType="right"
         app:cornerRadius="8dp"
         >
+
+<!--        app:borderColor="#eeeeee"-->
+<!--        app:border_width="1dp"-->
 
         <com.zpj.shouji.market.ui.widget.emoji.EmojiTextView
             android:id="@+id/tv_content"

@@ -86,7 +86,7 @@
             android:layout_height="match_parent"
             android:clipChildren="false">
 
-            <com.shehuan.niv.NiceImageView
+            <ImageView
                 android:id="@+id/iv_icon"
                 android:layout_width="80dp"
                 android:layout_height="80dp"
@@ -94,7 +94,6 @@
                 android:layout_marginTop="100dp"
                 android:scaleType="centerCrop"
                 android:src="@drawable/logo_author"
-                app:is_circle="true"
                 />
 
             <TextView

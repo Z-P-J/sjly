@@ -22,11 +22,14 @@ import com.zpj.fragmentation.helper.internal.AnimatorHelper;
 import com.zpj.fragmentation.helper.internal.ResultRecord;
 import com.zpj.fragmentation.helper.internal.TransactionRecord;
 import com.zpj.fragmentation.helper.internal.VisibleDelegate;
+import com.zpj.fragmentation.queue.RxHandler;
 
 import java.util.concurrent.TimeUnit;
 
 import io.reactivex.Observable;
+import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.functions.Action;
 
 /*
 * Modified by Z-P-J
@@ -134,12 +137,13 @@ public class SupportFragmentDelegate {
             public void onAnimationStart(Animation animation) {
                 mSupport.getSupportDelegate().mFragmentClickable = false;  // 开启防抖动
 
-                Observable.timer(enter.getDuration(), TimeUnit.MILLISECONDS)
-                        .observeOn(AndroidSchedulers.mainThread())
-                        .doOnComplete(()-> {
-                            mSupport.getSupportDelegate().mFragmentClickable = true;
-                        })
-                        .subscribe();
+//                Observable.timer(enter.getDuration(), TimeUnit.MILLISECONDS)
+//                        .observeOn(AndroidSchedulers.mainThread())
+//                        .doOnComplete(()-> {
+//                            mSupport.getSupportDelegate().mFragmentClickable = true;
+//                        })
+//                        .subscribe();
+                RxHandler.post(() -> mSupport.getSupportDelegate().mFragmentClickable = true, enter.getDuration());
 //                mHandler.postDelayed(new Runnable() {
 //                    @Override
 //                    public void run() {
@@ -181,7 +185,30 @@ public class SupportFragmentDelegate {
                 return mAnimHelper.popExitAnim;
             }
         } else if (transit == FragmentTransaction.TRANSIT_FRAGMENT_CLOSE) {
-            return enter ? mAnimHelper.popEnterAnim : mAnimHelper.exitAnim;
+            Animation animation;
+            if (enter) {
+                animation = mAnimHelper.popEnterAnim;
+            } else {
+                animation = mAnimHelper.exitAnim;
+                animation.setAnimationListener(new Animation.AnimationListener() {
+                    @Override
+                    public void onAnimationStart(Animation animation) {
+                        mSupport.getSupportDelegate().mFragmentClickable = false;
+                    }
+
+                    @Override
+                    public void onAnimationEnd(Animation animation) {
+                        mSupport.getSupportDelegate().mFragmentClickable = true;
+                    }
+
+                    @Override
+                    public void onAnimationRepeat(Animation animation) {
+
+                    }
+                });
+            }
+//            animation = enter ? mAnimHelper.popEnterAnim : mAnimHelper.exitAnim;
+            return animation;
         } else {
             if (mIsSharedElement && enter) {
                 compatSharedElements();
@@ -494,6 +521,7 @@ public class SupportFragmentDelegate {
         } else {
             type = TransactionDelegate.TYPE_ADD;
         }
+//        int type = TransactionDelegate.TYPE_ADD_WITHOUT_HIDE;
         mTransactionDelegate.dispatchStartTransaction(mFragment.getFragmentManager(), mSupportF, toFragment, 0, launchMode, type);
     }
 
@@ -614,7 +642,9 @@ public class SupportFragmentDelegate {
         Observable.timer(enterAnim.getDuration(), TimeUnit.MILLISECONDS)
                 .observeOn(AndroidSchedulers.mainThread())
                 .doOnComplete(()-> {
-                    mNotifyEnterAnimEndRunnable.run();
+                    if (mNotifyEnterAnimEndRunnable != null) {
+                        mNotifyEnterAnimEndRunnable.run();
+                    }
                 })
                 .subscribe();
 //        getHandler().postDelayed(mNotifyEnterAnimEndRunnable, enterAnim.getDuration());
@@ -628,13 +658,10 @@ public class SupportFragmentDelegate {
 //                    mEnterAnimListener = null;
 //                }
 //            });
-            Observable.empty()
-                    .observeOn(AndroidSchedulers.mainThread())
-                    .doOnComplete(() -> {
-                        mEnterAnimListener.onEnterAnimStart();
-                        mEnterAnimListener = null;
-                    })
-                    .subscribe();
+            RxHandler.post(() -> {
+                mEnterAnimListener.onEnterAnimStart();
+                mEnterAnimListener = null;
+            });
         }
     }
 
@@ -653,12 +680,13 @@ public class SupportFragmentDelegate {
             long prePopExitDuration = preFragment.getSupportDelegate().getPopExitAnimDuration();
             long enterDuration = getEnterAnimDuration();
 
-            Observable.timer(prePopExitDuration - enterDuration, TimeUnit.MILLISECONDS)
-                    .observeOn(AndroidSchedulers.mainThread())
-                    .doOnComplete(()-> {
-                        view.setClickable(false);
-                    })
-                    .subscribe();
+//            Observable.timer(prePopExitDuration - enterDuration, TimeUnit.MILLISECONDS)
+//                    .observeOn(AndroidSchedulers.mainThread())
+//                    .doOnComplete(()-> {
+//                        view.setClickable(false);
+//                    })
+//                    .subscribe();
+            RxHandler.post(() -> view.setClickable(false), prePopExitDuration - enterDuration);
 
 //            mHandler.postDelayed(new Runnable() {
 //                @Override
@@ -699,12 +727,11 @@ public class SupportFragmentDelegate {
     }
 
     private void notifyEnterAnimEnd() {
-        Observable.empty()
-                .observeOn(AndroidSchedulers.mainThread())
-                .doOnComplete(() -> {
-                    mNotifyEnterAnimEndRunnable.run();
-                })
-                .subscribe();
+        RxHandler.post(() -> {
+            if (mNotifyEnterAnimEndRunnable != null) {
+                mNotifyEnterAnimEndRunnable.run();
+            }
+        });
 //        getHandler().post(mNotifyEnterAnimEndRunnable);
         mSupport.getSupportDelegate().mFragmentClickable = true;
     }

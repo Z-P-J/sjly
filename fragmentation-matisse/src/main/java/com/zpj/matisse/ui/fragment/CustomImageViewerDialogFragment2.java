@@ -1,11 +1,6 @@
 package com.zpj.matisse.ui.fragment;
 
-import android.content.Context;
-import android.graphics.Bitmap;
-import android.graphics.drawable.Drawable;
-import android.net.Uri;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
@@ -13,15 +8,8 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.request.target.SimpleTarget;
-import com.bumptech.glide.request.transition.Transition;
-import com.zpj.fragmentation.dialog.imagetrans.ImageLoad;
 import com.zpj.fragmentation.dialog.imagetrans.MyImageLoad;
-import com.zpj.fragmentation.dialog.imagetrans.TileBitmapDrawable;
-import com.zpj.fragmentation.dialog.impl.ImageViewerDialogFragment;
 import com.zpj.fragmentation.dialog.impl.ImageViewerDialogFragment2;
-import com.zpj.fragmentation.dialog.interfaces.IImageLoader;
 import com.zpj.matisse.R;
 import com.zpj.matisse.entity.IncapableCause;
 import com.zpj.matisse.entity.Item;
@@ -30,7 +18,6 @@ import com.zpj.matisse.model.SelectedItemManager;
 import com.zpj.matisse.ui.widget.CheckView;
 import com.zpj.widget.toolbar.ZToolBar;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 

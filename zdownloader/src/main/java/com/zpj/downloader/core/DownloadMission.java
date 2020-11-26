@@ -1,6 +1,5 @@
 package com.zpj.downloader.core;
 
-import android.app.DownloadManager;
 import android.content.Context;
 import android.os.Handler;
 import android.os.Looper;
@@ -19,7 +18,6 @@ import com.zpj.downloader.constant.ResponseCode;
 import com.zpj.downloader.util.FileUtil;
 import com.zpj.downloader.util.ThreadPoolFactory;
 import com.zpj.downloader.util.Utility;
-import com.zpj.downloader.util.notification.NotifyUtil;
 import com.zpj.http.ZHttp;
 import com.zpj.http.core.Connection;
 import com.zpj.http.core.IHttp;
@@ -783,8 +781,8 @@ public class DownloadMission {
         return DownloadManagerImpl.getInstance().getContext();
     }
 
-    private INotificationListener getNotificationListener() {
-        return DownloadManagerImpl.getInstance().getDownloaderConfig().getNotificationListener();
+    private INotificationInterceptor getNotificationListener() {
+        return DownloadManagerImpl.getInstance().getDownloaderConfig().getNotificationIntercepter();
     }
 
     public String getUuid() {
