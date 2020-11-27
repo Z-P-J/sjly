@@ -19,6 +19,11 @@ import com.bumptech.glide.module.AppGlideModule;
 import com.bumptech.glide.request.RequestOptions;
 import com.zpj.shouji.market.glide.combine.CombineImage;
 import com.zpj.shouji.market.glide.combine.CombineImageModelLoaderFactory;
+import com.zpj.shouji.market.glide.custom.CustomModelLoaderFactory;
+import com.zpj.shouji.market.glide.custom.GlideBitmapData;
+import com.zpj.shouji.market.glide.custom.GlideCustomData;
+import com.zpj.shouji.market.glide.custom.GlideDrawableData;
+import com.zpj.shouji.market.glide.custom.GlideInputStreamData;
 import com.zpj.shouji.market.model.InstalledAppInfo;
 import com.zpj.shouji.market.glide.apk.ApkModelLoaderFactory;
 
@@ -34,7 +39,7 @@ public class MyAppGlideModule extends AppGlideModule {
         super.applyOptions(context, builder);
         builder.setDefaultTransitionOptions(Drawable.class, DrawableTransitionOptions.withCrossFade(500));
         builder.setDefaultTransitionOptions(Bitmap.class, BitmapTransitionOptions.withCrossFade(500));
-        builder.setDefaultRequestOptions(new RequestOptions().skipMemoryCache(true));
+//        builder.setDefaultRequestOptions(new RequestOptions().skipMemoryCache(true));
 
     }
 
@@ -57,5 +62,8 @@ public class MyAppGlideModule extends AppGlideModule {
 
         registry.prepend(InstalledAppInfo.class, InputStream.class, new ApkModelLoaderFactory(context));
         registry.prepend(CombineImage.class, InputStream.class, new CombineImageModelLoaderFactory(context));
+//        registry.prepend(GlideInputStreamData.class, InputStream.class, new CustomModelLoaderFactory<>(context));
+//        registry.prepend(GlideBitmapData.class, Bitmap.class, new CustomModelLoaderFactory<>(context));
+//        registry.prepend(GlideDrawableData.class, Drawable.class, new CustomModelLoaderFactory<>(context));
     }
 }

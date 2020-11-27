@@ -15,7 +15,9 @@ import com.bumptech.glide.request.RequestOptions;
 import com.bumptech.glide.request.target.SimpleTarget;
 import com.bumptech.glide.request.transition.Transition;
 import com.zpj.fragmentation.BaseFragment;
+import com.zpj.fragmentation.anim.DefaultHorizontalAnimator;
 import com.zpj.fragmentation.anim.DefaultNoAnimator;
+import com.zpj.fragmentation.anim.FragmentAnimator;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.event.StartFragmentEvent;
 import com.zpj.shouji.market.glide.transformations.blur.BlurTransformation;
@@ -37,10 +39,15 @@ public class AboutMeFragment extends BaseFragment implements OnCommonItemClickLi
         StartFragmentEvent.start(new AboutMeFragment());
     }
 
+//    @Override
+//    public void onCreate(@Nullable Bundle savedInstanceState) {
+//        setFragmentAnimator(new DefaultNoAnimator());
+//        super.onCreate(savedInstanceState);
+//    }
+
     @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        setFragmentAnimator(new DefaultNoAnimator());
-        super.onCreate(savedInstanceState);
+    public FragmentAnimator onCreateFragmentAnimator() {
+        return new DefaultNoAnimator();
     }
 
     @Override
@@ -115,8 +122,10 @@ public class AboutMeFragment extends BaseFragment implements OnCommonItemClickLi
     @Override
     public void onEnterAnimationEnd(Bundle savedInstanceState) {
         super.onEnterAnimationEnd(savedInstanceState);
-        _mActivity.setFragmentAnimator(new MyFragmentAnimator());
-        setFragmentAnimator(new MyFragmentAnimator());
+//        _mActivity.setFragmentAnimator(new MyFragmentAnimator());
+//        setFragmentAnimator(new MyFragmentAnimator());
+//        _mActivity.setFragmentAnimator(new DefaultHorizontalAnimator());
+        setFragmentAnimator(new DefaultHorizontalAnimator());
     }
 
     @Override

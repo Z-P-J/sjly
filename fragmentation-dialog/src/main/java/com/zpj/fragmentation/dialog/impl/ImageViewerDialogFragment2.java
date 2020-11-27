@@ -156,22 +156,27 @@ public class ImageViewerDialogFragment2<T> extends FullScreenDialogFragment {
         dialogView.onCreate(build, this);
     }
 
-    @Override
-    public BaseDialogFragment show(SupportFragment fragment) {
-        build.checkParam();
-        return super.show(fragment);
-    }
+//    @Override
+//    public BaseDialogFragment show(SupportFragment fragment) {
+//        build.checkParam();
+//        return super.show(fragment);
+//    }
+//
+//    @Override
+//    public BaseDialogFragment show(SupportActivity activity) {
+//        build.checkParam();
+//        return super.show(activity);
+//    }
+//
+//    @Override
+//    public BaseDialogFragment show(Context context) {
+//        build.checkParam();
+//        return super.show(context);
+//    }
 
     @Override
-    public BaseDialogFragment show(SupportActivity activity) {
+    protected void onBeforeShow() {
         build.checkParam();
-        return super.show(activity);
-    }
-
-    @Override
-    public BaseDialogFragment show(Context context) {
-        build.checkParam();
-        return super.show(context);
     }
 
     @Override

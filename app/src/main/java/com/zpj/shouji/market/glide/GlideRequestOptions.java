@@ -4,6 +4,7 @@ import com.bumptech.glide.load.resource.bitmap.BitmapTransformation;
 import com.bumptech.glide.load.resource.bitmap.CenterCrop;
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
 import com.bumptech.glide.request.RequestOptions;
+import com.zpj.shouji.market.R;
 import com.zpj.utils.ContextUtils;
 import com.zpj.utils.ScreenUtils;
 
@@ -34,7 +35,9 @@ public class GlideRequestOptions {
         return GlideRequestOptions.with()
                 .centerCrop()
                 .roundedCorners(10)
-                .get();
+                .get()
+                .error(R.mipmap.ic_launcher)
+                .placeholder(R.mipmap.ic_launcher);
     }
 
     public static GlideRequestOptions with() {

@@ -26,6 +26,8 @@ import com.zpj.shouji.market.constant.AppConfig;
 import com.zpj.shouji.market.constant.Keys;
 import com.zpj.shouji.market.event.RefreshEvent;
 import com.zpj.shouji.market.event.StartFragmentEvent;
+import com.zpj.shouji.market.glide.GlideRequestOptions;
+import com.zpj.shouji.market.glide.transformations.CircleWithBorderTransformation;
 import com.zpj.shouji.market.glide.transformations.blur.BlurTransformation;
 import com.zpj.shouji.market.manager.UserManager;
 import com.zpj.shouji.market.model.DiscoverInfo;
@@ -182,6 +184,13 @@ public class ThemeDetailFragment extends ListenerFragment {
 
         Glide.with(context)
                 .load(item.getIcon())
+                .apply(
+                        GlideRequestOptions.with()
+                                .addTransformation(new CircleWithBorderTransformation(0.5f, Color.LTGRAY))
+                                .get()
+                                .error(R.mipmap.ic_launcher)
+                                .placeholder(R.mipmap.ic_launcher)
+                )
                 .into(ivToolbarAvater);
 
         tvToolbarName.setText(item.getNickName());
@@ -200,12 +209,9 @@ public class ThemeDetailFragment extends ListenerFragment {
                 new ShareDialogFragment()
                         .setShareContent(getString(R.string.text_theme_share_content, item.getContent(), item.getId()))
                         .show(context);
-//                SharePopup.with(context)
-//                        .setShareContent(context.getString(R.string.text_theme_share_content, item.getContent(), item.getId()))
-//                        .show();
             }
         });
-//        btnCollect.setTint(Color.BLACK);
+
         SkinEngine.applyViewAttr(btnCollect, "tint", R.attr.textColorMajor);
 
         btnCollect.setOnClickListener(new View.OnClickListener() {

@@ -66,8 +66,7 @@ public class CommonImageViewerDialogFragment2 extends ImageViewerDialogFragment2
     }
 
     @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    protected void onBeforeShow() {
         build.imageLoad = new MyImageLoad<String>() {
             @Override
             public boolean isCached(String url) {
@@ -75,6 +74,7 @@ public class CommonImageViewerDialogFragment2 extends ImageViewerDialogFragment2
             }
         };
         build.itConfig = new ITConfig().largeThumb();
+        super.onBeforeShow();
     }
 
     @Override

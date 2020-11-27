@@ -73,18 +73,6 @@ public class WallpaperViewerDialogFragment2 extends ImageViewerDialogFragment2<S
     }
 
     @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        build.imageLoad = new MyImageLoad<String>() {
-            @Override
-            public boolean isCached(String url) {
-                return false;
-            }
-        };
-        build.itConfig = new ITConfig().largeThumb();
-    }
-
-    @Override
     protected void initView(View view, @Nullable Bundle savedInstanceState) {
         if (wallpaperInfo == null) {
             dismiss();
@@ -292,6 +280,18 @@ public class WallpaperViewerDialogFragment2 extends ImageViewerDialogFragment2<S
         tvOrigin.setTranslationY(bottomBar.getHeight() * fraction);
         titleBar.setTranslationY(-titleBar.getHeight() * fraction);
         btnUp.setAlpha(Math.abs(fraction));
+    }
+
+    @Override
+    protected void onBeforeShow() {
+        build.imageLoad = new MyImageLoad<String>() {
+            @Override
+            public boolean isCached(String url) {
+                return false;
+            }
+        };
+        build.itConfig = new ITConfig().largeThumb();
+        super.onBeforeShow();
     }
 
     @Override

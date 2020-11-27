@@ -1,60 +1,27 @@
 package com.zpj.shouji.market.ui.fragment.detail;
 
-import android.content.Context;
-import android.graphics.Color;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
-import com.bumptech.glide.request.RequestOptions;
-import com.bumptech.glide.request.target.SimpleTarget;
-import com.bumptech.glide.request.transition.Transition;
 import com.ctetin.expandabletextviewlibrary.ExpandableTextView;
 import com.ctetin.expandabletextviewlibrary.app.LinkType;
-import com.felix.atoast.library.AToast;
-import com.yanyusong.y_divideritemdecoration.Y_Divider;
-import com.yanyusong.y_divideritemdecoration.Y_DividerBuilder;
-import com.yanyusong.y_divideritemdecoration.Y_DividerItemDecoration;
-import com.zpj.fragmentation.BaseFragment;
-import com.zpj.fragmentation.dialog.imagetrans.ImageItemView;
-import com.zpj.fragmentation.dialog.imagetrans.listener.SourceImageViewGet;
-import com.zpj.http.parser.html.nodes.Document;
-import com.zpj.http.parser.html.nodes.Element;
-import com.zpj.http.parser.html.select.Elements;
-import com.zpj.recyclerview.EasyRecyclerView;
 import com.zpj.recyclerview.EasyViewHolder;
-import com.zpj.recyclerview.IEasy;
 import com.zpj.recyclerview.MultiAdapter;
 import com.zpj.recyclerview.MultiData;
 import com.zpj.recyclerview.MultiRecyclerViewWrapper;
 import com.zpj.shouji.market.R;
-import com.zpj.shouji.market.api.HttpApi;
-import com.zpj.shouji.market.api.HttpPreLoader;
-import com.zpj.shouji.market.api.PreloadApi;
-import com.zpj.shouji.market.glide.GlideRequestOptions;
 import com.zpj.shouji.market.model.AppDetailInfo;
-import com.zpj.shouji.market.model.AppInfo;
 import com.zpj.shouji.market.ui.fragment.ToolBarAppListFragment;
 import com.zpj.shouji.market.ui.fragment.base.SkinFragment;
-import com.zpj.shouji.market.ui.fragment.dialog.CommonImageViewerDialogFragment2;
 import com.zpj.shouji.market.ui.fragment.homepage.multi.AppGridListMultiData;
 import com.zpj.shouji.market.ui.fragment.homepage.multi.BaseHeaderMultiData;
 import com.zpj.shouji.market.ui.fragment.homepage.multi.ScreenShootMultiData;
 import com.zpj.shouji.market.ui.fragment.profile.ProfileFragment;
-import com.zpj.shouji.market.ui.widget.DownloadButton;
 import com.zpj.utils.ScreenUtils;
 
 import org.greenrobot.eventbus.EventBus;
@@ -138,7 +105,7 @@ public class AppDetailContentFragment extends SkinFragment {
 
         wrapper.setData(list)
                 .setMaxSpan(3)
-                .setFooterView(LayoutInflater.from(context).inflate(R.layout.item_footer_home, null, false))
+                .setFooterView(LayoutInflater.from(context).inflate(R.layout.item_footer_normal, null, false))
                 .build();
         wrapper.notifyDataSetChanged();
     }

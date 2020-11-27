@@ -118,7 +118,7 @@ public class CollectionRecommendCard extends RecommendCard<CollectionInfo> {
                                 .addTransformation(new CropBlurTransformation(25, 0.3f))
                                 .centerCrop()
                                 .roundedCorners(8)
-                                .skipMemoryCache(true)
+//                                .skipMemoryCache(true)
                                 .get()
                 )
                 .into(imgBg);

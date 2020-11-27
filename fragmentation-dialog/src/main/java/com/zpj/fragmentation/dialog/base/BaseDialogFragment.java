@@ -182,11 +182,13 @@ public abstract class BaseDialogFragment extends AbstractDialogFragment {
     }
 
     public BaseDialogFragment show(SupportFragment fragment) {
+        onBeforeShow();
         fragment.start(this);
         return this;
     }
 
     public BaseDialogFragment show(Context context) {
+        onBeforeShow();
         Activity activity = ContextUtils.getActivity(context);
         if (activity instanceof SupportActivity) {
             ((SupportActivity) activity).start(this);
@@ -202,6 +204,7 @@ public abstract class BaseDialogFragment extends AbstractDialogFragment {
     }
 
     public BaseDialogFragment show(SupportActivity activity) {
+        onBeforeShow();
         activity.start(this);
         return this;
     }
@@ -302,6 +305,10 @@ public abstract class BaseDialogFragment extends AbstractDialogFragment {
         if (onDismissListener != null) {
             onDismissListener.onDismiss();
         }
+    }
+
+    protected void onBeforeShow() {
+
     }
 
     protected void onHide() {

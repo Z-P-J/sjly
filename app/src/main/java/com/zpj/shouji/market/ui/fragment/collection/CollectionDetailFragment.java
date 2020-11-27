@@ -26,6 +26,7 @@ import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.api.HttpApi;
 import com.zpj.shouji.market.event.RefreshEvent;
 import com.zpj.shouji.market.event.StartFragmentEvent;
+import com.zpj.shouji.market.glide.GlideRequestOptions;
 import com.zpj.shouji.market.glide.transformations.CircleWithBorderTransformation;
 import com.zpj.shouji.market.glide.transformations.blur.BlurTransformation;
 import com.zpj.shouji.market.manager.UserManager;
@@ -221,13 +222,36 @@ public class CollectionDetailFragment extends BaseFragment
                             tvSupport.setTag(true);
                         }
                         tvView.setText(doc.selectFirst("viewcount").text());
-                        RequestOptions options = new RequestOptions().centerCrop().error(R.mipmap.ic_launcher).placeholder(R.mipmap.ic_launcher);
-//                    Glide.with(context).load(backgroundUrl).apply(options).into(ivIcon);
-                        Glide.with(context).load(backgroundUrl).apply(options.clone().transform(new RoundedCorners(8))).into(ivIcon);
-                        Glide.with(context).load(userAvatarUrl).apply(options.clone().transform(new CircleWithBorderTransformation(0.5f, Color.GRAY))).into(ivAvatar);
+//                        RequestOptions options = new RequestOptions()
+//                                .centerCrop()
+//                                .transform(new CircleWithBorderTransformation(0.5f, Color.GRAY))
+//                                .error(R.mipmap.ic_launcher)
+//                                .placeholder(R.mipmap.ic_launcher);
                         Glide.with(context)
                                 .load(backgroundUrl)
-                                .apply(options.clone().transform(new CircleWithBorderTransformation(0.5f, Color.GRAY)))
+                                .apply(GlideRequestOptions.getDefaultIconOption())
+                                .into(ivIcon);
+                        Glide.with(context)
+                                .load(userAvatarUrl)
+                                .apply(
+                                        GlideRequestOptions.with()
+                                                .addTransformation(new CircleWithBorderTransformation(0.5f, Color.LTGRAY))
+                                                .get()
+                                                .error(R.mipmap.ic_launcher)
+                                                .placeholder(R.mipmap.ic_launcher)
+                                )
+//                                .apply(options.clone().transform(new CircleWithBorderTransformation(0.5f, Color.GRAY)))
+                                .into(ivAvatar);
+                        Glide.with(context)
+                                .load(backgroundUrl)
+                                .apply(
+                                        GlideRequestOptions.with()
+                                                .addTransformation(new CircleWithBorderTransformation(0.5f, Color.LTGRAY))
+                                                .get()
+                                                .error(R.mipmap.ic_launcher)
+                                                .placeholder(R.mipmap.ic_launcher)
+                                )
+//                                .apply(options.clone().transform(new CircleWithBorderTransformation(0.5f, Color.GRAY)))
                                 .into(ivToolbarAvater);
 //                    Glide.with(context).asBitmap().load(backgroundUrl).apply(options).into(new SimpleTarget<Bitmap>() {
 //                        @Override

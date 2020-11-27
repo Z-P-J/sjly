@@ -97,8 +97,6 @@ public class ToolBoxCard extends CardView implements View.OnClickListener {
 //                .radius(16f)
 //                .blur(ivBg);
 
-        initBackground();
-
         tvSignUp = findViewById(R.id.tv_sign_up);
         tvSignIn = findViewById(R.id.tv_sign_in);
 
@@ -132,6 +130,8 @@ public class ToolBoxCard extends CardView implements View.OnClickListener {
 //        likeBadge = new QBadgeView(context).bindTarget(tvMyLike);
         discoverBadge = new QBadgeView(context).bindTarget(tvMyDiscovers);
         friendsBadge = new QBadgeView(context).bindTarget(tvMyFriends);
+
+        initBackground();
     }
 
     @Override
@@ -188,7 +188,7 @@ public class ToolBoxCard extends CardView implements View.OnClickListener {
         }
     }
 
-    private void initBackground() {
+    public void initBackground() {
         gridLayout.getViewTreeObserver().addOnPreDrawListener(new ViewTreeObserver.OnPreDrawListener() {
             @Override
             public boolean onPreDraw() {

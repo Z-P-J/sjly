@@ -190,22 +190,22 @@ public class SupportFragmentDelegate {
                 animation = mAnimHelper.popEnterAnim;
             } else {
                 animation = mAnimHelper.exitAnim;
-                animation.setAnimationListener(new Animation.AnimationListener() {
-                    @Override
-                    public void onAnimationStart(Animation animation) {
-                        mSupport.getSupportDelegate().mFragmentClickable = false;
-                    }
-
-                    @Override
-                    public void onAnimationEnd(Animation animation) {
-                        mSupport.getSupportDelegate().mFragmentClickable = true;
-                    }
-
-                    @Override
-                    public void onAnimationRepeat(Animation animation) {
-
-                    }
-                });
+//                animation.setAnimationListener(new Animation.AnimationListener() {
+//                    @Override
+//                    public void onAnimationStart(Animation animation) {
+//                        mSupport.getSupportDelegate().mFragmentClickable = false;
+//                    }
+//
+//                    @Override
+//                    public void onAnimationEnd(Animation animation) {
+//                        mSupport.getSupportDelegate().mFragmentClickable = true;
+//                    }
+//
+//                    @Override
+//                    public void onAnimationRepeat(Animation animation) {
+//
+//                    }
+//                });
             }
 //            animation = enter ? mAnimHelper.popEnterAnim : mAnimHelper.exitAnim;
             return animation;

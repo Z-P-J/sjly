@@ -59,7 +59,7 @@ public class AboutSettingFragment extends BaseSettingFragment {
     public void onItemClick(CommonSettingItem item) {
         switch (item.getId()) {
             case R.id.item_about_me:
-                _mActivity.setFragmentAnimator(new DefaultNoAnimator());
+//                _mActivity.setFragmentAnimator(new DefaultNoAnimator());
                 AboutMeFragment.start();
                 break;
             case R.id.item_user_agreement:

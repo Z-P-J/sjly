@@ -65,23 +65,6 @@ public class AppDownloadMission extends DownloadMission {
         return mission;
     }
 
-//    public static AppDownloadMission create(String appUrl, String appId, String appName, String packageName, String appType, MissionConfig config) {
-//        AppDownloadMission mission = new AppDownloadMission();
-//        mission.url = appUrl;
-//        mission.originUrl = appUrl;
-//        mission.packageName = packageName;
-//        mission.appId = appId;
-//        mission.appType = appType;
-//        mission.appName = appName;
-//        mission.name = appName + "_" + appId + ".apk";
-//        mission.uuid = UUID.randomUUID().toString();
-//        mission.createTime = System.currentTimeMillis();
-//        mission.missionStatus = MissionStatus.INITING;
-//        mission.missionConfig = config;
-//        return mission;
-//    }
-
-
     @Override
     protected void initMission() {
         Log.d("AppDownloadMission", "initMission");
@@ -94,18 +77,15 @@ public class AppDownloadMission extends DownloadMission {
             }
             Log.d("AppDownloadMission", "initMission downloadUrl=" + downloadUrl);
             HttpApi.get(downloadUrl)
-                    .onSuccess(new IHttp.OnSuccessListener<Document>() {
-                        @Override
-                        public void onSuccess(Document data) throws Exception {
-                            Log.d("AppDownloadMission", "data=" + data);
-                            url = data.selectFirst("url").text();
-                            if (url.endsWith(".zip") && name != null) {
-                                name = name.replace(".apk", ".zip");
-                            }
-                            originUrl = url;
-                            length = Long.parseLong(data.selectFirst("size").text());
-                            AppDownloadMission.super.initMission();
+                    .onSuccess(data -> {
+                        Log.d("AppDownloadMission", "data=" + data);
+                        url = data.selectFirst("url").text();
+                        if (url.endsWith(".zip") && name != null) {
+                            name = name.replace(".apk", ".zip");
                         }
+                        originUrl = url;
+                        length = Long.parseLong(data.selectFirst("size").text());
+                        AppDownloadMission.super.initMission();
                     })
                     .onError(new IHttp.OnErrorListener() {
                         @Override
@@ -173,49 +153,6 @@ public class AppDownloadMission extends DownloadMission {
     private void installApk() {
         if (AppConfig.isAccessibilityInstall() || AppConfig.isRootInstall()) {
             Log.d("AppDownloadMission", "install---dir=" + Environment.getExternalStorageDirectory().getAbsolutePath());
-//            AutoInstaller installer = new AutoInstaller.Builder(getContext())
-//                    .setMode(AppConfig.isRootInstall() ? AutoInstaller.MODE.ROOT_ONLY : AutoInstaller.MODE.AUTO_ONLY)
-//                    .setOnStateChangedListener(new AutoInstaller.OnStateChangedListener() {
-//                        @Override
-//                        public void onStart() {
-//                            AToast.success("开始安装" + appName + "应用！");
-//                        }
-//
-//                        @Override
-//                        public void onComplete() {
-//                            if (AppUtils.isInstalled(getContext(), getPackageName())) {
-//                                if (AppConfig.isAutoDeleteAfterInstalled()) {
-//                                    FileUtils.deleteFile(getFilePath());
-//                                }
-//                                AToast.success(appName + "应用安装成功！");
-//                            }
-//                        }
-//
-//                        @Override
-//                        public void onNeed2OpenService() {
-//                            AToast.normal(R.string.text_enable_accessibility_installation_service);
-//                        }
-//
-//                        @Override
-//                        public void needPermission() {
-//                            AToast.warning(R.string.text_grant_installation_permissions);
-//                        }
-//                    })
-//                    .build();
-//            Log.d("AppDownloadMission", "installer=" + installer);
-//            installer.install(getFile());
-
-
-//            new Thread(new Runnable() {
-//                @Override
-//                public void run() {
-//
-//                    installUseRoot(getFile());
-//
-//                }
-//            }).start();
-
-
             InstallMode mode = InstallMode.AUTO;
             if (AppConfig.isRootInstall() && AppConfig.isAccessibilityInstall()) {
                 mode = InstallMode.AUTO;

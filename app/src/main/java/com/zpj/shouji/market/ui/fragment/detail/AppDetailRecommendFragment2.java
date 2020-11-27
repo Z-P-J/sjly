@@ -24,8 +24,10 @@ import com.zpj.shouji.market.ui.fragment.homepage.multi.AppInfoMultiData;
 import com.zpj.shouji.market.ui.fragment.homepage.multi.CollectionMultiData;
 import com.zpj.shouji.market.ui.widget.recommend.SimilarAppCard;
 import com.zpj.shouji.market.ui.widget.recommend.SimilarCollectionCard;
+import com.zpj.shouji.market.utils.Callback;
 import com.zpj.widget.statelayout.StateLayout;
 
+import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -74,58 +76,145 @@ public class AppDetailRecommendFragment2 extends SkinFragment {
     @Override
     public void onLazyInitView(@Nullable Bundle savedInstanceState) {
         super.onLazyInitView(savedInstanceState);
-        getSimilar();
+//        getSimilar();
+        List<MultiData> multiDataList = new ArrayList<>();
+
+        SimilarAppMultiData similarAppMultiData = new SimilarAppMultiData();
+        multiDataList.add(new SimilarCollectionMultiData(type, id, new Callback<List<AppInfo>>() {
+            @Override
+            public void onCallback(List<AppInfo> list) {
+                similarAppMultiData.setData(list);
+            }
+        }));
+
+        multiDataList.add(similarAppMultiData);
+
+        wrapper.setData(multiDataList)
+                .setMaxSpan(4)
+                .build();
     }
 
     private void getSimilar() {
-        HttpApi.get("http://tt.shouji.com.cn/androidv3/" + type + "_yyj_similar.jsp?id=" + id)
-                .onSuccess(data -> {
-                    Elements elements = data.select("item");
-                    for (Element element : elements) {
-                        if ("yyj".equals(element.selectFirst("viewtype").text())) {
-                            for (Element recognizeItem : element.selectFirst("recognizelist").select("recognize")) {
-                                collectionInfoList.add(CollectionInfo.buildSimilarCollection(recognizeItem));
-                            }
-                        } else {
-                            appInfoList.add(AppInfo.parse(element));
-                        }
-                    }
-
-                    List<MultiData> multiDataList = new ArrayList<>();
-
-                    multiDataList.add(new SimilarCollectionMultiData(collectionInfoList));
-
-                    multiDataList.add(new AppGridListMultiData("相似应用", appInfoList));
-
-                    wrapper.setData(multiDataList)
-                            .setMaxSpan(4)
-                            .build();
-
-                })
-                .onError(new IHttp.OnErrorListener() {
-                    @Override
-                    public void onError(Throwable throwable) {
-//                        stateLayout.showErrorView(throwable.getMessage());
-                    }
-                })
-                .subscribe();
+//        HttpApi.get("http://tt.shouji.com.cn/androidv3/" + type + "_yyj_similar.jsp?id=" + id)
+//                .onSuccess(data -> {
+//                    Elements elements = data.select("item");
+//                    for (Element element : elements) {
+//                        if ("yyj".equals(element.selectFirst("viewtype").text())) {
+//                            for (Element recognizeItem : element.selectFirst("recognizelist").select("recognize")) {
+//                                collectionInfoList.add(CollectionInfo.buildSimilarCollection(recognizeItem));
+//                            }
+//                        } else {
+//                            appInfoList.add(AppInfo.parse(element));
+//                        }
+//                    }
+//
+//                    List<MultiData> multiDataList = new ArrayList<>();
+//
+//                    multiDataList.add(new SimilarCollectionMultiData(collectionInfoList));
+//
+//                    multiDataList.add(new AppGridListMultiData("相似应用", appInfoList));
+//
+//                    wrapper.setData(multiDataList)
+//                            .setMaxSpan(4)
+//                            .build();
+//
+//                })
+//                .onError(new IHttp.OnErrorListener() {
+//                    @Override
+//                    public void onError(Throwable throwable) {
+////                        stateLayout.showErrorView(throwable.getMessage());
+//                    }
+//                })
+//                .subscribe();
     }
+
+//    private static class SimilarCollectionMultiData extends CollectionMultiData {
+//
+//        private final List<CollectionInfo> collectionInfoList;
+//
+//        public SimilarCollectionMultiData(List<CollectionInfo> collectionInfoList) {
+//            super("相关应用集");
+//            this.collectionInfoList = collectionInfoList;
+//
+//        }
+//
+//        @Override
+//        public boolean loadData(MultiAdapter adapter) {
+//            list.addAll(collectionInfoList);
+//            adapter.notifyDataSetChanged();
+//            return false;
+//        }
+//    }
 
     private static class SimilarCollectionMultiData extends CollectionMultiData {
 
-        private final List<CollectionInfo> collectionInfoList;
+        private final String url;
+        private final Callback<List<AppInfo>> callback;
 
-        public SimilarCollectionMultiData(List<CollectionInfo> collectionInfoList) {
+        public SimilarCollectionMultiData(String type, String id, Callback<List<AppInfo>> callback) {
             super("相关应用集");
-            this.collectionInfoList = collectionInfoList;
+            this.url = "http://tt.shouji.com.cn/androidv3/" + type + "_yyj_similar.jsp?id=" + id;
+            this.callback = callback;
         }
 
         @Override
         public boolean loadData(MultiAdapter adapter) {
-            list.addAll(collectionInfoList);
-            adapter.notifyDataSetChanged();
+            List<AppInfo> appInfoList = new ArrayList<>();
+            HttpApi.get(url)
+                    .onSuccess(data -> {
+                        Elements elements = data.select("item");
+                        for (Element element : elements) {
+                            if ("yyj".equals(element.selectFirst("viewtype").text())) {
+                                for (Element recognizeItem : element.selectFirst("recognizelist").select("recognize")) {
+                                    list.add(CollectionInfo.buildSimilarCollection(recognizeItem));
+                                }
+                            } else {
+                                appInfoList.add(AppInfo.parse(element));
+                            }
+                        }
+                        if (callback != null) {
+                            callback.onCallback(appInfoList);
+                        }
+                        adapter.notifyDataSetChanged();
+                    })
+                    .subscribe();
             return false;
         }
+    }
+
+    public class SimilarAppMultiData extends AppInfoMultiData {
+
+        public SimilarAppMultiData() {
+            super("相似应用");
+        }
+
+        public void setData(List<AppInfo> appInfoList) {
+            this.list.addAll(appInfoList);
+            try {
+                hasMore = false;
+                Field isLoaded = MultiData.class.getDeclaredField("isLoaded");
+                isLoaded.setAccessible(true);
+                isLoaded.set(this, true);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+
+        @Override
+        public boolean loadData(MultiAdapter adapter) {
+            return false;
+        }
+
+        @Override
+        public PreloadApi getKey() {
+            return null;
+        }
+
+        @Override
+        public void onHeaderClick() {
+
+        }
+
     }
 
 }

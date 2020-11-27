@@ -105,6 +105,11 @@ public class ChatFragment extends NextUrlFragment<PrivateLetterInfo>
     }
 
     @Override
+    protected void initStatusBar() {
+        ThemeUtils.initStatusBar(this);
+    }
+
+    @Override
     protected void initView(View view, @Nullable Bundle savedInstanceState) {
         super.initView(view, savedInstanceState);
 
@@ -116,12 +121,6 @@ public class ChatFragment extends NextUrlFragment<PrivateLetterInfo>
         KeyboardObserver.registerSoftInputChangedListener(_mActivity, view, height -> {
             replyPanel.onKeyboardHeightChanged(height, 0);
         });
-    }
-
-    @Override
-    public void onSupportVisible() {
-        super.onSupportVisible();
-        ThemeUtils.initStatusBar(this);
     }
 
     @Override
@@ -388,7 +387,7 @@ public class ChatFragment extends NextUrlFragment<PrivateLetterInfo>
                 content,
                 replyPanel.getImgList(),
                 () -> {
-                    replyPanel.getEditor().setText(null);
+                    replyPanel.clear();
                     onRefresh();
                 },
                 new IHttp.OnStreamWriteListener() {

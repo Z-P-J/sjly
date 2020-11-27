@@ -1,5 +1,6 @@
 package com.zpj.shouji.market.ui.fragment.profile;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -25,6 +26,8 @@ import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.api.HttpApi;
 import com.zpj.shouji.market.constant.Keys;
 import com.zpj.shouji.market.event.StartFragmentEvent;
+import com.zpj.shouji.market.glide.GlideRequestOptions;
+import com.zpj.shouji.market.glide.transformations.CircleWithBorderTransformation;
 import com.zpj.shouji.market.manager.UserManager;
 import com.zpj.shouji.market.ui.adapter.FragmentsPagerAdapter;
 import com.zpj.shouji.market.ui.fragment.WebFragment;
@@ -245,7 +248,9 @@ public class ProfileFragment extends ListenerFragment
                                                 .placeholder(R.drawable.bg_member_default)
                                 )
                                 .into(ivHeader);
-                        RequestOptions options = new RequestOptions()
+                        RequestOptions options = GlideRequestOptions.with()
+                                .addTransformation(new CircleWithBorderTransformation(0.5f, Color.LTGRAY))
+                                .get()
                                 .error(R.drawable.ic_user_head)
                                 .placeholder(R.drawable.ic_user_head);
                         Glide.with(context)

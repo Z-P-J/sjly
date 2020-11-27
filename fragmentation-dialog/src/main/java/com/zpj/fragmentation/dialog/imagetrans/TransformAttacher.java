@@ -238,15 +238,15 @@ class TransformAttacher implements OnTransformListener {
         }
 
         RectF getThumbRectF() {
-            int drawableWidth = getThumbDrawableWidth();
-            int drawableHeight = getThumbDrawableHeight();
-            int viewWidth = getImageViewWidth(imageView);
-            int viewHeight = getImageViewHeight(imageView);
+            float drawableWidth = getThumbDrawableWidth();
+            float drawableHeight = getThumbDrawableHeight();
+            float viewWidth = getImageViewWidth(imageView);
+            float viewHeight = getImageViewHeight(imageView);
             float thumbScale = 0.5f;
             if (itConfig.thumbLarge) {
                 thumbScale = 1f;
             }
-            if (drawableWidth * 1f / drawableHeight >= viewWidth * 1f / viewHeight) {
+            if (drawableWidth / drawableHeight >= viewWidth / viewHeight) {
                 float tempWidth = viewWidth * thumbScale;
                 float tempHeight = tempWidth * drawableHeight / drawableWidth;
                 float left = (viewWidth - tempWidth) * .5f;

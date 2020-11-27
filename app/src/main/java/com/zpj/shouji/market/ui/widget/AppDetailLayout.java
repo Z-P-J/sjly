@@ -100,6 +100,7 @@ public class AppDetailLayout extends FrameLayout {
                 .into(icon);
         Glide.with(getContext())
                 .load(info.getIconUrl())
+                .apply(GlideRequestOptions.getDefaultIconOption())
                 .into(ivToolbarAvater);
 
         Glide.with(getContext())

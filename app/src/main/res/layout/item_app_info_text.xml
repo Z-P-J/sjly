@@ -42,6 +42,7 @@
         android:layout_height="wrap_content"
         android:textColor="?attr/textColorMajor"
         android:lineSpacingExtra="4dp"
+        android:textIsSelectable="true"
         app:ep_need_expand="false"
         app:ep_need_link="false"
         app:ep_need_self="false"

@@ -437,6 +437,12 @@ public class MyFragment extends SkinFragment
     }
 
     @Override
+    public void onLazyInitView(@Nullable Bundle savedInstanceState) {
+        super.onLazyInitView(savedInstanceState);
+        toolBoxCard.initBackground();
+    }
+
+    @Override
     public void onClick(View v) {
         if (v == tvCheckIn) {
             MemberInfo memberInfo = UserManager.getInstance().getMemberInfo();

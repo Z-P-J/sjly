@@ -88,6 +88,7 @@
                 android:background="@drawable/grey_shape"
                 android:padding="16dp"
                 android:layout_margin="16dp"
+                android:textIsSelectable="true"
                 />
 
         </LinearLayout>
