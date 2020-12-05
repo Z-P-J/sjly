@@ -1,9 +1,11 @@
 package com.zpj.shouji.market.event;
 
+import com.zpj.rxbus.RxSubscriber;
+
 import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 
-public class ShowLoadingEvent extends BaseEvent {
+public class ShowLoadingEvent {
 
     private final String text;
     private boolean isUpdate = false;
@@ -23,6 +25,10 @@ public class ShowLoadingEvent extends BaseEvent {
 
     public String getText() {
         return text;
+    }
+
+    public void post() {
+        RxSubscriber.post(this);
     }
 
     public static void post(String text) {

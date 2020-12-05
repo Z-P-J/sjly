@@ -11,12 +11,8 @@ import com.zpj.http.parser.html.nodes.Element;
 import com.zpj.http.parser.html.select.Elements;
 import com.zpj.recyclerview.EasyViewHolder;
 import com.zpj.shouji.market.constant.Keys;
-import com.zpj.shouji.market.event.RefreshEvent;
+import com.zpj.shouji.market.event.EventBus;
 import com.zpj.shouji.market.model.DiscoverInfo;
-
-import org.greenrobot.eventbus.EventBus;
-import org.greenrobot.eventbus.Subscribe;
-import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -38,13 +34,11 @@ public class ThemeCommentListFragment extends ThemeListFragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        EventBus.getDefault().register(this);
-    }
-
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-        EventBus.getDefault().unregister(this);
+        EventBus.onRefreshEvent(this, s -> {
+            if (isSupportVisible()) {
+                onRefresh();
+            }
+        });
     }
 
     @Override
@@ -105,10 +99,4 @@ public class ThemeCommentListFragment extends ThemeListFragment {
         return true;
     }
 
-    @Subscribe(threadMode = ThreadMode.MAIN)
-    public void onRefreshEvent(RefreshEvent event) {
-        if (isSupportVisible()) {
-            onRefresh();
-        }
-    }
 }

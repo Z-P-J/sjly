@@ -1,36 +1,32 @@
 package com.zpj.shouji.market.event;
 
 import com.zpj.fragmentation.dialog.IDialog;
+import com.zpj.rxbus.RxSubscriber;
 
 import java.util.concurrent.TimeUnit;
 
 import io.reactivex.Observable;
 
-public class HideLoadingEvent extends BaseEvent {
+public class HideLoadingEvent {
 
-//    private Runnable runnable;
     private IDialog.OnDismissListener onDismissListener;
 
     public HideLoadingEvent() {
 
     }
 
-//    public Runnable getRunnable() {
-//        return runnable;
-//    }
-
     public IDialog.OnDismissListener getOnDismissListener() {
         return onDismissListener;
     }
 
-    public static void postEvent() {
-        new HideLoadingEvent().post();
+    public static void post() {
+        RxSubscriber.post(new HideLoadingEvent());
     }
 
     public static void post(IDialog.OnDismissListener onDismissListener) {
         HideLoadingEvent event = new HideLoadingEvent();
         event.onDismissListener = onDismissListener;
-        event.post();
+        RxSubscriber.post(event);
     }
 
     public static void post(long delay, IDialog.OnDismissListener onDismissListener) {
@@ -39,15 +35,9 @@ public class HideLoadingEvent extends BaseEvent {
                 .subscribe();
     }
 
-//    public static void post(Runnable onDismissRunnable) {
-//        HideLoadingEvent event = new HideLoadingEvent();
-//        event.runnable = onDismissRunnable;
-//        event.post();
-//    }
-
     public static void postDelayed(long delay) {
         Observable.timer(delay, TimeUnit.MILLISECONDS)
-                .doOnComplete(HideLoadingEvent::postEvent)
+                .doOnComplete(HideLoadingEvent::post)
                 .subscribe();
     }
 

@@ -13,6 +13,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.felix.atoast.library.AToast;
+import com.zpj.filescanner.ZFileScanner;
 import com.zpj.fragmentation.dialog.impl.ArrowMenuDialogFragment;
 import com.zpj.fragmentation.dialog.model.OptionMenu;
 import com.zpj.recyclerview.EasyAdapter;
@@ -20,7 +21,6 @@ import com.zpj.recyclerview.EasyRecyclerLayout;
 import com.zpj.recyclerview.EasyViewHolder;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.constant.Keys;
-import com.zpj.shouji.market.event.StartFragmentEvent;
 import com.zpj.shouji.market.glide.GlideApp;
 import com.zpj.shouji.market.manager.AppUpdateManager;
 import com.zpj.shouji.market.model.InstalledAppInfo;
@@ -29,7 +29,6 @@ import com.zpj.shouji.market.ui.fragment.base.RecyclerLayoutFragment;
 import com.zpj.shouji.market.ui.fragment.dialog.RecyclerPartShadowDialogFragment;
 import com.zpj.shouji.market.utils.AppUtil;
 import com.zpj.shouji.market.utils.FileUtils;
-import com.zpj.shouji.market.utils.ThemeUtils;
 
 import org.xmlpull.v1.XmlPullParserException;
 
@@ -40,9 +39,6 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 import java.util.zip.ZipFile;
-
-import io.haydar.filescanner.FileInfo;
-import io.haydar.filescanner.FileScanner;
 
 public class PackageManagerFragment extends RecyclerLayoutFragment<InstalledAppInfo> {
 
@@ -76,7 +72,7 @@ public class PackageManagerFragment extends RecyclerLayoutFragment<InstalledAppI
     }
 
     public static void start(boolean showToolbar) {
-        StartFragmentEvent.start(PackageManagerFragment.newInstance(showToolbar));
+        start(PackageManagerFragment.newInstance(showToolbar));
     }
 
     @Override
@@ -94,12 +90,12 @@ public class PackageManagerFragment extends RecyclerLayoutFragment<InstalledAppI
         return true;
     }
 
-    @Override
-    protected void initStatusBar() {
-        if (showToolbar) {
-            ThemeUtils.initStatusBar(this);
-        }
-    }
+//    @Override
+//    protected void initStatusBar() {
+//        if (showToolbar) {
+//            ThemeUtils.initStatusBar(this);
+//        }
+//    }
 
     @Override
     protected void initView(View view, @Nullable Bundle savedInstanceState) {
@@ -207,50 +203,97 @@ public class PackageManagerFragment extends RecyclerLayoutFragment<InstalledAppI
     private void loadApk() {
 //        startTime = System.currentTimeMillis();
 
-        FileScanner.getInstance(context).clear();
-        FileScanner.getInstance(context)
-                .setType(".apk")
-                .start(new FileScanner.ScannerListener() {
-                    @Override
-                    public void onScanBegin() {
-                        Log.d(TAG, "onScanBegin");
-                        post(() -> infoTextView.setText("扫描准备中..."));
-                    }
 
-                    @Override
-                    public void onScanEnd() {
-                        Log.d(TAG, "onScanEnd");
-                        post(() -> infoTextView.setText("共" + data.size() + "个安装包"));
-                    }
+        ZFileScanner<InstalledAppInfo> scanner = new ZFileScanner<>();
+        scanner.setType(".apk");
+        scanner.start(new ZFileScanner.OnScanListener<InstalledAppInfo>() {
+            @Override
+            public void onScanBegin() {
+                Log.d(TAG, "onScanBegin");
+                post(() -> infoTextView.setText("扫描准备中..."));
+            }
 
-                    @Override
-                    public void onScanning(String paramString, int progress) {
-                        if (progress != lastProgress) {
-                            lastProgress = progress;
-                            post(() -> infoTextView.setText("已发现" + data.size() + "个安装包，已扫描" + progress + "%"));
+            @Override
+            public void onScanEnd() {
+                Log.d(TAG, "onScanEnd");
+                post(() -> infoTextView.setText("共" + data.size() + "个安装包"));
+            }
+
+            @Override
+            public void onScanning(String paramString, int progress) {
+                if (progress != lastProgress) {
+                    lastProgress = progress;
+                    post(() -> infoTextView.setText("已发现" + data.size() + "个安装包，已扫描" + progress + "%"));
+                }
+            }
+
+            @Override
+            public InstalledAppInfo onWrapFile(File file) {
+                Log.d(TAG, "onWrapFile file=" + file.getAbsolutePath());
+                return parseFromApk(context, file);
+            }
+
+            @Override
+            public void onScanningFiles(InstalledAppInfo item) {
+                Log.d(TAG, "onScanningFiles");
+                if (item != null) {
+                    synchronized (data) {
+                        data.add(item);
+                        if (data.size() < 10) {
+                            recyclerLayout.notifyDataSetChanged();
+                        } else {
+                            recyclerLayout.notifyItemInserted(data.size() - 1);
                         }
+                        recyclerLayout.notifyItemRangeChanged(data.size() - 1, 1);
                     }
+                }
+            }
+        });
 
-                    @Override
-                    public void onScanningFiles(FileInfo info, int type) {
-                        Log.d(TAG, "onScanningFiles");
-                        InstalledAppInfo appInfo = parseFromApk(context, new File(info.getFilePath()));
-                        if (appInfo != null) {
-                            synchronized (data) {
-                                post(() -> {
-                                    data.add(appInfo);
-                                    if (data.size() < 10) {
-                                        recyclerLayout.notifyDataSetChanged();
-                                    } else {
-                                        recyclerLayout.notifyItemInserted(data.size() - 1);
-                                    }
-                                    recyclerLayout.notifyItemRangeChanged(data.size() - 1, 1);
-//                                    recyclerLayout.notifyItemInserted(data.size() - 1);
-                                });
-                            }
-                        }
-                    }
-                });
+//        FileScanner.getInstance(context).clear();
+//        FileScanner.getInstance(context)
+//                .setType(".apk")
+//                .start(new FileScanner.ScannerListener() {
+//                    @Override
+//                    public void onScanBegin() {
+//                        Log.d(TAG, "onScanBegin");
+//                        post(() -> infoTextView.setText("扫描准备中..."));
+//                    }
+//
+//                    @Override
+//                    public void onScanEnd() {
+//                        Log.d(TAG, "onScanEnd");
+//                        post(() -> infoTextView.setText("共" + data.size() + "个安装包"));
+//                    }
+//
+//                    @Override
+//                    public void onScanning(String paramString, int progress) {
+//                        if (progress != lastProgress) {
+//                            lastProgress = progress;
+//                            post(() -> infoTextView.setText("已发现" + data.size() + "个安装包，已扫描" + progress + "%"));
+//                        }
+//                    }
+//
+//                    @Override
+//                    public void onScanningFiles(FileInfo info, int type) {
+//                        Log.d(TAG, "onScanningFiles");
+//                        InstalledAppInfo appInfo = parseFromApk(context, new File(info.getFilePath()));
+//                        if (appInfo != null) {
+//                            synchronized (data) {
+//                                post(() -> {
+//                                    data.add(appInfo);
+//                                    if (data.size() < 10) {
+//                                        recyclerLayout.notifyDataSetChanged();
+//                                    } else {
+//                                        recyclerLayout.notifyItemInserted(data.size() - 1);
+//                                    }
+//                                    recyclerLayout.notifyItemRangeChanged(data.size() - 1, 1);
+////                                    recyclerLayout.notifyItemInserted(data.size() - 1);
+//                                });
+//                            }
+//                        }
+//                    }
+//                });
     }
 
     private void showSortPopWindow() {

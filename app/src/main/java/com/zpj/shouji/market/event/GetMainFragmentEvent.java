@@ -1,9 +1,10 @@
 package com.zpj.shouji.market.event;
 
+import com.zpj.rxbus.RxSubscriber;
 import com.zpj.shouji.market.ui.fragment.MainFragment;
 import com.zpj.shouji.market.utils.Callback;
 
-public class GetMainFragmentEvent extends BaseEvent {
+public class GetMainFragmentEvent {
 
     private final Callback<MainFragment> callback;
 
@@ -16,7 +17,8 @@ public class GetMainFragmentEvent extends BaseEvent {
     }
 
     public static void post(Callback<MainFragment> callback) {
-        new GetMainFragmentEvent(callback).post();
+//        new GetMainFragmentEvent(callback).post();
+        RxSubscriber.post(new GetMainFragmentEvent(callback));
     }
 
 }

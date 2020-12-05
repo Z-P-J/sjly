@@ -19,7 +19,6 @@ import com.zpj.recyclerview.EasyRecyclerLayout;
 import com.zpj.recyclerview.EasyViewHolder;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.constant.Keys;
-import com.zpj.shouji.market.event.StartFragmentEvent;
 import com.zpj.shouji.market.glide.GlideApp;
 import com.zpj.shouji.market.manager.AppUpdateManager;
 import com.zpj.shouji.market.model.AppUpdateInfo;
@@ -28,7 +27,6 @@ import com.zpj.shouji.market.ui.fragment.base.RecyclerLayoutFragment;
 import com.zpj.shouji.market.ui.fragment.detail.AppDetailFragment;
 import com.zpj.shouji.market.ui.widget.DownloadButton;
 import com.zpj.shouji.market.utils.AppUtil;
-import com.zpj.shouji.market.utils.ThemeUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -58,7 +56,7 @@ public class UpdateManagerFragment extends RecyclerLayoutFragment<AppUpdateInfo>
     }
 
     public static void start(boolean showToolbar) {
-        StartFragmentEvent.start(UpdateManagerFragment.newInstance(showToolbar));
+        start(UpdateManagerFragment.newInstance(showToolbar));
     }
 
     @Override
@@ -76,12 +74,12 @@ public class UpdateManagerFragment extends RecyclerLayoutFragment<AppUpdateInfo>
         return true;
     }
 
-    @Override
-    protected void initStatusBar() {
-        if (showToolbar) {
-            ThemeUtils.initStatusBar(this);
-        }
-    }
+//    @Override
+//    protected void initStatusBar() {
+//        if (showToolbar) {
+//            ThemeUtils.initStatusBar(this);
+//        }
+//    }
 
     @Override
     protected void initView(View view, @Nullable Bundle savedInstanceState) {

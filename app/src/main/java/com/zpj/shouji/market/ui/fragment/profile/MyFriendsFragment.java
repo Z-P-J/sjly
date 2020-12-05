@@ -6,25 +6,23 @@ import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.view.View;
 
-import com.zpj.fragmentation.BaseFragment;
 import com.zpj.recyclerview.EasyViewHolder;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.api.HttpApi;
 import com.zpj.shouji.market.constant.Keys;
 import com.zpj.shouji.market.constant.UpdateFlagAction;
-import com.zpj.shouji.market.event.StartFragmentEvent;
 import com.zpj.shouji.market.model.UserInfo;
 import com.zpj.shouji.market.ui.adapter.FragmentsPagerAdapter;
 import com.zpj.shouji.market.ui.fragment.UserListFragment;
+import com.zpj.shouji.market.ui.fragment.base.BaseSwipeBackFragment;
 import com.zpj.shouji.market.utils.MagicIndicatorHelper;
-import com.zpj.shouji.market.utils.ThemeUtils;
 
 import net.lucode.hackware.magicindicator.MagicIndicator;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class MyFriendsFragment extends BaseFragment {
+public class MyFriendsFragment extends BaseSwipeBackFragment {
 
     private static final String[] TAB_TITLES = {"我关注的", "我的粉丝"};
 
@@ -44,17 +42,12 @@ public class MyFriendsFragment extends BaseFragment {
     }
 
     public static void start(String id) {
-        StartFragmentEvent.start(newInstance(id, true));
+        start(newInstance(id, true));
     }
 
     @Override
     protected int getLayoutId() {
         return R.layout.fragment_my_discover;
-    }
-
-    @Override
-    protected boolean supportSwipeBack() {
-        return true;
     }
 
     @Override
@@ -85,13 +78,13 @@ public class MyFriendsFragment extends BaseFragment {
         }
     }
 
-    @Override
-    public void onSupportVisible() {
-        super.onSupportVisible();
-        if (showToolbar) {
-            ThemeUtils.initStatusBar(this);
-        }
-    }
+//    @Override
+//    public void onSupportVisible() {
+//        super.onSupportVisible();
+//        if (showToolbar) {
+//            ThemeUtils.initStatusBar(this);
+//        }
+//    }
 
     @Override
     public void onDestroy() {

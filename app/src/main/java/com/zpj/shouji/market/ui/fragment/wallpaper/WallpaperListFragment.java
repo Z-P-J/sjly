@@ -30,7 +30,6 @@ import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.api.HttpApi;
 import com.zpj.shouji.market.constant.AppConfig;
 import com.zpj.shouji.market.constant.Keys;
-import com.zpj.shouji.market.event.StatusBarEvent;
 import com.zpj.shouji.market.glide.GlideUtils;
 import com.zpj.shouji.market.model.WallpaperInfo;
 import com.zpj.shouji.market.model.WallpaperTag;
@@ -198,7 +197,7 @@ public class WallpaperListFragment extends NextUrlFragment<WallpaperInfo> {
                         imageItemView.update(wallpaper);
                     }
                 })
-                .setOnDismissListener(() -> StatusBarEvent.post(false))
+//                .setOnDismissListener(() -> StatusBarEvent.post(false))
                 .show(context);
 
 //        GetMainActivityEvent.post(new Callback<MainActivity>() {

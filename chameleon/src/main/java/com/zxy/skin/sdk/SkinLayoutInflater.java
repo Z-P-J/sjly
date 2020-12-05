@@ -1,24 +1,20 @@
 package com.zxy.skin.sdk;
 
 import android.content.Context;
-import android.content.res.TypedArray;
 import android.text.TextUtils;
 import android.util.ArrayMap;
 import android.util.AttributeSet;
 import android.util.Log;
-import android.util.Xml;
 import android.view.InflateException;
 import android.view.LayoutInflater;
 import android.view.View;
 
-
-import com.zxy.skin.sdk.applicator.SkinViewApplicator;
 import com.zxy.skin.sdk.applicator.SkinApplicatorManager;
+import com.zxy.skin.sdk.applicator.SkinViewApplicator;
 
 import java.lang.ref.WeakReference;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;

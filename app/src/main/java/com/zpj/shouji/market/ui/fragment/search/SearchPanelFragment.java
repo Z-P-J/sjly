@@ -12,28 +12,26 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-import com.zpj.fragmentation.BaseFragment;
 import com.zpj.fragmentation.dialog.impl.AlertDialogFragment;
 import com.zpj.recyclerview.EasyRecyclerView;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.api.SearchApi;
 import com.zpj.shouji.market.database.SearchHistoryManager;
+import com.zpj.shouji.market.event.EventBus;
 import com.zpj.shouji.market.glide.GlideRequestOptions;
 import com.zpj.shouji.market.model.GuessAppInfo;
 import com.zpj.shouji.market.model.QuickAppInfo;
 import com.zpj.shouji.market.model.SearchHistory;
+import com.zpj.shouji.market.ui.fragment.base.SkinFragment;
 import com.zpj.shouji.market.ui.fragment.detail.AppDetailFragment;
 import com.zpj.shouji.market.ui.widget.DownloadButton;
 import com.zpj.shouji.market.ui.widget.flowlayout.FlowLayout;
 import com.zpj.utils.ScreenUtils;
 
-import org.greenrobot.eventbus.EventBus;
-import org.greenrobot.eventbus.Subscribe;
-
 import java.util.ArrayList;
 import java.util.List;
 
-public class SearchPanelFragment extends BaseFragment {
+public class SearchPanelFragment extends SkinFragment {
 
     private final List<GuessAppInfo> appInfoList = new ArrayList<>();
     private final List<QuickAppInfo> quickAppInfoList = new ArrayList<>();
@@ -57,13 +55,38 @@ public class SearchPanelFragment extends BaseFragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        EventBus.getDefault().register(this);
-    }
-
-    @Override
-    public void onDestroy() {
-        EventBus.getDefault().unregister(this);
-        super.onDestroy();
+        EventBus.onSearchEvent(this, keyword -> {
+            SearchHistory history = SearchHistoryManager.getSearchHistoryByText(keyword);
+            if (history == null) {
+                history = new SearchHistory();
+                history.setText(keyword);
+            }
+            history.setTime(System.currentTimeMillis());
+            history.save();
+            searchHistory.remove(history.getText());
+            searchHistory.addItem(0, history.getText());
+            searchHistory.setVisibility(searchHistory.count() == 0 ? View.GONE : View.VISIBLE);
+            rlHistoryBar.setVisibility(searchHistory.count() == 0 ? View.GONE : View.VISIBLE);
+        });
+        EventBus.onKeywordChangeEvent(this, keyword -> {
+            if (TextUtils.isEmpty(keyword)) {
+                llRecommend.setVisibility(View.VISIBLE);
+                llQuick.setVisibility(View.GONE);
+            } else {
+                SearchApi.getQuickApi(keyword, list -> {
+                    quickAppInfoList.clear();
+                    if (list.isEmpty()) {
+                        llRecommend.setVisibility(View.VISIBLE);
+                        llQuick.setVisibility(View.GONE);
+                    } else {
+                        llRecommend.setVisibility(View.GONE);
+                        llQuick.setVisibility(View.VISIBLE);
+                        quickAppInfoList.addAll(list);
+                    }
+                    rvQuick.notifyDataSetChanged();
+                });
+            }
+        });
     }
 
     @Override
@@ -194,44 +217,6 @@ public class SearchPanelFragment extends BaseFragment {
             searchHistory.setVisibility(list.isEmpty() ? View.GONE : View.VISIBLE);
             rlHistoryBar.setVisibility(searchHistory.count() == 0 ? View.GONE : View.VISIBLE);
         });
-    }
-
-    @Subscribe
-    public void onSearchEvent(SearchFragment.SearchEvent event) {
-        String keyword = event.keyword;
-        SearchHistory history = SearchHistoryManager.getSearchHistoryByText(keyword);
-        if (history == null) {
-            history = new SearchHistory();
-            history.setText(keyword);
-        }
-        history.setTime(System.currentTimeMillis());
-        history.save();
-        searchHistory.remove(history.getText());
-        searchHistory.addItem(0, history.getText());
-        searchHistory.setVisibility(searchHistory.count() == 0 ? View.GONE : View.VISIBLE);
-        rlHistoryBar.setVisibility(searchHistory.count() == 0 ? View.GONE : View.VISIBLE);
-//        getSearchHistory();
-    }
-
-    @Subscribe
-    public void onTextChangedEvent(SearchFragment.TextChangedEvent event) {
-        if (TextUtils.isEmpty(event.keyword)) {
-            llRecommend.setVisibility(View.VISIBLE);
-            llQuick.setVisibility(View.GONE);
-        } else {
-            SearchApi.getQuickApi(event.keyword, list -> {
-                quickAppInfoList.clear();
-                if (list.isEmpty()) {
-                    llRecommend.setVisibility(View.VISIBLE);
-                    llQuick.setVisibility(View.GONE);
-                } else {
-                    llRecommend.setVisibility(View.GONE);
-                    llQuick.setVisibility(View.VISIBLE);
-                    quickAppInfoList.addAll(list);
-                }
-                rvQuick.notifyDataSetChanged();
-            });
-        }
     }
 
 }

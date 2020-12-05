@@ -24,8 +24,7 @@ import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.api.HttpApi;
 import com.zpj.shouji.market.constant.AppConfig;
 import com.zpj.shouji.market.constant.Keys;
-import com.zpj.shouji.market.event.RefreshEvent;
-import com.zpj.shouji.market.event.StartFragmentEvent;
+import com.zpj.shouji.market.event.EventBus;
 import com.zpj.shouji.market.glide.GlideRequestOptions;
 import com.zpj.shouji.market.glide.transformations.CircleWithBorderTransformation;
 import com.zpj.shouji.market.glide.transformations.blur.BlurTransformation;
@@ -33,13 +32,12 @@ import com.zpj.shouji.market.manager.UserManager;
 import com.zpj.shouji.market.model.DiscoverInfo;
 import com.zpj.shouji.market.ui.adapter.DiscoverBinder;
 import com.zpj.shouji.market.ui.adapter.FragmentsPagerAdapter;
-import com.zpj.shouji.market.ui.fragment.base.ListenerFragment;
+import com.zpj.shouji.market.ui.fragment.base.BaseSwipeBackFragment;
 import com.zpj.shouji.market.ui.fragment.dialog.CommentDialogFragment;
 import com.zpj.shouji.market.ui.fragment.dialog.ShareDialogFragment;
 import com.zpj.shouji.market.ui.fragment.dialog.ThemeMoreDialogFragment;
 import com.zpj.shouji.market.ui.fragment.login.LoginFragment;
 import com.zpj.shouji.market.utils.MagicIndicatorHelper;
-import com.zpj.shouji.market.utils.ThemeUtils;
 import com.zpj.widget.tinted.TintedImageButton;
 import com.zxy.skin.sdk.SkinEngine;
 
@@ -48,7 +46,7 @@ import net.lucode.hackware.magicindicator.MagicIndicator;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ThemeDetailFragment extends ListenerFragment {
+public class ThemeDetailFragment extends BaseSwipeBackFragment {
 
     private final String[] TAB_TITLES = {"评论", "点赞"};
 
@@ -79,28 +77,33 @@ public class ThemeDetailFragment extends ListenerFragment {
         ThemeDetailFragment fragment = new ThemeDetailFragment();
         fragment.setDiscoverInfo(item);
         fragment.setArguments(args);
-        StartFragmentEvent.start(fragment);
+        start(fragment);
     }
 
-    public static void start(DiscoverInfo item, String wallpaperUrl, FragmentLifeCycler lifeCycler) {
+//    public static void start(DiscoverInfo item, String wallpaperUrl, FragmentLifeCycler lifeCycler) {
+//        Bundle args = new Bundle();
+//        args.putBoolean(Keys.SHOW_TOOLBAR, false);
+//        args.putString(Keys.URL, wallpaperUrl);
+//        ThemeDetailFragment fragment = new ThemeDetailFragment();
+//        fragment.setDiscoverInfo(item);
+//        fragment.setFragmentLifeCycler(lifeCycler);
+//        fragment.setArguments(args);
+//        start(fragment);
+//    }
+
+    public static void start(DiscoverInfo item, String wallpaperUrl) {
         Bundle args = new Bundle();
         args.putBoolean(Keys.SHOW_TOOLBAR, false);
         args.putString(Keys.URL, wallpaperUrl);
         ThemeDetailFragment fragment = new ThemeDetailFragment();
         fragment.setDiscoverInfo(item);
-        fragment.setFragmentLifeCycler(lifeCycler);
         fragment.setArguments(args);
-        StartFragmentEvent.start(fragment);
+        start(fragment);
     }
 
     @Override
     protected int getLayoutId() {
         return R.layout.fragment_theme_detail;
-    }
-
-    @Override
-    protected boolean supportSwipeBack() {
-        return true;
     }
 
     @Override
@@ -269,11 +272,11 @@ public class ThemeDetailFragment extends ListenerFragment {
         }
     }
 
-    @Override
-    public void onSupportVisible() {
-        super.onSupportVisible();
-        ThemeUtils.initStatusBar(this);
-    }
+//    @Override
+//    public void onSupportVisible() {
+//        super.onSupportVisible();
+//        ThemeUtils.initStatusBar(this);
+//    }
 
     @Override
     public void onResume() {
@@ -308,7 +311,7 @@ public class ThemeDetailFragment extends ListenerFragment {
             commentDialogFragment = CommentDialogFragment.with(
                     context, item.getId(), item.getNickName(), item.getContentType(), () -> {
                         commentDialogFragment = null;
-                        RefreshEvent.postEvent();
+                        EventBus.sendRefreshEvent();
                     });
             commentDialogFragment.setOnDismissListener(() -> fabComment.show());
         }

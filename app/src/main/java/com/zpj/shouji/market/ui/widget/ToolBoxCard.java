@@ -15,7 +15,6 @@ import android.widget.TextView;
 
 import com.zpj.blur.ZBlurry;
 import com.zpj.shouji.market.R;
-import com.zpj.shouji.market.event.SkinChangeEvent;
 import com.zpj.shouji.market.manager.UserManager;
 import com.zpj.shouji.market.model.MessageInfo;
 import com.zpj.shouji.market.ui.fragment.booking.UserBookingFragment;
@@ -27,8 +26,6 @@ import com.zpj.shouji.market.ui.fragment.profile.MyDiscoverFragment;
 import com.zpj.shouji.market.ui.fragment.profile.MyDynamicFragment;
 import com.zpj.shouji.market.ui.fragment.profile.MyFriendsFragment;
 import com.zpj.shouji.market.ui.fragment.profile.MyMsgFragment;
-
-import org.greenrobot.eventbus.Subscribe;
 
 import io.reactivex.Observable;
 import io.reactivex.ObservableOnSubscribe;
@@ -63,8 +60,6 @@ public class ToolBoxCard extends CardView implements View.OnClickListener {
     private ImageView ivBg;
     private TextView tvSignUp;
     private TextView tvSignIn;
-
-    private ZBlurry blurred;
 
     public ToolBoxCard(@NonNull Context context) {
         this(context, null);
@@ -244,8 +239,7 @@ public class ToolBoxCard extends CardView implements View.OnClickListener {
         initBackground();
     }
 
-    @Subscribe
-    public void onUpdateMessageInfoEvent(MessageInfo info) {
+    public void onUpdateMessage(MessageInfo info) {
         commentBadge.setBadgeNumber(info.getMessageCount());
 //        atBadge.setBadgeNumber(info.getAiteCount());
 //        likeBadge.setBadgeNumber(info.getLikeCount());
@@ -255,9 +249,9 @@ public class ToolBoxCard extends CardView implements View.OnClickListener {
 
     }
 
-    @Subscribe
-    public void onSkinChangeEvent(SkinChangeEvent event) {
-        initBackground();
-    }
+//    @Subscribe
+//    public void onSkinChangeEvent(SkinChangeEvent event) {
+//        initBackground();
+//    }
 
 }

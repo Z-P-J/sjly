@@ -12,7 +12,6 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.donkingliang.consecutivescroller.ConsecutiveScrollerLayout;
 import com.felix.atoast.library.AToast;
-import com.zpj.fragmentation.BaseFragment;
 import com.zpj.http.core.IHttp;
 import com.zpj.http.parser.html.nodes.Document;
 import com.zpj.http.parser.html.nodes.Element;
@@ -22,20 +21,19 @@ import com.zpj.recyclerview.IEasy;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.api.HttpApi;
 import com.zpj.shouji.market.constant.Keys;
-import com.zpj.shouji.market.event.StartFragmentEvent;
 import com.zpj.shouji.market.glide.transformations.blur.CropBlurTransformation;
 import com.zpj.shouji.market.model.AppInfo;
 import com.zpj.shouji.market.model.SubjectInfo;
+import com.zpj.shouji.market.ui.fragment.base.BaseSwipeBackFragment;
 import com.zpj.shouji.market.ui.fragment.detail.AppDetailFragment;
 import com.zpj.shouji.market.ui.widget.DownloadButton;
-import com.zpj.shouji.market.utils.ThemeUtils;
 import com.zpj.utils.ColorUtils;
 import com.zpj.widget.statelayout.StateLayout;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class SubjectDetailFragment extends BaseFragment
+public class SubjectDetailFragment extends BaseSwipeBackFragment
         implements IEasy.OnBindViewHolderListener<AppInfo>,
         IEasy.OnItemClickListener<AppInfo> {
 
@@ -53,11 +51,6 @@ public class SubjectDetailFragment extends BaseFragment
     @Override
     protected int getLayoutId() {
         return R.layout.fragment_subject_detail;
-    }
-
-    @Override
-    protected boolean supportSwipeBack() {
-        return true;
     }
 
 //    public static void start(String url, String title) {
@@ -78,7 +71,7 @@ public class SubjectDetailFragment extends BaseFragment
         args.putString(Keys.ICON, subjectInfo.getIcon());
         SubjectDetailFragment fragment = new SubjectDetailFragment();
         fragment.setArguments(args);
-        StartFragmentEvent.start(fragment);
+        start(fragment);
     }
 
     @Override
@@ -164,9 +157,7 @@ public class SubjectDetailFragment extends BaseFragment
     }
 
     @Override
-    public void onSupportVisible() {
-        super.onSupportVisible();
-
+    protected void initStatusBar() {
         if (isLazyInit()) {
             if (isLightStyle) {
                 lightStatusBar();
@@ -174,7 +165,7 @@ public class SubjectDetailFragment extends BaseFragment
                 darkStatusBar();
             }
         } else {
-            ThemeUtils.initStatusBar(this);
+            super.initStatusBar();
         }
     }
 

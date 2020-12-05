@@ -17,8 +17,6 @@ import com.zpj.widget.editor.PasswordInputView;
 import com.zpj.widget.editor.SubmitView;
 import com.zpj.widget.editor.validator.LengthValidator;
 
-import org.greenrobot.eventbus.Subscribe;
-
 public class SignInLayout3 extends LinearLayout implements View.OnClickListener  {
 
     private AccountInputView piv_account;
@@ -74,8 +72,7 @@ public class SignInLayout3 extends LinearLayout implements View.OnClickListener 
         }
     }
 
-    @Subscribe
-    public void onSignInEvent(SignInEvent event) {
+    public void onSignIn(SignInEvent event) {
         if (!event.isSuccess()) {
             piv_password.setError(event.getErrorMsg());
         }

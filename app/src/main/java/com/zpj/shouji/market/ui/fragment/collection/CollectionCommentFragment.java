@@ -4,12 +4,8 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 
 import com.zpj.shouji.market.constant.Keys;
-import com.zpj.shouji.market.event.RefreshEvent;
+import com.zpj.shouji.market.event.EventBus;
 import com.zpj.shouji.market.ui.fragment.theme.ThemeListFragment;
-
-import org.greenrobot.eventbus.EventBus;
-import org.greenrobot.eventbus.Subscribe;
-import org.greenrobot.eventbus.ThreadMode;
 
 public class CollectionCommentFragment extends ThemeListFragment {
 
@@ -24,20 +20,11 @@ public class CollectionCommentFragment extends ThemeListFragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        EventBus.getDefault().register(this);
-    }
-
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-        EventBus.getDefault().unregister(this);
-    }
-
-    @Subscribe(threadMode = ThreadMode.MAIN)
-    public void onRefreshEvent(RefreshEvent event) {
-        if (isSupportVisible()) {
-            onRefresh();
-        }
+        EventBus.onRefreshEvent(this, s -> {
+            if (isSupportVisible()) {
+                onRefresh();
+            }
+        });
     }
 
 }

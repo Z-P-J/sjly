@@ -18,12 +18,10 @@ import com.zpj.recyclerview.EasyRecyclerLayout;
 import com.zpj.recyclerview.EasyViewHolder;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.constant.Keys;
-import com.zpj.shouji.market.event.StartFragmentEvent;
 import com.zpj.shouji.market.glide.transformations.blur.CropBlurTransformation;
 import com.zpj.shouji.market.model.ClassificationItem;
 import com.zpj.shouji.market.ui.fragment.ToolBarAppListFragment;
 import com.zpj.shouji.market.ui.fragment.base.NextUrlFragment;
-import com.zpj.shouji.market.utils.ThemeUtils;
 
 import java.util.List;
 
@@ -42,7 +40,7 @@ public class AppClassificationFragment extends NextUrlFragment<ClassificationIte
         args.putString(Keys.DEFAULT_URL, "http://tt.shouji.com.cn/androidv3/category_xml.jsp?from=" + type);
         AppClassificationFragment fragment = new AppClassificationFragment();
         fragment.setArguments(args);
-        StartFragmentEvent.start(fragment);
+        start(fragment);
     }
 
     @Override
@@ -94,12 +92,6 @@ public class AppClassificationFragment extends NextUrlFragment<ClassificationIte
                                 .create();
                     }
                 });
-    }
-
-    @Override
-    public void onSupportVisible() {
-        super.onSupportVisible();
-        ThemeUtils.initStatusBar(this);
     }
 
     @Override

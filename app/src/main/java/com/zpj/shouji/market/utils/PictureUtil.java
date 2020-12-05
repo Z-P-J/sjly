@@ -621,7 +621,7 @@ public class PictureUtil {
                 .into(new SimpleTarget<Bitmap>() {
                     @Override
                     public void onResourceReady(@NonNull Bitmap resource, @Nullable Transition<? super Bitmap> transition) {
-                        HideLoadingEvent.postEvent();
+                        HideLoadingEvent.post();
                         Observable.timer(250 , TimeUnit.MILLISECONDS)
                                 .observeOn(AndroidSchedulers.mainThread())
                                 .doOnComplete(() -> {

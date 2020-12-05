@@ -1326,6 +1326,9 @@ public class ExpandableTextView extends AppCompatTextView {
 
         if (dontConsumeNonUrlClicks)
             return linkHit;
+//        if (linkHit) {
+//            return true;
+//        }
 
         //防止选择复制的状态不消失
         if (action == MotionEvent.ACTION_UP) {

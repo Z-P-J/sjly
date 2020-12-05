@@ -16,36 +16,33 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
 import com.bumptech.glide.request.RequestOptions;
 import com.bumptech.glide.request.target.SimpleTarget;
 import com.bumptech.glide.request.transition.Transition;
 import com.felix.atoast.library.AToast;
-import com.zpj.fragmentation.BaseFragment;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.api.HttpApi;
-import com.zpj.shouji.market.event.RefreshEvent;
-import com.zpj.shouji.market.event.StartFragmentEvent;
+import com.zpj.shouji.market.event.EventBus;
 import com.zpj.shouji.market.glide.GlideRequestOptions;
 import com.zpj.shouji.market.glide.transformations.CircleWithBorderTransformation;
 import com.zpj.shouji.market.glide.transformations.blur.BlurTransformation;
 import com.zpj.shouji.market.manager.UserManager;
 import com.zpj.shouji.market.model.CollectionInfo;
 import com.zpj.shouji.market.ui.adapter.FragmentsPagerAdapter;
+import com.zpj.shouji.market.ui.fragment.base.BaseSwipeBackFragment;
 import com.zpj.shouji.market.ui.fragment.dialog.CommentDialogFragment;
 import com.zpj.shouji.market.ui.fragment.login.LoginFragment;
 import com.zpj.shouji.market.ui.fragment.profile.ProfileFragment;
 import com.zpj.shouji.market.ui.widget.DrawableTintTextView;
 import com.zpj.shouji.market.ui.widget.emoji.EmojiExpandableTextView;
 import com.zpj.shouji.market.utils.MagicIndicatorHelper;
-import com.zpj.shouji.market.utils.ThemeUtils;
 import com.zpj.widget.statelayout.StateLayout;
 
 import net.lucode.hackware.magicindicator.MagicIndicator;
 
 import java.util.ArrayList;
 
-public class CollectionDetailFragment extends BaseFragment
+public class CollectionDetailFragment extends BaseSwipeBackFragment
         implements View.OnClickListener {
 
     private final String[] TAB_TITLES = {"应用", "评论"};
@@ -88,7 +85,7 @@ public class CollectionDetailFragment extends BaseFragment
         CollectionDetailFragment fragment = new CollectionDetailFragment();
         fragment.setAppCollectionItem(item);
         fragment.setArguments(args);
-        StartFragmentEvent.start(fragment);
+        start(fragment);
     }
 
     @Override
@@ -96,18 +93,17 @@ public class CollectionDetailFragment extends BaseFragment
         return R.layout.fragment_collection_detail;
     }
 
-    @Override
-    protected boolean supportSwipeBack() {
-        return true;
-    }
+//    @Override
+//    public void onSupportVisible() {
+//        super.onSupportVisible();
+//    }
 
     @Override
-    public void onSupportVisible() {
-        super.onSupportVisible();
+    protected void initStatusBar() {
         if (isLazyInit()) {
             lightStatusBar();
         } else {
-            ThemeUtils.initStatusBar(this);
+            super.initStatusBar();
         }
     }
 
@@ -380,7 +376,7 @@ public class CollectionDetailFragment extends BaseFragment
                             item.getContentType(),
                             () -> {
                                 commentDialogFragment = null;
-                                RefreshEvent.postEvent();
+                                EventBus.sendRefreshEvent();
                             });
                     commentDialogFragment.setOnDismissListener(() -> fabComment.show());
                 }

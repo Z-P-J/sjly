@@ -27,7 +27,7 @@ dependencies {
 //        exclude group: 'com.android.support'
 //    }
     implementation 'com.lxj:xpermission:1.0.1'
-    implementation 'org.greenrobot:eventbus:3.1.1'
+//    implementation 'org.greenrobot:eventbus:3.1.1'
 
     implementation 'com.github.chaichuanfa:atoast:0.0.2'
     implementation 'com.github.lihangleo2:ShadowLayout:2.1.8'

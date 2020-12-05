@@ -7,8 +7,10 @@ import android.net.Uri;
 import android.os.Environment;
 import android.support.annotation.NonNull;
 
+import com.yalantis.ucrop.CropEvent;
 import com.yalantis.ucrop.UCrop;
 import com.yalantis.ucrop.UCropActivity;
+import com.yalantis.ucrop.callback.CropCallback;
 import com.zpj.fragmentation.SupportActivity;
 import com.zpj.matisse.CaptureMode;
 import com.zpj.matisse.Matisse;
@@ -17,6 +19,7 @@ import com.zpj.matisse.engine.impl.GlideEngine;
 import com.zpj.matisse.entity.Item;
 import com.zpj.matisse.listener.OnSelectedListener;
 import com.zpj.shouji.market.R;
+import com.zpj.shouji.market.api.UploadImageApi;
 import com.zpj.utils.ScreenUtils;
 
 import java.io.File;
@@ -72,6 +75,8 @@ public class UploadUtils {
                         options.setToolbarColor(activity.getResources().getColor(R.color.colorPrimary));
                         options.setStatusBarColor(activity.getResources().getColor(R.color.colorPrimary));
                         uCrop.withOptions(options);
+
+                        CropEvent.register(uCrop, UploadImageApi::uploadCropImage);
 
                         uCrop.start(activity);
                     }

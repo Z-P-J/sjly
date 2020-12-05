@@ -13,7 +13,6 @@ import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.api.HttpApi;
 import com.zpj.shouji.market.constant.Keys;
 import com.zpj.shouji.market.constant.UpdateFlagAction;
-import com.zpj.shouji.market.event.StartFragmentEvent;
 import com.zpj.shouji.market.model.PrivateLetterInfo;
 import com.zpj.shouji.market.ui.fragment.base.NextUrlFragment;
 import com.zpj.shouji.market.ui.fragment.chat.ChatFragment;
@@ -25,7 +24,7 @@ import java.util.List;
 public class MyPrivateLetterFragment extends NextUrlFragment<PrivateLetterInfo> {
 
     public static void start() {
-        StartFragmentEvent.start(newInstance());
+        start(newInstance());
     }
 
     public static MyPrivateLetterFragment newInstance() {
@@ -55,12 +54,6 @@ public class MyPrivateLetterFragment extends NextUrlFragment<PrivateLetterInfo> 
     protected void initView(View view, @Nullable Bundle savedInstanceState) {
         super.initView(view, savedInstanceState);
         setToolbarTitle("我的私信");
-    }
-
-    @Override
-    public void onSupportVisible() {
-        super.onSupportVisible();
-        ThemeUtils.initStatusBar(this);
     }
 
     @Override

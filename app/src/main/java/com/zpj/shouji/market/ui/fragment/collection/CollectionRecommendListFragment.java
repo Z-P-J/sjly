@@ -7,7 +7,6 @@ import android.view.View;
 import com.zpj.http.parser.html.nodes.Element;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.constant.Keys;
-import com.zpj.shouji.market.event.StartFragmentEvent;
 import com.zpj.shouji.market.model.CollectionInfo;
 import com.zpj.shouji.market.utils.ThemeUtils;
 
@@ -18,18 +17,12 @@ public class CollectionRecommendListFragment extends CollectionListFragment {
         args.putString(Keys.DEFAULT_URL, "http://tt.shouji.com.cn/androidv3/yyj_tj_xml.jsp");
         CollectionRecommendListFragment fragment = new CollectionRecommendListFragment();
         fragment.setArguments(args);
-        StartFragmentEvent.start(fragment);
+        start(fragment);
     }
 
     @Override
     protected boolean supportSwipeBack() {
         return true;
-    }
-
-    @Override
-    public void onSupportVisible() {
-        super.onSupportVisible();
-        ThemeUtils.initStatusBar(this);
     }
 
     @Override

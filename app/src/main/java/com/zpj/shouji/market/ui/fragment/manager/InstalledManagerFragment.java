@@ -25,7 +25,6 @@ import com.zpj.recyclerview.EasyViewHolder;
 import com.zpj.recyclerview.IEasy;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.constant.Keys;
-import com.zpj.shouji.market.event.StartFragmentEvent;
 import com.zpj.shouji.market.glide.GlideApp;
 import com.zpj.shouji.market.manager.AppBackupManager;
 import com.zpj.shouji.market.manager.AppInstalledManager;
@@ -36,7 +35,6 @@ import com.zpj.shouji.market.ui.fragment.detail.AppDetailFragment;
 import com.zpj.shouji.market.ui.fragment.dialog.RecyclerPartShadowDialogFragment;
 import com.zpj.shouji.market.ui.widget.GradientButton;
 import com.zpj.shouji.market.utils.AppUtil;
-import com.zpj.shouji.market.utils.ThemeUtils;
 import com.zpj.utils.ScreenUtils;
 import com.zpj.widget.checkbox.SmoothCheckBox;
 
@@ -86,7 +84,7 @@ public class InstalledManagerFragment extends RecyclerLayoutFragment<InstalledAp
     }
 
     public static void start(boolean showToolbar) {
-        StartFragmentEvent.start(InstalledManagerFragment.newInstance(showToolbar));
+        start(InstalledManagerFragment.newInstance(showToolbar));
     }
 
    @Override
@@ -104,12 +102,12 @@ public class InstalledManagerFragment extends RecyclerLayoutFragment<InstalledAp
         return true;
     }
 
-    @Override
-    protected void initStatusBar() {
-        if (showToolbar) {
-            ThemeUtils.initStatusBar(this);
-        }
-    }
+//    @Override
+//    protected void initStatusBar() {
+//        if (showToolbar) {
+//            ThemeUtils.initStatusBar(this);
+//        }
+//    }
 
     @Override
     protected void initView(View view, @Nullable Bundle savedInstanceState) {

@@ -7,29 +7,24 @@ import android.view.View;
 import android.widget.ImageView;
 
 import com.felix.atoast.library.AToast;
-import com.zpj.fragmentation.BaseFragment;
 import com.zpj.fragmentation.dialog.impl.AlertDialogFragment;
 import com.zpj.shouji.market.R;
-import com.zpj.shouji.market.event.IconUploadSuccessEvent;
-import com.zpj.shouji.market.event.SignOutEvent;
-import com.zpj.shouji.market.event.StartFragmentEvent;
-import com.zpj.shouji.market.event.UserInfoChangeEvent;
+import com.zpj.shouji.market.event.EventBus;
 import com.zpj.shouji.market.manager.UserManager;
 import com.zpj.shouji.market.model.MemberInfo;
+import com.zpj.shouji.market.ui.fragment.base.BaseSwipeBackFragment;
 import com.zpj.shouji.market.ui.fragment.dialog.EmailModifiedDialogFragment;
 import com.zpj.shouji.market.ui.fragment.dialog.NicknameModifiedDialogFragment;
 import com.zpj.shouji.market.ui.fragment.dialog.PasswordModifiedDialogFragment;
 import com.zpj.shouji.market.ui.widget.setting.IconSettingItem;
 import com.zpj.shouji.market.utils.PictureUtil;
-import com.zpj.shouji.market.utils.ThemeUtils;
 import com.zpj.shouji.market.utils.UploadUtils;
 import com.zpj.widget.setting.CommonSettingItem;
 import com.zpj.widget.setting.OnCommonItemClickListener;
 
-import org.greenrobot.eventbus.EventBus;
-import org.greenrobot.eventbus.Subscribe;
+import io.reactivex.functions.Consumer;
 
-public class MyInfoFragment extends BaseFragment implements OnCommonItemClickListener {
+public class MyInfoFragment extends BaseSwipeBackFragment implements OnCommonItemClickListener {
 
     private final MemberInfo memberInfo = UserManager.getInstance().getMemberInfo();
 
@@ -40,24 +35,34 @@ public class MyInfoFragment extends BaseFragment implements OnCommonItemClickLis
     private CommonSettingItem emailItem;
 
     public static void start() {
-        StartFragmentEvent.start(new MyInfoFragment());
+        start(new MyInfoFragment());
     }
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        EventBus.getDefault().register(this);
-    }
-
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-        EventBus.getDefault().unregister(this);
-    }
-
-    @Override
-    protected boolean supportSwipeBack() {
-        return true;
+        EventBus.onSignOutEvent(this, new Consumer<String>() {
+            @Override
+            public void accept(String s) throws Exception {
+                pop();
+            }
+        });
+        EventBus.onUserInfoChangeEvent(this, s -> {
+            nickNameItem.setRightText(memberInfo.getMemberNickName());
+            String email = memberInfo.getMemberEmail();
+            if (TextUtils.isEmpty(email)) {
+                emailItem.setRightText("未设置");
+            } else {
+                emailItem.setRightText(email);
+            }
+        });
+        EventBus.onImageUploadEvent(this, event -> {
+            if (event.isAvatar()) {
+                PictureUtil.loadAvatar(ivAvatar);
+            } else {
+                PictureUtil.loadBackground(ivWallpaper);
+            }
+        });
     }
 
     @Override
@@ -129,12 +134,6 @@ public class MyInfoFragment extends BaseFragment implements OnCommonItemClickLis
     }
 
     @Override
-    public void onSupportVisible() {
-        super.onSupportVisible();
-        ThemeUtils.initStatusBar(this);
-    }
-
-    @Override
     public void onItemClick(CommonSettingItem item) {
         switch (item.getId()) {
             case R.id.item_nickname:
@@ -174,40 +173,6 @@ public class MyInfoFragment extends BaseFragment implements OnCommonItemClickLis
 //                PasswordModifiedPopup.with(context).show();
                 new PasswordModifiedDialogFragment().show(context);
                 break;
-        }
-    }
-
-    @Subscribe
-    public void onSignOutEvent(SignOutEvent event) {
-        pop();
-    }
-
-    @Subscribe
-    public void onIconUploadSuccessEvent(IconUploadSuccessEvent event) {
-//        ImageView imageView = event.isAvatar() ? ivAvatar : ivWallpaper;
-//        Glide.with(context)
-//                .load(event.getUri())
-//                .apply(
-//                        new RequestOptions()
-//                                .error(imageView.getDrawable())
-//                                .placeholder(imageView.getDrawable())
-//                )
-//                .into(imageView);
-        if (event.isAvatar()) {
-            PictureUtil.loadAvatar(ivAvatar);
-        } else {
-            PictureUtil.loadBackground(ivWallpaper);
-        }
-    }
-
-    @Subscribe
-    public void onUserInfoChangeEvent(UserInfoChangeEvent event) {
-        nickNameItem.setRightText(memberInfo.getMemberNickName());
-        String email = memberInfo.getMemberEmail();
-        if (TextUtils.isEmpty(email)) {
-            emailItem.setRightText("未设置");
-        } else {
-            emailItem.setRightText(email);
         }
     }
 

@@ -9,21 +9,19 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.felix.atoast.library.AToast;
-import com.zpj.fragmentation.BaseFragment;
 import com.zpj.http.core.IHttp;
 import com.zpj.recyclerview.EasyViewHolder;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.api.HttpApi;
-import com.zpj.shouji.market.event.StartFragmentEvent;
 import com.zpj.shouji.market.model.DiscoverInfo;
 import com.zpj.shouji.market.ui.adapter.DiscoverBinder;
+import com.zpj.shouji.market.ui.fragment.base.BaseSwipeBackFragment;
 import com.zpj.shouji.market.ui.widget.flowlayout.FlowLayout;
-import com.zpj.shouji.market.utils.ThemeUtils;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class ReportFragment extends BaseFragment {
+public class ReportFragment extends BaseSwipeBackFragment {
 
     public static ReportFragment newInstance(DiscoverInfo discoverInfo) {
         ReportFragment fragment = new ReportFragment();
@@ -32,7 +30,7 @@ public class ReportFragment extends BaseFragment {
     }
 
     public static void start(DiscoverInfo discoverInfo) {
-        StartFragmentEvent.start(newInstance(discoverInfo));
+        start(newInstance(discoverInfo));
     }
 
     private DiscoverInfo discoverInfo;
@@ -45,11 +43,6 @@ public class ReportFragment extends BaseFragment {
     @Override
     public CharSequence getToolbarTitle(Context context) {
         return "举报动态";
-    }
-
-    @Override
-    protected boolean supportSwipeBack() {
-        return true;
     }
 
     @Override
@@ -122,9 +115,4 @@ public class ReportFragment extends BaseFragment {
 
     }
 
-    @Override
-    public void onSupportVisible() {
-        super.onSupportVisible();
-        ThemeUtils.initStatusBar(this);
-    }
 }

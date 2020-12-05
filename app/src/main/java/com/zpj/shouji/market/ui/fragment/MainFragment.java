@@ -11,27 +11,24 @@ import android.util.Log;
 import android.view.View;
 
 import com.zpj.blur.ZBlurry;
-import com.zpj.fragmentation.BaseFragment;
 import com.zpj.fragmentation.SupportFragment;
 import com.zpj.fragmentation.anim.DefaultHorizontalAnimator;
 import com.zpj.fragmentation.anim.FragmentAnimator;
+import com.zpj.rxbus.RxObserver;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.constant.AppConfig;
+import com.zpj.shouji.market.event.EventBus;
 import com.zpj.shouji.market.event.GetMainFragmentEvent;
-import com.zpj.shouji.market.event.MainActionPopupEvent;
-import com.zpj.shouji.market.event.SkinChangeEvent;
 import com.zpj.shouji.market.manager.UserManager;
 import com.zpj.shouji.market.model.MessageInfo;
+import com.zpj.shouji.market.ui.fragment.base.SkinFragment;
 import com.zpj.shouji.market.ui.fragment.dialog.MainActionDialogFragment;
 import com.zpj.shouji.market.ui.fragment.homepage.HomeFragment;
 import com.zpj.shouji.market.ui.fragment.profile.MyFragment;
-import com.zpj.shouji.market.ui.fragment.recommond.GameRecommendFragment2;
-import com.zpj.shouji.market.ui.fragment.recommond.SoftRecommendFragment2;
+import com.zpj.shouji.market.ui.fragment.recommond.GameRecommendFragment;
+import com.zpj.shouji.market.ui.fragment.recommond.SoftRecommendFragment;
 import com.zpj.shouji.market.ui.widget.navigation.BottomBar;
 import com.zpj.shouji.market.ui.widget.navigation.BottomBarTab;
-
-import org.greenrobot.eventbus.EventBus;
-import org.greenrobot.eventbus.Subscribe;
 
 import java.util.concurrent.TimeUnit;
 
@@ -39,7 +36,7 @@ import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 
-public class MainFragment extends BaseFragment {
+public class MainFragment extends SkinFragment {
 
 
     public static final int FIRST = 0;
@@ -59,11 +56,6 @@ public class MainFragment extends BaseFragment {
     }
 
     @Override
-    protected boolean supportSwipeBack() {
-        return false;
-    }
-
-    @Override
     public FragmentAnimator onCreateFragmentAnimator() {
         return new DefaultHorizontalAnimator();
 //        return new MyFragmentAnimator();
@@ -72,13 +64,39 @@ public class MainFragment extends BaseFragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        EventBus.getDefault().register(this);
+//        EventBus.getDefault().register(this);
+        EventBus.onSkinChangeEvent(this, s -> {
+            if (blurred != null) {
+                blurred.foregroundColor(Color.parseColor(AppConfig.isNightMode() ? "#a0000000" : "#a0ffffff"));
+                blurred.startBlur();
+            }
+        });
+//        RxObserver.with(this, SkinChangeEvent.class)
+//                .bindToLife(this)
+//                .subscribe(skinChangeEvent -> {
+//                    if (blurred != null) {
+//                        blurred.foregroundColor(Color.parseColor(skinChangeEvent.isNight() ? "#a0000000" : "#a0ffffff"));
+//                        blurred.startBlur();
+//                    }
+////                    AToast.success("SkinChangeEvent");
+//                });
+        RxObserver.with(this, MessageInfo.class)
+                .bindToLife(this)
+                .subscribe(info -> mBottomBar.getItem(4).setUnreadCount(info.getTotalCount()));
+        RxObserver.with(this, GetMainFragmentEvent.class)
+                .bindToLife(this)
+                .subscribe(event -> {
+                    if (event.getCallback() != null) {
+                        event.getCallback().onCallback(MainFragment.this);
+                    }
+                });
     }
 
     @Override
     public void onDestroy() {
         super.onDestroy();
-        EventBus.getDefault().unregister(this);
+//        EventBus.getDefault().unregister(this);
+//        RxBus2.get().unSubscribe(this);
     }
 
     @Override
@@ -89,8 +107,8 @@ public class MainFragment extends BaseFragment {
         SupportFragment firstFragment = findChildFragment(HomeFragment.class);
         if (firstFragment == null) {
             mFragments[FIRST] = new HomeFragment();
-            mFragments[SECOND] = new SoftRecommendFragment2();
-            mFragments[THIRD] = new GameRecommendFragment2();
+            mFragments[SECOND] = new SoftRecommendFragment();
+            mFragments[THIRD] = new GameRecommendFragment();
             mFragments[FOURTH] = new MyFragment();
 
             loadMultipleRootFragment(R.id.fl_container, FIRST,
@@ -103,8 +121,8 @@ public class MainFragment extends BaseFragment {
 
             // 这里我们需要拿到mFragments的引用
             mFragments[FIRST] = firstFragment;
-            mFragments[SECOND] = findChildFragment(SoftRecommendFragment2.class);
-            mFragments[THIRD] = findChildFragment(GameRecommendFragment2.class);
+            mFragments[SECOND] = findChildFragment(SoftRecommendFragment.class);
+            mFragments[THIRD] = findChildFragment(GameRecommendFragment.class);
             mFragments[FOURTH] = findChildFragment(MyFragment.class);
         }
 
@@ -133,9 +151,11 @@ public class MainFragment extends BaseFragment {
 
         BottomBarTab emptyTab = new BottomBarTab(context);
         emptyTab.setOnClickListener(v -> {
-            MainActionPopupEvent.post(true);
+//            MainActionPopupEvent.post(true);
+            EventBus.sendMainActionEvent(true);
             new MainActionDialogFragment()
-                    .setOnDismissListener(() -> MainActionPopupEvent.post(false))
+//                    .setOnDismissListener(() -> MainActionPopupEvent.post(false))
+                    .setOnDismissListener(() -> EventBus.sendMainActionEvent(false))
                     .show(context);
         });
 
@@ -209,6 +229,9 @@ public class MainFragment extends BaseFragment {
             @Override
             public void run() {
                 mBottomBar.setCurrentItem(0);
+//                if (blurred != null) {
+//                    blurred.startBlur();
+//                }
 
 //                view.setAlpha(1);
                 if (AppConfig.isShowSplash()) {
@@ -234,24 +257,24 @@ public class MainFragment extends BaseFragment {
         });
     }
 
-    @Subscribe
-    public void onSkinChangeEvent(SkinChangeEvent info) {
-        if (blurred != null) {
-            blurred.foregroundColor(Color.parseColor(AppConfig.isNightMode() ? "#a0000000" : "#a0ffffff"));
-            blurred.startBlur();
-        }
-    }
+//    @Subscribe
+//    public void onSkinChangeEvent(SkinChangeEvent info) {
+//        if (blurred != null) {
+//            blurred.foregroundColor(Color.parseColor(AppConfig.isNightMode() ? "#a0000000" : "#a0ffffff"));
+//            blurred.startBlur();
+//        }
+//    }
 
-    @Subscribe
-    public void onUpdateMessageInfoEvent(MessageInfo info) {
-        mBottomBar.getItem(4).setUnreadCount(info.getTotalCount());
-    }
+//    @Subscribe
+//    public void onUpdateMessageInfoEvent(MessageInfo info) {
+//        mBottomBar.getItem(4).setUnreadCount(info.getTotalCount());
+//    }
 
-    @Subscribe
-    public void onGetMainFragmentEvent(GetMainFragmentEvent event) {
-        if (event.getCallback() != null) {
-            event.getCallback().onCallback(this);
-        }
-    }
+//    @Subscribe
+//    public void onGetMainFragmentEvent(GetMainFragmentEvent event) {
+//        if (event.getCallback() != null) {
+//            event.getCallback().onCallback(this);
+//        }
+//    }
 
 }

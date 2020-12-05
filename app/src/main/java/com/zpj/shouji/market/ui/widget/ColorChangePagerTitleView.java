@@ -2,12 +2,12 @@ package com.zpj.shouji.market.ui.widget;
 
 import android.content.Context;
 
+import com.zpj.rxbus.RxObserver;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.constant.AppConfig;
-import com.zpj.shouji.market.event.ColorChangeEvent;
+import com.zpj.shouji.market.event.EventBus;
 
-import org.greenrobot.eventbus.EventBus;
-import org.greenrobot.eventbus.Subscribe;
+import io.reactivex.functions.Consumer;
 
 public class ColorChangePagerTitleView extends ScaleTransitionPagerTitleView {
 
@@ -15,7 +15,18 @@ public class ColorChangePagerTitleView extends ScaleTransitionPagerTitleView {
 
     public ColorChangePagerTitleView(Context context) {
         super(context);
-        EventBus.getDefault().register(this);
+//        EventBus.getDefault().register(this);
+        RxObserver.with(this, EventBus.KEY_COLOR_CHANGE_EVENT, Boolean.class)
+                .subscribe(new Consumer<Boolean>() {
+                    @Override
+                    public void accept(Boolean isDark) throws Exception {
+                        int color = getResources().getColor((AppConfig.isNightMode() || isDark) ? R.color.white : R.color.color_text_major);
+                        setNormalColor(color);
+                        if (!isSelected) {
+                            setTextColor(mNormalColor);
+                        }
+                    }
+                });
     }
 
     @Override
@@ -33,17 +44,18 @@ public class ColorChangePagerTitleView extends ScaleTransitionPagerTitleView {
     @Override
     protected void onDetachedFromWindow() {
         super.onDetachedFromWindow();
-        EventBus.getDefault().unregister(this);
+        RxObserver.unSubscribe(this);
+//        EventBus.getDefault().unregister(this);
     }
 
-    @Subscribe
-    public void onColorChangeEvent(ColorChangeEvent event) {
-        int color = getResources().getColor((AppConfig.isNightMode() || event.isDark()) ? R.color.white : R.color.color_text_major);
-        setNormalColor(color);
-        if (!isSelected) {
-            setTextColor(mNormalColor);
-        }
-    }
+//    @Subscribe
+//    public void onColorChangeEvent(ColorChangeEvent event) {
+//        int color = getResources().getColor((AppConfig.isNightMode() || event.isDark()) ? R.color.white : R.color.color_text_major);
+//        setNormalColor(color);
+//        if (!isSelected) {
+//            setTextColor(mNormalColor);
+//        }
+//    }
 
 
 }

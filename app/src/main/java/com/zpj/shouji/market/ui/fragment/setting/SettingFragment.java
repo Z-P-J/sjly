@@ -14,7 +14,6 @@ import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.constant.AppConfig;
 import com.zpj.shouji.market.event.HideLoadingEvent;
 import com.zpj.shouji.market.event.ShowLoadingEvent;
-import com.zpj.shouji.market.event.StartFragmentEvent;
 import com.zpj.shouji.market.manager.AppUpdateManager;
 import com.zpj.shouji.market.ui.fragment.dialog.BrightnessDialogFragment;
 import com.zpj.shouji.market.ui.fragment.dialog.SeekBarDialogFragment;
@@ -27,7 +26,7 @@ import com.zpj.widget.setting.SwitchSettingItem;
 public class SettingFragment extends BaseSettingFragment {
 
     public static void start() {
-        StartFragmentEvent.start(new SettingFragment());
+        start(new SettingFragment());
     }
 
     @Override

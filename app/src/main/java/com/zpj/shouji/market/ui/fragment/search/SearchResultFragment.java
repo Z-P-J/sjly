@@ -1,7 +1,5 @@
 package com.zpj.shouji.market.ui.fragment.search;
 
-import android.content.Context;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -10,27 +8,17 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 
+import com.zpj.fragmentation.BaseFragment;
 import com.zpj.shouji.market.R;
+import com.zpj.shouji.market.event.EventBus;
 import com.zpj.shouji.market.ui.adapter.FragmentsPagerAdapter;
 import com.zpj.shouji.market.ui.fragment.AppListFragment;
+import com.zpj.shouji.market.ui.fragment.UserListFragment;
 import com.zpj.shouji.market.ui.fragment.collection.CollectionListFragment;
 import com.zpj.shouji.market.ui.fragment.theme.ThemeListFragment;
-import com.zpj.shouji.market.ui.fragment.UserListFragment;
-import com.zpj.fragmentation.BaseFragment;
 import com.zpj.shouji.market.utils.MagicIndicatorHelper;
-import com.zpj.utils.ScreenUtils;
 
 import net.lucode.hackware.magicindicator.MagicIndicator;
-import net.lucode.hackware.magicindicator.ViewPagerHelper;
-import net.lucode.hackware.magicindicator.buildins.commonnavigator.CommonNavigator;
-import net.lucode.hackware.magicindicator.buildins.commonnavigator.abs.CommonNavigatorAdapter;
-import net.lucode.hackware.magicindicator.buildins.commonnavigator.abs.IPagerIndicator;
-import net.lucode.hackware.magicindicator.buildins.commonnavigator.abs.IPagerTitleView;
-import net.lucode.hackware.magicindicator.buildins.commonnavigator.indicators.LinePagerIndicator;
-import net.lucode.hackware.magicindicator.buildins.commonnavigator.titles.ColorTransitionPagerTitleView;
-
-import org.greenrobot.eventbus.EventBus;
-import org.greenrobot.eventbus.Subscribe;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -52,13 +40,12 @@ public class SearchResultFragment extends BaseFragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        EventBus.getDefault().register(this);
-    }
-
-    @Override
-    public void onDestroy() {
-        EventBus.getDefault().unregister(this);
-        super.onDestroy();
+        EventBus.onSearchEvent(this, keyword -> {
+            Log.d("onSearchEvent", "keyword=" + keyword + " observers=" + observers.size());
+            for (KeywordObserver observer : observers) {
+                observer.updateKeyword(keyword);
+            }
+        });
     }
 
     @Override
@@ -219,14 +206,6 @@ public class SearchResultFragment extends BaseFragment {
             }
         }
 
-    }
-
-    @Subscribe
-    public void onSearchEvent(SearchFragment.SearchEvent event) {
-        Log.d("onSearchEvent", "keyword=" + event.keyword + " observers=" + observers.size());
-        for (KeywordObserver observer : observers) {
-            observer.updateKeyword(event.keyword);
-        }
     }
 
 }

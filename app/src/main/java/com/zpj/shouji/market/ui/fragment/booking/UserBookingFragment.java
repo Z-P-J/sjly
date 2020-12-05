@@ -6,15 +6,13 @@ import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.view.View;
 
-import com.zpj.fragmentation.BaseFragment;
 import com.zpj.recyclerview.EasyViewHolder;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.api.BookingApi;
 import com.zpj.shouji.market.constant.Keys;
-import com.zpj.shouji.market.event.StartFragmentEvent;
 import com.zpj.shouji.market.model.BookingAppInfo;
 import com.zpj.shouji.market.ui.adapter.FragmentsPagerAdapter;
-import com.zpj.shouji.market.ui.fragment.base.SkinFragment;
+import com.zpj.shouji.market.ui.fragment.base.BaseSwipeBackFragment;
 import com.zpj.shouji.market.ui.fragment.detail.AppDetailFragment;
 import com.zpj.shouji.market.ui.fragment.dialog.BottomListMenuDialogFragment;
 import com.zpj.shouji.market.utils.MagicIndicatorHelper;
@@ -24,7 +22,7 @@ import net.lucode.hackware.magicindicator.MagicIndicator;
 import java.util.ArrayList;
 import java.util.List;
 
-public class UserBookingFragment extends SkinFragment {
+public class UserBookingFragment extends BaseSwipeBackFragment {
 
     private static final String[] TAB_TITLES = {"已预约", "已上线"};
 
@@ -32,17 +30,12 @@ public class UserBookingFragment extends SkinFragment {
     private MagicIndicator magicIndicator;
 
     public static void start() {
-        StartFragmentEvent.start(new UserBookingFragment());
+        start(new UserBookingFragment());
     }
 
     @Override
     protected int getLayoutId() {
         return R.layout.fragment_my_discover;
-    }
-
-    @Override
-    protected boolean supportSwipeBack() {
-        return true;
     }
 
     @Override

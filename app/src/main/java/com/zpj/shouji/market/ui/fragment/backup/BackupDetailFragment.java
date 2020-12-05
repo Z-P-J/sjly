@@ -10,11 +10,9 @@ import com.zpj.recyclerview.EasyViewHolder;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.api.CloudBackupApi;
 import com.zpj.shouji.market.constant.Keys;
-import com.zpj.shouji.market.event.StartFragmentEvent;
 import com.zpj.shouji.market.model.CloudBackupAppInfo;
 import com.zpj.shouji.market.ui.fragment.base.NextUrlFragment;
 import com.zpj.shouji.market.ui.fragment.detail.AppDetailFragment;
-import com.zpj.shouji.market.utils.ThemeUtils;
 
 import java.util.List;
 
@@ -25,7 +23,7 @@ public class BackupDetailFragment extends NextUrlFragment<CloudBackupAppInfo> {
         args.putString(Keys.DEFAULT_URL, CloudBackupApi.getBackupDetailApi(id));
         BackupDetailFragment fragment = new BackupDetailFragment();
         fragment.setArguments(args);
-        StartFragmentEvent.start(fragment);
+        start(fragment);
     }
 
     @Override
@@ -46,12 +44,6 @@ public class BackupDetailFragment extends NextUrlFragment<CloudBackupAppInfo> {
     @Override
     public CharSequence getToolbarTitle(Context context) {
         return "备份列表详情";
-    }
-
-    @Override
-    public void onSupportVisible() {
-        super.onSupportVisible();
-        ThemeUtils.initStatusBar(this);
     }
 
     @Override

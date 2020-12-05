@@ -9,7 +9,6 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.felix.atoast.library.AToast;
-import com.zpj.fragmentation.BaseFragment;
 import com.zpj.http.core.IHttp;
 import com.zpj.recyclerview.EasyRecyclerView;
 import com.zpj.recyclerview.EasyViewHolder;
@@ -17,9 +16,8 @@ import com.zpj.recyclerview.IEasy;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.api.CollectionApi;
 import com.zpj.shouji.market.api.PublishApi;
-import com.zpj.shouji.market.event.StartFragmentEvent;
 import com.zpj.shouji.market.model.InstalledAppInfo;
-import com.zpj.shouji.market.ui.fragment.base.SkinFragment;
+import com.zpj.shouji.market.ui.fragment.base.BaseSwipeBackFragment;
 import com.zpj.shouji.market.ui.fragment.manager.AppPickerFragment;
 import com.zpj.shouji.market.ui.fragment.profile.UserPickerFragment;
 import com.zpj.shouji.market.ui.widget.ActionPanel;
@@ -31,7 +29,7 @@ import com.zpj.utils.ScreenUtils;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CollectionShareFragment extends SkinFragment {
+public class CollectionShareFragment extends BaseSwipeBackFragment {
 
 
     private final List<InstalledAppInfo> appList = new ArrayList<>();
@@ -48,17 +46,12 @@ public class CollectionShareFragment extends SkinFragment {
     private boolean isPrivate;
 
     public static void start() {
-        StartFragmentEvent.start(new CollectionShareFragment());
+        start(new CollectionShareFragment());
     }
 
     @Override
     protected int getLayoutId() {
         return R.layout.fragment_collection_share;
-    }
-
-    @Override
-    protected boolean supportSwipeBack() {
-        return true;
     }
 
     @Override

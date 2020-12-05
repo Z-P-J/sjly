@@ -1,5 +1,7 @@
 package com.zpj.fragmentation.queue;
 
+import com.dhh.rxlife2.RxLife;
+
 import java.util.concurrent.TimeUnit;
 
 import io.reactivex.Observable;

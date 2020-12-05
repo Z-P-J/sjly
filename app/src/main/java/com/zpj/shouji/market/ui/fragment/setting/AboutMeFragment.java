@@ -14,21 +14,19 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.bumptech.glide.request.target.SimpleTarget;
 import com.bumptech.glide.request.transition.Transition;
-import com.zpj.fragmentation.BaseFragment;
 import com.zpj.fragmentation.anim.DefaultHorizontalAnimator;
 import com.zpj.fragmentation.anim.DefaultNoAnimator;
 import com.zpj.fragmentation.anim.FragmentAnimator;
 import com.zpj.shouji.market.R;
-import com.zpj.shouji.market.event.StartFragmentEvent;
 import com.zpj.shouji.market.glide.transformations.blur.BlurTransformation;
-import com.zpj.shouji.market.ui.animator.MyFragmentAnimator;
 import com.zpj.shouji.market.ui.fragment.WebFragment;
+import com.zpj.shouji.market.ui.fragment.base.BaseSwipeBackFragment;
 import com.zpj.shouji.market.utils.AnimationUtil;
 import com.zpj.shouji.market.utils.PictureUtil;
 import com.zpj.widget.setting.CommonSettingItem;
 import com.zpj.widget.setting.OnCommonItemClickListener;
 
-public class AboutMeFragment extends BaseFragment implements OnCommonItemClickListener {
+public class AboutMeFragment extends BaseSwipeBackFragment implements OnCommonItemClickListener {
 
 
     private ImageView iv_blur;
@@ -36,7 +34,7 @@ public class AboutMeFragment extends BaseFragment implements OnCommonItemClickLi
     private ImageView ivWxpay;
 
     public static void start() {
-        StartFragmentEvent.start(new AboutMeFragment());
+        start(new AboutMeFragment());
     }
 
 //    @Override
@@ -56,13 +54,13 @@ public class AboutMeFragment extends BaseFragment implements OnCommonItemClickLi
     }
 
     @Override
-    protected boolean supportSwipeBack() {
-        return true;
+    public CharSequence getToolbarTitle(Context context) {
+        return "关于作者";
     }
 
     @Override
-    public CharSequence getToolbarTitle(Context context) {
-        return "关于作者";
+    protected void initStatusBar() {
+        lightStatusBar();
     }
 
     @Override

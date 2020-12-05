@@ -6,23 +6,21 @@ import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.view.View;
 
-import com.zpj.fragmentation.BaseFragment;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.api.HttpApi;
 import com.zpj.shouji.market.constant.Keys;
 import com.zpj.shouji.market.constant.UpdateFlagAction;
-import com.zpj.shouji.market.event.StartFragmentEvent;
 import com.zpj.shouji.market.ui.adapter.FragmentsPagerAdapter;
+import com.zpj.shouji.market.ui.fragment.base.BaseSwipeBackFragment;
 import com.zpj.shouji.market.ui.fragment.theme.ThemeListFragment;
 import com.zpj.shouji.market.utils.MagicIndicatorHelper;
-import com.zpj.shouji.market.utils.ThemeUtils;
 
 import net.lucode.hackware.magicindicator.MagicIndicator;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class MyCommentFragment extends BaseFragment {
+public class MyCommentFragment extends BaseSwipeBackFragment {
 
     private static final String[] TAB_TITLES = {"评论", "发起的评论"};
 
@@ -30,17 +28,12 @@ public class MyCommentFragment extends BaseFragment {
     private MagicIndicator magicIndicator;
 
     public static void start() {
-        StartFragmentEvent.start(new MyCommentFragment());
+        start(new MyCommentFragment());
     }
 
     @Override
     protected int getLayoutId() {
         return R.layout.fragment_my_discover;
-    }
-
-    @Override
-    protected boolean supportSwipeBack() {
-        return true;
     }
 
     @Override
@@ -70,11 +63,11 @@ public class MyCommentFragment extends BaseFragment {
         MagicIndicatorHelper.bindViewPager(context, magicIndicator, viewPager, TAB_TITLES);
     }
 
-    @Override
-    public void onSupportVisible() {
-        super.onSupportVisible();
-        ThemeUtils.initStatusBar(this);
-    }
+//    @Override
+//    public void onSupportVisible() {
+//        super.onSupportVisible();
+//        ThemeUtils.initStatusBar(this);
+//    }
 
     @Override
     public void onDestroy() {

@@ -1,23 +1,17 @@
 package com.zpj.shouji.market.ui.fragment.theme;
 
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.text.TextUtils;
 import android.view.View;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
-import com.zpj.http.core.IHttp;
 import com.zpj.http.parser.html.nodes.Document;
 import com.zpj.http.parser.html.nodes.Element;
 import com.zpj.http.parser.html.select.Elements;
 import com.zpj.recyclerview.EasyViewHolder;
 import com.zpj.shouji.market.R;
-import com.zpj.shouji.market.api.HttpApi;
 import com.zpj.shouji.market.constant.Keys;
-import com.zpj.shouji.market.event.StartFragmentEvent;
-import com.zpj.shouji.market.model.DiscoverInfo;
 import com.zpj.shouji.market.model.SupportUserInfo;
 import com.zpj.shouji.market.ui.fragment.base.NextUrlFragment;
 import com.zpj.shouji.market.ui.fragment.profile.ProfileFragment;

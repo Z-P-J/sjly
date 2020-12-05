@@ -17,7 +17,6 @@ import com.lwkandroid.widget.ninegridview.INineGridImageLoader;
 import com.lwkandroid.widget.ninegridview.NineGirdImageContainer;
 import com.lwkandroid.widget.ninegridview.NineGridBean;
 import com.lwkandroid.widget.ninegridview.NineGridView;
-import com.zpj.fragmentation.BaseFragment;
 import com.zpj.fragmentation.dialog.imagetrans.ImageItemView;
 import com.zpj.fragmentation.dialog.imagetrans.listener.SourceImageViewGet;
 import com.zpj.http.core.IHttp;
@@ -29,15 +28,13 @@ import com.zpj.matisse.ui.fragment.CustomImageViewerDialogFragment2;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.api.PublishApi;
 import com.zpj.shouji.market.api.ThemePublishApi;
-import com.zpj.shouji.market.event.StartFragmentEvent;
 import com.zpj.shouji.market.glide.GlideUtils;
 import com.zpj.shouji.market.model.InstalledAppInfo;
-import com.zpj.shouji.market.ui.fragment.base.SkinFragment;
+import com.zpj.shouji.market.ui.fragment.base.BaseSwipeBackFragment;
 import com.zpj.shouji.market.ui.fragment.manager.AppPickerFragment;
 import com.zpj.shouji.market.ui.fragment.profile.UserPickerFragment;
 import com.zpj.shouji.market.ui.widget.ActionPanel;
 import com.zpj.shouji.market.ui.widget.flowlayout.FlowLayout;
-import com.zpj.shouji.market.utils.ThemeUtils;
 import com.zpj.utils.KeyboardObserver;
 import com.zpj.utils.ScreenUtils;
 
@@ -45,7 +42,7 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ThemeShareFragment extends SkinFragment {
+public class ThemeShareFragment extends BaseSwipeBackFragment {
 
     private final List<Item> imgList = new ArrayList<>();
 
@@ -67,17 +64,12 @@ public class ThemeShareFragment extends SkinFragment {
     private boolean isPrivate;
 
     public static void start() {
-        StartFragmentEvent.start(new ThemeShareFragment());
+        start(new ThemeShareFragment());
     }
 
     @Override
     protected int getLayoutId() {
         return R.layout.fragment_theme_share;
-    }
-
-    @Override
-    protected boolean supportSwipeBack() {
-        return true;
     }
 
     @Override
@@ -167,24 +159,6 @@ public class ThemeShareFragment extends SkinFragment {
                             }
                         })
                         .show(context);
-
-//                CustomImageViewerPopup.with(context)
-//                        .setOnSelectedListener(itemList -> {
-//                            postDelayed(() -> {
-//                                if (imgList.size() != itemList.size()) {
-//                                    imgList.clear();
-//                                    imgList.addAll(itemList);
-//                                    initNineGrid();
-//                                }
-//                            }, 100);
-//                        })
-//                        .setImageUrls(imgList)
-//                        .setSrcView(imageContainer.getImageView(), position)
-//                        .setSrcViewUpdateListener((popup, pos) -> {
-//                            NineGirdImageContainer view = (NineGirdImageContainer) nineGridView.getChildAt(pos);
-//                            popup.updateSrcView(view.getImageView());
-//                        })
-//                        .show();
             }
 
             @Override
@@ -260,11 +234,6 @@ public class ThemeShareFragment extends SkinFragment {
                     });
 
         });
-    }
-
-    @Override
-    public void onSupportVisible() {
-        super.onSupportVisible();
     }
 
     @Override

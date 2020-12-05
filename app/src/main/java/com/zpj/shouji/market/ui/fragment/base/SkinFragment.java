@@ -1,15 +1,20 @@
 package com.zpj.shouji.market.ui.fragment.base;
 
 import android.view.LayoutInflater;
+import android.view.View;
 
 import com.zpj.fragmentation.BaseFragment;
+import com.zpj.fragmentation.SupportFragment;
+import com.zpj.shouji.market.event.EventBus;
 import com.zpj.shouji.market.utils.ThemeUtils;
 import com.zxy.skin.sdk.SkinLayoutInflater;
 
 public abstract class SkinFragment extends BaseFragment {
 
     protected void initStatusBar() {
-        ThemeUtils.initStatusBar(this);
+        if (toolbar != null && toolbar.getVisibility() == View.VISIBLE) {
+            ThemeUtils.initStatusBar(this);
+        }
     }
 
     @Override
@@ -27,4 +32,9 @@ public abstract class SkinFragment extends BaseFragment {
             skinLayoutInflater.destory();
         }
     }
+
+    public static void start(SupportFragment fragment) {
+        EventBus.post(fragment);
+    }
+
 }

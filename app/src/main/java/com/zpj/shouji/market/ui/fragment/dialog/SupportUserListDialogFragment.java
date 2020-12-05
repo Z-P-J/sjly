@@ -1,12 +1,15 @@
 package com.zpj.shouji.market.ui.fragment.dialog;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.view.View;
+import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.zpj.fragmentation.dialog.base.BottomDialogFragment;
 import com.zpj.http.core.IHttp;
 import com.zpj.http.parser.html.nodes.Element;
@@ -80,7 +83,10 @@ public class SupportUserListDialogFragment extends BottomDialogFragment
     @Override
     public void onBindViewHolder(EasyViewHolder holder, List<SupportUserInfo> list, int position, List<Object> payloads) {
         SupportUserInfo userInfo = list.get(position);
-        Glide.with(context).load(userInfo.getUserLogo()).into(holder.getImageView(R.id.iv_icon));
+        Glide.with(context)
+                .load(userInfo.getUserLogo())
+                .apply(RequestOptions.circleCropTransform())
+                .into(holder.getImageView(R.id.iv_icon));
         holder.setText(R.id.tv_title, userInfo.getNickName());
     }
 

@@ -1,3 +1,0 @@
-D:/Programming/AndroidProjects/sjly/filescannercore/.cxx/cmake/debug/x86/CMakeFiles/FileScanner.dir
-D:/Programming/AndroidProjects/sjly/filescannercore/.cxx/cmake/debug/x86/CMakeFiles/edit_cache.dir
-D:/Programming/AndroidProjects/sjly/filescannercore/.cxx/cmake/debug/x86/CMakeFiles/rebuild_cache.dir

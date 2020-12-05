@@ -19,15 +19,12 @@ import com.felix.atoast.library.AToast;
 import com.just.agentweb.AbsAgentWebSettings;
 import com.just.agentweb.AgentWeb;
 import com.just.agentweb.IAgentWebSettings;
-import com.zpj.fragmentation.BaseFragment;
-import com.zpj.fragmentation.SupportFragment;
-import com.zpj.fragmentation.dialog.base.BaseDialogFragment;
 import com.zpj.fragmentation.dialog.impl.AttachListDialogFragment;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.constant.Keys;
-import com.zpj.shouji.market.event.StartFragmentEvent;
+import com.zpj.shouji.market.ui.fragment.base.SkinFragment;
 
-public class WebFragment extends BaseFragment {
+public class WebFragment extends SkinFragment {
 
     private static final String UA_PHONE = "Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.163 Mobile Safari/537.36";
     private static final String UA_PC = "Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.163 Safari/537.36";
@@ -44,7 +41,7 @@ public class WebFragment extends BaseFragment {
     }
 
     public static void start(String url, String title) {
-        StartFragmentEvent.start(newInstance(url, title));
+        start(newInstance(url, title));
     }
 
     public static void start(String url) {
@@ -76,8 +73,8 @@ public class WebFragment extends BaseFragment {
     }
 
     @Override
-    protected boolean supportSwipeBack() {
-        return false;
+    protected void initStatusBar() {
+        lightStatusBar();
     }
 
     @Override

@@ -8,7 +8,6 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
 import com.bumptech.glide.Glide;
-import com.felix.atoast.library.AToast;
 import com.yanyusong.y_divideritemdecoration.Y_Divider;
 import com.yanyusong.y_divideritemdecoration.Y_DividerBuilder;
 import com.yanyusong.y_divideritemdecoration.Y_DividerItemDecoration;
@@ -16,17 +15,12 @@ import com.zpj.http.parser.html.nodes.Element;
 import com.zpj.recyclerview.EasyRecyclerLayout;
 import com.zpj.recyclerview.EasyViewHolder;
 import com.zpj.shouji.market.R;
-import com.zpj.shouji.market.api.HttpApi;
 import com.zpj.shouji.market.constant.Keys;
-import com.zpj.shouji.market.event.StartFragmentEvent;
 import com.zpj.shouji.market.model.PickedGameInfo;
-import com.zpj.shouji.market.model.SubjectInfo;
 import com.zpj.shouji.market.ui.fragment.base.NextUrlFragment;
 import com.zpj.shouji.market.ui.fragment.detail.AppDetailFragment;
-import com.zpj.shouji.market.ui.fragment.profile.MyCollectionFragment;
 import com.zpj.shouji.market.ui.fragment.profile.ProfileFragment;
 import com.zpj.shouji.market.ui.widget.DownloadButton;
-import com.zpj.shouji.market.utils.ThemeUtils;
 
 import java.util.List;
 
@@ -37,7 +31,7 @@ public class PickedGameFragment extends NextUrlFragment<PickedGameInfo> {
         args.putString(Keys.DEFAULT_URL, "http://tt.tljpxm.com/androidv3/app_index_xml.jsp?index=1");
         PickedGameFragment fragment = new PickedGameFragment();
         fragment.setArguments(args);
-        StartFragmentEvent.start(fragment);
+        start(fragment);
     }
 
     @Override
@@ -61,11 +55,11 @@ public class PickedGameFragment extends NextUrlFragment<PickedGameInfo> {
         setToolbarTitle("精选游戏");
     }
 
-    @Override
-    public void onSupportVisible() {
-        super.onSupportVisible();
-        ThemeUtils.initStatusBar(this);
-    }
+//    @Override
+//    public void onSupportVisible() {
+//        super.onSupportVisible();
+//        ThemeUtils.initStatusBar(this);
+//    }
 
     @Override
     protected void buildRecyclerLayout(EasyRecyclerLayout<PickedGameInfo> recyclerLayout) {

@@ -3,12 +3,11 @@ package com.zpj.shouji.market.model;
 import android.support.annotation.Keep;
 
 import com.zpj.http.parser.html.nodes.Document;
-import com.zpj.shouji.market.event.BaseEvent;
 import com.zpj.shouji.market.utils.BeanUtils;
 import com.zpj.shouji.market.utils.BeanUtils.Select;
 
 @Keep
-public class MessageInfo extends BaseEvent {
+public class MessageInfo {
 
     // 评论数量
     @Select(selector = "message")

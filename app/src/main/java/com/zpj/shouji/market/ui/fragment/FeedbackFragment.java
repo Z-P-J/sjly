@@ -18,7 +18,6 @@ import com.lwkandroid.widget.ninegridview.INineGridImageLoader;
 import com.lwkandroid.widget.ninegridview.NineGirdImageContainer;
 import com.lwkandroid.widget.ninegridview.NineGridBean;
 import com.lwkandroid.widget.ninegridview.NineGridView;
-import com.zpj.fragmentation.BaseFragment;
 import com.zpj.fragmentation.dialog.imagetrans.ImageItemView;
 import com.zpj.fragmentation.dialog.imagetrans.listener.SourceImageViewGet;
 import com.zpj.http.core.IHttp;
@@ -29,10 +28,9 @@ import com.zpj.matisse.entity.Item;
 import com.zpj.matisse.ui.fragment.CustomImageViewerDialogFragment2;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.api.CommentApi;
-import com.zpj.shouji.market.event.StartFragmentEvent;
 import com.zpj.shouji.market.glide.GlideUtils;
+import com.zpj.shouji.market.ui.fragment.base.BaseSwipeBackFragment;
 import com.zpj.shouji.market.ui.widget.flowlayout.FlowLayout;
-import com.zpj.shouji.market.utils.ThemeUtils;
 import com.zpj.utils.AppUtils;
 import com.zpj.utils.DeviceUtils;
 
@@ -40,24 +38,19 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
-public class FeedbackFragment extends BaseFragment {
+public class FeedbackFragment extends BaseSwipeBackFragment {
 
     private final List<Item> imgList = new ArrayList<>();
 
     private NineGridView nineGridView;
 
     public static void start() {
-        StartFragmentEvent.start(new FeedbackFragment());
+        start(new FeedbackFragment());
     }
 
     @Override
     protected int getLayoutId() {
         return R.layout.fragment_feedback;
-    }
-
-    @Override
-    protected boolean supportSwipeBack() {
-        return true;
     }
 
     @Override
@@ -223,12 +216,6 @@ public class FeedbackFragment extends BaseFragment {
 //            scrollView.setTranslationY(-height);
 //        });
 
-    }
-
-    @Override
-    public void onSupportVisible() {
-        super.onSupportVisible();
-        ThemeUtils.initStatusBar(this);
     }
 
     private void initNineGrid() {

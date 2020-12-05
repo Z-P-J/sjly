@@ -3,8 +3,6 @@ package com.zpj.shouji.market.ui.fragment.manager;
 import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Context;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
@@ -32,21 +30,16 @@ import com.zpj.fragmentation.dialog.impl.CheckDialogFragment;
 import com.zpj.http.core.IHttp;
 import com.zpj.http.core.ObservableTask;
 import com.zpj.shouji.market.R;
-import com.zpj.fragmentation.BaseFragment;
-import com.zpj.shouji.market.constant.AppConfig;
 import com.zpj.shouji.market.constant.Keys;
 import com.zpj.shouji.market.download.AppDownloadMission;
-import com.zpj.shouji.market.event.StartFragmentEvent;
 import com.zpj.shouji.market.glide.GlideApp;
 import com.zpj.shouji.market.model.InstalledAppInfo;
-import com.zpj.shouji.market.ui.fragment.base.SkinFragment;
+import com.zpj.shouji.market.ui.fragment.base.BaseSwipeBackFragment;
 import com.zpj.shouji.market.ui.fragment.detail.AppDetailFragment;
 import com.zpj.shouji.market.ui.widget.DownloadedActionButton;
-import com.zpj.shouji.market.utils.AppUtil;
 import com.zpj.shouji.market.utils.ThemeUtils;
 import com.zpj.utils.AppUtils;
 import com.zpj.utils.ClickHelper;
-import com.zpj.utils.FileUtils;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -55,7 +48,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
-public class DownloadManagerFragment extends SkinFragment
+public class DownloadManagerFragment extends BaseSwipeBackFragment
         implements DownloadManager.DownloadManagerListener,
         GroupRecyclerViewAdapter.OnItemClickListener<DownloadManagerFragment.DownloadWrapper> {
 
@@ -74,7 +67,7 @@ public class DownloadManagerFragment extends SkinFragment
     }
 
     public static void start(boolean showToolbar) {
-        StartFragmentEvent.start(DownloadManagerFragment.newInstance(showToolbar));
+        start(DownloadManagerFragment.newInstance(showToolbar));
     }
 
     @Override
@@ -82,17 +75,12 @@ public class DownloadManagerFragment extends SkinFragment
         return R.layout.fragment_download;
     }
 
-    @Override
-    protected boolean supportSwipeBack() {
-        return true;
-    }
-
-    @Override
-    protected void initStatusBar() {
-        if (showToolbar) {
-            ThemeUtils.initStatusBar(this);
-        }
-    }
+//    @Override
+//    protected void initStatusBar() {
+//        if (showToolbar) {
+//            ThemeUtils.initStatusBar(this);
+//        }
+//    }
 
     @Override
     protected void initView(View view, @Nullable Bundle savedInstanceState) {

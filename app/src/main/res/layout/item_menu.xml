@@ -9,12 +9,11 @@
     android:paddingTop="8dp"
     android:paddingBottom="8dp">
 
-    <com.zpj.widget.tinted.TintedImageView
+    <ImageView
         android:id="@+id/iv_icon"
         android:layout_width="24dp"
         android:layout_height="24dp"
         android:layout_gravity="center_vertical"
-        app:tint="?attr/textColorMajor"
         />
 
     <TextView

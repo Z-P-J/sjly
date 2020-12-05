@@ -9,24 +9,22 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-import com.zpj.fragmentation.BaseFragment;
 import com.zpj.http.core.IHttp;
 import com.zpj.recyclerview.EasyRecyclerView;
 import com.zpj.recyclerview.EasyViewHolder;
 import com.zpj.recyclerview.IEasy;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.api.CloudBackupApi;
-import com.zpj.shouji.market.event.RefreshEvent;
-import com.zpj.shouji.market.event.StartFragmentEvent;
+import com.zpj.shouji.market.event.EventBus;
 import com.zpj.shouji.market.model.InstalledAppInfo;
+import com.zpj.shouji.market.ui.fragment.base.BaseSwipeBackFragment;
 import com.zpj.shouji.market.ui.fragment.manager.AppPickerFragment;
-import com.zpj.shouji.market.utils.ThemeUtils;
 import com.zpj.utils.DeviceUtils;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class CreateBackupFragment extends BaseFragment {
+public class CreateBackupFragment extends BaseSwipeBackFragment {
 
 
     private final List<InstalledAppInfo> appList = new ArrayList<>();
@@ -37,17 +35,12 @@ public class CreateBackupFragment extends BaseFragment {
     private EasyRecyclerView<InstalledAppInfo> recyclerView;
 
     public static void start() {
-        StartFragmentEvent.start(new CreateBackupFragment());
+        start(new CreateBackupFragment());
     }
 
     @Override
     protected int getLayoutId() {
         return R.layout.fragment_create_backup;
-    }
-
-    @Override
-    protected boolean supportSwipeBack() {
-        return true;
     }
 
     @Override
@@ -113,7 +106,7 @@ public class CreateBackupFragment extends BaseFragment {
                         }
                     },
                     () -> {
-                        RefreshEvent.postEvent();
+                        EventBus.sendRefreshEvent();
                         pop();
                     });
         });
@@ -124,12 +117,6 @@ public class CreateBackupFragment extends BaseFragment {
     public void onStop() {
         super.onStop();
         hideSoftInput();
-    }
-
-    @Override
-    public void onSupportVisible() {
-        super.onSupportVisible();
-        ThemeUtils.initStatusBar(this);
     }
 
     @Override

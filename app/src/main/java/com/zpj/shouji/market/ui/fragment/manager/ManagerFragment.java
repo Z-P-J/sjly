@@ -9,9 +9,8 @@ import android.view.View;
 
 import com.zpj.fragmentation.BaseFragment;
 import com.zpj.shouji.market.R;
-import com.zpj.shouji.market.event.StartFragmentEvent;
 import com.zpj.shouji.market.ui.adapter.FragmentsPagerAdapter;
-import com.zpj.shouji.market.ui.fragment.base.SkinFragment;
+import com.zpj.shouji.market.ui.fragment.base.BaseSwipeBackFragment;
 import com.zpj.utils.ScreenUtils;
 
 import net.lucode.hackware.magicindicator.MagicIndicator;
@@ -26,19 +25,14 @@ import net.lucode.hackware.magicindicator.buildins.commonnavigator.titles.ColorT
 import java.util.ArrayList;
 import java.util.List;
 
-public class ManagerFragment extends SkinFragment {
+public class ManagerFragment extends BaseSwipeBackFragment {
 
     private static final String[] TAB_TITLES = {"下载管理", "更新", "已安装", "安装包"};
 
     private ViewPager viewPager;
 
     public static void start() {
-        StartFragmentEvent.start(new ManagerFragment());
-    }
-
-    @Override
-    protected boolean supportSwipeBack() {
-        return true;
+        start(new ManagerFragment());
     }
 
     @Override

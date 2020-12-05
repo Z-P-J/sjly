@@ -1,3 +1,0 @@
-D:/Programming/AndroidProjects/sjly/filescannercore/.cxx/cmake/release/armeabi-v7a/CMakeFiles/FileScanner.dir
-D:/Programming/AndroidProjects/sjly/filescannercore/.cxx/cmake/release/armeabi-v7a/CMakeFiles/edit_cache.dir
-D:/Programming/AndroidProjects/sjly/filescannercore/.cxx/cmake/release/armeabi-v7a/CMakeFiles/rebuild_cache.dir

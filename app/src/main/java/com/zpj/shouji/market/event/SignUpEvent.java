@@ -1,6 +1,8 @@
 package com.zpj.shouji.market.event;
 
-public class SignUpEvent extends BaseEvent {
+import com.zpj.rxbus.RxSubscriber;
+
+public class SignUpEvent {
 
     private final boolean isSuccess;
     private final String errorMsg;
@@ -21,6 +23,10 @@ public class SignUpEvent extends BaseEvent {
 
     public String getErrorMsg() {
         return errorMsg;
+    }
+
+    public void post() {
+        RxSubscriber.post(this);
     }
 
     public static void postSuccess() {

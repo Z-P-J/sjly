@@ -9,24 +9,20 @@ import android.view.View;
 import android.widget.LinearLayout;
 
 import com.felix.atoast.library.AToast;
-import com.zpj.fragmentation.BaseFragment;
 import com.zpj.fragmentation.SupportHelper;
 import com.zpj.shouji.market.R;
+import com.zpj.shouji.market.event.EventBus;
 import com.zpj.shouji.market.event.SignInEvent;
 import com.zpj.shouji.market.event.SignUpEvent;
-import com.zpj.shouji.market.event.StartFragmentEvent;
-import com.zpj.shouji.market.ui.fragment.base.SkinFragment;
+import com.zpj.shouji.market.ui.fragment.base.BaseSwipeBackFragment;
 import com.zpj.shouji.market.ui.widget.SignInLayout3;
 import com.zpj.shouji.market.ui.widget.SignUpLayout3;
 import com.zpj.shouji.market.utils.SoftInputHelper;
 import com.zpj.utils.KeyboardObserver;
 import com.zpj.utils.ScreenUtils;
 
-import org.greenrobot.eventbus.EventBus;
-import org.greenrobot.eventbus.Subscribe;
 
-
-public class LoginFragment extends SkinFragment {
+public class LoginFragment extends BaseSwipeBackFragment {
 
     private static final String REGISTRATION = "key_registration";
 
@@ -43,7 +39,7 @@ public class LoginFragment extends SkinFragment {
     }
 
     public static void start(boolean isRegistration) {
-        StartFragmentEvent.start(newInstance(isRegistration));
+        start(newInstance(isRegistration));
     }
 
     public static void start() {
@@ -56,11 +52,6 @@ public class LoginFragment extends SkinFragment {
     }
 
     @Override
-    protected boolean supportSwipeBack() {
-        return true;
-    }
-
-    @Override
     public CharSequence getToolbarTitle(Context context) {
         return "账号登录";
     }
@@ -68,17 +59,31 @@ public class LoginFragment extends SkinFragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        EventBus.getDefault().register(this);
+        EventBus.registerObserver(this, SignInEvent.class, event -> {
+            if (event.isSuccess()) {
+                AToast.success("登录成功！");
+                pop();
+            }
+            if (contentView instanceof SignInLayout3) {
+                ((SignInLayout3) contentView).onSignIn(event );
+            }
+        });
+        EventBus.registerObserver(this, SignUpEvent.class, event -> {
+            if (event.isSuccess()) {
+                AToast.success("注册成功，请输入账账户信息登录！");
+                if (SupportHelper.getPreFragment(LoginFragment.this) instanceof LoginFragment) {
+                    pop();
+                } else {
+                    startWithPop(LoginFragment.newInstance(false));
+                }
+            }
+            if (contentView instanceof SignUpLayout3) {
+                ((SignUpLayout3) contentView).onSignUp(event);
+            }
+        });
         if (getArguments() != null) {
             isRegistration = getArguments().getBoolean(REGISTRATION, false);
         }
-    }
-
-    @Override
-    public void onDestroy() {
-        EventBus.getDefault().unregister(contentView);
-        EventBus.getDefault().unregister(this);
-        super.onDestroy();
     }
 
     @Override
@@ -117,7 +122,6 @@ public class LoginFragment extends SkinFragment {
             );
             tvSubmit = contentView.findViewById(R.id.sv_login);
         }
-        EventBus.getDefault().register(contentView);
         llContainer.addView(contentView);
 
         int dp16 = ScreenUtils.dp2pxInt(context, 16);
@@ -137,25 +141,25 @@ public class LoginFragment extends SkinFragment {
 
     }
 
-    @Subscribe
-    public void onSignInEvent(SignInEvent event) {
-        if (event.isSuccess()) {
-            AToast.success("登录成功！");
-            pop();
-        }
-    }
+//    @Subscribe
+//    public void onSignInEvent(SignInEvent event) {
+//        if (event.isSuccess()) {
+//            AToast.success("登录成功！");
+//            pop();
+//        }
+//    }
 
-    @Subscribe
-    public void onSignUpEvent(SignUpEvent event) {
-        if (event.isSuccess()) {
-            AToast.success("注册成功，请输入账账户信息登录！");
-            if (SupportHelper.getPreFragment(this) instanceof LoginFragment) {
-                pop();
-            } else {
-                startWithPop(LoginFragment.newInstance(false));
-            }
-        }
-    }
+//    @Subscribe
+//    public void onSignUpEvent(SignUpEvent event) {
+//        if (event.isSuccess()) {
+//            AToast.success("注册成功，请输入账账户信息登录！");
+//            if (SupportHelper.getPreFragment(this) instanceof LoginFragment) {
+//                pop();
+//            } else {
+//                startWithPop(LoginFragment.newInstance(false));
+//            }
+//        }
+//    }
 
 
 }

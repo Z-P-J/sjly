@@ -11,19 +11,18 @@ import com.ctetin.expandabletextviewlibrary.ExpandableTextView;
 import com.ctetin.expandabletextviewlibrary.app.LinkType;
 import com.felix.atoast.library.AToast;
 import com.zpj.shouji.market.R;
+import com.zpj.shouji.market.event.EventBus;
 import com.zpj.shouji.market.event.SignUpEvent;
 import com.zpj.shouji.market.manager.UserManager;
 import com.zpj.shouji.market.ui.fragment.WebFragment;
+import com.zpj.widget.checkbox.SmoothCheckBox;
 import com.zpj.widget.editor.AccountInputView;
 import com.zpj.widget.editor.EmailInputView;
 import com.zpj.widget.editor.PasswordInputView;
 import com.zpj.widget.editor.SubmitView;
-import com.zpj.widget.checkbox.SmoothCheckBox;
 import com.zpj.widget.editor.validator.EmailValidator;
 import com.zpj.widget.editor.validator.LengthValidator;
 import com.zpj.widget.editor.validator.SameValueValidator;
-
-import org.greenrobot.eventbus.Subscribe;
 
 public class SignUpLayout3 extends LinearLayout {
 
@@ -157,6 +156,24 @@ public class SignUpLayout3 extends LinearLayout {
                 AToast.warning("请同意《手机乐园协议》");
             }
         });
+
+//        EventSender.registerObserver(this, SignUpEvent.class, event -> {
+//            if (!event.isSuccess()) {
+//                String errInfo = event.getErrorMsg();
+//                if ("用户名已被注册".equals(errInfo)) {
+//                    etAccount.requestFocus();
+//                    etAccount.setError(errInfo);
+//                } else {
+//                    AToast.error(errInfo);
+//                }
+//            }
+//        });
+    }
+
+    @Override
+    protected void onDetachedFromWindow() {
+        super.onDetachedFromWindow();
+        EventBus.unSubscribe(this);
     }
 
     @Override
@@ -188,6 +205,18 @@ public class SignUpLayout3 extends LinearLayout {
         return cbAgreement.isChecked();
     }
 
+    public void onSignUp(SignUpEvent event) {
+        if (!event.isSuccess()) {
+            String errInfo = event.getErrorMsg();
+            if ("用户名已被注册".equals(errInfo)) {
+                etAccount.requestFocus();
+                etAccount.setError(errInfo);
+            } else {
+                AToast.error(errInfo);
+            }
+        }
+    }
+
 //    @Override
 //    public void onSignUpSuccess() {
 //
@@ -203,18 +232,18 @@ public class SignUpLayout3 extends LinearLayout {
 //        }
 //    }
 
-    @Subscribe
-    public void onSignUpEvent(SignUpEvent event) {
-        if (!event.isSuccess()) {
-            String errInfo = event.getErrorMsg();
-            if ("用户名已被注册".equals(errInfo)) {
-                etAccount.requestFocus();
-                etAccount.setError(errInfo);
-            } else {
-                AToast.error(errInfo);
-            }
-        }
-    }
+//    @Subscribe
+//    public void onSignUpEvent(SignUpEvent event) {
+//        if (!event.isSuccess()) {
+//            String errInfo = event.getErrorMsg();
+//            if ("用户名已被注册".equals(errInfo)) {
+//                etAccount.requestFocus();
+//                etAccount.setError(errInfo);
+//            } else {
+//                AToast.error(errInfo);
+//            }
+//        }
+//    }
 
     public interface OnLoginListener {
         void onSignInSuccess();

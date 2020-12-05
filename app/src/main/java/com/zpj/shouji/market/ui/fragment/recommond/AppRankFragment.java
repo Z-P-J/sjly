@@ -18,13 +18,11 @@ import com.zpj.recyclerview.EasyViewHolder;
 import com.zpj.recyclerview.IEasy;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.constant.Keys;
-import com.zpj.shouji.market.event.StartFragmentEvent;
 import com.zpj.shouji.market.model.AppInfo;
 import com.zpj.shouji.market.ui.fragment.base.NextUrlFragment;
 import com.zpj.shouji.market.ui.fragment.detail.AppDetailFragment;
 import com.zpj.shouji.market.ui.widget.DownloadButton;
 import com.zpj.shouji.market.ui.widget.RankHeaderLayout;
-import com.zpj.shouji.market.utils.ThemeUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -41,7 +39,7 @@ public class AppRankFragment extends NextUrlFragment<AppRankFragment.RankItem> {
         args.putString(Keys.TITLE, "软件排行");
         AppRankFragment fragment = new AppRankFragment();
         fragment.setArguments(args);
-        StartFragmentEvent.start(fragment);
+        start(fragment);
     }
 
     public static void startGame() {
@@ -50,7 +48,7 @@ public class AppRankFragment extends NextUrlFragment<AppRankFragment.RankItem> {
         args.putString(Keys.TITLE, "游戏排行");
         AppRankFragment fragment = new AppRankFragment();
         fragment.setArguments(args);
-        StartFragmentEvent.start(fragment);
+        start(fragment);
     }
 
     public static class RankItem {
@@ -81,12 +79,6 @@ public class AppRankFragment extends NextUrlFragment<AppRankFragment.RankItem> {
             setToolbarTitle(getArguments().getString(Keys.TITLE, "Title"));
         }
         shadowBottomView = view.findViewById(R.id.shadow_bottom_view);
-    }
-
-    @Override
-    public void onSupportVisible() {
-        super.onSupportVisible();
-        ThemeUtils.initStatusBar(this);
     }
 
     @Override

@@ -7,7 +7,6 @@ import android.view.View;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.api.BookingApi;
 import com.zpj.shouji.market.constant.Keys;
-import com.zpj.shouji.market.event.StartFragmentEvent;
 
 public class LatestBookingFragment extends BookingAppListFragment {
 
@@ -16,7 +15,7 @@ public class LatestBookingFragment extends BookingAppListFragment {
         args.putString(Keys.DEFAULT_URL, BookingApi.LATEST_BOOKING_URL);
         LatestBookingFragment fragment = new LatestBookingFragment();
         fragment.setArguments(args);
-        StartFragmentEvent.start(fragment);
+        start(fragment);
     }
 
     @Override

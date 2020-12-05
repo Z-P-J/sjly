@@ -9,29 +9,27 @@ import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
-import com.zpj.fragmentation.BaseFragment;
 import com.zpj.http.parser.html.nodes.Element;
 import com.zpj.recyclerview.EasyViewHolder;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.api.HttpApi;
 import com.zpj.shouji.market.constant.Keys;
 import com.zpj.shouji.market.constant.UpdateFlagAction;
-import com.zpj.shouji.market.event.StartFragmentEvent;
 import com.zpj.shouji.market.model.PrivateLetterInfo;
 import com.zpj.shouji.market.ui.adapter.FragmentsPagerAdapter;
+import com.zpj.shouji.market.ui.fragment.base.BaseSwipeBackFragment;
 import com.zpj.shouji.market.ui.fragment.base.NextUrlFragment;
 import com.zpj.shouji.market.ui.fragment.chat.ChatFragment;
 import com.zpj.shouji.market.ui.fragment.theme.ThemeListFragment;
 import com.zpj.shouji.market.utils.BeanUtils;
 import com.zpj.shouji.market.utils.MagicIndicatorHelper;
-import com.zpj.shouji.market.utils.ThemeUtils;
 
 import net.lucode.hackware.magicindicator.MagicIndicator;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class MyMsgFragment extends BaseFragment {
+public class MyMsgFragment extends BaseSwipeBackFragment {
 
     private static final String[] TAB_TITLES = {"我的私信", "提到我的", "收到的赞"};
 
@@ -39,17 +37,12 @@ public class MyMsgFragment extends BaseFragment {
     private MagicIndicator magicIndicator;
 
     public static void start() {
-        StartFragmentEvent.start(new MyMsgFragment());
+        start(new MyMsgFragment());
     }
 
     @Override
     protected int getLayoutId() {
         return R.layout.fragment_my_discover;
-    }
-
-    @Override
-    protected boolean supportSwipeBack() {
-        return true;
     }
 
     @Override
@@ -83,11 +76,11 @@ public class MyMsgFragment extends BaseFragment {
         MagicIndicatorHelper.bindViewPager(context, magicIndicator, viewPager, TAB_TITLES);
     }
 
-    @Override
-    public void onSupportVisible() {
-        super.onSupportVisible();
-        ThemeUtils.initStatusBar(this);
-    }
+//    @Override
+//    public void onSupportVisible() {
+//        super.onSupportVisible();
+//        ThemeUtils.initStatusBar(this);
+//    }
 
     @Override
     public void onDestroy() {

@@ -7,23 +7,21 @@ import android.support.v4.view.ViewPager;
 import android.text.TextUtils;
 import android.view.View;
 
-import com.zpj.fragmentation.BaseFragment;
 import com.zpj.http.parser.html.nodes.Element;
 import com.zpj.recyclerview.EasyViewHolder;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.constant.Keys;
-import com.zpj.shouji.market.event.StartFragmentEvent;
 import com.zpj.shouji.market.manager.UserManager;
 import com.zpj.shouji.market.model.CollectionInfo;
 import com.zpj.shouji.market.model.DiscoverInfo;
 import com.zpj.shouji.market.ui.adapter.FragmentsPagerAdapter;
+import com.zpj.shouji.market.ui.fragment.base.BaseSwipeBackFragment;
+import com.zpj.shouji.market.ui.fragment.collection.CollectionListFragment;
 import com.zpj.shouji.market.ui.fragment.dialog.AppCollectionMoreDialogFragment;
 import com.zpj.shouji.market.ui.fragment.dialog.ThemeMoreDialogFragment;
-import com.zpj.shouji.market.ui.fragment.wallpaper.WallpaperListFragment;
-import com.zpj.shouji.market.ui.fragment.collection.CollectionListFragment;
 import com.zpj.shouji.market.ui.fragment.theme.ThemeListFragment;
+import com.zpj.shouji.market.ui.fragment.wallpaper.WallpaperListFragment;
 import com.zpj.shouji.market.utils.MagicIndicatorHelper;
-import com.zpj.shouji.market.utils.ThemeUtils;
 
 import net.lucode.hackware.magicindicator.MagicIndicator;
 
@@ -31,7 +29,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class MyDynamicFragment extends BaseFragment {
+public class MyDynamicFragment extends BaseSwipeBackFragment {
 
     private static final String[] TAB_TITLES = {"全部", "发现", "评论", "应用集", "乐图", "下载", "赞"};
 
@@ -50,17 +48,12 @@ public class MyDynamicFragment extends BaseFragment {
     }
 
     public static void start() {
-        StartFragmentEvent.start(newInstance(UserManager.getInstance().getUserId(), true));
+        start(newInstance(UserManager.getInstance().getUserId(), true));
     }
 
     @Override
     protected int getLayoutId() {
         return R.layout.fragment_my_viewpager;
-    }
-
-    @Override
-    protected boolean supportSwipeBack() {
-        return true;
     }
 
     @Override
@@ -91,13 +84,13 @@ public class MyDynamicFragment extends BaseFragment {
         }
     }
 
-    @Override
-    public void onSupportVisible() {
-        super.onSupportVisible();
-        if (showToolbar) {
-            ThemeUtils.initStatusBar(this);
-        }
-    }
+//    @Override
+//    public void onSupportVisible() {
+//        super.onSupportVisible();
+//        if (showToolbar) {
+//            ThemeUtils.initStatusBar(this);
+//        }
+//    }
 
     private void initViewPager() {
         List<Fragment> fragments = new ArrayList<>();

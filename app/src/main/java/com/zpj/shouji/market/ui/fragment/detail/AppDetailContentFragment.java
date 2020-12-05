@@ -15,7 +15,7 @@ import com.zpj.recyclerview.MultiAdapter;
 import com.zpj.recyclerview.MultiData;
 import com.zpj.recyclerview.MultiRecyclerViewWrapper;
 import com.zpj.shouji.market.R;
-import com.zpj.shouji.market.model.AppDetailInfo;
+import com.zpj.shouji.market.event.EventBus;
 import com.zpj.shouji.market.ui.fragment.ToolBarAppListFragment;
 import com.zpj.shouji.market.ui.fragment.base.SkinFragment;
 import com.zpj.shouji.market.ui.fragment.homepage.multi.AppGridListMultiData;
@@ -23,9 +23,6 @@ import com.zpj.shouji.market.ui.fragment.homepage.multi.BaseHeaderMultiData;
 import com.zpj.shouji.market.ui.fragment.homepage.multi.ScreenShootMultiData;
 import com.zpj.shouji.market.ui.fragment.profile.ProfileFragment;
 import com.zpj.utils.ScreenUtils;
-
-import org.greenrobot.eventbus.EventBus;
-import org.greenrobot.eventbus.Subscribe;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;
@@ -48,18 +45,40 @@ public class AppDetailContentFragment extends SkinFragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        EventBus.getDefault().register(this);
-    }
+        EventBus.onGetAppInfoEvent(this, info -> {
+            Log.d("AppDetailInfoFragment", "onGetAppDetailInfo info=" + info);
 
-    @Override
-    public void onDestroy() {
-        EventBus.getDefault().unregister(this);
-        super.onDestroy();
-    }
+            List<MultiData> list = new ArrayList<>();
 
-    @Override
-    protected void initStatusBar() {
 
+            addItem(list, "特别说明", info.getSpecialStatement());
+            addItem(list, "小编评论", info.getEditorComment());
+            list.add(new ScreenShootMultiData("软件截图", info.getImgUrlList()));
+            addItem(list, "应用简介", info.getAppIntroduceContent());
+            addItem(list, "新版特性", info.getUpdateContent());
+            addItem(list, "详细信息", info.getAppInfo());
+            addItem(list, "权限信息", info.getPermissionContent());
+
+            if (info.getOtherAppList() != null) {
+                list.add(new AppGridListMultiData("开发者其他应用", info.getOtherAppList()) {
+                    @Override
+                    public void onHeaderClick() {
+                        ToolBarAppListFragment.start(info.getOtherAppUrl(), "开发者其他应用");
+                    }
+
+                    @Override
+                    public int getHeaderSpanCount() {
+                        return 3;
+                    }
+                });
+            }
+
+            wrapper.setData(list)
+                    .setMaxSpan(3)
+                    .setFooterView(LayoutInflater.from(context).inflate(R.layout.item_footer_normal, null, false))
+                    .build();
+            wrapper.notifyDataSetChanged();
+        });
     }
 
     @Override
@@ -71,43 +90,6 @@ public class AppDetailContentFragment extends SkinFragment {
 
         RecyclerView recyclerView = findViewById(R.id.recycler_view);
         wrapper = new MultiRecyclerViewWrapper(recyclerView);
-    }
-
-    @Subscribe
-    public void onGetAppDetailInfo(AppDetailInfo info) {
-        EventBus.getDefault().unregister(this);
-        Log.d("AppDetailInfoFragment", "onGetAppDetailInfo info=" + info);
-
-        List<MultiData> list = new ArrayList<>();
-
-
-        addItem(list, "特别说明", info.getSpecialStatement());
-        addItem(list, "小编评论", info.getEditorComment());
-        list.add(new ScreenShootMultiData("软件截图", info.getImgUrlList()));
-        addItem(list, "应用简介", info.getAppIntroduceContent());
-        addItem(list, "新版特性", info.getUpdateContent());
-        addItem(list, "详细信息", info.getAppInfo());
-        addItem(list, "权限信息", info.getPermissionContent());
-
-        if (info.getOtherAppList() != null) {
-            list.add(new AppGridListMultiData("开发者其他应用", info.getOtherAppList()) {
-                @Override
-                public void onHeaderClick() {
-                    ToolBarAppListFragment.start(info.getOtherAppUrl(), "开发者其他应用");
-                }
-
-                @Override
-                public int getHeaderSpanCount() {
-                    return 3;
-                }
-            });
-        }
-
-        wrapper.setData(list)
-                .setMaxSpan(3)
-                .setFooterView(LayoutInflater.from(context).inflate(R.layout.item_footer_normal, null, false))
-                .build();
-        wrapper.notifyDataSetChanged();
     }
 
     private void addItem(List<MultiData> list, String title, String text) {
@@ -177,6 +159,7 @@ public class AppDetailContentFragment extends SkinFragment {
         @Override
         public void onBindChild(EasyViewHolder holder, List<String> list, int position, List<Object> payloads) {
             ExpandableTextView tvContent = holder.getView(R.id.tv_content);
+            tvContent.setTextIsSelectable(true);
             tvContent.setLinkClickListener(this);
             tvContent.setContent(list.get(position));
         }

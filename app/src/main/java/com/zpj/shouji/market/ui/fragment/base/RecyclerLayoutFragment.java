@@ -66,11 +66,6 @@ public abstract class RecyclerLayoutFragment<T> extends SkinFragment
     }
 
     @Override
-    protected void initStatusBar() {
-
-    }
-
-    @Override
     public void onRefresh() {
         data.clear();
         recyclerLayout.notifyDataSetChanged();

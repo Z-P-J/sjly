@@ -1,28 +1,20 @@
 package com.zpj.shouji.market.ui.fragment.homepage;
 
 import android.graphics.Bitmap;
-import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
-import android.util.Log;
 import android.view.View;
 
 import com.zpj.blur.ZBlurry;
-import com.zpj.fragmentation.BaseFragment;
 import com.zpj.fragmentation.SupportFragment;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.constant.AppConfig;
-import com.zpj.shouji.market.event.ColorChangeEvent;
-import com.zpj.shouji.market.event.ScrollChangeEvent;
-import com.zpj.shouji.market.event.SkinChangeEvent;
-import com.zpj.shouji.market.event.ToolbarColorChangeEvent;
+import com.zpj.shouji.market.event.EventBus;
 import com.zpj.shouji.market.ui.adapter.FragmentsPagerAdapter;
-import com.zpj.shouji.market.ui.fragment.base.BaseContainerFragment;
 import com.zpj.shouji.market.ui.fragment.base.SkinFragment;
 import com.zpj.shouji.market.ui.fragment.manager.ManagerFragment;
 import com.zpj.shouji.market.ui.fragment.search.SearchFragment;
@@ -31,9 +23,6 @@ import com.zpj.shouji.market.utils.MagicIndicatorHelper;
 import com.zpj.widget.tinted.TintedImageButton;
 
 import net.lucode.hackware.magicindicator.MagicIndicator;
-
-import org.greenrobot.eventbus.EventBus;
-import org.greenrobot.eventbus.Subscribe;
 
 import java.util.ArrayList;
 
@@ -54,57 +43,57 @@ public class HomeFragment extends SkinFragment {
 
     private ZBlurry blurred;
 
-    public static class FirstFragment extends BaseContainerFragment {
-
-        @Override
-        protected SupportFragment getRootFragment() {
-            RecommendFragment2 fragment = findChildFragment(RecommendFragment2.class);
-            if (fragment == null) {
-                fragment = new RecommendFragment2();
-            }
-            return fragment;
-        }
-
-    }
-
-    public static class SecondFragment extends BaseContainerFragment {
-
-        @Override
-        protected SupportFragment getRootFragment() {
-            DiscoverFragment fragment = findChildFragment(DiscoverFragment.class);
-            if (fragment == null) {
-                fragment = DiscoverFragment.newInstance();
-            }
-            return fragment;
-        }
-
-    }
-
-    public static class ThirdFragment extends BaseContainerFragment {
-
-        @Override
-        protected SupportFragment getRootFragment() {
-            WallpaperFragment fragment = findChildFragment(WallpaperFragment.class);
-            if (fragment == null) {
-                fragment = new WallpaperFragment();
-            }
-            return fragment;
-        }
-
-    }
-
-    public static class FourthFragment extends BaseContainerFragment {
-
-        @Override
-        protected SupportFragment getRootFragment() {
-            RecommendFragment3 fragment = findChildFragment(RecommendFragment3.class);
-            if (fragment == null) {
-                fragment = new RecommendFragment3();
-            }
-            return fragment;
-        }
-
-    }
+//    public static class FirstFragment extends BaseContainerFragment {
+//
+//        @Override
+//        protected SupportFragment getRootFragment() {
+//            RecommendFragment2 fragment = findChildFragment(RecommendFragment2.class);
+//            if (fragment == null) {
+//                fragment = new RecommendFragment2();
+//            }
+//            return fragment;
+//        }
+//
+//    }
+//
+//    public static class SecondFragment extends BaseContainerFragment {
+//
+//        @Override
+//        protected SupportFragment getRootFragment() {
+//            DiscoverFragment fragment = findChildFragment(DiscoverFragment.class);
+//            if (fragment == null) {
+//                fragment = DiscoverFragment.newInstance();
+//            }
+//            return fragment;
+//        }
+//
+//    }
+//
+//    public static class ThirdFragment extends BaseContainerFragment {
+//
+//        @Override
+//        protected SupportFragment getRootFragment() {
+//            WallpaperFragment fragment = findChildFragment(WallpaperFragment.class);
+//            if (fragment == null) {
+//                fragment = new WallpaperFragment();
+//            }
+//            return fragment;
+//        }
+//
+//    }
+//
+//    public static class FourthFragment extends BaseContainerFragment {
+//
+//        @Override
+//        protected SupportFragment getRootFragment() {
+//            RecommendFragment3 fragment = findChildFragment(RecommendFragment3.class);
+//            if (fragment == null) {
+//                fragment = new RecommendFragment3();
+//            }
+//            return fragment;
+//        }
+//
+//    }
 
     @Override
     protected int getLayoutId() {
@@ -114,13 +103,11 @@ public class HomeFragment extends SkinFragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        EventBus.getDefault().register(this);
-    }
-
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-        EventBus.getDefault().unregister(this);
+        EventBus.onSkinChangeEvent(this, s -> initStatusBar());
+        EventBus.onScrollEvent(this, percent -> {
+        	alpha = percent;
+        	initStatusBar();
+        });
     }
 
     @Override
@@ -144,13 +131,12 @@ public class HomeFragment extends SkinFragment {
                         toolbar.setBackground(drawable, true);
                     }
                 });
-        blurred.pauseBlur();
 
 
         ArrayList<SupportFragment> list = new ArrayList<>();
-        RecommendFragment3 recommendFragment = findChildFragment(RecommendFragment3.class);
+        RecommendFragment recommendFragment = findChildFragment(RecommendFragment.class);
         if (recommendFragment == null) {
-            recommendFragment = new RecommendFragment3();
+            recommendFragment = new RecommendFragment();
         }
 //        RecommendFragment2 recommendFragment = findChildFragment(RecommendFragment2.class);
 //        if (recommendFragment == null) {
@@ -171,10 +157,10 @@ public class HomeFragment extends SkinFragment {
 //            recommendFragment3 = new RecommendFragment3();
 //        }
 
-        FourthFragment fourthFragment = findChildFragment(FourthFragment.class);
-        if (fourthFragment == null) {
-            fourthFragment = new FourthFragment();
-        }
+//        FourthFragment fourthFragment = findChildFragment(FourthFragment.class);
+//        if (fourthFragment == null) {
+//            fourthFragment = new FourthFragment();
+//        }
 
 //        ArrayList<Fragment> list = new ArrayList<>();
 //        FirstFragment recommendFragment = findChildFragment(FirstFragment.class);
@@ -194,7 +180,7 @@ public class HomeFragment extends SkinFragment {
         list.add(recommendFragment);
         list.add(exploreFragment);
         list.add(wallpaperFragment);
-        list.add(fourthFragment);
+//        list.add(fourthFragment);
 
         FragmentsPagerAdapter adapter = new FragmentsPagerAdapter(getChildFragmentManager(), list, TAB_TITLES);
         viewPager.setAdapter(adapter);
@@ -232,10 +218,10 @@ public class HomeFragment extends SkinFragment {
                         list.get(0).onSupportVisible();
                         break;
                     case 1:
-                        ScrollChangeEvent.post(1);
+                        EventBus.sendScrollEvent(1);
                         break;
                     case 2:
-                        ScrollChangeEvent.post(0);
+                        EventBus.sendScrollEvent(0);
                         break;
                 }
 
@@ -245,13 +231,6 @@ public class HomeFragment extends SkinFragment {
 
             @Override
             public void onPageScrollStateChanged(int i) {
-//                if (blurred != null) {
-//                    if (i == 2 && viewPager.getCurrentItem() == 2) {
-//                        blurred.pauseBlur();
-//                    } else {
-//                        blurred.startBlur();
-//                    }
-//                }
             }
         });
         MagicIndicator magicIndicator = (MagicIndicator) toolbar.getCenterCustomView();
@@ -299,22 +278,19 @@ public class HomeFragment extends SkinFragment {
 
     @Override
     protected void initStatusBar() {
-//        if (isLightStyle) {
-//            lightStatusBar();
-//        } else {
-//            darkStatusBar();
-//        }
-
         boolean isDark = alpha < 0.5f && isLazyInit();
         boolean isNightMode = AppConfig.isNightMode();
         if (isNightMode) {
-            ColorChangeEvent.post(isDark);
+//            ColorChangeEvent.post(isDark);
+            EventBus.sendColorChangeEvent(isDark);
         } else {
             if (viewPager.getCurrentItem() != 0) {
                 isDark = false;
-                ColorChangeEvent.post(false);
+//                ColorChangeEvent.post(false);
+                EventBus.sendColorChangeEvent(false);
             } else {
-                ColorChangeEvent.post(isDark);
+//                ColorChangeEvent.post(isDark);
+                EventBus.sendColorChangeEvent(isDark);
             }
         }
 
@@ -342,52 +318,5 @@ public class HomeFragment extends SkinFragment {
         btnSearch.setOnClickListener(v -> SearchFragment.start());
         btnManage.setOnClickListener(v -> ManagerFragment.start());
     }
-
-    @Subscribe
-    public void onSkinChangeEvent(SkinChangeEvent event) {
-        initStatusBar();
-    }
-
-    @Subscribe
-    public void onScrollChangeEvent(ScrollChangeEvent event) {
-        alpha = event.getPercent();
-        initStatusBar();
-
-//        boolean isDark = alpha < 0.5f;
-//
-//        isLightStyle = isDark;
-//        toolbar.setLightStyle(isLightStyle);
-//        shadowView.setVisibility(isLightStyle ? View.VISIBLE : View.GONE);
-//        int color = getResources().getColor((AppConfig.isNightMode() || isDark) ? R.color.white : R.color.color_text_major);
-//        btnManage.setTint(color);
-//        btnSearch.setTint(color);
-//
-//        if (AppConfig.isNightMode() || isDark) {
-//            lightStatusBar();
-//        } else {
-//            darkStatusBar();
-//        }
-    }
-
-    @Subscribe
-    public void onColorChangeEvent(ColorChangeEvent event) {
-//        isLightStyle = event.isDark();
-//        int color = getResources().getColor(event.isDark() ? R.color.white : R.color.color_text_major);
-//        btnManage.setTint(color);
-//        btnSearch.setTint(color);
-//        Log.d("isLightStyle", "isDark=" + event.isDark());
-//        if (event.isDark()) {
-//            lightStatusBar();
-//        } else {
-//            darkStatusBar();
-//        }
-    }
-
-    @Subscribe
-    public void onToolbarColorChangeEvent(ToolbarColorChangeEvent event) {
-//        toolbar.setBackgroundColor(event.getColor());
-//        toolbar.setLightStyle(event.isLightStyle());
-//        shadowView.setVisibility(event.isLightStyle() ? View.VISIBLE : View.GONE);
-    }
-
+    
 }

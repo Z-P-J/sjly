@@ -12,7 +12,7 @@ import com.zpj.recyclerview.EasyViewHolder;
 import com.zpj.recyclerview.IEasy;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.constant.Keys;
-import com.zpj.shouji.market.event.ScrollChangeEvent;
+import com.zpj.shouji.market.event.EventBus;
 import com.zpj.shouji.market.model.DiscoverInfo;
 import com.zpj.shouji.market.ui.fragment.theme.ThemeListFragment;
 
@@ -50,10 +50,10 @@ public class DiscoverFragment extends ThemeListFragment {
                 super.onScrolled(recyclerView, dx, dy);
                 if (!recyclerLayout.getRecyclerView().canScrollVertically(-1)) {
                     percent = 0;
-                    ScrollChangeEvent.post(0);
+                    EventBus.sendScrollEvent(0);
                 } else {
                     if (percent != 1) {
-                        ScrollChangeEvent.post(1);
+                        EventBus.sendScrollEvent(1);
                         percent = 1;
                     }
                 }

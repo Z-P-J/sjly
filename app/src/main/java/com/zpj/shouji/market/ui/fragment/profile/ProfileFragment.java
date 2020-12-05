@@ -25,13 +25,12 @@ import com.zpj.http.parser.html.nodes.Document;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.api.HttpApi;
 import com.zpj.shouji.market.constant.Keys;
-import com.zpj.shouji.market.event.StartFragmentEvent;
 import com.zpj.shouji.market.glide.GlideRequestOptions;
 import com.zpj.shouji.market.glide.transformations.CircleWithBorderTransformation;
 import com.zpj.shouji.market.manager.UserManager;
 import com.zpj.shouji.market.ui.adapter.FragmentsPagerAdapter;
 import com.zpj.shouji.market.ui.fragment.WebFragment;
-import com.zpj.shouji.market.ui.fragment.base.ListenerFragment;
+import com.zpj.shouji.market.ui.fragment.base.BaseSwipeBackFragment;
 import com.zpj.shouji.market.ui.fragment.chat.ChatFragment;
 import com.zpj.shouji.market.utils.MagicIndicatorHelper;
 import com.zpj.shouji.market.utils.PictureUtil;
@@ -43,7 +42,7 @@ import net.lucode.hackware.magicindicator.MagicIndicator;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ProfileFragment extends ListenerFragment
+public class ProfileFragment extends BaseSwipeBackFragment
         implements View.OnClickListener {
 
     public static final String DEFAULT_URL = "http://tt.shouji.com.cn/app/view_member_xml_v4.jsp?id=5636865";
@@ -86,7 +85,7 @@ public class ProfileFragment extends ListenerFragment
         Bundle bundle = new Bundle();
         bundle.putString(Keys.ID, userId);
         profileFragment.setArguments(bundle);
-        StartFragmentEvent.start(profileFragment);
+        start(profileFragment);
     }
 
     public static void start(String userName) {
@@ -94,18 +93,18 @@ public class ProfileFragment extends ListenerFragment
         Bundle bundle = new Bundle();
         bundle.putString(Keys.NAME, userName);
         profileFragment.setArguments(bundle);
-        StartFragmentEvent.start(profileFragment);
+        start(profileFragment);
     }
 
-    public static void start(String userId, FragmentLifeCycler lifeCycler) {
-        ProfileFragment profileFragment = new ProfileFragment();
-//        profileFragment.setShouldLazyLoad(shouldLazyLoad);
-        Bundle bundle = new Bundle();
-        bundle.putString(Keys.ID, userId);
-        profileFragment.setArguments(bundle);
-        profileFragment.setFragmentLifeCycler(lifeCycler);
-        StartFragmentEvent.start(profileFragment);
-    }
+//    public static void start(String userId, FragmentLifeCycler lifeCycler) {
+//        ProfileFragment profileFragment = new ProfileFragment();
+////        profileFragment.setShouldLazyLoad(shouldLazyLoad);
+//        Bundle bundle = new Bundle();
+//        bundle.putString(Keys.ID, userId);
+//        profileFragment.setArguments(bundle);
+//        profileFragment.setFragmentLifeCycler(lifeCycler);
+//        start(profileFragment);
+//    }
 
     @Override
     protected int getLayoutId() {
@@ -113,13 +112,7 @@ public class ProfileFragment extends ListenerFragment
     }
 
     @Override
-    protected boolean supportSwipeBack() {
-        return true;
-    }
-
-    @Override
-    public void onSupportVisible() {
-        super.onSupportVisible();
+    protected void initStatusBar() {
         lightStatusBar();
     }
 

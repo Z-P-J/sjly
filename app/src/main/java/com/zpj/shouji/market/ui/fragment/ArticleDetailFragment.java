@@ -21,14 +21,12 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.target.SimpleTarget;
 import com.bumptech.glide.request.transition.Transition;
 import com.felix.atoast.library.AToast;
-import com.zpj.fragmentation.BaseFragment;
 import com.zpj.fragmentation.dialog.imagetrans.ImageItemView;
 import com.zpj.fragmentation.dialog.imagetrans.listener.SourceImageViewGet;
 import com.zpj.fragmentation.dialog.impl.AttachListDialogFragment;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.api.HttpApi;
 import com.zpj.shouji.market.constant.Keys;
-import com.zpj.shouji.market.event.StartFragmentEvent;
 import com.zpj.shouji.market.glide.GlideUtils;
 import com.zpj.shouji.market.model.AppInfo;
 import com.zpj.shouji.market.model.article.ArticleDetailInfo;
@@ -37,11 +35,11 @@ import com.zpj.shouji.market.model.article.HtmlElement;
 import com.zpj.shouji.market.model.article.ImageElement;
 import com.zpj.shouji.market.model.article.LinkElement;
 import com.zpj.shouji.market.model.article.TextElement;
+import com.zpj.shouji.market.ui.fragment.base.BaseSwipeBackFragment;
 import com.zpj.shouji.market.ui.fragment.detail.AppDetailFragment;
 import com.zpj.shouji.market.ui.fragment.dialog.CommonImageViewerDialogFragment2;
 import com.zpj.shouji.market.ui.widget.DownloadButton;
 import com.zpj.shouji.market.ui.widget.selection.SelectableTextView;
-import com.zpj.shouji.market.utils.ThemeUtils;
 import com.zpj.utils.ScreenUtils;
 import com.zpj.widget.statelayout.StateLayout;
 
@@ -49,7 +47,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicBoolean;
 
-public class ArticleDetailFragment extends BaseFragment {
+public class ArticleDetailFragment extends BaseSwipeBackFragment {
 
     private String url;
     private StateLayout stateLayout;
@@ -62,7 +60,7 @@ public class ArticleDetailFragment extends BaseFragment {
         args.putString(Keys.URL, url);
         ArticleDetailFragment fragment = new ArticleDetailFragment();
         fragment.setArguments(args);
-        StartFragmentEvent.start(fragment);
+        start(fragment);
     }
 
     @Override
@@ -70,14 +68,19 @@ public class ArticleDetailFragment extends BaseFragment {
         return R.layout.fragment_article_detail;
     }
 
-    @Override
-    protected boolean supportSwipeBack() {
-        return true;
-    }
+//    @Override
+//    protected boolean supportSwipeBack() {
+//        return true;
+//    }
+
+//    @Override
+//    public void onSupportVisible() {
+//        super.onSupportVisible();
+//        lightStatusBar();
+//    }
 
     @Override
-    public void onSupportVisible() {
-        super.onSupportVisible();
+    protected void initStatusBar() {
         lightStatusBar();
     }
 

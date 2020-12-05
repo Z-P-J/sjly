@@ -15,16 +15,13 @@ import android.view.View;
 
 import com.bumptech.glide.Glide;
 import com.felix.atoast.library.AToast;
-import com.zpj.fragmentation.BaseFragment;
 import com.zpj.fragmentation.dialog.impl.AttachListDialogFragment;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.api.BookingApi;
 import com.zpj.shouji.market.api.HttpApi;
 import com.zpj.shouji.market.constant.AppConfig;
 import com.zpj.shouji.market.constant.Keys;
-import com.zpj.shouji.market.event.FabEvent;
-import com.zpj.shouji.market.event.RefreshEvent;
-import com.zpj.shouji.market.event.StartFragmentEvent;
+import com.zpj.shouji.market.event.EventBus;
 import com.zpj.shouji.market.manager.UserManager;
 import com.zpj.shouji.market.model.AppDetailInfo;
 import com.zpj.shouji.market.model.AppInfo;
@@ -37,7 +34,7 @@ import com.zpj.shouji.market.model.QuickAppInfo;
 import com.zpj.shouji.market.model.UserDownloadedAppInfo;
 import com.zpj.shouji.market.ui.adapter.FragmentsPagerAdapter;
 import com.zpj.shouji.market.ui.fragment.WebFragment;
-import com.zpj.shouji.market.ui.fragment.base.SkinFragment;
+import com.zpj.shouji.market.ui.fragment.base.BaseSwipeBackFragment;
 import com.zpj.shouji.market.ui.fragment.dialog.AppCommentDialogFragment;
 import com.zpj.shouji.market.ui.fragment.dialog.AppUrlCenterListDialogFragment;
 import com.zpj.shouji.market.ui.fragment.dialog.CommentDialogFragment;
@@ -52,13 +49,9 @@ import com.zpj.widget.tinted.TintedImageButton;
 
 import net.lucode.hackware.magicindicator.MagicIndicator;
 
-import org.greenrobot.eventbus.EventBus;
-import org.greenrobot.eventbus.Subscribe;
-import org.greenrobot.eventbus.ThreadMode;
-
 import java.util.ArrayList;
 
-public class AppDetailFragment extends SkinFragment
+public class AppDetailFragment extends BaseSwipeBackFragment
         implements View.OnClickListener {
 
     private static final String TAG = "AppDetailFragment";
@@ -96,7 +89,7 @@ public class AppDetailFragment extends SkinFragment
         args.putString(Keys.TYPE, type);
         AppDetailFragment fragment = new AppDetailFragment();
         fragment.setArguments(args);
-        StartFragmentEvent.start(fragment);
+        start(fragment);
     }
 
     public static void start(BookingAppInfo appInfo) {
@@ -107,7 +100,7 @@ public class AppDetailFragment extends SkinFragment
         args.putBoolean(AUTO_DOWNLOAD, appInfo.isAutoDownload());
         AppDetailFragment fragment = new AppDetailFragment();
         fragment.setArguments(args);
-        StartFragmentEvent.start(fragment);
+        start(fragment);
     }
 
     public static void start(AppInfo item) {
@@ -145,14 +138,16 @@ public class AppDetailFragment extends SkinFragment
     }
 
     @Override
-    protected boolean supportSwipeBack() {
-        return true;
-    }
-
-    @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        EventBus.getDefault().register(this);
+//        EventBus.getDefault().register(this);
+        EventBus.onFabEvent(this, show -> {
+            if (show) {
+                fabComment.show();
+            } else {
+                fabComment.hide();
+            }
+        });
     }
 
 //    @Override
@@ -172,7 +167,8 @@ public class AppDetailFragment extends SkinFragment
     @Override
     public void onDestroy() {
         commentDialogFragment = null;
-        EventBus.getDefault().unregister(this);
+        EventBus.removeGetAppInfoEvent();
+//        EventBus.getDefault().unregister(this);
         super.onDestroy();
     }
 
@@ -236,9 +232,9 @@ public class AppDetailFragment extends SkinFragment
             exploreFragment = AppDetailThemeFragment.newInstance(id, type);
         }
 
-        AppDetailRecommendFragment2 recommendFragment = findChildFragment(AppDetailRecommendFragment2.class);
+        AppDetailRecommendFragment recommendFragment = findChildFragment(AppDetailRecommendFragment.class);
         if (recommendFragment == null) {
-            recommendFragment = AppDetailRecommendFragment2.newInstance(id, type);
+            recommendFragment = AppDetailRecommendFragment.newInstance(id, type);
         }
         list.add(infoFragment);
         list.add(commentFragment);
@@ -338,7 +334,8 @@ public class AppDetailFragment extends SkinFragment
                         }
 
                         initViewPager();
-                        postDelayed(() -> EventBus.getDefault().post(info), 50);
+//                        EventBus.post(info, 50);
+                        EventBus.sendGetAppInfoEvent(info);
                         stateLayout.showContentView();
                         lightStatusBar();
                     });
@@ -347,14 +344,14 @@ public class AppDetailFragment extends SkinFragment
                 .subscribe();
     }
 
-    @Subscribe(threadMode = ThreadMode.MAIN)
-    public void onFabEvent(FabEvent event) {
-        if (event.isShow()) {
-            fabComment.show();
-        } else {
-            fabComment.hide();
-        }
-    }
+//    @Subscribe(threadMode = ThreadMode.MAIN)
+//    public void onFabEvent(FabEvent event) {
+//        if (event.isShow()) {
+//            fabComment.show();
+//        } else {
+//            fabComment.hide();
+//        }
+//    }
 
     @Override
     public void onClick(View v) {
@@ -452,7 +449,7 @@ public class AppDetailFragment extends SkinFragment
                 commentDialogFragment.setOnDismissListener(() -> {
                     setSwipeBackEnable(true);
                     fabComment.show();
-                    RefreshEvent.postEvent();
+                    EventBus.sendRefreshEvent();
                 });
             }
             commentDialogFragment.show(context);

@@ -9,48 +9,24 @@ import android.text.TextWatcher;
 import android.view.View;
 
 import com.felix.atoast.library.AToast;
-import com.zpj.fragmentation.BaseFragment;
 import com.zpj.shouji.market.R;
-import com.zpj.shouji.market.event.StartFragmentEvent;
+import com.zpj.shouji.market.event.EventBus;
 import com.zpj.shouji.market.ui.adapter.FragmentsPagerAdapter;
-import com.zpj.shouji.market.ui.fragment.base.SkinFragment;
+import com.zpj.shouji.market.ui.fragment.base.BaseSwipeBackFragment;
 import com.zpj.shouji.market.ui.widget.ZViewPager;
 import com.zpj.shouji.market.utils.ThemeUtils;
 import com.zpj.widget.toolbar.ZSearchBar;
 
-import org.greenrobot.eventbus.EventBus;
-
 import java.util.ArrayList;
 import java.util.List;
 
-public class SearchFragment extends SkinFragment {
-
-    static class SearchEvent {
-        String keyword;
-
-        SearchEvent(String keyword) {
-            this.keyword = keyword;
-        }
-
-        public static void post(String keyword) {
-            EventBus.getDefault().post(new SearchEvent(keyword));
-        }
-
-    }
-
-    static class TextChangedEvent {
-        String keyword;
-
-        TextChangedEvent(String keyword) {
-            this.keyword = keyword;
-        }
-    }
+public class SearchFragment extends BaseSwipeBackFragment {
 
     private ZSearchBar searchBar;
     private ZViewPager viewPager;
 
     public static void start() {
-        StartFragmentEvent.start(new SearchFragment());
+        start(new SearchFragment());
     }
 
     @Override
@@ -59,8 +35,8 @@ public class SearchFragment extends SkinFragment {
     }
 
     @Override
-    protected boolean supportSwipeBack() {
-        return true;
+    protected void initStatusBar() {
+        ThemeUtils.initStatusBar(this);
     }
 
     @Override
@@ -81,7 +57,7 @@ public class SearchFragment extends SkinFragment {
                 if (TextUtils.isEmpty(s.toString()) && viewPager.getCurrentItem() == 1) {
                     viewPager.setCurrentItem(0, true);
                 }
-                EventBus.getDefault().post(new TextChangedEvent(s.toString()));
+                EventBus.sendKeywordChangeEvent(s.toString());
             }
 
             @Override
@@ -131,17 +107,6 @@ public class SearchFragment extends SkinFragment {
     }
 
     @Override
-    public void onEnterAnimationEnd(Bundle savedInstanceState) {
-        super.onEnterAnimationEnd(savedInstanceState);
-
-    }
-
-    @Override
-    public void onSupportVisible() {
-        super.onSupportVisible();
-    }
-
-    @Override
     public void onSupportInvisible() {
         super.onSupportInvisible();
         hideSoftInput();
@@ -153,21 +118,14 @@ public class SearchFragment extends SkinFragment {
         super.onDestroy();
     }
 
-    //    @Override
-//    public FragmentAnimator onCreateFragmentAnimator() {
-//        return new DefaultHorizontalAnimator();
-//    }
-
     private boolean getSearchResult(String text) {
-//        AToast.normal("TODO getSearchResult");
         hideSoftInput();
         if (TextUtils.isEmpty(text)) {
             AToast.warning("关键词不能为空");
             return false;
         }
         viewPager.setCurrentItem(1, true);
-        SearchEvent.post(text);
-//        EventBus.getDefault().post(new SearchEvent(text));
+        EventBus.sendSearchEvent(text);
         return true;
     }
 

@@ -5,10 +5,7 @@ import android.support.annotation.Nullable;
 import android.view.View;
 
 import com.zpj.shouji.market.R;
-import com.zpj.shouji.market.constant.AppConfig;
 import com.zpj.shouji.market.constant.Keys;
-import com.zpj.shouji.market.event.StartFragmentEvent;
-import com.zpj.shouji.market.utils.ThemeUtils;
 
 public class ToolBarAppListFragment extends AppListFragment {
 
@@ -28,13 +25,7 @@ public class ToolBarAppListFragment extends AppListFragment {
         args.putString(Keys.TITLE, title);
         ToolBarAppListFragment fragment = new ToolBarAppListFragment();
         fragment.setArguments(args);
-        StartFragmentEvent.start(fragment);
-    }
-
-    @Override
-    public void onSupportVisible() {
-        super.onSupportVisible();
-        ThemeUtils.initStatusBar(this);
+        start(fragment);
     }
 
     public static void startRecentUpdate() {

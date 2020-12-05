@@ -13,7 +13,6 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.felix.atoast.library.AToast;
-import com.zpj.fragmentation.BaseFragment;
 import com.zpj.http.core.IHttp;
 import com.zpj.matisse.Matisse;
 import com.zpj.matisse.MimeType;
@@ -22,9 +21,8 @@ import com.zpj.matisse.entity.Item;
 import com.zpj.matisse.listener.OnSelectedListener;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.api.WallpaperApi;
-import com.zpj.shouji.market.event.StartFragmentEvent;
 import com.zpj.shouji.market.model.WallpaperTag;
-import com.zpj.shouji.market.ui.fragment.base.SkinFragment;
+import com.zpj.shouji.market.ui.fragment.base.BaseSwipeBackFragment;
 import com.zpj.shouji.market.ui.fragment.profile.UserPickerFragment;
 import com.zpj.shouji.market.ui.widget.ActionPanel;
 import com.zpj.shouji.market.ui.widget.flowlayout.FlowLayout;
@@ -34,7 +32,7 @@ import com.zpj.utils.ScreenUtils;
 import java.io.File;
 import java.util.List;
 
-public class WallpaperShareFragment extends SkinFragment
+public class WallpaperShareFragment extends BaseSwipeBackFragment
         implements View.OnClickListener {
 
     private EditText etContent;
@@ -50,17 +48,12 @@ public class WallpaperShareFragment extends SkinFragment
     private boolean isPrivate;
 
     public static void start() {
-        StartFragmentEvent.start(new WallpaperShareFragment());
+        start(new WallpaperShareFragment());
     }
 
     @Override
     protected int getLayoutId() {
         return R.layout.fragment_wallpaper_share;
-    }
-
-    @Override
-    protected boolean supportSwipeBack() {
-        return true;
     }
 
     @Override
@@ -110,11 +103,6 @@ public class WallpaperShareFragment extends SkinFragment
                 }
             });
         });
-    }
-
-    @Override
-    public void onSupportVisible() {
-        super.onSupportVisible();
     }
 
     @Override

@@ -6,31 +6,29 @@ import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.view.View;
 
-import com.zpj.fragmentation.BaseFragment;
 import com.zpj.fragmentation.SupportFragment;
 import com.zpj.http.parser.html.nodes.Element;
 import com.zpj.recyclerview.EasyViewHolder;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.api.HttpApi;
 import com.zpj.shouji.market.constant.Keys;
-import com.zpj.shouji.market.event.StartFragmentEvent;
 import com.zpj.shouji.market.model.CollectionInfo;
 import com.zpj.shouji.market.model.DiscoverInfo;
 import com.zpj.shouji.market.ui.adapter.FragmentsPagerAdapter;
 import com.zpj.shouji.market.ui.fragment.AppListFragment;
+import com.zpj.shouji.market.ui.fragment.base.BaseSwipeBackFragment;
 import com.zpj.shouji.market.ui.fragment.collection.CollectionListFragment;
 import com.zpj.shouji.market.ui.fragment.dialog.ThemeMoreDialogFragment;
 import com.zpj.shouji.market.ui.fragment.theme.ThemeListFragment;
 import com.zpj.shouji.market.ui.fragment.wallpaper.WallpaperListFragment;
 import com.zpj.shouji.market.utils.MagicIndicatorHelper;
-import com.zpj.shouji.market.utils.ThemeUtils;
 
 import net.lucode.hackware.magicindicator.MagicIndicator;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class MyCollectionFragment extends BaseFragment {
+public class MyCollectionFragment extends BaseSwipeBackFragment {
 
     private static final String[] TAB_TITLES = {"应用", "应用集", "发现", "乐图", "评论", "专题", "攻略", "教程"};
 
@@ -50,17 +48,12 @@ public class MyCollectionFragment extends BaseFragment {
     }
 
     public static void start(String id) {
-        StartFragmentEvent.start(newInstance(id, true));
+        start(newInstance(id, true));
     }
 
     @Override
     protected int getLayoutId() {
         return R.layout.fragment_my_viewpager;
-    }
-
-    @Override
-    protected boolean supportSwipeBack() {
-        return true;
     }
 
     @Override
@@ -91,13 +84,13 @@ public class MyCollectionFragment extends BaseFragment {
         }
     }
 
-    @Override
-    public void onSupportVisible() {
-        super.onSupportVisible();
-        if (showToolbar) {
-            ThemeUtils.initStatusBar(this);
-        }
-    }
+//    @Override
+//    public void onSupportVisible() {
+//        super.onSupportVisible();
+//        if (showToolbar) {
+//            ThemeUtils.initStatusBar(this);
+//        }
+//    }
 
     private void initViewPager() {
         List<Fragment> fragments = new ArrayList<>();

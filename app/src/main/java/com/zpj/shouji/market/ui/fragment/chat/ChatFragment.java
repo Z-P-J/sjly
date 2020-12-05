@@ -10,7 +10,6 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
-import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
@@ -30,7 +29,6 @@ import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.api.HttpApi;
 import com.zpj.shouji.market.constant.AppConfig;
 import com.zpj.shouji.market.constant.Keys;
-import com.zpj.shouji.market.event.StartFragmentEvent;
 import com.zpj.shouji.market.manager.UserManager;
 import com.zpj.shouji.market.model.PrivateLetterInfo;
 import com.zpj.shouji.market.ui.adapter.DiscoverBinder;
@@ -41,7 +39,6 @@ import com.zpj.shouji.market.ui.fragment.dialog.CommonImageViewerDialogFragment2
 import com.zpj.shouji.market.ui.fragment.profile.ProfileFragment;
 import com.zpj.shouji.market.ui.widget.ReplyPanel;
 import com.zpj.shouji.market.utils.BeanUtils;
-import com.zpj.shouji.market.utils.ThemeUtils;
 import com.zpj.utils.KeyboardObserver;
 import com.zpj.utils.NetUtils;
 
@@ -67,7 +64,7 @@ public class ChatFragment extends NextUrlFragment<PrivateLetterInfo>
         args.putString(Keys.TITLE, title);
         ChatFragment fragment = new ChatFragment();
         fragment.setArguments(args);
-        StartFragmentEvent.start(fragment);
+        start(fragment);
     }
 
     @Override
@@ -102,11 +99,6 @@ public class ChatFragment extends NextUrlFragment<PrivateLetterInfo>
         super.handleArguments(arguments);
         setToolbarTitle(arguments.getString(Keys.TITLE, ""));
         userId = arguments.getString(Keys.ID, "");
-    }
-
-    @Override
-    protected void initStatusBar() {
-        ThemeUtils.initStatusBar(this);
     }
 
     @Override

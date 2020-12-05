@@ -253,7 +253,7 @@ public class WallpaperViewerDialogFragment2 extends ImageViewerDialogFragment2<S
                 discoverInfo.setContentType("discuss");
                 discoverInfo.setSupportCount(String.valueOf(wallpaperInfo.getSupportCount()));
                 discoverInfo.setSupportUserInfoList(wallpaperInfo.getSupportUserInfoList());
-                ThemeDetailFragment.start(discoverInfo, wallpaperInfo.getSpic(), null);
+                ThemeDetailFragment.start(discoverInfo, wallpaperInfo.getSpic());
                 break;
             case R.id.tv_support:
                 supportWallpaper();

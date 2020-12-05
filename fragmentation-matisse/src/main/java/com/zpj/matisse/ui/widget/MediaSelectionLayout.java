@@ -34,17 +34,13 @@ import com.zpj.matisse.entity.Album;
 import com.zpj.matisse.entity.IncapableCause;
 import com.zpj.matisse.entity.Item;
 import com.zpj.matisse.entity.SelectionSpec;
-import com.zpj.matisse.event.UpdateTitleEvent;
 import com.zpj.matisse.model.AlbumMediaManager;
 import com.zpj.matisse.model.SelectedItemManager;
 import com.zpj.matisse.ui.fragment.CustomImageViewerDialogFragment2;
-import com.zpj.matisse.ui.fragment.MatisseFragment;
 import com.zpj.matisse.utils.UIUtils;
 import com.zpj.recyclerview.EasyRecyclerLayout;
 import com.zpj.recyclerview.EasyViewHolder;
 import com.zpj.recyclerview.IEasy;
-
-import org.greenrobot.eventbus.EventBus;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -122,7 +118,7 @@ public class MediaSelectionLayout extends EasyRecyclerLayout<Item> implements
 
     public void onDestroy() {
         mAlbumMediaManager.onDestroy();
-        EventBus.getDefault().post(new UpdateTitleEvent(MatisseFragment.TITLE));
+//        EventBus.getDefault().post(new UpdateTitleEvent(MatisseFragment.TITLE));
         mSelectedCollection.removeOnCheckStateListener(this);
     }
 

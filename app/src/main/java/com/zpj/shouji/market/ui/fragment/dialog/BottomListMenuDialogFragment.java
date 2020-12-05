@@ -14,6 +14,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.zpj.fragmentation.dialog.base.BottomDialogFragment;
@@ -23,6 +24,7 @@ import com.zpj.recyclerview.IEasy;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.utils.ThemeUtils;
 import com.zpj.widget.tinted.TintedImageView;
+import com.zxy.skin.sdk.SkinEngine;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -95,9 +97,10 @@ public class BottomListMenuDialogFragment extends BottomDialogFragment
 
     @Override
     public void onBindViewHolder(EasyViewHolder holder, List<MenuItem> list, int position, List<Object> payloads) {
-        TintedImageView ivIcon = holder.getView(R.id.iv_icon);
+        ImageView ivIcon = holder.getView(R.id.iv_icon);
 //        ivIcon.setTint(ThemeUtils.getTextColorMajor(context));
         ivIcon.setImageDrawable(list.get(position).getIcon());
+        SkinEngine.applyViewAttr(ivIcon, "tint", R.attr.textColorMajor);
         holder.setText(R.id.tv_title, list.get(position).getTitle());
     }
 

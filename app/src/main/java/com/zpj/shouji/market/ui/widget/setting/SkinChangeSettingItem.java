@@ -7,7 +7,7 @@ import android.view.View;
 
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.constant.AppConfig;
-import com.zpj.shouji.market.event.SkinChangeEvent;
+import com.zpj.shouji.market.event.EventBus;
 import com.zpj.shouji.market.utils.SkinChangeAnimation;
 import com.zpj.widget.setting.SwitchSettingItem;
 import com.zxy.skin.sdk.SkinEngine;
@@ -42,7 +42,8 @@ public class SkinChangeSettingItem extends SwitchSettingItem
                 .start();
         SkinEngine.changeSkin(AppConfig.isNightMode() ? R.style.DayTheme : R.style.NightTheme);
         AppConfig.toggleThemeMode();
-        SkinChangeEvent.post(AppConfig.isNightMode());
+//        SkinChangeEvent.post(AppConfig.isNightMode());
+        EventBus.sendSkinChangeEvent();
     }
 
     @Override

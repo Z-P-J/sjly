@@ -21,12 +21,11 @@ import com.zpj.fragmentation.dialog.impl.AttachListDialogFragment;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.api.HttpApi;
 import com.zpj.shouji.market.constant.AppConfig;
-import com.zpj.shouji.market.event.IconUploadSuccessEvent;
+import com.zpj.shouji.market.event.EventBus;
 import com.zpj.shouji.market.event.SignInEvent;
-import com.zpj.shouji.market.event.SignOutEvent;
-import com.zpj.shouji.market.event.SkinChangeEvent;
 import com.zpj.shouji.market.manager.UserManager;
 import com.zpj.shouji.market.model.MemberInfo;
+import com.zpj.shouji.market.model.MessageInfo;
 import com.zpj.shouji.market.ui.fragment.FeedbackFragment;
 import com.zpj.shouji.market.ui.fragment.WebFragment;
 import com.zpj.shouji.market.ui.fragment.backup.CloudBackupFragment;
@@ -37,25 +36,18 @@ import com.zpj.shouji.market.ui.fragment.manager.DownloadManagerFragment;
 import com.zpj.shouji.market.ui.fragment.manager.InstalledManagerFragment;
 import com.zpj.shouji.market.ui.fragment.manager.PackageManagerFragment;
 import com.zpj.shouji.market.ui.fragment.manager.UpdateManagerFragment;
-import com.zpj.shouji.market.ui.fragment.search.SearchFragment;
 import com.zpj.shouji.market.ui.fragment.setting.AboutSettingFragment;
 import com.zpj.shouji.market.ui.fragment.setting.SettingFragment;
 import com.zpj.shouji.market.ui.widget.PullZoomView;
 import com.zpj.shouji.market.ui.widget.ToolBoxCard;
 import com.zpj.shouji.market.utils.PictureUtil;
-import com.zpj.shouji.market.utils.SkinChangeAnimation;
 import com.zpj.shouji.market.utils.UploadUtils;
 import com.zpj.utils.ClickHelper;
-import com.zpj.utils.ColorUtils;
 import com.zpj.widget.setting.SwitchSettingItem;
 import com.zpj.widget.tinted.TintedImageView;
-import com.zxy.skin.sdk.SkinEngine;
-
-import org.greenrobot.eventbus.EventBus;
-import org.greenrobot.eventbus.Subscribe;
 
 public class MyFragment extends SkinFragment
-        implements View.OnClickListener { // UserManager.OnSignInListener
+        implements View.OnClickListener {
 
     private ImageView ivWallpaper;
     private TextView tvName;
@@ -97,6 +89,69 @@ public class MyFragment extends SkinFragment
     @Override
     protected int getLayoutId() {
         return R.layout.fragment_my;
+    }
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        EventBus.onSkinChangeEvent(this, s -> {
+            initStatusBar();
+            if (toolBoxCard != null) {
+                toolBoxCard.initBackground();
+            }
+        });
+        EventBus.onSignOutEvent(this, s -> {
+            toolBoxCard.onSignOut();
+            tvCheckIn.setVisibility(View.GONE);
+            tvSignOut.setVisibility(View.GONE);
+            tvName.setText("点击头像登录");
+            tvLevel.setText("Lv.0");
+            tvSignature.setText("手机乐园，发现应用的乐趣");
+            tvFollower.setText("关注 0");
+            tvFans.setText("粉丝 0");
+            ivAvatar.setImageResource(R.drawable.ic_user_head);
+            ivWallpaper.setImageResource(R.drawable.bg_member_default);
+            AToast.success("注销成功");
+        });
+        EventBus.registerObserver(this, SignInEvent.class, event -> {
+            if (event.isSuccess()) {
+                toolBoxCard.onLogin();
+                MemberInfo info = UserManager.getInstance().getMemberInfo();
+                tvCheckIn.setVisibility(View.VISIBLE);
+                if (!info.isCanSigned()) {
+                    tvCheckIn.setBackgroundResource(R.drawable.bg_button_round_pink);
+                    tvCheckIn.setText("已签到");
+                }
+                tvEditInfo.setText("编辑");
+                tvName.setText(info.getMemberNickName());
+                tvLevel.setText("Lv." + info.getMemberLevel());
+                if (TextUtils.isEmpty(info.getMemberSignature())) {
+                    tvSignature.setText(info.getMemberScoreInfo());
+                } else {
+                    tvSignature.setText(info.getMemberSignature());
+                }
+                tvFollower.setText("关注 " + info.getFollowerCount());
+                tvFans.setText("粉丝 " + info.getFansCount());
+                PictureUtil.loadAvatar(ivAvatar);
+                PictureUtil.loadBackground(ivWallpaper);
+                tvSignOut.setVisibility(View.VISIBLE);
+            } else {
+                tvCheckIn.setVisibility(View.GONE);
+                tvEditInfo.setText("未登录");
+            }
+        });
+
+        EventBus.onImageUploadEvent(this, event -> {
+            if (event.isAvatar()) {
+                PictureUtil.loadAvatar(ivAvatar);
+            } else {
+                PictureUtil.loadBackground(ivWallpaper);
+            }
+        });
+
+        EventBus.registerObserver(this, MessageInfo.class, info -> {
+            toolBoxCard.onUpdateMessage(info);
+        });
     }
 
     @Override
@@ -172,7 +227,6 @@ public class MyFragment extends SkinFragment
         tvFollower = view.findViewById(R.id.tv_follower);
         tvFans = view.findViewById(R.id.tv_fans);
         toolBoxCard = view.findViewById(R.id.my_tools_card);
-        EventBus.getDefault().register(toolBoxCard);
 
         tvDownloadManaer = findViewById(R.id.tv_download_manager);
         tvAppManager = findViewById(R.id.tv_app_manager);
@@ -204,20 +258,6 @@ public class MyFragment extends SkinFragment
         tvInstallSetting.setOnClickListener(this);
         tvAbout.setOnClickListener(this);
         tvSignOut.setOnClickListener(this);
-
-//        ClickHelper.with(tvNightMode)
-//                .setOnLongClickListener((v, x, y) -> true)
-//                .setOnClickListener((v, x, y) -> {
-//                    tvNightMode.setChecked(!tvNightMode.isChecked());
-//                    SkinChangeAnimation.with(context)
-//                            .setStartPosition(x, y)
-//                            .setStartRadius(0)
-//                            .setDuration(500)
-//                            .start();
-////                    new SkinChangeAnimationView(context, x, y, 0).setDuration(1000).start();
-//                    SkinEngine.changeSkin(AppConfig.isNightMode() ? R.style.DayTheme : R.style.NightTheme);
-//                    AppConfig.toggleThemeMode();
-//                });
 
         tvDownloadManaer.setOnClickListener(this);
         tvUpdateManager.setOnClickListener(this);
@@ -297,7 +337,8 @@ public class MyFragment extends SkinFragment
                 });
 
 //        UserManager.getInstance().addOnSignInListener(this);
-        onSignInEvent(new SignInEvent(UserManager.getInstance().isLogin()));
+//        onSignInEvent(new SignInEvent(UserManager.getInstance().isLogin()));
+        SignInEvent.post(UserManager.getInstance().isLogin());
     }
 
     @Override
@@ -324,17 +365,6 @@ public class MyFragment extends SkinFragment
 
     @Override
     protected void initStatusBar() {
-//        super.initStatusBar();
-//        if (AppConfig.isNightMode()) {
-//            lightStatusBar();
-//        } else {
-//            if (isLightStyle) {
-//                lightStatusBar();
-//            } else {
-//                darkStatusBar();
-//            }
-//        }
-
         if (AppConfig.isNightMode()) {
             toolbar.setLightStyle(true);
             ivAppName.setTint(Color.WHITE);
@@ -353,44 +383,12 @@ public class MyFragment extends SkinFragment
             shadowView.setVisibility(View.GONE);
             ivAppName.setTint(Color.WHITE);
         }
-
-
-//        if (alpha > 0.5) {
-//            isLightStyle = false;
-//            darkStatusBar();
-////            lightStatusBar();
-//            shadowView.setVisibility(View.VISIBLE);
-//            ivAppName.setTint(Color.BLACK);
-//        } else {
-//            isLightStyle = true;
-//            lightStatusBar();
-//            shadowView.setVisibility(View.GONE);
-//            ivAppName.setTint(Color.WHITE);
-//        }
-
-    }
-
-    @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        EventBus.getDefault().register(this);
-    }
-
-    @Override
-    public void onDestroy() {
-        EventBus.getDefault().unregister(toolBoxCard);
-        EventBus.getDefault().unregister(this);
-//        UserManager.getInstance().removeOnSignInListener(this);
-//        if (loginPopup != null && loginPopup.isShow()) {
-//            loginPopup.dismiss();
-//        }
-        super.onDestroy();
     }
 
     @Override
     public void onResume() {
         super.onResume();
-        UserManager.getInstance().getMessageInfo().post();
+        EventBus.post(UserManager.getInstance().getMessageInfo());
     }
 
     @Override
@@ -525,151 +523,39 @@ public class MyFragment extends SkinFragment
         }
     }
 
-    @Subscribe
-    public void onSignInEvent(SignInEvent event) {
-        if (event.isSuccess()) {
-            toolBoxCard.onLogin();
-            MemberInfo info = UserManager.getInstance().getMemberInfo();
-            tvCheckIn.setVisibility(View.VISIBLE);
-            if (!info.isCanSigned()) {
-                tvCheckIn.setBackgroundResource(R.drawable.bg_button_round_pink);
-                tvCheckIn.setText("已签到");
-            }
-            tvEditInfo.setText("编辑");
-            tvName.setText(info.getMemberNickName());
-            tvLevel.setText("Lv." + info.getMemberLevel());
-            if (TextUtils.isEmpty(info.getMemberSignature())) {
-                tvSignature.setText(info.getMemberScoreInfo());
-            } else {
-                tvSignature.setText(info.getMemberSignature());
-            }
-            tvFollower.setText("关注 " + info.getFollowerCount());
-            tvFans.setText("粉丝 " + info.getFansCount());
-//            Glide.with(context).load(info.getMemberAvatar())
-//                    .apply(new RequestOptions()
-//                            .error(R.drawable.ic_user_head)
-//                            .placeholder(R.drawable.ic_user_head)
-//                    )
-//                    .into(ivAvatar);
-            PictureUtil.loadAvatar(ivAvatar);
-//            if (!TextUtils.isEmpty(info.getMemberBackGround())) {
-//                Glide.with(context).load(info.getMemberBackGround())
-//                        .apply(new RequestOptions()
-//                                .error(R.drawable.bg_member_default)
-//                                .placeholder(R.drawable.bg_member_default)
-//                        )
-//                        .into(ivWallpaper);
-//            }
-            PictureUtil.loadBackground(ivWallpaper);
-            tvSignOut.setVisibility(View.VISIBLE);
-        } else {
-            tvCheckIn.setVisibility(View.GONE);
-            tvEditInfo.setText("未登录");
-        }
-    }
-
 //    @Subscribe
-//    public void onCropEvent(CropEvent event) {
-//        AToast.success("path=" + event.getUri().getPath());
-//        if (event.isAvatar()) {
-//            ShowLoadingEvent.post("上传头像...");
-//            try {
-//                HttpApi.uploadAvatarApi(event.getUri())
-//                        .onSuccess(doc -> {
-//                            Log.d("uploadAvatarApi", "data=" + doc);
-//                            String info = doc.selectFirst("info").text();
-//                            if ("success".equals(doc.selectFirst("result").text())) {
-//                                AToast.success(info);
-//                                Glide.with(context)
-//                                        .load(event.getUri())
-//                                        .apply(
-//                                                new RequestOptions()
-//                                                        .error(R.drawable.ic_user_head)
-//                                                        .placeholder(R.drawable.ic_user_head)
-//                                        )
-//                                        .into(ivAvatar);
-//                                UserManager.getInstance().getMemberInfo().setMemberAvatar(info);
-//                                UserManager.getInstance().saveUserInfo();
-//                            } else {
-//                                AToast.error(info);
-//                            }
-//                            HideLoadingEvent.postDelayed(500);
-//                        })
-//                        .onError(throwable -> {
-//                            AToast.error("上传头像失败！" + throwable.getMessage());
-//                            HideLoadingEvent.postDelayed(500);
-//                        })
-//                        .subscribe();
-//            } catch (Exception e) {
-//                e.printStackTrace();
-//                AToast.error("上传头像失败！" + e.getMessage());
-//                HideLoadingEvent.postDelayed(500);
+//    public void onSignInEvent(SignInEvent event) {
+//        if (event.isSuccess()) {
+//            toolBoxCard.onLogin();
+//            MemberInfo info = UserManager.getInstance().getMemberInfo();
+//            tvCheckIn.setVisibility(View.VISIBLE);
+//            if (!info.isCanSigned()) {
+//                tvCheckIn.setBackgroundResource(R.drawable.bg_button_round_pink);
+//                tvCheckIn.setText("已签到");
 //            }
+//            tvEditInfo.setText("编辑");
+//            tvName.setText(info.getMemberNickName());
+//            tvLevel.setText("Lv." + info.getMemberLevel());
+//            if (TextUtils.isEmpty(info.getMemberSignature())) {
+//                tvSignature.setText(info.getMemberScoreInfo());
+//            } else {
+//                tvSignature.setText(info.getMemberSignature());
+//            }
+//            tvFollower.setText("关注 " + info.getFollowerCount());
+//            tvFans.setText("粉丝 " + info.getFansCount());
+//            PictureUtil.loadAvatar(ivAvatar);
+//            PictureUtil.loadBackground(ivWallpaper);
+//            tvSignOut.setVisibility(View.VISIBLE);
 //        } else {
-//            ShowLoadingEvent.post("上传背景...");
-//            try {
-//                HttpApi.uploadBackgroundApi(event.getUri())
-//                        .onSuccess(doc -> {
-//                            Log.d("uploadBackgroundApi", "data=" + doc);
-//                            String info = doc.selectFirst("info").text();
-//                            if ("success".equals(doc.selectFirst("result").text())) {
-////                                AToast.success(info);
-//                                Glide.with(context)
-//                                        .load(event.getUri())
-//                                        .apply(
-//                                                new RequestOptions()
-//                                                        .error(R.drawable.bg_member_default)
-//                                                        .placeholder(R.drawable.bg_member_default)
-//                                        )
-//                                        .into(ivWallpaper);
-//                                UserManager.getInstance().getMemberInfo().setMemberBackGround(info);
-//                                UserManager.getInstance().saveUserInfo();
-//                            } else {
-//                                AToast.error(info);
-//                            }
-//                            HideLoadingEvent.postDelayed(500);
-//                        })
-//                        .onError(throwable -> {
-//                            AToast.error("上传背景失败！" + throwable.getMessage());
-//                            HideLoadingEvent.postDelayed(500);
-//                        })
-//                        .subscribe();
-//            } catch (Exception e) {
-//                e.printStackTrace();
-//                AToast.error("上传背景失败！" + e.getMessage());
-//                HideLoadingEvent.postDelayed(500);
-//            }
+//            tvCheckIn.setVisibility(View.GONE);
+//            tvEditInfo.setText("未登录");
 //        }
 //    }
 
-    @Subscribe
-    public void onSkinChangeEvent(SkinChangeEvent event) {
-        initStatusBar();
-    }
-
-    @Subscribe
-    public void onIconUploadSuccessEvent(IconUploadSuccessEvent event) {
-        if (event.isAvatar()) {
-            PictureUtil.loadAvatar(ivAvatar);
-        } else {
-            PictureUtil.loadBackground(ivWallpaper);
-        }
-    }
-
-    @Subscribe
-    public void onSignOutEvent(SignOutEvent event) {
-        toolBoxCard.onSignOut();
-        tvCheckIn.setVisibility(View.GONE);
-        tvSignOut.setVisibility(View.GONE);
-        tvName.setText("点击头像登录");
-        tvLevel.setText("Lv.0");
-        tvSignature.setText("手机乐园，发现应用的乐趣");
-        tvFollower.setText("关注 0");
-        tvFans.setText("粉丝 0");
-        ivAvatar.setImageResource(R.drawable.ic_user_head);
-        ivWallpaper.setImageResource(R.drawable.bg_member_default);
-        AToast.success("注销成功");
-    }
+//    @Subscribe
+//    public void onSkinChangeEvent(SkinChangeEvent event) {
+//        initStatusBar();
+//    }
 
     public void showLoginPopup(int page) {
         _mActivity.setFragmentAnimator(new DefaultVerticalAnimator());

@@ -27,19 +27,18 @@ import android.support.annotation.RequiresApi;
 import android.support.annotation.StyleRes;
 
 import com.felix.atoast.library.AToast;
+import com.lxj.xpermission.PermissionConstants;
+import com.lxj.xpermission.XPermission;
 import com.zpj.fragmentation.SupportActivity;
 import com.zpj.fragmentation.SupportFragment;
 import com.zpj.matisse.engine.ImageEngine;
-import com.zpj.matisse.entity.Item;
-import com.zpj.matisse.filter.Filter;
 import com.zpj.matisse.entity.CaptureStrategy;
+import com.zpj.matisse.entity.Item;
 import com.zpj.matisse.entity.SelectionSpec;
+import com.zpj.matisse.filter.Filter;
 import com.zpj.matisse.listener.OnCheckedListener;
 import com.zpj.matisse.listener.OnSelectedListener;
 import com.zpj.matisse.model.SelectedItemManager;
-import com.zpj.matisse.ui.fragment.MatisseFragment;
-import com.lxj.xpermission.PermissionConstants;
-import com.lxj.xpermission.XPermission;
 import com.zpj.matisse.ui.fragment.MatisseFragment2;
 
 import java.lang.annotation.Retention;

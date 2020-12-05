@@ -1,8 +1,6 @@
 package com.zpj.shouji.market.api;
 
 import android.content.Context;
-import android.graphics.Color;
-import android.net.Uri;
 import android.text.TextUtils;
 import android.util.Base64;
 import android.util.Log;
@@ -11,20 +9,18 @@ import com.felix.atoast.library.AToast;
 import com.zpj.http.ZHttp;
 import com.zpj.http.core.Connection;
 import com.zpj.http.core.HttpKeyVal;
-import com.zpj.http.core.ObservableTask;
 import com.zpj.http.core.IHttp;
+import com.zpj.http.core.ObservableTask;
 import com.zpj.http.parser.html.nodes.Document;
 import com.zpj.matisse.entity.Item;
-import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.constant.AppConfig;
 import com.zpj.shouji.market.constant.UpdateFlagAction;
+import com.zpj.shouji.market.event.EventBus;
 import com.zpj.shouji.market.event.HideLoadingEvent;
-import com.zpj.shouji.market.event.RefreshEvent;
 import com.zpj.shouji.market.event.ShowLoadingEvent;
 import com.zpj.shouji.market.manager.UserManager;
 import com.zpj.shouji.market.utils.Callback;
 import com.zpj.shouji.market.utils.PictureUtil;
-import com.zpj.utils.OSUtils;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -41,7 +37,7 @@ import io.reactivex.schedulers.Schedulers;
 public final class HttpApi {
 
     public static final String USER_AGENT = "okhttp/3.0.1";
-    private static final String VERSION_CODE = "210";
+    public static final String VERSION_CODE = "210";
     private static final String HEADER_ACCEPT_ENCODING = "Accept-Encoding";
     private static final String VALUE_ACCEPT_ENCODING = "gzip";
 
@@ -88,11 +84,13 @@ public final class HttpApi {
     }
 
     public static ObservableTask<Runnable> with(Runnable runnable) {
-        return new ObservableTask<>(Observable.create((ObservableOnSubscribe<Runnable>) emitter -> {
-            runnable.run();
-            emitter.onNext(runnable);
-            emitter.onComplete();
-        })).subscribeOn(Schedulers.io())
+        return new ObservableTask<>(
+                Observable.create((ObservableOnSubscribe<Runnable>) emitter -> {
+                    runnable.run();
+                    emitter.onNext(runnable);
+                    emitter.onComplete();
+                }))
+                .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread());
     }
 
@@ -258,7 +256,7 @@ public final class HttpApi {
                     String info = doc.selectFirst("info").text();
                     if ("success".equals(doc.selectFirst("result").text())) {
                         AToast.success(info);
-                        RefreshEvent.postEvent();
+                        EventBus.sendRefreshEvent();
                     } else {
                         AToast.error(info);
                     }
@@ -280,7 +278,7 @@ public final class HttpApi {
                     String info = doc.selectFirst("info").text();
                     if ("success".equals(doc.selectFirst("result").text())) {
                         AToast.success(info);
-                        RefreshEvent.postEvent();
+                        EventBus.sendRefreshEvent();
                     } else {
                         AToast.error(info);
                     }
@@ -298,7 +296,7 @@ public final class HttpApi {
                     String info = doc.selectFirst("info").text();
                     if ("success".equals(doc.selectFirst("result").text())) {
                         AToast.success(info);
-                        RefreshEvent.postEvent();
+                        EventBus.sendRefreshEvent();
                     } else {
                         AToast.error(info);
                     }
@@ -316,7 +314,7 @@ public final class HttpApi {
                     String info = doc.selectFirst("info").text();
                     if ("success".equals(doc.selectFirst("result").text())) {
                         AToast.success(info);
-                        RefreshEvent.postEvent();
+                        EventBus.sendRefreshEvent();
                     } else {
                         AToast.error(info);
                     }
@@ -500,70 +498,8 @@ public final class HttpApi {
         return get(String.format("http://tt.shouji.com.cn/app/flower_show_xml_v2.jsp?type=discuss&id=%s", id));
     }
 
-    public static ObservableTask<Document> uploadAvatarApi(Uri uri, IHttp.OnStreamWriteListener listener) throws Exception {
-        return ZHttp.post(String.format("http://tt.shouji.com.cn/app/user_upload_avatar.jsp?jsessionid=%s&versioncode=%s", UserManager.getInstance().getSessionId(), VERSION_CODE))
-                .validateTLSCertificates(false)
-                .userAgent(USER_AGENT)
-                .onRedirect(redirectUrl -> {
-                    Log.d("connect", "onRedirect redirectUrl=" + redirectUrl);
-                    return true;
-                })
-                .cookie(UserManager.getInstance().getCookie())
-                .ignoreContentType(true)
-                .data("image", "image.png", new FileInputStream(uri.getPath()), listener)
-                .header("Charset", "UTF-8")
-                .toXml();
-    }
-
-    public static ObservableTask<Document> uploadAvatarApi(Uri uri) throws Exception {
-        return uploadAvatarApi(uri, new IHttp.OnStreamWriteListener() {
-            @Override
-            public void onBytesWritten(int bytesWritten) {
-
-            }
-
-            @Override
-            public boolean shouldContinue() {
-                return true;
-            }
-        });
-    }
-
     public static ObservableTask<Document> deleteBackgroundApi() {
         return get("http://tt.shouji.com.cn/app/user_upload_background.jsp?action=delete");
-    }
-
-    public static ObservableTask<Document> uploadBackgroundApi(Uri uri, IHttp.OnStreamWriteListener listener) throws Exception {
-        return ZHttp.post(String.format(
-                "http://tt.shouji.com.cn/app/user_upload_background.jsp?action=save&sn=%s&jsessionid=%s&versioncode=%s",
-                UserManager.getInstance().getSn(),
-                UserManager.getInstance().getSessionId(),
-                VERSION_CODE))
-                .validateTLSCertificates(false)
-                .userAgent(USER_AGENT)
-                .onRedirect(redirectUrl -> {
-                    Log.d("connect", "onRedirect redirectUrl=" + redirectUrl);
-                    return true;
-                })
-                .cookie(UserManager.getInstance().getCookie())
-                .ignoreContentType(true)
-                .data("image", "image.png", new FileInputStream(uri.getPath()), listener)
-                .header("Charset", "UTF-8")
-                .toXml();
-    }
-
-    public static ObservableTask<Document> uploadBackgroundApi(Uri uri) throws Exception {
-        return uploadBackgroundApi(uri, new IHttp.OnStreamWriteListener() {
-            @Override
-            public void onBytesWritten(int bytesWritten) {
-
-            }
-
-            @Override
-            public boolean shouldContinue() {
-                return true;
-            }
-        });
     }
 
     public static ObservableTask<Document> reportApi(String id, String type, String reason) {

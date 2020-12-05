@@ -8,14 +8,12 @@ import android.support.v4.view.ViewPager;
 import android.view.View;
 import android.widget.TextView;
 
-import com.zpj.fragmentation.BaseFragment;
 import com.zpj.recyclerview.EasyRecyclerLayout;
 import com.zpj.recyclerview.EasyViewHolder;
 import com.zpj.shouji.market.R;
-import com.zpj.shouji.market.event.StartFragmentEvent;
 import com.zpj.shouji.market.model.InstalledAppInfo;
 import com.zpj.shouji.market.ui.adapter.FragmentsPagerAdapter;
-import com.zpj.shouji.market.ui.fragment.base.SkinFragment;
+import com.zpj.shouji.market.ui.fragment.base.BaseSwipeBackFragment;
 import com.zpj.shouji.market.utils.Callback;
 import com.zpj.shouji.market.utils.MagicIndicatorHelper;
 
@@ -24,7 +22,7 @@ import net.lucode.hackware.magicindicator.MagicIndicator;
 import java.util.ArrayList;
 import java.util.List;
 
-public class AppPickerFragment extends SkinFragment {
+public class AppPickerFragment extends BaseSwipeBackFragment {
 
     //    private static final String[] TAB_TITLES = {"本地应用", "我的收藏", "搜索应用"};
     private static final String[] TAB_TITLES = {"本地应用"};
@@ -44,7 +42,7 @@ public class AppPickerFragment extends SkinFragment {
         fragment.callback = callback;
         fragment.selectedList.clear();
         fragment.selectedList.addAll(selectedList);
-        StartFragmentEvent.start(fragment);
+        start(fragment);
     }
 
     public static void start(InstalledAppInfo info, Callback<List<InstalledAppInfo>> callback) {
@@ -55,17 +53,12 @@ public class AppPickerFragment extends SkinFragment {
             fragment.selectedList.add(info);
         }
         fragment.singleSelectMode = true;
-        StartFragmentEvent.start(fragment);
+        start(fragment);
     }
 
     @Override
     protected int getLayoutId() {
         return R.layout.fragment_app_picker;
-    }
-
-    @Override
-    protected boolean supportSwipeBack() {
-        return true;
     }
 
     @Override

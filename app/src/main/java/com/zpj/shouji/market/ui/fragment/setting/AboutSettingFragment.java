@@ -7,18 +7,15 @@ import android.view.View;
 
 import com.felix.atoast.library.AToast;
 import com.zpj.shouji.market.R;
-import com.zpj.shouji.market.event.StartFragmentEvent;
 import com.zpj.shouji.market.ui.fragment.WebFragment;
 import com.zpj.utils.AppUtils;
 import com.zpj.widget.setting.CheckableSettingItem;
 import com.zpj.widget.setting.CommonSettingItem;
 
-import com.zpj.fragmentation.anim.DefaultNoAnimator;
-
 public class AboutSettingFragment extends BaseSettingFragment {
 
     public static void start() {
-        StartFragmentEvent.start(new AboutSettingFragment());
+        start(new AboutSettingFragment());
     }
 
     @Override

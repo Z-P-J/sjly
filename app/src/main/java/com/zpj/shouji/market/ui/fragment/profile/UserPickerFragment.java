@@ -9,27 +9,25 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.felix.atoast.library.AToast;
-import com.zpj.fragmentation.BaseFragment;
 import com.zpj.http.parser.html.nodes.Document;
 import com.zpj.recyclerview.EasyRecyclerLayout;
 import com.zpj.recyclerview.EasyViewHolder;
 import com.zpj.recyclerview.IEasy;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.constant.Keys;
-import com.zpj.shouji.market.event.StartFragmentEvent;
 import com.zpj.shouji.market.model.UserInfo;
 import com.zpj.shouji.market.ui.adapter.FragmentsPagerAdapter;
 import com.zpj.shouji.market.ui.fragment.UserListFragment;
+import com.zpj.shouji.market.ui.fragment.base.BaseSwipeBackFragment;
 import com.zpj.shouji.market.utils.Callback;
 import com.zpj.shouji.market.utils.MagicIndicatorHelper;
-import com.zpj.shouji.market.utils.ThemeUtils;
 
 import net.lucode.hackware.magicindicator.MagicIndicator;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class UserPickerFragment extends BaseFragment {
+public class UserPickerFragment extends BaseSwipeBackFragment {
 
     private static final String[] TAB_TITLES = {"乐园小编", "我关注的", "我的粉丝", "搜索用户"};
     private static final int MAX_COUNT = 5;
@@ -58,17 +56,12 @@ public class UserPickerFragment extends BaseFragment {
             }
             callback.onCallback(content.toString());
         };
-        StartFragmentEvent.start(fragment);
+        start(fragment);
     }
 
     @Override
     protected int getLayoutId() {
         return R.layout.fragment_app_picker;
-    }
-
-    @Override
-    protected boolean supportSwipeBack() {
-        return true;
     }
 
     @Override
@@ -96,12 +89,6 @@ public class UserPickerFragment extends BaseFragment {
 
         setToolbarTitle("选择乐友");
         postOnEnterAnimationEnd(this::initViewPager);
-    }
-
-    @Override
-    public void onSupportVisible() {
-        super.onSupportVisible();
-        ThemeUtils.initStatusBar(this);
     }
 
     @Override

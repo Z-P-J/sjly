@@ -1,11 +1,8 @@
 package com.zxy.skin.sdk.applicator;
 
 
-import android.content.res.ColorStateList;
 import android.content.res.TypedArray;
-import android.graphics.drawable.Drawable;
-import android.support.v4.graphics.drawable.DrawableCompat;
-import android.support.v7.widget.CardView;
+import android.graphics.Color;
 import android.widget.ImageView;
 
 public class SkinImageViewApplicator extends SkinViewApplicator {
@@ -19,13 +16,14 @@ public class SkinImageViewApplicator extends SkinViewApplicator {
 
             @Override
             public void onApply(ImageView view, TypedArray typedArray, int typedArrayIndex) {
-                Drawable drawable = view.getDrawable();
-                if (drawable == null) {
-                    return;
-                }
-                final Drawable wrappedDrawable = DrawableCompat.wrap(drawable.mutate());
-                DrawableCompat.setTintList(wrappedDrawable, typedArray.getColorStateList(typedArrayIndex));
-                view.setImageDrawable(drawable);
+                view.setColorFilter(typedArray.getColor(typedArrayIndex, Color.TRANSPARENT));
+//                Drawable drawable = view.getDrawable();
+//                if (drawable == null) {
+//                    return;
+//                }
+//                final Drawable wrappedDrawable = DrawableCompat.wrap(drawable.mutate());
+//                DrawableCompat.setTintList(wrappedDrawable, typedArray.getColorStateList(typedArrayIndex));
+//                view.setImageDrawable(drawable);
             }
         });
 

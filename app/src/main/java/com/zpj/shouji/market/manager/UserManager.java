@@ -12,10 +12,9 @@ import com.zpj.http.core.Connection;
 import com.zpj.http.core.IHttp;
 import com.zpj.http.parser.html.nodes.Document;
 import com.zpj.shouji.market.api.HttpApi;
+import com.zpj.shouji.market.event.EventBus;
 import com.zpj.shouji.market.event.SignInEvent;
-import com.zpj.shouji.market.event.SignOutEvent;
 import com.zpj.shouji.market.event.SignUpEvent;
-import com.zpj.shouji.market.event.UserInfoChangeEvent;
 import com.zpj.shouji.market.model.MemberInfo;
 import com.zpj.shouji.market.model.MessageInfo;
 import com.zpj.shouji.market.utils.PictureUtil;
@@ -105,7 +104,7 @@ public final class UserManager {
                     setUserInfo("");
                     setCookie("");
                     isLogin = false;
-                    PictureUtil.saveDefaultIcon(SignOutEvent::postEvent);
+                    PictureUtil.saveDefaultIcon(() -> EventBus.sendSignOutEvent());
                 })
                 .show(context);
     }
@@ -129,7 +128,8 @@ public final class UserManager {
     public void saveUserInfo() {
         if (memberInfo != null) {
             setUserInfo(memberInfo.toStr());
-            UserInfoChangeEvent.post();
+//            UserInfoChangeEvent.post();
+            EventBus.sendUserInfoChangeEvent();
         }
     }
 
@@ -223,11 +223,11 @@ public final class UserManager {
                             Log.d("rsyncMessage", "data=" + data);
                             messageInfo = MessageInfo.from(data);
                             Log.d("rsyncMessage", "messageInfo=" + messageInfo);
-                            messageInfo.post();
+                            EventBus.post(messageInfo);
                         })
                         .subscribe();
             } else {
-                messageInfo.post();
+                EventBus.post(messageInfo);
             }
         }
     }
