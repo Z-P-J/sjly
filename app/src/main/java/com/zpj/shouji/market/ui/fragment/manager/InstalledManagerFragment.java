@@ -15,7 +15,7 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.felix.atoast.library.AToast;
+import com.zpj.toast.ZToast;
 import com.zpj.fragmentation.dialog.impl.ArrowMenuDialogFragment;
 import com.zpj.fragmentation.dialog.model.OptionMenu;
 import com.zpj.notification.ZNotify;
@@ -130,14 +130,14 @@ public class InstalledManagerFragment extends RecyclerLayoutFragment<InstalledAp
 
         uninstallBtn = view.findViewById(R.id.btn_uninstall);
         uninstallBtn.setOnClickListener(v -> {
-            AToast.normal(recyclerLayout.getSelectedPositionList().toString());
+            ZToast.normal(recyclerLayout.getSelectedPositionList().toString());
             for (InstalledAppInfo info : recyclerLayout.getSelectedItem()) {
                 AppUtil.uninstallApp(_mActivity, info.getPackageName());
             }
         });
         backupBtn = view.findViewById(R.id.btn_backup);
         backupBtn.setOnClickListener(v -> {
-            AToast.normal(recyclerLayout.getSelectedPositionList().toString());
+            ZToast.normal(recyclerLayout.getSelectedPositionList().toString());
             AppBackupManager.getInstance()
                     .addAppBackupListener(this)
                     .startBackup(recyclerLayout.getSelectedItem());
@@ -195,7 +195,7 @@ public class InstalledManagerFragment extends RecyclerLayoutFragment<InstalledAp
 
                     @Override
                     public void onSelectOverMax(int maxSelectCount) {
-                        AToast.warning("最多只能选择" + maxSelectCount + "项");
+                        ZToast.warning("最多只能选择" + maxSelectCount + "项");
                     }
                 });
     }
@@ -205,10 +205,10 @@ public class InstalledManagerFragment extends RecyclerLayoutFragment<InstalledAp
 //        super.onActivityResult(requestCode, resultCode, data);
 //        if (requestCode == AppUtil.UNINSTALL_REQUEST_CODE) {
 //            if (resultCode == Activity.RESULT_OK) {
-//                AToast.success("应用卸载成功！");
+//                ZToast.success("应用卸载成功！");
 //                loadInstallApps();
 //            } else if (resultCode == Activity.RESULT_CANCELED) {
-//                AToast.normal("应用卸载取消！");
+//                ZToast.normal("应用卸载取消！");
 //            }
 //        }
 //    }
@@ -337,7 +337,7 @@ public class InstalledManagerFragment extends RecyclerLayoutFragment<InstalledAp
 
     @Override
     public void onAppBackupFailed(int totalCount, int finishedCount, InstalledAppInfo appInfo) {
-        AToast.error(appInfo.getName() + "备份失败！");
+        ZToast.error(appInfo.getName() + "备份失败！");
         ZNotify.with(getContext())
                 .buildNotify()
                 .setContentTitle(getString(R.string.app_name))
@@ -399,10 +399,10 @@ public class InstalledManagerFragment extends RecyclerLayoutFragment<InstalledAp
                 .setOnItemClickListener((position, menu) -> {
                     switch (position) {
                         case 0:
-                            AToast.normal("详细信息");
+                            ZToast.normal("详细信息");
                             break;
                         case 1:
-                            AToast.normal(appInfo.getApkFilePath());
+                            ZToast.normal(appInfo.getApkFilePath());
                             AppUtil.shareApk(context, appInfo.getApkFilePath());
                             break;
                         case 2:
@@ -412,7 +412,7 @@ public class InstalledManagerFragment extends RecyclerLayoutFragment<InstalledAp
                             AppUtil.openApp(getContext(), appInfo.getPackageName());
                             break;
                         default:
-                            AToast.warning("未知操作！");
+                            ZToast.warning("未知操作！");
                             break;
                     }
                 })
@@ -421,7 +421,7 @@ public class InstalledManagerFragment extends RecyclerLayoutFragment<InstalledAp
     }
 
     private void enterSelectModeAnim() {
-        AToast.normal("enterSelectModeAnim");
+        ZToast.normal("enterSelectModeAnim");
         if (bottomLayout.getVisibility() == View.VISIBLE)
             return;
         bottomLayout.setVisibility(View.VISIBLE);
@@ -464,18 +464,18 @@ public class InstalledManagerFragment extends RecyclerLayoutFragment<InstalledAp
         translationY.addListener(new Animator.AnimatorListener() {
             @Override
             public void onAnimationStart(Animator animation) {
-                AToast.normal("onAnimationStart");
+                ZToast.normal("onAnimationStart");
             }
 
             @Override
             public void onAnimationEnd(Animator animation) {
-                AToast.normal("onAnimationEnd");
+                ZToast.normal("onAnimationEnd");
                 bottomLayout.setVisibility(View.GONE);
             }
 
             @Override
             public void onAnimationCancel(Animator animation) {
-                AToast.normal("onAnimationCancel");
+                ZToast.normal("onAnimationCancel");
             }
 
             @Override

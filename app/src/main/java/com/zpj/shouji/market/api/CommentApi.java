@@ -6,7 +6,7 @@ import android.text.TextUtils;
 import android.util.Log;
 
 import com.bumptech.glide.Glide;
-import com.felix.atoast.library.AToast;
+import com.zpj.toast.ZToast;
 import com.nanchen.compresshelper.CompressHelper;
 import com.zpj.http.ZHttp;
 import com.zpj.http.core.Connection;
@@ -85,15 +85,15 @@ public class CommentApi {
                 .onSuccess(data -> {
                     String info = data.selectFirst("info").text();
                     if ("success".equals(data.selectFirst("result").text())) {
-                        AToast.success(info);
+                        ZToast.success(info);
                         successRunnable.run();
                     } else {
-                        AToast.error(info);
+                        ZToast.error(info);
                     }
                     HideLoadingEvent.postDelayed(250);
                 })
                 .onError(throwable -> {
-                    AToast.error("评论失败！" + throwable.getMessage());
+                    ZToast.error("评论失败！" + throwable.getMessage());
                     HideLoadingEvent.postDelayed(250);
                 })
                 .subscribe();
@@ -165,15 +165,15 @@ public class CommentApi {
 //                .onSuccess(data -> {
 //                    String info = data.selectFirst("info").text();
 //                    if ("success".equals(data.selectFirst("result").text())) {
-//                        AToast.success(info);
+//                        ZToast.success(info);
 //                        successRunnable.run();
 //                    } else {
-//                        AToast.error(info);
+//                        ZToast.error(info);
 //                    }
 //                    HideLoadingEvent.postDelayed(250);
 //                })
 //                .onError(throwable -> {
-//                    AToast.error("评论失败！" + throwable.getMessage());
+//                    ZToast.error("评论失败！" + throwable.getMessage());
 //                    HideLoadingEvent.postDelayed(250);
 //                })
 //                .subscribe();
@@ -245,15 +245,15 @@ public class CommentApi {
                 .onSuccess(data -> {
                     String info = data.selectFirst("info").text();
                     if ("success".equals(data.selectFirst("result").text())) {
-                        AToast.success(info);
+                        ZToast.success(info);
                         successRunnable.run();
                     } else {
-                        AToast.error(info);
+                        ZToast.error(info);
                     }
                     HideLoadingEvent.postDelayed(250);
                 })
                 .onError(throwable -> {
-                    AToast.error("评论失败！" + throwable.getMessage());
+                    ZToast.error("评论失败！" + throwable.getMessage());
                     HideLoadingEvent.postDelayed(250);
                 })
                 .subscribe();
@@ -341,15 +341,15 @@ public class CommentApi {
                     Log.d("publishThemeApi", "data=" + data);
                     String info = data.selectFirst("info").text();
                     if ("success".equals(data.selectFirst("result").text())) {
-                        AToast.success(info);
+                        ZToast.success(info);
                         successRunnable.run();
                     } else {
-                        AToast.error(info);
+                        ZToast.error(info);
                     }
                     HideLoadingEvent.postDelayed(250);
                 })
                 .onError(throwable -> {
-                    AToast.error("出错了！" + throwable.getMessage());
+                    ZToast.error("出错了！" + throwable.getMessage());
                     HideLoadingEvent.postDelayed(250);
                 })
                 .subscribe();

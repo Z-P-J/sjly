@@ -5,7 +5,7 @@
 //import android.support.annotation.Nullable;
 //import android.view.View;
 //
-//import com.felix.atoast.library.AToast;
+//import com.zpj.toast.ZToast;
 //import com.zpj.fragmentation.dialog.impl.AlertDialogFragment;
 //import com.zpj.http.core.IHttp;
 //import com.zpj.http.core.ObservableTask;
@@ -127,7 +127,7 @@
 //                                            @Override
 //                                            public void onSuccess(String data) throws Exception {
 //                                                HideLoadingEvent.post(() -> {
-//                                                    AToast.success("清理成功");
+//                                                    ZToast.success("清理成功");
 //                                                    item.setRightText(data);
 //                                                });
 //                                            }
@@ -152,7 +152,7 @@
 ////                                                @Override
 ////                                                public void onSuccess(String data) throws Exception {
 ////                                                    HideLoadingEvent.post(() -> {
-////                                                        AToast.success("清理成功");
+////                                                        ZToast.success("清理成功");
 ////                                                        item.setRightText(data);
 ////                                                    });
 ////                                                }
@@ -164,7 +164,7 @@
 ////                            .setCancelButton(BasePopup::dismiss)
 ////                            .show();
 //                } else {
-//                    AToast.warning("暂无缓存");
+//                    ZToast.warning("暂无缓存");
 //                }
 //                break;
 //            default:

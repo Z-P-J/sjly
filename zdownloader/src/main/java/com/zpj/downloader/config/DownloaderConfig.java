@@ -12,7 +12,7 @@ import com.zpj.downloader.core.INotificationInterceptor;
 public class DownloaderConfig extends BaseConfig<DownloaderConfig> {
 
     private int concurrentMissionCount = DefaultConstant.CONCURRENT_MISSION_COUNT;
-    private INotificationInterceptor interceptor;
+//    private INotificationInterceptor interceptor;
 
     private DownloaderConfig() {
 
@@ -28,18 +28,18 @@ public class DownloaderConfig extends BaseConfig<DownloaderConfig> {
         return concurrentMissionCount;
     }
 
-    public INotificationInterceptor getNotificationIntercepter() {
-        return interceptor;
-    }
+//    public INotificationInterceptor getNotificationInterceptor() {
+//        return interceptor;
+//    }
 
     public DownloaderConfig setConcurrentMissionCount(int concurrentMissionCount) {
         this.concurrentMissionCount = concurrentMissionCount;
         return this;
     }
 
-    public DownloaderConfig setNotificationIntercepter(INotificationInterceptor interceptor) {
-        this.interceptor = interceptor;
-        return this;
-    }
+//    public DownloaderConfig setNotificationInterceptor(INotificationInterceptor interceptor) {
+//        this.interceptor = interceptor;
+//        return this;
+//    }
 
 }

@@ -12,13 +12,16 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.lihang.ShadowLayout;
+import com.zpj.fragmentation.dialog.R;
 import com.zpj.fragmentation.dialog.animator.PopupAnimator;
 import com.zpj.fragmentation.dialog.base.AttachDialogFragment;
-import com.zpj.fragmentation.dialog.R;
 import com.zpj.fragmentation.dialog.utils.DialogThemeUtils;
 import com.zpj.recyclerview.EasyRecyclerView;
+import com.zpj.utils.ColorUtils;
 import com.zpj.widget.tinted.TintedImageView;
 
+import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -28,8 +31,8 @@ public class AttachListDialogFragment<T> extends AttachDialogFragment {
     protected RecyclerView recyclerView;
     protected int bindLayoutId;
     protected int bindItemLayoutId;
-    protected int tintColor = -1;
-    protected int textColor;
+    protected int tintColor = Color.TRANSPARENT;
+    protected int textColor = Color.TRANSPARENT;
 
     private IconCallback<T> iconCallback;
     private TitleCallback<T> titleCallback;
@@ -59,10 +62,25 @@ public class AttachListDialogFragment<T> extends AttachDialogFragment {
     @Override
     protected void initView(View view, @Nullable Bundle savedInstanceState) {
         super.initView(view, savedInstanceState);
+        int color = DialogThemeUtils.getAttachListDialogBackgroundColor(context);
+        ShadowLayout shadowLayout = findViewById(R.id.shadow_layout);
+//        shadowLayout.setmShadowColor(ColorUtils.isDarkenColor(color) ? Color.LTGRAY : Color.DKGRAY);
+        shadowLayout.setmShadowColor(Color.DKGRAY);
+        try {
+            Field mBackGroundColor = ShadowLayout.class.getDeclaredField("mBackGroundColor");
+            mBackGroundColor.setAccessible(true);
+            mBackGroundColor.set(shadowLayout, color);
+            shadowLayout.setSelected(false);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
         CardView cardView = findViewById(R.id.cv_container);
-        cardView.setCardBackgroundColor(DialogThemeUtils.getAttachListDialogBackgroundColor(context));
-        textColor = DialogThemeUtils.getMajorTextColor(context);
+
+        cardView.setCardBackgroundColor(color);
+        if (textColor == 0) {
+            textColor = DialogThemeUtils.getMajorTextColor(context);
+        }
 
         recyclerView = findViewById(R.id.recyclerView);
 //        recyclerView.setupDivider();
@@ -84,7 +102,7 @@ public class AttachListDialogFragment<T> extends AttachDialogFragment {
                             ivImage.setVisibility(View.VISIBLE);
                             ivImage.setImageResource(iconIds.get(position));
 //                        ivImage.setImageDrawable(context.getResources().getDrawable(iconIds.get(position)));
-                            if (tintColor != -1) {
+                            if (tintColor != Color.TRANSPARENT) {
                                 ivImage.setTint(ColorStateList.valueOf(tintColor));
                             }
                         } else {
@@ -92,6 +110,9 @@ public class AttachListDialogFragment<T> extends AttachDialogFragment {
                         }
                     } else {
                         ivImage.setVisibility(View.VISIBLE);
+                        if (tintColor != Color.TRANSPARENT) {
+                            ivImage.setTint(ColorStateList.valueOf(tintColor));
+                        }
                         iconCallback.onGetIcon(ivImage, list.get(position), position);
                     }
                     if (titleCallback == null) {

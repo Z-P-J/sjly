@@ -141,6 +141,7 @@ public class DownloadMission {
 
     protected void initMission() {
         notifyStatus(missionStatus);
+        Log.d(TAG, "init url=" + url);
         ZHttp.head(url)
                 .proxy(Proxy.NO_PROXY)
                 .userAgent(getUserAgent())
@@ -148,9 +149,14 @@ public class DownloadMission {
                 .accept("*/*")
                 .referer(url)
                 .headers(getHeaders())
-                .timeout(200000)
+//                .connection("close")
+                .range("bytes=0-")
+                .header("Pragma", "no-cache")
+                .header("Cache-Control", "no-cache")
+                .acceptEncoding("identity")
+                .timeout(getConnectOutTime())
                 .ignoreContentType(true)
-                .ignoreHttpErrors(true)
+                .ignoreHttpErrors(false)
                 .maxBodySize(0)
                 .execute()
                 .onNext(new ObservableTask.OnNextListener<Connection.Response, Connection.Response>() {
@@ -160,7 +166,8 @@ public class DownloadMission {
                             Log.d(TAG, "handleResponse--111");
                             return null;
                         }
-                        return ZHttp.head(url)
+//                        Log.d(TAG, "init onNext--new Task");
+                        return ZHttp.get(url)
                                 .proxy(Proxy.NO_PROXY)
                                 .userAgent(getUserAgent())
                                 .cookie(getCookie())
@@ -170,10 +177,12 @@ public class DownloadMission {
                                 .header("Pragma", "no-cache")
                                 .header("Cache-Control", "no-cache")
                                 .header("Access-Control-Expose-Headers", "Content-Disposition")
+                                .acceptEncoding("identity")
                                 .headers(getHeaders())
+//                                .connection("close")
                                 .timeout(getConnectOutTime())
                                 .ignoreContentType(true)
-                                .ignoreHttpErrors(true)
+                                .ignoreHttpErrors(false)
                                 .maxBodySize(0)
                                 .execute();
                     }
@@ -319,6 +328,14 @@ public class DownloadMission {
 
     }
 
+    public static DownloadMission create(String url) {
+        return create(url, MissionConfig.with());
+    }
+
+    public static DownloadMission create(String url, MissionConfig config) {
+        return create(url, "", config);
+    }
+
     public static DownloadMission create(String url, String name, MissionConfig config) {
         DownloadMission mission = new DownloadMission();
         mission.url = url;
@@ -326,7 +343,6 @@ public class DownloadMission {
         mission.name = name;
         mission.uuid = UUID.randomUUID().toString();
         mission.createTime = System.currentTimeMillis();
-//        mission.timestamp = mission.createTime;
         mission.missionStatus = MissionStatus.INITING;
         mission.missionConfig = config;
         return mission;
@@ -362,7 +378,7 @@ public class DownloadMission {
     }
 
     public boolean canStart() {
-        return isPause() || isError() || isIniting();
+        return isPause() || isError(); //  || isIniting()
     }
 
 
@@ -453,7 +469,7 @@ public class DownloadMission {
     public void pause() {
         initCurrentRetryCount();
         handler.removeCallbacks(progressRunnable);
-        if (isRunning() || isWaiting()) {
+        if (canPause()) {
             missionStatus = MissionStatus.PAUSE;
             writeMissionInfo();
             notifyStatus(missionStatus);
@@ -514,6 +530,7 @@ public class DownloadMission {
         }
         pause();
         deleteMissionInfo();
+        DownloadManagerImpl.getInstance().ALL_MISSIONS.remove(this);
         for (WeakReference<MissionListener> ref : mListeners) {
             final MissionListener listener = ref.get();
             if (listener != null) {
@@ -782,7 +799,8 @@ public class DownloadMission {
     }
 
     private INotificationInterceptor getNotificationListener() {
-        return DownloadManagerImpl.getInstance().getDownloaderConfig().getNotificationIntercepter();
+        return missionConfig.getNotificationInterceptor();
+//        return DownloadManagerImpl.getInstance().getDownloaderConfig().getNotificationInterceptor();
     }
 
     public String getUuid() {
@@ -790,7 +808,14 @@ public class DownloadMission {
     }
 
     public String getTaskName() {
+        if (TextUtils.isEmpty(name)) {
+            return getTaskNameFromUrl();
+        }
         return name;
+    }
+
+    public String getTaskNameFromUrl() {
+        return getMissionNameFromUrl(this, url);
     }
 
     public String getUrl() {

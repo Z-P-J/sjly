@@ -13,7 +13,7 @@ import android.view.View;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
-import com.felix.atoast.library.AToast;
+import com.zpj.toast.ZToast;
 import com.lwkandroid.widget.ninegridview.NineGirdImageContainer;
 import com.lwkandroid.widget.ninegridview.NineGridBean;
 import com.lwkandroid.widget.ninegridview.NineGridView;
@@ -286,19 +286,19 @@ public class ChatFragment extends NextUrlFragment<PrivateLetterInfo>
                                                 Log.d("deleteFriendApi", "element=" + element);
                                                 String result = element.selectFirst("result").text();
                                                 if ("success".equals(result)) {
-                                                    AToast.success("取消关注成功");
+                                                    ZToast.success("取消关注成功");
                                                 } else {
-                                                    AToast.error(element.selectFirst("info").text());
+                                                    ZToast.error(element.selectFirst("info").text());
                                                 }
                                             })
-                                            .onError(throwable -> AToast.error(throwable.getMessage()))
+                                            .onError(throwable -> ZToast.error(throwable.getMessage()))
                                             .subscribe())
                                     .show(context);
                             break;
                         case R.id.copy:
                             ClipboardManager cm = (ClipboardManager) context.getSystemService(Context.CLIPBOARD_SERVICE);
                             cm.setPrimaryClip(ClipData.newPlainText(null, data.getContent()));
-                            AToast.success("已复制到粘贴板");
+                            ZToast.success("已复制到粘贴板");
                             break;
                         case R.id.delete:
                             new AlertDialogFragment()
@@ -309,18 +309,18 @@ public class ChatFragment extends NextUrlFragment<PrivateLetterInfo>
                                                 Log.d("deleteFriendApi", "element=" + element);
                                                 String result = element.selectFirst("result").text();
                                                 if ("success".equals(result)) {
-                                                    AToast.success("删除成功");
+                                                    ZToast.success("删除成功");
                                                     onRefresh();
                                                 } else {
-                                                    AToast.error(element.selectFirst("info").text());
+                                                    ZToast.error(element.selectFirst("info").text());
                                                 }
                                             })
-                                            .onError(throwable -> AToast.error(throwable.getMessage()))
+                                            .onError(throwable -> ZToast.error(throwable.getMessage()))
                                             .subscribe())
                                     .show(context);
                             break;
                         case R.id.share:
-                            AToast.normal("分享");
+                            ZToast.normal("分享");
                             break;
                     }
                     menu.dismiss();
@@ -403,7 +403,7 @@ public class ChatFragment extends NextUrlFragment<PrivateLetterInfo>
 
     @Override
     public void onStickerSelected(String categoryName, String stickerName, String stickerBitmapPath) {
-        AToast.normal("categoryName=" + categoryName + " stickerName=" + stickerName);
+        ZToast.normal("categoryName=" + categoryName + " stickerName=" + stickerName);
 //        sendImage(stickerBitmapPath);
     }
 

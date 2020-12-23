@@ -19,8 +19,8 @@ import android.content.Context;
 import android.support.annotation.IntDef;
 import android.support.v4.app.FragmentActivity;
 
-import com.felix.atoast.library.AToast;
 import com.zpj.matisse.ui.widget.IncapableDialog;
+import com.zpj.toast.ZToast;
 
 import java.lang.annotation.Retention;
 
@@ -76,7 +76,7 @@ public class IncapableCause {
                 break;
             case TOAST:
             default:
-                AToast.normal(cause.mMessage);
+                ZToast.normal(cause.mMessage);
                 break;
         }
     }

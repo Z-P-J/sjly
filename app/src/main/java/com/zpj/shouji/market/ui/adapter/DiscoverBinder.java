@@ -16,7 +16,7 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.ctetin.expandabletextviewlibrary.ExpandableTextView;
 import com.ctetin.expandabletextviewlibrary.app.LinkType;
-import com.felix.atoast.library.AToast;
+import com.zpj.toast.ZToast;
 import com.lwkandroid.widget.ninegridview.INineGridImageLoader;
 import com.lwkandroid.widget.ninegridview.NineGirdImageContainer;
 import com.lwkandroid.widget.ninegridview.NineGridBean;
@@ -157,10 +157,10 @@ public class DiscoverBinder
             holder.getTextView(R.id.app_info).setText(discoverInfo.getAppPackageName());
             appLayout.setOnClickListener(v -> {
                 if ("0".equals(discoverInfo.getSoftId())) {
-                    AToast.warning("应用未收录");
+                    ZToast.warning("应用未收录");
                 } else {
                     AppDetailFragment.start(discoverInfo.getAppType(), discoverInfo.getSoftId());
-//                    AToast.normal("appId=" + discoverInfo.getAppId() + " softId=" + discoverInfo.getSoftId());
+//                    ZToast.normal("appId=" + discoverInfo.getAppId() + " softId=" + discoverInfo.getSoftId());
                 }
             });
             if (discoverInfo.isApkExist()) {
@@ -207,9 +207,6 @@ public class DiscoverBinder
                         new SupportUserListDialogFragment()
                                 .setThemeId(discoverInfo.getId())
                                 .show(context);
-//                        SupportUserListPopup.with(context)
-//                                .setThemeId(discoverInfo.getId())
-//                                .show();
                     } else {
                         ProfileFragment.start(content, false);
                     }
@@ -239,7 +236,7 @@ public class DiscoverBinder
                     container.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-//                            AToast.normal("hhhhhhh");
+//                            ZToast.normal("hhhhhhh");
                             holder.performClick();
                         }
                     });
@@ -330,17 +327,17 @@ public class DiscoverBinder
 //                HttpApi.followApi(discoverInfo.getMemberId())
 //                        .onSuccess(data -> {
 //                            if ("success".equals(data.selectFirst("result").text())) {
-//                                AToast.success("关注成功");
+//                                ZToast.success("关注成功");
 //                            } else {
 //                                String result = data.selectFirst("info").text();
-//                                AToast.error(result);
+//                                ZToast.error(result);
 //                            }
 //                        })
 //                        .onError(throwable -> {
-//                            AToast.error("关注失败！" + throwable.getMessage());
+//                            ZToast.error("关注失败！" + throwable.getMessage());
 //                        })
 //                        .subscribe();
-                AToast.normal("TODO");
+                ZToast.normal("TODO");
             }
         });
 
@@ -351,7 +348,7 @@ public class DiscoverBinder
             public void select(boolean isSelected) {
                 if (!UserManager.getInstance().isLogin()) {
                     supportView.setState(!isSelected);
-                    AToast.warning(R.string.text_msg_not_login);
+                    ZToast.warning(R.string.text_msg_not_login);
                     LoginFragment.start();
                     return;
                 }
@@ -364,12 +361,12 @@ public class DiscoverBinder
                                 discoverInfo.setSupportCount(count);
                                 discoverInfo.setLike(isSelected);
                             } else {
-                                AToast.error(result);
+                                ZToast.error(result);
                                 supportView.setState(!isSelected);
                             }
                         })
                         .onError(throwable -> {
-                            AToast.error("点赞失败！" + throwable.getMessage());
+                            ZToast.error("点赞失败！" + throwable.getMessage());
                             supportView.setState(!isSelected);
                         })
                         .subscribe();

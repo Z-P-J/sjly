@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.zpj.fragmentation.dialog.R;
+import com.zpj.fragmentation.dialog.utils.DialogThemeUtils;
 
 public class InputDialogFragment extends AlertDialogFragment implements View.OnClickListener{
 
@@ -39,13 +40,15 @@ public class InputDialogFragment extends AlertDialogFragment implements View.OnC
                 selectionStart = 0;
             }
             if (selectionEnd < selectionStart) {
-                selectionEnd = inputContent.length() - 1;
+                selectionEnd = inputContent.length();
             }
             if (selectionStart <= selectionEnd) {
                 et_input.setSelection(selectionStart, selectionEnd);
             }
         }
         applyPrimary();
+        et_input.setTextColor(DialogThemeUtils.getMajorTextColor(context));
+        et_input.setHintTextColor(DialogThemeUtils.getNormalTextColor(context));
         et_input.post(new Runnable() {
             @Override
             public void run() {

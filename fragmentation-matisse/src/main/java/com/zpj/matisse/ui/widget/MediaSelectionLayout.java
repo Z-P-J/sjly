@@ -28,7 +28,6 @@ import android.util.AttributeSet;
 import android.view.View;
 import android.widget.ImageView;
 
-import com.felix.atoast.library.AToast;
 import com.zpj.matisse.R;
 import com.zpj.matisse.entity.Album;
 import com.zpj.matisse.entity.IncapableCause;
@@ -113,7 +112,6 @@ public class MediaSelectionLayout extends EasyRecyclerLayout<Item> implements
         showLoading();
         mAlbumMediaManager.onCreate(activity, MediaSelectionLayout.this);
         mAlbumMediaManager.load(album);
-        AToast.normal("loadAlbum");
     }
 
     public void onDestroy() {
@@ -124,7 +122,6 @@ public class MediaSelectionLayout extends EasyRecyclerLayout<Item> implements
 
     @Override
     public void onAlbumMediaLoad(Cursor cursor) {
-        AToast.normal("onAlbumMediaLoad");
         itemList.clear();
         cursor.moveToFirst();
         do {

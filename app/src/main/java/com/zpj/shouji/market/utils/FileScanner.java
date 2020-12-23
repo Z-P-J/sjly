@@ -1,4 +1,4 @@
-package com.zpj.filescanner;
+package com.zpj.shouji.market.utils;
 
 
 import android.os.Environment;
@@ -20,7 +20,7 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 
-public class ZFileScanner<T> {
+public class FileScanner<T> {
 
     private static final String TAG = "ZFileScanner";
 
@@ -118,14 +118,6 @@ public class ZFileScanner<T> {
                         taskList.add(new ScannerTask<>(emitter, onScanListener, type));
                     }
                     while(true) {
-//                        Log.d(TAG, "folderList.size=" + folderList.size() + " taskList.size=" + taskList.size());
-//                        if (!folderList.isEmpty()) {
-//                            if (taskList.size() < 3) {
-//                                taskList.add(new ScannerTask<>(emitter, onScanListener, type));
-//                            }
-//                        } else if (taskList.isEmpty()) {
-//                            break;
-//                        }
                         if (folderList.isEmpty() && taskList.isEmpty()) {
                             break;
                         }

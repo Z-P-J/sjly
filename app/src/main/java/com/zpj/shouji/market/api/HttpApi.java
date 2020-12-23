@@ -5,7 +5,7 @@ import android.text.TextUtils;
 import android.util.Base64;
 import android.util.Log;
 
-import com.felix.atoast.library.AToast;
+import com.zpj.toast.ZToast;
 import com.zpj.http.ZHttp;
 import com.zpj.http.core.Connection;
 import com.zpj.http.core.HttpKeyVal;
@@ -212,12 +212,12 @@ public final class HttpApi {
                 .onSuccess(data -> {
                     String info = data.selectFirst("info").text();
                     if ("success".equals(data.selectFirst("result").text())) {
-                        AToast.success(info);
+                        ZToast.success(info);
                     } else {
-                        AToast.error(info);
+                        ZToast.error(info);
                     }
                 })
-                .onError(throwable -> AToast.error(throwable.getMessage()))
+                .onError(throwable -> ZToast.error(throwable.getMessage()))
                 .subscribe();
         ;
     }
@@ -231,15 +231,15 @@ public final class HttpApi {
                 .onSuccess(doc -> {
                     String info = doc.selectFirst("info").text();
                     if ("success".equals(doc.selectFirst("result").text())) {
-                        AToast.success(info);
+                        ZToast.success(info);
                         if (runnable != null) {
                             runnable.run();
                         }
                     } else {
-                        AToast.error(info);
+                        ZToast.error(info);
                     }
                 })
-                .onError(throwable -> AToast.error(throwable.getMessage()))
+                .onError(throwable -> ZToast.error(throwable.getMessage()))
                 .subscribe();
     }
 
@@ -255,13 +255,13 @@ public final class HttpApi {
                 .onSuccess(doc -> {
                     String info = doc.selectFirst("info").text();
                     if ("success".equals(doc.selectFirst("result").text())) {
-                        AToast.success(info);
+                        ZToast.success(info);
                         EventBus.sendRefreshEvent();
                     } else {
-                        AToast.error(info);
+                        ZToast.error(info);
                     }
                 })
-                .onError(throwable -> AToast.error(throwable.getMessage()))
+                .onError(throwable -> ZToast.error(throwable.getMessage()))
                 .subscribe();
     }
 
@@ -277,13 +277,13 @@ public final class HttpApi {
                 .onSuccess(doc -> {
                     String info = doc.selectFirst("info").text();
                     if ("success".equals(doc.selectFirst("result").text())) {
-                        AToast.success(info);
+                        ZToast.success(info);
                         EventBus.sendRefreshEvent();
                     } else {
-                        AToast.error(info);
+                        ZToast.error(info);
                     }
                 })
-                .onError(throwable -> AToast.error(throwable.getMessage()))
+                .onError(throwable -> ZToast.error(throwable.getMessage()))
                 .subscribe();
     }
 
@@ -295,13 +295,13 @@ public final class HttpApi {
                 .onSuccess(doc -> {
                     String info = doc.selectFirst("info").text();
                     if ("success".equals(doc.selectFirst("result").text())) {
-                        AToast.success(info);
+                        ZToast.success(info);
                         EventBus.sendRefreshEvent();
                     } else {
-                        AToast.error(info);
+                        ZToast.error(info);
                     }
                 })
-                .onError(throwable -> AToast.error(throwable.getMessage()))
+                .onError(throwable -> ZToast.error(throwable.getMessage()))
                 .subscribe();
     }
 
@@ -313,13 +313,13 @@ public final class HttpApi {
                 .onSuccess(doc -> {
                     String info = doc.selectFirst("info").text();
                     if ("success".equals(doc.selectFirst("result").text())) {
-                        AToast.success(info);
+                        ZToast.success(info);
                         EventBus.sendRefreshEvent();
                     } else {
-                        AToast.error(info);
+                        ZToast.error(info);
                     }
                 })
-                .onError(throwable -> AToast.error(throwable.getMessage()))
+                .onError(throwable -> ZToast.error(throwable.getMessage()))
                 .subscribe();
     }
 
@@ -448,15 +448,15 @@ public final class HttpApi {
                 .onSuccess(data -> {
                     String info = data.selectFirst("info").text();
                     if ("success".equals(data.selectFirst("result").text())) {
-                        AToast.success(info);
+                        ZToast.success(info);
                         successRunnable.run();
                     } else {
-                        AToast.error(info);
+                        ZToast.error(info);
                     }
                     HideLoadingEvent.postDelayed(250);
                 })
                 .onError(throwable -> {
-                    AToast.error("发送失败！" + throwable.getMessage());
+                    ZToast.error("发送失败！" + throwable.getMessage());
                     HideLoadingEvent.postDelayed(250);
                 })
                 .subscribe();
@@ -523,19 +523,19 @@ public final class HttpApi {
                 .onSuccess(data -> {
                     Log.d("appFavoriteApi", "data=" + data);
                     if ("success".equals(data.selectFirst("result").text())) {
-                        AToast.success("收藏成功！");
+                        ZToast.success("收藏成功！");
                         if (callback != null) {
                             callback.onCallback(true);
                         }
                     } else {
-                        AToast.error("收藏失败！");
+                        ZToast.error("收藏失败！");
                         if (callback != null) {
                             callback.onCallback(false);
                         }
                     }
                 })
                 .onError(throwable -> {
-                    AToast.error("收藏失败！" + throwable.getMessage());
+                    ZToast.error("收藏失败！" + throwable.getMessage());
                     if (callback != null) {
                         callback.onCallback(false);
                     }
@@ -548,19 +548,19 @@ public final class HttpApi {
         get(url)
                 .onSuccess(data -> {
                     if ("success".equals(data.selectFirst("result").text())) {
-                        AToast.success("取消收藏成功！");
+                        ZToast.success("取消收藏成功！");
                         if (callback != null) {
                             callback.onCallback(false);
                         }
                     } else {
-                        AToast.error("取消收藏失败！");
+                        ZToast.error("取消收藏失败！");
                         if (callback != null) {
                             callback.onCallback(true);
                         }
                     }
                 })
                 .onError(throwable -> {
-                    AToast.error("取消收藏失败！" + throwable.getMessage());
+                    ZToast.error("取消收藏失败！" + throwable.getMessage());
                     if (callback != null) {
                         callback.onCallback(true);
                     }

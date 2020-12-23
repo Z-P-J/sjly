@@ -69,7 +69,7 @@ public final class AppConfig {
     }
 
     public static boolean isShowSplash() {
-        return PrefsHelper.with().getBoolean(KEY_SHOW_SPLASH, true);
+        return PrefsHelper.with().getBoolean(KEY_SHOW_SPLASH, false);
     }
 
     public static void setShowUpdateNotification(boolean value) {
@@ -135,7 +135,7 @@ public final class AppConfig {
     }
 
     public static boolean isAccessibilityInstall() {
-        return PrefsHelper.with().getBoolean(KEY_ACCESSIBILITY_INSTALL, true);
+        return PrefsHelper.with().getBoolean(KEY_ACCESSIBILITY_INSTALL, false);
     }
 
     public static void setRootInstall(boolean value) {

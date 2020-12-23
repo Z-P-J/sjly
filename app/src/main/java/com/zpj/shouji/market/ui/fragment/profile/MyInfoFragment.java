@@ -6,7 +6,7 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
 
-import com.felix.atoast.library.AToast;
+import com.zpj.toast.ZToast;
 import com.zpj.fragmentation.dialog.impl.AlertDialogFragment;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.event.EventBus;
@@ -164,10 +164,10 @@ public class MyInfoFragment extends BaseSwipeBackFragment implements OnCommonIte
 //                EmailModifiedPopup.with(context).show();
                 break;
             case R.id.item_qq:
-                AToast.normal("TODO 绑定QQ");
+                ZToast.normal("TODO 绑定QQ");
                 break;
             case R.id.item_wx:
-                AToast.normal("TODO 绑定微信");
+                ZToast.normal("TODO 绑定微信");
                 break;
             case R.id.item_password:
 //                PasswordModifiedPopup.with(context).show();

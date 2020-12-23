@@ -28,7 +28,6 @@
             android:layout_height="wrap_content"
             android:ellipsize="end"
             android:lines="1"
-            android:textColor="@color/_dialog_text_major_color"
             android:textSize="14sp"
             android:layout_marginStart="16dp"
             android:layout_marginEnd="16dp"

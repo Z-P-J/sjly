@@ -44,6 +44,7 @@ public class BottomListDialogFragment<T> extends BottomDialogFragment
 
     @Override
     protected void initView(View view, @Nullable Bundle savedInstanceState) {
+        bgDrawable = DialogThemeUtils.getBottomDialogBackground(context);
         super.initView(view, savedInstanceState);
 
         majorTextColor = DialogThemeUtils.getMajorTextColor(context);
@@ -57,6 +58,7 @@ public class BottomListDialogFragment<T> extends BottomDialogFragment
                 findViewById(R.id._dialog_view_divider).setVisibility(View.GONE);
             } else {
                 tvTitle.setText(title);
+                tvTitle.setTextColor(DialogThemeUtils.getMajorTextColor(context));
             }
         }
 

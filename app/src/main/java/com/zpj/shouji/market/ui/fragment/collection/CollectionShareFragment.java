@@ -8,7 +8,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-import com.felix.atoast.library.AToast;
+import com.zpj.toast.ZToast;
 import com.zpj.http.core.IHttp;
 import com.zpj.recyclerview.EasyRecyclerView;
 import com.zpj.recyclerview.EasyViewHolder;
@@ -131,19 +131,19 @@ public class CollectionShareFragment extends BaseSwipeBackFragment {
         actionPanel.setSendAction(v -> {
             hideSoftInput();
             if (appList.isEmpty()) {
-                AToast.warning("请添加应用");
+                ZToast.warning("请添加应用");
                 return;
             }
             if (appList.size() < 3) {
-                AToast.warning("添加的应用过少");
+                ZToast.warning("添加的应用过少");
                 return;
             }
 
             if (TextUtils.isEmpty(etTitle.getText())) {
-                AToast.warning("请输入应用集标题");
+                ZToast.warning("请输入应用集标题");
                 return;
             } else if (TextUtils.isEmpty(etContent.getText())) {
-                AToast.warning("请输入应用集描述");
+                ZToast.warning("请输入应用集描述");
                 return;
             }
             String tags = "";

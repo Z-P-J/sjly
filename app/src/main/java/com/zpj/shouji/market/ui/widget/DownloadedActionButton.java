@@ -7,7 +7,7 @@ import android.util.AttributeSet;
 import android.util.Log;
 import android.view.View;
 
-import com.felix.atoast.library.AToast;
+import com.zpj.toast.ZToast;
 import com.zpj.downloader.ZDownloader;
 import com.zpj.downloader.config.MissionConfig;
 import com.zpj.downloader.constant.Error;
@@ -90,7 +90,7 @@ public class DownloadedActionButton extends AppCompatTextView
                 AppUtils.runApp(v.getContext(), mission.getPackageName());
                 break;
             case R.string.text_retry:
-                AToast.warning(R.string.text_retry);
+                ZToast.warning(R.string.text_retry);
                 break;
         }
     }

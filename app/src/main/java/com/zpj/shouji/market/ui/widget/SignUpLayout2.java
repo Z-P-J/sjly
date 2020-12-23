@@ -8,7 +8,7 @@
 //import android.widget.LinearLayout;
 //import android.widget.TextView;
 //
-//import com.felix.atoast.library.AToast;
+//import com.zpj.toast.ZToast;
 //import com.zpj.shouji.market.R;
 //import com.zpj.shouji.market.event.SignInEvent;
 //import com.zpj.shouji.market.manager.UserManager;
@@ -106,7 +106,7 @@
 ////
 ////    @Override
 ////    public void onSignInFailed(String errInfo) {
-////        AToast.error("onLoginFailed " + errInfo);
+////        ZToast.error("onLoginFailed " + errInfo);
 ////        etAccount.setError(errInfo);
 //////        if ("".equals(errInfo)) {
 //////
@@ -116,7 +116,7 @@
 //    @Subscribe
 //    public void onSignInEvent(SignInEvent event) {
 //        if (!event.isSuccess()) {
-//            AToast.error("onLoginFailed " + event.getErrorMsg());
+//            ZToast.error("onLoginFailed " + event.getErrorMsg());
 //            etAccount.setError(event.getErrorMsg());
 //        }
 //    }

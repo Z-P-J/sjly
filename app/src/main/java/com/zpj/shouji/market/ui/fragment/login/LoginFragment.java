@@ -8,7 +8,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.LinearLayout;
 
-import com.felix.atoast.library.AToast;
+import com.zpj.toast.ZToast;
 import com.zpj.fragmentation.SupportHelper;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.event.EventBus;
@@ -61,7 +61,7 @@ public class LoginFragment extends BaseSwipeBackFragment {
         super.onCreate(savedInstanceState);
         EventBus.registerObserver(this, SignInEvent.class, event -> {
             if (event.isSuccess()) {
-                AToast.success("登录成功！");
+                ZToast.success("登录成功！");
                 pop();
             }
             if (contentView instanceof SignInLayout3) {
@@ -70,7 +70,7 @@ public class LoginFragment extends BaseSwipeBackFragment {
         });
         EventBus.registerObserver(this, SignUpEvent.class, event -> {
             if (event.isSuccess()) {
-                AToast.success("注册成功，请输入账账户信息登录！");
+                ZToast.success("注册成功，请输入账账户信息登录！");
                 if (SupportHelper.getPreFragment(LoginFragment.this) instanceof LoginFragment) {
                     pop();
                 } else {
@@ -144,7 +144,7 @@ public class LoginFragment extends BaseSwipeBackFragment {
 //    @Subscribe
 //    public void onSignInEvent(SignInEvent event) {
 //        if (event.isSuccess()) {
-//            AToast.success("登录成功！");
+//            ZToast.success("登录成功！");
 //            pop();
 //        }
 //    }
@@ -152,7 +152,7 @@ public class LoginFragment extends BaseSwipeBackFragment {
 //    @Subscribe
 //    public void onSignUpEvent(SignUpEvent event) {
 //        if (event.isSuccess()) {
-//            AToast.success("注册成功，请输入账账户信息登录！");
+//            ZToast.success("注册成功，请输入账账户信息登录！");
 //            if (SupportHelper.getPreFragment(this) instanceof LoginFragment) {
 //                pop();
 //            } else {

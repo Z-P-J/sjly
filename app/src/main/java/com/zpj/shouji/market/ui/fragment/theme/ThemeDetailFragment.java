@@ -18,7 +18,7 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.bumptech.glide.request.target.SimpleTarget;
 import com.bumptech.glide.request.transition.Transition;
-import com.felix.atoast.library.AToast;
+import com.zpj.toast.ZToast;
 import com.zpj.recyclerview.EasyViewHolder;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.api.HttpApi;
@@ -302,7 +302,7 @@ public class ThemeDetailFragment extends BaseSwipeBackFragment {
 
     private void showCommentPopup() {
         if (!UserManager.getInstance().isLogin()) {
-            AToast.warning(R.string.text_msg_not_login);
+            ZToast.warning(R.string.text_msg_not_login);
             LoginFragment.start();
             return;
         }

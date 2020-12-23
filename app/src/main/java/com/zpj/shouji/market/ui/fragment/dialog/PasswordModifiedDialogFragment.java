@@ -4,7 +4,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.View;
 
-import com.felix.atoast.library.AToast;
+import com.zpj.toast.ZToast;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.api.HttpApi;
 import com.zpj.shouji.market.manager.UserManager;
@@ -45,14 +45,14 @@ public class PasswordModifiedDialogFragment extends ModifiedDialogFragment {
                         if ("password_is_wrong".equals(result)) {
                             oldPasswordView.setError("密码错误");
                         } else if ("success".equals(result)) {
-                            AToast.success("修改成功");
+                            ZToast.success("修改成功");
                             UserManager.getInstance().signIn(UserManager.getInstance().getMemberInfo().getMemberName(), newPasswordView.getText());
                             dismiss();
                         } else {
-                            AToast.error("出错了：" + result);
+                            ZToast.error("出错了：" + result);
                         }
                     })
-                    .onError(throwable -> AToast.error("出错了：" + throwable.getMessage()))
+                    .onError(throwable -> ZToast.error("出错了：" + throwable.getMessage()))
                     .subscribe();
         });
 

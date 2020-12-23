@@ -26,7 +26,6 @@ import android.support.annotation.Nullable;
 import android.support.annotation.RequiresApi;
 import android.support.annotation.StyleRes;
 
-import com.felix.atoast.library.AToast;
 import com.lxj.xpermission.PermissionConstants;
 import com.lxj.xpermission.XPermission;
 import com.zpj.fragmentation.SupportActivity;
@@ -40,6 +39,7 @@ import com.zpj.matisse.listener.OnCheckedListener;
 import com.zpj.matisse.listener.OnSelectedListener;
 import com.zpj.matisse.model.SelectedItemManager;
 import com.zpj.matisse.ui.fragment.MatisseFragment2;
+import com.zpj.toast.ZToast;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
@@ -400,7 +400,7 @@ public final class SelectionCreator {
                     }
                     @Override
                     public void onDenied() {
-                        AToast.warning("没有权限，无法使用该功能");
+                        ZToast.warning("没有权限，无法使用该功能");
                     }
                 }).request();
 

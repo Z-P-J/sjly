@@ -5,7 +5,7 @@ import android.text.TextUtils;
 import android.util.Base64;
 import android.util.Log;
 
-import com.felix.atoast.library.AToast;
+import com.zpj.toast.ZToast;
 import com.zpj.fragmentation.dialog.impl.AlertDialogFragment;
 import com.zpj.http.ZHttp;
 import com.zpj.http.core.Connection;
@@ -81,7 +81,7 @@ public final class UserManager {
 //                .subscribeOn(Schedulers.io())
 //                .observeOn(AndroidSchedulers.mainThread())
 //                .onSuccess(this::onSignIn)
-//                .onError(throwable -> AToast.error(throwable.getMessage()))
+//                .onError(throwable -> ZToast.error(throwable.getMessage()))
 //                .subscribe();
         String info = getUserInfo();
         if (!TextUtils.isEmpty(info)) {
@@ -255,12 +255,12 @@ public final class UserManager {
                     }
                     onSignIn(response.parse());
                 })
-                .onError(throwable -> AToast.error(throwable.getMessage()))
+                .onError(throwable -> ZToast.error(throwable.getMessage()))
                 .subscribe();
     }
 
     public void signIn(String userName, String password) {
-        AToast.normal("isLogin=" + isLogin());
+        ZToast.normal("isLogin=" + isLogin());
         HttpApi.openConnection("http://tt.shouji.com.cn/appv3/xml_login_v4.jsp", Connection.Method.POST)
                 .data("openid", "")
                 .data("s", "12345678910")
@@ -315,7 +315,7 @@ public final class UserManager {
         if (TextUtils.isEmpty(info)) {
             info = "登录失败";
         }
-        AToast.normal(info);
+        ZToast.normal(info);
         if (memberInfo == null) {
             onSignInFailed(info);
         } else {

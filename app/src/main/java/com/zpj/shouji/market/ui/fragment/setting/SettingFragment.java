@@ -5,7 +5,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.View;
 
-import com.felix.atoast.library.AToast;
+import com.zpj.toast.ZToast;
 import com.zpj.downloader.ZDownloader;
 import com.zpj.fragmentation.dialog.impl.AlertDialogFragment;
 import com.zpj.http.core.IHttp;
@@ -195,7 +195,7 @@ public class SettingFragment extends BaseSettingFragment {
                                             @Override
                                             public void onSuccess(String data) throws Exception {
                                                 HideLoadingEvent.post(() -> {
-                                                    AToast.success("清理成功");
+                                                    ZToast.success("清理成功");
                                                     item.setRightText(data);
                                                 });
                                             }
@@ -204,7 +204,7 @@ public class SettingFragment extends BaseSettingFragment {
                             })
                             .show(context);
                 } else {
-                    AToast.warning("暂无缓存");
+                    ZToast.warning("暂无缓存");
                 }
                 break;
             case R.id.item_download_folder:

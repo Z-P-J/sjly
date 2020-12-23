@@ -2,6 +2,10 @@ package com.zpj.downloader.core;
 
 import android.content.Context;
 
+/**
+ * 通知拦截器接口
+ * @author Z-P-J
+ */
 public interface INotificationInterceptor {
 
     void onProgress(Context context, DownloadMission mission, float progress, boolean isPause);

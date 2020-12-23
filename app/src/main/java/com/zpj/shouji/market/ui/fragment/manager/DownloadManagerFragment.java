@@ -15,7 +15,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-import com.felix.atoast.library.AToast;
+import com.zpj.toast.ZToast;
 import com.sunfusheng.ExpandableGroupRecyclerViewAdapter;
 import com.sunfusheng.GroupRecyclerViewAdapter;
 import com.sunfusheng.GroupViewHolder;
@@ -75,13 +75,6 @@ public class DownloadManagerFragment extends BaseSwipeBackFragment
         return R.layout.fragment_download;
     }
 
-//    @Override
-//    protected void initStatusBar() {
-//        if (showToolbar) {
-//            ThemeUtils.initStatusBar(this);
-//        }
-//    }
-
     @Override
     protected void initView(View view, @Nullable Bundle savedInstanceState) {
         showToolbar = getArguments() != null && getArguments().getBoolean(Keys.SHOW_TOOLBAR, false);
@@ -137,7 +130,7 @@ public class DownloadManagerFragment extends BaseSwipeBackFragment
             }
         } else {
             // TODO onclick
-            AToast.normal("TODO onClick");
+            ZToast.normal("TODO onClick");
         }
     }
 
@@ -296,7 +289,8 @@ public class DownloadManagerFragment extends BaseSwipeBackFragment
                         appInfo.setPackageName(mission.getPackageName());
                         GlideApp.with(context).load(appInfo).into(ivIcon);
                     } else {
-                        ivIcon.setImageResource(FileUtil.getFileTypeIconId(mission.getTaskName()));
+                        ivIcon.setImageResource(R.drawable.wechat_icon_apk);
+//                        ivIcon.setImageResource(FileUtil.getFileTypeIconId(mission.getTaskName()));
                     }
                 } else {
                     Glide.with(context).load(mission.getAppIcon()).into(ivIcon);
@@ -369,16 +363,16 @@ public class DownloadManagerFragment extends BaseSwipeBackFragment
                                             case "复制链接":
                                                 ClipboardManager cm = (ClipboardManager) context.getSystemService(Context.CLIPBOARD_SERVICE);
                                                 cm.setPrimaryClip(ClipData.newPlainText(null, mission.getOriginUrl()));
-                                                AToast.success("已复制到粘贴板");
+                                                ZToast.success("已复制到粘贴板");
                                                 break;
                                             case "任务详情":
-                                                AToast.normal("TODO");
+                                                ZToast.normal("TODO");
                                                 break;
                                             case "分享":
-                                                AToast.normal("分享");
+                                                ZToast.normal("分享");
                                                 break;
                                             case "检验":
-                                                AToast.normal("检验");
+                                                ZToast.normal("检验");
                                                 break;
                                         }
                                     })
@@ -411,47 +405,6 @@ public class DownloadManagerFragment extends BaseSwipeBackFragment
             holder.setVisible(R.id.btn_download, !isFinished);
             DownloadedActionButton tvAction = holder.get(R.id.tv_action);
             tvAction.bindMission(mission);
-//            if (isFinished) {
-//                tvAction.setVisibility(View.VISIBLE);
-//                final int textId;
-//                if (AppUtils.isInstalled(holder.itemView.getContext(), mission.getPackageName())) {
-//                    if (mission.getFile().exists()) {
-//                        String currentVersion = AppUtils.getAppVersionName(getContext(), mission.getPackageName());
-//                        String apkVersion = AppUtil.getApkVersionName(getContext(), mission.getFilePath());
-//                        if (TextUtils.equals(apkVersion, currentVersion)) {
-//                            textId = R.string.text_install;
-//                        } else {
-//                            textId = R.string .text_open;
-//                        }
-//                    } else {
-//                        textId = R.string.text_open;
-//                    }
-//                } else {
-//                    if (mission.getFile().exists()) {
-//                        textId = R.string.text_install;
-//                    } else {
-//                        textId = R.string.text_retry;
-//                    }
-//                }
-//                tvAction.setText(textId);
-//                tvAction.setOnClickListener(v -> {
-//                    switch (textId) {
-//                        case R.string .text_install:
-//                            mission.install();
-//                            break;
-//                        case R.string.text_open:
-//                            AppUtils.runApp(v.getContext(), mission.getPackageName());
-//                            break;
-//                        case R.string.text_retry:
-//                            AToast.warning(R.string.text_retry);
-//                            break;
-//                    }
-//                });
-//            } else {
-//                tvAction.setVisibility(View.GONE);
-//                tvAction.setOnClickListener(null);
-//            }
-//            holder.setVisible(R.id.tv_action, isFinished);
 
             ProgressBar progressBar = holder.get(R.id.progress_bar);
             progressBar.setMax(100);

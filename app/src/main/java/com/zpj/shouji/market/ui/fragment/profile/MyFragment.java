@@ -14,7 +14,7 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.felix.atoast.library.AToast;
+import com.zpj.toast.ZToast;
 import com.zpj.blur.ZBlurry;
 import com.zpj.fragmentation.anim.DefaultVerticalAnimator;
 import com.zpj.fragmentation.dialog.impl.AttachListDialogFragment;
@@ -111,7 +111,7 @@ public class MyFragment extends SkinFragment
             tvFans.setText("粉丝 0");
             ivAvatar.setImageResource(R.drawable.ic_user_head);
             ivWallpaper.setImageResource(R.drawable.bg_member_default);
-            AToast.success("注销成功");
+            ZToast.success("注销成功");
         });
         EventBus.registerObserver(this, SignInEvent.class, event -> {
             if (event.isSuccess()) {
@@ -315,17 +315,17 @@ public class MyFragment extends SkinFragment
                                                     Log.d("deleteBackgroundApi", "data=" + data);
                                                     String info = data.selectFirst("info").text();
                                                     if ("success".equals(data.selectFirst("result").text())) {
-                                                        AToast.success(info);
+                                                        ZToast.success(info);
                                                         UserManager.getInstance().getMemberInfo().setMemberBackGround("");
                                                         UserManager.getInstance().saveUserInfo();
                                                         PictureUtil.saveDefaultBackground(() -> ivWallpaper.setImageResource(R.drawable.bg_member_default));
                                                     } else {
-                                                        AToast.error(info);
+                                                        ZToast.error(info);
                                                     }
                                                 })
                                                 .onError(throwable -> {
                                                     throwable.printStackTrace();
-                                                    AToast.error(throwable.getMessage());
+                                                    ZToast.error(throwable.getMessage());
                                                 })
                                                 .subscribe();
                                         break;
@@ -414,7 +414,7 @@ public class MyFragment extends SkinFragment
                                 WebFragment.shareHomepage(UserManager.getInstance().getUserId());
                                 break;
                             case 2:
-                                AToast.normal("TODO 分享主页");
+                                ZToast.normal("TODO 分享主页");
 //                                fragment.dismiss();
                                 break;
                             case 3:
@@ -450,22 +450,22 @@ public class MyFragment extends SkinFragment
                             Log.d("tvCheckIn", "data=" + data);
                             String info = data.selectFirst("info").text();
                             if ("success".equals(data.selectFirst("result").text())) {
-                                AToast.success(info);
+                                ZToast.success(info);
                                 memberInfo.setCanSigned(false);
                                 UserManager.getInstance().saveUserInfo();
                                 tvCheckIn.setBackgroundResource(R.drawable.bg_button_round_pink);
                                 tvCheckIn.setText("已签到");
                             } else {
-                                AToast.error(info + "，登录可能已失效");
+                                ZToast.error(info + "，登录可能已失效");
                             }
                         })
                         .onError(throwable -> {
                             throwable.printStackTrace();
-                            AToast.error(throwable.getMessage());
+                            ZToast.error(throwable.getMessage());
                         })
                         .subscribe();
             } else {
-                AToast.warning("你已签到过了");
+                ZToast.warning("你已签到过了");
             }
         } else if (v == tvEditInfo) {
             if (UserManager.getInstance().isLogin()) {

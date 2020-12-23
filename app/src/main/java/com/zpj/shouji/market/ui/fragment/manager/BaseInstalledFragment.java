@@ -85,10 +85,10 @@ public class BaseInstalledFragment extends RecyclerLayoutFragment<InstalledAppIn
 //        super.onActivityResult(requestCode, resultCode, data);
 //        if (requestCode == AppUtil.UNINSTALL_REQUEST_CODE) {
 //            if (resultCode == Activity.RESULT_OK) {
-//                AToast.success("应用卸载成功！");
+//                ZToast.success("应用卸载成功！");
 //                loadInstallApps();
 //            } else if (resultCode == Activity.RESULT_CANCELED) {
-//                AToast.normal("应用卸载取消！");
+//                ZToast.normal("应用卸载取消！");
 //            }
 //        }
 //    }

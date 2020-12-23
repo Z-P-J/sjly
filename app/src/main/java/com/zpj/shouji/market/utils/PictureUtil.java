@@ -20,7 +20,7 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.request.RequestOptions;
 import com.bumptech.glide.request.target.SimpleTarget;
 import com.bumptech.glide.request.transition.Transition;
-import com.felix.atoast.library.AToast;
+import com.zpj.toast.ZToast;
 import com.lxj.xpermission.PermissionConstants;
 import com.lxj.xpermission.XPermission;
 import com.nanchen.compresshelper.CompressHelper;
@@ -282,7 +282,7 @@ public class PictureUtil {
                                                 public void onScanCompleted(final String path, Uri uri) {
                                                     Observable.empty()
                                                             .observeOn(AndroidSchedulers.mainThread())
-                                                            .doOnComplete(() -> AToast.success("已保存到相册！"))
+                                                            .doOnComplete(() -> ZToast.success("已保存到相册！"))
                                                             .subscribe();
                                                 }
                                             }
@@ -293,14 +293,14 @@ public class PictureUtil {
                                 })
                                 .onError(throwable -> {
                                     throwable.printStackTrace();
-                                    AToast.error("保存失败！" + throwable.getMessage());
+                                    ZToast.error("保存失败！" + throwable.getMessage());
                                 })
                                 .subscribe();
                     }
 
                     @Override
                     public void onDenied() {
-                        AToast.warning("没有保存权限，保存功能无法使用！");
+                        ZToast.warning("没有保存权限，保存功能无法使用！");
                     }
                 }).request();
     }
@@ -353,14 +353,14 @@ public class PictureUtil {
                                 })
                                 .onError(throwable -> {
                                     throwable.printStackTrace();
-                                    AToast.error("保存失败！" + throwable.getMessage());
+                                    ZToast.error("保存失败！" + throwable.getMessage());
                                 })
                                 .subscribe();
                     }
 
                     @Override
                     public void onDenied() {
-                        AToast.warning("没有保存权限，保存功能无法使用！");
+                        ZToast.warning("没有保存权限，保存功能无法使用！");
                     }
                 })
                 .request();
@@ -629,10 +629,10 @@ public class PictureUtil {
                                         WallpaperManager wpm = (WallpaperManager) context.getSystemService(
                                                 Context.WALLPAPER_SERVICE);
                                         wpm.setBitmap(resource);
-                                        AToast.success("设置壁纸成功！");
+                                        ZToast.success("设置壁纸成功！");
                                     } catch (IOException e) {
                                         e.printStackTrace();
-                                        AToast.error("设置壁纸失败！" + e.getMessage());
+                                        ZToast.error("设置壁纸失败！" + e.getMessage());
                                     }
                                 })
                                 .subscribe();
@@ -700,7 +700,7 @@ public class PictureUtil {
                                 public void onScanCompleted(final String path, Uri uri) {
                                     Observable.empty()
                                             .observeOn(AndroidSchedulers.mainThread())
-                                            .doOnComplete(() -> AToast.success("已保存到相册！"))
+                                            .doOnComplete(() -> ZToast.success("已保存到相册！"))
                                             .subscribe();
                                 }
                             }
@@ -711,7 +711,7 @@ public class PictureUtil {
                 })
                 .onError(throwable -> {
                     throwable.printStackTrace();
-                    AToast.error("保存失败！" + throwable.getMessage());
+                    ZToast.error("保存失败！" + throwable.getMessage());
                 })
                 .subscribe();
     }

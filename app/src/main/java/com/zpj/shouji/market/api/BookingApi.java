@@ -1,6 +1,6 @@
 package com.zpj.shouji.market.api;
 
-import com.felix.atoast.library.AToast;
+import com.zpj.toast.ZToast;
 import com.zpj.http.parser.html.nodes.Element;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.event.HideLoadingEvent;
@@ -48,7 +48,7 @@ public class BookingApi {
 
     public static void bookingApi(BookingAppInfo appInfo, Runnable successRunnable) {
         if (!UserManager.getInstance().isLogin()) {
-            AToast.warning(R.string.text_msg_not_login);
+            ZToast.warning(R.string.text_msg_not_login);
             LoginFragment.start();
             return;
         }
@@ -57,17 +57,17 @@ public class BookingApi {
                 .onSuccess(data -> {
                     String info = data.selectFirst("info").text();
                     if ("success".equals(data.selectFirst("result").text())) {
-                        AToast.success(info);
+                        ZToast.success(info);
                         appInfo.setBooking(false);
                         successRunnable.run();
                     } else {
-                        AToast.error(info);
+                        ZToast.error(info);
                         appInfo.setBooking(true);
                     }
                     HideLoadingEvent.postDelayed(250);
                 })
                 .onError(throwable -> {
-                    AToast.error("预约失败！" + throwable.getMessage());
+                    ZToast.error("预约失败！" + throwable.getMessage());
                     appInfo.setBooking(true);
                     HideLoadingEvent.postDelayed(250);
                 })
@@ -79,17 +79,17 @@ public class BookingApi {
         HttpApi.get("http://tt.shouji.com.cn/appv3/app_game_yuyue_del.jsp?id=" + appInfo.getAppId())
                 .onSuccess(data -> {
                     if ("success".equals(data.selectFirst("result").text())) {
-                        AToast.success("取消预约成功！");
+                        ZToast.success("取消预约成功！");
                         appInfo.setBooking(true);
                         successRunnable.run();
                     } else {
                         appInfo.setBooking(false);
-                        AToast.error("取消预约失败！");
+                        ZToast.error("取消预约失败！");
                     }
                     HideLoadingEvent.postDelayed(250);
                 })
                 .onError(throwable -> {
-                    AToast.error("取消预约失败！" + throwable.getMessage());
+                    ZToast.error("取消预约失败！" + throwable.getMessage());
                     HideLoadingEvent.postDelayed(250);
                 })
                 .subscribe();
@@ -101,17 +101,17 @@ public class BookingApi {
             HttpApi.get("http://tt.shouji.com.cn/appv3/app_game_auto_download.jsp?id=" + appInfo.getAppId())
                     .onSuccess(data -> {
                         if ("success".equals(data.selectFirst("result").text())) {
-                            AToast.success("该应用上线后将在Wifi环境下自动下载");
+                            ZToast.success("该应用上线后将在Wifi环境下自动下载");
                             appInfo.setAutoDownload(true);
                             successRunnable.run();
                         } else {
-                            AToast.error("开启自动下载失败！");
+                            ZToast.error("开启自动下载失败！");
                             appInfo.setAutoDownload(false);
                         }
                         HideLoadingEvent.postDelayed(250);
                     })
                     .onError(throwable -> {
-                        AToast.error("开启自动下载失败！" + throwable.getMessage());
+                        ZToast.error("开启自动下载失败！" + throwable.getMessage());
                         appInfo.setAutoDownload(false);
                         HideLoadingEvent.postDelayed(250);
                     })
@@ -125,16 +125,16 @@ public class BookingApi {
             HttpApi.get("http://tt.shouji.com.cn/appv3/app_game_auto_download_del.jsp?id=" + appInfo.getAppId())
                     .onSuccess(data -> {
                         if ("success".equals(data.selectFirst("result").text())) {
-                            AToast.success("取消自动下载成功");
+                            ZToast.success("取消自动下载成功");
                             appInfo.setAutoDownload(false);
                             successRunnable.run();
                         } else {
-                            AToast.error("取消自动下载失败！");
+                            ZToast.error("取消自动下载失败！");
                         }
                         HideLoadingEvent.postDelayed(250);
                     })
                     .onError(throwable -> {
-                        AToast.error("取消自动下载失败！" + throwable.getMessage());
+                        ZToast.error("取消自动下载失败！" + throwable.getMessage());
                         HideLoadingEvent.postDelayed(250);
                     })
                     .subscribe();

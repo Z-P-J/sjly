@@ -29,6 +29,7 @@ import com.zpj.shouji.market.ui.fragment.recommond.GameRecommendFragment;
 import com.zpj.shouji.market.ui.fragment.recommond.SoftRecommendFragment;
 import com.zpj.shouji.market.ui.widget.navigation.BottomBar;
 import com.zpj.shouji.market.ui.widget.navigation.BottomBarTab;
+import com.zpj.toast.ZToast;
 
 import java.util.concurrent.TimeUnit;
 
@@ -71,15 +72,6 @@ public class MainFragment extends SkinFragment {
                 blurred.startBlur();
             }
         });
-//        RxObserver.with(this, SkinChangeEvent.class)
-//                .bindToLife(this)
-//                .subscribe(skinChangeEvent -> {
-//                    if (blurred != null) {
-//                        blurred.foregroundColor(Color.parseColor(skinChangeEvent.isNight() ? "#a0000000" : "#a0ffffff"));
-//                        blurred.startBlur();
-//                    }
-////                    AToast.success("SkinChangeEvent");
-//                });
         RxObserver.with(this, MessageInfo.class)
                 .bindToLife(this)
                 .subscribe(info -> mBottomBar.getItem(4).setUnreadCount(info.getTotalCount()));
@@ -95,8 +87,6 @@ public class MainFragment extends SkinFragment {
     @Override
     public void onDestroy() {
         super.onDestroy();
-//        EventBus.getDefault().unregister(this);
-//        RxBus2.get().unSubscribe(this);
     }
 
     @Override
@@ -179,6 +169,10 @@ public class MainFragment extends SkinFragment {
                     prePosition -= 1;
                 }
                 showHideFragment(mFragments[position], mFragments[prePosition]);
+                ZToast.normal("ccccccc\ncccc");
+                ZToast.success("ccsdgftbdfbhgfbdfbdfbdfbvdfghbidhjfgdfccccccccc");
+                ZToast.error("cccccvvv\n\nf\n\ncccccc");
+                ZToast.warning("cccccccc");
             }
 
             @Override
@@ -229,29 +223,31 @@ public class MainFragment extends SkinFragment {
             @Override
             public void run() {
                 mBottomBar.setCurrentItem(0);
-//                if (blurred != null) {
-//                    blurred.startBlur();
+                view.setAlpha(1);
+
+//                if (AppConfig.isShowSplash()) {
+//                    Observable.timer(1000, TimeUnit.MILLISECONDS)
+//                            .subscribeOn(Schedulers.io())
+//                            .observeOn(AndroidSchedulers.mainThread())
+//                            .doOnComplete(() -> {
+//                                view.setAlpha(1);
+////                                view.animate()
+////                                        .setDuration(500)
+////                                        .alpha(1)
+////                                        .start();
+//                            })
+//                            .subscribe();
+//                } else {
+//                    view.animate()
+//                            .setDuration(500)
+//                            .alpha(1)
+//                            .start();
 //                }
 
-//                view.setAlpha(1);
-                if (AppConfig.isShowSplash()) {
-                    Observable.timer(1000, TimeUnit.MILLISECONDS)
-                            .subscribeOn(Schedulers.io())
-                            .observeOn(AndroidSchedulers.mainThread())
-                            .doOnComplete(() -> {
-                                view.setAlpha(1);
-//                                view.animate()
-//                                        .setDuration(500)
-//                                        .alpha(1)
-//                                        .start();
-                            })
-                            .subscribe();
-                } else {
-                    view.animate()
-                            .setDuration(500)
-                            .alpha(1)
-                            .start();
-                }
+//                view.animate()
+////                        .setDuration(500)
+//                        .alpha(1)
+//                        .start();
 
             }
         });

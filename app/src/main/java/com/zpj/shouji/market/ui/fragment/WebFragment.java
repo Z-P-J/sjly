@@ -15,7 +15,7 @@ import android.webkit.WebView;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
 
-import com.felix.atoast.library.AToast;
+import com.zpj.toast.ZToast;
 import com.just.agentweb.AbsAgentWebSettings;
 import com.just.agentweb.AgentWeb;
 import com.just.agentweb.IAgentWebSettings;
@@ -178,7 +178,7 @@ public class WebFragment extends SkinFragment {
                             case 2:
                                 ClipboardManager cm = (ClipboardManager) context.getSystemService(Context.CLIPBOARD_SERVICE);
                                 cm.setPrimaryClip(ClipData.newPlainText(null, mAgentWeb.getWebCreator().getWebView().getUrl()));
-                                AToast.success("已复制到粘贴板");
+                                ZToast.success("已复制到粘贴板");
                                 break;
                         }
                     })

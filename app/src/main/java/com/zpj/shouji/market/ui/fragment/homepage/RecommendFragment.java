@@ -56,7 +56,7 @@ public class RecommendFragment extends SkinFragment {
     @Override
     protected void initView(View view, @Nullable Bundle savedInstanceState) {
         recyclerView = findViewById(R.id.recycler_view);
-
+        recyclerView.setFocusableInTouchMode(true);
         recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
             public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
@@ -251,7 +251,7 @@ public class RecommendFragment extends SkinFragment {
 //    }
 
 //    private void onError(Exception e) {
-//        post(() -> AToast.error("加载失败！" + e.getMessage()));
+//        post(() -> ZToast.error("加载失败！" + e.getMessage()));
 //    }
 //
 //    public interface OnItemClickListener<T> {

@@ -15,7 +15,7 @@
 //import android.view.View;
 //import android.widget.RelativeLayout;
 //
-//import com.felix.atoast.library.AToast;
+//import com.zpj.toast.ZToast;
 //import com.lxj.xpermission.PermissionConstants;
 //import com.lxj.xpermission.XPermission;
 //import com.yalantis.ucrop.CropEvent;
@@ -264,7 +264,7 @@
 //        if (getSupportFragmentManager().getBackStackEntryCount() > 1) {
 //            pop();
 //        } else if (System.currentTimeMillis() - firstTime > 2000) {
-//            AToast.warning("再次点击退出！");
+//            ZToast.warning("再次点击退出！");
 //            firstTime = System.currentTimeMillis();
 //        } else {
 ////            finish();
@@ -277,9 +277,9 @@
 //        super.onActivityResult(requestCode, resultCode, data);
 //        if (requestCode == AppUtil.UNINSTALL_REQUEST_CODE) {
 //            if (resultCode == Activity.RESULT_OK) {
-//                AToast.success("应用卸载成功！");
+//                ZToast.success("应用卸载成功！");
 //            } else if (resultCode == Activity.RESULT_CANCELED) {
-//                AToast.normal("应用卸载取消！");
+//                ZToast.normal("应用卸载取消！");
 //            }
 //        }
 //    }
@@ -368,7 +368,7 @@
 //
 //    @Subscribe
 //    public void onCropEvent(CropEvent event) {
-////        AToast.success("path=" + event.getUri().getPath());
+////        ZToast.success("path=" + event.getUri().getPath());
 //        if (event.isAvatar()) {
 //            ShowLoadingEvent.post("上传头像...");
 //            try {
@@ -377,7 +377,7 @@
 //                            Log.d("uploadAvatarApi", "data=" + doc);
 //                            String info = doc.selectFirst("info").text();
 //                            if ("success".equals(doc.selectFirst("result").text())) {
-////                                AToast.success(info);
+////                                ZToast.success(info);
 //
 //                                UserManager.getInstance().getMemberInfo().setMemberAvatar(info);
 //                                UserManager.getInstance().saveUserInfo();
@@ -388,18 +388,18 @@
 //                                    }
 //                                });
 //                            } else {
-//                                AToast.error(info);
+//                                ZToast.error(info);
 //                            }
 //                            HideLoadingEvent.postDelayed(500);
 //                        })
 //                        .onError(throwable -> {
-//                            AToast.error("上传头像失败！" + throwable.getMessage());
+//                            ZToast.error("上传头像失败！" + throwable.getMessage());
 //                            HideLoadingEvent.postDelayed(500);
 //                        })
 //                        .subscribe();
 //            } catch (Exception e) {
 //                e.printStackTrace();
-//                AToast.error("上传头像失败！" + e.getMessage());
+//                ZToast.error("上传头像失败！" + e.getMessage());
 //                HideLoadingEvent.postDelayed(500);
 //            }
 //        } else {
@@ -414,21 +414,21 @@
 //                                UserManager.getInstance().saveUserInfo();
 //                                PictureUtil.saveBackground(event.getUri(), data -> IconUploadSuccessEvent.post(event));
 //                            } else {
-//                                AToast.error(info);
+//                                ZToast.error(info);
 //                            }
 //                            HideLoadingEvent.postDelayed(500);
 //                        })
 //                        .onError(throwable -> {
 //                            Log.d("uploadBackgroundApi", "throwable.msg=" + throwable.getMessage());
 //                            throwable.printStackTrace();
-//                            AToast.error("上传背景失败！" + throwable.getMessage());
+//                            ZToast.error("上传背景失败！" + throwable.getMessage());
 //                            HideLoadingEvent.postDelayed(500);
 //                        })
 //                        .subscribe();
 //            } catch (Exception e) {
 //                e.printStackTrace();
 //                Log.d("uploadBackgroundApi", "e.msg=" + e.getMessage());
-//                AToast.error("上传背景失败！" + e.getMessage());
+//                ZToast.error("上传背景失败！" + e.getMessage());
 //                HideLoadingEvent.postDelayed(500);
 //            }
 //        }

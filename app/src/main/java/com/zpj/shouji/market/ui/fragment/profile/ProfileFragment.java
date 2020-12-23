@@ -17,7 +17,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
-import com.felix.atoast.library.AToast;
+import com.zpj.toast.ZToast;
 import com.zpj.fragmentation.dialog.impl.AlertDialogFragment;
 import com.zpj.fragmentation.dialog.impl.AttachListDialogFragment;
 import com.zpj.http.core.ObservableTask;
@@ -204,7 +204,7 @@ public class ProfileFragment extends BaseSwipeBackFragment
                                 HttpApi.addBlacklistApi(userId);
                                 break;
                             case 4:
-                                AToast.warning("TODO");
+                                ZToast.warning("TODO");
                                 break;
                         }
                         fragment.dismiss();
@@ -268,7 +268,7 @@ public class ProfileFragment extends BaseSwipeBackFragment
                     });
                 })
                 .onError(throwable -> {
-                    AToast.error(throwable.getMessage());
+                    ZToast.error(throwable.getMessage());
                     stateLayout.showErrorView(throwable.getMessage());
                 })
                 .subscribe();
@@ -320,15 +320,15 @@ public class ProfileFragment extends BaseSwipeBackFragment
                                     Log.d("deleteFriendApi", "data=" + data);
                                     String result = data.selectFirst("result").text();
                                     if ("success".equals(result)) {
-                                        AToast.success("取消关注成功");
+                                        ZToast.success("取消关注成功");
                                         tvFollow.setText("关注");
                                         ivChat.setVisibility(View.GONE);
                                         isFriend = false;
                                     } else {
-                                        AToast.error(data.selectFirst("info").text());
+                                        ZToast.error(data.selectFirst("info").text());
                                     }
                                 })
-                                .onError(throwable -> AToast.error(throwable.getMessage()))
+                                .onError(throwable -> ZToast.error(throwable.getMessage()))
                                 .subscribe())
                         .show(context);
             } else {
@@ -337,15 +337,15 @@ public class ProfileFragment extends BaseSwipeBackFragment
                             Log.d("addFriendApi", "data=" + data);
                             String result = data.selectFirst("result").text();
                             if ("success".equals(result)) {
-                                AToast.success("关注成功");
+                                ZToast.success("关注成功");
                                 tvFollow.setText("已关注");
                                 ivChat.setVisibility(View.VISIBLE);
                                 isFriend = true;
                             } else {
-                                AToast.error(data.selectFirst("info").text());
+                                ZToast.error(data.selectFirst("info").text());
                             }
                         })
-                        .onError(throwable -> AToast.error(throwable.getMessage()))
+                        .onError(throwable -> ZToast.error(throwable.getMessage()))
                         .subscribe();
             }
         }

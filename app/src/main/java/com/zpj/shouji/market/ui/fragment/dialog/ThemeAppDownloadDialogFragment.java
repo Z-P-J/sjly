@@ -12,7 +12,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-import com.felix.atoast.library.AToast;
+import com.zpj.toast.ZToast;
 import com.zpj.fragmentation.dialog.base.BottomDialogFragment;
 import com.zpj.http.parser.html.nodes.Element;
 import com.zpj.http.parser.html.select.Elements;
@@ -82,7 +82,7 @@ public class ThemeAppDownloadDialogFragment extends BottomDialogFragment {
         getContentView().setMinimumHeight(ScreenUtils.getScreenHeight(context) / 2);
 
         if (TextUtils.isEmpty(id) || discoverInfo == null) {
-            AToast.error("应用信息弹窗打开失败！");
+            ZToast.error("应用信息弹窗打开失败！");
             dismiss();
             return;
         }
@@ -107,7 +107,7 @@ public class ThemeAppDownloadDialogFragment extends BottomDialogFragment {
 //        tvDownload.setOnClickListener(new View.OnClickListener() {
 //            @Override
 //            public void onClick(View v) {
-//                AToast.normal("TODO Download " + apkUrl);
+//                ZToast.normal("TODO Download " + apkUrl);
 //            }
 //        });
         tvDownload.setEnabled(false);

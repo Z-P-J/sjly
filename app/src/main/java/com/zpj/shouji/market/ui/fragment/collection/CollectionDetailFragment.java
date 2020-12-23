@@ -19,7 +19,7 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.bumptech.glide.request.target.SimpleTarget;
 import com.bumptech.glide.request.transition.Transition;
-import com.felix.atoast.library.AToast;
+import com.zpj.toast.ZToast;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.api.HttpApi;
 import com.zpj.shouji.market.event.EventBus;
@@ -360,7 +360,7 @@ public class CollectionDetailFragment extends BaseSwipeBackFragment
             case R.id.fab_comment:
 
                 if (!UserManager.getInstance().isLogin()) {
-                    AToast.warning(R.string.text_msg_not_login);
+                    ZToast.warning(R.string.text_msg_not_login);
                     LoginFragment.start();
                     return;
                 }
@@ -407,7 +407,7 @@ public class CollectionDetailFragment extends BaseSwipeBackFragment
                 break;
             case R.id.tv_support:
                 if (!UserManager.getInstance().isLogin()) {
-                    AToast.warning(R.string.text_msg_not_login);
+                    ZToast.warning(R.string.text_msg_not_login);
                     LoginFragment.start();
                     return;
                 }
@@ -419,17 +419,17 @@ public class CollectionDetailFragment extends BaseSwipeBackFragment
                                 tvSupport.setDrawableTintColor(isLike ? Color.RED : Color.WHITE);
                                 tvSupport.setText(data.selectFirst("flower").text());
                             } else {
-                                AToast.error(info);
+                                ZToast.error(info);
                             }
                         })
                         .onError(throwable -> {
-                            AToast.error("点赞失败！" + throwable.getMessage());
+                            ZToast.error("点赞失败！" + throwable.getMessage());
                         })
                         .subscribe();
                 break;
             case R.id.tv_favorite:
                 if (!UserManager.getInstance().isLogin()) {
-                    AToast.warning(R.string.text_msg_not_login);
+                    ZToast.warning(R.string.text_msg_not_login);
                     LoginFragment.start();
                     return;
                 }
@@ -442,13 +442,13 @@ public class CollectionDetailFragment extends BaseSwipeBackFragment
                                     tvFavorite.setDrawableTintColor(Color.WHITE);
                                     tvFavorite.setText(String.valueOf(count - 1));
                                     tvFavorite.setTag(false);
-                                    AToast.success("取消收藏成功！");
+                                    ZToast.success("取消收藏成功！");
                                 } else {
-                                    AToast.error(info);
+                                    ZToast.error(info);
                                 }
                             })
                             .onError(throwable -> {
-                                AToast.error("取消收藏失败！" + throwable.getMessage());
+                                ZToast.error("取消收藏失败！" + throwable.getMessage());
                             })
                             .subscribe();
                 } else {
@@ -460,13 +460,13 @@ public class CollectionDetailFragment extends BaseSwipeBackFragment
                                     tvFavorite.setDrawableTintColor(Color.RED);
                                     tvFavorite.setText(String.valueOf(count + 1));
                                     tvFavorite.setTag(true);
-                                    AToast.success("收藏成功！");
+                                    ZToast.success("收藏成功！");
                                 } else {
-                                    AToast.error(info);
+                                    ZToast.error(info);
                                 }
                             })
                             .onError(throwable -> {
-                                AToast.error("收藏失败！" + throwable.getMessage());
+                                ZToast.error("收藏失败！" + throwable.getMessage());
                             })
                             .subscribe();
                 }
@@ -475,7 +475,7 @@ public class CollectionDetailFragment extends BaseSwipeBackFragment
 //
 //                break;
             case R.id.tv_download:
-                AToast.normal("TODO 应用集下载");
+                ZToast.normal("TODO 应用集下载");
                 break;
         }
     }

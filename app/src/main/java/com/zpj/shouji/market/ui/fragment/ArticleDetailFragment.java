@@ -20,7 +20,7 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.target.SimpleTarget;
 import com.bumptech.glide.request.transition.Transition;
-import com.felix.atoast.library.AToast;
+import com.zpj.toast.ZToast;
 import com.zpj.fragmentation.dialog.imagetrans.ImageItemView;
 import com.zpj.fragmentation.dialog.imagetrans.listener.SourceImageViewGet;
 import com.zpj.fragmentation.dialog.impl.AttachListDialogFragment;
@@ -111,7 +111,7 @@ public class ArticleDetailFragment extends BaseSwipeBackFragment {
                                 WebFragment.start(url);
                                 break;
                             case 1:
-                                AToast.warning("TODO");
+                                ZToast.warning("TODO");
                                 break;
                         }
                         fragment.dismiss();
@@ -143,7 +143,7 @@ public class ArticleDetailFragment extends BaseSwipeBackFragment {
 
     private synchronized void parseArticleInfo(ArticleDetailInfo info) {
         if (info == null) {
-            AToast.error("文章解析失败！即将跳转至网页");
+            ZToast.error("文章解析失败！即将跳转至网页");
             pop();
             WebFragment.start(url);
             return;
@@ -215,7 +215,7 @@ public class ArticleDetailFragment extends BaseSwipeBackFragment {
                             String id = linkElement.getLinkUrl().replace("http://sjsoft.wozaiai.cn/down/", "").replace(".html", "");
                             AppDetailFragment.start("soft", id);
                         } else {
-                            AToast.normal(linkElement.getLinkUrl());
+                            ZToast.normal(linkElement.getLinkUrl());
                         }
                     }
                 });

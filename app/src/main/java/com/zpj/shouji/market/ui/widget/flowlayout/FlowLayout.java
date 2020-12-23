@@ -15,7 +15,7 @@ import android.util.AttributeSet;
 import android.view.View;
 import android.widget.TextView;
 
-import com.felix.atoast.library.AToast;
+import com.zpj.toast.ZToast;
 import com.zpj.recyclerview.EasyRecyclerView;
 import com.zpj.recyclerview.EasyViewHolder;
 import com.zpj.recyclerview.IEasy;
@@ -219,7 +219,7 @@ public class FlowLayout extends RecyclerView implements IEasy.OnBindViewHolderLi
         if (multiSelectMode) {
             selectMode = true;
             if (selectedList.size() >= maxSelectCount) {
-                AToast.warning("最多只能选择" + maxSelectCount + "项");
+                ZToast.warning("最多只能选择" + maxSelectCount + "项");
             } else {
                 this.selectedList.add(position);
                 recyclerView.notifyDataSetChanged();

@@ -13,7 +13,7 @@
 //import android.widget.LinearLayout;
 //import android.widget.TextView;
 //
-//import com.felix.atoast.library.AToast;
+//import com.zpj.toast.ZToast;
 //import com.zpj.shouji.market.R;
 //import com.zpj.shouji.market.event.SignUpEvent;
 //import com.zpj.shouji.market.manager.UserManager;
@@ -118,13 +118,13 @@
 //                    String accountName = etAccount.getText();
 //                    String password = etPassword.getText();
 //                    String email = etPassword.getText();
-//                    AToast.normal("onClick");
+//                    ZToast.normal("onClick");
 //                    UserManager.getInstance().signUp(accountName, password, email);
 //                } else {
-//                    AToast.warning("输入内容有误");
+//                    ZToast.warning("输入内容有误");
 //                }
 //            } else {
-//                AToast.warning("请同意《手机乐园协议》");
+//                ZToast.warning("请同意《手机乐园协议》");
 //            }
 //        });
 //    }
@@ -169,7 +169,7 @@
 ////            etAccount.requestFocus();
 ////            etAccount.setError(errInfo);
 ////        } else {
-////            AToast.error(errInfo);
+////            ZToast.error(errInfo);
 ////        }
 ////    }
 //
@@ -181,7 +181,7 @@
 //                etAccount.requestFocus();
 //                etAccount.setError(errInfo);
 //            } else {
-//                AToast.error(errInfo);
+//                ZToast.error(errInfo);
 //            }
 //        }
 //    }

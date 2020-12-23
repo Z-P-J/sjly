@@ -8,7 +8,7 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.TextView;
 
-import com.felix.atoast.library.AToast;
+import com.zpj.toast.ZToast;
 import com.zpj.http.core.IHttp;
 import com.zpj.recyclerview.EasyViewHolder;
 import com.zpj.shouji.market.R;
@@ -69,7 +69,7 @@ public class ReportFragment extends BaseSwipeBackFragment {
             @Override
             public void onClick(View v) {
                 if (flowLayout.getSelectedItem().isEmpty() && TextUtils.isEmpty(etContent.getText())) {
-                    AToast.warning("请选择举报原因！");
+                    ZToast.warning("请选择举报原因！");
                     return;
                 }
                 String reasons = "";
@@ -85,21 +85,21 @@ public class ReportFragment extends BaseSwipeBackFragment {
                     }
                     reasons += etContent.getText();
                 }
-//                AToast.normal("reasons=" + reasons);
+//                ZToast.normal("reasons=" + reasons);
                 HttpApi.reportApi(discoverInfo.getId(), discoverInfo.getContentType(), reasons)
                         .onSuccess(data -> {
                             String info = data.selectFirst("info").text();
                             if ("success".equals(data.selectFirst("result").text())) {
-                                AToast.success(info);
+                                ZToast.success(info);
                                 pop();
                             } else {
-                                AToast.error(info);
+                                ZToast.error(info);
                             }
                         })
                         .onError(new IHttp.OnErrorListener() {
                             @Override
                             public void onError(Throwable throwable) {
-                                AToast.error(throwable.getMessage());
+                                ZToast.error(throwable.getMessage());
                             }
                         })
                         .subscribe();

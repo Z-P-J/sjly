@@ -12,7 +12,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-import com.felix.atoast.library.AToast;
+import com.zpj.toast.ZToast;
 import com.zpj.http.core.IHttp;
 import com.zpj.matisse.Matisse;
 import com.zpj.matisse.MimeType;
@@ -83,11 +83,11 @@ public class WallpaperShareFragment extends BaseSwipeBackFragment
         });
         actionPanel.setSendAction(v -> {
             if (TextUtils.isEmpty(etContent.getText())) {
-                AToast.warning("请输入内容");
+                ZToast.warning("请输入内容");
                 return;
             }
             if (imgFile == null) {
-                AToast.warning("请选择图片");
+                ZToast.warning("请选择图片");
                 return;
             }
 

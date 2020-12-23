@@ -8,7 +8,7 @@ import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.felix.atoast.library.AToast;
+import com.zpj.toast.ZToast;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.event.SignInEvent;
 import com.zpj.shouji.market.manager.UserManager;
@@ -67,7 +67,7 @@ public class SignInLayout3 extends LinearLayout implements View.OnClickListener 
                 UserManager.getInstance().signIn(userName, password);
                 break;
             case R.id.tv_forget_password:
-                AToast.normal("TODO");
+                ZToast.normal("TODO");
                 break;
         }
     }

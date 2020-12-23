@@ -8,7 +8,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
-import com.felix.atoast.library.AToast;
+import com.zpj.toast.ZToast;
 import com.zpj.http.parser.html.nodes.Document;
 import com.zpj.recyclerview.EasyRecyclerLayout;
 import com.zpj.recyclerview.EasyViewHolder;
@@ -237,7 +237,7 @@ public class UserPickerFragment extends BaseSwipeBackFragment {
 
         @Override
         public void onSelectOverMax(int maxSelectCount) {
-            AToast.warning("最多只能选择" + selectedUserList.size() + "位用户");
+            ZToast.warning("最多只能选择" + selectedUserList.size() + "位用户");
         }
 
 

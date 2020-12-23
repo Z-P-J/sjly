@@ -1,6 +1,7 @@
 package com.zpj.downloader.core;
 
 import android.content.Context;
+import android.content.IntentFilter;
 import android.text.TextUtils;
 import android.util.Log;
 
@@ -66,10 +67,17 @@ public class DownloadManagerImpl implements DownloadManager {
 		return mManager;
 	}
 
+	public static DownloadManager get() {
+		return mManager;
+	}
+
 	public static <T extends DownloadMission> void register(DownloaderConfig options, Class<T> clazz) {
 		if (mManager == null) {
 			mManager = new DownloadManagerImpl(options.getContext(), options);
 			mManager.loadMissions(clazz);
+			IntentFilter intentFilter = new IntentFilter();
+			intentFilter.addAction("android.net.conn.CONNECTIVITY_CHANGE");
+			options.getContext().registerReceiver(NetworkChangeReceiver.getInstance(), intentFilter);
 		}
 	}
 
@@ -77,7 +85,7 @@ public class DownloadManagerImpl implements DownloadManager {
 		getInstance().removeDownloadManagerListener(null);
 		getInstance().pauseAllMissions();
 		getInstance().getContext().unregisterReceiver(NetworkChangeReceiver.getInstance());
-		INotificationInterceptor interceptor = getInstance().getDownloaderConfig().getNotificationIntercepter();
+		INotificationInterceptor interceptor = getInstance().getDownloaderConfig().getNotificationInterceptor();
 		if (interceptor != null) {
 			interceptor.onCancelAll(getInstance().getContext());
 		}

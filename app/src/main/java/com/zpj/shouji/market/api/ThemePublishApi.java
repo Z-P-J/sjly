@@ -5,7 +5,7 @@ import android.text.TextUtils;
 import android.util.Log;
 
 import com.bumptech.glide.Glide;
-import com.felix.atoast.library.AToast;
+import com.zpj.toast.ZToast;
 import com.zpj.http.ZHttp;
 import com.zpj.http.core.Connection;
 import com.zpj.http.core.HttpKeyVal;
@@ -123,7 +123,7 @@ public class ThemePublishApi {
                     if ("success".equals(data.selectFirst("result").text())) {
 //                        Observable.timer(250, TimeUnit.MILLISECONDS)
 //                                .doOnComplete(() -> {
-//                                    AToast.success(info);
+//                                    ZToast.success(info);
 //                                    HideLoadingEvent.postEvent();
 //                                    if (successRunnable != null) {
 //                                        successRunnable.run();
@@ -131,18 +131,18 @@ public class ThemePublishApi {
 //                                })
 //                                .subscribe();
                         HideLoadingEvent.post(() -> {
-                            AToast.success(info);
+                            ZToast.success(info);
                             if (successRunnable != null) {
                                 successRunnable.run();
                             }
                         });
                     } else {
-                        AToast.error(info);
+                        ZToast.error(info);
                         HideLoadingEvent.postDelayed(250);
                     }
                 })
                 .onError(throwable -> {
-                    AToast.error("发布失败！" + throwable.getMessage());
+                    ZToast.error("发布失败！" + throwable.getMessage());
                     HideLoadingEvent.postDelayed(250);
                 })
                 .subscribe();

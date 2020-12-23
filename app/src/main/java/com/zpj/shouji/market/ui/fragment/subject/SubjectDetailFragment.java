@@ -11,7 +11,7 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.donkingliang.consecutivescroller.ConsecutiveScrollerLayout;
-import com.felix.atoast.library.AToast;
+import com.zpj.toast.ZToast;
 import com.zpj.http.core.IHttp;
 import com.zpj.http.parser.html.nodes.Document;
 import com.zpj.http.parser.html.nodes.Element;
@@ -112,7 +112,7 @@ public class SubjectDetailFragment extends BaseSwipeBackFragment
                     .into(ivBg);
         } else {
             pop();
-            AToast.error("查看专题失败！");
+            ZToast.error("查看专题失败！");
             return;
         }
 
@@ -203,7 +203,7 @@ public class SubjectDetailFragment extends BaseSwipeBackFragment
                 .onError(new IHttp.OnErrorListener() {
                     @Override
                     public void onError(Throwable throwable) {
-                        AToast.error("出错了！" + throwable.getMessage());
+                        ZToast.error("出错了！" + throwable.getMessage());
                     }
                 })
                 .subscribe();

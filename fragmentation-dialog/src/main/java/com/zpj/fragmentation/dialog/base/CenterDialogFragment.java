@@ -72,6 +72,7 @@ public abstract class CenterDialogFragment extends BaseDialogFragment {
                 params.rightMargin = margin;
             }
             params.width = getMaxWidth();
+
         }
 
         params.gravity = Gravity.CENTER;

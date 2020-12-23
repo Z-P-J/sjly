@@ -4,7 +4,7 @@ import android.support.annotation.NonNull;
 import android.view.View;
 import android.widget.TextView;
 
-import com.felix.atoast.library.AToast;
+import com.zpj.toast.ZToast;
 import com.zpj.http.ZHttp;
 import com.zpj.http.parser.html.nodes.Element;
 import com.zpj.http.parser.html.select.Elements;
@@ -67,7 +67,7 @@ public class GameRecommendFragment extends BaseRecommendFragment implements View
                 })
                 .onError(throwable -> {
                     throwable.printStackTrace();
-                    AToast.error("出错了！" + throwable.getMessage());
+                    ZToast.error("出错了！" + throwable.getMessage());
                 })
                 .subscribe();
 
@@ -128,7 +128,7 @@ public class GameRecommendFragment extends BaseRecommendFragment implements View
                 LatestBookingFragment.start();
                 break;
             case R.id.tv_handpick:
-                AToast.normal("TODO");
+                ZToast.normal("TODO");
                 PickedGameFragment.start();
                 break;
             case R.id.tv_rank:

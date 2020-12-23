@@ -2,7 +2,7 @@ package com.zpj.shouji.market.api;
 
 import android.util.Log;
 
-import com.felix.atoast.library.AToast;
+import com.zpj.toast.ZToast;
 import com.zpj.http.ZHttp;
 import com.zpj.http.core.IHttp;
 import com.zpj.http.parser.html.nodes.Element;

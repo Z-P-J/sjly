@@ -29,7 +29,7 @@ dependencies {
     implementation 'com.lxj:xpermission:1.0.1'
 //    implementation 'org.greenrobot:eventbus:3.1.1'
 
-    implementation 'com.github.chaichuanfa:atoast:0.0.2'
+//    implementation 'com.github.chaichuanfa:atoast:0.0.2'
     implementation 'com.github.lihangleo2:ShadowLayout:2.1.8'
     implementation 'com.sothree.slidinguppanel:library:3.4.0'
 //    implementation 'com.github.SheHuan:NiceImageView:1.0.5'
@@ -38,6 +38,7 @@ dependencies {
     implementation 'com.zpj.widget:ZRecyclerView:1.1.5'
     implementation 'com.zpj.widget:ZToolBar:1.0.7'
     implementation 'com.zpj.utils:ZUtils:1.0.3'
+    implementation 'com.zpj.toast:ZToast:1.0.0'
 
 //    implementation project(':niceimageview')
     implementation project(":fragmentation-dialog")

@@ -10,7 +10,6 @@ import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.target.ViewTarget;
-import com.felix.atoast.library.AToast;
 import com.lqr.emoji.IImageLoader;
 import com.lqr.emoji.LQREmotionKit;
 import com.maning.librarycrashmonitor.MCrashMonitor;
@@ -20,7 +19,6 @@ import com.zpj.shouji.market.constant.AppConfig;
 import com.zpj.shouji.market.utils.ThemeUtils;
 import com.zpj.widget.setting.SimpleSettingItem;
 import com.zpj.widget.setting.SwitchSettingItem;
-import com.zpj.widget.toolbar.BaseToolBar;
 import com.zxy.skin.sdk.SkinEngine;
 import com.zxy.skin.sdk.applicator.SkinViewApplicator;
 
@@ -55,8 +53,6 @@ public class BaseApplication extends Application {
 
 //        UMConfigure.init(this,"5f53cf523739314483bc4020"
 //                ,"umeng",UMConfigure.DEVICE_TYPE_PHONE,"");
-
-        AToast.onInit(this);
 
         LQREmotionKit.init(this, new IImageLoader() {
             @Override

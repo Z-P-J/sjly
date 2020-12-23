@@ -7,7 +7,7 @@ import android.util.Log;
 import android.view.View;
 
 import com.cb.ratingbar.CBRatingBar;
-import com.felix.atoast.library.AToast;
+import com.zpj.toast.ZToast;
 import com.zpj.fragmentation.dialog.base.CenterDialogFragment;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.api.HttpApi;
@@ -55,13 +55,13 @@ public class AppRatingDialogFragment extends CenterDialogFragment {
                             if (callback != null) {
                                 callback.onCallback(ratingBar.getStarProgress());
                             }
-                            AToast.success("评分成功！");
+                            ZToast.success("评分成功！");
                             HideLoadingEvent.post(500, this::dismiss);
                         } else {
-                            AToast.success("评分失败！");
+                            ZToast.success("评分失败！");
                         }
                     })
-                    .onError(throwable -> AToast.error("出错了！" + throwable.getMessage()))
+                    .onError(throwable -> ZToast.error("出错了！" + throwable.getMessage()))
                     .subscribe();
         });
     }

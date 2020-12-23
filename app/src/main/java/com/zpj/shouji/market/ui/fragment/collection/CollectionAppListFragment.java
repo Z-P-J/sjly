@@ -10,7 +10,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-import com.felix.atoast.library.AToast;
+import com.zpj.toast.ZToast;
 import com.zpj.http.parser.html.nodes.Element;
 import com.zpj.recyclerview.EasyRecyclerLayout;
 import com.zpj.recyclerview.EasyViewHolder;
@@ -51,9 +51,9 @@ public class CollectionAppListFragment extends NextUrlFragment<CollectionAppInfo
             public void onClick(EasyViewHolder holder, View view, CollectionAppInfo data) {
                 if (data.isApkExist()) {
                     // TODO
-                    AToast.success("TODO 开始下载");
+                    ZToast.success("TODO 开始下载");
                 } else {
-                    AToast.warning("应用未收录");
+                    ZToast.warning("应用未收录");
                 }
             }
         });
@@ -76,7 +76,7 @@ public class CollectionAppListFragment extends NextUrlFragment<CollectionAppInfo
         if (data.isApkExist()) {
             AppDetailFragment.start(data);
         } else {
-            AToast.warning("应用未收录");
+            ZToast.warning("应用未收录");
         }
     }
 

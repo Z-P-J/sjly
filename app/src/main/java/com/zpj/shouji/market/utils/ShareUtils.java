@@ -6,7 +6,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.text.TextUtils;
 
-import com.felix.atoast.library.AToast;
+import com.zpj.toast.ZToast;
 import com.zpj.utils.AppUtils;
 
 import java.io.File;
@@ -36,7 +36,7 @@ public class ShareUtils {
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             context.startActivity(intent);
         } else {
-            AToast.warning("请先安装微信客户端");
+            ZToast.warning("请先安装微信客户端");
         }
     }
 
@@ -62,7 +62,7 @@ public class ShareUtils {
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             context.startActivity(Intent.createChooser(intent, "sharePictureToWechatFriend"));
         } else {
-            AToast.warning("请先安装微信客户端");
+            ZToast.warning("请先安装微信客户端");
         }
     }
 
@@ -86,7 +86,7 @@ public class ShareUtils {
             // 遍历所有支持发送图片的应用。找到需要的应用
             context.startActivity(Intent.createChooser(shareIntent, "shareImageToQQFriend"));
         } else {
-            AToast.warning("请先安装QQ客户端");
+            ZToast.warning("请先安装QQ客户端");
         }
     }
 
@@ -106,7 +106,7 @@ public class ShareUtils {
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             context.startActivity(intent);
         } else {
-            AToast.warning("请先安装QQ客户端");
+            ZToast.warning("请先安装QQ客户端");
         }
     }
 
@@ -129,7 +129,7 @@ public class ShareUtils {
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             context.startActivity(intent);
         } else {
-            AToast.warning("请先安装微信客户端");
+            ZToast.warning("请先安装微信客户端");
         }
     }
 
@@ -145,7 +145,7 @@ public class ShareUtils {
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             context.startActivity(intent);
         } else {
-            AToast.warning("请先安装微信客户端");
+            ZToast.warning("请先安装微信客户端");
         }
     }
 
@@ -171,7 +171,7 @@ public class ShareUtils {
             intent.putExtra("Kdescription", "shareMultiplePictureToTimeLine");
             context.startActivity(intent);
         } else {
-            AToast.warning("请先安装微信客户端");
+            ZToast.warning("请先安装微信客户端");
         }
     }
 
@@ -189,7 +189,7 @@ public class ShareUtils {
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             context.startActivity(intent);
         } else {
-            AToast.warning("请先安装微博客户端");
+            ZToast.warning("请先安装微博客户端");
         }
     }
 
@@ -205,7 +205,7 @@ public class ShareUtils {
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             context.startActivity(intent);
         } else {
-            AToast.warning("请先安装微博客户端");
+            ZToast.warning("请先安装微博客户端");
         }
     }
 

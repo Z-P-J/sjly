@@ -9,7 +9,7 @@ import android.view.View;
 import android.widget.PopupWindow;
 import android.widget.TextView;
 
-import com.felix.atoast.library.AToast;
+import com.zpj.toast.ZToast;
 import com.zpj.downloader.ZDownloader;
 import com.zpj.downloader.config.MissionConfig;
 import com.zpj.downloader.constant.Error;
@@ -222,7 +222,7 @@ public class DownloadButton extends AppCompatTextView
             return;
         }
         if (TextUtils.isEmpty(appId) || TextUtils.isEmpty(appName) || TextUtils.isEmpty(appType)) {
-            AToast.error("Please call the bindApp() method first!");
+            ZToast.error("Please call the bindApp() method first!");
             return;
         }
         if (mission == null) {
@@ -254,7 +254,7 @@ public class DownloadButton extends AppCompatTextView
             mission.setAppIcon(appIcon);
             mission.addListener(this);
             mission.start();
-            AToast.normal("开始下载" + appName);
+            ZToast.normal("开始下载" + appName);
         }
     }
 }

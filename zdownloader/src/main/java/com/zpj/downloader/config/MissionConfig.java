@@ -17,6 +17,7 @@ public class MissionConfig extends BaseConfig<MissionConfig> {
             throw new RuntimeException("DownloaderConfig is null in DownloadManagerImp. You must init first!");
         }
         return new MissionConfig()
+                .setNotificationInterceptor(config.notificationInterceptor)
                 .setDownloadPath(config.downloadPath)
                 .setBufferSize(config.bufferSize)
                 .setProgressInterval(config.progressInterval)

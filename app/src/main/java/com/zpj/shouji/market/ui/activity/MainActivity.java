@@ -12,7 +12,7 @@ import android.support.v4.content.ContextCompat;
 import android.view.WindowManager;
 import android.widget.FrameLayout;
 
-import com.felix.atoast.library.AToast;
+import com.zpj.toast.ZToast;
 import com.lxj.xpermission.PermissionConstants;
 import com.lxj.xpermission.XPermission;
 import com.yalantis.ucrop.CropEvent;
@@ -58,7 +58,7 @@ public class MainActivity extends BaseActivity {
     @Override
     protected void onNewIntent(Intent intent) {
         super.onNewIntent(intent);
-        AToast.normal(intent.getStringExtra(Actions.ACTION));
+        ZToast.normal(intent.getStringExtra(Actions.ACTION));
         if (intent.hasExtra(Actions.ACTION)) {
             switch (intent.getStringExtra(Actions.ACTION)) {
                 case Actions.ACTION_SHOW_UPDATE:
@@ -103,7 +103,7 @@ public class MainActivity extends BaseActivity {
         ZDownloader.init(
                 DownloaderConfig.with(MainActivity.this)
                         .setUserAgent("Sjly(3.0)")
-                        .setNotificationIntercepter(new DownloadNotificationInterceptor())
+                        .setNotificationInterceptor(new DownloadNotificationInterceptor())
                         .setConcurrentMissionCount(AppConfig.getMaxDownloadConcurrentCount())
                         .setEnableNotification(AppConfig.isShowDownloadNotification())
                         .setThreadPoolConfig(
@@ -137,9 +137,9 @@ public class MainActivity extends BaseActivity {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == AppUtil.UNINSTALL_REQUEST_CODE) {
             if (resultCode == Activity.RESULT_OK) {
-                AToast.success("应用卸载成功！");
+                ZToast.success("应用卸载成功！");
             } else if (resultCode == Activity.RESULT_CANCELED) {
-                AToast.normal("应用卸载取消！");
+                ZToast.normal("应用卸载取消！");
             }
         }
     }
@@ -217,7 +217,7 @@ public class MainActivity extends BaseActivity {
 //                            Log.d("uploadAvatarApi", "data=" + doc);
 //                            String info = doc.selectFirst("info").text();
 //                            if ("success".equals(doc.selectFirst("result").text())) {
-////                                AToast.success(info);
+////                                ZToast.success(info);
 //
 //                                UserManager.getInstance().getMemberInfo().setMemberAvatar(info);
 //                                UserManager.getInstance().saveUserInfo();
@@ -228,18 +228,18 @@ public class MainActivity extends BaseActivity {
 //                                    }
 //                                });
 //                            } else {
-//                                AToast.error(info);
+//                                ZToast.error(info);
 //                            }
 //                            HideLoadingEvent.postDelayed(500);
 //                        })
 //                        .onError(throwable -> {
-//                            AToast.error("上传头像失败！" + throwable.getMessage());
+//                            ZToast.error("上传头像失败！" + throwable.getMessage());
 //                            HideLoadingEvent.postDelayed(500);
 //                        })
 //                        .subscribe();
 //            } catch (Exception e) {
 //                e.printStackTrace();
-//                AToast.error("上传头像失败！" + e.getMessage());
+//                ZToast.error("上传头像失败！" + e.getMessage());
 //                HideLoadingEvent.postDelayed(500);
 //            }
 //        } else {
@@ -254,21 +254,21 @@ public class MainActivity extends BaseActivity {
 //                                UserManager.getInstance().saveUserInfo();
 //                                PictureUtil.saveBackground(event.getUri(), data -> EventSender.sendImageUploadEvent(event));
 //                            } else {
-//                                AToast.error(info);
+//                                ZToast.error(info);
 //                            }
 //                            HideLoadingEvent.postDelayed(500);
 //                        })
 //                        .onError(throwable -> {
 //                            Log.d("uploadBackgroundApi", "throwable.msg=" + throwable.getMessage());
 //                            throwable.printStackTrace();
-//                            AToast.error("上传背景失败！" + throwable.getMessage());
+//                            ZToast.error("上传背景失败！" + throwable.getMessage());
 //                            HideLoadingEvent.postDelayed(500);
 //                        })
 //                        .subscribe();
 //            } catch (Exception e) {
 //                e.printStackTrace();
 //                Log.d("uploadBackgroundApi", "e.msg=" + e.getMessage());
-//                AToast.error("上传背景失败！" + e.getMessage());
+//                ZToast.error("上传背景失败！" + e.getMessage());
 //                HideLoadingEvent.postDelayed(500);
 //            }
 //        }

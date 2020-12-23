@@ -6,7 +6,7 @@ import android.view.View;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
-import com.felix.atoast.library.AToast;
+import com.zpj.toast.ZToast;
 import com.yanyusong.y_divideritemdecoration.Y_Divider;
 import com.yanyusong.y_divideritemdecoration.Y_DividerBuilder;
 import com.yanyusong.y_divideritemdecoration.Y_DividerItemDecoration;
@@ -97,7 +97,7 @@ public class GameBookingMultiData extends RecyclerMultiData<BookingAppInfo> {
 
     @Override
     public void onHeaderClick() {
-        AToast.normal("TODO");
+        ZToast.normal("TODO");
     }
 
     @Override

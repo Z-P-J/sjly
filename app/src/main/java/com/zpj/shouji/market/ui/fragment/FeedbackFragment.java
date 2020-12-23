@@ -13,7 +13,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-import com.felix.atoast.library.AToast;
+import com.zpj.toast.ZToast;
 import com.lwkandroid.widget.ninegridview.INineGridImageLoader;
 import com.lwkandroid.widget.ninegridview.NineGirdImageContainer;
 import com.lwkandroid.widget.ninegridview.NineGridBean;
@@ -164,7 +164,7 @@ public class FeedbackFragment extends BaseSwipeBackFragment {
         TextView tvSubmit = findViewById(R.id.tv_submit);
         tvSubmit.setOnClickListener(v -> {
             if (TextUtils.isEmpty(etContent.getText())) {
-                AToast.warning("请输入反馈内容！");
+                ZToast.warning("请输入反馈内容！");
                 return;
             }
             StringBuilder content = new StringBuilder();
@@ -193,7 +193,7 @@ public class FeedbackFragment extends BaseSwipeBackFragment {
                     "cn.com.shouji.market",
                     imgList,
                     () -> {
-                        AToast.success("反馈成功！");
+                        ZToast.success("反馈成功！");
                         pop();
                     },
                     new IHttp.OnStreamWriteListener() {

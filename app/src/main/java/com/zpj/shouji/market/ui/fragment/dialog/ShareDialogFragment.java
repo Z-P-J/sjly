@@ -11,7 +11,7 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.TextView;
 
-import com.felix.atoast.library.AToast;
+import com.zpj.toast.ZToast;
 import com.zpj.fragmentation.dialog.base.BottomDialogFragment;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.utils.ShareUtils;
@@ -52,7 +52,7 @@ public class ShareDialogFragment extends BottomDialogFragment
 
         if (TextUtils.isEmpty(shareContent)) {
             if (shareFile == null) {
-                AToast.error("出错了！获取分享内容失败！");
+                ZToast.error("出错了！获取分享内容失败！");
                 dismiss();
             } else {
                 tvCopy.setText("复制路径");
@@ -67,7 +67,7 @@ public class ShareDialogFragment extends BottomDialogFragment
         dismiss();
         switch (v.getId()) {
             case R.id.tv_qq:
-//                AToast.normal("TODO QQ分享");
+//                ZToast.normal("TODO QQ分享");
                 if (shareFile == null) {
                     ShareUtils.shareTextToQQFriend(context, shareContent);
                 } else {
@@ -75,7 +75,7 @@ public class ShareDialogFragment extends BottomDialogFragment
                 }
                 break;
             case R.id.tv_wechat:
-//                AToast.normal("TODO 微信分享");
+//                ZToast.normal("TODO 微信分享");
                 if (shareFile == null) {
                     ShareUtils.shareTextToWechatFriend(context, shareContent);
                 } else {
@@ -83,7 +83,7 @@ public class ShareDialogFragment extends BottomDialogFragment
                 }
                 break;
             case R.id.tv_moments:
-//                AToast.normal("TODO 朋友圈分享");
+//                ZToast.normal("TODO 朋友圈分享");
                 if (shareFile == null) {
                     ShareUtils.shareTextToTimeLine(context, shareContent);
                 } else {
@@ -91,7 +91,7 @@ public class ShareDialogFragment extends BottomDialogFragment
                 }
                 break;
             case R.id.tv_weibo:
-//                AToast.normal("TODO 微博分享");
+//                ZToast.normal("TODO 微博分享");
                 if (shareFile == null) {
                     ShareUtils.shareTextToSina(context, shareContent);
                 } else {
@@ -101,7 +101,7 @@ public class ShareDialogFragment extends BottomDialogFragment
             case R.id.tv_copy:
                 ClipboardManager cm = (ClipboardManager) context.getSystemService(Context.CLIPBOARD_SERVICE);
                 cm.setPrimaryClip(ClipData.newPlainText(null, shareContent));
-                AToast.success("已复制到粘贴板");
+                ZToast.success("已复制到粘贴板");
                 break;
             case R.id.tv_more:
                 Intent shareIntent = new Intent();

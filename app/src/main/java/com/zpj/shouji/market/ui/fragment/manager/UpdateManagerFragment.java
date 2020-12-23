@@ -11,7 +11,7 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.felix.atoast.library.AToast;
+import com.zpj.toast.ZToast;
 import com.zpj.fragmentation.dialog.impl.ArrowMenuDialogFragment;
 import com.zpj.fragmentation.dialog.model.OptionMenu;
 import com.zpj.recyclerview.EasyAdapter;
@@ -100,7 +100,7 @@ public class UpdateManagerFragment extends RecyclerLayoutFragment<AppUpdateInfo>
             @Override
             public void onClick(View v) {
                 // todo update all apps
-                AToast.normal("updateAll");
+                ZToast.normal("updateAll");
             }
         });
         updateInfo = view.findViewById(R.id.update_info);
@@ -134,7 +134,7 @@ public class UpdateManagerFragment extends RecyclerLayoutFragment<AppUpdateInfo>
         recyclerLayout.showErrorView(e.getMessage());
         topLayout.setVisibility(View.GONE);
 //        errorText.setVisibility(View.VISIBLE);
-        AToast.error("检查更新失败！" + e.getMessage());
+        ZToast.error("检查更新失败！" + e.getMessage());
         e.printStackTrace();
     }
 
@@ -146,10 +146,10 @@ public class UpdateManagerFragment extends RecyclerLayoutFragment<AppUpdateInfo>
                 .setOnItemClickListener((position, menu) -> {
                     switch (position) {
                         case 0:
-                            AToast.normal("详细信息");
+                            ZToast.normal("详细信息");
                             break;
                         case 1:
-                            AToast.normal("详细信息");
+                            ZToast.normal("详细信息");
                             break;
                         case 2:
                             AppUtil.uninstallApp(_mActivity, updateInfo.getPackageName());
@@ -158,7 +158,7 @@ public class UpdateManagerFragment extends RecyclerLayoutFragment<AppUpdateInfo>
                             AppUtil.openApp(context, updateInfo.getPackageName());
                             break;
                         default:
-                            AToast.warning("未知操作！");
+                            ZToast.warning("未知操作！");
                             break;
                     }
                 })

@@ -7,7 +7,7 @@ import android.text.TextUtils;
 import android.view.MenuItem;
 import android.view.View;
 
-import com.felix.atoast.library.AToast;
+import com.zpj.toast.ZToast;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.api.HttpApi;
 import com.zpj.shouji.market.manager.UserManager;
@@ -33,7 +33,7 @@ public class ThemeMoreDialogFragment extends BottomListMenuDialogFragment
                 dismiss();
                 ClipboardManager cm = (ClipboardManager) context.getSystemService(Context.CLIPBOARD_SERVICE);
                 cm.setPrimaryClip(ClipData.newPlainText(null, info.getContent()));
-                AToast.success("已复制到粘贴板");
+                ZToast.success("已复制到粘贴板");
                 break;
             case R.id.share:
 //                dismiss();

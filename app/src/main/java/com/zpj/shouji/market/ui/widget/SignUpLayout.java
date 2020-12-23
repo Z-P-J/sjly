@@ -101,7 +101,7 @@
 ////
 ////    @Override
 ////    public void onSignInFailed(String errInfo) {
-////        AToast.error("onLoginFailed " + errInfo);
+////        ZToast.error("onLoginFailed " + errInfo);
 ////        etAccount.setError(errInfo);
 //////        if ("".equals(errInfo)) {
 //////

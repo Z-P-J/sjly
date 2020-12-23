@@ -16,7 +16,6 @@
         android:gravity="center"
         android:minHeight="56dp"
         android:text="取消"
-        android:textColor="#000000"
         android:textSize="14sp"
         android:textStyle="bold"
         />
@@ -24,9 +23,10 @@
     <View
         android:layout_width="1dp"
         android:layout_height="match_parent"
-        android:layout_marginTop="12dp"
-        android:layout_marginBottom="12dp"
-        android:background="#eeeeee"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="16dp"
+        android:background="#cccccc"
+        android:alpha="0.3"
         />
 
     <TextView
@@ -38,7 +38,6 @@
         android:gravity="center"
         android:minHeight="56dp"
         android:text="确定"
-        android:textColor="?attr/colorPrimary"
         android:textSize="14sp"
         android:textStyle="bold"
         />

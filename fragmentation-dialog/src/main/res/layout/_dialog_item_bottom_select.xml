@@ -37,8 +37,7 @@
             android:layout_gravity="center"
             android:textSize="14sp"
             android:maxLines="1"
-            android:ellipsize="end"
-            android:textColor="@color/_dialog_text_major_color" />
+            android:ellipsize="end" />
 
         <TextView
             android:id="@+id/content_view"
@@ -50,7 +49,6 @@
             android:ellipsize="end"
             android:textSize="12sp"
             android:layout_gravity="center"
-            android:textColor="@color/_dialog_text_normal_color"
             />
 
 

@@ -8,7 +8,7 @@ import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.view.View;
 
-import com.felix.atoast.library.AToast;
+import com.zpj.toast.ZToast;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.event.EventBus;
 import com.zpj.shouji.market.ui.adapter.FragmentsPagerAdapter;
@@ -121,7 +121,7 @@ public class SearchFragment extends BaseSwipeBackFragment {
     private boolean getSearchResult(String text) {
         hideSoftInput();
         if (TextUtils.isEmpty(text)) {
-            AToast.warning("关键词不能为空");
+            ZToast.warning("关键词不能为空");
             return false;
         }
         viewPager.setCurrentItem(1, true);

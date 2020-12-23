@@ -20,7 +20,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.felix.atoast.library.AToast;
+import com.zpj.toast.ZToast;
 import com.zpj.blur.ZBlurry;
 import com.zpj.fragmentation.dialog.impl.FullScreenDialogFragment;
 import com.zpj.http.core.ObservableTask;
@@ -224,7 +224,7 @@ public class MainActionDialogFragment extends FullScreenDialogFragment
         Object tag = v.getTag();
         if (tag instanceof Integer) {
             if (!UserManager.getInstance().isLogin()) {
-                AToast.warning(R.string.text_msg_not_login);
+                ZToast.warning(R.string.text_msg_not_login);
                 LoginFragment.start();
 //                dismiss();
 //                dismissWithStart(LoginFragment.newInstance(false));

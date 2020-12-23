@@ -6,7 +6,7 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.util.Log;
 import android.view.View;
 
-import com.felix.atoast.library.AToast;
+import com.zpj.toast.ZToast;
 import com.zpj.http.parser.html.nodes.Document;
 import com.zpj.http.parser.html.nodes.Element;
 import com.zpj.http.parser.html.select.Elements;
@@ -165,7 +165,7 @@ public class ThemeListFragment extends NextUrlFragment<DiscoverInfo>
     public void setEnableSwipeRefresh(boolean enableSwipeRefresh) {
         this.enableSwipeRefresh = enableSwipeRefresh;
         if (recyclerLayout != null) {
-            AToast.normal("setEnableSwipeRefresh");
+            ZToast.normal("setEnableSwipeRefresh");
             recyclerLayout.setEnableSwipeRefresh(enableSwipeRefresh);
         }
     }

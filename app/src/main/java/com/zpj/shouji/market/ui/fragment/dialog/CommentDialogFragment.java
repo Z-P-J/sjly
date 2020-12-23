@@ -8,7 +8,7 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 
-import com.felix.atoast.library.AToast;
+import com.zpj.toast.ZToast;
 import com.zpj.fragmentation.dialog.base.BottomDialogFragment;
 import com.zpj.http.core.IHttp;
 import com.zpj.shouji.market.R;
@@ -52,7 +52,7 @@ public class CommentDialogFragment extends BottomDialogFragment
         super.initView(view, savedInstanceState);
 
         if (TextUtils.isEmpty(replyId) || TextUtils.isEmpty(contentType)) {
-            AToast.warning("出错了");
+            ZToast.warning("出错了");
             dismiss();
             return;
         }

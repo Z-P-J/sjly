@@ -4,7 +4,7 @@ import android.os.Environment;
 import android.text.TextUtils;
 import android.util.Log;
 
-import com.felix.atoast.library.AToast;
+import com.zpj.toast.ZToast;
 import com.zpj.downloader.config.MissionConfig;
 import com.zpj.downloader.constant.Error;
 import com.zpj.downloader.core.DownloadMission;
@@ -166,7 +166,7 @@ public class AppDownloadMission extends DownloadMission {
                     .setInstallerListener(new ZApkInstaller.InstallerListener() {
                         @Override
                         public void onStart() {
-                            AToast.success("开始安装" + appName + "应用！");
+                            ZToast.success("开始安装" + appName + "应用！");
                         }
 
                         @Override
@@ -177,18 +177,18 @@ public class AppDownloadMission extends DownloadMission {
                                 if (AppConfig.isAutoDeleteAfterInstalled()) {
                                     FileUtils.deleteFile(getFilePath());
                                 }
-                                AToast.success(appName + "应用安装成功！");
+                                ZToast.success(appName + "应用安装成功！");
                             }
                         }
 
                         @Override
                         public void onNeed2OpenService() {
-                            AToast.normal(R.string.text_enable_accessibility_installation_service);
+                            ZToast.normal(R.string.text_enable_accessibility_installation_service);
                         }
 
                         @Override
                         public void onNeedInstallPermission() {
-                            AToast.warning(R.string.text_grant_installation_permissions);
+                            ZToast.warning(R.string.text_grant_installation_permissions);
                         }
                     })
                     .install(getFile());

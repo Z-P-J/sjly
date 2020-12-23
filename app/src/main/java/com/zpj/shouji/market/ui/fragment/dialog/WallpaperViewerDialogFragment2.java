@@ -13,7 +13,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
-import com.felix.atoast.library.AToast;
+import com.zpj.toast.ZToast;
 import com.zpj.fragmentation.SupportHelper;
 import com.zpj.fragmentation.dialog.imagetrans.ITConfig;
 import com.zpj.fragmentation.dialog.imagetrans.MyImageLoad;
@@ -181,28 +181,28 @@ public class WallpaperViewerDialogFragment2 extends ImageViewerDialogFragment2<S
                             .onSuccess(doc -> {
                                 String info = doc.selectFirst("info").text();
                                 if ("success".equals(doc.selectFirst("result").text())) {
-                                    AToast.success("取消收藏成功！");
+                                    ZToast.success("取消收藏成功！");
                                     btnFavorite.setTint(Color.WHITE);
                                     btnFavorite.setTag(false);
                                 } else {
-                                    AToast.error(info);
+                                    ZToast.error(info);
                                 }
                             })
-                            .onError(throwable -> AToast.error(throwable.getMessage()))
+                            .onError(throwable -> ZToast.error(throwable.getMessage()))
                             .subscribe();
                 } else {
                     HttpApi.addCollectionApi(wallpaperInfo.getId(), "discuss")
                             .onSuccess(doc -> {
                                 String info = doc.selectFirst("info").text();
                                 if ("success".equals(doc.selectFirst("result").text())) {
-                                    AToast.success(info);
+                                    ZToast.success(info);
                                     btnFavorite.setTint(Color.RED);
                                     btnFavorite.setTag(true);
                                 } else {
-                                    AToast.error(info);
+                                    ZToast.error(info);
                                 }
                             })
-                            .onError(throwable -> AToast.error(throwable.getMessage()))
+                            .onError(throwable -> ZToast.error(throwable.getMessage()))
                             .subscribe();
                 }
                 break;
@@ -393,11 +393,11 @@ public class WallpaperViewerDialogFragment2 extends ImageViewerDialogFragment2<S
                         }
                         tvSupport.setText(String.valueOf(wallpaperInfo.getSupportCount()));
                     } else {
-                        AToast.error(result);
+                        ZToast.error(result);
                     }
                 })
                 .onError(throwable -> {
-                    AToast.error("出错了！" + throwable.getMessage());
+                    ZToast.error("出错了！" + throwable.getMessage());
                 })
                 .subscribe();
     }

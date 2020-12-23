@@ -12,7 +12,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-import com.felix.atoast.library.AToast;
+import com.zpj.toast.ZToast;
 import com.lwkandroid.widget.ninegridview.INineGridImageLoader;
 import com.lwkandroid.widget.ninegridview.NineGirdImageContainer;
 import com.lwkandroid.widget.ninegridview.NineGridBean;
@@ -196,7 +196,7 @@ public class ThemeShareFragment extends BaseSwipeBackFragment {
             hideSoftInput();
 
             if (TextUtils.isEmpty(etContent.getText())) {
-                AToast.warning("请输入动态内容");
+                ZToast.warning("请输入动态内容");
                 return;
             }
             String tags = "";

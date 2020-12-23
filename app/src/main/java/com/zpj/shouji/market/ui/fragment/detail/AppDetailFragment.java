@@ -14,7 +14,7 @@ import android.util.Log;
 import android.view.View;
 
 import com.bumptech.glide.Glide;
-import com.felix.atoast.library.AToast;
+import com.zpj.toast.ZToast;
 import com.zpj.fragmentation.dialog.impl.AttachListDialogFragment;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.api.BookingApi;
@@ -309,7 +309,7 @@ public class AppDetailFragment extends BaseSwipeBackFragment
                         }
                         Log.d("getAppInfo", "data=" + data);
                         if ("NoApp".equals(data.selectFirst("errorcode").text())) {
-                            AToast.warning("应用不存在");
+                            ZToast.warning("应用不存在");
                             pop();
                             return;
                         }
@@ -365,7 +365,7 @@ public class AppDetailFragment extends BaseSwipeBackFragment
                     .show(context);
         } else if (v == btnCollect) {
             if (!UserManager.getInstance().isLogin()) {
-                AToast.warning(R.string.text_msg_not_login);
+                ZToast.warning(R.string.text_msg_not_login);
                 LoginFragment.start();
                 return;
             }
@@ -399,13 +399,13 @@ public class AppDetailFragment extends BaseSwipeBackFragment
                         case 1:
                             ClipboardManager cm = (ClipboardManager) context.getSystemService(Context.CLIPBOARD_SERVICE);
                             cm.setPrimaryClip(ClipData.newPlainText(null, info.getPackageName()));
-                            AToast.success("已复制到粘贴板");
+                            ZToast.success("已复制到粘贴板");
                             break;
                         case 2:
                             WebFragment.appPage(type, id);
                             break;
                         case 3:
-                            AToast.normal("TODO " + title);
+                            ZToast.normal("TODO " + title);
                             break;
                     }
                     fragment.dismiss();
@@ -427,7 +427,7 @@ public class AppDetailFragment extends BaseSwipeBackFragment
                         }
                     });
                 } else {
-                    AToast.warning("已预约，应用上架后将及时通知您");
+                    ZToast.warning("已预约，应用上架后将及时通知您");
                 }
             } else {
                 new AppUrlCenterListDialogFragment()
@@ -437,7 +437,7 @@ public class AppDetailFragment extends BaseSwipeBackFragment
             }
         } else {
             if (!UserManager.getInstance().isLogin()) {
-                AToast.warning(R.string.text_msg_not_login);
+                ZToast.warning(R.string.text_msg_not_login);
                 LoginFragment.start();
                 return;
             }

@@ -1,15 +1,14 @@
 package com.zpj.fragmentation.dialog.impl;
 
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
-import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewTreeObserver;
 import android.widget.FrameLayout;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.zpj.fragmentation.dialog.base.CenterDialogFragment;
@@ -28,6 +27,7 @@ public class AlertDialogFragment extends CenterDialogFragment
     protected CharSequence content;
 
     protected View contentView;
+    private LinearLayout llButtons;
 
     protected OnButtonClickListener cancelListener;
     protected OnButtonClickListener confirmListener;
@@ -56,6 +56,8 @@ public class AlertDialogFragment extends CenterDialogFragment
         }
         tv_confirm = findViewById(R.id.tv_confirm);
         tv_title.setTextColor(DialogThemeUtils.getMajorTextColor(context));
+
+        llButtons = findViewById(R.id.ll_buttons);
 
 
         if (contentView == null && !TextUtils.isEmpty(content)) {
@@ -107,6 +109,24 @@ public class AlertDialogFragment extends CenterDialogFragment
         }
 
         if (isHideCancel) tv_cancel.setVisibility(View.GONE);
+
+
+//        MaxHeightScrollView scrollView = findViewById(R.id.scroll_view);
+//        contentView
+//                .getViewTreeObserver()
+//                .addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+//                    @Override
+//                    public void onGlobalLayout() {
+//                        contentView.getViewTreeObserver().removeOnGlobalLayoutListener(this);
+//                        Log.d("contentView.contentV", "tv_title.getMeasuredHeight()=" + tv_title.getHeight() + " llButtons.getMeasuredHeight()=" + llButtons.getHeight());
+//                        int max = getMaxHeight() - tv_title.getHeight() - ScreenUtils.dp2pxInt(context, 60);
+//                        if (contentView.getMeasuredHeight() < max) {
+//                            max = contentView.getMeasuredHeight();
+//                        }
+//                        scrollView.setMaxHeight(max);
+////                        scrollView.setMaxHeight(contentView.getHeight());
+//                    }
+//                });
 
     }
 

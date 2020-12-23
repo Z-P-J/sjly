@@ -17,7 +17,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
-import com.felix.atoast.library.AToast;
+import com.zpj.toast.ZToast;
 import com.github.zagum.expandicon.ExpandIconView;
 import com.sunbinqiang.iconcountview.IconCountView;
 import com.zpj.fragmentation.dialog.imagetrans.ImageItemView;
@@ -149,16 +149,16 @@ public class WallpaperListFragment extends NextUrlFragment<WallpaperInfo> {
                         .onSuccess(data -> {
                             String result = data.selectFirst("info").text();
                             if ("success".equals(data.selectFirst("result").text())) {
-//                                AToast.success(result);
+//                                ZToast.success(result);
                                 info.setSupportCount(info.getSupportCount() + (isSelected ? 1 : -1));
                                 info.setLike(isSelected);
                             } else {
-                                AToast.error(result);
+                                ZToast.error(result);
                                 countView.setState(!isSelected);
                             }
                         })
                         .onError(throwable -> {
-                            AToast.error("点赞失败！" + throwable.getMessage());
+                            ZToast.error("点赞失败！" + throwable.getMessage());
                             countView.setState(!isSelected);
                         })
                         .subscribe();

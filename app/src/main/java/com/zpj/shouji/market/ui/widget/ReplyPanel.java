@@ -33,7 +33,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-import com.felix.atoast.library.AToast;
+import com.zpj.toast.ZToast;
 import com.lqr.emoji.EmotionLayout;
 import com.lqr.emoji.IEmotionExtClickListener;
 import com.lqr.emoji.IEmotionSelectedListener;
@@ -136,7 +136,7 @@ public class ReplyPanel extends FrameLayout
                 KeyboardUtils.hideSoftInputKeyboard(etEditor);
             }
             elEmotion.setVisibility(View.GONE);
-            AToast.normal("图片");
+            ZToast.normal("图片");
             GetMainActivityEvent.post(obj -> Matisse.from(obj)
                     .choose(MimeType.ofImage())//照片视频全部显示MimeType.allOf()
                     .countable(true)//true:选中后显示数字;false:选中后显示对号
@@ -181,12 +181,12 @@ public class ReplyPanel extends FrameLayout
         elEmotion.setEmotionExtClickListener(new IEmotionExtClickListener() {
             @Override
             public void onEmotionAddClick(View view) {
-                AToast.normal("add");
+                ZToast.normal("add");
             }
 
             @Override
             public void onEmotionSettingClick(View view) {
-                AToast.normal("setting");
+                ZToast.normal("setting");
             }
         });
 
@@ -288,7 +288,7 @@ public class ReplyPanel extends FrameLayout
             KeyboardUtils.hideSoftInputKeyboard(etEditor);
             String content = etEditor.getText().toString();
             if (TextUtils.isEmpty(content)) {
-                AToast.warning("内容为空！");
+                ZToast.warning("内容为空！");
                 return;
             }
             if (listener != null) {

@@ -101,7 +101,7 @@ public class AppUrlCenterListDialogFragment extends CenterListDialogFragment<App
 //        holder.setOnClickListener(R.id.tv_download, v -> {
 //            if (TextUtils.isEmpty(appUrlInfo.getYunUrl())) {
 //                dismiss();
-//                AToast.normal("TODO下载" + appUrlInfo.getUrlAdress());
+//                ZToast.normal("TODO下载" + appUrlInfo.getUrlAdress());
 //            } else {
 //                dismiss();
 //                WebFragment.start(appUrlInfo.getYunUrl());

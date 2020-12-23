@@ -9,7 +9,7 @@ import android.support.v7.app.AppCompatDelegate;
 import android.view.LayoutInflater;
 
 import com.bumptech.glide.Glide;
-import com.felix.atoast.library.AToast;
+import com.zpj.toast.ZToast;
 import com.zpj.downloader.ZDownloader;
 import com.zpj.fragmentation.SupportActivity;
 import com.zpj.fragmentation.SupportFragment;
@@ -115,7 +115,7 @@ public class BaseActivity extends SupportActivity {
 //                .subscribe(new Consumer<String>() {
 //                    @Override
 //                    public void accept(String s) throws Exception {
-//                        AToast.normal("sssss111=" + s);
+//                        ZToast.normal("sssss111=" + s);
 //                    }
 //                });
 //        RxObserver.with(this, "start_fragment", String.class)
@@ -123,7 +123,7 @@ public class BaseActivity extends SupportActivity {
 //                .subscribe(new Consumer<String>() {
 //                    @Override
 //                    public void accept(String s) throws Exception {
-//                        AToast.normal("ssssss222222222=" + s);
+//                        ZToast.normal("ssssss222222222=" + s);
 //                    }
 //                });
 
@@ -146,7 +146,7 @@ public class BaseActivity extends SupportActivity {
         if (getSupportFragmentManager().getBackStackEntryCount() > 1) {
             pop();
         } else if (System.currentTimeMillis() - firstTime > 2000) {
-            AToast.warning("再次点击退出！");
+            ZToast.warning("再次点击退出！");
             firstTime = System.currentTimeMillis();
         } else {
 //            finish();

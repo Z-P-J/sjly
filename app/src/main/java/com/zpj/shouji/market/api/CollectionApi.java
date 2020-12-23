@@ -3,7 +3,7 @@ package com.zpj.shouji.market.api;
 import android.util.Log;
 
 import com.bumptech.glide.Glide;
-import com.felix.atoast.library.AToast;
+import com.zpj.toast.ZToast;
 import com.zpj.http.ZHttp;
 import com.zpj.http.core.Connection;
 import com.zpj.http.core.HttpKeyVal;
@@ -91,15 +91,15 @@ public class CollectionApi {
                     Log.d("shareCollectionApi", "data=" + data);
                     String info = data.selectFirst("info").text();
                     if ("success".equals(data.selectFirst("result").text())) {
-                        AToast.success(info);
+                        ZToast.success(info);
                         successRunnable.run();
                     } else {
-                        AToast.error(info);
+                        ZToast.error(info);
                     }
                     HideLoadingEvent.postDelayed(250);
                 })
                 .onError(throwable -> {
-                    AToast.error("分享失败！" + throwable.getMessage());
+                    ZToast.error("分享失败！" + throwable.getMessage());
                     HideLoadingEvent.postDelayed(250);
                 })
                 .subscribe();

@@ -15,7 +15,7 @@ import android.os.Environment;
 import android.util.DisplayMetrics;
 import android.util.Log;
 
-import com.felix.atoast.library.AToast;
+import com.zpj.toast.ZToast;
 import com.zpj.shouji.market.model.InstalledAppInfo;
 import com.zpj.utils.ContextUtils;
 
@@ -121,7 +121,7 @@ public class AppUtil {
             context.startActivity(intent);
         } catch (Exception e) {
             e.printStackTrace();
-            AToast.error("打开应用失败！" + e.getMessage());
+            ZToast.error("打开应用失败！" + e.getMessage());
         }
     }
 
@@ -159,9 +159,9 @@ public class AppUtil {
     public static void deleteApk(String path) {
         File file = new File(path);
         if (file.exists() && file.delete()) {
-            AToast.success("删除成功！");
+            ZToast.success("删除成功！");
         } else {
-            AToast.warning("删除失败！");
+            ZToast.warning("删除失败！");
         }
     }
 

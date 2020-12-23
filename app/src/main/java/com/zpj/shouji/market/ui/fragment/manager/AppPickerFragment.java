@@ -130,7 +130,7 @@ public class AppPickerFragment extends BaseSwipeBackFragment {
         @Override
         public void onSelectChange(List<InstalledAppInfo> list, int position, boolean isChecked) {
             super.onSelectChange(list, position, isChecked);
-//            AToast.normal("onSelectChange position=" + position);
+//            ZToast.normal("onSelectChange position=" + position);
         }
 
         @Override

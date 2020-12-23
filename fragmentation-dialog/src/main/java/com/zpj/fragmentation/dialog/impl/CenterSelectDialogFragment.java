@@ -87,7 +87,9 @@ public class CenterSelectDialogFragment<T> extends CenterDialogFragment {
                 .onBindViewHolder((holder, list, position, ppayloads) -> {
                     ImageView iconView = holder.getView(R.id.icon_view);
                     TextView titleView = holder.getView(R.id.title_view);
+                    titleView.setTextColor(DialogThemeUtils.getMajorTextColor(context));
                     TextView contentView = holder.getView(R.id.content_view);
+                    contentView.setTextColor(DialogThemeUtils.getNormalTextColor(context));
                     final SmoothCheckBox checkBox = holder.getView(R.id.check_box);
                     checkBox.setChecked(selectedList.contains(position), true);
                     holder.setOnItemClickListener(v -> {

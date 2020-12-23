@@ -9,7 +9,7 @@ import android.widget.LinearLayout;
 
 import com.ctetin.expandabletextviewlibrary.ExpandableTextView;
 import com.ctetin.expandabletextviewlibrary.app.LinkType;
-import com.felix.atoast.library.AToast;
+import com.zpj.toast.ZToast;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.event.EventBus;
 import com.zpj.shouji.market.event.SignUpEvent;
@@ -147,13 +147,13 @@ public class SignUpLayout3 extends LinearLayout {
                     String accountName = etAccount.getText();
                     String password = etPassword.getText();
                     String email = etPassword.getText();
-                    AToast.normal("onClick");
+                    ZToast.normal("onClick");
                     UserManager.getInstance().signUp(accountName, password, email);
                 } else {
-                    AToast.warning("输入内容有误");
+                    ZToast.warning("输入内容有误");
                 }
             } else {
-                AToast.warning("请同意《手机乐园协议》");
+                ZToast.warning("请同意《手机乐园协议》");
             }
         });
 
@@ -164,7 +164,7 @@ public class SignUpLayout3 extends LinearLayout {
 //                    etAccount.requestFocus();
 //                    etAccount.setError(errInfo);
 //                } else {
-//                    AToast.error(errInfo);
+//                    ZToast.error(errInfo);
 //                }
 //            }
 //        });
@@ -212,7 +212,7 @@ public class SignUpLayout3 extends LinearLayout {
                 etAccount.requestFocus();
                 etAccount.setError(errInfo);
             } else {
-                AToast.error(errInfo);
+                ZToast.error(errInfo);
             }
         }
     }
@@ -228,7 +228,7 @@ public class SignUpLayout3 extends LinearLayout {
 //            etAccount.requestFocus();
 //            etAccount.setError(errInfo);
 //        } else {
-//            AToast.error(errInfo);
+//            ZToast.error(errInfo);
 //        }
 //    }
 
@@ -240,7 +240,7 @@ public class SignUpLayout3 extends LinearLayout {
 //                etAccount.requestFocus();
 //                etAccount.setError(errInfo);
 //            } else {
-//                AToast.error(errInfo);
+//                ZToast.error(errInfo);
 //            }
 //        }
 //    }

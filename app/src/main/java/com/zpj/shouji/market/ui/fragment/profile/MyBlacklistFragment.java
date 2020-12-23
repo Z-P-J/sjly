@@ -6,7 +6,7 @@ import android.view.View;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
-import com.felix.atoast.library.AToast;
+import com.zpj.toast.ZToast;
 import com.zpj.http.parser.html.nodes.Element;
 import com.zpj.recyclerview.EasyViewHolder;
 import com.zpj.shouji.market.R;
@@ -84,17 +84,17 @@ public class MyBlacklistFragment extends NextUrlFragment<BlacklistInfo> {
                                     .onSuccess(doc -> {
                                         String info = doc.selectFirst("info").text();
                                         if ("success".equals(doc.selectFirst("result").text())) {
-                                            AToast.success(info);
+                                            ZToast.success(info);
                                             onRefresh();
                                         } else {
-                                            AToast.error(info);
+                                            ZToast.error(info);
                                         }
                                     })
-                                    .onError(throwable -> AToast.error(throwable.getMessage()))
+                                    .onError(throwable -> ZToast.error(throwable.getMessage()))
                                     .subscribe();
                             break;
                         case R.id.report:
-                            AToast.normal("TODO 举报");
+                            ZToast.normal("TODO 举报");
                             break;
                         case R.id.share:
                             WebFragment.shareHomepage(data.getMemberId());

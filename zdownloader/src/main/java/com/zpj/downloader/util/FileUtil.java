@@ -18,6 +18,7 @@ import android.util.Log;
 import android.widget.Toast;
 
 import com.zpj.downloader.R;
+import com.zpj.downloader.core.DownloadManagerImpl;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -401,42 +402,6 @@ public class FileUtil {
         return FILE_TYPE.UNKNOWN;
     }
 
-    public static int getFileTypeIconId(String fileName) {
-        FILE_TYPE fileType = checkFileType(fileName);
-        if (fileType.equals(FILE_TYPE.TORRENT)) {
-            return R.drawable.wechat_icon_bt;
-        } else if (fileType.equals(FILE_TYPE.TXT)) {
-            return R.drawable.wechat_icon_txt;
-        } else if (fileType.equals(FILE_TYPE.APK)) {
-            return R.drawable.wechat_icon_apk;
-        } else if (fileType.equals(FILE_TYPE.PDF)) {
-            return R.drawable.wechat_icon_pdf;
-        } else if (fileType.equals(FILE_TYPE.DOC)) {
-            return R.drawable.wechat_icon_word;
-        } else if (fileType.equals(FILE_TYPE.PPT)) {
-            return R.drawable.wechat_icon_ppt;
-        } else if (fileType.equals(FILE_TYPE.XLS)) {
-            return R.drawable.wechat_icon_excel;
-        } else if (fileType.equals(FILE_TYPE.HTML)) {
-            return R.drawable.wechat_icon_html;
-        } else if (fileType.equals(FILE_TYPE.SWF)) {
-            return R.drawable.format_flash;
-        } else if (fileType.equals(FILE_TYPE.CHM)) {
-            return R.drawable.format_chm;
-        } else if (fileType.equals(FILE_TYPE.IMAGE)) {
-            return R.drawable.format_picture;
-        } else if (fileType.equals(FILE_TYPE.VIDEO)) {
-            return R.drawable.format_media;
-        } else if (fileType.equals(FILE_TYPE.ARCHIVE)) {
-            return R.drawable.wechat_icon_zip;
-        } else if (fileType.equals(FILE_TYPE.MUSIC)) {
-            return R.drawable.wechat_icon_music;
-        } else if (fileType.equals(FILE_TYPE.EBOOK)) {
-            return R.drawable.wechat_icon_txt;
-        }
-        return R.drawable.wechat_icon_others;
-    }
-
     public static String getExtension(String path) {
         return path.substring(path.indexOf('.')+1, path.length()).toLowerCase();
     }
@@ -560,35 +525,18 @@ public class FileUtil {
 
 
     public static void openFile(Context context, File file) {
-        Intent intent = new Intent();
-        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        //设置intent的Action属性
-        intent.setAction(Intent.ACTION_VIEW);
-        //获取文件file的MIME类型
-//        String type = getMIMEType(file);
-        //设置intent的data和Type属性。
-        intent.setDataAndType(/*uri*/Uri.fromFile(file), MimeTypes.getMimeType(file.getPath(), file.isDirectory()));
-        //跳转
-        try {
-            context.startActivity(intent);
-        } catch (Exception e) {
-            e.printStackTrace();
+        Uri uri = Uri.fromFile(file);
+        Intent intent = new Intent(Intent.ACTION_VIEW);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            intent.setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+            Uri contentUri = FileProvider.getUriForFile(context, FileUtil.getFileProviderName(context), file);
+            context.grantUriPermission(context.getPackageName(), contentUri, Intent.FLAG_GRANT_READ_URI_PERMISSION);
+            intent.setDataAndType(contentUri, FileUtil.getMIMEType(file));
+        } else {
+            intent.setDataAndType(uri, FileUtil.getMIMEType(file));
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         }
-
-//        //实现方法二
-//        Intent i = new Intent();
-//        i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-//        i.setAction(Intent.ACTION_VIEW);
-//        String ext = MimeTypeMap.getFileExtensionFromUrl(file.toURI().toString()).toLowerCase(Locale.US);
-//        String mime = MimeTypeMap.getSingleton().getMimeTypeFromExtension(ext);
-//        if (file.exists()) {
-//            i.setDataAndType(Uri.fromFile(file), mime);
-//            try {
-//                context.startActivity(i);
-//            } catch (Exception e) {
-//                e.printStackTrace();
-//            }
-//        }
+        context.startActivity(intent);
     }
 
     /**

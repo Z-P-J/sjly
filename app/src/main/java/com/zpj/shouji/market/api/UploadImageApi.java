@@ -3,7 +3,7 @@ package com.zpj.shouji.market.api;
 import android.net.Uri;
 import android.util.Log;
 
-import com.felix.atoast.library.AToast;
+import com.zpj.toast.ZToast;
 import com.yalantis.ucrop.CropEvent;
 import com.zpj.http.ZHttp;
 import com.zpj.http.core.IHttp;
@@ -92,7 +92,7 @@ public class UploadImageApi {
                             Log.d("uploadAvatarApi", "data=" + doc);
                             String info = doc.selectFirst("info").text();
                             if ("success".equals(doc.selectFirst("result").text())) {
-//                                AToast.success(info);
+//                                ZToast.success(info);
 
                                 UserManager.getInstance().getMemberInfo().setMemberAvatar(info);
                                 UserManager.getInstance().saveUserInfo();
@@ -103,18 +103,18 @@ public class UploadImageApi {
                                     }
                                 });
                             } else {
-                                AToast.error(info);
+                                ZToast.error(info);
                             }
                             HideLoadingEvent.postDelayed(500);
                         })
                         .onError(throwable -> {
-                            AToast.error("上传头像失败！" + throwable.getMessage());
+                            ZToast.error("上传头像失败！" + throwable.getMessage());
                             HideLoadingEvent.postDelayed(500);
                         })
                         .subscribe();
             } catch (Exception e) {
                 e.printStackTrace();
-                AToast.error("上传头像失败！" + e.getMessage());
+                ZToast.error("上传头像失败！" + e.getMessage());
                 HideLoadingEvent.postDelayed(500);
             }
         } else {
@@ -129,21 +129,21 @@ public class UploadImageApi {
                                 UserManager.getInstance().saveUserInfo();
                                 PictureUtil.saveBackground(event.getUri(), data -> EventBus.sendImageUploadEvent(event));
                             } else {
-                                AToast.error(info);
+                                ZToast.error(info);
                             }
                             HideLoadingEvent.postDelayed(500);
                         })
                         .onError(throwable -> {
                             Log.d("uploadBackgroundApi", "throwable.msg=" + throwable.getMessage());
                             throwable.printStackTrace();
-                            AToast.error("上传背景失败！" + throwable.getMessage());
+                            ZToast.error("上传背景失败！" + throwable.getMessage());
                             HideLoadingEvent.postDelayed(500);
                         })
                         .subscribe();
             } catch (Exception e) {
                 e.printStackTrace();
                 Log.d("uploadBackgroundApi", "e.msg=" + e.getMessage());
-                AToast.error("上传背景失败！" + e.getMessage());
+                ZToast.error("上传背景失败！" + e.getMessage());
                 HideLoadingEvent.postDelayed(500);
             }
         }

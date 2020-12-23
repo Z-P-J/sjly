@@ -1,12 +1,9 @@
 package com.zpj.shouji.market.ui.fragment.dialog;
 
-import android.content.Context;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.view.View;
-import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
@@ -18,6 +15,8 @@ import com.zpj.recyclerview.EasyViewHolder;
 import com.zpj.recyclerview.IEasy;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.api.HttpApi;
+import com.zpj.shouji.market.constant.Keys;
+import com.zpj.shouji.market.event.GetMainActivityEvent;
 import com.zpj.shouji.market.model.SupportUserInfo;
 import com.zpj.shouji.market.ui.fragment.profile.ProfileFragment;
 import com.zpj.utils.ScreenUtils;
@@ -36,19 +35,12 @@ public class SupportUserListDialogFragment extends BottomDialogFragment
 
     private String themeId;
 
-
-    private boolean isShow;
-    private boolean hasInit;
-    private final Runnable runnable = new Runnable() {
-        @Override
-        public void run() {
-            stateLayout.showContentView();
-            recyclerView.notifyDataSetChanged();
-        }
-    };
-
-    public static SupportUserListDialogFragment with(Context context) {
-        return new SupportUserListDialogFragment();
+    public static void start(String themeId) {
+        SupportUserListDialogFragment fragment = new SupportUserListDialogFragment();
+        Bundle bundle = new Bundle();
+        bundle.putString(Keys.ID, themeId);
+        fragment.setArguments(bundle);
+        GetMainActivityEvent.post(fragment::show);
     }
 
     @Override
@@ -60,7 +52,11 @@ public class SupportUserListDialogFragment extends BottomDialogFragment
     protected void initView(View view, @Nullable Bundle savedInstanceState) {
         super.initView(view, savedInstanceState);
 
-        getContentView().setMinimumHeight(ScreenUtils.getScreenHeight(context) / 3);
+        if (getArguments() != null) {
+            themeId = getArguments().getString(Keys.ID);
+        }
+
+        getContentView().setMinimumHeight(ScreenUtils.getScreenHeight(context) / 2);
 
         findViewById(R.id.btn_close).setOnClickListener(v -> dismiss());
 
@@ -95,15 +91,6 @@ public class SupportUserListDialogFragment extends BottomDialogFragment
         return ScreenUtils.getScreenHeight(context) - ScreenUtils.getStatusBarHeight(context) - ScreenUtils.dp2pxInt(context, 56);
     }
 
-//    @Override
-//    protected void onShow() {
-//        super.onShow();
-//        isShow = true;
-//        if (hasInit) {
-//            post(runnable);
-//        }
-//    }
-
     private void getSupportUserList() {
         HttpApi.getSupportUserListApi(themeId)
                 .onSuccess(data -> {
@@ -115,15 +102,10 @@ public class SupportUserListDialogFragment extends BottomDialogFragment
                         userInfo.setUserLogo(element.selectFirst("avatar").text());
                         userInfoList.add(userInfo);
                     }
-//                    recyclerView.notifyDataSetChanged();
-//                    stateLayout.showContentView();
-                    postDelayed(runnable, 250);
-//                    if (isShow) {
-//                        hasInit = false;
-//                        post(runnable);
-//                    } else {
-//                        hasInit = true;
-//                    }
+                    postDelayed(() -> {
+                        stateLayout.showContentView();
+                        recyclerView.notifyDataSetChanged();
+                    }, 250);
                 })
                 .onError(new IHttp.OnErrorListener() {
                     @Override

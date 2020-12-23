@@ -7,7 +7,7 @@ import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 
-import com.felix.atoast.library.AToast;
+import com.zpj.toast.ZToast;
 import com.zpj.http.core.ObservableTask;
 import com.zpj.shouji.market.model.InstalledAppInfo;
 import com.zpj.shouji.market.utils.AppUtil;
@@ -88,7 +88,7 @@ public class AppInstalledManager extends BroadcastReceiver {
         if ("android.intent.action.PACKAGE_ADDED".equals(intent.getAction())) {
             String packageName = intent.getDataString();
             System.out.println();
-            AToast.warning("安装了:" + packageName + "包名的程序");
+            ZToast.warning("安装了:" + packageName + "包名的程序");
             new ObservableTask<>(emitter -> {
                 PackageManager packageManager = context.getPackageManager();
                 PackageInfo packageInfo = packageManager.getPackageInfo(packageName, PackageManager.GET_ACTIVITIES);
@@ -98,7 +98,7 @@ public class AppInstalledManager extends BroadcastReceiver {
         //接收卸载广播
         if ("android.intent.action.PACKAGE_REMOVED".equals(intent.getAction())) {
             String packageName = intent.getDataString();
-            AToast.warning("卸载了:" + packageName + "包名的程序");
+            ZToast.warning("卸载了:" + packageName + "包名的程序");
             new ObservableTask<>(emitter -> getInstance().onAppRemoved(packageName)).subscribe();
         }
     }

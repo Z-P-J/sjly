@@ -5,7 +5,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.View;
 
-import com.felix.atoast.library.AToast;
+import com.zpj.toast.ZToast;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.ui.fragment.WebFragment;
 import com.zpj.utils.AppUtils;
@@ -69,7 +69,7 @@ public class AboutSettingFragment extends BaseSettingFragment {
                 WebFragment.start(item.getRightText(), item.getTitleText());
                 break;
             case R.id.item_check_update:
-                AToast.warning("TODO 检查更新");
+                ZToast.warning("TODO 检查更新");
                 break;
         }
     }

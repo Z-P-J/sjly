@@ -12,8 +12,8 @@ import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.felix.atoast.library.AToast;
-import com.zpj.filescanner.ZFileScanner;
+import com.zpj.toast.ZToast;
+import com.zpj.shouji.market.utils.FileScanner;
 import com.zpj.fragmentation.dialog.impl.ArrowMenuDialogFragment;
 import com.zpj.fragmentation.dialog.model.OptionMenu;
 import com.zpj.recyclerview.EasyAdapter;
@@ -138,16 +138,16 @@ public class PackageManagerFragment extends RecyclerLayoutFragment<InstalledAppI
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == AppUtil.INSTALL_REQUEST_CODE) {
             if (resultCode == Activity.RESULT_OK) {
-                AToast.success("安装成功！");
+                ZToast.success("安装成功！");
             } else {
-                AToast.error("安装失败！");
+                ZToast.error("安装失败！");
             }
         }
     }
 
     @Override
     public void onClick(EasyViewHolder holder, View view, InstalledAppInfo data) {
-//        AToast.normal("todo 详细信息");
+//        ZToast.normal("todo 详细信息");
         AppUtil.installApk(context, data.getApkFilePath());
     }
 
@@ -204,9 +204,9 @@ public class PackageManagerFragment extends RecyclerLayoutFragment<InstalledAppI
 //        startTime = System.currentTimeMillis();
 
 
-        ZFileScanner<InstalledAppInfo> scanner = new ZFileScanner<>();
+        FileScanner<InstalledAppInfo> scanner = new FileScanner<>();
         scanner.setType(".apk");
-        scanner.start(new ZFileScanner.OnScanListener<InstalledAppInfo>() {
+        scanner.start(new FileScanner.OnScanListener<InstalledAppInfo>() {
             @Override
             public void onScanBegin() {
                 Log.d(TAG, "onScanBegin");
@@ -420,10 +420,10 @@ public class PackageManagerFragment extends RecyclerLayoutFragment<InstalledAppI
                 .setOnItemClickListener((position, menu) -> {
                     switch (position) {
                         case 0:
-                            AToast.normal("详细信息");
+                            ZToast.normal("详细信息");
                             break;
                         case 1:
-                            AToast.normal(updateInfo.getApkFilePath());
+                            ZToast.normal(updateInfo.getApkFilePath());
                             AppUtil.shareApk(getContext(), updateInfo.getApkFilePath());
                             break;
                         case 2:
@@ -433,7 +433,7 @@ public class PackageManagerFragment extends RecyclerLayoutFragment<InstalledAppI
                             AppUtil.installApk(getActivity(), updateInfo.getApkFilePath());
                             break;
                         default:
-                            AToast.warning("未知操作！");
+                            ZToast.warning("未知操作！");
                             break;
                     }
                 })
