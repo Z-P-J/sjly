@@ -5,19 +5,17 @@ import android.text.TextUtils;
 import android.util.Base64;
 import android.util.Log;
 
-import com.zpj.toast.ZToast;
 import com.zpj.fragmentation.dialog.impl.AlertDialogFragment;
 import com.zpj.http.ZHttp;
 import com.zpj.http.core.Connection;
 import com.zpj.http.core.IHttp;
 import com.zpj.http.parser.html.nodes.Document;
 import com.zpj.shouji.market.api.HttpApi;
-import com.zpj.shouji.market.event.EventBus;
-import com.zpj.shouji.market.event.SignInEvent;
-import com.zpj.shouji.market.event.SignUpEvent;
+import com.zpj.shouji.market.utils.EventBus;
 import com.zpj.shouji.market.model.MemberInfo;
 import com.zpj.shouji.market.model.MessageInfo;
 import com.zpj.shouji.market.utils.PictureUtil;
+import com.zpj.toast.ZToast;
 import com.zpj.utils.DeviceUtils;
 import com.zpj.utils.PrefsHelper;
 
@@ -377,21 +375,23 @@ public final class UserManager {
     }
 
     private void onSignInSuccess() {
-        PictureUtil.saveIcon(SignInEvent::postSuccess);
+        PictureUtil.saveIcon(EventBus::signInSuccess);
     }
 
     private void onSignInFailed(String info) {
-        PictureUtil.saveDefaultIcon(() -> SignInEvent.postFailed(info));
+        PictureUtil.saveDefaultIcon(() -> EventBus.signInFailed(info));
     }
 
     private void onSignUpSuccess() {
         isLogin = true;
-        SignUpEvent.postSuccess();
+//        SignUpEvent.postSuccess();
+        EventBus.signUpSuccess();
     }
 
     private void onSignUpFailed(String info) {
         isLogin = false;
-        SignUpEvent.postFailed(info);
+//        SignUpEvent.postFailed(info);
+        EventBus.signUpFailed(info);
     }
 
 }

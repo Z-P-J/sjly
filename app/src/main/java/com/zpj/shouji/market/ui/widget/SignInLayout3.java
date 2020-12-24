@@ -8,10 +8,9 @@ import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.zpj.toast.ZToast;
 import com.zpj.shouji.market.R;
-import com.zpj.shouji.market.event.SignInEvent;
 import com.zpj.shouji.market.manager.UserManager;
+import com.zpj.toast.ZToast;
 import com.zpj.widget.editor.AccountInputView;
 import com.zpj.widget.editor.PasswordInputView;
 import com.zpj.widget.editor.SubmitView;
@@ -72,9 +71,9 @@ public class SignInLayout3 extends LinearLayout implements View.OnClickListener 
         }
     }
 
-    public void onSignIn(SignInEvent event) {
-        if (!event.isSuccess()) {
-            piv_password.setError(event.getErrorMsg());
+    public void onSignIn(boolean isSuccess, String errorMsg) {
+        if (!isSuccess) {
+            piv_password.setError(errorMsg);
         }
     }
 

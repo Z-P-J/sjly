@@ -3,8 +3,7 @@ package com.yalantis.ucrop;
 import android.net.Uri;
 
 import com.yalantis.ucrop.callback.CropCallback;
-import com.zpj.rxbus.RxObserver;
-import com.zpj.rxbus.RxSubscriber;
+import com.zpj.rxbus.RxBus;
 
 public class CropEvent {
 
@@ -27,15 +26,19 @@ public class CropEvent {
     }
 
     public static void post(Uri uri, boolean isAvatar) {
-        RxSubscriber.post(EVENT_CROP, new CropEvent(uri, isAvatar));
+        RxBus.post(EVENT_CROP, new CropEvent(uri, isAvatar));
     }
 
     public static void register(Object o, CropCallback callback) {
-        RxObserver.with(o, EVENT_CROP, CropEvent.class)
-                .subscribe(event -> {
-                    RxObserver.unSubscribe(o);
-                    callback.onCrop(event);
-                });
+        RxBus.observe(o, EVENT_CROP, CropEvent.class)
+                .doOnNext(new RxBus.SingleConsumer<CropEvent>() {
+                    @Override
+                    public void onAccept(CropEvent event) throws Exception {
+                        RxBus.removeObservers(o);
+                        callback.onCrop(event);
+                    }
+                })
+                .subscribe();
     }
 
 }

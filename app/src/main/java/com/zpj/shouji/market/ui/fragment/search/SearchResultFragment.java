@@ -9,8 +9,9 @@ import android.util.Log;
 import android.view.View;
 
 import com.zpj.fragmentation.BaseFragment;
+import com.zpj.rxbus.RxBus;
 import com.zpj.shouji.market.R;
-import com.zpj.shouji.market.event.EventBus;
+import com.zpj.shouji.market.utils.EventBus;
 import com.zpj.shouji.market.ui.adapter.FragmentsPagerAdapter;
 import com.zpj.shouji.market.ui.fragment.AppListFragment;
 import com.zpj.shouji.market.ui.fragment.UserListFragment;
@@ -40,10 +41,13 @@ public class SearchResultFragment extends BaseFragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        EventBus.onSearchEvent(this, keyword -> {
-            Log.d("onSearchEvent", "keyword=" + keyword + " observers=" + observers.size());
-            for (KeywordObserver observer : observers) {
-                observer.updateKeyword(keyword);
+        EventBus.onSearchEvent(this, new RxBus.SingleConsumer<String>() {
+            @Override
+            public void onAccept(String keyword) throws Exception {
+                Log.d("onSearchEvent", "keyword=" + keyword + " observers=" + observers.size());
+                for (KeywordObserver observer : observers) {
+                    observer.updateKeyword(keyword);
+                }
             }
         });
     }

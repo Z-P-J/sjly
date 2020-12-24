@@ -9,12 +9,10 @@ import android.widget.LinearLayout;
 
 import com.ctetin.expandabletextviewlibrary.ExpandableTextView;
 import com.ctetin.expandabletextviewlibrary.app.LinkType;
-import com.zpj.toast.ZToast;
 import com.zpj.shouji.market.R;
-import com.zpj.shouji.market.event.EventBus;
-import com.zpj.shouji.market.event.SignUpEvent;
 import com.zpj.shouji.market.manager.UserManager;
 import com.zpj.shouji.market.ui.fragment.WebFragment;
+import com.zpj.toast.ZToast;
 import com.zpj.widget.checkbox.SmoothCheckBox;
 import com.zpj.widget.editor.AccountInputView;
 import com.zpj.widget.editor.EmailInputView;
@@ -173,7 +171,7 @@ public class SignUpLayout3 extends LinearLayout {
     @Override
     protected void onDetachedFromWindow() {
         super.onDetachedFromWindow();
-        EventBus.unSubscribe(this);
+//        EventBus.unSubscribe(this);
     }
 
     @Override
@@ -205,14 +203,13 @@ public class SignUpLayout3 extends LinearLayout {
         return cbAgreement.isChecked();
     }
 
-    public void onSignUp(SignUpEvent event) {
-        if (!event.isSuccess()) {
-            String errInfo = event.getErrorMsg();
-            if ("用户名已被注册".equals(errInfo)) {
+    public void onSignUp(boolean isSuccess, String errorMsg) {
+        if (!isSuccess) {
+            if ("用户名已被注册".equals(errorMsg)) {
                 etAccount.requestFocus();
-                etAccount.setError(errInfo);
+                etAccount.setError(errorMsg);
             } else {
-                ZToast.error(errInfo);
+                ZToast.error(errorMsg);
             }
         }
     }

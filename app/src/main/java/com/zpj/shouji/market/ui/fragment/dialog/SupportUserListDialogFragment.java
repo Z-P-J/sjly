@@ -16,7 +16,7 @@ import com.zpj.recyclerview.IEasy;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.api.HttpApi;
 import com.zpj.shouji.market.constant.Keys;
-import com.zpj.shouji.market.event.GetMainActivityEvent;
+import com.zpj.shouji.market.utils.EventBus;
 import com.zpj.shouji.market.model.SupportUserInfo;
 import com.zpj.shouji.market.ui.fragment.profile.ProfileFragment;
 import com.zpj.utils.ScreenUtils;
@@ -40,7 +40,8 @@ public class SupportUserListDialogFragment extends BottomDialogFragment
         Bundle bundle = new Bundle();
         bundle.putString(Keys.ID, themeId);
         fragment.setArguments(bundle);
-        GetMainActivityEvent.post(fragment::show);
+        EventBus.post(fragment);
+//        GetMainActivityEvent.post(fragment::show);
     }
 
     @Override

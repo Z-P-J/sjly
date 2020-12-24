@@ -5,7 +5,7 @@ import android.view.View;
 
 import com.zpj.fragmentation.BaseFragment;
 import com.zpj.fragmentation.SupportFragment;
-import com.zpj.shouji.market.event.EventBus;
+import com.zpj.shouji.market.utils.EventBus;
 import com.zpj.shouji.market.utils.ThemeUtils;
 import com.zxy.skin.sdk.SkinLayoutInflater;
 

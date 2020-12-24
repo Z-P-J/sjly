@@ -204,9 +204,7 @@ public class DiscoverBinder
             tvSupportUsers.setLinkClickListener((type, title, content) -> {
                 if (type == LinkType.SELF) {
                     if ("support_users".equals(content)) {
-                        new SupportUserListDialogFragment()
-                                .setThemeId(discoverInfo.getId())
-                                .show(context);
+                        SupportUserListDialogFragment.start(discoverInfo.getId());
                     } else {
                         ProfileFragment.start(content, false);
                     }

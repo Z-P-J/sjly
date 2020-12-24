@@ -11,9 +11,10 @@ import android.view.View;
 
 import com.zpj.blur.ZBlurry;
 import com.zpj.fragmentation.SupportFragment;
+import com.zpj.rxbus.RxBus;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.constant.AppConfig;
-import com.zpj.shouji.market.event.EventBus;
+import com.zpj.shouji.market.utils.EventBus;
 import com.zpj.shouji.market.ui.adapter.FragmentsPagerAdapter;
 import com.zpj.shouji.market.ui.fragment.base.SkinFragment;
 import com.zpj.shouji.market.ui.fragment.manager.ManagerFragment;
@@ -104,9 +105,12 @@ public class HomeFragment extends SkinFragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EventBus.onSkinChangeEvent(this, s -> initStatusBar());
-        EventBus.onScrollEvent(this, percent -> {
-        	alpha = percent;
-        	initStatusBar();
+        EventBus.onScrollEvent(this, new RxBus.SingleConsumer<Float>() {
+            @Override
+            public void onAccept(Float percent) throws Exception {
+                alpha = percent;
+                initStatusBar();
+            }
         });
     }
 

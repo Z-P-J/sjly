@@ -14,6 +14,7 @@ import android.util.Log;
 import android.view.View;
 
 import com.bumptech.glide.Glide;
+import com.zpj.rxbus.RxBus;
 import com.zpj.toast.ZToast;
 import com.zpj.fragmentation.dialog.impl.AttachListDialogFragment;
 import com.zpj.shouji.market.R;
@@ -21,7 +22,7 @@ import com.zpj.shouji.market.api.BookingApi;
 import com.zpj.shouji.market.api.HttpApi;
 import com.zpj.shouji.market.constant.AppConfig;
 import com.zpj.shouji.market.constant.Keys;
-import com.zpj.shouji.market.event.EventBus;
+import com.zpj.shouji.market.utils.EventBus;
 import com.zpj.shouji.market.manager.UserManager;
 import com.zpj.shouji.market.model.AppDetailInfo;
 import com.zpj.shouji.market.model.AppInfo;
@@ -141,11 +142,14 @@ public class AppDetailFragment extends BaseSwipeBackFragment
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 //        EventBus.getDefault().register(this);
-        EventBus.onFabEvent(this, show -> {
-            if (show) {
-                fabComment.show();
-            } else {
-                fabComment.hide();
+        EventBus.onFabEvent(this, new RxBus.SingleConsumer<Boolean>() {
+            @Override
+            public void onAccept(Boolean show) throws Exception {
+                if (show) {
+                    fabComment.show();
+                } else {
+                    fabComment.hide();
+                }
             }
         });
     }
@@ -168,7 +172,6 @@ public class AppDetailFragment extends BaseSwipeBackFragment
     public void onDestroy() {
         commentDialogFragment = null;
         EventBus.removeGetAppInfoEvent();
-//        EventBus.getDefault().unregister(this);
         super.onDestroy();
     }
 

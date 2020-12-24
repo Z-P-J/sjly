@@ -14,8 +14,10 @@ import com.zpj.recyclerview.EasyViewHolder;
 import com.zpj.recyclerview.MultiAdapter;
 import com.zpj.recyclerview.MultiData;
 import com.zpj.recyclerview.MultiRecyclerViewWrapper;
+import com.zpj.rxbus.RxBus;
 import com.zpj.shouji.market.R;
-import com.zpj.shouji.market.event.EventBus;
+import com.zpj.shouji.market.utils.EventBus;
+import com.zpj.shouji.market.model.AppDetailInfo;
 import com.zpj.shouji.market.ui.fragment.ToolBarAppListFragment;
 import com.zpj.shouji.market.ui.fragment.base.SkinFragment;
 import com.zpj.shouji.market.ui.fragment.homepage.multi.AppGridListMultiData;
@@ -45,39 +47,42 @@ public class AppDetailContentFragment extends SkinFragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        EventBus.onGetAppInfoEvent(this, info -> {
-            Log.d("AppDetailInfoFragment", "onGetAppDetailInfo info=" + info);
+        EventBus.onGetAppInfoEvent(this, new RxBus.SingleConsumer<AppDetailInfo>() {
+            @Override
+            public void onAccept(AppDetailInfo info) throws Exception {
+                Log.d("AppDetailInfoFragment", "onGetAppDetailInfo info=" + info);
 
-            List<MultiData> list = new ArrayList<>();
+                List<MultiData> list = new ArrayList<>();
 
 
-            addItem(list, "特别说明", info.getSpecialStatement());
-            addItem(list, "小编评论", info.getEditorComment());
-            list.add(new ScreenShootMultiData("软件截图", info.getImgUrlList()));
-            addItem(list, "应用简介", info.getAppIntroduceContent());
-            addItem(list, "新版特性", info.getUpdateContent());
-            addItem(list, "详细信息", info.getAppInfo());
-            addItem(list, "权限信息", info.getPermissionContent());
+                addItem(list, "特别说明", info.getSpecialStatement());
+                addItem(list, "小编评论", info.getEditorComment());
+                list.add(new ScreenShootMultiData("软件截图", info.getImgUrlList()));
+                addItem(list, "应用简介", info.getAppIntroduceContent());
+                addItem(list, "新版特性", info.getUpdateContent());
+                addItem(list, "详细信息", info.getAppInfo());
+                addItem(list, "权限信息", info.getPermissionContent());
 
-            if (info.getOtherAppList() != null) {
-                list.add(new AppGridListMultiData("开发者其他应用", info.getOtherAppList()) {
-                    @Override
-                    public void onHeaderClick() {
-                        ToolBarAppListFragment.start(info.getOtherAppUrl(), "开发者其他应用");
-                    }
+                if (info.getOtherAppList() != null) {
+                    list.add(new AppGridListMultiData("开发者其他应用", info.getOtherAppList()) {
+                        @Override
+                        public void onHeaderClick() {
+                            ToolBarAppListFragment.start(info.getOtherAppUrl(), "开发者其他应用");
+                        }
 
-                    @Override
-                    public int getHeaderSpanCount() {
-                        return 3;
-                    }
-                });
+                        @Override
+                        public int getHeaderSpanCount() {
+                            return 3;
+                        }
+                    });
+                }
+
+                wrapper.setData(list)
+                        .setMaxSpan(3)
+                        .setFooterView(LayoutInflater.from(context).inflate(R.layout.item_footer_normal, null, false))
+                        .build();
+                wrapper.notifyDataSetChanged();
             }
-
-            wrapper.setData(list)
-                    .setMaxSpan(3)
-                    .setFooterView(LayoutInflater.from(context).inflate(R.layout.item_footer_normal, null, false))
-                    .build();
-            wrapper.notifyDataSetChanged();
         });
     }
 

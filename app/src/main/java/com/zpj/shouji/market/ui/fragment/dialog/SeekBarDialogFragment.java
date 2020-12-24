@@ -11,14 +11,6 @@ import com.warkiz.widget.OnSeekChangeListener;
 import com.warkiz.widget.SeekParams;
 import com.zpj.fragmentation.dialog.base.CenterDialogFragment;
 import com.zpj.shouji.market.R;
-import com.zpj.shouji.market.constant.AppConfig;
-import com.zpj.shouji.market.constant.Keys;
-import com.zpj.shouji.market.event.GetMainActivityEvent;
-import com.zpj.shouji.market.ui.activity.MainActivity;
-import com.zpj.shouji.market.ui.widget.CheckLayout;
-import com.zpj.shouji.market.utils.BrightnessUtils;
-import com.zpj.shouji.market.utils.Callback;
-import com.zpj.utils.PrefsHelper;
 
 public class SeekBarDialogFragment extends CenterDialogFragment {
 

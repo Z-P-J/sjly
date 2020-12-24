@@ -32,11 +32,8 @@ dependencies {
     implementation 'com.android.support:appcompat-v7:28.0.0'
     implementation 'com.android.support:exifinterface:28.0.0'
     implementation 'com.android.support:design:28.0.0'
-//    implementation 'com.squareup.okhttp3:okhttp:3.11.0'
-//    implementation 'org.greenrobot:eventbus:3.1.1'
-//    implementation 'com.zpj.widget:Fragmentation:1.0.2'
     implementation 'com.zpj.widget:ZToolBar:1.0.7'
     implementation 'io.reactivex.rxjava2:rxjava:2.2.17'
+    implementation 'com.zpj.rxbus:RxBus:1.0.2'
     implementation project(':fragmentation')
-    implementation project(":rxbus")
 }

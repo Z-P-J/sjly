@@ -1,13 +1,10 @@
 package com.zpj.shouji.market.api;
 
 import android.content.Context;
-import android.graphics.Bitmap;
 import android.text.TextUtils;
 import android.util.Log;
 
 import com.bumptech.glide.Glide;
-import com.zpj.toast.ZToast;
-import com.nanchen.compresshelper.CompressHelper;
 import com.zpj.http.ZHttp;
 import com.zpj.http.core.Connection;
 import com.zpj.http.core.HttpKeyVal;
@@ -16,18 +13,15 @@ import com.zpj.http.core.ObservableTask;
 import com.zpj.http.parser.html.nodes.Document;
 import com.zpj.matisse.entity.Item;
 import com.zpj.shouji.market.constant.AppConfig;
-import com.zpj.shouji.market.event.HideLoadingEvent;
-import com.zpj.shouji.market.event.ShowLoadingEvent;
+import com.zpj.shouji.market.utils.EventBus;
 import com.zpj.shouji.market.manager.UserManager;
 import com.zpj.shouji.market.model.InstalledAppInfo;
-import com.zpj.shouji.market.utils.FileUtils;
 import com.zpj.shouji.market.utils.PictureUtil;
+import com.zpj.toast.ZToast;
 import com.zpj.utils.AppUtils;
 import com.zpj.utils.CipherUtils;
 import com.zpj.utils.ContextUtils;
 import com.zpj.utils.DeviceUtils;
-import com.zpj.utils.OSUtils;
-import com.zpj.utils.ScreenUtils;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -48,7 +42,7 @@ public class CommentApi {
     }
 
     public static void discussCommentWithFileApi(Context context, String replyId, String content, List<Item> imgList, Runnable successRunnable, IHttp.OnStreamWriteListener listener) {
-        ShowLoadingEvent.post("评论中...");
+        EventBus.showLoading("评论中...");
         new ObservableTask<>(
                 (ObservableOnSubscribe<List<Connection.KeyVal>>) emitter -> {
                     List<Connection.KeyVal> dataList = new ArrayList<>();
@@ -90,12 +84,11 @@ public class CommentApi {
                     } else {
                         ZToast.error(info);
                     }
-                    HideLoadingEvent.postDelayed(250);
                 })
                 .onError(throwable -> {
                     ZToast.error("评论失败！" + throwable.getMessage());
-                    HideLoadingEvent.postDelayed(250);
                 })
+                .onComplete(() -> EventBus.hideLoading(250))
                 .subscribe();
     }
 
@@ -186,7 +179,7 @@ public class CommentApi {
     }
 
     private static void appCommentWithFileApi(Context context, String msg, String content, String replyId, String appId, String appType, String appPackage, List<Item> imgList, Runnable successRunnable, IHttp.OnStreamWriteListener listener) {
-        ShowLoadingEvent.post(msg);
+        EventBus.showLoading(msg);
         ObservableTask<Document> task;
         boolean compress = AppConfig.isCompressUploadImage();
         if (imgList == null || imgList.isEmpty()) {
@@ -250,19 +243,18 @@ public class CommentApi {
                     } else {
                         ZToast.error(info);
                     }
-                    HideLoadingEvent.postDelayed(250);
                 })
                 .onError(throwable -> {
                     ZToast.error("评论失败！" + throwable.getMessage());
-                    HideLoadingEvent.postDelayed(250);
                 })
+                .onComplete(() -> EventBus.hideLoading(250))
                 .subscribe();
     }
 
 
     public static void discussCommentWithFileApi(Context context, String content, String replyId, InstalledAppInfo appInfo, List<Item> imgList, String tags, boolean isPrivate, Runnable successRunnable, IHttp.OnStreamWriteListener listener) {
         Log.d("publishThemeApi", "content=" + content + " tag=" + tags);
-        ShowLoadingEvent.post("评论中...");
+        EventBus.showLoading("评论中...");
         ObservableTask<Document> task;
         if (appInfo == null && imgList.isEmpty()) {
             task = getConnection(
@@ -346,12 +338,11 @@ public class CommentApi {
                     } else {
                         ZToast.error(info);
                     }
-                    HideLoadingEvent.postDelayed(250);
                 })
                 .onError(throwable -> {
                     ZToast.error("出错了！" + throwable.getMessage());
-                    HideLoadingEvent.postDelayed(250);
                 })
+                .onComplete(() -> EventBus.hideLoading(250))
                 .subscribe();
     }
 

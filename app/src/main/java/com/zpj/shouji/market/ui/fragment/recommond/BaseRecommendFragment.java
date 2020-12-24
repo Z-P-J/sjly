@@ -16,8 +16,9 @@ import com.zpj.recyclerview.EasyViewHolder;
 import com.zpj.recyclerview.IEasy;
 import com.zpj.recyclerview.MultiData;
 import com.zpj.recyclerview.MultiRecyclerViewWrapper;
+import com.zpj.rxbus.RxBus;
 import com.zpj.shouji.market.R;
-import com.zpj.shouji.market.event.EventBus;
+import com.zpj.shouji.market.utils.EventBus;
 import com.zpj.shouji.market.model.AppInfo;
 import com.zpj.shouji.market.ui.fragment.base.SkinFragment;
 import com.zpj.shouji.market.ui.fragment.detail.AppDetailFragment;
@@ -50,13 +51,15 @@ public abstract class BaseRecommendFragment extends SkinFragment
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-//        EventBus.getDefault().register(this);
-        EventBus.onMainActionEvent(this, isShow -> {
-            if (isSupportVisible() && banner != null) {
-                if (isShow) {
-                    banner.stopAutoPlay();
-                } else {
-                    banner.startAutoPlay();
+        EventBus.onMainActionEvent(this, new RxBus.SingleConsumer<Boolean>() {
+            @Override
+            public void onAccept(Boolean isShow) throws Exception {
+                if (isSupportVisible() && banner != null) {
+                    if (isShow) {
+                        banner.stopAutoPlay();
+                    } else {
+                        banner.startAutoPlay();
+                    }
                 }
             }
         });

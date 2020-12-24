@@ -1,40 +1,26 @@
 package com.zpj.shouji.market.ui.fragment.dialog;
 
-import android.content.Context;
-import android.graphics.Bitmap;
 import android.graphics.Color;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.view.ViewPager;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
-import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.request.target.SimpleTarget;
-import com.bumptech.glide.request.transition.Transition;
 import com.zpj.fragmentation.ISupportFragment;
 import com.zpj.fragmentation.SupportHelper;
 import com.zpj.fragmentation.dialog.imagetrans.ITConfig;
 import com.zpj.fragmentation.dialog.imagetrans.MyImageLoad;
 import com.zpj.fragmentation.dialog.impl.AttachListDialogFragment;
-import com.zpj.fragmentation.dialog.impl.ImageViewerDialogFragment;
 import com.zpj.fragmentation.dialog.impl.ImageViewerDialogFragment2;
-import com.zpj.fragmentation.dialog.interfaces.IImageLoader;
-import com.zpj.fragmentation.dialog.photoview.PhotoView;
-import com.zpj.fragmentation.dialog.widget.LoadingView;
 import com.zpj.shouji.market.R;
-import com.zpj.shouji.market.event.GetMainActivityEvent;
 import com.zpj.shouji.market.utils.PictureUtil;
 import com.zpj.widget.tinted.TintedImageButton;
 import com.zpj.widget.toolbar.ZToolBar;
 
-import java.io.File;
 import java.util.List;
 
 public class CommonImageViewerDialogFragment2 extends ImageViewerDialogFragment2<String> {
@@ -138,16 +124,24 @@ public class CommonImageViewerDialogFragment2 extends ImageViewerDialogFragment2
     @Override
     protected void onDismiss() {
         super.onDismiss();
-        GetMainActivityEvent.post(activity -> {
-            ISupportFragment fragment = SupportHelper.getBackStackTopFragment(activity.getSupportFragmentManager());
-            if (fragment == null) {
-                fragment = SupportHelper.getTopFragment(activity.getSupportFragmentManager());
-            }
-            Log.d("CommonImageViewerPopup", "fragment=" + fragment);
-            if (fragment != null) {
-                fragment.onSupportVisible();
-            }
-        });
+        ISupportFragment fragment = SupportHelper.getBackStackTopFragment(_mActivity.getSupportFragmentManager());
+        if (fragment == null) {
+            fragment = SupportHelper.getTopFragment(_mActivity.getSupportFragmentManager());
+        }
+        Log.d("CommonImageViewerPopup", "fragment=" + fragment);
+        if (fragment != null) {
+            fragment.onSupportVisible();
+        }
+//        GetMainActivityEvent.post(activity -> {
+//            ISupportFragment fragment = SupportHelper.getBackStackTopFragment(activity.getSupportFragmentManager());
+//            if (fragment == null) {
+//                fragment = SupportHelper.getTopFragment(activity.getSupportFragmentManager());
+//            }
+//            Log.d("CommonImageViewerPopup", "fragment=" + fragment);
+//            if (fragment != null) {
+//                fragment.onSupportVisible();
+//            }
+//        });
     }
 
     @Override

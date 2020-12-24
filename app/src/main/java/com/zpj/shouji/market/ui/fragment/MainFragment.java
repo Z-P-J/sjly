@@ -1,24 +1,21 @@
 package com.zpj.shouji.market.ui.fragment;
 
-import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
-import android.util.Log;
 import android.view.View;
 
 import com.zpj.blur.ZBlurry;
 import com.zpj.fragmentation.SupportFragment;
 import com.zpj.fragmentation.anim.DefaultHorizontalAnimator;
 import com.zpj.fragmentation.anim.FragmentAnimator;
-import com.zpj.rxbus.RxObserver;
+import com.zpj.rxbus.RxBus;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.constant.AppConfig;
-import com.zpj.shouji.market.event.EventBus;
-import com.zpj.shouji.market.event.GetMainFragmentEvent;
+import com.zpj.shouji.market.utils.EventBus;
 import com.zpj.shouji.market.manager.UserManager;
 import com.zpj.shouji.market.model.MessageInfo;
 import com.zpj.shouji.market.ui.fragment.base.SkinFragment;
@@ -30,12 +27,6 @@ import com.zpj.shouji.market.ui.fragment.recommond.SoftRecommendFragment;
 import com.zpj.shouji.market.ui.widget.navigation.BottomBar;
 import com.zpj.shouji.market.ui.widget.navigation.BottomBarTab;
 import com.zpj.toast.ZToast;
-
-import java.util.concurrent.TimeUnit;
-
-import io.reactivex.Observable;
-import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.schedulers.Schedulers;
 
 public class MainFragment extends SkinFragment {
 
@@ -65,23 +56,16 @@ public class MainFragment extends SkinFragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-//        EventBus.getDefault().register(this);
         EventBus.onSkinChangeEvent(this, s -> {
             if (blurred != null) {
                 blurred.foregroundColor(Color.parseColor(AppConfig.isNightMode() ? "#a0000000" : "#a0ffffff"));
                 blurred.startBlur();
             }
         });
-        RxObserver.with(this, MessageInfo.class)
+        RxBus.observe(this, MessageInfo.class)
                 .bindToLife(this)
-                .subscribe(info -> mBottomBar.getItem(4).setUnreadCount(info.getTotalCount()));
-        RxObserver.with(this, GetMainFragmentEvent.class)
-                .bindToLife(this)
-                .subscribe(event -> {
-                    if (event.getCallback() != null) {
-                        event.getCallback().onCallback(MainFragment.this);
-                    }
-                });
+                .doOnNext(info -> mBottomBar.getItem(4).setUnreadCount(info.getTotalCount()))
+                .subscribe();
     }
 
     @Override
@@ -129,19 +113,15 @@ public class MainFragment extends SkinFragment {
                 .scale(0.1f)
                 .radius(20)
 //                .maxFps(40)
-                .blur(mBottomBar, new ZBlurry.Callback() {
-                    @Override
-                    public void down(Bitmap bitmap) {
-                        Log.d("MainFragment", "bitmap=" + bitmap);
-                        Drawable drawable = new BitmapDrawable(bitmap);
-                        mBottomBar.setBackground(drawable);
-                    }
+                .blur(mBottomBar, bitmap -> {
+//                    Log.d("MainFragment", "bitmap=" + bitmap);
+                    Drawable drawable = new BitmapDrawable(bitmap);
+                    mBottomBar.setBackground(drawable);
                 });
         blurred.pauseBlur();
 
         BottomBarTab emptyTab = new BottomBarTab(context);
         emptyTab.setOnClickListener(v -> {
-//            MainActionPopupEvent.post(true);
             EventBus.sendMainActionEvent(true);
             new MainActionDialogFragment()
 //                    .setOnDismissListener(() -> MainActionPopupEvent.post(false))
@@ -169,10 +149,6 @@ public class MainFragment extends SkinFragment {
                     prePosition -= 1;
                 }
                 showHideFragment(mFragments[position], mFragments[prePosition]);
-                ZToast.normal("ccccccc\ncccc");
-                ZToast.success("ccsdgftbdfbhgfbdfbdfbdfbvdfghbidhjfgdfccccccccc");
-                ZToast.error("cccccvvv\n\nf\n\ncccccc");
-                ZToast.warning("cccccccc");
             }
 
             @Override
@@ -252,25 +228,5 @@ public class MainFragment extends SkinFragment {
             }
         });
     }
-
-//    @Subscribe
-//    public void onSkinChangeEvent(SkinChangeEvent info) {
-//        if (blurred != null) {
-//            blurred.foregroundColor(Color.parseColor(AppConfig.isNightMode() ? "#a0000000" : "#a0ffffff"));
-//            blurred.startBlur();
-//        }
-//    }
-
-//    @Subscribe
-//    public void onUpdateMessageInfoEvent(MessageInfo info) {
-//        mBottomBar.getItem(4).setUnreadCount(info.getTotalCount());
-//    }
-
-//    @Subscribe
-//    public void onGetMainFragmentEvent(GetMainFragmentEvent event) {
-//        if (event.getCallback() != null) {
-//            event.getCallback().onCallback(this);
-//        }
-//    }
 
 }

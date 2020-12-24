@@ -5,7 +5,6 @@ import android.text.TextUtils;
 import android.util.Log;
 
 import com.bumptech.glide.Glide;
-import com.zpj.toast.ZToast;
 import com.zpj.http.ZHttp;
 import com.zpj.http.core.Connection;
 import com.zpj.http.core.HttpKeyVal;
@@ -14,11 +13,11 @@ import com.zpj.http.core.ObservableTask;
 import com.zpj.http.parser.html.nodes.Document;
 import com.zpj.matisse.entity.Item;
 import com.zpj.shouji.market.constant.AppConfig;
-import com.zpj.shouji.market.event.HideLoadingEvent;
-import com.zpj.shouji.market.event.ShowLoadingEvent;
+import com.zpj.shouji.market.utils.EventBus;
 import com.zpj.shouji.market.manager.UserManager;
 import com.zpj.shouji.market.model.InstalledAppInfo;
 import com.zpj.shouji.market.utils.PictureUtil;
+import com.zpj.toast.ZToast;
 import com.zpj.utils.AppUtils;
 import com.zpj.utils.CipherUtils;
 import com.zpj.utils.ContextUtils;
@@ -40,7 +39,7 @@ public class ThemePublishApi {
 
     public static void publishThemeApi(Context context, String content, String replyId, InstalledAppInfo appInfo, List<Item> imgList, String tags, boolean isPrivate, Runnable successRunnable, IHttp.OnStreamWriteListener listener) {
         Log.d("publishThemeApi", "content=" + content + " tag=" + tags);
-        ShowLoadingEvent.post("发布动态...");
+        EventBus.showLoading("发布动态...");
         boolean compress = AppConfig.isCompressUploadImage();
         ObservableTask<Document> task;
         if (appInfo == null && imgList.isEmpty()) {
@@ -121,16 +120,7 @@ public class ThemePublishApi {
                     Log.d("publishThemeApi", "data=" + data);
                     String info = data.selectFirst("info").text();
                     if ("success".equals(data.selectFirst("result").text())) {
-//                        Observable.timer(250, TimeUnit.MILLISECONDS)
-//                                .doOnComplete(() -> {
-//                                    ZToast.success(info);
-//                                    HideLoadingEvent.postEvent();
-//                                    if (successRunnable != null) {
-//                                        successRunnable.run();
-//                                    }
-//                                })
-//                                .subscribe();
-                        HideLoadingEvent.post(() -> {
+                        EventBus.hideLoading(() -> {
                             ZToast.success(info);
                             if (successRunnable != null) {
                                 successRunnable.run();
@@ -138,13 +128,12 @@ public class ThemePublishApi {
                         });
                     } else {
                         ZToast.error(info);
-                        HideLoadingEvent.postDelayed(250);
                     }
                 })
                 .onError(throwable -> {
                     ZToast.error("发布失败！" + throwable.getMessage());
-                    HideLoadingEvent.postDelayed(250);
                 })
+                .onComplete(() -> EventBus.hideLoading(250))
                 .subscribe();
     }
 

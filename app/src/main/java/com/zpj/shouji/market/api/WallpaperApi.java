@@ -2,19 +2,16 @@ package com.zpj.shouji.market.api;
 
 import android.util.Log;
 
-import com.zpj.toast.ZToast;
 import com.zpj.http.ZHttp;
-import com.zpj.http.core.Connection;
 import com.zpj.http.core.IHttp;
-import com.zpj.http.parser.html.nodes.Document;
 import com.zpj.http.parser.html.nodes.Element;
 import com.zpj.http.parser.html.select.Elements;
 import com.zpj.shouji.market.R;
-import com.zpj.shouji.market.event.HideLoadingEvent;
-import com.zpj.shouji.market.event.ShowLoadingEvent;
+import com.zpj.shouji.market.utils.EventBus;
 import com.zpj.shouji.market.manager.UserManager;
 import com.zpj.shouji.market.model.WallpaperTag;
 import com.zpj.shouji.market.utils.Callback;
+import com.zpj.toast.ZToast;
 import com.zpj.utils.ContextUtils;
 import com.zpj.utils.DeviceUtils;
 
@@ -69,7 +66,7 @@ public class WallpaperApi {
     public static void shareWallpaperApi(File file, String content, String tag, boolean isPrivate, Runnable runnable, IHttp.OnStreamWriteListener listener) {
         Log.d("shareWallpaperApi", "file=" + file.getPath());
         Log.d("shareWallpaperApi", "content=" + content + " tag=" + tag);
-        ShowLoadingEvent.post("上传乐图...");
+        EventBus.showLoading("上传乐图...");
 //        图片只能上传png,gif,jpg,png格式
         try {
             ZHttp.post(String.format("http://tt.shouji.com.cn/app/bizhi_publish_v5.jsp?jsessionid=%s", UserManager.getInstance().getSessionId()))
@@ -99,17 +96,16 @@ public class WallpaperApi {
                         } else {
                             ZToast.error(info);
                         }
-                        HideLoadingEvent.postDelayed(500);
                     })
                     .onError(throwable -> {
                         ZToast.error("上传失败！" + throwable.getMessage());
-                        HideLoadingEvent.postDelayed(500);
                     })
+                    .onComplete(() -> EventBus.hideLoading(500))
                     .subscribe();
         } catch (FileNotFoundException e) {
             e.printStackTrace();
             ZToast.error("上传失败！" + e.getMessage());
-            HideLoadingEvent.postDelayed(500);
+            EventBus.hideLoading(500);
         }
     }
 

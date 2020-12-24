@@ -4,6 +4,6 @@ import com.yalantis.ucrop.CropEvent;
 
 public interface CropCallback {
 
-    void onCrop(CropEvent event);
+   void onCrop(CropEvent event);
 
 }

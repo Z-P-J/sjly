@@ -10,7 +10,7 @@ import android.view.View;
 
 import com.zpj.toast.ZToast;
 import com.zpj.shouji.market.R;
-import com.zpj.shouji.market.event.EventBus;
+import com.zpj.shouji.market.utils.EventBus;
 import com.zpj.shouji.market.ui.adapter.FragmentsPagerAdapter;
 import com.zpj.shouji.market.ui.fragment.base.BaseSwipeBackFragment;
 import com.zpj.shouji.market.ui.widget.ZViewPager;

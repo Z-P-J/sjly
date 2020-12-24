@@ -2,12 +2,10 @@ package com.zpj.shouji.market.ui.widget;
 
 import android.content.Context;
 
-import com.zpj.rxbus.RxObserver;
+import com.zpj.rxbus.RxBus;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.constant.AppConfig;
-import com.zpj.shouji.market.event.EventBus;
-
-import io.reactivex.functions.Consumer;
+import com.zpj.shouji.market.utils.EventBus;
 
 public class ColorChangePagerTitleView extends ScaleTransitionPagerTitleView {
 
@@ -15,18 +13,19 @@ public class ColorChangePagerTitleView extends ScaleTransitionPagerTitleView {
 
     public ColorChangePagerTitleView(Context context) {
         super(context);
-//        EventBus.getDefault().register(this);
-        RxObserver.with(this, EventBus.KEY_COLOR_CHANGE_EVENT, Boolean.class)
-                .subscribe(new Consumer<Boolean>() {
+        RxBus.observe(this, EventBus.KEY_COLOR_CHANGE_EVENT, Boolean.class)
+                .bindView(this)
+                .doOnNext(new RxBus.SingleConsumer<Boolean>() {
                     @Override
-                    public void accept(Boolean isDark) throws Exception {
+                    public void onAccept(Boolean isDark) throws Exception {
                         int color = getResources().getColor((AppConfig.isNightMode() || isDark) ? R.color.white : R.color.color_text_major);
                         setNormalColor(color);
                         if (!isSelected) {
                             setTextColor(mNormalColor);
                         }
                     }
-                });
+                })
+                .subscribe();
     }
 
     @Override
@@ -44,8 +43,6 @@ public class ColorChangePagerTitleView extends ScaleTransitionPagerTitleView {
     @Override
     protected void onDetachedFromWindow() {
         super.onDetachedFromWindow();
-        RxObserver.unSubscribe(this);
-//        EventBus.getDefault().unregister(this);
     }
 
 //    @Subscribe

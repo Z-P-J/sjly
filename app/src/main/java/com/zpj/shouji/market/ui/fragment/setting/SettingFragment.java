@@ -5,19 +5,18 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.View;
 
-import com.zpj.toast.ZToast;
 import com.zpj.downloader.ZDownloader;
 import com.zpj.fragmentation.dialog.impl.AlertDialogFragment;
 import com.zpj.http.core.IHttp;
 import com.zpj.http.core.ObservableTask;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.constant.AppConfig;
-import com.zpj.shouji.market.event.HideLoadingEvent;
-import com.zpj.shouji.market.event.ShowLoadingEvent;
+import com.zpj.shouji.market.utils.EventBus;
 import com.zpj.shouji.market.manager.AppUpdateManager;
 import com.zpj.shouji.market.ui.fragment.dialog.BrightnessDialogFragment;
 import com.zpj.shouji.market.ui.fragment.dialog.SeekBarDialogFragment;
 import com.zpj.shouji.market.utils.DataCleanManagerUtils;
+import com.zpj.toast.ZToast;
 import com.zpj.utils.RootUtils;
 import com.zpj.widget.setting.CheckableSettingItem;
 import com.zpj.widget.setting.CommonSettingItem;
@@ -184,7 +183,7 @@ public class SettingFragment extends BaseSettingFragment {
                             .setContent("您将清除本应用所有缓存数据，确认清除？")
 //                            .setAutoDismiss(false)
                             .setPositiveButton(popup -> {
-                                ShowLoadingEvent.post("清除中...");
+                                EventBus.showLoading("清除中...");
                                 new ObservableTask<String>(
                                         emitter -> {
                                             DataCleanManagerUtils.clearAllCache(context);
@@ -194,7 +193,7 @@ public class SettingFragment extends BaseSettingFragment {
                                         .onSuccess(new IHttp.OnSuccessListener<String>() {
                                             @Override
                                             public void onSuccess(String data) throws Exception {
-                                                HideLoadingEvent.post(() -> {
+                                                EventBus.hideLoading(() -> {
                                                     ZToast.success("清理成功");
                                                     item.setRightText(data);
                                                 });

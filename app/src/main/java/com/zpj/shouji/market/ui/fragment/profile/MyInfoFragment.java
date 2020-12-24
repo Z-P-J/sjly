@@ -6,10 +6,12 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
 
+import com.yalantis.ucrop.CropEvent;
+import com.zpj.rxbus.RxBus;
 import com.zpj.toast.ZToast;
 import com.zpj.fragmentation.dialog.impl.AlertDialogFragment;
 import com.zpj.shouji.market.R;
-import com.zpj.shouji.market.event.EventBus;
+import com.zpj.shouji.market.utils.EventBus;
 import com.zpj.shouji.market.manager.UserManager;
 import com.zpj.shouji.market.model.MemberInfo;
 import com.zpj.shouji.market.ui.fragment.base.BaseSwipeBackFragment;
@@ -56,11 +58,14 @@ public class MyInfoFragment extends BaseSwipeBackFragment implements OnCommonIte
                 emailItem.setRightText(email);
             }
         });
-        EventBus.onImageUploadEvent(this, event -> {
-            if (event.isAvatar()) {
-                PictureUtil.loadAvatar(ivAvatar);
-            } else {
-                PictureUtil.loadBackground(ivWallpaper);
+        EventBus.onImageUploadEvent(this, new RxBus.SingleConsumer<CropEvent>() {
+            @Override
+            public void onAccept(CropEvent event) throws Exception {
+                if (event.isAvatar()) {
+                    PictureUtil.loadAvatar(ivAvatar);
+                } else {
+                    PictureUtil.loadBackground(ivWallpaper);
+                }
             }
         });
     }

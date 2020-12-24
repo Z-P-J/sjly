@@ -14,15 +14,15 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.zpj.toast.ZToast;
+import com.yalantis.ucrop.CropEvent;
 import com.zpj.blur.ZBlurry;
 import com.zpj.fragmentation.anim.DefaultVerticalAnimator;
 import com.zpj.fragmentation.dialog.impl.AttachListDialogFragment;
+import com.zpj.rxbus.RxBus;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.api.HttpApi;
 import com.zpj.shouji.market.constant.AppConfig;
-import com.zpj.shouji.market.event.EventBus;
-import com.zpj.shouji.market.event.SignInEvent;
+import com.zpj.shouji.market.utils.EventBus;
 import com.zpj.shouji.market.manager.UserManager;
 import com.zpj.shouji.market.model.MemberInfo;
 import com.zpj.shouji.market.model.MessageInfo;
@@ -42,6 +42,7 @@ import com.zpj.shouji.market.ui.widget.PullZoomView;
 import com.zpj.shouji.market.ui.widget.ToolBoxCard;
 import com.zpj.shouji.market.utils.PictureUtil;
 import com.zpj.shouji.market.utils.UploadUtils;
+import com.zpj.toast.ZToast;
 import com.zpj.utils.ClickHelper;
 import com.zpj.widget.setting.SwitchSettingItem;
 import com.zpj.widget.tinted.TintedImageView;
@@ -113,39 +114,45 @@ public class MyFragment extends SkinFragment
             ivWallpaper.setImageResource(R.drawable.bg_member_default);
             ZToast.success("注销成功");
         });
-        EventBus.registerObserver(this, SignInEvent.class, event -> {
-            if (event.isSuccess()) {
-                toolBoxCard.onLogin();
-                MemberInfo info = UserManager.getInstance().getMemberInfo();
-                tvCheckIn.setVisibility(View.VISIBLE);
-                if (!info.isCanSigned()) {
-                    tvCheckIn.setBackgroundResource(R.drawable.bg_button_round_pink);
-                    tvCheckIn.setText("已签到");
-                }
-                tvEditInfo.setText("编辑");
-                tvName.setText(info.getMemberNickName());
-                tvLevel.setText("Lv." + info.getMemberLevel());
-                if (TextUtils.isEmpty(info.getMemberSignature())) {
-                    tvSignature.setText(info.getMemberScoreInfo());
+        EventBus.onSignInEvent(this, new RxBus.PairConsumer<Boolean, String>() {
+            @Override
+            public void onAccept(Boolean isSuccess, String errorMsg) throws Exception {
+                if (isSuccess) {
+                    toolBoxCard.onLogin();
+                    MemberInfo info = UserManager.getInstance().getMemberInfo();
+                    tvCheckIn.setVisibility(View.VISIBLE);
+                    if (!info.isCanSigned()) {
+                        tvCheckIn.setBackgroundResource(R.drawable.bg_button_round_pink);
+                        tvCheckIn.setText("已签到");
+                    }
+                    tvEditInfo.setText("编辑");
+                    tvName.setText(info.getMemberNickName());
+                    tvLevel.setText("Lv." + info.getMemberLevel());
+                    if (TextUtils.isEmpty(info.getMemberSignature())) {
+                        tvSignature.setText(info.getMemberScoreInfo());
+                    } else {
+                        tvSignature.setText(info.getMemberSignature());
+                    }
+                    tvFollower.setText("关注 " + info.getFollowerCount());
+                    tvFans.setText("粉丝 " + info.getFansCount());
+                    PictureUtil.loadAvatar(ivAvatar);
+                    PictureUtil.loadBackground(ivWallpaper);
+                    tvSignOut.setVisibility(View.VISIBLE);
                 } else {
-                    tvSignature.setText(info.getMemberSignature());
+                    tvCheckIn.setVisibility(View.GONE);
+                    tvEditInfo.setText("未登录");
                 }
-                tvFollower.setText("关注 " + info.getFollowerCount());
-                tvFans.setText("粉丝 " + info.getFansCount());
-                PictureUtil.loadAvatar(ivAvatar);
-                PictureUtil.loadBackground(ivWallpaper);
-                tvSignOut.setVisibility(View.VISIBLE);
-            } else {
-                tvCheckIn.setVisibility(View.GONE);
-                tvEditInfo.setText("未登录");
             }
         });
 
-        EventBus.onImageUploadEvent(this, event -> {
-            if (event.isAvatar()) {
-                PictureUtil.loadAvatar(ivAvatar);
-            } else {
-                PictureUtil.loadBackground(ivWallpaper);
+        EventBus.onImageUploadEvent(this, new RxBus.SingleConsumer<CropEvent>() {
+            @Override
+            public void onAccept(CropEvent event) throws Exception {
+                if (event.isAvatar()) {
+                    PictureUtil.loadAvatar(ivAvatar);
+                } else {
+                    PictureUtil.loadBackground(ivWallpaper);
+                }
             }
         });
 
@@ -338,7 +345,8 @@ public class MyFragment extends SkinFragment
 
 //        UserManager.getInstance().addOnSignInListener(this);
 //        onSignInEvent(new SignInEvent(UserManager.getInstance().isLogin()));
-        SignInEvent.post(UserManager.getInstance().isLogin());
+//        SignInEvent.post(UserManager.getInstance().isLogin());
+        EventBus.sendIsSignIn();
     }
 
     @Override
@@ -522,40 +530,6 @@ public class MyFragment extends SkinFragment
             UpdateManagerFragment.start(true);
         }
     }
-
-//    @Subscribe
-//    public void onSignInEvent(SignInEvent event) {
-//        if (event.isSuccess()) {
-//            toolBoxCard.onLogin();
-//            MemberInfo info = UserManager.getInstance().getMemberInfo();
-//            tvCheckIn.setVisibility(View.VISIBLE);
-//            if (!info.isCanSigned()) {
-//                tvCheckIn.setBackgroundResource(R.drawable.bg_button_round_pink);
-//                tvCheckIn.setText("已签到");
-//            }
-//            tvEditInfo.setText("编辑");
-//            tvName.setText(info.getMemberNickName());
-//            tvLevel.setText("Lv." + info.getMemberLevel());
-//            if (TextUtils.isEmpty(info.getMemberSignature())) {
-//                tvSignature.setText(info.getMemberScoreInfo());
-//            } else {
-//                tvSignature.setText(info.getMemberSignature());
-//            }
-//            tvFollower.setText("关注 " + info.getFollowerCount());
-//            tvFans.setText("粉丝 " + info.getFansCount());
-//            PictureUtil.loadAvatar(ivAvatar);
-//            PictureUtil.loadBackground(ivWallpaper);
-//            tvSignOut.setVisibility(View.VISIBLE);
-//        } else {
-//            tvCheckIn.setVisibility(View.GONE);
-//            tvEditInfo.setText("未登录");
-//        }
-//    }
-
-//    @Subscribe
-//    public void onSkinChangeEvent(SkinChangeEvent event) {
-//        initStatusBar();
-//    }
 
     public void showLoginPopup(int page) {
         _mActivity.setFragmentAnimator(new DefaultVerticalAnimator());

@@ -1,23 +1,11 @@
 package com.zpj.shouji.market.api;
 
-import android.util.Log;
-
-import com.zpj.toast.ZToast;
-import com.zpj.http.ZHttp;
-import com.zpj.http.core.IHttp;
 import com.zpj.http.parser.html.nodes.Element;
 import com.zpj.http.parser.html.select.Elements;
 import com.zpj.shouji.market.R;
-import com.zpj.shouji.market.event.HideLoadingEvent;
-import com.zpj.shouji.market.event.ShowLoadingEvent;
-import com.zpj.shouji.market.manager.UserManager;
-import com.zpj.shouji.market.model.WallpaperTag;
 import com.zpj.shouji.market.utils.Callback;
 import com.zpj.utils.ContextUtils;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;

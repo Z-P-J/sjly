@@ -9,16 +9,15 @@ import android.support.v7.app.AppCompatDelegate;
 import android.view.LayoutInflater;
 
 import com.bumptech.glide.Glide;
-import com.zpj.toast.ZToast;
 import com.zpj.downloader.ZDownloader;
 import com.zpj.fragmentation.SupportActivity;
 import com.zpj.fragmentation.SupportFragment;
 import com.zpj.fragmentation.anim.DefaultHorizontalAnimator;
 import com.zpj.fragmentation.anim.FragmentAnimator;
 import com.zpj.fragmentation.dialog.impl.LoadingDialogFragment;
-import com.zpj.rxbus.RxObserver;
-import com.zpj.shouji.market.event.HideLoadingEvent;
-import com.zpj.shouji.market.event.ShowLoadingEvent;
+import com.zpj.rxbus.RxBus;
+import com.zpj.shouji.market.utils.EventBus;
+import com.zpj.toast.ZToast;
 import com.zxy.skin.sdk.SkinLayoutInflater;
 
 import io.reactivex.functions.Consumer;
@@ -74,59 +73,33 @@ public class BaseActivity extends SupportActivity {
             mLayoutInflater.setFactory2((LayoutInflater.Factory2) delegate);
         }
 
-//        registerObserver(StartFragmentEvent.class, event -> start(event.getFragment()));
-//
-        registerObserver(SupportFragment.class, this::start);
+        EventBus.registerObserver(this, SupportFragment.class, this::start);
 
-        registerObserver(ShowLoadingEvent.class, event -> {
-            if (loadingDialogFragment != null) {
-                if (event.isUpdate()) {
-                    loadingDialogFragment.setTitle(event.getText());
-                    return;
+//        registerObserver(SupportFragment.class, this::start);
+
+        EventBus.onShowLoadingEvent(this, new RxBus.PairConsumer<String, Boolean>() {
+            @Override
+            public void onAccept(String text, Boolean isUpdate) throws Exception {
+                if (loadingDialogFragment != null) {
+                    if (isUpdate) {
+                        loadingDialogFragment.setTitle(text);
+                        return;
+                    }
+                    loadingDialogFragment.dismiss();
                 }
-                loadingDialogFragment.dismiss();
+                loadingDialogFragment = null;
+                loadingDialogFragment = new LoadingDialogFragment().setTitle(text);
+                loadingDialogFragment.show(BaseActivity.this);
             }
-            loadingDialogFragment = null;
-            loadingDialogFragment = new LoadingDialogFragment().setTitle(event.getText());
-            loadingDialogFragment.show(BaseActivity.this);
         });
 
-        registerObserver(HideLoadingEvent.class, event -> {
+        EventBus.onHideLoadingEvent(this, listener -> {
             if (loadingDialogFragment != null) {
-                loadingDialogFragment.setOnDismissListener(event.getOnDismissListener());
+                loadingDialogFragment.setOnDismissListener(listener);
                 loadingDialogFragment.dismiss();
                 loadingDialogFragment = null;
             }
         });
-
-//        EventSender.onHideLoadingEvent(this, listener -> {
-//            if (loadingDialogFragment != null) {
-//                loadingDialogFragment.setOnDismissListener(listener);
-//                loadingDialogFragment.dismiss();
-//                loadingDialogFragment = null;
-//            }
-//        });
-
-//        RxObserver.with(this, "start_fragment", SupportFragment.class)
-//                .bindToLife(this)
-//                .subscribe(this::start);
-//        RxObserver.with(this, "start_fragment")
-//                .bindToLife(this)
-//                .subscribe(new Consumer<String>() {
-//                    @Override
-//                    public void accept(String s) throws Exception {
-//                        ZToast.normal("sssss111=" + s);
-//                    }
-//                });
-//        RxObserver.with(this, "start_fragment", String.class)
-//                .bindToLife(this)
-//                .subscribe(new Consumer<String>() {
-//                    @Override
-//                    public void accept(String s) throws Exception {
-//                        ZToast.normal("ssssss222222222=" + s);
-//                    }
-//                });
-
     }
 
     @Override
@@ -154,12 +127,6 @@ public class BaseActivity extends SupportActivity {
 //            ZDownloader.onDestroy();
             ActivityCompat.finishAfterTransition(this);
         }
-    }
-
-    protected <T> void registerObserver(Class<T> type, Consumer<T> next) {
-        RxObserver.with(this, type)
-                .bindToLife(this)
-                .subscribe(next);
     }
 
 }

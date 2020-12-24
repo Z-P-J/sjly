@@ -13,7 +13,6 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
-import com.zpj.toast.ZToast;
 import com.zpj.fragmentation.SupportHelper;
 import com.zpj.fragmentation.dialog.imagetrans.ITConfig;
 import com.zpj.fragmentation.dialog.imagetrans.MyImageLoad;
@@ -22,19 +21,16 @@ import com.zpj.fragmentation.dialog.impl.ImageViewerDialogFragment2;
 import com.zpj.http.core.IHttp;
 import com.zpj.http.parser.html.nodes.Document;
 import com.zpj.http.parser.html.nodes.Element;
-import com.zpj.matisse.entity.Item;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.api.HttpApi;
-import com.zpj.shouji.market.event.GetMainActivityEvent;
 import com.zpj.shouji.market.glide.transformations.CircleWithBorderTransformation;
 import com.zpj.shouji.market.model.DiscoverInfo;
 import com.zpj.shouji.market.model.WallpaperInfo;
-import com.zpj.shouji.market.ui.activity.MainActivity;
 import com.zpj.shouji.market.ui.fragment.profile.ProfileFragment;
 import com.zpj.shouji.market.ui.fragment.theme.ThemeDetailFragment;
 import com.zpj.shouji.market.ui.widget.DrawableTintTextView;
-import com.zpj.shouji.market.utils.Callback;
 import com.zpj.shouji.market.utils.PictureUtil;
+import com.zpj.toast.ZToast;
 import com.zpj.widget.tinted.TintedImageButton;
 import com.zpj.widget.toolbar.ZToolBar;
 
@@ -297,12 +293,13 @@ public class WallpaperViewerDialogFragment2 extends ImageViewerDialogFragment2<S
     @Override
     protected void onDismiss() {
         super.onDismiss();
-        GetMainActivityEvent.post(new Callback<MainActivity>() {
-            @Override
-            public void onCallback(MainActivity activity) {
-                SupportHelper.getTopFragment(activity.getSupportFragmentManager()).onSupportVisible();
-            }
-        });
+//        GetMainActivityEvent.post(new Callback<MainActivity>() {
+//            @Override
+//            public void onCallback(MainActivity activity) {
+//                SupportHelper.getTopFragment(activity.getSupportFragmentManager()).onSupportVisible();
+//            }
+//        });
+        SupportHelper.getTopFragment(_mActivity.getSupportFragmentManager()).onSupportVisible();
     }
 
 //    @Override

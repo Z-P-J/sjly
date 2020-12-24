@@ -8,16 +8,15 @@ import android.util.Log;
 import android.view.View;
 import android.widget.LinearLayout;
 
-import com.zpj.toast.ZToast;
 import com.zpj.fragmentation.SupportHelper;
+import com.zpj.rxbus.RxBus;
 import com.zpj.shouji.market.R;
-import com.zpj.shouji.market.event.EventBus;
-import com.zpj.shouji.market.event.SignInEvent;
-import com.zpj.shouji.market.event.SignUpEvent;
+import com.zpj.shouji.market.utils.EventBus;
 import com.zpj.shouji.market.ui.fragment.base.BaseSwipeBackFragment;
 import com.zpj.shouji.market.ui.widget.SignInLayout3;
 import com.zpj.shouji.market.ui.widget.SignUpLayout3;
 import com.zpj.shouji.market.utils.SoftInputHelper;
+import com.zpj.toast.ZToast;
 import com.zpj.utils.KeyboardObserver;
 import com.zpj.utils.ScreenUtils;
 
@@ -59,28 +58,56 @@ public class LoginFragment extends BaseSwipeBackFragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        EventBus.registerObserver(this, SignInEvent.class, event -> {
-            if (event.isSuccess()) {
-                ZToast.success("登录成功！");
-                pop();
-            }
-            if (contentView instanceof SignInLayout3) {
-                ((SignInLayout3) contentView).onSignIn(event );
-            }
-        });
-        EventBus.registerObserver(this, SignUpEvent.class, event -> {
-            if (event.isSuccess()) {
-                ZToast.success("注册成功，请输入账账户信息登录！");
-                if (SupportHelper.getPreFragment(LoginFragment.this) instanceof LoginFragment) {
+//        EventBus.registerObserver(this, SignInEvent.class, event -> {
+//            if (event.isSuccess()) {
+//                ZToast.success("登录成功！");
+//                pop();
+//            }
+//            if (contentView instanceof SignInLayout3) {
+//                ((SignInLayout3) contentView).onSignIn(event );
+//            }
+//        });
+        EventBus.onSignInEvent(this, new RxBus.PairConsumer<Boolean, String>() {
+            @Override
+            public void onAccept(Boolean isSuccess, String errorMsg) throws Exception {
+                if (isSuccess) {
+                    ZToast.success("登录成功！");
                     pop();
-                } else {
-                    startWithPop(LoginFragment.newInstance(false));
+                }
+                if (contentView instanceof SignInLayout3) {
+                    ((SignInLayout3) contentView).onSignIn(isSuccess, errorMsg);
                 }
             }
-            if (contentView instanceof SignUpLayout3) {
-                ((SignUpLayout3) contentView).onSignUp(event);
+        });
+        EventBus.onSignUpEvent(this, new RxBus.PairConsumer<Boolean, String>() {
+            @Override
+            public void onAccept(Boolean isSuccess, String errorMsg) throws Exception {
+                if (isSuccess) {
+                    ZToast.success("注册成功，请输入账账户信息登录！");
+                    if (SupportHelper.getPreFragment(LoginFragment.this) instanceof LoginFragment) {
+                        pop();
+                    } else {
+                        startWithPop(LoginFragment.newInstance(false));
+                    }
+                }
+                if (contentView instanceof SignUpLayout3) {
+                    ((SignUpLayout3) contentView).onSignUp(isSuccess, errorMsg);
+                }
             }
         });
+//        EventBus.registerObserver(this, SignUpEvent.class, event -> {
+//            if (event.isSuccess()) {
+//                ZToast.success("注册成功，请输入账账户信息登录！");
+//                if (SupportHelper.getPreFragment(LoginFragment.this) instanceof LoginFragment) {
+//                    pop();
+//                } else {
+//                    startWithPop(LoginFragment.newInstance(false));
+//                }
+//            }
+//            if (contentView instanceof SignUpLayout3) {
+//                ((SignUpLayout3) contentView).onSignUp(event);
+//            }
+//        });
         if (getArguments() != null) {
             isRegistration = getArguments().getBoolean(REGISTRATION, false);
         }

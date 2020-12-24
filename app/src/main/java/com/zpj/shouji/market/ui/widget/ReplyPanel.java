@@ -15,6 +15,7 @@
  */
 package com.zpj.shouji.market.ui.widget;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.pm.ActivityInfo;
 import android.graphics.Color;
@@ -33,13 +34,13 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-import com.zpj.toast.ZToast;
 import com.lqr.emoji.EmotionLayout;
 import com.lqr.emoji.IEmotionExtClickListener;
 import com.lqr.emoji.IEmotionSelectedListener;
 import com.yanyusong.y_divideritemdecoration.Y_Divider;
 import com.yanyusong.y_divideritemdecoration.Y_DividerBuilder;
 import com.yanyusong.y_divideritemdecoration.Y_DividerItemDecoration;
+import com.zpj.fragmentation.SupportActivity;
 import com.zpj.matisse.CaptureMode;
 import com.zpj.matisse.Matisse;
 import com.zpj.matisse.MimeType;
@@ -51,11 +52,12 @@ import com.zpj.recyclerview.EasyRecyclerView;
 import com.zpj.recyclerview.EasyViewHolder;
 import com.zpj.recyclerview.IEasy;
 import com.zpj.shouji.market.R;
-import com.zpj.shouji.market.event.GetMainActivityEvent;
 import com.zpj.shouji.market.glide.GlideUtils;
 import com.zpj.shouji.market.model.InstalledAppInfo;
 import com.zpj.shouji.market.ui.fragment.manager.AppPickerFragment;
 import com.zpj.shouji.market.utils.ThemeUtils;
+import com.zpj.toast.ZToast;
+import com.zpj.utils.ContextUtils;
 import com.zpj.utils.KeyboardHeightProvider;
 import com.zpj.utils.KeyboardUtils;
 import com.zpj.utils.ScreenUtils;
@@ -136,31 +138,57 @@ public class ReplyPanel extends FrameLayout
                 KeyboardUtils.hideSoftInputKeyboard(etEditor);
             }
             elEmotion.setVisibility(View.GONE);
-            ZToast.normal("图片");
-            GetMainActivityEvent.post(obj -> Matisse.from(obj)
-                    .choose(MimeType.ofImage())//照片视频全部显示MimeType.allOf()
-                    .countable(true)//true:选中后显示数字;false:选中后显示对号
-                    .maxSelectable(9)//最大选择数量为9
-                    //.addFilter(new GifSizeFilter(320, 320, 5 * Filter.K * Filter.K))
+            Activity activity = ContextUtils.getActivity(getContext());
+            if (activity instanceof SupportActivity) {
+                Matisse.from((SupportActivity) activity)
+                        .choose(MimeType.ofImage())//照片视频全部显示MimeType.allOf()
+                        .countable(true)//true:选中后显示数字;false:选中后显示对号
+                        .maxSelectable(9)//最大选择数量为9
+                        //.addFilter(new GifSizeFilter(320, 320, 5 * Filter.K * Filter.K))
 //                    .gridExpectedSize(this.getResources().getDimensionPixelSize(R.dimen.photo))//图片显示表格的大小
-                    .spanCount(3)
-                    .restrictOrientation(ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED)//图像选择和预览活动所需的方向
-                    .thumbnailScale(0.85f)//缩放比例
-                    .imageEngine(new GlideEngine())//图片加载方式，Glide4需要自定义实现
-                    .capture(true) //是否提供拍照功能，兼容7.0系统需要下面的配置
-                    //参数1 true表示拍照存储在共有目录，false表示存储在私有目录；参数2与 AndroidManifest中authorities值相同，用于适配7.0系统 必须设置
-                    .setDefaultSelection(imgList)
-                    .capture(true, CaptureMode.All)//存储到哪里
-                    .setOnSelectedListener(new OnSelectedListener() {
-                        @Override
-                        public void onSelected(@NonNull List<Item> itemList) {
-                            recyclerView.getRecyclerView().setVisibility(VISIBLE);
+                        .spanCount(3)
+                        .restrictOrientation(ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED)//图像选择和预览活动所需的方向
+                        .thumbnailScale(0.85f)//缩放比例
+                        .imageEngine(new GlideEngine())//图片加载方式，Glide4需要自定义实现
+                        .capture(true) //是否提供拍照功能，兼容7.0系统需要下面的配置
+                        //参数1 true表示拍照存储在共有目录，false表示存储在私有目录；参数2与 AndroidManifest中authorities值相同，用于适配7.0系统 必须设置
+                        .setDefaultSelection(imgList)
+                        .capture(true, CaptureMode.All)//存储到哪里
+                        .setOnSelectedListener(new OnSelectedListener() {
+                            @Override
+                            public void onSelected(@NonNull List<Item> itemList) {
+                                recyclerView.getRecyclerView().setVisibility(VISIBLE);
 //                                    imgList.clear();
 //                                    imgList.addAll(itemList);
-                            recyclerView.notifyDataSetChanged();
-                        }
-                    })
-                    .start());
+                                recyclerView.notifyDataSetChanged();
+                            }
+                        })
+                        .start();
+            }
+//            GetMainActivityEvent.post(obj -> Matisse.from(obj)
+//                    .choose(MimeType.ofImage())//照片视频全部显示MimeType.allOf()
+//                    .countable(true)//true:选中后显示数字;false:选中后显示对号
+//                    .maxSelectable(9)//最大选择数量为9
+//                    //.addFilter(new GifSizeFilter(320, 320, 5 * Filter.K * Filter.K))
+////                    .gridExpectedSize(this.getResources().getDimensionPixelSize(R.dimen.photo))//图片显示表格的大小
+//                    .spanCount(3)
+//                    .restrictOrientation(ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED)//图像选择和预览活动所需的方向
+//                    .thumbnailScale(0.85f)//缩放比例
+//                    .imageEngine(new GlideEngine())//图片加载方式，Glide4需要自定义实现
+//                    .capture(true) //是否提供拍照功能，兼容7.0系统需要下面的配置
+//                    //参数1 true表示拍照存储在共有目录，false表示存储在私有目录；参数2与 AndroidManifest中authorities值相同，用于适配7.0系统 必须设置
+//                    .setDefaultSelection(imgList)
+//                    .capture(true, CaptureMode.All)//存储到哪里
+//                    .setOnSelectedListener(new OnSelectedListener() {
+//                        @Override
+//                        public void onSelected(@NonNull List<Item> itemList) {
+//                            recyclerView.getRecyclerView().setVisibility(VISIBLE);
+////                                    imgList.clear();
+////                                    imgList.addAll(itemList);
+//                            recyclerView.notifyDataSetChanged();
+//                        }
+//                    })
+//                    .start());
         });
         ivApp = addAction(R.drawable.ic_android_black_24dp, v -> {
             if (isKeyboardShowing) {

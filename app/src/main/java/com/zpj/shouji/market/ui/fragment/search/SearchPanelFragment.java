@@ -14,10 +14,11 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.zpj.fragmentation.dialog.impl.AlertDialogFragment;
 import com.zpj.recyclerview.EasyRecyclerView;
+import com.zpj.rxbus.RxBus;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.api.SearchApi;
 import com.zpj.shouji.market.database.SearchHistoryManager;
-import com.zpj.shouji.market.event.EventBus;
+import com.zpj.shouji.market.utils.EventBus;
 import com.zpj.shouji.market.glide.GlideRequestOptions;
 import com.zpj.shouji.market.model.GuessAppInfo;
 import com.zpj.shouji.market.model.QuickAppInfo;
@@ -55,36 +56,42 @@ public class SearchPanelFragment extends SkinFragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        EventBus.onSearchEvent(this, keyword -> {
-            SearchHistory history = SearchHistoryManager.getSearchHistoryByText(keyword);
-            if (history == null) {
-                history = new SearchHistory();
-                history.setText(keyword);
+        EventBus.onSearchEvent(this, new RxBus.SingleConsumer<String>() {
+            @Override
+            public void onAccept(String keyword) throws Exception {
+                SearchHistory history = SearchHistoryManager.getSearchHistoryByText(keyword);
+                if (history == null) {
+                    history = new SearchHistory();
+                    history.setText(keyword);
+                }
+                history.setTime(System.currentTimeMillis());
+                history.save();
+                searchHistory.remove(history.getText());
+                searchHistory.addItem(0, history.getText());
+                searchHistory.setVisibility(searchHistory.count() == 0 ? View.GONE : View.VISIBLE);
+                rlHistoryBar.setVisibility(searchHistory.count() == 0 ? View.GONE : View.VISIBLE);
             }
-            history.setTime(System.currentTimeMillis());
-            history.save();
-            searchHistory.remove(history.getText());
-            searchHistory.addItem(0, history.getText());
-            searchHistory.setVisibility(searchHistory.count() == 0 ? View.GONE : View.VISIBLE);
-            rlHistoryBar.setVisibility(searchHistory.count() == 0 ? View.GONE : View.VISIBLE);
         });
-        EventBus.onKeywordChangeEvent(this, keyword -> {
-            if (TextUtils.isEmpty(keyword)) {
-                llRecommend.setVisibility(View.VISIBLE);
-                llQuick.setVisibility(View.GONE);
-            } else {
-                SearchApi.getQuickApi(keyword, list -> {
-                    quickAppInfoList.clear();
-                    if (list.isEmpty()) {
-                        llRecommend.setVisibility(View.VISIBLE);
-                        llQuick.setVisibility(View.GONE);
-                    } else {
-                        llRecommend.setVisibility(View.GONE);
-                        llQuick.setVisibility(View.VISIBLE);
-                        quickAppInfoList.addAll(list);
-                    }
-                    rvQuick.notifyDataSetChanged();
-                });
+        EventBus.onKeywordChangeEvent(this, new RxBus.SingleConsumer<String>() {
+            @Override
+            public void onAccept(String keyword) throws Exception {
+                if (TextUtils.isEmpty(keyword)) {
+                    llRecommend.setVisibility(View.VISIBLE);
+                    llQuick.setVisibility(View.GONE);
+                } else {
+                    SearchApi.getQuickApi(keyword, list -> {
+                        quickAppInfoList.clear();
+                        if (list.isEmpty()) {
+                            llRecommend.setVisibility(View.VISIBLE);
+                            llQuick.setVisibility(View.GONE);
+                        } else {
+                            llRecommend.setVisibility(View.GONE);
+                            llQuick.setVisibility(View.VISIBLE);
+                            quickAppInfoList.addAll(list);
+                        }
+                        rvQuick.notifyDataSetChanged();
+                    });
+                }
             }
         });
     }

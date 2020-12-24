@@ -3,34 +3,24 @@ package com.zpj.shouji.market.api;
 import android.util.Log;
 
 import com.bumptech.glide.Glide;
-import com.zpj.toast.ZToast;
 import com.zpj.http.ZHttp;
 import com.zpj.http.core.Connection;
 import com.zpj.http.core.HttpKeyVal;
 import com.zpj.http.core.IHttp;
 import com.zpj.http.core.ObservableTask;
 import com.zpj.http.parser.html.nodes.Document;
-import com.zpj.http.parser.html.nodes.Element;
-import com.zpj.http.parser.html.select.Elements;
-import com.zpj.shouji.market.R;
-import com.zpj.shouji.market.event.HideLoadingEvent;
-import com.zpj.shouji.market.event.ShowLoadingEvent;
+import com.zpj.shouji.market.utils.EventBus;
 import com.zpj.shouji.market.manager.UserManager;
 import com.zpj.shouji.market.model.InstalledAppInfo;
-import com.zpj.shouji.market.model.WallpaperTag;
-import com.zpj.shouji.market.utils.Callback;
+import com.zpj.toast.ZToast;
 import com.zpj.utils.ContextUtils;
 import com.zpj.utils.DeviceUtils;
 
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
-import java.util.Observable;
 
-import io.reactivex.ObservableEmitter;
 import io.reactivex.ObservableOnSubscribe;
 
 public class CollectionApi {
@@ -41,7 +31,7 @@ public class CollectionApi {
 
     public static void shareCollectionApi(String title, String content, List<InstalledAppInfo> list, String tags, boolean isPrivate, Runnable successRunnable, IHttp.OnStreamWriteListener listener) {
         Log.d("shareCollectionApi", "title=" + title + "  content=" + content + " tag=" + tags);
-        ShowLoadingEvent.post("分享应用集...");
+        EventBus.showLoading("分享应用集...");
         new ObservableTask<>(
                 (ObservableOnSubscribe<List<Connection.KeyVal>>) emitter -> {
                     List<Connection.KeyVal> dataList = new ArrayList<>();
@@ -96,12 +86,11 @@ public class CollectionApi {
                     } else {
                         ZToast.error(info);
                     }
-                    HideLoadingEvent.postDelayed(250);
                 })
                 .onError(throwable -> {
                     ZToast.error("分享失败！" + throwable.getMessage());
-                    HideLoadingEvent.postDelayed(250);
                 })
+                .onComplete(() -> EventBus.hideLoading(250))
                 .subscribe();
     }
 

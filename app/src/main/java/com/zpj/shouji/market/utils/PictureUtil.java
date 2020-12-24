@@ -20,20 +20,17 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.request.RequestOptions;
 import com.bumptech.glide.request.target.SimpleTarget;
 import com.bumptech.glide.request.transition.Transition;
-import com.zpj.toast.ZToast;
 import com.lxj.xpermission.PermissionConstants;
 import com.lxj.xpermission.XPermission;
 import com.nanchen.compresshelper.CompressHelper;
-import com.zpj.fragmentation.dialog.IDialog;
 import com.zpj.fragmentation.dialog.enums.ImageType;
 import com.zpj.fragmentation.dialog.utils.ImageHeaderParser;
 import com.zpj.http.core.IHttp;
 import com.zpj.http.core.ObservableTask;
 import com.zpj.shouji.market.R;
-import com.zpj.shouji.market.event.HideLoadingEvent;
-import com.zpj.shouji.market.event.ShowLoadingEvent;
 import com.zpj.shouji.market.manager.UserManager;
 import com.zpj.shouji.market.ui.fragment.dialog.ShareDialogFragment;
+import com.zpj.toast.ZToast;
 import com.zpj.utils.ContextUtils;
 import com.zpj.utils.ScreenUtils;
 
@@ -306,7 +303,7 @@ public class PictureUtil {
     }
 
     public static void shareWebImage(Context context, String url) {
-        ShowLoadingEvent.post("获取图片...");
+        EventBus.showLoading("获取图片...");
         XPermission.create(context, PermissionConstants.STORAGE)
                 .callback(new XPermission.SimpleCallback() {
                     @Override
@@ -317,8 +314,6 @@ public class PictureUtil {
                                     if (source == null) {
                                         emitter.onError(new Exception("图片下载失败！"));
                                     } else {
-
-
                                         //1. create path
                                         String dirPath = getIconPath(context);
                                         final File target = new File(dirPath, source.getName());
@@ -341,17 +336,15 @@ public class PictureUtil {
                                 .onSuccess(new IHttp.OnSuccessListener<File>() {
                                     @Override
                                     public void onSuccess(File data) throws Exception {
-                                        HideLoadingEvent.post(500, () -> {
+                                        EventBus.hideLoading(500, () -> {
                                             new ShareDialogFragment()
                                                     .setShareFile(data)
                                                     .show(context);
-//                                                SharePopup.with(context)
-//                                                        .setShareFile(data)
-//                                                        .show();
                                         });
                                     }
                                 })
                                 .onError(throwable -> {
+                                    EventBus.hideLoading();
                                     throwable.printStackTrace();
                                     ZToast.error("保存失败！" + throwable.getMessage());
                                 })
@@ -360,6 +353,7 @@ public class PictureUtil {
 
                     @Override
                     public void onDenied() {
+                        EventBus.hideLoading();
                         ZToast.warning("没有保存权限，保存功能无法使用！");
                     }
                 })
@@ -614,14 +608,15 @@ public class PictureUtil {
     }
 
     public static void setWallpaper(Context context, String url) {
-        ShowLoadingEvent.post("图片准备中...");
+        EventBus.showLoading("图片准备中...");
         Glide.with(context)
                 .asBitmap()
                 .load(url)
                 .into(new SimpleTarget<Bitmap>() {
                     @Override
                     public void onResourceReady(@NonNull Bitmap resource, @Nullable Transition<? super Bitmap> transition) {
-                        HideLoadingEvent.post();
+//                        HideLoadingEvent.post();
+                        EventBus.hideLoading();
                         Observable.timer(250 , TimeUnit.MILLISECONDS)
                                 .observeOn(AndroidSchedulers.mainThread())
                                 .doOnComplete(() -> {

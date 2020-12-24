@@ -7,14 +7,13 @@ import android.util.Log;
 import android.view.View;
 
 import com.cb.ratingbar.CBRatingBar;
-import com.zpj.toast.ZToast;
 import com.zpj.fragmentation.dialog.base.CenterDialogFragment;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.api.HttpApi;
-import com.zpj.shouji.market.event.HideLoadingEvent;
-import com.zpj.shouji.market.event.ShowLoadingEvent;
+import com.zpj.shouji.market.utils.EventBus;
 import com.zpj.shouji.market.model.AppDetailInfo;
 import com.zpj.shouji.market.utils.Callback;
+import com.zpj.toast.ZToast;
 
 public class AppRatingDialogFragment extends CenterDialogFragment {
 
@@ -47,7 +46,7 @@ public class AppRatingDialogFragment extends CenterDialogFragment {
         });
 
         findViewById(R.id.tv_submit).setOnClickListener(v -> {
-            ShowLoadingEvent.post("评分中...");
+            EventBus.showLoading("评分中...");
             HttpApi.appRatingApi(appDetailInfo.getId(), String.valueOf((int) ratingBar.getStarProgress() / 20), appDetailInfo.getAppType(), appDetailInfo.getPackageName(), appDetailInfo.getVersion())
                     .onSuccess(doc -> {
                         Log.d("AppRatingPopup", "doc=" + doc);
@@ -56,11 +55,11 @@ public class AppRatingDialogFragment extends CenterDialogFragment {
                                 callback.onCallback(ratingBar.getStarProgress());
                             }
                             ZToast.success("评分成功！");
-                            HideLoadingEvent.post(500, this::dismiss);
                         } else {
-                            ZToast.success("评分失败！");
+                            ZToast.error("评分失败！");
                         }
                     })
+                    .onComplete(() -> EventBus.hideLoading(500, this::dismiss))
                     .onError(throwable -> ZToast.error("出错了！" + throwable.getMessage()))
                     .subscribe();
         });

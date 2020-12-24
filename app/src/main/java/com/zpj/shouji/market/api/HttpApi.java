@@ -5,7 +5,6 @@ import android.text.TextUtils;
 import android.util.Base64;
 import android.util.Log;
 
-import com.zpj.toast.ZToast;
 import com.zpj.http.ZHttp;
 import com.zpj.http.core.Connection;
 import com.zpj.http.core.HttpKeyVal;
@@ -15,12 +14,11 @@ import com.zpj.http.parser.html.nodes.Document;
 import com.zpj.matisse.entity.Item;
 import com.zpj.shouji.market.constant.AppConfig;
 import com.zpj.shouji.market.constant.UpdateFlagAction;
-import com.zpj.shouji.market.event.EventBus;
-import com.zpj.shouji.market.event.HideLoadingEvent;
-import com.zpj.shouji.market.event.ShowLoadingEvent;
+import com.zpj.shouji.market.utils.EventBus;
 import com.zpj.shouji.market.manager.UserManager;
 import com.zpj.shouji.market.utils.Callback;
 import com.zpj.shouji.market.utils.PictureUtil;
+import com.zpj.toast.ZToast;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -398,7 +396,7 @@ public final class HttpApi {
     }
 
     public static void sendPrivateLetterApi(Context context, String id, String content, List<Item> imgList, Runnable successRunnable, IHttp.OnStreamWriteListener listener) {
-        ShowLoadingEvent.post("发送中...");
+        EventBus.showLoading("发送中...");
         boolean compress = AppConfig.isCompressUploadImage();
         ObservableTask<Document> task;
         if (imgList == null || imgList.isEmpty()) {
@@ -453,12 +451,11 @@ public final class HttpApi {
                     } else {
                         ZToast.error(info);
                     }
-                    HideLoadingEvent.postDelayed(250);
                 })
                 .onError(throwable -> {
                     ZToast.error("发送失败！" + throwable.getMessage());
-                    HideLoadingEvent.postDelayed(250);
                 })
+                .onComplete(() -> EventBus.hideLoading(250))
                 .subscribe();
     }
 

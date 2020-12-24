@@ -11,16 +11,13 @@ import com.warkiz.widget.SeekParams;
 import com.zpj.fragmentation.dialog.base.CenterDialogFragment;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.constant.Keys;
-import com.zpj.shouji.market.event.GetMainActivityEvent;
-import com.zpj.shouji.market.ui.activity.MainActivity;
 import com.zpj.shouji.market.ui.widget.CheckLayout;
 import com.zpj.shouji.market.utils.BrightnessUtils;
-import com.zpj.shouji.market.utils.Callback;
 import com.zpj.utils.PrefsHelper;
 
 public class BrightnessDialogFragment extends CenterDialogFragment {
 
-    private MainActivity activity;
+//    private MainActivity activity;
 
     public static BrightnessDialogFragment with(Context context) {
         return new BrightnessDialogFragment();
@@ -45,12 +42,13 @@ public class BrightnessDialogFragment extends CenterDialogFragment {
             PrefsHelper.with().putBoolean(Keys.SYSTEM_BRIGHTNESS, item.isChecked());
             seekBar.setEnabled(!item.isChecked());
             if (item.isChecked()) {
-                getActivity(new Callback<MainActivity>() {
-                    @Override
-                    public void onCallback(MainActivity activity) {
-                        BrightnessUtils.setAutoBrightness(activity);
-                    }
-                });
+//                getActivity(new Callback<MainActivity>() {
+//                    @Override
+//                    public void onCallback(MainActivity activity) {
+//                        BrightnessUtils.setAutoBrightness(activity);
+//                    }
+//                });
+                BrightnessUtils.setAutoBrightness(_mActivity);
 //                if (BrightnessUtils.getBrightnessMode(context) == 1) {
 //                    BrightnessUtils.setAutoBrightness();
 //                } else {
@@ -69,9 +67,10 @@ public class BrightnessDialogFragment extends CenterDialogFragment {
             @Override
             public void onSeeking(SeekParams seekParams) {
                 if (seekBar.isEnabled()) {
-                    getActivity(activity -> {
-                        BrightnessUtils.setBrightness(activity, seekParams.progressFloat);
-                    });
+//                    getActivity(activity -> {
+//                        BrightnessUtils.setBrightness(activity, seekParams.progressFloat);
+//                    });
+                    BrightnessUtils.setBrightness(_mActivity, seekParams.progressFloat);
                 }
             }
 
@@ -86,31 +85,32 @@ public class BrightnessDialogFragment extends CenterDialogFragment {
             }
         });
 
-        getActivity(activity -> {
-//            WindowManager.LayoutParams lp = activity.getWindow().getAttributes();
-//            seekBar.setProgress(lp.screenBrightness * 100);
-//            if (checkLayout.isChecked()) {
-//                seekBar.setProgress(BrightnessUtils.getSystemBrightness(context));
-//            } else {
-//                seekBar.setProgress(BrightnessUtils.getAppBrightness(context));
-//            }
-            seekBar.setProgress(BrightnessUtils.getAppBrightness(context));
-        });
+//        getActivity(activity -> {
+////            WindowManager.LayoutParams lp = activity.getWindow().getAttributes();
+////            seekBar.setProgress(lp.screenBrightness * 100);
+////            if (checkLayout.isChecked()) {
+////                seekBar.setProgress(BrightnessUtils.getSystemBrightness(context));
+////            } else {
+////                seekBar.setProgress(BrightnessUtils.getAppBrightness(context));
+////            }
+//            seekBar.setProgress(BrightnessUtils.getAppBrightness(context));
+//        });
+        seekBar.setProgress(BrightnessUtils.getAppBrightness(context));
     }
 
-    private void getActivity(Callback<MainActivity> callback) {
-        if (activity != null) {
-            if (callback != null) {
-                callback.onCallback(activity);
-            }
-            return;
-        }
-        GetMainActivityEvent.post(obj -> {
-            activity = obj;
-            if (callback != null) {
-                callback.onCallback(obj);
-            }
-        });
-    }
+//    private void getActivity(Callback<MainActivity> callback) {
+//        if (activity != null) {
+//            if (callback != null) {
+//                callback.onCallback(activity);
+//            }
+//            return;
+//        }
+//        GetMainActivityEvent.post(obj -> {
+//            activity = obj;
+//            if (callback != null) {
+//                callback.onCallback(obj);
+//            }
+//        });
+//    }
 
 }

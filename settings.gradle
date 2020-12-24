@@ -11,5 +11,4 @@ include ':app',
         ':fragmentation-dialog',
         ':fragmentation-matisse',
         ':fragmentation-ucrop',
-        ':chameleon',
-        'rxbus'
+        ':chameleon' // ':rxbus'

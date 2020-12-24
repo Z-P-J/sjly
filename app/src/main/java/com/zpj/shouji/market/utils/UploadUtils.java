@@ -1,6 +1,5 @@
 package com.zpj.shouji.market.utils;
 
-import android.app.Activity;
 import android.content.pm.ActivityInfo;
 import android.graphics.Bitmap;
 import android.net.Uri;
@@ -10,7 +9,6 @@ import android.support.annotation.NonNull;
 import com.yalantis.ucrop.CropEvent;
 import com.yalantis.ucrop.UCrop;
 import com.yalantis.ucrop.UCropActivity;
-import com.yalantis.ucrop.callback.CropCallback;
 import com.zpj.fragmentation.SupportActivity;
 import com.zpj.matisse.CaptureMode;
 import com.zpj.matisse.Matisse;

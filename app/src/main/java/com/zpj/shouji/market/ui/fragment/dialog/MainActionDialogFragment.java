@@ -6,29 +6,21 @@ import android.animation.ObjectAnimator;
 import android.animation.ValueAnimator;
 import android.content.Context;
 import android.content.res.ColorStateList;
-import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
-import android.support.v4.app.Fragment;
 import android.view.View;
 import android.view.ViewAnimationUtils;
 import android.view.ViewGroup;
-import android.view.ViewTreeObserver;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.zpj.toast.ZToast;
 import com.zpj.blur.ZBlurry;
 import com.zpj.fragmentation.dialog.impl.FullScreenDialogFragment;
-import com.zpj.http.core.ObservableTask;
 import com.zpj.shouji.market.R;
-import com.zpj.shouji.market.event.GetMainActivityEvent;
-import com.zpj.shouji.market.event.GetMainFragmentEvent;
 import com.zpj.shouji.market.manager.UserManager;
-import com.zpj.shouji.market.ui.activity.MainActivity;
 import com.zpj.shouji.market.ui.animator.KickBackAnimator;
 import com.zpj.shouji.market.ui.fragment.MainFragment;
 import com.zpj.shouji.market.ui.fragment.collection.CollectionShareFragment;
@@ -36,10 +28,8 @@ import com.zpj.shouji.market.ui.fragment.login.LoginFragment;
 import com.zpj.shouji.market.ui.fragment.profile.MyPrivateLetterFragment;
 import com.zpj.shouji.market.ui.fragment.theme.ThemeShareFragment;
 import com.zpj.shouji.market.ui.fragment.wallpaper.WallpaperShareFragment;
-import com.zpj.shouji.market.utils.Callback;
+import com.zpj.toast.ZToast;
 import com.zpj.utils.ScreenUtils;
-
-import io.reactivex.disposables.Disposable;
 
 public class MainActionDialogFragment extends FullScreenDialogFragment
         implements View.OnClickListener {
@@ -75,23 +65,35 @@ public class MainActionDialogFragment extends FullScreenDialogFragment
         super.initView(view, savedInstanceState);
 
         ImageView ivBg = findViewById(R.id.iv_bg);
-        GetMainFragmentEvent.post(new Callback<MainFragment>() {
-            @Override
-            public void onCallback(MainFragment fragment) {
-                ZBlurry.with(fragment.getView())
-                        .backgroundColor(Color.WHITE)
-                        .scale(0.2f)
-                        .radius(20)
-                        .blur(new ZBlurry.Callback() {
-                            @Override
-                            public void down(Bitmap bitmap) {
-                                if (ivBg != null) {
-                                    ivBg.setImageBitmap(bitmap);
-                                }
-                            }
-                        });
-            }
-        });
+        MainFragment fragment = findFragment(MainFragment.class);
+        if (fragment != null) {
+            ZBlurry.with(fragment.getView())
+                    .backgroundColor(Color.WHITE)
+                    .scale(0.2f)
+                    .radius(20)
+                    .blur(bitmap -> {
+                        if (ivBg != null) {
+                            ivBg.setImageBitmap(bitmap);
+                        }
+                    });
+        }
+//        GetMainFragmentEvent.post(new Callback<MainFragment>() {
+//            @Override
+//            public void onCallback(MainFragment fragment) {
+//                ZBlurry.with(fragment.getView())
+//                        .backgroundColor(Color.WHITE)
+//                        .scale(0.2f)
+//                        .radius(20)
+//                        .blur(new ZBlurry.Callback() {
+//                            @Override
+//                            public void down(Bitmap bitmap) {
+//                                if (ivBg != null) {
+//                                    ivBg.setImageBitmap(bitmap);
+//                                }
+//                            }
+//                        });
+//            }
+//        });
 
 
         getContentView().setAlpha(0f);

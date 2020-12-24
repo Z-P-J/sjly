@@ -10,9 +10,10 @@ import android.view.View;
 
 import com.zpj.recyclerview.MultiData;
 import com.zpj.recyclerview.MultiRecyclerViewWrapper;
+import com.zpj.rxbus.RxBus;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.api.PreloadApi;
-import com.zpj.shouji.market.event.EventBus;
+import com.zpj.shouji.market.utils.EventBus;
 import com.zpj.shouji.market.ui.fragment.ToolBarAppListFragment;
 import com.zpj.shouji.market.ui.fragment.base.SkinFragment;
 import com.zpj.shouji.market.ui.fragment.homepage.multi.AppInfoMultiData;
@@ -42,12 +43,15 @@ public class RecommendFragment extends SkinFragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        EventBus.onMainActionEvent(this, isShow -> {
-            if (isSupportVisible() && mBanner != null) {
-                if (isShow) {
-                    mBanner.onPause();
-                } else {
-                    mBanner.onResume();
+        EventBus.onMainActionEvent(this, new RxBus.SingleConsumer<Boolean>() {
+            @Override
+            public void onAccept(Boolean isShow) throws Exception {
+                if (isSupportVisible() && mBanner != null) {
+                    if (isShow) {
+                        mBanner.onPause();
+                    } else {
+                        mBanner.onResume();
+                    }
                 }
             }
         });
