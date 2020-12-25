@@ -15,7 +15,11 @@ import com.lqr.emoji.LQREmotionKit;
 import com.maning.librarycrashmonitor.MCrashMonitor;
 import com.raizlabs.android.dbflow.config.FlowManager;
 import com.zpj.blur.ZBlurry;
+import com.zpj.downloader.ZDownloader;
 import com.zpj.shouji.market.constant.AppConfig;
+import com.zpj.shouji.market.download.AppDownloadMission;
+import com.zpj.shouji.market.download.DownloadNotificationInterceptor;
+import com.zpj.shouji.market.ui.activity.MainActivity;
 import com.zpj.shouji.market.utils.ThemeUtils;
 import com.zpj.widget.setting.SimpleSettingItem;
 import com.zpj.widget.setting.SwitchSettingItem;
@@ -50,6 +54,14 @@ public class BaseApplication extends Application {
 //                MCrashMonitor.startCrashShowPage(getContext());
         });
         FlowManager.init(this);
+
+        ZDownloader.config(this, AppDownloadMission.class)
+                .setUserAgent("Sjly(3.0)")
+                .setNotificationInterceptor(new DownloadNotificationInterceptor())
+                .setConcurrentMissionCount(AppConfig.getMaxDownloadConcurrentCount())
+                .setEnableNotification(AppConfig.isShowDownloadNotification())
+                .setProducerThreadCount(AppConfig.getMaxDownloadThreadCount())
+                .init();
 
 //        UMConfigure.init(this,"5f53cf523739314483bc4020"
 //                ,"umeng",UMConfigure.DEVICE_TYPE_PHONE,"");

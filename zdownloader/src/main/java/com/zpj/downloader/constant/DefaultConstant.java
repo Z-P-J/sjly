@@ -11,6 +11,8 @@ public class DefaultConstant {
 
     public static final int BUFFER_SIZE = 1024;
 
+    public static final int THREAD_COUNT = 3;
+
     public static final int BLOCK_SIZE = 1024 * 1024;
 
     public static final String USER_AGENT = System.getProperty("http.agent");

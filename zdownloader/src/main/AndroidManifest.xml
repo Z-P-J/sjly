@@ -9,7 +9,7 @@
 
     <application>
 
-        <service android:name="com.zpj.downloader.core.DownloadService"/>
+        <service android:name="com.zpj.downloader.DownloadService"/>
 
         <provider
             android:name="android.support.v4.content.FileProvider"
@@ -18,7 +18,7 @@
             android:grantUriPermissions="true">
             <meta-data
                 android:name="android.support.FILE_PROVIDER_PATHS"
-                android:resource="@xml/file_paths" />
+                android:resource="@xml/zdownloader_file_paths" />
         </provider>
 
     </application>

@@ -6,27 +6,20 @@ import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.View;
-import android.widget.PopupWindow;
-import android.widget.TextView;
 
-import com.zpj.toast.ZToast;
+import com.zpj.downloader.DownloadMission;
 import com.zpj.downloader.ZDownloader;
-import com.zpj.downloader.config.MissionConfig;
 import com.zpj.downloader.constant.Error;
-import com.zpj.downloader.core.DownloadMission;
 import com.zpj.shouji.market.download.AppDownloadMission;
-import com.zpj.shouji.market.manager.AppInstalledManager;
 import com.zpj.shouji.market.manager.UserManager;
-import com.zpj.shouji.market.model.AppDetailInfo;
 import com.zpj.shouji.market.model.AppInfo;
 import com.zpj.shouji.market.model.AppUpdateInfo;
 import com.zpj.shouji.market.model.CollectionAppInfo;
 import com.zpj.shouji.market.model.GuessAppInfo;
-import com.zpj.shouji.market.model.InstalledAppInfo;
 import com.zpj.shouji.market.model.PickedGameInfo;
 import com.zpj.shouji.market.model.QuickAppInfo;
 import com.zpj.shouji.market.ui.fragment.WebFragment;
-import com.zpj.shouji.market.ui.fragment.recommond.AppRankFragment;
+import com.zpj.toast.ZToast;
 
 import java.util.Locale;
 
@@ -128,9 +121,14 @@ public class DownloadButton extends AppCompatTextView
             if (TextUtils.equals(appId, mission.getAppId()) && TextUtils.equals(packageName, mission.getPackageName())) {
                 this.mission = mission;
                 if (mission.isIniting()) {
-                    setText("0%");
+                    setText("初始中");
                 } else if (mission.isRunning()) {
-                    setText((int) mission.getProgress() + "%");
+//                    setText(mission.getProgressStr());
+                    if (mission.getProgress() < 10) {
+                        setText(mission.getProgressStr());
+                    } else {
+                        setText(String.format(Locale.US, "%.1f%%", mission.getProgress()));
+                    }
                 } else if (mission.isFinished()) {
                     if (mission.getFile().exists()) {
                         setText("安装");
@@ -158,7 +156,7 @@ public class DownloadButton extends AppCompatTextView
 
     @Override
     public void onInit() {
-        setText("0%");
+        setText("初始中");
     }
 
     @Override
@@ -182,7 +180,7 @@ public class DownloadButton extends AppCompatTextView
     }
 
     @Override
-    public void onProgress(DownloadMission.UpdateInfo update) {
+    public void onProgress(DownloadMission.ProgressInfo update) {
         if (update.getProgress() < 10) {
             setText(update.getProgressStr());
         } else {
@@ -246,14 +244,15 @@ public class DownloadButton extends AppCompatTextView
                 }
             }
         } else {
-            MissionConfig config = MissionConfig.with()
-                    .setCookie(UserManager.getInstance().getCookie());
 
-            mission = AppDownloadMission
-                    .create(appId, appName, packageName, appType, config, isShareApp);
-            mission.setAppIcon(appIcon);
-            mission.addListener(this);
-            mission.start();
+            mission = AppDownloadMission.create(appId, appName, packageName, appType, isShareApp);
+            mission.setAppIcon(appIcon)
+                    .setCookie(UserManager.getInstance().getCookie())
+                    .addListener(this)
+                    .start();
+//            mission.setAppIcon(appIcon);
+//            mission.addListener(this);
+//            mission.start();
             ZToast.normal("开始下载" + appName);
         }
     }

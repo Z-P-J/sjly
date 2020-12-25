@@ -4,38 +4,29 @@ import android.os.Environment;
 import android.text.TextUtils;
 import android.util.Log;
 
-import com.zpj.toast.ZToast;
-import com.zpj.downloader.config.MissionConfig;
+import com.zpj.downloader.BaseMission;
 import com.zpj.downloader.constant.Error;
-import com.zpj.downloader.core.DownloadMission;
-import com.zpj.downloader.util.FileUtil;
+import com.zpj.downloader.util.FileUtils;
 import com.zpj.fragmentation.dialog.impl.AlertDialogFragment;
 import com.zpj.http.core.IHttp;
-import com.zpj.http.parser.html.nodes.Document;
 import com.zpj.installer.InstallMode;
 import com.zpj.installer.ZApkInstaller;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.api.HttpApi;
 import com.zpj.shouji.market.constant.AppConfig;
 import com.zpj.shouji.market.utils.AppUtil;
+import com.zpj.toast.ZToast;
 import com.zpj.utils.AppUtils;
-import com.zpj.utils.FileUtils;
 
-import java.io.BufferedReader;
 import java.io.File;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.OutputStream;
 import java.util.UUID;
 
 import io.reactivex.Observable;
-import io.reactivex.ObservableEmitter;
 import io.reactivex.ObservableOnSubscribe;
 import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
 
-public class AppDownloadMission extends DownloadMission {
+public class AppDownloadMission extends BaseMission<AppDownloadMission> {
 
     private static final String TAG = AppDownloadMission.class.getSimpleName();
 
@@ -46,11 +37,11 @@ public class AppDownloadMission extends DownloadMission {
     private String appName;
     private boolean isShareApp;
 
-    public static AppDownloadMission create(String appId, String appName, String packageName, String appType, MissionConfig config) {
-        return create(appId, appName, packageName, appType, config, false);
+    public static AppDownloadMission create(String appId, String appName, String packageName, String appType) {
+        return create(appId, appName, packageName, appType, false);
     }
 
-    public static AppDownloadMission create(String appId, String appName, String packageName, String appType, MissionConfig config, boolean isShareApp) {
+    public static AppDownloadMission create(String appId, String appName, String packageName, String appType, boolean isShareApp) {
         AppDownloadMission mission = new AppDownloadMission();
         mission.isShareApp = isShareApp;
         mission.packageName = packageName;
@@ -61,7 +52,6 @@ public class AppDownloadMission extends DownloadMission {
         mission.uuid = UUID.randomUUID().toString();
         mission.createTime = System.currentTimeMillis();
         mission.missionStatus = MissionStatus.INITING;
-        mission.missionConfig = config;
         return mission;
     }
 
@@ -104,7 +94,7 @@ public class AppDownloadMission extends DownloadMission {
         if (errCode > 0) {
             return;
         }
-        if (FileUtil.checkFileType(name) == FileUtil.FILE_TYPE.ARCHIVE) {
+        if (FileUtils.checkFileType(name) == FileUtils.FileType.ARCHIVE) {
 //            TODO 解压
             super.onFinish();
         } else {
@@ -174,8 +164,9 @@ public class AppDownloadMission extends DownloadMission {
                             String currentVersion = AppUtils.getAppVersionName(getContext(), getPackageName());
                             String apkVersion = AppUtil.getApkVersionName(getContext(), getFilePath());
                             if (TextUtils.equals(apkVersion, currentVersion)) {
-                                if (AppConfig.isAutoDeleteAfterInstalled()) {
-                                    FileUtils.deleteFile(getFilePath());
+                                File file = getFile();
+                                if (AppConfig.isAutoDeleteAfterInstalled() && file != null) {
+                                    file.delete();
                                 }
                                 ZToast.success(appName + "应用安装成功！");
                             }
@@ -200,8 +191,34 @@ public class AppDownloadMission extends DownloadMission {
         }
     }
 
-    public void setAppIcon(String appIcon) {
+    public AppDownloadMission setAppIcon(String appIcon) {
         this.appIcon = appIcon;
+        return this;
+    }
+
+    public AppDownloadMission setAppId(String appId) {
+        this.appId = appId;
+        return this;
+    }
+
+    public AppDownloadMission setPackageName(String packageName) {
+        this.packageName = packageName;
+        return this;
+    }
+
+    public AppDownloadMission setAppType(String appType) {
+        this.appType = appType;
+        return this;
+    }
+
+    public AppDownloadMission setAppName(String appName) {
+        this.appName = appName;
+        return this;
+    }
+
+    public AppDownloadMission setShareApp(boolean shareApp) {
+        isShareApp = shareApp;
+        return this;
     }
 
     public String getAppIcon() {

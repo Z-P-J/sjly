@@ -1,4 +1,4 @@
-package com.zpj.downloader.core;
+package com.zpj.downloader;
 
 import android.app.Notification;
 import android.app.PendingIntent;
@@ -125,7 +125,7 @@ public class DownloadService extends Service implements DownloadMission.MissionL
     }
 
     @Override
-    public void onProgress(DownloadMission.UpdateInfo update) {
+    public void onProgress(DownloadMission.ProgressInfo update) {
         postUpdateMessage();
     }
 

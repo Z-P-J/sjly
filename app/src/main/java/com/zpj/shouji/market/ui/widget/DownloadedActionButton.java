@@ -4,35 +4,17 @@ import android.content.Context;
 import android.support.v7.widget.AppCompatTextView;
 import android.text.TextUtils;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.View;
 
-import com.zpj.toast.ZToast;
-import com.zpj.downloader.ZDownloader;
-import com.zpj.downloader.config.MissionConfig;
-import com.zpj.downloader.constant.Error;
-import com.zpj.downloader.core.DownloadMission;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.download.AppDownloadMission;
-import com.zpj.shouji.market.manager.UserManager;
-import com.zpj.shouji.market.model.AppInfo;
-import com.zpj.shouji.market.model.AppUpdateInfo;
-import com.zpj.shouji.market.model.CollectionAppInfo;
-import com.zpj.shouji.market.model.GuessAppInfo;
-import com.zpj.shouji.market.model.PickedGameInfo;
-import com.zpj.shouji.market.model.QuickAppInfo;
-import com.zpj.shouji.market.ui.fragment.WebFragment;
 import com.zpj.shouji.market.utils.AppUtil;
+import com.zpj.toast.ZToast;
 import com.zpj.utils.AppUtils;
 
-import java.util.Locale;
-
 import io.reactivex.Observable;
-import io.reactivex.ObservableEmitter;
 import io.reactivex.ObservableOnSubscribe;
-import io.reactivex.Scheduler;
 import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
 
 public class DownloadedActionButton extends AppCompatTextView
@@ -41,7 +23,6 @@ public class DownloadedActionButton extends AppCompatTextView
     private static final String TAG = "DownloadButton";
 
     private int textId;
-    ;
 
     private AppDownloadMission mission;
 
@@ -99,7 +80,7 @@ public class DownloadedActionButton extends AppCompatTextView
         Observable.create(
                 (ObservableOnSubscribe<Integer>) emitter -> {
                     final int textId;
-                    if (AppUtils.isInstalled(getContext(), mission.getPackageName())) {
+                    if (AppUtils.isApkInstalled(getContext(), mission.getPackageName())) {
                         if (mission.getFile().exists()) {
                             String currentVersion = AppUtils.getAppVersionName(getContext(), mission.getPackageName());
                             String apkVersion = AppUtil.getApkVersionName(getContext(), mission.getFilePath());

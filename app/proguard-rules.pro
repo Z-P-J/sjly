@@ -34,21 +34,27 @@
 #-keep class com.google.gson.stream.** { *; }
 
 # Application classes that will be serialized/deserialized over Gson
--keep class com.zpj.downloader.core.DownloadMission{*;}
--keep class com.zpj.downloader.core.DownloadMission$* {
-        *;
- }
--keep class * extends com.zpj.downloader.core.DownloadMission { *; }
--keep class * extends com.zpj.downloader.core.DownloadMission$* { *; }
--keep class com.zpj.downloader.config.** { <fields>; }
+#-keep class com.zpj.downloader.DownloadMission{*;}
+#-keep class com.zpj.downloader.DownloadMission$* {
+#        *;
+# }
+-keep class * extends com.zpj.downloader.DownloadMission { *; }
+-keep class * extends com.zpj.downloader.DownloadMission$* { *; }
+-keep class * extends com.zpj.downloader.BaseMission { *; }
+-keep class * extends com.zpj.downloader.BaseMission$* { *; }
+-keep class * extends com.zpj.downloader.DownloaderConfig { *; }
+-keep class * extends com.zpj.downloader.DownloaderConfig$* { *; }
+-keep class * extends com.zpj.downloader.BaseConfig { *; }
+-keep class * extends com.zpj.downloader.BaseConfig$* { *; }
+#-keep class com.zpj.downloader.config.** { <fields>; }
 
--keep class com.zpj.uploader.core.UploadMission{*;}
--keep class com.zpj.uploader.core.UploadMission$* {
-        *;
- }
--keep class * extends com.zpj.uploader.core.UploadMission { *; }
--keep class * extends com.zpj.uploader.core.UploadMission$* { *; }
--keep class com.zpj.uploader.config.** { <fields>; }
+#-keep class com.zpj.uploader.core.UploadMission{*;}
+#-keep class com.zpj.uploader.core.UploadMission$* {
+#        *;
+# }
+#-keep class * extends com.zpj.uploader.core.UploadMission { *; }
+#-keep class * extends com.zpj.uploader.core.UploadMission$* { *; }
+#-keep class com.zpj.uploader.config.** { <fields>; }
 
 # Prevent proguard from stripping interface information from TypeAdapter, TypeAdapterFactory,
 # JsonSerializer, JsonDeserializer instances (so they can be used in @JsonAdapter)
@@ -92,11 +98,6 @@
     *;
 }
 
-# 文件扫描器
--keep class io.haydar.filescanner.** {
-    *;
-}
-
 -keep class * extends com.raizlabs.android.dbflow.config.DatabaseHolder { *; }
 
 # EventBus
@@ -120,10 +121,6 @@
     *;
 }
 -dontwarn com.just.agentweb.**
-
-#AndroidAutoSize
- -keep class me.jessyan.autosize.** { *; }
- -keep interface me.jessyan.autosize.** { *; }
 
 #glide
 -keep public class * implements com.bumptech.glide.module.GlideModule
@@ -157,15 +154,6 @@
 -keep interface okio.** { *; }
 -dontwarn okio.**
 
-
--keep class com.shuyu.gsyvideoplayer.video.** { *; }
--dontwarn com.shuyu.gsyvideoplayer.video.**
--keep class com.shuyu.gsyvideoplayer.video.base.** { *; }
--dontwarn com.shuyu.gsyvideoplayer.video.base.**
--keep class com.shuyu.gsyvideoplayer.utils.** { *; }
--dontwarn com.shuyu.gsyvideoplayer.utils.**
--keep class tv.danmaku.ijk.** { *; }
--dontwarn tv.danmaku.ijk.**
 
 -keep public class * extends android.view.View{
     *** get*();

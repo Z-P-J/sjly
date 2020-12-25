@@ -1,9 +1,9 @@
-package com.zpj.downloader.config;
+package com.zpj.downloader;
 
 import android.content.Context;
+import android.support.annotation.Keep;
 
 import com.zpj.downloader.constant.DefaultConstant;
-import com.zpj.downloader.core.INotificationInterceptor;
 
 import java.net.InetSocketAddress;
 import java.net.Proxy;
@@ -13,6 +13,7 @@ import java.util.Map;
 /**
  * @author Z-P-J
  * */
+@Keep
 abstract class BaseConfig<T extends BaseConfig<T>> {
 
     /**
@@ -25,10 +26,15 @@ abstract class BaseConfig<T extends BaseConfig<T>> {
      */
     transient INotificationInterceptor notificationInterceptor;
 
+    /*
+    * 生产者线程数
+    * */
+    int producerThreadCount = DefaultConstant.THREAD_COUNT;
+
     /**
-     * 线程池配置
-     * */
-    ThreadPoolConfig threadPoolConfig = ThreadPoolConfig.build();
+     * 消费者线程数
+     */
+    int consumerThreadCount = 3 * DefaultConstant.THREAD_COUNT;
 
     /**
      * 下载路径
@@ -40,6 +46,9 @@ abstract class BaseConfig<T extends BaseConfig<T>> {
      * */
     int bufferSize = DefaultConstant.BUFFER_SIZE;
 
+    /**
+     * 进度更新频率，默认1000ms更新一次（单位ms）
+     * */
     long progressInterval =DefaultConstant.PROGRESS_INTERVAL;
 
     /**
@@ -82,6 +91,8 @@ abstract class BaseConfig<T extends BaseConfig<T>> {
      * */
     String cookie = "";
 
+    boolean allowAllSSL = true;
+
     final Map<String, String> headers = new HashMap<>();
 
     Proxy proxy;
@@ -97,8 +108,18 @@ abstract class BaseConfig<T extends BaseConfig<T>> {
         return notificationInterceptor;
     }
 
-    public ThreadPoolConfig getThreadPoolConfig() {
-        return threadPoolConfig;
+    public int getProducerThreadCount() {
+        if (producerThreadCount < 1) {
+            producerThreadCount = DefaultConstant.THREAD_COUNT;
+        }
+        return producerThreadCount;
+    }
+
+    public int getConsumerThreadCount() {
+        if (consumerThreadCount < 2) {
+            consumerThreadCount = 2 * getProducerThreadCount();
+        }
+        return consumerThreadCount;
     }
 
     public String getDownloadPath() {
@@ -141,6 +162,10 @@ abstract class BaseConfig<T extends BaseConfig<T>> {
         return readOutTime;
     }
 
+    public boolean isAllowAllSSL() {
+        return allowAllSSL;
+    }
+
     public Map<String, String> getHeaders() {
         return headers;
     }
@@ -163,12 +188,19 @@ abstract class BaseConfig<T extends BaseConfig<T>> {
     }
 
     public T setNotificationInterceptor(INotificationInterceptor interceptor) {
+        this.enableNotification = interceptor != null;
         this.notificationInterceptor = interceptor;
         return (T) this;
     }
 
-    public T setThreadPoolConfig(ThreadPoolConfig threadPoolConfig) {
-        this.threadPoolConfig = threadPoolConfig;
+    public T setProducerThreadCount(int producerThreadCount) {
+        this.producerThreadCount = producerThreadCount;
+        this.consumerThreadCount = 3 * producerThreadCount;
+        return (T) this;
+    }
+
+    public T setConsumerThreadCount(int consumerThreadCount) {
+        this.consumerThreadCount = consumerThreadCount;
         return (T) this;
     }
 
@@ -179,7 +211,9 @@ abstract class BaseConfig<T extends BaseConfig<T>> {
 
     @Deprecated
     public T setThreadCount(int threadCount) {
-        threadPoolConfig.setCorePoolSize(threadCount);
+//        threadPoolConfig.setCorePoolSize(threadCount);
+        this.producerThreadCount = threadCount;
+        this.consumerThreadCount = 3 * threadCount;
         return (T) this;
     }
 
@@ -225,6 +259,11 @@ abstract class BaseConfig<T extends BaseConfig<T>> {
 
     public T setReadOutTime(int readOutTime) {
         this.readOutTime = readOutTime;
+        return (T) this;
+    }
+
+    public T setAllowAllSSL(boolean allowAllSSL) {
+        this.allowAllSSL = allowAllSSL;
         return (T) this;
     }
 

@@ -15,16 +15,15 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-import com.zpj.toast.ZToast;
 import com.sunfusheng.ExpandableGroupRecyclerViewAdapter;
 import com.sunfusheng.GroupRecyclerViewAdapter;
 import com.sunfusheng.GroupViewHolder;
 import com.sunfusheng.StickyHeaderDecoration;
+import com.zpj.downloader.BaseMission;
+import com.zpj.downloader.DownloadManager;
+import com.zpj.downloader.DownloadMission;
 import com.zpj.downloader.ZDownloader;
 import com.zpj.downloader.constant.Error;
-import com.zpj.downloader.core.DownloadManager;
-import com.zpj.downloader.core.DownloadMission;
-import com.zpj.downloader.util.FileUtil;
 import com.zpj.fragmentation.dialog.impl.AttachListDialogFragment;
 import com.zpj.fragmentation.dialog.impl.CheckDialogFragment;
 import com.zpj.http.core.IHttp;
@@ -38,6 +37,7 @@ import com.zpj.shouji.market.ui.fragment.base.BaseSwipeBackFragment;
 import com.zpj.shouji.market.ui.fragment.detail.AppDetailFragment;
 import com.zpj.shouji.market.ui.widget.DownloadedActionButton;
 import com.zpj.shouji.market.utils.ThemeUtils;
+import com.zpj.toast.ZToast;
 import com.zpj.utils.AppUtils;
 import com.zpj.utils.ClickHelper;
 
@@ -86,7 +86,7 @@ public class DownloadManagerFragment extends BaseSwipeBackFragment
             setSwipeBackEnable(false);
         }
 
-        ZDownloader.getDownloadManager().setDownloadManagerListener(this);
+        ZDownloader.getDownloadManager().addDownloadManagerListener(this);
         RecyclerView recyclerView = view.findViewById(R.id.recycler_layout);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         expandableAdapter = new ExpandCollapseGroupAdapter(getContext(), downloadTaskList);
@@ -135,17 +135,17 @@ public class DownloadManagerFragment extends BaseSwipeBackFragment
     }
 
     @Override
-    public void onMissionAdd(DownloadMission mission) {
+    public void onMissionAdd(BaseMission<?> mission) {
         loadDownloadMissions();
     }
 
     @Override
-    public void onMissionDelete(DownloadMission mission) {
+    public void onMissionDelete(BaseMission<?> mission) {
         loadDownloadMissions();
     }
 
     @Override
-    public void onMissionFinished(DownloadMission mission) {
+    public void onMissionFinished(BaseMission<?> mission) {
         loadDownloadMissions();
     }
 
@@ -219,7 +219,7 @@ public class DownloadManagerFragment extends BaseSwipeBackFragment
         private static final int TYPE_EMPTY = 222;
         private final SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm", Locale.CHINA);
 
-        private final Map<DownloadMission, MissionObserver> map = new HashMap<>();
+        private final Map<BaseMission<?>, MissionObserver> map = new HashMap<>();
 
         public ExpandCollapseGroupAdapter(Context context, List<List<DownloadWrapper>> groups) {
             super(context, groups);
@@ -416,12 +416,18 @@ public class DownloadManagerFragment extends BaseSwipeBackFragment
                 progressBar.setVisibility(View.VISIBLE);
                 progressBar.setProgress((int) mission.getProgress());
 
-                if (mission.isPause()) {
+                if (mission.isIniting()) {
+                    holder.setText(R.id.item_status, mission.getStatus().toString());
+                    holder.setImageResource(R.id.btn_download, R.drawable.download_item_pause_icon_style2);
+                } else if (mission.isPause()) {
                     holder.setText(R.id.item_status, mission.getStatus().toString());
                     holder.setImageResource(R.id.btn_download, R.drawable.download_item_resume_icon_style2);
                 } else if (mission.isError()) {
                     holder.setText(R.id.item_status, mission.getStatus().toString() + ":" + mission.getErrCode());
                     holder.setImageResource(R.id.btn_download, R.drawable.download_item_retry_icon_style2);
+                } else if (mission.isWaiting()) {
+                    holder.setText(R.id.item_status, mission.getStatus().toString());
+                    holder.setImageResource(R.id.btn_download, R.drawable.download_item_pause_icon_style2);
                 } else {
                     holder.setText(R.id.item_status, mission.getProgressStr());
                     holder.setImageResource(R.id.btn_download, R.drawable.download_item_pause_icon_style2);
@@ -478,7 +484,7 @@ public class DownloadManagerFragment extends BaseSwipeBackFragment
             }
 
             @Override
-            public void onProgress(DownloadMission.UpdateInfo update) {
+            public void onProgress(DownloadMission.ProgressInfo update) {
                 holder.setText(R.id.item_size, update.getFileSizeStr() + "/" + update.getDownloadedSizeStr());
                 holder.setText(R.id.item_status, mission.getProgressStr());
                 ProgressBar progressBar = holder.get(R.id.progress_bar);

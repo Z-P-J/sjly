@@ -5,8 +5,9 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 
-import com.zpj.downloader.core.DownloadMission;
-import com.zpj.downloader.core.INotificationInterceptor;
+import com.zpj.downloader.BaseMission;
+import com.zpj.downloader.DownloadMission;
+import com.zpj.downloader.INotificationInterceptor;
 import com.zpj.notification.ZNotify;
 import com.zpj.shouji.market.constant.Actions;
 import com.zpj.shouji.market.constant.AppConfig;
@@ -16,7 +17,7 @@ import com.zpj.utils.ContextUtils;
 public class DownloadNotificationInterceptor implements INotificationInterceptor {
 
     @Override
-    public void onProgress(Context context, DownloadMission mission, float progress, boolean isPause) {
+    public void onProgress(Context context, BaseMission<?> mission, float progress, boolean isPause) {
         Intent intent = new Intent(ContextUtils.getApplicationContext(), MainActivity.class);
         intent.putExtra(Actions.ACTION, Actions.ACTION_SHOW_DOWNLOAD);
         PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
@@ -30,7 +31,7 @@ public class DownloadNotificationInterceptor implements INotificationInterceptor
     }
 
     @Override
-    public void onFinished(Context context, DownloadMission mission) {
+    public void onFinished(Context context, BaseMission<?> mission) {
         PendingIntent pi;
         if (AppConfig.isInstallAfterDownloaded()) {
             Intent intent = new Intent(ContextUtils.getApplicationContext(), MainActivity.class);
@@ -52,7 +53,7 @@ public class DownloadNotificationInterceptor implements INotificationInterceptor
     }
 
     @Override
-    public void onError(Context context, DownloadMission mission, int errCode) {
+    public void onError(Context context, BaseMission<?> mission, int errCode) {
         Intent intent = new Intent(ContextUtils.getApplicationContext(), MainActivity.class);
         intent.putExtra(Actions.ACTION, Actions.ACTION_SHOW_DOWNLOAD);
         PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
@@ -65,7 +66,7 @@ public class DownloadNotificationInterceptor implements INotificationInterceptor
     }
 
     @Override
-    public void onCancel(Context context, DownloadMission mission) {
+    public void onCancel(Context context, BaseMission<?> mission) {
         ZNotify.cancel(mission.getNotifyId());
     }
 

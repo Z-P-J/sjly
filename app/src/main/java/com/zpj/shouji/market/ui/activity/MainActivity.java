@@ -16,16 +16,11 @@ import com.lxj.xpermission.PermissionConstants;
 import com.lxj.xpermission.XPermission;
 import com.yalantis.ucrop.CropEvent;
 import com.zpj.downloader.ZDownloader;
-import com.zpj.downloader.config.DownloaderConfig;
-import com.zpj.downloader.config.ThreadPoolConfig;
 import com.zpj.fragmentation.dialog.impl.AlertDialogFragment;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.api.HttpPreLoader;
 import com.zpj.shouji.market.api.UploadImageApi;
 import com.zpj.shouji.market.constant.Actions;
-import com.zpj.shouji.market.constant.AppConfig;
-import com.zpj.shouji.market.download.AppDownloadMission;
-import com.zpj.shouji.market.download.DownloadNotificationInterceptor;
 import com.zpj.shouji.market.manager.AppInstalledManager;
 import com.zpj.shouji.market.manager.AppUpdateManager;
 import com.zpj.shouji.market.manager.UserManager;
@@ -94,19 +89,19 @@ public class MainActivity extends BaseActivity {
 
         StatusBarUtils.transparentStatusBar(getWindow());
 
-        ZDownloader.init(
-                DownloaderConfig.with(MainActivity.this)
-                        .setUserAgent("Sjly(3.0)")
-                        .setNotificationInterceptor(new DownloadNotificationInterceptor())
-                        .setConcurrentMissionCount(AppConfig.getMaxDownloadConcurrentCount())
-                        .setEnableNotification(AppConfig.isShowDownloadNotification())
-                        .setThreadPoolConfig(
-                                ThreadPoolConfig.build()
-                                        .setCorePoolSize(AppConfig.getMaxDownloadThreadCount())
-                        )
-                        .setDownloadPath(AppConfig.getDownloadPath()),
-                AppDownloadMission.class
-        );
+//        ZDownloader.init(
+//                DownloaderConfig.with(MainActivity.this)
+//                        .setUserAgent("Sjly(3.0)")
+//                        .setNotificationInterceptor(new DownloadNotificationInterceptor())
+//                        .setConcurrentMissionCount(AppConfig.getMaxDownloadConcurrentCount())
+//                        .setEnableNotification(AppConfig.isShowDownloadNotification())
+//                        .setThreadPoolConfig(
+//                                ThreadPoolConfig.build()
+//                                        .setCorePoolSize(AppConfig.getMaxDownloadThreadCount())
+//                        )
+//                        .setDownloadPath(AppConfig.getDownloadPath()),
+//                AppDownloadMission.class
+//        );
 
         mainFragment = findFragment(MainFragment.class);
         if (mainFragment == null) {

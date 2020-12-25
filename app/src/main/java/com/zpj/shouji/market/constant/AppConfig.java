@@ -98,7 +98,7 @@ public final class AppConfig {
 
     public static void setMaxDownloadConcurrentCount(int count) {
         PrefsHelper.with().putInt(KEY_MAX_DOWNLOAD_CONCURRENT_COUNT, count);
-        ZDownloader.setMaxDownloadConcurrentCount(count);
+        ZDownloader.setDownloadConcurrentCount(count);
     }
 
     public static int getMaxDownloadConcurrentCount() {
@@ -107,7 +107,7 @@ public final class AppConfig {
 
     public static void setMaxDownloadThreadCount(int count) {
         PrefsHelper.with().putInt(KEY_MAX_DOWNLOAD_THREAD_COUNT, count);
-        ZDownloader.setMaxDownloadThreadCount(count);
+        ZDownloader.setDownloadThreadCount(count);
     }
 
     public static int getMaxDownloadThreadCount() {
