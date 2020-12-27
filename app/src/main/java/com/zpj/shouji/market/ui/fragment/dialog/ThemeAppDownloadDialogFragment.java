@@ -12,23 +12,24 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-import com.zpj.toast.ZToast;
 import com.zpj.fragmentation.dialog.base.BottomDialogFragment;
 import com.zpj.http.parser.html.nodes.Element;
 import com.zpj.http.parser.html.select.Elements;
+import com.zpj.recyclerview.state.StateManager;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.api.HttpApi;
 import com.zpj.shouji.market.model.DiscoverInfo;
 import com.zpj.shouji.market.ui.widget.DownloadButton;
 import com.zpj.shouji.market.utils.ThemeUtils;
+import com.zpj.toast.ZToast;
 import com.zpj.utils.ScreenUtils;
-import com.zpj.widget.statelayout.StateLayout;
 
 public class ThemeAppDownloadDialogFragment extends BottomDialogFragment {
 
     private final Elements permissionList = new Elements();
 
-    private StateLayout stateLayout;
+//    private StateLayout stateLayout;
+    private StateManager stateManager;
     private LinearLayout llContainer;
     private TextView tvDesc;
     private DownloadButton tvDownload;
@@ -41,7 +42,8 @@ public class ThemeAppDownloadDialogFragment extends BottomDialogFragment {
     private final Runnable runnable = new Runnable() {
         @Override
         public void run() {
-            stateLayout.showContentView();
+//            stateLayout.showContentView();
+            stateManager.showContent();
 //                recyclerView.notifyDataSetChanged();
             if (permissionList.isEmpty()) {
                 TextView textView = new TextView(context);
@@ -87,8 +89,9 @@ public class ThemeAppDownloadDialogFragment extends BottomDialogFragment {
             return;
         }
 
-        stateLayout = findViewById(R.id.state_layout);
-        stateLayout.showLoadingView();
+//        stateLayout = findViewById(R.id.state_layout);
+//        stateLayout.showLoadingView();
+
 
         llContainer = findViewById(R.id.ll_container);
 
@@ -117,7 +120,8 @@ public class ThemeAppDownloadDialogFragment extends BottomDialogFragment {
         findViewById(R.id.btn_close).setOnClickListener(v -> dismiss());
 
         getPermissions();
-
+        stateManager = StateManager.with(findViewById(R.id.scroll_view))
+                .showLoading();
     }
 
     @Override
@@ -159,7 +163,10 @@ public class ThemeAppDownloadDialogFragment extends BottomDialogFragment {
                     permissionList.addAll(data.selectFirst("pers").select("ptitle"));
                     postDelayed(runnable, 250);
                 })
-                .onError(throwable -> stateLayout.showErrorView(throwable.getMessage()))
+                .onError(throwable -> {
+//                    stateLayout.showErrorView(throwable.getMessage())
+                    stateManager.showError(throwable.getMessage());
+                })
                 .subscribe();
     }
 

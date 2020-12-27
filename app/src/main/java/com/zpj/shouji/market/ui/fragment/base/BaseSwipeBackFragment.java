@@ -6,4 +6,5 @@ public abstract class BaseSwipeBackFragment extends SkinFragment {
     protected final boolean supportSwipeBack() {
         return true;
     }
+
 }

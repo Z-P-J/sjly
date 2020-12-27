@@ -19,36 +19,35 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.bumptech.glide.request.target.SimpleTarget;
 import com.bumptech.glide.request.transition.Transition;
-import com.zpj.toast.ZToast;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.api.HttpApi;
-import com.zpj.shouji.market.utils.EventBus;
 import com.zpj.shouji.market.glide.GlideRequestOptions;
 import com.zpj.shouji.market.glide.transformations.CircleWithBorderTransformation;
 import com.zpj.shouji.market.glide.transformations.blur.BlurTransformation;
 import com.zpj.shouji.market.manager.UserManager;
 import com.zpj.shouji.market.model.CollectionInfo;
 import com.zpj.shouji.market.ui.adapter.FragmentsPagerAdapter;
-import com.zpj.shouji.market.ui.fragment.base.BaseSwipeBackFragment;
+import com.zpj.shouji.market.ui.fragment.base.StateSwipeBackFragment;
 import com.zpj.shouji.market.ui.fragment.dialog.CommentDialogFragment;
 import com.zpj.shouji.market.ui.fragment.login.LoginFragment;
 import com.zpj.shouji.market.ui.fragment.profile.ProfileFragment;
 import com.zpj.shouji.market.ui.widget.DrawableTintTextView;
 import com.zpj.shouji.market.ui.widget.emoji.EmojiExpandableTextView;
+import com.zpj.shouji.market.utils.EventBus;
 import com.zpj.shouji.market.utils.MagicIndicatorHelper;
-import com.zpj.widget.statelayout.StateLayout;
+import com.zpj.toast.ZToast;
 
 import net.lucode.hackware.magicindicator.MagicIndicator;
 
 import java.util.ArrayList;
 
-public class CollectionDetailFragment extends BaseSwipeBackFragment
+public class CollectionDetailFragment extends StateSwipeBackFragment
         implements View.OnClickListener {
 
     private final String[] TAB_TITLES = {"应用", "评论"};
 
     private CollapsingToolbarLayout toolbarLayout;
-    private StateLayout stateLayout;
+//    private StateLayout stateLayout;
     //    private ImageView ivHeader;
     private ImageView ivIcon;
     private ImageView ivAvatar;
@@ -114,8 +113,8 @@ public class CollectionDetailFragment extends BaseSwipeBackFragment
             return;
         }
 
-        stateLayout = view.findViewById(R.id.state_layout);
-        stateLayout.showLoadingView();
+//        stateLayout = view.findViewById(R.id.state_layout);
+//        stateLayout.showLoadingView();
 
         toolbarLayout = view.findViewById(R.id.collapsingToolbar);
 
@@ -312,11 +311,17 @@ public class CollectionDetailFragment extends BaseSwipeBackFragment
                         viewPager.setOffscreenPageLimit(list.size());
                         MagicIndicatorHelper.bindViewPager(context, magicIndicator, viewPager, TAB_TITLES, true);
 
-                        stateLayout.showContentView();
-                        lightStatusBar();
+//                        stateLayout.showContentView();
+                        postOnEnterAnimationEnd(() -> {
+                            showContent();
+                            lightStatusBar();
+                        });
                     });
                 })
-                .onError(throwable -> stateLayout.showErrorView(throwable.getMessage()))
+                .onError(throwable -> {
+//                    stateLayout.showErrorView(throwable.getMessage());
+                    showError(throwable.getMessage());
+                })
                 .subscribe();
     }
 

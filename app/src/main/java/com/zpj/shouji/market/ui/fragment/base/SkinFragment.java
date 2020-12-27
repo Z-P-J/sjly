@@ -27,7 +27,7 @@ public abstract class SkinFragment extends BaseFragment {
     public void onDetach() {
         super.onDetach();
         LayoutInflater layoutInflater = getLayoutInflater();
-        if(layoutInflater instanceof SkinLayoutInflater){
+        if (layoutInflater instanceof SkinLayoutInflater) {
             SkinLayoutInflater skinLayoutInflater = (SkinLayoutInflater) layoutInflater;
             skinLayoutInflater.destory();
         }

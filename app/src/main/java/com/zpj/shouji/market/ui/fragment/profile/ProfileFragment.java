@@ -17,7 +17,6 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
-import com.zpj.toast.ZToast;
 import com.zpj.fragmentation.dialog.impl.AlertDialogFragment;
 import com.zpj.fragmentation.dialog.impl.AttachListDialogFragment;
 import com.zpj.http.core.ObservableTask;
@@ -30,11 +29,11 @@ import com.zpj.shouji.market.glide.transformations.CircleWithBorderTransformatio
 import com.zpj.shouji.market.manager.UserManager;
 import com.zpj.shouji.market.ui.adapter.FragmentsPagerAdapter;
 import com.zpj.shouji.market.ui.fragment.WebFragment;
-import com.zpj.shouji.market.ui.fragment.base.BaseSwipeBackFragment;
+import com.zpj.shouji.market.ui.fragment.base.StateSwipeBackFragment;
 import com.zpj.shouji.market.ui.fragment.chat.ChatFragment;
 import com.zpj.shouji.market.utils.MagicIndicatorHelper;
 import com.zpj.shouji.market.utils.PictureUtil;
-import com.zpj.widget.statelayout.StateLayout;
+import com.zpj.toast.ZToast;
 import com.zpj.widget.tinted.TintedImageView;
 
 import net.lucode.hackware.magicindicator.MagicIndicator;
@@ -42,14 +41,14 @@ import net.lucode.hackware.magicindicator.MagicIndicator;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ProfileFragment extends BaseSwipeBackFragment
+public class ProfileFragment extends StateSwipeBackFragment
         implements View.OnClickListener {
 
     public static final String DEFAULT_URL = "http://tt.shouji.com.cn/app/view_member_xml_v4.jsp?id=5636865";
 
     private static final String[] TAB_TITLES = {"动态", "收藏", "下载", "好友"};
 
-    private StateLayout stateLayout;
+//    private StateLayout stateLayout;
     private LinearLayout headerLayout;
     private ImageView ivHeader;
     private ImageView ivAvater;
@@ -132,10 +131,11 @@ public class ProfileFragment extends BaseSwipeBackFragment
         }
 
 
-        stateLayout = view.findViewById(R.id.state_layout);
+//        stateLayout = view.findViewById(R.id.state_layout);
 
         if (TextUtils.isEmpty(userId) && TextUtils.isEmpty(userName)) {
-            stateLayout.showErrorView("用户不存在！");
+//            stateLayout.showErrorView("用户不存在！");
+            showError("用户不存在！");
             return;
         }
 
@@ -171,7 +171,7 @@ public class ProfileFragment extends BaseSwipeBackFragment
 
         buttonBarLayout.setAlpha(0);
 
-        stateLayout.showLoadingView();
+//        stateLayout.showLoadingView();
 
         if (isMe) {
             PictureUtil.loadAvatar(ivAvater);
@@ -262,14 +262,16 @@ public class ProfileFragment extends BaseSwipeBackFragment
                     tvInfo.setText(element.selectFirst("membersignature").text());
 
                     postOnEnterAnimationEnd(() -> {
-                        stateLayout.showContentView();
+//                        stateLayout.showContentView();
+                        showContent();
                         initViewPager();
                         lightStatusBar();
                     });
                 })
                 .onError(throwable -> {
                     ZToast.error(throwable.getMessage());
-                    stateLayout.showErrorView(throwable.getMessage());
+//                    stateLayout.showErrorView(throwable.getMessage());
+                    showError(throwable.getMessage());
                 })
                 .subscribe();
     }

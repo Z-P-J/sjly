@@ -11,7 +11,6 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.donkingliang.consecutivescroller.ConsecutiveScrollerLayout;
-import com.zpj.toast.ZToast;
 import com.zpj.http.core.IHttp;
 import com.zpj.http.parser.html.nodes.Document;
 import com.zpj.http.parser.html.nodes.Element;
@@ -24,23 +23,23 @@ import com.zpj.shouji.market.constant.Keys;
 import com.zpj.shouji.market.glide.transformations.blur.CropBlurTransformation;
 import com.zpj.shouji.market.model.AppInfo;
 import com.zpj.shouji.market.model.SubjectInfo;
-import com.zpj.shouji.market.ui.fragment.base.BaseSwipeBackFragment;
+import com.zpj.shouji.market.ui.fragment.base.StateSwipeBackFragment;
 import com.zpj.shouji.market.ui.fragment.detail.AppDetailFragment;
 import com.zpj.shouji.market.ui.widget.DownloadButton;
+import com.zpj.toast.ZToast;
 import com.zpj.utils.ColorUtils;
-import com.zpj.widget.statelayout.StateLayout;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class SubjectDetailFragment extends BaseSwipeBackFragment
+public class SubjectDetailFragment extends StateSwipeBackFragment
         implements IEasy.OnBindViewHolderListener<AppInfo>,
         IEasy.OnItemClickListener<AppInfo> {
 
     private final List<AppInfo> appInfoList = new ArrayList<>();
 
 
-    private StateLayout stateLayout;
+//    private StateLayout stateLayout;
     private EasyRecyclerView<AppInfo> recyclerView;
 
     private String id;
@@ -77,10 +76,10 @@ public class SubjectDetailFragment extends BaseSwipeBackFragment
     @Override
     protected void initView(View view, @Nullable Bundle savedInstanceState) {
 
-        stateLayout = findViewById(R.id.state_layout);
+//        stateLayout = findViewById(R.id.state_layout);
         if (getArguments() != null) {
             id = getArguments().getString(Keys.ID, "");
-            stateLayout.showLoadingView();
+//            stateLayout.showLoadingView();
 
 
             TextView tvTitle = findViewById(R.id.tv_title);
@@ -195,7 +194,8 @@ public class SubjectDetailFragment extends BaseSwipeBackFragment
                         }
                         postOnEnterAnimationEnd(() -> {
                             recyclerView.notifyDataSetChanged();
-                            stateLayout.showContentView();
+//                            stateLayout.showContentView();
+                            showContent();
                             onSupportVisible();
                         });
                     }

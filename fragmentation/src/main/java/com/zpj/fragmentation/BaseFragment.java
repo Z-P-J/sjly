@@ -47,7 +47,7 @@ public abstract class BaseFragment extends SwipeBackFragment {
     @SuppressLint("ResourceType")
     @Nullable
     @Override
-    public final View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         if (context == null) {
             context = getContext();
         }

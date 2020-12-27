@@ -1,110 +1,113 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.zpj.widget.statelayout.StateLayout
+<FrameLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/state_layout"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="?attr/backgroundColor">
+    android:layout_height="match_parent">
 
-    <FrameLayout
+<!--    <com.zpj.widget.statelayout.StateLayout-->
+<!--        xmlns:android="http://schemas.android.com/apk/res/android"-->
+<!--        xmlns:app="http://schemas.android.com/apk/res-auto"-->
+<!--        android:id="@+id/state_layout"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="match_parent"-->
+<!--        android:background="?attr/backgroundColor">-->
+
+
+
+<!--    </com.zpj.widget.statelayout.StateLayout>-->
+
+    <com.donkingliang.consecutivescroller.ConsecutiveScrollerLayout
+        android:id="@+id/layout_scroller"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <com.donkingliang.consecutivescroller.ConsecutiveScrollerLayout
-            android:id="@+id/layout_scroller"
+        <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="wrap_content">
 
-            <FrameLayout
+            <ImageView
+                android:id="@+id/iv_bg"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="match_parent"
+                android:scaleType="centerCrop"
+                android:src="@drawable/bg_member_default"
+                android:tint="?attr/backgroundTintColor"
+                />
 
-                <ImageView
-                    android:id="@+id/iv_bg"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:scaleType="centerCrop"
-                    android:src="@drawable/bg_member_default"
-                    android:tint="?attr/backgroundTintColor"
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:paddingTop="80dp">
+
+                <TextView
+                    android:id="@+id/tv_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="16dp"
+                    android:ellipsize="end"
+                    android:gravity="center"
+                    android:maxLines="2"
+                    android:text="xxxxxxxxx专题"
+                    android:textColor="@color/white"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    android:paddingHorizontal="32dp"
                     />
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="vertical"
-                    android:paddingTop="80dp">
+                <ImageView
+                    android:id="@+id/iv_icon"
+                    android:layout_width="36dp"
+                    android:layout_height="36dp"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="32dp"
+                    android:src="@mipmap/ic_launcher"
+                    android:scaleType="centerCrop"/>
 
-                    <TextView
-                        android:id="@+id/tv_title"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:layout_marginTop="16dp"
-                        android:ellipsize="end"
-                        android:gravity="center"
-                        android:maxLines="2"
-                        android:text="xxxxxxxxx专题"
-                        android:textColor="@color/white"
-                        android:textSize="16sp"
-                        android:textStyle="bold"
-                        android:paddingHorizontal="32dp"
-                        />
+                <TextView
+                    android:id="@+id/tv_info"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginBottom="32dp"
+                    android:ellipsize="end"
+                    android:maxLines="1"
+                    android:text="8个应用 | 10000浏览 | 7人收藏"
+                    android:textColor="@color/white"
+                    />
 
-                    <ImageView
-                        android:id="@+id/iv_icon"
-                        android:layout_width="36dp"
-                        android:layout_height="36dp"
-                        android:layout_gravity="center"
-                        android:layout_marginTop="32dp"
-                        android:src="@mipmap/ic_launcher"
-                        android:scaleType="centerCrop"/>
-
-                    <TextView
-                        android:id="@+id/tv_info"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:layout_marginTop="8dp"
-                        android:layout_marginBottom="32dp"
-                        android:ellipsize="end"
-                        android:maxLines="1"
-                        android:text="8个应用 | 10000浏览 | 7人收藏"
-                        android:textColor="@color/white"
-                        />
-
-                </LinearLayout>
+            </LinearLayout>
 
 
-            </FrameLayout>
+        </FrameLayout>
 
-            <TextView
-                android:id="@+id/tv_desc"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="16dp"
-                android:text="xxxxxxxxxxxxxx\nxxxxxxxxxx\nxxxxxxx"
-                android:lineSpacingExtra="4dp"
-                android:textSize="12sp"
-                android:textColor="?attr/textColorNormal"
-                />
+        <TextView
+            android:id="@+id/tv_desc"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="16dp"
+            android:text="xxxxxxxxxxxxxx\nxxxxxxxxxx\nxxxxxxx"
+            android:lineSpacingExtra="4dp"
+            android:textSize="12sp"
+            android:textColor="?attr/textColorNormal"
+            />
 
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="@color/light_gray_1"
-                android:layout_marginHorizontal="16dp"
-                />
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/light_gray_1"
+            android:layout_marginHorizontal="16dp"
+            />
 
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/recycler_view"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recycler_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
 
-        </com.donkingliang.consecutivescroller.ConsecutiveScrollerLayout>
+    </com.donkingliang.consecutivescroller.ConsecutiveScrollerLayout>
 
-        <include layout="@layout/layout_toolbar" />
+    <include layout="@layout/layout_toolbar" />
 
-    </FrameLayout>
-
-</com.zpj.widget.statelayout.StateLayout>
+</FrameLayout>

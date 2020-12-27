@@ -101,7 +101,7 @@ public class SkinEngine {
      * @param view
      * @param backgroundAttrId
      */
-    public static void setBackgroud(View view, int backgroundAttrId) {
+    public static void setBackground(View view, int backgroundAttrId) {
         applyViewAttr(view, "background", backgroundAttrId);
     }
 

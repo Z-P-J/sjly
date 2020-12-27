@@ -41,140 +41,147 @@
 
     </RelativeLayout>
 
-    <com.zpj.widget.statelayout.StateLayout
-        android:id="@+id/state_layout"
+<!--    <com.zpj.widget.statelayout.StateLayout-->
+<!--        android:id="@+id/state_layout"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="match_parent"-->
+<!--        android:layout_above="@id/fl_bottom_container"-->
+<!--        android:layout_below="@id/ll_top"-->
+<!--        >-->
+
+<!--        &lt;!&ndash;        <include layout="@layout/layout_recycler_view"/>&ndash;&gt;-->
+
+<!--        -->
+
+<!--    </com.zpj.widget.statelayout.StateLayout>-->
+
+    <com.zpj.shouji.market.ui.widget.ElasticScrollView
+        android:id="@+id/scroll_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:scrollbars="none"
+        android:overScrollMode="never"
         android:layout_above="@id/fl_bottom_container"
         android:layout_below="@id/ll_top"
         >
 
-        <!--        <include layout="@layout/layout_recycler_view"/>-->
-
-        <com.zpj.shouji.market.ui.widget.ElasticScrollView
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:scrollbars="none"
-            android:overScrollMode="never"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
             >
 
-            <LinearLayout
+            <FrameLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
+                android:background="@drawable/grey_shape"
+                android:paddingVertical="4dp"
+                android:layout_margin="16dp"
                 >
 
-                <FrameLayout
+                <com.zpj.shouji.market.ui.widget.DrawableTintTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="应用安全未知，请谨慎下载！"
+                    android:textColor="@color/red3"
+                    android:drawableStart="@drawable/ic_info_black_24dp"
+                    android:gravity="center"
+                    android:layout_gravity="center_horizontal"
+                    android:drawablePadding="8dp"
+                    android:layout_marginBottom="8dp"
+                    android:layout_marginTop="8dp"
+                    app:drawable_tint_color="@color/red3"
+                    />
+
+            </FrameLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="应用信息"
+                android:textColor="@color/colorPrimary"
+                android:paddingHorizontal="16dp"
+                />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:background="@drawable/grey_shape"
+                android:padding="16dp"
+                android:layout_margin="16dp"
+                >
+
+                <ImageView
+                    android:id="@+id/iv_icon"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:src="@mipmap/ic_launcher"
+                    android:layout_gravity="center_vertical"
+                    android:layout_centerVertical="true"
+                    android:scaleType="centerCrop"
+                    />
+
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/grey_shape"
-                    android:paddingVertical="4dp"
-                    android:layout_margin="16dp"
+                    android:orientation="vertical"
+                    android:layout_toEndOf="@id/iv_icon"
+                    android:layout_centerVertical="true"
+                    android:layout_marginStart="8dp"
                     >
-
-                    <com.zpj.shouji.market.ui.widget.DrawableTintTextView
+                    <TextView
+                        android:id="@+id/tv_title"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="应用安全未知，请谨慎下载！"
-                        android:textColor="@color/red3"
-                        android:drawableStart="@drawable/ic_info_black_24dp"
-                        android:gravity="center"
-                        android:layout_gravity="center_horizontal"
-                        android:drawablePadding="8dp"
-                        android:layout_marginBottom="8dp"
-                        android:layout_marginTop="8dp"
-                        app:drawable_tint_color="@color/red3"
-                        />
+                        android:gravity="center_vertical"
+                        android:maxLines="2"
+                        android:ellipsize="end"
+                        android:text="文件夹"
+                        android:textSize="16sp"
+                        android:textColor="?attr/textColorMajor" />
 
-                </FrameLayout>
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="应用信息"
-                    android:textColor="@color/colorPrimary"
-                    android:paddingHorizontal="16dp"
-                    />
-
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="center_vertical"
-                    android:orientation="horizontal"
-                    android:background="@drawable/grey_shape"
-                    android:padding="16dp"
-                    android:layout_margin="16dp"
-                    >
-
-                    <ImageView
-                        android:id="@+id/iv_icon"
-                        android:layout_width="48dp"
-                        android:layout_height="48dp"
-                        android:src="@mipmap/ic_launcher"
-                        android:layout_gravity="center_vertical"
-                        android:layout_centerVertical="true"
-                        android:scaleType="centerCrop"
-                        />
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
+                    <TextView
+                        android:id="@+id/tv_desc"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:orientation="vertical"
-                        android:layout_toEndOf="@id/iv_icon"
-                        android:layout_centerVertical="true"
-                        android:layout_marginStart="8dp"
-                        >
-                        <TextView
-                            android:id="@+id/tv_title"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:gravity="center_vertical"
-                            android:maxLines="2"
-                            android:ellipsize="end"
-                            android:text="文件夹"
-                            android:textSize="16sp"
-                            android:textColor="?attr/textColorMajor" />
+                        android:maxLines="1"
+                        android:gravity="center_vertical"
+                        android:ellipsize="end"
+                        android:text="文件： 文件夹："
+                        android:paddingTop="1dp"
+                        android:paddingBottom="1dp"
+                        android:textColor="?attr/textColorNormal"
+                        android:textSize="12sp"
+                        />
 
-                        <TextView
-                            android:id="@+id/tv_desc"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:maxLines="1"
-                            android:gravity="center_vertical"
-                            android:ellipsize="end"
-                            android:text="文件： 文件夹："
-                            android:paddingTop="1dp"
-                            android:paddingBottom="1dp"
-                            android:textColor="?attr/textColorNormal"
-                            android:textSize="12sp"
-                            />
-
-                        <TextView
-                            android:id="@+id/tv_info"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:maxLines="1"
-                            android:gravity="center_vertical"
-                            android:ellipsize="end"
-                            android:text="文件： 文件夹："
-                            android:paddingTop="1dp"
-                            android:paddingBottom="1dp"
-                            android:textColor="?attr/textColorMinor"
-                            android:textSize="12sp" />
+                    <TextView
+                        android:id="@+id/tv_info"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:maxLines="1"
+                        android:gravity="center_vertical"
+                        android:ellipsize="end"
+                        android:text="文件： 文件夹："
+                        android:paddingTop="1dp"
+                        android:paddingBottom="1dp"
+                        android:textColor="?attr/textColorMinor"
+                        android:textSize="12sp" />
 
 
 
-                    </LinearLayout>
+                </LinearLayout>
 
-                </RelativeLayout>
+            </RelativeLayout>
 
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="应用权限"
-                    android:textColor="@color/colorPrimary"
-                    android:paddingHorizontal="16dp"
-                    />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="应用权限"
+                android:textColor="@color/colorPrimary"
+                android:paddingHorizontal="16dp"
+                />
 
             <LinearLayout
                 android:id="@+id/ll_container"
@@ -189,11 +196,9 @@
 
             </LinearLayout>
 
-            </LinearLayout>
+        </LinearLayout>
 
-        </com.zpj.shouji.market.ui.widget.ElasticScrollView>
-
-    </com.zpj.widget.statelayout.StateLayout>
+    </com.zpj.shouji.market.ui.widget.ElasticScrollView>
 
     <FrameLayout
         android:id="@+id/fl_bottom_container"

@@ -5,6 +5,7 @@ import android.content.ClipboardManager;
 import android.content.Context;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
@@ -14,15 +15,13 @@ import android.util.Log;
 import android.view.View;
 
 import com.bumptech.glide.Glide;
-import com.zpj.rxbus.RxBus;
-import com.zpj.toast.ZToast;
 import com.zpj.fragmentation.dialog.impl.AttachListDialogFragment;
+import com.zpj.rxbus.RxBus;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.api.BookingApi;
 import com.zpj.shouji.market.api.HttpApi;
 import com.zpj.shouji.market.constant.AppConfig;
 import com.zpj.shouji.market.constant.Keys;
-import com.zpj.shouji.market.utils.EventBus;
 import com.zpj.shouji.market.manager.UserManager;
 import com.zpj.shouji.market.model.AppDetailInfo;
 import com.zpj.shouji.market.model.AppInfo;
@@ -35,7 +34,7 @@ import com.zpj.shouji.market.model.QuickAppInfo;
 import com.zpj.shouji.market.model.UserDownloadedAppInfo;
 import com.zpj.shouji.market.ui.adapter.FragmentsPagerAdapter;
 import com.zpj.shouji.market.ui.fragment.WebFragment;
-import com.zpj.shouji.market.ui.fragment.base.BaseSwipeBackFragment;
+import com.zpj.shouji.market.ui.fragment.base.StateSwipeBackFragment;
 import com.zpj.shouji.market.ui.fragment.dialog.AppCommentDialogFragment;
 import com.zpj.shouji.market.ui.fragment.dialog.AppUrlCenterListDialogFragment;
 import com.zpj.shouji.market.ui.fragment.dialog.CommentDialogFragment;
@@ -44,15 +43,16 @@ import com.zpj.shouji.market.ui.fragment.login.LoginFragment;
 import com.zpj.shouji.market.ui.fragment.manager.ManagerFragment;
 import com.zpj.shouji.market.ui.widget.AppDetailLayout;
 import com.zpj.shouji.market.utils.Callback;
+import com.zpj.shouji.market.utils.EventBus;
 import com.zpj.shouji.market.utils.MagicIndicatorHelper;
-import com.zpj.widget.statelayout.StateLayout;
+import com.zpj.toast.ZToast;
 import com.zpj.widget.tinted.TintedImageButton;
 
 import net.lucode.hackware.magicindicator.MagicIndicator;
 
 import java.util.ArrayList;
 
-public class AppDetailFragment extends BaseSwipeBackFragment
+public class AppDetailFragment extends StateSwipeBackFragment
         implements View.OnClickListener {
 
     private static final String TAG = "AppDetailFragment";
@@ -67,7 +67,7 @@ public class AppDetailFragment extends BaseSwipeBackFragment
     private boolean isBooking;
     private boolean isAutoDownload;
 
-    private StateLayout stateLayout;
+//    private StateLayout stateLayout;
     private FloatingActionButton fabComment;
 
     private TintedImageButton btnShare;
@@ -141,7 +141,6 @@ public class AppDetailFragment extends BaseSwipeBackFragment
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-//        EventBus.getDefault().register(this);
         EventBus.onFabEvent(this, new RxBus.SingleConsumer<Boolean>() {
             @Override
             public void onAccept(Boolean show) throws Exception {
@@ -195,7 +194,7 @@ public class AppDetailFragment extends BaseSwipeBackFragment
         btnCollect.setOnClickListener(this);
         btnMenu.setOnClickListener(this);
 
-        stateLayout = view.findViewById(R.id.state_layout);
+//        stateLayout = view.findViewById(R.id.state_layout);
 
 
         fabComment = view.findViewById(R.id.fab_comment);
@@ -209,8 +208,14 @@ public class AppDetailFragment extends BaseSwipeBackFragment
         viewPager = appDetailLayout.getViewPager();
         magicIndicator = appDetailLayout.getMagicIndicator();
 
-        stateLayout.showLoadingView();
+//        stateLayout.showLoadingView();
         getAppInfo();
+
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
 
     }
 
@@ -339,11 +344,15 @@ public class AppDetailFragment extends BaseSwipeBackFragment
                         initViewPager();
 //                        EventBus.post(info, 50);
                         EventBus.sendGetAppInfoEvent(info);
-                        stateLayout.showContentView();
+//                        stateLayout.showContentView();
+                        showContent();
                         lightStatusBar();
                     });
                 })
-                .onError(throwable -> stateLayout.showErrorView(throwable.getMessage()))
+                .onError(throwable -> {
+//                    stateLayout.showErrorView(throwable.getMessage());
+                    showError(throwable.getMessage());
+                })
                 .subscribe();
     }
 

@@ -1,132 +1,136 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.zpj.widget.statelayout.StateLayout
+<RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/state_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="?attr/backgroundColor"
+    android:clipChildren="false"
     >
 
+<!--    <com.zpj.widget.statelayout.StateLayout-->
+<!--        xmlns:android="http://schemas.android.com/apk/res/android"-->
+<!--        xmlns:app="http://schemas.android.com/apk/res-auto"-->
+<!--        xmlns:tools="http://schemas.android.com/tools"-->
+<!--        android:id="@+id/state_layout"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="match_parent"-->
+<!--        android:background="?attr/backgroundColor"-->
+<!--        >-->
 
 
-    <RelativeLayout
+
+
+
+<!--    </com.zpj.widget.statelayout.StateLayout>-->
+
+    <android.support.v4.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:clipChildren="false"
-        >
+        android:layout_height="match_parent">
 
-        <android.support.v4.widget.NestedScrollView
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            >
 
             <LinearLayout
+                android:id="@+id/rl_info"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:background="@color/colorPrimary"
                 android:orientation="vertical"
+                android:paddingVertical="16dp"
                 >
 
-                <LinearLayout
-                    android:id="@+id/rl_info"
-                    android:layout_width="match_parent"
+                <!--            android:background="@drawable/bg_member_default"-->
+
+                <ImageView
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    android:layout_marginTop="80dp"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/ic_cloud_backup"
+                    android:layout_gravity="center_horizontal"
+                    android:tint="@color/white"
+                    />
+
+                <TextView
+                    android:id="@+id/tv_info"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:background="@color/colorPrimary"
-                    android:orientation="vertical"
+                    android:layout_marginTop="16dp"
+                    android:text="上次备份时间：2020-9-6 00:00:00"
+                    android:textColor="@color/white"
+                    android:textSize="14sp"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginVertical="16dp"
+                    />
+
+                <TextView
+                    android:id="@+id/tv_create"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:gravity="center"
+                    android:layout_gravity="center_horizontal"
                     android:paddingVertical="16dp"
-                    >
-
-                    <!--            android:background="@drawable/bg_member_default"-->
-
-                    <ImageView
-                        android:layout_width="80dp"
-                        android:layout_height="80dp"
-                        android:layout_marginTop="80dp"
-                        android:scaleType="centerCrop"
-                        android:src="@drawable/ic_cloud_backup"
-                        android:layout_gravity="center_horizontal"
-                        android:tint="@color/white"
-                        />
-
-                    <TextView
-                        android:id="@+id/tv_info"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="16dp"
-                        android:text="上次备份时间：2020-9-6 00:00:00"
-                        android:textColor="@color/white"
-                        android:textSize="14sp"
-                        android:layout_gravity="center_horizontal"
-                        android:layout_marginVertical="16dp"
-                        />
-
-                    <TextView
-                        android:id="@+id/tv_create"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="8dp"
-                        android:gravity="center"
-                        android:layout_gravity="center_horizontal"
-                        android:paddingVertical="16dp"
-                        android:paddingHorizontal="48dp"
-                        android:text="创建备份"
-                        android:textColor="@color/colorPrimary"
-                        android:textSize="16sp"
-                        android:background="@drawable/bg_button_round_white"
-                        />
-
-                </LinearLayout>
-
-                <FrameLayout
-                    android:id="@+id/header_recent_update"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:padding="16dp"
-                    >
-
-                    <TextView
-                        android:id="@+id/tv_title"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:gravity="center"
-                        android:text="备份记录"
-                        android:textSize="16sp"
-                        android:textColor="?attr/textColorMajor"
-                        android:textStyle="bold"
-                        android:layout_gravity="bottom"
-                        />
-
-                    <View
-                        android:layout_width="14dp"
-                        android:layout_height="10dp"
-                        android:background="#8009bd14"
-                        android:layout_gravity="bottom"
-                        />
-
-                </FrameLayout>
-
-                <android.support.v7.widget.RecyclerView
-                    android:id="@+id/recycler_view"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"/>
+                    android:paddingHorizontal="48dp"
+                    android:text="创建备份"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="16sp"
+                    android:background="@drawable/bg_button_round_white"
+                    />
 
             </LinearLayout>
 
-        </android.support.v4.widget.NestedScrollView>
+            <FrameLayout
+                android:id="@+id/header_recent_update"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="16dp"
+                >
 
-        <com.zpj.widget.toolbar.ZToolBar
-            android:id="@+id/tool_bar"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:z_toolbar_fillStatusBar="true"
-            app:z_toolbar_statusBarColor="@color/transparent"
-            app:z_toolbar_titleBarColor="@color/transparent"
-            app:z_toolbar_leftType="imageButton"
-            app:z_toolbar_leftImageResource="@drawable/ic_arrow_back_black_24dp"
-            app:z_toolbar_centerType="textView"
-            app:z_toolbar_centerTextColor="@color/color_text_major"
-            />
+                <TextView
+                    android:id="@+id/tv_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="备份记录"
+                    android:textSize="16sp"
+                    android:textColor="?attr/textColorMajor"
+                    android:textStyle="bold"
+                    android:layout_gravity="bottom"
+                    />
 
-    </RelativeLayout>
+                <View
+                    android:layout_width="14dp"
+                    android:layout_height="10dp"
+                    android:background="#8009bd14"
+                    android:layout_gravity="bottom"
+                    />
 
-</com.zpj.widget.statelayout.StateLayout>
+            </FrameLayout>
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/recycler_view"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+        </LinearLayout>
+
+    </android.support.v4.widget.NestedScrollView>
+
+    <com.zpj.widget.toolbar.ZToolBar
+        android:id="@+id/tool_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:z_toolbar_fillStatusBar="true"
+        app:z_toolbar_statusBarColor="@color/transparent"
+        app:z_toolbar_titleBarColor="@color/transparent"
+        app:z_toolbar_leftType="imageButton"
+        app:z_toolbar_leftImageResource="@drawable/ic_arrow_back_black_24dp"
+        app:z_toolbar_centerType="textView"
+        app:z_toolbar_centerTextColor="@color/color_text_major"
+        />
+
+</RelativeLayout>

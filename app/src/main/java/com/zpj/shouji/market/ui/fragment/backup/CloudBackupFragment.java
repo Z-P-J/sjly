@@ -13,21 +13,20 @@ import com.zpj.recyclerview.EasyViewHolder;
 import com.zpj.recyclerview.IEasy;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.api.CloudBackupApi;
-import com.zpj.shouji.market.utils.EventBus;
 import com.zpj.shouji.market.model.CloudBackupItem;
-import com.zpj.shouji.market.ui.fragment.base.BaseSwipeBackFragment;
-import com.zpj.widget.statelayout.StateLayout;
+import com.zpj.shouji.market.ui.fragment.base.StateSwipeBackFragment;
+import com.zpj.shouji.market.utils.EventBus;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class CloudBackupFragment extends BaseSwipeBackFragment
+public class CloudBackupFragment extends StateSwipeBackFragment
         implements IEasy.OnBindViewHolderListener<CloudBackupItem>,
         IEasy.OnItemClickListener<CloudBackupItem> {
 
     private final List<CloudBackupItem> backupItemList = new ArrayList<>();
 
-    private StateLayout stateLayout;
+//    private StateLayout stateLayout;
     private TextView tvInfo;
     private TextView tvCreate;
 
@@ -50,8 +49,8 @@ public class CloudBackupFragment extends BaseSwipeBackFragment
 
     @Override
     protected void initView(View view, @Nullable Bundle savedInstanceState) {
-        stateLayout = findViewById(R.id.state_layout);
-        stateLayout.showLoadingView();
+//        stateLayout = findViewById(R.id.state_layout);
+//        stateLayout.showLoadingView();
 
         tvInfo = findViewById(R.id.tv_info);
         tvCreate = findViewById(R.id.tv_create);
@@ -101,10 +100,14 @@ public class CloudBackupFragment extends BaseSwipeBackFragment
                     postOnEnterAnimationEnd(() -> {
                         lightStatusBar();
                         recyclerView.notifyDataSetChanged();
-                        stateLayout.showContentView();
+//                        stateLayout.showContentView();
+                        showContent();
                     });
                 })
-                .onError(throwable -> stateLayout.showErrorView(throwable.getMessage()))
+                .onError(throwable -> {
+//                    stateLayout.showErrorView(throwable.getMessage());
+                    showError(throwable.getMessage());
+                })
                 .subscribe();
     }
 

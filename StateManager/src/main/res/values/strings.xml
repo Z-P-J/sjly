@@ -1,0 +1,12 @@
+<resources>
+
+
+    <string name="_text_empty">暂无数据</string>
+    <string name="_text_no_network">没有网络，点击屏幕重试</string>
+    <string name="_text_error">加载失败，点击屏幕重试</string>
+    <string name="_text_time_out">加载超时，点击屏幕重试</string>
+    <string name="_text_login">你还没有登录</string>
+    <string name="_text_btn_login">登录</string>
+    <string name="_text_loading">加载中…</string>
+
+</resources>

@@ -166,19 +166,18 @@ dependencies {
 //    implementation 'com.github.a-voyager:AutoInstaller:v1.2'
     implementation 'me.codeboy.android:align-text-view:2.3.2'
 
-    implementation 'com.zpj.widget:StateLayout:1.0.2'
+//    implementation 'com.zpj.widget:StateLayout:1.0.2'
     implementation 'com.zpj.widget:SmoothCheckBox:1.0.0'
     implementation 'com.zpj.widget:ZSwitcher:1.0.5'
 //    implementation 'com.zpj.widget:Fragmentation:1.0.2'
     implementation 'com.zpj.widget:ZSettingItem:1.0.6'
     implementation 'com.zpj.widget:ZToolBar:1.0.7'
     implementation 'com.zpj.utils:ZUtils:1.0.3'
-    implementation 'com.zpj.toast:ZToast:1.0.0'
+    implementation 'com.zpj.toast:ZToast:1.0.1'
     implementation 'com.zpj.http:ZHttp:1.0.0'
 
-//    implementation project(":filescannercore")
     implementation project(":chameleon")
-//    implementation project(":ztoast")
+    implementation project(':StateManager')
     implementation project(":zdownloader")
 //    implementation project(':zmarkdown')
 //    implementation project(':richeditor')

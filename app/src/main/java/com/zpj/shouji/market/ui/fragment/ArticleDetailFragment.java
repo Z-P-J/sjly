@@ -20,10 +20,10 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.target.SimpleTarget;
 import com.bumptech.glide.request.transition.Transition;
-import com.zpj.toast.ZToast;
 import com.zpj.fragmentation.dialog.imagetrans.ImageItemView;
 import com.zpj.fragmentation.dialog.imagetrans.listener.SourceImageViewGet;
 import com.zpj.fragmentation.dialog.impl.AttachListDialogFragment;
+import com.zpj.recyclerview.state.StateManager;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.api.HttpApi;
 import com.zpj.shouji.market.constant.Keys;
@@ -40,8 +40,8 @@ import com.zpj.shouji.market.ui.fragment.detail.AppDetailFragment;
 import com.zpj.shouji.market.ui.fragment.dialog.CommonImageViewerDialogFragment2;
 import com.zpj.shouji.market.ui.widget.DownloadButton;
 import com.zpj.shouji.market.ui.widget.selection.SelectableTextView;
+import com.zpj.toast.ZToast;
 import com.zpj.utils.ScreenUtils;
-import com.zpj.widget.statelayout.StateLayout;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -50,10 +50,11 @@ import java.util.concurrent.atomic.AtomicBoolean;
 public class ArticleDetailFragment extends BaseSwipeBackFragment {
 
     private String url;
-    private StateLayout stateLayout;
+//    private StateLayout stateLayout;
+    private StateManager stateManager;
     private LinearLayout contentWrapper;
     private ArticleDetailInfo articleDetailInfo;
-    private AtomicBoolean isEnterAnimationEnd = new AtomicBoolean(false);
+    private final AtomicBoolean isEnterAnimationEnd = new AtomicBoolean(false);
 
     public static void start(String url) {
         Bundle args = new Bundle();
@@ -67,17 +68,6 @@ public class ArticleDetailFragment extends BaseSwipeBackFragment {
     protected int getLayoutId() {
         return R.layout.fragment_article_detail;
     }
-
-//    @Override
-//    protected boolean supportSwipeBack() {
-//        return true;
-//    }
-
-//    @Override
-//    public void onSupportVisible() {
-//        super.onSupportVisible();
-//        lightStatusBar();
-//    }
 
     @Override
     protected void initStatusBar() {
@@ -93,9 +83,16 @@ public class ArticleDetailFragment extends BaseSwipeBackFragment {
         url = getArguments().getString(Keys.URL);
         setToolbarTitle(url);
         setToolbarSubTitle(url);
-        stateLayout = view.findViewById(R.id.state_layout);
-        stateLayout.showLoadingView();
-        contentWrapper = view.findViewById(R.id.content_wrapper);
+        contentWrapper = findViewById(R.id.content_wrapper);
+
+        stateManager = StateManager.with(findViewById(R.id.scroll_view))
+                .onRetry(manager -> {
+                    manager.showLoading();
+                    parseHtml(url);
+                })
+                .showLoading();
+
+
         parseHtml(url);
     }
 
@@ -107,7 +104,6 @@ public class ArticleDetailFragment extends BaseSwipeBackFragment {
                     .setOnSelectListener((fragment, position, title) -> {
                         switch (position) {
                             case 0:
-//                                fragment.dismissWithStart(WebFragment.newInstance(url, url));
                                 WebFragment.start(url);
                                 break;
                             case 1:
@@ -148,7 +144,8 @@ public class ArticleDetailFragment extends BaseSwipeBackFragment {
             WebFragment.start(url);
             return;
         }
-        stateLayout.showContentView();
+//        stateLayout.showContentView();
+        stateManager.showContent();
         Log.d("parseArticleInfo", "parseArticleInfo");
         initHeaderView(info);
         initAppView(info);
@@ -236,23 +233,6 @@ public class ArticleDetailFragment extends BaseSwipeBackFragment {
                 ivImage.setOnClickListener(v -> {
                     List<String> objects = new ArrayList<>();
                     objects.add(url);
-//                    ImageViewer.with(context)
-//                            .setImageList(objects)
-//                            .setNowIndex(0)
-//                            .setSourceImageView(new SourceImageViewGet() {
-//                                @Override
-//                                public ImageView getImageView(int pos) {
-//                                    return ivImage;
-//                                }
-//                            })
-//                            .show();
-//                    CommonImageViewerPopup.with(context)
-//                            .setImageUrls(objects)
-//                            .setSrcView(ivImage, 0)
-//                            .setSrcViewUpdateListener((popup, pos) -> {
-//                                popup.updateSrcView(ivImage);
-//                            })
-//                            .show();
                     new CommonImageViewerDialogFragment2()
                             .setNowIndex(0)
                             .setImageList(objects)
@@ -263,13 +243,6 @@ public class ArticleDetailFragment extends BaseSwipeBackFragment {
                                 }
                             })
                             .show(context);
-//                    new CommonImageViewerDialogFragment()
-//                            .setImageUrls(objects)
-//                            .setSrcView(ivImage, 0)
-//                            .setSrcViewUpdateListener((popup, pos) -> {
-//                                popup.updateSrcView(ivImage);
-//                            })
-//                            .show(context);
                 });
                 contentWrapper.addView(view);
                 Glide.with(context)

@@ -5,10 +5,10 @@ include ':app',
 //        ':richeditor2',
 //        ':zmarkdown',
         ':emojilib',
-//        ':filescannercore',
         ':expandabletextview',
         ':fragmentation',
         ':fragmentation-dialog',
         ':fragmentation-matisse',
         ':fragmentation-ucrop',
-        ':chameleon' // ':rxbus'
+        ':chameleon',
+        ':StateManager'
