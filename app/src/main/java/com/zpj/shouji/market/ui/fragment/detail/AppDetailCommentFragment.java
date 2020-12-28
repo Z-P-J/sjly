@@ -30,14 +30,6 @@ public class AppDetailCommentFragment extends ThemeListFragment {
 
     private String userRatingValue;
 
-//    public static AppDetailCommentFragment newInstance(String id, String type) {
-//        AppDetailCommentFragment fragment = new AppDetailCommentFragment();
-//        Bundle bundle = new Bundle();
-//        bundle.putString(Keys.DEFAULT_URL, "http://tt.shouji.com.cn/app/comment_index_xml_v5.jsp?type=" + type + "&id=" + id);
-//        fragment.setArguments(bundle);
-//        return fragment;
-//    }
-
     public static AppDetailCommentFragment newInstance(AppDetailInfo info) {
         AppDetailCommentFragment fragment = new AppDetailCommentFragment();
         Bundle bundle = new Bundle();

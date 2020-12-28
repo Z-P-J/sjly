@@ -9,15 +9,8 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
-import com.zpj.toast.ZToast;
-import com.lwkandroid.widget.ninegridview.INineGridImageLoader;
-import com.lwkandroid.widget.ninegridview.NineGirdImageContainer;
-import com.lwkandroid.widget.ninegridview.NineGridBean;
-import com.lwkandroid.widget.ninegridview.NineGridView;
 import com.zpj.fragmentation.dialog.imagetrans.ImageItemView;
 import com.zpj.fragmentation.dialog.imagetrans.listener.SourceImageViewGet;
 import com.zpj.http.core.IHttp;
@@ -28,13 +21,13 @@ import com.zpj.matisse.entity.Item;
 import com.zpj.matisse.ui.fragment.CustomImageViewerDialogFragment2;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.api.CommentApi;
-import com.zpj.shouji.market.glide.GlideUtils;
 import com.zpj.shouji.market.ui.fragment.base.BaseSwipeBackFragment;
+import com.zpj.shouji.market.ui.widget.NineGridView;
 import com.zpj.shouji.market.ui.widget.flowlayout.FlowLayout;
+import com.zpj.toast.ZToast;
 import com.zpj.utils.AppUtils;
 import com.zpj.utils.DeviceUtils;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -68,54 +61,11 @@ public class FeedbackFragment extends BaseSwipeBackFragment {
 
         EditText etContent = findViewById(R.id.et_content);
 
-        nineGridView = findViewById(R.id.nine_grid_image_view);
-        nineGridView = view.findViewById(R.id.nine_grid_image_view);
-        nineGridView.setImageLoader(new INineGridImageLoader() {
-
-//            private final RequestOptions REQUEST_OPTIONS = new RequestOptions()
-//                    .centerCrop()
-//                    .placeholder(R.drawable.bga_pp_ic_holder_light)
-//                    .error(R.drawable.bga_pp_ic_holder_light)
-//                    .override(Target.SIZE_ORIGINAL);
-
+        nineGridView = findViewById(R.id.nine_grid_view);
+        nineGridView.setEditMode(true);
+        nineGridView.setCallback(new NineGridView.Callback() {
             @Override
-            public void displayNineGridImage(Context context, String url, ImageView imageView) {
-                Glide.with(context)
-                        .load(new File(url))
-                        .apply(GlideUtils.REQUEST_OPTIONS)
-                        .into(imageView);
-            }
-
-            @Override
-            public void displayNineGridImage(Context context, String url, ImageView imageView, int width, int height) {
-                displayNineGridImage(context, url, imageView);
-            }
-        });
-        nineGridView.setOnItemClickListener(new NineGridView.onItemClickListener() {
-            @Override
-            public void onNineGirdAddMoreClick(int dValue) {
-                showImagePicker();
-            }
-
-            @Override
-            public void onNineGirdItemClick(int position, NineGridBean gridBean, NineGirdImageContainer imageContainer) {
-//                new CustomImageViewerDialogFragment()
-//                        .setOnSelectedListener(itemList -> {
-//                            postDelayed(() -> {
-//                                if (imgList.size() != itemList.size()) {
-//                                    imgList.clear();
-//                                    imgList.addAll(itemList);
-//                                    initNineGrid();
-//                                }
-//                            }, 100);
-//                        })
-//                        .setImageUrls(imgList)
-//                        .setSrcView(imageContainer.getImageView(), position)
-//                        .setSrcViewUpdateListener((popup, pos) -> {
-//                            NineGirdImageContainer view = (NineGirdImageContainer) nineGridView.getChildAt(pos);
-//                            popup.updateSrcView(view.getImageView());
-//                        })
-//                        .show(context);
+            public void onImageItemClicked(int position, List<String> urls) {
                 new CustomImageViewerDialogFragment2()
                         .setOnSelectedListener(itemList -> {
                             postDelayed(() -> {
@@ -131,32 +81,19 @@ public class FeedbackFragment extends BaseSwipeBackFragment {
                         .setSourceImageView(new SourceImageViewGet<Item>() {
                             @Override
                             public void updateImageView(ImageItemView<Item> imageItemView, int pos, boolean isCurrent) {
-                                NineGirdImageContainer view = (NineGirdImageContainer) nineGridView.getChildAt(pos);
-                                imageItemView.update(view.getImageView());
+                                imageItemView.update(nineGridView.getImageView(pos));
                             }
                         })
                         .show(context);
-//                CustomImageViewerPopup.with(context)
-//                        .setOnSelectedListener(itemList -> {
-//                            postDelayed(() -> {
-//                                if (imgList.size() != itemList.size()) {
-//                                    imgList.clear();
-//                                    imgList.addAll(itemList);
-//                                    initNineGrid();
-//                                }
-//                            }, 100);
-//                        })
-//                        .setImageUrls(imgList)
-//                        .setSrcView(imageContainer.getImageView(), position)
-//                        .setSrcViewUpdateListener((popup, pos) -> {
-//                            NineGirdImageContainer view = (NineGirdImageContainer) nineGridView.getChildAt(pos);
-//                            popup.updateSrcView(view.getImageView());
-//                        })
-//                        .show();
             }
 
             @Override
-            public void onNineGirdItemDeleted(int position, NineGridBean gridBean, NineGirdImageContainer imageContainer) {
+            public void onAddItemClicked(int position) {
+                showImagePicker();
+            }
+
+            @Override
+            public void onImageItemDelete(int position, String url) {
                 imgList.remove(position);
             }
         });
@@ -219,12 +156,17 @@ public class FeedbackFragment extends BaseSwipeBackFragment {
     }
 
     private void initNineGrid() {
-        List<NineGridBean> beanList = new ArrayList<>();
+//        List<NineGridBean> beanList = new ArrayList<>();
+//        for (Item item : imgList) {
+//            NineGridBean bean = new NineGridBean(item.getPath(context));
+//            beanList.add(bean);
+//        }
+//        nineGridView.setDataList(beanList);
+        List<String> urls = new ArrayList<>();
         for (Item item : imgList) {
-            NineGridBean bean = new NineGridBean(item.getPath(context));
-            beanList.add(bean);
+            urls.add(item.getPath(context));
         }
-        nineGridView.setDataList(beanList);
+        nineGridView.setUrls(urls);
     }
 
     private void showImagePicker() {

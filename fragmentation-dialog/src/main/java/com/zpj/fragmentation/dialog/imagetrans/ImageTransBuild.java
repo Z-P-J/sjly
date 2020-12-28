@@ -41,8 +41,6 @@ public class ImageTransBuild<T> {
                 }
             };
         }
-        if (sourceImageViewGet == null)
-            throw new NullPointerException("not set SourceImageViewGet");
         if (imageLoad == null)
             imageLoad = new MyImageLoad<>();
         if (imageList == null)

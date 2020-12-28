@@ -68,7 +68,11 @@ public class ImageItemView<T> extends FrameLayout implements
 //        imageView.setOnClickListener(this);
 //        if (needTransOpen || opened) loadImage();
 
-        build.sourceImageViewGet.updateImageView(this, pos, isCurrent);
+        if (build.sourceImageViewGet == null) {
+            update(null);
+        } else {
+            build.sourceImageViewGet.updateImageView(this, pos, isCurrent);
+        }
     }
 
     public void update(View view) {

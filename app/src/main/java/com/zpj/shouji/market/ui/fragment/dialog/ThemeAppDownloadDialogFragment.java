@@ -47,7 +47,7 @@ public class ThemeAppDownloadDialogFragment extends BottomDialogFragment {
 //                recyclerView.notifyDataSetChanged();
             if (permissionList.isEmpty()) {
                 TextView textView = new TextView(context);
-                textView.setText("权限未知！");
+                textView.setText("未知权限！");
                 textView.setTextColor(getResources().getColor(R.color.colorPrimary));
                 textView.setGravity(Gravity.CENTER);
                 int padding = ScreenUtils.dp2pxInt(context, 56);

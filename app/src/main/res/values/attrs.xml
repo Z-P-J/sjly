@@ -119,6 +119,12 @@
         </attr>
     </declare-styleable>
 
+    <declare-styleable name="NineGridView">
+        <attr name="bigPictureMaxHeight" format="dimension" />
+        <attr name="bigPictureMinHeight" format="dimension" />
+        <attr name="pictureSpace" format="dimension" />
+    </declare-styleable>
+
 
     <string-array name="default_wallpaper_tags">
         <item>全部</item>

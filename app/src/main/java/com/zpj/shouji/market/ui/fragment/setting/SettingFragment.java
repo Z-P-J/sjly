@@ -193,7 +193,7 @@ public class SettingFragment extends BaseSettingFragment {
                                         .onSuccess(new IHttp.OnSuccessListener<String>() {
                                             @Override
                                             public void onSuccess(String data) throws Exception {
-                                                EventBus.hideLoading(() -> {
+                                                EventBus.hideLoading(1000, () -> {
                                                     ZToast.success("清理成功");
                                                     item.setRightText(data);
                                                 });

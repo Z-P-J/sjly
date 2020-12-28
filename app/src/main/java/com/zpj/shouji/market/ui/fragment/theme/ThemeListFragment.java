@@ -109,9 +109,6 @@ public class ThemeListFragment extends NextUrlFragment<DiscoverInfo>
 
     @Override
     public boolean onLongClick(EasyViewHolder holder, View view, DiscoverInfo data) {
-//        ThemeMorePopupMenu.with(context)
-//                .setDiscoverInfo(data)
-//                .show();
         new ThemeMoreDialogFragment()
                 .setDiscoverInfo(data)
                 .show(context);

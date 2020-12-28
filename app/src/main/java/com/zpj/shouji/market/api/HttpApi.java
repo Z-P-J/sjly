@@ -74,11 +74,11 @@ public final class HttpApi {
     }
 
     public static ObservableTask<Document> get(String url) {
-        return openConnection(url, Connection.Method.GET).toHtml();
+        return openConnection(url, Connection.Method.GET).toXml();
     }
 
     public static ObservableTask<Document> post(String url) {
-        return openConnection(url, Connection.Method.POST).toHtml();
+        return openConnection(url, Connection.Method.POST).toXml();
     }
 
     public static ObservableTask<Runnable> with(Runnable runnable) {
@@ -451,9 +451,11 @@ public final class HttpApi {
                     } else {
                         ZToast.error(info);
                     }
+                    EventBus.hideLoading(250);
                 })
                 .onError(throwable -> {
                     ZToast.error("发送失败！" + throwable.getMessage());
+                    EventBus.hideLoading(250);
                 })
                 .onComplete(() -> EventBus.hideLoading(250))
                 .subscribe();

@@ -9,6 +9,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.zpj.http.core.IHttp;
+import com.zpj.http.exception.UnsupportedMimeTypeException;
 import com.zpj.http.parser.html.nodes.Document;
 import com.zpj.http.parser.html.nodes.Element;
 import com.zpj.http.parser.html.select.Elements;
@@ -95,6 +96,11 @@ public abstract class NextUrlFragment<T> extends RecyclerLayoutFragment<T>
     @Override
     public void onSuccess(Document doc) throws Exception {
         Log.d("getData", "doc=" + doc);
+//        if (!doc.selectFirst("html").isNull()) {
+//            onError(new UnsupportedMimeTypeException("Unhandled content type. Must be application/xml.",
+//                    "text/*", nextUrl));
+//            return;
+//        }
         nextUrl = doc.selectFirst("nextUrl").text();
         if (refresh) {
             data.clear();
@@ -144,7 +150,7 @@ public abstract class NextUrlFragment<T> extends RecyclerLayoutFragment<T>
             }
         }
         refresh = false;
-        if (data.size() == 0) {
+        if (data.size() == 0 && recyclerLayout.getAdapter().getHeaderView() == null) {
             recyclerLayout.showEmpty();
         } else {
             recyclerLayout.showContent();

@@ -87,7 +87,7 @@ dependencies {
 //    implementation 'jp.wasabeef:glide-transformations:4.1.0'
 //    implementation 'com.jaeger.ninegridimageview:library:1.1.1'
 //    implementation 'com.lqr.ninegridimageview:library:1.0.0'
-    implementation 'com.lwkandroid.widget:NineGridView:1.2.6'
+//    implementation 'com.lwkandroid.widget:NineGridView:1.4.4'
     implementation 'com.zpj.widget:TintedImageView:1.0.0'
     implementation 'com.github.nanchen2251:CompressHelper:1.0.5'
 

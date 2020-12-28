@@ -58,15 +58,6 @@ public class LoginFragment extends BaseSwipeBackFragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-//        EventBus.registerObserver(this, SignInEvent.class, event -> {
-//            if (event.isSuccess()) {
-//                ZToast.success("登录成功！");
-//                pop();
-//            }
-//            if (contentView instanceof SignInLayout3) {
-//                ((SignInLayout3) contentView).onSignIn(event );
-//            }
-//        });
         EventBus.onSignInEvent(this, new RxBus.PairConsumer<Boolean, String>() {
             @Override
             public void onAccept(Boolean isSuccess, String errorMsg) throws Exception {
@@ -95,19 +86,6 @@ public class LoginFragment extends BaseSwipeBackFragment {
                 }
             }
         });
-//        EventBus.registerObserver(this, SignUpEvent.class, event -> {
-//            if (event.isSuccess()) {
-//                ZToast.success("注册成功，请输入账账户信息登录！");
-//                if (SupportHelper.getPreFragment(LoginFragment.this) instanceof LoginFragment) {
-//                    pop();
-//                } else {
-//                    startWithPop(LoginFragment.newInstance(false));
-//                }
-//            }
-//            if (contentView instanceof SignUpLayout3) {
-//                ((SignUpLayout3) contentView).onSignUp(event);
-//            }
-//        });
         if (getArguments() != null) {
             isRegistration = getArguments().getBoolean(REGISTRATION, false);
         }

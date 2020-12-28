@@ -191,16 +191,7 @@
                 android:padding="8dp"
                 >
 
-                <com.lwkandroid.widget.ninegridview.NineGridView
-                    android:id="@+id/nine_grid_image_view"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    app:column_count="3"
-                    app:is_edit_mode="true"
-                    app:max_num="9"
-                    app:sapce_size="4dp"
-                    app:single_image_size="160dp"
-                    />
+                <include layout="@layout/layout_nine_grid"/>
 
             </FrameLayout>
 

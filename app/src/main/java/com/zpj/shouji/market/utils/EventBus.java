@@ -220,9 +220,11 @@ public class EventBus {
                 .doOnNext(new RxBus.SingleConsumer<NullableObject>() {
                     @Override
                     public void onAccept(NullableObject nullableObject) throws Exception {
-                        if (nullableObject.getObject() instanceof IDialog.OnDismissListener) {
-                            if (consumer != null) {
+                        if (consumer != null) {
+                            if (nullableObject.getObject() instanceof IDialog.OnDismissListener) {
                                 consumer.accept((IDialog.OnDismissListener) nullableObject.getObject());
+                            } else {
+                                consumer.accept(null);
                             }
                         }
                     }

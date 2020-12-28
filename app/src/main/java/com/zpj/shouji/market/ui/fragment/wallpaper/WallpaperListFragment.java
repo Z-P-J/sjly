@@ -1,6 +1,7 @@
 package com.zpj.shouji.market.ui.fragment.wallpaper;
 
 import android.content.Context;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.IntRange;
 import android.support.annotation.NonNull;
@@ -17,6 +18,8 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
+import com.bumptech.glide.request.target.SimpleTarget;
+import com.bumptech.glide.request.transition.Transition;
 import com.zpj.toast.ZToast;
 import com.github.zagum.expandicon.ExpandIconView;
 import com.sunbinqiang.iconcountview.IconCountView;
@@ -135,7 +138,14 @@ public class WallpaperListFragment extends NextUrlFragment<WallpaperInfo> {
 
         Glide.with(context).load(info.getMemberIcon())
                 .apply(RequestOptions.circleCropTransform())
-                .into(holder.getImageView(R.id.iv_icon));
+                .into(new SimpleTarget<Drawable>() {
+                    @Override
+                    public void onResourceReady(@NonNull Drawable resource, @Nullable Transition<? super Drawable> transition) {
+                        ImageView ivIcon = holder.getImageView(R.id.iv_icon);
+                        ivIcon.setImageDrawable(resource);
+                        ivIcon.setScaleType(ImageView.ScaleType.CENTER_CROP);
+                    }
+                });
         EmojiExpandableTextView tvContent = holder.getView(R.id.tv_content);
         tvContent.setContent(info.getContent());
         holder.getTextView(R.id.tv_name).setText(info.getNickName());
@@ -177,15 +187,6 @@ public class WallpaperListFragment extends NextUrlFragment<WallpaperInfo> {
 
         Log.d("WallpaperListFragment", " width / height = " + (Float.parseFloat(data.getWidth()) / Float.parseFloat(data.getHeight())));
         Log.d("WallpaperListFragment2", " width / height = " + (wallpaper.getWidth() / wallpaper.getHeight()));
-//        new WallpaperViewerDialogFragment()
-//                .setWallpaperInfo(data)
-//                .setOriginalImageList(original)
-//                .setImageUrls(AppConfig.isShowOriginalImage() && NetUtils.isWiFi(context) ? original : objects)
-//                .setSrcView(wallpaper, 0)
-//                .setSrcViewUpdateListener((popup, position) -> popup.updateSrcView(wallpaper))
-//                .setOnDismissListener(() -> StatusBarEvent.post(false))
-//                .show(context);
-
         new WallpaperViewerDialogFragment2()
                 .setWallpaperInfo(data)
                 .setOriginalImageList(original)
@@ -199,59 +200,6 @@ public class WallpaperListFragment extends NextUrlFragment<WallpaperInfo> {
                 })
 //                .setOnDismissListener(() -> StatusBarEvent.post(false))
                 .show(context);
-
-//        GetMainActivityEvent.post(new Callback<MainActivity>() {
-//            @Override
-//            public void onCallback(MainActivity activity) {
-//                BaseFragment fragment = (BaseFragment) SupportHelper.getBackStackTopFragment(activity.getSupportFragmentManager());
-//                Log.d("WallpaperListFragment", "fragment=" + fragment + " fragment.getView()=" + fragment.getView());
-//                if (fragment.getView() != null) {
-//
-////                    WallpaperViewerPopup.with(context)
-////                            .setWallpaperInfo(data)
-////                            .setOriginalImageList(original)
-////                            .setDecorView(fragment.getView().findViewWithTag("container"))
-////                            .setImageUrls(AppConfig.isShowOriginalImage() && NetUtils.isWiFi(context) ? original : objects)
-////                            .setSrcView(wallpaper, 0)
-////                            .setSrcViewUpdateListener((popup, position) -> popup.updateSrcView(wallpaper))
-////                            .setOnDismissListener(() -> StatusBarEvent.post(false))
-////                            .show();
-//                }
-////                List<String> objects = new ArrayList<>();
-////                objects.add(data.getSpic());
-////                List<String> original = new ArrayList<>();
-////                original.add(data.getPic());
-////                WallpaperViewerPopup.with(context)
-////                        .setWallpaperInfo(data)
-////                        .setOriginalImageList(original)
-////                        .setDecorView((ViewGroup) activity.findViewById(R.id.main_content))
-////                        .setImageUrls(objects)
-////                        .setSrcView(wallpaper, 0)
-////                        .setSrcViewUpdateListener((popup, position) -> popup.updateSrcView(wallpaper))
-////                        .setOnDismissListener(() -> StatusBarEvent.post(false))
-////                        .show();
-//            }
-//        });
-
-//        GetMainFragmentEvent.post(mainFragment -> {
-//            if (mainFragment.getView() != null) {
-//                List<String> objects = new ArrayList<>();
-//                objects.add(data.getSpic());
-//                List<String> original = new ArrayList<>();
-//                original.add(data.getPic());
-//                WallpaperViewerPopup.with(context)
-//                        .setWallpaperInfo(data)
-//                        .setOriginalImageList(original)
-//                        .setDecorView((ViewGroup) mainFragment.getView())
-//                        .setImageUrls(objects)
-//                        .setSrcView(wallpaper, 0)
-//                        .setSrcViewUpdateListener((popup, position) -> popup.updateSrcView(wallpaper))
-//                        .setOnDismissListener(() -> StatusBarEvent.post(false))
-//                        .show();
-//            }
-//
-//        });
-
     }
 
     @Override

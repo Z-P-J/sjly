@@ -11,10 +11,10 @@ import com.zpj.shouji.market.R;
 public class GlideUtils {
 
     public static final RequestOptions REQUEST_OPTIONS = new RequestOptions()
-            .centerCrop()
             .placeholder(R.drawable.bga_pp_ic_holder_light)
             .error(R.drawable.bga_pp_ic_holder_light)
-            .override(Target.SIZE_ORIGINAL);
+            .override(Target.SIZE_ORIGINAL)
+            .centerCrop();
 
     public static final DrawableCrossFadeFactory DRAWABLE_CROSS_FADE_FACTORY = new DrawableCrossFadeFactory
             .Builder(500)

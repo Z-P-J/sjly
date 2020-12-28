@@ -10,13 +10,11 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
-import com.zpj.toast.ZToast;
-import com.lwkandroid.widget.ninegridview.NineGirdImageContainer;
-import com.lwkandroid.widget.ninegridview.NineGridBean;
-import com.lwkandroid.widget.ninegridview.NineGridView;
+import com.houtrry.bubble.BubbleLinearLayout;
 import com.zpj.fragmentation.dialog.imagetrans.ImageItemView;
 import com.zpj.fragmentation.dialog.imagetrans.listener.SourceImageViewGet;
 import com.zpj.fragmentation.dialog.impl.AlertDialogFragment;
@@ -31,14 +29,15 @@ import com.zpj.shouji.market.constant.AppConfig;
 import com.zpj.shouji.market.constant.Keys;
 import com.zpj.shouji.market.manager.UserManager;
 import com.zpj.shouji.market.model.PrivateLetterInfo;
-import com.zpj.shouji.market.ui.adapter.DiscoverBinder;
 import com.zpj.shouji.market.ui.animator.SlideInOutBottomItemAnimator;
 import com.zpj.shouji.market.ui.fragment.base.NextUrlFragment;
 import com.zpj.shouji.market.ui.fragment.dialog.BottomListMenuDialogFragment;
 import com.zpj.shouji.market.ui.fragment.dialog.CommonImageViewerDialogFragment2;
 import com.zpj.shouji.market.ui.fragment.profile.ProfileFragment;
+import com.zpj.shouji.market.ui.widget.NineGridView;
 import com.zpj.shouji.market.ui.widget.ReplyPanel;
 import com.zpj.shouji.market.utils.BeanUtils;
+import com.zpj.toast.ZToast;
 import com.zpj.utils.KeyboardObserver;
 import com.zpj.utils.NetUtils;
 
@@ -330,19 +329,52 @@ public class ChatFragment extends NextUrlFragment<PrivateLetterInfo>
     }
 
     private void gridImageView(final EasyViewHolder holder, final PrivateLetterInfo info, final int position) {
-        NineGridView nineGridImageView = holder.getView(R.id.gv_img);
-        if (nineGridImageView == null) {
+//        NineGridView nineGridImageView = holder.getView(R.id.nine_grid_view);
+//        if (nineGridImageView == null) {
+//            return;
+//        }
+//        nineGridImageView.setImageLoader(DiscoverBinder.getImageLoader());
+//        nineGridImageView.setOnItemClickListener(new NineGridView.onItemClickListener() {
+//            @Override
+//            public void onNineGirdAddMoreClick(int dValue) {
+//
+//            }
+//
+//            @Override
+//            public void onNineGirdItemClick(int position, NineGridBean gridBean, NineGirdImageContainer imageContainer) {
+//                new CommonImageViewerDialogFragment2()
+//                        .setOriginalImageList(info.getPics())
+//                        .setImageSizeList(info.getSizes())
+//                        .setImageList(AppConfig.isShowOriginalImage() && NetUtils.isWiFi(context) ? info.getPics() : info.getSpics())
+//                        .setNowIndex(position)
+//                        .setSourceImageView(new SourceImageViewGet<String>() {
+//                            @Override
+//                            public void updateImageView(ImageItemView<String> imageItemView, int pos, boolean isCurrent) {
+//                                NineGirdImageContainer view = (NineGirdImageContainer) nineGridImageView.getChildAt(pos);
+//                                imageItemView.update(view.getImageView());
+//                            }
+//                        })
+//                        .show(context);
+//            }
+//
+//            @Override
+//            public void onNineGirdItemDeleted(int position, NineGridBean gridBean, NineGirdImageContainer imageContainer) {
+//
+//            }
+//        });
+//        List<NineGridBean> gridList = new ArrayList<>();
+//        for (String url : info.getSpics()) {
+//            gridList.add(new NineGridBean(url));
+//        }
+//        nineGridImageView.setDataList(gridList);
+        NineGridView nineGridView = holder.getView(R.id.nine_grid_view);
+        if (nineGridView == null) {
             return;
         }
-        nineGridImageView.setImageLoader(DiscoverBinder.getImageLoader());
-        nineGridImageView.setOnItemClickListener(new NineGridView.onItemClickListener() {
-            @Override
-            public void onNineGirdAddMoreClick(int dValue) {
 
-            }
-
+        nineGridView.setCallback(new NineGridView.SimpleCallback() {
             @Override
-            public void onNineGirdItemClick(int position, NineGridBean gridBean, NineGirdImageContainer imageContainer) {
+            public void onImageItemClicked(int position, List<String> urls) {
                 new CommonImageViewerDialogFragment2()
                         .setOriginalImageList(info.getPics())
                         .setImageSizeList(info.getSizes())
@@ -351,23 +383,23 @@ public class ChatFragment extends NextUrlFragment<PrivateLetterInfo>
                         .setSourceImageView(new SourceImageViewGet<String>() {
                             @Override
                             public void updateImageView(ImageItemView<String> imageItemView, int pos, boolean isCurrent) {
-                                NineGirdImageContainer view = (NineGirdImageContainer) nineGridImageView.getChildAt(pos);
-                                imageItemView.update(view.getImageView());
+                                imageItemView.update(nineGridView.getImageView(pos));
                             }
                         })
                         .show(context);
             }
-
-            @Override
-            public void onNineGirdItemDeleted(int position, NineGridBean gridBean, NineGirdImageContainer imageContainer) {
-
-            }
         });
-        List<NineGridBean> gridList = new ArrayList<>();
-        for (String url : info.getSpics()) {
-            gridList.add(new NineGridBean(url));
+        nineGridView.setUrls(info.getSpics());
+        BubbleLinearLayout bubbleLinearLayout = holder.getView(R.id.layout_bubble);
+        if (bubbleLinearLayout != null) {
+            ViewGroup.LayoutParams params = bubbleLinearLayout.getLayoutParams();
+            if (info.getSpics().size() > 1) {
+                params.width = ViewGroup.LayoutParams.MATCH_PARENT;
+            } else {
+                params.width = ViewGroup.LayoutParams.WRAP_CONTENT;
+            }
         }
-        nineGridImageView.setDataList(gridList);
+
     }
 
     @Override

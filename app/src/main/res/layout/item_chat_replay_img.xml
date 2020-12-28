@@ -29,6 +29,7 @@
             />
 
         <com.houtrry.bubble.BubbleLinearLayout
+            android:id="@+id/layout_bubble"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
@@ -56,16 +57,12 @@
                 android:textColor="@color/color_text_major"
                 />
 
-            <com.lwkandroid.widget.ninegridview.NineGridView
-                android:id="@+id/gv_img"
-                android:layout_width="wrap_content"
+            <include layout="@layout/layout_nine_grid"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:padding="8dp"
-                app:column_count="3"
-                app:is_edit_mode="false"
-                app:max_num="9"
-                app:sapce_size="4dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginVertical="8dp"
                 />
 
             <TextView
