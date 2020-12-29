@@ -1,9 +1,7 @@
 package com.zpj.shouji.market.api;
 
-import com.zpj.http.core.IHttp;
 import com.zpj.http.parser.html.nodes.Element;
 import com.zpj.shouji.market.R;
-import com.zpj.shouji.market.model.AppInfo;
 import com.zpj.shouji.market.model.GuessAppInfo;
 import com.zpj.shouji.market.model.QuickAppInfo;
 import com.zpj.shouji.market.utils.Callback;
@@ -25,7 +23,7 @@ public class SearchApi {
             return;
         }
         returnDefaultTags(callback);
-        HttpApi.get("http://tt.shouji.com.cn/app/user_app_search_rm_xml.jsp?searchKey=")
+        HttpApi.getXml("http://tt.shouji.com.cn/app/user_app_search_rm_xml.jsp?searchKey=")
                 .onSuccess(data -> {
                     HOT_KEYWORD_LIST.clear();
                     for (Element item : data.select("item")) {
@@ -39,7 +37,7 @@ public class SearchApi {
     }
 
     public static void getGuessApi(Callback<List<GuessAppInfo>> callback) {
-        HttpApi.get("http://tt.shouji.com.cn/appv3/user_app_search_rm_xml.jsp?searchKey=")
+        HttpApi.getXml("http://tt.shouji.com.cn/appv3/user_app_search_rm_xml.jsp?searchKey=")
                 .onSuccess(data -> {
                     List<GuessAppInfo> list = new ArrayList<>();
                     for (Element item : data.select("item").get(1).select("subitem")) {
@@ -52,7 +50,7 @@ public class SearchApi {
     }
 
     public static void getQuickApi(String keyword, Callback<List<QuickAppInfo>> callback) {
-        HttpApi.get("http://tt.shouji.com.cn/androidv4/app_search_quick_xml.jsp?s=" + keyword)
+        HttpApi.getXml("http://tt.shouji.com.cn/androidv4/app_search_quick_xml.jsp?s=" + keyword)
                 .onSuccess(data -> {
                     List<QuickAppInfo> list = new ArrayList<>();
                     for (Element item : data.select("item")) {

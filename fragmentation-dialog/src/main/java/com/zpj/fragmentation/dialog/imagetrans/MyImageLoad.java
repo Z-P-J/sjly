@@ -1,23 +1,11 @@
 package com.zpj.fragmentation.dialog.imagetrans;
 
 import android.content.ContentResolver;
-import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.util.Log;
 import android.widget.ImageView;
 
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.request.target.SimpleTarget;
-import com.bumptech.glide.request.transition.Transition;
-import com.zpj.http.core.IHttp;
-import com.zpj.http.core.ObservableTask;
-import com.zpj.utils.ContextUtils;
-import com.zpj.utils.FileUtils;
-
-import java.io.File;
 import java.util.HashMap;
 import java.util.regex.Pattern;
 

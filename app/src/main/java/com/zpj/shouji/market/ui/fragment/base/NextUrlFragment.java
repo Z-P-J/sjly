@@ -9,7 +9,6 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.zpj.http.core.IHttp;
-import com.zpj.http.exception.UnsupportedMimeTypeException;
 import com.zpj.http.parser.html.nodes.Document;
 import com.zpj.http.parser.html.nodes.Element;
 import com.zpj.http.parser.html.select.Elements;
@@ -66,6 +65,7 @@ public abstract class NextUrlFragment<T> extends RecyclerLayoutFragment<T>
 
     @Override
     public boolean onLoadMore(EasyAdapter.Enabled enabled, int currentPage) {
+        Log.d("NextUrlFragment", "onLoadMore flag=" + flag + " data.isEmpty()=" + data.isEmpty() + " refresh=" + refresh + " nextUrl=" + nextUrl);
         if (TextUtils.isEmpty(nextUrl)) {
             return false;
         }
@@ -79,7 +79,8 @@ public abstract class NextUrlFragment<T> extends RecyclerLayoutFragment<T>
                 return false;
             }
             flag = true;
-            postOnEnterAnimationEnd(this::getData);
+//            postOnEnterAnimationEnd(this::getData);
+            getData();
         } else {
             getData();
         }
@@ -150,8 +151,24 @@ public abstract class NextUrlFragment<T> extends RecyclerLayoutFragment<T>
             }
         }
         refresh = false;
-        if (data.size() == 0 && recyclerLayout.getAdapter().getHeaderView() == null) {
-            recyclerLayout.showEmpty();
+        if (data.size() == 0) {
+            if (recyclerLayout.getAdapter().getHeaderView() == null) {
+                recyclerLayout.showEmpty();
+            } else {
+                View footerView = recyclerLayout.getAdapter().getFooterView();
+                if (footerView != null) {
+                    LinearLayout llContainerProgress = footerView.findViewById(R.id.ll_container_progress);
+                    TextView tvMsg = footerView.findViewById(R.id.tv_msg);
+                    if (llContainerProgress != null) {
+                        llContainerProgress.setVisibility(View.GONE);
+                    }
+                    if (tvMsg != null) {
+                        tvMsg.setVisibility(View.VISIBLE);
+                        tvMsg.setText(R.string.easy_has_no_more);
+                    }
+                }
+                recyclerLayout.showContent();
+            }
         } else {
             recyclerLayout.showContent();
         }
@@ -180,7 +197,7 @@ public abstract class NextUrlFragment<T> extends RecyclerLayoutFragment<T>
 
     protected void getData() {
         Log.d("NextUrlFragment", "getData nextUrl=" + nextUrl);
-        HttpApi.get(nextUrl)
+        HttpApi.getXml(nextUrl)
                 .onSuccess(this)
                 .onError(this)
                 .subscribe();

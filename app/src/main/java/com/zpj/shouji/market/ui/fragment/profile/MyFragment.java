@@ -453,7 +453,7 @@ public class MyFragment extends SkinFragment
         if (v == tvCheckIn) {
             MemberInfo memberInfo = UserManager.getInstance().getMemberInfo();
             if (memberInfo.isCanSigned()) {
-                HttpApi.get("http://tt.shouji.com.cn/app/xml_signed.jsp")
+                HttpApi.getXml("http://tt.shouji.com.cn/app/xml_signed.jsp")
                         .onSuccess(data -> {
                             Log.d("tvCheckIn", "data=" + data);
                             String info = data.selectFirst("info").text();

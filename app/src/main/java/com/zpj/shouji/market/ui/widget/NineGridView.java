@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
-import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.CardView;
 import android.util.AttributeSet;
@@ -15,10 +14,11 @@ import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
-import com.bumptech.glide.request.target.SimpleTarget;
-import com.bumptech.glide.request.transition.Transition;
 import com.zpj.shouji.market.R;
+import com.zpj.shouji.market.glide.GlideUtils;
+import com.zpj.shouji.market.glide.ImageViewDrawableTarget;
 import com.zpj.utils.ScreenUtils;
+import com.zxy.skin.sdk.SkinEngine;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -580,45 +580,29 @@ public class NineGridView extends CardView {
         }
 
         for (int i = 0; i < mUrls.size(); i++) {
-            NineGirdImageContainer imageView = new NineGirdImageContainer(getContext());
-            imageView.setIsDeleteMode(isEditMode);
-            imageView.getImageView().setOnClickListener(v -> {
+            NineGirdImageContainer container = new NineGirdImageContainer(getContext());
+            container.setIsDeleteMode(isEditMode);
+            container.getImageView().setScaleType(ImageView.ScaleType.CENTER_CROP);
+            container.getImageView().setOnClickListener(v -> {
                 if (callback != null) {
-                    callback.onImageItemClicked(indexOfChild(imageView), mUrls);
+                    callback.onImageItemClicked(indexOfChild(container), mUrls);
                 }
             });
-            imageView.setOnClickDeleteListener(() -> {
-                int pos = indexOfChild(imageView);
+            container.setOnClickDeleteListener(() -> {
+                int pos = indexOfChild(container);
                 String url = mUrls.remove(pos);
 //                mImageViews.remove(imageView);
-                removeView(imageView);
+                removeView(container);
                 addEditImageView();
                 if (callback != null) {
                     callback.onImageItemDelete(pos, url);
                 }
             });
-            addView(imageView);
+            addView(container);
             Glide.with(this)
                     .load(mUrls.get(i))
-                    .apply(REQUEST_OPTIONS)
-                    .into(new SimpleTarget<Drawable>() {
-                        @Override
-                        public void onResourceReady(@NonNull Drawable resource, @Nullable Transition<? super Drawable> transition) {
-                            imageView.getImageView().setImageDrawable(resource);
-                            imageView.getImageView().setScaleType(ImageView.ScaleType.CENTER_CROP);
-//                            imageView.setIsDeleteMode(true);
-                        }
-
-                        @Override
-                        public void onLoadFailed(@Nullable Drawable errorDrawable) {
-                            imageView.getImageView().setImageDrawable(errorDrawable);
-                        }
-
-                        @Override
-                        public void onLoadStarted(@Nullable Drawable placeholder) {
-                            imageView.getImageView().setImageDrawable(placeholder);
-                        }
-                    });
+                    .apply(GlideUtils.REQUEST_OPTIONS)
+                    .into(new ImageViewDrawableTarget(container.getImageView()));
         }
 
         setEditMode(isEditMode);
@@ -657,7 +641,9 @@ public class NineGridView extends CardView {
                     this.requestLayout();
                 }
             };
-            addImageView.getImageView().setImageResource(R.drawable.ic_ngv_add_pic);
+            addImageView.getImageView().setImageResource(R.drawable.ic_add_picture);
+//            addImageView.getImageView().setColorFilter();
+            SkinEngine.setTint(addImageView.getImageView(), R.attr.textColorMinor);
             addImageView.getImageView().setScaleType(ImageView.ScaleType.FIT_XY);
             addImageView.setIsDeleteMode(true);
             addImageView.setOnClickListener(new OnClickListener() {

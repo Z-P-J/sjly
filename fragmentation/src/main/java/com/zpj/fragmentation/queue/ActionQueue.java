@@ -26,6 +26,11 @@ public class ActionQueue {
     public void enqueue(final Action action) {
         if (isThrottleBACK(action)) return;
 
+//        if (action.action == Action.ACTION_LOAD && mQueue.isEmpty()) { // && Thread.currentThread() == Looper.getMainLooper().getThread()
+//            RxHandler.post(action::run);
+//            return;
+//        }
+
         if (action.action == Action.ACTION_LOAD && mQueue.isEmpty()
                 && Thread.currentThread() == Looper.getMainLooper().getThread()) {
             action.run();
@@ -39,12 +44,7 @@ public class ActionQueue {
 //            }
 //        });
 
-        RxHandler.post(new io.reactivex.functions.Action() {
-            @Override
-            public void run() throws Exception {
-                enqueueAction(action);
-            }
-        });
+        RxHandler.post(() -> enqueueAction(action));
 
     }
 
@@ -66,12 +66,9 @@ public class ActionQueue {
 //                executeNextAction(action);
 //            }
 //        }, action.delay);
-        RxHandler.post(new io.reactivex.functions.Action() {
-            @Override
-            public void run() throws Exception {
-                action.run();
-                executeNextAction(action);
-            }
+        RxHandler.post(() -> {
+            action.run();
+            executeNextAction(action);
         }, action.delay);
     }
 
@@ -88,12 +85,9 @@ public class ActionQueue {
 //                handleAction();
 //            }
 //        }, action.duration);
-        RxHandler.post(new io.reactivex.functions.Action() {
-            @Override
-            public void run() throws Exception {
-                mQueue.poll();
-                handleAction();
-            }
+        RxHandler.post(() -> {
+            mQueue.poll();
+            handleAction();
         }, action.duration);
     }
 

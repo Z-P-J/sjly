@@ -74,13 +74,6 @@ public class UpdateManagerFragment extends RecyclerLayoutFragment<AppUpdateInfo>
         return true;
     }
 
-//    @Override
-//    protected void initStatusBar() {
-//        if (showToolbar) {
-//            ThemeUtils.initStatusBar(this);
-//        }
-//    }
-
     @Override
     protected void initView(View view, @Nullable Bundle savedInstanceState) {
         super.initView(view, savedInstanceState);
@@ -139,7 +132,6 @@ public class UpdateManagerFragment extends RecyclerLayoutFragment<AppUpdateInfo>
     }
 
     public void onMenuClicked(View view, AppUpdateInfo updateInfo) {
-
         new ArrowMenuDialogFragment()
                 .setOptionMenus(optionMenus)
                 .setOrientation(LinearLayout.HORIZONTAL)

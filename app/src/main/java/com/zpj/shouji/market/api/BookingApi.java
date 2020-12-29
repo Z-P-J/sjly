@@ -22,7 +22,7 @@ public class BookingApi {
 
     }
     public static void latestBookingApi(Callback<List<BookingAppInfo>> callback) {
-        HttpApi.get(LATEST_BOOKING_URL)
+        HttpApi.getXml(LATEST_BOOKING_URL)
                 .onSuccess(doc -> {
                     List<BookingAppInfo> list = new ArrayList<>();
                     for (Element element : doc.select("item")) {
@@ -52,7 +52,7 @@ public class BookingApi {
             return;
         }
         EventBus.showLoading("预约中...");
-        HttpApi.get("http://tt.shouji.com.cn/appv3/app_game_yuyue.jsp?id=" + appInfo.getAppId())
+        HttpApi.getXml("http://tt.shouji.com.cn/appv3/app_game_yuyue.jsp?id=" + appInfo.getAppId())
                 .onSuccess(data -> {
                     String info = data.selectFirst("info").text();
                     if ("success".equals(data.selectFirst("result").text())) {
@@ -74,7 +74,7 @@ public class BookingApi {
 
     public static void cancelBookingApi(BookingAppInfo appInfo, Runnable successRunnable) {
         EventBus.showLoading("取消预约...");
-        HttpApi.get("http://tt.shouji.com.cn/appv3/app_game_yuyue_del.jsp?id=" + appInfo.getAppId())
+        HttpApi.getXml("http://tt.shouji.com.cn/appv3/app_game_yuyue_del.jsp?id=" + appInfo.getAppId())
                 .onSuccess(data -> {
                     if ("success".equals(data.selectFirst("result").text())) {
                         ZToast.success("取消预约成功！");
@@ -95,7 +95,7 @@ public class BookingApi {
     public static void autoDownloadApi(BookingAppInfo appInfo, Runnable successRunnable) {
         if (!appInfo.isAutoDownload()) {
             EventBus.showLoading("开启自动下载...");
-            HttpApi.get("http://tt.shouji.com.cn/appv3/app_game_auto_download.jsp?id=" + appInfo.getAppId())
+            HttpApi.getXml("http://tt.shouji.com.cn/appv3/app_game_auto_download.jsp?id=" + appInfo.getAppId())
                     .onSuccess(data -> {
                         if ("success".equals(data.selectFirst("result").text())) {
                             ZToast.success("该应用上线后将在Wifi环境下自动下载");
@@ -118,7 +118,7 @@ public class BookingApi {
     public static void cancelAutoDownloadApi(BookingAppInfo appInfo, Runnable successRunnable) {
         if (appInfo.isAutoDownload()) {
             EventBus.showLoading("开启自动下载...");
-            HttpApi.get("http://tt.shouji.com.cn/appv3/app_game_auto_download_del.jsp?id=" + appInfo.getAppId())
+            HttpApi.getXml("http://tt.shouji.com.cn/appv3/app_game_auto_download_del.jsp?id=" + appInfo.getAppId())
                     .onSuccess(data -> {
                         if ("success".equals(data.selectFirst("result").text())) {
                             ZToast.success("取消自动下载成功");

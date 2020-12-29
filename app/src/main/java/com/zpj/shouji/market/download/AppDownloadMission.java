@@ -66,7 +66,7 @@ public class AppDownloadMission extends BaseMission<AppDownloadMission> {
                 downloadUrl = String.format("http://tt.shouji.com.cn/wap/down/cmwap/package?package=%s&id=%s&sjly=199", packageName, appId);
             }
             Log.d("AppDownloadMission", "initMission downloadUrl=" + downloadUrl);
-            HttpApi.get(downloadUrl)
+            HttpApi.getXml(downloadUrl)
                     .onSuccess(data -> {
                         Log.d("AppDownloadMission", "data=" + data);
                         url = data.selectFirst("url").text();

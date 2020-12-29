@@ -7,8 +7,8 @@ import android.view.View;
 
 import com.zpj.downloader.ZDownloader;
 import com.zpj.fragmentation.dialog.impl.AlertDialogFragment;
+import com.zpj.http.core.HttpObserver;
 import com.zpj.http.core.IHttp;
-import com.zpj.http.core.ObservableTask;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.constant.AppConfig;
 import com.zpj.shouji.market.utils.EventBus;
@@ -67,7 +67,7 @@ public class SettingFragment extends BaseSettingFragment {
 
         CommonSettingItem itemClearCache = view.findViewById(R.id.item_clear_cache);
         itemClearCache.setOnItemClickListener(this);
-        new ObservableTask<String>(
+        new HttpObserver<String>(
                 emitter -> {
                     emitter.onNext(DataCleanManagerUtils.getTotalCacheSizeStr(context));
                     emitter.onComplete();
@@ -184,7 +184,7 @@ public class SettingFragment extends BaseSettingFragment {
 //                            .setAutoDismiss(false)
                             .setPositiveButton(popup -> {
                                 EventBus.showLoading("清除中...");
-                                new ObservableTask<String>(
+                                new HttpObserver<String>(
                                         emitter -> {
                                             DataCleanManagerUtils.clearAllCache(context);
                                             emitter.onNext(DataCleanManagerUtils.getTotalCacheSizeStr(context));

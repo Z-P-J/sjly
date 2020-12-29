@@ -18,7 +18,6 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.request.target.SimpleTarget;
 import com.bumptech.glide.request.transition.Transition;
 import com.zpj.fragmentation.dialog.imagetrans.ImageItemView;
 import com.zpj.fragmentation.dialog.imagetrans.listener.SourceImageViewGet;
@@ -28,6 +27,7 @@ import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.api.HttpApi;
 import com.zpj.shouji.market.constant.Keys;
 import com.zpj.shouji.market.glide.GlideUtils;
+import com.zpj.shouji.market.glide.ImageViewDrawableTarget;
 import com.zpj.shouji.market.model.AppInfo;
 import com.zpj.shouji.market.model.article.ArticleDetailInfo;
 import com.zpj.shouji.market.model.article.ArticleInfo;
@@ -127,7 +127,7 @@ public class ArticleDetailFragment extends BaseSwipeBackFragment {
     }
 
     private void parseHtml(final String url) {
-        HttpApi.get(url)
+        HttpApi.getXml(url)
                 .onSuccess(data -> {
                     articleDetailInfo = ArticleDetailInfo.parse(url.startsWith("https://soft.shouji.com.cn/") ? "soft" : "game", data);
                     if (isEnterAnimationEnd.get()) {
@@ -248,7 +248,7 @@ public class ArticleDetailFragment extends BaseSwipeBackFragment {
                 Glide.with(context)
                         .load(url)
                         .apply(GlideUtils.REQUEST_OPTIONS)
-                        .into(new SimpleTarget<Drawable>() {
+                        .into(new ImageViewDrawableTarget(ivImage) {
                             @Override
                             public void onResourceReady(@NonNull Drawable resource, @Nullable Transition<? super Drawable> transition) {
                                 int width = resource.getIntrinsicWidth();
@@ -258,8 +258,8 @@ public class ArticleDetailFragment extends BaseSwipeBackFragment {
                                 int scaledH = (height * scaledW) / width;
                                 LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(scaledW, scaledH);
                                 lp.setMargins(margin, margin / 2, margin, margin / 2);
-                                ivImage.setLayoutParams(lp);
-                                ivImage.setImageDrawable(resource);
+                                this.imageView.setLayoutParams(lp);
+                                super.onResourceReady(resource, transition);
                             }
                         });
 

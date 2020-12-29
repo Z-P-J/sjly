@@ -24,11 +24,8 @@ import android.view.WindowManager;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.resource.gif.GifDrawable;
 import com.bumptech.glide.request.target.SimpleTarget;
 import com.bumptech.glide.request.transition.Transition;
-import com.zpj.http.core.IHttp;
-import com.zpj.http.core.ObservableTask;
 import com.zpj.utils.ContextUtils;
 import com.zpj.utils.FileUtils;
 import com.zpj.utils.MathUtils;
@@ -43,8 +40,13 @@ import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.atomic.AtomicInteger;
 
+import io.reactivex.Observable;
 import io.reactivex.ObservableEmitter;
 import io.reactivex.ObservableOnSubscribe;
+import io.reactivex.Observer;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.schedulers.Schedulers;
 
 public class TileBitmapDrawable extends Drawable {
 
@@ -142,8 +144,8 @@ public class TileBitmapDrawable extends Drawable {
             });
             return;
         }
-        new ObservableTask<TileBitmapDrawable>(
-                emitter -> {
+        Observable.create(
+                (ObservableOnSubscribe<TileBitmapDrawable>) emitter -> {
                     BitmapRegionDecoder decoder = BitmapRegionDecoder.newInstance(path, false);
 
                     final float minScale = Math.min(ScreenUtils.getScreenWidth(ContextUtils.getApplicationContext()) / (float) decoder.getWidth(), ScreenUtils.getScreenHeight(ContextUtils.getApplicationContext()) / (float) decoder.getHeight());
@@ -182,21 +184,33 @@ public class TileBitmapDrawable extends Drawable {
                     emitter.onNext(new TileBitmapDrawable(imageView, decoder, screenNail));
                     emitter.onComplete();
                 })
-                .onSuccess(new IHttp.OnSuccessListener<TileBitmapDrawable>() {
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<TileBitmapDrawable>() {
                     @Override
-                    public void onSuccess(TileBitmapDrawable data) throws Exception {
-                        if (listener != null) listener.onLoadFinish(data);
+                    public void onSubscribe(@io.reactivex.annotations.NonNull Disposable d) {
+
                     }
-                })
-                .onError(new IHttp.OnErrorListener() {
+
                     @Override
-                    public void onError(Throwable throwable) {
+                    public void onNext(@io.reactivex.annotations.NonNull TileBitmapDrawable tileBitmapDrawable) {
                         if (listener != null) {
-                            listener.onError(throwable);
+                            listener.onLoadFinish(tileBitmapDrawable);
                         }
                     }
-                })
-                .subscribe();
+
+                    @Override
+                    public void onError(@io.reactivex.annotations.NonNull Throwable e) {
+                        if (listener != null) {
+                            listener.onError(e);
+                        }
+                    }
+
+                    @Override
+                    public void onComplete() {
+
+                    }
+                });
     }
 
     private static Bitmap decodeRegion(BitmapRegionDecoder decoder, Rect screenNailRect, BitmapFactory.Options options, int tryTimes) {

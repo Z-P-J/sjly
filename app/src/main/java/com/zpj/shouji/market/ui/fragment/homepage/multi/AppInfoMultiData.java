@@ -1,6 +1,5 @@
 package com.zpj.shouji.market.ui.fragment.homepage.multi;
 
-import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageView;
 
@@ -10,7 +9,6 @@ import com.zpj.http.parser.html.nodes.Element;
 import com.zpj.http.parser.html.select.Elements;
 import com.zpj.recyclerview.EasyViewHolder;
 import com.zpj.recyclerview.MultiAdapter;
-import com.zpj.recyclerview.MultiData;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.api.HttpApi;
 import com.zpj.shouji.market.api.HttpPreLoader;
@@ -54,7 +52,7 @@ public abstract class AppInfoMultiData extends BaseHeaderMultiData<AppInfo> {
             if (HttpPreLoader.getInstance().hasKey(getKey())) {
                 HttpPreLoader.getInstance().setLoadListener(getKey(), document -> onGetDoc(adapter, document));
             } else {
-                HttpApi.get(getKey().getUrl())
+                HttpApi.getXml(getKey().getUrl())
                         .onSuccess(document -> onGetDoc(adapter, document))
 //                            .onError(new IHttp.OnErrorListener() {
 //                                @Override

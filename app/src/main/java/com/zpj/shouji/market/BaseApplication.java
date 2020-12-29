@@ -16,6 +16,8 @@ import com.maning.librarycrashmonitor.MCrashMonitor;
 import com.raizlabs.android.dbflow.config.FlowManager;
 import com.zpj.blur.ZBlurry;
 import com.zpj.downloader.ZDownloader;
+import com.zpj.http.ZHttp;
+import com.zpj.shouji.market.api.HttpApi;
 import com.zpj.shouji.market.constant.AppConfig;
 import com.zpj.shouji.market.download.AppDownloadMission;
 import com.zpj.shouji.market.download.DownloadNotificationInterceptor;
@@ -54,6 +56,11 @@ public class BaseApplication extends Application {
 //                MCrashMonitor.startCrashShowPage(getContext());
         });
         FlowManager.init(this);
+
+        ZHttp.config()
+                .allowAllSSL(true)
+                .userAgent(HttpApi.USER_AGENT)
+                .init();
 
         ZDownloader.config(this, AppDownloadMission.class)
                 .setUserAgent("Sjly(3.0)")

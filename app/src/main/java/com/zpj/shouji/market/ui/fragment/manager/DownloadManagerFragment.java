@@ -26,8 +26,8 @@ import com.zpj.downloader.ZDownloader;
 import com.zpj.downloader.constant.Error;
 import com.zpj.fragmentation.dialog.impl.AttachListDialogFragment;
 import com.zpj.fragmentation.dialog.impl.CheckDialogFragment;
+import com.zpj.http.core.HttpObserver;
 import com.zpj.http.core.IHttp;
-import com.zpj.http.core.ObservableTask;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.constant.Keys;
 import com.zpj.shouji.market.download.AppDownloadMission;
@@ -150,7 +150,7 @@ public class DownloadManagerFragment extends BaseSwipeBackFragment
     }
 
     private void loadDownloadMissions() {
-        new ObservableTask<>(
+        new HttpObserver<>(
                 emitter -> {
                     downloadTaskList.clear();
                     List<DownloadWrapper> downloadingList = new ArrayList<>();

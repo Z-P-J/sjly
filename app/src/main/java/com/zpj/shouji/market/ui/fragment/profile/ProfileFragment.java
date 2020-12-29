@@ -19,7 +19,7 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.zpj.fragmentation.dialog.impl.AlertDialogFragment;
 import com.zpj.fragmentation.dialog.impl.AttachListDialogFragment;
-import com.zpj.http.core.ObservableTask;
+import com.zpj.http.core.HttpObserver;
 import com.zpj.http.parser.html.nodes.Document;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.api.HttpApi;
@@ -216,7 +216,7 @@ public class ProfileFragment extends StateSwipeBackFragment
 
     private void getMemberInfo() {
         darkStatusBar();
-        ObservableTask<Document> task = TextUtils.isEmpty(userId)
+        HttpObserver<Document> task = TextUtils.isEmpty(userId)
                 ? HttpApi.getMemberInfoByNameApi(userName) : HttpApi.getMemberInfoByIdApi(userId);
         task.onSuccess(element -> {
                     Log.d("onGetUserItem", "element=" + element);

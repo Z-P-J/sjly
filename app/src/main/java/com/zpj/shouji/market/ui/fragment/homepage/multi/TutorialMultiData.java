@@ -17,11 +17,8 @@ import com.zpj.recyclerview.EasyRecyclerView;
 import com.zpj.recyclerview.MultiAdapter;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.api.HttpApi;
-import com.zpj.shouji.market.glide.GlideRequestOptions;
-import com.zpj.shouji.market.model.SubjectInfo;
 import com.zpj.shouji.market.model.article.ArticleInfo;
 import com.zpj.shouji.market.ui.fragment.ArticleDetailFragment;
-import com.zpj.shouji.market.ui.fragment.subject.SubjectDetailFragment;
 
 import java.util.Locale;
 
@@ -91,7 +88,7 @@ public class TutorialMultiData extends RecyclerMultiData<ArticleInfo> {
 
     @Override
     public boolean loadData(MultiAdapter adapter) {
-        HttpApi.get(String.format(Locale.CHINA, "https://%s.shouji.com.cn/newslist/list_%d_1.html", type, index))
+        HttpApi.getXml(String.format(Locale.CHINA, "https://%s.shouji.com.cn/newslist/list_%d_1.html", type, index))
                 .onSuccess(data -> {
                     Elements elements = data.selectFirst("ul.news_list").select("li");
                     list.clear();

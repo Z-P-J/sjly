@@ -2,21 +2,12 @@ package com.zpj.fragmentation.dialog.imagetrans;
 
 import android.graphics.BitmapFactory;
 import android.text.TextUtils;
-import android.util.Log;
 
 import com.bumptech.glide.Glide;
-import com.zpj.http.ZHttp;
-import com.zpj.http.core.Connection;
-import com.zpj.http.core.IHttp;
-import com.zpj.http.core.ObservableTask;
 import com.zpj.utils.ContextUtils;
 import com.zpj.utils.FileUtils;
 
-import java.io.BufferedInputStream;
 import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
 import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -24,11 +15,14 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
-import java.util.concurrent.Executor;
 
+import io.reactivex.Observable;
 import io.reactivex.ObservableEmitter;
 import io.reactivex.ObservableOnSubscribe;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.annotations.NonNull;
 import io.reactivex.disposables.Disposable;
+import io.reactivex.schedulers.Schedulers;
 
 
 /**
@@ -217,80 +211,55 @@ public class OkHttpImageLoad {
             isStarted = true;
             currentState = State.DOWNLOADING;
 
-            disposable = new ObservableTask<File>(
-                    emitter -> {
-                        File file = Glide.with(ContextUtils.getApplicationContext())
-                                .asFile()
+            disposable = Observable.create(
+                    new ObservableOnSubscribe<File>() {
+                        @Override
+                        public void subscribe(@NonNull ObservableEmitter<File> emitter) throws Exception {
+                            File file = Glide.with(ContextUtils.getApplicationContext())
+                                    .asFile()
 //                                .downloadOnly()
-                                .load(url)
-                                .submit()
-                                .get();
-                        String key = generate(url);
-                        String destUrl = getImageCachePath() + "/" + key;
-                        File newFile = new File(destUrl);
-                        FileUtils.copyFileFast(file, newFile);
-                        emitter.onNext(newFile);
-                        emitter.onComplete();
+                                    .load(url)
+                                    .submit()
+                                    .get();
+                            String key = generate(url);
+                            String destUrl = getImageCachePath() + "/" + key;
+                            File newFile = new File(destUrl);
+                            FileUtils.copyFileFast(file, newFile);
+                            emitter.onNext(newFile);
+                            emitter.onComplete();
+                        }
                     })
-                    .onSuccess(data -> {
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(file -> {
                         if (disposable.isDisposed()) {
                             downloadFail(new Exception("Canceled!"));
                             return;
                         }
                         downloadSuccess();
-                    })
-                    .onError(new IHttp.OnErrorListener() {
-                        @Override
-                        public void onError(Throwable throwable) {
-                            downloadFail(throwable);
-                        }
-                    })
-                    .subscribe();
+                    }, this::downloadFail);
 
-//            disposable = ZHttp.get(url)
-//                    .onRedirect(redirectUrl -> true)
-//                    .header("Range", "")
-//                    .ignoreContentType(true)
-//                    .execute()
-//                    .flatMap(new ObservableTask.OnFlatMapListener<Connection.Response, Long>() {
-//                        @Override
-//                        public void onNext(Connection.Response response, ObservableEmitter<Long> emitter) throws Exception {
-//                            Log.d("OkHttpImageLoad", "isDisposed=" + disposable.isDisposed());
-//                            if (disposable.isDisposed()) {
-//                                emitter.onError(new Exception("Canceled!"));
-//                                emitter.onComplete();
-//                                return;
-//                            }
-//
-//                            Log.d("OkHttpImageLoad", "statusCode=" + response.statusCode());
-//                            if (response.statusCode() / 100 != 2) {
-//                                emitter.onError(new Exception("request failed , reponse's code is : " + response.statusCode()));
-//                                emitter.onComplete();
-//                                return;
-//                            }
-//
-////                            String contentLength = response.header("Content-Length");
-////                            if (contentLength != null) {
-////                                total = Long.parseLong(contentLength);
-////                            }
-////
-////                            InputStream is = response.bodyStream();
-////
-////                            if (total <= 0) {
-////                                total = is.available();
-////                            }
-//
-//
-//                            saveFile(response);
-//                            emitter.onNext(total);
-//                            emitter.onComplete();
-//                        }
+//            disposable = new ObservableTask<File>(
+//                    emitter -> {
+//                        File file = Glide.with(ContextUtils.getApplicationContext())
+//                                .asFile()
+////                                .downloadOnly()
+//                                .load(url)
+//                                .submit()
+//                                .get();
+//                        String key = generate(url);
+//                        String destUrl = getImageCachePath() + "/" + key;
+//                        File newFile = new File(destUrl);
+//                        FileUtils.copyFileFast(file, newFile);
+//                        emitter.onNext(newFile);
+//                        emitter.onComplete();
 //                    })
-//                    .onSuccess(new IHttp.OnSuccessListener<Long>() {
-//                        @Override
-//                        public void onSuccess(Long data) throws Exception {
-//                            downloadSuccess();
+//                    .onSuccess(data -> {
+//                        if (disposable.isDisposed()) {
+//                            downloadFail(new Exception("Canceled!"));
+//                            return;
 //                        }
+//                        downloadSuccess();
 //                    })
 //                    .onError(new IHttp.OnErrorListener() {
 //                        @Override

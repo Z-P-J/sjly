@@ -4,14 +4,13 @@ import android.util.Log;
 
 import com.bumptech.glide.Glide;
 import com.zpj.http.ZHttp;
-import com.zpj.http.core.Connection;
 import com.zpj.http.core.HttpKeyVal;
+import com.zpj.http.core.HttpObserver;
 import com.zpj.http.core.IHttp;
-import com.zpj.http.core.ObservableTask;
 import com.zpj.http.parser.html.nodes.Document;
-import com.zpj.shouji.market.utils.EventBus;
 import com.zpj.shouji.market.manager.UserManager;
 import com.zpj.shouji.market.model.InstalledAppInfo;
+import com.zpj.shouji.market.utils.EventBus;
 import com.zpj.toast.ZToast;
 import com.zpj.utils.ContextUtils;
 import com.zpj.utils.DeviceUtils;
@@ -32,9 +31,9 @@ public class CollectionApi {
     public static void shareCollectionApi(String title, String content, List<InstalledAppInfo> list, String tags, boolean isPrivate, Runnable successRunnable, IHttp.OnStreamWriteListener listener) {
         Log.d("shareCollectionApi", "title=" + title + "  content=" + content + " tag=" + tags);
         EventBus.showLoading("分享应用集...");
-        new ObservableTask<>(
-                (ObservableOnSubscribe<List<Connection.KeyVal>>) emitter -> {
-                    List<Connection.KeyVal> dataList = new ArrayList<>();
+        new HttpObserver<>(
+                (ObservableOnSubscribe<List<IHttp.KeyVal>>) emitter -> {
+                    List<IHttp.KeyVal> dataList = new ArrayList<>();
                     for (int i = 0; i < list.size(); i++) {
                         InstalledAppInfo info = list.get(i);
                         dataList.add(HttpKeyVal.create("apn" + i, info.getName()));
@@ -45,15 +44,15 @@ public class CollectionApi {
                     for (int i = 0; i < list.size(); i++) {
                         InstalledAppInfo info = list.get(i);
                         File file = Glide.with(ContextUtils.getApplicationContext()).asFile().load(info).submit().get();
-                        Connection.KeyVal keyVal = HttpKeyVal.create("app" + i, "app" + i + ".png", new FileInputStream(file), listener);
+                        IHttp.KeyVal keyVal = HttpKeyVal.create("app" + i, "app" + i + ".png", new FileInputStream(file), listener);
                         dataList.add(keyVal);
                     }
                     emitter.onNext(dataList);
                     emitter.onComplete();
                 })
-                .onNext(new ObservableTask.OnNextListener<List<Connection.KeyVal>, Document>() {
+                .onNext(new HttpObserver.OnNextListener<List<IHttp.KeyVal>, Document>() {
                     @Override
-                    public ObservableTask<Document> onNext(List<Connection.KeyVal> data) throws Exception {
+                    public HttpObserver<Document> onNext(List<IHttp.KeyVal> data) throws Exception {
                         return ZHttp.post(
                                 String.format("http://tt.shouji.com.cn/app/square_disscuss_post_xml_v6.jsp?versioncode=%s&jsessionid=%s",
                                         "199", UserManager.getInstance().getSessionId()))
@@ -66,14 +65,8 @@ public class CollectionApi {
                                 .data("content", content)
                                 .data("title", title)
                                 .data(data)
-                                .validateTLSCertificates(false)
-                                .userAgent(HttpApi.USER_AGENT)
-                                .onRedirect(redirectUrl -> {
-                                    Log.d("connect", "onRedirect redirectUrl=" + redirectUrl);
-                                    return true;
-                                })
-                                .cookie(UserManager.getInstance().getCookie())
-                                .ignoreContentType(true)
+                                .setCookie(UserManager.getInstance().getCookie())
+//                                .ignoreContentType(true)
                                 .toXml();
                     }
                 })

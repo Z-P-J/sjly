@@ -6,16 +6,16 @@ import android.util.Log;
 
 import com.bumptech.glide.Glide;
 import com.zpj.http.ZHttp;
-import com.zpj.http.core.Connection;
+import com.zpj.http.core.HttpConfig;
 import com.zpj.http.core.HttpKeyVal;
+import com.zpj.http.core.HttpObserver;
 import com.zpj.http.core.IHttp;
-import com.zpj.http.core.ObservableTask;
 import com.zpj.http.parser.html.nodes.Document;
 import com.zpj.matisse.entity.Item;
 import com.zpj.shouji.market.constant.AppConfig;
-import com.zpj.shouji.market.utils.EventBus;
 import com.zpj.shouji.market.manager.UserManager;
 import com.zpj.shouji.market.model.InstalledAppInfo;
+import com.zpj.shouji.market.utils.EventBus;
 import com.zpj.shouji.market.utils.PictureUtil;
 import com.zpj.toast.ZToast;
 import com.zpj.utils.AppUtils;
@@ -33,30 +33,30 @@ import io.reactivex.ObservableOnSubscribe;
 
 public class CommentApi {
 
-    public static ObservableTask<Document> discussCommentApi(String replyId, String content) {
-        return HttpApi.openConnection("http://tt.shouji.com.cn/app/square_disscuss_text_post_xml.jsp", Connection.Method.POST)
+    public static HttpObserver<Document> discussCommentApi(String replyId, String content) {
+        return HttpApi.post("http://tt.shouji.com.cn/app/square_disscuss_text_post_xml.jsp")
                 .data("replyid", replyId)
                 .data("phone", DeviceUtils.getModel())
                 .data("content", content)
-                .toHtml();
+                .toXml();
     }
 
     public static void discussCommentWithFileApi(Context context, String replyId, String content, List<Item> imgList, Runnable successRunnable, IHttp.OnStreamWriteListener listener) {
         EventBus.showLoading("评论中...");
-        new ObservableTask<>(
-                (ObservableOnSubscribe<List<Connection.KeyVal>>) emitter -> {
-                    List<Connection.KeyVal> dataList = new ArrayList<>();
+        new HttpObserver<>(
+                (ObservableOnSubscribe<List<IHttp.KeyVal>>) emitter -> {
+                    List<IHttp.KeyVal> dataList = new ArrayList<>();
                     for (int i = 0; i < imgList.size(); i++) {
                         Item img = imgList.get(i);
-                        Connection.KeyVal keyVal = HttpKeyVal.create("image_" + i, "image_" + i + ".png", new FileInputStream(img.getFile(context)), listener);
+                        IHttp.KeyVal keyVal = HttpKeyVal.create("image_" + i, "image_" + i + ".png", new FileInputStream(img.getFile(context)), listener);
                         dataList.add(keyVal);
                     }
                     emitter.onNext(dataList);
                     emitter.onComplete();
                 })
-                .onNext(new ObservableTask.OnNextListener<List<Connection.KeyVal>, Document>() {
+                .onNext(new HttpObserver.OnNextListener<List<IHttp.KeyVal>, Document>() {
                     @Override
-                    public ObservableTask<Document> onNext(List<Connection.KeyVal> dataList) throws Exception {
+                    public HttpObserver<Document> onNext(List<IHttp.KeyVal> dataList) throws Exception {
                         return ZHttp.post(
                                 String.format("http://tt.shouji.com.cn/app/square_disscuss_post_xml_v6.jsp?versioncode=%s&jsessionid=%s",
                                         "199", UserManager.getInstance().getSessionId()))
@@ -65,14 +65,8 @@ public class CommentApi {
                                 .data("replyid", replyId)
                                 .data("content", content)
                                 .data(dataList)
-                                .validateTLSCertificates(false)
-                                .userAgent(HttpApi.USER_AGENT)
-                                .onRedirect(redirectUrl -> {
-                                    Log.d("connect", "onRedirect redirectUrl=" + redirectUrl);
-                                    return true;
-                                })
-                                .cookie(UserManager.getInstance().getCookie())
-                                .ignoreContentType(true)
+                                .setCookie(UserManager.getInstance().getCookie())
+//                                .ignoreContentType(true)
                                 .toXml();
                     }
                 })
@@ -180,36 +174,36 @@ public class CommentApi {
 
     private static void appCommentWithFileApi(Context context, String msg, String content, String replyId, String appId, String appType, String appPackage, List<Item> imgList, Runnable successRunnable, IHttp.OnStreamWriteListener listener) {
         EventBus.showLoading(msg);
-        ObservableTask<Document> task;
+        HttpObserver<Document> task;
         boolean compress = AppConfig.isCompressUploadImage();
         if (imgList == null || imgList.isEmpty()) {
-            task = HttpApi.openConnection("http://tt.shouji.com.cn/app/comment_xml_v5.jsp", Connection.Method.POST)
+            task = HttpApi.post("http://tt.shouji.com.cn/app/comment_xml_v5.jsp")
                     .data("replyid", replyId)
                     .data("phone", DeviceUtils.getModel())
                     .data("content", content)
                     .data("appid", appId)
                     .data("apptype", appType)
                     .data("package", appPackage)
-                    .toHtml();
+                    .toXml();
         } else {
-            task = new ObservableTask<>(
-                    (ObservableOnSubscribe<List<Connection.KeyVal>>) emitter -> {
-                        List<Connection.KeyVal> dataList = new ArrayList<>();
+            task = new HttpObserver<>(
+                    (ObservableOnSubscribe<List<IHttp.KeyVal>>) emitter -> {
+                        List<IHttp.KeyVal> dataList = new ArrayList<>();
                         for (int i = 0; i < imgList.size(); i++) {
                             Item img = imgList.get(i);
                             File file = img.getFile(context);
                             if (compress && !file.getName().equalsIgnoreCase(".gif")) {
                                 file = PictureUtil.compressImage(context, file);
                             }
-                            Connection.KeyVal keyVal = HttpKeyVal.create("image_" + i, "image_" + i + ".png", new FileInputStream(file), listener);
+                            IHttp.KeyVal keyVal = HttpKeyVal.create("image_" + i, "image_" + i + ".png", new FileInputStream(file), listener);
                             dataList.add(keyVal);
                         }
                         emitter.onNext(dataList);
                         emitter.onComplete();
                     })
-                    .onNext(new ObservableTask.OnNextListener<List<Connection.KeyVal>, Document>() {
+                    .onNext(new HttpObserver.OnNextListener<List<IHttp.KeyVal>, Document>() {
                         @Override
-                        public ObservableTask<Document> onNext(List<Connection.KeyVal> dataList) throws Exception {
+                        public HttpObserver<Document> onNext(List<IHttp.KeyVal> dataList) throws Exception {
                             return ZHttp.post(
                                     String.format("http://tt.shouji.com.cn/app/comment_xml_v5_file.jsp?versioncode=%s&jsessionid=%s",
                                             "199", UserManager.getInstance().getSessionId()))
@@ -220,16 +214,8 @@ public class CommentApi {
                                     .data("appid", appId)
                                     .data("package", appPackage)
                                     .data("content", content)
-
                                     .data(dataList)
-                                    .validateTLSCertificates(false)
-                                    .userAgent(HttpApi.USER_AGENT)
-                                    .onRedirect(redirectUrl -> {
-                                        Log.d("connect", "onRedirect redirectUrl=" + redirectUrl);
-                                        return true;
-                                    })
-                                    .cookie(UserManager.getInstance().getCookie())
-                                    .ignoreContentType(true)
+                                    .setCookie(UserManager.getInstance().getCookie())
                                     .toXml();
                         }
                     });
@@ -255,7 +241,7 @@ public class CommentApi {
     public static void discussCommentWithFileApi(Context context, String content, String replyId, InstalledAppInfo appInfo, List<Item> imgList, String tags, boolean isPrivate, Runnable successRunnable, IHttp.OnStreamWriteListener listener) {
         Log.d("publishThemeApi", "content=" + content + " tag=" + tags);
         EventBus.showLoading("评论中...");
-        ObservableTask<Document> task;
+        HttpObserver<Document> task;
         if (appInfo == null && imgList.isEmpty()) {
             task = getConnection(
                     String.format("http://tt.shouji.com.cn/app/square_disscuss_text_post_xml.jsp?jsessionid=%s", UserManager.getInstance().getSessionId()),
@@ -265,9 +251,9 @@ public class CommentApi {
                     .data("content", content)
                     .toXml();
         } else {
-            task = new ObservableTask<>(
-                    (ObservableOnSubscribe<List<Connection.KeyVal>>) emitter -> {
-                        List<Connection.KeyVal> dataList = new ArrayList<>();
+            task = new HttpObserver<>(
+                    (ObservableOnSubscribe<List<IHttp.KeyVal>>) emitter -> {
+                        List<IHttp.KeyVal> dataList = new ArrayList<>();
                         if (appInfo != null) {
                             dataList.add(HttpKeyVal.create("appname", appInfo.getName()));
                             dataList.add(HttpKeyVal.create("package", appInfo.getPackageName()));
@@ -296,7 +282,7 @@ public class CommentApi {
                         if (appInfo != null) {
                             File file = Glide.with(ContextUtils.getApplicationContext()).asFile().load(appInfo).submit().get();
                             dataList.add(HttpKeyVal.create("md5", CipherUtils.md5(new FileInputStream(file))));
-                            Connection.KeyVal keyVal = HttpKeyVal.create("icon", "icon.png", new FileInputStream(file), listener);
+                            IHttp.KeyVal keyVal = HttpKeyVal.create("icon", "icon.png", new FileInputStream(file), listener);
                             dataList.add(keyVal);
 
                             dataList.add(
@@ -310,15 +296,15 @@ public class CommentApi {
                         }
                         for (int i = 0; i < imgList.size(); i++) {
                             Item img = imgList.get(i);
-                            Connection.KeyVal keyVal = HttpKeyVal.create("image_" + i, "image_" + i + ".png", new FileInputStream(img.getFile(context)), listener);
+                            IHttp.KeyVal keyVal = HttpKeyVal.create("image_" + i, "image_" + i + ".png", new FileInputStream(img.getFile(context)), listener);
                             dataList.add(keyVal);
                         }
                         emitter.onNext(dataList);
                         emitter.onComplete();
                     })
-                    .onNext(new ObservableTask.OnNextListener<List<Connection.KeyVal>, Document>() {
+                    .onNext(new HttpObserver.OnNextListener<List<IHttp.KeyVal>, Document>() {
                         @Override
-                        public ObservableTask<Document> onNext(List<Connection.KeyVal> data) throws Exception {
+                        public HttpObserver<Document> onNext(List<IHttp.KeyVal> data) throws Exception {
                             Log.d("publishThemeApi", "dataList=" + data);
                             return getConnection(String.format("http://tt.shouji.com.cn/app/square_disscuss_post_xml_v6.jsp?versioncode=%s&jsessionid=%s",
                                     "199", UserManager.getInstance().getSessionId()), replyId, isPrivate, tags)
@@ -346,7 +332,7 @@ public class CommentApi {
                 .subscribe();
     }
 
-    private static Connection getConnection(String url, String replyId, boolean isPrivate, String tags) {
+    private static HttpConfig getConnection(String url, String replyId, boolean isPrivate, String tags) {
         return ZHttp.post(url)
                 .data("tagurl", "http://tt.shouji.com.cn/app/faxian.jsp?index=faxian")
                 .data("sn", UserManager.getInstance().getSn())
@@ -354,14 +340,7 @@ public class CommentApi {
                 .data("replyid", replyId)
                 .data("gkbz", isPrivate ? "0" : "1")
                 .data("tag", tags)
-                .validateTLSCertificates(false)
-                .userAgent(HttpApi.USER_AGENT)
-                .onRedirect(redirectUrl -> {
-                    Log.d("connect", "onRedirect redirectUrl=" + redirectUrl);
-                    return true;
-                })
-                .cookie(UserManager.getInstance().getCookie())
-                .ignoreContentType(true);
+                .setCookie(UserManager.getInstance().getCookie());
     }
 
 }

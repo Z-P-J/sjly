@@ -17,9 +17,9 @@ import com.zpj.downloader.constant.ResponseCode;
 import com.zpj.downloader.util.FileUtils;
 import com.zpj.downloader.util.FormatUtils;
 import com.zpj.http.ZHttp;
-import com.zpj.http.core.Connection;
+import com.zpj.http.core.HttpHeader;
+import com.zpj.http.core.HttpObserver;
 import com.zpj.http.core.IHttp;
-import com.zpj.http.core.ObservableTask;
 
 import java.io.File;
 import java.lang.ref.WeakReference;
@@ -186,23 +186,24 @@ public class BaseMission<T extends BaseMission<T>> extends BaseConfig<T> {
         ZHttp.head(url)
                 .proxy(Proxy.NO_PROXY)
                 .userAgent(getUserAgent())
-                .cookie(getCookie())
+                .setCookie(getCookie())
                 .accept("*/*")
                 .referer(url)
                 .headers(getHeaders())
 //                .connection("close")
-                .range("bytes=0-")
+//                .range("bytes=0-")
                 .header("Pragma", "no-cache")
                 .header("Cache-Control", "no-cache")
                 .acceptEncoding("identity")
-                .timeout(getConnectOutTime())
+                .connectTimeout(getConnectOutTime())
+                .readTimeout(getReadOutTime())
                 .ignoreContentType(true)
                 .ignoreHttpErrors(false)
                 .maxBodySize(0)
                 .execute()
-                .onNext(new ObservableTask.OnNextListener<Connection.Response, Connection.Response>() {
+                .onNext(new HttpObserver.OnNextListener<IHttp.Response, IHttp.Response>() {
                     @Override
-                    public ObservableTask<Connection.Response> onNext(Connection.Response res) {
+                    public HttpObserver<IHttp.Response> onNext(IHttp.Response res) {
                         if (handleResponse(res, BaseMission.this)) {
                             Log.d(TAG, "handleResponse--111");
                             return null;
@@ -211,26 +212,28 @@ public class BaseMission<T extends BaseMission<T>> extends BaseConfig<T> {
                         return ZHttp.get(url)
                                 .proxy(Proxy.NO_PROXY)
                                 .userAgent(getUserAgent())
-                                .cookie(getCookie())
-                                .accept("*/*")
+                                .setCookie(getCookie())
+//                                .accept("*/*")
                                 .referer(url)
-                                .range("bytes=0-")
+//                                .range("bytes=0-")
+                                .header(HttpHeader.RANGE, "bytes=0-")
                                 .header("Pragma", "no-cache")
                                 .header("Cache-Control", "no-cache")
                                 .header("Access-Control-Expose-Headers", "Content-Disposition")
                                 .acceptEncoding("identity")
                                 .headers(getHeaders())
 //                                .connection("close")
-                                .timeout(getConnectOutTime())
+                                .connectTimeout(getConnectOutTime())
+                                .readTimeout(getReadOutTime())
                                 .ignoreContentType(true)
                                 .ignoreHttpErrors(false)
                                 .maxBodySize(0)
                                 .execute();
                     }
                 })
-                .onSuccess(new IHttp.OnSuccessListener<Connection.Response>() {
+                .onSuccess(new IHttp.OnSuccessListener<IHttp.Response>() {
                     @Override
-                    public void onSuccess(Connection.Response res) throws Exception {
+                    public void onSuccess(IHttp.Response res) throws Exception {
                         if (handleResponse(res, BaseMission.this)) {
                             Log.d(TAG, "handleResponse--222");
                             return;
@@ -1020,9 +1023,9 @@ public class BaseMission<T extends BaseMission<T>> extends BaseConfig<T> {
         finished.add(block);
     }
 
-    private boolean handleResponse(Connection.Response response, BaseMission mission) {
+    private boolean handleResponse(IHttp.Response response, BaseMission mission) {
         Log.d("statusCode11111111", "       " + response.statusCode());
-        Log.d("response.headers()", "1111" + response.headers());
+//        Log.d("response.headers()", "1111" + response.headers());
         if (TextUtils.isEmpty(mission.name)) {
             mission.name = getMissionNameFromResponse(response);
             Log.d("mission.name", "mission.name333=" + mission.name);
@@ -1051,7 +1054,7 @@ public class BaseMission<T extends BaseMission<T>> extends BaseConfig<T> {
         return false;
     }
 
-    private String getMissionNameFromResponse(Connection.Response response) {
+    private String getMissionNameFromResponse(IHttp.Response response) {
         String contentDisposition = response.header("Content-Disposition");
         Log.d("contentDisposition", "contentDisposition=" + contentDisposition);
         if (contentDisposition != null) {

@@ -6,14 +6,14 @@ import android.util.Base64;
 import android.util.Log;
 
 import com.zpj.fragmentation.dialog.impl.AlertDialogFragment;
-import com.zpj.http.ZHttp;
-import com.zpj.http.core.Connection;
+import com.zpj.http.core.HttpHeader;
 import com.zpj.http.core.IHttp;
+import com.zpj.http.parser.DocumentParser;
 import com.zpj.http.parser.html.nodes.Document;
 import com.zpj.shouji.market.api.HttpApi;
-import com.zpj.shouji.market.utils.EventBus;
 import com.zpj.shouji.market.model.MemberInfo;
 import com.zpj.shouji.market.model.MessageInfo;
+import com.zpj.shouji.market.utils.EventBus;
 import com.zpj.shouji.market.utils.PictureUtil;
 import com.zpj.toast.ZToast;
 import com.zpj.utils.DeviceUtils;
@@ -21,7 +21,6 @@ import com.zpj.utils.PrefsHelper;
 
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
-import java.util.Map;
 
 public final class UserManager {
 
@@ -83,7 +82,7 @@ public final class UserManager {
 //                .subscribe();
         String info = getUserInfo();
         if (!TextUtils.isEmpty(info)) {
-            Document doc = ZHttp.parse(info);
+            Document doc = DocumentParser.parse(info);
             if ("登录成功".equals(doc.selectFirst("info").text())
                     && !TextUtils.isEmpty(doc.selectFirst("jsession").text())) {
                 memberInfo = MemberInfo.from(doc);
@@ -233,25 +232,27 @@ public final class UserManager {
     private void signIn() {
         String sessionId = getSessionId();
         Log.d(getClass().getName(), "jsessionid=" + sessionId);
-        HttpApi.openConnection("http://tt.shouji.com.cn/appv3/xml_login_v4.jsp", Connection.Method.GET)
+        HttpApi.get("http://tt.shouji.com.cn/appv3/xml_login_v4.jsp")
                 .data("jsessionid", sessionId)
                 .data("s", "12345678910")
                 .data("stime", "" + System.currentTimeMillis())
                 .data("setupid", "sjly3.1")
-                .cookie("")
+//                .cookie("")
                 .execute()
                 .onSuccess(response -> {
-                    for (Map.Entry<String, String> entry : response.cookies().entrySet()) {
-                        Log.d("signIn cookies", entry.getKey() + " = " + entry.getValue());
-                    }
-                    for (Map.Entry<String, String> entry : response.headers().entrySet()) {
-                        Log.d("signIn headers", entry.getKey() + " = " + entry.getValue());
-                    }
-                    String cookie = response.cookieStr();
+//                    for (Map.Entry<String, String> entry : response.cookies().entrySet()) {
+//                        Log.d("signIn cookies", entry.getKey() + " = " + entry.getValue());
+//                    }
+//                    for (Map.Entry<String, String> entry : response.headers().entrySet()) {
+//                        Log.d("signIn headers", entry.getKey() + " = " + entry.getValue());
+//                    }
+//                    String cookie = response.cookieStr();
+                    String cookie = response.header(HttpHeader.SET_COOKIE);
                     if (!TextUtils.isEmpty(cookie)) {
                         setCookie(cookie);
                     }
-                    onSignIn(response.parse());
+
+                    onSignIn(DocumentParser.parse(response.body()));
                 })
                 .onError(throwable -> ZToast.error(throwable.getMessage()))
                 .subscribe();
@@ -259,7 +260,7 @@ public final class UserManager {
 
     public void signIn(String userName, String password) {
         ZToast.normal("isLogin=" + isLogin());
-        HttpApi.openConnection("http://tt.shouji.com.cn/appv3/xml_login_v4.jsp", Connection.Method.POST)
+        HttpApi.post("http://tt.shouji.com.cn/appv3/xml_login_v4.jsp")
                 .data("openid", "")
                 .data("s", "12345678910")
                 .data("stime", "" + System.currentTimeMillis())
@@ -272,20 +273,27 @@ public final class UserManager {
                 .data("n", "")
                 .data("jsessionid", "")
                 .execute()
-                .onSuccess(new IHttp.OnSuccessListener<Connection.Response>() {
+                .onSuccess(new IHttp.OnSuccessListener<IHttp.Response>() {
                     @Override
-                    public void onSuccess(Connection.Response response) throws Exception {
-                        for (Map.Entry<String, String> entry : response.cookies().entrySet()) {
-                            Log.d("signIn cookies", entry.getKey() + " = " + entry.getValue());
-                        }
-                        for (Map.Entry<String, String> entry : response.headers().entrySet()) {
-                            Log.d("signIn headers", entry.getKey() + " = " + entry.getValue());
-                        }
-                        String cookie = response.cookieStr();
+                    public void onSuccess(IHttp.Response response) throws Exception {
+//                        for (Map.Entry<String, String> entry : response.cookies().entrySet()) {
+//                            Log.d("signIn cookies", entry.getKey() + " = " + entry.getValue());
+//                        }
+//                        for (Map.Entry<String, String> entry : response.headers().entrySet()) {
+//                            Log.d("signIn headers", entry.getKey() + " = " + entry.getValue());
+//                        }
+//                        String cookie = response.cookieStr();
+//                        if (!TextUtils.isEmpty(cookie)) {
+//                            setCookie(cookie);
+//                        }
+//                        onSignIn(response.parse());
+
+                        String cookie = response.header(HttpHeader.SET_COOKIE);
                         if (!TextUtils.isEmpty(cookie)) {
                             setCookie(cookie);
                         }
-                        onSignIn(response.parse());
+
+                        onSignIn(DocumentParser.parse(response.body()));
                     }
                 })
                 .onError(throwable -> onSignInFailed(throwable.getMessage()))
@@ -322,7 +330,7 @@ public final class UserManager {
     }
 
     public void signUp(String account, String password, String email) {
-        HttpApi.openConnection("http://tt.shouji.com.cn/app/xml_register_v4.jsp?", Connection.Method.POST)
+        HttpApi.post("http://tt.shouji.com.cn/app/xml_register_v4.jsp?")
                 .data("m", account)
                 .data("p", password)
                 .data("MemberEmail", email)
@@ -333,12 +341,16 @@ public final class UserManager {
                 .data("s", "12345678910")
                 .execute()
                 .onSuccess(response -> {
-                    for (Map.Entry<String, String> entry : response.cookies().entrySet()) {
-                        Log.d("SignInLayout", entry.getKey() + " = " + entry.getValue());
-                    }
-                    String cookie = response.cookieStr();
+//                    for (Map.Entry<String, String> entry : response.cookies().entrySet()) {
+//                        Log.d("SignInLayout", entry.getKey() + " = " + entry.getValue());
+//                    }
 
-                    Document doc = response.parse();
+                    String cookie = response.header(HttpHeader.SET_COOKIE);
+
+//                    String cookie = response.cookieStr();
+
+//                    Document doc = response.parse();
+                    Document doc = DocumentParser.parse(response.body());
                     if ("failed".equals(doc.selectFirst("result").text())) {
                         String info = doc.selectFirst("info").text();
                         onSignUpFailed(info);

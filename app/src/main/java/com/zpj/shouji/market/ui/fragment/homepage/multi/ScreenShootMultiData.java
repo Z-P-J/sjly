@@ -12,7 +12,6 @@ import android.view.View;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.request.target.SimpleTarget;
 import com.bumptech.glide.request.transition.Transition;
 import com.yanyusong.y_divideritemdecoration.Y_Divider;
 import com.yanyusong.y_divideritemdecoration.Y_DividerBuilder;
@@ -26,6 +25,7 @@ import com.zpj.recyclerview.MultiAdapter;
 import com.zpj.recyclerview.MultiData;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.glide.GlideRequestOptions;
+import com.zpj.shouji.market.glide.ImageViewDrawableTarget;
 import com.zpj.shouji.market.ui.fragment.dialog.CommonImageViewerDialogFragment2;
 import com.zpj.utils.ScreenUtils;
 
@@ -95,7 +95,8 @@ public class ScreenShootMultiData extends RecyclerMultiData<String> {
                                     .get()
                                     .placeholder(R.drawable.bga_pp_ic_holder_light)
                                     .error(R.drawable.bga_pp_ic_holder_light))
-                            .into(new SimpleTarget<Drawable>() {
+                            .into(new ImageViewDrawableTarget(ivImg) {
+
                                 @Override
                                 public void onResourceReady(@NonNull Drawable resource, @Nullable Transition<? super Drawable> transition) {
                                     int width = resource.getIntrinsicWidth();
@@ -109,21 +110,23 @@ public class ScreenShootMultiData extends RecyclerMultiData<String> {
                                     } else {
                                         params.width = (int) (params.height / ratio);
                                     }
-                                    ivImg.setImageDrawable(resource);
+                                    super.onResourceReady(resource, transition);
                                 }
 
                                 @Override
                                 public void onLoadStarted(@Nullable Drawable placeholder) {
-                                    super.onLoadStarted(placeholder);
                                     RecyclerView.LayoutParams params = (RecyclerView.LayoutParams) itemView.getLayoutParams();
                                     params.height = (int) (screenWidth / 2f);
                                     params.width = (int) (params.height / ratio);
-                                    ivImg.setImageDrawable(placeholder);
+                                    super.onLoadStarted(placeholder);
                                 }
 
                                 @Override
                                 public void onLoadFailed(@Nullable Drawable errorDrawable) {
-                                    this.onLoadStarted(errorDrawable);
+                                    RecyclerView.LayoutParams params = (RecyclerView.LayoutParams) itemView.getLayoutParams();
+                                    params.height = (int) (screenWidth / 2f);
+                                    params.width = (int) (params.height / ratio);
+                                    super.onLoadFailed(errorDrawable);
                                 }
                             });
 

@@ -3,6 +3,7 @@ package com.zxy.skin.sdk;
 
 import android.util.ArrayMap;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.zxy.skin.sdk.applicator.SkinApplicatorManager;
@@ -113,6 +114,10 @@ public class SkinEngine {
      */
     public static void setTextColor(TextView view, int textColorAttrId) {
         applyViewAttr(view, "textColor", textColorAttrId);
+    }
+
+    public static void setTint(ImageView view, int tintColorAttrId) {
+        applyViewAttr(view, "tint", tintColorAttrId);
     }
 
 

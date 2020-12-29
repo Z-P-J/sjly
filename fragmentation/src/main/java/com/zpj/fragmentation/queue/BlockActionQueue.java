@@ -2,6 +2,7 @@ package com.zpj.fragmentation.queue;
 
 import android.os.Handler;
 import android.os.Looper;
+import android.util.Log;
 
 import com.zpj.fragmentation.ISupportFragment;
 import com.zpj.fragmentation.SupportHelper;
@@ -17,15 +18,11 @@ import java.util.concurrent.atomic.AtomicBoolean;
  * Modified by Z-P-J
  */
 public class BlockActionQueue {
+
+    private static final String TAG = "BlockActionQueue";
+
     private final Queue<Action> mQueue = new LinkedList<>();
-//    private final Handler mMainHandler;
-
-//    private boolean start;
     private final AtomicBoolean start = new AtomicBoolean(false);
-
-//    public BlockActionQueue(Handler mainHandler) {
-//        this.mMainHandler = mainHandler;
-//    }
 
     public boolean isStart() {
         return start.get();
@@ -73,58 +70,51 @@ public class BlockActionQueue {
             action.run();
             return;
         }
-
-//        mMainHandler.post(new Runnable() {
-//            @Override
-//            public void run() {
-//                enqueueAction(action);
-//            }
-//        });
-        RxHandler.post(() -> enqueueAction(action));
+        RxHandler.post(() -> {
+//            enqueueAction(action);
+            mQueue.add(action);
+            Log.d(TAG, "size=" + mQueue.size());
+            if (mQueue.size() == 1) {
+                handleAction();
+            }
+        });
     }
 
-    private void enqueueAction(Action action) {
-        mQueue.add(action);
-        if (mQueue.size() == 1) {
-            handleAction();
-        }
-    }
+//    private void enqueueAction(Action action) {
+//        mQueue.add(action);
+//        Log.d(TAG, "size=" + mQueue.size());
+//        if (mQueue.size() == 1) {
+//            handleAction();
+//        }
+//    }
 
     private void handleAction() {
         if (!start.get() || mQueue.isEmpty()) return;
+        Log.d(TAG, "handleAction");
 
         final Action action = mQueue.peek();
-//        mMainHandler.postDelayed(new Runnable() {
-//            @Override
-//            public void run() {
-//                action.run();
-//                executeNextAction(action);
-//            }
-//        }, action.delay);
         RxHandler.post(() -> {
             action.run();
-            executeNextAction(action);
+//            executeNextAction(action);
+            if (action.action == Action.ACTION_POP) {
+                ISupportFragment top = SupportHelper.getBackStackTopFragment(action.fragmentManager);
+                action.duration = top == null ? Action.DEFAULT_POP_TIME : top.getSupportDelegate().getExitAnimDuration();
+            }
+            mQueue.poll();
+            handleAction();
         }, action.delay);
     }
 
-    private void executeNextAction(Action action) {
-        if (action.action == Action.ACTION_POP) {
-            ISupportFragment top = SupportHelper.getBackStackTopFragment(action.fragmentManager);
-            action.duration = top == null ? Action.DEFAULT_POP_TIME : top.getSupportDelegate().getExitAnimDuration();
-        }
-
-//        mMainHandler.postDelayed(new Runnable() {
-//            @Override
-//            public void run() {
-//                mQueue.poll();
-//                handleAction();
-//            }
+//    private void executeNextAction(Action action) {
+//        if (action.action == Action.ACTION_POP) {
+//            ISupportFragment top = SupportHelper.getBackStackTopFragment(action.fragmentManager);
+//            action.duration = top == null ? Action.DEFAULT_POP_TIME : top.getSupportDelegate().getExitAnimDuration();
+//        }
+//        RxHandler.post(() -> {
+//            mQueue.poll();
+//            handleAction();
 //        }, action.duration);
-        RxHandler.post(() -> {
-            mQueue.poll();
-            handleAction();
-        }, action.duration);
-    }
+//    }
 
     private boolean isThrottleBACK(Action action) {
         if (action.action == Action.ACTION_BACK) {

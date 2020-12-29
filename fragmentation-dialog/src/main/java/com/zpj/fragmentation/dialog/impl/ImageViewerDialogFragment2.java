@@ -3,7 +3,6 @@ package com.zpj.fragmentation.dialog.impl;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.CardView;
@@ -35,7 +34,6 @@ import com.zpj.fragmentation.dialog.imagetrans.TileBitmapDrawable;
 import com.zpj.fragmentation.dialog.imagetrans.listener.ProgressViewGet;
 import com.zpj.fragmentation.dialog.imagetrans.listener.SourceImageViewGet;
 import com.zpj.fragmentation.dialog.utils.Utility;
-import com.zpj.http.core.ObservableTask;
 import com.zpj.utils.ContextUtils;
 import com.zpj.utils.FileUtils;
 import com.zpj.utils.ScreenUtils;
@@ -43,6 +41,15 @@ import com.zpj.utils.ScreenUtils;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
+
+import io.reactivex.Observable;
+import io.reactivex.ObservableEmitter;
+import io.reactivex.ObservableOnSubscribe;
+import io.reactivex.Observer;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.annotations.NonNull;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.schedulers.Schedulers;
 
 
 /**
@@ -144,8 +151,6 @@ public class ImageViewerDialogFragment2<T> extends FullScreenDialogFragment {
             customView.setAlpha(0);
             getImplView().addView(customView);
         }
-
-
 
 
     }
@@ -275,8 +280,8 @@ public class ImageViewerDialogFragment2<T> extends FullScreenDialogFragment {
                         if (build.imageLoad.isCached(url)) {
                             Utility.saveBmpToAlbum(getContext(), newFile);
                         } else {
-                            new ObservableTask<File>(
-                                    emitter -> {
+                            Observable.create(
+                                    (ObservableOnSubscribe<File>) emitter -> {
                                         File file = Glide.with(ContextUtils.getApplicationContext())
                                                 .asFile()
                                                 .load(url)
@@ -287,10 +292,29 @@ public class ImageViewerDialogFragment2<T> extends FullScreenDialogFragment {
                                         emitter.onNext(newFile);
                                         emitter.onComplete();
                                     })
-                                    .onSuccess(data -> {
-                                        Utility.saveBmpToAlbum(getContext(), data);
-                                    })
-                                    .subscribe();
+                                    .subscribeOn(Schedulers.io())
+                                    .observeOn(AndroidSchedulers.mainThread())
+                                    .subscribe(new Observer<File>() {
+                                        @Override
+                                        public void onSubscribe(@NonNull Disposable d) {
+
+                                        }
+
+                                        @Override
+                                        public void onNext(@NonNull File file) {
+                                            Utility.saveBmpToAlbum(getContext(), file);
+                                        }
+
+                                        @Override
+                                        public void onError(@NonNull Throwable e) {
+
+                                        }
+
+                                        @Override
+                                        public void onComplete() {
+
+                                        }
+                                    });
                         }
                     }
 

@@ -18,9 +18,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
-import com.bumptech.glide.request.target.SimpleTarget;
 import com.bumptech.glide.request.transition.Transition;
-import com.zpj.toast.ZToast;
 import com.github.zagum.expandicon.ExpandIconView;
 import com.sunbinqiang.iconcountview.IconCountView;
 import com.zpj.fragmentation.dialog.imagetrans.ImageItemView;
@@ -34,12 +32,14 @@ import com.zpj.shouji.market.api.HttpApi;
 import com.zpj.shouji.market.constant.AppConfig;
 import com.zpj.shouji.market.constant.Keys;
 import com.zpj.shouji.market.glide.GlideUtils;
+import com.zpj.shouji.market.glide.ImageViewDrawableTarget;
 import com.zpj.shouji.market.model.WallpaperInfo;
 import com.zpj.shouji.market.model.WallpaperTag;
 import com.zpj.shouji.market.ui.fragment.base.NextUrlFragment;
 import com.zpj.shouji.market.ui.fragment.dialog.RecyclerPartShadowDialogFragment;
 import com.zpj.shouji.market.ui.fragment.dialog.WallpaperViewerDialogFragment2;
 import com.zpj.shouji.market.ui.widget.emoji.EmojiExpandableTextView;
+import com.zpj.toast.ZToast;
 import com.zpj.utils.NetUtils;
 import com.zpj.utils.ScreenUtils;
 
@@ -54,10 +54,6 @@ public class WallpaperListFragment extends NextUrlFragment<WallpaperInfo> {
     private String tag;
     @IntRange(from = 0, to = 2)
     private int sortPosition = 0;
-
-    private int halfScreenWidth;
-
-//    private RecyclerPopup recyclerPopup;
 
     public static WallpaperListFragment newInstance(WallpaperTag tag) {
         Bundle args = new Bundle();
@@ -96,7 +92,6 @@ public class WallpaperListFragment extends NextUrlFragment<WallpaperInfo> {
 
     @Override
     protected void buildRecyclerLayout(EasyRecyclerLayout<WallpaperInfo> recyclerLayout) {
-        halfScreenWidth = ScreenUtils.getScreenWidth(context) / 2 - ScreenUtils.dp2pxInt(context, 12);
         if (getHeaderLayout() > 0) {
             recyclerLayout.setHeaderView(getHeaderLayout(), holder -> holder.setOnItemClickListener((this::showSortPupWindow)));
         }
@@ -119,33 +114,29 @@ public class WallpaperListFragment extends NextUrlFragment<WallpaperInfo> {
     public void onBindViewHolder(EasyViewHolder holder, List<WallpaperInfo> list, int position, List<Object> payloads) {
         WallpaperInfo info = list.get(position);
         ImageView wallpaper = holder.getImageView(R.id.iv_wallpaper);
-        ViewGroup.LayoutParams layoutParams = wallpaper.getLayoutParams();
-        float width = Float.parseFloat(info.getWidth());
-        float height = Float.parseFloat(info.getHeight());
-        float p = height / width;
-        if (p > 2.5f) {
-            p = 2.5f;
-        }
-        layoutParams.width = halfScreenWidth;
-        layoutParams.height = (int) (p * layoutParams.width);
-
-        wallpaper.setLayoutParams(layoutParams);
         wallpaper.setTag(position);
         Glide.with(context)
                 .load(list.get(position).getSpic())
                 .apply(GlideUtils.REQUEST_OPTIONS)
-                .into(wallpaper);
+                .into(new ImageViewDrawableTarget(wallpaper) {
+                    @Override
+                    public void onResourceReady(@NonNull Drawable resource, @Nullable Transition<? super Drawable> transition) {
+                        int width = resource.getIntrinsicWidth();
+                        int height = resource.getIntrinsicHeight();
+                        float p = (float) height / width;
+                        if (p > 2.5f) {
+                            p = 2.5f;
+                        }
+                        height = (int) (wallpaper.getMeasuredWidth() * p);
+                        ViewGroup.LayoutParams layoutParams = wallpaper.getLayoutParams();
+                        layoutParams.height = height;
+                        super.onResourceReady(resource, transition);
+                    }
+                });
 
         Glide.with(context).load(info.getMemberIcon())
                 .apply(RequestOptions.circleCropTransform())
-                .into(new SimpleTarget<Drawable>() {
-                    @Override
-                    public void onResourceReady(@NonNull Drawable resource, @Nullable Transition<? super Drawable> transition) {
-                        ImageView ivIcon = holder.getImageView(R.id.iv_icon);
-                        ivIcon.setImageDrawable(resource);
-                        ivIcon.setScaleType(ImageView.ScaleType.CENTER_CROP);
-                    }
-                });
+                .into(holder.getImageView(R.id.iv_icon));
         EmojiExpandableTextView tvContent = holder.getView(R.id.tv_content);
         tvContent.setContent(info.getContent());
         holder.getTextView(R.id.tv_name).setText(info.getNickName());

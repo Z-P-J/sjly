@@ -37,7 +37,7 @@ public class WallpaperApi {
         }
         returnDefaultTags(callback);
 
-        HttpApi.get("http://tt.shouji.com.cn/app/bizhi_tags.jsp")
+        HttpApi.getXml("http://tt.shouji.com.cn/app/bizhi_tags.jsp")
                 .onSuccess(data -> {
                     Elements elements = data.select("item");
                     wallpaperTags.clear();
@@ -78,14 +78,8 @@ public class WallpaperApi {
                     .data("tag", tag)
                     .data("content", content)
                     .data("image", "image.png", new FileInputStream(file), listener)
-                    .validateTLSCertificates(false)
-                    .userAgent(HttpApi.USER_AGENT)
-                    .onRedirect(redirectUrl -> {
-                        Log.d("connect", "onRedirect redirectUrl=" + redirectUrl);
-                        return true;
-                    })
-                    .cookie(UserManager.getInstance().getCookie())
-                    .ignoreContentType(true)
+                    .setCookie(UserManager.getInstance().getCookie())
+//                    .ignoreContentType(true)
                     .toXml()
                     .onSuccess(data -> {
                         Log.d("shareWallpaperApi", "data=" + data);

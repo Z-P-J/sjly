@@ -6,16 +6,16 @@ import android.util.Log;
 
 import com.bumptech.glide.Glide;
 import com.zpj.http.ZHttp;
-import com.zpj.http.core.Connection;
+import com.zpj.http.core.HttpConfig;
 import com.zpj.http.core.HttpKeyVal;
+import com.zpj.http.core.HttpObserver;
 import com.zpj.http.core.IHttp;
-import com.zpj.http.core.ObservableTask;
 import com.zpj.http.parser.html.nodes.Document;
 import com.zpj.matisse.entity.Item;
 import com.zpj.shouji.market.constant.AppConfig;
-import com.zpj.shouji.market.utils.EventBus;
 import com.zpj.shouji.market.manager.UserManager;
 import com.zpj.shouji.market.model.InstalledAppInfo;
+import com.zpj.shouji.market.utils.EventBus;
 import com.zpj.shouji.market.utils.PictureUtil;
 import com.zpj.toast.ZToast;
 import com.zpj.utils.AppUtils;
@@ -41,7 +41,7 @@ public class ThemePublishApi {
         Log.d("publishThemeApi", "content=" + content + " tag=" + tags);
         EventBus.showLoading("发布动态...");
         boolean compress = AppConfig.isCompressUploadImage();
-        ObservableTask<Document> task;
+        HttpObserver<Document> task;
         if (appInfo == null && imgList.isEmpty()) {
             task = getConnection(
                     String.format("http://tt.shouji.com.cn/app/square_disscuss_text_post_xml.jsp?jsessionid=%s", UserManager.getInstance().getSessionId()),
@@ -51,9 +51,9 @@ public class ThemePublishApi {
                     .data("content", content)
                     .toXml();
         } else {
-            task = new ObservableTask<>(
-                    (ObservableOnSubscribe<List<Connection.KeyVal>>) emitter -> {
-                        List<Connection.KeyVal> dataList = new ArrayList<>();
+            task = new HttpObserver<>(
+                    (ObservableOnSubscribe<List<IHttp.KeyVal>>) emitter -> {
+                        List<IHttp.KeyVal> dataList = new ArrayList<>();
                         if (appInfo != null) {
                             dataList.add(HttpKeyVal.create("appname", appInfo.getName()));
                             dataList.add(HttpKeyVal.create("package", appInfo.getPackageName()));
@@ -79,7 +79,7 @@ public class ThemePublishApi {
                         if (appInfo != null) {
                             File file = Glide.with(ContextUtils.getApplicationContext()).asFile().load(appInfo).submit().get();
                             dataList.add(HttpKeyVal.create("md5", CipherUtils.md5(new FileInputStream(file))));
-                            Connection.KeyVal keyVal = HttpKeyVal.create("icon", "icon.png", new FileInputStream(file), listener);
+                            IHttp.KeyVal keyVal = HttpKeyVal.create("icon", "icon.png", new FileInputStream(file), listener);
                             dataList.add(keyVal);
 
                             dataList.add(
@@ -97,15 +97,15 @@ public class ThemePublishApi {
                             if (compress && !file.getName().equalsIgnoreCase(".gif")) {
                                 file = PictureUtil.compressImage(context, file);
                             }
-                            Connection.KeyVal keyVal = HttpKeyVal.create("image_" + i, "image_" + i + ".png", new FileInputStream(file), listener);
+                            IHttp.KeyVal keyVal = HttpKeyVal.create("image_" + i, "image_" + i + ".png", new FileInputStream(file), listener);
                             dataList.add(keyVal);
                         }
                         emitter.onNext(dataList);
                         emitter.onComplete();
                     })
-                    .onNext(new ObservableTask.OnNextListener<List<Connection.KeyVal>, Document>() {
+                    .onNext(new HttpObserver.OnNextListener<List<IHttp.KeyVal>, Document>() {
                         @Override
-                        public ObservableTask<Document> onNext(List<Connection.KeyVal> data) throws Exception {
+                        public HttpObserver<Document> onNext(List<IHttp.KeyVal> data) throws Exception {
                             Log.d("publishThemeApi", "dataList=" + data);
                             return getConnection(String.format("http://tt.shouji.com.cn/app/square_disscuss_post_xml_v6.jsp?versioncode=%s&jsessionid=%s",
                                     "199", UserManager.getInstance().getSessionId()), replyId, isPrivate, tags)
@@ -137,7 +137,7 @@ public class ThemePublishApi {
                 .subscribe();
     }
 
-    private static Connection getConnection(String url, String replyId, boolean isPrivate, String tags) {
+    private static HttpConfig getConnection(String url, String replyId, boolean isPrivate, String tags) {
         return ZHttp.post(url)
                 .data("tagurl", "http://tt.shouji.com.cn/app/faxian.jsp?index=faxian")
                 .data("sn", UserManager.getInstance().getSn())
@@ -145,14 +145,8 @@ public class ThemePublishApi {
                 .data("replyid", replyId)
                 .data("gkbz", isPrivate ? "0" : "1")
                 .data("tag", tags)
-                .validateTLSCertificates(false)
-                .userAgent(HttpApi.USER_AGENT)
-                .onRedirect(redirectUrl -> {
-                    Log.d("connect", "onRedirect redirectUrl=" + redirectUrl);
-                    return true;
-                })
-                .cookie(UserManager.getInstance().getCookie())
-                .ignoreContentType(true);
+                .setCookie(UserManager.getInstance().getCookie());
+//                .ignoreContentType(true);
     }
 
 }

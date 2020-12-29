@@ -154,7 +154,7 @@ public class AppDetailRecommendFragment extends SkinFragment {
         @Override
         public boolean loadData(MultiAdapter adapter) {
             List<AppInfo> appInfoList = new ArrayList<>();
-            HttpApi.get(url)
+            HttpApi.getXml(url)
                     .onSuccess(data -> {
                         Elements elements = data.select("item");
                         for (Element element : elements) {

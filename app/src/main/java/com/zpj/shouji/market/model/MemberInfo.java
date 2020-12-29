@@ -4,16 +4,12 @@ import android.support.annotation.Keep;
 import android.text.TextUtils;
 import android.util.Log;
 
-import com.zpj.http.ZHttp;
+import com.zpj.http.parser.DocumentParser;
 import com.zpj.http.parser.html.nodes.Document;
 import com.zpj.http.parser.html.nodes.Element;
 import com.zpj.shouji.market.utils.BeanUtils;
 import com.zpj.shouji.market.utils.BeanUtils.Select;
 
-import java.lang.annotation.ElementType;
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
-import java.lang.annotation.Target;
 import java.lang.reflect.Field;
 
 @Keep
@@ -79,54 +75,14 @@ public class MemberInfo {
     private boolean isTestUser;
     private String sn;
 
-//    @Target(ElementType.FIELD)
-//    @Retention(RetentionPolicy.RUNTIME)
-//    public @interface Select {
-//        String selector() default "";
-//    }
-
     public static MemberInfo from(Document doc) {
-//        MemberInfo info = new MemberInfo();
-//        try {
-//            for(Field field : info.getClass().getDeclaredFields()) {
-//                String name = field.getName();
-//                String type = field.getGenericType().toString();
-//                Select selectAnnotation = field.getAnnotation(Select.class);
-//                String selector = "";
-//                if (selectAnnotation != null) {
-//                    selector = selectAnnotation.selector();
-//                }
-//                if (TextUtils.isEmpty(selector)) {
-//                    selector = name;
-//                }
-//                String text = doc.selectFirst(selector).text();
-//                if (TextUtils.isEmpty(text)) {
-//                    continue;
-//                }
-//                Log.d("MemberInfo", "selector=" + selector + " text=" + text + " type=" + type);
-//                if (type.equals("boolean")) {
-//                    field.setAccessible(true);
-//                    field.setBoolean(info, !"0".equals(text.trim()));
-//                } else if (type.equals("int")) {
-//                    field.setAccessible(true);
-//                    field.setInt(info, Integer.parseInt(text));
-//                } else if (type.equals("class java.lang.String")) { // 如果type是类类型，则前面包含"class
-//                    field.setAccessible(true);
-//                    field.set(info, text);
-//                }
-//            }
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//            return null;
-//        }
-//        return info;
         return BeanUtils.createBean(doc, MemberInfo.class);
     }
 
     public String toStr() {
         Log.d("MemberInfo", "toStr");
         try {
-            Document doc = ZHttp.parse("<member></member>");
+            Document doc = DocumentParser.parse("<member></member>");
             for(Field field : getClass().getDeclaredFields()) {
                 String name = field.getName();
                 String type = field.getGenericType().toString();

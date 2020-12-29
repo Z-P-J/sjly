@@ -25,8 +25,8 @@ import com.lxj.xpermission.XPermission;
 import com.nanchen.compresshelper.CompressHelper;
 import com.zpj.fragmentation.dialog.enums.ImageType;
 import com.zpj.fragmentation.dialog.utils.ImageHeaderParser;
+import com.zpj.http.core.HttpObserver;
 import com.zpj.http.core.IHttp;
-import com.zpj.http.core.ObservableTask;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.manager.UserManager;
 import com.zpj.shouji.market.ui.fragment.dialog.ShareDialogFragment;
@@ -246,7 +246,7 @@ public class PictureUtil {
                 .callback(new XPermission.SimpleCallback() {
                     @Override
                     public void onGranted() {
-                        new ObservableTask<>(
+                        new HttpObserver<>(
                                 emitter -> {
                                     File source = Glide.with(context).asFile().load(url).submit().get();
                                     if (source == null) {
@@ -308,7 +308,7 @@ public class PictureUtil {
                 .callback(new XPermission.SimpleCallback() {
                     @Override
                     public void onGranted() {
-                        new ObservableTask<File>(
+                        new HttpObserver<File>(
                                 emitter -> {
                                     File source = Glide.with(context).asFile().load(url).submit().get();
                                     if (source == null) {
@@ -361,7 +361,7 @@ public class PictureUtil {
     }
 
     public static void saveIcon(Context context, String url, String fileName, IHttp.OnSuccessListener<File> listener) {
-        new ObservableTask<File>(
+        new HttpObserver<File>(
                 emitter -> {
                     File source = Glide.with(context).asFile().load(url).submit().get();
                     if (source == null) {
@@ -388,7 +388,7 @@ public class PictureUtil {
 
     public static void saveIcon(IHttp.OnCompleteListener listener) {
         Context context = ContextUtils.getApplicationContext();
-        new ObservableTask<>(
+        new HttpObserver<>(
                 emitter -> {
                     saveIcon(
                             context,
@@ -411,7 +411,7 @@ public class PictureUtil {
 
     public static void saveDefaultIcon(IHttp.OnCompleteListener listener) {
         Context context = ContextUtils.getApplicationContext();
-        new ObservableTask<>(
+        new HttpObserver<>(
                 emitter -> {
                     saveDefaultIcon(
                             context,
@@ -431,7 +431,7 @@ public class PictureUtil {
 
     public static void saveDefaultAvatar(IHttp.OnCompleteListener listener) {
         Context context = ContextUtils.getApplicationContext();
-        new ObservableTask<>(
+        new HttpObserver<>(
                 emitter -> {
                     saveDefaultIcon(
                             context,
@@ -447,7 +447,7 @@ public class PictureUtil {
 
     public static void saveDefaultBackground(IHttp.OnCompleteListener listener) {
         Context context = ContextUtils.getApplicationContext();
-        new ObservableTask<>(
+        new HttpObserver<>(
                 emitter -> {
                     saveDefaultIcon(
                             context,
@@ -502,7 +502,7 @@ public class PictureUtil {
     }
 
     public static void saveIcon(Uri uri, String fileName, IHttp.OnSuccessListener<File> listener) {
-        new ObservableTask<File>(
+        new HttpObserver<File>(
                 emitter -> {
                     File source = new File(uri.getPath());
                     //1. create path
@@ -655,7 +655,7 @@ public class PictureUtil {
 
 
     public static void saveResource(Context context, int res, String fileName) {
-        new ObservableTask<>(
+        new HttpObserver<>(
                 emitter -> {
                     InputStream inputStream = context.getResources().openRawResource(res);
 

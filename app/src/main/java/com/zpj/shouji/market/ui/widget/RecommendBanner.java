@@ -107,7 +107,7 @@ public class RecommendBanner extends LinearLayout implements View.OnClickListene
                 onGetDoc(document, runnable);
             });
         } else {
-            HttpApi.get(PreloadApi.HOME_BANNER.getUrl())
+            HttpApi.getXml(PreloadApi.HOME_BANNER.getUrl())
                     .onSuccess(document -> {
                         onGetDoc(document, runnable);
                     })

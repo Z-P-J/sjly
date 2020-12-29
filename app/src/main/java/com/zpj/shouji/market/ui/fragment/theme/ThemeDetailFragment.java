@@ -16,16 +16,14 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
-import com.bumptech.glide.request.target.SimpleTarget;
 import com.bumptech.glide.request.transition.Transition;
-import com.zpj.toast.ZToast;
 import com.zpj.recyclerview.EasyViewHolder;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.api.HttpApi;
 import com.zpj.shouji.market.constant.AppConfig;
 import com.zpj.shouji.market.constant.Keys;
-import com.zpj.shouji.market.utils.EventBus;
 import com.zpj.shouji.market.glide.GlideRequestOptions;
+import com.zpj.shouji.market.glide.ImageViewDrawableTarget;
 import com.zpj.shouji.market.glide.transformations.CircleWithBorderTransformation;
 import com.zpj.shouji.market.glide.transformations.blur.BlurTransformation;
 import com.zpj.shouji.market.manager.UserManager;
@@ -37,7 +35,9 @@ import com.zpj.shouji.market.ui.fragment.dialog.CommentDialogFragment;
 import com.zpj.shouji.market.ui.fragment.dialog.ShareDialogFragment;
 import com.zpj.shouji.market.ui.fragment.dialog.ThemeMoreDialogFragment;
 import com.zpj.shouji.market.ui.fragment.login.LoginFragment;
+import com.zpj.shouji.market.utils.EventBus;
 import com.zpj.shouji.market.utils.MagicIndicatorHelper;
+import com.zpj.toast.ZToast;
 import com.zpj.widget.tinted.TintedImageButton;
 import com.zxy.skin.sdk.SkinEngine;
 
@@ -121,22 +121,16 @@ public class ThemeDetailFragment extends BaseSwipeBackFragment {
         if (!TextUtils.isEmpty(wallpaper)) {
             Glide.with(context)
                     .load(wallpaper)
-//                    .apply(RequestOptions.bitmapTransform(new BlurTransformation()))
                     .apply(RequestOptions.bitmapTransform(new BlurTransformation(25, 2)))
-                    .into(new SimpleTarget<Drawable>() {
+                    .into(new ImageViewDrawableTarget(ivBg) {
                         @Override
                         public void onResourceReady(@NonNull Drawable resource, @Nullable Transition<? super Drawable> transition) {
-                            ivBg.setImageDrawable(resource);
+                            super.onResourceReady(resource, transition);
                             int color = AppConfig.isNightMode() ? Color.parseColor("#aa000000") : Color.parseColor("#ccffffff");
                             ivBg.setColorFilter(color);
                             ivBg.setVisibility(View.VISIBLE);
-//                            final Drawable wrappedDrawable = DrawableCompat.wrap(ivBg.getDrawable().mutate());
-//
-//                            DrawableCompat.setTintList(wrappedDrawable, ColorStateList.valueOf(color));
-//                            ivBg.setImageDrawable(wrappedDrawable);
                         }
                     });
-//            ShadowLayout shadowLayout = themeLayout.findViewById(R.id.layout_theme);
         }
 
 

@@ -13,17 +13,21 @@
 <!--    09bd14-->
 
 <!--    0ecd1b-->
-    <color name="colorPrimary">#4caf50</color>
-    <color name="colorPrimaryDark">#4caf50</color>
-    <color name="colorAccent">#4caf50</color>
+<!--    <color name="colorPrimary">#4caf50</color>-->
+<!--    <color name="colorPrimaryDark">#4caf50</color>-->
+<!--    <color name="colorAccent">#4caf50</color>-->
+    <color name="colorPrimary">#02c684</color>
+    <color name="colorPrimaryDark">#02c684</color>
+    <color name="colorAccent">#02c684</color>
     <color name="test">#4eeaab</color>
+    <color name="test2">#02c684</color>
 
     <color name="switcher_checked_color">@color/colorPrimary</color>
 
     <color name="color_background_gray">#f3f4f6</color>
 
 <!--    <color name="color_tab_selected">#24c8af</color>-->
-    <color name="color_tab_selected">#4caf50</color>
+<!--    <color name="color_tab_selected">#4caf50</color>-->
 
     <color name="colorBlack333">#333</color>
     <color name="pink_fc4f74">#fc4f74</color>
