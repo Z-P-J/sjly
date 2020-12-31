@@ -21,6 +21,7 @@ import com.zpj.fragmentation.ISupportFragment;
 import com.zpj.fragmentation.SupportHelper;
 import com.zpj.fragmentation.dialog.impl.AttachListDialogFragment;
 import com.zpj.fragmentation.dialog.impl.ImageViewerDialogFragment;
+import com.zpj.fragmentation.dialog.impl.ImageViewerDialogFragment3;
 import com.zpj.fragmentation.dialog.interfaces.IImageLoader;
 import com.zpj.fragmentation.dialog.photoview.PhotoView;
 import com.zpj.fragmentation.dialog.widget.LoadingView;
@@ -32,7 +33,7 @@ import com.zpj.widget.toolbar.ZToolBar;
 import java.io.File;
 import java.util.List;
 
-public class CommonImageViewerDialogFragment extends ImageViewerDialogFragment<String>
+public class CommonImageViewerDialogFragment3 extends ImageViewerDialogFragment3<String>
         implements IImageLoader<String> {
 
     private List<String> originalImageList;
@@ -44,12 +45,11 @@ public class CommonImageViewerDialogFragment extends ImageViewerDialogFragment<S
     private TintedImageButton btnMore;
     private LoadingView loadingView;
 
-    public CommonImageViewerDialogFragment() {
+    public CommonImageViewerDialogFragment3() {
         super();
         isShowIndicator(false);
         isShowPlaceholder(false);
         isShowSaveButton(false);
-        setImageLoader(this);
     }
 
     @Override
@@ -188,12 +188,12 @@ public class CommonImageViewerDialogFragment extends ImageViewerDialogFragment<S
         titleBar.setCenterText(url.substring(url.lastIndexOf("/") + 1));
     }
 
-    public CommonImageViewerDialogFragment setOriginalImageList(List<String> originalImageList) {
+    public CommonImageViewerDialogFragment3 setOriginalImageList(List<String> originalImageList) {
         this.originalImageList = originalImageList;
         return this;
     }
 
-    public CommonImageViewerDialogFragment setImageSizeList(List<String> imageSizeList) {
+    public CommonImageViewerDialogFragment3 setImageSizeList(List<String> imageSizeList) {
         this.imageSizeList = imageSizeList;
         return this;
     }

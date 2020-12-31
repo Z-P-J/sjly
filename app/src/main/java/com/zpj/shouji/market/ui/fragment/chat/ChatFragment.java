@@ -18,6 +18,7 @@ import com.houtrry.bubble.BubbleLinearLayout;
 import com.zpj.fragmentation.dialog.imagetrans.ImageItemView;
 import com.zpj.fragmentation.dialog.imagetrans.listener.SourceImageViewGet;
 import com.zpj.fragmentation.dialog.impl.AlertDialogFragment;
+import com.zpj.fragmentation.dialog.impl.ImageViewerDialogFragment3;
 import com.zpj.http.core.IHttp;
 import com.zpj.http.parser.html.nodes.Document;
 import com.zpj.http.parser.html.nodes.Element;
@@ -378,14 +379,22 @@ public class ChatFragment extends NextUrlFragment<PrivateLetterInfo>
                 new CommonImageViewerDialogFragment2()
                         .setOriginalImageList(info.getPics())
                         .setImageSizeList(info.getSizes())
-                        .setImageList(AppConfig.isShowOriginalImage() && NetUtils.isWiFi(context) ? info.getPics() : info.getSpics())
-                        .setNowIndex(position)
-                        .setSourceImageView(new SourceImageViewGet<String>() {
+                        .setImageUrls(AppConfig.isShowOriginalImage() && NetUtils.isWiFi(context) ? info.getPics() : info.getSpics())
+                        .setSrcView(nineGridView.getImageView(position), position)
+                        .setSrcViewUpdateListener(new ImageViewerDialogFragment3.OnSrcViewUpdateListener<String>() {
                             @Override
-                            public void updateImageView(ImageItemView<String> imageItemView, int pos, boolean isCurrent) {
-                                imageItemView.update(nineGridView.getImageView(pos));
+                            public void onSrcViewUpdate(@NonNull ImageViewerDialogFragment3<String> popup, int position) {
+                                popup.updateSrcView(nineGridView.getImageView(position));
                             }
                         })
+//                        .setImageList(AppConfig.isShowOriginalImage() && NetUtils.isWiFi(context) ? info.getPics() : info.getSpics())
+//                        .setNowIndex(position)
+//                        .setSourceImageView(new SourceImageViewGet<String>() {
+//                            @Override
+//                            public void updateImageView(ImageItemView<String> imageItemView, int pos, boolean isCurrent) {
+//                                imageItemView.update(nineGridView.getImageView(pos));
+//                            }
+//                        })
                         .show(context);
             }
         });

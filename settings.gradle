@@ -12,3 +12,5 @@ include ':app',
         ':fragmentation-ucrop',
         ':chameleon',
         ':StateManager'
+//        ':xphotoview',
+//        ':subsampling-scale-image-view'

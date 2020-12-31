@@ -1,6 +1,8 @@
 package com.zxy.skin.sdk;
 
 
+import android.os.Build;
+import android.support.annotation.RequiresApi;
 import android.util.ArrayMap;
 import android.view.View;
 import android.widget.ImageView;
@@ -106,6 +108,11 @@ public class SkinEngine {
         applyViewAttr(view, "background", backgroundAttrId);
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.M)
+    public static void setForeground(View view, int foregroundAttrId) {
+        applyViewAttr(view, "foreground", foregroundAttrId);
+    }
+
     /**
      * 代码设置字的颜色
      *
@@ -118,6 +125,10 @@ public class SkinEngine {
 
     public static void setTint(ImageView view, int tintColorAttrId) {
         applyViewAttr(view, "tint", tintColorAttrId);
+    }
+
+    public static void setCardBackgroundColor(ImageView view, int colorAttrId) {
+        applyViewAttr(view, "cardBackgroundColor", colorAttrId);
     }
 
 

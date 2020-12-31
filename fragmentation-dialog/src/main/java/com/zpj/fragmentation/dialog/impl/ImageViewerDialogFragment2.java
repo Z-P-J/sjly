@@ -1,11 +1,9 @@
 package com.zpj.fragmentation.dialog.impl;
 
 import android.content.Context;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.view.ViewPager;
-import android.support.v7.widget.CardView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,16 +11,11 @@ import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.request.target.SimpleTarget;
-import com.bumptech.glide.request.transition.Transition;
 import com.lxj.xpermission.PermissionConstants;
 import com.lxj.xpermission.XPermission;
-import com.zpj.fragmentation.SupportActivity;
-import com.zpj.fragmentation.SupportFragment;
 import com.zpj.fragmentation.dialog.R;
 import com.zpj.fragmentation.dialog.animator.EmptyAnimator;
 import com.zpj.fragmentation.dialog.animator.PopupAnimator;
-import com.zpj.fragmentation.dialog.base.BaseDialogFragment;
 import com.zpj.fragmentation.dialog.imagetrans.DialogView;
 import com.zpj.fragmentation.dialog.imagetrans.ITConfig;
 import com.zpj.fragmentation.dialog.imagetrans.ImageLoad;
@@ -43,7 +36,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import io.reactivex.Observable;
-import io.reactivex.ObservableEmitter;
 import io.reactivex.ObservableOnSubscribe;
 import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -62,6 +54,13 @@ public class ImageViewerDialogFragment2<T> extends FullScreenDialogFragment {
     protected DialogView<T> dialogView;
 
     protected View customView;
+
+//    public DialogView2.OnGetImageViewCallback callback;
+//
+//    public ImageViewerDialogFragment2<T> setCallback(DialogView2.OnGetImageViewCallback callback) {
+//        this.callback = callback;
+//        return this;
+//    }
 
     @Override
     protected int getContentLayoutId() {
@@ -89,6 +88,7 @@ public class ImageViewerDialogFragment2<T> extends FullScreenDialogFragment {
         super.initView(view, savedInstanceState);
 
         dialogView = findViewById(R.id._dialog_view);
+//        dialogView.callback = callback;
 
 
         build.imageTransAdapter = new ImageTransAdapter() {
@@ -152,13 +152,15 @@ public class ImageViewerDialogFragment2<T> extends FullScreenDialogFragment {
             getImplView().addView(customView);
         }
 
+        build.offset = ScreenUtils.getScreenHeight(context) - getRootView().getMeasuredHeight();
+        dialogView.onCreate(build, this);
+
 
     }
 
     @Override
     public void doShowAnimation() {
-        build.offset = ScreenUtils.getScreenHeight(context) - getRootView().getMeasuredHeight();
-        dialogView.onCreate(build, this);
+
     }
 
 //    @Override

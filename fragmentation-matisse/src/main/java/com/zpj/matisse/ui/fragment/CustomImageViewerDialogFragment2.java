@@ -9,6 +9,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.zpj.fragmentation.dialog.imagetrans.MyImageLoad;
+import com.zpj.fragmentation.dialog.imagetrans.TransImageView;
 import com.zpj.fragmentation.dialog.impl.ImageViewerDialogFragment2;
 import com.zpj.matisse.R;
 import com.zpj.matisse.entity.IncapableCause;
@@ -38,9 +39,9 @@ public class CustomImageViewerDialogFragment2 extends ImageViewerDialogFragment2
         super.onCreate(savedInstanceState);
         build.imageLoad = new MyImageLoad<Item>() {
             @Override
-            public void loadImage(Item url, LoadCallback callback, ImageView imageView, String unique) {
+            public void loadImage(Item url, LoadCallback callback, TransImageView imageView, String unique) {
                 addLoadCallback(unique, callback);
-                loadImageFromLocal(url.getPath(imageView.getContext()), unique, imageView);
+                loadImageFromLocal(url.getPath(context), unique, imageView);
             }
 
             @Override

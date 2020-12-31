@@ -23,6 +23,7 @@ import com.github.zagum.expandicon.ExpandIconView;
 import com.sunbinqiang.iconcountview.IconCountView;
 import com.zpj.fragmentation.dialog.imagetrans.ImageItemView;
 import com.zpj.fragmentation.dialog.imagetrans.listener.SourceImageViewGet;
+import com.zpj.fragmentation.dialog.impl.ImageViewerDialogFragment3;
 import com.zpj.http.parser.html.nodes.Document;
 import com.zpj.http.parser.html.nodes.Element;
 import com.zpj.recyclerview.EasyRecyclerLayout;
@@ -38,6 +39,7 @@ import com.zpj.shouji.market.model.WallpaperTag;
 import com.zpj.shouji.market.ui.fragment.base.NextUrlFragment;
 import com.zpj.shouji.market.ui.fragment.dialog.RecyclerPartShadowDialogFragment;
 import com.zpj.shouji.market.ui.fragment.dialog.WallpaperViewerDialogFragment2;
+import com.zpj.shouji.market.ui.fragment.dialog.WallpaperViewerDialogFragment3;
 import com.zpj.shouji.market.ui.widget.emoji.EmojiExpandableTextView;
 import com.zpj.toast.ZToast;
 import com.zpj.utils.NetUtils;
@@ -178,18 +180,38 @@ public class WallpaperListFragment extends NextUrlFragment<WallpaperInfo> {
 
         Log.d("WallpaperListFragment", " width / height = " + (Float.parseFloat(data.getWidth()) / Float.parseFloat(data.getHeight())));
         Log.d("WallpaperListFragment2", " width / height = " + (wallpaper.getWidth() / wallpaper.getHeight()));
-        new WallpaperViewerDialogFragment2()
+//        new WallpaperViewerDialogFragment2()
+//                .setWallpaperInfo(data)
+//                .setOriginalImageList(original)
+//                .setImageList(AppConfig.isShowOriginalImage() && NetUtils.isWiFi(context) ? original : objects)
+//                .setNowIndex(0)
+//                .setSourceImageView(new SourceImageViewGet<String>() {
+//                    @Override
+//                    public void updateImageView(ImageItemView<String> imageItemView, int pos, boolean isCurrent) {
+//                        imageItemView.update(wallpaper);
+//                    }
+//                })
+////                .setOnDismissListener(() -> StatusBarEvent.post(false))
+//                .show(context);
+        new WallpaperViewerDialogFragment3()
                 .setWallpaperInfo(data)
                 .setOriginalImageList(original)
-                .setImageList(AppConfig.isShowOriginalImage() && NetUtils.isWiFi(context) ? original : objects)
-                .setNowIndex(0)
-                .setSourceImageView(new SourceImageViewGet<String>() {
+                .setImageUrls(AppConfig.isShowOriginalImage() && NetUtils.isWiFi(context) ? original : objects)
+                .setSrcView(wallpaper, 0)
+                .setSrcViewUpdateListener(new ImageViewerDialogFragment3.OnSrcViewUpdateListener<String>() {
                     @Override
-                    public void updateImageView(ImageItemView<String> imageItemView, int pos, boolean isCurrent) {
-                        imageItemView.update(wallpaper);
+                    public void onSrcViewUpdate(@NonNull ImageViewerDialogFragment3<String> popup, int position) {
+                        popup.updateSrcView(wallpaper);
                     }
                 })
-//                .setOnDismissListener(() -> StatusBarEvent.post(false))
+//                .setImageList(AppConfig.isShowOriginalImage() && NetUtils.isWiFi(context) ? original : objects)
+//                .setNowIndex(0)
+//                .setSourceImageView(new SourceImageViewGet<String>() {
+//                    @Override
+//                    public void updateImageView(ImageItemView<String> imageItemView, int pos, boolean isCurrent) {
+//                        imageItemView.update(wallpaper);
+//                    }
+//                })
                 .show(context);
     }
 

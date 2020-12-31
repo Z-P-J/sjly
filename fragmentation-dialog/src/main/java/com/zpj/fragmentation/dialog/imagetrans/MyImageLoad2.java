@@ -4,9 +4,10 @@ import android.content.ContentResolver;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.util.Log;
-import android.widget.ImageView;
 
-import java.io.File;
+import com.davemorrissey.labs.subscaleview.ImageSource;
+import com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView;
+
 import java.util.HashMap;
 import java.util.regex.Pattern;
 
@@ -15,14 +16,13 @@ import java.util.regex.Pattern;
  * Created by liuting on 17/6/1.
  */
 
-public class MyImageLoad<T> implements ImageLoad<T> {
+public class MyImageLoad2<T> {
     private static final Pattern webPattern = Pattern.compile("http[s]*://[[[^/:]&&[a-zA-Z_0-9]]\\.]+(:\\d+)?(/[a-zA-Z_0-9]+)*(/[a-zA-Z_0-9]*([a-zA-Z_0-9]+\\.[a-zA-Z_0-9]+)*)?(\\?(&?[a-zA-Z_0-9]+=[%[a-zA-Z_0-9]-]*)*)*(#[[a-zA-Z_0-9]|-]+)?(.jpg|.png|.gif|.jpeg)?");
     private static final String ASSET_PATH_SEGMENT = "android_asset";
-    private static final HashMap<String, LoadCallback> loadCallbackMap = new HashMap<>();
+    private static final HashMap<String, ImageLoad.LoadCallback> loadCallbackMap = new HashMap<>();
     private static final HashMap<String, OkHttpImageLoad.ImageDownLoadListener> imageDownLoadListenerMap = new HashMap<>();
 
-    @Override
-    public void loadImage(final T url, final LoadCallback callback, final TransImageView imageView, final String unique) {
+    public void loadImage(final T url, final ImageLoad.LoadCallback callback, final SubsamplingScaleImageView imageView, final String unique) {
         addLoadCallback(unique, callback);
         String link = url.toString();
         Uri uri = Uri.parse(link);
@@ -45,7 +45,7 @@ public class MyImageLoad<T> implements ImageLoad<T> {
     /**
      * 从网络加载图片
      */
-    private void loadImageFromNet(final String url, final String unique, final TransImageView imageView) {
+    private void loadImageFromNet(final String url, final String unique, final SubsamplingScaleImageView imageView) {
         OkHttpImageLoad.ImageDownLoadListener loadListener = new OkHttpImageLoad.ImageDownLoadListener() {
             @Override
             public void inProgress(float progress, long total) {
@@ -75,21 +75,57 @@ public class MyImageLoad<T> implements ImageLoad<T> {
     /**
      * 从本地加载图片
      */
-    protected void loadImageFromLocal(String path, final String unique, final TransImageView imageView) {
-        TileBitmapDrawable.attachTileBitmapDrawable(imageView, path, new TileBitmapDrawable.OnLoadListener() {
+    protected void loadImageFromLocal(String path, final String unique, final SubsamplingScaleImageView imageView) {
+//        imageView.setLoadListener(new XPhotoViewListener.OnXPhotoLoadListener() {
+//            @Override
+//            public void onImageLoadStart(XPhotoView view) {
+//
+//            }
+//
+//            @Override
+//            public void onImageLoaded(XPhotoView view) {
+//                onFinishLoad(unique, null);
+//            }
+//        });
+//        imageView.setImage(new File(path));
+        imageView.setOnImageEventListener(new SubsamplingScaleImageView.OnImageEventListener() {
             @Override
-            public void onLoadFinish(Drawable drawable) {
-                onFinishLoad(unique, drawable);
+            public void onReady() {
+
             }
 
             @Override
-            public void onError(Throwable ex) {
+            public void onImageLoaded() {
+                onFinishLoad(unique, null);
+            }
+
+            @Override
+            public void onPreviewLoadError(Exception e) {
+
+            }
+
+            @Override
+            public void onImageLoadError(Exception e) {
+
+            }
+
+            @Override
+            public void onTileLoadError(Exception e) {
+
+            }
+
+            @Override
+            public void onPreviewReleased() {
 
             }
         });
+        imageView.setImage(ImageSource.uri(path));
+
+
+
     }
 
-    public static void addLoadCallback(String unique, LoadCallback callback) {
+    public static void addLoadCallback(String unique, ImageLoad.LoadCallback callback) {
         loadCallbackMap.put(unique, callback);
     }
 
@@ -98,21 +134,20 @@ public class MyImageLoad<T> implements ImageLoad<T> {
     }
 
     public static void onFinishLoad(String unique, Drawable drawable) {
-        LoadCallback loadCallback = loadCallbackMap.remove(unique);
+        ImageLoad.LoadCallback loadCallback = loadCallbackMap.remove(unique);
         if (loadCallback != null) {
             loadCallback.loadFinish(drawable);
         }
     }
 
     public static void onProgress(String unique, float progress) {
-        LoadCallback loadCallback = loadCallbackMap.get(unique);
+        ImageLoad.LoadCallback loadCallback = loadCallbackMap.get(unique);
         if (loadCallback != null) {
             loadCallback.progress(progress);
         }
     }
 
 
-    @Override
     public boolean isCached(T url) {
         String link = url.toString();
         if (isLocalUri(Uri.parse(link).getScheme())) {
@@ -123,7 +158,6 @@ public class MyImageLoad<T> implements ImageLoad<T> {
 //        return false;
     }
 
-    @Override
     public void cancel(T url, String unique) {
         removeLoadCallback(unique);
         String link = url.toString();

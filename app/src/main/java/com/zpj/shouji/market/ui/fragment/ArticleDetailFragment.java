@@ -22,6 +22,7 @@ import com.bumptech.glide.request.transition.Transition;
 import com.zpj.fragmentation.dialog.imagetrans.ImageItemView;
 import com.zpj.fragmentation.dialog.imagetrans.listener.SourceImageViewGet;
 import com.zpj.fragmentation.dialog.impl.AttachListDialogFragment;
+import com.zpj.fragmentation.dialog.impl.ImageViewerDialogFragment3;
 import com.zpj.recyclerview.state.StateManager;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.api.HttpApi;
@@ -234,14 +235,15 @@ public class ArticleDetailFragment extends BaseSwipeBackFragment {
                     List<String> objects = new ArrayList<>();
                     objects.add(url);
                     new CommonImageViewerDialogFragment2()
-                            .setNowIndex(0)
-                            .setImageList(objects)
-                            .setSourceImageView(new SourceImageViewGet<String>() {
-                                @Override
-                                public void updateImageView(ImageItemView<String> imageItemView, int pos, boolean isCurrent) {
-                                    imageItemView.update(ivImage);
-                                }
-                            })
+                            .setSingleSrcView(ivImage, url)
+//                            .setNowIndex(0)
+//                            .setImageList(objects)
+//                            .setSourceImageView(new SourceImageViewGet<String>() {
+//                                @Override
+//                                public void updateImageView(ImageItemView<String> imageItemView, int pos, boolean isCurrent) {
+//                                    imageItemView.update(ivImage);
+//                                }
+//                            })
                             .show(context);
                 });
                 contentWrapper.addView(view);

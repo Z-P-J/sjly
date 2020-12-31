@@ -4,31 +4,26 @@ import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
+import android.support.annotation.NonNull;
 import android.text.TextUtils;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
-import com.bumptech.glide.request.target.Target;
 import com.ctetin.expandabletextviewlibrary.ExpandableTextView;
 import com.ctetin.expandabletextviewlibrary.app.LinkType;
-import com.zpj.shouji.market.ui.widget.NineGridView;
-import com.zpj.toast.ZToast;
 import com.sunbinqiang.iconcountview.IconCountView;
-import com.zpj.fragmentation.dialog.imagetrans.ImageItemView;
-import com.zpj.fragmentation.dialog.imagetrans.listener.SourceImageViewGet;
+import com.zpj.fragmentation.dialog.impl.ImageViewerDialogFragment3;
 import com.zpj.recyclerview.EasyViewHolder;
 import com.zpj.recyclerview.IEasy;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.api.HttpApi;
 import com.zpj.shouji.market.constant.AppConfig;
-import com.zpj.shouji.market.glide.GlideUtils;
 import com.zpj.shouji.market.glide.transformations.CircleWithBorderTransformation;
 import com.zpj.shouji.market.glide.transformations.blur.CropBlurTransformation;
 import com.zpj.shouji.market.manager.UserManager;
@@ -46,12 +41,13 @@ import com.zpj.shouji.market.ui.fragment.theme.TopicThemeListFragment;
 import com.zpj.shouji.market.ui.widget.CombineImageView;
 import com.zpj.shouji.market.ui.widget.DownloadButton;
 import com.zpj.shouji.market.ui.widget.DrawableTintTextView;
+import com.zpj.shouji.market.ui.widget.NineGridView;
 import com.zpj.shouji.market.ui.widget.emoji.EmojiExpandableTextView;
+import com.zpj.toast.ZToast;
 import com.zpj.utils.NetUtils;
 import com.zpj.utils.ScreenUtils;
 import com.zxy.skin.sdk.SkinEngine;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class DiscoverBinder
@@ -431,15 +427,39 @@ public class DiscoverBinder
             new CommonImageViewerDialogFragment2()
                     .setOriginalImageList(discoverInfo.getPics())
                     .setImageSizeList(discoverInfo.getPicSizes())
-                    .setImageList(AppConfig.isShowOriginalImage() && NetUtils.isWiFi(nineGridView.getContext()) ? discoverInfo.getPics() : discoverInfo.getSpics())
-                    .setNowIndex(position)
-                    .setSourceImageView(new SourceImageViewGet<String>() {
+                    .setSrcView(nineGridView.getImageView(position), position)
+                    .setImageUrls(AppConfig.isShowOriginalImage() && NetUtils.isWiFi(nineGridView.getContext()) ? discoverInfo.getPics() : discoverInfo.getSpics())
+                    .setSrcViewUpdateListener(new ImageViewerDialogFragment3.OnSrcViewUpdateListener<String>() {
                         @Override
-                        public void updateImageView(ImageItemView<String> imageItemView, int pos, boolean isCurrent) {
-                            imageItemView.update(nineGridView.getImageView(pos));
+                        public void onSrcViewUpdate(@NonNull ImageViewerDialogFragment3<String> popup, int position) {
+                            popup.updateSrcView(nineGridView.getImageView(position));
                         }
                     })
+//                    .setCallback(new DialogView2.OnGetImageViewCallback() {
+//                        @Override
+//                        public ImageView getImageView(int pos) {
+//                            return nineGridView.getImageView(pos);
+//                        }
+//                    })
                     .show(nineGridView.getContext());
+//            new CommonImageViewerDialogFragment2()
+//                    .setOriginalImageList(discoverInfo.getPics())
+//                    .setImageSizeList(discoverInfo.getPicSizes())
+//                    .setImageList(AppConfig.isShowOriginalImage() && NetUtils.isWiFi(nineGridView.getContext()) ? discoverInfo.getPics() : discoverInfo.getSpics())
+//                    .setNowIndex(position)
+//                    .setSourceImageView(new SourceImageViewGet<String>() {
+//                        @Override
+//                        public void updateImageView(ImageItemView<String> imageItemView, int pos, boolean isCurrent) {
+//                            imageItemView.update(nineGridView.getImageView(pos));
+//                        }
+//                    })
+//                    .setCallback(new DialogView2.OnGetImageViewCallback() {
+//                        @Override
+//                        public ImageView getImageView(int pos) {
+//                            return nineGridView.getImageView(pos);
+//                        }
+//                    })
+//                    .show(nineGridView.getContext());
         }
 
     }

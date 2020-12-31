@@ -13,6 +13,15 @@
         </attr>
     </declare-styleable>
 
+    <declare-styleable name="SubsamplingScaleImageView">
+        <attr name="src" format="reference"/>
+        <attr name="assetName" format="string"/>
+        <attr name="panEnabled" format="boolean"/>
+        <attr name="zoomEnabled" format="boolean"/>
+        <attr name="quickScaleEnabled" format="boolean"/>
+        <attr name="tileBackgroundColor" format="color"/>
+    </declare-styleable>
+
     <attr name="_dialog_card_background" format="color"/>
     <attr name="_dialog_text_color_major" format="color"/>
     <attr name="_dialog_text_color_normal" format="color"/>

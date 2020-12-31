@@ -16,7 +16,7 @@ public interface ImageLoad<T> {
      * @param imageView 加载图片的imageView
      * @param uniqueStr 加载图片请求的唯一tag,为了是
      */
-    void loadImage(T url, LoadCallback callback, ImageView imageView, String uniqueStr);
+    void loadImage(T url, LoadCallback callback, TransImageView imageView, String uniqueStr);
 
     /**
      * 判断当前图片是否有本地缓存，用来判断是否显示缩略图

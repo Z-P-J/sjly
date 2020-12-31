@@ -8,6 +8,7 @@ import android.graphics.Color;
 import android.graphics.Matrix;
 import android.graphics.Rect;
 import android.graphics.drawable.ColorDrawable;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -38,23 +39,27 @@ import com.zpj.fragmentation.dialog.R;
 import com.zpj.fragmentation.dialog.animator.PopupAnimator;
 import com.zpj.fragmentation.dialog.base.BaseDialogFragment;
 import com.zpj.fragmentation.dialog.enums.PopupStatus;
-import com.zpj.fragmentation.dialog.interfaces.IImageLoader;
+import com.zpj.fragmentation.dialog.imagetrans.ImageLoad;
+import com.zpj.fragmentation.dialog.imagetrans.MyImageLoad2;
 import com.zpj.fragmentation.dialog.interfaces.OnDragChangeListener;
 import com.zpj.fragmentation.dialog.photoview.PhotoView;
-import com.zpj.fragmentation.dialog.utils.Utility;
 import com.zpj.fragmentation.dialog.widget.BlankView;
 import com.zpj.fragmentation.dialog.widget.HackyViewPager;
+import com.zpj.fragmentation.dialog.widget.ImageViewContainer;
 import com.zpj.fragmentation.dialog.widget.PhotoViewContainer;
+import com.zpj.fragmentation.queue.BlockActionQueue;
 import com.zpj.utils.ScreenUtils;
 
 import java.util.ArrayList;
 import java.util.List;
 
 
-public class ImageViewerDialogFragment<T> extends BaseDialogFragment
+public class ImageViewerDialogFragment3<T> extends BaseDialogFragment
         implements OnDragChangeListener, View.OnClickListener {
 
-    private static final int DEFAULT_ANIM_DURATION = 250;
+    protected static final int DEFAULT_ANIM_DURATION = 360;
+
+    private final BlockActionQueue actionQueue = new BlockActionQueue();
 
     protected FrameLayout container;
     protected PhotoViewContainer photoViewContainer;
@@ -63,18 +68,19 @@ public class ImageViewerDialogFragment<T> extends BaseDialogFragment
     protected HackyViewPager pager;
     protected ArgbEvaluator argbEvaluator = new ArgbEvaluator();
     protected final List<T> urls = new ArrayList<>();
-    protected IImageLoader<T> imageLoader;
+    private final MyImageLoad2<T> loader = new MyImageLoad2<>();;
     protected OnSrcViewUpdateListener<T> srcViewUpdateListener;
     protected int position;
     protected Rect rect = null;
     protected ImageView srcView; //动画起始的View，如果为null，移动和过渡动画效果会没有，只有弹窗的缩放功能
     protected PhotoView snapshotView;
+    protected boolean isAnimationEnd;
     protected boolean isShowPlaceholder = false; //是否显示占位白色，当图片切换为大图时，原来的地方会有一个白色块
     protected int placeholderColor = -1; //占位View的颜色
     protected int placeholderStrokeColor = -1; // 占位View的边框色
     protected int placeholderRadius = -1; // 占位View的圆角
-    protected boolean isShowSaveBtn = true; //是否显示保存按钮
-    protected boolean isShowIndicator = true; //是否页码指示器
+    protected boolean isShowSaveBtn = false; //是否显示保存按钮
+    protected boolean isShowIndicator = false; //是否页码指示器
     protected boolean isInfinite = false;//是否需要无限滚动
     protected View customView;
     protected int bgColor = Color.rgb(32, 36, 46);//弹窗的背景颜色，可以自定义
@@ -83,13 +89,13 @@ public class ImageViewerDialogFragment<T> extends BaseDialogFragment
 
 //    public DialogView2.OnGetImageViewCallback callback;
 //
-//    public ImageViewerDialogFragment<T> setCallback(DialogView2.OnGetImageViewCallback callback) {
+//    public ImageViewerDialogFragment3<T> setCallback(DialogView2.OnGetImageViewCallback callback) {
 //        this.callback = callback;
 //        return this;
 //    }
 
     public interface OnSrcViewUpdateListener<T> {
-        void onSrcViewUpdate(@NonNull ImageViewerDialogFragment<T> popup, int position);
+        void onSrcViewUpdate(@NonNull ImageViewerDialogFragment3<T> popup, int position);
     }
 
     @Override
@@ -140,7 +146,7 @@ public class ImageViewerDialogFragment<T> extends BaseDialogFragment
             customView = LayoutInflater.from(getContext()).inflate(getCustomLayoutId(), container, false);
             customView.setVisibility(View.INVISIBLE);
             customView.setAlpha(0);
-            container.addView(customView);
+            container.addView(customView, new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
         }
 
 
@@ -159,9 +165,28 @@ public class ImageViewerDialogFragment<T> extends BaseDialogFragment
                 position = i;
                 showPagerIndicator();
                 //更新srcView
-                if (srcViewUpdateListener != null) {
-                    srcViewUpdateListener.onSrcViewUpdate(ImageViewerDialogFragment.this, i);
+
+
+                if (isAnimationEnd) {
+                    if (srcViewUpdateListener != null) {
+                        srcViewUpdateListener.onSrcViewUpdate(ImageViewerDialogFragment3.this, i);
+                    }
+
+
+                } else {
+                    ImageViewContainer itemView = pager.findViewWithTag(position);
+                    if (itemView != null) {
+                        itemView.showPlaceholder(srcView.getDrawable());
+                    }
                 }
+
+//                if (callback != null) {
+//                    srcView = callback.getImageView(position);
+//                    srcView.setVisibility(View.INVISIBLE);
+//                    int[] locations = new int[2];
+//                    srcView.getLocationInWindow(locations);
+//                    rect = new Rect(locations[0], locations[1], locations[0] + srcView.getWidth(), locations[1] + srcView.getHeight());
+//                }
             }
         });
         pager.setAdapter(new PhotoViewAdapter());
@@ -181,7 +206,25 @@ public class ImageViewerDialogFragment<T> extends BaseDialogFragment
     @Override
     public void doShowAnimation() {
 
-        addOrUpdateSnapshot();
+//        if (callback != null) {
+//            srcView = callback.getImageView(position);
+//            int[] locations = new int[2];
+//            srcView.getLocationInWindow(locations);
+//            rect = new Rect(locations[0], locations[1], locations[0] + srcView.getWidth(), locations[1] + srcView.getHeight());
+//            int offset = ScreenUtils.getScreenHeight(getContext()) - getRootView().getMeasuredHeight();
+//            snapshotView.setTranslationX(rect.left);
+//            snapshotView.setTranslationY(rect.top - offset);
+//            snapshotView.setScaleType(srcView.getScaleType());
+//            setWidthHeight(snapshotView, rect.width(), rect.height());
+////            Log.d(TAG, "onCreate rect.width=" + rect.width() + " rect.height=" + rect.height());
+//            snapshotView.setImageDrawable(srcView.getDrawable());
+//        }
+
+        if (srcViewUpdateListener != null) {
+            srcViewUpdateListener.onSrcViewUpdate(ImageViewerDialogFragment3.this, position);
+        }
+
+//        addOrUpdateSnapshot();
 
         if (customView != null) customView.setVisibility(View.VISIBLE);
         if (srcView == null || popupStatus == PopupStatus.Hide) {
@@ -196,6 +239,7 @@ public class ImageViewerDialogFragment<T> extends BaseDialogFragment
         }
         photoViewContainer.isReleasing = true;
         snapshotView.setVisibility(View.VISIBLE);
+        snapshotView.setScaleType(srcView.getScaleType());
         snapshotView.post(new Runnable() {
             @Override
             public void run() {
@@ -208,15 +252,24 @@ public class ImageViewerDialogFragment<T> extends BaseDialogFragment
                         .addListener(new TransitionListenerAdapter() {
                             @Override
                             public void onTransitionEnd(@NonNull Transition transition) {
+                                isAnimationEnd = true;
+                                ImageViewContainer itemView = pager.findViewWithTag(position);
+                                if (itemView != null && srcView != null) {
+//                                    itemView.getPhotoView().setDrawable(srcView.getDrawable());
+                                    itemView.showPlaceholder(srcView.getDrawable());
+                                }
                                 pager.setVisibility(View.VISIBLE);
-//                                snapshotView.setVisibility(View.INVISIBLE);
+                                actionQueue.start();
+                                snapshotView.setVisibility(View.INVISIBLE);
                                 showPagerIndicator();
                                 photoViewContainer.isReleasing = false;
                                 doAfterShow();
                             }
+
                         }));
                 snapshotView.setTranslationY(0);
                 snapshotView.setTranslationX(0);
+//                snapshotView.setScaleType(ImageView.ScaleType.FIT_CENTER);
                 snapshotView.setScaleType(ImageView.ScaleType.FIT_CENTER);
                 setWidthHeight(snapshotView, photoViewContainer.getWidth(), photoViewContainer.getHeight());
 
@@ -228,6 +281,22 @@ public class ImageViewerDialogFragment<T> extends BaseDialogFragment
             }
         });
 
+    }
+
+    protected void loadNewUrl(int position, T url) {
+        ImageViewContainer ivContainer = pager.findViewWithTag(position);
+        ivContainer.showProgressBar();
+        loader.loadImage(url, new ImageLoad.LoadCallback() {
+            @Override
+            public void progress(float progress) {
+                ivContainer.setProgress(progress);
+            }
+
+            @Override
+            public void loadFinish(Drawable drawable) {
+                ivContainer.onLoadFinished();
+            }
+        }, ivContainer.getPhotoView(), String.valueOf(ivContainer.hashCode()));
     }
 
     private void setupPlaceholder() {
@@ -314,6 +383,7 @@ public class ImageViewerDialogFragment<T> extends BaseDialogFragment
                 .addListener(new TransitionListenerAdapter() {
                     @Override
                     public void onTransitionEnd(@NonNull Transition transition) {
+                        actionQueue.onDestroy();
                         doAfterDismiss();
                         pager.setVisibility(View.INVISIBLE);
                         snapshotView.setVisibility(View.VISIBLE);
@@ -354,32 +424,39 @@ public class ImageViewerDialogFragment<T> extends BaseDialogFragment
     public void dismiss() {
         if (popupStatus != PopupStatus.Show) return;
         popupStatus = PopupStatus.Dismissing;
+        if (srcViewUpdateListener != null) {
+            srcViewUpdateListener.onSrcViewUpdate(ImageViewerDialogFragment3.this, position);
+        }
         if (srcView != null) {
             //snapshotView拥有当前pager中photoView的样子(matrix)
 //            PhotoView current = (PhotoView) pager.getChildAt(pager.getCurrentItem());
-            PhotoView current = pager.findViewWithTag(pager.getCurrentItem());
+//            XPhotoView current = pager.findViewWithTag(pager.getCurrentItem());
+//            if (current != null) {
+//                Matrix matrix = new Matrix();
+//                current.getSuppMatrix(matrix);
+//                snapshotView.setSuppMatrix(matrix);
+//            }
+            ImageViewContainer current = pager.findViewWithTag(pager.getCurrentItem());
             if (current != null) {
-                Matrix matrix = new Matrix();
-                current.getSuppMatrix(matrix);
-                snapshotView.setSuppMatrix(matrix);
+                Matrix matrix = current.getPhotoView().getSupportMatrix();
+                if (matrix != null) {
+                    snapshotView.setSuppMatrix(matrix);
+                }
+
             }
+//            setSrcView(srcView, position);
         }
         doDismissAnimation();
         getSupportDelegate().pop();
     }
 
-    public ImageViewerDialogFragment<T> setImageUrls(List<T> urls) {
+    public ImageViewerDialogFragment3<T> setImageUrls(List<T> urls) {
         this.urls.addAll(urls);
         return this;
     }
 
-    public ImageViewerDialogFragment<T> setSrcViewUpdateListener(OnSrcViewUpdateListener<T> srcViewUpdateListener) {
+    public ImageViewerDialogFragment3<T> setSrcViewUpdateListener(OnSrcViewUpdateListener<T> srcViewUpdateListener) {
         this.srcViewUpdateListener = srcViewUpdateListener;
-        return this;
-    }
-
-    public ImageViewerDialogFragment<T> setImageLoader(IImageLoader<T> imageLoader) {
-        this.imageLoader = imageLoader;
         return this;
     }
 
@@ -389,7 +466,7 @@ public class ImageViewerDialogFragment<T> extends BaseDialogFragment
      * @param isShow
      * @return
      */
-    public ImageViewerDialogFragment<T> isShowPlaceholder(boolean isShow) {
+    public ImageViewerDialogFragment3<T> isShowPlaceholder(boolean isShow) {
         this.isShowPlaceholder = isShow;
         return this;
     }
@@ -400,7 +477,7 @@ public class ImageViewerDialogFragment<T> extends BaseDialogFragment
      * @param isShow
      * @return
      */
-    public ImageViewerDialogFragment<T> isShowIndicator(boolean isShow) {
+    public ImageViewerDialogFragment3<T> isShowIndicator(boolean isShow) {
         this.isShowIndicator = isShow;
         return this;
     }
@@ -411,27 +488,27 @@ public class ImageViewerDialogFragment<T> extends BaseDialogFragment
      * @param isShowSaveBtn
      * @return
      */
-    public ImageViewerDialogFragment<T> isShowSaveButton(boolean isShowSaveBtn) {
+    public ImageViewerDialogFragment3<T> isShowSaveButton(boolean isShowSaveBtn) {
         this.isShowSaveBtn = isShowSaveBtn;
         return this;
     }
 
-    public ImageViewerDialogFragment<T> isInfinite(boolean isInfinite) {
+    public ImageViewerDialogFragment3<T> isInfinite(boolean isInfinite) {
         this.isInfinite = isInfinite;
         return this;
     }
 
-    public ImageViewerDialogFragment<T> setPlaceholderColor(int color) {
+    public ImageViewerDialogFragment3<T> setPlaceholderColor(int color) {
         this.placeholderColor = color;
         return this;
     }
 
-    public ImageViewerDialogFragment<T> setPlaceholderRadius(int radius) {
+    public ImageViewerDialogFragment3<T> setPlaceholderRadius(int radius) {
         this.placeholderRadius = radius;
         return this;
     }
 
-    public ImageViewerDialogFragment<T> setPlaceholderStrokeColor(int strokeColor) {
+    public ImageViewerDialogFragment3<T> setPlaceholderStrokeColor(int strokeColor) {
         this.placeholderStrokeColor = strokeColor;
         return this;
     }
@@ -442,14 +519,14 @@ public class ImageViewerDialogFragment<T> extends BaseDialogFragment
      * @param srcView
      * @return
      */
-    public ImageViewerDialogFragment<T> setSingleSrcView(ImageView srcView, T url) {
+    public ImageViewerDialogFragment3<T> setSingleSrcView(ImageView srcView, T url) {
         urls.clear();
         urls.add(url);
         setSrcView(srcView, 0);
         return this;
     }
 
-    public ImageViewerDialogFragment<T> setSrcView(ImageView srcView, int position) {
+    public ImageViewerDialogFragment3<T> setSrcView(ImageView srcView, int position) {
         this.srcView = srcView;
         this.position = position;
         if (srcView != null) {
@@ -511,7 +588,7 @@ public class ImageViewerDialogFragment<T> extends BaseDialogFragment
                     @Override
                     public void onGranted() {
                         //save bitmap to album.
-                        Utility.saveBmpToAlbum(getContext(), imageLoader, urls.get(isInfinite ? position % urls.size() : position));
+
                     }
 
                     @Override
@@ -535,34 +612,46 @@ public class ImageViewerDialogFragment<T> extends BaseDialogFragment
         @NonNull
         @Override
         public Object instantiateItem(@NonNull ViewGroup container, int position) {
-            final PhotoView photoView = new PhotoView(container.getContext());
-            photoView.setTag(position);
+            final ImageViewContainer ivContainer = new ImageViewContainer(container.getContext());
+            ivContainer.setTag(position);
             // call LoadImageListener
-            if (imageLoader != null)
-                imageLoader.loadImage(position, urls.get(isInfinite ? position % urls.size() : position), photoView, new Runnable() {
-                    @Override
-                    public void run() {
-
-                        postOnEnterAnimationEnd(new Runnable() {
-                            @Override
-                            public void run() {
-                                if (snapshotView != null) {
-                                    snapshotView.setVisibility(View.INVISIBLE);
-                                }
-                            }
-                        });
-
-                    }
-                });
-
-            container.addView(photoView);
-            photoView.setOnClickListener(new View.OnClickListener() {
+            ivContainer.showProgressBar();
+            actionQueue.post(new Runnable() {
                 @Override
-                public void onClick(View v) {
-                    dismiss();
+                public void run() {
+                    loader.loadImage(urls.get(position), new ImageLoad.LoadCallback() {
+                        @Override
+                        public void progress(float progress) {
+                            ivContainer.setProgress(progress);
+                        }
+
+                        @Override
+                        public void loadFinish(Drawable drawable) {
+                            ivContainer.onLoadFinished();
+                        }
+                    }, ivContainer.getPhotoView(), String.valueOf(ivContainer.hashCode()));
                 }
             });
-            return photoView;
+//            loader.loadImage(urls.get(position), new ImageLoad.LoadCallback() {
+//                @Override
+//                public void progress(float progress) {
+//
+//                }
+//
+//                @Override
+//                public void loadFinish(Drawable drawable) {
+//
+//                }
+//            }, photoView, String.valueOf(view.hashCode()));
+
+            container.addView(ivContainer);
+//            ivContainer.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View v) {
+//                    dismiss();
+//                }
+//            });
+            return ivContainer;
         }
 
         @Override
