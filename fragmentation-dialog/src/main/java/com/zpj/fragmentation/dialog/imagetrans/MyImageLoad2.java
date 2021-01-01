@@ -3,11 +3,20 @@ package com.zpj.fragmentation.dialog.imagetrans;
 import android.content.ContentResolver;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.util.Log;
+import android.view.View;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.resource.gif.GifDrawable;
+import com.bumptech.glide.request.target.SimpleTarget;
+import com.bumptech.glide.request.transition.Transition;
 import com.davemorrissey.labs.subscaleview.ImageSource;
 import com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView;
+import com.zpj.fragmentation.dialog.widget.ImageViewContainer;
 
+import java.io.File;
 import java.util.HashMap;
 import java.util.regex.Pattern;
 
@@ -22,7 +31,7 @@ public class MyImageLoad2<T> {
     private static final HashMap<String, ImageLoad.LoadCallback> loadCallbackMap = new HashMap<>();
     private static final HashMap<String, OkHttpImageLoad.ImageDownLoadListener> imageDownLoadListenerMap = new HashMap<>();
 
-    public void loadImage(final T url, final ImageLoad.LoadCallback callback, final SubsamplingScaleImageView imageView, final String unique) {
+    public void loadImage(final T url, final ImageLoad.LoadCallback callback, final ImageViewContainer imageView, final String unique) {
         addLoadCallback(unique, callback);
         String link = url.toString();
         Uri uri = Uri.parse(link);
@@ -45,7 +54,7 @@ public class MyImageLoad2<T> {
     /**
      * 从网络加载图片
      */
-    private void loadImageFromNet(final String url, final String unique, final SubsamplingScaleImageView imageView) {
+    private void loadImageFromNet(final String url, final String unique, final ImageViewContainer imageView) {
         OkHttpImageLoad.ImageDownLoadListener loadListener = new OkHttpImageLoad.ImageDownLoadListener() {
             @Override
             public void inProgress(float progress, long total) {
@@ -75,51 +84,64 @@ public class MyImageLoad2<T> {
     /**
      * 从本地加载图片
      */
-    protected void loadImageFromLocal(String path, final String unique, final SubsamplingScaleImageView imageView) {
-//        imageView.setLoadListener(new XPhotoViewListener.OnXPhotoLoadListener() {
-//            @Override
-//            public void onImageLoadStart(XPhotoView view) {
-//
-//            }
-//
-//            @Override
-//            public void onImageLoaded(XPhotoView view) {
-//                onFinishLoad(unique, null);
-//            }
-//        });
-//        imageView.setImage(new File(path));
-        imageView.setOnImageEventListener(new SubsamplingScaleImageView.OnImageEventListener() {
-            @Override
-            public void onReady() {
+    protected void loadImageFromLocal(String path, final String unique, final ImageViewContainer imageView) {
+        Log.d("loadImageFromLocal", "path=" + path);
+        if (path.toLowerCase().endsWith(".itgif") || path.toLowerCase().endsWith(".gif")) {
+            Glide.with(imageView).asDrawable().load(new File(path)).into(new SimpleTarget<Drawable>() {
+                @Override
+                public void onResourceReady(@NonNull Drawable resource, @Nullable Transition<? super Drawable> transition) {
+                    onFinishLoad(unique, resource);
+                    if (resource instanceof GifDrawable) {
+                        imageView.showGif((GifDrawable) resource);
+                    } else {
+                        imageView.showPlaceholder(resource);
+                    }
 
-            }
+                }
 
-            @Override
-            public void onImageLoaded() {
-                onFinishLoad(unique, null);
-            }
+                @Override
+                public void onLoadFailed(@Nullable Drawable errorDrawable) {
+                    super.onLoadFailed(errorDrawable);
+                    onLoadFailed(errorDrawable);
+                }
+            });
+//            imageView.showGif(new File(path));
+//            onFinishLoad(unique, null);
+        } else {
+            imageView.getPhotoView().setOnImageEventListener(new SubsamplingScaleImageView.OnImageEventListener() {
+                @Override
+                public void onReady() {
 
-            @Override
-            public void onPreviewLoadError(Exception e) {
+                }
 
-            }
+                @Override
+                public void onImageLoaded() {
+                    onFinishLoad(unique, null);
+                }
 
-            @Override
-            public void onImageLoadError(Exception e) {
+                @Override
+                public void onPreviewLoadError(Exception e) {
 
-            }
+                }
 
-            @Override
-            public void onTileLoadError(Exception e) {
+                @Override
+                public void onImageLoadError(Exception e) {
 
-            }
+                }
 
-            @Override
-            public void onPreviewReleased() {
+                @Override
+                public void onTileLoadError(Exception e) {
 
-            }
-        });
-        imageView.setImage(ImageSource.uri(path));
+                }
+
+                @Override
+                public void onPreviewReleased() {
+
+                }
+            });
+            imageView.getPhotoView().setImage(ImageSource.uri(path));
+        }
+
 
 
 

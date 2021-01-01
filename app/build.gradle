@@ -90,6 +90,7 @@ dependencies {
 //    implementation 'com.lwkandroid.widget:NineGridView:1.4.4'
     implementation 'com.zpj.widget:TintedImageView:1.0.0'
     implementation 'com.github.nanchen2251:CompressHelper:1.0.5'
+//    implementation 'pl.droidsonroids.gif:android-gif-drawable:1.2.21'
 
     // TabLayout
     implementation 'com.github.hackware1993:MagicIndicator:1.6.0'

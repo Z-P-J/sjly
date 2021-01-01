@@ -653,15 +653,16 @@ public class PhotoViewAttacher implements View.OnTouchListener,
             switch (mScaleType) {
                 case FIT_CENTER:
                     // for long image, 图片高>view高，比例也大于view的高/宽，则认为是长图
-                    if (drawableHeight > viewHeight && drawableHeight * 1f / drawableWidth > viewHeight * 1f / viewWidth) {
-//                        mBaseMatrix.postScale(widthScale, widthScale);
-//                        setScale(widthScale);
-                        //长图特殊处理，宽度撑满屏幕，并且顶部对齐
-                        isLongImage = true;
-                        mBaseMatrix.setRectToRect(mTempSrc, new RectF(0, 0, viewWidth, drawableHeight * widthScale), ScaleToFit.START);
-                    } else {
-                        mBaseMatrix.setRectToRect(mTempSrc, mTempDst, ScaleToFit.CENTER);
-                    }
+//                    if (drawableHeight > viewHeight && drawableHeight * 1f / drawableWidth > viewHeight * 1f / viewWidth) {
+////                        mBaseMatrix.postScale(widthScale, widthScale);
+////                        setScale(widthScale);
+//                        //长图特殊处理，宽度撑满屏幕，并且顶部对齐
+//                        isLongImage = true;
+//                        mBaseMatrix.setRectToRect(mTempSrc, new RectF(0, 0, viewWidth, drawableHeight * widthScale), ScaleToFit.START);
+//                    } else {
+//                        mBaseMatrix.setRectToRect(mTempSrc, mTempDst, ScaleToFit.CENTER);
+//                    }
+                    mBaseMatrix.setRectToRect(mTempSrc, mTempDst, ScaleToFit.CENTER);
                     break;
                 case FIT_START:
                     mBaseMatrix.setRectToRect(mTempSrc, mTempDst, ScaleToFit.START);

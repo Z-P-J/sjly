@@ -198,7 +198,7 @@ public class SubsamplingScaleImageView extends View {
     private int orientation = ORIENTATION_0;
 
     // Max scale allowed (prevent infinite zoom)
-    private float maxScale = 2F;
+    private float maxScale = 4F;
 
     // Min scale allowed (prevent infinite zoom)
     private float minScale = minScale();
@@ -488,6 +488,7 @@ public class SubsamplingScaleImageView extends View {
             }
             this.sWidth = imageSource.getSWidth();
             this.sHeight = imageSource.getSHeight();
+            initMaxScale();
             this.pRegion = previewSource.getSRegion();
             if (previewSource.getBitmap() != null) {
                 this.bitmapIsCached = previewSource.isCached();
@@ -534,11 +535,14 @@ public class SubsamplingScaleImageView extends View {
 //    }
 
     public Matrix getSupportMatrix() {
+        if (vTranslate == null) {
+            return null;
+        }
         float height = getHeight();
         float width = getWidth();
         float startScale = Math.min(width / sWidth, height / sHeight);
         Log.d(TAG, "getMatrix startScale=" + startScale);
-        Log.d(TAG, "getMatrix scale=" + scale + " scaleStart=" + scaleStart + " minScale=" + minScale);
+        Log.d(TAG, "getMatrix scale=" + scale + " scaleStart=" + scaleStart + " minScale=" + minScale + " maxScale=" + maxScale);
         Log.d(TAG, "getMatrix matrix=" + matrix);
         Log.d(TAG, "getMatrix sWidth=" + sWidth + " sHeight=" + sHeight);
         Log.d(TAG, "getMatrix getWidth=" + getWidth() + " getHeight=" + getHeight());
@@ -880,6 +884,7 @@ public class SubsamplingScaleImageView extends View {
 
                             double previousScale = scale;
                             scale = Math.min(maxScale, (vDistEnd / vDistStart) * scaleStart);
+                            Log.d(TAG, "maxScale=" + maxScale + " (vDistEnd / vDistStart) * scaleStart=" + ((vDistEnd / vDistStart) * scaleStart));
 
                             if (scale <= minScale()) {
                                 // Minimum scale reached so don't pan. Adjust start settings so any expand will zoom in.
@@ -1138,6 +1143,7 @@ public class SubsamplingScaleImageView extends View {
             boolean finished = scaleElapsed > anim.duration;
             scaleElapsed = Math.min(scaleElapsed, anim.duration);
             scale = ease(anim.easing, scaleElapsed, anim.scaleStart, anim.scaleEnd - anim.scaleStart, anim.duration);
+            Log.d(TAG, "onDraw scale=" + scale);
 
             // Apply required animation to the focal point
             float vFocusNowX = ease(anim.easing, scaleElapsed, anim.vFocusStart.x, anim.vFocusEnd.x - anim.vFocusStart.x, anim.duration);
@@ -1689,7 +1695,7 @@ public class SubsamplingScaleImageView extends View {
         TilesInitTask(SubsamplingScaleImageView view, Context context, DecoderFactory<? extends ImageRegionDecoder> decoderFactory, Uri source) {
             this.viewRef = new WeakReference<>(view);
             this.contextRef = new WeakReference<>(context);
-            this.decoderFactoryRef = new WeakReference<DecoderFactory<? extends ImageRegionDecoder>>(decoderFactory);
+            this.decoderFactoryRef = new WeakReference<>(decoderFactory);
             this.source = source;
         }
 
@@ -1759,6 +1765,7 @@ public class SubsamplingScaleImageView extends View {
         }
         this.decoder = decoder;
         this.sWidth = sWidth;
+        initMaxScale();
         this.sHeight = sHeight;
         this.sOrientation = sOrientation;
         checkReady();
@@ -1964,6 +1971,7 @@ public class SubsamplingScaleImageView extends View {
         this.bitmap = bitmap;
         this.sWidth = bitmap.getWidth();
         this.sHeight = bitmap.getHeight();
+        initMaxScale();
         this.sOrientation = sOrientation;
         boolean ready = checkReady();
         boolean imageLoaded = checkImageLoaded();
@@ -2664,6 +2672,10 @@ public class SubsamplingScaleImageView extends View {
      */
     public final void setMaxScale(float maxScale) {
         this.maxScale = maxScale;
+    }
+
+    private void initMaxScale() {
+        this.maxScale = Math.max(maxScale, 2 * Math.min((float) getWidth() / sWidth, (float) getHeight() / sHeight));
     }
 
     /**

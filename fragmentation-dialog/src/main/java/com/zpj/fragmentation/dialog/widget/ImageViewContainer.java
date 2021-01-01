@@ -4,6 +4,7 @@ import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.graphics.drawable.DrawableCompat;
 import android.util.AttributeSet;
 import android.view.Gravity;
 import android.view.View;
@@ -13,14 +14,21 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
+import com.bumptech.glide.load.resource.gif.GifDrawable;
 import com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView;
+
+import java.io.File;
+import java.io.IOException;
 
 public class ImageViewContainer extends FrameLayout {
 
-//    private final XPhotoView photoView;
     private final SubsamplingScaleImageView imageView;
     private final ProgressBar progressBar;
     private final ImageView placeholder;
+
+//    private GifImageView gifImageView;
+
+    private boolean isGif;
 
     public ImageViewContainer(@NonNull Context context) {
         this(context, null);
@@ -32,9 +40,6 @@ public class ImageViewContainer extends FrameLayout {
 
     public ImageViewContainer(@NonNull Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
-//        photoView = new XPhotoView(context);
-//        addView(photoView, new LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
-
         imageView = new SubsamplingScaleImageView(context);
 //        imageView.setDebug(true);
         addView(imageView, new LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
@@ -51,22 +56,35 @@ public class ImageViewContainer extends FrameLayout {
     }
 
     public void showPlaceholder(Drawable drawable) {
-//        if (placeholder == null) {
-//            placeholder = new ImageView(getContext());
-//            placeholder.setScaleType(ImageView.ScaleType.FIT_CENTER);
-//            addView(placeholder, new LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
-//        }
-        placeholder.setVisibility(View.VISIBLE);
+        if (isGif) {
+            return;
+        }
+
         placeholder.setImageDrawable(drawable);
+        if (drawable instanceof GifDrawable) {
+//            ((GifDrawable) drawable).start();
+            ((GifDrawable) drawable).start();
+        }
+    }
+
+    public void showGif(GifDrawable drawable) {
+        isGif = true;
+        placeholder.setVisibility(VISIBLE);
+        Drawable oldDrawable = placeholder.getDrawable();
+        if (oldDrawable instanceof GifDrawable) {
+            ((GifDrawable) oldDrawable).stop();
+        }
+        placeholder.setImageDrawable(drawable);
+        drawable.start();
+    }
+
+    public ImageView getPlaceholder() {
+        return placeholder;
     }
 
     public SubsamplingScaleImageView getPhotoView() {
         return imageView;
     }
-
-//    public XPhotoView getPhotoView() {
-//        return photoView;
-//    }
 
     public ProgressBar getProgressBar() {
         return progressBar;
@@ -79,7 +97,10 @@ public class ImageViewContainer extends FrameLayout {
     public void onLoadFinished() {
         Toast.makeText(getContext(), "onLoadFinished", Toast.LENGTH_SHORT).show();
         progressBar.setVisibility(GONE);
-        placeholder.setVisibility(GONE);
+        if (!isGif) {
+            placeholder.setVisibility(GONE);
+        }
+
     }
 
     public void showProgressBar() {

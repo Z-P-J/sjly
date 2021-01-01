@@ -1,7 +1,7 @@
 # compiler: R8
 # compiler_version: 1.5.69
 # min_api: 19
-# pg_map_id: df4520f
+# pg_map_id: 2c845f3
 android.arch.core.executor.ArchTaskExecutor -> a.a.a.a.a:
     android.arch.core.executor.ArchTaskExecutor sInstance -> c
     android.arch.core.executor.TaskExecutor mDelegate -> a
@@ -24728,130 +24728,131 @@ com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView -> com.davemorriss
     72:72:android.graphics.PointF access$6600(com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView,float,float,float,android.graphics.PointF) -> a
     72:72:void access$6800(com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView,boolean,com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView$ScaleAndTranslate) -> a
     473:474:void setImage(com.davemorrissey.labs.subscaleview.ImageSource,com.davemorrissey.labs.subscaleview.ImageSource,com.davemorrissey.labs.subscaleview.ImageViewState) -> a
-    836:866:boolean onTouchEventInternal(android.view.MotionEvent) -> a
-    1075:1097:void doubleTapZoom(android.graphics.PointF,android.graphics.PointF) -> a
-    1298:1306:void setMatrixArray(float[],float,float,float,float,float,float,float,float) -> a
-    1392:1391:void initialiseBaseLayer(android.graphics.Point) -> a
-    1478:1482:boolean tileVisible(com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView$Tile) -> a
-    1515:1527:int calculateInSampleSize(float) -> a
-    1560:1601:void fitToBounds(boolean,com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView$ScaleAndTranslate) -> a
-    1610:1626:void fitToBounds(boolean) -> a
-    1744:1743:void onTilesInited(com.davemorrissey.labs.subscaleview.decoder.ImageRegionDecoder,int,int,int) -> a
-    1928:1927:void onPreviewLoaded(android.graphics.Bitmap) -> a
-    1949:1948:void onImageLoaded(android.graphics.Bitmap,int,boolean) -> a
-    1982:2024:int getExifOrientation(android.content.Context,java.lang.String) -> a
-    2028:2029:void execute(android.os.AsyncTask) -> a
-    2085:2091:void restoreState(com.davemorrissey.labs.subscaleview.ImageViewState) -> a
-    2119:2119:android.graphics.Point getMaxBitmapDimensions(android.graphics.Canvas) -> a
-    2155:2164:void fileSRect(android.graphics.Rect,android.graphics.Rect) -> a
-    2182:2184:float distance(float,float,float,float) -> a
-    2289:2289:android.graphics.PointF viewToSourceCoord(float,float) -> a
-    2349:2349:android.graphics.PointF sourceToViewCoord(android.graphics.PointF) -> a
-    2387:2391:android.graphics.PointF sourceToViewCoord(float,float,android.graphics.PointF) -> a
-    2413:2421:android.graphics.PointF vTranslateForSCenter(float,float,float) -> a
-    2430:2436:android.graphics.PointF limitedSCenter(float,float,float,android.graphics.PointF) -> a
-    2474:2478:float ease(int,long,float,float,long) -> a
-    2508:2513:float easeInOutQuad(long,float,float,long) -> a
-    2522:2525:void debug(java.lang.String,java.lang.Object[]) -> a
-    2531:2531:int px(int) -> a
-    2770:2775:void setScaleAndCenter(float,android.graphics.PointF) -> a
-    2801:2801:boolean isReady() -> a
-    3098:3104:void sendStateChanged(float,android.graphics.PointF,int) -> a
+    840:870:boolean onTouchEventInternal(android.view.MotionEvent) -> a
+    1080:1102:void doubleTapZoom(android.graphics.PointF,android.graphics.PointF) -> a
+    1304:1312:void setMatrixArray(float[],float,float,float,float,float,float,float,float) -> a
+    1398:1397:void initialiseBaseLayer(android.graphics.Point) -> a
+    1484:1488:boolean tileVisible(com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView$Tile) -> a
+    1521:1533:int calculateInSampleSize(float) -> a
+    1566:1607:void fitToBounds(boolean,com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView$ScaleAndTranslate) -> a
+    1616:1632:void fitToBounds(boolean) -> a
+    1750:1749:void onTilesInited(com.davemorrissey.labs.subscaleview.decoder.ImageRegionDecoder,int,int,int) -> a
+    1935:1934:void onPreviewLoaded(android.graphics.Bitmap) -> a
+    1956:1955:void onImageLoaded(android.graphics.Bitmap,int,boolean) -> a
+    1990:2032:int getExifOrientation(android.content.Context,java.lang.String) -> a
+    2036:2037:void execute(android.os.AsyncTask) -> a
+    2093:2099:void restoreState(com.davemorrissey.labs.subscaleview.ImageViewState) -> a
+    2127:2127:android.graphics.Point getMaxBitmapDimensions(android.graphics.Canvas) -> a
+    2163:2172:void fileSRect(android.graphics.Rect,android.graphics.Rect) -> a
+    2190:2192:float distance(float,float,float,float) -> a
+    2297:2297:android.graphics.PointF viewToSourceCoord(float,float) -> a
+    2357:2357:android.graphics.PointF sourceToViewCoord(android.graphics.PointF) -> a
+    2395:2399:android.graphics.PointF sourceToViewCoord(float,float,android.graphics.PointF) -> a
+    2421:2429:android.graphics.PointF vTranslateForSCenter(float,float,float) -> a
+    2438:2444:android.graphics.PointF limitedSCenter(float,float,float,android.graphics.PointF) -> a
+    2482:2486:float ease(int,long,float,float,long) -> a
+    2516:2521:float easeInOutQuad(long,float,float,long) -> a
+    2530:2533:void debug(java.lang.String,java.lang.Object[]) -> a
+    2539:2539:int px(int) -> a
+    2782:2787:void setScaleAndCenter(float,android.graphics.PointF) -> a
+    2813:2813:boolean isReady() -> a
+    3110:3116:void sendStateChanged(float,android.graphics.PointF,int) -> a
     72:72:float access$1000(com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView) -> b
     72:72:android.graphics.PointF access$1802(com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView,android.graphics.PointF) -> b
     72:72:float access$2102(com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView,float) -> b
     72:72:boolean access$2502(com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView,boolean) -> b
     72:72:void access$301(com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView,android.view.View$OnLongClickListener) -> b
-    1435:1436:void refreshRequiredTiles(boolean) -> b
-    1632:1645:void initialiseTileMap(android.graphics.Point) -> b
-    2277:2277:android.graphics.PointF viewToSourceCoord(android.graphics.PointF) -> b
-    2314:2318:android.graphics.PointF viewToSourceCoord(float,float,android.graphics.PointF) -> b
-    2398:2404:void sourceToViewRect(android.graphics.Rect,android.graphics.Rect) -> b
-    2458:2460:float limitedScale(float) -> b
-    2494:2495:float easeOutQuad(long,float,float,long) -> b
-    2830:2830:void onImageLoaded() -> b
+    1441:1442:void refreshRequiredTiles(boolean) -> b
+    1638:1651:void initialiseTileMap(android.graphics.Point) -> b
+    2285:2285:android.graphics.PointF viewToSourceCoord(android.graphics.PointF) -> b
+    2322:2326:android.graphics.PointF viewToSourceCoord(float,float,android.graphics.PointF) -> b
+    2406:2412:void sourceToViewRect(android.graphics.Rect,android.graphics.Rect) -> b
+    2466:2468:float limitedScale(float) -> b
+    2502:2503:float easeOutQuad(long,float,float,long) -> b
+    2842:2842:void onImageLoaded() -> b
     72:72:boolean access$1400(com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView) -> c
     72:72:android.graphics.PointF access$2202(com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView,android.graphics.PointF) -> c
     72:72:float access$6500(com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView,float) -> c
     72:72:boolean access$902(com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView,boolean) -> c
-    1064:1068:void requestDisallowInterceptTouchEvent(boolean) -> c
-    2325:2328:float sourceToViewX(float) -> c
-    2812:2812:void onReady() -> c
+    1069:1073:void requestDisallowInterceptTouchEvent(boolean) -> c
+    2333:2336:float sourceToViewX(float) -> c
+    2824:2824:void onReady() -> c
     72:72:boolean access$1600(com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView) -> d
     72:72:android.graphics.PointF access$2302(com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView,android.graphics.PointF) -> d
     72:72:java.lang.String access$5400() -> d
-    608:674:void reset(boolean) -> d
-    2335:2338:float sourceToViewY(float) -> d
+    612:678:void reset(boolean) -> d
+    2343:2346:float sourceToViewY(float) -> d
     72:72:android.graphics.PointF access$1700(com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView) -> e
     72:72:android.graphics.PointF access$2402(com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView,android.graphics.PointF) -> e
     72:72:java.util.List access$6300() -> e
-    2204:2207:float viewToSourceX(float) -> e
+    2212:2215:float viewToSourceX(float) -> e
     72:72:android.graphics.PointF access$2200(com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView) -> f
-    1353:1362:boolean checkImageLoaded() -> f
-    2214:2217:float viewToSourceY(float) -> f
+    1359:1368:boolean checkImageLoaded() -> f
+    2222:2225:float viewToSourceY(float) -> f
     72:72:android.graphics.Rect access$5300(com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView) -> g
-    1336:1345:boolean checkReady() -> g
-    2869:2869:int getAppliedOrientation() -> getAppliedOrientation
-    2748:2750:android.graphics.PointF getCenter() -> getCenter
-    2710:2710:float getMaxScale() -> getMaxScale
-    2719:2719:float getMinScale() -> getMinScale
-    2859:2859:int getOrientation() -> getOrientation
+    1342:1351:boolean checkReady() -> g
+    2881:2881:int getAppliedOrientation() -> getAppliedOrientation
+    2760:2762:android.graphics.PointF getCenter() -> getCenter
+    2722:2722:float getMaxScale() -> getMaxScale
+    2731:2731:float getMinScale() -> getMinScale
+    2871:2871:int getOrientation() -> getOrientation
     390:390:android.graphics.Bitmap$Config getPreferredBitmapConfig() -> getPreferredBitmapConfig
-    2171:2174:int getRequiredRotation() -> getRequiredRotation
-    2849:2849:int getSHeight() -> getSHeight
-    2839:2839:int getSWidth() -> getSWidth
-    2759:2759:float getScale() -> getScale
-    2880:2884:com.davemorrissey.labs.subscaleview.ImageViewState getState() -> getState
-    537:601:android.graphics.Matrix getSupportMatrix() -> getSupportMatrix
+    2179:2182:int getRequiredRotation() -> getRequiredRotation
+    2861:2861:int getSHeight() -> getSHeight
+    2851:2851:int getSWidth() -> getSWidth
+    2771:2771:float getScale() -> getScale
+    2892:2896:com.davemorrissey.labs.subscaleview.ImageViewState getState() -> getState
+    538:605:android.graphics.Matrix getSupportMatrix() -> getSupportMatrix
     72:72:com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView$OnImageEventListener access$5600(com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView) -> h
-    1369:1385:void createPaints() -> h
+    1375:1391:void createPaints() -> h
     72:72:java.util.concurrent.locks.ReadWriteLock access$5700(com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView) -> i
-    1312:1327:boolean isBaseLayerReady() -> i
+    2678:2679:void initMaxScale() -> i
     72:72:void access$5900(com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView) -> j
-    2443:2446:float minScale() -> j
+    1318:1333:boolean isBaseLayerReady() -> j
     72:72:boolean access$600(com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView) -> k
-    1844:1843:void onTileLoaded() -> k
+    2451:2454:float minScale() -> k
     72:72:com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView$Anim access$6400(com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView) -> l
-    1489:1490:void preDraw() -> l
+    1851:1850:void onTileLoaded() -> l
     72:72:boolean access$700(com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView) -> m
-    2140:2142:int sHeight() -> m
+    1495:1496:void preDraw() -> m
     72:72:android.graphics.PointF access$800(com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView) -> n
-    2127:2129:int sWidth() -> n
+    2148:2150:int sHeight() -> n
     72:72:boolean access$900(com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView) -> o
-    1105:1110:void onDraw(android.graphics.Canvas) -> onDraw
-    757:778:void onMeasure(int,int) -> onMeasure
-    742:749:void onSizeChanged(int,int,int,int) -> onSizeChanged
-    786:831:boolean onTouchEvent(android.view.MotionEvent) -> onTouchEvent
-    2573:2574:void setBitmapDecoderClass(java.lang.Class) -> setBitmapDecoderClass
-    2587:2588:void setBitmapDecoderFactory(com.davemorrissey.labs.subscaleview.decoder.DecoderFactory) -> setBitmapDecoderFactory
-    3057:3058:void setDebug(boolean) -> setDebug
-    2985:2988:void setDoubleTapZoomDpi(int) -> setDoubleTapZoomDpi
-    3008:3009:void setDoubleTapZoomDuration(int) -> setDoubleTapZoomDuration
-    2974:2975:void setDoubleTapZoomScale(float) -> setDoubleTapZoomScale
-    2996:2997:void setDoubleTapZoomStyle(int) -> setDoubleTapZoomStyle
-    3048:3049:void setEagerLoadingEnabled(boolean) -> setEagerLoadingEnabled
-    3031:3032:void setExecutor(java.util.concurrent.Executor) -> setExecutor
-    677:735:void setGestureDetector(android.content.Context) -> setGestureDetector
+    2135:2137:int sWidth() -> o
+    1110:1115:void onDraw(android.graphics.Canvas) -> onDraw
+    761:782:void onMeasure(int,int) -> onMeasure
+    746:753:void onSizeChanged(int,int,int,int) -> onSizeChanged
+    790:835:boolean onTouchEvent(android.view.MotionEvent) -> onTouchEvent
+    2581:2582:void setBitmapDecoderClass(java.lang.Class) -> setBitmapDecoderClass
+    2595:2596:void setBitmapDecoderFactory(com.davemorrissey.labs.subscaleview.decoder.DecoderFactory) -> setBitmapDecoderFactory
+    3069:3070:void setDebug(boolean) -> setDebug
+    2997:3000:void setDoubleTapZoomDpi(int) -> setDoubleTapZoomDpi
+    3020:3021:void setDoubleTapZoomDuration(int) -> setDoubleTapZoomDuration
+    2986:2987:void setDoubleTapZoomScale(float) -> setDoubleTapZoomScale
+    3008:3009:void setDoubleTapZoomStyle(int) -> setDoubleTapZoomStyle
+    3060:3061:void setEagerLoadingEnabled(boolean) -> setEagerLoadingEnabled
+    3043:3044:void setExecutor(java.util.concurrent.Executor) -> setExecutor
+    681:739:void setGestureDetector(android.content.Context) -> setGestureDetector
     427:428:void setImage(com.davemorrissey.labs.subscaleview.ImageSource) -> setImage
-    2666:2667:void setMaxScale(float) -> setMaxScale
-    2099:2101:void setMaxTileSize(int) -> setMaxTileSize
-    2699:2702:void setMaximumDpi(int) -> setMaximumDpi
-    2676:2677:void setMinScale(float) -> setMinScale
-    2687:2690:void setMinimumDpi(int) -> setMinimumDpi
-    2648:2649:void setMinimumScaleType(int) -> setMinimumScaleType
-    2732:2739:void setMinimumTileDpi(int) -> setMinimumTileDpi
-    3084:3085:void setOnImageEventListener(com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView$OnImageEventListener) -> setOnImageEventListener
-    3074:3075:void setOnLongClickListener(android.view.View$OnLongClickListener) -> setOnLongClickListener
-    3094:3095:void setOnStateChangedListener(com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView$OnStateChangedListener) -> setOnStateChangedListener
+    2674:2675:void setMaxScale(float) -> setMaxScale
+    2107:2109:void setMaxTileSize(int) -> setMaxTileSize
+    2711:2714:void setMaximumDpi(int) -> setMaximumDpi
+    2688:2689:void setMinScale(float) -> setMinScale
+    2699:2702:void setMinimumDpi(int) -> setMinimumDpi
+    2656:2657:void setMinimumScaleType(int) -> setMinimumScaleType
+    2744:2751:void setMinimumTileDpi(int) -> setMinimumTileDpi
+    3096:3097:void setOnImageEventListener(com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView$OnImageEventListener) -> setOnImageEventListener
+    3086:3087:void setOnLongClickListener(android.view.View$OnLongClickListener) -> setOnLongClickListener
+    3106:3107:void setOnStateChangedListener(com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView$OnStateChangedListener) -> setOnStateChangedListener
     412:413:void setOrientation(int) -> setOrientation
-    2939:2948:void setPanEnabled(boolean) -> setPanEnabled
-    2632:2633:void setPanLimit(int) -> setPanLimit
+    2951:2960:void setPanEnabled(boolean) -> setPanEnabled
+    2640:2641:void setPanLimit(int) -> setPanLimit
     402:403:void setPreferredBitmapConfig(android.graphics.Bitmap$Config) -> setPreferredBitmapConfig
-    2920:2921:void setQuickScaleEnabled(boolean) -> setQuickScaleEnabled
-    2543:2544:void setRegionDecoderClass(java.lang.Class) -> setRegionDecoderClass
-    2558:2559:void setRegionDecoderFactory(com.davemorrissey.labs.subscaleview.decoder.DecoderFactory) -> setRegionDecoderFactory
-    2956:2964:void setTileBackgroundColor(int) -> setTileBackgroundColor
-    2902:2903:void setZoomEnabled(boolean) -> setZoomEnabled
+    2932:2933:void setQuickScaleEnabled(boolean) -> setQuickScaleEnabled
+    2551:2552:void setRegionDecoderClass(java.lang.Class) -> setRegionDecoderClass
+    2566:2567:void setRegionDecoderFactory(com.davemorrissey.labs.subscaleview.decoder.DecoderFactory) -> setRegionDecoderFactory
+    2968:2976:void setTileBackgroundColor(int) -> setTileBackgroundColor
+    2914:2915:void setZoomEnabled(boolean) -> setZoomEnabled
 com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView$1 -> com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView$a:
     com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView this$0 -> a
     335:335:void <init>(com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView) -> <init>
@@ -24859,14 +24860,14 @@ com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView$1 -> com.davemorri
 com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView$2 -> com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView$b:
     android.content.Context val$context -> a
     com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView this$0 -> b
-    677:677:void <init>(com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView,android.content.Context) -> <init>
-    699:724:boolean onDoubleTap(android.view.MotionEvent) -> onDoubleTap
-    681:688:boolean onFling(android.view.MotionEvent,android.view.MotionEvent,float,float) -> onFling
-    693:694:boolean onSingleTapConfirmed(android.view.MotionEvent) -> onSingleTapConfirmed
+    681:681:void <init>(com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView,android.content.Context) -> <init>
+    703:728:boolean onDoubleTap(android.view.MotionEvent) -> onDoubleTap
+    685:692:boolean onFling(android.view.MotionEvent,android.view.MotionEvent,float,float) -> onFling
+    697:698:boolean onSingleTapConfirmed(android.view.MotionEvent) -> onSingleTapConfirmed
 com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView$3 -> com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView$c:
     com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView this$0 -> a
-    728:728:void <init>(com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView) -> <init>
-    731:732:boolean onSingleTapConfirmed(android.view.MotionEvent) -> onSingleTapConfirmed
+    732:732:void <init>(com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView) -> <init>
+    735:736:boolean onSingleTapConfirmed(android.view.MotionEvent) -> onSingleTapConfirmed
 com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView$Anim -> com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView$d:
     long time -> l
     boolean interruptible -> i
@@ -24881,34 +24882,34 @@ com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView$Anim -> com.davemo
     android.graphics.PointF sCenterEnd -> d
     android.graphics.PointF sCenterStart -> c
     com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView$OnAnimationEventListener listener -> m
-    2045:2058:void <init>() -> <init>
-    2045:2045:void <init>(com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView$1) -> <init>
-    2045:2045:boolean access$2700(com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView$Anim) -> a
-    2045:2045:boolean access$2702(com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView$Anim,boolean) -> a
-    2045:2045:com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView$OnAnimationEventListener access$2802(com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView$Anim,com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView$OnAnimationEventListener) -> a
-    2045:2045:android.graphics.PointF access$3102(com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView$Anim,android.graphics.PointF) -> a
-    2045:2045:long access$3202(com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView$Anim,long) -> a
-    2045:2045:int access$3402(com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView$Anim,int) -> a
-    2045:2045:float access$3502(com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView$Anim,float) -> a
-    2045:2045:com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView$OnAnimationEventListener access$2800(com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView$Anim) -> b
-    2045:2045:long access$3302(com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView$Anim,long) -> b
-    2045:2045:float access$3602(com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView$Anim,float) -> b
-    2045:2045:android.graphics.PointF access$3702(com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView$Anim,android.graphics.PointF) -> b
-    2045:2045:int access$3902(com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView$Anim,int) -> b
-    2045:2045:android.graphics.PointF access$3100(com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView$Anim) -> c
-    2045:2045:android.graphics.PointF access$3802(com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView$Anim,android.graphics.PointF) -> c
-    2045:2045:long access$3200(com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView$Anim) -> d
-    2045:2045:android.graphics.PointF access$4402(com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView$Anim,android.graphics.PointF) -> d
-    2045:2045:long access$3300(com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView$Anim) -> e
-    2045:2045:android.graphics.PointF access$4502(com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView$Anim,android.graphics.PointF) -> e
-    2045:2045:int access$3400(com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView$Anim) -> f
-    2045:2045:float access$3500(com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView$Anim) -> g
-    2045:2045:float access$3600(com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView$Anim) -> h
-    2045:2045:android.graphics.PointF access$3700(com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView$Anim) -> i
-    2045:2045:android.graphics.PointF access$3800(com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView$Anim) -> j
-    2045:2045:int access$3900(com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView$Anim) -> k
-    2045:2045:android.graphics.PointF access$4400(com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView$Anim) -> l
-    2045:2045:android.graphics.PointF access$4500(com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView$Anim) -> m
+    2053:2066:void <init>() -> <init>
+    2053:2053:void <init>(com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView$1) -> <init>
+    2053:2053:boolean access$2700(com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView$Anim) -> a
+    2053:2053:boolean access$2702(com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView$Anim,boolean) -> a
+    2053:2053:com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView$OnAnimationEventListener access$2802(com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView$Anim,com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView$OnAnimationEventListener) -> a
+    2053:2053:android.graphics.PointF access$3102(com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView$Anim,android.graphics.PointF) -> a
+    2053:2053:long access$3202(com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView$Anim,long) -> a
+    2053:2053:int access$3402(com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView$Anim,int) -> a
+    2053:2053:float access$3502(com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView$Anim,float) -> a
+    2053:2053:com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView$OnAnimationEventListener access$2800(com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView$Anim) -> b
+    2053:2053:long access$3302(com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView$Anim,long) -> b
+    2053:2053:float access$3602(com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView$Anim,float) -> b
+    2053:2053:android.graphics.PointF access$3702(com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView$Anim,android.graphics.PointF) -> b
+    2053:2053:int access$3902(com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView$Anim,int) -> b
+    2053:2053:android.graphics.PointF access$3100(com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView$Anim) -> c
+    2053:2053:android.graphics.PointF access$3802(com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView$Anim,android.graphics.PointF) -> c
+    2053:2053:long access$3200(com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView$Anim) -> d
+    2053:2053:android.graphics.PointF access$4402(com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView$Anim,android.graphics.PointF) -> d
+    2053:2053:long access$3300(com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView$Anim) -> e
+    2053:2053:android.graphics.PointF access$4502(com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView$Anim,android.graphics.PointF) -> e
+    2053:2053:int access$3400(com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView$Anim) -> f
+    2053:2053:float access$3500(com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView$Anim) -> g
+    2053:2053:float access$3600(com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView$Anim) -> h
+    2053:2053:android.graphics.PointF access$3700(com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView$Anim) -> i
+    2053:2053:android.graphics.PointF access$3800(com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView$Anim) -> j
+    2053:2053:int access$3900(com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView$Anim) -> k
+    2053:2053:android.graphics.PointF access$4400(com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView$Anim) -> l
+    2053:2053:android.graphics.PointF access$4500(com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView$Anim) -> m
 com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView$AnimationBuilder -> com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView$e:
     android.graphics.PointF targetSCenter -> b
     com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView$OnAnimationEventListener listener -> i
@@ -24920,20 +24921,20 @@ com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView$AnimationBuilder -
     int easing -> e
     boolean panLimited -> h
     android.graphics.PointF vFocus -> c
-    3158:3158:void <init>(com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView,float,android.graphics.PointF,android.graphics.PointF,com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView$1) -> <init>
-    3158:3158:void <init>(com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView,float,android.graphics.PointF,com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView$1) -> <init>
-    3158:3158:void <init>(com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView,android.graphics.PointF,com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView$1) -> <init>
-    3170:3174:void <init>(com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView,android.graphics.PointF) -> <init>
-    3182:3186:void <init>(com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView,float,android.graphics.PointF) -> <init>
-    3188:3192:void <init>(com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView,float,android.graphics.PointF,android.graphics.PointF) -> <init>
-    3158:3158:com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView$AnimationBuilder access$1200(com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView$AnimationBuilder,boolean) -> a
-    3158:3158:com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView$AnimationBuilder access$1300(com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView$AnimationBuilder,int) -> a
-    3202:3203:com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView$AnimationBuilder withDuration(long) -> a
-    3214:3215:com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView$AnimationBuilder withInterruptible(boolean) -> a
-    3226:3227:com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView$AnimationBuilder withEasing(int) -> a
-    3270:3316:void start() -> a
-    3253:3254:com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView$AnimationBuilder withPanLimited(boolean) -> b
-    3262:3263:com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView$AnimationBuilder withOrigin(int) -> b
+    3170:3170:void <init>(com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView,float,android.graphics.PointF,android.graphics.PointF,com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView$1) -> <init>
+    3170:3170:void <init>(com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView,float,android.graphics.PointF,com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView$1) -> <init>
+    3170:3170:void <init>(com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView,android.graphics.PointF,com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView$1) -> <init>
+    3182:3186:void <init>(com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView,android.graphics.PointF) -> <init>
+    3194:3198:void <init>(com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView,float,android.graphics.PointF) -> <init>
+    3200:3204:void <init>(com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView,float,android.graphics.PointF,android.graphics.PointF) -> <init>
+    3170:3170:com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView$AnimationBuilder access$1200(com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView$AnimationBuilder,boolean) -> a
+    3170:3170:com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView$AnimationBuilder access$1300(com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView$AnimationBuilder,int) -> a
+    3214:3215:com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView$AnimationBuilder withDuration(long) -> a
+    3226:3227:com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView$AnimationBuilder withInterruptible(boolean) -> a
+    3238:3239:com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView$AnimationBuilder withEasing(int) -> a
+    3282:3328:void start() -> a
+    3265:3266:com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView$AnimationBuilder withPanLimited(boolean) -> b
+    3274:3275:com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView$AnimationBuilder withOrigin(int) -> b
 com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView$BitmapLoadTask -> com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView$f:
     java.lang.Exception exception -> g
     boolean preview -> e
@@ -24942,11 +24943,11 @@ com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView$BitmapLoadTask -> 
     java.lang.ref.WeakReference contextRef -> b
     java.lang.ref.WeakReference viewRef -> a
     android.net.Uri source -> d
-    1873:1879:void <init>(com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView,android.content.Context,com.davemorrissey.labs.subscaleview.decoder.DecoderFactory,android.net.Uri,boolean) -> <init>
-    1884:1900:java.lang.Integer doInBackground(java.lang.Void[]) -> a
-    1905:1921:void onPostExecute(java.lang.Integer) -> a
-    1864:1864:java.lang.Object doInBackground(java.lang.Object[]) -> doInBackground
-    1864:1864:void onPostExecute(java.lang.Object) -> onPostExecute
+    1880:1886:void <init>(com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView,android.content.Context,com.davemorrissey.labs.subscaleview.decoder.DecoderFactory,android.net.Uri,boolean) -> <init>
+    1891:1907:java.lang.Integer doInBackground(java.lang.Void[]) -> a
+    1912:1928:void onPostExecute(java.lang.Integer) -> a
+    1871:1871:java.lang.Object doInBackground(java.lang.Object[]) -> doInBackground
+    1871:1871:void onPostExecute(java.lang.Object) -> onPostExecute
 com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView$OnAnimationEventListener -> com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView$g:
     void onComplete() -> a
     void onInterruptedByUser() -> b
@@ -24964,12 +24965,12 @@ com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView$OnStateChangedList
 com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView$ScaleAndTranslate -> com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView$j:
     android.graphics.PointF vTranslate -> b
     float scale -> a
-    2063:2063:void <init>(float,android.graphics.PointF,com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView$1) -> <init>
-    2064:2067:void <init>(float,android.graphics.PointF) -> <init>
-    2063:2063:float access$4700(com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView$ScaleAndTranslate) -> a
-    2063:2063:float access$4702(com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView$ScaleAndTranslate,float) -> a
-    2063:2063:android.graphics.PointF access$4800(com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView$ScaleAndTranslate) -> b
-    2074:2074:java.lang.String toString() -> toString
+    2071:2071:void <init>(float,android.graphics.PointF,com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView$1) -> <init>
+    2072:2075:void <init>(float,android.graphics.PointF) -> <init>
+    2071:2071:float access$4700(com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView$ScaleAndTranslate) -> a
+    2071:2071:float access$4702(com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView$ScaleAndTranslate,float) -> a
+    2071:2071:android.graphics.PointF access$4800(com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView$ScaleAndTranslate) -> b
+    2082:2082:java.lang.String toString() -> toString
 com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView$Tile -> com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView$k:
     android.graphics.Bitmap bitmap -> c
     boolean visible -> e
@@ -24978,32 +24979,32 @@ com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView$Tile -> com.davemo
     int sampleSize -> b
     android.graphics.Rect sRect -> a
     boolean loading -> d
-    2031:2031:void <init>() -> <init>
-    2031:2031:void <init>(com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView$1) -> <init>
-    2031:2031:boolean access$400(com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView$Tile) -> a
-    2031:2031:boolean access$4002(com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView$Tile,boolean) -> a
-    2031:2031:android.graphics.Rect access$4102(com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView$Tile,android.graphics.Rect) -> a
-    2031:2031:int access$4302(com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView$Tile,int) -> a
-    2031:2031:android.graphics.Bitmap access$502(com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView$Tile,android.graphics.Bitmap) -> a
-    2031:2031:boolean access$4000(com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView$Tile) -> b
-    2031:2031:boolean access$402(com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView$Tile,boolean) -> b
-    2031:2031:android.graphics.Rect access$4202(com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView$Tile,android.graphics.Rect) -> b
-    2031:2031:android.graphics.Rect access$4100(com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView$Tile) -> c
-    2031:2031:android.graphics.Rect access$5002(com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView$Tile,android.graphics.Rect) -> c
-    2031:2031:android.graphics.Rect access$4200(com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView$Tile) -> d
-    2031:2031:int access$4300(com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView$Tile) -> e
-    2031:2031:android.graphics.Bitmap access$500(com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView$Tile) -> f
-    2031:2031:android.graphics.Rect access$5000(com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView$Tile) -> g
+    2039:2039:void <init>() -> <init>
+    2039:2039:void <init>(com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView$1) -> <init>
+    2039:2039:boolean access$400(com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView$Tile) -> a
+    2039:2039:boolean access$4002(com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView$Tile,boolean) -> a
+    2039:2039:android.graphics.Rect access$4102(com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView$Tile,android.graphics.Rect) -> a
+    2039:2039:int access$4302(com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView$Tile,int) -> a
+    2039:2039:android.graphics.Bitmap access$502(com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView$Tile,android.graphics.Bitmap) -> a
+    2039:2039:boolean access$4000(com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView$Tile) -> b
+    2039:2039:boolean access$402(com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView$Tile,boolean) -> b
+    2039:2039:android.graphics.Rect access$4202(com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView$Tile,android.graphics.Rect) -> b
+    2039:2039:android.graphics.Rect access$4100(com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView$Tile) -> c
+    2039:2039:android.graphics.Rect access$5002(com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView$Tile,android.graphics.Rect) -> c
+    2039:2039:android.graphics.Rect access$4200(com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView$Tile) -> d
+    2039:2039:int access$4300(com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView$Tile) -> e
+    2039:2039:android.graphics.Bitmap access$500(com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView$Tile) -> f
+    2039:2039:android.graphics.Rect access$5000(com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView$Tile) -> g
 com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView$TileLoadTask -> com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView$l:
     java.lang.Exception exception -> d
     java.lang.ref.WeakReference tileRef -> c
     java.lang.ref.WeakReference decoderRef -> b
     java.lang.ref.WeakReference viewRef -> a
-    1781:1786:void <init>(com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView,com.davemorrissey.labs.subscaleview.decoder.ImageRegionDecoder,com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView$Tile) -> <init>
-    1791:1821:android.graphics.Bitmap doInBackground(java.lang.Void[]) -> a
-    1826:1837:void onPostExecute(android.graphics.Bitmap) -> a
-    1775:1775:java.lang.Object doInBackground(java.lang.Object[]) -> doInBackground
-    1775:1775:void onPostExecute(java.lang.Object) -> onPostExecute
+    1788:1793:void <init>(com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView,com.davemorrissey.labs.subscaleview.decoder.ImageRegionDecoder,com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView$Tile) -> <init>
+    1798:1828:android.graphics.Bitmap doInBackground(java.lang.Void[]) -> a
+    1833:1844:void onPostExecute(android.graphics.Bitmap) -> a
+    1782:1782:java.lang.Object doInBackground(java.lang.Object[]) -> doInBackground
+    1782:1782:void onPostExecute(java.lang.Object) -> onPostExecute
 com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView$TilesInitTask -> com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView$m:
     java.lang.Exception exception -> f
     java.lang.ref.WeakReference decoderFactoryRef -> c
@@ -25011,11 +25012,11 @@ com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView$TilesInitTask -> c
     java.lang.ref.WeakReference viewRef -> a
     android.net.Uri source -> d
     com.davemorrissey.labs.subscaleview.decoder.ImageRegionDecoder decoder -> e
-    1689:1694:void <init>(com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView,android.content.Context,com.davemorrissey.labs.subscaleview.decoder.DecoderFactory,android.net.Uri) -> <init>
-    1699:1724:int[] doInBackground(java.lang.Void[]) -> a
-    1729:1737:void onPostExecute(int[]) -> a
-    1681:1681:java.lang.Object doInBackground(java.lang.Object[]) -> doInBackground
-    1681:1681:void onPostExecute(java.lang.Object) -> onPostExecute
+    1695:1700:void <init>(com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView,android.content.Context,com.davemorrissey.labs.subscaleview.decoder.DecoderFactory,android.net.Uri) -> <init>
+    1705:1730:int[] doInBackground(java.lang.Void[]) -> a
+    1735:1743:void onPostExecute(int[]) -> a
+    1687:1687:java.lang.Object doInBackground(java.lang.Object[]) -> doInBackground
+    1687:1687:void onPostExecute(java.lang.Object) -> onPostExecute
 com.davemorrissey.labs.subscaleview.decoder.CompatDecoderFactory -> com.davemorrissey.labs.subscaleview.decoder.a:
     java.lang.Class clazz -> a
     android.graphics.Bitmap$Config bitmapConfig -> b
@@ -33348,18 +33349,6 @@ com.zpj.fragmentation.dialog.enums.PopupPosition -> com.zpj.fragmentation.dialog
     7:7:void <init>(java.lang.String,int) -> <init>
     7:7:com.zpj.fragmentation.dialog.enums.PopupPosition valueOf(java.lang.String) -> valueOf
     7:7:com.zpj.fragmentation.dialog.enums.PopupPosition[] values() -> values
-com.zpj.fragmentation.dialog.enums.PopupStatus -> com.zpj.fragmentation.dialog.f.e:
-    com.zpj.fragmentation.dialog.enums.PopupStatus Hide -> e
-    com.zpj.fragmentation.dialog.enums.PopupStatus Hiding -> f
-    com.zpj.fragmentation.dialog.enums.PopupStatus Dismiss -> c
-    com.zpj.fragmentation.dialog.enums.PopupStatus Dismissing -> d
-    com.zpj.fragmentation.dialog.enums.PopupStatus Show -> a
-    com.zpj.fragmentation.dialog.enums.PopupStatus[] $VALUES -> g
-    com.zpj.fragmentation.dialog.enums.PopupStatus Showing -> b
-    8:7:void <clinit>() -> <clinit>
-    7:7:void <init>(java.lang.String,int) -> <init>
-    7:7:com.zpj.fragmentation.dialog.enums.PopupStatus valueOf(java.lang.String) -> valueOf
-    7:7:com.zpj.fragmentation.dialog.enums.PopupStatus[] values() -> values
 com.zpj.fragmentation.dialog.imagetrans.-$$Lambda$OkHttpImageLoad$Builder$2Ffk0XfqyshoBKypIKqFIl98Rko -> com.zpj.fragmentation.dialog.imagetrans.a:
     com.zpj.fragmentation.dialog.imagetrans.OkHttpImageLoad$Builder f$0 -> a
 com.zpj.fragmentation.dialog.imagetrans.-$$Lambda$OkHttpImageLoad$Builder$Cy8YjSFAWFcfef2ciZpZXGKkT0s -> com.zpj.fragmentation.dialog.imagetrans.b:
@@ -33704,36 +33693,43 @@ com.zpj.fragmentation.dialog.imagetrans.MyImageLoad2 -> com.zpj.fragmentation.di
     java.util.HashMap loadCallbackMap -> b
     java.util.regex.Pattern webPattern -> a
     java.util.HashMap imageDownLoadListenerMap -> c
-    20:23:void <clinit>() -> <clinit>
-    19:19:void <init>() -> <init>
-    26:43:void loadImage(java.lang.Object,com.zpj.fragmentation.dialog.imagetrans.ImageLoad$LoadCallback,com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView,java.lang.String) -> a
-    91:126:void loadImageFromLocal(java.lang.String,java.lang.String,com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView) -> a
-    129:130:void addLoadCallback(java.lang.String,com.zpj.fragmentation.dialog.imagetrans.ImageLoad$LoadCallback) -> a
-    137:141:void onFinishLoad(java.lang.String,android.graphics.drawable.Drawable) -> a
-    144:148:void onProgress(java.lang.String,float) -> a
-    172:172:boolean isLocalUri(java.lang.String) -> a
-    178:178:boolean isAssetUri(android.net.Uri) -> a
-    49:73:void loadImageFromNet(java.lang.String,java.lang.String,com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView) -> b
-    168:168:boolean isNetUri(java.lang.String) -> b
+    29:32:void <clinit>() -> <clinit>
+    28:28:void <init>() -> <init>
+    35:52:void loadImage(java.lang.Object,com.zpj.fragmentation.dialog.imagetrans.ImageLoad$LoadCallback,com.zpj.fragmentation.dialog.widget.ImageViewContainer,java.lang.String) -> a
+    88:148:void loadImageFromLocal(java.lang.String,java.lang.String,com.zpj.fragmentation.dialog.widget.ImageViewContainer) -> a
+    151:152:void addLoadCallback(java.lang.String,com.zpj.fragmentation.dialog.imagetrans.ImageLoad$LoadCallback) -> a
+    159:163:void onFinishLoad(java.lang.String,android.graphics.drawable.Drawable) -> a
+    166:170:void onProgress(java.lang.String,float) -> a
+    194:194:boolean isLocalUri(java.lang.String) -> a
+    200:200:boolean isAssetUri(android.net.Uri) -> a
+    58:82:void loadImageFromNet(java.lang.String,java.lang.String,com.zpj.fragmentation.dialog.widget.ImageViewContainer) -> b
+    190:190:boolean isNetUri(java.lang.String) -> b
 com.zpj.fragmentation.dialog.imagetrans.MyImageLoad2$1 -> com.zpj.fragmentation.dialog.imagetrans.l$a:
+    com.zpj.fragmentation.dialog.widget.ImageViewContainer val$imageView -> c
     com.zpj.fragmentation.dialog.imagetrans.MyImageLoad2 this$0 -> d
     java.lang.String val$unique -> a
     java.lang.String val$url -> b
-    com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView val$imageView -> c
-    49:49:void <init>(com.zpj.fragmentation.dialog.imagetrans.MyImageLoad2,java.lang.String,java.lang.String,com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView) -> <init>
-    52:53:void inProgress(float,long) -> a
-    58:58:void onError(java.lang.Throwable) -> a
-    62:63:void onSuccess() -> a
-    68:68:void onCancel() -> onCancel
+    58:58:void <init>(com.zpj.fragmentation.dialog.imagetrans.MyImageLoad2,java.lang.String,java.lang.String,com.zpj.fragmentation.dialog.widget.ImageViewContainer) -> <init>
+    61:62:void inProgress(float,long) -> a
+    67:67:void onError(java.lang.Throwable) -> a
+    71:72:void onSuccess() -> a
+    77:77:void onCancel() -> onCancel
 com.zpj.fragmentation.dialog.imagetrans.MyImageLoad2$2 -> com.zpj.fragmentation.dialog.imagetrans.l$b:
+    com.zpj.fragmentation.dialog.widget.ImageViewContainer val$imageView -> e
+    java.lang.String val$unique -> d
+    90:90:void <init>(com.zpj.fragmentation.dialog.imagetrans.MyImageLoad2,java.lang.String,com.zpj.fragmentation.dialog.widget.ImageViewContainer) -> <init>
+    90:90:void onResourceReady(java.lang.Object,com.bumptech.glide.request.transition.Transition) -> a
+    93:100:void onResourceReady(android.graphics.drawable.Drawable,com.bumptech.glide.request.transition.Transition) -> a
+    104:106:void onLoadFailed(android.graphics.drawable.Drawable) -> a
+com.zpj.fragmentation.dialog.imagetrans.MyImageLoad2$3 -> com.zpj.fragmentation.dialog.imagetrans.l$c:
     java.lang.String val$unique -> a
-    91:91:void <init>(com.zpj.fragmentation.dialog.imagetrans.MyImageLoad2,java.lang.String) -> <init>
-    95:95:void onReady() -> a
-    105:105:void onPreviewLoadError(java.lang.Exception) -> a
-    115:115:void onTileLoadError(java.lang.Exception) -> b
-    120:120:void onPreviewReleased() -> b
-    99:100:void onImageLoaded() -> c
-    110:110:void onImageLoadError(java.lang.Exception) -> c
+    111:111:void <init>(com.zpj.fragmentation.dialog.imagetrans.MyImageLoad2,java.lang.String) -> <init>
+    115:115:void onReady() -> a
+    125:125:void onPreviewLoadError(java.lang.Exception) -> a
+    135:135:void onTileLoadError(java.lang.Exception) -> b
+    140:140:void onPreviewReleased() -> b
+    119:120:void onImageLoaded() -> c
+    130:130:void onImageLoadError(java.lang.Exception) -> c
 com.zpj.fragmentation.dialog.imagetrans.OkHttpImageLoad -> com.zpj.fragmentation.dialog.imagetrans.m:
     com.zpj.fragmentation.dialog.imagetrans.OkHttpImageLoad mInstance -> c
     java.util.HashMap map -> a
@@ -34256,12 +34252,11 @@ com.zpj.fragmentation.dialog.impl.ImageViewerDialogFragment2$2 -> com.zpj.fragme
 com.zpj.fragmentation.dialog.impl.ImageViewerDialogFragment3 -> com.zpj.fragmentation.dialog.g.k:
     android.widget.ImageView srcView -> x
     android.widget.TextView tv_save -> p
-    com.zpj.fragmentation.dialog.photoview.PhotoView snapshotView -> y
     int bgColor -> I
     int placeholderStrokeColor -> C
     android.view.View customView -> H
+    com.zpj.fragmentation.dialog.widget.PlaceholderImageView2 snapshotView -> y
     com.zpj.fragmentation.dialog.impl.ImageViewerDialogFragment3$OnSrcViewUpdateListener srcViewUpdateListener -> u
-    com.zpj.fragmentation.dialog.enums.PopupStatus popupStatus -> J
     com.zpj.fragmentation.dialog.widget.HackyViewPager pager -> q
     boolean isShowSaveBtn -> E
     com.zpj.fragmentation.dialog.widget.PhotoViewContainer photoViewContainer -> m
@@ -34280,96 +34275,90 @@ com.zpj.fragmentation.dialog.impl.ImageViewerDialogFragment3 -> com.zpj.fragment
     int position -> v
     android.graphics.Rect rect -> w
     boolean isShowIndicator -> F
-    57:88:void <init>() -> <init>
-    57:57:void access$000(com.zpj.fragmentation.dialog.impl.ImageViewerDialogFragment3) -> a
-    57:57:void access$200(com.zpj.fragmentation.dialog.impl.ImageViewerDialogFragment3,int) -> a
-    113:113:com.zpj.fragmentation.dialog.animator.PopupAnimator getDialogAnimator(android.view.ViewGroup) -> a
-    118:118:com.zpj.fragmentation.dialog.animator.PopupAnimator getShadowAnimator(android.widget.FrameLayout) -> a
-    127:204:void initView(android.view.View,android.os.Bundle) -> a
-    287:300:void loadNewUrl(int,java.lang.Object) -> a
-    459:460:com.zpj.fragmentation.dialog.impl.ImageViewerDialogFragment3 setSrcViewUpdateListener(com.zpj.fragmentation.dialog.impl.ImageViewerDialogFragment3$OnSrcViewUpdateListener) -> a
-    481:482:com.zpj.fragmentation.dialog.impl.ImageViewerDialogFragment3 isShowIndicator(boolean) -> a
-    523:526:com.zpj.fragmentation.dialog.impl.ImageViewerDialogFragment3 setSingleSrcView(android.widget.ImageView,java.lang.Object) -> a
-    530:547:com.zpj.fragmentation.dialog.impl.ImageViewerDialogFragment3 setSrcView(android.widget.ImageView,int) -> a
-    551:553:void updateSrcView(android.widget.ImageView) -> a
-    570:574:void onDragChange(int,float,float) -> a
-    672:677:void setWidthHeight(android.view.View,int,int) -> a
-    57:57:com.zpj.fragmentation.queue.BlockActionQueue access$100(com.zpj.fragmentation.dialog.impl.ImageViewerDialogFragment3) -> b
-    454:455:com.zpj.fragmentation.dialog.impl.ImageViewerDialogFragment3 setImageUrls(java.util.List) -> b
-    470:471:com.zpj.fragmentation.dialog.impl.ImageViewerDialogFragment3 isShowPlaceholder(boolean) -> b
-    57:57:com.zpj.fragmentation.dialog.imagetrans.MyImageLoad2 access$300(com.zpj.fragmentation.dialog.impl.ImageViewerDialogFragment3) -> c
-    346:359:void animateShadowBg(int) -> c
-    492:493:com.zpj.fragmentation.dialog.impl.ImageViewerDialogFragment3 isShowSaveButton(boolean) -> c
-    425:451:void dismiss() -> dismiss
-    565:566:void onRelease() -> h
-    363:421:void doDismissAnimation() -> k
-    223:238:void doShowAnimation() -> l
-    108:108:int getGravity() -> m
-    103:103:int getImplLayoutId() -> n
-    578:579:void onClick(android.view.View) -> onClick
-    668:669:void doAfterDismiss() -> s
-    664:665:void doAfterShow() -> t
+    58:87:void <init>() -> <init>
+    58:58:void access$000(com.zpj.fragmentation.dialog.impl.ImageViewerDialogFragment3) -> a
+    58:58:void access$200(com.zpj.fragmentation.dialog.impl.ImageViewerDialogFragment3,int) -> a
+    105:105:com.zpj.fragmentation.dialog.animator.PopupAnimator getDialogAnimator(android.view.ViewGroup) -> a
+    110:110:com.zpj.fragmentation.dialog.animator.PopupAnimator getShadowAnimator(android.widget.FrameLayout) -> a
+    119:193:void initView(android.view.View,android.os.Bundle) -> a
+    277:290:void loadNewUrl(int,java.lang.Object) -> a
+    468:469:com.zpj.fragmentation.dialog.impl.ImageViewerDialogFragment3 setSrcViewUpdateListener(com.zpj.fragmentation.dialog.impl.ImageViewerDialogFragment3$OnSrcViewUpdateListener) -> a
+    490:491:com.zpj.fragmentation.dialog.impl.ImageViewerDialogFragment3 isShowIndicator(boolean) -> a
+    532:535:com.zpj.fragmentation.dialog.impl.ImageViewerDialogFragment3 setSingleSrcView(android.widget.ImageView,java.lang.Object) -> a
+    539:556:com.zpj.fragmentation.dialog.impl.ImageViewerDialogFragment3 setSrcView(android.widget.ImageView,int) -> a
+    560:562:void updateSrcView(android.widget.ImageView) -> a
+    579:583:void onDragChange(int,float,float) -> a
+    692:697:void setWidthHeight(android.view.View,int,int) -> a
+    58:58:com.zpj.fragmentation.queue.BlockActionQueue access$100(com.zpj.fragmentation.dialog.impl.ImageViewerDialogFragment3) -> b
+    463:464:com.zpj.fragmentation.dialog.impl.ImageViewerDialogFragment3 setImageUrls(java.util.List) -> b
+    479:480:com.zpj.fragmentation.dialog.impl.ImageViewerDialogFragment3 isShowPlaceholder(boolean) -> b
+    58:58:com.zpj.fragmentation.dialog.imagetrans.MyImageLoad2 access$300(com.zpj.fragmentation.dialog.impl.ImageViewerDialogFragment3) -> c
+    336:349:void animateShadowBg(int) -> c
+    501:502:com.zpj.fragmentation.dialog.impl.ImageViewerDialogFragment3 isShowSaveButton(boolean) -> c
+    574:575:void onRelease() -> h
+    429:430:boolean onBackPressed() -> j
+    353:425:void doDismissAnimation() -> k
+    212:274:void doShowAnimation() -> l
+    100:100:int getGravity() -> m
+    95:95:int getImplLayoutId() -> n
+    587:588:void onClick(android.view.View) -> onClick
+    689:689:void doAfterDismiss() -> s
+    685:685:void doAfterShow() -> t
     int getCustomLayoutId() -> u
-    586:599:void save() -> v
-    331:343:void addOrUpdateSnapshot() -> w
-    303:320:void setupPlaceholder() -> x
-    323:328:void showPagerIndicator() -> y
+    595:608:void save() -> v
+    321:333:void addOrUpdateSnapshot() -> w
+    293:310:void setupPlaceholder() -> x
+    313:318:void showPagerIndicator() -> y
 com.zpj.fragmentation.dialog.impl.ImageViewerDialogFragment3$1 -> com.zpj.fragmentation.dialog.g.k$a:
     com.zpj.fragmentation.dialog.impl.ImageViewerDialogFragment3 this$0 -> a
-    162:162:void <init>(com.zpj.fragmentation.dialog.impl.ImageViewerDialogFragment3) -> <init>
-    165:190:void onPageSelected(int) -> onPageSelected
+    154:154:void <init>(com.zpj.fragmentation.dialog.impl.ImageViewerDialogFragment3) -> <init>
+    157:179:void onPageSelected(int) -> onPageSelected
 com.zpj.fragmentation.dialog.impl.ImageViewerDialogFragment3$2 -> com.zpj.fragmentation.dialog.g.k$b:
     com.zpj.fragmentation.dialog.impl.ImageViewerDialogFragment3 this$0 -> a
-    243:243:void <init>(com.zpj.fragmentation.dialog.impl.ImageViewerDialogFragment3) -> <init>
-    246:281:void run() -> run
+    232:232:void <init>(com.zpj.fragmentation.dialog.impl.ImageViewerDialogFragment3) -> <init>
+    235:271:void run() -> run
 com.zpj.fragmentation.dialog.impl.ImageViewerDialogFragment3$2$1 -> com.zpj.fragmentation.dialog.g.k$b$a:
     com.zpj.fragmentation.dialog.impl.ImageViewerDialogFragment3$2 this$1 -> a
-    252:252:void <init>(com.zpj.fragmentation.dialog.impl.ImageViewerDialogFragment3$2) -> <init>
-    255:267:void onTransitionEnd(android.support.transition.Transition) -> onTransitionEnd
+    246:246:void <init>(com.zpj.fragmentation.dialog.impl.ImageViewerDialogFragment3$2) -> <init>
+    249:257:void onTransitionEnd(android.support.transition.Transition) -> onTransitionEnd
 com.zpj.fragmentation.dialog.impl.ImageViewerDialogFragment3$3 -> com.zpj.fragmentation.dialog.g.k$c:
     com.zpj.fragmentation.dialog.widget.ImageViewContainer val$ivContainer -> a
-    289:289:void <init>(com.zpj.fragmentation.dialog.impl.ImageViewerDialogFragment3,com.zpj.fragmentation.dialog.widget.ImageViewContainer) -> <init>
-    292:293:void progress(float) -> a
-    297:298:void loadFinish(android.graphics.drawable.Drawable) -> a
+    279:279:void <init>(com.zpj.fragmentation.dialog.impl.ImageViewerDialogFragment3,com.zpj.fragmentation.dialog.widget.ImageViewContainer) -> <init>
+    282:283:void progress(float) -> a
+    287:288:void loadFinish(android.graphics.drawable.Drawable) -> a
 com.zpj.fragmentation.dialog.impl.ImageViewerDialogFragment3$4 -> com.zpj.fragmentation.dialog.g.k$d:
     com.zpj.fragmentation.dialog.impl.ImageViewerDialogFragment3 this$0 -> c
     int val$endColor -> b
     int val$start -> a
-    348:348:void <init>(com.zpj.fragmentation.dialog.impl.ImageViewerDialogFragment3,int,int) -> <init>
-    351:353:void onAnimationUpdate(android.animation.ValueAnimator) -> onAnimationUpdate
+    338:338:void <init>(com.zpj.fragmentation.dialog.impl.ImageViewerDialogFragment3,int,int) -> <init>
+    341:343:void onAnimationUpdate(android.animation.ValueAnimator) -> onAnimationUpdate
 com.zpj.fragmentation.dialog.impl.ImageViewerDialogFragment3$5 -> com.zpj.fragmentation.dialog.g.k$e:
     com.zpj.fragmentation.dialog.impl.ImageViewerDialogFragment3 this$0 -> a
-    383:383:void <init>(com.zpj.fragmentation.dialog.impl.ImageViewerDialogFragment3) -> <init>
-    386:395:void onTransitionEnd(android.support.transition.Transition) -> onTransitionEnd
+    391:391:void <init>(com.zpj.fragmentation.dialog.impl.ImageViewerDialogFragment3) -> <init>
+    394:400:void onTransitionEnd(android.support.transition.Transition) -> onTransitionEnd
 com.zpj.fragmentation.dialog.impl.ImageViewerDialogFragment3$6 -> com.zpj.fragmentation.dialog.g.k$f:
     com.zpj.fragmentation.dialog.impl.ImageViewerDialogFragment3 this$0 -> a
-    413:413:void <init>(com.zpj.fragmentation.dialog.impl.ImageViewerDialogFragment3) -> <init>
-    416:418:void onAnimationEnd(android.animation.Animator) -> onAnimationEnd
+    417:417:void <init>(com.zpj.fragmentation.dialog.impl.ImageViewerDialogFragment3) -> <init>
+    420:422:void onAnimationEnd(android.animation.Animator) -> onAnimationEnd
 com.zpj.fragmentation.dialog.impl.ImageViewerDialogFragment3$7 -> com.zpj.fragmentation.dialog.g.k$g:
     com.zpj.fragmentation.dialog.impl.ImageViewerDialogFragment3 this$0 -> a
-    587:587:void <init>(com.zpj.fragmentation.dialog.impl.ImageViewerDialogFragment3) -> <init>
-    592:592:void onGranted() -> a
-    596:597:void onDenied() -> b
+    596:596:void <init>(com.zpj.fragmentation.dialog.impl.ImageViewerDialogFragment3) -> <init>
+    601:601:void onGranted() -> a
+    605:606:void onDenied() -> b
 com.zpj.fragmentation.dialog.impl.ImageViewerDialogFragment3$OnSrcViewUpdateListener -> com.zpj.fragmentation.dialog.g.k$h:
     void onSrcViewUpdate(com.zpj.fragmentation.dialog.impl.ImageViewerDialogFragment3,int) -> a
 com.zpj.fragmentation.dialog.impl.ImageViewerDialogFragment3$PhotoViewAdapter -> com.zpj.fragmentation.dialog.g.k$i:
     com.zpj.fragmentation.dialog.impl.ImageViewerDialogFragment3 this$0 -> a
-    601:601:void <init>(com.zpj.fragmentation.dialog.impl.ImageViewerDialogFragment3) -> <init>
-    659:660:void destroyItem(android.view.ViewGroup,int,java.lang.Object) -> destroyItem
-    604:604:int getCount() -> getCount
-    615:654:java.lang.Object instantiateItem(android.view.ViewGroup,int) -> instantiateItem
-    609:609:boolean isViewFromObject(android.view.View,java.lang.Object) -> isViewFromObject
+    610:610:void <init>(com.zpj.fragmentation.dialog.impl.ImageViewerDialogFragment3) -> <init>
+    679:680:void destroyItem(android.view.ViewGroup,int,java.lang.Object) -> destroyItem
+    613:613:int getCount() -> getCount
+    624:674:java.lang.Object instantiateItem(android.view.ViewGroup,int) -> instantiateItem
+    618:618:boolean isViewFromObject(android.view.View,java.lang.Object) -> isViewFromObject
 com.zpj.fragmentation.dialog.impl.ImageViewerDialogFragment3$PhotoViewAdapter$1 -> com.zpj.fragmentation.dialog.g.k$i$a:
-    com.zpj.fragmentation.dialog.impl.ImageViewerDialogFragment3$PhotoViewAdapter this$1 -> c
-    com.zpj.fragmentation.dialog.widget.ImageViewContainer val$ivContainer -> b
-    int val$position -> a
-    619:619:void <init>(com.zpj.fragmentation.dialog.impl.ImageViewerDialogFragment3$PhotoViewAdapter,int,com.zpj.fragmentation.dialog.widget.ImageViewContainer) -> <init>
-    622:633:void run() -> run
-com.zpj.fragmentation.dialog.impl.ImageViewerDialogFragment3$PhotoViewAdapter$1$1 -> com.zpj.fragmentation.dialog.g.k$i$a$a:
-    com.zpj.fragmentation.dialog.impl.ImageViewerDialogFragment3$PhotoViewAdapter$1 this$2 -> a
-    622:622:void <init>(com.zpj.fragmentation.dialog.impl.ImageViewerDialogFragment3$PhotoViewAdapter$1) -> <init>
-    625:626:void progress(float) -> a
-    630:631:void loadFinish(android.graphics.drawable.Drawable) -> a
+    com.zpj.fragmentation.dialog.widget.ImageViewContainer val$ivContainer -> a
+    644:644:void <init>(com.zpj.fragmentation.dialog.impl.ImageViewerDialogFragment3$PhotoViewAdapter,com.zpj.fragmentation.dialog.widget.ImageViewContainer) -> <init>
+    647:648:void progress(float) -> a
+    652:653:void loadFinish(android.graphics.drawable.Drawable) -> a
 com.zpj.fragmentation.dialog.impl.LoadingDialogFragment -> com.zpj.fragmentation.dialog.g.l:
     java.lang.String title -> m
     android.widget.TextView tvTitle -> l
@@ -34380,10 +34369,9 @@ com.zpj.fragmentation.dialog.impl.LoadingDialogFragment -> com.zpj.fragmentation
     22:22:int getContentLayoutId() -> s
     42:42:int getMaxWidth() -> v
     46:51:void setup() -> w
-com.zpj.fragmentation.dialog.interfaces.IImageLoader -> com.zpj.fragmentation.dialog.h.a:
-com.zpj.fragmentation.dialog.interfaces.OnClickOutsideListener -> com.zpj.fragmentation.dialog.h.b:
+com.zpj.fragmentation.dialog.interfaces.OnClickOutsideListener -> com.zpj.fragmentation.dialog.h.a:
     void onClickOutside() -> a
-com.zpj.fragmentation.dialog.interfaces.OnDragChangeListener -> com.zpj.fragmentation.dialog.h.c:
+com.zpj.fragmentation.dialog.interfaces.OnDragChangeListener -> com.zpj.fragmentation.dialog.h.b:
     void onDragChange(int,float,float) -> a
     void onRelease() -> h
 com.zpj.fragmentation.dialog.model.OptionMenu -> com.zpj.fragmentation.dialog.i.a:
@@ -34403,8 +34391,8 @@ com.zpj.fragmentation.dialog.model.OptionMenu -> com.zpj.fragmentation.dialog.i.
     212:238:void validate(android.widget.CheckedTextView) -> a
     152:153:void toggle() -> b
 com.zpj.fragmentation.dialog.photoview.Compat -> com.zpj.fragmentation.dialog.photoview.a:
-    28:33:void postOnAnimation(android.view.View,java.lang.Runnable) -> a
-    37:38:void postOnAnimationJellyBean(android.view.View,java.lang.Runnable) -> b
+    28:29:void postOnAnimation(android.view.View,java.lang.Runnable) -> a
+    33:34:void postOnAnimationJellyBean(android.view.View,java.lang.Runnable) -> b
 com.zpj.fragmentation.dialog.photoview.CustomGestureDetector -> com.zpj.fragmentation.dialog.photoview.b:
     com.zpj.fragmentation.dialog.photoview.OnGestureListener mListener -> j
     float mMinimumVelocity -> i
@@ -34454,7 +34442,6 @@ com.zpj.fragmentation.dialog.photoview.PhotoView -> com.zpj.fragmentation.dialog
     43:44:void <init>(android.content.Context,android.util.AttributeSet) -> <init>
     47:49:void <init>(android.content.Context,android.util.AttributeSet,int) -> <init>
     52:61:void init() -> a
-    170:170:boolean setSuppMatrix(android.graphics.Matrix) -> a
     71:71:com.zpj.fragmentation.dialog.photoview.PhotoViewAttacher getAttacher() -> getAttacher
     154:154:android.graphics.RectF getDisplayRect() -> getDisplayRect
     81:81:android.graphics.Matrix getImageMatrix() -> getImageMatrix
@@ -34542,7 +34529,6 @@ com.zpj.fragmentation.dialog.photoview.PhotoViewAttacher -> com.zpj.fragmentatio
     266:267:void setOnScaleChangeListener(com.zpj.fragmentation.dialog.photoview.OnScaleChangedListener) -> a
     270:271:void setOnSingleFlingListener(com.zpj.fragmentation.dialog.photoview.OnSingleFlingListener) -> a
     279:280:android.graphics.RectF getDisplayRect() -> a
-    284:285:boolean setDisplayMatrix(android.graphics.Matrix) -> a
     415:416:void setAllowParentInterceptOnEdge(boolean) -> a
     429:431:void setMaximumScale(float) -> a
     441:442:void setOnLongClickListener(android.view.View$OnLongClickListener) -> a
@@ -34557,19 +34543,19 @@ com.zpj.fragmentation.dialog.photoview.PhotoViewAttacher -> com.zpj.fragmentatio
     501:505:void setScaleType(android.widget.ImageView$ScaleType) -> a
     553:554:void setZoomTransitionDuration(int) -> a
     564:565:float getValue(android.graphics.Matrix,int) -> a
-    621:680:void updateBaseMatrix(android.graphics.drawable.Drawable) -> a
-    747:747:int getImageViewHeight(android.widget.ImageView) -> a
+    605:612:android.graphics.RectF getDisplayRect(android.graphics.Matrix) -> a
+    621:681:void updateBaseMatrix(android.graphics.drawable.Drawable) -> a
+    748:748:int getImageViewHeight(android.widget.ImageView) -> a
     40:40:com.zpj.fragmentation.dialog.photoview.OnViewDragListener access$100(com.zpj.fragmentation.dialog.photoview.PhotoViewAttacher) -> b
     40:40:int access$1200(com.zpj.fragmentation.dialog.photoview.PhotoViewAttacher,android.widget.ImageView) -> b
     424:426:void setMediumScale(float) -> b
     512:514:void setZoomable(boolean) -> b
     549:549:android.graphics.Matrix getImageMatrix() -> b
-    605:612:android.graphics.RectF getDisplayRect(android.graphics.Matrix) -> b
-    743:743:int getImageViewWidth(android.widget.ImageView) -> b
+    579:587:void setImageViewMatrix(android.graphics.Matrix) -> b
+    744:744:int getImageViewWidth(android.widget.ImageView) -> b
     40:40:com.zpj.fragmentation.dialog.photoview.PhotoViewAttacher$FlingRunnable access$1000(com.zpj.fragmentation.dialog.photoview.PhotoViewAttacher) -> c
     321:321:float getMaximumScale() -> c
     419:421:void setMinimumScale(float) -> c
-    579:587:void setImageViewMatrix(android.graphics.Matrix) -> c
     40:40:float access$1300(com.zpj.fragmentation.dialog.photoview.PhotoViewAttacher) -> d
     308:310:void setRotationBy(float) -> d
     317:317:float getMediumScale() -> d
@@ -34588,11 +34574,11 @@ com.zpj.fragmentation.dialog.photoview.PhotoViewAttacher -> com.zpj.fragmentatio
     40:40:int access$1800() -> j
     40:40:com.zpj.fragmentation.dialog.photoview.OnViewTapListener access$2000(com.zpj.fragmentation.dialog.photoview.PhotoViewAttacher) -> j
     40:40:com.zpj.fragmentation.dialog.photoview.OnPhotoTapListener access$2100(com.zpj.fragmentation.dialog.photoview.PhotoViewAttacher) -> k
-    751:755:void cancelFling() -> k
+    752:756:void cancelFling() -> k
     40:40:com.zpj.fragmentation.dialog.photoview.OnOutsidePhotoTapListener access$2200(com.zpj.fragmentation.dialog.photoview.PhotoViewAttacher) -> l
     593:596:void checkAndDisplayMatrix() -> l
     40:40:com.zpj.fragmentation.dialog.photoview.OnGestureListener access$2300(com.zpj.fragmentation.dialog.photoview.PhotoViewAttacher) -> m
-    683:739:boolean checkMatrixBounds() -> m
+    684:740:boolean checkMatrixBounds() -> m
     40:40:int access$2400(com.zpj.fragmentation.dialog.photoview.PhotoViewAttacher) -> n
     543:545:android.graphics.Matrix getDrawMatrix() -> n
     40:40:android.view.animation.Interpolator access$2500(com.zpj.fragmentation.dialog.photoview.PhotoViewAttacher) -> o
@@ -34633,18 +34619,18 @@ com.zpj.fragmentation.dialog.photoview.PhotoViewAttacher$AnimatedZoomRunnable ->
     float mFocalX -> a
     long mStartTime -> c
     com.zpj.fragmentation.dialog.photoview.PhotoViewAttacher this$0 -> f
-    764:770:void <init>(com.zpj.fragmentation.dialog.photoview.PhotoViewAttacher,float,float,float,float) -> <init>
-    785:788:float interpolate() -> a
-    774:782:void run() -> run
+    765:771:void <init>(com.zpj.fragmentation.dialog.photoview.PhotoViewAttacher,float,float,float,float) -> <init>
+    786:789:float interpolate() -> a
+    775:783:void run() -> run
 com.zpj.fragmentation.dialog.photoview.PhotoViewAttacher$FlingRunnable -> com.zpj.fragmentation.dialog.photoview.k$f:
     android.widget.OverScroller mScroller -> a
     com.zpj.fragmentation.dialog.photoview.PhotoViewAttacher this$0 -> d
     int mCurrentX -> b
     int mCurrentY -> c
-    797:799:void <init>(com.zpj.fragmentation.dialog.photoview.PhotoViewAttacher,android.content.Context) -> <init>
-    802:803:void cancelFling() -> a
-    807:833:void fling(int,int,int,int) -> a
-    837:850:void run() -> run
+    798:800:void <init>(com.zpj.fragmentation.dialog.photoview.PhotoViewAttacher,android.content.Context) -> <init>
+    803:804:void cancelFling() -> a
+    808:834:void fling(int,int,int,int) -> a
+    838:851:void run() -> run
 com.zpj.fragmentation.dialog.photoview.PhotoView_bak -> com.zpj.fragmentation.dialog.photoview.PhotoView_bak:
     com.zpj.fragmentation.dialog.photoview.PhotoViewAttacher attacher -> a
     android.widget.ImageView$ScaleType pendingScaleType -> b
@@ -34754,15 +34740,18 @@ com.zpj.fragmentation.dialog.widget.ImageViewContainer -> com.zpj.fragmentation.
     com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView imageView -> a
     android.widget.ProgressBar progressBar -> b
     android.widget.ImageView placeholder -> c
-    26:27:void <init>(android.content.Context) -> <init>
-    30:31:void <init>(android.content.Context,android.util.AttributeSet) -> <init>
-    34:51:void <init>(android.content.Context,android.util.AttributeSet,int) -> <init>
-    59:61:void showPlaceholder(android.graphics.drawable.Drawable) -> a
-    80:83:void onLoadFinished() -> a
-    86:87:void showProgressBar() -> b
-    64:64:com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView getPhotoView() -> getPhotoView
-    72:72:android.widget.ProgressBar getProgressBar() -> getProgressBar
-    76:77:void setProgress(float) -> setProgress
+    boolean isGif -> d
+    34:35:void <init>(android.content.Context) -> <init>
+    38:39:void <init>(android.content.Context,android.util.AttributeSet) -> <init>
+    42:56:void <init>(android.content.Context,android.util.AttributeSet,int) -> <init>
+    59:68:void showPlaceholder(android.graphics.drawable.Drawable) -> a
+    71:79:void showGif(com.bumptech.glide.load.resource.gif.GifDrawable) -> a
+    98:104:void onLoadFinished() -> a
+    107:108:void showProgressBar() -> b
+    86:86:com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView getPhotoView() -> getPhotoView
+    82:82:android.widget.ImageView getPlaceholder() -> getPlaceholder
+    90:90:android.widget.ProgressBar getProgressBar() -> getProgressBar
+    94:95:void setProgress(float) -> setProgress
 com.zpj.fragmentation.dialog.widget.LoadingView -> com.zpj.fragmentation.dialog.widget.LoadingView:
     float centerY -> l
     float centerX -> k
@@ -34874,6 +34863,72 @@ com.zpj.fragmentation.dialog.widget.PhotoViewContainer$1 -> com.zpj.fragmentatio
     137:151:void onViewPositionChanged(android.view.View,int,int,int,int) -> onViewPositionChanged
     155:163:void onViewReleased(android.view.View,float,float) -> onViewReleased
     117:117:boolean tryCaptureView(android.view.View,int) -> tryCaptureView
+com.zpj.fragmentation.dialog.widget.PlaceholderAttacher -> com.zpj.fragmentation.dialog.widget.a:
+    android.graphics.RectF mDisplayRect -> e
+    android.graphics.Matrix mSuppMatrix -> d
+    android.widget.ImageView mImageView -> a
+    android.graphics.Matrix mBaseMatrix -> b
+    android.graphics.Matrix mDrawMatrix -> c
+    android.widget.ImageView$ScaleType mScaleType -> f
+    38:41:void <init>(android.widget.ImageView) -> <init>
+    69:73:void setScaleType(android.widget.ImageView$ScaleType) -> a
+    86:86:android.graphics.Matrix getImageMatrix() -> a
+    118:125:android.graphics.RectF getDisplayRect(android.graphics.Matrix) -> a
+    134:191:void updateBaseMatrix(android.graphics.drawable.Drawable) -> a
+    248:248:int getImageViewHeight(android.widget.ImageView) -> a
+    56:56:android.widget.ImageView$ScaleType getScaleType() -> b
+    99:100:void setImageViewMatrix(android.graphics.Matrix) -> b
+    244:244:int getImageViewWidth(android.widget.ImageView) -> b
+    76:77:void update() -> c
+    194:240:boolean checkMatrixBounds() -> d
+    80:82:android.graphics.Matrix getDrawMatrix() -> e
+    93:96:void resetMatrix() -> f
+    63:66:void onLayoutChange(android.view.View,int,int,int,int,int,int,int,int) -> onLayoutChange
+com.zpj.fragmentation.dialog.widget.PlaceholderAttacher$1 -> com.zpj.fragmentation.dialog.widget.a$a:
+    int[] $SwitchMap$android$widget$ImageView$ScaleType -> a
+    163:163:void <clinit>() -> <clinit>
+com.zpj.fragmentation.dialog.widget.PlaceholderImageView -> com.zpj.fragmentation.dialog.widget.PlaceholderImageView:
+    com.zpj.fragmentation.dialog.widget.PlaceholderAttacher attacher -> a
+    30:31:void <init>(android.content.Context) -> <init>
+    34:35:void <init>(android.content.Context,android.util.AttributeSet) -> <init>
+    38:41:void <init>(android.content.Context,android.util.AttributeSet,int) -> <init>
+    50:50:android.graphics.Matrix getImageMatrix() -> getImageMatrix
+    45:45:android.widget.ImageView$ScaleType getScaleType() -> getScaleType
+    79:83:boolean setFrame(int,int,int,int) -> setFrame
+    60:63:void setImageDrawable(android.graphics.drawable.Drawable) -> setImageDrawable
+    67:69:void setImageResource(int) -> setImageResource
+    73:75:void setImageURI(android.net.Uri) -> setImageURI
+    55:56:void setScaleType(android.widget.ImageView$ScaleType) -> setScaleType
+com.zpj.fragmentation.dialog.widget.PlaceholderImageView2 -> com.zpj.fragmentation.dialog.widget.PlaceholderImageView2:
+    android.widget.ImageView$ScaleType mScaleType -> e
+    android.graphics.RectF mDisplayRect -> d
+    android.graphics.Matrix mDrawMatrix -> b
+    android.graphics.Matrix mSuppMatrix -> c
+    android.graphics.Matrix mBaseMatrix -> a
+    38:39:void <init>(android.content.Context) -> <init>
+    42:43:void <init>(android.content.Context,android.util.AttributeSet) -> <init>
+    46:49:void <init>(android.content.Context,android.util.AttributeSet,int) -> <init>
+    104:113:boolean setSupportMatrix(android.graphics.Matrix) -> a
+    138:141:void checkAndDisplayMatrix() -> a
+    153:210:void updateBaseMatrix(android.graphics.drawable.Drawable) -> a
+    267:267:int getImageViewHeight(android.widget.ImageView) -> a
+    127:134:android.graphics.RectF getDisplayRect(android.graphics.Matrix) -> b
+    213:259:boolean checkMatrixBounds() -> b
+    263:263:int getImageViewWidth(android.widget.ImageView) -> b
+    121:124:void resetMatrix() -> c
+    117:118:void update() -> d
+    144:146:android.graphics.Matrix getDrawMatrix() -> getDrawMatrix
+    58:58:android.graphics.Matrix getImageMatrix() -> getImageMatrix
+    53:53:android.widget.ImageView$ScaleType getScaleType() -> getScaleType
+    98:101:void onLayoutChange(android.view.View,int,int,int,int,int,int,int,int) -> onLayoutChange
+    89:93:boolean setFrame(int,int,int,int) -> setFrame
+    71:73:void setImageDrawable(android.graphics.drawable.Drawable) -> setImageDrawable
+    77:79:void setImageResource(int) -> setImageResource
+    83:85:void setImageURI(android.net.Uri) -> setImageURI
+    63:67:void setScaleType(android.widget.ImageView$ScaleType) -> setScaleType
+com.zpj.fragmentation.dialog.widget.PlaceholderImageView2$1 -> com.zpj.fragmentation.dialog.widget.PlaceholderImageView2$a:
+    int[] $SwitchMap$android$widget$ImageView$ScaleType -> a
+    182:182:void <clinit>() -> <clinit>
 com.zpj.fragmentation.dialog.widget.PopHorizontalScrollView -> com.zpj.fragmentation.dialog.widget.PopHorizontalScrollView:
     17:18:void <init>(android.content.Context) -> <init>
     21:22:void <init>(android.content.Context,android.util.AttributeSet) -> <init>
@@ -39744,8 +39799,8 @@ com.zpj.shouji.market.glide.ImageViewDrawableTarget -> com.zpj.shouji.market.gli
     android.widget.ImageView imageView -> d
     16:18:void <init>(android.widget.ImageView) -> <init>
     12:12:void onResourceReady(java.lang.Object,com.bumptech.glide.request.transition.Transition) -> a
-    28:30:void onResourceReady(android.graphics.drawable.Drawable,com.bumptech.glide.request.transition.Transition) -> a
-    34:36:void onLoadFailed(android.graphics.drawable.Drawable) -> a
+    28:32:void onResourceReady(android.graphics.drawable.Drawable,com.bumptech.glide.request.transition.Transition) -> a
+    36:38:void onLoadFailed(android.graphics.drawable.Drawable) -> a
     22:24:void onLoadStarted(android.graphics.drawable.Drawable) -> b
 com.zpj.shouji.market.glide.MyAppGlideModule -> com.zpj.shouji.market.glide.MyAppGlideModule:
     35:35:void <init>() -> <init>
@@ -42225,149 +42280,140 @@ com.zpj.shouji.market.ui.fragment.dialog.-$$Lambda$CommonImageViewerDialogFragme
     com.zpj.shouji.market.ui.fragment.dialog.CommonImageViewerDialogFragment2 f$0 -> a
 com.zpj.shouji.market.ui.fragment.dialog.-$$Lambda$CommonImageViewerDialogFragment2$keEZAtvd6VgKehIl60vYX3V8pdQ -> com.zpj.shouji.market.e.b.j0.x:
     com.zpj.shouji.market.ui.fragment.dialog.CommonImageViewerDialogFragment2 f$0 -> a
-com.zpj.shouji.market.ui.fragment.dialog.-$$Lambda$CommonImageViewerDialogFragment3$EDqdKAf-hEiX_aes76UllUSGSzE -> com.zpj.shouji.market.e.b.j0.y:
-    com.zpj.shouji.market.ui.fragment.dialog.CommonImageViewerDialogFragment3 f$0 -> a
-    void onSelect(com.zpj.fragmentation.dialog.impl.AttachListDialogFragment,int,java.lang.Object) -> a
-com.zpj.shouji.market.ui.fragment.dialog.-$$Lambda$CommonImageViewerDialogFragment3$GoOrK8417EQ3IvSgkbpcrxFzC5U -> com.zpj.shouji.market.e.b.j0.z:
-    com.zpj.shouji.market.ui.fragment.dialog.CommonImageViewerDialogFragment3 f$0 -> a
-com.zpj.shouji.market.ui.fragment.dialog.-$$Lambda$CommonImageViewerDialogFragment3$bK674Z3uEHAwJAMdBnWeMQYXZ2g -> com.zpj.shouji.market.e.b.j0.a0:
-    com.zpj.shouji.market.ui.fragment.dialog.CommonImageViewerDialogFragment3 f$0 -> a
-com.zpj.shouji.market.ui.fragment.dialog.-$$Lambda$CommonImageViewerDialogFragment3$ctU7I2D8r4MYk50vuJYe0-tClPM -> com.zpj.shouji.market.e.b.j0.b0:
-    com.zpj.shouji.market.ui.fragment.dialog.CommonImageViewerDialogFragment3 f$0 -> a
-com.zpj.shouji.market.ui.fragment.dialog.-$$Lambda$EmailModifiedDialogFragment$PnfakXIoiGRQ6h6Pll6NIuS4IOU -> com.zpj.shouji.market.e.b.j0.c0:
+com.zpj.shouji.market.ui.fragment.dialog.-$$Lambda$EmailModifiedDialogFragment$PnfakXIoiGRQ6h6Pll6NIuS4IOU -> com.zpj.shouji.market.e.b.j0.y:
     com.zpj.shouji.market.ui.fragment.dialog.EmailModifiedDialogFragment f$0 -> a
-com.zpj.shouji.market.ui.fragment.dialog.-$$Lambda$EmailModifiedDialogFragment$U63QkehnAO7gxcOQCPlaq_JeyPU -> com.zpj.shouji.market.e.b.j0.d0:
+com.zpj.shouji.market.ui.fragment.dialog.-$$Lambda$EmailModifiedDialogFragment$U63QkehnAO7gxcOQCPlaq_JeyPU -> com.zpj.shouji.market.e.b.j0.z:
     com.zpj.widget.editor.EmailInputView f$1 -> b
     com.zpj.widget.editor.PasswordInputView f$2 -> c
     com.zpj.shouji.market.ui.fragment.dialog.EmailModifiedDialogFragment f$0 -> a
     java.lang.String f$3 -> d
     void onSuccess(java.lang.Object) -> a
-com.zpj.shouji.market.ui.fragment.dialog.-$$Lambda$EmailModifiedDialogFragment$UK9lsei3ic_ScEWoAIlSmK_gvik -> com.zpj.shouji.market.e.b.j0.e0:
+com.zpj.shouji.market.ui.fragment.dialog.-$$Lambda$EmailModifiedDialogFragment$UK9lsei3ic_ScEWoAIlSmK_gvik -> com.zpj.shouji.market.e.b.j0.a0:
     com.zpj.shouji.market.ui.fragment.dialog.-$$Lambda$EmailModifiedDialogFragment$UK9lsei3ic_ScEWoAIlSmK_gvik INSTANCE -> a
     void onError(java.lang.Throwable) -> a
-com.zpj.shouji.market.ui.fragment.dialog.-$$Lambda$EmailModifiedDialogFragment$Y3oXa_V0FFrrP9WVqyLrLVUZ4Ws -> com.zpj.shouji.market.e.b.j0.f0:
+com.zpj.shouji.market.ui.fragment.dialog.-$$Lambda$EmailModifiedDialogFragment$Y3oXa_V0FFrrP9WVqyLrLVUZ4Ws -> com.zpj.shouji.market.e.b.j0.b0:
     com.zpj.widget.editor.EmailInputView f$1 -> b
     com.zpj.widget.editor.PasswordInputView f$2 -> c
     com.zpj.shouji.market.ui.fragment.dialog.EmailModifiedDialogFragment f$0 -> a
-com.zpj.shouji.market.ui.fragment.dialog.-$$Lambda$MainActionDialogFragment$GpBE2AMz0P2j92xxS62NXshKBq8 -> com.zpj.shouji.market.e.b.j0.g0:
+com.zpj.shouji.market.ui.fragment.dialog.-$$Lambda$MainActionDialogFragment$GpBE2AMz0P2j92xxS62NXshKBq8 -> com.zpj.shouji.market.e.b.j0.c0:
     com.zpj.shouji.market.ui.fragment.dialog.MainActionDialogFragment f$0 -> a
-com.zpj.shouji.market.ui.fragment.dialog.-$$Lambda$MainActionDialogFragment$gHFcEU68Urq62KZwhNe_Ew4GyrY -> com.zpj.shouji.market.e.b.j0.h0:
+com.zpj.shouji.market.ui.fragment.dialog.-$$Lambda$MainActionDialogFragment$gHFcEU68Urq62KZwhNe_Ew4GyrY -> com.zpj.shouji.market.e.b.j0.d0:
     com.zpj.shouji.market.ui.fragment.dialog.MainActionDialogFragment f$0 -> a
-com.zpj.shouji.market.ui.fragment.dialog.-$$Lambda$MainActionDialogFragment$mXZ-iqUzupPJf69Hggf9lhA777M -> com.zpj.shouji.market.e.b.j0.i0:
+com.zpj.shouji.market.ui.fragment.dialog.-$$Lambda$MainActionDialogFragment$mXZ-iqUzupPJf69Hggf9lhA777M -> com.zpj.shouji.market.e.b.j0.e0:
     android.widget.ImageView f$0 -> a
     void down(android.graphics.Bitmap) -> a
-com.zpj.shouji.market.ui.fragment.dialog.-$$Lambda$MainActionDialogFragment$mym5HWOUf1-Kms2myPbaJJiVQwQ -> com.zpj.shouji.market.e.b.j0.j0:
+com.zpj.shouji.market.ui.fragment.dialog.-$$Lambda$MainActionDialogFragment$mym5HWOUf1-Kms2myPbaJJiVQwQ -> com.zpj.shouji.market.e.b.j0.f0:
     android.view.View f$0 -> a
-com.zpj.shouji.market.ui.fragment.dialog.-$$Lambda$MainActionDialogFragment$qdubkdPNHDm7LQiqRzS9Kudm8FA -> com.zpj.shouji.market.e.b.j0.k0:
+com.zpj.shouji.market.ui.fragment.dialog.-$$Lambda$MainActionDialogFragment$qdubkdPNHDm7LQiqRzS9Kudm8FA -> com.zpj.shouji.market.e.b.j0.g0:
     com.zpj.shouji.market.ui.fragment.dialog.MainActionDialogFragment f$0 -> a
-com.zpj.shouji.market.ui.fragment.dialog.-$$Lambda$ModifiedDialogFragment$IDciJPEP4wTy1zCkt7DHUggQOiY -> com.zpj.shouji.market.e.b.j0.l0:
+com.zpj.shouji.market.ui.fragment.dialog.-$$Lambda$ModifiedDialogFragment$IDciJPEP4wTy1zCkt7DHUggQOiY -> com.zpj.shouji.market.e.b.j0.h0:
     android.view.View f$1 -> b
     com.zpj.shouji.market.ui.fragment.dialog.ModifiedDialogFragment f$0 -> a
-com.zpj.shouji.market.ui.fragment.dialog.-$$Lambda$ModifiedDialogFragment$vztRWMrPjIhgKSR6VUqxIiD9zKo -> com.zpj.shouji.market.e.b.j0.m0:
+com.zpj.shouji.market.ui.fragment.dialog.-$$Lambda$ModifiedDialogFragment$vztRWMrPjIhgKSR6VUqxIiD9zKo -> com.zpj.shouji.market.e.b.j0.i0:
     com.zpj.shouji.market.ui.fragment.dialog.ModifiedDialogFragment f$0 -> a
     void onSoftInputChanged(int) -> a
-com.zpj.shouji.market.ui.fragment.dialog.-$$Lambda$NicknameModifiedDialogFragment$Rh-_jLfngI4p2TDpjOgm05pN8aw -> com.zpj.shouji.market.e.b.j0.n0:
+com.zpj.shouji.market.ui.fragment.dialog.-$$Lambda$NicknameModifiedDialogFragment$Rh-_jLfngI4p2TDpjOgm05pN8aw -> com.zpj.shouji.market.e.b.j0.j0:
     com.zpj.shouji.market.ui.fragment.dialog.NicknameModifiedDialogFragment f$0 -> a
     com.zpj.widget.editor.AccountInputView f$1 -> b
-com.zpj.shouji.market.ui.fragment.dialog.-$$Lambda$NicknameModifiedDialogFragment$XX31DVI41NrfGOjd6ce2kc5xq9Y -> com.zpj.shouji.market.e.b.j0.o0:
+com.zpj.shouji.market.ui.fragment.dialog.-$$Lambda$NicknameModifiedDialogFragment$XX31DVI41NrfGOjd6ce2kc5xq9Y -> com.zpj.shouji.market.e.b.j0.k0:
     com.zpj.shouji.market.ui.fragment.dialog.-$$Lambda$NicknameModifiedDialogFragment$XX31DVI41NrfGOjd6ce2kc5xq9Y INSTANCE -> a
     void onError(java.lang.Throwable) -> a
-com.zpj.shouji.market.ui.fragment.dialog.-$$Lambda$NicknameModifiedDialogFragment$iXqtCc9zw9-yV4pF1X2FK-h1nMs -> com.zpj.shouji.market.e.b.j0.p0:
+com.zpj.shouji.market.ui.fragment.dialog.-$$Lambda$NicknameModifiedDialogFragment$iXqtCc9zw9-yV4pF1X2FK-h1nMs -> com.zpj.shouji.market.e.b.j0.l0:
     com.zpj.shouji.market.ui.fragment.dialog.NicknameModifiedDialogFragment f$0 -> a
-com.zpj.shouji.market.ui.fragment.dialog.-$$Lambda$NicknameModifiedDialogFragment$oL677jXaBm-D2bN-YUKKYffUk9I -> com.zpj.shouji.market.e.b.j0.q0:
+com.zpj.shouji.market.ui.fragment.dialog.-$$Lambda$NicknameModifiedDialogFragment$oL677jXaBm-D2bN-YUKKYffUk9I -> com.zpj.shouji.market.e.b.j0.m0:
     com.zpj.shouji.market.ui.fragment.dialog.NicknameModifiedDialogFragment f$0 -> a
     com.zpj.widget.editor.AccountInputView f$1 -> b
     void onSuccess(java.lang.Object) -> a
-com.zpj.shouji.market.ui.fragment.dialog.-$$Lambda$PasswordModifiedDialogFragment$0dAxQGkMDHnH3lidSIbcukd0y4c -> com.zpj.shouji.market.e.b.j0.r0:
+com.zpj.shouji.market.ui.fragment.dialog.-$$Lambda$PasswordModifiedDialogFragment$0dAxQGkMDHnH3lidSIbcukd0y4c -> com.zpj.shouji.market.e.b.j0.n0:
     com.zpj.shouji.market.ui.fragment.dialog.PasswordModifiedDialogFragment f$0 -> a
     com.zpj.widget.editor.PasswordInputView f$2 -> c
     com.zpj.widget.editor.PasswordInputView f$1 -> b
-com.zpj.shouji.market.ui.fragment.dialog.-$$Lambda$PasswordModifiedDialogFragment$Kb-4cIIh4-Szn4lsTCiA9qt3INI -> com.zpj.shouji.market.e.b.j0.s0:
+com.zpj.shouji.market.ui.fragment.dialog.-$$Lambda$PasswordModifiedDialogFragment$Kb-4cIIh4-Szn4lsTCiA9qt3INI -> com.zpj.shouji.market.e.b.j0.o0:
     com.zpj.shouji.market.ui.fragment.dialog.PasswordModifiedDialogFragment f$0 -> a
-com.zpj.shouji.market.ui.fragment.dialog.-$$Lambda$PasswordModifiedDialogFragment$OOQBbtXhFdeqU_jYPIdQ1OTAqzM -> com.zpj.shouji.market.e.b.j0.t0:
+com.zpj.shouji.market.ui.fragment.dialog.-$$Lambda$PasswordModifiedDialogFragment$OOQBbtXhFdeqU_jYPIdQ1OTAqzM -> com.zpj.shouji.market.e.b.j0.p0:
     com.zpj.shouji.market.ui.fragment.dialog.PasswordModifiedDialogFragment f$0 -> a
     com.zpj.widget.editor.PasswordInputView f$2 -> c
     com.zpj.widget.editor.PasswordInputView f$1 -> b
     void onSuccess(java.lang.Object) -> a
-com.zpj.shouji.market.ui.fragment.dialog.-$$Lambda$PasswordModifiedDialogFragment$tMgoGP6R-YmX69kAgxL6KfZY4Y8 -> com.zpj.shouji.market.e.b.j0.u0:
+com.zpj.shouji.market.ui.fragment.dialog.-$$Lambda$PasswordModifiedDialogFragment$tMgoGP6R-YmX69kAgxL6KfZY4Y8 -> com.zpj.shouji.market.e.b.j0.q0:
     com.zpj.shouji.market.ui.fragment.dialog.-$$Lambda$PasswordModifiedDialogFragment$tMgoGP6R-YmX69kAgxL6KfZY4Y8 INSTANCE -> a
     void onError(java.lang.Throwable) -> a
-com.zpj.shouji.market.ui.fragment.dialog.-$$Lambda$RecyclerPartShadowDialogFragment$T3LG1XHukFRFT-7wYxKStPtJhmg -> com.zpj.shouji.market.e.b.j0.v0:
+com.zpj.shouji.market.ui.fragment.dialog.-$$Lambda$RecyclerPartShadowDialogFragment$T3LG1XHukFRFT-7wYxKStPtJhmg -> com.zpj.shouji.market.e.b.j0.r0:
     java.util.List f$2 -> c
     com.zpj.shouji.market.ui.fragment.dialog.RecyclerPartShadowDialogFragment f$0 -> a
     com.zpj.recyclerview.EasyViewHolder f$3 -> d
     int f$1 -> b
-com.zpj.shouji.market.ui.fragment.dialog.-$$Lambda$RecyclerPartShadowDialogFragment$boTBezW2jr6TG0Bz2CEVUOnA-us -> com.zpj.shouji.market.e.b.j0.w0:
+com.zpj.shouji.market.ui.fragment.dialog.-$$Lambda$RecyclerPartShadowDialogFragment$boTBezW2jr6TG0Bz2CEVUOnA-us -> com.zpj.shouji.market.e.b.j0.s0:
     com.zpj.shouji.market.ui.fragment.dialog.RecyclerPartShadowDialogFragment f$0 -> a
     void onBindViewHolder(com.zpj.recyclerview.EasyViewHolder,java.util.List,int,java.util.List) -> a
-com.zpj.shouji.market.ui.fragment.dialog.-$$Lambda$SeekBarDialogFragment$LOk2RvnOdEa44i0AGIf8bQh_Yn8 -> com.zpj.shouji.market.e.b.j0.x0:
+com.zpj.shouji.market.ui.fragment.dialog.-$$Lambda$SeekBarDialogFragment$LOk2RvnOdEa44i0AGIf8bQh_Yn8 -> com.zpj.shouji.market.e.b.j0.t0:
     com.zpj.shouji.market.ui.fragment.dialog.SeekBarDialogFragment f$0 -> a
-com.zpj.shouji.market.ui.fragment.dialog.-$$Lambda$ShareDialogFragment$mN7RwQmoLxEny1SUuT75ROmvYvM -> com.zpj.shouji.market.e.b.j0.y0:
+com.zpj.shouji.market.ui.fragment.dialog.-$$Lambda$ShareDialogFragment$mN7RwQmoLxEny1SUuT75ROmvYvM -> com.zpj.shouji.market.e.b.j0.u0:
     com.zpj.shouji.market.ui.fragment.dialog.ShareDialogFragment f$0 -> a
-com.zpj.shouji.market.ui.fragment.dialog.-$$Lambda$SupportUserListDialogFragment$4vlFimsk3eVe5x-x2VD785ZzVTk -> com.zpj.shouji.market.e.b.j0.z0:
+com.zpj.shouji.market.ui.fragment.dialog.-$$Lambda$SupportUserListDialogFragment$4vlFimsk3eVe5x-x2VD785ZzVTk -> com.zpj.shouji.market.e.b.j0.v0:
     com.zpj.shouji.market.ui.fragment.dialog.SupportUserListDialogFragment f$0 -> a
-com.zpj.shouji.market.ui.fragment.dialog.-$$Lambda$SupportUserListDialogFragment$B81GFiSApJe9u17wPMy8nXo26zE -> com.zpj.shouji.market.e.b.j0.a1:
+com.zpj.shouji.market.ui.fragment.dialog.-$$Lambda$SupportUserListDialogFragment$B81GFiSApJe9u17wPMy8nXo26zE -> com.zpj.shouji.market.e.b.j0.w0:
     com.zpj.shouji.market.ui.fragment.dialog.SupportUserListDialogFragment f$0 -> a
     void onError(java.lang.Throwable) -> a
-com.zpj.shouji.market.ui.fragment.dialog.-$$Lambda$SupportUserListDialogFragment$G3__rh-9murZuhjCFke9gorqTgw -> com.zpj.shouji.market.e.b.j0.b1:
+com.zpj.shouji.market.ui.fragment.dialog.-$$Lambda$SupportUserListDialogFragment$G3__rh-9murZuhjCFke9gorqTgw -> com.zpj.shouji.market.e.b.j0.x0:
     com.zpj.shouji.market.ui.fragment.dialog.SupportUserListDialogFragment f$0 -> a
     void onClick(com.zpj.recyclerview.EasyViewHolder,android.view.View,java.lang.Object) -> a
-com.zpj.shouji.market.ui.fragment.dialog.-$$Lambda$SupportUserListDialogFragment$SAK1tQ3-B5_fNrC8RMVTvB8TSLw -> com.zpj.shouji.market.e.b.j0.c1:
+com.zpj.shouji.market.ui.fragment.dialog.-$$Lambda$SupportUserListDialogFragment$SAK1tQ3-B5_fNrC8RMVTvB8TSLw -> com.zpj.shouji.market.e.b.j0.y0:
     com.zpj.shouji.market.ui.fragment.dialog.SupportUserListDialogFragment f$0 -> a
-com.zpj.shouji.market.ui.fragment.dialog.-$$Lambda$SupportUserListDialogFragment$zqBhLrS4IPHKnYRKhX0AyraAonA -> com.zpj.shouji.market.e.b.j0.d1:
+com.zpj.shouji.market.ui.fragment.dialog.-$$Lambda$SupportUserListDialogFragment$zqBhLrS4IPHKnYRKhX0AyraAonA -> com.zpj.shouji.market.e.b.j0.z0:
     com.zpj.shouji.market.ui.fragment.dialog.SupportUserListDialogFragment f$0 -> a
     void onSuccess(java.lang.Object) -> a
-com.zpj.shouji.market.ui.fragment.dialog.-$$Lambda$ThemeAppDownloadDialogFragment$j_q1-Dn9Sf4LbXj6Faa0Vz_QsJY -> com.zpj.shouji.market.e.b.j0.e1:
+com.zpj.shouji.market.ui.fragment.dialog.-$$Lambda$ThemeAppDownloadDialogFragment$j_q1-Dn9Sf4LbXj6Faa0Vz_QsJY -> com.zpj.shouji.market.e.b.j0.a1:
     com.zpj.shouji.market.ui.fragment.dialog.ThemeAppDownloadDialogFragment f$0 -> a
     void onError(java.lang.Throwable) -> a
-com.zpj.shouji.market.ui.fragment.dialog.-$$Lambda$ThemeAppDownloadDialogFragment$uok2M3XsRaNPiYE-CoiuONzDT-A -> com.zpj.shouji.market.e.b.j0.f1:
+com.zpj.shouji.market.ui.fragment.dialog.-$$Lambda$ThemeAppDownloadDialogFragment$uok2M3XsRaNPiYE-CoiuONzDT-A -> com.zpj.shouji.market.e.b.j0.b1:
     com.zpj.shouji.market.ui.fragment.dialog.ThemeAppDownloadDialogFragment f$0 -> a
-com.zpj.shouji.market.ui.fragment.dialog.-$$Lambda$ThemeAppDownloadDialogFragment$xEyOgM-g4kiqjRIxKGoJBnTb4o0 -> com.zpj.shouji.market.e.b.j0.g1:
+com.zpj.shouji.market.ui.fragment.dialog.-$$Lambda$ThemeAppDownloadDialogFragment$xEyOgM-g4kiqjRIxKGoJBnTb4o0 -> com.zpj.shouji.market.e.b.j0.c1:
     com.zpj.shouji.market.ui.fragment.dialog.ThemeAppDownloadDialogFragment f$0 -> a
     void onSuccess(java.lang.Object) -> a
-com.zpj.shouji.market.ui.fragment.dialog.-$$Lambda$WallpaperTagDialogFragment$raUYPKEeo9vtgq8yLIt8WCVgqgI -> com.zpj.shouji.market.e.b.j0.h1:
+com.zpj.shouji.market.ui.fragment.dialog.-$$Lambda$WallpaperTagDialogFragment$raUYPKEeo9vtgq8yLIt8WCVgqgI -> com.zpj.shouji.market.e.b.j0.d1:
     com.zpj.shouji.market.ui.fragment.dialog.WallpaperTagDialogFragment f$0 -> a
     void onClick(int,android.view.View,java.lang.String) -> a
-com.zpj.shouji.market.ui.fragment.dialog.-$$Lambda$WallpaperViewerDialogFragment3$BM6TH1SxmTdKyay-fXefPUHNJ2Q -> com.zpj.shouji.market.e.b.j0.i1:
+com.zpj.shouji.market.ui.fragment.dialog.-$$Lambda$WallpaperViewerDialogFragment3$BM6TH1SxmTdKyay-fXefPUHNJ2Q -> com.zpj.shouji.market.e.b.j0.e1:
     com.zpj.shouji.market.ui.fragment.dialog.WallpaperViewerDialogFragment3 f$0 -> a
     void onSuccess(java.lang.Object) -> a
-com.zpj.shouji.market.ui.fragment.dialog.-$$Lambda$WallpaperViewerDialogFragment3$HyGLeqFQQN8F0OKiJZYaUnfD6rs -> com.zpj.shouji.market.e.b.j0.j1:
+com.zpj.shouji.market.ui.fragment.dialog.-$$Lambda$WallpaperViewerDialogFragment3$HyGLeqFQQN8F0OKiJZYaUnfD6rs -> com.zpj.shouji.market.e.b.j0.f1:
     com.zpj.shouji.market.ui.fragment.dialog.WallpaperViewerDialogFragment3 f$0 -> a
     void onSuccess(java.lang.Object) -> a
-com.zpj.shouji.market.ui.fragment.dialog.-$$Lambda$WallpaperViewerDialogFragment3$O7x0fYLeOJIe-zqAp6-kn63U48Q -> com.zpj.shouji.market.e.b.j0.k1:
+com.zpj.shouji.market.ui.fragment.dialog.-$$Lambda$WallpaperViewerDialogFragment3$O7x0fYLeOJIe-zqAp6-kn63U48Q -> com.zpj.shouji.market.e.b.j0.g1:
     com.zpj.shouji.market.ui.fragment.dialog.-$$Lambda$WallpaperViewerDialogFragment3$O7x0fYLeOJIe-zqAp6-kn63U48Q INSTANCE -> a
     void onError(java.lang.Throwable) -> a
-com.zpj.shouji.market.ui.fragment.dialog.-$$Lambda$WallpaperViewerDialogFragment3$T23Tpap-05RHwLbLw9MLB-YUpYE -> com.zpj.shouji.market.e.b.j0.l1:
+com.zpj.shouji.market.ui.fragment.dialog.-$$Lambda$WallpaperViewerDialogFragment3$T23Tpap-05RHwLbLw9MLB-YUpYE -> com.zpj.shouji.market.e.b.j0.h1:
     com.zpj.shouji.market.ui.fragment.dialog.WallpaperViewerDialogFragment3 f$0 -> a
-com.zpj.shouji.market.ui.fragment.dialog.-$$Lambda$WallpaperViewerDialogFragment3$U3soeqDnqYgbULhR2WxwKI7O2ZA -> com.zpj.shouji.market.e.b.j0.m1:
+com.zpj.shouji.market.ui.fragment.dialog.-$$Lambda$WallpaperViewerDialogFragment3$U3soeqDnqYgbULhR2WxwKI7O2ZA -> com.zpj.shouji.market.e.b.j0.i1:
     com.zpj.shouji.market.ui.fragment.dialog.WallpaperViewerDialogFragment3 f$0 -> a
     void onSelect(com.zpj.fragmentation.dialog.impl.AttachListDialogFragment,int,java.lang.Object) -> a
-com.zpj.shouji.market.ui.fragment.dialog.-$$Lambda$WallpaperViewerDialogFragment3$fLhLe8HKO2GB2eQ14owU4UGcAHs -> com.zpj.shouji.market.e.b.j0.n1:
+com.zpj.shouji.market.ui.fragment.dialog.-$$Lambda$WallpaperViewerDialogFragment3$fLhLe8HKO2GB2eQ14owU4UGcAHs -> com.zpj.shouji.market.e.b.j0.j1:
     com.zpj.shouji.market.ui.fragment.dialog.WallpaperViewerDialogFragment3 f$0 -> a
-com.zpj.shouji.market.ui.fragment.dialog.-$$Lambda$WallpaperViewerDialogFragment3$hBwFe1AQgyNmhYiwAnQ5CrmZNnc -> com.zpj.shouji.market.e.b.j0.o1:
+com.zpj.shouji.market.ui.fragment.dialog.-$$Lambda$WallpaperViewerDialogFragment3$hBwFe1AQgyNmhYiwAnQ5CrmZNnc -> com.zpj.shouji.market.e.b.j0.k1:
     com.zpj.shouji.market.ui.fragment.dialog.-$$Lambda$WallpaperViewerDialogFragment3$hBwFe1AQgyNmhYiwAnQ5CrmZNnc INSTANCE -> a
     void onError(java.lang.Throwable) -> a
-com.zpj.shouji.market.ui.fragment.dialog.-$$Lambda$WallpaperViewerDialogFragment3$jLRP3uF72kwyN7qVCWYItBAYoz8 -> com.zpj.shouji.market.e.b.j0.p1:
+com.zpj.shouji.market.ui.fragment.dialog.-$$Lambda$WallpaperViewerDialogFragment3$jLRP3uF72kwyN7qVCWYItBAYoz8 -> com.zpj.shouji.market.e.b.j0.l1:
     com.zpj.shouji.market.ui.fragment.dialog.-$$Lambda$WallpaperViewerDialogFragment3$jLRP3uF72kwyN7qVCWYItBAYoz8 INSTANCE -> a
     void onError(java.lang.Throwable) -> a
-com.zpj.shouji.market.ui.fragment.dialog.-$$Lambda$WallpaperViewerDialogFragment3$nXTRh-2mT1Dp_dQsEfwGerO2GV0 -> com.zpj.shouji.market.e.b.j0.q1:
+com.zpj.shouji.market.ui.fragment.dialog.-$$Lambda$WallpaperViewerDialogFragment3$nXTRh-2mT1Dp_dQsEfwGerO2GV0 -> com.zpj.shouji.market.e.b.j0.m1:
     com.zpj.shouji.market.ui.fragment.dialog.WallpaperViewerDialogFragment3 f$0 -> a
     void onSuccess(java.lang.Object) -> a
-com.zpj.shouji.market.ui.fragment.dialog.-$$Lambda$WallpaperViewerDialogFragment3$owwYUrUxNRISvy2a4ZCEKF9OG7E -> com.zpj.shouji.market.e.b.j0.r1:
+com.zpj.shouji.market.ui.fragment.dialog.-$$Lambda$WallpaperViewerDialogFragment3$owwYUrUxNRISvy2a4ZCEKF9OG7E -> com.zpj.shouji.market.e.b.j0.n1:
     com.zpj.shouji.market.ui.fragment.dialog.WallpaperViewerDialogFragment3 f$0 -> a
-com.zpj.shouji.market.ui.fragment.dialog.-$$Lambda$WallpaperViewerDialogFragment3$smRINK_us6PQKLLYSsuxwikMYK8 -> com.zpj.shouji.market.e.b.j0.s1:
+com.zpj.shouji.market.ui.fragment.dialog.-$$Lambda$WallpaperViewerDialogFragment3$smRINK_us6PQKLLYSsuxwikMYK8 -> com.zpj.shouji.market.e.b.j0.o1:
     com.zpj.shouji.market.ui.fragment.dialog.WallpaperViewerDialogFragment3 f$0 -> a
-com.zpj.shouji.market.ui.fragment.dialog.-$$Lambda$hxZqshLkmqvL-5FL1pWk161jkhY -> com.zpj.shouji.market.e.b.j0.t1:
+com.zpj.shouji.market.ui.fragment.dialog.-$$Lambda$hxZqshLkmqvL-5FL1pWk161jkhY -> com.zpj.shouji.market.e.b.j0.p1:
     com.zpj.shouji.market.ui.fragment.dialog.AppRatingDialogFragment f$0 -> a
-com.zpj.shouji.market.ui.fragment.dialog.-$$Lambda$pQ-VBL1p-0cqbnsXja6U_M83fMU -> com.zpj.shouji.market.e.b.j0.u1:
+com.zpj.shouji.market.ui.fragment.dialog.-$$Lambda$pQ-VBL1p-0cqbnsXja6U_M83fMU -> com.zpj.shouji.market.e.b.j0.q1:
     com.zpj.shouji.market.ui.fragment.dialog.ThemeMoreDialogFragment f$0 -> a
-com.zpj.shouji.market.ui.fragment.dialog.AppCollectionMoreDialogFragment -> com.zpj.shouji.market.e.b.j0.v1:
+com.zpj.shouji.market.ui.fragment.dialog.AppCollectionMoreDialogFragment -> com.zpj.shouji.market.e.b.j0.r1:
     com.zpj.shouji.market.model.CollectionInfo info -> v
     23:27:void <init>() -> <init>
     32:55:void onClick(com.zpj.shouji.market.ui.fragment.dialog.BottomListMenuDialogFragment,android.view.View,android.view.MenuItem) -> a
     70:86:com.zpj.shouji.market.ui.fragment.dialog.AppCollectionMoreDialogFragment setCollectionInfo(com.zpj.shouji.market.model.CollectionInfo) -> a
     64:66:com.zpj.shouji.market.ui.fragment.dialog.AppCollectionMoreDialogFragment isMe() -> w
-com.zpj.shouji.market.ui.fragment.dialog.AppCommentDialogFragment -> com.zpj.shouji.market.e.b.j0.w1:
+com.zpj.shouji.market.ui.fragment.dialog.AppCommentDialogFragment -> com.zpj.shouji.market.e.b.j0.s1:
     java.lang.String appPackage -> v
     java.lang.String appType -> u
     java.lang.String appId -> t
@@ -42379,11 +42425,11 @@ com.zpj.shouji.market.ui.fragment.dialog.AppCommentDialogFragment -> com.zpj.sho
     96:97:void setAppPackage(java.lang.String) -> i
     92:93:void setAppType(java.lang.String) -> j
     67:71:void lambda$sendText$0() -> z
-com.zpj.shouji.market.ui.fragment.dialog.AppCommentDialogFragment$1 -> com.zpj.shouji.market.e.b.j0.w1$a:
+com.zpj.shouji.market.ui.fragment.dialog.AppCommentDialogFragment$1 -> com.zpj.shouji.market.e.b.j0.s1$a:
     72:72:void <init>(com.zpj.shouji.market.ui.fragment.dialog.AppCommentDialogFragment) -> <init>
     76:76:void onBytesWritten(int) -> a
     80:80:boolean shouldContinue() -> a
-com.zpj.shouji.market.ui.fragment.dialog.AppRatingDialogFragment -> com.zpj.shouji.market.e.b.j0.x1:
+com.zpj.shouji.market.ui.fragment.dialog.AppRatingDialogFragment -> com.zpj.shouji.market.e.b.j0.t1:
     float starProgress -> l
     com.zpj.shouji.market.utils.Callback callback -> n
     com.zpj.shouji.market.model.AppDetailInfo appDetailInfo -> m
@@ -42398,11 +42444,11 @@ com.zpj.shouji.market.ui.fragment.dialog.AppRatingDialogFragment -> com.zpj.shou
     63:63:void lambda$null$3(java.lang.Throwable) -> b
     30:30:int getContentLayoutId() -> s
     62:62:void lambda$null$2() -> w
-com.zpj.shouji.market.ui.fragment.dialog.AppRatingDialogFragment$1 -> com.zpj.shouji.market.e.b.j0.x1$a:
+com.zpj.shouji.market.ui.fragment.dialog.AppRatingDialogFragment$1 -> com.zpj.shouji.market.e.b.j0.t1$a:
     com.cb.ratingbar.CBRatingBar val$ratingBar -> a
     41:41:void <init>(com.zpj.shouji.market.ui.fragment.dialog.AppRatingDialogFragment,com.cb.ratingbar.CBRatingBar) -> <init>
     44:45:void onStarTouch(int) -> a
-com.zpj.shouji.market.ui.fragment.dialog.AppUrlCenterListDialogFragment -> com.zpj.shouji.market.e.b.j0.y1:
+com.zpj.shouji.market.ui.fragment.dialog.AppUrlCenterListDialogFragment -> com.zpj.shouji.market.e.b.j0.u1:
     java.util.Map listenerMap -> q
     android.util.SparseBooleanArray expandedArray -> r
     android.view.View anchorView -> s
@@ -42415,7 +42461,7 @@ com.zpj.shouji.market.ui.fragment.dialog.AppUrlCenterListDialogFragment -> com.z
     114:115:com.zpj.shouji.market.ui.fragment.dialog.AppUrlCenterListDialogFragment setAnchorView(android.view.View) -> a
     119:122:com.zpj.shouji.market.ui.fragment.dialog.AppUrlCenterListDialogFragment setAppDetailInfo(com.zpj.shouji.market.model.AppDetailInfo) -> a
     56:56:int getItemRes() -> w
-com.zpj.shouji.market.ui.fragment.dialog.BottomListMenuDialogFragment -> com.zpj.shouji.market.e.b.j0.z1:
+com.zpj.shouji.market.ui.fragment.dialog.BottomListMenuDialogFragment -> com.zpj.shouji.market.e.b.j0.v1:
     com.zpj.shouji.market.ui.fragment.dialog.BottomListMenuDialogFragment$OnItemLongClickListener onItemLongClickListener -> o
     java.util.List hideMenuItemList -> p
     android.widget.TextView tvTitle -> q
@@ -42436,25 +42482,25 @@ com.zpj.shouji.market.ui.fragment.dialog.BottomListMenuDialogFragment -> com.zpj
     118:119:com.zpj.shouji.market.ui.fragment.dialog.BottomListMenuDialogFragment setMenu(int) -> d
     139:143:com.zpj.shouji.market.ui.fragment.dialog.BottomListMenuDialogFragment setTitle(java.lang.String) -> d
     53:53:int getContentLayoutId() -> s
-com.zpj.shouji.market.ui.fragment.dialog.BottomListMenuDialogFragment$OnItemClickListener -> com.zpj.shouji.market.e.b.j0.z1$a:
+com.zpj.shouji.market.ui.fragment.dialog.BottomListMenuDialogFragment$OnItemClickListener -> com.zpj.shouji.market.e.b.j0.v1$a:
     void onClick(com.zpj.shouji.market.ui.fragment.dialog.BottomListMenuDialogFragment,android.view.View,android.view.MenuItem) -> a
-com.zpj.shouji.market.ui.fragment.dialog.BottomListMenuDialogFragment$OnItemLongClickListener -> com.zpj.shouji.market.e.b.j0.z1$b:
+com.zpj.shouji.market.ui.fragment.dialog.BottomListMenuDialogFragment$OnItemLongClickListener -> com.zpj.shouji.market.e.b.j0.v1$b:
     boolean onLongClick(com.zpj.shouji.market.ui.fragment.dialog.BottomListMenuDialogFragment,android.view.View,android.view.MenuItem) -> a
-com.zpj.shouji.market.ui.fragment.dialog.BrightnessDialogFragment -> com.zpj.shouji.market.e.b.j0.a2:
+com.zpj.shouji.market.ui.fragment.dialog.BrightnessDialogFragment -> com.zpj.shouji.market.e.b.j0.w1:
     18:18:void <init>() -> <init>
     18:18:com.zpj.fragmentation.SupportActivity access$000(com.zpj.shouji.market.ui.fragment.dialog.BrightnessDialogFragment) -> a
     33:99:void initView(android.view.View,android.os.Bundle) -> a
     35:35:void lambda$initView$0(android.view.View) -> a
     42:62:void lambda$initView$1(com.warkiz.widget.IndicatorSeekBar,com.zpj.widget.setting.CheckableSettingItem) -> a
     28:28:int getContentLayoutId() -> s
-com.zpj.shouji.market.ui.fragment.dialog.BrightnessDialogFragment$1 -> com.zpj.shouji.market.e.b.j0.a2$a:
+com.zpj.shouji.market.ui.fragment.dialog.BrightnessDialogFragment$1 -> com.zpj.shouji.market.e.b.j0.w1$a:
     com.zpj.shouji.market.ui.fragment.dialog.BrightnessDialogFragment this$0 -> b
     com.warkiz.widget.IndicatorSeekBar val$seekBar -> a
     66:66:void <init>(com.zpj.shouji.market.ui.fragment.dialog.BrightnessDialogFragment,com.warkiz.widget.IndicatorSeekBar) -> <init>
     69:75:void onSeeking(com.warkiz.widget.SeekParams) -> a
     80:80:void onStartTrackingTouch(com.warkiz.widget.IndicatorSeekBar) -> a
     85:85:void onStopTrackingTouch(com.warkiz.widget.IndicatorSeekBar) -> b
-com.zpj.shouji.market.ui.fragment.dialog.CommentDialogFragment -> com.zpj.shouji.market.e.b.j0.b2:
+com.zpj.shouji.market.ui.fragment.dialog.CommentDialogFragment -> com.zpj.shouji.market.e.b.j0.x1:
     com.zpj.shouji.market.ui.widget.ReplyPanel replyPanel -> n
     java.lang.Runnable successRunnable -> s
     com.zpj.shouji.market.ui.widget.MaxHeightLayout maxHeightLayout -> o
@@ -42483,83 +42529,45 @@ com.zpj.shouji.market.ui.fragment.dialog.CommentDialogFragment -> com.zpj.shouji
     121:123:void lambda$initView$5() -> w
     160:164:void lambda$sendText$6() -> x
     177:181:void lambda$sendText$7() -> y
-com.zpj.shouji.market.ui.fragment.dialog.CommonImageViewerDialogFragment2 -> com.zpj.shouji.market.e.b.j0.c2:
-    android.widget.TextView tvIndicator -> O
-    android.widget.TextView tvInfo -> N
-    com.zpj.widget.tinted.TintedImageButton btnMore -> P
-    com.zpj.widget.toolbar.ZToolBar titleBar -> M
-    com.zpj.fragmentation.dialog.widget.LoadingView loadingView -> Q
-    java.util.List imageSizeList -> L
-    java.util.List originalImageList -> K
-    49:53:void <init>() -> <init>
-    187:189:void updateTitle() -> A
+com.zpj.shouji.market.ui.fragment.dialog.CommonImageViewerDialogFragment2 -> com.zpj.shouji.market.e.b.j0.y1:
+    android.widget.TextView tvIndicator -> N
+    java.util.List originalImageList -> J
+    com.zpj.widget.tinted.TintedImageButton btnMore -> O
+    com.zpj.widget.toolbar.ZToolBar titleBar -> L
+    com.zpj.fragmentation.dialog.widget.LoadingView loadingView -> P
+    android.widget.TextView tvInfo -> M
+    java.util.List imageSizeList -> K
+    48:52:void <init>() -> <init>
+    160:162:void updateTitle() -> A
     36:36:void access$000(com.zpj.shouji.market.ui.fragment.dialog.CommonImageViewerDialogFragment2) -> a
-    69:121:void initView(android.view.View,android.os.Bundle) -> a
-    88:110:void lambda$initView$1(android.view.View) -> a
-    93:107:void lambda$null$0(com.zpj.fragmentation.dialog.impl.AttachListDialogFragment,int,java.lang.String) -> a
+    68:120:void initView(android.view.View,android.os.Bundle) -> a
+    87:109:void lambda$initView$1(android.view.View) -> a
+    92:106:void lambda$null$0(com.zpj.fragmentation.dialog.impl.AttachListDialogFragment,int,java.lang.String) -> a
     36:36:java.util.List access$100(com.zpj.shouji.market.ui.fragment.dialog.CommonImageViewerDialogFragment2) -> b
-    113:113:void lambda$initView$2(android.view.View) -> b
+    112:112:void lambda$initView$2(android.view.View) -> b
     36:36:void access$200(com.zpj.shouji.market.ui.fragment.dialog.CommonImageViewerDialogFragment2) -> c
-    197:198:com.zpj.shouji.market.ui.fragment.dialog.CommonImageViewerDialogFragment2 setImageSizeList(java.util.List) -> c
-    205:205:void lambda$setInfoText$3(android.view.View) -> c
+    170:171:com.zpj.shouji.market.ui.fragment.dialog.CommonImageViewerDialogFragment2 setImageSizeList(java.util.List) -> c
+    178:178:void lambda$setInfoText$3(android.view.View) -> c
     36:36:com.zpj.fragmentation.dialog.widget.LoadingView access$300(com.zpj.shouji.market.ui.fragment.dialog.CommonImageViewerDialogFragment2) -> d
-    192:193:com.zpj.shouji.market.ui.fragment.dialog.CommonImageViewerDialogFragment2 setOriginalImageList(java.util.List) -> d
-    62:65:void onSupportVisible() -> onSupportVisible
-    125:134:void onDismiss() -> r
-    57:57:int getCustomLayoutId() -> u
-    178:183:java.lang.String getOriginalImageUrl() -> w
-    217:217:boolean isOriginalImageAvailable() -> x
-    202:213:void setInfoText() -> y
-    221:236:void showOriginalImage() -> z
-com.zpj.shouji.market.ui.fragment.dialog.CommonImageViewerDialogFragment2$1 -> com.zpj.shouji.market.e.b.j0.c2$a:
+    165:166:com.zpj.shouji.market.ui.fragment.dialog.CommonImageViewerDialogFragment2 setOriginalImageList(java.util.List) -> d
+    61:64:void onSupportVisible() -> onSupportVisible
+    124:133:void onDismiss() -> r
+    56:56:int getCustomLayoutId() -> u
+    151:156:java.lang.String getOriginalImageUrl() -> w
+    190:190:boolean isOriginalImageAvailable() -> x
+    175:186:void setInfoText() -> y
+    194:209:void showOriginalImage() -> z
+com.zpj.shouji.market.ui.fragment.dialog.CommonImageViewerDialogFragment2$1 -> com.zpj.shouji.market.e.b.j0.y1$a:
     com.zpj.shouji.market.ui.fragment.dialog.CommonImageViewerDialogFragment2 this$0 -> a
-    77:77:void <init>(com.zpj.shouji.market.ui.fragment.dialog.CommonImageViewerDialogFragment2) -> <init>
-    80:84:void onPageSelected(int) -> onPageSelected
-com.zpj.shouji.market.ui.fragment.dialog.CommonImageViewerDialogFragment2$3 -> com.zpj.shouji.market.e.b.j0.c2$b:
+    76:76:void <init>(com.zpj.shouji.market.ui.fragment.dialog.CommonImageViewerDialogFragment2) -> <init>
+    79:83:void onPageSelected(int) -> onPageSelected
+com.zpj.shouji.market.ui.fragment.dialog.CommonImageViewerDialogFragment2$2 -> com.zpj.shouji.market.e.b.j0.y1$b:
     com.zpj.fragmentation.dialog.photoview.PhotoView val$current -> d
     com.zpj.shouji.market.ui.fragment.dialog.CommonImageViewerDialogFragment2 this$0 -> e
-    227:227:void <init>(com.zpj.shouji.market.ui.fragment.dialog.CommonImageViewerDialogFragment2,com.zpj.fragmentation.dialog.photoview.PhotoView) -> <init>
-    227:227:void onResourceReady(java.lang.Object,com.bumptech.glide.request.transition.Transition) -> a
-    230:234:void onResourceReady(android.graphics.drawable.Drawable,com.bumptech.glide.request.transition.Transition) -> a
-com.zpj.shouji.market.ui.fragment.dialog.CommonImageViewerDialogFragment3 -> com.zpj.shouji.market.e.b.j0.d2:
-    android.widget.TextView tvIndicator -> O
-    android.widget.TextView tvInfo -> N
-    com.zpj.widget.tinted.TintedImageButton btnMore -> P
-    com.zpj.widget.toolbar.ZToolBar titleBar -> M
-    com.zpj.fragmentation.dialog.widget.LoadingView loadingView -> Q
-    java.util.List imageSizeList -> L
-    java.util.List originalImageList -> K
-    49:53:void <init>() -> <init>
-    187:189:void updateTitle() -> A
-    36:36:void access$000(com.zpj.shouji.market.ui.fragment.dialog.CommonImageViewerDialogFragment3) -> a
-    69:121:void initView(android.view.View,android.os.Bundle) -> a
-    88:110:void lambda$initView$1(android.view.View) -> a
-    93:107:void lambda$null$0(com.zpj.fragmentation.dialog.impl.AttachListDialogFragment,int,java.lang.String) -> a
-    36:36:java.util.List access$100(com.zpj.shouji.market.ui.fragment.dialog.CommonImageViewerDialogFragment3) -> b
-    113:113:void lambda$initView$2(android.view.View) -> b
-    36:36:void access$200(com.zpj.shouji.market.ui.fragment.dialog.CommonImageViewerDialogFragment3) -> c
-    197:198:com.zpj.shouji.market.ui.fragment.dialog.CommonImageViewerDialogFragment3 setImageSizeList(java.util.List) -> c
-    205:205:void lambda$setInfoText$3(android.view.View) -> c
-    36:36:com.zpj.fragmentation.dialog.widget.LoadingView access$300(com.zpj.shouji.market.ui.fragment.dialog.CommonImageViewerDialogFragment3) -> d
-    192:193:com.zpj.shouji.market.ui.fragment.dialog.CommonImageViewerDialogFragment3 setOriginalImageList(java.util.List) -> d
-    62:65:void onSupportVisible() -> onSupportVisible
-    125:134:void onDismiss() -> r
-    57:57:int getCustomLayoutId() -> u
-    178:183:java.lang.String getOriginalImageUrl() -> w
-    217:217:boolean isOriginalImageAvailable() -> x
-    202:213:void setInfoText() -> y
-    221:236:void showOriginalImage() -> z
-com.zpj.shouji.market.ui.fragment.dialog.CommonImageViewerDialogFragment3$1 -> com.zpj.shouji.market.e.b.j0.d2$a:
-    com.zpj.shouji.market.ui.fragment.dialog.CommonImageViewerDialogFragment3 this$0 -> a
-    77:77:void <init>(com.zpj.shouji.market.ui.fragment.dialog.CommonImageViewerDialogFragment3) -> <init>
-    80:84:void onPageSelected(int) -> onPageSelected
-com.zpj.shouji.market.ui.fragment.dialog.CommonImageViewerDialogFragment3$3 -> com.zpj.shouji.market.e.b.j0.d2$b:
-    com.zpj.shouji.market.ui.fragment.dialog.CommonImageViewerDialogFragment3 this$0 -> e
-    com.zpj.fragmentation.dialog.photoview.PhotoView val$current -> d
-    227:227:void <init>(com.zpj.shouji.market.ui.fragment.dialog.CommonImageViewerDialogFragment3,com.zpj.fragmentation.dialog.photoview.PhotoView) -> <init>
-    227:227:void onResourceReady(java.lang.Object,com.bumptech.glide.request.transition.Transition) -> a
-    230:234:void onResourceReady(android.graphics.drawable.Drawable,com.bumptech.glide.request.transition.Transition) -> a
-com.zpj.shouji.market.ui.fragment.dialog.EmailModifiedDialogFragment -> com.zpj.shouji.market.e.b.j0.e2:
+    200:200:void <init>(com.zpj.shouji.market.ui.fragment.dialog.CommonImageViewerDialogFragment2,com.zpj.fragmentation.dialog.photoview.PhotoView) -> <init>
+    200:200:void onResourceReady(java.lang.Object,com.bumptech.glide.request.transition.Transition) -> a
+    203:207:void onResourceReady(android.graphics.drawable.Drawable,com.bumptech.glide.request.transition.Transition) -> a
+com.zpj.shouji.market.ui.fragment.dialog.EmailModifiedDialogFragment -> com.zpj.shouji.market.e.b.j0.z1:
     17:17:void <init>() -> <init>
     26:64:void initView(android.view.View,android.os.Bundle) -> a
     35:54:void lambda$initView$3(com.zpj.widget.editor.EmailInputView,com.zpj.widget.editor.PasswordInputView,android.view.View) -> a
@@ -42567,7 +42575,7 @@ com.zpj.shouji.market.ui.fragment.dialog.EmailModifiedDialogFragment -> com.zpj.
     52:52:void lambda$null$2(java.lang.Throwable) -> b
     27:27:void lambda$initView$0(android.view.View) -> c
     21:21:int getContentLayoutId() -> s
-com.zpj.shouji.market.ui.fragment.dialog.MainActionDialogFragment -> com.zpj.shouji.market.e.b.j0.g2:
+com.zpj.shouji.market.ui.fragment.dialog.MainActionDialogFragment -> com.zpj.shouji.market.e.b.j0.b2:
     java.lang.String[] menuTextItems -> n
     android.widget.LinearLayout menuLayout -> o
     android.support.design.widget.FloatingActionButton floatingActionButton -> p
@@ -42587,24 +42595,24 @@ com.zpj.shouji.market.ui.fragment.dialog.MainActionDialogFragment -> com.zpj.sho
     172:195:void lambda$startAnimation$4() -> x
     200:221:void closeAnimation() -> y
     169:197:void startAnimation() -> z
-com.zpj.shouji.market.ui.fragment.dialog.MainActionDialogFragment$1 -> com.zpj.shouji.market.e.b.j0.f2:
+com.zpj.shouji.market.ui.fragment.dialog.MainActionDialogFragment$1 -> com.zpj.shouji.market.e.b.j0.a2:
     com.zpj.shouji.market.ui.fragment.dialog.MainActionDialogFragment this$0 -> a
     177:177:void <init>(com.zpj.shouji.market.ui.fragment.dialog.MainActionDialogFragment) -> <init>
     187:187:void onAnimationEnd(android.animation.Animator) -> onAnimationEnd
     181:182:void onAnimationStart(android.animation.Animator) -> onAnimationStart
-com.zpj.shouji.market.ui.fragment.dialog.MainActionDialogFragment$2 -> com.zpj.shouji.market.e.b.j0.g2$a:
+com.zpj.shouji.market.ui.fragment.dialog.MainActionDialogFragment$2 -> com.zpj.shouji.market.e.b.j0.b2$a:
     com.zpj.shouji.market.ui.fragment.dialog.MainActionDialogFragment this$0 -> a
     205:205:void <init>(com.zpj.shouji.market.ui.fragment.dialog.MainActionDialogFragment) -> <init>
     213:214:void onAnimationEnd(android.animation.Animator) -> onAnimationEnd
     209:209:void onAnimationStart(android.animation.Animator) -> onAnimationStart
-com.zpj.shouji.market.ui.fragment.dialog.ModifiedDialogFragment -> com.zpj.shouji.market.e.b.j0.h2:
+com.zpj.shouji.market.ui.fragment.dialog.ModifiedDialogFragment -> com.zpj.shouji.market.e.b.j0.c2:
     11:11:void <init>() -> <init>
     28:28:void lambda$showKeyboard$1(android.view.View) -> a
     28:29:void showKeyboard(android.view.View) -> b
     17:18:void lambda$onViewCreated$0(int) -> c
     23:25:void dismiss() -> dismiss
     15:19:void onViewCreated(android.view.View,android.os.Bundle) -> onViewCreated
-com.zpj.shouji.market.ui.fragment.dialog.NicknameModifiedDialogFragment -> com.zpj.shouji.market.e.b.j0.i2:
+com.zpj.shouji.market.ui.fragment.dialog.NicknameModifiedDialogFragment -> com.zpj.shouji.market.e.b.j0.d2:
     15:15:void <init>() -> <init>
     24:56:void initView(android.view.View,android.os.Bundle) -> a
     30:46:void lambda$initView$3(com.zpj.widget.editor.AccountInputView,android.view.View) -> a
@@ -42612,7 +42620,7 @@ com.zpj.shouji.market.ui.fragment.dialog.NicknameModifiedDialogFragment -> com.z
     44:44:void lambda$null$2(java.lang.Throwable) -> b
     25:25:void lambda$initView$0(android.view.View) -> c
     19:19:int getContentLayoutId() -> s
-com.zpj.shouji.market.ui.fragment.dialog.PasswordModifiedDialogFragment -> com.zpj.shouji.market.e.b.j0.j2:
+com.zpj.shouji.market.ui.fragment.dialog.PasswordModifiedDialogFragment -> com.zpj.shouji.market.e.b.j0.e2:
     16:16:void <init>() -> <init>
     25:67:void initView(android.view.View,android.os.Bundle) -> a
     42:57:void lambda$initView$3(com.zpj.widget.editor.PasswordInputView,com.zpj.widget.editor.PasswordInputView,android.view.View) -> a
@@ -42620,7 +42628,7 @@ com.zpj.shouji.market.ui.fragment.dialog.PasswordModifiedDialogFragment -> com.z
     55:55:void lambda$null$2(java.lang.Throwable) -> b
     26:26:void lambda$initView$0(android.view.View) -> c
     20:20:int getContentLayoutId() -> s
-com.zpj.shouji.market.ui.fragment.dialog.RecyclerPartShadowDialogFragment -> com.zpj.shouji.market.e.b.j0.k2:
+com.zpj.shouji.market.ui.fragment.dialog.RecyclerPartShadowDialogFragment -> com.zpj.shouji.market.e.b.j0.f2:
     java.util.List items -> B
     com.zpj.shouji.market.ui.fragment.dialog.RecyclerPartShadowDialogFragment$OnItemClickListener onItemClickListener -> z
     int selectPosition -> A
@@ -42633,9 +42641,9 @@ com.zpj.shouji.market.ui.fragment.dialog.RecyclerPartShadowDialogFragment -> com
     68:69:com.zpj.shouji.market.ui.fragment.dialog.RecyclerPartShadowDialogFragment setSelectedItem(int) -> c
     35:37:void onCreate(android.os.Bundle) -> onCreate
     30:30:int getContentLayoutId() -> t
-com.zpj.shouji.market.ui.fragment.dialog.RecyclerPartShadowDialogFragment$OnItemClickListener -> com.zpj.shouji.market.e.b.j0.k2$a:
+com.zpj.shouji.market.ui.fragment.dialog.RecyclerPartShadowDialogFragment$OnItemClickListener -> com.zpj.shouji.market.e.b.j0.f2$a:
     void onItemClick(android.view.View,java.lang.String,int) -> a
-com.zpj.shouji.market.ui.fragment.dialog.SeekBarDialogFragment -> com.zpj.shouji.market.e.b.j0.l2:
+com.zpj.shouji.market.ui.fragment.dialog.SeekBarDialogFragment -> com.zpj.shouji.market.e.b.j0.g2:
     int min -> n
     int progress -> o
     int max -> m
@@ -42651,15 +42659,15 @@ com.zpj.shouji.market.ui.fragment.dialog.SeekBarDialogFragment -> com.zpj.shouji
     78:79:com.zpj.shouji.market.ui.fragment.dialog.SeekBarDialogFragment setMin(int) -> d
     83:84:com.zpj.shouji.market.ui.fragment.dialog.SeekBarDialogFragment setProgress(int) -> e
     29:29:int getContentLayoutId() -> s
-com.zpj.shouji.market.ui.fragment.dialog.SeekBarDialogFragment$1 -> com.zpj.shouji.market.e.b.j0.l2$a:
+com.zpj.shouji.market.ui.fragment.dialog.SeekBarDialogFragment$1 -> com.zpj.shouji.market.e.b.j0.g2$a:
     com.zpj.shouji.market.ui.fragment.dialog.SeekBarDialogFragment this$0 -> a
     47:47:void <init>(com.zpj.shouji.market.ui.fragment.dialog.SeekBarDialogFragment) -> <init>
     50:53:void onSeeking(com.warkiz.widget.SeekParams) -> a
     58:58:void onStartTrackingTouch(com.warkiz.widget.IndicatorSeekBar) -> a
     63:63:void onStopTrackingTouch(com.warkiz.widget.IndicatorSeekBar) -> b
-com.zpj.shouji.market.ui.fragment.dialog.SeekBarDialogFragment$OnSeekProgressChangeListener -> com.zpj.shouji.market.e.b.j0.l2$b:
+com.zpj.shouji.market.ui.fragment.dialog.SeekBarDialogFragment$OnSeekProgressChangeListener -> com.zpj.shouji.market.e.b.j0.g2$b:
     void onSeek(int) -> a
-com.zpj.shouji.market.ui.fragment.dialog.ShareDialogFragment -> com.zpj.shouji.market.e.b.j0.m2:
+com.zpj.shouji.market.ui.fragment.dialog.ShareDialogFragment -> com.zpj.shouji.market.e.b.j0.h2:
     java.lang.String shareContent -> n
     java.io.File shareFile -> o
     21:21:void <init>() -> <init>
@@ -42669,7 +42677,7 @@ com.zpj.shouji.market.ui.fragment.dialog.ShareDialogFragment -> com.zpj.shouji.m
     123:124:com.zpj.shouji.market.ui.fragment.dialog.ShareDialogFragment setShareContent(java.lang.String) -> d
     67:120:void onClick(android.view.View) -> onClick
     29:29:int getContentLayoutId() -> s
-com.zpj.shouji.market.ui.fragment.dialog.SupportUserListDialogFragment -> com.zpj.shouji.market.e.b.j0.n2:
+com.zpj.shouji.market.ui.fragment.dialog.SupportUserListDialogFragment -> com.zpj.shouji.market.e.b.j0.i2:
     com.zpj.recyclerview.EasyRecyclerView recyclerView -> p
     com.zpj.recyclerview.state.StateManager stateManager -> o
     java.lang.String themeId -> q
@@ -42686,7 +42694,7 @@ com.zpj.shouji.market.ui.fragment.dialog.SupportUserListDialogFragment -> com.zp
     91:91:int getMaxHeight() -> u
     106:108:void lambda$null$2() -> w
     95:112:void getSupportUserList() -> x
-com.zpj.shouji.market.ui.fragment.dialog.ThemeAppDownloadDialogFragment -> com.zpj.shouji.market.e.b.j0.o2:
+com.zpj.shouji.market.ui.fragment.dialog.ThemeAppDownloadDialogFragment -> com.zpj.shouji.market.e.b.j0.j2:
     android.widget.LinearLayout llContainer -> p
     android.widget.TextView tvDesc -> q
     com.zpj.shouji.market.model.DiscoverInfo discoverInfo -> t
@@ -42714,18 +42722,18 @@ com.zpj.shouji.market.ui.fragment.dialog.ThemeAppDownloadDialogFragment -> com.z
     77:77:int getContentLayoutId() -> s
     129:129:int getMaxHeight() -> u
     133:171:void getPermissions() -> w
-com.zpj.shouji.market.ui.fragment.dialog.ThemeAppDownloadDialogFragment$1 -> com.zpj.shouji.market.e.b.j0.o2$a:
+com.zpj.shouji.market.ui.fragment.dialog.ThemeAppDownloadDialogFragment$1 -> com.zpj.shouji.market.e.b.j0.j2$a:
     com.zpj.shouji.market.ui.fragment.dialog.ThemeAppDownloadDialogFragment this$0 -> a
     42:42:void <init>(com.zpj.shouji.market.ui.fragment.dialog.ThemeAppDownloadDialogFragment) -> <init>
     46:67:void run() -> run
-com.zpj.shouji.market.ui.fragment.dialog.ThemeMoreDialogFragment -> com.zpj.shouji.market.e.b.j0.p2:
+com.zpj.shouji.market.ui.fragment.dialog.ThemeMoreDialogFragment -> com.zpj.shouji.market.e.b.j0.k2:
     com.zpj.shouji.market.model.DiscoverInfo info -> v
     22:26:void <init>() -> <init>
     31:78:void onClick(com.zpj.shouji.market.ui.fragment.dialog.BottomListMenuDialogFragment,android.view.View,android.view.MenuItem) -> a
     94:116:com.zpj.shouji.market.ui.fragment.dialog.ThemeMoreDialogFragment setDiscoverInfo(com.zpj.shouji.market.model.DiscoverInfo) -> a
     81:83:com.zpj.shouji.market.ui.fragment.dialog.ThemeMoreDialogFragment isCollection() -> w
     87:90:com.zpj.shouji.market.ui.fragment.dialog.ThemeMoreDialogFragment isMe() -> x
-com.zpj.shouji.market.ui.fragment.dialog.WallpaperTagDialogFragment -> com.zpj.shouji.market.e.b.j0.q2:
+com.zpj.shouji.market.ui.fragment.dialog.WallpaperTagDialogFragment -> com.zpj.shouji.market.e.b.j0.l2:
     java.util.List tags -> z
     int selectedPosition -> B
     com.zpj.shouji.market.ui.widget.flowlayout.FlowLayout$OnItemClickListener onItemClickListener -> A
@@ -42737,16 +42745,16 @@ com.zpj.shouji.market.ui.fragment.dialog.WallpaperTagDialogFragment -> com.zpj.s
     55:56:com.zpj.shouji.market.ui.fragment.dialog.WallpaperTagDialogFragment setSelectedPosition(int) -> c
     33:35:void onCreate(android.os.Bundle) -> onCreate
     28:28:int getContentLayoutId() -> t
-com.zpj.shouji.market.ui.fragment.dialog.WallpaperViewerDialogFragment3 -> com.zpj.shouji.market.e.b.j0.r2:
-    android.view.View bottomBar -> M
-    android.widget.TextView tvOrigin -> R
-    com.zpj.widget.tinted.TintedImageButton btnUp -> O
-    android.widget.ImageView ivIcon -> N
-    com.zpj.widget.tinted.TintedImageButton btnFavorite -> Q
-    com.zpj.shouji.market.ui.widget.DrawableTintTextView tvSupport -> P
-    com.zpj.shouji.market.model.WallpaperInfo wallpaperInfo -> S
-    com.zpj.widget.toolbar.ZToolBar titleBar -> L
-    java.util.List originalImageList -> K
+com.zpj.shouji.market.ui.fragment.dialog.WallpaperViewerDialogFragment3 -> com.zpj.shouji.market.e.b.j0.m2:
+    android.widget.TextView tvOrigin -> Q
+    android.view.View bottomBar -> L
+    android.widget.ImageView ivIcon -> M
+    java.util.List originalImageList -> J
+    com.zpj.widget.tinted.TintedImageButton btnFavorite -> P
+    com.zpj.widget.toolbar.ZToolBar titleBar -> K
+    com.zpj.shouji.market.ui.widget.DrawableTintTextView tvSupport -> O
+    com.zpj.shouji.market.model.WallpaperInfo wallpaperInfo -> R
+    com.zpj.widget.tinted.TintedImageButton btnUp -> N
     57:58:void <init>() -> <init>
     387:403:void showOriginalImage() -> A
     406:428:void supportWallpaper() -> B
@@ -42779,15 +42787,15 @@ com.zpj.shouji.market.ui.fragment.dialog.WallpaperViewerDialogFragment3 -> com.z
     435:435:boolean isOriginalImageAvailable() -> x
     372:373:void setWallpaper() -> y
     431:432:void shareWallpaper() -> z
-com.zpj.shouji.market.ui.fragment.dialog.WallpaperViewerDialogFragment3$1 -> com.zpj.shouji.market.e.b.j0.r2$a:
+com.zpj.shouji.market.ui.fragment.dialog.WallpaperViewerDialogFragment3$1 -> com.zpj.shouji.market.e.b.j0.m2$a:
     com.zpj.shouji.market.ui.fragment.dialog.WallpaperViewerDialogFragment3 this$0 -> a
     86:86:void <init>(com.zpj.shouji.market.ui.fragment.dialog.WallpaperViewerDialogFragment3) -> <init>
     89:91:void onPageSelected(int) -> onPageSelected
-com.zpj.shouji.market.ui.fragment.dialog.WallpaperViewerDialogFragment3$2 -> com.zpj.shouji.market.e.b.j0.r2$b:
+com.zpj.shouji.market.ui.fragment.dialog.WallpaperViewerDialogFragment3$2 -> com.zpj.shouji.market.e.b.j0.m2$b:
     com.zpj.shouji.market.ui.fragment.dialog.WallpaperViewerDialogFragment3 this$0 -> a
     266:266:void <init>(com.zpj.shouji.market.ui.fragment.dialog.WallpaperViewerDialogFragment3) -> <init>
     269:274:void onAnimationUpdate(android.animation.ValueAnimator) -> onAnimationUpdate
-com.zpj.shouji.market.ui.fragment.dialog.WallpaperViewerDialogFragment3$3 -> com.zpj.shouji.market.e.b.j0.r2$c:
+com.zpj.shouji.market.ui.fragment.dialog.WallpaperViewerDialogFragment3$3 -> com.zpj.shouji.market.e.b.j0.m2$c:
     com.zpj.shouji.market.ui.fragment.dialog.WallpaperViewerDialogFragment3 this$0 -> a
     284:284:void <init>(com.zpj.shouji.market.ui.fragment.dialog.WallpaperViewerDialogFragment3) -> <init>
     287:295:void onAnimationUpdate(android.animation.ValueAnimator) -> onAnimationUpdate
