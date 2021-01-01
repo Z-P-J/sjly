@@ -11,7 +11,7 @@ import com.zpj.http.core.HttpKeyVal;
 import com.zpj.http.core.HttpObserver;
 import com.zpj.http.core.IHttp;
 import com.zpj.http.parser.html.nodes.Document;
-import com.zpj.matisse.entity.Item;
+import com.zpj.imagepicker.entity.Item;
 import com.zpj.shouji.market.constant.AppConfig;
 import com.zpj.shouji.market.constant.UpdateFlagAction;
 import com.zpj.shouji.market.manager.UserManager;

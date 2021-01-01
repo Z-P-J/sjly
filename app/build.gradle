@@ -166,6 +166,7 @@ dependencies {
 //    implementation 'com.github.todou:appbarspring:1.0.9'
 //    implementation 'com.github.a-voyager:AutoInstaller:v1.2'
     implementation 'me.codeboy.android:align-text-view:2.3.2'
+    implementation 'com.sothree.slidinguppanel:library:3.4.0'
 
 //    implementation 'com.zpj.widget:StateLayout:1.0.2'
     implementation 'com.zpj.widget:SmoothCheckBox:1.0.0'
@@ -187,7 +188,7 @@ dependencies {
     implementation project(':expandabletextview')
     implementation project(':fragmentation')
     implementation project(":fragmentation-dialog")
-    implementation project(':fragmentation-matisse')
+//    implementation project(':fragmentation-matisse')
     implementation project(':fragmentation-ucrop')
 
 }

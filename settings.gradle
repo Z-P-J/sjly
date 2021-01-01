@@ -8,7 +8,7 @@ include ':app',
         ':expandabletextview',
         ':fragmentation',
         ':fragmentation-dialog',
-        ':fragmentation-matisse',
+//        ':fragmentation-matisse',
         ':fragmentation-ucrop',
         ':chameleon',
         ':StateManager'

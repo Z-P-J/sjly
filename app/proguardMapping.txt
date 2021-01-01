@@ -1,7 +1,7 @@
 # compiler: R8
 # compiler_version: 1.5.69
 # min_api: 19
-# pg_map_id: 955f255
+# pg_map_id: 42bad8f
 android.arch.core.executor.ArchTaskExecutor -> a.a.a.a.a:
     android.arch.core.executor.ArchTaskExecutor sInstance -> c
     android.arch.core.executor.TaskExecutor mDelegate -> a
@@ -36634,6 +36634,442 @@ com.zpj.http.utils.Validate -> com.zpj.http.g.c:
     70:71:void isTrue(boolean,java.lang.String) -> b
     117:118:void notEmpty(java.lang.String) -> b
     127:128:void notEmpty(java.lang.String,java.lang.String) -> c
+com.zpj.imagepicker.ImagePicker -> b.c.b.a:
+    java.lang.ref.WeakReference mFragment -> b
+    java.lang.ref.WeakReference mContext -> a
+    50:51:void <init>(com.zpj.fragmentation.SupportActivity) -> <init>
+    57:60:void <init>(com.zpj.fragmentation.SupportActivity,com.zpj.fragmentation.SupportFragment) -> <init>
+    64:64:com.zpj.imagepicker.ImagePicker from(com.zpj.fragmentation.SupportActivity) -> a
+    91:91:com.zpj.imagepicker.SelectionCreator choose(java.util.Set) -> a
+    108:108:com.zpj.imagepicker.SelectionCreator choose(java.util.Set,boolean) -> a
+    113:113:com.zpj.fragmentation.SupportActivity getActivity() -> a
+    118:118:com.zpj.fragmentation.SupportFragment getFragment() -> b
+com.zpj.imagepicker.ImagePicker$OnSelectedListener -> b.c.b.a$a:
+    void onSelected(java.util.List) -> a
+com.zpj.imagepicker.MimeType -> b.c.b.b:
+    com.zpj.imagepicker.MimeType MPEG -> g
+    com.zpj.imagepicker.MimeType MP4 -> h
+    com.zpj.imagepicker.MimeType QUICKTIME -> i
+    com.zpj.imagepicker.MimeType THREEGPP -> j
+    com.zpj.imagepicker.MimeType[] $VALUES -> p
+    com.zpj.imagepicker.MimeType PNG -> c
+    com.zpj.imagepicker.MimeType GIF -> d
+    com.zpj.imagepicker.MimeType BMP -> e
+    com.zpj.imagepicker.MimeType WEBP -> f
+    com.zpj.imagepicker.MimeType JPEG -> b
+    com.zpj.imagepicker.MimeType AVI -> o
+    java.lang.String mMimeTypeName -> a
+    com.zpj.imagepicker.MimeType THREEGPP2 -> k
+    com.zpj.imagepicker.MimeType MKV -> l
+    com.zpj.imagepicker.MimeType WEBM -> m
+    com.zpj.imagepicker.MimeType TS -> n
+    43:39:void <clinit>() -> <clinit>
+    96:99:void <init>(java.lang.String,int,java.lang.String,java.util.Set) -> <init>
+    110:110:java.util.Set ofImage() -> a
+    128:129:boolean isGif(java.lang.String) -> a
+    133:133:java.util.Set arraySetOf(java.lang.String[]) -> a
+    114:114:java.util.Set ofVideo() -> b
+    118:119:boolean isImage(java.lang.String) -> b
+    123:124:boolean isVideo(java.lang.String) -> c
+    138:138:java.lang.String toString() -> toString
+    39:39:com.zpj.imagepicker.MimeType valueOf(java.lang.String) -> valueOf
+    39:39:com.zpj.imagepicker.MimeType[] values() -> values
+com.zpj.imagepicker.SelectionCreator -> b.c.b.c:
+    com.zpj.imagepicker.ImagePicker mImagePicker -> a
+    com.zpj.imagepicker.entity.SelectionSpec mSelectionSpec -> b
+    51:56:void <init>(com.zpj.imagepicker.ImagePicker,java.util.Set,boolean) -> <init>
+    41:41:com.zpj.imagepicker.ImagePicker access$000(com.zpj.imagepicker.SelectionCreator) -> a
+    84:85:com.zpj.imagepicker.SelectionCreator countable(boolean) -> a
+    95:96:com.zpj.imagepicker.SelectionCreator maxSelectable(int) -> a
+    136:137:com.zpj.imagepicker.SelectionCreator thumbnailScale(float) -> a
+    143:144:com.zpj.imagepicker.SelectionCreator imageEngine(com.zpj.imagepicker.engine.ImageEngine) -> a
+    148:149:com.zpj.imagepicker.SelectionCreator setOnSelectedListener(com.zpj.imagepicker.ImagePicker$OnSelectedListener) -> a
+    158:182:void start() -> a
+    196:198:com.zpj.imagepicker.SelectionCreator setDefaultSelection(java.util.List) -> a
+    122:125:com.zpj.imagepicker.SelectionCreator spanCount(int) -> b
+com.zpj.imagepicker.SelectionCreator$1 -> b.c.b.c$a:
+    com.zpj.imagepicker.SelectionCreator this$0 -> b
+    com.zpj.fragmentation.SupportActivity val$activity -> a
+    165:165:void <init>(com.zpj.imagepicker.SelectionCreator,com.zpj.fragmentation.SupportActivity) -> <init>
+    168:174:void onGranted() -> a
+    177:178:void onDenied() -> b
+com.zpj.imagepicker.engine.ImageEngine -> b.c.b.d.a:
+    void loadGifThumbnail(android.content.Context,android.widget.ImageView,android.net.Uri) -> a
+    void loadThumbnail(android.content.Context,android.widget.ImageView,android.net.Uri) -> b
+com.zpj.imagepicker.engine.impl.GlideEngine -> b.c.b.d.b.a:
+    36:36:void <init>() -> <init>
+    60:72:void loadGifThumbnail(android.content.Context,android.widget.ImageView,android.net.Uri) -> a
+    40:55:void loadThumbnail(android.content.Context,android.widget.ImageView,android.net.Uri) -> b
+com.zpj.imagepicker.entity.Album -> com.zpj.imagepicker.entity.Album:
+    java.lang.String mId -> a
+    long mCount -> d
+    java.lang.String mDisplayName -> c
+    java.lang.String mCoverPath -> b
+    java.lang.String ALBUM_ID_ALL -> e
+    30:42:void <clinit>() -> <clinit>
+    50:55:void <init>(java.lang.String,java.lang.String,java.lang.String,long) -> <init>
+    57:62:void <init>(android.os.Parcel) -> <init>
+    69:69:com.zpj.imagepicker.entity.Album valueOf(android.database.Cursor) -> a
+    98:98:long getCount() -> a
+    106:109:java.lang.String getDisplayName(android.content.Context) -> a
+    94:94:java.lang.String getCoverPath() -> b
+    90:90:java.lang.String getId() -> c
+    113:113:boolean isAll() -> d
+    78:78:int describeContents() -> describeContents
+    117:117:boolean isEmpty() -> e
+    83:87:void writeToParcel(android.os.Parcel,int) -> writeToParcel
+com.zpj.imagepicker.entity.Album$1 -> com.zpj.imagepicker.entity.Album$a:
+    30:30:void <init>() -> <init>
+    30:30:java.lang.Object createFromParcel(android.os.Parcel) -> createFromParcel
+    34:34:com.zpj.imagepicker.entity.Album createFromParcel(android.os.Parcel) -> createFromParcel
+    30:30:java.lang.Object[] newArray(int) -> newArray
+    39:39:com.zpj.imagepicker.entity.Album[] newArray(int) -> newArray
+com.zpj.imagepicker.entity.Item -> com.zpj.imagepicker.entity.Item:
+    long duration -> e
+    long id -> a
+    long size -> d
+    java.lang.String mimeType -> b
+    android.net.Uri uri -> c
+    34:34:void <clinit>() -> <clinit>
+    33:33:void <init>(android.os.Parcel,com.zpj.imagepicker.entity.Item$1) -> <init>
+    54:69:void <init>(long,java.lang.String,long,long) -> <init>
+    71:77:void <init>(android.os.Parcel) -> <init>
+    80:80:com.zpj.imagepicker.entity.Item valueOf(android.database.Cursor) -> a
+    101:101:android.net.Uri getContentUri() -> a
+    125:125:java.io.File getFile(android.content.Context) -> a
+    113:113:boolean isGif() -> b
+    121:121:java.lang.String getPath(android.content.Context) -> b
+    109:109:boolean isImage() -> c
+    117:117:boolean isVideo() -> d
+    88:88:int describeContents() -> describeContents
+    130:135:boolean equals(java.lang.Object) -> equals
+    146:154:int hashCode() -> hashCode
+    93:98:void writeToParcel(android.os.Parcel,int) -> writeToParcel
+com.zpj.imagepicker.entity.Item$1 -> com.zpj.imagepicker.entity.Item$a:
+    34:34:void <init>() -> <init>
+    34:34:java.lang.Object createFromParcel(android.os.Parcel) -> createFromParcel
+    38:38:com.zpj.imagepicker.entity.Item createFromParcel(android.os.Parcel) -> createFromParcel
+    34:34:java.lang.Object[] newArray(int) -> newArray
+    43:43:com.zpj.imagepicker.entity.Item[] newArray(int) -> newArray
+com.zpj.imagepicker.entity.SelectionSpec -> com.zpj.imagepicker.entity.a:
+    boolean isCrop -> m
+    float thumbnailScale -> i
+    int spanCount -> h
+    boolean hasInited -> k
+    int maxImageSelectable -> f
+    int maxVideoSelectable -> g
+    java.util.Set mimeTypeSet -> a
+    int maxSelectable -> e
+    com.zpj.imagepicker.ImagePicker$OnSelectedListener onSelectedListener -> l
+    com.zpj.imagepicker.engine.ImageEngine imageEngine -> j
+    java.util.List selectedList -> n
+    boolean mediaTypeExclusive -> b
+    boolean showSingleMediaType -> c
+    boolean countable -> d
+    27:27:void <init>(com.zpj.imagepicker.entity.SelectionSpec$1) -> <init>
+    44:45:void <init>() -> <init>
+    78:78:boolean onlyShowImages() -> a
+    82:82:boolean onlyShowVideos() -> b
+    74:74:boolean singleSelectionModeEnabled() -> c
+    52:54:com.zpj.imagepicker.entity.SelectionSpec getCleanInstance() -> d
+    48:48:com.zpj.imagepicker.entity.SelectionSpec getInstance() -> e
+    58:71:void reset() -> f
+com.zpj.imagepicker.entity.SelectionSpec$1 -> com.zpj.imagepicker.entity.a$a:
+com.zpj.imagepicker.entity.SelectionSpec$InstanceHolder -> com.zpj.imagepicker.entity.a$b:
+    com.zpj.imagepicker.entity.SelectionSpec INSTANCE -> a
+    86:86:void <clinit>() -> <clinit>
+    85:85:com.zpj.imagepicker.entity.SelectionSpec access$000() -> a
+com.zpj.imagepicker.loader.AlbumLoader -> b.c.b.e.a:
+    java.lang.String[] SELECTION_ARGS -> d
+    java.lang.String[] PROJECTION -> c
+    android.net.Uri QUERY_URI -> a
+    java.lang.String[] COLUMNS -> b
+    35:56:void <clinit>() -> <clinit>
+    76:77:void <init>(android.content.Context,java.lang.String,java.lang.String[]) -> <init>
+    69:69:java.lang.String[] getSelectionArgsForSingleMediaType(int) -> a
+    82:92:android.support.v4.content.CursorLoader newInstance(android.content.Context) -> a
+    33:33:java.lang.Object loadInBackground() -> loadInBackground
+    97:112:android.database.Cursor loadInBackground() -> loadInBackground
+    118:118:void onContentChanged() -> onContentChanged
+com.zpj.imagepicker.loader.AlbumMediaLoader -> b.c.b.e.b:
+    java.lang.String[] SELECTION_ALL_ARGS -> c
+    android.net.Uri QUERY_URI -> a
+    java.lang.String[] PROJECTION -> b
+    32:46:void <clinit>() -> <clinit>
+    95:96:void <init>(android.content.Context,java.lang.String,java.lang.String[],boolean) -> <init>
+    58:58:java.lang.String[] getSelectionArgsForSingleMediaType(int) -> a
+    72:72:java.lang.String[] getSelectionAlbumArgs(java.lang.String) -> a
+    88:88:java.lang.String[] getSelectionAlbumArgsForSingleMediaType(int,java.lang.String) -> a
+    103:130:android.support.v4.content.CursorLoader newInstance(android.content.Context,com.zpj.imagepicker.entity.Album,boolean) -> a
+    31:31:java.lang.Object loadInBackground() -> loadInBackground
+    135:135:android.database.Cursor loadInBackground() -> loadInBackground
+    141:141:void onContentChanged() -> onContentChanged
+com.zpj.imagepicker.model.SelectedItemManager -> b.c.b.f.a:
+    java.util.List listeners -> b
+    com.zpj.imagepicker.model.SelectedItemManager collection -> d
+    java.util.Set mItems -> a
+    int mCollectionType -> c
+    75:77:void <init>() -> <init>
+    99:102:void setDefaultSelection(java.util.List) -> a
+    105:107:void onSaveInstanceState(android.os.Bundle) -> a
+    117:118:boolean add(com.zpj.imagepicker.entity.Item) -> a
+    170:170:java.util.List asList() -> a
+    182:186:java.util.List asListOfString(android.content.Context) -> a
+    202:211:java.lang.String isAcceptable(android.content.Context,com.zpj.imagepicker.entity.Item) -> a
+    268:274:void addOnCheckStateListener(com.zpj.imagepicker.model.SelectedItemManager$OnCheckStateListener) -> a
+    174:178:java.util.List asListOfUri() -> b
+    263:264:int checkedNumOf(com.zpj.imagepicker.entity.Item) -> b
+    277:283:void removeOnCheckStateListener(com.zpj.imagepicker.model.SelectedItemManager$OnCheckStateListener) -> b
+    194:194:boolean isSelected(com.zpj.imagepicker.entity.Item) -> c
+    259:259:int count() -> c
+    143:154:boolean remove(com.zpj.imagepicker.entity.Item) -> d
+    198:198:boolean maxSelectableReached() -> d
+    253:253:boolean typeConflict(com.zpj.imagepicker.entity.Item) -> e
+    286:291:void notifyOnCheckStateUpdate() -> e
+    80:84:void onDestroy() -> f
+    216:224:int currentMaxSelectable() -> g
+    65:72:com.zpj.imagepicker.model.SelectedItemManager getInstance() -> h
+    233:246:void refineCollectionType() -> i
+com.zpj.imagepicker.model.SelectedItemManager$OnCheckStateListener -> b.c.b.f.a$a:
+    void onUpdate() -> f
+com.zpj.imagepicker.ui.fragment.ImagePickerFragment -> b.c.b.g.a.a:
+    com.zpj.imagepicker.model.SelectedItemManager mSelectedCollection -> c
+    com.zpj.imagepicker.entity.SelectionSpec mSpec -> d
+    boolean popToSelect -> j
+    android.widget.TextView mButtonPreview -> e
+    com.zpj.imagepicker.ui.widget.MediaSelectionLayout mediaSelectionLayout -> h
+    android.widget.TextView mButtonApply -> f
+    com.sothree.slidinguppanel.SlidingUpPanelLayout slidingUpPanelLayout -> g
+    com.zpj.imagepicker.ui.widget.AlbumListLayout albumListLayout -> i
+    50:50:void <init>() -> <init>
+    50:50:android.content.Context access$000(com.zpj.imagepicker.ui.fragment.ImagePickerFragment) -> a
+    79:156:void initView(android.view.View,android.os.Bundle) -> a
+    243:260:void startCrop(android.app.Activity,android.net.Uri) -> a
+    50:50:com.zpj.imagepicker.ui.widget.AlbumListLayout access$100(com.zpj.imagepicker.ui.fragment.ImagePickerFragment) -> b
+    50:50:com.sothree.slidinguppanel.SlidingUpPanelLayout access$200(com.zpj.imagepicker.ui.fragment.ImagePickerFragment) -> c
+    50:50:com.zpj.imagepicker.ui.widget.MediaSelectionLayout access$300(com.zpj.imagepicker.ui.fragment.ImagePickerFragment) -> d
+    50:50:com.zpj.fragmentation.SupportActivity access$400(com.zpj.imagepicker.ui.fragment.ImagePickerFragment) -> e
+    50:50:android.content.Context access$500(com.zpj.imagepicker.ui.fragment.ImagePickerFragment) -> f
+    264:265:void onUpdate() -> f
+    69:69:int getLayoutId() -> j
+    74:74:boolean supportSwipeBack() -> k
+    202:216:void updateBottomToolbar() -> m
+    160:166:boolean onBackPressedSupport() -> onBackPressedSupport
+    220:240:void onClick(android.view.View) -> onClick
+    178:198:void onDestroy() -> onDestroy
+    171:173:void onSaveInstanceState(android.os.Bundle) -> onSaveInstanceState
+com.zpj.imagepicker.ui.fragment.ImagePickerFragment$1 -> b.c.b.g.a.a$a:
+    com.zpj.imagepicker.ui.fragment.ImagePickerFragment this$0 -> b
+    android.widget.FrameLayout val$bottomBar -> a
+    103:103:void <init>(com.zpj.imagepicker.ui.fragment.ImagePickerFragment,android.widget.FrameLayout) -> <init>
+    113:123:void onPanelStateChanged(android.view.View,com.sothree.slidinguppanel.SlidingUpPanelLayout$PanelState,com.sothree.slidinguppanel.SlidingUpPanelLayout$PanelState) -> a
+    106:109:void onPanelSlide(android.view.View,float) -> onPanelSlide
+com.zpj.imagepicker.ui.fragment.ImagePickerFragment$2 -> b.c.b.g.a.a$b:
+    com.zpj.imagepicker.ui.fragment.ImagePickerFragment this$0 -> a
+    125:125:void <init>(com.zpj.imagepicker.ui.fragment.ImagePickerFragment) -> <init>
+    128:129:void onClick(android.view.View) -> onClick
+com.zpj.imagepicker.ui.fragment.ImagePickerFragment$3 -> b.c.b.g.a.a$c:
+    com.zpj.imagepicker.ui.fragment.ImagePickerFragment this$0 -> a
+    136:136:void <init>(com.zpj.imagepicker.ui.fragment.ImagePickerFragment) -> <init>
+    139:148:void onSelect(com.zpj.imagepicker.entity.Album) -> a
+com.zpj.imagepicker.ui.fragment.ImagePickerFragment$4 -> b.c.b.g.a.a$d:
+    com.zpj.imagepicker.ui.fragment.ImagePickerFragment this$0 -> a
+    150:150:void <init>(com.zpj.imagepicker.ui.fragment.ImagePickerFragment) -> <init>
+    153:154:void run() -> run
+com.zpj.imagepicker.ui.fragment.LocalImageViewer -> b.c.b.g.a.b:
+    android.widget.TextView tvIndicator -> O
+    java.util.List selectedList -> R
+    android.widget.TextView mButtonApply -> N
+    boolean countable -> P
+    com.zpj.imagepicker.model.SelectedItemManager mSelectedCollection -> K
+    boolean singleSelectionModeEnabled -> Q
+    com.zpj.widget.toolbar.ZToolBar titleBar -> L
+    com.zpj.imagepicker.ui.widget.CheckView mCheckView -> M
+    com.zpj.imagepicker.ImagePicker$OnSelectedListener onSelectListener -> S
+    25:32:void <init>() -> <init>
+    25:25:android.content.Context access$000(com.zpj.imagepicker.ui.fragment.LocalImageViewer) -> a
+    25:25:void access$1000(com.zpj.imagepicker.ui.fragment.LocalImageViewer,com.zpj.imagepicker.entity.Item) -> a
+    72:146:void initView(android.view.View,android.os.Bundle) -> a
+    149:150:com.zpj.imagepicker.ui.fragment.LocalImageViewer setSelectedItemManager(com.zpj.imagepicker.model.SelectedItemManager) -> a
+    164:165:com.zpj.imagepicker.ui.fragment.LocalImageViewer setOnSelectedListener(com.zpj.imagepicker.ImagePicker$OnSelectedListener) -> a
+    247:253:void addItem(com.zpj.imagepicker.entity.Item) -> a
+    25:25:java.util.List access$100(com.zpj.imagepicker.ui.fragment.LocalImageViewer) -> b
+    25:25:boolean access$1100(com.zpj.imagepicker.ui.fragment.LocalImageViewer,com.zpj.imagepicker.entity.Item) -> b
+    183:190:boolean assertAddSelection(com.zpj.imagepicker.entity.Item) -> b
+    25:25:void access$1200(com.zpj.imagepicker.ui.fragment.LocalImageViewer,com.zpj.imagepicker.entity.Item) -> c
+    25:25:void access$1300(com.zpj.imagepicker.ui.fragment.LocalImageViewer) -> c
+    210:215:int checkedNumOf(com.zpj.imagepicker.entity.Item) -> c
+    25:25:com.zpj.widget.toolbar.ZToolBar access$200(com.zpj.imagepicker.ui.fragment.LocalImageViewer) -> d
+    25:25:int access$400(com.zpj.imagepicker.ui.fragment.LocalImageViewer,com.zpj.imagepicker.entity.Item) -> d
+    154:155:com.zpj.imagepicker.ui.fragment.LocalImageViewer setCountable(boolean) -> d
+    229:233:boolean isSelected(com.zpj.imagepicker.entity.Item) -> d
+    25:25:java.util.List access$300(com.zpj.imagepicker.ui.fragment.LocalImageViewer) -> e
+    25:25:boolean access$600(com.zpj.imagepicker.ui.fragment.LocalImageViewer,com.zpj.imagepicker.entity.Item) -> e
+    159:160:com.zpj.imagepicker.ui.fragment.LocalImageViewer setSingleSelectionModeEnabled(boolean) -> e
+    238:244:void removeItem(com.zpj.imagepicker.entity.Item) -> e
+    25:25:boolean access$500(com.zpj.imagepicker.ui.fragment.LocalImageViewer) -> f
+    25:25:java.util.List access$700(com.zpj.imagepicker.ui.fragment.LocalImageViewer) -> g
+    25:25:int access$800(com.zpj.imagepicker.ui.fragment.LocalImageViewer) -> h
+    25:25:java.util.List access$900(com.zpj.imagepicker.ui.fragment.LocalImageViewer) -> i
+    39:57:void onCreate(android.os.Bundle) -> onCreate
+    66:68:void onSupportVisible() -> onSupportVisible
+    203:207:void onDismiss() -> r
+    61:61:int getCustomLayoutId() -> u
+    225:225:boolean maxSelectableReached() -> w
+    256:260:int selectedCount() -> x
+    169:180:void updateApplyButton() -> y
+com.zpj.imagepicker.ui.fragment.LocalImageViewer$1 -> b.c.b.g.a.b$a:
+    com.zpj.imagepicker.ui.fragment.LocalImageViewer this$0 -> d
+    40:40:void <init>(com.zpj.imagepicker.ui.fragment.LocalImageViewer) -> <init>
+    40:40:void loadImage(java.lang.Object,com.zpj.fragmentation.dialog.imagetrans.ImageLoad$LoadCallback,com.zpj.fragmentation.dialog.widget.ImageViewContainer,java.lang.String) -> a
+    43:45:void loadImage(com.zpj.imagepicker.entity.Item,com.zpj.fragmentation.dialog.imagetrans.ImageLoad$LoadCallback,com.zpj.fragmentation.dialog.widget.ImageViewContainer,java.lang.String) -> a
+com.zpj.imagepicker.ui.fragment.LocalImageViewer$2 -> b.c.b.g.a.b$b:
+    com.zpj.imagepicker.ui.fragment.LocalImageViewer this$0 -> a
+    83:83:void <init>(com.zpj.imagepicker.ui.fragment.LocalImageViewer) -> <init>
+    87:109:void onPageSelected(int) -> onPageSelected
+com.zpj.imagepicker.ui.fragment.LocalImageViewer$3 -> b.c.b.g.a.b$c:
+    com.zpj.imagepicker.ui.fragment.LocalImageViewer this$0 -> a
+    118:118:void <init>(com.zpj.imagepicker.ui.fragment.LocalImageViewer) -> <init>
+    122:141:void onClick(android.view.View) -> onClick
+com.zpj.imagepicker.ui.widget.-$$Lambda$AlbumListLayout$9LRlnxtxL_QAgGJcceT_gWZ3Ihs -> com.zpj.imagepicker.ui.widget.a:
+    com.zpj.imagepicker.ui.widget.AlbumListLayout f$0 -> a
+    void onClick(com.zpj.recyclerview.EasyViewHolder,android.view.View,java.lang.Object) -> a
+com.zpj.imagepicker.ui.widget.-$$Lambda$AlbumListLayout$KCTZTuZyX5DS4bke9XY3BFuaWyc -> com.zpj.imagepicker.ui.widget.b:
+    android.content.Context f$1 -> b
+    com.zpj.imagepicker.ui.widget.AlbumListLayout f$0 -> a
+    void onBindViewHolder(com.zpj.recyclerview.EasyViewHolder,java.util.List,int,java.util.List) -> a
+com.zpj.imagepicker.ui.widget.AlbumListLayout -> com.zpj.imagepicker.ui.widget.AlbumListLayout:
+    java.util.List albumList -> a
+    boolean mLoadFinished -> f
+    com.zpj.imagepicker.ui.widget.AlbumListLayout$OnAlbumSelectListener onAlbumSelectListener -> d
+    int selectPosition -> e
+    android.support.v4.app.LoaderManager mLoaderManager -> c
+    com.zpj.recyclerview.EasyRecyclerView recyclerLayout -> b
+    62:63:void <init>(android.content.Context) -> <init>
+    66:67:void <init>(android.content.Context,android.util.AttributeSet) -> <init>
+    70:108:void <init>(android.content.Context,android.util.AttributeSet,int) -> <init>
+    76:96:void lambda$new$0(android.content.Context,com.zpj.recyclerview.EasyViewHolder,java.util.List,int,java.util.List) -> a
+    98:104:void lambda$new$1(com.zpj.recyclerview.EasyViewHolder,android.view.View,com.zpj.imagepicker.entity.Album) -> a
+    111:112:void init(android.support.v4.app.FragmentActivity,android.os.Bundle) -> a
+    119:123:void loadAlbums() -> a
+    144:162:void onLoadFinished(android.support.v4.content.Loader,android.database.Cursor) -> a
+    126:129:void onDestroy() -> b
+    115:115:com.zpj.imagepicker.entity.Album getCurrentAlbum() -> getCurrentAlbum
+    138:139:android.support.v4.content.Loader onCreateLoader(int,android.os.Bundle) -> onCreateLoader
+    45:45:void onLoadFinished(android.support.v4.content.Loader,java.lang.Object) -> onLoadFinished
+    166:168:void onLoaderReset(android.support.v4.content.Loader) -> onLoaderReset
+    132:133:void setOnAlbumSelectListener(com.zpj.imagepicker.ui.widget.AlbumListLayout$OnAlbumSelectListener) -> setOnAlbumSelectListener
+com.zpj.imagepicker.ui.widget.AlbumListLayout$OnAlbumSelectListener -> com.zpj.imagepicker.ui.widget.AlbumListLayout$a:
+    void onSelect(com.zpj.imagepicker.entity.Album) -> a
+com.zpj.imagepicker.ui.widget.CheckView -> com.zpj.imagepicker.ui.widget.CheckView:
+    android.text.TextPaint mTextPaint -> f
+    android.graphics.Paint mShadowPaint -> g
+    float mDensity -> i
+    android.graphics.Paint mBackgroundPaint -> e
+    android.graphics.drawable.Drawable mCheckDrawable -> h
+    android.graphics.Paint mStrokePaint -> d
+    boolean mEnabled -> k
+    android.graphics.Rect mCheckRect -> j
+    boolean mCountable -> a
+    boolean mChecked -> b
+    int mCheckedNum -> c
+    58:60:void <init>(android.content.Context) -> <init>
+    63:65:void <init>(android.content.Context,android.util.AttributeSet) -> <init>
+    68:70:void <init>(android.content.Context,android.util.AttributeSet,int) -> <init>
+    80:91:void init(android.content.Context) -> a
+    189:195:void initBackgroundPaint() -> a
+    166:186:void initShadowPaint() -> b
+    198:205:void initTextPaint() -> c
+    209:215:android.graphics.Rect getCheckRect() -> getCheckRect
+    127:163:void onDraw(android.graphics.Canvas) -> onDraw
+    75:77:void onMeasure(int,int) -> onMeasure
+    94:95:void setChecked(boolean) -> setChecked
+    106:116:void setCheckedNum(int) -> setCheckedNum
+    102:103:void setCountable(boolean) -> setCountable
+    119:123:void setEnabled(boolean) -> setEnabled
+com.zpj.imagepicker.ui.widget.MediaGrid -> com.zpj.imagepicker.ui.widget.MediaGrid:
+    com.zpj.imagepicker.ui.widget.MediaGrid$OnMediaGridClickListener mListener -> g
+    com.zpj.imagepicker.ui.widget.CheckView mCheckView -> b
+    com.zpj.imagepicker.ui.widget.MediaGrid$PreBindInfo mPreBindInfo -> f
+    android.widget.TextView mVideoDuration -> d
+    com.zpj.imagepicker.entity.Item mMedia -> e
+    android.widget.ImageView mThumbnail -> a
+    android.widget.ImageView mGifTag -> c
+    45:47:void <init>(android.content.Context) -> <init>
+    50:52:void <init>(android.content.Context,android.util.AttributeSet) -> <init>
+    60:69:void init(android.content.Context) -> a
+    87:88:void preBindMedia(com.zpj.imagepicker.ui.widget.MediaGrid$PreBindInfo) -> a
+    91:96:void bindMedia(com.zpj.imagepicker.entity.Item) -> a
+    107:108:void initCheckView() -> a
+    103:104:void setGifTag() -> b
+    123:128:void setImage() -> c
+    131:137:void setVideoDuration() -> d
+    99:99:com.zpj.imagepicker.entity.Item getMedia() -> getMedia
+    72:72:android.widget.ImageView getThumbnail() -> getThumbnail
+    77:84:void onClick(android.view.View) -> onClick
+    56:57:void onMeasure(int,int) -> onMeasure
+    111:112:void setCheckEnabled(boolean) -> setCheckEnabled
+    119:120:void setChecked(boolean) -> setChecked
+    115:116:void setCheckedNum(int) -> setCheckedNum
+    140:141:void setOnMediaGridClickListener(com.zpj.imagepicker.ui.widget.MediaGrid$OnMediaGridClickListener) -> setOnMediaGridClickListener
+com.zpj.imagepicker.ui.widget.MediaGrid$OnMediaGridClickListener -> com.zpj.imagepicker.ui.widget.MediaGrid$a:
+    void onCheckViewClicked(com.zpj.imagepicker.ui.widget.CheckView,com.zpj.imagepicker.entity.Item,com.zpj.recyclerview.EasyViewHolder) -> a
+    void onThumbnailClicked(android.widget.ImageView,com.zpj.imagepicker.entity.Item,com.zpj.recyclerview.EasyViewHolder) -> a
+com.zpj.imagepicker.ui.widget.MediaGrid$PreBindInfo -> com.zpj.imagepicker.ui.widget.MediaGrid$b:
+    boolean mCheckViewCountable -> a
+    com.zpj.recyclerview.EasyViewHolder mViewHolder -> b
+    159:162:void <init>(boolean,com.zpj.recyclerview.EasyViewHolder) -> <init>
+com.zpj.imagepicker.ui.widget.MediaGridInset -> com.zpj.imagepicker.ui.widget.c:
+    int mSpacing -> b
+    boolean mIncludeEdge -> c
+    int mSpanCount -> a
+    28:32:void <init>(int,int,boolean) -> <init>
+    37:59:void getItemOffsets(android.graphics.Rect,android.view.View,android.support.v7.widget.RecyclerView,android.support.v7.widget.RecyclerView$State) -> getItemOffsets
+com.zpj.imagepicker.ui.widget.MediaSelectionLayout -> com.zpj.imagepicker.ui.widget.MediaSelectionLayout:
+    com.zpj.imagepicker.entity.SelectionSpec mSpec -> x
+    java.util.List itemList -> v
+    android.support.v4.app.LoaderManager mLoaderManager -> y
+    android.support.v7.widget.GridLayoutManager layoutManager -> z
+    com.zpj.imagepicker.model.SelectedItemManager mSelectedCollection -> w
+    70:71:void <init>(android.content.Context) -> <init>
+    74:75:void <init>(android.content.Context,android.util.AttributeSet) -> <init>
+    78:83:void <init>(android.content.Context,android.util.AttributeSet,int) -> <init>
+    88:99:void initView(android.content.Context) -> a
+    102:112:void loadAlbum(android.support.v4.app.FragmentActivity,com.zpj.imagepicker.entity.Album) -> a
+    123:141:void onBindViewHolder(com.zpj.recyclerview.EasyViewHolder,java.util.List,int,java.util.List) -> a
+    145:172:void onThumbnailClicked(android.widget.ImageView,com.zpj.imagepicker.entity.Item,com.zpj.recyclerview.EasyViewHolder) -> a
+    176:198:void onCheckViewClicked(com.zpj.imagepicker.ui.widget.CheckView,com.zpj.imagepicker.entity.Item,com.zpj.recyclerview.EasyViewHolder) -> a
+    213:242:void setCheckStatus(com.zpj.imagepicker.entity.Item,com.zpj.imagepicker.ui.widget.MediaGrid) -> a
+    245:249:boolean assertAddSelection(com.zpj.imagepicker.entity.Item) -> a
+    273:277:void onLoadFinished(android.support.v4.content.Loader,android.database.Cursor) -> a
+    258:259:void onUpdate() -> f
+    264:268:android.support.v4.content.Loader onCreateLoader(int,android.os.Bundle) -> onCreateLoader
+    48:48:void onLoadFinished(android.support.v4.content.Loader,java.lang.Object) -> onLoadFinished
+    287:288:void onLoaderReset(android.support.v4.content.Loader) -> onLoaderReset
+    115:119:void onDestroy() -> r
+    253:254:void notifyCheckStateChanged() -> s
+com.zpj.imagepicker.ui.widget.MediaSelectionLayout$1 -> com.zpj.imagepicker.ui.widget.MediaSelectionLayout$a:
+    boolean isFirst -> a
+    com.zpj.imagepicker.ui.widget.MediaSelectionLayout this$0 -> b
+    151:152:void <init>(com.zpj.imagepicker.ui.widget.MediaSelectionLayout) -> <init>
+    156:169:void onSrcViewUpdate(com.zpj.fragmentation.dialog.impl.ImageViewerDialogFragment3,int) -> a
+com.zpj.imagepicker.utils.MaxSizeTransformation -> b.c.b.h.a:
+    int maxSize -> b
+    int count -> c
+    java.lang.String ID -> d
+    17:17:void <clinit>() -> <clinit>
+    22:24:void <init>() -> <init>
+    32:49:android.graphics.Bitmap transform(com.bumptech.glide.load.engine.bitmap_recycle.BitmapPool,android.graphics.Bitmap,int,int) -> a
+    70:71:void updateDiskCacheKey(java.security.MessageDigest) -> a
+    60:60:boolean equals(java.lang.Object) -> equals
+    65:65:int hashCode() -> hashCode
+    55:55:java.lang.String toString() -> toString
+com.zpj.imagepicker.utils.PathUtils -> b.c.b.h.b:
+    30:76:java.lang.String getPath(android.content.Context,android.net.Uri) -> a
+    92:107:java.lang.String getDataColumn(android.content.Context,android.net.Uri,java.lang.String,java.lang.String[]) -> a
+    125:125:boolean isDownloadsDocument(android.net.Uri) -> a
+    117:117:boolean isExternalStorageDocument(android.net.Uri) -> b
+    133:133:boolean isMediaDocument(android.net.Uri) -> c
 com.zpj.installer.-$$Lambda$ZApkInstaller$4GwPlU4JxrXNrT57IOjbO813Foo -> com.zpj.installer.a:
     com.zpj.installer.ZApkInstaller f$0 -> a
 com.zpj.installer.-$$Lambda$ZApkInstaller$88GxjIfVGTvuwSt48xP0dLY1N4g -> com.zpj.installer.b:
@@ -36680,594 +37116,7 @@ com.zpj.installer.ZApkInstaller$InstallerListener -> com.zpj.installer.d$b:
     void onComplete() -> a
     void onNeedInstallPermission() -> b
     void onNeed2OpenService() -> c
-com.zpj.matisse.CaptureMode -> com.zpj.matisse.a:
-    com.zpj.matisse.CaptureMode[] $VALUES -> d
-    com.zpj.matisse.CaptureMode All -> a
-    com.zpj.matisse.CaptureMode Image -> b
-    com.zpj.matisse.CaptureMode Video -> c
-    8:7:void <clinit>() -> <clinit>
-    7:7:void <init>(java.lang.String,int) -> <init>
-    7:7:com.zpj.matisse.CaptureMode valueOf(java.lang.String) -> valueOf
-    7:7:com.zpj.matisse.CaptureMode[] values() -> values
-com.zpj.matisse.Matisse -> com.zpj.matisse.b:
-    java.lang.ref.WeakReference mFragment -> b
-    java.lang.ref.WeakReference mContext -> a
-    41:42:void <init>(com.zpj.fragmentation.SupportActivity) -> <init>
-    48:51:void <init>(com.zpj.fragmentation.SupportActivity,com.zpj.fragmentation.SupportFragment) -> <init>
-    63:63:com.zpj.matisse.Matisse from(com.zpj.fragmentation.SupportActivity) -> a
-    150:150:com.zpj.matisse.SelectionCreator choose(java.util.Set) -> a
-    167:167:com.zpj.matisse.SelectionCreator choose(java.util.Set,boolean) -> a
-    188:188:com.zpj.fragmentation.SupportActivity getActivity() -> a
-    193:193:com.zpj.fragmentation.SupportFragment getFragment() -> b
-com.zpj.matisse.MimeType -> com.zpj.matisse.c:
-    com.zpj.matisse.MimeType JPEG -> c
-    java.util.Set mExtensions -> b
-    com.zpj.matisse.MimeType WEBP -> g
-    com.zpj.matisse.MimeType BMP -> f
-    com.zpj.matisse.MimeType GIF -> e
-    com.zpj.matisse.MimeType PNG -> d
-    com.zpj.matisse.MimeType THREEGPP -> k
-    com.zpj.matisse.MimeType QUICKTIME -> j
-    com.zpj.matisse.MimeType MP4 -> i
-    com.zpj.matisse.MimeType MPEG -> h
-    com.zpj.matisse.MimeType TS -> o
-    com.zpj.matisse.MimeType WEBM -> n
-    com.zpj.matisse.MimeType MKV -> m
-    com.zpj.matisse.MimeType THREEGPP2 -> l
-    java.lang.String mMimeTypeName -> a
-    com.zpj.matisse.MimeType AVI -> p
-    com.zpj.matisse.MimeType[] $VALUES -> q
-    43:39:void <clinit>() -> <clinit>
-    96:99:void <init>(java.lang.String,int,java.lang.String,java.util.Set) -> <init>
-    110:110:java.util.Set ofImage() -> a
-    128:129:boolean isGif(java.lang.String) -> a
-    133:133:java.util.Set arraySetOf(java.lang.String[]) -> a
-    142:166:boolean checkType(android.content.ContentResolver,android.net.Uri) -> a
-    114:114:java.util.Set ofVideo() -> b
-    118:119:boolean isImage(java.lang.String) -> b
-    123:124:boolean isVideo(java.lang.String) -> c
-    138:138:java.lang.String toString() -> toString
-    39:39:com.zpj.matisse.MimeType valueOf(java.lang.String) -> valueOf
-    39:39:com.zpj.matisse.MimeType[] values() -> values
-com.zpj.matisse.R$anim -> com.zpj.matisse.R$anim:
-    13:13:void <init>() -> <init>
-com.zpj.matisse.R$animator -> com.zpj.matisse.R$animator:
-    53:53:void <init>() -> <init>
-com.zpj.matisse.R$attr -> com.zpj.matisse.R$attr:
-    67:67:void <init>() -> <init>
-com.zpj.matisse.R$bool -> com.zpj.matisse.R$bool:
-    707:707:void <init>() -> <init>
-com.zpj.matisse.R$color -> com.zpj.matisse.R$color:
-    715:715:void <init>() -> <init>
-com.zpj.matisse.R$dimen -> com.zpj.matisse.R$dimen:
-    933:933:void <init>() -> <init>
-com.zpj.matisse.R$drawable -> com.zpj.matisse.R$drawable:
-    1183:1183:void <init>() -> <init>
-com.zpj.matisse.R$id -> com.zpj.matisse.R$id:
-    1378:1378:void <init>() -> <init>
-com.zpj.matisse.R$integer -> com.zpj.matisse.R$integer:
-    1669:1669:void <init>() -> <init>
-com.zpj.matisse.R$interpolator -> com.zpj.matisse.R$interpolator:
-    1689:1689:void <init>() -> <init>
-com.zpj.matisse.R$layout -> com.zpj.matisse.R$layout:
-    1697:1697:void <init>() -> <init>
-com.zpj.matisse.R$menu -> com.zpj.matisse.R$menu:
-    1824:1824:void <init>() -> <init>
-com.zpj.matisse.R$string -> com.zpj.matisse.R$string:
-    1829:1829:void <init>() -> <init>
-com.zpj.matisse.R$style -> com.zpj.matisse.R$style:
-    1936:1936:void <init>() -> <init>
-com.zpj.matisse.R$styleable -> com.zpj.matisse.R$styleable:
-    2453:3332:void <clinit>() -> <clinit>
-    2451:2451:void <init>() -> <init>
-com.zpj.matisse.SelectionCreator -> com.zpj.matisse.d:
-    com.zpj.matisse.entity.SelectionSpec mSelectionSpec -> b
-    com.zpj.matisse.Matisse mMatisse -> a
-    boolean isJumpCapture -> c
-    105:111:void <init>(com.zpj.matisse.Matisse,java.util.Set,boolean) -> <init>
-    71:71:com.zpj.matisse.Matisse access$000(com.zpj.matisse.SelectionCreator) -> a
-    166:167:com.zpj.matisse.SelectionCreator maxSelectable(int) -> a
-    216:218:com.zpj.matisse.SelectionCreator capture(boolean) -> a
-    222:224:com.zpj.matisse.SelectionCreator capture(boolean,com.zpj.matisse.CaptureMode) -> a
-    321:322:com.zpj.matisse.SelectionCreator thumbnailScale(float) -> a
-    338:339:com.zpj.matisse.SelectionCreator imageEngine(com.zpj.matisse.engine.ImageEngine) -> a
-    353:354:com.zpj.matisse.SelectionCreator setOnSelectedListener(com.zpj.matisse.listener.OnSelectedListener) -> a
-    374:408:void start() -> a
-    422:424:com.zpj.matisse.SelectionCreator setDefaultSelection(java.util.List) -> a
-    155:156:com.zpj.matisse.SelectionCreator countable(boolean) -> b
-    282:283:com.zpj.matisse.SelectionCreator restrictOrientation(int) -> b
-    295:295:com.zpj.matisse.SelectionCreator spanCount(int) -> c
-com.zpj.matisse.SelectionCreator$1 -> com.zpj.matisse.d$a:
-    com.zpj.fragmentation.SupportActivity val$activity -> a
-    com.zpj.matisse.SelectionCreator this$0 -> b
-    391:391:void <init>(com.zpj.matisse.SelectionCreator,com.zpj.fragmentation.SupportActivity) -> <init>
-    394:400:void onGranted() -> a
-    403:404:void onDenied() -> b
-com.zpj.matisse.engine.ImageEngine -> com.zpj.matisse.e.a:
-    void loadThumbnail(android.content.Context,int,android.graphics.drawable.Drawable,android.widget.ImageView,android.net.Uri) -> a
-    void loadGifThumbnail(android.content.Context,int,android.graphics.drawable.Drawable,android.widget.ImageView,android.net.Uri) -> b
-com.zpj.matisse.engine.impl.GlideEngine -> com.zpj.matisse.e.b.a:
-    33:33:void <init>() -> <init>
-    37:48:void loadThumbnail(android.content.Context,int,android.graphics.drawable.Drawable,android.widget.ImageView,android.net.Uri) -> a
-    53:64:void loadGifThumbnail(android.content.Context,int,android.graphics.drawable.Drawable,android.widget.ImageView,android.net.Uri) -> b
-com.zpj.matisse.entity.Album -> com.zpj.matisse.entity.Album:
-    java.lang.String mId -> a
-    long mCount -> d
-    java.lang.String mDisplayName -> c
-    java.lang.String mCoverPath -> b
-    java.lang.String ALBUM_ID_ALL -> e
-    30:42:void <clinit>() -> <clinit>
-    50:55:void <init>(java.lang.String,java.lang.String,java.lang.String,long) -> <init>
-    57:62:void <init>(android.os.Parcel) -> <init>
-    69:69:com.zpj.matisse.entity.Album valueOf(android.database.Cursor) -> a
-    102:103:void addCaptureCount() -> a
-    106:109:java.lang.String getDisplayName(android.content.Context) -> a
-    98:98:long getCount() -> b
-    94:94:java.lang.String getCoverPath() -> c
-    90:90:java.lang.String getId() -> d
-    78:78:int describeContents() -> describeContents
-    113:113:boolean isAll() -> e
-    117:117:boolean isEmpty() -> f
-    83:87:void writeToParcel(android.os.Parcel,int) -> writeToParcel
-com.zpj.matisse.entity.Album$1 -> com.zpj.matisse.entity.Album$a:
-    30:30:void <init>() -> <init>
-    30:30:java.lang.Object createFromParcel(android.os.Parcel) -> createFromParcel
-    34:34:com.zpj.matisse.entity.Album createFromParcel(android.os.Parcel) -> createFromParcel
-    30:30:java.lang.Object[] newArray(int) -> newArray
-    39:39:com.zpj.matisse.entity.Album[] newArray(int) -> newArray
-com.zpj.matisse.entity.CaptureStrategy -> com.zpj.matisse.entity.a:
-    25:26:void <init>() -> <init>
-    28:32:void <init>(boolean,java.lang.String,java.lang.String) -> <init>
-com.zpj.matisse.entity.IncapableCause -> com.zpj.matisse.entity.b:
-    java.lang.String mMessage -> c
-    java.lang.String mTitle -> b
-    int mForm -> a
-    44:46:void <init>(java.lang.String) -> <init>
-    65:82:void handleCause(android.content.Context,com.zpj.matisse.entity.IncapableCause) -> a
-com.zpj.matisse.entity.Item -> com.zpj.matisse.entity.Item:
-    long duration -> e
-    long id -> a
-    long size -> d
-    java.lang.String mimeType -> b
-    android.net.Uri uri -> c
-    34:34:void <clinit>() -> <clinit>
-    33:33:void <init>(android.os.Parcel,com.zpj.matisse.entity.Item$1) -> <init>
-    54:69:void <init>(long,java.lang.String,long,long) -> <init>
-    71:77:void <init>(android.os.Parcel) -> <init>
-    80:80:com.zpj.matisse.entity.Item valueOf(android.database.Cursor) -> a
-    101:101:android.net.Uri getContentUri() -> a
-    125:125:java.io.File getFile(android.content.Context) -> a
-    113:113:boolean isGif() -> b
-    121:121:java.lang.String getPath(android.content.Context) -> b
-    109:109:boolean isImage() -> c
-    117:117:boolean isVideo() -> d
-    88:88:int describeContents() -> describeContents
-    130:135:boolean equals(java.lang.Object) -> equals
-    146:154:int hashCode() -> hashCode
-    93:98:void writeToParcel(android.os.Parcel,int) -> writeToParcel
-com.zpj.matisse.entity.Item$1 -> com.zpj.matisse.entity.Item$a:
-    34:34:void <init>() -> <init>
-    34:34:java.lang.Object createFromParcel(android.os.Parcel) -> createFromParcel
-    38:38:com.zpj.matisse.entity.Item createFromParcel(android.os.Parcel) -> createFromParcel
-    34:34:java.lang.Object[] newArray(int) -> newArray
-    43:43:com.zpj.matisse.entity.Item[] newArray(int) -> newArray
-com.zpj.matisse.entity.SelectionSpec -> com.zpj.matisse.entity.c:
-    com.zpj.matisse.entity.CaptureStrategy captureStrategy -> k
-    int spanCount -> l
-    int gridExpectedSize -> m
-    boolean hasInited -> p
-    com.zpj.matisse.listener.OnCheckedListener onCheckedListener -> t
-    boolean capture -> j
-    com.zpj.matisse.listener.OnSelectedListener onSelectedListener -> q
-    int maxVideoSelectable -> h
-    int maxSelectable -> f
-    boolean isCrop -> u
-    int maxImageSelectable -> g
-    java.util.Set mimeTypeSet -> a
-    int orientation -> d
-    java.util.List selectedList -> w
-    boolean originalable -> r
-    com.zpj.matisse.engine.ImageEngine imageEngine -> o
-    boolean countable -> e
-    java.util.List filters -> i
-    boolean mediaTypeExclusive -> b
-    int originalMaxSize -> s
-    com.zpj.matisse.CaptureMode captureMode -> v
-    boolean showSingleMediaType -> c
-    float thumbnailScale -> n
-    34:34:void <init>(com.zpj.matisse.entity.SelectionSpec$1) -> <init>
-    63:64:void <init>() -> <init>
-    107:107:boolean needOrientationRestriction() -> a
-    111:111:boolean onlyShowImages() -> b
-    115:115:boolean onlyShowVideos() -> c
-    103:103:boolean singleSelectionModeEnabled() -> d
-    71:73:com.zpj.matisse.entity.SelectionSpec getCleanInstance() -> e
-    67:67:com.zpj.matisse.entity.SelectionSpec getInstance() -> f
-    77:100:void reset() -> g
-com.zpj.matisse.entity.SelectionSpec$1 -> com.zpj.matisse.entity.c$a:
-com.zpj.matisse.entity.SelectionSpec$InstanceHolder -> com.zpj.matisse.entity.c$b:
-    com.zpj.matisse.entity.SelectionSpec INSTANCE -> a
-    119:119:void <clinit>() -> <clinit>
-    118:118:com.zpj.matisse.entity.SelectionSpec access$000() -> a
-com.zpj.matisse.filter.Filter -> com.zpj.matisse.f.a:
-    32:32:void <init>() -> <init>
-    com.zpj.matisse.entity.IncapableCause filter(android.content.Context,com.zpj.matisse.entity.Item) -> a
-com.zpj.matisse.listener.OnCheckedListener -> com.zpj.matisse.g.a:
-    void onCheck(boolean) -> a
-com.zpj.matisse.listener.OnSelectedListener -> com.zpj.matisse.g.b:
-    void onSelected(java.util.List) -> a
-com.zpj.matisse.loader.AlbumLoader -> com.zpj.matisse.h.a:
-    java.lang.String[] SELECTION_ARGS -> d
-    java.lang.String[] PROJECTION -> c
-    android.net.Uri QUERY_URI -> a
-    java.lang.String[] COLUMNS -> b
-    35:56:void <clinit>() -> <clinit>
-    76:77:void <init>(android.content.Context,java.lang.String,java.lang.String[]) -> <init>
-    69:69:java.lang.String[] getSelectionArgsForSingleMediaType(int) -> a
-    82:92:android.support.v4.content.CursorLoader newInstance(android.content.Context) -> a
-    33:33:java.lang.Object loadInBackground() -> loadInBackground
-    97:112:android.database.Cursor loadInBackground() -> loadInBackground
-    118:118:void onContentChanged() -> onContentChanged
-com.zpj.matisse.loader.AlbumMediaLoader -> com.zpj.matisse.h.b:
-    java.lang.String[] SELECTION_ALL_ARGS -> c
-    android.net.Uri QUERY_URI -> a
-    java.lang.String[] PROJECTION -> b
-    32:46:void <clinit>() -> <clinit>
-    95:96:void <init>(android.content.Context,java.lang.String,java.lang.String[],boolean) -> <init>
-    58:58:java.lang.String[] getSelectionArgsForSingleMediaType(int) -> a
-    72:72:java.lang.String[] getSelectionAlbumArgs(java.lang.String) -> a
-    88:88:java.lang.String[] getSelectionAlbumArgsForSingleMediaType(int,java.lang.String) -> a
-    103:130:android.support.v4.content.CursorLoader newInstance(android.content.Context,com.zpj.matisse.entity.Album,boolean) -> a
-    31:31:java.lang.Object loadInBackground() -> loadInBackground
-    135:135:android.database.Cursor loadInBackground() -> loadInBackground
-    141:141:void onContentChanged() -> onContentChanged
-com.zpj.matisse.model.AlbumManager -> com.zpj.matisse.i.a:
-    com.zpj.matisse.model.AlbumManager$AlbumCallbacks mCallbacks -> c
-    boolean mLoadFinished -> e
-    int mCurrentSelection -> d
-    java.lang.ref.WeakReference mContext -> a
-    android.support.v4.app.LoaderManager mLoaderManager -> b
-    30:30:void <init>() -> <init>
-    51:62:void onLoadFinished(android.support.v4.content.Loader,android.database.Cursor) -> a
-    76:79:void onCreate(android.support.v4.app.FragmentActivity,com.zpj.matisse.model.AlbumManager$AlbumCallbacks) -> a
-    82:87:void onRestoreInstanceState(android.os.Bundle) -> a
-    101:102:void loadAlbums() -> a
-    90:91:void onSaveInstanceState(android.os.Bundle) -> b
-    94:98:void onDestroy() -> b
-    41:46:android.support.v4.content.Loader onCreateLoader(int,android.os.Bundle) -> onCreateLoader
-    30:30:void onLoadFinished(android.support.v4.content.Loader,java.lang.Object) -> onLoadFinished
-    66:73:void onLoaderReset(android.support.v4.content.Loader) -> onLoaderReset
-com.zpj.matisse.model.AlbumManager$AlbumCallbacks -> com.zpj.matisse.i.a$a:
-    void onAlbumLoad(android.database.Cursor) -> a
-    void onAlbumReset() -> a
-com.zpj.matisse.model.AlbumMediaManager -> com.zpj.matisse.i.b:
-    com.zpj.matisse.model.AlbumMediaManager$AlbumMediaCallbacks mCallbacks -> c
-    java.lang.ref.WeakReference mContext -> a
-    android.support.v4.app.LoaderManager mLoaderManager -> b
-    33:33:void <init>() -> <init>
-    57:63:void onLoadFinished(android.support.v4.content.Loader,android.database.Cursor) -> a
-    76:79:void onCreate(android.support.v4.app.FragmentActivity,com.zpj.matisse.model.AlbumMediaManager$AlbumMediaCallbacks) -> a
-    82:86:void onDestroy() -> a
-    89:92:void load(com.zpj.matisse.entity.Album) -> a
-    42:52:android.support.v4.content.Loader onCreateLoader(int,android.os.Bundle) -> onCreateLoader
-    33:33:void onLoadFinished(android.support.v4.content.Loader,java.lang.Object) -> onLoadFinished
-    67:73:void onLoaderReset(android.support.v4.content.Loader) -> onLoaderReset
-com.zpj.matisse.model.AlbumMediaManager$AlbumMediaCallbacks -> com.zpj.matisse.i.b$a:
-    void onAlbumMediaLoad(android.database.Cursor) -> a
-    void onAlbumMediaReset() -> a
-com.zpj.matisse.model.SelectedItemManager -> com.zpj.matisse.i.c:
-    java.util.List listeners -> b
-    java.util.Set mItems -> a
-    com.zpj.matisse.model.SelectedItemManager collection -> d
-    int mCollectionType -> c
-    77:79:void <init>() -> <init>
-    89:98:void onCreate(android.os.Bundle) -> a
-    101:104:void setDefaultSelection(java.util.List) -> a
-    119:120:boolean add(com.zpj.matisse.entity.Item) -> a
-    172:172:java.util.List asList() -> a
-    184:188:java.util.List asListOfString(android.content.Context) -> a
-    200:227:com.zpj.matisse.entity.IncapableCause isAcceptable(android.content.Context,com.zpj.matisse.entity.Item) -> a
-    288:294:void addOnCheckStateListener(com.zpj.matisse.model.SelectedItemManager$OnCheckStateListener) -> a
-    107:109:void onSaveInstanceState(android.os.Bundle) -> b
-    176:180:java.util.List asListOfUri() -> b
-    283:284:int checkedNumOf(com.zpj.matisse.entity.Item) -> b
-    297:303:void removeOnCheckStateListener(com.zpj.matisse.model.SelectedItemManager$OnCheckStateListener) -> b
-    196:196:boolean isSelected(com.zpj.matisse.entity.Item) -> c
-    279:279:int count() -> c
-    145:156:boolean remove(com.zpj.matisse.entity.Item) -> d
-    231:231:boolean maxSelectableReached() -> d
-    273:273:boolean typeConflict(com.zpj.matisse.entity.Item) -> e
-    306:311:void notifyOnCheckStateUpdate() -> e
-    82:86:void onDestroy() -> f
-    236:244:int currentMaxSelectable() -> g
-    67:74:com.zpj.matisse.model.SelectedItemManager getInstance() -> h
-    253:266:void refineCollectionType() -> i
-com.zpj.matisse.model.SelectedItemManager$OnCheckStateListener -> com.zpj.matisse.i.c$a:
-    void onUpdate() -> f
-com.zpj.matisse.ui.fragment.LocalImageViewer -> com.zpj.matisse.j.a.a:
-    com.zpj.matisse.model.SelectedItemManager mSelectedCollection -> K
-    android.widget.TextView tvIndicator -> O
-    java.util.List selectedList -> R
-    android.widget.TextView mButtonApply -> N
-    boolean countable -> P
-    com.zpj.matisse.listener.OnSelectedListener onSelectListener -> S
-    boolean singleSelectionModeEnabled -> Q
-    com.zpj.widget.toolbar.ZToolBar titleBar -> L
-    com.zpj.matisse.ui.widget.CheckView mCheckView -> M
-    25:32:void <init>() -> <init>
-    25:25:android.content.Context access$000(com.zpj.matisse.ui.fragment.LocalImageViewer) -> a
-    25:25:void access$1000(com.zpj.matisse.ui.fragment.LocalImageViewer,com.zpj.matisse.entity.Item) -> a
-    72:146:void initView(android.view.View,android.os.Bundle) -> a
-    149:150:com.zpj.matisse.ui.fragment.LocalImageViewer setSelectedItemManager(com.zpj.matisse.model.SelectedItemManager) -> a
-    164:165:com.zpj.matisse.ui.fragment.LocalImageViewer setOnSelectedListener(com.zpj.matisse.listener.OnSelectedListener) -> a
-    245:251:void addItem(com.zpj.matisse.entity.Item) -> a
-    25:25:java.util.List access$100(com.zpj.matisse.ui.fragment.LocalImageViewer) -> b
-    25:25:boolean access$1100(com.zpj.matisse.ui.fragment.LocalImageViewer,com.zpj.matisse.entity.Item) -> b
-    199:204:boolean assertAddSelection(com.zpj.matisse.entity.Item) -> b
-    25:25:void access$1200(com.zpj.matisse.ui.fragment.LocalImageViewer,com.zpj.matisse.entity.Item) -> c
-    25:25:void access$1300(com.zpj.matisse.ui.fragment.LocalImageViewer) -> c
-    208:213:int checkedNumOf(com.zpj.matisse.entity.Item) -> c
-    25:25:com.zpj.widget.toolbar.ZToolBar access$200(com.zpj.matisse.ui.fragment.LocalImageViewer) -> d
-    25:25:int access$400(com.zpj.matisse.ui.fragment.LocalImageViewer,com.zpj.matisse.entity.Item) -> d
-    154:155:com.zpj.matisse.ui.fragment.LocalImageViewer setCountable(boolean) -> d
-    227:231:boolean isSelected(com.zpj.matisse.entity.Item) -> d
-    25:25:java.util.List access$300(com.zpj.matisse.ui.fragment.LocalImageViewer) -> e
-    25:25:boolean access$600(com.zpj.matisse.ui.fragment.LocalImageViewer,com.zpj.matisse.entity.Item) -> e
-    159:160:com.zpj.matisse.ui.fragment.LocalImageViewer setSingleSelectionModeEnabled(boolean) -> e
-    236:242:void removeItem(com.zpj.matisse.entity.Item) -> e
-    25:25:boolean access$500(com.zpj.matisse.ui.fragment.LocalImageViewer) -> f
-    25:25:java.util.List access$700(com.zpj.matisse.ui.fragment.LocalImageViewer) -> g
-    25:25:int access$800(com.zpj.matisse.ui.fragment.LocalImageViewer) -> h
-    25:25:java.util.List access$900(com.zpj.matisse.ui.fragment.LocalImageViewer) -> i
-    39:57:void onCreate(android.os.Bundle) -> onCreate
-    66:68:void onSupportVisible() -> onSupportVisible
-    192:196:void onDismiss() -> r
-    61:61:int getCustomLayoutId() -> u
-    223:223:boolean maxSelectableReached() -> w
-    254:258:int selectedCount() -> x
-    169:180:void updateApplyButton() -> y
-com.zpj.matisse.ui.fragment.LocalImageViewer$1 -> com.zpj.matisse.j.a.a$a:
-    com.zpj.matisse.ui.fragment.LocalImageViewer this$0 -> d
-    40:40:void <init>(com.zpj.matisse.ui.fragment.LocalImageViewer) -> <init>
-    40:40:void loadImage(java.lang.Object,com.zpj.fragmentation.dialog.imagetrans.ImageLoad$LoadCallback,com.zpj.fragmentation.dialog.widget.ImageViewContainer,java.lang.String) -> a
-    43:45:void loadImage(com.zpj.matisse.entity.Item,com.zpj.fragmentation.dialog.imagetrans.ImageLoad$LoadCallback,com.zpj.fragmentation.dialog.widget.ImageViewContainer,java.lang.String) -> a
-com.zpj.matisse.ui.fragment.LocalImageViewer$2 -> com.zpj.matisse.j.a.a$b:
-    com.zpj.matisse.ui.fragment.LocalImageViewer this$0 -> a
-    83:83:void <init>(com.zpj.matisse.ui.fragment.LocalImageViewer) -> <init>
-    87:109:void onPageSelected(int) -> onPageSelected
-com.zpj.matisse.ui.fragment.LocalImageViewer$3 -> com.zpj.matisse.j.a.a$c:
-    com.zpj.matisse.ui.fragment.LocalImageViewer this$0 -> a
-    118:118:void <init>(com.zpj.matisse.ui.fragment.LocalImageViewer) -> <init>
-    122:141:void onClick(android.view.View) -> onClick
-com.zpj.matisse.ui.fragment.MatisseFragment2 -> com.zpj.matisse.j.a.b:
-    boolean popToSelect -> n
-    com.zpj.matisse.ui.widget.CheckRadioView mOriginal -> i
-    com.zpj.matisse.entity.SelectionSpec mSpec -> e
-    boolean mOriginalEnable -> j
-    com.zpj.matisse.ui.widget.MediaSelectionLayout mediaSelectionLayout -> l
-    com.sothree.slidinguppanel.SlidingUpPanelLayout slidingUpPanelLayout -> k
-    android.widget.TextView mButtonApply -> g
-    android.widget.TextView mButtonPreview -> f
-    android.widget.LinearLayout mOriginalLayout -> h
-    com.zpj.matisse.model.SelectedItemManager mSelectedCollection -> d
-    com.zpj.matisse.ui.widget.AlbumListLayout albumListLayout -> m
-    com.zpj.matisse.utils.MediaStoreCompat mMediaStoreCompat -> c
-    50:50:void <init>() -> <init>
-    50:50:com.sothree.slidinguppanel.SlidingUpPanelLayout access$000(com.zpj.matisse.ui.fragment.MatisseFragment2) -> a
-    86:166:void initView(android.view.View,android.os.Bundle) -> a
-    327:344:void startCrop(android.app.Activity,android.net.Uri) -> a
-    50:50:com.zpj.matisse.ui.widget.MediaSelectionLayout access$100(com.zpj.matisse.ui.fragment.MatisseFragment2) -> b
-    50:50:com.zpj.fragmentation.SupportActivity access$200(com.zpj.matisse.ui.fragment.MatisseFragment2) -> c
-    50:50:android.content.Context access$300(com.zpj.matisse.ui.fragment.MatisseFragment2) -> d
-    50:50:com.zpj.matisse.ui.widget.AlbumListLayout access$400(com.zpj.matisse.ui.fragment.MatisseFragment2) -> e
-    348:349:void onUpdate() -> f
-    76:76:int getLayoutId() -> j
-    81:81:boolean supportSwipeBack() -> k
-    264:276:int countOverMaxSize() -> l
-    220:244:void updateBottomToolbar() -> m
-    247:260:void updateOriginalState() -> n
-    170:176:boolean onBackPressedSupport() -> onBackPressedSupport
-    281:324:void onClick(android.view.View) -> onClick
-    196:216:void onDestroy() -> onDestroy
-    187:191:void onSaveInstanceState(android.os.Bundle) -> onSaveInstanceState
-    181:183:void onSupportVisible() -> onSupportVisible
-com.zpj.matisse.ui.fragment.MatisseFragment2$1 -> com.zpj.matisse.j.a.b$a:
-    123:123:void <init>(com.zpj.matisse.ui.fragment.MatisseFragment2) -> <init>
-    130:130:void onPanelStateChanged(android.view.View,com.sothree.slidinguppanel.SlidingUpPanelLayout$PanelState,com.sothree.slidinguppanel.SlidingUpPanelLayout$PanelState) -> a
-    126:126:void onPanelSlide(android.view.View,float) -> onPanelSlide
-com.zpj.matisse.ui.fragment.MatisseFragment2$2 -> com.zpj.matisse.j.a.b$b:
-    com.zpj.matisse.ui.fragment.MatisseFragment2 this$0 -> a
-    132:132:void <init>(com.zpj.matisse.ui.fragment.MatisseFragment2) -> <init>
-    135:136:void onClick(android.view.View) -> onClick
-com.zpj.matisse.ui.fragment.MatisseFragment2$3 -> com.zpj.matisse.j.a.b$c:
-    com.zpj.matisse.ui.fragment.MatisseFragment2 this$0 -> a
-    143:143:void <init>(com.zpj.matisse.ui.fragment.MatisseFragment2) -> <init>
-    146:158:void onSelect(com.zpj.matisse.entity.Album) -> a
-com.zpj.matisse.ui.fragment.MatisseFragment2$4 -> com.zpj.matisse.j.a.b$d:
-    com.zpj.matisse.ui.fragment.MatisseFragment2 this$0 -> a
-    160:160:void <init>(com.zpj.matisse.ui.fragment.MatisseFragment2) -> <init>
-    163:164:void run() -> run
-com.zpj.matisse.ui.widget.-$$Lambda$AlbumListLayout$LWnxba9ifmZCJy_ngPWZvsOWhHw -> com.zpj.matisse.ui.widget.a:
-    android.graphics.drawable.Drawable f$2 -> c
-    android.content.Context f$1 -> b
-    com.zpj.matisse.ui.widget.AlbumListLayout f$0 -> a
-    void onBindViewHolder(com.zpj.recyclerview.EasyViewHolder,java.util.List,int,java.util.List) -> a
-com.zpj.matisse.ui.widget.-$$Lambda$AlbumListLayout$W5WwjWMEFwMVeilZhuKnPMoYn8Q -> com.zpj.matisse.ui.widget.b:
-    com.zpj.matisse.ui.widget.AlbumListLayout f$0 -> a
-    void onClick(com.zpj.recyclerview.EasyViewHolder,android.view.View,java.lang.Object) -> a
-com.zpj.matisse.ui.widget.AlbumListLayout -> com.zpj.matisse.ui.widget.AlbumListLayout:
-    java.util.List albumList -> b
-    com.zpj.matisse.model.AlbumManager mAlbumManager -> a
-    int selectPosition -> e
-    com.zpj.matisse.ui.widget.AlbumListLayout$OnAlbumSelectListener onAlbumSelectListener -> d
-    com.zpj.recyclerview.EasyRecyclerView recyclerLayout -> c
-    59:60:void <init>(android.content.Context) -> <init>
-    63:64:void <init>(android.content.Context,android.util.AttributeSet) -> <init>
-    67:111:void <init>(android.content.Context,android.util.AttributeSet,int) -> <init>
-    74:96:void lambda$new$0(android.content.Context,android.graphics.drawable.Drawable,com.zpj.recyclerview.EasyViewHolder,java.util.List,int,java.util.List) -> a
-    98:107:void lambda$new$1(com.zpj.recyclerview.EasyViewHolder,android.view.View,com.zpj.matisse.entity.Album) -> a
-    114:116:void init(android.support.v4.app.FragmentActivity,android.os.Bundle) -> a
-    125:126:void onSaveInstanceState(android.os.Bundle) -> a
-    134:137:void onAlbumLoad(android.database.Cursor) -> a
-    152:154:void onAlbumReset() -> a
-    119:122:void loadAlbums() -> b
-    129:130:void onDestroy() -> c
-    157:158:void setOnAlbumSelectListener(com.zpj.matisse.ui.widget.AlbumListLayout$OnAlbumSelectListener) -> setOnAlbumSelectListener
-com.zpj.matisse.ui.widget.AlbumListLayout$OnAlbumSelectListener -> com.zpj.matisse.ui.widget.AlbumListLayout$a:
-    void onSelect(com.zpj.matisse.entity.Album) -> a
-com.zpj.matisse.ui.widget.CheckRadioView -> com.zpj.matisse.ui.widget.CheckRadioView:
-    int mSelectedColor -> b
-    int mUnSelectUdColor -> c
-    android.graphics.drawable.Drawable mDrawable -> a
-    20:22:void <init>(android.content.Context) -> <init>
-    27:29:void <init>(android.content.Context,android.util.AttributeSet) -> <init>
-    32:39:void init() -> a
-    42:51:void setChecked(boolean) -> setChecked
-    55:59:void setColor(int) -> setColor
-com.zpj.matisse.ui.widget.CheckView -> com.zpj.matisse.ui.widget.CheckView:
-    android.text.TextPaint mTextPaint -> f
-    android.graphics.Paint mShadowPaint -> g
-    float mDensity -> i
-    android.graphics.Paint mBackgroundPaint -> e
-    android.graphics.drawable.Drawable mCheckDrawable -> h
-    android.graphics.Paint mStrokePaint -> d
-    boolean mEnabled -> k
-    android.graphics.Rect mCheckRect -> j
-    boolean mCountable -> a
-    boolean mChecked -> b
-    int mCheckedNum -> c
-    59:61:void <init>(android.content.Context) -> <init>
-    64:66:void <init>(android.content.Context,android.util.AttributeSet) -> <init>
-    69:71:void <init>(android.content.Context,android.util.AttributeSet,int) -> <init>
-    81:98:void init(android.content.Context) -> a
-    196:209:void initBackgroundPaint() -> a
-    173:193:void initShadowPaint() -> b
-    212:219:void initTextPaint() -> c
-    223:229:android.graphics.Rect getCheckRect() -> getCheckRect
-    134:170:void onDraw(android.graphics.Canvas) -> onDraw
-    76:78:void onMeasure(int,int) -> onMeasure
-    101:102:void setChecked(boolean) -> setChecked
-    113:123:void setCheckedNum(int) -> setCheckedNum
-    109:110:void setCountable(boolean) -> setCountable
-    126:130:void setEnabled(boolean) -> setEnabled
-com.zpj.matisse.ui.widget.IncapableDialog -> com.zpj.matisse.ui.widget.c:
-    28:28:void <init>() -> <init>
-    34:39:com.zpj.matisse.ui.widget.IncapableDialog newInstance(java.lang.String,java.lang.String) -> a
-    45:62:android.app.Dialog onCreateDialog(android.os.Bundle) -> onCreateDialog
-com.zpj.matisse.ui.widget.IncapableDialog$1 -> com.zpj.matisse.ui.widget.c$a:
-    55:55:void <init>(com.zpj.matisse.ui.widget.IncapableDialog) -> <init>
-    58:59:void onClick(android.content.DialogInterface,int) -> onClick
-com.zpj.matisse.ui.widget.MediaGrid -> com.zpj.matisse.ui.widget.MediaGrid:
-    android.widget.TextView mVideoDuration -> d
-    android.widget.ImageView mThumbnail -> a
-    com.zpj.matisse.entity.Item mMedia -> e
-    com.zpj.matisse.ui.widget.MediaGrid$PreBindInfo mPreBindInfo -> f
-    com.zpj.matisse.ui.widget.CheckView mCheckView -> b
-    com.zpj.matisse.ui.widget.MediaGrid$OnMediaGridClickListener mListener -> g
-    android.widget.ImageView mGifTag -> c
-    44:46:void <init>(android.content.Context) -> <init>
-    49:51:void <init>(android.content.Context,android.util.AttributeSet) -> <init>
-    54:63:void init(android.content.Context) -> a
-    81:82:void preBindMedia(com.zpj.matisse.ui.widget.MediaGrid$PreBindInfo) -> a
-    85:90:void bindMedia(com.zpj.matisse.entity.Item) -> a
-    101:102:void initCheckView() -> a
-    97:98:void setGifTag() -> b
-    117:124:void setImage() -> c
-    127:133:void setVideoDuration() -> d
-    93:93:com.zpj.matisse.entity.Item getMedia() -> getMedia
-    66:66:android.widget.ImageView getThumbnail() -> getThumbnail
-    71:78:void onClick(android.view.View) -> onClick
-    105:106:void setCheckEnabled(boolean) -> setCheckEnabled
-    113:114:void setChecked(boolean) -> setChecked
-    109:110:void setCheckedNum(int) -> setCheckedNum
-    136:137:void setOnMediaGridClickListener(com.zpj.matisse.ui.widget.MediaGrid$OnMediaGridClickListener) -> setOnMediaGridClickListener
-com.zpj.matisse.ui.widget.MediaGrid$OnMediaGridClickListener -> com.zpj.matisse.ui.widget.MediaGrid$a:
-    void onCheckViewClicked(com.zpj.matisse.ui.widget.CheckView,com.zpj.matisse.entity.Item,com.zpj.recyclerview.EasyViewHolder) -> a
-    void onThumbnailClicked(android.widget.ImageView,com.zpj.matisse.entity.Item,com.zpj.recyclerview.EasyViewHolder) -> a
-com.zpj.matisse.ui.widget.MediaGrid$PreBindInfo -> com.zpj.matisse.ui.widget.MediaGrid$b:
-    com.zpj.recyclerview.EasyViewHolder mViewHolder -> d
-    boolean mCheckViewCountable -> c
-    int mResize -> a
-    android.graphics.drawable.Drawable mPlaceholder -> b
-    157:162:void <init>(int,android.graphics.drawable.Drawable,boolean,com.zpj.recyclerview.EasyViewHolder) -> <init>
-com.zpj.matisse.ui.widget.MediaGridInset -> com.zpj.matisse.ui.widget.d:
-    int mSpacing -> b
-    boolean mIncludeEdge -> c
-    int mSpanCount -> a
-    28:32:void <init>(int,int,boolean) -> <init>
-    37:59:void getItemOffsets(android.graphics.Rect,android.view.View,android.support.v7.widget.RecyclerView,android.support.v7.widget.RecyclerView$State) -> getItemOffsets
-com.zpj.matisse.ui.widget.MediaSelectionLayout -> com.zpj.matisse.ui.widget.MediaSelectionLayout:
-    android.support.v7.widget.GridLayoutManager layoutManager -> A
-    android.graphics.drawable.Drawable placeholder -> z
-    com.zpj.matisse.entity.SelectionSpec mSpec -> y
-    java.util.List itemList -> w
-    com.zpj.matisse.model.AlbumMediaManager mAlbumMediaManager -> v
-    int mImageResize -> B
-    com.zpj.matisse.model.SelectedItemManager mSelectedCollection -> x
-    68:69:void <init>(android.content.Context) -> <init>
-    72:73:void <init>(android.content.Context,android.util.AttributeSet) -> <init>
-    76:81:void <init>(android.content.Context,android.util.AttributeSet,int) -> <init>
-    84:103:void initView(android.content.Context) -> a
-    110:115:void loadAlbum(android.support.v4.app.FragmentActivity,com.zpj.matisse.entity.Album) -> a
-    125:129:void onAlbumMediaLoad(android.database.Cursor) -> a
-    136:137:void onAlbumMediaReset() -> a
-    141:161:void onBindViewHolder(com.zpj.recyclerview.EasyViewHolder,java.util.List,int,java.util.List) -> a
-    165:203:void onThumbnailClicked(android.widget.ImageView,com.zpj.matisse.entity.Item,com.zpj.recyclerview.EasyViewHolder) -> a
-    207:229:void onCheckViewClicked(com.zpj.matisse.ui.widget.CheckView,com.zpj.matisse.entity.Item,com.zpj.recyclerview.EasyViewHolder) -> a
-    244:273:void setCheckStatus(com.zpj.matisse.entity.Item,com.zpj.matisse.ui.widget.MediaGrid) -> a
-    276:278:boolean assertAddSelection(com.zpj.matisse.entity.Item) -> a
-    232:240:int getImageResize(android.content.Context) -> b
-    287:303:void onUpdate() -> f
-    118:121:void onDestroy() -> s
-    282:283:void notifyCheckStateChanged() -> t
-com.zpj.matisse.ui.widget.MediaSelectionLayout$1 -> com.zpj.matisse.ui.widget.MediaSelectionLayout$a:
-    com.zpj.matisse.ui.widget.MediaSelectionLayout this$0 -> c
-    boolean isFirst -> a
-    android.widget.ImageView val$thumbnail -> b
-    171:172:void <init>(com.zpj.matisse.ui.widget.MediaSelectionLayout,android.widget.ImageView) -> <init>
-    175:186:void onSrcViewUpdate(com.zpj.fragmentation.dialog.impl.ImageViewerDialogFragment3,int) -> a
-com.zpj.matisse.ui.widget.SquareFrameLayout -> com.zpj.matisse.ui.widget.SquareFrameLayout:
-    25:26:void <init>(android.content.Context) -> <init>
-    29:30:void <init>(android.content.Context,android.util.AttributeSet) -> <init>
-    34:35:void onMeasure(int,int) -> onMeasure
-com.zpj.matisse.ui.widget.SquareImageView -> com.zpj.matisse.ui.widget.SquareImageView:
-    12:13:void <init>(android.content.Context) -> <init>
-    16:17:void <init>(android.content.Context,android.util.AttributeSet) -> <init>
-    20:21:void <init>(android.content.Context,android.util.AttributeSet,int) -> <init>
-    25:26:void onMeasure(int,int) -> onMeasure
-com.zpj.matisse.utils.MediaStoreCompat -> com.zpj.matisse.k.a:
-    49:52:void <init>(android.app.Activity) -> <init>
-    71:72:void setCaptureStrategy(com.zpj.matisse.entity.CaptureStrategy) -> a
-com.zpj.matisse.utils.PathUtils -> com.zpj.matisse.k.b:
-    30:76:java.lang.String getPath(android.content.Context,android.net.Uri) -> a
-    92:107:java.lang.String getDataColumn(android.content.Context,android.net.Uri,java.lang.String,java.lang.String[]) -> a
-    125:125:boolean isDownloadsDocument(android.net.Uri) -> a
-    117:117:boolean isExternalStorageDocument(android.net.Uri) -> b
-    133:133:boolean isMediaDocument(android.net.Uri) -> c
-com.zpj.matisse.utils.PhotoMetadataUtils -> com.zpj.matisse.k.c:
-    java.lang.String TAG -> a
-    46:46:void <clinit>() -> <clinit>
-    50:51:void <init>() -> <init>
-    105:124:java.lang.String getPath(android.content.ContentResolver,android.net.Uri) -> a
-    128:140:com.zpj.matisse.entity.IncapableCause isAcceptable(android.content.Context,com.zpj.matisse.entity.Item) -> a
-    171:176:float getSizeInMB(long) -> a
-    144:154:boolean isSelectableType(android.content.Context,com.zpj.matisse.entity.Item) -> b
-com.zpj.matisse.utils.Platform -> com.zpj.matisse.k.d:
-    14:14:boolean hasKitKat() -> a
-com.zpj.matisse.utils.ScaleTransformation -> com.zpj.matisse.k.e:
-    float scale -> b
-    java.lang.String ID -> c
-    17:17:void <clinit>() -> <clinit>
-    21:23:void <init>() -> <init>
-    25:27:void <init>(float) -> <init>
-    32:36:android.graphics.Bitmap transform(com.bumptech.glide.load.engine.bitmap_recycle.BitmapPool,android.graphics.Bitmap,int,int) -> a
-    57:58:void updateDiskCacheKey(java.security.MessageDigest) -> a
-    47:47:boolean equals(java.lang.Object) -> equals
-    52:52:int hashCode() -> hashCode
-    42:42:java.lang.String toString() -> toString
-com.zpj.matisse.utils.UIUtils -> com.zpj.matisse.k.f:
-    23:29:int spanCount(android.content.Context,int) -> a
-com.zpj.notification.ZNotify -> b.c.b.a:
+com.zpj.notification.ZNotify -> b.c.c.a:
     android.content.Context context -> a
     android.app.NotificationManager nm -> b
     172:174:void <init>(android.content.Context) -> <init>
@@ -37276,7 +37125,7 @@ com.zpj.notification.ZNotify -> b.c.b.a:
     230:233:void cancel(int) -> a
     208:208:com.zpj.notification.builder.ProgressBuilder buildProgressNotify() -> b
     236:239:void cancelAll() -> c
-com.zpj.notification.builder.BaseBuilder -> b.c.b.b.a:
+com.zpj.notification.builder.BaseBuilder -> b.c.c.b.a:
     android.content.Context context -> a
     boolean vibrate -> m
     boolean lights -> n
@@ -37310,11 +37159,11 @@ com.zpj.notification.builder.BaseBuilder -> b.c.b.b.a:
     556:557:com.zpj.notification.builder.BaseBuilder setSmallIcon(int) -> c
     706:776:android.app.Notification$Builder getChannelNotification() -> c
     591:673:android.support.v4.app.NotificationCompat$Builder getNotificationCompat() -> d
-com.zpj.notification.builder.BaseBuilder$BtnActionBean -> b.c.b.b.a$a:
+com.zpj.notification.builder.BaseBuilder$BtnActionBean -> b.c.c.b.a$a:
     java.lang.CharSequence text -> b
     android.app.PendingIntent pendingIntent -> c
     int icon -> a
-com.zpj.notification.builder.ProgressBuilder -> b.c.b.b.b:
+com.zpj.notification.builder.ProgressBuilder -> b.c.c.b.b:
     float progress -> v
     boolean interminate -> w
     int max -> u
@@ -37496,6 +37345,7 @@ com.zpj.recyclerview.EasyRecyclerLayout -> com.zpj.recyclerview.EasyRecyclerLayo
     526:527:com.zpj.recyclerview.EasyRecyclerLayout onGetChildViewType(com.zpj.recyclerview.IEasy$OnGetChildViewTypeListener) -> a
     531:532:com.zpj.recyclerview.EasyRecyclerLayout onGetChildLayoutId(com.zpj.recyclerview.IEasy$OnGetChildLayoutIdListener) -> a
     541:542:com.zpj.recyclerview.EasyRecyclerLayout onBindViewHolder(com.zpj.recyclerview.IEasy$OnBindViewHolderListener) -> a
+    550:565:void build() -> a
     580:581:void showEmptyView(java.lang.String) -> a
     694:702:void onSelectChange(int,boolean) -> a
     813:814:void notifyVisibleItemChanged(java.lang.Object) -> a
@@ -37515,11 +37365,11 @@ com.zpj.recyclerview.EasyRecyclerLayout -> com.zpj.recyclerview.EasyRecyclerLayo
     396:398:com.zpj.recyclerview.EasyRecyclerLayout setEnableSwipeRefresh(boolean) -> d
     817:818:void notifyItemChanged(int) -> d
     900:905:void onLoadRetry() -> d
-    550:565:void build() -> e
+    775:776:void clearSelectedPosition() -> e
     840:844:void notifyItemInserted(int) -> e
     316:317:com.zpj.recyclerview.EasyRecyclerLayout setItemRes(int) -> f
     412:415:com.zpj.recyclerview.EasyRecyclerLayout setMaxSelectCount(int) -> g
-    775:776:void clearSelectedPosition() -> g
+    669:678:void enterSelectMode() -> g
     887:887:com.zpj.recyclerview.EasyStateAdapter getAdapter() -> getAdapter
     875:875:java.util.List getData() -> getData
     879:879:com.zpj.recyclerview.EasyRecyclerView getEasyRecyclerView() -> getEasyRecyclerView
@@ -37529,19 +37379,18 @@ com.zpj.recyclerview.EasyRecyclerLayout -> com.zpj.recyclerview.EasyRecyclerLayo
     789:795:java.util.List getSelectedItem() -> getSelectedItem
     771:771:java.util.List getSelectedPositionList() -> getSelectedPositionList
     895:895:com.zpj.recyclerview.EasyState getState() -> getState
-    669:678:void enterSelectMode() -> h
+    681:691:void exitSelectMode() -> h
     705:724:boolean onSelected(int) -> h
-    681:691:void exitSelectMode() -> i
     728:736:boolean unSelect(int) -> i
-    847:847:boolean isSelectMode() -> j
-    799:806:void notifyDataSetChanged() -> k
-    809:810:void notifyVisibleItemChanged() -> l
-    740:758:void selectAll() -> m
-    662:664:void showContent() -> n
-    571:573:void showEmpty() -> o
-    619:621:void showLoading() -> p
-    865:868:void stopRefresh() -> q
-    761:768:void unSelectAll() -> r
+    847:847:boolean isSelectMode() -> i
+    799:806:void notifyDataSetChanged() -> j
+    809:810:void notifyVisibleItemChanged() -> k
+    740:758:void selectAll() -> l
+    662:664:void showContent() -> m
+    571:573:void showEmpty() -> n
+    619:621:void showLoading() -> o
+    865:868:void stopRefresh() -> p
+    761:768:void unSelectAll() -> q
     855:856:void setRefreshing(boolean) -> setRefreshing
 com.zpj.recyclerview.EasyRecyclerLayout$1 -> com.zpj.recyclerview.EasyRecyclerLayout$a:
     com.zpj.recyclerview.EasyRecyclerLayout this$0 -> a
@@ -38197,34 +38046,34 @@ com.zpj.shouji.market.R$array -> com.zpj.shouji.market.R$array:
 com.zpj.shouji.market.R$attr -> com.zpj.shouji.market.R$attr:
     79:79:void <init>() -> <init>
 com.zpj.shouji.market.R$bool -> com.zpj.shouji.market.R$bool:
-    7653:7653:void <init>() -> <init>
+    6842:6842:void <init>() -> <init>
 com.zpj.shouji.market.R$color -> com.zpj.shouji.market.R$color:
-    7659:7659:void <init>() -> <init>
+    6848:6848:void <init>() -> <init>
 com.zpj.shouji.market.R$dimen -> com.zpj.shouji.market.R$dimen:
-    8040:8040:void <init>() -> <init>
+    7179:7179:void <init>() -> <init>
 com.zpj.shouji.market.R$drawable -> com.zpj.shouji.market.R$drawable:
-    8303:8303:void <init>() -> <init>
+    7439:7439:void <init>() -> <init>
 com.zpj.shouji.market.R$id -> com.zpj.shouji.market.R$id:
-    8709:8709:void <init>() -> <init>
+    7833:7833:void <init>() -> <init>
 com.zpj.shouji.market.R$integer -> com.zpj.shouji.market.R$integer:
-    9475:9475:void <init>() -> <init>
+    8594:8594:void <init>() -> <init>
 com.zpj.shouji.market.R$interpolator -> com.zpj.shouji.market.R$interpolator:
-    9493:9493:void <init>() -> <init>
+    8612:8612:void <init>() -> <init>
 com.zpj.shouji.market.R$layout -> com.zpj.shouji.market.R$layout:
-    9499:9499:void <init>() -> <init>
+    8618:8618:void <init>() -> <init>
 com.zpj.shouji.market.R$menu -> com.zpj.shouji.market.R$menu:
-    9814:9814:void <init>() -> <init>
+    8926:8926:void <init>() -> <init>
 com.zpj.shouji.market.R$mipmap -> com.zpj.shouji.market.R$mipmap:
-    9824:9824:void <init>() -> <init>
+    8936:8936:void <init>() -> <init>
 com.zpj.shouji.market.R$string -> com.zpj.shouji.market.R$string:
-    9829:9829:void <init>() -> <init>
+    8941:8941:void <init>() -> <init>
 com.zpj.shouji.market.R$style -> com.zpj.shouji.market.R$style:
-    9987:9987:void <init>() -> <init>
+    9100:9100:void <init>() -> <init>
 com.zpj.shouji.market.R$styleable -> com.zpj.shouji.market.R$styleable:
-    10590:30285:void <clinit>() -> <clinit>
-    10518:10518:void <init>() -> <init>
+    9696:28449:void <clinit>() -> <clinit>
+    9628:9628:void <init>() -> <init>
 com.zpj.shouji.market.R$xml -> com.zpj.shouji.market.R$xml:
-    30429:30429:void <init>() -> <init>
+    28591:28591:void <init>() -> <init>
 com.zpj.shouji.market.api.-$$Lambda$BookingApi$0_PPHAA3tFZERK5O8yVfB-chrsk -> com.zpj.shouji.market.b.a:
     com.zpj.shouji.market.api.-$$Lambda$BookingApi$0_PPHAA3tFZERK5O8yVfB-chrsk INSTANCE -> a
     void onComplete() -> a
@@ -39008,6 +38857,7 @@ com.zpj.shouji.market.glide.GlideUtils -> com.zpj.shouji.market.glide.f:
 com.zpj.shouji.market.glide.ImageViewDrawableTarget -> com.zpj.shouji.market.glide.g:
     android.widget.ImageView imageView -> d
     16:18:void <init>(android.widget.ImageView) -> <init>
+    12:12:void onResourceReady(java.lang.Object,com.bumptech.glide.request.transition.Transition) -> a
     28:32:void onResourceReady(android.graphics.drawable.Drawable,com.bumptech.glide.request.transition.Transition) -> a
     36:38:void onLoadFailed(android.graphics.drawable.Drawable) -> a
     22:24:void onLoadStarted(android.graphics.drawable.Drawable) -> b
@@ -39152,19 +39002,20 @@ com.zpj.shouji.market.glide.transformations.RoundedTransformation$CornerType -> 
     25:25:com.zpj.shouji.market.glide.transformations.RoundedTransformation$CornerType valueOf(java.lang.String) -> valueOf
     25:25:com.zpj.shouji.market.glide.transformations.RoundedTransformation$CornerType[] values() -> values
 com.zpj.shouji.market.glide.transformations.blur.BlurTransformation -> com.zpj.shouji.market.glide.j.c.a:
-    int DEFAULT_RADIUS -> d
-    int DEFAULT_DOWN_SAMPLING -> e
+    int DEFAULT_DOWN_SAMPLING -> f
+    int count -> d
+    int DEFAULT_RADIUS -> e
     int radius -> b
     int sampling -> c
-    19:20:void <clinit>() -> <clinit>
-    26:27:void <init>() -> <init>
-    30:31:void <init>(int,int) -> <init>
-    37:41:void <init>(android.content.Context,int,int) -> <init>
-    59:67:android.graphics.Bitmap transform(com.bumptech.glide.load.engine.bitmap_recycle.BitmapPool,android.graphics.Bitmap,int,int) -> a
-    89:90:void updateDiskCacheKey(java.security.MessageDigest) -> a
-    77:77:boolean equals(java.lang.Object) -> equals
-    84:84:int hashCode() -> hashCode
-    72:72:java.lang.String toString() -> toString
+    20:21:void <clinit>() -> <clinit>
+    29:30:void <init>() -> <init>
+    33:34:void <init>(int,int) -> <init>
+    40:44:void <init>(android.content.Context,int,int) -> <init>
+    61:71:android.graphics.Bitmap transform(com.bumptech.glide.load.engine.bitmap_recycle.BitmapPool,android.graphics.Bitmap,int,int) -> a
+    93:94:void updateDiskCacheKey(java.security.MessageDigest) -> a
+    81:81:boolean equals(java.lang.Object) -> equals
+    88:88:int hashCode() -> hashCode
+    76:76:java.lang.String toString() -> toString
 com.zpj.shouji.market.glide.transformations.blur.CropBlurTransformation -> com.zpj.shouji.market.glide.j.c.b:
     float SCALE -> f
     float RADIUS -> e
@@ -40482,7 +40333,7 @@ com.zpj.shouji.market.ui.fragment.-$$Lambda$ArticleDetailFragment$rALDaDZh0lHStI
 com.zpj.shouji.market.ui.fragment.-$$Lambda$ArticleDetailFragment$wyHFUyd9EmMmL-eqK5tQOMGKlss -> com.zpj.shouji.market.e.b.f:
     com.zpj.shouji.market.ui.fragment.ArticleDetailFragment f$0 -> a
     void run(com.zpj.recyclerview.state.StateManager) -> a
-com.zpj.shouji.market.ui.fragment.-$$Lambda$FeedbackFragment$1$SaYMaHs2AdYh0BRUSzt0U8T0_uY -> com.zpj.shouji.market.e.b.g:
+com.zpj.shouji.market.ui.fragment.-$$Lambda$FeedbackFragment$1$8ltTMldKeSLA7L964MRK5FHkEQ0 -> com.zpj.shouji.market.e.b.g:
     com.zpj.shouji.market.ui.fragment.FeedbackFragment$1 f$0 -> a
     void onSelected(java.util.List) -> a
 com.zpj.shouji.market.ui.fragment.-$$Lambda$FeedbackFragment$1$jWhuzCt-ON0mx-yPThWCUgs1Da8 -> com.zpj.shouji.market.e.b.h:
@@ -40490,15 +40341,15 @@ com.zpj.shouji.market.ui.fragment.-$$Lambda$FeedbackFragment$1$jWhuzCt-ON0mx-yPT
     com.zpj.shouji.market.ui.fragment.FeedbackFragment$1 f$0 -> a
 com.zpj.shouji.market.ui.fragment.-$$Lambda$FeedbackFragment$4fWvyl3DzxGpO0m79FmZJ-lelrM -> com.zpj.shouji.market.e.b.i:
     com.zpj.shouji.market.ui.fragment.FeedbackFragment f$0 -> a
-com.zpj.shouji.market.ui.fragment.-$$Lambda$FeedbackFragment$N-69Jb8vlWfjHrUNhJnkIk4FGWA -> com.zpj.shouji.market.e.b.j:
+com.zpj.shouji.market.ui.fragment.-$$Lambda$FeedbackFragment$UnG4iF9PZ_CROcaTk625bhwplsg -> com.zpj.shouji.market.e.b.j:
     com.zpj.shouji.market.ui.fragment.FeedbackFragment f$0 -> a
-    void onSelected(java.util.List) -> a
-com.zpj.shouji.market.ui.fragment.-$$Lambda$FeedbackFragment$UnG4iF9PZ_CROcaTk625bhwplsg -> com.zpj.shouji.market.e.b.k:
-    com.zpj.shouji.market.ui.fragment.FeedbackFragment f$0 -> a
-com.zpj.shouji.market.ui.fragment.-$$Lambda$FeedbackFragment$mM2044o0oN7cHF-bEgHb_XNXrdI -> com.zpj.shouji.market.e.b.l:
+com.zpj.shouji.market.ui.fragment.-$$Lambda$FeedbackFragment$mM2044o0oN7cHF-bEgHb_XNXrdI -> com.zpj.shouji.market.e.b.k:
     com.zpj.shouji.market.ui.fragment.FeedbackFragment f$0 -> a
     android.widget.EditText f$1 -> b
     com.zpj.shouji.market.ui.widget.flowlayout.FlowLayout f$2 -> c
+com.zpj.shouji.market.ui.fragment.-$$Lambda$FeedbackFragment$rQwpDwuR92Quvsa2hChh6YOLjUw -> com.zpj.shouji.market.e.b.l:
+    com.zpj.shouji.market.ui.fragment.FeedbackFragment f$0 -> a
+    void onSelected(java.util.List) -> a
 com.zpj.shouji.market.ui.fragment.-$$Lambda$MainFragment$8SovbQth_mWSm7qB3jfeKJl98eg -> com.zpj.shouji.market.e.b.m:
     com.zpj.shouji.market.ui.fragment.MainFragment f$0 -> a
 com.zpj.shouji.market.ui.fragment.-$$Lambda$MainFragment$HT8kC8NigMw3HYv-WNdclEbyUZ8 -> com.zpj.shouji.market.e.b.n:
@@ -40576,38 +40427,38 @@ com.zpj.shouji.market.ui.fragment.ArticleDetailFragment$4 -> com.zpj.shouji.mark
 com.zpj.shouji.market.ui.fragment.FeedbackFragment -> com.zpj.shouji.market.e.b.w:
     java.util.List imgList -> c
     com.zpj.shouji.market.ui.widget.NineGridView nineGridView -> d
-    34:36:void <init>() -> <init>
-    34:34:android.content.Context access$000(com.zpj.shouji.market.ui.fragment.FeedbackFragment) -> a
-    57:164:void initView(android.view.View,android.os.Bundle) -> a
-    111:156:void lambda$initView$1(android.widget.EditText,com.zpj.shouji.market.ui.widget.flowlayout.FlowLayout,android.view.View) -> a
-    34:34:com.zpj.shouji.market.ui.widget.NineGridView access$100(com.zpj.shouji.market.ui.fragment.FeedbackFragment) -> b
-    51:51:java.lang.CharSequence getToolbarTitle(android.content.Context) -> b
-    194:195:void lambda$showImagePicker$2(java.util.List) -> b
-    34:34:java.util.List access$200(com.zpj.shouji.market.ui.fragment.FeedbackFragment) -> c
-    34:34:void access$300(com.zpj.shouji.market.ui.fragment.FeedbackFragment) -> d
-    34:34:void access$400(com.zpj.shouji.market.ui.fragment.FeedbackFragment) -> e
+    33:35:void <init>() -> <init>
+    33:33:android.content.Context access$000(com.zpj.shouji.market.ui.fragment.FeedbackFragment) -> a
+    56:163:void initView(android.view.View,android.os.Bundle) -> a
+    110:155:void lambda$initView$1(android.widget.EditText,com.zpj.shouji.market.ui.widget.flowlayout.FlowLayout,android.view.View) -> a
+    33:33:com.zpj.shouji.market.ui.widget.NineGridView access$100(com.zpj.shouji.market.ui.fragment.FeedbackFragment) -> b
+    50:50:java.lang.CharSequence getToolbarTitle(android.content.Context) -> b
+    191:192:void lambda$showImagePicker$2(java.util.List) -> b
+    33:33:java.util.List access$200(com.zpj.shouji.market.ui.fragment.FeedbackFragment) -> c
+    33:33:void access$300(com.zpj.shouji.market.ui.fragment.FeedbackFragment) -> d
+    33:33:void access$400(com.zpj.shouji.market.ui.fragment.FeedbackFragment) -> e
     void lambda$4fWvyl3DzxGpO0m79FmZJ-lelrM(com.zpj.shouji.market.ui.fragment.FeedbackFragment) -> f
-    46:46:int getLayoutId() -> j
-    141:143:void lambda$null$0() -> m
-    173:178:void initNineGrid() -> n
-    181:197:void showImagePicker() -> o
-    41:42:void start() -> p
+    45:45:int getLayoutId() -> j
+    140:142:void lambda$null$0() -> m
+    172:177:void initNineGrid() -> n
+    180:194:void showImagePicker() -> o
+    40:41:void start() -> p
 com.zpj.shouji.market.ui.fragment.FeedbackFragment$1 -> com.zpj.shouji.market.e.b.w$a:
     com.zpj.shouji.market.ui.fragment.FeedbackFragment this$0 -> a
-    66:66:void <init>(com.zpj.shouji.market.ui.fragment.FeedbackFragment) -> <init>
-    69:96:void onImageItemClicked(int,java.util.List) -> a
-    72:77:void lambda$null$0(java.util.List) -> a
-    100:101:void onAddItemClicked(int) -> a
-    105:106:void onImageItemDelete(int,java.lang.String) -> a
-    71:78:void lambda$onImageItemClicked$1(java.util.List) -> b
+    65:65:void <init>(com.zpj.shouji.market.ui.fragment.FeedbackFragment) -> <init>
+    68:95:void onImageItemClicked(int,java.util.List) -> a
+    71:76:void lambda$null$0(java.util.List) -> a
+    99:100:void onAddItemClicked(int) -> a
+    104:105:void onImageItemDelete(int,java.lang.String) -> a
+    70:77:void lambda$onImageItemClicked$1(java.util.List) -> b
 com.zpj.shouji.market.ui.fragment.FeedbackFragment$1$1 -> com.zpj.shouji.market.e.b.w$a$a:
     com.zpj.shouji.market.ui.fragment.FeedbackFragment$1 this$1 -> a
-    81:81:void <init>(com.zpj.shouji.market.ui.fragment.FeedbackFragment$1) -> <init>
-    84:85:void onSrcViewUpdate(com.zpj.fragmentation.dialog.impl.ImageViewerDialogFragment3,int) -> a
+    80:80:void <init>(com.zpj.shouji.market.ui.fragment.FeedbackFragment$1) -> <init>
+    83:84:void onSrcViewUpdate(com.zpj.fragmentation.dialog.impl.ImageViewerDialogFragment3,int) -> a
 com.zpj.shouji.market.ui.fragment.FeedbackFragment$2 -> com.zpj.shouji.market.e.b.x:
-    144:144:void <init>(com.zpj.shouji.market.ui.fragment.FeedbackFragment) -> <init>
-    148:148:void onBytesWritten(int) -> a
-    152:152:boolean shouldContinue() -> a
+    143:143:void <init>(com.zpj.shouji.market.ui.fragment.FeedbackFragment) -> <init>
+    147:147:void onBytesWritten(int) -> a
+    151:151:boolean shouldContinue() -> a
 com.zpj.shouji.market.ui.fragment.MainFragment -> com.zpj.shouji.market.e.b.y:
     com.zpj.blur.ZBlurry blurred -> e
     com.zpj.fragmentation.SupportFragment[] mFragments -> c
@@ -43934,7 +43785,7 @@ com.zpj.shouji.market.ui.fragment.theme.-$$Lambda$ThemeShareFragment$0ro9enGTkIl
 com.zpj.shouji.market.ui.fragment.theme.-$$Lambda$ThemeShareFragment$1$6K5kngCat7vL8uLCP9WDRZX-uyY -> com.zpj.shouji.market.e.b.r0.g:
     java.util.List f$1 -> b
     com.zpj.shouji.market.ui.fragment.theme.ThemeShareFragment$1 f$0 -> a
-com.zpj.shouji.market.ui.fragment.theme.-$$Lambda$ThemeShareFragment$1$M0z0D4GPTvTPxLjDy67YPN4cTns -> com.zpj.shouji.market.e.b.r0.h:
+com.zpj.shouji.market.ui.fragment.theme.-$$Lambda$ThemeShareFragment$1$IDqV5BU_GRwP2X30yebFmtXB8HY -> com.zpj.shouji.market.e.b.r0.h:
     com.zpj.shouji.market.ui.fragment.theme.ThemeShareFragment$1 f$0 -> a
     void onSelected(java.util.List) -> a
 com.zpj.shouji.market.ui.fragment.theme.-$$Lambda$ThemeShareFragment$2iRv-iTb0f72fCQgY4LcVnm7Tdc -> com.zpj.shouji.market.e.b.r0.i:
@@ -43942,23 +43793,23 @@ com.zpj.shouji.market.ui.fragment.theme.-$$Lambda$ThemeShareFragment$2iRv-iTb0f7
 com.zpj.shouji.market.ui.fragment.theme.-$$Lambda$ThemeShareFragment$8y-D3LB2ABrpEh3sHsauBy8LWzo -> com.zpj.shouji.market.e.b.r0.j:
     com.zpj.shouji.market.ui.fragment.theme.ThemeShareFragment f$0 -> a
     void onCallback(java.lang.Object) -> a
-com.zpj.shouji.market.ui.fragment.theme.-$$Lambda$ThemeShareFragment$Dnjf1YLvt4KjtCdu_-e-Qmi6U6k -> com.zpj.shouji.market.e.b.r0.k:
+com.zpj.shouji.market.ui.fragment.theme.-$$Lambda$ThemeShareFragment$EmfoeJCZ_VuLakYZxdvLDt1JTmg -> com.zpj.shouji.market.e.b.r0.k:
     com.zpj.shouji.market.ui.fragment.theme.ThemeShareFragment f$0 -> a
-    void onSelected(java.util.List) -> a
-com.zpj.shouji.market.ui.fragment.theme.-$$Lambda$ThemeShareFragment$EmfoeJCZ_VuLakYZxdvLDt1JTmg -> com.zpj.shouji.market.e.b.r0.l:
+com.zpj.shouji.market.ui.fragment.theme.-$$Lambda$ThemeShareFragment$Ig-tgILntmC2Cm3fZ_TCRtYgbAE -> com.zpj.shouji.market.e.b.r0.l:
     com.zpj.shouji.market.ui.fragment.theme.ThemeShareFragment f$0 -> a
-com.zpj.shouji.market.ui.fragment.theme.-$$Lambda$ThemeShareFragment$Ig-tgILntmC2Cm3fZ_TCRtYgbAE -> com.zpj.shouji.market.e.b.r0.m:
+com.zpj.shouji.market.ui.fragment.theme.-$$Lambda$ThemeShareFragment$aeRQGpXTlYP7VkzWyRf4AVy7o5k -> com.zpj.shouji.market.e.b.r0.m:
     com.zpj.shouji.market.ui.fragment.theme.ThemeShareFragment f$0 -> a
-com.zpj.shouji.market.ui.fragment.theme.-$$Lambda$ThemeShareFragment$aeRQGpXTlYP7VkzWyRf4AVy7o5k -> com.zpj.shouji.market.e.b.r0.n:
+com.zpj.shouji.market.ui.fragment.theme.-$$Lambda$ThemeShareFragment$geDwvMVFzY8UPrxz99RY5477O9k -> com.zpj.shouji.market.e.b.r0.n:
     com.zpj.shouji.market.ui.fragment.theme.ThemeShareFragment f$0 -> a
-com.zpj.shouji.market.ui.fragment.theme.-$$Lambda$ThemeShareFragment$geDwvMVFzY8UPrxz99RY5477O9k -> com.zpj.shouji.market.e.b.r0.o:
-    com.zpj.shouji.market.ui.fragment.theme.ThemeShareFragment f$0 -> a
-com.zpj.shouji.market.ui.fragment.theme.-$$Lambda$ThemeShareFragment$gggQ_RQ-QRpsZ0CM5D-9RIZcXTU -> com.zpj.shouji.market.e.b.r0.p:
+com.zpj.shouji.market.ui.fragment.theme.-$$Lambda$ThemeShareFragment$gggQ_RQ-QRpsZ0CM5D-9RIZcXTU -> com.zpj.shouji.market.e.b.r0.o:
     com.zpj.shouji.market.ui.fragment.theme.ThemeShareFragment f$0 -> a
     void onSoftInputChanged(int) -> a
-com.zpj.shouji.market.ui.fragment.theme.-$$Lambda$ThemeShareFragment$hqf3gxZIBrdcSRTvFDHiZ_VSjEU -> com.zpj.shouji.market.e.b.r0.q:
+com.zpj.shouji.market.ui.fragment.theme.-$$Lambda$ThemeShareFragment$hqf3gxZIBrdcSRTvFDHiZ_VSjEU -> com.zpj.shouji.market.e.b.r0.p:
     com.zpj.shouji.market.ui.fragment.theme.ThemeShareFragment f$0 -> a
     void onCallback(java.lang.Object) -> a
+com.zpj.shouji.market.ui.fragment.theme.-$$Lambda$ThemeShareFragment$iyji2K62ncWT9dl8R4exVZ_zNFk -> com.zpj.shouji.market.e.b.r0.q:
+    com.zpj.shouji.market.ui.fragment.theme.ThemeShareFragment f$0 -> a
+    void onSelected(java.util.List) -> a
 com.zpj.shouji.market.ui.fragment.theme.-$$Lambda$ThemeShareFragment$nfhkdOLOABRhIl6CQEMtJZjEOPI -> com.zpj.shouji.market.e.b.r0.r:
     com.zpj.shouji.market.ui.fragment.theme.ThemeShareFragment f$0 -> a
 com.zpj.shouji.market.ui.fragment.theme.-$$Lambda$ThemeShareFragment$uzGOJ5IaaZMljD_6TzhgAf5-O_Q -> com.zpj.shouji.market.e.b.r0.s:
@@ -44079,60 +43930,60 @@ com.zpj.shouji.market.ui.fragment.theme.ThemeShareFragment -> com.zpj.shouji.mar
     android.widget.TextView tvAddApp -> j
     android.widget.TextView tvInfo -> m
     android.widget.TextView tvTitle -> l
-    39:41:void <init>() -> <init>
-    39:39:android.content.Context access$000(com.zpj.shouji.market.ui.fragment.theme.ThemeShareFragment) -> a
-    71:241:void initView(android.view.View,android.os.Bundle) -> a
-    39:39:com.zpj.shouji.market.ui.widget.NineGridView access$100(com.zpj.shouji.market.ui.fragment.theme.ThemeShareFragment) -> b
-    267:271:void lambda$initFlowLayout$7(java.util.List) -> b
-    39:39:java.util.List access$200(com.zpj.shouji.market.ui.fragment.theme.ThemeShareFragment) -> c
-    177:178:void lambda$initView$2(int) -> c
-    332:336:void lambda$showAppPicker$10(java.util.List) -> c
-    39:39:void access$300(com.zpj.shouji.market.ui.fragment.theme.ThemeShareFragment) -> d
-    306:308:void lambda$showUserPicker$8(java.lang.String) -> d
-    325:326:void lambda$showImagePicker$9(java.util.List) -> d
-    39:39:void access$400(com.zpj.shouji.market.ui.fragment.theme.ThemeShareFragment) -> e
-    79:82:void lambda$initView$0(android.view.View) -> e
+    38:40:void <init>() -> <init>
+    38:38:android.content.Context access$000(com.zpj.shouji.market.ui.fragment.theme.ThemeShareFragment) -> a
+    70:197:void initView(android.view.View,android.os.Bundle) -> a
+    38:38:com.zpj.shouji.market.ui.widget.NineGridView access$100(com.zpj.shouji.market.ui.fragment.theme.ThemeShareFragment) -> b
+    223:227:void lambda$initFlowLayout$7(java.util.List) -> b
+    38:38:java.util.List access$200(com.zpj.shouji.market.ui.fragment.theme.ThemeShareFragment) -> c
+    133:134:void lambda$initView$2(int) -> c
+    286:290:void lambda$showAppPicker$10(java.util.List) -> c
+    38:38:void access$300(com.zpj.shouji.market.ui.fragment.theme.ThemeShareFragment) -> d
+    262:264:void lambda$showUserPicker$8(java.lang.String) -> d
+    279:280:void lambda$showImagePicker$9(java.util.List) -> d
+    38:38:void access$400(com.zpj.shouji.market.ui.fragment.theme.ThemeShareFragment) -> e
+    78:81:void lambda$initView$0(android.view.View) -> e
     void lambda$uzGOJ5IaaZMljD_6TzhgAf5-O_Q(com.zpj.shouji.market.ui.fragment.theme.ThemeShareFragment) -> f
-    84:86:void lambda$initView$1(android.view.View) -> f
-    183:184:void lambda$initView$3(android.view.View) -> g
-    192:194:void lambda$initView$4(android.view.View) -> h
-    196:198:void lambda$initView$5(android.view.View) -> i
-    66:66:int getLayoutId() -> j
-    200:240:void lambda$initView$6(android.view.View) -> j
-    266:273:void initFlowLayout() -> m
-    296:301:void initNineGrid() -> n
-    276:287:void initUploadApp() -> o
-    258:262:boolean onBackPressedSupport() -> onBackPressedSupport
-    251:254:void onEnterAnimationEnd(android.os.Bundle) -> onEnterAnimationEnd
-    245:247:void onStop() -> onStop
-    331:337:void showAppPicker() -> p
-    312:328:void showImagePicker() -> q
-    304:309:void showUserPicker() -> r
-    61:62:void start() -> s
+    83:85:void lambda$initView$1(android.view.View) -> f
+    139:140:void lambda$initView$3(android.view.View) -> g
+    148:150:void lambda$initView$4(android.view.View) -> h
+    152:154:void lambda$initView$5(android.view.View) -> i
+    65:65:int getLayoutId() -> j
+    156:196:void lambda$initView$6(android.view.View) -> j
+    222:229:void initFlowLayout() -> m
+    252:257:void initNineGrid() -> n
+    232:243:void initUploadApp() -> o
+    214:218:boolean onBackPressedSupport() -> onBackPressedSupport
+    207:210:void onEnterAnimationEnd(android.os.Bundle) -> onEnterAnimationEnd
+    201:203:void onStop() -> onStop
+    285:291:void showAppPicker() -> p
+    268:282:void showImagePicker() -> q
+    260:265:void showUserPicker() -> r
+    60:61:void start() -> s
 com.zpj.shouji.market.ui.fragment.theme.ThemeShareFragment$1 -> com.zpj.shouji.market.e.b.r0.x$a:
     com.zpj.shouji.market.ui.fragment.theme.ThemeShareFragment this$0 -> a
-    96:96:void <init>(com.zpj.shouji.market.ui.fragment.theme.ThemeShareFragment) -> <init>
-    99:126:void onImageItemClicked(int,java.util.List) -> a
-    102:107:void lambda$null$0(java.util.List) -> a
-    130:131:void onAddItemClicked(int) -> a
-    135:136:void onImageItemDelete(int,java.lang.String) -> a
-    101:108:void lambda$onImageItemClicked$1(java.util.List) -> b
+    95:95:void <init>(com.zpj.shouji.market.ui.fragment.theme.ThemeShareFragment) -> <init>
+    98:117:void onImageItemClicked(int,java.util.List) -> a
+    101:106:void lambda$null$0(java.util.List) -> a
+    121:122:void onAddItemClicked(int) -> a
+    126:127:void onImageItemDelete(int,java.lang.String) -> a
+    100:107:void lambda$onImageItemClicked$1(java.util.List) -> b
 com.zpj.shouji.market.ui.fragment.theme.ThemeShareFragment$1$1 -> com.zpj.shouji.market.e.b.r0.x$a$a:
     com.zpj.shouji.market.ui.fragment.theme.ThemeShareFragment$1 this$1 -> a
-    111:111:void <init>(com.zpj.shouji.market.ui.fragment.theme.ThemeShareFragment$1) -> <init>
-    114:115:void onSrcViewUpdate(com.zpj.fragmentation.dialog.impl.ImageViewerDialogFragment3,int) -> a
+    110:110:void <init>(com.zpj.shouji.market.ui.fragment.theme.ThemeShareFragment$1) -> <init>
+    113:114:void onSrcViewUpdate(com.zpj.fragmentation.dialog.impl.ImageViewerDialogFragment3,int) -> a
 com.zpj.shouji.market.ui.fragment.theme.ThemeShareFragment$2 -> com.zpj.shouji.market.e.b.r0.x$b:
     com.zpj.shouji.market.ui.fragment.theme.ThemeShareFragment this$0 -> a
-    185:185:void <init>(com.zpj.shouji.market.ui.fragment.theme.ThemeShareFragment) -> <init>
-    188:189:void onClick(android.view.View) -> onClick
+    141:141:void <init>(com.zpj.shouji.market.ui.fragment.theme.ThemeShareFragment) -> <init>
+    144:145:void onClick(android.view.View) -> onClick
 com.zpj.shouji.market.ui.fragment.theme.ThemeShareFragment$3 -> com.zpj.shouji.market.e.b.r0.y:
     com.zpj.shouji.market.ui.fragment.theme.ThemeShareFragment this$0 -> a
-    222:222:void <init>(com.zpj.shouji.market.ui.fragment.theme.ThemeShareFragment) -> <init>
-    225:226:void run() -> run
+    178:178:void <init>(com.zpj.shouji.market.ui.fragment.theme.ThemeShareFragment) -> <init>
+    181:182:void run() -> run
 com.zpj.shouji.market.ui.fragment.theme.ThemeShareFragment$4 -> com.zpj.shouji.market.e.b.r0.z:
-    228:228:void <init>(com.zpj.shouji.market.ui.fragment.theme.ThemeShareFragment) -> <init>
-    232:232:void onBytesWritten(int) -> a
-    236:236:boolean shouldContinue() -> a
+    184:184:void <init>(com.zpj.shouji.market.ui.fragment.theme.ThemeShareFragment) -> <init>
+    188:188:void onBytesWritten(int) -> a
+    192:192:boolean shouldContinue() -> a
 com.zpj.shouji.market.ui.fragment.theme.TopicThemeListFragment -> com.zpj.shouji.market.e.b.r0.a0:
     java.lang.String topic -> k
     10:10:void <init>() -> <init>
@@ -44234,38 +44085,38 @@ com.zpj.shouji.market.ui.fragment.wallpaper.WallpaperShareFragment -> com.zpj.sh
     android.widget.TextView tvShareMode -> g
     java.io.File imgFile -> i
     com.zpj.shouji.market.ui.widget.flowlayout.FlowLayout flowLayout -> d
-    35:47:void <init>() -> <init>
-    35:35:java.io.File access$000(com.zpj.shouji.market.ui.fragment.wallpaper.WallpaperShareFragment) -> a
-    35:35:java.io.File access$002(com.zpj.shouji.market.ui.fragment.wallpaper.WallpaperShareFragment,java.io.File) -> a
-    61:106:void initView(android.view.View,android.os.Bundle) -> a
-    133:135:void lambda$null$4(int,android.view.View,java.lang.String) -> a
-    35:35:android.content.Context access$100(com.zpj.shouji.market.ui.fragment.wallpaper.WallpaperShareFragment) -> b
-    132:145:void lambda$initFlowLayout$5(java.util.List) -> b
-    35:35:android.widget.ImageView access$200(com.zpj.shouji.market.ui.fragment.wallpaper.WallpaperShareFragment) -> c
-    71:72:void lambda$initView$0(int) -> c
-    35:35:android.content.Context access$300(com.zpj.shouji.market.ui.fragment.wallpaper.WallpaperShareFragment) -> d
-    152:154:void lambda$showUserPicker$6(java.lang.String) -> d
-    35:35:android.widget.FrameLayout access$400(com.zpj.shouji.market.ui.fragment.wallpaper.WallpaperShareFragment) -> e
-    77:78:void lambda$initView$1(android.view.View) -> e
-    81:83:void lambda$initView$2(android.view.View) -> f
-    85:105:void lambda$initView$3(android.view.View) -> g
-    56:56:int getLayoutId() -> j
-    131:147:void initFlowLayout() -> m
-    158:179:void showImagePicker() -> n
-    150:155:void showUserPicker() -> o
-    123:127:boolean onBackPressedSupport() -> onBackPressedSupport
-    183:184:void onClick(android.view.View) -> onClick
-    116:119:void onEnterAnimationEnd(android.os.Bundle) -> onEnterAnimationEnd
-    110:112:void onStop() -> onStop
-    51:52:void start() -> p
+    33:45:void <init>() -> <init>
+    33:33:java.io.File access$000(com.zpj.shouji.market.ui.fragment.wallpaper.WallpaperShareFragment) -> a
+    33:33:java.io.File access$002(com.zpj.shouji.market.ui.fragment.wallpaper.WallpaperShareFragment,java.io.File) -> a
+    59:104:void initView(android.view.View,android.os.Bundle) -> a
+    131:133:void lambda$null$4(int,android.view.View,java.lang.String) -> a
+    33:33:android.content.Context access$100(com.zpj.shouji.market.ui.fragment.wallpaper.WallpaperShareFragment) -> b
+    130:143:void lambda$initFlowLayout$5(java.util.List) -> b
+    33:33:android.widget.ImageView access$200(com.zpj.shouji.market.ui.fragment.wallpaper.WallpaperShareFragment) -> c
+    69:70:void lambda$initView$0(int) -> c
+    33:33:android.content.Context access$300(com.zpj.shouji.market.ui.fragment.wallpaper.WallpaperShareFragment) -> d
+    150:152:void lambda$showUserPicker$6(java.lang.String) -> d
+    33:33:android.widget.FrameLayout access$400(com.zpj.shouji.market.ui.fragment.wallpaper.WallpaperShareFragment) -> e
+    75:76:void lambda$initView$1(android.view.View) -> e
+    79:81:void lambda$initView$2(android.view.View) -> f
+    83:103:void lambda$initView$3(android.view.View) -> g
+    54:54:int getLayoutId() -> j
+    129:145:void initFlowLayout() -> m
+    156:175:void showImagePicker() -> n
+    148:153:void showUserPicker() -> o
+    121:125:boolean onBackPressedSupport() -> onBackPressedSupport
+    179:180:void onClick(android.view.View) -> onClick
+    114:117:void onEnterAnimationEnd(android.os.Bundle) -> onEnterAnimationEnd
+    108:110:void onStop() -> onStop
+    49:50:void start() -> p
 com.zpj.shouji.market.ui.fragment.wallpaper.WallpaperShareFragment$1 -> com.zpj.shouji.market.e.b.s0.p:
-    94:94:void <init>(com.zpj.shouji.market.ui.fragment.wallpaper.WallpaperShareFragment) -> <init>
-    98:98:void onBytesWritten(int) -> a
-    102:102:boolean shouldContinue() -> a
+    92:92:void <init>(com.zpj.shouji.market.ui.fragment.wallpaper.WallpaperShareFragment) -> <init>
+    96:96:void onBytesWritten(int) -> a
+    100:100:boolean shouldContinue() -> a
 com.zpj.shouji.market.ui.fragment.wallpaper.WallpaperShareFragment$2 -> com.zpj.shouji.market.e.b.s0.q$a:
     com.zpj.shouji.market.ui.fragment.wallpaper.WallpaperShareFragment this$0 -> a
-    169:169:void <init>(com.zpj.shouji.market.ui.fragment.wallpaper.WallpaperShareFragment) -> <init>
-    172:176:void onSelected(java.util.List) -> a
+    165:165:void <init>(com.zpj.shouji.market.ui.fragment.wallpaper.WallpaperShareFragment) -> <init>
+    168:172:void onSelected(java.util.List) -> a
 com.zpj.shouji.market.ui.widget.-$$Lambda$ActionPanel$Qeo2mgZCZctJj4IjojHaRlpMTqI -> com.zpj.shouji.market.ui.widget.a:
     com.zpj.shouji.market.ui.widget.ActionPanel f$0 -> a
 com.zpj.shouji.market.ui.widget.-$$Lambda$ActionPanel$bf1anP7JTLejUCc9BNZwUC0rwrQ -> com.zpj.shouji.market.ui.widget.b:
@@ -44304,25 +44155,25 @@ com.zpj.shouji.market.ui.widget.-$$Lambda$ReplyPanel$6IUBE3QDhSQ-TbxydFEG7iXCEMk
     com.zpj.shouji.market.ui.widget.ReplyPanel f$0 -> a
 com.zpj.shouji.market.ui.widget.-$$Lambda$ReplyPanel$M6My-ENxOtCtBNfJ5ZeZ3rbagP8 -> com.zpj.shouji.market.ui.widget.n:
     com.zpj.shouji.market.ui.widget.ReplyPanel f$0 -> a
-com.zpj.shouji.market.ui.widget.-$$Lambda$ReplyPanel$R1GwaxRg1mQ_oVYufjsMuHckQYc -> com.zpj.shouji.market.ui.widget.o:
+com.zpj.shouji.market.ui.widget.-$$Lambda$ReplyPanel$MhhOIxnJQ9Pi86VPVFBj-bdDUpo -> com.zpj.shouji.market.ui.widget.o:
     com.zpj.shouji.market.ui.widget.ReplyPanel f$0 -> a
-com.zpj.shouji.market.ui.widget.-$$Lambda$ReplyPanel$S4tGaoL9hUSuHjAXotvTZdD-deE -> com.zpj.shouji.market.ui.widget.p:
+    void onSelected(java.util.List) -> a
+com.zpj.shouji.market.ui.widget.-$$Lambda$ReplyPanel$R1GwaxRg1mQ_oVYufjsMuHckQYc -> com.zpj.shouji.market.ui.widget.p:
     com.zpj.shouji.market.ui.widget.ReplyPanel f$0 -> a
-com.zpj.shouji.market.ui.widget.-$$Lambda$ReplyPanel$Td5XON54GAOI8vYSZykDVvJWdIw -> com.zpj.shouji.market.ui.widget.q:
+com.zpj.shouji.market.ui.widget.-$$Lambda$ReplyPanel$S4tGaoL9hUSuHjAXotvTZdD-deE -> com.zpj.shouji.market.ui.widget.q:
     com.zpj.shouji.market.ui.widget.ReplyPanel f$0 -> a
-com.zpj.shouji.market.ui.widget.-$$Lambda$ReplyPanel$akQF7khpNYcoqtQe4WjGV9rwU30 -> com.zpj.shouji.market.ui.widget.r:
+com.zpj.shouji.market.ui.widget.-$$Lambda$ReplyPanel$Td5XON54GAOI8vYSZykDVvJWdIw -> com.zpj.shouji.market.ui.widget.r:
+    com.zpj.shouji.market.ui.widget.ReplyPanel f$0 -> a
+com.zpj.shouji.market.ui.widget.-$$Lambda$ReplyPanel$akQF7khpNYcoqtQe4WjGV9rwU30 -> com.zpj.shouji.market.ui.widget.s:
     com.zpj.shouji.market.ui.widget.ReplyPanel f$0 -> a
     void onCallback(java.lang.Object) -> a
-com.zpj.shouji.market.ui.widget.-$$Lambda$ReplyPanel$eZ4b92ge6ffVr9eZk1fgJkmZnNM -> com.zpj.shouji.market.ui.widget.s:
+com.zpj.shouji.market.ui.widget.-$$Lambda$ReplyPanel$eZ4b92ge6ffVr9eZk1fgJkmZnNM -> com.zpj.shouji.market.ui.widget.t:
     java.util.List f$1 -> b
     com.zpj.shouji.market.ui.widget.ReplyPanel f$0 -> a
-com.zpj.shouji.market.ui.widget.-$$Lambda$ReplyPanel$jJVPW4-BlO77rfR21z3nXjJ9Mck -> com.zpj.shouji.market.ui.widget.t:
+com.zpj.shouji.market.ui.widget.-$$Lambda$ReplyPanel$jJVPW4-BlO77rfR21z3nXjJ9Mck -> com.zpj.shouji.market.ui.widget.u:
     com.zpj.recyclerview.EasyViewHolder f$2 -> c
     com.zpj.shouji.market.ui.widget.ReplyPanel f$0 -> a
     android.widget.ImageView f$1 -> b
-com.zpj.shouji.market.ui.widget.-$$Lambda$ReplyPanel$pTkw5-JO3LP9917Dt_mNcnFlgJA -> com.zpj.shouji.market.ui.widget.u:
-    com.zpj.shouji.market.ui.widget.ReplyPanel f$0 -> a
-    void onSelected(java.util.List) -> a
 com.zpj.shouji.market.ui.widget.-$$Lambda$ReplyPanel$ut0yI_ZCInERQ-lIi9TbttGIueg -> com.zpj.shouji.market.ui.widget.v:
     com.zpj.shouji.market.ui.widget.ReplyPanel f$0 -> a
     void onBindViewHolder(com.zpj.recyclerview.EasyViewHolder,java.util.List,int,java.util.List) -> a
@@ -44863,59 +44714,59 @@ com.zpj.shouji.market.ui.widget.ReplyPanel -> com.zpj.shouji.market.ui.widget.Re
     com.lqr.emoji.EmotionLayout elEmotion -> h
     android.widget.ImageView ivIcon -> m
     com.zpj.shouji.market.ui.widget.ReplyPanel$OnOperationListener listener -> i
-    102:104:void <init>(android.content.Context) -> <init>
-    107:109:void <init>(android.content.Context,android.util.AttributeSet) -> <init>
-    112:114:void <init>(android.content.Context,android.util.AttributeSet,int) -> <init>
-    69:69:java.util.List access$000(com.zpj.shouji.market.ui.widget.ReplyPanel) -> a
-    117:119:void init(android.content.Context) -> a
-    138:193:void lambda$initWidget$0(android.view.View) -> a
-    257:319:void lambda$initWidget$6(com.zpj.recyclerview.EasyViewHolder,java.util.List,int,java.util.List) -> a
-    265:318:void lambda$null$5(android.widget.ImageView,com.zpj.recyclerview.EasyViewHolder,android.view.View) -> a
-    268:274:void lambda$null$3(java.util.List) -> a
-    371:384:android.widget.ImageView addAction(int,android.view.View$OnClickListener) -> a
-    408:412:void clear() -> a
-    437:461:void onKeyboardHeightChanged(int,int) -> a
-    69:69:com.zpj.recyclerview.EasyRecyclerView access$100(com.zpj.shouji.market.ui.widget.ReplyPanel) -> b
-    195:200:void lambda$initWidget$1(android.view.View) -> b
-    267:275:void lambda$null$4(java.util.List) -> b
-    424:425:void hideEmojiPanel() -> b
-    128:128:boolean isEmotionPanelShow() -> c
-    224:226:void lambda$initWidget$2(android.view.View) -> c
-    465:469:void lambda$showAppPicker$9(java.util.List) -> c
-    336:344:void lambda$initWidget$7(android.view.View) -> d
-    367:368:void removeAppAction() -> d
-    346:355:void lambda$initWidget$8(android.view.View) -> e
-    473:482:void initUploadApp() -> e
-    132:356:void initWidget() -> f
-    464:470:void showAppPicker() -> g
-    404:404:android.widget.EditText getEditor() -> getEditor
-    359:359:java.util.List getImgList() -> getImgList
-    485:485:com.zpj.shouji.market.model.InstalledAppInfo getSelectedAppInfo() -> getSelectedAppInfo
-    123:125:void onFinishInflate() -> onFinishInflate
-    429:433:void setOnOperationListener(com.zpj.shouji.market.ui.widget.ReplyPanel$OnOperationListener) -> setOnOperationListener
+    99:101:void <init>(android.content.Context) -> <init>
+    104:106:void <init>(android.content.Context,android.util.AttributeSet) -> <init>
+    109:111:void <init>(android.content.Context,android.util.AttributeSet,int) -> <init>
+    66:66:java.util.List access$000(com.zpj.shouji.market.ui.widget.ReplyPanel) -> a
+    114:116:void init(android.content.Context) -> a
+    135:187:void lambda$initWidget$0(android.view.View) -> a
+    251:289:void lambda$initWidget$6(com.zpj.recyclerview.EasyViewHolder,java.util.List,int,java.util.List) -> a
+    259:288:void lambda$null$5(android.widget.ImageView,com.zpj.recyclerview.EasyViewHolder,android.view.View) -> a
+    262:268:void lambda$null$3(java.util.List) -> a
+    341:354:android.widget.ImageView addAction(int,android.view.View$OnClickListener) -> a
+    378:382:void clear() -> a
+    407:431:void onKeyboardHeightChanged(int,int) -> a
+    66:66:com.zpj.recyclerview.EasyRecyclerView access$100(com.zpj.shouji.market.ui.widget.ReplyPanel) -> b
+    189:194:void lambda$initWidget$1(android.view.View) -> b
+    261:269:void lambda$null$4(java.util.List) -> b
+    394:395:void hideEmojiPanel() -> b
+    125:125:boolean isEmotionPanelShow() -> c
+    218:220:void lambda$initWidget$2(android.view.View) -> c
+    435:439:void lambda$showAppPicker$9(java.util.List) -> c
+    306:314:void lambda$initWidget$7(android.view.View) -> d
+    337:338:void removeAppAction() -> d
+    316:325:void lambda$initWidget$8(android.view.View) -> e
+    443:452:void initUploadApp() -> e
+    129:326:void initWidget() -> f
+    434:440:void showAppPicker() -> g
+    374:374:android.widget.EditText getEditor() -> getEditor
+    329:329:java.util.List getImgList() -> getImgList
+    455:455:com.zpj.shouji.market.model.InstalledAppInfo getSelectedAppInfo() -> getSelectedAppInfo
+    120:122:void onFinishInflate() -> onFinishInflate
+    399:403:void setOnOperationListener(com.zpj.shouji.market.ui.widget.ReplyPanel$OnOperationListener) -> setOnOperationListener
 com.zpj.shouji.market.ui.widget.ReplyPanel$1 -> com.zpj.shouji.market.ui.widget.a0:
     com.zpj.shouji.market.ui.widget.ReplyPanel this$0 -> a
-    158:158:void <init>(com.zpj.shouji.market.ui.widget.ReplyPanel) -> <init>
-    161:165:void onSelected(java.util.List) -> a
+    152:152:void <init>(com.zpj.shouji.market.ui.widget.ReplyPanel) -> <init>
+    155:159:void onSelected(java.util.List) -> a
 com.zpj.shouji.market.ui.widget.ReplyPanel$2 -> com.zpj.shouji.market.ui.widget.ReplyPanel$a:
-    210:210:void <init>(com.zpj.shouji.market.ui.widget.ReplyPanel) -> <init>
-    213:214:void onEmotionAddClick(android.view.View) -> a
-    218:219:void onEmotionSettingClick(android.view.View) -> b
+    204:204:void <init>(com.zpj.shouji.market.ui.widget.ReplyPanel) -> <init>
+    207:208:void onEmotionAddClick(android.view.View) -> a
+    212:213:void onEmotionSettingClick(android.view.View) -> b
 com.zpj.shouji.market.ui.widget.ReplyPanel$3 -> com.zpj.shouji.market.ui.widget.ReplyPanel$b:
     com.zpj.shouji.market.ui.widget.ReplyPanel this$0 -> a
-    320:320:void <init>(com.zpj.shouji.market.ui.widget.ReplyPanel) -> <init>
-    320:320:void onClick(com.zpj.recyclerview.EasyViewHolder,android.view.View,java.lang.Object) -> a
-    323:330:void onClick(com.zpj.recyclerview.EasyViewHolder,android.view.View,com.zpj.matisse.entity.Item) -> a
+    290:290:void <init>(com.zpj.shouji.market.ui.widget.ReplyPanel) -> <init>
+    290:290:void onClick(com.zpj.recyclerview.EasyViewHolder,android.view.View,java.lang.Object) -> a
+    293:300:void onClick(com.zpj.recyclerview.EasyViewHolder,android.view.View,com.zpj.imagepicker.entity.Item) -> a
 com.zpj.shouji.market.ui.widget.ReplyPanel$4 -> com.zpj.shouji.market.ui.widget.ReplyPanel$c:
     com.zpj.shouji.market.ui.widget.ReplyPanel this$0 -> c
-    236:236:void <init>(com.zpj.shouji.market.ui.widget.ReplyPanel,android.content.Context) -> <init>
-    239:250:com.yanyusong.y_divideritemdecoration.Y_Divider getDivider(int) -> a
+    230:230:void <init>(com.zpj.shouji.market.ui.widget.ReplyPanel,android.content.Context) -> <init>
+    233:244:com.yanyusong.y_divideritemdecoration.Y_Divider getDivider(int) -> a
 com.zpj.shouji.market.ui.widget.ReplyPanel$5 -> com.zpj.shouji.market.ui.widget.b0:
     boolean isFirst -> a
     android.widget.ImageView val$img -> b
     com.zpj.shouji.market.ui.widget.ReplyPanel this$0 -> c
-    278:279:void <init>(com.zpj.shouji.market.ui.widget.ReplyPanel,android.widget.ImageView) -> <init>
-    282:302:void onSrcViewUpdate(com.zpj.fragmentation.dialog.impl.ImageViewerDialogFragment3,int) -> a
+    272:273:void <init>(com.zpj.shouji.market.ui.widget.ReplyPanel,android.widget.ImageView) -> <init>
+    276:285:void onSrcViewUpdate(com.zpj.fragmentation.dialog.impl.ImageViewerDialogFragment3,int) -> a
 com.zpj.shouji.market.ui.widget.ReplyPanel$OnOperationListener -> com.zpj.shouji.market.ui.widget.ReplyPanel$d:
     void sendText(java.lang.String) -> a
 com.zpj.shouji.market.ui.widget.ScaleTransitionPagerTitleView -> com.zpj.shouji.market.ui.widget.ScaleTransitionPagerTitleView:
@@ -45086,13 +44937,13 @@ com.zpj.shouji.market.ui.widget.flowlayout.FlowLayout -> com.zpj.shouji.market.u
     279:286:void addItems(java.lang.String[]) -> a
     289:293:void addItem(java.lang.String) -> a
     296:300:void addItem(int,java.lang.String) -> a
+    307:309:void clear() -> a
     321:332:void remove(java.lang.String,boolean) -> a
     98:101:boolean lambda$new$1(com.zpj.recyclerview.EasyViewHolder,android.view.View,com.zpj.shouji.market.ui.widget.flowlayout.FlowLayout$FlowItem) -> b
-    307:309:void clear() -> b
+    303:303:int count() -> b
     312:314:void remove(int) -> b
     317:318:void remove(java.lang.String) -> b
     180:194:int getRandomColor(int) -> c
-    303:303:int count() -> c
     233:237:java.util.List getSelectedItem() -> getSelectedItem
     264:266:void setItems(java.util.List) -> setItems
     241:242:void setMaxSelectCount(int) -> setMaxSelectCount
@@ -45890,12 +45741,12 @@ com.zpj.shouji.market.utils.ThemeUtils -> com.zpj.shouji.market.utils.k0:
     50:54:int getTextColorMinor(android.content.Context) -> c
     42:46:int getTextColorNormal(android.content.Context) -> d
 com.zpj.shouji.market.utils.UploadUtils -> com.zpj.shouji.market.utils.l0:
-    29:83:void upload(com.zpj.fragmentation.SupportActivity,boolean) -> a
+    26:76:void upload(com.zpj.fragmentation.SupportActivity,boolean) -> a
 com.zpj.shouji.market.utils.UploadUtils$1 -> com.zpj.shouji.market.utils.l0$a:
     boolean val$isPickAvatar -> a
     com.zpj.fragmentation.SupportActivity val$activity -> b
-    40:40:void <init>(boolean,com.zpj.fragmentation.SupportActivity) -> <init>
-    43:80:void onSelected(java.util.List) -> a
+    33:33:void <init>(boolean,com.zpj.fragmentation.SupportActivity) -> <init>
+    36:73:void onSelected(java.util.List) -> a
 com.zpj.toast.AbstractToastStyle -> com.zpj.toast.a:
     7:7:void <init>() -> <init>
     int getLayoutId() -> a

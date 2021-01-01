@@ -1,6 +1,5 @@
 package com.zpj.shouji.market.ui.fragment.wallpaper;
 
-import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -13,11 +12,10 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.zpj.http.core.IHttp;
-import com.zpj.matisse.Matisse;
-import com.zpj.matisse.MimeType;
-import com.zpj.matisse.engine.impl.GlideEngine;
-import com.zpj.matisse.entity.Item;
-import com.zpj.matisse.listener.OnSelectedListener;
+import com.zpj.imagepicker.ImagePicker;
+import com.zpj.imagepicker.MimeType;
+import com.zpj.imagepicker.engine.impl.GlideEngine;
+import com.zpj.imagepicker.entity.Item;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.api.WallpaperApi;
 import com.zpj.shouji.market.model.WallpaperTag;
@@ -156,17 +154,15 @@ public class WallpaperShareFragment extends BaseSwipeBackFragment
 
     private void showImagePicker() {
         hideSoftInput();
-        Matisse.from(_mActivity)
+        ImagePicker.from(_mActivity)
                 .choose(MimeType.ofImage())
                 .countable(true)
                 .maxSelectable(1)
                 //.addFilter(new GifSizeFilter(320, 320, 5 * Filter.K * Filter.K))
                 .spanCount(3)
-                .restrictOrientation(ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED)
                 .thumbnailScale(0.85f)//缩放比例
                 .imageEngine(new GlideEngine())
-                .capture(false)
-                .setOnSelectedListener(new OnSelectedListener() {
+                .setOnSelectedListener(new ImagePicker.OnSelectedListener() {
                     @Override
                     public void onSelected(@NonNull List<Item> itemList) {
                         imgFile = itemList.get(0).getFile(context);

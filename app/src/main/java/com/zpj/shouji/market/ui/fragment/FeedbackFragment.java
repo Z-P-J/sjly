@@ -1,7 +1,6 @@
 package com.zpj.shouji.market.ui.fragment;
 
 import android.content.Context;
-import android.content.pm.ActivityInfo;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -14,11 +13,11 @@ import android.widget.TextView;
 
 import com.zpj.fragmentation.dialog.impl.ImageViewerDialogFragment3;
 import com.zpj.http.core.IHttp;
-import com.zpj.matisse.Matisse;
-import com.zpj.matisse.MimeType;
-import com.zpj.matisse.engine.impl.GlideEngine;
-import com.zpj.matisse.entity.Item;
-import com.zpj.matisse.ui.fragment.LocalImageViewer;
+import com.zpj.imagepicker.ImagePicker;
+import com.zpj.imagepicker.MimeType;
+import com.zpj.imagepicker.engine.impl.GlideEngine;
+import com.zpj.imagepicker.entity.Item;
+import com.zpj.imagepicker.ui.fragment.LocalImageViewer;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.api.CommentApi;
 import com.zpj.shouji.market.ui.fragment.base.BaseSwipeBackFragment;
@@ -179,16 +178,14 @@ public class FeedbackFragment extends BaseSwipeBackFragment {
 
     private void showImagePicker() {
         hideSoftInput();
-        Matisse.from(_mActivity)
+        ImagePicker.from(_mActivity)
                 .choose(MimeType.ofImage())
                 .countable(true)
                 .maxSelectable(9)
                 //.addFilter(new GifSizeFilter(320, 320, 5 * Filter.K * Filter.K))
                 .spanCount(3)
-                .restrictOrientation(ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED)
                 .thumbnailScale(0.85f)//缩放比例
                 .imageEngine(new GlideEngine())
-                .capture(false)
                 .setDefaultSelection(imgList)
                 .setOnSelectedListener(itemList -> {
                     postDelayed(this::initNineGrid, 500);

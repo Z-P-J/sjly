@@ -1,6 +1,5 @@
 package com.zpj.shouji.market.ui.fragment.theme;
 
-import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -14,11 +13,11 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.zpj.fragmentation.dialog.impl.ImageViewerDialogFragment3;
 import com.zpj.http.core.IHttp;
-import com.zpj.matisse.Matisse;
-import com.zpj.matisse.MimeType;
-import com.zpj.matisse.engine.impl.GlideEngine;
-import com.zpj.matisse.entity.Item;
-import com.zpj.matisse.ui.fragment.LocalImageViewer;
+import com.zpj.imagepicker.ImagePicker;
+import com.zpj.imagepicker.MimeType;
+import com.zpj.imagepicker.engine.impl.GlideEngine;
+import com.zpj.imagepicker.entity.Item;
+import com.zpj.imagepicker.ui.fragment.LocalImageViewer;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.api.PublishApi;
 import com.zpj.shouji.market.api.ThemePublishApi;
@@ -114,14 +113,6 @@ public class ThemeShareFragment extends BaseSwipeBackFragment {
                                 popup.updateSrcView(nineGridView.getImageView(position));
                             }
                         })
-//                        .setImageList(imgList)
-//                        .setNowIndex(position)
-//                        .setSourceImageView(new SourceImageViewGet<Item>() {
-//                            @Override
-//                            public void updateImageView(ImageItemView<Item> imageItemView, int pos, boolean isCurrent) {
-//                                imageItemView.update(nineGridView.getImageView(pos));
-//                            }
-//                        })
                         .show(context);
             }
 
@@ -135,41 +126,6 @@ public class ThemeShareFragment extends BaseSwipeBackFragment {
                 imgList.remove(position);
             }
         });
-//        nineGridView.setOnItemClickListener(new NineGridView.onItemClickListener() {
-//            @Override
-//            public void onNineGirdAddMoreClick(int dValue) {
-//                showImagePicker();
-//            }
-//
-//            @Override
-//            public void onNineGirdItemClick(int position, NineGridBean gridBean, NineGirdImageContainer imageContainer) {
-//                new CustomImageViewerDialogFragment2()
-//                        .setOnSelectedListener(itemList -> {
-//                            postDelayed(() -> {
-//                                if (imgList.size() != itemList.size()) {
-//                                    imgList.clear();
-//                                    imgList.addAll(itemList);
-//                                    initNineGrid();
-//                                }
-//                            }, 100);
-//                        })
-//                        .setImageList(imgList)
-//                        .setNowIndex(position)
-//                        .setSourceImageView(new SourceImageViewGet<Item>() {
-//                            @Override
-//                            public void updateImageView(ImageItemView<Item> imageItemView, int pos, boolean isCurrent) {
-//                                NineGirdImageContainer view = (NineGirdImageContainer) nineGridView.getChildAt(pos);
-//                                imageItemView.update(view.getImageView());
-//                            }
-//                        })
-//                        .show(context);
-//            }
-//
-//            @Override
-//            public void onNineGirdItemDeleted(int position, NineGridBean gridBean, NineGirdImageContainer imageContainer) {
-//                imgList.remove(position);
-//            }
-//        });
 
         actionPanel = view.findViewById(R.id.panel_action);
         actionPanel.attachEditText(etContent);
@@ -310,16 +266,14 @@ public class ThemeShareFragment extends BaseSwipeBackFragment {
 
     private void showImagePicker() {
         hideSoftInput();
-        Matisse.from(_mActivity)
+        ImagePicker.from(_mActivity)
                 .choose(MimeType.ofImage())
                 .countable(true)
                 .maxSelectable(9)
                 //.addFilter(new GifSizeFilter(320, 320, 5 * Filter.K * Filter.K))
                 .spanCount(3)
-                .restrictOrientation(ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED)
                 .thumbnailScale(0.85f)//缩放比例
                 .imageEngine(new GlideEngine())
-                .capture(false)
                 .setDefaultSelection(imgList)
                 .setOnSelectedListener(itemList -> {
                     postDelayed(this::initNineGrid, 500);

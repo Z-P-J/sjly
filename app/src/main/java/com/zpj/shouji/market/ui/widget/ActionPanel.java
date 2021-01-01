@@ -30,7 +30,7 @@ import android.widget.TextView;
 import com.lqr.emoji.EmotionLayout;
 import com.lqr.emoji.IEmotionExtClickListener;
 import com.lqr.emoji.IEmotionSelectedListener;
-import com.zpj.matisse.entity.Item;
+import com.zpj.imagepicker.entity.Item;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.utils.ThemeUtils;
 import com.zpj.toast.ZToast;

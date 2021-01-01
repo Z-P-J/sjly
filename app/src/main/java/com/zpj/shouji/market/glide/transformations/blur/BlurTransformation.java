@@ -3,6 +3,7 @@ package com.zpj.shouji.market.glide.transformations.blur;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.support.annotation.NonNull;
+import android.util.Log;
 
 import com.bumptech.glide.load.engine.bitmap_recycle.BitmapPool;
 import com.bumptech.glide.load.resource.bitmap.BitmapTransformation;
@@ -21,6 +22,8 @@ public class BlurTransformation extends BitmapTransformation {
 
     private int radius;
     private int sampling;
+
+    private int count = 0;
 
     public BlurTransformation() {
         this(null, DEFAULT_RADIUS, DEFAULT_DOWN_SAMPLING);
@@ -55,7 +58,8 @@ public class BlurTransformation extends BitmapTransformation {
 //        Paint paint = new Paint();
 //        paint.setFlags(Paint.FILTER_BITMAP_FLAG);
 //        canvas.drawBitmap(toTransform, 0, 0, paint);
-
+count++;
+        Log.d(ID, "count=" + count);
         toTransform = ZBlurry.with(toTransform)
                 .keepSize(false)
 //                .backgroundColor(Color.GRAY)
