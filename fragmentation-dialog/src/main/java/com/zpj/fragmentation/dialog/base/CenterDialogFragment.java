@@ -1,20 +1,18 @@
 package com.zpj.fragmentation.dialog.base;
 
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v7.widget.CardView;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
 
+import com.zpj.fragmentation.dialog.R;
 import com.zpj.fragmentation.dialog.animator.PopupAnimator;
 import com.zpj.fragmentation.dialog.animator.ScaleAlphaAnimator;
 import com.zpj.fragmentation.dialog.enums.PopupAnimation;
 import com.zpj.fragmentation.dialog.impl.FullScreenDialogFragment;
-import com.zpj.fragmentation.dialog.R;
 import com.zpj.fragmentation.dialog.utils.DialogThemeUtils;
 import com.zpj.utils.ScreenUtils;
 

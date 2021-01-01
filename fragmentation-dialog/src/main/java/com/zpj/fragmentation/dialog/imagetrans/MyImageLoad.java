@@ -4,9 +4,7 @@ import android.content.ContentResolver;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.util.Log;
-import android.widget.ImageView;
 
-import java.io.File;
 import java.util.HashMap;
 import java.util.regex.Pattern;
 

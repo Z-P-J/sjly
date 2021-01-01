@@ -1,13 +1,12 @@
 package com.zpj.fragmentation.queue;
 
-import android.os.Handler;
 import android.os.Looper;
-
-import java.util.LinkedList;
-import java.util.Queue;
 
 import com.zpj.fragmentation.ISupportFragment;
 import com.zpj.fragmentation.SupportHelper;
+
+import java.util.LinkedList;
+import java.util.Queue;
 
 /**
  * The queue of perform action.

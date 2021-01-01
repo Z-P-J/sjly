@@ -6,7 +6,6 @@ import android.support.v7.widget.AppCompatTextView;
 import android.text.SpannableStringBuilder;
 import android.text.TextUtils;
 import android.util.AttributeSet;
-import android.widget.TextView;
 
 import com.lqr.emoji.MoonUtils;
 import com.zpj.shouji.market.R;

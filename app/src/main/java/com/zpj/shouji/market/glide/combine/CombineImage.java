@@ -1,6 +1,5 @@
 package com.zpj.shouji.market.glide.combine;
 
-import android.graphics.Bitmap;
 import android.text.TextUtils;
 
 import com.zpj.utils.CipherUtils;

@@ -2,6 +2,7 @@ package com.zpj.shouji.market.ui.fragment.theme;
 
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
 import android.view.View;
@@ -11,14 +12,13 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-import com.zpj.fragmentation.dialog.imagetrans.ImageItemView;
-import com.zpj.fragmentation.dialog.imagetrans.listener.SourceImageViewGet;
+import com.zpj.fragmentation.dialog.impl.ImageViewerDialogFragment3;
 import com.zpj.http.core.IHttp;
 import com.zpj.matisse.Matisse;
 import com.zpj.matisse.MimeType;
 import com.zpj.matisse.engine.impl.GlideEngine;
 import com.zpj.matisse.entity.Item;
-import com.zpj.matisse.ui.fragment.CustomImageViewerDialogFragment2;
+import com.zpj.matisse.ui.fragment.LocalImageViewer;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.api.PublishApi;
 import com.zpj.shouji.market.api.ThemePublishApi;
@@ -96,7 +96,7 @@ public class ThemeShareFragment extends BaseSwipeBackFragment {
         nineGridView.setCallback(new NineGridView.Callback() {
             @Override
             public void onImageItemClicked(int position, List<String> urls) {
-                new CustomImageViewerDialogFragment2()
+                new LocalImageViewer()
                         .setOnSelectedListener(itemList -> {
                             postDelayed(() -> {
                                 if (imgList.size() != itemList.size()) {
@@ -106,14 +106,22 @@ public class ThemeShareFragment extends BaseSwipeBackFragment {
                                 }
                             }, 100);
                         })
-                        .setImageList(imgList)
-                        .setNowIndex(position)
-                        .setSourceImageView(new SourceImageViewGet<Item>() {
+                        .setImageUrls(imgList)
+                        .setSrcView(nineGridView.getImageView(position), position)
+                        .setSrcViewUpdateListener(new ImageViewerDialogFragment3.OnSrcViewUpdateListener<Item>() {
                             @Override
-                            public void updateImageView(ImageItemView<Item> imageItemView, int pos, boolean isCurrent) {
-                                imageItemView.update(nineGridView.getImageView(pos));
+                            public void onSrcViewUpdate(@NonNull ImageViewerDialogFragment3<Item> popup, int position) {
+                                popup.updateSrcView(nineGridView.getImageView(position));
                             }
                         })
+//                        .setImageList(imgList)
+//                        .setNowIndex(position)
+//                        .setSourceImageView(new SourceImageViewGet<Item>() {
+//                            @Override
+//                            public void updateImageView(ImageItemView<Item> imageItemView, int pos, boolean isCurrent) {
+//                                imageItemView.update(nineGridView.getImageView(pos));
+//                            }
+//                        })
                         .show(context);
             }
 

@@ -4,8 +4,8 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 
-import com.zpj.toast.ZToast;
 import com.zpj.notification.ZNotify;
+import com.zpj.toast.ZToast;
 
 public class AppReceiver extends BroadcastReceiver {
     @Override

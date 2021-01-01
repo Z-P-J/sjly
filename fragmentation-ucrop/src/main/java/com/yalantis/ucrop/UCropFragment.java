@@ -14,7 +14,6 @@ import android.support.annotation.Nullable;
 import android.support.transition.AutoTransition;
 import android.support.transition.Transition;
 import android.support.transition.TransitionManager;
-import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -45,8 +44,6 @@ import java.lang.annotation.RetentionPolicy;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
-
-import static android.app.Activity.RESULT_OK;
 
 @SuppressWarnings("ConstantConditions")
 public class UCropFragment extends SupportFragment {

@@ -15,9 +15,9 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.util.List;
-
 import com.zpj.fragmentation.R;
+
+import java.util.List;
 
 /**
  * Created by YoKeyword on 16/2/21.

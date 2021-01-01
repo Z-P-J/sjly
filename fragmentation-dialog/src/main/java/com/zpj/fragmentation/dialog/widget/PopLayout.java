@@ -2,7 +2,6 @@ package com.zpj.fragmentation.dialog.widget;
 
 import android.content.Context;
 import android.content.res.TypedArray;
-import android.graphics.BitmapShader;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Matrix;

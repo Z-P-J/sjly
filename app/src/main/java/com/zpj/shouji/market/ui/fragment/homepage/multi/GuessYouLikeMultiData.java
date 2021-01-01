@@ -1,13 +1,11 @@
 package com.zpj.shouji.market.ui.fragment.homepage.multi;
 
-import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
 import com.zpj.recyclerview.EasyViewHolder;
 import com.zpj.recyclerview.MultiAdapter;
-import com.zpj.recyclerview.MultiData;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.api.SearchApi;
 import com.zpj.shouji.market.glide.GlideRequestOptions;

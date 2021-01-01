@@ -1,7 +1,6 @@
 package com.zpj.fragmentation.dialog.imagetrans;
 
 import android.graphics.drawable.Drawable;
-import android.widget.ImageView;
 
 /**
  * Created by liuting on 18/3/15.

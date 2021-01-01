@@ -39,7 +39,6 @@ import com.lxj.xpermission.XPermission;
 import com.zpj.fragmentation.dialog.R;
 import com.zpj.fragmentation.dialog.animator.PopupAnimator;
 import com.zpj.fragmentation.dialog.base.BaseDialogFragment;
-import com.zpj.fragmentation.dialog.enums.PopupStatus;
 import com.zpj.fragmentation.dialog.imagetrans.ImageLoad;
 import com.zpj.fragmentation.dialog.imagetrans.MyImageLoad2;
 import com.zpj.fragmentation.dialog.interfaces.OnDragChangeListener;
@@ -69,7 +68,7 @@ public class ImageViewerDialogFragment3<T> extends BaseDialogFragment
     protected HackyViewPager pager;
     protected ArgbEvaluator argbEvaluator = new ArgbEvaluator();
     protected final List<T> urls = new ArrayList<>();
-    private final MyImageLoad2<T> loader = new MyImageLoad2<>();;
+    protected MyImageLoad2<T> loader = new MyImageLoad2<>();;
     protected OnSrcViewUpdateListener<T> srcViewUpdateListener;
     protected int position;
     protected Rect rect = null;
@@ -85,6 +84,8 @@ public class ImageViewerDialogFragment3<T> extends BaseDialogFragment
     protected boolean isInfinite = false;//是否需要无限滚动
     protected View customView;
     protected int bgColor = Color.rgb(32, 36, 46);//弹窗的背景颜色，可以自定义
+
+    private int backgroundColor = Color.TRANSPARENT;
 
     public interface OnSrcViewUpdateListener<T> {
         void onSrcViewUpdate(@NonNull ImageViewerDialogFragment3<T> popup, int position);
@@ -217,13 +218,30 @@ public class ImageViewerDialogFragment3<T> extends BaseDialogFragment
 
         if (customView != null) customView.setVisibility(View.VISIBLE);
         if (srcView == null) {
-            photoViewContainer.setBackgroundColor(bgColor);
+//            photoViewContainer.setBackgroundColor(bgColor);
             pager.setVisibility(View.VISIBLE);
-            showPagerIndicator();
-            photoViewContainer.isReleasing = false;
-            doAfterShow();
-            if (customView != null)
-                customView.setAlpha(1f);
+//            showPagerIndicator();
+//            photoViewContainer.isReleasing = false;
+//            doAfterShow();
+//            if (customView != null)
+//                customView.setAlpha(1f);
+            animateShadowBg(bgColor, new UpdateListener() {
+                @Override
+                public void onUpdate(float value) {
+                    pager.setScaleX(value);
+                    pager.setScaleY(value);
+                    if (customView != null) {
+                        customView.setAlpha(value);
+                    }
+                }
+
+                @Override
+                public void onEnd() {
+                    showPagerIndicator();
+                    photoViewContainer.isReleasing = false;
+                    doAfterShow();
+                }
+            });
             return;
         }
         photoViewContainer.isReleasing = true;
@@ -264,10 +282,22 @@ public class ImageViewerDialogFragment3<T> extends BaseDialogFragment
                 setWidthHeight(snapshotView, photoViewContainer.getWidth(), photoViewContainer.getHeight());
 
                 // do shadow anim.
-                animateShadowBg(bgColor);
+                animateShadowBg(bgColor, new UpdateListener() {
+                    @Override
+                    public void onUpdate(float value) {
+                        if (customView != null) {
+                            customView.setAlpha(value);
+                        }
+                    }
+
+                    @Override
+                    public void onEnd() {
+
+                    }
+                });
 //                XPopup.getAnimationDuration()
-                if (customView != null)
-                    customView.animate().alpha(1f).setDuration(DEFAULT_ANIM_DURATION).start();
+//                if (customView != null)
+//                    customView.animate().alpha(1f).setDuration(DEFAULT_ANIM_DURATION).start();
             }
         });
 
@@ -332,14 +362,29 @@ public class ImageViewerDialogFragment3<T> extends BaseDialogFragment
         snapshotView.setImageDrawable(srcView.getDrawable());
     }
 
-    private void animateShadowBg(final int endColor) {
-        final int start = ((ColorDrawable) photoViewContainer.getBackground()).getColor();
+    private interface UpdateListener {
+        void onUpdate(float value);
+        void onEnd();
+    }
+
+    private void animateShadowBg(final int endColor, UpdateListener listener) {
+        int start = backgroundColor;
         ValueAnimator animator = ValueAnimator.ofFloat(0, 1f);
         animator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
             @Override
             public void onAnimationUpdate(ValueAnimator animation) {
-                photoViewContainer.setBackgroundColor((Integer) argbEvaluator.evaluate(animation.getAnimatedFraction(),
-                        start, endColor));
+//                photoViewContainer.setBackgroundColor((Integer) argbEvaluator.evaluate(animation.getAnimatedFraction(),
+//                        start, endColor));
+                float value = (float) animation.getAnimatedValue();
+                backgroundColor = (Integer) argbEvaluator.evaluate(value,
+                        start, endColor);
+                photoViewContainer.setBackgroundColor(backgroundColor);
+                if (listener != null) {
+                    listener.onUpdate(value);
+                    if (value == 1f) {
+                        listener.onEnd();
+                    }
+                }
             }
         });
 //        XPopup.getAnimationDuration()
@@ -363,14 +408,40 @@ public class ImageViewerDialogFragment3<T> extends BaseDialogFragment
 
             }
         }
-        TransitionManager.endTransitions((ViewGroup) snapshotView.getParent());
         if (srcView == null) {
-            photoViewContainer.setBackgroundColor(Color.TRANSPARENT);
-            doAfterDismiss();
-            pager.setVisibility(View.INVISIBLE);
-            placeholderView.setVisibility(View.INVISIBLE);
+//            photoViewContainer.setBackgroundColor(Color.TRANSPARENT);
+//            doAfterDismiss();
+//            pager.setVisibility(View.INVISIBLE);
+//            placeholderView.setVisibility(View.INVISIBLE);
+            float startScaleX = pager.getScaleX();
+            float startScaleY = pager.getScaleY();
+            final float startAlpha;
+            if (customView == null) {
+                startAlpha = 1f;
+            } else {
+                startAlpha = customView.getAlpha();
+            }
+            animateShadowBg(Color.TRANSPARENT, new UpdateListener() {
+                @Override
+                public void onUpdate(float value) {
+                    pager.setScaleX((1 - value) * startScaleX);
+                    pager.setScaleY((1 - value) * startScaleY);
+                    if (customView != null) {
+                        customView.setAlpha((1 - value) * startAlpha);
+                    }
+                }
+
+                @Override
+                public void onEnd() {
+                    actionQueue.onDestroy();
+                    doAfterDismiss();
+                    pager.setVisibility(View.INVISIBLE);
+                    placeholderView.setVisibility(View.INVISIBLE);
+                }
+            });
             return;
         }
+        TransitionManager.endTransitions((ViewGroup) snapshotView.getParent());
 //        ImageViewContainer current = pager.findViewWithTag(position);
 //        if (current.getPlaceholder().getDrawable() instanceof GifDrawable) {
 //            srcView.setImageDrawable(current.getPlaceholder().getDrawable());
@@ -409,19 +480,31 @@ public class ImageViewerDialogFragment3<T> extends BaseDialogFragment
         setWidthHeight(snapshotView, rect.width(), rect.height());
 
         // do shadow anim.
-        animateShadowBg(Color.TRANSPARENT);
-        if (customView != null)
-            customView.animate()
-                    .alpha(0f)
-                    .setDuration(DEFAULT_ANIM_DURATION)
-                    .setListener(new AnimatorListenerAdapter() {
-                        @Override
-                        public void onAnimationEnd(Animator animation) {
-                            super.onAnimationEnd(animation);
-                            if (customView != null) customView.setVisibility(View.INVISIBLE);
-                        }
-                    })
-                    .start();
+        animateShadowBg(Color.TRANSPARENT, new UpdateListener() {
+            @Override
+            public void onUpdate(float value) {
+                if (customView != null) {
+                    customView.setAlpha(1 -  value);
+                }
+            }
+
+            @Override
+            public void onEnd() {
+
+            }
+        });
+//        if (customView != null)
+//            customView.animate()
+//                    .alpha(0f)
+//                    .setDuration(DEFAULT_ANIM_DURATION)
+//                    .setListener(new AnimatorListenerAdapter() {
+//                        @Override
+//                        public void onAnimationEnd(Animator animation) {
+//                            super.onAnimationEnd(animation);
+//                            if (customView != null) customView.setVisibility(View.INVISIBLE);
+//                        }
+//                    })
+//                    .start();
     }
 
     @Override
@@ -579,7 +662,8 @@ public class ImageViewerDialogFragment3<T> extends BaseDialogFragment
         tv_pager_indicator.setAlpha(1 - fraction);
         if (customView != null) customView.setAlpha(1 - fraction);
         if (isShowSaveBtn) tv_save.setAlpha(1 - fraction);
-        photoViewContainer.setBackgroundColor((Integer) argbEvaluator.evaluate(fraction * .8f, bgColor, Color.TRANSPARENT));
+        backgroundColor = (int) argbEvaluator.evaluate(fraction * .8f, bgColor, Color.TRANSPARENT);
+        photoViewContainer.setBackgroundColor(backgroundColor);
     }
 
     @Override

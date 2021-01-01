@@ -18,16 +18,12 @@ package com.zpj.matisse.loader;
 
 import android.content.Context;
 import android.database.Cursor;
-import android.database.MatrixCursor;
-import android.database.MergeCursor;
 import android.net.Uri;
 import android.provider.MediaStore;
 import android.support.v4.content.CursorLoader;
 
 import com.zpj.matisse.entity.Album;
-import com.zpj.matisse.entity.Item;
 import com.zpj.matisse.entity.SelectionSpec;
-import com.zpj.matisse.utils.MediaStoreCompat;
 
 /**
  * Load images and videos into a single cursor.

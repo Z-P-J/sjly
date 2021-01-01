@@ -10,7 +10,6 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 
-import com.zpj.fragmentation.BaseFragment;
 import com.zpj.recyclerview.EasyRecyclerLayout;
 import com.zpj.recyclerview.IEasy;
 import com.zpj.recyclerview.IEasy.OnBindViewHolderListener;

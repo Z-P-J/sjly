@@ -4,9 +4,6 @@ import android.content.Context;
 import android.support.v4.widget.NestedScrollView;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
-import android.widget.ScrollView;
-
-import com.zpj.toast.ZToast;
 
 /**
  * 监听ScrollView滚动到顶部或者底部做相关事件拦截

@@ -3,7 +3,6 @@ package com.zpj.shouji.market.ui.animator;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import com.zpj.fragmentation.anim.DefaultVerticalAnimator;
 import com.zpj.fragmentation.anim.FragmentAnimator;
 import com.zpj.shouji.market.R;
 

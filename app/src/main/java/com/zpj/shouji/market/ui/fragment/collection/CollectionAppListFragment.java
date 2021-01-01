@@ -1,16 +1,11 @@
 package com.zpj.shouji.market.ui.fragment.collection;
 
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
-import android.widget.ImageView;
-import android.widget.RelativeLayout;
-import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-import com.zpj.toast.ZToast;
 import com.zpj.http.parser.html.nodes.Element;
 import com.zpj.recyclerview.EasyRecyclerLayout;
 import com.zpj.recyclerview.EasyViewHolder;
@@ -23,9 +18,7 @@ import com.zpj.shouji.market.ui.fragment.detail.AppDetailFragment;
 import com.zpj.shouji.market.ui.widget.DownloadButton;
 import com.zpj.shouji.market.ui.widget.emoji.EmojiExpandableTextView;
 import com.zpj.shouji.market.utils.BeanUtils;
-import com.zpj.utils.ScreenUtils;
-
-import org.w3c.dom.Text;
+import com.zpj.toast.ZToast;
 
 import java.util.List;
 

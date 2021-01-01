@@ -8,18 +8,14 @@ import android.os.Environment;
 import android.os.StatFs;
 import android.support.v4.content.FileProvider;
 import android.text.TextUtils;
-import android.util.Log;
 import android.webkit.MimeTypeMap;
 
 import java.io.BufferedInputStream;
-import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
-import java.util.zip.CRC32;
 
 /**
  * @author Z-P-J

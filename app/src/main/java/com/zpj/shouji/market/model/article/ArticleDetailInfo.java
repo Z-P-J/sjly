@@ -4,9 +4,7 @@ import android.util.Log;
 
 import com.zpj.http.parser.html.nodes.Document;
 import com.zpj.http.parser.html.nodes.Element;
-import com.zpj.http.parser.html.nodes.NullElement;
 import com.zpj.http.parser.html.nodes.TextNode;
-import com.zpj.http.parser.html.select.Elements;
 import com.zpj.shouji.market.model.AppInfo;
 
 import java.util.ArrayList;

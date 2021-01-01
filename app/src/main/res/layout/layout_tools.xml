@@ -8,26 +8,30 @@
     android:paddingEnd="10dp"
     >
 
-    <com.zpj.widget.tinted.TintedImageButton
+    <ImageButton
         android:id="@+id/btn_search"
         android:layout_width="wrap_content"
         android:layout_height="56dp"
         android:paddingStart="10dp"
         android:paddingEnd="10dp"
         android:src="@drawable/ic_search_white_24dp"
-        android:tint="?attr/textColorMajor"
         android:background="?attr/actionBarItemBackground"
+        android:tint="@color/color_text_major"
         />
 
-    <com.zpj.widget.tinted.TintedImageButton
+<!--    android:tint="?attr/textColorMajor"-->
+
+    <ImageButton
         android:id="@+id/btn_manage"
         android:layout_width="wrap_content"
         android:layout_height="56dp"
         android:paddingStart="10dp"
         android:paddingEnd="10dp"
         android:src="@drawable/ic_move_to_inbox_black_24dp"
-        android:tint="?attr/textColorMajor"
         android:background="?attr/actionBarItemBackground"
+        android:tint="@color/color_text_major"
         />
+
+<!--    android:tint="?attr/textColorMajor"-->
 
 </LinearLayout>

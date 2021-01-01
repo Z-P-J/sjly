@@ -2,7 +2,6 @@ package com.zpj.shouji.market.ui.widget.selection;
 
 import android.content.ClipboardManager;
 import android.content.Context;
-import android.graphics.Color;
 import android.graphics.Point;
 import android.graphics.Rect;
 import android.text.Layout;

@@ -17,7 +17,6 @@ import com.zpj.shouji.market.model.PrivateLetterInfo;
 import com.zpj.shouji.market.ui.fragment.base.NextUrlFragment;
 import com.zpj.shouji.market.ui.fragment.chat.ChatFragment;
 import com.zpj.shouji.market.utils.BeanUtils;
-import com.zpj.shouji.market.utils.ThemeUtils;
 
 import java.util.List;
 

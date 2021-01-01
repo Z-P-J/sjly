@@ -30,14 +30,14 @@ import android.widget.FrameLayout;
 import android.widget.HorizontalScrollView;
 import android.widget.ScrollView;
 
+import com.zpj.fragmentation.ISupportFragment;
+import com.zpj.fragmentation.R;
+
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
-
-import com.zpj.fragmentation.ISupportFragment;
-import com.zpj.fragmentation.R;
 
 /**
  * Thx https://github.com/ikew0ng/SwipeBackLayout.

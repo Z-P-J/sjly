@@ -1,25 +1,29 @@
 package com.zpj.shouji.market.ui.fragment.homepage;
 
 import android.graphics.Bitmap;
+import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.view.View;
+import android.widget.ImageButton;
+import android.widget.ImageView;
 
 import com.zpj.blur.ZBlurry;
 import com.zpj.fragmentation.SupportFragment;
 import com.zpj.rxbus.RxBus;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.constant.AppConfig;
-import com.zpj.shouji.market.utils.EventBus;
 import com.zpj.shouji.market.ui.adapter.FragmentsPagerAdapter;
 import com.zpj.shouji.market.ui.fragment.base.SkinFragment;
 import com.zpj.shouji.market.ui.fragment.manager.ManagerFragment;
 import com.zpj.shouji.market.ui.fragment.search.SearchFragment;
 import com.zpj.shouji.market.ui.widget.ColorChangePagerTitleView;
+import com.zpj.shouji.market.utils.EventBus;
 import com.zpj.shouji.market.utils.MagicIndicatorHelper;
 import com.zpj.widget.tinted.TintedImageButton;
 
@@ -35,8 +39,8 @@ public class HomeFragment extends SkinFragment {
 
     private View shadowView;
 
-    private TintedImageButton btnSearch;
-    private TintedImageButton btnManage;
+    private ImageButton btnSearch;
+    private ImageButton btnManage;
 
     private boolean isLightStyle = false;
 
@@ -104,7 +108,7 @@ public class HomeFragment extends SkinFragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        EventBus.onSkinChangeEvent(this, s -> initStatusBar());
+//        EventBus.onSkinChangeEvent(this, s -> initStatusBar());
         EventBus.onScrollEvent(this, new RxBus.SingleConsumer<Float>() {
             @Override
             public void onAccept(Float percent) throws Exception {
@@ -197,26 +201,6 @@ public class HomeFragment extends SkinFragment {
 
             @Override
             public void onPageSelected(int i) {
-//                if (!AppConfig.isNightMode()) {
-//                    if (i == 0) {
-//                        Log.d("isLightStyle", "isLightStyle=" + toolbar.isLightStyle());
-//                        ColorChangeEvent.post(!toolbar.isLightStyle());
-//                        shadowView.setVisibility(toolbar.isLightStyle() ? View.VISIBLE : View.GONE);
-//                    } else {
-//                        ColorChangeEvent.post(false);
-//                        shadowView.setVisibility(View.GONE);
-//                    }
-//                    initStatusBar();
-//                }
-
-//                if (blurred != null) {
-//                    if (i == 2) {
-//                        blurred.pauseBlur();
-//                    } else {
-//                        blurred.startBlur();
-//                    }
-//                }
-
                 switch (i) {
                     case 0:
                         list.get(0).onSupportVisible();
@@ -228,9 +212,6 @@ public class HomeFragment extends SkinFragment {
                         EventBus.sendScrollEvent(0);
                         break;
                 }
-
-
-//                ColorChangeEvent.post(i == 0);
             }
 
             @Override
@@ -238,8 +219,6 @@ public class HomeFragment extends SkinFragment {
             }
         });
         MagicIndicator magicIndicator = (MagicIndicator) toolbar.getCenterCustomView();
-
-//        MagicIndicatorHelper.bindViewPager(context, magicIndicator, viewPager, TAB_TITLES);
 
         MagicIndicatorHelper.builder(context)
                 .setMagicIndicator(magicIndicator)
@@ -255,12 +234,6 @@ public class HomeFragment extends SkinFragment {
                     return titleView;
                 })
                 .build();
-
-    }
-
-    @Override
-    public void onLazyInitView(@Nullable Bundle savedInstanceState) {
-        super.onLazyInitView(savedInstanceState);
 
     }
 
@@ -301,9 +274,11 @@ public class HomeFragment extends SkinFragment {
         isLightStyle = !isDark;
         toolbar.setLightStyle(isLightStyle);
         shadowView.setVisibility(alpha > 0.5f ? View.VISIBLE : View.GONE);
-        int color = getResources().getColor((AppConfig.isNightMode() || isDark) ? R.color.white : R.color.color_text_major);
-        btnManage.setTint(color);
-        btnSearch.setTint(color);
+//        int color = getResources().getColor((AppConfig.isNightMode() || isDark) ? R.color.white : R.color.color_text_major);
+        int color = (AppConfig.isNightMode() || isDark) ? Color.WHITE : getResources().getColor(R.color.color_text_major);
+        Log.d("HomeFragment", "isNight=" + AppConfig.isNightMode() + " isDark=" + isDark + " color=" + color);
+        btnManage.setColorFilter(color);
+        btnSearch.setColorFilter(color);
 
         if (isSupportVisible()) {
             if (AppConfig.isNightMode() || isDark) {

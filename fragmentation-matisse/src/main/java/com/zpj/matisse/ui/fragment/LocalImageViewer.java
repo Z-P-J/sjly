@@ -5,12 +5,12 @@ import android.support.annotation.Nullable;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
 import android.view.View;
-import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.zpj.fragmentation.dialog.imagetrans.MyImageLoad;
-import com.zpj.fragmentation.dialog.imagetrans.TransImageView;
-import com.zpj.fragmentation.dialog.impl.ImageViewerDialogFragment2;
+import com.zpj.fragmentation.dialog.imagetrans.ImageLoad;
+import com.zpj.fragmentation.dialog.imagetrans.MyImageLoad2;
+import com.zpj.fragmentation.dialog.impl.ImageViewerDialogFragment3;
+import com.zpj.fragmentation.dialog.widget.ImageViewContainer;
 import com.zpj.matisse.R;
 import com.zpj.matisse.entity.IncapableCause;
 import com.zpj.matisse.entity.Item;
@@ -22,7 +22,7 @@ import com.zpj.widget.toolbar.ZToolBar;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CustomImageViewerDialogFragment2 extends ImageViewerDialogFragment2<Item> {
+public class LocalImageViewer extends ImageViewerDialogFragment3<Item> {
 
     protected SelectedItemManager mSelectedCollection;
     private ZToolBar titleBar;
@@ -37,9 +37,9 @@ public class CustomImageViewerDialogFragment2 extends ImageViewerDialogFragment2
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        build.imageLoad = new MyImageLoad<Item>() {
+        loader = new MyImageLoad2<Item>() {
             @Override
-            public void loadImage(Item url, LoadCallback callback, TransImageView imageView, String unique) {
+            public void loadImage(Item url, ImageLoad.LoadCallback callback, ImageViewContainer imageView, String unique) {
                 addLoadCallback(unique, callback);
                 loadImageFromLocal(url.getPath(context), unique, imageView);
             }
@@ -72,7 +72,7 @@ public class CustomImageViewerDialogFragment2 extends ImageViewerDialogFragment2
         super.initView(view, savedInstanceState);
 
         if (mSelectedCollection == null) {
-            selectedList = new ArrayList<>(getUrls());
+            selectedList = new ArrayList<>(urls);
         }
         titleBar = findViewById(R.id.tool_bar);
         mCheckView = findViewById(R.id.check_view);
@@ -80,14 +80,14 @@ public class CustomImageViewerDialogFragment2 extends ImageViewerDialogFragment2
         tvIndicator = findViewById(R.id.tv_indicator);
         mButtonApply = findViewById(R.id.button_apply);
 
-        dialogView.addOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener(){
+        pager.addOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener(){
             @Override
             public void onPageSelected(int position) {
 //                int posi = isInfinite ? position % urls.size() : position;
                 int posi = position;
-                titleBar.getCenterTextView().setText(getUrls().get(posi).getFile(getContext()).getName());
+                titleBar.getCenterTextView().setText(urls.get(posi).getFile(getContext()).getName());
                 Log.d("CustomImageViewerPopup", "posi=" + posi + " position=" + position);
-                Item item = getUrls().get(posi);
+                Item item = urls.get(posi);
                 if (countable) {
                     int checkedNum = checkedNumOf(item);
                     mCheckView.setCheckedNum(checkedNum);
@@ -105,21 +105,21 @@ public class CustomImageViewerDialogFragment2 extends ImageViewerDialogFragment2
                         mCheckView.setEnabled(!maxSelectableReached());
                     }
                 }
-                tvIndicator.setText(getUrls().size() + "/" + (posi + 1));
+                tvIndicator.setText(urls.size() + "/" + (posi + 1));
             }
         });
 
-        mCheckView.setCheckedNum(checkedNumOf(getUrls().get(dialogView.getCurrentItem())));
-        titleBar.getCenterTextView().setText(getUrls().get(dialogView.getCurrentItem()).getFile(getContext()).getName());
+        mCheckView.setCheckedNum(checkedNumOf(urls.get(position)));
+        titleBar.getCenterTextView().setText(urls.get(position).getFile(getContext()).getName());
 
 
-        tvIndicator.setText(getUrls().size() + "/" + (dialogView.getCurrentItem() + 1));
+        tvIndicator.setText(urls.size() + "/" + (position + 1));
 
         mCheckView.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
-                Item item = getUrls().get(dialogView.getCurrentItem());
+                Item item = urls.get(position);
                 if (isSelected(item)) {
                     removeItem(item);
                     if (countable) {
@@ -145,22 +145,22 @@ public class CustomImageViewerDialogFragment2 extends ImageViewerDialogFragment2
 
     }
 
-    public CustomImageViewerDialogFragment2 setSelectedItemManager(SelectedItemManager mSelectedCollection) {
+    public LocalImageViewer setSelectedItemManager(SelectedItemManager mSelectedCollection) {
         this.mSelectedCollection = mSelectedCollection;
         return this;
     }
 
-    public CustomImageViewerDialogFragment2 setCountable(boolean countable) {
+    public LocalImageViewer setCountable(boolean countable) {
         this.countable = countable;
         return this;
     }
 
-    public CustomImageViewerDialogFragment2 setSingleSelectionModeEnabled(boolean singleSelectionModeEnabled) {
+    public LocalImageViewer setSingleSelectionModeEnabled(boolean singleSelectionModeEnabled) {
         this.singleSelectionModeEnabled = singleSelectionModeEnabled;
         return this;
     }
 
-    public CustomImageViewerDialogFragment2 setOnSelectedListener(OnSelectedListener onSelectListener) {
+    public LocalImageViewer setOnSelectedListener(OnSelectedListener onSelectListener) {
         this.onSelectListener = onSelectListener;
         return this;
     }

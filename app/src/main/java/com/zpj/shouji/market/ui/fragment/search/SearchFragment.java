@@ -8,13 +8,13 @@ import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.view.View;
 
-import com.zpj.toast.ZToast;
 import com.zpj.shouji.market.R;
-import com.zpj.shouji.market.utils.EventBus;
 import com.zpj.shouji.market.ui.adapter.FragmentsPagerAdapter;
 import com.zpj.shouji.market.ui.fragment.base.BaseSwipeBackFragment;
 import com.zpj.shouji.market.ui.widget.ZViewPager;
+import com.zpj.shouji.market.utils.EventBus;
 import com.zpj.shouji.market.utils.ThemeUtils;
+import com.zpj.toast.ZToast;
 import com.zpj.widget.toolbar.ZSearchBar;
 
 import java.util.ArrayList;

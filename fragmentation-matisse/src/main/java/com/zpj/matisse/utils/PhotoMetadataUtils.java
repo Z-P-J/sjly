@@ -30,10 +30,10 @@ import android.util.Log;
 
 import com.zpj.matisse.MimeType;
 import com.zpj.matisse.R;
-import com.zpj.matisse.filter.Filter;
+import com.zpj.matisse.entity.IncapableCause;
 import com.zpj.matisse.entity.Item;
 import com.zpj.matisse.entity.SelectionSpec;
-import com.zpj.matisse.entity.IncapableCause;
+import com.zpj.matisse.filter.Filter;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;

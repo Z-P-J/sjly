@@ -4,7 +4,6 @@ import android.support.annotation.NonNull;
 import android.view.View;
 import android.widget.TextView;
 
-import com.zpj.toast.ZToast;
 import com.zpj.http.ZHttp;
 import com.zpj.http.parser.html.nodes.Element;
 import com.zpj.http.parser.html.select.Elements;
@@ -18,6 +17,7 @@ import com.zpj.shouji.market.ui.fragment.booking.LatestBookingFragment;
 import com.zpj.shouji.market.ui.fragment.homepage.multi.AppInfoMultiData;
 import com.zpj.shouji.market.ui.fragment.homepage.multi.GameBookingMultiData;
 import com.zpj.shouji.market.ui.fragment.homepage.multi.TutorialMultiData;
+import com.zpj.toast.ZToast;
 
 import java.util.ArrayList;
 import java.util.List;

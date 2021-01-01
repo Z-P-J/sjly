@@ -6,16 +6,11 @@ import android.support.annotation.Nullable;
 import android.view.View;
 import android.widget.LinearLayout;
 
-import com.zpj.fragmentation.BaseFragment;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.ui.fragment.base.BaseSwipeBackFragment;
 import com.zpj.shouji.market.utils.AnimationUtil;
-import com.zpj.shouji.market.utils.ThemeUtils;
 import com.zpj.widget.setting.OnCheckableItemClickListener;
 import com.zpj.widget.setting.OnCommonItemClickListener;
-
-import com.zpj.fragmentation.anim.DefaultNoAnimator;
-import com.zpj.fragmentation.anim.FragmentAnimator;
 
 public abstract class BaseSettingFragment extends BaseSwipeBackFragment
         implements OnCommonItemClickListener, OnCheckableItemClickListener {

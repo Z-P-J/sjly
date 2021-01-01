@@ -4,10 +4,10 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.View;
 
-import com.zpj.toast.ZToast;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.api.HttpApi;
 import com.zpj.shouji.market.manager.UserManager;
+import com.zpj.toast.ZToast;
 import com.zpj.widget.editor.EmailInputView;
 import com.zpj.widget.editor.PasswordInputView;
 import com.zpj.widget.editor.SubmitView;

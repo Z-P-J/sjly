@@ -2,7 +2,6 @@ package com.zpj.shouji.market.model;
 
 import android.support.annotation.Keep;
 
-import com.zpj.shouji.market.utils.BeanUtils;
 import com.zpj.shouji.market.utils.BeanUtils.Select;
 
 @Keep

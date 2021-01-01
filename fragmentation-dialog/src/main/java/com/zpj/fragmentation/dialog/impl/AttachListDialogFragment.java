@@ -18,7 +18,6 @@ import com.zpj.fragmentation.dialog.animator.PopupAnimator;
 import com.zpj.fragmentation.dialog.base.AttachDialogFragment;
 import com.zpj.fragmentation.dialog.utils.DialogThemeUtils;
 import com.zpj.recyclerview.EasyRecyclerView;
-import com.zpj.utils.ColorUtils;
 import com.zpj.widget.tinted.TintedImageView;
 
 import java.lang.reflect.Field;

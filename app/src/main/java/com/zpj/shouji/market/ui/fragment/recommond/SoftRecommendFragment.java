@@ -6,7 +6,6 @@ import android.support.annotation.Nullable;
 import android.view.View;
 import android.widget.TextView;
 
-import com.zpj.toast.ZToast;
 import com.zpj.http.ZHttp;
 import com.zpj.http.parser.html.nodes.Element;
 import com.zpj.http.parser.html.select.Elements;
@@ -20,6 +19,7 @@ import com.zpj.shouji.market.ui.fragment.collection.CollectionRecommendListFragm
 import com.zpj.shouji.market.ui.fragment.homepage.multi.AppInfoMultiData;
 import com.zpj.shouji.market.ui.fragment.homepage.multi.CollectionMultiData;
 import com.zpj.shouji.market.ui.fragment.homepage.multi.TutorialMultiData;
+import com.zpj.toast.ZToast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -58,6 +58,7 @@ public class SoftRecommendFragment extends BaseRecommendFragment implements View
 
         ZHttp.get("https://soft.shouji.com.cn")
                 .toHtml()
+                .bindToLife(this)
                 .onSuccess(data -> {
                     List<AppInfo> list = new ArrayList<>();
                     Elements recommends = data.selectFirst("body > div:nth-child(5) > div.boutique.fl > ul").select("li");

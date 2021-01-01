@@ -8,7 +8,6 @@ import com.zpj.http.parser.html.nodes.Element;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.constant.Keys;
 import com.zpj.shouji.market.model.CollectionInfo;
-import com.zpj.shouji.market.utils.ThemeUtils;
 
 public class CollectionRecommendListFragment extends CollectionListFragment {
 

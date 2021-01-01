@@ -1,11 +1,7 @@
 package com.zpj.shouji.market.model;
 
-import android.os.Parcel;
-import android.os.Parcelable;
-import android.support.annotation.Keep;
 import android.text.TextUtils;
 
-import com.geek.banner.loader.BannerEntry;
 import com.zpj.http.parser.html.nodes.Element;
 import com.zpj.shouji.market.utils.BeanUtils;
 import com.zpj.shouji.market.utils.BeanUtils.Select;

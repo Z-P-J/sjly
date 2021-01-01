@@ -28,8 +28,6 @@ import android.widget.TextView;
 import com.sothree.slidinguppanel.SlidingUpPanelLayout;
 import com.yalantis.ucrop.UCrop;
 import com.zpj.fragmentation.BaseFragment;
-import com.zpj.fragmentation.anim.DefaultHorizontalAnimator;
-import com.zpj.fragmentation.anim.FragmentAnimator;
 import com.zpj.matisse.R;
 import com.zpj.matisse.entity.Album;
 import com.zpj.matisse.entity.Item;
@@ -288,11 +286,12 @@ public class MatisseFragment2 extends BaseFragment implements
 //                    .setImageUrls(mSelectedCollection.asList())
 //                    .show(context);
 
-            new CustomImageViewerDialogFragment2()
+            new LocalImageViewer()
                     .setCountable(mSpec.countable)
                     .setSingleSelectionModeEnabled(mSpec.singleSelectionModeEnabled())
                     .setSelectedItemManager(mSelectedCollection)
-                    .setImageList(mSelectedCollection.asList())
+                    .setImageUrls(mSelectedCollection.asList())
+//                    .setImageList(mSelectedCollection.asList())
                     .show(context);
         } else if (v.getId() == R.id.button_apply) {
 

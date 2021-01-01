@@ -10,7 +10,6 @@ import android.util.AttributeSet;
 import android.view.View;
 
 import com.zpj.shouji.market.R;
-import com.zpj.widget.editor.ZEditText;
 
 public class SubmitView extends AppCompatTextView implements TextWatcher {
 

@@ -22,7 +22,6 @@ import com.zpj.rxbus.RxBus;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.api.HttpApi;
 import com.zpj.shouji.market.constant.AppConfig;
-import com.zpj.shouji.market.utils.EventBus;
 import com.zpj.shouji.market.manager.UserManager;
 import com.zpj.shouji.market.model.MemberInfo;
 import com.zpj.shouji.market.model.MessageInfo;
@@ -40,6 +39,7 @@ import com.zpj.shouji.market.ui.fragment.setting.AboutSettingFragment;
 import com.zpj.shouji.market.ui.fragment.setting.SettingFragment;
 import com.zpj.shouji.market.ui.widget.PullZoomView;
 import com.zpj.shouji.market.ui.widget.ToolBoxCard;
+import com.zpj.shouji.market.utils.EventBus;
 import com.zpj.shouji.market.utils.PictureUtil;
 import com.zpj.shouji.market.utils.UploadUtils;
 import com.zpj.toast.ZToast;
@@ -454,6 +454,7 @@ public class MyFragment extends SkinFragment
             MemberInfo memberInfo = UserManager.getInstance().getMemberInfo();
             if (memberInfo.isCanSigned()) {
                 HttpApi.getXml("http://tt.shouji.com.cn/app/xml_signed.jsp")
+                        .bindToLife(this)
                         .onSuccess(data -> {
                             Log.d("tvCheckIn", "data=" + data);
                             String info = data.selectFirst("info").text();

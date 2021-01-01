@@ -1,6 +1,5 @@
 package com.zpj.fragmentation.queue;
 
-import android.os.Handler;
 import android.os.Looper;
 import android.util.Log;
 

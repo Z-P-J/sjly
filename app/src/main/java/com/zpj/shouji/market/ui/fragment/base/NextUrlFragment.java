@@ -198,6 +198,7 @@ public abstract class NextUrlFragment<T> extends RecyclerLayoutFragment<T>
     protected void getData() {
         Log.d("NextUrlFragment", "getData nextUrl=" + nextUrl);
         HttpApi.getXml(nextUrl)
+                .bindToLife(this)
                 .onSuccess(this)
                 .onError(this)
                 .subscribe();

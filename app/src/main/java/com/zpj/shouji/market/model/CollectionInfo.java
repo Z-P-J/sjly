@@ -1,9 +1,6 @@
 package com.zpj.shouji.market.model;
 
-import android.graphics.Bitmap;
-import android.graphics.drawable.Drawable;
 import android.support.annotation.Keep;
-import android.util.SparseArray;
 
 import com.zpj.http.parser.html.nodes.Element;
 import com.zpj.http.parser.html.select.Elements;

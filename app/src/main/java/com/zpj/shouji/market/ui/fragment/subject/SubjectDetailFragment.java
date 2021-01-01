@@ -186,6 +186,7 @@ public class SubjectDetailFragment extends StateSwipeBackFragment
 
     private void getData() {
         HttpApi.getXml("http://tt.shouji.com.cn/androidv3/special_list_xml.jsp?id=" + id)
+                .bindToLife(this)
                 .onSuccess(new IHttp.OnSuccessListener<Document>() {
                     @Override
                     public void onSuccess(Document data) throws Exception {

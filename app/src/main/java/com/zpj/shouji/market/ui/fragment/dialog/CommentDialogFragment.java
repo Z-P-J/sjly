@@ -8,7 +8,6 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 
-import com.zpj.toast.ZToast;
 import com.zpj.fragmentation.dialog.base.BottomDialogFragment;
 import com.zpj.http.core.IHttp;
 import com.zpj.shouji.market.R;
@@ -16,6 +15,7 @@ import com.zpj.shouji.market.api.CommentApi;
 import com.zpj.shouji.market.ui.fragment.profile.UserPickerFragment;
 import com.zpj.shouji.market.ui.widget.MaxHeightLayout;
 import com.zpj.shouji.market.ui.widget.ReplyPanel;
+import com.zpj.toast.ZToast;
 import com.zpj.utils.ContextUtils;
 import com.zpj.utils.KeyboardObserver;
 import com.zpj.utils.ScreenUtils;

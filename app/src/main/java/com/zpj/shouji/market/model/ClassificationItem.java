@@ -3,7 +3,6 @@ package com.zpj.shouji.market.model;
 import android.text.TextUtils;
 
 import com.zpj.http.parser.html.nodes.Element;
-import com.zpj.shouji.market.utils.BeanUtils.Select;
 
 import java.util.ArrayList;
 import java.util.List;

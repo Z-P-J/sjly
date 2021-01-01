@@ -16,7 +16,6 @@ import com.zpj.recyclerview.MultiData;
 import com.zpj.recyclerview.MultiRecyclerViewWrapper;
 import com.zpj.rxbus.RxBus;
 import com.zpj.shouji.market.R;
-import com.zpj.shouji.market.utils.EventBus;
 import com.zpj.shouji.market.model.AppDetailInfo;
 import com.zpj.shouji.market.ui.fragment.ToolBarAppListFragment;
 import com.zpj.shouji.market.ui.fragment.base.SkinFragment;
@@ -24,6 +23,7 @@ import com.zpj.shouji.market.ui.fragment.homepage.multi.AppGridListMultiData;
 import com.zpj.shouji.market.ui.fragment.homepage.multi.BaseHeaderMultiData;
 import com.zpj.shouji.market.ui.fragment.homepage.multi.ScreenShootMultiData;
 import com.zpj.shouji.market.ui.fragment.profile.ProfileFragment;
+import com.zpj.shouji.market.utils.EventBus;
 import com.zpj.utils.ScreenUtils;
 
 import java.lang.reflect.Field;

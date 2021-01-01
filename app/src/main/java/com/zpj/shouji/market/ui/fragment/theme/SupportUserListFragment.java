@@ -1,7 +1,6 @@
 package com.zpj.shouji.market.ui.fragment.theme;
 
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.view.View;
 
 import com.bumptech.glide.Glide;
@@ -47,14 +46,6 @@ public class SupportUserListFragment extends NextUrlFragment<SupportUserInfo> {
     protected void handleArguments(Bundle arguments) {
         super.handleArguments(arguments);
         themeId = arguments.getString(Keys.ID);
-    }
-
-    @Override
-    public void onLazyInitView(@Nullable Bundle savedInstanceState) {
-        super.onLazyInitView(savedInstanceState);
-//        if (TextUtils.isEmpty(themeId)) {
-//            recyclerLayout.showEmpty();
-//        }
     }
 
     @Override

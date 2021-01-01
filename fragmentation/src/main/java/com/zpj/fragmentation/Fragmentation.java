@@ -2,10 +2,10 @@ package com.zpj.fragmentation;
 
 import android.support.annotation.IntDef;
 
+import com.zpj.fragmentation.helper.ExceptionHandler;
+
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
-
-import com.zpj.fragmentation.helper.ExceptionHandler;
 
 /**
  * Created by YoKey on 17/2/5.

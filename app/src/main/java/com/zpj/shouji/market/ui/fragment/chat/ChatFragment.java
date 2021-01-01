@@ -15,8 +15,6 @@ import android.view.ViewGroup;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.houtrry.bubble.BubbleLinearLayout;
-import com.zpj.fragmentation.dialog.imagetrans.ImageItemView;
-import com.zpj.fragmentation.dialog.imagetrans.listener.SourceImageViewGet;
 import com.zpj.fragmentation.dialog.impl.AlertDialogFragment;
 import com.zpj.fragmentation.dialog.impl.ImageViewerDialogFragment3;
 import com.zpj.http.core.IHttp;

@@ -3,7 +3,6 @@ package com.zxy.skin.sdk.applicator;
 
 import android.content.res.TypedArray;
 import android.support.v7.widget.CardView;
-import android.widget.TextView;
 
 public class SkinCardViewApplicator extends SkinViewApplicator {
 

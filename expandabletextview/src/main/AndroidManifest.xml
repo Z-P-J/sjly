@@ -1,2 +1,1 @@
-<manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.ctetin.expandabletextviewlibrary" />
+<manifest package="com.ctetin.expandabletextviewlibrary" />

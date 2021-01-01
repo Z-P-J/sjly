@@ -20,7 +20,6 @@ import com.bumptech.glide.request.transition.Transition;
 import com.zpj.fragmentation.ISupportFragment;
 import com.zpj.fragmentation.SupportHelper;
 import com.zpj.fragmentation.dialog.impl.AttachListDialogFragment;
-import com.zpj.fragmentation.dialog.impl.ImageViewerDialogFragment;
 import com.zpj.fragmentation.dialog.impl.ImageViewerDialogFragment3;
 import com.zpj.fragmentation.dialog.interfaces.IImageLoader;
 import com.zpj.fragmentation.dialog.photoview.PhotoView;

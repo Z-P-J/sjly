@@ -15,7 +15,6 @@ import android.webkit.WebView;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
 
-import com.zpj.toast.ZToast;
 import com.just.agentweb.AbsAgentWebSettings;
 import com.just.agentweb.AgentWeb;
 import com.just.agentweb.IAgentWebSettings;
@@ -23,6 +22,7 @@ import com.zpj.fragmentation.dialog.impl.AttachListDialogFragment;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.constant.Keys;
 import com.zpj.shouji.market.ui.fragment.base.SkinFragment;
+import com.zpj.toast.ZToast;
 
 public class WebFragment extends SkinFragment {
 

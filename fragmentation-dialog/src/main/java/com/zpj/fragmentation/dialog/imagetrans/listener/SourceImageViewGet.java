@@ -1,7 +1,5 @@
 package com.zpj.fragmentation.dialog.imagetrans.listener;
 
-import android.widget.ImageView;
-
 import com.zpj.fragmentation.dialog.imagetrans.ImageItemView;
 
 /**

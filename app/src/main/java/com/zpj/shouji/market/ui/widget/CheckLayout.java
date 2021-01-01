@@ -8,7 +8,6 @@ import android.view.View;
 import android.view.ViewStub;
 
 import com.zpj.shouji.market.R;
-import com.zpj.widget.setting.CheckableSettingItem;
 import com.zpj.widget.setting.SwitchSettingItem;
 import com.zpj.widget.switcher.BaseSwitcher;
 

@@ -1,7 +1,5 @@
 package com.zpj.shouji.market.ui.fragment.dialog;
 
-import android.content.Context;
-import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
@@ -11,7 +9,6 @@ import android.support.v4.view.ViewPager;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
@@ -20,9 +17,7 @@ import com.bumptech.glide.request.transition.Transition;
 import com.zpj.fragmentation.ISupportFragment;
 import com.zpj.fragmentation.SupportHelper;
 import com.zpj.fragmentation.dialog.impl.AttachListDialogFragment;
-import com.zpj.fragmentation.dialog.impl.ImageViewerDialogFragment;
 import com.zpj.fragmentation.dialog.impl.ImageViewerDialogFragment3;
-import com.zpj.fragmentation.dialog.interfaces.IImageLoader;
 import com.zpj.fragmentation.dialog.photoview.PhotoView;
 import com.zpj.fragmentation.dialog.widget.LoadingView;
 import com.zpj.shouji.market.R;
@@ -30,7 +25,6 @@ import com.zpj.shouji.market.utils.PictureUtil;
 import com.zpj.widget.tinted.TintedImageButton;
 import com.zpj.widget.toolbar.ZToolBar;
 
-import java.io.File;
 import java.util.List;
 
 public class CommonImageViewerDialogFragment2 extends ImageViewerDialogFragment3<String> {

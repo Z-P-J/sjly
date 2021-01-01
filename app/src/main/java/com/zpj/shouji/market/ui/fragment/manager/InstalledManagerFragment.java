@@ -15,7 +15,6 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.zpj.toast.ZToast;
 import com.zpj.fragmentation.dialog.impl.ArrowMenuDialogFragment;
 import com.zpj.fragmentation.dialog.model.OptionMenu;
 import com.zpj.notification.ZNotify;
@@ -35,6 +34,7 @@ import com.zpj.shouji.market.ui.fragment.detail.AppDetailFragment;
 import com.zpj.shouji.market.ui.fragment.dialog.RecyclerPartShadowDialogFragment;
 import com.zpj.shouji.market.ui.widget.GradientButton;
 import com.zpj.shouji.market.utils.AppUtil;
+import com.zpj.toast.ZToast;
 import com.zpj.utils.ScreenUtils;
 import com.zpj.widget.checkbox.SmoothCheckBox;
 

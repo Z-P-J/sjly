@@ -11,8 +11,8 @@ import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.zpj.fragmentation.dialog.base.CenterDialogFragment;
 import com.zpj.fragmentation.dialog.R;
+import com.zpj.fragmentation.dialog.base.CenterDialogFragment;
 import com.zpj.fragmentation.dialog.utils.DialogThemeUtils;
 import com.zpj.utils.ContextUtils;
 import com.zpj.utils.ScreenUtils;

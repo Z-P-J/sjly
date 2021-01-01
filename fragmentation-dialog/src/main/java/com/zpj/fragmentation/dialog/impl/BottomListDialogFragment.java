@@ -3,14 +3,13 @@ package com.zpj.fragmentation.dialog.impl;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
-import android.util.TypedValue;
 import android.view.View;
 import android.widget.TextView;
 
+import com.zpj.fragmentation.dialog.R;
 import com.zpj.fragmentation.dialog.base.BottomDialogFragment;
 import com.zpj.fragmentation.dialog.utils.DialogThemeUtils;
 import com.zpj.fragmentation.dialog.widget.CheckView;
-import com.zpj.fragmentation.dialog.R;
 import com.zpj.recyclerview.EasyRecyclerView;
 import com.zpj.recyclerview.EasyViewHolder;
 import com.zpj.recyclerview.IEasy;

@@ -4,10 +4,10 @@ import android.os.Bundle;
 import android.support.annotation.IntDef;
 import android.support.annotation.Nullable;
 
+import com.zpj.fragmentation.anim.FragmentAnimator;
+
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
-
-import com.zpj.fragmentation.anim.FragmentAnimator;
 
 /**
  * Created by YoKey on 17/6/23.

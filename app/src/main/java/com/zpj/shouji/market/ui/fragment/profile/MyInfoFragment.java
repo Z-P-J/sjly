@@ -7,11 +7,9 @@ import android.view.View;
 import android.widget.ImageView;
 
 import com.yalantis.ucrop.CropEvent;
-import com.zpj.rxbus.RxBus;
-import com.zpj.toast.ZToast;
 import com.zpj.fragmentation.dialog.impl.AlertDialogFragment;
+import com.zpj.rxbus.RxBus;
 import com.zpj.shouji.market.R;
-import com.zpj.shouji.market.utils.EventBus;
 import com.zpj.shouji.market.manager.UserManager;
 import com.zpj.shouji.market.model.MemberInfo;
 import com.zpj.shouji.market.ui.fragment.base.BaseSwipeBackFragment;
@@ -19,8 +17,10 @@ import com.zpj.shouji.market.ui.fragment.dialog.EmailModifiedDialogFragment;
 import com.zpj.shouji.market.ui.fragment.dialog.NicknameModifiedDialogFragment;
 import com.zpj.shouji.market.ui.fragment.dialog.PasswordModifiedDialogFragment;
 import com.zpj.shouji.market.ui.widget.setting.IconSettingItem;
+import com.zpj.shouji.market.utils.EventBus;
 import com.zpj.shouji.market.utils.PictureUtil;
 import com.zpj.shouji.market.utils.UploadUtils;
+import com.zpj.toast.ZToast;
 import com.zpj.widget.setting.CommonSettingItem;
 import com.zpj.widget.setting.OnCommonItemClickListener;
 

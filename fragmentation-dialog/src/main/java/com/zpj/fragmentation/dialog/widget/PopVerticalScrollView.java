@@ -5,8 +5,6 @@ import android.util.AttributeSet;
 import android.view.View;
 import android.widget.ScrollView;
 
-import com.zpj.fragmentation.dialog.widget.PopLayout;
-
 /**
  * Created by felix on 17/1/10.
  */

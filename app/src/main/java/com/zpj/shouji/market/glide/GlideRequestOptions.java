@@ -36,8 +36,10 @@ public class GlideRequestOptions {
                 .centerCrop()
                 .roundedCorners(10)
                 .get()
-                .error(R.mipmap.ic_launcher)
-                .placeholder(R.mipmap.ic_launcher);
+                .error(R.drawable.ic_apk)
+                .placeholder(R.drawable.ic_apk);
+//                .error(R.mipmap.ic_launcher)
+//                .placeholder(R.mipmap.ic_launcher);
     }
 
     public static GlideRequestOptions with() {

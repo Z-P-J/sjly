@@ -41,13 +41,14 @@ import com.yanyusong.y_divideritemdecoration.Y_Divider;
 import com.yanyusong.y_divideritemdecoration.Y_DividerBuilder;
 import com.yanyusong.y_divideritemdecoration.Y_DividerItemDecoration;
 import com.zpj.fragmentation.SupportActivity;
+import com.zpj.fragmentation.dialog.impl.ImageViewerDialogFragment3;
 import com.zpj.matisse.CaptureMode;
 import com.zpj.matisse.Matisse;
 import com.zpj.matisse.MimeType;
 import com.zpj.matisse.engine.impl.GlideEngine;
 import com.zpj.matisse.entity.Item;
 import com.zpj.matisse.listener.OnSelectedListener;
-import com.zpj.matisse.ui.fragment.CustomImageViewerDialogFragment2;
+import com.zpj.matisse.ui.fragment.LocalImageViewer;
 import com.zpj.recyclerview.EasyRecyclerView;
 import com.zpj.recyclerview.EasyViewHolder;
 import com.zpj.recyclerview.IEasy;
@@ -254,13 +255,14 @@ public class ReplyPanel extends FrameLayout
                 .setData(imgList)
                 .onBindViewHolder((holder, list, position, payloads) -> {
                     ImageView img = holder.getImageView(R.id.iv_img);
+                    img.setTag(position);
                     Glide.with(getContext())
                             .load(list.get(position).uri)
                             .apply(GlideUtils.REQUEST_OPTIONS)
                             .into(img);
 
                     holder.setOnItemClickListener(v -> {
-                        new CustomImageViewerDialogFragment2()
+                        new LocalImageViewer()
                                 .setOnSelectedListener(itemList -> {
                                     postDelayed(() -> {
                                         imgList.clear();
@@ -271,19 +273,47 @@ public class ReplyPanel extends FrameLayout
                                         }
                                     }, 100);
                                 })
-                                .setImageList(imgList)
-                                .setNowIndex(holder.getAdapterPosition())
-                                .setSourceImageView((imageItemView, pos, isCurrent) -> {
-                                    int layoutPos = recyclerView.getRecyclerView().indexOfChild(holder.getItemView());
-                                    View view = recyclerView.getRecyclerView().getChildAt(layoutPos + pos - position);
-                                    ImageView imageView;
-                                    if (view != null) {
-                                        imageView = view.findViewById(R.id.iv_img);
-                                    } else {
-                                        imageView = img;
+                                .setImageUrls(imgList)
+                                .setSrcView(img, holder.getAdapterPosition())
+                                .setSrcViewUpdateListener(new ImageViewerDialogFragment3.OnSrcViewUpdateListener<Item>() {
+                                    private boolean isFirst = true;
+                                    @Override
+                                    public void onSrcViewUpdate(@NonNull ImageViewerDialogFragment3<Item> popup, int pos) {
+                                        if (!isFirst) {
+                                            recyclerView.getRecyclerView().scrollToPosition(pos);
+                                        }
+                                        isFirst = false;
+                                        ImageView imageView = recyclerView.getRecyclerView().findViewWithTag(pos);
+                                        if (imageView == null) {
+                                            imageView = img;
+                                        }
+                                        popup.updateSrcView(imageView);
+
+
+//                                        int layoutPos = recyclerView.getRecyclerView().indexOfChild(holder.getItemView());
+//                                        View view = recyclerView.getRecyclerView().getChildAt(layoutPos + pos - position);
+//                                        ImageView imageView;
+//                                        if (view != null) {
+//                                            imageView = view.findViewById(R.id.iv_img);
+//                                        } else {
+//                                            imageView = img;
+//                                        }
+//                                        popup.updateSrcView(imageView);
                                     }
-                                    imageItemView.update(imageView);
                                 })
+//                                .setImageList(imgList)
+//                                .setNowIndex(holder.getAdapterPosition())
+//                                .setSourceImageView((imageItemView, pos, isCurrent) -> {
+//                                    int layoutPos = recyclerView.getRecyclerView().indexOfChild(holder.getItemView());
+//                                    View view = recyclerView.getRecyclerView().getChildAt(layoutPos + pos - position);
+//                                    ImageView imageView;
+//                                    if (view != null) {
+//                                        imageView = view.findViewById(R.id.iv_img);
+//                                    } else {
+//                                        imageView = img;
+//                                    }
+//                                    imageItemView.update(imageView);
+//                                })
                                 .show(getContext());
                     });
                 })

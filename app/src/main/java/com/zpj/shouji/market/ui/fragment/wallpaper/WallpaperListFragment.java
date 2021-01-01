@@ -21,8 +21,6 @@ import com.bumptech.glide.request.RequestOptions;
 import com.bumptech.glide.request.transition.Transition;
 import com.github.zagum.expandicon.ExpandIconView;
 import com.sunbinqiang.iconcountview.IconCountView;
-import com.zpj.fragmentation.dialog.imagetrans.ImageItemView;
-import com.zpj.fragmentation.dialog.imagetrans.listener.SourceImageViewGet;
 import com.zpj.fragmentation.dialog.impl.ImageViewerDialogFragment3;
 import com.zpj.http.parser.html.nodes.Document;
 import com.zpj.http.parser.html.nodes.Element;
@@ -38,7 +36,6 @@ import com.zpj.shouji.market.model.WallpaperInfo;
 import com.zpj.shouji.market.model.WallpaperTag;
 import com.zpj.shouji.market.ui.fragment.base.NextUrlFragment;
 import com.zpj.shouji.market.ui.fragment.dialog.RecyclerPartShadowDialogFragment;
-import com.zpj.shouji.market.ui.fragment.dialog.WallpaperViewerDialogFragment2;
 import com.zpj.shouji.market.ui.fragment.dialog.WallpaperViewerDialogFragment3;
 import com.zpj.shouji.market.ui.widget.emoji.EmojiExpandableTextView;
 import com.zpj.toast.ZToast;
@@ -149,6 +146,7 @@ public class WallpaperListFragment extends NextUrlFragment<WallpaperInfo> {
             @Override
             public void select(boolean isSelected) {
                 HttpApi.likeApi("wallpaper", info.getId())
+                        .bindToLife(WallpaperListFragment.this)
                         .onSuccess(data -> {
                             String result = data.selectFirst("info").text();
                             if ("success".equals(data.selectFirst("result").text())) {

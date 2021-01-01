@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.CardView;
 import android.util.AttributeSet;
@@ -13,7 +14,9 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.resource.gif.GifDrawable;
 import com.bumptech.glide.request.RequestOptions;
+import com.bumptech.glide.request.transition.Transition;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.glide.GlideUtils;
 import com.zpj.shouji.market.glide.ImageViewDrawableTarget;
@@ -33,7 +36,7 @@ import java.util.List;
  * 最多加载九张图片，超过九张只显示前九张;
  *
  * modified by : Z-P-J
- * 新增编辑模式，代码优化，性能更优
+ * 新增编辑模式，代码优化，性能优化
  */
 public class NineGridView extends CardView {
 
@@ -602,7 +605,15 @@ public class NineGridView extends CardView {
             Glide.with(this)
                     .load(mUrls.get(i))
                     .apply(GlideUtils.REQUEST_OPTIONS)
-                    .into(new ImageViewDrawableTarget(container.getImageView()));
+                    .into(new ImageViewDrawableTarget(container.getImageView()) {
+                        @Override
+                        public void onResourceReady(@NonNull Drawable resource, @Nullable Transition<? super Drawable> transition) {
+                            super.onResourceReady(resource, transition);
+                            if (resource instanceof GifDrawable) {
+                                container.showGifIcon();
+                            }
+                        }
+                    });
         }
 
         setEditMode(isEditMode);

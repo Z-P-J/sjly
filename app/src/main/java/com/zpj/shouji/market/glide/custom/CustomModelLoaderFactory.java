@@ -6,9 +6,6 @@ import android.support.annotation.NonNull;
 import com.bumptech.glide.load.model.ModelLoader;
 import com.bumptech.glide.load.model.ModelLoaderFactory;
 import com.bumptech.glide.load.model.MultiModelLoaderFactory;
-import com.zpj.shouji.market.model.InstalledAppInfo;
-
-import java.io.InputStream;
 
 public class CustomModelLoaderFactory<T, S extends GlideCustomData<T>> implements ModelLoaderFactory<S, T> {
     private Context context;

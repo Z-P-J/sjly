@@ -218,7 +218,8 @@ public class ProfileFragment extends StateSwipeBackFragment
         darkStatusBar();
         HttpObserver<Document> task = TextUtils.isEmpty(userId)
                 ? HttpApi.getMemberInfoByNameApi(userName) : HttpApi.getMemberInfoByIdApi(userId);
-        task.onSuccess(element -> {
+        task.bindToLife(this)
+                .onSuccess(element -> {
                     Log.d("onGetUserItem", "element=" + element);
                     isFriend = "1".equals(element.selectFirst("isfriend").text());
                     if (isFriend) {
@@ -318,6 +319,7 @@ public class ProfileFragment extends StateSwipeBackFragment
                         .setTitle("取消关注")
                         .setContent("确定取消关注该用户？")
                         .setPositiveButton(popup -> HttpApi.deleteFriendApi(userId)
+                                .bindToLife(ProfileFragment.this)
                                 .onSuccess(data -> {
                                     Log.d("deleteFriendApi", "data=" + data);
                                     String result = data.selectFirst("result").text();
@@ -335,6 +337,7 @@ public class ProfileFragment extends StateSwipeBackFragment
                         .show(context);
             } else {
                 HttpApi.addFriendApi(userId)
+                        .bindToLife(this)
                         .onSuccess(data -> {
                             Log.d("addFriendApi", "data=" + data);
                             String result = data.selectFirst("result").text();

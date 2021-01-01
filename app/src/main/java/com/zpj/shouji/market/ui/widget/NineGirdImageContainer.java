@@ -15,6 +15,7 @@ public class NineGirdImageContainer extends FrameLayout {
     private int mWidth = 0, mHeight = 0;
     private final ImageView mImageView;
     private ImageView mImgDelete;
+    private ImageView gifIcon;
     protected boolean mIsDeleteMode;
     private onClickDeleteListener mListener;
     private int mImageWidth, mImageHeight;
@@ -60,16 +61,32 @@ public class NineGirdImageContainer extends FrameLayout {
             int size = ScreenUtils.dp2pxInt(getContext(), 16);
             mImageWidth = mWidth - size;
             mImageHeight = mHeight - size;
+            if (gifIcon != null) {
+                gifIcon.setTranslationX(size / 2f);
+            }
 
 //            mImageWidth = mWidth * 4 / 5;
 //            mImageHeight = mHeight * 4 / 5;
         } else {
             mImageWidth = mWidth;
             mImageHeight = mHeight;
+            if (gifIcon != null) {
+                gifIcon.setTranslationX(0);
+            }
         }
         imgWidthSpec = MeasureSpec.makeMeasureSpec(mImageWidth, imgMode);
         imgHeightSpec = MeasureSpec.makeMeasureSpec(mImageHeight, imgMode);
         mImageView.measure(imgWidthSpec, imgHeightSpec);
+    }
+
+    public void showGifIcon() {
+        gifIcon = new ImageView(getContext());
+        LayoutParams params = new LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        params.gravity = Gravity.BOTTOM | Gravity.END;
+        int margin = ScreenUtils.dp2pxInt(getContext(), 8);
+        params.setMargins(margin, margin, margin, margin);
+        addView(gifIcon, params);
+        gifIcon.setImageResource(R.drawable.ic_gif);
     }
 
 //    public int getImageWidth() {

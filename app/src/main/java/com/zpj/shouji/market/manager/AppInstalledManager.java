@@ -8,10 +8,10 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 
 import com.zpj.http.core.HttpObserver;
-import com.zpj.toast.ZToast;
 import com.zpj.shouji.market.model.InstalledAppInfo;
 import com.zpj.shouji.market.utils.AppUtil;
 import com.zpj.shouji.market.utils.FileUtils;
+import com.zpj.toast.ZToast;
 
 import java.io.File;
 import java.lang.ref.WeakReference;

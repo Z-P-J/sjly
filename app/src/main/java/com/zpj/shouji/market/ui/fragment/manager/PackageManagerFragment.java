@@ -12,8 +12,6 @@ import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.zpj.toast.ZToast;
-import com.zpj.shouji.market.utils.FileScanner;
 import com.zpj.fragmentation.dialog.impl.ArrowMenuDialogFragment;
 import com.zpj.fragmentation.dialog.model.OptionMenu;
 import com.zpj.recyclerview.EasyAdapter;
@@ -28,7 +26,9 @@ import com.zpj.shouji.market.model.XpkInfo;
 import com.zpj.shouji.market.ui.fragment.base.RecyclerLayoutFragment;
 import com.zpj.shouji.market.ui.fragment.dialog.RecyclerPartShadowDialogFragment;
 import com.zpj.shouji.market.utils.AppUtil;
+import com.zpj.shouji.market.utils.FileScanner;
 import com.zpj.shouji.market.utils.FileUtils;
+import com.zpj.toast.ZToast;
 
 import org.xmlpull.v1.XmlPullParserException;
 

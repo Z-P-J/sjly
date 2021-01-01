@@ -1,7 +1,6 @@
 package com.zpj.shouji.market.ui.fragment.homepage.multi;
 
 import android.view.View;
-import android.widget.Toast;
 
 import com.zpj.recyclerview.EasyViewHolder;
 import com.zpj.recyclerview.HeaderMultiData;

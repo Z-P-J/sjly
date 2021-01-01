@@ -20,8 +20,6 @@ import com.zpj.shouji.market.utils.EventBus;
 import com.zpj.toast.ZToast;
 import com.zxy.skin.sdk.SkinLayoutInflater;
 
-import io.reactivex.functions.Consumer;
-
 public class BaseActivity extends SupportActivity {
 
     private long firstTime = 0;

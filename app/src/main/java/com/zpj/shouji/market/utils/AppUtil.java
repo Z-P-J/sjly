@@ -15,8 +15,8 @@ import android.os.Environment;
 import android.util.DisplayMetrics;
 import android.util.Log;
 
-import com.zpj.toast.ZToast;
 import com.zpj.shouji.market.model.InstalledAppInfo;
+import com.zpj.toast.ZToast;
 import com.zpj.utils.ContextUtils;
 
 import java.io.File;

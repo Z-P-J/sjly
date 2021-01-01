@@ -16,8 +16,6 @@
 package com.zpj.fragmentation.dialog.photoview;
 
 import android.annotation.TargetApi;
-import android.os.Build.VERSION;
-import android.os.Build.VERSION_CODES;
 import android.view.View;
 
 class Compat {

@@ -1,8 +1,6 @@
 package com.zpj.shouji.market.utils;
 
 import android.content.Context;
-import android.graphics.Color;
-import android.os.Build;
 import android.support.v4.view.ViewPager;
 
 import com.zpj.shouji.market.R;

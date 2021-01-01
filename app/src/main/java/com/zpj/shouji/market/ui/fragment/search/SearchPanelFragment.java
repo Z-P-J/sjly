@@ -18,7 +18,6 @@ import com.zpj.rxbus.RxBus;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.api.SearchApi;
 import com.zpj.shouji.market.database.SearchHistoryManager;
-import com.zpj.shouji.market.utils.EventBus;
 import com.zpj.shouji.market.glide.GlideRequestOptions;
 import com.zpj.shouji.market.model.GuessAppInfo;
 import com.zpj.shouji.market.model.QuickAppInfo;
@@ -27,6 +26,7 @@ import com.zpj.shouji.market.ui.fragment.base.SkinFragment;
 import com.zpj.shouji.market.ui.fragment.detail.AppDetailFragment;
 import com.zpj.shouji.market.ui.widget.DownloadButton;
 import com.zpj.shouji.market.ui.widget.flowlayout.FlowLayout;
+import com.zpj.shouji.market.utils.EventBus;
 import com.zpj.utils.ScreenUtils;
 
 import java.util.ArrayList;

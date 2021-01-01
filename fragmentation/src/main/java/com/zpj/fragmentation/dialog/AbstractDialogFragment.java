@@ -10,7 +10,6 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.zpj.fragmentation.SupportFragment;
-import com.zpj.fragmentation.anim.DefaultNoAnimator;
 import com.zpj.fragmentation.anim.DialogFragmentAnimator;
 import com.zpj.fragmentation.anim.FragmentAnimator;
 

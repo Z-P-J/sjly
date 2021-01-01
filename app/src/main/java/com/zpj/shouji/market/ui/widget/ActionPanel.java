@@ -27,13 +27,13 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.zpj.toast.ZToast;
 import com.lqr.emoji.EmotionLayout;
 import com.lqr.emoji.IEmotionExtClickListener;
 import com.lqr.emoji.IEmotionSelectedListener;
 import com.zpj.matisse.entity.Item;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.utils.ThemeUtils;
+import com.zpj.toast.ZToast;
 import com.zpj.utils.KeyboardHeightProvider;
 import com.zpj.utils.KeyboardUtils;
 import com.zpj.utils.ScreenUtils;

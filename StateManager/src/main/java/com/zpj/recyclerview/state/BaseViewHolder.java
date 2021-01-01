@@ -1,14 +1,9 @@
 package com.zpj.recyclerview.state;
 
 import android.content.Context;
-import android.graphics.drawable.Drawable;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.TextView;
 
 public abstract class BaseViewHolder implements IViewHolder {
 

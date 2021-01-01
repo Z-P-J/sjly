@@ -209,7 +209,8 @@ public class ThemeDetailFragment extends BaseSwipeBackFragment {
             }
         });
 
-        SkinEngine.applyViewAttr(btnCollect, "tint", R.attr.textColorMajor);
+//        SkinEngine.applyViewAttr(btnCollect, "tint", R.attr.textColorMajor);
+        SkinEngine.setTint(btnCollect, R.attr.textColorMajor);
 
         btnCollect.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -226,7 +227,8 @@ public class ThemeDetailFragment extends BaseSwipeBackFragment {
         });
 
 //        btnMenu.setTint(Color.BLACK);
-        SkinEngine.applyViewAttr(btnMenu, "tint", R.attr.textColorMajor);
+//        SkinEngine.applyViewAttr(btnMenu, "tint", R.attr.textColorMajor);
+        SkinEngine.setTint(btnMenu, R.attr.textColorMajor);
 
         fabComment = view.findViewById(R.id.fab_comment);
         fabComment.setOnClickListener(v -> {

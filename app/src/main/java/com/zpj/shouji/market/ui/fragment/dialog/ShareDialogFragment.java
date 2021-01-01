@@ -11,10 +11,10 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.TextView;
 
-import com.zpj.toast.ZToast;
 import com.zpj.fragmentation.dialog.base.BottomDialogFragment;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.utils.ShareUtils;
+import com.zpj.toast.ZToast;
 
 import java.io.File;
 

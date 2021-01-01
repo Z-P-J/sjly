@@ -11,7 +11,6 @@ import android.view.ViewConfiguration;
 import android.widget.FrameLayout;
 
 import com.zpj.fragmentation.dialog.interfaces.OnClickOutsideListener;
-import com.zpj.fragmentation.dialog.utils.Utility;
 import com.zpj.utils.ViewUtils;
 
 /**

@@ -1,11 +1,9 @@
 package com.zpj.shouji.market.ui.fragment.dialog;
 
 import android.annotation.SuppressLint;
-import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.MenuRes;
-import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.view.menu.MenuBuilder;
 import android.support.v7.widget.LinearLayoutManager;
@@ -22,8 +20,6 @@ import com.zpj.recyclerview.EasyRecyclerView;
 import com.zpj.recyclerview.EasyViewHolder;
 import com.zpj.recyclerview.IEasy;
 import com.zpj.shouji.market.R;
-import com.zpj.shouji.market.utils.ThemeUtils;
-import com.zpj.widget.tinted.TintedImageView;
 import com.zxy.skin.sdk.SkinEngine;
 
 import java.util.ArrayList;

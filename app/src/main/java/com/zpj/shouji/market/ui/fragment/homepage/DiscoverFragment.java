@@ -12,9 +12,9 @@ import com.zpj.recyclerview.EasyViewHolder;
 import com.zpj.recyclerview.IEasy;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.constant.Keys;
-import com.zpj.shouji.market.utils.EventBus;
 import com.zpj.shouji.market.model.DiscoverInfo;
 import com.zpj.shouji.market.ui.fragment.theme.ThemeListFragment;
+import com.zpj.shouji.market.utils.EventBus;
 
 public class DiscoverFragment extends ThemeListFragment {
 

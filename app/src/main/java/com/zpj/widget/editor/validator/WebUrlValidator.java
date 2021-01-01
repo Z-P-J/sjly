@@ -1,9 +1,6 @@
 package com.zpj.widget.editor.validator;
 
-import android.os.Build;
 import android.util.Patterns;
-
-import java.util.regex.Pattern;
 
 /**
  * Validates a web url in the format:

@@ -8,7 +8,6 @@ import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
-import com.zpj.toast.ZToast;
 import com.zpj.http.parser.html.nodes.Document;
 import com.zpj.recyclerview.EasyRecyclerLayout;
 import com.zpj.recyclerview.EasyViewHolder;
@@ -21,6 +20,7 @@ import com.zpj.shouji.market.ui.fragment.UserListFragment;
 import com.zpj.shouji.market.ui.fragment.base.BaseSwipeBackFragment;
 import com.zpj.shouji.market.utils.Callback;
 import com.zpj.shouji.market.utils.MagicIndicatorHelper;
+import com.zpj.toast.ZToast;
 
 import net.lucode.hackware.magicindicator.MagicIndicator;
 

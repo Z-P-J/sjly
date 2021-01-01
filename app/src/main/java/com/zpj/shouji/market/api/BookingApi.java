@@ -2,12 +2,12 @@ package com.zpj.shouji.market.api;
 
 import com.zpj.http.parser.html.nodes.Element;
 import com.zpj.shouji.market.R;
-import com.zpj.shouji.market.utils.EventBus;
 import com.zpj.shouji.market.manager.UserManager;
 import com.zpj.shouji.market.model.BookingAppInfo;
 import com.zpj.shouji.market.ui.fragment.login.LoginFragment;
 import com.zpj.shouji.market.utils.BeanUtils;
 import com.zpj.shouji.market.utils.Callback;
+import com.zpj.shouji.market.utils.EventBus;
 import com.zpj.toast.ZToast;
 
 import java.util.ArrayList;

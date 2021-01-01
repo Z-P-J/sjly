@@ -8,7 +8,6 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.TextView;
 
-import com.zpj.toast.ZToast;
 import com.zpj.http.core.IHttp;
 import com.zpj.recyclerview.EasyViewHolder;
 import com.zpj.shouji.market.R;
@@ -17,6 +16,7 @@ import com.zpj.shouji.market.model.DiscoverInfo;
 import com.zpj.shouji.market.ui.adapter.DiscoverBinder;
 import com.zpj.shouji.market.ui.fragment.base.BaseSwipeBackFragment;
 import com.zpj.shouji.market.ui.widget.flowlayout.FlowLayout;
+import com.zpj.toast.ZToast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -87,6 +87,7 @@ public class ReportFragment extends BaseSwipeBackFragment {
                 }
 //                ZToast.normal("reasons=" + reasons);
                 HttpApi.reportApi(discoverInfo.getId(), discoverInfo.getContentType(), reasons)
+                        .bindToLife(ReportFragment.this)
                         .onSuccess(data -> {
                             String info = data.selectFirst("info").text();
                             if ("success".equals(data.selectFirst("result").text())) {

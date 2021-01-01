@@ -19,10 +19,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.transition.Transition;
-import com.zpj.fragmentation.dialog.imagetrans.ImageItemView;
-import com.zpj.fragmentation.dialog.imagetrans.listener.SourceImageViewGet;
 import com.zpj.fragmentation.dialog.impl.AttachListDialogFragment;
-import com.zpj.fragmentation.dialog.impl.ImageViewerDialogFragment3;
 import com.zpj.recyclerview.state.StateManager;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.api.HttpApi;
@@ -129,6 +126,7 @@ public class ArticleDetailFragment extends BaseSwipeBackFragment {
 
     private void parseHtml(final String url) {
         HttpApi.getXml(url)
+                .bindToLife(this)
                 .onSuccess(data -> {
                     articleDetailInfo = ArticleDetailInfo.parse(url.startsWith("https://soft.shouji.com.cn/") ? "soft" : "game", data);
                     if (isEnterAnimationEnd.get()) {

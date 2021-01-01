@@ -1,21 +1,11 @@
 package com.zpj.widget.editor;
 
 import android.content.Context;
-import android.os.Build;
-import android.support.annotation.RequiresApi;
 import android.support.v7.widget.AppCompatEditText;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnFocusChangeListener;
-import android.widget.EditText;
-
-import com.zpj.widget.editor.validator.EmptyValidator;
-import com.zpj.widget.editor.validator.MultiValidator;
-import com.zpj.widget.editor.validator.OrValidator;
-import com.zpj.widget.editor.validator.Validator;
 
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;

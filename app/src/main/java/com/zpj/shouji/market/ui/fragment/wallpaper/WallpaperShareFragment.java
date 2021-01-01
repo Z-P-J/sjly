@@ -12,7 +12,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-import com.zpj.toast.ZToast;
 import com.zpj.http.core.IHttp;
 import com.zpj.matisse.Matisse;
 import com.zpj.matisse.MimeType;
@@ -26,6 +25,7 @@ import com.zpj.shouji.market.ui.fragment.base.BaseSwipeBackFragment;
 import com.zpj.shouji.market.ui.fragment.profile.UserPickerFragment;
 import com.zpj.shouji.market.ui.widget.ActionPanel;
 import com.zpj.shouji.market.ui.widget.flowlayout.FlowLayout;
+import com.zpj.toast.ZToast;
 import com.zpj.utils.KeyboardObserver;
 import com.zpj.utils.ScreenUtils;
 

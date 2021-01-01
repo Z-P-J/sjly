@@ -1,6 +1,10 @@
 package com.zxy.skin.sdk;
 
 
+import android.content.Context;
+import android.content.res.TypedArray;
+import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.support.annotation.RequiresApi;
 import android.util.ArrayMap;
@@ -96,6 +100,26 @@ public class SkinEngine {
             return;
         }
         SkinApplicatorManager.register(viewClass, applicator);
+    }
+
+    public static int getColor(Context context, int colorAttrId) {
+        return getColor(context, colorAttrId, Color.BLACK);
+    }
+
+    public static int getColor(Context context, int colorAttrId, int defaultColor) {
+        int[] ints = { colorAttrId };
+        TypedArray typedArray = context.obtainStyledAttributes(ints);
+        int color = typedArray.getColor(0, defaultColor);
+        typedArray.recycle();
+        return color;
+    }
+
+    public static Drawable getDrawable(Context context, int drawableAttrId) {
+        int[] ints = { drawableAttrId };
+        TypedArray typedArray = context.obtainStyledAttributes(ints);
+        Drawable drawable = typedArray.getDrawable(0);
+        typedArray.recycle();
+        return drawable;
     }
 
     /**

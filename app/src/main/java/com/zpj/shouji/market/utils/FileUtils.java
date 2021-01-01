@@ -26,7 +26,6 @@ import java.io.InputStream;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.nio.channels.FileChannel;
-import java.security.MessageDigest;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.LinkedList;

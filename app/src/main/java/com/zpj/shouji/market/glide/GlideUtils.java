@@ -1,10 +1,8 @@
 package com.zpj.shouji.market.glide;
 
-import com.bumptech.glide.load.resource.bitmap.BitmapTransitionOptions;
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
 import com.bumptech.glide.request.RequestOptions;
 import com.bumptech.glide.request.target.Target;
-import com.bumptech.glide.request.transition.BitmapTransitionFactory;
 import com.bumptech.glide.request.transition.DrawableCrossFadeFactory;
 import com.zpj.shouji.market.R;
 

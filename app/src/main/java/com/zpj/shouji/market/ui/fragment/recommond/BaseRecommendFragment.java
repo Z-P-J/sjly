@@ -9,6 +9,7 @@ import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.ImageButton;
 
 import com.geek.banner.Banner;
 import com.zpj.blur.ZBlurry;
@@ -18,13 +19,14 @@ import com.zpj.recyclerview.MultiData;
 import com.zpj.recyclerview.MultiRecyclerViewWrapper;
 import com.zpj.rxbus.RxBus;
 import com.zpj.shouji.market.R;
-import com.zpj.shouji.market.utils.EventBus;
 import com.zpj.shouji.market.model.AppInfo;
 import com.zpj.shouji.market.ui.fragment.base.SkinFragment;
 import com.zpj.shouji.market.ui.fragment.detail.AppDetailFragment;
 import com.zpj.shouji.market.ui.fragment.manager.ManagerFragment;
 import com.zpj.shouji.market.ui.fragment.search.SearchFragment;
 import com.zpj.shouji.market.ui.widget.RecommendBanner;
+import com.zpj.shouji.market.utils.EventBus;
+import com.zxy.skin.sdk.SkinEngine;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -104,8 +106,12 @@ public abstract class BaseRecommendFragment extends SkinFragment
 
     @Override
     public void toolbarRightCustomView(@NonNull View view) {
-        view.findViewById(R.id.btn_manage).setOnClickListener(v -> ManagerFragment.start());
-        view.findViewById(R.id.btn_search).setOnClickListener(v -> SearchFragment.start());
+        ImageButton btnManage = view.findViewById(R.id.btn_manage);
+        ImageButton btnSearch = view.findViewById(R.id.btn_search);
+        SkinEngine.setTint(btnManage, R.attr.textColorMajor);
+        SkinEngine.setTint(btnSearch, R.attr.textColorMajor);
+        btnManage.setOnClickListener(v -> ManagerFragment.start());
+        btnSearch.setOnClickListener(v -> SearchFragment.start());
     }
 
     @Override

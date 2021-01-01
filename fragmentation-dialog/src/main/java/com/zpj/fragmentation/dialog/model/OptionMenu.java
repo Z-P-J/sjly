@@ -4,11 +4,8 @@ import android.content.res.ColorStateList;
 import android.content.res.Resources;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
-import android.graphics.drawable.DrawableWrapper;
 import android.support.v4.graphics.drawable.DrawableCompat;
-import android.support.v7.widget.DrawableUtils;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.CheckedTextView;
 
 import com.zpj.fragmentation.dialog.R;

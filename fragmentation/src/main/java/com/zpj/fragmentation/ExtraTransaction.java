@@ -9,9 +9,9 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.view.View;
 
-import java.util.ArrayList;
-
 import com.zpj.fragmentation.helper.internal.TransactionRecord;
+
+import java.util.ArrayList;
 
 /**
  * Created by YoKey on 16/11/24.

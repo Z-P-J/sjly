@@ -11,8 +11,8 @@ import com.zpj.http.parser.html.nodes.Element;
 import com.zpj.http.parser.html.select.Elements;
 import com.zpj.recyclerview.EasyViewHolder;
 import com.zpj.shouji.market.constant.Keys;
-import com.zpj.shouji.market.utils.EventBus;
 import com.zpj.shouji.market.model.DiscoverInfo;
+import com.zpj.shouji.market.utils.EventBus;
 
 import java.util.HashMap;
 import java.util.Map;

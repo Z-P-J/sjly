@@ -15,7 +15,6 @@ import android.util.AttributeSet;
 import android.view.View;
 import android.widget.TextView;
 
-import com.zpj.toast.ZToast;
 import com.zpj.recyclerview.EasyRecyclerView;
 import com.zpj.recyclerview.EasyViewHolder;
 import com.zpj.recyclerview.IEasy;
@@ -23,6 +22,7 @@ import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.constant.AppConfig;
 import com.zpj.shouji.market.ui.widget.DotSpan;
 import com.zpj.shouji.market.utils.ThemeUtils;
+import com.zpj.toast.ZToast;
 import com.zpj.utils.ScreenUtils;
 
 import java.util.ArrayList;

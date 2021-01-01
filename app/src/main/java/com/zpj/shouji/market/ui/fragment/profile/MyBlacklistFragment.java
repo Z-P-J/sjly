@@ -6,7 +6,6 @@ import android.view.View;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
-import com.zpj.toast.ZToast;
 import com.zpj.http.parser.html.nodes.Element;
 import com.zpj.recyclerview.EasyViewHolder;
 import com.zpj.shouji.market.R;
@@ -17,7 +16,7 @@ import com.zpj.shouji.market.ui.fragment.WebFragment;
 import com.zpj.shouji.market.ui.fragment.base.NextUrlFragment;
 import com.zpj.shouji.market.ui.fragment.dialog.BottomListMenuDialogFragment;
 import com.zpj.shouji.market.utils.BeanUtils;
-import com.zpj.shouji.market.utils.ThemeUtils;
+import com.zpj.toast.ZToast;
 
 import java.util.List;
 

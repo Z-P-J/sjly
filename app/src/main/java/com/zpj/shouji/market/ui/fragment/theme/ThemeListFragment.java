@@ -6,7 +6,6 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.util.Log;
 import android.view.View;
 
-import com.zpj.toast.ZToast;
 import com.zpj.http.parser.html.nodes.Document;
 import com.zpj.http.parser.html.nodes.Element;
 import com.zpj.http.parser.html.select.Elements;
@@ -22,7 +21,7 @@ import com.zpj.shouji.market.ui.fragment.base.NextUrlFragment;
 import com.zpj.shouji.market.ui.fragment.collection.CollectionDetailFragment;
 import com.zpj.shouji.market.ui.fragment.dialog.ThemeMoreDialogFragment;
 import com.zpj.shouji.market.ui.fragment.profile.ProfileFragment;
-import com.zpj.shouji.market.ui.fragment.search.SearchResultFragment;
+import com.zpj.toast.ZToast;
 
 import java.util.HashMap;
 import java.util.List;

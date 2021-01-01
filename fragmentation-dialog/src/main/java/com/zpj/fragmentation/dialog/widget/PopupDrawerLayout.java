@@ -21,7 +21,6 @@ import com.zpj.fragmentation.dialog.animator.ShadowBgAnimator;
 import com.zpj.fragmentation.dialog.config.DialogConfig;
 import com.zpj.fragmentation.dialog.enums.LayoutStatus;
 import com.zpj.fragmentation.dialog.enums.PopupPosition;
-import com.zpj.fragmentation.dialog.utils.Utility;
 import com.zpj.utils.StatusBarUtils;
 import com.zpj.utils.ViewUtils;
 

@@ -83,6 +83,7 @@ public class CloudBackupFragment extends StateSwipeBackFragment
 
     private void getData() {
         CloudBackupApi.backupListApi()
+                .bindToLife(this)
                 .onSuccess(data -> {
                     Log.d("CloudBackupFragment", "data=" + data);
                     backupItemList.clear();

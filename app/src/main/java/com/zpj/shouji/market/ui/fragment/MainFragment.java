@@ -15,7 +15,6 @@ import com.zpj.fragmentation.anim.FragmentAnimator;
 import com.zpj.rxbus.RxBus;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.constant.AppConfig;
-import com.zpj.shouji.market.utils.EventBus;
 import com.zpj.shouji.market.manager.UserManager;
 import com.zpj.shouji.market.model.MessageInfo;
 import com.zpj.shouji.market.ui.fragment.base.SkinFragment;
@@ -26,7 +25,7 @@ import com.zpj.shouji.market.ui.fragment.recommond.GameRecommendFragment;
 import com.zpj.shouji.market.ui.fragment.recommond.SoftRecommendFragment;
 import com.zpj.shouji.market.ui.widget.navigation.BottomBar;
 import com.zpj.shouji.market.ui.widget.navigation.BottomBarTab;
-import com.zpj.toast.ZToast;
+import com.zpj.shouji.market.utils.EventBus;
 
 public class MainFragment extends SkinFragment {
 
@@ -59,7 +58,9 @@ public class MainFragment extends SkinFragment {
         EventBus.onSkinChangeEvent(this, s -> {
             if (blurred != null) {
                 blurred.foregroundColor(Color.parseColor(AppConfig.isNightMode() ? "#a0000000" : "#a0ffffff"));
-                blurred.startBlur();
+                if (isSupportVisible()) {
+                    blurred.startBlur();
+                }
             }
         });
         RxBus.observe(this, MessageInfo.class)
@@ -99,7 +100,6 @@ public class MainFragment extends SkinFragment {
             mFragments[THIRD] = findChildFragment(GameRecommendFragment.class);
             mFragments[FOURTH] = findChildFragment(MyFragment.class);
         }
-
 
 
         FloatingActionButton floatingActionButton = view.findViewById(R.id.fab);
@@ -178,7 +178,7 @@ public class MainFragment extends SkinFragment {
         super.onSupportVisible();
         int pos = mBottomBar.getCurrentItemPosition();
         if (pos > 2) {
-            pos-=1;
+            pos -= 1;
         }
         mFragments[pos].onSupportVisible();
         if (blurred != null) {

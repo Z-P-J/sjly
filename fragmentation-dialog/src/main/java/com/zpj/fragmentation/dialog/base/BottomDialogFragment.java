@@ -9,11 +9,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
 
+import com.zpj.fragmentation.dialog.R;
 import com.zpj.fragmentation.dialog.animator.PopupAnimator;
 import com.zpj.fragmentation.dialog.utils.DialogThemeUtils;
 import com.zpj.fragmentation.dialog.utils.Utility;
 import com.zpj.fragmentation.dialog.widget.SmartDragLayout;
-import com.zpj.fragmentation.dialog.R;
 import com.zpj.utils.ScreenUtils;
 
 import static android.view.ViewGroup.LayoutParams.MATCH_PARENT;

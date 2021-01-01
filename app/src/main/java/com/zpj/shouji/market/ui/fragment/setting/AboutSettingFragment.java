@@ -5,9 +5,9 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.View;
 
-import com.zpj.toast.ZToast;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.ui.fragment.WebFragment;
+import com.zpj.toast.ZToast;
 import com.zpj.utils.AppUtils;
 import com.zpj.widget.setting.CheckableSettingItem;
 import com.zpj.widget.setting.CommonSettingItem;

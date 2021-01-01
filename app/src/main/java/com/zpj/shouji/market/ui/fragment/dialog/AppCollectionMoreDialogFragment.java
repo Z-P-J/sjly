@@ -1,19 +1,13 @@
 package com.zpj.shouji.market.ui.fragment.dialog;
 
-import android.content.ClipData;
-import android.content.ClipboardManager;
-import android.content.Context;
 import android.text.TextUtils;
 import android.view.MenuItem;
 import android.view.View;
 
-import com.zpj.toast.ZToast;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.api.HttpApi;
 import com.zpj.shouji.market.manager.UserManager;
 import com.zpj.shouji.market.model.CollectionInfo;
-import com.zpj.shouji.market.model.DiscoverInfo;
-import com.zpj.shouji.market.ui.fragment.ReportFragment;
 
 public class AppCollectionMoreDialogFragment extends BottomListMenuDialogFragment
         implements BottomListMenuDialogFragment.OnItemClickListener {

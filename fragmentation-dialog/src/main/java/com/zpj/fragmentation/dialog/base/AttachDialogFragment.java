@@ -2,7 +2,6 @@ package com.zpj.fragmentation.dialog.base;
 
 import android.graphics.PointF;
 import android.graphics.Rect;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -13,13 +12,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
 
+import com.zpj.fragmentation.dialog.R;
 import com.zpj.fragmentation.dialog.animator.PopupAnimator;
 import com.zpj.fragmentation.dialog.animator.ScrollScaleAnimator;
 import com.zpj.fragmentation.dialog.enums.PopupAnimation;
 import com.zpj.fragmentation.dialog.enums.PopupPosition;
-import com.zpj.fragmentation.dialog.impl.AttachListDialogFragment;
 import com.zpj.fragmentation.dialog.widget.PartShadowContainer;
-import com.zpj.fragmentation.dialog.R;
 import com.zpj.utils.ScreenUtils;
 
 

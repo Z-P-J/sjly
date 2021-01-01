@@ -6,7 +6,6 @@ import android.content.Intent;
 import android.net.Uri;
 
 import com.zpj.downloader.BaseMission;
-import com.zpj.downloader.DownloadMission;
 import com.zpj.downloader.INotificationInterceptor;
 import com.zpj.notification.ZNotify;
 import com.zpj.shouji.market.constant.Actions;

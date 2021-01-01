@@ -21,7 +21,6 @@ import com.zpj.shouji.market.api.HttpApi;
 import com.zpj.shouji.market.constant.AppConfig;
 import com.zpj.shouji.market.download.AppDownloadMission;
 import com.zpj.shouji.market.download.DownloadNotificationInterceptor;
-import com.zpj.shouji.market.ui.activity.MainActivity;
 import com.zpj.shouji.market.utils.ThemeUtils;
 import com.zpj.widget.setting.SimpleSettingItem;
 import com.zpj.widget.setting.SwitchSettingItem;

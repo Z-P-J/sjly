@@ -3,10 +3,9 @@ package com.zpj.fragmentation;
 import android.content.Context;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentationMagician;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
-
-import android.support.v4.app.FragmentationMagician;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -9,6 +9,7 @@ import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentationMagician;
 import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.util.TypedValue;
@@ -19,13 +20,12 @@ import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import android.support.v4.app.FragmentationMagician;
 import com.zpj.fragmentation.Fragmentation;
 import com.zpj.fragmentation.ISupportFragment;
 import com.zpj.fragmentation.R;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by YoKey on 17/6/13.

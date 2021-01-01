@@ -10,7 +10,6 @@ import android.widget.FrameLayout;
 
 import com.zpj.fragmentation.dialog.imagetrans.listener.OnPullCloseListener;
 import com.zpj.fragmentation.dialog.imagetrans.listener.OnTransformListener;
-import com.zpj.fragmentation.queue.BlockActionQueue;
 
 import java.util.UUID;
 import java.util.concurrent.atomic.AtomicBoolean;

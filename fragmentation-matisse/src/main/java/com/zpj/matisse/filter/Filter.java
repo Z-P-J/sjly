@@ -19,8 +19,8 @@ import android.content.Context;
 
 import com.zpj.matisse.MimeType;
 import com.zpj.matisse.SelectionCreator;
-import com.zpj.matisse.entity.Item;
 import com.zpj.matisse.entity.IncapableCause;
+import com.zpj.matisse.entity.Item;
 
 import java.util.Set;
 

@@ -7,9 +7,9 @@ import android.view.View;
 import android.view.ViewTreeObserver;
 import android.widget.TextView;
 
+import com.zpj.fragmentation.dialog.R;
 import com.zpj.fragmentation.dialog.base.CenterDialogFragment;
 import com.zpj.fragmentation.dialog.interfaces.OnSelectListener;
-import com.zpj.fragmentation.dialog.R;
 import com.zpj.fragmentation.dialog.utils.DialogThemeUtils;
 import com.zpj.recyclerview.EasyRecyclerView;
 import com.zpj.recyclerview.EasyViewHolder;

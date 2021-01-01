@@ -13,7 +13,6 @@ import com.zpj.recyclerview.MultiRecyclerViewWrapper;
 import com.zpj.rxbus.RxBus;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.api.PreloadApi;
-import com.zpj.shouji.market.utils.EventBus;
 import com.zpj.shouji.market.ui.fragment.ToolBarAppListFragment;
 import com.zpj.shouji.market.ui.fragment.base.SkinFragment;
 import com.zpj.shouji.market.ui.fragment.homepage.multi.AppInfoMultiData;
@@ -21,6 +20,7 @@ import com.zpj.shouji.market.ui.fragment.homepage.multi.CollectionMultiData;
 import com.zpj.shouji.market.ui.fragment.homepage.multi.GuessYouLikeMultiData;
 import com.zpj.shouji.market.ui.fragment.homepage.multi.SubjectMultiData;
 import com.zpj.shouji.market.ui.widget.RecommendBanner;
+import com.zpj.shouji.market.utils.EventBus;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -9,8 +9,8 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.zpj.fragmentation.dialog.base.BottomDialogFragment;
 import com.zpj.fragmentation.dialog.R;
+import com.zpj.fragmentation.dialog.base.BottomDialogFragment;
 import com.zpj.fragmentation.dialog.utils.DialogThemeUtils;
 import com.zpj.recyclerview.EasyRecyclerView;
 import com.zpj.widget.checkbox.SmoothCheckBox;

@@ -3,9 +3,7 @@ package com.zpj.shouji.market.utils;
 import android.text.TextUtils;
 import android.util.Log;
 
-import com.zpj.http.parser.html.nodes.Document;
 import com.zpj.http.parser.html.nodes.Element;
-import com.zpj.shouji.market.model.MemberInfo;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

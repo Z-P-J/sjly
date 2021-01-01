@@ -3,28 +3,20 @@ package com.zpj.shouji.market.ui.fragment.homepage.multi;
 import android.content.Context;
 import android.graphics.Color;
 import android.view.View;
-import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
-import com.zpj.toast.ZToast;
 import com.yanyusong.y_divideritemdecoration.Y_Divider;
 import com.yanyusong.y_divideritemdecoration.Y_DividerBuilder;
 import com.yanyusong.y_divideritemdecoration.Y_DividerItemDecoration;
 import com.zpj.fragmentation.dialog.impl.AlertDialogFragment;
-import com.zpj.http.parser.html.nodes.Element;
-import com.zpj.http.parser.html.select.Elements;
 import com.zpj.recyclerview.EasyRecyclerView;
 import com.zpj.recyclerview.MultiAdapter;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.api.BookingApi;
-import com.zpj.shouji.market.api.HttpApi;
 import com.zpj.shouji.market.glide.GlideRequestOptions;
 import com.zpj.shouji.market.model.BookingAppInfo;
-import com.zpj.shouji.market.model.article.ArticleInfo;
-import com.zpj.shouji.market.ui.fragment.ArticleDetailFragment;
 import com.zpj.shouji.market.ui.fragment.detail.AppDetailFragment;
-
-import java.util.Locale;
+import com.zpj.toast.ZToast;
 
 public class GameBookingMultiData extends RecyclerMultiData<BookingAppInfo> {
 
