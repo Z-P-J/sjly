@@ -1,7 +1,7 @@
 # compiler: R8
 # compiler_version: 1.5.69
 # min_api: 19
-# pg_map_id: 2c845f3
+# pg_map_id: d84eeb9
 android.arch.core.executor.ArchTaskExecutor -> a.a.a.a.a:
     android.arch.core.executor.ArchTaskExecutor sInstance -> c
     android.arch.core.executor.TaskExecutor mDelegate -> a
@@ -39398,23 +39398,23 @@ com.zpj.shouji.market.api.HttpApi -> com.zpj.shouji.market.b.d2:
     457:459:void lambda$sendPrivateLetterApi$16(java.lang.Throwable) -> g
     473:473:com.zpj.http.core.HttpObserver emailApi(java.lang.String,java.lang.String) -> g
     174:174:java.lang.String getCollectUrl(java.lang.String) -> h
-    178:179:com.zpj.http.core.HttpObserver likeApi(java.lang.String,java.lang.String) -> h
+    497:497:com.zpj.http.core.HttpObserver getSupportUserListApi(java.lang.String,java.lang.String) -> h
+    178:179:com.zpj.http.core.HttpObserver likeApi(java.lang.String,java.lang.String) -> i
     193:198:com.zpj.http.core.HttpObserver getMemberInfoByIdApi(java.lang.String) -> i
-    477:481:com.zpj.http.core.HttpObserver passwordApi(java.lang.String,java.lang.String) -> i
     202:204:com.zpj.http.core.HttpObserver getMemberInfoByNameApi(java.lang.String) -> j
+    477:481:com.zpj.http.core.HttpObserver passwordApi(java.lang.String,java.lang.String) -> j
     493:493:com.zpj.http.core.HttpObserver getShareInfoApi(java.lang.String) -> k
-    497:497:com.zpj.http.core.HttpObserver getSupportUserListApi(java.lang.String) -> l
-    83:83:com.zpj.http.core.HttpObserver getXml(java.lang.String) -> m
-    138:138:java.lang.String myCollectionAppsUrl(java.lang.String) -> n
-    152:152:java.lang.String myCollectionCommentUrl(java.lang.String) -> o
-    147:147:java.lang.String myCollectionDiscoverUrl(java.lang.String) -> p
-    157:157:java.lang.String myCollectionWallpaperUrl(java.lang.String) -> q
-    143:143:java.lang.String myCollectionsUrl(java.lang.String) -> r
-    469:469:com.zpj.http.core.HttpObserver nicknameApi(java.lang.String) -> s
-    79:79:com.zpj.http.core.HttpConfig post(java.lang.String) -> t
-    295:310:void privateThemeApi(java.lang.String) -> u
-    313:328:void publicThemeApi(java.lang.String) -> v
-    230:230:com.zpj.http.core.HttpObserver removeBlacklistApi(java.lang.String) -> w
+    83:83:com.zpj.http.core.HttpObserver getXml(java.lang.String) -> l
+    138:138:java.lang.String myCollectionAppsUrl(java.lang.String) -> m
+    152:152:java.lang.String myCollectionCommentUrl(java.lang.String) -> n
+    147:147:java.lang.String myCollectionDiscoverUrl(java.lang.String) -> o
+    157:157:java.lang.String myCollectionWallpaperUrl(java.lang.String) -> p
+    143:143:java.lang.String myCollectionsUrl(java.lang.String) -> q
+    469:469:com.zpj.http.core.HttpObserver nicknameApi(java.lang.String) -> r
+    79:79:com.zpj.http.core.HttpConfig post(java.lang.String) -> s
+    295:310:void privateThemeApi(java.lang.String) -> t
+    313:328:void publicThemeApi(java.lang.String) -> u
+    230:230:com.zpj.http.core.HttpObserver removeBlacklistApi(java.lang.String) -> v
 com.zpj.shouji.market.api.HttpApi$1 -> com.zpj.shouji.market.b.d2$a:
     60:60:void <init>() -> <init>
     63:64:boolean onRedirect(int,java.lang.String) -> a
@@ -42680,20 +42680,21 @@ com.zpj.shouji.market.ui.fragment.dialog.ShareDialogFragment -> com.zpj.shouji.m
 com.zpj.shouji.market.ui.fragment.dialog.SupportUserListDialogFragment -> com.zpj.shouji.market.e.b.j0.i2:
     com.zpj.recyclerview.EasyRecyclerView recyclerView -> p
     com.zpj.recyclerview.state.StateManager stateManager -> o
-    java.lang.String themeId -> q
+    java.lang.String contentType -> q
     java.util.List userInfoList -> n
+    java.lang.String themeId -> r
     28:31:void <init>() -> <init>
-    53:77:void initView(android.view.View,android.os.Bundle) -> a
-    59:59:void lambda$initView$0(android.view.View) -> a
-    68:70:void lambda$initView$1(com.zpj.recyclerview.EasyViewHolder,android.view.View,com.zpj.shouji.market.model.SupportUserInfo) -> a
-    81:87:void onBindViewHolder(com.zpj.recyclerview.EasyViewHolder,java.util.List,int,java.util.List) -> a
-    97:109:void lambda$getSupportUserList$3(com.zpj.http.parser.html.nodes.Document) -> a
-    110:110:void lambda$getSupportUserList$4(java.lang.Throwable) -> b
-    39:44:void start(java.lang.String) -> d
-    48:48:int getContentLayoutId() -> s
-    91:91:int getMaxHeight() -> u
-    106:108:void lambda$null$2() -> w
-    95:112:void getSupportUserList() -> x
+    40:46:void start(java.lang.String,java.lang.String) -> a
+    55:80:void initView(android.view.View,android.os.Bundle) -> a
+    62:62:void lambda$initView$0(android.view.View) -> a
+    71:73:void lambda$initView$1(com.zpj.recyclerview.EasyViewHolder,android.view.View,com.zpj.shouji.market.model.SupportUserInfo) -> a
+    84:90:void onBindViewHolder(com.zpj.recyclerview.EasyViewHolder,java.util.List,int,java.util.List) -> a
+    100:112:void lambda$getSupportUserList$3(com.zpj.http.parser.html.nodes.Document) -> a
+    113:113:void lambda$getSupportUserList$4(java.lang.Throwable) -> b
+    50:50:int getContentLayoutId() -> s
+    94:94:int getMaxHeight() -> u
+    109:111:void lambda$null$2() -> w
+    98:115:void getSupportUserList() -> x
 com.zpj.shouji.market.ui.fragment.dialog.ThemeAppDownloadDialogFragment -> com.zpj.shouji.market.e.b.j0.j2:
     android.widget.LinearLayout llContainer -> p
     android.widget.TextView tvDesc -> q

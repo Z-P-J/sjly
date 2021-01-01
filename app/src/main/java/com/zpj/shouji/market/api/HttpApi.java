@@ -493,8 +493,8 @@ public final class HttpApi {
         return getXml(String.format("http://tt.shouji.com.cn/app/getShareInfo.jsp?id=%s", id));
     }
 
-    public static HttpObserver<Document> getSupportUserListApi(String id) {
-        return getXml(String.format("http://tt.shouji.com.cn/app/flower_show_xml_v2.jsp?type=discuss&id=%s", id));
+    public static HttpObserver<Document> getSupportUserListApi(String contentType, String id) {
+        return getXml(String.format("http://tt.shouji.com.cn/app/flower_show_xml_v2.jsp?type=%s&id=%s", contentType, id));
     }
 
     public static HttpObserver<Document> deleteBackgroundApi() {

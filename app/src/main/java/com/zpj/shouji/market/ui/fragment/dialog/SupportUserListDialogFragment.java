@@ -33,12 +33,14 @@ public class SupportUserListDialogFragment extends BottomDialogFragment
     private StateManager stateManager;
     private EasyRecyclerView<SupportUserInfo> recyclerView;
 
+    private String contentType;
     private String themeId;
 
-    public static void start(String themeId) {
+    public static void start(String contentType, String themeId) {
         SupportUserListDialogFragment fragment = new SupportUserListDialogFragment();
         Bundle bundle = new Bundle();
         bundle.putString(Keys.ID, themeId);
+        bundle.putString(Keys.TYPE, contentType);
         fragment.setArguments(bundle);
         EventBus.post(fragment);
     }
@@ -53,6 +55,7 @@ public class SupportUserListDialogFragment extends BottomDialogFragment
         super.initView(view, savedInstanceState);
 
         if (getArguments() != null) {
+            contentType = getArguments().getString(Keys.TYPE);
             themeId = getArguments().getString(Keys.ID);
         }
 
@@ -92,7 +95,7 @@ public class SupportUserListDialogFragment extends BottomDialogFragment
     }
 
     private void getSupportUserList() {
-        HttpApi.getSupportUserListApi(themeId)
+        HttpApi.getSupportUserListApi(contentType, themeId)
                 .onSuccess(data -> {
                     userInfoList.clear();
                     for (Element element : data.select("fuser")) {

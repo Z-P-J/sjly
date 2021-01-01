@@ -179,7 +179,7 @@ public class DiscoverBinder
             tvSupportUsers.setLinkClickListener((type, title, content) -> {
                 if (type == LinkType.SELF) {
                     if ("support_users".equals(content)) {
-                        SupportUserListDialogFragment.start(discoverInfo.getId());
+                        SupportUserListDialogFragment.start(discoverInfo.getContentType(), discoverInfo.getId());
                     } else {
                         ProfileFragment.start(content, false);
                     }
