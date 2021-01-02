@@ -11,8 +11,8 @@ import com.zpj.http.core.HttpKeyVal;
 import com.zpj.http.core.HttpObserver;
 import com.zpj.http.core.IHttp;
 import com.zpj.http.parser.html.nodes.Document;
-import com.zpj.imagepicker.entity.Item;
 import com.zpj.shouji.market.constant.AppConfig;
+import com.zpj.shouji.market.imagepicker.entity.Item;
 import com.zpj.shouji.market.manager.UserManager;
 import com.zpj.shouji.market.model.InstalledAppInfo;
 import com.zpj.shouji.market.utils.EventBus;
@@ -65,7 +65,7 @@ public class CommentApi {
                                 .data("replyid", replyId)
                                 .data("content", content)
                                 .data(dataList)
-                                .setCookie(UserManager.getInstance().getCookie())
+                                .cookie(UserManager.getInstance().getCookie())
 //                                .ignoreContentType(true)
                                 .toXml();
                     }
@@ -215,7 +215,7 @@ public class CommentApi {
                                     .data("package", appPackage)
                                     .data("content", content)
                                     .data(dataList)
-                                    .setCookie(UserManager.getInstance().getCookie())
+                                    .cookie(UserManager.getInstance().getCookie())
                                     .toXml();
                         }
                     });
@@ -340,7 +340,7 @@ public class CommentApi {
                 .data("replyid", replyId)
                 .data("gkbz", isPrivate ? "0" : "1")
                 .data("tag", tags)
-                .setCookie(UserManager.getInstance().getCookie());
+                .cookie(UserManager.getInstance().getCookie());
     }
 
 }

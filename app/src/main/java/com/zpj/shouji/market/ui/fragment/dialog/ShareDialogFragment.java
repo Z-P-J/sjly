@@ -26,7 +26,7 @@ public class ShareDialogFragment extends BottomDialogFragment
 
     @Override
     protected int getContentLayoutId() {
-        return R.layout.layout_popup_share;
+        return R.layout.dialog_fragment_share;
     }
 
     @Override

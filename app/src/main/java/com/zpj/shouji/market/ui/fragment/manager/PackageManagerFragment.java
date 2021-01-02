@@ -45,6 +45,7 @@ public class PackageManagerFragment extends RecyclerLayoutFragment<InstalledAppI
     private static final String TAG = "PackageFragment";
 
     private static final List<OptionMenu> optionMenus = new ArrayList<>();
+
     static {
         optionMenus.add(new OptionMenu("详细信息"));
         optionMenus.add(new OptionMenu("分享"));
@@ -82,7 +83,7 @@ public class PackageManagerFragment extends RecyclerLayoutFragment<InstalledAppI
 
     @Override
     protected int getItemLayoutId() {
-        return R.layout.layout_installed_app;
+        return R.layout.item_app_installed;
     }
 
     @Override
@@ -199,101 +200,53 @@ public class PackageManagerFragment extends RecyclerLayoutFragment<InstalledAppI
     }
 
 
-
     private void loadApk() {
-//        startTime = System.currentTimeMillis();
-
-
-        FileScanner<InstalledAppInfo> scanner = new FileScanner<>();
-        scanner.setType(".apk");
-        scanner.start(new FileScanner.OnScanListener<InstalledAppInfo>() {
-            @Override
-            public void onScanBegin() {
-                Log.d(TAG, "onScanBegin");
-                post(() -> infoTextView.setText("扫描准备中..."));
-            }
-
-            @Override
-            public void onScanEnd() {
-                Log.d(TAG, "onScanEnd");
-                post(() -> infoTextView.setText("共" + data.size() + "个安装包"));
-            }
-
-            @Override
-            public void onScanning(String paramString, int progress) {
-                if (progress != lastProgress) {
-                    lastProgress = progress;
-                    post(() -> infoTextView.setText("已发现" + data.size() + "个安装包，已扫描" + progress + "%"));
-                }
-            }
-
-            @Override
-            public InstalledAppInfo onWrapFile(File file) {
-                Log.d(TAG, "onWrapFile file=" + file.getAbsolutePath());
-                return parseFromApk(context, file);
-            }
-
-            @Override
-            public void onScanningFiles(InstalledAppInfo item) {
-                Log.d(TAG, "onScanningFiles");
-                if (item != null) {
-                    synchronized (data) {
-                        data.add(item);
-                        if (data.size() < 10) {
-                            recyclerLayout.notifyDataSetChanged();
-                        } else {
-                            recyclerLayout.notifyItemInserted(data.size() - 1);
-                        }
-                        recyclerLayout.notifyItemRangeChanged(data.size() - 1, 1);
+        new FileScanner<InstalledAppInfo>()
+                .setType(".apk")
+                .bindLife(this)
+                .start(new FileScanner.OnScanListener<InstalledAppInfo>() {
+                    @Override
+                    public void onScanBegin() {
+                        Log.d(TAG, "onScanBegin");
+                        post(() -> infoTextView.setText("扫描准备中..."));
                     }
-                }
-            }
-        });
 
-//        FileScanner.getInstance(context).clear();
-//        FileScanner.getInstance(context)
-//                .setType(".apk")
-//                .start(new FileScanner.ScannerListener() {
-//                    @Override
-//                    public void onScanBegin() {
-//                        Log.d(TAG, "onScanBegin");
-//                        post(() -> infoTextView.setText("扫描准备中..."));
-//                    }
-//
-//                    @Override
-//                    public void onScanEnd() {
-//                        Log.d(TAG, "onScanEnd");
-//                        post(() -> infoTextView.setText("共" + data.size() + "个安装包"));
-//                    }
-//
-//                    @Override
-//                    public void onScanning(String paramString, int progress) {
-//                        if (progress != lastProgress) {
-//                            lastProgress = progress;
-//                            post(() -> infoTextView.setText("已发现" + data.size() + "个安装包，已扫描" + progress + "%"));
-//                        }
-//                    }
-//
-//                    @Override
-//                    public void onScanningFiles(FileInfo info, int type) {
-//                        Log.d(TAG, "onScanningFiles");
-//                        InstalledAppInfo appInfo = parseFromApk(context, new File(info.getFilePath()));
-//                        if (appInfo != null) {
-//                            synchronized (data) {
-//                                post(() -> {
-//                                    data.add(appInfo);
-//                                    if (data.size() < 10) {
-//                                        recyclerLayout.notifyDataSetChanged();
-//                                    } else {
-//                                        recyclerLayout.notifyItemInserted(data.size() - 1);
-//                                    }
-//                                    recyclerLayout.notifyItemRangeChanged(data.size() - 1, 1);
-////                                    recyclerLayout.notifyItemInserted(data.size() - 1);
-//                                });
-//                            }
-//                        }
-//                    }
-//                });
+                    @Override
+                    public void onScanEnd() {
+                        Log.d(TAG, "onScanEnd");
+                        post(() -> infoTextView.setText("共" + data.size() + "个安装包"));
+                    }
+
+                    @Override
+                    public void onScanning(String paramString, int progress) {
+                        if (progress != lastProgress) {
+                            lastProgress = progress;
+                            post(() -> infoTextView.setText("已发现" + data.size() + "个安装包，已扫描" + progress + "%"));
+                        }
+                    }
+
+                    @Override
+                    public InstalledAppInfo onWrapFile(File file) {
+                        Log.d(TAG, "onWrapFile file=" + file.getAbsolutePath());
+                        return parseFromApk(context, file);
+                    }
+
+                    @Override
+                    public void onScanningFiles(InstalledAppInfo item) {
+                        Log.d(TAG, "onScanningFiles");
+                        if (item != null) {
+                            synchronized (data) {
+                                data.add(item);
+                                if (data.size() < 10) {
+                                    recyclerLayout.notifyDataSetChanged();
+                                } else {
+                                    recyclerLayout.notifyItemInserted(data.size() - 1);
+                                }
+                                recyclerLayout.notifyItemRangeChanged(data.size() - 1, 1);
+                            }
+                        }
+                    }
+                });
     }
 
     private void showSortPopWindow() {
@@ -377,7 +330,6 @@ public class PackageManagerFragment extends RecyclerLayoutFragment<InstalledAppI
             appInfo.setName(file.getName());
             return appInfo;
         }
-
 
 
         packageInfo.applicationInfo.sourceDir = file.getPath();

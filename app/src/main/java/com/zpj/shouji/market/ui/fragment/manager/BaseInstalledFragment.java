@@ -55,7 +55,7 @@ public class BaseInstalledFragment extends RecyclerLayoutFragment<InstalledAppIn
 
     @Override
     protected int getItemLayoutId() {
-        return R.layout.layout_installed_app;
+        return R.layout.item_app_installed;
     }
 
     @Override

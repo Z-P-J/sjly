@@ -27,7 +27,7 @@ public class AppRatingDialogFragment extends CenterDialogFragment {
 
     @Override
     protected int getContentLayoutId() {
-        return R.layout.layout_popup_rating;
+        return R.layout.dialog_fragment_rating;
     }
 
     @Override

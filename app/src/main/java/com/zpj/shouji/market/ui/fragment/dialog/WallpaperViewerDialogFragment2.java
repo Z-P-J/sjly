@@ -58,7 +58,7 @@ public class WallpaperViewerDialogFragment2 extends ImageViewerDialogFragment2<S
 
     @Override
     protected int getCustomLayoutId() {
-        return R.layout.layout_popup_wallpaper_viewer;
+        return R.layout.dialog_fragment_wallpaper_viewer;
     }
 
     @Override

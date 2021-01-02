@@ -3,11 +3,12 @@ package com.zpj.shouji.market.utils;
 import android.arch.lifecycle.LifecycleOwner;
 import android.view.View;
 
-import com.yalantis.ucrop.CropEvent;
 import com.zpj.fragmentation.dialog.IDialog;
 import com.zpj.rxbus.RxBus;
 import com.zpj.shouji.market.manager.UserManager;
 import com.zpj.shouji.market.model.AppDetailInfo;
+
+import java.io.File;
 
 import io.reactivex.functions.Consumer;
 
@@ -27,6 +28,8 @@ public class EventBus {
     private static final String KEY_KEYWORD_CHANGE_EVENT = "event_keyword_change";
     private static final String KEY_GET_APP_INFO_EVENT = "event_get_app_info";
 
+    public static final String KEY_CROP_EVENT = "event_crop";
+
     public static final String KEY_SIGN_OUT_EVENT = "event_sign_out";
     public static final String KEY_SIGN_IN_EVENT = "event_sign_in";
     public static final String KEY_SIGN_UP_EVENT = "event_sign_up";
@@ -45,6 +48,17 @@ public class EventBus {
 
     public static void onFabEvent(LifecycleOwner lifecycleOwner, RxBus.SingleConsumer<Boolean> consumer) {
         registerObserver(lifecycleOwner, KEY_FAB_EVENT, Boolean.class, consumer);
+    }
+
+    public static void sendCropEvent(File file, boolean isAvatar) {
+        RxBus.post(KEY_CROP_EVENT, file, isAvatar);
+    }
+
+    public static void onCropEvent(LifecycleOwner lifecycleOwner, RxBus.PairConsumer<File, Boolean> next) {
+        RxBus.observe(lifecycleOwner, KEY_CROP_EVENT, File.class, Boolean.class)
+                .bindToLife(lifecycleOwner)
+                .doOnNext(next)
+                .subscribe();
     }
 
     public static void sendColorChangeEvent(boolean isDark) {
@@ -95,12 +109,12 @@ public class EventBus {
         registerObserver(lifecycleOwner, KEY_SCROLL_EVENT, Float.class, consumer);
     }
 
-    public static void sendImageUploadEvent(CropEvent event) {
-        RxBus.post(KEY_IMAGE_UPLOAD_EVENT, event);
+    public static void sendImageUploadEvent(boolean isAvatar) {
+        RxBus.post(KEY_IMAGE_UPLOAD_EVENT, isAvatar);
     }
 
-    public static void onImageUploadEvent(LifecycleOwner lifecycleOwner, RxBus.SingleConsumer<CropEvent> consumer) {
-        registerObserver(lifecycleOwner, KEY_IMAGE_UPLOAD_EVENT, CropEvent.class, consumer);
+    public static void onImageUploadEvent(LifecycleOwner lifecycleOwner, RxBus.SingleConsumer<Boolean> consumer) {
+        registerObserver(lifecycleOwner, KEY_IMAGE_UPLOAD_EVENT, Boolean.class, consumer);
     }
 
     public static void sendSearchEvent(String keyword) {

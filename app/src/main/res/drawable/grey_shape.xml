@@ -6,7 +6,7 @@
 
 <!--    80eeeeee-->
 <!--    F4F4F4-->
-    <solid android:color="#80eeeeee"/>
+    <solid android:color="?attr/backgroundProgress"/>
     <corners android:radius="8dp"/>
 
 </shape>

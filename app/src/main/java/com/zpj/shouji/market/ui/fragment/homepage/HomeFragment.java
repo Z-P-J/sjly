@@ -11,7 +11,6 @@ import android.support.v4.view.ViewPager;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
-import android.widget.ImageView;
 
 import com.zpj.blur.ZBlurry;
 import com.zpj.fragmentation.SupportFragment;
@@ -25,7 +24,6 @@ import com.zpj.shouji.market.ui.fragment.search.SearchFragment;
 import com.zpj.shouji.market.ui.widget.ColorChangePagerTitleView;
 import com.zpj.shouji.market.utils.EventBus;
 import com.zpj.shouji.market.utils.MagicIndicatorHelper;
-import com.zpj.widget.tinted.TintedImageButton;
 
 import net.lucode.hackware.magicindicator.MagicIndicator;
 

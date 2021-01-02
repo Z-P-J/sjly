@@ -1,7 +1,7 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 28
+    compileSdkVersion 29
     defaultConfig {
         applicationId "com.zpj.shouji.market"
         minSdkVersion 19
@@ -10,8 +10,6 @@ android {
         versionName "1.0.0"
         multiDexEnabled true
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
-//        renderscriptTargetApi 28 //must match target sdk and build tools
-//        renderscriptSupportModeEnabled false
         ndk {
             abiFilters "armeabi-v7a"
         }
@@ -176,7 +174,7 @@ dependencies {
     implementation 'com.zpj.widget:ZToolBar:1.0.7'
     implementation 'com.zpj.utils:ZUtils:1.0.3'
     implementation 'com.zpj.toast:ZToast:1.0.1'
-    implementation 'com.zpj.http:ZHttp:1.0.1'
+    implementation 'com.zpj.http:ZHttp:1.0.2'
 
     implementation project(":chameleon")
     implementation project(':StateManager')
@@ -188,7 +186,6 @@ dependencies {
     implementation project(':expandabletextview')
     implementation project(':fragmentation')
     implementation project(":fragmentation-dialog")
-//    implementation project(':fragmentation-matisse')
-    implementation project(':fragmentation-ucrop')
+//    implementation project(':fragmentation-ucrop')
 
 }

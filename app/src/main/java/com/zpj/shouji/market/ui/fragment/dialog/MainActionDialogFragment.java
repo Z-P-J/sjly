@@ -57,7 +57,7 @@ public class MainActionDialogFragment extends FullScreenDialogFragment
 
     @Override
     protected int getContentLayoutId() {
-        return R.layout.layout_popup_main_action;
+        return R.layout.dialog_fragment_actions;
     }
 
     @Override

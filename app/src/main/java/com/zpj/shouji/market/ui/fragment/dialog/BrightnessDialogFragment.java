@@ -25,7 +25,7 @@ public class BrightnessDialogFragment extends CenterDialogFragment {
 
     @Override
     protected int getContentLayoutId() {
-        return R.layout.layout_popup_brightness;
+        return R.layout.dialog_fragment_brightness;
     }
 
     @Override

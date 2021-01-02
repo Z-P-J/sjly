@@ -47,7 +47,7 @@ public class SupportUserListDialogFragment extends BottomDialogFragment
 
     @Override
     protected int getContentLayoutId() {
-        return R.layout.layout_popup_support_user_list;
+        return R.layout.dialog_fragment_support_user_list;
     }
 
     @Override

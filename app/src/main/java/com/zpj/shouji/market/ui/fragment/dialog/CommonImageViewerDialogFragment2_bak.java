@@ -41,7 +41,7 @@ public class CommonImageViewerDialogFragment2_bak extends ImageViewerDialogFragm
 
     @Override
     protected int getCustomLayoutId() {
-        return R.layout.layout_popup_theme_image_viewer;
+        return R.layout.dialog_fragment_theme_image_viewer;
     }
 
     @Override

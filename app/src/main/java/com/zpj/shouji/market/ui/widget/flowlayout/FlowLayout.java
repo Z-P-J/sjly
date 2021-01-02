@@ -31,7 +31,8 @@ import java.util.List;
 import java.util.Random;
 import java.util.Set;
 
-public class FlowLayout extends RecyclerView implements IEasy.OnBindViewHolderListener<FlowLayout.FlowItem> {
+public class FlowLayout extends RecyclerView
+        implements IEasy.OnBindViewHolderListener<FlowLayout.FlowItem> {
 
     private final List<FlowItem> list = new ArrayList<>();
     private final EasyRecyclerView<FlowItem> recyclerView;

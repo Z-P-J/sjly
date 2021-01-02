@@ -16,7 +16,7 @@ public class NicknameModifiedDialogFragment extends ModifiedDialogFragment {
 
     @Override
     protected int getContentLayoutId() {
-        return R.layout.layout_popup_modified_nickname;
+        return R.layout.dialog_fragment_modified_nickname;
     }
 
     @Override

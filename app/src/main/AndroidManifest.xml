@@ -57,7 +57,7 @@
         </receiver>
 
         <service
-            android:name="com.zpj.installer.InstallAccessibilityService"
+            android:name=".installer.InstallAccessibilityService"
             android:enabled="true"
             android:exported="true"
             android:label="测试"

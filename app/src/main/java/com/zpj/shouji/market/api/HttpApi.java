@@ -11,9 +11,9 @@ import com.zpj.http.core.HttpKeyVal;
 import com.zpj.http.core.HttpObserver;
 import com.zpj.http.core.IHttp;
 import com.zpj.http.parser.html.nodes.Document;
-import com.zpj.imagepicker.entity.Item;
 import com.zpj.shouji.market.constant.AppConfig;
 import com.zpj.shouji.market.constant.UpdateFlagAction;
+import com.zpj.shouji.market.imagepicker.entity.Item;
 import com.zpj.shouji.market.manager.UserManager;
 import com.zpj.shouji.market.utils.Callback;
 import com.zpj.shouji.market.utils.EventBus;
@@ -64,7 +64,7 @@ public final class HttpApi {
                         return true;
                     }
                 })
-                .setCookie(UserManager.getInstance().getCookie())
+                .cookie(UserManager.getInstance().getCookie())
 //                .header(HEADER_ACCEPT_ENCODING, VALUE_ACCEPT_ENCODING)
                 .referer(url)
                 .ignoreContentType(true);
@@ -435,7 +435,7 @@ public final class HttpApi {
                                     .data("mmid", id)
                                     .data("content", content)
                                     .data(dataList)
-                                    .setCookie(UserManager.getInstance().getCookie())
+                                    .cookie(UserManager.getInstance().getCookie())
 //                                    .ignoreContentType(true)
                                     .toXml();
                         }

@@ -14,7 +14,6 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.yalantis.ucrop.CropEvent;
 import com.zpj.blur.ZBlurry;
 import com.zpj.fragmentation.anim.DefaultVerticalAnimator;
 import com.zpj.fragmentation.dialog.impl.AttachListDialogFragment;
@@ -22,6 +21,7 @@ import com.zpj.rxbus.RxBus;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.api.HttpApi;
 import com.zpj.shouji.market.constant.AppConfig;
+import com.zpj.shouji.market.imagepicker.ImagePicker;
 import com.zpj.shouji.market.manager.UserManager;
 import com.zpj.shouji.market.model.MemberInfo;
 import com.zpj.shouji.market.model.MessageInfo;
@@ -41,7 +41,6 @@ import com.zpj.shouji.market.ui.widget.PullZoomView;
 import com.zpj.shouji.market.ui.widget.ToolBoxCard;
 import com.zpj.shouji.market.utils.EventBus;
 import com.zpj.shouji.market.utils.PictureUtil;
-import com.zpj.shouji.market.utils.UploadUtils;
 import com.zpj.toast.ZToast;
 import com.zpj.utils.ClickHelper;
 import com.zpj.widget.setting.SwitchSettingItem;
@@ -145,10 +144,10 @@ public class MyFragment extends SkinFragment
             }
         });
 
-        EventBus.onImageUploadEvent(this, new RxBus.SingleConsumer<CropEvent>() {
+        EventBus.onImageUploadEvent(this, new RxBus.SingleConsumer<Boolean>() {
             @Override
-            public void onAccept(CropEvent event) throws Exception {
-                if (event.isAvatar()) {
+            public void onAccept(Boolean isAvatar) throws Exception {
+                if (isAvatar) {
                     PictureUtil.loadAvatar(ivAvatar);
                 } else {
                     PictureUtil.loadBackground(ivWallpaper);
@@ -285,7 +284,8 @@ public class MyFragment extends SkinFragment
                                 fragment.dismiss();
                                 switch (position) {
                                     case 0:
-                                        UploadUtils.upload(_mActivity, true);
+                                        ImagePicker.startCrop(true);
+//                                        UploadUtils.upload(_mActivity, true);
                                         break;
                                     case 1:
                                         PictureUtil.saveImage(context, UserManager.getInstance().getMemberInfo().getMemberAvatar());
@@ -311,7 +311,8 @@ public class MyFragment extends SkinFragment
                                 fragment.dismiss();
                                 switch (position) {
                                     case 0:
-                                        UploadUtils.upload(_mActivity, false);
+//                                        UploadUtils.upload(_mActivity, false);
+                                        ImagePicker.startCrop(false);
                                         break;
                                     case 1:
                                         PictureUtil.saveImage(context, bgUrl);

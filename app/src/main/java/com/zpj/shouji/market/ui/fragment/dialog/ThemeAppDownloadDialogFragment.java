@@ -74,7 +74,7 @@ public class ThemeAppDownloadDialogFragment extends BottomDialogFragment {
 
     @Override
     protected int getContentLayoutId() {
-        return R.layout.layout_popup_theme_app_download;
+        return R.layout.dialog_fragment_theme_app_download;
     }
 
     @Override

@@ -18,7 +18,7 @@ public class EmailModifiedDialogFragment extends ModifiedDialogFragment {
 
     @Override
     protected int getContentLayoutId() {
-        return R.layout.layout_popup_modified_email;
+        return R.layout.dialog_fragment_modified_email;
     }
 
     @Override

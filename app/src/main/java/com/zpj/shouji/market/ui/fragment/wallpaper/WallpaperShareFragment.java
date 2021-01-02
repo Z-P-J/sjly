@@ -1,7 +1,6 @@
 package com.zpj.shouji.market.ui.fragment.wallpaper;
 
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
 import android.view.View;
@@ -12,12 +11,9 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.zpj.http.core.IHttp;
-import com.zpj.imagepicker.ImagePicker;
-import com.zpj.imagepicker.MimeType;
-import com.zpj.imagepicker.engine.impl.GlideEngine;
-import com.zpj.imagepicker.entity.Item;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.api.WallpaperApi;
+import com.zpj.shouji.market.imagepicker.ImagePicker;
 import com.zpj.shouji.market.model.WallpaperTag;
 import com.zpj.shouji.market.ui.fragment.base.BaseSwipeBackFragment;
 import com.zpj.shouji.market.ui.fragment.profile.UserPickerFragment;
@@ -28,7 +24,6 @@ import com.zpj.utils.KeyboardObserver;
 import com.zpj.utils.ScreenUtils;
 
 import java.io.File;
-import java.util.List;
 
 public class WallpaperShareFragment extends BaseSwipeBackFragment
         implements View.OnClickListener {
@@ -154,24 +149,33 @@ public class WallpaperShareFragment extends BaseSwipeBackFragment
 
     private void showImagePicker() {
         hideSoftInput();
-        ImagePicker.from(_mActivity)
-                .choose(MimeType.ofImage())
-                .countable(true)
+        ImagePicker.with()
                 .maxSelectable(1)
-                //.addFilter(new GifSizeFilter(320, 320, 5 * Filter.K * Filter.K))
-                .spanCount(3)
-                .thumbnailScale(0.85f)//缩放比例
-                .imageEngine(new GlideEngine())
-                .setOnSelectedListener(new ImagePicker.OnSelectedListener() {
-                    @Override
-                    public void onSelected(@NonNull List<Item> itemList) {
-                        imgFile = itemList.get(0).getFile(context);
-                        Glide.with(context).load(imgFile).into(ivWallpaper);
-                        ivWallpaper.setVisibility(View.VISIBLE);
-                        flEmpty.setVisibility(View.GONE);
-                    }
+                .setOnSelectedListener(itemList -> {
+                    imgFile = itemList.get(0).getFile(context);
+                    Glide.with(context).load(imgFile).into(ivWallpaper);
+                    ivWallpaper.setVisibility(View.VISIBLE);
+                    flEmpty.setVisibility(View.GONE);
                 })
                 .start();
+//        ImagePicker.from(_mActivity)
+//                .choose(MimeType.ofImage())
+//                .countable(true)
+//                .maxSelectable(1)
+//                //.addFilter(new GifSizeFilter(320, 320, 5 * Filter.K * Filter.K))
+//                .spanCount(3)
+//                .thumbnailScale(0.85f)//缩放比例
+//                .imageEngine(new GlideEngine())
+//                .setOnSelectedListener(new ImagePicker.OnSelectedListener() {
+//                    @Override
+//                    public void onSelected(@NonNull List<Item> itemList) {
+//                        imgFile = itemList.get(0).getFile(context);
+//                        Glide.with(context).load(imgFile).into(ivWallpaper);
+//                        ivWallpaper.setVisibility(View.VISIBLE);
+//                        flEmpty.setVisibility(View.GONE);
+//                    }
+//                })
+//                .start();
     }
 
     @Override

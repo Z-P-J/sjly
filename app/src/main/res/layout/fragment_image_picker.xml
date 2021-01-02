@@ -32,7 +32,7 @@
                 app:z_toolbar_fillStatusBar="true"
                 />
 
-            <com.zpj.imagepicker.ui.widget.MediaSelectionLayout
+            <com.zpj.shouji.market.imagepicker.widget.MediaSelectionLayout
                 android:id="@+id/layout_media_selection"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
@@ -67,22 +67,23 @@
                     android:id="@+id/button_preview"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="start"
+                    android:layout_gravity="start|center_vertical"
                     android:background="?android:attr/selectableItemBackground"
-                    android:padding="16dp"
+                    android:paddingHorizontal="16dp"
                     android:text="@string/button_preview"
-                    android:textSize="16sp"
-                    android:textColor="?attr/textColorNormal"
                     />
 
-                <TextView
+                <com.zpj.shouji.market.ui.widget.DrawableTintTextView
                     android:id="@+id/originalLayout"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
+                    android:gravity="center"
                     android:text="@string/text_select_album"
-                    android:padding="16dp"
+                    android:drawableEnd="@drawable/ic_keyboard_arrow_down_black_24dp"
+                    android:drawablePadding="4dp"
                     android:textColor="?attr/textColorMajor"
+                    app:drawable_tint_color="?attr/textColorMajor"
                     />
 
 
@@ -90,16 +91,14 @@
                     android:id="@+id/button_apply"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="end"
+                    android:layout_gravity="end|center_vertical"
                     android:background="?android:attr/selectableItemBackground"
-                    android:padding="16dp"
-                    android:textSize="16sp"
-                    android:textColor="?attr/textColorNormal"
+                    android:paddingHorizontal="16dp"
                     />
 
             </FrameLayout>
 
-            <com.zpj.imagepicker.ui.widget.AlbumListLayout
+            <com.zpj.shouji.market.imagepicker.widget.AlbumListLayout
                 android:id="@+id/gallery_recycler_view"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"

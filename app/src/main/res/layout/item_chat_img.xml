@@ -10,6 +10,7 @@
         android:layout_width="36dp"
         android:layout_height="36dp"
         android:layout_alignParentEnd="true"
+        android:layout_marginEnd="8dp"
         />
 
     <com.houtrry.bubble.BubbleLinearLayout
@@ -18,49 +19,54 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
-        android:background="#eeeeee"
+        android:background="?attr/backgroundProgress"
         android:orientation="vertical"
         android:layout_toStartOf="@id/iv_icon"
-        app:arrowOffset="8dp"
+        app:arrowOffset="16dp"
         app:arrowType="left"
         app:arrow_height="8dp"
         app:arrow_width="8dp"
-
         app:bubbleType="right"
-        app:cornerRadius="8dp"
+        app:cornerRadius="16dp"
+        app:borderWidth="0dp"
+        app:borderColor="@color/transparent"
         >
 
 <!--        app:borderColor="#eeeeee"-->
 <!--        app:border_width="1dp"-->
 
-        <com.zpj.shouji.market.ui.widget.emoji.EmojiTextView
-            android:id="@+id/tv_content"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="8dp"
-            android:padding="8dp"
-            android:textColor="@color/color_text_major"
-            />
-
-        <include layout="@layout/layout_nine_grid"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginEnd="16dp"
-            android:layout_marginVertical="8dp"
-            />
-
-        <TextView
-            android:id="@+id/tv_time"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:orientation="vertical"
             android:layout_marginEnd="8dp"
-            android:layout_marginBottom="8dp"
-            android:paddingStart="8dp"
-            android:paddingEnd="8dp"
-            android:textSize="12sp"
-            android:textColor="@color/color_text_normal"
-            />
+            >
+
+            <com.zpj.shouji.market.ui.widget.emoji.EmojiTextView
+                android:id="@+id/tv_content"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="16dp"
+                android:textColor="?attr/textColorMajor"
+                android:layout_gravity="end"
+                />
+
+            <include layout="@layout/layout_nine_grid"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="16dp"
+                />
+
+            <TextView
+                android:id="@+id/tv_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="16dp"
+                android:textSize="12sp"
+                android:textColor="?attr/textColorNormal"
+                />
+
+        </LinearLayout>
 
     </com.houtrry.bubble.BubbleLinearLayout>
 

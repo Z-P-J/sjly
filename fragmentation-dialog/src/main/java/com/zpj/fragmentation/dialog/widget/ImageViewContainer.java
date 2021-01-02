@@ -90,7 +90,6 @@ public class ImageViewContainer extends FrameLayout {
     }
 
     public void onLoadFinished() {
-        Toast.makeText(getContext(), "onLoadFinished", Toast.LENGTH_SHORT).show();
         progressBar.setVisibility(GONE);
         if (!isGif) {
             placeholder.setVisibility(GONE);

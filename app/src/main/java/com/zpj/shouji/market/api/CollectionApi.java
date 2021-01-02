@@ -65,7 +65,7 @@ public class CollectionApi {
                                 .data("content", content)
                                 .data("title", title)
                                 .data(data)
-                                .setCookie(UserManager.getInstance().getCookie())
+                                .cookie(UserManager.getInstance().getCookie())
 //                                .ignoreContentType(true)
                                 .toXml();
                     }

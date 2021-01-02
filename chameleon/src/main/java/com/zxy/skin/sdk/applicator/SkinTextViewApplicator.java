@@ -17,10 +17,16 @@ public class SkinTextViewApplicator extends SkinViewApplicator {
         //super必须调用
         super();
         addAttributeApplicator("textColor", new IAttributeApplicator<TextView>(){
-
             @Override
             public void onApply(TextView view, TypedArray typedArray, int typedArrayIndex) {
                 view.setTextColor(typedArray.getColorStateList(typedArrayIndex));
+            }
+        });
+
+        addAttributeApplicator("textColorHint", new IAttributeApplicator<TextView>(){
+            @Override
+            public void onApply(TextView view, TypedArray typedArray, int typedArrayIndex) {
+                view.setHintTextColor(typedArray.getColorStateList(typedArrayIndex));
             }
         });
 

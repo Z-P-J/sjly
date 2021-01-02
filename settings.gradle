@@ -9,8 +9,7 @@ include ':app',
         ':fragmentation',
         ':fragmentation-dialog',
 //        ':fragmentation-matisse',
-        ':fragmentation-ucrop',
+//        ':fragmentation-ucrop',
         ':chameleon',
         ':StateManager'
-//        ':xphotoview',
-//        ':subsampling-scale-image-view'
+//        ':zhttp'

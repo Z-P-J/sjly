@@ -46,7 +46,7 @@ public class BottomListMenuDialogFragment extends BottomDialogFragment
 
     @Override
     protected int getContentLayoutId() {
-        return R.layout.layout_popup_bottom_sheet_menu;
+        return R.layout.dialog_fragment_bottom_sheet_menu;
     }
 
     @Override

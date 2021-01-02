@@ -52,9 +52,6 @@ public class ChatFragment extends NextUrlFragment<PrivateLetterInfo>
     private String userId;
     private ReplyPanel replyPanel;
 
-//    public final List<PrivateLetterInfo> letterInfoList = new ArrayList<>();
-
-
     public static void start(String id, String title) {
         Bundle args = new Bundle();
         args.putString(Keys.DEFAULT_URL, "http://tt.tljpxm.com/app/user_message_index_xml_v3.jsp?mmid=" + id);
@@ -240,17 +237,17 @@ public class ChatFragment extends NextUrlFragment<PrivateLetterInfo>
                 .into(holder.getImageView(R.id.iv_icon));
         holder.setText(R.id.tv_content, info.getContent());
         holder.setText(R.id.tv_time, info.getTime());
-        switch (holder.getViewType()) {
-            case 0:
-                break;
-            case 3:
-            case 1:
-                holder.setText(R.id.tv_name, info.getNikeName());
-                break;
-            case 2:
-
-                break;
-        }
+//        switch (holder.getViewType()) {
+//            case 0:
+//                break;
+//            case 3:
+//            case 1:
+//                holder.setText(R.id.tv_name, info.getNikeName());
+//                break;
+//            case 2:
+//
+//                break;
+//        }
         gridImageView(holder, info, position);
     }
 
@@ -328,44 +325,6 @@ public class ChatFragment extends NextUrlFragment<PrivateLetterInfo>
     }
 
     private void gridImageView(final EasyViewHolder holder, final PrivateLetterInfo info, final int position) {
-//        NineGridView nineGridImageView = holder.getView(R.id.nine_grid_view);
-//        if (nineGridImageView == null) {
-//            return;
-//        }
-//        nineGridImageView.setImageLoader(DiscoverBinder.getImageLoader());
-//        nineGridImageView.setOnItemClickListener(new NineGridView.onItemClickListener() {
-//            @Override
-//            public void onNineGirdAddMoreClick(int dValue) {
-//
-//            }
-//
-//            @Override
-//            public void onNineGirdItemClick(int position, NineGridBean gridBean, NineGirdImageContainer imageContainer) {
-//                new CommonImageViewerDialogFragment2()
-//                        .setOriginalImageList(info.getPics())
-//                        .setImageSizeList(info.getSizes())
-//                        .setImageList(AppConfig.isShowOriginalImage() && NetUtils.isWiFi(context) ? info.getPics() : info.getSpics())
-//                        .setNowIndex(position)
-//                        .setSourceImageView(new SourceImageViewGet<String>() {
-//                            @Override
-//                            public void updateImageView(ImageItemView<String> imageItemView, int pos, boolean isCurrent) {
-//                                NineGirdImageContainer view = (NineGirdImageContainer) nineGridImageView.getChildAt(pos);
-//                                imageItemView.update(view.getImageView());
-//                            }
-//                        })
-//                        .show(context);
-//            }
-//
-//            @Override
-//            public void onNineGirdItemDeleted(int position, NineGridBean gridBean, NineGirdImageContainer imageContainer) {
-//
-//            }
-//        });
-//        List<NineGridBean> gridList = new ArrayList<>();
-//        for (String url : info.getSpics()) {
-//            gridList.add(new NineGridBean(url));
-//        }
-//        nineGridImageView.setDataList(gridList);
         NineGridView nineGridView = holder.getView(R.id.nine_grid_view);
         if (nineGridView == null) {
             return;

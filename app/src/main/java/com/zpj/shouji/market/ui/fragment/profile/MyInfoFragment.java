@@ -1,15 +1,16 @@
 package com.zpj.shouji.market.ui.fragment.profile;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
 
-import com.yalantis.ucrop.CropEvent;
 import com.zpj.fragmentation.dialog.impl.AlertDialogFragment;
 import com.zpj.rxbus.RxBus;
 import com.zpj.shouji.market.R;
+import com.zpj.shouji.market.imagepicker.ImagePicker;
 import com.zpj.shouji.market.manager.UserManager;
 import com.zpj.shouji.market.model.MemberInfo;
 import com.zpj.shouji.market.ui.fragment.base.BaseSwipeBackFragment;
@@ -19,7 +20,6 @@ import com.zpj.shouji.market.ui.fragment.dialog.PasswordModifiedDialogFragment;
 import com.zpj.shouji.market.ui.widget.setting.IconSettingItem;
 import com.zpj.shouji.market.utils.EventBus;
 import com.zpj.shouji.market.utils.PictureUtil;
-import com.zpj.shouji.market.utils.UploadUtils;
 import com.zpj.toast.ZToast;
 import com.zpj.widget.setting.CommonSettingItem;
 import com.zpj.widget.setting.OnCommonItemClickListener;
@@ -58,10 +58,10 @@ public class MyInfoFragment extends BaseSwipeBackFragment implements OnCommonIte
                 emailItem.setRightText(email);
             }
         });
-        EventBus.onImageUploadEvent(this, new RxBus.SingleConsumer<CropEvent>() {
+        EventBus.onImageUploadEvent(this, new RxBus.SingleConsumer<Boolean>() {
             @Override
-            public void onAccept(CropEvent event) throws Exception {
-                if (event.isAvatar()) {
+            public void onAccept(Boolean isAvatar) throws Exception {
+                if (isAvatar) {
                     PictureUtil.loadAvatar(ivAvatar);
                 } else {
                     PictureUtil.loadBackground(ivWallpaper);
@@ -71,13 +71,17 @@ public class MyInfoFragment extends BaseSwipeBackFragment implements OnCommonIte
     }
 
     @Override
+    public CharSequence getToolbarTitle(Context context) {
+        return "个人信息";
+    }
+
+    @Override
     protected int getLayoutId() {
         return R.layout.fragment_my_info;
     }
 
     @Override
     protected void initView(View view, @Nullable Bundle savedInstanceState) {
-        setToolbarTitle("个人信息");
 
         CommonSettingItem memberIdItem = view.findViewById(R.id.item_member_id);
         nickNameItem = view.findViewById(R.id.item_nickname);
@@ -159,10 +163,12 @@ public class MyInfoFragment extends BaseSwipeBackFragment implements OnCommonIte
                         .show(context);
                 break;
             case R.id.item_avatar:
-                UploadUtils.upload(_mActivity, true);
+//                UploadUtils.upload(_mActivity, true);
+                ImagePicker.startCrop(true);
                 break;
             case R.id.item_background:
-                UploadUtils.upload(_mActivity, false);
+//                UploadUtils.upload(_mActivity, false);
+                ImagePicker.startCrop(false);
                 break;
             case R.id.item_email:
                 new EmailModifiedDialogFragment().show(context);

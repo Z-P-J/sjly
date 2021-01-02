@@ -78,7 +78,7 @@ public class WallpaperApi {
                     .data("tag", tag)
                     .data("content", content)
                     .data("image", "image.png", new FileInputStream(file), listener)
-                    .setCookie(UserManager.getInstance().getCookie())
+                    .cookie(UserManager.getInstance().getCookie())
 //                    .ignoreContentType(true)
                     .toXml()
                     .onSuccess(data -> {

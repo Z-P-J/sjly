@@ -14,9 +14,9 @@ import android.widget.FrameLayout;
 
 import com.lxj.xpermission.PermissionConstants;
 import com.lxj.xpermission.XPermission;
-import com.yalantis.ucrop.CropEvent;
 import com.zpj.downloader.ZDownloader;
 import com.zpj.fragmentation.dialog.impl.AlertDialogFragment;
+import com.zpj.rxbus.RxBus;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.api.HttpPreLoader;
 import com.zpj.shouji.market.api.UploadImageApi;
@@ -33,6 +33,8 @@ import com.zpj.shouji.market.utils.BrightnessUtils;
 import com.zpj.shouji.market.utils.EventBus;
 import com.zpj.toast.ZToast;
 import com.zpj.utils.StatusBarUtils;
+
+import java.io.File;
 
 public class MainActivity extends BaseActivity {
 
@@ -79,7 +81,13 @@ public class MainActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        EventBus.registerObserver(this, CropEvent.class, UploadImageApi::uploadCropImage);
+//        EventBus.registerObserver(this, CropEvent.class, UploadImageApi::uploadCropImage);
+        EventBus.onCropEvent(this, new RxBus.PairConsumer<File, Boolean>() {
+            @Override
+            public void onAccept(File file, Boolean isAvatar) throws Exception {
+                UploadImageApi.uploadCropImage(file, isAvatar);
+            }
+        });
 
 
         flContainer = findViewById(R.id.fl_container);

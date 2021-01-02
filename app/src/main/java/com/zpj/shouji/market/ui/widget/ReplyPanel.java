@@ -41,16 +41,13 @@ import com.yanyusong.y_divideritemdecoration.Y_DividerBuilder;
 import com.yanyusong.y_divideritemdecoration.Y_DividerItemDecoration;
 import com.zpj.fragmentation.SupportActivity;
 import com.zpj.fragmentation.dialog.impl.ImageViewerDialogFragment3;
-import com.zpj.imagepicker.ImagePicker;
-import com.zpj.imagepicker.MimeType;
-import com.zpj.imagepicker.engine.impl.GlideEngine;
-import com.zpj.imagepicker.entity.Item;
-import com.zpj.imagepicker.ui.fragment.LocalImageViewer;
 import com.zpj.recyclerview.EasyRecyclerView;
-import com.zpj.recyclerview.EasyViewHolder;
-import com.zpj.recyclerview.IEasy;
 import com.zpj.shouji.market.R;
-import com.zpj.shouji.market.glide.GlideUtils;
+import com.zpj.shouji.market.glide.GlideRequestOptions;
+import com.zpj.shouji.market.glide.transformations.MaxSizeTransformation;
+import com.zpj.shouji.market.imagepicker.ImagePicker;
+import com.zpj.shouji.market.imagepicker.LocalImageViewer;
+import com.zpj.shouji.market.imagepicker.entity.Item;
 import com.zpj.shouji.market.model.InstalledAppInfo;
 import com.zpj.shouji.market.ui.fragment.manager.AppPickerFragment;
 import com.zpj.shouji.market.utils.ThemeUtils;
@@ -138,52 +135,36 @@ public class ReplyPanel extends FrameLayout
             elEmotion.setVisibility(View.GONE);
             Activity activity = ContextUtils.getActivity(getContext());
             if (activity instanceof SupportActivity) {
-                ImagePicker.from((SupportActivity) activity)
-                        .choose(MimeType.ofImage())//照片视频全部显示MimeType.allOf()
-                        .countable(true)//true:选中后显示数字;false:选中后显示对号
-                        .maxSelectable(9)//最大选择数量为9
-                        //.addFilter(new GifSizeFilter(320, 320, 5 * Filter.K * Filter.K))
-//                    .gridExpectedSize(this.getResources().getDimensionPixelSize(R.dimen.photo))//图片显示表格的大小
-                        .spanCount(3)
-                        .thumbnailScale(0.85f)//缩放比例
-                        .imageEngine(new GlideEngine())//图片加载方式，Glide4需要自定义实现
-                        //参数1 true表示拍照存储在共有目录，false表示存储在私有目录；参数2与 AndroidManifest中authorities值相同，用于适配7.0系统 必须设置
-                        .setDefaultSelection(imgList)
-                        .setOnSelectedListener(new ImagePicker.OnSelectedListener() {
-                            @Override
-                            public void onSelected(@NonNull List<Item> itemList) {
-                                recyclerView.getRecyclerView().setVisibility(VISIBLE);
-//                                    imgList.clear();
-//                                    imgList.addAll(itemList);
-                                recyclerView.notifyDataSetChanged();
-                            }
+                ImagePicker.with()
+                        .maxSelectable(9)
+                        .setSelectedList(imgList)
+                        .setOnSelectedListener(itemList -> {
+                            recyclerView.getRecyclerView().setVisibility(VISIBLE);
+                            recyclerView.notifyDataSetChanged();
                         })
                         .start();
-            }
-//            GetMainActivityEvent.post(obj -> Matisse.from(obj)
-//                    .choose(MimeType.ofImage())//照片视频全部显示MimeType.allOf()
-//                    .countable(true)//true:选中后显示数字;false:选中后显示对号
-//                    .maxSelectable(9)//最大选择数量为9
-//                    //.addFilter(new GifSizeFilter(320, 320, 5 * Filter.K * Filter.K))
+//                ImagePicker.from((SupportActivity) activity)
+//                        .choose(MimeType.ofImage())//照片视频全部显示MimeType.allOf()
+//                        .countable(true)//true:选中后显示数字;false:选中后显示对号
+//                        .maxSelectable(9)//最大选择数量为9
+//                        //.addFilter(new GifSizeFilter(320, 320, 5 * Filter.K * Filter.K))
 ////                    .gridExpectedSize(this.getResources().getDimensionPixelSize(R.dimen.photo))//图片显示表格的大小
-//                    .spanCount(3)
-//                    .restrictOrientation(ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED)//图像选择和预览活动所需的方向
-//                    .thumbnailScale(0.85f)//缩放比例
-//                    .imageEngine(new GlideEngine())//图片加载方式，Glide4需要自定义实现
-//                    .capture(true) //是否提供拍照功能，兼容7.0系统需要下面的配置
-//                    //参数1 true表示拍照存储在共有目录，false表示存储在私有目录；参数2与 AndroidManifest中authorities值相同，用于适配7.0系统 必须设置
-//                    .setDefaultSelection(imgList)
-//                    .capture(true, CaptureMode.All)//存储到哪里
-//                    .setOnSelectedListener(new OnSelectedListener() {
-//                        @Override
-//                        public void onSelected(@NonNull List<Item> itemList) {
-//                            recyclerView.getRecyclerView().setVisibility(VISIBLE);
+//                        .spanCount(3)
+//                        .thumbnailScale(0.85f)//缩放比例
+//                        .imageEngine(new GlideEngine())//图片加载方式，Glide4需要自定义实现
+//                        //参数1 true表示拍照存储在共有目录，false表示存储在私有目录；参数2与 AndroidManifest中authorities值相同，用于适配7.0系统 必须设置
+//                        .setDefaultSelection(imgList)
+//                        .setOnSelectedListener(new ImagePicker.OnSelectedListener() {
+//                            @Override
+//                            public void onSelected(@NonNull List<Item> itemList) {
+//                                recyclerView.getRecyclerView().setVisibility(VISIBLE);
 ////                                    imgList.clear();
 ////                                    imgList.addAll(itemList);
-//                            recyclerView.notifyDataSetChanged();
-//                        }
-//                    })
-//                    .start());
+//                                recyclerView.notifyDataSetChanged();
+//                            }
+//                        })
+//                        .start();
+            }
         });
         ivApp = addAction(R.drawable.ic_android_black_24dp, v -> {
             if (isKeyboardShowing) {
@@ -250,9 +231,13 @@ public class ReplyPanel extends FrameLayout
                 .onBindViewHolder((holder, list, position, payloads) -> {
                     ImageView img = holder.getImageView(R.id.iv_img);
                     img.setTag(position);
+
                     Glide.with(getContext())
                             .load(list.get(position).uri)
-                            .apply(GlideUtils.REQUEST_OPTIONS)
+                            .apply(GlideRequestOptions.with()
+                                    .addTransformation(new MaxSizeTransformation())
+                                    .roundedCorners(8)
+                                    .get())
                             .into(img);
 
                     holder.setOnItemClickListener(v -> {
@@ -287,16 +272,13 @@ public class ReplyPanel extends FrameLayout
                                 .show(getContext());
                     });
                 })
-                .onViewClick(R.id.iv_close, new IEasy.OnClickListener<Item>() {
-                    @Override
-                    public void onClick(EasyViewHolder holder, View view, Item data) {
-                        imgList.remove(data);
-                        if (imgList.isEmpty()) {
-                            recyclerView.getRecyclerView().setVisibility(GONE);
-                        } else {
+                .onViewClick(R.id.iv_close, (holder, view, data) -> {
+                    imgList.remove(data);
+                    if (imgList.isEmpty()) {
+                        recyclerView.getRecyclerView().setVisibility(GONE);
+                    } else {
 //                            recyclerView.notifyItemRemoved(holder.getRealPosition());
-                            recyclerView.notifyDataSetChanged();
-                        }
+                        recyclerView.notifyDataSetChanged();
                     }
                 })
                 .build();

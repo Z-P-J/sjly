@@ -1,10 +1,13 @@
 package com.zpj.shouji.market.utils;
 
 
+import android.arch.lifecycle.LifecycleOwner;
 import android.os.Environment;
 import android.support.annotation.NonNull;
 import android.text.TextUtils;
 import android.util.Log;
+
+import com.zpj.rxlife.RxLife;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -26,29 +29,30 @@ public class FileScanner<T> {
 
     private static final ConcurrentLinkedQueue<File> folderList = new ConcurrentLinkedQueue<>();
 
-    private static final List<ScannerTask> taskList = new ArrayList<>();
+    private static final List<ScannerTask<?>> taskList = new ArrayList<>();
 
     private String type;
-
-//    private OnScanListener<T> onScanListener;
+    private LifecycleOwner lifecycleOwner;
 
     private static class ScannerTask<T> {
 
         private final ObservableEmitter<T> callback;
         private final OnScanListener<T> onScanListener;
         private final String type;
+        private final LifecycleOwner lifecycleOwner;
 
-        public ScannerTask(ObservableEmitter<T> callback, OnScanListener<T> onScanListener, String type) {
+        public ScannerTask(ObservableEmitter<T> callback, OnScanListener<T> onScanListener, String type, LifecycleOwner lifecycleOwner) {
             this.callback = callback;
             this.onScanListener = onScanListener;
             this.type = type;
+            this.lifecycleOwner = lifecycleOwner;
             start();
         }
 
         public void start() {
-            Observable.create(
+            Observable<File> observable = Observable.create(
                     (ObservableOnSubscribe<File>) emitter -> {
-                        while(!folderList.isEmpty()) {
+                        while (!folderList.isEmpty()) {
                             File file = folderList.poll();
                             if (file != null) {
 //                                Log.d(TAG, "file=" + file.getAbsolutePath());
@@ -91,14 +95,23 @@ public class FileScanner<T> {
                         emitter.onComplete();
                     })
                     .subscribeOn(Schedulers.io())
-                    .observeOn(AndroidSchedulers.mainThread())
-                    .subscribe();
+                    .observeOn(AndroidSchedulers.mainThread());
+            if (lifecycleOwner != null) {
+                observable = observable.compose(RxLife.bindLifeOwner(lifecycleOwner));
+            }
+            observable.subscribe();
         }
 
     }
 
-    public void setType(@NonNull String type) {
+    public FileScanner<T> setType(@NonNull String type) {
         this.type = type.toLowerCase();
+        return this;
+    }
+
+    public FileScanner<T> bindLife(LifecycleOwner lifecycleOwner) {
+        this.lifecycleOwner = lifecycleOwner;
+        return this;
     }
 
     public void start(final OnScanListener<T> onScanListener) {
@@ -108,16 +121,16 @@ public class FileScanner<T> {
         if (TextUtils.isEmpty(type)) {
             return;
         }
-        Observable.create(
+        Observable<T> observable = Observable.create(
                 (ObservableOnSubscribe<T>) emitter -> {
                     Environment.getRootDirectory();
 
                     File file = Environment.getExternalStorageDirectory();
                     folderList.addAll(Arrays.asList(file.listFiles()));
                     for (int i = 0; i < 3; i++) {
-                        taskList.add(new ScannerTask<>(emitter, onScanListener, type));
+                        taskList.add(new ScannerTask<>(emitter, onScanListener, type, lifecycleOwner));
                     }
-                    while(true) {
+                    while (true) {
                         if (folderList.isEmpty() && taskList.isEmpty()) {
                             break;
                         }
@@ -125,37 +138,40 @@ public class FileScanner<T> {
                     emitter.onComplete();
                 })
                 .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Observer<T>() {
-                    @Override
-                    public void onSubscribe(Disposable d) {
-                        if (onScanListener != null) {
-                            onScanListener.onScanBegin();
-                        }
-                    }
+                .observeOn(AndroidSchedulers.mainThread());
+        if (lifecycleOwner != null) {
+            observable = observable.compose(RxLife.bindLifeOwner(lifecycleOwner));
+        }
+        observable.subscribe(new Observer<T>() {
+            @Override
+            public void onSubscribe(@NonNull Disposable d) {
+                if (onScanListener != null) {
+                    onScanListener.onScanBegin();
+                }
+            }
 
-                    @Override
-                    public void onNext(T item) {
-                        if (onScanListener != null) {
-                            onScanListener.onScanningFiles(item);
-                        }
-                    }
+            @Override
+            public void onNext(@NonNull T item) {
+                if (onScanListener != null) {
+                    onScanListener.onScanningFiles(item);
+                }
+            }
 
-                    @Override
-                    public void onError(Throwable e) {
-                        e.printStackTrace();
-                        if (onScanListener != null) {
-                            onScanListener.onScanEnd();
-                        }
-                    }
+            @Override
+            public void onError(@NonNull Throwable e) {
+                e.printStackTrace();
+                if (onScanListener != null) {
+                    onScanListener.onScanEnd();
+                }
+            }
 
-                    @Override
-                    public void onComplete() {
-                        if (onScanListener != null) {
-                            onScanListener.onScanEnd();
-                        }
-                    }
-                });
+            @Override
+            public void onComplete() {
+                if (onScanListener != null) {
+                    onScanListener.onScanEnd();
+                }
+            }
+        });
     }
 
     public interface OnScanListener<T> {
@@ -172,8 +188,9 @@ public class FileScanner<T> {
 
         /**
          * 扫描进行中
+         *
          * @param paramString 文件夹地址
-         * @param progress  扫描进度
+         * @param progress    扫描进度
          */
         void onScanning(String paramString, int progress);
 
@@ -181,8 +198,7 @@ public class FileScanner<T> {
 
         /**
          * 扫描进行中，文件的更新
-         * @param file
-         * @param type  SCANNER_TYPE_ADD：添加；SCANNER_TYPE_DEL：删除
+         *
          */
         void onScanningFiles(T item);
 

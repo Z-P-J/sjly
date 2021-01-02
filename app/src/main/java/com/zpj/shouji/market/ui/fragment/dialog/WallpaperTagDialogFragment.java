@@ -23,7 +23,7 @@ public class WallpaperTagDialogFragment extends PartShadowDialogFragment {
 
     @Override
     protected int getContentLayoutId() {
-        return R.layout.layout_wallpaper_tags;
+        return R.layout.dialog_fragment_wallpaper_tags;
     }
 
     @Override

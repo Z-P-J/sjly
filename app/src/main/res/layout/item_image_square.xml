@@ -1,29 +1,48 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.zpj.shouji.market.ui.widget.SquareCardView
+<FrameLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    app:cardElevation="4dp"
-    app:cardUseCompatPadding="true"
-    app:cardCornerRadius="4dp"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
     >
 
-    <ImageView
-        android:id="@+id/iv_img"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:scaleType="centerCrop"
-        />
+    <com.lihang.ShadowLayout
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        android:layout_margin="4dp"
+        app:hl_cornerRadius="8dp"
+        app:hl_shadowLimit="4dp"
+        app:hl_shadowColor="#80cccccc"
+        >
+
+        <android.support.v7.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:cardCornerRadius="8dp"
+            app:cardElevation="0dp"
+            app:cardUseCompatPadding="false"
+            >
+
+            <ImageView
+                android:id="@+id/iv_img"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scaleType="centerCrop"
+                />
+
+        </android.support.v7.widget.CardView>
+
+
+
+    </com.lihang.ShadowLayout>
 
     <ImageView
         android:id="@+id/iv_close"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/ic_close_white_24dp"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:src="@drawable/ic_delete"
         android:background="?attr/actionBarItemBackground"
-        android:tint="@color/red4"
         android:layout_gravity="end"
         />
 
-</com.zpj.shouji.market.ui.widget.SquareCardView>
+</FrameLayout>

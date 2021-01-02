@@ -53,6 +53,7 @@
         <item name="textColorMinor">@color/color_text_minor</item>
         <item name="backgroundBanner">@drawable/bg_banner_header_placeholder</item>
         <item name="backgroundPickedGame">@drawable/bg_picked_game_info</item>
+        <item name="backgroundProgress">@color/light_gray_2</item>
 
         <!--        fragmentation-dialog-->
         <item name="_dialog_text_color_major">@color/color_text_major</item>
@@ -74,6 +75,7 @@
         <item name="textColorMinor">#efefef</item>
         <item name="backgroundBanner">@drawable/bg_banner_header_placeholder_dark</item>
         <item name="backgroundPickedGame">@drawable/bg_picked_game_info_night</item>
+        <item name="backgroundProgress">@color/dark_gray_3</item>
 
         <!--        fragmentation-dialog-->
         <item name="_dialog_text_color_major">@color/white</item>

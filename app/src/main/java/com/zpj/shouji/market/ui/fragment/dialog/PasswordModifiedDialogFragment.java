@@ -17,7 +17,7 @@ public class PasswordModifiedDialogFragment extends ModifiedDialogFragment {
 
     @Override
     protected int getContentLayoutId() {
-        return R.layout.layout_popup_modified_password;
+        return R.layout.dialog_fragment_modified_password;
     }
 
     @Override

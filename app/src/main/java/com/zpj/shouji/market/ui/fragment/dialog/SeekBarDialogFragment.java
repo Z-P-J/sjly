@@ -26,7 +26,7 @@ public class SeekBarDialogFragment extends CenterDialogFragment {
 
     @Override
     protected int getContentLayoutId() {
-        return R.layout.layout_popup_seek_bar;
+        return R.layout.dialog_fragment_seek_bar;
     }
 
     @Override

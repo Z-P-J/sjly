@@ -44,7 +44,7 @@ public class CommentDialogFragment extends BottomDialogFragment
 
     @Override
     protected int getContentLayoutId() {
-        return R.layout.layout_popup_comment;
+        return R.layout.dialog_fragment_comment;
     }
 
     @Override
