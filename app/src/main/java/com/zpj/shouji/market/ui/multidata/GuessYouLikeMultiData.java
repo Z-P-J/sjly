@@ -1,4 +1,4 @@
-package com.zpj.shouji.market.ui.fragment.homepage.multi;
+package com.zpj.shouji.market.ui.multidata;
 
 import android.view.View;
 import android.widget.ImageView;
@@ -29,11 +29,6 @@ public class GuessYouLikeMultiData extends BaseHeaderMultiData<GuessAppInfo> {
             adapter.notifyDataSetChanged();
         });
         return false;
-    }
-
-    @Override
-    public int getChildSpanCount(int viewType) {
-        return 4;
     }
 
     @Override

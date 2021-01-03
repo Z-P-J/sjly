@@ -19,14 +19,13 @@ import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.model.AppDetailInfo;
 import com.zpj.shouji.market.ui.fragment.ToolBarAppListFragment;
 import com.zpj.shouji.market.ui.fragment.base.SkinFragment;
-import com.zpj.shouji.market.ui.fragment.homepage.multi.AppGridListMultiData;
-import com.zpj.shouji.market.ui.fragment.homepage.multi.BaseHeaderMultiData;
-import com.zpj.shouji.market.ui.fragment.homepage.multi.ScreenShootMultiData;
+import com.zpj.shouji.market.ui.multidata.AppGridListMultiData;
+import com.zpj.shouji.market.ui.multidata.BaseHeaderMultiData;
+import com.zpj.shouji.market.ui.multidata.ScreenShootMultiData;
 import com.zpj.shouji.market.ui.fragment.profile.ProfileFragment;
 import com.zpj.shouji.market.utils.EventBus;
 import com.zpj.utils.ScreenUtils;
 
-import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -52,7 +51,7 @@ public class AppDetailContentFragment extends SkinFragment {
             public void onAccept(AppDetailInfo info) throws Exception {
                 Log.d("AppDetailInfoFragment", "onGetAppDetailInfo info=" + info);
 
-                List<MultiData> list = new ArrayList<>();
+                List<MultiData<?>> list = new ArrayList<>();
 
 
                 addItem(list, "特别说明", info.getSpecialStatement());
@@ -71,14 +70,13 @@ public class AppDetailContentFragment extends SkinFragment {
                         }
 
                         @Override
-                        public int getHeaderSpanCount() {
+                        public int getMaxColumnCount() {
                             return 3;
                         }
                     });
                 }
 
                 wrapper.setData(list)
-                        .setMaxSpan(3)
                         .setFooterView(LayoutInflater.from(context).inflate(R.layout.item_footer_normal, null, false))
                         .build();
                 wrapper.notifyDataSetChanged();
@@ -97,7 +95,7 @@ public class AppDetailContentFragment extends SkinFragment {
         wrapper = new MultiRecyclerViewWrapper(recyclerView);
     }
 
-    private void addItem(List<MultiData> list, String title, String text) {
+    private void addItem(List<MultiData<?>> list, String title, String text) {
         if (TextUtils.isEmpty(text)) {
             return;
         }
@@ -110,24 +108,8 @@ public class AppDetailContentFragment extends SkinFragment {
         public DetailInfoMultiData(String title, String content) {
             super(title);
             list.add(content);
-            try {
-                hasMore = false;
-                Field isLoaded = MultiData.class.getDeclaredField("isLoaded");
-                isLoaded.setAccessible(true);
-                isLoaded.set(this, true);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
-
-        @Override
-        public int getHeaderSpanCount() {
-            return 3;
-        }
-
-        @Override
-        public int getChildSpanCount(int viewType) {
-            return 3;
+            hasMore = false;
+            isLoaded = true;
         }
 
         @Override

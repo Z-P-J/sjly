@@ -15,10 +15,10 @@ import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.api.PreloadApi;
 import com.zpj.shouji.market.ui.fragment.ToolBarAppListFragment;
 import com.zpj.shouji.market.ui.fragment.base.SkinFragment;
-import com.zpj.shouji.market.ui.fragment.homepage.multi.AppInfoMultiData;
-import com.zpj.shouji.market.ui.fragment.homepage.multi.CollectionMultiData;
-import com.zpj.shouji.market.ui.fragment.homepage.multi.GuessYouLikeMultiData;
-import com.zpj.shouji.market.ui.fragment.homepage.multi.SubjectMultiData;
+import com.zpj.shouji.market.ui.multidata.AppInfoMultiData;
+import com.zpj.shouji.market.ui.multidata.CollectionMultiData;
+import com.zpj.shouji.market.ui.multidata.GuessYouLikeMultiData;
+import com.zpj.shouji.market.ui.multidata.SubjectMultiData;
 import com.zpj.shouji.market.ui.widget.RecommendBanner;
 import com.zpj.shouji.market.utils.EventBus;
 
@@ -96,7 +96,7 @@ public class RecommendFragment extends SkinFragment {
             }
         });
 
-        List<MultiData> list = new ArrayList<>();
+        List<MultiData<?>> list = new ArrayList<>();
 
         list.add(new AppInfoMultiData("最近更新") {
             @Override
@@ -141,11 +141,9 @@ public class RecommendFragment extends SkinFragment {
         list.add(new GuessYouLikeMultiData("猜你喜欢"));
 
         wrapper.setData(list)
-                .setMaxSpan(4)
                 .setFooterView(LayoutInflater.from(context).inflate(R.layout.item_footer_home, null, false))
                 .setHeaderView(mBanner)
                 .build();
-//        wrapper.showLoading();
     }
 
     @Override

@@ -18,13 +18,13 @@ public abstract class StateFragment extends SkinFragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = super.onCreateView(inflater, container, savedInstanceState);
+        view = super.onCreateView(inflater, container, savedInstanceState);
         if (stateManager == null) {
             stateManager = StateManager.with(view);
             stateManager.showLoading();
-            return stateManager.getStateView();
+            view = stateManager.getStateView();
+            SkinEngine.setBackground(view, R.attr.backgroundColor);
         }
-        SkinEngine.setBackground(view, R.attr.backgroundColor);
         return view;
     }
 
@@ -34,6 +34,7 @@ public abstract class StateFragment extends SkinFragment {
             stateManager = StateManager.with(view);
             stateManager.showLoading();
             view = stateManager.getStateView();
+            SkinEngine.setBackground(view, R.attr.backgroundColor);
         }
         return super.attachToSwipeBack(view);
     }

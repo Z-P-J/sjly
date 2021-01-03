@@ -14,9 +14,9 @@ import com.zpj.shouji.market.api.PreloadApi;
 import com.zpj.shouji.market.model.AppInfo;
 import com.zpj.shouji.market.ui.fragment.ToolBarAppListFragment;
 import com.zpj.shouji.market.ui.fragment.booking.LatestBookingFragment;
-import com.zpj.shouji.market.ui.fragment.homepage.multi.AppInfoMultiData;
-import com.zpj.shouji.market.ui.fragment.homepage.multi.GameBookingMultiData;
-import com.zpj.shouji.market.ui.fragment.homepage.multi.TutorialMultiData;
+import com.zpj.shouji.market.ui.multidata.AppInfoMultiData;
+import com.zpj.shouji.market.ui.multidata.GameBookingMultiData;
+import com.zpj.shouji.market.ui.multidata.TutorialMultiData;
 import com.zpj.toast.ZToast;
 
 import java.util.ArrayList;
@@ -74,7 +74,7 @@ public class GameRecommendFragment extends BaseRecommendFragment implements View
     }
 
     @Override
-    protected void initMultiData(List<MultiData> list) {
+    protected void initMultiData(List<MultiData<?>> list) {
 
         list.add(new AppInfoMultiData("最近更新") {
             @Override

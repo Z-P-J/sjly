@@ -26,7 +26,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:scaleType="centerCrop"
-                android:src="@drawable/bga_pp_ic_holder_light"
+                android:src="@drawable/ic_placeholder_image_light"
                 android:layout_above="@+id/rl_app_info"
                 />
 

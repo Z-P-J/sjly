@@ -21,7 +21,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:scaleType="centerCrop"
-            android:src="@drawable/bga_pp_ic_holder_light"/>
+            android:src="@drawable/ic_placeholder_image_light"/>
 
         <com.zpj.shouji.market.ui.widget.emoji.EmojiExpandableTextView
             android:id="@+id/tv_content"

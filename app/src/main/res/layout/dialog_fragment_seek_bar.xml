@@ -18,6 +18,7 @@
             android:layout_height="wrap_content"
             android:text="@string/toolbar_title"
             android:textColor="?attr/textColorMajor"
+            android:textSize="16sp"
             />
 
         <com.zpj.widget.tinted.TintedImageButton
@@ -27,7 +28,7 @@
             android:src="@drawable/ic_clear_black_24dp"
             android:background="?attr/actionBarItemBackground"
             android:layout_gravity="end"
-            android:tint="?attr/textColorMinor"
+            android:tint="?attr/textColorMajor"
             />
 
     </FrameLayout>

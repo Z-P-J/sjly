@@ -344,14 +344,6 @@ public class ChatFragment extends NextUrlFragment<PrivateLetterInfo>
                                 popup.updateSrcView(nineGridView.getImageView(position));
                             }
                         })
-//                        .setImageList(AppConfig.isShowOriginalImage() && NetUtils.isWiFi(context) ? info.getPics() : info.getSpics())
-//                        .setNowIndex(position)
-//                        .setSourceImageView(new SourceImageViewGet<String>() {
-//                            @Override
-//                            public void updateImageView(ImageItemView<String> imageItemView, int pos, boolean isCurrent) {
-//                                imageItemView.update(nineGridView.getImageView(pos));
-//                            }
-//                        })
                         .show(context);
             }
         });

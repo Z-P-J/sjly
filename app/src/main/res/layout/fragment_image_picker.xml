@@ -32,7 +32,7 @@
                 app:z_toolbar_fillStatusBar="true"
                 />
 
-            <com.zpj.shouji.market.imagepicker.widget.MediaSelectionLayout
+            <com.zpj.shouji.market.imagepicker.widget.ImageSelectionLayout
                 android:id="@+id/layout_media_selection"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
@@ -80,9 +80,10 @@
                     android:layout_gravity="center"
                     android:gravity="center"
                     android:text="@string/text_select_album"
-                    android:drawableEnd="@drawable/ic_keyboard_arrow_down_black_24dp"
+                    android:drawableEnd="@drawable/ic_expand_less_black_24dp"
                     android:drawablePadding="4dp"
                     android:textColor="?attr/textColorMajor"
+                    android:textSize="16sp"
                     app:drawable_tint_color="?attr/textColorMajor"
                     />
 

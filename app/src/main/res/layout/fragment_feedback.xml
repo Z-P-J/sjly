@@ -74,7 +74,12 @@
                     android:background="@color/transparent"
                     />
 
-                <include layout="@layout/layout_nine_grid"/>
+                <include layout="@layout/layout_nine_grid"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="16dp"
+                    android:layout_marginBottom="16dp"
+                    />
 
             </LinearLayout>
 

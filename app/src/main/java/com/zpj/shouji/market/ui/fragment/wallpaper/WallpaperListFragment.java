@@ -30,7 +30,7 @@ import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.api.HttpApi;
 import com.zpj.shouji.market.constant.AppConfig;
 import com.zpj.shouji.market.constant.Keys;
-import com.zpj.shouji.market.glide.GlideUtils;
+import com.zpj.shouji.market.glide.GlideRequestOptions;
 import com.zpj.shouji.market.glide.ImageViewDrawableTarget;
 import com.zpj.shouji.market.model.WallpaperInfo;
 import com.zpj.shouji.market.model.WallpaperTag;
@@ -116,7 +116,7 @@ public class WallpaperListFragment extends NextUrlFragment<WallpaperInfo> {
         wallpaper.setTag(position);
         Glide.with(context)
                 .load(list.get(position).getSpic())
-                .apply(GlideUtils.REQUEST_OPTIONS)
+                .apply(GlideRequestOptions.getImageOption())
                 .into(new ImageViewDrawableTarget(wallpaper) {
                     @Override
                     public void onResourceReady(@NonNull Drawable resource, @Nullable Transition<? super Drawable> transition) {

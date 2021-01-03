@@ -16,14 +16,22 @@
 package com.zpj.shouji.market.imagepicker;
 
 import android.content.Context;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.util.Log;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.resource.gif.GifDrawable;
 import com.bumptech.glide.request.RequestOptions;
+import com.bumptech.glide.request.target.DrawableImageViewTarget;
+import com.bumptech.glide.request.target.SimpleTarget;
 import com.bumptech.glide.request.target.Target;
+import com.bumptech.glide.request.transition.Transition;
 import com.zpj.shouji.market.R;
+import com.zpj.shouji.market.glide.GlideRequestOptions;
 import com.zpj.shouji.market.glide.ImageViewDrawableTarget;
 import com.zpj.shouji.market.glide.transformations.MaxSizeTransformation;
 
@@ -37,6 +45,7 @@ public class GlideEngine implements ImageEngine {
     public void loadThumbnail(Context context, ImageView imageView, Uri uri) {
 //        Drawable drawable = context.getResources().getDrawable(R.drawable.bga_pp_ic_holder_light);
         Log.d("GlideEngine", "loadThumbnail uri=" + uri.toString());
+        int placeholder = GlideRequestOptions.getPlaceholderId();
         Glide.with(context)
 //                .asBitmap() // some .jpeg files are actually gif
                 .load(uri)
@@ -45,8 +54,8 @@ public class GlideEngine implements ImageEngine {
 //                        .override(resize, resize)
 //                        .override(Target.SIZE_ORIGINAL)
 //                                .centerCrop()
-                                .placeholder(R.drawable.bga_pp_ic_holder_light)
-                                .error(R.drawable.bga_pp_ic_holder_light)
+                                .placeholder(placeholder)
+                                .error(placeholder)
 //                        .error(drawable)
 //                        .fitCenter()
                 )
@@ -56,6 +65,7 @@ public class GlideEngine implements ImageEngine {
     @Override
     public void loadGifThumbnail(Context context, ImageView imageView,
                                  Uri uri) {
+        int placeholder = GlideRequestOptions.getPlaceholderId();
         Glide.with(context)
                 .asGif()
 //                .asBitmap() // some .jpeg files are actually gif
@@ -64,23 +74,39 @@ public class GlideEngine implements ImageEngine {
                         new RequestOptions()
 //                        .override(resize, resize)
 //                        .override(Target.SIZE_ORIGINAL)
-                                .placeholder(R.drawable.bga_pp_ic_holder_light)
-                                .error(R.drawable.bga_pp_ic_holder_light)
+                                .placeholder(placeholder)
+                                .error(placeholder)
 //                        .fitCenter()
                 )
-                .into(imageView);
+                .into(new SimpleTarget<GifDrawable>() {
+                    @Override
+                    public void onResourceReady(@NonNull GifDrawable resource, @Nullable Transition<? super GifDrawable> transition) {
+                        imageView.setImageDrawable(resource);
+                        resource.start();
+                    }
+
+                    @Override
+                    public void onLoadStarted(@Nullable Drawable placeholder) {
+                        imageView.setImageDrawable(placeholder);
+                    }
+
+                    @Override
+                    public void onLoadFailed(@Nullable Drawable errorDrawable) {
+                        imageView.setImageDrawable(errorDrawable);
+                    }
+                });
     }
 
     @Override
     public void loadGifImage(Context context, ImageView imageView, Uri uri) {
-        Glide.with(context)
-                .asGif()
-                .load(uri)
-                .apply(new RequestOptions()
-                        .override(Target.SIZE_ORIGINAL)
-//                        .priority(Priority.HIGH)
-                        .centerCrop())
-                .into(imageView);
+//        Glide.with(context)
+//                .asGif()
+//                .load(uri)
+//                .apply(new RequestOptions()
+//                        .override(Target.SIZE_ORIGINAL)
+////                        .priority(Priority.HIGH)
+//                        .centerCrop())
+//                .into(imageView);
     }
 
     @Override

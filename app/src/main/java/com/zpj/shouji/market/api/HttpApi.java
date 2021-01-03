@@ -83,6 +83,10 @@ public final class HttpApi {
         return get(url).toXml();
     }
 
+    public static HttpObserver<Document> getHtml(String url) {
+        return get(url).toHtml();
+    }
+
     public static HttpObserver<Document> postXml(String url) {
         return post(url).toXml();
     }
@@ -518,7 +522,7 @@ public final class HttpApi {
     public static void appFavoriteApi(String appId, String type, Callback<Boolean> callback) {
         String url = String.format("http://tt.shouji.com.cn/appv3/user_fav_add_xml_v2.jsp?id=%s&t=%s", appId, "soft".equals(type) ? "1" : "2");
         Log.d("appFavoriteApi", "url=" + url);
-        getXml(url)
+        getHtml(url)
                 .onSuccess(data -> {
                     Log.d("appFavoriteApi", "data=" + data);
                     if ("success".equals(data.selectFirst("result").text())) {

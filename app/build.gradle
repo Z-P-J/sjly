@@ -116,7 +116,7 @@ dependencies {
 
     // RecyclerView
     implementation 'com.android.support:recyclerview-v7:28.0.0'
-    implementation 'com.zpj.widget:ZRecyclerView:1.1.5'
+    implementation 'com.zpj.widget:ZRecyclerView:1.1.6'
     implementation 'com.yanyusong.y_divideritemdecoration:y_divideritemdecoration:2.0'
 
     // up/down arrow

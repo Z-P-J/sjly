@@ -1,4 +1,4 @@
-package com.zpj.shouji.market.ui.fragment.homepage.multi;
+package com.zpj.shouji.market.ui.multidata;
 
 import android.content.Context;
 import android.graphics.Color;
@@ -20,42 +20,24 @@ import com.zpj.fragmentation.dialog.impl.ImageViewerDialogFragment3;
 import com.zpj.recyclerview.EasyRecyclerView;
 import com.zpj.recyclerview.EasyViewHolder;
 import com.zpj.recyclerview.MultiAdapter;
-import com.zpj.recyclerview.MultiData;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.glide.GlideRequestOptions;
 import com.zpj.shouji.market.glide.ImageViewDrawableTarget;
 import com.zpj.shouji.market.ui.fragment.dialog.CommonImageViewerDialogFragment2;
 import com.zpj.utils.ScreenUtils;
 
-import java.lang.reflect.Field;
 import java.util.List;
 
 public class ScreenShootMultiData extends RecyclerMultiData<String> {
 
-    private List<String> urls;
+    private final List<String> urls;
 
     public ScreenShootMultiData(String title, List<String> urls) {
         super(title);
         this.urls = urls;
         list.addAll(urls);
-        try {
-            hasMore = false;
-            Field isLoaded = MultiData.class.getDeclaredField("isLoaded");
-            isLoaded.setAccessible(true);
-            isLoaded.set(this, true);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-    @Override
-    public int getHeaderSpanCount() {
-        return 3;
-    }
-
-    @Override
-    public int getChildSpanCount(int viewType) {
-        return 3;
+        hasMore = false;
+        isLoaded = true;
     }
 
     @Override
@@ -88,11 +70,7 @@ public class ScreenShootMultiData extends RecyclerMultiData<String> {
                     ivImg.setTag(position);
                     Glide.with(ivImg)
                             .load(list.get(position))
-                            .apply(GlideRequestOptions.with()
-//                                    .roundedCorners(8)
-                                    .get()
-                                    .placeholder(R.drawable.bga_pp_ic_holder_light)
-                                    .error(R.drawable.bga_pp_ic_holder_light))
+                            .apply(GlideRequestOptions.getImageOption())
                             .into(new ImageViewDrawableTarget(ivImg) {
 
                                 @Override

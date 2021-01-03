@@ -40,7 +40,7 @@
 
     </RelativeLayout>
 
-    <View style="@style/layout_shadow_bottom"/>
+    <View style="@style/layout_shadow_bottom" />
 
     <android.support.v7.widget.GridLayout
         android:id="@+id/grid"
@@ -57,6 +57,7 @@
             android:id="@+id/tv_qq"
             android:drawableTop="@drawable/ic_logo_qq"
             android:text="QQ"
+            android:textSize="12sp"
             />
 
         <TextView
@@ -64,6 +65,7 @@
             android:id="@+id/tv_wechat"
             android:drawableTop="@drawable/ic_logo_wechat"
             android:text="微信"
+            android:textSize="12sp"
             />
 
         <TextView
@@ -71,6 +73,7 @@
             android:id="@+id/tv_moments"
             android:drawableTop="@drawable/ic_logo_moments"
             android:text="朋友圈"
+            android:textSize="12sp"
             />
 
         <TextView
@@ -78,6 +81,7 @@
             android:id="@+id/tv_weibo"
             android:drawableTop="@drawable/ic_logo_weibo"
             android:text="微博"
+            android:textSize="12sp"
             />
 
         <com.zpj.shouji.market.ui.widget.DrawableTintTextView
@@ -85,6 +89,7 @@
             android:id="@+id/tv_copy"
             android:drawableTop="@drawable/ic_logo_link"
             android:text="复制内容"
+            android:textSize="12sp"
             />
 
         <com.zpj.shouji.market.ui.widget.DrawableTintTextView
@@ -92,6 +97,7 @@
             android:id="@+id/tv_more"
             android:drawableTop="@drawable/ic_logo_more"
             android:text="更多"
+            android:textSize="12sp"
             />
 
     </android.support.v7.widget.GridLayout>

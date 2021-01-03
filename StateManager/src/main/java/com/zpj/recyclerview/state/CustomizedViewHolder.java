@@ -19,10 +19,10 @@ public abstract class CustomizedViewHolder extends BaseViewHolder {
 
     @Override
     public final View onCreateView(final Context context) {
-        super.onCreateView(context);
         this.container = new LinearLayout(context);
         this.container.setGravity(Gravity.CENTER);
         this.container.setOrientation(LinearLayout.VERTICAL);
+        super.onCreateView(context);
         this.view = this.container;
         return this.view;
     }

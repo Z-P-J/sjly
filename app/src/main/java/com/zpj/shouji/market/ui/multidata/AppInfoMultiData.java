@@ -1,4 +1,4 @@
-package com.zpj.shouji.market.ui.fragment.homepage.multi;
+package com.zpj.shouji.market.ui.multidata;
 
 import android.view.View;
 import android.widget.ImageView;
@@ -27,8 +27,13 @@ public abstract class AppInfoMultiData extends BaseHeaderMultiData<AppInfo> {
     }
 
     @Override
-    public int getChildSpanCount(int viewType) {
-        return 1;
+    public int getChildColumnCount(int viewType) {
+        return getMaxColumnCount();
+    }
+
+    @Override
+    public int getMaxColumnCount() {
+        return 4;
     }
 
     @Override

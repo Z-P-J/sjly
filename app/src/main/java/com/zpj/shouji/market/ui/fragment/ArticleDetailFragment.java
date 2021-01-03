@@ -24,7 +24,7 @@ import com.zpj.recyclerview.state.StateManager;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.api.HttpApi;
 import com.zpj.shouji.market.constant.Keys;
-import com.zpj.shouji.market.glide.GlideUtils;
+import com.zpj.shouji.market.glide.GlideRequestOptions;
 import com.zpj.shouji.market.glide.ImageViewDrawableTarget;
 import com.zpj.shouji.market.model.AppInfo;
 import com.zpj.shouji.market.model.article.ArticleDetailInfo;
@@ -41,8 +41,6 @@ import com.zpj.shouji.market.ui.widget.selection.SelectableTextView;
 import com.zpj.toast.ZToast;
 import com.zpj.utils.ScreenUtils;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 public class ArticleDetailFragment extends BaseSwipeBackFragment {
@@ -230,24 +228,14 @@ public class ArticleDetailFragment extends BaseSwipeBackFragment {
                 View view = LayoutInflater.from(context).inflate(R.layout.layout_article_image, null, false);
                 ImageView ivImage = view.findViewById(R.id.iv_image);
                 ivImage.setOnClickListener(v -> {
-                    List<String> objects = new ArrayList<>();
-                    objects.add(url);
                     new CommonImageViewerDialogFragment2()
                             .setSingleSrcView(ivImage, url)
-//                            .setNowIndex(0)
-//                            .setImageList(objects)
-//                            .setSourceImageView(new SourceImageViewGet<String>() {
-//                                @Override
-//                                public void updateImageView(ImageItemView<String> imageItemView, int pos, boolean isCurrent) {
-//                                    imageItemView.update(ivImage);
-//                                }
-//                            })
                             .show(context);
                 });
                 contentWrapper.addView(view);
                 Glide.with(context)
                         .load(url)
-                        .apply(GlideUtils.REQUEST_OPTIONS)
+                        .apply(GlideRequestOptions.getImageOption())
                         .into(new ImageViewDrawableTarget(ivImage) {
                             @Override
                             public void onResourceReady(@NonNull Drawable resource, @Nullable Transition<? super Drawable> transition) {

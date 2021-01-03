@@ -14,7 +14,7 @@ import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.imagepicker.entity.Album;
 import com.zpj.shouji.market.imagepicker.entity.Item;
 import com.zpj.shouji.market.imagepicker.widget.AlbumListLayout;
-import com.zpj.shouji.market.imagepicker.widget.MediaSelectionLayout;
+import com.zpj.shouji.market.imagepicker.widget.ImageSelectionLayout;
 import com.zpj.shouji.market.ui.fragment.CropImageFragment;
 import com.zpj.shouji.market.ui.fragment.base.SkinFragment;
 import com.zpj.utils.ScreenUtils;
@@ -33,7 +33,7 @@ public class ImagePickerFragment extends SkinFragment implements
     private TextView mButtonApply;
 
     private SlidingUpPanelLayout slidingUpPanelLayout;
-    private MediaSelectionLayout mediaSelectionLayout;
+    private ImageSelectionLayout imageSelectionLayout;
     private AlbumListLayout albumListLayout;
 
     private boolean popToSelect;
@@ -101,7 +101,7 @@ public class ImagePickerFragment extends SkinFragment implements
         });
 
 
-        mediaSelectionLayout = findViewById(R.id.layout_media_selection);
+        imageSelectionLayout = findViewById(R.id.layout_media_selection);
         albumListLayout = findViewById(R.id.gallery_recycler_view);
         albumListLayout.init(_mActivity, savedInstanceState);
         albumListLayout.setOnAlbumSelectListener(new AlbumListLayout.OnAlbumSelectListener() {
@@ -109,10 +109,10 @@ public class ImagePickerFragment extends SkinFragment implements
             public void onSelect(Album album) {
                 slidingUpPanelLayout.setPanelState(SlidingUpPanelLayout.PanelState.COLLAPSED);
                 if (album.isAll() && album.isEmpty()) {
-                    mediaSelectionLayout.showEmpty();
+                    imageSelectionLayout.showEmpty();
                 } else {
                     Log.d("MediaSelectionLayout", "onSelect album=" + album);
-                    mediaSelectionLayout.loadAlbum(_mActivity, album);
+                    imageSelectionLayout.loadAlbum(_mActivity, album);
                     setToolbarTitle(album.getDisplayName(context));
                     setToolbarSubTitle("共" + album.getCount() + "张图片");
                 }
@@ -160,7 +160,7 @@ public class ImagePickerFragment extends SkinFragment implements
         popToSelect = false;
 
         albumListLayout.onDestroy();
-        mediaSelectionLayout.onDestroy();
+        imageSelectionLayout.onDestroy();
         mSpec.removeOnCheckStateListener(this);
         mSpec.onDestroy();
         super.onDestroy();

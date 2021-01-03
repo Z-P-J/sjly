@@ -39,7 +39,7 @@ dependencies {
     implementation 'com.android.support:exifinterface:28.0.0'
 //    implementation 'pl.droidsonroids.gif:android-gif-drawable:1.2.21'
     implementation 'com.lxj:xpermission:1.0.1'
-    api 'com.zpj.widget:ZRecyclerView:1.1.5'
+    api 'com.zpj.widget:ZRecyclerView:1.1.6'
     implementation 'com.github.lihangleo2:ShadowLayout:2.1.8'
     api 'com.zpj.widget:SmoothCheckBox:1.0.0'
     implementation 'com.zpj.widget:TintedImageView:1.0.0'

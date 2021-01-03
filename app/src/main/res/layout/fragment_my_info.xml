@@ -31,7 +31,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="?attr/backgroundColor"
-                    android:layout_marginTop="8dp"
+                    android:layout_marginTop="16dp"
                     >
 
                     <com.zpj.widget.setting.CommonSettingItem
@@ -76,7 +76,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="?attr/backgroundColor"
-                    android:layout_marginTop="8dp"
+                    android:layout_marginTop="16dp"
                     >
 
                     <com.zpj.widget.setting.CommonSettingItem

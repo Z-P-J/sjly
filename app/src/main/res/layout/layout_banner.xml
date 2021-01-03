@@ -7,7 +7,7 @@
     android:layout_height="200dp"
     android:layout_marginTop="10dp"
     app:banner_auto_play="true"
-    app:banner_default_image="@drawable/bga_pp_ic_holder_light"
+    app:banner_default_image="@drawable/ic_placeholder_image_light"
     app:banner_expose_width="20dp"
     app:banner_interval_time="5000"
     app:banner_multi_anim="ScaleIn"

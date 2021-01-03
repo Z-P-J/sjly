@@ -16,14 +16,17 @@
         android:textColor="?attr/textColorMajor"
         android:textStyle="bold"
         android:layout_gravity="bottom"
+        android:paddingStart="2dp"
         />
 
     <View
-        android:layout_width="14dp"
-        android:layout_height="10dp"
-        android:background="#8009bd14"
+        android:layout_width="20dp"
+        android:layout_height="14dp"
+        android:background="@drawable/bg_button_round_pink"
         android:layout_gravity="bottom"
         />
+
+<!--    android:background="#8009bd14"-->
 
     <com.zpj.shouji.market.ui.widget.DrawableTintTextView
         android:id="@+id/tv_more"

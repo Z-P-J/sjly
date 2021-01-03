@@ -17,11 +17,10 @@ import com.zpj.shouji.market.constant.Keys;
 import com.zpj.shouji.market.model.AppInfo;
 import com.zpj.shouji.market.model.CollectionInfo;
 import com.zpj.shouji.market.ui.fragment.base.SkinFragment;
-import com.zpj.shouji.market.ui.fragment.homepage.multi.AppInfoMultiData;
-import com.zpj.shouji.market.ui.fragment.homepage.multi.CollectionMultiData;
+import com.zpj.shouji.market.ui.multidata.AppInfoMultiData;
+import com.zpj.shouji.market.ui.multidata.CollectionMultiData;
 import com.zpj.shouji.market.utils.Callback;
 
-import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -71,7 +70,7 @@ public class AppDetailRecommendFragment extends SkinFragment {
     public void onLazyInitView(@Nullable Bundle savedInstanceState) {
         super.onLazyInitView(savedInstanceState);
 //        getSimilar();
-        List<MultiData> multiDataList = new ArrayList<>();
+        List<MultiData<?>> multiDataList = new ArrayList<>();
 
         SimilarAppMultiData similarAppMultiData = new SimilarAppMultiData();
         multiDataList.add(new SimilarCollectionMultiData(type, id, new Callback<List<AppInfo>>() {
@@ -83,9 +82,7 @@ public class AppDetailRecommendFragment extends SkinFragment {
 
         multiDataList.add(similarAppMultiData);
 
-        wrapper.setData(multiDataList)
-                .setMaxSpan(4)
-                .build();
+        wrapper.setData(multiDataList).build();
     }
 
     private void getSimilar() {
@@ -176,7 +173,7 @@ public class AppDetailRecommendFragment extends SkinFragment {
         }
     }
 
-    public class SimilarAppMultiData extends AppInfoMultiData {
+    public static class SimilarAppMultiData extends AppInfoMultiData {
 
         public SimilarAppMultiData() {
             super("相似应用");
@@ -184,14 +181,8 @@ public class AppDetailRecommendFragment extends SkinFragment {
 
         public void setData(List<AppInfo> appInfoList) {
             this.list.addAll(appInfoList);
-            try {
-                hasMore = false;
-                Field isLoaded = MultiData.class.getDeclaredField("isLoaded");
-                isLoaded.setAccessible(true);
-                isLoaded.set(this, true);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
+            hasMore = false;
+            isLoaded = true;
         }
 
         @Override

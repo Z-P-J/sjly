@@ -1,4 +1,4 @@
-package com.zpj.shouji.market.ui.fragment.homepage.multi;
+package com.zpj.shouji.market.ui.multidata;
 
 import android.view.View;
 
@@ -18,18 +18,8 @@ public abstract class BaseHeaderMultiData<T> extends HeaderMultiData<T>
     }
 
     @Override
-    public int getHeaderSpanCount() {
-        return 4;
-    }
-
-    @Override
     public int getHeaderLayoutId() {
         return R.layout.item_header_title;
-    }
-
-    @Override
-    public int getChildSpanCount(int viewType) {
-        return 4;
     }
 
 //    @Override

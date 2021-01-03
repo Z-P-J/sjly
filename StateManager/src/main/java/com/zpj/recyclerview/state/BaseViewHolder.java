@@ -71,7 +71,7 @@ public abstract class BaseViewHolder implements IViewHolder {
         if (getLayoutId() > 0) {
             this.view = LayoutInflater.from(context).inflate(getLayoutId(), null, false);
         }
-//        onViewCreated(view);
+        onViewCreated(view);
         return view;
     }
 

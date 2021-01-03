@@ -93,12 +93,11 @@ public abstract class BaseRecommendFragment extends SkinFragment
     public void onLazyInitView(@Nullable Bundle savedInstanceState) {
         super.onLazyInitView(savedInstanceState);
 
-        List<MultiData> multiDataList = new ArrayList<>();
+        List<MultiData<?>> multiDataList = new ArrayList<>();
 
         initMultiData(multiDataList);
 
         wrapper.setData(multiDataList)
-                .setMaxSpan(4)
                 .setFooterView(LayoutInflater.from(context).inflate(R.layout.item_footer_home, null, false))
                 .setHeaderView(getHeaderLayoutId(), this)
                 .build();
@@ -175,6 +174,6 @@ public abstract class BaseRecommendFragment extends SkinFragment
 
     protected abstract void initHeader(EasyViewHolder holder);
 
-    protected abstract void initMultiData(List<MultiData> list);
+    protected abstract void initMultiData(List<MultiData<?>> list);
 
 }

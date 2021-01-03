@@ -153,11 +153,6 @@ public class AppDetailFragment extends StateSwipeBackFragment
         });
     }
 
-//    @Override
-//    public void onSupportVisible() {
-//        super.onSupportVisible();
-//    }
-
     @Override
     protected void initStatusBar() {
         if (isLazyInit() || AppConfig.isNightMode()) {
@@ -194,9 +189,6 @@ public class AppDetailFragment extends StateSwipeBackFragment
         btnCollect.setOnClickListener(this);
         btnMenu.setOnClickListener(this);
 
-//        stateLayout = view.findViewById(R.id.state_layout);
-
-
         fabComment = view.findViewById(R.id.fab_comment);
         fabComment.setImageResource(R.drawable.ic_file_download_white_24dp);
         fabComment.setOnClickListener(this);
@@ -208,14 +200,7 @@ public class AppDetailFragment extends StateSwipeBackFragment
         viewPager = appDetailLayout.getViewPager();
         magicIndicator = appDetailLayout.getMagicIndicator();
 
-//        stateLayout.showLoadingView();
         getAppInfo();
-
-    }
-
-    @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
 
     }
 

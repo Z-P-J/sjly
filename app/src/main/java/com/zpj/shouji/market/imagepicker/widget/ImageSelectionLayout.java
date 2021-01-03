@@ -25,7 +25,9 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.Loader;
 import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.View;
@@ -46,7 +48,7 @@ import com.zpj.toast.ZToast;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MediaSelectionLayout extends EasyRecyclerLayout<Item> implements
+public class ImageSelectionLayout extends EasyRecyclerLayout<Item> implements
         IEasy.OnBindViewHolderListener<Item>,
         MediaGrid.OnMediaGridClickListener,
         SelectionManager.OnCheckStateListener, LoaderManager.LoaderCallbacks<Cursor> {
@@ -62,15 +64,15 @@ public class MediaSelectionLayout extends EasyRecyclerLayout<Item> implements
 
     private LoaderManager mLoaderManager;
 
-    public MediaSelectionLayout(@NonNull Context context) {
+    public ImageSelectionLayout(@NonNull Context context) {
         this(context, null);
     }
 
-    public MediaSelectionLayout(@NonNull Context context, @Nullable AttributeSet attrs) {
+    public ImageSelectionLayout(@NonNull Context context, @Nullable AttributeSet attrs) {
         this(context, attrs, 0);
     }
 
-    public MediaSelectionLayout(@NonNull Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
+    public ImageSelectionLayout(@NonNull Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         mSpec = SelectionManager.getInstance();
         mSpec.addOnCheckStateListener(this);
@@ -273,13 +275,65 @@ public class MediaSelectionLayout extends EasyRecyclerLayout<Item> implements
         return cause == null;
     }
 
+    // TODO 更新ZRecyclerView notifyVisibleItemChanged方法
     private void notifyCheckStateChanged() {
-        notifyVisibleItemChanged(UPDATE_CHECK_STATUS);
+//        notifyVisibleItemChanged(UPDATE_CHECK_STATUS);
+        RecyclerView.LayoutManager manager = getLayoutManager();
+        int first = -1;
+        int last = -1;
+        if (manager instanceof LinearLayoutManager) {
+            first = ((LinearLayoutManager) manager).findFirstVisibleItemPosition();
+            last = ((LinearLayoutManager) manager).findLastVisibleItemPosition();
+        } else if (manager instanceof StaggeredGridLayoutManager) {
+            StaggeredGridLayoutManager layoutManager = (StaggeredGridLayoutManager) manager;
+            int[] firsts = new int[layoutManager.getSpanCount()];
+            int[] into = new int[layoutManager.getSpanCount()];
+            layoutManager.findFirstVisibleItemPositions(firsts);
+            layoutManager.findLastVisibleItemPositions(into);
+            first = first(firsts);
+            last = last(into);
+        }
+
+        if (getAdapter().getHeaderView() != null) {
+            first += 1;
+        }
+
+        if (last >= first) {
+            int count = last - first;
+            if (last + 1 <= getData().size()) {
+                count += 1;
+            }
+            if (UPDATE_CHECK_STATUS == null) {
+                notifyItemRangeChanged(first, count);
+            } else {
+                notifyItemRangeChanged(first, count, UPDATE_CHECK_STATUS);
+            }
+        }
+    }
+
+    private int first(int[] firstPositions) {
+        int first = firstPositions[0];
+        for (int value : firstPositions) {
+            if (value < first) {
+                first = value;
+            }
+        }
+        return first;
+    }
+
+    private int last(int[] lastPositions) {
+        int last = lastPositions[0];
+        for (int value : lastPositions) {
+            if (value > last) {
+                last = value;
+            }
+        }
+        return last;
     }
 
     @Override
     public void onUpdate() {
-        notifyVisibleItemChanged(UPDATE_CHECK_STATUS);
+        notifyCheckStateChanged();
     }
 
     @NonNull

@@ -32,6 +32,7 @@ import android.widget.ScrollView;
 
 import com.zpj.fragmentation.ISupportFragment;
 import com.zpj.fragmentation.R;
+import com.zpj.fragmentation.SupportHelper;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
@@ -539,11 +540,11 @@ public class SwipeBackLayout extends FrameLayout {
                 if (mPreFragment == null) {
                     if (mFragment != null) {
                         List<Fragment> fragmentList = FragmentationMagician.getActiveFragments(((Fragment) mFragment).getFragmentManager());
-                        if (fragmentList != null && fragmentList.size() > 1) {
+                        if (fragmentList.size() > 1) {
                             int index = fragmentList.indexOf(mFragment);
                             for (int i = index - 1; i >= 0; i--) {
                                 Fragment fragment = fragmentList.get(i);
-                                if (fragment != null && fragment.getView() != null) {
+                                if (fragment.getView() != null) {
                                     fragment.getView().setVisibility(VISIBLE);
                                     mPreFragment = fragment;
                                     break;

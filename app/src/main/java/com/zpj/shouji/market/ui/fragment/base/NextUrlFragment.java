@@ -96,83 +96,94 @@ public abstract class NextUrlFragment<T> extends RecyclerLayoutFragment<T>
 
     @Override
     public void onSuccess(Document doc) throws Exception {
-        Log.d("getData", "doc=" + doc);
+        postOnEnterAnimationEnd(new Runnable() {
+            @Override
+            public void run() {
+                Log.d("getData", "doc=" + doc);
 //        if (!doc.selectFirst("html").isNull()) {
 //            onError(new UnsupportedMimeTypeException("Unhandled content type. Must be application/xml.",
 //                    "text/*", nextUrl));
 //            return;
 //        }
-        nextUrl = doc.selectFirst("nextUrl").text();
-        if (refresh) {
-            data.clear();
-        }
-        int start = data.size();
-        onGetDocument(doc);
+                nextUrl = doc.selectFirst("nextUrl").text();
+                if (refresh) {
+                    data.clear();
+                }
+                int start = data.size();
+                try {
+                    onGetDocument(doc);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    onError(e);
+                    return;
+                }
 //        int end = data.size() == 0 ? 0 : data.size() - 1;
-        int end = data.size();
+                int end = data.size();
 
-        int last = -1;
-        int first = -1;
-        if (recyclerLayout.getLayoutManager() instanceof LinearLayoutManager) {
-            last = ((LinearLayoutManager) recyclerLayout.getLayoutManager()).findLastVisibleItemPosition();
-            first = ((LinearLayoutManager) recyclerLayout.getLayoutManager()).findFirstVisibleItemPosition();
-        }
+                int last = -1;
+                int first = -1;
+                if (recyclerLayout.getLayoutManager() instanceof LinearLayoutManager) {
+                    last = ((LinearLayoutManager) recyclerLayout.getLayoutManager()).findLastVisibleItemPosition();
+                    first = ((LinearLayoutManager) recyclerLayout.getLayoutManager()).findFirstVisibleItemPosition();
+                }
 
-        Log.d("getData", "last=" + last);
+                Log.d("getData", "last=" + last);
 
-        Log.d("getData", "start=" + start + " end=" + end + " count=" + (end - start));
-        Log.d("getData", "getHeaderView=" + recyclerLayout.getAdapter().getHeaderView());
-        Log.d("getData", "getFooterView=" + recyclerLayout.getAdapter().getFooterView());
-        if (start == 0 || first == 0) { // last <= start
-            recyclerLayout.notifyDataSetChanged();
-        } else {
-            if (start < end) {
+                Log.d("getData", "start=" + start + " end=" + end + " count=" + (end - start));
+                Log.d("getData", "getHeaderView=" + recyclerLayout.getAdapter().getHeaderView());
+                Log.d("getData", "getFooterView=" + recyclerLayout.getAdapter().getFooterView());
+                if (start == 0 || first == 0) { // last <= start
+                    recyclerLayout.notifyDataSetChanged();
+                } else {
+                    if (start < end) {
 //            recyclerLayout.notifyItemRangeChanged(start, end);
-                int count = end - start;
-                if (recyclerLayout.getAdapter().getHeaderView() != null) {
-                    start += 1;
-                }
-                Log.d("getData222222222222", "start=" + start + " count=" + count);
-                recyclerLayout.notifyItemRangeChanged(start, count);
-            } else {
-                View footerView = recyclerLayout.getAdapter().getFooterView();
-                if (footerView != null) {
-                    LinearLayout llContainerProgress = footerView.findViewById(R.id.ll_container_progress);
-                    TextView tvMsg = footerView.findViewById(R.id.tv_msg);
-                    if (llContainerProgress != null) {
-                        llContainerProgress.setVisibility(View.GONE);
-                    }
-                    if (tvMsg != null) {
-                        tvMsg.setVisibility(View.VISIBLE);
-                        tvMsg.setText(R.string.easy_has_no_more);
-                    }
-                }
-                return;
-            }
-        }
-        refresh = false;
-        if (data.size() == 0) {
-            if (recyclerLayout.getAdapter().getHeaderView() == null) {
-                recyclerLayout.showEmpty();
-            } else {
-                View footerView = recyclerLayout.getAdapter().getFooterView();
-                if (footerView != null) {
-                    LinearLayout llContainerProgress = footerView.findViewById(R.id.ll_container_progress);
-                    TextView tvMsg = footerView.findViewById(R.id.tv_msg);
-                    if (llContainerProgress != null) {
-                        llContainerProgress.setVisibility(View.GONE);
-                    }
-                    if (tvMsg != null) {
-                        tvMsg.setVisibility(View.VISIBLE);
-                        tvMsg.setText(R.string.easy_has_no_more);
+                        int count = end - start;
+                        if (recyclerLayout.getAdapter().getHeaderView() != null) {
+                            start += 1;
+                        }
+                        Log.d("getData222222222222", "start=" + start + " count=" + count);
+                        recyclerLayout.notifyItemRangeChanged(start, count);
+                    } else {
+                        View footerView = recyclerLayout.getAdapter().getFooterView();
+                        if (footerView != null) {
+                            LinearLayout llContainerProgress = footerView.findViewById(R.id.ll_container_progress);
+                            TextView tvMsg = footerView.findViewById(R.id.tv_msg);
+                            if (llContainerProgress != null) {
+                                llContainerProgress.setVisibility(View.GONE);
+                            }
+                            if (tvMsg != null) {
+                                tvMsg.setVisibility(View.VISIBLE);
+                                tvMsg.setText(R.string.easy_has_no_more);
+                            }
+                        }
+                        return;
                     }
                 }
-                recyclerLayout.showContent();
-            }
-        } else {
-            recyclerLayout.showContent();
-        }
+                refresh = false;
+                if (data.size() == 0) {
+                    if (recyclerLayout.getAdapter().getHeaderView() == null) {
+                        recyclerLayout.showEmpty();
+                    } else {
+                        View footerView = recyclerLayout.getAdapter().getFooterView();
+                        if (footerView != null) {
+                            LinearLayout llContainerProgress = footerView.findViewById(R.id.ll_container_progress);
+                            TextView tvMsg = footerView.findViewById(R.id.tv_msg);
+                            if (llContainerProgress != null) {
+                                llContainerProgress.setVisibility(View.GONE);
+                            }
+                            if (tvMsg != null) {
+                                tvMsg.setVisibility(View.VISIBLE);
+                                tvMsg.setText(R.string.easy_has_no_more);
+                            }
+                        }
+                        recyclerLayout.showContent();
+                    }
+                } else {
+                    recyclerLayout.showContent();
+                }
 //        recyclerLayout.notifyDataSetChanged();
+            }
+        });
     }
 
     protected void onGetDocument(Document doc) throws Exception {

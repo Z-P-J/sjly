@@ -4,7 +4,9 @@ import com.bumptech.glide.load.resource.bitmap.BitmapTransformation;
 import com.bumptech.glide.load.resource.bitmap.CenterCrop;
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
 import com.bumptech.glide.request.RequestOptions;
+import com.bumptech.glide.request.target.Target;
 import com.zpj.shouji.market.R;
+import com.zpj.shouji.market.constant.AppConfig;
 import com.zpj.utils.ContextUtils;
 import com.zpj.utils.ScreenUtils;
 
@@ -40,6 +42,19 @@ public class GlideRequestOptions {
                 .placeholder(R.drawable.ic_apk);
 //                .error(R.mipmap.ic_launcher)
 //                .placeholder(R.mipmap.ic_launcher);
+    }
+
+    public static RequestOptions getImageOption() {
+        int placeholder = getPlaceholderId();
+        return new RequestOptions()
+                .error(placeholder)
+                .placeholder(placeholder)
+                .override(Target.SIZE_ORIGINAL)
+                .centerCrop();
+    }
+
+    public static int getPlaceholderId() {
+        return AppConfig.isNightMode() ? R.drawable.ic_placeholder_image_dark : R.drawable.ic_placeholder_image_light;
     }
 
     public static GlideRequestOptions with() {

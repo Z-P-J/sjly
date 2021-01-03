@@ -1,4 +1,4 @@
-package com.zpj.shouji.market.ui.fragment.homepage.multi;
+package com.zpj.shouji.market.ui.multidata;
 
 import android.content.Context;
 import android.graphics.Color;

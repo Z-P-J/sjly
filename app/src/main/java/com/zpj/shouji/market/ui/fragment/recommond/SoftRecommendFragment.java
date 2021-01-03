@@ -16,9 +16,9 @@ import com.zpj.shouji.market.api.PreloadApi;
 import com.zpj.shouji.market.model.AppInfo;
 import com.zpj.shouji.market.ui.fragment.ToolBarAppListFragment;
 import com.zpj.shouji.market.ui.fragment.collection.CollectionRecommendListFragment;
-import com.zpj.shouji.market.ui.fragment.homepage.multi.AppInfoMultiData;
-import com.zpj.shouji.market.ui.fragment.homepage.multi.CollectionMultiData;
-import com.zpj.shouji.market.ui.fragment.homepage.multi.TutorialMultiData;
+import com.zpj.shouji.market.ui.multidata.AppInfoMultiData;
+import com.zpj.shouji.market.ui.multidata.CollectionMultiData;
+import com.zpj.shouji.market.ui.multidata.TutorialMultiData;
 import com.zpj.toast.ZToast;
 
 import java.util.ArrayList;
@@ -85,7 +85,7 @@ public class SoftRecommendFragment extends BaseRecommendFragment implements View
     }
 
     @Override
-    protected void initMultiData(List<MultiData> list) {
+    protected void initMultiData(List<MultiData<?>> list) {
         list.add(new AppInfoMultiData("最近更新") {
             @Override
             public void onHeaderClick() {

@@ -15,10 +15,9 @@ import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.gif.GifDrawable;
-import com.bumptech.glide.request.RequestOptions;
 import com.bumptech.glide.request.transition.Transition;
 import com.zpj.shouji.market.R;
-import com.zpj.shouji.market.glide.GlideUtils;
+import com.zpj.shouji.market.glide.GlideRequestOptions;
 import com.zpj.shouji.market.glide.ImageViewDrawableTarget;
 import com.zpj.utils.ScreenUtils;
 import com.zxy.skin.sdk.SkinEngine;
@@ -39,14 +38,6 @@ import java.util.List;
  * 新增编辑模式，代码优化，性能优化
  */
 public class NineGridView extends CardView {
-
-    private static final RequestOptions REQUEST_OPTIONS = new RequestOptions()
-            .placeholder(R.drawable.bga_pp_ic_holder_light)
-            .error(R.drawable.bga_pp_ic_holder_light)
-//            .dontTransform()
-            .centerCrop();
-//            .override(Target.SIZE_ORIGINAL);
-//            .downsample(DownsampleStrategy.NONE);
 
     /**
      * 间隔
@@ -604,7 +595,7 @@ public class NineGridView extends CardView {
             addView(container);
             Glide.with(this)
                     .load(mUrls.get(i))
-                    .apply(GlideUtils.REQUEST_OPTIONS)
+                    .apply(GlideRequestOptions.getImageOption())
                     .into(new ImageViewDrawableTarget(container.getImageView()) {
                         @Override
                         public void onResourceReady(@NonNull Drawable resource, @Nullable Transition<? super Drawable> transition) {
@@ -654,7 +645,7 @@ public class NineGridView extends CardView {
             };
             addImageView.getImageView().setImageResource(R.drawable.ic_add_picture);
 //            addImageView.getImageView().setColorFilter();
-            SkinEngine.setTint(addImageView.getImageView(), R.attr.textColorMinor);
+            SkinEngine.setTint(addImageView.getImageView(), R.attr.textColorNormal);
             addImageView.getImageView().setScaleType(ImageView.ScaleType.FIT_XY);
             addImageView.setIsDeleteMode(true);
             addImageView.setOnClickListener(new OnClickListener() {
