@@ -11,9 +11,9 @@ import com.zpj.fragmentation.dialog.base.CenterDialogFragment;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.api.HttpApi;
 import com.zpj.shouji.market.model.AppDetailInfo;
-import com.zpj.shouji.market.utils.Callback;
 import com.zpj.shouji.market.utils.EventBus;
 import com.zpj.toast.ZToast;
+import com.zpj.utils.Callback;
 
 public class AppRatingDialogFragment extends CenterDialogFragment {
 

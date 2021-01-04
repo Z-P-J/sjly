@@ -21,8 +21,8 @@ import com.zpj.shouji.market.ui.fragment.manager.AppPickerFragment;
 import com.zpj.shouji.market.ui.fragment.profile.UserPickerFragment;
 import com.zpj.shouji.market.ui.widget.ActionPanel;
 import com.zpj.shouji.market.ui.widget.flowlayout.FlowLayout;
-import com.zpj.shouji.market.utils.Callback;
 import com.zpj.toast.ZToast;
+import com.zpj.utils.Callback;
 import com.zpj.utils.KeyboardObserver;
 import com.zpj.utils.ScreenUtils;
 

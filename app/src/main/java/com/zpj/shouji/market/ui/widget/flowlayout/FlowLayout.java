@@ -21,9 +21,9 @@ import com.zpj.recyclerview.IEasy;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.constant.AppConfig;
 import com.zpj.shouji.market.ui.widget.DotSpan;
-import com.zpj.shouji.market.utils.ThemeUtils;
 import com.zpj.toast.ZToast;
 import com.zpj.utils.ScreenUtils;
+import com.zxy.skin.sdk.SkinEngine;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -137,10 +137,10 @@ public class FlowLayout extends RecyclerView
             drawable.setColor(color);
             tvText.setTextColor(color);
         } else {
-            int minorTextColor = ThemeUtils.getTextColorMinor(getContext());
+            int minorTextColor = SkinEngine.getColor(getContext(), R.attr.textColorMinor);
 //            getResources().getColor(R.color.color_text_minor)
             drawable.setStroke(1, minorTextColor);
-            drawable.setColor(ThemeUtils.getDefaultBackgroundColor(getContext()));// Color.WHITE
+            drawable.setColor(SkinEngine.getColor(getContext(), R.attr.backgroundColor));
             drawable.setAlpha(0xff);
             tvText.setTextColor(minorTextColor);
         }

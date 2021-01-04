@@ -13,7 +13,7 @@ import com.zpj.http.parser.html.nodes.Element;
 import com.zpj.recyclerview.EasyRecyclerView;
 import com.zpj.recyclerview.EasyViewHolder;
 import com.zpj.recyclerview.IEasy;
-import com.zpj.recyclerview.state.StateManager;
+import com.zpj.statemanager.StateManager;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.api.HttpApi;
 import com.zpj.shouji.market.constant.Keys;

@@ -13,7 +13,6 @@ import com.zpj.shouji.market.ui.adapter.FragmentsPagerAdapter;
 import com.zpj.shouji.market.ui.fragment.base.BaseSwipeBackFragment;
 import com.zpj.shouji.market.ui.widget.ZViewPager;
 import com.zpj.shouji.market.utils.EventBus;
-import com.zpj.shouji.market.utils.ThemeUtils;
 import com.zpj.toast.ZToast;
 import com.zpj.widget.toolbar.ZSearchBar;
 
@@ -32,11 +31,6 @@ public class SearchFragment extends BaseSwipeBackFragment {
     @Override
     protected int getLayoutId() {
         return R.layout.fragment_search;
-    }
-
-    @Override
-    protected void initStatusBar() {
-        ThemeUtils.initStatusBar(this);
     }
 
     @Override

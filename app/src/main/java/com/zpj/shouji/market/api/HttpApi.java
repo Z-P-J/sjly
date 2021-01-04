@@ -15,10 +15,10 @@ import com.zpj.shouji.market.constant.AppConfig;
 import com.zpj.shouji.market.constant.UpdateFlagAction;
 import com.zpj.shouji.market.imagepicker.entity.Item;
 import com.zpj.shouji.market.manager.UserManager;
-import com.zpj.shouji.market.utils.Callback;
 import com.zpj.shouji.market.utils.EventBus;
 import com.zpj.shouji.market.utils.PictureUtil;
 import com.zpj.toast.ZToast;
+import com.zpj.utils.Callback;
 
 import java.io.File;
 import java.io.FileInputStream;

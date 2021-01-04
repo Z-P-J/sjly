@@ -3,6 +3,7 @@ package com.zpj.shouji.market;
 import android.app.Application;
 import android.content.Context;
 import android.content.res.TypedArray;
+import android.graphics.Color;
 import android.os.Build;
 import android.os.StrictMode;
 import android.util.Log;
@@ -21,7 +22,6 @@ import com.zpj.shouji.market.api.HttpApi;
 import com.zpj.shouji.market.constant.AppConfig;
 import com.zpj.shouji.market.download.AppDownloadMission;
 import com.zpj.shouji.market.download.DownloadNotificationInterceptor;
-import com.zpj.shouji.market.utils.ThemeUtils;
 import com.zpj.widget.setting.SimpleSettingItem;
 import com.zpj.widget.setting.SwitchSettingItem;
 import com.zxy.skin.sdk.SkinEngine;
@@ -100,7 +100,7 @@ public class BaseApplication extends Application {
             addAttributeApplicator("z_setting_titleTextColor", new IAttributeApplicator<SwitchSettingItem>() {
                 @Override
                 public void onApply(SwitchSettingItem view, TypedArray typedArray, int typedArrayIndex) {
-                    view.setTitleTextColor(typedArray.getColor(typedArrayIndex, ThemeUtils.getDefaultBackgroundColor(view.getContext())));
+                    view.setTitleTextColor(typedArray.getColor(typedArrayIndex, AppConfig.isNightMode() ? Color.BLACK : Color.WHITE));
                 }
             });
         }

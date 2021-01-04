@@ -8,10 +8,16 @@ import android.util.Log;
 
 import com.google.gson.Gson;
 import com.zpj.downloader.constant.DefaultConstant;
-import com.zpj.downloader.util.FileUtils;
 import com.zpj.downloader.util.NetworkChangeReceiver;
+import com.zpj.utils.FileUtils;
 
+import java.io.BufferedInputStream;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -167,7 +173,6 @@ public class DownloadManagerImpl implements DownloadManager {
 		} else {
 			f = new File(getContext().getFilesDir(), MISSIONS_PATH);
 		}
-
 		if (f.exists() && f.isDirectory()) {
 			Gson gson = new Gson();
 			for (final File sub : f.listFiles()) {
@@ -178,7 +183,6 @@ public class DownloadManagerImpl implements DownloadManager {
 					String str = FileUtils.readFromFile(sub.getAbsolutePath());
 					if (!TextUtils.isEmpty(str)) {
 						BaseMission<?> mis = gson.fromJson(str, clazz);
-						Log.d("initMissions", "mis=null? " + (mis == null));
 						if (mis != null) {
 							mis.init();
 							insertMission(mis);
@@ -202,7 +206,7 @@ public class DownloadManagerImpl implements DownloadManager {
 
 	@Override
 	public void addDownloadManagerListener(DownloadManagerListener downloadManagerListener) {
-		this.mListeners.add(new WeakReference<DownloadManagerListener>(downloadManagerListener));
+		this.mListeners.add(new WeakReference<>(downloadManagerListener));
 	}
 
 	@Override

@@ -7,7 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.zpj.recyclerview.state.StateManager;
+import com.zpj.statemanager.StateManager;
 import com.zpj.shouji.market.R;
 import com.zxy.skin.sdk.SkinEngine;
 

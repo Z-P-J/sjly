@@ -16,7 +16,6 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.zpj.fragmentation.dialog.impl.ArrowMenuDialogFragment;
-import com.zpj.fragmentation.dialog.model.OptionMenu;
 import com.zpj.notification.ZNotify;
 import com.zpj.recyclerview.EasyAdapter;
 import com.zpj.recyclerview.EasyRecyclerLayout;
@@ -33,8 +32,8 @@ import com.zpj.shouji.market.ui.fragment.base.RecyclerLayoutFragment;
 import com.zpj.shouji.market.ui.fragment.detail.AppDetailFragment;
 import com.zpj.shouji.market.ui.fragment.dialog.RecyclerPartShadowDialogFragment;
 import com.zpj.shouji.market.ui.widget.GradientButton;
-import com.zpj.shouji.market.utils.AppUtil;
 import com.zpj.toast.ZToast;
+import com.zpj.utils.AppUtils;
 import com.zpj.utils.ScreenUtils;
 import com.zpj.widget.checkbox.SmoothCheckBox;
 
@@ -45,21 +44,11 @@ public class InstalledManagerFragment extends RecyclerLayoutFragment<InstalledAp
         implements AppInstalledManager.CallBack,
         AppBackupManager.AppBackupListener {
 
-    private static final List<OptionMenu> optionMenus = new ArrayList<>();
-
-    static {
-//        optionMenus.add(new OptionMenu("忽略更新"));
-        optionMenus.add(new OptionMenu("详细信息"));
-        optionMenus.add(new OptionMenu("分享"));
-        optionMenus.add(new OptionMenu("卸载"));
-        optionMenus.add(new OptionMenu("打开"));
-    }
-
-    private static final List<InstalledAppInfo> USER_APP_LIST = new ArrayList<>();
-    private static final List<InstalledAppInfo> SYSTEM_APP_LIST = new ArrayList<>();
-    private static final List<InstalledAppInfo> BACKUP_APP_LIST = new ArrayList<>();
-    private static final List<InstalledAppInfo> FORBID_APP_LIST = new ArrayList<>();
-    private static final List<InstalledAppInfo> HIDDEN_APP_LIST = new ArrayList<>();
+    private final List<InstalledAppInfo> USER_APP_LIST = new ArrayList<>();
+    private final List<InstalledAppInfo> SYSTEM_APP_LIST = new ArrayList<>();
+    private final List<InstalledAppInfo> BACKUP_APP_LIST = new ArrayList<>();
+    private final List<InstalledAppInfo> FORBID_APP_LIST = new ArrayList<>();
+    private final List<InstalledAppInfo> HIDDEN_APP_LIST = new ArrayList<>();
 
     private SmoothCheckBox checkBox;
 
@@ -132,7 +121,7 @@ public class InstalledManagerFragment extends RecyclerLayoutFragment<InstalledAp
         uninstallBtn.setOnClickListener(v -> {
             ZToast.normal(recyclerLayout.getSelectedPositionList().toString());
             for (InstalledAppInfo info : recyclerLayout.getSelectedItem()) {
-                AppUtil.uninstallApp(_mActivity, info.getPackageName());
+                AppUtils.uninstallApk(_mActivity, info.getPackageName());
             }
         });
         backupBtn = view.findViewById(R.id.btn_backup);
@@ -394,22 +383,22 @@ public class InstalledManagerFragment extends RecyclerLayoutFragment<InstalledAp
 
     public void onMenuClicked(View view, InstalledAppInfo appInfo) {
         new ArrowMenuDialogFragment()
-                .setOptionMenus(optionMenus)
+                .setOptionMenus(R.array.app_actions)
                 .setOrientation(LinearLayout.HORIZONTAL)
                 .setOnItemClickListener((position, menu) -> {
                     switch (position) {
                         case 0:
-                            ZToast.normal("详细信息");
+                            ZToast.normal("TODO 详细信息");
                             break;
                         case 1:
                             ZToast.normal(appInfo.getApkFilePath());
-                            AppUtil.shareApk(context, appInfo.getApkFilePath());
+                            AppUtils.shareApk(context, appInfo.getApkFilePath());
                             break;
                         case 2:
-                            AppUtil.uninstallApp(_mActivity, appInfo.getPackageName());
+                            AppUtils.uninstallApk(_mActivity, appInfo.getPackageName());
                             break;
                         case 3:
-                            AppUtil.openApp(getContext(), appInfo.getPackageName());
+                            AppUtils.runApp(context, appInfo.getPackageName());
                             break;
                         default:
                             ZToast.warning("未知操作！");

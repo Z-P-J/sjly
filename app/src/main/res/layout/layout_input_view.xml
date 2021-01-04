@@ -43,8 +43,8 @@
             android:inputType="textVisiblePassword"
             android:singleLine="true"
             android:text=""
-            android:textColor="@color/color_text_normal"
-            android:textColorHint="@color/light_gray_10"
+            android:textColor="?attr/textColorMajor"
+            android:textColorHint="?attr/textColorMinor"
             android:textSize="14sp"
             />
 

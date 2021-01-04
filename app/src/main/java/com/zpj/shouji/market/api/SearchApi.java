@@ -4,7 +4,7 @@ import com.zpj.http.parser.html.nodes.Element;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.model.GuessAppInfo;
 import com.zpj.shouji.market.model.QuickAppInfo;
-import com.zpj.shouji.market.utils.Callback;
+import com.zpj.utils.Callback;
 import com.zpj.utils.ContextUtils;
 
 import java.util.ArrayList;

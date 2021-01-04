@@ -24,9 +24,9 @@ import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.glide.GlideRequestOptions;
 import com.zpj.shouji.market.glide.transformations.blur.CropBlurTransformation;
 import com.zpj.shouji.market.model.AppDetailInfo;
-import com.zpj.shouji.market.utils.ThemeUtils;
 import com.zpj.widget.toolbar.BaseToolBar;
 import com.zpj.widget.toolbar.ZToolBar;
+import com.zxy.skin.sdk.SkinEngine;
 
 import net.lucode.hackware.magicindicator.MagicIndicator;
 
@@ -65,7 +65,8 @@ public class AppDetailLayout extends FrameLayout {
     public AppDetailLayout(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
 //        setBackgroundColor(Color.WHITE);
-        setBackgroundColor(ThemeUtils.getDefaultBackgroundColor(context));
+//        setBackgroundColor(ThemeUtils.getDefaultBackgroundColor(context));
+        SkinEngine.setBackground(this, R.attr.backgroundColor);
 
         LayoutInflater.from(context).inflate(R.layout.layout_app_detail2, this, true);
         toolbarLayout = findViewById(R.id.collapsingToolbar);

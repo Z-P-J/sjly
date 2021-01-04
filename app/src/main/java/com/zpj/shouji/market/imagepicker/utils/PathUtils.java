@@ -33,7 +33,7 @@ public class PathUtils {
 
     public static Uri toUri(Context context, File file) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-            return FileProvider.getUriForFile(context, com.zpj.downloader.util.FileUtils.getFileProviderName(context), file);
+            return FileProvider.getUriForFile(context, FileUtils.getFileProviderName(context), file);
         }
         return Uri.fromFile(file);
     }

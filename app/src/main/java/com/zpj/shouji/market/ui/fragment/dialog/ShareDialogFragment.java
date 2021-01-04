@@ -13,13 +13,14 @@ import android.widget.TextView;
 
 import com.zpj.fragmentation.dialog.base.BottomDialogFragment;
 import com.zpj.shouji.market.R;
-import com.zpj.shouji.market.utils.ShareUtils;
 import com.zpj.toast.ZToast;
+import com.zpj.utils.Callback;
+import com.zpj.utils.ShareUtils;
 
 import java.io.File;
 
 public class ShareDialogFragment extends BottomDialogFragment
-        implements View.OnClickListener {
+        implements View.OnClickListener, Callback<String> {
 
     private String shareContent;
     private File shareFile;
@@ -69,33 +70,33 @@ public class ShareDialogFragment extends BottomDialogFragment
             case R.id.tv_qq:
 //                ZToast.normal("TODO QQ分享");
                 if (shareFile == null) {
-                    ShareUtils.shareTextToQQFriend(context, shareContent);
+                    ShareUtils.shareTextToQQFriend(context, shareContent, this);
                 } else {
-                    ShareUtils.sharePictureToQQFriend(context, shareFile);
+                    ShareUtils.sharePictureToQQFriend(context, shareFile, this);
                 }
                 break;
             case R.id.tv_wechat:
 //                ZToast.normal("TODO 微信分享");
                 if (shareFile == null) {
-                    ShareUtils.shareTextToWechatFriend(context, shareContent);
+                    ShareUtils.shareTextToWechatFriend(context, shareContent, this);
                 } else {
-                    ShareUtils.sharePictureToWechatFriend(context, shareFile);
+                    ShareUtils.sharePictureToWechatFriend(context, shareFile, this);
                 }
                 break;
             case R.id.tv_moments:
 //                ZToast.normal("TODO 朋友圈分享");
                 if (shareFile == null) {
-                    ShareUtils.shareTextToTimeLine(context, shareContent);
+                    ShareUtils.shareTextToTimeLine(context, shareContent, this);
                 } else {
-                    ShareUtils.sharePictureToTimeLine(context, shareFile);
+                    ShareUtils.sharePictureToTimeLine(context, shareFile, this);
                 }
                 break;
             case R.id.tv_weibo:
 //                ZToast.normal("TODO 微博分享");
                 if (shareFile == null) {
-                    ShareUtils.shareTextToSina(context, shareContent);
+                    ShareUtils.shareTextToSina(context, shareContent, this);
                 } else {
-                    ShareUtils.sharePictureToSina(context, shareFile);
+                    ShareUtils.sharePictureToSina(context, shareFile, this);
                 }
                 break;
             case R.id.tv_copy:
@@ -117,6 +118,11 @@ public class ShareDialogFragment extends BottomDialogFragment
                 context.startActivity(Intent.createChooser(shareIntent, "分享至"));
                 break;
         }
+    }
+
+    @Override
+    public void onCallback(String msg) {
+        ZToast.warning(msg);
     }
 
     public ShareDialogFragment setShareContent(String shareContent) {

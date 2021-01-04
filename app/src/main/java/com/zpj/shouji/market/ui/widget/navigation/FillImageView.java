@@ -18,7 +18,7 @@ import android.util.Log;
 import android.view.animation.AccelerateInterpolator;
 
 import com.zpj.shouji.market.R;
-import com.zpj.shouji.market.utils.ThemeUtils;
+import com.zxy.skin.sdk.SkinEngine;
 
 /**
  * FillView[v 1.0.0]
@@ -125,7 +125,7 @@ public class FillImageView extends AppCompatImageView {
     private void init() {
         mPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
 //        Color.WHITE
-        mPaint.setColor(ThemeUtils.getDefaultBackgroundColor(getContext())); // Color.parseColor("#f2f2f2")
+        mPaint.setColor(SkinEngine.getColor(getContext(), R.attr.backgroundColor)); // Color.parseColor("#f2f2f2")
         mPath = new Path();
     }
 
@@ -135,7 +135,7 @@ public class FillImageView extends AppCompatImageView {
         if (isAnimationFinished) {
             return;
         }
-        mPaint.setColor(ThemeUtils.getDefaultBackgroundColor(getContext()));
+        mPaint.setColor(SkinEngine.getColor(getContext(), R.attr.backgroundColor));
         mCenterX = getWidth() / 2;
         mCenterY = getHeight() / 2;
 

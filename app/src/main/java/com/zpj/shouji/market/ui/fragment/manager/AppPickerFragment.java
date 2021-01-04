@@ -14,8 +14,8 @@ import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.model.InstalledAppInfo;
 import com.zpj.shouji.market.ui.adapter.FragmentsPagerAdapter;
 import com.zpj.shouji.market.ui.fragment.base.BaseSwipeBackFragment;
-import com.zpj.shouji.market.utils.Callback;
 import com.zpj.shouji.market.utils.MagicIndicatorHelper;
+import com.zpj.utils.Callback;
 
 import net.lucode.hackware.magicindicator.MagicIndicator;
 

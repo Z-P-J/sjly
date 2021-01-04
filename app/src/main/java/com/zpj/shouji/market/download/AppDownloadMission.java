@@ -6,7 +6,6 @@ import android.util.Log;
 
 import com.zpj.downloader.BaseMission;
 import com.zpj.downloader.constant.Error;
-import com.zpj.downloader.util.FileUtils;
 import com.zpj.fragmentation.dialog.impl.AlertDialogFragment;
 import com.zpj.http.core.IHttp;
 import com.zpj.shouji.market.R;
@@ -14,9 +13,9 @@ import com.zpj.shouji.market.api.HttpApi;
 import com.zpj.shouji.market.constant.AppConfig;
 import com.zpj.shouji.market.installer.InstallMode;
 import com.zpj.shouji.market.installer.ZApkInstaller;
-import com.zpj.shouji.market.utils.AppUtil;
 import com.zpj.toast.ZToast;
 import com.zpj.utils.AppUtils;
+import com.zpj.utils.FileUtils;
 
 import java.io.File;
 import java.util.UUID;
@@ -94,7 +93,7 @@ public class AppDownloadMission extends BaseMission<AppDownloadMission> {
         if (errCode > 0) {
             return;
         }
-        if (FileUtils.checkFileType(name) == FileUtils.FileType.ARCHIVE) {
+        if (FileUtils.getFileType(name) == FileUtils.FileType.ARCHIVE) {
 //            TODO 解压
             super.onFinish();
         } else {
@@ -110,8 +109,8 @@ public class AppDownloadMission extends BaseMission<AppDownloadMission> {
         if (AppUtils.isInstalled(getContext(), getPackageName()) && AppConfig.isCheckSignature()) {
             Observable.create(
                     (ObservableOnSubscribe<Boolean>) emitter -> {
-                        String currentSign = AppUtil.getAppSignatureMD5(getContext(), getPackageName());
-                        String apkSign = AppUtil.getApkSignatureMD5(getContext(), getFilePath());
+                        String currentSign = AppUtils.getAppSignatureMD5(getContext(), getPackageName());
+                        String apkSign = AppUtils.getApkSignatureMD5(getContext(), getFilePath());
                         emitter.onNext(TextUtils.equals(currentSign, apkSign));
                         emitter.onComplete();
                     })
@@ -126,7 +125,7 @@ public class AppDownloadMission extends BaseMission<AppDownloadMission> {
                                     .setTitle(R.string.text_title_has_different_signature)
                                     .setContent(getContext().getString(R.string.text_content_has_different_signature, getAppName(), versionName))
                                     .setPositiveButton("卸载", fragment -> {
-                                        AppUtil.uninstallApp(getContext(), getPackageName());
+                                        AppUtils.uninstallApk(getContext(), getPackageName());
                                     })
                                     .setNeutralButton("强制安装", fragment -> installApk())
                                     .setNeutralButtonColor(getContext().getResources().getColor(R.color.colorPrimary))
@@ -162,7 +161,7 @@ public class AppDownloadMission extends BaseMission<AppDownloadMission> {
                         @Override
                         public void onComplete() {
                             String currentVersion = AppUtils.getAppVersionName(getContext(), getPackageName());
-                            String apkVersion = AppUtil.getApkVersionName(getContext(), getFilePath());
+                            String apkVersion = AppUtils.getApkVersionName(getContext(), getFilePath());
                             if (TextUtils.equals(apkVersion, currentVersion)) {
                                 File file = getFile();
                                 if (AppConfig.isAutoDeleteAfterInstalled() && file != null) {

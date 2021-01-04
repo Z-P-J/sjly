@@ -21,8 +21,8 @@ import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.glide.transformations.blur.BlurTransformation;
 import com.zpj.shouji.market.ui.fragment.WebFragment;
 import com.zpj.shouji.market.ui.fragment.base.BaseSwipeBackFragment;
-import com.zpj.shouji.market.utils.AnimationUtil;
 import com.zpj.shouji.market.utils.PictureUtil;
+import com.zpj.utils.AnimatorUtils;
 import com.zpj.widget.setting.CommonSettingItem;
 import com.zpj.widget.setting.OnCommonItemClickListener;
 
@@ -93,8 +93,8 @@ public class AboutMeFragment extends BaseSwipeBackFragment implements OnCommonIt
 //                            iv_blur.setColorFilter(Color.parseColor("aa000000"));
 //                        }
                         post(() -> {
-                            AnimationUtil.changeViewAlpha(iv_blur, 0, 1, 500);
-                            AnimationUtil.changeViewSize(iv_blur, 4, 1, 1000);
+                            AnimatorUtils.changeViewAlpha(iv_blur, 0, 1, 500);
+                            AnimatorUtils.changeViewSize(iv_blur, 4, 1, 1000);
                         });
                     }
                 });
@@ -113,7 +113,7 @@ public class AboutMeFragment extends BaseSwipeBackFragment implements OnCommonIt
         CommonSettingItem emailItem = findViewById(R.id.item_email);
         emailItem.setOnItemClickListener(this);
 
-        AnimationUtil.doDelayShowAnim(1000, 100, findViewById(R.id.iv_icon), findViewById(R.id.tv_name),
+        AnimatorUtils.doDelayShowAnim(1000, 100, findViewById(R.id.iv_icon), findViewById(R.id.tv_name),
                 findViewById(R.id.tv_sign), githubItem, sjlyItem, emailItem);
     }
 

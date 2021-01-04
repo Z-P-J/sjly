@@ -8,7 +8,6 @@ import android.view.View;
 
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.download.AppDownloadMission;
-import com.zpj.shouji.market.utils.AppUtil;
 import com.zpj.toast.ZToast;
 import com.zpj.utils.AppUtils;
 
@@ -83,7 +82,7 @@ public class DownloadedActionButton extends AppCompatTextView
                     if (AppUtils.isApkInstalled(getContext(), mission.getPackageName())) {
                         if (mission.getFile().exists()) {
                             String currentVersion = AppUtils.getAppVersionName(getContext(), mission.getPackageName());
-                            String apkVersion = AppUtil.getApkVersionName(getContext(), mission.getFilePath());
+                            String apkVersion = AppUtils.getApkVersionName(getContext(), mission.getFilePath());
                             if (TextUtils.equals(apkVersion, currentVersion)) {
                                 textId = R.string.text_open;
                             } else {

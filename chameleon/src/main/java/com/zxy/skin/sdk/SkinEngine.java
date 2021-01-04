@@ -147,6 +147,10 @@ public class SkinEngine {
         applyViewAttr(view, "textColor", textColorAttrId);
     }
 
+    public static void setHintTextColor(TextView view, int textColorAttrId) {
+        applyViewAttr(view, "textColorHint", textColorAttrId);
+    }
+
     public static void setTint(ImageView view, int tintColorAttrId) {
         applyViewAttr(view, "tint", tintColorAttrId);
     }

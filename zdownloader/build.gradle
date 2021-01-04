@@ -12,9 +12,6 @@ android {
 
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
 
-        ndk {
-            abiFilters "armeabi-v7a"
-        }
     }
 
     buildTypes {
@@ -35,7 +32,7 @@ dependencies {
     implementation 'com.android.support:support-compat:28.0.0'
     implementation 'com.google.code.gson:gson:2.8.6'
     implementation 'com.zpj.http:ZHttp:1.0.2'
-//    implementation project(":zhttp")
+    implementation 'com.zpj.utils:ZUtils:1.0.4'
     implementation 'io.reactivex.rxjava2:rxjava:2.2.17'
     implementation 'io.reactivex.rxjava2:rxandroid:2.1.1'
 }

@@ -163,16 +163,13 @@ public class MyInfoFragment extends BaseSwipeBackFragment implements OnCommonIte
                         .show(context);
                 break;
             case R.id.item_avatar:
-//                UploadUtils.upload(_mActivity, true);
                 ImagePicker.startCrop(true);
                 break;
             case R.id.item_background:
-//                UploadUtils.upload(_mActivity, false);
                 ImagePicker.startCrop(false);
                 break;
             case R.id.item_email:
                 new EmailModifiedDialogFragment().show(context);
-//                EmailModifiedPopup.with(context).show();
                 break;
             case R.id.item_qq:
                 ZToast.normal("TODO 绑定QQ");
@@ -181,7 +178,6 @@ public class MyInfoFragment extends BaseSwipeBackFragment implements OnCommonIte
                 ZToast.normal("TODO 绑定微信");
                 break;
             case R.id.item_password:
-//                PasswordModifiedPopup.with(context).show();
                 new PasswordModifiedDialogFragment().show(context);
                 break;
         }

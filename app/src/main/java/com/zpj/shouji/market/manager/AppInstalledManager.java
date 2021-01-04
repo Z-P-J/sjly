@@ -10,8 +10,8 @@ import android.content.pm.PackageManager;
 import com.zpj.http.core.HttpObserver;
 import com.zpj.shouji.market.model.InstalledAppInfo;
 import com.zpj.shouji.market.utils.AppUtil;
-import com.zpj.shouji.market.utils.FileUtils;
 import com.zpj.toast.ZToast;
+import com.zpj.utils.FormatUtils;
 
 import java.io.File;
 import java.lang.ref.WeakReference;
@@ -62,7 +62,7 @@ public class AppInstalledManager extends BroadcastReceiver {
         installedAppInfo.setIdAndType(AppUpdateManager.getInstance().getAppIdAndType(installedAppInfo.getPackageName()));
         installedAppInfo.setVersionName(packageInfo.versionName);
         installedAppInfo.setApkFilePath(packageInfo.applicationInfo.publicSourceDir);
-        installedAppInfo.setFormattedAppSize(FileUtils.formatFileSize(new File(installedAppInfo.getApkFilePath()).length()));
+        installedAppInfo.setFormattedAppSize(FormatUtils.formatSize(new File(installedAppInfo.getApkFilePath()).length()));
         installedAppInfo.setVersionCode(packageInfo.versionCode);
         installedAppInfo.setTempXPK(false);
         installedAppInfo.setTempInstalled(true);

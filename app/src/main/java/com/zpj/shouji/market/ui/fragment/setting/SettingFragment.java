@@ -14,9 +14,9 @@ import com.zpj.shouji.market.constant.AppConfig;
 import com.zpj.shouji.market.manager.AppUpdateManager;
 import com.zpj.shouji.market.ui.fragment.dialog.BrightnessDialogFragment;
 import com.zpj.shouji.market.ui.fragment.dialog.SeekBarDialogFragment;
-import com.zpj.shouji.market.utils.DataCleanManagerUtils;
 import com.zpj.shouji.market.utils.EventBus;
 import com.zpj.toast.ZToast;
+import com.zpj.utils.CacheUtils;
 import com.zpj.utils.RootUtils;
 import com.zpj.widget.setting.CheckableSettingItem;
 import com.zpj.widget.setting.CommonSettingItem;
@@ -69,7 +69,7 @@ public class SettingFragment extends BaseSettingFragment {
         itemClearCache.setOnItemClickListener(this);
         new HttpObserver<String>(
                 emitter -> {
-                    emitter.onNext(DataCleanManagerUtils.getTotalCacheSizeStr(context));
+                    emitter.onNext(CacheUtils.getTotalCacheSizeStr(context));
                     emitter.onComplete();
                 })
                 .onSuccess(itemClearCache::setRightText)
@@ -177,7 +177,7 @@ public class SettingFragment extends BaseSettingFragment {
 //                BrightnessPopup.with(context).show();
                 break;
             case R.id.item_clear_cache:
-                if (DataCleanManagerUtils.getTotalCacheSize(context) > 0) {
+                if (CacheUtils.getTotalCacheSize(context) > 0) {
                     new AlertDialogFragment()
                             .setTitle("清除缓存")
                             .setContent("您将清除本应用所有缓存数据，确认清除？")
@@ -186,8 +186,8 @@ public class SettingFragment extends BaseSettingFragment {
                                 EventBus.showLoading("清除中...");
                                 new HttpObserver<String>(
                                         emitter -> {
-                                            DataCleanManagerUtils.clearAllCache(context);
-                                            emitter.onNext(DataCleanManagerUtils.getTotalCacheSizeStr(context));
+                                            CacheUtils.clearAllCache(context);
+                                            emitter.onNext(CacheUtils.getTotalCacheSizeStr(context));
                                             emitter.onComplete();
                                         })
                                         .onSuccess(new IHttp.OnSuccessListener<String>() {

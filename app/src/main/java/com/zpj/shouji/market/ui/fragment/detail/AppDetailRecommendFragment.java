@@ -19,7 +19,7 @@ import com.zpj.shouji.market.model.CollectionInfo;
 import com.zpj.shouji.market.ui.fragment.base.SkinFragment;
 import com.zpj.shouji.market.ui.multidata.AppInfoMultiData;
 import com.zpj.shouji.market.ui.multidata.CollectionMultiData;
-import com.zpj.shouji.market.utils.Callback;
+import com.zpj.utils.Callback;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -50,12 +50,12 @@ import com.zpj.shouji.market.imagepicker.LocalImageViewer;
 import com.zpj.shouji.market.imagepicker.entity.Item;
 import com.zpj.shouji.market.model.InstalledAppInfo;
 import com.zpj.shouji.market.ui.fragment.manager.AppPickerFragment;
-import com.zpj.shouji.market.utils.ThemeUtils;
 import com.zpj.toast.ZToast;
 import com.zpj.utils.ContextUtils;
 import com.zpj.utils.KeyboardHeightProvider;
 import com.zpj.utils.KeyboardUtils;
 import com.zpj.utils.ScreenUtils;
+import com.zxy.skin.sdk.SkinEngine;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -329,7 +329,7 @@ public class ReplyPanel extends FrameLayout
         params.leftMargin = margin;
         params.rightMargin = margin;
         imageView.setLayoutParams(params);
-        imageView.setColorFilter(ThemeUtils.getTextColorMajor(getContext()));
+        SkinEngine.setTint(imageView, R.attr.textColorMajor);
 //        int padding = ScreenUtils.dp2pxInt(getContext(), 6);
 //        imageView.setPadding(padding, padding, padding, padding);
         llActionsContainer.addView(imageView);
@@ -345,7 +345,7 @@ public class ReplyPanel extends FrameLayout
         params.leftMargin = margin;
         params.rightMargin = margin;
         textView.setLayoutParams(params);
-        textView.setTextColor(ThemeUtils.getTextColorMajor(getContext()));
+        SkinEngine.setTextColor(textView, R.attr.textColorMajor);
 //        int padding = ScreenUtils.dp2pxInt(getContext(), 6);
 //        textView.setPadding(padding, padding, padding, padding);
         llActionsContainer.addView(textView);

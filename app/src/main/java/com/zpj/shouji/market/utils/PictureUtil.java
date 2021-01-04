@@ -32,6 +32,7 @@ import com.zpj.shouji.market.manager.UserManager;
 import com.zpj.shouji.market.ui.fragment.dialog.ShareDialogFragment;
 import com.zpj.toast.ZToast;
 import com.zpj.utils.ContextUtils;
+import com.zpj.utils.FileUtils;
 import com.zpj.utils.ScreenUtils;
 
 import java.io.BufferedOutputStream;
@@ -647,7 +648,7 @@ public class PictureUtil {
                 .setQuality(80)    // 默认压缩质量为80
                 .setFileName(file.getName()) // 设置你需要修改的文件名
                 .setCompressFormat(isJpg ? Bitmap.CompressFormat.JPEG : Bitmap.CompressFormat.PNG) // 设置默认压缩为jpg格式
-                .setDestinationDirectoryPath(FileUtils.getCachePath(context) + File.separator + "compress")
+                .setDestinationDirectoryPath(FileUtils.getCacheDir(context) + File.separator + "compress")
                 .build()
                 .compressToFile(file);
         return newFile.length() < file.length() ? newFile : file;

@@ -6,9 +6,9 @@ import com.zpj.shouji.market.manager.UserManager;
 import com.zpj.shouji.market.model.BookingAppInfo;
 import com.zpj.shouji.market.ui.fragment.login.LoginFragment;
 import com.zpj.shouji.market.utils.BeanUtils;
-import com.zpj.shouji.market.utils.Callback;
 import com.zpj.shouji.market.utils.EventBus;
 import com.zpj.toast.ZToast;
+import com.zpj.utils.Callback;
 
 import java.util.ArrayList;
 import java.util.List;

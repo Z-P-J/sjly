@@ -3,7 +3,7 @@ package com.zpj.shouji.market.api;
 import com.zpj.http.parser.html.nodes.Element;
 import com.zpj.http.parser.html.select.Elements;
 import com.zpj.shouji.market.R;
-import com.zpj.shouji.market.utils.Callback;
+import com.zpj.utils.Callback;
 import com.zpj.utils.ContextUtils;
 
 import java.util.ArrayList;

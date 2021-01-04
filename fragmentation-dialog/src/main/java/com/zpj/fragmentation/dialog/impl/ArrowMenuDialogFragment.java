@@ -2,6 +2,7 @@ package com.zpj.fragmentation.dialog.impl;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
+import android.support.annotation.ArrayRes;
 import android.support.annotation.Nullable;
 import android.support.v7.view.menu.MenuBuilder;
 import android.view.View;
@@ -13,6 +14,7 @@ import com.zpj.fragmentation.dialog.model.OptionMenu;
 import com.zpj.fragmentation.dialog.widget.OptionMenuView;
 import com.zpj.fragmentation.dialog.widget.PopHorizontalScrollView;
 import com.zpj.fragmentation.dialog.widget.PopVerticalScrollView;
+import com.zpj.utils.ContextUtils;
 import com.zpj.utils.ScreenUtils;
 
 import java.util.List;
@@ -92,6 +94,28 @@ public class ArrowMenuDialogFragment extends ArrowDialogFragment {
 
     public ArrowMenuDialogFragment setOptionMenus(List<OptionMenu> optionMenus) {
         this.optionMenus = optionMenus;
+        return this;
+    }
+
+    public ArrowMenuDialogFragment setOptionMenus(@ArrayRes int strArrayIds) {
+        return setOptionMenus(ContextUtils.getApplicationContext().getResources().getStringArray(strArrayIds));
+    }
+
+    public ArrowMenuDialogFragment setOptionMenus(String ... titles) {
+        this.optionMenus.clear();
+        for (String title : titles) {
+            addOptionMenus(title);
+        }
+        return this;
+    }
+
+    public ArrowMenuDialogFragment addOptionMenus(OptionMenu optionMenu) {
+        this.optionMenus.add(optionMenu);
+        return this;
+    }
+
+    public ArrowMenuDialogFragment addOptionMenus(String title) {
+        this.optionMenus.add(new OptionMenu(title));
         return this;
     }
 

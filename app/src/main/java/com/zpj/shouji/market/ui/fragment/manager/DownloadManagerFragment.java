@@ -36,7 +36,6 @@ import com.zpj.shouji.market.model.InstalledAppInfo;
 import com.zpj.shouji.market.ui.fragment.base.BaseSwipeBackFragment;
 import com.zpj.shouji.market.ui.fragment.detail.AppDetailFragment;
 import com.zpj.shouji.market.ui.widget.DownloadedActionButton;
-import com.zpj.shouji.market.utils.ThemeUtils;
 import com.zpj.toast.ZToast;
 import com.zpj.utils.AppUtils;
 import com.zpj.utils.ClickHelper;
@@ -289,7 +288,7 @@ public class DownloadManagerFragment extends BaseSwipeBackFragment
                         appInfo.setPackageName(mission.getPackageName());
                         GlideApp.with(context).load(appInfo).into(ivIcon);
                     } else {
-                        ivIcon.setImageResource(R.drawable.wechat_icon_apk);
+                        ivIcon.setImageResource(R.drawable.ic_file_apk);
 //                        ivIcon.setImageResource(FileUtil.getFileTypeIconId(mission.getTaskName()));
                     }
                 } else {
@@ -410,7 +409,7 @@ public class DownloadManagerFragment extends BaseSwipeBackFragment
             progressBar.setMax(100);
             if (isFinished) {
                 progressBar.setVisibility(View.GONE);
-                holder.itemView.setBackgroundColor(ThemeUtils.getDefaultBackgroundColor(context));
+//                holder.itemView.setBackgroundColor(ThemeUtils.getDefaultBackgroundColor());
                 map.remove(mission);
             } else {
                 progressBar.setVisibility(View.VISIBLE);

@@ -72,8 +72,8 @@ public class ThemePublishApi {
                             }
                             Log.d("publishThemeApi", "permissions=" + permissions);
                             dataList.add(HttpKeyVal.create("permission", permissions));
-                            Log.d("publishThemeApi", "signature=" + AppUtils.getAppSign(context, appInfo.getPackageName()));
-                            dataList.add(HttpKeyVal.create("signature", AppUtils.getAppSign(context, appInfo.getPackageName())));
+                            Log.d("publishThemeApi", "signature=" + AppUtils.getAppSignature(context, appInfo.getPackageName()));
+                            dataList.add(HttpKeyVal.create("signature", AppUtils.getAppSignature(context, appInfo.getPackageName())));
                         }
                         dataList.add(HttpKeyVal.create("content", content));
                         if (appInfo != null) {

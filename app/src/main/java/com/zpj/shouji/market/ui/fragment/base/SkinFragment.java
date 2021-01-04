@@ -5,15 +5,19 @@ import android.view.View;
 
 import com.zpj.fragmentation.BaseFragment;
 import com.zpj.fragmentation.SupportFragment;
+import com.zpj.shouji.market.constant.AppConfig;
 import com.zpj.shouji.market.utils.EventBus;
-import com.zpj.shouji.market.utils.ThemeUtils;
 import com.zxy.skin.sdk.SkinLayoutInflater;
 
 public abstract class SkinFragment extends BaseFragment {
 
     protected void initStatusBar() {
         if (toolbar != null && toolbar.getVisibility() == View.VISIBLE) {
-            ThemeUtils.initStatusBar(this);
+            if (AppConfig.isNightMode()) {
+                lightStatusBar();
+            } else {
+                darkStatusBar();
+            }
         }
     }
 

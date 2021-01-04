@@ -25,8 +25,8 @@ import com.zpj.shouji.market.model.InstalledAppInfo;
 import com.zpj.shouji.market.ui.fragment.base.RecyclerLayoutFragment;
 import com.zpj.shouji.market.ui.fragment.detail.AppDetailFragment;
 import com.zpj.shouji.market.ui.widget.DownloadButton;
-import com.zpj.shouji.market.utils.AppUtil;
 import com.zpj.toast.ZToast;
+import com.zpj.utils.AppUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -144,10 +144,10 @@ public class UpdateManagerFragment extends RecyclerLayoutFragment<AppUpdateInfo>
                             ZToast.normal("详细信息");
                             break;
                         case 2:
-                            AppUtil.uninstallApp(_mActivity, updateInfo.getPackageName());
+                            AppUtils.uninstallApk(_mActivity, updateInfo.getPackageName());
                             break;
                         case 3:
-                            AppUtil.openApp(context, updateInfo.getPackageName());
+                            AppUtils.runApp(context, updateInfo.getPackageName());
                             break;
                         default:
                             ZToast.warning("未知操作！");

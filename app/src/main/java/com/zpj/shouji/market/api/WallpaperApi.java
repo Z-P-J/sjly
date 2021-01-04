@@ -9,9 +9,9 @@ import com.zpj.http.parser.html.select.Elements;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.manager.UserManager;
 import com.zpj.shouji.market.model.WallpaperTag;
-import com.zpj.shouji.market.utils.Callback;
 import com.zpj.shouji.market.utils.EventBus;
 import com.zpj.toast.ZToast;
+import com.zpj.utils.Callback;
 import com.zpj.utils.ContextUtils;
 import com.zpj.utils.DeviceUtils;
 

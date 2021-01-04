@@ -13,7 +13,7 @@ import com.bumptech.glide.Priority;
 import com.bumptech.glide.load.DataSource;
 import com.bumptech.glide.load.data.DataFetcher;
 import com.zpj.shouji.market.model.InstalledAppInfo;
-import com.zpj.shouji.market.utils.AppUtil;
+import com.zpj.utils.AppUtils;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -69,9 +69,9 @@ public class ApkIconFetcher implements DataFetcher<InputStream> {
                 (ObservableOnSubscribe<InputStream>) emitter -> {
                     Drawable d = null;
                     if (installedAppInfo.isTempInstalled()) {
-                        d = AppUtil.getAppIcon(context, installedAppInfo.getPackageName());
+                        d = AppUtils.getAppIcon(context, installedAppInfo.getPackageName());
                     } else if (installedAppInfo.isTempXPK()){
-                        d = AppUtil.readApkIcon(context, installedAppInfo.getApkFilePath());
+                        d = AppUtils.getApkIcon(context, installedAppInfo.getApkFilePath());
                     }
                     if (d == null){
                         callback.onLoadFailed(new Exception("Not Support!"));

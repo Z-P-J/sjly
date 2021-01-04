@@ -27,8 +27,9 @@ import com.zpj.shouji.market.ui.fragment.base.RecyclerLayoutFragment;
 import com.zpj.shouji.market.ui.fragment.dialog.RecyclerPartShadowDialogFragment;
 import com.zpj.shouji.market.utils.AppUtil;
 import com.zpj.shouji.market.utils.FileScanner;
-import com.zpj.shouji.market.utils.FileUtils;
 import com.zpj.toast.ZToast;
+import com.zpj.utils.AppUtils;
+import com.zpj.utils.FormatUtils;
 
 import org.xmlpull.v1.XmlPullParserException;
 
@@ -149,7 +150,7 @@ public class PackageManagerFragment extends RecyclerLayoutFragment<InstalledAppI
     @Override
     public void onClick(EasyViewHolder holder, View view, InstalledAppInfo data) {
 //        ZToast.normal("todo 详细信息");
-        AppUtil.installApk(context, data.getApkFilePath());
+        AppUtils.installApk(context, data.getApkFilePath());
     }
 
     @Override
@@ -167,7 +168,7 @@ public class PackageManagerFragment extends RecyclerLayoutFragment<InstalledAppI
         });
         if (appInfo.isDamaged()) {
             holder.setText(R.id.tv_info, appInfo.getFormattedAppSize() + " | 已损坏");
-            holder.getImageView(R.id.iv_icon).setImageResource(R.drawable.wechat_icon_apk);
+            holder.getImageView(R.id.iv_icon).setImageResource(R.drawable.ic_file_apk);
         } else {
             Log.d("onBindViewHolder", "name=" + appInfo.getName());
             Log.d("onBindViewHolder", "size=" + appInfo.getFileLength());
@@ -322,7 +323,7 @@ public class PackageManagerFragment extends RecyclerLayoutFragment<InstalledAppI
         InstalledAppInfo appInfo = new InstalledAppInfo();
         appInfo.setApkFilePath(file.getPath());
         appInfo.setAppSize(file.length());
-        appInfo.setFormattedAppSize(FileUtils.formatFileSize(file.length()));
+        appInfo.setFormattedAppSize(FormatUtils.formatSize(file.length()));
         appInfo.setTempXPK(true);
         appInfo.setTempInstalled(false);
         if (packageInfo == null) {
@@ -359,7 +360,7 @@ public class PackageManagerFragment extends RecyclerLayoutFragment<InstalledAppI
         appInfo.setVersionName(xpkInfo.getVersionName());
         appInfo.setVersionCode(xpkInfo.getVersionCode());
         appInfo.setAppSize(file.length());
-        appInfo.setFormattedAppSize(FileUtils.formatFileSize(file.length()));
+        appInfo.setFormattedAppSize(FormatUtils.formatSize(file.length()));
         appInfo.setTempXPK(true);
         appInfo.setTempInstalled(false);
         return appInfo;
@@ -376,13 +377,18 @@ public class PackageManagerFragment extends RecyclerLayoutFragment<InstalledAppI
                             break;
                         case 1:
                             ZToast.normal(updateInfo.getApkFilePath());
-                            AppUtil.shareApk(getContext(), updateInfo.getApkFilePath());
+                            AppUtils.shareApk(context, updateInfo.getApkFilePath());
                             break;
                         case 2:
-                            AppUtil.deleteApk(updateInfo.getApkFilePath());
+                            File file = new File(updateInfo.getApkFilePath());
+                            if (file.exists() && file.delete()) {
+                                ZToast.success("删除成功！");
+                            } else {
+                                ZToast.warning("删除失败！");
+                            }
                             break;
                         case 3:
-                            AppUtil.installApk(getActivity(), updateInfo.getApkFilePath());
+                            AppUtils.installApk(context, updateInfo.getApkFilePath());
                             break;
                         default:
                             ZToast.warning("未知操作！");

@@ -14,14 +14,15 @@ import com.zpj.downloader.constant.DefaultConstant;
 import com.zpj.downloader.constant.Error;
 import com.zpj.downloader.constant.ErrorCode;
 import com.zpj.downloader.constant.ResponseCode;
-import com.zpj.downloader.util.FileUtils;
-import com.zpj.downloader.util.FormatUtils;
 import com.zpj.http.ZHttp;
 import com.zpj.http.core.HttpHeader;
 import com.zpj.http.core.HttpObserver;
 import com.zpj.http.core.IHttp;
+import com.zpj.utils.FileUtils;
+import com.zpj.utils.FormatUtils;
 
 import java.io.File;
+import java.io.Serializable;
 import java.lang.ref.WeakReference;
 import java.net.Proxy;
 import java.util.ArrayList;
@@ -42,7 +43,7 @@ import io.reactivex.schedulers.Schedulers;
  * @author Z-P-J
  */
 @Keep
-public class BaseMission<T extends BaseMission<T>> extends BaseConfig<T> {
+public class BaseMission<T extends BaseMission<T>> extends BaseConfig<T> implements Serializable {
     private static final String TAG = BaseMission.class.getSimpleName();
 
     public interface MissionListener {
@@ -95,7 +96,7 @@ public class BaseMission<T extends BaseMission<T>> extends BaseConfig<T> {
 
     private final ConcurrentLinkedQueue<Long> queue = new ConcurrentLinkedQueue<>();
     private final ConcurrentLinkedQueue<Long> finished = new ConcurrentLinkedQueue<>();
-    private final List<Long> speedHistoryList = new ArrayList<>();
+    private final ArrayList<Long> speedHistoryList = new ArrayList<>();
 
     protected String uuid = "";
     protected String name = "";
@@ -104,7 +105,7 @@ public class BaseMission<T extends BaseMission<T>> extends BaseConfig<T> {
     protected String originUrl = "";
     protected long createTime = 0;
     protected long finishTime = 0;
-//    protected int notifyId = 0;
+    //    protected int notifyId = 0;
     protected long blocks = 1;
     protected long length = 0;
     //    protected long done = 0;
@@ -132,6 +133,7 @@ public class BaseMission<T extends BaseMission<T>> extends BaseConfig<T> {
     private transient Handler handler;
     private transient Gson gson;
     private transient ConcurrentLinkedQueue<DownloadBlock> blockQueue;
+    private transient Runnable progressRunnable;
 
 
     //------------------------------------------------------runnables---------------------------------------------
@@ -305,43 +307,52 @@ public class BaseMission<T extends BaseMission<T>> extends BaseConfig<T> {
                 .subscribe();
     }
 
-    private final transient Runnable progressRunnable = new Runnable() {
-        @Override
-        public void run() {
-            Log.d(TAG, "progressRunnable--start isRunning=" + isRunning() + " missionStatus=" + missionStatus);
-            if (isFinished() || errCode != -1 || aliveThreadCount.get() < 1 || !isRunning()) {
-                getHandler().removeCallbacks(progressRunnable);
-                notifyStatus(missionStatus);
-                return;
-            }
-            getHandler().postDelayed(progressRunnable, getProgressInterval());
-            long downloaded = done.get();
-            long delta = downloaded - lastDone;
-            Log.d(TAG, "progressRunnable--delta=" + delta);
-            speedHistoryList.add(delta);
-            if (delta > 0) {
-                lastDone = downloaded;
-                double speed = delta * (getProgressInterval() / 1000f);
-                tempSpeed = FormatUtils.formatSpeed(speed);
-            }
-            String downloadedSizeStr = FormatUtils.formatSize(downloaded);
-            float progress = getProgress(downloaded, length);
-            Log.d(TAG, "progressRunnable--tempSpeed=" + tempSpeed);
-            ProgressInfo progressInfo = getProgressInfo();
-            progressInfo.setDone(downloaded);
-            progressInfo.setSize(length);
-            progressInfo.setProgress(progress);
-            progressInfo.setFileSizeStr(getFileSizeStr());
-            progressInfo.setDownloadedSizeStr(downloadedSizeStr);
-            progressInfo.setProgressStr(String.format(Locale.US, "%.2f%%", progress));
-            progressInfo.setSpeedStr(tempSpeed);
-            writeMissionInfo();
-            notifyStatus(MissionStatus.RUNNING);
-            if (getEnableNotification() && getNotificationInterceptor() != null) {
-                getNotificationInterceptor().onProgress(getContext(), BaseMission.this, getProgress(), false);
+    private Runnable getProgressRunnable() {
+        if (progressRunnable == null) {
+            synchronized (BaseMission.class) {
+                if (progressRunnable == null) {
+                    progressRunnable = new Runnable() {
+                        @Override
+                        public void run() {
+                            Log.d(TAG, "progressRunnable--start isRunning=" + isRunning() + " missionStatus=" + missionStatus);
+                            if (isFinished() || errCode != -1 || aliveThreadCount.get() < 1 || !isRunning()) {
+                                getHandler().removeCallbacks(getProgressRunnable());
+                                notifyStatus(missionStatus);
+                                return;
+                            }
+                            getHandler().postDelayed(getProgressRunnable(), getProgressInterval());
+                            long downloaded = done.get();
+                            long delta = downloaded - lastDone;
+                            Log.d(TAG, "progressRunnable--delta=" + delta);
+                            speedHistoryList.add(delta);
+                            if (delta > 0) {
+                                lastDone = downloaded;
+                                double speed = delta * (getProgressInterval() / 1000f);
+                                tempSpeed = FormatUtils.formatSpeed(speed);
+                            }
+                            String downloadedSizeStr = FormatUtils.formatSize(downloaded);
+                            float progress = getProgress(downloaded, length);
+                            Log.d(TAG, "progressRunnable--tempSpeed=" + tempSpeed);
+                            ProgressInfo progressInfo = getProgressInfo();
+                            progressInfo.setDone(downloaded);
+                            progressInfo.setSize(length);
+                            progressInfo.setProgress(progress);
+                            progressInfo.setFileSizeStr(getFileSizeStr());
+                            progressInfo.setDownloadedSizeStr(downloadedSizeStr);
+                            progressInfo.setProgressStr(String.format(Locale.US, "%.2f%%", progress));
+                            progressInfo.setSpeedStr(tempSpeed);
+                            writeMissionInfo();
+                            notifyStatus(MissionStatus.RUNNING);
+                            if (getEnableNotification() && getNotificationInterceptor() != null) {
+                                getNotificationInterceptor().onProgress(getContext(), BaseMission.this, getProgress(), false);
+                            }
+                        }
+                    };
+                }
             }
         }
-    };
+        return progressRunnable;
+    }
 
     protected BaseMission() {
 
@@ -480,7 +491,6 @@ public class BaseMission<T extends BaseMission<T>> extends BaseConfig<T> {
             }
 
 
-
 //            for (int i = 0; i < threadCount; i++) {
 //                Observable.create(new DownloadBlockProducer(this, getBlockQueue()))
 //                        .subscribeOn(Schedulers.io())
@@ -522,7 +532,7 @@ public class BaseMission<T extends BaseMission<T>> extends BaseConfig<T> {
 
 
             notifyStatus(MissionStatus.START);
-            getHandler().post(progressRunnable);
+            getHandler().post(getProgressRunnable());
         }
     }
 
@@ -634,13 +644,7 @@ public class BaseMission<T extends BaseMission<T>> extends BaseConfig<T> {
     }
 
     public boolean openFile(Context context) {
-        File file = getFile();
-        if (file.exists()) {
-            FileUtils.openFile(context, getFile());
-            return true;
-        } else {
-            return false;
-        }
+        return FileUtils.openFile(context, getFilePath());
     }
 
     public boolean openFile() {
@@ -771,7 +775,8 @@ public class BaseMission<T extends BaseMission<T>> extends BaseConfig<T> {
         Log.d(TAG, "onFinish");
 //        done = length;
         done.set(length);
-        getHandler().removeCallbacks(progressRunnable);
+        getHandler().removeCallbacks(getProgressRunnable());
+        this.progressRunnable = null;
 
         missionStatus = MissionStatus.FINISHED;
         finishTime = System.currentTimeMillis();
@@ -1087,13 +1092,13 @@ public class BaseMission<T extends BaseMission<T>> extends BaseConfig<T> {
                 if (!TextUtils.isEmpty(mission.originUrl) && !TextUtils.equals(url, mission.originUrl)) {
                     String originName = getMissionNameFromUrl(mission, mission.originUrl);
                     Log.d("getMissionNameFromUrl", "3");
-                    if (FileUtils.checkFileType(originName) != FileUtils.FileType.UNKNOWN) {
+                    if (FileUtils.getFileType(originName) != FileUtils.FileType.UNKNOWN) {
                         Log.d("getMissionNameFromUrl", "4");
                         return originName;
                     }
                 }
 
-                if (FileUtils.checkFileType(name) != FileUtils.FileType.UNKNOWN || name.contains(".")) {
+                if (FileUtils.getFileType(name) != FileUtils.FileType.UNKNOWN || name.contains(".")) {
                     Log.d("getMissionNameFromUrl", "5");
                     return name;
                 } else {
@@ -1186,4 +1191,56 @@ public class BaseMission<T extends BaseMission<T>> extends BaseConfig<T> {
         }
     }
 
+    @Override
+    public String toString() {
+        return "BaseMission{" +
+                "queue=" + queue +
+                ", finished=" + finished +
+                ", speedHistoryList=" + speedHistoryList +
+                ", uuid='" + uuid + '\'' +
+                ", name='" + name + '\'' +
+                ", url='" + url + '\'' +
+                ", redirectUrl='" + redirectUrl + '\'' +
+                ", originUrl='" + originUrl + '\'' +
+                ", createTime=" + createTime +
+                ", finishTime=" + finishTime +
+                ", blocks=" + blocks +
+                ", length=" + length +
+                ", done=" + done +
+                ", missionStatus=" + missionStatus +
+                ", fallback=" + fallback +
+                ", errCode=" + errCode +
+                ", hasInit=" + hasInit +
+                ", currentRetryCount=" + currentRetryCount +
+                ", finishCount=" + finishCount +
+                ", aliveThreadCount=" + aliveThreadCount +
+                ", threadCount=" + threadCount +
+                ", mListeners=" + mListeners +
+                ", errorCount=" + errorCount +
+                ", lastDone=" + lastDone +
+                ", tempSpeed='" + tempSpeed + '\'' +
+                ", progressInfo=" + progressInfo +
+                ", handler=" + handler +
+                ", gson=" + gson +
+                ", blockQueue=" + blockQueue +
+                ", progressRunnable=" + progressRunnable +
+                ", notificationInterceptor=" + notificationInterceptor +
+                ", producerThreadCount=" + producerThreadCount +
+                ", consumerThreadCount=" + consumerThreadCount +
+                ", downloadPath='" + downloadPath + '\'' +
+                ", bufferSize=" + bufferSize +
+                ", progressInterval=" + progressInterval +
+                ", blockSize=" + blockSize +
+                ", userAgent='" + userAgent + '\'' +
+                ", retryCount=" + retryCount +
+                ", retryDelay=" + retryDelay +
+                ", connectOutTime=" + connectOutTime +
+                ", readOutTime=" + readOutTime +
+                ", enableNotification=" + enableNotification +
+                ", cookie='" + cookie + '\'' +
+                ", allowAllSSL=" + allowAllSSL +
+                ", headers=" + headers +
+                ", proxy=" + proxy +
+                '}';
+    }
 }

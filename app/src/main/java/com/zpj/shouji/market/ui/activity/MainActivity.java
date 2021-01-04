@@ -1,7 +1,6 @@
 package com.zpj.shouji.market.ui.activity;
 
 import android.Manifest;
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -28,10 +27,9 @@ import com.zpj.shouji.market.ui.fragment.MainFragment;
 import com.zpj.shouji.market.ui.fragment.manager.DownloadManagerFragment;
 import com.zpj.shouji.market.ui.fragment.manager.ManagerFragment;
 import com.zpj.shouji.market.ui.fragment.manager.UpdateManagerFragment;
-import com.zpj.shouji.market.utils.AppUtil;
-import com.zpj.shouji.market.utils.BrightnessUtils;
 import com.zpj.shouji.market.utils.EventBus;
 import com.zpj.toast.ZToast;
+import com.zpj.utils.BrightnessUtils;
 import com.zpj.utils.StatusBarUtils;
 
 import java.io.File;
@@ -132,13 +130,13 @@ public class MainActivity extends BaseActivity {
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == AppUtil.UNINSTALL_REQUEST_CODE) {
-            if (resultCode == Activity.RESULT_OK) {
-                ZToast.success("应用卸载成功！");
-            } else if (resultCode == Activity.RESULT_CANCELED) {
-                ZToast.normal("应用卸载取消！");
-            }
-        }
+//        if (requestCode == AppUtil.UNINSTALL_REQUEST_CODE) {
+//            if (resultCode == Activity.RESULT_OK) {
+//                ZToast.success("应用卸载成功！");
+//            } else if (resultCode == Activity.RESULT_CANCELED) {
+//                ZToast.normal("应用卸载取消！");
+//            }
+//        }
     }
 
     private void showRequestPermissionPopup() {

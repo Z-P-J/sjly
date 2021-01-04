@@ -19,10 +19,10 @@ import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.model.AppDetailInfo;
 import com.zpj.shouji.market.ui.fragment.ToolBarAppListFragment;
 import com.zpj.shouji.market.ui.fragment.base.SkinFragment;
+import com.zpj.shouji.market.ui.fragment.profile.ProfileFragment;
 import com.zpj.shouji.market.ui.multidata.AppGridListMultiData;
 import com.zpj.shouji.market.ui.multidata.BaseHeaderMultiData;
 import com.zpj.shouji.market.ui.multidata.ScreenShootMultiData;
-import com.zpj.shouji.market.ui.fragment.profile.ProfileFragment;
 import com.zpj.shouji.market.utils.EventBus;
 import com.zpj.utils.ScreenUtils;
 

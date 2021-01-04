@@ -20,7 +20,7 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.transition.Transition;
 import com.zpj.fragmentation.dialog.impl.AttachListDialogFragment;
-import com.zpj.recyclerview.state.StateManager;
+import com.zpj.statemanager.StateManager;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.api.HttpApi;
 import com.zpj.shouji.market.constant.Keys;

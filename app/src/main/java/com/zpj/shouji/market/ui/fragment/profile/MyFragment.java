@@ -285,7 +285,6 @@ public class MyFragment extends SkinFragment
                                 switch (position) {
                                     case 0:
                                         ImagePicker.startCrop(true);
-//                                        UploadUtils.upload(_mActivity, true);
                                         break;
                                     case 1:
                                         PictureUtil.saveImage(context, UserManager.getInstance().getMemberInfo().getMemberAvatar());
@@ -311,7 +310,6 @@ public class MyFragment extends SkinFragment
                                 fragment.dismiss();
                                 switch (position) {
                                     case 0:
-//                                        UploadUtils.upload(_mActivity, false);
                                         ImagePicker.startCrop(false);
                                         break;
                                     case 1:
@@ -419,7 +417,7 @@ public class MyFragment extends SkinFragment
                                 }
                                 break;
                             case 1:
-//                                WebFragment.shareHomepage(fragment, UserManager.getInstance().getUserId());
+//                                WebFragment.shareHomepage(UserManager.getInstance().getUserId());
                                 WebFragment.shareHomepage(UserManager.getInstance().getUserId());
                                 break;
                             case 2:
