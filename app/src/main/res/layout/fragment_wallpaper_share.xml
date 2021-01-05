@@ -39,7 +39,7 @@
                 android:layout_gravity="center_vertical"
                 android:textColor="?attr/textColorMajor"
                 android:textColorHint="?attr/textColorMinor"
-                android:background="@drawable/grey_shape"
+                android:background="?attr/backgroundShape"
                 android:inputType="textMultiLine"
                 android:hint="我来说两句..."
                 android:padding="16dp"
@@ -60,7 +60,7 @@
                 android:id="@+id/wallpaper_tags"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/grey_shape"
+                android:background="?attr/backgroundShape"
                 android:layout_margin="16dp"
                 />
 
@@ -85,7 +85,7 @@
                 android:id="@+id/fl_empty"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/grey_shape"
+                android:background="?attr/backgroundShape"
                 android:layout_margin="16dp"
                 >
 

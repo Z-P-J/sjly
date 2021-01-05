@@ -9,7 +9,6 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.webkit.MimeTypeMap;
 
-import com.google.gson.Gson;
 import com.zpj.downloader.constant.DefaultConstant;
 import com.zpj.downloader.constant.Error;
 import com.zpj.downloader.constant.ErrorCode;
@@ -21,7 +20,10 @@ import com.zpj.http.core.IHttp;
 import com.zpj.utils.FileUtils;
 import com.zpj.utils.FormatUtils;
 
+import java.io.BufferedOutputStream;
 import java.io.File;
+import java.io.FileOutputStream;
+import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.lang.ref.WeakReference;
 import java.net.Proxy;
@@ -44,10 +46,13 @@ import io.reactivex.schedulers.Schedulers;
  */
 @Keep
 public class BaseMission<T extends BaseMission<T>> extends BaseConfig<T> implements Serializable {
+
+//    private static final long serialVersionUID = 123; // 7826851042599540920L
+//    1852858528945825651
+
     private static final String TAG = BaseMission.class.getSimpleName();
 
     public interface MissionListener {
-//        HashMap<MissionListener, Handler> HANDLER_STORE = new HashMap<>();
 
         void onInit();
 
@@ -117,21 +122,20 @@ public class BaseMission<T extends BaseMission<T>> extends BaseConfig<T> impleme
 
     //-----------------------------------------------------transient---------------------------------------------------------------
 
-    private transient int currentRetryCount = DefaultConstant.RETRY_COUNT;
+    private transient int currentRetryCount;
 
-    protected transient AtomicInteger finishCount = new AtomicInteger(0);
-    private final transient AtomicInteger aliveThreadCount = new AtomicInteger(0);
+    protected transient AtomicInteger finishCount;
+    private transient AtomicInteger aliveThreadCount;
 
     private transient int threadCount = DefaultConstant.THREAD_COUNT;
 
-    private final transient ArrayList<WeakReference<MissionListener>> mListeners = new ArrayList<>();
+    private transient ArrayList<WeakReference<MissionListener>> mListeners;
 
     private transient int errorCount = 0;
     private transient long lastDone = -1;
     private transient String tempSpeed = "0 KB/s";
     private transient ProgressInfo progressInfo;
     private transient Handler handler;
-    private transient Gson gson;
     private transient ConcurrentLinkedQueue<DownloadBlock> blockQueue;
     private transient Runnable progressRunnable;
 
@@ -158,17 +162,6 @@ public class BaseMission<T extends BaseMission<T>> extends BaseConfig<T> impleme
             }
         }
         return handler;
-    }
-
-    private Gson getGson() {
-        if (gson == null) {
-            synchronized (BaseMission.class) {
-                if (gson == null) {
-                    gson = new Gson();
-                }
-            }
-        }
-        return gson;
     }
 
     public ProgressInfo getProgressInfo() {
@@ -394,6 +387,11 @@ public class BaseMission<T extends BaseMission<T>> extends BaseConfig<T> impleme
 
     //----------------------------------------------------------operation------------------------------------------------------------
     void init() {
+        if (length < 0) {
+            length = 0;
+        }
+        finishCount = new AtomicInteger(0);
+        aliveThreadCount = new AtomicInteger(0);
         currentRetryCount = getRetryCount();
         threadCount = getProducerThreadCount();
         lastDone = done.get();
@@ -603,6 +601,9 @@ public class BaseMission<T extends BaseMission<T>> extends BaseConfig<T> impleme
         getHandler().post(new Runnable() {
             @Override
             public void run() {
+                if (mListeners == null) {
+                    return;
+                }
                 for (WeakReference<MissionListener> ref : mListeners) {
                     final MissionListener listener = ref.get();
                     if (listener != null) {
@@ -623,6 +624,9 @@ public class BaseMission<T extends BaseMission<T>> extends BaseConfig<T> impleme
         getHandler().post(new Runnable() {
             @Override
             public void run() {
+                if (mListeners == null) {
+                    return;
+                }
                 for (WeakReference<MissionListener> ref : mListeners) {
                     final MissionListener listener = ref.get();
                     if (listener != null) {
@@ -710,6 +714,9 @@ public class BaseMission<T extends BaseMission<T>> extends BaseConfig<T> impleme
         getHandler().post(new Runnable() {
             @Override
             public void run() {
+                if (mListeners == null) {
+                    return;
+                }
                 for (WeakReference<MissionListener> ref : mListeners) {
                     final MissionListener listener = ref.get();
                     if (listener != null) {
@@ -724,6 +731,9 @@ public class BaseMission<T extends BaseMission<T>> extends BaseConfig<T> impleme
         getHandler().post(new Runnable() {
             @Override
             public void run() {
+                if (mListeners == null) {
+                    return;
+                }
                 for (WeakReference<MissionListener> ref : mListeners) {
                     final MissionListener listener = ref.get();
                     if (listener != null) {
@@ -793,11 +803,17 @@ public class BaseMission<T extends BaseMission<T>> extends BaseConfig<T> impleme
     }
 
     public synchronized T addListener(MissionListener listener) {
+        if (mListeners == null) {
+            mListeners = new ArrayList<>();
+        }
         mListeners.add(new WeakReference<>(listener));
         return (T) this;
     }
 
     public synchronized void removeListener(MissionListener listener) {
+        if (mListeners == null) {
+            return;
+        }
         for (Iterator<WeakReference<MissionListener>> iterator = mListeners.iterator();
              iterator.hasNext(); ) {
             WeakReference<MissionListener> weakRef = iterator.next();
@@ -808,6 +824,9 @@ public class BaseMission<T extends BaseMission<T>> extends BaseConfig<T> impleme
     }
 
     public synchronized void removeAllListener() {
+        if (mListeners == null) {
+            return;
+        }
         for (Iterator<WeakReference<MissionListener>> iterator = mListeners.iterator();
              iterator.hasNext(); ) {
             WeakReference<MissionListener> weakRef = iterator.next();
@@ -820,9 +839,16 @@ public class BaseMission<T extends BaseMission<T>> extends BaseConfig<T> impleme
                 new ObservableOnSubscribe<Object>() {
                     @Override
                     public void subscribe(@io.reactivex.annotations.NonNull ObservableEmitter<Object> emitter) throws Exception {
-                        String json = getGson().toJson(BaseMission.this);
-                        Log.d(TAG, "writeMissionInfo json=" + json);
-                        FileUtils.writeToFile(getMissionInfoFilePath(), json);
+                        synchronized (BaseMission.class) {
+                            BufferedOutputStream fileOut = new BufferedOutputStream(new FileOutputStream(getMissionInfoFilePath()));
+                            ObjectOutputStream out = new ObjectOutputStream(fileOut);
+                            out.writeObject(BaseMission.this);
+                            out.close();
+                            fileOut.close();
+                        }
+//                        String json = getGson().toJson(BaseMission.this);
+//                        Log.d(TAG, "writeMissionInfo json=" + json);
+//                        FileUtils.writeToFile(getMissionInfoFilePath(), json);
                         emitter.onComplete();
                     }
                 })
@@ -985,7 +1011,7 @@ public class BaseMission<T extends BaseMission<T>> extends BaseConfig<T> impleme
     }
 
     public String getMissionInfoFilePath() {
-        return DownloadManagerImpl.TASK_PATH + File.separator + uuid + DownloadManagerImpl.MISSION_INFO_FILE_SUFFIX_NAME;
+        return DownloadManagerImpl.getInstance().getDownloaderConfig().getTaskPath() + File.separator + uuid + DownloadManagerImpl.MISSION_INFO_FILE_SUFFIX_NAME;
     }
 
 
@@ -1221,7 +1247,6 @@ public class BaseMission<T extends BaseMission<T>> extends BaseConfig<T> impleme
                 ", tempSpeed='" + tempSpeed + '\'' +
                 ", progressInfo=" + progressInfo +
                 ", handler=" + handler +
-                ", gson=" + gson +
                 ", blockQueue=" + blockQueue +
                 ", progressRunnable=" + progressRunnable +
                 ", notificationInterceptor=" + notificationInterceptor +

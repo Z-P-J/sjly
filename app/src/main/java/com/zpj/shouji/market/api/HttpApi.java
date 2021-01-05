@@ -450,7 +450,7 @@ public final class HttpApi {
                 .onSuccess(data -> {
                     String info = data.selectFirst("info").text();
                     if ("success".equals(data.selectFirst("result").text())) {
-                        ZToast.success(info);
+                        ZToast.success("发送成功");
                         successRunnable.run();
                     } else {
                         ZToast.error(info);

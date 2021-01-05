@@ -108,6 +108,7 @@ public class WebFragment extends SkinFragment {
 
         initWebView();
         mWebView.loadUrl(url);
+//        mWebView.evaluateJavascript(NIGHT, null);
     }
 
 
@@ -218,25 +219,25 @@ public class WebFragment extends SkinFragment {
         mWebView.setWebViewClient(new WebViewClient() {
             @Override
             public void onPageFinished(WebView view, String url) {
+//                view.evaluateJavascript(NIGHT, null);
                 super.onPageFinished(view, url);
                 if (!settings.getLoadsImagesAutomatically()) {
                     settings.setLoadsImagesAutomatically(true);
                 }
-                view.evaluateJavascript(NIGHT, null);
             }
 
             @Override
             public void onPageStarted(WebView view, String url, Bitmap favicon) {
+//                view.evaluateJavascript(NIGHT, null);
                 super.onPageStarted(view, url, favicon);
                 mProgressBar.setVisibility(View.VISIBLE);
                 mProgressBar.setAlpha(1.0f);
-                view.evaluateJavascript(NIGHT, null);
             }
 
             @Override
             public void onPageCommitVisible(WebView view, String url) {
+//                view.evaluateJavascript(NIGHT, null);
                 super.onPageCommitVisible(view, url);
-                view.evaluateJavascript(NIGHT, null);
             }
 
             @Override

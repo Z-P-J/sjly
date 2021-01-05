@@ -27,7 +27,7 @@ public class RecyclerPartShadowDialogFragment extends PartShadowDialogFragment {
 
     @Override
     protected int getContentLayoutId() {
-        return R.layout.layout_popup_recycler;
+        return R.layout.dialog_fragment_part_shadow_recycler;
     }
 
     @Override

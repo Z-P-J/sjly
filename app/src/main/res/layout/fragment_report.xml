@@ -51,7 +51,7 @@
                 android:id="@+id/fl_tags"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/grey_shape"
+                android:background="?attr/backgroundShape"
                 android:layout_margin="16dp"
                 />
 
@@ -70,7 +70,7 @@
                 android:gravity="start"
                 android:textColor="?attr/textColorMajor"
                 android:textColorHint="?attr/textColorMinor"
-                android:background="@drawable/grey_shape"
+                android:background="?attr/backgroundShape"
                 android:inputType="textMultiLine"
                 android:minLines="4"
                 android:hint="请输入补充原因(可选)"

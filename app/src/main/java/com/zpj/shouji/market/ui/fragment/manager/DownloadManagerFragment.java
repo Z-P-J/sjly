@@ -149,41 +149,86 @@ public class DownloadManagerFragment extends BaseSwipeBackFragment
     }
 
     private void loadDownloadMissions() {
-        new HttpObserver<>(
-                emitter -> {
-                    downloadTaskList.clear();
-                    List<DownloadWrapper> downloadingList = new ArrayList<>();
-                    List<DownloadWrapper> downloadedList = new ArrayList<>();
-                    downloadTaskList.add(downloadingList);
-                    downloadTaskList.add(downloadedList);
-                    downloadingList.add(new DownloadWrapper("下载中"));
-                    downloadedList.add(new DownloadWrapper("已完成"));
-                    for (AppDownloadMission mission : ZDownloader.getAllMissions(true, AppDownloadMission.class)) {
-                        downloadingList.add(new DownloadWrapper(mission));
-                    }
-                    for (AppDownloadMission mission : ZDownloader.getAllMissions(false, AppDownloadMission.class)) {
-                        downloadedList.add(new DownloadWrapper(mission));
-                    }
-                    Log.d("DownloadFragment", "getAllMissions=" + ZDownloader.getAllMissions());
-                    Log.d("DownloadFragment", "downloadingList.size=" + downloadingList.size());
-                    Log.d("DownloadFragment", "downloadedList.size=" + downloadedList.size());
-                    if (downloadingList.size() == 1) {
-                        downloadingList.add(new DownloadWrapper());
-                    }
-                    if (downloadedList.size() == 1) {
-                        downloadedList.add(new DownloadWrapper());
-                    }
-//                    emitter.onNext(new Object());
-                    emitter.onComplete();
-                })
-//                .onSuccess(data -> expandableAdapter.notifyDataSetChanged())
-                .onComplete(new IHttp.OnCompleteListener() {
-                    @Override
-                    public void onComplete() throws Exception {
-                        expandableAdapter.notifyDataSetChanged();
-                    }
-                })
-                .subscribe();
+        ZDownloader.getAllMissions(AppDownloadMission.class, new DownloadManager.OnLoadMissionListener<AppDownloadMission>() {
+            @Override
+            public void onLoaded(List<AppDownloadMission> missions) {
+                new HttpObserver<>(
+                        emitter -> {
+                            downloadTaskList.clear();
+                            List<DownloadWrapper> downloadingList = new ArrayList<>();
+                            List<DownloadWrapper> downloadedList = new ArrayList<>();
+                            downloadTaskList.add(downloadingList);
+                            downloadTaskList.add(downloadedList);
+                            downloadingList.add(new DownloadWrapper("下载中"));
+                            downloadedList.add(new DownloadWrapper("已完成"));
+
+
+                            for (AppDownloadMission mission : missions) {
+                                if (mission.isFinished()) {
+                                    downloadedList.add(new DownloadWrapper(mission));
+                                } else {
+                                    downloadingList.add(new DownloadWrapper(mission));
+                                }
+                            }
+
+                            Log.d("DownloadFragment", "getAllMissions=" + ZDownloader.getAllMissions());
+                            Log.d("DownloadFragment", "downloadingList.size=" + downloadingList.size());
+                            Log.d("DownloadFragment", "downloadedList.size=" + downloadedList.size());
+                            if (downloadingList.size() == 1) {
+                                downloadingList.add(new DownloadWrapper());
+                            }
+                            if (downloadedList.size() == 1) {
+                                downloadedList.add(new DownloadWrapper());
+                            }
+                            emitter.onComplete();
+                        })
+                        .onComplete(new IHttp.OnCompleteListener() {
+                            @Override
+                            public void onComplete() throws Exception {
+                                expandableAdapter.notifyDataSetChanged();
+                            }
+                        })
+                        .subscribe();
+            }
+        });
+
+
+//        new HttpObserver<>(
+//                emitter -> {
+//                    downloadTaskList.clear();
+//                    List<DownloadWrapper> downloadingList = new ArrayList<>();
+//                    List<DownloadWrapper> downloadedList = new ArrayList<>();
+//                    downloadTaskList.add(downloadingList);
+//                    downloadTaskList.add(downloadedList);
+//                    downloadingList.add(new DownloadWrapper("下载中"));
+//                    downloadedList.add(new DownloadWrapper("已完成"));
+//
+//                    for (AppDownloadMission mission : ZDownloader.getAllMissions(true, AppDownloadMission.class)) {
+//                        downloadingList.add(new DownloadWrapper(mission));
+//                    }
+//                    for (AppDownloadMission mission : ZDownloader.getAllMissions(false, AppDownloadMission.class)) {
+//                        downloadedList.add(new DownloadWrapper(mission));
+//                    }
+//                    Log.d("DownloadFragment", "getAllMissions=" + ZDownloader.getAllMissions());
+//                    Log.d("DownloadFragment", "downloadingList.size=" + downloadingList.size());
+//                    Log.d("DownloadFragment", "downloadedList.size=" + downloadedList.size());
+//                    if (downloadingList.size() == 1) {
+//                        downloadingList.add(new DownloadWrapper());
+//                    }
+//                    if (downloadedList.size() == 1) {
+//                        downloadedList.add(new DownloadWrapper());
+//                    }
+////                    emitter.onNext(new Object());
+//                    emitter.onComplete();
+//                })
+////                .onSuccess(data -> expandableAdapter.notifyDataSetChanged())
+//                .onComplete(new IHttp.OnCompleteListener() {
+//                    @Override
+//                    public void onComplete() throws Exception {
+//                        expandableAdapter.notifyDataSetChanged();
+//                    }
+//                })
+//                .subscribe();
     }
 
     public static class DownloadWrapper {

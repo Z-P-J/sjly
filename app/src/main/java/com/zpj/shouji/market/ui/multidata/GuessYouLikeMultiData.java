@@ -69,14 +69,8 @@ public class GuessYouLikeMultiData extends BaseHeaderMultiData<GuessAppInfo> {
     }
 
     @Override
-    public void onBindHeader(EasyViewHolder holder, List<Object> payloads) {
-        super.onBindHeader(holder, payloads);
-        holder.setVisible(R.id.tv_more, false);
-    }
-
-    @Override
-    public void onHeaderClick() {
-
+    protected boolean showMoreButton() {
+        return false;
     }
 
 }

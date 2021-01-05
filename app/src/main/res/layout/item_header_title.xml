@@ -1,48 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<com.zpj.shouji.market.ui.widget.TitleHeaderLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/rl_header"
+    android:id="@+id/layout_title_header"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:padding="16dp">
-
-    <TextView
-        android:id="@+id/tv_title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:text="备份记录"
-        android:textSize="16sp"
-        android:textColor="?attr/textColorMajor"
-        android:textStyle="bold"
-        android:layout_gravity="bottom"
-        android:paddingStart="2dp"
-        />
-
-    <View
-        android:layout_width="20dp"
-        android:layout_height="14dp"
-        android:background="@drawable/bg_button_round_pink"
-        android:layout_gravity="bottom"
-        />
-
-<!--    android:background="#8009bd14"-->
-
-    <com.zpj.shouji.market.ui.widget.DrawableTintTextView
-        android:id="@+id/tv_more"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:text="更多"
-        android:textSize="14sp"
-        android:textStyle="bold"
-        android:textColor="@color/colorPrimary"
-        android:layout_gravity="end|center_vertical"
-        android:drawableEnd="@drawable/ic_enter_bak"
-        app:drawable_tint_color="@color/colorPrimary"
-        android:background="?attr/actionBarItemBackground"
-        />
-
-
-
-</FrameLayout>
+    app:title_header_title="Title"
+    app:title_header_show_more="false"
+    />

@@ -21,7 +21,7 @@ public final class SoftInputHelper implements ViewTreeObserver.OnGlobalLayoutLis
     private final Window window;
     private final View rootView;
 
-    private long duration = 300;
+    private long duration = 360;
     private View moveView = null;
     private Map<View, View> focusBottomMap = new HashMap<>(1);
     private OnSoftInputListener onSoftInputListener = null;

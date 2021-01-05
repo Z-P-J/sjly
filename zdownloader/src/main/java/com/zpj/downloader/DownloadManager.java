@@ -17,6 +17,10 @@ public interface DownloadManager {
         void onMissionFinished(BaseMission<?> mission);
     }
 
+    interface OnLoadMissionListener<T extends BaseMission<?>> {
+        void onLoaded(List<T> missions);
+    }
+
 //    T createMission(String url, String name);
 
 //    int startMission(String url);
@@ -71,12 +75,16 @@ public interface DownloadManager {
 
     void loadMissions(Class<? extends BaseMission<?>> clazz);
 
+    void loadMissions(OnLoadMissionListener<BaseMission<?>> listener);
+
+    boolean isLoaded();
+
     void addDownloadManagerListener(DownloadManagerListener downloadManagerListener);
 
     void removeDownloadManagerListener(DownloadManagerListener downloadManagerListener);
 
-//    DownloadManagerListener getDownloadManagerListener();
-
     List<BaseMission<?>> getMissions();
+
+    void onDestroy();
 
 }

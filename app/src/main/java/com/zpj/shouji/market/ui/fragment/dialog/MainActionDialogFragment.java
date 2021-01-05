@@ -77,24 +77,6 @@ public class MainActionDialogFragment extends FullScreenDialogFragment
                         }
                     });
         }
-//        GetMainFragmentEvent.post(new Callback<MainFragment>() {
-//            @Override
-//            public void onCallback(MainFragment fragment) {
-//                ZBlurry.with(fragment.getView())
-//                        .backgroundColor(Color.WHITE)
-//                        .scale(0.2f)
-//                        .radius(20)
-//                        .blur(new ZBlurry.Callback() {
-//                            @Override
-//                            public void down(Bitmap bitmap) {
-//                                if (ivBg != null) {
-//                                    ivBg.setImageBitmap(bitmap);
-//                                }
-//                            }
-//                        });
-//            }
-//        });
-
 
         getContentView().setAlpha(0f);
         menuLayout = findViewById(R.id.icon_group);
@@ -128,14 +110,14 @@ public class MainActionDialogFragment extends FullScreenDialogFragment
             }, i * 50 + 100);
         }
 
-        floatingActionButton.animate().rotation(135).setDuration(300);
+        floatingActionButton.animate().rotation(135).setDuration(360);
         startAnimation();
     }
 
     @Override
     public void doDismissAnimation() {
 //        super.doDismissAnimation();
-        post(() -> floatingActionButton.animate().rotation(0).setDuration(300));
+        post(() -> floatingActionButton.animate().rotation(0).setDuration(360));
         closeAnimation();
     }
 
@@ -186,7 +168,7 @@ public class MainActionDialogFragment extends FullScreenDialogFragment
                             //							layout.setVisibility(View.VISIBLE);
                         }
                     });
-                    animator.setDuration(300);
+                    animator.setDuration(360);
                     animator.start();
                 }
             } catch (Exception e) {
@@ -213,7 +195,7 @@ public class MainActionDialogFragment extends FullScreenDialogFragment
                     getContentView().setVisibility(View.GONE);
                 }
             });
-            animator.setDuration(300);
+            animator.setDuration(360);
             animator.start();
         } else {
             super.doDismissAnimation();

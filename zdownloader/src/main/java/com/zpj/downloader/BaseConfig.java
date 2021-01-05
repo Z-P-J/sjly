@@ -2,6 +2,7 @@ package com.zpj.downloader;
 
 import android.content.Context;
 import android.support.annotation.Keep;
+import android.text.TextUtils;
 
 import com.zpj.downloader.constant.DefaultConstant;
 import com.zpj.downloader.util.SerializableProxy;
@@ -125,6 +126,9 @@ abstract class BaseConfig<T extends BaseConfig<T>> implements Serializable {
     }
 
     public String getDownloadPath() {
+        if (TextUtils.isEmpty(downloadPath)) {
+            return DefaultConstant.DOWNLOAD_PATH;
+        }
         return downloadPath;
     }
 

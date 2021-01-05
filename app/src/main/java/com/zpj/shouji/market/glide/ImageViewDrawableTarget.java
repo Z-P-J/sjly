@@ -36,4 +36,9 @@ public class ImageViewDrawableTarget extends SimpleTarget<Drawable> {
         super.onLoadFailed(errorDrawable);
         imageView.setImageDrawable(errorDrawable);
     }
+
+    @Override
+    public void onLoadCleared(@Nullable Drawable placeholder) {
+        super.onLoadCleared(placeholder);
+    }
 }

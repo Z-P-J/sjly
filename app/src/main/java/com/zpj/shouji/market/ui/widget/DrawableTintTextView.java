@@ -5,6 +5,7 @@ import android.content.res.ColorStateList;
 import android.content.res.TypedArray;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
+import android.support.annotation.Nullable;
 import android.support.v4.graphics.drawable.DrawableCompat;
 import android.support.v7.widget.AppCompatTextView;
 import android.util.AttributeSet;
@@ -31,14 +32,34 @@ public class DrawableTintTextView extends AppCompatTextView {
         tintDrawables();
     }
 
+//    @Override
+//    public void setCompoundDrawables(@Nullable Drawable left, @Nullable Drawable top, @Nullable Drawable right, @Nullable Drawable bottom) {
+//        super.setCompoundDrawables(left, top, right, bottom);
+//        tintDrawables();
+//    }
+//
+//    @Override
+//    public void setCompoundDrawablesRelative(@Nullable Drawable start, @Nullable Drawable top, @Nullable Drawable end, @Nullable Drawable bottom) {
+//        super.setCompoundDrawablesRelative(start, top, end, bottom);
+//        tintDrawables();
+//    }
+//
+//    @Override
+//    public void setCompoundDrawablesRelativeWithIntrinsicBounds(int start, int top, int end, int bottom) {
+//        super.setCompoundDrawablesRelativeWithIntrinsicBounds(start, top, end, bottom);
+//    }
+
     public void setDrawableTintColor(int drawableTintColor) {
         this.drawableTintColor = drawableTintColor;
         tintDrawables();
     }
 
     private void tintDrawables() {
+        tintDrawables(getCompoundDrawablesRelative());
+    }
+
+    private void tintDrawables(Drawable[] drawables) {
         if (drawableTintColor != Color.TRANSPARENT) {
-            Drawable[] drawables = getCompoundDrawablesRelative();
             for (int i = 0; i < drawables.length; i++) {
                 Drawable drawable = drawables[i];
                 if (drawable != null) {
@@ -47,7 +68,8 @@ public class DrawableTintTextView extends AppCompatTextView {
                     drawables[i] = wrappedDrawable;
                 }
             }
-            setCompoundDrawablesRelativeWithIntrinsicBounds(drawables[0], drawables[1], drawables[2], drawables[3]);
+            super.setCompoundDrawablesRelativeWithIntrinsicBounds(drawables[0], drawables[1], drawables[2], drawables[3]);
         }
     }
+
 }

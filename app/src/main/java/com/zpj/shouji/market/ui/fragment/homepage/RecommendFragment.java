@@ -165,7 +165,7 @@ public class RecommendFragment extends SkinFragment {
                     mBanner.onResume();
                 }
             }
-        }, 300);
+        }, 360);
     }
 
     @Override
@@ -182,7 +182,7 @@ public class RecommendFragment extends SkinFragment {
                     mBanner.onPause();
                 }
             }
-        }, 300);
+        }, 360);
     }
 
     @Override
@@ -204,7 +204,7 @@ public class RecommendFragment extends SkinFragment {
                     mBanner.onResume();
                 }
             }
-        }, 300);
+        }, 360);
     }
 
     @Override
@@ -221,7 +221,7 @@ public class RecommendFragment extends SkinFragment {
                     mBanner.onPause();
                 }
             }
-        }, 300);
+        }, 360);
     }
 
     @Override
@@ -238,7 +238,7 @@ public class RecommendFragment extends SkinFragment {
                     mBanner.onStop();
                 }
             }
-        }, 300);
+        }, 360);
     }
 
 //    @Subscribe

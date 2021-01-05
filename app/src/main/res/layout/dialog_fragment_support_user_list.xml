@@ -40,19 +40,6 @@
 
     </RelativeLayout>
 
-<!--    <com.zpj.widget.statelayout.StateLayout-->
-<!--        android:id="@+id/state_layout"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:layout_below="@id/ll_top"-->
-<!--        >-->
-
-<!--&lt;!&ndash;        android:minHeight="200dp"&ndash;&gt;-->
-
-<!--        -->
-
-<!--    </com.zpj.widget.statelayout.StateLayout>-->
-
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recycler_view"
         android:layout_width="match_parent"

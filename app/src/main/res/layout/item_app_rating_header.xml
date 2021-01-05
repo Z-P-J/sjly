@@ -6,44 +6,51 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:padding="8dp"
+    android:padding="@dimen/dp_8"
     >
 
-    <FrameLayout
-        android:id="@+id/header_recent_update"
+<!--    <FrameLayout-->
+<!--        android:id="@+id/header_recent_update"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:paddingBottom="4dp"-->
+<!--        android:paddingTop="4dp"-->
+<!--        android:layout_marginBottom="8dp"-->
+<!--        >-->
+
+<!--        <TextView-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:gravity="center"-->
+<!--            android:text="乐友评分"-->
+<!--            android:textSize="16sp"-->
+<!--            android:textColor="?attr/textColorMajor"-->
+<!--            android:textStyle="bold"-->
+<!--            android:layout_gravity="bottom"-->
+<!--            />-->
+
+<!--        <View-->
+<!--            android:layout_width="14dp"-->
+<!--            android:layout_height="10dp"-->
+<!--            android:background="#8009bd14"-->
+<!--            android:layout_gravity="bottom"-->
+<!--            />-->
+
+<!--    </FrameLayout>-->
+
+    <com.zpj.shouji.market.ui.widget.TitleHeaderLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingBottom="4dp"
-        android:paddingTop="4dp"
-        android:layout_marginBottom="8dp"
-        >
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:text="乐友评分"
-            android:textSize="16sp"
-            android:textColor="?attr/textColorMajor"
-            android:textStyle="bold"
-            android:layout_gravity="bottom"
-            />
-
-        <View
-            android:layout_width="14dp"
-            android:layout_height="10dp"
-            android:background="#8009bd14"
-            android:layout_gravity="bottom"
-            />
-
-    </FrameLayout>
+        app:title_header_show_more="false"
+        app:title_header_title="乐友评分"
+        />
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:background="@drawable/grey_shape"
-        android:padding="8dp"
+        android:background="?attr/backgroundShape"
+        android:padding="@dimen/dp_8"
         >
 
         <TextView
@@ -129,9 +136,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:background="@drawable/grey_shape"
-        android:padding="8dp"
-        android:layout_marginTop="8dp"
+        android:background="?attr/backgroundShape"
+        android:padding="@dimen/dp_8"
+        android:layout_marginTop="@dimen/dp_8"
         >
 
         <ImageView
@@ -154,7 +161,7 @@
             android:text="我的打分"
             android:layout_marginTop="4dp"
             android:textColor="?attr/textColorMajor"
-            android:layout_marginHorizontal="8dp"
+            android:layout_marginHorizontal="@dimen/dp_8"
             />
 
         <com.cb.ratingbar.CBRatingBar
@@ -166,45 +173,20 @@
             app:starSize="14dp"
             app:starSpace="4dp"
             app:starCount="5"
-            android:padding="16dp"
+            android:padding="@dimen/dp_16"
             app:starMaxProgress="100"
             app:starProgress="60"
             app:starPathData="@string/round_star"
             app:starStrokeWidth="0dp"
             />
 
-<!--        app:starCoverColor="@color/yellow_1"-->
-<!--        app:starStrokeColor="@color/white"-->
-<!--        app:starFillColor="@color/white"-->
-
     </RelativeLayout>
 
-    <FrameLayout
+    <com.zpj.shouji.market.ui.widget.TitleHeaderLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingBottom="4dp"
-        android:paddingTop="4dp"
-        android:layout_marginTop="16dp"
-        >
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:text="乐友评论"
-            android:textSize="16sp"
-            android:textColor="?attr/textColorMajor"
-            android:textStyle="bold"
-            android:layout_gravity="bottom"
-            />
-
-        <View
-            android:layout_width="14dp"
-            android:layout_height="10dp"
-            android:background="#8009bd14"
-            android:layout_gravity="bottom"
-            />
-
-    </FrameLayout>
+        app:title_header_show_more="false"
+        app:title_header_title="乐友评论"
+        />
 
 </LinearLayout>

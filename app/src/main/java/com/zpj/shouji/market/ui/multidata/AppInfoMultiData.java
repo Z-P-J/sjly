@@ -59,13 +59,6 @@ public abstract class AppInfoMultiData extends BaseHeaderMultiData<AppInfo> {
             } else {
                 HttpApi.getXml(getKey().getUrl())
                         .onSuccess(document -> onGetDoc(adapter, document))
-//                            .onError(new IHttp.OnErrorListener() {
-//                                @Override
-//                                public void onError(Throwable throwable) {
-//                                    isDataLoaded = false;
-//                                    adapter.notifyDataSetChanged();
-//                                }
-//                            })
                         .subscribe();
             }
         }
@@ -102,9 +95,6 @@ public abstract class AppInfoMultiData extends BaseHeaderMultiData<AppInfo> {
                 continue;
             }
             list.add(info);
-//            if (list.size() == 8) {
-//                break;
-//            }
         }
         adapter.notifyDataSetChanged();
     }

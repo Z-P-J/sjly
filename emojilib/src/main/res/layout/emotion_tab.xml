@@ -11,9 +11,9 @@
         android:layout_centerInParent="true"
         android:src="@drawable/ic_tab_emoji"/>
 
-    <View
-        android:layout_width="1dp"
-        android:layout_height="match_parent"
-        android:layout_alignParentEnd="true"
-        android:background="@color/line"/>
+<!--    <View-->
+<!--        android:layout_width="1dp"-->
+<!--        android:layout_height="match_parent"-->
+<!--        android:layout_alignParentEnd="true"-->
+<!--        android:background="@color/line"/>-->
 </RelativeLayout>

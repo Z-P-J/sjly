@@ -113,11 +113,6 @@ public class AppDetailContentFragment extends SkinFragment {
         }
 
         @Override
-        public void onHeaderClick() {
-
-        }
-
-        @Override
         public int getChildLayoutId(int viewType) {
             return R.layout.item_app_info_text;
         }
@@ -138,9 +133,8 @@ public class AppDetailContentFragment extends SkinFragment {
         }
 
         @Override
-        public void onBindHeader(EasyViewHolder holder, List<Object> payloads) {
-            super.onBindHeader(holder, payloads);
-            holder.setVisible(R.id.tv_more, false);
+        protected boolean showMoreButton() {
+            return false;
         }
 
         @Override

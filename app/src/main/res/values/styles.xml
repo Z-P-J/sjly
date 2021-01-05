@@ -40,6 +40,8 @@
         <item name="windowNoTitle">true</item>
         <item name="windowActionBar">false</item>
         <item name="android:windowTranslucentStatus">true</item>
+
+        <item name="backgroundShape">@drawable/grey_shape</item>
     </style>
 
     <style name="DayTheme" parent="StartTheme">

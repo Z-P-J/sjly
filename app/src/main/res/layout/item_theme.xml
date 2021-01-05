@@ -16,7 +16,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="?android:attr/selectableItemBackground"
-        android:padding="16dp"
+        android:padding="@dimen/dp_16"
         >
 
         <LinearLayout
@@ -40,12 +40,11 @@
                 android:textSize="10sp"
                 android:gravity="center"
                 android:textColor="@color/colorPrimary"
-                android:paddingTop="2dp"
-                android:paddingBottom="2dp"
+                android:paddingVertical="2dp"
                 android:textStyle="bold"
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="@dimen/dp_8"
                 android:layout_gravity="center_horizontal"
-                android:background="@drawable/grey_shape"
+                android:background="?attr/backgroundShape"
                 />
 
         </LinearLayout>
@@ -54,7 +53,7 @@
             android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
+            android:layout_marginStart="@dimen/dp_16"
             >
 
             <RelativeLayout
@@ -62,7 +61,6 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:gravity="center_vertical"
-                android:paddingEnd="0dp"
                 >
 
                 <LinearLayout
@@ -77,7 +75,7 @@
                     <LinearLayout
                         android:orientation="horizontal"
                         android:layout_width="match_parent"
-                        android:layout_height="18dp">
+                        android:layout_height="wrap_content">
 
                         <TextView
                             android:id="@+id/user_name"
@@ -85,6 +83,7 @@
                             android:layout_height="match_parent"
                             android:gravity="center_vertical"
                             android:text="我好像在哪见过您"
+                            android:maxLines="1"
                             android:textColor="@color/colorPrimary"
                             />
 
@@ -129,7 +128,7 @@
                             android:textSize="12sp"
                             android:maxLines="1"
                             android:ellipsize="end"
-                            android:layout_marginStart="8dp"
+                            android:layout_marginStart="@dimen/dp_8"
                             android:textColor="?attr/textColorNormal"
                             />
 
@@ -150,36 +149,21 @@
                     android:textSize="12sp"
                     android:textColor="@color/colorPrimary"
                     android:gravity="center_vertical"
-                    android:paddingTop="4dp"
-                    android:paddingBottom="4dp"
+                    android:paddingVertical="@dimen/dp_4"
                     android:paddingStart="12dp"
                     android:paddingEnd="12dp"
                     android:visibility="gone"
                     />
 
-<!--                android:background="@drawable/bg_button"-->
-
             </RelativeLayout>
-
-<!--            <TextView-->
-<!--                android:id="@+id/tv_content"-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:layout_marginTop="8dp"-->
-<!--                android:layout_marginBottom="8dp"-->
-<!--                android:textColor="@color/color_text_major"-->
-<!--                android:lineSpacingExtra="4dp"-->
-<!--                android:text="eshtrueridhkg\nethjrdgiuf\nshrturehtgftkujghrdktghftgk,jftkjh"-->
-
-<!--                />-->
 
             <com.zpj.shouji.market.ui.widget.emoji.EmojiExpandableTextView
                 android:id="@+id/tv_content"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingVertical="8dp"
+                android:paddingVertical="@dimen/dp_8"
                 android:textColor="?attr/textColorMajor"
-                android:lineSpacingExtra="4dp"
+                android:lineSpacingExtra="@dimen/dp_4"
                 app:ep_max_line="5"
                 app:ep_need_animation="true"
                 app:ep_expand_text="查看更多"
@@ -220,21 +204,10 @@
                 android:id="@+id/layout_app"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/grey_shape"
+                android:background="?attr/backgroundShape"
                 android:visibility="gone"
                 tools:visibility="visible"
                 >
-
-<!--                <FrameLayout-->
-<!--                    android:id="@+id/layout_app"-->
-<!--                    android:layout_width="match_parent"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    android:background="@drawable/grey_shape"-->
-<!--                    >-->
-
-<!--                    -->
-
-<!--                </FrameLayout>-->
 
                 <RelativeLayout
                     android:layout_width="match_parent"
@@ -399,7 +372,7 @@
                 android:textSize="12sp"
                 android:visibility="gone"
                 tools:visibility="visible"
-                android:paddingVertical="8dp"
+                android:paddingVertical="@dimen/dp_8"
                 />
 
 <!--            <TextView-->
@@ -415,8 +388,8 @@
                 android:id="@+id/layout_comment"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/grey_shape"
-                android:padding="8dp"
+                android:background="?attr/backgroundShape"
+                android:padding="@dimen/dp_8"
                 android:visibility="gone"
                 tools:visibility="visible"
                 >

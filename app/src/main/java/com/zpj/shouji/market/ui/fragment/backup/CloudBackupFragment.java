@@ -26,9 +26,7 @@ public class CloudBackupFragment extends StateSwipeBackFragment
 
     private final List<CloudBackupItem> backupItemList = new ArrayList<>();
 
-//    private StateLayout stateLayout;
     private TextView tvInfo;
-    private TextView tvCreate;
 
     private EasyRecyclerView<CloudBackupItem> recyclerView;
 
@@ -49,16 +47,12 @@ public class CloudBackupFragment extends StateSwipeBackFragment
 
     @Override
     protected void initView(View view, @Nullable Bundle savedInstanceState) {
-//        stateLayout = findViewById(R.id.state_layout);
-//        stateLayout.showLoadingView();
-
         tvInfo = findViewById(R.id.tv_info);
-        tvCreate = findViewById(R.id.tv_create);
 
+        TextView tvCreate = findViewById(R.id.tv_create);
         tvCreate.setOnClickListener(v -> CreateBackupFragment.start());
 
         recyclerView = new EasyRecyclerView<>(findViewById(R.id.recycler_view));
-
         recyclerView.setData(backupItemList)
                 .setItemRes(R.layout.item_cloud_backup)
                 .onBindViewHolder(this)
@@ -101,12 +95,10 @@ public class CloudBackupFragment extends StateSwipeBackFragment
                     postOnEnterAnimationEnd(() -> {
                         lightStatusBar();
                         recyclerView.notifyDataSetChanged();
-//                        stateLayout.showContentView();
                         showContent();
                     });
                 })
                 .onError(throwable -> {
-//                    stateLayout.showErrorView(throwable.getMessage());
                     showError(throwable.getMessage());
                 })
                 .subscribe();

@@ -4,8 +4,11 @@ import android.app.Activity;
 import android.app.Application;
 import android.content.Context;
 import android.os.Bundle;
+import android.text.TextUtils;
 
 import com.zpj.downloader.constant.DefaultConstant;
+
+import java.io.File;
 
 
 /**
@@ -13,7 +16,11 @@ import com.zpj.downloader.constant.DefaultConstant;
 * */
 public class DownloaderConfig extends BaseConfig<DownloaderConfig> {
 
+    private static final String MISSIONS_PATH = "missions";
+
     private transient Class<? extends BaseMission<?>> clazz = DownloadMission.class;
+
+    private transient String taskPath;
 
     private int concurrentMissionCount = DefaultConstant.CONCURRENT_MISSION_COUNT;
 
@@ -46,7 +53,49 @@ public class DownloaderConfig extends BaseConfig<DownloaderConfig> {
         return this;
     }
 
+    public String getTaskPath() {
+        if (TextUtils.isEmpty(taskPath)) {
+            File file = new File(getContext().getFilesDir(), MISSIONS_PATH);
+            taskPath = file.getAbsolutePath();
+        } else {
+            File file = new File(taskPath);
+            if (file.isDirectory()) {
+                return taskPath;
+            } else {
+                taskPath = null;
+                return getTaskPath();
+            }
+        }
+        return taskPath;
+    }
+
+    public File getTaskFolder() {
+        return new File(getTaskPath());
+//        if (TextUtils.isEmpty(taskPath)) {
+//            File file = new File(getContext().getFilesDir(), MISSIONS_PATH);
+//            taskPath = file.getAbsolutePath();
+//            return file;
+//        }
+//        File file = new File(taskPath);
+//        if (file.isDirectory()) {
+//            return file;
+//        }
+//        taskPath = null;
+//        return getTaskFolder();
+    }
+
     public void init() {
+        File path = new File(getContext().getFilesDir(), MISSIONS_PATH);
+        if (!path.exists()) {
+            path.mkdirs();
+        }
+        taskPath = path.getAbsolutePath();
+        File file = new File(getDownloadPath());
+        if (!file.exists()) {
+            file.mkdirs();
+        }
+
+
         Application app = null;
         if (getContext() instanceof Application) {
             app = (Application) getContext();

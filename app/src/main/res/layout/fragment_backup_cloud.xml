@@ -7,22 +7,6 @@
     android:clipChildren="false"
     >
 
-<!--    <com.zpj.widget.statelayout.StateLayout-->
-<!--        xmlns:android="http://schemas.android.com/apk/res/android"-->
-<!--        xmlns:app="http://schemas.android.com/apk/res-auto"-->
-<!--        xmlns:tools="http://schemas.android.com/tools"-->
-<!--        android:id="@+id/state_layout"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="match_parent"-->
-<!--        android:background="?attr/backgroundColor"-->
-<!--        >-->
-
-
-
-
-
-<!--    </com.zpj.widget.statelayout.StateLayout>-->
-
     <android.support.v4.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -83,33 +67,11 @@
 
             </LinearLayout>
 
-            <FrameLayout
-                android:id="@+id/header_recent_update"
+            <com.zpj.shouji.market.ui.widget.TitleHeaderLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="16dp"
-                >
-
-                <TextView
-                    android:id="@+id/tv_title"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:text="备份记录"
-                    android:textSize="16sp"
-                    android:textColor="?attr/textColorMajor"
-                    android:textStyle="bold"
-                    android:layout_gravity="bottom"
-                    />
-
-                <View
-                    android:layout_width="14dp"
-                    android:layout_height="10dp"
-                    android:background="#8009bd14"
-                    android:layout_gravity="bottom"
-                    />
-
-            </FrameLayout>
+                app:title_header_title="备份记录"
+                />
 
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/recycler_view"

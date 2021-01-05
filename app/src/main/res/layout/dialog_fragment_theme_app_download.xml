@@ -41,20 +41,6 @@
 
     </RelativeLayout>
 
-<!--    <com.zpj.widget.statelayout.StateLayout-->
-<!--        android:id="@+id/state_layout"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="match_parent"-->
-<!--        android:layout_above="@id/fl_bottom_container"-->
-<!--        android:layout_below="@id/ll_top"-->
-<!--        >-->
-
-<!--        &lt;!&ndash;        <include layout="@layout/layout_recycler_view"/>&ndash;&gt;-->
-
-<!--        -->
-
-<!--    </com.zpj.widget.statelayout.StateLayout>-->
-
     <com.zpj.shouji.market.ui.widget.ElasticScrollView
         android:id="@+id/scroll_view"
         android:layout_width="match_parent"
@@ -74,9 +60,9 @@
             <FrameLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/grey_shape"
-                android:paddingVertical="4dp"
-                android:layout_margin="16dp"
+                android:background="?attr/backgroundShape"
+                android:paddingVertical="@dimen/dp_4"
+                android:layout_margin="@dimen/dp_16"
                 >
 
                 <com.zpj.shouji.market.ui.widget.DrawableTintTextView
@@ -87,9 +73,9 @@
                     android:drawableStart="@drawable/ic_info_black_24dp"
                     android:gravity="center"
                     android:layout_gravity="center_horizontal"
-                    android:drawablePadding="8dp"
-                    android:layout_marginBottom="8dp"
-                    android:layout_marginTop="8dp"
+                    android:drawablePadding="@dimen/dp_8"
+                    android:layout_marginBottom="@dimen/dp_8"
+                    android:layout_marginTop="@dimen/dp_8"
                     app:drawable_tint_color="@color/red3"
                     />
 
@@ -100,7 +86,7 @@
                 android:layout_height="wrap_content"
                 android:text="应用信息"
                 android:textColor="@color/colorPrimary"
-                android:paddingHorizontal="16dp"
+                android:paddingHorizontal="@dimen/dp_16"
                 />
 
             <RelativeLayout
@@ -108,9 +94,9 @@
                 android:layout_height="wrap_content"
                 android:gravity="center_vertical"
                 android:orientation="horizontal"
-                android:background="@drawable/grey_shape"
-                android:padding="16dp"
-                android:layout_margin="16dp"
+                android:background="?attr/backgroundShape"
+                android:padding="@dimen/dp_16"
+                android:layout_margin="@dimen/dp_16"
                 >
 
                 <ImageView
@@ -129,7 +115,7 @@
                     android:orientation="vertical"
                     android:layout_toEndOf="@id/iv_icon"
                     android:layout_centerVertical="true"
-                    android:layout_marginStart="8dp"
+                    android:layout_marginStart="@dimen/dp_8"
                     >
                     <TextView
                         android:id="@+id/tv_title"
@@ -180,17 +166,17 @@
                 android:layout_height="wrap_content"
                 android:text="应用权限"
                 android:textColor="@color/colorPrimary"
-                android:paddingHorizontal="16dp"
+                android:paddingHorizontal="@dimen/dp_16"
                 />
 
             <LinearLayout
                 android:id="@+id/ll_container"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/grey_shape"
+                android:background="?attr/backgroundShape"
                 android:orientation="vertical"
-                android:padding="16dp"
-                android:layout_margin="16dp"
+                android:padding="@dimen/dp_16"
+                android:layout_margin="@dimen/dp_16"
                 >
 
 
@@ -205,7 +191,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:padding="16dp"
+        android:padding="@dimen/dp_16"
         >
         <com.zpj.shouji.market.ui.widget.DownloadButton
             android:id="@+id/tv_down"
@@ -224,13 +210,5 @@
     <View style="@style/layout_shadow_bottom"
         android:layout_below="@id/ll_top"
         />
-
-    <!--    <View android:layout_width="match_parent"-->
-    <!--        android:layout_height="1dp"-->
-    <!--        android:background="@color/gray_little"-->
-    <!--        android:layout_below="@id/ll_top"-->
-    <!--        android:layout_marginStart="16dp"-->
-    <!--        android:layout_marginEnd="16dp"-->
-    <!--        />-->
 
 </RelativeLayout>

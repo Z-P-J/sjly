@@ -20,6 +20,7 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.transition.Transition;
 import com.zpj.fragmentation.dialog.impl.AttachListDialogFragment;
+import com.zpj.shouji.market.ui.widget.TitleHeaderLayout;
 import com.zpj.statemanager.StateManager;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.api.HttpApi;
@@ -257,10 +258,16 @@ public class ArticleDetailFragment extends BaseSwipeBackFragment {
 
     private void initRelateArticle(ArticleDetailInfo info) {
         if (!info.getRelateArticleList().isEmpty()) {
-            View title = LayoutInflater.from(context).inflate(R.layout.item_recommend_header, null, false);
-            TextView tvHead = title.findViewById(R.id.tv_title);
-            tvHead.setText("相关文章");
-            contentWrapper.addView(title);
+//            View title = LayoutInflater.from(context).inflate(R.layout.item_header_title, null, false);
+//            TextView tvHead = title.findViewById(R.id.tv_title);
+//            title.findViewById(R.id.tv_more).setVisibility(View.GONE);
+//            tvHead.setText("相关文章");
+//            contentWrapper.addView(title);
+
+            TitleHeaderLayout headerLayout = new TitleHeaderLayout(context);
+            headerLayout.setTitle("相关文章");
+            contentWrapper.addView(headerLayout);
+
             for (ArticleInfo articleInfo : info.getRelateArticleList()) {
                 SelectableTextView tvText = (SelectableTextView) LayoutInflater.from(context).inflate(R.layout.layout_article_text, null, false);
 
@@ -279,10 +286,16 @@ public class ArticleDetailFragment extends BaseSwipeBackFragment {
 
     private void initRelateApp(ArticleDetailInfo info) {
         if (!info.getRelateAppList().isEmpty()) {
-            View title = LayoutInflater.from(context).inflate(R.layout.item_recommend_header, null, false);
-            TextView tvHead = title.findViewById(R.id.tv_title);
-            tvHead.setText("相关软件");
-            contentWrapper.addView(title);
+//            View title = LayoutInflater.from(context).inflate(R.layout.item_header_title, null, false);
+//            TextView tvHead = title.findViewById(R.id.tv_title);
+//            title.findViewById(R.id.tv_more).setVisibility(View.GONE);
+//            tvHead.setText("相关软件");
+//            contentWrapper.addView(title);
+
+
+            TitleHeaderLayout headerLayout = new TitleHeaderLayout(context);
+            headerLayout.setTitle("相关软件");
+            contentWrapper.addView(headerLayout);
             for (AppInfo app : info.getRelateAppList()) {
                 View view = LayoutInflater.from(context).inflate(R.layout.item_app_linear, null, false);
                 view.setOnClickListener(new View.OnClickListener() {

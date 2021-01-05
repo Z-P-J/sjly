@@ -85,9 +85,9 @@
                 android:textSize="12sp"
                 android:lineSpacingExtra="4dp"
                 android:layout_gravity="center_vertical"
-                android:background="@drawable/grey_shape"
-                android:padding="16dp"
-                android:layout_margin="16dp"
+                android:background="?attr/backgroundShape"
+                android:padding="@dimen/dp_16"
+                android:layout_margin="@dimen/dp_16"
                 android:textIsSelectable="true"
                 />
 

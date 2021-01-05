@@ -93,6 +93,11 @@
         <attr name="drawable_tint_color" format="color" />
     </declare-styleable>
 
+    <declare-styleable name="TitleHeaderLayout">
+        <attr name="title_header_title" format="string" />
+        <attr name="title_header_show_more" format="boolean" />
+    </declare-styleable>
+
     <!--    <declare-styleable name="RecommendHeader">-->
     <!--        <attr name="header_title" format="string" />-->
     <!--    </declare-styleable>-->

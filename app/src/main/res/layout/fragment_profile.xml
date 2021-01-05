@@ -6,16 +6,6 @@
     android:layout_height="match_parent"
     >
 
-<!--    <com.zpj.widget.statelayout.StateLayout-->
-<!--        xmlns:android="http://schemas.android.com/apk/res/android"-->
-<!--        xmlns:app="http://schemas.android.com/apk/res-auto"-->
-<!--        android:id="@+id/state_layout"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="match_parent"-->
-<!--        >-->
-
-<!--    </com.zpj.widget.statelayout.StateLayout>-->
-
     <android.support.design.widget.AppBarLayout
         android:id="@+id/appbar"
         android:layout_width="match_parent"

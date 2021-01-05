@@ -1,7 +1,10 @@
 package com.lqr.emoji;
 
 import android.content.Context;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
+import android.graphics.drawable.GradientDrawable;
 import android.graphics.drawable.StateListDrawable;
 import android.support.annotation.Nullable;
 import android.support.v4.view.ViewPager;
@@ -196,9 +199,13 @@ public class EmotionLayout extends LinearLayout implements View.OnClickListener 
         //最后添加一个表情设置Tab
         mSettingTab = new EmotionTab(mContext, getResources().getDrawable(R.drawable.ic_emotion_setting));
         StateListDrawable drawable = new StateListDrawable();
-        Drawable unSelected = mContext.getResources().getDrawable(R.color.white);
+//        Drawable unSelected = mContext.getResources().getDrawable(R.color.white);
+//        drawable.addState(new int[]{-android.R.attr.state_pressed}, unSelected);
+//        Drawable selected = mContext.getResources().getDrawable(R.color.gray);
+//        drawable.addState(new int[]{android.R.attr.state_pressed}, selected);
+        Drawable unSelected = new ColorDrawable(Color.TRANSPARENT);
         drawable.addState(new int[]{-android.R.attr.state_pressed}, unSelected);
-        Drawable selected = mContext.getResources().getDrawable(R.color.gray);
+        Drawable selected = new ColorDrawable(Color.parseColor("#eeeeee"));
         drawable.addState(new int[]{android.R.attr.state_pressed}, selected);
         mSettingTab.setBackground(drawable);
         mLlTabContainer.addView(mSettingTab);
@@ -277,9 +284,15 @@ public class EmotionLayout extends LinearLayout implements View.OnClickListener 
         Log.d(TAG, "selectTab tabPosi=" + tabPosi + " mTabCount=" + mTabCount + " mTabViewArray.size=" + mTabViewArray.size());
         for (int i = 0; i < mTabCount; i++) {
             View tab = mTabViewArray.get(i);
-            tab.setBackgroundResource(R.drawable.shape_tab_normal);
+            tab.setBackgroundColor(Color.TRANSPARENT);
+//            tab.setBackgroundResource(R.drawable.shape_tab_normal);
         }
-        mTabViewArray.get(tabPosi).setBackgroundResource(R.drawable.shape_tab_press);
+        GradientDrawable drawable = new GradientDrawable();
+        drawable.setColor(Color.parseColor("#40cccccc"));
+        drawable.setCornerRadius(LQREmotionKit.dip2px(8));
+        mTabViewArray.get(tabPosi).setBackground(drawable);
+//        mTabViewArray.get(tabPosi).setBackgroundColor(Color.parseColor("#40cccccc"));
+//        mTabViewArray.get(tabPosi).setBackgroundResource(R.drawable.shape_tab_press);
 
         //显示表情内容
         fillVpEmotioin(tabPosi);

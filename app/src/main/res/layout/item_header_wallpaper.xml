@@ -19,7 +19,6 @@
         android:textColor="@color/middle_gray_1"
         android:layout_centerVertical="true"
         />
-<!--    ?attr/textColorMajor-->
 
     <com.github.zagum.expandicon.ExpandIconView
         android:id="@+id/expand_icon"
@@ -29,6 +28,5 @@
         android:layout_centerVertical="true"
         app:eiv_color="@color/middle_gray_1"
         />
-<!--    ?attr/textColorMajor-->
 
 </RelativeLayout>

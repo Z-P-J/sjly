@@ -39,6 +39,7 @@ import com.zpj.shouji.market.utils.BeanUtils;
 import com.zpj.toast.ZToast;
 import com.zpj.utils.KeyboardObserver;
 import com.zpj.utils.NetUtils;
+import com.zxy.skin.sdk.SkinEngine;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -103,7 +104,8 @@ public class ChatFragment extends NextUrlFragment<PrivateLetterInfo>
         replyPanel = view.findViewById(R.id.panel_reply);
         replyPanel.setOnOperationListener(this);
 
-        replyPanel.getEditor().setBackground(getResources().getDrawable(R.drawable.grey_shape));
+        SkinEngine.setBackground(replyPanel.getEditor(), R.attr.backgroundShape);
+//        replyPanel.getEditor().setBackground(getResources().getDrawable(R.drawable.grey_shape));
 
         KeyboardObserver.registerSoftInputChangedListener(_mActivity, view, height -> {
             replyPanel.onKeyboardHeightChanged(height, 0);

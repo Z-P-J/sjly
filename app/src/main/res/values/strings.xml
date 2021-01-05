@@ -18,6 +18,7 @@
     <string name="text_upgrade">升级</string>
     <string name="text_continue">继续</string>
     <string name="text_retry">重试</string>
+    <string name="text_more">更多</string>
 
     <string name="text_msg_not_login">登录后发现更多乐趣!</string>
     <string name="text_agreement">同意[《用户协议》](https://m.shouji.com.cn/sjlyyhxy.html)和[《隐私协议》](https://m.shouji.com.cn/ysxy.html)!</string>

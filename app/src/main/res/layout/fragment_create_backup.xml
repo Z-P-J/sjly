@@ -39,7 +39,7 @@
             android:layout_gravity="center_vertical"
             android:textColor="?attr/textColorMajor"
             android:textColorHint="?attr/textColorMinor"
-            android:background="@drawable/grey_shape"
+            android:background="?attr/backgroundShape"
             android:inputType="textMultiLine"
             android:hint="云备份标题..."
             android:padding="16dp"
@@ -68,7 +68,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-            android:background="@drawable/grey_shape"
+            android:background="?attr/backgroundShape"
             android:textColor="?attr/textColorMajor"
             android:textColorHint="?attr/textColorMinor"
             android:inputType="textMultiLine"
@@ -114,7 +114,7 @@
             android:id="@+id/recycler_view"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/grey_shape"
+            android:background="?attr/backgroundShape"
             android:layout_margin="16dp"
             />
 

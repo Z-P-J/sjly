@@ -143,27 +143,6 @@ public class ReplyPanel extends FrameLayout
                             recyclerView.notifyDataSetChanged();
                         })
                         .start();
-//                ImagePicker.from((SupportActivity) activity)
-//                        .choose(MimeType.ofImage())//照片视频全部显示MimeType.allOf()
-//                        .countable(true)//true:选中后显示数字;false:选中后显示对号
-//                        .maxSelectable(9)//最大选择数量为9
-//                        //.addFilter(new GifSizeFilter(320, 320, 5 * Filter.K * Filter.K))
-////                    .gridExpectedSize(this.getResources().getDimensionPixelSize(R.dimen.photo))//图片显示表格的大小
-//                        .spanCount(3)
-//                        .thumbnailScale(0.85f)//缩放比例
-//                        .imageEngine(new GlideEngine())//图片加载方式，Glide4需要自定义实现
-//                        //参数1 true表示拍照存储在共有目录，false表示存储在私有目录；参数2与 AndroidManifest中authorities值相同，用于适配7.0系统 必须设置
-//                        .setDefaultSelection(imgList)
-//                        .setOnSelectedListener(new ImagePicker.OnSelectedListener() {
-//                            @Override
-//                            public void onSelected(@NonNull List<Item> itemList) {
-//                                recyclerView.getRecyclerView().setVisibility(VISIBLE);
-////                                    imgList.clear();
-////                                    imgList.addAll(itemList);
-//                                recyclerView.notifyDataSetChanged();
-//                            }
-//                        })
-//                        .start();
             }
         });
         ivApp = addAction(R.drawable.ic_android_black_24dp, v -> {
