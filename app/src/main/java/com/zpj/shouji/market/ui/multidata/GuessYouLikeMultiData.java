@@ -26,7 +26,9 @@ public class GuessYouLikeMultiData extends BaseHeaderMultiData<GuessAppInfo> {
         SearchApi.getGuessApi(obj -> {
             list.clear();
             list.addAll(obj);
-            adapter.notifyDataSetChanged();
+//            adapter.notifyDataSetChanged();
+            int count = adapter.getItemCount();
+            adapter.notifyItemRangeInserted(count - getCount(), getCount());
         });
         return false;
     }

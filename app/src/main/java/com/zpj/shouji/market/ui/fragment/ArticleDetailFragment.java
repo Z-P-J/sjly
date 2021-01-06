@@ -124,7 +124,7 @@ public class ArticleDetailFragment extends BaseSwipeBackFragment {
     }
 
     private void parseHtml(final String url) {
-        HttpApi.getXml(url)
+        HttpApi.getHtml(url)
                 .bindToLife(this)
                 .onSuccess(data -> {
                     articleDetailInfo = ArticleDetailInfo.parse(url.startsWith("https://soft.shouji.com.cn/") ? "soft" : "game", data);

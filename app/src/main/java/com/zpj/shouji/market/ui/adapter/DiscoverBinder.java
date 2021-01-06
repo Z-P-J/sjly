@@ -220,14 +220,14 @@ public class DiscoverBinder
                         if (total > 3) {
                             DrawableTintTextView textView = new DrawableTintTextView(context);
                             textView.setText("共" + total + "条回复");
-                            Drawable drawable = context.getResources().getDrawable(R.drawable.ic_keyboard_arrow_right_black_24dp);
+                            Drawable drawable = context.getResources().getDrawable(R.drawable.ic_enter_bak);
                             textView.setCompoundDrawablesRelativeWithIntrinsicBounds(null, null, drawable, null);
                             textView.setCompoundDrawablePadding(8);
                             textView.setGravity(Gravity.CENTER_VERTICAL);
                             int color = context.getResources().getColor(R.color.colorPrimary);
                             textView.setTextColor(color);
                             textView.setDrawableTintColor(color);
-                            ViewGroup.LayoutParams params = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+//                            ViewGroup.LayoutParams params = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
                             container.addView(textView);
                         }
                         break;

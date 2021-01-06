@@ -28,9 +28,6 @@ public abstract class BaseHeaderMultiData<T> extends HeaderMultiData<T>
         TitleHeaderLayout headerLayout = holder.getView(R.id.layout_title_header);
         headerLayout.setTitle(title);
         headerLayout.setOnMoreClickListener(showMoreButton() ? this : null);
-//        holder.setText(R.id.tv_title, title);
-//        holder.setVisible(R.id.tv_more, true);
-//        holder.setOnClickListener(R.id.tv_more, this);
     }
 
     @Override

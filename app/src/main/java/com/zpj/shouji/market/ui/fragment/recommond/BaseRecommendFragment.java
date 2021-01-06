@@ -101,6 +101,8 @@ public abstract class BaseRecommendFragment extends SkinFragment
                 .setFooterView(LayoutInflater.from(context).inflate(R.layout.item_footer_home, null, false))
                 .setHeaderView(getHeaderLayoutId(), this)
                 .build();
+
+        toolbar.setLeftButtonTint(getResources().getColor(R.color.colorPrimary));
     }
 
     @Override

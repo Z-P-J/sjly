@@ -50,7 +50,7 @@ public class AboutMeFragment extends BaseSwipeBackFragment implements OnCommonIt
 
     @Override
     protected int getLayoutId() {
-        return R.layout.fragment_about_me;
+        return R.layout.fragment_setting_about_me;
     }
 
     @Override
@@ -113,7 +113,7 @@ public class AboutMeFragment extends BaseSwipeBackFragment implements OnCommonIt
         CommonSettingItem emailItem = findViewById(R.id.item_email);
         emailItem.setOnItemClickListener(this);
 
-        AnimatorUtils.doDelayShowAnim(1000, 100, findViewById(R.id.iv_icon), findViewById(R.id.tv_name),
+        AnimatorUtils.doDelayShowAnim(1000, 100, findViewById(R.id.iv_icon), findViewById(R.id.iv_name),
                 findViewById(R.id.tv_sign), githubItem, sjlyItem, emailItem);
     }
 

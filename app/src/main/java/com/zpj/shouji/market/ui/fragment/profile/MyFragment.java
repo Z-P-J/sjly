@@ -77,7 +77,7 @@ public class MyFragment extends SkinFragment
     private View tvSignOut;
 
     private View shadowView;
-    private TintedImageView ivAppName;
+    private ImageView ivAppName;
 
     private boolean isLightStyle = true;
 
@@ -351,7 +351,7 @@ public class MyFragment extends SkinFragment
     @Override
     public void toolbarLeftCustomView(@NonNull View view) {
         super.toolbarLeftCustomView(view);
-        ivAppName = (TintedImageView) view;
+        ivAppName = (ImageView) view;
     }
 
     @Override
@@ -374,7 +374,7 @@ public class MyFragment extends SkinFragment
     protected void initStatusBar() {
         if (AppConfig.isNightMode()) {
             toolbar.setLightStyle(true);
-            ivAppName.setTint(Color.WHITE);
+            ivAppName.setColorFilter(Color.WHITE);
             shadowView.setVisibility(alpha > 0.5f ? View.VISIBLE : View.GONE);
             lightStatusBar();
         } else if (alpha > 0.5) {
@@ -382,13 +382,13 @@ public class MyFragment extends SkinFragment
             toolbar.setLightStyle(false);
             darkStatusBar();
             shadowView.setVisibility(View.VISIBLE);
-            ivAppName.setTint(Color.BLACK);
+            ivAppName.setColorFilter(Color.BLACK);
         } else {
             isLightStyle = true;
             toolbar.setLightStyle(true);
             lightStatusBar();
             shadowView.setVisibility(View.GONE);
-            ivAppName.setTint(Color.WHITE);
+            ivAppName.setColorFilter(Color.WHITE);
         }
     }
 

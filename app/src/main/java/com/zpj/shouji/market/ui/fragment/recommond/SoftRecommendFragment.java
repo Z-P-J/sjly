@@ -4,6 +4,8 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.view.View;
+import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.zpj.http.ZHttp;
@@ -26,7 +28,6 @@ import java.util.List;
 
 public class SoftRecommendFragment extends BaseRecommendFragment implements View.OnClickListener {
 
-    private static final String TAG = "RecommendFragment";
     private static final String[] TITLES = {"软件新闻", "软件评测", "软件教程", "软件周刊"};
 
     @Override
@@ -35,18 +36,17 @@ public class SoftRecommendFragment extends BaseRecommendFragment implements View
     }
 
     @Override
-    protected void initView(View view, @Nullable Bundle savedInstanceState) {
-        super.initView(view, savedInstanceState);
-//        view.findViewById(R.id.tv_necessary).setOnClickListener(this);
-//        view.findViewById(R.id.tv_collection).setOnClickListener(this);
-//        view.findViewById(R.id.tv_rank).setOnClickListener(this);
-//        view.findViewById(R.id.tv_classification).setOnClickListener(this);
+    public void toolbarLeftImageButton(@NonNull ImageButton imageButton) {
+        imageButton.setImageResource(R.drawable.ic_title_soft);
     }
 
     @Override
-    public void toolbarLeftTextView(@NonNull TextView view) {
-        super.toolbarLeftTextView(view);
-        view.setText(R.string.title_soft);
+    public void toolbarLeftCustomView(@NonNull View view) {
+        super.toolbarLeftCustomView(view);
+        if (view instanceof ImageView) {
+            ((ImageView) view).setImageResource(R.drawable.ic_title_soft);
+            ((ImageView) view).setColorFilter(getResources().getColor(R.color.colorPrimary));
+        }
     }
 
     @Override

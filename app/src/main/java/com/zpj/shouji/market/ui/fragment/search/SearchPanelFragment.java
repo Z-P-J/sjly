@@ -174,9 +174,6 @@ public class SearchPanelFragment extends SkinFragment {
                 .onItemClick((holder, view1, data) -> AppDetailFragment.start(data))
                 .build();
 
-//        getGuessApp();
-//        getHotSearch();
-//        getSearchHistory();
     }
 
     public void init() {

@@ -88,7 +88,7 @@ public class TutorialMultiData extends RecyclerMultiData<ArticleInfo> {
 
     @Override
     public boolean loadData(MultiAdapter adapter) {
-        HttpApi.getXml(String.format(Locale.CHINA, "https://%s.shouji.com.cn/newslist/list_%d_1.html", type, index))
+        HttpApi.getHtml(String.format(Locale.CHINA, "https://%s.shouji.com.cn/newslist/list_%d_1.html", type, index))
                 .onSuccess(data -> {
                     Elements elements = data.selectFirst("ul.news_list").select("li");
                     list.clear();

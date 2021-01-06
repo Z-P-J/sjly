@@ -2,6 +2,8 @@ package com.zpj.shouji.market.ui.fragment.recommond;
 
 import android.support.annotation.NonNull;
 import android.view.View;
+import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.zpj.http.ZHttp;
@@ -32,10 +34,18 @@ public class GameRecommendFragment extends BaseRecommendFragment implements View
         return R.layout.layout_header_recommend_game;
     }
 
+//    @Override
+//    public void toolbarLeftImageButton(@NonNull ImageButton imageButton) {
+//        imageButton.setImageResource(R.drawable.ic_title_game);
+//    }
+
     @Override
-    public void toolbarLeftTextView(@NonNull TextView view) {
-        super.toolbarLeftTextView(view);
-        view.setText(R.string.title_game);
+    public void toolbarLeftCustomView(@NonNull View view) {
+        super.toolbarLeftCustomView(view);
+        if (view instanceof ImageView) {
+            ((ImageView) view).setImageResource(R.drawable.ic_title_game);
+            ((ImageView) view).setColorFilter(getResources().getColor(R.color.colorPrimary));
+        }
     }
 
     @Override

@@ -96,30 +96,40 @@
                 android:src="@drawable/logo_author"
                 />
 
-            <TextView
-                android:id="@+id/tv_name"
+<!--            <TextView-->
+<!--                android:id="@+id/tv_name"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_below="@+id/iv_icon"-->
+<!--                android:layout_centerHorizontal="true"-->
+<!--                android:layout_marginTop="16dp"-->
+<!--                android:text="Z-P-J"-->
+<!--                android:textColor="@color/white"-->
+<!--                android:textSize="18sp" />-->
+
+            <ImageView
+                android:id="@+id/iv_name"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/iv_icon"
+                android:layout_height="24dp"
                 android:layout_centerHorizontal="true"
-                android:layout_marginTop="16dp"
-                android:text="Z-P-J"
-                android:textColor="@color/white"
-                android:textSize="18sp" />
+                android:src="@drawable/ic_author_name"
+                android:layout_below="@+id/iv_icon"
+                android:tint="@color/white"
+                android:layout_marginVertical="@dimen/dp_16"
+                />
 
             <TextView
                 android:id="@+id/tv_sign"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/tv_name"
+                android:layout_below="@+id/iv_name"
                 android:layout_centerHorizontal="true"
-                android:layout_marginTop="8dp"
                 android:gravity="center"
                 android:paddingLeft="30dp"
                 android:paddingRight="30dp"
                 android:text="没有人是一座孤岛"
                 android:textColor="@color/white"
-                android:textSize="13sp" />
+                android:textSize="14sp" />
 
             <LinearLayout
                 android:layout_width="match_parent"

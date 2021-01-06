@@ -212,6 +212,8 @@ public class ImageViewerDialogFragment3<T> extends BaseDialogFragment
 
         if (srcViewUpdateListener != null) {
             srcViewUpdateListener.onSrcViewUpdate(ImageViewerDialogFragment3.this, position);
+        } else {
+            addOrUpdateSnapshot();
         }
 
 //        addOrUpdateSnapshot();

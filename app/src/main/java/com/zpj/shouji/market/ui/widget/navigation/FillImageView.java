@@ -214,6 +214,7 @@ public class FillImageView extends AppCompatImageView {
                     mRadies = (int) animation.getAnimatedValue();
                 } else {
                     mAlpha = (int) animation.getAnimatedValue();
+                    mRadies = mAlpha * mMaxRadies;
                 }
 //                postInvalidate();
                 invalidate();
@@ -234,7 +235,7 @@ public class FillImageView extends AppCompatImageView {
                     setImageDrawable(unCheckDrawable);
                 }
                 isAnimationFinished = true;
-                invalidate();
+                invalidate(); 
 //                post(new Runnable() {
 //                    @Override
 //                    public void run() {

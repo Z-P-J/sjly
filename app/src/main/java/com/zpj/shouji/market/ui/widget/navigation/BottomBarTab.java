@@ -88,7 +88,7 @@ public class BottomBarTab extends FrameLayout {
         lLContainer.addView(mIvIcon);
 
 //        mNormalTextColor = getResources().getColor(R.color.color_text_minor);
-        mNormalTextColor = Color.parseColor("#535458");
+        mNormalTextColor = Color.DKGRAY; // Color.parseColor("#535458")
         mSelectedTextColor = getResources().getColor(R.color.colorPrimary);
         mTvTitle = new TextView(context);
         mTvTitle.setTextColor(mNormalTextColor);

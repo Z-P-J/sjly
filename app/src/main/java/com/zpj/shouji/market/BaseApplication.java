@@ -38,7 +38,9 @@ public class BaseApplication extends Application {
         SkinEngine.registerSkinApplicator(SimpleSettingItem.class, new SimpleSettingItemApplicator());
         SkinEngine.registerSkinApplicator(SwitchSettingItem.class, new SettingItemApplicator());
 //        SkinEngine.registerSkinApplicator(BaseToolBar.class, new ToolbarApplicator());
-        SkinEngine.changeSkin(AppConfig.isNightMode() ? R.style.NightTheme : R.style.DayTheme);
+        int themeId = AppConfig.isNightMode() ? R.style.NightTheme : R.style.DayTheme;
+        setTheme(themeId);
+        SkinEngine.changeSkin(themeId);
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
             StrictMode.VmPolicy.Builder builder = new StrictMode.VmPolicy.Builder();

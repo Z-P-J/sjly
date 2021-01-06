@@ -96,7 +96,9 @@ public abstract class AppInfoMultiData extends BaseHeaderMultiData<AppInfo> {
             }
             list.add(info);
         }
-        adapter.notifyDataSetChanged();
+        int count = adapter.getItemCount();
+        adapter.notifyItemRangeInserted(count - getCount(), getCount());
+//        adapter.notifyDataSetChanged();
     }
 
 }

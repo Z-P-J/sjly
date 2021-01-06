@@ -34,26 +34,44 @@
                     android:layout_marginTop="16dp"
                     />
 
-                <TextView
+<!--                <TextView-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_gravity="center_horizontal"-->
+<!--                    android:text="手机乐园"-->
+<!--                    android:textColor="?attr/textColorMajor"-->
+<!--                    android:textSize="18sp"-->
+<!--                    android:textStyle="bold"-->
+<!--                    android:padding="8dp"-->
+<!--                    />-->
+
+                <ImageView
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_height="24dp"
                     android:layout_gravity="center_horizontal"
-                    android:text="手机乐园"
-                    android:textColor="?attr/textColorMajor"
-                    android:textSize="18sp"
-                    android:textStyle="bold"
-                    android:padding="8dp"
+                    android:src="@drawable/app_name"
+                    android:tint="?attr/textColorMajor"
                     />
 
-                <TextView
+                <ImageView
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_height="18dp"
                     android:layout_gravity="center_horizontal"
-                    android:text="发现应用的乐趣"
-                    android:textColor="@color/colorPrimary"
-                    android:textSize="14sp"
-                    android:layout_marginBottom="16dp"
+                    android:src="@drawable/ic_app_introduce"
+                    android:tint="@color/colorPrimary"
+                    android:layout_marginTop="@dimen/dp_8"
+                    android:layout_marginBottom="56dp"
                     />
+
+<!--                <TextView-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_gravity="center_horizontal"-->
+<!--                    android:text="发现应用的乐趣"-->
+<!--                    android:textColor="@color/colorPrimary"-->
+<!--                    android:textSize="14sp"-->
+<!--                    android:layout_marginBottom="16dp"-->
+<!--                    />-->
 
                 <com.zpj.widget.setting.CommonSettingItem
                     style="@style/simple_setting_item_style"

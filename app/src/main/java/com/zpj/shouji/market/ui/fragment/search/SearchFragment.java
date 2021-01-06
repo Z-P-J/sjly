@@ -9,6 +9,7 @@ import android.text.TextWatcher;
 import android.view.View;
 
 import com.zpj.shouji.market.R;
+import com.zpj.shouji.market.constant.AppConfig;
 import com.zpj.shouji.market.ui.adapter.FragmentsPagerAdapter;
 import com.zpj.shouji.market.ui.fragment.base.BaseSwipeBackFragment;
 import com.zpj.shouji.market.ui.widget.ZViewPager;
@@ -88,6 +89,15 @@ public class SearchFragment extends BaseSwipeBackFragment {
                 showSoftInput(searchBar.getEditor());
             }
         });
+    }
+
+    @Override
+    protected void initStatusBar() {
+        if (AppConfig.isNightMode()) {
+            lightStatusBar();
+        } else {
+            darkStatusBar();
+        }
     }
 
     @Override

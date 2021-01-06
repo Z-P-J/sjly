@@ -21,7 +21,7 @@ import com.zpj.shouji.market.ui.adapter.FragmentsPagerAdapter;
 import com.zpj.shouji.market.ui.fragment.base.SkinFragment;
 import com.zpj.shouji.market.ui.fragment.manager.ManagerFragment;
 import com.zpj.shouji.market.ui.fragment.search.SearchFragment;
-import com.zpj.shouji.market.ui.widget.ColorChangePagerTitleView;
+import com.zpj.shouji.market.ui.widget.HomePagerTitleView;
 import com.zpj.shouji.market.utils.EventBus;
 import com.zpj.shouji.market.utils.MagicIndicatorHelper;
 
@@ -32,6 +32,7 @@ import java.util.ArrayList;
 public class HomeFragment extends SkinFragment {
 
     private static final String[] TAB_TITLES = {"推荐", "发现", "乐图"};
+    private static final int[] TAB_IMAGES = {R.drawable.ic_tab_recommend, R.drawable.ic_tab_discover, R.drawable.ic_tab_wallpaper};
 
     private ViewPager viewPager;
 
@@ -39,8 +40,6 @@ public class HomeFragment extends SkinFragment {
 
     private ImageButton btnSearch;
     private ImageButton btnManage;
-
-    private boolean isLightStyle = false;
 
     private float alpha = 0f;
 
@@ -223,13 +222,64 @@ public class HomeFragment extends SkinFragment {
                 .setTabTitles(TAB_TITLES)
                 .setViewPager(viewPager)
                 .setOnGetTitleViewListener((context, index) -> {
-                    ColorChangePagerTitleView titleView = new ColorChangePagerTitleView(context);
-                    titleView.setNormalColor(context.getResources().getColor(R.color.color_text_normal));
-                    titleView.setSelectedColor(context.getResources().getColor(R.color.colorPrimary));
-                    titleView.setTextSize(14);
-                    titleView.setText(TAB_TITLES[index]);
-                    titleView.setOnClickListener(view1 -> viewPager.setCurrentItem(index, true));
+                    HomePagerTitleView titleView = new HomePagerTitleView(context);
+                    titleView.setImageResource(TAB_IMAGES[index]);
+                    titleView.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            viewPager.setCurrentItem(index);
+                        }
+                    });
                     return titleView;
+
+//                    CommonPagerTitleView commonPagerTitleView = new CommonPagerTitleView(context);
+//                    View customLayout = LayoutInflater.from(context).inflate(R.layout.layout_pager_title, null);
+//                    ImageView ivTitle = customLayout.findViewById(R.id.iv_title);
+//                    ivTitle.setImageResource(TAB_IMAGES[index]);
+//                    commonPagerTitleView.setContentView(customLayout);
+//                    commonPagerTitleView.setOnPagerTitleChangeListener(new CommonPagerTitleView.OnPagerTitleChangeListener() {
+//                        @Override
+//                        public void onSelected(int index, int totalCount) {
+//                            ivTitle.setColorFilter(context.getResources().getColor(R.color.colorPrimary));
+//                        }
+//
+//                        @Override
+//                        public void onDeselected(int index, int totalCount) {
+//                            ivTitle.setColorFilter(context.getResources().getColor(R.color.color_text_normal));
+//                        }
+//
+//                        @Override
+//                        public void onLeave(int index, int totalCount, float leavePercent, boolean leftToRight) {
+//                            float scale = 1.2f + (0.8f - 1.2f) * leavePercent;
+//                            customLayout.setScaleX(scale);
+//                            customLayout.setScaleY(scale);
+//                        }
+//
+//                        @Override
+//                        public void onEnter(int index, int totalCount, float enterPercent, boolean leftToRight) {
+//                            float scale = 0.8f + (1.2f - 0.8f) * enterPercent;
+//                            customLayout.setScaleX(scale);
+//                            customLayout.setScaleY(scale);
+//                        }
+//                    });
+//
+//                    commonPagerTitleView.setOnClickListener(new View.OnClickListener() {
+//                        @Override
+//                        public void onClick(View v) {
+//                            viewPager.setCurrentItem(index);
+//                        }
+//                    });
+//                    return commonPagerTitleView;
+
+
+
+//                    ColorChangePagerTitleView titleView = new ColorChangePagerTitleView(context);
+//                    titleView.setNormalColor(context.getResources().getColor(R.color.color_text_normal));
+//                    titleView.setSelectedColor(context.getResources().getColor(R.color.colorPrimary));
+//                    titleView.setTextSize(14);
+//                    titleView.setText(TAB_TITLES[index]);
+//                    titleView.setOnClickListener(view1 -> viewPager.setCurrentItem(index, true));
+//                    return titleView;
                 })
                 .build();
 
@@ -269,7 +319,7 @@ public class HomeFragment extends SkinFragment {
             }
         }
 
-        isLightStyle = !isDark;
+        boolean isLightStyle = !isDark;
         toolbar.setLightStyle(isLightStyle);
         shadowView.setVisibility(alpha > 0.5f ? View.VISIBLE : View.GONE);
 //        int color = getResources().getColor((AppConfig.isNightMode() || isDark) ? R.color.white : R.color.color_text_major);

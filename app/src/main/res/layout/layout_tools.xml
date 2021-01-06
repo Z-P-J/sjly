@@ -19,8 +19,6 @@
         android:tint="@color/color_text_major"
         />
 
-<!--    android:tint="?attr/textColorMajor"-->
-
     <ImageButton
         android:id="@+id/btn_manage"
         android:layout_width="wrap_content"
@@ -31,7 +29,5 @@
         android:background="?attr/actionBarItemBackground"
         android:tint="@color/color_text_major"
         />
-
-<!--    android:tint="?attr/textColorMajor"-->
 
 </LinearLayout>

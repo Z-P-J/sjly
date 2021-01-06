@@ -10,9 +10,32 @@
     app:hl_shadowBackColor="?attr/backgroundColor"
     >
 
-    <com.zpj.shouji.market.ui.widget.flowlayout.FlowLayout
-        android:id="@+id/flow_layout"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        >
+
+        <com.zpj.shouji.market.ui.widget.flowlayout.FlowLayout
+            android:id="@+id/flow_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_8"/>
+
+        <View
+            android:layout_width="56dp"
+            android:layout_height="4dp"
+            android:background="?attr/backgroundShape"
+            android:layout_gravity="center_horizontal"
+            />
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_16"/>
+
+    </LinearLayout>
 
 </com.lihang.ShadowLayout>
