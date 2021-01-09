@@ -1,7 +1,7 @@
 # compiler: R8
 # compiler_version: 1.5.69
 # min_api: 19
-# pg_map_id: b136ebc
+# pg_map_id: 26c7b0c
 android.arch.core.executor.ArchTaskExecutor -> a.a.a.a.a:
     android.arch.core.executor.ArchTaskExecutor sInstance -> c
     android.arch.core.executor.TaskExecutor mDelegate -> a
@@ -35264,42 +35264,42 @@ com.zpj.shouji.market.download.-$$Lambda$AppDownloadMission$sKeXeI98s7d_-IM-gk7t
 com.zpj.shouji.market.download.AppDownloadMission -> com.zpj.shouji.market.download.AppDownloadMission:
     30:30:void <clinit>() -> <clinit>
     28:28:void <init>() -> <init>
-    70:78:void lambda$initMission$0(com.zpj.http.parser.html.nodes.Document) -> a
-    112:116:void lambda$install$1(io.reactivex.ObservableEmitter) -> a
-    120:135:void lambda$install$4(java.lang.Boolean) -> a
-    128:129:void lambda$null$2(com.zpj.fragmentation.dialog.impl.AlertDialogFragment) -> a
+    70:79:void lambda$initMission$0(com.zpj.http.parser.html.nodes.Document) -> a
+    113:117:void lambda$install$1(io.reactivex.ObservableEmitter) -> a
+    121:136:void lambda$install$4(java.lang.Boolean) -> a
+    129:130:void lambda$null$2(com.zpj.fragmentation.dialog.impl.AlertDialogFragment) -> a
     28:28:void access$000(com.zpj.shouji.market.download.AppDownloadMission,com.zpj.downloader.constant.Error) -> access$000
     28:28:java.lang.String access$100(com.zpj.shouji.market.download.AppDownloadMission) -> access$100
     28:28:void access$201(com.zpj.shouji.market.download.AppDownloadMission) -> access$201
-    130:130:void lambda$null$3(com.zpj.fragmentation.dialog.impl.AlertDialogFragment) -> b
+    131:131:void lambda$null$3(com.zpj.fragmentation.dialog.impl.AlertDialogFragment) -> b
     40:40:com.zpj.shouji.market.download.AppDownloadMission create(java.lang.String,java.lang.String,java.lang.String,java.lang.String) -> create
     44:54:com.zpj.shouji.market.download.AppDownloadMission create(java.lang.String,java.lang.String,java.lang.String,java.lang.String,boolean) -> create
-    224:224:java.lang.String getAppIcon() -> getAppIcon
-    232:232:java.lang.String getAppId() -> getAppId
-    240:240:java.lang.String getAppName() -> getAppName
-    236:236:java.lang.String getAppType() -> getAppType
-    228:228:java.lang.String getPackageName() -> getPackageName
-    59:89:void initMission() -> initMission
-    109:140:void install() -> install
-    143:191:void installApk() -> installApk
-    93:105:void onFinish() -> onFinish
-    194:195:com.zpj.shouji.market.download.AppDownloadMission setAppIcon(java.lang.String) -> setAppIcon
-    199:200:com.zpj.shouji.market.download.AppDownloadMission setAppId(java.lang.String) -> setAppId
-    214:215:com.zpj.shouji.market.download.AppDownloadMission setAppName(java.lang.String) -> setAppName
-    209:210:com.zpj.shouji.market.download.AppDownloadMission setAppType(java.lang.String) -> setAppType
-    204:205:com.zpj.shouji.market.download.AppDownloadMission setPackageName(java.lang.String) -> setPackageName
-    219:220:com.zpj.shouji.market.download.AppDownloadMission setShareApp(boolean) -> setShareApp
+    225:225:java.lang.String getAppIcon() -> getAppIcon
+    233:233:java.lang.String getAppId() -> getAppId
+    241:241:java.lang.String getAppName() -> getAppName
+    237:237:java.lang.String getAppType() -> getAppType
+    229:229:java.lang.String getPackageName() -> getPackageName
+    59:90:void initMission() -> initMission
+    110:141:void install() -> install
+    144:192:void installApk() -> installApk
+    94:106:void onFinish() -> onFinish
+    195:196:com.zpj.shouji.market.download.AppDownloadMission setAppIcon(java.lang.String) -> setAppIcon
+    200:201:com.zpj.shouji.market.download.AppDownloadMission setAppId(java.lang.String) -> setAppId
+    215:216:com.zpj.shouji.market.download.AppDownloadMission setAppName(java.lang.String) -> setAppName
+    210:211:com.zpj.shouji.market.download.AppDownloadMission setAppType(java.lang.String) -> setAppType
+    205:206:com.zpj.shouji.market.download.AppDownloadMission setPackageName(java.lang.String) -> setPackageName
+    220:221:com.zpj.shouji.market.download.AppDownloadMission setShareApp(boolean) -> setShareApp
 com.zpj.shouji.market.download.AppDownloadMission$1 -> com.zpj.shouji.market.download.AppDownloadMission$a:
     com.zpj.shouji.market.download.AppDownloadMission this$0 -> a
-    79:79:void <init>(com.zpj.shouji.market.download.AppDownloadMission) -> <init>
-    82:83:void onError(java.lang.Throwable) -> a
+    80:80:void <init>(com.zpj.shouji.market.download.AppDownloadMission) -> <init>
+    83:84:void onError(java.lang.Throwable) -> a
 com.zpj.shouji.market.download.AppDownloadMission$2 -> com.zpj.shouji.market.download.AppDownloadMission$b:
     com.zpj.shouji.market.download.AppDownloadMission this$0 -> a
-    155:155:void <init>(com.zpj.shouji.market.download.AppDownloadMission) -> <init>
-    163:172:void onComplete() -> a
-    181:182:void onNeedInstallPermission() -> b
-    176:177:void onNeed2OpenService() -> c
-    158:159:void onStart() -> onStart
+    156:156:void <init>(com.zpj.shouji.market.download.AppDownloadMission) -> <init>
+    164:173:void onComplete() -> a
+    182:183:void onNeedInstallPermission() -> b
+    177:178:void onNeed2OpenService() -> c
+    159:160:void onStart() -> onStart
 com.zpj.shouji.market.download.DownloadNotificationInterceptor -> com.zpj.shouji.market.download.f:
     16:16:void <init>() -> <init>
     20:30:void onProgress(android.content.Context,com.zpj.downloader.BaseMission,float,boolean) -> a
