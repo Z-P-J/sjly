@@ -73,6 +73,7 @@
             android:textStyle="bold" />
 
         <ImageButton
+            android:id="@+id/ib_login_qq"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -81,6 +82,7 @@
             android:src="@drawable/ic_share_qq" />
 
         <ImageButton
+            android:id="@+id/ib_login_wechat"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -89,6 +91,7 @@
             android:src="@drawable/ic_share_wx" />
 
         <ImageButton
+            android:id="@+id/ib_login_weibo"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"

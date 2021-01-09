@@ -19,7 +19,7 @@ public class MemberInfo {
     private String info;
     @Select(selector = "jsession")
     private String sessionId;
-    private String autoUser;
+    private boolean autoUser;
     private boolean bindQQ;
     private String bindQQName;
     private boolean bindWX;
@@ -129,7 +129,7 @@ public class MemberInfo {
         return sessionId;
     }
 
-    public String getAutoUser() {
+    public boolean isAutoUser() {
         return autoUser;
     }
 

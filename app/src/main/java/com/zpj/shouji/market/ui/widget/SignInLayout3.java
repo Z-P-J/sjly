@@ -53,6 +53,10 @@ public class SignInLayout3 extends LinearLayout implements View.OnClickListener 
 
         TextView tvForgetPassword = findViewById(R.id.tv_forget_password);
         tvForgetPassword.setOnClickListener(this);
+
+        findViewById(R.id.ib_login_qq).setOnClickListener(this);
+        findViewById(R.id.ib_login_wechat).setOnClickListener(this);
+        findViewById(R.id.ib_login_weibo).setOnClickListener(this);
     }
 
     @Override
@@ -67,6 +71,16 @@ public class SignInLayout3 extends LinearLayout implements View.OnClickListener 
                 break;
             case R.id.tv_forget_password:
                 ZToast.normal("TODO");
+                break;
+            case R.id.ib_login_qq:
+                ZToast.warning("TODO QQ第三方登录");
+//                EventBus.sendQQLoginEvent();
+                break;
+            case R.id.ib_login_wechat:
+                ZToast.warning("TODO 微信第三方登录");
+                break;
+            case R.id.ib_login_weibo:
+                ZToast.warning("TODO 微博第三方登录");
                 break;
         }
     }

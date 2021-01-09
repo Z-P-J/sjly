@@ -109,6 +109,7 @@ public class MyFragment extends SkinFragment
             tvSignature.setText("手机乐园，发现应用的乐趣");
             tvFollower.setText("关注 0");
             tvFans.setText("粉丝 0");
+            tvEditInfo.setText(R.string.text_not_log_in);
             ivAvatar.setImageResource(R.drawable.ic_user_head);
             ivWallpaper.setImageResource(R.drawable.bg_member_default);
             ZToast.success("注销成功");
@@ -124,7 +125,7 @@ public class MyFragment extends SkinFragment
                         tvCheckIn.setBackgroundResource(R.drawable.bg_button_round_pink);
                         tvCheckIn.setText("已签到");
                     }
-                    tvEditInfo.setText("编辑");
+                    tvEditInfo.setText(R.string.text_edit);
                     tvName.setText(info.getMemberNickName());
                     tvLevel.setText("Lv." + info.getMemberLevel());
                     if (TextUtils.isEmpty(info.getMemberSignature())) {
@@ -139,7 +140,7 @@ public class MyFragment extends SkinFragment
                     tvSignOut.setVisibility(View.VISIBLE);
                 } else {
                     tvCheckIn.setVisibility(View.GONE);
-                    tvEditInfo.setText("未登录");
+                    tvEditInfo.setText(R.string.text_not_log_in);
                 }
             }
         });

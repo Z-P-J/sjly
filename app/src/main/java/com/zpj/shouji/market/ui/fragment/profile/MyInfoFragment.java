@@ -83,6 +83,8 @@ public class MyInfoFragment extends BaseSwipeBackFragment implements OnCommonIte
     @Override
     protected void initView(View view, @Nullable Bundle savedInstanceState) {
 
+        boolean isAutoUser = UserManager.getInstance().isAutoUser();
+
         CommonSettingItem memberIdItem = view.findViewById(R.id.item_member_id);
         nickNameItem = view.findViewById(R.id.item_nickname);
         CommonSettingItem levelItem = view.findViewById(R.id.item_level);
@@ -92,6 +94,9 @@ public class MyInfoFragment extends BaseSwipeBackFragment implements OnCommonIte
         CommonSettingItem wxItem = view.findViewById(R.id.item_wx);
         emailItem = view.findViewById(R.id.item_email);
         CommonSettingItem passwordItem = view.findViewById(R.id.item_password);
+        if (isAutoUser) {
+            passwordItem.setVisibility(View.GONE);
+        }
         View tvSignOut = view.findViewById(R.id.tv_sign_out);
 
         nickNameItem.setOnItemClickListener(this);

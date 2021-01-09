@@ -18,56 +18,75 @@
         app:z_toolbar_statusBarColor="?attr/backgroundColor"
         app:z_toolbar_titleBarColor="?attr/backgroundColor"
         app:z_toolbar_centerText="账号登录"
+        app:z_toolbar_rightType="imageButton"
+        app:z_toolbar_rightImageResource="@drawable/ic_link"
         />
 
-<!--    <ScrollView-->
-<!--        android:id="@+id/fl_container"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="match_parent"-->
-<!--        >-->
-
-<!--        -->
-
-
-<!--    </ScrollView>-->
-
-    <LinearLayout
-        android:id="@+id/ll_container"
+    <com.zpj.shouji.market.ui.widget.ElasticScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:orientation="vertical"
+        android:layout_height="match_parent"
         >
 
-        <ImageView
-            android:layout_width="56dp"
-            android:layout_height="56dp"
-            android:scaleType="fitCenter"
-            android:src="@mipmap/ic_launcher"
-            android:layout_marginTop="16dp"
-            />
-
-        <TextView
+        <LinearLayout
+            android:id="@+id/ll_container"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:text="手机乐园"
-            android:textColor="?attr/textColorMajor"
-            android:textSize="18sp"
-            android:textStyle="italic"
             android:gravity="center"
-            />
+            android:orientation="vertical"
+            >
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
-            android:alpha="0.8"
-            android:text="发现应用的乐趣"
-            android:textColor="?attr/textColorMinor"
-            android:layout_marginBottom="16sp"
-            />
+            <ImageView
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:scaleType="fitCenter"
+                android:src="@mipmap/ic_launcher"
+                android:layout_marginTop="16dp"
+                />
 
-    </LinearLayout>
+            <!--        <TextView-->
+            <!--            android:layout_width="match_parent"-->
+            <!--            android:layout_height="wrap_content"-->
+            <!--            android:layout_marginTop="8dp"-->
+            <!--            android:text="手机乐园"-->
+            <!--            android:textColor="?attr/textColorMajor"-->
+            <!--            android:textSize="18sp"-->
+            <!--            android:textStyle="italic"-->
+            <!--            android:gravity="center"-->
+            <!--            />-->
+
+            <!--        <TextView-->
+            <!--            android:layout_width="wrap_content"-->
+            <!--            android:layout_height="wrap_content"-->
+            <!--            android:layout_marginTop="4dp"-->
+            <!--            android:alpha="0.8"-->
+            <!--            android:text="发现应用的乐趣"-->
+            <!--            android:textColor="?attr/textColorMinor"-->
+            <!--            android:layout_marginBottom="16sp"-->
+            <!--            />-->
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="24dp"
+                android:layout_gravity="center_horizontal"
+                android:src="@drawable/app_name"
+                android:tint="?attr/textColorMajor"
+                android:layout_marginVertical="@dimen/dp_8"
+                />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="18dp"
+                android:layout_gravity="center_horizontal"
+                android:src="@drawable/ic_app_introduce"
+                android:tint="@color/colorPrimary"
+                android:layout_marginBottom="16dp"
+                />
+
+        </LinearLayout>
+
+
+    </com.zpj.shouji.market.ui.widget.ElasticScrollView>
+
+
 
 </LinearLayout>

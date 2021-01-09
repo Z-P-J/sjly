@@ -146,7 +146,7 @@ public class ProfileFragment extends StateSwipeBackFragment
         ivChat = view.findViewById(R.id.iv_chat);
         ivChat.setOnClickListener(this);
         if (isMe) {
-            tvFollow.setText("编辑");
+            tvFollow.setText(R.string.text_edit);
             tvFollow.setBackgroundResource(R.drawable.bg_button_round_gray);
         }
 

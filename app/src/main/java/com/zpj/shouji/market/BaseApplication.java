@@ -22,6 +22,7 @@ import com.zpj.shouji.market.api.HttpApi;
 import com.zpj.shouji.market.constant.AppConfig;
 import com.zpj.shouji.market.download.AppDownloadMission;
 import com.zpj.shouji.market.download.DownloadNotificationInterceptor;
+import com.zpj.utils.AppUtils;
 import com.zpj.widget.setting.SimpleSettingItem;
 import com.zpj.widget.setting.SwitchSettingItem;
 import com.zxy.skin.sdk.SkinEngine;
@@ -103,6 +104,7 @@ public class BaseApplication extends MultiDexApplication {
             }
         });
 
+        Log.d("AppAppApp", "signature=" + AppUtils.getAppSignatureMD5(this, getPackageName()));
         Log.d("AppAppApp", "duration=" + (System.currentTimeMillis() - start));
     }
 

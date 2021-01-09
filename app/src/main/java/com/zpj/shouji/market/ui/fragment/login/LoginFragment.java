@@ -3,14 +3,21 @@ package com.zpj.shouji.market.ui.fragment.login;
 import android.content.Context;
 import android.graphics.Rect;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.util.Log;
 import android.view.View;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
 
 import com.zpj.fragmentation.SupportHelper;
+import com.zpj.fragmentation.dialog.IDialog;
+import com.zpj.fragmentation.dialog.base.BaseDialogFragment;
+import com.zpj.fragmentation.dialog.impl.AlertDialogFragment;
+import com.zpj.fragmentation.dialog.impl.InputDialogFragment;
 import com.zpj.rxbus.RxBus;
 import com.zpj.shouji.market.R;
+import com.zpj.shouji.market.manager.UserManager;
 import com.zpj.shouji.market.ui.fragment.base.BaseSwipeBackFragment;
 import com.zpj.shouji.market.ui.widget.SignInLayout3;
 import com.zpj.shouji.market.ui.widget.SignUpLayout3;
@@ -63,7 +70,9 @@ public class LoginFragment extends BaseSwipeBackFragment {
             public void onAccept(Boolean isSuccess, String errorMsg) throws Exception {
                 if (isSuccess) {
                     ZToast.success("登录成功！");
-                    pop();
+                    EventBus.hideLoading(() -> pop());
+                } else {
+                    EventBus.hideLoading();
                 }
                 if (contentView instanceof SignInLayout3) {
                     ((SignInLayout3) contentView).onSignIn(isSuccess, errorMsg);
@@ -88,6 +97,37 @@ public class LoginFragment extends BaseSwipeBackFragment {
         });
         if (getArguments() != null) {
             isRegistration = getArguments().getBoolean(REGISTRATION, false);
+        }
+    }
+
+    @Override
+    public void toolbarRightImageButton(@NonNull ImageButton imageButton) {
+        super.toolbarRightImageButton(imageButton);
+        if (isRegistration) {
+            imageButton.setVisibility(View.GONE);
+        } else {
+            imageButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    new InputDialogFragment()
+                            .setEmptyable(false)
+                            .setHint("请输入jsessionid登录")
+                            .setTitle("jsessionid登录")
+                            .setContent("\t\t\t\t本应用由于一些限制，不支持第三方登录，所以这里提供了一种通过jsessionid登录的方法。")
+                            .setAutoDismiss(false)
+                            .setPositiveButton(new AlertDialogFragment.OnButtonClickListener() {
+                                @Override
+                                public void onClick(AlertDialogFragment fragment) {
+                                    fragment.dismiss();
+                                    EventBus.showLoading("登录中...");
+                                    UserManager.getInstance().signIn(((InputDialogFragment) fragment).getText());
+
+                                }
+                            })
+                            .setNegativeButton(BaseDialogFragment::dismiss)
+                            .show(context);
+                }
+            });
         }
     }
 
@@ -131,7 +171,7 @@ public class LoginFragment extends BaseSwipeBackFragment {
 
         int dp16 = ScreenUtils.dp2pxInt(context, 16);
         KeyboardObserver.registerSoftInputChangedListener(_mActivity, view, height -> {
-            if (height > 0) {
+            if (height > 0 && getTopFragment() == LoginFragment.this) {
                 Rect rect = new Rect();
                 tvSubmit.getGlobalVisibleRect(rect);
                 float bottom = ScreenUtils.getScreenHeight(context) - rect.bottom - dp16;
@@ -145,26 +185,5 @@ public class LoginFragment extends BaseSwipeBackFragment {
         });
 
     }
-
-//    @Subscribe
-//    public void onSignInEvent(SignInEvent event) {
-//        if (event.isSuccess()) {
-//            ZToast.success("登录成功！");
-//            pop();
-//        }
-//    }
-
-//    @Subscribe
-//    public void onSignUpEvent(SignUpEvent event) {
-//        if (event.isSuccess()) {
-//            ZToast.success("注册成功，请输入账账户信息登录！");
-//            if (SupportHelper.getPreFragment(this) instanceof LoginFragment) {
-//                pop();
-//            } else {
-//                startWithPop(LoginFragment.newInstance(false));
-//            }
-//        }
-//    }
-
 
 }

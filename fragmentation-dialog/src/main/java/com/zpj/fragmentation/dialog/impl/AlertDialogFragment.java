@@ -61,22 +61,7 @@ public class AlertDialogFragment extends CenterDialogFragment
 
 
         if (contentView == null && !TextUtils.isEmpty(content)) {
-            TextView textView = new TextView(context);
-            textView.setText(content);
-            textView.setTextColor(DialogThemeUtils.getNormalTextColor(context));
-//        textView.setTextColor(context.getResources().getColor(R.color._xpopup_text_normal_color));
-            textView.setTextSize(14);
-            textView.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
-                @Override
-                public void onGlobalLayout() {
-                    textView.getViewTreeObserver().removeOnGlobalLayoutListener(this);
-                    int padding = ScreenUtils.dp2pxInt(context, 24);
-                    textView.setPadding(padding, padding, padding, padding);
-                }
-            });
-            textView.setMinHeight(ScreenUtils.dp2pxInt(context, 80));
-            textView.setLineSpacing(6, 1);
-            this.contentView = textView;
+            this.contentView = createContentView(content);
         }
 
         if (contentView != null) {
@@ -164,6 +149,24 @@ public class AlertDialogFragment extends CenterDialogFragment
                 dismiss();
             }
         }
+    }
+
+    protected View createContentView(CharSequence content) {
+        TextView textView = new TextView(context);
+        textView.setText(content);
+        textView.setTextColor(DialogThemeUtils.getNormalTextColor(context));
+        textView.setTextSize(14);
+        textView.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+            @Override
+            public void onGlobalLayout() {
+                textView.getViewTreeObserver().removeOnGlobalLayoutListener(this);
+                int padding = ScreenUtils.dp2pxInt(context, 24);
+                textView.setPadding(padding, padding, padding, padding);
+            }
+        });
+        textView.setMinHeight(ScreenUtils.dp2pxInt(context, 80));
+        textView.setLineSpacing(6, 1);
+        return textView;
     }
 
     protected void applyPrimaryColor() {

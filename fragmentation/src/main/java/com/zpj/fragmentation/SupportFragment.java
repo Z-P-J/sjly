@@ -487,6 +487,9 @@ public class SupportFragment extends Fragment implements ISupportFragment {
      * 得到位于栈顶Fragment
      */
     public ISupportFragment getTopFragment() {
+        if (getFragmentManager() == null) {
+            return null;
+        }
         return SupportHelper.getTopFragment(getFragmentManager());
     }
 

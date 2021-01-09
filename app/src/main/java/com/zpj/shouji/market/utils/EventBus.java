@@ -7,6 +7,7 @@ import com.zpj.fragmentation.dialog.IDialog;
 import com.zpj.rxbus.RxBus;
 import com.zpj.shouji.market.manager.UserManager;
 import com.zpj.shouji.market.model.AppDetailInfo;
+import com.zpj.toast.ZToast;
 
 import java.io.File;
 
@@ -31,6 +32,7 @@ public class EventBus {
     public static final String KEY_CROP_EVENT = "event_crop";
 
     public static final String KEY_SIGN_OUT_EVENT = "event_sign_out";
+    public static final String KEY_QQ_SIGN_IN = "event_qq_sign_in";
     public static final String KEY_SIGN_IN_EVENT = "event_sign_in";
     public static final String KEY_SIGN_UP_EVENT = "event_sign_up";
 
@@ -54,8 +56,20 @@ public class EventBus {
         RxBus.post(KEY_CROP_EVENT, file, isAvatar);
     }
 
+
+    public static void sendQQLoginEvent() {
+        RxBus.post(KEY_QQ_SIGN_IN);
+    }
+
     public static void onCropEvent(LifecycleOwner lifecycleOwner, RxBus.PairConsumer<File, Boolean> next) {
         RxBus.observe(lifecycleOwner, KEY_CROP_EVENT, File.class, Boolean.class)
+                .bindToLife(lifecycleOwner)
+                .doOnNext(next)
+                .subscribe();
+    }
+
+    public static void onQQLoginEvent(LifecycleOwner lifecycleOwner, Consumer<String> next) {
+        RxBus.observe(lifecycleOwner, KEY_QQ_SIGN_IN)
                 .bindToLife(lifecycleOwner)
                 .doOnNext(next)
                 .subscribe();

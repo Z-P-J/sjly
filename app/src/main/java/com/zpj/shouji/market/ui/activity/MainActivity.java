@@ -4,9 +4,7 @@ import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.graphics.Color;
 import android.os.Bundle;
-import android.provider.Settings;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.view.WindowManager;
@@ -21,7 +19,6 @@ import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.api.HttpPreLoader;
 import com.zpj.shouji.market.api.UploadImageApi;
 import com.zpj.shouji.market.constant.Actions;
-import com.zpj.shouji.market.constant.AppConfig;
 import com.zpj.shouji.market.manager.AppInstalledManager;
 import com.zpj.shouji.market.manager.AppUpdateManager;
 import com.zpj.shouji.market.manager.UserManager;
@@ -36,12 +33,24 @@ import com.zpj.utils.StatusBarUtils;
 
 import java.io.File;
 
-public class MainActivity extends BaseActivity {
+public class MainActivity extends BaseActivity { // implements IUiListener
 
     private MainFragment mainFragment;
 
     private FrameLayout flContainer;
 
+//    private Tencent tencent;
+//
+//    private Tencent getTencent() {
+//        if (tencent == null) {
+//            synchronized (MainActivity.class) {
+//                if (tencent == null) {
+//                    tencent = Tencent.createInstance("101925427", this);
+//                }
+//            }
+//        }
+//        return tencent;
+//    }
 
 
     @Override
@@ -49,7 +58,6 @@ public class MainActivity extends BaseActivity {
         ZDownloader.onDestroy();
         HttpPreLoader.getInstance().onDestroy();
         super.onDestroy();
-//        System.exit(0);
     }
 
     @Override
@@ -81,13 +89,23 @@ public class MainActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-//        EventBus.registerObserver(this, CropEvent.class, UploadImageApi::uploadCropImage);
         EventBus.onCropEvent(this, new RxBus.PairConsumer<File, Boolean>() {
             @Override
             public void onAccept(File file, Boolean isAvatar) throws Exception {
                 UploadImageApi.uploadCropImage(file, isAvatar);
             }
         });
+
+//        EventBus.onQQLoginEvent(this, s -> {
+//            if (AppUtils.isInstalled(MainActivity.this, "com.tencent.mobileqq")) {
+//                if (getTencent().isSessionValid()) {
+//                    getTencent().logout(MainActivity.this);
+//                }
+//                getTencent().login(MainActivity.this, "all", MainActivity.this);
+//            } else {
+//                ZToast.warning("未安装QQ应用！");
+//            }
+//        });
 
 
         flContainer = findViewById(R.id.fl_container);
@@ -96,20 +114,6 @@ public class MainActivity extends BaseActivity {
         BrightnessUtils.setBrightness(this);
 
         StatusBarUtils.transparentStatusBar(getWindow());
-
-//        ZDownloader.init(
-//                DownloaderConfig.with(MainActivity.this)
-//                        .setUserAgent("Sjly(3.0)")
-//                        .setNotificationInterceptor(new DownloadNotificationInterceptor())
-//                        .setConcurrentMissionCount(AppConfig.getMaxDownloadConcurrentCount())
-//                        .setEnableNotification(AppConfig.isShowDownloadNotification())
-//                        .setThreadPoolConfig(
-//                                ThreadPoolConfig.build()
-//                                        .setCorePoolSize(AppConfig.getMaxDownloadThreadCount())
-//                        )
-//                        .setDownloadPath(AppConfig.getDownloadPath()),
-//                AppDownloadMission.class
-//        );
 
         mainFragment = findFragment(MainFragment.class);
         if (mainFragment == null) {
@@ -137,6 +141,14 @@ public class MainActivity extends BaseActivity {
 //                ZToast.success("应用卸载成功！");
 //            } else if (resultCode == Activity.RESULT_CANCELED) {
 //                ZToast.normal("应用卸载取消！");
+//            }
+//        }
+
+//        //腾讯QQ回调
+//        Tencent.onActivityResultData(requestCode, resultCode, data, this);
+//        if (requestCode == Constants.REQUEST_API) {
+//            if (resultCode == Constants.REQUEST_LOGIN) {
+//                Tencent.handleResultData(data, this);
 //            }
 //        }
     }
@@ -204,82 +216,87 @@ public class MainActivity extends BaseActivity {
                 }).request();
     }
 
-//    @Subscribe
-//    public void onCropEvent(CropEvent event) {
-//        if (event.isAvatar()) {
-//            ShowLoadingEvent.post("上传头像...");
-//            try {
-//                HttpApi.uploadAvatarApi(event.getUri())
-//                        .onSuccess(doc -> {
-//                            Log.d("uploadAvatarApi", "data=" + doc);
-//                            String info = doc.selectFirst("info").text();
-//                            if ("success".equals(doc.selectFirst("result").text())) {
-////                                ZToast.success(info);
+
+//    @Override
+//    public void onComplete(Object o) {
+//        EventBus.showLoading("QQ第三方登录中...");
+//        JSONObject jsonObject = (JSONObject) o;
+//        Log.e("onComplete", "jsonObject: " + jsonObject.toString());
+//        try {
+//            //得到token、expires、openId等参数
+//            String token = jsonObject.getString(Constants.PARAM_ACCESS_TOKEN);
+//            String expires = jsonObject.getString(Constants.PARAM_EXPIRES_IN);
+//            String openId = jsonObject.getString(Constants.PARAM_OPEN_ID);
 //
-//                                UserManager.getInstance().getMemberInfo().setMemberAvatar(info);
-//                                UserManager.getInstance().saveUserInfo();
-//                                PictureUtil.saveAvatar(event.getUri(), new IHttp.OnSuccessListener<File>() {
-//                                    @Override
-//                                    public void onSuccess(File data) throws Exception {
-//                                        EventSender.sendImageUploadEvent(event);
-//                                    }
-//                                });
-//                            } else {
-//                                ZToast.error(info);
-//                            }
-//                            HideLoadingEvent.postDelayed(500);
-//                        })
-//                        .onError(throwable -> {
-//                            ZToast.error("上传头像失败！" + throwable.getMessage());
-//                            HideLoadingEvent.postDelayed(500);
-//                        })
-//                        .subscribe();
-//            } catch (Exception e) {
-//                e.printStackTrace();
-//                ZToast.error("上传头像失败！" + e.getMessage());
-//                HideLoadingEvent.postDelayed(500);
-//            }
-//        } else {
-//            ShowLoadingEvent.post("上传背景...");
-//            try {
-//                HttpApi.uploadBackgroundApi(event.getUri())
-//                        .onSuccess(doc -> {
-//                            Log.d("uploadBackgroundApi", "data=" + doc);
-//                            String info = doc.selectFirst("info").text();
-//                            if ("success".equals(doc.selectFirst("result").text())) {
-//                                UserManager.getInstance().getMemberInfo().setMemberBackGround(info);
-//                                UserManager.getInstance().saveUserInfo();
-//                                PictureUtil.saveBackground(event.getUri(), data -> EventSender.sendImageUploadEvent(event));
-//                            } else {
-//                                ZToast.error(info);
-//                            }
-//                            HideLoadingEvent.postDelayed(500);
-//                        })
-//                        .onError(throwable -> {
-//                            Log.d("uploadBackgroundApi", "throwable.msg=" + throwable.getMessage());
-//                            throwable.printStackTrace();
-//                            ZToast.error("上传背景失败！" + throwable.getMessage());
-//                            HideLoadingEvent.postDelayed(500);
-//                        })
-//                        .subscribe();
-//            } catch (Exception e) {
-//                e.printStackTrace();
-//                Log.d("uploadBackgroundApi", "e.msg=" + e.getMessage());
-//                ZToast.error("上传背景失败！" + e.getMessage());
-//                HideLoadingEvent.postDelayed(500);
-//            }
+//            getTencent().setAccessToken(token, expires);
+//            getTencent().setOpenId(openId);
+//            Log.e("onComplete", "token: " + token);
+//            Log.e("onComplete", "expires: " + expires);
+//            Log.e("onComplete", "openId: " + openId);
+//
+//            //获取个人信息
+//            getQQInfo();
+//        } catch (Exception e) {
 //        }
 //    }
-
-    private float getSystemBrightness(){
-        int screenBrightness=255;
-        try{
-            screenBrightness = Settings.System.getInt(getContentResolver(), Settings.System.SCREEN_BRIGHTNESS);
-        } catch (Exception e){
-            e.printStackTrace();
-        }
-        return (float) screenBrightness / 255 * 100;
-    }
-
+//
+//    @Override
+//    public void onError(UiError uiError) {
+//        ZToast.error("QQ登录失败！" + uiError.errorMessage);
+//    }
+//
+//    @Override
+//    public void onCancel() {
+//        ZToast.warning("QQ登录取消");
+//    }
+//
+//    @Override
+//    public void onWarning(int i) {
+//
+//    }
+//
+//
+//    private void getQQInfo() {
+//        //获取基本信息
+//        QQToken qqToken = getTencent().getQQToken();
+//        UserInfo info = new UserInfo(this, qqToken);
+//        info.getUserInfo(new IUiListener() {
+//            @Override
+//            public void onComplete(Object object) {
+//                Log.e("onComplete", "个人信息：" + object.toString());
+//
+//                try {
+//                    JSONObject userInfo = (JSONObject) object;
+//                    String nickName = userInfo.getString("nickname");
+//                    String logo1 = userInfo.getString("figureurl_qq_1");
+//                    String logo2 = userInfo.getString("figureurl_qq_2");
+//                    Log.d("onComplete", "openId=" + getTencent().getOpenId().trim());
+//                    Log.d("onComplete", "nickname=" + nickName);
+//                    Log.d("onComplete", "logo1=" + logo1);
+//                    Log.d("onComplete", "logo1=" + logo2);
+//                    UserManager.getInstance().signInByQQ(getTencent().getOpenId(), nickName, logo1, logo2);
+//                } catch (JSONException e) {
+//                    e.printStackTrace();
+//                    EventBus.hideLoading();
+//                    ZToast.error("QQ登录失败！" + e.getMessage());
+//                }
+//
+//            }
+//
+//            @Override
+//            public void onError(UiError uiError) {
+//                ZToast.error("QQ登录失败！" + uiError.errorMessage);
+//            }
+//
+//            @Override
+//            public void onCancel() {
+//            }
+//
+//            @Override
+//            public void onWarning(int i) {
+//
+//            }
+//        });
+//    }
 
 }
