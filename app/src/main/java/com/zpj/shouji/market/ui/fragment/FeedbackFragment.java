@@ -19,7 +19,7 @@ import com.zpj.shouji.market.imagepicker.ImagePicker;
 import com.zpj.shouji.market.imagepicker.LocalImageViewer;
 import com.zpj.shouji.market.imagepicker.entity.Item;
 import com.zpj.shouji.market.ui.fragment.base.BaseSwipeBackFragment;
-import com.zpj.shouji.market.ui.widget.NineGridView;
+import com.zpj.shouji.market.ui.widget.ninegrid.NineGridView;
 import com.zpj.shouji.market.ui.widget.flowlayout.FlowLayout;
 import com.zpj.toast.ZToast;
 import com.zpj.utils.AppUtils;

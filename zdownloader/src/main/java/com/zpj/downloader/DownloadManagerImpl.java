@@ -182,7 +182,7 @@ public class DownloadManagerImpl implements DownloadManager {
                                         if (mission == null) {
                                             continue;
                                         }
-                                        mission.init();
+//                                        mission.init();
                                         insertMission(mission);
                                     } catch (IOException | ClassNotFoundException e) {
                                         e.printStackTrace();

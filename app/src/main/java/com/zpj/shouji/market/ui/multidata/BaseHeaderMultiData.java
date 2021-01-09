@@ -19,6 +19,11 @@ public abstract class BaseHeaderMultiData<T> extends HeaderMultiData<T>
     }
 
     @Override
+    public int getChildCount() {
+        return super.getChildCount();
+    }
+
+    @Override
     public int getHeaderLayoutId() {
         return R.layout.item_header_title;
     }

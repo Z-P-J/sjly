@@ -50,7 +50,7 @@ public class SearchApi {
     }
 
     public static void getQuickApi(String keyword, Callback<List<QuickAppInfo>> callback) {
-        HttpApi.getXml("http://tt.shouji.com.cn/androidv4/app_search_quick_xml.jsp?s=" + keyword)
+        HttpApi.getHtml("http://tt.shouji.com.cn/androidv4/app_search_quick_xml.jsp?s=" + keyword)
                 .onSuccess(data -> {
                     List<QuickAppInfo> list = new ArrayList<>();
                     for (Element item : data.select("item")) {

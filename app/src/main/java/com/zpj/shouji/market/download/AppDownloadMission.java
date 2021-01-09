@@ -74,6 +74,7 @@ public class AppDownloadMission extends BaseMission<AppDownloadMission> {
                         }
                         originUrl = url;
                         length = Long.parseLong(data.selectFirst("size").text());
+                        Log.d("AppDownloadMission", "length=" + length);
                         AppDownloadMission.super.initMission();
                     })
                     .onError(new IHttp.OnErrorListener() {

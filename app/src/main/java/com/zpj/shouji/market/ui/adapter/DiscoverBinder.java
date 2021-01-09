@@ -41,7 +41,7 @@ import com.zpj.shouji.market.ui.fragment.theme.TopicThemeListFragment;
 import com.zpj.shouji.market.ui.widget.CombineImageView;
 import com.zpj.shouji.market.ui.widget.DownloadButton;
 import com.zpj.shouji.market.ui.widget.DrawableTintTextView;
-import com.zpj.shouji.market.ui.widget.NineGridView;
+import com.zpj.shouji.market.ui.widget.ninegrid.NineGridView;
 import com.zpj.shouji.market.ui.widget.emoji.EmojiExpandableTextView;
 import com.zpj.toast.ZToast;
 import com.zpj.utils.NetUtils;

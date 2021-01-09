@@ -11,6 +11,7 @@ import com.zpj.downloader.DownloadManager;
 import com.zpj.downloader.DownloadMission;
 import com.zpj.downloader.ZDownloader;
 import com.zpj.downloader.constant.Error;
+import com.zpj.shouji.market.api.HttpApi;
 import com.zpj.shouji.market.download.AppDownloadMission;
 import com.zpj.shouji.market.manager.UserManager;
 import com.zpj.shouji.market.model.AppInfo;
@@ -300,6 +301,7 @@ public class DownloadButton extends AppCompatTextView
             mission = AppDownloadMission.create(appId, appName, packageName, appType, isShareApp);
             mission.setAppIcon(appIcon)
                     .setCookie(UserManager.getInstance().getCookie())
+                    .setUserAgent(HttpApi.USER_AGENT)
                     .addListener(this)
                     .start();
 //            mission.setAppIcon(appIcon);

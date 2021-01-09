@@ -10,9 +10,7 @@
         <option name="modules">
           <set>
             <option value="$PROJECT_DIR$" />
-            <option value="$PROJECT_DIR$/StateManager" />
             <option value="$PROJECT_DIR$/app" />
-            <option value="$PROJECT_DIR$/chameleon" />
             <option value="$PROJECT_DIR$/emojilib" />
             <option value="$PROJECT_DIR$/expandabletextview" />
             <option value="$PROJECT_DIR$/fragmentation" />

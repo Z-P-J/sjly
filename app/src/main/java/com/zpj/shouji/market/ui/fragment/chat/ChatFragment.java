@@ -33,7 +33,7 @@ import com.zpj.shouji.market.ui.fragment.base.NextUrlFragment;
 import com.zpj.shouji.market.ui.fragment.dialog.BottomListMenuDialogFragment;
 import com.zpj.shouji.market.ui.fragment.dialog.CommonImageViewerDialogFragment2;
 import com.zpj.shouji.market.ui.fragment.profile.ProfileFragment;
-import com.zpj.shouji.market.ui.widget.NineGridView;
+import com.zpj.shouji.market.ui.widget.ninegrid.NineGridView;
 import com.zpj.shouji.market.ui.widget.ReplyPanel;
 import com.zpj.shouji.market.utils.BeanUtils;
 import com.zpj.toast.ZToast;

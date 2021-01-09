@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.zpj.shouji.market.ui.widget.NineGridView
+<com.zpj.shouji.market.ui.widget.ninegrid.NineGridView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/nine_grid_view"
@@ -12,4 +12,4 @@
 
 <!--    app:bigPictureMaxHeight="240dp"-->
 
-</com.zpj.shouji.market.ui.widget.NineGridView>
+</com.zpj.shouji.market.ui.widget.ninegrid.NineGridView>

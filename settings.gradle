@@ -7,9 +7,5 @@ include ':app',
         ':emojilib',
         ':expandabletextview',
         ':fragmentation',
-        ':fragmentation-dialog',
-//        ':fragmentation-matisse',
-//        ':fragmentation-ucrop',
-        ':chameleon',
-        ':StateManager'
+        ':fragmentation-dialog'
 //        ':zhttp'

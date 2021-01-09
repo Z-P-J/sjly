@@ -1,11 +1,11 @@
 package com.zpj.shouji.market;
 
-import android.app.Application;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.StrictMode;
+import android.support.multidex.MultiDexApplication;
 import android.util.Log;
 import android.widget.ImageView;
 
@@ -30,7 +30,7 @@ import com.zxy.skin.sdk.applicator.SkinViewApplicator;
 import io.reactivex.functions.Consumer;
 import io.reactivex.plugins.RxJavaPlugins;
 
-public class BaseApplication extends Application {
+public class BaseApplication extends MultiDexApplication {
 
     @Override
     public void onCreate() {
@@ -56,6 +56,16 @@ public class BaseApplication extends Application {
         MCrashMonitor.init(this, true, file -> {
 //                MCrashMonitor.startCrashShowPage(getContext());
         });
+
+//        String fileProvider = FileUtils.getFileProviderName(this);
+//        // 微信设置
+//        PlatformConfig.setWeixin("wxdc1e388c3822c80b", "3baf1193c85774b3fd9d18447d76cab0");
+//        PlatformConfig.setWXFileProvider(fileProvider);
+//        // QQ设置
+//        PlatformConfig.setQQZone("101830139", "5d63ae8858f1caab67715ccd6c18d7a5");
+//        PlatformConfig.setQQFileProvider(fileProvider);
+
+
         FlowManager.init(this);
 
         ZHttp.config()

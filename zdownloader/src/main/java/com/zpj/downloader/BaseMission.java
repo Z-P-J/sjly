@@ -178,54 +178,55 @@ public class BaseMission<T extends BaseMission<T>> extends BaseConfig<T> impleme
     protected void initMission() {
         notifyStatus(missionStatus);
         Log.d(TAG, "init url=" + url);
-        ZHttp.head(url)
-                .proxy(Proxy.NO_PROXY)
+        ZHttp.get(url)
+//                .proxy(Proxy.NO_PROXY)
                 .userAgent(getUserAgent())
                 .cookie(getCookie())
-                .accept("*/*")
+//                .accept("*/*")
                 .referer(url)
                 .headers(getHeaders())
 //                .connection("close")
-//                .range("bytes=0-")
-                .header("Pragma", "no-cache")
-                .header("Cache-Control", "no-cache")
-                .acceptEncoding("identity")
+                .range("bytes=0-")
+//                .header("Pragma", "no-cache")
+//                .header("Cache-Control", "no-cache")
+//                .acceptEncoding("identity")
                 .connectTimeout(getConnectOutTime())
                 .readTimeout(getReadOutTime())
                 .ignoreContentType(true)
                 .ignoreHttpErrors(false)
                 .maxBodySize(0)
                 .execute()
-                .onNext(new HttpObserver.OnNextListener<IHttp.Response, IHttp.Response>() {
-                    @Override
-                    public HttpObserver<IHttp.Response> onNext(IHttp.Response res) {
-                        if (handleResponse(res, BaseMission.this)) {
-                            Log.d(TAG, "handleResponse--111");
-                            return null;
-                        }
-//                        Log.d(TAG, "init onNext--new Task");
-                        return ZHttp.get(url)
-                                .proxy(Proxy.NO_PROXY)
-                                .userAgent(getUserAgent())
-                                .cookie(getCookie())
-//                                .accept("*/*")
-                                .referer(url)
-//                                .range("bytes=0-")
-                                .header(HttpHeader.RANGE, "bytes=0-")
-                                .header("Pragma", "no-cache")
-                                .header("Cache-Control", "no-cache")
-                                .header("Access-Control-Expose-Headers", "Content-Disposition")
-                                .acceptEncoding("identity")
-                                .headers(getHeaders())
-//                                .connection("close")
-                                .connectTimeout(getConnectOutTime())
-                                .readTimeout(getReadOutTime())
-                                .ignoreContentType(true)
-                                .ignoreHttpErrors(false)
-                                .maxBodySize(0)
-                                .execute();
-                    }
-                })
+                .observeOn(Schedulers.io())
+//                .onNext(new HttpObserver.OnNextListener<IHttp.Response, IHttp.Response>() {
+//                    @Override
+//                    public HttpObserver<IHttp.Response> onNext(IHttp.Response res) {
+//                        if (handleResponse(res, BaseMission.this)) {
+//                            Log.d(TAG, "handleResponse--111");
+//                            return null;
+//                        }
+////                        Log.d(TAG, "init onNext--new Task");
+//                        return ZHttp.get(url)
+//                                .proxy(Proxy.NO_PROXY)
+//                                .userAgent(getUserAgent())
+//                                .cookie(getCookie())
+////                                .accept("*/*")
+//                                .referer(url)
+////                                .range("bytes=0-")
+//                                .header(HttpHeader.RANGE, "bytes=0-")
+//                                .header("Pragma", "no-cache")
+//                                .header("Cache-Control", "no-cache")
+//                                .header("Access-Control-Expose-Headers", "Content-Disposition")
+//                                .acceptEncoding("identity")
+//                                .headers(getHeaders())
+////                                .connection("close")
+//                                .connectTimeout(getConnectOutTime())
+//                                .readTimeout(getReadOutTime())
+//                                .ignoreContentType(true)
+//                                .ignoreHttpErrors(false)
+//                                .maxBodySize(0)
+//                                .execute();
+//                    }
+//                })
                 .onSuccess(new IHttp.OnSuccessListener<IHttp.Response>() {
                     @Override
                     public void onSuccess(IHttp.Response res) throws Exception {
@@ -288,6 +289,7 @@ public class BaseMission<T extends BaseMission<T>> extends BaseConfig<T> impleme
                         Log.d(TAG, "storage=" + FileUtils.getAvailableSize());
                         hasInit = true;
 
+                        saveMissionInfo();
                         start();
                     }
                 })
@@ -398,24 +400,34 @@ public class BaseMission<T extends BaseMission<T>> extends BaseConfig<T> impleme
         if (isFinished()) {
             return;
         }
-        pause();
         if (hasInit) {
             for (long position = 0; position < getBlocks(); position++) {
                 if (!queue.contains(position) && !finished.contains(position)) {
                     queue.add(position);
                 }
             }
-            pause();
+//            pause();
+        }
+        if (canPause()) {
+            missionStatus = MissionStatus.PAUSE;
+            try {
+                saveMissionInfo();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
     }
 
     public void start() {
+        init();
+        Log.d(TAG, "start hasInit=" + hasInit);
         if (!hasInit) {
             currentRetryCount = getRetryCount();
             threadCount = getProducerThreadCount();
             DownloadManagerImpl.getInstance().insertMission(this);
 //            init();
             writeMissionInfo();
+            Log.d(TAG, "start hasInit=false initMission");
             initMission();
             return;
         }
@@ -428,14 +440,15 @@ public class BaseMission<T extends BaseMission<T>> extends BaseConfig<T> impleme
             }
 
             if (fallback) {
-                if (isPause() || isError()) {
-                    missionStatus = MissionStatus.INITING;
-                    redirectUrl = "";
-                    url = originUrl;
-//                    threadPoolExecutor.submit(initRunnable);
-                    initMission();
-                    return;
-                }
+//                if (isPause() || isError()) {
+//                    missionStatus = MissionStatus.INITING;
+//                    redirectUrl = "";
+//                    url = originUrl;
+////                    threadPoolExecutor.submit(initRunnable);
+//                    Log.d(TAG, "start hasInit=true fallback initMission");
+//                    initMission();
+//                    return;
+//                }
                 // In fallback mode, resuming is not supported.
 //                missionConfig.getThreadPoolConfig().setCorePoolSize(1);
                 threadCount = 1;
@@ -839,13 +852,7 @@ public class BaseMission<T extends BaseMission<T>> extends BaseConfig<T> impleme
                 new ObservableOnSubscribe<Object>() {
                     @Override
                     public void subscribe(@io.reactivex.annotations.NonNull ObservableEmitter<Object> emitter) throws Exception {
-                        synchronized (BaseMission.class) {
-                            BufferedOutputStream fileOut = new BufferedOutputStream(new FileOutputStream(getMissionInfoFilePath()));
-                            ObjectOutputStream out = new ObjectOutputStream(fileOut);
-                            out.writeObject(BaseMission.this);
-                            out.close();
-                            fileOut.close();
-                        }
+                        saveMissionInfo();
 //                        String json = getGson().toJson(BaseMission.this);
 //                        Log.d(TAG, "writeMissionInfo json=" + json);
 //                        FileUtils.writeToFile(getMissionInfoFilePath(), json);
@@ -854,6 +861,16 @@ public class BaseMission<T extends BaseMission<T>> extends BaseConfig<T> impleme
                 })
                 .subscribeOn(Schedulers.io())
                 .subscribe();
+    }
+
+    private void saveMissionInfo() throws Exception {
+        synchronized (BaseMission.class) {
+            BufferedOutputStream fileOut = new BufferedOutputStream(new FileOutputStream(getMissionInfoFilePath()));
+            ObjectOutputStream out = new ObjectOutputStream(fileOut);
+            out.writeObject(BaseMission.this);
+            out.close();
+            fileOut.close();
+        }
     }
 
     private void deleteMissionInfo() {
