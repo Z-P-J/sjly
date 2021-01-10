@@ -7,7 +7,9 @@ import com.zpj.fragmentation.dialog.IDialog;
 import com.zpj.rxbus.RxBus;
 import com.zpj.shouji.market.manager.UserManager;
 import com.zpj.shouji.market.model.AppDetailInfo;
+import com.zpj.shouji.market.ui.activity.MainActivity;
 import com.zpj.toast.ZToast;
+import com.zpj.utils.Callback;
 
 import java.io.File;
 
@@ -42,6 +44,34 @@ public class EventBus {
 
     public static void post(Object o, long delay) {
         RxBus.postDelayed(o, delay);
+    }
+
+    private static class GetActivityEvent {
+
+        private final Callback<MainActivity> callback;
+
+        private GetActivityEvent(Callback<MainActivity> callback) {
+            this.callback = callback;
+        }
+
+    }
+
+    public static void getActivity(Callback<MainActivity> callback) {
+        RxBus.post(new GetActivityEvent(callback));
+    }
+
+    public static void onGetActivityEvent(MainActivity mainActivity) {
+        RxBus.observe(mainActivity, GetActivityEvent.class)
+                .bindToLife(mainActivity)
+                .doOnNext(new Consumer<GetActivityEvent>() {
+                    @Override
+                    public void accept(GetActivityEvent event) throws Exception {
+                        if (event.callback != null) {
+                            event.callback.onCallback(mainActivity);
+                        }
+                    }
+                })
+                .subscribe();
     }
 
     public static void sendFabEvent(boolean isShow) {

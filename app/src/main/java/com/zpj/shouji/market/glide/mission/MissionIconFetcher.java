@@ -1,4 +1,4 @@
-package com.zpj.shouji.market.glide.apk;
+package com.zpj.shouji.market.glide.mission;
 
 
 import android.content.Context;
@@ -8,11 +8,15 @@ import android.graphics.PixelFormat;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.support.annotation.NonNull;
+import android.text.TextUtils;
 
+import com.bumptech.glide.Glide;
 import com.bumptech.glide.Priority;
 import com.bumptech.glide.load.DataSource;
 import com.bumptech.glide.load.data.DataFetcher;
+import com.zpj.rxlife.RxLife;
 import com.zpj.shouji.market.R;
+import com.zpj.shouji.market.download.AppDownloadMission;
 import com.zpj.shouji.market.model.InstalledAppInfo;
 import com.zpj.utils.AppUtils;
 
@@ -27,14 +31,14 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 
-public class ApkIconFetcher implements DataFetcher<InputStream> {
+public class MissionIconFetcher implements DataFetcher<InputStream> {
 
-    private final InstalledAppInfo installedAppInfo;
+    private final AppDownloadMission downloadMission;
     private final Context context;
 
-    public ApkIconFetcher(Context context, InstalledAppInfo installedAppInfo){
+    public MissionIconFetcher(Context context, AppDownloadMission downloadMission){
         this.context = context;
-        this.installedAppInfo = installedAppInfo;
+        this.downloadMission = downloadMission;
     }
 
     @Override
@@ -42,17 +46,16 @@ public class ApkIconFetcher implements DataFetcher<InputStream> {
         Observable.create(
                 (ObservableOnSubscribe<InputStream>) emitter -> {
                     Drawable d = null;
-                    if (installedAppInfo.isTempInstalled()) {
-                        d = AppUtils.getAppIcon(context, installedAppInfo.getPackageName());
-                    } else if (installedAppInfo.isTempXPK()){
-                        d = AppUtils.getApkIcon(context, installedAppInfo.getApkFilePath());
+                    if (!TextUtils.isEmpty(downloadMission.getAppIcon())) {
+                        d = Glide.with(context).asDrawable().load(downloadMission.getAppIcon()).submit().get();
+                    } else if (downloadMission.isFinished()) {
+                        d = AppUtils.getApkIcon(context, downloadMission.getFilePath());
+                    } else if (downloadMission.isInstalled()) {
+                        d = AppUtils.getAppIcon(context, downloadMission.getPackageName());
                     }
-                    if (d == null){
+                    if (d == null) {
                         d = context.getResources().getDrawable(R.drawable.ic_file_apk);
-                        callback.onLoadFailed(new Exception("Not Support!"));
-                        return;
                     }
-
                     Bitmap iconBitmap;
                     if (d instanceof BitmapDrawable) {
                         iconBitmap = ((BitmapDrawable) d).getBitmap();
@@ -70,17 +73,17 @@ public class ApkIconFetcher implements DataFetcher<InputStream> {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Observer<InputStream>() {
                     @Override
-                    public void onSubscribe(Disposable d) {
+                    public void onSubscribe(@NonNull Disposable d) {
 
                     }
 
                     @Override
-                    public void onNext(InputStream inputStream) {
+                    public void onNext(@NonNull InputStream inputStream) {
                         callback.onDataReady(inputStream);
                     }
 
                     @Override
-                    public void onError(Throwable e) {
+                    public void onError(@NonNull Throwable e) {
                         e.printStackTrace();
                         callback.onLoadFailed(new Exception(e));
                     }
@@ -91,7 +94,7 @@ public class ApkIconFetcher implements DataFetcher<InputStream> {
                     }
                 });
     }
-    // 将Bitmap转换成InputStream
+    
     private InputStream bitmap2InputStream(Bitmap bm) {
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         bm.compress(Bitmap.CompressFormat.PNG, 100, baos);

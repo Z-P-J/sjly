@@ -64,17 +64,17 @@
 <!--            android:screenOrientation="behind"-->
 <!--            android:theme="@android:style/Theme.Translucent.NoTitleBar" />-->
 
-        <receiver
-            android:name="com.zpj.shouji.market.receiver.AppReceiver"
-            android:label="@string/app_name">
-            <intent-filter>
-                <action android:name="android.intent.action.PACKAGE_ADDED" />
-                <action android:name="android.intent.action.PACKAGE_REPLACED" />
-                <action android:name="android.intent.action.PACKAGE_REMOVED" />
+<!--        <receiver-->
+<!--            android:name="com.zpj.shouji.market.receiver.AppReceiver"-->
+<!--            android:label="@string/app_name">-->
+<!--            <intent-filter>-->
+<!--                <action android:name="android.intent.action.PACKAGE_ADDED" />-->
+<!--                <action android:name="android.intent.action.PACKAGE_REPLACED" />-->
+<!--                <action android:name="android.intent.action.PACKAGE_REMOVED" />-->
 
-                <data android:scheme="package" />
-            </intent-filter>
-        </receiver>
+<!--                <data android:scheme="package" />-->
+<!--            </intent-filter>-->
+<!--        </receiver>-->
 
         <service
             android:name=".installer.InstallAccessibilityService"

@@ -231,55 +231,6 @@ public class HomeFragment extends SkinFragment {
                         }
                     });
                     return titleView;
-
-//                    CommonPagerTitleView commonPagerTitleView = new CommonPagerTitleView(context);
-//                    View customLayout = LayoutInflater.from(context).inflate(R.layout.layout_pager_title, null);
-//                    ImageView ivTitle = customLayout.findViewById(R.id.iv_title);
-//                    ivTitle.setImageResource(TAB_IMAGES[index]);
-//                    commonPagerTitleView.setContentView(customLayout);
-//                    commonPagerTitleView.setOnPagerTitleChangeListener(new CommonPagerTitleView.OnPagerTitleChangeListener() {
-//                        @Override
-//                        public void onSelected(int index, int totalCount) {
-//                            ivTitle.setColorFilter(context.getResources().getColor(R.color.colorPrimary));
-//                        }
-//
-//                        @Override
-//                        public void onDeselected(int index, int totalCount) {
-//                            ivTitle.setColorFilter(context.getResources().getColor(R.color.color_text_normal));
-//                        }
-//
-//                        @Override
-//                        public void onLeave(int index, int totalCount, float leavePercent, boolean leftToRight) {
-//                            float scale = 1.2f + (0.8f - 1.2f) * leavePercent;
-//                            customLayout.setScaleX(scale);
-//                            customLayout.setScaleY(scale);
-//                        }
-//
-//                        @Override
-//                        public void onEnter(int index, int totalCount, float enterPercent, boolean leftToRight) {
-//                            float scale = 0.8f + (1.2f - 0.8f) * enterPercent;
-//                            customLayout.setScaleX(scale);
-//                            customLayout.setScaleY(scale);
-//                        }
-//                    });
-//
-//                    commonPagerTitleView.setOnClickListener(new View.OnClickListener() {
-//                        @Override
-//                        public void onClick(View v) {
-//                            viewPager.setCurrentItem(index);
-//                        }
-//                    });
-//                    return commonPagerTitleView;
-
-
-
-//                    ColorChangePagerTitleView titleView = new ColorChangePagerTitleView(context);
-//                    titleView.setNormalColor(context.getResources().getColor(R.color.color_text_normal));
-//                    titleView.setSelectedColor(context.getResources().getColor(R.color.colorPrimary));
-//                    titleView.setTextSize(14);
-//                    titleView.setText(TAB_TITLES[index]);
-//                    titleView.setOnClickListener(view1 -> viewPager.setCurrentItem(index, true));
-//                    return titleView;
                 })
                 .build();
 

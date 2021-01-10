@@ -124,7 +124,7 @@ public class CollectionDetailFragment extends StateSwipeBackFragment
         TextView tvToolbarName = toolbar.findViewById(R.id.toolbar_name);
 
         View header = view.findViewById(R.id.layout_header);
-        AppBarLayout appBarLayout = view.findViewById(R.id.appbar);
+        AppBarLayout appBarLayout = findViewById(R.id.appbar);
         appBarLayout.addOnOffsetChangedListener((appBarLayout1, i) -> {
             float alpha = (float) Math.abs(i) / appBarLayout1.getTotalScrollRange();
             alpha = Math.min(1f, alpha);

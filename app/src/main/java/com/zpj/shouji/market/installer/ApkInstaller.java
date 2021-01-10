@@ -1,7 +1,10 @@
 package com.zpj.shouji.market.installer;
 
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Build;
 import android.provider.Settings;
@@ -9,6 +12,7 @@ import android.support.v4.content.FileProvider;
 import android.text.TextUtils;
 import android.util.Log;
 
+import com.zpj.notification.ZNotify;
 import com.zpj.utils.FileUtils;
 
 import java.io.BufferedReader;
@@ -27,29 +31,32 @@ import io.reactivex.schedulers.Schedulers;
  * @author Z-P-J
  * 参考AutoInstaller库
  */
-public class ZApkInstaller {
+public class ApkInstaller {
 
     private static final String TAG = "ZInstaller";
 
-    private Context mContext;
+    private final Context mContext;
+
+    private String appName;
+    private String packageName;
 
     private InstallMode mInstallMode;
     private InstallerListener mInstallerListener;
 
-    public static ZApkInstaller with(Context context) {
-        return new ZApkInstaller(context);
+    public static ApkInstaller with(Context context) {
+        return new ApkInstaller(context);
     }
 
-    private ZApkInstaller(Context context) {
+    private ApkInstaller(Context context) {
         this.mContext = context;
     }
 
-    public ZApkInstaller setInstallMode(InstallMode installMode) {
+    public ApkInstaller setInstallMode(InstallMode installMode) {
         this.mInstallMode = installMode;
         return this;
     }
 
-    public ZApkInstaller setInstallerListener(InstallerListener installerListener) {
+    public ApkInstaller setInstallerListener(InstallerListener installerListener) {
         this.mInstallerListener = installerListener;
         return this;
     }
@@ -59,49 +66,116 @@ public class ZApkInstaller {
     }
 
     public void install(File file) {
+        if (mInstallerListener != null) {
+            mInstallerListener.onStart();
+        }
+        try {
+            if (file == null || !file.exists()) {
+                onError(new Throwable("file is not exists!"));
+                return;
+            }
+            PackageManager pm = mContext.getPackageManager();
+            PackageInfo info = pm.getPackageArchiveInfo(file.getAbsolutePath(), PackageManager.GET_ACTIVITIES);
+            appName = String.valueOf(pm.getApplicationLabel(info.applicationInfo));
+            packageName = info.packageName;
+            if (TextUtils.isEmpty(packageName)) {
+                onError(new Throwable("The package name is null!"));
+                return;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            onError(e);
+            return;
+        }
+
         Observable.create(
                 (ObservableOnSubscribe<Integer>) emitter -> {
-                    emitter.onNext(1);
                     switch (mInstallMode) {
                         case AUTO:
 //                            Log.d(TAG, "checkRooted=" + Utils.checkRooted());
-                            if (!installRoot(file)) { // !Utils.checkRooted() ||
+//                            if (!installRoot(file)) { // !Utils.checkRooted() ||
+//                                installAS(file, emitter);
+//                            }
+
+                            try {
+                                installRoot(file);
+                            } catch (Throwable e) {
+                                e.printStackTrace();
+                                ZNotify.cancel(packageName.hashCode());
                                 installAS(file, emitter);
                             }
                             break;
                         case ROOT:
-                            installRoot(file);
+                            try {
+                                installRoot(file);
+                            } catch (Throwable e) {
+                                e.printStackTrace();
+                                ZNotify.with(mContext)
+                                        .buildNotify()
+                                        .setContentTitle("Root安装失败")
+                                        .setContentText(appName + "Root安装失败！" + e.getMessage())
+                                        .setId(packageName.hashCode())
+                                        .show();
+                                emitter.onError(e);
+                                emitter.onComplete();
+                                return;
+                            }
+//                            if (!installRoot(file)) {
+//                                emitter.onNext(0);
+//                            }
                             break;
                         case ACCESSIBILITY:
                             installAS(file, emitter);
                             break;
                         case NORMAL:
+                            installNormally(file);
                             break;
                     }
-                    emitter.onNext(0);
+//                    emitter.onNext(0);
                     emitter.onComplete();
                 })
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .doOnNext(integer -> {
-                    if (mInstallerListener != null) {
-                        switch (integer) {
-                            case 0:
-                                mInstallerListener.onComplete();
-                                break;
-                            case 1:
-                                mInstallerListener.onStart();
-                                break;
-                            case 3:
-                                mInstallerListener.onNeed2OpenService();
-                                break;
-                            case 4:
-                                mInstallerListener.onNeedInstallPermission();
-                                break;
-                        }
+                    switch (integer) {
+                        case 0:
+                            onComplete();
+                            break;
+                        case 3:
+                            onNeed2OpenService();
+                            break;
+                        case 4:
+                            onNeedInstallPermission();
+                            break;
                     }
+
                 })
+                .doOnError(this::onError)
                 .subscribe();
+    }
+
+    private void onComplete() {
+        if (mInstallerListener != null) {
+            mInstallerListener.onComplete();
+        }
+    }
+
+    private void onError(Throwable throwable) {
+        if (mInstallerListener != null) {
+            mInstallerListener.onError(throwable);
+        }
+    }
+
+    private void onNeed2OpenService() {
+        if (mInstallerListener != null) {
+            mInstallerListener.onNeed2OpenService();
+        }
+    }
+
+    private void onNeedInstallPermission() {
+        if (mInstallerListener != null) {
+            mInstallerListener.onNeedInstallPermission();
+        }
     }
 
     private void installAS(File file, ObservableEmitter<Integer> emitter) {
@@ -112,18 +186,22 @@ public class ZApkInstaller {
             boolean b = mContext.getPackageManager().canRequestPackageInstalls();
             if (!b) {
                 emitter.onNext(4);
-                Uri packageURI = Uri.parse("package:"+mContext.getPackageName());
+                Uri packageURI = Uri.parse("package:" + mContext.getPackageName());
                 Intent intent = new Intent(Settings.ACTION_MANAGE_UNKNOWN_APP_SOURCES, packageURI);
                 mContext.startActivity(intent);
                 return;
             }
         }
 
-//        File file = new File(filePath);
-        if (!file.exists()) {
-            Log.e(TAG, "apk file not exists, path: " + file.getAbsolutePath());
-            return;
+        installNormally(file);
+
+        if (!isAccessibilitySettingsOn(mContext)) {
+            toAccessibilityService();
+            emitter.onNext(3);
         }
+    }
+
+    private void installNormally(File file) {
         Uri uri = Uri.fromFile(file);
         Intent intent = new Intent(Intent.ACTION_VIEW);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
@@ -136,17 +214,18 @@ public class ZApkInstaller {
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         }
         mContext.startActivity(intent);
-        if (!isAccessibilitySettingsOn(mContext)) {
-            toAccessibilityService();
-            emitter.onNext(3);
-        }
     }
 
-    private boolean installRoot(File file) {
+    private void installRoot(File file) throws Throwable {
         Log.d(TAG, "installUseRoot");
         if (file == null)
-            throw new IllegalArgumentException("Please check apk file!");
-        boolean result = false;
+            throw new IllegalArgumentException("The apk file is not exists!");
+        ZNotify.with(mContext)
+                .buildNotify()
+                .setContentTitle("Root安装")
+                .setContentText("开始Root静默安装" + appName + "应用")
+                .setId(packageName.hashCode())
+                .show();
         Process process = null;
         OutputStream outputStream = null;
         BufferedReader errorStream = null;
@@ -166,14 +245,18 @@ public class ZApkInstaller {
             while ((line = errorStream.readLine()) != null) {
                 msg.append(line);
             }
-            Log.d(TAG, "install msg is " + msg);
-            if (!msg.toString().toLowerCase().contains("failure")) {
-                result = true;
+            String message = msg.toString().toLowerCase();
+            Log.d(TAG, "install msg is " + message);
+            if (message.contains("permission denied")) {
+                throw new Throwable("root permission denied.");
+            } else if (message.contains("failure")) {
+                throw new Throwable(message);
             }
-        } catch (Exception e) {
-            e.printStackTrace();
-            Log.e(TAG, e.getMessage(), e);
-            result = false;
+//            if (!message.contains("failure") && !message.contains("permission denied")) {
+////                result = true;
+//            } else {
+//                throw new Exception(message);
+//            }
         } finally {
             try {
                 if (outputStream != null) {
@@ -189,9 +272,7 @@ public class ZApkInstaller {
                 process.destroy();
             }
         }
-        return result;
     }
-
 
     private void toAccessibilityService() {
         Intent intent = new Intent(Settings.ACTION_ACCESSIBILITY_SETTINGS);
@@ -245,11 +326,12 @@ public class ZApkInstaller {
 
         void onComplete();
 
+        void onError(Throwable throwable);
+
         void onNeed2OpenService();
 
         void onNeedInstallPermission();
 
     }
-
 
 }

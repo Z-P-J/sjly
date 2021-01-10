@@ -1,10 +1,13 @@
 package com.zpj.shouji.market.ui.fragment.backup;
 
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.design.widget.AppBarLayout;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.zpj.http.parser.html.nodes.Element;
@@ -26,6 +29,8 @@ public class CloudBackupFragment extends StateSwipeBackFragment
 
     private final List<CloudBackupItem> backupItemList = new ArrayList<>();
 
+    private ImageButton btnAdd;
+
     private TextView tvInfo;
 
     private EasyRecyclerView<CloudBackupItem> recyclerView;
@@ -46,11 +51,33 @@ public class CloudBackupFragment extends StateSwipeBackFragment
     }
 
     @Override
+    public void toolbarRightImageButton(@NonNull ImageButton imageButton) {
+        super.toolbarRightImageButton(imageButton);
+        btnAdd = imageButton;
+        btnAdd.setVisibility(View.INVISIBLE);
+        btnAdd.setOnClickListener(v -> CreateBackupFragment.start());
+    }
+
+    @Override
     protected void initView(View view, @Nullable Bundle savedInstanceState) {
         tvInfo = findViewById(R.id.tv_info);
 
         TextView tvCreate = findViewById(R.id.tv_create);
         tvCreate.setOnClickListener(v -> CreateBackupFragment.start());
+
+        View header = findViewById(R.id.ll_header);
+
+        AppBarLayout appBarLayout = view.findViewById(R.id.appbar);
+        appBarLayout.addOnOffsetChangedListener((appBarLayout1, i) -> {
+            float alpha = (float) Math.abs(i) / appBarLayout1.getTotalScrollRange();
+            alpha = Math.min(1f, alpha);
+            if (btnAdd != null) {
+                btnAdd.setVisibility(alpha > 0 ? View.VISIBLE : View.INVISIBLE);
+                btnAdd.setAlpha(alpha);
+            }
+            header.setAlpha(1 - alpha);
+            header.setVisibility(alpha >= 1 ? View.INVISIBLE : View.VISIBLE);
+        });
 
         recyclerView = new EasyRecyclerView<>(findViewById(R.id.recycler_view));
         recyclerView.setData(backupItemList)

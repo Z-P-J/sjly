@@ -6,14 +6,17 @@ import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.view.View;
 
+import com.zpj.rxbus.RxBus;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.download.AppDownloadMission;
+import com.zpj.shouji.market.utils.EventBus;
 import com.zpj.toast.ZToast;
 import com.zpj.utils.AppUtils;
 
 import io.reactivex.Observable;
 import io.reactivex.ObservableOnSubscribe;
 import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
 
 public class DownloadedActionButton extends AppCompatTextView
@@ -63,6 +66,7 @@ public class DownloadedActionButton extends AppCompatTextView
             return;
         }
         switch (textId) {
+            case R.string.text_upgrade:
             case R.string.text_install:
                 mission.install();
                 break;
@@ -79,24 +83,16 @@ public class DownloadedActionButton extends AppCompatTextView
         Observable.create(
                 (ObservableOnSubscribe<Integer>) emitter -> {
                     final int textId;
-                    if (AppUtils.isApkInstalled(getContext(), mission.getPackageName())) {
-                        if (mission.getFile().exists()) {
-                            String currentVersion = AppUtils.getAppVersionName(getContext(), mission.getPackageName());
-                            String apkVersion = AppUtils.getApkVersionName(getContext(), mission.getFilePath());
-                            if (TextUtils.equals(apkVersion, currentVersion)) {
-                                textId = R.string.text_open;
-                            } else {
-                                textId = R.string.text_install;
-                            }
-                        } else {
+                    if (mission.getFile().exists()) {
+                        if (mission.isUpgrade()) {
+                            textId = R.string.text_upgrade;
+                        } else if (mission.isInstalled()) {
                             textId = R.string.text_open;
+                        } else {
+                            textId = R.string.text_install;
                         }
                     } else {
-                        if (mission.getFile().exists()) {
-                            textId = R.string.text_install;
-                        } else {
-                            textId = R.string.text_retry;
-                        }
+                        textId = R.string.text_retry;
                     }
                     emitter.onNext(textId);
                     emitter.onComplete();

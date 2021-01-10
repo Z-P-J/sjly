@@ -74,7 +74,7 @@ public class SupportUserListDialogFragment extends BottomDialogFragment
                 .build();
         stateManager = StateManager.with(recycler)
                 .showLoading();
-        stateManager.getStateView().setMinimumHeight((int) (ScreenUtils.getScreenHeight(context) / 2.5));
+        stateManager.getStateView().setMinimumHeight((int) (ScreenUtils.getScreenHeight(context) / 1.5));
         getSupportUserList();
 
     }

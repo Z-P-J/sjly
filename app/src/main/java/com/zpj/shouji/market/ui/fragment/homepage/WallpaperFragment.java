@@ -1,7 +1,10 @@
 package com.zpj.shouji.market.ui.fragment.homepage;
 
+import android.content.Context;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
 import android.view.View;
 
@@ -14,9 +17,14 @@ import com.zpj.shouji.market.ui.fragment.base.SkinFragment;
 import com.zpj.shouji.market.ui.fragment.dialog.WallpaperTagDialogFragment;
 import com.zpj.shouji.market.ui.fragment.wallpaper.WallpaperListFragment;
 import com.zpj.shouji.market.ui.widget.flowlayout.FlowLayout;
+import com.zpj.shouji.market.ui.widget.indicator.SkinColorChangePagerTitleView;
 import com.zpj.shouji.market.utils.MagicIndicatorHelper;
+import com.zpj.utils.ColorUtils;
 
 import net.lucode.hackware.magicindicator.MagicIndicator;
+import net.lucode.hackware.magicindicator.buildins.commonnavigator.abs.IPagerIndicator;
+import net.lucode.hackware.magicindicator.buildins.commonnavigator.indicators.WrapPagerIndicator;
+import net.lucode.hackware.magicindicator.buildins.commonnavigator.titles.SimplePagerTitleView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -105,46 +113,26 @@ public class WallpaperFragment extends SkinFragment implements View.OnClickListe
         FragmentsPagerAdapter adapter = new FragmentsPagerAdapter(getChildFragmentManager(), fragments, null);
         viewPager.setAdapter(adapter);
         viewPager.setOffscreenPageLimit(fragments.size());
-        MagicIndicatorHelper.bindViewPager(context, magicIndicator, viewPager, titles);
+//        MagicIndicatorHelper.bindViewPager(context, magicIndicator, viewPager, titles);
 
-
-
-//        FragmentsPagerAdapter adapter = new FragmentsPagerAdapter(getChildFragmentManager(), fragments, null);
-//        viewPager.setAdapter(adapter);
-//        viewPager.setOffscreenPageLimit(fragments.size());
-//        CommonNavigator navigator = new CommonNavigator(getContext());
-//        navigator.setAdapter(new CommonNavigatorAdapter() {
-//            @Override
-//            public int getCount() {
-//                return wallpaperTags.size();
-//            }
-//
-//            @Override
-//            public IPagerTitleView getTitleView(Context context, int index) {
-////                SkinChangePagerTitleView titleView = new SkinChangePagerTitleView(context);
-////                titleView.setNormalColor(context.getResources().getColor(R.color.color_text_normal));
-//                ColorTransitionPagerTitleView titleView = new ColorTransitionPagerTitleView(context);
-//                titleView.setNormalColor(context.getResources().getColor(R.color.middle_gray_1));
-////                titleView.setNormalColor(ThemeUtils.getTextColorNormal(context));
-//                titleView.setSelectedColor(getResources().getColor(R.color.colorPrimary));
-//                titleView.setTextSize(14);
-//                titleView.setText(wallpaperTags.get(index).getName());
-//                titleView.setOnClickListener(view -> viewPager.setCurrentItem(index));
-//                return titleView;
-//            }
-//
-//            @Override
-//            public IPagerIndicator getIndicator(Context context) {
-//                LinePagerIndicator indicator = new LinePagerIndicator(context);
-//                indicator.setMode(LinePagerIndicator.MODE_EXACTLY);
-//                indicator.setLineHeight(ScreenUtils.dp2px(context, 4f));
-//                indicator.setLineWidth(ScreenUtils.dp2px(context, 12f));
-//                indicator.setRoundRadius(ScreenUtils.dp2px(context, 4f));
-//                indicator.setColors(getResources().getColor(R.color.colorPrimary), getResources().getColor(R.color.colorPrimary));
-//                return indicator;
-//            }
-//        });
-//        magicIndicator.setNavigator(navigator);
-//        ViewPagerHelper.bind(magicIndicator, viewPager);
+        MagicIndicatorHelper.builder(context)
+                .setMagicIndicator(magicIndicator)
+                .setTabTitles(titles)
+                .setViewPager(viewPager)
+                .setOnGetTitleViewListener((context, index) -> {
+                    SkinColorChangePagerTitleView titleView = new SkinColorChangePagerTitleView(context);
+                    titleView.setText(titles[index]);
+                    titleView.setTextSize(12);
+                    titleView.setOnClickListener(view1 -> viewPager.setCurrentItem(index, true));
+                    return titleView;
+                })
+                .setOnGetIndicatorListener(context -> {
+                    WrapPagerIndicator indicator = new WrapPagerIndicator(context);
+                    // ColorUtils.alphaColor(ContextCompat.getColor(context, R.color.colorPrimary), 0.2f)
+                    indicator.setFillColor(Color.parseColor("#1002c684"));
+                    return indicator;
+                })
+                .build();
     }
+
 }

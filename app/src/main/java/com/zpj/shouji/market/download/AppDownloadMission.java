@@ -1,31 +1,52 @@
 package com.zpj.shouji.market.download;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.os.Environment;
 import android.text.TextUtils;
 import android.util.Log;
 
 import com.zpj.downloader.BaseMission;
+import com.zpj.downloader.DownloadMission;
 import com.zpj.downloader.constant.Error;
 import com.zpj.fragmentation.dialog.impl.AlertDialogFragment;
 import com.zpj.http.core.IHttp;
+import com.zpj.notification.ZNotify;
+import com.zpj.rxbus.RxBus;
+import com.zpj.rxlife.RxLife;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.api.HttpApi;
 import com.zpj.shouji.market.constant.AppConfig;
 import com.zpj.shouji.market.installer.InstallMode;
-import com.zpj.shouji.market.installer.ZApkInstaller;
+import com.zpj.shouji.market.installer.ApkInstaller;
+import com.zpj.shouji.market.ui.activity.MainActivity;
+import com.zpj.shouji.market.utils.AppUtil;
+import com.zpj.shouji.market.utils.EventBus;
 import com.zpj.toast.ZToast;
 import com.zpj.utils.AppUtils;
+import com.zpj.utils.Callback;
 import com.zpj.utils.FileUtils;
 
 import java.io.File;
+import java.lang.ref.WeakReference;
+import java.util.Iterator;
 import java.util.UUID;
 
 import io.reactivex.Observable;
 import io.reactivex.ObservableOnSubscribe;
 import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
 
 public class AppDownloadMission extends BaseMission<AppDownloadMission> {
+
+    public interface AppMissionListener extends DownloadMission.MissionListener {
+
+        void onInstalled();
+
+        void onUninstalled();
+
+    }
 
     private static final String TAG = AppDownloadMission.class.getSimpleName();
 
@@ -105,90 +126,149 @@ public class AppDownloadMission extends BaseMission<AppDownloadMission> {
         }
     }
 
-    public void install() {
+    @Override
+    protected void onDestroy() {
+        RxBus.removeObservers(this);
+    }
 
-        if (AppUtils.isInstalled(getContext(), getPackageName()) && AppConfig.isCheckSignature()) {
-            Observable.create(
-                    (ObservableOnSubscribe<Boolean>) emitter -> {
-                        String currentSign = AppUtils.getAppSignatureMD5(getContext(), getPackageName());
-                        String apkSign = AppUtils.getApkSignatureMD5(getContext(), getFilePath());
-                        emitter.onNext(TextUtils.equals(currentSign, apkSign));
-                        emitter.onComplete();
-                    })
-                    .subscribeOn(Schedulers.io())
-                    .observeOn(AndroidSchedulers.mainThread())
-                    .doOnNext(flag -> {
-                        if (flag) {
-                            installApk();
-                        } else {
-                            String versionName = AppUtils.getAppVersionName(getContext(), getPackageName());
-                            new AlertDialogFragment()
-                                    .setTitle(R.string.text_title_has_different_signature)
-                                    .setContent(getContext().getString(R.string.text_content_has_different_signature, getAppName(), versionName))
-                                    .setPositiveButton("卸载", fragment -> {
-                                        AppUtils.uninstallApk(getContext(), getPackageName());
-                                    })
-                                    .setNeutralButton("强制安装", fragment -> installApk())
-                                    .setNeutralButtonColor(getContext().getResources().getColor(R.color.colorPrimary))
-                                    .setPositionButtonnColor(getContext().getResources().getColor(R.color.light_red_1))
-                                    .show(getContext());
+    @Override
+    public synchronized AppDownloadMission addListener(MissionListener listener) {
+        if (mListeners == null) {
+            RxBus.removeObservers(this);
+            RxBus.observe(this, packageName, String.class)
+                    .doOnNext(new RxBus.SingleConsumer<String>() {
+                        @Override
+                        public void onAccept(String action) throws Exception {
+                            if (mListeners == null) {
+                                return;
+                            }
+                            Log.d(TAG, "action=" + action);
+                            switch (action) {
+                                case Intent.ACTION_PACKAGE_ADDED:
+                                case Intent.ACTION_PACKAGE_REPLACED:
+                                    for (WeakReference<MissionListener> weakRef : mListeners) {
+                                        MissionListener listener = weakRef.get();
+                                        if (listener instanceof AppMissionListener) {
+                                            ((AppMissionListener) listener).onInstalled();
+                                        }
+                                    }
+                                    break;
+                                case Intent.ACTION_PACKAGE_REMOVED:
+                                    for (WeakReference<MissionListener> weakRef : mListeners) {
+                                        MissionListener listener = weakRef.get();
+                                        if (listener instanceof AppMissionListener) {
+                                            ((AppMissionListener) listener).onUninstalled();
+                                        }
+                                    }
+                                    break;
+                                default:
+                                    break;
+                            }
                         }
                     })
                     .subscribe();
-        } else {
-            installApk();
         }
+        return super.addListener(listener);
     }
 
-    private void installApk() {
-        if (AppConfig.isAccessibilityInstall() || AppConfig.isRootInstall()) {
-            Log.d("AppDownloadMission", "install---dir=" + Environment.getExternalStorageDirectory().getAbsolutePath());
-            InstallMode mode = InstallMode.AUTO;
-            if (AppConfig.isRootInstall() && AppConfig.isAccessibilityInstall()) {
-                mode = InstallMode.AUTO;
-            } else if (AppConfig.isRootInstall()) {
-                mode = InstallMode.ROOT;
-            } else if (AppConfig.isAccessibilityInstall()) {
-                mode = InstallMode.ACCESSIBILITY;
-            }
-            ZApkInstaller.with(getContext())
-                    .setInstallMode(mode)
-                    .setInstallerListener(new ZApkInstaller.InstallerListener() {
-                        @Override
-                        public void onStart() {
-                            ZToast.success("开始安装" + appName + "应用！");
-                        }
-
-                        @Override
-                        public void onComplete() {
-                            String currentVersion = AppUtils.getAppVersionName(getContext(), getPackageName());
-                            String apkVersion = AppUtils.getApkVersionName(getContext(), getFilePath());
-                            if (TextUtils.equals(apkVersion, currentVersion)) {
-                                File file = getFile();
-                                if (AppConfig.isAutoDeleteAfterInstalled() && file != null) {
-                                    file.delete();
-                                }
-                                ZToast.success(appName + "应用安装成功！");
-                            }
-                        }
-
-                        @Override
-                        public void onNeed2OpenService() {
-                            ZToast.normal(R.string.text_enable_accessibility_installation_service);
-                        }
-
-                        @Override
-                        public void onNeedInstallPermission() {
-                            ZToast.warning(R.string.text_grant_installation_permissions);
-                        }
-                    })
-                    .install(getFile());
-
-            Log.d("AppDownloadMission", "Thread");
-
-        } else {
-            openFile();
+    public boolean isUpgrade() {
+        if (isInstalled()) {
+            String apkVersion = AppUtils.getApkVersionName(getContext(), getFilePath());
+            String appVersion = AppUtils.getAppVersionName(getContext(), getPackageName());
+            return AppUtil.isNewVersion(appVersion, apkVersion);
         }
+        return false;
+    }
+
+    public boolean isInstalled() {
+        return AppUtils.isApkInstalled(getContext(), packageName);
+//        return AppUtils.isInstalled(getContext(), packageName);
+    }
+
+    public void install() {
+        EventBus.getActivity(activity -> {
+            if (AppUtils.isApkInstalled(activity, getPackageName()) && AppConfig.isCheckSignature()) {
+                Observable.create(
+                        (ObservableOnSubscribe<Boolean>) emitter -> {
+                            String currentSign = AppUtils.getAppSignatureMD5(activity, getPackageName());
+                            String apkSign = AppUtils.getApkSignatureMD5(activity, getFilePath());
+                            emitter.onNext(TextUtils.equals(currentSign, apkSign));
+                            emitter.onComplete();
+                        })
+                        .subscribeOn(Schedulers.io())
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .doOnNext(flag -> {
+                            if (flag) {
+                                installApk(activity);
+                            } else {
+                                String versionName = AppUtils.getAppVersionName(activity, getPackageName());
+                                new AlertDialogFragment()
+                                        .setTitle(R.string.text_title_has_different_signature)
+                                        .setContent(activity.getString(R.string.text_content_has_different_signature, getAppName(), versionName))
+                                        .setPositiveButton("卸载", fragment -> {
+                                            AppUtils.uninstallApk(activity, getPackageName());
+                                        })
+                                        .setNeutralButton("强制安装", fragment -> installApk(activity))
+                                        .setNeutralButtonColor(activity.getResources().getColor(R.color.colorPrimary))
+                                        .setPositionButtonnColor(activity.getResources().getColor(R.color.light_red_1))
+                                        .show(activity);
+                            }
+                        })
+                        .subscribe();
+            } else {
+                installApk(activity);
+            }
+        });
+    }
+
+    private void installApk(Activity activity) {
+        InstallMode mode;
+        if (AppConfig.isRootInstall() && AppConfig.isAccessibilityInstall()) {
+            mode = InstallMode.AUTO;
+        } else if (AppConfig.isRootInstall()) {
+            mode = InstallMode.ROOT;
+        } else if (AppConfig.isAccessibilityInstall()) {
+            mode = InstallMode.ACCESSIBILITY;
+        } else {
+            mode = InstallMode.NORMAL;
+        }
+        ApkInstaller.with(activity)
+                .setInstallMode(mode)
+                .setInstallerListener(new ApkInstaller.InstallerListener() {
+                    @Override
+                    public void onStart() {
+                        ZToast.normal("开始安装" + appName + "应用！");
+                    }
+
+                    @Override
+                    public void onComplete() {
+                        String currentVersion = AppUtils.getAppVersionName(activity, getPackageName());
+                        String apkVersion = AppUtils.getApkVersionName(activity, getFilePath());
+                        if (TextUtils.equals(apkVersion, currentVersion)) {
+                            File file = getFile();
+                            if (AppConfig.isAutoDeleteAfterInstalled() && file != null) {
+                                file.delete();
+                            }
+                            ZToast.success(appName + "应用安装成功！");
+                        }
+                    }
+
+                    @Override
+                    public void onError(Throwable throwable) {
+                        ZToast.error("安装失败！" + throwable.getMessage());
+                    }
+
+                    @Override
+                    public void onNeed2OpenService() {
+                        ZToast.normal(R.string.text_enable_accessibility_installation_service);
+                    }
+
+                    @Override
+                    public void onNeedInstallPermission() {
+                        ZToast.warning(R.string.text_grant_installation_permissions);
+                    }
+                })
+                .install(getFile());
     }
 
     public AppDownloadMission setAppIcon(String appIcon) {
@@ -240,4 +320,5 @@ public class AppDownloadMission extends BaseMission<AppDownloadMission> {
     public String getAppName() {
         return appName;
     }
+
 }

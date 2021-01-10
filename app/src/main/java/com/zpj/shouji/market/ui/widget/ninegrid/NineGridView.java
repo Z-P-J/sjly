@@ -151,6 +151,11 @@ public class NineGridView extends CardView {
                 if (width > widthSize) {
                     height = (int) ((float) widthSize / width * height);
                     width = getMeasuredWidth();
+                } else if (width * 2 < widthSize) {
+                    widthSize = widthSize / 2;
+                    height = (int) ((float) widthSize / width * height);
+                    width = widthSize;
+
                 }
 
                 if (height > bigPictureMaxHeight) {

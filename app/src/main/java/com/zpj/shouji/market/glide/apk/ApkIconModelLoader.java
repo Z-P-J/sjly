@@ -14,7 +14,7 @@ import java.io.InputStream;
 
 public class ApkIconModelLoader implements ModelLoader<InstalledAppInfo, InputStream> {
 
-    private Context context;
+    private final Context context;
 
     public ApkIconModelLoader(Context context){
         this.context = context;

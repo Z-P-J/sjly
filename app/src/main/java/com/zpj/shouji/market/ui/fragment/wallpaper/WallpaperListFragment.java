@@ -129,6 +129,7 @@ public class WallpaperListFragment extends NextUrlFragment<WallpaperInfo> {
                         height = (int) (wallpaper.getMeasuredWidth() * p);
                         ViewGroup.LayoutParams layoutParams = wallpaper.getLayoutParams();
                         layoutParams.height = height;
+//                        layoutParams.width = wallpaper.getMeasuredWidth();
                         super.onResourceReady(resource, transition);
                     }
                 });
@@ -176,8 +177,8 @@ public class WallpaperListFragment extends NextUrlFragment<WallpaperInfo> {
         List<String> original = new ArrayList<>();
         original.add(data.getPic());
 
-        Log.d("WallpaperListFragment", " width / height = " + (Float.parseFloat(data.getWidth()) / Float.parseFloat(data.getHeight())));
-        Log.d("WallpaperListFragment2", " width / height = " + (wallpaper.getWidth() / wallpaper.getHeight()));
+//        Log.d("WallpaperListFragment", " width / height = " + (Float.parseFloat(data.getWidth()) / Float.parseFloat(data.getHeight())));
+//        Log.d("WallpaperListFragment2", " width / height = " + (wallpaper.getWidth() / wallpaper.getHeight()));
 //        new WallpaperViewerDialogFragment2()
 //                .setWallpaperInfo(data)
 //                .setOriginalImageList(original)

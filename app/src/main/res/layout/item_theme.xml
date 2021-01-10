@@ -362,6 +362,7 @@
                 android:layout_height="wrap_content"
                 android:maxLines="1"
                 android:ellipsize="end"
+                android:textColor="?attr/textColorMajor"
                 app:ep_need_self="true"
                 app:ep_need_expand="false"
                 app:ep_need_contract="false"

@@ -244,12 +244,15 @@ public class RecommendBanner extends LinearLayout implements View.OnClickListene
 
             AppInfo appInfo = (AppInfo) entry.getBannerPath();
             Glide.with(context).load(appInfo.getAppIcon()).into(mImageView);
+            int placeholderId = GlideRequestOptions.getPlaceholderId();
             Glide.with(context).load(appInfo.getAppIcon())
                     .apply(
                             GlideRequestOptions.with()
                                     .centerCrop()
                                     .roundedCorners(4)
                                     .get()
+                            .error(placeholderId)
+                            .placeholder(placeholderId)
                     )
                     .into(ivIcon);
             tvTitle.setText(appInfo.getAppTitle());

@@ -1,20 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout
+<RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-
-<!--    <com.zpj.widget.statelayout.StateLayout-->
-<!--        xmlns:android="http://schemas.android.com/apk/res/android"-->
-<!--        xmlns:app="http://schemas.android.com/apk/res-auto"-->
-<!--        android:id="@+id/state_layout"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="match_parent"-->
-<!--        android:background="?attr/backgroundColor">-->
-
-
-
-<!--    </com.zpj.widget.statelayout.StateLayout>-->
 
     <com.donkingliang.consecutivescroller.ConsecutiveScrollerLayout
         android:id="@+id/layout_scroller"
@@ -110,4 +98,9 @@
 
     <include layout="@layout/layout_toolbar" />
 
-</FrameLayout>
+    <View style="@style/layout_shadow_bottom"
+        android:id="@+id/shadow_bottom"
+        android:layout_below="@+id/tool_bar"
+        />
+
+</RelativeLayout>

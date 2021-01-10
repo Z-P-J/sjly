@@ -22,6 +22,7 @@ import com.zpj.shouji.market.constant.Actions;
 import com.zpj.shouji.market.manager.AppInstalledManager;
 import com.zpj.shouji.market.manager.AppUpdateManager;
 import com.zpj.shouji.market.manager.UserManager;
+import com.zpj.shouji.market.receiver.AppReceiver;
 import com.zpj.shouji.market.ui.fragment.MainFragment;
 import com.zpj.shouji.market.ui.fragment.manager.DownloadManagerFragment;
 import com.zpj.shouji.market.ui.fragment.manager.ManagerFragment;
@@ -57,6 +58,7 @@ public class MainActivity extends BaseActivity { // implements IUiListener
     protected void onDestroy() {
         ZDownloader.onDestroy();
         HttpPreLoader.getInstance().onDestroy();
+        AppReceiver.unregister(this);
         super.onDestroy();
     }
 
@@ -95,6 +97,8 @@ public class MainActivity extends BaseActivity { // implements IUiListener
                 UploadImageApi.uploadCropImage(file, isAvatar);
             }
         });
+        EventBus.onGetActivityEvent(this);
+        AppReceiver.register(this);
 
 //        EventBus.onQQLoginEvent(this, s -> {
 //            if (AppUtils.isInstalled(MainActivity.this, "com.tencent.mobileqq")) {
@@ -136,15 +140,7 @@ public class MainActivity extends BaseActivity { // implements IUiListener
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-//        if (requestCode == AppUtil.UNINSTALL_REQUEST_CODE) {
-//            if (resultCode == Activity.RESULT_OK) {
-//                ZToast.success("应用卸载成功！");
-//            } else if (resultCode == Activity.RESULT_CANCELED) {
-//                ZToast.normal("应用卸载取消！");
-//            }
-//        }
-
-//        //腾讯QQ回调
+//        // 腾讯QQ第三方登录回调
 //        Tencent.onActivityResultData(requestCode, resultCode, data, this);
 //        if (requestCode == Constants.REQUEST_API) {
 //            if (resultCode == Constants.REQUEST_LOGIN) {

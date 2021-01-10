@@ -28,9 +28,12 @@ import com.zpj.shouji.market.ui.fragment.detail.AppDetailFragment;
 import com.zpj.shouji.market.ui.widget.DownloadButton;
 import com.zpj.toast.ZToast;
 import com.zpj.utils.ColorUtils;
+import com.zxy.skin.sdk.SkinEngine;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import static com.donkingliang.consecutivescroller.ConsecutiveScrollerLayout.*;
 
 public class SubjectDetailFragment extends StateSwipeBackFragment
         implements IEasy.OnBindViewHolderListener<AppInfo>,
@@ -45,21 +48,8 @@ public class SubjectDetailFragment extends StateSwipeBackFragment
     private String id;
     private String title;
 
+    private float alpha = 0f;
     private boolean isLightStyle = true;
-
-    @Override
-    protected int getLayoutId() {
-        return R.layout.fragment_subject_detail;
-    }
-
-//    public static void start(String url, String title) {
-//        Bundle args = new Bundle();
-//        args.putString(Keys.DEFAULT_URL, url);
-//        args.putString(Keys.TITLE, title);
-//        SubjectDetailFragment fragment = new SubjectDetailFragment();
-//        fragment.setArguments(args);
-//        StartFragmentEvent.start(fragment);
-//    }
 
     public static void start(SubjectInfo subjectInfo) {
         Bundle args = new Bundle();
@@ -74,9 +64,13 @@ public class SubjectDetailFragment extends StateSwipeBackFragment
     }
 
     @Override
+    protected int getLayoutId() {
+        return R.layout.fragment_subject_detail;
+    }
+
+    @Override
     protected void initView(View view, @Nullable Bundle savedInstanceState) {
 
-//        stateLayout = findViewById(R.id.state_layout);
         if (getArguments() != null) {
             id = getArguments().getString(Keys.ID, "");
 //            stateLayout.showLoadingView();
@@ -118,31 +112,37 @@ public class SubjectDetailFragment extends StateSwipeBackFragment
         toolbar.setBackgroundColor(Color.TRANSPARENT);
         toolbar.setBackground(new ColorDrawable(Color.TRANSPARENT), true);
 
-        ConsecutiveScrollerLayout scrollerLayout = findViewById(R.id.layout_scroller);
-        scrollerLayout.setOnVerticalScrollChangeListener(new ConsecutiveScrollerLayout.OnScrollChangeListener() {
-            @Override
-            public void onScrollChange(View v, int scrollY, int oldScrollY, int scrollState) {
-                if (scrollY < toolbar.getMeasuredHeight()) {
-                    float alpha = (float) scrollY / toolbar.getMeasuredHeight();
-                    int color = ColorUtils.alphaColor(Color.WHITE, alpha * 0.95f);
-                    toolbar.setBackgroundColor(color);
-                    isLightStyle = alpha <= 0.5;
-                    toolbar.setLightStyle(isLightStyle);
-                    toolbar.getCenterTextView().setAlpha(alpha);
+        View shadowView = findViewById(R.id.shadow_bottom);
+        shadowView.setAlpha(0f);
 
-                    if (isLightStyle) {
-                        lightStatusBar();
-//                        setToolbarTitle("");
-                    } else {
-                        darkStatusBar();
-//                        setToolbarTitle(title);
-                    }
-                } else {
-                    toolbar.setLightStyle(false);
-                    darkStatusBar();
-//                    setToolbarTitle(title);
-                    toolbar.getCenterTextView().setAlpha(1);
-                }
+        ConsecutiveScrollerLayout scrollerLayout = findViewById(R.id.layout_scroller);
+        scrollerLayout.setOnVerticalScrollChangeListener((v, scrollY, oldScrollY, scrollState) -> {
+            float tempAlpha = alpha;
+            alpha = (float) scrollY / toolbar.getMeasuredHeight();
+            alpha = Math.min(1f, alpha);
+            if (alpha == tempAlpha) {
+                return;
+            }
+            shadowView.setAlpha(alpha);
+//                    int color = ColorUtils.alphaColor(Color.WHITE, alpha * 0.95f);
+            int backgroundColor = SkinEngine.getColor(context, R.attr.backgroundColor);
+            boolean isDark = ColorUtils.isDarkenColor(backgroundColor);
+            int color = ColorUtils.alphaColor(backgroundColor, alpha);
+            toolbar.setBackgroundColor(color);
+//                    isLightStyle = alpha <= 0.5;
+            if (!isDark && alpha < 0.5f) {
+                isLightStyle = true;
+            } else {
+                isLightStyle = isDark;
+            }
+
+            toolbar.setLightStyle(isLightStyle);
+            toolbar.getCenterTextView().setAlpha(alpha);
+
+            if (isLightStyle) {
+                lightStatusBar();
+            } else {
+                darkStatusBar();
             }
         });
 
@@ -187,26 +187,17 @@ public class SubjectDetailFragment extends StateSwipeBackFragment
     private void getData() {
         HttpApi.getXml("http://tt.shouji.com.cn/androidv3/special_list_xml.jsp?id=" + id)
                 .bindToLife(this)
-                .onSuccess(new IHttp.OnSuccessListener<Document>() {
-                    @Override
-                    public void onSuccess(Document data) throws Exception {
-                        for (Element element : data.select("item")) {
-                            appInfoList.add(AppInfo.parse(element));
-                        }
-                        postOnEnterAnimationEnd(() -> {
-                            recyclerView.notifyDataSetChanged();
-//                            stateLayout.showContentView();
-                            showContent();
-                            onSupportVisible();
-                        });
+                .onSuccess(data -> {
+                    for (Element element : data.select("item")) {
+                        appInfoList.add(AppInfo.parse(element));
                     }
+                    postOnEnterAnimationEnd(() -> {
+                        recyclerView.notifyDataSetChanged();
+                        showContent();
+                        onSupportVisible();
+                    });
                 })
-                .onError(new IHttp.OnErrorListener() {
-                    @Override
-                    public void onError(Throwable throwable) {
-                        ZToast.error("出错了！" + throwable.getMessage());
-                    }
-                })
+                .onError(throwable -> ZToast.error("出错了！" + throwable.getMessage()))
                 .subscribe();
     }
 

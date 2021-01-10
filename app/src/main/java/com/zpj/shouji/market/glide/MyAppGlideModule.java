@@ -15,9 +15,11 @@ import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
 import com.bumptech.glide.load.resource.gif.GifDrawable;
 import com.bumptech.glide.load.resource.gif.StreamGifDecoder;
 import com.bumptech.glide.module.AppGlideModule;
+import com.zpj.shouji.market.download.AppDownloadMission;
 import com.zpj.shouji.market.glide.apk.ApkModelLoaderFactory;
 import com.zpj.shouji.market.glide.combine.CombineImage;
 import com.zpj.shouji.market.glide.combine.CombineImageModelLoaderFactory;
+import com.zpj.shouji.market.glide.mission.MissionModelLoaderFactory;
 import com.zpj.shouji.market.model.InstalledAppInfo;
 
 import java.io.InputStream;
@@ -54,6 +56,7 @@ public class MyAppGlideModule extends AppGlideModule {
                 GifDrawable.class, new StreamGifDecoder(imageHeaderParsers, byteBufferGifDecoder, glide.getArrayPool()));
 
         registry.prepend(InstalledAppInfo.class, InputStream.class, new ApkModelLoaderFactory(context));
+        registry.prepend(AppDownloadMission.class, InputStream.class, new MissionModelLoaderFactory(context));
         registry.prepend(CombineImage.class, InputStream.class, new CombineImageModelLoaderFactory(context));
 //        registry.prepend(GlideInputStreamData.class, InputStream.class, new CustomModelLoaderFactory<>(context));
 //        registry.prepend(GlideBitmapData.class, Bitmap.class, new CustomModelLoaderFactory<>(context));

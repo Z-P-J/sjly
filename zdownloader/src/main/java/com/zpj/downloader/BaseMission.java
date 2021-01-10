@@ -21,8 +21,12 @@ import com.zpj.utils.FileUtils;
 import com.zpj.utils.FormatUtils;
 
 import java.io.BufferedOutputStream;
+import java.io.Externalizable;
 import java.io.File;
 import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInput;
+import java.io.ObjectOutput;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.lang.ref.WeakReference;
@@ -129,7 +133,7 @@ public class BaseMission<T extends BaseMission<T>> extends BaseConfig<T> impleme
 
     private transient int threadCount = DefaultConstant.THREAD_COUNT;
 
-    private transient ArrayList<WeakReference<MissionListener>> mListeners;
+    protected transient ArrayList<WeakReference<MissionListener>> mListeners;
 
     private transient int errorCount = 0;
     private transient long lastDone = -1;
@@ -416,6 +420,10 @@ public class BaseMission<T extends BaseMission<T>> extends BaseConfig<T> impleme
                 e.printStackTrace();
             }
         }
+    }
+
+    protected void onDestroy() {
+
     }
 
     public void start() {
@@ -1013,7 +1021,7 @@ public class BaseMission<T extends BaseMission<T>> extends BaseConfig<T> impleme
     }
 
     public int getNotifyId() {
-        return hashCode();
+        return uuid.hashCode();
     }
 
     long getNextPosition() {

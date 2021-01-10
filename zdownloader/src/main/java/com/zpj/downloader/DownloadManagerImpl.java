@@ -101,6 +101,9 @@ public class DownloadManagerImpl implements DownloadManager {
         if (interceptor != null) {
             interceptor.onCancelAll(getContext());
         }
+        for (BaseMission<?> mission : ALL_MISSIONS) {
+            mission.onDestroy();
+        }
         ALL_MISSIONS.clear();
         isLoading.set(true);
         isLoaded.set(true);

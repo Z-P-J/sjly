@@ -20,18 +20,7 @@ import com.zpj.widget.toolbar.ZToolBar;
 
 public abstract class BaseFragment extends SwipeBackFragment {
 
-
-//    private final BlockActionQueue mSupportVisibleActionQueue;
-//    private final BlockActionQueue mEnterAnimationEndActionQueue;
-
-
     protected ZToolBar toolbar;
-
-//    public BaseFragment() {
-//        Handler handler = new Handler(Looper.getMainLooper());
-//        mSupportVisibleActionQueue = new BlockActionQueue(handler);
-//        mEnterAnimationEndActionQueue = new BlockActionQueue(handler);
-//    }
 
     @SuppressLint("ResourceType")
     @Nullable
@@ -43,8 +32,14 @@ public abstract class BaseFragment extends SwipeBackFragment {
         if (getLayoutId() > 0) {
             view = inflater.inflate(getLayoutId(), container, false);
             toolbar = view.findViewById(R.id.tool_bar);
-            setToolbarTitle(getToolbarTitle(context));
-            setToolbarSubTitle(getToolbarSubTitle(context));
+            CharSequence title = getToolbarTitle(context);
+            if (title != null) {
+                setToolbarTitle(title);
+            }
+            CharSequence subTitle = getToolbarSubTitle(context);
+            if (title != null) {
+                setToolbarSubTitle(subTitle);
+            }
             initView(view, savedInstanceState);
             if (toolbar != null) {
                 if (toolbar.getLeftImageButton() != null) {

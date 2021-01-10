@@ -326,19 +326,20 @@ public class DownloadManagerFragment extends BaseSwipeBackFragment
             if (viewType == TYPE_CHILD) {
                 AppDownloadMission mission = item.getMission();
                 ImageView ivIcon = holder.get(R.id.item_icon);
-                if (TextUtils.isEmpty(mission.getAppIcon())) {
-                    if (AppUtils.isInstalled(context, mission.getPackageName())) {
-                        InstalledAppInfo appInfo = new InstalledAppInfo();
-                        appInfo.setTempInstalled(true);
-                        appInfo.setPackageName(mission.getPackageName());
-                        GlideApp.with(context).load(appInfo).into(ivIcon);
-                    } else {
-                        ivIcon.setImageResource(R.drawable.ic_file_apk);
-//                        ivIcon.setImageResource(FileUtil.getFileTypeIconId(mission.getTaskName()));
-                    }
-                } else {
-                    Glide.with(context).load(mission.getAppIcon()).into(ivIcon);
-                }
+//                if (TextUtils.isEmpty(mission.getAppIcon())) {
+//                    if (mission.isFinished()) {
+//                        InstalledAppInfo appInfo = new InstalledAppInfo();
+//                        appInfo.setTempInstalled(true);
+//                        appInfo.setPackageName(mission.getPackageName());
+//                        GlideApp.with(context).load(appInfo).into(ivIcon);
+//                    } else {
+//                        ivIcon.setImageResource(R.drawable.ic_file_apk);
+////                        ivIcon.setImageResource(FileUtil.getFileTypeIconId(mission.getTaskName()));
+//                    }
+//                } else {
+//                    Glide.with(context).load(mission.getAppIcon()).into(ivIcon);
+//                }
+                Glide.with(context).load(mission).into(ivIcon);
 
                 holder.setText(R.id.item_name, mission.getAppName());
                 holder.get(R.id.btn_download).setOnClickListener(v -> {
@@ -477,18 +478,19 @@ public class DownloadManagerFragment extends BaseSwipeBackFragment
                     holder.setImageResource(R.id.btn_download, R.drawable.download_item_pause_icon_style2);
                 }
 
-                MissionObserver missionListener = map.get(mission);
-                if (missionListener == null) {
-                    missionListener = new MissionObserver(holder, mission);
-                    map.put(mission, missionListener);
-                    mission.addListener(missionListener);
-                } else {
-                    missionListener.updateHolder(holder);
-                }
+
+            }
+            MissionObserver missionListener = map.get(mission);
+            if (missionListener == null) {
+                missionListener = new MissionObserver(holder, mission);
+                map.put(mission, missionListener);
+                mission.addListener(missionListener);
+            } else {
+                missionListener.updateHolder(holder);
             }
         }
 
-        class MissionObserver implements DownloadMission.MissionListener {
+        class MissionObserver implements AppDownloadMission.AppMissionListener {
 
             private GroupViewHolder holder;
             private AppDownloadMission mission;
@@ -555,6 +557,18 @@ public class DownloadManagerFragment extends BaseSwipeBackFragment
             @Override
             public void onClear() {
 
+            }
+
+            @Override
+            public void onInstalled() {
+                DownloadedActionButton tvAction = holder.get(R.id.tv_action);
+                tvAction.setText(R.string.text_open);
+            }
+
+            @Override
+            public void onUninstalled() {
+                DownloadedActionButton tvAction = holder.get(R.id.tv_action);
+                tvAction.setText(R.string.text_install);
             }
         }
 
