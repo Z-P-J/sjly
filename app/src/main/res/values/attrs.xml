@@ -215,11 +215,25 @@
         <item>乐园吐槽</item>
     </string-array>
 
+    <string-array name="update_actions">
+        <item>忽略更新</item>
+        <item>详细信息</item>
+        <item>卸载</item>
+        <item>打开</item>
+    </string-array>
+
     <string-array name="app_actions">
         <item>详细信息</item>
         <item>分享</item>
         <item>卸载</item>
         <item>打开</item>
+    </string-array>
+
+    <string-array name="apk_actions">
+        <item>详细信息</item>
+        <item>分享</item>
+        <item>删除</item>
+        <item>安装</item>
     </string-array>
 
     <attr name="backgroundColor" format="color" />

@@ -27,17 +27,24 @@
                 android:layout_height="wrap_content"
                 >
 
-                <TextView
+<!--                <TextView-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:text="基本设置"-->
+<!--                    android:gravity="center_vertical"-->
+<!--                    android:padding="5dp"-->
+<!--                    android:paddingStart="15dp"-->
+<!--                    android:paddingEnd="15dp"-->
+<!--                    android:textColor="@color/colorPrimary"-->
+<!--                    android:layout_marginTop="10dp"-->
+<!--                    android:background="@drawable/bottom_line_gray"-->
+<!--                    />-->
+
+                <com.zpj.shouji.market.ui.widget.TitleHeaderLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="基本设置"
-                    android:gravity="center_vertical"
-                    android:padding="5dp"
-                    android:paddingStart="15dp"
-                    android:paddingEnd="15dp"
-                    android:textColor="@color/colorPrimary"
-                    android:layout_marginTop="10dp"
                     android:background="@drawable/bottom_line_gray"
+                    app:title_header_title="基本设置"
                     />
 
                 <com.zpj.widget.setting.SwitchSettingItem
@@ -59,17 +66,24 @@
                     app:z_setting_infoText="调节应用内亮度"
                     />
 
-                <TextView
+<!--                <TextView-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:text="省流设置"-->
+<!--                    android:gravity="center_vertical"-->
+<!--                    android:padding="5dp"-->
+<!--                    android:paddingStart="15dp"-->
+<!--                    android:paddingEnd="15dp"-->
+<!--                    android:textColor="@color/colorPrimary"-->
+<!--                    android:layout_marginTop="10dp"-->
+<!--                    android:background="@drawable/bottom_line_gray"-->
+<!--                    />-->
+
+                <com.zpj.shouji.market.ui.widget.TitleHeaderLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="省流设置"
-                    android:gravity="center_vertical"
-                    android:padding="5dp"
-                    android:paddingStart="15dp"
-                    android:paddingEnd="15dp"
-                    android:textColor="@color/colorPrimary"
-                    android:layout_marginTop="10dp"
                     android:background="@drawable/bottom_line_gray"
+                    app:title_header_title="省流设置"
                     />
 
 <!--                <com.zpj.widget.setting.SwitchSettingItem-->
@@ -98,17 +112,24 @@
 
 
 
-                <TextView
+<!--                <TextView-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:text="下载设置"-->
+<!--                    android:gravity="center_vertical"-->
+<!--                    android:padding="5dp"-->
+<!--                    android:paddingStart="15dp"-->
+<!--                    android:paddingEnd="15dp"-->
+<!--                    android:textColor="@color/colorPrimary"-->
+<!--                    android:layout_marginTop="10dp"-->
+<!--                    android:background="@drawable/bottom_line_gray"-->
+<!--                    />-->
+
+                <com.zpj.shouji.market.ui.widget.TitleHeaderLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="下载设置"
-                    android:gravity="center_vertical"
-                    android:padding="5dp"
-                    android:paddingStart="15dp"
-                    android:paddingEnd="15dp"
-                    android:textColor="@color/colorPrimary"
-                    android:layout_marginTop="10dp"
                     android:background="@drawable/bottom_line_gray"
+                    app:title_header_title="下载设置"
                     />
 
                 <com.zpj.widget.setting.CommonSettingItem
@@ -145,17 +166,24 @@
                     app:z_setting_titleText="通知栏显示下载进度"
                     />
 
-                <TextView
+<!--                <TextView-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:text="安装设置"-->
+<!--                    android:gravity="center_vertical"-->
+<!--                    android:padding="5dp"-->
+<!--                    android:paddingStart="15dp"-->
+<!--                    android:paddingEnd="15dp"-->
+<!--                    android:textColor="@color/colorPrimary"-->
+<!--                    android:layout_marginTop="10dp"-->
+<!--                    android:background="@drawable/bottom_line_gray"-->
+<!--                    />-->
+
+                <com.zpj.shouji.market.ui.widget.TitleHeaderLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="下载设置"
-                    android:gravity="center_vertical"
-                    android:padding="5dp"
-                    android:paddingStart="15dp"
-                    android:paddingEnd="15dp"
-                    android:textColor="@color/colorPrimary"
-                    android:layout_marginTop="10dp"
                     android:background="@drawable/bottom_line_gray"
+                    app:title_header_title="安装设置"
                     />
 
                 <com.zpj.widget.setting.SwitchSettingItem
@@ -198,17 +226,24 @@
                     />
 
 
-                <TextView
+<!--                <TextView-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:text="其它"-->
+<!--                    android:gravity="center_vertical"-->
+<!--                    android:padding="5dp"-->
+<!--                    android:paddingStart="15dp"-->
+<!--                    android:paddingEnd="15dp"-->
+<!--                    android:textColor="@color/colorPrimary"-->
+<!--                    android:layout_marginTop="10dp"-->
+<!--                    android:background="@drawable/bottom_line_gray"-->
+<!--                    />-->
+
+                <com.zpj.shouji.market.ui.widget.TitleHeaderLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="其它"
-                    android:gravity="center_vertical"
-                    android:padding="5dp"
-                    android:paddingStart="15dp"
-                    android:paddingEnd="15dp"
-                    android:textColor="@color/colorPrimary"
-                    android:layout_marginTop="10dp"
                     android:background="@drawable/bottom_line_gray"
+                    app:title_header_title="其它"
                     />
 
                 <com.zpj.widget.setting.CommonSettingItem

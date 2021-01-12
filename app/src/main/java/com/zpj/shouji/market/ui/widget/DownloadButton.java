@@ -11,6 +11,7 @@ import com.zpj.downloader.DownloadManager;
 import com.zpj.downloader.DownloadMission;
 import com.zpj.downloader.ZDownloader;
 import com.zpj.downloader.constant.Error;
+import com.zpj.rxlife.RxLife;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.api.HttpApi;
 import com.zpj.shouji.market.download.AppDownloadMission;
@@ -22,11 +23,17 @@ import com.zpj.shouji.market.model.GuessAppInfo;
 import com.zpj.shouji.market.model.PickedGameInfo;
 import com.zpj.shouji.market.model.QuickAppInfo;
 import com.zpj.shouji.market.ui.fragment.WebFragment;
+import com.zpj.shouji.market.utils.AppUtil;
 import com.zpj.toast.ZToast;
 import com.zpj.utils.AppUtils;
 
 import java.util.List;
 import java.util.Locale;
+
+import io.reactivex.Observable;
+import io.reactivex.ObservableOnSubscribe;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.schedulers.Schedulers;
 
 public class DownloadButton extends AppCompatTextView
         implements AppDownloadMission.AppMissionListener, View.OnClickListener {
@@ -114,6 +121,7 @@ public class DownloadButton extends AppCompatTextView
     }
 
     public void bindApp(String appId, String appName, String packageName, String appType, String appIcon, String yunUrl, boolean isShareApp) {
+        RxLife.removeByTag(this);
         this.appId = appId;
         this.appName = appName;
         this.packageName = packageName;
@@ -123,46 +131,23 @@ public class DownloadButton extends AppCompatTextView
         this.isShareApp = isShareApp;
         mission = null;
 
+        setOnClickListener(this);
+
         ZDownloader.getAllMissions(AppDownloadMission.class, missions -> {
             for (AppDownloadMission mission : missions) {
                 if (TextUtils.equals(appId, mission.getAppId()) && TextUtils.equals(packageName, mission.getPackageName())) {
                     DownloadButton.this.mission = mission;
-                    if (mission.isIniting()) {
-                        setText(R.string.text_preparing);
-                    } else if (mission.isRunning()) {
-                        if (mission.getProgress() < 10) {
-                            setText(mission.getProgressStr());
-                        } else {
-                            setText(String.format(Locale.US, "%.1f%%", mission.getProgress()));
-                        }
-                    } else if (mission.isFinished()) {
-                        if (mission.getFile().exists()) {
-                            if (mission.isUpgrade()) {
-                                setText(R.string.text_upgrade);
-                            } else if (mission.isInstalled()) {
-                                setText(R.string.text_open);
-                            } else {
-                                setText(R.string.text_install);
-                            }
-                        } else {
-                            DownloadButton.this.mission.delete();
-                            onDelete();
-                        }
-                    } else if (mission.isWaiting()) {
-                        setText(R.string.text_waiting);
-                    } else {
-                        setText(R.string.text_continue);
-                    }
+                    onBindMission(mission);
                     break;
                 }
             }
             if (mission == null) {
-//            setText("下载");
                 onDelete();
             } else {
                 DownloadButton.this.mission.addListener(DownloadButton.this);
             }
         });
+//        init(appId, packageName);
 
 //        for (AppDownloadMission mission : ZDownloader.getAllMissions(AppDownloadMission.class)) {
 //            if (TextUtils.equals(appId, mission.getAppId()) && TextUtils.equals(packageName, mission.getPackageName())) {
@@ -198,8 +183,86 @@ public class DownloadButton extends AppCompatTextView
 //            this.mission.addListener(this);
 //        }
 
-        setOnClickListener(this);
+
     }
+
+    protected void onBindMission(AppDownloadMission mission) {
+        if (mission.isIniting()) {
+            setText(R.string.text_preparing);
+        } else if (mission.isRunning()) {
+            if (mission.getProgress() < 10) {
+                setText(mission.getProgressStr());
+            } else {
+                setText(String.format(Locale.US, "%.1f%%", mission.getProgress()));
+            }
+        } else if (mission.isFinished()) {
+            if (mission.getFile().exists()) {
+                if (mission.isUpgrade()) {
+                    setText(R.string.text_upgrade);
+                } else if (mission.isInstalled()) {
+                    setText(R.string.text_open);
+                } else {
+                    setText(R.string.text_install);
+                }
+            } else {
+                mission.delete();
+                onDelete();
+            }
+        } else if (mission.isWaiting()) {
+            setText(R.string.text_waiting);
+        } else {
+            setText(R.string.text_continue);
+        }
+    }
+
+//    private void init(final String appId, final String packageName) {
+//        Observable.create(
+//                (ObservableOnSubscribe<Integer>) emitter -> {
+//                    ZDownloader.getAllMissions(AppDownloadMission.class, missions -> {
+//                        for (AppDownloadMission mission : missions) {
+//                            if (TextUtils.equals(appId, mission.getAppId()) && TextUtils.equals(packageName, mission.getPackageName())) {
+//                                DownloadButton.this.mission = mission;
+//                                if (mission.isIniting()) {
+//                                    setText(R.string.text_preparing);
+//                                } else if (mission.isRunning()) {
+//                                    if (mission.getProgress() < 10) {
+//                                        setText(mission.getProgressStr());
+//                                    } else {
+//                                        setText(String.format(Locale.US, "%.1f%%", mission.getProgress()));
+//                                    }
+//                                } else if (mission.isFinished()) {
+//                                    if (mission.getFile().exists()) {
+//                                        if (mission.isUpgrade()) {
+//                                            setText(R.string.text_upgrade);
+//                                        } else if (mission.isInstalled()) {
+//                                            setText(R.string.text_open);
+//                                        } else {
+//                                            setText(R.string.text_install);
+//                                        }
+//                                    } else {
+//                                        DownloadButton.this.mission.delete();
+//                                        onDelete();
+//                                    }
+//                                } else if (mission.isWaiting()) {
+//                                    setText(R.string.text_waiting);
+//                                } else {
+//                                    setText(R.string.text_continue);
+//                                }
+//                                break;
+//                            }
+//                        }
+//                        if (mission == null) {
+//                            onDelete();
+//                        } else {
+//                            DownloadButton.this.mission.addListener(DownloadButton.this);
+//                        }
+//                    });
+//                    emitter.onComplete();
+//                })
+//                .subscribeOn(Schedulers.io())
+//                .compose(RxLife.bindTag(this))
+//                .subscribe();
+//    }
 
     @Override
     public void onInit() {
@@ -271,25 +334,21 @@ public class DownloadButton extends AppCompatTextView
             return;
         }
         if (mission == null) {
-//            for (AppDownloadMission mission : ZDownloader.getAllMissions(AppDownloadMission.class)) {
-//                if (TextUtils.equals(appId, mission.getAppId()) && TextUtils.equals(packageName, mission.getPackageName())) {
-//                    this.mission = mission;
-//                    break;
-//                }
-//            }
             ZDownloader.getAllMissions(AppDownloadMission.class, missions -> {
                 for (AppDownloadMission mission : missions) {
                     if (TextUtils.equals(appId, mission.getAppId()) && TextUtils.equals(packageName, mission.getPackageName())) {
                         DownloadButton.this.mission = mission;
-                        if (mission != null) {
-                            onClick(v);
-                        }
                         break;
                     }
                 }
+                action();
             });
             return;
         }
+        action();
+    }
+
+    private void action() {
         if (mission != null) {
             if (mission.canPause()) {
                 mission.pause();

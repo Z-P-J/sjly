@@ -1,90 +1,63 @@
 package com.zpj.shouji.market.installer;
 
-import android.os.Handler;
-import android.os.Looper;
-import android.text.TextUtils;
+import android.accessibilityservice.AccessibilityService;
+import android.content.Intent;
 import android.util.Log;
 import android.view.accessibility.AccessibilityEvent;
 import android.view.accessibility.AccessibilityNodeInfo;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.List;
 
-/**
- * Created by wuhaojie on 2016/7/25 23:15.
- */
-public class InstallAccessibilityService extends android.accessibilityservice.AccessibilityService {
+public class InstallAccessibilityService extends AccessibilityService {
 
     private static final String TAG = InstallAccessibilityService.class.getSimpleName();
 
-    private Map<Integer, Boolean> handledMap = new HashMap<>();
+    private final String[] key = new String[]{"卸载", "安装", "继续", "继续安装", "替换", "下一步", "仅允许一次", "完成", "确定"};
 
-    private Handler mHandler = new Handler(Looper.getMainLooper());
-
+    /**
+     * 当指定事件发出服务时
+     *
+     * @param event
+     */
     @Override
     public void onAccessibilityEvent(AccessibilityEvent event) {
-        Log.d(TAG, "onAccessibilityEvent: " + event.toString());
+        Log.d(TAG, "窗口事件的包名" + event.getPackageName());
 
-        if (!String.valueOf(event.getPackageName()).contains("packageinstaller")) {
-            //不写完整包名，是因为某些手机(如小米)安装器包名是自定义的
+        if (event == null || event.getPackageName() == null
+                || !event.getPackageName().toString().contains("packageinstaller"))
             return;
-        }
 
-        AccessibilityNodeInfo nodeInfo = event.getSource();
-        if (nodeInfo == null) {
-            Log.i(TAG, "eventNode: null, 重新获取eventNode...");
-//            performGlobalAction(GLOBAL_ACTION_RECENTS); // 打开最近页面
-//            mHandler.postDelayed(new Runnable() {
-//                @Override
-//                public void run() {
-//                    performGlobalAction(GLOBAL_ACTION_BACK); // 返回安装页面
-//                }
-//            }, 320);
-            return;
-        }
-
-        int eventType = event.getEventType();
-        if (eventType == AccessibilityEvent.TYPE_WINDOW_CONTENT_CHANGED ||
-                eventType == AccessibilityEvent.TYPE_WINDOW_STATE_CHANGED) {
-            if (handledMap.get(event.getWindowId()) == null) {
-                boolean handled = iterateNodesAndHandle(nodeInfo);
-                if (handled) {
-                    handledMap.put(event.getWindowId(), true);
+        if (event.getSource() != null) {
+            for (String s : key) {
+                AccessibilityNodeInfo nodeInfo = getRootInActiveWindow();
+                if (nodeInfo != null) {
+                    List<AccessibilityNodeInfo> nodes = nodeInfo.findAccessibilityNodeInfosByText(s);
+                    System.out.println("节点的个数" + nodes.size());
+                    if (nodes != null && !nodes.isEmpty()) {
+                        AccessibilityNodeInfo node;
+                        for (int j = 0; j < nodes.size(); j++) {
+                            node = nodes.get(j);
+                            System.out.println("节点的类名" + node.getClassName().toString());
+                            if ((node.getClassName().equals("android.widget.Button") || node.getClassName().equals("android.widget.TextView")) && node.isEnabled()) {
+                                node.performAction(AccessibilityNodeInfo.ACTION_CLICK);
+                                break;
+                            }
+                        }
+                    }
                 }
             }
         }
     }
 
-    private boolean iterateNodesAndHandle(AccessibilityNodeInfo nodeInfo) {
-        if (nodeInfo != null) {
-            int childCount = nodeInfo.getChildCount();
-            if ("android.widget.Button".contentEquals(nodeInfo.getClassName())) {
-//                String nodeContent = nodeInfo.getText().toString();
-                CharSequence text = nodeInfo.getText();
-                String nodeContent = text == null ? "" : text.toString();
-                Log.d("TAG", "content is " + nodeContent);
-                if (!TextUtils.isEmpty(nodeContent)
-                        && ("安装".equals(nodeContent)
-                        || "继续安装".equals(nodeContent)
-                        || "install".equals(nodeContent.toLowerCase())
-                        || "done".equals(nodeContent.toLowerCase())
-                        || "完成".equals(nodeContent)
-                        || "确定".equals(nodeContent)
-                )) {
-                    nodeInfo.performAction(AccessibilityNodeInfo.ACTION_CLICK);
-                    return true;
-                }
-            } else if ("android.widget.ScrollView".contentEquals(nodeInfo.getClassName())) {
-                nodeInfo.performAction(AccessibilityNodeInfo.ACTION_SCROLL_FORWARD);
-            }
-            for (int i = 0; i < childCount; i++) {
-                AccessibilityNodeInfo childNodeInfo = nodeInfo.getChild(i);
-                if (iterateNodesAndHandle(childNodeInfo)) {
-                    return true;
-                }
-            }
-        }
-        return false;
+    @Override
+    protected void onServiceConnected() {
+        Log.e(TAG, "无障碍服务已开启");
+    }
+
+    @Override
+    public boolean onUnbind(Intent intent) {
+        Log.e(TAG, "无障碍服务已关闭");
+        return super.onUnbind(intent);
     }
 
     @Override

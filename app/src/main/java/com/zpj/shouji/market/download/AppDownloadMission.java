@@ -2,6 +2,7 @@ package com.zpj.shouji.market.download;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Environment;
 import android.text.TextUtils;
 import android.util.Log;
@@ -56,6 +57,11 @@ public class AppDownloadMission extends BaseMission<AppDownloadMission> {
     private String appType;
     private String appName;
     private boolean isShareApp;
+
+    private transient boolean isInstalled;
+    private transient boolean isUpgrade;
+    private transient String apkVersion;
+    private transient String appVersion;
 
     public static AppDownloadMission create(String appId, String appName, String packageName, String appType) {
         return create(appId, appName, packageName, appType, false);
@@ -115,6 +121,7 @@ public class AppDownloadMission extends BaseMission<AppDownloadMission> {
         if (errCode > 0) {
             return;
         }
+        checkUpgrade();
         if (FileUtils.getFileType(name) == FileUtils.FileType.ARCHIVE) {
 //            TODO 解压
             super.onFinish();
@@ -127,67 +134,94 @@ public class AppDownloadMission extends BaseMission<AppDownloadMission> {
     }
 
     @Override
+    protected void onCreate() {
+        isInstalled = AppUtils.isInstalled(getContext(), packageName);
+        isUpgrade = checkUpgrade();
+        RxBus.observe(this, packageName, String.class)
+                .doOnNext(new RxBus.SingleConsumer<String>() {
+                    @Override
+                    public void onAccept(String action) throws Exception {
+                        if (mListeners == null) {
+                            return;
+                        }
+                        Log.d(TAG, "action=" + action);
+                        switch (action) {
+                            case Intent.ACTION_PACKAGE_ADDED:
+                            case Intent.ACTION_PACKAGE_REPLACED:
+                                isInstalled = true;
+                                isUpgrade = checkUpgrade();
+                                for (WeakReference<MissionListener> weakRef : mListeners) {
+                                    MissionListener listener = weakRef.get();
+                                    if (listener instanceof AppMissionListener) {
+                                        ((AppMissionListener) listener).onInstalled();
+                                    }
+                                }
+                                break;
+                            case Intent.ACTION_PACKAGE_REMOVED:
+                                isInstalled = false;
+                                isUpgrade = false;
+                                for (WeakReference<MissionListener> weakRef : mListeners) {
+                                    MissionListener listener = weakRef.get();
+                                    if (listener instanceof AppMissionListener) {
+                                        ((AppMissionListener) listener).onUninstalled();
+                                    }
+                                }
+                                break;
+                            default:
+                                break;
+                        }
+                    }
+                })
+                .subscribe();
+    }
+
+    @Override
     protected void onDestroy() {
         RxBus.removeObservers(this);
     }
 
-    @Override
-    public synchronized AppDownloadMission addListener(MissionListener listener) {
-        if (mListeners == null) {
-            RxBus.removeObservers(this);
-            RxBus.observe(this, packageName, String.class)
-                    .doOnNext(new RxBus.SingleConsumer<String>() {
-                        @Override
-                        public void onAccept(String action) throws Exception {
-                            if (mListeners == null) {
-                                return;
-                            }
-                            Log.d(TAG, "action=" + action);
-                            switch (action) {
-                                case Intent.ACTION_PACKAGE_ADDED:
-                                case Intent.ACTION_PACKAGE_REPLACED:
-                                    for (WeakReference<MissionListener> weakRef : mListeners) {
-                                        MissionListener listener = weakRef.get();
-                                        if (listener instanceof AppMissionListener) {
-                                            ((AppMissionListener) listener).onInstalled();
-                                        }
-                                    }
-                                    break;
-                                case Intent.ACTION_PACKAGE_REMOVED:
-                                    for (WeakReference<MissionListener> weakRef : mListeners) {
-                                        MissionListener listener = weakRef.get();
-                                        if (listener instanceof AppMissionListener) {
-                                            ((AppMissionListener) listener).onUninstalled();
-                                        }
-                                    }
-                                    break;
-                                default:
-                                    break;
-                            }
-                        }
-                    })
-                    .subscribe();
-        }
-        return super.addListener(listener);
+    public boolean isUpgrade() {
+//        if (isInstalled()) {
+//            String apkVersion = AppUtils.getApkVersionName(getContext(), getFilePath());
+//            String appVersion = AppUtils.getAppVersionName(getContext(), getPackageName());
+//            return AppUtil.isNewVersion(appVersion, apkVersion);
+//        }
+//        return false;
+        return isUpgrade;
     }
 
-    public boolean isUpgrade() {
-        if (isInstalled()) {
-            String apkVersion = AppUtils.getApkVersionName(getContext(), getFilePath());
-            String appVersion = AppUtils.getAppVersionName(getContext(), getPackageName());
+    private boolean checkUpgrade() {
+        if (isFinished() && isInstalled) {
+            apkVersion = AppUtils.getApkVersionName(getContext(), getFilePath());
+            appVersion = AppUtils.getAppVersionName(getContext(), getPackageName());
             return AppUtil.isNewVersion(appVersion, apkVersion);
         }
         return false;
     }
 
     public boolean isInstalled() {
-        return AppUtils.isApkInstalled(getContext(), packageName);
+//        boolean isInstalled;
+//        PackageManager packageManager = getContext().getPackageManager();
+//        try {
+//            packageManager.getPackageInfo(packageName, 0);
+//            isInstalled = true;
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//            isInstalled = false;
+//        }
+//        return isInstalled;
+        if (isFinished() && isInstalled) {
+            Log.d(TAG, "apkVersion=" + apkVersion + " appVersion=" + appVersion);
+            return TextUtils.equals(apkVersion, appVersion);
+        }
+        return false;
+//        return AppUtils.isApkInstalled(getContext(), packageName);
 //        return AppUtils.isInstalled(getContext(), packageName);
     }
 
     public void install() {
         EventBus.getActivity(activity -> {
-            if (AppUtils.isApkInstalled(activity, getPackageName()) && AppConfig.isCheckSignature()) {
+            if (isInstalled() && AppConfig.isCheckSignature()) {
                 Observable.create(
                         (ObservableOnSubscribe<Boolean>) emitter -> {
                             String currentSign = AppUtils.getAppSignatureMD5(activity, getPackageName());
@@ -260,7 +294,7 @@ public class AppDownloadMission extends BaseMission<AppDownloadMission> {
 
                     @Override
                     public void onNeed2OpenService() {
-                        ZToast.normal(R.string.text_enable_accessibility_installation_service);
+                        ZToast.warning(R.string.text_enable_accessibility_installation_service);
                     }
 
                     @Override

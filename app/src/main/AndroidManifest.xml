@@ -25,6 +25,7 @@
 
         <activity
             android:name="com.zpj.shouji.market.ui.activity.MainActivity"
+            android:screenOrientation="portrait"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:exported="true"
             android:launchMode="singleTask"
@@ -80,7 +81,7 @@
             android:name=".installer.InstallAccessibilityService"
             android:enabled="true"
             android:exported="true"
-            android:label="测试"
+            android:label="@string/accessibility_service_description"
             android:permission="android.permission.BIND_ACCESSIBILITY_SERVICE">
             <intent-filter>
                 <action android:name="android.accessibilityservice.AccessibilityService" />

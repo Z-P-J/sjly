@@ -45,19 +45,8 @@ public class PackageManagerFragment extends RecyclerLayoutFragment<InstalledAppI
 
     private static final String TAG = "PackageFragment";
 
-    private static final List<OptionMenu> optionMenus = new ArrayList<>();
-
-    static {
-        optionMenus.add(new OptionMenu("详细信息"));
-        optionMenus.add(new OptionMenu("分享"));
-        optionMenus.add(new OptionMenu("删除"));
-        optionMenus.add(new OptionMenu("安装"));
-    }
-
     private TextView sortTextView;
     private TextView infoTextView;
-
-//    private long startTime;
 
     private int sortPosition = 0;
 
@@ -335,7 +324,7 @@ public class PackageManagerFragment extends RecyclerLayoutFragment<InstalledAppI
 
         packageInfo.applicationInfo.sourceDir = file.getPath();
         packageInfo.applicationInfo.publicSourceDir = file.getPath();
-        appInfo.setName(packageInfo.applicationInfo.loadLabel(manager).toString());
+        appInfo.setName(String.valueOf(packageInfo.applicationInfo.loadLabel(manager)));
 //        Log.d("parseFromApk", "name=" + appInfo.getName());
         appInfo.setPackageName(packageInfo.packageName);
         appInfo.setIdAndType(AppUpdateManager.getInstance().getAppIdAndType(appInfo.getPackageName()));
@@ -368,7 +357,7 @@ public class PackageManagerFragment extends RecyclerLayoutFragment<InstalledAppI
 
     public void onMenuClicked(View view, InstalledAppInfo updateInfo) {
         new ArrowMenuDialogFragment()
-                .setOptionMenus(optionMenus)
+                .setOptionMenus(R.array.apk_actions)
                 .setOrientation(LinearLayout.HORIZONTAL)
                 .setOnItemClickListener((position, menu) -> {
                     switch (position) {

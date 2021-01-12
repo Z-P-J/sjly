@@ -17,13 +17,14 @@ import com.zpj.fragmentation.dialog.widget.PopVerticalScrollView;
 import com.zpj.utils.ContextUtils;
 import com.zpj.utils.ScreenUtils;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class ArrowMenuDialogFragment extends ArrowDialogFragment {
 
     private int menuRes = 0;
 
-    private List<OptionMenu> optionMenus;
+    private final List<OptionMenu> optionMenus = new ArrayList<>();
 
     private int mOrientation = LinearLayout.VERTICAL;
 
@@ -93,7 +94,7 @@ public class ArrowMenuDialogFragment extends ArrowDialogFragment {
     }
 
     public ArrowMenuDialogFragment setOptionMenus(List<OptionMenu> optionMenus) {
-        this.optionMenus = optionMenus;
+        this.optionMenus.addAll(optionMenus);
         return this;
     }
 

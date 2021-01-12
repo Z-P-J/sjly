@@ -27,7 +27,10 @@ public class AppUpdateInfo {
 
     private String updateInfo;
 
-    private Drawable iconDrawable;
+    private boolean isExpand;
+
+
+
 
     public String getAppName() {
         return appName;
@@ -120,12 +123,12 @@ public class AppUpdateInfo {
         this.updateInfo = updateInfo;
     }
 
-    public Drawable getIconDrawable() {
-        return iconDrawable;
+    public boolean isExpand() {
+        return isExpand;
     }
 
-    public void setIconDrawable(Drawable iconDrawable) {
-        this.iconDrawable = iconDrawable;
+    public void setExpand(boolean expand) {
+        isExpand = expand;
     }
 
     @Override

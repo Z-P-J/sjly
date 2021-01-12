@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:gravity="center_vertical"
     android:orientation="horizontal"
     android:background="@drawable/bottom_line_gray"
-    android:padding="10dp">
+    android:padding="16dp">
 
     <ImageView
         android:id="@+id/iv_icon"
         android:layout_width="56dp"
         android:layout_height="56dp"
         android:src="@mipmap/ic_launcher"
-        android:layout_margin="10dp"
         android:layout_gravity="top"
         />
 
@@ -22,23 +22,22 @@
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/dp_16"
         >
 
-        <LinearLayout
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:gravity="center_vertical"
-            android:paddingStart="10dp"
-            android:paddingEnd="10dp"
             >
 
             <LinearLayout
-                android:layout_width="0dp"
-                android:layout_weight="1"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
                 android:gravity="center_vertical"
+                android:layout_toStartOf="@id/iv_setting"
 
                 >
                 <TextView
@@ -64,7 +63,7 @@
                     android:paddingTop="1dp"
                     android:paddingBottom="1dp"
                     android:textSize="12sp"
-                    android:textColor="?attr/textColorNormal"
+                    android:textColor="?attr/textColorMinor"
                     />
 
                 <TextView
@@ -82,6 +81,19 @@
                     />
 
             </LinearLayout>
+
+            <ImageView
+                android:id="@+id/iv_setting"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end"
+                android:src="@drawable/ic_setting"
+                android:tint="@color/colorPrimary"
+                android:padding="@dimen/dp_8"
+                android:layout_marginHorizontal="@dimen/dp_8"
+                android:layout_centerVertical="true"
+                android:layout_toStartOf="@id/tv_update"
+                />
 
 <!--            <TextView-->
 <!--                android:id="@+id/tv_update"-->
@@ -111,55 +123,45 @@
                 android:paddingTop="4dp"
                 android:paddingBottom="4dp"
                 android:gravity="center"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
                 />
 
-        </LinearLayout>
+        </RelativeLayout>
 
         <LinearLayout
             android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingStart="10dp"
-            android:paddingEnd="10dp"
-            android:paddingTop="10dp"
             >
 
-            <LinearLayout
+            <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="end"
                 >
 
                 <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:layout_toStartOf="@id/iv_expand"
                     android:layout_gravity="center"
                     android:textColor="@color/colorPrimary"
                     android:text="更新内容："
+                    android:gravity="center_vertical"
+                    android:maxLines="1"
+                    android:ellipsize="end"
                     />
 
-                <ImageView
-                    android:id="@+id/iv_setting"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="end"
-                    android:src="@drawable/ic_more_vert_grey_24dp"
-                    android:tint="@color/colorPrimary"
-                    android:padding="8dp"
-                    />
-
-                <ImageView
+                <com.github.zagum.expandicon.ExpandIconView
                     android:id="@+id/iv_expand"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/ic_expand_more_black_24dp"
-                    android:tint="@color/colorPrimary"
-                    android:padding="8dp"
-                    android:layout_gravity="end"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_alignParentEnd="true"
+                    app:eiv_padding="12dp"
+                    app:eiv_color="@color/middle_gray_1"
                     />
 
-            </LinearLayout>
+            </RelativeLayout>
 
             <TextView
                 android:id="@+id/tv_update_info"
@@ -167,7 +169,7 @@
                 android:layout_height="wrap_content"
                 android:maxLines="1"
                 android:ellipsize="end"
-                android:text="esjrthgrhdfkglfjtghrftgiftghnjksdgdsfgdhkjghdfkjgdfkgkhdfkjgd"
+                android:text="..."
                 android:textColor="?attr/textColorNormal"
                 />
 

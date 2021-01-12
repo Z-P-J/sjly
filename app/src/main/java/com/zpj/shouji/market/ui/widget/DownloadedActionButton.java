@@ -65,18 +65,34 @@ public class DownloadedActionButton extends AppCompatTextView
         if (mission == null) {
             return;
         }
-        switch (textId) {
-            case R.string.text_upgrade:
-            case R.string.text_install:
+        if (mission.getFile().exists()) {
+            if (mission.isInstalled()) {
+                String apkVersion = AppUtils.getApkVersionName(getContext(), mission.getFilePath());
+                String appVersion = AppUtils.getAppVersionName(getContext(), mission.getPackageName());
+                if (TextUtils.equals(apkVersion, appVersion)) {
+                    AppUtils.runApp(v.getContext(), mission.getPackageName());
+                } else {
+                    mission.install();
+                }
+            } else {
                 mission.install();
-                break;
-            case R.string.text_open:
-                AppUtils.runApp(v.getContext(), mission.getPackageName());
-                break;
-            case R.string.text_retry:
-                ZToast.warning(R.string.text_retry);
-                break;
+            }
+        } else {
+            ZToast.warning(R.string.text_retry);
         }
+
+//        switch (textId) {
+//            case R.string.text_upgrade:
+//            case R.string.text_install:
+//                mission.install();
+//                break;
+//            case R.string.text_open:
+//                AppUtils.runApp(v.getContext(), mission.getPackageName());
+//                break;
+//            case R.string.text_retry:
+//                ZToast.warning(R.string.text_retry);
+//                break;
+//        }
     }
 
     private void init(final AppDownloadMission mission) {

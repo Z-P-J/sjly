@@ -1,6 +1,6 @@
 package com.zpj.shouji.market.installer;
 
-import android.content.BroadcastReceiver;
+import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
@@ -76,7 +76,7 @@ public class ApkInstaller {
             }
             PackageManager pm = mContext.getPackageManager();
             PackageInfo info = pm.getPackageArchiveInfo(file.getAbsolutePath(), PackageManager.GET_ACTIVITIES);
-            appName = String.valueOf(pm.getApplicationLabel(info.applicationInfo));
+            appName = String.valueOf(info.applicationInfo.loadLabel(pm));
             packageName = info.packageName;
             if (TextUtils.isEmpty(packageName)) {
                 onError(new Throwable("The package name is null!"));
@@ -108,12 +108,13 @@ public class ApkInstaller {
                         case ROOT:
                             try {
                                 installRoot(file);
+                                emitter.onNext(0);
                             } catch (Throwable e) {
                                 e.printStackTrace();
                                 ZNotify.with(mContext)
                                         .buildNotify()
-                                        .setContentTitle("Root安装失败")
-                                        .setContentText(appName + "Root安装失败！" + e.getMessage())
+                                        .setContentTitle("安装失败")
+                                        .setContentText(appName + "静默安装失败！" + e.getMessage())
                                         .setId(packageName.hashCode())
                                         .show();
                                 emitter.onError(e);
@@ -155,6 +156,15 @@ public class ApkInstaller {
     }
 
     private void onComplete() {
+        Intent intent = mContext.getPackageManager().getLaunchIntentForPackage(packageName);
+        PendingIntent pendingIntent = PendingIntent.getActivity(mContext, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+        ZNotify.with(mContext)
+                .buildNotify()
+                .setContentTitle(appName + "安装成功")
+                .setContentText("点击打开" + appName + "应用")
+                .setId(packageName.hashCode())
+                .setContentIntent(pendingIntent)
+                .show();
         if (mInstallerListener != null) {
             mInstallerListener.onComplete();
         }
@@ -222,8 +232,8 @@ public class ApkInstaller {
             throw new IllegalArgumentException("The apk file is not exists!");
         ZNotify.with(mContext)
                 .buildNotify()
-                .setContentTitle("Root安装")
-                .setContentText("开始Root静默安装" + appName + "应用")
+                .setContentTitle("静默安装")
+                .setContentText("开始静默安装" + appName + "应用")
                 .setId(packageName.hashCode())
                 .show();
         Process process = null;

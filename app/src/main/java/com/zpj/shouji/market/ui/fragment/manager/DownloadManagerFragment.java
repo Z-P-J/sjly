@@ -466,9 +466,10 @@ public class DownloadManagerFragment extends BaseSwipeBackFragment
                     holder.setImageResource(R.id.btn_download, R.drawable.download_item_pause_icon_style2);
                 } else if (mission.isPause()) {
                     holder.setText(R.id.item_status, mission.getStatus().toString());
-                    holder.setImageResource(R.id.btn_download, R.drawable.download_item_resume_icon_style2);
+                    holder.setImageResource(R.id.btn_download,  R.drawable.download_item_resume_icon_style2);
                 } else if (mission.isError()) {
-                    holder.setText(R.id.item_status, mission.getStatus().toString() + ":" + mission.getErrCode());
+//                    holder.setText(R.id.item_status, mission.getStatus().toString() + ":" + mission.getErrCode());
+                    holder.setText(R.id.item_status, mission.getStatus().toString());
                     holder.setImageResource(R.id.btn_download, R.drawable.download_item_retry_icon_style2);
                 } else if (mission.isWaiting()) {
                     holder.setText(R.id.item_status, mission.getStatus().toString());

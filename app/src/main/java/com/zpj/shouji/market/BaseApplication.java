@@ -76,6 +76,7 @@ public class BaseApplication extends MultiDexApplication {
 
         ZDownloader.config(this, AppDownloadMission.class)
                 .setUserAgent("Sjly(3.0)")
+                .setDownloadPath(AppConfig.getDownloadPath())
                 .setNotificationInterceptor(new DownloadNotificationInterceptor())
                 .setConcurrentMissionCount(AppConfig.getMaxDownloadConcurrentCount())
                 .setEnableNotification(AppConfig.isShowDownloadNotification())

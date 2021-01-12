@@ -1,9 +1,13 @@
 package com.zpj.shouji.market.ui.fragment.manager;
 
+import android.graphics.Color;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.text.SpannableString;
 import android.text.Spanned;
+import android.text.TextPaint;
+import android.text.style.ForegroundColorSpan;
 import android.text.style.StrikethroughSpan;
 import android.view.View;
 import android.widget.ImageView;
@@ -11,6 +15,7 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.github.zagum.expandicon.ExpandIconView;
 import com.zpj.fragmentation.dialog.impl.ArrowMenuDialogFragment;
 import com.zpj.fragmentation.dialog.model.OptionMenu;
 import com.zpj.recyclerview.EasyAdapter;
@@ -34,18 +39,8 @@ import java.util.List;
 public class UpdateManagerFragment extends RecyclerLayoutFragment<AppUpdateInfo>
         implements AppUpdateManager.CheckUpdateListener {
 
-    private static final List<OptionMenu> optionMenus = new ArrayList<>();
-    static {
-        optionMenus.add(new OptionMenu("忽略更新"));
-        optionMenus.add(new OptionMenu("详细信息"));
-        optionMenus.add(new OptionMenu("卸载"));
-        optionMenus.add(new OptionMenu("打开"));
-    }
-
     private RelativeLayout topLayout;
     private TextView updateInfo;
-
-    private boolean showToolbar = false;
 
     public static UpdateManagerFragment newInstance(boolean showToolbar) {
         Bundle args = new Bundle();
@@ -78,7 +73,7 @@ public class UpdateManagerFragment extends RecyclerLayoutFragment<AppUpdateInfo>
     protected void initView(View view, @Nullable Bundle savedInstanceState) {
         super.initView(view, savedInstanceState);
 
-        showToolbar = getArguments() != null && getArguments().getBoolean(Keys.SHOW_TOOLBAR, false);
+        boolean showToolbar = getArguments() != null && getArguments().getBoolean(Keys.SHOW_TOOLBAR, false);
         if (showToolbar) {
             toolbar.setVisibility(View.VISIBLE);
 //            findViewById(R.id.shadow_view).setVisibility(View.VISIBLE);
@@ -88,12 +83,13 @@ public class UpdateManagerFragment extends RecyclerLayoutFragment<AppUpdateInfo>
         }
 
         topLayout = view.findViewById(R.id.layout_top);
+        topLayout.setVisibility(View.GONE);
         TextView updateAll = view.findViewById(R.id.update_all);
         updateAll.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 // todo update all apps
-                ZToast.normal("updateAll");
+                ZToast.normal("TODO updateAll");
             }
         });
         updateInfo = view.findViewById(R.id.update_info);
@@ -133,7 +129,7 @@ public class UpdateManagerFragment extends RecyclerLayoutFragment<AppUpdateInfo>
 
     public void onMenuClicked(View view, AppUpdateInfo updateInfo) {
         new ArrowMenuDialogFragment()
-                .setOptionMenus(optionMenus)
+                .setOptionMenus(R.array.update_actions)
                 .setOrientation(LinearLayout.HORIZONTAL)
                 .setOnItemClickListener((position, menu) -> {
                     switch (position) {
@@ -178,7 +174,8 @@ public class UpdateManagerFragment extends RecyclerLayoutFragment<AppUpdateInfo>
         TextView infoTextView = holder.getView(R.id.tv_info);
         TextView updateTextView = holder.getView(R.id.tv_update_info);
         ImageView settingBtn = holder.getView(R.id.iv_setting);
-        ImageView expandBtn = holder.getView(R.id.iv_expand);
+//        ImageView expandBtn = holder.getView(R.id.iv_expand);
+        ExpandIconView expandBtn = holder.getView(R.id.iv_expand);
         DownloadButton downloadButton = holder.getView(R.id.tv_update);
         downloadButton.bindApp(updateInfo);
 
@@ -190,25 +187,48 @@ public class UpdateManagerFragment extends RecyclerLayoutFragment<AppUpdateInfo>
         titleTextView.setText(updateInfo.getAppName());
         versionTextView.setText(getVersionText(updateInfo));
         infoTextView.setText(updateInfo.getNewSize() + " | " + updateInfo.getUpdateTimeInfo());
+
+        updateTextView.setMaxLines(updateInfo.isExpand() ? 0 : 1);
         updateTextView.setText(updateInfo.getUpdateInfo());
 
+//        expandBtn.setTag(false);
+//        expandBtn.setOnClickListener(v -> {
+//            boolean tag = (boolean) expandBtn.getTag();
+//            expandBtn.setImageResource(tag ? R.drawable.ic_expand_more_black_24dp : R.drawable.ic_expand_less_black_24dp);
+//            updateTextView.setMaxLines(tag ? 1 : 0);
+//            updateTextView.setText(updateInfo.getUpdateInfo());
+//            expandBtn.setTag(!tag);
+//        });
 
-        if (updateTextView.getLayout() != null && updateTextView.getLayout().getEllipsisCount(updateTextView.getLineCount() - 1) > 0) {
-            expandBtn.setVisibility(View.VISIBLE);
-        } else {
-            expandBtn.setVisibility(View.GONE);
-        }
 
-        expandBtn.setTag(false);
+
+
+        expandBtn.setTag(updateInfo);
+        expandBtn.setState(updateInfo.isExpand() ? ExpandIconView.LESS : ExpandIconView.MORE, false);
         expandBtn.setOnClickListener(v -> {
-            boolean tag = (boolean) expandBtn.getTag();
-            expandBtn.setImageResource(tag ? R.drawable.ic_expand_more_black_24dp : R.drawable.ic_expand_less_black_24dp);
-            updateTextView.setMaxLines(tag ? 1 : 0);
+            AppUpdateInfo info = (AppUpdateInfo) v.getTag();
+            boolean isExpand = info.isExpand();
+            info.setExpand(!isExpand);
+
+            updateTextView.setMaxLines(isExpand ? 1 : 0);
             updateTextView.setText(updateInfo.getUpdateInfo());
-            expandBtn.setTag(!tag);
+
+            expandBtn.switchState();
         });
 
         settingBtn.setOnClickListener(v -> onMenuClicked(v, updateInfo));
+
+        updateTextView.post(new Runnable() {
+            @Override
+            public void run() {
+                if (updateInfo.isExpand() || (updateTextView.getLayout() != null && updateTextView.getLayout().getEllipsisCount(updateTextView.getLineCount() - 1) > 0)) {
+                    expandBtn.setVisibility(View.VISIBLE);
+                } else {
+                    expandBtn.setVisibility(View.GONE);
+                }
+            }
+        });
+
 
 
     }
@@ -228,11 +248,23 @@ public class UpdateManagerFragment extends RecyclerLayoutFragment<AppUpdateInfo>
     }
 
     private SpannableString getVersionText(AppUpdateInfo updateInfo) {
-        SpannableString spannableString = new SpannableString(updateInfo.getOldVersionName() + "  " + updateInfo.getNewVersionName());
+        SpannableString spannableString = new SpannableString(updateInfo.getOldVersionName() + "\t--->\t" + updateInfo.getNewVersionName());
         spannableString.setSpan(
-                new StrikethroughSpan(),
+                new StrikethroughSpan() {
+                    @Override
+                    public void updateDrawState(@NonNull TextPaint ds) {
+                        super.updateDrawState(ds);
+                        ds.setColor(Color.parseColor("#ff5c5d"));
+                    }
+                },
                 0,
                 updateInfo.getOldVersionName().length(),
+                Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
+        );
+        spannableString.setSpan(
+                new ForegroundColorSpan(context.getResources().getColor(R.color.colorPrimary)),
+                spannableString.length() - updateInfo.getNewVersionName().length(),
+                spannableString.length(),
                 Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
         );
         return spannableString;

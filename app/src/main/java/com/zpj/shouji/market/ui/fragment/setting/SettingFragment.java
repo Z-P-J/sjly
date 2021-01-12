@@ -4,6 +4,7 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.View;
+import android.widget.LinearLayout;
 
 import com.zpj.downloader.ZDownloader;
 import com.zpj.fragmentation.dialog.impl.AlertDialogFragment;
@@ -15,6 +16,7 @@ import com.zpj.shouji.market.manager.AppUpdateManager;
 import com.zpj.shouji.market.ui.fragment.dialog.BrightnessDialogFragment;
 import com.zpj.shouji.market.ui.fragment.dialog.SeekBarDialogFragment;
 import com.zpj.shouji.market.utils.EventBus;
+import com.zpj.shouji.market.utils.RootUtil;
 import com.zpj.toast.ZToast;
 import com.zpj.utils.CacheUtils;
 import com.zpj.utils.RootUtils;
@@ -112,10 +114,15 @@ public class SettingFragment extends BaseSettingFragment {
         itemAutoInstall.setChecked(AppConfig.isAccessibilityInstall());
         itemAutoInstall.setOnItemClickListener(this);
 
-        CheckableSettingItem itemRootInstall = view.findViewById(R.id.item_root_install);
-        itemRootInstall.setVisibility(RootUtils.isRooted() ? View.VISIBLE : View.GONE);
-        itemRootInstall.setChecked(AppConfig.isRootInstall());
-        itemRootInstall.setOnItemClickListener(this);
+        CheckableSettingItem itemRootInstall = findViewById(R.id.item_root_install);
+        if (RootUtil.isRooted()) {
+            itemRootInstall.setChecked(AppConfig.isRootInstall());
+            itemRootInstall.setOnItemClickListener(this);
+        } else {
+            LinearLayout container = findViewById(R.id.ll_container);
+            container.removeView(itemRootInstall);
+        }
+
 
     }
 

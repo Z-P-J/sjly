@@ -142,6 +142,7 @@ public class BaseMission<T extends BaseMission<T>> extends BaseConfig<T> impleme
     private transient Handler handler;
     private transient ConcurrentLinkedQueue<DownloadBlock> blockQueue;
     private transient Runnable progressRunnable;
+    private transient boolean isCreate = false;
 
 
     //------------------------------------------------------runnables---------------------------------------------
@@ -393,17 +394,25 @@ public class BaseMission<T extends BaseMission<T>> extends BaseConfig<T> impleme
 
     //----------------------------------------------------------operation------------------------------------------------------------
     void init() {
-        if (length < 0) {
-            length = 0;
-        }
-        finishCount = new AtomicInteger(0);
-        aliveThreadCount = new AtomicInteger(0);
-        currentRetryCount = getRetryCount();
-        threadCount = getProducerThreadCount();
-        lastDone = done.get();
         if (isFinished()) {
             return;
         }
+        if (length < 0) {
+            length = 0;
+        }
+        if (finishCount == null) {
+            finishCount = new AtomicInteger(0);
+        } else {
+            finishCount.set(0);
+        }
+        if (aliveThreadCount == null) {
+            aliveThreadCount = new AtomicInteger(0);
+        } else {
+            aliveThreadCount.set(0);
+        }
+        currentRetryCount = getRetryCount();
+        threadCount = getProducerThreadCount();
+        lastDone = done.get();
         if (hasInit) {
             for (long position = 0; position < getBlocks(); position++) {
                 if (!queue.contains(position) && !finished.contains(position)) {
@@ -422,11 +431,23 @@ public class BaseMission<T extends BaseMission<T>> extends BaseConfig<T> impleme
         }
     }
 
+    protected void onCreate() {
+
+    }
+
     protected void onDestroy() {
 
     }
 
+    final void firstCreate() {
+        if (!isCreate) {
+            isCreate = true;
+            onCreate();
+        }
+    }
+
     public void start() {
+        firstCreate();
         init();
         Log.d(TAG, "start hasInit=" + hasInit);
         if (!hasInit) {
@@ -683,34 +704,33 @@ public class BaseMission<T extends BaseMission<T>> extends BaseConfig<T> impleme
         }
     }
 
-    synchronized void notifyError(Error e, boolean fromThread) {
+    synchronized void notifyError(final Error e, boolean fromThread) {
         Log.d(TAG, "err=" + e.getErrorMsg() + " fromThread=" + fromThread);
-//        errorHistoryList.add(e);
-        if (!(e == Error.WITHOUT_STORAGE_PERMISSIONS || e == Error.FILE_NOT_FOUND)) {
-            errorCount++;
-            if (fromThread) {
-                aliveThreadCount.decrementAndGet();
-//                finishCount++;
-                finishCount.incrementAndGet();
-            }
-            Log.d(TAG, "aliveThreadCount=" + aliveThreadCount + " fromThread=" + fromThread);
-            if (aliveThreadCount.get() <= 0 && errorCount >= threadCount) {
-                currentRetryCount--;
-                if (currentRetryCount >= 0) {
-                    pause();
-                    notifyStatus(MissionStatus.RETRY);
-                    getHandler().postDelayed(new Runnable() {
-                        @Override
-                        public void run() {
-                            start();
-                        }
-                    }, getRetryDelay());
-                    return;
-                }
-            } else {
-                return;
-            }
-        }
+//        if (!(e == Error.WITHOUT_STORAGE_PERMISSIONS || e == Error.FILE_NOT_FOUND)) {
+//            errorCount++;
+//            if (fromThread) {
+//                aliveThreadCount.decrementAndGet();
+////                finishCount++;
+//                finishCount.incrementAndGet();
+//            }
+//            Log.d(TAG, "aliveThreadCount=" + aliveThreadCount + " fromThread=" + fromThread);
+//            if (aliveThreadCount.get() <= 0 && errorCount >= threadCount) {
+//                currentRetryCount--;
+//                if (currentRetryCount >= 0) {
+//                    pause();
+//                    notifyStatus(MissionStatus.RETRY);
+//                    getHandler().postDelayed(new Runnable() {
+//                        @Override
+//                        public void run() {
+//                            start();
+//                        }
+//                    }, getRetryDelay());
+//                    return;
+//                }
+//            } else {
+//                return;
+//            }
+//        }
 
         missionStatus = MissionStatus.ERROR;
 
@@ -722,16 +742,6 @@ public class BaseMission<T extends BaseMission<T>> extends BaseConfig<T> impleme
 
         writeMissionInfo();
 
-        notifyError(e);
-
-        DownloadManagerImpl.decreaseDownloadingCount();
-
-        if (getEnableNotification() && getNotificationInterceptor() != null) {
-            getNotificationInterceptor().onError(getContext(), this, errCode);
-        }
-    }
-
-    protected void notifyError(final Error e) {
         getHandler().post(new Runnable() {
             @Override
             public void run() {
@@ -746,6 +756,16 @@ public class BaseMission<T extends BaseMission<T>> extends BaseConfig<T> impleme
                 }
             }
         });
+
+        DownloadManagerImpl.decreaseDownloadingCount();
+
+        if (getEnableNotification() && getNotificationInterceptor() != null) {
+            getNotificationInterceptor().onError(getContext(), this, errCode);
+        }
+    }
+
+    protected void notifyError(final Error e) {
+        notifyError(e, false);
     }
 
     protected void notifyStatus(final MissionStatus status) {
@@ -824,11 +844,26 @@ public class BaseMission<T extends BaseMission<T>> extends BaseConfig<T> impleme
     }
 
     public synchronized T addListener(MissionListener listener) {
+        if (hasListener(listener)) {
+            return (T) this;
+        }
         if (mListeners == null) {
             mListeners = new ArrayList<>();
         }
         mListeners.add(new WeakReference<>(listener));
         return (T) this;
+    }
+
+    public synchronized boolean hasListener(MissionListener listener) {
+        if (mListeners == null) {
+            return false;
+        }
+        for (WeakReference<MissionListener> weakRef : mListeners) {
+            if (weakRef != null && weakRef.get() == listener) {
+                return true;
+            }
+        }
+        return false;
     }
 
     public synchronized void removeListener(MissionListener listener) {
