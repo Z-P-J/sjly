@@ -137,12 +137,22 @@ public class DownloadButton extends AppCompatTextView
             for (AppDownloadMission mission : missions) {
                 if (TextUtils.equals(appId, mission.getAppId()) && TextUtils.equals(packageName, mission.getPackageName())) {
                     DownloadButton.this.mission = mission;
-                    onBindMission(mission);
+                    post(new Runnable() {
+                        @Override
+                        public void run() {
+                            onBindMission(mission);
+                        }
+                    });
                     break;
                 }
             }
             if (mission == null) {
-                onDelete();
+                post(new Runnable() {
+                    @Override
+                    public void run() {
+                        onDelete();
+                    }
+                });
             } else {
                 DownloadButton.this.mission.addListener(DownloadButton.this);
             }
@@ -206,7 +216,7 @@ public class DownloadButton extends AppCompatTextView
                 }
             } else {
                 mission.delete();
-                onDelete();
+//                onDelete();
             }
         } else if (mission.isWaiting()) {
             setText(R.string.text_waiting);
@@ -369,8 +379,6 @@ public class DownloadButton extends AppCompatTextView
 
             mission = AppDownloadMission.create(appId, appName, packageName, appType, isShareApp);
             mission.setAppIcon(appIcon)
-                    .setCookie(UserManager.getInstance().getCookie())
-                    .setUserAgent(HttpApi.USER_AGENT)
                     .addListener(this)
                     .start();
             ZToast.normal("开始下载" + appName);

@@ -4,25 +4,21 @@
     android:layout_height="wrap_content"
     android:orientation="horizontal"
     android:background="@drawable/bottom_line_gray"
-    android:paddingTop="5dp"
-    android:paddingBottom="5dp"
-    android:paddingStart="10dp"
-    android:paddingEnd="10dp"
+    android:paddingVertical="12dp"
+    android:paddingHorizontal="@dimen/dp_16"
     >
 
     <ImageView
         android:id="@+id/img_icon"
-        android:layout_width="20dp"
-        android:layout_height="20dp"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
         android:src="@drawable/ic_downloading"
-        android:layout_margin="5dp"
         android:layout_centerVertical="true"
         />
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="5dp"
         android:text="下载中"
         android:id="@+id/text_title"
         android:textSize="14sp"
@@ -30,14 +26,14 @@
         android:layout_toEndOf="@id/img_icon"
         android:layout_toStartOf="@id/img_arrow"
         android:layout_centerVertical="true"
+        android:layout_marginHorizontal="@dimen/dp_8"
         />
 
     <ImageView
         android:id="@+id/img_arrow"
-        android:layout_width="20dp"
-        android:layout_height="20dp"
-        android:src="@drawable/ic_keyboard_arrow_right_black_24dp"
-        android:layout_margin="5dp"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:src="@drawable/ic_enter"
         android:layout_alignParentEnd="true"
         android:layout_centerVertical="true"
         android:tint="?attr/textColorMajor"

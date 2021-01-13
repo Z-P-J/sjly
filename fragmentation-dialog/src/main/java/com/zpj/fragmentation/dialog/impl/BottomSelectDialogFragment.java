@@ -4,7 +4,9 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.View;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -52,10 +54,16 @@ public class BottomSelectDialogFragment<T> extends BottomDialogFragment {
     private TitleCallback<T> titleCallback;
     private SubtitleCallback<T> subtitleCallback;
 
+    private EasyRecyclerView<T> recyclerView;
+    private SmoothCheckBox selectAllCheckBox;
+
     private int majorTextColor;
     private int normalTextColor;
 
-    String title;
+    protected String negativeText, neutralText, positiveText;
+    private String title;
+
+    private TextView tvOk;
 
     @Override
     protected int getContentLayoutId() {
@@ -72,21 +80,50 @@ public class BottomSelectDialogFragment<T> extends BottomDialogFragment {
         TextView tvTitle = findViewById(R.id.tv_title);
         tvTitle.setText(title);
         LinearLayout buttons = findViewById(R.id.layout_buttons);
+        FrameLayout flCheckBox = findViewById(R.id.fl_check_box);
         if (isMultiple) {
             buttons.setVisibility(View.VISIBLE);
+
+            flCheckBox.setVisibility(View.VISIBLE);
+            selectAllCheckBox = findViewById(R.id.check_box);
+            selectAllCheckBox.setCheckedColor(DialogThemeUtils.getColorPrimary(context));
+            View.OnClickListener listener = v -> {
+                boolean selectAll = !selectAllCheckBox.isChecked();
+//                selectAllCheckBox.setChecked(selectAll, true);
+                if (selectAll) {
+                    selectedList.clear();
+                    for (int i = 0; i < list.size(); i++) {
+                        selectedList.add(i);
+                    }
+                } else {
+                    selectedList.clear();
+                }
+                recyclerView.notifyDataSetChanged();
+                updateOkButton();
+            };
+            selectAllCheckBox.setOnClickListener(listener);
+            flCheckBox.setOnClickListener(listener);
+
             TextView tvCancel = buttons.findViewById(R.id.tv_cancel);
-            TextView tvOk = buttons.findViewById(R.id.tv_ok);
+            if (!TextUtils.isEmpty(negativeText)) {
+                tvCancel.setText(negativeText);
+            }
+            tvOk = buttons.findViewById(R.id.tv_ok);
+            if (TextUtils.isEmpty(positiveText)) {
+                positiveText = String.valueOf(tvOk.getText());
+            }
+            updateOkButton();
             tvCancel.setTextColor(DialogThemeUtils.getNegativeTextColor(context));
             tvOk.setTextColor(DialogThemeUtils.getPositiveTextColor(context));
             tvCancel.setOnClickListener(v -> onSelect());
             tvOk.setOnClickListener(v -> onSelect());
         } else {
             buttons.setVisibility(View.GONE);
+            flCheckBox.setVisibility(View.GONE);
         }
 
-        RecyclerView recyclerView = findViewById(R.id.recyclerView);
-        EasyRecyclerView<T> easyRecyclerView = new EasyRecyclerView<>(recyclerView);
-        easyRecyclerView.setData(list)
+        recyclerView = new EasyRecyclerView<>(findViewById(R.id.recyclerView));
+        recyclerView.setData(list)
                 .setItemRes(R.layout._dialog_item_bottom_select)
                 .setLayoutManager(new LinearLayoutManager(context))
                 .onBindViewHolder((holder, list, position, payloads) -> {
@@ -96,7 +133,8 @@ public class BottomSelectDialogFragment<T> extends BottomDialogFragment {
                     titleView.setTextColor(majorTextColor);
                     contentView.setTextColor(normalTextColor);
                     final SmoothCheckBox checkBox = holder.getView(R.id.check_box);
-                    checkBox.setChecked(selectedList.contains(position), true);
+                    checkBox.setCheckedColor(DialogThemeUtils.getColorPrimary(context));
+                    checkBox.setChecked(selectedList.contains(position), false);
                     holder.setOnItemClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
@@ -106,15 +144,20 @@ public class BottomSelectDialogFragment<T> extends BottomDialogFragment {
                                 } else {
                                     onSelected(holder.getAdapterPosition());
                                 }
-                                easyRecyclerView.notifyItemChanged(holder.getAdapterPosition());
+//                                easyRecyclerView.notifyItemChanged(holder.getAdapterPosition());
+                                checkBox.setChecked(!checkBox.isChecked(), true);
                             } else {
                                 if (!checkBox.isChecked()) {
-                                    easyRecyclerView.notifyItemChanged(selectedList.get(0));
-                                    selectedList.clear();
+                                    if (selectedList.size() > 0) {
+                                        int selected = selectedList.get(0);
+                                        selectedList.clear();
+                                        recyclerView.notifyItemChanged(selected);
+                                    }
                                     onSelected(holder.getAdapterPosition());
-                                    easyRecyclerView.notifyItemChanged(holder.getAdapterPosition());
+//                                    easyRecyclerView.notifyItemChanged(holder.getAdapterPosition());
+                                    checkBox.setChecked(!checkBox.isChecked(), true);
+                                    onSelect();
                                 }
-                                onSelect();
                             }
                         }
                     });
@@ -146,16 +189,26 @@ public class BottomSelectDialogFragment<T> extends BottomDialogFragment {
     }
 
     private void onSelect() {
-        if (onSingleSelectListener != null) {
-            onSingleSelectListener.onSelect(selectedList.get(0), list.get(selectedList.get(0)));
-        } else if (onMultiSelectListener != null) {
+        if (isMultiple && onMultiSelectListener != null) {
             onMultiSelectListener.onSelect(selectedList, list);
+        } else if (!isMultiple && onSingleSelectListener != null) {
+            onSingleSelectListener.onSelect(selectedList.get(0), list.get(selectedList.get(0)));
         }
         dismiss();
     }
 
     public BottomSelectDialogFragment<T> setTitle(String title) {
         this.title = title;
+        return this;
+    }
+
+    public BottomSelectDialogFragment<T> setNegativeText(String negativeText) {
+        this.negativeText = negativeText;
+        return this;
+    }
+
+    public BottomSelectDialogFragment<T> setPositiveText(String positiveText) {
+        this.positiveText = positiveText;
         return this;
     }
 
@@ -185,11 +238,13 @@ public class BottomSelectDialogFragment<T> extends BottomDialogFragment {
     }
 
     public BottomSelectDialogFragment<T> setOnSingleSelectListener(OnSingleSelectListener<T> onSingleSelectListener) {
+        isMultiple = false;
         this.onSingleSelectListener = onSingleSelectListener;
         return this;
     }
 
     public BottomSelectDialogFragment<T> setOnMultiSelectListener(OnMultiSelectListener<T> onMultiSelectListener) {
+        isMultiple = true;
         this.onMultiSelectListener = onMultiSelectListener;
         return this;
     }
@@ -213,11 +268,32 @@ public class BottomSelectDialogFragment<T> extends BottomDialogFragment {
     private void onSelected(int position) {
         if (!selectedList.contains(position)) {
             selectedList.add(position);
+            updateOkButton();
         }
     }
 
     private void unSelect(int position) {
         selectedList.remove(Integer.valueOf(position));
+        updateOkButton();
+    }
+
+    private void updateOkButton() {
+        if (isMultiple) {
+            if (selectedList.size() == list.size()) {
+                if (!selectAllCheckBox.isChecked()) {
+                    selectAllCheckBox.setChecked(true, true);
+                }
+            } else {
+                if (selectAllCheckBox.isChecked()) {
+                    selectAllCheckBox.setChecked(false, true);
+                }
+            }
+            if (selectedList.isEmpty()) {
+                tvOk.setText(positiveText);
+            } else {
+                tvOk.setText(positiveText + "(" + selectedList.size() + ")");
+            }
+        }
     }
 
 

@@ -1,6 +1,7 @@
 package com.zpj.shouji.market.ui.fragment.wallpaper;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.IntRange;
@@ -32,11 +33,13 @@ import com.zpj.shouji.market.constant.AppConfig;
 import com.zpj.shouji.market.constant.Keys;
 import com.zpj.shouji.market.glide.GlideRequestOptions;
 import com.zpj.shouji.market.glide.ImageViewDrawableTarget;
+import com.zpj.shouji.market.glide.transformations.CircleWithBorderTransformation;
 import com.zpj.shouji.market.model.WallpaperInfo;
 import com.zpj.shouji.market.model.WallpaperTag;
 import com.zpj.shouji.market.ui.fragment.base.NextUrlFragment;
 import com.zpj.shouji.market.ui.fragment.dialog.RecyclerPartShadowDialogFragment;
 import com.zpj.shouji.market.ui.fragment.dialog.WallpaperViewerDialogFragment3;
+import com.zpj.shouji.market.ui.fragment.profile.ProfileFragment;
 import com.zpj.shouji.market.ui.widget.emoji.EmojiExpandableTextView;
 import com.zpj.toast.ZToast;
 import com.zpj.utils.NetUtils;
@@ -134,12 +137,17 @@ public class WallpaperListFragment extends NextUrlFragment<WallpaperInfo> {
                     }
                 });
 
+        ImageView ivIcon = holder.getView(R.id.iv_icon);
+        TextView tvName = holder.getView(R.id.tv_name);
+        View.OnClickListener listener = view -> ProfileFragment.start(info.getNickName());
+        ivIcon.setOnClickListener(listener);
+        tvName.setOnClickListener(listener);
         Glide.with(context).load(info.getMemberIcon())
-                .apply(RequestOptions.circleCropTransform())
-                .into(holder.getImageView(R.id.iv_icon));
+                .apply(RequestOptions.bitmapTransform(new CircleWithBorderTransformation(0.5f, Color.LTGRAY)))
+                .into(ivIcon);
         EmojiExpandableTextView tvContent = holder.getView(R.id.tv_content);
         tvContent.setContent(info.getContent());
-        holder.getTextView(R.id.tv_name).setText(info.getNickName());
+        tvName.setText(info.getNickName());
         IconCountView countView = holder.getView(R.id.support_view);
         countView.setCount(info.getSupportCount());
         countView.setState(info.isLike());
@@ -177,21 +185,6 @@ public class WallpaperListFragment extends NextUrlFragment<WallpaperInfo> {
         List<String> original = new ArrayList<>();
         original.add(data.getPic());
 
-//        Log.d("WallpaperListFragment", " width / height = " + (Float.parseFloat(data.getWidth()) / Float.parseFloat(data.getHeight())));
-//        Log.d("WallpaperListFragment2", " width / height = " + (wallpaper.getWidth() / wallpaper.getHeight()));
-//        new WallpaperViewerDialogFragment2()
-//                .setWallpaperInfo(data)
-//                .setOriginalImageList(original)
-//                .setImageList(AppConfig.isShowOriginalImage() && NetUtils.isWiFi(context) ? original : objects)
-//                .setNowIndex(0)
-//                .setSourceImageView(new SourceImageViewGet<String>() {
-//                    @Override
-//                    public void updateImageView(ImageItemView<String> imageItemView, int pos, boolean isCurrent) {
-//                        imageItemView.update(wallpaper);
-//                    }
-//                })
-////                .setOnDismissListener(() -> StatusBarEvent.post(false))
-//                .show(context);
         new WallpaperViewerDialogFragment3()
                 .setWallpaperInfo(data)
                 .setOriginalImageList(original)
@@ -203,14 +196,6 @@ public class WallpaperListFragment extends NextUrlFragment<WallpaperInfo> {
                         popup.updateSrcView(wallpaper);
                     }
                 })
-//                .setImageList(AppConfig.isShowOriginalImage() && NetUtils.isWiFi(context) ? original : objects)
-//                .setNowIndex(0)
-//                .setSourceImageView(new SourceImageViewGet<String>() {
-//                    @Override
-//                    public void updateImageView(ImageItemView<String> imageItemView, int pos, boolean isCurrent) {
-//                        imageItemView.update(wallpaper);
-//                    }
-//                })
                 .show(context);
     }
 

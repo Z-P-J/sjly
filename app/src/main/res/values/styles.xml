@@ -68,13 +68,20 @@
     </style>
 
     <style name="NightTheme" parent="StartTheme">
-        <item name="backgroundColor">@android:color/black</item>
-        <item name="backgroundColorAccent">#303030</item>
+<!--        @android:color/black-->
+        <item name="backgroundColor">#303030</item>
+        <item name="backgroundColorAccent">#272727</item>
         <item name="backgroundTintColor">#aa000000</item>
         <item name="backgroundColorCard">@color/dark_gray_3</item>
-        <item name="textColorMajor">@color/white</item>
-        <item name="textColorNormal">#f8f8f8</item>
-        <item name="textColorMinor">#efefef</item>
+<!--        <item name="textColorMajor">@color/white</item>-->
+<!--        <item name="textColorNormal">#f8f8f8</item>-->
+<!--        <item name="textColorMinor">#efefef</item>-->
+        <item name="textColorMajor">#cccccc</item>
+        <item name="textColorNormal">#999999</item>
+        <item name="textColorMinor">#666666</item>
+<!--        <item name="textColorMajor">#f8f8f8</item>-->
+<!--        <item name="textColorNormal">#efefef</item>-->
+<!--        <item name="textColorMinor">#bdbdbd</item>-->
         <item name="backgroundBanner">@drawable/bg_banner_header_placeholder_dark</item>
         <item name="backgroundPickedGame">@drawable/bg_picked_game_info_night</item>
         <item name="backgroundProgress">@color/dark_gray_3</item>
@@ -84,7 +91,7 @@
         <item name="_dialog_text_color_normal">#f8f8f8</item>
         <item name="_dialog_text_color_negative">#f8f8f8</item>
         <item name="_dialog_text_color_positive">@color/colorPrimary</item>
-        <item name="_dialog_background_color_attach_list">#333333</item>
+        <item name="_dialog_background_color_attach_list">#000000</item>
         <item name="_dialog_background_center">@drawable/_dialog_round_dark_bg</item>
         <item name="_dialog_background_bottom">@drawable/_dialog_top_round_dark_bg</item>
     </style>

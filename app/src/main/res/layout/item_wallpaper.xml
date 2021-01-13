@@ -7,6 +7,7 @@
     app:cardElevation="4dp"
     app:cardUseCompatPadding="true"
     app:cardCornerRadius="8dp"
+    app:cardBackgroundColor="?attr/backgroundColorCard"
     >
 
     <LinearLayout
@@ -30,7 +31,7 @@
             android:maxLines="2"
             android:ellipsize="end"
             android:text="内容"
-            android:textColor="@color/color_text_major"
+            android:textColor="?attr/textColorMajor"
             android:padding="5dp"
             android:textSize="14sp"
             app:ep_need_expand="false"
@@ -44,8 +45,8 @@
 
             <ImageView
                 android:id="@+id/iv_icon"
-                android:layout_width="36dp"
-                android:layout_height="36dp"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
                 android:layout_margin="5dp"
                 android:src="@mipmap/ic_launcher"
                 android:layout_centerVertical="true"
@@ -65,7 +66,7 @@
                 android:text="用户名"
                 android:paddingBottom="5dp"
                 android:paddingTop="5dp"
-                android:textColor="@color/color_text_normal"
+                android:textColor="?attr/textColorNormal"
                 android:layout_gravity="center"
                 android:textSize="12sp"
                 />
@@ -77,7 +78,7 @@
                 app:count="1"
                 app:checked="false"
                 app:zeroText="赞"
-                app:textNormalColor="@color/color_text_normal"
+                app:textNormalColor="?attr/textColorNormal"
                 app:textSelectedColor="#d4237a"
                 app:textSize="12sp"
                 app:normalRes="@drawable/good"

@@ -67,6 +67,7 @@ public class CloudBackupFragment extends StateSwipeBackFragment
 
         View header = findViewById(R.id.ll_header);
 
+        View shadowView = findViewById(R.id.shadow_view);
         AppBarLayout appBarLayout = view.findViewById(R.id.appbar);
         appBarLayout.addOnOffsetChangedListener((appBarLayout1, i) -> {
             float alpha = (float) Math.abs(i) / appBarLayout1.getTotalScrollRange();
@@ -77,6 +78,7 @@ public class CloudBackupFragment extends StateSwipeBackFragment
             }
             header.setAlpha(1 - alpha);
             header.setVisibility(alpha >= 1 ? View.INVISIBLE : View.VISIBLE);
+            shadowView.setAlpha(alpha >= 1 ? 1f : 0);
         });
 
         recyclerView = new EasyRecyclerView<>(findViewById(R.id.recycler_view));

@@ -162,11 +162,13 @@ public class ProfileFragment extends StateSwipeBackFragment
         magicIndicator = view.findViewById(R.id.magic_indicator);
 
         AppBarLayout appBarLayout = view.findViewById(R.id.appbar);
+        View shadowView = findViewById(R.id.shadow_view);
         appBarLayout.addOnOffsetChangedListener((appBarLayout1, i) -> {
             float alpha = (float) Math.abs(i) / appBarLayout1.getTotalScrollRange();
             alpha = Math.min(1f, alpha);
             buttonBarLayout.setAlpha(alpha);
             headerLayout.setAlpha(1f - alpha);
+            shadowView.setAlpha(alpha >= 1f ? 1f : 0f);
         });
 
         buttonBarLayout.setAlpha(0);

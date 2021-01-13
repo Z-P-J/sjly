@@ -21,7 +21,6 @@ public class RootUtil {
         for (String path : paths) {
             file = new File(path);
             if (file.exists()) {
-                ZToast.error("su:" + file.getAbsolutePath());
                 return true;
             }
         }

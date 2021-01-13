@@ -158,7 +158,7 @@
                     android:layout_height="40dp"
                     android:layout_alignParentEnd="true"
                     app:eiv_padding="12dp"
-                    app:eiv_color="@color/middle_gray_1"
+                    app:eiv_color="@color/colorPrimary"
                     />
 
             </RelativeLayout>

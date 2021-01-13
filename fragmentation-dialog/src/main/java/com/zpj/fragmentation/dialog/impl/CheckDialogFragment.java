@@ -36,6 +36,7 @@ public class CheckDialogFragment extends AlertDialogFragment {
     protected void initView(View view, @Nullable Bundle savedInstanceState) {
         super.initView(view, savedInstanceState);
         checkBox = findViewById(R.id.check_box);
+        checkBox.setCheckedColor(DialogThemeUtils.getColorPrimary(context));
         checkBox.setChecked(isChecked);
         tvTitle = findViewById(R.id.check_title);
         tvTitle.setTextColor(DialogThemeUtils.getMajorTextColor(context));

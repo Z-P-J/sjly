@@ -25,7 +25,7 @@ public class SkinColorChangePagerTitleView extends ColorTransitionPagerTitleView
                 .doOnNext(new RxBus.SingleConsumer<Boolean>() {
                     @Override
                     public void onAccept(Boolean isDark) throws Exception {
-                        int color = (AppConfig.isNightMode() || isDark) ? Color.WHITE : normalTextColor;
+                        int color = (AppConfig.isNightMode() || isDark) ? (AppConfig.isNightMode() ? Color.LTGRAY : Color.WHITE) : normalTextColor;
                         setNormalColor(color);
                         if (!isSelected) {
                             setTextColor(mNormalColor);

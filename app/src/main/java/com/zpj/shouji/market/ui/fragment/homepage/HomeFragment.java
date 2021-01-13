@@ -274,7 +274,7 @@ public class HomeFragment extends SkinFragment {
         toolbar.setLightStyle(isLightStyle);
         shadowView.setVisibility(alpha > 0.5f ? View.VISIBLE : View.GONE);
 //        int color = getResources().getColor((AppConfig.isNightMode() || isDark) ? R.color.white : R.color.color_text_major);
-        int color = (AppConfig.isNightMode() || isDark) ? Color.WHITE : getResources().getColor(R.color.color_text_major);
+        int color = (AppConfig.isNightMode() || isDark) ? (AppConfig.isNightMode() ? Color.LTGRAY : Color.WHITE) : getResources().getColor(R.color.color_text_major);
         Log.d("HomeFragment", "isNight=" + AppConfig.isNightMode() + " isDark=" + isDark + " color=" + color);
         btnManage.setColorFilter(color);
         btnSearch.setColorFilter(color);

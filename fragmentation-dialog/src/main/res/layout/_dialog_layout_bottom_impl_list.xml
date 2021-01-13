@@ -4,27 +4,76 @@
     android:layout_height="wrap_content"
     android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/tv_title"
-        android:padding="16dp"
-        android:maxLines="1"
-        android:ellipsize="end"
-        android:textSize="16sp"
-        android:text="Title"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content">
 
-    <include layout="@layout/_dialog_divider"/>
+        <TextView
+            android:id="@+id/tv_title"
+            android:textColor="@color/_dialog_text_major_color"
+            android:padding="16dp"
+            android:maxLines="1"
+            android:ellipsize="end"
+            android:textSize="16sp"
+            android:text="Title"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            />
 
-    <android.support.v7.widget.RecyclerView
-        android:orientation="vertical"
-        android:id="@+id/recyclerView"
+        <FrameLayout
+            android:id="@+id/fl_check_box"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="end"
+            android:background="?attr/actionBarItemBackground"
+            >
+
+            <com.zpj.widget.checkbox.SmoothCheckBox
+                android:id="@+id/check_box"
+                android:layout_width="16dp"
+                android:layout_height="16dp"
+                android:layout_marginHorizontal="16dp"
+                android:layout_gravity="center"
+                />
+
+        </FrameLayout>
+
+    </LinearLayout>
+
+<!--    <include layout="@layout/_dialog_divider"/>-->
+
+<!--    <android.support.v7.widget.RecyclerView-->
+<!--        android:orientation="vertical"-->
+<!--        android:id="@+id/recyclerView"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="0dp"-->
+<!--        android:layout_weight="1"-->
+<!--        android:overScrollMode="never" />-->
+
+<!--    <include layout="@layout/_dialog_divider"/>-->
+
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:overScrollMode="never" />
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        >
 
-    <include layout="@layout/_dialog_buttons"
-        android:visibility="gone"
-        />
+        <android.support.v7.widget.RecyclerView
+            android:orientation="vertical"
+            android:id="@+id/recyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:overScrollMode="never" />
+
+        <View style="@style/layout_shadow_bottom"/>
+
+        <View style="@style/layout_shadow_up"
+            android:layout_gravity="bottom"
+            />
+
+    </FrameLayout>
+
+    <include layout="@layout/_dialog_buttons" />
 
 </LinearLayout>

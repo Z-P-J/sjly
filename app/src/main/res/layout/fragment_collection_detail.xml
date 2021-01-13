@@ -263,6 +263,12 @@
             android:background="?attr/backgroundColor"
             app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
+        <View style="@style/layout_shadow_bottom"
+            android:id="@+id/shadow_view"
+            android:alpha="0"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior"
+            />
+
     </android.support.design.widget.CoordinatorLayout>
 
     <android.support.design.widget.FloatingActionButton

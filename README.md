@@ -70,11 +70,8 @@
 ## 感谢以下开源库
 
 - [Fragment框架Fragmentation](https://github.com/Z-P-J/Fragmentation)
-- [基于Fragmentation改造的Fragment框架ZFragmentation](https://github.com/Z-P-J/Fragmentation)
 - [强大的弹窗框架XPopup](https://github.com/li-xiaojun/XPopup)
-- [基于XPopup和ZFragmentation改造的弹窗框架Fragmentation-Dialog](https://github.com/Z-P-J/sjly/tree/master/fragmentation-dialog)
 - [HTML解析器Jsoup](https://github.com/jhy/jsoup)
-- [网络请求库ZHttp，内置Jsoup](https://github.com/Z-P-J/ZHttp)
 - [图片加载框架Glide](https://github.com/bumptech/glide)
 - [响应式编程框架RxJava](https://github.com/ReactiveX/RxJava)
 - [RxJava for Android：RxAndroid](https://github.com/ReactiveX/RxAndroid)
@@ -92,11 +89,20 @@
 - [ExpandableTextView](https://github.com/MZCretin/ExpandableTextView)
 - [聊天气泡控件BubbleView](https://github.com/houtrry/BubbleView)
 - [BadgeView](https://github.com/qstumn/BadgeView)
+
+
+## 其他
+
+- [基于Fragmentation的Fragment框架ZFragmentation](https://github.com/Z-P-J/sjly/tree/master/fragmentation)
+- [基于XPopup和ZFragmentation弹窗框架Fragmentation-Dialog](https://github.com/Z-P-J/sjly/tree/master/fragmentation-dialog)
+- [网络请求库ZHttp，内置Jsoup](https://github.com/Z-P-J/ZHttp)
 - [文件下载框架ZDownloader](https://github.com/Z-P-J/ZDownloader)
 - [RecyclerView框架ZRecyclerView](https://github.com/Z-P-J/ZRecyclerView)
+- [RxBus](https://github.com/Z-P-J/RxBus)
+- [RxLife](https://github.com/Z-P-J/RxLife)
 - [ZToolBar](https://github.com/Z-P-J/ZToolBar)
 - [ZSwitcher](https://github.com/Z-P-J/ZSwitcher)
 - [TintedImageView](https://github.com/Z-P-J/TintedImageView)
 - [SmoothCheckBox](https://github.com/Z-P-J/SmoothCheckBox)
-- [RxBus](https://github.com/Z-P-J/RxBus)
-- [RxLife](https://github.com/Z-P-J/RxLife)
+- [StateManager](https://github.com/Z-P-J/StateManager)
+- [ZToast](https://github.com/Z-P-J/ZToast)

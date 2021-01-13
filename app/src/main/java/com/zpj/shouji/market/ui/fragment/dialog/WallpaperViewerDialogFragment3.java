@@ -165,7 +165,7 @@ public class WallpaperViewerDialogFragment3 extends ImageViewerDialogFragment3<S
                 showOriginalImage();
                 break;
             case R.id.iv_icon:
-                ProfileFragment.start(wallpaperInfo.getMemberId());
+                ProfileFragment.start(wallpaperInfo.getNickName());
                 break;
             case R.id.btn_favorite:
                 boolean tag = (boolean) btnFavorite.getTag();

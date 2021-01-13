@@ -20,20 +20,20 @@
         >
 
         <TextView
-            android:id="@+id/update_info"
+            android:id="@+id/tv_ignore_update"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:padding="5dp"
-            android:text="8款应用可更新"
+            android:text="已忽略(10)"
             android:layout_centerVertical="true"
             android:textColor="?attr/textColorNormal"
             />
 
         <TextView
-            android:id="@+id/update_all"
+            android:id="@+id/tv_update_all"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="全部更新"
+            android:text="@string/text_update_all"
             android:padding="5dp"
             android:textColor="@color/colorPrimary"
             android:layout_alignParentEnd="true"

@@ -20,6 +20,7 @@ import com.zpj.shouji.market.api.HttpApi;
 import com.zpj.shouji.market.constant.AppConfig;
 import com.zpj.shouji.market.installer.InstallMode;
 import com.zpj.shouji.market.installer.ApkInstaller;
+import com.zpj.shouji.market.manager.UserManager;
 import com.zpj.shouji.market.ui.activity.MainActivity;
 import com.zpj.shouji.market.utils.AppUtil;
 import com.zpj.shouji.market.utils.EventBus;
@@ -78,6 +79,8 @@ public class AppDownloadMission extends BaseMission<AppDownloadMission> {
         mission.uuid = UUID.randomUUID().toString();
         mission.createTime = System.currentTimeMillis();
         mission.missionStatus = MissionStatus.INITING;
+        mission.setCookie(UserManager.getInstance().getCookie());
+        mission.setUserAgent(HttpApi.USER_AGENT);
         return mission;
     }
 

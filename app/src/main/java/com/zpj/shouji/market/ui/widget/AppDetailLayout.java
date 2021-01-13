@@ -81,6 +81,7 @@ public class AppDetailLayout extends FrameLayout {
         shortInfo = findViewById(R.id.tv_info);
         shortIntroduce = findViewById(R.id.tv_detail);
 
+        View shadowView = findViewById(R.id.shadow_view);
         AppBarLayout appBarLayout = findViewById(R.id.appbar);
         appBarLayout.addOnOffsetChangedListener((appBarLayout1, i) -> {
             float alpha = (float) Math.abs(i) / appBarLayout1.getTotalScrollRange();
@@ -88,7 +89,9 @@ public class AppDetailLayout extends FrameLayout {
             buttonBarLayout.setAlpha(alpha);
             if (alpha >= 1f) {
                 headerLayout.setAlpha(0f);
+                shadowView.setAlpha(1f);
             } else {
+                shadowView.setAlpha(0f);
                 headerLayout.setAlpha(1f);
             }
         });

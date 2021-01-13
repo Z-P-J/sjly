@@ -50,7 +50,7 @@ public class MissionIconFetcher implements DataFetcher<InputStream> {
                         d = Glide.with(context).asDrawable().load(downloadMission.getAppIcon()).submit().get();
                     } else if (downloadMission.isFinished()) {
                         d = AppUtils.getApkIcon(context, downloadMission.getFilePath());
-                    } else if (downloadMission.isInstalled()) {
+                    } else if (AppUtils.isInstalled(context, downloadMission.getPackageName())) {
                         d = AppUtils.getAppIcon(context, downloadMission.getPackageName());
                     }
                     if (d == null) {

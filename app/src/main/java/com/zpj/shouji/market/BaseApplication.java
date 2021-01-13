@@ -115,7 +115,7 @@ public class BaseApplication extends MultiDexApplication {
             addAttributeApplicator("z_setting_titleTextColor", new IAttributeApplicator<SwitchSettingItem>() {
                 @Override
                 public void onApply(SwitchSettingItem view, TypedArray typedArray, int typedArrayIndex) {
-                    view.setTitleTextColor(typedArray.getColor(typedArrayIndex, AppConfig.isNightMode() ? Color.BLACK : Color.WHITE));
+                    view.setTitleTextColor(typedArray.getColor(typedArrayIndex, AppConfig.isNightMode() ? Color.LTGRAY : Color.BLACK));
                 }
             });
         }

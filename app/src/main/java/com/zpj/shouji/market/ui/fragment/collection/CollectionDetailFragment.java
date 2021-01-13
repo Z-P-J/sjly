@@ -124,6 +124,7 @@ public class CollectionDetailFragment extends StateSwipeBackFragment
         TextView tvToolbarName = toolbar.findViewById(R.id.toolbar_name);
 
         View header = view.findViewById(R.id.layout_header);
+        View shadowView = findViewById(R.id.shadow_view);
         AppBarLayout appBarLayout = findViewById(R.id.appbar);
         appBarLayout.addOnOffsetChangedListener((appBarLayout1, i) -> {
             float alpha = (float) Math.abs(i) / appBarLayout1.getTotalScrollRange();
@@ -131,8 +132,10 @@ public class CollectionDetailFragment extends StateSwipeBackFragment
             buttonBarLayout.setAlpha(alpha);
             if (alpha >= 1f) {
                 header.setAlpha(0f);
+                shadowView.setAlpha(1f);
             } else {
                 header.setAlpha(1f);
+                shadowView.setAlpha(0f);
             }
 //                int color = alphaColor(Color.WHITE, alpha);
 //                toolbar.setBackgroundColor(color);

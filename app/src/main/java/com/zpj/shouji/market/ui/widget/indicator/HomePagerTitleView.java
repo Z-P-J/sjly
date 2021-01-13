@@ -43,7 +43,7 @@ public class HomePagerTitleView extends CommonPagerTitleView {
                 .doOnNext(new RxBus.SingleConsumer<Boolean>() {
                     @Override
                     public void onAccept(Boolean isDark) throws Exception {
-                        int color = (AppConfig.isNightMode() || isDark) ? Color.WHITE : majorTextColor;
+                        int color = (AppConfig.isNightMode() || isDark) ? (AppConfig.isNightMode() ? Color.LTGRAY : Color.WHITE) : majorTextColor;
                         setNormalColor(color);
                         if (!isSelected) {
                             ivTitle.setColorFilter(mNormalColor);

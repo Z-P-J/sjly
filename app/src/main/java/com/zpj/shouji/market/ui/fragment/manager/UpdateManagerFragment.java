@@ -7,6 +7,7 @@ import android.support.annotation.Nullable;
 import android.text.SpannableString;
 import android.text.Spanned;
 import android.text.TextPaint;
+import android.text.TextUtils;
 import android.text.style.ForegroundColorSpan;
 import android.text.style.StrikethroughSpan;
 import android.view.View;
@@ -15,17 +16,28 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.github.zagum.expandicon.ExpandIconView;
+import com.zpj.downloader.BaseMission;
+import com.zpj.downloader.ZDownloader;
+import com.zpj.fragmentation.dialog.impl.AlertDialogFragment;
 import com.zpj.fragmentation.dialog.impl.ArrowMenuDialogFragment;
+import com.zpj.fragmentation.dialog.impl.CenterSelectDialogFragment;
 import com.zpj.fragmentation.dialog.model.OptionMenu;
 import com.zpj.recyclerview.EasyAdapter;
 import com.zpj.recyclerview.EasyRecyclerLayout;
 import com.zpj.recyclerview.EasyViewHolder;
+import com.zpj.rxlife.RxLife;
 import com.zpj.shouji.market.R;
+import com.zpj.shouji.market.api.HttpApi;
 import com.zpj.shouji.market.constant.Keys;
+import com.zpj.shouji.market.database.IgnoredUpdateManager;
+import com.zpj.shouji.market.download.AppDownloadMission;
 import com.zpj.shouji.market.glide.GlideApp;
 import com.zpj.shouji.market.manager.AppUpdateManager;
+import com.zpj.shouji.market.manager.UserManager;
 import com.zpj.shouji.market.model.AppUpdateInfo;
+import com.zpj.shouji.market.model.IgnoredUpdateInfo;
 import com.zpj.shouji.market.model.InstalledAppInfo;
 import com.zpj.shouji.market.ui.fragment.base.RecyclerLayoutFragment;
 import com.zpj.shouji.market.ui.fragment.detail.AppDetailFragment;
@@ -36,11 +48,22 @@ import com.zpj.utils.AppUtils;
 import java.util.ArrayList;
 import java.util.List;
 
+import io.reactivex.Observable;
+import io.reactivex.ObservableEmitter;
+import io.reactivex.ObservableOnSubscribe;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.functions.Action;
+import io.reactivex.functions.Consumer;
+import io.reactivex.schedulers.Schedulers;
+
 public class UpdateManagerFragment extends RecyclerLayoutFragment<AppUpdateInfo>
         implements AppUpdateManager.CheckUpdateListener {
 
+    private final List<IgnoredUpdateInfo> ignoredUpdateInfoList = new ArrayList<>();
+
     private RelativeLayout topLayout;
-    private TextView updateInfo;
+    private TextView tvIgnoreUpdate;
+    private TextView tvUpdateAll;
 
     public static UpdateManagerFragment newInstance(boolean showToolbar) {
         Bundle args = new Bundle();
@@ -76,7 +99,6 @@ public class UpdateManagerFragment extends RecyclerLayoutFragment<AppUpdateInfo>
         boolean showToolbar = getArguments() != null && getArguments().getBoolean(Keys.SHOW_TOOLBAR, false);
         if (showToolbar) {
             toolbar.setVisibility(View.VISIBLE);
-//            findViewById(R.id.shadow_view).setVisibility(View.VISIBLE);
             setToolbarTitle("应用更新");
         } else {
             setSwipeBackEnable(false);
@@ -84,15 +106,53 @@ public class UpdateManagerFragment extends RecyclerLayoutFragment<AppUpdateInfo>
 
         topLayout = view.findViewById(R.id.layout_top);
         topLayout.setVisibility(View.GONE);
-        TextView updateAll = view.findViewById(R.id.update_all);
-        updateAll.setOnClickListener(new View.OnClickListener() {
+        tvUpdateAll = view.findViewById(R.id.tv_update_all);
+        tvUpdateAll.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // todo update all apps
-                ZToast.normal("TODO updateAll");
+                new AlertDialogFragment()
+                        .setTitle(R.string.text_update_all)
+                        .setContent("确认全部更新所有应用？")
+                        .setPositiveButton(fragment -> updateAll())
+                        .show(context);
             }
         });
-        updateInfo = view.findViewById(R.id.update_info);
+        tvIgnoreUpdate = findViewById(R.id.tv_ignore_update);
+        tvIgnoreUpdate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                new CenterSelectDialogFragment<IgnoredUpdateInfo>()
+                        .setPositiveText("移除")
+                        .setTitle("忽略更新(" + ignoredUpdateInfoList.size() + ")")
+                        .setData(ignoredUpdateInfoList)
+                        .setIconCallback((icon, item, position) -> {
+                            InstalledAppInfo appInfo = new InstalledAppInfo();
+                            appInfo.setTempInstalled(true);
+                            appInfo.setPackageName(item.getPackageName());
+                            GlideApp.with(context).load(appInfo).into(icon);
+                        })
+                        .setTitleCallback((titleView, item, position) -> titleView.setText(item.getAppName()))
+                        .setSubtitleCallback(new CenterSelectDialogFragment.SubtitleCallback<IgnoredUpdateInfo>() {
+                            @Override
+                            public void onGetSubtitle(TextView subtitleView, IgnoredUpdateInfo item, int position) {
+                                subtitleView.setText(item.getPackageName());
+                            }
+                        })
+                        .setOnMultiSelectListener((selected, list) -> {
+                            for (int i : selected) {
+                                IgnoredUpdateInfo info = list.get(i);
+                                if (info.getUpdateInfo() != null) {
+                                    data.add(info.getUpdateInfo());
+                                }
+                                ignoredUpdateInfoList.remove(info);
+                                info.delete();
+                            }
+                            recyclerLayout.notifyDataSetChanged();
+                            updateTopBar();
+                        })
+                        .show(context);
+            }
+        });
     }
 
     @Override
@@ -102,16 +162,60 @@ public class UpdateManagerFragment extends RecyclerLayoutFragment<AppUpdateInfo>
 
     @Override
     public void onCheckUpdateFinish(List<AppUpdateInfo> updateInfoList) {
-        data.clear();
-        data.addAll(updateInfoList);
-        recyclerLayout.notifyDataSetChanged();
-        if (updateInfoList.isEmpty()) {
-            topLayout.setVisibility(View.GONE);
-            recyclerLayout.showEmptyView("所有应用均为最新版");
-        } else {
-            topLayout.setVisibility(View.VISIBLE);
-            updateInfo.setText(updateInfoList.size() + "款应用可更新");
-        }
+        Observable.create(
+                (ObservableOnSubscribe<List<AppUpdateInfo>>) emitter -> {
+                    ignoredUpdateInfoList.clear();
+                    ignoredUpdateInfoList.addAll(IgnoredUpdateManager.getAllIgnoredUpdateApp());
+                    data.clear();
+                    for (int i = updateInfoList.size() - 1; i >= 0; i--) {
+                        AppUpdateInfo info = updateInfoList.get(i);
+                        for (IgnoredUpdateInfo ignoredUpdateInfo : ignoredUpdateInfoList) {
+                            if (TextUtils.equals(info.getPackageName(), ignoredUpdateInfo.getPackageName())) {
+                                ignoredUpdateInfo.setUpdateInfo(info);
+                                updateInfoList.remove(i);
+                            }
+                        }
+                    }
+                    data.addAll(updateInfoList);
+                    emitter.onComplete();
+                })
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .doOnComplete(() -> {
+                    recyclerLayout.notifyDataSetChanged();
+                    if (data.isEmpty()) {
+                        topLayout.setVisibility(View.GONE);
+                        recyclerLayout.showEmptyView("所有应用均为最新版");
+                    } else {
+                        topLayout.setVisibility(View.VISIBLE);
+                        updateTopBar();
+                    }
+                })
+                .compose(RxLife.bindLifeOwner(this))
+                .subscribe();
+
+
+//        ignoredUpdateInfoList.clear();
+//        ignoredUpdateInfoList.addAll(IgnoredUpdateManager.getAllIgnoredUpdateApp());
+//        data.clear();
+//        for (int i = updateInfoList.size() - 1; i >= 0; i--) {
+//            AppUpdateInfo info = updateInfoList.get(i);
+//            for (IgnoredUpdateInfo ignoredUpdateInfo : ignoredUpdateInfoList) {
+//                if (TextUtils.equals(info.getPackageName(), ignoredUpdateInfo.getPackageName())) {
+//                    ignoredUpdateInfo.setUpdateInfo(info);
+//                    updateInfoList.remove(i);
+//                }
+//            }
+//        }
+//        data.addAll(updateInfoList);
+//        recyclerLayout.notifyDataSetChanged();
+//        if (updateInfoList.isEmpty()) {
+//            topLayout.setVisibility(View.GONE);
+//            recyclerLayout.showEmptyView("所有应用均为最新版");
+//        } else {
+//            topLayout.setVisibility(View.VISIBLE);
+//            updateTopBar();
+//        }
     }
 
     @Override
@@ -122,9 +226,56 @@ public class UpdateManagerFragment extends RecyclerLayoutFragment<AppUpdateInfo>
         }
         recyclerLayout.showErrorView(e.getMessage());
         topLayout.setVisibility(View.GONE);
-//        errorText.setVisibility(View.VISIBLE);
         ZToast.error("检查更新失败！" + e.getMessage());
         e.printStackTrace();
+    }
+
+    private void updateTopBar() {
+        tvIgnoreUpdate.setText("已忽略(" + ignoredUpdateInfoList.size() + ")");
+        tvIgnoreUpdate.setVisibility(ignoredUpdateInfoList.size() == 0 ? View.GONE : View.VISIBLE);
+        tvUpdateAll.setText("全部更新(" + data.size() + ")");
+    }
+
+    private void updateAll() {
+        Observable.create(
+                new ObservableOnSubscribe<AppDownloadMission>() {
+                    @Override
+                    public void subscribe(@io.reactivex.annotations.NonNull ObservableEmitter<AppDownloadMission> emitter) throws Exception {
+                        ZDownloader.getAllMissions(AppDownloadMission.class, missions -> {
+                            for (AppUpdateInfo updateInfo : data) {
+                                AppDownloadMission downloadMission = null;
+                                for (AppDownloadMission mission : missions) {
+                                    if (TextUtils.equals(updateInfo.getId(), mission.getAppId())
+                                            && TextUtils.equals(updateInfo.getPackageName(), mission.getPackageName())) {
+                                        downloadMission = mission;
+                                        break;
+                                    }
+                                }
+                                if (downloadMission == null) {
+                                    downloadMission = AppDownloadMission.create(
+                                            updateInfo.getId(),
+                                            updateInfo.getAppName(),
+                                            updateInfo.getPackageName(),
+                                            updateInfo.getAppType(),
+                                            false
+                                    );
+                                } else {
+                                    if (downloadMission.isFinished()) {
+                                        continue;
+                                    }
+                                }
+                                emitter.onNext(downloadMission);
+                            }
+                            emitter.onComplete();
+                        });
+                    }
+                })
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .doOnNext(BaseMission::start)
+                .doOnComplete(() -> recyclerLayout.notifyDataSetChanged())
+                .compose(RxLife.bindLifeOwner(this))
+                .subscribe();
     }
 
     public void onMenuClicked(View view, AppUpdateInfo updateInfo) {
@@ -134,7 +285,15 @@ public class UpdateManagerFragment extends RecyclerLayoutFragment<AppUpdateInfo>
                 .setOnItemClickListener((position, menu) -> {
                     switch (position) {
                         case 0:
-                            ZToast.normal("详细信息");
+                            IgnoredUpdateInfo ignoredUpdateInfo = new IgnoredUpdateInfo();
+                            ignoredUpdateInfo.setAppName(updateInfo.getAppName());
+                            ignoredUpdateInfo.setPackageName(updateInfo.getPackageName());
+                            ignoredUpdateInfo.insert();
+                            ignoredUpdateInfo.setUpdateInfo(updateInfo);
+                            ignoredUpdateInfoList.add(ignoredUpdateInfo);
+                            data.remove(updateInfo);
+                            recyclerLayout.notifyDataSetChanged();
+                            updateTopBar();
                             break;
                         case 1:
                             ZToast.normal("详细信息");
@@ -146,7 +305,6 @@ public class UpdateManagerFragment extends RecyclerLayoutFragment<AppUpdateInfo>
                             AppUtils.runApp(context, updateInfo.getPackageName());
                             break;
                         default:
-                            ZToast.warning("未知操作！");
                             break;
                     }
                 })
@@ -201,8 +359,6 @@ public class UpdateManagerFragment extends RecyclerLayoutFragment<AppUpdateInfo>
 //        });
 
 
-
-
         expandBtn.setTag(updateInfo);
         expandBtn.setState(updateInfo.isExpand() ? ExpandIconView.LESS : ExpandIconView.MORE, false);
         expandBtn.setOnClickListener(v -> {
@@ -228,7 +384,6 @@ public class UpdateManagerFragment extends RecyclerLayoutFragment<AppUpdateInfo>
                 }
             }
         });
-
 
 
     }

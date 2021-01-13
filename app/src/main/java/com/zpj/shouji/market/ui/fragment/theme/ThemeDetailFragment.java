@@ -140,9 +140,6 @@ public class ThemeDetailFragment extends BaseSwipeBackFragment {
         discoverInfoList.add(item);
         binder.onBindViewHolder(holder, discoverInfoList, 0, new ArrayList<>(0));
         holder.setOnItemLongClickListener(v -> {
-//            ThemeMorePopupMenu.with(context)
-//                    .setDiscoverInfo(item)
-//                    .show();
             new ThemeMoreDialogFragment()
                     .setDiscoverInfo(item)
                     .show(context);
@@ -150,24 +147,23 @@ public class ThemeDetailFragment extends BaseSwipeBackFragment {
         });
 
         AppBarLayout appBarLayout = view.findViewById(R.id.appbar);
+        View shadowView = findViewById(R.id.shadow_view);
         appBarLayout.addOnOffsetChangedListener(new AppBarLayout.OnOffsetChangedListener() {
             @Override
             public void onOffsetChanged(AppBarLayout appBarLayout, int i) {
-//                float alpha = (float) Math.abs(i) / appBarLayout.getTotalScrollRange();
-                float alpha = (float) Math.abs(i) / toolbar.getMeasuredHeight();
+                float alpha = (float) Math.abs(i) / appBarLayout.getTotalScrollRange();
+//                float alpha = (float) Math.abs(i) / toolbar.getMeasuredHeight();
                 alpha = Math.min(1f, alpha);
                 buttonBarLayout.setAlpha(alpha);
 
-                alpha = (float) Math.abs(i) / appBarLayout.getTotalScrollRange();
+//                alpha = (float) Math.abs(i) / appBarLayout.getTotalScrollRange();
                 if (alpha >= 1f) {
-                    themeLayout.setAlpha(0f);
+                    shadowView.setAlpha(1f);
+                    themeLayout.setVisibility(View.INVISIBLE);
                 } else {
-                    themeLayout.setAlpha(1f);
+                    shadowView.setAlpha(0f);
+                    themeLayout.setVisibility(View.VISIBLE);
                 }
-//                if (TextUtils.isEmpty(wallpaper)) {
-//                    int color = ColorUtils.alphaColor(Color.WHITE, alpha);
-//                    toolbar.setBackgroundColor(color);
-//                }
             }
         });
 

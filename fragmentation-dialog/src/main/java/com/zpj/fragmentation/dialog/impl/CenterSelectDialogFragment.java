@@ -4,7 +4,9 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.View;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -53,7 +55,13 @@ public class CenterSelectDialogFragment<T> extends CenterDialogFragment {
     private TitleCallback<T> titleCallback;
     private SubtitleCallback<T> subtitleCallback;
 
-    String title;
+    private EasyRecyclerView<T> recyclerView;
+    private SmoothCheckBox selectAllCheckBox;
+
+    protected String negativeText, neutralText, positiveText;
+    private String title;
+
+    private TextView tvOk;
 
     @Override
     protected int getContentLayoutId() {
@@ -67,31 +75,60 @@ public class CenterSelectDialogFragment<T> extends CenterDialogFragment {
         tvTitle.setTextColor(DialogThemeUtils.getMajorTextColor(context));
         tvTitle.setText(title);
         LinearLayout buttons = findViewById(R.id.layout_buttons);
+        FrameLayout flCheckBox = findViewById(R.id.fl_check_box);
         if (isMultiple) {
             buttons.setVisibility(View.VISIBLE);
+            flCheckBox.setVisibility(View.VISIBLE);
+            selectAllCheckBox = findViewById(R.id.check_box);
+            selectAllCheckBox.setCheckedColor(DialogThemeUtils.getColorPrimary(context));
+            View.OnClickListener listener = v -> {
+                boolean selectAll = !selectAllCheckBox.isChecked();
+//                selectAllCheckBox.setChecked(selectAll, true);
+                if (selectAll) {
+                    selectedList.clear();
+                    for (int i = 0; i < list.size(); i++) {
+                        selectedList.add(i);
+                    }
+                } else {
+                    selectedList.clear();
+                }
+                recyclerView.notifyDataSetChanged();
+                updateOkButton();
+            };
+            selectAllCheckBox.setOnClickListener(listener);
+            flCheckBox.setOnClickListener(listener);
+
             TextView tvCancel = buttons.findViewById(R.id.tv_cancel);
-            TextView tvOk = buttons.findViewById(R.id.tv_ok);
+            if (!TextUtils.isEmpty(negativeText)) {
+                tvCancel.setText(negativeText);
+            }
+            tvOk = buttons.findViewById(R.id.tv_ok);
+            if (TextUtils.isEmpty(positiveText)) {
+                positiveText = String.valueOf(tvOk.getText());
+            }
+            updateOkButton();
             tvCancel.setTextColor(DialogThemeUtils.getNegativeTextColor(context));
             tvOk.setTextColor(DialogThemeUtils.getPositiveTextColor(context));
-            tvCancel.setOnClickListener(v -> onSelect());
+            tvCancel.setOnClickListener(v -> dismiss());
             tvOk.setOnClickListener(v -> onSelect());
         } else {
             buttons.setVisibility(View.GONE);
+            flCheckBox.setVisibility(View.GONE);
         }
 
-        RecyclerView recyclerView = findViewById(R.id.recyclerView);
-        EasyRecyclerView<T> easyRecyclerView = new EasyRecyclerView<>(recyclerView);
-        easyRecyclerView.setData(list)
+        recyclerView = new EasyRecyclerView<>(findViewById(R.id.recyclerView));
+        recyclerView.setData(list)
                 .setItemRes(R.layout._dialog_item_select)
                 .setLayoutManager(new LinearLayoutManager(context))
-                .onBindViewHolder((holder, list, position, ppayloads) -> {
+                .onBindViewHolder((holder, list, position, payloads) -> {
                     ImageView iconView = holder.getView(R.id.icon_view);
                     TextView titleView = holder.getView(R.id.title_view);
                     titleView.setTextColor(DialogThemeUtils.getMajorTextColor(context));
                     TextView contentView = holder.getView(R.id.content_view);
                     contentView.setTextColor(DialogThemeUtils.getNormalTextColor(context));
                     final SmoothCheckBox checkBox = holder.getView(R.id.check_box);
-                    checkBox.setChecked(selectedList.contains(position), true);
+                    checkBox.setCheckedColor(DialogThemeUtils.getColorPrimary(context));
+                    checkBox.setChecked(selectedList.contains(position), false);
                     holder.setOnItemClickListener(v -> {
                         if (isMultiple) {
                             if (checkBox.isChecked()) {
@@ -99,15 +136,20 @@ public class CenterSelectDialogFragment<T> extends CenterDialogFragment {
                             } else {
                                 onSelected(holder.getAdapterPosition());
                             }
-                            easyRecyclerView.notifyItemChanged(holder.getAdapterPosition());
+//                            easyRecyclerView.notifyItemChanged(holder.getAdapterPosition());
+                            checkBox.setChecked(!checkBox.isChecked(), true);
                         } else {
                             if (!checkBox.isChecked()) {
-                                easyRecyclerView.notifyItemChanged(selectedList.get(0));
-                                selectedList.clear();
+                                if (selectedList.size() > 0) {
+                                    int selected = selectedList.get(0);
+                                    selectedList.clear();
+                                    recyclerView.notifyItemChanged(selected);
+                                }
                                 onSelected(holder.getAdapterPosition());
-                                easyRecyclerView.notifyItemChanged(holder.getAdapterPosition());
+//                                easyRecyclerView.notifyItemChanged(holder.getAdapterPosition());
+                                checkBox.setChecked(true, true);
+                                onSelect();
                             }
-                            onSelect();
                         }
                     });
                     if (iconCallback == null) {
@@ -143,16 +185,26 @@ public class CenterSelectDialogFragment<T> extends CenterDialogFragment {
     }
 
     private void onSelect() {
-        if (onSingleSelectListener != null) {
-            onSingleSelectListener.onSelect(selectedList.get(0), list.get(selectedList.get(0)));
-        } else if (onMultiSelectListener != null) {
+        if (isMultiple && onMultiSelectListener != null) {
             onMultiSelectListener.onSelect(selectedList, list);
+        } else if (!isMultiple && onSingleSelectListener != null) {
+            onSingleSelectListener.onSelect(selectedList.get(0), list.get(selectedList.get(0)));
         }
         dismiss();
     }
 
     public CenterSelectDialogFragment<T> setTitle(String title) {
         this.title = title;
+        return this;
+    }
+
+    public CenterSelectDialogFragment<T> setNegativeText(String negativeText) {
+        this.negativeText = negativeText;
+        return this;
+    }
+
+    public CenterSelectDialogFragment<T> setPositiveText(String positiveText) {
+        this.positiveText = positiveText;
         return this;
     }
 
@@ -182,11 +234,13 @@ public class CenterSelectDialogFragment<T> extends CenterDialogFragment {
     }
 
     public CenterSelectDialogFragment<T> setOnSingleSelectListener(OnSingleSelectListener<T> onSingleSelectListener) {
+        isMultiple = false;
         this.onSingleSelectListener = onSingleSelectListener;
         return this;
     }
 
     public CenterSelectDialogFragment<T> setOnMultiSelectListener(OnMultiSelectListener<T> onMultiSelectListener) {
+        isMultiple = true;
         this.onMultiSelectListener = onMultiSelectListener;
         return this;
     }
@@ -210,11 +264,33 @@ public class CenterSelectDialogFragment<T> extends CenterDialogFragment {
     private void onSelected(int position) {
         if (!selectedList.contains(position)) {
             selectedList.add(position);
+            updateOkButton();
         }
     }
 
     private void unSelect(int position) {
         selectedList.remove(Integer.valueOf(position));
+        updateOkButton();
+    }
+
+    private void updateOkButton() {
+        if (isMultiple) {
+            if (selectedList.size() == list.size()) {
+                if (!selectAllCheckBox.isChecked()) {
+                    selectAllCheckBox.setChecked(true, true);
+                }
+            } else {
+                if (selectAllCheckBox.isChecked()) {
+                    selectAllCheckBox.setChecked(false, true);
+                }
+            }
+            if (selectedList.isEmpty()) {
+                tvOk.setText(positiveText);
+            } else {
+                tvOk.setText(positiveText + "(" + selectedList.size() + ")");
+            }
+
+        }
     }
 
     @Override
