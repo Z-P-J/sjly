@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
+import android.text.TextUtils;
 import android.util.Log;
 
 import com.zpj.http.parser.html.nodes.Element;
@@ -15,7 +16,9 @@ import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.api.HttpApi;
 import com.zpj.shouji.market.constant.Actions;
 import com.zpj.shouji.market.constant.AppConfig;
+import com.zpj.shouji.market.database.IgnoredUpdateManager;
 import com.zpj.shouji.market.model.AppUpdateInfo;
+import com.zpj.shouji.market.model.IgnoredUpdateInfo;
 import com.zpj.shouji.market.ui.activity.MainActivity;
 import com.zpj.utils.AppUtils;
 import com.zpj.utils.ContextUtils;
@@ -38,6 +41,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicInteger;
 
 import io.reactivex.Observable;
+import io.reactivex.ObservableEmitter;
 import io.reactivex.ObservableOnSubscribe;
 import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -239,6 +243,8 @@ public final class AppUpdateManager {
         running.set(true);
         Observable.create(
                 (ObservableOnSubscribe<CheckUpdate>) emitter -> {
+
+
                     StringBuilder packageid = new StringBuilder();
                     PackageManager manager = context.getPackageManager();
                     List<PackageInfo> packageInfoList = manager.getInstalledPackages(0);
@@ -299,13 +305,50 @@ public final class AppUpdateManager {
     }
 
     public void notifyUpdate() {
+//        if (AppConfig.isShowUpdateNotification() && checked.get() && !running.get()) {
+//            List<AppUpdateInfo> list = new ArrayList<>(APP_UPDATE_INFO_LIST);
+//            StringBuilder content = new StringBuilder();
+//            for (int i = 0; i < list.size(); i++) {
+//                AppUpdateInfo info = list.get(i);
+//                content.append(info.getAppName());
+//                if (i > 10 || i == (list.size() - 1)) {
+//                    break;
+//                }
+//                content.append("，");
+//            }
+//            Intent intent = new Intent(ContextUtils.getApplicationContext(), MainActivity.class);
+//            intent.putExtra(Actions.ACTION, Actions.ACTION_SHOW_UPDATE);
+//            PendingIntent pendingIntent = PendingIntent.getActivity(ContextUtils.getApplicationContext(), 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+//            ZNotify.with(ContextUtils.getApplicationContext())
+//                    .buildNotify()
+//                    .setSmallIcon(R.mipmap.ic_launcher)
+//                    .setBigIcon(R.mipmap.ic_launcher)
+//                    .setContentTitle(list.size() + "个应用待更新")
+//                    .setContentText(content.toString())
+//                    .setContentIntent(pendingIntent)
+//                    .setId(hashCode())
+//                    .show();
+//        }
+        addCheckUpdateListener(new CheckUpdateListener() {
+            @Override
+            public void onCheckUpdateFinish(List<AppUpdateInfo> updateInfoList, List<IgnoredUpdateInfo> ignoredUpdateInfoList) {
+                notifyUpdate(updateInfoList);
+            }
+
+            @Override
+            public void onError(Throwable e) {
+
+            }
+        });
+    }
+
+    private void notifyUpdate(List<AppUpdateInfo> updateInfoList) {
         if (AppConfig.isShowUpdateNotification() && checked.get() && !running.get()) {
-            List<AppUpdateInfo> list = new ArrayList<>(APP_UPDATE_INFO_LIST);
             StringBuilder content = new StringBuilder();
-            for (int i = 0; i < list.size(); i++) {
-                AppUpdateInfo info = list.get(i);
+            for (int i = 0; i < updateInfoList.size(); i++) {
+                AppUpdateInfo info = updateInfoList.get(i);
                 content.append(info.getAppName());
-                if (i > 10 || i == (list.size() - 1)) {
+                if (i > 10 || i == (updateInfoList.size() - 1)) {
                     break;
                 }
                 content.append("，");
@@ -317,7 +360,7 @@ public final class AppUpdateManager {
                     .buildNotify()
                     .setSmallIcon(R.mipmap.ic_launcher)
                     .setBigIcon(R.mipmap.ic_launcher)
-                    .setContentTitle(list.size() + "个应用待更新")
+                    .setContentTitle(updateInfoList.size() + "个应用待更新")
                     .setContentText(content.toString())
                     .setContentIntent(pendingIntent)
                     .setId(hashCode())
@@ -348,30 +391,98 @@ public final class AppUpdateManager {
         if (TASK_LIST.isEmpty()) {
             checked.set(true);
             running.set(false);
-            List<AppUpdateInfo> list = new ArrayList<>(APP_UPDATE_INFO_LIST);
+//            List<AppUpdateInfo> list = new ArrayList<>(APP_UPDATE_INFO_LIST);
+//
+//            Comparator<Object> comparator1 = Collator.getInstance(Locale.CHINA);
+////            Comparator<Object> comparator2 = Collator.getInstance(Locale.US);
+//            Collections.sort(list, new Comparator<AppUpdateInfo>() {
+//                @Override
+//                public int compare(AppUpdateInfo o1, AppUpdateInfo o2) {
+//                    return comparator1.compare(o1.getAppName(), o2.getAppName());
+////                    return o1.getAppName().compareTo(o2.getAppName());
+//                }
+//            });
+//
+//            List<IgnoredUpdateInfo> ignoredUpdateInfoList = IgnoredUpdateManager.getAllIgnoredUpdateApp();
+////            List<AppUpdateInfo> updateInfoList = new ArrayList<>();
+//            if (!ignoredUpdateInfoList.isEmpty()) {
+//                for (int i = list.size() - 1; i >= 0; i--) {
+//                    AppUpdateInfo info = list.get(i);
+//                    for (IgnoredUpdateInfo ignoredUpdateInfo : ignoredUpdateInfoList) {
+//                        if (TextUtils.equals(info.getPackageName(), ignoredUpdateInfo.getPackageName())) {
+//                            ignoredUpdateInfo.setUpdateInfo(info);
+//                            list.remove(i);
+//                        }
+//                    }
+//                }
+//            }
+//
+//            Observable.empty()
+//                    .observeOn(AndroidSchedulers.mainThread())
+//                    .doOnComplete(() -> {
+//                        notifyUpdate();
+//                        for (WeakReference<CheckUpdateListener> checkUpdateListener : LISTENERS) {
+//                            if (checkUpdateListener.get() != null) {
+//                                Log.e("checkUpdate", "size22222222222=" + list.size());
+//                                checkUpdateListener.get().onCheckUpdateFinish(list);
+//                            }
+//                        }
+//                    })
+//                    .subscribe();
 
-            Comparator<Object> comparator1 = Collator.getInstance(Locale.CHINA);
-//            Comparator<Object> comparator2 = Collator.getInstance(Locale.US);
-            Collections.sort(list, new Comparator<AppUpdateInfo>() {
+            load(new CheckUpdateListener() {
                 @Override
-                public int compare(AppUpdateInfo o1, AppUpdateInfo o2) {
-                    return comparator1.compare(o1.getAppName(), o2.getAppName());
-//                    return o1.getAppName().compareTo(o2.getAppName());
+                public void onCheckUpdateFinish(final List<AppUpdateInfo> updateInfoList, List<IgnoredUpdateInfo> ignoredUpdateInfoList) {
+                    notifyUpdate(updateInfoList);
+                    for (WeakReference<CheckUpdateListener> checkUpdateListener : LISTENERS) {
+                        if (checkUpdateListener.get() != null) {
+                            Log.e("checkUpdate", "size22222222222=" + updateInfoList.size());
+                            checkUpdateListener.get().onCheckUpdateFinish(updateInfoList, ignoredUpdateInfoList);
+                        }
+                    }
+                }
+
+                @Override
+                public void onError(Throwable e) {
+
                 }
             });
-            Observable.empty()
-                    .observeOn(AndroidSchedulers.mainThread())
-                    .doOnComplete(() -> {
-                        notifyUpdate();
-                        for (WeakReference<CheckUpdateListener> checkUpdateListener : LISTENERS) {
-                            if (checkUpdateListener.get() != null) {
-                                Log.e("checkUpdate", "size22222222222=" + list.size());
-                                checkUpdateListener.get().onCheckUpdateFinish(list);
+
+        }
+    }
+
+    private void load(CheckUpdateListener listener) {
+        if (listener != null) {
+            Observable.create(
+                    emitter -> {
+                        List<AppUpdateInfo> list = new ArrayList<>(APP_UPDATE_INFO_LIST);
+
+                        Comparator<Object> comparator1 = Collator.getInstance(Locale.CHINA);
+                        Collections.sort(list, (o1, o2) -> comparator1.compare(o1.getAppName(), o2.getAppName()));
+                        List<IgnoredUpdateInfo> ignoredUpdateInfoList = IgnoredUpdateManager.getAllIgnoredUpdateApp();
+                        if (!ignoredUpdateInfoList.isEmpty()) {
+                            for (int i = list.size() - 1; i >= 0; i--) {
+                                AppUpdateInfo info = list.get(i);
+                                for (IgnoredUpdateInfo ignoredUpdateInfo : ignoredUpdateInfoList) {
+                                    if (TextUtils.equals(info.getPackageName(), ignoredUpdateInfo.getPackageName())) {
+                                        ignoredUpdateInfo.setUpdateInfo(info);
+                                        list.remove(i);
+                                    }
+                                }
                             }
                         }
-                    })
-                    .subscribe();
 
+                        Observable.empty()
+                                .observeOn(AndroidSchedulers.mainThread())
+                                .doOnComplete(() -> {
+                                    listener.onCheckUpdateFinish(list, ignoredUpdateInfoList);
+                                })
+                                .subscribe();
+                        emitter.onComplete();
+                    })
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe();
         }
     }
 
@@ -387,11 +498,12 @@ public final class AppUpdateManager {
     }
 
     public void addCheckUpdateListener(CheckUpdateListener listener) {
-        LISTENERS.add(new WeakReference<>(listener));
         if (!running.get()) {
             if (checked.get()) {
-                onFinished();
+//                onFinished();
+                load(listener);
             } else {
+                LISTENERS.add(new WeakReference<>(listener));
                 if (retryCount.get() < 3) {
                     retryCount.addAndGet(1);
                     check(ContextUtils.getApplicationContext());
@@ -399,6 +511,8 @@ public final class AppUpdateManager {
                     onError(throwable);
                 }
             }
+        } else {
+            LISTENERS.add(new WeakReference<>(listener));
         }
     }
 
@@ -409,7 +523,7 @@ public final class AppUpdateManager {
     }
 
     public interface CheckUpdateListener {
-        void onCheckUpdateFinish(List<AppUpdateInfo> updateInfoList);
+        void onCheckUpdateFinish(List<AppUpdateInfo> updateInfoList, List<IgnoredUpdateInfo> ignoredUpdateInfoList);
 
         void onError(Throwable e);
     }

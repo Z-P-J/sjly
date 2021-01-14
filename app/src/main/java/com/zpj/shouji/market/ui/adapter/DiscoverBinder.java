@@ -6,6 +6,7 @@ import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.support.annotation.NonNull;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -79,6 +80,7 @@ public class DiscoverBinder
                 .load(discoverInfo.getIcon())
                 .apply(RequestOptions.bitmapTransform(new CircleWithBorderTransformation(0.5f, Color.LTGRAY)))
                 .into(holder.getImageView(R.id.item_icon));
+        Log.d("DiscoverBinder", "nickName=" + discoverInfo.getNickName() + " getIcon=" + discoverInfo.getIcon());
 
 
         TextView shareInfo = holder.getTextView(R.id.share_info);

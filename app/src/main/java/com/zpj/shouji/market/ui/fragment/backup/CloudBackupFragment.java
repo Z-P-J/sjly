@@ -96,6 +96,12 @@ public class CloudBackupFragment extends StateSwipeBackFragment
     }
 
     @Override
+    protected void onRetry() {
+        super.onRetry();
+        getData();
+    }
+
+    @Override
     protected void initStatusBar() {
         if (isLazyInit()) {
             lightStatusBar();

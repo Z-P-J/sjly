@@ -160,62 +160,79 @@ public class UpdateManagerFragment extends RecyclerLayoutFragment<AppUpdateInfo>
         recyclerLayout.setEnableSwipeRefresh(false);
     }
 
+//    @Override
+//    public void onCheckUpdateFinish(List<AppUpdateInfo> updateInfoList) {
+//        Observable.create(
+//                (ObservableOnSubscribe<List<AppUpdateInfo>>) emitter -> {
+//                    ignoredUpdateInfoList.clear();
+//                    ignoredUpdateInfoList.addAll(IgnoredUpdateManager.getAllIgnoredUpdateApp());
+//                    data.clear();
+//                    for (int i = updateInfoList.size() - 1; i >= 0; i--) {
+//                        AppUpdateInfo info = updateInfoList.get(i);
+//                        for (IgnoredUpdateInfo ignoredUpdateInfo : ignoredUpdateInfoList) {
+//                            if (TextUtils.equals(info.getPackageName(), ignoredUpdateInfo.getPackageName())) {
+//                                ignoredUpdateInfo.setUpdateInfo(info);
+//                                updateInfoList.remove(i);
+//                            }
+//                        }
+//                    }
+//                    data.addAll(updateInfoList);
+//                    emitter.onComplete();
+//                })
+//                .subscribeOn(Schedulers.io())
+//                .observeOn(AndroidSchedulers.mainThread())
+//                .doOnComplete(() -> {
+//                    recyclerLayout.notifyDataSetChanged();
+//                    if (data.isEmpty()) {
+//                        topLayout.setVisibility(View.GONE);
+//                        recyclerLayout.showEmptyView("所有应用均为最新版");
+//                    } else {
+//                        topLayout.setVisibility(View.VISIBLE);
+//                        updateTopBar();
+//                    }
+//                })
+//                .compose(RxLife.bindLifeOwner(this))
+//                .subscribe();
+//
+//
+////        ignoredUpdateInfoList.clear();
+////        ignoredUpdateInfoList.addAll(IgnoredUpdateManager.getAllIgnoredUpdateApp());
+////        data.clear();
+////        for (int i = updateInfoList.size() - 1; i >= 0; i--) {
+////            AppUpdateInfo info = updateInfoList.get(i);
+////            for (IgnoredUpdateInfo ignoredUpdateInfo : ignoredUpdateInfoList) {
+////                if (TextUtils.equals(info.getPackageName(), ignoredUpdateInfo.getPackageName())) {
+////                    ignoredUpdateInfo.setUpdateInfo(info);
+////                    updateInfoList.remove(i);
+////                }
+////            }
+////        }
+////        data.addAll(updateInfoList);
+////        recyclerLayout.notifyDataSetChanged();
+////        if (updateInfoList.isEmpty()) {
+////            topLayout.setVisibility(View.GONE);
+////            recyclerLayout.showEmptyView("所有应用均为最新版");
+////        } else {
+////            topLayout.setVisibility(View.VISIBLE);
+////            updateTopBar();
+////        }
+//    }
+
     @Override
-    public void onCheckUpdateFinish(List<AppUpdateInfo> updateInfoList) {
-        Observable.create(
-                (ObservableOnSubscribe<List<AppUpdateInfo>>) emitter -> {
-                    ignoredUpdateInfoList.clear();
-                    ignoredUpdateInfoList.addAll(IgnoredUpdateManager.getAllIgnoredUpdateApp());
-                    data.clear();
-                    for (int i = updateInfoList.size() - 1; i >= 0; i--) {
-                        AppUpdateInfo info = updateInfoList.get(i);
-                        for (IgnoredUpdateInfo ignoredUpdateInfo : ignoredUpdateInfoList) {
-                            if (TextUtils.equals(info.getPackageName(), ignoredUpdateInfo.getPackageName())) {
-                                ignoredUpdateInfo.setUpdateInfo(info);
-                                updateInfoList.remove(i);
-                            }
-                        }
-                    }
-                    data.addAll(updateInfoList);
-                    emitter.onComplete();
-                })
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .doOnComplete(() -> {
-                    recyclerLayout.notifyDataSetChanged();
-                    if (data.isEmpty()) {
-                        topLayout.setVisibility(View.GONE);
-                        recyclerLayout.showEmptyView("所有应用均为最新版");
-                    } else {
-                        topLayout.setVisibility(View.VISIBLE);
-                        updateTopBar();
-                    }
-                })
-                .compose(RxLife.bindLifeOwner(this))
-                .subscribe();
+    public void onCheckUpdateFinish(List<AppUpdateInfo> updateInfoList, List<IgnoredUpdateInfo> ignoredUpdateInfoList) {
+        this.ignoredUpdateInfoList.clear();
+        this.ignoredUpdateInfoList.addAll(ignoredUpdateInfoList);
+        data.clear();
+        data.addAll(updateInfoList);
 
-
-//        ignoredUpdateInfoList.clear();
-//        ignoredUpdateInfoList.addAll(IgnoredUpdateManager.getAllIgnoredUpdateApp());
-//        data.clear();
-//        for (int i = updateInfoList.size() - 1; i >= 0; i--) {
-//            AppUpdateInfo info = updateInfoList.get(i);
-//            for (IgnoredUpdateInfo ignoredUpdateInfo : ignoredUpdateInfoList) {
-//                if (TextUtils.equals(info.getPackageName(), ignoredUpdateInfo.getPackageName())) {
-//                    ignoredUpdateInfo.setUpdateInfo(info);
-//                    updateInfoList.remove(i);
-//                }
-//            }
-//        }
-//        data.addAll(updateInfoList);
-//        recyclerLayout.notifyDataSetChanged();
-//        if (updateInfoList.isEmpty()) {
-//            topLayout.setVisibility(View.GONE);
-//            recyclerLayout.showEmptyView("所有应用均为最新版");
-//        } else {
-//            topLayout.setVisibility(View.VISIBLE);
-//            updateTopBar();
-//        }
+        recyclerLayout.notifyDataSetChanged();
+        if (data.isEmpty()) {
+            topLayout.setVisibility(View.GONE);
+            recyclerLayout.showEmptyView("所有应用均为最新版");
+        } else {
+            topLayout.setVisibility(View.VISIBLE);
+            updateTopBar();
+        }
     }
 
     @Override

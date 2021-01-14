@@ -216,6 +216,12 @@ public class ProfileFragment extends StateSwipeBackFragment
         });
     }
 
+    @Override
+    protected void onRetry() {
+        super.onRetry();
+        getMemberInfo();
+    }
+
     private void getMemberInfo() {
         darkStatusBar();
         HttpObserver<Document> task = TextUtils.isEmpty(userId)

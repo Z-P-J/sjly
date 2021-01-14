@@ -21,6 +21,7 @@ import com.zpj.rxbus.RxBus;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.model.AppInfo;
 import com.zpj.shouji.market.ui.fragment.base.SkinFragment;
+import com.zpj.shouji.market.ui.fragment.base.StateFragment;
 import com.zpj.shouji.market.ui.fragment.detail.AppDetailFragment;
 import com.zpj.shouji.market.ui.fragment.manager.ManagerFragment;
 import com.zpj.shouji.market.ui.fragment.search.SearchFragment;
@@ -31,17 +32,17 @@ import com.zxy.skin.sdk.SkinEngine;
 import java.util.ArrayList;
 import java.util.List;
 
-public abstract class BaseRecommendFragment extends SkinFragment
+public abstract class BaseRecommendFragment extends StateFragment
         implements IEasy.OnBindHeaderListener {
 
     private static final String TAG = "BaseRecommendFragment2";
 
     private final List<AppInfo> bannerItemList = new ArrayList<>();
 
+    private View header;
     protected Banner banner;
 
     private RecyclerView recyclerView;
-    private MultiRecyclerViewWrapper wrapper;
 
     private ZBlurry blurred;
 
@@ -71,7 +72,19 @@ public abstract class BaseRecommendFragment extends SkinFragment
     protected void initView(View view, @Nullable Bundle savedInstanceState) {
 
         recyclerView = findViewById(R.id.recycler_view);
-        wrapper = new MultiRecyclerViewWrapper(recyclerView);
+        View shadowView = findViewById(R.id.shadow_view);
+        recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+
+            @Override
+            public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+                if (recyclerView.canScrollVertically(-1)) {
+                    shadowView.setAlpha(1f);
+                } else {
+                    shadowView.setAlpha(0f);
+                }
+            }
+        });
 
         blurred = ZBlurry.with(recyclerView)
                 .scale(0.1f)
@@ -93,14 +106,17 @@ public abstract class BaseRecommendFragment extends SkinFragment
     public void onLazyInitView(@Nullable Bundle savedInstanceState) {
         super.onLazyInitView(savedInstanceState);
 
-        List<MultiData<?>> multiDataList = new ArrayList<>();
+        header = LayoutInflater.from(context).inflate(getHeaderLayoutId(), null, false);
+        banner = header.findViewById(R.id.banner2);
+        banner.setBannerLoader(new RecommendBanner.AppBannerLoader());
 
-        initMultiData(multiDataList);
-
-        wrapper.setData(multiDataList)
-                .setFooterView(LayoutInflater.from(context).inflate(R.layout.item_footer_home, null, false))
-                .setHeaderView(getHeaderLayoutId(), this)
-                .build();
+        banner.setOnBannerClickListener(new Banner.OnBannerClickListener() {
+            @Override
+            public void onBannerClick(int position) {
+                AppDetailFragment.start(bannerItemList.get(position));
+            }
+        });
+        initHeader(new EasyViewHolder(header));
 
         toolbar.setLeftButtonTint(getResources().getColor(R.color.colorPrimary));
     }
@@ -137,7 +153,13 @@ public abstract class BaseRecommendFragment extends SkinFragment
         }
     }
 
-//    @Subscribe
+    @Override
+    protected void onRetry() {
+        super.onRetry();
+        new EasyViewHolder(header);
+    }
+
+    //    @Subscribe
 //    public void onMainActionPopupEvent(MainActionPopupEvent event) {
 //        if (isSupportVisible() && banner != null) {
 //            if (event.isShow()) {
@@ -153,6 +175,18 @@ public abstract class BaseRecommendFragment extends SkinFragment
         bannerItemList.addAll(list);
         banner.loadImagePaths(bannerItemList);
         banner.startAutoPlay();
+
+        List<MultiData<?>> multiDataList = new ArrayList<>();
+
+        initMultiData(multiDataList);
+
+        MultiRecyclerViewWrapper wrapper = new MultiRecyclerViewWrapper(recyclerView);
+        wrapper.setData(multiDataList)
+                .setFooterView(LayoutInflater.from(context).inflate(R.layout.item_footer_home, null, false))
+//                .setHeaderView(getHeaderLayoutId(), this)
+                .setHeaderView(header)
+                .build();
+        showContent();
     }
 
     protected abstract int getHeaderLayoutId();

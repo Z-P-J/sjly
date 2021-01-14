@@ -22,4 +22,10 @@ public class IgnoredUpdateManager {
                 .queryList();
     }
 
+    public static long getIgnoredUpdateAppCount() {
+        return SQLite.selectCountOf()
+                .from(IgnoredUpdateInfo.class)
+                .count();
+    }
+
 }

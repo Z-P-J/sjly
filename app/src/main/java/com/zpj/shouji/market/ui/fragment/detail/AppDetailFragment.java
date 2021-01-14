@@ -12,6 +12,7 @@ import android.support.v4.view.ViewPager;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
+import android.widget.ImageButton;
 
 import com.bumptech.glide.Glide;
 import com.zpj.fragmentation.dialog.impl.AttachListDialogFragment;
@@ -41,15 +42,23 @@ import com.zpj.shouji.market.ui.fragment.dialog.ShareDialogFragment;
 import com.zpj.shouji.market.ui.fragment.login.LoginFragment;
 import com.zpj.shouji.market.ui.fragment.manager.ManagerFragment;
 import com.zpj.shouji.market.ui.widget.AppDetailLayout;
+import com.zpj.shouji.market.ui.widget.indicator.BadgePagerTitle;
+import com.zpj.shouji.market.ui.widget.indicator.SubTitlePagerTitle;
 import com.zpj.shouji.market.utils.EventBus;
 import com.zpj.shouji.market.utils.MagicIndicatorHelper;
 import com.zpj.toast.ZToast;
 import com.zpj.utils.Callback;
+import com.zpj.utils.ScreenUtils;
 import com.zpj.widget.tinted.TintedImageButton;
+import com.zxy.skin.sdk.SkinEngine;
 
 import net.lucode.hackware.magicindicator.MagicIndicator;
+import net.lucode.hackware.magicindicator.buildins.commonnavigator.indicators.LinePagerIndicator;
+import net.lucode.hackware.magicindicator.buildins.commonnavigator.titles.ColorTransitionPagerTitleView;
 
 import java.util.ArrayList;
+
+import io.reactivex.functions.Consumer;
 
 public class AppDetailFragment extends StateSwipeBackFragment
         implements View.OnClickListener {
@@ -69,10 +78,10 @@ public class AppDetailFragment extends StateSwipeBackFragment
 //    private StateLayout stateLayout;
     private FloatingActionButton fabComment;
 
-    private TintedImageButton btnShare;
-    private TintedImageButton btnCollect;
+    private ImageButton btnShare;
+    private ImageButton btnCollect;
     //    private LikeButton btnCollect;
-    private TintedImageButton btnMenu;
+    private ImageButton btnMenu;
 
     private AppDetailLayout appDetailLayout;
     private ViewPager viewPager;
@@ -203,7 +212,13 @@ public class AppDetailFragment extends StateSwipeBackFragment
 
     }
 
-    private void initViewPager() {
+    @Override
+    protected void onRetry() {
+        super.onRetry();
+        getAppInfo();
+    }
+
+    private void initViewPager(AppDetailInfo info) {
         ArrayList<Fragment> list = new ArrayList<>();
 //        AppDetailInfoFragment infoFragment = findChildFragment(AppDetailInfoFragment.class);
 //        if (infoFragment == null) {
@@ -290,15 +305,59 @@ public class AppDetailFragment extends StateSwipeBackFragment
         viewPager.setAdapter(adapter);
 
         MagicIndicatorHelper.bindViewPager(context, magicIndicator, viewPager, TAB_TITLES, true);
+
+        MagicIndicatorHelper.builder(context)
+                .setMagicIndicator(magicIndicator)
+                .setViewPager(viewPager)
+                .setTabTitles(TAB_TITLES)
+                .setAdjustMode(true)
+                .setOnGetTitleViewListener((context12, index) -> {
+
+                    SubTitlePagerTitle subTitlePagerTitle = new SubTitlePagerTitle(context12);
+                    subTitlePagerTitle.setNormalColor(SkinEngine.getColor(context12, R.attr.textColorMajor));
+                    subTitlePagerTitle.setSelectedColor(context12.getResources().getColor(R.color.colorPrimary));
+                    subTitlePagerTitle.setTitle(TAB_TITLES[index]);
+                    subTitlePagerTitle.setOnClickListener(view1 -> viewPager.setCurrentItem(index));
+                    if (index == 1) {
+                        subTitlePagerTitle.setSubCount(info.getReviewCount());
+                    } else if (index == 2) {
+                        subTitlePagerTitle.setSubCount(info.getDiscoverCount());
+                    } else if (index == 3) {
+                        subTitlePagerTitle.setSubText("20+");
+                    }
+                    return subTitlePagerTitle;
+
+//                    BadgePagerTitle badgePagerTitle = new BadgePagerTitle(context);
+//                    badgePagerTitle.setNormalColor(SkinEngine.getColor(context12, R.attr.textColorMajor));
+//                    badgePagerTitle.setSelectedColor(context12.getResources().getColor(R.color.colorPrimary));
+//                    badgePagerTitle.setTitle(TAB_TITLES[index]);
+//                    badgePagerTitle.setOnClickListener(view1 -> viewPager.setCurrentItem(index));
+//                    if (index == 1 || index == 2) {
+//                        String title = TAB_TITLES[index];
+//                        RxBus.observeSticky(title, title, Integer.class)
+//                                .bindToLife(AppDetailFragment.this)
+//                                .doOnNext(new RxBus.SingleConsumer<Integer>() {
+//                                    @Override
+//                                    public void onAccept(Integer integer) throws Exception {
+//                                        badgePagerTitle.setBadgeCount(integer);
+//                                        RxBus.removeStickyEvent(title);
+//                                    }
+//                                })
+//                                .subscribe();
+//                    } else if (index == 3) {
+//                        badgePagerTitle.setBadgeText("20+");
+//                    }
+//                    return badgePagerTitle;
+
+                })
+                .build();
+
     }
 
     private void getAppInfo() {
         HttpApi.appInfoApi(type, id)
                 .onSuccess(data -> {
                     postOnEnterAnimationEnd(() -> {
-                        if (isDetached()) {
-                            return;
-                        }
                         Log.d("getAppInfo", "data=" + data);
                         if ("NoApp".equals(data.selectFirst("errorcode").text())) {
                             ZToast.warning("应用不存在");
@@ -306,29 +365,29 @@ public class AppDetailFragment extends StateSwipeBackFragment
                             return;
                         }
                         info = AppDetailInfo.create(data);
+//                        RxBus.postSticky(TAB_TITLES[1], info.getReviewCount());
+//                        RxBus.postSticky(TAB_TITLES[2], info.getDiscoverCount());
                         Log.d("getAppInfo", "info=" + info);
                         appDetailLayout.loadInfo(info);
                         int color = Color.WHITE;
                         toolbar.setLightStyle(true);
-                        btnMenu.setTint(color);
-                        btnShare.setTint(color);
+                        btnMenu.setColorFilter(color);
+                        btnShare.setColorFilter(color);
 
 
                         if (info.isFavState()) {
                             btnCollect.setImageResource(R.drawable.ic_star_black_24dp);
-                            btnCollect.setTint(Color.RED);
+                            btnCollect.setColorFilter(Color.RED);
                         } else {
                             btnCollect.setImageResource(R.drawable.ic_star_border_black_24dp);
-                            btnCollect.setTint(color);
+                            btnCollect.setColorFilter(color);
                         }
                         for (String img : info.getImgUrlList()) {
                             Glide.with(context).load(img).preload();
                         }
 
-                        initViewPager();
-//                        EventBus.post(info, 50);
+                        initViewPager(info);
                         EventBus.sendGetAppInfoEvent(info);
-//                        stateLayout.showContentView();
                         showContent();
                         lightStatusBar();
                     });
@@ -368,10 +427,10 @@ public class AppDetailFragment extends StateSwipeBackFragment
             Callback<Boolean> callback = result -> {
                 if (result) {
                     btnCollect.setImageResource(R.drawable.ic_star_black_24dp);
-                    btnCollect.setTint(Color.RED);
+                    btnCollect.setColorFilter(Color.RED);
                 } else {
                     btnCollect.setImageResource(R.drawable.ic_star_border_black_24dp);
-                    btnCollect.setTint(Color.WHITE);
+                    btnCollect.setColorFilter(Color.WHITE);
                 }
                 info.setFavState(result);
             };

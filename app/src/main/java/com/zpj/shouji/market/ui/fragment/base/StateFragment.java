@@ -13,17 +13,18 @@ import com.zxy.skin.sdk.SkinEngine;
 
 public abstract class StateFragment extends SkinFragment {
 
-    private StateManager stateManager;
+    protected StateManager stateManager;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         view = super.onCreateView(inflater, container, savedInstanceState);
         if (stateManager == null) {
-            stateManager = StateManager.with(view);
-            stateManager.showLoading();
-            view = stateManager.getStateView();
-            SkinEngine.setBackground(view, R.attr.backgroundColor);
+//            stateManager = StateManager.with(view);
+//            stateManager.showLoading();
+//            view = stateManager.getStateView();
+//            SkinEngine.setBackground(view, R.attr.backgroundColor);
+            view = initStateManager(view);
         }
         return view;
     }
@@ -31,12 +32,22 @@ public abstract class StateFragment extends SkinFragment {
     @Override
     public View attachToSwipeBack(View view) {
         if (stateManager == null) {
-            stateManager = StateManager.with(view);
-            stateManager.showLoading();
-            view = stateManager.getStateView();
-            SkinEngine.setBackground(view, R.attr.backgroundColor);
+            view = initStateManager(view);
         }
         return super.attachToSwipeBack(view);
+    }
+
+    private View initStateManager(View view) {
+        stateManager = StateManager.with(view)
+                .onRetry(manager -> onRetry());
+        stateManager.showLoading();
+        view = stateManager.getStateView();
+        SkinEngine.setBackground(view, R.attr.backgroundColor);
+        return view;
+    }
+
+    protected void onRetry() {
+        showLoading();
     }
 
     public void showLoading() {

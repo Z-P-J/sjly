@@ -48,12 +48,16 @@ public class AppDetailInfo {
     private boolean scoreState;
     @Select(selector = "favState")
     private boolean favState;
+    @Select(selector = "reviewcount")
+    private int reviewCount;
+    @Select(selector = "relativecommunitycount")
+    private int discoverCount;
 
     private String otherAppUrl;
 
     private List<AppInfo> otherAppList;
 
-    private List<AppUrlInfo> appUrlInfoList = new ArrayList<>();
+    private final List<AppUrlInfo> appUrlInfoList = new ArrayList<>();
 
     public static class AppUrlInfo {
         @Select(selector = "urltype")
@@ -132,6 +136,8 @@ public class AppDetailInfo {
         info.scoreInfo = doc.selectFirst("scoreInfo").text();
         info.scoreState = "1".equals(doc.selectFirst("scoreState").text());
         info.favState = "1".equals(doc.selectFirst("favState").text());
+        info.reviewCount = Integer.parseInt(doc.selectFirst("reviewcount").text());
+        info.discoverCount = Integer.parseInt(doc.selectFirst("relativecommunitycount").text());
 
         elements = doc.select("introduces").select("introduce");
         for (Element introduce : elements) {
@@ -353,6 +359,22 @@ public class AppDetailInfo {
 
     public boolean isFavState() {
         return favState;
+    }
+
+    public void setReviewCount(int reviewCount) {
+        this.reviewCount = reviewCount;
+    }
+
+    public int getReviewCount() {
+        return reviewCount;
+    }
+
+    public void setDiscoverCount(int discoverCount) {
+        this.discoverCount = discoverCount;
+    }
+
+    public int getDiscoverCount() {
+        return discoverCount;
     }
 
     public String getOtherAppUrl() {

@@ -19,6 +19,7 @@ import com.bumptech.glide.request.transition.Transition;
 import com.geek.banner.Banner;
 import com.geek.banner.loader.BannerEntry;
 import com.geek.banner.loader.BannerLoader;
+import com.zpj.http.core.IHttp;
 import com.zpj.http.parser.html.nodes.Document;
 import com.zpj.http.parser.html.nodes.Element;
 import com.zpj.http.parser.html.select.Elements;
@@ -101,21 +102,31 @@ public class RecommendBanner extends LinearLayout implements View.OnClickListene
         findViewById(R.id.tv_collections).setOnClickListener(this);
     }
 
-    public void loadData(Runnable runnable) {
-        if (HttpPreLoader.getInstance().hasKey(PreloadApi.HOME_BANNER)) {
-            HttpPreLoader.getInstance().setLoadListener(PreloadApi.HOME_BANNER, document -> {
-                onGetDoc(document, runnable);
-            });
-        } else {
-            HttpApi.getXml(PreloadApi.HOME_BANNER.getUrl())
-                    .onSuccess(document -> {
-                        onGetDoc(document, runnable);
-                    })
-                    .subscribe();
-        }
+    public void loadData(Runnable runnable, IHttp.OnErrorListener onErrorListener) {
+//        if (HttpPreLoader.getInstance().hasKey(PreloadApi.HOME_BANNER)) {
+//            HttpPreLoader.getInstance().setLoadListener(PreloadApi.HOME_BANNER, document -> {
+//                onGetDoc(document, runnable);
+//            });
+//        } else {
+//            HttpApi.getXml(PreloadApi.HOME_BANNER.getUrl())
+//                    .onSuccess(document -> {
+//                        onGetDoc(document, runnable);
+//                    })
+//                    .subscribe();
+//        }
+
+        HttpApi.getXml(PreloadApi.HOME_BANNER.getUrl())
+                .onSuccess(document -> {
+                    onGetDoc(document, runnable);
+                })
+                .onError(onErrorListener)
+                .subscribe();
     }
 
     private void onGetDoc(Document document, Runnable runnable) {
+        if (runnable != null) {
+            runnable.run();
+        }
         Elements elements = document.select("item");
         bannerItemList.clear();
         for (Element element : elements) {
@@ -133,9 +144,7 @@ public class RecommendBanner extends LinearLayout implements View.OnClickListene
         }
         banner.loadImagePaths(bannerItemList);
         banner.startAutoPlay();
-        if (runnable != null) {
-            runnable.run();
-        }
+
     }
 
     public void onResume() {

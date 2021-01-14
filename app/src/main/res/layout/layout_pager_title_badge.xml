@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <FrameLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        >
+
+        <TextView
+            android:id="@+id/tv_title"
+            android:text="更新"
+            android:textColor="@color/white"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginVertical="@dimen/dp_8"
+            android:layout_marginHorizontal="@dimen/dp_8"
+            tools:textColor="@color/colorPrimary"
+            android:maxLines="1"
+            android:ellipsize="end"
+            />
+
+        <TextView
+            android:id="@+id/tv_badge"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="12+"
+            android:background="@drawable/bg_msg_bubble"
+            android:textSize="10sp"
+            android:textColor="@color/white"
+            android:layout_gravity="end"
+            android:alpha="0.7"
+            android:gravity="center"
+            android:paddingVertical="2dp"
+            android:paddingHorizontal="4dp"
+            android:minWidth="18dp"
+            android:minHeight="18dp"
+            android:maxLines="1"
+            android:ellipsize="end"
+            />
+
+    </FrameLayout>
+
+</RelativeLayout>

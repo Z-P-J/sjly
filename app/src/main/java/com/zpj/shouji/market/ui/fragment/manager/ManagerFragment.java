@@ -5,12 +5,24 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.view.ViewPager;
+import android.text.TextUtils;
+import android.view.Gravity;
 import android.view.View;
+import android.widget.TextView;
 
+import com.zpj.downloader.BaseMission;
+import com.zpj.downloader.DownloadManager;
+import com.zpj.downloader.ZDownloader;
 import com.zpj.fragmentation.BaseFragment;
+import com.zpj.rxlife.RxLife;
 import com.zpj.shouji.market.R;
+import com.zpj.shouji.market.database.IgnoredUpdateManager;
+import com.zpj.shouji.market.manager.AppUpdateManager;
+import com.zpj.shouji.market.model.AppUpdateInfo;
+import com.zpj.shouji.market.model.IgnoredUpdateInfo;
 import com.zpj.shouji.market.ui.adapter.FragmentsPagerAdapter;
 import com.zpj.shouji.market.ui.fragment.base.BaseSwipeBackFragment;
+import com.zpj.shouji.market.ui.widget.indicator.BadgePagerTitle;
 import com.zpj.utils.ScreenUtils;
 
 import net.lucode.hackware.magicindicator.MagicIndicator;
@@ -21,9 +33,17 @@ import net.lucode.hackware.magicindicator.buildins.commonnavigator.abs.IPagerInd
 import net.lucode.hackware.magicindicator.buildins.commonnavigator.abs.IPagerTitleView;
 import net.lucode.hackware.magicindicator.buildins.commonnavigator.indicators.LinePagerIndicator;
 import net.lucode.hackware.magicindicator.buildins.commonnavigator.titles.ColorTransitionPagerTitleView;
+import net.lucode.hackware.magicindicator.buildins.commonnavigator.titles.badge.BadgeAnchor;
+import net.lucode.hackware.magicindicator.buildins.commonnavigator.titles.badge.BadgePagerTitleView;
+import net.lucode.hackware.magicindicator.buildins.commonnavigator.titles.badge.BadgeRule;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import io.reactivex.Observable;
+import io.reactivex.ObservableOnSubscribe;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.schedulers.Schedulers;
 
 public class ManagerFragment extends BaseSwipeBackFragment {
 
@@ -127,18 +147,67 @@ public class ManagerFragment extends BaseSwipeBackFragment {
 
                 @Override
                 public IPagerTitleView getTitleView(Context context, int index) {
-                    ColorTransitionPagerTitleView titleView = new ColorTransitionPagerTitleView(context);
-                    titleView.setNormalColor(Color.WHITE);
-                    titleView.setSelectedColor(Color.WHITE);
-                    titleView.setTextSize(14);
-                    titleView.setText(TAB_TITLES[index]);
-                    titleView.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View view1) {
-                            viewPager.setCurrentItem(index);
-                        }
-                    });
-                    return titleView;
+
+                    BadgePagerTitle badgePagerTitle = new BadgePagerTitle(context);
+                    badgePagerTitle.setNormalColor(Color.WHITE);
+                    badgePagerTitle.setSelectedColor(Color.WHITE);
+                    badgePagerTitle.setTitle(TAB_TITLES[index]);
+                    badgePagerTitle.setOnClickListener(view1 -> viewPager.setCurrentItem(index));
+                    if (index == 0) {
+                        ZDownloader.getAllMissions(new DownloadManager.OnLoadMissionListener<BaseMission<?>>() {
+                            @Override
+                            public void onLoaded(List<BaseMission<?>> missions) {
+                                badgePagerTitle.setBadgeCount(missions.size());
+                            }
+                        });
+                    } else if (index == 1) {
+                        AppUpdateManager.getInstance().addCheckUpdateListener(new AppUpdateManager.CheckUpdateListener() {
+                            @Override
+                            public void onCheckUpdateFinish(List<AppUpdateInfo> updateInfoList, List<IgnoredUpdateInfo> ignoredUpdateInfoList) {
+                                badgePagerTitle.setBadgeCount(updateInfoList.size());
+                            }
+
+                            @Override
+                            public void onError(Throwable e) {
+
+                            }
+                        });
+                    } else {
+                        badgePagerTitle.hideBadge();
+                    }
+                    return badgePagerTitle;
+
+
+//                    ColorTransitionPagerTitleView titleView = new ColorTransitionPagerTitleView(context);
+//                    titleView.setNormalColor(Color.WHITE);
+//                    titleView.setSelectedColor(Color.WHITE);
+//                    titleView.setTextSize(14);
+//                    titleView.setText(TAB_TITLES[index]);
+//                    titleView.setOnClickListener(new View.OnClickListener() {
+//                        @Override
+//                        public void onClick(View view1) {
+//                            viewPager.setCurrentItem(index);
+//                        }
+//                    });
+//                    BadgePagerTitleView badgePagerTitleView = new BadgePagerTitleView(context);
+//                    badgePagerTitleView.setInnerPagerTitleView(titleView);
+//                    if (index == 0) {
+//                        int min = ScreenUtils.dp2pxInt(context, 20);
+//                        int padding = ScreenUtils.dp2pxInt(context, 4);
+//                        TextView mTvUnreadCount = new TextView(context);
+//                        mTvUnreadCount.setBackgroundResource(R.drawable.bg_msg_bubble);
+//                        mTvUnreadCount.setText("12");
+//                        mTvUnreadCount.setMinWidth(min);
+//                        mTvUnreadCount.setTextSize(10);
+//                        mTvUnreadCount.setTextColor(Color.WHITE);
+//                        mTvUnreadCount.setPadding(padding, 0, padding, 0);
+//                        mTvUnreadCount.setGravity(Gravity.CENTER);
+//                        badgePagerTitleView.setBadgeView(mTvUnreadCount);
+//                        badgePagerTitleView.setXBadgeRule(new BadgeRule(BadgeAnchor.CONTENT_RIGHT, 0));
+//                        badgePagerTitleView.setYBadgeRule(new BadgeRule(BadgeAnchor.CONTENT_TOP, 0));
+//                        badgePagerTitleView.setAutoCancelBadge(false);
+//                    }
+//                    return badgePagerTitleView;
                 }
 
                 @Override

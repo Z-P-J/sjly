@@ -16,7 +16,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
 
 public class AppReceiver extends BroadcastReceiver {
 
-    private static final AtomicBoolean isRegister = new AtomicBoolean(false);
+    private final AtomicBoolean isRegistered = new AtomicBoolean(false);
     private static AppReceiver APP_RECEIVER;
 
     public static AppReceiver getInstance() {
@@ -31,8 +31,8 @@ public class AppReceiver extends BroadcastReceiver {
     }
 
     public static void register(Context context) {
-        if (!isRegister.get()) {
-            isRegister.set(true);
+        if (!getInstance().isRegistered()) {
+            getInstance().setRegistered(true);
             APP_RECEIVER = null;
             IntentFilter intentFilter = new IntentFilter();
             intentFilter.addAction(Intent.ACTION_PACKAGE_ADDED);
@@ -44,10 +44,19 @@ public class AppReceiver extends BroadcastReceiver {
     }
 
     public static void unregister(Context context) {
-        if (isRegister.get()) {
+        if (getInstance().isRegistered()) {
             context.unregisterReceiver(getInstance());
+            getInstance().setRegistered(false);
             APP_RECEIVER = null;
         }
+    }
+
+    public boolean isRegistered() {
+        return isRegistered.get();
+    }
+
+    public void setRegistered(boolean value) {
+        isRegistered.set(value);
     }
 
     @Override

@@ -19,6 +19,7 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.bumptech.glide.request.target.SimpleTarget;
 import com.bumptech.glide.request.transition.Transition;
+import com.zpj.rxbus.RxBus;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.api.HttpApi;
 import com.zpj.shouji.market.glide.GlideRequestOptions;
@@ -28,14 +29,18 @@ import com.zpj.shouji.market.manager.UserManager;
 import com.zpj.shouji.market.model.CollectionInfo;
 import com.zpj.shouji.market.ui.adapter.FragmentsPagerAdapter;
 import com.zpj.shouji.market.ui.fragment.base.StateSwipeBackFragment;
+import com.zpj.shouji.market.ui.fragment.detail.AppDetailFragment;
 import com.zpj.shouji.market.ui.fragment.dialog.CommentDialogFragment;
 import com.zpj.shouji.market.ui.fragment.login.LoginFragment;
 import com.zpj.shouji.market.ui.fragment.profile.ProfileFragment;
 import com.zpj.shouji.market.ui.widget.DrawableTintTextView;
 import com.zpj.shouji.market.ui.widget.emoji.EmojiExpandableTextView;
+import com.zpj.shouji.market.ui.widget.indicator.BadgePagerTitle;
+import com.zpj.shouji.market.ui.widget.indicator.SubTitlePagerTitle;
 import com.zpj.shouji.market.utils.EventBus;
 import com.zpj.shouji.market.utils.MagicIndicatorHelper;
 import com.zpj.toast.ZToast;
+import com.zxy.skin.sdk.SkinEngine;
 
 import net.lucode.hackware.magicindicator.MagicIndicator;
 
@@ -188,6 +193,12 @@ public class CollectionDetailFragment extends StateSwipeBackFragment
 
     }
 
+    @Override
+    protected void onRetry() {
+        super.onRetry();
+        getCollectionInfo();
+    }
+
     private void setAppCollectionItem(CollectionInfo item) {
         this.item = item;
     }
@@ -220,11 +231,10 @@ public class CollectionDetailFragment extends StateSwipeBackFragment
                             tvSupport.setTag(true);
                         }
                         tvView.setText(doc.selectFirst("viewcount").text());
-//                        RequestOptions options = new RequestOptions()
-//                                .centerCrop()
-//                                .transform(new CircleWithBorderTransformation(0.5f, Color.GRAY))
-//                                .error(R.mipmap.ic_launcher)
-//                                .placeholder(R.mipmap.ic_launcher);
+                        int appCount = Integer.parseInt(doc.selectFirst("size").text());
+                        int replyCount = Integer.parseInt(doc.selectFirst("replycount").text());
+
+
                         Glide.with(context)
                                 .load(backgroundUrl)
                                 .apply(GlideRequestOptions.getDefaultIconOption())
@@ -251,33 +261,6 @@ public class CollectionDetailFragment extends StateSwipeBackFragment
                                 )
 //                                .apply(options.clone().transform(new CircleWithBorderTransformation(0.5f, Color.GRAY)))
                                 .into(ivToolbarAvater);
-//                    Glide.with(context).asBitmap().load(backgroundUrl).apply(options).into(new SimpleTarget<Bitmap>() {
-//                        @Override
-//                        public void onResourceReady(@NonNull Bitmap resource, @Nullable Transition<? super Bitmap> transition) {
-//                            ivIcon.setImageBitmap(resource);
-//                            Observable.create((ObservableOnSubscribe<Bitmap>) emitter -> {
-//                                Bitmap bitmap = Blurred.with(resource)
-//                                        .percent(0.1f)
-//                                        .scale(0.1f)
-//                                        .blur();
-//                                emitter.onNext(bitmap);
-//                                emitter.onComplete();
-//                            })
-//                                    .subscribeOn(Schedulers.io())
-//                                    .observeOn(AndroidSchedulers.mainThread())
-//                                    .doOnNext(bitmap -> {
-//                                        getColor(bitmap);
-//                                    })
-//                                    .subscribe();
-//                        }
-//                    });
-//                    Glide.with(context).load(backgroundUrl)
-//                            .apply(new RequestOptions()
-//                                    .error(R.drawable.bg_member_default)
-//                                    .placeholder(R.drawable.bg_member_default)
-//                            )
-//                            .apply(RequestOptions.bitmapTransform(new BlurTransformation2(0.2f, 0.3f)))
-//                            .into(ivHeader);
 
                         Glide.with(context)
                                 .asDrawable()
@@ -312,7 +295,42 @@ public class CollectionDetailFragment extends StateSwipeBackFragment
 
                         viewPager.setAdapter(adapter);
                         viewPager.setOffscreenPageLimit(list.size());
-                        MagicIndicatorHelper.bindViewPager(context, magicIndicator, viewPager, TAB_TITLES, true);
+//                        MagicIndicatorHelper.bindViewPager(context, magicIndicator, viewPager, TAB_TITLES, true);
+
+                        MagicIndicatorHelper.builder(context)
+                                .setMagicIndicator(magicIndicator)
+                                .setViewPager(viewPager)
+                                .setTabTitles(TAB_TITLES)
+                                .setAdjustMode(true)
+                                .setOnGetTitleViewListener((context12, index) -> {
+                                    SubTitlePagerTitle subTitlePagerTitle = new SubTitlePagerTitle(context12);
+                                    subTitlePagerTitle.setNormalColor(SkinEngine.getColor(context12, R.attr.textColorMajor));
+                                    subTitlePagerTitle.setSelectedColor(context12.getResources().getColor(R.color.colorPrimary));
+                                    subTitlePagerTitle.setTitle(TAB_TITLES[index]);
+                                    subTitlePagerTitle.setOnClickListener(view1 -> viewPager.setCurrentItem(index));
+                                    if (index == 0) {
+                                        subTitlePagerTitle.setSubCount(appCount);
+                                    } else if (index == 1) {
+                                        subTitlePagerTitle.setSubCount(replyCount);
+                                    }
+                                    return subTitlePagerTitle;
+
+
+//                                    BadgePagerTitle badgePagerTitle = new BadgePagerTitle(context);
+//                                    badgePagerTitle.setNormalColor(SkinEngine.getColor(context12, R.attr.textColorMajor));
+//                                    badgePagerTitle.setSelectedColor(context12.getResources().getColor(R.color.colorPrimary));
+//                                    badgePagerTitle.setTitle(TAB_TITLES[index]);
+//                                    badgePagerTitle.setOnClickListener(view1 -> viewPager.setCurrentItem(index));
+//                                    if (index == 0) {
+//                                        badgePagerTitle.setBadgeCount(appCount);
+//                                    } else if (index == 1) {
+//                                        badgePagerTitle.setBadgeCount(replyCount);
+//                                    }
+//                                    return badgePagerTitle;
+
+                                })
+                                .build();
+
 
 //                        stateLayout.showContentView();
                         postOnEnterAnimationEnd(() -> {

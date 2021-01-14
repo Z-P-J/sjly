@@ -42,7 +42,7 @@ public abstract class RecyclerLayoutFragment<T> extends SkinFragment
         if (getArguments() != null) {
             handleArguments(getArguments());
         }
-        recyclerLayout = view.findViewById(R.id.recycler_layout);
+        recyclerLayout = findViewById(R.id.recycler_layout);
     }
 
     @Override

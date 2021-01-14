@@ -17,9 +17,12 @@ import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.constant.AppConfig;
 import com.zpj.shouji.market.manager.UserManager;
 import com.zpj.shouji.market.model.MessageInfo;
+import com.zpj.shouji.market.ui.fragment.base.BaseContainerFragment;
 import com.zpj.shouji.market.ui.fragment.base.SkinFragment;
 import com.zpj.shouji.market.ui.fragment.dialog.MainActionDialogFragment;
+import com.zpj.shouji.market.ui.fragment.homepage.DiscoverFragment;
 import com.zpj.shouji.market.ui.fragment.homepage.HomeFragment;
+import com.zpj.shouji.market.ui.fragment.homepage.WallpaperFragment;
 import com.zpj.shouji.market.ui.fragment.profile.MyFragment;
 import com.zpj.shouji.market.ui.fragment.recommond.GameRecommendFragment;
 import com.zpj.shouji.market.ui.fragment.recommond.SoftRecommendFragment;
@@ -40,6 +43,59 @@ public class MainFragment extends SkinFragment {
     private BottomBar mBottomBar;
 
     private ZBlurry blurred;
+
+    public static class FirstFragment extends BaseContainerFragment {
+
+        @Override
+        protected SupportFragment getRootFragment() {
+
+            HomeFragment fragment = findChildFragment(HomeFragment.class);
+            if (fragment == null) {
+                fragment = new HomeFragment();
+            }
+            return fragment;
+        }
+
+    }
+
+    public static class SecondFragment extends BaseContainerFragment {
+
+        @Override
+        protected SupportFragment getRootFragment() {
+            SoftRecommendFragment fragment = findChildFragment(SoftRecommendFragment.class);
+            if (fragment == null) {
+                fragment = new SoftRecommendFragment();
+            }
+            return fragment;
+        }
+
+    }
+
+    public static class ThirdFragment extends BaseContainerFragment {
+
+        @Override
+        protected SupportFragment getRootFragment() {
+            GameRecommendFragment fragment = findChildFragment(GameRecommendFragment.class);
+            if (fragment == null) {
+                fragment = new GameRecommendFragment();
+            }
+            return fragment;
+        }
+
+    }
+
+    public static class FourthFragment extends BaseContainerFragment {
+
+        @Override
+        protected SupportFragment getRootFragment() {
+            MyFragment fragment = findChildFragment(MyFragment.class);
+            if (fragment == null) {
+                fragment = new MyFragment();
+            }
+            return fragment;
+        }
+
+    }
 
     @Override
     protected int getLayoutId() {
@@ -81,9 +137,13 @@ public class MainFragment extends SkinFragment {
 
         SupportFragment firstFragment = findChildFragment(HomeFragment.class);
         if (firstFragment == null) {
+//            mFragments[FIRST] = new HomeFragment();
+//            mFragments[SECOND] = new SoftRecommendFragment();
+//            mFragments[THIRD] = new GameRecommendFragment();
+//            mFragments[FOURTH] = new MyFragment();
             mFragments[FIRST] = new HomeFragment();
-            mFragments[SECOND] = new SoftRecommendFragment();
-            mFragments[THIRD] = new GameRecommendFragment();
+            mFragments[SECOND] = new SecondFragment();
+            mFragments[THIRD] = new ThirdFragment();
             mFragments[FOURTH] = new MyFragment();
 
             loadMultipleRootFragment(R.id.fl_container, FIRST,
@@ -96,8 +156,11 @@ public class MainFragment extends SkinFragment {
 
             // 这里我们需要拿到mFragments的引用
             mFragments[FIRST] = firstFragment;
-            mFragments[SECOND] = findChildFragment(SoftRecommendFragment.class);
-            mFragments[THIRD] = findChildFragment(GameRecommendFragment.class);
+//            mFragments[SECOND] = findChildFragment(SoftRecommendFragment.class);
+//            mFragments[THIRD] = findChildFragment(GameRecommendFragment.class);
+//            mFragments[FOURTH] = findChildFragment(MyFragment.class);
+            mFragments[SECOND] = findChildFragment(SecondFragment.class);
+            mFragments[THIRD] = findChildFragment(ThirdFragment.class);
             mFragments[FOURTH] = findChildFragment(MyFragment.class);
         }
 

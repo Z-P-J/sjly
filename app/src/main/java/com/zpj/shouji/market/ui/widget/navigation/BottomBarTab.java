@@ -105,10 +105,11 @@ public class BottomBarTab extends FrameLayout {
 
 
         int min = ScreenUtils.dp2pxInt(context, 20);
-        int padding = ScreenUtils.dp2pxInt(context, 5);
+        int padding = ScreenUtils.dp2pxInt(context, 4);
         mTvUnreadCount = new TextView(context);
         mTvUnreadCount.setBackgroundResource(R.drawable.bg_msg_bubble);
         mTvUnreadCount.setMinWidth(min);
+        mTvUnreadCount.setTextSize(12);
         mTvUnreadCount.setTextColor(Color.WHITE);
         mTvUnreadCount.setPadding(padding, 0, padding, 0);
         mTvUnreadCount.setGravity(Gravity.CENTER);
@@ -133,18 +134,18 @@ public class BottomBarTab extends FrameLayout {
      * 设置未读数量
      */
     public void setUnreadCount(int num) {
-        badge.setBadgeNumber(num);
-//        if (num <= 0) {
-//            mTvUnreadCount.setText(String.valueOf(0));
-//            mTvUnreadCount.setVisibility(GONE);
-//        } else {
-//            mTvUnreadCount.setVisibility(VISIBLE);
-//            if (num > 99) {
-//                mTvUnreadCount.setText("99+");
-//            } else {
-//                mTvUnreadCount.setText(String.valueOf(num));
-//            }
-//        }
+//        badge.setBadgeNumber(num);
+        if (num <= 0) {
+            mTvUnreadCount.setText(String.valueOf(0));
+            mTvUnreadCount.setVisibility(GONE);
+        } else {
+            mTvUnreadCount.setVisibility(VISIBLE);
+            if (num > 99) {
+                mTvUnreadCount.setText("99+");
+            } else {
+                mTvUnreadCount.setText(String.valueOf(num));
+            }
+        }
     }
 
     /**

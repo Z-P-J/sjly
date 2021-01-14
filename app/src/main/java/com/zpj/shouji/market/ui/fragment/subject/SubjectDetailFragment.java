@@ -184,10 +184,17 @@ public class SubjectDetailFragment extends StateSwipeBackFragment
         AppDetailFragment.start(data);
     }
 
+    @Override
+    protected void onRetry() {
+        super.onRetry();
+        getData();
+    }
+
     private void getData() {
         HttpApi.getXml("http://tt.shouji.com.cn/androidv3/special_list_xml.jsp?id=" + id)
                 .bindToLife(this)
                 .onSuccess(data -> {
+                    appInfoList.clear();
                     for (Element element : data.select("item")) {
                         appInfoList.add(AppInfo.parse(element));
                     }

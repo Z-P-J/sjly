@@ -18,7 +18,7 @@ public class DiscoverInfo {
 
     private String parent;
 
-    private List<DiscoverInfo> children = new ArrayList<>(0);
+    private final List<DiscoverInfo> children = new ArrayList<>(0);
 
     private DiscoverInfo parentItem;
 
@@ -104,9 +104,9 @@ public class DiscoverInfo {
 
     private String appSize;
 
-    private List<String> sharePics = new ArrayList<>(0);
+    private final List<String> sharePics = new ArrayList<>(0);
 
-    private List<String> sharePns = new ArrayList<>(0);
+    private final List<String> sharePns = new ArrayList<>(0);
 
     private String admin;
 
@@ -125,7 +125,7 @@ public class DiscoverInfo {
 
     public static DiscoverInfo from(Element element) {
         String type = element.selectFirst("type").text();
-        Log.d("DiscoverInfo", "type=" + type);
+        Log.d("DiscoverInfo", "type=" + type + " element=" + element);
         if ("tag".equals(type) || "lable".equals(type)) {
             return null;
         }
@@ -141,7 +141,11 @@ public class DiscoverInfo {
         info.setMemberId(element.selectFirst("memberid").text());
         info.setContentType(element.selectFirst("contenttype").text());
 
-        info.setIcon(element.selectFirst("icon").text());
+        String icon = element.selectFirst("icon").text()
+                .replace("https://avataro.tljpxm.comhttps://", "https://")
+                .replace("https://avataro.tljpxm.comhttp://", "http://");
+        info.setIcon(icon);
+        Log.d("DiscoverInfo", "icon=" + info.getIcon());
         info.setIconState(element.selectFirst("iconstate").text());
         info.setNickName(element.selectFirst("nickname").text());
         info.setTime(element.selectFirst("time").text());

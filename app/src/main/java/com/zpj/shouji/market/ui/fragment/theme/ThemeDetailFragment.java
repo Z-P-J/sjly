@@ -11,6 +11,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.text.TextUtils;
 import android.view.View;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -35,6 +36,7 @@ import com.zpj.shouji.market.ui.fragment.dialog.CommentDialogFragment;
 import com.zpj.shouji.market.ui.fragment.dialog.ShareDialogFragment;
 import com.zpj.shouji.market.ui.fragment.dialog.ThemeMoreDialogFragment;
 import com.zpj.shouji.market.ui.fragment.login.LoginFragment;
+import com.zpj.shouji.market.ui.widget.indicator.SubTitlePagerTitle;
 import com.zpj.shouji.market.utils.EventBus;
 import com.zpj.shouji.market.utils.MagicIndicatorHelper;
 import com.zpj.toast.ZToast;
@@ -59,9 +61,9 @@ public class ThemeDetailFragment extends BaseSwipeBackFragment {
     private ImageView ivToolbarAvater;
     private TextView tvToolbarName;
 
-    private TintedImageButton btnShare;
-    private TintedImageButton btnCollect;
-    private TintedImageButton btnMenu;
+    private ImageButton btnShare;
+    private ImageButton btnCollect;
+    private ImageButton btnMenu;
 
     private DiscoverInfo item;
 
@@ -195,7 +197,7 @@ public class ThemeDetailFragment extends BaseSwipeBackFragment {
         btnMenu = toolbar.getRightCustomView().findViewById(R.id.btn_menu);
 
 //        btnShare.setTint(Color.BLACK);
-        SkinEngine.applyViewAttr(btnShare, "tint", R.attr.textColorMajor);
+        SkinEngine.setTint(btnShare, R.attr.textColorMajor);
         btnShare.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -215,7 +217,7 @@ public class ThemeDetailFragment extends BaseSwipeBackFragment {
                     @Override
                     public void run() {
                         btnCollect.setImageResource(R.drawable.ic_star_black_24dp);
-                        btnCollect.setTint(Color.RED);
+                        btnCollect.setColorFilter(Color.RED);
                     }
                 });
 //                HttpApi.deleteCollectionApi(info.getId());
@@ -255,35 +257,34 @@ public class ThemeDetailFragment extends BaseSwipeBackFragment {
         viewPager.setOffscreenPageLimit(list.size());
 
 
-        MagicIndicatorHelper.bindViewPager(context, magicIndicator, viewPager, TAB_TITLES, true);
+//        MagicIndicatorHelper.bindViewPager(context, magicIndicator, viewPager, TAB_TITLES, true);
+
+        MagicIndicatorHelper.builder(context)
+                .setMagicIndicator(magicIndicator)
+                .setViewPager(viewPager)
+                .setTabTitles(TAB_TITLES)
+                .setAdjustMode(true)
+                .setOnGetTitleViewListener((context12, index) -> {
+                    SubTitlePagerTitle subTitlePagerTitle = new SubTitlePagerTitle(context12);
+                    subTitlePagerTitle.setNormalColor(SkinEngine.getColor(context12, R.attr.textColorMajor));
+                    subTitlePagerTitle.setSelectedColor(context12.getResources().getColor(R.color.colorPrimary));
+                    subTitlePagerTitle.setTitle(TAB_TITLES[index]);
+                    subTitlePagerTitle.setOnClickListener(view1 -> viewPager.setCurrentItem(index));
+                    if (index == 0) {
+                        subTitlePagerTitle.setSubText(item.getReplyCount());
+                    } else if (index == 1) {
+                        subTitlePagerTitle.setSubText(item.getSupportCount());
+                    }
+                    return subTitlePagerTitle;
+
+                })
+                .build();
 
         if (getArguments() != null) {
             if (getArguments().getBoolean(Keys.SHOW_TOOLBAR, false)) {
                 showCommentPopup();
             }
         }
-    }
-
-//    @Override
-//    public void onSupportVisible() {
-//        super.onSupportVisible();
-//        ThemeUtils.initStatusBar(this);
-//    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-//        if (commentPopup != null) {
-//            commentPopup.show();
-//        }
-    }
-
-    @Override
-    public void onPause() {
-        super.onPause();
-//        if (commentPopup != null) {
-//            commentPopup.hide();
-//        }
     }
 
     @Override

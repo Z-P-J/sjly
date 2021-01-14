@@ -78,6 +78,7 @@ public class GameRecommendFragment extends BaseRecommendFragment implements View
                 .onError(throwable -> {
                     throwable.printStackTrace();
                     ZToast.error("出错了！" + throwable.getMessage());
+                    showError(throwable.getMessage());
                 })
                 .subscribe();
 

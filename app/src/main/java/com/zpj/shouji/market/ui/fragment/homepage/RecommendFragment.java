@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 
+import com.zpj.http.core.IHttp;
 import com.zpj.recyclerview.MultiData;
 import com.zpj.recyclerview.MultiRecyclerViewWrapper;
 import com.zpj.rxbus.RxBus;
@@ -15,17 +16,19 @@ import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.api.PreloadApi;
 import com.zpj.shouji.market.ui.fragment.ToolBarAppListFragment;
 import com.zpj.shouji.market.ui.fragment.base.SkinFragment;
+import com.zpj.shouji.market.ui.fragment.base.StateFragment;
 import com.zpj.shouji.market.ui.multidata.AppInfoMultiData;
 import com.zpj.shouji.market.ui.multidata.CollectionMultiData;
 import com.zpj.shouji.market.ui.multidata.GuessYouLikeMultiData;
 import com.zpj.shouji.market.ui.multidata.SubjectMultiData;
 import com.zpj.shouji.market.ui.widget.RecommendBanner;
 import com.zpj.shouji.market.utils.EventBus;
+import com.zpj.statemanager.StateManager;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class RecommendFragment extends SkinFragment {
+public class RecommendFragment extends StateFragment {
 
     private static final String TAG = "RecommendFragment3";
 
@@ -60,7 +63,8 @@ public class RecommendFragment extends SkinFragment {
     @Override
     protected void initView(View view, @Nullable Bundle savedInstanceState) {
         recyclerView = findViewById(R.id.recycler_view);
-        recyclerView.setFocusableInTouchMode(true);
+//        recyclerView.setFocusable(true);
+//        recyclerView.setFocusableInTouchMode(true);
         recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
             public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
@@ -84,66 +88,69 @@ public class RecommendFragment extends SkinFragment {
         });
 
 
-        MultiRecyclerViewWrapper wrapper = new MultiRecyclerViewWrapper(recyclerView);
-
         mBanner = new RecommendBanner(context);
-        mBanner.loadData(new Runnable() {
-            @Override
-            public void run() {
-//                wrapper.showContent();
-//                ColorChangeEvent.post(true);
-                EventBus.sendColorChangeEvent(true);
-            }
-        });
+        onRetry();
+    }
 
-        List<MultiData<?>> list = new ArrayList<>();
+    @Override
+    protected void onRetry() {
+        super.onRetry();
+        mBanner.loadData(() -> {
+            showContent();
 
-        list.add(new AppInfoMultiData("最近更新") {
-            @Override
-            public void onHeaderClick() {
-                ToolBarAppListFragment.startRecentUpdate();
-            }
+            List<MultiData<?>> list = new ArrayList<>();
 
-            @Override
-            public PreloadApi getKey() {
-                return PreloadApi.HOME_RECENT;
-            }
-        });
+            list.add(new AppInfoMultiData("最近更新") {
+                @Override
+                public void onHeaderClick() {
+                    ToolBarAppListFragment.startRecentUpdate();
+                }
 
-        list.add(new CollectionMultiData());
+                @Override
+                public PreloadApi getKey() {
+                    return PreloadApi.HOME_RECENT;
+                }
+            });
 
-        list.add(new AppInfoMultiData("应用推荐") {
-            @Override
-            public void onHeaderClick() {
-                ToolBarAppListFragment.startRecommendSoftList();
-            }
+            list.add(new CollectionMultiData());
 
-            @Override
-            public PreloadApi getKey() {
-                return PreloadApi.HOME_SOFT;
-            }
-        });
+            list.add(new AppInfoMultiData("应用推荐") {
+                @Override
+                public void onHeaderClick() {
+                    ToolBarAppListFragment.startRecommendSoftList();
+                }
 
-        list.add(new AppInfoMultiData("游戏推荐") {
-            @Override
-            public void onHeaderClick() {
-                ToolBarAppListFragment.startRecommendGameList();
-            }
+                @Override
+                public PreloadApi getKey() {
+                    return PreloadApi.HOME_SOFT;
+                }
+            });
 
-            @Override
-            public PreloadApi getKey() {
-                return PreloadApi.HOME_GAME;
-            }
-        });
+            list.add(new AppInfoMultiData("游戏推荐") {
+                @Override
+                public void onHeaderClick() {
+                    ToolBarAppListFragment.startRecommendGameList();
+                }
 
-        list.add(new SubjectMultiData("专题推荐"));
+                @Override
+                public PreloadApi getKey() {
+                    return PreloadApi.HOME_GAME;
+                }
+            });
 
-        list.add(new GuessYouLikeMultiData("猜你喜欢"));
+            list.add(new SubjectMultiData("专题推荐"));
 
-        wrapper.setData(list)
-                .setFooterView(LayoutInflater.from(context).inflate(R.layout.item_footer_home, null, false))
-                .setHeaderView(mBanner)
-                .build();
+            list.add(new GuessYouLikeMultiData("猜你喜欢"));
+
+            MultiRecyclerViewWrapper wrapper = new MultiRecyclerViewWrapper(recyclerView);
+            wrapper.setData(list)
+                    .setFooterView(LayoutInflater.from(context).inflate(R.layout.item_footer_home, null, false))
+                    .setHeaderView(mBanner)
+                    .build();
+
+            EventBus.sendColorChangeEvent(true);
+
+        }, throwable -> showError(throwable.getMessage()));
     }
 
     @Override
