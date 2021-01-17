@@ -18,7 +18,6 @@ import com.zpj.fragmentation.dialog.animator.PopupAnimator;
 import com.zpj.fragmentation.dialog.base.AttachDialogFragment;
 import com.zpj.fragmentation.dialog.utils.DialogThemeUtils;
 import com.zpj.recyclerview.EasyRecyclerView;
-import com.zpj.widget.tinted.TintedImageView;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;
@@ -91,7 +90,7 @@ public class AttachListDialogFragment<T> extends AttachDialogFragment {
                     TextView tvText = holder.getView(R.id.tv_text);
                     tvText.setTextColor(textColor);
 
-                    TintedImageView ivImage = holder.getView(R.id.iv_image);
+                    ImageView ivImage = holder.getView(R.id.iv_image);
 
                     holder.getView(R.id._dialog_view_divider).setVisibility(View.GONE);
 
@@ -101,16 +100,20 @@ public class AttachListDialogFragment<T> extends AttachDialogFragment {
                             ivImage.setVisibility(View.VISIBLE);
                             ivImage.setImageResource(iconIds.get(position));
 //                        ivImage.setImageDrawable(context.getResources().getDrawable(iconIds.get(position)));
-                            if (tintColor != Color.TRANSPARENT) {
-                                ivImage.setTint(ColorStateList.valueOf(tintColor));
+                            if (tintColor == Color.TRANSPARENT) {
+                                ivImage.clearColorFilter();
+                            } else {
+                                ivImage.setColorFilter(tintColor);
                             }
                         } else {
                             ivImage.setVisibility(View.GONE);
                         }
                     } else {
                         ivImage.setVisibility(View.VISIBLE);
-                        if (tintColor != Color.TRANSPARENT) {
-                            ivImage.setTint(ColorStateList.valueOf(tintColor));
+                        if (tintColor == Color.TRANSPARENT) {
+                            ivImage.clearColorFilter();
+                        } else {
+                            ivImage.setColorFilter(tintColor);
                         }
                         iconCallback.onGetIcon(ivImage, list.get(position), position);
                     }

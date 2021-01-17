@@ -1,5 +1,6 @@
 package com.zpj.shouji.market.ui.fragment.profile;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -9,20 +10,31 @@ import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
+import com.zpj.downloader.BaseMission;
+import com.zpj.downloader.DownloadManager;
+import com.zpj.downloader.ZDownloader;
 import com.zpj.http.parser.html.nodes.Element;
 import com.zpj.recyclerview.EasyViewHolder;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.api.HttpApi;
 import com.zpj.shouji.market.constant.Keys;
 import com.zpj.shouji.market.constant.UpdateFlagAction;
+import com.zpj.shouji.market.manager.AppUpdateManager;
+import com.zpj.shouji.market.manager.UserManager;
+import com.zpj.shouji.market.model.AppUpdateInfo;
+import com.zpj.shouji.market.model.IgnoredUpdateInfo;
+import com.zpj.shouji.market.model.MessageInfo;
 import com.zpj.shouji.market.model.PrivateLetterInfo;
 import com.zpj.shouji.market.ui.adapter.FragmentsPagerAdapter;
 import com.zpj.shouji.market.ui.fragment.base.BaseSwipeBackFragment;
 import com.zpj.shouji.market.ui.fragment.base.NextUrlFragment;
 import com.zpj.shouji.market.ui.fragment.chat.ChatFragment;
 import com.zpj.shouji.market.ui.fragment.theme.ThemeListFragment;
+import com.zpj.shouji.market.ui.widget.indicator.BadgePagerTitle;
+import com.zpj.shouji.market.ui.widget.indicator.SubTitlePagerTitle;
 import com.zpj.shouji.market.utils.BeanUtils;
 import com.zpj.shouji.market.utils.MagicIndicatorHelper;
+import com.zxy.skin.sdk.SkinEngine;
 
 import net.lucode.hackware.magicindicator.MagicIndicator;
 
@@ -73,19 +85,27 @@ public class MyMsgFragment extends BaseSwipeBackFragment {
         fragments.add(receivedGoodFragment);
         viewPager.setAdapter(new FragmentsPagerAdapter(getChildFragmentManager(), fragments, TAB_TITLES));
         viewPager.setOffscreenPageLimit(fragments.size());
-        MagicIndicatorHelper.bindViewPager(context, magicIndicator, viewPager, TAB_TITLES);
-    }
+//        MagicIndicatorHelper.bindViewPager(context, magicIndicator, viewPager, TAB_TITLES);
 
-//    @Override
-//    public void onSupportVisible() {
-//        super.onSupportVisible();
-//        ThemeUtils.initStatusBar(this);
-//    }
-
-    @Override
-    public void onDestroy() {
-        HttpApi.updateFlagApi(UpdateFlagAction.GOOD);
-        super.onDestroy();
+        MessageInfo messageInfo = UserManager.getInstance().getMessageInfo();
+        MagicIndicatorHelper.builder(context)
+                .setMagicIndicator(magicIndicator)
+                .setViewPager(viewPager)
+                .setTabTitles(TAB_TITLES)
+                .setOnGetTitleViewListener((context12, index) -> {
+                    BadgePagerTitle badgePagerTitle = new BadgePagerTitle(context);
+                    badgePagerTitle.setTitle(TAB_TITLES[index]);
+                    badgePagerTitle.setOnClickListener(view1 -> viewPager.setCurrentItem(index));
+                    if (index == 0) {
+                        badgePagerTitle.setBadgeCount(messageInfo.getPrivateLetterCount());
+                    } else if (index == 1) {
+                        badgePagerTitle.setBadgeCount(messageInfo.getAiteCount());
+                    } else {
+                        badgePagerTitle.setBadgeCount(messageInfo.getLikeCount());
+                    }
+                    return badgePagerTitle;
+                })
+                .build();
     }
 
     public static class PrivateLetterFragment extends NextUrlFragment<PrivateLetterInfo> {
@@ -105,7 +125,7 @@ public class MyMsgFragment extends BaseSwipeBackFragment {
 
         @Override
         public void onDestroy() {
-            HttpApi.updateFlagApi(UpdateFlagAction.PRIVATE);
+//            HttpApi.updateFlagApi(UpdateFlagAction.PRIVATE);
             super.onDestroy();
         }
 
@@ -145,7 +165,7 @@ public class MyMsgFragment extends BaseSwipeBackFragment {
 
         @Override
         public void onDestroy() {
-            HttpApi.updateFlagApi(UpdateFlagAction.AT);
+//            HttpApi.updateFlagApi(UpdateFlagAction.AT);
             super.onDestroy();
         }
 
@@ -160,6 +180,12 @@ public class MyMsgFragment extends BaseSwipeBackFragment {
             ReceivedGoodFragment fragment = new ReceivedGoodFragment();
             fragment.setArguments(args);
             return fragment;
+        }
+
+        @Override
+        public void onDestroy() {
+//            HttpApi.updateFlagApi(UpdateFlagAction.GOOD);
+            super.onDestroy();
         }
 
     }

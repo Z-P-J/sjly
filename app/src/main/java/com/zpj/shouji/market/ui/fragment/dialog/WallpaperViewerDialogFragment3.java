@@ -7,6 +7,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.view.ViewPager;
 import android.text.TextUtils;
 import android.view.View;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -28,7 +29,6 @@ import com.zpj.shouji.market.ui.fragment.theme.ThemeDetailFragment;
 import com.zpj.shouji.market.ui.widget.DrawableTintTextView;
 import com.zpj.shouji.market.utils.PictureUtil;
 import com.zpj.toast.ZToast;
-import com.zpj.widget.tinted.TintedImageButton;
 import com.zpj.widget.toolbar.ZToolBar;
 
 import java.util.List;
@@ -41,10 +41,10 @@ public class WallpaperViewerDialogFragment3 extends ImageViewerDialogFragment3<S
     private ZToolBar titleBar;
     private View bottomBar;
     private ImageView ivIcon;
-    private TintedImageButton btnUp;
+    private ImageButton btnUp;
 //    private LoadingView loadingView;
     private DrawableTintTextView tvSupport;
-    private TintedImageButton btnFavorite;
+    private ImageButton btnFavorite;
     private TextView tvOrigin;
 
     private WallpaperInfo wallpaperInfo;
@@ -175,7 +175,7 @@ public class WallpaperViewerDialogFragment3 extends ImageViewerDialogFragment3<S
                                 String info = doc.selectFirst("info").text();
                                 if ("success".equals(doc.selectFirst("result").text())) {
                                     ZToast.success("取消收藏成功！");
-                                    btnFavorite.setTint(Color.WHITE);
+                                    btnFavorite.setColorFilter(Color.WHITE);
                                     btnFavorite.setTag(false);
                                 } else {
                                     ZToast.error(info);
@@ -189,7 +189,7 @@ public class WallpaperViewerDialogFragment3 extends ImageViewerDialogFragment3<S
                                 String info = doc.selectFirst("info").text();
                                 if ("success".equals(doc.selectFirst("result").text())) {
                                     ZToast.success(info);
-                                    btnFavorite.setTint(Color.RED);
+                                    btnFavorite.setColorFilter(Color.RED);
                                     btnFavorite.setTag(true);
                                 } else {
                                     ZToast.error(info);

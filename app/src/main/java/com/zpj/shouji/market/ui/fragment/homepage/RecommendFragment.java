@@ -162,109 +162,45 @@ public class RecommendFragment extends StateFragment {
         } else {
             EventBus.sendScrollEvent(0);
         }
-//        if (mBanner != null) {
-//            mBanner.onResume();
-//        }
-        postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                if (mBanner != null) {
-                    mBanner.onResume();
-                }
-            }
-        }, 360);
+        if (mBanner != null) {
+            mBanner.onResume();
+        }
     }
 
     @Override
     public void onSupportInvisible() {
         Log.d(TAG, "onSupportInvisible");
         super.onSupportInvisible();
-//        if (mBanner != null) {
-//            mBanner.onPause();
-//        }
-        postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                if (mBanner != null) {
-                    mBanner.onPause();
-                }
-            }
-        }, 360);
-    }
-
-    @Override
-    protected void initStatusBar() {
-
+        if (mBanner != null) {
+            mBanner.onPause();
+        }
     }
 
     @Override
     public void onResume() {
         Log.d(TAG, "onResume");
         super.onResume();
-//        if (mBanner != null) {
-//            mBanner.onResume();
-//        }
-        postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                if (mBanner != null) {
-                    mBanner.onResume();
-                }
-            }
-        }, 360);
+        if (mBanner != null) {
+            mBanner.onResume();
+        }
     }
 
     @Override
     public void onPause() {
         Log.d(TAG, "onPause");
         super.onPause();
-//        if (mBanner != null) {
-//            mBanner.onPause();
-//        }
-        postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                if (mBanner != null) {
-                    mBanner.onPause();
-                }
-            }
-        }, 360);
+        if (mBanner != null) {
+            mBanner.onPause();
+        }
     }
 
     @Override
     public void onStop() {
         Log.d(TAG, "onStop");
         super.onStop();
-//        if (mBanner != null) {
-//            mBanner.onStop();
-//        }
-        postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                if (mBanner != null) {
-                    mBanner.onStop();
-                }
-            }
-        }, 360);
+        if (mBanner != null) {
+            mBanner.onStop();
+        }
     }
-
-//    @Subscribe
-//    public void onMainActionPopupEvent(MainActionPopupEvent event) {
-//        if (isSupportVisible() && mBanner != null) {
-//            if (event.isShow()) {
-//                mBanner.onPause();
-//            } else {
-//                mBanner.onResume();
-//            }
-//        }
-//    }
-
-//    private void onError(Exception e) {
-//        post(() -> ZToast.error("加载失败！" + e.getMessage()));
-//    }
-//
-//    public interface OnItemClickListener<T> {
-//        void onItemClick(View v, T data);
-//    }
 
 }

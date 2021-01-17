@@ -168,16 +168,20 @@ public class RecommendBanner extends LinearLayout implements View.OnClickListene
 
     private void setBg(int position) {
         currentPosition = position;
+        int placeholderId = GlideRequestOptions.getPlaceholderId();
         Glide.with(ivBg.getContext())
                 .asBitmap()
                 .load(bannerItemList.get(position).getAppIcon())
-                .apply(RequestOptions.bitmapTransform(new BlurTransformation()))
+                .apply(
+                        RequestOptions.bitmapTransform(new BlurTransformation())
+                                .placeholder(placeholderId)
+                                .error(placeholderId)
+                )
                 .into(new SimpleTarget<Bitmap>() {
                     @Override
                     public void onResourceReady(@NonNull Bitmap resource, @Nullable Transition<? super Bitmap> transition) {
 //                        getColor(resource);
                         ivBg.setImageBitmap(resource);
-//                        llContainer.setBackground(new BitmapDrawable(getResources(), resource));
                     }
                 });
     }

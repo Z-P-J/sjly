@@ -39,7 +39,6 @@
 //import com.zpj.shouji.market.ui.widget.DrawableTintTextView;
 //import com.zpj.shouji.market.utils.Callback;
 //import com.zpj.shouji.market.utils.PictureUtil;
-//import com.zpj.widget.tinted.TintedImageButton;
 //import com.zpj.widget.toolbar.ZToolBar;
 //
 //import java.io.File;
@@ -53,10 +52,10 @@
 //    private ZToolBar titleBar;
 //    private View bottomBar;
 //    private ImageView ivIcon;
-//    private TintedImageButton btnUp;
+//    private ImageButton btnUp;
 //    private LoadingView loadingView;
 //    private DrawableTintTextView tvSupport;
-//    private TintedImageButton btnFavorite;
+//    private ImageButton btnFavorite;
 //    private TextView tvOrigin;
 //
 //    private WallpaperInfo wallpaperInfo;

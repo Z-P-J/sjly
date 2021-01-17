@@ -7,6 +7,7 @@ import android.support.v4.view.ViewPager;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
+import android.widget.ImageButton;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -18,7 +19,6 @@ import com.zpj.fragmentation.dialog.impl.AttachListDialogFragment;
 import com.zpj.fragmentation.dialog.impl.ImageViewerDialogFragment2;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.utils.PictureUtil;
-import com.zpj.widget.tinted.TintedImageButton;
 import com.zpj.widget.toolbar.ZToolBar;
 
 import java.util.List;
@@ -32,7 +32,7 @@ public class CommonImageViewerDialogFragment2_bak extends ImageViewerDialogFragm
     private RelativeLayout bottomBar;
     protected TextView tvInfo;
     protected TextView tvIndicator;
-    private TintedImageButton btnMore;
+    private ImageButton btnMore;
 //    private LoadingView loadingView;
 
     public CommonImageViewerDialogFragment2_bak() {

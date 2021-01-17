@@ -10,9 +10,12 @@ import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.api.HttpApi;
 import com.zpj.shouji.market.constant.Keys;
 import com.zpj.shouji.market.constant.UpdateFlagAction;
+import com.zpj.shouji.market.manager.UserManager;
+import com.zpj.shouji.market.model.MessageInfo;
 import com.zpj.shouji.market.ui.adapter.FragmentsPagerAdapter;
 import com.zpj.shouji.market.ui.fragment.base.BaseSwipeBackFragment;
 import com.zpj.shouji.market.ui.fragment.theme.ThemeListFragment;
+import com.zpj.shouji.market.ui.widget.indicator.BadgePagerTitle;
 import com.zpj.shouji.market.utils.MagicIndicatorHelper;
 
 import net.lucode.hackware.magicindicator.MagicIndicator;
@@ -66,7 +69,23 @@ public class MyDiscoverFragment extends BaseSwipeBackFragment {
         viewPager.setAdapter(new FragmentsPagerAdapter(getChildFragmentManager(), fragments, TAB_TITLES));
         viewPager.setOffscreenPageLimit(fragments.size());
 
-        MagicIndicatorHelper.bindViewPager(context, magicIndicator, viewPager, TAB_TITLES);
+//        MagicIndicatorHelper.bindViewPager(context, magicIndicator, viewPager, TAB_TITLES);
+
+        MessageInfo messageInfo = UserManager.getInstance().getMessageInfo();
+        MagicIndicatorHelper.builder(context)
+                .setMagicIndicator(magicIndicator)
+                .setViewPager(viewPager)
+                .setTabTitles(TAB_TITLES)
+                .setOnGetTitleViewListener((context12, index) -> {
+                    BadgePagerTitle badgePagerTitle = new BadgePagerTitle(context);
+                    badgePagerTitle.setTitle(TAB_TITLES[index]);
+                    badgePagerTitle.setOnClickListener(view1 -> viewPager.setCurrentItem(index));
+                    if (index == 0) {
+                        badgePagerTitle.setBadgeCount(messageInfo.getDiscoverCount());
+                    }
+                    return badgePagerTitle;
+                })
+                .build();
     }
 
 //    @Override

@@ -25,7 +25,7 @@
             android:paddingHorizontal="8dp"
             />
 
-        <com.zpj.widget.tinted.TintedImageButton
+        <ImageButton
             android:id="@+id/btn_close"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

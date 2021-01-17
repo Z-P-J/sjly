@@ -34,7 +34,6 @@ import com.zpj.shouji.market.ui.fragment.chat.ChatFragment;
 import com.zpj.shouji.market.utils.MagicIndicatorHelper;
 import com.zpj.shouji.market.utils.PictureUtil;
 import com.zpj.toast.ZToast;
-import com.zpj.widget.tinted.TintedImageView;
 
 import net.lucode.hackware.magicindicator.MagicIndicator;
 
@@ -48,13 +47,12 @@ public class ProfileFragment extends StateSwipeBackFragment
 
     private static final String[] TAB_TITLES = {"动态", "收藏", "下载", "好友"};
 
-//    private StateLayout stateLayout;
     private LinearLayout headerLayout;
     private ImageView ivHeader;
     private ImageView ivAvater;
     private ImageView ivToolbarAvater;
     private TextView tvFollow;
-    private TintedImageView ivChat;
+    private ImageButton ivChat;
     private TextView tvName;
     private TextView tvToolbarName;
     private TextView tvInfo;

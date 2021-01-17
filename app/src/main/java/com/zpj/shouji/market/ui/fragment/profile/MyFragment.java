@@ -44,7 +44,6 @@ import com.zpj.shouji.market.utils.PictureUtil;
 import com.zpj.toast.ZToast;
 import com.zpj.utils.ClickHelper;
 import com.zpj.widget.setting.SwitchSettingItem;
-import com.zpj.widget.tinted.TintedImageView;
 
 public class MyFragment extends SkinFragment
         implements View.OnClickListener {

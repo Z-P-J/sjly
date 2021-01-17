@@ -14,7 +14,7 @@
         android:paddingTop="12dp"
         android:paddingBottom="12dp">
 
-        <com.zpj.widget.tinted.TintedImageView
+        <ImageView
             android:id="@+id/iv_image"
             android:layout_width="24dp"
             android:layout_height="24dp"

@@ -22,10 +22,14 @@ public class BadgePagerTitle extends CommonPagerTitleView {
     private int mSelectedColor;
     protected int mNormalColor;
 
+    private boolean mAutoCancelBadge = true;
+
     public BadgePagerTitle(Context context) {
         super(context);
 
-        mNormalColor = mSelectedColor = Color.WHITE;
+//        mNormalColor = mSelectedColor = Color.WHITE;
+        setNormalColor(context.getResources().getColor(R.color.middle_gray_1));
+        setSelectedColor(context.getResources().getColor(R.color.colorPrimary));
 
         View view = LayoutInflater.from(context).inflate(R.layout.layout_pager_title_badge, null, false);
         LayoutParams params = new LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
@@ -59,6 +63,14 @@ public class BadgePagerTitle extends CommonPagerTitleView {
 //        flContainer.addView(mTvUnreadCount, layoutParams);
 //
 //        addView(flContainer);
+    }
+
+    @Override
+    public void onSelected(int index, int totalCount) {
+        super.onSelected(index, totalCount);
+        if (mAutoCancelBadge) {
+            hideBadge();
+        }
     }
 
     @Override
@@ -106,5 +118,13 @@ public class BadgePagerTitle extends CommonPagerTitleView {
 
     public void setSelectedColor(int mSelectedColor) {
         this.mSelectedColor = mSelectedColor;
+    }
+
+    public void setAutoCancelBadge(boolean mAutoCancelBadge) {
+        this.mAutoCancelBadge = mAutoCancelBadge;
+    }
+
+    public boolean isAutoCancelBadge() {
+        return mAutoCancelBadge;
     }
 }

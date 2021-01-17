@@ -102,7 +102,6 @@
 - [RxLife](https://github.com/Z-P-J/RxLife)
 - [ZToolBar](https://github.com/Z-P-J/ZToolBar)
 - [ZSwitcher](https://github.com/Z-P-J/ZSwitcher)
-- [TintedImageView](https://github.com/Z-P-J/TintedImageView)
 - [SmoothCheckBox](https://github.com/Z-P-J/SmoothCheckBox)
 - [StateManager](https://github.com/Z-P-J/StateManager)
 - [ZToast](https://github.com/Z-P-J/ZToast)

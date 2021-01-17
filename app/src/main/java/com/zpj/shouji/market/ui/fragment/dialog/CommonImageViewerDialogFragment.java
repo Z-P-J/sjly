@@ -11,6 +11,7 @@ import android.support.v4.view.ViewPager;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -26,7 +27,6 @@ import com.zpj.fragmentation.dialog.photoview.PhotoView;
 import com.zpj.fragmentation.dialog.widget.LoadingView;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.utils.PictureUtil;
-import com.zpj.widget.tinted.TintedImageButton;
 import com.zpj.widget.toolbar.ZToolBar;
 
 import java.io.File;
@@ -41,7 +41,7 @@ public class CommonImageViewerDialogFragment extends ImageViewerDialogFragment<S
     private ZToolBar titleBar;
     protected TextView tvInfo;
     protected TextView tvIndicator;
-    private TintedImageButton btnMore;
+    private ImageButton btnMore;
     private LoadingView loadingView;
 
     public CommonImageViewerDialogFragment() {

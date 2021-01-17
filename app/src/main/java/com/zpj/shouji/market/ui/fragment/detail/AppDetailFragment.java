@@ -42,23 +42,16 @@ import com.zpj.shouji.market.ui.fragment.dialog.ShareDialogFragment;
 import com.zpj.shouji.market.ui.fragment.login.LoginFragment;
 import com.zpj.shouji.market.ui.fragment.manager.ManagerFragment;
 import com.zpj.shouji.market.ui.widget.AppDetailLayout;
-import com.zpj.shouji.market.ui.widget.indicator.BadgePagerTitle;
 import com.zpj.shouji.market.ui.widget.indicator.SubTitlePagerTitle;
 import com.zpj.shouji.market.utils.EventBus;
 import com.zpj.shouji.market.utils.MagicIndicatorHelper;
 import com.zpj.toast.ZToast;
 import com.zpj.utils.Callback;
-import com.zpj.utils.ScreenUtils;
-import com.zpj.widget.tinted.TintedImageButton;
 import com.zxy.skin.sdk.SkinEngine;
 
 import net.lucode.hackware.magicindicator.MagicIndicator;
-import net.lucode.hackware.magicindicator.buildins.commonnavigator.indicators.LinePagerIndicator;
-import net.lucode.hackware.magicindicator.buildins.commonnavigator.titles.ColorTransitionPagerTitleView;
 
 import java.util.ArrayList;
-
-import io.reactivex.functions.Consumer;
 
 public class AppDetailFragment extends StateSwipeBackFragment
         implements View.OnClickListener {

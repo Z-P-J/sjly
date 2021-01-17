@@ -42,7 +42,6 @@ dependencies {
     api 'com.zpj.widget:ZRecyclerView:1.1.6'
     implementation 'com.github.lihangleo2:ShadowLayout:2.1.8'
     api 'com.zpj.widget:SmoothCheckBox:1.0.0'
-    implementation 'com.zpj.widget:TintedImageView:1.0.0'
     implementation 'com.zpj.utils:ZUtils:1.0.4'
 
     implementation 'io.reactivex.rxjava2:rxjava:2.2.17'

@@ -11,10 +11,13 @@ import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.api.HttpApi;
 import com.zpj.shouji.market.constant.Keys;
 import com.zpj.shouji.market.constant.UpdateFlagAction;
+import com.zpj.shouji.market.manager.UserManager;
+import com.zpj.shouji.market.model.MessageInfo;
 import com.zpj.shouji.market.model.UserInfo;
 import com.zpj.shouji.market.ui.adapter.FragmentsPagerAdapter;
 import com.zpj.shouji.market.ui.fragment.UserListFragment;
 import com.zpj.shouji.market.ui.fragment.base.BaseSwipeBackFragment;
+import com.zpj.shouji.market.ui.widget.indicator.BadgePagerTitle;
 import com.zpj.shouji.market.utils.MagicIndicatorHelper;
 
 import net.lucode.hackware.magicindicator.MagicIndicator;
@@ -86,12 +89,6 @@ public class MyFriendsFragment extends BaseSwipeBackFragment {
 //        }
 //    }
 
-    @Override
-    public void onDestroy() {
-        HttpApi.updateFlagApi(UpdateFlagAction.FAN);
-        super.onDestroy();
-    }
-
     private void initViewPager() {
         List<Fragment> fragments = new ArrayList<>();
         FollowersFragment followersFragment = findChildFragment(FollowersFragment.class);
@@ -106,7 +103,24 @@ public class MyFriendsFragment extends BaseSwipeBackFragment {
         fragments.add(fansFragment);
         viewPager.setAdapter(new FragmentsPagerAdapter(getChildFragmentManager(), fragments, TAB_TITLES));
         viewPager.setOffscreenPageLimit(fragments.size());
-        MagicIndicatorHelper.bindViewPager(context, magicIndicator, viewPager, TAB_TITLES, true);
+//        MagicIndicatorHelper.bindViewPager(context, magicIndicator, viewPager, TAB_TITLES, true);
+
+        MessageInfo messageInfo = UserManager.getInstance().getMessageInfo();
+        MagicIndicatorHelper.builder(context)
+                .setMagicIndicator(magicIndicator)
+                .setViewPager(viewPager)
+                .setTabTitles(TAB_TITLES)
+                .setAdjustMode(true)
+                .setOnGetTitleViewListener((context12, index) -> {
+                    BadgePagerTitle badgePagerTitle = new BadgePagerTitle(context);
+                    badgePagerTitle.setTitle(TAB_TITLES[index]);
+                    badgePagerTitle.setOnClickListener(view1 -> viewPager.setCurrentItem(index));
+                    if (index == 1) {
+                        badgePagerTitle.setBadgeCount(messageInfo.getFanCount());
+                    }
+                    return badgePagerTitle;
+                })
+                .build();
     }
 
     public static class FollowersFragment extends UserListFragment {
@@ -141,6 +155,12 @@ public class MyFriendsFragment extends BaseSwipeBackFragment {
         @Override
         public void onClick(EasyViewHolder holder, View view, UserInfo data) {
             ProfileFragment.start(data.getMemberId(), true);
+        }
+
+        @Override
+        public void onDestroy() {
+            HttpApi.updateFlagApi(UpdateFlagAction.FAN);
+            super.onDestroy();
         }
 
     }
