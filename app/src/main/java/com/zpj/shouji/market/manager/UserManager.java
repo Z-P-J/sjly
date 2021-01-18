@@ -113,8 +113,9 @@ public final class UserManager {
 
     public MessageInfo getMessageInfo() {
         if (messageInfo == null) {
-            return new MessageInfo();
+            messageInfo = new MessageInfo();
         }
+        Log.d("UserManager", "messageInfo=" + messageInfo);
         return messageInfo;
     }
 
@@ -248,7 +249,7 @@ public final class UserManager {
                     }
                     onSignIn(DocumentParser.parse(response.body()));
                 })
-                .onError(throwable -> ZToast.error(throwable.getMessage()))
+                .onError(throwable -> onSignInFailed(throwable.getMessage()))
                 .subscribe();
     }
 

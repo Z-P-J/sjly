@@ -129,11 +129,12 @@ public class ThemePublishApi {
                     } else {
                         ZToast.error(info);
                     }
+                    EventBus.hideLoading(250);
                 })
                 .onError(throwable -> {
                     ZToast.error("发布失败！" + throwable.getMessage());
+                    EventBus.hideLoading(250);
                 })
-                .onComplete(() -> EventBus.hideLoading(250))
                 .subscribe();
     }
 

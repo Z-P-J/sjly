@@ -71,7 +71,9 @@ public class BaseApplication extends MultiDexApplication {
 
         ZHttp.config()
                 .allowAllSSL(true)
+                .ignoreContentType(true)
                 .userAgent(HttpApi.USER_AGENT)
+                .baseUrl("http://tt.shouji.com.cn")
                 .init();
 
         ZDownloader.config(this, AppDownloadMission.class)

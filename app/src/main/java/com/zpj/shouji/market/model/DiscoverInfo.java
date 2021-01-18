@@ -155,6 +155,7 @@ public class DiscoverInfo {
         info.setIsShared(element.selectFirst("isShared").text());
         info.setLast("1".equals(element.selectFirst("islast").text()));
         info.setDetail("1".equals(element.selectFirst("isdetail").text()));
+        info.setNewMessage("1".equals(element.selectFirst("isnewmessage").text()));
 
         Elements pics = element.select("pics");
         Elements spics = element.select("spics");
@@ -591,7 +592,7 @@ public class DiscoverInfo {
     }
 
     public void addChild(DiscoverInfo child) {
-        this.children.add(child);
+        this.children.add(0, child);
     }
 
     public DiscoverInfo getParentItem() {

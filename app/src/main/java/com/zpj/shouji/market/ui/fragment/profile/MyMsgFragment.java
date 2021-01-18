@@ -125,7 +125,7 @@ public class MyMsgFragment extends BaseSwipeBackFragment {
 
         @Override
         public void onDestroy() {
-//            HttpApi.updateFlagApi(UpdateFlagAction.PRIVATE);
+            HttpApi.updateFlagApi(UpdateFlagAction.PRIVATE);
             super.onDestroy();
         }
 
@@ -165,7 +165,7 @@ public class MyMsgFragment extends BaseSwipeBackFragment {
 
         @Override
         public void onDestroy() {
-//            HttpApi.updateFlagApi(UpdateFlagAction.AT);
+            HttpApi.updateFlagApi(UpdateFlagAction.AT);
             super.onDestroy();
         }
 
@@ -184,7 +184,7 @@ public class MyMsgFragment extends BaseSwipeBackFragment {
 
         @Override
         public void onDestroy() {
-//            HttpApi.updateFlagApi(UpdateFlagAction.GOOD);
+            HttpApi.updateFlagApi(UpdateFlagAction.GOOD);
             super.onDestroy();
         }
 

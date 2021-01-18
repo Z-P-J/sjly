@@ -249,8 +249,7 @@ public class DiscoverBinder
 
                     textView.setNeedExpend(false);
                     textView.setNeedConvertUrl(false);
-//                    context.getResources().getColor(R.color.color_text_major)
-//                    textView.setTextColor(ThemeUtils.getTextColorMajor(context));
+                    textView.setShowRedDot(child.isNewMessage());
                     SkinEngine.setTextColor(textView, R.attr.textColorMajor);
                     textView.setLimitLines(8);
                     textView.setContent(getComment2(child));

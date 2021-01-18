@@ -237,23 +237,32 @@ public abstract class BaseDialogFragment extends AbstractDialogFragment {
 //    }
 
     public void dismiss() {
-        if (!isDismissing) {
-            isDismissing = true;
-            doDismissAnimation();
-            super.popThis();
-            onDismiss();
-//            postDelayed(new Runnable() {
-//                @Override
-//                public void run() {
-//                    onDismiss();
-//                }
-//            }, 250);
+        postOnEnterAnimationEnd(() -> {
+            if (!isDismissing) {
+                isDismissing = true;
+                doDismissAnimation();
+                BaseDialogFragment.super.popThis();
+                onDismiss();
+            }
+        });
 
-//            postDelayed(() -> {
-//                BaseDialogFragment.super.popThis();
-//                onDismiss();
-//            }, XPopup.getAnimationDuration());
-        }
+//        if (!isDismissing) {
+//            isDismissing = true;
+//            doDismissAnimation();
+//            super.popThis();
+//            onDismiss();
+////            postDelayed(new Runnable() {
+////                @Override
+////                public void run() {
+////                    onDismiss();
+////                }
+////            }, 250);
+//
+////            postDelayed(() -> {
+////                BaseDialogFragment.super.popThis();
+////                onDismiss();
+////            }, XPopup.getAnimationDuration());
+//        }
     }
 
 //    public void dismissWithStart(ISupportFragment fragment) {

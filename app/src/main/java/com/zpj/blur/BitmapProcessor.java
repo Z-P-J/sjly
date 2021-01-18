@@ -114,6 +114,7 @@ class BitmapProcessor {
         if (fgColor != 0) {
             canvas.drawColor(fgColor);
         }
+        canvas.save();
         canvas.restore();
         return output;
     }

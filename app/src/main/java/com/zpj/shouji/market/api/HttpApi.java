@@ -461,7 +461,6 @@ public final class HttpApi {
                     ZToast.error("发送失败！" + throwable.getMessage());
                     EventBus.hideLoading(250);
                 })
-                .onComplete(() -> EventBus.hideLoading(250))
                 .subscribe();
     }
 

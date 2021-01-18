@@ -78,11 +78,12 @@ public class CommentApi {
                     } else {
                         ZToast.error(info);
                     }
+                    EventBus.hideLoading(250);
                 })
                 .onError(throwable -> {
                     ZToast.error("评论失败！" + throwable.getMessage());
+                    EventBus.hideLoading(250);
                 })
-                .onComplete(() -> EventBus.hideLoading(250))
                 .subscribe();
     }
 
@@ -184,7 +185,7 @@ public class CommentApi {
                     .data("appid", appId)
                     .data("apptype", appType)
                     .data("package", appPackage)
-                    .toXml();
+                    .toHtml();
         } else {
             task = new HttpObserver<>(
                     (ObservableOnSubscribe<List<IHttp.KeyVal>>) emitter -> {
@@ -229,11 +230,12 @@ public class CommentApi {
                     } else {
                         ZToast.error(info);
                     }
+                    EventBus.hideLoading(250);
                 })
                 .onError(throwable -> {
                     ZToast.error("评论失败！" + throwable.getMessage());
+                    EventBus.hideLoading(250);
                 })
-                .onComplete(() -> EventBus.hideLoading(250))
                 .subscribe();
     }
 
@@ -324,11 +326,12 @@ public class CommentApi {
                     } else {
                         ZToast.error(info);
                     }
+                    EventBus.hideLoading(250);
                 })
                 .onError(throwable -> {
                     ZToast.error("出错了！" + throwable.getMessage());
+                    EventBus.hideLoading(250);
                 })
-                .onComplete(() -> EventBus.hideLoading(250))
                 .subscribe();
     }
 

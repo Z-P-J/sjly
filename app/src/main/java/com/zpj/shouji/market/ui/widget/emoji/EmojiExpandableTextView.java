@@ -1,8 +1,11 @@
 package com.zpj.shouji.market.ui.widget.emoji;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.support.annotation.Nullable;
+import android.text.SpannableString;
 import android.text.SpannableStringBuilder;
+import android.text.Spanned;
 import android.text.TextUtils;
 import android.util.AttributeSet;
 
@@ -13,8 +16,11 @@ import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.ui.fragment.WebFragment;
 import com.zpj.shouji.market.ui.fragment.profile.ProfileFragment;
 import com.zpj.shouji.market.ui.fragment.theme.TopicThemeListFragment;
+import com.zpj.shouji.market.ui.widget.DotSpan;
 
 public class EmojiExpandableTextView extends ExpandableTextView implements ExpandableTextView.OnLinkClickListener {
+
+    private boolean showRedDot;
 
     public EmojiExpandableTextView(Context context) {
         this(context, null);
@@ -44,6 +50,17 @@ public class EmojiExpandableTextView extends ExpandableTextView implements Expan
 //            EmojiconHandler.addEmojis(getContext(), builder, mEmojiconSize, mEmojiconTextSize, mTextStart, mTextLength, mUseSystemDefault);
             text = builder;
         }
+        if (showRedDot) {
+            DotSpan span = new DotSpan(2, Color.RED);
+            SpannableString spannableString;
+            if (text instanceof SpannableString) {
+                spannableString = (SpannableString) text;
+            } else {
+                spannableString = new SpannableString(text);
+            }
+            spannableString.setSpan(span, 0, spannableString.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+            text = spannableString;
+        }
         super.setText(text, type);
     }
 
@@ -58,5 +75,9 @@ public class EmojiExpandableTextView extends ExpandableTextView implements Expan
         } else if (type == LinkType.SELF) {
             ProfileFragment.start(content);
         }
+    }
+
+    public void setShowRedDot(boolean showRedDot) {
+        this.showRedDot = showRedDot;
     }
 }

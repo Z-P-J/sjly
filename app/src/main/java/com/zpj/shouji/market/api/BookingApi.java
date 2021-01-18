@@ -63,12 +63,13 @@ public class BookingApi {
                         ZToast.error(info);
                         appInfo.setBooking(true);
                     }
+                    EventBus.hideLoading(250);
                 })
                 .onError(throwable -> {
                     ZToast.error("预约失败！" + throwable.getMessage());
                     appInfo.setBooking(true);
+                    EventBus.hideLoading(250);
                 })
-                .onComplete(() -> EventBus.hideLoading(250))
                 .subscribe();
     }
 
@@ -84,11 +85,12 @@ public class BookingApi {
                         appInfo.setBooking(false);
                         ZToast.error("取消预约失败！");
                     }
+                    EventBus.hideLoading(250);
                 })
                 .onError(throwable -> {
                     ZToast.error("取消预约失败！" + throwable.getMessage());
+                    EventBus.hideLoading(250);
                 })
-                .onComplete(() -> EventBus.hideLoading(250))
                 .subscribe();
     }
 
@@ -105,12 +107,13 @@ public class BookingApi {
                             ZToast.error("开启自动下载失败！");
                             appInfo.setAutoDownload(false);
                         }
+                        EventBus.hideLoading(250);
                     })
                     .onError(throwable -> {
                         ZToast.error("开启自动下载失败！" + throwable.getMessage());
                         appInfo.setAutoDownload(false);
+                        EventBus.hideLoading(250);
                     })
-                    .onComplete(() -> EventBus.hideLoading(250))
                     .subscribe();
         }
     }
@@ -127,11 +130,12 @@ public class BookingApi {
                         } else {
                             ZToast.error("取消自动下载失败！");
                         }
+                        EventBus.hideLoading(250);
                     })
                     .onError(throwable -> {
                         ZToast.error("取消自动下载失败！" + throwable.getMessage());
+                        EventBus.hideLoading(250);
                     })
-                    .onComplete(() -> EventBus.hideLoading(250))
                     .subscribe();
         }
     }

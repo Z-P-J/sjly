@@ -61,7 +61,7 @@ public class MyCommentFragment extends BaseSwipeBackFragment {
         fragments.add(myRelatedCommentFragment);
         fragments.add(myPublishCommentFragment);
         viewPager.setAdapter(new FragmentsPagerAdapter(getChildFragmentManager(), fragments, TAB_TITLES));
-        viewPager.setOffscreenPageLimit(2);
+        viewPager.setOffscreenPageLimit(fragments.size());
 
 //        MagicIndicatorHelper.bindViewPager(context, magicIndicator, viewPager, TAB_TITLES);
 
@@ -81,12 +81,6 @@ public class MyCommentFragment extends BaseSwipeBackFragment {
                 })
                 .build();
     }
-
-//    @Override
-//    public void onSupportVisible() {
-//        super.onSupportVisible();
-//        ThemeUtils.initStatusBar(this);
-//    }
 
     @Override
     public void onDestroy() {
