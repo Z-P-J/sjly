@@ -91,7 +91,8 @@ public class MyCommentFragment extends BaseSwipeBackFragment {
     public static class MyRelatedCommentFragment extends ThemeListFragment {
 
         public static MyRelatedCommentFragment newInstance() {
-            String url = "http://tt.tljpxm.com/app/user_content_list_xml_v2.jsp?t=review";
+//            http://tt.tljpxm.com
+            String url = "/app/user_content_list_xml_v2.jsp?t=review";
             Bundle args = new Bundle();
             args.putString(Keys.DEFAULT_URL, url);
             MyRelatedCommentFragment fragment = new MyRelatedCommentFragment();
@@ -104,7 +105,8 @@ public class MyCommentFragment extends BaseSwipeBackFragment {
     public static class MyPublishCommentFragment extends ThemeListFragment {
 
         public static MyPublishCommentFragment newInstance() {
-            String url = "http://tt.tljpxm.com/app/user_content_list_xml_v2.jsp?t=review&thread=thread";
+//            http://tt.tljpxm.com
+            String url = "/app/user_content_list_xml_v2.jsp?t=review&thread=thread";
             Bundle args = new Bundle();
             args.putString(Keys.DEFAULT_URL, url);
             MyPublishCommentFragment fragment = new MyPublishCommentFragment();

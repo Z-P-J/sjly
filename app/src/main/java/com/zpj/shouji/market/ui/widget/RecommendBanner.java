@@ -148,9 +148,17 @@ public class RecommendBanner extends LinearLayout implements View.OnClickListene
     }
 
     public void onResume() {
-        if (banner != null) {
-            banner.startAutoPlay();
-        }
+//        if (banner != null) {
+//            banner.startAutoPlay();
+//        }
+        postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                if (banner != null) {
+                    banner.startAutoPlay();
+                }
+            }
+        }, 360);
 //        setBg(currentPosition);
     }
 
@@ -196,7 +204,7 @@ public class RecommendBanner extends LinearLayout implements View.OnClickListene
                 ToolBarAppListFragment.startRecentDownload();
                 break;
             case R.id.tv_subjects:
-                SubjectRecommendListFragment.start("http://tt.shouji.com.cn/androidv3/special_index_xml.jsp?jse=yes");
+                SubjectRecommendListFragment.start("/androidv3/special_index_xml.jsp?jse=yes");
                 break;
             case R.id.tv_collections:
                 CollectionRecommendListFragment.start();

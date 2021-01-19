@@ -26,7 +26,7 @@ public class CollectionAppListFragment extends NextUrlFragment<CollectionAppInfo
 
     public static CollectionAppListFragment newInstance(String id) {
         Bundle args = new Bundle();
-        args.putString(Keys.DEFAULT_URL, "http://tt.shouji.com.cn/app/yyj_applist.jsp?t=discuss&parent=" + id);
+        args.putString(Keys.DEFAULT_URL, "/app/yyj_applist.jsp?t=discuss&parent=" + id);
         CollectionAppListFragment fragment = new CollectionAppListFragment();
         fragment.setArguments(args);
         return fragment;

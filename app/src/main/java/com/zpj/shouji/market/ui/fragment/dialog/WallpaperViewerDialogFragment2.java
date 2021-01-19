@@ -322,7 +322,8 @@ public class WallpaperViewerDialogFragment2 extends ImageViewerDialogFragment2<S
     }
 
     private void getWallpaperInfo() {
-        HttpApi.getXml("http://tt.tljpxm.com/app/comment_topic.jsp?t=discuss&parent=" + wallpaperInfo.getId())
+//        http://tt.tljpxm.com
+        HttpApi.getXml("/app/comment_topic.jsp?t=discuss&parent=" + wallpaperInfo.getId())
                 .onSuccess(new IHttp.OnSuccessListener<Document>() {
                     @Override
                     public void onSuccess(Document doc) throws Exception {

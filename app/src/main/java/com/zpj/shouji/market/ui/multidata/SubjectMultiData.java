@@ -97,6 +97,6 @@ public class SubjectMultiData extends RecyclerMultiData<SubjectInfo> {
 
     @Override
     public void onHeaderClick() {
-        SubjectRecommendListFragment.start("http://tt.shouji.com.cn/androidv3/special_index_xml.jsp?jse=yes");
+        SubjectRecommendListFragment.start("/androidv3/special_index_xml.jsp?jse=yes");
     }
 }

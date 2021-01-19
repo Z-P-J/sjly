@@ -14,7 +14,7 @@ public class TopicThemeListFragment extends ThemeListFragment {
     public static void start(String topic) {
         TopicThemeListFragment fragment = new TopicThemeListFragment();
         Bundle bundle = new Bundle();
-        bundle.putString(Keys.DEFAULT_URL, "http://tt.shouji.com.cn/app/faxian.jsp?tagname=" + topic);
+        bundle.putString(Keys.DEFAULT_URL, "/app/faxian.jsp?tagname=" + topic);
         bundle.putString(Keys.TAG, topic);
         fragment.setArguments(bundle);
         start(fragment);

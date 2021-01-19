@@ -50,7 +50,7 @@ import java.util.List;
 
 public class WallpaperListFragment extends NextUrlFragment<WallpaperInfo> {
 
-    private static final String DEFAULT_URL = "http://tt.shouji.com.cn/appv3/bizhi_list.jsp";
+    private static final String DEFAULT_URL = "/appv3/bizhi_list.jsp";
 
     private String id;
     private String tag;
@@ -123,17 +123,30 @@ public class WallpaperListFragment extends NextUrlFragment<WallpaperInfo> {
                 .into(new ImageViewDrawableTarget(wallpaper) {
                     @Override
                     public void onResourceReady(@NonNull Drawable resource, @Nullable Transition<? super Drawable> transition) {
-                        int width = resource.getIntrinsicWidth();
-                        int height = resource.getIntrinsicHeight();
-                        float p = (float) height / width;
-                        if (p > 2.5f) {
-                            p = 2.5f;
-                        }
-                        height = (int) (wallpaper.getMeasuredWidth() * p);
-                        ViewGroup.LayoutParams layoutParams = wallpaper.getLayoutParams();
-                        layoutParams.height = height;
-//                        layoutParams.width = wallpaper.getMeasuredWidth();
                         super.onResourceReady(resource, transition);
+                        imageView.post(new Runnable() {
+                            @Override
+                            public void run() {
+                                Log.d("onResourceReady", "\n------------------------------------------");
+                                int width = resource.getIntrinsicWidth();
+                                int height = resource.getIntrinsicHeight();
+
+                                Log.d("onResourceReady", "info=" + info);
+                                Log.d("onResourceReady", "width=" + width + " height=" + height);
+                                float p = (float) height / width;
+                                if (p > 2.5f) {
+                                    p = 2.5f;
+                                }
+                                height = (int) (imageView.getMeasuredWidth() * p);
+                                Log.d("onResourceReady", "height=" + height + " wallpaper.getMeasuredWidth()=" + imageView.getMeasuredWidth() + " wallpaper.getWidth()=" + imageView.getWidth());
+                                ViewGroup.LayoutParams layoutParams = imageView.getLayoutParams();
+                                layoutParams.height = height;
+                                layoutParams.width = imageView.getMeasuredWidth();
+                                Log.d("onResourceReady", "------------------------------------------\n");
+
+                            }
+                        });
+
                     }
                 });
 

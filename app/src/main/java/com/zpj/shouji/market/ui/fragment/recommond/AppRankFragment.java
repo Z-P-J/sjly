@@ -35,7 +35,7 @@ public class AppRankFragment extends NextUrlFragment<AppRankFragment.RankItem> {
 
     public static void startSoft() {
         Bundle args = new Bundle();
-        args.putString(Keys.DEFAULT_URL, "http://tt.shouji.com.cn/androidv3/soft_index_xml.jsp?sort=day");
+        args.putString(Keys.DEFAULT_URL, "/androidv3/soft_index_xml.jsp?sort=day");
         args.putString(Keys.TITLE, "软件排行");
         AppRankFragment fragment = new AppRankFragment();
         fragment.setArguments(args);
@@ -44,7 +44,7 @@ public class AppRankFragment extends NextUrlFragment<AppRankFragment.RankItem> {
 
     public static void startGame() {
         Bundle args = new Bundle();
-        args.putString(Keys.DEFAULT_URL, "http://tt.shouji.com.cn/androidv3/game_index_xml.jsp?sort=day");
+        args.putString(Keys.DEFAULT_URL, "/androidv3/game_index_xml.jsp?sort=day");
         args.putString(Keys.TITLE, "游戏排行");
         AppRankFragment fragment = new AppRankFragment();
         fragment.setArguments(args);

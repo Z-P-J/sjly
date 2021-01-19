@@ -144,7 +144,7 @@ public class AppDetailRecommendFragment extends SkinFragment {
 
         public SimilarCollectionMultiData(String type, String id, Callback<List<AppInfo>> callback) {
             super("相关应用集");
-            this.url = "http://tt.shouji.com.cn/androidv3/" + type + "_yyj_similar.jsp?id=" + id;
+            this.url = "/androidv3/" + type + "_yyj_similar.jsp?id=" + id;
             this.callback = callback;
         }
 

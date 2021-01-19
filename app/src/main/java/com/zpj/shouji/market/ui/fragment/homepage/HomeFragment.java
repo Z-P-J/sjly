@@ -239,9 +239,17 @@ public class HomeFragment extends SkinFragment {
     @Override
     public void onSupportVisible() {
         super.onSupportVisible();
-        if (blurred != null) {
-            blurred.startBlur();
-        }
+//        if (blurred != null) {
+//            blurred.startBlur();
+//        }
+        postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                if (blurred != null) {
+                    blurred.startBlur();
+                }
+            }
+        }, 360);
     }
 
     @Override

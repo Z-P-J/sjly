@@ -90,9 +90,9 @@ public class AppDownloadMission extends BaseMission<AppDownloadMission> {
         if (TextUtils.isEmpty(url)) {
             String downloadUrl;
             if (isShareApp) {
-                downloadUrl = String.format("http://tt.shouji.com.cn/wap/down/cmwap/share?id=%s&sjly=199", appId);
+                downloadUrl = String.format("/wap/down/cmwap/share?id=%s&sjly=199", appId);
             } else {
-                downloadUrl = String.format("http://tt.shouji.com.cn/wap/down/cmwap/package?package=%s&id=%s&sjly=199", packageName, appId);
+                downloadUrl = String.format("/wap/down/cmwap/package?package=%s&id=%s&sjly=199", packageName, appId);
             }
             Log.d("AppDownloadMission", "initMission downloadUrl=" + downloadUrl);
             HttpApi.getHtml(downloadUrl)

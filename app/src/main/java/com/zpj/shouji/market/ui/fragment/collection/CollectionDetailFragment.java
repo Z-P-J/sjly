@@ -206,7 +206,7 @@ public class CollectionDetailFragment extends StateSwipeBackFragment
     private void getCollectionInfo() {
         darkStatusBar();
         Log.d("getCollectionInfo", "start id=" + item.getId());
-        HttpApi.getXml("http://tt.shouji.com.cn/androidv3/yyj_info_xml.jsp?reviewid=" + item.getId())
+        HttpApi.getXml("/androidv3/yyj_info_xml.jsp?reviewid=" + item.getId())
                 .onSuccess(doc -> {
                     postOnEnterAnimationEnd(() -> {
                         Log.d("getCollectionInfo", "doc=" + doc.toString());

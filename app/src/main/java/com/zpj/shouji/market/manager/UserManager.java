@@ -101,7 +101,7 @@ public final class UserManager {
                     setUserInfo("");
                     setCookie("");
                     isLogin = false;
-                    PictureUtil.saveDefaultIcon(() -> EventBus.sendSignOutEvent());
+                    PictureUtil.saveDefaultIcon(EventBus::sendSignOutEvent);
                 })
                 .show(context);
     }
@@ -236,7 +236,7 @@ public final class UserManager {
     }
 
     public void signIn(String jsessionId) {
-        HttpApi.get("http://tt.shouji.com.cn/appv3/xml_login_v4.jsp")
+        HttpApi.get("/appv3/xml_login_v4.jsp")
                 .data("jsessionid", jsessionId)
                 .data("s", "12345678910")
                 .data("stime", "" + System.currentTimeMillis())
@@ -286,7 +286,7 @@ public final class UserManager {
     public void signIn(String userName, String password) {
         ZToast.normal("isLogin=" + isLogin());
         EventBus.showLoading("登录中...");
-        HttpApi.post("http://tt.shouji.com.cn/appv3/xml_login_v4.jsp")
+        HttpApi.post("/appv3/xml_login_v4.jsp")
                 .data("openid", "")
                 .data("s", "12345678910")
                 .data("stime", "" + System.currentTimeMillis())
@@ -299,16 +299,13 @@ public final class UserManager {
                 .data("n", "")
                 .data("jsessionid", "")
                 .execute()
-                .onSuccess(new IHttp.OnSuccessListener<IHttp.Response>() {
-                    @Override
-                    public void onSuccess(IHttp.Response response) throws Exception {
-                        String cookie = response.header(HttpHeader.SET_COOKIE);
-                        if (!TextUtils.isEmpty(cookie)) {
-                            setCookie(cookie);
-                        }
-
-                        onSignIn(DocumentParser.parse(response.body()));
+                .onSuccess(response -> {
+                    String cookie = response.header(HttpHeader.SET_COOKIE);
+                    if (!TextUtils.isEmpty(cookie)) {
+                        setCookie(cookie);
                     }
+
+                    onSignIn(DocumentParser.parse(response.body()));
                 })
                 .onError(throwable -> onSignInFailed(throwable.getMessage()))
                 .subscribe();
@@ -316,7 +313,7 @@ public final class UserManager {
 
     public void signInByQQ(String openId, String name, String logo1, String logo2) {
         ZToast.normal("isLogin=" + isLogin());
-        HttpApi.post("http://tt.shouji.com.cn/appv3/xml_login_v4.jsp")
+        HttpApi.post("/appv3/xml_login_v4.jsp")
                 .data("openid", openId)
                 .data("s", "12345678910")
                 .data("stime", "" + System.currentTimeMillis())
@@ -370,7 +367,7 @@ public final class UserManager {
     }
 
     public void signUp(String account, String password, String email) {
-        HttpApi.post("http://tt.shouji.com.cn/app/xml_register_v4.jsp?")
+        HttpApi.post("/app/xml_register_v4.jsp?")
                 .data("m", account)
                 .data("p", password)
                 .data("MemberEmail", email)

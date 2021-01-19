@@ -107,7 +107,7 @@ public class SearchResultFragment extends SkinFragment {
             }
             this.keyword = key;
 
-            defaultUrl = "http://tt.shouji.com.cn/androidv3/app_search_xml.jsp?sdk=26&type=default&s=" + key;
+            defaultUrl = "/androidv3/app_search_xml.jsp?sdk=26&type=default&s=" + key;
             nextUrl = defaultUrl;
 
             if (isLazyInit()) {
@@ -136,7 +136,7 @@ public class SearchResultFragment extends SkinFragment {
             }
             this.keyword = key;
 
-            defaultUrl = "http://tt.shouji.com.cn/androidv3/yyj_view_phb_xml.jsp?title=" + key;
+            defaultUrl = "/androidv3/yyj_view_phb_xml.jsp?title=" + key;
             nextUrl = defaultUrl;
 
             if (isLazyInit()) {
@@ -165,7 +165,7 @@ public class SearchResultFragment extends SkinFragment {
             }
             this.keyword = key;
 
-            defaultUrl = "http://tt.shouji.com.cn/app/faxian.jsp?s=" + key;
+            defaultUrl = "/app/faxian.jsp?s=" + key;
             nextUrl = defaultUrl;
 //            if (isLazyInit()) {
 //                onRefresh();
@@ -196,7 +196,7 @@ public class SearchResultFragment extends SkinFragment {
                 return;
             }
             this.keyword = key;
-            defaultUrl = "http://tt.shouji.com.cn/androidv3/app_search_user_xml.jsp?s=" + key;
+            defaultUrl = "/androidv3/app_search_user_xml.jsp?s=" + key;
             nextUrl = defaultUrl;
             if (isLazyInit()) {
                 recyclerLayout.showLoading();

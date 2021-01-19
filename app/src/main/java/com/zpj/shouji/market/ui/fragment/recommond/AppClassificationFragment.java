@@ -37,7 +37,7 @@ public class AppClassificationFragment extends NextUrlFragment<ClassificationIte
 
     private static void start(String type) {
         Bundle args = new Bundle();
-        args.putString(Keys.DEFAULT_URL, "http://tt.shouji.com.cn/androidv3/category_xml.jsp?from=" + type);
+        args.putString(Keys.DEFAULT_URL, "/androidv3/category_xml.jsp?from=" + type);
         AppClassificationFragment fragment = new AppClassificationFragment();
         fragment.setArguments(args);
         start(fragment);

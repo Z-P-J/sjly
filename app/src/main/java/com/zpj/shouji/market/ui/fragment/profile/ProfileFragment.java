@@ -43,7 +43,7 @@ import java.util.List;
 public class ProfileFragment extends StateSwipeBackFragment
         implements View.OnClickListener {
 
-    public static final String DEFAULT_URL = "http://tt.shouji.com.cn/app/view_member_xml_v4.jsp?id=5636865";
+    public static final String DEFAULT_URL = "/app/view_member_xml_v4.jsp?id=5636865";
 
     private static final String[] TAB_TITLES = {"动态", "收藏", "下载", "好友"};
 

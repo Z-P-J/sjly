@@ -55,7 +55,7 @@ public final class AppUpdateManager {
 
     private static final AppUpdateManager INSTANCE = new AppUpdateManager();
     private static final List<WeakReference<CheckUpdateListener>> LISTENERS = new ArrayList<>();
-    private static final String CHECK_UPDATE_URL = "http://tt.shouji.com.cn/appv3/checkAppVersionV14.jsp";
+    private static final String CHECK_UPDATE_URL = "/appv3/checkAppVersionV14.jsp";
 
     private static final CopyOnWriteArraySet<String> PACKAGE_SET = new CopyOnWriteArraySet<>();
     private static final ConcurrentMap<String, String> INCLUDE_APP_MAP = new ConcurrentHashMap<>();

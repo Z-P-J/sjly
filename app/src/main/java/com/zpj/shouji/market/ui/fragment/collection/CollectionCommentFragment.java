@@ -12,7 +12,7 @@ public class CollectionCommentFragment extends ThemeListFragment {
     public static CollectionCommentFragment newInstance(String id) {
         CollectionCommentFragment fragment = new CollectionCommentFragment();
         Bundle bundle = new Bundle();
-        bundle.putString(Keys.DEFAULT_URL, "http://tt.shouji.com.cn/app/yyj_comment.jsp?t=discuss&parent=" + id);
+        bundle.putString(Keys.DEFAULT_URL, "/app/yyj_comment.jsp?t=discuss&parent=" + id);
         fragment.setArguments(bundle);
         return fragment;
     }

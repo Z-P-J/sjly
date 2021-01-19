@@ -191,7 +191,7 @@ public class SubjectDetailFragment extends StateSwipeBackFragment
     }
 
     private void getData() {
-        HttpApi.getXml("http://tt.shouji.com.cn/androidv3/special_list_xml.jsp?id=" + id)
+        HttpApi.getXml("/androidv3/special_list_xml.jsp?id=" + id)
                 .bindToLife(this)
                 .onSuccess(data -> {
                     appInfoList.clear();

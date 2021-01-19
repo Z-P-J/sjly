@@ -57,6 +57,8 @@ public class WallpaperInfo {
 //        info.pic = element.selectFirst("pic").text();
 //        info.supportCount = Long.parseLong(element.selectFirst("supportcount").text());
         WallpaperInfo info = BeanUtils.createBean(element, WallpaperInfo.class);
+        info.memberIcon = info.getMemberIcon().replace("https://avataro.tljpxm.comhttps://", "https://")
+                .replace("https://avataro.tljpxm.comhttp://", "http://");
         String userId = UserManager.getInstance().getUserId();
         if (!TextUtils.isEmpty(userId)) {
             for (Element support : element.selectFirst("supportusers").select("supportuser")) {

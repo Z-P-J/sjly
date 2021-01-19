@@ -41,7 +41,7 @@ public class UserDownloadedFragment extends NextUrlFragment<UserDownloadedAppInf
 
     @Override
     protected void handleArguments(Bundle arguments) {
-        defaultUrl = "http://tt.shouji.com.cn/app/view_member_down_xml_v2.jsp?id=" + arguments.getString(Keys.ID, "");
+        defaultUrl = "/app/view_member_down_xml_v2.jsp?id=" + arguments.getString(Keys.ID, "");
         nextUrl = defaultUrl;
     }
 

@@ -85,7 +85,7 @@ public class SubjectListFragment extends NextUrlFragment<SubjectInfo>
 
     @Override
     public void updateKeyword(String key) {
-        defaultUrl = "http://tt.shouji.com.cn/androidv3/app_search_xml.jsp?sdk=26&type=default&s=" + key;
+        defaultUrl = "/androidv3/app_search_xml.jsp?sdk=26&type=default&s=" + key;
         nextUrl = defaultUrl;
         onRefresh();
     }

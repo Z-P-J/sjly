@@ -134,12 +134,23 @@ public abstract class BaseRecommendFragment extends StateFragment
     @Override
     public void onSupportVisible() {
         super.onSupportVisible();
-        if (blurred != null) {
-            blurred.startBlur();
-        }
-        if (banner != null) {
-            banner.startAutoPlay();
-        }
+//        if (blurred != null) {
+//            blurred.startBlur();
+//        }
+        postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                if (blurred != null) {
+                    blurred.startBlur();
+                }
+                if (banner != null) {
+                    banner.startAutoPlay();
+                }
+            }
+        }, 360);
+//        if (banner != null) {
+//            banner.startAutoPlay();
+//        }
     }
 
     @Override

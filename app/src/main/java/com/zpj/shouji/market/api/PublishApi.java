@@ -25,7 +25,7 @@ public class PublishApi {
             return;
         }
         returnDefaultTags(callback);
-        HttpApi.getXml("http://tt.shouji.com.cn/androidv3/publish_tag.jsp")
+        HttpApi.getXml("/androidv3/publish_tag.jsp")
                 .onSuccess(data -> {
                     Elements elements = data.select("item");
                     publishTags.clear();

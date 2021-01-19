@@ -154,9 +154,9 @@ public class MyDynamicFragment extends BaseSwipeBackFragment {
         public static AllFragment newInstance(String userId) {
             String url;
             if (TextUtils.equals(userId, UserManager.getInstance().getUserId())) {
-                url = "http://tt.shouji.com.cn/app/user_content_list_xml_v2.jsp";
+                url = "/app/user_content_list_xml_v2.jsp";
             } else {
-                url = "http://tt.shouji.com.cn/app/view_member_content_xml_v2.jsp?id=" + userId;
+                url = "/app/view_member_content_xml_v2.jsp?id=" + userId;
             }
             Bundle args = new Bundle();
             args.putString(Keys.DEFAULT_URL, url);
@@ -172,9 +172,9 @@ public class MyDynamicFragment extends BaseSwipeBackFragment {
         public static DiscoverFragment newInstance(String userId) {
             String url;
             if (TextUtils.equals(userId, UserManager.getInstance().getUserId())) {
-                url = "http://tt.shouji.com.cn/app/user_content_list_xml_v2.jsp?t=discuss";
+                url = "/app/user_content_list_xml_v2.jsp?t=discuss";
             } else {
-                url = "http://tt.shouji.com.cn/app/view_member_content_xml_v2.jsp?t=discuss&id=" + userId;
+                url = "/app/view_member_content_xml_v2.jsp?t=discuss&id=" + userId;
             }
 
             Bundle args = new Bundle();
@@ -189,7 +189,7 @@ public class MyDynamicFragment extends BaseSwipeBackFragment {
     public static class CommentFragment extends ThemeListFragment {
 
         public static CommentFragment newInstance(String id) {
-            String url = "http://tt.shouji.com.cn/app/view_member_content_xml_v2.jsp?t=review&id=" + id;
+            String url = "/app/view_member_content_xml_v2.jsp?t=review&id=" + id;
             Bundle args = new Bundle();
             args.putString(Keys.DEFAULT_URL, url);
             CommentFragment fragment = new CommentFragment();
@@ -211,7 +211,7 @@ public class MyDynamicFragment extends BaseSwipeBackFragment {
     public static class CollectionsFragment extends CollectionListFragment {
 
         public static CollectionsFragment newInstance(String id) {
-            String url = "http://tt.shouji.com.cn/androidv3/yyj_user_xml.jsp?id=" + id;
+            String url = "/androidv3/yyj_user_xml.jsp?id=" + id;
             Bundle args = new Bundle();
             args.putString(Keys.DEFAULT_URL, url);
             CollectionsFragment fragment = new CollectionsFragment();
@@ -237,7 +237,7 @@ public class MyDynamicFragment extends BaseSwipeBackFragment {
     public static class WallpaperFragment extends WallpaperListFragment {
 
         public static WallpaperFragment newInstance(String id) {
-            String url = "http://tt.shouji.com.cn/appv3/bizhi_list.jsp?member=" + id;
+            String url = "/appv3/bizhi_list.jsp?member=" + id;
             Bundle args = new Bundle();
             args.putString(Keys.DEFAULT_URL, url);
             WallpaperFragment fragment = new WallpaperFragment();
@@ -277,7 +277,7 @@ public class MyDynamicFragment extends BaseSwipeBackFragment {
     public static class GiveLikeFragment extends ThemeListFragment {
 
         public static GiveLikeFragment newInstance() {
-            String url = "http://tt.shouji.com.cn/app/user_content_flower_send_xml_v2.jsp";
+            String url = "/app/user_content_flower_send_xml_v2.jsp";
             Bundle args = new Bundle();
             args.putString(Keys.DEFAULT_URL, url);
             GiveLikeFragment fragment = new GiveLikeFragment();

@@ -126,7 +126,8 @@ public class MyFriendsFragment extends BaseSwipeBackFragment {
     public static class FollowersFragment extends UserListFragment {
         public static FollowersFragment newInstance(String id) {
 //            String url = "http://tt.shouji.com.cn/app/user_friend_list_xml.jsp";
-            String url = "http://tt.tljpxm.com/app/view_member_friend_xml.jsp?mmid=" + id;
+//            http://tt.tljpxm.com
+            String url = "/app/view_member_friend_xml.jsp?mmid=" + id;
             Bundle args = new Bundle();
             args.putString(Keys.DEFAULT_URL, url);
             FollowersFragment fragment = new FollowersFragment();
@@ -144,7 +145,8 @@ public class MyFriendsFragment extends BaseSwipeBackFragment {
     public static class FansFragment extends UserListFragment {
         public static FansFragment newInstance(String id) {
 //            String url = "http://tt.shouji.com.cn/app/user_fensi_list_xml.jsp";
-            String url = "http://tt.tljpxm.com/app/view_member_fensi_xml.jsp?mmid=" + id;
+//            http://tt.tljpxm.com
+            String url = "/app/view_member_fensi_xml.jsp?mmid=" + id;
             Bundle args = new Bundle();
             args.putString(Keys.DEFAULT_URL, url);
             FansFragment fragment = new FansFragment();

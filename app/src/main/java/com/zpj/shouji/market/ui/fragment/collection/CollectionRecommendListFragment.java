@@ -13,7 +13,7 @@ public class CollectionRecommendListFragment extends CollectionListFragment {
 
     public static void start() {
         Bundle args = new Bundle();
-        args.putString(Keys.DEFAULT_URL, "http://tt.shouji.com.cn/androidv3/yyj_tj_xml.jsp");
+        args.putString(Keys.DEFAULT_URL, "/androidv3/yyj_tj_xml.jsp");
         CollectionRecommendListFragment fragment = new CollectionRecommendListFragment();
         fragment.setArguments(args);
         start(fragment);

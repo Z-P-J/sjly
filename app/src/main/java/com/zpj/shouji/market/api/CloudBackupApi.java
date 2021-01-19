@@ -29,11 +29,11 @@ public final class CloudBackupApi {
     }
 
     public static HttpObserver<Document> backupListApi() {
-        return HttpApi.getXml("http://tt.shouji.com.cn/appv3/user_app_beifendan_list.jsp");
+        return HttpApi.getXml("/appv3/user_app_beifendan_list.jsp");
     }
 
     public static String getBackupDetailApi(String id) {
-        return "http://tt.shouji.com.cn/appv3/user_app_list.jsp?id=" + id;
+        return "/appv3/user_app_list.jsp?id=" + id;
     }
 
     public static void createBackup(String title, String content, List<InstalledAppInfo> list, IHttp.OnStreamWriteListener listener, Runnable successRunnable) {
@@ -61,7 +61,7 @@ public final class CloudBackupApi {
                     @Override
                     public HttpObserver<Document> onNext(List<IHttp.KeyVal> data) throws Exception {
                         return ZHttp.post(
-                                String.format("http://tt.shouji.com.cn/appv3/user_app_beifen_add.jsp?versioncode=%s&jsessionid=%s&bcount=%s",
+                                String.format("/appv3/user_app_beifen_add.jsp?versioncode=%s&jsessionid=%s&bcount=%s",
                                         "199", UserManager.getInstance().getSessionId(), list.size()))
                                 .data("phone", DeviceUtils.getModel())
                                 .data("title", title)

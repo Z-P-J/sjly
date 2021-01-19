@@ -10,7 +10,7 @@ public class AppDetailThemeFragment extends ThemeListFragment {
     public static AppDetailThemeFragment newInstance(String id, String type) {
         AppDetailThemeFragment fragment = new AppDetailThemeFragment();
         Bundle bundle = new Bundle();
-        bundle.putString(Keys.DEFAULT_URL, "http://tt.shouji.com.cn/app/faxian.jsp?apptype=" + type + "&appid=" + id);
+        bundle.putString(Keys.DEFAULT_URL, "/app/faxian.jsp?apptype=" + type + "&appid=" + id);
         fragment.setArguments(bundle);
         return fragment;
     }

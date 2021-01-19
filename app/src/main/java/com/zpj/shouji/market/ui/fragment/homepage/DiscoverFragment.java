@@ -18,7 +18,7 @@ import com.zpj.shouji.market.utils.EventBus;
 
 public class DiscoverFragment extends ThemeListFragment {
 
-    private static final String DEFAULT_URL = " http://tt.shouji.com.cn/app/faxian.jsp?index=faxian";
+    private static final String DEFAULT_URL = "/app/faxian.jsp?index=faxian";
 
     private int percent = 0;
 

@@ -44,7 +44,7 @@ public class ThemePublishApi {
         HttpObserver<Document> task;
         if (appInfo == null && imgList.isEmpty()) {
             task = getConnection(
-                    String.format("http://tt.shouji.com.cn/app/square_disscuss_text_post_xml.jsp?jsessionid=%s", UserManager.getInstance().getSessionId()),
+                    String.format("/app/square_disscuss_text_post_xml.jsp?jsessionid=%s", UserManager.getInstance().getSessionId()),
                     replyId,
                     isPrivate,
                     tags)
@@ -107,7 +107,7 @@ public class ThemePublishApi {
                         @Override
                         public HttpObserver<Document> onNext(List<IHttp.KeyVal> data) throws Exception {
                             Log.d("publishThemeApi", "dataList=" + data);
-                            return getConnection(String.format("http://tt.shouji.com.cn/app/square_disscuss_post_xml_v6.jsp?versioncode=%s&jsessionid=%s",
+                            return getConnection(String.format("/app/square_disscuss_post_xml_v6.jsp?versioncode=%s&jsessionid=%s",
                                     "199", UserManager.getInstance().getSessionId()), replyId, isPrivate, tags)
                                     .data(data)
                                     .toXml();

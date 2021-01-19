@@ -23,7 +23,7 @@ public class SearchApi {
             return;
         }
         returnDefaultTags(callback);
-        HttpApi.getXml("http://tt.shouji.com.cn/app/user_app_search_rm_xml.jsp?searchKey=")
+        HttpApi.getXml("/app/user_app_search_rm_xml.jsp?searchKey=")
                 .onSuccess(data -> {
                     HOT_KEYWORD_LIST.clear();
                     for (Element item : data.select("item")) {
@@ -37,7 +37,7 @@ public class SearchApi {
     }
 
     public static void getGuessApi(Callback<List<GuessAppInfo>> callback) {
-        HttpApi.getXml("http://tt.shouji.com.cn/appv3/user_app_search_rm_xml.jsp?searchKey=")
+        HttpApi.getXml("/appv3/user_app_search_rm_xml.jsp?searchKey=")
                 .onSuccess(data -> {
                     List<GuessAppInfo> list = new ArrayList<>();
                     for (Element item : data.select("item").get(1).select("subitem")) {
@@ -50,7 +50,7 @@ public class SearchApi {
     }
 
     public static void getQuickApi(String keyword, Callback<List<QuickAppInfo>> callback) {
-        HttpApi.getHtml("http://tt.shouji.com.cn/androidv4/app_search_quick_xml.jsp?s=" + keyword)
+        HttpApi.getHtml("/androidv4/app_search_quick_xml.jsp?s=" + keyword)
                 .onSuccess(data -> {
                     List<QuickAppInfo> list = new ArrayList<>();
                     for (Element item : data.select("item")) {

@@ -34,7 +34,7 @@ import io.reactivex.ObservableOnSubscribe;
 public class CommentApi {
 
     public static HttpObserver<Document> discussCommentApi(String replyId, String content) {
-        return HttpApi.post("http://tt.shouji.com.cn/app/square_disscuss_text_post_xml.jsp")
+        return HttpApi.post("/app/square_disscuss_text_post_xml.jsp")
                 .data("replyid", replyId)
                 .data("phone", DeviceUtils.getModel())
                 .data("content", content)
@@ -58,7 +58,7 @@ public class CommentApi {
                     @Override
                     public HttpObserver<Document> onNext(List<IHttp.KeyVal> dataList) throws Exception {
                         return ZHttp.post(
-                                String.format("http://tt.shouji.com.cn/app/square_disscuss_post_xml_v6.jsp?versioncode=%s&jsessionid=%s",
+                                String.format("/app/square_disscuss_post_xml_v6.jsp?versioncode=%s&jsessionid=%s",
                                         "199", UserManager.getInstance().getSessionId()))
                                 .data("sn", UserManager.getInstance().getSn())
                                 .data("phone", DeviceUtils.getModel())
@@ -178,7 +178,7 @@ public class CommentApi {
         HttpObserver<Document> task;
         boolean compress = AppConfig.isCompressUploadImage();
         if (imgList == null || imgList.isEmpty()) {
-            task = HttpApi.post("http://tt.shouji.com.cn/app/comment_xml_v5.jsp")
+            task = HttpApi.post("/app/comment_xml_v5.jsp")
                     .data("replyid", replyId)
                     .data("phone", DeviceUtils.getModel())
                     .data("content", content)
@@ -206,7 +206,7 @@ public class CommentApi {
                         @Override
                         public HttpObserver<Document> onNext(List<IHttp.KeyVal> dataList) throws Exception {
                             return ZHttp.post(
-                                    String.format("http://tt.shouji.com.cn/app/comment_xml_v5_file.jsp?versioncode=%s&jsessionid=%s",
+                                    String.format("/app/comment_xml_v5_file.jsp?versioncode=%s&jsessionid=%s",
                                             "199", UserManager.getInstance().getSessionId()))
                                     .data("sn", UserManager.getInstance().getSn())
                                     .data("phone", DeviceUtils.getModel())
@@ -246,7 +246,7 @@ public class CommentApi {
         HttpObserver<Document> task;
         if (appInfo == null && imgList.isEmpty()) {
             task = getConnection(
-                    String.format("http://tt.shouji.com.cn/app/square_disscuss_text_post_xml.jsp?jsessionid=%s", UserManager.getInstance().getSessionId()),
+                    String.format("/app/square_disscuss_text_post_xml.jsp?jsessionid=%s", UserManager.getInstance().getSessionId()),
                     replyId,
                     isPrivate,
                     tags)
@@ -308,7 +308,7 @@ public class CommentApi {
                         @Override
                         public HttpObserver<Document> onNext(List<IHttp.KeyVal> data) throws Exception {
                             Log.d("publishThemeApi", "dataList=" + data);
-                            return getConnection(String.format("http://tt.shouji.com.cn/app/square_disscuss_post_xml_v6.jsp?versioncode=%s&jsessionid=%s",
+                            return getConnection(String.format("/app/square_disscuss_post_xml_v6.jsp?versioncode=%s&jsessionid=%s",
                                     "199", UserManager.getInstance().getSessionId()), replyId, isPrivate, tags)
                                     .data(data)
                                     .toXml();
@@ -337,7 +337,7 @@ public class CommentApi {
 
     private static HttpConfig getConnection(String url, String replyId, boolean isPrivate, String tags) {
         return ZHttp.post(url)
-                .data("tagurl", "http://tt.shouji.com.cn/app/faxian.jsp?index=faxian")
+                .data("tagurl", "/app/faxian.jsp?index=faxian")
                 .data("sn", UserManager.getInstance().getSn())
                 .data("phone", DeviceUtils.getModel())
                 .data("replyid", replyId)

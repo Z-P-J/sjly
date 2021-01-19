@@ -50,7 +50,8 @@ public class ThemeCommentListFragment extends ThemeListFragment {
             pop();
             return;
         }
-        defaultUrl = "http://tt.tljpxm.com/app/comment_topic.jsp?t=" + contentType + "&parent=" + rootId;
+//        http://tt.tljpxm.com
+        defaultUrl = "/app/comment_topic.jsp?t=" + contentType + "&parent=" + rootId;
         nextUrl = defaultUrl;
     }
 

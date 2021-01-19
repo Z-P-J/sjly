@@ -55,7 +55,8 @@ public class ChatFragment extends NextUrlFragment<PrivateLetterInfo>
 
     public static void start(String id, String title) {
         Bundle args = new Bundle();
-        args.putString(Keys.DEFAULT_URL, "http://tt.tljpxm.com/app/user_message_index_xml_v3.jsp?mmid=" + id);
+//        http://tt.tljpxm.com
+        args.putString(Keys.DEFAULT_URL, "/app/user_message_index_xml_v3.jsp?mmid=" + id);
         args.putString(Keys.ID, id);
         args.putString(Keys.TITLE, title);
         ChatFragment fragment = new ChatFragment();

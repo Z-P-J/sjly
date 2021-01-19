@@ -244,9 +244,17 @@ public class MainFragment extends SkinFragment {
             pos -= 1;
         }
         mFragments[pos].onSupportVisible();
-        if (blurred != null) {
-            blurred.startBlur();
-        }
+//        if (blurred != null) {
+//            blurred.startBlur();
+//        }
+        postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                if (blurred != null) {
+                    blurred.startBlur();
+                }
+            }
+        }, 360);
     }
 
     @Override

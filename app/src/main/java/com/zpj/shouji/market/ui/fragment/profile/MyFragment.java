@@ -357,9 +357,14 @@ public class MyFragment extends SkinFragment
     @Override
     public void onSupportVisible() {
         super.onSupportVisible();
-        if (blurred != null) {
-            blurred.startBlur();
-        }
+        postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                if (blurred != null) {
+                    blurred.startBlur();
+                }
+            }
+        }, 360);
     }
 
     @Override
@@ -452,7 +457,7 @@ public class MyFragment extends SkinFragment
         if (v == tvCheckIn) {
             MemberInfo memberInfo = UserManager.getInstance().getMemberInfo();
             if (memberInfo.isCanSigned()) {
-                HttpApi.getXml("http://tt.shouji.com.cn/app/xml_signed.jsp")
+                HttpApi.getXml("/app/xml_signed.jsp")
                         .bindToLife(this)
                         .onSuccess(data -> {
                             Log.d("tvCheckIn", "data=" + data);

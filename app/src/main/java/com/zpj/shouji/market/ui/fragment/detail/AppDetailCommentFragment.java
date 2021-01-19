@@ -33,7 +33,7 @@ public class AppDetailCommentFragment extends ThemeListFragment {
     public static AppDetailCommentFragment newInstance(AppDetailInfo info) {
         AppDetailCommentFragment fragment = new AppDetailCommentFragment();
         Bundle bundle = new Bundle();
-        bundle.putString(Keys.DEFAULT_URL, "http://tt.shouji.com.cn/app/comment_index_xml_v5.jsp?type=" + info.getAppType() + "&id=" + info.getId());
+        bundle.putString(Keys.DEFAULT_URL, "/app/comment_index_xml_v5.jsp?type=" + info.getAppType() + "&id=" + info.getId());
         fragment.setArguments(bundle);
         fragment.info = info;
         return fragment;

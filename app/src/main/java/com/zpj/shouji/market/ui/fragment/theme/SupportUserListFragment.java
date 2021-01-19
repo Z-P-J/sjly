@@ -36,7 +36,7 @@ public class SupportUserListFragment extends NextUrlFragment<SupportUserInfo> {
     public static SupportUserListFragment newInstance(String id) {
         Bundle args = new Bundle();
         args.putString(Keys.ID, id);
-        args.putString(Keys.DEFAULT_URL, "http://tt.shouji.com.cn/app/flower_show_xml_v2.jsp?type=discuss&id=" + id);
+        args.putString(Keys.DEFAULT_URL, "/app/flower_show_xml_v2.jsp?type=discuss&id=" + id);
         SupportUserListFragment fragment = new SupportUserListFragment();
         fragment.setArguments(args);
         return fragment;

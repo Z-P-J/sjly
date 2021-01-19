@@ -37,7 +37,7 @@ public class WallpaperApi {
         }
         returnDefaultTags(callback);
 
-        HttpApi.getXml("http://tt.shouji.com.cn/app/bizhi_tags.jsp")
+        HttpApi.getXml("/app/bizhi_tags.jsp")
                 .onSuccess(data -> {
                     Elements elements = data.select("item");
                     wallpaperTags.clear();
@@ -69,7 +69,7 @@ public class WallpaperApi {
         EventBus.showLoading("上传乐图...");
 //        图片只能上传png,gif,jpg,png格式
         try {
-            ZHttp.post(String.format("http://tt.shouji.com.cn/app/bizhi_publish_v5.jsp?jsessionid=%s", UserManager.getInstance().getSessionId()))
+            ZHttp.post(String.format("/app/bizhi_publish_v5.jsp?jsessionid=%s", UserManager.getInstance().getSessionId()))
                     .data("tagurl", "http://tt.shouji.com.cn/app/faxian.jsp?index=faxian")
                     .data("sn", UserManager.getInstance().getSn())
                     .data("phone", DeviceUtils.getModel())

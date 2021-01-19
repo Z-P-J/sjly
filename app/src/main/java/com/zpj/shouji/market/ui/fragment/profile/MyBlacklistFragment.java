@@ -24,7 +24,8 @@ public class MyBlacklistFragment extends NextUrlFragment<BlacklistInfo> {
 
     public static void start() {
         Bundle args = new Bundle();
-        args.putString(Keys.DEFAULT_URL, "http://tt.tljpxm.com/androidv3/user_blacklist_xml.jsp");
+//        http://tt.tljpxm.com
+        args.putString(Keys.DEFAULT_URL, "/androidv3/user_blacklist_xml.jsp");
         MyBlacklistFragment fragment = new MyBlacklistFragment();
         fragment.setArguments(args);
         start(fragment);

@@ -103,7 +103,7 @@ public class MyDiscoverFragment extends BaseSwipeBackFragment {
     public static class MyRelatedDiscoverFragment extends ThemeListFragment {
 
         public static MyRelatedDiscoverFragment newInstance() {
-            String url = "http://tt.shouji.com.cn/app/user_content_list_xml_v2.jsp?t=discuss";
+            String url = "/app/user_content_list_xml_v2.jsp?t=discuss";
             Bundle args = new Bundle();
             args.putString(Keys.DEFAULT_URL, url);
             MyRelatedDiscoverFragment fragment = new MyRelatedDiscoverFragment();
@@ -116,7 +116,7 @@ public class MyDiscoverFragment extends BaseSwipeBackFragment {
     public static class MyPublishDiscoverFragment extends ThemeListFragment {
 
         public static MyPublishDiscoverFragment newInstance() {
-            String url = "http://tt.shouji.com.cn/app/user_content_list_xml_v2.jsp?t=discuss&thread=thread";
+            String url = "/app/user_content_list_xml_v2.jsp?t=discuss&thread=thread";
             Bundle args = new Bundle();
             args.putString(Keys.DEFAULT_URL, url);
             MyPublishDiscoverFragment fragment = new MyPublishDiscoverFragment();
@@ -129,7 +129,7 @@ public class MyDiscoverFragment extends BaseSwipeBackFragment {
     public static class MyPrivateDiscoverFragment extends ThemeListFragment {
 
         public static MyPrivateDiscoverFragment newInstance() {
-            String url = "http://tt.shouji.com.cn/app/user_content_list_xml_v2.jsp?t=discuss&thread=private";
+            String url = "/app/user_content_list_xml_v2.jsp?t=discuss&thread=private";
             Bundle args = new Bundle();
             args.putString(Keys.DEFAULT_URL, url);
             MyPrivateDiscoverFragment fragment = new MyPrivateDiscoverFragment();

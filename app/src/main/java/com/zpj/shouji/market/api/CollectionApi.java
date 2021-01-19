@@ -54,7 +54,7 @@ public class CollectionApi {
                     @Override
                     public HttpObserver<Document> onNext(List<IHttp.KeyVal> data) throws Exception {
                         return ZHttp.post(
-                                String.format("http://tt.shouji.com.cn/app/square_disscuss_post_xml_v6.jsp?versioncode=%s&jsessionid=%s",
+                                String.format("/app/square_disscuss_post_xml_v6.jsp?versioncode=%s&jsessionid=%s",
                                         "199", UserManager.getInstance().getSessionId()))
                                 .data("tagurl", "http://tt.shouji.com.cn/app/faxian.jsp?index=faxian")
                                 .data("sn", UserManager.getInstance().getSn())

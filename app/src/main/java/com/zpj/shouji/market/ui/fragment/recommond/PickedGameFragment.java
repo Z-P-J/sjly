@@ -28,7 +28,8 @@ public class PickedGameFragment extends NextUrlFragment<PickedGameInfo> {
 
     public static void start() {
         Bundle args = new Bundle();
-        args.putString(Keys.DEFAULT_URL, "http://tt.tljpxm.com/androidv3/app_index_xml.jsp?index=1");
+//        http://tt.tljpxm.com
+        args.putString(Keys.DEFAULT_URL, "/androidv3/app_index_xml.jsp?index=1");
         PickedGameFragment fragment = new PickedGameFragment();
         fragment.setArguments(args);
         start(fragment);

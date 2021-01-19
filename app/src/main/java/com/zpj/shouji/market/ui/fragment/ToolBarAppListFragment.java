@@ -29,7 +29,7 @@ public class ToolBarAppListFragment extends AppListFragment {
     }
 
     public static void startRecentUpdate() {
-        start("http://tt.shouji.com.cn/androidv3/app_list_xml.jsp?index=1", "最近更新");
+        start("/androidv3/app_list_xml.jsp?index=1", "最近更新");
     }
 
 //    public static void startSubjectDetail(String id) {
@@ -37,31 +37,31 @@ public class ToolBarAppListFragment extends AppListFragment {
 //    }
 
     public static void startRecommendSoftList() {
-        start("http://tt.shouji.com.cn/androidv3/special_list_xml.jsp?id=-9998", "应用推荐");
+        start("/androidv3/special_list_xml.jsp?id=-9998", "应用推荐");
     }
 
     public static void startNecessarySoftList() {
-        start("http://tt.shouji.com.cn/androidv3/special_list_xml.jsp?id=-9998", "必备应用");
+        start("/androidv3/special_list_xml.jsp?id=-9998", "必备应用");
     }
 
     public static void startUpdateSoftList() {
-        start("http://tt.shouji.com.cn/androidv3/soft_index_xml.jsp?sort=time", "最新应用");
+        start("/androidv3/soft_index_xml.jsp?sort=time", "最新应用");
     }
 
     public static void startRecommendGameList() {
-        start("http://tt.shouji.com.cn/androidv3/game_index_xml.jsp?sdk=100&sort=day", "游戏推荐");
+        start("/androidv3/game_index_xml.jsp?sdk=100&sort=day", "游戏推荐");
     }
 
     public static void startUpdateGameList() {
-        start("http://tt.shouji.com.cn/androidv3/game_index_xml.jsp?sort=time", "最新游戏");
+        start("/androidv3/game_index_xml.jsp?sort=time", "最新游戏");
     }
 
     public static void startNetGameList() {
-        start("http://tt.shouji.com.cn/androidv3/netgame.jsp", "热门网游");
+        start("/androidv3/netgame.jsp", "热门网游");
     }
 
     public static void startRecentDownload() {
-        start("http://tt.shouji.com.cn/androidv3/app_downing_xml.jsp", "看看 - 乐友们都在下载什么");
+        start("/androidv3/app_downing_xml.jsp", "看看 - 乐友们都在下载什么");
     }
 
     @Override

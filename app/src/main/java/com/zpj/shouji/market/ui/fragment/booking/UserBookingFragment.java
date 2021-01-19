@@ -68,7 +68,7 @@ public class UserBookingFragment extends BaseSwipeBackFragment {
     public static class BookedFragment extends BookingAppListFragment {
 
         public static BookedFragment newInstance() {
-            String url = "http://tt.shouji.com.cn/appv3/user_game_yuyue_list.jsp";
+            String url = "/appv3/user_game_yuyue_list.jsp";
             Bundle args = new Bundle();
             args.putString(Keys.DEFAULT_URL, url);
             BookedFragment fragment = new BookedFragment();
@@ -112,7 +112,7 @@ public class UserBookingFragment extends BaseSwipeBackFragment {
     public static class PublishedFragment extends BookingAppListFragment {
 
         public static PublishedFragment newInstance() {
-            String url = "http://tt.shouji.com.cn/appv3/app_yuyue_online.jsp";
+            String url = "/appv3/app_yuyue_online.jsp";
             Bundle args = new Bundle();
             args.putString(Keys.DEFAULT_URL, url);
             PublishedFragment fragment = new PublishedFragment();

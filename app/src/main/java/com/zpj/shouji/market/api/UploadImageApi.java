@@ -19,7 +19,7 @@ import java.io.FileInputStream;
 public class UploadImageApi {
 
     public static HttpObserver<Document> uploadAvatarApi(File file) throws Exception {
-        return ZHttp.post(String.format("http://tt.shouji.com.cn/app/user_upload_avatar.jsp?jsessionid=%s&versioncode=%s", UserManager.getInstance().getSessionId(), HttpApi.VERSION_CODE))
+        return ZHttp.post(String.format("/app/user_upload_avatar.jsp?jsessionid=%s&versioncode=%s", UserManager.getInstance().getSessionId(), HttpApi.VERSION_CODE))
                 .cookie(UserManager.getInstance().getCookie())
                 .data("image", "image.png", new FileInputStream(file))
                 .toHtml();
@@ -28,7 +28,7 @@ public class UploadImageApi {
     public static HttpObserver<Document> uploadBackgroundApi(File file) throws Exception {
         return ZHttp.post(
                 String.format(
-                        "http://tt.shouji.com.cn/app/user_upload_background.jsp?action=save&sn=%s&jsessionid=%s&versioncode=%s",
+                        "/app/user_upload_background.jsp?action=save&sn=%s&jsessionid=%s&versioncode=%s",
                         UserManager.getInstance().getSn(),
                         UserManager.getInstance().getSessionId(),
                         HttpApi.VERSION_CODE))

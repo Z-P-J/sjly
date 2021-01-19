@@ -246,7 +246,8 @@ public class UserPickerFragment extends BaseSwipeBackFragment {
     public static class EditorPickerFragment extends UserPickerChildFragment {
 
         public static EditorPickerFragment newInstance() {
-            String url = "http://tt.tljpxm.com/app/xb_list_xml.jsp?from=aite";
+//            http://tt.tljpxm.com
+            String url = "/app/xb_list_xml.jsp?from=aite";
             Bundle args = new Bundle();
             args.putString(Keys.DEFAULT_URL, url);
             EditorPickerFragment fragment = new EditorPickerFragment();
@@ -264,7 +265,7 @@ public class UserPickerFragment extends BaseSwipeBackFragment {
     public static class FollowerPickerFragment extends UserPickerChildFragment {
 
         public static FollowerPickerFragment newInstance() {
-            String url = "http://tt.shouji.com.cn/app/user_friend_list_xml.jsp";
+            String url = "/app/user_friend_list_xml.jsp";
 //            String url = "http://tt.tljpxm.com/app/view_member_friend_xml.jsp?mmid=" + UserManager.getInstance().getUserId();
             Bundle args = new Bundle();
             args.putString(Keys.DEFAULT_URL, url);
@@ -277,7 +278,7 @@ public class UserPickerFragment extends BaseSwipeBackFragment {
 
     public static class FansPickerFragment extends UserPickerChildFragment {
         public static FansPickerFragment newInstance() {
-            String url = "http://tt.shouji.com.cn/app/user_fensi_list_xml.jsp";
+            String url = "/app/user_fensi_list_xml.jsp";
 //            String url = "http://tt.tljpxm.com/app/view_member_fensi_xml.jsp?mmid=" + UserManager.getInstance().getUserId();
             Bundle args = new Bundle();
             args.putString(Keys.DEFAULT_URL, url);

@@ -103,39 +103,41 @@ public final class HttpApi {
     }
 
     public static HttpObserver<Document> collectionRecommend() {
-        return getXml("http://tt.shouji.com.cn/androidv3/yyj_tj_xml.jsp");
+        return getXml("/androidv3/yyj_tj_xml.jsp");
     }
 
     public static HttpObserver<Document> bannerApi() {
-        return getXml("http://tt.tljpxm.com/androidv3/app_index_xml.jsp?index=1");
+//        http://tt.tljpxm.com
+        return getXml("/androidv3/app_index_xml.jsp?index=1");
     }
 
     public static HttpObserver<Document> recentUpdateAppApi() {
-        return getXml("http://tt.shouji.com.cn/androidv3/app_list_xml.jsp?index=1");
+        return getXml("/androidv3/app_list_xml.jsp?index=1");
     }
 
     public static HttpObserver<Document> homeRecommendSoftApi() {
-        return getXml("http://tt.shouji.com.cn/androidv3/special_list_xml.jsp?id=-9998");
+        return getXml("/androidv3/special_list_xml.jsp?id=-9998");
     }
 
     public static HttpObserver<Document> homeRecommendGameApi() {
-        return getXml("http://tt.shouji.com.cn/androidv3/game_index_xml.jsp?sdk=100&sort=day");
+        return getXml("/androidv3/game_index_xml.jsp?sdk=100&sort=day");
     }
 
     public static HttpObserver<Document> subjectApi() {
-        return getXml("http://tt.tljpxm.com/androidv3/app_index_xml.jsp?index=1");
+//        http://tt.tljpxm.com
+        return getXml("/androidv3/app_index_xml.jsp?index=1");
     }
 
     public static HttpObserver<Document> recentUpdateSoft() {
-        return getXml("http://tt.shouji.com.cn/androidv3/soft_index_xml.jsp?sort=time");
+        return getXml("/androidv3/soft_index_xml.jsp?sort=time");
     }
 
     public static HttpObserver<Document> recentUpdateGame() {
-        return getXml("http://tt.shouji.com.cn/androidv3/game_index_xml.jsp?sort=time");
+        return getXml("/androidv3/game_index_xml.jsp?sort=time");
     }
 
     public static HttpObserver<Document> netGame() {
-        return getXml("http://tt.shouji.com.cn/androidv3/netgame.jsp");
+        return getXml("/androidv3/netgame.jsp");
     }
 
     public static String myCollectionAppsUrl(String id) {
@@ -175,26 +177,28 @@ public final class HttpApi {
     }
 
     private static String getCollectUrl(String key) {
-        return "http://tt.shouji.com.cn/app/" + key + ".jsp";
+        return "/app/" + key + ".jsp";
     }
 
     public static HttpObserver<Document> likeApi(String type, String id) {
-        String url = "http://tt.shouji.com.cn/app/comment_flower_xml.jsp?t=" + type + "&id=" + id;
+        String url = "/app/comment_flower_xml.jsp?t=" + type + "&id=" + id;
         return getXml(url);
     }
 
     public static HttpObserver<Document> addFriendApi(String id) {
-        String url = "http://tt.tljpxm.com/xml/addfriendprocess?memberid=" + id;
+//        http://tt.tljpxm.com
+        String url = "/xml/addfriendprocess?memberid=" + id;
         return getXml(url);
     }
 
     public static HttpObserver<Document> deleteFriendApi(String id) {
-        String url = "http://tt.tljpxm.com/xml/deletefriendprocess?friendMemberID=" + id;
+//        http://tt.tljpxm.com
+        String url = "/xml/deletefriendprocess?friendMemberID=" + id;
         return getXml(url);
     }
 
     public static HttpObserver<Document> getMemberInfoByIdApi(String id) {
-        String url = String.format("http://tt.shouji.com.cn/app/view_member_xml_v4.jsp?id=%s", id);
+        String url = String.format("/app/view_member_xml_v4.jsp?id=%s", id);
         if (id.equals(UserManager.getInstance().getUserId())) {
             url += "&myself=yes";
         }
@@ -203,19 +207,18 @@ public final class HttpApi {
     }
 
     public static HttpObserver<Document> getMemberInfoByNameApi(String name) {
-        String url = String.format("http://tt.shouji.com.cn/app/view_member_xml_v4.jsp?mm=%s", name);
+        String url = String.format("/app/view_member_xml_v4.jsp?mm=%s", name);
         Log.d("getMemberInfoByNameApi", "url=" + url);
         return getXml(url);
     }
 
     public static HttpObserver<Document> blacklistApi(String id, boolean isAdd) {
-        String url = String.format("http://tt.tljpxm.com/app/user_blacklist_add.jsp?mid=%s&t=%s", id, isAdd ? "add" : "del");
+//        http://tt.tljpxm.com
+        String url = String.format("/app/user_blacklist_add.jsp?mid=%s&t=%s", id, isAdd ? "add" : "del");
         return getXml(url);
     }
 
     public static void addBlacklistApi(String id) {
-//        String url = "http://tt.tljpxm.com/app/user_blacklist_add.jsp?t=add&mid=" + id;
-//        return connect(url);
         blacklistApi(id, true)
                 .onSuccess(data -> {
                     String info = data.selectFirst("info").text();
@@ -235,7 +238,7 @@ public final class HttpApi {
     }
 
     public static void addCollectionApi(String id, Runnable runnable) {
-        getXml(String.format("http://tt.shouji.com.cn/app/user_review_fav_add.jsp?t=discuss&id=%s", id))
+        getXml(String.format("/app/user_review_fav_add.jsp?t=discuss&id=%s", id))
                 .onSuccess(doc -> {
                     String info = doc.selectFirst("info").text();
                     if ("success".equals(doc.selectFirst("result").text())) {
@@ -252,11 +255,11 @@ public final class HttpApi {
     }
 
     public static HttpObserver<Document> addCollectionApi(String id, String type) {
-        return getXml(String.format("http://tt.shouji.com.cn/app/user_review_fav_add.jsp?t=%s&id=%s", type, id));
+        return getXml(String.format("/app/user_review_fav_add.jsp?t=%s&id=%s", type, id));
     }
 
     public static void deleteCollectionApi(String id) {
-        get("http://tt.shouji.com.cn/app/user_review_fav_del.jsp")
+        get("/app/user_review_fav_del.jsp")
                 .data("id", id)
                 .data("t", "discuss")
                 .toXml()
@@ -274,11 +277,11 @@ public final class HttpApi {
     }
 
     public static HttpObserver<Document> deleteCollectionApi(String id, String type) {
-        return getXml(String.format("http://tt.shouji.com.cn/app/user_review_fav_del.jsp?t=%s&id=%s", type, id));
+        return getXml(String.format("/app/user_review_fav_del.jsp?t=%s&id=%s", type, id));
     }
 
     public static void deleteThemeApi(String id, String type) {
-        get("http://tt.shouji.com.cn/app/user_review_del_xml.jsp")
+        get("/app/user_review_del_xml.jsp")
                 .data("id", id)
                 .data("t", type)
                 .toXml()
@@ -296,7 +299,7 @@ public final class HttpApi {
     }
 
     public static void privateThemeApi(String id) {
-        get("http://tt.shouji.com.cn/app/user_review_pass_xml.jsp")
+        get("/app/user_review_pass_xml.jsp")
                 .data("id", id)
                 .data("t", "discuss")
                 .toXml()
@@ -314,7 +317,7 @@ public final class HttpApi {
     }
 
     public static void publicThemeApi(String id) {
-        get("http://tt.shouji.com.cn/app/user_review_public_xml.jsp")
+        get("/app/user_review_public_xml.jsp")
                 .data("id", id)
                 .data("t", "discuss")
                 .toXml()
@@ -340,7 +343,8 @@ public final class HttpApi {
 //    }
 
     public static HttpObserver<Document> discussCommentApi(String replyId, String content) {
-        return post("http://tt.tljpxm.com/app/square_disscuss_text_post_xml.jsp")
+//        http://tt.tljpxm.com
+        return post("/app/square_disscuss_text_post_xml.jsp")
                 .data("replyid", replyId)
                 .data("phone", "MI%205s")
                 .data("content", content)
@@ -359,7 +363,8 @@ public final class HttpApi {
 //    }
 
     public static HttpObserver<Document> rsyncMessageApi() {
-        return post("http://tt.tljpxm.com/app/rsyncMessageV3.jsp")
+//        http://tt.tljpxm.com
+        return post("/app/rsyncMessageV3.jsp")
                 .data("from", "refresh")
                 .toXml();
     }
@@ -389,7 +394,8 @@ public final class HttpApi {
                 && UserManager.getInstance().getMessageInfo().getFanCount() < 1) {
             return;
         }
-        get("http://tt.tljpxm.com/app/updateFlag.jsp")
+//        http://tt.tljpxm.com
+        get("/app/updateFlag.jsp")
                 .data("action", action.getAction())
                 .toXml()
                 .onSuccess(data -> {
@@ -400,7 +406,8 @@ public final class HttpApi {
     }
 
     public static HttpObserver<Document> deletePrivateLetterApi(String id) {
-        return get("http://tt.tljpxm.com/app/user_message_del_xml.jsp")
+//        http://tt.tljpxm.com
+        return get("/app/user_message_del_xml.jsp")
                 .data("message", id)
                 .toXml();
     }
@@ -410,7 +417,8 @@ public final class HttpApi {
         boolean compress = AppConfig.isCompressUploadImage();
         HttpObserver<Document> task;
         if (imgList == null || imgList.isEmpty()) {
-            task = get("http://tt.tljpxm.com/app/user_message_add_text_xml.jsp")
+//            http://tt.tljpxm.com
+            task = get("/app/user_message_add_text_xml.jsp")
                     .data("mmid", id)
                     .data("content", content)
                     .toXml();
@@ -434,7 +442,7 @@ public final class HttpApi {
                         @Override
                         public HttpObserver<Document> onNext(List<IHttp.KeyVal> dataList) throws Exception {
                             return ZHttp.post(
-                                    String.format("http://tt.shouji.com.cn/app/user_message_add_post_xml.jsp?versioncode=%s&jsessionid=%s",
+                                    String.format("/app/user_message_add_post_xml.jsp?versioncode=%s&jsessionid=%s",
                                             "199", UserManager.getInstance().getSessionId()))
                                     .data("mmid", id)
                                     .data("content", content)
@@ -465,19 +473,19 @@ public final class HttpApi {
     }
 
     public static HttpObserver<Document> appInfoApi(String type, String id) {
-        return getXml(String.format("http://tt.shouji.com.cn/androidv4/%s_show.jsp?id=%s", type, id));
+        return getXml(String.format("/androidv4/%s_show.jsp?id=%s", type, id));
     }
 
     public static HttpObserver<Document> nicknameApi(String nickname) {
-        return getXml(String.format("http://tt.shouji.com.cn/app/user_nickname_xml.jsp?NickName=%s", nickname));
+        return getXml(String.format("/app/user_nickname_xml.jsp?NickName=%s", nickname));
     }
 
     public static HttpObserver<Document> emailApi(String email, String password) {
-        return getXml(String.format("http://tt.shouji.com.cn/app/user_email_xml.jsp?MemberEmail=%s&p=%s", email, encodePassword(password)));
+        return getXml(String.format("/app/user_email_xml.jsp?MemberEmail=%s&p=%s", email, encodePassword(password)));
     }
 
     public static HttpObserver<Document> passwordApi(String oldPassword, String newPassword) {
-        String url = "http://tt.shouji.com.cn/app/user_password_xml.jsp?p=";
+        String url = "/app/user_password_xml.jsp?p=";
         url += encodePassword(oldPassword.trim());
         url += ("&np=" + encodePassword(newPassword.trim()));
         Log.d("passwordApi", "url=" + url);
@@ -485,41 +493,41 @@ public final class HttpApi {
     }
 
     public static HttpObserver<Document> addFavCollectionApi(String id, String type) {
-        return getXml(String.format("http://tt.shouji.com.cn/app/user_yyj_fav_add.jsp?id=%s&t=%s", id, type));
+        return getXml(String.format("/app/user_yyj_fav_add.jsp?id=%s&t=%s", id, type));
     }
 
     public static HttpObserver<Document> delFavCollectionApi(String id, String type) {
-        return getXml(String.format("http://tt.shouji.com.cn/app/user_yyj_fav_del.jsp?id=%s&t=%s", id, type));
+        return getXml(String.format("/app/user_yyj_fav_del.jsp?id=%s&t=%s", id, type));
     }
 
     public static HttpObserver<Document> getShareInfoApi(String id) {
-        return getXml(String.format("http://tt.shouji.com.cn/app/getShareInfo.jsp?id=%s", id));
+        return getXml(String.format("/app/getShareInfo.jsp?id=%s", id));
     }
 
     public static HttpObserver<Document> getSupportUserListApi(String contentType, String id) {
-        return getXml(String.format("http://tt.shouji.com.cn/app/flower_show_xml_v2.jsp?type=%s&id=%s", contentType, id));
+        return getXml(String.format("/app/flower_show_xml_v2.jsp?type=%s&id=%s", contentType, id));
     }
 
     public static HttpObserver<Document> deleteBackgroundApi() {
-        return getXml("http://tt.shouji.com.cn/app/user_upload_background.jsp?action=delete");
+        return getXml("/app/user_upload_background.jsp?action=delete");
     }
 
     public static HttpObserver<Document> reportApi(String id, String type, String reason) {
-        return getXml(String.format("http://tt.shouji.com.cn/app/jubao.jsp?id=%s&t=%s&reason=%s", id, type, reason));
+        return getXml(String.format("/app/jubao.jsp?id=%s&t=%s&reason=%s", id, type, reason));
     }
 
     public static HttpObserver<Document> appRatingApi(String id, String value, String type, String packageName, String versionName) {
-        String url = String.format("http://tt.shouji.com.cn/appv3/score_post_xml_v2.jsp?id=%s&value=%s&type=%s&packagename=%s&versionname=%s", id, value, type, packageName, versionName);
+        String url = String.format("/appv3/score_post_xml_v2.jsp?id=%s&value=%s&type=%s&packagename=%s&versionname=%s", id, value, type, packageName, versionName);
         return getXml(url);
     }
 
     public static HttpObserver<Document> findDetailMemberInfoApi(String appId, String type, String memberId) {
-        String url = String.format("http://tt.shouji.com.cn/appv3/findDetailMemberInfo.jsp?id=%s&t=%s&memberid=%s", appId, "soft".equals(type) ? "1" : "2", memberId);
+        String url = String.format("/appv3/findDetailMemberInfo.jsp?id=%s&t=%s&memberid=%s", appId, "soft".equals(type) ? "1" : "2", memberId);
         return getXml(url);
     }
 
     public static void appFavoriteApi(String appId, String type, Callback<Boolean> callback) {
-        String url = String.format("http://tt.shouji.com.cn/appv3/user_fav_add_xml_v2.jsp?id=%s&t=%s", appId, "soft".equals(type) ? "1" : "2");
+        String url = String.format("/appv3/user_fav_add_xml_v2.jsp?id=%s&t=%s", appId, "soft".equals(type) ? "1" : "2");
         Log.d("appFavoriteApi", "url=" + url);
         getHtml(url)
                 .onSuccess(data -> {
@@ -546,7 +554,7 @@ public final class HttpApi {
     }
 
     public static void cancelAppFavoriteApi(String appId, String type, Callback<Boolean> callback) {
-        String url = String.format("http://tt.shouji.com.cn/appv3/user_fav_delete_member_xml_v2.jsp?id=%s&t=1&apptype=%s", appId, type);
+        String url = String.format("/appv3/user_fav_delete_member_xml_v2.jsp?id=%s&t=1&apptype=%s", appId, type);
         getXml(url)
                 .onSuccess(data -> {
                     if ("success".equals(data.selectFirst("result").text())) {

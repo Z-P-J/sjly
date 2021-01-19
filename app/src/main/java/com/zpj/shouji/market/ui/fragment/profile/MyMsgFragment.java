@@ -112,7 +112,8 @@ public class MyMsgFragment extends BaseSwipeBackFragment {
 
         public static PrivateLetterFragment newInstance() {
             Bundle args = new Bundle();
-            args.putString(Keys.DEFAULT_URL, "http://tt.tljpxm.com/app/user_message_index_xml_v3.jsp");
+//            http://tt.tljpxm.com
+            args.putString(Keys.DEFAULT_URL, "/app/user_message_index_xml_v3.jsp");
             PrivateLetterFragment fragment = new PrivateLetterFragment();
             fragment.setArguments(args);
             return fragment;
@@ -157,7 +158,8 @@ public class MyMsgFragment extends BaseSwipeBackFragment {
 
         public static MentionMeFragment newInstance() {
             Bundle args = new Bundle();
-            args.putString(Keys.DEFAULT_URL, "http://tt.tljpxm.com/app/user_content_aite_xml_v2.jsp");
+//            http://tt.tljpxm.com
+            args.putString(Keys.DEFAULT_URL, "/app/user_content_aite_xml_v2.jsp");
             MentionMeFragment fragment = new MentionMeFragment();
             fragment.setArguments(args);
             return fragment;
@@ -174,7 +176,7 @@ public class MyMsgFragment extends BaseSwipeBackFragment {
     public static class ReceivedGoodFragment extends ThemeListFragment {
 
         public static ReceivedGoodFragment newInstance() {
-            String url = "http://tt.shouji.com.cn/app/user_content_flower_myself_xml_v2.jsp";
+            String url = "/app/user_content_flower_myself_xml_v2.jsp";
             Bundle args = new Bundle();
             args.putString(Keys.DEFAULT_URL, url);
             ReceivedGoodFragment fragment = new ReceivedGoodFragment();
