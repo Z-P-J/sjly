@@ -75,7 +75,7 @@ public class AppUrlCenterListDialogFragment extends CenterListDialogFragment<App
             expansionLayout.removeListener(oldListener);
         }
 
-        // TODO 以下写法是不得已而为之，建议将ExpansionPanel克隆下来修改并引入项目
+        // TODO 以下写法是不得已而为之，建议将ExpansionPanel克隆下来修改并引入项目或者自己实现一个类似的控件
         boolean expanded = expandedArray.get(position, false);
         if (expanded) {
             expansionLayout.expand(false);

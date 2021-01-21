@@ -123,10 +123,16 @@ public class WallpaperListFragment extends NextUrlFragment<WallpaperInfo> {
                 .into(new ImageViewDrawableTarget(wallpaper) {
                     @Override
                     public void onResourceReady(@NonNull Drawable resource, @Nullable Transition<? super Drawable> transition) {
-                        super.onResourceReady(resource, transition);
+                        if (position != (int) imageView.getTag()) {
+                            return;
+                        }
+//                        super.onResourceReady(resource, transition);
                         imageView.post(new Runnable() {
                             @Override
                             public void run() {
+                                if (position != (int) imageView.getTag()) {
+                                    return;
+                                }
                                 Log.d("onResourceReady", "\n------------------------------------------");
                                 int width = resource.getIntrinsicWidth();
                                 int height = resource.getIntrinsicHeight();
@@ -143,7 +149,7 @@ public class WallpaperListFragment extends NextUrlFragment<WallpaperInfo> {
                                 layoutParams.height = height;
                                 layoutParams.width = imageView.getMeasuredWidth();
                                 Log.d("onResourceReady", "------------------------------------------\n");
-
+                                imageView.setImageDrawable(resource);
                             }
                         });
 

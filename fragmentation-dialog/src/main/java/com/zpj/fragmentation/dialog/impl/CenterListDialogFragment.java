@@ -4,7 +4,10 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
+import android.widget.FrameLayout;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.zpj.fragmentation.dialog.R;
@@ -60,6 +63,11 @@ public class CenterListDialogFragment<T> extends CenterDialogFragment
                 tvTitle.setText(title);
             }
         }
+
+        FrameLayout flContainer = findViewById(R.id._fl_container);
+        LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) flContainer.getLayoutParams();
+        params.height = ViewGroup.LayoutParams.WRAP_CONTENT;
+        params.weight = 0;
 
         recyclerView = new EasyRecyclerView<>(findViewById(R.id.recyclerView));
         recyclerView.setData(data)

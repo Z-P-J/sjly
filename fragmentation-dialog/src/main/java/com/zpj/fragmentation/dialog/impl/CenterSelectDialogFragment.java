@@ -6,6 +6,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -76,8 +77,10 @@ public class CenterSelectDialogFragment<T> extends CenterDialogFragment {
         tvTitle.setText(title);
         LinearLayout buttons = findViewById(R.id.layout_buttons);
         FrameLayout flCheckBox = findViewById(R.id.fl_check_box);
+
         if (isMultiple) {
             buttons.setVisibility(View.VISIBLE);
+            findViewById(R.id.view_shadow_up).setVisibility(View.VISIBLE);
             flCheckBox.setVisibility(View.VISIBLE);
             selectAllCheckBox = findViewById(R.id.check_box);
             selectAllCheckBox.setCheckedColor(DialogThemeUtils.getColorPrimary(context));
@@ -112,6 +115,10 @@ public class CenterSelectDialogFragment<T> extends CenterDialogFragment {
             tvCancel.setOnClickListener(v -> dismiss());
             tvOk.setOnClickListener(v -> onSelect());
         } else {
+            FrameLayout flContainer = findViewById(R.id._fl_container);
+            LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) flContainer.getLayoutParams();
+            params.height = ViewGroup.LayoutParams.WRAP_CONTENT;
+            params.weight = 0;
             buttons.setVisibility(View.GONE);
             flCheckBox.setVisibility(View.GONE);
         }

@@ -27,6 +27,7 @@
             android:layout_height="match_parent"
             android:layout_gravity="end"
             android:background="?attr/actionBarItemBackground"
+            android:visibility="gone"
             >
 
             <com.zpj.widget.checkbox.SmoothCheckBox
@@ -54,6 +55,7 @@
 <!--    <include layout="@layout/_dialog_divider"/>-->
 
     <FrameLayout
+        android:id="@+id/_fl_container"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
@@ -69,11 +71,15 @@
         <View style="@style/layout_shadow_bottom"/>
 
         <View style="@style/layout_shadow_up"
+            android:id="@+id/view_shadow_up"
             android:layout_gravity="bottom"
+            android:visibility="gone"
             />
 
     </FrameLayout>
 
-    <include layout="@layout/_dialog_buttons" />
+    <include layout="@layout/_dialog_buttons"
+        android:visibility="gone"
+        />
 
 </LinearLayout>
