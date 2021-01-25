@@ -4,14 +4,13 @@ import android.view.View;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
+import com.zpj.http.core.IHttp;
 import com.zpj.http.parser.html.nodes.Document;
 import com.zpj.http.parser.html.nodes.Element;
 import com.zpj.http.parser.html.select.Elements;
 import com.zpj.recyclerview.EasyViewHolder;
-import com.zpj.recyclerview.MultiAdapter;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.api.HttpApi;
-import com.zpj.shouji.market.api.HttpPreLoader;
 import com.zpj.shouji.market.api.PreloadApi;
 import com.zpj.shouji.market.glide.GlideRequestOptions;
 import com.zpj.shouji.market.model.AppInfo;
@@ -52,15 +51,23 @@ public abstract class AppInfoMultiData extends BaseHeaderMultiData<AppInfo> {
     }
 
     @Override
-    public boolean loadData(MultiAdapter adapter) {
+    public boolean loadData() {
         if (getKey() != null) {
-            if (HttpPreLoader.getInstance().hasKey(getKey())) {
-                HttpPreLoader.getInstance().setLoadListener(getKey(), document -> onGetDoc(adapter, document));
-            } else {
-                HttpApi.getXml(getKey().getUrl())
-                        .onSuccess(document -> onGetDoc(adapter, document))
-                        .subscribe();
-            }
+//            if (HttpPreLoader.getInstance().hasKey(getKey())) {
+//                HttpPreLoader.getInstance().setLoadListener(getKey(), document -> onGetDoc(document));
+//            } else {
+//
+//            }
+
+            HttpApi.getXml(getKey().getUrl())
+                    .onSuccess(document -> onGetDoc(document))
+                    .onError(new IHttp.OnErrorListener() {
+                        @Override
+                        public void onError(Throwable throwable) {
+                            showError();
+                        }
+                    })
+                    .subscribe();
         }
         return false;
     }
@@ -87,7 +94,7 @@ public abstract class AppInfoMultiData extends BaseHeaderMultiData<AppInfo> {
 
     public abstract PreloadApi getKey();
 
-    protected void onGetDoc(MultiAdapter adapter, Document document) {
+    protected void onGetDoc(Document document) {
         Elements elements = document.select("item");
         for (Element element : elements) {
             AppInfo info = AppInfo.parse(element);
@@ -96,9 +103,9 @@ public abstract class AppInfoMultiData extends BaseHeaderMultiData<AppInfo> {
             }
             list.add(info);
         }
-        int count = adapter.getItemCount();
-        adapter.notifyItemRangeInserted(count - getCount(), getCount());
-//        adapter.notifyDataSetChanged();
+//        int count = adapter.getItemCount();
+//        adapter.notifyItemRangeInserted(count - getCount(), getCount());
+        showContent();
     }
 
 }

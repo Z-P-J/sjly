@@ -5,9 +5,9 @@ import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
+import com.zpj.http.core.IHttp;
 import com.zpj.http.parser.html.nodes.Element;
 import com.zpj.http.parser.html.select.Elements;
-import com.zpj.recyclerview.MultiAdapter;
 import com.zpj.recyclerview.MultiData;
 import com.zpj.recyclerview.MultiRecyclerViewWrapper;
 import com.zpj.shouji.market.R;
@@ -58,7 +58,7 @@ public class AppDetailRecommendFragment extends SkinFragment {
         type = getArguments().getString(Keys.TYPE, "soft");
 
         RecyclerView recyclerView = findViewById(R.id.recycler_view);
-        wrapper = new MultiRecyclerViewWrapper(recyclerView);
+        wrapper = MultiRecyclerViewWrapper.with(recyclerView);
     }
 
     @Override
@@ -149,7 +149,7 @@ public class AppDetailRecommendFragment extends SkinFragment {
         }
 
         @Override
-        public boolean loadData(MultiAdapter adapter) {
+        public boolean loadData() {
             List<AppInfo> appInfoList = new ArrayList<>();
             HttpApi.getXml(url)
                     .onSuccess(data -> {
@@ -166,8 +166,10 @@ public class AppDetailRecommendFragment extends SkinFragment {
                         if (callback != null) {
                             callback.onCallback(appInfoList);
                         }
-                        adapter.notifyDataSetChanged();
+//                        adapter.notifyDataSetChanged();
+                        showContent();
                     })
+                    .onError(throwable -> showError())
                     .subscribe();
             return false;
         }
@@ -182,11 +184,12 @@ public class AppDetailRecommendFragment extends SkinFragment {
         public void setData(List<AppInfo> appInfoList) {
             this.list.addAll(appInfoList);
             hasMore = false;
-            isLoaded = true;
+//            isLoaded = true;
+            notifyDataSetChange();
         }
 
         @Override
-        public boolean loadData(MultiAdapter adapter) {
+        public boolean loadData() {
             return false;
         }
 

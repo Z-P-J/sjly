@@ -1,6 +1,5 @@
 package com.zpj.fragmentation.dialog.impl;
 
-import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.graphics.PointF;
 import android.os.Bundle;

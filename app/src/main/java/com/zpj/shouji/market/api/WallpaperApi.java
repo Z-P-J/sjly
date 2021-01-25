@@ -2,6 +2,7 @@ package com.zpj.shouji.market.api;
 
 import android.util.Log;
 
+import com.zpj.fragmentation.dialog.IDialog;
 import com.zpj.http.ZHttp;
 import com.zpj.http.core.IHttp;
 import com.zpj.http.parser.html.nodes.Element;
@@ -85,16 +86,19 @@ public class WallpaperApi {
                         Log.d("shareWallpaperApi", "data=" + data);
                         String info = data.selectFirst("info").text();
                         if ("success".equals(data.selectFirst("result").text())) {
-                            ZToast.success(info);
-                            runnable.run();
+                            EventBus.hideLoading(() -> {
+                                ZToast.success(info);
+                                runnable.run();
+                            });
                         } else {
                             ZToast.error(info);
+                            EventBus.hideLoading(500);
                         }
                     })
                     .onError(throwable -> {
                         ZToast.error("上传失败！" + throwable.getMessage());
+                        EventBus.hideLoading(500);
                     })
-                    .onComplete(() -> EventBus.hideLoading(500))
                     .subscribe();
         } catch (FileNotFoundException e) {
             e.printStackTrace();

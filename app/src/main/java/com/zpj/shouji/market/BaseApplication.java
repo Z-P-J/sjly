@@ -18,6 +18,7 @@ import com.raizlabs.android.dbflow.config.FlowManager;
 import com.zpj.blur.ZBlurry;
 import com.zpj.downloader.ZDownloader;
 import com.zpj.http.ZHttp;
+import com.zpj.http.core.IHttp;
 import com.zpj.shouji.market.api.HttpApi;
 import com.zpj.shouji.market.constant.AppConfig;
 import com.zpj.shouji.market.download.AppDownloadMission;
@@ -71,9 +72,18 @@ public class BaseApplication extends MultiDexApplication {
 
         ZHttp.config()
                 .allowAllSSL(true)
+                .onRedirect(new IHttp.OnRedirectListener() {
+                    @Override
+                    public boolean onRedirect(int redirectCount, String redirectUrl) {
+                        Log.d("connect", "onRedirect redirectUrl=" + redirectUrl);
+                        return true;
+                    }
+                })
                 .ignoreContentType(true)
                 .userAgent(HttpApi.USER_AGENT)
                 .baseUrl("http://tt.shouji.com.cn")
+                .connectTimeout(10000)
+                .readTimeout(20000)
                 .init();
 
         ZDownloader.config(this, AppDownloadMission.class)

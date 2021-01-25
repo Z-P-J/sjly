@@ -10,6 +10,8 @@ import com.bumptech.glide.GlideBuilder;
 import com.bumptech.glide.Registry;
 import com.bumptech.glide.annotation.GlideModule;
 import com.bumptech.glide.load.ImageHeaderParser;
+import com.bumptech.glide.load.model.GlideUrl;
+import com.bumptech.glide.load.model.stream.HttpGlideUrlLoader;
 import com.bumptech.glide.load.resource.bitmap.BitmapTransitionOptions;
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
 import com.bumptech.glide.load.resource.gif.GifDrawable;
@@ -61,5 +63,8 @@ public class MyAppGlideModule extends AppGlideModule {
 //        registry.prepend(GlideInputStreamData.class, InputStream.class, new CustomModelLoaderFactory<>(context));
 //        registry.prepend(GlideBitmapData.class, Bitmap.class, new CustomModelLoaderFactory<>(context));
 //        registry.prepend(GlideDrawableData.class, Drawable.class, new CustomModelLoaderFactory<>(context));
+
+
+//        registry.replace(GlideUrl.class, InputStream.class, new OkHttpUrlLoader.Factory(ProgressManager.getOkHttpClient()));
     }
 }

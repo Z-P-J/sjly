@@ -69,7 +69,6 @@ public final class CloudBackupApi {
 
                                 .data(data)
                                 .cookie(UserManager.getInstance().getCookie())
-//                                .ignoreContentType(true)
                                 .toXml();
                     }
                 })

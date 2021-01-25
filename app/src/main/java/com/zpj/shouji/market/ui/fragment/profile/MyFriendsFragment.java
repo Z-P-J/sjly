@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
+import android.text.TextUtils;
 import android.view.View;
 
 import com.zpj.recyclerview.EasyViewHolder;
@@ -127,7 +128,13 @@ public class MyFriendsFragment extends BaseSwipeBackFragment {
         public static FollowersFragment newInstance(String id) {
 //            String url = "http://tt.shouji.com.cn/app/user_friend_list_xml.jsp";
 //            http://tt.tljpxm.com
-            String url = "/app/view_member_friend_xml.jsp?mmid=" + id;
+//            String url = "/app/view_member_friend_xml.jsp?mmid=" + id;
+            String url;
+            if (TextUtils.equals(id, UserManager.getInstance().getUserId())) {
+                url = "/appv3/user_friend_list_xml.jsp";
+            } else {
+                url = "/appv3/view_member_friend_xml.jsp?mmid=" + id;
+            }
             Bundle args = new Bundle();
             args.putString(Keys.DEFAULT_URL, url);
             FollowersFragment fragment = new FollowersFragment();
@@ -146,7 +153,13 @@ public class MyFriendsFragment extends BaseSwipeBackFragment {
         public static FansFragment newInstance(String id) {
 //            String url = "http://tt.shouji.com.cn/app/user_fensi_list_xml.jsp";
 //            http://tt.tljpxm.com
-            String url = "/app/view_member_fensi_xml.jsp?mmid=" + id;
+//            String url = "/app/view_member_fensi_xml.jsp?mmid=" + id;
+            String url;
+            if (TextUtils.equals(id, UserManager.getInstance().getUserId())) {
+                url = "/appv3/user_fensi_list_xml.jsp";
+            } else {
+                url = "/appv3/view_member_fensi_xml.jsp?mmid=" + id;
+            }
             Bundle args = new Bundle();
             args.putString(Keys.DEFAULT_URL, url);
             FansFragment fragment = new FansFragment();

@@ -1,6 +1,5 @@
 package com.zpj.shouji.market.ui.multidata;
 
-import com.zpj.recyclerview.MultiAdapter;
 import com.zpj.shouji.market.api.PreloadApi;
 import com.zpj.shouji.market.model.AppInfo;
 
@@ -12,11 +11,11 @@ public class AppGridListMultiData extends AppInfoMultiData {
         super(title);
         list.addAll(appInfoList);
         hasMore = false;
-        isLoaded = true;
+//        isLoaded = true;
     }
 
     @Override
-    public boolean loadData(MultiAdapter adapter) {
+    public boolean loadData() {
 //        list.addAll(appInfoList);
 //        adapter.notifyDataSetChanged();
         return false;

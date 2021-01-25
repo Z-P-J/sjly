@@ -11,8 +11,6 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.donkingliang.consecutivescroller.ConsecutiveScrollerLayout;
-import com.zpj.http.core.IHttp;
-import com.zpj.http.parser.html.nodes.Document;
 import com.zpj.http.parser.html.nodes.Element;
 import com.zpj.recyclerview.EasyRecyclerView;
 import com.zpj.recyclerview.EasyViewHolder;
@@ -32,8 +30,6 @@ import com.zxy.skin.sdk.SkinEngine;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import static com.donkingliang.consecutivescroller.ConsecutiveScrollerLayout.*;
 
 public class SubjectDetailFragment extends StateSwipeBackFragment
         implements IEasy.OnBindViewHolderListener<AppInfo>,
@@ -151,6 +147,13 @@ public class SubjectDetailFragment extends StateSwipeBackFragment
                 .setItemRes(R.layout.item_app_linear)
                 .onBindViewHolder(this)
                 .onItemClick(this)
+                .setOnLoadRetryListener(new IEasy.OnLoadRetryListener() {
+                    @Override
+                    public void onLoadRetry() {
+                        recyclerView.showLoading();
+                        getData();
+                    }
+                })
                 .build();
         getData();
     }
@@ -199,12 +202,15 @@ public class SubjectDetailFragment extends StateSwipeBackFragment
                         appInfoList.add(AppInfo.parse(element));
                     }
                     postOnEnterAnimationEnd(() -> {
-                        recyclerView.notifyDataSetChanged();
                         showContent();
+                        recyclerView.showContent();
                         onSupportVisible();
                     });
                 })
-                .onError(throwable -> ZToast.error("出错了！" + throwable.getMessage()))
+                .onError(throwable -> {
+                    ZToast.error("出错了！" + throwable.getMessage());
+                    recyclerView.showError();
+                })
                 .subscribe();
     }
 

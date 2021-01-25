@@ -2,6 +2,7 @@ package com.zpj.fragmentation.dialog.impl;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewGroup;
@@ -27,8 +28,6 @@ public class CenterListDialogFragment<T> extends CenterDialogFragment
 
     protected final List<T> data = new ArrayList<>();
 
-
-    protected EasyRecyclerView<T> recyclerView;
     protected String title;
     protected TextView tvTitle;
 
@@ -69,26 +68,28 @@ public class CenterListDialogFragment<T> extends CenterDialogFragment
         params.height = ViewGroup.LayoutParams.WRAP_CONTENT;
         params.weight = 0;
 
-        recyclerView = new EasyRecyclerView<>(findViewById(R.id.recyclerView));
-        recyclerView.setData(data)
-                .setItemRes(getItemRes())
-                .onBindViewHolder(this)
-                .onItemClick(this)
-                .build();
+        RecyclerView recyclerView = findViewById(R.id.recyclerView);
+        initRecyclerView(recyclerView, data);
 
-
-        recyclerView.getRecyclerView()
-                .getViewTreeObserver()
+        recyclerView.getViewTreeObserver()
                 .addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
 
                     @Override
                     public void onGlobalLayout() {
-                        recyclerView.getRecyclerView()
-                                .getViewTreeObserver()
+                        recyclerView.getViewTreeObserver()
                                 .removeOnGlobalLayoutListener(this);
                         CenterListDialogFragment.super.doShowAnimation();
                     }
                 });
+    }
+
+    protected void initRecyclerView(RecyclerView recyclerView, List<T> list) {
+        new EasyRecyclerView<T>(recyclerView)
+                .setData(list)
+                .setItemRes(getItemRes())
+                .onBindViewHolder(this)
+                .onItemClick(this)
+                .build();
     }
 
     @Override

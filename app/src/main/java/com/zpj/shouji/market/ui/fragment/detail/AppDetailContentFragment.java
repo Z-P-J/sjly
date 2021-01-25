@@ -11,7 +11,6 @@ import android.view.View;
 import com.ctetin.expandabletextviewlibrary.ExpandableTextView;
 import com.ctetin.expandabletextviewlibrary.app.LinkType;
 import com.zpj.recyclerview.EasyViewHolder;
-import com.zpj.recyclerview.MultiAdapter;
 import com.zpj.recyclerview.MultiData;
 import com.zpj.recyclerview.MultiRecyclerViewWrapper;
 import com.zpj.rxbus.RxBus;
@@ -92,7 +91,7 @@ public class AppDetailContentFragment extends SkinFragment {
 
 
         RecyclerView recyclerView = findViewById(R.id.recycler_view);
-        wrapper = new MultiRecyclerViewWrapper(recyclerView);
+        wrapper = MultiRecyclerViewWrapper.with(recyclerView);
     }
 
     private void addItem(List<MultiData<?>> list, String title, String text) {
@@ -109,7 +108,7 @@ public class AppDetailContentFragment extends SkinFragment {
             super(title);
             list.add(content);
             hasMore = false;
-            isLoaded = true;
+//            isLoaded = true;
         }
 
         @Override
@@ -128,7 +127,7 @@ public class AppDetailContentFragment extends SkinFragment {
         }
 
         @Override
-        public boolean loadData(MultiAdapter adapter) {
+        public boolean loadData() {
             return false;
         }
 

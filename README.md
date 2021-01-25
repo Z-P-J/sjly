@@ -83,7 +83,6 @@
 - [权限申请XPermission](https://github.com/li-xiaojun/XPermission)
 - [自定义SeekBar库IndicatorSeekBar](https://github.com/warkiz/IndicatorSeekBar)
 - [等级评分控件CBRatingBar](https://github.com/CB-ysx/CBRatingBar)
-- [可折叠面板控件ExpansionPanel](https://github.com/florent37/ExpansionPanel)
 - [图片压缩CompressHelper](https://github.com/nanchen2251/CompressHelper)
 - [九宫格图片NineGridView](https://github.com/Vanish136/NineGridView)
 - [ExpandableTextView](https://github.com/MZCretin/ExpandableTextView)

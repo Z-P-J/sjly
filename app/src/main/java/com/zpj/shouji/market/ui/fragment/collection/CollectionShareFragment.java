@@ -208,7 +208,7 @@ public class CollectionShareFragment extends BaseSwipeBackFragment {
 //            });
             flowLayout.setMaxSelectCount(3);
             flowLayout.setMultiSelectMode(true);
-            flowLayout.addSelectedPosition(0);
+//            flowLayout.addSelectedPosition(0);
             flowLayout.setSpace(ScreenUtils.dp2pxInt(context, 8));
             flowLayout.setItems(tags);
         });

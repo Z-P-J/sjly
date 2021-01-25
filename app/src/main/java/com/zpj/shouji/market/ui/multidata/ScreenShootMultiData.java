@@ -18,8 +18,6 @@ import com.yanyusong.y_divideritemdecoration.Y_DividerBuilder;
 import com.yanyusong.y_divideritemdecoration.Y_DividerItemDecoration;
 import com.zpj.fragmentation.dialog.impl.ImageViewerDialogFragment3;
 import com.zpj.recyclerview.EasyRecyclerView;
-import com.zpj.recyclerview.EasyViewHolder;
-import com.zpj.recyclerview.MultiAdapter;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.glide.GlideRequestOptions;
 import com.zpj.shouji.market.glide.ImageViewDrawableTarget;
@@ -37,11 +35,11 @@ public class ScreenShootMultiData extends RecyclerMultiData<String> {
         this.urls = urls;
         list.addAll(urls);
         hasMore = false;
-        isLoaded = true;
+//        isLoaded = true;
     }
 
     @Override
-    public boolean loadData(final MultiAdapter adapter) {
+    public boolean loadData() {
 //        list.addAll(urls);
 //        adapter.notifyDataSetChanged();
         return false;

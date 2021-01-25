@@ -13,7 +13,6 @@ import com.yanyusong.y_divideritemdecoration.Y_DividerItemDecoration;
 import com.zpj.http.parser.html.nodes.Element;
 import com.zpj.http.parser.html.select.Elements;
 import com.zpj.recyclerview.EasyRecyclerView;
-import com.zpj.recyclerview.MultiAdapter;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.api.HttpApi;
 import com.zpj.shouji.market.model.article.ArticleInfo;
@@ -87,7 +86,7 @@ public class TutorialMultiData extends RecyclerMultiData<ArticleInfo> {
     }
 
     @Override
-    public boolean loadData(MultiAdapter adapter) {
+    public boolean loadData() {
         HttpApi.getHtml(String.format(Locale.CHINA, "https://%s.shouji.com.cn/newslist/list_%d_1.html", type, index))
                 .onSuccess(data -> {
                     Elements elements = data.selectFirst("ul.news_list").select("li");
@@ -96,8 +95,10 @@ public class TutorialMultiData extends RecyclerMultiData<ArticleInfo> {
                     for (Element element : elements) {
                         list.add(ArticleInfo.from(element));
                     }
-                    adapter.notifyDataSetChanged();
+//                    adapter.notifyDataSetChanged();
+                    showContent();
                 })
+                .onError(throwable -> showError())
                 .subscribe();
         return false;
     }

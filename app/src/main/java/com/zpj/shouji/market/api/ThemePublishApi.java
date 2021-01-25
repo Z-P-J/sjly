@@ -128,8 +128,8 @@ public class ThemePublishApi {
                         });
                     } else {
                         ZToast.error(info);
+                        EventBus.hideLoading(250);
                     }
-                    EventBus.hideLoading(250);
                 })
                 .onError(throwable -> {
                     ZToast.error("发布失败！" + throwable.getMessage());
@@ -147,7 +147,6 @@ public class ThemePublishApi {
                 .data("gkbz", isPrivate ? "0" : "1")
                 .data("tag", tags)
                 .cookie(UserManager.getInstance().getCookie());
-//                .ignoreContentType(true);
     }
 
 }

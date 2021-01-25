@@ -199,4 +199,28 @@ public class InstalledAppInfo {
     public int hashCode() {
         return packageName != null ? packageName.hashCode() : 0;
     }
+
+    @Override
+    public String toString() {
+        return "InstalledAppInfo{" +
+                "name='" + name + '\'' +
+                ", packageName='" + packageName + '\'' +
+                ", id='" + id + '\'' +
+                ", appType='" + appType + '\'' +
+                ", versionName='" + versionName + '\'' +
+                ", formattedAppSize='" + formattedAppSize + '\'' +
+                ", installTime='" + installTime + '\'' +
+                ", recentUpdateTime='" + recentUpdateTime + '\'' +
+                ", sortName='" + sortName + '\'' +
+                ", apkFilePath='" + apkFilePath + '\'' +
+                ", versionCode=" + versionCode +
+                ", appSize=" + appSize +
+                ", isTempXPK=" + isTempXPK +
+                ", isTempInstalled=" + isTempInstalled +
+                ", enabled=" + enabled +
+                ", isBackuped=" + isBackuped +
+                ", isUserApp=" + isUserApp +
+                ", isDamaged=" + isDamaged +
+                '}';
+    }
 }

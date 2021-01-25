@@ -39,57 +39,86 @@ public class ApkIconFetcher implements DataFetcher<InputStream> {
 
     @Override
     public void loadData(@NonNull Priority priority, @NonNull DataCallback<? super InputStream> callback) {
-        Observable.create(
-                (ObservableOnSubscribe<InputStream>) emitter -> {
-                    Drawable d = null;
-                    if (installedAppInfo.isTempInstalled()) {
-                        d = AppUtils.getAppIcon(context, installedAppInfo.getPackageName());
-                    } else if (installedAppInfo.isTempXPK()){
-                        d = AppUtils.getApkIcon(context, installedAppInfo.getApkFilePath());
-                    }
-                    if (d == null){
-                        d = context.getResources().getDrawable(R.drawable.ic_file_apk);
-                        callback.onLoadFailed(new Exception("Not Support!"));
-                        return;
-                    }
+//        Observable.create(
+//                (ObservableOnSubscribe<InputStream>) emitter -> {
+//                    Drawable d = null;
+//                    if (installedAppInfo.isTempInstalled()) {
+//                        d = AppUtils.getAppIcon(context, installedAppInfo.getPackageName());
+//                    } else if (installedAppInfo.isTempXPK()){
+//                        d = AppUtils.getApkIcon(context, installedAppInfo.getApkFilePath());
+//                    }
+//                    if (d == null){
+//                        d = context.getResources().getDrawable(R.drawable.ic_file_apk);
+////                        callback.onLoadFailed(new Exception("Not Support!"));
+////                        return;
+//                    }
+//
+//                    Bitmap iconBitmap;
+//                    if (d instanceof BitmapDrawable) {
+//                        iconBitmap = ((BitmapDrawable) d).getBitmap();
+//                    } else {
+//                        iconBitmap = Bitmap.createBitmap(d.getIntrinsicWidth(), d.getIntrinsicHeight(),
+//                                d.getOpacity() != PixelFormat.OPAQUE ? Bitmap.Config.ARGB_8888 : Bitmap.Config.RGB_565);
+//                        Canvas canvas = new Canvas(iconBitmap);
+//                        d.setBounds(0, 0, d.getIntrinsicWidth(), d.getIntrinsicHeight());
+//                        d.draw(canvas);
+//                    }
+//                    emitter.onNext(bitmap2InputStream(iconBitmap));
+//                    emitter.onComplete();
+//                })
+//                .subscribeOn(Schedulers.io())
+//                .observeOn(AndroidSchedulers.mainThread())
+//                .subscribe(new Observer<InputStream>() {
+//                    @Override
+//                    public void onSubscribe(Disposable d) {
+//
+//                    }
+//
+//                    @Override
+//                    public void onNext(InputStream inputStream) {
+//                        callback.onDataReady(inputStream);
+//                    }
+//
+//                    @Override
+//                    public void onError(Throwable e) {
+//                        e.printStackTrace();
+//                        callback.onLoadFailed(new Exception(e));
+//                    }
+//
+//                    @Override
+//                    public void onComplete() {
+//
+//                    }
+//                });
 
-                    Bitmap iconBitmap;
-                    if (d instanceof BitmapDrawable) {
-                        iconBitmap = ((BitmapDrawable) d).getBitmap();
-                    } else {
-                        iconBitmap = Bitmap.createBitmap(d.getIntrinsicWidth(), d.getIntrinsicHeight(),
-                                d.getOpacity() != PixelFormat.OPAQUE ? Bitmap.Config.ARGB_8888 : Bitmap.Config.RGB_565);
-                        Canvas canvas = new Canvas(iconBitmap);
-                        d.setBounds(0, 0, d.getIntrinsicWidth(), d.getIntrinsicHeight());
-                        d.draw(canvas);
-                    }
-                    emitter.onNext(bitmap2InputStream(iconBitmap));
-                    emitter.onComplete();
-                })
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Observer<InputStream>() {
-                    @Override
-                    public void onSubscribe(Disposable d) {
+        try {
+            Drawable d = null;
+            if (installedAppInfo.isTempInstalled()) {
+                d = AppUtils.getAppIcon(context, installedAppInfo.getPackageName());
+            } else if (installedAppInfo.isTempXPK()){
+                d = AppUtils.getApkIcon(context, installedAppInfo.getApkFilePath());
+            }
+            if (d == null){
+                d = context.getResources().getDrawable(R.drawable.ic_file_apk);
+//                        callback.onLoadFailed(new Exception("Not Support!"));
+//                        return;
+            }
 
-                    }
+            Bitmap iconBitmap;
+            if (d instanceof BitmapDrawable) {
+                iconBitmap = ((BitmapDrawable) d).getBitmap();
+            } else {
+                iconBitmap = Bitmap.createBitmap(d.getIntrinsicWidth(), d.getIntrinsicHeight(),
+                        d.getOpacity() != PixelFormat.OPAQUE ? Bitmap.Config.ARGB_8888 : Bitmap.Config.RGB_565);
+                Canvas canvas = new Canvas(iconBitmap);
+                d.setBounds(0, 0, d.getIntrinsicWidth(), d.getIntrinsicHeight());
+                d.draw(canvas);
+            }
+            callback.onDataReady(bitmap2InputStream(iconBitmap));
+        } catch (Exception e) {
+            callback.onLoadFailed(e);
+        }
 
-                    @Override
-                    public void onNext(InputStream inputStream) {
-                        callback.onDataReady(inputStream);
-                    }
-
-                    @Override
-                    public void onError(Throwable e) {
-                        e.printStackTrace();
-                        callback.onLoadFailed(new Exception(e));
-                    }
-
-                    @Override
-                    public void onComplete() {
-
-                    }
-                });
     }
     // 将Bitmap转换成InputStream
     private InputStream bitmap2InputStream(Bitmap bm) {

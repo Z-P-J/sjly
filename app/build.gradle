@@ -101,7 +101,7 @@ dependencies {
 
     // RecyclerView
     implementation 'com.android.support:recyclerview-v7:28.0.0'
-    implementation 'com.zpj.widget:ZRecyclerView:1.1.6'
+    implementation 'com.zpj.widget:ZRecyclerView:1.2.0'
     implementation 'com.yanyusong.y_divideritemdecoration:y_divideritemdecoration:2.0'
 
     // up/down arrow
@@ -145,7 +145,7 @@ dependencies {
 //    debugImplementation 'com.didichuxing.doraemonkit:doraemonkit-leakcanary:3.0.8.0'
     implementation 'com.github.warkiz.widget:indicatorseekbar:2.1.2'
     implementation 'com.github.CB-ysx:CBRatingBar:3.0.1'
-    implementation 'com.github.florent37:expansionpanel:1.1.1'
+//    implementation 'com.github.florent37:expansionpanel:1.1.1'
     implementation 'com.github.jd-alexander:LikeButton:0.2.3'
 //    implementation 'com.github.todou:appbarspring:1.0.9'
 //    implementation 'com.github.a-voyager:AutoInstaller:v1.2'

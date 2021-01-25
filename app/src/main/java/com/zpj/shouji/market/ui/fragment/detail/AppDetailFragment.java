@@ -478,7 +478,7 @@ public class AppDetailFragment extends StateSwipeBackFragment
                     ZToast.warning("已预约，应用上架后将及时通知您");
                 }
             } else {
-                new AppUrlCenterListDialogFragment()
+                AppUrlCenterListDialogFragment.with()
                         .setAnchorView(fabComment)
                         .setAppDetailInfo(info)
                         .show(context);

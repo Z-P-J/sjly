@@ -5,7 +5,6 @@ import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
 import com.zpj.recyclerview.EasyViewHolder;
-import com.zpj.recyclerview.MultiAdapter;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.api.SearchApi;
 import com.zpj.shouji.market.glide.GlideRequestOptions;
@@ -22,13 +21,18 @@ public class GuessYouLikeMultiData extends BaseHeaderMultiData<GuessAppInfo> {
     }
 
     @Override
-    public boolean loadData(MultiAdapter adapter) {
+    public boolean loadData() {
         SearchApi.getGuessApi(obj -> {
+            if (obj.isEmpty()) {
+                showError();
+                return;
+            }
             list.clear();
             list.addAll(obj);
 //            adapter.notifyDataSetChanged();
-            int count = adapter.getItemCount();
-            adapter.notifyItemRangeInserted(count - getCount(), getCount());
+            showContent();
+//            int count = adapter.getItemCount();
+//            adapter.notifyItemRangeInserted(count - getCount(), getCount());
         });
         return false;
     }

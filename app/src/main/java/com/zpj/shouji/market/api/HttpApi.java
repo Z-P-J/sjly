@@ -57,17 +57,9 @@ public final class HttpApi {
         if (UserManager.getInstance().isLogin() && !url.contains("jsessionid=")) {
             connection.data("jsessionid", UserManager.getInstance().getSessionId());
         }
-        connection.onRedirect(new IHttp.OnRedirectListener() {
-                    @Override
-                    public boolean onRedirect(int redirectCount, String redirectUrl) {
-                        Log.d("connect", "onRedirect redirectUrl=" + redirectUrl);
-                        return true;
-                    }
-                })
-                .cookie(UserManager.getInstance().getCookie())
+        connection.cookie(UserManager.getInstance().getCookie())
 //                .header(HEADER_ACCEPT_ENCODING, VALUE_ACCEPT_ENCODING)
-                .referer(url)
-                .ignoreContentType(true);
+                .referer(url);
         return connection;
     }
 

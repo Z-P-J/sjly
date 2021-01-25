@@ -65,30 +65,13 @@ public class MainActivity extends BaseActivity { // implements IUiListener
     @Override
     protected void onNewIntent(Intent intent) {
         super.onNewIntent(intent);
-        ZToast.normal(intent.getStringExtra(Actions.ACTION));
-        if (intent.hasExtra(Actions.ACTION)) {
-            switch (intent.getStringExtra(Actions.ACTION)) {
-                case Actions.ACTION_SHOW_UPDATE:
-                    if (getTopFragment() instanceof ManagerFragment) {
-                        ((ManagerFragment) getTopFragment()).showUpdateFragment();
-                    } else if (!(getTopFragment() instanceof UpdateManagerFragment)) {
-                        UpdateManagerFragment.start(true);
-                    }
-                    break;
-                case Actions.ACTION_SHOW_DOWNLOAD:
-                    if (getTopFragment() instanceof ManagerFragment) {
-                        ((ManagerFragment) getTopFragment()).showDownloadFragment();
-                    } else if (!(getTopFragment() instanceof DownloadManagerFragment)) {
-                        DownloadManagerFragment.start(true);
-                    }
-                    break;
-            }
-        }
+        handleIntent(intent);
     }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_main);
 
         EventBus.onCropEvent(this, new RxBus.PairConsumer<File, Boolean>() {
@@ -149,6 +132,30 @@ public class MainActivity extends BaseActivity { // implements IUiListener
 //        }
     }
 
+    private void handleIntent(Intent intent) {
+        if (intent != null) {
+            ZToast.normal(intent.getStringExtra(Actions.ACTION));
+            if (intent.hasExtra(Actions.ACTION)) {
+                switch (intent.getStringExtra(Actions.ACTION)) {
+                    case Actions.ACTION_SHOW_UPDATE:
+                        if (getTopFragment() instanceof ManagerFragment) {
+                            ((ManagerFragment) getTopFragment()).showUpdateFragment();
+                        } else if (!(getTopFragment() instanceof UpdateManagerFragment)) {
+                            UpdateManagerFragment.start(true);
+                        }
+                        break;
+                    case Actions.ACTION_SHOW_DOWNLOAD:
+                        if (getTopFragment() instanceof ManagerFragment) {
+                            ((ManagerFragment) getTopFragment()).showDownloadFragment();
+                        } else if (!(getTopFragment() instanceof DownloadManagerFragment)) {
+                            DownloadManagerFragment.start(true);
+                        }
+                        break;
+                }
+            }
+        }
+    }
+
     private void showRequestPermissionPopup() {
         if (hasStoragePermissions(getApplicationContext())) {
             requestPermission();
@@ -180,6 +187,8 @@ public class MainActivity extends BaseActivity { // implements IUiListener
                         flContainer.setOnTouchListener(null);
 
                         mainFragment.animatedToShow();
+
+                        handleIntent(getIntent());
 
 
 

@@ -12,15 +12,13 @@ import com.bumptech.glide.Glide;
 import com.yanyusong.y_divideritemdecoration.Y_Divider;
 import com.yanyusong.y_divideritemdecoration.Y_DividerBuilder;
 import com.yanyusong.y_divideritemdecoration.Y_DividerItemDecoration;
+import com.zpj.http.core.IHttp;
 import com.zpj.http.parser.html.nodes.Document;
 import com.zpj.http.parser.html.nodes.Element;
 import com.zpj.http.parser.html.select.Elements;
 import com.zpj.recyclerview.EasyRecyclerView;
-import com.zpj.recyclerview.MultiAdapter;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.api.HttpApi;
-import com.zpj.shouji.market.api.HttpPreLoader;
-import com.zpj.shouji.market.api.PreloadApi;
 import com.zpj.shouji.market.glide.GlideRequestOptions;
 import com.zpj.shouji.market.glide.transformations.RoundedTransformation;
 import com.zpj.shouji.market.glide.transformations.blur.CropBlurTransformation;
@@ -40,19 +38,26 @@ public class CollectionMultiData extends RecyclerMultiData<CollectionInfo> {
     }
 
     @Override
-    public boolean loadData(final MultiAdapter adapter) {
-        if (HttpPreLoader.getInstance().hasKey(PreloadApi.HOME_COLLECTION)) {
-            HttpPreLoader.getInstance()
-                    .setLoadListener(PreloadApi.HOME_COLLECTION, document -> onGetDoc(adapter, document));
-        } else {
-            HttpApi.collectionRecommend()
-                    .onSuccess(data -> onGetDoc(adapter, data))
-                    .subscribe();
-        }
+    public boolean loadData() {
+//        if (HttpPreLoader.getInstance().hasKey(PreloadApi.HOME_COLLECTION)) {
+//            HttpPreLoader.getInstance()
+//                    .setLoadListener(PreloadApi.HOME_COLLECTION, document -> onGetDoc(document));
+//        } else {
+//
+//        }
+        HttpApi.collectionRecommend()
+                .onSuccess(data -> onGetDoc(data))
+                .onError(new IHttp.OnErrorListener() {
+                    @Override
+                    public void onError(Throwable throwable) {
+                        showError();
+                    }
+                })
+                .subscribe();
         return false;
     }
 
-    private void onGetDoc(MultiAdapter adapter, Document document) {
+    private void onGetDoc(Document document) {
         Log.d("CollectionRecommendCard", "onGetDoc document=" + document);
         Elements elements = document.select("item");
         for (Element element : elements) {
@@ -61,7 +66,8 @@ public class CollectionMultiData extends RecyclerMultiData<CollectionInfo> {
         if (list.size() % 2 != 0) {
             list.remove(list.size() - 1);
         }
-        adapter.notifyDataSetChanged();
+//        adapter.notifyDataSetChanged();
+        showContent();
     }
 
     @Override

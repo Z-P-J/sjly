@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="@dimen/dp_16"
+    >
+
+    <ImageView
+        android:adjustViewBounds="true"
+        android:id="@+id/iv_arrow"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:layout_centerVertical="true"
+        android:tint="?attr/textColorMajor"
+        android:src="@drawable/ic_enter_bak" />
+
+
+    <TextView
+        android:id="@+id/tv_title"
+        android:layout_toEndOf="@id/iv_arrow"
+        android:layout_toStartOf="@id/tv_download"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/title_game"
+        android:textColor="?attr/textColorMajor"
+        android:maxLines="1"
+        android:ellipsize="end"
+        android:layout_centerVertical="true"
+        android:layout_marginHorizontal="4dp"
+        />
+
+    <com.zpj.shouji.market.ui.widget.DownloadButton
+        android:id="@+id/tv_download"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="@string/text_download"
+        android:textSize="12sp"
+        android:textColor="@color/colorPrimary"
+        android:background="@drawable/bg_download_button"
+        android:layout_alignParentEnd="true"
+        android:layout_centerVertical="true"
+        android:paddingStart="12dp"
+        android:paddingEnd="12dp"
+        android:paddingTop="4dp"
+        android:paddingBottom="4dp"
+        android:gravity="center"
+        />
+
+</RelativeLayout>

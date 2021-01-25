@@ -191,8 +191,8 @@ public abstract class BaseRecommendFragment extends StateFragment
 
         initMultiData(multiDataList);
 
-        MultiRecyclerViewWrapper wrapper = new MultiRecyclerViewWrapper(recyclerView);
-        wrapper.setData(multiDataList)
+        MultiRecyclerViewWrapper.with(recyclerView)
+                .setData(multiDataList)
                 .setFooterView(LayoutInflater.from(context).inflate(R.layout.item_footer_home, null, false))
 //                .setHeaderView(getHeaderLayoutId(), this)
                 .setHeaderView(header)

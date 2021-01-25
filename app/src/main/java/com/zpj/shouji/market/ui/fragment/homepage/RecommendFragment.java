@@ -142,8 +142,8 @@ public class RecommendFragment extends StateFragment {
 
             list.add(new GuessYouLikeMultiData("猜你喜欢"));
 
-            MultiRecyclerViewWrapper wrapper = new MultiRecyclerViewWrapper(recyclerView);
-            wrapper.setData(list)
+            MultiRecyclerViewWrapper.with(recyclerView)
+                    .setData(list)
                     .setFooterView(LayoutInflater.from(context).inflate(R.layout.item_footer_home, null, false))
                     .setHeaderView(mBanner)
                     .build();

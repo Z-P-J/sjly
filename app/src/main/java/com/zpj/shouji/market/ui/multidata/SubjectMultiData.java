@@ -12,9 +12,8 @@ import com.yanyusong.y_divideritemdecoration.Y_DividerBuilder;
 import com.yanyusong.y_divideritemdecoration.Y_DividerItemDecoration;
 import com.zpj.http.parser.html.select.Elements;
 import com.zpj.recyclerview.EasyRecyclerView;
-import com.zpj.recyclerview.MultiAdapter;
 import com.zpj.shouji.market.R;
-import com.zpj.shouji.market.api.HttpPreLoader;
+import com.zpj.shouji.market.api.HttpApi;
 import com.zpj.shouji.market.api.PreloadApi;
 import com.zpj.shouji.market.glide.GlideRequestOptions;
 import com.zpj.shouji.market.model.SubjectInfo;
@@ -29,15 +28,28 @@ public class SubjectMultiData extends RecyclerMultiData<SubjectInfo> {
     }
 
     @Override
-    public boolean loadData(final MultiAdapter adapter) {
-        HttpPreLoader.getInstance()
-                .setLoadListener(PreloadApi.HOME_SUBJECT, document -> {
+    public boolean loadData() {
+//        HttpPreLoader.getInstance()
+//                .setLoadListener(PreloadApi.HOME_SUBJECT, document -> {
+//                    Elements elements = document.select("item");
+//                    for (int i = 0; i < elements.size(); i++) {
+//                        list.add(BeanUtils.createBean(elements.get(i), SubjectInfo.class));
+//                    }
+////                    adapter.notifyDataSetChanged();
+//                    showContent();
+//                });
+        HttpApi.get(PreloadApi.HOME_SUBJECT.getUrl())
+                .toHtml()
+                .onSuccess(document -> {
                     Elements elements = document.select("item");
                     for (int i = 0; i < elements.size(); i++) {
                         list.add(BeanUtils.createBean(elements.get(i), SubjectInfo.class));
                     }
-                    adapter.notifyDataSetChanged();
-                });
+//                    adapter.notifyDataSetChanged();
+                    showContent();
+                })
+                .onError(throwable -> showError())
+                .subscribe();
         return false;
     }
 

@@ -24,16 +24,16 @@
         android:textSize="14sp"
         android:textColor="?attr/textColorMajor"
         android:layout_toEndOf="@id/img_icon"
-        android:layout_toStartOf="@id/img_arrow"
+        android:layout_toStartOf="@id/iv_arrow"
         android:layout_centerVertical="true"
         android:layout_marginHorizontal="@dimen/dp_8"
         />
 
     <ImageView
-        android:id="@+id/img_arrow"
+        android:id="@+id/iv_arrow"
         android:layout_width="24dp"
         android:layout_height="24dp"
-        android:src="@drawable/ic_enter"
+        android:src="@drawable/ic_enter_bak"
         android:layout_alignParentEnd="true"
         android:layout_centerVertical="true"
         android:tint="?attr/textColorMajor"

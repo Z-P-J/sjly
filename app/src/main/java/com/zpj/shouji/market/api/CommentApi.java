@@ -66,7 +66,6 @@ public class CommentApi {
                                 .data("content", content)
                                 .data(dataList)
                                 .cookie(UserManager.getInstance().getCookie())
-//                                .ignoreContentType(true)
                                 .toXml();
                     }
                 })

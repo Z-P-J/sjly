@@ -10,7 +10,6 @@ import com.yanyusong.y_divideritemdecoration.Y_DividerBuilder;
 import com.yanyusong.y_divideritemdecoration.Y_DividerItemDecoration;
 import com.zpj.fragmentation.dialog.impl.AlertDialogFragment;
 import com.zpj.recyclerview.EasyRecyclerView;
-import com.zpj.recyclerview.MultiAdapter;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.api.BookingApi;
 import com.zpj.shouji.market.glide.GlideRequestOptions;
@@ -93,11 +92,16 @@ public class GameBookingMultiData extends RecyclerMultiData<BookingAppInfo> {
     }
 
     @Override
-    public boolean loadData(MultiAdapter adapter) {
+    public boolean loadData() {
         BookingApi.latestBookingApi(dataList -> {
+            if (dataList.isEmpty()) {
+                showError();
+                return;
+            }
             list.clear();
             list.addAll(dataList);
-            adapter.notifyDataSetChanged();
+//            adapter.notifyDataSetChanged();
+            showContent();
         });
         return false;
     }
