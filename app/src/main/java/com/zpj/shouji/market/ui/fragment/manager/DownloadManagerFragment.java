@@ -26,6 +26,8 @@ public class DownloadManagerFragment extends BaseSwipeBackFragment
         implements DownloadManager.DownloadManagerListener {
 
     private final List<MultiData<?>> downloadMultiDataList = new ArrayList<>();
+    private final DownloadMultiData downloadingMultiData = new DownloadMultiData("下载中");
+    private final DownloadMultiData downloadedMultiData = new DownloadMultiData("已完成");
 
     private MultiRecyclerViewWrapper recyclerViewWrapper;
 
@@ -39,6 +41,11 @@ public class DownloadManagerFragment extends BaseSwipeBackFragment
 
     public static void start(boolean showToolbar) {
         start(DownloadManagerFragment.newInstance(showToolbar));
+    }
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
     }
 
     @Override
@@ -69,11 +76,6 @@ public class DownloadManagerFragment extends BaseSwipeBackFragment
     }
 
     @Override
-    public void onLazyInitView(@Nullable Bundle savedInstanceState) {
-        super.onLazyInitView(savedInstanceState);
-    }
-
-    @Override
     public void onDestroy() {
         ZDownloader.getDownloadManager().removeDownloadManagerListener(this);
         super.onDestroy();
@@ -81,17 +83,20 @@ public class DownloadManagerFragment extends BaseSwipeBackFragment
 
     @Override
     public void onMissionAdd(BaseMission<?> mission) {
-        loadDownloadMissions();
+//        loadDownloadMissions();
+        downloadingMultiData.addMission(mission);
     }
 
     @Override
     public void onMissionDelete(BaseMission<?> mission) {
-        loadDownloadMissions();
+//        loadDownloadMissions();
     }
 
     @Override
     public void onMissionFinished(BaseMission<?> mission) {
-        loadDownloadMissions();
+//        loadDownloadMissions();
+        downloadingMultiData.removeMission(mission);
+        downloadedMultiData.addMission(mission);
     }
 
     private void loadDownloadMissions() {
@@ -111,8 +116,12 @@ public class DownloadManagerFragment extends BaseSwipeBackFragment
                                 }
                             }
 
-                            downloadMultiDataList.add(new DownloadMultiData("下载中", downloadingList));
-                            downloadMultiDataList.add(new DownloadMultiData("已完成", downloadedList));
+                            downloadingMultiData.setData(downloadingList);
+                            downloadedMultiData.setData(downloadedList);
+
+                            downloadMultiDataList.clear();
+                            downloadMultiDataList.add(downloadingMultiData);
+                            downloadMultiDataList.add(downloadedMultiData);
                             emitter.onComplete();
                         })
                         .onComplete(new IHttp.OnCompleteListener() {

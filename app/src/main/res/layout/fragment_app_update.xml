@@ -48,24 +48,7 @@
         android:layout_below="@id/layout_top"
         />
 
-    <TextView
-        android:id="@+id/text_empty"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="所有应用均为最新版"
-        android:layout_centerInParent="true"
-        android:textColor="@color/colorPrimary"
-        android:visibility="gone"
-        />
-
-    <TextView
-        android:id="@+id/text_error"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="检查更新失败！点击重试"
-        android:layout_centerInParent="true"
-        android:textColor="@color/colorPrimary"
-        android:visibility="gone"
-        />
+    <View style="@style/layout_shadow_bottom"
+        android:layout_below="@+id/layout_top" />
 
 </RelativeLayout>

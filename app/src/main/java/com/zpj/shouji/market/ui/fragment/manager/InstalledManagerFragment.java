@@ -1,20 +1,19 @@
 package com.zpj.shouji.market.ui.fragment.manager;
 
 import android.animation.Animator;
-import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
-import android.animation.ValueAnimator;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.DecelerateInterpolator;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.github.zagum.expandicon.ExpandIconView;
 import com.zpj.fragmentation.dialog.impl.ArrowMenuDialogFragment;
 import com.zpj.notification.ZNotify;
 import com.zpj.recyclerview.EasyAdapter;
@@ -52,17 +51,12 @@ public class InstalledManagerFragment extends RecyclerLayoutFragment<InstalledAp
 
     private SmoothCheckBox checkBox;
 
-    private TextView infoTextView;
-    private TextView titleTextView;
+    private TextView tvInfo;
+    private TextView tvSort;
+    private ProgressBar progressBar;
     private RelativeLayout bottomLayout;
-    private GradientButton uninstallBtn;
-    private GradientButton backupBtn;
 
     private int sortPosition = 0;
-
-    private boolean isLoading = false;
-
-    private boolean showToolbar = false;
 
     public static InstalledManagerFragment newInstance(boolean showToolbar) {
         Bundle args = new Bundle();
@@ -91,17 +85,16 @@ public class InstalledManagerFragment extends RecyclerLayoutFragment<InstalledAp
         return true;
     }
 
-//    @Override
-//    protected void initStatusBar() {
-//        if (showToolbar) {
-//            ThemeUtils.initStatusBar(this);
-//        }
-//    }
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        AppInstalledManager.getInstance().loadApps();
+    }
 
     @Override
     protected void initView(View view, @Nullable Bundle savedInstanceState) {
         super.initView(view, savedInstanceState);
-        showToolbar = getArguments() != null && getArguments().getBoolean(Keys.SHOW_TOOLBAR, false);
+        boolean showToolbar = getArguments() != null && getArguments().getBoolean(Keys.SHOW_TOOLBAR, false);
         if (showToolbar) {
             toolbar.setVisibility(View.VISIBLE);
 //            findViewById(R.id.shadow_view).setVisibility(View.VISIBLE);
@@ -110,29 +103,33 @@ public class InstalledManagerFragment extends RecyclerLayoutFragment<InstalledAp
             setSwipeBackEnable(false);
         }
 
-        infoTextView = view.findViewById(R.id.text_info);
-        infoTextView.setText("扫描中...");
-        titleTextView = view.findViewById(R.id.text_title);
-        titleTextView.setOnClickListener(v -> showFilterPopWindow());
+        tvInfo = findViewById(R.id.tv_info);
+        tvInfo.setText("扫描中...");
+        tvSort = findViewById(R.id.tv_sort);
+        progressBar = findViewById(R.id.progress_bar);
+        ExpandIconView expandIconView = findViewById(R.id.expand_icon);
+        View.OnClickListener listener = v -> showFilterPopWindow(expandIconView);
+        expandIconView.setOnClickListener(listener);
+        tvSort.setOnClickListener(listener);
 
-        bottomLayout = view.findViewById(R.id.layout_bottom);
+        bottomLayout = findViewById(R.id.layout_bottom);
 
-        uninstallBtn = view.findViewById(R.id.btn_uninstall);
-        uninstallBtn.setOnClickListener(v -> {
+        GradientButton btnUninstall = findViewById(R.id.btn_uninstall);
+        btnUninstall.setOnClickListener(v -> {
             ZToast.normal(recyclerLayout.getSelectedPositionList().toString());
             for (InstalledAppInfo info : recyclerLayout.getSelectedItem()) {
                 AppUtils.uninstallApk(_mActivity, info.getPackageName());
             }
         });
-        backupBtn = view.findViewById(R.id.btn_backup);
-        backupBtn.setOnClickListener(v -> {
+        GradientButton btnBackup = findViewById(R.id.btn_backup);
+        btnBackup.setOnClickListener(v -> {
             ZToast.normal(recyclerLayout.getSelectedPositionList().toString());
             AppBackupManager.getInstance()
                     .addAppBackupListener(this)
                     .startBackup(recyclerLayout.getSelectedItem());
         });
 
-        checkBox = view.findViewById(R.id.checkbox);
+        checkBox = findViewById(R.id.checkbox);
         checkBox.setChecked(false);
         checkBox.setOnClickListener(v -> {
             if (checkBox.isChecked()) {
@@ -144,9 +141,15 @@ public class InstalledManagerFragment extends RecyclerLayoutFragment<InstalledAp
     }
 
     @Override
+    public void onLazyInitView(@Nullable Bundle savedInstanceState) {
+        super.onLazyInitView(savedInstanceState);
+        loadInstallApps();
+    }
+
+    @Override
     public void onDestroy() {
+        AppInstalledManager.getInstance().onDestroy();
         AppBackupManager.getInstance().removeAppBackupListener(this);
-        AppInstalledManager.getInstance().removeListener(this);
         super.onDestroy();
     }
 
@@ -162,24 +165,23 @@ public class InstalledManagerFragment extends RecyclerLayoutFragment<InstalledAp
                         } else {
                             exitSelectModeAnim();
                         }
-                        infoTextView.setText("共计：" + data.size() + " | 已选：" + recyclerLayout.getSelectedCount());
                     }
 
                     @Override
                     public void onSelectChange(List<InstalledAppInfo> list, int position, boolean isChecked) {
-                        infoTextView.setText("共计：" + data.size() + " | 已选：" + recyclerLayout.getSelectedCount());
+                        tvInfo.setText("共计：" + data.size() + " | 已选：" + recyclerLayout.getSelectedCount());
                     }
 
                     @Override
                     public void onSelectAll() {
                         checkBox.setChecked(true, true);
-                        infoTextView.setText("共计：" + data.size() + " | 已选：" + recyclerLayout.getSelectedCount());
+                        tvInfo.setText("共计：" + data.size() + " | 已选：" + recyclerLayout.getSelectedCount());
                     }
 
                     @Override
                     public void onUnSelectAll() {
                         checkBox.setChecked(false, true);
-                        infoTextView.setText("共计：" + data.size() + " | 已选：0");
+                        tvInfo.setText("共计：" + data.size() + " | 已选：0");
                     }
 
                     @Override
@@ -188,19 +190,6 @@ public class InstalledManagerFragment extends RecyclerLayoutFragment<InstalledAp
                     }
                 });
     }
-
-//    @Override
-//    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-//        super.onActivityResult(requestCode, resultCode, data);
-//        if (requestCode == AppUtil.UNINSTALL_REQUEST_CODE) {
-//            if (resultCode == Activity.RESULT_OK) {
-//                ZToast.success("应用卸载成功！");
-//                loadInstallApps();
-//            } else if (resultCode == Activity.RESULT_CANCELED) {
-//                ZToast.normal("应用卸载取消！");
-//            }
-//        }
-//    }
 
     @Override
     public void onClick(EasyViewHolder holder, View view, InstalledAppInfo data) {
@@ -224,13 +213,9 @@ public class InstalledManagerFragment extends RecyclerLayoutFragment<InstalledAp
     @Override
     public void onBindViewHolder(EasyViewHolder holder, List<InstalledAppInfo> list, int position, List<Object> payloads) {
         InstalledAppInfo appInfo = list.get(position);
-        Log.d("onBindViewHolder", "name=" + appInfo.getName());
-        Log.d("onBindViewHolder", "size=" + appInfo.getFileLength());
-
-
         GlideApp.with(context).load(appInfo).into(holder.getImageView(R.id.iv_icon));
 
-        holder.getTextView(R.id.tv_name).setText(appInfo.getName());
+        holder.setText(R.id.tv_name, appInfo.getName());
         String idStr = AppUpdateManager.getInstance().getAppIdAndType(appInfo.getPackageName());
         String info;
         if (idStr == null) {
@@ -238,26 +223,14 @@ public class InstalledManagerFragment extends RecyclerLayoutFragment<InstalledAp
         } else {
             info = "已收录";
         }
-        holder.getTextView(R.id.tv_info).setText(appInfo.getVersionName() + " | " + appInfo.getFormattedAppSize() + " | " + info);
+        holder.setText(R.id.tv_info, appInfo.getVersionName() + " | " + appInfo.getFormattedAppSize() + " | " + info);
 
-        holder.getView(R.id.layout_right).setOnClickListener(v -> {
-            onMenuClicked(v, appInfo);
-        });
+        holder.setOnClickListener(R.id.layout_right, view -> onMenuClicked(view, appInfo));
     }
 
     @Override
     public boolean onLoadMore(EasyAdapter.Enabled enabled, int currentPage) {
-        if (isLoading) {
-            return false;
-        }
-        isLoading = true;
-        postOnEnterAnimationEnd(new Runnable() {
-            @Override
-            public void run() {
-                loadInstallApps();
-            }
-        });
-        return true;
+        return false;
     }
 
     @Override
@@ -287,11 +260,14 @@ public class InstalledManagerFragment extends RecyclerLayoutFragment<InstalledAp
 
     @Override
     public void onLoadAppFinished() {
-        data.clear();
-        data.addAll(USER_APP_LIST);
-        titleTextView.setText("用户应用");
-        infoTextView.setText("共计：" + data.size() + " | 已选：0");
-        recyclerLayout.notifyDataSetChanged();
+        postOnEnterAnimationEnd(() -> {
+            data.clear();
+            data.addAll(USER_APP_LIST);
+            tvSort.setText("用户应用");
+            tvInfo.setText("共计：" + data.size());
+            recyclerLayout.showContent();
+            progressBar.setVisibility(View.GONE);
+        });
     }
 
     @Override
@@ -307,14 +283,14 @@ public class InstalledManagerFragment extends RecyclerLayoutFragment<InstalledAp
     @Override
     public void onAppBackupSuccess(int totalCount, int finishedCount, InstalledAppInfo appInfo) {
         if (totalCount == finishedCount) {
-            ZNotify.with(getContext())
+            ZNotify.with(context)
                     .buildNotify()
                     .setContentTitle(getString(R.string.app_name))
                     .setContentText(totalCount + "个应用备份完成！")
                     .setId(hashCode())
                     .show();
         } else {
-            ZNotify.with(getContext())
+            ZNotify.with(context)
                     .buildProgressNotify()
                     .setProgress(totalCount, finishedCount, false)
                     .setContentTitle("备份中..." + appInfo.getName() + "备份成功！")
@@ -327,7 +303,7 @@ public class InstalledManagerFragment extends RecyclerLayoutFragment<InstalledAp
     @Override
     public void onAppBackupFailed(int totalCount, int finishedCount, InstalledAppInfo appInfo) {
         ZToast.error(appInfo.getName() + "备份失败！");
-        ZNotify.with(getContext())
+        ZNotify.with(context)
                 .buildNotify()
                 .setContentTitle(getString(R.string.app_name))
                 .setContentText(appInfo.getName() + "备份失败！")
@@ -337,23 +313,24 @@ public class InstalledManagerFragment extends RecyclerLayoutFragment<InstalledAp
 
 
     private void loadInstallApps() {
+        progressBar.setVisibility(View.VISIBLE);
+        recyclerLayout.showLoading();
         USER_APP_LIST.clear();
         SYSTEM_APP_LIST.clear();
         BACKUP_APP_LIST.clear();
         FORBID_APP_LIST.clear();
         HIDDEN_APP_LIST.clear();
-        AppInstalledManager.getInstance()
-                .addListener(this)
-                .loadApps(context);
+        AppInstalledManager.getInstance().loadApps(this);
     }
 
-    private void showFilterPopWindow() {
+    private void showFilterPopWindow(ExpandIconView expandIconView) {
+        expandIconView.switchState();
         new RecyclerPartShadowDialogFragment()
                 .addItems("用户应用", "系统应用", "已备份", "已禁用", "已隐藏")
                 .setSelectedItem(sortPosition)
                 .setOnItemClickListener((view, title, position) -> {
                     sortPosition = position;
-                    titleTextView.setText(title);
+                    tvSort.setText(title);
                     data.clear();
                     switch (position) {
                         case 0:
@@ -374,10 +351,11 @@ public class InstalledManagerFragment extends RecyclerLayoutFragment<InstalledAp
                         default:
                             break;
                     }
-                    infoTextView.setText("共计：" + data.size() + " | 已选：0");
+                    tvInfo.setText("共计：" + data.size() + " | 已选：0");
                     recyclerLayout.notifyDataSetChanged();
                 })
-                .setAttachView(titleTextView)
+                .setAttachView(tvSort)
+                .setOnDismissListener(expandIconView::switchState)
                 .show(context);
     }
 
@@ -410,42 +388,55 @@ public class InstalledManagerFragment extends RecyclerLayoutFragment<InstalledAp
     }
 
     private void enterSelectModeAnim() {
-        ZToast.normal("enterSelectModeAnim");
+        tvInfo.setText("共计：" + data.size() + " | 已选：" + recyclerLayout.getSelectedCount());
         if (bottomLayout.getVisibility() == View.VISIBLE)
             return;
         bottomLayout.setVisibility(View.VISIBLE);
 
+        ViewGroup.MarginLayoutParams params = (ViewGroup.MarginLayoutParams) recyclerLayout.getLayoutParams();
+
         int bottomLayoutHeight = bottomLayout.getHeight() == 0 ? ScreenUtils.dp2pxInt(context, 48) : bottomLayout.getHeight();
         ObjectAnimator translationY = ObjectAnimator.ofFloat(bottomLayout, "translationY", bottomLayoutHeight, 0);
         translationY.setInterpolator(new DecelerateInterpolator());
-
-
-        ValueAnimator valueAnimator = ValueAnimator.ofFloat(0, bottomLayoutHeight);
-        int height1 = recyclerLayout.getHeight();
-        int height = ((ViewGroup) recyclerLayout.getParent()).getMeasuredHeight() - recyclerLayout.getTop();
-        Log.d("enterSelectModeAnim", "height1=" + height1);
-        Log.d("enterSelectModeAnim", "height=" + height);
-        Log.d("enterSelectModeAnim", "bottomLayout.getHeight()=" + bottomLayout.getHeight());
-        valueAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
-            @Override
-            public void onAnimationUpdate(ValueAnimator animation) {
-                float value = (float) animation.getAnimatedValue();
-                Log.d("enterSelectModeAnim", "value=" + value);
-                ViewGroup.LayoutParams params = recyclerLayout.getLayoutParams();
-                params.height = (int) (height - value);
-                recyclerLayout.setLayoutParams(params);
-            }
+        translationY.addUpdateListener(valueAnimator -> {
+            float value = (float) valueAnimator.getAnimatedValue();
+            params.bottomMargin = bottomLayoutHeight - (int) value;
+            recyclerLayout.setLayoutParams(params);
         });
+        translationY.setDuration(500);
+        translationY.start();
 
-        AnimatorSet animatorSet = new AnimatorSet();
-        animatorSet.setDuration(500);
-        animatorSet.playTogether(valueAnimator, translationY);
-        animatorSet.start();
+
+//        ValueAnimator valueAnimator = ValueAnimator.ofFloat(0, bottomLayoutHeight);
+//        int height1 = recyclerLayout.getHeight();
+//        int height = ((ViewGroup) recyclerLayout.getParent()).getMeasuredHeight() - recyclerLayout.getTop();
+//        Log.d("enterSelectModeAnim", "height1=" + height1);
+//        Log.d("enterSelectModeAnim", "height=" + height);
+//        Log.d("enterSelectModeAnim", "bottomLayout.getHeight()=" + bottomLayout.getHeight());
+//
+//        valueAnimator.addUpdateListener(animation -> {
+//            float value = (float) animation.getAnimatedValue();
+//            Log.d("enterSelectModeAnim", "value=" + value);
+////            ViewGroup.LayoutParams params = recyclerLayout.getLayoutParams();
+////            params.height = (int) (height - value);
+////            recyclerLayout.setLayoutParams(params);
+//
+//            params.bottomMargin = (int) value;
+//            recyclerLayout.setLayoutParams(params);
+//        });
+//
+//        AnimatorSet animatorSet = new AnimatorSet();
+//        animatorSet.setDuration(500);
+//        animatorSet.playTogether(valueAnimator, translationY);
+//        animatorSet.start();
     }
 
     private void exitSelectModeAnim() {
+        tvInfo.setText("共计：" + data.size());
         if (bottomLayout.getVisibility() != View.VISIBLE)
             return;
+
+        ViewGroup.MarginLayoutParams params = (ViewGroup.MarginLayoutParams) recyclerLayout.getLayoutParams();
 
         float y = ((ViewGroup) bottomLayout.getParent()).getMeasuredHeight() - bottomLayout.getTop();
         ObjectAnimator translationY = ObjectAnimator.ofFloat(bottomLayout, "translationY", 0, y);
@@ -453,18 +444,17 @@ public class InstalledManagerFragment extends RecyclerLayoutFragment<InstalledAp
         translationY.addListener(new Animator.AnimatorListener() {
             @Override
             public void onAnimationStart(Animator animation) {
-                ZToast.normal("onAnimationStart");
+
             }
 
             @Override
             public void onAnimationEnd(Animator animation) {
-                ZToast.normal("onAnimationEnd");
                 bottomLayout.setVisibility(View.GONE);
             }
 
             @Override
             public void onAnimationCancel(Animator animation) {
-                ZToast.normal("onAnimationCancel");
+
             }
 
             @Override
@@ -472,25 +462,33 @@ public class InstalledManagerFragment extends RecyclerLayoutFragment<InstalledAp
 
             }
         });
-
-        ValueAnimator valueAnimator = ValueAnimator.ofFloat(0, y);
-        int height = recyclerLayout.getHeight();
-        valueAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
-            @Override
-            public void onAnimationUpdate(ValueAnimator animation) {
-                float value = (float) animation.getAnimatedValue();
-                Log.d("exitSelectModeAnim", "value=" + value);
-                ViewGroup.LayoutParams params = recyclerLayout.getLayoutParams();
-                params.height = (int) (height + value);
-                recyclerLayout.setLayoutParams(params);
-            }
+        translationY.addUpdateListener(valueAnimator -> {
+            float value = (float) valueAnimator.getAnimatedValue();
+            params.bottomMargin = (int) (y - value);
+            recyclerLayout.setLayoutParams(params);
         });
+        translationY.setDuration(500);
+        translationY.start();
 
-
-        AnimatorSet animatorSet = new AnimatorSet();
-        animatorSet.setDuration(500);
-        animatorSet.playTogether(valueAnimator, translationY);
-        animatorSet.start();
+//        ValueAnimator valueAnimator = ValueAnimator.ofFloat(y, 0);
+//        int height = recyclerLayout.getHeight();
+//
+//        valueAnimator.addUpdateListener(animation -> {
+//            float value = (float) animation.getAnimatedValue();
+//            Log.d("exitSelectModeAnim", "value=" + value);
+////            ViewGroup.LayoutParams params = recyclerLayout.getLayoutParams();
+////            params.height = (int) (height + value);
+////            recyclerLayout.setLayoutParams(params);
+//
+//            params.bottomMargin = (int) value;
+//            recyclerLayout.setLayoutParams(params);
+//        });
+//
+//
+//        AnimatorSet animatorSet = new AnimatorSet();
+//        animatorSet.setDuration(500);
+//        animatorSet.playTogether(valueAnimator, translationY);
+//        animatorSet.start();
     }
 
 }

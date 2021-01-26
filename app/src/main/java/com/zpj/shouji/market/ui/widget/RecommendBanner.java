@@ -2,6 +2,7 @@ package com.zpj.shouji.market.ui.widget;
 
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.graphics.drawable.Drawable;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
@@ -34,6 +35,7 @@ import com.zpj.shouji.market.ui.fragment.ToolBarAppListFragment;
 import com.zpj.shouji.market.ui.fragment.collection.CollectionRecommendListFragment;
 import com.zpj.shouji.market.ui.fragment.detail.AppDetailFragment;
 import com.zpj.shouji.market.ui.fragment.subject.SubjectRecommendListFragment;
+import com.zpj.shouji.market.utils.EventBus;
 import com.zpj.utils.ScreenUtils;
 
 import java.util.ArrayList;
@@ -124,9 +126,6 @@ public class RecommendBanner extends LinearLayout implements View.OnClickListene
     }
 
     private void onGetDoc(Document document, Runnable runnable) {
-        if (runnable != null) {
-            runnable.run();
-        }
         Elements elements = document.select("item");
         bannerItemList.clear();
         for (Element element : elements) {
@@ -144,7 +143,9 @@ public class RecommendBanner extends LinearLayout implements View.OnClickListene
         }
         banner.loadImagePaths(bannerItemList);
         banner.startAutoPlay();
-
+        if (runnable != null) {
+            runnable.run();
+        }
     }
 
     public void onResume() {
@@ -190,6 +191,18 @@ public class RecommendBanner extends LinearLayout implements View.OnClickListene
                     public void onResourceReady(@NonNull Bitmap resource, @Nullable Transition<? super Bitmap> transition) {
 //                        getColor(resource);
                         ivBg.setImageBitmap(resource);
+                    }
+
+                    @Override
+                    public void onLoadStarted(@Nullable Drawable placeholder) {
+                        super.onLoadStarted(placeholder);
+                        ivBg.setImageDrawable(placeholder);
+                    }
+
+                    @Override
+                    public void onLoadFailed(@Nullable Drawable errorDrawable) {
+                        super.onLoadFailed(errorDrawable);
+                        ivBg.setImageDrawable(errorDrawable);
                     }
                 });
     }

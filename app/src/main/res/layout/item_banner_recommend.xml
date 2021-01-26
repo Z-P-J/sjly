@@ -12,7 +12,7 @@
         android:layout_height="match_parent"
         app:cardElevation="4dp"
         app:cardUseCompatPadding="true"
-        app:cardCornerRadius="8dp"
+        app:cardCornerRadius="16dp"
         >
 
         <ImageView

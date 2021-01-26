@@ -106,10 +106,12 @@ public class HomeFragment extends SkinFragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 //        EventBus.onSkinChangeEvent(this, s -> initStatusBar());
+        alpha = 0f;
         EventBus.onScrollEvent(this, new RxBus.SingleConsumer<Float>() {
             @Override
             public void onAccept(Float percent) throws Exception {
                 alpha = percent;
+                Log.d("HomeFragment", "onScrollEvent percent=" + percent);
                 initStatusBar();
             }
         });
@@ -239,9 +241,6 @@ public class HomeFragment extends SkinFragment {
     @Override
     public void onSupportVisible() {
         super.onSupportVisible();
-//        if (blurred != null) {
-//            blurred.startBlur();
-//        }
         postDelayed(new Runnable() {
             @Override
             public void run() {
@@ -265,15 +264,12 @@ public class HomeFragment extends SkinFragment {
         boolean isDark = alpha < 0.5f && isLazyInit();
         boolean isNightMode = AppConfig.isNightMode();
         if (isNightMode) {
-//            ColorChangeEvent.post(isDark);
             EventBus.sendColorChangeEvent(isDark);
         } else {
             if (viewPager.getCurrentItem() != 0) {
                 isDark = false;
-//                ColorChangeEvent.post(false);
                 EventBus.sendColorChangeEvent(false);
             } else {
-//                ColorChangeEvent.post(isDark);
                 EventBus.sendColorChangeEvent(isDark);
             }
         }

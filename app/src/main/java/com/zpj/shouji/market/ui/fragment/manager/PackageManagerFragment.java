@@ -10,10 +10,11 @@ import android.support.annotation.Nullable;
 import android.util.Log;
 import android.view.View;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.github.zagum.expandicon.ExpandIconView;
 import com.zpj.fragmentation.dialog.impl.ArrowMenuDialogFragment;
-import com.zpj.fragmentation.dialog.model.OptionMenu;
 import com.zpj.recyclerview.EasyAdapter;
 import com.zpj.recyclerview.EasyRecyclerLayout;
 import com.zpj.recyclerview.EasyViewHolder;
@@ -35,7 +36,6 @@ import org.xmlpull.v1.XmlPullParserException;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
@@ -45,14 +45,13 @@ public class PackageManagerFragment extends RecyclerLayoutFragment<InstalledAppI
 
     private static final String TAG = "PackageFragment";
 
-    private TextView sortTextView;
-    private TextView infoTextView;
+    private ProgressBar progressBar;
+    private TextView tvSort;
+    private TextView tvInfo;
 
     private int sortPosition = 0;
 
     private int lastProgress = 0;
-
-    private boolean showToolbar = false;
 
     public static PackageManagerFragment newInstance(boolean showToolbar) {
         Bundle args = new Bundle();
@@ -81,27 +80,23 @@ public class PackageManagerFragment extends RecyclerLayoutFragment<InstalledAppI
         return true;
     }
 
-//    @Override
-//    protected void initStatusBar() {
-//        if (showToolbar) {
-//            ThemeUtils.initStatusBar(this);
-//        }
-//    }
-
     @Override
     protected void initView(View view, @Nullable Bundle savedInstanceState) {
         super.initView(view, savedInstanceState);
-        showToolbar = getArguments() != null && getArguments().getBoolean(Keys.SHOW_TOOLBAR, false);
+        boolean showToolbar = getArguments() != null && getArguments().getBoolean(Keys.SHOW_TOOLBAR, false);
         if (showToolbar) {
             toolbar.setVisibility(View.VISIBLE);
-//            findViewById(R.id.shadow_view).setVisibility(View.VISIBLE);
             setToolbarTitle("安装包管理");
         } else {
             setSwipeBackEnable(false);
         }
-        sortTextView = view.findViewById(R.id.text_sort);
-        sortTextView.setOnClickListener(v -> showSortPopWindow());
-        infoTextView = view.findViewById(R.id.text_info);
+        tvSort = findViewById(R.id.tv_sort);
+        ExpandIconView expandIconView = findViewById(R.id.expand_icon);
+        View.OnClickListener listener = v -> showSortPopWindow(expandIconView);
+        expandIconView.setOnClickListener(listener);
+        tvSort.setOnClickListener(listener);
+        tvInfo = findViewById(R.id.tv_info);
+        progressBar = findViewById(R.id.progress_bar);
     }
 
     @Override
@@ -198,20 +193,30 @@ public class PackageManagerFragment extends RecyclerLayoutFragment<InstalledAppI
                     @Override
                     public void onScanBegin() {
                         Log.d(TAG, "onScanBegin");
-                        post(() -> infoTextView.setText("扫描准备中..."));
+                        post(() -> {
+                            tvInfo.setText("扫描中...");
+                            progressBar.setVisibility(View.VISIBLE);
+                        });
                     }
 
                     @Override
                     public void onScanEnd() {
                         Log.d(TAG, "onScanEnd");
-                        post(() -> infoTextView.setText("共" + data.size() + "个安装包"));
+                        post(() -> {
+                            tvInfo.setText("共" + data.size() + "个安装包");
+                            progressBar.setVisibility(View.GONE);
+                            sort();
+                        });
                     }
 
                     @Override
                     public void onScanning(String paramString, int progress) {
                         if (progress != lastProgress) {
                             lastProgress = progress;
-                            post(() -> infoTextView.setText("已发现" + data.size() + "个安装包，已扫描" + progress + "%"));
+                            post(() -> {
+                                tvInfo.setText("已发现" + data.size() + "个安装包，已扫描" + progress + "%");
+                                progressBar.setVisibility(View.VISIBLE);
+                            });
                         }
                     }
 
@@ -227,7 +232,7 @@ public class PackageManagerFragment extends RecyclerLayoutFragment<InstalledAppI
                         if (item != null) {
                             synchronized (data) {
                                 data.add(item);
-                                if (data.size() < 10) {
+                                if (data.size() < 15) {
                                     recyclerLayout.notifyDataSetChanged();
                                 } else {
                                     recyclerLayout.notifyItemInserted(data.size() - 1);
@@ -239,60 +244,66 @@ public class PackageManagerFragment extends RecyclerLayoutFragment<InstalledAppI
                 });
     }
 
-    private void showSortPopWindow() {
-        new RecyclerPartShadowDialogFragment()
-                .addItems("按应用名称", "按占用空间", "按安装时间", "按更新时间", "按使用频率")
-                .setSelectedItem(sortPosition)
-                .setOnItemClickListener((view, title, position) -> {
-                    sortPosition = position;
-                    sortTextView.setText(title);
-                    switch (position) {
-                        case 0:
-                            Collections.sort(data, new Comparator<InstalledAppInfo>() {
-                                @Override
-                                public int compare(InstalledAppInfo o1, InstalledAppInfo o2) {
-                                    return o1.getName().compareTo(o2.getName());
-                                }
-                            });
-                            break;
-                        case 1:
-                            Collections.sort(data, new Comparator<InstalledAppInfo>() {
-                                @Override
-                                public int compare(InstalledAppInfo o1, InstalledAppInfo o2) {
-                                    return (int) (o1.getAppSize() - o2.getAppSize());
-                                }
-                            });
-                            break;
-                        case 2:
+    private void sort() {
+        switch (sortPosition) {
+            case 0:
+                Collections.sort(data, new Comparator<InstalledAppInfo>() {
+                    @Override
+                    public int compare(InstalledAppInfo o1, InstalledAppInfo o2) {
+                        return o1.getName().compareTo(o2.getName());
+                    }
+                });
+                break;
+            case 1:
+                Collections.sort(data, new Comparator<InstalledAppInfo>() {
+                    @Override
+                    public int compare(InstalledAppInfo o1, InstalledAppInfo o2) {
+                        return (int) (o1.getAppSize() - o2.getAppSize());
+                    }
+                });
+                break;
+            case 2:
 //                                Collections.sort(appInfoList, new Comparator<InstalledAppInfo>() {
 //                                    @Override
 //                                    public int compare(InstalledAppInfo o1, InstalledAppInfo o2) {
 //                                        return o1.getInstallTime().compareTo(o2.getInstallTime());
 //                                    }
 //                                });
-                            break;
-                        case 3:
+                break;
+            case 3:
 //                                Collections.sort(appInfoList, new Comparator<InstalledAppInfo>() {
 //                                    @Override
 //                                    public int compare(InstalledAppInfo o1, InstalledAppInfo o2) {
 //                                        return o1.getRecentUpdateTime().compareTo(o2.getRecentUpdateTime());
 //                                    }
 //                                });
-                            break;
-                        case 4:
+                break;
+            case 4:
 //                                Collections.sort(appInfoList, new Comparator<InstalledAppInfo>() {
 //                                    @Override
 //                                    public int compare(InstalledAppInfo o1, InstalledAppInfo o2) {
 //                                        return o1.getName().compareTo(o2.getName());
 //                                    }
 //                                });
-                            break;
-                        default:
-                            break;
-                    }
-                    recyclerLayout.notifyDataSetChanged();
+                break;
+            default:
+                break;
+        }
+        recyclerLayout.notifyDataSetChanged();
+    }
+
+    private void showSortPopWindow(ExpandIconView expandIconView) {
+        expandIconView.switchState();
+        new RecyclerPartShadowDialogFragment()
+                .addItems("按应用名称", "按占用空间", "按安装时间", "按更新时间", "按使用频率")
+                .setSelectedItem(sortPosition)
+                .setOnItemClickListener((view, title, position) -> {
+                    sortPosition = position;
+                    tvSort.setText(title);
+                    sort();
                 })
-                .setAttachView(sortTextView)
+                .setAttachView(tvSort)
+                .setOnDismissListener(expandIconView::switchState)
                 .show(context);
     }
 

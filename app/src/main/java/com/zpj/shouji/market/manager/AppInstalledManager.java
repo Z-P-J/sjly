@@ -8,9 +8,11 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 
 import com.zpj.http.core.HttpObserver;
+import com.zpj.rxlife.RxLife;
 import com.zpj.shouji.market.model.InstalledAppInfo;
 import com.zpj.shouji.market.utils.AppUtil;
 import com.zpj.toast.ZToast;
+import com.zpj.utils.ContextUtils;
 import com.zpj.utils.FormatUtils;
 
 import java.io.File;
@@ -22,9 +24,13 @@ import java.util.concurrent.atomic.AtomicBoolean;
 import io.reactivex.Observable;
 import io.reactivex.ObservableOnSubscribe;
 import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.functions.Action;
+import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
 
-public class AppInstalledManager extends BroadcastReceiver {
+public class AppInstalledManager { //  extends BroadcastReceiver
+
+    private static final String TAG = AppInstalledManager.class.getName();
 
     private volatile static AppInstalledManager manager;
 
@@ -46,15 +52,16 @@ public class AppInstalledManager extends BroadcastReceiver {
     }
 
     private AppInstalledManager() {
-
+        isLoaded.set(false);
+        isLoading.set(false);
     }
 
     private synchronized InstalledAppInfo onAppAdded(PackageManager manager, PackageInfo packageInfo) {
-        for (InstalledAppInfo info : installedAppInfoList) {
-            if (info.getPackageName().equals(packageInfo.packageName)) {
-                return info;
-            }
-        }
+//        for (InstalledAppInfo info : installedAppInfoList) {
+//            if (info.getPackageName().equals(packageInfo.packageName)) {
+//                return info;
+//            }
+//        }
         InstalledAppInfo installedAppInfo = new InstalledAppInfo();
         installedAppInfo.setName(packageInfo.applicationInfo.loadLabel(manager).toString());
         installedAppInfo.setPackageName(packageInfo.packageName);
@@ -69,6 +76,8 @@ public class AppInstalledManager extends BroadcastReceiver {
         installedAppInfo.setEnabled(packageInfo.applicationInfo.enabled);
         installedAppInfo.setBackuped(new File(AppUtil.getDefaultAppBackupFolder() + installedAppInfo.getName() + "_" + installedAppInfo.getVersionName() + ".apk").exists());
         installedAppInfo.setUserApp((packageInfo.applicationInfo.flags & ApplicationInfo.FLAG_SYSTEM) == 0);
+        installedAppInfo.setFirstInstallTime(packageInfo.firstInstallTime);
+        installedAppInfo.setLastUpdateTime(packageInfo.lastUpdateTime);
         installedAppInfoList.add(installedAppInfo);
         return installedAppInfo;
     }
@@ -82,137 +91,181 @@ public class AppInstalledManager extends BroadcastReceiver {
         }
     }
 
-    @Override
-    public void onReceive(Context context, Intent intent) {
-        //接收安装广播
-        if ("android.intent.action.PACKAGE_ADDED".equals(intent.getAction())) {
-            String packageName = intent.getDataString();
-            System.out.println();
-            ZToast.warning("安装了:" + packageName + "包名的程序");
-            new HttpObserver<>(emitter -> {
-                PackageManager packageManager = context.getPackageManager();
-                PackageInfo packageInfo = packageManager.getPackageInfo(packageName, PackageManager.GET_ACTIVITIES);
-                getInstance().onAppAdded(packageManager, packageInfo);
-            }).subscribe();
-        }
-        //接收卸载广播
-        if ("android.intent.action.PACKAGE_REMOVED".equals(intent.getAction())) {
-            String packageName = intent.getDataString();
-            ZToast.warning("卸载了:" + packageName + "包名的程序");
-            new HttpObserver<>(emitter -> getInstance().onAppRemoved(packageName)).subscribe();
-        }
-    }
+//    @Override
+//    public void onReceive(Context context, Intent intent) {
+//        //接收安装广播
+//        if ("android.intent.action.PACKAGE_ADDED".equals(intent.getAction())) {
+//            String packageName = intent.getDataString();
+//            System.out.println();
+//            ZToast.warning("安装了:" + packageName + "包名的程序");
+//            new HttpObserver<>(emitter -> {
+//                PackageManager packageManager = context.getPackageManager();
+//                PackageInfo packageInfo = packageManager.getPackageInfo(packageName, PackageManager.GET_ACTIVITIES);
+//                getInstance().onAppAdded(packageManager, packageInfo);
+//            }).subscribe();
+//        }
+//        //接收卸载广播
+//        if ("android.intent.action.PACKAGE_REMOVED".equals(intent.getAction())) {
+//            String packageName = intent.getDataString();
+//            ZToast.warning("卸载了:" + packageName + "包名的程序");
+//            new HttpObserver<>(emitter -> getInstance().onAppRemoved(packageName)).subscribe();
+//        }
+//    }
 
     public AppInstalledManager addListener(CallBack callBack) {
-        callbacks.add(new WeakReference<>(callBack));
+        synchronized (callbacks) {
+            callbacks.add(new WeakReference<>(callBack));
+        }
         return this;
     }
 
     public void removeListener(CallBack callBack) {
-        for (WeakReference<CallBack> appBackupListener : callbacks) {
-            if (appBackupListener.get() != null && appBackupListener.get() == callBack) {
-                callbacks.remove(appBackupListener);
-                break;
+        synchronized (callbacks) {
+            for (WeakReference<CallBack> appBackupListener : callbacks) {
+                if (appBackupListener.get() != null && appBackupListener.get() == callBack) {
+                    callbacks.remove(appBackupListener);
+                    break;
+                }
             }
         }
     }
 
-    public void loadApps(Context context) {
-        if (context == null) {
+    public void onDestroy() {
+        RxLife.removeByTag(TAG);
+        manager = null;
+        installedAppInfoList.clear();
+        callbacks.clear();
+        isLoaded.set(false);
+        isLoading.set(false);
+    }
+
+    private void onNext(InstalledAppInfo installedAppInfo) {
+        synchronized (callbacks) {
+            for (WeakReference<CallBack> callBackWeakReference : callbacks) {
+                CallBack callBack = callBackWeakReference.get();
+                if (callBack != null) {
+                    if (installedAppInfo.isUserApp()) {
+                        // 非系统应用
+                        callBack.onGetUserApp(installedAppInfo);
+                    } else {
+                        // 系统应用
+                        callBack.onGetSystemApp(installedAppInfo);
+                    }
+
+                    if (installedAppInfo.isBackuped()) {
+                        // 已备份
+                        callBack.onGetBackupApp(installedAppInfo);
+                    }
+
+                    if (!installedAppInfo.isEnabled()) {
+                        // 已禁用
+                        callBack.onGetForbidApp(installedAppInfo);
+                    }
+
+                }
+            }
+        }
+    }
+
+    private void onFinished() {
+        synchronized (callbacks) {
+            for (WeakReference<CallBack> callBackWeakReference : callbacks) {
+                if (callBackWeakReference.get() != null) {
+                    callBackWeakReference.get().onLoadAppFinished();
+                }
+            }
+            callbacks.clear();
+        }
+    }
+
+    public void loadApps(CallBack callBack) {
+        if (callBack == null) {
+            loadApps();
             return;
         }
+        if (isLoaded.get() && !isLoading.get()) {
+            for (InstalledAppInfo appInfo : installedAppInfoList) {
+                onNext(appInfo);
+            }
+            onFinished();
+        } else if (!isLoaded.get() && !isLoading.get()) {
+            addListener(callBack);
+            loadApps();
+        } else {
+            synchronized (callbacks) {
+                if (isLoaded.get() && !isLoading.get()) {
+                    loadApps(callBack);
+                } else {
+                    callbacks.add(new WeakReference<>(callBack));
+                }
+            }
+        }
+
+//        Observable.create(
+//                (ObservableOnSubscribe<InstalledAppInfo>) emitter -> {
+//                    if (isLoaded.get() && !isLoading.get() && !installedAppInfoList.isEmpty()) {
+//                        isLoading.set(true);
+//                        for (InstalledAppInfo appInfo : installedAppInfoList) {
+//                            emitter.onNext(appInfo);
+//                        }
+//                        isLoading.set(false);
+//                    } else {
+//                        isLoading.set(true);
+//                        PackageManager manager = context.getPackageManager();
+//                        List<PackageInfo> packageInfoList = manager.getInstalledPackages(0);
+//                        for (PackageInfo packageInfo : packageInfoList) {
+//                            emitter.onNext(onAppAdded(manager, packageInfo));
+//                        }
+//                        isLoaded.set(true);
+//                        isLoading.set(false);
+//                    }
+//                    emitter.onComplete();
+//                })
+//                .subscribeOn(Schedulers.io())
+//                .observeOn(AndroidSchedulers.mainThread())
+//                .compose(RxLife.bindTag(TAG))
+//                .doOnNext(this::onNext)
+//                .doOnError(Throwable::printStackTrace)
+//                .doOnComplete(this::onFinished)
+//                .subscribe();
+    }
+
+    public void loadApps() {
+        if (isLoaded.get() && !isLoading.get()) {
+            return;
+        }
+        isLoaded.set(false);
+        isLoading.set(true);
+        RxLife.removeByTag(TAG);
+        installedAppInfoList.clear();
         Observable.create(
-                (ObservableOnSubscribe<InstalledAppInfo>) emitter -> {
-                    if (isLoaded.get() && !isLoading.get() && !installedAppInfoList.isEmpty()) {
-                        isLoading.set(true);
-                        for (InstalledAppInfo appInfo : installedAppInfoList) {
-                            emitter.onNext(appInfo);
-                        }
-                    } else {
-                        isLoading.set(true);
-                        PackageManager manager = context.getPackageManager();
-                        List<PackageInfo> packageInfoList = manager.getInstalledPackages(0);
-                        for (PackageInfo packageInfo : packageInfoList) {
-                            emitter.onNext(onAppAdded(manager, packageInfo));
-                        }
-                        isLoaded.set(true);
-                        isLoading.set(false);
+                (ObservableOnSubscribe<List<InstalledAppInfo>>) emitter -> {
+                    PackageManager manager = ContextUtils.getApplicationContext().getPackageManager();
+                    List<PackageInfo> packageInfoList = manager.getInstalledPackages(0);
+                    List<InstalledAppInfo> installedAppInfos = new ArrayList<>();
+                    for (PackageInfo packageInfo : packageInfoList) {
+                        installedAppInfos.add(onAppAdded(manager, packageInfo));
                     }
+                    emitter.onNext(installedAppInfos);
                     emitter.onComplete();
                 })
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .doOnNext(installedAppInfo -> {
-
-                    for (WeakReference<CallBack> callBackWeakReference : callbacks) {
-                        CallBack callBack = callBackWeakReference.get();
-                        if (callBack != null) {
-                            if (installedAppInfo.isUserApp()) {
-                                // 非系统应用
-                                callBack.onGetUserApp(installedAppInfo);
-                            } else {
-                                // 系统应用
-                                callBack.onGetSystemApp(installedAppInfo);
-                            }
-
-                            if (installedAppInfo.isBackuped()) {
-                                // 已备份
-                                callBack.onGetBackupApp(installedAppInfo);
-                            }
-
-                            if (!installedAppInfo.isEnabled()) {
-                                // 已禁用
-                                callBack.onGetForbidApp(installedAppInfo);
-                            }
-
+                .compose(RxLife.bindTag(TAG))
+                .doOnNext(new Consumer<List<InstalledAppInfo>>() {
+                    @Override
+                    public void accept(List<InstalledAppInfo> installedAppInfos) throws Exception {
+                        installedAppInfoList.addAll(installedAppInfos);
+                        isLoaded.set(true);
+                        isLoading.set(false);
+                        for (InstalledAppInfo info : installedAppInfos) {
+                            onNext(info);
                         }
+                        onFinished();
                     }
-
-                    // TODO 获取隐藏应用
-
-
-//                    if (installedAppInfo.isUserApp()) {
-//                        // 非系统应用
-//                        for (WeakReference<CallBack> callBackWeakReference : callbacks) {
-//                            if (callBackWeakReference.get() != null) {
-//                                callBackWeakReference.get().onGetUserApp(installedAppInfo);
-//                            }
-//                        }
-//                    } else {
-//                        // 系统应用
-//                        for (WeakReference<CallBack> callBackWeakReference : callbacks) {
-//                            if (callBackWeakReference.get() != null) {
-//                                callBackWeakReference.get().onGetSystemApp(installedAppInfo);
-//                            }
-//                        }
-//                    }
-//                    if (installedAppInfo.isBackuped()) {
-//                        // 已备份
-//                        for (WeakReference<CallBack> callBackWeakReference : callbacks) {
-//                            if (callBackWeakReference.get() != null) {
-//                                callBackWeakReference.get().onGetBackupApp(installedAppInfo);
-//                            }
-//                        }
-//                    }
-//                    if (!installedAppInfo.isEnabled()) {
-//                        // 已禁用
-//                        for (WeakReference<CallBack> callBackWeakReference : callbacks) {
-//                            if (callBackWeakReference.get() != null) {
-//                                callBackWeakReference.get().onGetForbidApp(installedAppInfo);
-//                            }
-//                        }
-//                    }
-
                 })
                 .doOnError(Throwable::printStackTrace)
-                .doOnComplete(() -> {
-                    for (WeakReference<CallBack> callBackWeakReference : callbacks) {
-                        if (callBackWeakReference.get() != null) {
-                            callBackWeakReference.get().onLoadAppFinished();
-//                            callbacks.remove(callBackWeakReference);
-                        }
-                    }
-                })
+//                    .doOnComplete(this::onFinished)
                 .subscribe();
     }
 

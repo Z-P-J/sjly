@@ -157,8 +157,9 @@
                     android:layout_width="40dp"
                     android:layout_height="40dp"
                     android:layout_alignParentEnd="true"
-                    app:eiv_padding="12dp"
+                    app:eiv_padding="14dp"
                     app:eiv_color="@color/colorPrimary"
+                    app:eiv_roundedCorners="true"
                     />
 
             </RelativeLayout>

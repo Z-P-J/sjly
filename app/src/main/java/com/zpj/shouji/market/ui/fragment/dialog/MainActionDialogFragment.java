@@ -70,7 +70,7 @@ public class MainActionDialogFragment extends FullScreenDialogFragment
             ZBlurry.with(fragment.getView())
                     .backgroundColor(Color.WHITE)
                     .scale(0.2f)
-                    .radius(20)
+                    .radius(12)
                     .blur(bitmap -> {
                         if (ivBg != null) {
                             ivBg.setImageBitmap(bitmap);

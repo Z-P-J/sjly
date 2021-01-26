@@ -22,11 +22,13 @@
 
     <com.github.zagum.expandicon.ExpandIconView
         android:id="@+id/expand_icon"
-        android:layout_width="24dp"
-        android:layout_height="24dp"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
         android:layout_toEndOf="@id/tv_title"
         android:layout_centerVertical="true"
         app:eiv_color="@color/middle_gray_1"
+        app:eiv_roundedCorners="true"
+        app:eiv_padding="@dimen/dp_4"
         />
 
 </RelativeLayout>

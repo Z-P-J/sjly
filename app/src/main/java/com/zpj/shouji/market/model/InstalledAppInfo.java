@@ -29,6 +29,9 @@ public class InstalledAppInfo {
     private boolean isUserApp = true;
     private boolean isDamaged = false;
 
+    private long firstInstallTime;
+    private long lastUpdateTime;
+
     public String getFilePath() {
         return apkFilePath;
     }
@@ -184,6 +187,22 @@ public class InstalledAppInfo {
 
     public boolean isDamaged() {
         return isDamaged;
+    }
+
+    public void setFirstInstallTime(long firstInstallTime) {
+        this.firstInstallTime = firstInstallTime;
+    }
+
+    public long getFirstInstallTime() {
+        return firstInstallTime;
+    }
+
+    public void setLastUpdateTime(long lastUpdateTime) {
+        this.lastUpdateTime = lastUpdateTime;
+    }
+
+    public long getLastUpdateTime() {
+        return lastUpdateTime;
     }
 
     @Override

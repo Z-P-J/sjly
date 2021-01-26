@@ -102,19 +102,21 @@ public class MainActivity extends BaseActivity { // implements IUiListener
 
         StatusBarUtils.transparentStatusBar(getWindow());
 
+        UserManager.getInstance().init();
+
+//        HttpPreLoader.getInstance().loadHomepage();
+
+        AppUpdateManager.getInstance().checkUpdate(MainActivity.this);
+
+//        AppInstalledManager.getInstance().loadApps(this);
+
         mainFragment = findFragment(MainFragment.class);
         if (mainFragment == null) {
             mainFragment = new MainFragment();
             loadRootFragment(R.id.fl_container, mainFragment);
         }
 
-        UserManager.getInstance().init();
 
-        HttpPreLoader.getInstance().loadHomepage();
-
-        AppUpdateManager.getInstance().checkUpdate(MainActivity.this);
-
-        AppInstalledManager.getInstance().loadApps(this);
 
         showRequestPermissionPopup();
 
@@ -188,7 +190,7 @@ public class MainActivity extends BaseActivity { // implements IUiListener
 
                         mainFragment.animatedToShow();
 
-                        handleIntent(getIntent());
+                        postDelayed(() -> handleIntent(getIntent()), 500);
 
 
 

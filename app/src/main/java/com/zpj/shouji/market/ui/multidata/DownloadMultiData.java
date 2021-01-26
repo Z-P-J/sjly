@@ -37,9 +37,34 @@ public class DownloadMultiData extends ExpandableMultiData<AppDownloadMission> {
 
     private final String title;
 
-    public DownloadMultiData(String title, List<AppDownloadMission> list) {
-        super(list);
+    public DownloadMultiData(String title) {
+        super(new ArrayList<>());
         this.title = title;
+    }
+
+    public void setData(List<AppDownloadMission> list) {
+        this.list.clear();
+        this.list.addAll(list);
+        hasMore = false;
+    }
+
+    public void addMission(BaseMission<?> mission) {
+        if (mission instanceof AppDownloadMission) {
+            this.list.add(0, (AppDownloadMission) mission);
+            notifyItemRangeInserted(1, 1);
+            notifyItemChanged(0);
+        }
+    }
+
+    public void removeMission(BaseMission<?> mission) {
+        if (mission instanceof AppDownloadMission) {
+            int pos = this.list.indexOf(mission);
+            if (pos >= 0) {
+                this.list.remove(mission);
+                notifyItemRemoved(pos + 1);
+                notifyItemChanged(0);
+            }
+        }
     }
 
     @Override
@@ -59,8 +84,7 @@ public class DownloadMultiData extends ExpandableMultiData<AppDownloadMission> {
 
     @Override
     public void onBindHeader(EasyViewHolder holder, List<Object> payloads) {
-//            super.onBindHeader(holder, payloads);
-        holder.setText(R.id.text_title, title);
+        holder.setText(R.id.text_title, title + "(" + list.size() + ")");
         updateIcon(holder);
         if (getMultiDataPosition() == 0) {
             holder.setImageResource(R.id.img_icon, R.drawable.ic_downloading);
@@ -122,11 +146,6 @@ public class DownloadMultiData extends ExpandableMultiData<AppDownloadMission> {
                             titleList.add("开始");
 
                         }
-//                                    if (!mission.isRunning()) {
-//                                        titleList.add("删除");
-//                                    } else {
-//                                        titleList.add("暂停");
-//                                    }
                         titleList.add("删除");
                         titleList.add("复制链接");
                         titleList.add("任务详情");
@@ -158,7 +177,12 @@ public class DownloadMultiData extends ExpandableMultiData<AppDownloadMission> {
                                                 .setCheckTitle("删除已下载的文件")
                                                 .setTitle("确定删除？")
                                                 .setContent("你将删除下载任务：" + mission.getTaskName())
-                                                .setPositiveButton(dialog -> mission.delete())
+                                                .setPositiveButton(dialog -> {
+                                                    mission.delete();
+                                                    int pos = list.indexOf(mission) + 1;
+                                                    list.remove(mission);
+                                                    notifyItemRemoved(pos);
+                                                })
                                                 .show(context);
                                         break;
                                     case "复制链接":
@@ -213,7 +237,6 @@ public class DownloadMultiData extends ExpandableMultiData<AppDownloadMission> {
         progressBar.setMax(100);
         if (isFinished) {
             progressBar.setVisibility(View.GONE);
-//                holder.itemView.setBackgroundColor(ThemeUtils.getDefaultBackgroundColor());
             map.remove(mission);
         } else {
             progressBar.setVisibility(View.VISIBLE);
@@ -301,8 +324,6 @@ public class DownloadMultiData extends ExpandableMultiData<AppDownloadMission> {
         @Override
         public void onFinish() {
             multiData.updateStatus(holder, mission);
-//                expandableAdapter.removeItem(0, 0, true);
-//                expandableAdapter.insertItem(1, 0, new DownloadWrapper(mission), true);
         }
 
         @Override

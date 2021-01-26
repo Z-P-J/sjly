@@ -4,8 +4,10 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.util.Log;
 import android.view.View;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.github.zagum.expandicon.ExpandIconView;
 import com.zpj.recyclerview.EasyAdapter;
 import com.zpj.recyclerview.EasyRecyclerLayout;
 import com.zpj.recyclerview.EasyViewHolder;
@@ -24,7 +26,6 @@ import java.util.List;
 public class BaseInstalledFragment extends RecyclerLayoutFragment<InstalledAppInfo>
         implements AppInstalledManager.CallBack,
         IEasy.OnSelectChangeListener<InstalledAppInfo>,
-//        RecyclerPopup.OnItemClickListener,
         RecyclerPartShadowDialogFragment.OnItemClickListener{
 
     private static final List<InstalledAppInfo> USER_APP_LIST = new ArrayList<>();
@@ -33,12 +34,11 @@ public class BaseInstalledFragment extends RecyclerLayoutFragment<InstalledAppIn
     private static final List<InstalledAppInfo> FORBID_APP_LIST = new ArrayList<>();
     private static final List<InstalledAppInfo> HIDDEN_APP_LIST = new ArrayList<>();
 
-    private TextView infoTextView;
-    private TextView titleTextView;
+    private TextView tvInfo;
+    private TextView tvSort;
+    private ProgressBar progressBar;
 
     protected int sortPosition = 0;
-
-    private boolean isLoading = false;
 
     public static BaseInstalledFragment newInstance() {
 
@@ -61,15 +61,31 @@ public class BaseInstalledFragment extends RecyclerLayoutFragment<InstalledAppIn
     @Override
     protected void initView(View view, @Nullable Bundle savedInstanceState) {
         super.initView(view, savedInstanceState);
-        infoTextView = view.findViewById(R.id.text_info);
-        infoTextView.setText("扫描中...");
-        titleTextView = view.findViewById(R.id.text_title);
-        titleTextView.setOnClickListener(v -> showFilterPopWindow());
+        tvInfo = findViewById(R.id.tv_info);
+        tvInfo.setText("扫描中...");
+        tvSort = findViewById(R.id.tv_sort);
+        progressBar = findViewById(R.id.progress_bar);
+        ExpandIconView expandIconView = findViewById(R.id.expand_icon);
+        View.OnClickListener listener = v -> showFilterPopWindow(expandIconView);
+        expandIconView.setOnClickListener(listener);
+        tvSort.setOnClickListener(listener);
+    }
+
+    @Override
+    public void onLazyInitView(@Nullable Bundle savedInstanceState) {
+        super.onLazyInitView(savedInstanceState);
+        loadInstallApps();
+    }
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        AppInstalledManager.getInstance().loadApps();
     }
 
     @Override
     public void onDestroy() {
-        AppInstalledManager.getInstance().removeListener(this);
+        AppInstalledManager.getInstance().onDestroy();
         super.onDestroy();
     }
 
@@ -127,32 +143,27 @@ public class BaseInstalledFragment extends RecyclerLayoutFragment<InstalledAppIn
 
     @Override
     public boolean onLoadMore(EasyAdapter.Enabled enabled, int currentPage) {
-        if (isLoading) {
-            return false;
-        }
-        isLoading = true;
-        loadInstallApps();
-        return true;
+        return false;
     }
 
     @Override
     public void onSelectModeChange(boolean selectMode) {
-        infoTextView.setText("共计：" + data.size() + " | 已选：" + recyclerLayout.getSelectedCount());
+        tvInfo.setText("共计：" + data.size() + " | 已选：" + recyclerLayout.getSelectedCount());
     }
 
     @Override
     public void onSelectChange(List<InstalledAppInfo> list, int position, boolean isChecked) {
-        infoTextView.setText("共计：" + data.size() + " | 已选：" + recyclerLayout.getSelectedCount());
+        tvInfo.setText("共计：" + data.size() + " | 已选：" + recyclerLayout.getSelectedCount());
     }
 
     @Override
     public void onSelectAll() {
-        infoTextView.setText("共计：" + data.size() + " | 已选：" + recyclerLayout.getSelectedCount());
+        tvInfo.setText("共计：" + data.size() + " | 已选：" + recyclerLayout.getSelectedCount());
     }
 
     @Override
     public void onUnSelectAll() {
-        infoTextView.setText("共计：" + data.size() + " | 已选：0");
+        tvInfo.setText("共计：" + data.size() + " | 已选：0");
     }
 
     @Override
@@ -187,36 +198,36 @@ public class BaseInstalledFragment extends RecyclerLayoutFragment<InstalledAppIn
 
     @Override
     public void onLoadAppFinished() {
-        initData(USER_APP_LIST);
-        titleTextView.setText("用户应用");
-        infoTextView.setText("共计：" + data.size() + " | 已选：0");
-        recyclerLayout.notifyDataSetChanged();
+        postOnEnterAnimationEnd(() -> {
+            initData(USER_APP_LIST);
+            tvSort.setText("用户应用");
+            tvInfo.setText("共计：" + data.size() + " | 已选：0");
+            recyclerLayout.showContent();
+            progressBar.setVisibility(View.GONE);
+        });
     }
 
 
     protected void loadInstallApps() {
+        progressBar.setVisibility(View.VISIBLE);
+        recyclerLayout.showLoading();
         USER_APP_LIST.clear();
         SYSTEM_APP_LIST.clear();
         BACKUP_APP_LIST.clear();
         FORBID_APP_LIST.clear();
         HIDDEN_APP_LIST.clear();
-        AppInstalledManager.getInstance()
-                .addListener(this)
-                .loadApps(context);
+        AppInstalledManager.getInstance().loadApps(this);
     }
 
-    private void showFilterPopWindow() {
+    private void showFilterPopWindow(ExpandIconView expandIconView) {
+        expandIconView.switchState();
         new RecyclerPartShadowDialogFragment()
                 .addItems("用户应用", "系统应用", "已备份", "已禁用", "已隐藏")
                 .setSelectedItem(sortPosition)
                 .setOnItemClickListener(this)
-                .setAttachView(titleTextView)
+                .setAttachView(tvSort)
+                .setOnDismissListener(expandIconView::switchState)
                 .show(context);
-//        RecyclerPopup.with(context)
-//                .addItems("用户应用", "系统应用", "已备份", "已禁用", "已隐藏")
-//                .setSelectedItem(sortPosition)
-//                .setOnItemClickListener(this)
-//                .show(titleTextView);
     }
 
     @Override
@@ -225,7 +236,7 @@ public class BaseInstalledFragment extends RecyclerLayoutFragment<InstalledAppIn
             return;
         }
         sortPosition = position;
-        titleTextView.setText(title);
+        tvSort.setText(title);
         switch (position) {
             case 0:
                 initData(USER_APP_LIST);
@@ -245,7 +256,7 @@ public class BaseInstalledFragment extends RecyclerLayoutFragment<InstalledAppIn
             default:
                 break;
         }
-        infoTextView.setText("共计：" + data.size() + " | 已选：0");
+        tvInfo.setText("共计：" + data.size() + " | 已选：0");
         recyclerLayout.notifyDataSetChanged();
     }
 

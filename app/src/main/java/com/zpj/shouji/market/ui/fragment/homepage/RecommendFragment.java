@@ -8,14 +8,12 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 
-import com.zpj.http.core.IHttp;
 import com.zpj.recyclerview.MultiData;
 import com.zpj.recyclerview.MultiRecyclerViewWrapper;
 import com.zpj.rxbus.RxBus;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.api.PreloadApi;
 import com.zpj.shouji.market.ui.fragment.ToolBarAppListFragment;
-import com.zpj.shouji.market.ui.fragment.base.SkinFragment;
 import com.zpj.shouji.market.ui.fragment.base.StateFragment;
 import com.zpj.shouji.market.ui.multidata.AppInfoMultiData;
 import com.zpj.shouji.market.ui.multidata.CollectionMultiData;
@@ -23,7 +21,6 @@ import com.zpj.shouji.market.ui.multidata.GuessYouLikeMultiData;
 import com.zpj.shouji.market.ui.multidata.SubjectMultiData;
 import com.zpj.shouji.market.ui.widget.RecommendBanner;
 import com.zpj.shouji.market.utils.EventBus;
-import com.zpj.statemanager.StateManager;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -37,6 +34,8 @@ public class RecommendFragment extends StateFragment {
     private RecommendBanner mBanner;
 
     private int percent = 0;
+
+    private boolean isLoaded = false;
 
     @Override
     protected int getLayoutId() {
@@ -147,7 +146,7 @@ public class RecommendFragment extends StateFragment {
                     .setFooterView(LayoutInflater.from(context).inflate(R.layout.item_footer_home, null, false))
                     .setHeaderView(mBanner)
                     .build();
-
+            isLoaded = true;
             EventBus.sendColorChangeEvent(true);
 
         }, throwable -> showError(throwable.getMessage()));
@@ -157,11 +156,14 @@ public class RecommendFragment extends StateFragment {
     public void onSupportVisible() {
         Log.d(TAG, "onSupportVisible");
         super.onSupportVisible();
-        if (recyclerView != null) {
-            EventBus.sendScrollEvent(recyclerView.canScrollVertically(-1) ? 1 : 0);
-        } else {
-            EventBus.sendScrollEvent(0);
+        if (isLoaded) {
+            if (recyclerView != null) {
+                EventBus.sendScrollEvent(recyclerView.canScrollVertically(-1) ? 1 : 0);
+            } else {
+                EventBus.sendScrollEvent(0);
+            }
         }
+
         if (mBanner != null) {
             mBanner.onResume();
         }

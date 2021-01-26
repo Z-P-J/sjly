@@ -32,7 +32,7 @@ public class AppBackupManager {
             60L, TimeUnit.SECONDS, new LinkedBlockingQueue<>()
     );
 
-    private MyHandler handler = new MyHandler();
+    private final MyHandler handler = new MyHandler();
 
     private int totalCount = 0;
     private static final AtomicInteger finishedCount = new AtomicInteger(0);

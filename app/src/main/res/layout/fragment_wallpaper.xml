@@ -39,8 +39,9 @@
                 android:layout_centerVertical="true"
                 android:layout_width="48dp"
                 android:layout_height="48dp"
-                app:eiv_padding="16dp"
+                app:eiv_padding="18dp"
                 app:eiv_color="@color/middle_gray_1"
+                app:eiv_roundedCorners="true"
                 />
 
         </RelativeLayout>

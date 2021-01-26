@@ -1,14 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="?attr/backgroundColor"
+
     >
 
     <include layout="@layout/layout_toolbar"
         android:visibility="gone"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:visibility="visible"
         />
 
     <RelativeLayout
@@ -17,37 +22,82 @@
         android:layout_height="wrap_content"
         android:paddingHorizontal="16dp"
         android:paddingVertical="8dp"
-        android:background="@drawable/bottom_line_gray"
-        android:layout_below="@+id/tool_bar"
+        app:layout_constraintTop_toBottomOf="@+id/tool_bar"
         >
 
-        <com.zpj.shouji.market.ui.widget.DrawableTintTextView
-            android:id="@+id/text_title"
+        <TextView
+            android:id="@+id/tv_sort"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="用户应用"
-            android:drawableEnd="@drawable/ic_expand_more_black_24dp"
-            android:gravity="center"
+            android:paddingVertical="@dimen/dp_4"
+            android:layout_centerVertical="true"
             android:textColor="?attr/textColorMajor"
-            app:drawable_tint_color="?attr/textColorMajor"
             />
 
-        <TextView
-            android:id="@+id/text_info"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="已选：8"
-            android:layout_alignParentEnd="true"
-            android:textColor="?attr/textColorNormal"
+        <com.github.zagum.expandicon.ExpandIconView
+            android:id="@+id/expand_icon"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_centerVertical="true"
+            android:layout_toEndOf="@id/tv_sort"
+            app:eiv_color="?attr/textColorMajor"
+            app:eiv_roundedCorners="true"
+            app:eiv_padding="@dimen/dp_4"
             />
+
+
 
     </RelativeLayout>
 
     <com.zpj.recyclerview.EasyRecyclerLayout
-        android:layout_below="@+id/layout_header"
+        app:layout_constraintTop_toBottomOf="@+id/layout_header"
+        app:layout_constraintBottom_toBottomOf="parent"
         android:id="@+id/recycler_layout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="0dp"/>
+
+<!--    app:layout_constraintBottom_toTopOf="@id/layout_bottom"-->
+
+    <View style="@style/layout_shadow_bottom"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_4"
+        app:layout_constraintTop_toBottomOf="@+id/layout_header" />
+
+    <LinearLayout
+        android:id="@+id/layout_info"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_margin="8dp"
+        android:background="@drawable/bg_button_round_green"
+        android:paddingVertical="@dimen/dp_4"
+        android:paddingHorizontal="@dimen/dp_8"
+        app:layout_constraintBottom_toBottomOf="@id/recycler_layout"
+        app:layout_constraintEnd_toEndOf="parent"
+        >
+
+        <ProgressBar
+            android:id="@+id/progress_bar"
+            android:layout_width="14dp"
+            android:layout_height="14dp"
+            android:layout_marginEnd="@dimen/dp_4"
+            android:layout_gravity="center"
+            android:indeterminateDrawable="@drawable/bg_progress_bar"
+            />
+
+        <TextView
+            android:id="@+id/tv_info"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="扫描中..."
+            android:textSize="10sp"
+            android:layout_gravity="center"
+            android:textColor="@color/white"
+            />
+
+    </LinearLayout>
 
     <RelativeLayout
         android:id="@+id/layout_bottom"
@@ -55,8 +105,9 @@
         android:layout_height="48dp"
         android:padding="5dp"
         android:background="@drawable/top_line_gray"
-        android:layout_alignParentBottom="true"
+        app:layout_constraintBottom_toBottomOf="parent"
         android:visibility="gone"
+        tools:visibility="visible"
         >
 
         <LinearLayout
@@ -124,4 +175,4 @@
 
     </RelativeLayout>
 
-</RelativeLayout>
+</android.support.constraint.ConstraintLayout>

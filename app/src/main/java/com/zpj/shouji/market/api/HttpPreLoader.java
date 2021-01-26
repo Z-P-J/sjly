@@ -82,7 +82,7 @@ public class HttpPreLoader {
     }
 
     public void loadHomepage() {
-        HttpPreLoader.getInstance().load(PreloadApi.HOME_BANNER);
+//        HttpPreLoader.getInstance().load(PreloadApi.HOME_BANNER);
 //        HttpPreLoader.getInstance().load(PreloadApi.HOME_RECENT);
 //        HttpPreLoader.getInstance().load(PreloadApi.HOME_COLLECTION);
 //        HttpPreLoader.getInstance().load(PreloadApi.HOME_SOFT);

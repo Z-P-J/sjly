@@ -188,13 +188,14 @@
 
             <com.github.zagum.expandicon.ExpandIconView
                 android:id="@+id/iv_to_reward"
-                android:layout_width="24dp"
-                android:layout_height="24dp"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
                 android:layout_alignParentBottom="true"
                 android:layout_centerHorizontal="true"
                 android:layout_marginBottom="16dp"
                 app:eiv_color="@color/white"
-
+                app:eiv_roundedCorners="true"
+                app:eiv_padding="@dimen/dp_4"
                 />
 
 <!--            <ImageView-->

@@ -148,7 +148,6 @@
         <attr name="pictureSpace" format="dimension" />
     </declare-styleable>
 
-
     <string-array name="default_wallpaper_tags">
         <item>全部</item>
         <item>壁纸</item>

@@ -89,7 +89,7 @@ public class ManagerFragment extends BaseSwipeBackFragment {
         postOnEnterAnimationEnd(() -> {
             FragmentsPagerAdapter adapter = new FragmentsPagerAdapter(getChildFragmentManager(), fragments, TAB_TITLES);
             viewPager.setAdapter(adapter);
-            viewPager.setOffscreenPageLimit(4);
+            viewPager.setOffscreenPageLimit(fragments.size());
             viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
                 @Override
                 public void onPageScrolled(int i, float v, int i1) {
@@ -163,38 +163,6 @@ public class ManagerFragment extends BaseSwipeBackFragment {
                         badgePagerTitle.hideBadge();
                     }
                     return badgePagerTitle;
-
-
-//                    ColorTransitionPagerTitleView titleView = new ColorTransitionPagerTitleView(context);
-//                    titleView.setNormalColor(Color.WHITE);
-//                    titleView.setSelectedColor(Color.WHITE);
-//                    titleView.setTextSize(14);
-//                    titleView.setText(TAB_TITLES[index]);
-//                    titleView.setOnClickListener(new View.OnClickListener() {
-//                        @Override
-//                        public void onClick(View view1) {
-//                            viewPager.setCurrentItem(index);
-//                        }
-//                    });
-//                    BadgePagerTitleView badgePagerTitleView = new BadgePagerTitleView(context);
-//                    badgePagerTitleView.setInnerPagerTitleView(titleView);
-//                    if (index == 0) {
-//                        int min = ScreenUtils.dp2pxInt(context, 20);
-//                        int padding = ScreenUtils.dp2pxInt(context, 4);
-//                        TextView mTvUnreadCount = new TextView(context);
-//                        mTvUnreadCount.setBackgroundResource(R.drawable.bg_msg_bubble);
-//                        mTvUnreadCount.setText("12");
-//                        mTvUnreadCount.setMinWidth(min);
-//                        mTvUnreadCount.setTextSize(10);
-//                        mTvUnreadCount.setTextColor(Color.WHITE);
-//                        mTvUnreadCount.setPadding(padding, 0, padding, 0);
-//                        mTvUnreadCount.setGravity(Gravity.CENTER);
-//                        badgePagerTitleView.setBadgeView(mTvUnreadCount);
-//                        badgePagerTitleView.setXBadgeRule(new BadgeRule(BadgeAnchor.CONTENT_RIGHT, 0));
-//                        badgePagerTitleView.setYBadgeRule(new BadgeRule(BadgeAnchor.CONTENT_TOP, 0));
-//                        badgePagerTitleView.setAutoCancelBadge(false);
-//                    }
-//                    return badgePagerTitleView;
                 }
 
                 @Override
@@ -213,11 +181,6 @@ public class ManagerFragment extends BaseSwipeBackFragment {
         });
 
 
-    }
-
-    @Override
-    public int getLaunchMode() {
-        return super.getLaunchMode();
     }
 
     public void showUpdateFragment() {
