@@ -222,6 +222,11 @@ public class AppDownloadMission extends BaseMission<AppDownloadMission> {
 //        return AppUtils.isInstalled(getContext(), packageName);
     }
 
+    public boolean hasInstalledApp() {
+        return isInstalled;
+    }
+
+
     public void install() {
         EventBus.getActivity(activity -> {
             if (isInstalled() && AppConfig.isCheckSignature()) {

@@ -24,7 +24,7 @@ public class MissionIconModelLoader implements ModelLoader<AppDownloadMission, I
     @Nullable
     @Override
     public LoadData<InputStream> buildLoadData(@NonNull AppDownloadMission downloadMission, int width, int height, @NonNull Options options) {
-        return new LoadData<>(new ObjectKey(downloadMission.hashCode()), new MissionIconFetcher(context, downloadMission));
+        return new LoadData<>(new ObjectKey(downloadMission.getPackageName()), new MissionIconFetcher(context, downloadMission));
     }
 
     @Override

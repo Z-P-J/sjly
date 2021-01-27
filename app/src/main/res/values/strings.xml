@@ -17,8 +17,10 @@
     <string name="text_open">打开</string>
     <string name="text_delete">删除</string>
     <string name="text_install">安装</string>
+    <string name="text_uninstall">卸载</string>
     <string name="text_download">下载</string>
     <string name="text_upgrade">升级</string>
+    <string name="text_share">分享</string>
     <string name="text_continue">继续</string>
     <string name="text_retry">重试</string>
     <string name="text_retrying">重试中</string>
@@ -27,6 +29,8 @@
     <string name="text_edit">编辑</string>
     <string name="text_not_log_in">未登录</string>
     <string name="text_update_all">全部更新</string>
+    <string name="text_detail_info">详细信息</string>
+    <string name="text_ignore_update">忽略更新</string>
 
     <string name="text_msg_not_login">登录后发现更多乐趣!</string>
     <string name="text_agreement">同意[《用户协议》](https://m.shouji.com.cn/sjlyyhxy.html)和[《隐私协议》](https://m.shouji.com.cn/ysxy.html)!</string>

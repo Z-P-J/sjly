@@ -148,6 +148,17 @@
         <attr name="pictureSpace" format="dimension" />
     </declare-styleable>
 
+    <declare-styleable name="LetterSortSideBar">
+        <attr format="color|reference" name="sidebarSelectTextColor"/>
+        <attr format="color|reference" name="sidebarUnSelectTextColor"/>
+        <attr format="dimension" name="sidebarSelectTextSize"/>
+        <attr format="dimension" name="sidebarUnSelectTextSize"/>
+    </declare-styleable>
+
+    <declare-styleable name="RoundTagTextView">
+        <attr format="color" name="tag_background_tint_color"/>
+    </declare-styleable>
+
     <string-array name="default_wallpaper_tags">
         <item>全部</item>
         <item>壁纸</item>
@@ -215,24 +226,24 @@
     </string-array>
 
     <string-array name="update_actions">
-        <item>忽略更新</item>
-        <item>详细信息</item>
-        <item>卸载</item>
-        <item>打开</item>
+        <item>@string/text_ignore_update</item>
+        <item>@string/text_detail_info</item>
+        <item>@string/text_uninstall</item>
+        <item>@string/text_open</item>
     </string-array>
 
     <string-array name="app_actions">
-        <item>详细信息</item>
-        <item>分享</item>
-        <item>卸载</item>
-        <item>打开</item>
+        <item>@string/text_detail_info</item>
+        <item>@string/text_share</item>
+        <item>@string/text_uninstall</item>
+        <item>@string/text_open</item>
     </string-array>
 
     <string-array name="apk_actions">
-        <item>详细信息</item>
-        <item>分享</item>
-        <item>删除</item>
-        <item>安装</item>
+        <item>@string/text_detail_info</item>
+        <item>@string/text_share</item>
+        <item>@string/text_delete</item>
+        <item>@string/text_install</item>
     </string-array>
 
     <attr name="backgroundColor" format="color" />

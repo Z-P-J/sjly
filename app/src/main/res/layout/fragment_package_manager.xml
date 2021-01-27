@@ -26,10 +26,10 @@
         >
 
         <TextView
-            android:id="@+id/tv_sort"
+            android:id="@+id/tv_filter"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="按应用名称"
+            android:text="全部安装包"
             android:paddingVertical="@dimen/dp_4"
             android:layout_centerVertical="true"
             android:textColor="?attr/textColorMajor"
@@ -40,29 +40,69 @@
             android:layout_width="20dp"
             android:layout_height="20dp"
             android:layout_centerVertical="true"
-            android:layout_toEndOf="@id/tv_sort"
+            android:layout_toEndOf="@id/tv_filter"
             app:eiv_color="?attr/textColorMajor"
             app:eiv_roundedCorners="true"
             app:eiv_padding="@dimen/dp_4"
             />
 
 
+        <ImageView
+            android:id="@+id/iv_sort"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:src="@drawable/ic_sort_bak"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:tint="?attr/textColorMajor"
+            android:background="?attr/actionBarItemBackground"
+            />
 
     </RelativeLayout>
 
     <com.zpj.recyclerview.EasyRecyclerLayout
         app:layout_constraintTop_toBottomOf="@+id/layout_header"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/sortView"
         android:id="@+id/recycler_layout"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="0dp"/>
-
-    <!--    app:layout_constraintBottom_toTopOf="@id/layout_bottom"-->
 
     <View style="@style/layout_shadow_bottom"
         android:layout_width="match_parent"
         android:layout_height="@dimen/dp_4"
         app:layout_constraintTop_toBottomOf="@+id/layout_header" />
+
+    <com.zpj.shouji.market.ui.widget.LetterSortSideBar
+        app:layout_constraintTop_toBottomOf="@+id/layout_header"
+        app:layout_constraintBottom_toBottomOf="@id/recycler_layout"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:id="@+id/sortView"
+        android:layout_width="24dp"
+        android:layout_height="0dp"
+        android:layout_marginVertical="@dimen/dp_4"
+        app:sidebarSelectTextColor="@color/colorPrimary"
+        app:sidebarUnSelectTextColor="?attr/textColorNormal"
+        app:sidebarSelectTextSize="12sp"
+        app:sidebarUnSelectTextSize="10sp"
+        />
+
+    <TextView
+        android:id="@+id/tv_hint"
+        android:layout_width="55dp"
+        android:layout_height="55dp"
+        android:background="@drawable/bg_button_round_green"
+        android:gravity="center"
+        android:textColor="#ffffffff"
+        android:text="A"
+        android:textSize="18sp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:visibility="visible" />
 
     <LinearLayout
         android:id="@+id/layout_info"
@@ -75,7 +115,7 @@
         android:paddingVertical="@dimen/dp_4"
         android:paddingHorizontal="@dimen/dp_8"
         app:layout_constraintBottom_toBottomOf="@id/recycler_layout"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         >
 
         <ProgressBar

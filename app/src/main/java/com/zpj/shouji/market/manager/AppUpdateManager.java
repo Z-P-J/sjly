@@ -380,6 +380,10 @@ public final class AppUpdateManager {
         return INCLUDE_APP_MAP.get(packageName);
     }
 
+    public boolean hasUpdate(String packageName) {
+        return APP_UPDATE_CONTENT_MAP.containsKey(packageName);
+    }
+
 //    private boolean isLetterOrDigit(char c) {
 //        return Character.isLetter(c) || Character.isDigit(c);
 //    }

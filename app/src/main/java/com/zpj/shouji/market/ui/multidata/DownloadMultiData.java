@@ -117,7 +117,7 @@ public class DownloadMultiData extends ExpandableMultiData<AppDownloadMission> {
         Context context = holder.getContext();
         AppDownloadMission mission = list.get(position);
         ImageView ivIcon = holder.getView(R.id.item_icon);
-        Glide.with(ivIcon).load(mission).into(ivIcon);
+        Glide.with(holder.getContext()).load(mission).into(ivIcon);
 
         holder.setText(R.id.item_name, mission.getAppName());
         holder.setOnClickListener(R.id.btn_download, v -> {
@@ -138,6 +138,8 @@ public class DownloadMultiData extends ExpandableMultiData<AppDownloadMission> {
                     }
                 })
                 .setOnLongClickListener((v, x, y) -> {
+                    ClipboardManager cm1 = (ClipboardManager) context.getSystemService(Context.CLIPBOARD_SERVICE);
+                    cm1.setPrimaryClip(ClipData.newPlainText(null, mission.getAppIcon()));
                     ArrayList<String> titleList = new ArrayList<>();
                     if (!mission.isFinished()) {
                         if (mission.canPause()) {

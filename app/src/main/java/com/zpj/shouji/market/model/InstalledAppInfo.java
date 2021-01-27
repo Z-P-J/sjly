@@ -1,6 +1,21 @@
 package com.zpj.shouji.market.model;
 
+import android.content.Context;
+import android.content.pm.ApplicationInfo;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
 import android.text.TextUtils;
+
+import com.github.promeg.pinyinhelper.Pinyin;
+import com.zpj.shouji.market.manager.AppUpdateManager;
+import com.zpj.shouji.market.utils.AppUtil;
+import com.zpj.utils.FormatUtils;
+
+import org.xmlpull.v1.XmlPullParserException;
+
+import java.io.File;
+import java.io.IOException;
+import java.util.zip.ZipFile;
 
 public class InstalledAppInfo {
 
@@ -32,6 +47,94 @@ public class InstalledAppInfo {
     private long firstInstallTime;
     private long lastUpdateTime;
 
+    private String letter;
+
+    private int letterAscii;
+
+    public static InstalledAppInfo parseFromPackageInfo(PackageManager manager, PackageInfo packageInfo) {
+        InstalledAppInfo installedAppInfo = new InstalledAppInfo();
+        installedAppInfo.setName(packageInfo.applicationInfo.loadLabel(manager).toString());
+        installedAppInfo.setPackageName(packageInfo.packageName);
+        installedAppInfo.setSortName(installedAppInfo.getName());
+        installedAppInfo.setIdAndType(AppUpdateManager.getInstance().getAppIdAndType(installedAppInfo.getPackageName()));
+        installedAppInfo.setVersionName(packageInfo.versionName);
+        installedAppInfo.setApkFilePath(packageInfo.applicationInfo.publicSourceDir);
+        long size = new File(installedAppInfo.getApkFilePath()).length();
+        installedAppInfo.setAppSize(size);
+        installedAppInfo.setFormattedAppSize(FormatUtils.formatSize(size));
+        installedAppInfo.setVersionCode(packageInfo.versionCode);
+        installedAppInfo.setTempXPK(false);
+        installedAppInfo.setTempInstalled(true);
+        installedAppInfo.setEnabled(packageInfo.applicationInfo.enabled);
+        installedAppInfo.setBackuped(new File(AppUtil.getDefaultAppBackupFolder() + installedAppInfo.getName() + "_" + installedAppInfo.getVersionName() + ".apk").exists());
+        installedAppInfo.setUserApp((packageInfo.applicationInfo.flags & ApplicationInfo.FLAG_SYSTEM) == 0);
+        installedAppInfo.setFirstInstallTime(packageInfo.firstInstallTime);
+        installedAppInfo.setLastUpdateTime(packageInfo.lastUpdateTime);
+        return installedAppInfo;
+    }
+
+    public static InstalledAppInfo parseFromApk(Context context, File file) {
+        if (context == null) {
+            return null;
+        }
+        PackageInfo packageInfo = null;
+        PackageManager manager = context.getPackageManager();
+        try {
+            packageInfo = manager.getPackageArchiveInfo(file.getPath(), PackageManager.GET_ACTIVITIES);
+        } catch (Throwable e) {
+            e.printStackTrace();
+//            return null;
+        }
+
+        InstalledAppInfo appInfo = new InstalledAppInfo();
+        appInfo.setApkFilePath(file.getPath());
+        appInfo.setAppSize(file.length());
+        appInfo.setLastUpdateTime(file.lastModified());
+        appInfo.setFormattedAppSize(FormatUtils.formatSize(file.length()));
+        appInfo.setTempXPK(true);
+        appInfo.setTempInstalled(false);
+        if (packageInfo == null) {
+            appInfo.setDamaged(true);
+            appInfo.setName(file.getName());
+            return appInfo;
+        }
+
+
+        packageInfo.applicationInfo.sourceDir = file.getPath();
+        packageInfo.applicationInfo.publicSourceDir = file.getPath();
+        appInfo.setName(String.valueOf(packageInfo.applicationInfo.loadLabel(manager)));
+
+//        Log.d("parseFromApk", "name=" + appInfo.getName());
+        appInfo.setPackageName(packageInfo.packageName);
+        appInfo.setIdAndType(AppUpdateManager.getInstance().getAppIdAndType(appInfo.getPackageName()));
+        appInfo.setVersionName(packageInfo.versionName);
+        appInfo.setVersionCode(packageInfo.versionCode);
+        return appInfo;
+    }
+
+    public static InstalledAppInfo parseFromXpk(File file) {
+        XpkInfo xpkInfo;
+        try {
+            xpkInfo = XpkInfo.getXPKManifestDom(new ZipFile(file));
+        } catch (XmlPullParserException | IOException e) {
+            e.printStackTrace();
+            return null;
+        }
+        InstalledAppInfo appInfo = new InstalledAppInfo();
+        appInfo.setApkFilePath(file.getPath());
+        appInfo.setName(xpkInfo.getAppName());
+        appInfo.setPackageName(xpkInfo.getPackageName());
+        appInfo.setId(AppUpdateManager.getInstance().getAppIdAndType(appInfo.getPackageName()));
+        appInfo.setVersionName(xpkInfo.getVersionName());
+        appInfo.setVersionCode(xpkInfo.getVersionCode());
+        appInfo.setAppSize(file.length());
+        appInfo.setLastUpdateTime(file.lastModified());
+        appInfo.setFormattedAppSize(FormatUtils.formatSize(file.length()));
+        appInfo.setTempXPK(true);
+        appInfo.setTempInstalled(false);
+        return appInfo;
+    }
+
     public String getFilePath() {
         return apkFilePath;
     }
@@ -46,6 +149,15 @@ public class InstalledAppInfo {
 
     public void setName(String name) {
         this.name = name;
+
+        if (!TextUtils.isEmpty(name)) {
+            char ch = Pinyin.toPinyin(name.charAt(0)).toUpperCase().charAt(0);
+            if (Character.isLetter(ch)) {
+                setLetter(String.valueOf(ch));
+                return;
+            }
+        }
+        setLetter("#");
     }
 
     public String getPackageName() {
@@ -203,6 +315,22 @@ public class InstalledAppInfo {
 
     public long getLastUpdateTime() {
         return lastUpdateTime;
+    }
+
+    public String getLetter() {
+        return letter;
+    }
+
+    public void setLetter(String letter) {
+        this.letter = letter;
+    }
+
+    public int getLetterAscii() {
+        return letterAscii;
+    }
+
+    public void setLetterAscii(int letterAscii) {
+        this.letterAscii = letterAscii;
     }
 
     @Override

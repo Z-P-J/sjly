@@ -12,6 +12,7 @@ import com.zpj.rxlife.RxLife;
 import com.zpj.shouji.market.model.InstalledAppInfo;
 import com.zpj.shouji.market.utils.AppUtil;
 import com.zpj.toast.ZToast;
+import com.zpj.utils.AppUtils;
 import com.zpj.utils.ContextUtils;
 import com.zpj.utils.FormatUtils;
 
@@ -54,32 +55,6 @@ public class AppInstalledManager { //  extends BroadcastReceiver
     private AppInstalledManager() {
         isLoaded.set(false);
         isLoading.set(false);
-    }
-
-    private synchronized InstalledAppInfo onAppAdded(PackageManager manager, PackageInfo packageInfo) {
-//        for (InstalledAppInfo info : installedAppInfoList) {
-//            if (info.getPackageName().equals(packageInfo.packageName)) {
-//                return info;
-//            }
-//        }
-        InstalledAppInfo installedAppInfo = new InstalledAppInfo();
-        installedAppInfo.setName(packageInfo.applicationInfo.loadLabel(manager).toString());
-        installedAppInfo.setPackageName(packageInfo.packageName);
-        installedAppInfo.setSortName(installedAppInfo.getName());
-        installedAppInfo.setIdAndType(AppUpdateManager.getInstance().getAppIdAndType(installedAppInfo.getPackageName()));
-        installedAppInfo.setVersionName(packageInfo.versionName);
-        installedAppInfo.setApkFilePath(packageInfo.applicationInfo.publicSourceDir);
-        installedAppInfo.setFormattedAppSize(FormatUtils.formatSize(new File(installedAppInfo.getApkFilePath()).length()));
-        installedAppInfo.setVersionCode(packageInfo.versionCode);
-        installedAppInfo.setTempXPK(false);
-        installedAppInfo.setTempInstalled(true);
-        installedAppInfo.setEnabled(packageInfo.applicationInfo.enabled);
-        installedAppInfo.setBackuped(new File(AppUtil.getDefaultAppBackupFolder() + installedAppInfo.getName() + "_" + installedAppInfo.getVersionName() + ".apk").exists());
-        installedAppInfo.setUserApp((packageInfo.applicationInfo.flags & ApplicationInfo.FLAG_SYSTEM) == 0);
-        installedAppInfo.setFirstInstallTime(packageInfo.firstInstallTime);
-        installedAppInfo.setLastUpdateTime(packageInfo.lastUpdateTime);
-        installedAppInfoList.add(installedAppInfo);
-        return installedAppInfo;
     }
 
     private synchronized void onAppRemoved(String packageName) {
@@ -143,27 +118,31 @@ public class AppInstalledManager { //  extends BroadcastReceiver
         synchronized (callbacks) {
             for (WeakReference<CallBack> callBackWeakReference : callbacks) {
                 CallBack callBack = callBackWeakReference.get();
-                if (callBack != null) {
-                    if (installedAppInfo.isUserApp()) {
-                        // 非系统应用
-                        callBack.onGetUserApp(installedAppInfo);
-                    } else {
-                        // 系统应用
-                        callBack.onGetSystemApp(installedAppInfo);
-                    }
-
-                    if (installedAppInfo.isBackuped()) {
-                        // 已备份
-                        callBack.onGetBackupApp(installedAppInfo);
-                    }
-
-                    if (!installedAppInfo.isEnabled()) {
-                        // 已禁用
-                        callBack.onGetForbidApp(installedAppInfo);
-                    }
-
-                }
+                onNext(callBack, installedAppInfo);
             }
+        }
+    }
+
+    private void onNext(CallBack callBack, InstalledAppInfo installedAppInfo) {
+        if (callBack != null) {
+            if (installedAppInfo.isUserApp()) {
+                // 非系统应用
+                callBack.onGetUserApp(installedAppInfo);
+            } else {
+                // 系统应用
+                callBack.onGetSystemApp(installedAppInfo);
+            }
+
+            if (installedAppInfo.isBackuped()) {
+                // 已备份
+                callBack.onGetBackupApp(installedAppInfo);
+            }
+
+            if (!installedAppInfo.isEnabled()) {
+                // 已禁用
+                callBack.onGetForbidApp(installedAppInfo);
+            }
+
         }
     }
 
@@ -185,9 +164,9 @@ public class AppInstalledManager { //  extends BroadcastReceiver
         }
         if (isLoaded.get() && !isLoading.get()) {
             for (InstalledAppInfo appInfo : installedAppInfoList) {
-                onNext(appInfo);
+                onNext(callBack, appInfo);
             }
-            onFinished();
+            callBack.onLoadAppFinished();
         } else if (!isLoaded.get() && !isLoading.get()) {
             addListener(callBack);
             loadApps();
@@ -200,34 +179,6 @@ public class AppInstalledManager { //  extends BroadcastReceiver
                 }
             }
         }
-
-//        Observable.create(
-//                (ObservableOnSubscribe<InstalledAppInfo>) emitter -> {
-//                    if (isLoaded.get() && !isLoading.get() && !installedAppInfoList.isEmpty()) {
-//                        isLoading.set(true);
-//                        for (InstalledAppInfo appInfo : installedAppInfoList) {
-//                            emitter.onNext(appInfo);
-//                        }
-//                        isLoading.set(false);
-//                    } else {
-//                        isLoading.set(true);
-//                        PackageManager manager = context.getPackageManager();
-//                        List<PackageInfo> packageInfoList = manager.getInstalledPackages(0);
-//                        for (PackageInfo packageInfo : packageInfoList) {
-//                            emitter.onNext(onAppAdded(manager, packageInfo));
-//                        }
-//                        isLoaded.set(true);
-//                        isLoading.set(false);
-//                    }
-//                    emitter.onComplete();
-//                })
-//                .subscribeOn(Schedulers.io())
-//                .observeOn(AndroidSchedulers.mainThread())
-//                .compose(RxLife.bindTag(TAG))
-//                .doOnNext(this::onNext)
-//                .doOnError(Throwable::printStackTrace)
-//                .doOnComplete(this::onFinished)
-//                .subscribe();
     }
 
     public void loadApps() {
@@ -244,7 +195,7 @@ public class AppInstalledManager { //  extends BroadcastReceiver
                     List<PackageInfo> packageInfoList = manager.getInstalledPackages(0);
                     List<InstalledAppInfo> installedAppInfos = new ArrayList<>();
                     for (PackageInfo packageInfo : packageInfoList) {
-                        installedAppInfos.add(onAppAdded(manager, packageInfo));
+                        installedAppInfos.add(InstalledAppInfo.parseFromPackageInfo(manager, packageInfo));
                     }
                     emitter.onNext(installedAppInfos);
                     emitter.onComplete();
@@ -252,20 +203,16 @@ public class AppInstalledManager { //  extends BroadcastReceiver
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .compose(RxLife.bindTag(TAG))
-                .doOnNext(new Consumer<List<InstalledAppInfo>>() {
-                    @Override
-                    public void accept(List<InstalledAppInfo> installedAppInfos) throws Exception {
-                        installedAppInfoList.addAll(installedAppInfos);
-                        isLoaded.set(true);
-                        isLoading.set(false);
-                        for (InstalledAppInfo info : installedAppInfos) {
-                            onNext(info);
-                        }
-                        onFinished();
+                .doOnNext(installedAppInfos -> {
+                    installedAppInfoList.addAll(installedAppInfos);
+                    isLoaded.set(true);
+                    isLoading.set(false);
+                    for (InstalledAppInfo info : installedAppInfos) {
+                        onNext(info);
                     }
+                    onFinished();
                 })
                 .doOnError(Throwable::printStackTrace)
-//                    .doOnComplete(this::onFinished)
                 .subscribe();
     }
 

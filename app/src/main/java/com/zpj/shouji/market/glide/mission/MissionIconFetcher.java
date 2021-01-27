@@ -43,56 +43,87 @@ public class MissionIconFetcher implements DataFetcher<InputStream> {
 
     @Override
     public void loadData(@NonNull Priority priority, @NonNull DataCallback<? super InputStream> callback) {
-        Observable.create(
-                (ObservableOnSubscribe<InputStream>) emitter -> {
-                    Drawable d = null;
-                    if (!TextUtils.isEmpty(downloadMission.getAppIcon())) {
-                        d = Glide.with(context).asDrawable().load(downloadMission.getAppIcon()).submit().get();
-                    } else if (downloadMission.isFinished()) {
-                        d = AppUtils.getApkIcon(context, downloadMission.getFilePath());
-                    } else if (AppUtils.isInstalled(context, downloadMission.getPackageName())) {
-                        d = AppUtils.getAppIcon(context, downloadMission.getPackageName());
-                    }
-                    if (d == null) {
-                        d = context.getResources().getDrawable(R.drawable.ic_file_apk);
-                    }
-                    Bitmap iconBitmap;
-                    if (d instanceof BitmapDrawable) {
-                        iconBitmap = ((BitmapDrawable) d).getBitmap();
-                    } else {
-                        iconBitmap = Bitmap.createBitmap(d.getIntrinsicWidth(), d.getIntrinsicHeight(),
-                                d.getOpacity() != PixelFormat.OPAQUE ? Bitmap.Config.ARGB_8888 : Bitmap.Config.RGB_565);
-                        Canvas canvas = new Canvas(iconBitmap);
-                        d.setBounds(0, 0, d.getIntrinsicWidth(), d.getIntrinsicHeight());
-                        d.draw(canvas);
-                    }
-                    emitter.onNext(bitmap2InputStream(iconBitmap));
-                    emitter.onComplete();
-                })
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Observer<InputStream>() {
-                    @Override
-                    public void onSubscribe(@NonNull Disposable d) {
+        try {
+            Drawable d = null;
+            if (!TextUtils.isEmpty(downloadMission.getAppIcon())) {
+                d = Glide.with(context).asDrawable().load(downloadMission.getAppIcon()).submit().get();
+            } else if (downloadMission.isFinished()) {
+                d = AppUtils.getApkIcon(context, downloadMission.getFilePath());
+            } else if (downloadMission.hasInstalledApp()) {
+                d = AppUtils.getAppIcon(context, downloadMission.getPackageName());
+            }
+            if (d == null) {
+                d = context.getResources().getDrawable(R.drawable.ic_file_apk);
+            }
+            Bitmap iconBitmap;
+            if (d instanceof BitmapDrawable) {
+                iconBitmap = ((BitmapDrawable) d).getBitmap();
+            } else {
+                iconBitmap = Bitmap.createBitmap(d.getIntrinsicWidth(), d.getIntrinsicHeight(),
+                        d.getOpacity() != PixelFormat.OPAQUE ? Bitmap.Config.ARGB_8888 : Bitmap.Config.RGB_565);
+                Canvas canvas = new Canvas(iconBitmap);
+                d.setBounds(0, 0, d.getIntrinsicWidth(), d.getIntrinsicHeight());
+                d.draw(canvas);
+            }
+            callback.onDataReady(bitmap2InputStream(iconBitmap));
+        } catch (Exception e) {
+            callback.onLoadFailed(e);
+        }
 
-                    }
 
-                    @Override
-                    public void onNext(@NonNull InputStream inputStream) {
-                        callback.onDataReady(inputStream);
-                    }
-
-                    @Override
-                    public void onError(@NonNull Throwable e) {
-                        e.printStackTrace();
-                        callback.onLoadFailed(new Exception(e));
-                    }
-
-                    @Override
-                    public void onComplete() {
-
-                    }
-                });
+//        String tag = "glide:" + downloadMission.getPackageName();
+//        RxLife.removeByTag(tag);
+//        Observable.create(
+//                (ObservableOnSubscribe<InputStream>) emitter -> {
+//                    Drawable d = null;
+//                    if (!TextUtils.isEmpty(downloadMission.getAppIcon())) {
+//                        d = Glide.with(context).asDrawable().load(downloadMission.getAppIcon()).submit().get();
+//                    } else if (downloadMission.isFinished()) {
+//                        d = AppUtils.getApkIcon(context, downloadMission.getFilePath());
+//                    } else if (downloadMission.hasInstalledApp()) { // AppUtils.isInstalled(context, downloadMission.getPackageName())
+//                        d = AppUtils.getAppIcon(context, downloadMission.getPackageName());
+//                    }
+//                    if (d == null) {
+//                        d = context.getResources().getDrawable(R.drawable.ic_file_apk);
+//                    }
+//                    Bitmap iconBitmap;
+//                    if (d instanceof BitmapDrawable) {
+//                        iconBitmap = ((BitmapDrawable) d).getBitmap();
+//                    } else {
+//                        iconBitmap = Bitmap.createBitmap(d.getIntrinsicWidth(), d.getIntrinsicHeight(),
+//                                d.getOpacity() != PixelFormat.OPAQUE ? Bitmap.Config.ARGB_8888 : Bitmap.Config.RGB_565);
+//                        Canvas canvas = new Canvas(iconBitmap);
+//                        d.setBounds(0, 0, d.getIntrinsicWidth(), d.getIntrinsicHeight());
+//                        d.draw(canvas);
+//                    }
+//                    emitter.onNext(bitmap2InputStream(iconBitmap));
+//                    emitter.onComplete();
+//                })
+//                .subscribeOn(Schedulers.io())
+//                .observeOn(AndroidSchedulers.mainThread())
+//                .compose(RxLife.bindTag(tag))
+//                .subscribe(new Observer<InputStream>() {
+//                    @Override
+//                    public void onSubscribe(@NonNull Disposable d) {
+//
+//                    }
+//
+//                    @Override
+//                    public void onNext(@NonNull InputStream inputStream) {
+//                        callback.onDataReady(inputStream);
+//                    }
+//
+//                    @Override
+//                    public void onError(@NonNull Throwable e) {
+//                        e.printStackTrace();
+//                        callback.onLoadFailed(new Exception(e));
+//                    }
+//
+//                    @Override
+//                    public void onComplete() {
+//
+//                    }
+//                });
     }
     
     private InputStream bitmap2InputStream(Bitmap bm) {
