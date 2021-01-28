@@ -155,8 +155,22 @@
         <attr format="dimension" name="sidebarUnSelectTextSize"/>
     </declare-styleable>
 
-    <declare-styleable name="RoundTagTextView">
+    <declare-styleable name="RoundedDrawableTextView">
         <attr format="color" name="tag_background_tint_color"/>
+    </declare-styleable>
+
+    <declare-styleable name="InfoCardView">
+        <attr format="string" name="info_card_title"/>
+        <attr format="string" name="info_card_content"/>
+        <attr format="integer" name="info_card_content_max_lines"/>
+        <attr format="reference" name="info_card_right_icon"/>
+        <attr format="boolean" name="info_card_show_right_icon"/>
+    </declare-styleable>
+
+    <declare-styleable name="MenuActionButton">
+        <attr format="string" name="menu_action_title"/>
+        <attr format="reference" name="menu_action_icon"/>
+        <attr format="color" name="menu_action_color"/>
     </declare-styleable>
 
     <string-array name="default_wallpaper_tags">

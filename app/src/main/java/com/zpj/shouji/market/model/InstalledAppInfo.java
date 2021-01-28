@@ -4,17 +4,24 @@ import android.content.Context;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
+import android.content.res.AssetManager;
+import android.content.res.XmlResourceParser;
+import android.os.Build;
 import android.text.TextUtils;
 
 import com.github.promeg.pinyinhelper.Pinyin;
 import com.zpj.shouji.market.manager.AppUpdateManager;
 import com.zpj.shouji.market.utils.AppUtil;
+import com.zpj.utils.AppUtils;
 import com.zpj.utils.FormatUtils;
 
+import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;
 
 import java.io.File;
 import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.util.zip.ZipFile;
 
 public class InstalledAppInfo {
@@ -51,6 +58,9 @@ public class InstalledAppInfo {
 
     private int letterAscii;
 
+    private int targetSdk;
+    private int minSdk;
+
     public static InstalledAppInfo parseFromPackageInfo(PackageManager manager, PackageInfo packageInfo) {
         InstalledAppInfo installedAppInfo = new InstalledAppInfo();
         installedAppInfo.setName(packageInfo.applicationInfo.loadLabel(manager).toString());
@@ -70,7 +80,31 @@ public class InstalledAppInfo {
         installedAppInfo.setUserApp((packageInfo.applicationInfo.flags & ApplicationInfo.FLAG_SYSTEM) == 0);
         installedAppInfo.setFirstInstallTime(packageInfo.firstInstallTime);
         installedAppInfo.setLastUpdateTime(packageInfo.lastUpdateTime);
+        installedAppInfo.targetSdk = packageInfo.applicationInfo.targetSdkVersion;
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            installedAppInfo.minSdk = packageInfo.applicationInfo.minSdkVersion;
+        } else {
+            installedAppInfo.minSdk = getMinSdkVersion(installedAppInfo.getApkFilePath());
+        }
         return installedAppInfo;
+    }
+
+    public static int getMinSdkVersion(String path) {
+        try {
+            final Class assetManagerClass = Class.forName("android.content.res.AssetManager");
+            final AssetManager assetManager = (AssetManager) assetManagerClass.newInstance();
+            final Method addAssetPath = assetManager.getClass().getMethod("addAssetPath", String.class);
+            final int cookie = (Integer) addAssetPath.invoke(assetManager, path);
+            final XmlResourceParser parser = assetManager.openXmlResourceParser(cookie, "AndroidManifest.xml");
+            while (parser.next() != XmlPullParser.END_DOCUMENT)
+                if (parser.getEventType() == XmlPullParser.START_TAG && parser.getName().equals("uses-sdk"))
+                    for (int i = 0; i < parser.getAttributeCount(); ++i)
+                        if (parser.getAttributeNameResource(i) == android.R.attr.minSdkVersion)//alternative, which works most of the times: "minSdkVersion".equals(parser.getAttributeName(i)))
+                            return parser.getAttributeIntValue(i, -1);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return -1;
     }
 
     public static InstalledAppInfo parseFromApk(Context context, File file) {
@@ -109,6 +143,17 @@ public class InstalledAppInfo {
         appInfo.setIdAndType(AppUpdateManager.getInstance().getAppIdAndType(appInfo.getPackageName()));
         appInfo.setVersionName(packageInfo.versionName);
         appInfo.setVersionCode(packageInfo.versionCode);
+
+        appInfo.setFirstInstallTime(packageInfo.firstInstallTime);
+        appInfo.setLastUpdateTime(packageInfo.lastUpdateTime);
+
+        appInfo.targetSdk = packageInfo.applicationInfo.targetSdkVersion;
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            appInfo.minSdk = packageInfo.applicationInfo.minSdkVersion;
+        } else {
+            appInfo.minSdk = getMinSdkVersion(appInfo.getApkFilePath());
+        }
+
         return appInfo;
     }
 
@@ -331,6 +376,14 @@ public class InstalledAppInfo {
 
     public void setLetterAscii(int letterAscii) {
         this.letterAscii = letterAscii;
+    }
+
+    public int getTargetSdk() {
+        return targetSdk;
+    }
+
+    public int getMinSdk() {
+        return minSdk;
     }
 
     @Override

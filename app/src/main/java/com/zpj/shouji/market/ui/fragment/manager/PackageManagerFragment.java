@@ -25,6 +25,7 @@ import com.zpj.shouji.market.glide.GlideApp;
 import com.zpj.shouji.market.manager.AppUpdateManager;
 import com.zpj.shouji.market.model.InstalledAppInfo;
 import com.zpj.shouji.market.ui.fragment.base.RecyclerLayoutFragment;
+import com.zpj.shouji.market.ui.fragment.dialog.PackageDetailDialogFragment;
 import com.zpj.shouji.market.ui.fragment.dialog.RecyclerPartShadowDialogFragment;
 import com.zpj.shouji.market.ui.widget.LetterSortSideBar;
 import com.zpj.shouji.market.ui.widget.RoundedDrawableTextView;
@@ -441,7 +442,7 @@ public class PackageManagerFragment extends RecyclerLayoutFragment<InstalledAppI
                 .setOnItemClickListener((position, menu) -> {
                     switch (position) {
                         case 0:
-                            ZToast.normal("详细信息");
+                            PackageDetailDialogFragment.with(updateInfo).show(context);
                             break;
                         case 1:
                             ZToast.normal(updateInfo.getApkFilePath());

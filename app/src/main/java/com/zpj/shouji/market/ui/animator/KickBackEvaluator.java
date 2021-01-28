@@ -2,7 +2,7 @@ package com.zpj.shouji.market.ui.animator;
 
 import android.animation.TypeEvaluator;
 
-public class KickBackAnimator implements TypeEvaluator<Float> {
+public class KickBackEvaluator implements TypeEvaluator<Float> {
 
     private static final float s = 1.70158f;
     private float mDuration = 0f;

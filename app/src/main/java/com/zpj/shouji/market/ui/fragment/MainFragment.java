@@ -20,9 +20,7 @@ import com.zpj.shouji.market.model.MessageInfo;
 import com.zpj.shouji.market.ui.fragment.base.BaseContainerFragment;
 import com.zpj.shouji.market.ui.fragment.base.SkinFragment;
 import com.zpj.shouji.market.ui.fragment.dialog.MainActionDialogFragment;
-import com.zpj.shouji.market.ui.fragment.homepage.DiscoverFragment;
 import com.zpj.shouji.market.ui.fragment.homepage.HomeFragment;
-import com.zpj.shouji.market.ui.fragment.homepage.WallpaperFragment;
 import com.zpj.shouji.market.ui.fragment.profile.MyFragment;
 import com.zpj.shouji.market.ui.fragment.recommond.GameRecommendFragment;
 import com.zpj.shouji.market.ui.fragment.recommond.SoftRecommendFragment;
@@ -187,7 +185,6 @@ public class MainFragment extends SkinFragment {
         emptyTab.setOnClickListener(v -> {
             EventBus.sendMainActionEvent(true);
             new MainActionDialogFragment()
-//                    .setOnDismissListener(() -> MainActionPopupEvent.post(false))
                     .setOnDismissListener(() -> EventBus.sendMainActionEvent(false))
                     .show(context);
         });

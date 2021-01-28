@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="@dimen/dp_8"
+    >
+
+    <TextView
+        android:id="@+id/_card_tv_title"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:maxLines="1"
+        android:text="应用包名"
+        android:textSize="12sp"
+        android:textColor="?attr/textColorMinor"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/_card_iv_icon"
+        android:layout_marginEnd="@dimen/dp_8"
+        app:layout_goneMarginEnd="0dp"
+        />
+
+    <TextView
+        android:id="@+id/_card_tv_content"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="com.zpj.shouji.market"
+        android:maxLines="3"
+        android:ellipsize="end"
+        android:textColor="?attr/textColorMajor"
+        app:layout_constraintTop_toBottomOf="@id/_card_tv_title"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/_card_iv_icon"
+        android:layout_marginEnd="@dimen/dp_8"
+        app:layout_goneMarginEnd="0dp"
+        android:textSize="12sp"
+        android:layout_marginTop="@dimen/dp_4"
+        />
+
+    <ImageView
+        android:id="@+id/_card_iv_icon"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:src="@drawable/ic_copy"
+        android:tint="?attr/textColorMajor"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        />
+
+</android.support.constraint.ConstraintLayout>

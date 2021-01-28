@@ -28,8 +28,8 @@ public class RoundedDrawableTextView extends AppCompatTextView {
     public RoundedDrawableTextView(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         if (attrs != null) {
-            TypedArray ta = context.obtainStyledAttributes(attrs, R.styleable.RoundTagTextView);
-            backgroundColor = ta.getColor(R.styleable.RoundTagTextView_tag_background_tint_color, Color.BLACK);
+            TypedArray ta = context.obtainStyledAttributes(attrs, R.styleable.RoundedDrawableTextView);
+            backgroundColor = ta.getColor(R.styleable.RoundedDrawableTextView_tag_background_tint_color, Color.BLACK);
             ta.recycle();
         }
         Drawable drawable = context.getResources().getDrawable(R.drawable.bg_button_round_green);

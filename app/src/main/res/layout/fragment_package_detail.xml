@@ -1,0 +1,274 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    >
+
+    <ImageView
+        android:id="@+id/iv_bg"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        />
+
+    <com.zpj.shouji.market.ui.widget.ElasticScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <android.support.constraint.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            >
+
+            <com.zpj.shouji.market.ui.widget.PlaceholderView
+                android:id="@+id/place_holder"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+
+                app:layout_constraintTop_toTopOf="parent"
+                />
+
+
+            <RelativeLayout
+                android:id="@+id/rl_header"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@+id/place_holder"
+                >
+
+                <ImageView
+                    android:id="@+id/iv_icon"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:layout_centerVertical="true"
+                    android:layout_marginVertical="16dp"
+                    android:layout_marginHorizontal="16dp"
+                    android:gravity="center"
+                    android:scaleType="fitXY"
+                    android:src="@mipmap/ic_launcher"
+                    />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_toEndOf="@id/iv_icon"
+                    android:orientation="vertical"
+                    android:layout_marginEnd="@dimen/dp_16"
+                    >
+
+                    <TextView
+                        android:id="@+id/tv_name"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:ellipsize="end"
+                        android:singleLine="true"
+                        android:text="@string/app_name"
+                        android:textColor="?attr/textColorMajor"
+                        android:textSize="14sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/tv_version_name"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:singleLine="true"
+                        android:text="Version Name: 1.0.0"
+                        android:textColor="?attr/textColorNormal"
+                        android:textSize="12sp" />
+
+                    <TextView
+                        android:id="@+id/tv_version_code"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:singleLine="true"
+                        android:text="Version Code: 90"
+                        android:textColor="?attr/textColorNormal"
+                        android:textSize="12sp" />
+
+                </LinearLayout>
+
+            </RelativeLayout>
+
+            <com.zpj.shouji.market.ui.widget.InfoCardView
+                android:id="@+id/card_package_name"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@id/rl_header"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/card_apk_path"
+                app:cardElevation="2dp"
+                app:cardUseCompatPadding="true"
+                app:cardCornerRadius="@dimen/dp_8"
+                android:layout_marginStart="@dimen/dp_8"
+                app:info_card_title="应用包名"
+                app:info_card_content="@string/app_name"
+                app:info_card_right_icon="@drawable/ic_copy"
+                />
+
+            <com.zpj.shouji.market.ui.widget.InfoCardView
+                android:id="@+id/card_package_size"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@id/card_package_name"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/card_apk_path"
+                app:cardElevation="2dp"
+                app:cardUseCompatPadding="true"
+                app:cardCornerRadius="@dimen/dp_8"
+                app:info_card_title="安装包大小"
+                app:info_card_content="12 MB"
+                app:info_card_content_max_lines="1"
+                android:layout_marginStart="@dimen/dp_8"
+                />
+
+            <com.zpj.shouji.market.ui.widget.InfoCardView
+                android:id="@+id/card_apk_path"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                app:layout_constraintTop_toBottomOf="@id/rl_header"
+                app:layout_constraintStart_toEndOf="@id/card_package_name"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintBottom_toBottomOf="@id/card_package_size"
+                app:cardElevation="2dp"
+                app:cardUseCompatPadding="true"
+                app:cardCornerRadius="@dimen/dp_8"
+                android:layout_marginEnd="@dimen/dp_8"
+                app:info_card_title="安装路径"
+                app:info_card_content="@string/app_name"
+                app:info_card_right_icon="@drawable/ic_copy"
+                app:info_card_content_max_lines="6"
+                />
+
+            <com.zpj.shouji.market.ui.widget.InfoCardView
+                android:id="@+id/card_target_sdk"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@id/card_package_size"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintDimensionRatio="2"
+
+                app:cardElevation="2dp"
+                app:cardUseCompatPadding="true"
+                app:cardCornerRadius="@dimen/dp_8"
+                android:layout_marginStart="@dimen/dp_8"
+
+                app:info_card_title="TargetSDK"
+                app:info_card_content="27"
+                app:info_card_content_max_lines="1"
+                />
+
+            <com.zpj.shouji.market.ui.widget.InfoCardView
+                android:id="@+id/card_min_sdk"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/dp_8"
+                app:layout_constraintTop_toBottomOf="@id/card_target_sdk"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintDimensionRatio="2"
+
+                app:cardElevation="2dp"
+                app:cardUseCompatPadding="true"
+                app:cardCornerRadius="@dimen/dp_8"
+
+                app:info_card_title="MinSDK"
+                app:info_card_content="21"
+                app:info_card_content_max_lines="1"
+                />
+
+            <com.zpj.shouji.market.ui.widget.InfoCardView
+                android:id="@+id/card_first_install_time"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@id/card_package_size"
+                app:layout_constraintStart_toEndOf="@id/card_target_sdk"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:cardElevation="2dp"
+                app:cardUseCompatPadding="true"
+                app:cardCornerRadius="@dimen/dp_8"
+                android:layout_marginEnd="@dimen/dp_8"
+                app:info_card_title="首次安装时间"
+                app:info_card_content="12 MB"
+                app:info_card_content_max_lines="1"
+                />
+
+            <com.zpj.shouji.market.ui.widget.InfoCardView
+                android:id="@+id/card_last_update_time"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@id/card_first_install_time"
+                app:layout_constraintStart_toEndOf="@id/card_min_sdk"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:cardElevation="2dp"
+                app:cardUseCompatPadding="true"
+                app:cardCornerRadius="@dimen/dp_8"
+                android:layout_marginEnd="@dimen/dp_8"
+                app:info_card_title="最后更新时间"
+                app:info_card_content="12 MB"
+                app:info_card_content_max_lines="1"
+                />
+
+
+            <!--    <View style="@style/layout_shadow_bottom"-->
+            <!--        android:layout_width="match_parent"-->
+            <!--        android:layout_height="@dimen/dp_4"-->
+            <!--        app:layout_constraintTop_toBottomOf="@+id/tool_bar" />-->
+
+        </android.support.constraint.ConstraintLayout>
+
+    </com.zpj.shouji.market.ui.widget.ElasticScrollView>
+
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <com.zpj.widget.toolbar.ZToolBar
+            app:layout_constraintTop_toTopOf="parent"
+            android:id="@+id/status_bar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:z_toolbar_fillStatusBar="true"
+            app:z_toolbar_statusBarColor="@color/transparent"
+            app:z_toolbar_titleBarColor="@color/transparent"
+            app:z_toolbar_titleBarHeight="0dp"/>
+
+        <com.zpj.widget.toolbar.ZToolBar
+            app:layout_constraintTop_toBottomOf="@id/status_bar"
+            android:id="@+id/tool_bar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:z_toolbar_fillStatusBar="false"
+            app:z_toolbar_titleBarColor="@color/transparent"/>
+
+        <ImageButton
+            android:id="@+id/iv_back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_arrow_back_black_24dp"
+            app:layout_constraintTop_toTopOf="@id/tool_bar"
+            app:layout_constraintBottom_toBottomOf="@id/tool_bar"
+            app:layout_constraintStart_toStartOf="@id/tool_bar"
+            android:layout_marginStart="@dimen/dp_16"
+            android:tint="?attr/textColorMajor"
+            android:background="@drawable/bg_button_round_card"
+            />
+
+        <ImageButton
+            android:id="@+id/iv_info"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_info_black_24dp"
+            app:layout_constraintTop_toTopOf="@id/tool_bar"
+            app:layout_constraintBottom_toBottomOf="@id/tool_bar"
+            app:layout_constraintEnd_toEndOf="@id/tool_bar"
+            android:layout_marginEnd="@dimen/dp_16"
+            android:tint="?attr/textColorMajor"
+            android:background="@drawable/bg_button_round_card"
+            />
+
+    </android.support.constraint.ConstraintLayout>
+
+
+
+</FrameLayout>

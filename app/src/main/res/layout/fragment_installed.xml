@@ -50,7 +50,7 @@
             android:id="@+id/iv_sort"
             android:layout_width="24dp"
             android:layout_height="24dp"
-            android:src="@drawable/ic_sort_bak"
+            android:src="@drawable/ic_sort"
             android:layout_alignParentEnd="true"
             android:layout_centerVertical="true"
             android:tint="?attr/textColorMajor"

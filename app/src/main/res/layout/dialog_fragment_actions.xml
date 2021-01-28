@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout
+<android.support.constraint.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/blur_view"
@@ -13,85 +13,61 @@
         android:layout_height="match_parent"
         />
 
-<!--    <android.support.constraint.ConstraintLayout-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="match_parent"-->
-<!--        android:clickable="true"-->
-<!--        android:focusable="true"-->
-<!--        android:id="@+id/layout_add_view"-->
-<!--        >-->
 
-<!--&lt;!&ndash;        <ImageView&ndash;&gt;-->
-<!--&lt;!&ndash;            android:layout_width="64dp"&ndash;&gt;-->
-<!--&lt;!&ndash;            android:layout_height="64dp"&ndash;&gt;-->
-<!--&lt;!&ndash;            android:src="@mipmap/ic_launcher"&ndash;&gt;-->
-<!--&lt;!&ndash;            app:layout_constraintLeft_toLeftOf="parent"&ndash;&gt;-->
-<!--&lt;!&ndash;            app:layout_constraintTop_toTopOf="parent"&ndash;&gt;-->
-<!--&lt;!&ndash;            />&ndash;&gt;-->
+    <com.zpj.shouji.market.ui.widget.MenuActionButton
+        android:id="@+id/btn_1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toTopOf="@id/fab"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/btn_2"
+        android:layout_marginBottom="64dp"
+        android:layout_marginStart="@dimen/dp_16"
+        app:menu_action_title="动态"
+        app:menu_action_icon="@drawable/ic_homepage_white_24dp"
+        app:menu_action_color="@color/light_blue_1"
+        />
 
-<!--        <TextView-->
-<!--            android:id="@+id/day_tv"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:layout_marginStart="16dp"-->
-<!--            android:layout_marginTop="30dp"-->
-<!--            android:gravity="center"-->
-<!--            android:includeFontPadding="false"-->
-<!--            android:text="11"-->
-<!--            android:textColor="#666666"-->
-<!--            android:textSize="60sp"-->
-<!--            app:layout_constraintLeft_toLeftOf="parent"-->
-<!--            app:layout_constraintTop_toTopOf="parent" />-->
+    <com.zpj.shouji.market.ui.widget.MenuActionButton
+        android:id="@+id/btn_2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toTopOf="@id/fab"
+        app:layout_constraintStart_toEndOf="@id/btn_1"
+        app:layout_constraintEnd_toStartOf="@id/btn_3"
+        android:layout_marginBottom="64dp"
+        app:menu_action_title="应用集"
+        app:menu_action_icon="@drawable/ic_app_collection_white_24dp"
+        app:menu_action_color="@color/light_red_1"
+        />
 
-<!--        <TextView-->
-<!--            android:id="@+id/week_tv"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:layout_marginStart="16dp"-->
-<!--            android:gravity="center"-->
-<!--            android:text="星期一"-->
-<!--            android:textSize="14sp"-->
-<!--            android:textColor="#666666"-->
-<!--            android:layout_marginTop="10dp"-->
-<!--            app:layout_constraintLeft_toRightOf="@+id/day_tv"-->
-<!--            app:layout_constraintTop_toTopOf="@+id/day_tv" />-->
+    <com.zpj.shouji.market.ui.widget.MenuActionButton
+        android:id="@+id/btn_3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toTopOf="@id/fab"
+        app:layout_constraintStart_toEndOf="@id/btn_2"
+        app:layout_constraintEnd_toStartOf="@id/btn_4"
+        android:layout_marginBottom="64dp"
+        app:menu_action_title="乐图"
+        app:menu_action_icon="@drawable/ic_image_black_24dp"
+        app:menu_action_color="@color/light_blue_2"
+        />
 
-<!--        <TextView-->
-<!--            android:id="@+id/date_tv"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:layout_marginStart="16dp"-->
-<!--            android:gravity="center"-->
-<!--            android:text="04/2020"-->
-<!--            android:textColor="#666666"-->
-<!--            android:layout_marginBottom="10dp"-->
-<!--            android:textSize="14sp"-->
-<!--            app:layout_constraintBottom_toBottomOf="@+id/day_tv"-->
-<!--            app:layout_constraintLeft_toRightOf="@+id/day_tv" />-->
+    <com.zpj.shouji.market.ui.widget.MenuActionButton
+        android:id="@+id/btn_4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toTopOf="@id/fab"
+        app:layout_constraintStart_toEndOf="@id/btn_3"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginBottom="64dp"
+        android:layout_marginEnd="@dimen/dp_16"
+        app:menu_action_title="私聊"
+        app:menu_action_icon="@drawable/ic_message_white_24dp"
+        app:menu_action_color="@color/light_purple"
+        />
 
-<!--&lt;!&ndash;        <TextView&ndash;&gt;-->
-<!--&lt;!&ndash;            android:layout_width="wrap_content"&ndash;&gt;-->
-<!--&lt;!&ndash;            android:layout_height="wrap_content"&ndash;&gt;-->
-<!--&lt;!&ndash;            android:layout_marginTop="10dp"&ndash;&gt;-->
-<!--&lt;!&ndash;            android:text="重庆:    雨  21度"&ndash;&gt;-->
-<!--&lt;!&ndash;            android:textSize="14sp"&ndash;&gt;-->
-<!--&lt;!&ndash;            android:textColor="#666666"&ndash;&gt;-->
-<!--&lt;!&ndash;            android:layout_marginLeft="10dp"&ndash;&gt;-->
-<!--&lt;!&ndash;            app:layout_constraintLeft_toLeftOf="@+id/day_tv"&ndash;&gt;-->
-<!--&lt;!&ndash;            app:layout_constraintTop_toBottomOf="@+id/day_tv" />&ndash;&gt;-->
-
-<!--    </android.support.constraint.ConstraintLayout>-->
-
-    <LinearLayout
-        android:id="@+id/icon_group"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="horizontal"
-        android:gravity="bottom"
-        android:paddingHorizontal="8dp"
-        >
-
-    </LinearLayout>
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/fab"
@@ -104,7 +80,9 @@
         app:elevation="10dp"
         app:fabCustomSize="40dp"
         app:maxImageSize="40dp"
-        android:layout_gravity="bottom|center_horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         />
 
-</FrameLayout>
+</android.support.constraint.ConstraintLayout>

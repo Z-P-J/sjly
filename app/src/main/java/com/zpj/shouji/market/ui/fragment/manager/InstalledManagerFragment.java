@@ -33,6 +33,7 @@ import com.zpj.shouji.market.manager.AppUpdateManager;
 import com.zpj.shouji.market.model.InstalledAppInfo;
 import com.zpj.shouji.market.ui.fragment.base.RecyclerLayoutFragment;
 import com.zpj.shouji.market.ui.fragment.detail.AppDetailFragment;
+import com.zpj.shouji.market.ui.fragment.dialog.PackageDetailDialogFragment;
 import com.zpj.shouji.market.ui.fragment.dialog.RecyclerPartShadowDialogFragment;
 import com.zpj.shouji.market.ui.widget.GradientButton;
 import com.zpj.shouji.market.ui.widget.LetterSortSideBar;
@@ -294,6 +295,7 @@ public class InstalledManagerFragment extends RecyclerLayoutFragment<InstalledAp
     @Override
     public void onClick(EasyViewHolder holder, View view, InstalledAppInfo data) {
         if (TextUtils.isEmpty(data.getId()) || TextUtils.isEmpty(data.getAppType())) {
+            PackageDetailDialogFragment.with(data).show(context);
             return;
         }
         AppDetailFragment.start(data);
@@ -523,7 +525,7 @@ public class InstalledManagerFragment extends RecyclerLayoutFragment<InstalledAp
                 .setOnItemClickListener((position, menu) -> {
                     switch (position) {
                         case 0:
-                            ZToast.normal("TODO 详细信息");
+                            PackageDetailDialogFragment.with(appInfo).show(context);
                             break;
                         case 1:
                             ZToast.normal(appInfo.getApkFilePath());
