@@ -37,7 +37,7 @@ public class SignInLayout3 extends LinearLayout implements View.OnClickListener 
 
     private void init(Context context) {
 
-        LayoutInflater.from(context).inflate(R.layout.layout_sign_in3, this, true);
+        LayoutInflater.from(context).inflate(R.layout.layout_sign_in, this, true);
 
 
         piv_account = findViewById(R.id.piv_login_account);

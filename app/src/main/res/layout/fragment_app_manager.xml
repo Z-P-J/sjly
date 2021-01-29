@@ -22,7 +22,7 @@
         app:z_toolbar_centerText="应用管理"
         app:z_toolbar_centerTextColor="#ffffff"
         app:z_toolbar_rightType="imageButton"
-        app:z_toolbar_rightImageResource="@drawable/ic_search_white_24dp"
+        app:z_toolbar_rightImageResource="@drawable/ic_search"
         />
 
     <net.lucode.hackware.magicindicator.MagicIndicator

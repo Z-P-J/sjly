@@ -23,8 +23,6 @@ public class AppUrlCenterListDialogFragment extends CenterListDialogFragment<Mul
 
     private View anchorView;
 
-    private AppDetailInfo detailInfo;
-
     public static AppUrlCenterListDialogFragment with() {
         return new AppUrlCenterListDialogFragment();
     }
@@ -75,7 +73,6 @@ public class AppUrlCenterListDialogFragment extends CenterListDialogFragment<Mul
             multiDataList.add(data);
         }
         setData(multiDataList);
-        this.detailInfo = info;
         return this;
     }
 

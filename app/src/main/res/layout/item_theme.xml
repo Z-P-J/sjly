@@ -9,8 +9,6 @@
     android:orientation="vertical"
     >
 
-<!--    android:background="?attr/backgroundColor"-->
-
     <LinearLayout
         android:orientation="horizontal"
         android:layout_width="match_parent"
@@ -297,9 +295,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="end"
+                android:paddingVertical="@dimen/dp_8"
                 >
 
-                <com.sunbinqiang.iconcountview.IconCountView
+                <com.zpj.shouji.market.ui.widget.count.GoodView
                     android:id="@+id/support_view"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
@@ -308,29 +307,9 @@
                     app:count="1"
                     app:checked="false"
                     app:zeroText="赞"
-                    app:textNormalColor="#8a8a8a"
-                    app:textSelectedColor="#d4237a"
-                    app:textSize="12sp"
-                    app:normalRes="@drawable/good"
-                    app:selectedRes="@drawable/good_checked"/>
+                    app:textSize="12sp"/>
 
-<!--                <com.sunbinqiang.iconcountview.IconCountView-->
-<!--                    android:id="@+id/like_view"-->
-<!--                    android:layout_width="wrap_content"-->
-<!--                    android:layout_height="match_parent"-->
-<!--                    android:layout_weight="1"-->
-<!--                    android:gravity="center"-->
-<!--                    app:count="1"-->
-<!--                    app:checked="false"-->
-<!--                    app:zeroText="收藏"-->
-<!--                    app:textNormalColor="#8a8a8a"-->
-<!--                    app:textSelectedColor="#d4237a"-->
-<!--                    app:textSize="12sp"-->
-<!--                    app:normalRes="@drawable/collection"-->
-<!--                    app:selectedRes="@drawable/collection_checked"-->
-<!--                    />-->
-
-                <com.sunbinqiang.iconcountview.IconCountView
+                <com.zpj.shouji.market.ui.widget.count.SkinIconCountView
                     android:id="@+id/comment_view"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -339,20 +318,9 @@
                     app:count="0"
                     app:checked="false"
                     app:zeroText="回复"
-                    app:textNormalColor="#8a8a8a"
-                    app:textSelectedColor="#8a8a8a"
                     app:textSize="12sp"
-                    app:normalRes="@drawable/ic_comment_grey_24dp"
-                    app:selectedRes="@drawable/ic_comment_grey_24dp"/>
-
-<!--                <TextView-->
-<!--                    android:layout_width="wrap_content"-->
-<!--                    android:layout_height="match_parent"-->
-<!--                    android:text="回复"-->
-<!--                    android:padding="10dp"-->
-<!--                    android:textColor="@color/colorPrimary"-->
-<!--                    android:gravity="center"-->
-<!--                    />-->
+                    app:normalRes="@drawable/ic_comment_white_24dp"
+                    app:selectedRes="@drawable/ic_comment_white_24dp"/>
 
             </LinearLayout>
 

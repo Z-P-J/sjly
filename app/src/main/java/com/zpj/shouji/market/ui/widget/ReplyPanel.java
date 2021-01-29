@@ -128,7 +128,7 @@ public class ReplyPanel extends FrameLayout
 
         ivEmoji = findViewById(R.id.iv_emoji);
 //        ivEmoji.setColorFilter(ThemeUtils.getTextColorMajor(getContext()));
-        ivImage = addAction(R.drawable.ic_image_black_24dp, v -> {
+        ivImage = addAction(R.drawable.ic_picture, v -> {
             if (isKeyboardShowing) {
                 KeyboardUtils.hideSoftInputKeyboard(etEditor);
             }

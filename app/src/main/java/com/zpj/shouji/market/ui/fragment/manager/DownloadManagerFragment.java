@@ -59,7 +59,6 @@ public class DownloadManagerFragment extends BaseSwipeBackFragment
                 && getArguments().getBoolean(Keys.SHOW_TOOLBAR, false);
         if (showToolbar) {
             toolbar.setVisibility(View.VISIBLE);
-//            findViewById(R.id.shadow_view).setVisibility(View.VISIBLE);
             setToolbarTitle("下载管理");
         } else {
             setSwipeBackEnable(false);

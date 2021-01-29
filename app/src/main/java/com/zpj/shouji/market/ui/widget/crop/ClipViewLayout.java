@@ -24,6 +24,7 @@ import java.io.IOException;
 
 /**
  * 头像上传原图裁剪容器
+ * github: https://github.com/wsy858/android-headimage-cliper
  */
 public class ClipViewLayout extends RelativeLayout {
     //裁剪原图

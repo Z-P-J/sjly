@@ -69,7 +69,7 @@ public class WallpaperShareFragment extends BaseSwipeBackFragment
         actionPanel.addAction(R.drawable.ic_at_black_24dp, v -> {
             showUserPicker();
         });
-        actionPanel.addAction(R.drawable.ic_image_black_24dp, this);
+        actionPanel.addAction(R.drawable.ic_picture, this);
         tvShareMode = actionPanel.addAction("公开", v -> {
             tvShareMode.setText(isPrivate ? "公开" : "私有");
             isPrivate = !isPrivate;

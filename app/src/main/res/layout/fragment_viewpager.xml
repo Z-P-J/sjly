@@ -19,7 +19,7 @@
         app:z_toolbar_leftImageResource="@drawable/ic_arrow_back_black_24dp"
         app:z_toolbar_centerType="textView"
         app:z_toolbar_rightType="imageButton"
-        app:z_toolbar_rightImageResource="@drawable/ic_more_vert_grey_24dp"
+        app:z_toolbar_rightImageResource="@drawable/ic_more"
         />
 
     <android.support.v4.view.ViewPager

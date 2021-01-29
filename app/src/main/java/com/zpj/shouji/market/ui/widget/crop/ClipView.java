@@ -16,6 +16,7 @@ import com.zpj.utils.ScreenUtils;
 
 /**
  * 头像上传裁剪框
+ * github: https://github.com/wsy858/android-headimage-cliper
  */
 public class ClipView extends View {
     private final Paint paint = new Paint();

@@ -18,7 +18,6 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.ctetin.expandabletextviewlibrary.ExpandableTextView;
 import com.ctetin.expandabletextviewlibrary.app.LinkType;
-import com.sunbinqiang.iconcountview.IconCountView;
 import com.zpj.fragmentation.dialog.impl.ImageViewerDialogFragment3;
 import com.zpj.recyclerview.EasyViewHolder;
 import com.zpj.recyclerview.IEasy;
@@ -38,10 +37,12 @@ import com.zpj.shouji.market.ui.fragment.dialog.ThemeAppDownloadDialogFragment;
 import com.zpj.shouji.market.ui.fragment.dialog.ThemeMoreDialogFragment;
 import com.zpj.shouji.market.ui.fragment.login.LoginFragment;
 import com.zpj.shouji.market.ui.fragment.profile.ProfileFragment;
+import com.zpj.shouji.market.ui.fragment.theme.ThemeDetailFragment;
 import com.zpj.shouji.market.ui.fragment.theme.TopicThemeListFragment;
 import com.zpj.shouji.market.ui.widget.CombineImageView;
 import com.zpj.shouji.market.ui.widget.DownloadButton;
 import com.zpj.shouji.market.ui.widget.DrawableTintTextView;
+import com.zpj.shouji.market.ui.widget.count.IconCountView;
 import com.zpj.shouji.market.ui.widget.ninegrid.NineGridView;
 import com.zpj.shouji.market.ui.widget.emoji.EmojiExpandableTextView;
 import com.zpj.toast.ZToast;
@@ -352,12 +353,12 @@ public class DiscoverBinder
 //        IconCountView starView = holder.getView(R.id.like_view);
 //        starView.setCount(0);
 
-//        holder.setOnClickListener(R.id.comment_view, new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                ThemeDetailFragment.start(discoverInfo, true);
-//            }
-//        });
+        holder.setOnClickListener(R.id.comment_view, new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ThemeDetailFragment.start(discoverInfo, true);
+            }
+        });
 
     }
 

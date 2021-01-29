@@ -94,7 +94,7 @@
                                 android:padding="6dp"
                                 android:layout_gravity="center_vertical"
                                 android:background="@drawable/bg_button_round_gray"
-                                android:src="@drawable/ic_email_black_24dp"
+                                android:src="@drawable/ic_message_white_24dp"
                                 android:gravity="center"
                                 android:tint="@color/white"
                                 />
@@ -160,7 +160,7 @@
                     app:z_toolbar_centerType="customView"
                     app:z_toolbar_centerCustomView="@layout/layout_profile_header"
                     app:z_toolbar_rightType="imageButton"
-                    app:z_toolbar_rightImageResource="@drawable/ic_more_vert_grey_24dp"
+                    app:z_toolbar_rightImageResource="@drawable/ic_more"
                     />
 
             </android.support.v7.widget.Toolbar>

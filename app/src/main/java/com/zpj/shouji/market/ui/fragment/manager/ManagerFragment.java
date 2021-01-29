@@ -100,16 +100,16 @@ public class ManagerFragment extends BaseSwipeBackFragment {
                 public void onPageSelected(int i) {
                     switch (i) {
                         case 0:
-                            toolbar.setRightButtonImage(R.drawable.ic_settings_white_24dp);
+                            toolbar.setRightButtonImage(R.drawable.ic_setting);
                             break;
                         case 1:
-                            toolbar.setRightButtonImage(R.drawable.ic_search_white_24dp);
+                            toolbar.setRightButtonImage(R.drawable.ic_search);
                             break;
                         case 2:
-                            toolbar.setRightButtonImage(R.drawable.ic_search_white_24dp);
+                            toolbar.setRightButtonImage(R.drawable.ic_search);
                             break;
                         case 3:
-                            toolbar.setRightButtonImage(R.drawable.ic_search_white_24dp);
+                            toolbar.setRightButtonImage(R.drawable.ic_search);
                             break;
                         default:
                             break;

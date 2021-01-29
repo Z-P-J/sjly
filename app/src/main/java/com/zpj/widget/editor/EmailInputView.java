@@ -42,7 +42,7 @@ public class EmailInputView extends InputView {
     protected ImageView[] getLeftIcons() {
         mIvAccountIcon = new ImageView(getContext());
         mIvAccountIcon.setScaleType(ImageView.ScaleType.FIT_CENTER);
-        mIvAccountIcon.setImageResource(R.drawable.ic_email_black_24dp);
+        mIvAccountIcon.setImageResource(R.drawable.ic_message_white_24dp);
         return new ImageView[]{mIvAccountIcon};
     }
 

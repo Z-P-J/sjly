@@ -168,7 +168,7 @@ dependencies {
 //    implementation project(':zmarkdown')
 //    implementation project(':richeditor')
 //    implementation project(':richeditor2')
-    implementation project(':iconcountview')
+//    implementation project(':iconcountview')
     implementation project(':expandabletextview')
     implementation project(':fragmentation')
     implementation project(":fragmentation-dialog")

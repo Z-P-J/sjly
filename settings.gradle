@@ -1,6 +1,6 @@
 include ':app',
         ':zdownloader',
-        ':iconcountview',
+//        ':iconcountview',
 //        ':richeditor',
 //        ':richeditor2',
 //        ':zmarkdown',

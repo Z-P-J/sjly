@@ -114,7 +114,7 @@ public class WebFragment extends SkinFragment {
 
     @Override
     protected int getLayoutId() {
-        return R.layout.fragment_web2;
+        return R.layout.fragment_web;
     }
 
 //    @Override

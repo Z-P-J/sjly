@@ -621,7 +621,7 @@
         app:z_toolbar_leftType="customView"
         app:z_toolbar_leftCustomView="@layout/layout_app_name"
         app:z_toolbar_rightType="imageButton"
-        app:z_toolbar_rightImageResource="@drawable/ic_more_vert_grey_24dp"
+        app:z_toolbar_rightImageResource="@drawable/ic_more"
         />
 
     <View style="@style/layout_shadow_bottom"

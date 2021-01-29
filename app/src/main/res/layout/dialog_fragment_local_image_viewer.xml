@@ -34,7 +34,7 @@
         app:z_toolbar_center_text_gravity="center"
         app:z_toolbar_centerSubTextColor="#f8f8f8"
         app:z_toolbar_rightType="imageButton"
-        app:z_toolbar_rightImageResource="@drawable/ic_more_vert_grey_24dp"
+        app:z_toolbar_rightImageResource="@drawable/ic_more"
         app:z_toolbar_background_fill_status_bar="true"
         app:z_toolbar_background="@drawable/bg_wallpaper_viewer_toolbar_bar"
         app:z_toolbar_isLightStyle="true"

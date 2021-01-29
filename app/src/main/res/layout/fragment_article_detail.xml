@@ -26,7 +26,7 @@
         app:z_toolbar_centerSubText="https://www.shouji.com.cn"
         app:z_toolbar_centerSubTextColor="@android:color/white"
         app:z_toolbar_rightType="imageButton"
-        app:z_toolbar_rightImageResource="@drawable/ic_more_vert_grey_24dp"
+        app:z_toolbar_rightImageResource="@drawable/ic_more"
         app:z_toolbar_showBottomLine="false"
         />
 

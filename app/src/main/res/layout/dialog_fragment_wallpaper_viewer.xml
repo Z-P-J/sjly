@@ -18,7 +18,7 @@
         app:z_toolbar_center_text_gravity="center"
         app:z_toolbar_centerSubTextColor="#f8f8f8"
         app:z_toolbar_rightType="imageButton"
-        app:z_toolbar_rightImageResource="@drawable/ic_more_vert_grey_24dp"
+        app:z_toolbar_rightImageResource="@drawable/ic_more"
         app:z_toolbar_background_fill_status_bar="true"
         app:z_toolbar_background="@drawable/bg_wallpaper_viewer_toolbar_bar"
         app:z_toolbar_isLightStyle="true"
@@ -118,7 +118,7 @@
                 android:layout_height="wrap_content"
                 android:layout_toStartOf="@id/btn_down"
                 android:layout_centerVertical="true"
-                android:src="@drawable/ic_favorite_border_white_24dp"
+                android:src="@drawable/ic_favorite"
                 android:padding="8dp"
                 android:background="?attr/actionBarItemBackground"
                 />
@@ -134,6 +134,19 @@
                 android:background="?attr/actionBarItemBackground"
                 android:tint="@color/white"
                 />
+
+<!--            <com.github.zagum.expandicon.ExpandIconView-->
+<!--                android:id="@+id/btn_down"-->
+<!--                android:layout_width="40dp"-->
+<!--                android:layout_height="40dp"-->
+<!--                android:layout_toStartOf="@id/btn_down"-->
+<!--                android:layout_alignParentEnd="true"-->
+<!--                android:layout_centerVertical="true"-->
+<!--                android:background="?attr/actionBarItemBackground"-->
+<!--                app:eiv_padding="12dp"-->
+<!--                app:eiv_color="@color/white"-->
+<!--                app:eiv_roundedCorners="true"-->
+<!--                />-->
 
         </RelativeLayout>
 
@@ -162,7 +175,7 @@
                 android:id="@+id/tv_download"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:drawableTop="@drawable/ic_file_download_white_24dp"
+                android:drawableTop="@drawable/ic_download"
                 android:text="保存"
                 android:layout_weight="1"
                 android:gravity="center"
@@ -171,6 +184,7 @@
                 android:padding="8dp"
                 android:textSize="12sp"
                 android:drawablePadding="4dp"
+                app:drawable_tint_color="@color/white"
                 style="@style/style_text_shadow"
                 />
 
@@ -178,7 +192,7 @@
                 android:id="@+id/tv_share"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:drawableTop="@drawable/ic_share_white_24dp"
+                android:drawableTop="@drawable/ic_share"
                 android:text="分享"
                 android:layout_weight="1"
                 android:gravity="center"
@@ -187,6 +201,7 @@
                 android:padding="8dp"
                 android:textSize="12sp"
                 android:drawablePadding="4dp"
+                app:drawable_tint_color="@color/white"
                 style="@style/style_text_shadow"
                 />
 
@@ -194,7 +209,7 @@
                 android:id="@+id/tv_comment"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:drawableTop="@drawable/ic_comment_grey_24dp"
+                android:drawableTop="@drawable/ic_comment_white_24dp"
                 android:text="100"
                 android:layout_weight="1"
                 android:gravity="center"
@@ -210,7 +225,7 @@
                 android:id="@+id/tv_support"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:drawableTop="@drawable/ic_thumb_up_white_24dp"
+                android:drawableTop="@drawable/ic_good"
                 android:text="100"
                 android:layout_weight="1"
                 android:gravity="center"
@@ -219,6 +234,7 @@
                 android:padding="8dp"
                 android:textSize="12sp"
                 android:drawablePadding="4dp"
+                app:drawable_tint_color="@color/white"
                 style="@style/style_text_shadow"
                 />
 

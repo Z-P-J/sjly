@@ -161,13 +161,15 @@
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
                                 android:background="?attr/selectableItemBackground"
-                                android:drawableTop="@drawable/ic_thumb_up_white_16dp"
+                                android:drawableTop="@drawable/ic_good"
                                 android:drawablePadding="4dp"
                                 android:gravity="center"
                                 android:paddingVertical="8dp"
                                 android:text="100"
                                 android:textColor="@color/white"
-                                android:textSize="12sp" />
+                                android:textSize="12sp"
+                                app:drawable_tint_color="@color/white"
+                                />
 
                             <com.zpj.shouji.market.ui.widget.DrawableTintTextView
                                 android:id="@+id/tv_favorite"
@@ -175,13 +177,15 @@
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
                                 android:background="?attr/selectableItemBackground"
-                                android:drawableTop="@drawable/ic_favorite_border_white_16dp"
+                                android:drawableTop="@drawable/ic_favorite"
                                 android:drawablePadding="4dp"
                                 android:gravity="center"
                                 android:paddingVertical="8dp"
                                 android:text="100"
                                 android:textColor="@color/white"
-                                android:textSize="12sp" />
+                                android:textSize="12sp"
+                                app:drawable_tint_color="@color/white"
+                                />
 
                             <com.zpj.shouji.market.ui.widget.DrawableTintTextView
                                 android:id="@+id/tv_view"
@@ -189,13 +193,15 @@
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
                                 android:background="?attr/selectableItemBackground"
-                                android:drawableTop="@drawable/ic_remove_red_eye_white_16dp"
+                                android:drawableTop="@drawable/ic_eye"
                                 android:drawablePadding="4dp"
                                 android:gravity="center"
                                 android:paddingVertical="8dp"
                                 android:text="100"
                                 android:textColor="@color/white"
-                                android:textSize="12sp" />
+                                android:textSize="12sp"
+                                app:drawable_tint_color="@color/white"
+                                />
 
                             <com.zpj.shouji.market.ui.widget.DrawableTintTextView
                                 android:id="@+id/tv_download"
@@ -203,13 +209,15 @@
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
                                 android:background="?attr/selectableItemBackground"
-                                android:drawableTop="@drawable/ic_file_download_white_16dp"
+                                android:drawableTop="@drawable/ic_download"
                                 android:drawablePadding="4dp"
                                 android:gravity="center"
                                 android:paddingVertical="8dp"
                                 android:text="下载"
                                 android:textColor="@color/white"
-                                android:textSize="12sp" />
+                                android:textSize="12sp"
+                                app:drawable_tint_color="@color/white"
+                                />
 
                         </LinearLayout>
 
@@ -237,7 +245,7 @@
                         app:z_toolbar_isLightStyle="true"
                         app:z_toolbar_leftImageResource="@drawable/ic_arrow_back_white_24dp"
                         app:z_toolbar_leftType="imageButton"
-                        app:z_toolbar_rightImageResource="@drawable/ic_more_vert_grey_24dp"
+                        app:z_toolbar_rightImageResource="@drawable/ic_more"
                         app:z_toolbar_rightType="imageButton"
                         app:z_toolbar_statusBarColor="@color/transparent"
                         app:z_toolbar_titleBarColor="@color/transparent" />

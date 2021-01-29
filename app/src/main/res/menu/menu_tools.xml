@@ -2,13 +2,13 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
         android:id="@+id/copy"
-        android:icon="@drawable/ic_build_green_24dp"
+        android:icon="@drawable/ic_copy"
         android:title="复制内容">
     </item>
 
     <item
         android:id="@+id/share"
-        android:icon="@drawable/ic_share_white_24dp"
+        android:icon="@drawable/ic_share"
         android:title="分享">
 
     </item>
@@ -33,7 +33,7 @@
 
     <item
         android:id="@+id/report"
-        android:icon="@drawable/ic_thumb_up_grey_24dp"
+        android:icon="@drawable/ic_good"
         android:title="举报">
     </item>
 

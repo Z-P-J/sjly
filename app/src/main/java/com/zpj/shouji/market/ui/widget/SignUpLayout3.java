@@ -69,7 +69,7 @@ public class SignUpLayout3 extends LinearLayout {
     private void init(Context context) {
         setOrientation(VERTICAL);
 
-        LayoutInflater.from(context).inflate(R.layout.layout_sign_up3, this, true);
+        LayoutInflater.from(context).inflate(R.layout.layout_sign_up, this, true);
 
 
         etAccount = findViewById(R.id.et_account);

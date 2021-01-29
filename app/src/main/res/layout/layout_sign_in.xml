@@ -1,105 +1,106 @@
 <?xml version="1.0" encoding="utf-8"?>
-<merge xmlns:android="http://schemas.android.com/apk/res/android">
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    >
 
     <com.zpj.widget.editor.AccountInputView
-        android:id="@+id/et_account"
+        android:id="@+id/piv_login_account"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/input_style"
-        android:inputType="text"
-        android:hint="请输入注册用户名"
-        android:padding="8dp"
-        android:textSize="16sp"
-        android:textColor="@color/color_text_major"
-        android:textColorHint="@color/color_text_minor"
-        />
-
-<!--    app:testType="regexp"-->
-<!--    app:emptyErrorString="用户名不能为空"-->
-<!--    app:customRegexp="^[0-9a-zA-Z\u4e00-\u9fa5]{3,20}$"-->
-<!--    app:testErrorString="用户名只能包含数字、字母和汉字，且必须是3-20个字符"-->
+        android:layout_marginTop="16dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginEnd="32dp"/>
 
     <com.zpj.widget.editor.PasswordInputView
-        android:id="@+id/et_password"
+        android:id="@+id/piv_login_password"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/input_style"
-        android:hint="请输入密码"
-        android:inputType="textPassword"
-        android:padding="8dp"
-        android:textSize="16sp"
-        android:textColor="@color/color_text_major"
-        android:textColorHint="@color/color_text_minor"
-        android:layout_marginTop="16dp"
-        />
+        android:layout_marginStart="32dp"
+        android:layout_marginEnd="32dp" />
 
-    <com.zpj.widget.editor.PasswordInputView
-        android:id="@+id/et_password_again"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@drawable/input_style"
-        android:hint="请再次输入密码"
-        android:inputType="textPassword"
-        android:padding="8dp"
-        android:textSize="16sp"
-        android:textColor="@color/color_text_major"
-        android:textColorHint="@color/color_text_minor"
+    <com.zpj.widget.editor.SubmitView
+        android:id="@+id/sv_login"
+        style="@style/button_submit"
         android:layout_marginTop="16dp"
-        />
+        android:layout_marginStart="32dp"
+        android:layout_marginEnd="32dp"
+        android:text="登录"
+        app:sv_bindEditText1="@+id/piv_login_account"
+        app:sv_bindEditText2="@+id/piv_login_password" />
 
-    <com.zpj.widget.editor.EmailInputView
-        android:id="@+id/et_email"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@drawable/input_style"
-        android:hint="请输入密保邮箱"
-        android:inputType="textEmailAddress"
-        android:padding="8dp"
-        android:textSize="16sp"
-        android:textColor="@color/color_text_major"
-        android:textColorHint="@color/color_text_minor"
-        android:layout_marginTop="16dp"
-        />
-
-    <LinearLayout
+    <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:paddingTop="8dp"
-        android:paddingBottom="8dp"
+        android:layout_marginHorizontal="32dp"
+        android:layout_marginVertical="16dp"
         >
 
-        <com.zpj.widget.checkbox.SmoothCheckBox
-            android:id="@+id/cb_agreement"
+        <TextView
+            android:id="@+id/tv_regist"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="8dp"
-            />
+            android:text="注册新用户"
+            android:textColor="?attr/textColorNormal" />
 
         <TextView
-            android:id="@+id/tv_agreement"
-            android:layout_width="match_parent"
+            android:id="@+id/tv_forget_password"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="同意《用户协议》和《隐私协议》"
-            android:layout_gravity="center_vertical"
-            android:gravity="center_vertical"
-            android:paddingTop="8dp"
-            android:paddingBottom="8dp"
+            android:text="忘记密码"
+            android:textColor="?attr/textColorNormal"
+            android:layout_gravity="end"
             />
+    </FrameLayout>
 
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginBottom="16dp"
+        android:gravity="center">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="快捷登录："
+            android:textColor="@color/colorPrimary"
+            android:textSize="14sp"
+            android:textStyle="bold" />
+
+        <ImageButton
+            android:id="@+id/ib_login_qq"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="?attr/selectableItemBackground"
+            android:padding="8dp"
+            android:src="@drawable/ic_share_qq" />
+
+        <ImageButton
+            android:id="@+id/ib_login_wechat"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="?attr/selectableItemBackground"
+            android:padding="8dp"
+            android:src="@drawable/ic_share_wx" />
+
+        <ImageButton
+            android:id="@+id/ib_login_weibo"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="?attr/selectableItemBackground"
+            android:padding="8dp"
+            android:src="@drawable/ic_share_weibo" />
 
     </LinearLayout>
 
-    <TextView
-        android:id="@+id/tv_sign_in"
-        android:layout_width="match_parent"
-        android:layout_height="36dp"
-        android:text="注册"
-        android:gravity="center"
-        android:textSize="14sp"
-        android:background="@drawable/bg_button"
-        android:textColor="@android:color/white"
-        android:foreground="?attr/selectableItemBackground"
-        />
 
-</merge>
+</LinearLayout>
+

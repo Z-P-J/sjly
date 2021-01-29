@@ -118,7 +118,7 @@
             android:id="@+id/iv_more"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/ic_more_vert_grey_24dp"
+            android:src="@drawable/ic_more"
             android:tint="?attr/textColorNormal"
             android:layout_gravity="center"
             />

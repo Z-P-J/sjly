@@ -22,7 +22,6 @@ public class AppUrlMultiData extends ExpandableMultiData<AppDetailInfo.AppUrlInf
         this.id = appUrlInfo.getUrlAdress().substring(appUrlInfo.getUrlAdress().lastIndexOf("id=") + 3);
         this.list.add(appUrlInfo);
         setExpand(false);
-//        this.isLoaded = true;
         this.hasMore = false;
     }
 

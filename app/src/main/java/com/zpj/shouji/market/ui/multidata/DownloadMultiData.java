@@ -138,8 +138,6 @@ public class DownloadMultiData extends ExpandableMultiData<AppDownloadMission> {
                     }
                 })
                 .setOnLongClickListener((v, x, y) -> {
-                    ClipboardManager cm1 = (ClipboardManager) context.getSystemService(Context.CLIPBOARD_SERVICE);
-                    cm1.setPrimaryClip(ClipData.newPlainText(null, mission.getAppIcon()));
                     ArrayList<String> titleList = new ArrayList<>();
                     if (!mission.isFinished()) {
                         if (mission.canPause()) {

@@ -191,7 +191,7 @@ public class AppDetailFragment extends StateSwipeBackFragment
         btnMenu.setOnClickListener(this);
 
         fabComment = view.findViewById(R.id.fab_comment);
-        fabComment.setImageResource(R.drawable.ic_file_download_white_24dp);
+        fabComment.setImageResource(R.drawable.ic_download);
         fabComment.setOnClickListener(this);
 
         appDetailLayout = view.findViewById(R.id.layout_app_detail);
@@ -253,14 +253,14 @@ public class AppDetailFragment extends StateSwipeBackFragment
             public void onPageSelected(int i) {
                 if (i == 0) {
                     if (fabComment.getVisibility() != View.VISIBLE) {
-                        fabComment.setImageResource(R.drawable.ic_file_download_white_24dp);
+                        fabComment.setImageResource(R.drawable.ic_download);
                         fabComment.show();
                     } else {
                         fabComment.hide(new FloatingActionButton.OnVisibilityChangedListener() {
                             @Override
                             public void onHidden(FloatingActionButton fab) {
                                 super.onHidden(fab);
-                                fabComment.setImageResource(R.drawable.ic_file_download_white_24dp);
+                                fabComment.setImageResource(R.drawable.ic_download);
                                 fabComment.show();
                             }
                         });
@@ -369,10 +369,10 @@ public class AppDetailFragment extends StateSwipeBackFragment
 
 
                         if (info.isFavState()) {
-                            btnCollect.setImageResource(R.drawable.ic_star_black_24dp);
+                            btnCollect.setImageResource(R.drawable.ic_star_checked);
                             btnCollect.setColorFilter(Color.RED);
                         } else {
-                            btnCollect.setImageResource(R.drawable.ic_star_border_black_24dp);
+                            btnCollect.setImageResource(R.drawable.ic_star);
                             btnCollect.setColorFilter(color);
                         }
                         for (String img : info.getImgUrlList()) {
@@ -419,10 +419,10 @@ public class AppDetailFragment extends StateSwipeBackFragment
             }
             Callback<Boolean> callback = result -> {
                 if (result) {
-                    btnCollect.setImageResource(R.drawable.ic_star_black_24dp);
+                    btnCollect.setImageResource(R.drawable.ic_star_checked);
                     btnCollect.setColorFilter(Color.RED);
                 } else {
-                    btnCollect.setImageResource(R.drawable.ic_star_border_black_24dp);
+                    btnCollect.setImageResource(R.drawable.ic_star);
                     btnCollect.setColorFilter(Color.WHITE);
                 }
                 info.setFavState(result);

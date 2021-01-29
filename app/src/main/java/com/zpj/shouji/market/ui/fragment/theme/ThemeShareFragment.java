@@ -136,7 +136,7 @@ public class ThemeShareFragment extends BaseSwipeBackFragment {
         actionPanel.addAction(R.drawable.ic_at_black_24dp, v -> {
             showUserPicker();
         });
-        actionPanel.addAction(R.drawable.ic_image_black_24dp, new View.OnClickListener() {
+        actionPanel.addAction(R.drawable.ic_picture, new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 showImagePicker();

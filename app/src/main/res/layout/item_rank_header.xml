@@ -24,7 +24,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:minHeight="48dp"
-            android:src="@drawable/img_rank"
+            android:src="@drawable/ic_title_rank"
             android:layout_marginVertical="36dp"
             android:tint="@color/white"
             />

@@ -137,6 +137,13 @@ public class EventBus {
         registerObserver(lifecycleOwner, KEY_SKIN_CHANGE_EVENT, consumer);
     }
 
+    public static void onSkinChangeEvent(View view, Consumer<String> consumer) {
+        RxBus.observe(view, KEY_SKIN_CHANGE_EVENT)
+                .bindView(view)
+                .doOnNext(consumer)
+                .subscribe();
+    }
+
     public static void sendRefreshEvent() {
         RxBus.post(KEY_REFRESH_EVENT);
     }

@@ -215,7 +215,7 @@ public class ThemeDetailFragment extends BaseSwipeBackFragment {
                 HttpApi.addCollectionApi(item.getId(), new Runnable() {
                     @Override
                     public void run() {
-                        btnCollect.setImageResource(R.drawable.ic_star_black_24dp);
+                        btnCollect.setImageResource(R.drawable.ic_star_checked);
                         btnCollect.setColorFilter(Color.RED);
                     }
                 });
