@@ -152,6 +152,17 @@ public class IconCountView extends LinearLayout {
         }
     }
 
+    public void praiseFailed() {
+        animImageView(!mIsSelected);
+        //数字变化
+        if (!mIsSelected) {
+            mCountView.addCount();
+        } else {
+            mCountView.minusCount();
+        }
+        setState(!mIsSelected);
+    }
+
     /**
      * 点赞icon动画
      * @param isPraised

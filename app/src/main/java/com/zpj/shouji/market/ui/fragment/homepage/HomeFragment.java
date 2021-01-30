@@ -17,6 +17,9 @@ import com.zpj.fragmentation.SupportFragment;
 import com.zpj.rxbus.RxBus;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.constant.AppConfig;
+import com.zpj.shouji.market.manager.AppUpdateManager;
+import com.zpj.shouji.market.model.AppUpdateInfo;
+import com.zpj.shouji.market.model.IgnoredUpdateInfo;
 import com.zpj.shouji.market.ui.adapter.FragmentsPagerAdapter;
 import com.zpj.shouji.market.ui.fragment.base.SkinFragment;
 import com.zpj.shouji.market.ui.fragment.manager.ManagerFragment;
@@ -24,10 +27,15 @@ import com.zpj.shouji.market.ui.fragment.search.SearchFragment;
 import com.zpj.shouji.market.ui.widget.indicator.HomePagerTitleView;
 import com.zpj.shouji.market.utils.EventBus;
 import com.zpj.shouji.market.utils.MagicIndicatorHelper;
+import com.zpj.toast.ZToast;
 
 import net.lucode.hackware.magicindicator.MagicIndicator;
 
 import java.util.ArrayList;
+import java.util.List;
+
+import q.rorbin.badgeview.Badge;
+import q.rorbin.badgeview.QBadgeView;
 
 public class HomeFragment extends SkinFragment {
 
@@ -299,6 +307,21 @@ public class HomeFragment extends SkinFragment {
         btnManage = view.findViewById(R.id.btn_manage);
         btnSearch.setOnClickListener(v -> SearchFragment.start());
         btnManage.setOnClickListener(v -> ManagerFragment.start());
+        Badge badge = new QBadgeView(context)
+                .bindTarget(btnManage);
+//        badge.setBadgeNumber(10);
+
+        AppUpdateManager.getInstance().addCheckUpdateListener(new AppUpdateManager.CheckUpdateListener() {
+            @Override
+            public void onCheckUpdateFinish(List<AppUpdateInfo> updateInfoList, List<IgnoredUpdateInfo> ignoredUpdateInfoList) {
+                badge.setBadgeNumber(updateInfoList.size());
+            }
+
+            @Override
+            public void onError(Throwable e) {
+
+            }
+        });
     }
     
 }

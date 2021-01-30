@@ -24,24 +24,29 @@ import java.security.MessageDigest;
 
 public final class UserManager {
 
-    private static final UserManager USER_MANAGER = new UserManager();
+    private static UserManager USER_MANAGER;
     private MemberInfo memberInfo;
     private String cookie;
     private boolean isLogin;
-//    private final List<WeakReference<OnSignInListener>> onSignInListeners = new ArrayList<>();
-//    private final List<WeakReference<OnSignUpListener>> onSignUpListeners = new ArrayList<>();
-
-    private static final long SYNC_MSG_DURATION = 60000;
 
     private long lastTime = 0;
     private MessageInfo messageInfo;
 
     public static UserManager getInstance() {
+        if (USER_MANAGER == null) {
+            synchronized (UserManager.class) {
+                USER_MANAGER = new UserManager();
+            }
+        }
         return USER_MANAGER;
     }
 
     private UserManager() {
 
+    }
+
+    public void onDestroy() {
+        USER_MANAGER = null;
     }
 
     public void init() {
@@ -219,6 +224,7 @@ public final class UserManager {
                 messageInfo = null;
             }
             long currentTime = System.currentTimeMillis();
+            long SYNC_MSG_DURATION = 60000;
             if (messageInfo == null || lastTime == 0 || currentTime - lastTime > SYNC_MSG_DURATION) {
                 lastTime = currentTime;
                 HttpApi.rsyncMessageApi()

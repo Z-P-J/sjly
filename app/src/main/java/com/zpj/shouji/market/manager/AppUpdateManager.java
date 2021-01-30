@@ -8,6 +8,7 @@ import android.content.pm.PackageManager;
 import android.text.TextUtils;
 import android.util.Log;
 
+import com.zpj.http.core.IHttp;
 import com.zpj.http.parser.html.nodes.Element;
 import com.zpj.http.parser.html.select.Elements;
 import com.zpj.notification.ZNotify;
@@ -26,6 +27,7 @@ import com.zpj.utils.DeviceUtils;
 import com.zpj.utils.NetUtils;
 
 import java.lang.ref.WeakReference;
+import java.net.SocketTimeoutException;
 import java.text.Collator;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -47,23 +49,25 @@ import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.annotations.NonNull;
 import io.reactivex.disposables.Disposable;
+import io.reactivex.functions.Action;
 import io.reactivex.schedulers.Schedulers;
 
 public final class AppUpdateManager {
 
     private static final String TAG = "AppUpdateManager";
 
-    private static final AppUpdateManager INSTANCE = new AppUpdateManager();
-    private static final List<WeakReference<CheckUpdateListener>> LISTENERS = new ArrayList<>();
+    private static AppUpdateManager INSTANCE;
+    //    private static final List<WeakReference<CheckUpdateListener>> LISTENERS = new ArrayList<>();
+    private final List<CheckUpdateListener> LISTENERS = new ArrayList<>();
     private static final String CHECK_UPDATE_URL = "/appv3/checkAppVersionV14.jsp";
 
-    private static final CopyOnWriteArraySet<String> PACKAGE_SET = new CopyOnWriteArraySet<>();
-    private static final ConcurrentMap<String, String> INCLUDE_APP_MAP = new ConcurrentHashMap<>();
-    private static final ConcurrentMap<String, String> APP_UPDATE_CONTENT_MAP = new ConcurrentHashMap<>();
-    private static final CopyOnWriteArrayList<AppUpdateInfo> APP_UPDATE_INFO_LIST = new CopyOnWriteArrayList<>();
+    private final CopyOnWriteArraySet<String> PACKAGE_SET = new CopyOnWriteArraySet<>();
+    private final ConcurrentMap<String, String> INCLUDE_APP_MAP = new ConcurrentHashMap<>();
+    private final ConcurrentMap<String, String> APP_UPDATE_CONTENT_MAP = new ConcurrentHashMap<>();
+    private final CopyOnWriteArrayList<AppUpdateInfo> APP_UPDATE_INFO_LIST = new CopyOnWriteArrayList<>();
 
     //    private static final ConcurrentLinkedQueue<CheckUpdateRunnable> TASK_LIST = new ConcurrentLinkedQueue<>();
-    private static final ConcurrentLinkedQueue<CheckUpdate> TASK_LIST = new ConcurrentLinkedQueue<>();
+    private final ConcurrentLinkedQueue<CheckUpdate> TASK_LIST = new ConcurrentLinkedQueue<>();
 
     private final AtomicBoolean checked = new AtomicBoolean(false);
     private final AtomicBoolean running = new AtomicBoolean(false);
@@ -75,6 +79,7 @@ public final class AppUpdateManager {
         private final String cookie;
         private final String sessionId;
         private final String packageId;
+        private int retryCount = 3;
 
         CheckUpdate(Context context, String cookie, String sessionId, String packageId) {
             this.context = context;
@@ -85,6 +90,11 @@ public final class AppUpdateManager {
 
         @Override
         public void run() {
+            synchronized (TASK_LIST) {
+                if (!TASK_LIST.contains(this)) {
+                    TASK_LIST.add(this);
+                }
+            }
             HttpApi.post(CHECK_UPDATE_URL)
                     .userAgent("Sjly(3.1)")
 //                    .setCookie(cookie)
@@ -149,8 +159,15 @@ public final class AppUpdateManager {
 //                                Log.e("checkUpdate", "updateInfo=" + appInfo);
                             }
                         }
-                        TASK_LIST.remove(CheckUpdate.this);
-                        onFinished();
+                        onFinished(CheckUpdate.this);
+                    })
+                    .onError(throwable -> {
+                        Log.e(TAG, "url=" + CHECK_UPDATE_URL, throwable);
+                        if (retryCount > 0) {
+                            Log.e(TAG, "timeout url=" + CHECK_UPDATE_URL);
+                            retryCount--;
+                            run();
+                        }
                     })
                     .subscribe();
         }
@@ -161,76 +178,29 @@ public final class AppUpdateManager {
     }
 
     public static AppUpdateManager getInstance() {
+        if (INSTANCE == null) {
+            synchronized (AppUpdateManager.class) {
+                if (INSTANCE == null) {
+                    INSTANCE = new AppUpdateManager();
+                }
+            }
+        }
         return INSTANCE;
+    }
+
+    public void onDestroy() {
+        RxLife.removeByTag(TAG);
+        INSTANCE = null;
     }
 
     public void checkUpdate(Context context) {
         retryCount.set(0);
         check(context);
-//        HttpApi.post("http://tt.shouji.com.cn/appv3/update.jsp")
-//                .userAgent("Sjly(3.1)")
-//                .execute()
-//                .flatMap((HttpObserver.OnFlatMapListener<IHttp.Response, CheckUpdate>) (response, emitter) -> {
-//                    String setCookie = response.header(HttpHeader.SET_COOKIE);
-//                    response.close();
-////                    UserManager.setCookie(setCookie);
-//                    Log.e("checkUpdate", "setCookie=" + setCookie);
-//                    String jsessionId;
-//                    if (TextUtils.isEmpty(setCookie)) {
-//                        jsessionId = UserManager.getInstance().getSessionId();
-//                    } else {
-//                        jsessionId = setCookie.substring(setCookie.indexOf("="), setCookie.indexOf(";"));
-//                    }
-//                    if (setCookie == null) {
-//                        setCookie = "";
-//                    }
-//
-//                    StringBuilder packageid = new StringBuilder();
-//                    PackageManager manager = context.getPackageManager();
-//                    List<PackageInfo> packageInfoList = manager.getInstalledPackages(0);
-//                    String md5 = "";
-//                    int total = packageInfoList.size();
-//                    int count = 0;
-//                    for (PackageInfo packageInfo : packageInfoList) {
-////                        Log.e("checkUpdate", "packagename=" + packageInfo.packageName);
-////                        Log.e("checkUpdate", "appName=" + packageInfo.applicationInfo.loadLabel(manager).toString());
-////                        Log.e("checkUpdate", "firstInstallTime=" + packageInfo.firstInstallTime);
-////                        Log.e("checkUpdate", "lastUpdateTime=" + packageInfo.lastUpdateTime);
-//                        count++;
-//                        packageid.append(packageInfo.packageName)
-//                                .append("=").append(packageInfo.versionName)
-//                                .append("=").append(packageInfo.versionCode)
-//                                .append("=").append(packageInfo.applicationInfo.loadLabel(manager).toString())
-//                                .append("=").append(md5).append("=Yes")//.append(packageInfo.firstInstallTime)
-//                                .append(",");
-//                        if (count % 50 == 0 || count == total) {
-//                            if (total != count && total - count < 25) {
-//                                continue;
-//                            }
-//                            Log.e("checkUpdate", "packageid=" + packageid);
-//                            CheckUpdate checkUpdateRunnable = new CheckUpdate(context, setCookie, jsessionId, packageid.toString());
-//                            emitter.onNext(checkUpdateRunnable);
-//                            packageid = new StringBuilder();
-//                        }
-//                    }
-//                    emitter.onComplete();
-//                })
-//                .onError(throwable -> {
-//                    AppUpdateManager.this.throwable = throwable;
-//                    AppUpdateManager.this.onError(throwable);
-//                    RxLife.removeByTag(TAG);
-//                })
-//                .onSuccess(checkUpdate -> {
-//                    TASK_LIST.add(checkUpdate);
-//                    checkUpdate.run();
-//                })
-//                .subscribe();
-
     }
 
     private void check(Context context) {
         RxLife.removeByTag(TAG);
-        LISTENERS.clear();
+//        LISTENERS.clear();
         PACKAGE_SET.clear();
         INCLUDE_APP_MAP.clear();
         APP_UPDATE_CONTENT_MAP.clear();
@@ -284,7 +254,9 @@ public final class AppUpdateManager {
 
                     @Override
                     public void onNext(@NonNull CheckUpdate checkUpdate) {
-                        TASK_LIST.add(checkUpdate);
+                        synchronized (TASK_LIST) {
+                            TASK_LIST.add(checkUpdate);
+                        }
                         checkUpdate.run();
                     }
 
@@ -303,30 +275,6 @@ public final class AppUpdateManager {
     }
 
     public void notifyUpdate() {
-//        if (AppConfig.isShowUpdateNotification() && checked.get() && !running.get()) {
-//            List<AppUpdateInfo> list = new ArrayList<>(APP_UPDATE_INFO_LIST);
-//            StringBuilder content = new StringBuilder();
-//            for (int i = 0; i < list.size(); i++) {
-//                AppUpdateInfo info = list.get(i);
-//                content.append(info.getAppName());
-//                if (i > 10 || i == (list.size() - 1)) {
-//                    break;
-//                }
-//                content.append("，");
-//            }
-//            Intent intent = new Intent(ContextUtils.getApplicationContext(), MainActivity.class);
-//            intent.putExtra(Actions.ACTION, Actions.ACTION_SHOW_UPDATE);
-//            PendingIntent pendingIntent = PendingIntent.getActivity(ContextUtils.getApplicationContext(), 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
-//            ZNotify.with(ContextUtils.getApplicationContext())
-//                    .buildNotify()
-//                    .setSmallIcon(R.mipmap.ic_launcher)
-//                    .setBigIcon(R.mipmap.ic_launcher)
-//                    .setContentTitle(list.size() + "个应用待更新")
-//                    .setContentText(content.toString())
-//                    .setContentIntent(pendingIntent)
-//                    .setId(hashCode())
-//                    .show();
-//        }
         addCheckUpdateListener(new CheckUpdateListener() {
             @Override
             public void onCheckUpdateFinish(List<AppUpdateInfo> updateInfoList, List<IgnoredUpdateInfo> ignoredUpdateInfoList) {
@@ -388,133 +336,134 @@ public final class AppUpdateManager {
 //        return Character.isLetter(c) || Character.isDigit(c);
 //    }
 
-    private synchronized void onFinished() {
-        Log.d(TAG, "onFinished TASK_LIST.size=" + TASK_LIST.size());
-        if (TASK_LIST.isEmpty()) {
-            checked.set(true);
-            running.set(false);
-//            List<AppUpdateInfo> list = new ArrayList<>(APP_UPDATE_INFO_LIST);
-//
-//            Comparator<Object> comparator1 = Collator.getInstance(Locale.CHINA);
-////            Comparator<Object> comparator2 = Collator.getInstance(Locale.US);
-//            Collections.sort(list, new Comparator<AppUpdateInfo>() {
-//                @Override
-//                public int compare(AppUpdateInfo o1, AppUpdateInfo o2) {
-//                    return comparator1.compare(o1.getAppName(), o2.getAppName());
-////                    return o1.getAppName().compareTo(o2.getAppName());
-//                }
-//            });
-//
-//            List<IgnoredUpdateInfo> ignoredUpdateInfoList = IgnoredUpdateManager.getAllIgnoredUpdateApp();
-////            List<AppUpdateInfo> updateInfoList = new ArrayList<>();
-//            if (!ignoredUpdateInfoList.isEmpty()) {
-//                for (int i = list.size() - 1; i >= 0; i--) {
-//                    AppUpdateInfo info = list.get(i);
-//                    for (IgnoredUpdateInfo ignoredUpdateInfo : ignoredUpdateInfoList) {
-//                        if (TextUtils.equals(info.getPackageName(), ignoredUpdateInfo.getPackageName())) {
-//                            ignoredUpdateInfo.setUpdateInfo(info);
-//                            list.remove(i);
-//                        }
-//                    }
-//                }
-//            }
-//
-//            Observable.empty()
-//                    .observeOn(AndroidSchedulers.mainThread())
-//                    .doOnComplete(() -> {
-//                        notifyUpdate();
-//                        for (WeakReference<CheckUpdateListener> checkUpdateListener : LISTENERS) {
-//                            if (checkUpdateListener.get() != null) {
-//                                Log.e("checkUpdate", "size22222222222=" + list.size());
-//                                checkUpdateListener.get().onCheckUpdateFinish(list);
-//                            }
-//                        }
-//                    })
-//                    .subscribe();
+    private synchronized void onFinished(CheckUpdate checkUpdate) {
+        synchronized (TASK_LIST) {
+            TASK_LIST.remove(checkUpdate);
+            Log.d(TAG, "onFinished TASK_LIST.size=" + TASK_LIST.size() + " TASK_LIST.isEmpty=" + TASK_LIST.isEmpty());
+            if (TASK_LIST.size() == 0) {
+                Log.d(TAG, "onFinished onCheckUpdateFinish TASK_LIST.isEmpty=" + TASK_LIST.isEmpty() + " TASK_LIST.size=" + TASK_LIST.size());
+                Log.d(TAG, "onFinished-->load");
+                load(new CheckUpdateListener() {
+                    @Override
+                    public void onCheckUpdateFinish(final List<AppUpdateInfo> updateInfoList, List<IgnoredUpdateInfo> ignoredUpdateInfoList) {
+                        Log.d(TAG, "onFinished onCheckUpdateFinish update.size=" + updateInfoList.size()
+                                + " ignore.size=" + ignoredUpdateInfoList.size());
+                        synchronized (LISTENERS) {
+                            checked.set(true);
+                            running.set(false);
+                            notifyUpdate(updateInfoList);
+                            Log.d(TAG, "onFinished doOnComplete LISTENERS.size=" + LISTENERS.size());
 
-            load(new CheckUpdateListener() {
-                @Override
-                public void onCheckUpdateFinish(final List<AppUpdateInfo> updateInfoList, List<IgnoredUpdateInfo> ignoredUpdateInfoList) {
-                    notifyUpdate(updateInfoList);
-                    for (WeakReference<CheckUpdateListener> checkUpdateListener : LISTENERS) {
-                        if (checkUpdateListener.get() != null) {
-                            Log.e("checkUpdate", "size22222222222=" + updateInfoList.size());
-                            checkUpdateListener.get().onCheckUpdateFinish(updateInfoList, ignoredUpdateInfoList);
+                            for (CheckUpdateListener checkUpdateListener : LISTENERS) {
+                                if (checkUpdateListener != null) {
+                                    checkUpdateListener.onCheckUpdateFinish(updateInfoList, ignoredUpdateInfoList);
+                                }
+                            }
+                            LISTENERS.clear();
                         }
                     }
-                }
 
-                @Override
-                public void onError(Throwable e) {
+                    @Override
+                    public void onError(Throwable e) {
 
-                }
-            });
+                    }
+                });
 
+            }
         }
+
     }
 
     private void load(CheckUpdateListener listener) {
+        Log.d(TAG, "load listener=" + listener);
         if (listener != null) {
             Observable.create(
                     emitter -> {
                         List<AppUpdateInfo> list = new ArrayList<>(APP_UPDATE_INFO_LIST);
-
+                        List<IgnoredUpdateInfo> ignoredUpdateInfoList = IgnoredUpdateManager.getAllIgnoredUpdateApp();
                         Comparator<Object> comparator1 = Collator.getInstance(Locale.CHINA);
                         Collections.sort(list, (o1, o2) -> comparator1.compare(o1.getAppName(), o2.getAppName()));
-                        List<IgnoredUpdateInfo> ignoredUpdateInfoList = IgnoredUpdateManager.getAllIgnoredUpdateApp();
+
                         if (!ignoredUpdateInfoList.isEmpty()) {
                             for (int i = list.size() - 1; i >= 0; i--) {
                                 AppUpdateInfo info = list.get(i);
-                                for (IgnoredUpdateInfo ignoredUpdateInfo : ignoredUpdateInfoList) {
+                                for (int j = ignoredUpdateInfoList.size() - 1; j >= 0; j--) {
+                                    IgnoredUpdateInfo ignoredUpdateInfo = ignoredUpdateInfoList.get(j);
                                     if (TextUtils.equals(info.getPackageName(), ignoredUpdateInfo.getPackageName())) {
                                         ignoredUpdateInfo.setUpdateInfo(info);
                                         list.remove(i);
                                     }
+//                                    else if (!AppUtils.isApkInstalled(ContextUtils.getApplicationContext(), ignoredUpdateInfo.getPackageName())) {
+//                                        ignoredUpdateInfo.delete();
+//                                        ignoredUpdateInfoList.remove(j);
+//                                    }
                                 }
+//                                for (IgnoredUpdateInfo ignoredUpdateInfo : ignoredUpdateInfoList) {
+//                                    if (TextUtils.equals(info.getPackageName(), ignoredUpdateInfo.getPackageName())) {
+//                                        ignoredUpdateInfo.setUpdateInfo(info);
+//                                        list.remove(i);
+//                                    }
+//                                }
                             }
                         }
-
                         Observable.empty()
                                 .observeOn(AndroidSchedulers.mainThread())
                                 .doOnComplete(() -> {
+                                    Log.d(TAG, "load onCheckUpdateFinish");
                                     listener.onCheckUpdateFinish(list, ignoredUpdateInfoList);
                                 })
                                 .subscribe();
                         emitter.onComplete();
                     })
                     .subscribeOn(Schedulers.io())
-                    .observeOn(AndroidSchedulers.mainThread())
                     .subscribe();
         }
     }
 
     private void onError(Throwable e) {
         e.printStackTrace();
-        checked.set(false);
-        running.set(false);
-        for (WeakReference<CheckUpdateListener> checkUpdateListener : LISTENERS) {
-            if (checkUpdateListener.get() != null) {
-                checkUpdateListener.get().onError(e);
+        synchronized (LISTENERS) {
+            checked.set(false);
+            running.set(false);
+            for (CheckUpdateListener checkUpdateListener : LISTENERS) {
+                if (checkUpdateListener != null) {
+                    checkUpdateListener.onError(e);
+                }
             }
         }
     }
 
     public void addCheckUpdateListener(CheckUpdateListener listener) {
+        Log.d(TAG, "addCheckUpdateListener listener=" + listener);
+        Log.d(TAG, "addCheckUpdateListener running=" + running.get());
+        Log.d(TAG, "addCheckUpdateListener checked=" + checked.get());
         if (!running.get()) {
-            if (checked.get()) {
-//                onFinished();
-                load(listener);
-            } else {
-                LISTENERS.add(new WeakReference<>(listener));
-                if (retryCount.get() < 3) {
-                    retryCount.addAndGet(1);
-                    check(ContextUtils.getApplicationContext());
+            synchronized (LISTENERS) {
+                if (checked.get()) {
+                    Log.d(TAG, "addCheckUpdateListener load");
+                    Log.d(TAG, "addCheckUpdateListener-->load");
+                    load(listener);
                 } else {
-                    onError(throwable);
+                    Log.d(TAG, "addCheckUpdateListener add111");
+                    LISTENERS.add(listener);
+                    Log.d(TAG, "addCheckUpdateListener retryCount=" + retryCount.get());
+                    if (retryCount.get() < 3) {
+                        retryCount.addAndGet(1);
+                        check(ContextUtils.getApplicationContext());
+                    } else {
+                        onError(throwable);
+                    }
                 }
             }
         } else {
-            LISTENERS.add(new WeakReference<>(listener));
+            synchronized (LISTENERS) {
+                if (running.get()) {
+                    Log.d(TAG, "addCheckUpdateListener add222");
+                    LISTENERS.add(listener);
+                    return;
+                }
+            }
+            addCheckUpdateListener(listener);
         }
     }
 

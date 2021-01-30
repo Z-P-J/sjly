@@ -8,6 +8,7 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewTreeObserver;
 import android.widget.TextView;
 
 import com.zpj.shouji.market.R;
@@ -15,6 +16,9 @@ import com.zxy.skin.sdk.SkinEngine;
 
 import net.lucode.hackware.magicindicator.buildins.ArgbEvaluatorHolder;
 import net.lucode.hackware.magicindicator.buildins.commonnavigator.titles.CommonPagerTitleView;
+
+import q.rorbin.badgeview.Badge;
+import q.rorbin.badgeview.QBadgeView;
 
 public class SubTitlePagerTitle extends CommonPagerTitleView {
 

@@ -101,7 +101,12 @@ public class BottomBarTab extends FrameLayout {
 
         addView(lLContainer);
 
-        badge = new QBadgeView(context).bindTarget(lLContainer);
+        badge = new QBadgeView(context)
+                .setBadgeTextSize(10, true)
+                .setBadgePadding(4, true)
+                .setBadgeGravity(Gravity.CENTER | Gravity.TOP)
+                .setGravityOffset(12, 0, true)
+                .bindTarget(lLContainer);
 
 
         int min = ScreenUtils.dp2pxInt(context, 20);
@@ -134,18 +139,18 @@ public class BottomBarTab extends FrameLayout {
      * 设置未读数量
      */
     public void setUnreadCount(int num) {
-//        badge.setBadgeNumber(num);
-        if (num <= 0) {
-            mTvUnreadCount.setText(String.valueOf(0));
-            mTvUnreadCount.setVisibility(GONE);
-        } else {
-            mTvUnreadCount.setVisibility(VISIBLE);
-            if (num > 99) {
-                mTvUnreadCount.setText("99+");
-            } else {
-                mTvUnreadCount.setText(String.valueOf(num));
-            }
-        }
+        badge.setBadgeNumber(num);
+//        if (num <= 0) {
+//            mTvUnreadCount.setText(String.valueOf(0));
+//            mTvUnreadCount.setVisibility(GONE);
+//        } else {
+//            mTvUnreadCount.setVisibility(VISIBLE);
+//            if (num > 99) {
+//                mTvUnreadCount.setText("99+");
+//            } else {
+//                mTvUnreadCount.setText(String.valueOf(num));
+//            }
+//        }
     }
 
     /**

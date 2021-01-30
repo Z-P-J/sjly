@@ -25,9 +25,9 @@ public class AppBackupManager {
 
     private static AppBackupManager appBackupManager = null;
 
-    private static final List<WeakReference<AppBackupListener>> listeners = new ArrayList<>();
+    private final List<WeakReference<AppBackupListener>> listeners = new ArrayList<>();
 
-    private static final ExecutorService EXECUTOR_SERVICE = new ThreadPoolExecutor(
+    private final ExecutorService EXECUTOR_SERVICE = new ThreadPoolExecutor(
             3, 3,
             60L, TimeUnit.SECONDS, new LinkedBlockingQueue<>()
     );
@@ -35,15 +35,21 @@ public class AppBackupManager {
     private final MyHandler handler = new MyHandler();
 
     private int totalCount = 0;
-    private static final AtomicInteger finishedCount = new AtomicInteger(0);
+    private final AtomicInteger finishedCount = new AtomicInteger(0);
 
     private AppBackupManager() { }
 
     public synchronized static AppBackupManager getInstance() {
         if (appBackupManager == null) {
-            appBackupManager = new AppBackupManager();
+            synchronized (AppBackupManager.class) {
+                appBackupManager = new AppBackupManager();
+            }
         }
         return appBackupManager;
+    }
+
+    public void onDestroy() {
+        appBackupManager = null;
     }
 
     public AppBackupManager addAppBackupListener(AppBackupListener listener) {

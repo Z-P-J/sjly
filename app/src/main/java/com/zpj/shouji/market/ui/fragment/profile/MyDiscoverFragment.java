@@ -88,12 +88,6 @@ public class MyDiscoverFragment extends BaseSwipeBackFragment {
                 .build();
     }
 
-//    @Override
-//    public void onSupportVisible() {
-//        super.onSupportVisible();
-//        ThemeUtils.initStatusBar(this);
-//    }
-
     @Override
     public void onDestroy() {
         HttpApi.updateFlagApi(UpdateFlagAction.DISCOVER);

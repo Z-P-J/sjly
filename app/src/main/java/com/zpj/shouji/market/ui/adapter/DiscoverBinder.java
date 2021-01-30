@@ -296,26 +296,26 @@ public class DiscoverBinder
 //            tvContent.setLinkClickListener(this);
         }
 
-        TextView tvFollow = holder.getView(R.id.tv_follow);
-        tvFollow.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-//                HttpApi.followApi(discoverInfo.getMemberId())
-//                        .onSuccess(data -> {
-//                            if ("success".equals(data.selectFirst("result").text())) {
-//                                ZToast.success("关注成功");
-//                            } else {
-//                                String result = data.selectFirst("info").text();
-//                                ZToast.error(result);
-//                            }
-//                        })
-//                        .onError(throwable -> {
-//                            ZToast.error("关注失败！" + throwable.getMessage());
-//                        })
-//                        .subscribe();
-                ZToast.normal("TODO");
-            }
-        });
+//        TextView tvFollow = holder.getView(R.id.tv_follow);
+//        tvFollow.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+////                HttpApi.followApi(discoverInfo.getMemberId())
+////                        .onSuccess(data -> {
+////                            if ("success".equals(data.selectFirst("result").text())) {
+////                                ZToast.success("关注成功");
+////                            } else {
+////                                String result = data.selectFirst("info").text();
+////                                ZToast.error(result);
+////                            }
+////                        })
+////                        .onError(throwable -> {
+////                            ZToast.error("关注失败！" + throwable.getMessage());
+////                        })
+////                        .subscribe();
+//                ZToast.normal("TODO");
+//            }
+//        });
 
         IconCountView supportView = holder.getView(R.id.support_view);
         supportView.setCount(Long.parseLong(discoverInfo.getSupportCount()));
@@ -326,6 +326,7 @@ public class DiscoverBinder
                     supportView.setState(!isSelected);
                     ZToast.warning(R.string.text_msg_not_login);
                     LoginFragment.start();
+                    supportView.praiseFailed();
                     return;
                 }
 
@@ -338,12 +339,14 @@ public class DiscoverBinder
                                 discoverInfo.setLike(isSelected);
                             } else {
                                 ZToast.error(result);
-                                supportView.setState(!isSelected);
+//                                supportView.setState(!isSelected);
+                                supportView.praiseFailed();
                             }
                         })
                         .onError(throwable -> {
                             ZToast.error("点赞失败！" + throwable.getMessage());
-                            supportView.setState(!isSelected);
+//                            supportView.setState(!isSelected);
+                            supportView.praiseFailed();
                         })
                         .subscribe();
             }

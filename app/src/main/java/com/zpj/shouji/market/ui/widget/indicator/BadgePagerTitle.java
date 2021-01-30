@@ -7,12 +7,16 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewTreeObserver;
 import android.widget.TextView;
 
 import com.zpj.shouji.market.R;
 
 import net.lucode.hackware.magicindicator.buildins.ArgbEvaluatorHolder;
 import net.lucode.hackware.magicindicator.buildins.commonnavigator.titles.CommonPagerTitleView;
+
+import q.rorbin.badgeview.Badge;
+import q.rorbin.badgeview.QBadgeView;
 
 public class BadgePagerTitle extends CommonPagerTitleView {
 
@@ -23,6 +27,10 @@ public class BadgePagerTitle extends CommonPagerTitleView {
     protected int mNormalColor;
 
     private boolean mAutoCancelBadge = true;
+
+    private boolean isAdjustMode;
+
+    private Badge badge;
 
     public BadgePagerTitle(Context context) {
         super(context);
@@ -41,28 +49,11 @@ public class BadgePagerTitle extends CommonPagerTitleView {
 
         hideBadge();
 
-//        FrameLayout flContainer = new FrameLayout(context);
-//        tvTitle = new TextView(context);
-//        tvTitle.setTextColor(Color.WHITE);
-//        LayoutParams params = new LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-//        params.gravity = Gravity.CENTER;
-//        flContainer.addView(tvTitle, params);
-//
-//        int min = ScreenUtils.dp2pxInt(context, 20);
-//        int padding = ScreenUtils.dp2pxInt(context, 4);
-//        TextView mTvUnreadCount = new TextView(context);
-//        mTvUnreadCount.setBackgroundResource(R.drawable.bg_msg_bubble);
-//        mTvUnreadCount.setText("12");
-//        mTvUnreadCount.setMinWidth(min);
-//        mTvUnreadCount.setTextSize(10);
-//        mTvUnreadCount.setTextColor(Color.WHITE);
-//        mTvUnreadCount.setPadding(padding, 0, padding, 0);
-//        mTvUnreadCount.setGravity(Gravity.CENTER);
-//        LayoutParams layoutParams = new LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-//        layoutParams.gravity = Gravity.END;
-//        flContainer.addView(mTvUnreadCount, layoutParams);
-//
-//        addView(flContainer);
+        badge = new QBadgeView(context)
+                .setBadgeTextSize(12, true)
+//                .setBadgeGravity(Gravity.CENTER | Gravity.TOP)
+                .bindTarget(view);
+
     }
 
     @Override
@@ -70,6 +61,7 @@ public class BadgePagerTitle extends CommonPagerTitleView {
         super.onSelected(index, totalCount);
         if (mAutoCancelBadge) {
             hideBadge();
+            badge.hide(true);
         }
     }
 
@@ -93,23 +85,36 @@ public class BadgePagerTitle extends CommonPagerTitleView {
         tvBadge.setVisibility(INVISIBLE);
     }
 
+    public void setAdjustMode(boolean adjustMode) {
+        isAdjustMode = adjustMode;
+    }
+
     public void setBadgeCount(int num) {
-//        if (num <= 0) {
-//            tvBadge.setVisibility(INVISIBLE);
-//        } else {
-//            tvBadge.setVisibility(VISIBLE);
-//            tvBadge.setText(String.valueOf(num));
-//        }
         setBadgeText(num <= 0 ? null : String.valueOf(num));
     }
 
     public void setBadgeText(String text) {
-        if (TextUtils.isEmpty(text)) {
-            tvBadge.setVisibility(INVISIBLE);
+        if (isAdjustMode) {
+            badge.setBadgeGravity(Gravity.CENTER | Gravity.TOP);
+            getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+                @Override
+                public void onGlobalLayout() {
+                    getViewTreeObserver().removeOnGlobalLayoutListener(this);
+                    badge.setGravityOffset(tvTitle.getMeasuredWidth() / 2f, 0, false);
+                    badge.setBadgeText(text);
+                }
+            });
         } else {
-            tvBadge.setVisibility(VISIBLE);
-            tvBadge.setText(text);
+            badge.setBadgeGravity(Gravity.END | Gravity.TOP);
+            badge.setBadgeText(text);
         }
+
+//        if (TextUtils.isEmpty(text)) {
+//            tvBadge.setVisibility(INVISIBLE);
+//        } else {
+//            tvBadge.setVisibility(VISIBLE);
+//            tvBadge.setText(text);
+//        }
     }
 
     public void setNormalColor(int mNormalColor) {

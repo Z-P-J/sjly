@@ -16,47 +16,44 @@ import java.util.concurrent.atomic.AtomicBoolean;
 
 public class AppReceiver extends BroadcastReceiver {
 
-    private final AtomicBoolean isRegistered = new AtomicBoolean(false);
     private static AppReceiver APP_RECEIVER;
 
-    public static AppReceiver getInstance() {
+//    public static AppReceiver getInstance() {
+//        if (APP_RECEIVER == null) {
+//            synchronized (AppReceiver.class) {
+//                if (APP_RECEIVER == null) {
+//                    APP_RECEIVER = new AppReceiver();
+//                }
+//            }
+//        }
+//        return APP_RECEIVER;
+//    }
+
+    public static void register(Context context) {
         if (APP_RECEIVER == null) {
             synchronized (AppReceiver.class) {
                 if (APP_RECEIVER == null) {
                     APP_RECEIVER = new AppReceiver();
+                    IntentFilter intentFilter = new IntentFilter();
+                    intentFilter.addAction(Intent.ACTION_PACKAGE_ADDED);
+                    intentFilter.addAction(Intent.ACTION_PACKAGE_REPLACED);
+                    intentFilter.addAction(Intent.ACTION_PACKAGE_REMOVED);
+                    intentFilter.addDataScheme("package");
+                    context.registerReceiver(APP_RECEIVER, intentFilter);
                 }
             }
-        }
-        return APP_RECEIVER;
-    }
-
-    public static void register(Context context) {
-        if (!getInstance().isRegistered()) {
-            getInstance().setRegistered(true);
-            APP_RECEIVER = null;
-            IntentFilter intentFilter = new IntentFilter();
-            intentFilter.addAction(Intent.ACTION_PACKAGE_ADDED);
-            intentFilter.addAction(Intent.ACTION_PACKAGE_REPLACED);
-            intentFilter.addAction(Intent.ACTION_PACKAGE_REMOVED);
-            intentFilter.addDataScheme("package");
-            context.registerReceiver(getInstance(), intentFilter);
         }
     }
 
     public static void unregister(Context context) {
-        if (getInstance().isRegistered()) {
-            context.unregisterReceiver(getInstance());
-            getInstance().setRegistered(false);
-            APP_RECEIVER = null;
+        if (APP_RECEIVER != null) {
+            synchronized (AppReceiver.class) {
+                if (APP_RECEIVER != null) {
+                    context.unregisterReceiver(APP_RECEIVER);
+                    APP_RECEIVER = null;
+                }
+            }
         }
-    }
-
-    public boolean isRegistered() {
-        return isRegistered.get();
-    }
-
-    public void setRegistered(boolean value) {
-        isRegistered.set(value);
     }
 
     @Override

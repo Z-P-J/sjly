@@ -114,6 +114,7 @@ public class MyFriendsFragment extends BaseSwipeBackFragment {
                 .setAdjustMode(true)
                 .setOnGetTitleViewListener((context12, index) -> {
                     BadgePagerTitle badgePagerTitle = new BadgePagerTitle(context);
+                    badgePagerTitle.setAdjustMode(true);
                     badgePagerTitle.setTitle(TAB_TITLES[index]);
                     badgePagerTitle.setOnClickListener(view1 -> viewPager.setCurrentItem(index));
                     if (index == 1) {

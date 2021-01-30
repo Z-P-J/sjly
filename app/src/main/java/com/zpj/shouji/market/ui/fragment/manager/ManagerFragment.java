@@ -135,6 +135,7 @@ public class ManagerFragment extends BaseSwipeBackFragment {
                 public IPagerTitleView getTitleView(Context context, int index) {
 
                     BadgePagerTitle badgePagerTitle = new BadgePagerTitle(context);
+                    badgePagerTitle.setAdjustMode(true);
                     badgePagerTitle.setNormalColor(Color.WHITE);
                     badgePagerTitle.setSelectedColor(Color.WHITE);
                     badgePagerTitle.setAutoCancelBadge(false);

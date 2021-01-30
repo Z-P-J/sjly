@@ -63,7 +63,7 @@ public class ThemeListFragment extends NextUrlFragment<DiscoverInfo>
 
     @Override
     protected int getItemLayoutId() {
-        return R.layout.item_theme;
+        return R.layout.item_theme2;
     }
 
     @Override

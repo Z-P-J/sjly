@@ -6,6 +6,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.CardView;
 import android.util.AttributeSet;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewTreeObserver;
@@ -78,20 +79,6 @@ public class ToolBoxCard extends CardView implements View.OnClickListener {
         ivBg = findViewById(R.id.iv_bg);
         gridLayout = findViewById(R.id.grid);
 
-//        Blurred.with(findViewById(R.id.grid))
-//                .fitIntoViewXY(true)
-////                .antiAlias(true)
-//                .scale(0.3f)
-//                .radius(20)
-//                .blur(ivBg);
-
-//        Blurred.with(findViewById(R.id.grid))
-////                .fitIntoViewXY(true)
-////                .antiAlias(true)
-//                .scale(0.3f)
-//                .radius(16f)
-//                .blur(ivBg);
-
         tvSignUp = findViewById(R.id.tv_sign_up);
         tvSignIn = findViewById(R.id.tv_sign_in);
 
@@ -119,12 +106,20 @@ public class ToolBoxCard extends CardView implements View.OnClickListener {
 //        tvMyAt.setOnClickListener(this);
 //        tvMyLike.setOnClickListener(this);
 
-        commentBadge = new QBadgeView(context).bindTarget(tvMyComments);
-        msgBadge = new QBadgeView(context).bindTarget(tvMyMsg);
+        commentBadge = new QBadgeView(context)
+                .setGravityOffset(14, 0, true)
+                .bindTarget(tvMyComments);
+        msgBadge = new QBadgeView(context)
+                .setGravityOffset(14, 0, true)
+                .bindTarget(tvMyMsg);
 //        atBadge = new QBadgeView(context).bindTarget(tvMyAt);
 //        likeBadge = new QBadgeView(context).bindTarget(tvMyLike);
-        discoverBadge = new QBadgeView(context).bindTarget(tvMyDiscovers);
-        friendsBadge = new QBadgeView(context).bindTarget(tvMyFriends);
+        discoverBadge = new QBadgeView(context)
+                .setGravityOffset(14, 0, true)
+                .bindTarget(tvMyDiscovers);
+        friendsBadge = new QBadgeView(context)
+                .setGravityOffset(14, 0, true)
+                .bindTarget(tvMyFriends);
 
         initBackground();
     }

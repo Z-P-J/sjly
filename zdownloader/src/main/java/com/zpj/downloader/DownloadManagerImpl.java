@@ -205,8 +205,8 @@ public class DownloadManagerImpl implements DownloadManager {
                         });
                         long time2 = System.currentTimeMillis();
                         Log.d(TAG, "deltaTime=" + (time2 - time1));
-                        isLoaded.set(true);
                         synchronized (onLoadMissionListeners) {
+                            isLoaded.set(true);
                             for (int i = onLoadMissionListeners.size() - 1; i >= 0; i--) {
                                 OnLoadMissionListener<BaseMission<?>> listener = onLoadMissionListeners.get(i).get();
                                 if (listener != null) {

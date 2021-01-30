@@ -19,6 +19,7 @@ import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.api.HttpPreLoader;
 import com.zpj.shouji.market.api.UploadImageApi;
 import com.zpj.shouji.market.constant.Actions;
+import com.zpj.shouji.market.manager.AppBackupManager;
 import com.zpj.shouji.market.manager.AppInstalledManager;
 import com.zpj.shouji.market.manager.AppUpdateManager;
 import com.zpj.shouji.market.manager.UserManager;
@@ -56,9 +57,13 @@ public class MainActivity extends BaseActivity { // implements IUiListener
 
     @Override
     protected void onDestroy() {
-        ZDownloader.onDestroy();
-        HttpPreLoader.getInstance().onDestroy();
         AppReceiver.unregister(this);
+        AppBackupManager.getInstance().onDestroy();
+        AppInstalledManager.getInstance().onDestroy();
+        AppUpdateManager.getInstance().onDestroy();
+        UserManager.getInstance().onDestroy();
+        HttpPreLoader.getInstance().onDestroy();
+        ZDownloader.onDestroy();
         super.onDestroy();
     }
 
