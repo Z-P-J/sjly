@@ -56,15 +56,6 @@
     <img src="screenshots/screenshot47.jpg" width="19%">
     <img src="screenshots/screenshot48.jpg" width="19%">
     <img src="screenshots/screenshot49.jpg" width="19%">
-    <img src="screenshots/screenshot50.jpg" width="19%">
-    <img src="screenshots/screenshot51.jpg" width="19%">
-    <img src="screenshots/screenshot52.jpg" width="19%">
-    <img src="screenshots/screenshot53.jpg" width="19%">
-    <img src="screenshots/screenshot54.jpg" width="19%">
-    <img src="screenshots/screenshot55.jpg" width="19%">
-    <img src="screenshots/screenshot56.jpg" width="19%">
-    <img src="screenshots/screenshot57.jpg" width="19%">
-    <img src="screenshots/screenshot58.jpg" width="19%">
 </div>
 
 ## 感谢以下开源库

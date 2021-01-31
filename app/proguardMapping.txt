@@ -1,7 +1,7 @@
 # compiler: R8
 # compiler_version: 1.5.69
 # min_api: 19
-# pg_map_id: 3d26ce1
+# pg_map_id: 6351e71
 android.arch.core.executor.ArchTaskExecutor -> a.a.a.a.a:
     android.arch.core.executor.ArchTaskExecutor sInstance -> c
     android.arch.core.executor.TaskExecutor mDelegate -> a
@@ -36251,22 +36251,22 @@ com.zpj.shouji.market.manager.AppUpdateManager -> com.zpj.shouji.market.f.x:
     55:55:java.lang.Throwable access$602(com.zpj.shouji.market.manager.AppUpdateManager,java.lang.Throwable) -> a
     55:55:void access$800(com.zpj.shouji.market.manager.AppUpdateManager,java.util.List) -> a
     197:199:void checkUpdate(android.content.Context) -> a
-    216:245:void lambda$check$0(android.content.Context,io.reactivex.ObservableEmitter) -> a
-    292:315:void notifyUpdate(java.util.List) -> a
-    318:321:void cancelNotifyUpdate() -> a
-    328:328:java.lang.String getAppIdAndType(java.lang.String) -> a
-    340:339:void onFinished(com.zpj.shouji.market.manager.AppUpdateManager$CheckUpdate) -> a
-    382:417:void lambda$load$3(com.zpj.shouji.market.manager.AppUpdateManager$CheckUpdateListener,io.reactivex.ObservableEmitter) -> a
-    385:385:int lambda$null$1(java.util.Comparator,com.zpj.shouji.market.model.AppUpdateInfo,com.zpj.shouji.market.model.AppUpdateInfo) -> a
-    412:414:void lambda$null$2(com.zpj.shouji.market.manager.AppUpdateManager$CheckUpdateListener,java.util.List,java.util.List) -> a
-    424:433:void onError(java.lang.Throwable) -> a
-    437:465:void addCheckUpdateListener(com.zpj.shouji.market.manager.AppUpdateManager$CheckUpdateListener) -> a
+    216:251:void lambda$check$0(android.content.Context,io.reactivex.ObservableEmitter) -> a
+    297:320:void notifyUpdate(java.util.List) -> a
+    323:326:void cancelNotifyUpdate() -> a
+    333:333:java.lang.String getAppIdAndType(java.lang.String) -> a
+    345:344:void onFinished(com.zpj.shouji.market.manager.AppUpdateManager$CheckUpdate) -> a
+    387:422:void lambda$load$3(com.zpj.shouji.market.manager.AppUpdateManager$CheckUpdateListener,io.reactivex.ObservableEmitter) -> a
+    390:390:int lambda$null$1(java.util.Comparator,com.zpj.shouji.market.model.AppUpdateInfo,com.zpj.shouji.market.model.AppUpdateInfo) -> a
+    417:419:void lambda$null$2(com.zpj.shouji.market.manager.AppUpdateManager$CheckUpdateListener,java.util.List,java.util.List) -> a
+    429:438:void onError(java.lang.Throwable) -> a
+    442:470:void addCheckUpdateListener(com.zpj.shouji.market.manager.AppUpdateManager$CheckUpdateListener) -> a
     55:55:java.util.concurrent.ConcurrentMap access$100(com.zpj.shouji.market.manager.AppUpdateManager) -> b
     55:55:void access$700(com.zpj.shouji.market.manager.AppUpdateManager,java.lang.Throwable) -> b
-    202:275:void check(android.content.Context) -> b
-    278:289:void notifyUpdate() -> b
-    332:332:boolean hasUpdate(java.lang.String) -> b
-    378:421:void load(com.zpj.shouji.market.manager.AppUpdateManager$CheckUpdateListener) -> b
+    202:280:void check(android.content.Context) -> b
+    283:294:void notifyUpdate() -> b
+    337:337:boolean hasUpdate(java.lang.String) -> b
+    383:426:void load(com.zpj.shouji.market.manager.AppUpdateManager$CheckUpdateListener) -> b
     55:55:java.util.concurrent.atomic.AtomicBoolean access$1000(com.zpj.shouji.market.manager.AppUpdateManager) -> c
     192:194:void onDestroy() -> c
     55:55:java.util.concurrent.atomic.AtomicBoolean access$1100(com.zpj.shouji.market.manager.AppUpdateManager) -> d
@@ -36277,22 +36277,22 @@ com.zpj.shouji.market.manager.AppUpdateManager -> com.zpj.shouji.market.f.x:
     55:55:java.util.List access$900(com.zpj.shouji.market.manager.AppUpdateManager) -> h
 com.zpj.shouji.market.manager.AppUpdateManager$1 -> com.zpj.shouji.market.f.x$a:
     com.zpj.shouji.market.manager.AppUpdateManager this$0 -> a
-    249:249:void <init>(com.zpj.shouji.market.manager.AppUpdateManager) -> <init>
-    249:249:void onNext(java.lang.Object) -> a
-    253:253:void onSubscribe(io.reactivex.disposables.Disposable) -> a
-    257:259:void onNext(com.zpj.shouji.market.manager.AppUpdateManager$CheckUpdate) -> a
-    265:268:void onError(java.lang.Throwable) -> a
-    273:273:void onComplete() -> a
+    257:257:void <init>(com.zpj.shouji.market.manager.AppUpdateManager) -> <init>
+    257:257:void onNext(java.lang.Object) -> a
+    261:261:void onSubscribe(io.reactivex.disposables.Disposable) -> a
+    266:266:void onNext(com.zpj.shouji.market.manager.AppUpdateManager$CheckUpdate) -> a
+    270:273:void onError(java.lang.Throwable) -> a
+    278:278:void onComplete() -> a
 com.zpj.shouji.market.manager.AppUpdateManager$2 -> com.zpj.shouji.market.f.x$b:
     com.zpj.shouji.market.manager.AppUpdateManager this$0 -> a
-    278:278:void <init>(com.zpj.shouji.market.manager.AppUpdateManager) -> <init>
-    281:282:void onCheckUpdateFinish(java.util.List,java.util.List) -> a
-    287:287:void onError(java.lang.Throwable) -> a
+    283:283:void <init>(com.zpj.shouji.market.manager.AppUpdateManager) -> <init>
+    286:287:void onCheckUpdateFinish(java.util.List,java.util.List) -> a
+    292:292:void onError(java.lang.Throwable) -> a
 com.zpj.shouji.market.manager.AppUpdateManager$3 -> com.zpj.shouji.market.f.x$c:
     com.zpj.shouji.market.manager.AppUpdateManager this$0 -> a
-    346:346:void <init>(com.zpj.shouji.market.manager.AppUpdateManager) -> <init>
-    349:363:void onCheckUpdateFinish(java.util.List,java.util.List) -> a
-    369:369:void onError(java.lang.Throwable) -> a
+    351:351:void <init>(com.zpj.shouji.market.manager.AppUpdateManager) -> <init>
+    354:368:void onCheckUpdateFinish(java.util.List,java.util.List) -> a
+    374:374:void onError(java.lang.Throwable) -> a
 com.zpj.shouji.market.manager.AppUpdateManager$CheckUpdate -> com.zpj.shouji.market.f.x$d:
     android.content.Context context -> a
     com.zpj.shouji.market.manager.AppUpdateManager this$0 -> d

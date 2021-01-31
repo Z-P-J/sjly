@@ -237,8 +237,16 @@ public final class AppUpdateManager {
                             }
                             Log.e("checkUpdate", "packageid=" + packageid);
                             CheckUpdate checkUpdateRunnable = new CheckUpdate(context, "", "", packageid.toString());
-                            emitter.onNext(checkUpdateRunnable);
+//                            emitter.onNext(checkUpdateRunnable);
+                            synchronized (TASK_LIST) {
+                                TASK_LIST.add(checkUpdateRunnable);
+                            }
                             packageid = new StringBuilder();
+                        }
+                    }
+                    synchronized (TASK_LIST) {
+                        for (CheckUpdate checkUpdate : TASK_LIST) {
+                            checkUpdate.run();
                         }
                     }
                     emitter.onComplete();
@@ -254,10 +262,7 @@ public final class AppUpdateManager {
 
                     @Override
                     public void onNext(@NonNull CheckUpdate checkUpdate) {
-                        synchronized (TASK_LIST) {
-                            TASK_LIST.add(checkUpdate);
-                        }
-                        checkUpdate.run();
+
                     }
 
                     @Override
