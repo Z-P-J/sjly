@@ -1,4 +1,4 @@
-package com.ctetin.expandabletextviewlibrary.app;
+package com.zpj.shouji.market.ui.widget.expandabletextview.app;
 
 /**
  * @date: on 2018/9/20

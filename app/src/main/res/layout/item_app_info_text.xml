@@ -7,7 +7,7 @@
     android:background="?attr/backgroundColor"
     android:padding="16dp">
 
-    <com.ctetin.expandabletextviewlibrary.ExpandableTextView
+    <com.zpj.shouji.market.ui.widget.expandabletextview.ExpandableTextView
         android:id="@+id/tv_content"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

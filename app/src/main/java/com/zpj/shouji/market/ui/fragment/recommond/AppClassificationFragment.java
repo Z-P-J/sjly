@@ -7,8 +7,6 @@ import android.view.View;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
-import com.ctetin.expandabletextviewlibrary.ExpandableTextView;
-import com.ctetin.expandabletextviewlibrary.app.LinkType;
 import com.yanyusong.y_divideritemdecoration.Y_Divider;
 import com.yanyusong.y_divideritemdecoration.Y_DividerBuilder;
 import com.yanyusong.y_divideritemdecoration.Y_DividerItemDecoration;
@@ -22,6 +20,8 @@ import com.zpj.shouji.market.glide.transformations.blur.CropBlurTransformation;
 import com.zpj.shouji.market.model.ClassificationItem;
 import com.zpj.shouji.market.ui.fragment.ToolBarAppListFragment;
 import com.zpj.shouji.market.ui.fragment.base.NextUrlFragment;
+import com.zpj.shouji.market.ui.widget.expandabletextview.ExpandableTextView;
+import com.zpj.shouji.market.ui.widget.expandabletextview.app.LinkType;
 
 import java.util.List;
 

@@ -16,8 +16,6 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
-import com.ctetin.expandabletextviewlibrary.ExpandableTextView;
-import com.ctetin.expandabletextviewlibrary.app.LinkType;
 import com.zpj.fragmentation.dialog.impl.ImageViewerDialogFragment3;
 import com.zpj.recyclerview.EasyViewHolder;
 import com.zpj.recyclerview.IEasy;
@@ -43,6 +41,8 @@ import com.zpj.shouji.market.ui.widget.CombineImageView;
 import com.zpj.shouji.market.ui.widget.DownloadButton;
 import com.zpj.shouji.market.ui.widget.DrawableTintTextView;
 import com.zpj.shouji.market.ui.widget.count.IconCountView;
+import com.zpj.shouji.market.ui.widget.expandabletextview.ExpandableTextView;
+import com.zpj.shouji.market.ui.widget.expandabletextview.app.LinkType;
 import com.zpj.shouji.market.ui.widget.ninegrid.NineGridView;
 import com.zpj.shouji.market.ui.widget.emoji.EmojiExpandableTextView;
 import com.zpj.toast.ZToast;

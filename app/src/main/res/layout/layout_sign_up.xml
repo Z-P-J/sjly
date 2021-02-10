@@ -54,7 +54,7 @@
             android:layout_marginEnd="8dp"
             />
 
-        <com.ctetin.expandabletextviewlibrary.ExpandableTextView
+        <com.zpj.shouji.market.ui.widget.expandabletextview.ExpandableTextView
             android:id="@+id/tv_agreement"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

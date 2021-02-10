@@ -1,7 +1,7 @@
 # compiler: R8
 # compiler_version: 1.5.69
 # min_api: 19
-# pg_map_id: 6351e71
+# pg_map_id: 442eda4
 android.arch.core.executor.ArchTaskExecutor -> a.a.a.a.a:
     android.arch.core.executor.ArchTaskExecutor sInstance -> c
     android.arch.core.executor.TaskExecutor mDelegate -> a
@@ -23828,265 +23828,6 @@ com.cb.ratingbar.R$style -> com.cb.ratingbar.R$style:
 com.cb.ratingbar.R$styleable -> com.cb.ratingbar.R$styleable:
     1110:1514:void <clinit>() -> <clinit>
     1108:1108:void <init>() -> <init>
-com.ctetin.expandabletextviewlibrary.ExpandableTextView -> com.ctetin.expandabletextviewlibrary.ExpandableTextView:
-    boolean mNeedContract -> m
-    int retryTime -> O
-    android.content.Context mContext -> c
-    boolean mNeedExpend -> o
-    java.lang.String TEXT_CONTRACT -> K
-    com.ctetin.expandabletextviewlibrary.ExpandableTextView$OnGetLineCountListener onGetLineCountListener -> J
-    java.lang.String TEXT_TARGET -> M
-    android.text.DynamicLayout mDynamicLayout -> e
-    int mWidth -> h
-    android.graphics.drawable.Drawable mLinkDrawable -> i
-    boolean needRealExpandOrContract -> k
-    com.ctetin.expandabletextviewlibrary.model.FormatData mFormatData -> n
-    int mLimitLines -> f
-    boolean mNeedAlwaysShowRight -> u
-    int mEndExpandTextColor -> G
-    com.ctetin.expandabletextviewlibrary.model.ExpandableStatusFix mModel -> d
-    boolean mNeedMention -> q
-    int mContractTextColor -> C
-    boolean mNeedLink -> s
-    int mLinkTextColor -> A
-    int mExpandTextColor -> y
-    com.ctetin.expandabletextviewlibrary.ExpandableTextView$OnLinkClickListener linkClickListener -> j
-    int mLineCount -> w
-    boolean linkHit -> b
-    java.lang.String mExpandString -> D
-    java.lang.String mEndExpandContent -> F
-    boolean mNeedConvertUrl -> p
-    boolean dontConsumeNonUrlClicks -> I
-    java.lang.String TEXT_EXPEND -> L
-    java.lang.String TARGET -> N
-    int currentLines -> g
-    boolean mNeedAnimation -> v
-    int mSelfTextColor -> B
-    boolean mNeedTopic -> r
-    boolean mNeedSelf -> t
-    int mMentionTextColor -> z
-    android.text.TextPaint mPaint -> a
-    boolean isAttached -> H
-    com.ctetin.expandabletextviewlibrary.ExpandableTextView$OnExpandOrContractClickListener expandOrContractClickListener -> l
-    java.lang.CharSequence mContent -> x
-    java.lang.String mContractString -> E
-    58:66:void <clinit>() -> <clinit>
-    216:217:void <init>(android.content.Context) -> <init>
-    220:221:void <init>(android.content.Context,android.util.AttributeSet) -> <init>
-    224:240:void <init>(android.content.Context,android.util.AttributeSet,int) -> <init>
-    56:56:boolean access$000(com.ctetin.expandabletextviewlibrary.ExpandableTextView) -> a
-    56:56:boolean access$002(com.ctetin.expandabletextviewlibrary.ExpandableTextView,boolean) -> a
-    56:56:int access$1102(com.ctetin.expandabletextviewlibrary.ExpandableTextView,int) -> a
-    56:56:android.text.SpannableStringBuilder access$1500(com.ctetin.expandabletextviewlibrary.ExpandableTextView,java.lang.CharSequence) -> a
-    56:56:int access$208() -> a
-    56:56:void access$600(com.ctetin.expandabletextviewlibrary.ExpandableTextView,com.ctetin.expandabletextviewlibrary.app.StatusType) -> a
-    288:341:void init(android.content.Context,android.util.AttributeSet,int) -> a
-    465:733:android.text.SpannableStringBuilder dealLink(com.ctetin.expandabletextviewlibrary.model.FormatData,boolean) -> a
-    805:812:void addMention(android.text.SpannableStringBuilder,com.ctetin.expandabletextviewlibrary.model.FormatData$PositionData,int) -> a
-    902:933:void action(com.ctetin.expandabletextviewlibrary.app.StatusType) -> a
-    949:962:int getFitPosition(java.lang.String,int,int,float,float,float) -> a
-    973:1066:com.ctetin.expandabletextviewlibrary.model.FormatData formatData(java.lang.CharSequence) -> a
-    895:896:void action() -> action
-    56:56:void access$100(com.ctetin.expandabletextviewlibrary.ExpandableTextView) -> b
-    345:365:android.text.SpannableStringBuilder setRealContent(java.lang.CharSequence) -> b
-    402:426:void doSetContent() -> b
-    774:781:void addSelf(android.text.SpannableStringBuilder,com.ctetin.expandabletextviewlibrary.model.FormatData$PositionData,int) -> b
-    56:56:android.content.Context access$1000(com.ctetin.expandabletextviewlibrary.ExpandableTextView) -> c
-    828:835:void addTopic(android.text.SpannableStringBuilder,com.ctetin.expandabletextviewlibrary.model.FormatData$PositionData,int) -> c
-    56:56:int access$1200(com.ctetin.expandabletextviewlibrary.ExpandableTextView) -> d
-    867:883:void addUrl(android.text.SpannableStringBuilder,com.ctetin.expandabletextviewlibrary.model.FormatData$PositionData,int) -> d
-    56:56:int access$1300(com.ctetin.expandabletextviewlibrary.ExpandableTextView) -> e
-    56:56:boolean access$1400(com.ctetin.expandabletextviewlibrary.ExpandableTextView) -> f
-    56:56:java.lang.CharSequence access$300(com.ctetin.expandabletextviewlibrary.ExpandableTextView) -> g
-    1464:1464:java.lang.String getContractString() -> getContractString
-    1448:1448:int getContractTextColor() -> getContractTextColor
-    1472:1472:int getEndExpandTextColor() -> getEndExpandTextColor
-    434:438:java.lang.String getExpandEndContent() -> getExpandEndContent
-    1512:1512:com.ctetin.expandabletextviewlibrary.ExpandableTextView$OnExpandOrContractClickListener getExpandOrContractClickListener() -> getExpandOrContractClickListener
-    1456:1456:java.lang.String getExpandString() -> getExpandString
-    1428:1428:int getExpandTextColor() -> getExpandTextColor
-    1420:1420:int getExpandableLineCount() -> getExpandableLineCount
-    1436:1436:int getExpandableLinkTextColor() -> getExpandableLinkTextColor
-    449:453:java.lang.String getHideEndContent() -> getHideEndContent
-    1368:1368:com.ctetin.expandabletextviewlibrary.ExpandableTextView$OnLinkClickListener getLinkClickListener() -> getLinkClickListener
-    1384:1384:android.graphics.drawable.Drawable getLinkDrawable() -> getLinkDrawable
-    1356:1356:com.ctetin.expandabletextviewlibrary.ExpandableTextView$OnGetLineCountListener getOnGetLineCountListener() -> getOnGetLineCountListener
-    1488:1488:int getSelfTextColor() -> getSelfTextColor
-    56:56:boolean access$400(com.ctetin.expandabletextviewlibrary.ExpandableTextView) -> h
-    56:56:com.ctetin.expandabletextviewlibrary.model.ExpandableStatusFix access$500(com.ctetin.expandabletextviewlibrary.ExpandableTextView) -> i
-    56:56:void access$700(com.ctetin.expandabletextviewlibrary.ExpandableTextView) -> j
-    56:56:com.ctetin.expandabletextviewlibrary.ExpandableTextView$OnExpandOrContractClickListener access$800(com.ctetin.expandabletextviewlibrary.ExpandableTextView) -> k
-    56:56:com.ctetin.expandabletextviewlibrary.ExpandableTextView$OnLinkClickListener access$900(com.ctetin.expandabletextviewlibrary.ExpandableTextView) -> l
-    1323:1338:boolean onTouchEvent(android.view.MotionEvent) -> onTouchEvent
-    386:389:void setContent(java.lang.String) -> setContent
-    1468:1469:void setContractString(java.lang.String) -> setContractString
-    1452:1453:void setContractTextColor(int) -> setContractTextColor
-    891:892:void setCurrStatus(com.ctetin.expandabletextviewlibrary.app.StatusType) -> setCurrStatus
-    1476:1477:void setEndExpandTextColor(int) -> setEndExpandTextColor
-    377:378:void setEndExpendContent(java.lang.String) -> setEndExpendContent
-    1516:1517:void setExpandOrContractClickListener(com.ctetin.expandabletextviewlibrary.ExpandableTextView$OnExpandOrContractClickListener) -> setExpandOrContractClickListener
-    1460:1461:void setExpandString(java.lang.String) -> setExpandString
-    1432:1433:void setExpandTextColor(int) -> setExpandTextColor
-    1424:1425:void setExpandableLineCount(int) -> setExpandableLineCount
-    1440:1441:void setExpandableLinkTextColor(int) -> setExpandableLinkTextColor
-    392:396:void setLimitLines(int) -> setLimitLines
-    1372:1373:void setLinkClickListener(com.ctetin.expandabletextviewlibrary.ExpandableTextView$OnLinkClickListener) -> setLinkClickListener
-    1388:1389:void setLinkDrawable(android.graphics.drawable.Drawable) -> setLinkDrawable
-    244:284:void setMaxLines(int) -> setMaxLines
-    1444:1445:void setMentionTextColor(int) -> setMentionTextColor
-    1508:1509:void setNeedAlwaysShowRight(boolean) -> setNeedAlwaysShowRight
-    1416:1417:void setNeedAnimation(boolean) -> setNeedAnimation
-    1396:1397:void setNeedContract(boolean) -> setNeedContract
-    1408:1409:void setNeedConvertUrl(boolean) -> setNeedConvertUrl
-    1404:1405:void setNeedExpend(boolean) -> setNeedExpend
-    1484:1485:void setNeedLink(boolean) -> setNeedLink
-    1380:1381:void setNeedMention(boolean) -> setNeedMention
-    1500:1501:void setNeedSelf(boolean) -> setNeedSelf
-    1360:1361:void setOnGetLineCountListener(com.ctetin.expandabletextviewlibrary.ExpandableTextView$OnGetLineCountListener) -> setOnGetLineCountListener
-    1492:1493:void setSelfTextColor(int) -> setSelfTextColor
-com.ctetin.expandabletextviewlibrary.ExpandableTextView$1 -> com.ctetin.expandabletextviewlibrary.ExpandableTextView$b:
-    com.ctetin.expandabletextviewlibrary.ExpandableTextView this$0 -> a
-    227:227:void <init>(com.ctetin.expandabletextviewlibrary.ExpandableTextView) -> <init>
-    230:233:void onViewAttachedToWindow(android.view.View) -> onViewAttachedToWindow
-    238:238:void onViewDetachedFromWindow(android.view.View) -> onViewDetachedFromWindow
-com.ctetin.expandabletextviewlibrary.ExpandableTextView$10 -> com.ctetin.expandabletextviewlibrary.ExpandableTextView$a:
-    com.ctetin.expandabletextviewlibrary.ExpandableTextView this$0 -> b
-    boolean val$finalIsHide -> a
-    909:909:void <init>(com.ctetin.expandabletextviewlibrary.ExpandableTextView,boolean) -> <init>
-    912:920:void onAnimationUpdate(android.animation.ValueAnimator) -> onAnimationUpdate
-com.ctetin.expandabletextviewlibrary.ExpandableTextView$2 -> com.ctetin.expandabletextviewlibrary.ExpandableTextView$c:
-    246:246:void <init>(com.ctetin.expandabletextviewlibrary.ExpandableTextView) -> <init>
-    249:278:boolean onTouch(android.view.View,android.view.MotionEvent) -> onTouch
-com.ctetin.expandabletextviewlibrary.ExpandableTextView$3 -> com.ctetin.expandabletextviewlibrary.ExpandableTextView$d:
-    com.ctetin.expandabletextviewlibrary.ExpandableTextView this$0 -> a
-    416:416:void <init>(com.ctetin.expandabletextviewlibrary.ExpandableTextView) -> <init>
-    419:421:void run() -> run
-com.ctetin.expandabletextviewlibrary.ExpandableTextView$4 -> com.ctetin.expandabletextviewlibrary.ExpandableTextView$e:
-    com.ctetin.expandabletextviewlibrary.ExpandableTextView this$0 -> c
-    552:552:void <init>(com.ctetin.expandabletextviewlibrary.ExpandableTextView,int) -> <init>
-    555:566:void onClick(android.view.View) -> onClick
-com.ctetin.expandabletextviewlibrary.ExpandableTextView$5 -> com.ctetin.expandabletextviewlibrary.ExpandableTextView$f:
-    com.ctetin.expandabletextviewlibrary.ExpandableTextView this$0 -> c
-    620:620:void <init>(com.ctetin.expandabletextviewlibrary.ExpandableTextView,int) -> <init>
-    623:632:void onClick(android.view.View) -> onClick
-com.ctetin.expandabletextviewlibrary.ExpandableTextView$6 -> com.ctetin.expandabletextviewlibrary.ExpandableTextView$g:
-    com.ctetin.expandabletextviewlibrary.model.FormatData$PositionData val$data -> c
-    com.ctetin.expandabletextviewlibrary.ExpandableTextView this$0 -> d
-    774:774:void <init>(com.ctetin.expandabletextviewlibrary.ExpandableTextView,int,com.ctetin.expandabletextviewlibrary.model.FormatData$PositionData) -> <init>
-    777:779:void onClick(android.view.View) -> onClick
-com.ctetin.expandabletextviewlibrary.ExpandableTextView$7 -> com.ctetin.expandabletextviewlibrary.ExpandableTextView$h:
-    com.ctetin.expandabletextviewlibrary.model.FormatData$PositionData val$data -> c
-    com.ctetin.expandabletextviewlibrary.ExpandableTextView this$0 -> d
-    805:805:void <init>(com.ctetin.expandabletextviewlibrary.ExpandableTextView,int,com.ctetin.expandabletextviewlibrary.model.FormatData$PositionData) -> <init>
-    808:810:void onClick(android.view.View) -> onClick
-com.ctetin.expandabletextviewlibrary.ExpandableTextView$8 -> com.ctetin.expandabletextviewlibrary.ExpandableTextView$i:
-    com.ctetin.expandabletextviewlibrary.model.FormatData$PositionData val$data -> c
-    com.ctetin.expandabletextviewlibrary.ExpandableTextView this$0 -> d
-    828:828:void <init>(com.ctetin.expandabletextviewlibrary.ExpandableTextView,int,com.ctetin.expandabletextviewlibrary.model.FormatData$PositionData) -> <init>
-    831:833:void onClick(android.view.View) -> onClick
-com.ctetin.expandabletextviewlibrary.ExpandableTextView$9 -> com.ctetin.expandabletextviewlibrary.ExpandableTextView$j:
-    com.ctetin.expandabletextviewlibrary.model.FormatData$PositionData val$data -> c
-    com.ctetin.expandabletextviewlibrary.ExpandableTextView this$0 -> d
-    867:867:void <init>(com.ctetin.expandabletextviewlibrary.ExpandableTextView,int,com.ctetin.expandabletextviewlibrary.model.FormatData$PositionData) -> <init>
-    870:881:void onClick(android.view.View) -> onClick
-com.ctetin.expandabletextviewlibrary.ExpandableTextView$Clickable -> com.ctetin.expandabletextviewlibrary.ExpandableTextView$k:
-    boolean mIsPressed -> b
-    int textColor -> a
-    1117:1119:void <init>(int) -> <init>
-    1122:1123:void setIsPressed(boolean) -> a
-    1129:1133:void updateDrawState(android.text.TextPaint) -> updateDrawState
-com.ctetin.expandabletextviewlibrary.ExpandableTextView$LocalLinkMovementMethod -> com.ctetin.expandabletextviewlibrary.ExpandableTextView$l:
-    com.ctetin.expandabletextviewlibrary.ExpandableTextView$Clickable mPressedSpan -> a
-    com.ctetin.expandabletextviewlibrary.ExpandableTextView$LocalLinkMovementMethod sInstance -> b
-    1136:1136:void <init>() -> <init>
-    1295:1313:com.ctetin.expandabletextviewlibrary.ExpandableTextView$Clickable getPressedSpan(android.widget.TextView,android.text.Spannable,android.view.MotionEvent) -> a
-    1142:1145:com.ctetin.expandabletextviewlibrary.ExpandableTextView$LocalLinkMovementMethod getInstance() -> getInstance
-    1151:1225:boolean onTouchEvent(android.widget.TextView,android.text.Spannable,android.view.MotionEvent) -> onTouchEvent
-com.ctetin.expandabletextviewlibrary.ExpandableTextView$OnExpandOrContractClickListener -> com.ctetin.expandabletextviewlibrary.ExpandableTextView$m:
-    void onClick(com.ctetin.expandabletextviewlibrary.app.StatusType) -> a
-com.ctetin.expandabletextviewlibrary.ExpandableTextView$OnGetLineCountListener -> com.ctetin.expandabletextviewlibrary.ExpandableTextView$n:
-    void onGetLineCount(int,boolean) -> a
-com.ctetin.expandabletextviewlibrary.ExpandableTextView$OnLinkClickListener -> com.ctetin.expandabletextviewlibrary.ExpandableTextView$o:
-    void onLinkClickListener(com.ctetin.expandabletextviewlibrary.app.LinkType,java.lang.String,java.lang.String) -> a
-com.ctetin.expandabletextviewlibrary.ExpandableTextView$SelfImageSpan -> com.ctetin.expandabletextviewlibrary.ExpandableTextView$p:
-    android.graphics.drawable.Drawable drawable -> a
-    1075:1078:void <init>(com.ctetin.expandabletextviewlibrary.ExpandableTextView,android.graphics.drawable.Drawable,int) -> <init>
-    1090:1099:void draw(android.graphics.Canvas,java.lang.CharSequence,int,int,float,int,int,int,android.graphics.Paint) -> draw
-    1082:1082:android.graphics.drawable.Drawable getDrawable() -> getDrawable
-com.ctetin.expandabletextviewlibrary.R$anim -> com.ctetin.expandabletextviewlibrary.R$anim:
-    13:13:void <init>() -> <init>
-com.ctetin.expandabletextviewlibrary.R$attr -> com.ctetin.expandabletextviewlibrary.R$attr:
-    29:29:void <init>() -> <init>
-com.ctetin.expandabletextviewlibrary.R$bool -> com.ctetin.expandabletextviewlibrary.R$bool:
-    323:323:void <init>() -> <init>
-com.ctetin.expandabletextviewlibrary.R$color -> com.ctetin.expandabletextviewlibrary.R$color:
-    330:330:void <init>() -> <init>
-com.ctetin.expandabletextviewlibrary.R$dimen -> com.ctetin.expandabletextviewlibrary.R$dimen:
-    418:418:void <init>() -> <init>
-com.ctetin.expandabletextviewlibrary.R$drawable -> com.ctetin.expandabletextviewlibrary.R$drawable:
-    536:536:void <init>() -> <init>
-com.ctetin.expandabletextviewlibrary.R$id -> com.ctetin.expandabletextviewlibrary.R$id:
-    638:638:void <init>() -> <init>
-com.ctetin.expandabletextviewlibrary.R$integer -> com.ctetin.expandabletextviewlibrary.R$integer:
-    747:747:void <init>() -> <init>
-com.ctetin.expandabletextviewlibrary.R$layout -> com.ctetin.expandabletextviewlibrary.R$layout:
-    756:756:void <init>() -> <init>
-com.ctetin.expandabletextviewlibrary.R$mipmap -> com.ctetin.expandabletextviewlibrary.R$mipmap:
-    798:798:void <init>() -> <init>
-com.ctetin.expandabletextviewlibrary.R$string -> com.ctetin.expandabletextviewlibrary.R$string:
-    803:803:void <init>() -> <init>
-com.ctetin.expandabletextviewlibrary.R$style -> com.ctetin.expandabletextviewlibrary.R$style:
-    852:852:void <init>() -> <init>
-com.ctetin.expandabletextviewlibrary.R$styleable -> com.ctetin.expandabletextviewlibrary.R$styleable:
-    1204:1678:void <clinit>() -> <clinit>
-    1202:1202:void <init>() -> <init>
-com.ctetin.expandabletextviewlibrary.app.LinkType -> com.ctetin.expandabletextviewlibrary.a.a:
-    com.ctetin.expandabletextviewlibrary.app.LinkType TOPIC_TYPE -> c
-    com.ctetin.expandabletextviewlibrary.app.LinkType SELF -> d
-    com.ctetin.expandabletextviewlibrary.app.LinkType LINK_TYPE -> a
-    com.ctetin.expandabletextviewlibrary.app.LinkType[] $VALUES -> e
-    com.ctetin.expandabletextviewlibrary.app.LinkType MENTION_TYPE -> b
-    6:4:void <clinit>() -> <clinit>
-    4:4:void <init>(java.lang.String,int) -> <init>
-    4:4:com.ctetin.expandabletextviewlibrary.app.LinkType valueOf(java.lang.String) -> valueOf
-    4:4:com.ctetin.expandabletextviewlibrary.app.LinkType[] values() -> values
-com.ctetin.expandabletextviewlibrary.app.StatusType -> com.ctetin.expandabletextviewlibrary.a.b:
-    com.ctetin.expandabletextviewlibrary.app.StatusType STATUS_EXPAND -> a
-    com.ctetin.expandabletextviewlibrary.app.StatusType STATUS_CONTRACT -> b
-    com.ctetin.expandabletextviewlibrary.app.StatusType[] $VALUES -> c
-    11:9:void <clinit>() -> <clinit>
-    9:9:void <init>(java.lang.String,int) -> <init>
-    9:9:com.ctetin.expandabletextviewlibrary.app.StatusType valueOf(java.lang.String) -> valueOf
-    9:9:com.ctetin.expandabletextviewlibrary.app.StatusType[] values() -> values
-com.ctetin.expandabletextviewlibrary.model.ExpandableStatusFix -> com.ctetin.expandabletextviewlibrary.b.a:
-    com.ctetin.expandabletextviewlibrary.app.StatusType getStatus() -> a
-    void setStatus(com.ctetin.expandabletextviewlibrary.app.StatusType) -> a
-com.ctetin.expandabletextviewlibrary.model.FormatData -> com.ctetin.expandabletextviewlibrary.b.b:
-    java.util.List positionDatas -> b
-    java.lang.String formatedContent -> a
-    10:10:void <init>() -> <init>
-    15:15:java.lang.String getFormatedContent() -> a
-    19:20:void setFormatedContent(java.lang.String) -> a
-    27:28:void setPositionDatas(java.util.List) -> a
-    23:23:java.util.List getPositionDatas() -> b
-com.ctetin.expandabletextviewlibrary.model.FormatData$PositionData -> com.ctetin.expandabletextviewlibrary.b.b$a:
-    com.ctetin.expandabletextviewlibrary.app.LinkType type -> d
-    java.lang.String selfContent -> f
-    int end -> b
-    java.lang.String url -> c
-    java.lang.String selfAim -> e
-    int start -> a
-    72:77:void <init>(int,int,java.lang.String,com.ctetin.expandabletextviewlibrary.app.LinkType) -> <init>
-    79:85:void <init>(int,int,java.lang.String,java.lang.String,com.ctetin.expandabletextviewlibrary.app.LinkType) -> <init>
-    96:96:int getEnd() -> a
-    41:41:java.lang.String getSelfAim() -> b
-    49:49:java.lang.String getSelfContent() -> c
-    88:88:int getStart() -> d
-    57:57:com.ctetin.expandabletextviewlibrary.app.LinkType getType() -> e
-    65:65:java.lang.String getUrl() -> f
-com.ctetin.expandabletextviewlibrary.model.UUIDUtils -> com.ctetin.expandabletextviewlibrary.b.c:
-    15:15:void <clinit>() -> <clinit>
-    29:33:java.lang.String getUuid(int) -> a
 com.daimajia.swipe.R$attr -> com.daimajia.swipe.R$attr:
     13:13:void <init>() -> <init>
 com.daimajia.swipe.R$id -> com.daimajia.swipe.R$id:
@@ -34765,14 +34506,14 @@ com.zpj.shouji.market.R$menu -> com.zpj.shouji.market.R$menu:
 com.zpj.shouji.market.R$mipmap -> com.zpj.shouji.market.R$mipmap:
     9547:9547:void <init>() -> <init>
 com.zpj.shouji.market.R$string -> com.zpj.shouji.market.R$string:
-    9552:9552:void <init>() -> <init>
+    9551:9551:void <init>() -> <init>
 com.zpj.shouji.market.R$style -> com.zpj.shouji.market.R$style:
-    9685:9685:void <init>() -> <init>
+    9681:9681:void <init>() -> <init>
 com.zpj.shouji.market.R$styleable -> com.zpj.shouji.market.R$styleable:
-    10278:30001:void <clinit>() -> <clinit>
-    10206:10206:void <init>() -> <init>
+    10274:29997:void <clinit>() -> <clinit>
+    10202:10202:void <init>() -> <init>
 com.zpj.shouji.market.R$xml -> com.zpj.shouji.market.R$xml:
-    30356:30356:void <init>() -> <init>
+    30352:30352:void <init>() -> <init>
 com.zpj.shouji.market.api.-$$Lambda$BookingApi$FehFODwj9WFjKLuu-MP9X3HqUOg -> com.zpj.shouji.market.b.a:
     com.zpj.utils.Callback f$0 -> a
     void onSuccess(java.lang.Object) -> a
@@ -37302,13 +37043,13 @@ com.zpj.shouji.market.ui.adapter.-$$Lambda$DiscoverBinder$3$C-suWO3Fedrj8BVIlzH3
 com.zpj.shouji.market.ui.adapter.-$$Lambda$DiscoverBinder$3$hFDdlFg_xfQsYXLM7SpQdVGcQkY -> com.zpj.shouji.market.g.a.b:
     com.zpj.shouji.market.ui.widget.count.IconCountView f$0 -> a
     void onError(java.lang.Throwable) -> a
-com.zpj.shouji.market.ui.adapter.-$$Lambda$DiscoverBinder$4dfC_v3R_J0PfgzY0WsUSi-OsAA -> com.zpj.shouji.market.g.a.c:
-    com.zpj.shouji.market.model.DiscoverInfo f$0 -> a
-    void onLinkClickListener(com.ctetin.expandabletextviewlibrary.app.LinkType,java.lang.String,java.lang.String) -> a
-com.zpj.shouji.market.ui.adapter.-$$Lambda$DiscoverBinder$ALfJkBVjyPw2D0F201SJUC9q89c -> com.zpj.shouji.market.g.a.d:
+com.zpj.shouji.market.ui.adapter.-$$Lambda$DiscoverBinder$ALfJkBVjyPw2D0F201SJUC9q89c -> com.zpj.shouji.market.g.a.c:
     com.zpj.shouji.market.ui.adapter.-$$Lambda$DiscoverBinder$ALfJkBVjyPw2D0F201SJUC9q89c INSTANCE -> a
-com.zpj.shouji.market.ui.adapter.-$$Lambda$DiscoverBinder$SBC4dJ5eccQq1NIn96F0eNdqW7E -> com.zpj.shouji.market.g.a.e:
+com.zpj.shouji.market.ui.adapter.-$$Lambda$DiscoverBinder$SBC4dJ5eccQq1NIn96F0eNdqW7E -> com.zpj.shouji.market.g.a.d:
     com.zpj.shouji.market.model.DiscoverInfo f$0 -> a
+com.zpj.shouji.market.ui.adapter.-$$Lambda$DiscoverBinder$xlTBZiDY_X4YFVtPqHOSqsvnpEk -> com.zpj.shouji.market.g.a.e:
+    com.zpj.shouji.market.model.DiscoverInfo f$0 -> a
+    void onLinkClickListener(com.zpj.shouji.market.ui.widget.expandabletextview.app.LinkType,java.lang.String,java.lang.String) -> a
 com.zpj.shouji.market.ui.adapter.-$$Lambda$DiscoverBinder$zYBLYMCH1FahmN8de42qPQmTW9Q -> com.zpj.shouji.market.g.a.f:
     android.content.Context f$1 -> b
     com.zpj.shouji.market.model.DiscoverInfo f$0 -> a
@@ -37322,10 +37063,10 @@ com.zpj.shouji.market.ui.adapter.DiscoverBinder -> com.zpj.shouji.market.g.a.g:
     77:366:void onBindViewHolder(com.zpj.recyclerview.EasyViewHolder,java.util.List,int,java.util.List) -> a
     141:147:void lambda$onBindViewHolder$0(com.zpj.shouji.market.model.DiscoverInfo,android.view.View) -> a
     151:155:void lambda$onBindViewHolder$1(com.zpj.shouji.market.model.DiscoverInfo,android.content.Context,android.view.View) -> a
-    183:190:void lambda$onBindViewHolder$2(com.zpj.shouji.market.model.DiscoverInfo,com.ctetin.expandabletextviewlibrary.app.LinkType,java.lang.String,java.lang.String) -> a
+    183:190:void lambda$onBindViewHolder$2(com.zpj.shouji.market.model.DiscoverInfo,com.zpj.shouji.market.ui.widget.expandabletextview.app.LinkType,java.lang.String,java.lang.String) -> a
     221:221:boolean lambda$onBindViewHolder$3(android.view.View) -> a
     369:378:java.lang.String getComment2(com.zpj.shouji.market.model.DiscoverInfo) -> a
-    409:418:void onLinkClickListener(com.ctetin.expandabletextviewlibrary.app.LinkType,java.lang.String,java.lang.String) -> a
+    409:418:void onLinkClickListener(com.zpj.shouji.market.ui.widget.expandabletextview.app.LinkType,java.lang.String,java.lang.String) -> a
 com.zpj.shouji.market.ui.adapter.DiscoverBinder$1 -> com.zpj.shouji.market.g.a.g$a:
     com.zpj.recyclerview.EasyViewHolder val$holder -> a
     212:212:void <init>(com.zpj.shouji.market.ui.adapter.DiscoverBinder,com.zpj.recyclerview.EasyViewHolder) -> <init>
@@ -38449,7 +38190,7 @@ com.zpj.shouji.market.ui.fragment.detail.AppDetailContentFragment$1$1 -> com.zpj
     68:69:void onHeaderClick() -> w
 com.zpj.shouji.market.ui.fragment.detail.AppDetailContentFragment$DetailInfoMultiData -> com.zpj.shouji.market.g.c.k0.p$b:
     108:112:void <init>(java.lang.String,java.lang.String) -> <init>
-    149:152:void onLinkClickListener(com.ctetin.expandabletextviewlibrary.app.LinkType,java.lang.String,java.lang.String) -> a
+    149:152:void onLinkClickListener(com.zpj.shouji.market.ui.widget.expandabletextview.app.LinkType,java.lang.String,java.lang.String) -> a
     141:145:void onBindChild(com.zpj.recyclerview.EasyViewHolder,java.util.List,int,java.util.List) -> b
     116:116:int getChildLayoutId(int) -> j
     121:121:int getChildViewType(int) -> k
@@ -40555,7 +40296,7 @@ com.zpj.shouji.market.ui.fragment.recommond.AppClassificationFragment$1 -> com.z
     74:89:com.yanyusong.y_divideritemdecoration.Y_Divider getDivider(int) -> a
 com.zpj.shouji.market.ui.fragment.recommond.AppClassificationFragment$2 -> com.zpj.shouji.market.g.c.p0.j$b:
     108:108:void <init>(com.zpj.shouji.market.ui.fragment.recommond.AppClassificationFragment) -> <init>
-    111:114:void onLinkClickListener(com.ctetin.expandabletextviewlibrary.app.LinkType,java.lang.String,java.lang.String) -> a
+    111:114:void onLinkClickListener(com.zpj.shouji.market.ui.widget.expandabletextview.app.LinkType,java.lang.String,java.lang.String) -> a
 com.zpj.shouji.market.ui.fragment.recommond.AppRankFragment -> com.zpj.shouji.market.g.c.p0.k:
     boolean flag -> p
     android.view.View shadowBottomView -> o
@@ -41787,11 +41528,11 @@ com.zpj.shouji.market.ui.widget.-$$Lambda$ReplyPanel$uTqiqN3Fa4nOI3Gejr6AaTujl1w
     void onBindViewHolder(com.zpj.recyclerview.EasyViewHolder,java.util.List,int,java.util.List) -> a
 com.zpj.shouji.market.ui.widget.-$$Lambda$ReplyPanel$yChC6yrN4Z3oqM41qJP4KH7R8FU -> com.zpj.shouji.market.ui.widget.v:
     com.zpj.shouji.market.ui.widget.ReplyPanel f$0 -> a
-com.zpj.shouji.market.ui.widget.-$$Lambda$SignUpLayout3$h5JLK00EDRhmcuHYbYQMjFccP0Y -> com.zpj.shouji.market.ui.widget.w:
+com.zpj.shouji.market.ui.widget.-$$Lambda$SignUpLayout3$5Vq6OzkqdofFVUYbyqhglZSUUSU -> com.zpj.shouji.market.ui.widget.w:
+    com.zpj.shouji.market.ui.widget.-$$Lambda$SignUpLayout3$5Vq6OzkqdofFVUYbyqhglZSUUSU INSTANCE -> a
+    void onLinkClickListener(com.zpj.shouji.market.ui.widget.expandabletextview.app.LinkType,java.lang.String,java.lang.String) -> a
+com.zpj.shouji.market.ui.widget.-$$Lambda$SignUpLayout3$h5JLK00EDRhmcuHYbYQMjFccP0Y -> com.zpj.shouji.market.ui.widget.x:
     com.zpj.shouji.market.ui.widget.SignUpLayout3 f$0 -> a
-com.zpj.shouji.market.ui.widget.-$$Lambda$SignUpLayout3$y76u9xKK9RK-L2yqVgK_FCzhCCE -> com.zpj.shouji.market.ui.widget.x:
-    com.zpj.shouji.market.ui.widget.-$$Lambda$SignUpLayout3$y76u9xKK9RK-L2yqVgK_FCzhCCE INSTANCE -> a
-    void onLinkClickListener(com.ctetin.expandabletextviewlibrary.app.LinkType,java.lang.String,java.lang.String) -> a
 com.zpj.shouji.market.ui.widget.-$$Lambda$ToolBoxCard$1$2zIN5vg7EvEQZPjfMsDy7-jpCxQ -> com.zpj.shouji.market.ui.widget.y:
     com.zpj.shouji.market.ui.widget.ToolBoxCard$1 f$0 -> a
     void subscribe(io.reactivex.ObservableEmitter) -> a
@@ -42352,10 +42093,10 @@ com.zpj.shouji.market.ui.widget.SignInLayout3 -> com.zpj.shouji.market.ui.widget
     64:86:void onClick(android.view.View) -> onClick
 com.zpj.shouji.market.ui.widget.SignUpLayout3 -> com.zpj.shouji.market.ui.widget.SignUpLayout3:
     com.zpj.widget.editor.EmailInputView etEmail -> d
+    com.zpj.shouji.market.ui.widget.expandabletextview.ExpandableTextView tvAgreement -> f
     com.zpj.widget.editor.PasswordInputView etPasswordAgain -> c
     com.zpj.widget.checkbox.SmoothCheckBox cbAgreement -> e
     com.zpj.widget.editor.SubmitView tvSignIn -> g
-    com.ctetin.expandabletextviewlibrary.ExpandableTextView tvAgreement -> f
     com.zpj.widget.editor.PasswordInputView etPassword -> b
     com.zpj.widget.editor.AccountInputView etAccount -> a
     37:38:void <init>(android.content.Context) -> <init>
@@ -42363,7 +42104,7 @@ com.zpj.shouji.market.ui.widget.SignUpLayout3 -> com.zpj.shouji.market.ui.widget
     45:47:void <init>(android.content.Context,android.util.AttributeSet,int) -> <init>
     25:25:com.zpj.widget.checkbox.SmoothCheckBox access$000(com.zpj.shouji.market.ui.widget.SignUpLayout3) -> a
     70:169:void init(android.content.Context) -> a
-    94:97:void lambda$init$0(com.ctetin.expandabletextviewlibrary.app.LinkType,java.lang.String,java.lang.String) -> a
+    94:97:void lambda$init$0(com.zpj.shouji.market.ui.widget.expandabletextview.app.LinkType,java.lang.String,java.lang.String) -> a
     143:156:void lambda$init$1(android.view.View) -> a
     207:215:void onSignUp(boolean,java.lang.String) -> a
     179:192:void clearFocus() -> clearFocus
@@ -42611,7 +42352,7 @@ com.zpj.shouji.market.ui.widget.emoji.EmojiExpandableTextView -> com.zpj.shouji.
     26:27:void <init>(android.content.Context) -> <init>
     30:31:void <init>(android.content.Context,android.util.AttributeSet) -> <init>
     34:43:void <init>(android.content.Context,android.util.AttributeSet,int) -> <init>
-    69:78:void onLinkClickListener(com.ctetin.expandabletextviewlibrary.app.LinkType,java.lang.String,java.lang.String) -> a
+    69:78:void onLinkClickListener(com.zpj.shouji.market.ui.widget.expandabletextview.app.LinkType,java.lang.String,java.lang.String) -> a
     81:82:void setShowRedDot(boolean) -> setShowRedDot
     47:65:void setText(java.lang.CharSequence,android.widget.TextView$BufferType) -> setText
 com.zpj.shouji.market.ui.widget.emoji.EmojiTextView -> com.zpj.shouji.market.ui.widget.emoji.EmojiTextView:
@@ -42621,6 +42362,238 @@ com.zpj.shouji.market.ui.widget.emoji.EmojiTextView -> com.zpj.shouji.market.ui.
     26:28:void <init>(android.content.Context,android.util.AttributeSet,int) -> <init>
     31:40:void init(android.util.AttributeSet) -> a
     44:50:void setText(java.lang.CharSequence,android.widget.TextView$BufferType) -> setText
+com.zpj.shouji.market.ui.widget.expandabletextview.ExpandableTextView -> com.zpj.shouji.market.ui.widget.expandabletextview.ExpandableTextView:
+    boolean mNeedContract -> m
+    int retryTime -> O
+    android.content.Context mContext -> c
+    com.zpj.shouji.market.ui.widget.expandabletextview.model.FormatData mFormatData -> n
+    boolean mNeedExpend -> o
+    com.zpj.shouji.market.ui.widget.expandabletextview.ExpandableTextView$OnExpandOrContractClickListener expandOrContractClickListener -> l
+    java.lang.String TEXT_CONTRACT -> K
+    java.lang.String TEXT_TARGET -> M
+    android.text.DynamicLayout mDynamicLayout -> e
+    int mWidth -> h
+    android.graphics.drawable.Drawable mLinkDrawable -> i
+    boolean needRealExpandOrContract -> k
+    int mLimitLines -> f
+    boolean mNeedAlwaysShowRight -> u
+    int mEndExpandTextColor -> G
+    boolean mNeedMention -> q
+    int mContractTextColor -> C
+    boolean mNeedLink -> s
+    int mLinkTextColor -> A
+    int mExpandTextColor -> y
+    int mLineCount -> w
+    boolean linkHit -> b
+    java.lang.String mExpandString -> D
+    java.lang.String mEndExpandContent -> F
+    boolean mNeedConvertUrl -> p
+    boolean dontConsumeNonUrlClicks -> I
+    java.lang.String TEXT_EXPEND -> L
+    com.zpj.shouji.market.ui.widget.expandabletextview.ExpandableTextView$OnLinkClickListener linkClickListener -> j
+    java.lang.String TARGET -> N
+    com.zpj.shouji.market.ui.widget.expandabletextview.model.ExpandableStatusFix mModel -> d
+    int currentLines -> g
+    boolean mNeedAnimation -> v
+    com.zpj.shouji.market.ui.widget.expandabletextview.ExpandableTextView$OnGetLineCountListener onGetLineCountListener -> J
+    int mSelfTextColor -> B
+    boolean mNeedTopic -> r
+    boolean mNeedSelf -> t
+    int mMentionTextColor -> z
+    android.text.TextPaint mPaint -> a
+    boolean isAttached -> H
+    java.lang.CharSequence mContent -> x
+    java.lang.String mContractString -> E
+    62:70:void <clinit>() -> <clinit>
+    220:221:void <init>(android.content.Context) -> <init>
+    224:225:void <init>(android.content.Context,android.util.AttributeSet) -> <init>
+    228:244:void <init>(android.content.Context,android.util.AttributeSet,int) -> <init>
+    60:60:boolean access$000(com.zpj.shouji.market.ui.widget.expandabletextview.ExpandableTextView) -> a
+    60:60:boolean access$002(com.zpj.shouji.market.ui.widget.expandabletextview.ExpandableTextView,boolean) -> a
+    60:60:int access$1102(com.zpj.shouji.market.ui.widget.expandabletextview.ExpandableTextView,int) -> a
+    60:60:android.text.SpannableStringBuilder access$1500(com.zpj.shouji.market.ui.widget.expandabletextview.ExpandableTextView,java.lang.CharSequence) -> a
+    60:60:int access$208() -> a
+    60:60:void access$600(com.zpj.shouji.market.ui.widget.expandabletextview.ExpandableTextView,com.zpj.shouji.market.ui.widget.expandabletextview.app.StatusType) -> a
+    291:340:void init(android.content.Context,android.util.AttributeSet,int) -> a
+    464:731:android.text.SpannableStringBuilder dealLink(com.zpj.shouji.market.ui.widget.expandabletextview.model.FormatData,boolean) -> a
+    803:810:void addMention(android.text.SpannableStringBuilder,com.zpj.shouji.market.ui.widget.expandabletextview.model.FormatData$PositionData,int) -> a
+    900:931:void action(com.zpj.shouji.market.ui.widget.expandabletextview.app.StatusType) -> a
+    947:960:int getFitPosition(java.lang.String,int,int,float,float,float) -> a
+    971:1064:com.zpj.shouji.market.ui.widget.expandabletextview.model.FormatData formatData(java.lang.CharSequence) -> a
+    893:894:void action() -> action
+    60:60:void access$100(com.zpj.shouji.market.ui.widget.expandabletextview.ExpandableTextView) -> b
+    344:364:android.text.SpannableStringBuilder setRealContent(java.lang.CharSequence) -> b
+    401:425:void doSetContent() -> b
+    772:779:void addSelf(android.text.SpannableStringBuilder,com.zpj.shouji.market.ui.widget.expandabletextview.model.FormatData$PositionData,int) -> b
+    60:60:android.content.Context access$1000(com.zpj.shouji.market.ui.widget.expandabletextview.ExpandableTextView) -> c
+    826:833:void addTopic(android.text.SpannableStringBuilder,com.zpj.shouji.market.ui.widget.expandabletextview.model.FormatData$PositionData,int) -> c
+    60:60:int access$1200(com.zpj.shouji.market.ui.widget.expandabletextview.ExpandableTextView) -> d
+    865:881:void addUrl(android.text.SpannableStringBuilder,com.zpj.shouji.market.ui.widget.expandabletextview.model.FormatData$PositionData,int) -> d
+    60:60:int access$1300(com.zpj.shouji.market.ui.widget.expandabletextview.ExpandableTextView) -> e
+    60:60:boolean access$1400(com.zpj.shouji.market.ui.widget.expandabletextview.ExpandableTextView) -> f
+    60:60:java.lang.CharSequence access$300(com.zpj.shouji.market.ui.widget.expandabletextview.ExpandableTextView) -> g
+    1462:1462:java.lang.String getContractString() -> getContractString
+    1446:1446:int getContractTextColor() -> getContractTextColor
+    1470:1470:int getEndExpandTextColor() -> getEndExpandTextColor
+    433:437:java.lang.String getExpandEndContent() -> getExpandEndContent
+    1510:1510:com.zpj.shouji.market.ui.widget.expandabletextview.ExpandableTextView$OnExpandOrContractClickListener getExpandOrContractClickListener() -> getExpandOrContractClickListener
+    1454:1454:java.lang.String getExpandString() -> getExpandString
+    1426:1426:int getExpandTextColor() -> getExpandTextColor
+    1418:1418:int getExpandableLineCount() -> getExpandableLineCount
+    1434:1434:int getExpandableLinkTextColor() -> getExpandableLinkTextColor
+    448:452:java.lang.String getHideEndContent() -> getHideEndContent
+    1366:1366:com.zpj.shouji.market.ui.widget.expandabletextview.ExpandableTextView$OnLinkClickListener getLinkClickListener() -> getLinkClickListener
+    1382:1382:android.graphics.drawable.Drawable getLinkDrawable() -> getLinkDrawable
+    1354:1354:com.zpj.shouji.market.ui.widget.expandabletextview.ExpandableTextView$OnGetLineCountListener getOnGetLineCountListener() -> getOnGetLineCountListener
+    1486:1486:int getSelfTextColor() -> getSelfTextColor
+    60:60:boolean access$400(com.zpj.shouji.market.ui.widget.expandabletextview.ExpandableTextView) -> h
+    60:60:com.zpj.shouji.market.ui.widget.expandabletextview.model.ExpandableStatusFix access$500(com.zpj.shouji.market.ui.widget.expandabletextview.ExpandableTextView) -> i
+    60:60:void access$700(com.zpj.shouji.market.ui.widget.expandabletextview.ExpandableTextView) -> j
+    60:60:com.zpj.shouji.market.ui.widget.expandabletextview.ExpandableTextView$OnExpandOrContractClickListener access$800(com.zpj.shouji.market.ui.widget.expandabletextview.ExpandableTextView) -> k
+    60:60:com.zpj.shouji.market.ui.widget.expandabletextview.ExpandableTextView$OnLinkClickListener access$900(com.zpj.shouji.market.ui.widget.expandabletextview.ExpandableTextView) -> l
+    1321:1336:boolean onTouchEvent(android.view.MotionEvent) -> onTouchEvent
+    385:388:void setContent(java.lang.String) -> setContent
+    1466:1467:void setContractString(java.lang.String) -> setContractString
+    1450:1451:void setContractTextColor(int) -> setContractTextColor
+    889:890:void setCurrStatus(com.zpj.shouji.market.ui.widget.expandabletextview.app.StatusType) -> setCurrStatus
+    1474:1475:void setEndExpandTextColor(int) -> setEndExpandTextColor
+    376:377:void setEndExpendContent(java.lang.String) -> setEndExpendContent
+    1514:1515:void setExpandOrContractClickListener(com.zpj.shouji.market.ui.widget.expandabletextview.ExpandableTextView$OnExpandOrContractClickListener) -> setExpandOrContractClickListener
+    1458:1459:void setExpandString(java.lang.String) -> setExpandString
+    1430:1431:void setExpandTextColor(int) -> setExpandTextColor
+    1422:1423:void setExpandableLineCount(int) -> setExpandableLineCount
+    1438:1439:void setExpandableLinkTextColor(int) -> setExpandableLinkTextColor
+    391:395:void setLimitLines(int) -> setLimitLines
+    1370:1371:void setLinkClickListener(com.zpj.shouji.market.ui.widget.expandabletextview.ExpandableTextView$OnLinkClickListener) -> setLinkClickListener
+    1386:1387:void setLinkDrawable(android.graphics.drawable.Drawable) -> setLinkDrawable
+    248:288:void setMaxLines(int) -> setMaxLines
+    1442:1443:void setMentionTextColor(int) -> setMentionTextColor
+    1506:1507:void setNeedAlwaysShowRight(boolean) -> setNeedAlwaysShowRight
+    1414:1415:void setNeedAnimation(boolean) -> setNeedAnimation
+    1394:1395:void setNeedContract(boolean) -> setNeedContract
+    1406:1407:void setNeedConvertUrl(boolean) -> setNeedConvertUrl
+    1402:1403:void setNeedExpend(boolean) -> setNeedExpend
+    1482:1483:void setNeedLink(boolean) -> setNeedLink
+    1378:1379:void setNeedMention(boolean) -> setNeedMention
+    1498:1499:void setNeedSelf(boolean) -> setNeedSelf
+    1358:1359:void setOnGetLineCountListener(com.zpj.shouji.market.ui.widget.expandabletextview.ExpandableTextView$OnGetLineCountListener) -> setOnGetLineCountListener
+    1490:1491:void setSelfTextColor(int) -> setSelfTextColor
+com.zpj.shouji.market.ui.widget.expandabletextview.ExpandableTextView$1 -> com.zpj.shouji.market.ui.widget.expandabletextview.ExpandableTextView$b:
+    com.zpj.shouji.market.ui.widget.expandabletextview.ExpandableTextView this$0 -> a
+    231:231:void <init>(com.zpj.shouji.market.ui.widget.expandabletextview.ExpandableTextView) -> <init>
+    234:237:void onViewAttachedToWindow(android.view.View) -> onViewAttachedToWindow
+    242:242:void onViewDetachedFromWindow(android.view.View) -> onViewDetachedFromWindow
+com.zpj.shouji.market.ui.widget.expandabletextview.ExpandableTextView$10 -> com.zpj.shouji.market.ui.widget.expandabletextview.ExpandableTextView$a:
+    boolean val$finalIsHide -> a
+    com.zpj.shouji.market.ui.widget.expandabletextview.ExpandableTextView this$0 -> b
+    907:907:void <init>(com.zpj.shouji.market.ui.widget.expandabletextview.ExpandableTextView,boolean) -> <init>
+    910:918:void onAnimationUpdate(android.animation.ValueAnimator) -> onAnimationUpdate
+com.zpj.shouji.market.ui.widget.expandabletextview.ExpandableTextView$2 -> com.zpj.shouji.market.ui.widget.expandabletextview.ExpandableTextView$c:
+    250:250:void <init>(com.zpj.shouji.market.ui.widget.expandabletextview.ExpandableTextView) -> <init>
+    253:282:boolean onTouch(android.view.View,android.view.MotionEvent) -> onTouch
+com.zpj.shouji.market.ui.widget.expandabletextview.ExpandableTextView$3 -> com.zpj.shouji.market.ui.widget.expandabletextview.ExpandableTextView$d:
+    com.zpj.shouji.market.ui.widget.expandabletextview.ExpandableTextView this$0 -> a
+    415:415:void <init>(com.zpj.shouji.market.ui.widget.expandabletextview.ExpandableTextView) -> <init>
+    418:420:void run() -> run
+com.zpj.shouji.market.ui.widget.expandabletextview.ExpandableTextView$4 -> com.zpj.shouji.market.ui.widget.expandabletextview.ExpandableTextView$e:
+    com.zpj.shouji.market.ui.widget.expandabletextview.ExpandableTextView this$0 -> c
+    551:551:void <init>(com.zpj.shouji.market.ui.widget.expandabletextview.ExpandableTextView,int) -> <init>
+    554:565:void onClick(android.view.View) -> onClick
+com.zpj.shouji.market.ui.widget.expandabletextview.ExpandableTextView$5 -> com.zpj.shouji.market.ui.widget.expandabletextview.ExpandableTextView$f:
+    com.zpj.shouji.market.ui.widget.expandabletextview.ExpandableTextView this$0 -> c
+    619:619:void <init>(com.zpj.shouji.market.ui.widget.expandabletextview.ExpandableTextView,int) -> <init>
+    622:631:void onClick(android.view.View) -> onClick
+com.zpj.shouji.market.ui.widget.expandabletextview.ExpandableTextView$6 -> com.zpj.shouji.market.ui.widget.expandabletextview.ExpandableTextView$g:
+    com.zpj.shouji.market.ui.widget.expandabletextview.model.FormatData$PositionData val$data -> c
+    com.zpj.shouji.market.ui.widget.expandabletextview.ExpandableTextView this$0 -> d
+    772:772:void <init>(com.zpj.shouji.market.ui.widget.expandabletextview.ExpandableTextView,int,com.zpj.shouji.market.ui.widget.expandabletextview.model.FormatData$PositionData) -> <init>
+    775:777:void onClick(android.view.View) -> onClick
+com.zpj.shouji.market.ui.widget.expandabletextview.ExpandableTextView$7 -> com.zpj.shouji.market.ui.widget.expandabletextview.ExpandableTextView$h:
+    com.zpj.shouji.market.ui.widget.expandabletextview.model.FormatData$PositionData val$data -> c
+    com.zpj.shouji.market.ui.widget.expandabletextview.ExpandableTextView this$0 -> d
+    803:803:void <init>(com.zpj.shouji.market.ui.widget.expandabletextview.ExpandableTextView,int,com.zpj.shouji.market.ui.widget.expandabletextview.model.FormatData$PositionData) -> <init>
+    806:808:void onClick(android.view.View) -> onClick
+com.zpj.shouji.market.ui.widget.expandabletextview.ExpandableTextView$8 -> com.zpj.shouji.market.ui.widget.expandabletextview.ExpandableTextView$i:
+    com.zpj.shouji.market.ui.widget.expandabletextview.model.FormatData$PositionData val$data -> c
+    com.zpj.shouji.market.ui.widget.expandabletextview.ExpandableTextView this$0 -> d
+    826:826:void <init>(com.zpj.shouji.market.ui.widget.expandabletextview.ExpandableTextView,int,com.zpj.shouji.market.ui.widget.expandabletextview.model.FormatData$PositionData) -> <init>
+    829:831:void onClick(android.view.View) -> onClick
+com.zpj.shouji.market.ui.widget.expandabletextview.ExpandableTextView$9 -> com.zpj.shouji.market.ui.widget.expandabletextview.ExpandableTextView$j:
+    com.zpj.shouji.market.ui.widget.expandabletextview.model.FormatData$PositionData val$data -> c
+    com.zpj.shouji.market.ui.widget.expandabletextview.ExpandableTextView this$0 -> d
+    865:865:void <init>(com.zpj.shouji.market.ui.widget.expandabletextview.ExpandableTextView,int,com.zpj.shouji.market.ui.widget.expandabletextview.model.FormatData$PositionData) -> <init>
+    868:879:void onClick(android.view.View) -> onClick
+com.zpj.shouji.market.ui.widget.expandabletextview.ExpandableTextView$Clickable -> com.zpj.shouji.market.ui.widget.expandabletextview.ExpandableTextView$k:
+    boolean mIsPressed -> b
+    int textColor -> a
+    1115:1117:void <init>(int) -> <init>
+    1120:1121:void setIsPressed(boolean) -> a
+    1127:1131:void updateDrawState(android.text.TextPaint) -> updateDrawState
+com.zpj.shouji.market.ui.widget.expandabletextview.ExpandableTextView$LocalLinkMovementMethod -> com.zpj.shouji.market.ui.widget.expandabletextview.ExpandableTextView$l:
+    com.zpj.shouji.market.ui.widget.expandabletextview.ExpandableTextView$Clickable mPressedSpan -> a
+    com.zpj.shouji.market.ui.widget.expandabletextview.ExpandableTextView$LocalLinkMovementMethod sInstance -> b
+    1134:1134:void <init>() -> <init>
+    1293:1311:com.zpj.shouji.market.ui.widget.expandabletextview.ExpandableTextView$Clickable getPressedSpan(android.widget.TextView,android.text.Spannable,android.view.MotionEvent) -> a
+    1140:1143:com.zpj.shouji.market.ui.widget.expandabletextview.ExpandableTextView$LocalLinkMovementMethod getInstance() -> getInstance
+    1149:1223:boolean onTouchEvent(android.widget.TextView,android.text.Spannable,android.view.MotionEvent) -> onTouchEvent
+com.zpj.shouji.market.ui.widget.expandabletextview.ExpandableTextView$OnExpandOrContractClickListener -> com.zpj.shouji.market.ui.widget.expandabletextview.ExpandableTextView$m:
+    void onClick(com.zpj.shouji.market.ui.widget.expandabletextview.app.StatusType) -> a
+com.zpj.shouji.market.ui.widget.expandabletextview.ExpandableTextView$OnGetLineCountListener -> com.zpj.shouji.market.ui.widget.expandabletextview.ExpandableTextView$n:
+    void onGetLineCount(int,boolean) -> a
+com.zpj.shouji.market.ui.widget.expandabletextview.ExpandableTextView$OnLinkClickListener -> com.zpj.shouji.market.ui.widget.expandabletextview.ExpandableTextView$o:
+    void onLinkClickListener(com.zpj.shouji.market.ui.widget.expandabletextview.app.LinkType,java.lang.String,java.lang.String) -> a
+com.zpj.shouji.market.ui.widget.expandabletextview.ExpandableTextView$SelfImageSpan -> com.zpj.shouji.market.ui.widget.expandabletextview.ExpandableTextView$p:
+    android.graphics.drawable.Drawable drawable -> a
+    1073:1076:void <init>(com.zpj.shouji.market.ui.widget.expandabletextview.ExpandableTextView,android.graphics.drawable.Drawable,int) -> <init>
+    1088:1097:void draw(android.graphics.Canvas,java.lang.CharSequence,int,int,float,int,int,int,android.graphics.Paint) -> draw
+    1080:1080:android.graphics.drawable.Drawable getDrawable() -> getDrawable
+com.zpj.shouji.market.ui.widget.expandabletextview.app.LinkType -> com.zpj.shouji.market.ui.widget.expandabletextview.a.a:
+    com.zpj.shouji.market.ui.widget.expandabletextview.app.LinkType[] $VALUES -> e
+    com.zpj.shouji.market.ui.widget.expandabletextview.app.LinkType TOPIC_TYPE -> c
+    com.zpj.shouji.market.ui.widget.expandabletextview.app.LinkType SELF -> d
+    com.zpj.shouji.market.ui.widget.expandabletextview.app.LinkType LINK_TYPE -> a
+    com.zpj.shouji.market.ui.widget.expandabletextview.app.LinkType MENTION_TYPE -> b
+    6:4:void <clinit>() -> <clinit>
+    4:4:void <init>(java.lang.String,int) -> <init>
+    4:4:com.zpj.shouji.market.ui.widget.expandabletextview.app.LinkType valueOf(java.lang.String) -> valueOf
+    4:4:com.zpj.shouji.market.ui.widget.expandabletextview.app.LinkType[] values() -> values
+com.zpj.shouji.market.ui.widget.expandabletextview.app.StatusType -> com.zpj.shouji.market.ui.widget.expandabletextview.a.b:
+    com.zpj.shouji.market.ui.widget.expandabletextview.app.StatusType STATUS_EXPAND -> a
+    com.zpj.shouji.market.ui.widget.expandabletextview.app.StatusType STATUS_CONTRACT -> b
+    com.zpj.shouji.market.ui.widget.expandabletextview.app.StatusType[] $VALUES -> c
+    11:9:void <clinit>() -> <clinit>
+    9:9:void <init>(java.lang.String,int) -> <init>
+    9:9:com.zpj.shouji.market.ui.widget.expandabletextview.app.StatusType valueOf(java.lang.String) -> valueOf
+    9:9:com.zpj.shouji.market.ui.widget.expandabletextview.app.StatusType[] values() -> values
+com.zpj.shouji.market.ui.widget.expandabletextview.model.ExpandableStatusFix -> com.zpj.shouji.market.ui.widget.expandabletextview.b.a:
+    com.zpj.shouji.market.ui.widget.expandabletextview.app.StatusType getStatus() -> a
+    void setStatus(com.zpj.shouji.market.ui.widget.expandabletextview.app.StatusType) -> a
+com.zpj.shouji.market.ui.widget.expandabletextview.model.FormatData -> com.zpj.shouji.market.ui.widget.expandabletextview.b.b:
+    java.util.List positionDatas -> b
+    java.lang.String formatedContent -> a
+    10:10:void <init>() -> <init>
+    15:15:java.lang.String getFormatedContent() -> a
+    19:20:void setFormatedContent(java.lang.String) -> a
+    27:28:void setPositionDatas(java.util.List) -> a
+    23:23:java.util.List getPositionDatas() -> b
+com.zpj.shouji.market.ui.widget.expandabletextview.model.FormatData$PositionData -> com.zpj.shouji.market.ui.widget.expandabletextview.b.b$a:
+    java.lang.String selfContent -> f
+    int end -> b
+    java.lang.String url -> c
+    com.zpj.shouji.market.ui.widget.expandabletextview.app.LinkType type -> d
+    java.lang.String selfAim -> e
+    int start -> a
+    72:77:void <init>(int,int,java.lang.String,com.zpj.shouji.market.ui.widget.expandabletextview.app.LinkType) -> <init>
+    79:85:void <init>(int,int,java.lang.String,java.lang.String,com.zpj.shouji.market.ui.widget.expandabletextview.app.LinkType) -> <init>
+    96:96:int getEnd() -> a
+    41:41:java.lang.String getSelfAim() -> b
+    49:49:java.lang.String getSelfContent() -> c
+    88:88:int getStart() -> d
+    57:57:com.zpj.shouji.market.ui.widget.expandabletextview.app.LinkType getType() -> e
+    65:65:java.lang.String getUrl() -> f
+com.zpj.shouji.market.ui.widget.expandabletextview.model.UUIDUtils -> com.zpj.shouji.market.ui.widget.expandabletextview.b.c:
+    15:15:void <clinit>() -> <clinit>
+    29:33:java.lang.String getUuid(int) -> a
 com.zpj.shouji.market.ui.widget.flowlayout.-$$Lambda$FlowLayout$UfE1SEDbPFWGD-D4SlWW9SXruwE -> com.zpj.shouji.market.ui.widget.flowlayout.a:
     com.zpj.shouji.market.ui.widget.flowlayout.FlowLayout f$0 -> a
     void onClick(com.zpj.recyclerview.EasyViewHolder,android.view.View,java.lang.Object) -> a

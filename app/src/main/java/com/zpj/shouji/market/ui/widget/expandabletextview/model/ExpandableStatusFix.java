@@ -1,6 +1,6 @@
-package com.ctetin.expandabletextviewlibrary.model;
+package com.zpj.shouji.market.ui.widget.expandabletextview.model;
 
-import com.ctetin.expandabletextviewlibrary.app.StatusType;
+import com.zpj.shouji.market.ui.widget.expandabletextview.app.StatusType;
 
 /**
  * @date: on 2018/9/20

@@ -9,14 +9,14 @@ import android.text.Spanned;
 import android.text.TextUtils;
 import android.util.AttributeSet;
 
-import com.ctetin.expandabletextviewlibrary.ExpandableTextView;
-import com.ctetin.expandabletextviewlibrary.app.LinkType;
 import com.lqr.emoji.MoonUtils;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.ui.fragment.WebFragment;
 import com.zpj.shouji.market.ui.fragment.profile.ProfileFragment;
 import com.zpj.shouji.market.ui.fragment.theme.TopicThemeListFragment;
 import com.zpj.shouji.market.ui.widget.DotSpan;
+import com.zpj.shouji.market.ui.widget.expandabletextview.ExpandableTextView;
+import com.zpj.shouji.market.ui.widget.expandabletextview.app.LinkType;
 
 public class EmojiExpandableTextView extends ExpandableTextView implements ExpandableTextView.OnLinkClickListener {
 

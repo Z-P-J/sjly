@@ -8,8 +8,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 
-import com.ctetin.expandabletextviewlibrary.ExpandableTextView;
-import com.ctetin.expandabletextviewlibrary.app.LinkType;
 import com.zpj.recyclerview.EasyViewHolder;
 import com.zpj.recyclerview.MultiData;
 import com.zpj.recyclerview.MultiRecyclerViewWrapper;
@@ -22,6 +20,8 @@ import com.zpj.shouji.market.ui.fragment.profile.ProfileFragment;
 import com.zpj.shouji.market.ui.multidata.AppGridListMultiData;
 import com.zpj.shouji.market.ui.multidata.BaseHeaderMultiData;
 import com.zpj.shouji.market.ui.multidata.ScreenShootMultiData;
+import com.zpj.shouji.market.ui.widget.expandabletextview.ExpandableTextView;
+import com.zpj.shouji.market.ui.widget.expandabletextview.app.LinkType;
 import com.zpj.shouji.market.utils.EventBus;
 import com.zpj.utils.ScreenUtils;
 

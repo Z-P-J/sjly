@@ -7,11 +7,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.LinearLayout;
 
-import com.ctetin.expandabletextviewlibrary.ExpandableTextView;
-import com.ctetin.expandabletextviewlibrary.app.LinkType;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.manager.UserManager;
 import com.zpj.shouji.market.ui.fragment.WebFragment;
+import com.zpj.shouji.market.ui.widget.expandabletextview.ExpandableTextView;
+import com.zpj.shouji.market.ui.widget.expandabletextview.app.LinkType;
 import com.zpj.toast.ZToast;
 import com.zpj.widget.checkbox.SmoothCheckBox;
 import com.zpj.widget.editor.AccountInputView;

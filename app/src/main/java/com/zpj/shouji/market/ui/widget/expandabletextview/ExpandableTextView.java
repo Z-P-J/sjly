@@ -1,4 +1,4 @@
-package com.ctetin.expandabletextviewlibrary;
+package com.zpj.shouji.market.ui.widget.expandabletextview;
 
 import android.animation.ValueAnimator;
 import android.content.Context;
@@ -31,17 +31,18 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.widget.TextView;
 
-import com.ctetin.expandabletextviewlibrary.app.LinkType;
-import com.ctetin.expandabletextviewlibrary.app.StatusType;
-import com.ctetin.expandabletextviewlibrary.model.ExpandableStatusFix;
-import com.ctetin.expandabletextviewlibrary.model.FormatData;
-import com.ctetin.expandabletextviewlibrary.model.UUIDUtils;
+import com.zpj.shouji.market.R;
+import com.zpj.shouji.market.ui.widget.expandabletextview.app.LinkType;
+import com.zpj.shouji.market.ui.widget.expandabletextview.app.StatusType;
+import com.zpj.shouji.market.ui.widget.expandabletextview.model.ExpandableStatusFix;
+import com.zpj.shouji.market.ui.widget.expandabletextview.model.FormatData;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import java.util.UUID;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -52,13 +53,16 @@ import static android.support.v4.util.PatternsCompat.AUTOLINK_WEB_URL;
  * @author: cretin
  * @email: mxnzp_life@163.com
  * @desc: 一个支持展开 收起 网页链接 和 @用户 点击识别 的TextView
+ *
+ * from github: https://github.com/MZCretin/ExpandableTextView
+ * 对原库进行了一些修改
  */
 public class ExpandableTextView extends AppCompatTextView {
     private static final int DEF_MAX_LINE = 4;
     public static String TEXT_CONTRACT = "收起";
     public static String TEXT_EXPEND = "展开";
     public static final String Space = " ";
-    public static String TEXT_TARGET = "网页链接";
+    public static String TEXT_TARGET = "链接";
     public static final String IMAGE_TARGET = "图";
     public static final String TARGET = IMAGE_TARGET + TEXT_TARGET;
     public static final String DEFAULT_CONTENT = "                                                                                                                                                                                                                                                                                                                           ";
@@ -243,7 +247,7 @@ public class ExpandableTextView extends AppCompatTextView {
     public void setMaxLines(int maxLines) {
         super.setMaxLines(maxLines);
         if (maxLines > 0) {
-            setOnTouchListener(new View.OnTouchListener() {
+            setOnTouchListener(new OnTouchListener() {
                 @Override
                 public boolean onTouch(View v, MotionEvent event) {
                     int action = event.getAction();
@@ -284,11 +288,6 @@ public class ExpandableTextView extends AppCompatTextView {
     }
 
     private void init(Context context, AttributeSet attrs, int defStyleAttr) {
-        //适配英文版
-        TEXT_CONTRACT = context.getString(R.string.social_contract);
-        TEXT_EXPEND = context.getString(R.string.social_expend);
-        TEXT_TARGET = context.getString(R.string.social_text_target);
-
         if (attrs != null) {
             TypedArray a =
                     getContext().obtainStyledAttributes(attrs, R.styleable.ExpandableTextView,
@@ -323,12 +322,12 @@ public class ExpandableTextView extends AppCompatTextView {
                     Color.parseColor("#FF6200"));
             mMentionTextColor = a.getColor(R.styleable.ExpandableTextView_ep_mention_color,
                     Color.parseColor("#FF6200"));
-            int resId = a.getResourceId(R.styleable.ExpandableTextView_ep_link_res, R.mipmap.link);
+            int resId = a.getResourceId(R.styleable.ExpandableTextView_ep_link_res, R.drawable.ic_link);
             mLinkDrawable = getResources().getDrawable(resId);
             currentLines = mLimitLines;
             a.recycle();
         } else {
-            mLinkDrawable = context.getResources().getDrawable(R.mipmap.link);
+            mLinkDrawable = getResources().getDrawable(R.drawable.ic_link);
         }
 
         mContext = context;
@@ -647,7 +646,6 @@ public class ExpandableTextView extends AppCompatTextView {
         }
         //处理链接或者@用户
         List<FormatData.PositionData> positionDatas = formatData.getPositionDatas();
-        HH:
         for (FormatData.PositionData data : positionDatas) {
             if (ssb.length() >= data.getEnd()) {
                 if (data.getType().equals(LinkType.LINK_TYPE)) {
@@ -690,7 +688,7 @@ public class ExpandableTextView extends AppCompatTextView {
                     } else {
                         addMention(ssb, data, data.getEnd());
                     }
-                }  else if (data.getType().equals(LinkType.TOPIC_TYPE)) {
+                } else if (data.getType().equals(LinkType.TOPIC_TYPE)) {
                     //如果需要展开
                     if (mNeedTopic && ignoreMore) {
                         int fitPosition = ssb.length() - getHideEndContent().length();
@@ -994,7 +992,7 @@ public class ExpandableTextView extends AppCompatTextView {
                     //解析数据
                     String aimSrt = result.substring(result.indexOf("[") + 1, result.indexOf("]"));
                     String contentSrt = result.substring(result.indexOf("(") + 1, result.indexOf(")"));
-                    String key = UUIDUtils.getUuid(aimSrt.length());
+                    String key = getUuid(aimSrt.length());
                     datasMention.add(new FormatData.PositionData(newResult.length() + 1, newResult.length() + 2 + aimSrt.length(), aimSrt, contentSrt, LinkType.SELF));
                     convert.put(key, aimSrt);
                     newResult.append(" " + key + " ");
@@ -1024,7 +1022,7 @@ public class ExpandableTextView extends AppCompatTextView {
                     newResult.append(" " + TARGET + " ");
                 } else {
                     String result = matcher.group();
-                    String key = UUIDUtils.getUuid(result.length());
+                    String key = getUuid(result.length());
                     datas.add(new FormatData.PositionData(newResult.length(), newResult.length() + 2 + key.length(), result, LinkType.LINK_TYPE));
                     convert.put(key, result);
                     newResult.append(" " + key + " ");
@@ -1520,4 +1518,14 @@ public class ExpandableTextView extends AppCompatTextView {
         this.expandOrContractClickListener = expandOrContractClickListener;
         this.needRealExpandOrContract = needRealExpandOrContract;
     }
+
+
+    private static String getUuid(int length) {
+        StringBuilder stringBuilder = new StringBuilder(UUID.randomUUID().toString());
+        while (stringBuilder.length() < length) {
+            stringBuilder.append(UUID.randomUUID().toString());
+        }
+        return stringBuilder.substring(0,length);
+    }
+
 }

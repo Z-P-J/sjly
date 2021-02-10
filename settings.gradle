@@ -1,12 +1,9 @@
 include ':app',
         ':zdownloader',
-//        ':iconcountview',
 //        ':richeditor',
 //        ':richeditor2',
 //        ':zmarkdown',
         ':emojilib',
-        ':expandabletextview',
+//        ':expandabletextview',
         ':fragmentation',
         ':fragmentation-dialog'
-//        ':badgeview'
-//        ':zrecyclerview'

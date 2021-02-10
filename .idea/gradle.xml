@@ -12,14 +12,12 @@
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/app" />
             <option value="$PROJECT_DIR$/emojilib" />
-            <option value="$PROJECT_DIR$/expandabletextview" />
             <option value="$PROJECT_DIR$/fragmentation" />
             <option value="$PROJECT_DIR$/fragmentation-dialog" />
             <option value="$PROJECT_DIR$/zdownloader" />
           </set>
         </option>
         <option name="resolveModulePerSourceSet" value="false" />
-        <option name="useQualifiedModuleNames" value="true" />
       </GradleProjectSettings>
     </option>
   </component>

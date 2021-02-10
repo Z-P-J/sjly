@@ -1,6 +1,6 @@
-package com.ctetin.expandabletextviewlibrary.model;
+package com.zpj.shouji.market.ui.widget.expandabletextview.model;
 
-import com.ctetin.expandabletextviewlibrary.app.LinkType;
+import com.zpj.shouji.market.ui.widget.expandabletextview.app.LinkType;
 
 import java.util.List;
 
