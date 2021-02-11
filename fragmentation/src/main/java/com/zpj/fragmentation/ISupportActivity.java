@@ -9,23 +9,23 @@ import com.zpj.fragmentation.anim.FragmentAnimator;
  * Modified by Z-P-J
  */
 
-public interface ISupportActivity {
-    SupportActivityDelegate getSupportDelegate();
+public interface ISupportActivity extends ISupport<SupportActivityDelegate> {
+//    SupportActivityDelegate getSupportDelegate();
+//
+//    ExtraTransaction extraTransaction();
+//
+//    FragmentAnimator getFragmentAnimator();
+//
+//    void setFragmentAnimator(FragmentAnimator fragmentAnimator);
 
-    ExtraTransaction extraTransaction();
+//    FragmentAnimator onCreateFragmentAnimator();
 
-    FragmentAnimator getFragmentAnimator();
-
-    void setFragmentAnimator(FragmentAnimator fragmentAnimator);
-
-    FragmentAnimator onCreateFragmentAnimator();
-
-    void post(Runnable runnable);
-
-    void postDelayed(Runnable runnable, long delay);
-
-    void onBackPressed();
-
+//    void post(Runnable runnable);
+//
+//    void postDelayed(Runnable runnable, long delay);
+//
+//    void onBackPressed();
+//
     void onBackPressedSupport();
 
     boolean dispatchTouchEvent(MotionEvent ev);

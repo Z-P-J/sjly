@@ -12,9 +12,12 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.view.View;
 import android.view.ViewAnimationUtils;
+import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.zpj.blur.ZBlurry;
+import com.zpj.fragmentation.dialog.animator.EmptyAnimator;
+import com.zpj.fragmentation.dialog.animator.PopupAnimator;
 import com.zpj.fragmentation.dialog.impl.FullScreenDialogFragment;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.manager.UserManager;
@@ -40,6 +43,11 @@ public class MainActionDialogFragment extends FullScreenDialogFragment
 
     public static MainActionDialogFragment with(Context context) {
         return new MainActionDialogFragment();
+    }
+
+    @Override
+    protected PopupAnimator getDialogAnimator(ViewGroup contentView) {
+        return new EmptyAnimator();
     }
 
     @Override

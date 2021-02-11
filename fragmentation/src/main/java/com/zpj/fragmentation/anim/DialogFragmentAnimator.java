@@ -5,10 +5,7 @@ import android.os.Parcelable;
 
 import com.zpj.fragmentation.R;
 
-/**
- * Created by YoKeyword on 16/2/5.
- */
-public class DialogFragmentAnimator extends FragmentAnimator implements Parcelable{
+public class DialogFragmentAnimator extends FragmentAnimator implements Parcelable {
 
     public DialogFragmentAnimator() {
         enter = R.anim.dialog_fragment;

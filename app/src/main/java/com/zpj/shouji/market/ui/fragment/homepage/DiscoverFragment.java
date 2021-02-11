@@ -3,6 +3,7 @@ package com.zpj.shouji.market.ui.fragment.homepage;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -29,11 +30,6 @@ public class DiscoverFragment extends ThemeListFragment {
         fragment.setArguments(bundle);
         return fragment;
     }
-
-//    @Override
-//    protected int getLayoutId() {
-//        return R.layout.fragment_discover;
-//    }
 
     @Override
     protected void buildRecyclerLayout(EasyRecyclerLayout<DiscoverInfo> recyclerLayout) {
@@ -69,6 +65,11 @@ public class DiscoverFragment extends ThemeListFragment {
     @Override
     public void onSupportVisible() {
         super.onSupportVisible();
+        if (recyclerLayout != null && recyclerLayout.getRecyclerView() != null) {
+            EventBus.sendScrollEvent(recyclerLayout.getRecyclerView().canScrollVertically(-1) ? 1 : 0);
+        } else {
+            EventBus.sendScrollEvent(0);
+        }
 //        ScrollChangeEvent.post(1);
     }
 //

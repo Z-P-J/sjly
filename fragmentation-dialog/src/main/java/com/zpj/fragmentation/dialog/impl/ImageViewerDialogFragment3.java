@@ -1,13 +1,10 @@
 package com.zpj.fragmentation.dialog.impl;
 
-import android.animation.Animator;
-import android.animation.AnimatorListenerAdapter;
 import android.animation.ArgbEvaluator;
 import android.animation.ValueAnimator;
 import android.graphics.Color;
 import android.graphics.Matrix;
 import android.graphics.Rect;
-import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -47,7 +44,6 @@ import com.zpj.fragmentation.dialog.widget.HackyViewPager;
 import com.zpj.fragmentation.dialog.widget.ImageViewContainer;
 import com.zpj.fragmentation.dialog.widget.PhotoViewContainer;
 import com.zpj.fragmentation.dialog.widget.PlaceholderImageView2;
-import com.zpj.fragmentation.queue.BlockActionQueue;
 import com.zpj.utils.ScreenUtils;
 
 import java.util.ArrayList;
@@ -59,7 +55,7 @@ public class ImageViewerDialogFragment3<T> extends BaseDialogFragment
 
     protected static final int DEFAULT_ANIM_DURATION = 360;
 
-    private final BlockActionQueue actionQueue = new BlockActionQueue();
+//    private final BlockActionQueue actionQueue = new BlockActionQueue();
 
     protected FrameLayout container;
     protected PhotoViewContainer photoViewContainer;
@@ -269,7 +265,7 @@ public class ImageViewerDialogFragment3<T> extends BaseDialogFragment
                                 isAnimationEnd = true;
 
                                 pager.setVisibility(View.VISIBLE);
-                                actionQueue.start();
+//                                actionQueue.start();
                                 snapshotView.setVisibility(View.INVISIBLE);
                                 showPagerIndicator();
                                 photoViewContainer.isReleasing = false;
@@ -435,7 +431,7 @@ public class ImageViewerDialogFragment3<T> extends BaseDialogFragment
 
                 @Override
                 public void onEnd() {
-                    actionQueue.onDestroy();
+//                    actionQueue.onDestroy();
                     doAfterDismiss();
                     pager.setVisibility(View.INVISIBLE);
                     placeholderView.setVisibility(View.INVISIBLE);
@@ -464,7 +460,7 @@ public class ImageViewerDialogFragment3<T> extends BaseDialogFragment
                 .addListener(new TransitionListenerAdapter() {
                     @Override
                     public void onTransitionEnd(@NonNull Transition transition) {
-                        actionQueue.onDestroy();
+//                        actionQueue.onDestroy();
                         doAfterDismiss();
                         ImageViewContainer current = pager.findViewWithTag(position);
                         if (current.getPlaceholder().getDrawable() instanceof GifDrawable) {

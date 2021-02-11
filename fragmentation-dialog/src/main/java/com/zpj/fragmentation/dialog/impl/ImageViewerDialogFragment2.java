@@ -35,14 +35,6 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
-import io.reactivex.Observable;
-import io.reactivex.ObservableOnSubscribe;
-import io.reactivex.Observer;
-import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.annotations.NonNull;
-import io.reactivex.disposables.Disposable;
-import io.reactivex.schedulers.Schedulers;
-
 
 /**
  * Description: 大图预览的弹窗，使用Transition实现
@@ -282,41 +274,58 @@ public class ImageViewerDialogFragment2<T> extends FullScreenDialogFragment {
                         if (build.imageLoad.isCached(url)) {
                             Utility.saveBmpToAlbum(getContext(), newFile);
                         } else {
-                            Observable.create(
-                                    (ObservableOnSubscribe<File>) emitter -> {
-                                        File file = Glide.with(ContextUtils.getApplicationContext())
+                            new Thread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    File file = null;
+                                    try {
+                                        file = Glide.with(ContextUtils.getApplicationContext())
                                                 .asFile()
                                                 .load(url)
                                                 .submit()
                                                 .get();
-
                                         FileUtils.copyFileFast(file, newFile);
-                                        emitter.onNext(newFile);
-                                        emitter.onComplete();
-                                    })
-                                    .subscribeOn(Schedulers.io())
-                                    .observeOn(AndroidSchedulers.mainThread())
-                                    .subscribe(new Observer<File>() {
-                                        @Override
-                                        public void onSubscribe(@NonNull Disposable d) {
-
-                                        }
-
-                                        @Override
-                                        public void onNext(@NonNull File file) {
-                                            Utility.saveBmpToAlbum(getContext(), file);
-                                        }
-
-                                        @Override
-                                        public void onError(@NonNull Throwable e) {
-
-                                        }
-
-                                        @Override
-                                        public void onComplete() {
-
-                                        }
-                                    });
+                                        Utility.saveBmpToAlbum(getContext(), newFile);
+                                    } catch (Exception e) {
+                                        e.printStackTrace();
+                                    }
+                                }
+                            }).start();
+//                            Observable.create(
+//                                    (ObservableOnSubscribe<File>) emitter -> {
+//                                        File file = Glide.with(ContextUtils.getApplicationContext())
+//                                                .asFile()
+//                                                .load(url)
+//                                                .submit()
+//                                                .get();
+//
+//                                        FileUtils.copyFileFast(file, newFile);
+//                                        emitter.onNext(newFile);
+//                                        emitter.onComplete();
+//                                    })
+//                                    .subscribeOn(Schedulers.io())
+//                                    .observeOn(AndroidSchedulers.mainThread())
+//                                    .subscribe(new Observer<File>() {
+//                                        @Override
+//                                        public void onSubscribe(@NonNull Disposable d) {
+//
+//                                        }
+//
+//                                        @Override
+//                                        public void onNext(@NonNull File file) {
+//                                            Utility.saveBmpToAlbum(getContext(), file);
+//                                        }
+//
+//                                        @Override
+//                                        public void onError(@NonNull Throwable e) {
+//
+//                                        }
+//
+//                                        @Override
+//                                        public void onComplete() {
+//
+//                                        }
+//                                    });
                         }
                     }
 

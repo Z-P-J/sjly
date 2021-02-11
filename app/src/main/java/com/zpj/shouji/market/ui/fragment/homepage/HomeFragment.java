@@ -114,6 +114,15 @@ public class HomeFragment extends SkinFragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 //        EventBus.onSkinChangeEvent(this, s -> initStatusBar());
+        EventBus.onSkinChangeEvent(this, s -> {
+            if (blurred != null) {
+                blurred.foregroundColor(Color.parseColor(AppConfig.isNightMode() ? "#a0000000" : "#a0ffffff"));
+//                if (isSupportVisible()) {
+//                    blurred.startBlur();
+//                }
+                blurred.startBlur();
+            }
+        });
         alpha = 0f;
         EventBus.onScrollEvent(this, new RxBus.SingleConsumer<Float>() {
             @Override
@@ -138,12 +147,16 @@ public class HomeFragment extends SkinFragment {
                 .scale(0.1f)
                 .radius(20)
 //                .maxFps(40)
+                .foregroundColor(Color.parseColor(AppConfig.isNightMode() ? "#a0000000" : "#a0ffffff"))
                 .blur(toolbar, new ZBlurry.Callback() {
                     @Override
                     public void down(Bitmap bitmap) {
                         Drawable drawable = new BitmapDrawable(bitmap);
                         drawable.setAlpha((int) (alpha * 255));
                         toolbar.setBackground(drawable, true);
+                        if (!isSupportVisible()) {
+                            blurred.pauseBlur();
+                        }
                     }
                 });
 
@@ -213,7 +226,7 @@ public class HomeFragment extends SkinFragment {
                         list.get(0).onSupportVisible();
                         break;
                     case 1:
-                        EventBus.sendScrollEvent(1);
+                        list.get(1).onSupportVisible();
                         break;
                     case 2:
                         EventBus.sendScrollEvent(0);

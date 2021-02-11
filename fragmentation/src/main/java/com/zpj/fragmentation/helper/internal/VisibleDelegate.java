@@ -1,13 +1,14 @@
 package com.zpj.fragmentation.helper.internal;
 
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentationMagician;
 
 import com.zpj.fragmentation.ISupportFragment;
-import com.zpj.fragmentation.queue.RxHandler;
 
 import java.util.List;
 
@@ -27,7 +28,7 @@ public class VisibleDelegate {
     private boolean  mIsLazyInit;
     private boolean mFirstCreateViewCompatReplace = true;
 
-//    private Handler mHandler;
+    private Handler mHandler;
     private Bundle mSaveInstanceState;
 
     private ISupportFragment mSupportF;
@@ -127,15 +128,10 @@ public class VisibleDelegate {
     }
 
     private void enqueueDispatchVisible() {
-//        getHandler().post(new Runnable() {
-//            @Override
-//            public void run() {
-//                dispatchSupportVisible(true);
-//            }
+        getHandler().post(() -> dispatchSupportVisible(true));
+//        RxHandler.post(() -> {
+//            dispatchSupportVisible(true);
 //        });
-        RxHandler.post(() -> {
-            dispatchSupportVisible(true);
-        });
     }
 
     private void dispatchSupportVisible(boolean visible) {
@@ -211,10 +207,10 @@ public class VisibleDelegate {
         return mIsLazyInit;
     }
 
-//    private Handler getHandler() {
-//        if (mHandler == null) {
-//            mHandler = new Handler(Looper.getMainLooper());
-//        }
-//        return mHandler;
-//    }
+    private Handler getHandler() {
+        if (mHandler == null) {
+            mHandler = new Handler(Looper.getMainLooper());
+        }
+        return mHandler;
+    }
 }

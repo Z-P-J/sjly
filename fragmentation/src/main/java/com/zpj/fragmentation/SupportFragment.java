@@ -4,6 +4,8 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.support.annotation.IdRes;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -26,11 +28,11 @@ public class SupportFragment extends Fragment implements ISupportFragment {
 
     protected final SupportFragmentDelegate mDelegate = new SupportFragmentDelegate(this);
 
-    //    private final Handler handler = new Handler(Looper.getMainLooper());
-//    protected final BlockActionQueue mSupportVisibleActionQueue = new BlockActionQueue(handler);
+    private final Handler handler = new Handler(Looper.getMainLooper());
+    //    protected final BlockActionQueue mSupportVisibleActionQueue = new BlockActionQueue(handler);
 //    protected final BlockActionQueue mEnterAnimationEndActionQueue = new BlockActionQueue(handler);
-    protected final BlockActionQueue mSupportVisibleActionQueue = new BlockActionQueue();
-    protected final BlockActionQueue mEnterAnimationEndActionQueue = new BlockActionQueue();
+    protected final BlockActionQueue mSupportVisibleActionQueue = new BlockActionQueue(handler);
+    protected final BlockActionQueue mEnterAnimationEndActionQueue = new BlockActionQueue(handler);
 
     protected Context context;
     protected SupportActivity _mActivity;
@@ -132,20 +134,20 @@ public class SupportFragment extends Fragment implements ISupportFragment {
         mDelegate.setUserVisibleHint(isVisibleToUser);
     }
 
-    /**
-     * Causes the Runnable r to be added to the action queue.
-     * <p>
-     * The runnable will be run after all the previous action has been run.
-     * <p>
-     * 前面的事务全部执行后 执行该Action
-     *
-     * @deprecated Use {@link #post(Runnable)} instead.
-     */
-    @Deprecated
-    @Override
-    public void enqueueAction(Runnable runnable) {
-        mDelegate.enqueueAction(runnable);
-    }
+//    /**
+//     * Causes the Runnable r to be added to the action queue.
+//     * <p>
+//     * The runnable will be run after all the previous action has been run.
+//     * <p>
+//     * 前面的事务全部执行后 执行该Action
+//     *
+//     * @deprecated Use {@link #post(Runnable)} instead.
+//     */
+//    @Deprecated
+//    @Override
+//    public void enqueueAction(Runnable runnable) {
+//        mDelegate.enqueueAction(runnable);
+//    }
 
     /**
      * Causes the Runnable r to be added to the action queue.

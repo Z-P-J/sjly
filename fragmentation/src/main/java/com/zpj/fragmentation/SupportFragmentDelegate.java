@@ -4,6 +4,8 @@ import android.app.Activity;
 import android.content.Intent;
 import android.content.res.TypedArray;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
@@ -20,12 +22,6 @@ import com.zpj.fragmentation.helper.internal.AnimatorHelper;
 import com.zpj.fragmentation.helper.internal.ResultRecord;
 import com.zpj.fragmentation.helper.internal.TransactionRecord;
 import com.zpj.fragmentation.helper.internal.VisibleDelegate;
-import com.zpj.fragmentation.queue.RxHandler;
-
-import java.util.concurrent.TimeUnit;
-
-import io.reactivex.Observable;
-import io.reactivex.android.schedulers.AndroidSchedulers;
 
 /*
 * Modified by Z-P-J
@@ -48,7 +44,7 @@ public class SupportFragmentDelegate {
     boolean mLockAnim;
     private int mCustomEnterAnim = Integer.MIN_VALUE, mCustomExitAnim = Integer.MIN_VALUE, mCustomPopExitAnim = Integer.MIN_VALUE;
 
-//    private Handler mHandler;
+    private Handler mHandler;
     private boolean mFirstCreateView = true;
     private boolean mReplaceMode;
     private boolean mIsHidden = true;
@@ -133,19 +129,8 @@ public class SupportFragmentDelegate {
             public void onAnimationStart(Animation animation) {
                 mSupport.getSupportDelegate().mFragmentClickable = false;  // 开启防抖动
 
-//                Observable.timer(enter.getDuration(), TimeUnit.MILLISECONDS)
-//                        .observeOn(AndroidSchedulers.mainThread())
-//                        .doOnComplete(()-> {
-//                            mSupport.getSupportDelegate().mFragmentClickable = true;
-//                        })
-//                        .subscribe();
-                RxHandler.post(() -> mSupport.getSupportDelegate().mFragmentClickable = true, enter.getDuration());
-//                mHandler.postDelayed(new Runnable() {
-//                    @Override
-//                    public void run() {
-//                        mSupport.getSupportDelegate().mFragmentClickable = true;
-//                    }
-//                }, enter.getDuration());
+//                RxHandler.post(() -> mSupport.getSupportDelegate().mFragmentClickable = true, enter.getDuration());
+                getHandler().postDelayed(() -> mSupport.getSupportDelegate().mFragmentClickable = true, enter.getDuration());
             }
 
             @Override
@@ -262,8 +247,8 @@ public class SupportFragmentDelegate {
     public void onDestroyView() {
         mSupport.getSupportDelegate().mFragmentClickable = true;
         getVisibleDelegate().onDestroyView();
+        getHandler().removeCallbacks(mNotifyEnterAnimEndRunnable);
         mNotifyEnterAnimEndRunnable = null;
-//        getHandler().removeCallbacks(mNotifyEnterAnimEndRunnable);
     }
 
     public void onDestroy() {
@@ -278,19 +263,19 @@ public class SupportFragmentDelegate {
         getVisibleDelegate().setUserVisibleHint(isVisibleToUser);
     }
 
-    /**
-     * Causes the Runnable r to be added to the action queue.
-     * <p>
-     * The runnable will be run after all the previous action has been run.
-     * <p>
-     * 前面的事务全部执行后 执行该Action
-     *
-     * @deprecated Use {@link #post(Runnable)} instead.
-     */
-    @Deprecated
-    public void enqueueAction(Runnable runnable) {
-        post(runnable);
-    }
+//    /**
+//     * Causes the Runnable r to be added to the action queue.
+//     * <p>
+//     * The runnable will be run after all the previous action has been run.
+//     * <p>
+//     * 前面的事务全部执行后 执行该Action
+//     *
+//     * @deprecated Use {@link #post(Runnable)} instead.
+//     */
+//    @Deprecated
+//    public void enqueueAction(Runnable runnable) {
+//        post(runnable);
+//    }
 
     /**
      * Causes the Runnable r to be added to the action queue.
@@ -635,29 +620,18 @@ public class SupportFragmentDelegate {
 
     private void fixAnimationListener(Animation enterAnim) {
         // AnimationListener is not reliable.
-        Observable.timer(enterAnim.getDuration(), TimeUnit.MILLISECONDS)
-                .observeOn(AndroidSchedulers.mainThread())
-                .doOnComplete(()-> {
-                    if (mNotifyEnterAnimEndRunnable != null) {
-                        mNotifyEnterAnimEndRunnable.run();
-                    }
-                })
-                .subscribe();
-//        getHandler().postDelayed(mNotifyEnterAnimEndRunnable, enterAnim.getDuration());
+        getHandler().postDelayed(mNotifyEnterAnimEndRunnable, enterAnim.getDuration());
         mSupport.getSupportDelegate().mFragmentClickable = true;
 
         if (mEnterAnimListener != null) {
-//            getHandler().post(new Runnable() {
-//                @Override
-//                public void run() {
-//                    mEnterAnimListener.onEnterAnimStart();
-//                    mEnterAnimListener = null;
-//                }
-//            });
-            RxHandler.post(() -> {
+            getHandler().post((Runnable) () -> {
                 mEnterAnimListener.onEnterAnimStart();
                 mEnterAnimListener = null;
             });
+//            RxHandler.post(() -> {
+//                mEnterAnimListener.onEnterAnimStart();
+//                mEnterAnimListener = null;
+//            });
         }
     }
 
@@ -676,20 +650,9 @@ public class SupportFragmentDelegate {
             long prePopExitDuration = preFragment.getSupportDelegate().getPopExitAnimDuration();
             long enterDuration = getEnterAnimDuration();
 
-//            Observable.timer(prePopExitDuration - enterDuration, TimeUnit.MILLISECONDS)
-//                    .observeOn(AndroidSchedulers.mainThread())
-//                    .doOnComplete(()-> {
-//                        view.setClickable(false);
-//                    })
-//                    .subscribe();
-            RxHandler.post(() -> view.setClickable(false), prePopExitDuration - enterDuration);
+//            RxHandler.post(() -> view.setClickable(false), prePopExitDuration - enterDuration);
 
-//            mHandler.postDelayed(new Runnable() {
-//                @Override
-//                public void run() {
-//                    view.setClickable(false);
-//                }
-//            }, prePopExitDuration - enterDuration);
+            getHandler().postDelayed(() -> view.setClickable(false), prePopExitDuration - enterDuration);
         }
     };
 
@@ -723,21 +686,21 @@ public class SupportFragmentDelegate {
     }
 
     private void notifyEnterAnimEnd() {
-        RxHandler.post(() -> {
-            if (mNotifyEnterAnimEndRunnable != null) {
-                mNotifyEnterAnimEndRunnable.run();
-            }
-        });
-//        getHandler().post(mNotifyEnterAnimEndRunnable);
+//        RxHandler.post(() -> {
+//            if (mNotifyEnterAnimEndRunnable != null) {
+//                mNotifyEnterAnimEndRunnable.run();
+//            }
+//        });
+        getHandler().post(mNotifyEnterAnimEndRunnable);
         mSupport.getSupportDelegate().mFragmentClickable = true;
     }
 
-//    private Handler getHandler() {
-//        if (mHandler == null) {
-//            mHandler = new Handler(Looper.getMainLooper());
-//        }
-//        return mHandler;
-//    }
+    private Handler getHandler() {
+        if (mHandler == null) {
+            mHandler = new Handler(Looper.getMainLooper());
+        }
+        return mHandler;
+    }
 
     public VisibleDelegate getVisibleDelegate() {
         if (mVisibleDelegate == null) {

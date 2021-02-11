@@ -1,6 +1,7 @@
 package com.zpj.fragmentation;
 
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.IntDef;
 import android.support.annotation.Nullable;
 
@@ -14,7 +15,7 @@ import java.lang.annotation.RetentionPolicy;
  * Modified by Z-P-J
  */
 
-public interface ISupportFragment {
+public interface ISupportFragment extends ISupport<SupportFragmentDelegate> {
     // LaunchMode
     int STANDARD = 0;
     int SINGLETOP = 1;
@@ -29,15 +30,15 @@ public interface ISupportFragment {
     public @interface LaunchMode {
     }
 
-    SupportFragmentDelegate getSupportDelegate();
-
-    ExtraTransaction extraTransaction();
-
-    void enqueueAction(Runnable runnable);
-
-    void post(Runnable runnable);
-
-    void postDelayed(Runnable runnable, long delay);
+//    SupportFragmentDelegate getSupportDelegate();
+//
+//    ExtraTransaction extraTransaction();
+//
+//    void enqueueAction(Runnable runnable);
+//
+//    void post(Runnable runnable);
+//
+//    void postDelayed(Runnable runnable, long delay);
 
     void onEnterAnimationEnd(@Nullable Bundle savedInstanceState);
 
@@ -53,9 +54,9 @@ public interface ISupportFragment {
 
     FragmentAnimator onCreateFragmentAnimator();
 
-    FragmentAnimator getFragmentAnimator();
-
-    void setFragmentAnimator(FragmentAnimator fragmentAnimator);
+//    FragmentAnimator getFragmentAnimator();
+//
+//    void setFragmentAnimator(FragmentAnimator fragmentAnimator);
 
     void setFragmentResult(int resultCode, Bundle bundle);
 
@@ -68,6 +69,8 @@ public interface ISupportFragment {
     boolean onBackPressedSupport();
 
     @LaunchMode int getLaunchMode();
+
+//    Handler getHandler();
 
 
 

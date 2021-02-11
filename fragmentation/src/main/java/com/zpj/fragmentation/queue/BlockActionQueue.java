@@ -1,5 +1,6 @@
 package com.zpj.fragmentation.queue;
 
+import android.os.Handler;
 import android.os.Looper;
 import android.util.Log;
 
@@ -11,10 +12,7 @@ import java.util.Queue;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 /**
- * The queue of perform action.
- * <p>
- * Created by YoKey on 17/12/29.
- * Modified by Z-P-J
+ * Created by Z-P-J
  */
 public class BlockActionQueue {
 
@@ -22,6 +20,16 @@ public class BlockActionQueue {
 
     private final Queue<Action> mQueue = new LinkedList<>();
     private final AtomicBoolean start = new AtomicBoolean(false);
+
+    private final Handler mHandler;
+
+    public BlockActionQueue() {
+        this(new Handler(Looper.getMainLooper()));
+    }
+
+    public BlockActionQueue(Handler handler) {
+        this.mHandler = handler;
+    }
 
     public boolean isStart() {
         return start.get();
@@ -69,7 +77,7 @@ public class BlockActionQueue {
             action.run();
             return;
         }
-        RxHandler.post(() -> {
+        mHandler.post(() -> {
 //            enqueueAction(action);
             mQueue.add(action);
             Log.d(TAG, "size=" + mQueue.size());
@@ -92,7 +100,7 @@ public class BlockActionQueue {
         Log.d(TAG, "handleAction");
 
         final Action action = mQueue.peek();
-        RxHandler.post(() -> {
+        mHandler.postDelayed(() -> {
             action.run();
 //            executeNextAction(action);
             if (action.action == Action.ACTION_POP) {

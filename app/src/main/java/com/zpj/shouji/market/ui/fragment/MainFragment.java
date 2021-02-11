@@ -112,9 +112,10 @@ public class MainFragment extends SkinFragment {
         EventBus.onSkinChangeEvent(this, s -> {
             if (blurred != null) {
                 blurred.foregroundColor(Color.parseColor(AppConfig.isNightMode() ? "#a0000000" : "#a0ffffff"));
-                if (isSupportVisible()) {
-                    blurred.startBlur();
-                }
+//                if (isSupportVisible()) {
+//                    blurred.startBlur();
+//                }
+                blurred.startBlur();
             }
         });
         RxBus.observe(this, MessageInfo.class)
@@ -178,6 +179,9 @@ public class MainFragment extends SkinFragment {
 //                    Log.d("MainFragment", "bitmap=" + bitmap);
                     Drawable drawable = new BitmapDrawable(bitmap);
                     mBottomBar.setBackground(drawable);
+                    if (!isSupportVisible()) {
+                        blurred.pauseBlur();
+                    }
                 });
         blurred.pauseBlur();
 

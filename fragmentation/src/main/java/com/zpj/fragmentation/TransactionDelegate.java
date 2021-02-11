@@ -1,6 +1,8 @@
 package com.zpj.fragmentation;
 
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
@@ -18,7 +20,6 @@ import com.zpj.fragmentation.helper.internal.ResultRecord;
 import com.zpj.fragmentation.helper.internal.TransactionRecord;
 import com.zpj.fragmentation.queue.Action;
 import com.zpj.fragmentation.queue.ActionQueue;
-import com.zpj.fragmentation.queue.RxHandler;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -55,19 +56,18 @@ class TransactionDelegate {
     static final int TYPE_REPLACE = 10;
     static final int TYPE_REPLACE_DONT_BACK = 11;
 
-    private ISupportActivity mSupport;
-    private FragmentActivity mActivity;
+    private final ISupportActivity mSupport;
+    private final FragmentActivity mActivity;
 
-//    private Handler mHandler;
+    private final Handler mHandler;
 
     ActionQueue mActionQueue;
 
     TransactionDelegate(ISupportActivity support) {
         this.mSupport = support;
         this.mActivity = (FragmentActivity) support;
-//        mHandler = new Handler(Looper.getMainLooper());
-//        mActionQueue = new ActionQueue(mHandler);
-        mActionQueue = new ActionQueue();
+        mHandler = new Handler(Looper.getMainLooper());
+        mActionQueue = new ActionQueue(mHandler);
     }
 
     void post(final Runnable runnable) {
@@ -538,13 +538,8 @@ class TransactionDelegate {
             }
         } else if (launchMode == ISupportFragment.SINGLETASK) {
             doPopTo(toFragmentTag, false, fm, DEFAULT_POPTO_ANIM);
-//            mHandler.post(new Runnable() {
-//                @Override
-//                public void run() {
-//                    handleNewBundle(to, stackToFragment);
-//                }
-//            });
-            RxHandler.post(() -> handleNewBundle(to, stackToFragment));
+            mHandler.post(() -> handleNewBundle(to, stackToFragment));
+//            RxHandler.post(() -> handleNewBundle(to, stackToFragment));
             return true;
         }
 
@@ -647,23 +642,20 @@ class TransactionDelegate {
         }
 
         fromView.startAnimation(animation);
-//        mHandler.postDelayed(new Runnable() {
-//            @Override
-//            public void run() {
-//                try {
-//                    mock.removeViewInLayout(fromView);
-//                    container.removeViewInLayout(mock);
-//                } catch (Exception ignored) {
-//                }
-//            }
-//        }, animation.getDuration());
-        RxHandler.post(new io.reactivex.functions.Action() {
-            @Override
-            public void run() throws Exception {
+        mHandler.postDelayed(() -> {
+            try {
                 mock.removeViewInLayout(fromView);
                 container.removeViewInLayout(mock);
+            } catch (Exception ignored) {
             }
         }, animation.getDuration());
+//        RxHandler.post(new io.reactivex.functions.Action() {
+//            @Override
+//            public void run() throws Exception {
+//                mock.removeViewInLayout(fromView);
+//                container.removeViewInLayout(mock);
+//            }
+//        }, animation.getDuration());
     }
 
 
@@ -683,21 +675,11 @@ class TransactionDelegate {
             public void onEnterAnimStart() {
                 fromView.startAnimation(exitAnim);
 
-//                mHandler.postDelayed(new Runnable() {
-//                    @Override
-//                    public void run() {
-//                        try {
-//                            mock.removeViewInLayout(fromView);
-//                            container.removeViewInLayout(mock);
-//                        } catch (Exception ignored) {
-//                        }
-//                    }
-//                }, exitAnim.getDuration());
-                RxHandler.post(new io.reactivex.functions.Action() {
-                    @Override
-                    public void run() throws Exception {
+                mHandler.postDelayed(() -> {
+                    try {
                         mock.removeViewInLayout(fromView);
                         container.removeViewInLayout(mock);
+                    } catch (Exception ignored) {
                     }
                 }, exitAnim.getDuration());
             }
