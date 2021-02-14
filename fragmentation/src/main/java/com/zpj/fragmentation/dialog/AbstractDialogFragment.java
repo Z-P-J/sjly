@@ -60,7 +60,10 @@ public abstract class AbstractDialogFragment extends SupportFragment {
         if (onBackPressed()) {
             return true;
         }
-        pop();
+        dismiss();
         return true;
     }
+
+    public abstract void dismiss();
+
 }

@@ -327,6 +327,13 @@ public abstract class AttachDialogFragment extends BaseDialogFragment {
         return this;
     }
 
+    public AttachDialogFragment attachViewCenter(View attachView) {
+        int[] locations = new int[2];
+        attachView.getLocationOnScreen(locations);
+        return setTouchPoint(locations[0] + attachView.getMeasuredWidth() / 2f,
+                locations[1] + attachView.getMeasuredHeight() / 2f);
+    }
+
     public AttachDialogFragment setTouchPoint(PointF touchPoint) {
         this.touchPoint = touchPoint;
         return this;

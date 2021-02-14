@@ -14,8 +14,11 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.zpj.fragmentation.SupportHelper;
+import com.zpj.fragmentation.dialog.base.ArrowDialogFragment;
+import com.zpj.fragmentation.dialog.impl.ArrowMenuDialogFragment;
 import com.zpj.fragmentation.dialog.impl.AttachListDialogFragment;
 import com.zpj.fragmentation.dialog.impl.ImageViewerDialogFragment3;
+import com.zpj.fragmentation.dialog.model.OptionMenu;
 import com.zpj.http.core.IHttp;
 import com.zpj.http.parser.html.nodes.Document;
 import com.zpj.http.parser.html.nodes.Element;
@@ -89,26 +92,50 @@ public class WallpaperViewerDialogFragment3 extends ImageViewerDialogFragment3<S
 
         titleBar.getLeftImageButton().setOnClickListener(v -> dismiss());
         titleBar.getRightImageButton().setOnClickListener(v -> {
-            new AttachListDialogFragment<String>()
-                    .addItems("分享图片", "保存图片", "设为壁纸")
-                    .addItemIf(isOriginalImageAvailable(), "查看原图")
-//                    .setOnDismissListener(this::focusAndProcessBackPress)
-                    .setOnSelectListener((fragment, pos, title) -> {
-                        fragment.dismiss();
-                        switch (pos) {
-                            case 0:
-                                shareWallpaper();
-                                break;
-                            case 1:
+//            new AttachListDialogFragment<String>()
+//                    .addItems("分享图片", "保存图片", "设为壁纸")
+//                    .addItemIf(isOriginalImageAvailable(), "查看原图")
+//                    .setOnSelectListener((fragment, pos, title) -> {
+//                        switch (pos) {
+//                            case 0:
+//                                shareWallpaper();
+//                                break;
+//                            case 1:
+////                                save();
+//                                PictureUtil.saveImage(context, urls.get(pager.getCurrentItem()));
+//                                break;
+//                            case 2:
+//                                setWallpaper();
+//                                break;
+//                            case 3:
+//                                showOriginalImage();
+//                                break;
+//                        }
+//                        fragment.dismiss();
+//                    })
+//                    .setAttachView(titleBar.getRightImageButton())
+//                    .show(context);
+            new ArrowMenuDialogFragment()
+                    .addOptionMenus("分享图片", "保存图片", "设为壁纸")
+                    .addOptionMenuIf(isOriginalImageAvailable(), "查看原图")
+                    .setOnItemClickListener(new ArrowDialogFragment.OnItemClickListener() {
+                        @Override
+                        public void onItemClick(int position, OptionMenu menu) {
+                            switch (position) {
+                                case 0:
+                                    shareWallpaper();
+                                    break;
+                                case 1:
 //                                save();
-                                PictureUtil.saveImage(context, urls.get(pager.getCurrentItem()));
-                                break;
-                            case 2:
-                                setWallpaper();
-                                break;
-                            case 3:
-                                showOriginalImage();
-                                break;
+                                    PictureUtil.saveImage(context, urls.get(pager.getCurrentItem()));
+                                    break;
+                                case 2:
+                                    setWallpaper();
+                                    break;
+                                case 3:
+                                    showOriginalImage();
+                                    break;
+                            }
                         }
                     })
                     .setAttachView(titleBar.getRightImageButton())
@@ -134,9 +161,10 @@ public class WallpaperViewerDialogFragment3 extends ImageViewerDialogFragment3<S
         tvComment.setText(String.valueOf(wallpaperInfo.getReplyCount()));
         tvSupport.setText(String.valueOf(wallpaperInfo.getSupportCount()));
         if (wallpaperInfo.isLike()) {
-            tvSupport.setDrawableTintColor(Color.RED);
+            tvSupport.setDrawableTop(R.drawable.ic_good_checked, Color.RED);
             tvSupport.setTag(true);
         } else {
+            tvSupport.setDrawableTop(R.drawable.ic_good, Color.WHITE);
             tvSupport.setTag(false);
         }
 
@@ -176,6 +204,7 @@ public class WallpaperViewerDialogFragment3 extends ImageViewerDialogFragment3<S
                                 if ("success".equals(doc.selectFirst("result").text())) {
                                     ZToast.success("取消收藏成功！");
                                     btnFavorite.setColorFilter(Color.WHITE);
+                                    btnFavorite.setImageResource(R.drawable.ic_favorite);
                                     btnFavorite.setTag(false);
                                 } else {
                                     ZToast.error(info);
@@ -190,6 +219,7 @@ public class WallpaperViewerDialogFragment3 extends ImageViewerDialogFragment3<S
                                 if ("success".equals(doc.selectFirst("result").text())) {
                                     ZToast.success(info);
                                     btnFavorite.setColorFilter(Color.RED);
+                                    btnFavorite.setImageResource(R.drawable.ic_favorite_checked);
                                     btnFavorite.setTag(true);
                                 } else {
                                     ZToast.error(info);
@@ -406,11 +436,11 @@ public class WallpaperViewerDialogFragment3 extends ImageViewerDialogFragment3<S
                     if ("success".equals(data.selectFirst("result").text())) {
                         if ((boolean) tvSupport.getTag()) {
                             tvSupport.setTag(false);
-                            tvSupport.setDrawableTintColor(Color.WHITE);
+                            tvSupport.setDrawableTop(R.drawable.ic_good, Color.WHITE);
                             wallpaperInfo.setSupportCount(wallpaperInfo.getSupportCount() - 1);
                         } else {
                             tvSupport.setTag(true);
-                            tvSupport.setDrawableTintColor(Color.RED);
+                            tvSupport.setDrawableTop(R.drawable.ic_good_checked, Color.RED);
                             wallpaperInfo.setSupportCount(wallpaperInfo.getSupportCount() + 1);
                         }
                         tvSupport.setText(String.valueOf(wallpaperInfo.getSupportCount()));

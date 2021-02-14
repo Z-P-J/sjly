@@ -89,11 +89,25 @@ public abstract class BaseFragment extends SwipeBackFragment {
     }
 
     public CharSequence getToolbarTitle(Context context) {
+        if (getToolbarTitleId() > 0) {
+            return context.getResources().getString(getToolbarTitleId());
+        }
         return null;
     }
 
+    public int getToolbarTitleId() {
+        return 0;
+    }
+
     public CharSequence getToolbarSubTitle(Context context) {
+        if (getToolbarSubTitleId() > 0) {
+            return context.getResources().getString(getToolbarSubTitleId());
+        }
         return null;
+    }
+
+    public int getToolbarSubTitleId() {
+        return 0;
     }
 
     public void toolbarLeftImageButton(@NonNull ImageButton imageButton) {

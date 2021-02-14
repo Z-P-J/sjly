@@ -121,6 +121,7 @@
                 android:src="@drawable/ic_favorite"
                 android:padding="8dp"
                 android:background="?attr/actionBarItemBackground"
+                android:tint="@color/white"
                 />
 
             <ImageButton

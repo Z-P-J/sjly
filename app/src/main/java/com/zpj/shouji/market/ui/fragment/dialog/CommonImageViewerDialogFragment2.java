@@ -17,8 +17,11 @@ import com.bumptech.glide.request.target.SimpleTarget;
 import com.bumptech.glide.request.transition.Transition;
 import com.zpj.fragmentation.ISupportFragment;
 import com.zpj.fragmentation.SupportHelper;
+import com.zpj.fragmentation.dialog.base.ArrowDialogFragment;
+import com.zpj.fragmentation.dialog.impl.ArrowMenuDialogFragment;
 import com.zpj.fragmentation.dialog.impl.AttachListDialogFragment;
 import com.zpj.fragmentation.dialog.impl.ImageViewerDialogFragment3;
+import com.zpj.fragmentation.dialog.model.OptionMenu;
 import com.zpj.fragmentation.dialog.photoview.PhotoView;
 import com.zpj.fragmentation.dialog.widget.LoadingView;
 import com.zpj.shouji.market.R;
@@ -78,11 +81,10 @@ public class CommonImageViewerDialogFragment2 extends ImageViewerDialogFragment3
         });
 
         btnMore.setOnClickListener(v -> {
-            new AttachListDialogFragment<String>()
-                    .addItems("分享图片", "保存图片", "设为壁纸")
-                    .addItemIf(isOriginalImageAvailable(), "查看原图")
-//                    .setOnDismissListener(this::focusAndProcessBackPress)
-                    .setOnSelectListener((fragment, pos, text) -> {
+            new ArrowMenuDialogFragment()
+                    .addOptionMenus("分享图片", "保存图片", "设为壁纸")
+                    .addOptionMenuIf(isOriginalImageAvailable(), "查看原图")
+                    .setOnItemClickListener((pos, menu) -> {
                         switch (pos) {
                             case 0:
                                 PictureUtil.shareWebImage(context, getOriginalImageUrl());

@@ -49,6 +49,82 @@ public class DrawableTintTextView extends AppCompatTextView {
 //        super.setCompoundDrawablesRelativeWithIntrinsicBounds(start, top, end, bottom);
 //    }
 
+    public void setDrawableStart(int drawableId) {
+        setDrawableStart(drawableId, drawableTintColor);
+    }
+
+    public void setDrawableTop(int drawableId) {
+        setDrawableTop(drawableId, drawableTintColor);
+    }
+
+    public void setDrawableEnd(int drawableId) {
+        setDrawableEnd(drawableId, drawableTintColor);
+    }
+
+    public void setDrawableBottom(int drawableId) {
+        setDrawableBottom(drawableId, drawableTintColor);
+    }
+
+    public void setDrawableStart(int drawableId, int drawableTintColor) {
+        setDrawableStart(getResources().getDrawable(drawableId), drawableTintColor);
+    }
+
+    public void setDrawableTop(int drawableId, int drawableTintColor) {
+        setDrawableTop(getResources().getDrawable(drawableId), drawableTintColor);
+    }
+
+    public void setDrawableEnd(int drawableId, int drawableTintColor) {
+        setDrawableEnd(getResources().getDrawable(drawableId), drawableTintColor);
+    }
+
+    public void setDrawableBottom(int drawableId, int drawableTintColor) {
+        setDrawableBottom(getResources().getDrawable(drawableId), drawableTintColor);
+    }
+
+    public void setDrawableStart(Drawable drawable) {
+        setDrawableStart(drawable, drawableTintColor);
+    }
+
+    public void setDrawableTop(Drawable drawable) {
+        setDrawableTop(drawable, drawableTintColor);
+    }
+
+    public void setDrawableEnd(Drawable drawable) {
+        setDrawableEnd(drawable, drawableTintColor);
+    }
+
+    public void setDrawableBottom(Drawable drawable) {
+        setDrawableBottom(drawable, drawableTintColor);
+    }
+
+    public void setDrawableStart(Drawable drawable, int drawableTintColor) {
+        this.drawableTintColor = drawableTintColor;
+        Drawable[] drawables = getCompoundDrawablesRelative();
+        drawables[0] = drawable;
+        tintDrawables(drawables);
+    }
+
+    public void setDrawableTop(Drawable drawable, int drawableTintColor) {
+        this.drawableTintColor = drawableTintColor;
+        Drawable[] drawables = getCompoundDrawablesRelative();
+        drawables[1] = drawable;
+        tintDrawables(drawables);
+    }
+
+    public void setDrawableEnd(Drawable drawable, int drawableTintColor) {
+        this.drawableTintColor = drawableTintColor;
+        Drawable[] drawables = getCompoundDrawablesRelative();
+        drawables[2] = drawable;
+        tintDrawables(drawables);
+    }
+
+    public void setDrawableBottom(Drawable drawable, int drawableTintColor) {
+        this.drawableTintColor = drawableTintColor;
+        Drawable[] drawables = getCompoundDrawablesRelative();
+        drawables[3] = drawable;
+        tintDrawables(drawables);
+    }
+
     public void setDrawableTintColor(int drawableTintColor) {
         this.drawableTintColor = drawableTintColor;
         tintDrawables();

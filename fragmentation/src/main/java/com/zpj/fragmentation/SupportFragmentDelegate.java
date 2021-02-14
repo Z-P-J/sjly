@@ -57,8 +57,8 @@ public class SupportFragmentDelegate {
     Bundle mNewBundle;
     private Bundle mSaveInstanceState;
 
-    private ISupportFragment mSupportF;
-    private Fragment mFragment;
+    private final ISupportFragment mSupportF;
+    private final Fragment mFragment;
     protected FragmentActivity _mActivity;
     private ISupportActivity mSupport;
     boolean mAnimByActivity = true;
@@ -248,7 +248,7 @@ public class SupportFragmentDelegate {
         mSupport.getSupportDelegate().mFragmentClickable = true;
         getVisibleDelegate().onDestroyView();
         getHandler().removeCallbacks(mNotifyEnterAnimEndRunnable);
-        mNotifyEnterAnimEndRunnable = null;
+//        mNotifyEnterAnimEndRunnable = null;
     }
 
     public void onDestroy() {

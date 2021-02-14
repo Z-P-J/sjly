@@ -18,6 +18,7 @@ import com.zpj.utils.ContextUtils;
 import com.zpj.utils.ScreenUtils;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class ArrowMenuDialogFragment extends ArrowDialogFragment {
@@ -42,16 +43,16 @@ public class ArrowMenuDialogFragment extends ArrowDialogFragment {
 
         OptionMenuView mOptionMenuView = new OptionMenuView(context);
         if (mOrientation == LinearLayout.VERTICAL) {
-            mOptionMenuView.setMinimumWidth((int) (ScreenUtils.getScreenWidth(context) / 2.8));
+            mOptionMenuView.setMinimumWidth((int) (ScreenUtils.getScreenWidth(context) / 2.5));
         }
         mOptionMenuView.setOrientation(mOrientation);
         mOptionMenuView.setOnOptionMenuClickListener(new OptionMenuView.OnOptionMenuClickListener() {
             @Override
             public boolean onOptionMenuClick(int position, OptionMenu menu) {
-                dismiss();
                 if (onItemClickListener != null) {
                     onItemClickListener.onItemClick(position, menu);
                 }
+                dismiss();
                 return true;
             }
         });
@@ -117,6 +118,20 @@ public class ArrowMenuDialogFragment extends ArrowDialogFragment {
 
     public ArrowMenuDialogFragment addOptionMenus(String title) {
         this.optionMenus.add(new OptionMenu(title));
+        return this;
+    }
+
+    public ArrowMenuDialogFragment addOptionMenus(String...titles) {
+        for (String title : titles) {
+            addOptionMenus(title);
+        }
+        return this;
+    }
+
+    public ArrowMenuDialogFragment addOptionMenuIf(boolean flag, String item) {
+        if (flag) {
+            addOptionMenus(item);
+        }
         return this;
     }
 

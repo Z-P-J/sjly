@@ -9,7 +9,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
 
+import com.zpj.fragmentation.anim.DefaultNoAnimator;
 import com.zpj.fragmentation.dialog.R;
+import com.zpj.fragmentation.dialog.animator.EmptyAnimator;
 import com.zpj.fragmentation.dialog.animator.PopupAnimator;
 import com.zpj.fragmentation.dialog.utils.DialogThemeUtils;
 import com.zpj.fragmentation.dialog.utils.Utility;
@@ -92,7 +94,12 @@ public abstract class BottomDialogFragment extends BaseDialogFragment {
         bottomPopupContainer.setOnCloseListener(new SmartDragLayout.OnCloseListener() {
             @Override
             public void onClose() {
-                dismiss();
+                setFragmentAnimator(new DefaultNoAnimator());
+                postOnEnterAnimationEnd(() -> {
+                    BottomDialogFragment.super.doDismissAnimation();
+                    popThis();
+                    onDismiss();
+                });
             }
             @Override
             public void onOpen() {
@@ -107,7 +114,7 @@ public abstract class BottomDialogFragment extends BaseDialogFragment {
             }
         });
 
-        Utility.applyPopupSize((ViewGroup) getImplView(), getMaxWidth(), 0);
+        Utility.applyPopupSize(getImplView(), getMaxWidth(), 0);
 
     }
 

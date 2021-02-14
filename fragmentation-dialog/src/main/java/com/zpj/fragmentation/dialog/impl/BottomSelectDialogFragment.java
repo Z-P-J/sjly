@@ -78,6 +78,7 @@ public class BottomSelectDialogFragment<T> extends BottomDialogFragment {
         normalTextColor = DialogThemeUtils.getNormalTextColor(context);
 
         TextView tvTitle = findViewById(R.id.tv_title);
+        tvTitle.setTextColor(DialogThemeUtils.getMajorTextColor(context));
         tvTitle.setText(title);
         LinearLayout buttons = findViewById(R.id.layout_buttons);
         FrameLayout flCheckBox = findViewById(R.id.fl_check_box);

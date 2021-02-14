@@ -78,7 +78,7 @@ public abstract class BaseDialogFragment extends AbstractDialogFragment {
                 if (!cancelable || !cancelableInTouchOutside) {
                     return;
                 }
-                pop();
+                dismiss();
             }
         });
 
@@ -313,7 +313,7 @@ public abstract class BaseDialogFragment extends AbstractDialogFragment {
     }
 
     protected void onBeforeShow() {
-
+        isDismissing = false;
     }
 
     protected void onHide() {
