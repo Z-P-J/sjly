@@ -16,7 +16,7 @@ import com.bumptech.glide.request.transition.Transition;
 import com.yanyusong.y_divideritemdecoration.Y_Divider;
 import com.yanyusong.y_divideritemdecoration.Y_DividerBuilder;
 import com.yanyusong.y_divideritemdecoration.Y_DividerItemDecoration;
-import com.zpj.fragmentation.dialog.impl.ImageViewerDialogFragment3;
+import com.zpj.fragmentation.dialog.impl.ImageViewerDialogFragment;
 import com.zpj.recyclerview.EasyRecyclerView;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.glide.GlideRequestOptions;
@@ -31,11 +31,12 @@ public class ScreenShootMultiData extends RecyclerMultiData<String> {
     private final List<String> urls;
 
     public ScreenShootMultiData(String title, List<String> urls) {
-        super(title);
+        super(title, urls);
+//        this.urls = urls;
+//        list.addAll(urls);
+//        hasMore = false;
+
         this.urls = urls;
-        list.addAll(urls);
-        hasMore = false;
-//        isLoaded = true;
     }
 
     @Override
@@ -122,10 +123,10 @@ public class ScreenShootMultiData extends RecyclerMultiData<String> {
         new CommonImageViewerDialogFragment2()
                 .setImageUrls(list)
                 .setSrcView(ivImg, position)
-                .setSrcViewUpdateListener(new ImageViewerDialogFragment3.OnSrcViewUpdateListener<String>() {
+                .setSrcViewUpdateListener(new ImageViewerDialogFragment.OnSrcViewUpdateListener<String>() {
                     private boolean flag = true;
                     @Override
-                    public void onSrcViewUpdate(@NonNull ImageViewerDialogFragment3<String> popup, int position) {
+                    public void onSrcViewUpdate(@NonNull ImageViewerDialogFragment<String> popup, int position) {
                         if (flag) {
                             flag = false;
                         } else {

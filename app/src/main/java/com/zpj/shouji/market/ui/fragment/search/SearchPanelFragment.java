@@ -12,6 +12,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.zpj.fragmentation.dialog.IDialog;
 import com.zpj.fragmentation.dialog.impl.AlertDialogFragment;
 import com.zpj.recyclerview.EasyRecyclerView;
 import com.zpj.rxbus.RxBus;
@@ -117,7 +118,7 @@ public class SearchPanelFragment extends SkinFragment {
                 new AlertDialogFragment()
                         .setTitle("清空记录？")
                         .setContent("您将清空您的历史搜索记录，确认清空？")
-                        .setPositiveButton(fragment -> {
+                        .setPositiveButton((fragment, which) -> {
                             SearchHistoryManager.deleteAllLocalSearchHistory();
                             searchHistory.clear();
                             searchHistory.setVisibility(View.GONE);

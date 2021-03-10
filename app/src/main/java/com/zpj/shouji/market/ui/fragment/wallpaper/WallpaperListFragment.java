@@ -21,7 +21,7 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.bumptech.glide.request.transition.Transition;
 import com.github.zagum.expandicon.ExpandIconView;
-import com.zpj.fragmentation.dialog.impl.ImageViewerDialogFragment3;
+import com.zpj.fragmentation.dialog.impl.ImageViewerDialogFragment;
 import com.zpj.http.parser.html.nodes.Document;
 import com.zpj.http.parser.html.nodes.Element;
 import com.zpj.recyclerview.EasyRecyclerLayout;
@@ -209,9 +209,9 @@ public class WallpaperListFragment extends NextUrlFragment<WallpaperInfo> {
                 .setOriginalImageList(original)
                 .setImageUrls(AppConfig.isShowOriginalImage() && NetUtils.isWiFi(context) ? original : objects)
                 .setSrcView(wallpaper, 0)
-                .setSrcViewUpdateListener(new ImageViewerDialogFragment3.OnSrcViewUpdateListener<String>() {
+                .setSrcViewUpdateListener(new ImageViewerDialogFragment.OnSrcViewUpdateListener<String>() {
                     @Override
-                    public void onSrcViewUpdate(@NonNull ImageViewerDialogFragment3<String> popup, int position) {
+                    public void onSrcViewUpdate(@NonNull ImageViewerDialogFragment<String> popup, int position) {
                         popup.updateSrcView(wallpaper);
                     }
                 })

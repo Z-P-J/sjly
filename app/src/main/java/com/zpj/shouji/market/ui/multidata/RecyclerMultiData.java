@@ -17,8 +17,15 @@ public abstract class RecyclerMultiData<T> extends BaseHeaderMultiData<T> {
         super(title);
     }
 
+    public RecyclerMultiData(String title, List<T> list) {
+        super(title, list);
+    }
+
     @Override
     public int getChildCount() {
+        if (this.list.isEmpty()) {
+            return 0;
+        }
         return 1;
     }
 

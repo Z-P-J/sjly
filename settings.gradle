@@ -3,7 +3,7 @@ include ':app',
 //        ':richeditor',
 //        ':richeditor2',
 //        ':zmarkdown',
-        ':emojilib',
+        ':emojilib'
 //        ':expandabletextview',
-        ':fragmentation',
-        ':fragmentation-dialog'
+//        ':fragmentation',
+//        ':fragmentation-dialog'

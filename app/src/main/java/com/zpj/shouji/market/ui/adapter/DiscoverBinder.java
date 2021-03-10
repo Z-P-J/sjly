@@ -16,7 +16,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
-import com.zpj.fragmentation.dialog.impl.ImageViewerDialogFragment3;
+import com.zpj.fragmentation.dialog.impl.ImageViewerDialogFragment;
 import com.zpj.recyclerview.EasyViewHolder;
 import com.zpj.recyclerview.IEasy;
 import com.zpj.shouji.market.R;
@@ -434,9 +434,9 @@ public class DiscoverBinder
                     .setImageSizeList(discoverInfo.getPicSizes())
                     .setSrcView(nineGridView.getImageView(position), position)
                     .setImageUrls(AppConfig.isShowOriginalImage() && NetUtils.isWiFi(nineGridView.getContext()) ? discoverInfo.getPics() : discoverInfo.getSpics())
-                    .setSrcViewUpdateListener(new ImageViewerDialogFragment3.OnSrcViewUpdateListener<String>() {
+                    .setSrcViewUpdateListener(new ImageViewerDialogFragment.OnSrcViewUpdateListener<String>() {
                         @Override
-                        public void onSrcViewUpdate(@NonNull ImageViewerDialogFragment3<String> popup, int position) {
+                        public void onSrcViewUpdate(@NonNull ImageViewerDialogFragment<String> popup, int position) {
                             popup.updateSrcView(nineGridView.getImageView(position));
                         }
                     })

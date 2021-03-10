@@ -11,7 +11,7 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.TextView;
 
-import com.zpj.fragmentation.dialog.base.BottomDialogFragment;
+import com.zpj.fragmentation.dialog.base.BottomDragDialogFragment;
 import com.zpj.shouji.market.R;
 import com.zpj.toast.ZToast;
 import com.zpj.utils.Callback;
@@ -19,7 +19,7 @@ import com.zpj.utils.ShareUtils;
 
 import java.io.File;
 
-public class ShareDialogFragment extends BottomDialogFragment
+public class ShareDialogFragment extends BottomDragDialogFragment
         implements View.OnClickListener, Callback<String> {
 
     private String shareContent;

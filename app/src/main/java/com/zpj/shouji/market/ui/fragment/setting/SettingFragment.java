@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.LinearLayout;
 
 import com.zpj.downloader.ZDownloader;
+import com.zpj.fragmentation.dialog.IDialog;
 import com.zpj.fragmentation.dialog.impl.AlertDialogFragment;
 import com.zpj.http.core.HttpObserver;
 import com.zpj.http.core.IHttp;
@@ -189,24 +190,27 @@ public class SettingFragment extends BaseSettingFragment {
                             .setTitle("清除缓存")
                             .setContent("您将清除本应用所有缓存数据，确认清除？")
 //                            .setAutoDismiss(false)
-                            .setPositiveButton(popup -> {
-                                EventBus.showLoading("清除中...");
-                                new HttpObserver<String>(
-                                        emitter -> {
-                                            CacheUtils.clearAllCache(context);
-                                            emitter.onNext(CacheUtils.getTotalCacheSizeStr(context));
-                                            emitter.onComplete();
-                                        })
-                                        .onSuccess(new IHttp.OnSuccessListener<String>() {
-                                            @Override
-                                            public void onSuccess(String data) throws Exception {
-                                                EventBus.hideLoading(1000, () -> {
-                                                    ZToast.success("清理成功");
-                                                    item.setRightText(data);
-                                                });
-                                            }
-                                        })
-                                        .subscribe();
+                            .setPositiveButton(new IDialog.OnButtonClickListener<AlertDialogFragment>() {
+                                @Override
+                                public void onClick(AlertDialogFragment fragment, int which) {
+                                    EventBus.showLoading("清除中...");
+                                    new HttpObserver<String>(
+                                            emitter -> {
+                                                CacheUtils.clearAllCache(context);
+                                                emitter.onNext(CacheUtils.getTotalCacheSizeStr(context));
+                                                emitter.onComplete();
+                                            })
+                                            .onSuccess(new IHttp.OnSuccessListener<String>() {
+                                                @Override
+                                                public void onSuccess(String data) throws Exception {
+                                                    EventBus.hideLoading(1000, () -> {
+                                                        ZToast.success("清理成功");
+                                                        item.setRightText(data);
+                                                    });
+                                                }
+                                            })
+                                            .subscribe();
+                                }
                             })
                             .show(context);
                 } else {

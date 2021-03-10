@@ -9,10 +9,10 @@ import android.widget.TextView;
 import com.warkiz.widget.IndicatorSeekBar;
 import com.warkiz.widget.OnSeekChangeListener;
 import com.warkiz.widget.SeekParams;
-import com.zpj.fragmentation.dialog.base.CenterDialogFragment;
+import com.zpj.fragmentation.dialog.base.CardDialogFragment;
 import com.zpj.shouji.market.R;
 
-public class SeekBarDialogFragment extends CenterDialogFragment {
+public class SeekBarDialogFragment extends CardDialogFragment {
 
     private String title;
     private int max;

@@ -82,8 +82,8 @@ public class BaseApplication extends MultiDexApplication {
                 .ignoreContentType(true)
                 .userAgent(HttpApi.USER_AGENT)
                 .baseUrl("http://tt.shouji.com.cn")
-                .connectTimeout(10000)
-                .readTimeout(10000)
+                .connectTimeout(15000)
+                .readTimeout(15000)
                 .init();
 
         ZDownloader.config(this, AppDownloadMission.class)

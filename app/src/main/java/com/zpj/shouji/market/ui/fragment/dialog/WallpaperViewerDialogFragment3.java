@@ -16,8 +16,7 @@ import com.bumptech.glide.request.RequestOptions;
 import com.zpj.fragmentation.SupportHelper;
 import com.zpj.fragmentation.dialog.base.ArrowDialogFragment;
 import com.zpj.fragmentation.dialog.impl.ArrowMenuDialogFragment;
-import com.zpj.fragmentation.dialog.impl.AttachListDialogFragment;
-import com.zpj.fragmentation.dialog.impl.ImageViewerDialogFragment3;
+import com.zpj.fragmentation.dialog.impl.ImageViewerDialogFragment;
 import com.zpj.fragmentation.dialog.model.OptionMenu;
 import com.zpj.http.core.IHttp;
 import com.zpj.http.parser.html.nodes.Document;
@@ -36,7 +35,7 @@ import com.zpj.widget.toolbar.ZToolBar;
 
 import java.util.List;
 
-public class WallpaperViewerDialogFragment3 extends ImageViewerDialogFragment3<String>
+public class WallpaperViewerDialogFragment3 extends ImageViewerDialogFragment<String>
         implements View.OnClickListener {
 
     private List<String> originalImageList;
@@ -51,10 +50,6 @@ public class WallpaperViewerDialogFragment3 extends ImageViewerDialogFragment3<S
     private TextView tvOrigin;
 
     private WallpaperInfo wallpaperInfo;
-
-    public WallpaperViewerDialogFragment3() {
-        super();
-    }
 
     @Override
     protected int getCustomLayoutId() {
@@ -116,7 +111,7 @@ public class WallpaperViewerDialogFragment3 extends ImageViewerDialogFragment3<S
 //                    .setAttachView(titleBar.getRightImageButton())
 //                    .show(context);
             new ArrowMenuDialogFragment()
-                    .addOptionMenus("分享图片", "保存图片", "设为壁纸")
+                    .setOptionMenus("分享图片", "保存图片", "设为壁纸")
                     .addOptionMenuIf(isOriginalImageAvailable(), "查看原图")
                     .setOnItemClickListener(new ArrowDialogFragment.OnItemClickListener() {
                         @Override
@@ -288,7 +283,7 @@ public class WallpaperViewerDialogFragment3 extends ImageViewerDialogFragment3<S
     public void doShowAnimation() {
         super.doShowAnimation();
         ValueAnimator animator = ValueAnimator.ofFloat(1, 0);
-        animator.setDuration(DEFAULT_ANIM_DURATION);
+        animator.setDuration(getShowAnimDuration());
         animator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
             @Override
             public void onAnimationUpdate(ValueAnimator animation) {
@@ -306,7 +301,7 @@ public class WallpaperViewerDialogFragment3 extends ImageViewerDialogFragment3<S
     public void doDismissAnimation() {
         super.doDismissAnimation();
         ValueAnimator animator = ValueAnimator.ofFloat(0, 1);
-        animator.setDuration(DEFAULT_ANIM_DURATION);
+        animator.setDuration(getDismissAnimDuration());
         animator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
             @Override
             public void onAnimationUpdate(ValueAnimator animation) {

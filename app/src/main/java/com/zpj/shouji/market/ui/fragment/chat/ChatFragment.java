@@ -15,8 +15,9 @@ import android.view.ViewGroup;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.houtrry.bubble.BubbleLinearLayout;
+import com.zpj.fragmentation.dialog.IDialog;
 import com.zpj.fragmentation.dialog.impl.AlertDialogFragment;
-import com.zpj.fragmentation.dialog.impl.ImageViewerDialogFragment3;
+import com.zpj.fragmentation.dialog.impl.ImageViewerDialogFragment;
 import com.zpj.http.core.IHttp;
 import com.zpj.http.parser.html.nodes.Document;
 import com.zpj.http.parser.html.nodes.Element;
@@ -272,25 +273,27 @@ public class ChatFragment extends NextUrlFragment<PrivateLetterInfo>
                             new AlertDialogFragment()
                                     .setTitle("添加黑名单")
                                     .setContent("确定将该用户加入黑名单？")
-                                    .setPositiveButton(popup -> HttpApi.addBlacklistApi(data.getSendId()))
+                                    .setPositiveButton((fragment, which) -> HttpApi.addBlacklistApi(data.getSendId()))
                                     .show(context);
                             break;
                         case R.id.cancel_follow:
                             new AlertDialogFragment()
                                     .setTitle("取消关注")
                                     .setContent("确定取消关注该用户？")
-                                    .setPositiveButton(popup -> HttpApi.deleteFriendApi(data.getSendId())
-                                            .onSuccess(element -> {
-                                                Log.d("deleteFriendApi", "element=" + element);
-                                                String result = element.selectFirst("result").text();
-                                                if ("success".equals(result)) {
-                                                    ZToast.success("取消关注成功");
-                                                } else {
-                                                    ZToast.error(element.selectFirst("info").text());
-                                                }
-                                            })
-                                            .onError(throwable -> ZToast.error(throwable.getMessage()))
-                                            .subscribe())
+                                    .setPositiveButton((fragment, which) ->
+                                            HttpApi.deleteFriendApi(data.getSendId())
+                                                    .onSuccess(element -> {
+                                                        Log.d("deleteFriendApi", "element=" + element);
+                                                        String result = element.selectFirst("result").text();
+                                                        if ("success".equals(result)) {
+                                                            ZToast.success("取消关注成功");
+                                                        } else {
+                                                            ZToast.error(element.selectFirst("info").text());
+                                                        }
+                                                    })
+                                                    .onError(throwable -> ZToast.error(throwable.getMessage()))
+                                                    .subscribe()
+                                    )
                                     .show(context);
                             break;
                         case R.id.copy:
@@ -302,19 +305,24 @@ public class ChatFragment extends NextUrlFragment<PrivateLetterInfo>
                             new AlertDialogFragment()
                                     .setTitle("删除信息")
                                     .setContent("确定删除该信息？")
-                                    .setPositiveButton(popup -> HttpApi.deletePrivateLetterApi(data.getId())
-                                            .onSuccess(element -> {
-                                                Log.d("deleteFriendApi", "element=" + element);
-                                                String result = element.selectFirst("result").text();
-                                                if ("success".equals(result)) {
-                                                    ZToast.success("删除成功");
-                                                    onRefresh();
-                                                } else {
-                                                    ZToast.error(element.selectFirst("info").text());
-                                                }
-                                            })
-                                            .onError(throwable -> ZToast.error(throwable.getMessage()))
-                                            .subscribe())
+                                    .setPositiveButton(new IDialog.OnButtonClickListener<AlertDialogFragment>() {
+                                        @Override
+                                        public void onClick(AlertDialogFragment fragment, int which) {
+                                            HttpApi.deletePrivateLetterApi(data.getId())
+                                                    .onSuccess(element -> {
+                                                        Log.d("deleteFriendApi", "element=" + element);
+                                                        String result = element.selectFirst("result").text();
+                                                        if ("success".equals(result)) {
+                                                            ZToast.success("删除成功");
+                                                            onRefresh();
+                                                        } else {
+                                                            ZToast.error(element.selectFirst("info").text());
+                                                        }
+                                                    })
+                                                    .onError(throwable -> ZToast.error(throwable.getMessage()))
+                                                    .subscribe();
+                                        }
+                                    })
                                     .show(context);
                             break;
                         case R.id.share:
@@ -341,9 +349,9 @@ public class ChatFragment extends NextUrlFragment<PrivateLetterInfo>
                         .setImageSizeList(info.getSizes())
                         .setImageUrls(AppConfig.isShowOriginalImage() && NetUtils.isWiFi(context) ? info.getPics() : info.getSpics())
                         .setSrcView(nineGridView.getImageView(position), position)
-                        .setSrcViewUpdateListener(new ImageViewerDialogFragment3.OnSrcViewUpdateListener<String>() {
+                        .setSrcViewUpdateListener(new ImageViewerDialogFragment.OnSrcViewUpdateListener<String>() {
                             @Override
-                            public void onSrcViewUpdate(@NonNull ImageViewerDialogFragment3<String> popup, int position) {
+                            public void onSrcViewUpdate(@NonNull ImageViewerDialogFragment<String> popup, int position) {
                                 popup.updateSrcView(nineGridView.getImageView(position));
                             }
                         })

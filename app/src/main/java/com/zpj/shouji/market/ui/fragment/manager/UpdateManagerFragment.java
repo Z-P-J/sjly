@@ -20,9 +20,10 @@ import com.bumptech.glide.Glide;
 import com.github.zagum.expandicon.ExpandIconView;
 import com.zpj.downloader.BaseMission;
 import com.zpj.downloader.ZDownloader;
+import com.zpj.fragmentation.dialog.IDialog;
 import com.zpj.fragmentation.dialog.impl.AlertDialogFragment;
 import com.zpj.fragmentation.dialog.impl.ArrowMenuDialogFragment;
-import com.zpj.fragmentation.dialog.impl.CenterSelectDialogFragment;
+import com.zpj.fragmentation.dialog.impl.SelectDialogFragment;
 import com.zpj.fragmentation.dialog.model.OptionMenu;
 import com.zpj.recyclerview.EasyAdapter;
 import com.zpj.recyclerview.EasyRecyclerLayout;
@@ -113,7 +114,7 @@ public class UpdateManagerFragment extends RecyclerLayoutFragment<AppUpdateInfo>
                 new AlertDialogFragment()
                         .setTitle(R.string.text_update_all)
                         .setContent("确认全部更新所有应用？")
-                        .setPositiveButton(fragment -> updateAll())
+                        .setPositiveButton((fragment, which) -> updateAll())
                         .show(context);
             }
         });
@@ -121,24 +122,16 @@ public class UpdateManagerFragment extends RecyclerLayoutFragment<AppUpdateInfo>
         tvIgnoreUpdate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                new CenterSelectDialogFragment<IgnoredUpdateInfo>()
-                        .setPositiveText("移除")
-                        .setTitle("忽略更新(" + ignoredUpdateInfoList.size() + ")")
-                        .setData(ignoredUpdateInfoList)
-                        .setIconCallback((icon, item, position) -> {
+                new SelectDialogFragment<IgnoredUpdateInfo>()
+                        .onBindIcon((icon, item, position) -> {
                             InstalledAppInfo appInfo = new InstalledAppInfo();
                             appInfo.setTempInstalled(true);
                             appInfo.setPackageName(item.getPackageName());
                             GlideApp.with(context).load(appInfo).into(icon);
                         })
-                        .setTitleCallback((titleView, item, position) -> titleView.setText(item.getAppName()))
-                        .setSubtitleCallback(new CenterSelectDialogFragment.SubtitleCallback<IgnoredUpdateInfo>() {
-                            @Override
-                            public void onGetSubtitle(TextView subtitleView, IgnoredUpdateInfo item, int position) {
-                                subtitleView.setText(item.getPackageName());
-                            }
-                        })
-                        .setOnMultiSelectListener((selected, list) -> {
+                        .onBindTitle((titleView, item, position) -> titleView.setText(item.getAppName()))
+                        .onBindSubtitle((view1, item, position) -> view1.setText(item.getPackageName()))
+                        .onMultiSelect((fragment, selected, list) -> {
                             for (int i : selected) {
                                 IgnoredUpdateInfo info = list.get(i);
                                 if (info.getUpdateInfo() != null) {
@@ -150,6 +143,9 @@ public class UpdateManagerFragment extends RecyclerLayoutFragment<AppUpdateInfo>
                             recyclerLayout.notifyDataSetChanged();
                             updateTopBar();
                         })
+                        .setPositiveText("移除")
+                        .setTitle("忽略更新(" + ignoredUpdateInfoList.size() + ")")
+                        .setData(ignoredUpdateInfoList)
                         .show(context);
             }
         });

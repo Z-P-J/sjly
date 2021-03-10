@@ -7,9 +7,9 @@ import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
-import com.zpj.fragmentation.dialog.imagetrans.ImageLoad;
-import com.zpj.fragmentation.dialog.imagetrans.MyImageLoad2;
-import com.zpj.fragmentation.dialog.impl.ImageViewerDialogFragment3;
+import com.zpj.fragmentation.dialog.impl.ImageViewerDialogFragment;
+import com.zpj.fragmentation.dialog.utils.ImageLoad;
+import com.zpj.fragmentation.dialog.utils.MyImageLoad;
 import com.zpj.fragmentation.dialog.widget.ImageViewContainer;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.imagepicker.entity.Item;
@@ -20,7 +20,7 @@ import com.zpj.widget.toolbar.ZToolBar;
 import java.util.ArrayList;
 import java.util.List;
 
-public class LocalImageViewer extends ImageViewerDialogFragment3<Item> {
+public class LocalImageViewer extends ImageViewerDialogFragment<Item> {
 
     protected SelectionManager mSelectedCollection;
     private ZToolBar titleBar;
@@ -35,7 +35,7 @@ public class LocalImageViewer extends ImageViewerDialogFragment3<Item> {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        loader = new MyImageLoad2<Item>() {
+        loader = new MyImageLoad<Item>() {
             @Override
             public void loadImage(Item url, ImageLoad.LoadCallback callback, ImageViewContainer imageView, String unique) {
                 addLoadCallback(unique, callback);

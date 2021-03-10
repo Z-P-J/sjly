@@ -11,6 +11,8 @@ import com.bumptech.glide.Glide;
 import com.zpj.downloader.BaseMission;
 import com.zpj.downloader.DownloadMission;
 import com.zpj.downloader.constant.Error;
+import com.zpj.fragmentation.dialog.IDialog;
+import com.zpj.fragmentation.dialog.impl.AlertDialogFragment;
 import com.zpj.fragmentation.dialog.impl.AttachListDialogFragment;
 import com.zpj.fragmentation.dialog.impl.CheckDialogFragment;
 import com.zpj.recyclerview.EasyViewHolder;
@@ -177,7 +179,7 @@ public class DownloadMultiData extends ExpandableMultiData<AppDownloadMission> {
                                                 .setCheckTitle("删除已下载的文件")
                                                 .setTitle("确定删除？")
                                                 .setContent("你将删除下载任务：" + mission.getTaskName())
-                                                .setPositiveButton(dialog -> {
+                                                .setPositiveButton((fragment1, which) -> {
                                                     mission.delete();
                                                     int pos = list.indexOf(mission) + 1;
                                                     list.remove(mission);

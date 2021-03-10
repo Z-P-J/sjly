@@ -15,7 +15,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.zpj.fragmentation.dialog.base.BottomDialogFragment;
+import com.zpj.fragmentation.dialog.base.BottomDragDialogFragment;
 import com.zpj.recyclerview.EasyRecyclerView;
 import com.zpj.recyclerview.EasyViewHolder;
 import com.zpj.recyclerview.IEasy;
@@ -25,7 +25,7 @@ import com.zxy.skin.sdk.SkinEngine;
 import java.util.ArrayList;
 import java.util.List;
 
-public class BottomListMenuDialogFragment extends BottomDialogFragment
+public class BottomListMenuDialogFragment extends BottomDragDialogFragment
          implements IEasy.OnBindViewHolderListener<MenuItem> {
 
     private OnItemClickListener onItemClickListener;

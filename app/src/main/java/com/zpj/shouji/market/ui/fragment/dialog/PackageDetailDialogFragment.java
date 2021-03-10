@@ -37,7 +37,7 @@ public class PackageDetailDialogFragment extends FullScreenDialogFragment {
     }
 
     @Override
-    protected int getContentLayoutId() {
+    protected int getImplLayoutId() {
         return R.layout.fragment_package_detail;
     }
 
@@ -60,7 +60,7 @@ public class PackageDetailDialogFragment extends FullScreenDialogFragment {
                     });
         }
 
-        getContentView().setAlpha(0f);
+        getImplView().setAlpha(0f);
 
         findViewById(R.id.iv_back).setOnClickListener(view1 -> dismiss());
         findViewById(R.id.iv_info).setOnClickListener(view12 -> {
@@ -100,12 +100,12 @@ public class PackageDetailDialogFragment extends FullScreenDialogFragment {
 
     @Override
     public void doShowAnimation() {
-        getContentView().animate().alpha(1f).setDuration(360).start();
+        getImplView().animate().alpha(1f).setDuration(360).start();
     }
 
     @Override
     public void doDismissAnimation() {
-        getContentView().animate().alpha(0f).setDuration(360).start();
+        getImplView().animate().alpha(0f).setDuration(360).start();
     }
 
 

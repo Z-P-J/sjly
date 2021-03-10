@@ -48,3 +48,4 @@ build/
 
 .class
 .log
+*.log

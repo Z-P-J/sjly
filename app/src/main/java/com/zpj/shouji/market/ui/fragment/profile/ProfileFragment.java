@@ -17,6 +17,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
+import com.zpj.fragmentation.dialog.IDialog;
 import com.zpj.fragmentation.dialog.impl.AlertDialogFragment;
 import com.zpj.fragmentation.dialog.impl.AttachListDialogFragment;
 import com.zpj.http.core.HttpObserver;
@@ -324,7 +325,7 @@ public class ProfileFragment extends StateSwipeBackFragment
                 new AlertDialogFragment()
                         .setTitle("取消关注")
                         .setContent("确定取消关注该用户？")
-                        .setPositiveButton(popup -> HttpApi.deleteFriendApi(userId)
+                        .setPositiveButton((fragment, which) -> HttpApi.deleteFriendApi(userId)
                                 .bindToLife(ProfileFragment.this)
                                 .onSuccess(data -> {
                                     Log.d("deleteFriendApi", "data=" + data);

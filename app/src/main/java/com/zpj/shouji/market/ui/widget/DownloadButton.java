@@ -31,8 +31,11 @@ import java.util.List;
 import java.util.Locale;
 
 import io.reactivex.Observable;
+import io.reactivex.ObservableEmitter;
 import io.reactivex.ObservableOnSubscribe;
 import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.annotations.NonNull;
+import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
 
 public class DownloadButton extends AppCompatTextView
@@ -133,7 +136,36 @@ public class DownloadButton extends AppCompatTextView
 
         setOnClickListener(this);
 
+
         ZDownloader.getAllMissions(AppDownloadMission.class, missions -> {
+
+//            Observable.create(
+//                    (ObservableOnSubscribe<AppDownloadMission>) emitter -> {
+//                        for (AppDownloadMission mission : missions) {
+//                            if (TextUtils.equals(appId, mission.getAppId()) && TextUtils.equals(packageName, mission.getPackageName())) {
+//                                DownloadButton.this.mission = mission;
+//                                post(new Runnable() {
+//                                    @Override
+//                                    public void run() {
+//                                        onBindMission(mission);
+//                                    }
+//                                });
+//                                break;
+//                            }
+//                        }
+//                        if (mission == null) {
+//                            post(new Runnable() {
+//                                @Override
+//                                public void run() {
+//                                    onDelete();
+//                                }
+//                            });
+//                        } else {
+//                            DownloadButton.this.mission.addListener(DownloadButton.this);
+//                        }
+//                    })
+//                    .subscribe();
+
             for (AppDownloadMission mission : missions) {
                 if (TextUtils.equals(appId, mission.getAppId()) && TextUtils.equals(packageName, mission.getPackageName())) {
                     DownloadButton.this.mission = mission;
@@ -158,42 +190,6 @@ public class DownloadButton extends AppCompatTextView
             }
         });
 //        init(appId, packageName);
-
-//        for (AppDownloadMission mission : ZDownloader.getAllMissions(AppDownloadMission.class)) {
-//            if (TextUtils.equals(appId, mission.getAppId()) && TextUtils.equals(packageName, mission.getPackageName())) {
-//                this.mission = mission;
-//                if (mission.isIniting()) {
-//                    setText("初始中");
-//                } else if (mission.isRunning()) {
-////                    setText(mission.getProgressStr());
-//                    if (mission.getProgress() < 10) {
-//                        setText(mission.getProgressStr());
-//                    } else {
-//                        setText(String.format(Locale.US, "%.1f%%", mission.getProgress()));
-//                    }
-//                } else if (mission.isFinished()) {
-//                    if (mission.getFile().exists()) {
-//                        setText("安装");
-//                    } else {
-//                        this.mission.delete();
-//                        onDelete();
-//                    }
-//                } else if (mission.isWaiting()) {
-//                    setText("等待中");
-//                } else {
-//                    setText("继续");
-//                }
-//                break;
-//            }
-//        }
-//        if (mission == null) {
-////            setText("下载");
-//            onDelete();
-//        } else {
-//            this.mission.addListener(this);
-//        }
-
-
     }
 
     protected void onBindMission(AppDownloadMission mission) {
@@ -362,7 +358,7 @@ public class DownloadButton extends AppCompatTextView
         if (mission != null) {
             if (mission.canPause()) {
                 mission.pause();
-            } else if (mission.canStart()){
+            } else if (mission.canStart()) {
                 mission.start();
             } else if (mission.isFinished()) {
                 if (mission.getFile().exists()) {

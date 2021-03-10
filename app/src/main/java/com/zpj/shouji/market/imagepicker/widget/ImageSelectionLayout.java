@@ -33,7 +33,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 
-import com.zpj.fragmentation.dialog.impl.ImageViewerDialogFragment3;
+import com.zpj.fragmentation.dialog.impl.ImageViewerDialogFragment;
 import com.zpj.recyclerview.EasyRecyclerLayout;
 import com.zpj.recyclerview.EasyViewHolder;
 import com.zpj.recyclerview.IEasy;
@@ -174,11 +174,11 @@ public class ImageSelectionLayout extends EasyRecyclerLayout<Item> implements
                 .setSingleSelectionModeEnabled(mSpec.singleSelectionModeEnabled())
                 .setImageUrls(itemList)
                 .setSrcView(thumbnail, holder.getAdapterPosition())
-                .setSrcViewUpdateListener(new ImageViewerDialogFragment3.OnSrcViewUpdateListener<Item>() {
+                .setSrcViewUpdateListener(new ImageViewerDialogFragment.OnSrcViewUpdateListener<Item>() {
                     private boolean isFirst = true;
 
                     @Override
-                    public void onSrcViewUpdate(@NonNull ImageViewerDialogFragment3<Item> popup, int pos) {
+                    public void onSrcViewUpdate(@NonNull ImageViewerDialogFragment<Item> popup, int pos) {
                         RecyclerView recyclerView = getEasyRecyclerView().getRecyclerView();
                         if (!isFirst) {
                             recyclerView.scrollToPosition(pos);

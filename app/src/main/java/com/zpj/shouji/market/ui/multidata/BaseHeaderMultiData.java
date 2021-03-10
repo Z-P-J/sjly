@@ -15,6 +15,12 @@ public abstract class BaseHeaderMultiData<T> extends HeaderMultiData<T>
     protected final String title;
 
     public BaseHeaderMultiData(String title) {
+        super();
+        this.title = title;
+    }
+
+    public BaseHeaderMultiData(String title, List<T> list) {
+        super(list);
         this.title = title;
     }
 

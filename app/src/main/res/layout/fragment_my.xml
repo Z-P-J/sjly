@@ -473,10 +473,12 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:orientation="vertical"
-                                app:divider="@drawable/divider_horizontal_bg"
-                                app:dividerPadding="16dp"
-                                app:showDividers="middle"
+
                                 >
+
+<!--                                app:divider="@drawable/divider_horizontal_bg"-->
+<!--                                app:dividerPadding="16dp"-->
+<!--                                app:showDividers="middle"-->
 
                                 <com.zpj.widget.setting.SimpleSettingItem
                                     style="@style/simple_setting_item_style"

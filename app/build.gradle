@@ -113,6 +113,7 @@ dependencies {
 
     // 下拉刷新
 //    implementation 'com.scwang.smartrefresh:SmartRefreshLayout:1.0.4-4'
+    implementation 'com.liaoinstan.springview:library:1.5.1'
 
     // Badge
 //    implementation 'q.rorbin:badgeview:1.1.3'
@@ -154,6 +155,8 @@ dependencies {
     implementation 'com.github.promeg:tinypinyin:2.0.3'
     implementation 'com.nex3z:flow-layout:1.2.4'
 
+    implementation 'com.zpj.widget:Fragmentation:1.1.1'
+    implementation 'com.zpj.widget:Fragmentation-Dialog:1.1.5'
     implementation 'com.zpj.widget:SmoothCheckBox:1.0.0'
     implementation 'com.zpj.widget:ZSwitcher:1.0.5'
     implementation 'com.zpj.widget:ZSettingItem:1.0.6'
@@ -161,14 +164,13 @@ dependencies {
     implementation 'com.zpj.widget:StateManager:1.0.0'
     implementation 'com.zpj.utils:ZUtils:1.0.4'
     implementation 'com.zpj.toast:ZToast:1.0.1'
-    implementation 'com.zpj.http:ZHttp:1.0.4'
+    implementation 'com.zpj.http:ZHttp:1.0.5'
 
     implementation project(":zdownloader")
 //    implementation project(':zmarkdown')
 //    implementation project(':richeditor')
 //    implementation project(':richeditor2')
-//    implementation project(':expandabletextview')
-    implementation project(':fragmentation')
-    implementation project(":fragmentation-dialog")
+//    implementation project(':fragmentation')
+//    implementation project(":fragmentation-dialog")
 
 }

@@ -10,6 +10,7 @@ import android.util.Log;
 import com.zpj.downloader.BaseMission;
 import com.zpj.downloader.DownloadMission;
 import com.zpj.downloader.constant.Error;
+import com.zpj.fragmentation.dialog.IDialog;
 import com.zpj.fragmentation.dialog.impl.AlertDialogFragment;
 import com.zpj.http.core.IHttp;
 import com.zpj.notification.ZNotify;
@@ -247,12 +248,10 @@ public class AppDownloadMission extends BaseMission<AppDownloadMission> {
                                 new AlertDialogFragment()
                                         .setTitle(R.string.text_title_has_different_signature)
                                         .setContent(activity.getString(R.string.text_content_has_different_signature, getAppName(), versionName))
-                                        .setPositiveButton("卸载", fragment -> {
-                                            AppUtils.uninstallApk(activity, getPackageName());
-                                        })
-                                        .setNeutralButton("强制安装", fragment -> installApk(activity))
+                                        .setPositiveButton("卸载", (fragment, which) -> AppUtils.uninstallApk(activity, getPackageName()))
+                                        .setNeutralButton("强制安装", (fragment, which) -> installApk(activity))
                                         .setNeutralButtonColor(activity.getResources().getColor(R.color.colorPrimary))
-                                        .setPositionButtonnColor(activity.getResources().getColor(R.color.light_red_1))
+                                        .setPositionButtonColor(activity.getResources().getColor(R.color.light_red_1))
                                         .show(activity);
                             }
                         })

@@ -23,8 +23,6 @@ import com.bumptech.glide.request.transition.Transition;
 import com.lxj.xpermission.PermissionConstants;
 import com.lxj.xpermission.XPermission;
 import com.nanchen.compresshelper.CompressHelper;
-import com.zpj.fragmentation.dialog.enums.ImageType;
-import com.zpj.fragmentation.dialog.utils.ImageHeaderParser;
 import com.zpj.http.core.HttpObserver;
 import com.zpj.http.core.IHttp;
 import com.zpj.shouji.market.R;
@@ -197,22 +195,6 @@ public class PictureUtil {
         return degree;
     }
 
-    private static String getFileExt(ImageType type) {
-        switch (type) {
-            case GIF:
-                return "gif";
-            case PNG:
-            case PNG_A:
-                return "png";
-            case WEBP:
-            case WEBP_A:
-                return "webp";
-            case JPEG:
-                return "jpeg";
-        }
-        return "jpeg";
-    }
-
     private static boolean writeFileFromIS(final File file, final InputStream is) {
         OutputStream os = null;
         try {
@@ -263,8 +245,7 @@ public class PictureUtil {
                                         dirFile.mkdirs();
                                     }
 
-                                    ImageType type = ImageHeaderParser.getImageType(new FileInputStream(source));
-                                    String ext = getFileExt(type);
+                                    String ext = ImageHeaderParser.getImageExtension(new FileInputStream(source));
                                     final File target = new File(dirPath, System.currentTimeMillis() + "." + ext);
                                     if (target.exists()) target.delete();
                                     target.createNewFile();
@@ -669,8 +650,7 @@ public class PictureUtil {
                         dirFile.mkdirs();
                     }
 
-                    ImageType type = ImageHeaderParser.getImageType(inputStream);
-                    String ext = getFileExt(type);
+                    String ext = ImageHeaderParser.getImageExtension(inputStream);
                     String name = fileName + "." + ext;
                     final File target = new File(dirPath, name);
                     if (target.exists()) target.delete();

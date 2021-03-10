@@ -51,7 +51,7 @@ public class MainActionDialogFragment extends FullScreenDialogFragment
     }
 
     @Override
-    protected int getContentLayoutId() {
+    protected int getImplLayoutId() {
         return R.layout.dialog_fragment_actions;
     }
 
@@ -70,7 +70,7 @@ public class MainActionDialogFragment extends FullScreenDialogFragment
                     .blur(ivBg::setImageBitmap);
         }
 
-        getContentView().setAlpha(0f);
+        getImplView().setAlpha(0f);
 
         floatingActionButton = findViewById(R.id.fab);
         floatingActionButton.setOnClickListener(this);
@@ -95,13 +95,13 @@ public class MainActionDialogFragment extends FullScreenDialogFragment
             if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
                 int x = floatingActionButton.getLeft() + floatingActionButton.getWidth() / 2;
                 int y = floatingActionButton.getTop() + floatingActionButton.getHeight() / 2;
-                Animator animator = ViewAnimationUtils.createCircularReveal(getContentView(), x,
-                        y, 0, getContentView().getHeight());
+                Animator animator = ViewAnimationUtils.createCircularReveal(getImplView(), x,
+                        y, 0, getImplView().getHeight());
                 animator.addListener(new AnimatorListenerAdapter() {
                     @Override
                     public void onAnimationStart(Animator animation) {
 //                            setVisibility(View.VISIBLE);
-                        getContentView().setAlpha(1f);
+                        getImplView().setAlpha(1f);
                     }
 
                     @Override
@@ -113,7 +113,7 @@ public class MainActionDialogFragment extends FullScreenDialogFragment
 //                animator.start();
                 animatorList.add(animator);
             } else {
-                getContentView().animate().alpha(1f).setDuration(360).start();
+                getImplView().animate().alpha(1f).setDuration(360).start();
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -186,8 +186,8 @@ public class MainActionDialogFragment extends FullScreenDialogFragment
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
             int x = floatingActionButton.getLeft() + floatingActionButton.getWidth() / 2;
             int y = floatingActionButton.getTop() + floatingActionButton.getHeight() / 2;
-            Animator animator = ViewAnimationUtils.createCircularReveal(getContentView(), x,
-                    y, getContentView().getHeight(), 0);
+            Animator animator = ViewAnimationUtils.createCircularReveal(getImplView(), x,
+                    y, getImplView().getHeight(), 0);
             animator.addListener(new AnimatorListenerAdapter() {
                 @Override
                 public void onAnimationStart(Animator animation) {
@@ -196,7 +196,7 @@ public class MainActionDialogFragment extends FullScreenDialogFragment
 
                 @Override
                 public void onAnimationEnd(Animator animation) {
-                    getContentView().setVisibility(View.GONE);
+                    getImplView().setVisibility(View.GONE);
                 }
             });
             animator.setDuration(360);

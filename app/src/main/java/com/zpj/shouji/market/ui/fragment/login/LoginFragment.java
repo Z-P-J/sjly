@@ -115,16 +115,12 @@ public class LoginFragment extends BaseSwipeBackFragment {
                             .setTitle("jsessionid登录")
                             .setContent("\t\t\t\t本应用由于一些限制，不支持第三方登录，所以这里提供了一种通过jsessionid登录的方法。")
                             .setAutoDismiss(false)
-                            .setPositiveButton(new AlertDialogFragment.OnButtonClickListener() {
-                                @Override
-                                public void onClick(AlertDialogFragment fragment) {
-                                    fragment.dismiss();
-                                    EventBus.showLoading("登录中...");
-                                    UserManager.getInstance().signIn(((InputDialogFragment) fragment).getText());
-
-                                }
+                            .setPositiveButton((fragment, which) -> {
+                                fragment.dismiss();
+                                EventBus.showLoading("登录中...");
+                                UserManager.getInstance().signIn(((InputDialogFragment) fragment).getText());
                             })
-                            .setNegativeButton(BaseDialogFragment::dismiss)
+                            .setNegativeButton((fragment, which) -> fragment.dismiss())
                             .show(context);
                 }
             });

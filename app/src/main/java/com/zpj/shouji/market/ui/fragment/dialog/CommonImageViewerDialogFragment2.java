@@ -1,9 +1,7 @@
 package com.zpj.shouji.market.ui.fragment.dialog;
 
 import android.graphics.Color;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.view.ViewPager;
 import android.text.TextUtils;
@@ -12,17 +10,10 @@ import android.view.View;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.request.target.SimpleTarget;
-import com.bumptech.glide.request.transition.Transition;
 import com.zpj.fragmentation.ISupportFragment;
 import com.zpj.fragmentation.SupportHelper;
-import com.zpj.fragmentation.dialog.base.ArrowDialogFragment;
 import com.zpj.fragmentation.dialog.impl.ArrowMenuDialogFragment;
-import com.zpj.fragmentation.dialog.impl.AttachListDialogFragment;
-import com.zpj.fragmentation.dialog.impl.ImageViewerDialogFragment3;
-import com.zpj.fragmentation.dialog.model.OptionMenu;
-import com.zpj.fragmentation.dialog.photoview.PhotoView;
+import com.zpj.fragmentation.dialog.impl.ImageViewerDialogFragment;
 import com.zpj.fragmentation.dialog.widget.LoadingView;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.utils.PictureUtil;
@@ -30,7 +21,7 @@ import com.zpj.widget.toolbar.ZToolBar;
 
 import java.util.List;
 
-public class CommonImageViewerDialogFragment2 extends ImageViewerDialogFragment3<String> {
+public class CommonImageViewerDialogFragment2 extends ImageViewerDialogFragment<String> {
 
     private List<String> originalImageList;
     private List<String> imageSizeList;
@@ -40,13 +31,6 @@ public class CommonImageViewerDialogFragment2 extends ImageViewerDialogFragment3
     protected TextView tvIndicator;
     private ImageButton btnMore;
     private LoadingView loadingView;
-
-    public CommonImageViewerDialogFragment2() {
-        super();
-        isShowIndicator(false);
-        isShowPlaceholder(false);
-        isShowSaveButton(false);
-    }
 
     @Override
     protected int getCustomLayoutId() {
@@ -82,7 +66,7 @@ public class CommonImageViewerDialogFragment2 extends ImageViewerDialogFragment3
 
         btnMore.setOnClickListener(v -> {
             new ArrowMenuDialogFragment()
-                    .addOptionMenus("分享图片", "保存图片", "设为壁纸")
+                    .setOptionMenus("分享图片", "保存图片", "设为壁纸")
                     .addOptionMenuIf(isOriginalImageAvailable(), "查看原图")
                     .setOnItemClickListener((pos, menu) -> {
                         switch (pos) {
@@ -189,19 +173,22 @@ public class CommonImageViewerDialogFragment2 extends ImageViewerDialogFragment3
     private void showOriginalImage() {
         loadingView.setVisibility(View.VISIBLE);
         urls.set(position, originalImageList.get(position));
-        PhotoView current = pager.findViewWithTag(pager.getCurrentItem());
-        Glide.with(context)
-                .asDrawable()
-                .load(originalImageList.get(position))
-                .into(new SimpleTarget<Drawable>() {
-                    @Override
-                    public void onResourceReady(@NonNull Drawable resource, @Nullable Transition<? super Drawable> transition) {
-                        current.setImageDrawable(resource);
-                        updateTitle();
-                        loadingView.setVisibility(View.GONE);
-                        setInfoText();
-                    }
-                });
+        loadNewUrl(position, originalImageList.get(position));
+        updateTitle();
+        setInfoText();
+//        ImageViewContainer current = pager.findViewWithTag(pager.getCurrentItem());
+//        Glide.with(context)
+//                .asDrawable()
+//                .load(originalImageList.get(position))
+//                .into(new SimpleTarget<Drawable>() {
+//                    @Override
+//                    public void onResourceReady(@NonNull Drawable resource, @Nullable Transition<? super Drawable> transition) {
+//                        current.setImageDrawable(resource);
+//                        updateTitle();
+//                        loadingView.setVisibility(View.GONE);
+//                        setInfoText();
+//                    }
+//                });
     }
 
 }

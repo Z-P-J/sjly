@@ -1,19 +1,10 @@
-package com.zpj.fragmentation.dialog.utils;
-
-import com.zpj.fragmentation.dialog.enums.ImageType;
+package com.zpj.shouji.market.utils;
 
 import java.io.IOException;
 import java.io.InputStream;
 
-import static com.zpj.fragmentation.dialog.enums.ImageType.GIF;
-import static com.zpj.fragmentation.dialog.enums.ImageType.JPEG;
-import static com.zpj.fragmentation.dialog.enums.ImageType.PNG;
-import static com.zpj.fragmentation.dialog.enums.ImageType.PNG_A;
-import static com.zpj.fragmentation.dialog.enums.ImageType.UNKNOWN;
-
 /**
  * Description: copy from Glide.
- * Create by lxj, at 2019/3/4
  */
 public class ImageHeaderParser {
     private static final int GIF_HEADER = 0x474946;
@@ -35,13 +26,59 @@ public class ImageHeaderParser {
     private static final int WEBP_EXTENDED_ALPHA_FLAG = 1 << 4;
     private static final int WEBP_LOSSLESS_ALPHA_FLAG = 1 << 3;
 
-    public static ImageType getImageType(InputStream is) throws IOException{
+    public enum ImageType {
+        GIF(true),
+        JPEG(false),
+        RAW(false),
+        /** PNG type with alpha. */
+        PNG_A(true),
+        /** PNG type without alpha. */
+        PNG(false),
+        /** WebP type with alpha. */
+        WEBP_A(true),
+        /** WebP type without alpha. */
+        WEBP(false),
+        /** Unrecognized type. */
+        UNKNOWN(false);
+
+        private final boolean hasAlpha;
+
+        ImageType(boolean hasAlpha) {
+            this.hasAlpha = hasAlpha;
+        }
+
+        public boolean hasAlpha() {
+            return hasAlpha;
+        }
+    }
+
+    public static String getImageExtension(ImageType type) {
+        switch (type) {
+            case GIF:
+                return "gif";
+            case PNG:
+            case PNG_A:
+                return "png";
+            case WEBP:
+            case WEBP_A:
+                return "webp";
+            case JPEG:
+                return "jpeg";
+        }
+        return "jpeg";
+    }
+
+    public static String getImageExtension(InputStream is) throws IOException {
+        return getImageExtension(getImageType(is));
+    }
+
+    public static ImageType getImageType(InputStream is) throws IOException {
         Reader reader = new StreamReader(is);
         final int firstTwoBytes = reader.getUInt16();
 
         // JPEG.
         if (firstTwoBytes == EXIF_MAGIC_NUMBER) {
-            return JPEG;
+            return ImageType.JPEG;
         }
 
         final int firstFourBytes = (firstTwoBytes << 16 & 0xFFFF0000) | (reader.getUInt16() & 0xFFFF);
@@ -52,30 +89,30 @@ public class ImageHeaderParser {
             reader.skip(25 - 4);
             int alpha = reader.getByte();
             // A RGB indexed PNG can also have transparency. Better safe than sorry!
-            return alpha >= 3 ? PNG_A : PNG;
+            return alpha >= 3 ? ImageType.PNG_A : ImageType.PNG;
         }
 
         // GIF from first 3 bytes.
         if (firstFourBytes >> 8 == GIF_HEADER) {
-            return GIF;
+            return ImageType.GIF;
         }
 
         // WebP (reads up to 21 bytes). See https://developers.google.com/speed/webp/docs/riff_container
         // for details.
         if (firstFourBytes != RIFF_HEADER) {
-            return UNKNOWN;
+            return ImageType.UNKNOWN;
         }
         // Bytes 4 - 7 contain length information. Skip these.
         reader.skip(4);
         final int thirdFourBytes =
                 (reader.getUInt16() << 16 & 0xFFFF0000) | (reader.getUInt16() & 0xFFFF);
         if (thirdFourBytes != WEBP_HEADER) {
-            return UNKNOWN;
+            return ImageType.UNKNOWN;
         }
         final int fourthFourBytes =
                 (reader.getUInt16() << 16 & 0xFFFF0000) | (reader.getUInt16() & 0xFFFF);
         if ((fourthFourBytes & VP8_HEADER_MASK) != VP8_HEADER) {
-            return UNKNOWN;
+            return ImageType.UNKNOWN;
         }
         if ((fourthFourBytes & VP8_HEADER_TYPE_MASK) == VP8_HEADER_TYPE_EXTENDED) {
             // Skip some more length bytes and check for transparency/alpha flag.

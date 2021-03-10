@@ -4,6 +4,7 @@ import android.text.TextUtils;
 import android.view.View;
 
 import com.bumptech.glide.Glide;
+import com.zpj.fragmentation.dialog.IDialog;
 import com.zpj.fragmentation.dialog.impl.AlertDialogFragment;
 import com.zpj.http.parser.html.nodes.Element;
 import com.zpj.recyclerview.EasyViewHolder;
@@ -79,9 +80,7 @@ public class BookingAppListFragment extends NextUrlFragment<BookingAppInfo> {
         new AlertDialogFragment()
                 .setTitle("取消预约？")
                 .setContent("确定取消预约？取消预约后您将不能及时在软件上架时及时收到通知。")
-                .setPositiveButton(popup -> {
-                    BookingApi.cancelBookingApi(appInfo, runnable);
-                })
+                .setPositiveButton((fragment, which) -> BookingApi.cancelBookingApi(appInfo, runnable))
                 .show(context);
     }
 

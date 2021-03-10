@@ -12,19 +12,19 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-import com.zpj.fragmentation.dialog.base.BottomDialogFragment;
+import com.zpj.fragmentation.dialog.base.BottomDragDialogFragment;
 import com.zpj.http.parser.html.nodes.Element;
 import com.zpj.http.parser.html.select.Elements;
-import com.zpj.statemanager.StateManager;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.api.HttpApi;
 import com.zpj.shouji.market.model.DiscoverInfo;
 import com.zpj.shouji.market.ui.widget.DownloadButton;
+import com.zpj.statemanager.StateManager;
 import com.zpj.toast.ZToast;
 import com.zpj.utils.ScreenUtils;
 import com.zxy.skin.sdk.SkinEngine;
 
-public class ThemeAppDownloadDialogFragment extends BottomDialogFragment {
+public class ThemeAppDownloadDialogFragment extends BottomDragDialogFragment {
 
     private final Elements permissionList = new Elements();
 
@@ -82,7 +82,7 @@ public class ThemeAppDownloadDialogFragment extends BottomDialogFragment {
     protected void initView(View view, @Nullable Bundle savedInstanceState) {
         super.initView(view, savedInstanceState);
 
-        getContentView().setMinimumHeight(ScreenUtils.getScreenHeight(context) / 2);
+        contentView.setMinimumHeight(ScreenUtils.getScreenHeight(context) / 2);
 
         if (TextUtils.isEmpty(id) || discoverInfo == null) {
             ZToast.error("应用信息弹窗打开失败！");

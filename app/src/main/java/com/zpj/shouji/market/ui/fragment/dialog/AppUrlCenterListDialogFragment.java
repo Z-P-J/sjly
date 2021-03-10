@@ -9,7 +9,7 @@ import android.view.ViewGroup;
 import com.zpj.fragmentation.dialog.animator.PopupAnimator;
 import com.zpj.fragmentation.dialog.animator.ScaleAlphaAnimator;
 import com.zpj.fragmentation.dialog.enums.PopupAnimation;
-import com.zpj.fragmentation.dialog.impl.CenterListDialogFragment;
+import com.zpj.fragmentation.dialog.impl.ListDialogFragment;
 import com.zpj.recyclerview.MultiData;
 import com.zpj.recyclerview.MultiRecyclerViewWrapper;
 import com.zpj.shouji.market.R;
@@ -19,7 +19,7 @@ import com.zpj.shouji.market.ui.multidata.AppUrlMultiData;
 import java.util.ArrayList;
 import java.util.List;
 
-public class AppUrlCenterListDialogFragment extends CenterListDialogFragment<MultiData<?>> {
+public class AppUrlCenterListDialogFragment extends ListDialogFragment<MultiData<?>> {
 
     private View anchorView;
 

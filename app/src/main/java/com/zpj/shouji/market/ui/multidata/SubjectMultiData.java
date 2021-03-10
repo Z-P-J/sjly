@@ -21,10 +21,16 @@ import com.zpj.shouji.market.ui.fragment.subject.SubjectDetailFragment;
 import com.zpj.shouji.market.ui.fragment.subject.SubjectRecommendListFragment;
 import com.zpj.shouji.market.utils.BeanUtils;
 
+import java.util.List;
+
 public class SubjectMultiData extends RecyclerMultiData<SubjectInfo> {
 
     public SubjectMultiData(String title) {
         super(title);
+    }
+
+    public SubjectMultiData(String title, List<SubjectInfo> list) {
+        super(title, list);
     }
 
     @Override

@@ -57,14 +57,20 @@
         <item name="backgroundPickedGame">@drawable/bg_picked_game_info</item>
         <item name="backgroundProgress">@color/light_gray_2</item>
 
+
+
+
         <!--        fragmentation-dialog-->
+        <item name="_dialog_background_color">@android:color/white</item>
         <item name="_dialog_text_color_major">@color/color_text_major</item>
         <item name="_dialog_text_color_normal">@color/color_text_normal</item>
+<!--        <item name="_dialog_text_color_major">@color/color_text_major</item>-->
+<!--        <item name="_dialog_text_color_normal">@color/color_text_normal</item>-->
         <item name="_dialog_text_color_negative">@color/color_text_normal</item>
         <item name="_dialog_text_color_positive">@color/colorPrimary</item>
-        <item name="_dialog_background_color_attach_list">@android:color/white</item>
-        <item name="_dialog_background_center">@drawable/_dialog_round_bg</item>
-        <item name="_dialog_background_bottom">@drawable/_dialog_top_round_bg</item>
+<!--        <item name="_dialog_background_color_attach_list">@android:color/white</item>-->
+<!--        <item name="_dialog_background_center">@drawable/_dialog_round_bg</item>-->
+<!--        <item name="_dialog_background_bottom">@drawable/_dialog_top_round_bg</item>-->
     </style>
 
     <style name="NightTheme" parent="StartTheme">
@@ -87,13 +93,16 @@
         <item name="backgroundProgress">@color/dark_gray_3</item>
 
         <!--        fragmentation-dialog-->
-        <item name="_dialog_text_color_major">@color/white</item>
-        <item name="_dialog_text_color_normal">#f8f8f8</item>
+        <item name="_dialog_background_color">@color/black</item>
+        <item name="_dialog_text_color_major">#cccccc</item>
+        <item name="_dialog_text_color_normal">#999999</item>
+<!--        <item name="_dialog_text_color_major">@color/white</item>-->
+<!--        <item name="_dialog_text_color_normal">#f8f8f8</item>-->
         <item name="_dialog_text_color_negative">#f8f8f8</item>
         <item name="_dialog_text_color_positive">@color/colorPrimary</item>
-        <item name="_dialog_background_color_attach_list">#000000</item>
-        <item name="_dialog_background_center">@drawable/_dialog_round_dark_bg</item>
-        <item name="_dialog_background_bottom">@drawable/_dialog_top_round_dark_bg</item>
+<!--        <item name="_dialog_background_color_attach_list">#000000</item>-->
+<!--        <item name="_dialog_background_center">@drawable/_dialog_round_dark_bg</item>-->
+<!--        <item name="_dialog_background_bottom">@drawable/_dialog_top_round_dark_bg</item>-->
     </style>
 
     <!--    <style name="Transparent_Theme" parent="AppThemeNoActionbar">-->

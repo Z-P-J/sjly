@@ -8,7 +8,7 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 
-import com.zpj.fragmentation.dialog.base.BottomDialogFragment;
+import com.zpj.fragmentation.dialog.base.BottomDragDialogFragment;
 import com.zpj.http.core.IHttp;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.api.CommentApi;
@@ -20,7 +20,7 @@ import com.zpj.utils.ContextUtils;
 import com.zpj.utils.KeyboardObserver;
 import com.zpj.utils.ScreenUtils;
 
-public class CommentDialogFragment extends BottomDialogFragment
+public class CommentDialogFragment extends BottomDragDialogFragment
         implements ReplyPanel.OnOperationListener,
         IHttp.OnStreamWriteListener {
 
@@ -86,8 +86,8 @@ public class CommentDialogFragment extends BottomDialogFragment
 //        maxHeightLayout.post(() -> maxHeightLayout.setMaxHeight(ScreenUtils.getScreenHeight(context) - ScreenUtils.getStatusBarHeight(context)));
 
 
-        KeyboardObserver.registerSoftInputChangedListener(activity, getContentView(), height -> {
-            getContentView().setTranslationY(0);
+        KeyboardObserver.registerSoftInputChangedListener(activity, contentView, height -> {
+            contentView.setTranslationY(0);
             Log.d("CommentPopup", "height=" + height);
             replyPanel.onKeyboardHeightChanged(height, 0);
 

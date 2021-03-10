@@ -13,6 +13,7 @@ import android.widget.FrameLayout;
 import com.lxj.xpermission.PermissionConstants;
 import com.lxj.xpermission.XPermission;
 import com.zpj.downloader.ZDownloader;
+import com.zpj.fragmentation.dialog.IDialog;
 import com.zpj.fragmentation.dialog.impl.AlertDialogFragment;
 import com.zpj.rxbus.RxBus;
 import com.zpj.shouji.market.R;
@@ -170,8 +171,8 @@ public class MainActivity extends BaseActivity { // implements IUiListener
             new AlertDialogFragment()
                     .setTitle("权限申请")
                     .setContent("本软件需要读写手机存储的权限用于文件的下载与查看，是否申请该权限？")
-                    .setPositiveButton("去申请", popup -> requestPermission())
-                    .setNegativeButton("拒绝", popup -> ActivityCompat.finishAfterTransition(MainActivity.this))
+                    .setPositiveButton("去申请", (fragment, which) -> requestPermission())
+                    .setNegativeButton("拒绝", (fragment, which) -> ActivityCompat.finishAfterTransition(MainActivity.this))
                     .show(this);
         }
     }
@@ -195,7 +196,7 @@ public class MainActivity extends BaseActivity { // implements IUiListener
 
                         mainFragment.animatedToShow();
 
-                        postDelayed(() -> handleIntent(getIntent()), 500);
+                        postDelayed(() -> handleIntent(getIntent()), 250);
 
 
 

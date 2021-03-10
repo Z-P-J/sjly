@@ -40,7 +40,7 @@ import com.yanyusong.y_divideritemdecoration.Y_Divider;
 import com.yanyusong.y_divideritemdecoration.Y_DividerBuilder;
 import com.yanyusong.y_divideritemdecoration.Y_DividerItemDecoration;
 import com.zpj.fragmentation.SupportActivity;
-import com.zpj.fragmentation.dialog.impl.ImageViewerDialogFragment3;
+import com.zpj.fragmentation.dialog.impl.ImageViewerDialogFragment;
 import com.zpj.recyclerview.EasyRecyclerView;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.glide.GlideRequestOptions;
@@ -233,10 +233,10 @@ public class ReplyPanel extends FrameLayout
                                 })
                                 .setImageUrls(imgList)
                                 .setSrcView(img, holder.getAdapterPosition())
-                                .setSrcViewUpdateListener(new ImageViewerDialogFragment3.OnSrcViewUpdateListener<Item>() {
+                                .setSrcViewUpdateListener(new ImageViewerDialogFragment.OnSrcViewUpdateListener<Item>() {
                                     private boolean isFirst = true;
                                     @Override
-                                    public void onSrcViewUpdate(@NonNull ImageViewerDialogFragment3<Item> popup, int pos) {
+                                    public void onSrcViewUpdate(@NonNull ImageViewerDialogFragment<Item> popup, int pos) {
                                         if (!isFirst) {
                                             recyclerView.getRecyclerView().scrollToPosition(pos);
                                         }

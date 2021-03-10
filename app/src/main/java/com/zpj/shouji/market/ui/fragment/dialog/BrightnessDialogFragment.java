@@ -7,12 +7,12 @@ import android.view.View;
 import com.warkiz.widget.IndicatorSeekBar;
 import com.warkiz.widget.OnSeekChangeListener;
 import com.warkiz.widget.SeekParams;
-import com.zpj.fragmentation.dialog.base.CenterDialogFragment;
+import com.zpj.fragmentation.dialog.base.CardDialogFragment;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.ui.widget.CheckLayout;
 import com.zpj.utils.BrightnessUtils;
 
-public class BrightnessDialogFragment extends CenterDialogFragment {
+public class BrightnessDialogFragment extends CardDialogFragment {
 
     @Override
     protected int getContentLayoutId() {

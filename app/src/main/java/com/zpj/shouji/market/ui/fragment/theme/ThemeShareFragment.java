@@ -11,7 +11,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-import com.zpj.fragmentation.dialog.impl.ImageViewerDialogFragment3;
+import com.zpj.fragmentation.dialog.impl.ImageViewerDialogFragment;
 import com.zpj.http.core.IHttp;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.api.PublishApi;
@@ -105,9 +105,9 @@ public class ThemeShareFragment extends BaseSwipeBackFragment {
                         })
                         .setImageUrls(imgList)
                         .setSrcView(nineGridView.getImageView(position), position)
-                        .setSrcViewUpdateListener(new ImageViewerDialogFragment3.OnSrcViewUpdateListener<Item>() {
+                        .setSrcViewUpdateListener(new ImageViewerDialogFragment.OnSrcViewUpdateListener<Item>() {
                             @Override
-                            public void onSrcViewUpdate(@NonNull ImageViewerDialogFragment3<Item> popup, int position) {
+                            public void onSrcViewUpdate(@NonNull ImageViewerDialogFragment<Item> popup, int position) {
                                 popup.updateSrcView(nineGridView.getImageView(position));
                             }
                         })
