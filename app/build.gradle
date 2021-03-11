@@ -165,8 +165,8 @@ dependencies {
     implementation 'com.zpj.utils:ZUtils:1.0.4'
     implementation 'com.zpj.toast:ZToast:1.0.1'
     implementation 'com.zpj.http:ZHttp:1.0.5'
+    implementation 'com.zpj.downloader:ZDownloader:1.0.0'
 
-    implementation project(":zdownloader")
 //    implementation project(':zmarkdown')
 //    implementation project(':richeditor')
 //    implementation project(':richeditor2')

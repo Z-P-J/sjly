@@ -1,7 +1,7 @@
 # compiler: R8
 # compiler_version: 1.5.69
 # min_api: 19
-# pg_map_id: d5b2c8e
+# pg_map_id: d4f3899
 android.arch.core.executor.ArchTaskExecutor -> a.a.a.a.a:
     android.arch.core.executor.ArchTaskExecutor sInstance -> c
     android.arch.core.executor.TaskExecutor mDelegate -> a
@@ -28337,190 +28337,190 @@ com.zpj.downloader.BaseConfig -> com.zpj.downloader.BaseConfig:
     224:226:com.zpj.downloader.BaseConfig setThreadCount(int) -> setThreadCount
     245:246:com.zpj.downloader.BaseConfig setUserAgent(java.lang.String) -> setUserAgent
 com.zpj.downloader.BaseMission -> com.zpj.downloader.BaseMission:
-    57:57:void <clinit>() -> <clinit>
-    357:359:void <init>() -> <init>
-    52:52:boolean access$000(com.zpj.downloader.BaseMission,com.zpj.http.core.IHttp$Response,com.zpj.downloader.BaseMission) -> access$000
-    52:52:java.lang.String access$100() -> access$100
-    52:52:void access$1000(com.zpj.downloader.BaseMission) -> access$1000
-    52:52:java.util.concurrent.ConcurrentLinkedQueue access$1100(com.zpj.downloader.BaseMission) -> access$1100
-    52:52:com.zpj.downloader.BaseMission$ProgressInfo access$1202(com.zpj.downloader.BaseMission,com.zpj.downloader.BaseMission$ProgressInfo) -> access$1202
-    52:52:java.util.concurrent.ConcurrentLinkedQueue access$200(com.zpj.downloader.BaseMission) -> access$200
-    52:52:void access$300(com.zpj.downloader.BaseMission) -> access$300
-    52:52:java.util.concurrent.atomic.AtomicInteger access$400(com.zpj.downloader.BaseMission) -> access$400
-    52:52:java.lang.Runnable access$500(com.zpj.downloader.BaseMission) -> access$500
-    52:52:long access$600(com.zpj.downloader.BaseMission) -> access$600
-    52:52:long access$602(com.zpj.downloader.BaseMission,long) -> access$602
-    52:52:java.util.ArrayList access$700(com.zpj.downloader.BaseMission) -> access$700
-    52:52:java.lang.String access$800(com.zpj.downloader.BaseMission) -> access$800
-    52:52:java.lang.String access$802(com.zpj.downloader.BaseMission,java.lang.String) -> access$802
-    52:52:float access$900(com.zpj.downloader.BaseMission,long,long) -> access$900
-    847:846:com.zpj.downloader.BaseMission addListener(com.zpj.downloader.BaseMission$MissionListener) -> addListener
-    387:387:boolean canPause() -> canPause
-    391:391:boolean canStart() -> canStart
-    1201:1210:boolean checkLength(com.zpj.downloader.BaseMission) -> checkLength
-    660:680:void clear() -> clear
-    635:657:void delete() -> delete
-    920:924:void deleteMissionInfo() -> deleteMissionInfo
-    443:447:void firstCreate() -> firstCreate
-    977:977:int getAliveThreadCount() -> getAliveThreadCount
-    151:158:java.util.concurrent.ConcurrentLinkedQueue getBlockQueue() -> getBlockQueue
-    51:51:int getBlockSize() -> getBlockSize
-    981:981:long getBlocks() -> getBlocks
-    51:51:int getBufferSize() -> getBufferSize
-    51:51:int getConnectOutTime() -> getConnectOutTime
-    51:51:int getConsumerThreadCount() -> getConsumerThreadCount
-    934:934:android.content.Context getContext() -> getContext
-    51:51:java.lang.String getCookie() -> getCookie
-    965:965:long getCreateTime() -> getCreateTime
-    993:993:long getDone() -> getDone
-    51:51:java.lang.String getDownloadPath() -> getDownloadPath
-    1051:1051:java.lang.String getDownloadedSizeStr() -> getDownloadedSizeStr
-    51:51:boolean getEnableNotification() -> getEnableNotification
-    1001:1001:int getErrCode() -> getErrCode
-    1021:1021:java.io.File getFile() -> getFile
-    1013:1017:java.lang.String getFilePath() -> getFilePath
-    1047:1047:java.lang.String getFileSizeStr() -> getFileSizeStr
-    1025:1025:java.lang.String getFileSuffix() -> getFileSuffix
-    985:985:int getFinishCount() -> getFinishCount
-    969:969:long getFinishTime() -> getFinishTime
-    162:169:android.os.Handler getHandler() -> getHandler
-    51:51:java.util.Map getHeaders() -> getHeaders
-    989:989:long getLength() -> getLength
-    1074:1074:java.lang.String getMissionInfoFilePath() -> getMissionInfoFilePath
-    1149:1160:java.lang.String getMissionNameFromResponse(com.zpj.http.core.IHttp$Response) -> getMissionNameFromResponse
-    1164:1197:java.lang.String getMissionNameFromUrl(com.zpj.downloader.BaseMission,java.lang.String) -> getMissionNameFromUrl
-    1063:1066:long getNextPosition() -> getNextPosition
-    51:51:com.zpj.downloader.INotificationInterceptor getNotificationInterceptor() -> getNotificationInterceptor
-    1059:1059:int getNotifyId() -> getNotifyId
-    957:957:java.lang.String getOriginUrl() -> getOriginUrl
-    51:51:int getProducerThreadCount() -> getProducerThreadCount
-    1029:1035:float getProgress(long,long) -> getProgress
-    1039:1039:float getProgress() -> getProgress
-    173:180:com.zpj.downloader.BaseMission$ProgressInfo getProgressInfo() -> getProgressInfo
-    51:51:long getProgressInterval() -> getProgressInterval
-    311:354:java.lang.Runnable getProgressRunnable() -> getProgressRunnable
-    1043:1043:java.lang.String getProgressStr() -> getProgressStr
-    51:51:java.net.Proxy getProxy() -> getProxy
-    51:51:int getReadOutTime() -> getReadOutTime
-    961:961:java.lang.String getRedirectUrl() -> getRedirectUrl
-    51:51:int getRetryCount() -> getRetryCount
-    51:51:int getRetryDelay() -> getRetryDelay
-    1055:1055:java.lang.String getSpeed() -> getSpeed
-    997:997:com.zpj.downloader.BaseMission$MissionStatus getStatus() -> getStatus
-    942:945:java.lang.String getTaskName() -> getTaskName
-    949:949:java.lang.String getTaskNameFromUrl() -> getTaskNameFromUrl
-    973:973:int getThreadCount() -> getThreadCount
-    953:953:java.lang.String getUrl() -> getUrl
-    51:51:java.lang.String getUserAgent() -> getUserAgent
-    938:938:java.lang.String getUuid() -> getUuid
-    1118:1145:boolean handleResponse(com.zpj.http.core.IHttp$Response,com.zpj.downloader.BaseMission) -> handleResponse
-    1009:1009:boolean hasInit() -> hasInit
-    858:857:boolean hasListener(com.zpj.downloader.BaseMission$MissionListener) -> hasListener
-    397:432:void init() -> init
-    927:930:void initCurrentRetryCount() -> initCurrentRetryCount
-    184:308:void initMission() -> initMission
-    51:51:boolean isAllowAllSSL() -> isAllowAllSSL
-    1109:1109:boolean isBlockFinished(long) -> isBlockFinished
-    383:383:boolean isError() -> isError
-    1005:1005:boolean isFallback() -> isFallback
-    379:379:boolean isFinished() -> isFinished
-    363:363:boolean isIniting() -> isIniting
-    375:375:boolean isPause() -> isPause
-    367:367:boolean isRunning() -> isRunning
-    371:371:boolean isWaiting() -> isWaiting
-    702:705:void notifyDownloaded(long) -> notifyDownloaded
-    708:707:void notifyError(com.zpj.downloader.constant.Error,boolean) -> notifyError
-    768:769:void notifyError(com.zpj.downloader.constant.Error) -> notifyError
-    772:820:void notifyStatus(com.zpj.downloader.BaseMission$MissionStatus) -> notifyStatus
-    1113:1115:void onBlockFinished(long) -> onBlockFinished
-    436:436:void onCreate() -> onCreate
-    440:440:void onDestroy() -> onDestroy
-    823:844:void onFinish() -> onFinish
-    1070:1071:void onPositionDownloadFailed(long) -> onPositionDownloadFailed
-    693:693:boolean openFile(android.content.Context) -> openFile
-    697:697:boolean openFile() -> openFile
-    611:625:void pause() -> pause
-    883:882:void removeAllListener() -> removeAllListener
-    870:869:void removeListener(com.zpj.downloader.BaseMission$MissionListener) -> removeListener
-    683:689:boolean renameTo(java.lang.String) -> renameTo
-    580:608:void restart() -> restart
-    910:916:void saveMissionInfo() -> saveMissionInfo
-    1102:1103:void setErrCode(int) -> setErrCode
-    1098:1099:void setLength(long) -> setLength
-    1094:1095:void setOriginUrl(java.lang.String) -> setOriginUrl
-    1090:1091:void setRedirectUrl(java.lang.String) -> setRedirectUrl
-    1082:1083:void setTaskName(java.lang.String) -> setTaskName
-    1086:1087:void setUrl(java.lang.String) -> setUrl
-    450:577:void start() -> start
-    1282:1282:java.lang.String toString() -> toString
-    628:632:void waiting() -> waiting
-    894:907:void writeMissionInfo() -> writeMissionInfo
+    49:49:void <clinit>() -> <clinit>
+    349:351:void <init>() -> <init>
+    44:44:boolean access$000(com.zpj.downloader.BaseMission,com.zpj.http.core.IHttp$Response,com.zpj.downloader.BaseMission) -> access$000
+    44:44:java.lang.String access$100() -> access$100
+    44:44:void access$1000(com.zpj.downloader.BaseMission) -> access$1000
+    44:44:java.util.concurrent.ConcurrentLinkedQueue access$1100(com.zpj.downloader.BaseMission) -> access$1100
+    44:44:com.zpj.downloader.BaseMission$ProgressInfo access$1202(com.zpj.downloader.BaseMission,com.zpj.downloader.BaseMission$ProgressInfo) -> access$1202
+    44:44:java.util.concurrent.ConcurrentLinkedQueue access$200(com.zpj.downloader.BaseMission) -> access$200
+    44:44:void access$300(com.zpj.downloader.BaseMission) -> access$300
+    44:44:java.util.concurrent.atomic.AtomicInteger access$400(com.zpj.downloader.BaseMission) -> access$400
+    44:44:java.lang.Runnable access$500(com.zpj.downloader.BaseMission) -> access$500
+    44:44:long access$600(com.zpj.downloader.BaseMission) -> access$600
+    44:44:long access$602(com.zpj.downloader.BaseMission,long) -> access$602
+    44:44:java.util.ArrayList access$700(com.zpj.downloader.BaseMission) -> access$700
+    44:44:java.lang.String access$800(com.zpj.downloader.BaseMission) -> access$800
+    44:44:java.lang.String access$802(com.zpj.downloader.BaseMission,java.lang.String) -> access$802
+    44:44:float access$900(com.zpj.downloader.BaseMission,long,long) -> access$900
+    839:838:com.zpj.downloader.BaseMission addListener(com.zpj.downloader.BaseMission$MissionListener) -> addListener
+    379:379:boolean canPause() -> canPause
+    383:383:boolean canStart() -> canStart
+    1193:1202:boolean checkLength(com.zpj.downloader.BaseMission) -> checkLength
+    652:672:void clear() -> clear
+    627:649:void delete() -> delete
+    912:916:void deleteMissionInfo() -> deleteMissionInfo
+    435:439:void firstCreate() -> firstCreate
+    969:969:int getAliveThreadCount() -> getAliveThreadCount
+    143:150:java.util.concurrent.ConcurrentLinkedQueue getBlockQueue() -> getBlockQueue
+    43:43:int getBlockSize() -> getBlockSize
+    973:973:long getBlocks() -> getBlocks
+    43:43:int getBufferSize() -> getBufferSize
+    43:43:int getConnectOutTime() -> getConnectOutTime
+    43:43:int getConsumerThreadCount() -> getConsumerThreadCount
+    926:926:android.content.Context getContext() -> getContext
+    43:43:java.lang.String getCookie() -> getCookie
+    957:957:long getCreateTime() -> getCreateTime
+    985:985:long getDone() -> getDone
+    43:43:java.lang.String getDownloadPath() -> getDownloadPath
+    1043:1043:java.lang.String getDownloadedSizeStr() -> getDownloadedSizeStr
+    43:43:boolean getEnableNotification() -> getEnableNotification
+    993:993:int getErrCode() -> getErrCode
+    1013:1013:java.io.File getFile() -> getFile
+    1005:1009:java.lang.String getFilePath() -> getFilePath
+    1039:1039:java.lang.String getFileSizeStr() -> getFileSizeStr
+    1017:1017:java.lang.String getFileSuffix() -> getFileSuffix
+    977:977:int getFinishCount() -> getFinishCount
+    961:961:long getFinishTime() -> getFinishTime
+    154:161:android.os.Handler getHandler() -> getHandler
+    43:43:java.util.Map getHeaders() -> getHeaders
+    981:981:long getLength() -> getLength
+    1066:1066:java.lang.String getMissionInfoFilePath() -> getMissionInfoFilePath
+    1141:1152:java.lang.String getMissionNameFromResponse(com.zpj.http.core.IHttp$Response) -> getMissionNameFromResponse
+    1156:1189:java.lang.String getMissionNameFromUrl(com.zpj.downloader.BaseMission,java.lang.String) -> getMissionNameFromUrl
+    1055:1058:long getNextPosition() -> getNextPosition
+    43:43:com.zpj.downloader.INotificationInterceptor getNotificationInterceptor() -> getNotificationInterceptor
+    1051:1051:int getNotifyId() -> getNotifyId
+    949:949:java.lang.String getOriginUrl() -> getOriginUrl
+    43:43:int getProducerThreadCount() -> getProducerThreadCount
+    1021:1027:float getProgress(long,long) -> getProgress
+    1031:1031:float getProgress() -> getProgress
+    165:172:com.zpj.downloader.BaseMission$ProgressInfo getProgressInfo() -> getProgressInfo
+    43:43:long getProgressInterval() -> getProgressInterval
+    303:346:java.lang.Runnable getProgressRunnable() -> getProgressRunnable
+    1035:1035:java.lang.String getProgressStr() -> getProgressStr
+    43:43:java.net.Proxy getProxy() -> getProxy
+    43:43:int getReadOutTime() -> getReadOutTime
+    953:953:java.lang.String getRedirectUrl() -> getRedirectUrl
+    43:43:int getRetryCount() -> getRetryCount
+    43:43:int getRetryDelay() -> getRetryDelay
+    1047:1047:java.lang.String getSpeed() -> getSpeed
+    989:989:com.zpj.downloader.BaseMission$MissionStatus getStatus() -> getStatus
+    934:937:java.lang.String getTaskName() -> getTaskName
+    941:941:java.lang.String getTaskNameFromUrl() -> getTaskNameFromUrl
+    965:965:int getThreadCount() -> getThreadCount
+    945:945:java.lang.String getUrl() -> getUrl
+    43:43:java.lang.String getUserAgent() -> getUserAgent
+    930:930:java.lang.String getUuid() -> getUuid
+    1110:1137:boolean handleResponse(com.zpj.http.core.IHttp$Response,com.zpj.downloader.BaseMission) -> handleResponse
+    1001:1001:boolean hasInit() -> hasInit
+    850:849:boolean hasListener(com.zpj.downloader.BaseMission$MissionListener) -> hasListener
+    389:424:void init() -> init
+    919:922:void initCurrentRetryCount() -> initCurrentRetryCount
+    176:300:void initMission() -> initMission
+    43:43:boolean isAllowAllSSL() -> isAllowAllSSL
+    1101:1101:boolean isBlockFinished(long) -> isBlockFinished
+    375:375:boolean isError() -> isError
+    997:997:boolean isFallback() -> isFallback
+    371:371:boolean isFinished() -> isFinished
+    355:355:boolean isIniting() -> isIniting
+    367:367:boolean isPause() -> isPause
+    359:359:boolean isRunning() -> isRunning
+    363:363:boolean isWaiting() -> isWaiting
+    694:697:void notifyDownloaded(long) -> notifyDownloaded
+    700:699:void notifyError(com.zpj.downloader.constant.Error,boolean) -> notifyError
+    760:761:void notifyError(com.zpj.downloader.constant.Error) -> notifyError
+    764:812:void notifyStatus(com.zpj.downloader.BaseMission$MissionStatus) -> notifyStatus
+    1105:1107:void onBlockFinished(long) -> onBlockFinished
+    428:428:void onCreate() -> onCreate
+    432:432:void onDestroy() -> onDestroy
+    815:836:void onFinish() -> onFinish
+    1062:1063:void onPositionDownloadFailed(long) -> onPositionDownloadFailed
+    685:685:boolean openFile(android.content.Context) -> openFile
+    689:689:boolean openFile() -> openFile
+    603:617:void pause() -> pause
+    875:874:void removeAllListener() -> removeAllListener
+    862:861:void removeListener(com.zpj.downloader.BaseMission$MissionListener) -> removeListener
+    675:681:boolean renameTo(java.lang.String) -> renameTo
+    572:600:void restart() -> restart
+    902:908:void saveMissionInfo() -> saveMissionInfo
+    1094:1095:void setErrCode(int) -> setErrCode
+    1090:1091:void setLength(long) -> setLength
+    1086:1087:void setOriginUrl(java.lang.String) -> setOriginUrl
+    1082:1083:void setRedirectUrl(java.lang.String) -> setRedirectUrl
+    1074:1075:void setTaskName(java.lang.String) -> setTaskName
+    1078:1079:void setUrl(java.lang.String) -> setUrl
+    442:569:void start() -> start
+    1274:1274:java.lang.String toString() -> toString
+    620:624:void waiting() -> waiting
+    886:899:void writeMissionInfo() -> writeMissionInfo
 com.zpj.downloader.BaseMission$1 -> com.zpj.downloader.BaseMission$b:
     com.zpj.downloader.BaseMission this$0 -> a
-    301:301:void <init>(com.zpj.downloader.BaseMission) -> <init>
-    304:305:void onError(java.lang.Throwable) -> a
+    293:293:void <init>(com.zpj.downloader.BaseMission) -> <init>
+    296:297:void onError(java.lang.Throwable) -> a
 com.zpj.downloader.BaseMission$10 -> com.zpj.downloader.BaseMission$a:
     int[] $SwitchMap$com$zpj$downloader$BaseMission$MissionStatus -> a
-    781:781:void <clinit>() -> <clinit>
+    773:773:void <clinit>() -> <clinit>
 com.zpj.downloader.BaseMission$2 -> com.zpj.downloader.BaseMission$c:
     com.zpj.downloader.BaseMission this$0 -> a
-    235:235:void <init>(com.zpj.downloader.BaseMission) -> <init>
-    235:235:void onSuccess(java.lang.Object) -> a
-    238:299:void onSuccess(com.zpj.http.core.IHttp$Response) -> a
+    227:227:void <init>(com.zpj.downloader.BaseMission) -> <init>
+    227:227:void onSuccess(java.lang.Object) -> a
+    230:291:void onSuccess(com.zpj.http.core.IHttp$Response) -> a
 com.zpj.downloader.BaseMission$3 -> com.zpj.downloader.BaseMission$d:
     com.zpj.downloader.BaseMission this$0 -> a
-    314:314:void <init>(com.zpj.downloader.BaseMission) -> <init>
-    317:321:void run() -> run
+    306:306:void <init>(com.zpj.downloader.BaseMission) -> <init>
+    309:313:void run() -> run
 com.zpj.downloader.BaseMission$4 -> com.zpj.downloader.BaseMission$e:
     com.zpj.downloader.BaseMission this$0 -> a
-    510:510:void <init>(com.zpj.downloader.BaseMission) -> <init>
-    513:528:void run() -> run
+    502:502:void <init>(com.zpj.downloader.BaseMission) -> <init>
+    505:520:void run() -> run
 com.zpj.downloader.BaseMission$5 -> com.zpj.downloader.BaseMission$f:
     com.zpj.downloader.BaseMission this$0 -> a
-    643:643:void <init>(com.zpj.downloader.BaseMission) -> <init>
-    646:655:void run() -> run
+    635:635:void <init>(com.zpj.downloader.BaseMission) -> <init>
+    638:647:void run() -> run
 com.zpj.downloader.BaseMission$6 -> com.zpj.downloader.BaseMission$g:
     com.zpj.downloader.BaseMission this$0 -> a
-    666:666:void <init>(com.zpj.downloader.BaseMission) -> <init>
-    669:678:void run() -> run
+    658:658:void <init>(com.zpj.downloader.BaseMission) -> <init>
+    661:670:void run() -> run
 com.zpj.downloader.BaseMission$7 -> com.zpj.downloader.BaseMission$h:
     com.zpj.downloader.BaseMission this$0 -> b
     com.zpj.downloader.constant.Error val$e -> a
-    745:745:void <init>(com.zpj.downloader.BaseMission,com.zpj.downloader.constant.Error) -> <init>
-    748:757:void run() -> run
+    737:737:void <init>(com.zpj.downloader.BaseMission,com.zpj.downloader.constant.Error) -> <init>
+    740:749:void run() -> run
 com.zpj.downloader.BaseMission$8 -> com.zpj.downloader.BaseMission$i:
     com.zpj.downloader.BaseMission this$0 -> b
     com.zpj.downloader.BaseMission$MissionStatus val$status -> a
-    772:772:void <init>(com.zpj.downloader.BaseMission,com.zpj.downloader.BaseMission$MissionStatus) -> <init>
-    775:818:void run() -> run
+    764:764:void <init>(com.zpj.downloader.BaseMission,com.zpj.downloader.BaseMission$MissionStatus) -> <init>
+    767:810:void run() -> run
 com.zpj.downloader.BaseMission$9 -> com.zpj.downloader.BaseMission$j:
     com.zpj.downloader.BaseMission this$0 -> a
-    895:895:void <init>(com.zpj.downloader.BaseMission) -> <init>
-    898:903:void subscribe(io.reactivex.ObservableEmitter) -> a
+    887:887:void <init>(com.zpj.downloader.BaseMission) -> <init>
+    890:895:void subscribe(io.reactivex.ObservableEmitter) -> a
 com.zpj.downloader.BaseMission$MissionListener -> com.zpj.downloader.BaseMission$k:
 com.zpj.downloader.BaseMission$MissionStatus -> com.zpj.downloader.BaseMission$MissionStatus:
-    84:82:void <clinit>() -> <clinit>
-    95:97:void <init>(java.lang.String,int,java.lang.String) -> <init>
-    102:102:java.lang.String toString() -> toString
-    82:82:com.zpj.downloader.BaseMission$MissionStatus valueOf(java.lang.String) -> valueOf
-    82:82:com.zpj.downloader.BaseMission$MissionStatus[] values() -> values
+    76:74:void <clinit>() -> <clinit>
+    87:89:void <init>(java.lang.String,int,java.lang.String) -> <init>
+    94:94:java.lang.String toString() -> toString
+    74:74:com.zpj.downloader.BaseMission$MissionStatus valueOf(java.lang.String) -> valueOf
+    74:74:com.zpj.downloader.BaseMission$MissionStatus[] values() -> values
 com.zpj.downloader.BaseMission$ProgressInfo -> com.zpj.downloader.BaseMission$l:
     float progress -> a
     java.lang.String downloadedSizeStr -> c
     java.lang.String fileSizeStr -> b
     java.lang.String progressStr -> d
-    1213:1213:void <init>() -> <init>
-    1236:1237:void setDone(long) -> a
-    1244:1245:void setProgress(float) -> a
-    1256:1256:java.lang.String getDownloadedSizeStr() -> a
-    1260:1261:void setDownloadedSizeStr(java.lang.String) -> a
-    1228:1229:void setSize(long) -> b
-    1248:1248:java.lang.String getFileSizeStr() -> b
-    1252:1253:void setFileSizeStr(java.lang.String) -> b
-    1240:1240:float getProgress() -> c
-    1268:1269:void setProgressStr(java.lang.String) -> c
-    1264:1264:java.lang.String getProgressStr() -> d
-    1276:1277:void setSpeedStr(java.lang.String) -> d
+    1205:1205:void <init>() -> <init>
+    1228:1229:void setDone(long) -> a
+    1236:1237:void setProgress(float) -> a
+    1248:1248:java.lang.String getDownloadedSizeStr() -> a
+    1252:1253:void setDownloadedSizeStr(java.lang.String) -> a
+    1220:1221:void setSize(long) -> b
+    1240:1240:java.lang.String getFileSizeStr() -> b
+    1244:1245:void setFileSizeStr(java.lang.String) -> b
+    1232:1232:float getProgress() -> c
+    1260:1261:void setProgressStr(java.lang.String) -> c
+    1256:1256:java.lang.String getProgressStr() -> d
+    1268:1269:void setSpeedStr(java.lang.String) -> d
 com.zpj.downloader.DownloadBlock -> com.zpj.downloader.DownloadBlock:
     21:29:void <init>(long,long,long,long,java.net.HttpURLConnection) -> <init>
     32:33:void disconnect() -> disconnect
@@ -33955,34 +33955,34 @@ com.zpj.shouji.market.R$array -> com.zpj.shouji.market.R$array:
 com.zpj.shouji.market.R$attr -> com.zpj.shouji.market.R$attr:
     68:68:void <init>() -> <init>
 com.zpj.shouji.market.R$bool -> com.zpj.shouji.market.R$bool:
-    7014:7014:void <init>() -> <init>
+    7585:7585:void <init>() -> <init>
 com.zpj.shouji.market.R$color -> com.zpj.shouji.market.R$color:
-    7020:7020:void <init>() -> <init>
+    7591:7591:void <init>() -> <init>
 com.zpj.shouji.market.R$dimen -> com.zpj.shouji.market.R$dimen:
-    7331:7331:void <init>() -> <init>
+    7902:7902:void <init>() -> <init>
 com.zpj.shouji.market.R$drawable -> com.zpj.shouji.market.R$drawable:
-    7574:7574:void <init>() -> <init>
+    8145:8145:void <init>() -> <init>
 com.zpj.shouji.market.R$id -> com.zpj.shouji.market.R$id:
-    7943:7943:void <init>() -> <init>
+    8514:8514:void <init>() -> <init>
 com.zpj.shouji.market.R$integer -> com.zpj.shouji.market.R$integer:
-    8714:8714:void <init>() -> <init>
+    9285:9285:void <init>() -> <init>
 com.zpj.shouji.market.R$interpolator -> com.zpj.shouji.market.R$interpolator:
-    8731:8731:void <init>() -> <init>
+    9302:9302:void <init>() -> <init>
 com.zpj.shouji.market.R$layout -> com.zpj.shouji.market.R$layout:
-    8737:8737:void <init>() -> <init>
+    9308:9308:void <init>() -> <init>
 com.zpj.shouji.market.R$menu -> com.zpj.shouji.market.R$menu:
-    9021:9021:void <init>() -> <init>
+    9592:9592:void <init>() -> <init>
 com.zpj.shouji.market.R$mipmap -> com.zpj.shouji.market.R$mipmap:
-    9030:9030:void <init>() -> <init>
+    9601:9601:void <init>() -> <init>
 com.zpj.shouji.market.R$string -> com.zpj.shouji.market.R$string:
-    9034:9034:void <init>() -> <init>
+    9605:9605:void <init>() -> <init>
 com.zpj.shouji.market.R$style -> com.zpj.shouji.market.R$style:
-    9164:9164:void <init>() -> <init>
+    9735:9735:void <init>() -> <init>
 com.zpj.shouji.market.R$styleable -> com.zpj.shouji.market.R$styleable:
-    9753:28751:void <clinit>() -> <clinit>
-    9685:9685:void <init>() -> <init>
+    10328:30132:void <clinit>() -> <clinit>
+    10256:10256:void <init>() -> <init>
 com.zpj.shouji.market.R$xml -> com.zpj.shouji.market.R$xml:
-    29077:29077:void <init>() -> <init>
+    30487:30487:void <init>() -> <init>
 com.zpj.shouji.market.api.-$$Lambda$BookingApi$FehFODwj9WFjKLuu-MP9X3HqUOg -> com.zpj.shouji.market.b.a:
     com.zpj.utils.Callback f$0 -> a
     void onSuccess(java.lang.Object) -> a

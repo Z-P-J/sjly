@@ -1,9 +1,7 @@
 include ':app',
-        ':zdownloader',
 //        ':richeditor',
 //        ':richeditor2',
 //        ':zmarkdown',
         ':emojilib'
-//        ':expandabletextview',
 //        ':fragmentation',
 //        ':fragmentation-dialog'
