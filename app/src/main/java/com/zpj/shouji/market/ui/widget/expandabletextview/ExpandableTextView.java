@@ -304,8 +304,10 @@ public class ExpandableTextView extends AppCompatTextView {
             mNeedConvertUrl = a.getBoolean(R.styleable.ExpandableTextView_ep_need_convert_url, true);
             mContractString = a.getString(R.styleable.ExpandableTextView_ep_contract_text);
             mExpandString = a.getString(R.styleable.ExpandableTextView_ep_expand_text);
-            if (TextUtils.isEmpty(mExpandString)) {
+            if (mNeedExpend && TextUtils.isEmpty(mExpandString)) {
                 mExpandString = TEXT_EXPEND;
+            } else {
+                mExpandString = "";
             }
             if (TextUtils.isEmpty(mContractString)) {
                 mContractString = TEXT_CONTRACT;
@@ -359,12 +361,18 @@ public class ExpandableTextView extends AppCompatTextView {
 //            return dealLink(mFormatData, false);
 //        }
 
-        if (!mNeedExpend || mLineCount <= mLimitLines) {
-            //不需要展开功能 直接处理链接模块
-            return dealLink(mFormatData, false);
-        } else {
+        if (mLineCount > mLimitLines) {
             return dealLink(mFormatData, true);
+        } else {
+            return dealLink(mFormatData, false);
         }
+
+//        if (!mNeedExpend || mLineCount <= mLimitLines) {
+//            //不需要展开功能 直接处理链接模块
+//            return dealLink(mFormatData, false);
+//        } else {
+//            return dealLink(mFormatData, true);
+//        }
     }
 
     /**
@@ -551,6 +559,9 @@ public class ExpandableTextView extends AppCompatTextView {
                 ssb.setSpan(new Clickable(mExpandTextColor) {
                     @Override
                     public void onClick(View widget) {
+                        if (!mNeedExpend) {
+                            return;
+                        }
                         if (needRealExpandOrContract) {
                             if (mModel != null) {
                                 mModel.setStatus(StatusType.STATUS_CONTRACT);
@@ -1067,7 +1078,7 @@ public class ExpandableTextView extends AppCompatTextView {
     /**
      * 自定义ImageSpan 让Image 在行内居中显示
      */
-    class SelfImageSpan extends ImageSpan {
+    static class SelfImageSpan extends ImageSpan {
         private Drawable drawable;
 
         public SelfImageSpan(Drawable d, int verticalAlignment) {
@@ -1400,6 +1411,11 @@ public class ExpandableTextView extends AppCompatTextView {
 
     public void setNeedExpend(boolean mNeedExpend) {
         this.mNeedExpend = mNeedExpend;
+        if (mNeedExpend && TextUtils.isEmpty(mExpandString)) {
+            mExpandString = TEXT_EXPEND;
+        } else {
+            mExpandString = "";
+        }
     }
 
     public void setNeedConvertUrl(boolean mNeedConvertUrl) {

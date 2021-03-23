@@ -29,7 +29,7 @@ import com.zpj.shouji.market.model.DiscoverInfo;
 import com.zpj.shouji.market.model.SupportUserInfo;
 import com.zpj.shouji.market.ui.fragment.WebFragment;
 import com.zpj.shouji.market.ui.fragment.detail.AppDetailFragment;
-import com.zpj.shouji.market.ui.fragment.dialog.CommonImageViewerDialogFragment2;
+import com.zpj.shouji.market.ui.fragment.dialog.CommonImageViewerDialogFragment;
 import com.zpj.shouji.market.ui.fragment.dialog.SupportUserListDialogFragment;
 import com.zpj.shouji.market.ui.fragment.dialog.ThemeAppDownloadDialogFragment;
 import com.zpj.shouji.market.ui.fragment.dialog.ThemeMoreDialogFragment;
@@ -378,32 +378,6 @@ public class DiscoverBinder
         return comment;
     }
 
-//    private SpannableString getComment(DiscoverInfo info) {
-//        String nickName = info.getNickName();
-//        String toNickName = info.getToNickName();
-//        String content = info.getContent();
-//        SpannableString sp;
-//        if (TextUtils.isEmpty(toNickName)) {
-//            sp = new SpannableString(nickName + "：" + content);
-//        } else {
-//            sp = new SpannableString(nickName + " 回复 " + toNickName
-//                    + "：" + content);
-//            sp.setSpan(
-//                    new MyClickableSpan(info.getToMemberId()),
-//                    nickName.length() + 4,
-//                    nickName.length() + 4 + toNickName.length(),
-//                    Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
-//            );
-//        }
-//        sp.setSpan(
-//                new MyClickableSpan(info.getMemberId()),
-//                0,
-//                nickName.length(),
-//                Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
-//        );
-//        return sp;
-//    }
-
     @Override
     public void onLinkClickListener(LinkType type, String content, String selfContent) {
         if (type == LinkType.LINK_TYPE) {
@@ -429,7 +403,7 @@ public class DiscoverBinder
 
         @Override
         public void onImageItemClicked(int position, List<String> urls) {
-            new CommonImageViewerDialogFragment2()
+            new CommonImageViewerDialogFragment()
                     .setOriginalImageList(discoverInfo.getPics())
                     .setImageSizeList(discoverInfo.getPicSizes())
                     .setSrcView(nineGridView.getImageView(position), position)
@@ -440,31 +414,7 @@ public class DiscoverBinder
                             popup.updateSrcView(nineGridView.getImageView(position));
                         }
                     })
-//                    .setCallback(new DialogView2.OnGetImageViewCallback() {
-//                        @Override
-//                        public ImageView getImageView(int pos) {
-//                            return nineGridView.getImageView(pos);
-//                        }
-//                    })
                     .show(nineGridView.getContext());
-//            new CommonImageViewerDialogFragment2()
-//                    .setOriginalImageList(discoverInfo.getPics())
-//                    .setImageSizeList(discoverInfo.getPicSizes())
-//                    .setImageList(AppConfig.isShowOriginalImage() && NetUtils.isWiFi(nineGridView.getContext()) ? discoverInfo.getPics() : discoverInfo.getSpics())
-//                    .setNowIndex(position)
-//                    .setSourceImageView(new SourceImageViewGet<String>() {
-//                        @Override
-//                        public void updateImageView(ImageItemView<String> imageItemView, int pos, boolean isCurrent) {
-//                            imageItemView.update(nineGridView.getImageView(pos));
-//                        }
-//                    })
-//                    .setCallback(new DialogView2.OnGetImageViewCallback() {
-//                        @Override
-//                        public ImageView getImageView(int pos) {
-//                            return nineGridView.getImageView(pos);
-//                        }
-//                    })
-//                    .show(nineGridView.getContext());
         }
 
     }

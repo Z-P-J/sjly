@@ -32,7 +32,7 @@ import com.zpj.shouji.market.model.PrivateLetterInfo;
 import com.zpj.shouji.market.ui.animator.SlideInOutBottomItemAnimator;
 import com.zpj.shouji.market.ui.fragment.base.NextUrlFragment;
 import com.zpj.shouji.market.ui.fragment.dialog.BottomListMenuDialogFragment;
-import com.zpj.shouji.market.ui.fragment.dialog.CommonImageViewerDialogFragment2;
+import com.zpj.shouji.market.ui.fragment.dialog.CommonImageViewerDialogFragment;
 import com.zpj.shouji.market.ui.fragment.profile.ProfileFragment;
 import com.zpj.shouji.market.ui.widget.ninegrid.NineGridView;
 import com.zpj.shouji.market.ui.widget.ReplyPanel;
@@ -344,7 +344,7 @@ public class ChatFragment extends NextUrlFragment<PrivateLetterInfo>
         nineGridView.setCallback(new NineGridView.SimpleCallback() {
             @Override
             public void onImageItemClicked(int position, List<String> urls) {
-                new CommonImageViewerDialogFragment2()
+                new CommonImageViewerDialogFragment()
                         .setOriginalImageList(info.getPics())
                         .setImageSizeList(info.getSizes())
                         .setImageUrls(AppConfig.isShowOriginalImage() && NetUtils.isWiFi(context) ? info.getPics() : info.getSpics())

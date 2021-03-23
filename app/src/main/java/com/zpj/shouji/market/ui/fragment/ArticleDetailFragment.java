@@ -36,7 +36,7 @@ import com.zpj.shouji.market.model.article.LinkElement;
 import com.zpj.shouji.market.model.article.TextElement;
 import com.zpj.shouji.market.ui.fragment.base.BaseSwipeBackFragment;
 import com.zpj.shouji.market.ui.fragment.detail.AppDetailFragment;
-import com.zpj.shouji.market.ui.fragment.dialog.CommonImageViewerDialogFragment2;
+import com.zpj.shouji.market.ui.fragment.dialog.CommonImageViewerDialogFragment;
 import com.zpj.shouji.market.ui.widget.DownloadButton;
 import com.zpj.shouji.market.ui.widget.selection.SelectableTextView;
 import com.zpj.toast.ZToast;
@@ -229,7 +229,7 @@ public class ArticleDetailFragment extends BaseSwipeBackFragment {
                 View view = LayoutInflater.from(context).inflate(R.layout.layout_article_image, null, false);
                 ImageView ivImage = view.findViewById(R.id.iv_image);
                 ivImage.setOnClickListener(v -> {
-                    new CommonImageViewerDialogFragment2()
+                    new CommonImageViewerDialogFragment()
                             .setSingleSrcView(ivImage, url)
                             .show(context);
                 });

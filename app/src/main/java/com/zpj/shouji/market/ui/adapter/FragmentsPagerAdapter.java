@@ -8,8 +8,8 @@ import java.util.List;
 
 public class FragmentsPagerAdapter extends FragmentPagerAdapter {
 
-    private List<? extends Fragment> fragments;
-    private String[] tabTitle;
+    private final List<? extends Fragment> fragments;
+    private final String[] tabTitle;
 
     public FragmentsPagerAdapter(FragmentManager fm, List<? extends Fragment> fragments, String[] tabTiltle) {
         super(fm);

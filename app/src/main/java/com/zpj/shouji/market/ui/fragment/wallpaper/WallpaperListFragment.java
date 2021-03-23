@@ -37,10 +37,12 @@ import com.zpj.shouji.market.model.WallpaperInfo;
 import com.zpj.shouji.market.model.WallpaperTag;
 import com.zpj.shouji.market.ui.fragment.base.NextUrlFragment;
 import com.zpj.shouji.market.ui.fragment.dialog.RecyclerPartShadowDialogFragment;
-import com.zpj.shouji.market.ui.fragment.dialog.WallpaperViewerDialogFragment3;
+import com.zpj.shouji.market.ui.fragment.dialog.WallpaperViewerDialogFragment;
 import com.zpj.shouji.market.ui.fragment.profile.ProfileFragment;
 import com.zpj.shouji.market.ui.widget.count.IconCountView;
 import com.zpj.shouji.market.ui.widget.emoji.EmojiExpandableTextView;
+import com.zpj.shouji.market.ui.widget.expandabletextview.ExpandableTextView;
+import com.zpj.shouji.market.ui.widget.expandabletextview.app.LinkType;
 import com.zpj.toast.ZToast;
 import com.zpj.utils.NetUtils;
 import com.zpj.utils.ScreenUtils;
@@ -56,6 +58,7 @@ public class WallpaperListFragment extends NextUrlFragment<WallpaperInfo> {
     private String tag;
     @IntRange(from = 0, to = 2)
     private int sortPosition = 0;
+    private int width;
 
     public static WallpaperListFragment newInstance(WallpaperTag tag) {
         Bundle args = new Bundle();
@@ -71,6 +74,7 @@ public class WallpaperListFragment extends NextUrlFragment<WallpaperInfo> {
         super.onCreate(savedInstanceState);
         defaultUrl = DEFAULT_URL;
         nextUrl = DEFAULT_URL;
+        width = (ScreenUtils.getScreenWidth() - ScreenUtils.dp2pxInt(8) * 3) / 2;
     }
 
     @Override
@@ -88,7 +92,7 @@ public class WallpaperListFragment extends NextUrlFragment<WallpaperInfo> {
     @Override
     protected RecyclerView.LayoutManager getLayoutManager(Context context) {
         StaggeredGridLayoutManager layoutManager = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
-        layoutManager.setGapStrategy(StaggeredGridLayoutManager.GAP_HANDLING_NONE);
+//        layoutManager.setGapStrategy(StaggeredGridLayoutManager.GAP_HANDLING_NONE);
         return layoutManager;
     }
 
@@ -98,16 +102,16 @@ public class WallpaperListFragment extends NextUrlFragment<WallpaperInfo> {
             recyclerLayout.setHeaderView(getHeaderLayout(), holder -> holder.setOnItemClickListener((this::showSortPupWindow)));
         }
         recyclerLayout.setFooterView(LayoutInflater.from(context).inflate(R.layout.item_footer_home, null, false));
-        recyclerLayout.addOnScrollListener(new RecyclerView.OnScrollListener() {
-            @Override
-            public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
-                super.onScrollStateChanged(recyclerView, newState);
-                RecyclerView.LayoutManager layoutManager = recyclerView.getLayoutManager();
-                if (layoutManager instanceof StaggeredGridLayoutManager) {
-                    ((StaggeredGridLayoutManager) layoutManager).invalidateSpanAssignments();
-                }
-            }
-        });
+//        recyclerLayout.addOnScrollListener(new RecyclerView.OnScrollListener() {
+//            @Override
+//            public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
+//                super.onScrollStateChanged(recyclerView, newState);
+//                RecyclerView.LayoutManager layoutManager = recyclerView.getLayoutManager();
+//                if (layoutManager instanceof StaggeredGridLayoutManager) {
+//                    ((StaggeredGridLayoutManager) layoutManager).invalidateSpanAssignments();
+//                }
+//            }
+//        });
         int dp4 = ScreenUtils.dp2pxInt(context, 4);
         recyclerLayout.getRecyclerView().setPadding(dp4, 0, dp4, 0);
     }
@@ -117,44 +121,72 @@ public class WallpaperListFragment extends NextUrlFragment<WallpaperInfo> {
         WallpaperInfo info = list.get(position);
         ImageView wallpaper = holder.getImageView(R.id.iv_wallpaper);
         wallpaper.setTag(position);
-        Glide.with(context)
+
+        Log.d("WallpaperListFragment", "wallpaper.getWidth()=" + wallpaper.getWidth());
+        ViewGroup.LayoutParams params = wallpaper.getLayoutParams();
+        float p = Float.parseFloat(info.getHeight())  / Float.parseFloat(info.getWidth());
+        if (p > 2.5f) {
+            p = 2.5f;
+        }
+        params.width = width;
+        params.height = (int) (p * width);
+        Log.d("WallpaperListFragment", "width=" + params.width + " height=" + params.height);
+        wallpaper.setLayoutParams(params);
+
+        Glide.with(wallpaper)
                 .load(list.get(position).getSpic())
                 .apply(GlideRequestOptions.getImageOption())
                 .into(new ImageViewDrawableTarget(wallpaper) {
                     @Override
                     public void onResourceReady(@NonNull Drawable resource, @Nullable Transition<? super Drawable> transition) {
-                        if (position != (int) imageView.getTag()) {
-                            return;
-                        }
-//                        super.onResourceReady(resource, transition);
-                        imageView.post(new Runnable() {
-                            @Override
-                            public void run() {
-                                if (position != (int) imageView.getTag()) {
-                                    return;
-                                }
-                                Log.d("onResourceReady", "\n------------------------------------------");
-                                int width = resource.getIntrinsicWidth();
-                                int height = resource.getIntrinsicHeight();
+                        super.onResourceReady(resource, transition);
+                        Log.d("onResourceReady", "\n------------------------------------------");
+                        int width = resource.getIntrinsicWidth();
+                        int height = resource.getIntrinsicHeight();
 
-                                Log.d("onResourceReady", "info=" + info);
-                                Log.d("onResourceReady", "width=" + width + " height=" + height);
-                                float p = (float) height / width;
-                                if (p > 2.5f) {
-                                    p = 2.5f;
-                                }
-                                height = (int) (imageView.getMeasuredWidth() * p);
-                                Log.d("onResourceReady", "height=" + height + " wallpaper.getMeasuredWidth()=" + imageView.getMeasuredWidth() + " wallpaper.getWidth()=" + imageView.getWidth());
-                                ViewGroup.LayoutParams layoutParams = imageView.getLayoutParams();
-                                layoutParams.height = height;
-                                layoutParams.width = imageView.getMeasuredWidth();
-                                Log.d("onResourceReady", "------------------------------------------\n");
-                                imageView.setImageDrawable(resource);
-                            }
-                        });
-
+                        Log.d("onResourceReady", "info=" + info);
+                        Log.d("onResourceReady", "width=" + width + " height=" + height);
                     }
                 });
+
+//        Glide.with(context)
+//                .load(list.get(position).getSpic())
+//                .apply(GlideRequestOptions.getImageOption())
+//                .into(new ImageViewDrawableTarget(wallpaper) {
+//                    @Override
+//                    public void onResourceReady(@NonNull Drawable resource, @Nullable Transition<? super Drawable> transition) {
+//                        if (position != (int) imageView.getTag()) {
+//                            return;
+//                        }
+////                        super.onResourceReady(resource, transition);
+//                        imageView.post(new Runnable() {
+//                            @Override
+//                            public void run() {
+//                                if (position != (int) imageView.getTag()) {
+//                                    return;
+//                                }
+//                                Log.d("onResourceReady", "\n------------------------------------------");
+//                                int width = resource.getIntrinsicWidth();
+//                                int height = resource.getIntrinsicHeight();
+//
+//                                Log.d("onResourceReady", "info=" + info);
+//                                Log.d("onResourceReady", "width=" + width + " height=" + height);
+//                                float p = (float) height / width;
+//                                if (p > 2.5f) {
+//                                    p = 2.5f;
+//                                }
+//                                height = (int) (imageView.getMeasuredWidth() * p);
+//                                Log.d("onResourceReady", "height=" + height + " wallpaper.getMeasuredWidth()=" + imageView.getMeasuredWidth() + " wallpaper.getWidth()=" + imageView.getWidth());
+//                                ViewGroup.LayoutParams layoutParams = imageView.getLayoutParams();
+//                                layoutParams.height = height;
+//                                layoutParams.width = imageView.getMeasuredWidth();
+//                                Log.d("onResourceReady", "------------------------------------------\n");
+//                                imageView.setImageDrawable(resource);
+//                            }
+//                        });
+//
+//                    }
+//                });
 
         ImageView ivIcon = holder.getView(R.id.iv_icon);
         TextView tvName = holder.getView(R.id.tv_name);
@@ -204,7 +236,7 @@ public class WallpaperListFragment extends NextUrlFragment<WallpaperInfo> {
         List<String> original = new ArrayList<>();
         original.add(data.getPic());
 
-        new WallpaperViewerDialogFragment3()
+        new WallpaperViewerDialogFragment()
                 .setWallpaperInfo(data)
                 .setOriginalImageList(original)
                 .setImageUrls(AppConfig.isShowOriginalImage() && NetUtils.isWiFi(context) ? original : objects)

@@ -24,13 +24,13 @@
         app:z_toolbar_isLightStyle="true"
         />
 
-    <com.zpj.fragmentation.dialog.widget.LoadingView
-        android:id="@+id/lv_loading"
-        android:layout_width="56dp"
-        android:layout_height="56dp"
-        android:layout_centerInParent="true"
-        android:visibility="gone"
-        />
+<!--    <com.zpj.fragmentation.dialog.widget.LoadingView-->
+<!--        android:id="@+id/lv_loading"-->
+<!--        android:layout_width="56dp"-->
+<!--        android:layout_height="56dp"-->
+<!--        android:layout_centerInParent="true"-->
+<!--        android:visibility="gone"-->
+<!--        />-->
 
     <TextView
         android:id="@+id/tv_origin"

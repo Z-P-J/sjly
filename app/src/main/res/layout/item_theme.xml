@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/layout_theme"
@@ -7,366 +8,395 @@
     android:layout_height="wrap_content"
     android:gravity="center_vertical"
     android:orientation="vertical"
+    android:background="?android:attr/selectableItemBackground"
+    android:padding="@dimen/dp_16"
     >
 
-    <LinearLayout
-        android:orientation="horizontal"
-        android:layout_width="match_parent"
+    <ImageView
+        android:id="@+id/item_icon"
+        android:layout_width="36dp"
+        android:layout_height="36dp"
+        android:src="@mipmap/ic_launcher"
+        android:layout_gravity="center_vertical"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        />
+
+    <TextView
+        android:id="@+id/tv_state"
+        android:layout_width="36dp"
         android:layout_height="wrap_content"
-        android:background="?android:attr/selectableItemBackground"
-        android:padding="@dimen/dp_16"
+        android:text="Lv.0"
+        android:textSize="10sp"
+        android:gravity="center"
+        android:textColor="@color/colorPrimary"
+        android:paddingVertical="2dp"
+        android:textStyle="bold"
+        android:layout_marginTop="@dimen/dp_8"
+        android:layout_gravity="center_horizontal"
+        android:background="?attr/backgroundShape"
+        android:layout_marginEnd="@dimen/dp_16"
+        app:layout_constraintTop_toBottomOf="@id/item_icon"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/ll_test"
+        />
+
+    <LinearLayout
+        android:id="@+id/ll_test"
+        android:orientation="vertical"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/dp_16"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toEndOf="@id/item_icon"
+        app:layout_constraintEnd_toEndOf="parent"
         >
 
         <LinearLayout
-            android:orientation="vertical"
-            android:layout_width="36dp"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-            <ImageView
-                android:id="@+id/item_icon"
-                android:layout_width="36dp"
-                android:layout_height="36dp"
-                android:src="@mipmap/ic_launcher"
-                android:layout_gravity="center_vertical"
+            <TextView
+                android:id="@+id/user_name"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical"
+                android:text="我好像在哪见过您"
+                android:maxLines="1"
+                android:textColor="@color/colorPrimary"
                 />
 
             <TextView
-                android:id="@+id/tv_state"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Lv.0"
-                android:textSize="10sp"
-                android:gravity="center"
-                android:textColor="@color/colorPrimary"
-                android:paddingVertical="2dp"
-                android:textStyle="bold"
-                android:layout_marginTop="@dimen/dp_8"
-                android:layout_gravity="center_horizontal"
-                android:background="?attr/backgroundShape"
+                android:id="@+id/share_info"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical"
+                android:layout_marginStart="@dimen/dp_4"
+                android:text="分享动态:"
+                android:textColor="?attr/textColorNormal"
                 />
 
         </LinearLayout>
 
         <LinearLayout
-            android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/dp_16"
+            android:layout_marginTop="2dp"
             >
 
-            <RelativeLayout
+            <TextView
+                android:id="@+id/text_info"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:layout_gravity="bottom"
+                android:maxLines="1"
+                android:ellipsize="end"
+                android:text="1小时前"
+                android:textSize="12sp"
+                android:textColor="?attr/textColorNormal"
+                />
+
+            <TextView
+                android:id="@+id/phone_type"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:layout_gravity="bottom"
+                android:text="来自 MI 5s"
+                android:textSize="12sp"
+                android:maxLines="1"
+                android:ellipsize="end"
+                android:layout_marginStart="@dimen/dp_8"
+                android:textColor="?attr/textColorNormal"
+                />
+
+        </LinearLayout>
+
+        <com.zpj.shouji.market.ui.widget.emoji.EmojiExpandableTextView
+            android:id="@+id/tv_content"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingVertical="@dimen/dp_8"
+            android:textColor="?attr/textColorMajor"
+            android:lineSpacingExtra="@dimen/dp_4"
+            app:ep_max_line="5"
+            app:ep_need_animation="true"
+            app:ep_expand_text="查看更多"
+            app:ep_contract_text="收起"
+            app:ep_expand_color="@color/colorPrimary"
+            app:ep_contract_color="@color/colorPrimary"
+            app:ep_need_contract="true"
+            app:ep_need_expand="true"
+            app:ep_need_link="true"
+            app:ep_need_mention="true"
+            app:ep_need_self="false"
+            app:ep_need_convert_url="false"
+            app:ep_link_color="@color/colorPrimary"
+            app:ep_mention_color="@color/colorPrimary"
+            android:visibility="gone"
+            tools:visibility="visible"
+            />
+
+        <include layout="@layout/layout_nine_grid"/>
+
+        <include layout="@layout/item_discover_collection"
+            android:id="@+id/collection_layout"
+            android:layout_width="match_parent"
+            android:layout_height="108dp"
+            android:visibility="gone"
+            tools:visibility="visible"
+            />
+
+<!--        <FrameLayout-->
+<!--            android:id="@+id/layout_app"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:background="?attr/backgroundShape"-->
+<!--            android:visibility="gone"-->
+<!--            tools:visibility="visible"-->
+<!--            >-->
+
+<!--            <RelativeLayout-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:padding="8dp"-->
+<!--                android:background="?attr/selectableItemBackground"-->
+<!--                >-->
+
+<!--                <ImageView-->
+<!--                    android:id="@+id/app_icon"-->
+<!--                    android:layout_width="36dp"-->
+<!--                    android:layout_height="36dp"-->
+<!--                    android:src="@mipmap/ic_launcher"-->
+<!--                    android:layout_gravity="center_vertical"-->
+<!--                    android:scaleType="centerCrop"-->
+<!--                    />-->
+
+<!--                <LinearLayout-->
+<!--                    android:id="@+id/app_wrapper"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:orientation="horizontal"-->
+<!--                    android:gravity="center_vertical"-->
+<!--                    android:paddingStart="10dp"-->
+<!--                    android:paddingEnd="0dp"-->
+<!--                    android:layout_toEndOf="@id/app_icon"-->
+<!--                    android:layout_toStartOf="@id/tv_download"-->
+<!--                    >-->
+
+<!--                    <LinearLayout-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="match_parent"-->
+<!--                        android:orientation="vertical"-->
+<!--                        android:gravity="center_vertical"-->
+<!--                        >-->
+
+<!--                        <TextView-->
+<!--                            android:id="@+id/app_name"-->
+<!--                            android:layout_width="wrap_content"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:gravity="center_vertical"-->
+<!--                            android:maxLines="1"-->
+<!--                            android:ellipsize="end"-->
+<!--                            android:text="应用名"-->
+<!--                            android:textColor="?attr/textColorMajor"-->
+<!--                            />-->
+
+<!--                        <TextView-->
+<!--                            android:id="@+id/app_info"-->
+<!--                            android:layout_width="wrap_content"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:gravity="center_vertical"-->
+<!--                            android:layout_gravity="bottom"-->
+<!--                            android:maxLines="1"-->
+<!--                            android:ellipsize="end"-->
+<!--                            android:text="文件夹"-->
+<!--                            android:textSize="12sp"-->
+<!--                            android:textColor="?attr/textColorNormal"-->
+<!--                            />-->
+
+<!--                    </LinearLayout>-->
+
+
+
+<!--                </LinearLayout>-->
+
+<!--                <com.zpj.shouji.market.ui.widget.DownloadButton-->
+<!--                    android:id="@+id/tv_download"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_gravity="center"-->
+<!--                    android:text="@string/text_download"-->
+<!--                    android:background="@drawable/bg_download_button_border"-->
+<!--                    android:textSize="12sp"-->
+<!--                    android:textColor="@color/colorPrimary"-->
+<!--                    android:layout_alignParentEnd="true"-->
+<!--                    android:layout_centerVertical="true"-->
+<!--                    android:gravity="center"-->
+<!--                    />-->
+
+<!--            </RelativeLayout>-->
+
+<!--        </FrameLayout>-->
+
+        <FrameLayout
+            android:id="@+id/layout_app"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="?attr/backgroundShape"
+            android:visibility="gone"
+            tools:visibility="visible"
+            >
+
+            <android.support.constraint.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:gravity="center_vertical"
+                android:padding="8dp"
+                android:background="?attr/selectableItemBackground"
                 >
 
+                <ImageView
+                    android:id="@+id/app_icon"
+                    android:layout_width="36dp"
+                    android:layout_height="36dp"
+                    android:src="@mipmap/ic_launcher"
+                    android:layout_gravity="center_vertical"
+                    android:scaleType="centerCrop"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    />
+
                 <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
                     android:orientation="vertical"
                     android:gravity="center_vertical"
-                    android:layout_toStartOf="@id/tv_follow"
-                    android:layout_centerVertical="true"
+                    app:layout_constraintStart_toEndOf="@id/app_icon"
+                    app:layout_constraintEnd_toStartOf="@id/tv_download"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    android:layout_marginHorizontal="@dimen/dp_8"
                     >
 
-                    <LinearLayout
-                        android:orientation="horizontal"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
-
-                        <TextView
-                            android:id="@+id/user_name"
-                            android:layout_width="wrap_content"
-                            android:layout_height="match_parent"
-                            android:gravity="center_vertical"
-                            android:text="我好像在哪见过您"
-                            android:maxLines="1"
-                            android:textColor="@color/colorPrimary"
-                            />
-
-                        <TextView
-                            android:id="@+id/share_info"
-                            android:layout_width="wrap_content"
-                            android:layout_height="match_parent"
-                            android:gravity="center_vertical"
-                            android:layout_marginStart="4dp"
-                            android:text="分享动态:"
-                            android:textColor="?attr/textColorNormal"
-                            />
-
-                    </LinearLayout>
-
-                    <LinearLayout
+                    <TextView
+                        android:id="@+id/app_name"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="2dp"
-                        >
+                        android:gravity="center_vertical"
+                        android:maxLines="2"
+                        android:ellipsize="end"
+                        android:text="应用名"
+                        android:textColor="?attr/textColorMajor"
+                        />
 
-                        <TextView
-                            android:id="@+id/text_info"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:gravity="center_vertical"
-                            android:layout_gravity="bottom"
-                            android:maxLines="1"
-                            android:ellipsize="end"
-                            android:text="1小时前"
-                            android:textSize="12sp"
-                            android:textColor="?attr/textColorNormal"
-                            />
-
-                        <TextView
-                            android:id="@+id/phone_type"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:gravity="center_vertical"
-                            android:layout_gravity="bottom"
-                            android:text="来自 MI 5s"
-                            android:textSize="12sp"
-                            android:maxLines="1"
-                            android:ellipsize="end"
-                            android:layout_marginStart="@dimen/dp_8"
-                            android:textColor="?attr/textColorNormal"
-                            />
-
-                    </LinearLayout>
-
-
+                    <TextView
+                        android:id="@+id/app_info"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        android:layout_gravity="bottom"
+                        android:maxLines="1"
+                        android:ellipsize="end"
+                        android:text="文件夹"
+                        android:textSize="12sp"
+                        android:textColor="?attr/textColorNormal"
+                        />
 
                 </LinearLayout>
 
-                <TextView
-                    android:id="@+id/tv_follow"
+                <com.zpj.shouji.market.ui.widget.DownloadButton
+                    android:id="@+id/tv_download"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentEnd="true"
-                    android:layout_centerVertical="true"
-                    android:text="+关 注"
-                    android:background="?attr/selectableItemBackground"
+                    android:layout_gravity="center"
+                    android:text="@string/text_download"
+                    android:background="@drawable/bg_download_button_border"
                     android:textSize="12sp"
                     android:textColor="@color/colorPrimary"
-                    android:gravity="center_vertical"
-                    android:paddingVertical="@dimen/dp_4"
-                    android:paddingStart="12dp"
-                    android:paddingEnd="12dp"
-                    android:visibility="gone"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:gravity="center"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
                     />
 
-            </RelativeLayout>
+            </android.support.constraint.ConstraintLayout>
 
-            <com.zpj.shouji.market.ui.widget.emoji.EmojiExpandableTextView
-                android:id="@+id/tv_content"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingVertical="@dimen/dp_8"
-                android:textColor="?attr/textColorMajor"
-                android:lineSpacingExtra="@dimen/dp_4"
-                app:ep_max_line="5"
-                app:ep_need_animation="true"
-                app:ep_expand_text="查看更多"
-                app:ep_contract_text="收起"
-                app:ep_expand_color="@color/colorPrimary"
-                app:ep_contract_color="@color/colorPrimary"
-                app:ep_need_contract="true"
-                app:ep_need_expand="true"
-                app:ep_need_link="true"
-                app:ep_need_mention="true"
-                app:ep_need_self="false"
-                app:ep_need_convert_url="false"
-                app:ep_link_color="@color/colorPrimary"
-                app:ep_mention_color="@color/colorPrimary"
-                android:visibility="gone"
-                tools:visibility="visible"
-                />
+        </FrameLayout>
 
-            <include layout="@layout/layout_nine_grid"/>
+        <LinearLayout
+            android:id="@+id/ll_action_contaienr"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            android:layout_marginTop="@dimen/dp_8"
+            >
 
-            <include layout="@layout/item_discover_collection"
-                android:id="@+id/collection_layout"
-                android:layout_width="match_parent"
-                android:layout_height="108dp"
-                android:visibility="gone"
-                tools:visibility="visible"
-                />
+            <com.zpj.shouji.market.ui.widget.count.GoodView
+                android:id="@+id/support_view"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                app:count="1"
+                app:checked="false"
+                app:zeroText="赞"
+                app:textSize="12sp"/>
 
-<!--            <include layout="@layout/item_app_collection"-->
-<!--                android:id="@+id/collection_layout"-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:visibility="gone"-->
-<!--                tools:visibility="visible"-->
-<!--                />-->
-
-            <FrameLayout
-                android:id="@+id/layout_app"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="?attr/backgroundShape"
-                android:visibility="gone"
-                tools:visibility="visible"
-                >
-
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:padding="8dp"
-                    android:background="?attr/selectableItemBackground"
-                    >
-
-                    <ImageView
-                        android:id="@+id/app_icon"
-                        android:layout_width="36dp"
-                        android:layout_height="36dp"
-                        android:src="@mipmap/ic_launcher"
-                        android:layout_gravity="center_vertical"
-                        android:scaleType="centerCrop"
-                        />
-
-                    <LinearLayout
-                        android:id="@+id/app_wrapper"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:gravity="center_vertical"
-                        android:paddingStart="10dp"
-                        android:paddingEnd="0dp"
-                        android:layout_toEndOf="@id/app_icon"
-                        android:layout_toStartOf="@id/tv_download"
-                        >
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:orientation="vertical"
-                            android:gravity="center_vertical"
-                            >
-
-                            <TextView
-                                android:id="@+id/app_name"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:gravity="center_vertical"
-                                android:maxLines="1"
-                                android:ellipsize="end"
-                                android:text="应用名"
-                                android:textColor="?attr/textColorMajor"
-                                />
-
-                            <TextView
-                                android:id="@+id/app_info"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:gravity="center_vertical"
-                                android:layout_gravity="bottom"
-                                android:maxLines="1"
-                                android:ellipsize="end"
-                                android:text="文件夹"
-                                android:textSize="12sp"
-                                android:textColor="?attr/textColorNormal"
-                                />
-
-                        </LinearLayout>
-
-
-
-                    </LinearLayout>
-
-                    <com.zpj.shouji.market.ui.widget.DownloadButton
-                        android:id="@+id/tv_download"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:text="@string/text_download"
-                        android:background="@drawable/bg_download_button_border"
-                        android:textSize="12sp"
-                        android:textColor="@color/colorPrimary"
-                        android:layout_alignParentEnd="true"
-                        android:layout_centerVertical="true"
-                        android:gravity="center"
-                        />
-
-                </RelativeLayout>
-
-            </FrameLayout>
-
-            <LinearLayout
-                android:id="@+id/ll_action_contaienr"
+            <com.zpj.shouji.market.ui.widget.count.SkinIconCountView
+                android:id="@+id/comment_view"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="end"
-                android:paddingVertical="@dimen/dp_8"
-                >
+                android:layout_weight="1"
+                android:gravity="center"
+                app:count="0"
+                app:checked="false"
+                app:zeroText="回复"
+                app:textSize="12sp"
+                app:normalRes="@drawable/ic_comment_white_24dp"
+                app:selectedRes="@drawable/ic_comment_white_24dp"/>
 
-                <com.zpj.shouji.market.ui.widget.count.GoodView
-                    android:id="@+id/support_view"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:gravity="center"
-                    app:count="1"
-                    app:checked="false"
-                    app:zeroText="赞"
-                    app:textSize="12sp"/>
+        </LinearLayout>
 
-                <com.zpj.shouji.market.ui.widget.count.SkinIconCountView
-                    android:id="@+id/comment_view"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:gravity="center"
-                    app:count="0"
-                    app:checked="false"
-                    app:zeroText="回复"
-                    app:textSize="12sp"
-                    app:normalRes="@drawable/ic_comment_white_24dp"
-                    app:selectedRes="@drawable/ic_comment_white_24dp"/>
+        <com.zpj.shouji.market.ui.widget.expandabletextview.ExpandableTextView
+            android:id="@+id/tv_support_users"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:maxLines="1"
+            android:ellipsize="end"
+            android:textColor="?attr/textColorMajor"
+            app:ep_need_self="true"
+            app:ep_need_expand="false"
+            app:ep_need_contract="false"
+            app:ep_max_line="1"
+            app:ep_need_mention="false"
+            app:ep_need_link="false"
+            app:ep_self_color="@color/colorPrimary"
+            android:textSize="12sp"
+            android:visibility="gone"
+            tools:visibility="visible"
+            android:paddingVertical="@dimen/dp_8"
+            android:layout_marginTop="@dimen/dp_8"
+            />
 
-            </LinearLayout>
-
-            <com.zpj.shouji.market.ui.widget.expandabletextview.ExpandableTextView
-                android:id="@+id/tv_support_users"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:maxLines="1"
-                android:ellipsize="end"
-                android:textColor="?attr/textColorMajor"
-                app:ep_need_self="true"
-                app:ep_need_expand="false"
-                app:ep_need_contract="false"
-                app:ep_max_line="1"
-                app:ep_need_mention="false"
-                app:ep_need_link="false"
-                app:ep_self_color="@color/colorPrimary"
-                android:textSize="12sp"
-                android:visibility="gone"
-                tools:visibility="visible"
-                android:paddingVertical="@dimen/dp_8"
-                />
-
-<!--            <TextView-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:text="2人赞过：xxxx、xxxxxx"-->
-<!--                android:layout_marginStart="10dp"-->
-<!--                android:textColor="@color/colorPrimary"-->
-<!--                />-->
-
-            <LinearLayout
-                android:orientation="vertical"
-                android:id="@+id/layout_comment"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="?attr/backgroundShape"
-                android:padding="@dimen/dp_8"
-                android:visibility="gone"
-                tools:visibility="visible"
-                >
-
-            </LinearLayout>
+        <LinearLayout
+            android:orientation="vertical"
+            android:id="@+id/layout_comment"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="?attr/backgroundShape"
+            android:padding="@dimen/dp_8"
+            android:visibility="gone"
+            tools:visibility="visible"
+            android:layout_marginTop="@dimen/dp_8"
+            >
 
         </LinearLayout>
 
     </LinearLayout>
 
-</LinearLayout>
+</android.support.constraint.ConstraintLayout>

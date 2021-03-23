@@ -21,7 +21,7 @@ import com.zpj.recyclerview.EasyRecyclerView;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.glide.GlideRequestOptions;
 import com.zpj.shouji.market.glide.ImageViewDrawableTarget;
-import com.zpj.shouji.market.ui.fragment.dialog.CommonImageViewerDialogFragment2;
+import com.zpj.shouji.market.ui.fragment.dialog.CommonImageViewerDialogFragment;
 import com.zpj.utils.ScreenUtils;
 
 import java.util.List;
@@ -120,7 +120,7 @@ public class ScreenShootMultiData extends RecyclerMultiData<String> {
     }
 
     private void showImageViewer(ImageView ivImg, int position) {
-        new CommonImageViewerDialogFragment2()
+        new CommonImageViewerDialogFragment()
                 .setImageUrls(list)
                 .setSrcView(ivImg, position)
                 .setSrcViewUpdateListener(new ImageViewerDialogFragment.OnSrcViewUpdateListener<String>() {

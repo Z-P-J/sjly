@@ -1,5 +1,6 @@
 package com.zpj.shouji.market.ui.multidata;
 
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 
@@ -53,14 +54,8 @@ public abstract class AppInfoMultiData extends BaseHeaderMultiData<AppInfo> {
     @Override
     public boolean loadData() {
         if (getKey() != null) {
-//            if (HttpPreLoader.getInstance().hasKey(getKey())) {
-//                HttpPreLoader.getInstance().setLoadListener(getKey(), document -> onGetDoc(document));
-//            } else {
-//
-//            }
-
             HttpApi.getXml(getKey().getUrl())
-                    .onSuccess(document -> onGetDoc(document))
+                    .onSuccess(this::onGetDoc)
                     .onError(new IHttp.OnErrorListener() {
                         @Override
                         public void onError(Throwable throwable) {
@@ -74,6 +69,7 @@ public abstract class AppInfoMultiData extends BaseHeaderMultiData<AppInfo> {
 
     @Override
     public void onBindChild(EasyViewHolder holder, List<AppInfo> list, int position, List<Object> payloads) {
+        long temp = System.currentTimeMillis();
         AppInfo info = list.get(position);
         holder.getTextView(R.id.item_title).setText(info.getAppTitle());
         holder.getTextView(R.id.item_info).setText(info.getAppSize());
@@ -82,14 +78,17 @@ public abstract class AppInfoMultiData extends BaseHeaderMultiData<AppInfo> {
                 .load(info.getAppIcon())
                 .apply(GlideRequestOptions.getDefaultIconOption())
                 .into(ivIcon);
+        long start = System.currentTimeMillis();
         DownloadButton downloadButton = holder.getView(R.id.tv_download);
         downloadButton.bindApp(info);
+        Log.i("onBindChild", "bind deltaTime=" + (System.currentTimeMillis() - start));
         holder.setOnItemClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 AppDetailFragment.start(info);
             }
         });
+        Log.i("onBindChild", "deltaTime=" + (System.currentTimeMillis() - temp));
     }
 
     public abstract PreloadApi getKey();

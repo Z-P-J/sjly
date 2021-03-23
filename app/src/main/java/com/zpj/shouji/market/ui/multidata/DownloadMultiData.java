@@ -21,6 +21,7 @@ import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.download.AppDownloadMission;
 import com.zpj.shouji.market.ui.fragment.detail.AppDetailFragment;
 import com.zpj.shouji.market.ui.widget.DownloadedActionButton;
+import com.zpj.statemanager.State;
 import com.zpj.toast.ZToast;
 import com.zpj.utils.ClickHelper;
 
@@ -48,13 +49,20 @@ public class DownloadMultiData extends ExpandableMultiData<AppDownloadMission> {
         this.list.clear();
         this.list.addAll(list);
         hasMore = false;
+        if (list.isEmpty()) {
+            state = State.STATE_EMPTY;
+        }
     }
 
     public void addMission(BaseMission<?> mission) {
         if (mission instanceof AppDownloadMission) {
             this.list.add(0, (AppDownloadMission) mission);
-            notifyItemRangeInserted(1, 1);
-            notifyItemChanged(0);
+            if (this.list.size() == 1) {
+                showContent();
+            } else {
+                notifyItemRangeInserted(1, 1);
+                notifyItemChanged(0);
+            }
         }
     }
 
@@ -63,8 +71,12 @@ public class DownloadMultiData extends ExpandableMultiData<AppDownloadMission> {
             int pos = this.list.indexOf(mission);
             if (pos >= 0) {
                 this.list.remove(mission);
-                notifyItemRemoved(pos + 1);
-                notifyItemChanged(0);
+                if (this.list.isEmpty()) {
+                    showEmpty();
+                } else {
+                    notifyItemRemoved(pos + 1);
+                    notifyItemChanged(0);
+                }
             }
         }
     }
@@ -94,13 +106,15 @@ public class DownloadMultiData extends ExpandableMultiData<AppDownloadMission> {
             holder.setImageResource(R.id.img_icon, R.drawable.ic_downloaded);
         }
         holder.setOnItemClickListener(v -> {
-            if (isExpand()) {
-                collapse();
-            } else {
-                expand();
+            if (state == State.STATE_CONTENT) {
+                if (isExpand()) {
+                    collapse();
+                } else {
+                    expand();
+                }
+                updateIcon(holder);
+                scrollToPosition(0);
             }
-            updateIcon(holder);
-            scrollToPosition(0);
         });
     }
 
@@ -183,7 +197,11 @@ public class DownloadMultiData extends ExpandableMultiData<AppDownloadMission> {
                                                     mission.delete();
                                                     int pos = list.indexOf(mission) + 1;
                                                     list.remove(mission);
-                                                    notifyItemRemoved(pos);
+                                                    if (list.isEmpty()) {
+                                                        showEmpty();
+                                                    } else {
+                                                        notifyItemRemoved(pos);
+                                                    }
                                                 })
                                                 .show(context);
                                         break;
@@ -218,7 +236,6 @@ public class DownloadMultiData extends ExpandableMultiData<AppDownloadMission> {
         }
         return false;
     }
-
 
     private void updateStatus(EasyViewHolder holder, AppDownloadMission mission) {
         boolean isFinished = mission.isFinished();
