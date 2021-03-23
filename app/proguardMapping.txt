@@ -1,7 +1,7 @@
 # compiler: R8
 # compiler_version: 1.5.69
 # min_api: 19
-# pg_map_id: afe1840
+# pg_map_id: 71c7ffe
 android.arch.core.executor.ArchTaskExecutor -> a.a.a.a.a:
     android.arch.core.executor.ArchTaskExecutor sInstance -> c
     android.arch.core.executor.TaskExecutor mDelegate -> a
@@ -33964,24 +33964,24 @@ com.zpj.shouji.market.R$drawable -> com.zpj.shouji.market.R$drawable:
 com.zpj.shouji.market.R$id -> com.zpj.shouji.market.R$id:
     8514:8514:void <init>() -> <init>
 com.zpj.shouji.market.R$integer -> com.zpj.shouji.market.R$integer:
-    9284:9284:void <init>() -> <init>
+    9283:9283:void <init>() -> <init>
 com.zpj.shouji.market.R$interpolator -> com.zpj.shouji.market.R$interpolator:
-    9301:9301:void <init>() -> <init>
+    9300:9300:void <init>() -> <init>
 com.zpj.shouji.market.R$layout -> com.zpj.shouji.market.R$layout:
-    9307:9307:void <init>() -> <init>
+    9306:9306:void <init>() -> <init>
 com.zpj.shouji.market.R$menu -> com.zpj.shouji.market.R$menu:
-    9590:9590:void <init>() -> <init>
+    9586:9586:void <init>() -> <init>
 com.zpj.shouji.market.R$mipmap -> com.zpj.shouji.market.R$mipmap:
-    9599:9599:void <init>() -> <init>
+    9595:9595:void <init>() -> <init>
 com.zpj.shouji.market.R$string -> com.zpj.shouji.market.R$string:
-    9603:9603:void <init>() -> <init>
+    9599:9599:void <init>() -> <init>
 com.zpj.shouji.market.R$style -> com.zpj.shouji.market.R$style:
-    9733:9733:void <init>() -> <init>
+    9729:9729:void <init>() -> <init>
 com.zpj.shouji.market.R$styleable -> com.zpj.shouji.market.R$styleable:
-    10326:30130:void <clinit>() -> <clinit>
-    10254:10254:void <init>() -> <init>
+    10322:30126:void <clinit>() -> <clinit>
+    10250:10250:void <init>() -> <init>
 com.zpj.shouji.market.R$xml -> com.zpj.shouji.market.R$xml:
-    30485:30485:void <init>() -> <init>
+    30481:30481:void <init>() -> <init>
 com.zpj.shouji.market.api.-$$Lambda$BookingApi$FehFODwj9WFjKLuu-MP9X3HqUOg -> com.zpj.shouji.market.b.a:
     com.zpj.utils.Callback f$0 -> a
     void onSuccess(java.lang.Object) -> a
@@ -36958,54 +36958,54 @@ com.zpj.shouji.market.ui.fragment.WebFragment -> com.zpj.shouji.market.g.c.e0:
     int currentProgress -> n
     android.widget.FrameLayout container -> j
     android.widget.ProgressBar mProgressBar -> k
-    39:320:void <init>() -> <init>
+    39:315:void <init>() -> <init>
     117:117:int getLayoutId() -> A
-    197:285:void initWebView() -> F
-    317:317:boolean isPhoneUA() -> G
+    192:280:void initWebView() -> F
+    312:312:boolean isPhoneUA() -> G
     39:39:android.widget.ProgressBar access$000(com.zpj.shouji.market.ui.fragment.WebFragment) -> a
     39:39:int access$202(com.zpj.shouji.market.ui.fragment.WebFragment,int) -> a
     39:39:boolean access$302(com.zpj.shouji.market.ui.fragment.WebFragment,boolean) -> a
     77:78:void appPage(java.lang.String,java.lang.String) -> a
     87:112:void initView(android.view.View,android.os.Bundle) -> a
-    163:192:void lambda$toolbarRightImageButton$1(android.widget.ImageButton,android.view.View) -> a
-    169:189:void lambda$null$0(boolean,com.zpj.fragmentation.dialog.impl.AttachListDialogFragment,int,java.lang.String) -> a
-    299:302:void lambda$startDismissAnimation$2(int,android.animation.ValueAnimator) -> a
+    158:187:void lambda$toolbarRightImageButton$1(android.widget.ImageButton,android.view.View) -> a
+    164:184:void lambda$null$0(boolean,com.zpj.fragmentation.dialog.impl.AttachListDialogFragment,int,java.lang.String) -> a
+    294:297:void lambda$startDismissAnimation$2(int,android.animation.ValueAnimator) -> a
     39:39:android.content.Context access$100(com.zpj.shouji.market.ui.fragment.WebFragment) -> b
     39:39:void access$400(com.zpj.shouji.market.ui.fragment.WebFragment,int) -> b
     51:56:com.zpj.shouji.market.ui.fragment.WebFragment newInstance(java.lang.String,java.lang.String) -> b
-    152:156:boolean onBackPressedSupport() -> b
-    162:193:void toolbarRightImageButton(android.widget.ImageButton) -> b
+    147:151:boolean onBackPressedSupport() -> b
+    157:188:void toolbarRightImageButton(android.widget.ImageButton) -> b
     39:39:boolean access$300(com.zpj.shouji.market.ui.fragment.WebFragment) -> c
     39:39:void access$500(com.zpj.shouji.market.ui.fragment.WebFragment,int) -> c
     60:61:void start(java.lang.String,java.lang.String) -> c
     39:39:android.content.Context access$600(com.zpj.shouji.market.ui.fragment.WebFragment) -> d
     68:69:void shareHomepage(java.lang.String) -> d
-    295:314:void startDismissAnimation(int) -> d
+    290:309:void startDismissAnimation(int) -> d
     64:65:void start(java.lang.String) -> e
-    288:292:void startProgressAnimation(int) -> e
-    127:135:void onDestroy() -> onDestroy
-    145:147:void onPause() -> onPause
-    139:141:void onResume() -> onResume
+    283:287:void startProgressAnimation(int) -> e
+    122:130:void onDestroy() -> onDestroy
+    140:142:void onPause() -> onPause
+    134:136:void onResume() -> onResume
 com.zpj.shouji.market.ui.fragment.WebFragment$1 -> com.zpj.shouji.market.g.c.e0$a:
     android.webkit.WebSettings val$settings -> a
     com.zpj.shouji.market.ui.fragment.WebFragment this$0 -> b
-    219:219:void <init>(com.zpj.shouji.market.ui.fragment.WebFragment,android.webkit.WebSettings) -> <init>
-    240:241:void onPageCommitVisible(android.webkit.WebView,java.lang.String) -> onPageCommitVisible
-    223:227:void onPageFinished(android.webkit.WebView,java.lang.String) -> onPageFinished
-    232:235:void onPageStarted(android.webkit.WebView,java.lang.String,android.graphics.Bitmap) -> onPageStarted
-    245:248:boolean shouldOverrideUrlLoading(android.webkit.WebView,java.lang.String) -> shouldOverrideUrlLoading
+    214:214:void <init>(com.zpj.shouji.market.ui.fragment.WebFragment,android.webkit.WebSettings) -> <init>
+    235:236:void onPageCommitVisible(android.webkit.WebView,java.lang.String) -> onPageCommitVisible
+    218:222:void onPageFinished(android.webkit.WebView,java.lang.String) -> onPageFinished
+    227:230:void onPageStarted(android.webkit.WebView,java.lang.String,android.graphics.Bitmap) -> onPageStarted
+    240:243:boolean shouldOverrideUrlLoading(android.webkit.WebView,java.lang.String) -> shouldOverrideUrlLoading
 com.zpj.shouji.market.ui.fragment.WebFragment$2 -> com.zpj.shouji.market.g.c.e0$b:
     com.zpj.shouji.market.ui.fragment.WebFragment this$0 -> a
-    258:258:void <init>(com.zpj.shouji.market.ui.fragment.WebFragment) -> <init>
-    262:273:void onProgressChanged(android.webkit.WebView,int) -> onProgressChanged
+    253:253:void <init>(com.zpj.shouji.market.ui.fragment.WebFragment) -> <init>
+    257:268:void onProgressChanged(android.webkit.WebView,int) -> onProgressChanged
 com.zpj.shouji.market.ui.fragment.WebFragment$3 -> com.zpj.shouji.market.g.c.e0$c:
     com.zpj.shouji.market.ui.fragment.WebFragment this$0 -> a
-    276:276:void <init>(com.zpj.shouji.market.ui.fragment.WebFragment) -> <init>
-    278:282:void onDownloadStart(java.lang.String,java.lang.String,java.lang.String,java.lang.String,long) -> onDownloadStart
+    271:271:void <init>(com.zpj.shouji.market.ui.fragment.WebFragment) -> <init>
+    273:277:void onDownloadStart(java.lang.String,java.lang.String,java.lang.String,java.lang.String,long) -> onDownloadStart
 com.zpj.shouji.market.ui.fragment.WebFragment$4 -> com.zpj.shouji.market.g.c.e0$d:
     com.zpj.shouji.market.ui.fragment.WebFragment this$0 -> a
-    304:304:void <init>(com.zpj.shouji.market.ui.fragment.WebFragment) -> <init>
-    308:311:void onAnimationEnd(android.animation.Animator) -> onAnimationEnd
+    299:299:void <init>(com.zpj.shouji.market.ui.fragment.WebFragment) -> <init>
+    303:306:void onAnimationEnd(android.animation.Animator) -> onAnimationEnd
 com.zpj.shouji.market.ui.fragment.backup.-$$Lambda$CloudBackupFragment$6e_SY6rdm2985c2J_ZCTt01YBYQ -> com.zpj.shouji.market.g.c.f0.a:
     com.zpj.shouji.market.ui.fragment.backup.-$$Lambda$CloudBackupFragment$6e_SY6rdm2985c2J_ZCTt01YBYQ INSTANCE -> a
 com.zpj.shouji.market.ui.fragment.backup.-$$Lambda$CloudBackupFragment$LHeUpNfWpL2UwhwNh6M9_zJmmTs -> com.zpj.shouji.market.g.c.f0.b:
@@ -42814,38 +42814,38 @@ com.zpj.shouji.market.utils.EventBus$NullableObject -> com.zpj.shouji.market.uti
     257:259:void <init>(java.lang.Object) -> <init>
     262:262:java.lang.Object getObject() -> a
 com.zpj.shouji.market.utils.FileScanner -> com.zpj.shouji.market.utils.y:
-    java.util.concurrent.ConcurrentLinkedQueue folderList -> c
-    java.util.List taskList -> d
-    java.lang.String type -> a
-    android.arch.lifecycle.LifecycleOwner lifecycleOwner -> b
-    30:32:void <clinit>() -> <clinit>
-    26:26:void <init>() -> <init>
-    26:26:java.util.concurrent.ConcurrentLinkedQueue access$000() -> a
-    108:109:com.zpj.shouji.market.utils.FileScanner setType(java.lang.String) -> a
-    113:114:com.zpj.shouji.market.utils.FileScanner bindLife(android.arch.lifecycle.LifecycleOwner) -> a
-    119:175:void start(com.zpj.shouji.market.utils.FileScanner$OnScanListener) -> a
-    126:134:void lambda$start$0(com.zpj.shouji.market.utils.FileScanner$OnScanListener,io.reactivex.ObservableEmitter) -> a
-    26:26:java.util.List access$100() -> b
+    java.util.List taskList -> b
+    android.arch.lifecycle.LifecycleOwner lifecycleOwner -> d
+    java.util.concurrent.ConcurrentLinkedQueue folderList -> a
+    java.lang.String type -> c
+    26:32:void <init>() -> <init>
+    26:26:java.util.concurrent.ConcurrentLinkedQueue access$000(com.zpj.shouji.market.utils.FileScanner) -> a
+    110:111:com.zpj.shouji.market.utils.FileScanner setType(java.lang.String) -> a
+    115:116:com.zpj.shouji.market.utils.FileScanner bindLife(android.arch.lifecycle.LifecycleOwner) -> a
+    121:177:void start(com.zpj.shouji.market.utils.FileScanner$OnScanListener) -> a
+    128:136:void lambda$start$0(com.zpj.shouji.market.utils.FileScanner$OnScanListener,io.reactivex.ObservableEmitter) -> a
+    26:26:java.util.List access$100(com.zpj.shouji.market.utils.FileScanner) -> b
 com.zpj.shouji.market.utils.FileScanner$1 -> com.zpj.shouji.market.utils.y$a:
     com.zpj.shouji.market.utils.FileScanner$OnScanListener val$onScanListener -> a
-    145:145:void <init>(com.zpj.shouji.market.utils.FileScanner,com.zpj.shouji.market.utils.FileScanner$OnScanListener) -> <init>
-    148:151:void onSubscribe(io.reactivex.disposables.Disposable) -> a
-    155:158:void onNext(java.lang.Object) -> a
-    162:166:void onError(java.lang.Throwable) -> a
-    170:173:void onComplete() -> a
+    147:147:void <init>(com.zpj.shouji.market.utils.FileScanner,com.zpj.shouji.market.utils.FileScanner$OnScanListener) -> <init>
+    150:153:void onSubscribe(io.reactivex.disposables.Disposable) -> a
+    157:160:void onNext(java.lang.Object) -> a
+    164:168:void onError(java.lang.Throwable) -> a
+    172:175:void onComplete() -> a
 com.zpj.shouji.market.utils.FileScanner$OnScanListener -> com.zpj.shouji.market.utils.y$b:
     void onScanEnd() -> a
     void onScanningFiles(java.lang.Object) -> a
     java.lang.Object onWrapFile(java.io.File) -> a
     void onScanBegin() -> b
 com.zpj.shouji.market.utils.FileScanner$ScannerTask -> com.zpj.shouji.market.utils.y$c:
+    com.zpj.shouji.market.utils.FileScanner this$0 -> e
     android.arch.lifecycle.LifecycleOwner lifecycleOwner -> d
     java.lang.String type -> c
     com.zpj.shouji.market.utils.FileScanner$OnScanListener onScanListener -> b
     io.reactivex.ObservableEmitter callback -> a
-    44:50:void <init>(io.reactivex.ObservableEmitter,com.zpj.shouji.market.utils.FileScanner$OnScanListener,java.lang.String,android.arch.lifecycle.LifecycleOwner) -> <init>
-    53:103:void start() -> a
-    55:94:void lambda$start$0(io.reactivex.ObservableEmitter) -> a
+    45:51:void <init>(com.zpj.shouji.market.utils.FileScanner,io.reactivex.ObservableEmitter,com.zpj.shouji.market.utils.FileScanner$OnScanListener,java.lang.String,android.arch.lifecycle.LifecycleOwner) -> <init>
+    54:105:void start() -> a
+    56:96:void lambda$start$0(io.reactivex.ObservableEmitter) -> a
 com.zpj.shouji.market.utils.ImageHeaderParser -> com.zpj.shouji.market.utils.z:
     56:58:java.lang.String getImageExtension(com.zpj.shouji.market.utils.ImageHeaderParser$ImageType) -> a
     72:72:java.lang.String getImageExtension(java.io.InputStream) -> a

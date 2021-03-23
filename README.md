@@ -83,8 +83,8 @@
 
 ## 其他
 
-- [基于Fragmentation的Fragment框架ZFragmentation](https://github.com/Z-P-J/sjly/tree/master/fragmentation)
-- [基于XPopup和ZFragmentation弹窗框架Fragmentation-Dialog](https://github.com/Z-P-J/sjly/tree/master/fragmentation-dialog)
+- [基于Fragmentation的Fragment框架ZFragmentation](https://github.com/Z-P-J/Fragmentation)
+- [基于XPopup和ZFragmentation弹窗框架Fragmentation-Dialog](https://github.com/Z-P-J/Fragmentation-Dialog)
 - [网络请求库ZHttp，内置Jsoup](https://github.com/Z-P-J/ZHttp)
 - [文件下载框架ZDownloader](https://github.com/Z-P-J/ZDownloader)
 - [RecyclerView框架ZRecyclerView](https://github.com/Z-P-J/ZRecyclerView)

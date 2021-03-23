@@ -117,11 +117,6 @@ public class WebFragment extends SkinFragment {
         return R.layout.fragment_web;
     }
 
-//    @Override
-//    protected void initStatusBar() {
-//        lightStatusBar();
-//    }
-
     @Override
     public void onDestroy() {
         if (mWebView != null) {

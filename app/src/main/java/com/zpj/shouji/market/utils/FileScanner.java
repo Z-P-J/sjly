@@ -27,21 +27,22 @@ public class FileScanner<T> {
 
     private static final String TAG = "ZFileScanner";
 
-    private static final ConcurrentLinkedQueue<File> folderList = new ConcurrentLinkedQueue<>();
+    private final ConcurrentLinkedQueue<File> folderList = new ConcurrentLinkedQueue<>();
 
-    private static final List<ScannerTask<?>> taskList = new ArrayList<>();
+    private final List<ScannerTask> taskList = new ArrayList<>();
 
     private String type;
     private LifecycleOwner lifecycleOwner;
 
-    private static class ScannerTask<T> {
+    private class ScannerTask {
 
         private final ObservableEmitter<T> callback;
         private final OnScanListener<T> onScanListener;
         private final String type;
         private final LifecycleOwner lifecycleOwner;
 
-        public ScannerTask(ObservableEmitter<T> callback, OnScanListener<T> onScanListener, String type, LifecycleOwner lifecycleOwner) {
+        public ScannerTask(ObservableEmitter<T> callback, OnScanListener<T> onScanListener,
+                           String type, LifecycleOwner lifecycleOwner) {
             this.callback = callback;
             this.onScanListener = onScanListener;
             this.type = type;
@@ -55,24 +56,25 @@ public class FileScanner<T> {
                         while (!folderList.isEmpty()) {
                             File file = folderList.poll();
                             if (file != null) {
-//                                Log.d(TAG, "file=" + file.getAbsolutePath());
                                 if (file.isDirectory()) {
-                                    for (File f : file.listFiles()) {
-                                        Log.d(TAG, "file=" + file.getAbsolutePath());
-                                        if (f.isDirectory()) {
-                                            folderList.add(f);
-                                        } else {
-                                            if (onScanListener != null) {
-                                                if (f.getName().toLowerCase().endsWith(type)) {
-                                                    T item = onScanListener.onWrapFile(f);
-                                                    if (item != null) {
-                                                        callback.onNext(item);
+                                    File[] files = file.listFiles();
+                                    if (files != null) {
+                                        for (File f : files) {
+                                            Log.d(TAG, "file=" + file.getAbsolutePath());
+                                            if (f.isDirectory()) {
+                                                folderList.add(f);
+                                            } else {
+                                                if (onScanListener != null) {
+                                                    if (f.getName().toLowerCase().endsWith(type)) {
+                                                        T item = onScanListener.onWrapFile(f);
+                                                        if (item != null) {
+                                                            callback.onNext(item);
+                                                        }
                                                     }
                                                 }
                                             }
                                         }
                                     }
-//                                    folderList.addAll(Arrays.asList(file.listFiles()));
                                 } else {
                                     if (onScanListener != null) {
                                         if (file.getName().toLowerCase().endsWith(type)) {
@@ -128,7 +130,7 @@ public class FileScanner<T> {
                     File file = Environment.getExternalStorageDirectory();
                     folderList.addAll(Arrays.asList(file.listFiles()));
                     for (int i = 0; i < 3; i++) {
-                        taskList.add(new ScannerTask<>(emitter, onScanListener, type, lifecycleOwner));
+                        taskList.add(new ScannerTask(emitter, onScanListener, type, lifecycleOwner));
                     }
                     while (true) {
                         if (folderList.isEmpty() && taskList.isEmpty()) {
