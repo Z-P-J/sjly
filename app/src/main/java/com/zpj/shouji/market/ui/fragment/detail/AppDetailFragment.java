@@ -190,11 +190,11 @@ public class AppDetailFragment extends StateSwipeBackFragment
         btnCollect.setOnClickListener(this);
         btnMenu.setOnClickListener(this);
 
-        fabComment = view.findViewById(R.id.fab_comment);
+        fabComment = findViewById(R.id.fab_comment);
         fabComment.setImageResource(R.drawable.ic_download);
         fabComment.setOnClickListener(this);
 
-        appDetailLayout = view.findViewById(R.id.layout_app_detail);
+        appDetailLayout = findViewById(R.id.layout_app_detail);
         appDetailLayout.bindToolbar(toolbar);
 
 
@@ -493,11 +493,13 @@ public class AppDetailFragment extends StateSwipeBackFragment
             setSwipeBackEnable(false);
 
             if (commentDialogFragment == null) {
-                commentDialogFragment = AppCommentDialogFragment.with(context, id, type, "", () -> commentDialogFragment = null);
+                commentDialogFragment = AppCommentDialogFragment.with(context, id, type, "", () -> {
+                    commentDialogFragment = null;
+                    EventBus.sendRefreshEvent();
+                });
                 commentDialogFragment.setOnDismissListener(() -> {
                     setSwipeBackEnable(true);
                     fabComment.show();
-                    EventBus.sendRefreshEvent();
                 });
             }
             commentDialogFragment.show(context);

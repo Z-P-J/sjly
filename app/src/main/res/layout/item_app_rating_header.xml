@@ -59,7 +59,6 @@
             android:layout_height="wrap_content"
             android:textColor="@color/colorPrimary"
             android:textSize="56sp"
-            android:textStyle="italic"
             android:text="5.0"
             android:layout_centerVertical="true"
             android:layout_marginStart="8dp"

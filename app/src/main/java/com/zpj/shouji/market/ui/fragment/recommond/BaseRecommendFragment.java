@@ -20,7 +20,6 @@ import com.zpj.recyclerview.MultiRecyclerViewWrapper;
 import com.zpj.rxbus.RxBus;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.model.AppInfo;
-import com.zpj.shouji.market.ui.fragment.base.SkinFragment;
 import com.zpj.shouji.market.ui.fragment.base.StateFragment;
 import com.zpj.shouji.market.ui.fragment.detail.AppDetailFragment;
 import com.zpj.shouji.market.ui.fragment.manager.ManagerFragment;
@@ -48,7 +47,7 @@ public abstract class BaseRecommendFragment extends StateFragment
 
     @Override
     protected int getLayoutId() {
-        return R.layout.fragment_app_recomment2;
+        return R.layout.fragment_app_recomment;
     }
 
     @Override

@@ -45,16 +45,6 @@ public class AppCommentDialogFragment extends CommentDialogFragment {
     public void sendText(String content) {
         hideSoftInput();
         Log.d("sendText", "content=" + content + " appId=" + appId + " appType=" + appType + " appPackage=" + appPackage);
-//        ShowLoadingEvent.post("评论中...");
-//        if (replyPanel.getImgList().isEmpty()) {
-//            CommentApi.appCommentApi(content, "0", appId, appType, appPackage)
-//                    .onSuccess(this)
-//                    .onError(this)
-//                    .subscribe();
-//        } else {
-//
-//        }
-
         CommentApi.appCommentWithFileApi(
                 context,
                 content,

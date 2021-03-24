@@ -64,11 +64,9 @@ public class AppDetailLayout extends FrameLayout {
 
     public AppDetailLayout(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
-//        setBackgroundColor(Color.WHITE);
-//        setBackgroundColor(ThemeUtils.getDefaultBackgroundColor(context));
         SkinEngine.setBackground(this, R.attr.backgroundColor);
 
-        LayoutInflater.from(context).inflate(R.layout.layout_app_detail2, this, true);
+        LayoutInflater.from(context).inflate(R.layout.layout_app_detail, this, true);
         toolbarLayout = findViewById(R.id.collapsingToolbar);
         headerLayout = findViewById(R.id.layout_header);
         mViewPager = findViewById(R.id.view_pager);
