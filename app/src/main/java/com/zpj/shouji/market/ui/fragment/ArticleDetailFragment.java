@@ -20,8 +20,6 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.transition.Transition;
 import com.zpj.fragmentation.dialog.impl.AttachListDialogFragment;
-import com.zpj.shouji.market.ui.widget.TitleHeaderLayout;
-import com.zpj.statemanager.StateManager;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.api.HttpApi;
 import com.zpj.shouji.market.constant.Keys;
@@ -37,8 +35,10 @@ import com.zpj.shouji.market.model.article.TextElement;
 import com.zpj.shouji.market.ui.fragment.base.BaseSwipeBackFragment;
 import com.zpj.shouji.market.ui.fragment.detail.AppDetailFragment;
 import com.zpj.shouji.market.ui.fragment.dialog.CommonImageViewerDialogFragment;
-import com.zpj.shouji.market.ui.widget.DownloadButton;
+import com.zpj.shouji.market.ui.widget.DownloadButton2;
+import com.zpj.shouji.market.ui.widget.TitleHeaderLayout;
 import com.zpj.shouji.market.ui.widget.selection.SelectableTextView;
+import com.zpj.statemanager.StateManager;
 import com.zpj.toast.ZToast;
 import com.zpj.utils.ScreenUtils;
 
@@ -183,7 +183,7 @@ public class ArticleDetailFragment extends BaseSwipeBackFragment {
             } else {
                 i.setText(appInfo.getAppInfo());
             }
-            DownloadButton downloadButton = app.findViewById(R.id.tv_download);
+            DownloadButton2 downloadButton = app.findViewById(R.id.tv_download);
             downloadButton.bindApp(appInfo);
         }
     }
@@ -312,7 +312,7 @@ public class ArticleDetailFragment extends BaseSwipeBackFragment {
                 tvInfo1.setText(app.getAppSize());
                 TextView tvDesc = view.findViewById(R.id.tv_desc);
                 tvDesc.setText(app.getAppComment());
-                DownloadButton downloadButton = view.findViewById(R.id.tv_download);
+                DownloadButton2 downloadButton = view.findViewById(R.id.tv_download);
                 downloadButton.bindApp(app);
                 contentWrapper.addView(view);
             }

@@ -1,10 +1,11 @@
 package com.zpj.shouji.market.model;
 
 import com.zpj.http.parser.html.nodes.Element;
+import com.zpj.shouji.market.download.MissionBinder;
 import com.zpj.shouji.market.utils.BeanUtils;
 import com.zpj.shouji.market.utils.BeanUtils.Select;
 
-public class PickedGameInfo {
+public class PickedGameInfo extends MissionBinder {
 
     @Select(selector = "icon")
     private String appIcon;
@@ -123,10 +124,22 @@ public class PickedGameInfo {
         return appIcon;
     }
 
+    @Override
+    public boolean isShareApp() {
+        return false;
+    }
+
+    @Override
     public String getAppName() {
         return appName;
     }
 
+    @Override
+    public String getYunUrl() {
+        return null;
+    }
+
+    @Override
     public String getAppId() {
         return appId;
     }
@@ -135,10 +148,12 @@ public class PickedGameInfo {
         return viewType;
     }
 
+    @Override
     public String getAppType() {
         return appType;
     }
 
+    @Override
     public String getPackageName() {
         return packageName;
     }

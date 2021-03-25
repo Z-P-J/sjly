@@ -3,7 +3,9 @@ package com.zpj.shouji.market.model;
 import android.graphics.drawable.Drawable;
 import android.text.TextUtils;
 
-public class AppUpdateInfo {
+import com.zpj.shouji.market.download.MissionBinder;
+
+public class AppUpdateInfo extends MissionBinder {
 
     private String appName;
 
@@ -30,8 +32,17 @@ public class AppUpdateInfo {
     private boolean isExpand;
 
 
+    @Override
+    public String getYunUrl() {
+        return null;
+    }
 
+    @Override
+    public String getAppId() {
+        return id;
+    }
 
+    @Override
     public String getAppName() {
         return appName;
     }
@@ -40,8 +51,19 @@ public class AppUpdateInfo {
         this.appName = appName;
     }
 
+    @Override
     public String getPackageName() {
         return packageName;
+    }
+
+    @Override
+    public String getAppIcon() {
+        return null;
+    }
+
+    @Override
+    public boolean isShareApp() {
+        return false;
     }
 
     public void setPackageName(String packageName) {

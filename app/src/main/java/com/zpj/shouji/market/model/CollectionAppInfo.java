@@ -2,10 +2,11 @@ package com.zpj.shouji.market.model;
 
 import android.support.annotation.Keep;
 
+import com.zpj.shouji.market.download.MissionBinder;
 import com.zpj.shouji.market.utils.BeanUtils.Select;
 
 @Keep
-public class CollectionAppInfo {
+public class CollectionAppInfo extends MissionBinder {
 
     @Select(selector = "itemid")
     private String itemId;
@@ -67,16 +68,39 @@ public class CollectionAppInfo {
         return viewType;
     }
 
+    @Override
     public String getAppType() {
         return appType;
     }
 
+    @Override
     public String getPackageName() {
         return packageName;
     }
 
+    @Override
+    public String getAppIcon() {
+        return icon;
+    }
+
+    @Override
+    public boolean isShareApp() {
+        return false;
+    }
+
+    @Override
     public String getYunUrl() {
         return yunUrl;
+    }
+
+    @Override
+    public String getAppId() {
+        return id;
+    }
+
+    @Override
+    public String getAppName() {
+        return title;
     }
 
     public String getM() {

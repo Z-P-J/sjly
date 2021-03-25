@@ -193,7 +193,7 @@
         android:layout_alignParentBottom="true"
         android:padding="@dimen/dp_16"
         >
-        <com.zpj.shouji.market.ui.widget.DownloadButton
+        <com.zpj.shouji.market.ui.widget.DownloadButton2
             android:id="@+id/tv_down"
             style="@style/button_submit"
             android:text="立即下载"

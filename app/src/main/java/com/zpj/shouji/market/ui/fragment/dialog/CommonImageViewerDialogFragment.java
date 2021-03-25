@@ -69,8 +69,8 @@ public class CommonImageViewerDialogFragment extends ImageViewerDialogFragment<S
                     .addItemIf(isOriginalImageAvailable(), "查看原图")
                     .setOnSelectListener(new AttachListDialogFragment.OnSelectListener<String>() {
                         @Override
-                        public void onSelect(AttachListDialogFragment<String> fragment, int position, String text) {
-                            switch (position) {
+                        public void onSelect(AttachListDialogFragment<String> fragment, int pos, String text) {
+                            switch (pos) {
                                 case 0:
                                     PictureUtil.shareWebImage(context, getOriginalImageUrl());
                                     break;
@@ -84,6 +84,7 @@ public class CommonImageViewerDialogFragment extends ImageViewerDialogFragment<S
                                     showOriginalImage();
                                     break;
                             }
+                            fragment.dismiss();
                         }
                     })
                     .setAttachView(btnMore)

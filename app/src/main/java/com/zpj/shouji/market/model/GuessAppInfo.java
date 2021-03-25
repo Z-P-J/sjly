@@ -3,11 +3,12 @@ package com.zpj.shouji.market.model;
 import android.support.annotation.Keep;
 
 import com.zpj.http.parser.html.nodes.Element;
+import com.zpj.shouji.market.download.MissionBinder;
 import com.zpj.shouji.market.utils.BeanUtils;
 import com.zpj.shouji.market.utils.BeanUtils.Select;
 
 @Keep
-public class GuessAppInfo {
+public class GuessAppInfo extends MissionBinder {
 
     @Select(selector = "icon")
     private String appIcon;
@@ -34,6 +35,11 @@ public class GuessAppInfo {
         return appIcon;
     }
 
+    @Override
+    public boolean isShareApp() {
+        return false;
+    }
+
     public void setAppIcon(String appIcon) {
         this.appIcon = appIcon;
     }
@@ -46,8 +52,18 @@ public class GuessAppInfo {
         this.appTitle = appTitle;
     }
 
+    @Override
+    public String getYunUrl() {
+        return null;
+    }
+
     public String getAppId() {
         return appId;
+    }
+
+    @Override
+    public String getAppName() {
+        return appTitle;
     }
 
     public void setAppId(String appId) {
@@ -62,8 +78,14 @@ public class GuessAppInfo {
         this.appViewType = appViewType;
     }
 
+    @Override
     public String getAppType() {
         return appType;
+    }
+
+    @Override
+    public String getPackageName() {
+        return appPackage;
     }
 
     public void setAppType(String appType) {

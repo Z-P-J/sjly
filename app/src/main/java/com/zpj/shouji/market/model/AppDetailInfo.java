@@ -6,6 +6,7 @@ import android.util.Log;
 import com.zpj.http.parser.html.nodes.Document;
 import com.zpj.http.parser.html.nodes.Element;
 import com.zpj.http.parser.html.select.Elements;
+import com.zpj.shouji.market.download.MissionBinder;
 import com.zpj.shouji.market.utils.BeanUtils;
 import com.zpj.shouji.market.utils.BeanUtils.Select;
 
@@ -59,7 +60,7 @@ public class AppDetailInfo {
 
     private final List<AppUrlInfo> appUrlInfoList = new ArrayList<>();
 
-    public static class AppUrlInfo {
+    public static class AppUrlInfo extends MissionBinder {
         @Select(selector = "urltype")
         private String urlType;
         @Select(selector = "urlname")
@@ -76,6 +77,12 @@ public class AppDetailInfo {
         private String md5;
         @Select(selector = "more")
         private String more;
+
+        private String id;
+        private String appName;
+        private String packageName;
+        private String appType;
+        private String appIcon;
 
         public String getUrlType() {
             return urlType;
@@ -97,8 +104,39 @@ public class AppDetailInfo {
             return urlAdress;
         }
 
+        @Override
         public String getYunUrl() {
             return yunUrl;
+        }
+
+        @Override
+        public String getAppId() {
+            return id;
+        }
+
+        @Override
+        public String getAppName() {
+            return packageName;
+        }
+
+        @Override
+        public String getAppType() {
+            return appType;
+        }
+
+        @Override
+        public String getPackageName() {
+            return packageName;
+        }
+
+        @Override
+        public String getAppIcon() {
+            return appIcon;
+        }
+
+        @Override
+        public boolean isShareApp() {
+            return false;
         }
 
         public String getMd5() {
@@ -236,6 +274,11 @@ public class AppDetailInfo {
         for (Element url : doc.selectFirst("urls").select("url")) {
             AppUrlInfo appUrlInfo = BeanUtils.createBean(url, AppUrlInfo.class);
             if (appUrlInfo != null) {
+                appUrlInfo.id = appUrlInfo.getUrlAdress().substring(appUrlInfo.getUrlAdress().lastIndexOf("id=") + 3);
+                appUrlInfo.appName = info.name;
+                appUrlInfo.appIcon = info.iconUrl;
+                appUrlInfo.appType = info.appType;
+                appUrlInfo.packageName = info.packageName;
                 info.appUrlInfoList.add(appUrlInfo);
             }
         }

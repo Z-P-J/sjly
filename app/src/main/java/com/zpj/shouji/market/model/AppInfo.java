@@ -6,11 +6,12 @@ import android.support.annotation.Keep;
 
 import com.geek.banner.loader.BannerEntry;
 import com.zpj.http.parser.html.nodes.Element;
+import com.zpj.shouji.market.download.MissionBinder;
 import com.zpj.shouji.market.utils.BeanUtils;
 import com.zpj.shouji.market.utils.BeanUtils.Select;
 
 @Keep
-public class AppInfo implements Parcelable, BannerEntry<AppInfo> {
+public class AppInfo extends MissionBinder implements Parcelable, BannerEntry<AppInfo> {
 
     @Select(selector = "icon")
     private String appIcon;
@@ -94,6 +95,11 @@ public class AppInfo implements Parcelable, BannerEntry<AppInfo> {
         return appIcon;
     }
 
+    @Override
+    public boolean isShareApp() {
+        return false;
+    }
+
     public void setAppIcon(String appIcon) {
         this.appIcon = appIcon;
     }
@@ -106,8 +112,19 @@ public class AppInfo implements Parcelable, BannerEntry<AppInfo> {
         this.appTitle = appTitle;
     }
 
+    @Override
+    public String getYunUrl() {
+        return null;
+    }
+
+    @Override
     public String getAppId() {
         return appId;
+    }
+
+    @Override
+    public String getAppName() {
+        return appTitle;
     }
 
     public void setAppId(String appId) {
@@ -122,8 +139,14 @@ public class AppInfo implements Parcelable, BannerEntry<AppInfo> {
         this.appViewType = appViewType;
     }
 
+    @Override
     public String getAppType() {
         return appType;
+    }
+
+    @Override
+    public String getPackageName() {
+        return appPackage;
     }
 
     public void setAppType(String appType) {
@@ -216,4 +239,5 @@ public class AppInfo implements Parcelable, BannerEntry<AppInfo> {
     public String getIndicatorText() {
         return getAppTitle();
     }
+
 }

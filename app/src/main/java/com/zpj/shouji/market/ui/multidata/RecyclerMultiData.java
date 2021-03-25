@@ -1,5 +1,6 @@
 package com.zpj.shouji.market.ui.multidata;
 
+import android.support.annotation.NonNull;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
@@ -48,6 +49,12 @@ public abstract class RecyclerMultiData<T> extends BaseHeaderMultiData<T> {
     public void onBindChild(EasyViewHolder holder, List<T> list, int position, List<Object> payloads) {
         if (recyclerView == null) {
             RecyclerView view = holder.getView(R.id.recycler_view);
+            view.setRecyclerListener(new RecyclerView.RecyclerListener() {
+                @Override
+                public void onViewRecycled(@NonNull RecyclerView.ViewHolder viewHolder) {
+
+                }
+            });
             view.setNestedScrollingEnabled(false);
             recyclerView = new EasyRecyclerView<>(view);
             recyclerView.setData(list)

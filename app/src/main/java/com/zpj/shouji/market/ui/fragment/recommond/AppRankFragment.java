@@ -21,7 +21,7 @@ import com.zpj.shouji.market.constant.Keys;
 import com.zpj.shouji.market.model.AppInfo;
 import com.zpj.shouji.market.ui.fragment.base.NextUrlFragment;
 import com.zpj.shouji.market.ui.fragment.detail.AppDetailFragment;
-import com.zpj.shouji.market.ui.widget.DownloadButton;
+import com.zpj.shouji.market.ui.widget.DownloadButton2;
 import com.zpj.shouji.market.ui.widget.RankHeaderLayout;
 
 import java.util.ArrayList;
@@ -190,7 +190,7 @@ public class AppRankFragment extends NextUrlFragment<AppRankFragment.RankItem> {
             holder.getTextView(R.id.tv_info).setText(appInfo.getAppSize());
             holder.getTextView(R.id.tv_desc).setText(appInfo.getAppComment());
             Glide.with(context).load(appInfo.getAppIcon()).into(holder.getImageView(R.id.iv_icon));
-            DownloadButton downloadButton = holder.getView(R.id.tv_download);
+            DownloadButton2 downloadButton = holder.getView(R.id.tv_download);
             downloadButton.bindApp(appInfo);
         }
     }

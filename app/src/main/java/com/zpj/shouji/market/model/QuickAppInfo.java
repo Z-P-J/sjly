@@ -1,10 +1,11 @@
 package com.zpj.shouji.market.model;
 
 import com.zpj.http.parser.html.nodes.Element;
+import com.zpj.shouji.market.download.MissionBinder;
 import com.zpj.shouji.market.utils.BeanUtils;
 import com.zpj.shouji.market.utils.BeanUtils.Select;
 
-public class QuickAppInfo {
+public class QuickAppInfo extends MissionBinder {
 
 
     @Select(selector = "title")
@@ -50,14 +51,36 @@ public class QuickAppInfo {
         return appId;
     }
 
+    @Override
+    public String getAppName() {
+        return appTitle;
+    }
+
+    @Override
     public String getAppType() {
         return appType;
+    }
+
+    @Override
+    public String getPackageName() {
+        return appPackage;
+    }
+
+    @Override
+    public String getAppIcon() {
+        return null;
+    }
+
+    @Override
+    public boolean isShareApp() {
+        return false;
     }
 
     public String getAppPackage() {
         return appPackage;
     }
 
+    @Override
     public String getYunUrl() {
         return yunUrl;
     }

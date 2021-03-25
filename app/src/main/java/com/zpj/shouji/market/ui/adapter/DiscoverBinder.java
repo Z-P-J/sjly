@@ -38,7 +38,7 @@ import com.zpj.shouji.market.ui.fragment.profile.ProfileFragment;
 import com.zpj.shouji.market.ui.fragment.theme.ThemeDetailFragment;
 import com.zpj.shouji.market.ui.fragment.theme.TopicThemeListFragment;
 import com.zpj.shouji.market.ui.widget.CombineImageView;
-import com.zpj.shouji.market.ui.widget.DownloadButton;
+import com.zpj.shouji.market.ui.widget.DownloadButton2;
 import com.zpj.shouji.market.ui.widget.DrawableTintTextView;
 import com.zpj.shouji.market.ui.widget.count.IconCountView;
 import com.zpj.shouji.market.ui.widget.emoji.EmojiExpandableTextView;
@@ -123,7 +123,7 @@ public class DiscoverBinder
             nineGridImageView.setVisibility(View.GONE);
         }
 
-        DownloadButton tvDownload = holder.getView(R.id.tv_download);
+        DownloadButton2 tvDownload = holder.getView(R.id.tv_download);
         if (!TextUtils.isEmpty(discoverInfo.getAppName())
                 && !TextUtils.isEmpty(discoverInfo.getAppIcon())
                 && !TextUtils.isEmpty(discoverInfo.getAppPackageName())) {

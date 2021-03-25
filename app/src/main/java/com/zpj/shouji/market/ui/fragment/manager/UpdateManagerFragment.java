@@ -16,33 +16,27 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
 import com.github.zagum.expandicon.ExpandIconView;
 import com.zpj.downloader.BaseMission;
 import com.zpj.downloader.ZDownloader;
-import com.zpj.fragmentation.dialog.IDialog;
 import com.zpj.fragmentation.dialog.impl.AlertDialogFragment;
 import com.zpj.fragmentation.dialog.impl.ArrowMenuDialogFragment;
 import com.zpj.fragmentation.dialog.impl.SelectDialogFragment;
-import com.zpj.fragmentation.dialog.model.OptionMenu;
 import com.zpj.recyclerview.EasyAdapter;
 import com.zpj.recyclerview.EasyRecyclerLayout;
 import com.zpj.recyclerview.EasyViewHolder;
 import com.zpj.rxlife.RxLife;
 import com.zpj.shouji.market.R;
-import com.zpj.shouji.market.api.HttpApi;
 import com.zpj.shouji.market.constant.Keys;
-import com.zpj.shouji.market.database.IgnoredUpdateManager;
 import com.zpj.shouji.market.download.AppDownloadMission;
 import com.zpj.shouji.market.glide.GlideApp;
 import com.zpj.shouji.market.manager.AppUpdateManager;
-import com.zpj.shouji.market.manager.UserManager;
 import com.zpj.shouji.market.model.AppUpdateInfo;
 import com.zpj.shouji.market.model.IgnoredUpdateInfo;
 import com.zpj.shouji.market.model.InstalledAppInfo;
 import com.zpj.shouji.market.ui.fragment.base.RecyclerLayoutFragment;
 import com.zpj.shouji.market.ui.fragment.detail.AppDetailFragment;
-import com.zpj.shouji.market.ui.widget.DownloadButton;
+import com.zpj.shouji.market.ui.widget.DownloadButton2;
 import com.zpj.toast.ZToast;
 import com.zpj.utils.AppUtils;
 
@@ -53,8 +47,6 @@ import io.reactivex.Observable;
 import io.reactivex.ObservableEmitter;
 import io.reactivex.ObservableOnSubscribe;
 import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.functions.Action;
-import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
 
 public class UpdateManagerFragment extends RecyclerLayoutFragment<AppUpdateInfo>
@@ -347,7 +339,7 @@ public class UpdateManagerFragment extends RecyclerLayoutFragment<AppUpdateInfo>
         ImageView settingBtn = holder.getView(R.id.iv_setting);
 //        ImageView expandBtn = holder.getView(R.id.iv_expand);
         ExpandIconView expandBtn = holder.getView(R.id.iv_expand);
-        DownloadButton downloadButton = holder.getView(R.id.tv_update);
+        DownloadButton2 downloadButton = holder.getView(R.id.tv_update);
         downloadButton.bindApp(updateInfo);
 
         InstalledAppInfo appInfo = new InstalledAppInfo();

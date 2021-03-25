@@ -12,7 +12,6 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-import com.zpj.fragmentation.dialog.IDialog;
 import com.zpj.fragmentation.dialog.impl.AlertDialogFragment;
 import com.zpj.recyclerview.EasyRecyclerView;
 import com.zpj.rxbus.RxBus;
@@ -25,7 +24,7 @@ import com.zpj.shouji.market.model.QuickAppInfo;
 import com.zpj.shouji.market.model.SearchHistory;
 import com.zpj.shouji.market.ui.fragment.base.SkinFragment;
 import com.zpj.shouji.market.ui.fragment.detail.AppDetailFragment;
-import com.zpj.shouji.market.ui.widget.DownloadButton;
+import com.zpj.shouji.market.ui.widget.DownloadButton2;
 import com.zpj.shouji.market.ui.widget.flowlayout.FlowLayout;
 import com.zpj.shouji.market.utils.EventBus;
 import com.zpj.utils.ScreenUtils;
@@ -141,7 +140,7 @@ public class SearchPanelFragment extends SkinFragment {
                             .load(info.getAppIcon())
                             .apply(GlideRequestOptions.getDefaultIconOption())
                             .into(ivIcon);
-                    DownloadButton downloadButton = holder.getView(R.id.tv_download);
+                    DownloadButton2 downloadButton = holder.getView(R.id.tv_download);
                     downloadButton.bindApp(info);
                 })
                 .onItemClick((holder, view1, data) -> AppDetailFragment.start(data))
@@ -168,7 +167,7 @@ public class SearchPanelFragment extends SkinFragment {
                     tvTitle.setText(info.getAppTitle());
                     holder.setText(R.id.tv_desc, info.getAppPackage());
 
-                    DownloadButton downloadButton = holder.getView(R.id.tv_download);
+                    DownloadButton2 downloadButton = holder.getView(R.id.tv_download);
                     downloadButton.bindApp(info);
 
                 })

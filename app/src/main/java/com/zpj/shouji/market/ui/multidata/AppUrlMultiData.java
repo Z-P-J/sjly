@@ -1,25 +1,24 @@
 package com.zpj.shouji.market.ui.multidata;
 
-import android.view.View;
 import android.widget.ImageView;
 
 import com.zpj.recyclerview.EasyViewHolder;
 import com.zpj.recyclerview.ExpandableMultiData;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.model.AppDetailInfo;
-import com.zpj.shouji.market.ui.widget.DownloadButton;
+import com.zpj.shouji.market.ui.widget.DownloadButton2;
 
 import java.util.List;
 
 public class AppUrlMultiData extends ExpandableMultiData<AppDetailInfo.AppUrlInfo> {
 
     private final AppDetailInfo detailInfo;
-    private final String id;
+//    private final String id;
 
     public AppUrlMultiData(AppDetailInfo detailInfo, AppDetailInfo.AppUrlInfo appUrlInfo) {
         super();
         this.detailInfo = detailInfo;
-        this.id = appUrlInfo.getUrlAdress().substring(appUrlInfo.getUrlAdress().lastIndexOf("id=") + 3);
+//        this.id = appUrlInfo.getUrlAdress().substring(appUrlInfo.getUrlAdress().lastIndexOf("id=") + 3);
         this.list.add(appUrlInfo);
         setExpand(false);
         this.hasMore = false;
@@ -55,10 +54,11 @@ public class AppUrlMultiData extends ExpandableMultiData<AppDetailInfo.AppUrlInf
         });
 
 
-        DownloadButton downloadButton = holder.getView(R.id.tv_download);
-        downloadButton.bindApp(id, detailInfo.getName(),
-                detailInfo.getPackageName(), detailInfo.getAppType(),
-                detailInfo.getIconUrl(), appUrlInfo.getYunUrl());
+        DownloadButton2 downloadButton = holder.getView(R.id.tv_download);
+        downloadButton.bindApp(appUrlInfo);
+//        downloadButton.bindApp(id, detailInfo.getName(),
+//                detailInfo.getPackageName(), detailInfo.getAppType(),
+//                detailInfo.getIconUrl(), appUrlInfo.getYunUrl());
 
     }
 

@@ -273,7 +273,7 @@ public class RecommendBanner extends LinearLayout implements View.OnClickListene
             ImageView ivIcon = itemView.findViewById(R.id.iv_icon);
             TextView tvTitle = itemView.findViewById(R.id.tv_title);
             TextView tvInfo = itemView.findViewById(R.id.tv_info);
-            DownloadButton downloadButton = itemView.findViewById(R.id.tv_download);
+            DownloadButton2 downloadButton = itemView.findViewById(R.id.tv_download);
 
 
             AppInfo appInfo = (AppInfo) entry.getBannerPath();
