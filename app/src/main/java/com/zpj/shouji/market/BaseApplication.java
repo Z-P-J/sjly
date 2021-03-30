@@ -7,7 +7,10 @@ import android.os.Build;
 import android.os.StrictMode;
 import android.support.multidex.MultiDexApplication;
 import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.target.ViewTarget;
@@ -19,11 +22,15 @@ import com.zpj.blur.ZBlurry;
 import com.zpj.downloader.ZDownloader;
 import com.zpj.http.ZHttp;
 import com.zpj.http.core.IHttp;
+import com.zpj.progressbar.ZProgressBar;
 import com.zpj.shouji.market.api.HttpApi;
 import com.zpj.shouji.market.constant.AppConfig;
 import com.zpj.shouji.market.download.AppDownloadMission;
 import com.zpj.shouji.market.download.DownloadNotificationInterceptor;
+import com.zpj.statemanager.CustomizedViewHolder;
+import com.zpj.statemanager.StateManager;
 import com.zpj.utils.AppUtils;
+import com.zpj.utils.ScreenUtils;
 import com.zpj.widget.setting.SimpleSettingItem;
 import com.zpj.widget.setting.SwitchSettingItem;
 import com.zxy.skin.sdk.SkinEngine;
@@ -94,6 +101,16 @@ public class BaseApplication extends MultiDexApplication {
                 .setEnableNotification(AppConfig.isShowDownloadNotification())
                 .setProducerThreadCount(AppConfig.getMaxDownloadThreadCount())
                 .init();
+
+        StateManager
+                .config()
+                .setLoadingViewHolder(new CustomizedViewHolder() {
+                    @Override
+                    public void onViewCreated(View view) {
+                        addView(LayoutInflater.from(context).inflate(R.layout.layout_progress_bar, null, false));
+                        addTextViewWithPadding(R.string._text_loading, Color.GRAY);
+                    }
+                });
 
 //        UMConfigure.init(this,"5f53cf523739314483bc4020"
 //                ,"umeng",UMConfigure.DEVICE_TYPE_PHONE,"");

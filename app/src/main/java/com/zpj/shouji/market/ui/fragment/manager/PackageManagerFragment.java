@@ -10,12 +10,12 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.github.zagum.expandicon.ExpandIconView;
 import com.zpj.fragmentation.dialog.impl.ArrowMenuDialogFragment;
+import com.zpj.progressbar.ZProgressBar;
 import com.zpj.recyclerview.EasyAdapter;
 import com.zpj.recyclerview.EasyRecyclerLayout;
 import com.zpj.recyclerview.EasyViewHolder;
@@ -47,7 +47,7 @@ public class PackageManagerFragment extends RecyclerLayoutFragment<InstalledAppI
 
     protected final List<InstalledAppInfo> tempData = new ArrayList<>();
 
-    private ProgressBar progressBar;
+    private ZProgressBar progressBar;
     private TextView tvFilter;
     private TextView tvInfo;
 

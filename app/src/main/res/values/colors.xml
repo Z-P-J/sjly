@@ -18,6 +18,7 @@
 <!--    <color name="colorAccent">#4caf50</color>-->
     <color name="colorPrimary">#02c684</color>
     <color name="colorPrimary2">#2002c684</color>
+    <color name="colorPrimary3">#2ad181</color>
     <color name="colorPrimaryDark">#02c684</color>
     <color name="colorAccent">#02c684</color>
     <color name="test">#4eeaab</color>

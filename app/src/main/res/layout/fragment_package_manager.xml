@@ -118,13 +118,15 @@
         app:layout_constraintStart_toStartOf="parent"
         >
 
-        <ProgressBar
+        <com.zpj.progressbar.ZProgressBar
             android:id="@+id/progress_bar"
-            android:layout_width="14dp"
-            android:layout_height="14dp"
+            android:layout_width="8dp"
+            android:layout_height="8dp"
             android:layout_marginEnd="@dimen/dp_4"
             android:layout_gravity="center"
-            android:indeterminateDrawable="@drawable/bg_progress_bar"
+            app:zbp_radius="@dimen/dp_8"
+            app:zbp_progress_bar_color="@color/white"
+            app:zbp_progress_bar_width="1dp"
             />
 
         <TextView

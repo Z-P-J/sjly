@@ -31,7 +31,7 @@ public class CheckLayout extends SwitchSettingItem {
     @Override
     public void inflateLeftIcon(ViewStub viewStub) {
         viewStub.setLayoutResource(R.layout.z_setting_right_container_switch);
-        viewStub.setInflatedId(R.id.switcher);
+        viewStub.setInflatedId(View.generateViewId());
         viewStub.inflate();
     }
 

@@ -156,16 +156,17 @@ dependencies {
     implementation 'com.nex3z:flow-layout:1.2.4'
 
     implementation 'com.zpj.widget:Fragmentation:1.1.1'
-    implementation 'com.zpj.widget:Fragmentation-Dialog:1.1.5'
+    implementation 'com.zpj.widget:Fragmentation-Dialog:1.1.6'
     implementation 'com.zpj.widget:SmoothCheckBox:1.0.0'
     implementation 'com.zpj.widget:ZSwitcher:1.0.5'
-    implementation 'com.zpj.widget:ZSettingItem:1.0.6'
+    implementation 'com.zpj.widget:ZSettingItem:1.0.7'
     implementation 'com.zpj.widget:ZToolBar:1.0.7'
     implementation 'com.zpj.widget:StateManager:1.0.0'
     implementation 'com.zpj.utils:ZUtils:1.0.4'
     implementation 'com.zpj.toast:ZToast:1.0.1'
     implementation 'com.zpj.http:ZHttp:1.0.5'
     implementation 'com.zpj.downloader:ZDownloader:1.0.0'
+    implementation 'com.zpj.progressbar:ZProgressBar:1.0.0'
 
 //    implementation project(':zmarkdown')
 //    implementation project(':richeditor')

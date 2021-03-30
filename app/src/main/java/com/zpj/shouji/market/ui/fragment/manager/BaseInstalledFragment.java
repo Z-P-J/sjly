@@ -13,6 +13,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.github.zagum.expandicon.ExpandIconView;
+import com.zpj.progressbar.ZProgressBar;
 import com.zpj.recyclerview.EasyAdapter;
 import com.zpj.recyclerview.EasyRecyclerLayout;
 import com.zpj.recyclerview.EasyViewHolder;
@@ -47,7 +48,7 @@ public class BaseInstalledFragment extends RecyclerLayoutFragment<InstalledAppIn
 
     private TextView tvInfo;
     private TextView tvFilter;
-    private ProgressBar progressBar;
+    private ZProgressBar progressBar;
 
     private RelativeLayout headerLayout;
 

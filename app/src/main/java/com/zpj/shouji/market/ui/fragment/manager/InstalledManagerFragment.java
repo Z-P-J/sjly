@@ -13,13 +13,13 @@ import android.view.ViewGroup;
 import android.view.animation.DecelerateInterpolator;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.github.zagum.expandicon.ExpandIconView;
 import com.zpj.fragmentation.dialog.impl.ArrowMenuDialogFragment;
 import com.zpj.notification.ZNotify;
+import com.zpj.progressbar.ZProgressBar;
 import com.zpj.recyclerview.EasyAdapter;
 import com.zpj.recyclerview.EasyRecyclerLayout;
 import com.zpj.recyclerview.EasyViewHolder;
@@ -63,7 +63,7 @@ public class InstalledManagerFragment extends RecyclerLayoutFragment<InstalledAp
 
     private TextView tvInfo;
     private TextView tvFilter;
-    private ProgressBar progressBar;
+    private ZProgressBar progressBar;
     private RelativeLayout headerLayout;
     private RelativeLayout bottomLayout;
 
