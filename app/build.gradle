@@ -36,8 +36,8 @@ android {
 
         debug {
             debuggable true
-            minifyEnabled true
-//            minifyEnabled false
+//            minifyEnabled true
+            minifyEnabled false
             zipAlignEnabled false
             shrinkResources false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
@@ -102,7 +102,7 @@ dependencies {
 
     // RecyclerView
     implementation 'com.android.support:recyclerview-v7:28.0.0'
-    implementation 'com.zpj.widget:ZRecyclerView:1.2.0'
+    implementation 'com.zpj.widget:ZRecyclerView:1.2.1'
     implementation 'com.yanyusong.y_divideritemdecoration:y_divideritemdecoration:2.0'
 
     // up/down arrow
@@ -155,8 +155,9 @@ dependencies {
     implementation 'com.github.promeg:tinypinyin:2.0.3'
     implementation 'com.nex3z:flow-layout:1.2.4'
 
+    implementation 'com.github.Z-P-J:Fragmentation-Dialog:1.1.8'
     implementation 'com.zpj.widget:Fragmentation:1.1.1'
-    implementation 'com.zpj.widget:Fragmentation-Dialog:1.1.6'
+//    implementation 'com.zpj.widget:Fragmentation-Dialog:1.1.7'
     implementation 'com.zpj.widget:SmoothCheckBox:1.0.0'
     implementation 'com.zpj.widget:ZSwitcher:1.0.5'
     implementation 'com.zpj.widget:ZSettingItem:1.0.7'

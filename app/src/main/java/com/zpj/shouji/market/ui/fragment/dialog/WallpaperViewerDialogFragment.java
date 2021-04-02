@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.view.ViewPager;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -13,6 +14,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
+import com.zpj.fragmentation.ISupportFragment;
 import com.zpj.fragmentation.SupportHelper;
 import com.zpj.fragmentation.dialog.base.ArrowDialogFragment;
 import com.zpj.fragmentation.dialog.impl.ArrowMenuDialogFragment;
@@ -31,6 +33,7 @@ import com.zpj.shouji.market.ui.fragment.profile.ProfileFragment;
 import com.zpj.shouji.market.ui.fragment.theme.ThemeDetailFragment;
 import com.zpj.shouji.market.ui.widget.DrawableTintTextView;
 import com.zpj.shouji.market.utils.PictureUtil;
+import com.zpj.shouji.market.utils.ProgressViewHolder;
 import com.zpj.toast.ZToast;
 import com.zpj.widget.toolbar.ZToolBar;
 
@@ -51,6 +54,12 @@ public class WallpaperViewerDialogFragment extends ImageViewerDialogFragment<Str
 
     private WallpaperInfo wallpaperInfo;
 
+//    private ISupportFragment preFragment;
+
+    public WallpaperViewerDialogFragment() {
+        setProgressViewHolder(new ProgressViewHolder());
+    }
+
     @Override
     protected int getCustomLayoutId() {
         return R.layout.dialog_fragment_wallpaper_viewer;
@@ -58,10 +67,19 @@ public class WallpaperViewerDialogFragment extends ImageViewerDialogFragment<Str
 
     @Override
     public void onSupportVisible() {
-        mSupportVisibleActionQueue.start();
-        mDelegate.onSupportVisible();
+        super.onSupportVisible();
         lightStatusBar();
     }
+
+//    @Override
+//    public void onDestroy() {
+//        Log.d("WallpaperViewer", "preFragment=" + preFragment + " topFragment=" + getTopFragment());
+//        if (preFragment != null && preFragment == getTopFragment()) {
+//            preFragment.onSupportVisible();
+//        }
+//        preFragment = null;
+//        super.onDestroy();
+//    }
 
     @Override
     protected void initView(View view, @Nullable Bundle savedInstanceState) {
@@ -70,6 +88,7 @@ public class WallpaperViewerDialogFragment extends ImageViewerDialogFragment<Str
             return;
         }
         super.initView(view, savedInstanceState);
+//        preFragment = getPreFragment();
 
         bottomBar = findViewById(R.id.bottom_bar);
         ivIcon = findViewById(R.id.iv_icon);

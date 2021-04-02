@@ -14,6 +14,7 @@ import com.zpj.http.parser.html.nodes.Element;
 import com.zpj.http.parser.html.select.Elements;
 import com.zpj.recyclerview.EasyAdapter;
 import com.zpj.recyclerview.EasyViewHolder;
+import com.zpj.recyclerview.footer.IFooterViewHolder;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.api.HttpApi;
 import com.zpj.shouji.market.constant.Keys;
@@ -99,12 +100,7 @@ public abstract class NextUrlFragment<T> extends RecyclerLayoutFragment<T>
         postOnEnterAnimationEnd(new Runnable() {
             @Override
             public void run() {
-                Log.d("getData", "doc=" + doc);
-//        if (!doc.selectFirst("html").isNull()) {
-//            onError(new UnsupportedMimeTypeException("Unhandled content type. Must be application/xml.",
-//                    "text/*", nextUrl));
-//            return;
-//        }
+//                Log.d("getData", "doc=" + doc);
                 nextUrl = doc.selectFirst("nextUrl").text();
                 if (refresh) {
                     data.clear();
@@ -127,11 +123,11 @@ public abstract class NextUrlFragment<T> extends RecyclerLayoutFragment<T>
                     first = ((LinearLayoutManager) recyclerLayout.getLayoutManager()).findFirstVisibleItemPosition();
                 }
 
-                Log.d("getData", "last=" + last);
-
-                Log.d("getData", "start=" + start + " end=" + end + " count=" + (end - start));
-                Log.d("getData", "getHeaderView=" + recyclerLayout.getAdapter().getHeaderView());
-                Log.d("getData", "getFooterView=" + recyclerLayout.getAdapter().getFooterView());
+//                Log.d("getData", "last=" + last);
+//
+//                Log.d("getData", "start=" + start + " end=" + end + " count=" + (end - start));
+//                Log.d("getData", "getHeaderView=" + recyclerLayout.getAdapter().getHeaderView());
+//                Log.d("getData", "getFooterView=" + recyclerLayout.getAdapter().getFooterView());
                 if (start == 0 || first == 0) { // last <= start
                     recyclerLayout.notifyDataSetChanged();
                 } else {
@@ -141,21 +137,25 @@ public abstract class NextUrlFragment<T> extends RecyclerLayoutFragment<T>
                         if (recyclerLayout.getAdapter().getHeaderView() != null) {
                             start += 1;
                         }
-                        Log.d("getData222222222222", "start=" + start + " count=" + count);
+//                        Log.d("getData222222222222", "start=" + start + " count=" + count);
                         recyclerLayout.notifyItemRangeChanged(start, count);
                     } else {
-                        View footerView = recyclerLayout.getAdapter().getFooterView();
-                        if (footerView != null) {
-                            LinearLayout llContainerProgress = footerView.findViewById(R.id.ll_container_progress);
-                            TextView tvMsg = footerView.findViewById(R.id.tv_msg);
-                            if (llContainerProgress != null) {
-                                llContainerProgress.setVisibility(View.GONE);
-                            }
-                            if (tvMsg != null) {
-                                tvMsg.setVisibility(View.VISIBLE);
-                                tvMsg.setText(R.string.easy_has_no_more);
-                            }
+                        IFooterViewHolder viewHolder = recyclerLayout.getAdapter().getFooterViewBinder();
+                        if (viewHolder != null) {
+                            viewHolder.onShowHasNoMore();
                         }
+//                        View footerView = recyclerLayout.getAdapter().getFooterView();
+//                        if (footerView != null) {
+//                            LinearLayout llContainerProgress = footerView.findViewById(R.id.ll_container_progress);
+//                            TextView tvMsg = footerView.findViewById(R.id.tv_msg);
+//                            if (llContainerProgress != null) {
+//                                llContainerProgress.setVisibility(View.GONE);
+//                            }
+//                            if (tvMsg != null) {
+//                                tvMsg.setVisibility(View.VISIBLE);
+//                                tvMsg.setText(R.string.easy_has_no_more);
+//                            }
+//                        }
                         return;
                     }
                 }
@@ -164,17 +164,21 @@ public abstract class NextUrlFragment<T> extends RecyclerLayoutFragment<T>
                     if (recyclerLayout.getAdapter().getHeaderView() == null) {
                         recyclerLayout.showEmpty();
                     } else {
-                        View footerView = recyclerLayout.getAdapter().getFooterView();
-                        if (footerView != null) {
-                            LinearLayout llContainerProgress = footerView.findViewById(R.id.ll_container_progress);
-                            TextView tvMsg = footerView.findViewById(R.id.tv_msg);
-                            if (llContainerProgress != null) {
-                                llContainerProgress.setVisibility(View.GONE);
-                            }
-                            if (tvMsg != null) {
-                                tvMsg.setVisibility(View.VISIBLE);
-                                tvMsg.setText(R.string.easy_has_no_more);
-                            }
+//                        View footerView = recyclerLayout.getAdapter().getFooterView();
+//                        if (footerView != null) {
+//                            LinearLayout llContainerProgress = footerView.findViewById(R.id.ll_container_progress);
+//                            TextView tvMsg = footerView.findViewById(R.id.tv_msg);
+//                            if (llContainerProgress != null) {
+//                                llContainerProgress.setVisibility(View.GONE);
+//                            }
+//                            if (tvMsg != null) {
+//                                tvMsg.setVisibility(View.VISIBLE);
+//                                tvMsg.setText(R.string.easy_has_no_more);
+//                            }
+//                        }
+                        IFooterViewHolder viewHolder = recyclerLayout.getAdapter().getFooterViewBinder();
+                        if (viewHolder != null) {
+                            viewHolder.onShowHasNoMore();
                         }
                         recyclerLayout.showContent();
                     }

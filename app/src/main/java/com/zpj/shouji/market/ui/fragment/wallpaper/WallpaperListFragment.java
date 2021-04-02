@@ -35,7 +35,9 @@ import com.zpj.shouji.market.glide.ImageViewDrawableTarget;
 import com.zpj.shouji.market.glide.transformations.CircleWithBorderTransformation;
 import com.zpj.shouji.market.model.WallpaperInfo;
 import com.zpj.shouji.market.model.WallpaperTag;
+import com.zpj.shouji.market.ui.adapter.FooterViewHolder;
 import com.zpj.shouji.market.ui.fragment.base.NextUrlFragment;
+import com.zpj.shouji.market.ui.fragment.base.RecyclerLayoutFragment;
 import com.zpj.shouji.market.ui.fragment.dialog.RecyclerPartShadowDialogFragment;
 import com.zpj.shouji.market.ui.fragment.dialog.WallpaperViewerDialogFragment;
 import com.zpj.shouji.market.ui.fragment.profile.ProfileFragment;
@@ -101,7 +103,7 @@ public class WallpaperListFragment extends NextUrlFragment<WallpaperInfo> {
         if (getHeaderLayout() > 0) {
             recyclerLayout.setHeaderView(getHeaderLayout(), holder -> holder.setOnItemClickListener((this::showSortPupWindow)));
         }
-        recyclerLayout.setFooterView(LayoutInflater.from(context).inflate(R.layout.item_footer_home, null, false));
+        recyclerLayout.setFooterViewBinder(new FooterViewHolder(true));
 //        recyclerLayout.addOnScrollListener(new RecyclerView.OnScrollListener() {
 //            @Override
 //            public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {

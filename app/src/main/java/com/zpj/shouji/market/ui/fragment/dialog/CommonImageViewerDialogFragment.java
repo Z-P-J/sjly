@@ -3,6 +3,7 @@ package com.zpj.shouji.market.ui.fragment.dialog;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.text.TextUtils;
 import android.util.Log;
@@ -16,6 +17,7 @@ import com.zpj.fragmentation.dialog.impl.AttachListDialogFragment;
 import com.zpj.fragmentation.dialog.impl.ImageViewerDialogFragment;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.utils.PictureUtil;
+import com.zpj.shouji.market.utils.ProgressViewHolder;
 import com.zpj.widget.toolbar.ZToolBar;
 
 import java.util.List;
@@ -29,7 +31,12 @@ public class CommonImageViewerDialogFragment extends ImageViewerDialogFragment<S
     protected TextView tvInfo;
     protected TextView tvIndicator;
     private ImageButton btnMore;
-//    private LoadingView loadingView;
+
+//    private ISupportFragment preFragment;
+
+    public CommonImageViewerDialogFragment() {
+        setProgressViewHolder(new ProgressViewHolder());
+    }
 
     @Override
     protected int getCustomLayoutId() {
@@ -38,14 +45,16 @@ public class CommonImageViewerDialogFragment extends ImageViewerDialogFragment<S
 
     @Override
     public void onSupportVisible() {
-        mSupportVisibleActionQueue.start();
-        mDelegate.onSupportVisible();
+        super.onSupportVisible();
+//        mSupportVisibleActionQueue.start();
+//        mDelegate.onSupportVisible();
         lightStatusBar();
     }
 
     @Override
     protected void initView(View view, @Nullable Bundle savedInstanceState) {
         super.initView(view, savedInstanceState);
+//        preFragment = getPreFragment();
 
         titleBar = findViewById(R.id.tool_bar);
         tvIndicator = findViewById(R.id.tv_indicator);
@@ -102,31 +111,14 @@ public class CommonImageViewerDialogFragment extends ImageViewerDialogFragment<S
 
     }
 
-    @Override
-    protected void onDismiss() {
-        super.onDismiss();
-        ISupportFragment fragment = SupportHelper.getBackStackTopFragment(_mActivity.getSupportFragmentManager());
-        if (fragment == null) {
-            fragment = SupportHelper.getTopFragment(_mActivity.getSupportFragmentManager());
-        }
-        Log.d("CommonImageViewerPopup", "fragment=" + fragment);
-        if (fragment != null) {
-            fragment.onSupportVisible();
-        }
-    }
-
 //    @Override
-//    public void loadImage(int position, @NonNull String url, @NonNull ImageView imageView) {
-//        Glide.with(imageView)
-//                .load(url)
-////                .apply(
-////                        new RequestOptions()
-//////                                .placeholder(R.drawable.bga_pp_ic_holder_light)
-//////                                .error(R.drawable.bga_pp_ic_holder_light)
-////                                .override(Target.SIZE_ORIGINAL)
-////                )
-//                .transition(GlideUtils.DRAWABLE_TRANSITION_NONE)
-//                .into(imageView);
+//    public void onDestroy() {
+//        Log.d("CommonImageViewer", "preFragment=" + preFragment + " topFragment=" + getTopFragment());
+//        if (preFragment != null && preFragment == getTopFragment()) {
+//            preFragment.onSupportVisible();
+//        }
+//        preFragment = null;
+//        super.onDestroy();
 //    }
 
     private String getOriginalImageUrl() {
@@ -174,24 +166,10 @@ public class CommonImageViewerDialogFragment extends ImageViewerDialogFragment<S
     }
 
     private void showOriginalImage() {
-//        loadingView.setVisibility(View.VISIBLE);
         urls.set(position, originalImageList.get(position));
         loadNewUrl(position, originalImageList.get(position));
         updateTitle();
         setInfoText();
-//        ImageViewContainer current = pager.findViewWithTag(pager.getCurrentItem());
-//        Glide.with(context)
-//                .asDrawable()
-//                .load(originalImageList.get(position))
-//                .into(new SimpleTarget<Drawable>() {
-//                    @Override
-//                    public void onResourceReady(@NonNull Drawable resource, @Nullable Transition<? super Drawable> transition) {
-//                        current.setImageDrawable(resource);
-//                        updateTitle();
-//                        loadingView.setVisibility(View.GONE);
-//                        setInfoText();
-//                    }
-//                });
     }
 
 }

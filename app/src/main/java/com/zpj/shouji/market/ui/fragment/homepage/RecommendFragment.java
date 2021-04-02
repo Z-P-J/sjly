@@ -14,7 +14,9 @@ import com.zpj.recyclerview.MultiRecyclerViewWrapper;
 import com.zpj.rxbus.RxBus;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.api.PreloadApi;
+import com.zpj.shouji.market.ui.adapter.FooterViewHolder;
 import com.zpj.shouji.market.ui.fragment.ToolBarAppListFragment;
+import com.zpj.shouji.market.ui.fragment.base.RecyclerLayoutFragment;
 import com.zpj.shouji.market.ui.fragment.base.StateFragment;
 import com.zpj.shouji.market.ui.multidata.AppInfoMultiData;
 import com.zpj.shouji.market.ui.multidata.CollectionMultiData;
@@ -144,7 +146,7 @@ public class RecommendFragment extends StateFragment {
 
             MultiRecyclerViewWrapper.with(recyclerView)
                     .setData(list)
-                    .setFooterView(LayoutInflater.from(context).inflate(R.layout.item_footer_home, null, false))
+                    .setFooterViewBinder(new FooterViewHolder(true))
                     .setHeaderView(mBanner)
                     .build();
             isLoaded = true;

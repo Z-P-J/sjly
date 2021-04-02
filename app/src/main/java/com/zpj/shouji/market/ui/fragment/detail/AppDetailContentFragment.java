@@ -14,7 +14,9 @@ import com.zpj.recyclerview.MultiRecyclerViewWrapper;
 import com.zpj.rxbus.RxBus;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.model.AppDetailInfo;
+import com.zpj.shouji.market.ui.adapter.FooterViewHolder;
 import com.zpj.shouji.market.ui.fragment.ToolBarAppListFragment;
+import com.zpj.shouji.market.ui.fragment.base.RecyclerLayoutFragment;
 import com.zpj.shouji.market.ui.fragment.base.SkinFragment;
 import com.zpj.shouji.market.ui.fragment.profile.ProfileFragment;
 import com.zpj.shouji.market.ui.multidata.AppGridListMultiData;
@@ -76,7 +78,8 @@ public class AppDetailContentFragment extends SkinFragment {
                 }
 
                 wrapper.setData(list)
-                        .setFooterView(LayoutInflater.from(context).inflate(R.layout.item_footer_normal, null, false))
+//                        .setFooterView(LayoutInflater.from(context).inflate(R.layout.item_footer_normal, null, false))
+                        .setFooterViewBinder(new FooterViewHolder())
                         .build();
                 wrapper.notifyDataSetChanged();
             }

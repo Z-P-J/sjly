@@ -9,11 +9,17 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Space;
+import android.widget.TextView;
 
 import com.zpj.recyclerview.EasyRecyclerLayout;
+import com.zpj.recyclerview.EasyViewHolder;
 import com.zpj.recyclerview.IEasy;
 import com.zpj.recyclerview.IEasy.OnBindViewHolderListener;
+import com.zpj.recyclerview.footer.IFooterViewHolder;
 import com.zpj.shouji.market.R;
+import com.zpj.shouji.market.ui.adapter.FooterViewHolder;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -49,7 +55,8 @@ public abstract class RecyclerLayoutFragment<T> extends SkinFragment
     public void onLazyInitView(@Nullable Bundle savedInstanceState) {
         super.onLazyInitView(savedInstanceState);
         recyclerLayout.setData(data)
-                .setFooterView(getFooterView(context))
+//                .setFooterView(getFooterView(context))
+                .setFooterViewBinder(new FooterViewHolder())
                 .setItemRes(getItemLayoutId())
                 .setLayoutManager(getLayoutManager(context))
                 .setOnLoadRetryListener(this)
@@ -83,9 +90,9 @@ public abstract class RecyclerLayoutFragment<T> extends SkinFragment
 
     }
 
-    protected View getFooterView(Context context) {
-        return LayoutInflater.from(context).inflate(R.layout.item_footer_normal, null, false);
-    }
+//    protected View getFooterView(Context context) {
+//        return LayoutInflater.from(context).inflate(R.layout.item_footer_normal, null, false);
+//    }
 
     protected RecyclerView.LayoutManager getLayoutManager(Context context) {
         return new LinearLayoutManager(context);

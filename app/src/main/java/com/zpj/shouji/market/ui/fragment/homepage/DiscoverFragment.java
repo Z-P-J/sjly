@@ -14,6 +14,7 @@ import com.zpj.recyclerview.IEasy;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.constant.Keys;
 import com.zpj.shouji.market.model.DiscoverInfo;
+import com.zpj.shouji.market.ui.adapter.FooterViewHolder;
 import com.zpj.shouji.market.ui.fragment.theme.ThemeListFragment;
 import com.zpj.shouji.market.utils.EventBus;
 
@@ -34,6 +35,7 @@ public class DiscoverFragment extends ThemeListFragment {
     @Override
     protected void buildRecyclerLayout(EasyRecyclerLayout<DiscoverInfo> recyclerLayout) {
         super.buildRecyclerLayout(recyclerLayout);
+        recyclerLayout.setFooterViewBinder(new FooterViewHolder(true));
         recyclerLayout.setHeaderView(R.layout.item_discover_header, new IEasy.OnBindHeaderListener() {
             @Override
             public void onBindHeader(EasyViewHolder holder) {
@@ -58,11 +60,6 @@ public class DiscoverFragment extends ThemeListFragment {
     }
 
     @Override
-    protected View getFooterView(Context context) {
-        return LayoutInflater.from(context).inflate(R.layout.item_footer_home, null, false);
-    }
-
-    @Override
     public void onSupportVisible() {
         super.onSupportVisible();
         if (recyclerLayout != null && recyclerLayout.getRecyclerView() != null) {
@@ -70,12 +67,6 @@ public class DiscoverFragment extends ThemeListFragment {
         } else {
             EventBus.sendScrollEvent(0);
         }
-//        ScrollChangeEvent.post(1);
     }
-//
-//    @Override
-//    public void onSupportInvisible() {
-//
-//    }
 
 }

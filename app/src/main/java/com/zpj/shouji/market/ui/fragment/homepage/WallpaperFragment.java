@@ -66,7 +66,7 @@ public class WallpaperFragment extends SkinFragment implements View.OnClickListe
 
     @Override
     protected void initStatusBar() {
-
+        super.initStatusBar();
     }
 
     @Override

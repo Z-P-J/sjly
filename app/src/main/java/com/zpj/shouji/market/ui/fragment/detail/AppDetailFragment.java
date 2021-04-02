@@ -213,10 +213,6 @@ public class AppDetailFragment extends StateSwipeBackFragment
 
     private void initViewPager(AppDetailInfo info) {
         ArrayList<Fragment> list = new ArrayList<>();
-//        AppDetailInfoFragment infoFragment = findChildFragment(AppDetailInfoFragment.class);
-//        if (infoFragment == null) {
-//            infoFragment = new AppDetailInfoFragment();
-//        }
         AppDetailContentFragment infoFragment = findChildFragment(AppDetailContentFragment.class);
         if (infoFragment == null) {
             infoFragment = new AppDetailContentFragment();
@@ -305,7 +301,6 @@ public class AppDetailFragment extends StateSwipeBackFragment
                 .setTabTitles(TAB_TITLES)
                 .setAdjustMode(true)
                 .setOnGetTitleViewListener((context12, index) -> {
-
                     SubTitlePagerTitle subTitlePagerTitle = new SubTitlePagerTitle(context12);
                     subTitlePagerTitle.setNormalColor(SkinEngine.getColor(context12, R.attr.textColorMajor));
                     subTitlePagerTitle.setSelectedColor(context12.getResources().getColor(R.color.colorPrimary));
@@ -319,29 +314,6 @@ public class AppDetailFragment extends StateSwipeBackFragment
                         subTitlePagerTitle.setSubText("20+");
                     }
                     return subTitlePagerTitle;
-
-//                    BadgePagerTitle badgePagerTitle = new BadgePagerTitle(context);
-//                    badgePagerTitle.setNormalColor(SkinEngine.getColor(context12, R.attr.textColorMajor));
-//                    badgePagerTitle.setSelectedColor(context12.getResources().getColor(R.color.colorPrimary));
-//                    badgePagerTitle.setTitle(TAB_TITLES[index]);
-//                    badgePagerTitle.setOnClickListener(view1 -> viewPager.setCurrentItem(index));
-//                    if (index == 1 || index == 2) {
-//                        String title = TAB_TITLES[index];
-//                        RxBus.observeSticky(title, title, Integer.class)
-//                                .bindToLife(AppDetailFragment.this)
-//                                .doOnNext(new RxBus.SingleConsumer<Integer>() {
-//                                    @Override
-//                                    public void onAccept(Integer integer) throws Exception {
-//                                        badgePagerTitle.setBadgeCount(integer);
-//                                        RxBus.removeStickyEvent(title);
-//                                    }
-//                                })
-//                                .subscribe();
-//                    } else if (index == 3) {
-//                        badgePagerTitle.setBadgeText("20+");
-//                    }
-//                    return badgePagerTitle;
-
                 })
                 .build();
 
@@ -358,8 +330,6 @@ public class AppDetailFragment extends StateSwipeBackFragment
                             return;
                         }
                         info = AppDetailInfo.create(data);
-//                        RxBus.postSticky(TAB_TITLES[1], info.getReviewCount());
-//                        RxBus.postSticky(TAB_TITLES[2], info.getDiscoverCount());
                         Log.d("getAppInfo", "info=" + info);
                         appDetailLayout.loadInfo(info);
                         int color = Color.WHITE;
@@ -386,20 +356,10 @@ public class AppDetailFragment extends StateSwipeBackFragment
                     });
                 })
                 .onError(throwable -> {
-//                    stateLayout.showErrorView(throwable.getMessage());
                     showError(throwable.getMessage());
                 })
                 .subscribe();
     }
-
-//    @Subscribe(threadMode = ThreadMode.MAIN)
-//    public void onFabEvent(FabEvent event) {
-//        if (event.isShow()) {
-//            fabComment.show();
-//        } else {
-//            fabComment.hide();
-//        }
-//    }
 
     @Override
     public void onClick(View v) {

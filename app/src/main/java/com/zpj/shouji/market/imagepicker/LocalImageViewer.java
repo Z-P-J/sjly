@@ -14,6 +14,7 @@ import com.zpj.fragmentation.dialog.widget.ImageViewContainer;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.imagepicker.entity.Item;
 import com.zpj.shouji.market.imagepicker.widget.CheckView;
+import com.zpj.shouji.market.utils.ProgressViewHolder;
 import com.zpj.toast.ZToast;
 import com.zpj.widget.toolbar.ZToolBar;
 
@@ -35,6 +36,7 @@ public class LocalImageViewer extends ImageViewerDialogFragment<Item> {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setProgressViewHolder(new ProgressViewHolder());
         loader = new MyImageLoad<Item>() {
             @Override
             public void loadImage(Item url, ImageLoad.LoadCallback callback, ImageViewContainer imageView, String unique) {
