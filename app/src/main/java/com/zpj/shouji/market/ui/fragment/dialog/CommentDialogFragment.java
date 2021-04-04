@@ -57,6 +57,8 @@ public class CommentDialogFragment extends BottomDragDialogFragment
             return;
         }
 
+        contentView.setBackgroundResource(R.drawable.background_bottom_sheet_dialog);
+
         Activity activity = ContextUtils.getActivity(context);
 
         replyPanel = findViewById(R.id.panel_reply);

@@ -9,6 +9,7 @@ import android.support.multidex.MultiDexApplication;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 
@@ -107,7 +108,17 @@ public class BaseApplication extends MultiDexApplication {
                 .setLoadingViewHolder(new CustomizedViewHolder() {
                     @Override
                     public void onViewCreated(View view) {
-                        addView(LayoutInflater.from(context).inflate(R.layout.layout_progress_bar, null, false));
+                        ZProgressBar progressBar = new ZProgressBar(context);
+                        progressBar.setProgressBarColor(Color.parseColor("#2ad181"));
+                        progressBar.setBorderColor(Color.parseColor("#c0f2d9"));
+                        progressBar.setProgressBarRadius(ScreenUtils.dp2px(12));
+                        float width = ScreenUtils.dp2px(3.5f);
+                        progressBar.setProgressBarWidth(width);
+                        progressBar.setBorderWidth(width);
+                        int size = ScreenUtils.dp2pxInt(56);
+                        ViewGroup.LayoutParams params = new ViewGroup.LayoutParams(size, size);
+                        progressBar.setLayoutParams(params);
+                        this.container.addView(progressBar);
                         addTextViewWithPadding(R.string._text_loading, Color.GRAY);
                     }
                 });

@@ -35,7 +35,7 @@ import com.zpj.shouji.market.model.article.TextElement;
 import com.zpj.shouji.market.ui.fragment.base.BaseSwipeBackFragment;
 import com.zpj.shouji.market.ui.fragment.detail.AppDetailFragment;
 import com.zpj.shouji.market.ui.fragment.dialog.CommonImageViewerDialogFragment;
-import com.zpj.shouji.market.ui.widget.DownloadButton2;
+import com.zpj.shouji.market.ui.widget.DownloadButton;
 import com.zpj.shouji.market.ui.widget.TitleHeaderLayout;
 import com.zpj.shouji.market.ui.widget.selection.SelectableTextView;
 import com.zpj.statemanager.StateManager;
@@ -183,7 +183,7 @@ public class ArticleDetailFragment extends BaseSwipeBackFragment {
             } else {
                 i.setText(appInfo.getAppInfo());
             }
-            DownloadButton2 downloadButton = app.findViewById(R.id.tv_download);
+            DownloadButton downloadButton = app.findViewById(R.id.tv_download);
             downloadButton.bindApp(appInfo);
         }
     }
@@ -312,7 +312,7 @@ public class ArticleDetailFragment extends BaseSwipeBackFragment {
                 tvInfo1.setText(app.getAppSize());
                 TextView tvDesc = view.findViewById(R.id.tv_desc);
                 tvDesc.setText(app.getAppComment());
-                DownloadButton2 downloadButton = view.findViewById(R.id.tv_download);
+                DownloadButton downloadButton = view.findViewById(R.id.tv_download);
                 downloadButton.bindApp(app);
                 contentWrapper.addView(view);
             }

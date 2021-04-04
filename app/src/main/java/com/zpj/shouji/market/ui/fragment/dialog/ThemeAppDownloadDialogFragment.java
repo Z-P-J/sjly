@@ -19,7 +19,7 @@ import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.api.HttpApi;
 import com.zpj.shouji.market.download.MissionBinder;
 import com.zpj.shouji.market.model.DiscoverInfo;
-import com.zpj.shouji.market.ui.widget.DownloadButton2;
+import com.zpj.shouji.market.ui.widget.DownloadButton;
 import com.zpj.statemanager.StateManager;
 import com.zpj.toast.ZToast;
 import com.zpj.utils.ScreenUtils;
@@ -33,7 +33,7 @@ public class ThemeAppDownloadDialogFragment extends BottomDragDialogFragment {
     private StateManager stateManager;
     private LinearLayout llContainer;
     private TextView tvDesc;
-    private DownloadButton2 tvDownload;
+    private DownloadButton tvDownload;
 
     private String id;
     private DiscoverInfo discoverInfo;
@@ -83,6 +83,8 @@ public class ThemeAppDownloadDialogFragment extends BottomDragDialogFragment {
     protected void initView(View view, @Nullable Bundle savedInstanceState) {
         super.initView(view, savedInstanceState);
 
+        contentView.setBackgroundResource(R.drawable.background_bottom_sheet_dialog);
+
         contentView.setMinimumHeight(ScreenUtils.getScreenHeight(context) / 2);
 
         if (TextUtils.isEmpty(id) || discoverInfo == null) {
@@ -128,7 +130,7 @@ public class ThemeAppDownloadDialogFragment extends BottomDragDialogFragment {
 
     @Override
     protected int getMaxHeight() {
-        return ScreenUtils.getScreenHeight(context) - ScreenUtils.dp2pxInt(context, 56) - ScreenUtils.getStatusBarHeight(context);
+        return ScreenUtils.getScreenHeight(context) - ScreenUtils.dp2pxInt(context, 28) - ScreenUtils.getStatusBarHeight(context);
     }
 
     private void getPermissions() {
@@ -140,15 +142,6 @@ public class ThemeAppDownloadDialogFragment extends BottomDragDialogFragment {
                     if (!TextUtils.isEmpty(apkUrl)) {
                         tvDownload.setAlpha(1f);
                         tvDownload.setEnabled(true);
-//                        tvDownload.bindApp(
-//                                apkUrl.substring(apkUrl.lastIndexOf("id=") + 3),
-//                                discoverInfo.getAppName(),
-//                                discoverInfo.getAppPackageName(),
-//                                discoverInfo.getAppType(),
-//                                discoverInfo.getAppIcon(),
-//                                null,
-//                                true
-//                        );
                         tvDownload.bindApp(new MissionBinder() {
                             @Override
                             public String getYunUrl() {

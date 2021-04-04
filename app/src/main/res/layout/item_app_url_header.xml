@@ -31,22 +31,11 @@
         android:layout_marginHorizontal="4dp"
         />
 
-    <com.zpj.shouji.market.ui.widget.DownloadButton2
+    <com.zpj.shouji.market.ui.widget.DownloadButton
         android:id="@+id/tv_download"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:text="@string/text_download"
-        android:textSize="12sp"
-        android:textColor="@color/colorPrimary"
-        android:background="@drawable/bg_download_button"
+        style="@style/download_button"
         android:layout_alignParentEnd="true"
         android:layout_centerVertical="true"
-        android:paddingStart="12dp"
-        android:paddingEnd="12dp"
-        android:paddingTop="4dp"
-        android:paddingBottom="4dp"
-        android:gravity="center"
         />
 
 </RelativeLayout>

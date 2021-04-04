@@ -61,7 +61,7 @@
         android:text="预约"
         android:textSize="12sp"
         android:textColor="@color/colorPrimary"
-        android:background="@drawable/bg_download_button"
+        android:background="@drawable/bg_button_download"
         android:layout_alignParentEnd="true"
         android:layout_centerVertical="true"
         android:paddingStart="12dp"

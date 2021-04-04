@@ -10,7 +10,7 @@ import com.zpj.shouji.market.api.SearchApi;
 import com.zpj.shouji.market.glide.GlideRequestOptions;
 import com.zpj.shouji.market.model.GuessAppInfo;
 import com.zpj.shouji.market.ui.fragment.detail.AppDetailFragment;
-import com.zpj.shouji.market.ui.widget.DownloadButton2;
+import com.zpj.shouji.market.ui.widget.DownloadButton;
 
 import java.util.List;
 
@@ -63,7 +63,7 @@ public class GuessYouLikeMultiData extends BaseHeaderMultiData<GuessAppInfo> {
                 .load(info.getAppIcon())
                 .apply(GlideRequestOptions.getDefaultIconOption())
                 .into(ivIcon);
-        DownloadButton2 downloadButton = holder.getView(R.id.tv_download);
+        DownloadButton downloadButton = holder.getView(R.id.tv_download);
         downloadButton.bindApp(info);
 
         holder.setOnItemClickListener(new View.OnClickListener() {

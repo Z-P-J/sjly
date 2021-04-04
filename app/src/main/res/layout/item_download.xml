@@ -103,16 +103,8 @@
 
             <com.zpj.shouji.market.ui.widget.DownloadedActionButton
                 android:id="@+id/tv_action"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
+                style="@style/download_button"
                 android:text="@string/text_open"
-                android:textColor="@color/colorPrimary"
-                android:textSize="12sp"
-                android:background="@drawable/bg_download_button"
-                android:paddingHorizontal="12dp"
-                android:paddingVertical="4dp"
-                android:gravity="center"
                 android:visibility="gone"
                 />
 

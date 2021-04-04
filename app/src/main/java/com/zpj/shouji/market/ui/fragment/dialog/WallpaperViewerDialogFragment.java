@@ -309,48 +309,6 @@ public class WallpaperViewerDialogFragment extends ImageViewerDialogFragment<Str
         animator.start();
     }
 
-    //    @Override
-//    public void onDragChange(int dy, float scale, float fraction) {
-//        super.onDragChange(dy, scale, fraction);
-//        bottomBar.setTranslationY(bottomBar.getHeight() * fraction);
-//        tvOrigin.setTranslationY(bottomBar.getHeight() * fraction);
-//        titleBar.setTranslationY(-titleBar.getHeight() * fraction);
-//        btnUp.setAlpha(fraction);
-//    }
-
-
-//    @Override
-//    protected void onTransform(float ratio) {
-//        super.onTransform(ratio);
-//        float fraction = 1 - ratio;
-//        Log.d("onTransform", "fraction=" + fraction);
-//        bottomBar.setTranslationY(bottomBar.getHeight() * fraction);
-//        tvOrigin.setTranslationY(bottomBar.getHeight() * fraction);
-//        titleBar.setTranslationY(-titleBar.getHeight() * fraction);
-//        btnUp.setAlpha(Math.abs(fraction));
-//    }
-
-    @Override
-    protected void onDismiss() {
-        super.onDismiss();
-//        GetMainActivityEvent.post(new Callback<MainActivity>() {
-//            @Override
-//            public void onCallback(MainActivity activity) {
-//                SupportHelper.getTopFragment(activity.getSupportFragmentManager()).onSupportVisible();
-//            }
-//        });
-        SupportHelper.getTopFragment(_mActivity.getSupportFragmentManager()).onSupportVisible();
-    }
-
-//    @Override
-//    public void loadImage(int position, @NonNull String url, @NonNull ImageView imageView) {
-//        Glide.with(imageView).load(url)
-////                .apply(new RequestOptions()
-////                        .override(Target.SIZE_ORIGINAL))
-//                .transition(GlideUtils.DRAWABLE_TRANSITION_NONE)
-//                .into(imageView);
-//    }
-
     public WallpaperViewerDialogFragment setWallpaperInfo(WallpaperInfo wallpaperInfo) {
         this.wallpaperInfo = wallpaperInfo;
         return this;

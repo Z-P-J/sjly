@@ -30,7 +30,7 @@ public class RankHeaderLayout extends FrameLayout {
     private TextView tvInfo;
     private ImageView ivIcon;
     private ImageView ivBg;
-    private DownloadButton2 downloadButton;
+    private DownloadButton downloadButton;
 
     public RankHeaderLayout(@NonNull Context context) {
         this(context, null);

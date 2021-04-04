@@ -9,9 +9,10 @@
 
     <dimen name="text_size_normal">14sp</dimen>
 
-    <dimen name="dp_2">4dp</dimen>
+    <dimen name="dp_2">2dp</dimen>
     <dimen name="dp_4">4dp</dimen>
     <dimen name="dp_8">8dp</dimen>
     <dimen name="dp_16">16dp</dimen>
+    <dimen name="dp_24">24dp</dimen>
 
 </resources>

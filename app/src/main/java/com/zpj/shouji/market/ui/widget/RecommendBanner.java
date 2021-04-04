@@ -26,7 +26,6 @@ import com.zpj.http.parser.html.nodes.Element;
 import com.zpj.http.parser.html.select.Elements;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.api.HttpApi;
-import com.zpj.shouji.market.api.HttpPreLoader;
 import com.zpj.shouji.market.api.PreloadApi;
 import com.zpj.shouji.market.glide.GlideRequestOptions;
 import com.zpj.shouji.market.glide.transformations.blur.BlurTransformation;
@@ -35,7 +34,6 @@ import com.zpj.shouji.market.ui.fragment.ToolBarAppListFragment;
 import com.zpj.shouji.market.ui.fragment.collection.CollectionRecommendListFragment;
 import com.zpj.shouji.market.ui.fragment.detail.AppDetailFragment;
 import com.zpj.shouji.market.ui.fragment.subject.SubjectRecommendListFragment;
-import com.zpj.shouji.market.utils.EventBus;
 import com.zpj.utils.ScreenUtils;
 
 import java.util.ArrayList;
@@ -273,7 +271,7 @@ public class RecommendBanner extends LinearLayout implements View.OnClickListene
             ImageView ivIcon = itemView.findViewById(R.id.iv_icon);
             TextView tvTitle = itemView.findViewById(R.id.tv_title);
             TextView tvInfo = itemView.findViewById(R.id.tv_info);
-            DownloadButton2 downloadButton = itemView.findViewById(R.id.tv_download);
+            DownloadButton downloadButton = itemView.findViewById(R.id.tv_download);
 
 
             AppInfo appInfo = (AppInfo) entry.getBannerPath();

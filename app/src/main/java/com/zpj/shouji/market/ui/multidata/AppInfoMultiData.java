@@ -16,7 +16,7 @@ import com.zpj.shouji.market.api.PreloadApi;
 import com.zpj.shouji.market.glide.GlideRequestOptions;
 import com.zpj.shouji.market.model.AppInfo;
 import com.zpj.shouji.market.ui.fragment.detail.AppDetailFragment;
-import com.zpj.shouji.market.ui.widget.DownloadButton2;
+import com.zpj.shouji.market.ui.widget.DownloadButton;
 
 import java.util.List;
 
@@ -80,7 +80,7 @@ public abstract class AppInfoMultiData extends BaseHeaderMultiData<AppInfo> {
                 .into(ivIcon);
         long start = System.currentTimeMillis();
         // TODO 将mission的绑定在bean中而不是DownloadButton中
-        DownloadButton2 downloadButton = holder.getView(R.id.tv_download);
+        DownloadButton downloadButton = holder.getView(R.id.tv_download);
         downloadButton.bindApp(info);
         Log.i("onBindChild", "bind deltaTime=" + (System.currentTimeMillis() - start));
         holder.setOnItemClickListener(new View.OnClickListener() {

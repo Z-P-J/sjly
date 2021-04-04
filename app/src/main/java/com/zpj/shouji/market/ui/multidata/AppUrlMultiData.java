@@ -6,7 +6,7 @@ import com.zpj.recyclerview.EasyViewHolder;
 import com.zpj.recyclerview.ExpandableMultiData;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.model.AppDetailInfo;
-import com.zpj.shouji.market.ui.widget.DownloadButton2;
+import com.zpj.shouji.market.ui.widget.DownloadButton;
 
 import java.util.List;
 
@@ -54,7 +54,7 @@ public class AppUrlMultiData extends ExpandableMultiData<AppDetailInfo.AppUrlInf
         });
 
 
-        DownloadButton2 downloadButton = holder.getView(R.id.tv_download);
+        DownloadButton downloadButton = holder.getView(R.id.tv_download);
         downloadButton.bindApp(appUrlInfo);
 //        downloadButton.bindApp(id, detailInfo.getName(),
 //                detailInfo.getPackageName(), detailInfo.getAppType(),

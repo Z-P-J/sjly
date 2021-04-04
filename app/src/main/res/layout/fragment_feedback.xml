@@ -93,9 +93,9 @@
         android:id="@+id/tv_submit"
         style="@style/button_submit"
         android:layout_marginVertical="16dp"
-        android:layout_marginHorizontal="32dp"
         android:text="提交反馈"
         android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
         />
 
     <View style="@style/layout_shadow_bottom"

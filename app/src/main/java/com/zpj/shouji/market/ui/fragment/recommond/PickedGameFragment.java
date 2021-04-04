@@ -20,7 +20,7 @@ import com.zpj.shouji.market.model.PickedGameInfo;
 import com.zpj.shouji.market.ui.fragment.base.NextUrlFragment;
 import com.zpj.shouji.market.ui.fragment.detail.AppDetailFragment;
 import com.zpj.shouji.market.ui.fragment.profile.ProfileFragment;
-import com.zpj.shouji.market.ui.widget.DownloadButton2;
+import com.zpj.shouji.market.ui.widget.DownloadButton;
 
 import java.util.List;
 
@@ -124,7 +124,7 @@ public class PickedGameFragment extends NextUrlFragment<PickedGameInfo> {
         holder.setOnClickListener(R.id.ll_editor_info, v -> {
             ProfileFragment.start(info.getNickname());
         });
-        DownloadButton2 tvDownload = holder.getView(R.id.tv_download);
+        DownloadButton tvDownload = holder.getView(R.id.tv_download);
         tvDownload.bindApp(info);
     }
 

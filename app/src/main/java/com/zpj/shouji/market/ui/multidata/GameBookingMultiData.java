@@ -8,7 +8,6 @@ import com.bumptech.glide.Glide;
 import com.yanyusong.y_divideritemdecoration.Y_Divider;
 import com.yanyusong.y_divideritemdecoration.Y_DividerBuilder;
 import com.yanyusong.y_divideritemdecoration.Y_DividerItemDecoration;
-import com.zpj.fragmentation.dialog.IDialog;
 import com.zpj.fragmentation.dialog.impl.AlertDialogFragment;
 import com.zpj.recyclerview.EasyRecyclerView;
 import com.zpj.shouji.market.R;
@@ -67,7 +66,7 @@ public class GameBookingMultiData extends RecyclerMultiData<BookingAppInfo> {
 
                     if (info.isBooking()) {
                         holder.setText(R.id.tv_booking, "预约");
-                        holder.setBackgroundResource(R.id.tv_booking, R.drawable.bg_download_button);
+                        holder.setBackgroundResource(R.id.tv_booking, R.drawable.bg_button_download);
                         holder.setTextColor(R.id.tv_booking, context.getResources().getColor(R.color.colorPrimary));
                         holder.setOnClickListener(R.id.tv_booking, v -> {
                             BookingApi.bookingApi(info, refreshRunnable);

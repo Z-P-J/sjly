@@ -68,20 +68,9 @@
             android:layout_width="match_parent"
             android:layout_height="8dp"/>
 
-        <com.zpj.shouji.market.ui.widget.DownloadButton2
+        <com.zpj.shouji.market.ui.widget.DownloadButton
             android:id="@+id/tv_download"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:background="@drawable/bg_download_button"
-            android:gravity="center"
-            android:paddingStart="12dp"
-            android:paddingTop="4dp"
-            android:paddingEnd="12dp"
-            android:paddingBottom="4dp"
-            android:text="@string/text_download"
-            android:textColor="@color/colorPrimary"
-            android:textSize="12sp"/>
+            style="@style/download_button"/>
 
     </LinearLayout>
 

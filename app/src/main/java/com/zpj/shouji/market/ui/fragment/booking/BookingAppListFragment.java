@@ -4,7 +4,6 @@ import android.text.TextUtils;
 import android.view.View;
 
 import com.bumptech.glide.Glide;
-import com.zpj.fragmentation.dialog.IDialog;
 import com.zpj.fragmentation.dialog.impl.AlertDialogFragment;
 import com.zpj.http.parser.html.nodes.Element;
 import com.zpj.recyclerview.EasyViewHolder;
@@ -47,7 +46,7 @@ public class BookingAppListFragment extends NextUrlFragment<BookingAppInfo> {
 
             if (appInfo.isBooking()) {
                 holder.setText(R.id.tv_download, "预约");
-                holder.setBackgroundResource(R.id.tv_download, R.drawable.bg_download_button);
+                holder.setBackgroundResource(R.id.tv_download, R.drawable.bg_button_download);
                 holder.setTextColor(R.id.tv_download, getResources().getColor(R.color.colorPrimary));
                 holder.setOnClickListener(R.id.tv_download, v -> {
                     BookingApi.bookingApi(appInfo, refreshRunnable);

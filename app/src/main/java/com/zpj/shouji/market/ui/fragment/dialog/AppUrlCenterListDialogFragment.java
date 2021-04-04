@@ -15,9 +15,12 @@ import com.zpj.recyclerview.MultiRecyclerViewWrapper;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.model.AppDetailInfo;
 import com.zpj.shouji.market.ui.multidata.AppUrlMultiData;
+import com.zpj.utils.ScreenUtils;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import static android.view.ViewGroup.LayoutParams.MATCH_PARENT;
 
 public class AppUrlCenterListDialogFragment extends ListDialogFragment<MultiData<?>> {
 
@@ -25,6 +28,18 @@ public class AppUrlCenterListDialogFragment extends ListDialogFragment<MultiData
 
     public static AppUrlCenterListDialogFragment with() {
         return new AppUrlCenterListDialogFragment();
+    }
+    
+    public AppUrlCenterListDialogFragment() {
+        setMaxWidth(MATCH_PARENT);
+        if (!isDragDialog()) {
+            float screenWidth = ScreenUtils.getScreenWidth();
+            float screenHeight = ScreenUtils.getScreenHeight();
+            int marginHorizontal = (int) (screenWidth * 0.08f);
+            setMarginHorizontal(marginHorizontal);
+            int marginVertical = (int) (screenHeight * 0.12f);
+            setMarginVertical(marginVertical);
+        }
     }
 
     @Override

@@ -18,6 +18,8 @@ public class ProgressViewHolder implements IProgressViewHolder<ZProgressBar> {
     @Override
     public void onProgressChanged(ZProgressBar progressView, float progress) {
         if (progressView.isIntermediateMode()) {
+            progressView.setProgressTextColor(progressView.getProgressBarColor());
+            progressView.setProgressBarBackgroundColor(Color.parseColor("#20000000"));
             progressView.setIsIntermediateMode(false);
 //            progressView.setBorderColor(Color.parseColor("#c0f2d9"));
         }

@@ -6,9 +6,16 @@ import android.support.annotation.Nullable;
 import android.view.View;
 
 import com.zpj.fragmentation.dialog.base.BottomDragDialogFragment;
+import com.zpj.shouji.market.R;
 import com.zpj.utils.KeyboardObserver;
 
 public abstract class ModifiedDialogFragment extends BottomDragDialogFragment {
+
+    @Override
+    protected void initView(View view, @Nullable Bundle savedInstanceState) {
+        super.initView(view, savedInstanceState);
+        contentView.setBackgroundResource(R.drawable.background_bottom_sheet_dialog);
+    }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
@@ -19,9 +26,9 @@ public abstract class ModifiedDialogFragment extends BottomDragDialogFragment {
     }
 
     @Override
-    public void dismiss() {
+    public void onDestroyView() {
         hideSoftInput();
-        super.dismiss();
+        super.onDestroyView();
     }
 
     protected void showKeyboard(View view) {

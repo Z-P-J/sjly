@@ -6,10 +6,7 @@ import android.text.TextUtils;
 import com.zpj.downloader.BaseMission;
 import com.zpj.downloader.ZDownloader;
 import com.zpj.downloader.constant.Error;
-import com.zpj.shouji.market.download.AppDownloadMission;
-import com.zpj.shouji.market.model.AppInfo;
 import com.zpj.shouji.market.ui.fragment.WebFragment;
-import com.zpj.shouji.market.ui.widget.DownloadButton2;
 import com.zpj.toast.ZToast;
 import com.zpj.utils.AppUtils;
 
@@ -133,10 +130,14 @@ public abstract class MissionBinder implements AppDownloadMission.AppMissionList
                         break;
                     }
                 }
-                onClick();
+                action();
             });
             return;
         }
+        action();
+    }
+
+    private void action() {
         if (mission != null) {
             if (mission.canPause()) {
                 mission.pause();
@@ -168,7 +169,8 @@ public abstract class MissionBinder implements AppDownloadMission.AppMissionList
         if (mission == null) {
             ZDownloader.getAllMissions(AppDownloadMission.class, missions -> {
                 for (AppDownloadMission mission : missions) {
-                    if (TextUtils.equals(getAppId(), mission.getAppId()) && TextUtils.equals(getPackageName(), mission.getPackageName())) {
+                    if (TextUtils.equals(getAppId(), mission.getAppId())
+                            && TextUtils.equals(getPackageName(), mission.getPackageName())) {
                         MissionBinder.this.mission = mission;
                         if (listener != null) {
                             listener.onBindMission(mission);

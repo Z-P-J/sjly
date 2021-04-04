@@ -111,7 +111,7 @@ public class MainFragment extends SkinFragment {
         super.onCreate(savedInstanceState);
         EventBus.onSkinChangeEvent(this, s -> {
             if (blurred != null) {
-                blurred.foregroundColor(Color.parseColor(AppConfig.isNightMode() ? "#a0000000" : "#a0ffffff"));
+                blurred.foregroundColor(Color.parseColor(AppConfig.isNightMode() ? "#aa000000" : "#bbffffff"));
 //                if (isSupportVisible()) {
 //                    blurred.startBlur();
 //                }
@@ -171,7 +171,7 @@ public class MainFragment extends SkinFragment {
         blurred = ZBlurry.with(findViewById(R.id.fl_container))
 //                .fitIntoViewXY(false)
 //                .antiAlias(true)
-                .foregroundColor(Color.parseColor(AppConfig.isNightMode() ? "#a0000000" : "#a0ffffff"))
+                .foregroundColor(Color.parseColor(AppConfig.isNightMode() ? "#aa000000" : "#bbffffff"))
                 .scale(0.1f)
                 .radius(20)
 //                .maxFps(40)

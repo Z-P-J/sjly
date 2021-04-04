@@ -5,8 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     app:hl_shadowLimit="0dp"
-    app:hl_cornerRadius_leftBottom="16dp"
-    app:hl_cornerRadius_rightBottom="16dp"
+    app:hl_cornerRadius_leftBottom="@dimen/dp_24"
+    app:hl_cornerRadius_rightBottom="@dimen/dp_24"
     app:hl_shadowBackColor="?attr/backgroundColor"
     >
 
@@ -21,20 +21,14 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
 
-        <Space
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/dp_8"/>
-
         <View
             android:layout_width="56dp"
             android:layout_height="4dp"
             android:background="?attr/backgroundShape"
             android:layout_gravity="center_horizontal"
+            android:layout_marginTop="@dimen/dp_16"
+            android:layout_marginBottom="@dimen/dp_8"
             />
-
-        <Space
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/dp_16"/>
 
     </LinearLayout>
 

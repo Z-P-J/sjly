@@ -36,7 +36,7 @@ import com.zpj.shouji.market.model.IgnoredUpdateInfo;
 import com.zpj.shouji.market.model.InstalledAppInfo;
 import com.zpj.shouji.market.ui.fragment.base.RecyclerLayoutFragment;
 import com.zpj.shouji.market.ui.fragment.detail.AppDetailFragment;
-import com.zpj.shouji.market.ui.widget.DownloadButton2;
+import com.zpj.shouji.market.ui.widget.DownloadButton;
 import com.zpj.toast.ZToast;
 import com.zpj.utils.AppUtils;
 
@@ -339,7 +339,7 @@ public class UpdateManagerFragment extends RecyclerLayoutFragment<AppUpdateInfo>
         ImageView settingBtn = holder.getView(R.id.iv_setting);
 //        ImageView expandBtn = holder.getView(R.id.iv_expand);
         ExpandIconView expandBtn = holder.getView(R.id.iv_expand);
-        DownloadButton2 downloadButton = holder.getView(R.id.tv_update);
+        DownloadButton downloadButton = holder.getView(R.id.tv_update);
         downloadButton.bindApp(updateInfo);
 
         InstalledAppInfo appInfo = new InstalledAppInfo();

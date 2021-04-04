@@ -23,7 +23,7 @@ import com.zpj.shouji.market.model.AppInfo;
 import com.zpj.shouji.market.model.SubjectInfo;
 import com.zpj.shouji.market.ui.fragment.base.StateSwipeBackFragment;
 import com.zpj.shouji.market.ui.fragment.detail.AppDetailFragment;
-import com.zpj.shouji.market.ui.widget.DownloadButton2;
+import com.zpj.shouji.market.ui.widget.DownloadButton;
 import com.zpj.toast.ZToast;
 import com.zpj.utils.ColorUtils;
 import com.zxy.skin.sdk.SkinEngine;
@@ -178,7 +178,7 @@ public class SubjectDetailFragment extends StateSwipeBackFragment
         holder.getTextView(R.id.tv_info).setText(appInfo.getAppSize() + " | " + appInfo.getAppInfo());
         holder.getTextView(R.id.tv_desc).setText(appInfo.getAppComment());
         Glide.with(context).load(appInfo.getAppIcon()).into(holder.getImageView(R.id.iv_icon));
-        DownloadButton2 downloadButton = holder.getView(R.id.tv_download);
+        DownloadButton downloadButton = holder.getView(R.id.tv_download);
         downloadButton.bindApp(appInfo);
     }
 

@@ -15,7 +15,7 @@ import com.zpj.shouji.market.constant.Keys;
 import com.zpj.shouji.market.model.CollectionAppInfo;
 import com.zpj.shouji.market.ui.fragment.base.NextUrlFragment;
 import com.zpj.shouji.market.ui.fragment.detail.AppDetailFragment;
-import com.zpj.shouji.market.ui.widget.DownloadButton2;
+import com.zpj.shouji.market.ui.widget.DownloadButton;
 import com.zpj.shouji.market.ui.widget.emoji.EmojiExpandableTextView;
 import com.zpj.shouji.market.utils.BeanUtils;
 import com.zpj.toast.ZToast;
@@ -83,7 +83,7 @@ public class CollectionAppListFragment extends NextUrlFragment<CollectionAppInfo
         EmojiExpandableTextView tvDesc = holder.getView(R.id.tv_desc);
         tvDesc.setContent(appItem.getComment());
 
-        DownloadButton2 tvDownload = holder.getView(R.id.tv_download);
+        DownloadButton tvDownload = holder.getView(R.id.tv_download);
         if (appItem.isApkExist()) {
             tvDownload.setText("下载");
             tvDownload.bindApp(appItem);
