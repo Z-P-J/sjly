@@ -148,64 +148,6 @@ public class UpdateManagerFragment extends RecyclerLayoutFragment<AppUpdateInfo>
         recyclerLayout.setEnableSwipeRefresh(false);
     }
 
-//    @Override
-//    public void onCheckUpdateFinish(List<AppUpdateInfo> updateInfoList) {
-//        Observable.create(
-//                (ObservableOnSubscribe<List<AppUpdateInfo>>) emitter -> {
-//                    ignoredUpdateInfoList.clear();
-//                    ignoredUpdateInfoList.addAll(IgnoredUpdateManager.getAllIgnoredUpdateApp());
-//                    data.clear();
-//                    for (int i = updateInfoList.size() - 1; i >= 0; i--) {
-//                        AppUpdateInfo info = updateInfoList.get(i);
-//                        for (IgnoredUpdateInfo ignoredUpdateInfo : ignoredUpdateInfoList) {
-//                            if (TextUtils.equals(info.getPackageName(), ignoredUpdateInfo.getPackageName())) {
-//                                ignoredUpdateInfo.setUpdateInfo(info);
-//                                updateInfoList.remove(i);
-//                            }
-//                        }
-//                    }
-//                    data.addAll(updateInfoList);
-//                    emitter.onComplete();
-//                })
-//                .subscribeOn(Schedulers.io())
-//                .observeOn(AndroidSchedulers.mainThread())
-//                .doOnComplete(() -> {
-//                    recyclerLayout.notifyDataSetChanged();
-//                    if (data.isEmpty()) {
-//                        topLayout.setVisibility(View.GONE);
-//                        recyclerLayout.showEmptyView("所有应用均为最新版");
-//                    } else {
-//                        topLayout.setVisibility(View.VISIBLE);
-//                        updateTopBar();
-//                    }
-//                })
-//                .compose(RxLife.bindLifeOwner(this))
-//                .subscribe();
-//
-//
-////        ignoredUpdateInfoList.clear();
-////        ignoredUpdateInfoList.addAll(IgnoredUpdateManager.getAllIgnoredUpdateApp());
-////        data.clear();
-////        for (int i = updateInfoList.size() - 1; i >= 0; i--) {
-////            AppUpdateInfo info = updateInfoList.get(i);
-////            for (IgnoredUpdateInfo ignoredUpdateInfo : ignoredUpdateInfoList) {
-////                if (TextUtils.equals(info.getPackageName(), ignoredUpdateInfo.getPackageName())) {
-////                    ignoredUpdateInfo.setUpdateInfo(info);
-////                    updateInfoList.remove(i);
-////                }
-////            }
-////        }
-////        data.addAll(updateInfoList);
-////        recyclerLayout.notifyDataSetChanged();
-////        if (updateInfoList.isEmpty()) {
-////            topLayout.setVisibility(View.GONE);
-////            recyclerLayout.showEmptyView("所有应用均为最新版");
-////        } else {
-////            topLayout.setVisibility(View.VISIBLE);
-////            updateTopBar();
-////        }
-//    }
-
     @Override
     public void onCheckUpdateFinish(List<AppUpdateInfo> updateInfoList, List<IgnoredUpdateInfo> ignoredUpdateInfoList) {
         this.ignoredUpdateInfoList.clear();
@@ -351,18 +293,8 @@ public class UpdateManagerFragment extends RecyclerLayoutFragment<AppUpdateInfo>
         versionTextView.setText(getVersionText(updateInfo));
         infoTextView.setText(updateInfo.getNewSize() + " | " + updateInfo.getUpdateTimeInfo());
 
-        updateTextView.setMaxLines(updateInfo.isExpand() ? 0 : 1);
+        updateTextView.setMaxLines(updateInfo.isExpand() ? Integer.MAX_VALUE : 1);
         updateTextView.setText(updateInfo.getUpdateInfo());
-
-//        expandBtn.setTag(false);
-//        expandBtn.setOnClickListener(v -> {
-//            boolean tag = (boolean) expandBtn.getTag();
-//            expandBtn.setImageResource(tag ? R.drawable.ic_expand_more_black_24dp : R.drawable.ic_expand_less_black_24dp);
-//            updateTextView.setMaxLines(tag ? 1 : 0);
-//            updateTextView.setText(updateInfo.getUpdateInfo());
-//            expandBtn.setTag(!tag);
-//        });
-
 
         expandBtn.setTag(updateInfo);
         expandBtn.setState(updateInfo.isExpand() ? ExpandIconView.LESS : ExpandIconView.MORE, false);
@@ -371,7 +303,7 @@ public class UpdateManagerFragment extends RecyclerLayoutFragment<AppUpdateInfo>
             boolean isExpand = info.isExpand();
             info.setExpand(!isExpand);
 
-            updateTextView.setMaxLines(isExpand ? 1 : 0);
+            updateTextView.setMaxLines(isExpand ? 1 : Integer.MAX_VALUE);
             updateTextView.setText(updateInfo.getUpdateInfo());
 
             expandBtn.switchState();
@@ -382,7 +314,8 @@ public class UpdateManagerFragment extends RecyclerLayoutFragment<AppUpdateInfo>
         updateTextView.post(new Runnable() {
             @Override
             public void run() {
-                if (updateInfo.isExpand() || (updateTextView.getLayout() != null && updateTextView.getLayout().getEllipsisCount(updateTextView.getLineCount() - 1) > 0)) {
+                if (updateInfo.isExpand() || (updateTextView.getLayout() != null &&
+                        updateTextView.getLayout().getEllipsisCount(updateTextView.getLineCount() - 1) > 0)) {
                     expandBtn.setVisibility(View.VISIBLE);
                 } else {
                     expandBtn.setVisibility(View.GONE);

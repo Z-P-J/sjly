@@ -140,7 +140,7 @@ public abstract class NextUrlFragment<T> extends RecyclerLayoutFragment<T>
 //                        Log.d("getData222222222222", "start=" + start + " count=" + count);
                         recyclerLayout.notifyItemRangeChanged(start, count);
                     } else {
-                        IFooterViewHolder viewHolder = recyclerLayout.getAdapter().getFooterViewBinder();
+                        IFooterViewHolder viewHolder = recyclerLayout.getAdapter().getFooterViewHolder();
                         if (viewHolder != null) {
                             viewHolder.onShowHasNoMore();
                         }
@@ -176,7 +176,7 @@ public abstract class NextUrlFragment<T> extends RecyclerLayoutFragment<T>
 //                                tvMsg.setText(R.string.easy_has_no_more);
 //                            }
 //                        }
-                        IFooterViewHolder viewHolder = recyclerLayout.getAdapter().getFooterViewBinder();
+                        IFooterViewHolder viewHolder = recyclerLayout.getAdapter().getFooterViewHolder();
                         if (viewHolder != null) {
                             viewHolder.onShowHasNoMore();
                         }

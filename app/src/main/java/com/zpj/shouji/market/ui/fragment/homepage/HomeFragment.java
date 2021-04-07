@@ -282,6 +282,9 @@ public class HomeFragment extends SkinFragment {
 
     @Override
     protected void initStatusBar() {
+        if (getContext() == null) {
+            return;
+        }
         boolean isDark = alpha < 0.5f && isLazyInit();
         boolean isNightMode = AppConfig.isNightMode();
         if (isNightMode) {

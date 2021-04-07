@@ -32,8 +32,8 @@ public class ShareDialogFragment extends BottomDragDialogFragment
 
     @Override
     protected void initView(View view, @Nullable Bundle savedInstanceState) {
+        setCornerRadiusDp(20);
         super.initView(view, savedInstanceState);
-        contentView.setBackgroundResource(R.drawable.background_bottom_sheet_dialog);
 
         findViewById(R.id.btn_close).setOnClickListener(v -> dismiss());
 

@@ -49,6 +49,7 @@ public class CommentDialogFragment extends BottomDragDialogFragment
 
     @Override
     protected void initView(View view, @Nullable Bundle savedInstanceState) {
+        setCornerRadiusDp(20);
         super.initView(view, savedInstanceState);
 
         if (TextUtils.isEmpty(replyId) || TextUtils.isEmpty(contentType)) {
@@ -56,8 +57,6 @@ public class CommentDialogFragment extends BottomDragDialogFragment
             dismiss();
             return;
         }
-
-        contentView.setBackgroundResource(R.drawable.background_bottom_sheet_dialog);
 
         Activity activity = ContextUtils.getActivity(context);
 

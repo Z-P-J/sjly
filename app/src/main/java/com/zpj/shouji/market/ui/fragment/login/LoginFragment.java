@@ -70,7 +70,7 @@ public class LoginFragment extends BaseSwipeBackFragment {
             public void onAccept(Boolean isSuccess, String errorMsg) throws Exception {
                 if (isSuccess) {
                     ZToast.success("登录成功！");
-                    EventBus.hideLoading(() -> pop());
+                    EventBus.hideLoading(() -> popThis());
                 } else {
                     EventBus.hideLoading();
                 }
@@ -84,7 +84,7 @@ public class LoginFragment extends BaseSwipeBackFragment {
             public void onAccept(Boolean isSuccess, String errorMsg) throws Exception {
                 if (isSuccess) {
                     ZToast.success("注册成功，请输入账账户信息登录！");
-                    if (SupportHelper.getPreFragment(LoginFragment.this) instanceof LoginFragment) {
+                    if (getPreFragment() instanceof LoginFragment) {
                         pop();
                     } else {
                         startWithPop(LoginFragment.newInstance(false));
