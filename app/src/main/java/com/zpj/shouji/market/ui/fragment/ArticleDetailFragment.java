@@ -1,5 +1,6 @@
 package com.zpj.shouji.market.ui.fragment;
 
+import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.NonNull;

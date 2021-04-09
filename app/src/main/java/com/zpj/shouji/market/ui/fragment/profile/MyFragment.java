@@ -482,9 +482,9 @@ public class MyFragment extends SkinFragment
             }
         } else if (v == tvEditInfo) {
             if (UserManager.getInstance().isLogin()) {
-                MyInfoFragment.start();
+                start(new MyInfoFragment());
             } else {
-                LoginFragment.start(false);
+                start(LoginFragment.newInstance(false));
             }
         } else if (v == ivAvatar) {
             if (UserManager.getInstance().isLogin()) {

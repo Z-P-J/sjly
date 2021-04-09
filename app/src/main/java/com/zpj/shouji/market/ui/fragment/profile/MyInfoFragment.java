@@ -43,12 +43,7 @@ public class MyInfoFragment extends BaseSwipeBackFragment implements OnCommonIte
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        EventBus.onSignOutEvent(this, new Consumer<String>() {
-            @Override
-            public void accept(String s) throws Exception {
-                pop();
-            }
-        });
+        EventBus.onSignOutEvent(this, s -> popThis());
         EventBus.onUserInfoChangeEvent(this, s -> {
             nickNameItem.setRightText(memberInfo.getMemberNickName());
             String email = memberInfo.getMemberEmail();

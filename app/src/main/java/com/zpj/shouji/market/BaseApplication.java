@@ -1,10 +1,14 @@
 package com.zpj.shouji.market;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Color;
 import android.os.Build;
+import android.os.Bundle;
 import android.os.StrictMode;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.multidex.MultiDexApplication;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -21,6 +25,9 @@ import com.maning.librarycrashmonitor.MCrashMonitor;
 import com.raizlabs.android.dbflow.config.FlowManager;
 import com.zpj.blur.ZBlurry;
 import com.zpj.downloader.ZDownloader;
+import com.zpj.fragmentation.ISupportFragment;
+import com.zpj.fragmentation.SupportActivity;
+import com.zpj.fragmentation.SupportFragment;
 import com.zpj.http.ZHttp;
 import com.zpj.http.core.IHttp;
 import com.zpj.progressbar.ZProgressBar;
@@ -28,6 +35,7 @@ import com.zpj.shouji.market.api.HttpApi;
 import com.zpj.shouji.market.constant.AppConfig;
 import com.zpj.shouji.market.download.AppDownloadMission;
 import com.zpj.shouji.market.download.DownloadNotificationInterceptor;
+import com.zpj.shouji.market.utils.EventBus;
 import com.zpj.statemanager.CustomizedViewHolder;
 import com.zpj.statemanager.StateManager;
 import com.zpj.utils.AppUtils;
@@ -37,10 +45,16 @@ import com.zpj.widget.setting.SwitchSettingItem;
 import com.zxy.skin.sdk.SkinEngine;
 import com.zxy.skin.sdk.applicator.SkinViewApplicator;
 
+import java.lang.ref.WeakReference;
+
 import io.reactivex.functions.Consumer;
 import io.reactivex.plugins.RxJavaPlugins;
 
 public class BaseApplication extends MultiDexApplication {
+
+//    private BaseApplication application;
+
+    private static WeakReference<SupportActivity> activityWeakReference;
 
     @Override
     public void onCreate() {
@@ -147,6 +161,54 @@ public class BaseApplication extends MultiDexApplication {
 
         Log.d("AppAppApp", "signature=" + AppUtils.getAppSignatureMD5(this, getPackageName()));
         Log.d("AppAppApp", "duration=" + (System.currentTimeMillis() - start));
+
+        registerActivityLifecycleCallbacks(new ActivityLifecycleCallbacks() {
+            @Override
+            public void onActivityCreated(@NonNull Activity activity, @Nullable Bundle bundle) {
+                if (activity instanceof SupportActivity) {
+                    activityWeakReference = new WeakReference<>((SupportActivity) activity);
+                }
+            }
+
+            @Override
+            public void onActivityStarted(@NonNull Activity activity) {
+
+            }
+
+            @Override
+            public void onActivityResumed(@NonNull Activity activity) {
+
+            }
+
+            @Override
+            public void onActivityPaused(@NonNull Activity activity) {
+
+            }
+
+            @Override
+            public void onActivityStopped(@NonNull Activity activity) {
+
+            }
+
+            @Override
+            public void onActivitySaveInstanceState(@NonNull Activity activity, @NonNull Bundle bundle) {
+
+            }
+
+            @Override
+            public void onActivityDestroyed(@NonNull Activity activity) {
+
+            }
+        });
+
+    }
+
+    public static void startFragment(SupportFragment fragment) {
+        if (activityWeakReference != null && activityWeakReference.get() != null) {
+            activityWeakReference.get().start(fragment);
+        } else {
+            EventBus.post(fragment);
+        }
     }
 
     public static class SettingItemApplicator extends SkinViewApplicator {

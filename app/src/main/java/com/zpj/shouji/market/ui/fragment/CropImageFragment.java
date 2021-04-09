@@ -27,9 +27,9 @@ public class CropImageFragment extends SkinFragment implements View.OnClickListe
     private boolean isCropAvatar;
     private Item item;
 
-    public static void start(Item item, boolean isCropAvatar) {
-        start(newInstance(item, isCropAvatar));
-    }
+//    public static void start(Item item, boolean isCropAvatar) {
+//        start(newInstance(item, isCropAvatar));
+//    }
 
     public static CropImageFragment newInstance(Item item, boolean isCropAvatar) {
         Bundle args = new Bundle();
