@@ -23,7 +23,7 @@ import com.zpj.shouji.market.ui.widget.DownloadButton;
 import com.zpj.statemanager.StateManager;
 import com.zpj.toast.ZToast;
 import com.zpj.utils.ScreenUtils;
-import com.zxy.skin.sdk.SkinEngine;
+import com.zpj.skin.SkinEngine;
 
 public class ThemeAppDownloadDialogFragment extends BottomDragDialogFragment {
 

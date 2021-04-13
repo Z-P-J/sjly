@@ -42,8 +42,8 @@ import com.zpj.utils.AppUtils;
 import com.zpj.utils.ScreenUtils;
 import com.zpj.widget.setting.SimpleSettingItem;
 import com.zpj.widget.setting.SwitchSettingItem;
-import com.zxy.skin.sdk.SkinEngine;
-import com.zxy.skin.sdk.applicator.SkinViewApplicator;
+import com.zpj.skin.SkinEngine;
+import com.zpj.skin.applicator.SkinViewApplicator;
 
 import java.lang.ref.WeakReference;
 

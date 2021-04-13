@@ -34,7 +34,7 @@ import com.zpj.shouji.market.ui.widget.indicator.BadgePagerTitle;
 import com.zpj.shouji.market.ui.widget.indicator.SubTitlePagerTitle;
 import com.zpj.shouji.market.utils.BeanUtils;
 import com.zpj.shouji.market.utils.MagicIndicatorHelper;
-import com.zxy.skin.sdk.SkinEngine;
+import com.zpj.skin.SkinEngine;
 
 import net.lucode.hackware.magicindicator.MagicIndicator;
 

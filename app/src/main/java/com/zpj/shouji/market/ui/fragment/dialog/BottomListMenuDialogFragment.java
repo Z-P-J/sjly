@@ -20,7 +20,7 @@ import com.zpj.recyclerview.EasyRecyclerView;
 import com.zpj.recyclerview.EasyViewHolder;
 import com.zpj.recyclerview.IEasy;
 import com.zpj.shouji.market.R;
-import com.zxy.skin.sdk.SkinEngine;
+import com.zpj.skin.SkinEngine;
 
 import java.util.ArrayList;
 import java.util.List;

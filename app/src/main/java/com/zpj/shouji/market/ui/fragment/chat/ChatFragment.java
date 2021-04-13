@@ -40,7 +40,7 @@ import com.zpj.shouji.market.utils.BeanUtils;
 import com.zpj.toast.ZToast;
 import com.zpj.utils.KeyboardObserver;
 import com.zpj.utils.NetUtils;
-import com.zxy.skin.sdk.SkinEngine;
+import com.zpj.skin.SkinEngine;
 
 import java.util.ArrayList;
 import java.util.List;

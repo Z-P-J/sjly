@@ -12,7 +12,7 @@ import android.view.ViewTreeObserver;
 import android.widget.TextView;
 
 import com.zpj.shouji.market.R;
-import com.zxy.skin.sdk.SkinEngine;
+import com.zpj.skin.SkinEngine;
 
 import net.lucode.hackware.magicindicator.buildins.ArgbEvaluatorHolder;
 import net.lucode.hackware.magicindicator.buildins.commonnavigator.titles.CommonPagerTitleView;

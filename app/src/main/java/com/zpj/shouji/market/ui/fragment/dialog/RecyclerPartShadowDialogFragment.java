@@ -9,7 +9,7 @@ import com.zpj.fragmentation.dialog.base.PartShadowDialogFragment;
 import com.zpj.fragmentation.dialog.enums.PopupPosition;
 import com.zpj.recyclerview.EasyRecyclerView;
 import com.zpj.shouji.market.R;
-import com.zxy.skin.sdk.SkinEngine;
+import com.zpj.skin.SkinEngine;
 
 import java.util.ArrayList;
 import java.util.Arrays;

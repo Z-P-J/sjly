@@ -170,6 +170,7 @@ dependencies {
     implementation 'com.zpj.http:ZHttp:1.0.5'
     implementation 'com.zpj.downloader:ZDownloader:1.0.0'
     implementation 'com.github.Z-P-J:ZProgressBar:1.0.0'
+    implementation 'com.github.Z-P-J:SkinSwitcher:1.0.0'
 
 //    implementation project(':zmarkdown')
 //    implementation project(':richeditor')

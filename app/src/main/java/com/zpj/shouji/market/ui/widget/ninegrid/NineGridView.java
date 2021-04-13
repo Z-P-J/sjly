@@ -20,7 +20,7 @@ import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.glide.GlideRequestOptions;
 import com.zpj.shouji.market.glide.ImageViewDrawableTarget;
 import com.zpj.utils.ScreenUtils;
-import com.zxy.skin.sdk.SkinEngine;
+import com.zpj.skin.SkinEngine;
 
 import java.util.ArrayList;
 import java.util.List;

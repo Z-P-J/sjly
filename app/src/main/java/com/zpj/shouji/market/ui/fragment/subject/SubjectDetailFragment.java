@@ -26,7 +26,7 @@ import com.zpj.shouji.market.ui.fragment.detail.AppDetailFragment;
 import com.zpj.shouji.market.ui.widget.DownloadButton;
 import com.zpj.toast.ZToast;
 import com.zpj.utils.ColorUtils;
-import com.zxy.skin.sdk.SkinEngine;
+import com.zpj.skin.SkinEngine;
 
 import java.util.ArrayList;
 import java.util.List;

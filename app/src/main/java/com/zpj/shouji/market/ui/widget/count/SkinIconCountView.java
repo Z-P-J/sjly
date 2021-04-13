@@ -7,7 +7,7 @@ import android.util.AttributeSet;
 
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.utils.EventBus;
-import com.zxy.skin.sdk.SkinEngine;
+import com.zpj.skin.SkinEngine;
 
 import io.reactivex.functions.Consumer;
 

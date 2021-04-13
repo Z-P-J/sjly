@@ -18,7 +18,7 @@ import com.zpj.shouji.market.imagepicker.widget.ImageSelectionLayout;
 import com.zpj.shouji.market.ui.fragment.CropImageFragment;
 import com.zpj.shouji.market.ui.fragment.base.SkinFragment;
 import com.zpj.utils.ScreenUtils;
-import com.zxy.skin.sdk.SkinEngine;
+import com.zpj.skin.SkinEngine;
 
 import java.util.List;
 

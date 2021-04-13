@@ -19,7 +19,7 @@ import com.zpj.shouji.market.BaseApplication;
 import com.zpj.shouji.market.constant.AppConfig;
 import com.zpj.shouji.market.utils.EventBus;
 import com.zpj.utils.ContextUtils;
-import com.zxy.skin.sdk.SkinLayoutInflater;
+import com.zpj.skin.SkinLayoutInflater;
 
 public abstract class SkinFragment extends BaseFragment {
 

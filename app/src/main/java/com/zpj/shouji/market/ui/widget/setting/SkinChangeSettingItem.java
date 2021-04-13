@@ -10,7 +10,7 @@ import com.zpj.shouji.market.constant.AppConfig;
 import com.zpj.shouji.market.utils.EventBus;
 import com.zpj.shouji.market.utils.SkinChangeAnimation;
 import com.zpj.widget.setting.SwitchSettingItem;
-import com.zxy.skin.sdk.SkinEngine;
+import com.zpj.skin.SkinEngine;
 
 public class SkinChangeSettingItem extends SwitchSettingItem
         implements View.OnTouchListener {

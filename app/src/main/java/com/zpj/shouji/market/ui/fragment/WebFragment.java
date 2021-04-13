@@ -34,7 +34,7 @@ import com.zpj.shouji.market.constant.Keys;
 import com.zpj.shouji.market.ui.fragment.base.SkinFragment;
 import com.zpj.toast.ZToast;
 import com.zpj.utils.ScreenUtils;
-import com.zxy.skin.sdk.SkinEngine;
+import com.zpj.skin.SkinEngine;
 
 public class WebFragment extends SkinFragment {
 

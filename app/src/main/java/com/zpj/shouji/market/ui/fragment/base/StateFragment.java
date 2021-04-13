@@ -9,7 +9,7 @@ import android.view.ViewGroup;
 
 import com.zpj.statemanager.StateManager;
 import com.zpj.shouji.market.R;
-import com.zxy.skin.sdk.SkinEngine;
+import com.zpj.skin.SkinEngine;
 
 public abstract class StateFragment extends SkinFragment {
 

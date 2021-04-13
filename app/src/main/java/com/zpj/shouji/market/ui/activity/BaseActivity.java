@@ -18,7 +18,7 @@ import com.zpj.fragmentation.dialog.impl.LoadingDialogFragment;
 import com.zpj.rxbus.RxBus;
 import com.zpj.shouji.market.utils.EventBus;
 import com.zpj.toast.ZToast;
-import com.zxy.skin.sdk.SkinLayoutInflater;
+import com.zpj.skin.SkinLayoutInflater;
 
 public class BaseActivity extends SupportActivity {
 

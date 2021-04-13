@@ -48,9 +48,15 @@
         app:starCanTouch="true"
         />
 
-    <!--        app:starCoverColor="@color/yellow_1"-->
-    <!--        app:starStrokeColor="@color/yellow_1"-->
-    <!--        app:starFillColor="@color/white"-->
+<!--    <RatingBar-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        style="@style/style_rating_bar"-->
+<!--        android:numStars="5"-->
+<!--        android:rating="3"-->
+<!--        android:stepSize="1"-->
+<!--        android:layout_gravity="center"-->
+<!--        />-->
 
     <TextView
         android:id="@+id/tv_submit"

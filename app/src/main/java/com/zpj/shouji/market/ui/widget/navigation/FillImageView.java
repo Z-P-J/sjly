@@ -18,7 +18,7 @@ import android.util.Log;
 import android.view.animation.AccelerateInterpolator;
 
 import com.zpj.shouji.market.R;
-import com.zxy.skin.sdk.SkinEngine;
+import com.zpj.skin.SkinEngine;
 
 /**
  * FillView[v 1.0.0]

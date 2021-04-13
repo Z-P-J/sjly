@@ -26,7 +26,7 @@ import com.zpj.shouji.market.glide.transformations.blur.CropBlurTransformation;
 import com.zpj.shouji.market.model.AppDetailInfo;
 import com.zpj.widget.toolbar.BaseToolBar;
 import com.zpj.widget.toolbar.ZToolBar;
-import com.zxy.skin.sdk.SkinEngine;
+import com.zpj.skin.SkinEngine;
 
 import net.lucode.hackware.magicindicator.MagicIndicator;
 

@@ -48,7 +48,7 @@ import com.zpj.shouji.market.ui.widget.ninegrid.NineGridView;
 import com.zpj.toast.ZToast;
 import com.zpj.utils.NetUtils;
 import com.zpj.utils.ScreenUtils;
-import com.zxy.skin.sdk.SkinEngine;
+import com.zpj.skin.SkinEngine;
 
 import java.util.List;
 

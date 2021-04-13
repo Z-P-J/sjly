@@ -34,7 +34,7 @@ import com.zpj.shouji.market.utils.PackageStateComparator;
 import com.zpj.shouji.market.utils.PinyinComparator;
 import com.zpj.toast.ZToast;
 import com.zpj.utils.AppUtils;
-import com.zxy.skin.sdk.SkinEngine;
+import com.zpj.skin.SkinEngine;
 
 import java.io.File;
 import java.util.ArrayList;

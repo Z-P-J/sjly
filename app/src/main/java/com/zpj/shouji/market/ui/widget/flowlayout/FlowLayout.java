@@ -23,7 +23,7 @@ import com.zpj.shouji.market.constant.AppConfig;
 import com.zpj.shouji.market.ui.widget.DotSpan;
 import com.zpj.toast.ZToast;
 import com.zpj.utils.ScreenUtils;
-import com.zxy.skin.sdk.SkinEngine;
+import com.zpj.skin.SkinEngine;
 
 import java.util.ArrayList;
 import java.util.HashSet;

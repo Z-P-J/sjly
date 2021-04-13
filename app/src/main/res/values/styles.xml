@@ -257,4 +257,11 @@
         <item name="android:shadowDy">4</item>
     </style>
 
+<!--    <style name="style_rating_bar" parent="Widget.AppCompat.RatingBar">-->
+<!--        <item name="android:progressDrawable">@drawable/bg_ratingbar</item>-->
+<!--        <item name="android:indeterminateDrawable">@drawable/bg_ratingbar</item>-->
+<!--        <item name="android:minHeight">@dimen/dp_24</item>-->
+<!--        <item name="android:maxHeight">@dimen/dp_24</item>-->
+<!--    </style>-->
+
 </resources>

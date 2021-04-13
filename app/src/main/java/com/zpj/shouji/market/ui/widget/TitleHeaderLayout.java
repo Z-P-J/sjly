@@ -14,7 +14,7 @@ import android.widget.TextView;
 
 import com.zpj.shouji.market.R;
 import com.zpj.utils.ScreenUtils;
-import com.zxy.skin.sdk.SkinEngine;
+import com.zpj.skin.SkinEngine;
 
 public class TitleHeaderLayout extends FrameLayout {
 

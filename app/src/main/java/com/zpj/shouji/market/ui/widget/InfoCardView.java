@@ -16,7 +16,7 @@ import android.widget.TextView;
 
 import com.zpj.shouji.market.R;
 import com.zpj.toast.ZToast;
-import com.zxy.skin.sdk.SkinEngine;
+import com.zpj.skin.SkinEngine;
 
 public class InfoCardView extends CardView {
 
