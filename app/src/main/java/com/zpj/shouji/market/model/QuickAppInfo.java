@@ -1,11 +1,11 @@
 package com.zpj.shouji.market.model;
 
 import com.zpj.http.parser.html.nodes.Element;
-import com.zpj.shouji.market.download.MissionBinder;
+import com.zpj.shouji.market.download.MissionDelegate;
 import com.zpj.shouji.market.utils.BeanUtils;
 import com.zpj.shouji.market.utils.BeanUtils.Select;
 
-public class QuickAppInfo extends MissionBinder {
+public class QuickAppInfo extends MissionDelegate {
 
 
     @Select(selector = "title")
@@ -19,9 +19,11 @@ public class QuickAppInfo extends MissionBinder {
     @Select(selector = "yunUrl")
     private String yunUrl;
 
-    public static QuickAppInfo parse(Element item) {
-        return BeanUtils.createBean(item, QuickAppInfo.class);
-    }
+//    public static QuickAppInfo parse(Element item) {
+//        QuickAppInfo info = BeanUtils.createBean(item, QuickAppInfo.class);
+//        info.init();
+//        return info;
+//    }
 
     public void setAppTitle(String appTitle) {
         this.appTitle = appTitle;

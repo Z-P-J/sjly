@@ -3,12 +3,12 @@ package com.zpj.shouji.market.model;
 import android.support.annotation.Keep;
 
 import com.zpj.http.parser.html.nodes.Element;
-import com.zpj.shouji.market.download.MissionBinder;
+import com.zpj.shouji.market.download.MissionDelegate;
 import com.zpj.shouji.market.utils.BeanUtils;
 import com.zpj.shouji.market.utils.BeanUtils.Select;
 
 @Keep
-public class GuessAppInfo extends MissionBinder {
+public class GuessAppInfo extends MissionDelegate {
 
     @Select(selector = "icon")
     private String appIcon;
@@ -27,9 +27,11 @@ public class GuessAppInfo extends MissionBinder {
     @Select(selector = "comment")
     private String appComment;
 
-    public static GuessAppInfo parse(Element item) {
-        return BeanUtils.createBean(item, GuessAppInfo.class);
-    }
+//    public static GuessAppInfo parse(Element item) {
+//        GuessAppInfo info = BeanUtils.createBean(item, GuessAppInfo.class);
+//        info.init();
+//        return info;
+//    }
 
     public String getAppIcon() {
         return appIcon;

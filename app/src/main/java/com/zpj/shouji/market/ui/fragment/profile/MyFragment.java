@@ -514,7 +514,7 @@ public class MyFragment extends SkinFragment
                 LoginFragment.start(false);
             }
         } else if (v == tvSetting) {
-            SettingFragment.start();
+            SettingFragment.start(context);
 //        } else if (v == tvCommonSetting) {
 //            CommonSettingFragment.start();
 //        } else if (v == tvDownloadSetting) {
@@ -522,7 +522,7 @@ public class MyFragment extends SkinFragment
 //        } else if (v == tvInstallSetting) {
 //            InstallSettingFragment.start();
         } else if (v == tvAbout) {
-            AboutSettingFragment.start();
+            AboutSettingFragment.start(context);
         } else if (v == tvSignOut) {
             UserManager.getInstance().signOut(context);
         } else if (v == tvDownloadManaer) {

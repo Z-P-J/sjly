@@ -103,7 +103,9 @@ public class ArticleDetailInfo {
         for (Element element : doc.selectFirst("div.Lef_4").select("li")) {
             AppInfo item = new AppInfo();
             String link = element.selectFirst("a.img").attr("href");
-            item.setAppId(link.replace("/down/", "").replace(".html", ""));
+            item.setAppId(link.replace("/down/", "")
+                    .replace("/game/", "")
+                    .replace(".html", ""));
             item.setAppType(type);
             item.setAppIcon(element.selectFirst("a.img").selectFirst("img").attr("src"));
             item.setAppTitle(element.selectFirst("a.name").text());

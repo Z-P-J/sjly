@@ -5,9 +5,10 @@ import com.raizlabs.android.dbflow.annotation.PrimaryKey;
 import com.raizlabs.android.dbflow.annotation.Table;
 import com.raizlabs.android.dbflow.structure.BaseModel;
 import com.zpj.shouji.market.database.IgnoredUpdateManager;
+import com.zpj.shouji.market.utils.PinyinComparator;
 
 @Table(database = IgnoredUpdateManager.class)
-public class IgnoredUpdateInfo extends BaseModel {
+public class IgnoredUpdateInfo extends BaseModel implements PinyinComparator.PinyinComparable {
 
     @PrimaryKey(autoincrement = true)
     private int id;
@@ -48,5 +49,10 @@ public class IgnoredUpdateInfo extends BaseModel {
 
     public AppUpdateInfo getUpdateInfo() {
         return updateInfo;
+    }
+
+    @Override
+    public String getName() {
+        return getAppName();
     }
 }

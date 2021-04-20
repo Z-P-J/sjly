@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Environment;
+import android.support.annotation.Keep;
 import android.text.TextUtils;
 import android.util.Log;
 
@@ -41,6 +42,7 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
 
+@Keep
 public class AppDownloadMission extends BaseMission<AppDownloadMission> {
 
     public interface AppMissionListener extends DownloadMission.MissionListener {
@@ -48,6 +50,8 @@ public class AppDownloadMission extends BaseMission<AppDownloadMission> {
         void onInstalled();
 
         void onUninstalled();
+
+        void onUpgrade();
 
     }
 
@@ -58,6 +62,7 @@ public class AppDownloadMission extends BaseMission<AppDownloadMission> {
     private String appId;
     private String appType;
     private String appName;
+    private String versionName;
     private boolean isShareApp;
 
     private transient boolean isInstalled;
@@ -125,6 +130,7 @@ public class AppDownloadMission extends BaseMission<AppDownloadMission> {
         if (errCode > 0) {
             return;
         }
+        versionName = AppUtils.getApkVersionName(getContext(), getFilePath());
         checkUpgrade();
         if (FileUtils.getFileType(name) == FileUtils.FileType.ARCHIVE) {
 //            TODO 解压
@@ -196,9 +202,9 @@ public class AppDownloadMission extends BaseMission<AppDownloadMission> {
 
     private boolean checkUpgrade() {
         if (isFinished() && isInstalled) {
-            apkVersion = AppUtils.getApkVersionName(getContext(), getFilePath());
+//            apkVersion = AppUtils.getApkVersionName(getContext(), getFilePath());
             appVersion = AppUtils.getAppVersionName(getContext(), getPackageName());
-            return AppUtil.isNewVersion(appVersion, apkVersion);
+            return AppUtil.isNewVersion(appVersion, versionName);
         }
         return false;
     }
@@ -215,8 +221,8 @@ public class AppDownloadMission extends BaseMission<AppDownloadMission> {
 //        }
 //        return isInstalled;
         if (isFinished() && isInstalled) {
-            Log.d(TAG, "apkVersion=" + apkVersion + " appVersion=" + appVersion);
-            return TextUtils.equals(apkVersion, appVersion);
+            Log.d(TAG, "apkVersion=" + versionName + " appVersion=" + appVersion);
+            return TextUtils.equals(versionName, appVersion);
         }
         return false;
 //        return AppUtils.isApkInstalled(getContext(), packageName);
@@ -284,7 +290,7 @@ public class AppDownloadMission extends BaseMission<AppDownloadMission> {
                     @Override
                     public void onComplete() {
                         String currentVersion = AppUtils.getAppVersionName(activity, getPackageName());
-                        String apkVersion = AppUtils.getApkVersionName(activity, getFilePath());
+                        String apkVersion = versionName;
                         if (TextUtils.equals(apkVersion, currentVersion)) {
                             File file = getFile();
                             if (AppConfig.isAutoDeleteAfterInstalled() && file != null) {

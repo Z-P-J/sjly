@@ -5,6 +5,7 @@ import android.view.View;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
+import com.zpj.http.core.HttpObserver;
 import com.zpj.http.core.IHttp;
 import com.zpj.http.parser.html.nodes.Document;
 import com.zpj.http.parser.html.nodes.Element;
@@ -18,7 +19,10 @@ import com.zpj.shouji.market.model.AppInfo;
 import com.zpj.shouji.market.ui.fragment.detail.AppDetailFragment;
 import com.zpj.shouji.market.ui.widget.DownloadButton;
 
+import java.util.ArrayList;
 import java.util.List;
+
+import io.reactivex.ObservableEmitter;
 
 public abstract class AppInfoMultiData extends BaseHeaderMultiData<AppInfo> {
 
@@ -55,6 +59,18 @@ public abstract class AppInfoMultiData extends BaseHeaderMultiData<AppInfo> {
     public boolean loadData() {
         if (getKey() != null) {
             HttpApi.getXml(getKey().getUrl())
+                    .flatMap((HttpObserver.OnFlatMapListener<Document, List<AppInfo>>) (document, emitter) -> {
+                        Elements elements = document.select("item");
+                        List<AppInfo> list = new ArrayList<>();
+                        for (Element element : elements) {
+                            AppInfo info = AppInfo.parse(element);
+                            if (info == null) {
+                                continue;
+                            }
+                            list.add(info);
+                        }
+                        emitter.onNext(list);
+                    })
                     .onSuccess(this::onGetDoc)
                     .onError(new IHttp.OnErrorListener() {
                         @Override
@@ -94,15 +110,16 @@ public abstract class AppInfoMultiData extends BaseHeaderMultiData<AppInfo> {
 
     public abstract PreloadApi getKey();
 
-    protected void onGetDoc(Document document) {
-        Elements elements = document.select("item");
-        for (Element element : elements) {
-            AppInfo info = AppInfo.parse(element);
-            if (info == null) {
-                continue;
-            }
-            list.add(info);
-        }
+    protected void onGetDoc(List<AppInfo> list) {
+//        Elements elements = document.select("item");
+//        for (Element element : elements) {
+//            AppInfo info = AppInfo.parse(element);
+//            if (info == null) {
+//                continue;
+//            }
+//            list.add(info);
+//        }
+        this.list.addAll(list);
 //        int count = adapter.getItemCount();
 //        adapter.notifyItemRangeInserted(count - getCount(), getCount());
         showContent();

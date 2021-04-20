@@ -23,6 +23,7 @@ import com.zpj.shouji.market.ui.fragment.detail.AppDetailFragment;
 import com.zpj.shouji.market.ui.widget.DownloadedActionButton;
 import com.zpj.statemanager.State;
 import com.zpj.toast.ZToast;
+import com.zpj.utils.AppUtils;
 import com.zpj.utils.ClickHelper;
 
 import java.text.SimpleDateFormat;
@@ -147,11 +148,12 @@ public class DownloadMultiData extends ExpandableMultiData<AppDownloadMission> {
 
         ClickHelper.with(holder.getItemView())
                 .setOnClickListener((v, x, y) -> {
-                    if (mission.isFinished()) {
-                        mission.install();
-                    } else {
-                        AppDetailFragment.start(mission.getAppType(), mission.getAppId());
-                    }
+//                    if (!mission.isInstalled()) {
+//                        mission.install();
+//                    } else {
+//
+//                    }
+                    AppDetailFragment.start(mission.getAppType(), mission.getAppId());
                 })
                 .setOnLongClickListener((v, x, y) -> {
                     ArrayList<String> titleList = new ArrayList<>();
@@ -368,6 +370,11 @@ public class DownloadMultiData extends ExpandableMultiData<AppDownloadMission> {
         @Override
         public void onUninstalled() {
             holder.setText(R.id.tv_action, R.string.text_install);
+        }
+
+        @Override
+        public void onUpgrade() {
+            holder.setText(R.id.tv_action, R.string.text_upgrade);
         }
     }
 

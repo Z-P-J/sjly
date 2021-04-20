@@ -11,16 +11,16 @@ import com.zpj.downloader.DownloadMission;
 import com.zpj.downloader.constant.Error;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.download.AppDownloadMission;
-import com.zpj.shouji.market.download.MissionBinder;
+import com.zpj.shouji.market.download.MissionDelegate;
 
 import java.util.Locale;
 
 public class DownloadButton extends AppCompatTextView
-        implements MissionBinder.AppDownloadListener, View.OnClickListener {
+        implements MissionDelegate.AppDownloadListener, View.OnClickListener {
 
     private static final String TAG = "DownloadButton";
 
-    private MissionBinder binder;
+    private MissionDelegate binder;
 
 //    private String appUrl;
 //    private String appId;
@@ -31,7 +31,7 @@ public class DownloadButton extends AppCompatTextView
 //    private String yunUrl;
 //    private boolean isShareApp;
 
-    private CharSequence defaultText;
+    private final CharSequence defaultText;
 
 //    private AppDownloadMission mission;
 
@@ -66,7 +66,7 @@ public class DownloadButton extends AppCompatTextView
         super.onDetachedFromWindow();
     }
 
-    public void bindApp(MissionBinder binder) {
+    public void bindApp(MissionDelegate binder) {
         this.binder = binder;
         binder.bind(this);
         setOnClickListener(this);
@@ -95,7 +95,7 @@ public class DownloadButton extends AppCompatTextView
     @Override
     public void onBindMission(AppDownloadMission mission) {
         if (mission.isIniting()) {
-            setText(R.string.text_preparing);
+            onInit();
         } else if (mission.isRunning()) {
             if (mission.getProgress() < 10) {
                 setText(mission.getProgressStr());
@@ -103,20 +103,20 @@ public class DownloadButton extends AppCompatTextView
                 setText(String.format(Locale.US, "%.1f%%", mission.getProgress()));
             }
         } else if (mission.isFinished()) {
-            if (mission.getFile().exists()) {
+            if (mission.isInstalled()) {
+                onInstalled();
+            } else if (mission.getFile().exists()) {
                 if (mission.isUpgrade()) {
-                    setText(R.string.text_upgrade);
-                } else if (mission.isInstalled()) {
-                    setText(R.string.text_open);
+                    onUpgrade();
                 } else {
-                    setText(R.string.text_install);
+                    onFinish();
                 }
             } else {
-                mission.delete();
-//                onDelete();
+//                mission.delete();
+                onDelete();
             }
         } else if (mission.isWaiting()) {
-            setText(R.string.text_waiting);
+            onWaiting();
         } else {
             setText(R.string.text_continue);
         }
@@ -195,5 +195,10 @@ public class DownloadButton extends AppCompatTextView
     @Override
     public void onUninstalled() {
         setText(R.string.text_download);
+    }
+
+    @Override
+    public void onUpgrade() {
+        setText(R.string.text_upgrade);
     }
 }

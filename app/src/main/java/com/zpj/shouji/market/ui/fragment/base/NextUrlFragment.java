@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.zpj.http.core.HttpObserver;
 import com.zpj.http.core.IHttp;
 import com.zpj.http.parser.html.nodes.Document;
 import com.zpj.http.parser.html.nodes.Element;
@@ -19,8 +20,12 @@ import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.api.HttpApi;
 import com.zpj.shouji.market.constant.Keys;
 
+import java.util.List;
+
+import io.reactivex.ObservableEmitter;
+
 public abstract class NextUrlFragment<T> extends RecyclerLayoutFragment<T>
-        implements IHttp.OnSuccessListener<Document>, IHttp.OnErrorListener {
+        implements IHttp.OnSuccessListener<Integer>, IHttp.OnErrorListener {
 
     protected String defaultUrl;
     protected String nextUrl;
@@ -96,24 +101,24 @@ public abstract class NextUrlFragment<T> extends RecyclerLayoutFragment<T>
     }
 
     @Override
-    public void onSuccess(Document doc) throws Exception {
+    public void onSuccess(final Integer s) throws Exception {
         postOnEnterAnimationEnd(new Runnable() {
             @Override
             public void run() {
-//                Log.d("getData", "doc=" + doc);
-                nextUrl = doc.selectFirst("nextUrl").text();
-                if (refresh) {
-                    data.clear();
-                }
-                int start = data.size();
-                try {
-                    onGetDocument(doc);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                    onError(e);
-                    return;
-                }
-//        int end = data.size() == 0 ? 0 : data.size() - 1;
+                int start = s;
+////                Log.d("getData", "doc=" + doc);
+//                nextUrl = doc.selectFirst("nextUrl").text();
+//                if (refresh) {
+//                    data.clear();
+//                }
+//                int start = data.size();
+//                try {
+//                    onGetDocument(doc);
+//                } catch (Exception e) {
+//                    e.printStackTrace();
+//                    onError(e);
+//                    return;
+//                }
                 int end = data.size();
 
                 int last = -1;
@@ -214,6 +219,22 @@ public abstract class NextUrlFragment<T> extends RecyclerLayoutFragment<T>
         Log.d("NextUrlFragment", "getData nextUrl=" + nextUrl);
         HttpApi.getXml(nextUrl)
                 .bindToLife(this)
+                .flatMap((HttpObserver.OnFlatMapListener<Document, Integer>) (doc, emitter) -> {
+                    nextUrl = doc.selectFirst("nextUrl").text();
+                    if (refresh) {
+                        data.clear();
+                    }
+                    int start = data.size();
+                    try {
+                        onGetDocument(doc);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                        onError(e);
+                        return;
+                    }
+                    emitter.onNext(start);
+                    emitter.onComplete();
+                })
                 .onSuccess(this)
                 .onError(this)
                 .subscribe();

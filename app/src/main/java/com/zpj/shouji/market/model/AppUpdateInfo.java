@@ -1,11 +1,11 @@
 package com.zpj.shouji.market.model;
 
-import android.graphics.drawable.Drawable;
 import android.text.TextUtils;
 
-import com.zpj.shouji.market.download.MissionBinder;
+import com.zpj.shouji.market.download.MissionDelegate;
+import com.zpj.shouji.market.utils.PinyinComparator;
 
-public class AppUpdateInfo extends MissionBinder {
+public class AppUpdateInfo extends MissionDelegate implements PinyinComparator.PinyinComparable {
 
     private String appName;
 
@@ -164,5 +164,10 @@ public class AppUpdateInfo extends MissionBinder {
                 ", updateTime='" + updateTime + '\'' +
                 ", updateInfo='" + updateInfo + '\'' +
                 '}';
+    }
+
+    @Override
+    public String getName() {
+        return getAppName();
     }
 }

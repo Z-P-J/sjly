@@ -1,6 +1,7 @@
 package com.zpj.shouji.market.ui.fragment.recommond;
 
 import android.graphics.Bitmap;
+import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
@@ -19,6 +20,7 @@ import com.zpj.recyclerview.MultiData;
 import com.zpj.recyclerview.MultiRecyclerViewWrapper;
 import com.zpj.rxbus.RxBus;
 import com.zpj.shouji.market.R;
+import com.zpj.shouji.market.constant.AppConfig;
 import com.zpj.shouji.market.model.AppInfo;
 import com.zpj.shouji.market.ui.adapter.FooterViewHolder;
 import com.zpj.shouji.market.ui.fragment.base.RecyclerLayoutFragment;
@@ -67,6 +69,13 @@ public abstract class BaseRecommendFragment extends StateFragment
                 }
             }
         });
+
+        EventBus.onSkinChangeEvent(this, s -> {
+            if (blurred != null) {
+                blurred.foregroundColor(Color.parseColor(AppConfig.isNightMode() ? "#aa000000" : "#bbffffff"));
+                blurred.startBlur();
+            }
+        });
     }
 
     @Override
@@ -91,6 +100,7 @@ public abstract class BaseRecommendFragment extends StateFragment
                 .scale(0.1f)
                 .radius(20)
 //                .maxFps(40)
+                .foregroundColor(Color.parseColor(AppConfig.isNightMode() ? "#aa000000" : "#bbffffff"))
                 .blur(toolbar, new ZBlurry.Callback() {
                     @Override
                     public void down(Bitmap bitmap) {

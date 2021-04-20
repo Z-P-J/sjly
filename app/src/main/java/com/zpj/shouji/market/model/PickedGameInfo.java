@@ -1,11 +1,11 @@
 package com.zpj.shouji.market.model;
 
 import com.zpj.http.parser.html.nodes.Element;
-import com.zpj.shouji.market.download.MissionBinder;
+import com.zpj.shouji.market.download.MissionDelegate;
 import com.zpj.shouji.market.utils.BeanUtils;
 import com.zpj.shouji.market.utils.BeanUtils.Select;
 
-public class PickedGameInfo extends MissionBinder {
+public class PickedGameInfo extends MissionDelegate {
 
     @Select(selector = "icon")
     private String appIcon;
@@ -44,9 +44,11 @@ public class PickedGameInfo extends MissionBinder {
     @Select(selector = "time")
     private String time;
 
-    public static PickedGameInfo from(Element element) {
-        return BeanUtils.createBean(element, PickedGameInfo.class);
-    }
+//    public static PickedGameInfo from(Element element) {
+//        PickedGameInfo info = BeanUtils.createBean(element, PickedGameInfo.class);
+//        info.init();
+//        return info;
+//    }
 
     public void setAppIcon(String appIcon) {
         this.appIcon = appIcon;

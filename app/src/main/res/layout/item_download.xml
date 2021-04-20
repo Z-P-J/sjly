@@ -105,6 +105,7 @@
                 android:id="@+id/tv_action"
                 style="@style/download_button"
                 android:text="@string/text_open"
+                android:layout_marginHorizontal="8dp"
                 android:visibility="gone"
                 />
 

@@ -11,6 +11,8 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.donkingliang.consecutivescroller.ConsecutiveScrollerLayout;
+import com.zpj.http.core.HttpObserver;
+import com.zpj.http.parser.html.nodes.Document;
 import com.zpj.http.parser.html.nodes.Element;
 import com.zpj.recyclerview.EasyRecyclerView;
 import com.zpj.recyclerview.EasyViewHolder;
@@ -30,6 +32,8 @@ import com.zpj.skin.SkinEngine;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import io.reactivex.ObservableEmitter;
 
 public class SubjectDetailFragment extends StateSwipeBackFragment
         implements IEasy.OnBindViewHolderListener<AppInfo>,
@@ -196,11 +200,17 @@ public class SubjectDetailFragment extends StateSwipeBackFragment
     private void getData() {
         HttpApi.getXml("/androidv3/special_list_xml.jsp?id=" + id)
                 .bindToLife(this)
-                .onSuccess(data -> {
-                    appInfoList.clear();
+                .flatMap((HttpObserver.OnFlatMapListener<Document, List<AppInfo>>) (data, emitter) -> {
+                    List<AppInfo> list = new ArrayList<>();
                     for (Element element : data.select("item")) {
-                        appInfoList.add(AppInfo.parse(element));
+                        list.add(AppInfo.parse(element));
                     }
+                    emitter.onNext(list);
+                    emitter.onComplete();
+                })
+                .onSuccess(list -> {
+                    appInfoList.clear();
+                    appInfoList.addAll(list);
                     postOnEnterAnimationEnd(() -> {
                         showContent();
                         recyclerView.showContent();

@@ -5,10 +5,14 @@ import com.zpj.shouji.market.model.InstalledAppInfo;
 
 import java.util.Comparator;
 
-public class PinyinComparator implements Comparator<InstalledAppInfo> {
+public class PinyinComparator implements Comparator<PinyinComparator.PinyinComparable> {
+
+    public interface PinyinComparable {
+        String getName();
+    }
 
     @Override
-    public int compare(InstalledAppInfo info1, InstalledAppInfo info2) {
+    public int compare(PinyinComparator.PinyinComparable info1, PinyinComparator.PinyinComparable info2) {
         String name1 = info1.getName();
         String name2 = info2.getName();
         int len1 = name1.length();

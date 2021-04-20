@@ -323,7 +323,7 @@ public class DiscoverBinder
             @Override
             public void select(boolean isSelected) {
                 if (!UserManager.getInstance().isLogin()) {
-                    supportView.setState(!isSelected);
+//                    supportView.setState(!isSelected);
                     ZToast.warning(R.string.text_msg_not_login);
                     LoginFragment.start();
                     supportView.praiseFailed();

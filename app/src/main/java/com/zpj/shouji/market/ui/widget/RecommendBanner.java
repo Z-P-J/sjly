@@ -20,6 +20,7 @@ import com.bumptech.glide.request.transition.Transition;
 import com.geek.banner.Banner;
 import com.geek.banner.loader.BannerEntry;
 import com.geek.banner.loader.BannerLoader;
+import com.zpj.http.core.HttpObserver;
 import com.zpj.http.core.IHttp;
 import com.zpj.http.parser.html.nodes.Document;
 import com.zpj.http.parser.html.nodes.Element;
@@ -39,15 +40,14 @@ import com.zpj.utils.ScreenUtils;
 import java.util.ArrayList;
 import java.util.List;
 
+import io.reactivex.ObservableEmitter;
+
 public class RecommendBanner extends LinearLayout implements View.OnClickListener {
 
     private final List<AppInfo> bannerItemList = new ArrayList<>();
-//    private final BannerViewHolder bannerViewHolder = new BannerViewHolder();
 
     private final ImageView ivBg;
     private final Banner banner;
-
-    private int currentPosition = 0;
 
     public RecommendBanner(Context context) {
         this(context, null);
@@ -103,53 +103,43 @@ public class RecommendBanner extends LinearLayout implements View.OnClickListene
     }
 
     public void loadData(Runnable runnable, IHttp.OnErrorListener onErrorListener) {
-//        if (HttpPreLoader.getInstance().hasKey(PreloadApi.HOME_BANNER)) {
-//            HttpPreLoader.getInstance().setLoadListener(PreloadApi.HOME_BANNER, document -> {
-//                onGetDoc(document, runnable);
-//            });
-//        } else {
-//            HttpApi.getXml(PreloadApi.HOME_BANNER.getUrl())
-//                    .onSuccess(document -> {
-//                        onGetDoc(document, runnable);
-//                    })
-//                    .subscribe();
-//        }
-
         HttpApi.getXml(PreloadApi.HOME_BANNER.getUrl())
-                .onSuccess(document -> {
-                    onGetDoc(document, runnable);
+                .flatMap((HttpObserver.OnFlatMapListener<Document, List<AppInfo>>) (document, emitter) -> {
+                    Elements elements = document.select("item");
+                    List<AppInfo> list = new ArrayList<>();
+                    for (Element element : elements) {
+                        AppInfo info = AppInfo.parse(element);
+                        if (info == null) {
+                            continue;
+                        }
+                        list.add(info);
+                        if (list.size() >= 8) {
+                            break;
+                        }
+                    }
+                    emitter.onNext(list);
+                })
+                .onSuccess(list -> {
+                    onGetDoc(list, runnable);
                 })
                 .onError(onErrorListener)
                 .subscribe();
     }
 
-    private void onGetDoc(Document document, Runnable runnable) {
-        Elements elements = document.select("item");
+    private void onGetDoc(List<AppInfo> list, Runnable runnable) {
         bannerItemList.clear();
-        for (Element element : elements) {
-            AppInfo info = AppInfo.parse(element);
-            if (info == null) {
-                continue;
-            }
-            bannerItemList.add(info);
-            if (bannerItemList.size() >= 8) {
-                break;
-            }
-        }
+        bannerItemList.addAll(list);
         if (!bannerItemList.isEmpty()) {
             setBg(0);
         }
         banner.loadImagePaths(bannerItemList);
-        banner.startAutoPlay();
         if (runnable != null) {
             runnable.run();
         }
+        banner.startAutoPlay();
     }
 
     public void onResume() {
-//        if (banner != null) {
-//            banner.startAutoPlay();
-//        }
         postDelayed(new Runnable() {
             @Override
             public void run() {
@@ -158,7 +148,6 @@ public class RecommendBanner extends LinearLayout implements View.OnClickListene
                 }
             }
         }, 360);
-//        setBg(currentPosition);
     }
 
     public void onPause() {
@@ -174,7 +163,6 @@ public class RecommendBanner extends LinearLayout implements View.OnClickListene
     }
 
     private void setBg(int position) {
-        currentPosition = position;
         int placeholderId = GlideRequestOptions.getPlaceholderId();
         Glide.with(ivBg.getContext())
                 .asBitmap()

@@ -65,20 +65,24 @@ public class DownloadedActionButton extends AppCompatTextView
         if (mission == null) {
             return;
         }
-        if (mission.getFile().exists()) {
-            if (mission.isInstalled()) {
-                String apkVersion = AppUtils.getApkVersionName(getContext(), mission.getFilePath());
-                String appVersion = AppUtils.getAppVersionName(getContext(), mission.getPackageName());
-                if (TextUtils.equals(apkVersion, appVersion)) {
-                    AppUtils.runApp(v.getContext(), mission.getPackageName());
-                } else {
-                    mission.install();
-                }
-            } else {
-                mission.install();
-            }
+        if (mission.isInstalled()) {
+            AppUtils.runApp(v.getContext(), mission.getPackageName());
+        } else if (mission.getFile().exists()) {
+//            if (mission.isInstalled()) {
+//                String apkVersion = AppUtils.getApkVersionName(getContext(), mission.getFilePath());
+//                String appVersion = AppUtils.getAppVersionName(getContext(), mission.getPackageName());
+//                if (TextUtils.equals(apkVersion, appVersion)) {
+//                    AppUtils.runApp(v.getContext(), mission.getPackageName());
+//                } else {
+//                    mission.install();
+//                }
+//            } else {
+//                mission.install();
+//            }
+            mission.install();
         } else {
             ZToast.warning(R.string.text_retry);
+            mission.restart();
         }
 
 //        switch (textId) {
@@ -99,11 +103,11 @@ public class DownloadedActionButton extends AppCompatTextView
         Observable.create(
                 (ObservableOnSubscribe<Integer>) emitter -> {
                     final int textId;
-                    if (mission.getFile().exists()) {
+                    if (mission.isInstalled()) {
+                        textId = R.string.text_open;
+                    } else if (mission.getFile().exists()) {
                         if (mission.isUpgrade()) {
                             textId = R.string.text_upgrade;
-                        } else if (mission.isInstalled()) {
-                            textId = R.string.text_open;
                         } else {
                             textId = R.string.text_install;
                         }

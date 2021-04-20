@@ -36,6 +36,8 @@ import com.zpj.utils.StatusBarUtils;
 
 import java.io.File;
 
+import static android.Manifest.permission.READ_PHONE_STATE;
+
 public class MainActivity extends BaseActivity { // implements IUiListener
 
     private MainFragment mainFragment;
@@ -106,7 +108,7 @@ public class MainActivity extends BaseActivity { // implements IUiListener
 
         BrightnessUtils.setBrightness(this);
 
-        StatusBarUtils.transparentStatusBar(getWindow());
+        StatusBarUtils.transparentStatusBar(this);
 
         UserManager.getInstance().init();
 
@@ -116,15 +118,29 @@ public class MainActivity extends BaseActivity { // implements IUiListener
 
 //        AppInstalledManager.getInstance().loadApps(this);
 
-        mainFragment = findFragment(MainFragment.class);
-        if (mainFragment == null) {
-            mainFragment = new MainFragment();
-            loadRootFragment(R.id.fl_container, mainFragment);
-        }
+
+
+        XPermission.create(this, PermissionConstants.PHONE)
+                .callback(new XPermission.SimpleCallback() {
+                    @Override
+                    public void onGranted() {
+                        mainFragment = findFragment(MainFragment.class);
+                        if (mainFragment == null) {
+                            mainFragment = new MainFragment();
+                            loadRootFragment(R.id.fl_container, mainFragment);
+                        }
 
 
 
-        showRequestPermissionPopup();
+                        showRequestPermissionPopup();
+                    }
+
+                    @Override
+                    public void onDenied() {
+                        ZToast.warning("请授予读取手机信息权限！");
+                        finish();
+                    }
+                }).request();
 
     }
 

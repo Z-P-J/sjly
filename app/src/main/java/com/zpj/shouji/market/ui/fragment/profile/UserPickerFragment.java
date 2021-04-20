@@ -194,8 +194,8 @@ public class UserPickerFragment extends BaseSwipeBackFragment {
         }
 
         @Override
-        public void onSuccess(Document doc) throws Exception {
-            super.onSuccess(doc);
+        public void onSuccess(Integer start) throws Exception {
+            super.onSuccess(start);
 
             recyclerLayout.clearSelectedPosition();
             for (int i = 0; i < data.size(); i++) {

@@ -21,6 +21,7 @@ import com.zpj.shouji.market.database.IgnoredUpdateManager;
 import com.zpj.shouji.market.model.AppUpdateInfo;
 import com.zpj.shouji.market.model.IgnoredUpdateInfo;
 import com.zpj.shouji.market.ui.activity.MainActivity;
+import com.zpj.shouji.market.utils.PinyinComparator;
 import com.zpj.utils.AppUtils;
 import com.zpj.utils.ContextUtils;
 import com.zpj.utils.DeviceUtils;
@@ -155,6 +156,10 @@ public final class AppUpdateManager {
                                 appInfo.setUpdateTimeInfo(infos[13]);
                                 appInfo.setAppName(AppUtils.getAppName(context, appInfo.getPackageName()));
                                 appInfo.setUpdateInfo(APP_UPDATE_CONTENT_MAP.get(appInfo.getPackageName()));
+//                                appInfo.init();
+                                appInfo.setInit(true);
+                                appInfo.setInstalled(true);
+                                appInfo.setUpgrade(true);
                                 APP_UPDATE_INFO_LIST.add(appInfo);
 //                                Log.e("checkUpdate", "updateInfo=" + appInfo);
                             }
@@ -386,8 +391,10 @@ public final class AppUpdateManager {
                     emitter -> {
                         List<AppUpdateInfo> list = new ArrayList<>(APP_UPDATE_INFO_LIST);
                         List<IgnoredUpdateInfo> ignoredUpdateInfoList = IgnoredUpdateManager.getAllIgnoredUpdateApp();
-                        Comparator<Object> comparator1 = Collator.getInstance(Locale.CHINA);
-                        Collections.sort(list, (o1, o2) -> comparator1.compare(o1.getAppName(), o2.getAppName()));
+//                        Comparator<Object> comparator1 = Collator.getInstance(Locale.CHINA);
+//                        Collections.sort(list, (o1, o2) -> comparator1.compare(o1.getAppName(), o2.getAppName()));
+                        Collections.sort(list, new PinyinComparator());
+                        Collections.sort(ignoredUpdateInfoList, new PinyinComparator());
 
                         if (!ignoredUpdateInfoList.isEmpty()) {
                             for (int i = list.size() - 1; i >= 0; i--) {

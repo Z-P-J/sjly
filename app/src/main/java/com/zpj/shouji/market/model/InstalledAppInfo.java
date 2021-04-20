@@ -12,6 +12,7 @@ import android.text.TextUtils;
 import com.github.promeg.pinyinhelper.Pinyin;
 import com.zpj.shouji.market.manager.AppUpdateManager;
 import com.zpj.shouji.market.utils.AppUtil;
+import com.zpj.shouji.market.utils.PinyinComparator;
 import com.zpj.utils.AppUtils;
 import com.zpj.utils.FormatUtils;
 
@@ -24,7 +25,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.zip.ZipFile;
 
-public class InstalledAppInfo {
+public class InstalledAppInfo implements PinyinComparator.PinyinComparable {
 
     private String name;
     private String packageName;
@@ -188,6 +189,7 @@ public class InstalledAppInfo {
         return appSize;
     }
 
+    @Override
     public String getName() {
         return name;
     }

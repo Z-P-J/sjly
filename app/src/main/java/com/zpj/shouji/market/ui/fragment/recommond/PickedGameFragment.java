@@ -21,6 +21,7 @@ import com.zpj.shouji.market.ui.fragment.base.NextUrlFragment;
 import com.zpj.shouji.market.ui.fragment.detail.AppDetailFragment;
 import com.zpj.shouji.market.ui.fragment.profile.ProfileFragment;
 import com.zpj.shouji.market.ui.widget.DownloadButton;
+import com.zpj.shouji.market.utils.BeanUtils;
 
 import java.util.List;
 
@@ -106,7 +107,9 @@ public class PickedGameFragment extends NextUrlFragment<PickedGameInfo> {
 
     @Override
     public PickedGameInfo createData(Element element) {
-        return PickedGameInfo.from(element);
+        PickedGameInfo info = BeanUtils.createBean(element, PickedGameInfo.class);
+        info.init();
+        return info;
     }
 
     @Override

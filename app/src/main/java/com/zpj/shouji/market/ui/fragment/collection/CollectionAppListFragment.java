@@ -39,29 +39,27 @@ public class CollectionAppListFragment extends NextUrlFragment<CollectionAppInfo
 
     @Override
     protected void buildRecyclerLayout(EasyRecyclerLayout<CollectionAppInfo> recyclerLayout) {
-        recyclerLayout.onViewClick(R.id.tv_download, new IEasy.OnClickListener<CollectionAppInfo>() {
-            @Override
-            public void onClick(EasyViewHolder holder, View view, CollectionAppInfo data) {
-                if (data.isApkExist()) {
-                    // TODO
-                    ZToast.success("TODO 开始下载");
-                } else {
-                    ZToast.warning("应用未收录");
-                }
+        recyclerLayout.onViewClick(R.id.tv_download, (holder, view, data) -> {
+            if (data.isApkExist()) {
+                // TODO
+                ZToast.success("TODO 开始下载");
+            } else {
+                ZToast.warning("应用未收录");
             }
         });
-        recyclerLayout.getRecyclerView().addOnChildAttachStateChangeListener(new RecyclerView.OnChildAttachStateChangeListener() {
-            @Override
-            public void onChildViewAttachedToWindow(@NonNull View view) {
-
-            }
-
-            @Override
-            public void onChildViewDetachedFromWindow(@NonNull View view) {
-//                DownloadButton tvDownload = view.findViewById(R.id.tv_download);
-//                tvDownload.onChildViewDetachedFromWindow();
-            }
-        });
+//        recyclerLayout.getRecyclerView()
+//                .addOnChildAttachStateChangeListener(new RecyclerView.OnChildAttachStateChangeListener() {
+//                    @Override
+//                    public void onChildViewAttachedToWindow(@NonNull View view) {
+//
+//                    }
+//
+//                    @Override
+//                    public void onChildViewDetachedFromWindow(@NonNull View view) {
+////                DownloadButton tvDownload = view.findViewById(R.id.tv_download);
+////                tvDownload.onChildViewDetachedFromWindow();
+//                    }
+//                });
     }
 
     @Override
@@ -104,7 +102,9 @@ public class CollectionAppListFragment extends NextUrlFragment<CollectionAppInfo
         if (!"app".equals(element.selectFirst("viewtype").text())) {
             return null;
         }
-        return BeanUtils.createBean(element, CollectionAppInfo.class);
+        CollectionAppInfo info = BeanUtils.createBean(element, CollectionAppInfo.class);
+        info.init();
+        return info;
 //        return CollectionAppInfo.from(element);
     }
 

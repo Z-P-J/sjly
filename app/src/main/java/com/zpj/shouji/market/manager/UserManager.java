@@ -1,6 +1,7 @@
 package com.zpj.shouji.market.manager;
 
 import android.content.Context;
+import android.os.Build;
 import android.text.TextUtils;
 import android.util.Base64;
 import android.util.Log;
@@ -190,7 +191,11 @@ public final class UserManager {
         }
         if (TextUtils.isEmpty(sn)) {
 //            return "0123456789";
-            return DeviceUtils.getSerial();
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                return Build.getSerial();
+            } else {
+                return DeviceUtils.getSerial();
+            }
         } else {
             return sn;
         }

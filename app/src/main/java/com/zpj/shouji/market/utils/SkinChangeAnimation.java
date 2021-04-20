@@ -36,7 +36,7 @@ public final class SkinChangeAnimation {
     //扩散的起点
     private float mStartX = 0, mStartY = 0;
     private int mMaxRadius, mStartRadius, mCurrentRadius;
-    private long mDuration = 500;
+    private long mDuration = 1000;
 
     private Paint mPaint;
 

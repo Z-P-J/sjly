@@ -31,6 +31,8 @@ public class WallpaperInfo {
     private String width;
     @Select(selector = "pheight")
     private String height;
+    @Select(selector = "imagecount")
+    private int imageCount;
     private String spic;
     private String pic;
     @Select(selector = "supportcount")
@@ -116,6 +118,10 @@ public class WallpaperInfo {
 
     public String getHeight() {
         return height;
+    }
+
+    public int getImageCount() {
+        return imageCount;
     }
 
     public String getSpic() {

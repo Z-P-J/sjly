@@ -8,8 +8,8 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.zpj.fragmentation.dialog.impl.ImageViewerDialogFragment;
-import com.zpj.fragmentation.dialog.utils.ImageLoad;
-import com.zpj.fragmentation.dialog.utils.MyImageLoad;
+import com.zpj.fragmentation.dialog.utils.ImageLoader;
+import com.zpj.fragmentation.dialog.utils.MyImageLoader;
 import com.zpj.fragmentation.dialog.widget.ImageViewContainer;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.imagepicker.entity.Item;
@@ -37,9 +37,9 @@ public class LocalImageViewer extends ImageViewerDialogFragment<Item> {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setProgressViewHolder(new ProgressViewHolder());
-        loader = new MyImageLoad<Item>() {
+        loader = new MyImageLoader<Item>() {
             @Override
-            public void loadImage(Item url, ImageLoad.LoadCallback callback, ImageViewContainer imageView, String unique) {
+            public void loadImage(Item url, ImageLoader.LoadCallback callback, ImageViewContainer imageView, String unique) {
                 addLoadCallback(unique, callback);
                 loadImageFromLocal(url.getPath(context), unique, imageView);
             }

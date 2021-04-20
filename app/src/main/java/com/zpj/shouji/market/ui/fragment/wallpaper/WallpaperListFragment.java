@@ -26,6 +26,7 @@ import com.zpj.http.parser.html.nodes.Document;
 import com.zpj.http.parser.html.nodes.Element;
 import com.zpj.recyclerview.EasyRecyclerLayout;
 import com.zpj.recyclerview.EasyViewHolder;
+import com.zpj.recyclerview.IEasy;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.api.HttpApi;
 import com.zpj.shouji.market.constant.AppConfig;
@@ -261,20 +262,20 @@ public class WallpaperListFragment extends NextUrlFragment<WallpaperInfo> {
     }
 
     @Override
-    public void onSuccess(Document doc) throws Exception {
-        Log.d("getData", "doc=" + doc);
-        nextUrl = doc.selectFirst("nextUrl").text();
-        if (refresh) {
-            data.clear();
-        }
-        int start = data.size();
-        for (Element element : doc.select("item")) {
-            WallpaperInfo item = createData(element);
-            if (item == null) {
-                continue;
-            }
-            data.add(item);
-        }
+    public void onSuccess(Integer start) throws Exception {
+//        Log.d("getData", "doc=" + doc);
+//        nextUrl = doc.selectFirst("nextUrl").text();
+//        if (refresh) {
+//            data.clear();
+//        }
+//        int start = data.size();
+//        for (Element element : doc.select("item")) {
+//            WallpaperInfo item = createData(element);
+//            if (item == null) {
+//                continue;
+//            }
+//            data.add(item);
+//        }
         int end = data.size();
         if (data.size() == 0) {
             recyclerLayout.showEmpty();

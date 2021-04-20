@@ -17,7 +17,7 @@ import com.zpj.http.parser.html.nodes.Element;
 import com.zpj.http.parser.html.select.Elements;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.api.HttpApi;
-import com.zpj.shouji.market.download.MissionBinder;
+import com.zpj.shouji.market.download.MissionDelegate;
 import com.zpj.shouji.market.model.DiscoverInfo;
 import com.zpj.shouji.market.ui.widget.DownloadButton;
 import com.zpj.statemanager.StateManager;
@@ -141,7 +141,7 @@ public class ThemeAppDownloadDialogFragment extends BottomDragDialogFragment {
                     if (!TextUtils.isEmpty(apkUrl)) {
                         tvDownload.setAlpha(1f);
                         tvDownload.setEnabled(true);
-                        tvDownload.bindApp(new MissionBinder() {
+                        tvDownload.bindApp(new MissionDelegate() {
                             @Override
                             public String getYunUrl() {
                                 return null;

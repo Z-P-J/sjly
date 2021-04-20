@@ -37,10 +37,12 @@ import com.zpj.shouji.market.model.InstalledAppInfo;
 import com.zpj.shouji.market.ui.fragment.base.RecyclerLayoutFragment;
 import com.zpj.shouji.market.ui.fragment.detail.AppDetailFragment;
 import com.zpj.shouji.market.ui.widget.DownloadButton;
+import com.zpj.shouji.market.utils.PinyinComparator;
 import com.zpj.toast.ZToast;
 import com.zpj.utils.AppUtils;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import io.reactivex.Observable;
@@ -132,6 +134,7 @@ public class UpdateManagerFragment extends RecyclerLayoutFragment<AppUpdateInfo>
                                 ignoredUpdateInfoList.remove(info);
                                 info.delete();
                             }
+                            Collections.sort(data, new PinyinComparator());
                             recyclerLayout.notifyDataSetChanged();
                             updateTopBar();
                         })

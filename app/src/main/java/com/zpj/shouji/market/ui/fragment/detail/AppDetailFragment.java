@@ -16,6 +16,8 @@ import android.widget.ImageButton;
 
 import com.bumptech.glide.Glide;
 import com.zpj.fragmentation.dialog.impl.AttachListDialogFragment;
+import com.zpj.http.core.HttpObserver;
+import com.zpj.http.parser.html.nodes.Document;
 import com.zpj.rxbus.RxBus;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.api.BookingApi;
@@ -52,6 +54,8 @@ import com.zpj.skin.SkinEngine;
 import net.lucode.hackware.magicindicator.MagicIndicator;
 
 import java.util.ArrayList;
+
+import io.reactivex.ObservableEmitter;
 
 public class AppDetailFragment extends StateSwipeBackFragment
         implements View.OnClickListener {
@@ -321,15 +325,24 @@ public class AppDetailFragment extends StateSwipeBackFragment
 
     private void getAppInfo() {
         HttpApi.appInfoApi(type, id)
-                .onSuccess(data -> {
-                    postOnEnterAnimationEnd(() -> {
+                .flatMap(new HttpObserver.OnFlatMapListener<Document, AppDetailInfo>() {
+                    @Override
+                    public void onNext(Document data, ObservableEmitter<AppDetailInfo> emitter) throws Exception {
                         Log.d("getAppInfo", "data=" + data);
                         if ("NoApp".equals(data.selectFirst("errorcode").text())) {
-                            ZToast.warning("应用不存在");
-                            pop();
-                            return;
+                            post(() -> {
+                                ZToast.warning("应用不存在");
+                                pop();
+                            });
+                        } else {
+                            emitter.onNext(AppDetailInfo.create(data));
                         }
-                        info = AppDetailInfo.create(data);
+                        emitter.onComplete();
+                    }
+                })
+                .onSuccess(data -> {
+                    info = data;
+                    postOnEnterAnimationEnd(() -> {
                         Log.d("getAppInfo", "info=" + info);
                         appDetailLayout.loadInfo(info);
                         int color = Color.WHITE;

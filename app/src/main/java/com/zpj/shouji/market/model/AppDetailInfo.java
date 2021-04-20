@@ -1,14 +1,18 @@
 package com.zpj.shouji.market.model;
 
+import android.content.Context;
 import android.text.TextUtils;
 import android.util.Log;
 
 import com.zpj.http.parser.html.nodes.Document;
 import com.zpj.http.parser.html.nodes.Element;
 import com.zpj.http.parser.html.select.Elements;
-import com.zpj.shouji.market.download.MissionBinder;
+import com.zpj.shouji.market.download.MissionDelegate;
+import com.zpj.shouji.market.utils.AppUtil;
 import com.zpj.shouji.market.utils.BeanUtils;
 import com.zpj.shouji.market.utils.BeanUtils.Select;
+import com.zpj.utils.AppUtils;
+import com.zpj.utils.ContextUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -60,7 +64,7 @@ public class AppDetailInfo {
 
     private final List<AppUrlInfo> appUrlInfoList = new ArrayList<>();
 
-    public static class AppUrlInfo extends MissionBinder {
+    public static class AppUrlInfo extends MissionDelegate {
         @Select(selector = "urltype")
         private String urlType;
         @Select(selector = "urlname")
@@ -83,6 +87,7 @@ public class AppDetailInfo {
         private String packageName;
         private String appType;
         private String appIcon;
+        private String versionName;
 
         public String getUrlType() {
             return urlType;
@@ -145,6 +150,10 @@ public class AppDetailInfo {
 
         public String getMore() {
             return more;
+        }
+
+        public String getVersionName() {
+            return versionName;
         }
     }
 
@@ -271,6 +280,9 @@ public class AppDetailInfo {
             }
         }
 
+        Context context = ContextUtils.getApplicationContext();
+        boolean isInstalled = AppUtils.isInstalled(context, info.packageName);
+        String appVersion = isInstalled ? AppUtils.getAppVersionName(context, info.packageName) : null;
         for (Element url : doc.selectFirst("urls").select("url")) {
             AppUrlInfo appUrlInfo = BeanUtils.createBean(url, AppUrlInfo.class);
             if (appUrlInfo != null) {
@@ -279,6 +291,10 @@ public class AppDetailInfo {
                 appUrlInfo.appIcon = info.iconUrl;
                 appUrlInfo.appType = info.appType;
                 appUrlInfo.packageName = info.packageName;
+                appUrlInfo.versionName = appUrlInfo.urlName.substring(1, appUrlInfo.urlName.indexOf(" ")).trim();
+                appUrlInfo.setInit(true);
+                appUrlInfo.setInstalled(isInstalled && TextUtils.equals(appVersion, appUrlInfo.getVersionName()));
+                appUrlInfo.setUpgrade(isInstalled && appVersion != null && AppUtil.isNewVersion(appVersion, appUrlInfo.getVersionName()));
                 info.appUrlInfoList.add(appUrlInfo);
             }
         }

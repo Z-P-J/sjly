@@ -2,11 +2,11 @@ package com.zpj.shouji.market.model;
 
 import android.support.annotation.Keep;
 
-import com.zpj.shouji.market.download.MissionBinder;
+import com.zpj.shouji.market.download.MissionDelegate;
 import com.zpj.shouji.market.utils.BeanUtils.Select;
 
 @Keep
-public class CollectionAppInfo extends MissionBinder {
+public class CollectionAppInfo extends MissionDelegate {
 
     @Select(selector = "itemid")
     private String itemId;

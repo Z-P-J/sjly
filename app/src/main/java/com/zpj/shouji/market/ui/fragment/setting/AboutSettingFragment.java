@@ -14,23 +14,23 @@ import com.zpj.widget.setting.CommonSettingItem;
 
 public class AboutSettingFragment extends BaseSettingFragment {
 
-    public static void start() {
-        start(new AboutSettingFragment());
+    public static void start(Context context) {
+        new AboutSettingFragment().show(context);
     }
 
     @Override
-    protected int getLayoutId() {
-        return R.layout.fragment_setting_about;
-    }
-
-    @Override
-    public CharSequence getToolbarTitle(Context context) {
+    public String getToolbarTitle(Context context) {
         return "关于";
     }
 
     @Override
-    protected void initView(View view, @Nullable Bundle savedInstanceState) {
+    protected int getImplLayoutId() {
+        return R.layout.fragment_setting_about;
+    }
 
+    @Override
+    protected void initView(View view, @Nullable Bundle savedInstanceState) {
+        super.initView(view, savedInstanceState);
         CommonSettingItem aboutMeItem = view.findViewById(R.id.item_about_me);
         aboutMeItem.setOnItemClickListener(this);
 
@@ -56,8 +56,7 @@ public class AboutSettingFragment extends BaseSettingFragment {
     public void onItemClick(CommonSettingItem item) {
         switch (item.getId()) {
             case R.id.item_about_me:
-//                _mActivity.setFragmentAnimator(new DefaultNoAnimator());
-                AboutMeFragment.start();
+                AboutMeFragment.start(context);
                 break;
             case R.id.item_user_agreement:
                 WebFragment.start("https://m.shouji.com.cn/sjlyyhxy.html", "用户协议");

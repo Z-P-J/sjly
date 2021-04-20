@@ -6,12 +6,12 @@ import android.support.annotation.Keep;
 
 import com.geek.banner.loader.BannerEntry;
 import com.zpj.http.parser.html.nodes.Element;
-import com.zpj.shouji.market.download.MissionBinder;
+import com.zpj.shouji.market.download.MissionDelegate;
 import com.zpj.shouji.market.utils.BeanUtils;
 import com.zpj.shouji.market.utils.BeanUtils.Select;
 
 @Keep
-public class AppInfo extends MissionBinder implements Parcelable, BannerEntry<AppInfo> {
+public class AppInfo extends MissionDelegate implements Parcelable, BannerEntry<AppInfo> {
 
     @Select(selector = "icon")
     private String appIcon;
@@ -43,7 +43,9 @@ public class AppInfo extends MissionBinder implements Parcelable, BannerEntry<Ap
         if (!"app".equals(viewType) && !"image".equals(viewType)) {
             return null;
         }
-        return BeanUtils.createBean(item, AppInfo.class);
+        AppInfo info = BeanUtils.createBean(item, AppInfo.class);
+        info.init();
+        return info;
 //        AppInfo appInfo = new AppInfo();
 //        appInfo.setAppIcon(item.select("icon").text());
 //        appInfo.setAppTitle(item.select("title").text());
@@ -65,6 +67,7 @@ public class AppInfo extends MissionBinder implements Parcelable, BannerEntry<Ap
     }
 
     protected AppInfo(Parcel in) {
+        super();
         appIcon = in.readString();
         appTitle = in.readString();
         appId = in.readString();

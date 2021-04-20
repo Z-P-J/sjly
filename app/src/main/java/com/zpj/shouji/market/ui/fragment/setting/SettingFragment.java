@@ -27,23 +27,23 @@ import com.zpj.widget.setting.SwitchSettingItem;
 
 public class SettingFragment extends BaseSettingFragment {
 
-    public static void start() {
-        start(new SettingFragment());
+    public static void start(Context context) {
+        new SettingFragment().show(context);
     }
 
     @Override
-    protected int getLayoutId() {
+    protected int getImplLayoutId() {
         return R.layout.fragment_setting;
     }
 
     @Override
-    public CharSequence getToolbarTitle(Context context) {
+    public String getToolbarTitle(Context context) {
         return "设置";
     }
 
     @Override
     protected void initView(View view, @Nullable Bundle savedInstanceState) {
-
+        super.initView(view, savedInstanceState);
         CheckableSettingItem itemShowStartPage = view.findViewById(R.id.item_show_start_page);
         itemShowStartPage.setChecked(AppConfig.isShowSplash());
         itemShowStartPage.setOnItemClickListener(this);

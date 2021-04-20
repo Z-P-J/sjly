@@ -5,7 +5,9 @@ import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
+import com.zpj.http.core.HttpObserver;
 import com.zpj.http.core.IHttp;
+import com.zpj.http.parser.html.nodes.Document;
 import com.zpj.http.parser.html.nodes.Element;
 import com.zpj.http.parser.html.select.Elements;
 import com.zpj.recyclerview.MultiData;
@@ -23,6 +25,8 @@ import com.zpj.utils.Callback;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import io.reactivex.ObservableEmitter;
 
 public class AppDetailRecommendFragment extends SkinFragment {
 
@@ -150,9 +154,9 @@ public class AppDetailRecommendFragment extends SkinFragment {
 
         @Override
         public boolean loadData() {
-            List<AppInfo> appInfoList = new ArrayList<>();
             HttpApi.getXml(url)
-                    .onSuccess(data -> {
+                    .flatMap((HttpObserver.OnFlatMapListener<Document, List<AppInfo>>) (data, emitter) -> {
+                        List<AppInfo> appInfoList = new ArrayList<>();
                         Elements elements = data.select("item");
                         for (Element element : elements) {
                             if ("yyj".equals(element.selectFirst("viewtype").text())) {
@@ -163,6 +167,20 @@ public class AppDetailRecommendFragment extends SkinFragment {
                                 appInfoList.add(AppInfo.parse(element));
                             }
                         }
+                        emitter.onNext(appInfoList);
+                        emitter.onComplete();
+                    })
+                    .onSuccess(appInfoList -> {
+//                        Elements elements = data.select("item");
+//                        for (Element element : elements) {
+//                            if ("yyj".equals(element.selectFirst("viewtype").text())) {
+//                                for (Element recognizeItem : element.selectFirst("recognizelist").select("recognize")) {
+//                                    list.add(CollectionInfo.buildSimilarCollection(recognizeItem));
+//                                }
+//                            } else {
+//                                appInfoList.add(AppInfo.parse(element));
+//                            }
+//                        }
                         if (callback != null) {
                             callback.onCallback(appInfoList);
                         }

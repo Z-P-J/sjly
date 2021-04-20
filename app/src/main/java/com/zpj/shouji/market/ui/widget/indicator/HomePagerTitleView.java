@@ -21,7 +21,7 @@ import net.lucode.hackware.magicindicator.buildins.commonnavigator.titles.Common
 
 public class HomePagerTitleView extends CommonPagerTitleView {
 
-    private static final float MAX_SCALE = 1.2f;
+    private static final float MAX_SCALE = 1.4f;
 
     private final ImageView ivTitle;
 
