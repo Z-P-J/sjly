@@ -24,6 +24,7 @@ import com.zpj.http.core.HttpObserver;
 import com.zpj.http.parser.html.nodes.Document;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.api.HttpApi;
+import com.zpj.shouji.market.constant.AppConfig;
 import com.zpj.shouji.market.constant.Keys;
 import com.zpj.shouji.market.glide.GlideRequestOptions;
 import com.zpj.shouji.market.glide.transformations.CircleWithBorderTransformation;
@@ -32,11 +33,16 @@ import com.zpj.shouji.market.ui.adapter.FragmentsPagerAdapter;
 import com.zpj.shouji.market.ui.fragment.WebFragment;
 import com.zpj.shouji.market.ui.fragment.base.StateSwipeBackFragment;
 import com.zpj.shouji.market.ui.fragment.chat.ChatFragment;
+import com.zpj.shouji.market.ui.widget.indicator.ExpandablePagerTitle;
+import com.zpj.shouji.market.ui.widget.indicator.SubTitlePagerTitle;
 import com.zpj.shouji.market.utils.MagicIndicatorHelper;
 import com.zpj.shouji.market.utils.PictureUtil;
+import com.zpj.skin.SkinEngine;
 import com.zpj.toast.ZToast;
 
 import net.lucode.hackware.magicindicator.MagicIndicator;
+import net.lucode.hackware.magicindicator.buildins.commonnavigator.indicators.BezierPagerIndicator;
+import net.lucode.hackware.magicindicator.buildins.commonnavigator.indicators.WrapPagerIndicator;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -46,7 +52,7 @@ public class ProfileFragment extends StateSwipeBackFragment
 
     public static final String DEFAULT_URL = "/app/view_member_xml_v4.jsp?id=5636865";
 
-    private static final String[] TAB_TITLES = {"动态", "收藏", "下载", "好友"};
+    private static final String[] TAB_TITLES = {"动态", "收藏", "好友"}; // "下载"
 
     private LinearLayout headerLayout;
     private ImageView ivHeader;
@@ -111,7 +117,11 @@ public class ProfileFragment extends StateSwipeBackFragment
 
     @Override
     protected void initStatusBar() {
-        lightStatusBar();
+        if (isLazyInit() || AppConfig.isNightMode()) {
+            lightStatusBar();
+        } else {
+            darkStatusBar();
+        }
     }
 
     @Override
@@ -162,12 +172,13 @@ public class ProfileFragment extends StateSwipeBackFragment
 
         AppBarLayout appBarLayout = view.findViewById(R.id.appbar);
         View shadowView = findViewById(R.id.shadow_view);
+        shadowView.setAlpha(1f);
         appBarLayout.addOnOffsetChangedListener((appBarLayout1, i) -> {
             float alpha = (float) Math.abs(i) / appBarLayout1.getTotalScrollRange();
             alpha = Math.min(1f, alpha);
             buttonBarLayout.setAlpha(alpha);
             headerLayout.setAlpha(1f - alpha);
-            shadowView.setAlpha(alpha >= 1f ? 1f : 0f);
+//            shadowView.setAlpha(alpha >= 1f ? 1f : 0f);
         });
 
         buttonBarLayout.setAlpha(0);
@@ -296,11 +307,11 @@ public class ProfileFragment extends StateSwipeBackFragment
             collectionFragment = MyCollectionFragment.newInstance(userId, false);
         }
         fragments.add(collectionFragment);
-        UserDownloadedFragment userDownloadedFragment = findChildFragment(UserDownloadedFragment.class);
-        if (userDownloadedFragment == null) {
-            userDownloadedFragment = UserDownloadedFragment.newInstance(userId);
-        }
-        fragments.add(userDownloadedFragment);
+//        UserDownloadedFragment userDownloadedFragment = findChildFragment(UserDownloadedFragment.class);
+//        if (userDownloadedFragment == null) {
+//            userDownloadedFragment = UserDownloadedFragment.newInstance(userId);
+//        }
+//        fragments.add(userDownloadedFragment);
 
         MyFriendsFragment friendsFragment = findChildFragment(MyFriendsFragment.class);
         if (friendsFragment == null) {
@@ -311,7 +322,38 @@ public class ProfileFragment extends StateSwipeBackFragment
         mViewPager.setAdapter(adapter);
         mViewPager.setOffscreenPageLimit(fragments.size());
 
-        MagicIndicatorHelper.bindViewPager(context, magicIndicator, mViewPager, TAB_TITLES, true);
+//        MagicIndicatorHelper.bindViewPager(context, magicIndicator, mViewPager, TAB_TITLES, true);
+
+        MagicIndicatorHelper.builder(context)
+                .setMagicIndicator(magicIndicator)
+                .setViewPager(mViewPager)
+                .setTabTitles(TAB_TITLES)
+                .setAdjustMode(true)
+                .setOnGetTitleViewListener((context12, index) -> {
+                    ExpandablePagerTitle pagerTitle = new ExpandablePagerTitle(context12);
+                    switch (index) {
+                        case 0:
+                            pagerTitle.init(mViewPager, index, isMe, "动态", "发现", "评论", "应用集", "乐图", "下载", "赞");
+                            break;
+                        case 1:
+                            pagerTitle.init(mViewPager, index, isMe, "应用", "应用集", "发现", "乐图", "评论", "专题", "攻略", "教程");
+                            break;
+                        case 2:
+                            pagerTitle.init(mViewPager, index, isMe, "关注", "粉丝");
+                            break;
+                        default:
+                            break;
+                    }
+                    return pagerTitle;
+                })
+                .setOnGetIndicatorListener(context -> {
+//                    WrapPagerIndicator indicator = new WrapPagerIndicator(context);
+//                    indicator.setFillColor(Color.parseColor("#80eeeeee"));
+//                    return indicator;
+//                    return new BezierPagerIndicator(context);
+                    return null;
+                })
+                .build();
     }
 
     @Override

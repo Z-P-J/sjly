@@ -1,5 +1,6 @@
 package com.zpj.shouji.market.ui.fragment.profile;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -29,14 +30,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class MyDynamicFragment extends BaseSwipeBackFragment {
+public class MyDynamicFragment extends ExpandablePagerFragment {
 
     private static final String[] TAB_TITLES = {"全部", "发现", "评论", "应用集", "乐图", "下载", "赞"};
-
-    private ViewPager viewPager;
-    private MagicIndicator magicIndicator;
-    private String userId = "";
-    private boolean showToolbar = true;
 
     public static MyDynamicFragment newInstance(String id, boolean showToolbar) {
         Bundle args = new Bundle();
@@ -52,47 +48,12 @@ public class MyDynamicFragment extends BaseSwipeBackFragment {
     }
 
     @Override
-    protected int getLayoutId() {
-        return R.layout.fragment_my_viewpager;
+    public CharSequence getToolbarTitle(Context context) {
+        return "我的动态";
     }
 
     @Override
-    protected void initView(View view, @Nullable Bundle savedInstanceState) {
-
-        if (getArguments() != null) {
-            userId = getArguments().getString(Keys.ID, "");
-            showToolbar = getArguments().getBoolean(Keys.SHOW_TOOLBAR, true);
-        }
-
-        viewPager = view.findViewById(R.id.view_pager);
-        magicIndicator = view.findViewById(R.id.magic_indicator);
-
-        if (showToolbar) {
-            setToolbarTitle("我的动态");
-            postOnEnterAnimationEnd(this::initViewPager);
-        } else {
-            toolbar.setVisibility(View.GONE);
-            setSwipeBackEnable(false);
-        }
-    }
-
-    @Override
-    public void onLazyInitView(@Nullable Bundle savedInstanceState) {
-        super.onLazyInitView(savedInstanceState);
-        if (!showToolbar) {
-            postOnEnterAnimationEnd(this::initViewPager);
-        }
-    }
-
-//    @Override
-//    public void onSupportVisible() {
-//        super.onSupportVisible();
-//        if (showToolbar) {
-//            ThemeUtils.initStatusBar(this);
-//        }
-//    }
-
-    private void initViewPager() {
+    protected void initViewPager() {
         List<Fragment> fragments = new ArrayList<>();
         AllFragment allFragment = findChildFragment(AllFragment.class);
         if (allFragment == null) {

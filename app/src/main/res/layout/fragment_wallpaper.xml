@@ -33,7 +33,7 @@
                 android:layout_toStartOf="@id/iv_expand"
                 />
 
-            <com.github.zagum.expandicon.ExpandIconView
+            <com.zpj.shouji.market.ui.widget.ExpandIcon
                 android:id="@+id/iv_expand"
                 android:layout_alignParentEnd="true"
                 android:layout_centerVertical="true"

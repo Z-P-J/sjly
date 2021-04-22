@@ -16,7 +16,6 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.github.zagum.expandicon.ExpandIconView;
 import com.zpj.downloader.BaseMission;
 import com.zpj.downloader.ZDownloader;
 import com.zpj.fragmentation.dialog.impl.AlertDialogFragment;
@@ -37,6 +36,7 @@ import com.zpj.shouji.market.model.InstalledAppInfo;
 import com.zpj.shouji.market.ui.fragment.base.RecyclerLayoutFragment;
 import com.zpj.shouji.market.ui.fragment.detail.AppDetailFragment;
 import com.zpj.shouji.market.ui.widget.DownloadButton;
+import com.zpj.shouji.market.ui.widget.ExpandIcon;
 import com.zpj.shouji.market.utils.PinyinComparator;
 import com.zpj.toast.ZToast;
 import com.zpj.utils.AppUtils;
@@ -283,7 +283,7 @@ public class UpdateManagerFragment extends RecyclerLayoutFragment<AppUpdateInfo>
         TextView updateTextView = holder.getView(R.id.tv_update_info);
         ImageView settingBtn = holder.getView(R.id.iv_setting);
 //        ImageView expandBtn = holder.getView(R.id.iv_expand);
-        ExpandIconView expandBtn = holder.getView(R.id.iv_expand);
+        ExpandIcon expandBtn = holder.getView(R.id.iv_expand);
         DownloadButton downloadButton = holder.getView(R.id.tv_update);
         downloadButton.bindApp(updateInfo);
 
@@ -300,7 +300,7 @@ public class UpdateManagerFragment extends RecyclerLayoutFragment<AppUpdateInfo>
         updateTextView.setText(updateInfo.getUpdateInfo());
 
         expandBtn.setTag(updateInfo);
-        expandBtn.setState(updateInfo.isExpand() ? ExpandIconView.LESS : ExpandIconView.MORE, false);
+        expandBtn.setState(updateInfo.isExpand() ? ExpandIcon.LESS : ExpandIcon.MORE, false);
         expandBtn.setOnClickListener(v -> {
             AppUpdateInfo info = (AppUpdateInfo) v.getTag();
             boolean isExpand = info.isExpand();

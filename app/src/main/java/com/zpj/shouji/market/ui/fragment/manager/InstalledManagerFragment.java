@@ -16,7 +16,6 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.github.zagum.expandicon.ExpandIconView;
 import com.zpj.fragmentation.dialog.impl.ArrowMenuDialogFragment;
 import com.zpj.notification.ZNotify;
 import com.zpj.progressbar.ZProgressBar;
@@ -35,6 +34,7 @@ import com.zpj.shouji.market.ui.fragment.base.RecyclerLayoutFragment;
 import com.zpj.shouji.market.ui.fragment.detail.AppDetailFragment;
 import com.zpj.shouji.market.ui.fragment.dialog.PackageDetailDialogFragment;
 import com.zpj.shouji.market.ui.fragment.dialog.RecyclerPartShadowDialogFragment;
+import com.zpj.shouji.market.ui.widget.ExpandIcon;
 import com.zpj.shouji.market.ui.widget.GradientButton;
 import com.zpj.shouji.market.ui.widget.LetterSortSideBar;
 import com.zpj.shouji.market.ui.widget.RoundedDrawableTextView;
@@ -121,7 +121,7 @@ public class InstalledManagerFragment extends RecyclerLayoutFragment<InstalledAp
         tvInfo.setText("扫描中...");
         tvFilter = findViewById(R.id.tv_filter);
         progressBar = findViewById(R.id.progress_bar);
-        ExpandIconView expandIconView = findViewById(R.id.expand_icon);
+        ExpandIcon expandIconView = findViewById(R.id.expand_icon);
         View.OnClickListener listener = v -> showFilterPopWindow(expandIconView);
         expandIconView.setOnClickListener(listener);
         tvFilter.setOnClickListener(listener);
@@ -474,7 +474,7 @@ public class InstalledManagerFragment extends RecyclerLayoutFragment<InstalledAp
         recyclerLayout.notifyDataSetChanged();
     }
 
-    private void showFilterPopWindow(ExpandIconView expandIconView) {
+    private void showFilterPopWindow(ExpandIcon expandIconView) {
         expandIconView.switchState();
         new RecyclerPartShadowDialogFragment()
                 .addItems("全部应用", "用户应用", "系统应用", "已备份", "已禁用", "已隐藏")

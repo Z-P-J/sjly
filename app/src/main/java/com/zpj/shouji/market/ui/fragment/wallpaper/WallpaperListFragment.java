@@ -11,7 +11,6 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.text.TextUtils;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -20,13 +19,10 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.bumptech.glide.request.transition.Transition;
-import com.github.zagum.expandicon.ExpandIconView;
 import com.zpj.fragmentation.dialog.impl.ImageViewerDialogFragment;
-import com.zpj.http.parser.html.nodes.Document;
 import com.zpj.http.parser.html.nodes.Element;
 import com.zpj.recyclerview.EasyRecyclerLayout;
 import com.zpj.recyclerview.EasyViewHolder;
-import com.zpj.recyclerview.IEasy;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.api.HttpApi;
 import com.zpj.shouji.market.constant.AppConfig;
@@ -38,14 +34,12 @@ import com.zpj.shouji.market.model.WallpaperInfo;
 import com.zpj.shouji.market.model.WallpaperTag;
 import com.zpj.shouji.market.ui.adapter.FooterViewHolder;
 import com.zpj.shouji.market.ui.fragment.base.NextUrlFragment;
-import com.zpj.shouji.market.ui.fragment.base.RecyclerLayoutFragment;
 import com.zpj.shouji.market.ui.fragment.dialog.RecyclerPartShadowDialogFragment;
 import com.zpj.shouji.market.ui.fragment.dialog.WallpaperViewerDialogFragment;
 import com.zpj.shouji.market.ui.fragment.profile.ProfileFragment;
+import com.zpj.shouji.market.ui.widget.ExpandIcon;
 import com.zpj.shouji.market.ui.widget.count.IconCountView;
 import com.zpj.shouji.market.ui.widget.emoji.EmojiExpandableTextView;
-import com.zpj.shouji.market.ui.widget.expandabletextview.ExpandableTextView;
-import com.zpj.shouji.market.ui.widget.expandabletextview.app.LinkType;
 import com.zpj.toast.ZToast;
 import com.zpj.utils.NetUtils;
 import com.zpj.utils.ScreenUtils;
@@ -326,7 +320,7 @@ public class WallpaperListFragment extends NextUrlFragment<WallpaperInfo> {
     }
 
     private void showSortPupWindow(View v) {
-        ExpandIconView expandIconView = v.findViewById(R.id.expand_icon);
+        ExpandIcon expandIconView = v.findViewById(R.id.expand_icon);
 
         expandIconView.switchState();
         new RecyclerPartShadowDialogFragment()

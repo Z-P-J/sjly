@@ -1,14 +1,11 @@
 package com.zpj.shouji.market.ui.fragment.homepage;
 
-import android.content.Context;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
 import android.view.View;
 
-import com.github.zagum.expandicon.ExpandIconView;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.api.WallpaperApi;
 import com.zpj.shouji.market.model.WallpaperTag;
@@ -16,15 +13,13 @@ import com.zpj.shouji.market.ui.adapter.FragmentsPagerAdapter;
 import com.zpj.shouji.market.ui.fragment.base.SkinFragment;
 import com.zpj.shouji.market.ui.fragment.dialog.WallpaperTagDialogFragment;
 import com.zpj.shouji.market.ui.fragment.wallpaper.WallpaperListFragment;
+import com.zpj.shouji.market.ui.widget.ExpandIcon;
 import com.zpj.shouji.market.ui.widget.flowlayout.FlowLayout;
 import com.zpj.shouji.market.ui.widget.indicator.SkinColorChangePagerTitleView;
 import com.zpj.shouji.market.utils.MagicIndicatorHelper;
-import com.zpj.utils.ColorUtils;
 
 import net.lucode.hackware.magicindicator.MagicIndicator;
-import net.lucode.hackware.magicindicator.buildins.commonnavigator.abs.IPagerIndicator;
 import net.lucode.hackware.magicindicator.buildins.commonnavigator.indicators.WrapPagerIndicator;
-import net.lucode.hackware.magicindicator.buildins.commonnavigator.titles.SimplePagerTitleView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -39,7 +34,7 @@ public class WallpaperFragment extends SkinFragment implements View.OnClickListe
 
     private ViewPager viewPager;
     private MagicIndicator magicIndicator;
-    private ExpandIconView expandIconView;
+    private ExpandIcon expandIconView;
 
     @Override
     protected int getLayoutId() {

@@ -142,7 +142,7 @@
                     android:ellipsize="end"
                     />
 
-                <com.github.zagum.expandicon.ExpandIconView
+                <com.zpj.shouji.market.ui.widget.ExpandIcon
                     android:id="@+id/iv_expand"
                     android:layout_width="40dp"
                     android:layout_height="40dp"

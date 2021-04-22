@@ -212,6 +212,17 @@
         <attr name="ep_link_res" format="reference" />
     </declare-styleable>
 
+    <declare-styleable name="ExpandIcon">
+        <attr format="boolean" name="eiv_roundedCorners"/>
+        <attr format="boolean" name="eiv_switchColor"/>
+        <attr format="color" name="eiv_color"/>
+        <attr format="color" name="eiv_colorMore"/>
+        <attr format="color" name="eiv_colorLess"/>
+        <attr format="color" name="eiv_colorIntermediate"/>
+        <attr format="integer" name="eiv_animationDuration"/>
+        <attr format="dimension" name="eiv_padding"/>
+    </declare-styleable>
+
     <string-array name="default_wallpaper_tags">
         <item>全部</item>
         <item>壁纸</item>

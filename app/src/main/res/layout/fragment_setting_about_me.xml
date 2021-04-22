@@ -191,7 +191,7 @@
                     android:textColor="@color/white"
                     android:textSize="12sp" />
 
-                <com.github.zagum.expandicon.ExpandIconView
+                <com.zpj.shouji.market.ui.widget.ExpandIcon
                     android:id="@+id/iv_to_reward"
                     android:layout_width="20dp"
                     android:layout_height="20dp"

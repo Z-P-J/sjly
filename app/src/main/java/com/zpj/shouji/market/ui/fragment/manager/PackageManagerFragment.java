@@ -13,7 +13,6 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.github.zagum.expandicon.ExpandIconView;
 import com.zpj.fragmentation.dialog.impl.ArrowMenuDialogFragment;
 import com.zpj.progressbar.ZProgressBar;
 import com.zpj.recyclerview.EasyAdapter;
@@ -27,6 +26,7 @@ import com.zpj.shouji.market.model.InstalledAppInfo;
 import com.zpj.shouji.market.ui.fragment.base.RecyclerLayoutFragment;
 import com.zpj.shouji.market.ui.fragment.dialog.PackageDetailDialogFragment;
 import com.zpj.shouji.market.ui.fragment.dialog.RecyclerPartShadowDialogFragment;
+import com.zpj.shouji.market.ui.widget.ExpandIcon;
 import com.zpj.shouji.market.ui.widget.LetterSortSideBar;
 import com.zpj.shouji.market.ui.widget.RoundedDrawableTextView;
 import com.zpj.shouji.market.utils.FileScanner;
@@ -98,7 +98,7 @@ public class PackageManagerFragment extends RecyclerLayoutFragment<InstalledAppI
             setSwipeBackEnable(false);
         }
         tvFilter = findViewById(R.id.tv_filter);
-        ExpandIconView expandIconView = findViewById(R.id.expand_icon);
+        ExpandIcon expandIconView = findViewById(R.id.expand_icon);
         View.OnClickListener listener = v -> showFilterDialog(expandIconView);
         expandIconView.setOnClickListener(listener);
         tvFilter.setOnClickListener(listener);
@@ -363,7 +363,7 @@ public class PackageManagerFragment extends RecyclerLayoutFragment<InstalledAppI
         recyclerLayout.notifyDataSetChanged();
     }
 
-    private void showFilterDialog(ExpandIconView expandIconView) {
+    private void showFilterDialog(ExpandIcon expandIconView) {
         expandIconView.switchState();
         new RecyclerPartShadowDialogFragment()
                 .addItems("全部安装包", "已收录", "可更新", "未收录", "已损坏")

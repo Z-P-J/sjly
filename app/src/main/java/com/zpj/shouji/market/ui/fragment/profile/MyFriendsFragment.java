@@ -1,5 +1,6 @@
 package com.zpj.shouji.market.ui.fragment.profile;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -26,15 +27,9 @@ import net.lucode.hackware.magicindicator.MagicIndicator;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MyFriendsFragment extends BaseSwipeBackFragment {
+public class MyFriendsFragment extends ExpandablePagerFragment {
 
     private static final String[] TAB_TITLES = {"我关注的", "我的粉丝"};
-
-    protected ViewPager viewPager;
-    private MagicIndicator magicIndicator;
-
-    private String userId = "";
-    private boolean showToolbar = true;
 
     public static MyFriendsFragment newInstance(String id, boolean showToolbar) {
         Bundle args = new Bundle();
@@ -50,47 +45,12 @@ public class MyFriendsFragment extends BaseSwipeBackFragment {
     }
 
     @Override
-    protected int getLayoutId() {
-        return R.layout.fragment_my_discover;
+    public CharSequence getToolbarTitle(Context context) {
+        return "我的好友";
     }
 
     @Override
-    protected void initView(View view, @Nullable Bundle savedInstanceState) {
-        if (getArguments() != null) {
-            userId = getArguments().getString(Keys.ID, "");
-            showToolbar = getArguments().getBoolean(Keys.SHOW_TOOLBAR, true);
-        }
-
-        viewPager = view.findViewById(R.id.view_pager);
-        magicIndicator = view.findViewById(R.id.magic_indicator);
-
-        if (showToolbar) {
-            setToolbarTitle("我的好友");
-            postOnEnterAnimationEnd(this::initViewPager);
-        } else {
-            toolbar.setVisibility(View.GONE);
-            setSwipeBackEnable(false);
-        }
-    }
-
-    @Override
-    public void onLazyInitView(@Nullable Bundle savedInstanceState) {
-        super.onLazyInitView(savedInstanceState);
-        if (!showToolbar) {
-//            initViewPager();
-            postOnEnterAnimationEnd(this::initViewPager);
-        }
-    }
-
-//    @Override
-//    public void onSupportVisible() {
-//        super.onSupportVisible();
-//        if (showToolbar) {
-//            ThemeUtils.initStatusBar(this);
-//        }
-//    }
-
-    private void initViewPager() {
+    protected void initViewPager() {
         List<Fragment> fragments = new ArrayList<>();
         FollowersFragment followersFragment = findChildFragment(FollowersFragment.class);
         if (followersFragment == null) {

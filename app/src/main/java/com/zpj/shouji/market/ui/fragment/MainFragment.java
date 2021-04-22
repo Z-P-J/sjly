@@ -3,6 +3,7 @@ package com.zpj.shouji.market.ui.fragment;
 import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
@@ -27,6 +28,7 @@ import com.zpj.shouji.market.ui.fragment.recommond.SoftRecommendFragment;
 import com.zpj.shouji.market.ui.widget.navigation.BottomBar;
 import com.zpj.shouji.market.ui.widget.navigation.BottomBarTab;
 import com.zpj.shouji.market.utils.EventBus;
+import com.zpj.skin.SkinEngine;
 
 public class MainFragment extends SkinFragment {
 
@@ -117,6 +119,8 @@ public class MainFragment extends SkinFragment {
 //                }
                 blurred.startBlur();
             }
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
+                _mActivity.getWindow().setNavigationBarColor(AppConfig.isNightMode() ? Color.BLACK : Color.WHITE);
         });
         RxBus.observe(this, MessageInfo.class)
                 .bindToLife(this)

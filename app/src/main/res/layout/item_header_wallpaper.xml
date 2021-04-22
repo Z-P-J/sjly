@@ -20,7 +20,7 @@
         android:layout_centerVertical="true"
         />
 
-    <com.github.zagum.expandicon.ExpandIconView
+    <com.zpj.shouji.market.ui.widget.ExpandIcon
         android:id="@+id/expand_icon"
         android:layout_width="20dp"
         android:layout_height="20dp"

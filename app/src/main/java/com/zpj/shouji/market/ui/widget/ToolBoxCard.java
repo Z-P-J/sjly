@@ -12,10 +12,14 @@ import android.view.View;
 import android.view.ViewTreeObserver;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.zpj.blur.ZBlurry;
 import com.zpj.shouji.market.R;
+import com.zpj.shouji.market.glide.GlideRequestOptions;
 import com.zpj.shouji.market.manager.UserManager;
 import com.zpj.shouji.market.model.MessageInfo;
 import com.zpj.shouji.market.ui.fragment.booking.UserBookingFragment;
@@ -31,6 +35,7 @@ import com.zpj.shouji.market.ui.fragment.profile.MyMsgFragment;
 import io.reactivex.Observable;
 import io.reactivex.ObservableOnSubscribe;
 import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
 import q.rorbin.badgeview.Badge;
 import q.rorbin.badgeview.QBadgeView;
@@ -58,6 +63,7 @@ public class ToolBoxCard extends CardView implements View.OnClickListener {
     private View gridLayout;
 
     private FrameLayout flNotLogin;
+    private LinearLayout llLoginOrSign;
     private ImageView ivBg;
     private TextView tvSignUp;
     private TextView tvSignIn;
@@ -76,6 +82,8 @@ public class ToolBoxCard extends CardView implements View.OnClickListener {
         LayoutInflater.from(context).inflate(R.layout.layout_card_tool_box, this);
 
         flNotLogin = findViewById(R.id.fl_not_login);
+        llLoginOrSign = findViewById(R.id.ll_login_or_sign);
+        llLoginOrSign.setAlpha(0f);
         ivBg = findViewById(R.id.iv_bg);
         gridLayout = findViewById(R.id.grid);
 
@@ -121,7 +129,7 @@ public class ToolBoxCard extends CardView implements View.OnClickListener {
                 .setGravityOffset(14, 0, true)
                 .bindTarget(tvMyFriends);
 
-        initBackground();
+//        initBackground();
     }
 
     @Override
@@ -196,11 +204,20 @@ public class ToolBoxCard extends CardView implements View.OnClickListener {
                         })
                         .subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread())
-                        .doOnNext(ivBg::setImageBitmap)
+                        .doOnNext(bitmap -> Glide.with(getContext())
+                                .load(bitmap)
+                                .apply(GlideRequestOptions.with().roundedCorners(8).get())
+                                .into(ivBg))
                         .subscribe();
                 return true;
             }
         });
+        if (llLoginOrSign.getAlpha() == 0) {
+            llLoginOrSign.animate()
+                    .alpha(1f)
+                    .setDuration(1000)
+                    .start();
+        }
     }
 
     public void onLogin() {

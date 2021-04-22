@@ -18,7 +18,7 @@
         android:id="@+id/ll_top"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="@dimen/dp_24"
+        android:layout_marginHorizontal="@dimen/dp_16"
         android:layout_marginVertical="@dimen/dp_8"
         >
 
@@ -30,18 +30,19 @@
             android:textSize="18sp"
             android:textStyle="bold"
             android:layout_centerVertical="true"
+            android:layout_marginStart="@dimen/dp_8"
             />
 
         <ImageButton
             android:id="@+id/btn_close"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/ic_close_black_24dp"
+            android:src="@drawable/ic_close"
             android:layout_alignParentEnd="true"
             android:background="?attr/actionBarItemBackground"
             android:layout_centerVertical="true"
             android:padding="8dp"
-            android:tint="?attr/textColorMinor"
+            android:tint="?attr/backgroundProgress"
             />
 
     </RelativeLayout>

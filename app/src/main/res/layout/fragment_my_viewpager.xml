@@ -31,10 +31,11 @@
             android:id="@+id/magic_indicator"
             android:layout_width="match_parent"
             android:layout_height="42dp"
-            android:padding="@dimen/dp_8"
+            android:paddingHorizontal="@dimen/dp_8"
+            android:paddingVertical="3dp"
             />
 
-        <android.support.v4.view.ViewPager
+        <com.zpj.shouji.market.ui.widget.ZViewPager
             android:id="@+id/view_pager"
             android:layout_width="match_parent"
             android:layout_height="match_parent"/>

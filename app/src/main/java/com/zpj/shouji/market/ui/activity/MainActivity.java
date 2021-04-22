@@ -4,6 +4,8 @@ import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
@@ -20,6 +22,7 @@ import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.api.HttpPreLoader;
 import com.zpj.shouji.market.api.UploadImageApi;
 import com.zpj.shouji.market.constant.Actions;
+import com.zpj.shouji.market.constant.AppConfig;
 import com.zpj.shouji.market.manager.AppBackupManager;
 import com.zpj.shouji.market.manager.AppInstalledManager;
 import com.zpj.shouji.market.manager.AppUpdateManager;
@@ -30,6 +33,7 @@ import com.zpj.shouji.market.ui.fragment.manager.DownloadManagerFragment;
 import com.zpj.shouji.market.ui.fragment.manager.ManagerFragment;
 import com.zpj.shouji.market.ui.fragment.manager.UpdateManagerFragment;
 import com.zpj.shouji.market.utils.EventBus;
+import com.zpj.skin.SkinEngine;
 import com.zpj.toast.ZToast;
 import com.zpj.utils.BrightnessUtils;
 import com.zpj.utils.StatusBarUtils;
@@ -109,6 +113,8 @@ public class MainActivity extends BaseActivity { // implements IUiListener
         BrightnessUtils.setBrightness(this);
 
         StatusBarUtils.transparentStatusBar(this);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
+            getWindow().setNavigationBarColor(AppConfig.isNightMode() ? Color.BLACK : Color.WHITE);
 
         UserManager.getInstance().init();
 

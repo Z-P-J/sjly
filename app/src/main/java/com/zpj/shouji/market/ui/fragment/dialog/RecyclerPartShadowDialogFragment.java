@@ -81,6 +81,11 @@ public class RecyclerPartShadowDialogFragment extends PartShadowDialogFragment {
         return this;
     }
 
+    public RecyclerPartShadowDialogFragment addItems(List<String> items) {
+        this.items.addAll(items);
+        return this;
+    }
+
     public RecyclerPartShadowDialogFragment show(View view) {
         setAttachView(view);
         show(view.getContext());

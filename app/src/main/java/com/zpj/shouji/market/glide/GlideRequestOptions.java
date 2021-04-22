@@ -19,7 +19,7 @@ public class GlideRequestOptions {
 
 
     private RequestOptions options;
-    private List<BitmapTransformation> transformationList;
+    private final List<BitmapTransformation> transformationList;
 
     private GlideRequestOptions() {
         options = new RequestOptions();
@@ -27,21 +27,12 @@ public class GlideRequestOptions {
     }
 
     public static RequestOptions getDefaultIconOption() {
-//        if (DEFAULT_ICON_OPTION == null) {
-//            DEFAULT_ICON_OPTION = GlideRequestOptions.with()
-//                    .centerCrop()
-//                    .roundedCorners(10)
-//                    .get();
-//        }
-//        return DEFAULT_ICON_OPTION.clone();
         return GlideRequestOptions.with()
                 .centerCrop()
                 .roundedCorners(10)
                 .get()
-                .error(R.drawable.ic_apk)
-                .placeholder(R.drawable.ic_apk);
-//                .error(R.mipmap.ic_launcher)
-//                .placeholder(R.mipmap.ic_launcher);
+                .error(R.drawable.ic_apk);
+//                .placeholder(R.drawable.ic_apk);
     }
 
     public static RequestOptions getImageOption() {

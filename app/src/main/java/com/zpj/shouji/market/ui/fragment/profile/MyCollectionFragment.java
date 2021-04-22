@@ -1,5 +1,6 @@
 package com.zpj.shouji.market.ui.fragment.profile;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -28,15 +29,9 @@ import net.lucode.hackware.magicindicator.MagicIndicator;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MyCollectionFragment extends BaseSwipeBackFragment {
+public class MyCollectionFragment extends ExpandablePagerFragment {
 
     private static final String[] TAB_TITLES = {"应用", "应用集", "发现", "乐图", "评论", "专题", "攻略", "教程"};
-
-    protected ViewPager viewPager;
-    private MagicIndicator magicIndicator;
-
-    private String userId = "";
-    private boolean showToolbar = true;
 
     public static MyCollectionFragment newInstance(String id, boolean showToolbar) {
         Bundle args = new Bundle();
@@ -52,47 +47,12 @@ public class MyCollectionFragment extends BaseSwipeBackFragment {
     }
 
     @Override
-    protected int getLayoutId() {
-        return R.layout.fragment_my_viewpager;
+    public CharSequence getToolbarTitle(Context context) {
+        return "我的收藏";
     }
 
     @Override
-    protected void initView(View view, @Nullable Bundle savedInstanceState) {
-        if (getArguments() != null) {
-            userId = getArguments().getString(Keys.ID, "");
-            showToolbar = getArguments().getBoolean(Keys.SHOW_TOOLBAR, true);
-        }
-
-        viewPager = view.findViewById(R.id.view_pager);
-        magicIndicator = view.findViewById(R.id.magic_indicator);
-
-        if (showToolbar) {
-            postOnEnterAnimationEnd(this::initViewPager);
-            setToolbarTitle("我的收藏");
-        } else {
-            toolbar.setVisibility(View.GONE);
-            setSwipeBackEnable(false);
-        }
-    }
-
-    @Override
-    public void onLazyInitView(@Nullable Bundle savedInstanceState) {
-        super.onLazyInitView(savedInstanceState);
-        if (!showToolbar) {
-//            initViewPager();
-            postOnEnterAnimationEnd(this::initViewPager);
-        }
-    }
-
-//    @Override
-//    public void onSupportVisible() {
-//        super.onSupportVisible();
-//        if (showToolbar) {
-//            ThemeUtils.initStatusBar(this);
-//        }
-//    }
-
-    private void initViewPager() {
+    protected void initViewPager() {
         List<Fragment> fragments = new ArrayList<>();
         MyCollectionAppFragment myRelatedDiscoverFragment = findChildFragment(MyCollectionAppFragment.class);
         if (myRelatedDiscoverFragment == null) {
