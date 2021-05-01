@@ -25,7 +25,7 @@ import com.zpj.utils.ScreenUtils;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SupportUserListDialogFragment extends BottomDragDialogFragment
+public class SupportUserListDialogFragment extends BottomDragDialogFragment<SupportUserListDialogFragment>
          implements IEasy.OnBindViewHolderListener<SupportUserInfo> {
 
     private final List<SupportUserInfo> userInfoList = new ArrayList<>();

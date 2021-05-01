@@ -14,8 +14,8 @@ import com.zpj.shouji.market.model.DiscoverInfo;
 import com.zpj.shouji.market.ui.fragment.ReportFragment;
 import com.zpj.toast.ZToast;
 
-public class ThemeMoreDialogFragment extends BottomListMenuDialogFragment
-        implements BottomListMenuDialogFragment.OnItemClickListener {
+public class ThemeMoreDialogFragment extends BottomListMenuDialogFragment<ThemeMoreDialogFragment>
+        implements BottomListMenuDialogFragment.OnItemClickListener<ThemeMoreDialogFragment> {
 
     private DiscoverInfo info;
 
@@ -26,7 +26,7 @@ public class ThemeMoreDialogFragment extends BottomListMenuDialogFragment
     }
 
     @Override
-    public void onClick(BottomListMenuDialogFragment menu, View view, MenuItem item) {
+    public void onClick(ThemeMoreDialogFragment menu, View view, MenuItem item) {
 //        menu.dismiss();
         switch (item.getItemId()) {
             case R.id.copy:

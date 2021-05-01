@@ -9,8 +9,8 @@ import com.zpj.shouji.market.api.HttpApi;
 import com.zpj.shouji.market.manager.UserManager;
 import com.zpj.shouji.market.model.CollectionInfo;
 
-public class AppCollectionMoreDialogFragment extends BottomListMenuDialogFragment
-        implements BottomListMenuDialogFragment.OnItemClickListener {
+public class AppCollectionMoreDialogFragment extends BottomListMenuDialogFragment<AppCollectionMoreDialogFragment>
+        implements BottomListMenuDialogFragment.OnItemClickListener<AppCollectionMoreDialogFragment> {
 
     private CollectionInfo info;
 
@@ -21,7 +21,7 @@ public class AppCollectionMoreDialogFragment extends BottomListMenuDialogFragmen
     }
 
     @Override
-    public void onClick(BottomListMenuDialogFragment menu, View view, MenuItem item) {
+    public void onClick(AppCollectionMoreDialogFragment menu, View view, MenuItem item) {
 //        menu.dismiss();
         dismiss();
         switch (item.getItemId()) {

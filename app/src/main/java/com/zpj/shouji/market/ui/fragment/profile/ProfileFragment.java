@@ -263,8 +263,8 @@ public class ProfileFragment extends StateSwipeBackFragment
                         RequestOptions options = GlideRequestOptions.with()
                                 .addTransformation(new CircleWithBorderTransformation(0.5f, Color.LTGRAY))
                                 .get()
-                                .error(R.drawable.ic_user_head)
-                                .placeholder(R.drawable.ic_user_head);
+                                .error(R.drawable.ic_profile)
+                                .placeholder(R.drawable.ic_profile);
                         Glide.with(context)
                                 .load(memberAvatar)
                                 .apply(options)

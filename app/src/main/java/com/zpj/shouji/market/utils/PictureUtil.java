@@ -376,7 +376,7 @@ public class PictureUtil {
                             context,
                             UserManager.getInstance().getMemberInfo().getMemberAvatar(),
                             "user_avatar",
-                            R.drawable.ic_user_head
+                            R.drawable.ic_profile
                     );
                     saveIcon(
                             context,
@@ -397,7 +397,7 @@ public class PictureUtil {
                 emitter -> {
                     saveDefaultIcon(
                             context,
-                            R.drawable.ic_user_head,
+                            R.drawable.ic_profile,
                             "user_avatar"
                     );
                     saveDefaultIcon(
@@ -417,7 +417,7 @@ public class PictureUtil {
                 emitter -> {
                     saveDefaultIcon(
                             context,
-                            R.drawable.ic_user_head,
+                            R.drawable.ic_profile,
                             "user_avatar"
                     );
 
@@ -514,7 +514,7 @@ public class PictureUtil {
 
     private static void loadIcon(ImageView imageView, boolean isAvatar) {
         Log.d("loadIcon", "isAvatar=" + isAvatar);
-        int res = isAvatar ? R.drawable.ic_user_head : R.drawable.bg_member_default;
+        int res = isAvatar ? R.drawable.ic_profile : R.drawable.bg_member_default;
         if (UserManager.getInstance().isLogin()) {
             String fileName = isAvatar ? "user_avatar" : "user_background";
             File file = new File(getIconPath(imageView.getContext()), fileName + ".png");

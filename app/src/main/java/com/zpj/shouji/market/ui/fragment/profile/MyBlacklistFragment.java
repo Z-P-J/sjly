@@ -75,7 +75,7 @@ public class MyBlacklistFragment extends NextUrlFragment<BlacklistInfo> {
 
     @Override
     public boolean onLongClick(EasyViewHolder holder, View view, BlacklistInfo data) {
-        new BottomListMenuDialogFragment()
+        new BottomListMenuDialogFragment<>()
                 .setMenu(R.menu.menu_blacklist)
                 .onItemClick((menu, view1, data1) -> {
                     switch (data1.getItemId()) {

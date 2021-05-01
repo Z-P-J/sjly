@@ -83,7 +83,7 @@ public class UserBookingFragment extends BaseSwipeBackFragment {
 
         @Override
         public boolean onLongClick(EasyViewHolder holder, View view, BookingAppInfo appInfo) {
-            new BottomListMenuDialogFragment()
+            new BottomListMenuDialogFragment<>()
                     .setMenu(R.menu.menu_booking)
                     .addHideItem(appInfo.isAutoDownload() ?  R.id.auto_download : R.id.cancel_auto_download)
                     .onItemClick((menu, view1, data) -> {

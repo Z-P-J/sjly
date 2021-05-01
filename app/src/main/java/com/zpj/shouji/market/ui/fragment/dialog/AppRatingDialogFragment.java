@@ -15,7 +15,7 @@ import com.zpj.shouji.market.utils.EventBus;
 import com.zpj.toast.ZToast;
 import com.zpj.utils.Callback;
 
-public class AppRatingDialogFragment extends CardDialogFragment {
+public class AppRatingDialogFragment extends CardDialogFragment<AppRatingDialogFragment> {
 
     private float starProgress = 60;
     private AppDetailInfo appDetailInfo;

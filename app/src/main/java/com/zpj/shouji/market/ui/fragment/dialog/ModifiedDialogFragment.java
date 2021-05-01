@@ -9,7 +9,7 @@ import com.zpj.fragmentation.dialog.base.BottomDragDialogFragment;
 import com.zpj.shouji.market.R;
 import com.zpj.utils.KeyboardObserver;
 
-public abstract class ModifiedDialogFragment extends BottomDragDialogFragment {
+public abstract class ModifiedDialogFragment extends BottomDragDialogFragment<ModifiedDialogFragment> {
 
     @Override
     protected void initView(View view, @Nullable Bundle savedInstanceState) {

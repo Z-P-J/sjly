@@ -25,11 +25,12 @@ import com.zpj.skin.SkinEngine;
 import java.util.ArrayList;
 import java.util.List;
 
-public class BottomListMenuDialogFragment extends BottomDragDialogFragment
+public class BottomListMenuDialogFragment<T extends BottomListMenuDialogFragment<T>>
+        extends BottomDragDialogFragment<T>
          implements IEasy.OnBindViewHolderListener<MenuItem> {
 
-    private OnItemClickListener onItemClickListener;
-    private OnItemLongClickListener onItemLongClickListener;
+    private OnItemClickListener<T> onItemClickListener;
+    private OnItemLongClickListener<T> onItemLongClickListener;
 
     protected final List<Integer> hideMenuItemList = new ArrayList<>();
 
@@ -81,12 +82,12 @@ public class BottomListMenuDialogFragment extends BottomDragDialogFragment
                 .setHeaderView(headerRes, onBindHeaderListener)
                 .onItemClick((holder, view1, data) -> {
                     if (onItemClickListener != null) {
-                        onItemClickListener.onClick(BottomListMenuDialogFragment.this, view1, data);
+                        onItemClickListener.onClick(self(), view1, data);
                     }
                 })
                 .onItemLongClick((holder, view12, data) -> {
                     if (onItemLongClickListener != null) {
-                        return onItemLongClickListener.onLongClick(BottomListMenuDialogFragment.this, view12, data);
+                        return onItemLongClickListener.onLongClick(self(), view12, data);
                     }
                     return false;
                 })
@@ -102,50 +103,50 @@ public class BottomListMenuDialogFragment extends BottomDragDialogFragment
         holder.setText(R.id.tv_title, list.get(position).getTitle());
     }
 
-    public BottomListMenuDialogFragment addHideItem(List<Integer> list) {
+    public T addHideItem(List<Integer> list) {
         hideMenuItemList.addAll(list);
-        return this;
+        return self();
     }
 
-    public BottomListMenuDialogFragment addHideItem(int id) {
+    public T addHideItem(int id) {
         hideMenuItemList.add(id);
-        return this;
+        return self();
     }
 
-    public BottomListMenuDialogFragment setMenu(@MenuRes int menuRes) {
+    public T setMenu(@MenuRes int menuRes) {
         this.menuRes = menuRes;
-        return this;
+        return self();
     }
 
-    public BottomListMenuDialogFragment onItemClick(OnItemClickListener listener) {
+    public T onItemClick(OnItemClickListener<T> listener) {
         this.onItemClickListener = listener;
-        return this;
+        return self();
     }
 
-    public BottomListMenuDialogFragment setHeaderView(@LayoutRes int layoutRes, IEasy.OnBindHeaderListener l) {
+    public T setHeaderView(@LayoutRes int layoutRes, IEasy.OnBindHeaderListener l) {
         this.headerRes = layoutRes;
         this.onBindHeaderListener = l;
-        return this;
+        return self();
     }
 
-    public BottomListMenuDialogFragment onItemLongClick(OnItemLongClickListener listener) {
+    public T onItemLongClick(OnItemLongClickListener<T> listener) {
         this.onItemLongClickListener = listener;
-        return this;
+        return self();
     }
 
-    public BottomListMenuDialogFragment setTitle(String title) {
+    public T setTitle(String title) {
         this.title = title;
         if (tvTitle != null) {
             tvTitle.setText(title);
         }
-        return this;
+        return self();
     }
 
-    public interface OnItemClickListener {
-        void onClick(BottomListMenuDialogFragment menu, View view, MenuItem data);
+    public interface OnItemClickListener<T> {
+        void onClick(T menu, View view, MenuItem data);
     }
 
-    public interface OnItemLongClickListener {
-        boolean onLongClick(BottomListMenuDialogFragment menu, View view, MenuItem data);
+    public interface OnItemLongClickListener<T> {
+        boolean onLongClick(T menu, View view, MenuItem data);
     }
 }

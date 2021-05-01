@@ -12,7 +12,7 @@ import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.ui.widget.CheckLayout;
 import com.zpj.utils.BrightnessUtils;
 
-public class BrightnessDialogFragment extends CardDialogFragment {
+public class BrightnessDialogFragment extends CardDialogFragment<BrightnessDialogFragment> {
 
     @Override
     protected int getContentLayoutId() {

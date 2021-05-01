@@ -264,7 +264,7 @@ public class ChatFragment extends NextUrlFragment<PrivateLetterInfo>
         } else {
             hideList.add(R.id.delete);
         }
-        new BottomListMenuDialogFragment()
+        new BottomListMenuDialogFragment<>()
                 .setMenu(R.menu.menu_private_letter)
                 .addHideItem(hideList)
                 .onItemClick((menu, view1, data1) -> {

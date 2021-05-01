@@ -25,7 +25,7 @@ import com.zpj.toast.ZToast;
 import com.zpj.utils.ScreenUtils;
 import com.zpj.skin.SkinEngine;
 
-public class ThemeAppDownloadDialogFragment extends BottomDragDialogFragment {
+public class ThemeAppDownloadDialogFragment extends BottomDragDialogFragment<ThemeAppDownloadDialogFragment> {
 
     private final Elements permissionList = new Elements();
 

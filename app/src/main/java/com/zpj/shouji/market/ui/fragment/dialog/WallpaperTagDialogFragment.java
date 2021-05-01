@@ -14,7 +14,7 @@ import com.zpj.utils.ScreenUtils;
 import java.util.ArrayList;
 import java.util.List;
 
-public class WallpaperTagDialogFragment extends PartShadowDialogFragment {
+public class WallpaperTagDialogFragment extends PartShadowDialogFragment<WallpaperTagDialogFragment> {
 
     private final List<WallpaperTag> tags = new ArrayList<>();
     private FlowLayout.OnItemClickListener onItemClickListener;
@@ -61,12 +61,6 @@ public class WallpaperTagDialogFragment extends PartShadowDialogFragment {
 
     public WallpaperTagDialogFragment setOnItemClickListener(FlowLayout.OnItemClickListener onItemClickListener) {
         this.onItemClickListener = onItemClickListener;
-        return this;
-    }
-
-    public WallpaperTagDialogFragment show(View view) {
-        this.attachView = view;
-        show(view.getContext());
         return this;
     }
 

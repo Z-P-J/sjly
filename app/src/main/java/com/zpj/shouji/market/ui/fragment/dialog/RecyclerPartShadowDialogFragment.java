@@ -15,7 +15,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class RecyclerPartShadowDialogFragment extends PartShadowDialogFragment {
+public class RecyclerPartShadowDialogFragment extends PartShadowDialogFragment<RecyclerPartShadowDialogFragment> {
 
 
     public interface OnItemClickListener {
@@ -83,12 +83,6 @@ public class RecyclerPartShadowDialogFragment extends PartShadowDialogFragment {
 
     public RecyclerPartShadowDialogFragment addItems(List<String> items) {
         this.items.addAll(items);
-        return this;
-    }
-
-    public RecyclerPartShadowDialogFragment show(View view) {
-        setAttachView(view);
-        show(view.getContext());
         return this;
     }
 

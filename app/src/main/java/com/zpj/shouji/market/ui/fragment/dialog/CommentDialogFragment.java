@@ -20,7 +20,7 @@ import com.zpj.utils.ContextUtils;
 import com.zpj.utils.KeyboardObserver;
 import com.zpj.utils.ScreenUtils;
 
-public class CommentDialogFragment extends BottomDragDialogFragment
+public class CommentDialogFragment extends BottomDragDialogFragment<CommentDialogFragment>
         implements ReplyPanel.OnOperationListener,
         IHttp.OnStreamWriteListener {
 

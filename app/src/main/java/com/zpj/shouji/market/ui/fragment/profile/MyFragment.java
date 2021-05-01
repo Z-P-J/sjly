@@ -109,7 +109,7 @@ public class MyFragment extends SkinFragment
             tvFollower.setText("关注 0");
             tvFans.setText("粉丝 0");
             tvEditInfo.setText(R.string.text_not_log_in);
-            ivAvatar.setImageResource(R.drawable.ic_user_head);
+            ivAvatar.setImageResource(R.drawable.ic_profile);
             ivWallpaper.setImageResource(R.drawable.bg_member_default);
             ZToast.success("注销成功");
         });

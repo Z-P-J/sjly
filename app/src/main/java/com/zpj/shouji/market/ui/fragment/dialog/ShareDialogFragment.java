@@ -19,7 +19,7 @@ import com.zpj.utils.ShareUtils;
 
 import java.io.File;
 
-public class ShareDialogFragment extends BottomDragDialogFragment
+public class ShareDialogFragment extends BottomDragDialogFragment<ShareDialogFragment>
         implements View.OnClickListener, Callback<String> {
 
     private String shareContent;

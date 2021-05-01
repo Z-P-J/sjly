@@ -12,7 +12,7 @@ import com.warkiz.widget.SeekParams;
 import com.zpj.fragmentation.dialog.base.CardDialogFragment;
 import com.zpj.shouji.market.R;
 
-public class SeekBarDialogFragment extends CardDialogFragment {
+public class SeekBarDialogFragment extends CardDialogFragment<SeekBarDialogFragment> {
 
     private String title;
     private int max;
