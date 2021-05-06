@@ -18,9 +18,7 @@ import android.widget.TextView;
 
 import com.zpj.downloader.BaseMission;
 import com.zpj.downloader.ZDownloader;
-import com.zpj.fragmentation.dialog.impl.AlertDialogFragment;
-import com.zpj.fragmentation.dialog.impl.ArrowMenuDialogFragment;
-import com.zpj.fragmentation.dialog.impl.SelectDialogFragment;
+import com.zpj.fragmentation.dialog.ZDialog;
 import com.zpj.recyclerview.EasyAdapter;
 import com.zpj.recyclerview.EasyRecyclerLayout;
 import com.zpj.recyclerview.EasyViewHolder;
@@ -105,7 +103,7 @@ public class UpdateManagerFragment extends RecyclerLayoutFragment<AppUpdateInfo>
         tvUpdateAll.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                new AlertDialogFragment()
+                ZDialog.alert()
                         .setTitle(R.string.text_update_all)
                         .setContent("确认全部更新所有应用？")
                         .setPositiveButton((fragment, which) -> updateAll())
@@ -116,7 +114,7 @@ public class UpdateManagerFragment extends RecyclerLayoutFragment<AppUpdateInfo>
         tvIgnoreUpdate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                new SelectDialogFragment<IgnoredUpdateInfo>()
+                ZDialog.select(IgnoredUpdateInfo.class)
                         .onBindIcon((icon, item, position) -> {
                             InstalledAppInfo appInfo = new InstalledAppInfo();
                             appInfo.setTempInstalled(true);
@@ -229,7 +227,7 @@ public class UpdateManagerFragment extends RecyclerLayoutFragment<AppUpdateInfo>
     }
 
     public void onMenuClicked(View view, AppUpdateInfo updateInfo) {
-        new ArrowMenuDialogFragment()
+        ZDialog.arrowMenu()
                 .setOptionMenus(R.array.update_actions)
                 .setOrientation(LinearLayout.HORIZONTAL)
                 .setOnItemClickListener((position, menu) -> {

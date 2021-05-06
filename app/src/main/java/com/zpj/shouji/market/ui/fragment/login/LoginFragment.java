@@ -10,10 +10,7 @@ import android.view.View;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 
-import com.zpj.fragmentation.SupportHelper;
-import com.zpj.fragmentation.dialog.IDialog;
-import com.zpj.fragmentation.dialog.base.BaseDialogFragment;
-import com.zpj.fragmentation.dialog.impl.AlertDialogFragment;
+import com.zpj.fragmentation.dialog.ZDialog;
 import com.zpj.fragmentation.dialog.impl.InputDialogFragment;
 import com.zpj.rxbus.RxBus;
 import com.zpj.shouji.market.R;
@@ -109,7 +106,7 @@ public class LoginFragment extends BaseSwipeBackFragment {
             imageButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    new InputDialogFragment()
+                    ZDialog.input()
                             .setEmptyable(false)
                             .setHint("请输入jsessionid登录")
                             .setTitle("jsessionid登录")

@@ -28,13 +28,13 @@ import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.ProgressBar;
 
-import com.zpj.fragmentation.dialog.impl.AttachListDialogFragment;
+import com.zpj.fragmentation.dialog.ZDialog;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.constant.Keys;
 import com.zpj.shouji.market.ui.fragment.base.SkinFragment;
+import com.zpj.skin.SkinEngine;
 import com.zpj.toast.ZToast;
 import com.zpj.utils.ScreenUtils;
-import com.zpj.skin.SkinEngine;
 
 public class WebFragment extends SkinFragment {
 
@@ -146,7 +146,7 @@ public class WebFragment extends SkinFragment {
     public void toolbarRightImageButton(@NonNull ImageButton imageButton) {
         imageButton.setOnClickListener(v -> {
             boolean isPhoneUA = isPhoneUA();
-            new AttachListDialogFragment<String>()
+            ZDialog.attach()
                     .addItem("浏览器中打开")
                     .addItem(isPhoneUA ? "电脑版网页" : "移动版网页")
                     .addItems("复制链接", "刷新")

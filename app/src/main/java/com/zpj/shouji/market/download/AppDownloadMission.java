@@ -2,8 +2,6 @@ package com.zpj.shouji.market.download;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.content.pm.PackageManager;
-import android.os.Environment;
 import android.support.annotation.Keep;
 import android.text.TextUtils;
 import android.util.Log;
@@ -11,35 +9,28 @@ import android.util.Log;
 import com.zpj.downloader.BaseMission;
 import com.zpj.downloader.DownloadMission;
 import com.zpj.downloader.constant.Error;
-import com.zpj.fragmentation.dialog.IDialog;
-import com.zpj.fragmentation.dialog.impl.AlertDialogFragment;
+import com.zpj.fragmentation.dialog.ZDialog;
 import com.zpj.http.core.IHttp;
-import com.zpj.notification.ZNotify;
 import com.zpj.rxbus.RxBus;
-import com.zpj.rxlife.RxLife;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.api.HttpApi;
 import com.zpj.shouji.market.constant.AppConfig;
-import com.zpj.shouji.market.installer.InstallMode;
 import com.zpj.shouji.market.installer.ApkInstaller;
+import com.zpj.shouji.market.installer.InstallMode;
 import com.zpj.shouji.market.manager.UserManager;
-import com.zpj.shouji.market.ui.activity.MainActivity;
 import com.zpj.shouji.market.utils.AppUtil;
 import com.zpj.shouji.market.utils.EventBus;
 import com.zpj.toast.ZToast;
 import com.zpj.utils.AppUtils;
-import com.zpj.utils.Callback;
 import com.zpj.utils.FileUtils;
 
 import java.io.File;
 import java.lang.ref.WeakReference;
-import java.util.Iterator;
 import java.util.UUID;
 
 import io.reactivex.Observable;
 import io.reactivex.ObservableOnSubscribe;
 import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
 
 @Keep
@@ -251,7 +242,7 @@ public class AppDownloadMission extends BaseMission<AppDownloadMission> {
                                 installApk(activity);
                             } else {
                                 String versionName = AppUtils.getAppVersionName(activity, getPackageName());
-                                new AlertDialogFragment()
+                                ZDialog.alert()
                                         .setTitle(R.string.text_title_has_different_signature)
                                         .setContent(activity.getString(R.string.text_content_has_different_signature, getAppName(), versionName))
                                         .setPositiveButton("卸载", (fragment, which) -> AppUtils.uninstallApk(activity, getPackageName()))

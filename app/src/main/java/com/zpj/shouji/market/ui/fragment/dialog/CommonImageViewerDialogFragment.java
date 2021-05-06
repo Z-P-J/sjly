@@ -3,17 +3,13 @@ package com.zpj.shouji.market.ui.fragment.dialog;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
-import com.zpj.fragmentation.ISupportFragment;
-import com.zpj.fragmentation.SupportHelper;
-import com.zpj.fragmentation.dialog.impl.AttachListDialogFragment;
+import com.zpj.fragmentation.dialog.ZDialog;
 import com.zpj.fragmentation.dialog.impl.ImageViewerDialogFragment;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.utils.PictureUtil;
@@ -73,28 +69,25 @@ public class CommonImageViewerDialogFragment extends ImageViewerDialogFragment<S
         });
 
         btnMore.setOnClickListener(v -> {
-            new AttachListDialogFragment<String>()
+            ZDialog.attach()
                     .addItems("分享图片", "保存图片", "设为壁纸")
                     .addItemIf(isOriginalImageAvailable(), "查看原图")
-                    .setOnSelectListener(new AttachListDialogFragment.OnSelectListener<String>() {
-                        @Override
-                        public void onSelect(AttachListDialogFragment<String> fragment, int pos, String text) {
-                            switch (pos) {
-                                case 0:
-                                    PictureUtil.shareWebImage(context, getOriginalImageUrl());
-                                    break;
-                                case 1:
-                                    PictureUtil.saveImage(context, urls.get(position));
-                                    break;
-                                case 2:
-                                    PictureUtil.setWallpaper(context, getOriginalImageUrl());
-                                    break;
-                                case 3:
-                                    showOriginalImage();
-                                    break;
-                            }
-                            fragment.dismiss();
+                    .setOnSelectListener((fragment, pos, text) -> {
+                        switch (pos) {
+                            case 0:
+                                PictureUtil.shareWebImage(context, getOriginalImageUrl());
+                                break;
+                            case 1:
+                                PictureUtil.saveImage(context, urls.get(position));
+                                break;
+                            case 2:
+                                PictureUtil.setWallpaper(context, getOriginalImageUrl());
+                                break;
+                            case 3:
+                                showOriginalImage();
+                                break;
                         }
+                        fragment.dismiss();
                     })
                     .setAttachView(btnMore)
                     .show(context);

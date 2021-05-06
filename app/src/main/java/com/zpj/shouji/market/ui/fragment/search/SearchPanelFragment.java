@@ -12,7 +12,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-import com.zpj.fragmentation.dialog.impl.AlertDialogFragment;
+import com.zpj.fragmentation.dialog.ZDialog;
 import com.zpj.recyclerview.EasyRecyclerView;
 import com.zpj.rxbus.RxBus;
 import com.zpj.shouji.market.R;
@@ -114,7 +114,7 @@ public class SearchPanelFragment extends SkinFragment {
         tvClearHistory.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                new AlertDialogFragment()
+                ZDialog.alert()
                         .setTitle("清空记录？")
                         .setContent("您将清空您的历史搜索记录，确认清空？")
                         .setPositiveButton((fragment, which) -> {

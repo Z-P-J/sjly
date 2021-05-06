@@ -13,7 +13,7 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.zpj.fragmentation.dialog.impl.ArrowMenuDialogFragment;
+import com.zpj.fragmentation.dialog.ZDialog;
 import com.zpj.progressbar.ZProgressBar;
 import com.zpj.recyclerview.EasyAdapter;
 import com.zpj.recyclerview.EasyRecyclerLayout;
@@ -32,9 +32,9 @@ import com.zpj.shouji.market.ui.widget.RoundedDrawableTextView;
 import com.zpj.shouji.market.utils.FileScanner;
 import com.zpj.shouji.market.utils.PackageStateComparator;
 import com.zpj.shouji.market.utils.PinyinComparator;
+import com.zpj.skin.SkinEngine;
 import com.zpj.toast.ZToast;
 import com.zpj.utils.AppUtils;
-import com.zpj.skin.SkinEngine;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -436,7 +436,7 @@ public class PackageManagerFragment extends RecyclerLayoutFragment<InstalledAppI
     }
 
     public void onMenuClicked(View view, InstalledAppInfo updateInfo) {
-        new ArrowMenuDialogFragment()
+        ZDialog.arrowMenu()
                 .setOptionMenus(R.array.apk_actions)
                 .setOrientation(LinearLayout.HORIZONTAL)
                 .setOnItemClickListener((position, menu) -> {

@@ -16,7 +16,7 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.zpj.fragmentation.dialog.impl.ArrowMenuDialogFragment;
+import com.zpj.fragmentation.dialog.ZDialog;
 import com.zpj.notification.ZNotify;
 import com.zpj.progressbar.ZProgressBar;
 import com.zpj.recyclerview.EasyAdapter;
@@ -519,7 +519,7 @@ public class InstalledManagerFragment extends RecyclerLayoutFragment<InstalledAp
     }
 
     public void onMenuClicked(View view, InstalledAppInfo appInfo) {
-        new ArrowMenuDialogFragment()
+        ZDialog.arrowMenu()
                 .setOptionMenus(R.array.app_actions)
                 .setOrientation(LinearLayout.HORIZONTAL)
                 .setOnItemClickListener((position, menu) -> {

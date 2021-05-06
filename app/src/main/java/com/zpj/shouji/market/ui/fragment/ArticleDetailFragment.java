@@ -1,6 +1,5 @@
 package com.zpj.shouji.market.ui.fragment;
 
-import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -20,7 +19,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.transition.Transition;
-import com.zpj.fragmentation.dialog.impl.AttachListDialogFragment;
+import com.zpj.fragmentation.dialog.ZDialog;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.api.HttpApi;
 import com.zpj.shouji.market.constant.Keys;
@@ -97,7 +96,7 @@ public class ArticleDetailFragment extends BaseSwipeBackFragment {
     @Override
     public void toolbarRightImageButton(@NonNull ImageButton imageButton) {
         imageButton.setOnClickListener(v -> {
-            new AttachListDialogFragment<String>()
+            ZDialog.attach()
                     .addItems("网页中打开", "收藏")
                     .setOnSelectListener((fragment, position, title) -> {
                         switch (position) {

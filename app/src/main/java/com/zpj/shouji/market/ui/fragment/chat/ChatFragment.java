@@ -16,7 +16,7 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.houtrry.bubble.BubbleLinearLayout;
 import com.zpj.fragmentation.dialog.IDialog;
-import com.zpj.fragmentation.dialog.impl.AlertDialogFragment;
+import com.zpj.fragmentation.dialog.ZDialog;
 import com.zpj.fragmentation.dialog.impl.ImageViewerDialogFragment;
 import com.zpj.http.core.IHttp;
 import com.zpj.http.parser.html.nodes.Document;
@@ -34,13 +34,13 @@ import com.zpj.shouji.market.ui.fragment.base.NextUrlFragment;
 import com.zpj.shouji.market.ui.fragment.dialog.BottomListMenuDialogFragment;
 import com.zpj.shouji.market.ui.fragment.dialog.CommonImageViewerDialogFragment;
 import com.zpj.shouji.market.ui.fragment.profile.ProfileFragment;
-import com.zpj.shouji.market.ui.widget.ninegrid.NineGridView;
 import com.zpj.shouji.market.ui.widget.ReplyPanel;
+import com.zpj.shouji.market.ui.widget.ninegrid.NineGridView;
 import com.zpj.shouji.market.utils.BeanUtils;
+import com.zpj.skin.SkinEngine;
 import com.zpj.toast.ZToast;
 import com.zpj.utils.KeyboardObserver;
 import com.zpj.utils.NetUtils;
-import com.zpj.skin.SkinEngine;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -270,14 +270,14 @@ public class ChatFragment extends NextUrlFragment<PrivateLetterInfo>
                 .onItemClick((menu, view1, data1) -> {
                     switch (data1.getItemId()) {
                         case R.id.blacklist:
-                            new AlertDialogFragment()
+                            ZDialog.alert()
                                     .setTitle("添加黑名单")
                                     .setContent("确定将该用户加入黑名单？")
                                     .setPositiveButton((fragment, which) -> HttpApi.addBlacklistApi(data.getSendId()))
                                     .show(context);
                             break;
                         case R.id.cancel_follow:
-                            new AlertDialogFragment()
+                            ZDialog.alert()
                                     .setTitle("取消关注")
                                     .setContent("确定取消关注该用户？")
                                     .setPositiveButton((fragment, which) ->
@@ -302,12 +302,12 @@ public class ChatFragment extends NextUrlFragment<PrivateLetterInfo>
                             ZToast.success("已复制到粘贴板");
                             break;
                         case R.id.delete:
-                            new AlertDialogFragment()
+                            ZDialog.alert()
                                     .setTitle("删除信息")
                                     .setContent("确定删除该信息？")
-                                    .setPositiveButton(new IDialog.OnButtonClickListener<AlertDialogFragment>() {
+                                    .setPositiveButton(new IDialog.OnButtonClickListener<ZDialog.AlertDialogImpl>() {
                                         @Override
-                                        public void onClick(AlertDialogFragment fragment, int which) {
+                                        public void onClick(ZDialog.AlertDialogImpl fragment, int which) {
                                             HttpApi.deletePrivateLetterApi(data.getId())
                                                     .onSuccess(element -> {
                                                         Log.d("deleteFriendApi", "element=" + element);

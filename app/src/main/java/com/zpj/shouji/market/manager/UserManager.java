@@ -6,10 +6,8 @@ import android.text.TextUtils;
 import android.util.Base64;
 import android.util.Log;
 
-import com.zpj.fragmentation.dialog.IDialog;
-import com.zpj.fragmentation.dialog.impl.AlertDialogFragment;
+import com.zpj.fragmentation.dialog.ZDialog;
 import com.zpj.http.core.HttpHeader;
-import com.zpj.http.core.IHttp;
 import com.zpj.http.parser.DocumentParser;
 import com.zpj.http.parser.html.nodes.Document;
 import com.zpj.shouji.market.api.HttpApi;
@@ -100,18 +98,15 @@ public final class UserManager {
     }
 
     public void signOut(Context context) {
-        new AlertDialogFragment()
+        ZDialog.alert()
                 .setTitle("确认注销？")
                 .setContent("您将注销当前登录的账户，确认继续？")
-                .setPositiveButton(new IDialog.OnButtonClickListener<AlertDialogFragment>() {
-                    @Override
-                    public void onClick(AlertDialogFragment fragment, int which) {
-                        memberInfo = null;
-                        setUserInfo("");
-                        setCookie("");
-                        isLogin = false;
-                        PictureUtil.saveDefaultIcon(EventBus::sendSignOutEvent);
-                    }
+                .setPositiveButton((fragment, which) -> {
+                    memberInfo = null;
+                    setUserInfo("");
+                    setCookie("");
+                    isLogin = false;
+                    PictureUtil.saveDefaultIcon(EventBus::sendSignOutEvent);
                 })
                 .show(context);
     }

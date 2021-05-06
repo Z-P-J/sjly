@@ -8,6 +8,7 @@ import com.bumptech.glide.Glide;
 import com.yanyusong.y_divideritemdecoration.Y_Divider;
 import com.yanyusong.y_divideritemdecoration.Y_DividerBuilder;
 import com.yanyusong.y_divideritemdecoration.Y_DividerItemDecoration;
+import com.zpj.fragmentation.dialog.ZDialog;
 import com.zpj.fragmentation.dialog.impl.AlertDialogFragment;
 import com.zpj.recyclerview.EasyRecyclerView;
 import com.zpj.shouji.market.R;
@@ -107,7 +108,7 @@ public class GameBookingMultiData extends RecyclerMultiData<BookingAppInfo> {
     }
 
     protected void showCancelBookingPopup(Context context, BookingAppInfo appInfo, Runnable runnable) {
-        new AlertDialogFragment()
+        ZDialog.alert()
                 .setTitle("取消预约？")
                 .setContent("确定取消预约？取消预约后您将不能及时在软件上架时及时收到通知。")
                 .setPositiveButton((fragment, which) -> BookingApi.cancelBookingApi(appInfo, runnable))

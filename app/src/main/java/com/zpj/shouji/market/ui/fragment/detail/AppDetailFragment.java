@@ -15,7 +15,7 @@ import android.view.View;
 import android.widget.ImageButton;
 
 import com.bumptech.glide.Glide;
-import com.zpj.fragmentation.dialog.impl.AttachListDialogFragment;
+import com.zpj.fragmentation.dialog.ZDialog;
 import com.zpj.http.core.HttpObserver;
 import com.zpj.http.parser.html.nodes.Document;
 import com.zpj.rxbus.RxBus;
@@ -47,9 +47,9 @@ import com.zpj.shouji.market.ui.widget.AppDetailLayout;
 import com.zpj.shouji.market.ui.widget.indicator.SubTitlePagerTitle;
 import com.zpj.shouji.market.utils.EventBus;
 import com.zpj.shouji.market.utils.MagicIndicatorHelper;
+import com.zpj.skin.SkinEngine;
 import com.zpj.toast.ZToast;
 import com.zpj.utils.Callback;
-import com.zpj.skin.SkinEngine;
 
 import net.lucode.hackware.magicindicator.MagicIndicator;
 
@@ -409,7 +409,7 @@ public class AppDetailFragment extends StateSwipeBackFragment
     }
 
     private void showMenu() {
-        new AttachListDialogFragment<String>()
+        ZDialog.attach()
                 .addItems("下载管理", "复制包名", "浏览器中打开")
                 .addItemIf(UserManager.getInstance().isLogin(), "添加到应用集")
                 .setOnSelectListener((fragment, position, title) -> {

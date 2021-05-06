@@ -22,7 +22,7 @@ import java.util.List;
 
 import static android.view.ViewGroup.LayoutParams.MATCH_PARENT;
 
-public class AppUrlCenterListDialogFragment extends ListDialogFragment<MultiData<?>> {
+public class AppUrlCenterListDialogFragment extends ListDialogFragment<MultiData<?>, AppUrlCenterListDialogFragment> {
 
     private View anchorView;
 

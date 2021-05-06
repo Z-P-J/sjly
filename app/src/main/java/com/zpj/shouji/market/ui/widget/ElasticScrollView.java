@@ -116,7 +116,7 @@ public class ElasticScrollView extends ScrollView {
                 animationFinish = true;  
             }  
         });  
-        inner.startAnimation(ta);  
+        inner.startAnimation(ta);
     }  
   
     // 是否需要开启动画  

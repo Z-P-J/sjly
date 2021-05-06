@@ -15,8 +15,7 @@ import android.widget.FrameLayout;
 import com.lxj.xpermission.PermissionConstants;
 import com.lxj.xpermission.XPermission;
 import com.zpj.downloader.ZDownloader;
-import com.zpj.fragmentation.dialog.IDialog;
-import com.zpj.fragmentation.dialog.impl.AlertDialogFragment;
+import com.zpj.fragmentation.dialog.ZDialog;
 import com.zpj.rxbus.RxBus;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.api.HttpPreLoader;
@@ -33,14 +32,11 @@ import com.zpj.shouji.market.ui.fragment.manager.DownloadManagerFragment;
 import com.zpj.shouji.market.ui.fragment.manager.ManagerFragment;
 import com.zpj.shouji.market.ui.fragment.manager.UpdateManagerFragment;
 import com.zpj.shouji.market.utils.EventBus;
-import com.zpj.skin.SkinEngine;
 import com.zpj.toast.ZToast;
 import com.zpj.utils.BrightnessUtils;
 import com.zpj.utils.StatusBarUtils;
 
 import java.io.File;
-
-import static android.Manifest.permission.READ_PHONE_STATE;
 
 public class MainActivity extends BaseActivity { // implements IUiListener
 
@@ -190,7 +186,7 @@ public class MainActivity extends BaseActivity { // implements IUiListener
         if (hasStoragePermissions(getApplicationContext())) {
             requestPermission();
         } else {
-            new AlertDialogFragment()
+            ZDialog.alert()
                     .setTitle("权限申请")
                     .setContent("本软件需要读写手机存储的权限用于文件的下载与查看，是否申请该权限？")
                     .setPositiveButton("去申请", (fragment, which) -> requestPermission())

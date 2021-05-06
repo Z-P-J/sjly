@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.view.ViewPager;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -14,13 +13,8 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
-import com.zpj.fragmentation.ISupportFragment;
-import com.zpj.fragmentation.SupportHelper;
-import com.zpj.fragmentation.dialog.base.ArrowDialogFragment;
-import com.zpj.fragmentation.dialog.impl.ArrowMenuDialogFragment;
-import com.zpj.fragmentation.dialog.impl.AttachListDialogFragment;
+import com.zpj.fragmentation.dialog.ZDialog;
 import com.zpj.fragmentation.dialog.impl.ImageViewerDialogFragment;
-import com.zpj.fragmentation.dialog.model.OptionMenu;
 import com.zpj.http.core.IHttp;
 import com.zpj.http.parser.html.nodes.Document;
 import com.zpj.http.parser.html.nodes.Element;
@@ -104,7 +98,7 @@ public class WallpaperViewerDialogFragment extends ImageViewerDialogFragment<Str
 
         titleBar.getLeftImageButton().setOnClickListener(v -> dismiss());
         titleBar.getRightImageButton().setOnClickListener(v -> {
-            new AttachListDialogFragment<String>()
+            ZDialog.attach()
                     .addItems("分享图片", "保存图片", "设为壁纸")
                     .addItemIf(isOriginalImageAvailable(), "查看原图")
                     .setOnSelectListener((fragment, pos, title) -> {

@@ -157,7 +157,7 @@ dependencies {
     implementation 'com.github.promeg:tinypinyin:2.0.3'
     implementation 'com.nex3z:flow-layout:1.2.4'
 
-    implementation 'com.github.Z-P-J:Fragmentation-Dialog:1.2.1'
+    implementation 'com.github.Z-P-J:Fragmentation-Dialog:1.2.2'
     implementation 'com.github.Z-P-J:Fragmentation:1.1.3'
     implementation 'com.zpj.widget:SmoothCheckBox:1.0.0'
     implementation 'com.zpj.widget:ZSwitcher:1.0.5'

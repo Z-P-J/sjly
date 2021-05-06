@@ -11,10 +11,7 @@ import com.bumptech.glide.Glide;
 import com.zpj.downloader.BaseMission;
 import com.zpj.downloader.DownloadMission;
 import com.zpj.downloader.constant.Error;
-import com.zpj.fragmentation.dialog.IDialog;
-import com.zpj.fragmentation.dialog.impl.AlertDialogFragment;
-import com.zpj.fragmentation.dialog.impl.AttachListDialogFragment;
-import com.zpj.fragmentation.dialog.impl.CheckDialogFragment;
+import com.zpj.fragmentation.dialog.ZDialog;
 import com.zpj.recyclerview.EasyViewHolder;
 import com.zpj.recyclerview.ExpandableMultiData;
 import com.zpj.shouji.market.R;
@@ -23,7 +20,6 @@ import com.zpj.shouji.market.ui.fragment.detail.AppDetailFragment;
 import com.zpj.shouji.market.ui.widget.DownloadedActionButton;
 import com.zpj.statemanager.State;
 import com.zpj.toast.ZToast;
-import com.zpj.utils.AppUtils;
 import com.zpj.utils.ClickHelper;
 
 import java.text.SimpleDateFormat;
@@ -174,7 +170,7 @@ public class DownloadMultiData extends ExpandableMultiData<AppDownloadMission> {
                         titleList.add("任务详情");
                         titleList.add("分享");
                     }
-                    new AttachListDialogFragment<String>()
+                    ZDialog.attach()
                             .addItems(titleList)
                             .setOnSelectListener((fragment, p, text) -> {
                                 fragment.dismiss();
@@ -190,7 +186,7 @@ public class DownloadMultiData extends ExpandableMultiData<AppDownloadMission> {
                                         mission.install();
                                         break;
                                     case "删除":
-                                        new CheckDialogFragment()
+                                        ZDialog.check()
                                                 .setChecked(true)
                                                 .setCheckTitle("删除已下载的文件")
                                                 .setTitle("确定删除？")

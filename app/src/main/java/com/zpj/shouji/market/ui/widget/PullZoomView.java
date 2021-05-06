@@ -243,6 +243,7 @@ public class PullZoomView extends ScrollView {
                         if (pullZoomListener != null) pullZoomListener.onPullZoom(headerHeight, headerParams.height);
                     }
                 }
+
                 break;
             case MotionEvent.ACTION_UP:
             case MotionEvent.ACTION_CANCEL:

@@ -7,7 +7,7 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
 
-import com.zpj.fragmentation.dialog.impl.AlertDialogFragment;
+import com.zpj.fragmentation.dialog.ZDialog;
 import com.zpj.rxbus.RxBus;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.imagepicker.ImagePicker;
@@ -23,8 +23,6 @@ import com.zpj.shouji.market.utils.PictureUtil;
 import com.zpj.toast.ZToast;
 import com.zpj.widget.setting.CommonSettingItem;
 import com.zpj.widget.setting.OnCommonItemClickListener;
-
-import io.reactivex.functions.Consumer;
 
 public class MyInfoFragment extends BaseSwipeBackFragment implements OnCommonItemClickListener {
 
@@ -156,7 +154,7 @@ public class MyInfoFragment extends BaseSwipeBackFragment implements OnCommonIte
                 } else {
                     content = memberInfo.getMemberSignature();
                 }
-                new AlertDialogFragment()
+                ZDialog.alert()
                         .setTitle(memberInfo.getMemberNickName())
                         .setContent(content)
                         .hideCancelBtn()

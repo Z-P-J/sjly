@@ -17,9 +17,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
-import com.zpj.fragmentation.dialog.IDialog;
-import com.zpj.fragmentation.dialog.impl.AlertDialogFragment;
-import com.zpj.fragmentation.dialog.impl.AttachListDialogFragment;
+import com.zpj.fragmentation.dialog.ZDialog;
 import com.zpj.http.core.HttpObserver;
 import com.zpj.http.parser.html.nodes.Document;
 import com.zpj.shouji.market.R;
@@ -34,15 +32,11 @@ import com.zpj.shouji.market.ui.fragment.WebFragment;
 import com.zpj.shouji.market.ui.fragment.base.StateSwipeBackFragment;
 import com.zpj.shouji.market.ui.fragment.chat.ChatFragment;
 import com.zpj.shouji.market.ui.widget.indicator.ExpandablePagerTitle;
-import com.zpj.shouji.market.ui.widget.indicator.SubTitlePagerTitle;
 import com.zpj.shouji.market.utils.MagicIndicatorHelper;
 import com.zpj.shouji.market.utils.PictureUtil;
-import com.zpj.skin.SkinEngine;
 import com.zpj.toast.ZToast;
 
 import net.lucode.hackware.magicindicator.MagicIndicator;
-import net.lucode.hackware.magicindicator.buildins.commonnavigator.indicators.BezierPagerIndicator;
-import net.lucode.hackware.magicindicator.buildins.commonnavigator.indicators.WrapPagerIndicator;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -198,7 +192,7 @@ public class ProfileFragment extends StateSwipeBackFragment
     public void toolbarRightImageButton(@NonNull ImageButton imageButton) {
         super.toolbarRightImageButton(imageButton);
         imageButton.setOnClickListener(v -> {
-            new AttachListDialogFragment<String>()
+            ZDialog.attach()
                     .addItems("分享主页", "保存头像", "保存背景")
                     .addItemsIf(!isMe, "加入黑名单", "举报Ta")
                     .setOnSelectListener((fragment, position, title) -> {
@@ -364,7 +358,7 @@ public class ProfileFragment extends StateSwipeBackFragment
             if (isMe) {
                 MyInfoFragment.start();
             } else if (isFriend) {
-                new AlertDialogFragment()
+                ZDialog.alert()
                         .setTitle("取消关注")
                         .setContent("确定取消关注该用户？")
                         .setPositiveButton((fragment, which) -> HttpApi.deleteFriendApi(userId)

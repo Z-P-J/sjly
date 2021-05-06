@@ -16,7 +16,7 @@ import android.widget.TextView;
 
 import com.zpj.blur.ZBlurry;
 import com.zpj.fragmentation.anim.DefaultVerticalAnimator;
-import com.zpj.fragmentation.dialog.impl.AttachListDialogFragment;
+import com.zpj.fragmentation.dialog.ZDialog;
 import com.zpj.rxbus.RxBus;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.api.HttpApi;
@@ -278,7 +278,7 @@ public class MyFragment extends SkinFragment
                     if (!UserManager.getInstance().isLogin()) {
                         return false;
                     }
-                    new AttachListDialogFragment<String>()
+                    ZDialog.attach()
                             .addItems("更换我的头像", "保存头像")
                             .setOnSelectListener((fragment, position, title) -> {
                                 fragment.dismiss();
@@ -303,7 +303,7 @@ public class MyFragment extends SkinFragment
                     }
                     String bgUrl = UserManager.getInstance().getMemberInfo().getMemberBackGround();
                     boolean canDelete = !TextUtils.isEmpty(bgUrl) && !bgUrl.contains("default_user_bg");
-                    new AttachListDialogFragment<String>()
+                    ZDialog.attach()
                             .addItems("更换主页背景", "保存背景")
                             .addItemIf(canDelete, "删除背景")
                             .setOnSelectListener((fragment, position, title) -> {
@@ -407,7 +407,7 @@ public class MyFragment extends SkinFragment
     public void toolbarRightImageButton(@NonNull ImageButton imageButton) {
         imageButton.setOnClickListener(v -> {
 //            SearchFragment.start();
-            new AttachListDialogFragment<String>()
+            ZDialog.attach()
                     .addItems("打开我的主页", "打开主页网页", "分享主页")
                     .addItem(UserManager.getInstance().isLogin() ? "注销" : "登录")
                     .setOnSelectListener((fragment, position, title) -> {
