@@ -1,4 +1,4 @@
-package com.lqr.emoji;
+package com.zpj.emoji;
 
 public interface IEmotionSelectedListener {
     void onEmojiSelected(String key);

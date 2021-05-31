@@ -74,8 +74,8 @@ dependencies {
     // RxJava
     implementation 'io.reactivex.rxjava2:rxjava:2.2.17'
     implementation 'io.reactivex.rxjava2:rxandroid:2.1.1'
-    implementation 'com.zpj.rxbus:RxBus:1.0.2'
-    implementation 'com.zpj.rxlife:RxLife:1.0.1'
+    implementation 'com.github.Z-P-J:RxBus:1.0.0'
+    implementation 'com.github.Z-P-J:RxLife:1.0.0'
 
     // 图片相关
     implementation 'com.github.bumptech.glide:glide:4.9.0'
@@ -104,7 +104,7 @@ dependencies {
 
     // RecyclerView
     implementation 'com.android.support:recyclerview-v7:28.0.0'
-    implementation 'com.github.Z-P-J:ZRecyclerView:1.2.3'
+    implementation 'com.github.Z-P-J:ZRecyclerView:1.2.4'
     implementation 'com.yanyusong.y_divideritemdecoration:y_divideritemdecoration:2.0'
 
     // up/down arrow
@@ -157,19 +157,20 @@ dependencies {
     implementation 'com.github.promeg:tinypinyin:2.0.3'
     implementation 'com.nex3z:flow-layout:1.2.4'
 
-    implementation 'com.github.Z-P-J:Fragmentation-Dialog:1.2.2'
-    implementation 'com.github.Z-P-J:Fragmentation:1.1.3'
-    implementation 'com.zpj.widget:SmoothCheckBox:1.0.0'
-    implementation 'com.zpj.widget:ZSwitcher:1.0.5'
-    implementation 'com.zpj.widget:ZSettingItem:1.0.7'
-    implementation 'com.zpj.widget:ZToolBar:1.0.7'
-    implementation 'com.zpj.widget:StateManager:1.0.0'
-    implementation 'com.zpj.utils:ZUtils:1.0.4'
-    implementation 'com.zpj.toast:ZToast:1.0.1'
-    implementation 'com.zpj.http:ZHttp:1.0.5'
-    implementation 'com.zpj.downloader:ZDownloader:1.0.0'
+    implementation 'com.github.Z-P-J:Fragmentation-Dialog:1.2.3'
+    implementation 'com.github.Z-P-J:Fragmentation:1.1.4'
+    implementation 'com.github.Z-P-J:ZSwitcher:1.0.0'
+    implementation 'com.github.Z-P-J:ZSettingItem:1.0.0'
+
+    implementation 'com.github.Z-P-J:ZToast:1.0.0'
+    implementation 'com.github.Z-P-J:ZHttp:1.0.0'
+    implementation 'com.github.Z-P-J:ZDownloader:1.0.0'
     implementation 'com.github.Z-P-J:ZProgressBar:1.0.0'
     implementation 'com.github.Z-P-J:SkinSwitcher:1.0.0'
+    implementation 'com.github.Z-P-J:ZUtils:1.0.0'
+    implementation 'com.github.Z-P-J:ZToolBar:1.0.0'
+    implementation 'com.github.Z-P-J:StateManager:1.0.0'
+    implementation 'com.github.Z-P-J:SmoothCheckBox:1.0.0'
 
 //    implementation project(':zmarkdown')
 //    implementation project(':richeditor')

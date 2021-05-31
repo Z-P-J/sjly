@@ -74,11 +74,12 @@
 
     </RelativeLayout>
 
-    <com.lqr.emoji.EmotionLayout
+    <com.zpj.emoji.EmotionLayout
         android:id="@+id/el_emotion"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:visibility="gone"
         />
+
 
 </LinearLayout>

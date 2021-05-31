@@ -33,12 +33,11 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-import com.lqr.emoji.EmotionLayout;
-import com.lqr.emoji.IEmotionExtClickListener;
-import com.lqr.emoji.IEmotionSelectedListener;
+import com.zpj.emoji.IEmotionSelectedListener;
 import com.yanyusong.y_divideritemdecoration.Y_Divider;
 import com.yanyusong.y_divideritemdecoration.Y_DividerBuilder;
 import com.yanyusong.y_divideritemdecoration.Y_DividerItemDecoration;
+import com.zpj.emoji.EmotionLayout;
 import com.zpj.fragmentation.SupportActivity;
 import com.zpj.fragmentation.dialog.impl.ImageViewerDialogFragment;
 import com.zpj.recyclerview.EasyRecyclerView;
@@ -159,19 +158,19 @@ public class ReplyPanel extends FrameLayout
         elEmotion = findViewById(R.id.el_emotion);
         elEmotion.attachEditText(etEditor);
         elEmotion.setEmotionSelectedListener(listener);
-        elEmotion.setEmotionAddVisiable(false);
-        elEmotion.setEmotionSettingVisiable(false);
-        elEmotion.setEmotionExtClickListener(new IEmotionExtClickListener() {
-            @Override
-            public void onEmotionAddClick(View view) {
-                ZToast.normal("add");
-            }
-
-            @Override
-            public void onEmotionSettingClick(View view) {
-                ZToast.normal("setting");
-            }
-        });
+//        elEmotion.setEmotionAddVisiable(false);
+//        elEmotion.setEmotionSettingVisiable(false);
+//        elEmotion.setEmotionExtClickListener(new IEmotionExtClickListener() {
+//            @Override
+//            public void onEmotionAddClick(View view) {
+//                ZToast.normal("add");
+//            }
+//
+//            @Override
+//            public void onEmotionSettingClick(View view) {
+//                ZToast.normal("setting");
+//            }
+//        });
 
 
         findViewById(R.id.tv_remove).setOnClickListener(v -> {

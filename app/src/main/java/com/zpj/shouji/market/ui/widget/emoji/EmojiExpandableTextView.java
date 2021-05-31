@@ -9,7 +9,7 @@ import android.text.Spanned;
 import android.text.TextUtils;
 import android.util.AttributeSet;
 
-import com.lqr.emoji.MoonUtils;
+import com.zpj.emoji.EmojiUtils;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.ui.fragment.WebFragment;
 import com.zpj.shouji.market.ui.fragment.profile.ProfileFragment;
@@ -46,7 +46,7 @@ public class EmojiExpandableTextView extends ExpandableTextView implements Expan
     public void setText(CharSequence text, BufferType type) {
         if (!TextUtils.isEmpty(text)) {
             SpannableStringBuilder builder = new SpannableStringBuilder(text);
-            MoonUtils.replaceEmoticons(getContext(), builder, -1, getTextSize(), 0, builder.length());
+            EmojiUtils.replaceEmoticons(getContext(), builder, -1, getTextSize(), 0, builder.length());
 //            EmojiconHandler.addEmojis(getContext(), builder, mEmojiconSize, mEmojiconTextSize, mTextStart, mTextLength, mUseSystemDefault);
             text = builder;
         }

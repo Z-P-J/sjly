@@ -241,12 +241,6 @@ public class ThemeShareFragment extends BaseSwipeBackFragment {
     }
 
     private void initNineGrid() {
-//        List<NineGridBean> beanList = new ArrayList<>();
-//        for (Item item : imgList) {
-//            NineGridBean bean = new NineGridBean(item.getPath(context));
-//            beanList.add(bean);
-//        }
-//        nineGridView.setDataList(beanList);
         List<String> urls = new ArrayList<>();
         for (Item item : imgList) {
             urls.add(item.getPath(context));
@@ -271,19 +265,6 @@ public class ThemeShareFragment extends BaseSwipeBackFragment {
                     postDelayed(this::initNineGrid, 500);
                 })
                 .start();
-//        ImagePicker.from(_mActivity)
-//                .choose(MimeType.ofImage())
-//                .countable(true)
-//                .maxSelectable(9)
-//                //.addFilter(new GifSizeFilter(320, 320, 5 * Filter.K * Filter.K))
-//                .spanCount(3)
-//                .thumbnailScale(0.85f)//缩放比例
-//                .imageEngine(new GlideEngine())
-//                .setDefaultSelection(imgList)
-//                .setOnSelectedListener(itemList -> {
-//                    postDelayed(this::initNineGrid, 500);
-//                })
-//                .start();
     }
 
     private void showAppPicker() {

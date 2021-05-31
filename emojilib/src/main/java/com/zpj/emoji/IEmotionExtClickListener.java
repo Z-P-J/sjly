@@ -1,4 +1,4 @@
-package com.lqr.emoji;
+package com.zpj.emoji;
 
 import android.view.View;
 

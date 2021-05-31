@@ -1,7 +1,6 @@
 package com.zpj.shouji.market;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Color;
 import android.os.Build;
@@ -11,21 +10,15 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.multidex.MultiDexApplication;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.ProgressBar;
 
-import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.target.ViewTarget;
-import com.lqr.emoji.IImageLoader;
-import com.lqr.emoji.LQREmotionKit;
 import com.maning.librarycrashmonitor.MCrashMonitor;
 import com.raizlabs.android.dbflow.config.FlowManager;
 import com.zpj.blur.ZBlurry;
 import com.zpj.downloader.ZDownloader;
-import com.zpj.fragmentation.ISupportFragment;
+import com.zpj.emoji.EmojiManager;
 import com.zpj.fragmentation.SupportActivity;
 import com.zpj.fragmentation.SupportFragment;
 import com.zpj.http.ZHttp;
@@ -36,14 +29,14 @@ import com.zpj.shouji.market.constant.AppConfig;
 import com.zpj.shouji.market.download.AppDownloadMission;
 import com.zpj.shouji.market.download.DownloadNotificationInterceptor;
 import com.zpj.shouji.market.utils.EventBus;
+import com.zpj.skin.SkinEngine;
+import com.zpj.skin.applicator.SkinViewApplicator;
 import com.zpj.statemanager.CustomizedViewHolder;
 import com.zpj.statemanager.StateManager;
 import com.zpj.utils.AppUtils;
 import com.zpj.utils.ScreenUtils;
 import com.zpj.widget.setting.SimpleSettingItem;
 import com.zpj.widget.setting.SwitchSettingItem;
-import com.zpj.skin.SkinEngine;
-import com.zpj.skin.applicator.SkinViewApplicator;
 
 import java.lang.ref.WeakReference;
 
@@ -140,12 +133,8 @@ public class BaseApplication extends MultiDexApplication {
 //        UMConfigure.init(this,"5f53cf523739314483bc4020"
 //                ,"umeng",UMConfigure.DEVICE_TYPE_PHONE,"");
 
-        LQREmotionKit.init(this, new IImageLoader() {
-            @Override
-            public void displayImage(Context context, String path, ImageView imageView) {
-                Glide.with(context).load(path).centerCrop().into(imageView);
-            }
-        });
+        EmojiManager.init(this);
+
         ZBlurry.init(this);
 
         ViewTarget.setTagId(R.id.glide_tag_id);

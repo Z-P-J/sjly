@@ -1,4 +1,4 @@
-package com.lqr.emoji;
+package com.zpj.emoji;
 
 import android.content.Context;
 import android.graphics.drawable.Drawable;
@@ -23,7 +23,7 @@ import java.util.regex.Pattern;
  * CSDN_LQR
  * 图文混排工具
  */
-public class MoonUtils {
+public class EmojiUtils {
     private static final float DEF_SCALE = 0.6f;
     private static final float SMALL_SCALE = 0.6F;
 
@@ -152,21 +152,6 @@ public class MoonUtils {
      * EditText用来转换表情文字的方法，如果没有使用EmoticonPickerView的attachEditText方法，则需要开发人员手动调用方法来又识别EditText中的表情
      */
     public static void replaceEmoticons(Context context, Editable editable, int start, int count) {
-//        if (count <= 0 || editable.length() < start + count)
-//            return;
-//
-//        CharSequence s = editable.subSequence(start, start + count);
-//        Matcher matcher = EmojiManager.getPattern().matcher(s);
-//        while (matcher.find()) {
-//            int from = start + matcher.start();
-//            int to = start + matcher.end();
-//            String emot = editable.subSequence(from, to).toString();
-//            Drawable d = getEmojiDrawable(context, emot, SMALL_SCALE);
-//            if (d != null) {
-//                ImageSpan span = new ImageSpan(d, ImageSpan.ALIGN_BOTTOM);
-//                editable.setSpan(span, from, to, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-//            }
-//        }
         replaceEmoticons(context, editable, -1, -1, start, count);
     }
 

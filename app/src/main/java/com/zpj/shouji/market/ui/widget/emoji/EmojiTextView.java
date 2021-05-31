@@ -7,7 +7,7 @@ import android.text.SpannableStringBuilder;
 import android.text.TextUtils;
 import android.util.AttributeSet;
 
-import com.lqr.emoji.MoonUtils;
+import com.zpj.emoji.EmojiUtils;
 import com.zpj.shouji.market.R;
 
 public class EmojiTextView extends AppCompatTextView {
@@ -43,7 +43,7 @@ public class EmojiTextView extends AppCompatTextView {
     public void setText(CharSequence text, BufferType type) {
         if (!TextUtils.isEmpty(text)) {
             SpannableStringBuilder builder = new SpannableStringBuilder(text);
-            MoonUtils.replaceEmoticons(getContext(), builder, mEmojiconSize, getTextSize(), 0, builder.length());
+            EmojiUtils.replaceEmoticons(getContext(), builder, mEmojiconSize, getTextSize(), 0, builder.length());
             text = builder;
         }
         super.setText(text, type);
