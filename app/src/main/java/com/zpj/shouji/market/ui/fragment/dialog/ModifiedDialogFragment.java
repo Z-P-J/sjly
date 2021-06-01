@@ -7,6 +7,7 @@ import android.view.View;
 
 import com.zpj.fragmentation.dialog.base.BottomDragDialogFragment;
 import com.zpj.shouji.market.R;
+import com.zpj.shouji.market.ui.widget.DialogHeaderLayout;
 import com.zpj.utils.KeyboardObserver;
 
 public abstract class ModifiedDialogFragment extends BottomDragDialogFragment<ModifiedDialogFragment> {
@@ -20,6 +21,10 @@ public abstract class ModifiedDialogFragment extends BottomDragDialogFragment<Mo
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        DialogHeaderLayout headerLayout = findViewById(R.id.layout_dialog_header);
+        if (headerLayout != null) {
+            headerLayout.setOnCloseClickListener(view1 -> dismiss());
+        }
         KeyboardObserver.registerSoftInputChangedListener(_mActivity, contentView, height -> {
             contentView.setTranslationY(-height);
         });

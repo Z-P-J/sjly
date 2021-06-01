@@ -3,10 +3,12 @@ package com.zpj.shouji.market.ui.widget.indicator;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v4.view.ViewPager;
+import android.text.TextUtils;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.zpj.rxbus.RxBus;
@@ -17,6 +19,7 @@ import com.zpj.shouji.market.ui.widget.ExpandIcon;
 import com.zpj.skin.SkinEngine;
 
 import net.lucode.hackware.magicindicator.buildins.ArgbEvaluatorHolder;
+import net.lucode.hackware.magicindicator.buildins.UIUtil;
 import net.lucode.hackware.magicindicator.buildins.commonnavigator.titles.CommonPagerTitleView;
 
 import java.util.ArrayList;
@@ -25,6 +28,7 @@ import java.util.List;
 
 public class ExpandablePagerTitle extends CommonPagerTitleView {
 
+    private final LinearLayout llContainer;
     private final TextView tvTitle;
     private final ExpandIcon ivExpand;
 
@@ -42,20 +46,34 @@ public class ExpandablePagerTitle extends CommonPagerTitleView {
         mSelectedColor = context.getResources().getColor(R.color.colorPrimary);
 
 
-        View view = LayoutInflater.from(context).inflate(R.layout.layout_pager_title_expandable, null, false);
-        LayoutParams params = new LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-        params.gravity = Gravity.CENTER;
-        addView(view, params);
+        llContainer = new LinearLayout(context);
+        llContainer.setGravity(Gravity.CENTER);
+        tvTitle = new TextView(context);
+        tvTitle.setMaxLines(1);
+        tvTitle.setEllipsize(TextUtils.TruncateAt.END);
+        tvTitle.setGravity(Gravity.CENTER);
+        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        params.gravity = Gravity.CENTER_VERTICAL;
+        llContainer.addView(tvTitle, params);
 
-        tvTitle = view.findViewById(R.id.tv_title);
-        ivExpand = view.findViewById(R.id.iv_expand);
+        ivExpand = new ExpandIcon(context);
+        ivExpand.setArrowColor(context.getResources().getColor(R.color.colorPrimary));
+        ivExpand.setRoundedCorner(true);
+        int size = UIUtil.dip2px(context, 14);
+        params = new LinearLayout.LayoutParams(size, size);
+        params.gravity = Gravity.CENTER_VERTICAL;
+        llContainer.addView(ivExpand, params);
+
+        LayoutParams p = new LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        p.gravity = Gravity.CENTER;
+        addView(llContainer, p);
 
     }
 
     public void init(ViewPager viewPager, int index, boolean isMe, @NonNull List<String> items) {
         List<String> list = new ArrayList<>();
         for (String item : items) {
-            list.add(isMe ? "我的" : "Ta的" + item);
+            list.add((isMe ? "我的" : "Ta的") + item);
         }
 
         tvTitle.setText(list.get(currentPosition));
@@ -88,15 +106,12 @@ public class ExpandablePagerTitle extends CommonPagerTitleView {
     public void onSelected(int index, int totalCount) {
         isSelected = true;
         super.onSelected(index, totalCount);
-//        tvSubTitle.setBackgroundResource(R.drawable.bg_msg_bubble);
-//        tvSubTitle.setBackground(subTitleBackground);
     }
 
     @Override
     public void onDeselected(int index, int totalCount) {
         isSelected = false;
         super.onDeselected(index, totalCount);
-//        tvSubTitle.setBackground(null);
     }
 
     @Override
@@ -105,13 +120,6 @@ public class ExpandablePagerTitle extends CommonPagerTitleView {
         tvTitle.setTextColor(color);
         ivExpand.setAlpha((int) ((1 - leavePercent) * 255));
         ivExpand.setArrowColor(color);
-//        if (leavePercent == 1) {
-//            ivExpand.setVisibility(INVISIBLE);
-//        }
-//        int subColor = ArgbEvaluatorHolder.eval(leavePercent, mSubSelectedColor, mSubNormalColor);
-//        tvSubTitle.setTextColor(subColor);
-//        subTitleBackground.setAlpha((int) ((1 - leavePercent) * 255));
-//        tvSubTitle.setBackground(subTitleBackground);
     }
 
     @Override
@@ -120,11 +128,16 @@ public class ExpandablePagerTitle extends CommonPagerTitleView {
         tvTitle.setTextColor(color);
         ivExpand.setAlpha((int) (enterPercent * 255));
         ivExpand.setArrowColor(color);
-//        if (enterPercent == 1) {
-//            ivExpand.setVisibility(VISIBLE);
-//        }
-//        int subColor = ArgbEvaluatorHolder.eval(enterPercent, mSubNormalColor, mSubSelectedColor);
-//        tvSubTitle.setTextColor(subColor);
+    }
+
+    @Override
+    public int getContentLeft() {
+        return (getLeft() + llContainer.getLeft()) - Math.min(UIUtil.dip2px(getContext(), 8), llContainer.getLeft());
+    }
+
+    @Override
+    public int getContentRight() {
+        return getLeft() + getRight() - getContentLeft();
     }
 
     public void setTitle(CharSequence text) {

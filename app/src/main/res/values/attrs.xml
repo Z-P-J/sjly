@@ -223,6 +223,10 @@
         <attr format="dimension" name="eiv_padding"/>
     </declare-styleable>
 
+    <declare-styleable name="DialogHeaderLayout">
+        <attr name="dialog_header_title" format="string" />
+    </declare-styleable>
+
     <string-array name="default_wallpaper_tags">
         <item>全部</item>
         <item>壁纸</item>

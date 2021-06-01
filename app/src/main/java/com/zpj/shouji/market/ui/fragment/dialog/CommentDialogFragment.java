@@ -13,6 +13,7 @@ import com.zpj.http.core.IHttp;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.api.CommentApi;
 import com.zpj.shouji.market.ui.fragment.profile.UserPickerFragment;
+import com.zpj.shouji.market.ui.widget.DialogHeaderLayout;
 import com.zpj.shouji.market.ui.widget.MaxHeightLayout;
 import com.zpj.shouji.market.ui.widget.ReplyPanel;
 import com.zpj.toast.ZToast;
@@ -81,7 +82,9 @@ public class CommentDialogFragment extends BottomDragDialogFragment<CommentDialo
             replyPanel.removeAppAction();
         }
 
-        findViewById(R.id.btn_close).setOnClickListener(v -> dismiss());
+        DialogHeaderLayout headerLayout = findViewById(R.id.layout_dialog_header);
+        headerLayout.setOnCloseClickListener(view1 -> dismiss());
+
         maxHeightLayout = findViewById(R.id.layout_max_height);
 //        LinearLayout llContent = findViewById(R.id.ll_scroll_content);
 //        maxHeightLayout.post(() -> maxHeightLayout.setMaxHeight(ScreenUtils.getScreenHeight(context) - ScreenUtils.getStatusBarHeight(context)));
@@ -100,23 +103,6 @@ public class CommentDialogFragment extends BottomDragDialogFragment<CommentDialo
                 maxHeightLayout.post(() -> maxHeightLayout.setMaxHeight(maxHeight));
             }
         });
-
-//        getContentView()
-//                .getViewTreeObserver()
-//                .addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
-//                    @Override
-//                    public void onGlobalLayout() {
-//
-//                    }
-//                });
-
-//        postDelayed(new Runnable() {
-//            @Override
-//            public void run() {
-//
-////                KeyboardUtils.showSoftInput(replyPanel.getEditor());
-//            }
-//        }, 350);
 
         postDelayed(() -> {
             replyPanel.getEditor().requestFocus();
@@ -216,5 +202,12 @@ public class CommentDialogFragment extends BottomDragDialogFragment<CommentDialo
     @Override
     public boolean shouldContinue() {
         return true;
+    }
+
+    @Override
+    protected void onBeforeShow() {
+        mSupportVisibleActionQueue.onDestroy();
+        mEnterAnimationEndActionQueue.onDestroy();
+        super.onBeforeShow();
     }
 }

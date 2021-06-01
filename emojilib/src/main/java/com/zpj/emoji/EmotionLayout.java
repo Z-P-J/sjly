@@ -85,13 +85,11 @@ public class EmotionLayout extends LinearLayout {
                     if (end < 0) {
                         end = start;
                     }
-//                    start = (start < 0 ? 0 : start);
-//                    end = (start < 0 ? 0 : end);
                     editable.replace(start, end, data.text);
 
                     int editEnd = mAttachEditText.getSelectionEnd();
                     EmojiUtils.replaceEmoticons(holder.getContext(), editable,  -1,
-                            mAttachEditText.getTextSize(), 0, editable.toString().length());
+                            mAttachEditText.getTextSize(), start,  data.text.length());
                     mAttachEditText.setSelection(editEnd);
                 }
             }

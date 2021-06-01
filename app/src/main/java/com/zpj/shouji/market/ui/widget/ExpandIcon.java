@@ -126,6 +126,17 @@ public class ExpandIcon extends View {
         setState(MORE, false);
     }
 
+    public void setRoundedCorner(boolean value) {
+        if (value) {
+            paint.setStrokeJoin(Paint.Join.ROUND);
+            paint.setStrokeCap(Paint.Cap.ROUND);
+        } else {
+            paint.setStrokeJoin(Paint.Join.MITER);
+            paint.setStrokeCap(Paint.Cap.BUTT);
+        }
+        invalidate();
+    }
+
     public void switchState() {
         switchState(true);
     }

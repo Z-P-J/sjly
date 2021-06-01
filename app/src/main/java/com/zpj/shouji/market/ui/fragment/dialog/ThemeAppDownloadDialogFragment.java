@@ -19,6 +19,7 @@ import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.api.HttpApi;
 import com.zpj.shouji.market.download.MissionDelegate;
 import com.zpj.shouji.market.model.DiscoverInfo;
+import com.zpj.shouji.market.ui.widget.DialogHeaderLayout;
 import com.zpj.shouji.market.ui.widget.DownloadButton;
 import com.zpj.statemanager.StateManager;
 import com.zpj.toast.ZToast;
@@ -120,7 +121,8 @@ public class ThemeAppDownloadDialogFragment extends BottomDragDialogFragment<The
         tvDownload.setAlpha(0.8f);
 
 
-        findViewById(R.id.btn_close).setOnClickListener(v -> dismiss());
+        DialogHeaderLayout headerLayout = findViewById(R.id.layout_dialog_header);
+        headerLayout.setOnCloseClickListener(view1 -> dismiss());
 
         getPermissions();
         stateManager = StateManager.with(findViewById(R.id.scroll_view))

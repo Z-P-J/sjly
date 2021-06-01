@@ -37,6 +37,8 @@ import com.zpj.shouji.market.utils.PictureUtil;
 import com.zpj.toast.ZToast;
 
 import net.lucode.hackware.magicindicator.MagicIndicator;
+import net.lucode.hackware.magicindicator.buildins.UIUtil;
+import net.lucode.hackware.magicindicator.buildins.commonnavigator.indicators.WrapPagerIndicator;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -341,11 +343,14 @@ public class ProfileFragment extends StateSwipeBackFragment
                     return pagerTitle;
                 })
                 .setOnGetIndicatorListener(context -> {
-//                    WrapPagerIndicator indicator = new WrapPagerIndicator(context);
-//                    indicator.setFillColor(Color.parseColor("#80eeeeee"));
-//                    return indicator;
+                    WrapPagerIndicator indicator = new WrapPagerIndicator(context);
+                    indicator.setHorizontalPadding(0);
+                    indicator.setVerticalPadding(0);
+                    indicator.setRoundRadius(UIUtil.dip2px(context, 8));
+                    indicator.setFillColor(Color.parseColor("#80eeeeee"));
+                    return indicator;
 //                    return new BezierPagerIndicator(context);
-                    return null;
+//                    return null;
                 })
                 .build();
     }

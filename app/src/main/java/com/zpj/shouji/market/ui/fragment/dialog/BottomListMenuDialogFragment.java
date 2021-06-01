@@ -20,6 +20,7 @@ import com.zpj.recyclerview.EasyRecyclerView;
 import com.zpj.recyclerview.EasyViewHolder;
 import com.zpj.recyclerview.IEasy;
 import com.zpj.shouji.market.R;
+import com.zpj.shouji.market.ui.widget.DialogHeaderLayout;
 import com.zpj.skin.SkinEngine;
 
 import java.util.ArrayList;
@@ -34,7 +35,7 @@ public class BottomListMenuDialogFragment<T extends BottomListMenuDialogFragment
 
     protected final List<Integer> hideMenuItemList = new ArrayList<>();
 
-    private TextView tvTitle;
+    private DialogHeaderLayout mHeaderLayout;
 
     @LayoutRes
     private int headerRes = -1;
@@ -55,12 +56,14 @@ public class BottomListMenuDialogFragment<T extends BottomListMenuDialogFragment
         setCornerRadiusDp(20);
         super.initView(view, savedInstanceState);
 
-        findViewById(R.id.btn_close).setOnClickListener(v -> dismiss());
-        tvTitle = findViewById(R.id.tv_title);
+        mHeaderLayout = findViewById(R.id.layout_dialog_header);
+        mHeaderLayout.setOnCloseClickListener(view1 -> dismiss());
+
+
         if (TextUtils.isEmpty(title)) {
             title = "更多操作";
         }
-        tvTitle.setText(title);
+        mHeaderLayout.setTitle(title);
 
         MenuInflater inflater = new MenuInflater(getContext());
         @SuppressLint("RestrictedApi") Menu menu = new MenuBuilder(context);
@@ -136,8 +139,8 @@ public class BottomListMenuDialogFragment<T extends BottomListMenuDialogFragment
 
     public T setTitle(String title) {
         this.title = title;
-        if (tvTitle != null) {
-            tvTitle.setText(title);
+        if (mHeaderLayout != null) {
+            mHeaderLayout.setTitle(title);
         }
         return self();
     }

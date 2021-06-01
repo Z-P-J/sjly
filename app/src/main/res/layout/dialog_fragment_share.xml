@@ -7,46 +7,12 @@
     android:orientation="vertical"
     >
 
-    <View
-        android:layout_width="56dp"
-        android:layout_height="4dp"
-        android:background="?attr/backgroundShape"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginVertical="@dimen/dp_8"
-        />
-
-    <RelativeLayout
-        android:id="@+id/ll_top"
+    <com.zpj.shouji.market.ui.widget.DialogHeaderLayout
+        android:id="@+id/layout_dialog_header"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="@dimen/dp_24"
-        android:layout_marginVertical="@dimen/dp_8"
-        >
-
-        <TextView
-            android:id="@+id/tv_title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="分享内容至"
-            android:textColor="?attr/textColorMajor"
-            android:textSize="18sp"
-            android:textStyle="bold"
-            android:layout_centerVertical="true"
-            />
-
-        <ImageButton
-            android:id="@+id/btn_close"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/ic_close"
-            android:layout_alignParentEnd="true"
-            android:background="?attr/actionBarItemBackground"
-            android:layout_centerVertical="true"
-            android:padding="8dp"
-            android:tint="?attr/backgroundProgress"
-            />
-
-    </RelativeLayout>
+        app:dialog_header_title="分享内容至"
+        />
 
     <android.support.v7.widget.GridLayout
         android:id="@+id/grid"

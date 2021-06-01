@@ -13,6 +13,7 @@ import android.widget.TextView;
 
 import com.zpj.fragmentation.dialog.base.BottomDragDialogFragment;
 import com.zpj.shouji.market.R;
+import com.zpj.shouji.market.ui.widget.DialogHeaderLayout;
 import com.zpj.toast.ZToast;
 import com.zpj.utils.Callback;
 import com.zpj.utils.ShareUtils;
@@ -35,7 +36,8 @@ public class ShareDialogFragment extends BottomDragDialogFragment<ShareDialogFra
         setCornerRadiusDp(20);
         super.initView(view, savedInstanceState);
 
-        findViewById(R.id.btn_close).setOnClickListener(v -> dismiss());
+        DialogHeaderLayout headerLayout = findViewById(R.id.layout_dialog_header);
+        headerLayout.setOnCloseClickListener(view1 -> dismiss());
 
         TextView tvTitle = findViewById(R.id.tv_title);
 

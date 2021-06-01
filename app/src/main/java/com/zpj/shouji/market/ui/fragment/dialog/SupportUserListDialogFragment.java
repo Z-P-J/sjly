@@ -18,6 +18,7 @@ import com.zpj.shouji.market.api.HttpApi;
 import com.zpj.shouji.market.constant.Keys;
 import com.zpj.shouji.market.model.SupportUserInfo;
 import com.zpj.shouji.market.ui.fragment.profile.ProfileFragment;
+import com.zpj.shouji.market.ui.widget.DialogHeaderLayout;
 import com.zpj.shouji.market.utils.EventBus;
 import com.zpj.statemanager.StateManager;
 import com.zpj.utils.ScreenUtils;
@@ -60,7 +61,8 @@ public class SupportUserListDialogFragment extends BottomDragDialogFragment<Supp
             themeId = getArguments().getString(Keys.ID);
         }
 
-        findViewById(R.id.btn_close).setOnClickListener(v -> dismiss());
+        DialogHeaderLayout headerLayout = findViewById(R.id.layout_dialog_header);
+        headerLayout.setOnCloseClickListener(view1 -> dismiss());
 
         RecyclerView recycler = findViewById(R.id.recycler_view);
         recyclerView = new EasyRecyclerView<>(recycler);

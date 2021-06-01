@@ -122,37 +122,6 @@ public class EmojiManager {
 
     private static void load(Context context, String xmlPath) {
         new EntryLoader().load(context, xmlPath);
-
-//        for (String category : CATEGORY_LIST) {
-//            List<Emoji> entries = CATEGORY_MAP.get(category);
-//            if (entries != null) {
-//                //补充最后一页少的表情
-//                int tmp = entries.size() % EmotionLayout.EMOJI_PER_PAGE;
-//                if (tmp != 0) {
-//                    int tmp2 = EmotionLayout.EMOJI_PER_PAGE - (entries.size() - (entries.size() / EmotionLayout.EMOJI_PER_PAGE) * EmotionLayout.EMOJI_PER_PAGE);
-//                    for (int i = 0; i < tmp2; i++) {
-//                        entries.add(new Emoji("", ""));
-//                    }
-//                }
-//            }
-//        }
-
-//        //补充最后一页少的表情
-//        int tmp = mDefaultEntries.size() % EmotionLayout.EMOJI_PER_PAGE;
-//        if (tmp != 0) {
-//            int tmp2 = EmotionLayout.EMOJI_PER_PAGE - (mDefaultEntries.size() - (mDefaultEntries.size() / EmotionLayout.EMOJI_PER_PAGE) * EmotionLayout.EMOJI_PER_PAGE);
-//            for (int i = 0; i < tmp2; i++) {
-//                mDefaultEntries.add(new Entry("", ""));
-//            }
-//        }
-
-//        tmp = mQQEntries.size() % EmotionLayout.EMOJI_PER_PAGE;
-//        if (tmp != 0) {
-//            int tmp2 = EmotionLayout.EMOJI_PER_PAGE - (mQQEntries.size() - (mQQEntries.size() / EmotionLayout.EMOJI_PER_PAGE) * EmotionLayout.EMOJI_PER_PAGE);
-//            for (int i = 0; i < tmp2; i++) {
-//                mQQEntries.add(new Entry("", ""));
-//            }
-//        }
     }
 
     private static class EntryLoader extends DefaultHandler {

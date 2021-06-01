@@ -22,7 +22,6 @@ public class NicknameModifiedDialogFragment extends ModifiedDialogFragment {
     @Override
     protected void initView(View view, @Nullable Bundle savedInstanceState) {
         super.initView(view, savedInstanceState);
-        findViewById(R.id.btn_close).setOnClickListener(v -> dismiss());
         AccountInputView inputView = findViewById(R.id.et_account);
         inputView.addValidator(new LengthValidator("昵称长度必须在2-15之间", 2, 15));
         SubmitView submitView = findViewById(R.id.sv_submit);

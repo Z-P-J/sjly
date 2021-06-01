@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    >
+
+    <View
+        android:layout_width="56dp"
+        android:layout_height="4dp"
+        android:background="?attr/backgroundShape"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="@dimen/dp_16"
+        />
+
+    <RelativeLayout
+        android:id="@+id/ll_top"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/dp_24"
+        android:layout_marginEnd="@dimen/dp_16"
+        android:layout_marginVertical="@dimen/dp_8"
+        >
+
+        <TextView
+            android:id="@+id/tv_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="回复"
+            android:textColor="?attr/textColorMajor"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:layout_centerVertical="true"
+            />
+
+        <ImageButton
+            android:id="@+id/btn_close"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_close"
+            android:layout_alignParentEnd="true"
+            android:background="?attr/actionBarItemBackground"
+            android:layout_centerVertical="true"
+            android:padding="8dp"
+            />
+
+    </RelativeLayout>
+
+</merge>

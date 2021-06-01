@@ -23,7 +23,6 @@ public class PasswordModifiedDialogFragment extends ModifiedDialogFragment {
     @Override
     protected void initView(View view, @Nullable Bundle savedInstanceState) {
         super.initView(view, savedInstanceState);
-        findViewById(R.id.btn_close).setOnClickListener(v -> dismiss());
 
         PasswordInputView oldPasswordView = findViewById(R.id.et_password_old);
         PasswordInputView newPasswordView = findViewById(R.id.et_password_new);
