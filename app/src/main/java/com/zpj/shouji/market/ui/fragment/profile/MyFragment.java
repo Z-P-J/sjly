@@ -41,8 +41,10 @@ import com.zpj.shouji.market.ui.widget.PullZoomView;
 import com.zpj.shouji.market.ui.widget.ToolBoxCard;
 import com.zpj.shouji.market.utils.EventBus;
 import com.zpj.shouji.market.utils.PictureUtil;
+import com.zpj.skin.SkinEngine;
 import com.zpj.toast.ZToast;
 import com.zpj.utils.ClickHelper;
+import com.zpj.utils.ColorUtils;
 import com.zpj.widget.setting.SwitchSettingItem;
 
 public class MyFragment extends SkinFragment
@@ -177,22 +179,8 @@ public class MyFragment extends SkinFragment
                     }
                     alpha = 1f * offsetY / toolbar.getHeight();
                     alpha = Math.min(alpha, 1f);
-//                    int color = ColorUtils.alphaColor(Color.WHITE, alpha * 0.95f);
-//                    toolbar.setBackgroundColor(color);
-//                    toolbar.setLightStyle(alpha <= 0.5);
+
                     initStatusBar();
-//                    if (alpha > 0.5) {
-//                        isLightStyle = false;
-////                        darkStatusBar();
-//                        lightStatusBar();
-//                        shadowView.setVisibility(View.VISIBLE);
-//                        ivAppName.setTint(Color.BLACK);
-//                    } else {
-//                        isLightStyle = true;
-//                        lightStatusBar();
-//                        shadowView.setVisibility(View.GONE);
-//                        ivAppName.setTint(Color.WHITE);
-//                    }
                 }
             }
         });
@@ -204,22 +192,22 @@ public class MyFragment extends SkinFragment
             }
         });
 
-        blurred = ZBlurry.with(findViewById(R.id.fl_container))
-//                .fitIntoViewXY(false)
-//                .antiAlias(true)
-//                .foregroundColor(Color.parseColor("#20000000"))
-                .scale(0.1f)
-                .radius(8)
-//                .maxFps(40)
-                .blur(toolbar, new ZBlurry.Callback() {
-                    @Override
-                    public void down(Bitmap bitmap) {
-                        Drawable drawable = new BitmapDrawable(bitmap);
-                        drawable.setAlpha((int) (alpha * 255));
-                        toolbar.setBackground(drawable, true);
-                    }
-                });
-        blurred.pauseBlur();
+//        blurred = ZBlurry.with(findViewById(R.id.fl_container))
+////                .fitIntoViewXY(false)
+////                .antiAlias(true)
+////                .foregroundColor(Color.parseColor("#20000000"))
+//                .scale(0.1f)
+//                .radius(8)
+////                .maxFps(40)
+//                .blur(toolbar, new ZBlurry.Callback() {
+//                    @Override
+//                    public void down(Bitmap bitmap) {
+//                        Drawable drawable = new BitmapDrawable(bitmap);
+//                        drawable.setAlpha((int) (alpha * 255));
+//                        toolbar.setBackground(drawable, true);
+//                    }
+//                });
+//        blurred.pauseBlur();
 
         shadowView = view.findViewById(R.id.shadow_view);
 
@@ -377,6 +365,9 @@ public class MyFragment extends SkinFragment
 
     @Override
     protected void initStatusBar() {
+        int color = ColorUtils.alphaColor(SkinEngine.getColor(context, R.attr.backgroundColor), alpha * 0.95f);
+        toolbar.setBackgroundColor(color);
+        toolbar.setLightStyle(alpha <= 0.5);
         if (AppConfig.isNightMode()) {
             toolbar.setLightStyle(true);
             ivAppName.setColorFilter(Color.WHITE);

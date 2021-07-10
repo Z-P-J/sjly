@@ -85,6 +85,7 @@ public class BaseApplication extends MultiDexApplication {
 
         FlowManager.init(this);
 
+        // 配置ZHttp
         ZHttp.config()
                 .allowAllSSL(true)
                 .onRedirect(new IHttp.OnRedirectListener() {
@@ -101,6 +102,7 @@ public class BaseApplication extends MultiDexApplication {
                 .readTimeout(15000)
                 .init();
 
+        // 配置下载器
         ZDownloader.config(this, AppDownloadMission.class)
                 .setUserAgent("Sjly(3.0)")
                 .setDownloadPath(AppConfig.getDownloadPath())
@@ -110,6 +112,7 @@ public class BaseApplication extends MultiDexApplication {
                 .setProducerThreadCount(AppConfig.getMaxDownloadThreadCount())
                 .init();
 
+        // 配置状态切换StateManager
         StateManager
                 .config()
                 .setLoadingViewHolder(new CustomizedViewHolder() {

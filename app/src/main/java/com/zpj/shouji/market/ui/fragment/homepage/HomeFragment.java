@@ -27,7 +27,9 @@ import com.zpj.shouji.market.ui.fragment.search.SearchFragment;
 import com.zpj.shouji.market.ui.widget.indicator.HomePagerTitleView;
 import com.zpj.shouji.market.utils.EventBus;
 import com.zpj.shouji.market.utils.MagicIndicatorHelper;
+import com.zpj.skin.SkinEngine;
 import com.zpj.toast.ZToast;
+import com.zpj.utils.ColorUtils;
 
 import net.lucode.hackware.magicindicator.MagicIndicator;
 
@@ -117,11 +119,9 @@ public class HomeFragment extends SkinFragment {
         EventBus.onSkinChangeEvent(this, s -> {
             if (blurred != null) {
                 blurred.foregroundColor(Color.parseColor(AppConfig.isNightMode() ? "#aa000000" : "#bbffffff"));
-//                if (isSupportVisible()) {
-//                    blurred.startBlur();
-//                }
                 blurred.startBlur();
             }
+            toolbar.setBackgroundColor(ColorUtils.alphaColor(SkinEngine.getColor(context, R.attr.backgroundColor), alpha * 0.95f));
         });
         alpha = 0f;
         EventBus.onScrollEvent(this, new RxBus.SingleConsumer<Float>() {
@@ -141,24 +141,25 @@ public class HomeFragment extends SkinFragment {
         shadowView = view.findViewById(R.id.view_shadow);
         toolbar.setLightStyle(false);
 
-        blurred = ZBlurry.with(findViewById(R.id.fl_blur))
-//                .fitIntoViewXY(false)
-//                .antiAlias(true)
-                .scale(0.1f)
-                .radius(20)
-//                .maxFps(40)
-                .foregroundColor(Color.parseColor(AppConfig.isNightMode() ? "#aa000000" : "#bbffffff"))
-                .blur(toolbar, new ZBlurry.Callback() {
-                    @Override
-                    public void down(Bitmap bitmap) {
-                        Drawable drawable = new BitmapDrawable(bitmap);
-                        drawable.setAlpha((int) (alpha * 255));
-                        toolbar.setBackground(drawable, true);
-                        if (!isSupportVisible()) {
-                            blurred.pauseBlur();
-                        }
-                    }
-                });
+//        blurred = ZBlurry.with(findViewById(R.id.fl_blur))
+////                .fitIntoViewXY(false)
+////                .antiAlias(true)
+//                .scale(0.1f)
+//                .radius(20)
+////                .maxFps(40)
+//                .foregroundColor(Color.parseColor(AppConfig.isNightMode() ? "#aa000000" : "#bbffffff"))
+//                .blur(toolbar, new ZBlurry.Callback() {
+//                    @Override
+//                    public void down(Bitmap bitmap) {
+//                        Drawable drawable = new BitmapDrawable(bitmap);
+//                        drawable.setAlpha((int) (alpha * 255));
+//                        toolbar.setBackground(drawable, true);
+//                        if (!isSupportVisible()) {
+//                            blurred.pauseBlur();
+//                        }
+//                    }
+//                });
+//        toolbar.setBackgroundColor(SkinEngine.getColor(context, R.attr.backgroundColor));
 
 
         ArrayList<SupportFragment> list = new ArrayList<>();
@@ -166,11 +167,6 @@ public class HomeFragment extends SkinFragment {
         if (recommendFragment == null) {
             recommendFragment = new RecommendFragment();
         }
-//        RecommendFragment2 recommendFragment = findChildFragment(RecommendFragment2.class);
-//        if (recommendFragment == null) {
-//            recommendFragment = new RecommendFragment2();
-//        }
-//        SupportFragment recommendFragment = new SupportFragment();
         DiscoverFragment exploreFragment = findChildFragment(DiscoverFragment.class);
         if (exploreFragment == null) {
             exploreFragment = DiscoverFragment.newInstance();
@@ -300,6 +296,7 @@ public class HomeFragment extends SkinFragment {
 
         boolean isLightStyle = !isDark;
         toolbar.setLightStyle(isLightStyle);
+        toolbar.setBackgroundColor(ColorUtils.alphaColor(SkinEngine.getColor(context, R.attr.backgroundColor), alpha * 0.95f));
         shadowView.setVisibility(alpha > 0.5f ? View.VISIBLE : View.GONE);
 //        int color = getResources().getColor((AppConfig.isNightMode() || isDark) ? R.color.white : R.color.color_text_major);
         int color = (AppConfig.isNightMode() || isDark) ? (AppConfig.isNightMode() ? Color.LTGRAY : Color.WHITE) : getResources().getColor(R.color.color_text_major);

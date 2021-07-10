@@ -10,13 +10,13 @@ import android.view.View;
 import com.zpj.downloader.BaseMission;
 import com.zpj.downloader.DownloadManager;
 import com.zpj.downloader.ZDownloader;
-import com.zpj.fragmentation.BaseFragment;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.manager.AppUpdateManager;
 import com.zpj.shouji.market.model.AppUpdateInfo;
 import com.zpj.shouji.market.model.IgnoredUpdateInfo;
 import com.zpj.shouji.market.ui.adapter.FragmentsPagerAdapter;
 import com.zpj.shouji.market.ui.fragment.base.BaseSwipeBackFragment;
+import com.zpj.shouji.market.ui.fragment.base.SkinFragment;
 import com.zpj.shouji.market.ui.widget.indicator.BadgePagerTitle;
 import com.zpj.utils.ScreenUtils;
 
@@ -78,7 +78,7 @@ public class ManagerFragment extends BaseSwipeBackFragment {
             packageFragment = PackageManagerFragment.newInstance(false);
         }
 
-        List<BaseFragment> fragments = new ArrayList<>();
+        List<SkinFragment> fragments = new ArrayList<>();
         fragments.add(downloadManagerFragment);
         fragments.add(updateManagerFragment);
         fragments.add(installedManagerFragment);

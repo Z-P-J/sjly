@@ -40,8 +40,6 @@ import com.zpj.utils.ScreenUtils;
 import java.util.ArrayList;
 import java.util.List;
 
-import io.reactivex.ObservableEmitter;
-
 public class RecommendBanner extends LinearLayout implements View.OnClickListener {
 
     private final List<AppInfo> bannerItemList = new ArrayList<>();
@@ -103,6 +101,29 @@ public class RecommendBanner extends LinearLayout implements View.OnClickListene
     }
 
     public void loadData(Runnable runnable, IHttp.OnErrorListener onErrorListener) {
+//        API.create(Test.class)
+//                .test()
+//                .flatMap((HttpObserver.OnFlatMapListener<Document, List<AppInfo>>) (document, emitter) -> {
+//                    Elements elements = document.select("item");
+//                    List<AppInfo> list = new ArrayList<>();
+//                    for (Element element : elements) {
+//                        AppInfo info = AppInfo.parse(element);
+//                        if (info == null) {
+//                            continue;
+//                        }
+//                        list.add(info);
+//                        if (list.size() >= 8) {
+//                            break;
+//                        }
+//                    }
+//                    emitter.onNext(list);
+//                })
+//                .onSuccess(list -> {
+//                    onGetDoc(list, runnable);
+//                })
+//                .onError(onErrorListener)
+//                .subscribe();
+
         HttpApi.getXml(PreloadApi.HOME_BANNER.getUrl())
                 .flatMap((HttpObserver.OnFlatMapListener<Document, List<AppInfo>>) (document, emitter) -> {
                     Elements elements = document.select("item");

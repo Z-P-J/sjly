@@ -1,8 +1,6 @@
 package com.zpj.shouji.market.ui.fragment;
 
 import android.graphics.Color;
-import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -29,6 +27,7 @@ import com.zpj.shouji.market.ui.widget.navigation.BottomBar;
 import com.zpj.shouji.market.ui.widget.navigation.BottomBarTab;
 import com.zpj.shouji.market.utils.EventBus;
 import com.zpj.skin.SkinEngine;
+import com.zpj.utils.ColorUtils;
 
 public class MainFragment extends SkinFragment {
 
@@ -119,8 +118,11 @@ public class MainFragment extends SkinFragment {
 //                }
                 blurred.startBlur();
             }
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
-                _mActivity.getWindow().setNavigationBarColor(AppConfig.isNightMode() ? Color.BLACK : Color.WHITE);
+            int color = SkinEngine.getColor(context, R.attr.backgroundColor);
+            mBottomBar.setBackgroundColor(ColorUtils.alphaColor(color, 0.95f));
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                _mActivity.getWindow().setNavigationBarColor(color);
+            }
         });
         RxBus.observe(this, MessageInfo.class)
                 .bindToLife(this)
@@ -172,22 +174,24 @@ public class MainFragment extends SkinFragment {
 
         mBottomBar = view.findViewById(R.id.bottom_bar);
 
-        blurred = ZBlurry.with(findViewById(R.id.fl_container))
-//                .fitIntoViewXY(false)
-//                .antiAlias(true)
-                .foregroundColor(Color.parseColor(AppConfig.isNightMode() ? "#aa000000" : "#bbffffff"))
-                .scale(0.1f)
-                .radius(20)
-//                .maxFps(40)
-                .blur(mBottomBar, bitmap -> {
-//                    Log.d("MainFragment", "bitmap=" + bitmap);
-                    Drawable drawable = new BitmapDrawable(bitmap);
-                    mBottomBar.setBackground(drawable);
-                    if (!isSupportVisible()) {
-                        blurred.pauseBlur();
-                    }
-                });
-        blurred.pauseBlur();
+//        blurred = ZBlurry.with(findViewById(R.id.fl_container))
+////                .fitIntoViewXY(false)
+////                .antiAlias(true)
+//                .foregroundColor(Color.parseColor(AppConfig.isNightMode() ? "#aa000000" : "#bbffffff"))
+//                .scale(0.1f)
+//                .radius(20)
+////                .maxFps(40)
+//                .blur(mBottomBar, bitmap -> {
+////                    Log.d("MainFragment", "bitmap=" + bitmap);
+//                    Drawable drawable = new BitmapDrawable(bitmap);
+//                    mBottomBar.setBackground(drawable);
+//                    if (!isSupportVisible()) {
+//                        blurred.pauseBlur();
+//                    }
+//                });
+//        blurred.pauseBlur();
+
+        mBottomBar.setBackgroundColor(ColorUtils.alphaColor(SkinEngine.getColor(context, R.attr.backgroundColor), 0.95f));
 
         BottomBarTab emptyTab = new BottomBarTab(context);
         emptyTab.setOnClickListener(v -> {

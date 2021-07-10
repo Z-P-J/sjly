@@ -43,7 +43,9 @@ public class PathUtils {
             return null;
         }
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT && Build.VERSION.SDK_INT < Build.VERSION_CODES.Q && DocumentsContract.isDocumentUri(context, imageUri)) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT
+                && Build.VERSION.SDK_INT <= Build.VERSION_CODES.P
+                && DocumentsContract.isDocumentUri(context, imageUri)) {
             if (isExternalStorageDocument(imageUri)) {
                 String docId = DocumentsContract.getDocumentId(imageUri);
                 String[] split = docId.split(":");
@@ -71,7 +73,7 @@ public class PathUtils {
                 String[] selectionArgs = new String[]{split[1]};
                 return getDataColumn(context, contentUri, selection, selectionArgs);
             }
-        } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q){
+        } else if (Build.VERSION.SDK_INT > Build.VERSION_CODES.P){ // android Q
             return uriToFileApiQ(context,imageUri);
         } else if ("content".equalsIgnoreCase(imageUri.getScheme())) {
             // Return the remote address
@@ -85,7 +87,7 @@ public class PathUtils {
         return null;
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.Q)
+    // android Q uri转file
     private static String uriToFileApiQ(Context context, Uri uri) {
         File file = null;
         //android10以上转换
