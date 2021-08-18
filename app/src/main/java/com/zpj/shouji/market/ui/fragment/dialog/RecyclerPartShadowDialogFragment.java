@@ -6,7 +6,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.zpj.fragmentation.dialog.base.PartShadowDialogFragment;
-import com.zpj.fragmentation.dialog.enums.PopupPosition;
+import com.zpj.fragmentation.dialog.enums.DialogPosition;
 import com.zpj.recyclerview.EasyRecyclerView;
 import com.zpj.shouji.market.R;
 import com.zpj.skin.SkinEngine;
@@ -34,7 +34,7 @@ public class RecyclerPartShadowDialogFragment extends PartShadowDialogFragment<R
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        popupPosition = PopupPosition.Bottom;
+        dialogPosition = DialogPosition.Bottom;
     }
 
     @Override

@@ -43,7 +43,7 @@ public abstract class ExpandablePagerFragment extends BaseSwipeBackFragment {
         } else {
             toolbar.setVisibility(View.GONE);
             magicIndicator.setVisibility(View.GONE);
-            setSwipeBackEnable(false);
+            setEnableSwipeBack(false);
             RxBus.observe(this, Actions.ACTION_SEND_VIEW_PAGER_INDEX, Integer.class)
                     .bindToLife(this)
                     .doOnNext(new RxBus.SingleConsumer<Integer>() {

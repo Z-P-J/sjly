@@ -463,7 +463,7 @@ public class AppDetailFragment extends StateSwipeBackFragment
                 return;
             }
             fabComment.hide();
-            setSwipeBackEnable(false);
+            setEnableSwipeBack(false);
 
             if (commentDialogFragment == null) {
                 commentDialogFragment = AppCommentDialogFragment.with(context, id, type, "", () -> {
@@ -471,7 +471,7 @@ public class AppDetailFragment extends StateSwipeBackFragment
                     EventBus.sendRefreshEvent();
                 });
                 commentDialogFragment.setOnDismissListener(() -> {
-                    setSwipeBackEnable(true);
+                    setEnableSwipeBack(true);
                     fabComment.show();
                 });
             }

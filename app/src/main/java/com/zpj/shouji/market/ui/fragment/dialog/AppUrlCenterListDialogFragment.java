@@ -6,9 +6,9 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.zpj.fragmentation.dialog.animator.PopupAnimator;
+import com.zpj.fragmentation.dialog.animator.DialogAnimator;
 import com.zpj.fragmentation.dialog.animator.ScaleAlphaAnimator;
-import com.zpj.fragmentation.dialog.enums.PopupAnimation;
+import com.zpj.fragmentation.dialog.enums.DialogAnimation;
 import com.zpj.fragmentation.dialog.impl.ListDialogFragment;
 import com.zpj.recyclerview.MultiData;
 import com.zpj.recyclerview.MultiRecyclerViewWrapper;
@@ -43,9 +43,9 @@ public class AppUrlCenterListDialogFragment extends ListDialogFragment<MultiData
     }
 
     @Override
-    protected PopupAnimator getDialogAnimator(ViewGroup contentView) {
+    protected DialogAnimator onCreateDialogAnimator(ViewGroup contentView) {
         if (anchorView == null) {
-            return new ScaleAlphaAnimator(contentView, PopupAnimation.ScaleAlphaFromRightBottom);
+            return new ScaleAlphaAnimator(contentView, DialogAnimation.ScaleAlphaFromRightBottom);
         }
         int[] contentLocation = new int[2];
         contentView.getLocationInWindow(contentLocation);
@@ -56,7 +56,6 @@ public class AppUrlCenterListDialogFragment extends ListDialogFragment<MultiData
         float pivotX = anchorLocation[0] + anchorView.getMeasuredWidth() / 2f - contentLocation[0];
         float pivotY = anchorLocation[1] + anchorView.getMeasuredHeight() / 2f - contentLocation[1];
         return new ScaleAlphaAnimator(contentView, pivotX, pivotY);
-
     }
 
     @Override

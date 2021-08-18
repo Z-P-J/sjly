@@ -94,7 +94,7 @@ public class UpdateManagerFragment extends RecyclerLayoutFragment<AppUpdateInfo>
             toolbar.setVisibility(View.VISIBLE);
             setToolbarTitle("应用更新");
         } else {
-            setSwipeBackEnable(false);
+            setEnableSwipeBack(false);
         }
 
         topLayout = view.findViewById(R.id.layout_top);

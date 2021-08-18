@@ -95,7 +95,7 @@ public class PackageManagerFragment extends RecyclerLayoutFragment<InstalledAppI
             toolbar.setVisibility(View.VISIBLE);
             setToolbarTitle("安装包管理");
         } else {
-            setSwipeBackEnable(false);
+            setEnableSwipeBack(false);
         }
         tvFilter = findViewById(R.id.tv_filter);
         ExpandIcon expandIconView = findViewById(R.id.expand_icon);

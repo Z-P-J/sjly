@@ -16,9 +16,9 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.zpj.blur.ZBlurry;
-import com.zpj.fragmentation.dialog.animator.EmptyAnimator;
-import com.zpj.fragmentation.dialog.animator.PopupAnimator;
+import com.zpj.fragmentation.dialog.animator.DialogAnimator;
 import com.zpj.fragmentation.dialog.impl.FullScreenDialogFragment;
+import com.zpj.popup.animator.EmptyAnimator;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.manager.UserManager;
 import com.zpj.shouji.market.ui.animator.KickBackEvaluator;
@@ -46,8 +46,8 @@ public class MainActionDialogFragment extends FullScreenDialogFragment
     }
 
     @Override
-    protected PopupAnimator getDialogAnimator(ViewGroup contentView) {
-        return new EmptyAnimator();
+    protected DialogAnimator onCreateDialogAnimator(ViewGroup contentView) {
+        return null;
     }
 
     @Override

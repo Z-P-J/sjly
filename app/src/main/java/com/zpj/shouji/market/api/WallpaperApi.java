@@ -40,6 +40,7 @@ public class WallpaperApi {
 
         HttpApi.getXml("/app/bizhi_tags.jsp")
                 .onSuccess(data -> {
+                    ZToast.error("getWallpaperTags");
                     Elements elements = data.select("item");
                     wallpaperTags.clear();
                     for (Element item : elements) {

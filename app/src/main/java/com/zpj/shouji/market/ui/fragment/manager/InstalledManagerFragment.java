@@ -114,7 +114,7 @@ public class InstalledManagerFragment extends RecyclerLayoutFragment<InstalledAp
 //            findViewById(R.id.shadow_view).setVisibility(View.VISIBLE);
             setToolbarTitle("应用管理");
         } else {
-            setSwipeBackEnable(false);
+            setEnableSwipeBack(false);
         }
 
         tvInfo = findViewById(R.id.tv_info);

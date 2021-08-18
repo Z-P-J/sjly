@@ -5,7 +5,7 @@ import android.support.annotation.Nullable;
 import android.view.View;
 
 import com.zpj.fragmentation.dialog.base.PartShadowDialogFragment;
-import com.zpj.fragmentation.dialog.enums.PopupPosition;
+import com.zpj.fragmentation.dialog.enums.DialogPosition;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.model.WallpaperTag;
 import com.zpj.shouji.market.ui.widget.flowlayout.FlowLayout;
@@ -29,7 +29,7 @@ public class WallpaperTagDialogFragment extends PartShadowDialogFragment<Wallpap
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        popupPosition = PopupPosition.Bottom;
+        dialogPosition = DialogPosition.Bottom;
     }
 
     @Override

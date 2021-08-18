@@ -8,13 +8,16 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.animation.DecelerateInterpolator;
 import android.widget.LinearLayout;
 
+import com.zpj.fragmentation.dialog.animator.DialogAnimator;
 import com.zpj.fragmentation.dialog.impl.FullScreenDialogFragment;
 import com.zpj.shouji.market.R;
 import com.zpj.shouji.market.constant.AppConfig;
 import com.zpj.shouji.market.ui.fragment.base.BaseSwipeBackFragment;
+import com.zpj.toast.ZToast;
 import com.zpj.utils.AnimatorUtils;
 import com.zpj.widget.setting.OnCheckableItemClickListener;
 import com.zpj.widget.setting.OnCommonItemClickListener;
@@ -24,6 +27,16 @@ public abstract class BaseSettingFragment extends FullScreenDialogFragment
         implements OnCommonItemClickListener, OnCheckableItemClickListener {
 
     private View[] views;
+
+    @Override
+    protected boolean enableSwipeBack() {
+        return true;
+    }
+
+    @Override
+    protected DialogAnimator onCreateDialogAnimator(ViewGroup contentView) {
+        return null;
+    }
 
     @Override
     public void onSupportVisible() {
@@ -37,7 +50,6 @@ public abstract class BaseSettingFragment extends FullScreenDialogFragment
 
     @Override
     protected void initView(View view, @Nullable Bundle savedInstanceState) {
-        view.setAlpha(0f);
         super.initView(view, savedInstanceState);
         ZToolBar toolBar = findViewById(R.id.tool_bar);
         toolBar.setCenterText(getToolbarTitle(context));
@@ -45,6 +57,8 @@ public abstract class BaseSettingFragment extends FullScreenDialogFragment
 
     @Override
     public void doShowAnimation() {
+        ZToast.error("doShowAnimation");
+        view.setAlpha(0f);
         view.animate().alpha(1f).setDuration(getShowAnimDuration()).start();
         LinearLayout container = findViewById(R.id.ll_container);
         views = new View[container.getChildCount()];

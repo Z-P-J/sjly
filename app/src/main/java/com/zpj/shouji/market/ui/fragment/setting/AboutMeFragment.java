@@ -19,7 +19,7 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.bumptech.glide.request.target.SimpleTarget;
 import com.bumptech.glide.request.transition.Transition;
-import com.zpj.fragmentation.dialog.animator.PopupAnimator;
+import com.zpj.fragmentation.dialog.animator.DialogAnimator;
 import com.zpj.fragmentation.dialog.impl.FullScreenDialogFragment;
 import com.zpj.fragmentation.swipeback.SwipeBackLayout;
 import com.zpj.shouji.market.R;
@@ -47,7 +47,12 @@ public class AboutMeFragment extends FullScreenDialogFragment implements OnCommo
     }
 
     @Override
-    protected PopupAnimator getDialogAnimator(ViewGroup contentView) {
+    protected boolean enableSwipeBack() {
+        return true;
+    }
+
+    @Override
+    protected DialogAnimator onCreateDialogAnimator(ViewGroup contentView) {
         return null;
     }
 
